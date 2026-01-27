@@ -87,6 +87,9 @@ enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
 minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
 minimumModeChangeTypeForAlgebraicRestorationInit_(NO_MODE),
+printUnstableRoot_(false),
+printReinitResiduals_(false),
+printResiduals_(false),
 tSolve_(0.),
 startFromDump_(false) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
@@ -135,6 +138,14 @@ Solver::Impl::init(const double t0, const std::shared_ptr<Model>& model) {
   // Initial values
   // -----------------
   model_->getY0(t0, vectorY_, vectorYp_);
+
+  if (printResiduals_ || printReinitResiduals_) {
+    model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
+  }
+
+  if (printUnstableRoot_) {
+    model_->setGequationsModel();  ///< set formula for modelica models' equations and Network models' discrete equations
+  }
 }
 
 void
@@ -256,10 +267,8 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, const double t
       ++stats_.nge_;
       nonSilentZChange = true;
       change = true;
-#ifdef _DEBUG_
-      printUnstableRoot(time, G0, G1);
-      std::copy(G1.begin(), G1.end(), G0.begin());
-#endif
+      if (printUnstableRoot_)
+        printUnstableRoot(time, G0, G1);
     }
 
     if (zChangeType == NOT_SILENT_Z_CHANGE) {
@@ -299,7 +308,7 @@ Solver::Impl::printUnstableRoot(const double t, const vector<state_g>& G0, const
       int localGIndex(0);
       std::string gEquation("");
       model_->getGInfos(i, subModelName, localGIndex, gEquation);
-      Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+      Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation, localGIndex, t) << Trace::endline;
     }
   }
   Trace::debug() << DYNLog(SolverInstableRootFound) << Trace::endline;
@@ -356,6 +365,9 @@ Solver::Impl::defineCommonParameters() {
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestoration", VAR_TYPE_STRING, optional)));
   parameters_.insert(make_pair("minimumModeChangeTypeForAlgebraicRestorationInit",
       ParameterSolver("minimumModeChangeTypeForAlgebraicRestorationInit", VAR_TYPE_STRING, optional)));
+  parameters_.insert(make_pair("printUnstableRoot", ParameterSolver("printUnstableRoot", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("printResiduals", ParameterSolver("printResiduals", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("printReinitResiduals", ParameterSolver("printReinitResiduals", VAR_TYPE_BOOL, optional)));
 }
 
 bool
@@ -521,6 +533,16 @@ void Solver::Impl::setSolverCommonParameters() {
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }
+
+  const ParameterSolver& printResiduals = findParameter("printResiduals");
+  if (printResiduals.hasValue())
+    printResiduals_ = printResiduals.getValue<bool>();
+  const ParameterSolver& printReinitResiduals = findParameter("printReinitResiduals");
+  if (printReinitResiduals.hasValue())
+    printReinitResiduals_ = printReinitResiduals.getValue<bool>();
+  const ParameterSolver& printUnstableRoot = findParameter("printUnstableRoot");
+  if (printUnstableRoot.hasValue())
+    printUnstableRoot_ = printUnstableRoot.getValue<bool>();
 }
 
 void

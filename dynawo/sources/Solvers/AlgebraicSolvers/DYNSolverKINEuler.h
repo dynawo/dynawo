@@ -63,11 +63,12 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
    * @param mxnewtstep maximum allowable scaled step length
    * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
    * @param mxiter maximum number of nonlinear iterations
-   * @param printfl level of verbosity of output
+   * @param printfl level of verbosity of output in KINSOL
+   * @param printResiduals true to print residuals values
    * @param sundialsVectorY solution of the algebraic resolution
    */
   void init(const std::shared_ptr<Model>& model, Solver* timeSchemeSolver, double fnormtol,
-            double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY);
+            double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl, N_Vector sundialsVectorY, bool printResiduals);
 
   /**
    * @brief solve the problem
@@ -125,9 +126,19 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable {
     return *timeSchemeSolver_;
   }
 
+  /**
+  * @brief printResiduals getter
+  *
+  * @return printResiduals value
+  */
+  bool printResiduals() const {
+    return printResiduals_;
+  }
+
  private:
   std::shared_ptr<Model> model_;  ///< instance of model to interact with
   Solver* timeSchemeSolver_;  ///< instance of time-scheme solver to interact with
+  bool printResiduals_;  ///< true to print residuals values
 };
 
 }  // namespace DYN

@@ -316,6 +316,15 @@ class Solver::Impl : public Solver, private boost::noncopyable {
     return startFromDump_;
   }
 
+  /**
+  * @brief printResiduals getter
+  *
+  * @return printResiduals value
+  */
+  bool printResiduals() const {
+    return printResiduals_;
+  }
+
  protected:
   /**
    * @brief Integrate the DAE over an interval in t
@@ -378,6 +387,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
   modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationInit_;  ///< parameter to set the minimum mode level
                                                                        ///< at which algebraic restoration will occur at init
+  bool printUnstableRoot_;  ///< to print unstable root in logs
+  bool printReinitResiduals_;  ///< print reinit residuals in logs
+  bool printResiduals_;  ///< print residuals during newton resolution
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver

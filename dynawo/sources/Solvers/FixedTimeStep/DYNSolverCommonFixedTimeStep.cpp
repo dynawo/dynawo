@@ -159,13 +159,13 @@ SolverCommonFixedTimeStep::initCommon(const std::shared_ptr<Model> &model, const
 
   if (model->sizeY() != 0) {
     solverKINEuler_.reset(new SolverKINEuler());
-    solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_);
+    solverKINEuler_->init(model, this, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_, sundialsVectorY_, printResiduals_);
   }
 
-  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
+  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
   if (hasPrediction()) {
-    solverKINYPrim_.reset(new SolverKINAlgRestoration());
+    solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
     getSolverKINYPrim().init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
   }
 

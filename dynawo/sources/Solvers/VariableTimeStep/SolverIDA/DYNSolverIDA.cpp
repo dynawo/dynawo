@@ -128,7 +128,7 @@ SolverIDA::~SolverIDA() {
 
 void
 SolverIDA::defineSpecificParameters() {
-  const bool mandatory = true;
+  constexpr bool mandatory = true;  // name of the parameter indicates its purpose not its value
   // Time-domain part parameters
   parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT, mandatory)));
   parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE, mandatory)));
@@ -323,9 +323,9 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
   // KINSOL solver Init
   //-----------------------
-  solverKINNormal_.reset(new SolverKINAlgRestoration());
-  solverKINYPrim_.reset(new SolverKINAlgRestoration());
+  solverKINNormal_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
   solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_ALGEBRAIC);
+  solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
   solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
 }
 
@@ -418,9 +418,8 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
     model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
     model_->evalG(tSolve_, g1_);
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
-#ifdef _DEBUG_
+      if (printUnstableRoot_)
         printUnstableRoot(tSolve_, g0_, g1_);
-#endif
       g0_.assign(g1_.begin(), g1_.end());
       change = evalZMode(g0_, g1_, tSolve_);
     }
@@ -517,15 +516,93 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
   model.evalF(tres, iyy, iyp, irr);
 #ifdef _DEBUG_
   if (solver->flagInit()) {
-    Trace::debug() << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
+    Trace::debug(Trace::solver()) << "===== " << DYNLog(SolverIDADebugResidual) << " =====" << Trace::endline;
     for (int i = 0; i < model.sizeF(); ++i) {
       if (std::abs(irr[i]) > 1e-04) {
-        Trace::debug() << "  f[" << i << "]=" << irr[i] << Trace::endline;
+        Trace::debug(Trace::solver()) << "  f[" << i << "]=" << irr[i] << Trace::endline;
       }
     }
   }
 #endif
+  if (solver->printResiduals()) {
+    std::vector<double> vectorF(model.sizeY());
+    std::vector<double> vectorFScale(model.sizeY(), 1.);
+    memcpy(&vectorF[0], irr, vectorF.size() * sizeof(vectorF[0]));
+    double weightedInfNorm = SolverCommon::weightedInfinityNorm(vectorF, vectorFScale);
+    double wL2Norm = SolverCommon::weightedL2Norm(vectorF, vectorFScale);
+    long int current_nres = 0;
+    IDAGetNumResEvals(solver->IDAMem_, &current_nres);
+    Trace::debug() << DYNLog(SolverKINResidualNorm, current_nres, weightedInfNorm, wL2Norm) << Trace::endline;
+
+    int nbErr = 10;
+    Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+    vector<std::pair<double, size_t> > fErr;
+    fErr.reserve(nbErr);
+    for (size_t i = 0; i < static_cast<size_t>(model.sizeF()); ++i)
+      fErr.push_back(std::pair<double, size_t>(vectorF[i], i));
+    SolverCommon::printLargestErrors(fErr, model, nbErr);
+  }
+
+#ifdef _DEBUG_
+  if (!solver->flagInit()) {
+    solver->printWeightedErrors();
+  }
+#endif
 return 0;
+}
+
+void
+SolverIDA::printWeightedErrors() const {
+  /* The convergence criterion in IDA is associated to the weighted RMS norm of the delta between two Newton iterations.
+   * Indeed, the correction step is successful if sqrt(Sum(w*(y(k+1)-y(k))^2)/n) < tolerance where k is the kth Newton iteration and n the number of variables
+   * The weights (w) used are inversely proportional to the relative accuracy multiplied by the value variable and the absolute accuracy.
+   * The local errors are the sum of the differences between y before and after the Newton iteration (errors += y(k+1) - y(k)).
+   * => Therefore the errors multiplied by the weights are a good indicator of the variables that evolve the more during the Newton iterations.
+   */
+  int nbErr = 10;
+  int nbY = getModel().sizeY();
+  double thresholdErr = 1;
+
+  if (nbErr > nbY)
+    nbErr = nbY;
+
+  // Defining necessary data structure and retrieving information from IDA
+  N_Vector nvWeights = N_VNew_Serial(nbY, sundialsContext_);
+  N_Vector nvErrors = N_VNew_Serial(nbY, sundialsContext_);
+  if (IDAGetErrWeights(IDAMem_, nvWeights) < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetErrWeights");
+
+  if (IDAGetEstLocalErrors(IDAMem_, nvErrors) < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetEstLocalErrors");
+
+  double *weights = NV_DATA_S(nvWeights);
+  double *errors = NV_DATA_S(nvErrors);
+  std::vector<double> weightedErrors(nbY);
+
+  for (int i = 0; i < nbY; ++i)
+    weightedErrors[i] = fabs(weights[i] * errors[i]);
+
+  // Filling and sorting the vector
+  vector<std::pair<double, int> > yErr;
+  for (int i = 0; i < nbY; ++i) {
+    // Tolerances (RTOL and ATOL) are 1e-04 by default so weights are around 1e4 therefore 1 is a relatively small value
+    if (weightedErrors[i] > thresholdErr) {
+      yErr.push_back(std::pair<double, int>(weightedErrors[i], i));
+    }
+  }
+  std::sort(yErr.begin(), yErr.end(), mapcompabs());
+
+  if (!yErr.empty()) {
+    Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
+    int i = 0;
+    for (vector<std::pair<double, int> >::iterator it = yErr.begin(); it != yErr.end() && i < nbErr; ++it, ++i) {
+      Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, getModel().getVariableName(it->second), it->first) << Trace::endline;
+    }
+  }
+
+  // Destroying the specific data structures
+  N_VDestroy_Serial(nvWeights);
+  N_VDestroy_Serial(nvErrors);
 }
 
 int
@@ -607,72 +684,32 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     nbLastTimeSimulated_ = 0;
   }
 
-#ifdef _DEBUG_
-  // A root has been found at tNxt
-  if (flag == IDA_ROOT_RETURN) {
-    vector<state_g> rootsFound = getRootsFound();
-    for (unsigned int i = 0; i < rootsFound.size(); i++) {
-      if (rootsFound[i] != NO_ROOT) {
-        Trace::debug() << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
-        std::string subModelName("");
-        int localGIndex(0);
-        std::string gEquation("");
-        model_->getGInfos(i, subModelName, localGIndex, gEquation);
-        Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+  if (printUnstableRoot_) {
+      // A root has been found at tNxt
+    if (flag == IDA_ROOT_RETURN) {
+      vector<state_g> rootsFound = getRootsFound();
+      int numRoots = 0;
+      for (const auto root : rootsFound) {
+        if (std::fabs(root) > 0) {
+          ++numRoots;
+        }
+      }
+      Trace::debug() << DYNLog(SolverIDANumRootsFound, numRoots) << Trace::endline;
+      for (unsigned int i = 0; i < rootsFound.size(); i++) {
+        if (rootsFound[i] != NO_ROOT) {
+          Trace::debug() << "SolverIDA: rootsfound ->  g[" << i << "]=" << rootsFound[i] << Trace::endline;
+          std::string subModelName("");
+          int localGIndex(0);
+          std::string gEquation("");
+          model_->getGInfos(i, subModelName, localGIndex, gEquation);
+          Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation, localGIndex, tNxt) << Trace::endline;
+        }
       }
     }
   }
-
-  /* The convergence criterion in IDA is associated to the weighted RMS norm of the delta between two Newton iterations.
-   * Indeed, the correction step is successful if sqrt(Sum(w*(y(k+1)-y(k))^2)/n) < tolerance where k is the kth Newton iteration and n the number of variables
-   * The weights (w) used are inversely proportional to the relative accuracy multiplied by the value variable and the absolute accuracy.
-   * The local errors are the sum of the differences between y before and after the Newton iteration (errors += y(k+1) - y(k)).
-   * => Therefore the errors multiplied by the weights are a good indicator of the variables that evolve the more during the Newton iterations.
-   */
-  int nbY = model_->sizeY();
-  int nbErr = 10;
-  double thresholdErr = 1;
-
-  if (nbErr > nbY)
-    nbErr = nbY;
-
-  // Defining necessary data structure and retrieving information from IDA
-  N_Vector nvWeights = N_VNew_Serial(nbY, sundialsContext_);
-  N_Vector nvErrors = N_VNew_Serial(nbY, sundialsContext_);
-  if (IDAGetErrWeights(IDAMem_, nvWeights) < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetErrWeights");
-
-  if (IDAGetEstLocalErrors(IDAMem_, nvErrors) < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetEstLocalErrors");
-
-  double* weights = NV_DATA_S(nvWeights);
-  double* errors = NV_DATA_S(nvErrors);
-  std::vector<double> weightedErrors(nbY);
-
-  for (int i = 0; i < nbY; ++i)
-    weightedErrors[i] = fabs(weights[i] * errors[i]);
-
-  // Filling and sorting the vector
-  vector<std::pair<double, int> > yErr;
-  for (int i = 0; i < nbY; ++i) {
-    // Tolerances (RTOL and ATOL) are 1e-04 by default so weights are around 1e4 therefore 1 is a relatively small value
-    if (weightedErrors[i] > thresholdErr) {
-      yErr.push_back(std::pair<double, int>(weightedErrors[i], i));
-    }
+  if (printResiduals_) {
+    printWeightedErrors();
   }
-  std::sort(yErr.begin(), yErr.end(), mapcompabs());
-
-  if (!yErr.empty()) {
-    Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
-    int i = 0;
-    for (vector<std::pair<double, int> >::iterator it = yErr.begin(); it != yErr.end() && i < nbErr; ++it, ++i)
-      Trace::debug() << DYNLog(SolverIDAErrorValue, thresholdErr, it->second, it->first) << Trace::endline;
-  }
-
-  // Destroying the specific data structures
-  N_VDestroy_Serial(nvWeights);
-  N_VDestroy_Serial(nvErrors);
-#endif
 }
 
 bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
@@ -751,9 +788,8 @@ SolverIDA::reinit() {
       if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
         break;
       } else {
-#ifdef _DEBUG_
-        printUnstableRoot(tSolve_, g0_, g1_);
-#endif
+        if (printUnstableRoot_)
+          printUnstableRoot(tSolve_, g0_, g1_);
         g0_.assign(g1_.begin(), g1_.end());
         evalZMode(g0_, g1_, tSolve_);
         modeChangeType = model_->getModeChangeType();
@@ -772,7 +808,6 @@ SolverIDA::reinit() {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
 }
 
-#ifdef _DEBUG_
 vector<state_g>
 SolverIDA::getRootsFound() const {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
@@ -785,7 +820,6 @@ SolverIDA::getRootsFound() const {
 
   return rootsFound;
 }
-#endif
 
 double SolverIDA::getTimeStep() const {
   double hused = 0.;

@@ -42,8 +42,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
  public:
   /**
    * @brief default constructor
+   * @param printReinitResiduals to enable to print residuals info in log
    */
-  SolverKINAlgRestoration();
+  explicit SolverKINAlgRestoration(bool printReinitResiduals);
 
   /**
    * @brief destructor
@@ -231,6 +232,14 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   void cleanAlgebraicVectors();
 
  private:
+  /**
+  * @brief print reinit residuals getter
+  * @return print reinit residuals in logs
+  */
+  bool printResiduals() const {
+    return printReinitResiduals_;
+  }
+
   std::shared_ptr<Model> model_;  ///< model currently simulated
 
   std::vector<double> vectorYOrYpSolution_;  ///< Solution of the restoration after the call of the solver
@@ -245,6 +254,7 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
 #if _DEBUG_
   bool checkJacobian_;  ///< Check jacobian
 #endif
+  bool printReinitResiduals_;  ///< print residuals in log
 };
 
 }  // end of namespace DYN

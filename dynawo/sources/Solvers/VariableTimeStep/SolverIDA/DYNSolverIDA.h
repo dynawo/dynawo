@@ -153,13 +153,11 @@ class SolverIDA : public Solver::Impl {
    */
   void getLastConf(long int &nst, int & kused, double & hused) const;
 
-#ifdef _DEBUG_
   /**
    * @brief indicates which root was activated
    * @return an array showing which root was activated
    */
   std::vector<state_g> getRootsFound() const;
-#endif
 
   /**
    * @brief computes the problem residual for given values of time, state vector
@@ -239,6 +237,12 @@ class SolverIDA : public Solver::Impl {
    * @copydoc Solver::getTimeStep()
    */
   double getTimeStep() const override;
+
+  /**
+   * @brief Debug function to print weighted error during newton iterations
+   *
+   */
+  void printWeightedErrors() const;
 
  protected:
   /**
