@@ -35,16 +35,9 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
    * @param limit limit of the current limit
    * @param duration authorized duration over the limit (Nan if unset)
    * @param fictitious whether the current limit is fictitious
-   */
-  CurrentLimitInterfaceIIDM(double limit, unsigned long duration, bool fictitious);
-  /**
-   * @brief Constructor
    * @param name name of the current limit
-   * @param limit limit of the current limit
-   * @param duration authorized duration over the limit (Nan if unset)
-   * @param fictitious whether the current limit is fictitious
    */
-  CurrentLimitInterfaceIIDM(const std::string& name, double limit, unsigned long duration, bool fictitious);
+  explicit CurrentLimitInterfaceIIDM(double limit, unsigned long duration, bool fictitious, const std::string& name = "");
 
   /**
    * @copydoc CurrentLimitInterface::getLimit() const
