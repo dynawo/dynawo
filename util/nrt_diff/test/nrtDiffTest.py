@@ -126,7 +126,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
-        self.assertEqual(message, "nrt_diff/test/constraints.xml: 13 different output values\n\
+        self.assertEqual(message, "nrt_diff/test/constraints.xml: 14 different output values\n\
 [ERROR] object BUS_DESC_DIFF_787_U < Umin is in left path but not in right one\n\
 [ERROR] object BUS_NAME_DIFF_781_U < Umin is in left path but not in right one\n\
 [ERROR] object BUS_TIME_DIFF_787_U < Umin is in left path but not in right one\n\
@@ -134,6 +134,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
 [ERROR] object BUS_NAME_DIFF2_781_U < Umin is in right path but not in left one\n\
 [ERROR] object BUS_ONLY_ON_RIGHT_SIDE_778_U < Umin is in right path but not in left one\n\
 [ERROR] object BUS_TIME_DIFF_789_U < Umin is in right path but not in left one\n\
+[ERROR] object BUS_DIFFLIMIT_NAME_787_U < Umin has different limitName in the two files\n\
 [ERROR] object BUS_DURATION_DIFF_787_U < Umin has different acceptable durations in the two files\n\
 [ERROR] object BUS_KIND_DIFF_787_U < Umin has different kinds in the two files\n\
 [ERROR] object BUS_LIMIT_DIFF_787_U < Umin has different limits in the two files\n\
@@ -149,7 +150,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
-        self.assertEqual(message, "nrt_diff/test/constraints.txt: 17 different output values\n\
+        self.assertEqual(message, "nrt_diff/test/constraints.txt: 18 different output values\n\
 [ERROR] object BUS_DESC_DIFF_787_U &lt; Umin is in left path but not in right one\n\
 [ERROR] object BUS_NAME_DIFF_781_U &lt; Umin is in left path but not in right one\n\
 [ERROR] object BUS_TIME_DIFF_787_U &lt; Umin is in left path but not in right one\n\
@@ -157,6 +158,7 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
 [ERROR] object BUS_NAME_DIFF2_781_U &lt; Umin is in right path but not in left one\n\
 [ERROR] object BUS_ONLY_ON_RIGHT_SIDE_778_U &lt; Umin is in right path but not in left one\n\
 [ERROR] object BUS_TIME_DIFF_789_U &lt; Umin is in right path but not in left one\n\
+[ERROR] object BUS_DIFFLIMIT_NAME_787_U &lt; Umin has different limitName in the two files\n\
 [ERROR] object BUS_DURATION_DIFF_787_U &lt; Umin has different acceptable durations in the two files\n\
 [ERROR] object BUS_DURATION_DIFF_NO_TYPE_787_U &lt; Umin has different acceptable durations in the two files\n\
 [ERROR] object BUS_KIND_DIFF_787_U &lt; Umin has different kinds in the two files\n\

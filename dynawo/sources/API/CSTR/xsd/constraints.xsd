@@ -35,6 +35,7 @@
     <xs:attribute name="valueMin" use="optional" type="xs:float"/>
     <xs:attribute name="valueMax" use="optional" type="xs:float"/>
     <xs:attribute name="side" use="optional" type="xs:string"/>
+    <xs:attribute name="limitName" use="optional" type="xs:string"/>
     <xs:attribute name="acceptableDuration" use="optional" type="xs:float"/>
   </xs:complexType>
 

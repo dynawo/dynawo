@@ -38,9 +38,9 @@ TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
   constraintsCollection1->addConstraint("modelDetail", "desc UInfUmin", 90, CONSTRAINT_BEGIN, "Bus",
     ConstraintData(ConstraintData::UInfUmin, 132.0, 130.0));
   constraintsCollection1->addConstraint("modelDetail", "desc OverloadUp", 90, CONSTRAINT_BEGIN, "Line",
-    ConstraintData(ConstraintData::OverloadUp, 1000, 1001, side, acceptableDuration));
+    ConstraintData("LineName", ConstraintData::OverloadUp, 1000, 1001, side, acceptableDuration));
   constraintsCollection1->addConstraint("modelDetail", "desc PATL", 90, CONSTRAINT_BEGIN, "Line",
-    ConstraintData(ConstraintData::PATL, 1100, 1111, side));
+    ConstraintData("LineName", ConstraintData::PATL, 1100, 1111, side));
 
   XmlExporter xmlExporter;
   {
@@ -49,9 +49,9 @@ TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
     ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n"
         "<constraints xmlns=\"http://www.rte-france.com/dynawo\">\n  "
         "<constraint modelName=\"modelDetail\" description=\"desc OverloadUp\" time=\"90.000000\" type=\"Line\" "
-        "kind=\"OverloadUp\" limit=\"1000\" value=\"1001\" side=\"1\" acceptableDuration=\"60\"/>\n  "
+        "kind=\"OverloadUp\" limit=\"1000\" value=\"1001\" side=\"1\" acceptableDuration=\"60\" limitName=\"LineName\"/>\n  "
         "<constraint modelName=\"modelDetail\" description=\"desc PATL\" time=\"90.000000\" type=\"Line\" "
-        "kind=\"PATL\" limit=\"1100\" value=\"1111\" side=\"1\"/>\n  "
+        "kind=\"PATL\" limit=\"1100\" value=\"1111\" side=\"1\" limitName=\"LineName\"/>\n  "
         "<constraint modelName=\"modelDetail\" description=\"desc UInfUmin\" time=\"90.000000\" type=\"Bus\" "
         "kind=\"UInfUmin\" limit=\"132\" value=\"130\"/>\n  "
         "<constraint modelName=\"model\" description=\"OverloadUp\" time=\"80.000000\" type=\"Line\"/>\n  "

@@ -33,6 +33,14 @@ CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM(double limit, unsigned long
     acceptableDuration_ = duration;
 }
 
+CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM(const std::string& name, double limit, unsigned long duration, bool fictitious)
+: limit_(limit), fictitious_(fictitious), name_(name) {
+  if (duration == std::numeric_limits<unsigned long>::max())
+    acceptableDuration_ = std::numeric_limits<int>::max();
+  else
+    acceptableDuration_ = duration;
+}
+
 double
 CurrentLimitInterfaceIIDM::getLimit() const {
   if (doubleEquals(limit_, std::numeric_limits<double>::max()))
@@ -48,6 +56,11 @@ CurrentLimitInterfaceIIDM::getAcceptableDuration() const {
 bool
 CurrentLimitInterfaceIIDM::isFictitious() const {
   return fictitious_;
+}
+
+const std::string&
+CurrentLimitInterfaceIIDM::getName() const {
+  return name_;
 }
 
 }  // namespace DYN

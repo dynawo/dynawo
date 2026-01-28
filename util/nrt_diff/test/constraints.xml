@@ -10,4 +10,5 @@
   <constraint modelName="BUS_LIMIT_DIFF" description="U &lt; Umin" time="787" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
   <constraint modelName="BUS_SIDE_DIFF" description="U &lt; Umin" time="787" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
   <constraint modelName="BUS_DURATION_DIFF" description="U &lt; Umin" time="787" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10"/>
+  <constraint modelName="BUS_DIFFLIMIT_NAME" description="U &lt; Umin" time="787" type="Node" kind="UInfUmin" limit="180" value="179.98750824227648" side="SIDE_1" acceptableDuration="10" limitName="MyName"/>
 </constraints>
