@@ -82,11 +82,12 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
 
   /**
    * @brief add a new current limit (pu base UNom, base SNRef)
+   * @param name current limit name
    * @param limit new current limit
    * @param acceptableDuration acceptable duration
    * @param fictitious whether the limit is fictitious
    */
-  void addLimit(double limit, int acceptableDuration, bool fictitious);
+  void addLimit(const std::string&  name, double limit, int acceptableDuration, bool fictitious);
 
   /**
    * @brief set side
@@ -134,6 +135,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   double factorPuToA_;  ///< factor to convert pu values to Amperes
 
   std::vector<double> limits_;  ///< vector of current limits (pu base UNom, base SNRef)
+  std::vector<std::string> names_;  ///< vector of current limits' names
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)
   std::vector<bool> openingAuthorized_;  ///< whether opening is authorized
   std::vector<bool> fictitious_;  ///< whether the limit is fictitious

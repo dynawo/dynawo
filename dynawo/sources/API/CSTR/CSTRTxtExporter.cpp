@@ -114,6 +114,12 @@ TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
         stream << TXTEXPORTER_SEPARATOR
                << acceptableDuration.value();
       }
+
+      const std::string& limitName = data->limitName;
+      if (!limitName.empty()) {
+        stream << TXTEXPORTER_SEPARATOR
+               << limitName;
+      }
     }
     stream << "\n";
   }

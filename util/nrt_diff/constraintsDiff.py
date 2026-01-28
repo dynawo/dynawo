@@ -39,6 +39,7 @@ class ConstraintsObject:
         self.valueMax = ""
         self.side = ""
         self.acceptable_duration = ""
+        self.limit_name = ""
 
     def get_unique_id(self):
         return self.model_name+"_"+self.time+"_"+self.description
@@ -68,13 +69,15 @@ def get_xml_constraints_info(filename):
             my_object.side = child.attrib['side']
         if "acceptableDuration" in child.attrib:
             my_object.acceptable_duration = child.attrib['acceptableDuration']
+        if "limitName" in child.attrib:
+            my_object.limit_name = child.attrib['limitName']
         constraints_by_id[my_object.get_unique_id()] = my_object
     return constraints_by_id
 
 # Read a TXT Constraints file name and build a dictionary object id => values
 def get_txt_constraints_info(filename):
     constraints_by_id = {}
-    possible_kinds = ["OverloadOpen", "OverloadUp", "PATL", "UInfUmin", "USupUmax"]
+    possible_kinds = ["OverloadOpen", "OverloadUp", "PATL", "UInfUmin", "USupUmax", "Fictitious"]
     f=open(filename, "r")
     for line in f.readlines():
         array = line.split('|')
@@ -105,6 +108,9 @@ def get_txt_constraints_info(filename):
                 latest_index+=1
             if (len(array) > latest_index):
                 my_object.acceptable_duration = array[latest_index].strip()
+                latest_index+=1
+            if (len(array) > latest_index):
+                my_object.limit_name = array[latest_index].strip()
                 latest_index+=1
         constraints_by_id[my_object.get_unique_id()] = my_object
     f.close()
@@ -152,6 +158,9 @@ def compare_constraints_info (left_file_info, right_file_info):
             if firstObj.kind != secondObj.kind:
                 nb_differences+=1
                 msg += "[ERROR] object " + firstId + " has different kinds in the two files\n"
+            if firstObj.limit_name != secondObj.limit_name:
+                nb_differences+=1
+                msg += "[ERROR] object " + firstId + " has different limitName in the two files\n"
             if are_different(firstObj.valueMin, secondObj.valueMin) :
                 nb_differences+=1
                 msg += "[ERROR] object " + firstId + " has different valueMin in the two files\n"
