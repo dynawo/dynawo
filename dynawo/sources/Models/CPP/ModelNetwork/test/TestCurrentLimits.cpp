@@ -34,16 +34,16 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   const double desactivate = 0.;
   const std::string modelType = "Whatever";
 
-  mcl.addLimit(8., 5., false);
+  mcl.addLimit("", 8., 5., false);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 2);
-  mcl.addLimit(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::max(), false);
+  mcl.addLimit("", std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::max(), false);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 2);
-  mcl.addLimit(10., std::numeric_limits<int>::max(), false);
+  mcl.addLimit("", 10., std::numeric_limits<int>::max(), false);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 4);
-  mcl.addLimit(8., std::numeric_limits<int>::max(), true);
+  mcl.addLimit("", 8., std::numeric_limits<int>::max(), true);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 6);
   states.resize(mcl.sizeG(), NO_ROOT);
