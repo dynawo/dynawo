@@ -119,9 +119,9 @@ Inheritance diagram for DYN::CurrentLimitInterfaceIIDM:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a19ecfcec0f725f4c30be91c064c128ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html#a19ecfcec0f725f4c30be91c064c128ae">CurrentLimitInterfaceIIDM</a> (double limit, unsigned long duration, bool fictitious)</td></tr>
-<tr class="memdesc:a19ecfcec0f725f4c30be91c064c128ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a19ecfcec0f725f4c30be91c064c128ae">More...</a><br /></td></tr>
-<tr class="separator:a19ecfcec0f725f4c30be91c064c128ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada4a83e13047647636b50284039589bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html#ada4a83e13047647636b50284039589bc">CurrentLimitInterfaceIIDM</a> (double limit, unsigned long duration, bool fictitious, const std::string &amp;name=&quot;&quot;)</td></tr>
+<tr class="memdesc:ada4a83e13047647636b50284039589bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ada4a83e13047647636b50284039589bc">More...</a><br /></td></tr>
+<tr class="separator:ada4a83e13047647636b50284039589bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a335776af8122d389c92b95816dbba168"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html#a335776af8122d389c92b95816dbba168">getLimit</a> () const override</td></tr>
 <tr class="memdesc:a335776af8122d389c92b95816dbba168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for current limit value.  <a href="#a335776af8122d389c92b95816dbba168">More...</a><br /></td></tr>
 <tr class="separator:a335776af8122d389c92b95816dbba168"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,6 +131,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a5d08d7eec2ca0d371278d6977c57cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html#a4a5d08d7eec2ca0d371278d6977c57cc">isFictitious</a> () const override</td></tr>
 <tr class="memdesc:a4a5d08d7eec2ca0d371278d6977c57cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the fictitious status of the current limit.  <a href="#a4a5d08d7eec2ca0d371278d6977c57cc">More...</a><br /></td></tr>
 <tr class="separator:a4a5d08d7eec2ca0d371278d6977c57cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b5ee7f156208bf49ec535006e4f718"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html#a91b5ee7f156208bf49ec535006e4f718">getName</a> () const override</td></tr>
+<tr class="memdesc:a91b5ee7f156208bf49ec535006e4f718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the name of the current limit.  <a href="#a91b5ee7f156208bf49ec535006e4f718">More...</a><br /></td></tr>
+<tr class="separator:a91b5ee7f156208bf49ec535006e4f718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a02884"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02884')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d8/d93/a02884.html">DYN::CurrentLimitInterface</a></td></tr>
 <tr class="memitem:a2649ad67e2cdcbe0ca67333b56d26d8a inherit pub_methods_a02884"><td class="memItemLeft" align="right" valign="top"><a id="a2649ad67e2cdcbe0ca67333b56d26d8a"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d93/a02884.html#a2649ad67e2cdcbe0ca67333b56d26d8a">~CurrentLimitInterface</a> ()=default</td></tr>
@@ -151,16 +154,23 @@ unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html#a324fe3865a180315d51f5ced6dbf2144">fictitious_</a></td></tr>
 <tr class="memdesc:a324fe3865a180315d51f5ced6dbf2144"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the limit is fictitious <br /></td></tr>
 <tr class="separator:a324fe3865a180315d51f5ced6dbf2144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cdde113f76b341b7d003945480cbf86"><td class="memItemLeft" align="right" valign="top"><a id="a4cdde113f76b341b7d003945480cbf86"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc8/a03024.html#a4cdde113f76b341b7d003945480cbf86">name_</a></td></tr>
+<tr class="memdesc:a4cdde113f76b341b7d003945480cbf86"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the limit <br /></td></tr>
+<tr class="separator:a4cdde113f76b341b7d003945480cbf86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class for Current limit interface </p>
 <p>class <a class="el" href="../../d4/dc8/a03024.html" title="class for Current limit interface ">CurrentLimitInterfaceIIDM</a> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a19ecfcec0f725f4c30be91c064c128ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19ecfcec0f725f4c30be91c064c128ae">&#9670;&nbsp;</a></span>CurrentLimitInterfaceIIDM()</h2>
+<a id="ada4a83e13047647636b50284039589bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada4a83e13047647636b50284039589bc">&#9670;&nbsp;</a></span>CurrentLimitInterfaceIIDM()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">DYN::CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM </td>
@@ -178,7 +188,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>fictitious</em>&#160;</td>
+          <td class="paramname"><em>fictitious</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -186,6 +202,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Constructor. </p>
@@ -194,6 +215,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
     <tr><td class="paramname">limit</td><td>limit of the current limit </td></tr>
     <tr><td class="paramname">duration</td><td>authorized duration over the limit (Nan if unset) </td></tr>
     <tr><td class="paramname">fictitious</td><td>whether the current limit is fictitious </td></tr>
+    <tr><td class="paramname">name</td><td>name of the current limit </td></tr>
   </table>
   </dd>
 </dl>
@@ -261,6 +283,36 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 </div>
 </div>
+<a id="a91b5ee7f156208bf49ec535006e4f718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b5ee7f156208bf49ec535006e4f718">&#9670;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; DYN::CurrentLimitInterfaceIIDM::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the name of the current limit. </p>
+<dl class="section return"><dt>Returns</dt><dd>The name </dd></dl>
+
+<p>Implements <a class="el" href="../../d8/d93/a02884.html#ac108725ac3a8dd54307d975da9377216">DYN::CurrentLimitInterface</a>.</p>
+
+</div>
+</div>
 <a id="a4a5d08d7eec2ca0d371278d6977c57cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a5d08d7eec2ca0d371278d6977c57cc">&#9670;&nbsp;</a></span>isFictitious()</h2>
 
@@ -311,7 +363,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/dc8/a03024.html">CurrentLimitInterfaceIIDM</a></li>
-    <li class="footer">Generated on Thu Jan 29 2026 10:42:07 for Dynawo by
+    <li class="footer">Generated on Thu Jan 29 2026 15:02:54 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

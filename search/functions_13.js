@@ -384,7 +384,7 @@ var searchData=
   ['stringfrommode',['stringFromMode',['../df/d89/a03440.html#abbbe53e8781551d96d93ce2e20e92727',1,'DYN::SolverKINAlgRestoration']]],
   ['stringfromseveritylevel',['stringFromSeverityLevel',['../de/db4/a02684.html#af47b277a2efdd794a442b758f0f52b92',1,'DYN::Trace']]],
   ['subelementsnum',['subElementsNum',['../dc/d80/a02756.html#ab23f857d8520d7b1cb3f8f13eae486a8',1,'DYN::Element::subElementsNum() const'],['../dc/d80/a02756.html#a451110369d8a4c6014ba05041ec3c312',1,'DYN::Element::subElementsNum()']]],
-  ['submodel',['SubModel',['../de/db6/a02792.html#ad74b53a071129766d2bb9cf432d221f1',1,'DYN::SubModel::SubModel()'],['../de/db6/a02792.html#a8b4a440e4a001e0da6890058e853a960',1,'DYN::SubModel::SubModel(SubModel &amp;&amp;)=default'],['../d7/deb/a02724.html#ade45bacd7c6bee0b7732fb335a0c0fcc',1,'DYN::connectedSubModel::subModel()']]],
+  ['submodel',['subModel',['../d7/deb/a02724.html#ade45bacd7c6bee0b7732fb335a0c0fcc',1,'DYN::connectedSubModel::subModel()'],['../de/db6/a02792.html#ad74b53a071129766d2bb9cf432d221f1',1,'DYN::SubModel::SubModel()'],['../de/db6/a02792.html#a8b4a440e4a001e0da6890058e853a960',1,'DYN::SubModel::SubModel(SubModel &amp;&amp;)=default']]],
   ['submodeldelete',['SubModelDelete',['../d1/dd0/a02808.html#a610c93c25c5ddf888e6a66a9754af621',1,'DYN::SubModelDelete']]],
   ['submodelfactories',['SubModelFactories',['../df/dd0/a02804.html#a4fdc8a4a7dd70013ba210eeb94d331eb',1,'DYN::SubModelFactories']]],
   ['submodelfactory',['SubModelFactory',['../d9/dd1/a02800.html#a1bb6496935dc2d52e0c560aeefe28aa8',1,'DYN::SubModelFactory']]],

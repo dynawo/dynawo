@@ -37,6 +37,7 @@ var searchData=
   ['librarypath',['LibraryPath',['../de/d38/a03064.html#a65c35ae5e840427d8bc6143709fc4d0e',1,'DYN::IIDMExtensions']]],
   ['limit',['limit',['../dc/d5b/a01812.html#a3c047d86f037e06ac6b305b1a81ab00e',1,'constraints::ConstraintData']]],
   ['limit_5f',['limit_',['../d4/dc8/a03024.html#a9f6d1b41ae6316c4fb06a9c70c5a7445',1,'DYN::CurrentLimitInterfaceIIDM']]],
+  ['limitname',['limitName',['../dc/d5b/a01812.html#a28749aec60b550307055ced12ace0f39',1,'constraints::ConstraintData']]],
   ['limits_5f',['limits_',['../d4/d1a/a03264.html#a460a5f2d15a2d334c19b18173417530a',1,'DYN::ModelCurrentLimits']]],
   ['line',['LINE',['../d6/dbe/a02848.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c',1,'DYN::ComponentInterface']]],
   ['linearsolver_5f',['linearSolver_',['../dd/ddc/a03444.html#a79eaace11a61ba37833ffab5da890aa7',1,'DYN::SolverKINCommon::linearSolver_()'],['../dd/d25/a03512.html#a9675a13ef30b7364449a552d7768e9ed',1,'DYN::SolverIDA::linearSolver_()']]],

@@ -137,9 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9eec76ac22519b75fd490083db4f2849"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d1a/a03264.html#a43e3e5308575fdfe91a02cf1a5321fa8">state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/a03264.html#a9eec76ac22519b75fd490083db4f2849">evalZ</a> (const std::string &amp;componentName, double t, const <a class="el" href="../../d6/d60/a00491.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> *g, double desactivate, const std::string &amp;modelType, <a class="el" href="../../d7/d52/a03292.html">ModelNetwork</a> *network)</td></tr>
 <tr class="memdesc:a9eec76ac22519b75fd490083db4f2849"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the state of the current limits  <a href="#a9eec76ac22519b75fd490083db4f2849">More...</a><br /></td></tr>
 <tr class="separator:a9eec76ac22519b75fd490083db4f2849"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7c2f5f4b05339d22b3ed2fe42f95afe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/a03264.html#ab7c2f5f4b05339d22b3ed2fe42f95afe">addLimit</a> (double limit, int acceptableDuration, bool fictitious)</td></tr>
-<tr class="memdesc:ab7c2f5f4b05339d22b3ed2fe42f95afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new current limit (pu base UNom, base SNRef)  <a href="#ab7c2f5f4b05339d22b3ed2fe42f95afe">More...</a><br /></td></tr>
-<tr class="separator:ab7c2f5f4b05339d22b3ed2fe42f95afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ddc32c046089a52fe502782cffdc7ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/a03264.html#a6ddc32c046089a52fe502782cffdc7ca">addLimit</a> (const std::string &amp;name, double limit, int acceptableDuration, bool fictitious)</td></tr>
+<tr class="memdesc:a6ddc32c046089a52fe502782cffdc7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new current limit (pu base UNom, base SNRef)  <a href="#a6ddc32c046089a52fe502782cffdc7ca">More...</a><br /></td></tr>
+<tr class="separator:a6ddc32c046089a52fe502782cffdc7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90ba1e3024248aba606503de0cc8e0a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/a03264.html#a90ba1e3024248aba606503de0cc8e0a4">setSide</a> (<a class="el" href="../../d4/d1a/a03264.html#a29a71bc96416cbb9a294eec80bd96ba5">side_t</a> side)</td></tr>
 <tr class="memdesc:a90ba1e3024248aba606503de0cc8e0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">set side  <a href="#a90ba1e3024248aba606503de0cc8e0a4">More...</a><br /></td></tr>
 <tr class="separator:a90ba1e3024248aba606503de0cc8e0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,6 +188,10 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/a03264.html#a460a5f2d15a2d334c19b18173417530a">limits_</a></td></tr>
 <tr class="memdesc:a460a5f2d15a2d334c19b18173417530a"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of current limits (pu base UNom, base SNRef) <br /></td></tr>
 <tr class="separator:a460a5f2d15a2d334c19b18173417530a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4412be3832d4f716931d44ebc19c4d1b"><td class="memItemLeft" align="right" valign="top"><a id="a4412be3832d4f716931d44ebc19c4d1b"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/a03264.html#a4412be3832d4f716931d44ebc19c4d1b">names_</a></td></tr>
+<tr class="memdesc:a4412be3832d4f716931d44ebc19c4d1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of current limits' names <br /></td></tr>
+<tr class="separator:a4412be3832d4f716931d44ebc19c4d1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5aecdc0842f4890bb3f36afa1f0463b3"><td class="memItemLeft" align="right" valign="top"><a id="a5aecdc0842f4890bb3f36afa1f0463b3"></a>
 std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/a03264.html#a5aecdc0842f4890bb3f36afa1f0463b3">acceptableDurations_</a></td></tr>
 <tr class="memdesc:a5aecdc0842f4890bb3f36afa1f0463b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of limits duration (unit : s) <br /></td></tr>
@@ -230,8 +234,8 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab7c2f5f4b05339d22b3ed2fe42f95afe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7c2f5f4b05339d22b3ed2fe42f95afe">&#9670;&nbsp;</a></span>addLimit()</h2>
+<a id="a6ddc32c046089a52fe502782cffdc7ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ddc32c046089a52fe502782cffdc7ca">&#9670;&nbsp;</a></span>addLimit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,6 +243,12 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
         <tr>
           <td class="memname">void DYN::ModelCurrentLimits::addLimit </td>
           <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>limit</em>, </td>
         </tr>
@@ -265,6 +275,7 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
 <p>add a new current limit (pu base UNom, base SNRef) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">name</td><td>current limit name </td></tr>
     <tr><td class="paramname">limit</td><td>new current limit </td></tr>
     <tr><td class="paramname">acceptableDuration</td><td>acceptable duration </td></tr>
     <tr><td class="paramname">fictitious</td><td>whether the limit is fictitious </td></tr>
@@ -575,7 +586,7 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/d1a/a03264.html">ModelCurrentLimits</a></li>
-    <li class="footer">Generated on Thu Jan 29 2026 10:42:07 for Dynawo by
+    <li class="footer">Generated on Thu Jan 29 2026 15:02:54 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

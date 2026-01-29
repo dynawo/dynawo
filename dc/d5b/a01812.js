@@ -10,10 +10,12 @@ var a01812 =
       [ "Undefined", "dc/d5b/a01812.html#a6207b5c13ad5fa57b92d6477f533d387ac71af17b01f087e7bc901d81384d02d9", null ]
     ] ],
     [ "ConstraintData", "dc/d5b/a01812.html#ac71b70d0292e91cc8a65e35563f9bce8", null ],
+    [ "ConstraintData", "dc/d5b/a01812.html#a56d5aacf6162369c2aa2b531eb7b2639", null ],
     [ "str2Kind", "dc/d5b/a01812.html#abc95299213056e24e48d450bf111b540", null ],
     [ "acceptableDuration", "dc/d5b/a01812.html#afdc20571e4715ac0dffecf09727d300d", null ],
     [ "kind", "dc/d5b/a01812.html#ad02b1b78371283242dcb02205e187d9e", null ],
     [ "limit", "dc/d5b/a01812.html#a3c047d86f037e06ac6b305b1a81ab00e", null ],
+    [ "limitName", "dc/d5b/a01812.html#a28749aec60b550307055ced12ace0f39", null ],
     [ "side", "dc/d5b/a01812.html#a412dc19579f78f093f9812b5adfb123d", null ],
     [ "value", "dc/d5b/a01812.html#a5eb384459248d6048b1d539249a34e15", null ],
     [ "valueMax", "dc/d5b/a01812.html#a2d7eb49f2413e2ccff83842cef93afab", null ],

@@ -11,7 +11,7 @@ var a03264 =
       [ "COMPONENT_CLOSE", "d4/d1a/a03264.html#a43e3e5308575fdfe91a02cf1a5321fa8a868e12efb224e5ab7d085204d0b2ba6e", null ]
     ] ],
     [ "ModelCurrentLimits", "d4/d1a/a03264.html#aea7f9ef521b108d6988a3106fe5f326e", null ],
-    [ "addLimit", "d4/d1a/a03264.html#ab7c2f5f4b05339d22b3ed2fe42f95afe", null ],
+    [ "addLimit", "d4/d1a/a03264.html#a6ddc32c046089a52fe502782cffdc7ca", null ],
     [ "constraintData", "d4/d1a/a03264.html#aebe0158ffe473065d1717d01119471de", null ],
     [ "evalG", "d4/d1a/a03264.html#afc09f801e9a998f0d846ae1a453cdbfd", null ],
     [ "evalZ", "d4/d1a/a03264.html#a9eec76ac22519b75fd490083db4f2849", null ],
@@ -27,6 +27,7 @@ var a03264 =
     [ "lastCurrentValue_", "d4/d1a/a03264.html#af1a5b443b135a62c1bea4b8444cd6dcb", null ],
     [ "limits_", "d4/d1a/a03264.html#a460a5f2d15a2d334c19b18173417530a", null ],
     [ "maxTimeOperation_", "d4/d1a/a03264.html#a3741533458c6eb324bf27836e4fcb192", null ],
+    [ "names_", "d4/d1a/a03264.html#a4412be3832d4f716931d44ebc19c4d1b", null ],
     [ "nbTemporaryLimits_", "d4/d1a/a03264.html#a85654ab765d6677bece1181e30c947e4", null ],
     [ "openingAuthorized_", "d4/d1a/a03264.html#a75db2b1bb7b57b0df8d7fae9527fde39", null ],
     [ "side_", "d4/d1a/a03264.html#a844953367fc8fe4b03bb33e7b437977c", null ],

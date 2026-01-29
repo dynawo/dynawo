@@ -18,6 +18,7 @@ var searchData=
   ['librariesmutex_5f',['librariesMutex_',['../de/d38/a03064.html#adfa98be3fd4f0909c79d11b6e0b124b7',1,'DYN::IIDMExtensions']]],
   ['limit',['limit',['../dc/d5b/a01812.html#a3c047d86f037e06ac6b305b1a81ab00e',1,'constraints::ConstraintData']]],
   ['limit_5f',['limit_',['../d4/dc8/a03024.html#a9f6d1b41ae6316c4fb06a9c70c5a7445',1,'DYN::CurrentLimitInterfaceIIDM']]],
+  ['limitname',['limitName',['../dc/d5b/a01812.html#a28749aec60b550307055ced12ace0f39',1,'constraints::ConstraintData']]],
   ['limits_5f',['limits_',['../d4/d1a/a03264.html#a460a5f2d15a2d334c19b18173417530a',1,'DYN::ModelCurrentLimits']]],
   ['linearsolver_5f',['linearSolver_',['../dd/ddc/a03444.html#a79eaace11a61ba37833ffab5da890aa7',1,'DYN::SolverKINCommon::linearSolver_()'],['../dd/d25/a03512.html#a9675a13ef30b7364449a552d7768e9ed',1,'DYN::SolverIDA::linearSolver_()']]],
   ['lineiidm_5f',['lineIIDM_',['../de/d98/a03096.html#a73066c932a9d689119236eefda797982',1,'DYN::LineInterfaceIIDM']]],

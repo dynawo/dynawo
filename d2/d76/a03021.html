@@ -102,12 +102,14 @@ $(document).ready(function(){initNavTree('d4/dc8/a03024.html','../../');});
 <p>This is the complete list of members for <a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#ae9ba69e688b8a1a642a334cc4a6c0f78">acceptableDuration_</a></td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a19ecfcec0f725f4c30be91c064c128ae">CurrentLimitInterfaceIIDM</a>(double limit, unsigned long duration, bool fictitious)</td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#ada4a83e13047647636b50284039589bc">CurrentLimitInterfaceIIDM</a>(double limit, unsigned long duration, bool fictitious, const std::string &amp;name=&quot;&quot;)</td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a324fe3865a180315d51f5ced6dbf2144">fictitious_</a></td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a0698ee5ef269ca870e6ea28eb6fc3b4d">getAcceptableDuration</a>() const override</td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a335776af8122d389c92b95816dbba168">getLimit</a>() const override</td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a4a5d08d7eec2ca0d371278d6977c57cc">isFictitious</a>() const override</td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a9f6d1b41ae6316c4fb06a9c70c5a7445">limit_</a></td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a91b5ee7f156208bf49ec535006e4f718">getName</a>() const override</td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a4a5d08d7eec2ca0d371278d6977c57cc">isFictitious</a>() const override</td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a9f6d1b41ae6316c4fb06a9c70c5a7445">limit_</a></td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/dc8/a03024.html#a4cdde113f76b341b7d003945480cbf86">name_</a></td><td class="entry"><a class="el" href="../../d4/dc8/a03024.html">DYN::CurrentLimitInterfaceIIDM</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d8/d93/a02884.html#a2649ad67e2cdcbe0ca67333b56d26d8a">~CurrentLimitInterface</a>()=default</td><td class="entry"><a class="el" href="../../d8/d93/a02884.html">DYN::CurrentLimitInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
@@ -125,7 +127,7 @@ $(document).ready(function(){initNavTree('d4/dc8/a03024.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Jan 29 2026 10:42:07 for Dynawo by
+    <li class="footer">Generated on Thu Jan 29 2026 15:02:54 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
