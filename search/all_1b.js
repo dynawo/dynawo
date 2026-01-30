@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['_7eactionmessage',['~ActionMessage',['../d0/d57/a03380.html#ad0ace96e737ceef092ae51d8f73e0b25',1,'DYN::ActionMessage']]],
   ['_7eactiveseasoniidmextension',['~ActiveSeasonIIDMExtension',['../d8/dbd/a03008.html#a21521712c7427ee28ad057177924113c',1,'DYN::ActiveSeasonIIDMExtension']]],
   ['_7eappenderhandler',['~AppenderHandler',['../d8/d9a/a02296.html#ab60eaa9bd723262c502fd8b1dfcaf470',1,'job::AppenderHandler']]],
   ['_7eblackboxmodel',['~BlackBoxModel',['../da/d4b/a01848.html#aad644b8e666b27d19d8b525d01e92f77',1,'dynamicdata::BlackBoxModel']]],
@@ -116,7 +117,7 @@ var searchData=
   ['_7eshuntcompensatorinterface',['~ShuntCompensatorInterface',['../db/db9/a02964.html#add50d472fc6d3f96ef82fd90374deadc',1,'DYN::ShuntCompensatorInterface']]],
   ['_7esimulation',['~Simulation',['../dc/dc7/a03424.html#a09047c73350aace4ca84705ddec0d6bb',1,'DYN::Simulation']]],
   ['_7esimulationhandler',['~SimulationHandler',['../d1/da2/a02368.html#a827c8a18b514b40f80da22e674d81447',1,'job::SimulationHandler']]],
-  ['_7esimulationrt',['~SimulationRT',['../d4/d87/a03436.html#ad0d0f42e9376d11e0425de4f3111ca71',1,'DYN::SimulationRT']]],
+  ['_7esimulationrt',['~SimulationRT',['../d4/d87/a03436.html#a8b2f86c866a72e5b364031092ba72d36',1,'DYN::SimulationRT']]],
   ['_7esolver',['~Solver',['../dc/d18/a03460.html#a0a1a9b0b147d07d0d551e2089145030d',1,'DYN::Solver']]],
   ['_7esolvercommonfixedtimestep',['~SolverCommonFixedTimeStep',['../d8/db3/a03488.html#a4934b845fa93f225706518f48aa13c3d',1,'DYN::SolverCommonFixedTimeStep']]],
   ['_7esolverfactories',['~SolverFactories',['../d6/d49/a03472.html#a64d31ce6a9fbdb5a5dc317f2969de1cc',1,'DYN::SolverFactories']]],
@@ -134,6 +135,8 @@ var searchData=
   ['_7estaticvarcompensatorinterfaceiidm',['~StaticVarCompensatorInterfaceIIDM',['../d6/d1e/a03124.html#a261948eb2f1f302c87e19ab98d9c409d',1,'DYN::StaticVarCompensatorInterfaceIIDM']]],
   ['_7estaticvarcompensatorinterfaceiidmextension',['~StaticVarCompensatorInterfaceIIDMExtension',['../db/d6b/a03128.html#a1d73bf010bd4f314319c4354dc268bca',1,'DYN::StaticVarCompensatorInterfaceIIDMExtension']]],
   ['_7estepinterface',['~StepInterface',['../d6/db9/a02980.html#aa49f27dc73a4f28b4e9b188df72c3027',1,'DYN::StepInterface']]],
+  ['_7esteptriggermessage',['~StepTriggerMessage',['../d7/d22/a03384.html#a5222e4bbbaf08daed15ad9e647f75df2',1,'DYN::StepTriggerMessage']]],
+  ['_7estopmessage',['~StopMessage',['../d6/d8d/a03388.html#a87ed2dde65195d94b29b191373cc8467',1,'DYN::StopMessage']]],
   ['_7estreamhandler',['~StreamHandler',['../d5/d10/a02396.html#a76d5a2d10747c4247030eda491215643',1,'job::StreamHandler']]],
   ['_7estreamsentry',['~StreamsEntry',['../d3/d81/a02284.html#a52ecfc47f52db7dd924e8efc49598b08',1,'job::StreamsEntry']]],
   ['_7estreamshandler',['~StreamsHandler',['../d4/d41/a02400.html#a2d9b6a48e58bed294dd41c958713ccb2',1,'job::StreamsHandler']]],
