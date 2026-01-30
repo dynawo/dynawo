@@ -26,11 +26,11 @@ partial model BasePVVoltageSourceC "Base model for WECC PV with a voltage source
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-79, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCc wecc_regc(IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Kii = Kii, Kip = Kip, RSourcePu = RSourcePu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, SNom = SNom, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, tFilterGC = tFilterGC, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu, QConv0Pu = QConv0Pu, u0Pu = u0Pu, uConv0Pu = uConv0Pu, UConv0Pu = UConv0Pu, frtOn(start = false), iConv0Pu = iConv0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCc wecc_regc(IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Kii = Kii, Kip = Kip, RSourcePu = RSourcePu, RateFlag = RateFlag, RrpwrPu = RrpwrPu, SNom = SNom, UInj0Pu = UInj0Pu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, tFilterGC = tFilterGC, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu, QConv0Pu = QConv0Pu, uConv0Pu = uConv0Pu, UConv0Pu = UConv0Pu, frtOn(start = false), iConv0Pu = iConv0Pu, UPhaseConv0 = UPhaseConv0) annotation(
     Placement(transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uInj0Pu) annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Sources.InjectorURI injector(i0Pu = -iSource0Pu*(SNom/SystemBase.SnRef), u0Pu = uSource0Pu) annotation(
     Placement(transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -53,6 +53,7 @@ partial model BasePVVoltageSourceC "Base model for WECC PV with a voltage source
   parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
+parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
   parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
   parameter Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements SourceMeasurements(SNom = SNom) annotation(

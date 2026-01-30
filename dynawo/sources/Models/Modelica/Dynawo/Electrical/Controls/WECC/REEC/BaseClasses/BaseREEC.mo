@@ -68,7 +68,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {280, 104}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {181, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze( K = Kqp,Ti = Kqp / Kqi, Xi0 = ComplexMath.'abs'(uConv0Pu) / Kqp, Y0 = ComplexMath.'abs'(uConv0Pu), YMax = VMaxPu, YMin = VMinPu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze( K = Kqp,Ti = Kqp / Kqi, Xi0 = UConv0Pu / Kqp, Y0 = UConv0Pu, YMax = VMaxPu, YMin = VMinPu) annotation(
     Placement(visible = true, transformation(origin = {-20, 150}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VDipPu, UMaxPu = VUpPu) annotation(
     Placement(visible = true, transformation(origin = {51, 270}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -90,7 +90,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Constant constant2(k = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant VRefConst(k = if VRef0Pu < 0.5 then UInj0Pu else VRef0Pu) annotation(
+  Modelica.Blocks.Sources.Constant VRefConst(k = if VRef0Pu < 0.5 then UConv0Pu else VRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = Dbd2Pu, uMin = Dbd1Pu) annotation(
     Placement(visible = true, transformation(origin = {164, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -100,7 +100,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {-230, 210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter(Falling = DPMinPu, Rising = DPMaxPu, initType = Modelica.Blocks.Types.Init.InitialState, y(start = PConv0Pu), y_start = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tPord, UseFreeze = true, UseRateLim = false, Y0 = PConv0Pu, y(fixed = true)) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tPord, UseFreeze = true, UseRateLim = false, Y0 = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {65, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter3(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxPu, uMin = PMinPu) annotation(
     Placement(visible = true, transformation(origin = {130, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

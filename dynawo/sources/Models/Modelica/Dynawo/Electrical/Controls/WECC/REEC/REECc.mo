@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 */
 
 model REECc "WECC Electrical Control type C"
-  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC(rateLimFirstOrderFreeze1.UseFreeze = true, limiter2.limitsAtInit = true);
+  extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECc;
 
   // Input variable

@@ -118,7 +118,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     zerox = 0.05,
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
-    PConv0Pu(fixed = false),
+    PConv0Pu(fixed = false), UPhaseConv0(fixed = false),
     PF0(fixed = false),
     PInj0Pu(fixed = false),
     QConv0Pu(fixed = false),
@@ -180,6 +180,7 @@ initial algorithm
   BESS.uPcc0Pu.im := wTG4CurrentSource_INIT.uPcc0Pu.im;
   BESS.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
   BESS.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
+  BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;

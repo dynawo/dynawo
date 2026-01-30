@@ -46,7 +46,7 @@ model BESSCurrentSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
   Lvplsw = false,
   OmegaMaxPu = 1.5,
   OmegaMinPu = 0.5,
-  PConv0Pu(fixed = false),
+  PConv0Pu(fixed = false), UPhaseConv0(fixed = false),
   PF0(fixed = false),
   PInj0Pu(fixed = false),
   PMaxPu = 1,
@@ -128,6 +128,7 @@ initial algorithm
   BESS.uConv0Pu.im := wt4CurrentSource_INIT.uConv0Pu.im;
   BESS.PConv0Pu := wt4CurrentSource_INIT.PConv0Pu;
   BESS.QConv0Pu := wt4CurrentSource_INIT.QConv0Pu;
+  BESS.UPhaseConv0 := wt4CurrentSource_INIT.UPhaseConv0;
 
 equation
   line.switchOffSignal1.value = false;

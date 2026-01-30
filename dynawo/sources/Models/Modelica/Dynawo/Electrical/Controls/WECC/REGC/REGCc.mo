@@ -27,7 +27,7 @@ model REGCc "WECC Generator Converter REGC type C"
     Placement(visible = true, transformation(origin = {120, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-21, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput iqMinPu(start = -IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {120, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-61, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput phi(start = Modelica.ComplexMath.arg(uConv0Pu)) "Voltage phase at injector in rad" annotation(
+  Modelica.Blocks.Interfaces.RealInput phi(start = UPhaseConv0) "Voltage phase at injector in rad" annotation(
     Placement(visible = true, transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(im(start = uInj0Pu.im), re(start = uInj0Pu.re)) "Complex voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {257, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {79, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -48,7 +48,7 @@ model REGCc "WECC Generator Converter REGC type C"
     Placement(visible = true, transformation(origin = {-99, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {120, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(Id0Pu = Id0Pu, Iq0Pu = -Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu, uConv0Pu = uConv0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(Id0Pu = Id0Pu, Iq0Pu = -Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu, uConv0Pu = uConv0Pu, UPhaseConv0 = UPhaseConv0) annotation(
     Placement(visible = true, transformation(origin = {255.5, 0.5}, extent = {{-25.5, -25.5}, {25.5, 25.5}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -72,6 +72,7 @@ model REGCc "WECC Generator Converter REGC type C"
   parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
+  parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 equation
   connect(RateFlag0.y, switch.u2) annotation(
     Line(points = {{-139, -70}, {-90, -70}, {-90, -80}, {-72, -80}}, color = {255, 0, 255}));
