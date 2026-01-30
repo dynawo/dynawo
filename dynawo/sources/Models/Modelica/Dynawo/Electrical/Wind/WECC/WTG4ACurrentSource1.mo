@@ -15,7 +15,7 @@ within Dynawo.Electrical.Wind.WECC;
 model WTG4ACurrentSource1 "WECC Wind Turbine model with a simplified drive train model WTGTA (dual-mass model) and with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
   // Input variables
@@ -32,7 +32,8 @@ model WTG4ACurrentSource1 "WECC Wind Turbine model with a simplified drive train
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
+    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
   connect(URefPu, wecc_repc.URefPu) annotation(
@@ -57,7 +58,7 @@ equation
     Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(wecc_repc.QConvRefPu, wecc_reec.QConvRefPu) annotation(
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
-  connect(WTTerminalMeasurements.terminal2, TfoPCS.terminal2) annotation(
+  connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
 
   annotation(

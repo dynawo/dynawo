@@ -13,7 +13,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSource "WECC PV model with a current source as interface with the grid (REPC-A REEC-B REGC-A)"
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
@@ -31,7 +31,8 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
+    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
   connect(PRefPu, wecc_repc.PRefPu) annotation(
@@ -44,7 +45,7 @@ equation
     Line(points = {{-190, -40}, {-120, -40}, {-120, -11}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
     Line(points = {{-149, 49}, {-140, 49}, {-140, 8}, {-131, 8}}, color = {0, 0, 127}));
-  connect(WTTerminalMeasurements.terminal2, TfoPCS.terminal2) annotation(
+  connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(wecc_repc.PConvRefPu, wecc_reec.PConvRefPu) annotation(
     Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));

@@ -17,7 +17,7 @@ partial model BaseWTGT "Drive Train Control Base Model"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PePu(start = PConv0Pu) "Electrical active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency used for Generator and Turbine in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -52,7 +52,7 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu/Kshaft) annotation(
+  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PConv0Pu/Kshaft) annotation(
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1/(2*Ht)) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -70,7 +70,7 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.PerUnit PInj0Pu "Initial value of mechanical power in pu (base SNom)";
+  parameter Types.PerUnit PConv0Pu "Initial value of mechanical power in pu (base SNom)";
 
 equation
   connect(dOmegaGenerator.y, OmegaGenerator.u1) annotation(

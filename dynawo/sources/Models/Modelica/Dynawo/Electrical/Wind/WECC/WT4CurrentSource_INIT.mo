@@ -18,12 +18,12 @@ model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a cur
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  parameter Types.PerUnit P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
-  Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
@@ -36,7 +36,8 @@ model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a cur
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexPerUnit sConv0Pu "Start value of complex apparent power at converter in pu (base SNom) (generator convention)";
   Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in pu (base SNom) (generator convention)";
-  Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
   Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
@@ -49,6 +50,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
 
   //Converter terminal electrical quantities
+  UConv0Pu = ComplexMath.'abs'(uConv0Pu);
   iConv0Pu = - i0Pu * SystemBase.SnRef / SNom;
   uConv0Pu = u0Pu;
   sConv0Pu = uConv0Pu * ComplexMath.conj(iConv0Pu);

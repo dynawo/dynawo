@@ -11,17 +11,14 @@
 set(MODEL_FILES
   package.mo
   package.order
+  WT4ACurrentSource.mo
+  WT4BCurrentSource.mo
+  WTG3CurrentSource1.mo
+  WTG3CurrentSource2.mo
   WTG4ACurrentSource1.mo
   WTG4ACurrentSource2.mo
   WTG4BCurrentSource.mo
   WTG4BCurrentSourceExternalPCS.mo
-  WT4ACurrentSource.mo
-  WT4BCurrentSourceConstantQ.mo
-  WT4BCurrentSourceConstantU.mo
-  WT4BCurrentSourceCoordQV.mo
-  WT4BCurrentSourcePowerFactor.mo
-  WTG3CurrentSource1.mo
-  WTG3CurrentSource2.mo
   )
 
 #

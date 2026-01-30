@@ -18,7 +18,7 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
   extends Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
   extends Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGTb;
-  extends Electrical.Wind.WECC.BaseClasses.BaseWT4(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Electrical.Wind.WECC.BaseClasses.BaseWT4(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
   // Input variables
@@ -33,11 +33,12 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
 
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PMaxPu = PMaxPu, PMinPu = PMinPu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, URef0Pu = URef0Pu, iControl0Pu = iControl0Pu, uControl0Pu = uControl0Pu, SNom = SNom) annotation(
     Placement(transformation(origin = {-118, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTb wecc_wtgt(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, tp = tp, PInj0Pu = PInj0Pu, PePu(start = PInj0Pu)) annotation(
+  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTb wecc_wtgt(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, tp = tp, PConv0Pu = PConv0Pu, PePu(start = PConv0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
+    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
   connect(URefPu, wecc_repc.URefPu) annotation(
@@ -68,7 +69,7 @@ equation
     Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(wecc_repc.QConvRefPu, wecc_reec.QConvRefPu) annotation(
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
-  connect(WTTerminalMeasurements.terminal2, TfoPCS.terminal2) annotation(
+  connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
 
   annotation(

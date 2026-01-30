@@ -46,7 +46,7 @@ record ParamsWTGQa
   Dialog(tab="Torque control"));
 
   // Initial parameter
-  parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (generator convention) (base SNom)" annotation(
   Dialog(group="Initialization"));
 
   annotation(preferredView = "text");

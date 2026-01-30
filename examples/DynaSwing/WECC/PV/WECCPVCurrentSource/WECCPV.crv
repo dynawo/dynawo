@@ -12,9 +12,12 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="WECCPV" variable="photovoltaics_wecc_reec_max1_u1"/>
-  <curve model="WECCPV" variable="photovoltaics_wecc_reec_max1_u2"/>
-  <curve model="WECCPV" variable="photovoltaics_wecc_reec_max1_y"/>
+  <curve model="WECCPV" variable="photovoltaics_HvMeasurements_PPu"/>
+  <curve model="WECCPV" variable="photovoltaics_HvMeasurements_QPu"/>
+  <curve model="WECCPV" variable="photovoltaics_HvMeasurements_UPu"/>
+  <curve model="WECCPV" variable="photovoltaics_LvMeasurements_PPu"/>
+  <curve model="WECCPV" variable="photovoltaics_LvMeasurements_QPu"/>
+  <curve model="WECCPV" variable="photovoltaics_LvMeasurements_UPu"/>
   <curve model="WECCPV" variable="photovoltaics_injector_PInjPu"/>
   <curve model="WECCPV" variable="photovoltaics_injector_QInjPu"/>
   <curve model="WECCPV" variable="photovoltaics_injector_terminal_V_re"/>
@@ -22,4 +25,8 @@
   <curve model="WECCPV" variable="photovoltaics_injector_terminal_V_im"/>
   <curve model="WECCPV" variable="photovoltaics_injector_terminal_i_im"/>
   <curve model="WECCPV" variable="photovoltaics_pll_omegaPLLPu"/>
+  <curve model="WECCPV" variable="photovoltaics_LvTfo_RPu"/>
+  <curve model="WECCPV" variable="photovoltaics_LvTfo_XPu"/>
+  <curve model="WECCPV" variable="photovoltaics_HvTfo_RPu"/>
+  <curve model="WECCPV" variable="photovoltaics_HvTfo_XPu"/>
 </curvesInput>
