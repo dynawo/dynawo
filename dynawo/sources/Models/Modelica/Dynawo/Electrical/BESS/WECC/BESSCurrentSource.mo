@@ -13,7 +13,7 @@ within Dynawo.Electrical.BESS.WECC;
 */
 
 model BESSCurrentSource "WECC BESS with electrical control model type C, generator/converter model type A and plant control type A "
-  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
@@ -31,7 +31,7 @@ model BESSCurrentSource "WECC BESS with electrical control model type C, generat
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then ComplexMath.'abs'(uControl0Pu) else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(PRefPu, repcA.PRefPu) annotation(
@@ -48,7 +48,7 @@ equation
     Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(repcA.QConvRefPu, reecC.QConvRefPu) annotation(
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
-  connect(WTTerminalMeasurements.terminal2, TfoPCS.terminal2) annotation(
+  connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(switch.y, repcA.PRegPu) annotation(
     Line(points = {{20, 23}, {-112, 23}, {-112, 11}}, color = {0, 0, 127}));

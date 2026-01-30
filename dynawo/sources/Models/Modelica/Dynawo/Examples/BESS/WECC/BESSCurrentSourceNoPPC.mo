@@ -98,6 +98,7 @@ model BESSCurrentSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
   tPord = 0.01,
   tRv = 0.01,
   u0Pu = Complex(1, 0),
+  UConv0Pu(fixed = false),
   uConv0Pu(im(fixed = false), re(fixed = false)),
   uInj0Pu(im(fixed = false), re(fixed = false)),
   zerox = 0.05) annotation(
@@ -108,6 +109,7 @@ model BESSCurrentSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRef(height = 0.1, offset = BESS.PConv0Pu, startTime = 17) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
 initial algorithm
   BESS.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
   BESS.Iq0Pu := wt4CurrentSource_INIT.Iq0Pu;
@@ -121,6 +123,7 @@ initial algorithm
   BESS.uInj0Pu.im := wt4CurrentSource_INIT.uInj0Pu.im;
   BESS.iConv0Pu.re := wt4CurrentSource_INIT.iConv0Pu.re;
   BESS.iConv0Pu.im := wt4CurrentSource_INIT.iConv0Pu.im;
+  BESS.UConv0Pu := wt4CurrentSource_INIT.UConv0Pu;
   BESS.uConv0Pu.re := wt4CurrentSource_INIT.uConv0Pu.re;
   BESS.uConv0Pu.im := wt4CurrentSource_INIT.uConv0Pu.im;
   BESS.PConv0Pu := wt4CurrentSource_INIT.PConv0Pu;
@@ -147,17 +150,7 @@ equation
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-05, Interval = 0.001),
-    Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-    This test case consists in one simplified drive train model Wind Turbine park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the behavior of the drive train of a Wind Turbine type 4A park in response to a voltage and frequency variation at its terminal.    </div>
-    <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></figure><figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/PInjPuBESSCurrentSource.png\">
-    </figure>
-    <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/QInjPuBESSCurrentSource.png\">
-    </figure>
-    <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/UPuBESSCurrentSource.png\">
-    </figure></body></html>"),
+    Documentation(info = "<html><head></head><body><br></body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"));
 end BESSCurrentSourceNoPPC;

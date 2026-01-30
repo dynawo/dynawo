@@ -1,8 +1,5 @@
 WT4ACurrentSource
-WT4BCurrentSourceConstantQ
-WT4BCurrentSourcePowerFactor
-WT4BCurrentSourceConstantU
-WT4BCurrentSourceCoordQV
+WT4BCurrentSource
 WTG3CurrentSource1
 WTG3CurrentSource2
 WTG4ACurrentSource1

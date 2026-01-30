@@ -12,6 +12,12 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="BESS" variable="BESS_HvMeasurements_PPu"/>
+  <curve model="BESS" variable="BESS_HvMeasurements_QPu"/>
+  <curve model="BESS" variable="BESS_HvMeasurements_UPu"/>
+  <curve model="BESS" variable="BESS_LvMeasurements_PPu"/>
+  <curve model="BESS" variable="BESS_LvMeasurements_QPu"/>
+  <curve model="BESS" variable="BESS_LvMeasurements_UPu"/>
   <curve model="BESS" variable="BESS_injector_PInjPu"/>
   <curve model="BESS" variable="BESS_injector_PInjPuSn"/>
   <curve model="BESS" variable="BESS_injector_QInjPu"/>
@@ -21,10 +27,13 @@
   <curve model="BESS" variable="BESS_injector_terminal_V_im"/>
   <curve model="BESS" variable="BESS_injector_terminal_i_im"/>
   <curve model="BESS" variable="BESS_injector_UPu"/>
+  <curve model="BESS" variable="BESS_injector_idPu"/>
+  <curve model="BESS" variable="BESS_injector_iqPu"/>
   <curve model="BESS" variable="BESS_pll_omegaPLLPu"/>
   <curve model="BESS" variable="BESS_reecC_idCmdPu"/>
   <curve model="BESS" variable="BESS_reecC_iqCmdPu"/>
-  <curve model="BESS" variable="BESS_LvToMvTfo_RPu"/>
-  <curve model="BESS" variable="BESS_LvToMvTfo_XPu"/>
-
+  <curve model="BESS" variable="BESS_LvTfo_RPu"/>
+  <curve model="BESS" variable="BESS_LvTfo_XPu"/>
+  <curve model="BESS" variable="BESS_HvTfo_RPu"/>
+  <curve model="BESS" variable="BESS_HvTfo_XPu"/>
 </curvesInput>

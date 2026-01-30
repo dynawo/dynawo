@@ -116,7 +116,6 @@
     <par type="DOUBLE" name="BESS_OmegaMinPu" value="0.5"/>
     <!-- BaseWT4 -->
     <par type="DOUBLE" name="BESS_SNom" value="200"/>
-    <par type="DOUBLE" name="BESS_rTfoPu" value="0.962"/>
     <par type="DOUBLE" name="BESS_RLvTrPu" value="0.015"/>
     <par type="DOUBLE" name="BESS_XLvTrPu" value="0.06"/>
     <par type="BOOL" name="BESS_ConverterLVControl" value="true"/>

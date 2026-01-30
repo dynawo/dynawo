@@ -13,22 +13,22 @@ within Dynawo.Electrical.BESS.WECC;
 */
 
 model BESSCurrentSourceNoPlantControl "WECC BESS with electrical control model type C and generator/converter model type A (without plant control)"
-  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvToMvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
 
   //Configuration parameters to define how the user wants to represent the internal network
   parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
     Dialog(tab = "LV transformer"));
 
   //Parameters for LV transformer
-  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom)" annotation(
+  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom). Including source resistance for voltage source." annotation(
     Dialog(tab = "LV transformer"));
-  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom)" annotation(
+  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom). Including source reactance for voltage source." annotation(
     Dialog(tab = "LV transformer"));
 
   // In every cases (RPu + j*XPu) is the serial impedance between converter's output and WT terminal
   //Depending on the value of ConverterLVControl we are correctly defining these parameters
-  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between converter output and WT terminal in pu (base UNom, SNom)";
-  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
+  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PConvRefPu(start = PConv0Pu) "Active power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
@@ -43,7 +43,7 @@ equation
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(QConvRefPu, reecC.QConvRefPu) annotation(
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
-  connect(WTTerminalMeasurements.terminal2, terminal) annotation(
+  connect(LvMeasurements.terminal2, terminal) annotation(
     Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
 
   annotation(

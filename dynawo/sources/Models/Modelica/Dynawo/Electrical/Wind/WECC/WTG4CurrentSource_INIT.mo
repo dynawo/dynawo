@@ -18,21 +18,21 @@ model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a cu
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  parameter Types.PerUnit PPcc0Pu "Initial active power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ActivePowerPu PPcc0Pu "Initial active power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(enable = not PPCLocal));
-  parameter Types.PerUnit QPcc0Pu "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ReactivePowerPu QPcc0Pu "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(enable = not PPCLocal));
-  parameter Types.PerUnit UPcc0Pu "Start value of voltage magnitude at PPC regulated bus in pu (bae UNom)" annotation(
+  parameter Types.VoltageModulePu UPcc0Pu "Start value of voltage magnitude at PPC regulated bus in pu (bae UNom)" annotation(
     Dialog(enable = not PPCLocal));
   parameter Types.Angle UPhasePcc0 = 1 "Start value of voltage phase angle at PPC regulated bus in rad" annotation(
     Dialog(enable = not PPCLocal));
 
-  parameter Types.PerUnit P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.PerUnit Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu "Start value of voltage magnitude at converter terminal in pu (bae UNom)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (bae UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at converter terminal in rad";
 
-  Types.ComplexPerUnit i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
@@ -49,12 +49,13 @@ model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a cu
   Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in pu (base SNom) (generator convention)";
   Types.ComplexPerUnit sPcc0Pu "Start value of complex apparent power at external PCC in pu (used when PPCLocal = False, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
     Dialog(enable = not PPCLocal));
-  Types.ComplexPerUnit u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
   Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
-  Types.ComplexPerUnit uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = False, meaning the PCS is defined outside of the model) (base UNom)" annotation(
+  Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = False, meaning the PCS is defined outside of the model) (base UNom)" annotation(
     Dialog(enable = not PPCLocal));
 
 equation
@@ -69,6 +70,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
 
   //Converter terminal electrical quantities
+  UConv0Pu = ComplexMath.'abs'(uConv0Pu);
   iConv0Pu =  (- i0Pu * SystemBase.SnRef / SNom) / rTfoPu + Complex(GPcsPu, BPcsPu) * uConv0Pu;
   uConv0Pu = rTfoPu * u0Pu - Complex(RPcsPu, XPcsPu) * (i0Pu * SystemBase.SnRef / SNom) / rTfoPu;
   sConv0Pu = uConv0Pu * ComplexMath.conj(iConv0Pu);
