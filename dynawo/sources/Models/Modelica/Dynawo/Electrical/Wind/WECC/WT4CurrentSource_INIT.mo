@@ -41,6 +41,7 @@ model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a cur
   Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
+  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
 
@@ -56,6 +57,7 @@ equation
   sConv0Pu = uConv0Pu * ComplexMath.conj(iConv0Pu);
   PConv0Pu = ComplexMath.real(sConv0Pu);
   QConv0Pu = ComplexMath.imag(sConv0Pu);
+  UPhaseConv0 = ComplexMath.arg(uConv0Pu);
 
   //Injector terminal electrical quantities
   iInj0Pu = iConv0Pu;
