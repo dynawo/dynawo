@@ -40,6 +40,7 @@ class ConstraintData {
   kind_t kind;                                 ///< Kind of constraint
   double limit;                                ///< Limit of the constraint
   double value;                                ///< value of the constraint
+  std::string limitName;                       ///< name of the original limit
   boost::optional<double> valueMin;            ///< minimum value reached during the presence of the constraint
   boost::optional<double> valueMax;            ///< maximum value reached during the presence of the constraint
   boost::optional<int> side;                   ///< Side the constraint applies
@@ -59,6 +60,27 @@ class ConstraintData {
       kind(constraintKind),
       limit(constraintLimit),
       value(constraintValue),
+      valueMin(boost::none),
+      valueMax(boost::none),
+      side(constraintSide),
+      acceptableDuration(constraintAcceptableDuration) {}
+
+  /**
+   * @brief Construct a new Constraint Data object
+   *
+   * @param limitName name of the original limit
+   * @param constraintKind Kind of constraint
+   * @param constraintLimit Limit of the constraint
+   * @param constraintValue value of the constraint
+   * @param constraintSide Side the constraint applies
+   * @param constraintAcceptableDuration the acceptable duration of the constraint
+   */
+  ConstraintData(const std::string& limitName, kind_t constraintKind, double constraintLimit, double constraintValue,
+      boost::optional<int> constraintSide = boost::none, boost::optional<double> constraintAcceptableDuration = boost::none) :
+      kind(constraintKind),
+      limit(constraintLimit),
+      value(constraintValue),
+      limitName(limitName),
       valueMin(boost::none),
       valueMax(boost::none),
       side(constraintSide),

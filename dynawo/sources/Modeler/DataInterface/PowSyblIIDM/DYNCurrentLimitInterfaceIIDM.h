@@ -35,8 +35,9 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
    * @param limit limit of the current limit
    * @param duration authorized duration over the limit (Nan if unset)
    * @param fictitious whether the current limit is fictitious
+   * @param name name of the current limit
    */
-  CurrentLimitInterfaceIIDM(double limit, unsigned long duration, bool fictitious);
+  explicit CurrentLimitInterfaceIIDM(double limit, unsigned long duration, bool fictitious, const std::string& name = "");
 
   /**
    * @copydoc CurrentLimitInterface::getLimit() const
@@ -53,10 +54,16 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
    */
   bool isFictitious() const override;
 
+  /**
+   * @copydoc CurrentLimitInterface::getName() const
+   */
+  const std::string& getName() const override;
+
  private:
   double limit_;                             ///< limit of the current limit
   unsigned long acceptableDuration_;         ///< authorized duration over the limit
   bool fictitious_;                         ///< whether the limit is fictitious
+  std::string name_;                        ///< name of the limit
 };                                 ///< class for Current limit interface
 }  // namespace DYN
 

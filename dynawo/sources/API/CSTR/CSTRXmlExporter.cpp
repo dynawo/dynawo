@@ -112,6 +112,10 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
       if (acceptableDuration) {
         attrs.add("acceptableDuration", acceptableDuration.value());
       }
+      const std::string& limitName = data->limitName;
+      if (!limitName.empty()) {
+        attrs.add("limitName", limitName);
+      }
     }
 
     formatter->startElement("constraint", attrs);

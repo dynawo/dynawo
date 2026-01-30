@@ -105,6 +105,11 @@ JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& const
       if (acceptableDuration) {
         item.put("acceptableDuration", acceptableDuration.value());
       }
+
+      const std::string& limitName = data->limitName;
+      if (!limitName.empty()) {
+        item.put("limitName", limitName);
+      }
     }
     array.push_back(std::make_pair("", item));
   }

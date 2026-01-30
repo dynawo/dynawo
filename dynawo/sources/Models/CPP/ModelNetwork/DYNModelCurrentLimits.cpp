@@ -62,9 +62,10 @@ ModelCurrentLimits::setMaxTimeOperation(const double maxTimeOperation) {
 }
 
 void
-ModelCurrentLimits::addLimit(const double limit, const int acceptableDuration, bool fictitious) {
+ModelCurrentLimits::addLimit(const std::string&  name, const double limit, const int acceptableDuration, bool fictitious) {
   if (!std::isnan(limit)) {
     limits_.push_back(limit);
+    names_.push_back(name);
     activated_.push_back(false);
     tLimitReached_.push_back(std::numeric_limits<double>::quiet_NaN());
     acceptableDurations_.push_back(acceptableDuration);
@@ -94,9 +95,9 @@ ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& ki
   // The value for the limit and the current in SI units (Amperes)
   const bool isTemporary = openingAuthorized_[i];
   if (isTemporary) {
-    return constraints::ConstraintData(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_, acceptableDurations_[i]);
+    return constraints::ConstraintData(names_[i], kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_, acceptableDurations_[i]);
   } else {
-    return constraints::ConstraintData(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_);
+    return constraints::ConstraintData(names_[i], kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_);
   }
 }
 

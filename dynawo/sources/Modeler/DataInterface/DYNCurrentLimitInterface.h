@@ -20,6 +20,8 @@
 #ifndef MODELER_DATAINTERFACE_DYNCURRENTLIMITINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNCURRENTLIMITINTERFACE_H_
 
+#include <string>
+
 namespace DYN {
 
 #ifdef __clang__
@@ -54,6 +56,12 @@ class CurrentLimitInterface {
    * @return whether the current limit is fictitious
    */
   virtual bool isFictitious() const = 0;
+
+  /**
+   * @brief Getter for the name of the current limit
+   * @return The name
+   */
+  virtual const std::string& getName() const = 0;
 };  ///< class for current limit interface
 
 #ifdef __clang__

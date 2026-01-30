@@ -51,13 +51,15 @@ TEST(APICSTRTest, ConstraintData) {
   ASSERT_EQ(a.value, 20.0);
   ASSERT_FALSE(a.side);
   ASSERT_FALSE(a.acceptableDuration);
+  ASSERT_EQ(a.limitName, "");
 
-  ConstraintData b = ConstraintData(ConstraintData::PATL, 0.0, 0.0, 1, 0.5);
+  ConstraintData b = ConstraintData("LineName", ConstraintData::PATL, 0.0, 0.0, 1, 0.5);
   ASSERT_EQ(b.kind, ConstraintData::PATL);
   ASSERT_EQ(b.limit, 0.0);
   ASSERT_EQ(b.value, 0.0);
   ASSERT_EQ(*b.side, 1);
   ASSERT_EQ(*b.acceptableDuration, 0.5);
+  ASSERT_EQ(b.limitName, "LineName");
 }
 
 TEST(APICSTRTest, ConstraintWithData) {
@@ -67,7 +69,7 @@ TEST(APICSTRTest, ConstraintWithData) {
   constraint->setType(CONSTRAINT_END);
   constraint->setTime(0.3);
   constraint->setDescription("constraint");
-  constraint->setData(ConstraintData(ConstraintData::PATL, 0.1, 0.2, 2, 0.0));
+  constraint->setData(ConstraintData("LineName", ConstraintData::PATL, 0.1, 0.2, 2, 0.0));
 
   ASSERT_EQ(constraint->getModelName(), "model2");
   ASSERT_EQ(constraint->getType(), CONSTRAINT_END);
@@ -78,6 +80,7 @@ TEST(APICSTRTest, ConstraintWithData) {
   ASSERT_EQ(constraint->getData().value().value, 0.2);
   ASSERT_EQ(*constraint->getData().value().side, 2);
   ASSERT_EQ(*constraint->getData().value().acceptableDuration, 0.0);
+  ASSERT_EQ(constraint->getData().value().limitName, "LineName");
 }
 
 }  // namespace constraints
