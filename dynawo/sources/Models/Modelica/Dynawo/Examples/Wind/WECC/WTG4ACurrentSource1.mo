@@ -1,21 +1,36 @@
 within Dynawo.Examples.Wind.WECC;
 
+/*
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controller) - WTG4A - on infinite bus"
-  /*
-  * Copyright (c) 2021, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
   extends Icons.Example;
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.6, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 2, tUEvtStart = 1) annotation(
+
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
+    U0Pu = 1,
+    UEvtPu = 0.6,
+    UPhase = 0,
+    omega0Pu = 1,
+    omegaEvtPu = 1.01,
+    tOmegaEvtEnd = 6.5,
+    tOmegaEvtStart = 6,
+    tUEvtEnd = 2,
+    tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    RPu = 0,
+    XPu = 0.0000020661,
+    BPu = 0,
+    GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Wind.WECC.WTG4ACurrentSource1 WTG4A(
     DDn = 20,
@@ -111,7 +126,28 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     tPord = 0.01,
     tRv = 0.01,
     zerox = 0.05,
-    Id0Pu(fixed = false), Iq0Pu(fixed = false), PConv0Pu(fixed = false), UPhaseConv0(fixed = false), PF0(fixed = false), PInj0Pu(fixed = false), QConv0Pu(fixed = false), QInj0Pu(fixed = false), UInj0Pu(fixed = false), i0Pu(im(fixed = false), re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)), s0Pu(im(fixed = false), re(fixed = false)), u0Pu(im(fixed = false), re(fixed = false)), UConv0Pu(fixed = false), uConv0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), uPcc0Pu(im(fixed = false), re(fixed = false)), RMvHvPu = 0, XMvHvPu = 0.15, RLvTrPu = 0, XLvTrPu = 0, UPhase0 = 0) annotation(
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
+    PConv0Pu(fixed = false),
+    UPhaseConv0(fixed = false),
+    PF0(fixed = false),
+    PInj0Pu(fixed = false),
+    QConv0Pu(fixed = false),
+    QInj0Pu(fixed = false),
+    UInj0Pu(fixed = false),
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iConv0Pu(im(fixed = false), re(fixed = false)),
+    s0Pu(im(fixed = false), re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
+    UConv0Pu(fixed = false),
+    uConv0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
+    uPcc0Pu(im(fixed = false), re(fixed = false)),
+    RMvHvPu = 0,
+    XMvHvPu = 0.15,
+    RLvTrPu = 0,
+    XLvTrPu = 0,
+    UPhase0 = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = WTG4A.PControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -129,7 +165,24 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = WTG4A.BMvHvPu, ConverterLVControl = WTG4A.ConverterLVControl, GMvHvPu = WTG4A.GMvHvPu, P0Pu = WTG4A.P0Pu, PPCLocal = WTG4A.PPCLocal, PPcc0Pu = WTG4A.PPcc0Pu, Q0Pu = WTG4A.Q0Pu, QPcc0Pu = WTG4A.QPcc0Pu, RLvTrPu = WTG4A.RLvTrPu, RMvHvPu = WTG4A.RMvHvPu, SNom = WTG4A.SNom, U0Pu = WTG4A.U0Pu, UPcc0Pu = WTG4A.UPcc0Pu, UPhase0 = WTG4A.UPhase0, XLvTrPu = WTG4A.XLvTrPu, XMvHvPu = WTG4A.XMvHvPu, rTfoPu = WTG4A.rTfoPu) annotation(
+  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = WTG4A.BMvHvPu,
+    ConverterLVControl = WTG4A.ConverterLVControl,
+    GMvHvPu = WTG4A.GMvHvPu,
+    P0Pu = WTG4A.P0Pu,
+    PPCLocal = WTG4A.PPCLocal,
+    PPcc0Pu = WTG4A.PPcc0Pu,
+    Q0Pu = WTG4A.Q0Pu,
+    QPcc0Pu = WTG4A.QPcc0Pu,
+    RLvTrPu = WTG4A.RLvTrPu,
+    RMvHvPu = WTG4A.RMvHvPu,
+    SNom = WTG4A.SNom,
+    U0Pu = WTG4A.U0Pu,
+    UPcc0Pu = WTG4A.UPcc0Pu,
+    UPhase0 = WTG4A.UPhase0,
+    XLvTrPu = WTG4A.XLvTrPu,
+    XMvHvPu = WTG4A.XMvHvPu,
+    rTfoPu = WTG4A.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
@@ -184,6 +237,7 @@ equation
     Line(points = {{-38, -40}, {-20, -40}, {-20, -10}, {-2, -10}}, color = {0, 0, 127}));
   connect(complexConst.y, WTG4A.uPccPu) annotation(
     Line(points = {{-38, -80}, {-10, -80}, {-10, -14}, {-2, -14}}, color = {85, 170, 255}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 15, Tolerance = 0.0001, Interval = 0.001),

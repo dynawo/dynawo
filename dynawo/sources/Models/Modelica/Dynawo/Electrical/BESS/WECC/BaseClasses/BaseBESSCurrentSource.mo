@@ -1,42 +1,143 @@
 within Dynawo.Electrical.BESS.WECC.BaseClasses;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 partial model BaseBESSCurrentSource "Partial base model for WECC BESS with electrical control model type C, generator/converter model type A"
-  /*
-    * Copyright (c) 2024, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECc;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
+
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-90, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-70, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {9.99201e-16, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Controls.WECC.REEC.REECc reecC(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PConv0Pu = PConv0Pu, PF0 = PF0, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QConv0Pu = QConv0Pu, QFlag = QFlag, QMaxPu = QMaxPu, QMinPu = QMinPu, SNom = SNom, SOC0Pu = SOC0Pu, SOCMaxPu = SOCMaxPu, SOCMinPu = SOCMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VUpPu = VUpPu, s0Pu = s0Pu, tBattery = tBattery, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv, u0Pu = u0Pu, uConv0Pu = uConv0Pu, UConv0Pu = UConv0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REEC.REECc reecC(
+    DPMaxPu = DPMaxPu,
+    DPMinPu = DPMinPu,
+    Dbd1Pu = Dbd1Pu,
+    Dbd2Pu = Dbd2Pu,
+    IMaxPu = IMaxPu,
+    Id0Pu = Id0Pu,
+    Iq0Pu = Iq0Pu,
+    Iqh1Pu = Iqh1Pu,
+    Iql1Pu = Iql1Pu,
+    Kqi = Kqi,
+    Kqp = Kqp,
+    Kqv = Kqv,
+    Kvi = Kvi,
+    Kvp = Kvp,
+    PConv0Pu = PConv0Pu,
+    PF0 = PF0,
+    PMaxPu = PMaxPu,
+    PMinPu = PMinPu,
+    PQFlag = PQFlag,
+    PfFlag = PfFlag,
+    QConv0Pu = QConv0Pu,
+    QFlag = QFlag,
+    QMaxPu = QMaxPu,
+    QMinPu = QMinPu,
+    SNom = SNom,
+    SOC0Pu = SOC0Pu,
+    SOCMaxPu = SOCMaxPu,
+    SOCMinPu = SOCMinPu,
+    UInj0Pu = UInj0Pu,
+    VDLIp11 = VDLIp11,
+    VDLIp12 = VDLIp12,
+    VDLIp21 = VDLIp21,
+    VDLIp22 = VDLIp22,
+    VDLIp31 = VDLIp31,
+    VDLIp32 = VDLIp32,
+    VDLIp41 = VDLIp41,
+    VDLIp42 = VDLIp42,
+    VDLIq11 = VDLIq11,
+    VDLIq12 = VDLIq12,
+    VDLIq21 = VDLIq21,
+    VDLIq22 = VDLIq22,
+    VDLIq31 = VDLIq31,
+    VDLIq32 = VDLIq32,
+    VDLIq41 = VDLIq41,
+    VDLIq42 = VDLIq42,
+    VDipPu = VDipPu,
+    VFlag = VFlag,
+    VMaxPu = VMaxPu,
+    VMinPu = VMinPu,
+    VRef0Pu = VRef0Pu,
+    VUpPu = VUpPu,
+    s0Pu = s0Pu,
+    tBattery = tBattery,
+    tIq = tIq,
+    tP = tP,
+    tPord = tPord,
+    tRv = tRv,
+    u0Pu = u0Pu,
+    uConv0Pu = uConv0Pu,
+    UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCa regcA(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, Lvplsw = Lvplsw, QConv0Pu = QConv0Pu, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, brkpt = brkpt, lvpl1 = lvpl1, tFilterGC = tFilterGC, tG = tG, uConv0Pu = uConv0Pu, zerox = zerox, UConv0Pu = UConv0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCa regcA(
+    Id0Pu = Id0Pu,
+    Iq0Pu = Iq0Pu,
+    IqrMaxPu = IqrMaxPu,
+    IqrMinPu = IqrMinPu,
+    Lvplsw = Lvplsw,
+    QConv0Pu = QConv0Pu,
+    RrpwrPu = RrpwrPu,
+    UInj0Pu = UInj0Pu,
+    brkpt = brkpt,
+    lvpl1 = lvpl1,
+    tFilterGC = tFilterGC,
+    tG = tG,
+    uConv0Pu = uConv0Pu,
+    zerox = zerox,
+    UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uConv0Pu) annotation(
+  Controls.PLL.PLL pll(
+    Ki = KiPLL,
+    Kp = KpPLL,
+    OmegaMaxPu = OmegaMaxPu,
+    OmegaMinPu = OmegaMinPu,
+    u0Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = -Iq0Pu, P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef), Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseConv0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
+  Sources.InjectorIDQ injector(
+    Id0Pu = Id0Pu,
+    Iq0Pu = -Iq0Pu,
+    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
+    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
+    SNom = SNom,
+    U0Pu = UInj0Pu,
+    UPhase0 = UPhaseConv0,
+    i0Pu = i0Pu,
+    s0Pu = s0Pu,
+    u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {65, -8.88178e-16}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Sources.IEC.BaseConverters.ElecSystem LvTfo(BPu = 0, GPu = 0, RPu = RPu, SNom = SNom, XPu = XPu, i20Pu = iConv0Pu, u20Pu = uConv0Pu) annotation(
+  Sources.IEC.BaseConverters.ElecSystem LvTfo(
+    BPu = 0,
+    GPu = 0,
+    RPu = RPu,
+    SNom = SNom,
+    XPu = XPu,
+    i20Pu = iConv0Pu,
+    u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SNom) (generator convention)";
@@ -50,6 +151,7 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
+
 equation
   connect(reecC.idCmdPu, regcA.idCmdPu) annotation(
     Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
@@ -83,6 +185,7 @@ equation
     Line(points = {{-90, 130}, {-90, 20}, {-81, 20}, {-81, 11}}, color = {0, 0, 127}));
   connect(PFaRef, reecC.PFaRef) annotation(
     Line(points = {{-70, 130}, {-70, 20}, {-79, 20}, {-79, 11}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC BESS")}, coordinateSystem(initialScale = 0.1)),

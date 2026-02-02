@@ -1,20 +1,137 @@
 within Dynawo.Examples.BESS.WECC;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
-  /*
-  * Copyright (c) 2024, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
   extends Icons.Example;
-  Dynawo.Electrical.BESS.WECC.BESSCurrentSource BESS(ConverterLVControl = true, DDn = 126, DPMaxPu = 999, DPMinPu = -999, DUp = 126, Dbd1Pu = -0.12, Dbd2Pu = 0.12, DbdPu = 0, EMaxPu = 0.1, EMinPu = -0.1, FDbd1Pu = 0.00083, FDbd2Pu = 0.00083, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, IMaxPu = 1.11, Id0Pu(fixed = false), Iq0Pu(fixed = false), Iqh1Pu = 0.75, Iql1Pu = -0.75, IqrMaxPu = 999, IqrMinPu = -999, Kc = 0.2, Ki = 5, KiPLL = 20, Kig = 5, Kp = 1, KpPLL = 3, Kpg = 1, Kqi = 1, Kqp = 1e-6, Kqv = 15, Kvi = 0.1, Kvp = 1e-6, Lvplsw = false, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7058725761772852, PConv0Pu(fixed = false), UPhaseConv0(fixed = false), PF0(fixed = false), PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = -0.667, PPCLocal = false, PPcc0Pu = -0.7, PQFlag = false, PfFlag = false, Q0Pu = -0.28808864265927975, QConv0Pu(fixed = false), QFlag = false, QInj0Pu(fixed = false), QMaxPu = 0.75, QMinPu = -0.75, QPcc0Pu = -0.2, RLvTrPu = 0.015, RMvHvPu = 0, RefFlag = true, RrpwrPu = 10, SNom = 200, SOC0Pu = 0.5, SOCMaxPu = 0.8, SOCMinPu = 0.2, U0Pu = 0.9948728673356535, UInj0Pu(fixed = false), UPcc0Pu = 1, UPhase0 = 0.14453232453351325, VCompFlag = false, VDLIp11 = 0.2, VDLIp12 = 1.11, VDLIp21 = 0.5, VDLIp22 = 1.11, VDLIp31 = 0.75, VDLIp32 = 1.11, VDLIp41 = 1, VDLIp42 = 1.11, VDLIq11 = 0, VDLIq12 = 0.75, VDLIq21 = 0.2, VDLIq22 = 0.75, VDLIq31 = 0.5, VDLIq32 = 0.75, VDLIq41 = 1, VDLIq42 = 0.75, VDipPu = -99, VFlag = true, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 1, VUpPu = 99, XLvTrPu = 0.06, XMvHvPu = 0, brkpt = 0.1, i0Pu(im(fixed = false), re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)), lvpl1 = 1.22, s0Pu(im(fixed = false), re(fixed = false)), tBattery = 999, tFilterGC = 0.02, tFilterPC = 0.02, tFt = 1e-10, tFv = 0.05, tG = 0.017, tIq = 0.017, tLag = 0.1, tP = 0.05, tPord = 0.017, tRv = 0.01, u0Pu(im(fixed = false), re(fixed = false)), UConv0Pu(fixed = false), uConv0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), uPcc0Pu(im(fixed = false), re(fixed = false)), zerox = 0.05) annotation(
+
+  Dynawo.Electrical.BESS.WECC.BESSCurrentSource BESS(
+    ConverterLVControl = true,
+    DDn = 126,
+    DPMaxPu = 999,
+    DPMinPu = -999,
+    DUp = 126,
+    Dbd1Pu = -0.12,
+    Dbd2Pu = 0.12,
+    DbdPu = 0,
+    EMaxPu = 0.1,
+    EMinPu = -0.1,
+    FDbd1Pu = 0.00083,
+    FDbd2Pu = 0.00083,
+    FEMaxPu = 999,
+    FEMinPu = -999,
+    FreqFlag = true,
+    IMaxPu = 1.11,
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
+    Iqh1Pu = 0.75,
+    Iql1Pu = -0.75,
+    IqrMaxPu = 999,
+    IqrMinPu = -999,
+    Kc = 0.2,
+    Ki = 5,
+    KiPLL = 20,
+    Kig = 5,
+    Kp = 1,
+    KpPLL = 3,
+    Kpg = 1,
+    Kqi = 1,
+    Kqp = 1e-6,
+    Kqv = 15,
+    Kvi = 0.1,
+    Kvp = 1e-6,
+    Lvplsw = false,
+    OmegaMaxPu = 1.5,
+    OmegaMinPu = 0.5,
+    P0Pu = -0.7058725761772852,
+    PConv0Pu(fixed = false),
+    UPhaseConv0(fixed = false),
+    PF0(fixed = false),
+    PInj0Pu(fixed = false),
+    PMaxPu = 1,
+    PMinPu = -0.667,
+    PPCLocal = false,
+    PPcc0Pu = -0.7,
+    PQFlag = false,
+    PfFlag = false,
+    Q0Pu = -0.28808864265927975,
+    QConv0Pu(fixed = false),
+    QFlag = false,
+    QInj0Pu(fixed = false),
+    QMaxPu = 0.75,
+    QMinPu = -0.75,
+    QPcc0Pu = -0.2,
+    RLvTrPu = 0.015,
+    RMvHvPu = 0,
+    RefFlag = true,
+    RrpwrPu = 10,
+    SNom = 200,
+    SOC0Pu = 0.5,
+    SOCMaxPu = 0.8,
+    SOCMinPu = 0.2,
+    U0Pu = 0.9948728673356535,
+    UInj0Pu(fixed = false),
+    UPcc0Pu = 1,
+    UPhase0 = 0.14453232453351325,
+    VCompFlag = false,
+    VDLIp11 = 0.2,
+    VDLIp12 = 1.11,
+    VDLIp21 = 0.5,
+    VDLIp22 = 1.11,
+    VDLIp31 = 0.75,
+    VDLIp32 = 1.11,
+    VDLIp41 = 1,
+    VDLIp42 = 1.11,
+    VDLIq11 = 0,
+    VDLIq12 = 0.75,
+    VDLIq21 = 0.2,
+    VDLIq22 = 0.75,
+    VDLIq31 = 0.5,
+    VDLIq32 = 0.75,
+    VDLIq41 = 1,
+    VDLIq42 = 0.75,
+    VDipPu = -99,
+    VFlag = true,
+    VFrz = 0,
+    VMaxPu = 1.1,
+    VMinPu = 0.9,
+    VRef0Pu = 1,
+    VUpPu = 99,
+    XLvTrPu = 0.06,
+    XMvHvPu = 0,
+    brkpt = 0.1,
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iConv0Pu(im(fixed = false), re(fixed = false)),
+    lvpl1 = 1.22,
+    s0Pu(im(fixed = false), re(fixed = false)),
+    tBattery = 999,
+    tFilterGC = 0.02,
+    tFilterPC = 0.02,
+    tFt = 1e-10,
+    tFv = 0.05,
+    tG = 0.017,
+    tIq = 0.017,
+    tLag = 0.1,
+    tP = 0.05,
+    tPord = 0.017,
+    tRv = 0.01,
+    u0Pu(im(fixed = false), re(fixed = false)),
+    UConv0Pu(fixed = false),
+    uConv0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
+    uPcc0Pu(im(fixed = false), re(fixed = false)),
+    zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -24,20 +141,63 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plan
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = BESS.BMvHvPu, ConverterLVControl = BESS.ConverterLVControl, GMvHvPu = BESS.GMvHvPu, P0Pu = BESS.P0Pu, PPCLocal = BESS.PPCLocal, PPcc0Pu = BESS.PPcc0Pu, Q0Pu = BESS.Q0Pu, QPcc0Pu = BESS.QPcc0Pu, RLvTrPu = BESS.RLvTrPu, RMvHvPu = BESS.RMvHvPu, SNom = BESS.SNom, U0Pu = BESS.U0Pu, UPcc0Pu = BESS.UPcc0Pu, UPhase0 = BESS.UPhase0, UPhasePcc0 = 0.03533563863002929, XLvTrPu = BESS.XLvTrPu, XMvHvPu = BESS.XMvHvPu, rTfoPu = BESS.rTfoPu) annotation(
+  Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = BESS.BMvHvPu,
+    ConverterLVControl = BESS.ConverterLVControl,
+    GMvHvPu = BESS.GMvHvPu,
+    P0Pu = BESS.P0Pu,
+    PPCLocal = BESS.PPCLocal,
+    PPcc0Pu = BESS.PPcc0Pu,
+    Q0Pu = BESS.Q0Pu,
+    QPcc0Pu = BESS.QPcc0Pu,
+    RLvTrPu = BESS.RLvTrPu,
+    RMvHvPu = BESS.RMvHvPu,
+    SNom = BESS.SNom,
+    U0Pu = BESS.U0Pu,
+    UPcc0Pu = BESS.UPcc0Pu,
+    UPhase0 = BESS.UPhase0,
+    UPhasePcc0 = 0.03533563863002929,
+    XLvTrPu = BESS.XLvTrPu,
+    XMvHvPu = BESS.XMvHvPu,
+    rTfoPu = BESS.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Controls.Utilities.Measurements PCCmeasurements annotation(
     Placement(visible = true, transformation(origin = {-90, 1.11022e-15}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(BPu = 0, GPu = 0, RPu = 0.01, XPu = 0.15, rTfoPu = 0.95) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(
+    BPu = 0,
+    GPu = 0,
+    RPu = 0.01,
+    XPu = 0.15,
+    rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {-40, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Electrical.Lines.Line Zcc(BPu = 0, GPu = 0, RPu = 0, XPu = 0.05) annotation(
+  Electrical.Lines.Line Zcc(
+    BPu = 0,
+    GPu = 0,
+    RPu = 0,
+    XPu = 0.05) annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 0.9906184368094055, UEvtPu = 0.6, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 17.5, tOmegaEvtStart = 17, tUEvtEnd = 13, tUEvtStart = 12) annotation(
+  Electrical.Buses.InfiniteBusWithVariations infiniteBus(
+    U0Pu = 0.9906184368094055,
+    UEvtPu = 0.6,
+    UPhase = 0,
+    omega0Pu = 1,
+    omegaEvtPu = 1.01,
+    tOmegaEvtEnd = 17.5,
+    tOmegaEvtStart = 17,
+    tUEvtEnd = 13,
+    tUEvtStart = 12) annotation(
     Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Modelica.Blocks.Sources.Step PRef(height = 0.1, offset = BESS.PControl0Pu, startTime = 8) annotation(
+  Modelica.Blocks.Sources.Step PRef(
+    height = 0.1,
+    offset = BESS.PControl0Pu,
+    startTime = 8) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step URef(height = 0.02, offset = BESS.URef0Pu, startTime = 1) annotation(
+  Modelica.Blocks.Sources.Step URef(
+    height = 0.02,
+    offset = BESS.URef0Pu,
+    startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
 initial algorithm
   BESS.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
   BESS.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
@@ -63,6 +223,7 @@ initial algorithm
   BESS.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
   BESS.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
+
 equation
   ZPcs.switchOffSignal1.value = false;
   ZPcs.switchOffSignal2.value = false;
@@ -97,6 +258,7 @@ equation
     Line(points = {{80, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URef.y, BESS.URefPu) annotation(
     Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-05, Interval = 0.001),

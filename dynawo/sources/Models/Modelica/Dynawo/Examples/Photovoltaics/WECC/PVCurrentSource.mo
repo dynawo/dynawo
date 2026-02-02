@@ -1,18 +1,20 @@
 within Dynawo.Examples.Photovoltaics.WECC;
 
+/*
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model PVCurrentSource "WECC PV Model on infinite bus"
-  /*
-    * Copyright (c) 2021, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
   extends Icons.Example;
+
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
     U0Pu = 1,
     UEvtPu = 0.5,
@@ -24,7 +26,11 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    RPu = 0,
+    XPu = 0.0000020661,
+    BPu = 0,
+    GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource PV(
     DDn = 20,
@@ -96,7 +102,28 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     tPord = 0.02,
     tRv = 0.02,
     zerox = 0.05,
-    Id0Pu(fixed = false), Iq0Pu(fixed = false), PConv0Pu(fixed = false), UPhaseConv0(fixed = false), PF0(fixed = false), PInj0Pu(fixed = false), QConv0Pu(fixed = false), QInj0Pu(fixed = false), UInj0Pu(fixed = false), i0Pu(im(fixed = false), re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)), s0Pu(im(fixed = false), re(fixed = false)), u0Pu(im(fixed = false), re(fixed = false)), UConv0Pu(fixed = false), uConv0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), uPcc0Pu(im(fixed = false), re(fixed = false)), RMvHvPu = 0, XMvHvPu = 0.15, RLvTrPu = 0, XLvTrPu = 0, UPhase0 = 0) annotation(
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
+    PConv0Pu(fixed = false),
+    UPhaseConv0(fixed = false),
+    PF0(fixed = false),
+    PInj0Pu(fixed = false),
+    QConv0Pu(fixed = false),
+    QInj0Pu(fixed = false),
+    UInj0Pu(fixed = false),
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iConv0Pu(im(fixed = false), re(fixed = false)),
+    s0Pu(im(fixed = false), re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
+    UConv0Pu(fixed = false),
+    uConv0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
+    uPcc0Pu(im(fixed = false), re(fixed = false)),
+    RMvHvPu = 0,
+    XMvHvPu = 0.15,
+    RLvTrPu = 0,
+    XLvTrPu = 0,
+    UPhase0 = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
@@ -115,7 +142,24 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     Placement(transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}})));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = PV.BMvHvPu, ConverterLVControl = PV.ConverterLVControl, GMvHvPu = PV.GMvHvPu, P0Pu = PV.P0Pu, PPCLocal = PV.PPCLocal, PPcc0Pu = PV.PPcc0Pu, Q0Pu = PV.Q0Pu, QPcc0Pu = PV.QPcc0Pu, RLvTrPu = PV.RLvTrPu, RMvHvPu = PV.RMvHvPu, SNom = PV.SNom, U0Pu = PV.U0Pu, UPcc0Pu = PV.UPcc0Pu, UPhase0 = PV.UPhase0, XLvTrPu = PV.XLvTrPu, XMvHvPu = PV.XMvHvPu, rTfoPu = PV.rTfoPu) annotation(
+  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = PV.BMvHvPu,
+    ConverterLVControl = PV.ConverterLVControl,
+    GMvHvPu = PV.GMvHvPu,
+    P0Pu = PV.P0Pu,
+    PPCLocal = PV.PPCLocal,
+    PPcc0Pu = PV.PPcc0Pu,
+    Q0Pu = PV.Q0Pu,
+    QPcc0Pu = PV.QPcc0Pu,
+    RLvTrPu = PV.RLvTrPu,
+    RMvHvPu = PV.RMvHvPu,
+    SNom = PV.SNom,
+    U0Pu = PV.U0Pu,
+    UPcc0Pu = PV.UPcc0Pu,
+    UPhase0 = PV.UPhase0,
+    XLvTrPu = PV.XLvTrPu,
+    XMvHvPu = PV.XMvHvPu,
+    rTfoPu = PV.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
@@ -170,6 +214,7 @@ equation
     Line(points = {{-38, -20}, {-20, -20}, {-20, -10}, {-2, -10}}, color = {0, 0, 127}));
   connect(complexConst.y, PV.uPccPu) annotation(
     Line(points = {{-38, -50}, {-12, -50}, {-12, -14}, {-2, -14}}, color = {85, 170, 255}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),

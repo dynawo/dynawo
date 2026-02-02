@@ -1,24 +1,185 @@
 within Dynawo.Examples.Wind.WECC;
 
+/*
+* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller) - WTG3 - on infinite bus"
-  /*
-    * Copyright (c) 2025, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-    * of simulation tools for power systems.
-    */
   extends Modelica.Icons.Example;
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.6, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 6.5, tOmegaEvtStart = 6, tUEvtEnd = 2, tUEvtStart = 1) annotation(
+
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
+    U0Pu = 1,
+    UEvtPu = 0.6,
+    UPhase = 0,
+    omega0Pu = 1,
+    omegaEvtPu = 1.01,
+    tOmegaEvtEnd = 6.5,
+    tOmegaEvtStart = 6,
+    tUEvtEnd = 2,
+    tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    RPu = 0,
+    XPu = 0.0000020661,
+    BPu = 0,
+    GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Wind.WECC.WTG3CurrentSource2 WTG3(DDn = 20, DPMaxPu = 2, DPMinPu = -2, DUp = 0.001, DbdPu = 0.01, Dbd1Pu = -0.05, Dbd2Pu = 0.05, Dshaft = 1.5, EMaxPu = 0.5, EMinPu = -0.5, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, Hg = 1, Ht = 5, IMaxPu = 1.3, IqFrzPu = 0, Iqh1Pu = 1.1, Iql1Pu = -1.1, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.7, Kqp = 1, Kqv = 2, Kshaft = 200, Kvi = 0.7, Kvp = 1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PFlag = true, PMaxPu = 1, PMinPu = 0, PQFlag = false, PfFlag = false, Q0Pu = -0.2, QFlag = true, QMaxPu = 0.4, QMinPu = -0.4, RefFlag = true, RrpwrPu = 10, SNom = 100, U0Pu = 1, VCompFlag = false, VDLIp11 = 1.1, VDLIp12 = 1.1, VDLIp21 = 1.15, VDLIp22 = 1, VDLIp31 = 1.16, VDLIp32 = 1, VDLIp41 = 1.17, VDLIp42 = 1, VDLIq11 = 1.1, VDLIq12 = 1.1, VDLIq21 = 1.15, VDLIq22 = 1, VDLIq31 = 1.16, VDLIq32 = 1, VDLIq41 = 1.17, VDLIq42 = 1, VDipPu = 0.9, VFlag = true, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 0, VRef1Pu = 0, VUpPu = 1.1, tFilterGC = 0.02, tFilterPC = 0.04, tFt = 1e-10, tFv = 0.1, tG = 0.02, tHoldIpMax = 0.1, tHoldIq = 0, tIq = 0.01, tLag = 0.1, tP = 0.05, tPord = 0.01, tRv = 0.01, Kip = 1, Kpp = 1, P1 = 0, Spd1 = 0, P2 = 10, Spd2 = 10, P3 = 20, Spd3 = 20, P4 = 30, Spd4 = 30, Kiw = 0.1, Kpw = 3, Kic = 0.1, Kpc = 2, Kcc = 0, Theta0 = 0, Ka = 0.007, tTheta = 0.3, ThetaMax = 35, ThetaMin = -5, ThetaRMax = 10, ThetaRMin = -10, ThetaWMax = 30, ThetaWMin = -5, ThetaCMax = 30, ThetaCMin = -5, Pm0Pu = 0.7, tOmegaRef = 60, TeMaxPu = 1, TeMinPu = 0.05, TFlag = true, brkpt = 0.1, zerox = 0.05, Lvplsw = false, lvpl1 = 1.22, Id0Pu(fixed = false), Iq0Pu(fixed = false), PConv0Pu(fixed = false), UPhaseConv0(fixed = false), PF0(fixed = false), PInj0Pu(fixed = false), QConv0Pu(fixed = false), QInj0Pu(fixed = false), UInj0Pu(fixed = false), i0Pu(im(fixed = false), re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)), s0Pu(im(fixed = false), re(fixed = false)), u0Pu(im(fixed = false), re(fixed = false)), UConv0Pu(fixed = false), uConv0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), uPcc0Pu(im(fixed = false), re(fixed = false)), RMvHvPu = 0, XMvHvPu = 0.15, RLvTrPu = 0, XLvTrPu = 0, UPhase0 = 0) annotation(
+  Dynawo.Electrical.Wind.WECC.WTG3CurrentSource2 WTG3(
+    DDn = 20,
+    DPMaxPu = 2,
+    DPMinPu = -2,
+    DUp = 0.001,
+    DbdPu = 0.01,
+    Dbd1Pu = -0.05,
+    Dbd2Pu = 0.05,
+    Dshaft = 1.5,
+    EMaxPu = 0.5,
+    EMinPu = -0.5,
+    FDbd1Pu = 0.004,
+    FDbd2Pu = 1,
+    FEMaxPu = 999,
+    FEMinPu = -999,
+    FreqFlag = true,
+    Hg = 1,
+    Ht = 5,
+    IMaxPu = 1.3,
+    IqFrzPu = 0,
+    Iqh1Pu = 1.1,
+    Iql1Pu = -1.1,
+    IqrMaxPu = 20,
+    IqrMinPu = -20,
+    Kc = 0,
+    Ki = 1.5,
+    KiPLL = 20,
+    Kig = 2.36,
+    Kp = 0.1,
+    KpPLL = 3,
+    Kpg = 0.05,
+    Kqi = 0.7,
+    Kqp = 1,
+    Kqv = 2,
+    Kshaft = 200,
+    Kvi = 0.7,
+    Kvp = 1,
+    OmegaMaxPu = 1.5,
+    OmegaMinPu = 0.5,
+    P0Pu = -0.7,
+    PFlag = true,
+    PMaxPu = 1,
+    PMinPu = 0,
+    PQFlag = false,
+    PfFlag = false,
+    Q0Pu = -0.2,
+    QFlag = true,
+    QMaxPu = 0.4,
+    QMinPu = -0.4,
+    RefFlag = true,
+    RrpwrPu = 10,
+    SNom = 100,
+    U0Pu = 1,
+    VCompFlag = false,
+    VDLIp11 = 1.1,
+    VDLIp12 = 1.1,
+    VDLIp21 = 1.15,
+    VDLIp22 = 1,
+    VDLIp31 = 1.16,
+    VDLIp32 = 1,
+    VDLIp41 = 1.17,
+    VDLIp42 = 1,
+    VDLIq11 = 1.1,
+    VDLIq12 = 1.1,
+    VDLIq21 = 1.15,
+    VDLIq22 = 1,
+    VDLIq31 = 1.16,
+    VDLIq32 = 1,
+    VDLIq41 = 1.17,
+    VDLIq42 = 1,
+    VDipPu = 0.9,
+    VFlag = true,
+    VFrz = 0,
+    VMaxPu = 1.1,
+    VMinPu = 0.9,
+    VRef0Pu = 0,
+    VRef1Pu = 0,
+    VUpPu = 1.1,
+    tFilterGC = 0.02,
+    tFilterPC = 0.04,
+    tFt = 1e-10,
+    tFv = 0.1,
+    tG = 0.02,
+    tHoldIpMax = 0.1,
+    tHoldIq = 0,
+    tIq = 0.01,
+    tLag = 0.1,
+    tP = 0.05,
+    tPord = 0.01,
+    tRv = 0.01,
+    Kip = 1,
+    Kpp = 1,
+    P1 = 0,
+    Spd1 = 0,
+    P2 = 10,
+    Spd2 = 10,
+    P3 = 20,
+    Spd3 = 20,
+    P4 = 30,
+    Spd4 = 30,
+    Kiw = 0.1,
+    Kpw = 3,
+    Kic = 0.1,
+    Kpc = 2,
+    Kcc = 0,
+    Theta0 = 0,
+    Ka = 0.007,
+    tTheta = 0.3,
+    ThetaMax = 35,
+    ThetaMin = -5,
+    ThetaRMax = 10,
+    ThetaRMin = -10,
+    ThetaWMax = 30,
+    ThetaWMin = -5,
+    ThetaCMax = 30,
+    ThetaCMin = -5,
+    Pm0Pu = 0.7,
+    tOmegaRef = 60,
+    TeMaxPu = 1,
+    TeMinPu = 0.05,
+    TFlag = true,
+    brkpt = 0.1,
+    zerox = 0.05,
+    Lvplsw = false,
+    lvpl1 = 1.22,
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
+    PConv0Pu(fixed = false),
+    UPhaseConv0(fixed = false),
+    PF0(fixed = false),
+    PInj0Pu(fixed = false),
+    QConv0Pu(fixed = false),
+    QInj0Pu(fixed = false),
+    UInj0Pu(fixed = false),
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iConv0Pu(im(fixed = false), re(fixed = false)),
+    s0Pu(im(fixed = false), re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
+    UConv0Pu(fixed = false),
+    uConv0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
+    uPcc0Pu(im(fixed = false), re(fixed = false)),
+    RMvHvPu = 0,
+    XMvHvPu = 0.15,
+    RLvTrPu = 0,
+    XLvTrPu = 0,
+    UPhase0 = 0) annotation(
     Placement(transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -32,13 +193,32 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PmREfPu(k = 0.7) annotation(
     Placement(transformation(origin = {8, 82}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = WTG3.BMvHvPu, ConverterLVControl = WTG3.ConverterLVControl, GMvHvPu = WTG3.GMvHvPu, P0Pu = WTG3.P0Pu, PPCLocal = WTG3.PPCLocal, PPcc0Pu = WTG3.PPcc0Pu, Q0Pu = WTG3.Q0Pu, QPcc0Pu = WTG3.QPcc0Pu, RLvTrPu = WTG3.RLvTrPu, RMvHvPu = WTG3.RMvHvPu, SNom = WTG3.SNom, U0Pu = WTG3.U0Pu, UPcc0Pu = WTG3.UPcc0Pu, UPhase0 = WTG3.UPhase0, XLvTrPu = WTG3.XLvTrPu, XMvHvPu = WTG3.XMvHvPu, rTfoPu = WTG3.rTfoPu) annotation(
+  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = WTG3.BMvHvPu,
+    ConverterLVControl = WTG3.ConverterLVControl,
+    GMvHvPu = WTG3.GMvHvPu,
+    P0Pu = WTG3.P0Pu,
+    PPCLocal = WTG3.PPCLocal,
+    PPcc0Pu = WTG3.PPcc0Pu,
+    Q0Pu = WTG3.Q0Pu,
+    QPcc0Pu = WTG3.QPcc0Pu,
+    RLvTrPu = WTG3.RLvTrPu,
+    RMvHvPu = WTG3.RMvHvPu,
+    SNom = WTG3.SNom,
+    U0Pu = WTG3.U0Pu,
+    UPcc0Pu = WTG3.UPcc0Pu,
+    UPhase0 = WTG3.UPhase0,
+    XLvTrPu = WTG3.XLvTrPu,
+    XMvHvPu = WTG3.XMvHvPu,
+    rTfoPu = WTG3.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}})));
+
 initial algorithm
   WTG3.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
   WTG3.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
@@ -64,6 +244,7 @@ initial algorithm
   WTG3.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
   WTG3.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   WTG3.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
+
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
@@ -92,6 +273,7 @@ equation
     Line(points = {{-38, -40}, {-20, -40}, {-20, -10}, {-2, -10}}, color = {0, 0, 127}));
   connect(complexConst.y, WTG3.uPccPu) annotation(
     Line(points = {{-38, -80}, {-10, -80}, {-10, -14}, {-2, -14}}, color = {85, 170, 255}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),

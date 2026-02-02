@@ -1,18 +1,20 @@
 within Dynawo.Examples.Wind.WECC;
 
+/*
+* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) - WTG4B - on infinite bus"
-  /*
-    * Copyright (c) 2021, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
   extends Icons.Example;
+
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
     U0Pu = 1,
     UEvtPu = 0.6,
@@ -24,7 +26,11 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    RPu = 0,
+    XPu = 0.0000020661,
+    BPu = 0,
+    GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Wind.WECC.WTG4BCurrentSource WTG4B(
     DDn = 20,
@@ -116,11 +122,49 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     tPord = 0.01,
     tRv = 0.01,
     zerox = 0.05,
-    Id0Pu(fixed = false), Iq0Pu(fixed = false), PConv0Pu(fixed = false), UPhaseConv0(fixed = false), PF0(fixed = false), PInj0Pu(fixed = false), QConv0Pu(fixed = false), QInj0Pu(fixed = false), UInj0Pu(fixed = false), i0Pu(im(fixed = false), re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)), s0Pu(im(fixed = false), re(fixed = false)), u0Pu(im(fixed = false), re(fixed = false)), UConv0Pu(fixed = false), uConv0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), uPcc0Pu(im(fixed = false), re(fixed = false)), RMvHvPu = 0, XMvHvPu = 0.15, RLvTrPu = 0, XLvTrPu = 0, UPhase0 = 0) annotation(
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
+    PConv0Pu(fixed = false),
+    UPhaseConv0(fixed = false),
+    PF0(fixed = false),
+    PInj0Pu(fixed = false),
+    QConv0Pu(fixed = false),
+    QInj0Pu(fixed = false),
+    UInj0Pu(fixed = false),
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iConv0Pu(im(fixed = false), re(fixed = false)),
+    s0Pu(im(fixed = false), re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
+    UConv0Pu(fixed = false),
+    uConv0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
+    uPcc0Pu(im(fixed = false), re(fixed = false)),
+    RMvHvPu = 0,
+    XMvHvPu = 0.15,
+    RLvTrPu = 0,
+    XLvTrPu = 0,
+    UPhase0 = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
 
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = WTG4B.BMvHvPu, ConverterLVControl = WTG4B.ConverterLVControl, GMvHvPu = WTG4B.GMvHvPu, P0Pu = WTG4B.P0Pu, PPCLocal = WTG4B.PPCLocal, PPcc0Pu = WTG4B.PPcc0Pu, Q0Pu = WTG4B.Q0Pu, QPcc0Pu = WTG4B.QPcc0Pu, RLvTrPu = WTG4B.RLvTrPu, RMvHvPu = WTG4B.RMvHvPu, SNom = WTG4B.SNom, U0Pu = WTG4B.U0Pu, UPcc0Pu = WTG4B.UPcc0Pu, UPhase0 = WTG4B.UPhase0, XLvTrPu = WTG4B.XLvTrPu, XMvHvPu = WTG4B.XMvHvPu, rTfoPu = WTG4B.rTfoPu) annotation(
+  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = WTG4B.BMvHvPu,
+    ConverterLVControl = WTG4B.ConverterLVControl,
+    GMvHvPu = WTG4B.GMvHvPu,
+    P0Pu = WTG4B.P0Pu,
+    PPCLocal = WTG4B.PPCLocal,
+    PPcc0Pu = WTG4B.PPcc0Pu,
+    Q0Pu = WTG4B.Q0Pu,
+    QPcc0Pu = WTG4B.QPcc0Pu,
+    RLvTrPu = WTG4B.RLvTrPu,
+    RMvHvPu = WTG4B.RMvHvPu,
+    SNom = WTG4B.SNom,
+    U0Pu = WTG4B.U0Pu,
+    UPcc0Pu = WTG4B.UPcc0Pu,
+    UPhase0 = WTG4B.UPhase0,
+    XLvTrPu = WTG4B.XLvTrPu,
+    XMvHvPu = WTG4B.XMvHvPu,
+    rTfoPu = WTG4B.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
@@ -128,11 +172,20 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step QRef(height = -0.2, offset = 0.1, startTime = 5) annotation(
+  Modelica.Blocks.Sources.Step QRef(
+    height = -0.2,
+    offset = 0.1,
+    startTime = 5) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step PRef(height = 0.2, offset = WTG4B.PControl0Pu, startTime = 10) annotation(
+  Modelica.Blocks.Sources.Step PRef(
+    height = 0.2,
+    offset = WTG4B.PControl0Pu,
+    startTime = 10) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step URef(height = 0.02, offset = WTG4B.URef0Pu, startTime = 5) annotation(
+  Modelica.Blocks.Sources.Step URef(
+    height = 0.02,
+    offset = WTG4B.URef0Pu,
+    startTime = 5) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -164,6 +217,7 @@ initial algorithm
   WTG4B.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
   WTG4B.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   WTG4B.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
+
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
@@ -190,6 +244,7 @@ equation
     Line(points = {{80, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(URef.y, WTG4B.URefPu) annotation(
     Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 0.0001, Interval = 0.001),

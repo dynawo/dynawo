@@ -1,19 +1,21 @@
 within Dynawo.Examples.BESS.WECC;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
-  /*
-    * Copyright (c) 2024, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-    * of simulation tools for power systems.
-    */
   extends Icons.Example;
+
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
     U0Pu = 1,
     UEvtPu = 0.55,
@@ -25,7 +27,11 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     tUEvtEnd = 1.5,
     tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.0000020661) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    BPu = 0,
+    GPu = 0,
+    RPu = 0,
+    XPu = 0.0000020661) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.BESS.WECC.BESSCurrentSource BESS(
     DDn = 126,
@@ -118,7 +124,8 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     zerox = 0.05,
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
-    PConv0Pu(fixed = false), UPhaseConv0(fixed = false),
+    PConv0Pu(fixed = false),
+    UPhaseConv0(fixed = false),
     PF0(fixed = false),
     PInj0Pu(fixed = false),
     QConv0Pu(fixed = false),
@@ -150,12 +157,36 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(BMvHvPu = BESS.BMvHvPu, ConverterLVControl = BESS.ConverterLVControl, GMvHvPu = BESS.GMvHvPu, P0Pu = BESS.P0Pu, PPCLocal = BESS.PPCLocal, PPcc0Pu = BESS.PPcc0Pu, Q0Pu = BESS.Q0Pu, QPcc0Pu = BESS.QPcc0Pu, RLvTrPu = BESS.RLvTrPu, RMvHvPu = BESS.RMvHvPu, SNom = BESS.SNom, U0Pu = BESS.U0Pu, UPcc0Pu = BESS.UPcc0Pu, UPhase0 = BESS.UPhase0, XLvTrPu = BESS.XLvTrPu, XMvHvPu = BESS.XMvHvPu, rTfoPu = BESS.rTfoPu) annotation(
+  Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = BESS.BMvHvPu,
+    ConverterLVControl = BESS.ConverterLVControl,
+    GMvHvPu = BESS.GMvHvPu,
+    P0Pu = BESS.P0Pu,
+    PPCLocal = BESS.PPCLocal,
+    PPcc0Pu = BESS.PPcc0Pu,
+    Q0Pu = BESS.Q0Pu,
+    QPcc0Pu = BESS.QPcc0Pu,
+    RLvTrPu = BESS.RLvTrPu,
+    RMvHvPu = BESS.RMvHvPu,
+    SNom = BESS.SNom,
+    U0Pu = BESS.U0Pu,
+    UPcc0Pu = BESS.UPcc0Pu,
+    UPhase0 = BESS.UPhase0,
+    XLvTrPu = BESS.XLvTrPu,
+    XMvHvPu = BESS.XMvHvPu,
+    rTfoPu = BESS.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step PRef(height = 0.2, offset = BESS.PControl0Pu, startTime = 10) annotation(
+  Modelica.Blocks.Sources.Step PRef(
+    height = 0.2,
+    offset = BESS.PControl0Pu,
+    startTime = 10) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step URef(height = 0.02, offset = BESS.URef0Pu, startTime = 5) annotation(
+  Modelica.Blocks.Sources.Step URef(
+    height = 0.02,
+    offset = BESS.URef0Pu,
+    startTime = 5) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
 initial algorithm
   BESS.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
   BESS.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
@@ -181,6 +212,7 @@ initial algorithm
   BESS.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
   BESS.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
+
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
@@ -209,6 +241,7 @@ equation
     Line(points = {{80, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URef.y, BESS.URefPu) annotation(
     Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-05, Interval = 0.001),

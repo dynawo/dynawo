@@ -1,17 +1,18 @@
 within Dynawo.Electrical.Photovoltaics.WECC;
 
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
 model PVVoltageSource2NoPlantControl "WECC PV model with a voltage source as interface with the grid (REEC-B REGC-B)"
-  /*
-    * Copyright (c) 2024, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-    */
   /*           uSourcePu                                uInjPu                   uConvPu
   --------         |                                       |                         |
   | Source |--------+---->>--------RSourcePu+jXSourcePu-----+--->>---RPu+jXPu----->>----+----
@@ -19,27 +20,76 @@ model PVVoltageSource2NoPlantControl "WECC PV model with a voltage source as int
   */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceB(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+
   //Configuration parameters to define how the user wants to represent the internal network
   parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
     Dialog(tab = "LV transformer"));
+
   //Parameters for LV transformer
   parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom). Including source resistance for voltage source." annotation(
     Dialog(tab = "LV transformer"));
   parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom). Including source reactance for voltage source." annotation(
     Dialog(tab = "LV transformer"));
+
   // In every cases (RPu + j*XPu) is the serial impedance between converter's output and injector terminal
+
   //Depending on the value of ConverterLVControl we are correctly defining these parameters
   final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
   final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PConvRefPu(start = PConv0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv, SNom = SNom, PConv0Pu = PConv0Pu, QConv0Pu = QConv0Pu, s0Pu = s0Pu, u0Pu = u0Pu, uConv0Pu = uConv0Pu, UConv0Pu = UConv0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
+    DPMaxPu = DPMaxPu,
+    DPMinPu = DPMinPu,
+    Dbd1Pu = Dbd1Pu,
+    Dbd2Pu = Dbd2Pu,
+    IMaxPu = IMaxPu,
+    Id0Pu = Id0Pu,
+    Iq0Pu = Iq0Pu,
+    Iqh1Pu = Iqh1Pu,
+    Iql1Pu = Iql1Pu,
+    Kqi = Kqi,
+    Kqp = Kqp,
+    Kqv = Kqv,
+    Kvi = Kvi,
+    Kvp = Kvp,
+    PF0 = PF0,
+    PMaxPu = PMaxPu,
+    PMinPu = PMinPu,
+    PQFlag = PQFlag,
+    PfFlag = PfFlag,
+    QFlag = QFlag,
+    QMaxPu = QMaxPu,
+    QMinPu = QMinPu,
+    UInj0Pu = UInj0Pu,
+    VDipPu = VDipPu,
+    VFlag = VFlag,
+    VMaxPu = VMaxPu,
+    VMinPu = VMinPu,
+    VRef0Pu = VRef0Pu,
+    VRef1Pu = VRef1Pu,
+    VUpPu = VUpPu,
+    tIq = tIq,
+    tP = tP,
+    tPord = tPord,
+    tRv = tRv,
+    SNom = SNom,
+    PConv0Pu = PConv0Pu,
+    QConv0Pu = QConv0Pu,
+    s0Pu = s0Pu,
+    u0Pu = u0Pu,
+    uConv0Pu = uConv0Pu,
+    UConv0Pu = UConv0Pu) annotation(
     Placement(transformation(origin = {-83, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal(
+    V(re(start = u0Pu.re), im(start = u0Pu.im)),
+    i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
 equation
   connect(PFaRef, wecc_reec.PFaRef) annotation(
     Line(points = {{-79, 70}, {-79, 40.5}, {-82, 40.5}, {-82, 11}}, color = {0, 0, 127}));
@@ -69,6 +119,7 @@ equation
     Line(points = {{66, -6}, {66, -30}, {-177, -30}, {-177, 50}, {-171, 50}}, color = {85, 170, 255}));
   connect(SourceMeasurements.uPu, wecc_regc.uInjPu) annotation(
     Line(points = {{26, -5}, {26, -13}, {-46, -13}, {-46, -11}}, color = {85, 170, 255}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>
