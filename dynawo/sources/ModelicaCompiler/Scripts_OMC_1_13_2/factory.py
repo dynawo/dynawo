@@ -3065,6 +3065,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_externalcalls_header(self):
+        self.list_for_externalcalls_header.append("#pragma GCC diagnostic ignored \"-Wunused-parameter\"\n")
         tmp_list = self.reader.list_internal_functions
         for func in self.erase_func:
             for line in self.reader.list_internal_functions:
@@ -3699,6 +3700,7 @@ class Factory:
         closing_bracket = "] /* "
         index = 0
         ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+        ptrn_residual_var = ptrn_residual_var = re.compile(r'[\(]*data->simulationInfo->daeModeData->residualVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/[\) ]*=[ ]*')
         calc_var_2_index = {}
         for var in self.reader.list_calculated_vars:
             calc_var_2_index[var.get_name()] = index
@@ -3716,8 +3718,13 @@ class Factory:
                         continue
                     if "infoStreamPrintWithEquationIndexes" in line:
                         continue
-                    if "return " in line:
-                        line = line.replace("return ",  "calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = ")
+                    match_residual = re.search(ptrn_residual_var, line)
+                    if match_residual is not None:
+                        ptrn_evaluated_var = re.compile(r' - \(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\* ' + var.get_name() + ' variable \*\/\)')
+                        line = line.replace(match_residual.group(0), "calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = ")
+                        match_evaluated = re.search(ptrn_evaluated_var, line)
+                        assert(match_evaluated is not None)
+                        line = line.replace(match_evaluated.group(0), "")
                     line_tmp = transform_line(line)
                     line_tmp = throw_stream_indexes(line_tmp)
                     match = ptrn_calc_var.findall(line_tmp)
@@ -3744,6 +3751,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_evalcalculatedvari(self):
+        ptrn_residual_var = ptrn_residual_var = re.compile(r'[\(]*data->simulationInfo->daeModeData->residualVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/[\) ]*=[ ]*')
         for var in self.reader.list_calculated_vars:
             var_name = var.get_name()
             expr = self.reader.dic_calculated_vars_values[var_name]
@@ -3760,6 +3768,13 @@ class Factory:
                         continue
                     if "infoStreamPrintWithEquationIndexes" in line:
                         continue
+                    match_residual = re.search(ptrn_residual_var, line)
+                    if match_residual is not None:
+                        ptrn_evaluated_var = re.compile(r' - \(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\* ' + var.get_name() + ' variable \*\/\)')
+                        line = line.replace(match_residual.group(0), "return ")
+                        match_evaluated = re.search(ptrn_evaluated_var, line)
+                        assert(match_evaluated is not None)
+                        line = line.replace(match_evaluated.group(0), "")
                     line_tmp = throw_stream_indexes(line)
                     line_tmp = transform_line(line_tmp)
                     if var_name in self.dic_calc_var_recursive_deps:
@@ -3787,7 +3802,7 @@ class Factory:
         map_dep = self.reader.get_map_dep_vars_for_func()
         for var in self.reader.list_calculated_vars:
             if var in self.reader.list_complex_calculated_vars:
-                var_name = var.get_name()
+                var_name = self.reader.list_calculated_vars_to_residuals[var.get_name()]
                 list_depend = map_dep[var_name]
                 list_of_indexes = []
                 for dependency in list_depend:
@@ -3805,6 +3820,9 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_evalcalculatedvariadept(self):
+        ## TODO
+        self.list_for_evalcalculatedvariadept.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
+        return
         trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.residual_vars_to_address_map)
         ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
 
@@ -3959,6 +3977,8 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_getindexofvarusedforcalcvari(self):
+        self.list_for_evalcalculatedvariadept.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
+        return
         map_dep = self.reader.get_map_dep_vars_for_func()
         index = 0
         for var in self.reader.list_calculated_vars:

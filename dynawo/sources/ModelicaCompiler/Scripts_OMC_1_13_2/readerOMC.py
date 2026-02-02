@@ -186,6 +186,8 @@ class ReaderOMC:
 
         ## dictionary of residual variables with their types (differential, algebraic, or mixed - depending on some conditions)
         self.var_name_to_eq_type = {}
+        ## dictionary of residual variables associated to the litteral explicit equation from Modelica model
+        self.var_name_to_litteral_equation= {}
         ## dictionary of residual variables equation with type MIXED associated to the detailed list of types
         self.var_name_to_mixed_residual_vars_types = {}
         ## dictionary of residual variables equation with type MIXED associated to the list of differential variables for each branch
@@ -203,6 +205,8 @@ class ReaderOMC:
         self.list_complex_const_vars = []
         ## Dictionary of calculated variables depending on others variables to the associated function
         self.list_complex_calculated_vars = {}
+        ## Dictionary of calculated variables to the residual of the associated equation
+        self.list_calculated_vars_to_residuals = {}
 
 
         # ---------------------------------------
@@ -210,6 +214,8 @@ class ReaderOMC:
         # ---------------------------------------
         ## List containing all variables found in *_init.xml file : differential/alegbraic/discrete variables and parameters
         self.list_vars = []
+        ## List of algebraic variables
+        self.list_alg_vars = []
         ## Dictionnary containing all variables names from self.list_vars and their index
         self.dic_vars = {}
 
@@ -451,6 +457,7 @@ class ReaderOMC:
                     if "equation" in keys:
                         eq = equation["equation"]
                         self.analyse_equations_and_get_types(str(eq), name)
+                        self.var_name_to_litteral_equation[name] = eq[0]
                     else:
                         self.var_name_to_eq_type[name] = ALGEBRAIC
             elif type_eq == "initial":
@@ -1626,9 +1633,13 @@ class ReaderOMC:
                     var.set_fixed(False)
                     var.set_type("rAlg")
                     self.list_vars.append(var)
-                elif re.search(r'stateVars \([0-9]+\)',var_type) or re.search(r'algVars \([0-9]+\)',var_type):
+                elif re.search(r'stateVars \([0-9]+\)',var_type):
                     set_param_address(name,  "realVars")
                     var.set_fixed(False)
+                elif re.search(r'algVars \([0-9]+\)',var_type):
+                    set_param_address(name,  "realVars")
+                    var.set_fixed(False)
+                    self.list_alg_vars.append(name)
                 elif var_type == "discreteAlgVars":
                     set_param_address(name,  "discreteVars")
                 elif var_type == "constVars":
@@ -1982,6 +1993,16 @@ class ReaderOMC:
             if name_var_eval is not None and self.is_fictitious_residual_vars(name_var_eval):
                 continue
 
+            orig_name_var_eval = name_var_eval
+            if name_var_eval in self.residual_vars_to_address_map and name_var_eval in self.var_name_to_eq_type:
+                eq = self.var_name_to_litteral_equation[name_var_eval]
+                for alg_var_name in self.list_alg_vars:
+                    if eq.endswith(" - " + alg_var_name):
+                        self.list_calculated_vars_to_residuals[alg_var_name] = name_var_eval
+                        name_var_eval = alg_var_name
+                        break
+
+
             list_depend = [] # list of vars on which depends the function
             is_eligible = True
             #derivative variables should be kept in f
@@ -2010,10 +2031,12 @@ class ReaderOMC:
                         list_depend.extend(inputs)
             if name_var_eval is not None:
                 list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
-                if name_var_eval in map_dep:
-                    list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
+                if orig_name_var_eval in map_dep:
+                    list_depend.extend( map_dep[orig_name_var_eval] ) # We get the other vars (from *._info.xml)
+                    print ("BUBU ADD " + orig_name_var_eval + " " + name_var_eval + " " + str(map_dep[orig_name_var_eval]))
                 if is_eligible:
                     function_to_eval_variable[f] = name_var_eval
+                    print ("BUBU? EVAL " + name_var_eval + " " + f.get_num_omc() )
                 for var_name in list_depend:
                     if var_name == "time": continue
                     if var_name in self.residual_vars_to_address_map: continue
@@ -2026,7 +2049,9 @@ class ReaderOMC:
                     if is_when_condition(var_name) : continue
                     if var_name not in variable_to_equation_dependencies:
                         variable_to_equation_dependencies[var_name] = []
-                    variable_to_equation_dependencies[var_name].append(f_num_omc)
+                    if f_num_omc not in  variable_to_equation_dependencies[var_name]:
+                        print ("BUBU? ADD " + var_name + " " + f.get_num_omc() )
+                        variable_to_equation_dependencies[var_name].append(f_num_omc)
 
         function_to_remove = []
         for f in function_to_eval_variable:
@@ -2059,6 +2084,8 @@ class ReaderOMC:
                     print_info("Variable " + var_name + " is set as a calculated variable of level " + str(idx) +".")
                     set_param_address(var_name, "SHOULD NOT BE USED - CALCULATED VAR")
                     was_modif = True
+            for f in function_to_remove:
+                self.list_func_16dae_c.remove(f)
             idx+=1
 
     ##

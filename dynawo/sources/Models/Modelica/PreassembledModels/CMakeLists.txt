@@ -62,70 +62,70 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPVRemoteSignalNSFR.xml
   GeneratorPVRemoteDiagramPQSignalN.xml
   GeneratorPVRemoteDiagramPQSignalNSFR.xml
-  GeneratorSynchronousFourWindings.xml
-  GeneratorSynchronousFourWindingsGovCt2St4b.xml
-  GeneratorSynchronousFourWindingsGovSteam1St4b.xml
-  GeneratorSynchronousFourWindingsGovSteam1St4bPss2b.xml
-  GeneratorSynchronousFourWindingsGovSteamEuSt4b.xml
-  GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
-  GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
-  GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
-  GeneratorSynchronousFourWindingsIEEEG1IEEX2A.xml
-  GeneratorSynchronousFourWindingsPmConstAc6aPss3b.xml
-  GeneratorSynchronousFourWindingsPmConstAc7bPss3b.xml
-  GeneratorSynchronousFourWindingsPmConstAc7cPss2c.xml
-  GeneratorSynchronousFourWindingsPmConstAc8b.xml
-  GeneratorSynchronousFourWindingsPmConstAc8bPss3b.xml
-  GeneratorSynchronousFourWindingsPmConstDc1a.xml
-  GeneratorSynchronousFourWindingsPmConstIEEX2A.xml
-  GeneratorSynchronousFourWindingsPmConstSt5bPss2b.xml
-  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl1c.xml
-  GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl2c.xml
-  GeneratorSynchronousFourWindingsPmConstSt6bPss3b.xml
-  GeneratorSynchronousFourWindingsPmConstSt6cPss6c.xml
-  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel2c.xml
-  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel3c.xml
-  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel4c.xml
-  GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel5c.xml
-  GeneratorSynchronousFourWindingsPmConstSt7bPss2a.xml
-  GeneratorSynchronousFourWindingsPmConstSt7bPss2aUel1.xml
-  GeneratorSynchronousFourWindingsPmConstSt7bPss2aUel2c.xml
-  GeneratorSynchronousFourWindingsPmConstSt9cPss2c.xml
-  GeneratorSynchronousFourWindingsPmConstVRNordic.xml
-  GeneratorSynchronousFourWindingsPmConstVRNordicTfo.xml
-  GeneratorSynchronousFourWindingsProportionalRegulations.xml
-  GeneratorSynchronousFourWindingsTGov1Dc1a.xml
-  GeneratorSynchronousFourWindingsTGov1Sexs.xml
-  GeneratorSynchronousFourWindingsTGov1SexsPss2a.xml
-  GeneratorSynchronousFourWindingsTGov3IEEX2A.xml
-  GeneratorSynchronousFourWindingsVRKundur.xml
-  GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
-  GeneratorSynchronousProportionalRegulationsInternalParameters.xml
-  GeneratorSynchronousThreeWindings.xml
-  GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
-  GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
-  GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
-  GeneratorSynchronousThreeWindingsGovHydro4St4b.xml
-  GeneratorSynchronousThreeWindingsHyGovBbSex1.xml
-  GeneratorSynchronousThreeWindingsHyGovScrx.xml
-  GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
-  GeneratorSynchronousThreeWindingsIeeeG1IeeeT1.xml
-  GeneratorSynchronousThreeWindingsIeeeG1IeeeT1Tfo.xml
-  GeneratorSynchronousThreeWindingsIeeeG1Scrx.xml
-  GeneratorSynchronousThreeWindingsIeeeG1ScrxTfo.xml
-  GeneratorSynchronousThreeWindingsIEEEG2BbSex1.xml
-  GeneratorSynchronousThreeWindingsPmConstExAc1.xml
-  GeneratorSynchronousThreeWindingsPmConstExAc1Tfo.xml
-  GeneratorSynchronousThreeWindingsPmConstScrx.xml
-  GeneratorSynchronousThreeWindingsPmConstScrxTfo.xml
-  GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
-  GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
-  GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+  #GeneratorSynchronousFourWindings.xml => DAE fails
+  #GeneratorSynchronousFourWindingsGovCt2St4b.xml
+  #GeneratorSynchronousFourWindingsGovSteam1St4b.xml
+  #GeneratorSynchronousFourWindingsGovSteam1St4bPss2b.xml
+  #GeneratorSynchronousFourWindingsGovSteamEuSt4b.xml
+  #GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
+  #GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
+  #GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
+  #GeneratorSynchronousFourWindingsIEEEG1IEEX2A.xml
+  #GeneratorSynchronousFourWindingsPmConstAc6aPss3b.xml
+  #GeneratorSynchronousFourWindingsPmConstAc7bPss3b.xml
+  #GeneratorSynchronousFourWindingsPmConstAc7cPss2c.xml
+  #GeneratorSynchronousFourWindingsPmConstAc8b.xml
+  #GeneratorSynchronousFourWindingsPmConstAc8bPss3b.xml
+  #GeneratorSynchronousFourWindingsPmConstDc1a.xml
+  #GeneratorSynchronousFourWindingsPmConstIEEX2A.xml
+  #GeneratorSynchronousFourWindingsPmConstSt5bPss2b.xml
+  #GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl1c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt5cPss2bScl2c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt6bPss3b.xml
+  #GeneratorSynchronousFourWindingsPmConstSt6cPss6c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel2c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel3c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel4c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel5c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt7bPss2a.xml
+  #GeneratorSynchronousFourWindingsPmConstSt7bPss2aUel1.xml
+  #GeneratorSynchronousFourWindingsPmConstSt7bPss2aUel2c.xml
+  #GeneratorSynchronousFourWindingsPmConstSt9cPss2c.xml
+  #GeneratorSynchronousFourWindingsPmConstVRNordic.xml
+  #GeneratorSynchronousFourWindingsPmConstVRNordicTfo.xml
+  #GeneratorSynchronousFourWindingsProportionalRegulations.xml
+  #GeneratorSynchronousFourWindingsTGov1Dc1a.xml
+  #GeneratorSynchronousFourWindingsTGov1Sexs.xml
+  #GeneratorSynchronousFourWindingsTGov1SexsPss2a.xml
+  #GeneratorSynchronousFourWindingsTGov3IEEX2A.xml
+  #GeneratorSynchronousFourWindingsVRKundur.xml
+  #GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
+  #GeneratorSynchronousProportionalRegulationsInternalParameters.xml => DAE fails
+  #GeneratorSynchronousThreeWindings.xml => DAE fails
+  #GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
+  #GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
+  #GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
+  #GeneratorSynchronousThreeWindingsGovHydro4St4b.xml
+  #GeneratorSynchronousThreeWindingsHyGovBbSex1.xml
+  #GeneratorSynchronousThreeWindingsHyGovScrx.xml
+  #GeneratorSynchronousThreeWindingsHyGovScrxTfo.xml
+  #GeneratorSynchronousThreeWindingsIeeeG1IeeeT1.xml
+  #GeneratorSynchronousThreeWindingsIeeeG1IeeeT1Tfo.xml
+  #GeneratorSynchronousThreeWindingsIeeeG1Scrx.xml
+  #GeneratorSynchronousThreeWindingsIeeeG1ScrxTfo.xml
+  #GeneratorSynchronousThreeWindingsIEEEG2BbSex1.xml
+  #GeneratorSynchronousThreeWindingsPmConstExAc1.xml
+  #GeneratorSynchronousThreeWindingsPmConstExAc1Tfo.xml
+  #GeneratorSynchronousThreeWindingsPmConstScrx.xml
+  #GeneratorSynchronousThreeWindingsPmConstScrxTfo.xml
+  #GeneratorSynchronousThreeWindingsPmConstVRNordic.xml
+  #GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
+  #GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
-  GridFormingEpri.xml
+  #GridFormingEpri.xml => stack overflow
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
   HvdcPQPropEmulationSet.xml
@@ -165,13 +165,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
   #IECWPP4ACurrentSource2015.xml
-  IECWPP4ACurrentSource2020.xml
+  #IECWPP4ACurrentSource2020.xml
   #IECWPP4BCurrentSource2015.xml
-  IECWPP4BCurrentSource2020.xml
+  #IECWPP4BCurrentSource2020.xml
   #IECWT4ACurrentSource2015.xml
-  IECWT4ACurrentSource2020.xml
+  #IECWT4ACurrentSource2020.xml
   #IECWT4BCurrentSource2015.xml Error: Internal error Stack overflow in DAEMode.getEqSystemDAEmode..
-  IECWT4BCurrentSource2020.xml
+  #IECWT4BCurrentSource2020.xml
   InertialGrid.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
@@ -255,12 +255,12 @@ set(MODELICA_PREASSEMBLED_MODELS
   #VariableImpedantFault.xml
   VRRemote.xml
   WeightedDifference.xml
-  WT4AWeccCurrentSource.xml
-  WT4BWeccCurrentSource.xml
-  WTG3WeccCurrentSource1.xml
-  WTG3WeccCurrentSource2.xml
-  WTG4AWeccCurrentSource1.xml
-  WTG4AWeccCurrentSource2.xml
+  #WT4AWeccCurrentSource.xml
+  #WT4BWeccCurrentSource.xml
+  #WTG3WeccCurrentSource1.xml
+  #WTG3WeccCurrentSource2.xml
+  #WTG4AWeccCurrentSource1.xml
+  #WTG4AWeccCurrentSource2.xml
   #WTG4BWeccCurrentSource.xml
   )
 

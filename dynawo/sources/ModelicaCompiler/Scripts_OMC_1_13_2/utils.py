@@ -237,7 +237,6 @@ def replace_var_names(line):
         replacement_string = "@@@" + str(pattern_index) + "@@@"
         line = line.replace("jacobian->seedVars["+idx+"]", replacement_string)
         map_to_replace[replacement_string] = to_param_address(name)
-        #print ("BUBU REPLACE? " + idx + " " + name + " " + to_param_address(name) + " " +line)
         pattern_index +=1
 
     for pattern_to_replace in map_to_replace:
