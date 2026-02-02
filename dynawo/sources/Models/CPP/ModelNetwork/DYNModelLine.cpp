@@ -1078,7 +1078,7 @@ ModelLine::collectSilentZ(BitMask* silentZTable) {
 void
 ModelLine::evalG(const double& t) {
   int offset = 0;
-  if (currentLimits1_ || currentLimits2_) {
+  if (network_->hasConstraints() && (currentLimits1_ || currentLimits2_)) {
     double ur1Val = ur1();
     double ui1Val = ui1();
     double ur2Val = ur2();

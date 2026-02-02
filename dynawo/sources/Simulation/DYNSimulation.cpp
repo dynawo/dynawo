@@ -782,7 +782,9 @@ Simulation::initFromData(const shared_ptr<DataInterface>& data, const shared_ptr
   model_ = modeler.getModel();
   model_->setWorkingDirectory(context_->getWorkingDirectory());
   model_->setTimeline(timeline_);
-  model_->setConstraints(constraintsCollection_);
+
+  if (jobEntry_->getOutputsEntry()->getConstraintsEntry()->getFilterType() != CONSTRAINTS_DYNAFLOW)
+      model_->setConstraints(constraintsCollection_);
 
   if (jobEntry_->getLocalInitEntry() != nullptr) {
     const std::string initParFile = createAbsolutePath(jobEntry_->getLocalInitEntry()->getParFile(), context_->getInputDirectory());
@@ -907,6 +909,9 @@ Simulation::init() {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
   solver_->setTimeline(timeline_);
+  // no constraint registered during initialization
+  if (jobEntry_->getOutputsEntry()->getConstraintsEntry()->getFilterType() == CONSTRAINTS_DYNAFLOW)
+      model_->setConstraints(constraintsCollection_);
 }
 
 void
