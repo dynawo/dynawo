@@ -35,11 +35,8 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     GMvHvPu = 0.0005,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
-    IpMax0Pu(fixed = false),
     IqH1Pu = 1.05,
-    IqMax0Pu(fixed = false),
     IqMaxPu = 1.05,
-    IqMin0Pu(fixed = false),
     IqMinPu = -1.05,
     IqPostPu = 0,
     Kipaw = 100,
@@ -65,17 +62,13 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     MwpqMode = 0,
     Mzc = false,
     P0Pu = -PRefPu.offset * wPP4ACurrentSource.SNom / SystemBase.SnRef,
-    PControl0Pu(fixed = false),
     PKiwppMaxPu = 1,
     PKiwppMinPu = -1,
     PPCLocal = true,
     PRefMaxPu = 1,
     PRefMinPu = 0,
     Q0Pu = -QRefPu.offset * wPP4ACurrentSource.SNom / SystemBase.SnRef,
-    QControl0Pu(fixed = false),
-    QMax0Pu(fixed = false),
     QMaxPu = 0.8,
-    QMin0Pu(fixed = false),
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
@@ -91,7 +84,6 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     UPll2Pu = 0.13,
     URef0Pu = 0,
     UUnderPu = 0.9,
-    UWt0DroppedPu(fixed = false),
     Udb1Pu = 0.9,
     Udb2Pu = 1.1,
     UpquMaxPu = 1.1,
@@ -104,15 +96,8 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     XMvHvPu = 0.01,
     XRefMaxPu = 1,
     XRefMinPu = -1,
-    XWT0Pu(fixed = false),
     fOverPu = 1.1,
     fUnderPu = 0.9,
-    i0Pu(re(fixed = false), im(fixed = false)),
-    iControl0Pu(re(fixed = false), im(fixed = false)),
-    iGs0Pu(re(fixed = false), im(fixed = false)),
-    iWt0Pu(re(fixed = false), im(fixed = false)),
-    ip0Pu(fixed = false),
-    iq0Pu(fixed = false),
     tG = 0.01,
     tPFiltQ = 0.01,
     tPFiltql = 0.01,
@@ -137,10 +122,7 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     tpfv = 0.3933,
     tphiFilt = 0.02,
     txft = 0,
-    txfv = 0.1,
-    u0Pu(re(fixed = false), im(fixed = false)),
-    uControl0Pu(re(fixed = false), im(fixed = false)),
-    uWt0Pu(re(fixed = false), im(fixed = false))) annotation(
+    txfv = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(transformation(origin = {-104, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -164,61 +146,6 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(visible = true, transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  // Initialization
-  Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource_INIT wPP4CurrentSource_INIT(
-    BesPu = wPP4ACurrentSource.BesPu,
-    BLvTrPu = wPP4ACurrentSource.BLvTrPu,
-    ConverterLVControl = wPP4ACurrentSource.ConverterLVControl,
-    GesPu = wPP4ACurrentSource.GesPu,
-    GLvTrPu = wPP4ACurrentSource.GLvTrPu,
-    IMaxPu = wPP4ACurrentSource.IMaxPu,
-    Kpqu = wPP4ACurrentSource.Kpqu,
-    MqG = wPP4ACurrentSource.MqG,
-    MwpqMode = wPP4ACurrentSource.MwpqMode,
-    P0Pu = wPP4ACurrentSource.P0Pu,
-    PPCLocal = wPP4ACurrentSource.PPCLocal,
-    Q0Pu = wPP4ACurrentSource.Q0Pu,
-    QMaxPu = wPP4ACurrentSource.QMaxPu,
-    QMinPu = wPP4ACurrentSource.QMinPu,
-    QlConst = wPP4ACurrentSource.QlConst,
-    RDropPu = wPP4ACurrentSource.RDropPu,
-    ResPu = wPP4ACurrentSource.ResPu,
-    RLvTrPu = wPP4ACurrentSource.RLvTrPu,
-    SNom = wPP4ACurrentSource.SNom,
-    U0Pu = wPP4ACurrentSource.U0Pu,
-    UPhase0 = wPP4ACurrentSource.UPhase0,
-    UpquMaxPu = wPP4ACurrentSource.UpquMaxPu,
-    URef0Pu = wPP4ACurrentSource.URef0Pu,
-    XDropPu = wPP4ACurrentSource.XDropPu,
-    XesPu = wPP4ACurrentSource.XesPu,
-    XLvTrPu = wPP4ACurrentSource.XLvTrPu) annotation(
-    Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-initial algorithm
-  wPP4ACurrentSource.IpMax0Pu := wPP4CurrentSource_INIT.IpMax0Pu;
-  wPP4ACurrentSource.IqMax0Pu := wPP4CurrentSource_INIT.IqMax0Pu;
-  wPP4ACurrentSource.IqMin0Pu := wPP4CurrentSource_INIT.IqMin0Pu;
-  wPP4ACurrentSource.PControl0Pu := wPP4CurrentSource_INIT.PControl0Pu;
-  wPP4ACurrentSource.QControl0Pu := wPP4CurrentSource_INIT.QControl0Pu;
-  wPP4ACurrentSource.QMax0Pu := wPP4CurrentSource_INIT.QMax0Pu;
-  wPP4ACurrentSource.QMin0Pu := wPP4CurrentSource_INIT.QMin0Pu;
-  wPP4ACurrentSource.UWt0DroppedPu := wPP4CurrentSource_INIT.UWt0DroppedPu;
-  wPP4ACurrentSource.XWT0Pu := wPP4CurrentSource_INIT.XWT0Pu;
-  wPP4ACurrentSource.i0Pu.re := wPP4CurrentSource_INIT.i0Pu.re;
-  wPP4ACurrentSource.i0Pu.im := wPP4CurrentSource_INIT.i0Pu.im;
-  wPP4ACurrentSource.iGs0Pu.re := wPP4CurrentSource_INIT.iGs0Pu.re;
-  wPP4ACurrentSource.iGs0Pu.im := wPP4CurrentSource_INIT.iGs0Pu.im;
-  wPP4ACurrentSource.ip0Pu := wPP4CurrentSource_INIT.ip0Pu;
-  wPP4ACurrentSource.iq0Pu := wPP4CurrentSource_INIT.iq0Pu;
-  wPP4ACurrentSource.iWt0Pu.re := wPP4CurrentSource_INIT.iWt0Pu.re;
-  wPP4ACurrentSource.iWt0Pu.im := wPP4CurrentSource_INIT.iWt0Pu.im;
-  wPP4ACurrentSource.u0Pu.re := wPP4CurrentSource_INIT.u0Pu.re;
-  wPP4ACurrentSource.u0Pu.im := wPP4CurrentSource_INIT.u0Pu.im;
-  wPP4ACurrentSource.uControl0Pu.re := wPP4CurrentSource_INIT.uControl0Pu.re;
-  wPP4ACurrentSource.uControl0Pu.im := wPP4CurrentSource_INIT.uControl0Pu.im;
-  wPP4ACurrentSource.uWt0Pu.re := wPP4CurrentSource_INIT.uWt0Pu.re;
-  wPP4ACurrentSource.uWt0Pu.im := wPP4CurrentSource_INIT.uWt0Pu.im;
 
 equation
   wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;

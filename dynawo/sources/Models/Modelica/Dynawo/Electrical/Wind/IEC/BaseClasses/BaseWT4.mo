@@ -149,26 +149,27 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
   //Initial parameters
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)";
-  parameter Types.PerUnit ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" ;
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)";
-  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)";
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)";
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid WT terminal in pu (base SNom or UNom) (generator convention)";
+
+  final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu) / u0Pu) "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)";
+  final parameter Types.ComplexCurrentPu iGs0Pu = Complex(GesPu, BesPu) * (u0Pu - Complex(ResPu, XesPu) * i0Pu * SystemBase.SnRef / SNom) - i0Pu * SystemBase.SnRef / SNom "Complex current at converter output in pu (base SNom) (generator convention)";
+  final parameter Types.PerUnit ip0Pu = cos(UPhase0) * iGs0Pu.re + sin(UPhase0) * iGs0Pu.im "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)";
+  final parameter Types.PerUnit IpMax0Pu = Modelica.Math.Vectors.interpolate(TableIpMaxUwt[:, 1], TableIpMaxUwt[:, 2], U0Pu) "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)";
+  final parameter Types.PerUnit iq0Pu = cos(UPhase0) * iGs0Pu.im - sin(UPhase0) * iGs0Pu.re "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)";
+  final parameter Types.PerUnit IqMax0Pu = min(Modelica.Math.Vectors.interpolate(TableIqMaxUwt[:, 1], TableIqMaxUwt[:, 2], U0Pu), max(0, IMaxPu ^ 2 - min(IpMax0Pu, -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) ^ 0.5) "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
+  final parameter Types.PerUnit IqMin0Pu = max(-IqMax0Pu, Kpqu * (U0Pu - UpquMaxPu)) "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
+  final parameter Types.ReactivePowerPu QMax0Pu = if QlConst then QMaxPu else min(Modelica.Math.Vectors.interpolate(TableQMaxUwtcFilt[:, 1], TableQMaxUwtcFilt[:, 2], U0Pu), Modelica.Math.Vectors.interpolate(TableQMaxPwtcFilt[:, 1], TableQMaxPwtcFilt[:, 2], -P0Pu * SystemBase.SnRef / SNom)) "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)";
+  final parameter Types.ReactivePowerPu QMin0Pu = if QlConst then QMinPu else max(Modelica.Math.Vectors.interpolate(TableQMinUwtcFilt[:, 1], TableQMinUwtcFilt[:, 2], U0Pu), Modelica.Math.Vectors.interpolate(TableQMinPwtcFilt[:, 1], TableQMinPwtcFilt[:, 2], -P0Pu * SystemBase.SnRef / SNom)) "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)";
+  final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Initial complex voltage at grid terminal in pu (base UNom)";
+  final parameter Types.VoltageModulePu UWt0DroppedPu = ((U0Pu + RDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + XDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2 + ((-XDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu)) + RDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) ^ 0.5 "Initial voltage magnitude controlled by the WT in pu (base UNom)";
+  final parameter Types.PerUnit XWT0Pu = if MqG == 0 then UWt0DroppedPu - URef0Pu else -iq0Pu * U0Pu "Initial reactive power or voltage reference at grid WT terminal in pu (base SNom or UNom) (generator convention)";
 
 equation
   connect(wT4Injector.terminal, terminal) annotation(

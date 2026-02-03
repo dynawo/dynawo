@@ -29,11 +29,8 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     Hwtr = 5,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
-    IpMax0Pu(fixed = false),
     IqH1Pu = 1.05,
-    IqMax0Pu(fixed = false),
     IqMaxPu = 1.05,
-    IqMin0Pu(fixed = false),
     IqMinPu = -1.05,
     IqPostPu = 0,
     KdrtPu = 500,
@@ -53,9 +50,7 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     Mzc = false,
     P0Pu = -1,
     Q0Pu = 0.21,
-    QMax0Pu(fixed = false),
     QMaxPu = 0.8,
-    QMin0Pu(fixed = false),
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
@@ -73,20 +68,14 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     UPll2Pu = 0.13,
     URef0Pu = 0,
     UUnderPu = 0.9,
-    UWt0DroppedPu(fixed = false),
     Udb1Pu = 0.9,
     Udb2Pu = 1.1,
     UpquMaxPu = 1.1,
     UqDipPu = 0.9,
     XDropPu = 0,
-    XWT0Pu(fixed = false),
     XesPu = 0.01,
     fOverPu = 1.1,
     fUnderPu = 0.9,
-    i0Pu(re(fixed = false), im(fixed = false)),
-    iGs0Pu(re(fixed = false), im(fixed = false)),
-    ip0Pu(fixed = false),
-    iq0Pu(fixed = false),
     tG = 0.01,
     tPAero = 0.1,
     tPFiltQ = 0.01,
@@ -102,8 +91,7 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     tUFiltcl = 0.01,
     tUFiltql = 0.01,
     tfFilt = 0.01,
-    tphiFilt = 0.02,
-    u0Pu(re(fixed = false), im(fixed = false))) annotation(
+    tphiFilt = 0.02) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Faults
@@ -121,46 +109,6 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  // Initialization
-  Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
-    BesPu = wT4BCurrentSource.BesPu,
-    GesPu = wT4BCurrentSource.GesPu,
-    IMaxPu = wT4BCurrentSource.IMaxPu,
-    Kpqu = wT4BCurrentSource.Kpqu,
-    MqG = wT4BCurrentSource.MqG,
-    P0Pu = wT4BCurrentSource.P0Pu,
-    Q0Pu = wT4BCurrentSource.Q0Pu,
-    QMaxPu = wT4BCurrentSource.QMaxPu,
-    QMinPu = wT4BCurrentSource.QMinPu,
-    QlConst = wT4BCurrentSource.QlConst,
-    RDropPu = wT4BCurrentSource.RDropPu,
-    ResPu = wT4BCurrentSource.ResPu,
-    SNom = wT4BCurrentSource.SNom,
-    U0Pu = wT4BCurrentSource.U0Pu,
-    UPhase0 = wT4BCurrentSource.UPhase0,
-    UpquMaxPu = wT4BCurrentSource.UpquMaxPu,
-    URef0Pu = wT4BCurrentSource.URef0Pu,
-    XDropPu = wT4BCurrentSource.XDropPu,
-    XesPu = wT4BCurrentSource.XesPu) annotation(
-    Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-initial algorithm
-  wT4BCurrentSource.IpMax0Pu := wT4CurrentSource_INIT.IpMax0Pu;
-  wT4BCurrentSource.IqMax0Pu := wT4CurrentSource_INIT.IqMax0Pu;
-  wT4BCurrentSource.IqMin0Pu := wT4CurrentSource_INIT.IqMin0Pu;
-  wT4BCurrentSource.QMax0Pu := wT4CurrentSource_INIT.QMax0Pu;
-  wT4BCurrentSource.QMin0Pu := wT4CurrentSource_INIT.QMin0Pu;
-  wT4BCurrentSource.UWt0DroppedPu := wT4CurrentSource_INIT.UWt0DroppedPu;
-  wT4BCurrentSource.XWT0Pu := wT4CurrentSource_INIT.XWT0Pu;
-  wT4BCurrentSource.i0Pu.re := wT4CurrentSource_INIT.i0Pu.re;
-  wT4BCurrentSource.i0Pu.im := wT4CurrentSource_INIT.i0Pu.im;
-  wT4BCurrentSource.iGs0Pu.re := wT4CurrentSource_INIT.iGs0Pu.re;
-  wT4BCurrentSource.iGs0Pu.im := wT4CurrentSource_INIT.iGs0Pu.im;
-  wT4BCurrentSource.ip0Pu := wT4CurrentSource_INIT.ip0Pu;
-  wT4BCurrentSource.iq0Pu := wT4CurrentSource_INIT.iq0Pu;
-  wT4BCurrentSource.u0Pu.re := wT4CurrentSource_INIT.u0Pu.re;
-  wT4BCurrentSource.u0Pu.im := wT4CurrentSource_INIT.u0Pu.im;
 
 equation
   wT4BCurrentSource.wT4Injector.switchOffSignal1.value = false;

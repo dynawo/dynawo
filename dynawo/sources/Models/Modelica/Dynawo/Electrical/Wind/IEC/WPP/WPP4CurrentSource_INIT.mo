@@ -69,28 +69,28 @@ model WPP4CurrentSource_INIT "Wind Power Plant Type 4 model from IEC 61400-27-1 
   parameter Types.Angle UPccPhase0 = 0 "Initial voltage angle at the external bus controlled by the PPC (used when PPCLocal = False) in rad (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
 
-  Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
-  Types.ComplexCurrentPu iWt0Pu "Initial complex current at WT terminal in pu (base UNom, SnRef) (receptor convention)";
-  Types.ActivePowerPu PControl0Pu "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
-  Types.ReactivePowerPu QControl0Pu "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
-  Types.ComplexVoltagePu uControl0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
-  Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at WT terminal in pu (base UNom)";
+//  Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
+//  Types.ComplexCurrentPu iWt0Pu "Initial complex current at WT terminal in pu (base UNom, SnRef) (receptor convention)";
+//  Types.ActivePowerPu PControl0Pu "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
+//  Types.ReactivePowerPu QControl0Pu "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
+//  Types.ComplexVoltagePu uControl0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
+//  Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at WT terminal in pu (base UNom)";
 
 equation
-  if PPCLocal then
-    iControl0Pu = i0Pu;
-    PControl0Pu = -P0Pu * SystemBase.SnRef / SNom;
-    QControl0Pu = -Q0Pu * SystemBase.SnRef / SNom;
-    uControl0Pu = u0Pu;
-  else
-    iControl0Pu * Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0) = Modelica.ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu));
-    PControl0Pu = -PPcc0Pu * SystemBase.SnRef / SNom;
-    QControl0Pu = -QPcc0Pu * SystemBase.SnRef / SNom;
-    uControl0Pu = Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0);
-  end if;
+//  if PPCLocal then
+//    iControl0Pu = i0Pu;
+//    PControl0Pu = -P0Pu * SystemBase.SnRef / SNom;
+//    QControl0Pu = -Q0Pu * SystemBase.SnRef / SNom;
+//    uControl0Pu = u0Pu;
+//  else
+//    iControl0Pu * Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0) = Modelica.ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu));
+//    PControl0Pu = -PPcc0Pu * SystemBase.SnRef / SNom;
+//    QControl0Pu = -QPcc0Pu * SystemBase.SnRef / SNom;
+//    uControl0Pu = Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0);
+//  end if;
 
-  iWt0Pu = i0Pu - Complex(GPcsPu, BPcsPu) * (u0Pu * SNom / SystemBase.SnRef - Complex(RPcsPu, XPcsPu) * i0Pu);
-  uWt0Pu = u0Pu - Complex(RPcsPu, XPcsPu) * i0Pu * SystemBase.SnRef / SNom;
+//  iWt0Pu = i0Pu - Complex(GPcsPu, BPcsPu) * (u0Pu * SNom / SystemBase.SnRef - Complex(RPcsPu, XPcsPu) * i0Pu);
+//  uWt0Pu = u0Pu - Complex(RPcsPu, XPcsPu) * i0Pu * SystemBase.SnRef / SNom;
 
   annotation(
     preferredView = "text",
