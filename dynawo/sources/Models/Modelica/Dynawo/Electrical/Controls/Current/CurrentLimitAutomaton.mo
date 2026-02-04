@@ -23,6 +23,7 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
   parameter Integer OrderToEmit "Order to emit by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
   parameter Boolean Running "True if the CLA is activated";
   parameter Types.Time tLagBeforeActing "Time lag before taking action in s";
+  parameter Types.Time tFilter = 1e-4 "Filtering for derivative in s";
 
   //Inputs
   Dynawo.Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton natively present in C++ object";
@@ -30,6 +31,8 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
 
   //Output
   Dynawo.Connectors.IntPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
+
+  Real IMonitoredFilt(start = IMax) "Filtered monitored current (unit depending on IMax unit)";
 
 protected
   discrete Types.Time tThresholdReached(start = Constants.inf) "Time when IMonitored > IMax was first reached in s";
@@ -46,7 +49,7 @@ equation
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
-  when tThresholdReached <> Constants.inf and tOrder == Constants.inf and der(IMonitored.value) < 0 then
+  when tThresholdReached <> Constants.inf and tOrder == Constants.inf and der(IMonitoredFilt) < 0 then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, pre(IMonitored.value), String(tLagBeforeActing, significantDigits = 2));
   end when;
 
@@ -56,6 +59,8 @@ equation
     tOrder = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);
   end when;
+
+  tFilter * der(IMonitoredFilt) + IMonitoredFilt = IMonitored.value;
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>The automaton will open one or several components when the current stays higher than a predefined threshold during a certain amount of time on a monitored component (line, transformer, etc.).</body></html>"));
