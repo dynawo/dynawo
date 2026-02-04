@@ -48,8 +48,6 @@ set(MODEL_FILES
   GeneratorSynchronousExtTfo3W_INIT.mandatoryParam
   GeneratorSynchronousExtTfo4W_INIT.mo
   GeneratorSynchronousExtTfo4W_INIT.mandatoryParam
-  GeneratorSynchronousExtTfo4WConnect_INIT.mo
-  GeneratorSynchronousExtTfo3WConnect_INIT.mo
   )
 
 #

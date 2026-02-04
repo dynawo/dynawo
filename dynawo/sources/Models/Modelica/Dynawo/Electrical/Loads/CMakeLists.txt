@@ -64,7 +64,6 @@ set(MODEL_FILES
   LoadAlphaBetaTwoMotorSimplified_INIT.mandatoryParam
   LoadAuxiliaries_INIT.mo
   LoadAuxiliaries_INIT.mandatoryParam
-  LoadAuxiliariesConnect_INIT.mo
   LoadConnect_INIT.mo
   LoadPF_INIT.mo
   LoadPQ.mo
