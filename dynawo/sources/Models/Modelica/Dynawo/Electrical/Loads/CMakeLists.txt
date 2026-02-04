@@ -44,7 +44,6 @@ set(MODEL_FILES
   LoadAlphaBetaTwoMotorSimplified.extvar
   LoadAlphaBetaTwoMotorSimplified_INIT.mo
   LoadAuxiliaries_INIT.mo
-  LoadAuxiliariesConnect_INIT.mo
   LoadConnect_INIT.mo
   LoadPF_INIT.mo
   LoadPQ.mo

@@ -32,8 +32,6 @@ set(MODEL_FILES
   GeneratorSynchronousIntTfo_INIT.mo
   GeneratorSynchronousExtTfo3W_INIT.mo
   GeneratorSynchronousExtTfo4W_INIT.mo
-  GeneratorSynchronousExtTfo4WConnect_INIT.mo
-  GeneratorSynchronousExtTfo3WConnect_INIT.mo
   )
 
 #
