@@ -55,6 +55,10 @@ model TGov1 "IEEE governor type TGOV1"
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNomTurb)";
 
 equation
+  if time > 1.5 then
+    terminate("Simulation is over");
+  end if;
+
   connect(omegaPu, add.u1) annotation(
     Line(points = {{-160, -40}, {-120, -40}, {-120, -54}, {-102, -54}}, color = {0, 0, 127}));
   connect(omegaRefPu, add.u2) annotation(
