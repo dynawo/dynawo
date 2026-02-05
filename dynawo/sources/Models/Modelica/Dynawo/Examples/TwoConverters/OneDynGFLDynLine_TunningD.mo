@@ -2,7 +2,7 @@ within Dynawo.Examples.TwoConverters;
 
 model OneDynGFLDynLine_TunningD
   extends Icons.Example;
-  Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFL GFL1 (CFilterPu = 1e-15, Kfd = 1, Kfq = 1, Ki = 1600/314, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 80/314, Kpc = 0.38, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = 5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.0847, UPhase0 = -0.18, tPFilt = 1 / 300, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 /2000, tVSC = 1e-10) annotation(
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFL GFL1 (CFilterPu = 1e-15, Kfd = 1, Kfq = 1, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.38, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = 5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.0847, UPhase0 = -0.18, tPFilt = 1 / 300, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 /2000, tVSC = 1e-10) annotation(
     Placement(transformation(origin = {0, 12}, extent = {{-18, -18}, {18, 18}})));
   // Dynawo.Types.VoltageModulePu U1Pu;
   // Dynawo.Types.Angle UPhase1;
