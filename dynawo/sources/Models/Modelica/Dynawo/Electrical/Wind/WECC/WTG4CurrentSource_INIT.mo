@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Wind.WECC;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Wind.WECC;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a current source as interface with the grid"
@@ -90,6 +91,5 @@ equation
   Id0Pu = Modelica.Math.cos(UPhaseConv0) * iInj0Pu.re + Modelica.Math.sin(UPhaseConv0) * iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseConv0) * iInj0Pu.re - Modelica.Math.cos(UPhaseConv0) * iInj0Pu.im;
 
-  annotation(
-    preferredView = "text");
+  annotation(preferredView = "text");
 end WTG4CurrentSource_INIT;

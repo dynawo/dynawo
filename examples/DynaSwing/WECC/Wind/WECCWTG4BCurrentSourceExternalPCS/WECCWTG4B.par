@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,11 +8,10 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
-    simulation tools for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-
   <set id="Solver">
     <par type="DOUBLE" name="hMin" value="0.0001"/>
     <par type="DOUBLE" name="hMax" value="0.003"/>
@@ -20,7 +19,6 @@
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
   </set>
-
   <set id="InfBusPar">
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="0.9906184368094055"/>
     <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.5"/>
@@ -32,7 +30,6 @@
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="17"/>
     <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="17.5"/>
   </set>
-
   <set id="PlantPar">
     <!-- Initialization -->
     <par type="DOUBLE" name="WTG4B_P0Pu" value="-0.7058"/>
@@ -147,7 +144,6 @@
     <par type="BOOL" name="WTG4B_PPCLocal" value="false"/>
     <par type="BOOL" name="WTG4B_ConverterLVControl" value="true"/>
   </set>
-
   <set id="TfoPar">
     <par type="DOUBLE" name="transformer_rTfoPu" value="0.9597"/>
     <par type="DOUBLE" name="transformer_RPu" value="0.01"/>
@@ -155,28 +151,23 @@
     <par type="DOUBLE" name="transformer_GPu" value="0"/>
     <par type="DOUBLE" name="transformer_BPu" value="0"/>
   </set>
-
   <set id="LinePar">
     <par type="DOUBLE" name="line_RPu" value="0.0"/>
     <par type="DOUBLE" name="line_XPu" value="0.05"/>
     <par type="DOUBLE" name="line_GPu" value="0"/>
     <par type="DOUBLE" name="line_BPu" value="0"/>
   </set>
-
   <set id="OmegaRefPar">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
-
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="0.1"/>
     <par type="DOUBLE" name="step_tStep" value="1"/>
     <par type="DOUBLE" name="step_Value0" value="0.35"/>
   </set>
-
   <set id="URefPu">
     <par type="DOUBLE" name="step_Height" value="-0.02"/>
     <par type="DOUBLE" name="step_tStep" value="8"/>
     <par type="DOUBLE" name="step_Value0" value="1.02"/>
   </set>
-
 </parametersSet>

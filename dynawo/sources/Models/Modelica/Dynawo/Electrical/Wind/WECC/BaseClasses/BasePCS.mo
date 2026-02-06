@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Wind.WECC.BaseClasses;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Wind.WECC.BaseClasses;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model BasePCS "Base model of the Power Collection System to be extended in the WECC models of power plants"
@@ -18,6 +19,7 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(extent = {{120, -10}, {100, 10}}, rotation = 0)));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PPccPu(start = PPcc0Pu) "Active power setpoint at regulated bus in pu (receptor convention) (base SnRef) (used only when PPCLocal = false)" annotation(
     Placement(visible = true, transformation(origin = {140, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -151,6 +153,5 @@ equation
   connect(complexExpr.y, complexToReal1.u) annotation(
     Line(points = {{123, 84}, {106, 84}}, color = {85, 170, 255}));
 
-annotation(
-    Diagram);
+  annotation(preferredView = "diagram");
 end BasePCS;

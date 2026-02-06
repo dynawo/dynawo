@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Photovoltaics.WECC;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model PVVoltageSourceNoPlantControl_INIT "Initialization model for WECC PV model with a voltage source as interface with the grid"
@@ -55,13 +56,12 @@ model PVVoltageSourceNoPlantControl_INIT "Initialization model for WECC PV model
   Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
 
 equation
-
-//Converter terminal electrical quantities
+  //Converter terminal electrical quantities
   i0Pu = Modelica.ComplexMath.conj(s0Pu/u0Pu);
   u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = Complex(P0Pu, Q0Pu);
 
-//Converter terminal electrical quantities
+  //Converter terminal electrical quantities
   UConv0Pu = Modelica.ComplexMath.'abs'(uConv0Pu);
   iConv0Pu = (-i0Pu*SystemBase.SnRef/SNom);
   uConv0Pu = u0Pu;
@@ -70,7 +70,7 @@ equation
   QConv0Pu = Modelica.ComplexMath.imag(sConv0Pu);
   UPhaseConv0 = Modelica.ComplexMath.arg(uConv0Pu);
 
-//Injector terminal electrical quantities
+  //Injector terminal electrical quantities
   iInj0Pu = iConv0Pu;
   uInj0Pu = uConv0Pu + Complex(RPu, XPu)*iConv0Pu;
   sInj0Pu = uInj0Pu*Modelica.ComplexMath.conj(iInj0Pu);
@@ -83,12 +83,11 @@ equation
   Id0Pu = Modelica.Math.cos(UPhaseConv0)*iInj0Pu.re + Modelica.Math.sin(UPhaseConv0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseConv0)*iInj0Pu.re - Modelica.Math.cos(UPhaseConv0)*iInj0Pu.im;
 
-//Source electrical quantities
+  //Source electrical quantities
   iSource0Pu = -iInj0Pu*SystemBase.SnRef/SNom;
   uSource0Pu = uInj0Pu + Complex(RSourcePu*SystemBase.SnRef/SNom, XSourcePu*SystemBase.SnRef/SNom)*iInj0Pu;
 
   PF0 = if (not (Modelica.ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/Modelica.ComplexMath.'abs'(s0Pu) else 0;
 
-  annotation(
-    preferredView = "text");
+  annotation(preferredView = "text");
 end PVVoltageSourceNoPlantControl_INIT;
