@@ -75,5 +75,5 @@ equation
 <li> Injector (id,iq). </li>
 </ul> </p></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 4A")}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 110}})));
 end WTG4ACurrentSource1;

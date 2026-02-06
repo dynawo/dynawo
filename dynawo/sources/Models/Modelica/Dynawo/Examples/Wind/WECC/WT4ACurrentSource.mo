@@ -25,7 +25,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     tOmegaEvtStart = 6,
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     RPu = 0,
     XPu = 0.0000020661,
@@ -167,10 +167,11 @@ equation
   WT4A.injector.switchOffSignal1.value = false;
   WT4A.injector.switchOffSignal2.value = false;
   WT4A.injector.switchOffSignal3.value = false;
+
   connect(line.terminal2, WT4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
-    Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(PConvRefPu.y, WT4A.PConvRefPu) annotation(
     Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(QConvRefPu.y, WT4A.QConvRefPu) annotation(

@@ -40,6 +40,7 @@ model REGCc "WECC Generator Converter REGC type C"
     Placement(visible = true, transformation(origin = {310, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {109, 39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uiSource(start = uSource0Pu.im) "Imaginary voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {310, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {109, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UNomFix(k = UInj0Pu) annotation(
@@ -98,7 +99,7 @@ model REGCc "WECC Generator Converter REGC type C"
   parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
-  parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
+  parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
   connect(RateFlag0.y, switch.u2) annotation(

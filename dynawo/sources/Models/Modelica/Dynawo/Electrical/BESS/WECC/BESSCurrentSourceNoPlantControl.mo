@@ -25,7 +25,7 @@ model BESSCurrentSourceNoPlantControl "WECC BESS with electrical control model t
   parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom). Including source reactance for voltage source." annotation(
     Dialog(tab = "LV transformer"));
 
-  // In every cases (RPu + j*XPu) is the serial impedance between converter's output and injector terminal
+  // In every case (RPu + j*XPu) is the serial impedance between converter's output and injector terminal
   //Depending on the value of ConverterLVControl we are correctly defining these parameters
   final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
   final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
@@ -35,7 +35,8 @@ model BESSCurrentSourceNoPlantControl "WECC BESS with electrical control model t
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
 equation

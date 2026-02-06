@@ -162,14 +162,14 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plan
     rTfoPu = BESS.rTfoPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Controls.Utilities.Measurements PCCmeasurements annotation(
-    Placement(visible = true, transformation(origin = {-90, 1.11022e-15}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(
     BPu = 0,
     GPu = 0,
     RPu = 0.01,
     XPu = 0.15,
     rTfoPu = 0.95) annotation(
-    Placement(visible = true, transformation(origin = {-40, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Electrical.Lines.Line Zcc(
     BPu = 0,
     GPu = 0,
@@ -232,6 +232,7 @@ equation
   BESS.injector.switchOffSignal1.value = false;
   BESS.injector.switchOffSignal2.value = false;
   BESS.injector.switchOffSignal3.value = false;
+
   connect(omegaRefPu.y, BESS.omegaRefPu) annotation(
     Line(points = {{80, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(QRefPu.y, BESS.QRefPu) annotation(

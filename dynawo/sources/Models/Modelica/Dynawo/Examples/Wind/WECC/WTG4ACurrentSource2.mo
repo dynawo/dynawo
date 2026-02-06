@@ -26,7 +26,7 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     tOmegaEvtStart = 6,
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     RPu = 0,
     XPu = 0.0000020661,
@@ -156,9 +156,9 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
   Modelica.Blocks.Sources.Constant QRefPu(k = WTG4A.QControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = WTG4A.URef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
@@ -219,10 +219,11 @@ equation
   WTG4A.injector.switchOffSignal1.value = false;
   WTG4A.injector.switchOffSignal2.value = false;
   WTG4A.injector.switchOffSignal3.value = false;
+
   connect(line.terminal2, WTG4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
-    Line(points = {{-82, 0}, {-60, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, WTG4A.omegaRefPu) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(QRefPu.y, WTG4A.QRefPu) annotation(

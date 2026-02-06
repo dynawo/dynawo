@@ -129,6 +129,7 @@ equation
     Line(points = {{151, 90}, {157, 90}, {157, 106}, {168, 106}}, color = {0, 0, 127}));
   connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
     Line(points = {{151, 130}, {156, 130}, {156, 118}, {168, 118}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px;\">This block contains the electrical inverter control of the generic WECC Wind (or PV) model according to (in case page cannot be found, copy link in browser):<br><a href=\"https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf\">https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf</a></p>

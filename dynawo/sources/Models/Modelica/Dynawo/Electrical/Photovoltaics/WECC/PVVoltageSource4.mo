@@ -32,6 +32,7 @@ model PVVoltageSource4 "WECC PV model with a voltage source as interface with th
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
     DDn = DDn,
     DUp = DUp,
@@ -115,7 +116,7 @@ model PVVoltageSource4 "WECC PV model with a voltage source as interface with th
     UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Initial parameters
+  // Initial parameter
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc*QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
     Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
@@ -182,5 +183,5 @@ equation
     Documentation(info = "<html>
 <p> This block contains the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(extent = {{-180, -60}, {130, 60}}, grid = {1, 1})),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {130, 60}})));
+    Diagram(coordinateSystem(extent = {{-150, -60}, {130, 120}})));
 end PVVoltageSource4;

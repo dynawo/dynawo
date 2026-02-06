@@ -200,6 +200,7 @@ equation
     Line(points = {{61, 40}, {70, 40}, {70, 48}, {78, 48}}, color = {0, 0, 127}));
   connect(max1.y, division1.u2) annotation(
     Line(points = {{61, 40}, {100, 40}, {100, -126}, {169, -126}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>

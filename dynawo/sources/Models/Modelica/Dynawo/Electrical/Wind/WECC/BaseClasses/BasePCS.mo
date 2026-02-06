@@ -24,7 +24,7 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
   Modelica.Blocks.Interfaces.RealInput PPccPu(start = PPcc0Pu) "Active power setpoint at regulated bus in pu (receptor convention) (base SnRef) (used only when PPCLocal = false)" annotation(
     Placement(visible = true, transformation(origin = {140, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput QPccPu(start = QPcc0Pu) "Reactive power setpoint at regulated bus in pu (receptor convention) (base SnRef) (used only when PPCLocal = false)" annotation(
-    Placement(visible = true, transformation(origin = {140, 38}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {140, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(im(start = uPcc0Pu.im), re(start = uPcc0Pu.re)) "Complex voltage at PPC regulated bus in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {140, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(extent = {{120, 60}, {100, 80}}, rotation = 0)));
 
@@ -107,13 +107,13 @@ equation
   connect(booleanConstant.y, switch.u2) annotation(
     Line(points = {{40, 110}, {40, 23}, {31, 23}}, color = {255, 0, 255}));
   connect(switch2.y, u.im) annotation(
-    Line(points = {{19.5, 55}, {-1.25, 55}, {-1.25, 60}, {-9, 60}}, color = {0, 0, 127}));
+    Line(points = {{19.5, 55}, {0, 55}, {0, 60}, {-9, 60}}, color = {0, 0, 127}));
   connect(switch1.y, u.re) annotation(
-    Line(points = {{19.5, 70}, {-1.25, 70}, {-1.25, 66}, {-9, 66}}, color = {0, 0, 127}));
+    Line(points = {{19.5, 70}, {0, 70}, {0, 66}, {-9, 66}}, color = {0, 0, 127}));
   connect(switch4.y, i.re) annotation(
-    Line(points = {{19.5, 100}, {-0.5, 100}, {-0.5, 96}, {-9, 96}}, color = {0, 0, 127}));
+    Line(points = {{19.5, 100}, {0, 100}, {0, 96}, {-9, 96}}, color = {0, 0, 127}));
   connect(switch3.y, i.im) annotation(
-    Line(points = {{19.5, 85}, {-0.5, 85}, {-0.5, 90}, {-9, 90}}, color = {0, 0, 127}));
+    Line(points = {{19.5, 85}, {0, 85}, {0, 90}, {-9, 90}}, color = {0, 0, 127}));
   connect(uPccPu, complexToReal.u) annotation(
     Line(points = {{140, 60}, {123, 60}, {123, 54}, {105, 54}}, color = {85, 170, 255}));
   connect(PRegPuSnExtern.y, switch.u3) annotation(

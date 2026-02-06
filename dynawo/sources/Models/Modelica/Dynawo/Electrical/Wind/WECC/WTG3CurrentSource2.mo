@@ -33,7 +33,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-188, 28}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
-    Placement(transformation(origin = {-79, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-79, 120}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power at optimal pitch angle in pu (base SNom)" annotation(
     Placement(transformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
@@ -42,6 +42,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-188, -6}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(transformation(origin = {-188, -22}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(
     Kip = Kip,
     Kpp = Kpp,
@@ -254,7 +255,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
-parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
+  parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
+
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc*QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
     Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
@@ -310,7 +312,7 @@ equation
   connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-79, 110}, {-79, 11}}, color = {0, 0, 127}));
+    Line(points = {{-79, 120}, {-79, 11}}, color = {0, 0, 127}));
   connect(wecc_repc.iPu, i.y) annotation(
     Line(points = {{-129, 11}, {-129, 93}, {-20, 93}}, color = {85, 170, 255}));
   connect(wecc_repc.uPu, u.y) annotation(
@@ -343,9 +345,8 @@ equation
     Line(points = {{-69, -9}, {-60, -9}, {-60, -62}, {-38, -62}}, color = {0, 0, 127}));
 
   annotation(
-    Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})),
-    version = "",
-    uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
+    preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Plant level control.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model Wtg3CurrentSource1 is the change of the pitch controller model, this one offers mor flexibility with the limits of the integrators.</font></div></body></html>"),
-    Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})));
+    Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 110}})));
 end WTG3CurrentSource2;

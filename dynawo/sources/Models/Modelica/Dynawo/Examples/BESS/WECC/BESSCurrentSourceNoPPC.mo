@@ -35,18 +35,6 @@ model BESSCurrentSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(BESS.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-
-  // Initialization
-  Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
-    ConverterLVControl = BESS.ConverterLVControl,
-    P0Pu = BESS.s0Pu.re,
-    Q0Pu = BESS.s0Pu.im,
-    RLvTrPu = BESS.RLvTrPu,
-    SNom = BESS.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(BESS.u0Pu),
-    UPhase0 = BESS.UPhase0,
-    XLvTrPu = BESS.XLvTrPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.BESS.WECC.BESSCurrentSourceNoPlantControl BESS(
     ConverterLVControl = true,
     DPMaxPu = 2,
@@ -131,7 +119,7 @@ model BESSCurrentSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
     zerox = 0.05) annotation(
-    Placement(visible = true, transformation(origin = {40, 1.55431e-15}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {40, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {10, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRef(
@@ -144,6 +132,18 @@ model BESSCurrentSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
     offset = BESS.PConv0Pu,
     startTime = 17) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
+    ConverterLVControl = BESS.ConverterLVControl,
+    P0Pu = BESS.s0Pu.re,
+    Q0Pu = BESS.s0Pu.im,
+    RLvTrPu = BESS.RLvTrPu,
+    SNom = BESS.SNom,
+    U0Pu = Modelica.ComplexMath.'abs'(BESS.u0Pu),
+    UPhase0 = BESS.UPhase0,
+    XLvTrPu = BESS.XLvTrPu) annotation(
+    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
   BESS.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
@@ -171,6 +171,7 @@ equation
   BESS.injector.switchOffSignal1.value = false;
   BESS.injector.switchOffSignal2.value = false;
   BESS.injector.switchOffSignal3.value = false;
+
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-100, 0}}, color = {0, 0, 255}));
   connect(BESS.terminal, line.terminal2) annotation(

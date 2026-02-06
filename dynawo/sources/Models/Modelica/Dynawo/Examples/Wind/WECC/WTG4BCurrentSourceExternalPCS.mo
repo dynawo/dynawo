@@ -13,7 +13,7 @@ within Dynawo.Examples.Wind.WECC;
 * of simulation tools for power systems.
 */
 
-model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model(including a plant controller) - WTG4B - on infinite bus"
+model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant controller) - WTG4B - on infinite bus"
   extends Icons.Example;
 
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
@@ -30,30 +30,9 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model(including a plant c
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.1) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4B.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
-    BMvHvPu = WTG4B.BMvHvPu,
-    ConverterLVControl = WTG4B.ConverterLVControl,
-    GMvHvPu = WTG4B.GMvHvPu,
-    P0Pu = WTG4B.P0Pu,
-    PPCLocal = WTG4B.PPCLocal,
-    PPcc0Pu = WTG4B.PPcc0Pu,
-    Q0Pu = WTG4B.Q0Pu,
-    QPcc0Pu = WTG4B.QPcc0Pu,
-    RLvTrPu = WTG4B.RLvTrPu,
-    RMvHvPu = WTG4B.RMvHvPu,
-    SNom = WTG4B.SNom,
-    U0Pu = WTG4B.U0Pu,
-    UPcc0Pu = WTG4B.UPcc0Pu,
-    UPhase0 = WTG4B.UPhase0,
-    UPhasePcc0 = 0.03533563863002929,
-    XLvTrPu = WTG4B.XLvTrPu,
-    XMvHvPu = WTG4B.XMvHvPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  // Initialization
   Dynawo.Electrical.Lines.Line Zcc(
     BPu = 0,
     GPu = 0,
@@ -61,14 +40,14 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model(including a plant c
     XPu = 0.05) annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Utilities.Measurements PCCmeasurements annotation(
-    Placement(visible = true, transformation(origin = {-90, 1.11022e-15}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(
     BPu = 0,
     GPu = 0,
     RPu = 0.01,
     XPu = 0.15,
     rTfoPu = 0.95) annotation(
-    Placement(visible = true, transformation(origin = {-40, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Step URef(
     height = 0.02,
     offset = WTG4B.URef0Pu,
@@ -200,6 +179,27 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model(including a plant c
     zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
+  // Initialization
+  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = WTG4B.BMvHvPu,
+    ConverterLVControl = WTG4B.ConverterLVControl,
+    GMvHvPu = WTG4B.GMvHvPu,
+    P0Pu = WTG4B.P0Pu,
+    PPCLocal = WTG4B.PPCLocal,
+    PPcc0Pu = WTG4B.PPcc0Pu,
+    Q0Pu = WTG4B.Q0Pu,
+    QPcc0Pu = WTG4B.QPcc0Pu,
+    RLvTrPu = WTG4B.RLvTrPu,
+    RMvHvPu = WTG4B.RMvHvPu,
+    SNom = WTG4B.SNom,
+    U0Pu = WTG4B.U0Pu,
+    UPcc0Pu = WTG4B.UPcc0Pu,
+    UPhase0 = WTG4B.UPhase0,
+    UPhasePcc0 = 0.03533563863002929,
+    XLvTrPu = WTG4B.XLvTrPu,
+    XMvHvPu = WTG4B.XMvHvPu) annotation(
+    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 initial algorithm
   WTG4B.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
   WTG4B.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
@@ -234,6 +234,7 @@ equation
   WTG4B.injector.switchOffSignal1.value = false;
   WTG4B.injector.switchOffSignal2.value = false;
   WTG4B.injector.switchOffSignal3.value = false;
+
   connect(infiniteBus.terminal, Zcc.terminal1) annotation(
     Line(points = {{-180, 0}, {-160, 0}}, color = {0, 0, 255}));
   connect(Zcc.terminal2, PCCmeasurements.terminal1) annotation(
@@ -245,7 +246,7 @@ equation
   connect(URef.y, WTG4B.URefPu) annotation(
     Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
   connect(WTG4B.omegaRefPu, omegaRefPu.y) annotation(
-    Line(points = {{42, 12}, {60, 12}, {60, 40}, {80, 40}}, color = {0, 0, 127}));
+    Line(points = {{42, 12}, {60, 12}, {60, 40}, {79, 40}}, color = {0, 0, 127}));
   connect(ZPcs.terminal2, WTG4B.terminal) annotation(
     Line(points = {{-20, 0}, {-2, 0}}, color = {0, 0, 255}));
   connect(PCCmeasurements.PPu, WTG4B.PPccPu) annotation(

@@ -23,7 +23,8 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
 
   // Input variable
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
-    Placement(visible = true, transformation(origin = {-79, 120}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
@@ -107,13 +108,13 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   Dynawo.Electrical.Sources.InjectorIDQ injector(
     Id0Pu = Id0Pu,
     Iq0Pu = -Iq0Pu,
-    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
-    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
+    P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef),
+    Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef),
     SNom = SNom,
     U0Pu = UInj0Pu,
     UPhase0 = UPhaseConv0,
     i0Pu = i0Pu,
-    s0Pu = Complex(-PInj0Pu*(SNom/SystemBase.SnRef), -QInj0Pu*(SNom/SystemBase.SnRef)),
+    s0Pu = Complex(-PInj0Pu * (SNom / SystemBase.SnRef), -QInj0Pu * (SNom / SystemBase.SnRef)),
     u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Dynawo.Electrical.Controls.PLL.PLL pll(
@@ -135,7 +136,7 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
     u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
-    Placement(visible = true, transformation(origin = {65, -8.88178e-16}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -148,11 +149,11 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
-parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
+  parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
   connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-79, 120}, {-79, 11}}, color = {0, 0, 127}));
+    Line(points = {{-190, 60}, {-79, 60}, {-79, 11}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
     Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
   connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(

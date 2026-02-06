@@ -127,7 +127,7 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-185, 38}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
-    Placement(visible = true, transformation(origin = {65, -8.88178e-16}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
   Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,
@@ -150,7 +150,7 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
-parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
+  parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
   connect(reecC.idCmdPu, regcA.idCmdPu) annotation(

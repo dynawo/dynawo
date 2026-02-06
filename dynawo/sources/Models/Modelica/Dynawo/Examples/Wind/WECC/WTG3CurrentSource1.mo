@@ -26,7 +26,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     tOmegaEvtStart = 6,
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     RPu = 0,
     XPu = 0.0000020661,
@@ -178,20 +178,20 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     UPhase0 = 0) annotation(
     Placement(transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = WTG3.PControl0Pu) annotation(
-    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant QRefPu(k = WTG3.QControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Constant QRefPu(k = WTG3.QControl0Pu) annotation(
+    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = WTG3.URef0Pu) annotation(
-    Placement(transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG3.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmREfPu(k = WTG3.PControl0Pu) annotation(
+  Modelica.Blocks.Sources.Constant PmRefPu(k = WTG3.PControl0Pu) annotation(
     Placement(transformation(origin = {8, 82}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
 
   // Initialization
@@ -247,21 +247,22 @@ equation
   WTG3.injector.switchOffSignal1.value = false;
   WTG3.injector.switchOffSignal2.value = false;
   WTG3.injector.switchOffSignal3.value = false;
+
   connect(line.terminal2, WTG3.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
-    Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, WTG3.omegaRefPu) annotation(
-    Line(points = {{79, 40}, {61.5, 40}, {61.5, -12}, {42, -12}}, color = {0, 0, 127}));
+    Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(QRefPu.y, WTG3.QRefPu) annotation(
-    Line(points = {{79, 42}, {61.5, 42}, {61.5, 12}, {42, 12}}, color = {0, 0, 127}));
+    Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(PRefPu.y, WTG3.PRefPu) annotation(
     Line(points = {{79, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(URefPu.y, WTG3.URefPu) annotation(
-    Line(points = {{79, 80}, {33, 80}, {33, 22}, {32, 22}}, color = {0, 0, 127}));
+    Line(points = {{79, 80}, {32, 80}, {32, 22}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG3.PFaRef) annotation(
     Line(points = {{80, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
-  connect(PmREfPu.y, WTG3.PmRefPu) annotation(
+  connect(PmRefPu.y, WTG3.PmRefPu) annotation(
     Line(points = {{8, 72}, {8, 22}}, color = {0, 0, 127}));
   connect(const.y, WTG3.PPccPu) annotation(
     Line(points = {{-38, -40}, {-20, -40}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));

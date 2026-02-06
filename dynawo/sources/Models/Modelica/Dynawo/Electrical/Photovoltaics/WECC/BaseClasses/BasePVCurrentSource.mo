@@ -21,9 +21,10 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  // Input variables
+  // Input variable
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-79, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
@@ -87,8 +88,8 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   Dynawo.Electrical.Sources.InjectorIDQ injector(
     Id0Pu = Id0Pu,
     Iq0Pu = -Iq0Pu,
-    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
-    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
+    P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef),
+    Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef),
     SNom = SNom,
     U0Pu = UInj0Pu,
     i0Pu = i0Pu,
@@ -106,7 +107,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     u0Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
-    Placement(transformation(origin = {65, -8.88178e-16}, extent = {{-5, 5}, {5, -5}})));
+    Placement(transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}})));
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,
@@ -128,7 +129,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
-parameter  Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
+  parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(

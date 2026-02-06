@@ -32,7 +32,7 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PMaxPu = PMaxPu, PMinPu = PMinPu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, URef0Pu = URef0Pu, iControl0Pu = iControl0Pu, uControl0Pu = uControl0Pu, SNom = SNom) annotation(
-    Placement(transformation(origin = {-118, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTb wecc_wtgt(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, tp = tp, PConv0Pu = PConv0Pu, PePu(start = PConv0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
@@ -42,15 +42,15 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
 
 equation
   connect(URefPu, wecc_repc.URefPu) annotation(
-    Line(points = {{-190, -40}, {-120, -40}, {-120, -11}, {-118, -11}}, color = {0, 0, 127}));
+    Line(points = {{-190, -40}, {-120, -40}, {-120, -11}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
-    Line(points = {{-149, 49}, {-140, 49}, {-140, 8}, {-129, 8}}, color = {0, 0, 127}));
+    Line(points = {{-149, 49}, {-140, 49}, {-140, 8}, {-131, 8}}, color = {0, 0, 127}));
   connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
-    Line(points = {{-190, 20}, {-160, 20}, {-160, 4}, {-129, 4}}, color = {0, 0, 127}));
+    Line(points = {{-190, 20}, {-160, 20}, {-160, 4}, {-131, 4}}, color = {0, 0, 127}));
   connect(PRefPu, wecc_repc.PRefPu) annotation(
-    Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-129, -2}}, color = {0, 0, 127}));
+    Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(
-    Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-129, -6}}, color = {0, 0, 127}));
+    Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-131, -6}}, color = {0, 0, 127}));
   connect(injector.PInjPuSn, wecc_wtgt.PePu) annotation(
     Line(points = {{12, -4}, {25, -4}, {25, -41}, {-80, -41}}, color = {0, 0, 127}));
   connect(wecc_wtgt.omegaGPu, wecc_reec.omegaGPu) annotation(
@@ -86,5 +86,5 @@ equation
 <li> Injector (id,iq). </li>
 </ul> </p></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 4A")}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 110}})));
 end WTG4ACurrentSource2;

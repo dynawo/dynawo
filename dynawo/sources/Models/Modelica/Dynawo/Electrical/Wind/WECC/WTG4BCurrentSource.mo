@@ -27,6 +27,7 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-120, 50}, {-100, 70}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-120, -70}, {-100, -50}}, rotation = 0)));
+
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
     DDn = DDn,
     DUp = DUp,
@@ -109,7 +110,6 @@ equation
 <li> Generator control. </li>
 <li> Injector (id,iq). </li>
 </ul> <p></p></body></html>"),
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 4B")}, coordinateSystem(extent = {{-100, -100}, {100, 100}}, grid = {1, 1})),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-100, -100}, {100, 100}})),
-    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 4B")}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 110}})));
 end WTG4BCurrentSource;

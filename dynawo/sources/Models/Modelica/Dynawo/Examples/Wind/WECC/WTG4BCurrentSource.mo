@@ -12,7 +12,7 @@ within Dynawo.Examples.Wind.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) - WTG4B - on infinite bus"
+model WTG4BCurrentSource "WECC Wind Type 4B Model (including a plant controller) - WTG4B - on infinite bus"
   extends Icons.Example;
 
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
@@ -25,7 +25,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     tOmegaEvtStart = 6,
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     RPu = 0,
     XPu = 0.0000020661,
@@ -146,7 +146,6 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     UPhase0 = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
-
   Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = WTG4B.BMvHvPu,
     ConverterLVControl = WTG4B.ConverterLVControl,
@@ -188,7 +187,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     startTime = 5) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {90, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4B.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
@@ -224,10 +223,11 @@ equation
   WTG4B.injector.switchOffSignal1.value = false;
   WTG4B.injector.switchOffSignal2.value = false;
   WTG4B.injector.switchOffSignal3.value = false;
+
   connect(infiniteBus.terminal, line.terminal1) annotation(
-    Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, WTG4B.omegaRefPu) annotation(
-    Line(points = {{79, 38}, {60, 38}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
+    Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG4B.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(const.y, WTG4B.QPccPu) annotation(
