@@ -433,6 +433,10 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
       throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
   } while (change);
 
+  //  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+  //  if (flag0 < 0)
+  //    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+
   // reinit output
   flagInit_ = false;
 #if _DEBUG_
