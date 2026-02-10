@@ -15,6 +15,10 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
+  HVRT.mo
+  HVRT.extvar
+  LVRT.mo
+  LVRT.extvar
   LossOfSynchronismProtection.mo
   LossOfSynchronismProtection.extvar
   LVRT4Points.mo
