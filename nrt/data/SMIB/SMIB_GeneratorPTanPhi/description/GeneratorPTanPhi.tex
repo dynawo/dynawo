@@ -1,0 +1,186 @@
+%% Copyright (c) 2025, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, a hybrid C++/Modelica open source suite
+%% of simulation tools for power systems.
+
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../../../nrt/documentation/latex_setup.tex}
+
+\begin{document}
+
+\chapter*{Test - ``Model Generator PTanPhi"}
+This is the documentation for the test ``Model Generator P TanPhi" in the Dynawo project non regression tests.
+
+% Generic description of the non regression test
+% Data origin, network size, simulation types and numbers, etc.
+\section*{Test description}
+
+This test is a basic unit test. It is based on a model (DYD
+file) which instantiates a Generator PTanPhi model, an infinite bus, a line and a
+load.
+There are two different embedded tests  :
+\begin{itemize}
+\item In the first test, the generator PTanPhi is deactivated to make sure the
+disconnection is properly working;
+\item in the second test, the frequency oscillates and we expect the output
+active power to compensate this without crossing the power limits.
+The reactive power will follow the active power behavior until it reaches its limits.
+\item in the third test, the active power should be doubled during 1 s until the limit is reached at 2 pu.
+N.B : when using deltaPGenPu, we increase the power in percentage, when using deltaPRefPu we add the value to the active power existing.
+
+\end{itemize}
+
+% Description of the simulation
+% Events, solver, duration, outputs, etc.
+\subsection*{Simulation description}
+
+\subsubsection*{First test}
+The first simulation has the following characteristics:
+\begin{itemize}
+\item The switch off signal of the generator PTanPhi is enabled at $t=10s$;
+\item The frequency and load of the network are constants;
+\item The simulation lasts for 20s.
+\end{itemize}
+
+\subsubsection*{Second test}
+The second simulation has the following characteristics:
+\begin{itemize}
+\item The load of the network is constant;
+\item The frequency of the network oscillates around a reference value;
+\item The simulation lasts for 10s.
+\end{itemize}
+
+% Expected results
+% Events, logs, plots, etc.
+\subsection*{Expected results}
+\subsubsection*{First test}
+
+In this test, we expect the active power to fall at 0 after the deactivation of
+the generator.
+
+The following plot illustrates this:
+\begin{figure}[H]
+  \caption{Evolution of active and reactive power as a function of time}
+  \begin{tikzpicture}
+    \begin{axis}[]
+        \addplot[color=green!50]
+        table[x=time,y=Generator_generator_running]
+        {../reference/outputsRunning/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=time,y=Generator_generator_PGenPu]
+        {../reference/outputsRunning/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time,y=Generator_generator_QGenPu]
+        {../reference/outputsRunning/curves/curves.csv};
+        \legend{$running$, $P$, $Q$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+This corresponds to the following timeline:
+\begin{verbatim}
+  10.000000 | Generator | GENERATOR : disconnecting
+\end{verbatim}
+
+\subsubsection*{Second test}
+
+In this test, we expect the active power to compensate the oscillations of
+the frequency without crossing the minimum and maximum limits.
+
+The following plots illustrate this:
+\begin{figure}[H]
+  \caption{Evolution of active power as a function of time}
+  \begin{tikzpicture}
+    \begin{axis}[]
+        \addplot[color=green!50]
+        table[x=time,y=Generator_generator_PMinPu]
+        {../reference/outputsOmega/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=time,y=Generator_generator_PMaxPu]
+        {../reference/outputsOmega/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time,y=Generator_generator_PGenPu]
+        {../reference/outputsOmega/curves/curves.csv};
+        \legend{$P_{Min}$, $P_{Max}$, $P$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+\begin{figure}[H]
+  \caption{Evolution of reactive power as a function of time}
+  \begin{tikzpicture}
+    \begin{axis}[]
+        \addplot[color=green!50]
+        table[x=time,y=Generator_generator_QMinPu]
+        {../reference/outputsOmega/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=time,y=Generator_generator_QMaxPu]
+        {../reference/outputsOmega/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time,y=Generator_generator_QGenPu]
+        {../reference/outputsOmega/curves/curves.csv};
+        \legend{$Q_{Min}$, $Q_{Max}$, $Q$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+\begin{figure}[H]
+  \caption{Evolution of frequency as a function of time}
+  \begin{tikzpicture}
+    \begin{axis}[]
+        \addplot[color=blue!50]
+        table[x=time,y=Generator_generator_omegaRefPu]
+        {../reference/outputsOmega/curves/curves.csv};
+        \legend{$omega_{Ref}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+This corresponds to the following timeline:
+\begin{verbatim}
+0.858071 | Generator | PMIN : activation
+2.303528 | Generator | PMIN : deactivation
+3.302162 | Generator | PTanPhi Generator : max reactive power limit reached
+3.404276 | Generator | PMAX : activation
+6.040505 | Generator | PMAX : deactivation
+6.142616 | Generator | PTanPhi Generator : back to reactive power following active power
+7.141258 | Generator | PMIN : activation
+8.586713 | Generator | PMIN : deactivation
+9.585347 | Generator | PTanPhi Generator : max reactive power limit reached
+9.687461 | Generator | PMAX : activation
+…...
+\end{verbatim}
+
+\subsubsection*{Third test}
+
+In this test, we expect the active power to increase gradually until it reaches its limit.
+The reactive power will follow until it reaches its limit.
+
+The following plot illustrates this:
+\begin{figure}[H]
+  \caption{Evolution of active and reactive power as a function of time}
+  \begin{tikzpicture}
+    \begin{axis}[]
+        \addplot[color=blue!50]
+        table[x=time,y=Generator_generator_PGenPu]
+        {../reference/outputsPVar/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time,y=Generator_generator_QGenPu]
+        {../reference/outputsPVar/curves/curves.csv};
+        \legend{$running$, $PGenPu$, $QGenPu$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+This corresponds to the following timeline:
+\begin{verbatim}
+  2.200000 | Generator | PTanPhi Generator : max reactive power limit reached
+  2.333333 | Generator | PMAX : activation
+\end{verbatim}
+
+\end{document}

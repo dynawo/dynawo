@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- InfiniteBus -->
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+  </set>
+  <!-- PwLine -->
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.027654"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <!-- Load with variation -->
+  <set id="3">
+    <par type="DOUBLE" name="load_U0Pu" value="1"/>
+    <par type="DOUBLE" name="load_UPhase0" value="0"/>
+    <par type="DOUBLE" name="load_P0Pu" value="1.5"/>
+    <par type="DOUBLE" name="load_Q0Pu" value="0.5"/>
+    <par type="DOUBLE" name="load_alpha" value="2"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="load_U0Pu" value="1"/>
+    <par type="DOUBLE" name="load_UPhase0" value="0"/>
+    <par type="DOUBLE" name="load_P0Pu" value="1.5"/>
+    <par type="DOUBLE" name="load_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="load_alpha" value="2"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+  </set>
+  <!-- Generator -->
+  <set id="6">
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_AlphaPuPNom" value="0.05"/>
+    <par type="DOUBLE" name="generator_QMin" value="-60"/>
+    <par type="DOUBLE" name="generator_QMax" value="60"/>
+    <par type="DOUBLE" name="generator_PMin" value="0"/>
+    <par type="DOUBLE" name="generator_PMax" value="200"/>
+    <par type="DOUBLE" name="generator_PNom" value="200"/>
+    <par type="DOUBLE" name="generator_SNom" value="208"/>
+  </set>
+  <set id="7"> <!-- with these parameters the reactive power won't be limited to 60 MVar with the omegaRef simulation-->
+    <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+    <par type="DOUBLE" name="generator_AlphaPuPNom" value="0.05"/>
+    <par type="DOUBLE" name="generator_QMin" value="-70"/>
+    <par type="DOUBLE" name="generator_QMax" value="70"/>
+    <par type="DOUBLE" name="generator_PMin" value="0"/>
+    <par type="DOUBLE" name="generator_PMax" value="200"/>
+    <par type="DOUBLE" name="generator_PNom" value="200"/>
+    <par type="DOUBLE" name="generator_SNom" value="208"/>
+  </set>
+  <!-- OmegaRef -->
+  <set id="8">
+    <par type="DOUBLE" name="setPoint_Value0" value="1.0"/>
+  </set>
+  <!-- Disconnect generator -->
+  <set id="9">
+    <par type="DOUBLE" name="event_tEvent" value="10"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <!-- OmegaRef (sine wave) -->
+  <set id="10">
+    <par type="DOUBLE" name="sineWave_K" value="20"/>
+    <par type="DOUBLE" name="sineWave_Offset" value="1"/>
+    <par type="DOUBLE" name="sineWave_Omega" value="1"/>
+    <par type="DOUBLE" name="sineWave_Phi" value="0"/>
+  </set>
+  <!-- deltaP (Ramp) -->
+  <set id="11">
+    <par type="DOUBLE" name="ramp_duration" value="1"/>
+    <par type="DOUBLE" name="ram_height" value="1"/>
+    <par type="DOUBLE" name="ramp_startTime" value="2"/>
+    <par type="DOUBLE" name="ramp_offset" value="0"/>
+  </set>
+</parametersSet>
