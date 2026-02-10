@@ -1250,6 +1250,7 @@ Simulation::printHighestDerivativesValues() const {
 
 void
 Simulation::printEnd() const {
+  solver_->updateStatistics();
   solver_->printEnd();
 }
 

@@ -256,6 +256,11 @@ class SolverIDA : public Solver::Impl {
   bool setupNewAlgRestoration(modeChangeType_t modeChangeType) override;
 
   /**
+  * @brief update the statistics related to an algebraic restoration
+  */
+  void updateAlgebraicRestorationStatistics();
+
+  /**
   * @brief set the index of each differential variables
   */
   void setDifferentialVariablesIndices();
