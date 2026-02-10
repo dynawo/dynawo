@@ -355,6 +355,7 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
   // Updating discrete variable values and mode
   model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
   model_->evalG(tSolve_, g0_);
+  ++stats_.ngeInternal_;
   evalZMode(g0_, g1_, tSolve_);
 
   model_->rotateBuffers();
@@ -379,6 +380,8 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
 
+    updateAlgebraicRestorationStatistics();
+    updateStatistics();
     // Reinitialization (forced to start over with a small time step)
     // -------------------------------------------------------
     int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);
@@ -417,6 +420,7 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
     change = false;
     model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
     model_->evalG(tSolve_, g1_);
+    ++stats_.ngeInternal_;
     if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
       if (printUnstableRoot_)
         printUnstableRoot(tSolve_, g0_, g1_);
@@ -433,9 +437,15 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
       throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
   } while (change);
 
+  updateStatistics();
+  
+  printEnd();
+  
   int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
   if (flag0 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+    
+  Solver::Impl::resetStats();
 
   // reinit output
   flagInit_ = false;
@@ -669,12 +679,11 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       msg = "IDA_ROOT_RETURN";
       model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
       model_->evalG(tNxt, g1_);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       evalZMode(g0_, g1_, tNxt);
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
-      updateStatistics();
       break;
     default:
       analyseFlag(flag);
@@ -732,6 +741,25 @@ bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
   return false;  // no J factorization
 }
 
+void SolverIDA::updateAlgebraicRestorationStatistics() {
+  long int nNewt = 0;
+  long int nre = 0;
+  long int nje = 0;
+  solverKINNormal_->updateStatistics(nNewt, nre, nje);
+  stats_.nreAlgebraic_ += nre;
+  stats_.njeAlgebraic_ += nje;
+  stats_.nreTotal_ += nre;
+  stats_.nniTotal_ += nNewt;
+  stats_.njeTotal_ += nje;
+
+  solverKINYPrim_->updateStatistics(nNewt, nre, nje);
+  stats_.nreAlgebraicPrim_ += nre;
+  stats_.njeAlgebraicPrim_ += nje;
+  stats_.nreTotal_ += nre;
+  stats_.nniTotal_ += nNewt;
+  stats_.njeTotal_ += nje;
+}
+
 /*
  * This routine deals with the possible actions due to a mode change.
  * In IDA, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or just
@@ -775,21 +803,11 @@ SolverIDA::reinit() {
       model_->reinitMode();
 
       // Update statistics
-      long int nNewt = 0;
-      long int nre = 0;
-      long int nje = 0;
-      solverKINNormal_->updateStatistics(nNewt, nre, nje);
-      stats_.nre_ += nre;
-      stats_.nni_ += nNewt;
-      stats_.nje_ += nje;
-      solverKINYPrim_->updateStatistics(nNewt, nre, nje);
-      stats_.nre_ += nre;
-      stats_.nni_ += nNewt;
-      stats_.nje_ += nje;
+      updateAlgebraicRestorationStatistics();
 
       // Root stabilization
       model_->evalG(tSolve_, g1_);
-      ++stats_.nge_;
+      ++stats_.ngeInternal_;
       if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
         break;
       } else {
@@ -804,9 +822,9 @@ SolverIDA::reinit() {
       if (counter >= maxNumberUnstableRoots)
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
-
-    updateStatistics();
   }
+
+  updateStatistics();
 
   int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
   if (flag0 < 0)
@@ -903,7 +921,7 @@ SolverIDA::updateStatistics() {
   stats_.nni_ += nni;
   stats_.netf_ += netf;
   stats_.ncfn_ += ncfn;
-  stats_.nge_ += nge;
+  stats_.ngeSolver_ += nge;
 }
 
 void
