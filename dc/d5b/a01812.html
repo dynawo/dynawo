@@ -131,9 +131,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac71b70d0292e91cc8a65e35563f9bce8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5b/a01812.html#ac71b70d0292e91cc8a65e35563f9bce8">ConstraintData</a> (<a class="el" href="../../dc/d5b/a01812.html#a6207b5c13ad5fa57b92d6477f533d387">kind_t</a> constraintKind, double constraintLimit, double constraintValue, boost::optional&lt; int &gt; constraintSide=boost::none, boost::optional&lt; double &gt; constraintAcceptableDuration=boost::none)</td></tr>
 <tr class="memdesc:ac71b70d0292e91cc8a65e35563f9bce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d6/dc4/a01816.html" title="Constraint. ">Constraint</a> Data object.  <a href="#ac71b70d0292e91cc8a65e35563f9bce8">More...</a><br /></td></tr>
 <tr class="separator:ac71b70d0292e91cc8a65e35563f9bce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56d5aacf6162369c2aa2b531eb7b2639"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5b/a01812.html#a56d5aacf6162369c2aa2b531eb7b2639">ConstraintData</a> (const std::string &amp;<a class="el" href="../../dc/d5b/a01812.html#a28749aec60b550307055ced12ace0f39">limitName</a>, <a class="el" href="../../dc/d5b/a01812.html#a6207b5c13ad5fa57b92d6477f533d387">kind_t</a> constraintKind, double constraintLimit, double constraintValue, boost::optional&lt; int &gt; constraintSide=boost::none, boost::optional&lt; double &gt; constraintAcceptableDuration=boost::none)</td></tr>
-<tr class="memdesc:a56d5aacf6162369c2aa2b531eb7b2639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d6/dc4/a01816.html" title="Constraint. ">Constraint</a> Data object.  <a href="#a56d5aacf6162369c2aa2b531eb7b2639">More...</a><br /></td></tr>
-<tr class="separator:a56d5aacf6162369c2aa2b531eb7b2639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d47dc0ef22dfba9e44b44abc010d8a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5b/a01812.html#a3d47dc0ef22dfba9e44b44abc010d8a7">ConstraintData</a> (const std::string &amp;constraintLimitName, <a class="el" href="../../dc/d5b/a01812.html#a6207b5c13ad5fa57b92d6477f533d387">kind_t</a> constraintKind, double constraintLimit, double constraintValue, boost::optional&lt; int &gt; constraintSide=boost::none, boost::optional&lt; double &gt; constraintAcceptableDuration=boost::none)</td></tr>
+<tr class="memdesc:a3d47dc0ef22dfba9e44b44abc010d8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d6/dc4/a01816.html" title="Constraint. ">Constraint</a> Data object.  <a href="#a3d47dc0ef22dfba9e44b44abc010d8a7">More...</a><br /></td></tr>
+<tr class="separator:a3d47dc0ef22dfba9e44b44abc010d8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -245,8 +245,8 @@ boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="botto
 
 </div>
 </div>
-<a id="a56d5aacf6162369c2aa2b531eb7b2639"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56d5aacf6162369c2aa2b531eb7b2639">&#9670;&nbsp;</a></span>ConstraintData() <span class="overload">[2/2]</span></h2>
+<a id="a3d47dc0ef22dfba9e44b44abc010d8a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d47dc0ef22dfba9e44b44abc010d8a7">&#9670;&nbsp;</a></span>ConstraintData() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +258,7 @@ boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="botto
           <td class="memname">constraints::ConstraintData::ConstraintData </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>limitName</em>, </td>
+          <td class="paramname"><em>constraintLimitName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -306,7 +306,7 @@ boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="botto
 <p>Construct a new <a class="el" href="../../d6/dc4/a01816.html" title="Constraint. ">Constraint</a> Data object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">limitName</td><td>name of the original limit </td></tr>
+    <tr><td class="paramname">constraintLimitName</td><td>name of the original limit </td></tr>
     <tr><td class="paramname">constraintKind</td><td>Kind of constraint </td></tr>
     <tr><td class="paramname">constraintLimit</td><td>Limit of the constraint </td></tr>
     <tr><td class="paramname">constraintValue</td><td>value of the constraint </td></tr>
@@ -374,7 +374,7 @@ boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="botto
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>constraints</b></li><li class="navelem"><a class="el" href="../../dc/d5b/a01812.html">ConstraintData</a></li>
-    <li class="footer">Generated on Tue Feb 10 2026 10:55:42 for Dynawo by
+    <li class="footer">Generated on Tue Feb 10 2026 15:55:01 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
