@@ -75,12 +75,12 @@ class ConstraintData {
    * @param constraintSide Side the constraint applies
    * @param constraintAcceptableDuration the acceptable duration of the constraint
    */
-  ConstraintData(const std::string& limitName, kind_t constraintKind, double constraintLimit, double constraintValue,
+  ConstraintData(const std::string& constraintLimitName, kind_t constraintKind, double constraintLimit, double constraintValue,
       boost::optional<int> constraintSide = boost::none, boost::optional<double> constraintAcceptableDuration = boost::none) :
       kind(constraintKind),
       limit(constraintLimit),
       value(constraintValue),
-      limitName(limitName),
+      limitName(constraintLimitName),
       valueMin(boost::none),
       valueMax(boost::none),
       side(constraintSide),
