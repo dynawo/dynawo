@@ -36,6 +36,7 @@ UnderspeedArming = UnderspeedDisarming
 IdealSwitchSwitchOff = IdealSwitchSwitchOn
 DCLineOpen = DCLineClosed
 LVRTArming = LVRTDisarming
+HVRTArming = HVRTDisarming
 Zone1Arming = Zone1Disarming
 Zone2Arming = Zone2Disarming
 Zone3Arming = Zone3Disarming

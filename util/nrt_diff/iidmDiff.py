@@ -142,23 +142,23 @@ def OutputIIDMCloseEnough (path_left, path_right):
     msg = ""
     differences = []
 
-    for firstId in left_file_info:
+    for firstId in sorted(left_file_info):
         if firstId not in right_file_info:
             if (not is_left_powsybl_iidm and is_right_powsybl_iidm) and left_file_info[firstId].type == "busbarSection":
                 continue
             nb_differences+=1
             msg += "[ERROR] object " + firstId + " is in left path but not in right one\n"
-    for firstId in right_file_info:
+    for firstId in sorted(right_file_info):
         if firstId not in left_file_info:
             if (not is_right_powsybl_iidm and is_left_powsybl_iidm) and right_file_info[firstId].type == "busbarSection":
                 continue
             nb_differences+=1
             msg += "[ERROR] object " + firstId + " is in right path but not in left one\n"
-    for firstId in left_file_info:
+    for firstId in sorted(left_file_info):
         firstObj = left_file_info[firstId]
         if firstId in right_file_info:
             secondObj = right_file_info[firstId]
-            for attr1 in firstObj.values:
+            for attr1 in sorted(firstObj.values):
                 if attr1 not in secondObj.values:
                     if attr1=="currentSectionCount":
                         if ('sectionCount' in secondObj.values):
@@ -212,7 +212,7 @@ def OutputIIDMCloseEnough (path_left, path_right):
                                     continue
                             nb_differences+=1
                             msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + firstObj.values[attr1] + " has another value on right side (value: " + secondObj.values[attr1] + ")\n"
-            for attr1 in secondObj.values:
+            for attr1 in sorted(secondObj.values):
                 if attr1 not in firstObj.values:
                     if attr1=="currentSectionCount":
                         if ('sectionCount' in firstObj.values):
@@ -233,7 +233,7 @@ def OutputIIDMCloseEnough (path_left, path_right):
                     nb_differences+=1
                     msg += "[ERROR] attribute " + attr1 + " of object " + firstId + " (type " + firstObj.type +") value: " + secondObj.values[attr1] + " is not in the equivalent object on left side\n"
     for error in sorted(differences, key=operator.itemgetter(0), reverse=True)[:settings.max_nb_iidm_outputs]:
-        msg += "[ERROR] attribute " + error[2] + " of object " + error[1].id + " (type " + error[1].type + ") has different values (delta = " + str(error[0]) + ") \n"
+        msg += "[ERROR] attribute " + error[2] + " of object " + error[1].id + " (type " + error[1].type + ") has different values (delta = " + '{:15g}'.format(error[0]).lstrip() + ") \n"
     return (nb_differences, msg)
 
 if __name__ == "__main__":

@@ -11,12 +11,16 @@
 set(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(SIM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
+set(RTCOMMON_SOURCES
+    DYNRTInputCommon.cpp
+    )
+
 set(RTCOMMON_INCLUDE_HEADERS
   DYNRTInputCommon.h
   DYNRTOutputCommon.h
 )
 
-add_library(dynawo_RTCommon INTERFACE)
+add_library(dynawo_RTCommon SHARED ${RTCOMMON_SOURCES})
 
 target_include_directories(dynawo_RTCommon
   INTERFACE
