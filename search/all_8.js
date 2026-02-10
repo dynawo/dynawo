@@ -91,5 +91,8 @@ var searchData=
   ['hvdclineinterface',['HvdcLineInterface',['../d9/dc5/a02924.html',1,'DYN']]],
   ['hvdclineinterfaceiidm',['HvdcLineInterfaceIIDM',['../d7/db8/a03060.html',1,'DYN::HvdcLineInterfaceIIDM'],['../d7/db8/a03060.html#a70e6b8b100e44845d7b6138b9aafe5ac',1,'DYN::HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM()']]],
   ['hvdcmaxp',['HVDCMaxP',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a069ff507c1d542d699b69144c7740977',1,'DYN::KeyTimeline_t']]],
-  ['hvdcs_5f',['hvdcs_',['../da/dc0/a03104.html#ae657b81c312bcf2966940ca507334444',1,'DYN::NetworkInterfaceIIDM']]]
+  ['hvdcs_5f',['hvdcs_',['../da/dc0/a03104.html#ae657b81c312bcf2966940ca507334444',1,'DYN::NetworkInterfaceIIDM']]],
+  ['hvrtarming',['HVRTArming',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a3eb6863a0c8bfcae3bb5024fb2aa5341',1,'DYN::KeyTimeline_t']]],
+  ['hvrtdisarming',['HVRTDisarming',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51ae9b7ebdbf664fb4d1472b352a6e4429c',1,'DYN::KeyTimeline_t']]],
+  ['hvrttripped',['HVRTTripped',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51ae1a29783c780cc48781a8b0d4c4b80ec',1,'DYN::KeyTimeline_t']]]
 ];

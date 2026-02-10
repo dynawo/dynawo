@@ -9,5 +9,8 @@ var searchData=
   ['hvdc_5fline',['HVDC_LINE',['../d6/dbe/a02848.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef',1,'DYN::ComponentInterface']]],
   ['hvdcdeactivatemaxp',['HVDCDeactivateMaxP',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51aada8137fa26abed373c7b569dfc5caee',1,'DYN::KeyTimeline_t']]],
   ['hvdcextdynmodel',['HvdcExtDynModel',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa680b8a1334325e6e93f3a4596c3deafa',1,'DYN::KeyLog_t']]],
-  ['hvdcmaxp',['HVDCMaxP',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a069ff507c1d542d699b69144c7740977',1,'DYN::KeyTimeline_t']]]
+  ['hvdcmaxp',['HVDCMaxP',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a069ff507c1d542d699b69144c7740977',1,'DYN::KeyTimeline_t']]],
+  ['hvrtarming',['HVRTArming',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a3eb6863a0c8bfcae3bb5024fb2aa5341',1,'DYN::KeyTimeline_t']]],
+  ['hvrtdisarming',['HVRTDisarming',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51ae9b7ebdbf664fb4d1472b352a6e4429c',1,'DYN::KeyTimeline_t']]],
+  ['hvrttripped',['HVRTTripped',['../d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51ae1a29783c780cc48781a8b0d4c4b80ec',1,'DYN::KeyTimeline_t']]]
 ];

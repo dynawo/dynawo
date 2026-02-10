@@ -1,5 +1,8 @@
 var NAVTREEINDEX38 =
 {
+"functions_vars_y.html":[1,3,2,24],
+"functions_vars_z.html":[1,3,2,25],
+"functions_w.html":[1,3,0,22],
 "functions_x.html":[1,3,0,23],
 "functions_y.html":[1,3,0,24],
 "functions_z.html":[1,3,0,25],

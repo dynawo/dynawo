@@ -40,7 +40,7 @@ var searchData=
   ['uip1',['uip1',['../de/d7f/a03280.html#a2c7259b2bcd39febd313e93e23a6ed10',1,'DYN::ModelLine']]],
   ['uip2',['uip2',['../de/d7f/a03280.html#aa4c4f46b6a68a0ea27e6386cae821d3b',1,'DYN::ModelLine']]],
   ['uiynum',['uiYNum',['../d7/d44/a03252.html#a4d3388c67fe1c4e4dda94c96b26826a5',1,'DYN::ModelBus']]],
-  ['uiynum_5f',['uiYNum_',['../d7/d44/a03252.html#a5775c311ea543d26f731998f1d4241c9',1,'DYN::ModelBus::uiYNum_()'],['../d0/d08/a03184.html#a4646af8ab360389c30c5c2f6ea689b5a',1,'DYN::ModelLoadRestorativeWithLimits::UiYNum_()']]],
+  ['uiynum_5f',['UiYNum_',['../d0/d08/a03184.html#a4646af8ab360389c30c5c2f6ea689b5a',1,'DYN::ModelLoadRestorativeWithLimits::UiYNum_()'],['../d7/d44/a03252.html#a5775c311ea543d26f731998f1d4241c9',1,'DYN::ModelBus::uiYNum_()']]],
   ['umax_5f',['uMax_',['../d7/d44/a03252.html#a758102aec4ea7df47f222f44fc9c0d4e',1,'DYN::ModelBus']]],
   ['umaxpu',['uMaxPu',['../dc/de4/a00677.html#a7c73f32795a103e24f6099683bce9467',1,'DYN']]],
   ['umaxpu_5f',['UMaxPu_',['../d0/d08/a03184.html#a9c944f2c96d0e634e2bf6c2f7a3f91ae',1,'DYN::ModelLoadRestorativeWithLimits::UMaxPu_()'],['../d3/d4c/a01724.html#a5014970323102f139d28c7c2c0128f23',1,'criteria::CriteriaParamsVoltageLevel::uMaxPu_()']]],
