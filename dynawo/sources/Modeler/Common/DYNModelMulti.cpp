@@ -56,6 +56,7 @@ using timeline::Timeline;
 using curves::Curve;
 using constraints::ConstraintsCollection;
 using std::fstream;
+namespace fs = boost::filesystem;
 
 namespace DYN {
 
@@ -71,7 +72,9 @@ modeChangeType_(NO_MODE),
 offsetFOptional_(0),
 zConnectedLocal_(nullptr),
 silentZInitialized_(false),
-updatablesInitialized_(false) {
+updatablesInitialized_(false),
+withLinearize_(false),
+tLinearize_(std::numeric_limits<double>::lowest()) {
   connectorContainer_.reset(new ConnectorContainer());
 }
 
@@ -157,6 +160,9 @@ ModelMulti::initBuffers() {
   offsetFOptional_ = sizeF_;
   sizeF_ += numVarsOptional_.size();  /// fictitious equation will be added for unconnected optional external variables
   evalStaticFType();
+
+  if (withLinearize_)
+    sizeG_ += + 1;
 
   // (2) Initialize buffers that would be used during the simulation (avoid copy)
   // ----------------------------------------------------------------------------
@@ -408,6 +414,9 @@ ModelMulti::evalG(const double t, vector<state_g>& g) {
 #endif
   for (const auto& subModel : subModels_)
     subModel->evalGSub(t);
+
+  if (withLinearize_)
+    gLocal_[sizeG() - 1] = t > tLinearize_ || doubleEquals(t, tLinearize_) ? ROOT_UP : ROOT_DOWN;
 
   std::copy(gLocal_.begin(), gLocal_.end(), g.begin());
 }
@@ -1336,6 +1345,89 @@ void ModelMulti::registerAction(const string& actionString) {
   }
   // --- Add to buffer
   actionBuffer_->addAction(subModel, parameterValueSet);
+}
+
+void ModelMulti::evalLinearize(const double t, const std::string& path) {
+  static fs::path base = path;
+  static fs::path linearizePath = base / "linearize";
+  stringstream filename;
+  filename << "linearize_" << t << ".txt";
+
+  SparseMatrix smj;
+  smj.init(sizeY(), sizeY());
+  evalJt(t, 0, smj);
+  smj.printToFile(true, linearizePath.string(), filename.str());
+  stringstream prefix;
+  prefix << "linearize_" << t;
+  smj.printToFileAiApAx(linearizePath.string(), prefix.str());
+  /*stringstream filenameFull;
+  filenameFull << "linearize_full_" << t << ".txt";
+  smj.printToFile(false, linearizePath.string(), filenameFull.str());*/
+
+  SparseMatrix smjPrim;
+  smjPrim.init(sizeY(), sizeY());
+  evalJtPrim(t, 1, smjPrim);
+  stringstream filenamePrim;
+  filenamePrim << "linearize_prim_" << t << ".txt";
+  smjPrim.printToFile(true, linearizePath.string(), filenamePrim.str());
+  stringstream prefixPrim;
+  prefixPrim << "linearize_prim_" << t;
+  smjPrim.printToFileAiApAx(linearizePath.string(), prefixPrim.str());
+  /*stringstream filenameFullPrim;
+  filenameFullPrim << "linearize_full_prim_" << t << ".txt";
+  smjPrim.printToFile(false, linearizePath.string(), filenameFullPrim.str());*/
+
+  {
+    stringstream filenameVariablesType;
+    filenameVariablesType << "linearize_variables_type_" << t << ".txt";
+    static fs::path completePathVariablesType = linearizePath / filenameVariablesType.str().c_str();
+    std::ofstream fileVariablesType;
+    fileVariablesType.open(completePathVariablesType.string(), std::ofstream::out);
+
+    const auto& modelYType = getYType();
+    for (unsigned int j = 0; j < modelYType.size(); ++j) {
+      fileVariablesType << j << ";" << propertyVar2Str(modelYType[j]) << std::endl;
+    }
+    fileVariablesType.close();
+  }
+
+  {
+    stringstream filenameVariablesName;
+    filenameVariablesName << "linearize_variables_name_" << t << ".txt";
+    static fs::path completePathVariablesName = linearizePath / filenameVariablesName.str().c_str();
+    std::ofstream fileVariablesName;
+    fileVariablesName.open(completePathVariablesName.string(), std::ofstream::out);
+
+    int nVar = 0;
+    for (const auto& subModel : subModels_) {
+      for (const auto& xName : subModel->xNames()) {
+        const std::string subModelName = subModel->name();
+        const std::string varName = subModelName + "_" + xName;
+        fileVariablesName << nVar << ";" << varName << ";" << subModelName << std::endl;
+        ++nVar;
+      }
+    }
+    fileVariablesName.close();
+  }
+
+  {
+    stringstream filenameEquationsType;
+    filenameEquationsType << "linearize_equations_type_" << t << ".txt";
+    static fs::path completePathEquationsType = linearizePath / filenameEquationsType.str().c_str();
+    std::ofstream fileEquationsType;
+    fileEquationsType.open(completePathEquationsType.string(), std::ofstream::out);
+
+    const auto& modelFType = getFType();
+    for (unsigned int j = 0 ; j < modelFType.size() ; ++j) {
+      fileEquationsType << j << ";" << propertyEquation2Str(modelFType[j]) << std::endl;
+    }
+    fileEquationsType.close();
+  }
+}
+
+void ModelMulti::setWithLinearize(double tLinearize) {
+  withLinearize_ = true;
+  tLinearize_ = tLinearize;
 }
 
 }  // namespace DYN
