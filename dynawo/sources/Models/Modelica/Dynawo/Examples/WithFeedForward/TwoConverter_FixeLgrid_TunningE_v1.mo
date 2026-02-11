@@ -1,6 +1,6 @@
 within Dynawo.Examples.WithFeedForward;
 
-model TwoConverter_FixeLgrid_TunningE
+model TwoConverter_FixeLgrid_TunningE_v1
   parameter Types.Time tOmegaEvtStart = 20;
   parameter Types.Time tOmegaEvtEnd = 21;
   parameter Types.Time tMagnitudeEvtstart = 30;
@@ -21,18 +21,18 @@ model TwoConverter_FixeLgrid_TunningE
 
 
 
-  Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL1( CFilterPu = 1 / 1e5,Kfd = 1, Kfq = 1, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.38, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = 5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.0847, UPhase0 = -0.18, tPFilt = 1 / 300, tPQFilt = 1 / 111, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 1 / 2000) annotation(
+  Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL1( CFilterPu = 1 / 1e5, Kfd = 1, Kfq = 1, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.3819, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = 5,Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000,  U0Pu = 1.0847, UPhase0 = -0.18, tPFilt = 1 / 300, tPQFilt = 1 / 111.055, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 1 / (2 *2.5e3)) annotation(
     Placement(visible = true, transformation(origin = {-68, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL2(CFilterPu = 1 / 1e5, Kfd = 1, Kfq = 1, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.38, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = -5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.1072, UPhase0 = 0.098, tPFilt = 1 / 300, tPQFilt = 1 / 111, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 1 / 2000) annotation(
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL2(CFilterPu = 1 / 1e5, Kfd = 1, Kfq = 1, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.3819, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,    P0Pu = -5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.1072, UPhase0 = 0.098, tPFilt = 1 / 300, tPQFilt = 1 / 111.055, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 1 / (2 *2.5e3)) annotation(
     Placement(transformation(origin = {74, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1.1, UEvtPu = 1.14, UPhase = -0.04, omega0Pu = 1, omegaEvtPu = -1.8, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
     Placement(transformation(origin = {2, -48}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Lines.DynLine line22(LPu = 0.04,P01Pu = 0.11901040, P02Pu = -0.11194076, Q01Pu = 1.24143346, Q02Pu = -1.17073708, RPu = 0.004, U01Pu = 1.1, U02Pu = 1.03733331, UPhase01 = -0.04, UPhase02 = -2.278818 * 3.14 / 180) annotation(
-    Placement(visible = true, transformation(origin = {2, -24}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Sources.Step step2(height = 0, offset = 0.021, startTime = 40) annotation(
-    Placement(visible = true, transformation(origin = {-126, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-108, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step step(height = 0, offset = 0.021, startTime = 40) annotation(
-    Placement(visible = true, transformation(origin = {142, 2}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {132, -26}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Lines.DynLine_Ramp line22(L0Pu = 0.08, P01Pu = 0.11901040, P02Pu = -0.11194076, Q01Pu = 1.24143346, Q02Pu = -1.17073708, R0Pu = 0.008, RampL0 = 0.25, U01Pu = 1.1, U02Pu = 1.03733331, UPhase01 = -0.04, UPhase02 = -2.278818 * 3.14 / 180) annotation(
+    Placement(visible = true, transformation(origin = {2, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 equation
 // No switch-off of the lines
   line.switchOffSignal1.value = false;
@@ -68,22 +68,19 @@ equation
     Line(points = {{-56, 0}, {-42, 0}}, color = {0, 0, 255}));
   connect(GFL2.terminal, line.terminal1) annotation(
     Line(points = {{63, 0}, {44, 0}}, color = {0, 0, 255}));
-  connect(line22.terminal1, infiniteBus.terminal) annotation(
-    Line(points = {{2, -34}, {2, -48}}, color = {0, 0, 255}));
-  connect(line22.terminal2, Bus.terminal) annotation(
-    Line(points = {{2, -14}, {2, 0}}, color = {0, 0, 255}));
   connect(step2.y, GFL1.QFilterRefPu) annotation(
-    Line(points = {{-114, 4}, {-96, 4}, {-96, -4}, {-78, -4}}, color = {0, 0, 127}));
+    Line(points = {{-97, -30}, {-90.5, -30}, {-90.5, -4}, {-78, -4}}, color = {0, 0, 127}));
   connect(GFL2.QFilterRefPu, step.y) annotation(
-    Line(points = {{86, 4}, {106, 4}, {106, 2}, {132, 2}}, color = {0, 0, 127}));
+    Line(points = {{86, 4}, {106, 4}, {106, -26}, {121, -26}}, color = {0, 0, 127}));
+  connect(line22.terminal2, Bus.terminal) annotation(
+    Line(points = {{2, -12}, {2, 0}}, color = {0, 0, 255}));
+  connect(line22.terminal1, infiniteBus.terminal) annotation(
+    Line(points = {{2, -32}, {2, -48}}, color = {0, 0, 255}));
   annotation(
     experiment(StartTime = 0, StopTime = 2, Tolerance = 1e-06, Interval = 0.002),
     Diagram(coordinateSystem(extent = {{-80, 20}, {100, -60}})),
     Documentation(info = "<html><head></head><body>
-    <p><b>GFL – Grid Following Converter Parameters:</b>Tunning E</p><p>QfilterRef as set to 0.021 with a source otherwise when i 've set der(Q)=0 in steady state it did not took the , Q0 value 0.021 instead it took 0.031, it was observed when SCR=20</p><p>tunningB+&nbsp;<b style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">tUqPLL = 1/2000</b><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">&nbsp;</span></p><p><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">Xg=0.04</span></p>
-
- <img width=\"900\" src=\"modelica://Dynawo/Examples/WithFeedForward/tunningE_Roots.png\">
-<br><br>
+    <p><b>GFL – Grid Following Converter Parameters:</b>Tunning E</p><p>QfilterRef as set to 0.021 with a source otherwise when i 've set der(Q)=0 in steady state it did not took the , Q0 value 0.021 instead it took 0.031, it was observed when SCR=20</p><p>Here The line22 will be <b>dynamic ramp, this was done since in EMTP the stability limit of Zline=0.33pu and in OM Zline=0.04pu</b></p><p>tunningB+&nbsp;<b style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">tUqPLL = 1/2000</b><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">&nbsp;</span></p><p><br></p>
 
 </body></html>"));
-end TwoConverter_FixeLgrid_TunningE;
+end TwoConverter_FixeLgrid_TunningE_v1;

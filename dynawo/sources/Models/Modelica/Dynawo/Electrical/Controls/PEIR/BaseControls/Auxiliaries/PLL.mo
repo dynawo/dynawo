@@ -33,38 +33,40 @@ model PLL "Phase-Locked Loop"
   Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Voltage phase at PCC in rad" annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.Integrator integrator(y_start = Theta0, k = SystemBase.omegaNom) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator( k = SystemBase.omegaNom,y_start = Theta0) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin =  OmegaMinPu - SystemBase.omegaRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {0, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-44, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
-    Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {6, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kp) annotation(
-    Placement(visible = true, transformation(origin = {0, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-44, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+  Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
+    Placement(visible = true, transformation(origin = {34, 26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(add2.y, omegaPLLPu) annotation(
     Line(points = {{121, -60}, {150, -60}}, color = {0, 0, 127}));
   connect(omegaRefPu, add2.u2) annotation(
     Line(points = {{-150, -80}, {80, -80}, {80, -66}, {98, -66}}, color = {0, 0, 127}));
-  connect(integrator.y, theta) annotation(
-    Line(points = {{121, 0}, {150, 0}}, color = {0, 0, 127}));
   connect(limIntegrator.y, add1.u2) annotation(
-    Line(points = {{11, -20}, {20, -20}, {20, -6}, {38, -6}}, color = {0, 0, 127}));
-  connect(add1.y, integrator.u) annotation(
-    Line(points = {{61, 0}, {98, 0}}, color = {0, 0, 127}));
-  connect(add1.y, add2.u1) annotation(
-    Line(points = {{61, 0}, {80, 0}, {80, -54}, {98, -54}}, color = {0, 0, 127}));
+    Line(points = {{-33, -20}, {-24, -20}, {-24, -6}, {-6, -6}}, color = {0, 0, 127}));
   connect(gain.y, add1.u1) annotation(
-    Line(points = {{11, 20}, {20, 20}, {20, 6}, {38, 6}}, color = {0, 0, 127}));
+    Line(points = {{-33, 20}, {-24, 20}, {-24, 6}, {-6, 6}}, color = {0, 0, 127}));
   connect(uqFilterPu, gain.u) annotation(
-    Line(points = {{-150, 0}, {-76, 0}, {-76, 16}, {-12, 16}, {-12, 20}}, color = {0, 0, 127}));
+    Line(points = {{-150, 0}, {-76, 0}, {-76, 22}, {-64, 22}, {-64, 19}, {-56, 19}, {-56, 20}}, color = {0, 0, 127}));
   connect(limIntegrator.u, uqFilterPu) annotation(
-    Line(points = {{-12, -20}, {-76, -20}, {-76, 0}, {-150, 0}}, color = {0, 0, 127}));
+    Line(points = {{-56, -20}, {-76, -20}, {-76, 0}, {-150, 0}}, color = {0, 0, 127}));
+  connect(integrator.y, theta) annotation(
+    Line(points = {{122, 0}, {150, 0}}, color = {0, 0, 127}));
+  connect(add1.y, integrator.u) annotation(
+    Line(points = {{18, 0}, {98, 0}}, color = {0, 0, 127}));
+  connect(add2.u1, add1.y) annotation(
+    Line(points = {{98, -54}, {18, -54}, {18, 0}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> The PLL calculates the frequency of the grid voltage by synchronizing the internal phase angle with measured voltage phasor. q-component of internal voltage phasor is therefore controlled to be zero. </p>
@@ -76,6 +78,6 @@ equation
 <p> If uqPu is zero, the internal phasor is locked with the measured phasor and rotates with the same frequency.</p>
 
 </body></html>"),
-    Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})),
+    Diagram(coordinateSystem(extent = {{-160, 40}, {160, -100}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-31, 8}, extent = {{-49, 72}, {111, -88}}, textString = "PLL")}));
 end PLL;

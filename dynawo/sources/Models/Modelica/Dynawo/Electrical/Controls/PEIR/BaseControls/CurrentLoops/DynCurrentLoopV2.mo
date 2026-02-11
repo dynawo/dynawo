@@ -58,15 +58,15 @@ model DynCurrentLoopV2 "Current loop control for grid forming and grid following
     Placement(visible = true, transformation(origin = {-90, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {-90, -25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain GainLfd(k = LFilter) annotation(
+  Modelica.Blocks.Math.Gain GainLfd(k = LFilter)  annotation(
     Placement(visible = true, transformation(origin = {-10, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain GainLfq(k = LFilter) annotation(
+  Modelica.Blocks.Math.Gain GainLfq(k = LFilter)  annotation(
     Placement(visible = true, transformation(origin = {-10, -25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addd1 annotation(
     Placement(visible = true, transformation(origin = {-20, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addq1 annotation(
     Placement(visible = true, transformation(origin = {-20, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add feedbackLwd annotation(
+  Modelica.Blocks.Math.Add feedbackLwd(k1 = +1)  annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add feedbackLwq(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {50, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -151,5 +151,5 @@ equation
   annotation(preferredView = "diagram",
     Icon(coordinateSystem(grid = {1, 1}), graphics = {Rectangle(origin = {0, -0.5}, extent = {{-100, 99.5}, {100, -99.5}}), Text(origin = {-1, -2}, extent = {{-99, 99}, {99, -97}}, textString = "Current Loop")}),
     preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-170, 180}, {170, -180}})));
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-170, 180}, {160, -180}})));
 end DynCurrentLoopV2;

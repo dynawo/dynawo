@@ -20,7 +20,7 @@ extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   parameter Types.Time tUFilt  "Filter time constant for voltage measurement in s" annotation(
   Dialog(tab="Measurements"));
   parameter Types.Time tUqPLL "Filter time constant for voltage q measurement specially designed for the PLL in s" annotation(  Dialog(tab="Measurements"));
-
+  parameter Types.Time tPQFilt "Filter time constant for voltage/current measurement that goes to the PQ calculation in s" annotation(  Dialog(tab="Measurements"));
   // PLL parameters
   parameter Types.PerUnit Ki "PLL integrator gain" annotation(
     Dialog(tab = "PLL"));
@@ -48,9 +48,9 @@ extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kic "Integral gain of the current loop" annotation(
     Dialog(tab = "Current loop"));
-  parameter Types.PerUnit Kfd = 0 "Feedforward gain on the d-axis" annotation(
+  parameter Types.PerUnit Kfd  "Feedforward gain on the d-axis" annotation(
     Dialog(tab = "Current loop"));
-  parameter Types.PerUnit Kfq = 0 "Feedforward gain on the q-axis" annotation(
+  parameter Types.PerUnit Kfq  "Feedforward gain on the q-axis" annotation(
     Dialog(tab = "Current loop"));
   // Filter parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)" annotation(
@@ -76,7 +76,7 @@ extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
     Placement(visible = true, transformation(origin = {-110, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = Control.outerLoop.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.MeasurementsFiltered Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tUFilt = tUFilt, tUqPLL = tUqPLL) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.MeasurementsFiltered Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tPQFilt = tPQFilt, tUFilt = tUFilt, tUqPLL = tUqPLL) annotation(
     Placement(visible = true, transformation(origin = {18, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Dynawo.Electrical.Sources.PEIR.Converters.Average.DynConverter1 Converter(CFilterPu = CFilterPu, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, SNom = SNom, Theta0 = Theta0, i0Pu = i0Pu, tVSC = tVSC, u0Pu = u0Pu)  annotation(
     Placement(visible = true, transformation(origin = {70, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -104,19 +104,8 @@ equation
     Line(points = {{40, -44}, {74, -44}, {74, 20}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
   connect(Converter.uqFilterPu, Measurements.uqFilterPu) annotation(
     Line(points = {{78, 20}, {78, -46}, {40, -46}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
-
-
-
   connect(Measurements.PFilterPu, Control.PFilterPu) annotation(
     Line(points = {{-4, -48}, {-92, -48}, {-92, 28}, {-68, 28}}, color = {0, 0, 127}));
-  connect(Control.theta, Converter.theta) annotation(
-    Line(points = {{-56, 64}, {-56, 80}, {80, 80}, {80, 64}}, color = {0, 0, 127}));
-  connect(Control.omegaPu, Converter.omegaPu) annotation(
-    Line(points = {{-36, 64}, {-36, 70}, {60, 70}, {60, 64}}, color = {0, 0, 127}));
-  connect(Control.uqConvRefPu, Converter.uqConvRefPu) annotation(
-    Line(points = {{-24, 34}, {48, 34}}, color = {245, 121, 0}, thickness = 0.5));
-  connect(Control.udConvRefPu, Converter.udConvRefPu) annotation(
-    Line(points = {{-24, 50}, {48, 50}}, color = {245, 121, 0}, thickness = 0.5));
   connect(QFilterRefPu, Control.QFilterRefPu) annotation(
     Line(points = {{-110, 32}, {-80, 32}, {-80, 38}, {-68, 38}}, color = {85, 170, 0}, thickness = 0.5));
   connect(PFilterRefPu, Control.PFilterRefPu) annotation(
@@ -135,16 +124,24 @@ equation
     Line(points = {{22, -54}, {22, -58}, {-62, -58}, {-62, 20}}, color = {230, 97, 0}));
   connect(Measurements.iqFilteredConvPu, Control.iqConvPu) annotation(
     Line(points = {{28, -54}, {28, -60}, {-58, -60}, {-58, 20}}, color = {230, 97, 0}, pattern = LinePattern.Dash));
- connect(Measurements.udFilteredFilterPu, Control.udFilterPu) annotation(
-    Line(points = {{-4, -20}, {-40, -20}, {-40, 20}}, color = {145, 65, 172}));
- connect(Measurements.uqFilteredFilterPu, Control.uqFilterPu) annotation(
-    Line(points = {{-4, -26}, {-30, -26}, {-30, 20}}, color = {145, 65, 172}, pattern = LinePattern.Dash));
- connect(Measurements.QFilterPu, Control.QFilterPu) annotation(
+  connect(Measurements.QFilterPu, Control.QFilterPu) annotation(
     Line(points = {{-4, -44}, {-86, -44}, {-86, 24}, {-68, 24}}, color = {0, 0, 127}));
- connect(Measurements.uq_PLLPu, Control.uq_PLLPu) annotation(
+  connect(Measurements.uq_PLLPu, Control.uq_PLLPu) annotation(
     Line(points = {{8, -54}, {8, -66}, {-50, -66}, {-50, 20}}, color = {152, 106, 68}));
+  connect(Control.omegaPu, Converter.omegaPu) annotation(
+    Line(points = {{-36, 64}, {-36, 76}, {60, 76}, {60, 64}}, color = {0, 0, 127}));
+  connect(Control.theta, Converter.theta) annotation(
+    Line(points = {{-56, 64}, {-56, 90}, {80, 90}, {80, 64}}, color = {0, 0, 127}));
+  connect(Control.udConvRefPu, Converter.udConvRefPu) annotation(
+    Line(points = {{-24, 50}, {48, 50}}, color = {0, 0, 127}));
+  connect(Control.uqConvRefPu, Converter.uqConvRefPu) annotation(
+    Line(points = {{-24, 34}, {48, 34}}, color = {0, 0, 127}));
+  connect(Measurements.udFilteredFilterPu, Control.udFilterPu) annotation(
+    Line(points = {{-4, -28}, {-40, -28}, {-40, 20}}, color = {192, 97, 203}));
+  connect(Measurements.uqFilteredFilterPu, Control.uqFilterPu) annotation(
+    Line(points = {{-4, -32}, {-34, -32}, {-34, 16}, {-30, 16}, {-30, 20}}, color = {192, 97, 203}, pattern = LinePattern.Dash));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),
-    Diagram(graphics = {Text(origin = {57, -35}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "uqPccPu"), Text(origin = {49, -43}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterPu"), Text(origin = {61, -45}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterPu"), Text(origin = {-17, -43}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "QFilterPu"), Text(origin = {-17, -47}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "PFilterPu"), Text(origin = {9, 53}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {49, -23}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvPu"), Text(origin = {49, -27}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvPu"), Text(origin = {9, 83}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta"), Text(origin = {9, 75}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "omegaPu"), Text(origin = {-18, -19}, lineColor = {192, 97, 203}, extent = {{-20, 1}, {20, -1}}, textString = "udFilteredFilterPu"), Text(origin = {-18, -25}, lineColor = {192, 97, 203}, extent = {{-20, 1}, {20, -1}}, textString = "uqFilteredFilterPu"), Text(origin = {-2, -5}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "idFilteredPccPu"), Text(origin = {34, -5}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "iqFilteredPccPu"), Text(origin = {-17, -33}, lineColor = {26, 95, 180}, extent = {{-13, 1}, {13, -1}}, textString = "QPccPu"), Text(origin = {48, -15}, lineColor = {28, 113, 216}, fillColor = {28, 113, 216}, extent = {{-8, 1}, {8, -1}}, textString = "idPccPu"), Text(origin = {48, -19}, lineColor = {28, 113, 216}, fillColor = {28, 113, 216}, extent = {{-8, 1}, {8, -1}}, textString = "iqPccPu"), Text(origin = {49, -33}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "udPccPu"), Text(origin = {-32, -57}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "idFilteredConvPu"), Text(origin = {-32, -59}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "iqFilteredConvPu")}, coordinateSystem(extent = {{-120, 80}, {120, -60}})));
+    Diagram(graphics = {Text(origin = {57, -35}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "uqPccPu"), Text(origin = {51, -43}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterPu"), Text(origin = {61, -45}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterPu"), Text(origin = {-17, -43}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "QFilterPu"), Text(origin = {-17, -47}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "PFilterPu"), Text(origin = {9, 53}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {49, -23}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvPu"), Text(origin = {49, -27}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvPu"), Text(origin = {9, 83}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta"), Text(origin = {9, 75}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "omegaPu"), Text(origin = {-18, -27}, lineColor = {192, 97, 203}, extent = {{-20, 1}, {20, -1}}, textString = "udFilteredFilterPu"), Text(origin = {-18, -31}, lineColor = {192, 97, 203}, extent = {{-20, 1}, {20, -1}}, textString = "uqFilteredFilterPu"), Text(origin = {-2, -9}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "idFilteredPccPu"), Text(origin = {6, -5}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "iqFilteredPccPu"), Text(origin = {-17, -37}, lineColor = {26, 95, 180}, extent = {{-13, 1}, {13, -1}}, textString = "QPccPu"), Text(origin = {48, -15}, lineColor = {28, 113, 216}, fillColor = {28, 113, 216}, extent = {{-8, 1}, {8, -1}}, textString = "idPccPu"), Text(origin = {48, -19}, lineColor = {28, 113, 216}, fillColor = {28, 113, 216}, extent = {{-8, 1}, {8, -1}}, textString = "iqPccPu"), Text(origin = {49, -33}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "udPccPu"), Text(origin = {-32, -57}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "idFilteredConvPu"), Text(origin = {-32, -59}, lineColor = {255, 120, 0}, extent = {{-20, 1}, {20, -1}}, textString = "iqFilteredConvPu")}, coordinateSystem(extent = {{-120, 100}, {120, -80}})));
 end DynGFLMeasurementFiltered;

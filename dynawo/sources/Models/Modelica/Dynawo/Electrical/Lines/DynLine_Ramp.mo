@@ -62,13 +62,14 @@ model DynLine_Ramp "AC power line - Dynamic PI model"
 
 equation
 
-  if time<1.5  then
-    der(RPu)=0;
-    der(LPu)=0;
-    der(RampL)=0;
-  else
-    der(RPu)=RampL/10;
+  if time>1.5 and time<1.6  then
+     der(RPu)=RampL/10;
     der(LPu)=RampL;
+    der(RampL)=0;
+
+  else
+  der(RPu)=0;
+    der(LPu)=0;
     der(RampL)=0;
   end if;
 
