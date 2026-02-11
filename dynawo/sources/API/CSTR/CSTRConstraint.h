@@ -68,7 +68,7 @@ class ConstraintData {
   /**
    * @brief Construct a new Constraint Data object
    *
-   * @param limitName name of the original limit
+   * @param constraintLimitName name of the original limit
    * @param constraintKind Kind of constraint
    * @param constraintLimit Limit of the constraint
    * @param constraintValue value of the constraint
