@@ -55,6 +55,10 @@ def getOutputIIDMInfo(filename):
                     set_values(child,'p',myObject)
                     set_values(child,'q',myObject)
                     set_values(child,'bus',myObject)
+                    if myObject.type == 'generator' and 'voltageRegulatorOn' in child.attrib and child.attrib['voltageRegulatorOn'] == "true":
+                        set_values(child,'targetV',myObject)
+                    if myObject.type == 'generator':
+                        set_values(child,'targetQ',myObject)
                 elif myObject.type == 'switch':
                     set_values(child,'open',myObject)
                     set_values(child,'node1',myObject)
@@ -120,7 +124,9 @@ def getOutputIIDMInfo(filename):
                     tapChangerId = myId + "_" + tapChangerType
                     tapChangerObject = IIDMobject(tapChangerId)
                     tapChangerObject.type = tapChangerType
-                    set_values(tapChanger,'tapPosition',tapChangerObject)
+                    tapPosition = tapChanger.attrib['tapPosition']
+                    lowTapPosition = tapChanger.attrib['lowTapPosition']
+                    tapChangerObject.values['tapPosition'] = str(float(tapPosition) - float(lowTapPosition))
                     IIDM_objects_byID[tapChangerId] = tapChangerObject
     return IIDM_objects_byID
 
