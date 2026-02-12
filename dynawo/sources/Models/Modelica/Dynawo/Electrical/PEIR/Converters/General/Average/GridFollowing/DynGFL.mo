@@ -11,6 +11,8 @@ model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
     Dialog(tab = "Measurements"));
   parameter Types.Time tUqPLL "Filter time constant for voltage q measurement specially designed for the PLL in s" annotation(
     Dialog(tab = "Measurements"));
+  parameter Types.Time tPQFilt "Filter time constant for voltage/current measurement that goes to the PQ calculation in s" annotation(
+    Dialog(tab = "Measurements"));
 
   // PLL parameters
   parameter Types.PerUnit Ki "PLL integrator gain" annotation(
@@ -69,7 +71,7 @@ model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = Control.outerLoop.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.MeasurementsFiltered Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tUFilt = tUFilt, tUqPLL = tUqPLL, IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.MeasurementsFiltered Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tUFilt = tUFilt, tUqPLL = tUqPLL, IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu, tPQFilt = tPQFilt) annotation(
     Placement(transformation(origin = {12, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Dynawo.Electrical.Controls.PEIR.Converters.Average.DynGridFollowingControl Control(IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu, Kfd = Kfd, Kfq = Kfq, Ki = Ki, Kic = Kic, Kid = Kid, Kiq = Kiq, Kp = Kp, Kpc = Kpc, Kpd = Kpd, Kpq = Kpq, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, tPFilt = tPFilt, tQFilt = tQFilt) annotation(
     Placement(transformation(origin = {-48, 40}, extent = {{-20, -20}, {20, 20}})));
@@ -126,14 +128,14 @@ equation
     Line(points = {{16, -62}, {16, -80}, {-62, -80}, {-62, 18}}, color = {245, 121, 0}));
   connect(Measurements.udFilteredFilterPu, Control.udFilterPu) annotation(
     Line(points = {{-10, -30}, {-52, -30}, {-52, 18}}, color = {85, 170, 0}));
-  connect(Measurements.uqFilteredPLLPu, Control.uqFilteredPLLPu) annotation(
+  connect(Measurements.uqFilteredFilterPLLPu, Control.uqFilteredPLLPu) annotation(
     Line(points = {{2, -62}, {2, -68}, {-86, -68}, {-86, 42}, {-70, 42}}, color = {97, 53, 131}));
   connect(Measurements.uqFilteredFilterPu, Control.uqFilterPu) annotation(
-    Line(points = {{-10, -34}, {-56, -34}, {-56, 18}}, color = {85, 170, 0}));
+    Line(points = {{2, -62}, {2, -68}, {-86, -68}, {-86, 42}, {-70, 42}}, color = {97, 53, 131}));
   connect(Measurements.uqFilterPu, Converter.uqFilterPu) annotation(
-    Line(points = {{34, -58}, {78, -58}, {78, 18}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
+    Line(points = {{-10, -34}, {-56, -34}, {-56, 18}}, color = {85, 170, 0}));
   connect(Converter.udFilterPu, Measurements.udFilterPu) annotation(
-    Line(points = {{74, 18}, {74, -54}, {34, -54}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
+    Line(points = {{34, -58}, {78, -58}, {78, 18}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),
