@@ -44,6 +44,7 @@ var searchData=
   ['solveridalargesterrors',['SolverIDALargestErrors',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fab4811d5c40c389b6ce4778b2d38a6c57',1,'DYN::KeyLog_t']]],
   ['solveridamaxdiff',['SolverIDAMaxDiff',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa33f2df9fdb3d151be4054fa10c5bb074',1,'DYN::KeyLog_t']]],
   ['solveridanocontinuousvars',['SolverIDANoContinuousVars',['../d1/d88/a02600.html#acfce33066451c48351076e31bd5b4eceafee488c0935cbd8ef30b1fc174dff09c',1,'DYN::KeyError_t']]],
+  ['solveridanumrootsfound',['SolverIDANumRootsFound',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fad235b7d87022ee1fc0b7420ffb32f9c7',1,'DYN::KeyLog_t']]],
   ['solveridarestoralgebraicequ',['SolverIDARestorAlgebraicEqu',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa1376b7b13dc5fbd89badbddff0eb4529',1,'DYN::KeyLog_t']]],
   ['solveridastartcalculateic',['SolverIDAStartCalculateIC',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa7c3da6f7ad35b645bf4c5f190462c0b4',1,'DYN::KeyLog_t']]],
   ['solveridastepzero',['SolverIDAStepZero',['../d1/d88/a02600.html#acfce33066451c48351076e31bd5b4ecea58e6211805c20855e59fe2224e993204',1,'DYN::KeyError_t']]],

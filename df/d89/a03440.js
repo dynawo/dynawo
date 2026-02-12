@@ -4,7 +4,7 @@ var a03440 =
       [ "KIN_ALGEBRAIC", "df/d89/a03440.html#a4bf0942b1f7375689c1a69d86ce7b6ddae1741c9246fb712f4ee2052fef4a099d", null ],
       [ "KIN_DERIVATIVES", "df/d89/a03440.html#a4bf0942b1f7375689c1a69d86ce7b6dda8b41dc73f7b613015418c561d01440c3", null ]
     ] ],
-    [ "SolverKINAlgRestoration", "df/d89/a03440.html#a065d68ee0391826c1096b233d38251ef", null ],
+    [ "SolverKINAlgRestoration", "df/d89/a03440.html#a77a4cec5d778b34da21d5fb5485a0624", null ],
     [ "~SolverKINAlgRestoration", "df/d89/a03440.html#a814100bf78d6e94e753b94daca350739", null ],
     [ "cleanAlgebraicVectors", "df/d89/a03440.html#a0f93bad60bee65915af230a6010adde1", null ],
     [ "evalF_KIN", "df/d89/a03440.html#a8408527b1f8b63370dff9ae2a9c94ab9", null ],
@@ -15,6 +15,7 @@ var a03440 =
     [ "getValues", "df/d89/a03440.html#a6df387ba862de9148102ee85e4d367eb", null ],
     [ "init", "df/d89/a03440.html#a58e7ea33ebfdd5e6a8991af8c145b946", null ],
     [ "initVarAndEqTypes", "df/d89/a03440.html#ac5ed58a1ca3be232aff22a3820b18516", null ],
+    [ "printResiduals", "df/d89/a03440.html#abac6337b14444afcca9e90d23d6ac9bc", null ],
     [ "resetAlgebraicRestoration", "df/d89/a03440.html#a57cbaca4925480c9aa934e30b0d27624", null ],
     [ "setInitialValues", "df/d89/a03440.html#a6c21fef993ac98e9de1811bf4b1e2e4a", null ],
     [ "setupNewAlgebraicRestoration", "df/d89/a03440.html#ab9efae067371d26c3b0ad2c3ab3a30a2", null ],
@@ -27,6 +28,7 @@ var a03440 =
     [ "indexY_", "df/d89/a03440.html#adb2a04b093620de24ccbf00a1ecd99f1", null ],
     [ "mode_", "df/d89/a03440.html#a4bc4c3840f212a28ec2e5fd2851f19fb", null ],
     [ "model_", "df/d89/a03440.html#aee93dd149899a81b4d99720fb5b5fd1a", null ],
+    [ "printReinitResiduals_", "df/d89/a03440.html#aff1fd822be7f1959f59d26d99f610124", null ],
     [ "vectorYForRestoration_", "df/d89/a03440.html#a188ee09f3ec495908772998c8ee901c5", null ],
     [ "vectorYOrYpSolution_", "df/d89/a03440.html#a3eaef635cba29a338bc2030787953f4e", null ],
     [ "vectorYpForRestoration_", "df/d89/a03440.html#aaf2e4939ed6c59711e3210bdc6e50cb7", null ]

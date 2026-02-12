@@ -197,6 +197,7 @@ var a02644 =
       [ "SolverIDAInitOk", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fad1d5c9aced1ca69d3f158311ae748a58", null ],
       [ "SolverIDALargestErrors", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fab4811d5c40c389b6ce4778b2d38a6c57", null ],
       [ "SolverIDAMaxDiff", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa33f2df9fdb3d151be4054fa10c5bb074", null ],
+      [ "SolverIDANumRootsFound", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fad235b7d87022ee1fc0b7420ffb32f9c7", null ],
       [ "SolverIDARestorAlgebraicEqu", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa1376b7b13dc5fbd89badbddff0eb4529", null ],
       [ "SolverIDAStartCalculateIC", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa7c3da6f7ad35b645bf4c5f190462c0b4", null ],
       [ "SolverIDAUnknownError", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567faf86547965e43177c045c578d6f5b411a", null ],

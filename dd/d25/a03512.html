@@ -295,6 +295,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a643fe5fa4bcfed3a6283c451ab49a8b4 inherit pro_methods_a03484"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/a03484.html#a643fe5fa4bcfed3a6283c451ab49a8b4">startFromDump</a> () const override</td></tr>
 <tr class="memdesc:a643fe5fa4bcfed3a6283c451ab49a8b4 inherit pro_methods_a03484"><td class="mdescLeft">&#160;</td><td class="mdescRight">is solver starting from dump  <a href="../../de/df6/a03484.html#a643fe5fa4bcfed3a6283c451ab49a8b4">More...</a><br /></td></tr>
 <tr class="separator:a643fe5fa4bcfed3a6283c451ab49a8b4 inherit pro_methods_a03484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa20067f1ef015de7acdc463323b61ae7 inherit pro_methods_a03484"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/a03484.html#aa20067f1ef015de7acdc463323b61ae7">printResiduals</a> () const</td></tr>
+<tr class="memdesc:aa20067f1ef015de7acdc463323b61ae7 inherit pro_methods_a03484"><td class="mdescLeft">&#160;</td><td class="mdescRight">printResiduals getter  <a href="../../de/df6/a03484.html#aa20067f1ef015de7acdc463323b61ae7">More...</a><br /></td></tr>
+<tr class="separator:aa20067f1ef015de7acdc463323b61ae7 inherit pro_methods_a03484"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -305,6 +308,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:afbebceb075587bdd6a6bc0185cc7a32d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d25/a03512.html#afbebceb075587bdd6a6bc0185cc7a32d">getLastConf</a> (long int &amp;nst, int &amp;kused, double &amp;hused) const</td></tr>
 <tr class="memdesc:afbebceb075587bdd6a6bc0185cc7a32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the last configuration used by the solver  <a href="#afbebceb075587bdd6a6bc0185cc7a32d">More...</a><br /></td></tr>
 <tr class="separator:afbebceb075587bdd6a6bc0185cc7a32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a639975ca7572f6038ee00ee31477c6e3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/d60/a00491.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d25/a03512.html#a639975ca7572f6038ee00ee31477c6e3">getRootsFound</a> () const</td></tr>
+<tr class="memdesc:a639975ca7572f6038ee00ee31477c6e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates which root was activated  <a href="#a639975ca7572f6038ee00ee31477c6e3">More...</a><br /></td></tr>
+<tr class="separator:a639975ca7572f6038ee00ee31477c6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09f8f6e5eb1b58b78fb1f0536684854e"><td class="memItemLeft" align="right" valign="top"><a id="a09f8f6e5eb1b58b78fb1f0536684854e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d25/a03512.html#a09f8f6e5eb1b58b78fb1f0536684854e">cleanIDA</a> ()</td></tr>
 <tr class="memdesc:a09f8f6e5eb1b58b78fb1f0536684854e"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroy all allocated memory <br /></td></tr>
@@ -315,6 +321,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a15adabea4a254ca7d6ad6ea2bf3b392c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d25/a03512.html#a15adabea4a254ca7d6ad6ea2bf3b392c">getTimeStep</a> () const override</td></tr>
 <tr class="memdesc:a15adabea4a254ca7d6ad6ea2bf3b392c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get time step  <a href="#a15adabea4a254ca7d6ad6ea2bf3b392c">More...</a><br /></td></tr>
 <tr class="separator:a15adabea4a254ca7d6ad6ea2bf3b392c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aede59c911e7ad806df8d807cf0cb9947"><td class="memItemLeft" align="right" valign="top"><a id="aede59c911e7ad806df8d807cf0cb9947"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d25/a03512.html#aede59c911e7ad806df8d807cf0cb9947">printWeightedErrors</a> () const</td></tr>
+<tr class="memdesc:aede59c911e7ad806df8d807cf0cb9947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug function to print weighted error during newton iterations. <br /></td></tr>
+<tr class="separator:aede59c911e7ad806df8d807cf0cb9947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -543,6 +553,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="separator:acbd758bc6eae7e0f07d84178c37b29c9 inherit pro_attribs_a03484"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6f8d07b747982d59dcae24cd0a4d840 inherit pro_attribs_a03484"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d60/a00491.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/a03484.html#ae6f8d07b747982d59dcae24cd0a4d840">minimumModeChangeTypeForAlgebraicRestorationInit_</a></td></tr>
 <tr class="separator:ae6f8d07b747982d59dcae24cd0a4d840 inherit pro_attribs_a03484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72ebc4700d2bb2a9ee76da307b463c56 inherit pro_attribs_a03484"><td class="memItemLeft" align="right" valign="top"><a id="a72ebc4700d2bb2a9ee76da307b463c56"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/a03484.html#a72ebc4700d2bb2a9ee76da307b463c56">printUnstableRoot_</a></td></tr>
+<tr class="memdesc:a72ebc4700d2bb2a9ee76da307b463c56 inherit pro_attribs_a03484"><td class="mdescLeft">&#160;</td><td class="mdescRight">to print unstable root in logs <br /></td></tr>
+<tr class="separator:a72ebc4700d2bb2a9ee76da307b463c56 inherit pro_attribs_a03484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e98b3f59d151d835e1fcf4ee8cc7962 inherit pro_attribs_a03484"><td class="memItemLeft" align="right" valign="top"><a id="a7e98b3f59d151d835e1fcf4ee8cc7962"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/a03484.html#a7e98b3f59d151d835e1fcf4ee8cc7962">printReinitResiduals_</a></td></tr>
+<tr class="memdesc:a7e98b3f59d151d835e1fcf4ee8cc7962 inherit pro_attribs_a03484"><td class="mdescLeft">&#160;</td><td class="mdescRight">print reinit residuals in logs <br /></td></tr>
+<tr class="separator:a7e98b3f59d151d835e1fcf4ee8cc7962 inherit pro_attribs_a03484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8d1f94e4557b9edd1b0403f5990879e inherit pro_attribs_a03484"><td class="memItemLeft" align="right" valign="top"><a id="ac8d1f94e4557b9edd1b0403f5990879e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/a03484.html#ac8d1f94e4557b9edd1b0403f5990879e">printResiduals_</a></td></tr>
+<tr class="memdesc:ac8d1f94e4557b9edd1b0403f5990879e inherit pro_attribs_a03484"><td class="mdescLeft">&#160;</td><td class="mdescRight">print residuals during newton resolution <br /></td></tr>
+<tr class="separator:ac8d1f94e4557b9edd1b0403f5990879e inherit pro_attribs_a03484"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b073538b58876b70d377bb7e8958225 inherit pro_attribs_a03484"><td class="memItemLeft" align="right" valign="top"><a id="a2b073538b58876b70d377bb7e8958225"></a>
 <a class="el" href="../../d8/dbb/a03480.html">stat_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/a03484.html#a2b073538b58876b70d377bb7e8958225">stats_</a></td></tr>
 <tr class="memdesc:a2b073538b58876b70d377bb7e8958225 inherit pro_attribs_a03484"><td class="mdescLeft">&#160;</td><td class="mdescRight">execution statistics of the solver <br /></td></tr>
@@ -1074,6 +1096,34 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 
 </div>
 </div>
+<a id="a639975ca7572f6038ee00ee31477c6e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a639975ca7572f6038ee00ee31477c6e3">&#9670;&nbsp;</a></span>getRootsFound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="../../d6/d60/a00491.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a>&gt; DYN::SolverIDA::getRootsFound </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>indicates which root was activated </p>
+<dl class="section return"><dt>Returns</dt><dd>an array showing which root was activated </dd></dl>
+
+</div>
+</div>
 <a id="a15adabea4a254ca7d6ad6ea2bf3b392c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a15adabea4a254ca7d6ad6ea2bf3b392c">&#9670;&nbsp;</a></span>getTimeStep()</h2>
 
@@ -1458,7 +1508,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/d25/a03512.html">SolverIDA</a></li>
-    <li class="footer">Generated on Wed Feb 11 2026 14:43:36 for Dynawo by
+    <li class="footer">Generated on Thu Feb 12 2026 16:33:10 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

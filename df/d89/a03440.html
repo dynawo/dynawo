@@ -131,10 +131,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a065d68ee0391826c1096b233d38251ef"><td class="memItemLeft" align="right" valign="top"><a id="a065d68ee0391826c1096b233d38251ef"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a065d68ee0391826c1096b233d38251ef">SolverKINAlgRestoration</a> ()</td></tr>
-<tr class="memdesc:a065d68ee0391826c1096b233d38251ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:a065d68ee0391826c1096b233d38251ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77a4cec5d778b34da21d5fb5485a0624"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a77a4cec5d778b34da21d5fb5485a0624">SolverKINAlgRestoration</a> (bool printReinitResiduals)</td></tr>
+<tr class="memdesc:a77a4cec5d778b34da21d5fb5485a0624"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor  <a href="#a77a4cec5d778b34da21d5fb5485a0624">More...</a><br /></td></tr>
+<tr class="separator:a77a4cec5d778b34da21d5fb5485a0624"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a814100bf78d6e94e753b94daca350739"><td class="memItemLeft" align="right" valign="top"><a id="a814100bf78d6e94e753b94daca350739"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a814100bf78d6e94e753b94daca350739">~SolverKINAlgRestoration</a> ()</td></tr>
 <tr class="memdesc:a814100bf78d6e94e753b94daca350739"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
@@ -221,6 +220,9 @@ Private Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a0f93bad60bee65915af230a6010adde1">cleanAlgebraicVectors</a> ()</td></tr>
 <tr class="memdesc:a0f93bad60bee65915af230a6010adde1"><td class="mdescLeft">&#160;</td><td class="mdescRight">clean sundials vectors allocated by this class <br /></td></tr>
 <tr class="separator:a0f93bad60bee65915af230a6010adde1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abac6337b14444afcca9e90d23d6ac9bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#abac6337b14444afcca9e90d23d6ac9bc">printResiduals</a> () const</td></tr>
+<tr class="memdesc:abac6337b14444afcca9e90d23d6ac9bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">print reinit residuals getter  <a href="#abac6337b14444afcca9e90d23d6ac9bc">More...</a><br /></td></tr>
+<tr class="separator:abac6337b14444afcca9e90d23d6ac9bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -272,6 +274,10 @@ std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 <a class="el" href="../../df/d89/a03440.html#a4bf0942b1f7375689c1a69d86ce7b6dd">modeKin_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a4bc4c3840f212a28ec2e5fd2851f19fb">mode_</a></td></tr>
 <tr class="memdesc:a4bc4c3840f212a28ec2e5fd2851f19fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">mode of the solver (i.e. algebraic equations or derivative) <br /></td></tr>
 <tr class="separator:a4bc4c3840f212a28ec2e5fd2851f19fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff1fd822be7f1959f59d26d99f610124"><td class="memItemLeft" align="right" valign="top"><a id="aff1fd822be7f1959f59d26d99f610124"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#aff1fd822be7f1959f59d26d99f610124">printReinitResiduals_</a></td></tr>
+<tr class="memdesc:aff1fd822be7f1959f59d26d99f610124"><td class="mdescLeft">&#160;</td><td class="mdescRight">print residuals in log <br /></td></tr>
+<tr class="separator:aff1fd822be7f1959f59d26d99f610124"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -355,6 +361,41 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr><td class="fieldname"><a id="a4bf0942b1f7375689c1a69d86ce7b6dda8b41dc73f7b613015418c561d01440c3"></a>KIN_DERIVATIVES&#160;</td><td class="fielddoc"><p>solve the new value of the derivative of differential variables </p>
 </td></tr>
 </table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a77a4cec5d778b34da21d5fb5485a0624"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77a4cec5d778b34da21d5fb5485a0624">&#9670;&nbsp;</a></span>SolverKINAlgRestoration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DYN::SolverKINAlgRestoration::SolverKINAlgRestoration </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>printReinitResiduals</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>default constructor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">printReinitResiduals</td><td>to enable to print residuals info in log </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -718,6 +759,34 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 </div>
 </div>
+<a id="abac6337b14444afcca9e90d23d6ac9bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abac6337b14444afcca9e90d23d6ac9bc">&#9670;&nbsp;</a></span>printResiduals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::SolverKINAlgRestoration::printResiduals </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>print reinit residuals getter </p>
+<dl class="section return"><dt>Returns</dt><dd>print reinit residuals in logs </dd></dl>
+
+</div>
+</div>
 <a id="a6c21fef993ac98e9de1811bf4b1e2e4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c21fef993ac98e9de1811bf4b1e2e4a">&#9670;&nbsp;</a></span>setInitialValues()</h2>
 
@@ -1007,7 +1076,7 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d89/a03440.html">SolverKINAlgRestoration</a></li>
-    <li class="footer">Generated on Wed Feb 11 2026 14:43:36 for Dynawo by
+    <li class="footer">Generated on Thu Feb 12 2026 16:33:10 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
