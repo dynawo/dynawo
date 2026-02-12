@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+    for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SMIB.par" parId="InfiniteBus" staticId="InfiniteBus">
+    <dyn:staticRef var="infiniteBus_PPu" staticVar="p"/>
+    <dyn:staticRef var="infiniteBus_QPu" staticVar="q"/>
+    <dyn:staticRef var="infiniteBus_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="sm" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="SMIB.par" parId="sm" staticId="SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="Pm" lib="Step" parFile="SMIB.par" parId="Pm"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="SetPoint"/>
+  <dyn:connect id1="sm" var1="generator_terminal" id2="NETWORK" var2="@SM@@NODE@_ACPIN"/>
+  <dyn:connect id1="sm" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+  <dyn:connect id1="sm" var1="governor_PmRefPu" id2="Pm" var2="step_step_value"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="NETWORK" var2="@InfiniteBus@@NODE@_ACPIN"/>
+</dyn:dynamicModelsArchitecture>

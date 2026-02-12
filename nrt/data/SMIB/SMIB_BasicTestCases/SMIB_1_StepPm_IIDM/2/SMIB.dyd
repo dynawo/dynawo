@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2022, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
+    for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SMIB.par" parId="InfiniteBus" staticId="VL1_BUS1">
+    <dyn:staticRef var="infiniteBus_UPuVar" staticVar="v"/>
+    <dyn:staticRef var="infiniteBus_UPhaseVar" staticVar="angle"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="bus1" lib="Bus" staticId="VL2_BUS1" parFile="SMIB.par" parId="bus">
+    <dyn:staticRef var="bus_UPu" staticVar="v"/>
+    <dyn:staticRef var="bus_UPhase" staticVar="angle"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="bus2" lib="Bus" staticId="VL3_BUS1" parFile="SMIB.par" parId="bus">
+    <dyn:staticRef var="bus_UPu" staticVar="v"/>
+    <dyn:staticRef var="bus_UPhase" staticVar="angle"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="line1" lib="Line" parFile="SMIB.par" parId="line" staticId="line1">
+    <dyn:staticRef var="line_P1Pu" staticVar="p1"/>
+    <dyn:staticRef var="line_Q1Pu" staticVar="q1"/>
+    <dyn:staticRef var="line_P2Pu" staticVar="p2"/>
+    <dyn:staticRef var="line_Q2Pu" staticVar="q2"/>
+    <dyn:staticRef var="line_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="line2" lib="Line" parFile="SMIB.par" parId="line" staticId="line2">
+    <dyn:staticRef var="line_P1Pu" staticVar="p1"/>
+    <dyn:staticRef var="line_Q1Pu" staticVar="q1"/>
+    <dyn:staticRef var="line_P2Pu" staticVar="p2"/>
+    <dyn:staticRef var="line_Q2Pu" staticVar="q2"/>
+    <dyn:staticRef var="line_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="tfo" lib="TransformerFixedRatio" parFile="SMIB.par" parId="tfo" staticId="TR">
+    <dyn:staticRef var="transformer_P1Pu" staticVar="p1"/>
+    <dyn:staticRef var="transformer_Q1Pu" staticVar="q1"/>
+    <dyn:staticRef var="transformer_P2Pu" staticVar="p2"/>
+    <dyn:staticRef var="transformer_Q2Pu" staticVar="q2"/>
+    <dyn:staticRef var="transformer_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="sm" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="SMIB.par" parId="sm" staticId="SM">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="Pm" lib="Step" parFile="SMIB.par" parId="Pm"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="SetPoint"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line2" var2="line_terminal1"/>
+  <dyn:connect id1="line1" var1="line_terminal2" id2="bus1" var2="bus_terminal"/>
+  <dyn:connect id1="line2" var1="line_terminal2" id2="bus1" var2="bus_terminal"/>
+  <dyn:connect id1="bus1" var1="bus_terminal" id2="tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="tfo" var1="transformer_terminal2" id2="bus2" var2="bus_terminal"/>
+  <dyn:connect id1="sm" var1="generator_terminal" id2="bus2" var2="bus_terminal"/>
+  <dyn:connect id1="sm" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+  <dyn:connect id1="sm" var1="governor_PmRefPu" id2="Pm" var2="step_step_value"/>
+</dyn:dynamicModelsArchitecture>
