@@ -25,7 +25,7 @@
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 
-#include "DYNNetworkComponent.h"
+#include "DYNModelQuadripole.h"
 #include "DYNHvdcLineInterface.h"
 
 namespace DYN {
@@ -36,7 +36,7 @@ class LccConverterInterface;
 /**
  * @brief HVDC link component
  */
-class ModelHvdcLink : public NetworkComponent {
+class ModelHvdcLink : public ModelQuadripole {
  public:
   /**
    * @brief default constructor for hvdc-vsc link
@@ -292,42 +292,6 @@ class ModelHvdcLink : public NetworkComponent {
   }
 
   /**
-   * @brief set the bus to which the converter1 is connected
-   *
-   * @param model model of the bus
-   */
-  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
-    modelBus1_ = model;
-  }
-
-  /**
-   * @brief get the bus to which the converter1 is connected
-   *
-   * @return model model of the bus
-   */
-  inline const std::shared_ptr<ModelBus>& getModelBus1() {
-    return modelBus1_;
-  }
-
-  /**
-   * @brief set the bus to which the converter2 is connected
-   *
-   * @param model model of the bus
-   */
-  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
-    modelBus2_ = model;
-  }
-
-  /**
-   * @brief get the bus to which the converter2 is connected
-   *
-   * @return model model of the bus
-   */
-  inline const std::shared_ptr<ModelBus>& getModelBus2() {
-    return modelBus2_;
-  }
-
-  /**
    * @brief get the number of internal variable of the model
    *
    * @return the number of internal variable of the model
@@ -503,9 +467,6 @@ class ModelHvdcLink : public NetworkComponent {
 
  private:
   std::weak_ptr<HvdcLineInterface> dcLine_;  ///< reference to the hvdc line interface object
-
-  std::shared_ptr<ModelBus> modelBus1_;  ///< model bus at point of common coupling 1
-  std::shared_ptr<ModelBus> modelBus2_;  ///< model bus at point of common coupling 2
 
   double pSetPoint_;  ///< active power set-point for the link in MW
 

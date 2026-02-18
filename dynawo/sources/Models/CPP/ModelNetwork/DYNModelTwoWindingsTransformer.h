@@ -32,7 +32,7 @@
 #include <sstream>
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponent.h"
+#include "DYNModelQuadripole.h"
 
 namespace DYN {
 class ModelBus;
@@ -45,7 +45,7 @@ class ModelCurrentLimits;
 /**
  * @brief ModelTwoWindingsTransformer class
  */
-class ModelTwoWindingsTransformer : public NetworkComponent {
+class ModelTwoWindingsTransformer : public ModelQuadripole {
  public:
   /**
    * @brief default constructor
@@ -96,14 +96,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   } IndexDiscreteVariable_t;
 
   /**
-   * @brief set the connection state (open, closed on one side, ...)
-   * @param state connection state
-   */
-  void setConnectionState(const State state) {
-    connectionState_ = state;
-  }  // set the connection state (open, closed on one side, ...)
-
-  /**
    * @brief set the tap-changer model used along with the transformer
    * @param model tap-changer model
    */
@@ -112,38 +104,12 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   }  // set the tap-changer model used along with the transformer
 
   /**
-   * @brief set the bus at end 1 of the transformer
-   *
-   * @param model model of the bus
-   */
-  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
-    modelBus1_ = model;
-  }
-
-  /**
-   * @brief set the bus at end 2 of the transformer
-   *
-   * @param model model of the bus
-   */
-  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
-    modelBus2_ = model;
-  }
-
-  /**
    * @brief set monitoring bus
    * @param modelBus monitored bus model
    */
   void setBusMonitored(const std::shared_ptr<ModelBus>& modelBus) {
     modelBusMonitored_ = modelBus;
   }
-
-  /**
-   * @brief get the connection state (open, closed on one side, ...)
-   * @return state
-   */
-  State getConnectionState() const {
-    return connectionState_;
-  }  ///< get the connection state (open, closed on one side, ...)
 
   /**
    * @brief get the ratio tap-changer model used along with the transformer
@@ -381,11 +347,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(double time) override;
-
-  /**
-   * @brief addBusNeighbors
-   */
-  void addBusNeighbors() override;
 
   /**
    * @brief init size
@@ -734,11 +695,8 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
   double ii01_;  ///< initial imaginary part of the current at side 1
   double ir02_;  ///< initial real part of the current at side 2
   double ii02_;  ///< initial imaginary part of the current at side 2
-  std::shared_ptr<ModelBus> modelBus1_;  ///< model for the bus on side 1
-  std::shared_ptr<ModelBus> modelBus2_;  ///< model for the bus on side 2
 
   // evaluated at the end of evalZ to detect if the state was modified by another component
-  State connectionState_;  ///< "internal" 2wt connection state for the transformer
   bool topologyModified_;  ///< true if the 2wt connection state was modified
   bool stateIndexModified_;  ///< true if the 2wt state index was modified
   bool updateYMat_;  ///< true if YMat needs to be updated (= topologyModified or stateIndexModified on this 2wt)

@@ -1412,6 +1412,11 @@ class SubModel {
    */
   virtual void getInitSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found) const;
 
+  /**
+   * @brief Only of use to ModelNetwork. Workaround for strict Modeler/Models segregation design.
+   */
+  virtual void mapToNetworkBridge(const boost::shared_ptr<SubModel> &) {}
+
  protected:
   /**
    * @brief get the name of the file where parameters should be dumped
