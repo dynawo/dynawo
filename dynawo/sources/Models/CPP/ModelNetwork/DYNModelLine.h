@@ -24,7 +24,7 @@
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 
-#include "DYNNetworkComponent.h"
+#include "DYNModelQuadripole.h"
 
 namespace DYN {
 class ModelBus;
@@ -34,7 +34,7 @@ class ModelCurrentLimits;
 /**
  * @brief Generic AC line model
  */
-class ModelLine : public NetworkComponent {
+class ModelLine : public ModelQuadripole {
  public:
   /**
    * @brief default constructor
@@ -75,46 +75,12 @@ class ModelLine : public NetworkComponent {
   } CalculatedVariables_t;
 
   /**
-   * @brief set the connected state (fully connected, one end open, ...) of the line
-   * @param state connected state
-   */
-  void setConnectionState(const State state) {
-    connectionState_ = state;
-  }  // set the connected state (fully connected, one end open, ...) of the line
-
-  /**
    * @brief set CurrentLimits Desactivate
    * @param desactivate CurrentLimits Desactivate
    */
   void setCurrentLimitsDesactivate(const double desactivate) {
     currentLimitsDesactivate_ = desactivate;
   }
-
-  /**
-   * @brief set the bus at end 1 of the line
-   *
-   * @param model model of the bus
-   */
-  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
-    modelBus1_ = model;
-  }
-
-  /**
-   * @brief set the bus at end 2 of the line
-   *
-   * @param model model of the bus
-   */
-  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
-    modelBus2_ = model;
-  }
-
-  /**
-   * @brief get the connected state (fully connected, one end open, ...) of the line
-   * @return state
-   */
-  State getConnectionState() const {
-    return connectionState_;
-  }  // get the connected state (fully connected, one end open, ...) of the line
 
   /**
    * @brief get CurrentLimits Desactivate
@@ -128,12 +94,6 @@ class ModelLine : public NetworkComponent {
    * @brief evaluate node injection
    */
   void evalNodeInjection() override;
-
-  /**
-   * @brief  add bus neighbors
-   *
-   */
-  void addBusNeighbors() override;
 
   /**
    * @brief evaluate derivatives
@@ -549,9 +509,6 @@ class ModelLine : public NetworkComponent {
     return yOffset_ + localIndex;
   }
 
-  std::shared_ptr<ModelBus> modelBus1_;  ///< model bus 1
-  std::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
-  State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the line connection state was modified
   bool updateYMat_;  ///< true if the YMat need to be updated(= topologyModified)
   double currentLimitsDesactivate_;  ///< current limit desactivate

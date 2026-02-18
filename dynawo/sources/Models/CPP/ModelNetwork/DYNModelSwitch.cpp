@@ -41,7 +41,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 ModelSwitch::ModelSwitch(const std::shared_ptr<SwitchInterface>& sw) :
-NetworkComponent(sw->getID()),
+ModelQuadripole(sw->getID()),
 topologyModified_(false),
 inLoop_(false),
 canBeClosed_(!sw->isOpen() || sw->isRetained()) {
@@ -56,20 +56,20 @@ canBeClosed_(!sw->isOpen() || sw->isRetained()) {
   iiYNum_ = 0;
 }
 
-std::shared_ptr<ModelBus>
+const std::shared_ptr<ModelBus> &
 ModelSwitch::getModelBus1() const {
   if (!modelBus1_)
     throw DYNError(Error::MODELER, SwitchMissingBus1, id());
 
-  return modelBus1_;
+  return ModelQuadripole::getModelBus1();
 }
 
-std::shared_ptr<ModelBus>
+const std::shared_ptr<ModelBus> &
 ModelSwitch::getModelBus2() const {
   if (!modelBus2_)
     throw DYNError(Error::MODELER, SwitchMissingBus2, id());
 
-  return modelBus2_;
+  return ModelQuadripole::getModelBus2();
 }
 
 void
