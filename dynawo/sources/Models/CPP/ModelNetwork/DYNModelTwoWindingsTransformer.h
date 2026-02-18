@@ -120,6 +120,14 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
     modelBus1_ = model;
   }
 
+   /**
+   * @brief get the bus at end 1 of the transformer
+   * @return model model of the bus
+   */
+  const std::shared_ptr<ModelBus> & getModelBus1() {
+    return modelBus1_;
+  }
+
   /**
    * @brief set the bus at end 2 of the transformer
    *
@@ -127,6 +135,14 @@ class ModelTwoWindingsTransformer : public NetworkComponent {
    */
   void setModelBus2(const std::shared_ptr<ModelBus>& model) {
     modelBus2_ = model;
+  }
+
+  /**
+   * @brief get the bus at end 2 of the transformer
+   * @return model model of the bus
+   */
+  const std::shared_ptr<ModelBus> & getModelBus2() {
+    return modelBus2_;
   }
 
   /**

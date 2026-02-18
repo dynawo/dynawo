@@ -100,6 +100,10 @@ Modeler::initNetwork() {
 
 void
 Modeler::initModelDescription() {
+  boost::shared_ptr<SubModel> modelNetwork = nullptr;
+  if (subModels_.find("NETWORK") != subModels_.end())
+    modelNetwork = subModels_["NETWORK"];
+
   for (const auto& modelDescriptionPair : dyd_->getModelDescriptions()) {
     const auto& modelDescription = modelDescriptionPair.second;
     if (modelDescription->getModel()->getType() == dynamicdata::Model::MODEL_TEMPLATE) {
@@ -124,6 +128,8 @@ Modeler::initModelDescription() {
       if (!modelDescription->getStaticId().empty()) {
         data_->setDynamicModel(modelDescription->getStaticId(), model);
         initStaticRefs(model, modelDescription);
+        if (modelNetwork != nullptr)
+          modelNetwork->mapToNetworkBridge(model);
       }
     } else {
       throw DYNError(Error::MODELER, CompileModel, modelDescription->getID());
