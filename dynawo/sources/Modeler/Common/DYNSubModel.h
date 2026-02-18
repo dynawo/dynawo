@@ -1412,6 +1412,8 @@ class SubModel {
    */
   virtual void getInitSubModelParameterValue(const std::string & nameParameter, std::string& value, bool& found) const;
 
+  virtual void mapToNetworkBridge(const boost::shared_ptr<SubModel> &) {}
+
  protected:
   /**
    * @brief get the name of the file where parameters should be dumped

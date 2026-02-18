@@ -49,6 +49,7 @@
 #include "DYNModelPhaseTapChanger.h"
 #include "DYNModelHvdcLink.h"
 #include "DYNModelVoltageLevel.h"
+#include "DYNNetworkBridge.h"
 
 #include "DYNNetworkInterface.h"
 #include "DYNDataInterface.h"
@@ -411,6 +412,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
 
     if (twoWTfo->hasDynamicModel()) {
+      addBridge(std::make_shared<NetworkBridge>(modelTwoWindingsTransformer));
       Trace::debug(Trace::network()) << DYNLog(TwoWTfoExtDynModel, id) << Trace::endline;
       continue;
     }
@@ -1489,5 +1491,23 @@ void
 ModelNetwork::loadInternalVariables(boost::archive::binary_iarchive&) {
   // not needed
 }
+
+void
+ModelNetwork::addBridge(const std::shared_ptr<NetworkBridge> & bridge) {
+  components_.push_back(bridge);
+  unmappedBridges_[bridge->id()] = bridge;
+}
+
+void
+ModelNetwork::mapToNetworkBridge(const boost::shared_ptr<SubModel> & submodel) {
+  std::string bridgeId = NetworkBridge::BRIDGE_PREFIX + submodel->staticId();
+
+  if (unmappedBridges_.find(bridgeId) != unmappedBridges_.end()) {
+    std::cout << "found a matching bridge to " << bridgeId << "\n";
+    unmappedBridges_[bridgeId]->setDynPart(submodel);
+    unmappedBridges_.erase(bridgeId);
+  }
+}
+
 
 }  // namespace DYN

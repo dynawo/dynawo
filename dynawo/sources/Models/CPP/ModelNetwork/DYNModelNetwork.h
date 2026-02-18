@@ -34,6 +34,7 @@ class ModelBusContainer;
 class ModelSwitch;
 class ModelVoltageLevel;
 class NetworkComponent;
+class NetworkBridge;
 class DataInterface;
 
 static const double maximumValueCurrentLimit = 5000;   ///< Maximum acceptable value for current limits
@@ -319,6 +320,8 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    */
   void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
+  void mapToNetworkBridge(const boost::shared_ptr<SubModel> &) override;
+
  protected:
   /**
   * @copydoc SubModel::dumpUserReadableElementList()
@@ -393,6 +396,8 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   */
   void printInternalParameters(std::ofstream& fstream) const override;
 
+  void addBridge(const std::shared_ptr<NetworkBridge> & bridge);
+
  private:
   double* calculatedVarBuffer_;  ///< calculated variable buffer
 
@@ -405,6 +410,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelInitComponents_;  ///< all voltage level components  (used for init model)
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
   std::vector<std::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
+  std::map<std::string, std::shared_ptr<NetworkBridge> > unmappedBridges_;  ///< network bridges yet unassociated with their dynamic model
   std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
 };
 
