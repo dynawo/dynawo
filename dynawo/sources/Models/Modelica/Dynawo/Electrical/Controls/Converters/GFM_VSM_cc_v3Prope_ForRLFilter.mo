@@ -27,7 +27,7 @@ model GFM_VSM_cc_v3Prope_ForRLFilter "Grid Forming converters test case"
 
   //Parameters of the Transformer between the converter and the PCC
   parameter Real LTransformer =0.15 "Transformer inductance in pu (base UNom, SNom)";
-  final parameter Real RTransformer = LTransformer/10*0"Transformer resistance in pu (base UNom, SNom)";
+  final parameter Real RTransformer = LTransformer/10"Transformer resistance in pu (base UNom, SNom)";
 
   // Parameter of the VSC
   parameter Real Fsw = 5000 "Switching frequency of the VSC (hz)";

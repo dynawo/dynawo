@@ -64,6 +64,10 @@ model MeasurementsFiltered "Measurements block for PEIR models"
   final parameter Types.PerUnit udFilteredPcc0Pu = UdPcc0Pu;
   final parameter Types.PerUnit uqFilteredPcc0Pu = UqPcc0Pu;
 
+  Types.PerUnit PFilterPuBeforeFilter "Active power at the filter in pu (base SNom) without consideration of First order Filter"  ;
+  Types.PerUnit QFilterPuBeforeFilter "Active power at the filter in pu (base SNom) without consideration of First order Filter";
+
+
   //Dynawo.Types.ReactivePowerPu QPccPu  "reactive power at the Pcc in pu (base SNom)";
   Dynawo.Types.VoltageModulePu UPccPu  "voltage module at the Pcc in pu (base UNom)";
  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tUFilt, k = 1, y_start = IdPcc0Pu) annotation(
@@ -108,6 +112,10 @@ model MeasurementsFiltered "Measurements block for PEIR models"
     Placement(visible = true, transformation(origin = {4, -172}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));  equation
   PFilterPu = udFilterPQCalculPu * idPccPQCalculPu + uqFilterPQCalculPu * iqPccPQCalculPu;
   QFilterPu = uqFilterPQCalculPu * idPccPQCalculPu - udFilterPQCalculPu * iqPccPQCalculPu;
+
+  PFilterPuBeforeFilter = udFilterPu * idPccPu + uqFilterPu * iqPccPu;
+  QFilterPuBeforeFilter = uqFilterPu * idPccPu - udFilterPu * iqPccPu;
+
  // QPccPu    = uqPccPu * idPccPu - udPccPu * iqPccPu;
   UPccPu    = uqPccPu^2 + udPccPu^2;
  connect(firstOrder1.y, uqFilteredFilterPu) annotation(

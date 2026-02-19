@@ -17,22 +17,22 @@ model TwoConverter_FixeLgrid_TunningE_v1
     Placement(visible = true, transformation(origin = {-32, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Types.VoltageModulePu U1Pu;
   Types.Angle UPhase1;
-
-
-
-
-  Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL1( CFilterPu = 1 / 1e5, Kfd = 1, Kfq = 1, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.3819, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = 5,Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000,  U0Pu = 1.0847, UPhase0 = -0.18, tPFilt = 1 / 300, tPQFilt = 1 / 111.055, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 1 / (2 *2.5e3)) annotation(
+  Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL1(CFilterPu = 1 / 1e5, Kfd = 1, Kfq = 0, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.3819, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = 5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.0847, UPhase0 = -0.18, tPFilt = 1 / 300, tPQFilt = 1 / 111.055, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 0) annotation(
     Placement(visible = true, transformation(origin = {-68, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL2(CFilterPu = 1 / 1e5, Kfd = 1, Kfq = 1, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.3819, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,    P0Pu = -5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.1072, UPhase0 = 0.098, tPFilt = 1 / 300, tPQFilt = 1 / 111.055, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 1 / (2 *2.5e3)) annotation(
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing.DynGFLMeasurementFiltered GFL2(CFilterPu = 1 / 1e5, Kfd = 1, Kfq = 0, Ki = 7.95, Kic = 3.60, Kid = 10, Kiq = 10, Kp = 0.318, Kpc = 0.3819, Kpd = 0.033, Kpq = 0.033, LFilterPu = 0.1, LTransformerPu = 0.05, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, P0Pu = -5, Q0Pu = -0.21, RFilterPu = 0.003, RTransformerPu = 0.002, SNom = 1000, U0Pu = 1.1072, UPhase0 = 0.098, tPFilt = 1 / 300, tPQFilt = 1 / 111.055, tQFilt = 1 / 300, tUFilt = 1 / 6283.18, tUqPLL = 1 / 2000, tVSC = 0) annotation(
     Placement(transformation(origin = {74, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1.1, UEvtPu = 1.14, UPhase = -0.04, omega0Pu = 1, omegaEvtPu = -1.8, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
     Placement(transformation(origin = {2, -48}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step step2(height = 0, offset = 0.021, startTime = 40) annotation(
+  Modelica.Blocks.Sources.Step step2(height = 0.01, offset = 0.021, startTime = 1.5) annotation(
     Placement(visible = true, transformation(origin = {-108, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step step(height = 0, offset = 0.021, startTime = 40) annotation(
+  Modelica.Blocks.Sources.Step step(height = 0.01, offset = 0.021, startTime = 1.5) annotation(
     Placement(visible = true, transformation(origin = {132, -26}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Lines.DynLine_Ramp line22(L0Pu = 0.08, P01Pu = 0.11901040, P02Pu = -0.11194076, Q01Pu = 1.24143346, Q02Pu = -1.17073708, R0Pu = 0.008, RampL0 = 0.25, U01Pu = 1.1, U02Pu = 1.03733331, UPhase01 = -0.04, UPhase02 = -2.278818 * 3.14 / 180) annotation(
+  Dynawo.Electrical.Lines.DynLine_Ramp line22(L0Pu = 0.0304, LPuFinal = 0.05, P01Pu = 0.11901040, P02Pu = -0.11194076, Q01Pu = 1.24143346, Q02Pu = -1.17073708, R0Pu = 0.00304, U01Pu = 1.1, U02Pu = 1.03733331, UPhase01 = -0.04, UPhase02 = -2.278818 * 3.14 / 180) annotation(
     Placement(visible = true, transformation(origin = {2, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Sources.Step step1(height = -0.1, offset = -0.5, startTime = 2.5) annotation(
+    Placement(visible = true, transformation(origin = {-108, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Step step3(height = 0.1, offset = 0.5, startTime = 2.5) annotation(
+    Placement(visible = true, transformation(origin = {120, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 equation
 // No switch-off of the lines
   line.switchOffSignal1.value = false;
@@ -46,11 +46,11 @@ equation
   line1.omegaPu.value = 1;
   line22.omegaPu.value = 1;
 // No modifications in GFL set points
-  der(GFL1.PFilterRefPu) = 0;
-  //der(GFL1.QFilterRefPu) = 0;
+  //der(GFL1.PFilterRefPu) = 0;
+//der(GFL1.QFilterRefPu) = 0;
   der(GFL1.omegaRefPu) = 0;
-  der(GFL2.PFilterRefPu) = 0;
-  //der(GFL2.QFilterRefPu) = 0;
+  //der(GFL2.PFilterRefPu) = 0;
+//der(GFL2.QFilterRefPu) = 0;
   der(GFL2.omegaRefPu) = 0;
   U1Pu = Modelica.ComplexMath.'abs'(GFL1.terminal.V);
   UPhase1 = Modelica.ComplexMath.arg(GFL1.terminal.V);
@@ -76,6 +76,10 @@ equation
     Line(points = {{2, -12}, {2, 0}}, color = {0, 0, 255}));
   connect(line22.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{2, -32}, {2, -48}}, color = {0, 0, 255}));
+  connect(step1.y, GFL1.PFilterRefPu) annotation(
+    Line(points = {{-96, 10}, {-86, 10}, {-86, 8}, {-78, 8}}, color = {0, 0, 127}));
+  connect(GFL2.PFilterRefPu, step3.y) annotation(
+    Line(points = {{86, -8}, {96, -8}, {96, -60}, {110, -60}}, color = {0, 0, 127}));
   annotation(
     experiment(StartTime = 0, StopTime = 2, Tolerance = 1e-06, Interval = 0.002),
     Diagram(coordinateSystem(extent = {{-80, 20}, {100, -60}})),

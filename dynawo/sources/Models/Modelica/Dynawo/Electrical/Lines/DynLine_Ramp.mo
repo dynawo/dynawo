@@ -34,16 +34,20 @@ model DynLine_Ramp "AC power line - Dynamic PI model"
 
   Types.PerUnit RPu(start=R0Pu) "Resistance in pu (base SnRef)";
   Types.PerUnit LPu(start=L0Pu) "Inductance in pu (base SnRef)";
-  Types.PerUnit RampL(start=RampL0);
+  Types.PerUnit RampL "Ramp variation of the inductance";
+ // Types.PerUnit LPuFinal "Final value of the inductance";
 
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.Time timeSwitch "start time to switch the impedance line";
+  Types.Time deltaT "delta of time 0.00001";
 
   parameter Types.PerUnit R0Pu "resistance initial of the line in pu";
   parameter Types.PerUnit L0Pu "impedance initial of the line in pu";
-  parameter Types.PerUnit RampL0 "impedance initial of the line in pu";
+  //final parameter Types.PerUnit RampL0 = 16000 "Ramp variation of the inductance in pu";
+  parameter Types.PerUnit LPuFinal "Final value of the inductance";
 
   parameter Types.VoltageModulePu U01Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
   parameter Types.Angle UPhase01 "Start value of voltage angle at terminal/PCC in rad";
@@ -62,15 +66,23 @@ model DynLine_Ramp "AC power line - Dynamic PI model"
 
 equation
 
-  if time>1.5 and time<1.6  then
-     der(RPu)=RampL/10;
+timeSwitch=4;
+deltaT=0.00001;
+
+
+RampL = (LPuFinal-L0Pu )/(deltaT);
+
+  if time>timeSwitch and time<timeSwitch+deltaT  then
+    der(RPu)=RampL/10;
     der(LPu)=RampL;
-    der(RampL)=0;
+   // der(RampL)=0;
+
+
 
   else
   der(RPu)=0;
-    der(LPu)=0;
-    der(RampL)=0;
+  der(LPu)=0;
+   // der(RampL)=0;
   end if;
 
   LPu / SystemBase.omegaNom * der(terminal1.i.re) + RPu * terminal1.i.re - omegaPu.value * LPu * terminal1.i.im = terminal1.V.re - terminal2.V.re;

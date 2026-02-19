@@ -25,13 +25,13 @@ model TwoConverter_FixeLgrid_TunningE_v1_LineMod
     Placement(visible = true, transformation(origin = {-108, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step step(height = 0, offset = 0.021, startTime = 40) annotation(
     Placement(visible = true, transformation(origin = {132, -26}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Lines.Line line22(BPu = 0, GPu = 0, RPu = 0.0238, XPu = 0.238) annotation(
+  Dynawo.Electrical.Lines.Line line22(BPu = 0, GPu = 0, RPu = 0.028, XPu = 0.28) annotation(
     Placement(visible = true, transformation(origin = {2, -22}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.00144, XPu = 0.0144) annotation(
     Placement(visible = true, transformation(origin = {-34, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.00144, XPu = 0.0144) annotation(
     Placement(visible = true, transformation(origin = {38, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Lines.Line line2(BPu = 0, GPu = 0, RPu = 0.0235, XPu = 0.235) annotation(
+  Dynawo.Electrical.Lines.Line line2(BPu = 0, GPu = 0, RPu = 0.023, XPu = 0.23) annotation(
     Placement(visible = true, transformation(origin = {26, -22}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 equation
 // No switch-off of the lines
