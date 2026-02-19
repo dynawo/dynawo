@@ -97,7 +97,7 @@ class Model {
   virtual void copyContinuousVariables(const double* y, const double* yp) = 0;
 
   /**
-   * @brief restore the residual to a previous state
+   * @brief restore the residual from a previous state
    *
    * @param f current values of the residual
    */
