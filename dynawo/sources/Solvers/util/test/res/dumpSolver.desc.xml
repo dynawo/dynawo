@@ -24,6 +24,7 @@
       <parameter name="msbsetAlg" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlgInit" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlgJ" valueType="INT" cardinality="1"/>
+      <parameter name="multipleStrategiesForAlgebraicRestoration" valueType="BOOL" cardinality="1"/>
       <parameter name="mxiter" valueType="INT" cardinality="1"/>
       <parameter name="mxiterAlg" valueType="INT" cardinality="1"/>
       <parameter name="mxiterAlgInit" valueType="INT" cardinality="1"/>

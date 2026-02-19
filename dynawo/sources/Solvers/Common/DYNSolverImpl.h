@@ -390,6 +390,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   bool printUnstableRoot_;  ///< to print unstable root in logs
   bool printReinitResiduals_;  ///< print reinit residuals in logs
   bool printResiduals_;  ///< print residuals during newton resolution
+  bool multipleStrategiesForAlgebraicRestoration_;  ///< parameter to activate multi strategy for algebraic restoration
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver

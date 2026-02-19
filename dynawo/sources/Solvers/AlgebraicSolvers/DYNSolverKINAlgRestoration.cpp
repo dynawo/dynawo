@@ -359,11 +359,23 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   return 0;
 }
 
-int
-SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter) {
-  if (numF_ == 0)
-    return KIN_SUCCESS;
+void SolverKINAlgRestoration::saveState() {
+  vectorYForRestorationSave_.assign(vectorYForRestoration_.begin(), vectorYForRestoration_.end());
+  vectorYpForRestorationSave_.assign(vectorYpForRestoration_.begin(), vectorYpForRestoration_.end());
+  vectorYOrYpSolutionSave_.assign(vectorYOrYpSolution_.begin(), vectorYOrYpSolution_.end());
+  // We have to save the residual because of the option evaluateOnlyModeAtFirstIter to have a proper restart
+  model_->saveResidual(vectorFSave_);
+}
 
+void SolverKINAlgRestoration::restoreState() {
+  vectorYForRestoration_.assign(vectorYForRestorationSave_.begin(), vectorYForRestorationSave_.end());
+  vectorYpForRestoration_.assign(vectorYpForRestorationSave_.begin(), vectorYpForRestorationSave_.end());
+  vectorYOrYpSolution_.assign(vectorYOrYpSolutionSave_.begin(), vectorYOrYpSolutionSave_.end());
+  model_->restoreResidual(vectorFSave_);
+}
+
+int SolverKINAlgRestoration::solveStrategy(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter, const int kinsolStategy,
+  const bool multipleStrategiesForAlgebraicRestoration) {
   int flag = KINSetNoInitSetup(KINMem_, noInitSetup);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
@@ -374,6 +386,10 @@ SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyMo
     model_->evalFMode(t0_, &vectorYForRestoration_[0], &vectorYpForRestoration_[0], &vectorF_[0]);
   else
     model_->evalF(t0_, &vectorYForRestoration_[0], &vectorYpForRestoration_[0], &vectorF_[0]);
+
+  if (multipleStrategiesForAlgebraicRestoration) {
+    vectorFSave_.assign(vectorF_.begin(), vectorF_.end());
+  }
 
   // fScale
   vectorFScale_.assign(indexF_.size(), 1.);
@@ -390,7 +406,28 @@ SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyMo
     }
   }
 
-  flag = solveCommon();
+  flag = solveCommon(kinsolStategy);
+
+  return flag;
+}
+
+int
+SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyModeAtFirstIter, const bool multipleStrategiesForAlgebraicRestoration) {
+  if (numF_ == 0)
+    return KIN_SUCCESS;
+
+  if (multipleStrategiesForAlgebraicRestoration)
+    saveState();
+
+  int flag = solveStrategy(noInitSetup, evaluateOnlyModeAtFirstIter, KIN_NONE, multipleStrategiesForAlgebraicRestoration);
+
+  if (flag  < 0 && multipleStrategiesForAlgebraicRestoration) {
+    Trace::info() << DYNLog(KinRestart) << Trace::endline;
+    restoreState();
+
+    flag = solveStrategy(noInitSetup, evaluateOnlyModeAtFirstIter, KIN_LINESEARCH, multipleStrategiesForAlgebraicRestoration);
+  }
+
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
 

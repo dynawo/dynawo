@@ -1005,9 +1005,10 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("printResiduals", false));
   params->addParameter(parameters::ParameterFactory::newParameter("printUnstableRoot", false));
   params->addParameter(parameters::ParameterFactory::newParameter("printReinitResiduals", false));
+  params->addParameter(parameters::ParameterFactory::newParameter("multipleStrategiesForAlgebraicRestoration", false));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 44);
+  ASSERT_EQ(solver->getParametersMap().size(), 45);
 }
 
 TEST(ParametersTest, testParametersInit) {
@@ -1055,9 +1056,10 @@ TEST(ParametersTest, testParametersInit) {
   params->addParameter(parameters::ParameterFactory::newParameter("printResiduals", false));
   params->addParameter(parameters::ParameterFactory::newParameter("printUnstableRoot", false));
   params->addParameter(parameters::ParameterFactory::newParameter("printReinitResiduals", false));
+  params->addParameter(parameters::ParameterFactory::newParameter("multipleStrategiesForAlgebraicRestoration", false));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 44);
+  ASSERT_EQ(solver->getParametersMap().size(), 45);
 }
 
 TEST(SimulationTest, testSolverSIMTestPredictionOrder1) {
