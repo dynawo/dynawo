@@ -154,7 +154,7 @@ CalculatedBusInterfaceIIDM::exportStateVariablesUnitComponent() {
   for (auto& node : nodes_) {
     const auto& terminal = voltageLevel_.getNodeBreakerView().getTerminal(node);
     if (terminal) {
-      const auto& bus = terminal.get().getBusView().getBus();
+      const auto& bus = terminal.get().getBusBreakerView().getBus();
       if (bus) {
         bus.get().setV(getStateVarV());
         bus.get().setAngle(angle);
