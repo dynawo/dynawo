@@ -176,7 +176,9 @@ $(document).ready(function(){initNavTree('d9/d4a/a02772.html','../../');});
   <tr class="even"><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a0f6398b2c3e7f027728deeb160ead615">propagateZModif</a>()</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#ac7a59dad41d4dbc4e7065e2fec8ccad5">registerAction</a>(const std::string &amp;actionString) override</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a7faa37e6cb563fb4e8d3cc6f3740bcb8">reinitMode</a>() override</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a37eca903da94e1ee4d65f75a5b09bdda">rotateBuffers</a>() override</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a88d61840d7be29e7cbb954fd5934da16">restoreResidual</a>(const std::vector&lt; double &gt; &amp;f) override</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a37eca903da94e1ee4d65f75a5b09bdda">rotateBuffers</a>() override</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a3eed9e6c620267d49a798eb16e3c05bc">saveResidual</a>(std::vector&lt; double &gt; &amp;f) override</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a3223ecc2ebc93cefd3203ed5f982a3ed">setActionBuffer</a>(const std::shared_ptr&lt; ActionBuffer &gt; actionBuffer)</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#a11f1b6a4901bc9080faf283a66aa4b6f">setConnector</a>(T connectorSubModel, const std::string &amp;name, const boost::shared_ptr&lt; SubModel &gt; &amp;subModel, const boost::shared_ptr&lt; Variable &gt; &amp;variable, bool isUpdatable)</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d9/d4a/a02772.html#afe6df8b35b7e690aa531c60bbe06cf3d">setConstraints</a>(const std::shared_ptr&lt; constraints::ConstraintsCollection &gt; &amp;constraints) override</td><td class="entry"><a class="el" href="../../d9/d4a/a02772.html">DYN::ModelMulti</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
@@ -234,7 +236,7 @@ $(document).ready(function(){initNavTree('d9/d4a/a02772.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Feb 17 2026 11:30:13 for Dynawo by
+    <li class="footer">Generated on Thu Feb 19 2026 14:26:47 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

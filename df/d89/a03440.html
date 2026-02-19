@@ -144,9 +144,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab9efae067371d26c3b0ad2c3ab3a30a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#ab9efae067371d26c3b0ad2c3ab3a30a2">setupNewAlgebraicRestoration</a> (double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl)</td></tr>
 <tr class="memdesc:ab9efae067371d26c3b0ad2c3ab3a30a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize a new algebraic restoration  <a href="#ab9efae067371d26c3b0ad2c3ab3a30a2">More...</a><br /></td></tr>
 <tr class="separator:ab9efae067371d26c3b0ad2c3ab3a30a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d01a0418956d6d768982ec2cdf922b3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a5d01a0418956d6d768982ec2cdf922b3">solve</a> (bool noInitSetup=true, bool evaluateOnlyModeAtFirstIter=false)</td></tr>
-<tr class="memdesc:a5d01a0418956d6d768982ec2cdf922b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">solve the equations of F(u) = 0 to find the new value of u  <a href="#a5d01a0418956d6d768982ec2cdf922b3">More...</a><br /></td></tr>
-<tr class="separator:a5d01a0418956d6d768982ec2cdf922b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5a24ff14e705fa331b2d100fc19bd41"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#ad5a24ff14e705fa331b2d100fc19bd41">solve</a> (bool noInitSetup=true, bool evaluateOnlyModeAtFirstIter=false, bool multipleStrategiesForAlgebraicRestoration=false)</td></tr>
+<tr class="memdesc:ad5a24ff14e705fa331b2d100fc19bd41"><td class="mdescLeft">&#160;</td><td class="mdescRight">solve the equations of F(u) = 0 to find the new value of u  <a href="#ad5a24ff14e705fa331b2d100fc19bd41">More...</a><br /></td></tr>
+<tr class="separator:ad5a24ff14e705fa331b2d100fc19bd41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0aeb16fe745c1c995a68b9e80205dd0e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d55/a02760.html">Model</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a0aeb16fe745c1c995a68b9e80205dd0e">getModel</a> () const</td></tr>
 <tr class="memdesc:a0aeb16fe745c1c995a68b9e80205dd0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the model currently simulated  <a href="#a0aeb16fe745c1c995a68b9e80205dd0e">More...</a><br /></td></tr>
 <tr class="separator:a0aeb16fe745c1c995a68b9e80205dd0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,6 +156,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6c21fef993ac98e9de1811bf4b1e2e4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a6c21fef993ac98e9de1811bf4b1e2e4a">setInitialValues</a> (double t, const std::vector&lt; double &gt; &amp;y, const std::vector&lt; double &gt; &amp;yp)</td></tr>
 <tr class="memdesc:a6c21fef993ac98e9de1811bf4b1e2e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the initial conditions of the equations to solve  <a href="#a6c21fef993ac98e9de1811bf4b1e2e4a">More...</a><br /></td></tr>
 <tr class="separator:a6c21fef993ac98e9de1811bf4b1e2e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a090264626fe58b8c45761d00ae5d2230"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a090264626fe58b8c45761d00ae5d2230">solveStrategy</a> (bool noInitSetup, bool evaluateOnlyModeAtFirstIter, int kinsolStategy, bool multipleStrategiesForAlgebraicRestoration=false)</td></tr>
+<tr class="memdesc:a090264626fe58b8c45761d00ae5d2230"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the initial conditions of the equations to solve  <a href="#a090264626fe58b8c45761d00ae5d2230">More...</a><br /></td></tr>
+<tr class="separator:a090264626fe58b8c45761d00ae5d2230"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57cbaca4925480c9aa934e30b0d27624"><td class="memItemLeft" align="right" valign="top"><a id="a57cbaca4925480c9aa934e30b0d27624"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a57cbaca4925480c9aa934e30b0d27624">resetAlgebraicRestoration</a> ()</td></tr>
 <tr class="memdesc:a57cbaca4925480c9aa934e30b0d27624"><td class="mdescLeft">&#160;</td><td class="mdescRight">clean sundials structures to force a new algebraic restoration setup <br /></td></tr>
@@ -176,9 +179,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#a7f17551e466f66189dff3d1c0b4423f7">clean</a> ()</td></tr>
 <tr class="memdesc:a7f17551e466f66189dff3d1c0b4423f7 inherit pub_methods_a03444"><td class="mdescLeft">&#160;</td><td class="mdescRight">delete all internal structure allocated by init method <br /></td></tr>
 <tr class="separator:a7f17551e466f66189dff3d1c0b4423f7 inherit pub_methods_a03444"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab96eef96a7054054e2148a7f611e704b inherit pub_methods_a03444"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#ab96eef96a7054054e2148a7f611e704b">solveCommon</a> ()</td></tr>
-<tr class="memdesc:ab96eef96a7054054e2148a7f611e704b inherit pub_methods_a03444"><td class="mdescLeft">&#160;</td><td class="mdescRight">common parts for the solve method (scaling vectors copy, call to KINSOL, analyseflag)  <a href="../../dd/ddc/a03444.html#ab96eef96a7054054e2148a7f611e704b">More...</a><br /></td></tr>
-<tr class="separator:ab96eef96a7054054e2148a7f611e704b inherit pub_methods_a03444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b8ba7755338c4a09bfbac77254f64c4 inherit pub_methods_a03444"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#a5b8ba7755338c4a09bfbac77254f64c4">solveCommon</a> (int strategy)</td></tr>
+<tr class="memdesc:a5b8ba7755338c4a09bfbac77254f64c4 inherit pub_methods_a03444"><td class="mdescLeft">&#160;</td><td class="mdescRight">common parts for the solve method (scaling vectors copy, call to KINSOL, analyseflag)  <a href="../../dd/ddc/a03444.html#a5b8ba7755338c4a09bfbac77254f64c4">More...</a><br /></td></tr>
+<tr class="separator:a5b8ba7755338c4a09bfbac77254f64c4 inherit pub_methods_a03444"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dbf9a7d0821516c5662fb4136705715 inherit pub_methods_a03444"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#a1dbf9a7d0821516c5662fb4136705715">getFirstIteration</a> () const</td></tr>
 <tr class="memdesc:a1dbf9a7d0821516c5662fb4136705715 inherit pub_methods_a03444"><td class="mdescLeft">&#160;</td><td class="mdescRight">set if solver is in first iteration step or not  <a href="../../dd/ddc/a03444.html#a1dbf9a7d0821516c5662fb4136705715">More...</a><br /></td></tr>
 <tr class="separator:a1dbf9a7d0821516c5662fb4136705715 inherit pub_methods_a03444"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,6 +216,14 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:add73ab0647d3b2be62e0d83ca9b8dbba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#add73ab0647d3b2be62e0d83ca9b8dbba">updateKINSOLSettings</a> (double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep, int msbset, int mxiter, int printfl) const</td></tr>
 <tr class="memdesc:add73ab0647d3b2be62e0d83ca9b8dbba"><td class="mdescLeft">&#160;</td><td class="mdescRight">modify the solver settings  <a href="#add73ab0647d3b2be62e0d83ca9b8dbba">More...</a><br /></td></tr>
 <tr class="separator:add73ab0647d3b2be62e0d83ca9b8dbba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa02b1b2730645478bc4f492f84d695d0"><td class="memItemLeft" align="right" valign="top"><a id="aa02b1b2730645478bc4f492f84d695d0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#aa02b1b2730645478bc4f492f84d695d0">saveState</a> ()</td></tr>
+<tr class="memdesc:aa02b1b2730645478bc4f492f84d695d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">save state before performing algebraic restoration <br /></td></tr>
+<tr class="separator:aa02b1b2730645478bc4f492f84d695d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a877a0375e38e0f161e85806d041707c7"><td class="memItemLeft" align="right" valign="top"><a id="a877a0375e38e0f161e85806d041707c7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a877a0375e38e0f161e85806d041707c7">restoreState</a> ()</td></tr>
+<tr class="memdesc:a877a0375e38e0f161e85806d041707c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">restore state before performing algebraic restoration to use a new strategy <br /></td></tr>
+<tr class="separator:a877a0375e38e0f161e85806d041707c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f7aee2ebad72f4ef1a5aacef5521537"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d89/a03440.html#a4bf0942b1f7375689c1a69d86ce7b6dd">modeKin_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a5f7aee2ebad72f4ef1a5aacef5521537">getMode</a> () const</td></tr>
 <tr class="memdesc:a5f7aee2ebad72f4ef1a5aacef5521537"><td class="mdescLeft">&#160;</td><td class="mdescRight">get mode  <a href="#a5f7aee2ebad72f4ef1a5aacef5521537">More...</a><br /></td></tr>
 <tr class="separator:a5f7aee2ebad72f4ef1a5aacef5521537"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -254,6 +265,22 @@ std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#aaf2e4939ed6c59711e3210bdc6e50cb7">vectorYpForRestoration_</a></td></tr>
 <tr class="memdesc:aaf2e4939ed6c59711e3210bdc6e50cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">derivative variables during call of the solver <br /></td></tr>
 <tr class="separator:aaf2e4939ed6c59711e3210bdc6e50cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdb4aec5d12ea7e3b4f8b00f38f7784c"><td class="memItemLeft" align="right" valign="top"><a id="afdb4aec5d12ea7e3b4f8b00f38f7784c"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#afdb4aec5d12ea7e3b4f8b00f38f7784c">vectorYOrYpSolutionSave_</a></td></tr>
+<tr class="memdesc:afdb4aec5d12ea7e3b4f8b00f38f7784c"><td class="mdescLeft">&#160;</td><td class="mdescRight">save solution of the restoration after the call of the solver for multiple strategies <br /></td></tr>
+<tr class="separator:afdb4aec5d12ea7e3b4f8b00f38f7784c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cbca8c6d5dfb102e3c5ebe9218bb755"><td class="memItemLeft" align="right" valign="top"><a id="a8cbca8c6d5dfb102e3c5ebe9218bb755"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a8cbca8c6d5dfb102e3c5ebe9218bb755">vectorYForRestorationSave_</a></td></tr>
+<tr class="memdesc:a8cbca8c6d5dfb102e3c5ebe9218bb755"><td class="mdescLeft">&#160;</td><td class="mdescRight">save variables values during call of the solver for multiple strategies <br /></td></tr>
+<tr class="separator:a8cbca8c6d5dfb102e3c5ebe9218bb755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78313b6d6df2e46a777bbcf959550c19"><td class="memItemLeft" align="right" valign="top"><a id="a78313b6d6df2e46a777bbcf959550c19"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a78313b6d6df2e46a777bbcf959550c19">vectorYpForRestorationSave_</a></td></tr>
+<tr class="memdesc:a78313b6d6df2e46a777bbcf959550c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">save derivative variables during call of the solve for multiple strategies <br /></td></tr>
+<tr class="separator:a78313b6d6df2e46a777bbcf959550c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f4afad6ced168feec5321e27d12a9d5"><td class="memItemLeft" align="right" valign="top"><a id="a5f4afad6ced168feec5321e27d12a9d5"></a>
+std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#a5f4afad6ced168feec5321e27d12a9d5">vectorFSave_</a></td></tr>
+<tr class="memdesc:a5f4afad6ced168feec5321e27d12a9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">save residual vector for multiple strategies <br /></td></tr>
+<tr class="separator:a5f4afad6ced168feec5321e27d12a9d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea75fdee0a0aafba11c2150929d51661"><td class="memItemLeft" align="right" valign="top"><a id="aea75fdee0a0aafba11c2150929d51661"></a>
 std::unordered_set&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a03440.html#aea75fdee0a0aafba11c2150929d51661">ignoreF_</a></td></tr>
 <tr class="memdesc:aea75fdee0a0aafba11c2150929d51661"><td class="mdescLeft">&#160;</td><td class="mdescRight">equations to erase from the initial set of equations <br /></td></tr>
@@ -903,8 +930,8 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 </div>
 </div>
-<a id="a5d01a0418956d6d768982ec2cdf922b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d01a0418956d6d768982ec2cdf922b3">&#9670;&nbsp;</a></span>solve()</h2>
+<a id="ad5a24ff14e705fa331b2d100fc19bd41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5a24ff14e705fa331b2d100fc19bd41">&#9670;&nbsp;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -919,7 +946,13 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>evaluateOnlyModeAtFirstIter</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>evaluateOnlyModeAtFirstIter</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>multipleStrategiesForAlgebraicRestoration</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -935,9 +968,62 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
   <table class="params">
     <tr><td class="paramname">noInitSetup</td><td>indicates if the J should be evaluated or not at the first iteration </td></tr>
     <tr><td class="paramname">evaluateOnlyModeAtFirstIter</td><td>indicates if only residuals of models with mode change should be evaluated </td></tr>
+    <tr><td class="paramname">multipleStrategiesForAlgebraicRestoration</td><td>indicates if we try to use multiple strategies for restoration </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a090264626fe58b8c45761d00ae5d2230"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a090264626fe58b8c45761d00ae5d2230">&#9670;&nbsp;</a></span>solveStrategy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DYN::SolverKINAlgRestoration::solveStrategy </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>noInitSetup</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>evaluateOnlyModeAtFirstIter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kinsolStategy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>multipleStrategiesForAlgebraicRestoration</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the initial conditions of the equations to solve </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kinsolStategy</td><td>time to use in equations </td></tr>
+    <tr><td class="paramname">noInitSetup</td><td>indicates if the J should be evaluated or not at the first iteration, noInitSetup = false will force jacobian </td></tr>
+    <tr><td class="paramname">evaluateOnlyModeAtFirstIter</td><td>indicates if only residuals of models with mode change should be evaluated </td></tr>
+    <tr><td class="paramname">multipleStrategiesForAlgebraicRestoration</td><td>indicates if we try to use multiple strategies for restoration </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the flag value </dd></dl>
 
 </div>
 </div>
@@ -1076,7 +1162,7 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d89/a03440.html">SolverKINAlgRestoration</a></li>
-    <li class="footer">Generated on Tue Feb 17 2026 11:30:13 for Dynawo by
+    <li class="footer">Generated on Thu Feb 19 2026 14:26:47 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

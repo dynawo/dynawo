@@ -80,6 +80,8 @@ var searchData=
   ['resourcesdirectory_5f',['resourcesDirectory_',['../de/df8/a03432.html#a95521f2e6d52016aa69015b0b2750091',1,'DYN::SimulationContext']]],
   ['restorecontinuousvariables',['restoreContinuousVariables',['../d8/db3/a03488.html#af7bea0c031fbc72635809abb135f38d8',1,'DYN::SolverCommonFixedTimeStep::restoreContinuousVariables()'],['../d4/d5b/a03496.html#a4ed44797d84ee75f56c4b0e83ff04a12',1,'DYN::SolverSIM::restoreContinuousVariables()'],['../dd/d5d/a03504.html#ae1460181ad9bc1fe00492273a5eff361',1,'DYN::SolverTRAP::restoreContinuousVariables()']]],
   ['restoredata',['restoreData',['../de/db6/a02792.html#ac79dbcbfaa37ccf2786d8a209148cd5f',1,'DYN::SubModel']]],
+  ['restoreresidual',['restoreResidual',['../d3/d55/a02760.html#af1483f3bb73305647712628ba92bba65',1,'DYN::Model::restoreResidual()'],['../d9/d4a/a02772.html#a88d61840d7be29e7cbb954fd5934da16',1,'DYN::ModelMulti::restoreResidual()']]],
+  ['restorestate',['restoreState',['../df/d89/a03440.html#a877a0375e38e0f161e85806d041707c7',1,'DYN::SolverKINAlgRestoration']]],
   ['resultfolder',['ResultFolder',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa25e699edb587804035e49686c04d2d04',1,'DYN::KeyLog_t']]],
   ['rho_5f',['rho_',['../df/d3e/a03324.html#a386c613f707f127dbb624824bffb9aa1',1,'DYN::TapChangerStep']]],
   ['ringbuffer',['RingBuffer',['../d0/d5a/a02784.html',1,'DYN::RingBuffer'],['../d0/d5a/a02784.html#af87a5ad958ec87bf59eafb5760d8f862',1,'DYN::RingBuffer::RingBuffer()']]],

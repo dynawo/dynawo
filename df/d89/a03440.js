@@ -17,9 +17,12 @@ var a03440 =
     [ "initVarAndEqTypes", "df/d89/a03440.html#ac5ed58a1ca3be232aff22a3820b18516", null ],
     [ "printResiduals", "df/d89/a03440.html#abac6337b14444afcca9e90d23d6ac9bc", null ],
     [ "resetAlgebraicRestoration", "df/d89/a03440.html#a57cbaca4925480c9aa934e30b0d27624", null ],
+    [ "restoreState", "df/d89/a03440.html#a877a0375e38e0f161e85806d041707c7", null ],
+    [ "saveState", "df/d89/a03440.html#aa02b1b2730645478bc4f492f84d695d0", null ],
     [ "setInitialValues", "df/d89/a03440.html#a6c21fef993ac98e9de1811bf4b1e2e4a", null ],
     [ "setupNewAlgebraicRestoration", "df/d89/a03440.html#ab9efae067371d26c3b0ad2c3ab3a30a2", null ],
-    [ "solve", "df/d89/a03440.html#a5d01a0418956d6d768982ec2cdf922b3", null ],
+    [ "solve", "df/d89/a03440.html#ad5a24ff14e705fa331b2d100fc19bd41", null ],
+    [ "solveStrategy", "df/d89/a03440.html#a090264626fe58b8c45761d00ae5d2230", null ],
     [ "stringFromMode", "df/d89/a03440.html#abbbe53e8781551d96d93ce2e20e92727", null ],
     [ "updateKINSOLSettings", "df/d89/a03440.html#add73ab0647d3b2be62e0d83ca9b8dbba", null ],
     [ "ignoreF_", "df/d89/a03440.html#aea75fdee0a0aafba11c2150929d51661", null ],
@@ -29,7 +32,11 @@ var a03440 =
     [ "mode_", "df/d89/a03440.html#a4bc4c3840f212a28ec2e5fd2851f19fb", null ],
     [ "model_", "df/d89/a03440.html#aee93dd149899a81b4d99720fb5b5fd1a", null ],
     [ "printReinitResiduals_", "df/d89/a03440.html#aff1fd822be7f1959f59d26d99f610124", null ],
+    [ "vectorFSave_", "df/d89/a03440.html#a5f4afad6ced168feec5321e27d12a9d5", null ],
     [ "vectorYForRestoration_", "df/d89/a03440.html#a188ee09f3ec495908772998c8ee901c5", null ],
+    [ "vectorYForRestorationSave_", "df/d89/a03440.html#a8cbca8c6d5dfb102e3c5ebe9218bb755", null ],
     [ "vectorYOrYpSolution_", "df/d89/a03440.html#a3eaef635cba29a338bc2030787953f4e", null ],
-    [ "vectorYpForRestoration_", "df/d89/a03440.html#aaf2e4939ed6c59711e3210bdc6e50cb7", null ]
+    [ "vectorYOrYpSolutionSave_", "df/d89/a03440.html#afdb4aec5d12ea7e3b4f8b00f38f7784c", null ],
+    [ "vectorYpForRestoration_", "df/d89/a03440.html#aaf2e4939ed6c59711e3210bdc6e50cb7", null ],
+    [ "vectorYpForRestorationSave_", "df/d89/a03440.html#a78313b6d6df2e46a777bbcf959550c19", null ]
 ];

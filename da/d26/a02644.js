@@ -113,6 +113,7 @@ var a02644 =
       [ "KinMxNewt5xExceeded", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567faef87a4baff834ffa043195fb9a19fa3a", null ],
       [ "KinNoMalloc", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa9758f31869eb20d4381acc989ffd7950", null ],
       [ "KinReptdSysfuncErr", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa1d53156b8ce2340a9e9e45e5c07ae19d", null ],
+      [ "KinRestart", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567faf09dd6e734082257852c6e69af1e2c6b", null ],
       [ "KinStepLtStpTol", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fac75681f6d888a3e7c3a195c9ca25a0c9", null ],
       [ "KinSysFuncFail", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa78ec17e16a95fff0b0baee4c2030c2d3", null ],
       [ "KinVectoropErr", "da/d26/a02644.html#a963225344a251150ba0ad6d5264f567faeedc100f25bac9dbd3104fba7c8568b0", null ],

@@ -147,6 +147,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4e0bced323ae1ffc648534d06ea15621"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a02772.html#a4e0bced323ae1ffc648534d06ea15621">copyContinuousVariables</a> (const double *y, const double *yp) override</td></tr>
 <tr class="memdesc:a4e0bced323ae1ffc648534d06ea15621"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current value of the continuous variables  <a href="#a4e0bced323ae1ffc648534d06ea15621">More...</a><br /></td></tr>
 <tr class="separator:a4e0bced323ae1ffc648534d06ea15621"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88d61840d7be29e7cbb954fd5934da16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a02772.html#a88d61840d7be29e7cbb954fd5934da16">restoreResidual</a> (const std::vector&lt; double &gt; &amp;f) override</td></tr>
+<tr class="memdesc:a88d61840d7be29e7cbb954fd5934da16"><td class="mdescLeft">&#160;</td><td class="mdescRight">restore the residual from a previous state  <a href="#a88d61840d7be29e7cbb954fd5934da16">More...</a><br /></td></tr>
+<tr class="separator:a88d61840d7be29e7cbb954fd5934da16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eed9e6c620267d49a798eb16e3c05bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a02772.html#a3eed9e6c620267d49a798eb16e3c05bc">saveResidual</a> (std::vector&lt; double &gt; &amp;f) override</td></tr>
+<tr class="memdesc:a3eed9e6c620267d49a798eb16e3c05bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">save the residual  <a href="#a3eed9e6c620267d49a798eb16e3c05bc">More...</a><br /></td></tr>
+<tr class="separator:a3eed9e6c620267d49a798eb16e3c05bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63e0c471a2253526cf12a82e844dcb0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4a/a02772.html#a63e0c471a2253526cf12a82e844dcb0d">copyDiscreteVariables</a> (const double *z) override</td></tr>
 <tr class="memdesc:a63e0c471a2253526cf12a82e844dcb0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current value of the discrete variables  <a href="#a63e0c471a2253526cf12a82e844dcb0d">More...</a><br /></td></tr>
 <tr class="separator:a63e0c471a2253526cf12a82e844dcb0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2805,6 +2811,42 @@ std::shared_ptr&lt; <a class="el" href="../../df/dc7/a02712.html">ActionBuffer</
 
 </div>
 </div>
+<a id="a88d61840d7be29e7cbb954fd5934da16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88d61840d7be29e7cbb954fd5934da16">&#9670;&nbsp;</a></span>restoreResidual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelMulti::restoreResidual </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>restore the residual from a previous state </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>current values of the residual </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../d3/d55/a02760.html#af1483f3bb73305647712628ba92bba65">DYN::Model</a>.</p>
+
+</div>
+</div>
 <a id="a37eca903da94e1ee4d65f75a5b09bdda"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37eca903da94e1ee4d65f75a5b09bdda">&#9670;&nbsp;</a></span>rotateBuffers()</h2>
 
@@ -2831,6 +2873,42 @@ std::shared_ptr&lt; <a class="el" href="../../df/dc7/a02712.html">ActionBuffer</
 <p>copy current values in "pre" buffers (need for modelica sub models) </p>
 
 <p>Implements <a class="el" href="../../d3/d55/a02760.html#a382d2a3295296e5c7efde1308a86b011">DYN::Model</a>.</p>
+
+</div>
+</div>
+<a id="a3eed9e6c620267d49a798eb16e3c05bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eed9e6c620267d49a798eb16e3c05bc">&#9670;&nbsp;</a></span>saveResidual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelMulti::saveResidual </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>save the residual </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>current values of the residual </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../d3/d55/a02760.html#a6ade6830f98e70cbdc39ddf2a96284c9">DYN::Model</a>.</p>
 
 </div>
 </div>
@@ -3472,7 +3550,7 @@ template&lt;class T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/d4a/a02772.html">ModelMulti</a></li>
-    <li class="footer">Generated on Tue Feb 17 2026 11:30:13 for Dynawo by
+    <li class="footer">Generated on Thu Feb 19 2026 14:26:47 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -61,6 +61,7 @@ var a03484 =
     [ "msbsetAlg_", "de/df6/a03484.html#ad274d68a984151ac5184187248b1e738", null ],
     [ "msbsetAlgInit_", "de/df6/a03484.html#a3ea4fe65dd991019ac528556bfc21759", null ],
     [ "msbsetAlgJ_", "de/df6/a03484.html#a46b2c7314386c3d5adcb0f5976071b6c", null ],
+    [ "multipleStrategiesForAlgebraicRestoration_", "de/df6/a03484.html#a79107a55c73af9372b12a41ec161bdd3", null ],
     [ "mxiterAlg_", "de/df6/a03484.html#aaed95a51fed4790521a1a0a754847c53", null ],
     [ "mxiterAlgInit_", "de/df6/a03484.html#a9c0461da60a73ec9d5260fe3e2f22627", null ],
     [ "mxiterAlgJ_", "de/df6/a03484.html#ab7753a8c3737dea5e5f8a91580c30bf9", null ],

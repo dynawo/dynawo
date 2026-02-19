@@ -32,6 +32,7 @@ var searchData=
   ['kinmxnewt5xexceeded',['KinMxNewt5xExceeded',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567faef87a4baff834ffa043195fb9a19fa3a',1,'DYN::KeyLog_t']]],
   ['kinnomalloc',['KinNoMalloc',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa9758f31869eb20d4381acc989ffd7950',1,'DYN::KeyLog_t']]],
   ['kinreptdsysfuncerr',['KinReptdSysfuncErr',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa1d53156b8ce2340a9e9e45e5c07ae19d',1,'DYN::KeyLog_t']]],
+  ['kinrestart',['KinRestart',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567faf09dd6e734082257852c6e69af1e2c6b',1,'DYN::KeyLog_t']]],
   ['kinsolsucceeded',['KinsolSucceeded',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa5123783ef469a54b9398936695886e2a',1,'DYN::KeyLog_t']]],
   ['kinstepltstptol',['KinStepLtStpTol',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fac75681f6d888a3e7c3a195c9ca25a0c9',1,'DYN::KeyLog_t']]],
   ['kinsysfuncfail',['KinSysFuncFail',['../da/d26/a02644.html#a963225344a251150ba0ad6d5264f567fa78ec17e16a95fff0b0baee4c2030c2d3',1,'DYN::KeyLog_t']]],

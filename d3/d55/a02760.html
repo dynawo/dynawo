@@ -134,6 +134,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:aac89a3f03de74dccd4e38d9f1adaa083"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a02760.html#aac89a3f03de74dccd4e38d9f1adaa083">copyContinuousVariables</a> (const double *y, const double *yp)=0</td></tr>
 <tr class="memdesc:aac89a3f03de74dccd4e38d9f1adaa083"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current value of the continuous variables  <a href="#aac89a3f03de74dccd4e38d9f1adaa083">More...</a><br /></td></tr>
 <tr class="separator:aac89a3f03de74dccd4e38d9f1adaa083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1483f3bb73305647712628ba92bba65"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a02760.html#af1483f3bb73305647712628ba92bba65">restoreResidual</a> (const std::vector&lt; double &gt; &amp;f)=0</td></tr>
+<tr class="memdesc:af1483f3bb73305647712628ba92bba65"><td class="mdescLeft">&#160;</td><td class="mdescRight">restore the residual from a previous state  <a href="#af1483f3bb73305647712628ba92bba65">More...</a><br /></td></tr>
+<tr class="separator:af1483f3bb73305647712628ba92bba65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ade6830f98e70cbdc39ddf2a96284c9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a02760.html#a6ade6830f98e70cbdc39ddf2a96284c9">saveResidual</a> (std::vector&lt; double &gt; &amp;f)=0</td></tr>
+<tr class="memdesc:a6ade6830f98e70cbdc39ddf2a96284c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">save the residual  <a href="#a6ade6830f98e70cbdc39ddf2a96284c9">More...</a><br /></td></tr>
+<tr class="separator:a6ade6830f98e70cbdc39ddf2a96284c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab78e5565bd6c90b251c21764a0b6a9dc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a02760.html#ab78e5565bd6c90b251c21764a0b6a9dc">copyDiscreteVariables</a> (const double *z)=0</td></tr>
 <tr class="memdesc:ab78e5565bd6c90b251c21764a0b6a9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the current value of the discrete variables  <a href="#ab78e5565bd6c90b251c21764a0b6a9dc">More...</a><br /></td></tr>
 <tr class="separator:ab78e5565bd6c90b251c21764a0b6a9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1805,6 +1811,78 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
+<a id="af1483f3bb73305647712628ba92bba65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1483f3bb73305647712628ba92bba65">&#9670;&nbsp;</a></span>restoreResidual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::restoreResidual </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>restore the residual from a previous state </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>current values of the residual </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d9/d4a/a02772.html#a88d61840d7be29e7cbb954fd5934da16">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
+<a id="a6ade6830f98e70cbdc39ddf2a96284c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ade6830f98e70cbdc39ddf2a96284c9">&#9670;&nbsp;</a></span>saveResidual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::Model::saveResidual </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>save the residual </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>current values of the residual </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d9/d4a/a02772.html#a3eed9e6c620267d49a798eb16e3c05bc">DYN::ModelMulti</a>.</p>
+
+</div>
+</div>
 <a id="a1d198ed08776d021b35f4db4eee7c931"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d198ed08776d021b35f4db4eee7c931">&#9670;&nbsp;</a></span>setConstraints()</h2>
 
@@ -2264,7 +2342,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d55/a02760.html">Model</a></li>
-    <li class="footer">Generated on Tue Feb 17 2026 11:30:13 for Dynawo by
+    <li class="footer">Generated on Thu Feb 19 2026 14:26:46 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

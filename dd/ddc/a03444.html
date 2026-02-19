@@ -137,9 +137,9 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#a7f17551e466f66189dff3d1c0b4423f7">clean</a> ()</td></tr>
 <tr class="memdesc:a7f17551e466f66189dff3d1c0b4423f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">delete all internal structure allocated by init method <br /></td></tr>
 <tr class="separator:a7f17551e466f66189dff3d1c0b4423f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab96eef96a7054054e2148a7f611e704b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#ab96eef96a7054054e2148a7f611e704b">solveCommon</a> ()</td></tr>
-<tr class="memdesc:ab96eef96a7054054e2148a7f611e704b"><td class="mdescLeft">&#160;</td><td class="mdescRight">common parts for the solve method (scaling vectors copy, call to KINSOL, analyseflag)  <a href="#ab96eef96a7054054e2148a7f611e704b">More...</a><br /></td></tr>
-<tr class="separator:ab96eef96a7054054e2148a7f611e704b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b8ba7755338c4a09bfbac77254f64c4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#a5b8ba7755338c4a09bfbac77254f64c4">solveCommon</a> (int strategy)</td></tr>
+<tr class="memdesc:a5b8ba7755338c4a09bfbac77254f64c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">common parts for the solve method (scaling vectors copy, call to KINSOL, analyseflag)  <a href="#a5b8ba7755338c4a09bfbac77254f64c4">More...</a><br /></td></tr>
+<tr class="separator:a5b8ba7755338c4a09bfbac77254f64c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dbf9a7d0821516c5662fb4136705715"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddc/a03444.html#a1dbf9a7d0821516c5662fb4136705715">getFirstIteration</a> () const</td></tr>
 <tr class="memdesc:a1dbf9a7d0821516c5662fb4136705715"><td class="mdescLeft">&#160;</td><td class="mdescRight">set if solver is in first iteration step or not  <a href="#a1dbf9a7d0821516c5662fb4136705715">More...</a><br /></td></tr>
 <tr class="separator:a1dbf9a7d0821516c5662fb4136705715"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -538,8 +538,8 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 </div>
 </div>
-<a id="ab96eef96a7054054e2148a7f611e704b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab96eef96a7054054e2148a7f611e704b">&#9670;&nbsp;</a></span>solveCommon()</h2>
+<a id="a5b8ba7755338c4a09bfbac77254f64c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b8ba7755338c4a09bfbac77254f64c4">&#9670;&nbsp;</a></span>solveCommon()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -547,13 +547,20 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
         <tr>
           <td class="memname">int DYN::SolverKINCommon::solveCommon </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>strategy</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>common parts for the solve method (scaling vectors copy, call to KINSOL, analyseflag) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strategy</td><td>strategy of KINSOL resolution, KIN_NONE or KIN_LINESEARCH </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>a flag indicating the resolution status </dd></dl>
 
 </div>
@@ -622,7 +629,7 @@ N_Vector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/ddc/a03444.html">SolverKINCommon</a></li>
-    <li class="footer">Generated on Tue Feb 17 2026 11:30:13 for Dynawo by
+    <li class="footer">Generated on Thu Feb 19 2026 14:26:47 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

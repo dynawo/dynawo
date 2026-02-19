@@ -148,7 +148,9 @@ $(document).ready(function(){initNavTree('d3/d55/a02760.html','../../');});
   <tr class="even"><td class="entry"><a class="el" href="../../d3/d55/a02760.html#aa7e34692a30651e7a6197a9bbe9ec74b">printVariableNames</a>(bool withVariableType)=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d3/d55/a02760.html#ac3ed8da55b8262912a6309ae3f8988f4">registerAction</a>(const std::string &amp;actionString)=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d3/d55/a02760.html#a2147ec631a84da2dc59f80149d82c219">reinitMode</a>()=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d3/d55/a02760.html#a382d2a3295296e5c7efde1308a86b011">rotateBuffers</a>()=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/d55/a02760.html#af1483f3bb73305647712628ba92bba65">restoreResidual</a>(const std::vector&lt; double &gt; &amp;f)=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/d55/a02760.html#a382d2a3295296e5c7efde1308a86b011">rotateBuffers</a>()=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/d55/a02760.html#a6ade6830f98e70cbdc39ddf2a96284c9">saveResidual</a>(std::vector&lt; double &gt; &amp;f)=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d3/d55/a02760.html#a1d198ed08776d021b35f4db4eee7c931">setConstraints</a>(const std::shared_ptr&lt; constraints::ConstraintsCollection &gt; &amp;constraints)=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="../../d3/d55/a02760.html#ad9734886771f0deeb19fa8a9cd45e421">setCurrentZ</a>(const std::vector&lt; double &gt; &amp;z)=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="../../d3/d55/a02760.html#a470112efd59bc13554a67f144911ee50">setFequationsModel</a>()=0</td><td class="entry"><a class="el" href="../../d3/d55/a02760.html">DYN::Model</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
@@ -182,7 +184,7 @@ $(document).ready(function(){initNavTree('d3/d55/a02760.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Feb 17 2026 11:30:13 for Dynawo by
+    <li class="footer">Generated on Thu Feb 19 2026 14:26:46 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

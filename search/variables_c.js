@@ -102,6 +102,7 @@ var searchData=
   ['msbsetalginit_5f',['msbsetAlgInit_',['../de/df6/a03484.html#a3ea4fe65dd991019ac528556bfc21759',1,'DYN::Solver::Impl']]],
   ['msbsetalgj_5f',['msbsetAlgJ_',['../de/df6/a03484.html#a46b2c7314386c3d5adcb0f5976071b6c',1,'DYN::Solver::Impl']]],
   ['msgtoreturn_5f',['msgToReturn_',['../d1/df5/a02592.html#a10583fc99ed3423045ad473e3d9abd02',1,'DYN::Error::msgToReturn_()'],['../df/d5d/a02596.html#a26af407c80c8b184decbf46e1887a48e',1,'DYN::MessageError::msgToReturn_()'],['../d9/d5b/a02668.html#ac49ca9ea28899e75fd03590fb8da4012',1,'DYN::Terminate::msgToReturn_()']]],
+  ['multiplestrategiesforalgebraicrestoration_5f',['multipleStrategiesForAlgebraicRestoration_',['../de/df6/a03484.html#a79107a55c73af9372b12a41ec161bdd3',1,'DYN::Solver::Impl']]],
   ['mutex_5f',['mutex_',['../de/db4/a02684.html#a27895ae6af1a3ea7783d450d0b4f9457',1,'DYN::Trace::mutex_()'],['../d2/d21/a03392.html#a0a50529ff46f30f214105128aabff6ab',1,'DYN::Clock::mutex_()']]],
   ['mxiter_5f',['mxiter_',['../d8/db3/a03488.html#a49ec0542e45cb6c82d52030f5d2f41ed',1,'DYN::SolverCommonFixedTimeStep']]],
   ['mxiteralg_5f',['mxiterAlg_',['../de/df6/a03484.html#aaed95a51fed4790521a1a0a754847c53',1,'DYN::Solver::Impl']]],
