@@ -149,10 +149,10 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(transformation(origin = {-116, -52}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
 
   // Faults
-  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.25) annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.25) annotation(
+    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
   // Reference inputs
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 20) annotation(
@@ -228,11 +228,11 @@ equation
   wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
   wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
 
-  connect(wPP4ACurrentSource.terminal, transformer1.terminal1) annotation(
+  connect(wPP4ACurrentSource.terminal, transformer.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
-  connect(nodeFault.terminal, line.terminal2) annotation(
+  connect(nodeFault1.terminal, line2A.terminal2) annotation(
     Line(points = {{70, -40}, {70, -20}, {60, -20}}, color = {0, 0, 255}));
-  connect(nodeFault1.terminal, wPP4ACurrentSource.terminal) annotation(
+  connect(nodeFault.terminal, wPP4ACurrentSource.terminal) annotation(
     Line(points = {{-90, -40}, {-90, 0}, {-99, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, wPP4ACurrentSource.omegaRefPu) annotation(
     Line(points = {{-139, -80}, {-125, -80}, {-125, -6}, {-121, -6}}, color = {0, 0, 127}));
@@ -244,12 +244,12 @@ equation
     Line(points = {{-139, 40}, {-130, 40}, {-130, 6}, {-121, 6}}, color = {0, 0, 127}));
   connect(URefPu.y, wPP4ACurrentSource.UWPRefPu) annotation(
     Line(points = {{-139, 80}, {-125, 80}, {-125, 8}, {-121, 8}}, color = {0, 0, 127}));
-  connect(complexConst.y, wPP4ACurrentSource.uPccPu) annotation(
-    Line(points = {{-104, -79}, {-104, -10}}, color = {85, 170, 255}));
   connect(const.y, wPP4ACurrentSource.PPccPu) annotation(
     Line(points = {{-116, -48}, {-116, -10}}, color = {0, 0, 127}));
   connect(const.y, wPP4ACurrentSource.QPccPu) annotation(
     Line(points = {{-116, -48}, {-116, -40}, {-110, -40}, {-110, -10}}, color = {0, 0, 127}));
+  connect(complexConst.y, wPP4ACurrentSource.uPccPu) annotation(
+    Line(points = {{-104, -79}, {-104, -10}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",

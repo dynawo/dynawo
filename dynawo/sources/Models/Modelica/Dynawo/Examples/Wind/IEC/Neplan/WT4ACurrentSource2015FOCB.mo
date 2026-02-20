@@ -102,10 +102,10 @@ model WT4ACurrentSource2015FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Faults
-  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.4) annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.4) annotation(
+    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
   // Reference inputs
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 20) annotation(
@@ -162,11 +162,11 @@ equation
   wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
   wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
 
-  connect(wT4ACurrentSource.terminal, transformer1.terminal1) annotation(
+  connect(wT4ACurrentSource.terminal, transformer.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
-  connect(nodeFault.terminal, line.terminal2) annotation(
+  connect(nodeFault1.terminal, line2A.terminal2) annotation(
     Line(points = {{70, -40}, {70, -20}, {60, -20}}, color = {0, 0, 255}));
-  connect(nodeFault1.terminal, wT4ACurrentSource.terminal) annotation(
+  connect(nodeFault.terminal, wT4ACurrentSource.terminal) annotation(
     Line(points = {{-90, -40}, {-90, 0}, {-99, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, wT4ACurrentSource.omegaRefPu) annotation(
     Line(points = {{-139, -60}, {-125, -60}, {-125, -6}, {-121, -6}}, color = {0, 0, 127}));

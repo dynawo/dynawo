@@ -243,9 +243,9 @@ equation
   variableImpedantFault.switchOffSignal1.value = false;
   variableImpedantFault.switchOffSignal2.value = false;
 
-  connect(wPP4ACurrentSource.terminal, transformer1.terminal1) annotation(
+  connect(wPP4ACurrentSource.terminal, transformer.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
-  connect(transformer1.terminal2, variableImpedantFault.terminal) annotation(
+  connect(transformer.terminal2, variableImpedantFault.terminal) annotation(
     Line(points = {{-60, 0}, {-50, 0}, {-50, -20}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, wPP4ACurrentSource.omegaRefPu) annotation(
     Line(points = {{-139, -60}, {-125, -60}, {-125, -6}, {-121, -6}}, color = {0, 0, 127}));
@@ -257,10 +257,10 @@ equation
     Line(points = {{-139, 60}, {-125, 60}, {-125, 6}, {-121, 6}}, color = {0, 0, 127}));
   connect(const.y, wPP4ACurrentSource.PPccPu) annotation(
     Line(points = {{-116, -78}, {-116, -10}}, color = {0, 0, 127}));
-  connect(complexConst.y, wPP4ACurrentSource.uPccPu) annotation(
-    Line(points = {{-104, -58}, {-104, -10}}, color = {85, 170, 255}));
   connect(const.y, wPP4ACurrentSource.QPccPu) annotation(
     Line(points = {{-116, -78}, {-116, -40}, {-110, -40}, {-110, -10}}, color = {0, 0, 127}));
+  connect(complexConst.y, wPP4ACurrentSource.uPccPu) annotation(
+    Line(points = {{-104, -58}, {-104, -10}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",

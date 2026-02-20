@@ -167,10 +167,10 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(transformation(origin = {-104, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
 
   // Faults
-  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.25) annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.25) annotation(
+    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
   // Reference inputs
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 20) annotation(
@@ -246,20 +246,20 @@ equation
   wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
   wPP4ACurrentSource.wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
 
-  connect(nodeFault.terminal, line.terminal2) annotation(
+  connect(wPP4ACurrentSource.terminal, transformer.terminal1) annotation(
+    Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
+  connect(nodeFault1.terminal, line2A.terminal2) annotation(
     Line(points = {{70, -40}, {70, -20}, {60, -20}}, color = {0, 0, 255}));
-  connect(wPP4ACurrentSource.terminal, transformer1.terminal1) annotation(
-    Line(points = {{-98, 0}, {-80, 0}}, color = {0, 0, 255}));
-  connect(wPP4ACurrentSource.terminal, nodeFault1.terminal) annotation(
-    Line(points = {{-98, 0}, {-90, 0}, {-90, -40}}, color = {0, 0, 255}));
-  connect(tanPhi.y, wPP4ACurrentSource.tanPhi) annotation(
-    Line(points = {{-138, 60}, {-124, 60}, {-124, 6}, {-120, 6}}, color = {0, 0, 127}));
+  connect(nodeFault.terminal, wPP4ACurrentSource.terminal) annotation(
+    Line(points = {{-90, -40}, {-90, 0}, {-99, 0}}, color = {0, 0, 255}));
+  connect(omegaRefPu.y, wPP4ACurrentSource.omegaRefPu) annotation(
+    Line(points = {{-138, -60}, {-124, -60}, {-124, -6}, {-120, -6}}, color = {0, 0, 127}));
   connect(PRefPu.y, wPP4ACurrentSource.PWPRefPu) annotation(
     Line(points = {{-138, 20}, {-126, 20}, {-126, 2}, {-120, 2}}, color = {0, 0, 127}));
   connect(xRefPu.y, wPP4ACurrentSource.xWPRefPu) annotation(
     Line(points = {{-138, -20}, {-126, -20}, {-126, -2}, {-120, -2}}, color = {0, 0, 127}));
-  connect(omegaRefPu.y, wPP4ACurrentSource.omegaRefPu) annotation(
-    Line(points = {{-138, -60}, {-124, -60}, {-124, -6}, {-120, -6}}, color = {0, 0, 127}));
+  connect(tanPhi.y, wPP4ACurrentSource.tanPhi) annotation(
+    Line(points = {{-138, 60}, {-124, 60}, {-124, 6}, {-120, 6}}, color = {0, 0, 127}));
   connect(const.y, wPP4ACurrentSource.PPccPu) annotation(
     Line(points = {{-110, -78}, {-110, -24}, {-116, -24}, {-116, -10}}, color = {0, 0, 127}));
   connect(const.y, wPP4ACurrentSource.QPccPu) annotation(
