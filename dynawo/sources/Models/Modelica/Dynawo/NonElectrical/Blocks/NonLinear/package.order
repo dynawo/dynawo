@@ -35,4 +35,3 @@ SwitchInteger
 VariableDelayFlag
 VariableLimiter
 LimitedIntegratorFreeze
-ConstantSwitch
