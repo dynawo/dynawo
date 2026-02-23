@@ -1,16 +1,16 @@
 within Dynawo.Examples.InertialGrid;
 
- /*
-  * Copyright (c) 2024, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
+/*
+* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+*/
 
 model DoubleInertialGrid
   extends Modelica.Icons.Example;
@@ -20,23 +20,56 @@ model DoubleInertialGrid
   parameter Dynawo.Types.ApparentPowerModule SNom = 32350 "Nominal apparent power of the inertial grids in MVA";
 
   // Network parameters
-  parameter Dynawo.Types.PerUnit R1Pu = 0.02 * Dynawo.Electrical.SystemBase.SnRef / (UNom * UNom) "Line resistance in pu (base SnRef/UNom) by kilometer for branch 1";
-  parameter Dynawo.Types.PerUnit X1Pu = 0.27 * Dynawo.Electrical.SystemBase.SnRef / (UNom * UNom) "Line reactance in pu (base SnRef/UNom) by kilometer for branch 1";
-  parameter Dynawo.Types.PerUnit R2Pu = 0.02 * Dynawo.Electrical.SystemBase.SnRef / (UNom * UNom) "Line resistance in pu (base SnRef/UNom) by kilometer for branch 2";
-  parameter Dynawo.Types.PerUnit X2Pu = 0.27 * Dynawo.Electrical.SystemBase.SnRef / (UNom * UNom) "Line reactance in pu (base SnRef/UNom) by kilometer for branch 2";
-  parameter Dynawo.Types.PerUnit R3Pu = 0.18 * Dynawo.Electrical.SystemBase.SnRef / (UNom * UNom) "Line resistance in pu (base SnRef/UNom) by kilometer for branch 3";
-  parameter Dynawo.Types.PerUnit X3Pu = 0.81 * Dynawo.Electrical.SystemBase.SnRef / (UNom * UNom) "Line reactance in pu (base SnRef/UNom) by kilometer for branch 3";
+  parameter Dynawo.Types.PerUnit R1Pu = 0.02*Dynawo.Electrical.SystemBase.SnRef/(UNom*UNom) "Line resistance in pu (base SnRef/UNom) by kilometer for branch 1";
+  parameter Dynawo.Types.PerUnit X1Pu = 0.27*Dynawo.Electrical.SystemBase.SnRef/(UNom*UNom) "Line reactance in pu (base SnRef/UNom) by kilometer for branch 1";
+  parameter Dynawo.Types.PerUnit R2Pu = 0.02*Dynawo.Electrical.SystemBase.SnRef/(UNom*UNom) "Line resistance in pu (base SnRef/UNom) by kilometer for branch 2";
+  parameter Dynawo.Types.PerUnit X2Pu = 0.27*Dynawo.Electrical.SystemBase.SnRef/(UNom*UNom) "Line reactance in pu (base SnRef/UNom) by kilometer for branch 2";
+  parameter Dynawo.Types.PerUnit R3Pu = 0.18*Dynawo.Electrical.SystemBase.SnRef/(UNom*UNom) "Line resistance in pu (base SnRef/UNom) by kilometer for branch 3";
+  parameter Dynawo.Types.PerUnit X3Pu = 0.81*Dynawo.Electrical.SystemBase.SnRef/(UNom*UNom) "Line reactance in pu (base SnRef/UNom) by kilometer for branch 3";
   parameter Real L1 = 120 "Branch 1 length (in km)";
   parameter Real L2 = 120 "Branch 2 length (in km)";
   parameter Real L3 = 100 "Branch 3 length (in km)";
-
-  Dynawo.Electrical.Sources.InertialGrid.InertialGrid inertialGrid1(DPu = 2, Fh = 0, H = 2.6, Km = 1, P0Pu = 2.1356, Q0Pu = 2.25, R = 0.05, SNom = SNom, Tr = 15, U0Pu = 1, UPhase0 = 0) annotation(
-    Placement(visible = true, transformation(origin = {-38, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.InertialGrid.InertialGrid inertialGrid2(DPu = 2, Fh = 0, H = 2.6, Km = 1, P0Pu = 3.3, Q0Pu = 0, R = 0.05, SNom = SNom, Tr = 15, U0Pu = 0.9546, UPhase0 = 0.031) annotation(
+  Dynawo.Electrical.Sources.InertialGrid.InertialGrid inertialGrid1(
+    DPu = 2,
+    Fh = 0,
+    H = 2.6,
+    Km = 1,
+    P0Pu = 2.1356,
+    Q0Pu = 2.25,
+    R = 0.05,
+    SNom = SNom,
+    Tr = 15,
+    U0Pu = 1,
+    UPhase0 = 0) annotation(
+    Placement(transformation(origin = {-38, 40}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
+  Dynawo.Electrical.Sources.InertialGrid.InertialGrid inertialGrid2(
+    DPu = 2,
+    Fh = 0,
+    H = 2.6,
+    Km = 1,
+    P0Pu = 3.3,
+    Q0Pu = 0,
+    R = 0.05,
+    SNom = SNom,
+    Tr = 15,
+    U0Pu = 0.9546,
+    UPhase0 = 0.031) annotation(
     Placement(visible = true, transformation(origin = {-38, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Loads.LoadZIP load(Ip = 0, Iq = 0, Pp = 1, Pq = 1, Zp = 0, Zq = 0, s0Pu = Complex(5, 0), u0Pu = Complex(0.8351 * cos(-0.365), 0.8351 * sin(-0.365)), i0Pu = Modelica.ComplexMath.conj(load.s0Pu / load.u0Pu)) annotation(
+  Dynawo.Electrical.Loads.LoadZIP load(
+    Ip = 0,
+    Iq = 0,
+    Pp = 1,
+    Pq = 1,
+    Zp = 0,
+    Zq = 0,
+    s0Pu = Complex(5, 0),
+    u0Pu = Complex(0.8351*cos(-0.365), 0.8351*sin(-0.365)),
+    i0Pu = Modelica.ComplexMath.conj(load.s0Pu/load.u0Pu)) annotation(
     Placement(visible = true, transformation(origin = {84, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Loads.LoadPQ loadPQ(i0Pu = Modelica.ComplexMath.conj(loadPQ.s0Pu / loadPQ.u0Pu), s0Pu = Complex(0, 0), u0Pu = inertialGrid1.u0Pu) annotation(
+  Dynawo.Electrical.Loads.LoadPQ loadPQ(
+    i0Pu = Modelica.ComplexMath.conj(loadPQ.s0Pu/loadPQ.u0Pu),
+    s0Pu = Complex(0, 0),
+    u0Pu = inertialGrid1.u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-20, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.Bus busIG1 annotation(
     Placement(visible = true, transformation(origin = {-2, 40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -44,19 +77,33 @@ model DoubleInertialGrid
     Placement(visible = true, transformation(origin = {-2, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Buses.Bus busL annotation(
     Placement(visible = true, transformation(origin = {72, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = R1Pu * L1, XPu = X1Pu * L1) annotation(
+  Dynawo.Electrical.Lines.Line line1(
+    BPu = 0,
+    GPu = 0,
+    RPu = R1Pu*L1,
+    XPu = X1Pu*L1) annotation(
     Placement(visible = true, transformation(origin = {16, 24}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Buses.Bus bus annotation(
     Placement(visible = true, transformation(origin = {16, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Lines.Line line2(BPu = 0, GPu = 0, RPu = R2Pu * L2, XPu = X2Pu * L2) annotation(
+  Dynawo.Electrical.Lines.Line line2(
+    BPu = 0,
+    GPu = 0,
+    RPu = R2Pu*L2,
+    XPu = X2Pu*L2) annotation(
     Placement(visible = true, transformation(origin = {16, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Lines.Line line3(BPu = 0, GPu = 0, RPu = R3Pu * L3, XPu = X3Pu * L3) annotation(
+  Dynawo.Electrical.Lines.Line line3(
+    BPu = 0,
+    GPu = 0,
+    RPu = R3Pu*L3,
+    XPu = X3Pu*L3) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Dynawo.Types.Frequency deltaFrequency "Frequency difference between both inertial grids";
+  Modelica.Blocks.Sources.Constant OmegaRef(k = SystemBase.omegaRef0Pu) annotation(
+    Placement(transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}})));Dynawo.Types.Frequency deltaFrequency "Frequency difference between both inertial grids";
 
 equation
+
 // deltaFrequency calculation
-  deltaFrequency = inertialGrid1.reducedOrderSFR.deltaFrequency - inertialGrid2.reducedOrderSFR.deltaFrequency;
+  deltaFrequency = inertialGrid1.reducedOrderSFR.frequency - inertialGrid2.reducedOrderSFR.frequency;
 
 //Switch-off equations inhibitions
   load.switchOffSignal1.value = false;
@@ -79,6 +126,7 @@ equation
 // No variations in PspPu for the inertial grids
   der(inertialGrid1.reducedOrderSFR.PspPu) = 0;
   der(inertialGrid2.reducedOrderSFR.PspPu) = 0;
+
 // No variations in the ZIP Load
   der(load.PRefPu) = 0;
   der(load.QRefPu) = 0;
@@ -89,14 +137,13 @@ equation
   der(loadPQ.QRefPu) = 0;
   loadPQ.deltaQ = 0;
   when time > 10 then
-    loadPQ.deltaP = deltaPPu * SNom / Dynawo.Electrical.SystemBase.SnRef;
+    loadPQ.deltaP = deltaPPu*SNom/Dynawo.Electrical.SystemBase.SnRef;
     loadPQ.PRefPu = 1;
   end when;
-
   connect(busIG1.terminal, loadPQ.terminal) annotation(
     Line(points = {{-2, 40}, {-20, 40}, {-20, 18}}, color = {0, 0, 255}));
   connect(inertialGrid1.terminal, busIG1.terminal) annotation(
-    Line(points = {{-26, 40}, {-2, 40}}, color = {0, 0, 255}));
+    Line(points = {{-38, 40}, {-2, 40}}, color = {0, 0, 255}));
   connect(inertialGrid2.terminal, busIG2.terminal) annotation(
     Line(points = {{-26, -40}, {-2, -40}}, color = {0, 0, 255}));
   connect(load.terminal, busL.terminal) annotation(
@@ -113,10 +160,15 @@ equation
     Line(points = {{60, 0}, {72, 0}}, color = {0, 0, 255}));
   connect(line3.terminal2, bus.terminal) annotation(
     Line(points = {{40, 0}, {16, 0}}, color = {0, 0, 255}));
+  connect(OmegaRef.y, inertialGrid2.omegaRefPu) annotation(
+    Line(points = {{-78, 0}, {-38, 0}, {-38, -28}}, color = {0, 0, 127}));
+  connect(OmegaRef.y, inertialGrid1.omegaRefPu) annotation(
+    Line(points = {{-78, 0}, {-38, 0}, {-38, 28}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-08, Interval = 0.001),
-  Documentation(info = "<html><head></head><body>In this example, two inertial grids are connected together and with a load. It allows to make appearing an interarea oscillation. The frequency of this oscillation can be theoretically calculated using a few approximations (U1 = U2 = 1 for example). It leads to find a mode in the system at the following frequency: f = sqrt(omega0/HX)/2*Pi.<div>The theoretical derivations are provided in the following paper:</div><div><br></div><div><div>C. Cardozo et al., \"Small Signal Stability Analysis of the Angle Difference Control on a HVDC Interconnection Embedded in the CE Synchronous Power System,\" 2020 IEEE/PES Transmission and Distribution Conference and Exposition (T&amp;D), Chicago, IL, USA, 2020, pp. 1-5, doi: 10.1109/TD39804.2020.9300036. </div></div><div><div><br></div><div>It means that the frequency of the interarea oscillation can be easily moved in a range of frequency. With the particular values provided in this case we obtained a mode at f = 0.45 Hz, as demonstrated by the plots below.
+    Documentation(info = "<html><head></head><body>In this example, two inertial grids are connected together and with a load. It allows to make appearing an interarea oscillation. The frequency of this oscillation can be theoretically calculated using a few approximations (U1 = U2 = 1 for example). It leads to find a mode in the system at the following frequency: f = sqrt(omega0/HX)/2*Pi.<div>The theoretical derivations are provided in the following paper:</div><div><br></div><div><div>C. Cardozo et al., \"Small Signal Stability Analysis of the Angle Difference Control on a HVDC Interconnection Embedded in the CE Synchronous Power System,\" 2020 IEEE/PES Transmission and Distribution Conference and Exposition (T&amp;D), Chicago, IL, USA, 2020, pp. 1-5, doi: 10.1109/TD39804.2020.9300036. </div></div><div><div><br></div><div>It means that the frequency of the interarea oscillation can be easily moved in a range of frequency. With the particular values provided in this case we obtained a mode at f = 0.45 Hz, as demonstrated by the plots below.
 
 <figure>
     <img width=\"300\" src=\"modelica://Dynawo/Examples/InertialGrid/Resources/Images/frequencyDev.png\">

@@ -12,6 +12,6 @@
     simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="IG1" variable="inertialGrid_reducedOrderSFR_deltaFrequency"/>
-  <curve model="IG2" variable="inertialGrid_reducedOrderSFR_deltaFrequency"/>
+  <curve model="IG1" variable="inertialGrid_reducedOrderSFR_frequency"/>
+  <curve model="IG2" variable="inertialGrid_reducedOrderSFR_frequency"/>
 </curvesInput>
