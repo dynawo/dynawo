@@ -34,9 +34,9 @@ model MeasurementsFiltered "Measurements block for PEIR models"
     Placement(transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput iqFilteredPccPQCalculPu(start = IqPcc0Pu) "Filtered q-axis current at the PCC for PQ calculation in pu (base UNom, SNom)" annotation(
     Placement(transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput PFilterPu(start = PFilter0Pu) "Active power at the filter in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PFilteredFilterPu(start = PFilter0Pu) "Active power at the filter in pu (base SNom)" annotation(
     Placement(transformation(origin = {110, -202}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 90}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput QFilterPu(start = QFilter0Pu) "Reactive power at the filter in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QFilteredFilterPu(start = QFilter0Pu) "Reactive power at the filter in pu (base SNom)" annotation(
     Placement(transformation(origin = {110, -220}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput QPccPu(start = QFilter0Pu) "Reactive power at the Pcc in pu (base SNom)" annotation(
     Placement(transformation(origin = {110, -242}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 10}, extent = {{-10, -10}, {10, 10}})));
@@ -94,8 +94,8 @@ model MeasurementsFiltered "Measurements block for PEIR models"
   final parameter Types.PerUnit uqFilteredPcc0Pu = UqPcc0Pu;
 
 equation
-  PFilterPu = udFilteredFilterPQCalculPu * idFilteredPccPQCalculPu + uqFilteredFilterPQCalculPu * iqFilteredPccPQCalculPu;
-  QFilterPu = uqFilteredFilterPQCalculPu * idFilteredPccPQCalculPu - udFilteredFilterPQCalculPu * iqFilteredPccPQCalculPu;
+  PFilteredFilterPu = udFilteredFilterPQCalculPu * idFilteredPccPQCalculPu + uqFilteredFilterPQCalculPu * iqFilteredPccPQCalculPu;
+  QFilteredFilterPu = uqFilteredFilterPQCalculPu * idFilteredPccPQCalculPu - udFilteredFilterPQCalculPu * iqFilteredPccPQCalculPu;
 
   QPccPu = uqPccPu*idPccPu - udPccPu*iqPccPu;
   UPccPu = uqPccPu^2 + udPccPu^2;
