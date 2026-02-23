@@ -28,25 +28,17 @@ model VSCConverter "Simplified representation of a Voltage-Source Controller beh
   Modelica.Blocks.Interfaces.RealOutput uqConvPu(start = UqConv0Pu) "Converter q-axis voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tVSC, y_start = UdConv0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {0, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tVSC, y_start = UqConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   // Initial parameters
   parameter Types.PerUnit UdConv0Pu "Start value of converter d-axis voltage in pu (base UNom)";
   parameter Types.PerUnit UqConv0Pu "Start value of converter q-axis voltage in pu (base UNom)";
 
 equation
-  connect(firstOrder.y, udConvPu) annotation(
-    Line(points = {{12, 40}, {110, 40}}, color = {0, 0, 127}));
-  connect(udConvRefPu, firstOrder.u) annotation(
-    Line(points = {{-116, 40}, {-12, 40}}, color = {0, 0, 127}));
-  connect(uqConvRefPu, firstOrder1.u) annotation(
-    Line(points = {{-114, -40}, {-12, -40}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, uqConvPu) annotation(
-    Line(points = {{12, -40}, {110, -40}}, color = {0, 0, 127}));
+  connect(udConvRefPu, udConvPu) annotation(
+    Line(points = {{-116, 40}, {110, 40}}, color = {0, 0, 127}));
+  connect(uqConvRefPu, uqConvPu) annotation(
+    Line(points = {{-114, -40}, {110, -40}}, color = {0, 0, 127}));
 
-annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Icon(coordinateSystem(grid = {1, 1})));
 end VSCConverter;

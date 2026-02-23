@@ -30,9 +30,9 @@ model DynGridFollowingControl
   parameter Types.PerUnit RTransformerPu "Transformer resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)";
 
-  Modelica.Blocks.Interfaces.RealInput PFilterPu(start = PFilter0Pu) "Active power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PFilteredFilterPu(start = PFilter0Pu) "Active power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-108, -2}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput QFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QFilteredFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-108, -16}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput iqConvPu(start = IqConv0Pu) "q-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {80, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-86, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -100,9 +100,9 @@ equation
     Line(points = {{-108, 38}, {-60, 38}, {-60, 16}, {-50, 16}}, color = {85, 170, 0}, thickness = 0.5));
   connect(QFilterRefPu, outerLoop.QFilterRefPu) annotation(
     Line(points = {{-108, 22}, {-68, 22}, {-68, 12}, {-50, 12}}, color = {85, 170, 0}, thickness = 0.5));
-  connect(PFilterPu, outerLoop.PFilterPu) annotation(
+  connect(PFilteredFilterPu, outerLoop.PFilteredFilterPu) annotation(
     Line(points = {{-108, -2}, {-80, -2}, {-80, 0}, {-50, 0}}, color = {85, 170, 0}));
-  connect(QFilterPu, outerLoop.QFilterPu) annotation(
+  connect(QFilteredFilterPu, outerLoop.QFilteredFilterPu) annotation(
     Line(points = {{-108, -16}, {-68, -16}, {-68, -4}, {-50, -4}}, color = {85, 170, 0}));
   connect(currentLoop.uqFilterPu, uqFilterPu) annotation(
     Line(points = {{48, -14}, {48, -108}}, color = {85, 170, 0}));
