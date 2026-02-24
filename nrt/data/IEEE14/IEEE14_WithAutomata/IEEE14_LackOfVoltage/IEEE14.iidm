@@ -8,7 +8,7 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
 <iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_5" xmlns:apc="http://www.itesla_project.eu/schema/iidm/ext/active_power_control/1_0" xmlns:gapc="http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0" xmlns:hapc="http://www.itesla_project.eu/schema/iidm/ext/hvdc_angle_droop_active_power_control/1_0" xmlns:hopr="http://www.itesla_project.eu/schema/iidm/ext/hvdc_operator_active_power_range/1_0" xmlns:sa="http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0" id="PtFige-20250212-1455-enrichi" caseDate="2025-02-12T14:55:00+01:00" forecastDistance="0" sourceFormat="NF">

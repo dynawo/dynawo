@@ -9,7 +9,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Simplified;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
 model GoverDTRI8 "Simplified governor model used for the setup of the DTR I8 fiche (proportional with no saturations)"
