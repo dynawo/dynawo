@@ -24,10 +24,6 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting curve initialization
 INFO | -----------------------------------------------------------------------
-WARN | curve not added: Id: LOAD , name: load_motors_0__UdPu
-WARN | curve not added: Id: LOAD , name: load_motors_0__UqPu
-WARN | curve not added: Id: LOAD , name: load_motors_1__UdPu
-WARN | curve not added: Id: LOAD , name: load_motors_1__UqPu
 INFO | end of curve initialization, added 33 curves
 INFO | -----------------------------------------------------------------------
 INFO | 
