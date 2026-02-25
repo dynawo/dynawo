@@ -13,11 +13,132 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
   extends Icons.Example;
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.6, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 26.5, tOmegaEvtStart = 26, tUEvtEnd = 2, tUEvtStart = 1) annotation(
+
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
+    U0Pu = 1,
+    UEvtPu = 0.6,
+    UPhase = 0,
+    omega0Pu = 1,
+    omegaEvtPu = 1.01,
+    tOmegaEvtEnd = 26.5,
+    tOmegaEvtStart = 26,
+    tUEvtEnd = 2,
+    tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    RPu = 0,
+    XPu = 0.0000020661,
+    BPu = 0,
+    GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Wind.WECC.WTG4ACurrentSource1 WTG4A(DDn = 20, DPMaxPu = 2, DPMinPu = -2, DUp = 0.001, Dbd1Pu = -0.05, Dbd2Pu = 0.05, DbdPu = 0.01, Dshaft = 1.5, EMaxPu = 0.5, EMinPu = -0.5, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = true, Hg = 1, Ht = 5, IMaxPu = 1.3, Id0Pu(fixed = false), Iq0Pu(fixed = false), IqFrzPu = 0, Iqh1Pu = 1.1, Iql1Pu = -1.1, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0, Ki = 1.5, KiPLL = 20, Kig = 2.36, Kp = 0.1, KpPLL = 3, Kpg = 0.05, Kqi = 0.7, Kqp = 1, Kqv = 2, Kshaft = 200, Kvi = 0.7, Kvp = 1, Lvplsw = false, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, P0Pu = -0.7, PF0(fixed = false), PFlag = true, PInj0Pu(fixed = false), PMaxPu = 1, PMinPu = 0, PQFlag = false, PfFlag = false, Q0Pu = -0.2, QFlag = true, QInj0Pu(fixed = false), QMaxPu = 0.4, QMinPu = -0.4, RPu = 0, RefFlag = true, RrpwrPu = 10, SNom = 100, U0Pu = 1, UInj0Pu(fixed = false), UPhaseInj0(fixed = false), VCompFlag = false, VDLIp11 = 1.1, VDLIp12 = 1.1, VDLIp21 = 1.15, VDLIp22 = 1, VDLIp31 = 1.16, VDLIp32 = 1, VDLIp41 = 1.17, VDLIp42 = 1, VDLIq11 = 1.1, VDLIq12 = 1.1, VDLIq21 = 1.15, VDLIq22 = 1, VDLIq31 = 1.16, VDLIq32 = 1, VDLIq41 = 1.17, VDLIq42 = 1, VDipPu = 0.9, VFlag = true, VFrz = 0, VMaxPu = 1.1, VMinPu = 0.9, VRef0Pu = 0, VRef1Pu = 0, VUpPu = 1.1, XPu = 0.15, brkpt = 0.1, i0Pu(im(fixed = false), re(fixed = false)), iInj0Pu(im(fixed = false), re(fixed = false)), lvpl1 = 1.22, s0Pu(im(fixed = false), re(fixed = false)), tFilterGC = 0.02, tFilterPC = 0.04, tFt = 1e-10, tFv = 0.1, tG = 0.02, tHoldIpMax = 0.1, tHoldIq = 0, tIq = 0.01, tLag = 0.1, tP = 0.05, tPord = 0.01, tRv = 0.01, u0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), zerox = 0.05) annotation(
+  Dynawo.Electrical.Wind.WECC.WTG4ACurrentSource1 WTG4A(
+    DDn = 20,
+    DPMaxPu = 2,
+    DPMinPu = -2,
+    DUp = 0.001,
+    Dbd1Pu = -0.05,
+    Dbd2Pu = 0.05,
+    DbdPu = 0.01,
+    Dshaft = 1.5,
+    EMaxPu = 0.5,
+    EMinPu = -0.5,
+    FDbd1Pu = 0.004,
+    FDbd2Pu = 1,
+    FEMaxPu = 999,
+    FEMinPu = -999,
+    FreqFlag = true,
+    Hg = 1,
+    Ht = 5,
+    IMaxPu = 1.3,
+    Id0Pu(fixed = false),
+    Iq0Pu(fixed = false),
+    IqFrzPu = 0,
+    Iqh1Pu = 1.1,
+    Iql1Pu = -1.1,
+    IqrMaxPu = 20,
+    IqrMinPu = -20,
+    Kc = 0,
+    Ki = 1.5,
+    KiPLL = 20,
+    Kig = 2.36,
+    Kp = 0.1,
+    KpPLL = 3,
+    Kpg = 0.05,
+    Kqi = 0.7,
+    Kqp = 1,
+    Kqv = 2,
+    Kshaft = 200,
+    Kvi = 0.7,
+    Kvp = 1,
+    Lvplsw = false,
+    OmegaMaxPu = 1.5,
+    OmegaMinPu = 0.5,
+    P0Pu = -0.7,
+    PF0(fixed = false),
+    PFlag = true,
+    PInj0Pu(fixed = false),
+    PMaxPu = 1,
+    PMinPu = 0,
+    PQFlag = false,
+    PfFlag = false,
+    Q0Pu = -0.2,
+    QFlag = true,
+    QInj0Pu(fixed = false),
+    QMaxPu = 0.4,
+    QMinPu = -0.4,
+    RPu = 0,
+    RefFlag = true,
+    RrpwrPu = 10,
+    SNom = 100,
+    U0Pu = 1,
+    UInj0Pu(fixed = false),
+    UPhaseInj0(fixed = false),
+    VCompFlag = false,
+    VDLIp11 = 1.1,
+    VDLIp12 = 1.1,
+    VDLIp21 = 1.15,
+    VDLIp22 = 1,
+    VDLIp31 = 1.16,
+    VDLIp32 = 1,
+    VDLIp41 = 1.17,
+    VDLIp42 = 1,
+    VDLIq11 = 1.1,
+    VDLIq12 = 1.1,
+    VDLIq21 = 1.15,
+    VDLIq22 = 1,
+    VDLIq31 = 1.16,
+    VDLIq32 = 1,
+    VDLIq41 = 1.17,
+    VDLIq42 = 1,
+    VDipPu = 0.9,
+    VFlag = true,
+    VFrz = 0,
+    VMaxPu = 1.1,
+    VMinPu = 0.9,
+    VRef0Pu = 0,
+    VRef1Pu = 0,
+    VUpPu = 1.1,
+    XPu = 0.15,
+    brkpt = 0.1,
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iInj0Pu(im(fixed = false), re(fixed = false)),
+    lvpl1 = 1.22,
+    s0Pu(im(fixed = false), re(fixed = false)),
+    tFilterGC = 0.02,
+    tFilterPC = 0.04,
+    tFt = 1e-10,
+    tFv = 0.1,
+    tG = 0.02,
+    tHoldIpMax = 0.1,
+    tHoldIq = 0,
+    tIq = 0.01,
+    tLag = 0.1,
+    tP = 0.05,
+    tPord = 0.01,
+    tRv = 0.01,
+    u0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
+    zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -29,8 +150,16 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     Placement(transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4A.PF0)) annotation(
     Placement(transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(P0Pu = WTG4A.P0Pu, Q0Pu = WTG4A.Q0Pu, RPu = WTG4A.RPu, SNom = WTG4A.SNom, U0Pu = WTG4A.U0Pu, UPhase0 = 1.4461e-06, XPu = WTG4A.XPu) annotation(
+  Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
+    P0Pu = WTG4A.P0Pu,
+    Q0Pu = WTG4A.Q0Pu,
+    RPu = WTG4A.RPu,
+    SNom = WTG4A.SNom,
+    U0Pu = WTG4A.U0Pu,
+    UPhase0 = 1.4461e-06,
+    XPu = WTG4A.XPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 initial algorithm
   WTG4A.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
@@ -70,6 +199,7 @@ equation
     Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG4A.PFaRef) annotation(
     Line(points = {{80, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
