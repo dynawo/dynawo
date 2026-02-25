@@ -1,21 +1,22 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model IntegratorVariableLimitsContinuousSetFreeze "Integrator with limited value of output (variable limits), set/reset and freeze"
-  /*
-  * Copyright (c) 2025, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
+
   parameter Boolean DefaultLimitMax = true "If limitMin > limitMax : if true, y = limitMax, if false, y = limitMin";
-  Real derLimitMax "Filtered derivative of upper limit of output";
-  Real derLimitMin "Filtered derivative of lower limit of output";
   parameter Types.PerUnit K = 1 "Integrator gain";
   parameter Real LimitMax0 "Initial value of upper limit";
   parameter Real LimitMin0 "Initial value of lower limit";
@@ -37,8 +38,11 @@ model IntegratorVariableLimitsContinuousSetFreeze "Integrator with limited value
     Evaluate = true,
     HideResult = true,
     choices(checkBox = true));
+
+  Real derLimitMax "Filtered derivative of upper limit of output";
+  Real derLimitMin "Filtered derivative of lower limit of output";
   Real w(start = Y0) "Integrator state variable";
-  parameter Real Y0 = 0 "Initial or guess value of output (must be in the limits limitMin .. limitMax)";
+
   Modelica.Blocks.Continuous.Derivative derivativeLimitMax(T = tDer, x_start = LimitMax0) annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivativeLimitMin(T = tDer, x_start = LimitMin0) annotation(
@@ -53,23 +57,30 @@ model IntegratorVariableLimitsContinuousSetFreeze "Integrator with limited value
     Placement(transformation(origin = {60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-62, -180}, extent = {{40, -140}, {80, -100}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput set if UseReset and UseSet "Optional connector of set signal" annotation(
     Placement( transformation(origin = {60, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 270), iconTransformation(origin = {-42, 180}, extent = {{40, 100}, {80, 140}}, rotation = -90)));
+
+  parameter Real Y0 = 0 "Initial or guess value of output (must be in the limits limitMin .. limitMax)";
+
 protected
   Types.PerUnit kFreezeMax "Freeze coefficient for upper limit";
   Types.PerUnit kFreezeMin "Freeze coefficient for lower limit";
+
   Modelica.Blocks.Interfaces.BooleanOutput freezeLocal annotation(
     HideResult = true);
   Modelica.Blocks.Interfaces.BooleanOutput resetLocal annotation(
     HideResult = true);
   Modelica.Blocks.Interfaces.RealOutput setLocal annotation(
     HideResult = true);
+
   Real v "Integrator input";
+
 equation
   if freezeLocal or resetLocal then
     v = 0;
   else
     v = K*u;
   end if;
-////////// reset
+
+  // reset
   if UseReset then
     connect(reset, resetLocal);
     if UseSet then
@@ -84,19 +95,22 @@ equation
     resetLocal = false;
     setLocal = 0;
   end if;
-////////// freeze
+
+  // freeze
   if UseFreeze then
     connect(freeze, freezeLocal);
   else
     freezeLocal = false;
   end if;
-////////// integrator with limits
+
+  // integrator with limits
   derLimitMax = derivativeLimitMax.y;
   derLimitMin = derivativeLimitMin.y;
   kFreezeMax = 1/4*(1 + tanh((w - limitMax)/TolOutput))*(1 + tanh((v - derLimitMax)/TolInput));
   kFreezeMin = 1/4*(1 + tanh((limitMin - w)/TolOutput))*(1 + tanh((derLimitMin - v)/TolInput));
   der(w) = derLimitMax*kFreezeMax + derLimitMin*kFreezeMin + v*(1 - kFreezeMax - kFreezeMin);
-////////// apply limit or set to output
+
+  // apply limit or set to output
   if limitMin > limitMax and DefaultLimitMax then
     y = limitMax;
   elseif limitMin > limitMax then
@@ -110,10 +124,12 @@ equation
   else
     y = w;
   end if;
+
   connect(limitMax, derivativeLimitMax.u) annotation(
     Line(points = {{-120, 80}, {-82, 80}}, color = {0, 0, 127}));
   connect(limitMin, derivativeLimitMin.u) annotation(
     Line(points = {{-120, -80}, {-82, -80}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "text",
     Documentation(info = "<html><head></head><body><p>

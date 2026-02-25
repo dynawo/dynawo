@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Wind.IEC.WPP;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WPP3BCurrentSource2020 "Wind Power Plant Type 3B model from IEC 61400-27-1:2020 standard : WT3B, communication modules"
@@ -160,15 +161,15 @@ equation
   connect(omegaRefPu, wT3BCurrentSource.omegaRefPu) annotation(
     Line(points = {{-140, -40}, {-20, -40}, {-20, -12}, {-2, -12}}, color = {0, 0, 127}));
   connect(omegaRefPu, wPPControl.omegaRefPu) annotation(
-    Line(points = {{-140, -40}, {-100, -40}, {-100, -16}, {-82, -16}}, color = {0, 0, 127}));
+    Line(points = {{-140, -40}, {-100, -40}, {-100, -18}, {-82, -18}}, color = {0, 0, 127}));
   connect(xWPRefPu, wPPControl.xWPRefPu) annotation(
     Line(points = {{-140, 0}, {-100, 0}, {-100, 8}, {-82, 8}}, color = {0, 0, 127}));
   connect(PWPRefPu, wPPControl.PWPRefPu) annotation(
     Line(points = {{-140, 40}, {-100, 40}, {-100, 18}, {-82, 18}}, color = {0, 0, 127}));
   connect(elecMeasurements.iPu, wPPControl.iPu) annotation(
-    Line(points = {{72, -22}, {72, -30}, {-90, -30}, {-90, -8}, {-82, -8}}, color = {85, 170, 255}));
+    Line(points = {{72, -22}, {72, -30}, {-90, -30}, {-90, -10}, {-82, -10}}, color = {85, 170, 255}));
   connect(elecMeasurements.uPu, wPPControl.uPu) annotation(
-    Line(points = {{88, -22}, {88, -34}, {-94, -34}, {-94, 0}, {-82, 0}}, color = {85, 170, 255}));
+    Line(points = {{88, -22}, {88, -34}, {-94, -34}, {-94, -2}, {-82, -2}}, color = {85, 170, 255}));
   connect(wPPControl.xPDRefComPu, wT3BCurrentSource.xWTRefPu) annotation(
     Line(points = {{-38, -8}, {-20, -8}, {-20, -4}, {-2, -4}}, color = {0, 0, 127}));
 

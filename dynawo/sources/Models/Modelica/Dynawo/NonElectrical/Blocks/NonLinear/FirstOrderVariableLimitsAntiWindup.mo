@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,16 +9,17 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
 
 block FirstOrderVariableLimitsAntiWindup "First order filter with absolute and rate limits, and a freezing flag"
   extends Modelica.Blocks.Icons.Block;
-  
+
   parameter Types.PerUnit DyMax "Maximum rising slew rate of output";
   parameter Types.PerUnit DyMin = -DyMax "Maximum falling slew rate of output";
   parameter Types.Time tI "Filter time constant in s";
-  
+
   Modelica.Blocks.Interfaces.RealInput yMax "Upper limit of output" annotation(
     Placement(visible = true, transformation(origin = {-220, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput yMin "Lower limit of output" annotation(
@@ -79,7 +80,7 @@ equation
     Line(points = {{-220, -60}, {-160, -60}, {-160, -10}, {-150, -10}}, color = {0, 0, 127}));
   connect(yMin, variableLimiter1.limit2) annotation(
     Line(points = {{-220, -60}, {140, -60}, {140, -10}, {148, -10}}, color = {0, 0, 127}));
-  
+
   annotation(
     preferredView = "diagram",
     Icon(coordinateSystem(grid = {0.1, 0.1}, initialScale = 0.1), graphics = {Line(origin = {-40, 1.06}, points = {{-40, -121.057}, {20, 118.943}}), Line(origin = {40, 1.05741}, points = {{-80, -121.057}, {-40, -121.057}, {20, 118.943}, {60, 118.943}}), Rectangle(lineColor = {0, 0, 127}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {12, 28}, extent = {{-44, 34}, {26, -16}}, textString = "1"), Text(origin = {2, -44}, extent = {{-60, 22}, {60, -22}}, textString = "1 + sT"), Line(origin = {4, 0}, points = {{-86, 0}, {86, 0}})}),

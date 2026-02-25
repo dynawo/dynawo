@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,15 +9,14 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model TorquePi "Sub module for torque control inside active power control module for type 3 wind turbines (IEC N°61400-27-1:2020)"
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePiParameters;
 
   parameter Boolean WT3Type "if true : type a, if false type b";
-
-  //Torque Pi parameters
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.TorquePiParameters;
 
   // P Control parameters
   parameter Real TableOmegaPPu[:, :] = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1] "Lookup table for power as a function of speed, example value = [0, 0.76; 0.3, 0.76; 0.31, 0.86; 0.4, 0.94; 0.5, 1; 1, 1]" annotation(
@@ -147,11 +146,9 @@ model TorquePi "Sub module for torque control inside active power control module
     Dialog(tab = "Initialization"));
 
   // Initialization helpers
-  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
-    Dialog(tab = "Initialization"));
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)";
   final parameter Types.PerUnit PiIntegrator0Pu = if Torque0Pu > TauEMax0Pu then TauEMax0Pu elseif Torque0Pu < TauEMinPu then TauEMinPu else Torque0Pu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
-  final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu/(if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)" annotation(
-    Dialog(tab = "Initialization"));
+  final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu/(if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)";
   final parameter Types.PerUnit Torque0Type3bPu = ((IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0))*U0Pu/SystemBase.omega0Pu;
   final parameter Types.PerUnit Torque0Type3aPu = -P0Pu*SystemBase.SnRef/SNom/SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base SNom/OmegaNom)";
   final parameter Types.PerUnit Torque0Pu = if WT3Type then Torque0Type3aPu else Torque0Type3bPu;

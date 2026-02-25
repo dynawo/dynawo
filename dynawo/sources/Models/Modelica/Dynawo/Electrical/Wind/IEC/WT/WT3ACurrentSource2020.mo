@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Wind.IEC.WT;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Wind.IEC.WT;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020 standard"
@@ -25,9 +26,9 @@ model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 100 (Type 3B)" annotation(
     Dialog(tab = "Control"));
   parameter Types.PerUnit KPc "Current PI controller proportional gain, example value = 40" annotation(
-      Dialog(tab = "Control"));
+    Dialog(tab = "Control"));
   parameter Types.Time tIc "Current PI controller integration time constant, example value = 0.02" annotation(
-      Dialog(tab = "Control"));
+    Dialog(tab = "Control"));
   parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(
     Dialog(tab = "Control"));
 
@@ -49,17 +50,15 @@ model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
 
   //Initial parameters
   parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-      Dialog(group = "Initialization"));
+    Dialog(group = "Initialization"));
   parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(
     Dialog(tab = "Operating point"));
 
-  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:, 1], TableOmegaPPu[:, 2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
-    Dialog(tab = "Initialization"));
-  final parameter Types.PerUnit POrd0Pu = -P0Pu*SystemBase.SnRef/SNom "Initial active power order in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
+  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:, 1], TableOmegaPPu[:, 2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)";
+  final parameter Types.PerUnit POrd0Pu = -P0Pu*SystemBase.SnRef/SNom "Initial active power order in pu (base SNom) (generator convention)";
 
 protected
-  parameter Boolean WT3Type = true "if true : type a, if false type b";
+  parameter Boolean WT3Type = true "If true : type a, if false type b";
 
 equation
   connect(control.ipMaxPu, injector.ipMaxPu) annotation(

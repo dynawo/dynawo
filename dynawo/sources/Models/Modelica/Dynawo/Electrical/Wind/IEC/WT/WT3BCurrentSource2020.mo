@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Wind.IEC.WT;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Wind.IEC.WT;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020 standard"
@@ -53,17 +54,15 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020
 
   //Initial parameters
   parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-      Dialog(group = "Initialization"));
+    Dialog(group = "Initialization"));
   parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(
     Dialog(tab = "Operating point"));
 
-  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:, 1], TableOmegaPPu[:, 2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
-    Dialog(tab = "Initialization"));
-  final parameter Types.PerUnit POrd0Pu = ((IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0))*U0Pu "Initial active power order in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
+  final parameter Types.PerUnit OmegaRef0Pu = Modelica.Math.Vectors.interpolate(TableOmegaPPu[:, 1], TableOmegaPPu[:, 2], POrd0Pu) "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)";
+  final parameter Types.PerUnit POrd0Pu = ((IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0))*U0Pu "Initial active power order in pu (base SNom) (generator convention)";
 
 protected
-  parameter Boolean WT3Type = false "if true : type a, if false type b";
+  parameter Boolean WT3Type = false "If true : type a, if false type b";
 
 equation
   connect(control.ipMaxPu, injector.ipMaxPu) annotation(

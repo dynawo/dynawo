@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Wind.IEC.WPP;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WPP3ACurrentSource2020 "Wind Power Plant Type 3A model from IEC 61400-27-1:2020 standard : WT3A, communication modules"
@@ -111,9 +112,9 @@ model WPP3ACurrentSource2020 "Wind Power Plant Type 3A model from IEC 61400-27-1
   parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention), example value = 9999 (Type 3A) or = 100 (Type 3B)" annotation(
     Dialog(tab = "Control"));
   parameter Types.PerUnit KPc "Current PI controller proportional gain, example value = 40" annotation(
-      Dialog(tab = "Control"));
+    Dialog(tab = "Control"));
   parameter Types.Time tIc "Current PI controller integration time constant, example value = 0.02" annotation(
-      Dialog(tab = "Control"));
+    Dialog(tab = "Control"));
   parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014 (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(
     Dialog(tab = "Control"));
 
@@ -135,7 +136,7 @@ model WPP3ACurrentSource2020 "Wind Power Plant Type 3A model from IEC 61400-27-1
 
   // Initial parameter
   parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-      Dialog(group = "Initialization"));
+    Dialog(group = "Initialization"));
   parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(
     Dialog(tab = "Operating point"));
 
@@ -147,19 +148,19 @@ equation
   connect(omegaRefPu, wT3ACurrentSource.omegaRefPu) annotation(
     Line(points = {{-140, -40}, {-20, -40}, {-20, -12}, {-2, -12}}, color = {0, 0, 127}));
   connect(omegaRefPu, wPPControl.omegaRefPu) annotation(
-    Line(points = {{-140, -40}, {-100, -40}, {-100, -16}, {-82, -16}}, color = {0, 0, 127}));
+    Line(points = {{-140, -40}, {-100, -40}, {-100, -18}, {-82, -18}}, color = {0, 0, 127}));
   connect(xWPRefPu, wPPControl.xWPRefPu) annotation(
     Line(points = {{-140, 0}, {-100, 0}, {-100, 8}, {-82, 8}}, color = {0, 0, 127}));
   connect(PWPRefPu, wPPControl.PWPRefPu) annotation(
     Line(points = {{-140, 40}, {-100, 40}, {-100, 18}, {-82, 18}}, color = {0, 0, 127}));
   connect(elecMeasurements.iPu, wPPControl.iPu) annotation(
-    Line(points = {{72, -22}, {72, -30}, {-90, -30}, {-90, -8}, {-82, -8}}, color = {85, 170, 255}));
+    Line(points = {{72, -22}, {72, -30}, {-90, -30}, {-90, -10}, {-82, -10}}, color = {85, 170, 255}));
   connect(elecMeasurements.uPu, wPPControl.uPu) annotation(
-    Line(points = {{88, -22}, {88, -34}, {-94, -34}, {-94, 0}, {-82, 0}}, color = {85, 170, 255}));
+    Line(points = {{88, -22}, {88, -34}, {-94, -34}, {-94, -2}, {-82, -2}}, color = {85, 170, 255}));
   connect(wPPControl.PPDRefComPu, wT3ACurrentSource.PWTRefPu) annotation(
-    Line(points = {{-38, 8}, {-26, 8}, {-26, 4}, {-2, 4}}, color = {0, 0, 127}));
+    Line(points = {{-38, 8}, {-20, 8}, {-26, 4}, {-2, 4}}, color = {0, 0, 127}));
   connect(wPPControl.xPDRefComPu, wT3ACurrentSource.xWTRefPu) annotation(
-    Line(points = {{-38, -8}, {-26, -8}, {-26, -4}, {-2, -4}}, color = {0, 0, 127}));
+    Line(points = {{-38, -8}, {-20, -8}, {-26, -4}, {-2, -4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

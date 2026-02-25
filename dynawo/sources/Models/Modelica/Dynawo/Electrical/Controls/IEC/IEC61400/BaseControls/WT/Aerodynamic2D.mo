@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,13 +9,14 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines (IEC N°61400-27-1:2020)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.Aerodynamic2DParameters;
 
-  //Input variable
+  //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput theta(start = Theta0 + (PAg0Pu - PAvailPu) / DPThetaPu) "Wind turbine pitch angle in degrees" annotation(
@@ -50,17 +51,17 @@ model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines
 
   //Initial parameters
   parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
+    Dialog(tab = "Initialization"));
   parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
+    Dialog(tab = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-      Dialog(tab = "Initialization"));
+    Dialog(tab = "Initialization"));
   parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-      Dialog(tab = "Initialization"));
+    Dialog(tab = "Initialization"));
   parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
-      Dialog(tab = "Initialization"));
+    Dialog(tab = "Initialization"));
 
 equation
   connect(addTheta.y, gainDPThetaPu.u) annotation(
@@ -93,7 +94,7 @@ equation
     Line(points = {{-59, 40}, {-54.5, 40}, {-54.5, 54}, {-42, 54}}, color = {0, 0, 127}));
 
   annotation(
-    uses(Modelica(version = "3.2.3")),
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {0, 4}, extent = {{-98, 86}, {98, -86}}, textString = "Aero
 dynamic
 2d"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
