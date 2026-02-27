@@ -15,6 +15,8 @@ set(MODEL_FILES
   DynLine.mo
   Line.mo
   Line.extvar
+  idealSwitch.mo
+  idealSwitch.extvar
   )
 
 #
