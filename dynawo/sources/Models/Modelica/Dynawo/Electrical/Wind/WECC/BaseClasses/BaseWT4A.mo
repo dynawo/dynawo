@@ -17,20 +17,27 @@ partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
 
-  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, PInj0Pu = PInj0Pu, PePu(start = PInj0Pu), Pm0Pu = PInj0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
+    Dshaft = Dshaft,
+    Hg = Hg,
+    Ht = Ht,
+    Kshaft = Kshaft,
+    PConv0Pu = PConv0Pu,
+    PePu(start = PConv0Pu),
+    Pm0Pu = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PmConst(k = PInj0Pu) annotation(
+  Modelica.Blocks.Sources.Constant PmConst(k = PConv0Pu) annotation(
     Placement(transformation(origin = {-119, -37}, extent = {{-5, -5}, {5, 5}})));
 
 equation
   connect(wecc_wtgt.omegaGPu, wecc_reec.omegaGPu) annotation(
     Line(points = {{-86, -35}, {-85, -35}, {-85, -11}}, color = {0, 0, 127}));
-  connect(injector.PInjPuSn, wecc_wtgt.PePu) annotation(
-    Line(points = {{12, -4}, {25, -4}, {25, -40}, {-79, -40}}, color = {0, 0, 127}));
   connect(OmegaRef.y, wecc_wtgt.omegaRefPu) annotation(
     Line(points = {{-179, 38}, {-175, 38}, {-175, -60}, {-110, -60}, {-110, -40}, {-101, -40}}, color = {0, 0, 127}));
   connect(PmConst.y, wecc_wtgt.PmPu) annotation(
     Line(points = {{-113.5, -37}, {-102, -37}}, color = {0, 0, 127}));
+  connect(LvMeasurements.PPu, wecc_wtgt.PePu) annotation(
+    Line(points = {{62, -6}, {62, -41}, {-80, -41}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

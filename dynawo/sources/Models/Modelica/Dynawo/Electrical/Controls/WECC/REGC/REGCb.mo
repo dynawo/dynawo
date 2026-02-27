@@ -13,14 +13,14 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 */
 
 model REGCb "WECC Generator Converter REGC type B"
-  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze1.T = tG, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UInj0Pu, rateLimFirstOrderFreeze2.T = tG, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
+  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze1.T = tG, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu*UInj0Pu, rateLimFirstOrderFreeze2.T = tG, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
   // Input variable
   Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(im(start = uInj0Pu.im), re(start = uInj0Pu.re)) "Complex voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {175, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput phi(start = Modelica.ComplexMath.arg(uInj0Pu)) "Voltage phase at injector in rad" annotation(
+  Modelica.Blocks.Interfaces.RealInput phi(start = UPhaseConv0) "Voltage phase at injector in rad" annotation(
     Placement(visible = true, transformation(origin = {-210.5, -0.5}, extent = {{-10.5, -10.5}, {10.5, 10.5}}, rotation = 0), iconTransformation(origin = {-110, 88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Output variables
@@ -28,7 +28,6 @@ model REGCb "WECC Generator Converter REGC type B"
     Placement(visible = true, transformation(origin = {230, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {109, 41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uiSource(start = uSource0Pu.im) "Imaginary voltage at source in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {229, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {109, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UNomFix(k = UInj0Pu) annotation(
@@ -37,11 +36,26 @@ model REGCb "WECC Generator Converter REGC type B"
     Placement(visible = true, transformation(origin = {-19, -120}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant RateFlag0(k = RateFlag) annotation(
     Placement(visible = true, transformation(origin = {-150, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true, uMax = 999, uMin = 0.01) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy,
+    limitsAtInit = true,
+    uMax = 999,
+    uMin = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-99, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {120, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(Id0Pu = Id0Pu, Iq0Pu = -Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(
+    Id0Pu = Id0Pu,
+    Iq0Pu = -Iq0Pu,
+    RSourcePu = RSourcePu,
+    UdInj0Pu = UdInj0Pu,
+    UqInj0Pu = UqInj0Pu,
+    XSourcePu = XSourcePu,
+    tE = tE,
+    uInj0Pu = uInj0Pu,
+    uSource0Pu = uSource0Pu,
+    uConv0Pu = uConv0Pu,
+    UPhaseConv0 = UPhaseConv0) annotation(
     Placement(visible = true, transformation(origin = {175.5, 0.5}, extent = {{-25.5, -25.5}, {25.5, 25.5}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = -1) annotation(
     Placement(visible = true, transformation(origin = {60, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -51,6 +65,7 @@ model REGCb "WECC Generator Converter REGC type B"
   parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
+  parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
   connect(RateFlag0.y, switch.u2) annotation(
@@ -89,5 +104,5 @@ equation
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -180}, {220, 180}}, initialScale = 0.2, grid = {1, 1})),
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-25, 20}, extent = {{-53, 60}, {107, -100}}, textString = "REGC B"), Text(origin = {141, 49}, extent = {{-22, 16}, {36, -28}}, textString = "urSourcePu"), Text(origin = {145, -34}, extent = {{-22, 16}, {36, -28}}, textString = "uiSourcePu"), Text(origin = {-6, -112}, extent = {{-19, 14}, {30, -24}}, textString = "uInjPu"), Text(origin = {-144, 95}, extent = {{-10, 11}, {16, -19}}, textString = "phi")}),
-  Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">The block calculates the final setpoints for Iq and Id while considering ramp rates for reactive current and active current (or active power if RampFlag is true).</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It is&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">connected to the grid with a voltage source interface through urSource and uiSource.</span></div></body></html>"));
+    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">The block calculates the final setpoints for Iq and Id while considering ramp rates for reactive current and active current (or active power if RampFlag is true).</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It is&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">connected to the grid with a voltage source interface through urSource and uiSource.</span></div></body></html>"));
 end REGCb;

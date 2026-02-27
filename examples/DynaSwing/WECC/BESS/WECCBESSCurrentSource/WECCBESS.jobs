@@ -8,8 +8,8 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source suite of
-    simulation tools for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="WECCBESS">
@@ -21,7 +21,7 @@
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="3"/>
+        <simulation startTime="0" stopTime="3" precision="1e-7"/>
         <outputs directory="outputs">
             <curves inputFile="WECCBESS.crv" exportMode="CSV"/>
             <logs>

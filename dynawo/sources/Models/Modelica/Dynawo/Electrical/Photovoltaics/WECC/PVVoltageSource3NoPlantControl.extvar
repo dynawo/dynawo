@@ -15,8 +15,8 @@
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="PFaRef" optional="true"/>
-  <variable type="continuous" id="PInjRefPu" optional="true"/>
-  <variable type="continuous" id="QInjRefPu" optional="true"/>
+  <variable type="continuous" id="PConvRefPu" optional="true"/>
+  <variable type="continuous" id="QConvRefPu" optional="true"/>
   <variable type="discrete" id="injector.switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal2.value" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal3.value" defaultValue="false"/>

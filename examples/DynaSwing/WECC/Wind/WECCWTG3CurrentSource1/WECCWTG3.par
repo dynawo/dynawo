@@ -42,9 +42,19 @@
     <par type="DOUBLE" name="WTG3_Q0Pu" value="-0.2"/>
     <par type="DOUBLE" name="WTG3_U0Pu" value="1.0"/>
     <par type="DOUBLE" name="WTG3_UPhase0" value="0.00000144621"/>
+    <par type="DOUBLE" name="WTG3_PPcc0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="WTG3_QPcc0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="WTG3_UPcc0Pu" value="1"/>
+    <par type="DOUBLE" name="WTG3_UPhasePcc0" value="0.00000144621"/>
     <par type="DOUBLE" name="WTG3_SNom" value="100"/>
-    <par type="DOUBLE" name="WTG3_RPu" value="0"/>
-    <par type="DOUBLE" name="WTG3_XPu" value="0.15"/>
+    <par type="DOUBLE" name="WTG3_RLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WTG3_XLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WTG3_RMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WTG3_XMvHvPu" value="0.15"/>
+    <par type="DOUBLE" name="WTG3_BMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WTG3_GMvHvPu" value="0"/>
+    <par type="BOOL" name="WTG3_PPCLocal" value="true"/>
+    <par type="BOOL" name="WTG3_ConverterLVControl" value="true"/>
     <par type="DOUBLE" name="WTG3_DDn" value="20"/>
     <par type="DOUBLE" name="WTG3_DUp" value="0.001"/>
     <par type="BOOL" name="WTG3_FreqFlag" value="true"/>
