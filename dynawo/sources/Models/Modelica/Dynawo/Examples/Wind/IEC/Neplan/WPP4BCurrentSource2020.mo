@@ -14,11 +14,13 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 
 model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1:2020 standard with infinite bus - fault and reference tracking tests (Active and reactive power steps)"
   extends Icons.Example;
-  extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
+  extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan(infiniteBusWithVariations(tOmegaEvtStart = 100, tOmegaEvtEnd = 100));
 
   Dynawo.Electrical.Wind.IEC.WPP.WPP4BCurrentSource2020 wPP4BCurrentSource(
-    BesPu = 0,
+    BLvTrPu = 0.001,
+    BMvHvPu = 0.001,
     CdrtPu = 15,
+    ConverterLVControl = false,
     DPMaxP4BPu = 1,
     DPRefMax4BPu = 100,
     DPRefMaxPu = 1,
@@ -36,18 +38,14 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
-    GesPu = 0,
+    GLvTrPu = 0.0005,
+    GMvHvPu = 0.0005,
     Hgen = 1,
     Hwtr = 5,
-    IGsIm0Pu(fixed = false),// = 0.423168,
-    IGsRe0Pu(fixed = false),// = 0.930069,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
-    IpMax0Pu(fixed = false),// = 1.2,
     IqH1Pu = 1.05,
-    IqMax0Pu(fixed = false),// = 0.4,
     IqMaxPu = 1.05,
-    IqMin0Pu(fixed = false),// = -0.4,
     IqMinPu = -1.05,
     IqPostPu = 0,
     KdrtPu = 500,
@@ -74,31 +72,31 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     Mqfrt = 1,
     Mqpri = true,
     MwpqMode = 0,
-    P0Pu = -1,
-    PAg0Pu(fixed = false),
+    P0Pu = -PRefPu.offset * wPP4BCurrentSource.SNom / SystemBase.SnRef,
     PErrMaxPu = 1,
     PErrMinPu = -1,
-    PKiwppMaxPu = 1,
+    PKiwppMaxPu = 1.01,
     PKiwppMinPu = -1,
-    PRefMaxPu = 1,
+    PPCLocal = true,
+    PRefMaxPu = 1.01,
     PRefMinPu = 0,
-    Q0Pu = 0.21,
-    QMax0Pu(fixed = false),
+    Q0Pu = -xRefPu.offset * wPP4BCurrentSource.SNom / SystemBase.SnRef,
     QMaxPu = 0.8,
-    QMin0Pu(fixed = false),
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
-    ResPu = 0,
+    RLvTrPu = 0.001,
+    RMvHvPu = 0.001,
     RwpDropPu = 0,
     SNom = 100,
-    U0Pu = 1,
-    UGsIm0Pu(fixed = false),// = 0.21823,
-    UGsRe0Pu(fixed = false),// = 0.975897,
+    TableIpMaxUwt52 = 1.01,
+    TableIpMaxUwt62 = 1.01,
+    TableIpMaxUwt72 = 1.01,
+    U0Pu = 1.00018,
     UMaxPu = 1.1,
     UMinPu = 0.9,
     UOverPu = 1.1,
-    UPhase0 = 0.21949,
+    UPhase0 = 0.219441,
     UPll1Pu = 999,
     UPll2Pu = 0.13,
     URef0Pu = 0,
@@ -109,20 +107,18 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     UqRisePu = 1.1,
     UwpqDipPu = 0.8,
     UwpqRisePu = 1.2,
-    X0Pu(fixed = false),
     XDropPu = 0,
     XErrMaxPu = 1,
     XErrMinPu = -1,
     XKiwpxMaxPu = 1,
     XKiwpxMinPu = -1,
+    XLvTrPu = 0.01,
+    XMvHvPu = 0.01,
     XRefMaxPu = 1,
     XRefMinPu = -1,
-    XWT0Pu(fixed = false),
-    XesPu = 0,
     XwpDropPu = 0,
     fOverPu = 1.1,
     fUnderPu = 0.9,
-    i0Pu(re(fixed = false), im(fixed = false)),// = Complex(-0.930069, -0.423168),
     tG = 0.01,
     tIFilt = 0.01,
     tIcFilt = 0.01,
@@ -148,9 +144,12 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     tUss = 1,
     tfFilt = 0.01,
     tfcFilt = 0.01,
-    tfpFilt = 0.01,
-    u0Pu(re(fixed = false), im(fixed = false))) annotation(
+    tfpFilt = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
+    Placement(transformation(origin = {-116, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
+    Placement(transformation(origin = {-104, -64}, extent = {{-6, -6}, {6, 6}}, rotation = 90)));
 
   // Faults
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.25) annotation(
@@ -167,45 +166,6 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  // Initialization
-  Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource_INIT wPP4CurrentSource_INIT(
-    BesPu = wPP4BCurrentSource.BesPu,
-    GesPu = wPP4BCurrentSource.GesPu,
-    IMaxPu = wPP4BCurrentSource.IMaxPu,
-    Kpqu = wPP4BCurrentSource.Kpqu,
-    MqG = wPP4BCurrentSource.MqG,
-    MwpqMode = wPP4BCurrentSource.MwpqMode,
-    P0Pu = wPP4BCurrentSource.P0Pu,
-    Q0Pu = wPP4BCurrentSource.Q0Pu,
-    QMaxPu = wPP4BCurrentSource.QMaxPu,
-    QMinPu = wPP4BCurrentSource.QMinPu,
-    QlConst = wPP4BCurrentSource.QlConst,
-    ResPu = wPP4BCurrentSource.ResPu,
-    SNom = wPP4BCurrentSource.SNom,
-    U0Pu = wPP4BCurrentSource.U0Pu,
-    UPhase0 = wPP4BCurrentSource.UPhase0,
-    UpquMaxPu = wPP4BCurrentSource.UpquMaxPu,
-    XesPu = wPP4BCurrentSource.XesPu) annotation(
-    Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-initial algorithm
-  wPP4BCurrentSource.IGsIm0Pu := wPP4CurrentSource_INIT.IGsIm0Pu;
-  wPP4BCurrentSource.IGsRe0Pu := wPP4CurrentSource_INIT.IGsRe0Pu;
-  wPP4BCurrentSource.IpMax0Pu := wPP4CurrentSource_INIT.IpMax0Pu;
-  wPP4BCurrentSource.IqMax0Pu := wPP4CurrentSource_INIT.IqMax0Pu;
-  wPP4BCurrentSource.IqMin0Pu := wPP4CurrentSource_INIT.IqMin0Pu;
-  wPP4BCurrentSource.PAg0Pu := wPP4CurrentSource_INIT.PAg0Pu;
-  wPP4BCurrentSource.QMax0Pu := wPP4CurrentSource_INIT.QMax0Pu;
-  wPP4BCurrentSource.QMin0Pu := wPP4CurrentSource_INIT.QMin0Pu;
-  wPP4BCurrentSource.UGsIm0Pu := wPP4CurrentSource_INIT.UGsIm0Pu;
-  wPP4BCurrentSource.UGsRe0Pu := wPP4CurrentSource_INIT.UGsRe0Pu;
-  wPP4BCurrentSource.X0Pu := wPP4CurrentSource_INIT.X0Pu;
-  wPP4BCurrentSource.XWT0Pu := wPP4CurrentSource_INIT.XWT0Pu;
-  wPP4BCurrentSource.i0Pu.re := wPP4CurrentSource_INIT.i0Pu.re;
-  wPP4BCurrentSource.i0Pu.im := wPP4CurrentSource_INIT.i0Pu.im;
-  wPP4BCurrentSource.u0Pu.re := wPP4CurrentSource_INIT.u0Pu.re;
-  wPP4BCurrentSource.u0Pu.im := wPP4CurrentSource_INIT.u0Pu.im;
 
 equation
   wPP4BCurrentSource.wT4BCurrentSource.wT4Injector.switchOffSignal1.value = false;
@@ -226,6 +186,12 @@ equation
     Line(points = {{-139, -20}, {-130, -20}, {-130, -2}, {-121, -2}}, color = {0, 0, 127}));
   connect(tanPhi.y, wPP4BCurrentSource.tanPhi) annotation(
     Line(points = {{-139, 60}, {-125, 60}, {-125, 6}, {-121, 6}}, color = {0, 0, 127}));
+  connect(const.y, wPP4BCurrentSource.PPccPu) annotation(
+    Line(points = {{-116, -78}, {-116, -10}}, color = {0, 0, 127}));
+  connect(const.y, wPP4BCurrentSource.QPccPu) annotation(
+    Line(points = {{-116, -78}, {-116, -40}, {-110, -40}, {-110, -10}}, color = {0, 0, 127}));
+  connect(complexConst.y, wPP4BCurrentSource.uPccPu) annotation(
+    Line(points = {{-104, -58}, {-104, -10}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",

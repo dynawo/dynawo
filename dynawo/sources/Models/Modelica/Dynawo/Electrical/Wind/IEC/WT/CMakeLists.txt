@@ -12,7 +12,6 @@
 set(MODEL_FILES
   package.mo
   package.order
-  WT4CurrentSource_INIT.mo
   WT4ACurrentSource2015.mo
   WT4ACurrentSource2015.extvar
   WT4ACurrentSource2020.mo
@@ -21,6 +20,7 @@ set(MODEL_FILES
   WT4BCurrentSource2015.extvar
   WT4BCurrentSource2020.mo
   WT4BCurrentSource2020.extvar
+  WT4CurrentSource_INIT.mo
   )
 
 #

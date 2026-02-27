@@ -9,7 +9,8 @@ within Dynawo.Electrical.Wind.IEC.WT;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 standard : initialization model"
@@ -31,27 +32,29 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
   parameter Types.PerUnit Kpqu "Partial derivative of reactive current limit against voltage in pu (base UNom, SNom)";
   parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)";
 
-  //QControl parameter
+  //QControl parameters
   parameter Integer MqG "General Q control mode (0-4): Voltage control (0), Reactive power control (1), Open loop reactive power control (2), Power factor control (3), Open loop power factor control (4)";
+  parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base UNom, SNom)";
+  parameter Types.VoltageModulePu URef0Pu "User-defined bias in voltage reference in pu (base UNom)";
+  parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)";
 
   //QLimiter parameters
   parameter Boolean QlConst "True if limits are constant";
   parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)";
 
-  Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)";
-  Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)";
-  Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  Types.ActivePowerPu PAg0Pu "Initial active power at converter terminal in pu (base SNom) (generator convention)";
-  Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom)";
-  Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom)";
-  Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)";
-  Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)";
-  Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)";
+//  Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)";
+//  Types.PerUnit ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)";
+//  Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)";
+//  Types.PerUnit iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)";
+//  Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
+//  Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
+//  Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)";
+//  Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom)";
+//  Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom)";
+//  Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)";
+//  Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)";
+//  Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)";
 
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3Init annotation(
     Placement(visible = true, transformation(origin = {190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -105,14 +108,6 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
     Placement(visible = true, transformation(origin = {90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const5Init(k = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.ComplexMath.Product product1Init(useConjugateInput2 = true) annotation(
-    Placement(visible = true, transformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToRealInit annotation(
-    Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Sources.ComplexExpression complexExprInit(y = Complex(UGsRe0Pu, UGsIm0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr1Init(y = Complex(IGsRe0Pu, IGsIm0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addInit(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -123,18 +118,18 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad";
 
 equation
-  XWT0Pu = if MqG == 0 then U0Pu else -Q0Pu * SystemBase.SnRef / SNom;
-  QMax0Pu = if QlConst then QMaxPu else max0Init.y;
-  QMin0Pu = if QlConst then QMinPu else min3Init.y;
-  IpMax0Pu = combiTable1Ds4Init.y[1];
-  IqMax0Pu = min1Init.y;
-  IqMin0Pu = max3Init.y;
-  IGsRe0Pu = (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) * cos(UPhase0) - Q0Pu * SystemBase.SnRef / (SNom * U0Pu) * sin(UPhase0);
-  IGsIm0Pu = (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) * sin(UPhase0) + Q0Pu * SystemBase.SnRef / (SNom * U0Pu) * cos(UPhase0);
-  u0Pu = Complex(UGsRe0Pu, UGsIm0Pu) - Complex(ResPu, XesPu) * (-i0Pu * SystemBase.SnRef / SNom);
-  Complex(IGsRe0Pu, IGsIm0Pu) = (-i0Pu * SystemBase.SnRef / SNom) + Complex(GesPu, BesPu) * Complex(UGsRe0Pu, UGsIm0Pu);
-  u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0);
-  PAg0Pu = complexToRealInit.re;
+//  QMax0Pu = if QlConst then QMaxPu else min3Init.y;
+//  QMin0Pu = if QlConst then QMinPu else max0Init.y;
+//  IpMax0Pu = combiTable1Ds4Init.y[1];
+//  IqMax0Pu = min1Init.y;
+//  IqMin0Pu = max3Init.y;
+//  iGs0Pu = Complex(GesPu, BesPu) * (u0Pu - Complex(ResPu, XesPu) * i0Pu * SystemBase.SnRef / SNom) - i0Pu * SystemBase.SnRef / SNom;
+//  ip0Pu = cos(UPhase0) * iGs0Pu.re + sin(UPhase0) * iGs0Pu.im;
+//  iq0Pu = cos(UPhase0) * iGs0Pu.im - sin(UPhase0) * iGs0Pu.re;
+//  Complex(P0Pu, Q0Pu) = u0Pu * Modelica.ComplexMath.conj(i0Pu);
+//  u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0);
+//  UWt0DroppedPu = ((U0Pu + RDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + XDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2 + (-XDropPu * P0Pu * SystemBase.SnRef / (SNom * U0Pu) + RDropPu * Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) ^ 0.5;
+//  XWT0Pu = if MqG == 0 then UWt0DroppedPu - URef0Pu else -iq0Pu * U0Pu;
 
   connect(const1Init.y, combiTable1DsInit.u) annotation(
     Line(points = {{62, -40}, {80, -40}, {80, -20}, {98, -20}}, color = {0, 0, 127}));
@@ -184,12 +179,6 @@ equation
     Line(points = {{62, 60}, {78, 60}}, color = {0, 0, 127}));
   connect(combiTable1Ds5Init.y[1], min1Init.u2) annotation(
     Line(points = {{102, 60}, {130, 60}, {130, 174}, {138, 174}}, color = {0, 0, 127}));
-  connect(product1Init.y, complexToRealInit.u) annotation(
-    Line(points = {{-98, -100}, {-62, -100}}, color = {85, 170, 255}));
-  connect(complexExprInit.y, product1Init.u1) annotation(
-    Line(points = {{-158, -60}, {-140, -60}, {-140, -94}, {-122, -94}}, color = {85, 170, 255}));
-  connect(complexExpr1Init.y, product1Init.u2) annotation(
-    Line(points = {{-158, -140}, {-140, -140}, {-140, -106}, {-122, -106}}, color = {85, 170, 255}));
   connect(min1Init.y, gainInit.u) annotation(
     Line(points = {{162, 180}, {170, 180}, {170, 142}}, color = {0, 0, 127}));
   connect(gainInit.y, max3Init.u1) annotation(

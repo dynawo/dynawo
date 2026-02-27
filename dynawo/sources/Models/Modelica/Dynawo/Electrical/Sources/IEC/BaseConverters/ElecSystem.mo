@@ -17,10 +17,10 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
 /*
   Equivalent circuit and conventions:
 
-            iGsPu                                 iWtPu
-   (terminal1) -->--------------ResPu+jXesPu------->-- (terminal2)
+            i1Pu                                 i2Pu
+    (terminal1) -->--------------RPu+jXPu------->-- (terminal2)
                             |
-                      GesPu+jBesPu
+                      GPu+jBPu
                             |
                            ---
 */
@@ -29,68 +29,68 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
   //Circuit parameters
-  parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
+  parameter Types.PerUnit BPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
-  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)" annotation(
+  parameter Types.PerUnit GPu "Shunt conductance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
-  parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)" annotation(
+  parameter Types.PerUnit RPu "Serial resistance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
-  parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
+  parameter Types.PerUnit XPu "Serial reactance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
 
   //Interfaces
-  Dynawo.Connectors.ACPower terminal1(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = IGsRe0Pu * SNom / SystemBase.SnRef), im(start = IGsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
+  Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re*SNom/SystemBase.SnRef), im(start = i10Pu.im*SNom/SystemBase.SnRef))) "terminal 1, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.ACPower terminal2(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
+  Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = -i20Pu.re*SNom/SystemBase.SnRef), im(start = -i20Pu.im*SNom/SystemBase.SnRef))) "terminal 2, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput iGsImPu(start = IGsIm0Pu) "Imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Types.ComplexCurrentPu i1Pu(re(start = i10Pu.re), im(start = i10Pu.im)) "Complex current at terminal 1 in pu (base UNom, SNom) (receptor convention)";
+  Types.ComplexCurrentPu i2Pu(re(start = i20Pu.re), im(start = i20Pu.im)) "Complex current at terminal 2 in pu (base UNom, SNom) (generator convention)";
+  Types.ComplexVoltagePu u1Pu(re(start = u10Pu.re), im(start = u10Pu.im)) "Complex voltage at terminal 1 in pu (base UNom)";
+  Types.ComplexVoltagePu u2Pu(re(start = u20Pu.re), im(start = u20Pu.im)) "Complex voltage at terminal 2 in pu (base UNom)";
+
+  Modelica.Blocks.Interfaces.RealOutput i1ImPu(start = i10Pu.im) "Imaginary component of the current at terminal 1 in pu (base UNom, SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {20, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {90, -110}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput iGsRePu(start = IGsRe0Pu) "Real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput i1RePu(start = i10Pu.re) "Real component of the current at terminal 1 in pu (base UNom, SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {10, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {70, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput iWtImPu(start = -i0Pu.im * SystemBase.SnRef / SNom) "Imaginary component of the current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput i2ImPu(start = i20Pu.im) "Imaginary component of the current at terminal 2 in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-40, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {-20, -110}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput iWtRePu(start = -i0Pu.re * SystemBase.SnRef / SNom) "Real component of the current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput i2RePu(start = i20Pu.re) "Real component of the current at terminal 2 in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {-40, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput uGsImPu(start = UGsIm0Pu) "Imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput u1ImPu(start = u10Pu.im) "Imaginary component of the voltage at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {50, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {40, -110}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput uGsRePu(start = UGsRe0Pu) "Real component of the voltage at converter terminal in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput u1RePu(start = u10Pu.re) "Real component of the voltage at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {20, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput uWtImPu(start = u0Pu.im) "Imaginary component of the voltage at grid terminal in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput u2ImPu(start = u20Pu.im) "Imaginary component of the voltage at terminal 2 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-10, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {-70, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput uWtRePu(start = u0Pu.re) "Real component of the voltage at grid terminal in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput u2RePu(start = u20Pu.re) "Real component of the voltage at terminal 2 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-20, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {-90, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
-  Types.CurrentModulePu IGsPu(start = sqrt(IGsRe0Pu^2 + IGsIm0Pu^2)) "Current module at converter terminal in pu (base UNom, SNom)";
-  Types.VoltageModulePu UGsPu(start = sqrt(UGsRe0Pu^2 + UGsIm0Pu^2)) "Voltage module at converter terminal in pu (base UNom)";
-
   //Initial parameters
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (receptor convention)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (receptor convention)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group="Initialization"));
+  final parameter Types.ComplexCurrentPu i10Pu = i20Pu + Complex(GPu, BPu)*u10Pu "Initial complex current at terminal 1 in pu (base UNom, SNom) (receptor convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ComplexCurrentPu i20Pu "Initial complex current at terminal 2 in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  final parameter Types.ComplexVoltagePu u10Pu = u20Pu + Complex(RPu, XPu)*i20Pu "Initial complex voltage at terminal 1 in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ComplexVoltagePu u20Pu "Initial complex voltage at terminal 2 in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
 
 equation
-  Complex(uGsRePu, uGsImPu) = terminal1.V;
-  Complex(uWtRePu, uWtImPu) = terminal2.V;
-  Complex(iGsRePu, iGsImPu) = terminal1.i * (SystemBase.SnRef / SNom);
-  Complex(iWtRePu, iWtImPu) = -terminal2.i * (SystemBase.SnRef / SNom);
-  Complex(uWtRePu, uWtImPu) = Complex(uGsRePu, uGsImPu) - Complex(ResPu, XesPu) * Complex(iWtRePu, iWtImPu);
-  Complex(iGsRePu, iGsImPu) = Complex(iWtRePu, iWtImPu) + Complex(GesPu, BesPu) * Complex(uGsRePu, uGsImPu);
-  UGsPu = Modelica.ComplexMath.'abs'(terminal1.V);
-  IGsPu = Modelica.ComplexMath.'abs'(terminal1.i) * (SystemBase.SnRef / SNom);
+  u1Pu = terminal1.V;
+  u2Pu = terminal2.V;
+  i1Pu = terminal1.i*(SystemBase.SnRef/SNom);
+  i2Pu = -terminal2.i*(SystemBase.SnRef/SNom);
+  u2Pu = u1Pu - Complex(RPu, XPu)*i2Pu;
+  i1Pu = i2Pu + Complex(GPu, BPu)*u1Pu;
+  i1Pu = Complex(i1RePu, i1ImPu);
+  i2Pu = Complex(i2RePu, i2ImPu);
+  u1Pu = Complex(u1RePu, u1ImPu);
+  u2Pu = Complex(u2RePu, u2ImPu);
 
   annotation(
     preferredView = "text",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-60, -60}, {60, 60}})),
-    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 30}, extent = {{-100, -20}, {100, 20}}, textString = "Electrical"), Text(origin = {0, -30}, extent = {{-100, -20}, {100, 20}}, textString = "System")}));
+    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Rectangle( fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-31, 12}, {33, -12}}), Line(origin = {-80, 0}, points = {{-20, 0}, {49, 0}}), Line(origin = {80, 0}, points = {{-47, 0}, {20, 0}}), Text(origin = {0, 30}, textColor = {0, 0, 255}, extent = {{-80, 10}, {80, -10}}, textString = "%name"), Text(origin = {0, -1}, extent = {{-39, 10}, {39, -10}}, textString = "R+jX"), Line(origin = {-54.9682, -0.00794913}, points = {{-20, 0}, {-20, -20}}), Rectangle(origin = {-75, -40}, rotation = -90, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-31, 12}, {33, -12}}), Text(origin = {-76, -39}, rotation = -90, extent = {{-39, 10}, {39, -10}}, textString = "G+jB"), Line(origin = {-75, -138},points = {{-20, 50}, {20, 50}}, color = {0, 0, 255}), Line(origin = {-75, -123},points = {{-10, 30}, {10, 30}}, color = {0, 0, 255}), Line(origin = {-75, -108},points = {{-5, 10}, {6, 10}}, color = {0, 0, 255}), Line(origin = {-75, -138},points = {{0, 65}, {0, 50}}, color = {0, 0, 255})}));
 end ElecSystem;
