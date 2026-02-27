@@ -18,39 +18,30 @@
  *
  */
 
-#include <openssl/sha.h>
 #include <iomanip>
 #include <vector>
 #include <map>
-#include <cstdlib>
 #include <sstream>
 #include <fstream>
 #include <thread>
-#ifdef _MSC_VER
-#include <process.h>
-#endif
 
 #include <libzip/ZipOutputStream.h>
 #include <libzip/ZipInputStream.h>
 
 #include "TLTimelineFactory.h"
 #include "TLTimeline.h"
-#include "TLJsonExporter.h"
 
 #include "CRVCurvesCollectionFactory.h"
 #include "CRVCurveFactory.h"
-#include "CRVPoint.h"
 
 #include "FSVFinalStateValuesCollectionFactory.h"
 #include "FSVFinalStateValuesCollection.h"
 
 #include "CSTRConstraintsCollectionFactory.h"
-#include "CSTRJsonExporter.h"
 
 #include "LEQLostEquipmentsCollectionFactory.h"
 
 #include "JOBJobEntry.h"
-#include "JOBCurvesEntry.h"
 #include "JOBInteractiveSettingsEntry.h"
 #include "JOBClockEntry.h"
 #include "JOBChannelEntry.h"

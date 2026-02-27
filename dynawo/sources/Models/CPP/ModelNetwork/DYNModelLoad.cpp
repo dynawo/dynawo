@@ -294,14 +294,6 @@ ModelLoad::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
       const double U = sqrt(ur * ur + ui * ui);
       const int urYNum = modelBus_->urYNum();
       const int uiYNum = modelBus_->uiYNum();
-      // std::shared_ptr<LoadInterface> load = load_.lock();
-      // std::cout << "..... Load name = " << load->getID() << std::endl;
-      // std::cout << "Load U= " << U << std::endl;
-      // std::cout << "Load alpha_= " << alpha_ << std::endl;
-      // std::cout << "Load u0_= " << u0_ << std::endl;
-      // std::cout << "Load alphaLong_= " << alphaLong_ << std::endl;
-      // std::cout << "Load beta_= " << beta_ << std::endl;
-      // std::cout << "Load betaLong_= " << betaLong_ << std::endl;
       // column for equations Zp
       jt.changeCol();
       // @f[0]/@zp, @f[0]/@ur, @f[0]/@ui
