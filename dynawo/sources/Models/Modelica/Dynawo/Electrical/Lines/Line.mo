@@ -27,15 +27,15 @@ model Line "AC power line - PI model"
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffLine;
   extends AdditionalIcons.Line;
 
-  Dynawo.Connectors.ACPower terminal1 annotation(
-    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.ACPower terminal2 annotation(
-    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   parameter Types.PerUnit RPu "Resistance in pu (base SnRef)";
   parameter Types.PerUnit XPu "Reactance in pu (base SnRef)";
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef)";
   parameter Types.PerUnit BPu "Half-susceptance in pu (base SnRef)";
+
+  Dynawo.Connectors.ACPower terminal1 annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal2 annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
@@ -49,7 +49,7 @@ protected
 equation
   if (running.value) then
     ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
-    ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
+    terminal1.i + terminal2.i = YPu * (terminal1.V + terminal2.V);
   else
     terminal1.i = Complex(0);
     terminal2.i = Complex(0);
@@ -60,7 +60,8 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>
 The line model is a classical Pi-line mode with the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
@@ -69,5 +70,5 @@ The line model is a classical Pi-line mode with the following equivalent circuit
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                  G+jB         G+jB</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                   ---         ---</span><!--EndFragment--></pre></div><div><div><pre style=\"text-align: center; margin-top: 0px; margin-bottom: 0px;\"><!--EndFragment--></pre></div></div></body></html>"));
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                   ---         ---</span></pre></div><div><div><pre style=\"text-align: center; margin-top: 0px; margin-bottom: 0px;\"><!--EndFragment--></pre></div>The original line equations, derived from the schematic, were<br><br>ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V</div><div>ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V</div><div><br></div><div>In case of a zero impedance (ZPu = Complex(0)), these equations became</div><div><br></div><div>0 = terminal2.V - terminal1.V</div><div>0 = terminal1.V - terminal2.V<br><br>which are identical and leave terminal1.i and terminal2.i unresolved.</div><div><br></div><div>The sum of both original equations is equal to<br><br>ZPu * (terminal1.i + terminal2.i - YPu * (terminal1.V - terminal2.V)) = 0</div><div><br>which can be simplified as<br><br>terminal1.i + terminal2.i = YPu * (terminal1.V + terminal2.V)<br><br>allowing for a resolution of terminal1.i and terminal2.i.</div></body></html>"));
 end Line;
