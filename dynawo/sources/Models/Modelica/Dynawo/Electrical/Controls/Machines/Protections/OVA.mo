@@ -32,16 +32,17 @@ protected
 
 equation
   // Voltage comparison with the maximum accepted value
+  when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal.value)) then
+    tThresholdReached = time;
+  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
+    tThresholdReached = Constants.inf;
+  end when;
+
   when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal.value)) and tLagAction > 0 then
-    tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.OVAArming);
-  elsewhen UMonitoredPu >= UMaxPu and not(pre(switchOffSignal.value)) then
-    tThresholdReached = time;
   elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.OVADisarming);
-  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
-    tThresholdReached = Constants.inf;
   end when;
 
   // Delay before tripping the generator
