@@ -41,7 +41,6 @@ equation
   when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal.value)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.OVAArming);
   elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) and tLagAction > 0 then
-    tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.OVADisarming);
   end when;
 
