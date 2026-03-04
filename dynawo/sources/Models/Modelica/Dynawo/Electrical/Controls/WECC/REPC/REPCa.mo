@@ -23,8 +23,6 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-310, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QGen0Pu) "Reactive power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-309, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -59}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) "Frequency setpoint" annotation(
-    Placement(visible = true, transformation(origin = {-310, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRegPu(start = PGen0Pu) "Active power at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-310, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {79, 111}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput QRegPu(start = QGen0Pu) "Reactive power at regulated bus in pu (generator convention) (base SNom)" annotation(
@@ -45,24 +43,40 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {210, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanOutput freeze(start = false) "Boolean to freeze the regulation" annotation(
     Placement(visible = true, transformation(origin = {-190, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant FreqFlag0(k = FreqFlag) annotation(
     Placement(visible = true, transformation(origin = {50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tLag, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(
+    T = tLag,
+    y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter PRefLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = FEMaxPu, uMin = FEMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter PRefLim(
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy,
+    uMax = FEMaxPu,
+    uMin = FEMinPu) annotation(
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimPID limPID(Ti = Kpg / Kig, controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpg, xi_start = PInj0Pu / Kpg, yMax = PMaxPu, yMin = PMinPu, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.LimPID limPID(
+    Ti = Kpg/Kig,
+    controllerType = Modelica.Blocks.Types.SimpleController.PI,
+    k = Kpg,
+    xi_start = PInj0Pu/Kpg,
+    yMax = PMaxPu,
+    yMin = PMinPu,
+    y_start = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tP, y_start = PGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(
+    T = tP,
+    y_start = PGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter QVErrLim(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = EMaxPu, uMin = EMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter QVErrLim(
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy,
+    uMax = EMaxPu,
+    uMin = EMinPu) annotation(
     Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Zero1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {150, 90}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -70,17 +84,25 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-30, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone(uMax = DbdPu, uMin = -DbdPu) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone deadZone(
+    uMax = DbdPu,
+    uMin = -DbdPu) annotation(
     Placement(visible = true, transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tFilterPC, y_start = QGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(
+    T = tFilterPC,
+    y_start = QGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add QCtrlErr(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {-30, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add UCtrlErr(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-30, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFilterPC, y_start = if VCompFlag == true then UInj0Pu else U0Pu + Kc * QGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(
+    T = tFilterPC,
+    y_start = if VCompFlag == true then UInj0Pu else U0Pu + Kc*QGen0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.LineDropCompensation lineDropCompensation1(RcPu = RcPu, XcPu = XcPu) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.LineDropCompensation lineDropCompensation1(
+    RcPu = RcPu,
+    XcPu = XcPu) annotation(
     Placement(visible = true, transformation(origin = {-270, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -92,7 +114,9 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-270, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add wCtrlErr(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-270, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone1(uMax = FDbd2Pu, uMin = -FDbd1Pu) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone deadZone1(
+    uMax = FDbd2Pu,
+    uMin = -FDbd1Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add dPfreq annotation(
     Placement(visible = true, transformation(origin = {-110, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -100,18 +124,41 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {-190, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = DUp) annotation(
     Placement(visible = true, transformation(origin = {-190, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 0, uMin = -999) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy,
+    uMax = 0,
+    uMin = -999) annotation(
     Placement(visible = true, transformation(origin = {-150, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = 999, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy,
+    uMax = 999,
+    uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = PInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(Ti = Kp / Ki, K = Kp, Xi0 = QInj0Pu / Kp, YMax = QMaxPu, YMin = QMinPu, Y0 = QInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimPIDFreeze limPIDFreeze(
+    Ti = Kp/Ki,
+    K = Kp,
+    Xi0 = QInj0Pu/Kp,
+    YMax = QMaxPu,
+    YMin = QMinPu,
+    Y0 = QInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VFrz, UMaxPu = 999) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(
+    UMinPu = VFrz,
+    UMaxPu = 999) annotation(
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {QInj0Pu}, y_start = QInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(
+    a = {tFv,
+    1},
+    b = {tFt,
+    1},
+    initType = Modelica.Blocks.Types.Init.InitialState,
+    x_start = {QInj0Pu},
+    y_start = QInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {170, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
+    Placement(transformation(origin = {-310, -110}, extent = {{-10, -10}, {10, 10}})));
 
   parameter Types.PerUnit PGen0Pu "Start value of active power at regulated bus in pu (generator convention) (base SNom)";
   parameter Types.PerUnit QGen0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SNom)";
@@ -121,8 +168,7 @@ model REPCa "WECC Plant Control type A"
   parameter Types.ComplexPerUnit iInj0Pu "Start value of complex current at regulated bus in pu (generator convention) (base SNom, UNom)";
   parameter Types.PerUnit PInj0Pu "Start value of active power at injector terminal in pu (generator convention) (base SNom)";
   parameter Types.PerUnit QInj0Pu "Start value of reactive power at injector terminal in pu (generator convention) (base SNom)";
-
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc * QGen0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu + Kc*QGen0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
@@ -187,8 +233,6 @@ equation
     Line(points = {{101, 50}, {118, 50}}, color = {0, 0, 127}));
   connect(Zero1.y, limPIDFreeze.u_m) annotation(
     Line(points = {{139, 90}, {130, 90}, {130, 62}}, color = {0, 0, 127}));
-  connect(omegaRefPu, wCtrlErr.u1) annotation(
-    Line(points = {{-310, -120}, {-290, -120}, {-290, -124}, {-282, -124}, {-282, -124}}, color = {0, 0, 127}));
   connect(deadZone1.y, gain1.u) annotation(
     Line(points = {{-219, -130}, {-210, -130}, {-210, -90}, {-202, -90}, {-202, -90}}, color = {0, 0, 127}));
   connect(dPfreq.y, add3.u3) annotation(
@@ -219,6 +263,8 @@ equation
     Line(points = {{181, 50}, {210, 50}}, color = {0, 0, 127}));
   connect(URefPu, UCtrlErr.u1) annotation(
     Line(points = {{-50, 160}, {-50, 92}, {-42, 92}}, color = {0, 0, 127}));
+  connect(OmegaRef.y, wCtrlErr.u1) annotation(
+    Line(points = {{-298, -110}, {-290, -110}, {-290, -124}, {-282, -124}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
