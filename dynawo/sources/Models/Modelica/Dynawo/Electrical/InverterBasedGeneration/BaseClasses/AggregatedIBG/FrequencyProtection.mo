@@ -13,7 +13,7 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses.AggregatedIBG;
 * of simulation tools for power systems.
 */
 
-model FrequencyProtection
+model FrequencyProtection "Frequency protection"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -50,5 +50,7 @@ equation
     fFrequency = 0;
   end if;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The unit will be disconnected if the frequency gets out of the range [OmegaMinPu -p, OmegaMaxPu].</body></html>"));
 end FrequencyProtection;

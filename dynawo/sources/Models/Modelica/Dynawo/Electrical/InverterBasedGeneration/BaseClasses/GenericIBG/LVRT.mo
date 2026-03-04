@@ -16,7 +16,6 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG;
 model LVRT "Low voltage ride through"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
-  import Modelica.Constants;
 
   parameter Types.Time tLVRTInt "Time delay of trip for intermediate voltage dips in s";
   parameter Types.Time tLVRTMax "Time delay of trip for small voltage dips in s";
@@ -31,15 +30,15 @@ model LVRT "Low voltage ride through"
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 protected
-  Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached in s";
+  Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold was reached in s";
 
 equation
   // Arming
   when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal.value)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LVRTArming);
-  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
-    tThresholdReached = Constants.inf;
+  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Modelica.Constants.inf and not(pre(switchOffSignal.value)) then
+    tThresholdReached = Modelica.Constants.inf;
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
   end when;
 
@@ -55,5 +54,7 @@ equation
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
   end when;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The IBG unit can disconnect if the voltage is found below the LVRT capability curve. (See figure 2.8 in G. Chaspierre thesis 'Reduced-order modelling of active distribution networks for large-disturbance simulations')</body></html>"));
 end LVRT;

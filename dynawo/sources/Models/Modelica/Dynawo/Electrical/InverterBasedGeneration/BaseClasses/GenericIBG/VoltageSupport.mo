@@ -13,12 +13,12 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG;
 * of simulation tools for power systems.
 */
 
-model VoltageSupport
+model VoltageSupport "Reactive current injection model"
   parameter Types.CurrentModulePu IMaxPu "Maximum current of the injector in pu (base UNom, SNom)";
   parameter Real kRCA "Slope of reactive current decrease for high voltages in pu (base UNom, SNom)";
   parameter Real kRCI "Slope of reactive current increase for low voltages in pu (base UNom, SNom)";
   parameter Real m "Current injection just outside of lower deadband in pu (base IMaxPu)";
-  parameter Real n "Current injection just outside of lower deadband in pu (base IMaxPu)";
+  parameter Real n "Current injection just outside of upper deadband in pu (base IMaxPu)";
   parameter Types.VoltageModulePu US1 "Lower voltage limit of deadband in pu (base UNom)";
   parameter Types.VoltageModulePu US2 "Higher voltage limit of deadband in pu (base UNom)";
 
@@ -37,5 +37,7 @@ equation
     IqSupPu = -n * IMaxPu + kRCA * (Um - US2);
   end if;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The IBG unit can inject additional reactive current IqSupPu into the grid to support the terminal voltage. (See figure 2.9 in G. Chaspierre thesis 'Reduced-order modelling of active distribution networks for large-disturbance simulations')</body></html>"));
 end VoltageSupport;

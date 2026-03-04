@@ -13,7 +13,7 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses.AggregatedIBG;
 * of simulation tools for power systems.
 */
 
-model LVRT "Low voltage ride through"
+model LVRT "Low voltage ride through for aggregated IBG"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
   import Modelica.Constants;
@@ -40,7 +40,7 @@ model LVRT "Low voltage ride through"
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   Types.PerUnit aux3(start = 1) "Auxiliary variable used to compute f3";
-  Types.PerUnit f1(start = 1) "Partial tripping coefficient for trips in period [0, tLVRTInt], equals to 1 if no trip, 0 if fully tripped";
+  Types.PerUnit f1(start = 1) "Partial tripping coefficient for trips in period [0, tLVRTMin], equals to 1 if no trip, 0 if fully tripped";
   Types.PerUnit f2(start = 1) "Partial tripping coefficient for trips in period [tLVRTMin, tLVRTInt], equals to 1 if no trip, 0 if fully tripped";
   Types.PerUnit f3(start = 1) "Partial tripping coefficient for trips in period [tLVRTInt, tLVRTMax], equals to 1 if no trip, 0 if fully tripped";
   Types.PerUnit f4(start = 1) "Partial tripping coefficient for trips in period [tLVRTMax, inf], equals to 1 if no trip, 0 if fully tripped";
@@ -143,5 +143,7 @@ equation
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
   end when;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">LVRT for aggregated IBG model that takes into account partial tripping (See figure 4.3 in G. Chaspierre thesis 'Reduced-order modelling of active distribution networks for large-disturbance simulations')</span></body></html>"));
 end LVRT;

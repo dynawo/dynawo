@@ -13,7 +13,7 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses.AggregatedIBG;
 * of simulation tools for power systems.
 */
 
-model OverFrequencySupport
+model OverFrequencySupport "Active current injection model"
   parameter Types.AngularVelocityPu OmegaDeadBandPu "Deadband of the overfrequency contribution in pu (base omegaNom)";
   parameter Types.AngularVelocityPu OmegaMaxPu "Maximum frequency before disconnection in pu (base omegaNom)";
   parameter Types.PerUnit s(min = 0, max = 1) "Share of units that trip at OmegaDeadBandPu";
@@ -35,5 +35,7 @@ equation
     deltaP = PextPu;
   end if;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>When frequency is greater than OmegaDeadBandPu, the IBG unit is requested to decrease its active power injection. The unit participate in over-frequency control with full capacity when frequency reaches OmegaMaxPu. This model takes into account partial tripping. &nbsp;</body></html>"));
 end OverFrequencySupport;

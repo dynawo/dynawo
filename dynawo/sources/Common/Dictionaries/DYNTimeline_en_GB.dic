@@ -130,8 +130,6 @@ HVRTArming                 =              HVRT automaton for generator arming
 HVRTDisarming              =              HVRT automaton for generator disarming
 // --> Aggregated IBG
 PartialTripping           =             Partial tripping ongoing
-// --> Over voltage protection
-OverVoltageTripped         =            Over-voltage protection tripped
 // --> Distance protection
 DistanceTrippedZone1       =              Distance protection tripped zone 1
 DistanceTrippedZone2       =              Distance protection tripped zone 2

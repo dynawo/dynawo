@@ -18,8 +18,8 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the injector (in MVA)";
   parameter Types.CurrentModulePu IMaxPu "Maximum current of the injector in pu (base UNom, SNom)";
   parameter Boolean PPriority "If true, prioritise active power over reactive power";
-  parameter Real PllKp = 3 "PLL proportional coefficient";
-  parameter Real PllKi = 10 "PLL integral coefficient";
+  parameter Real KpPll = 3 "PLL proportional coefficient";
+  parameter Real KiPll = 10 "PLL integral coefficient";
 
   // Filters
   parameter Types.Time tFilterU "Voltage measurement first order time constant in s";
@@ -31,12 +31,12 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
   parameter Types.Time tIq "Reactive current time constant in s";
 
   // Frequency support
-  parameter Types.AngularVelocityPu fDeadZoneMaxPu "Upper value of frequency dead zone in pu (base omegaNom)";
-  parameter Types.AngularVelocityPu fDeadZoneMinPu "Lower value of frequency dead zone in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu FDbd1Pu "Lower value of frequency dead zone in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu FDbd2Pu "Upper value of frequency dead zone in pu (base omegaNom)";
   parameter Real DdnPu "Power reduction factor for over-frequency in pu (base SNom)";
   parameter Real DupPu "Power increase factor for under-frequency in pu (base SNom)";
-  parameter Types.AngularVelocityPu feMaxPu "Maximum frequency error correction in pu (base omegaNom)";
-  parameter Types.AngularVelocityPu feMinPu "Minimum frequency error correction in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu FEMaxPu "Maximum frequency error correction in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu FEMinPu "Minimum frequency error correction in pu (base omegaNom)";
   parameter Real Kpg "PI proportional coefficient of frequency support in pu (base SNom, omegaNom)";
   parameter Real Kig "PI integral coefficient of frequency support in pu (base SNom, omegaNom)";
   parameter Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SNom)";
@@ -54,24 +54,13 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
   // Voltage support
   parameter Boolean PfFlag "True for constant power factor, false for constant reactive power";
   parameter Types.VoltageModulePu VRefPu = 1 "Voltage reference in pu (base UNom)";
-  parameter Types.VoltageModulePu VDeadzoneMaxPu "Upper value of voltage dead zone in pu (base UNom)";
-  parameter Types.VoltageModulePu VDeadzoneMinPu "Lower value of voltage dead zone in pu (base UNom)";
-  parameter Real KQsupportPu "Proportional coefficient of reactive support in pu (base SNom, UNom)";
+  parameter Types.VoltageModulePu Dbd1Pu "Lower value of voltage dead zone in pu (base UNom)";
+  parameter Types.VoltageModulePu Dbd2Pu "Upper value of voltage dead zone in pu (base UNom)";
+  parameter Real Kqv "Proportional coefficient of reactive support in pu (base SNom, UNom)";
   parameter Types.CurrentModulePu Iqh1 "Maximum reactive support current command (base SNom, UNom)";
   parameter Types.CurrentModulePu Iql1 "Maximum reactive support current command (base SNom, UNom)";
 
-  // Initial values
-  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (generator convention)";
-  parameter Types.PerUnit Id0Pu "Start value of d-axs current at injector in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
-  parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.PerUnit PF0 "Start value of power factor";
-  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (generator convention)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at terminal in pu (base UNom)";
-  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
-
+  // Inout variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-460, 100}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
@@ -80,6 +69,7 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
     Placement(transformation(origin = {-460, 200}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power setpoint in pu (base SNom)" annotation(
     Placement(transformation(origin = {-320, -160}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {430, -96}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -121,27 +111,25 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
     Placement(visible = true, transformation(origin = {40, -80}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 0.01, y_start = Id0Pu) annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = PllKi, Kp = PllKp, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u0Pu) annotation(
-    Placement(visible = true, transformation(origin = {320, 52}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression omegaRef(y = omegaRefPu) annotation(
-    Placement(visible = true, transformation(origin = {270, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPll, Kp = KpPll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u0Pu) annotation(
+    Placement(transformation(origin = {-400, 112}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Sources.Constant constant2(k = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-350, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-300, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter frequencyErrorLimit(uMax = feMaxPu, uMin = feMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter frequencyErrorLimit(uMax = FEMaxPu, uMin = FEMinPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup powerPIAntiWinDupPu(Ki = Kpg, Kp = Kig, Y0 = -P0Pu*SystemBase.SnRef / SNom, YMax = PMaxPu, YMin = PMinPu) annotation(
     Placement(visible = true, transformation(origin = {50, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {110, 180}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter powerRateLimit(Rising = DPMaxPu, Falling = DPMinPu, Td = tPord, y_start = -P0Pu * SystemBase.SnRef / SNom, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter powerRateLimit(Rising = DPMaxPu, Falling = DPMinPu, y_start = -P0Pu * SystemBase.SnRef / SNom, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(
     Placement(visible = true, transformation(origin = {150, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant frequencyFlag(k = FreqFlag) annotation(
     Placement(visible = true, transformation(origin = {50, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {-150, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone frequencyDeadZone(uMax = fDeadZoneMaxPu, uMin = fDeadZoneMinPu) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone frequencyDeadZone(uMax = FDbd2Pu, uMin = FDbd1Pu) annotation(
     Placement(visible = true, transformation(origin = {-250, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-30, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -151,9 +139,9 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
     Placement(visible = true, transformation(origin = {-410, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-360, -200}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone voltageDeadZone(uMax = VDeadzoneMaxPu, uMin = VDeadzoneMinPu) annotation(
+  Modelica.Blocks.Nonlinear.DeadZone voltageDeadZone(uMax = Dbd2Pu, uMin = Dbd1Pu) annotation(
     Placement(visible = true, transformation(origin = {-310, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = KQsupportPu) annotation(
+  Modelica.Blocks.Math.Gain gain1(k = Kqv) annotation(
     Placement(visible = true, transformation(origin = {-270, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {-230, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -169,9 +157,9 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
     Placement(visible = true, transformation(origin = {-190, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain3(k = DupPu) annotation(
     Placement(visible = true, transformation(origin = {-190, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter down(uMax = 0, uMin = -999) annotation(
+  Modelica.Blocks.Nonlinear.Limiter down(uMax = 0, uMin = -999, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {-150, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter up(uMax = 999, uMin = 0) annotation(
+  Modelica.Blocks.Nonlinear.Limiter up(uMax = 999, uMin = 0, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {-150, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {-90, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -179,7 +167,7 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
     Placement(visible = true, transformation(origin = {190, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter reactiveSupportLimit(uMax = Iqh1, uMin = Iql1, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {-230, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter pOrdLimit(uMax = PMaxPu, uMin = PMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter pOrdLimit(uMax = PMaxPu, uMin = PMinPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(visible = true, transformation(origin = {230, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.InverterBasedGeneration.BaseClasses.DERa.FRT FRT(FhPu = OmegaMaxPu, FlPu = OmegaMinPu, tfh = tOmegaMaxPu, tfl = tOmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {-250, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -189,6 +177,18 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
     Placement(visible = true, transformation(origin = {-320, 10}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.Tan tan annotation(
     Placement(visible = true, transformation(origin = {-350, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initial values
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.PerUnit Id0Pu "Start value of d-axs current at injector in pu (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.PerUnit PF0 "Start value of power factor";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at terminal in pu (base UNom)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
 
 equation
   connect(injector.terminal, terminal) annotation(
@@ -228,11 +228,9 @@ equation
   connect(PartialTripping1.y, IpPartialTripping.u1) annotation(
     Line(points = {{121, 40}, {140, 40}, {140, 6}, {158, 6}}, color = {0, 0, 127}));
   connect(pll.phi, injector.UPhase) annotation(
-    Line(points = {{342, 54}, {360, 54}, {360, -57}}, color = {0, 0, 127}));
+    Line(points = {{-378, 114}, {-374, 114}, {-374, 60}, {360, 60}, {360, -56}}, color = {0, 0, 127}));
   connect(injector.uPu, pll.uPu) annotation(
-    Line(points = {{383, -87}, {410, -87}, {410, 80}, {280, 80}, {280, 64}, {298, 64}}, color = {85, 170, 255}));
-  connect(omegaRef.y, pll.omegaRefPu) annotation(
-    Line(points = {{282, 40}, {298, 40}}, color = {0, 0, 127}));
+    Line(points = {{384, -86}, {380, -86}, {380, 220}, {-432, 220}, {-432, 124}, {-422, 124}}, color = {85, 170, 255}));
   connect(frequencyErrorLimit.y, powerPIAntiWinDupPu.u) annotation(
     Line(points = {{21, 140}, {37, 140}}, color = {0, 0, 127}));
   connect(switch.y, powerRateLimit.u) annotation(
@@ -307,8 +305,6 @@ equation
     Line(points = {{241, 180}, {260, 180}, {260, 100}, {0, 100}, {0, 40}, {-80, 40}, {-80, -14}, {-62, -14}}, color = {0, 0, 127}));
   connect(constant2.y, feedback.u1) annotation(
     Line(points = {{-339, 140}, {-309, 140}}, color = {0, 0, 127}));
-  connect(omegaRefPu, omegaFilter.u) annotation(
-    Line(points = {{-460, 100}, {-362, 100}}, color = {0, 0, 127}));
   connect(omegaFilter.y, feedback.u2) annotation(
     Line(points = {{-339, 100}, {-300, 100}, {-300, 132}}, color = {0, 0, 127}));
   connect(add.y, variableLimiter.u) annotation(
@@ -325,10 +321,14 @@ equation
     Line(points = {{-460, 40}, {-362, 40}}, color = {0, 0, 127}));
   connect(tan.y, product.u2) annotation(
     Line(points = {{-339, 40}, {-325, 40}, {-325, 22}, {-327, 22}}, color = {0, 0, 127}));
-  connect(pOrdLimit.y, product.u1) annotation(
-    Line(points = {{241, 180}, {260, 180}, {260, 100}, {0, 100}, {0, 40}, {-314, 40}, {-314, 22}}, color = {0, 0, 127}));
+  connect(firstOrder.y, product.u1) annotation(
+    Line(points = {{-40, 100}, {-100, 100}, {-100, 40}, {-314, 40}, {-314, 22}}, color = {0, 0, 127}));
   connect(product.y, switch1.u1) annotation(
     Line(points = {{-320, -1}, {-320, -80}, {-260, -80}, {-260, -112}, {-242, -112}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(omegaRefPu, pll.omegaRefPu) annotation(
+    Line(points = {{-460, 100}, {-422, 100}}, color = {0, 0, 127}));
+  connect(pll.omegaPLLPu, omegaFilter.u) annotation(
+    Line(points = {{-378, 122}, {-370, 122}, {-370, 100}, {-362, 100}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

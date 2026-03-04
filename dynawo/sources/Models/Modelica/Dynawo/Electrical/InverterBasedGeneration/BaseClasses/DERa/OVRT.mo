@@ -25,7 +25,7 @@ model OVRT "Over-voltage ride-through model for the der_a"
   Modelica.Blocks.Interfaces.RealInput UMonitoredPu "Monitored voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput connectedShare(start = 1);
+  Modelica.Blocks.Interfaces.RealOutput connectedShare(start = 1) "Connected share";
 
   Types.VoltageModulePu UMaxPu(start = 1) "Voltage when V has been higher than Uh0Pu for tvh0 seconds in pu (base UNom)";
   Types.Time tUh0Reached(start = Constants.inf) "Time when UMonitoredPu rised above Uh0Pu in s";

@@ -54,7 +54,7 @@
     <par type="BOOL" name="ibg_PPriority" value="false"/>
     <par type="BOOL" name="ibg_PfFlag" value="false"/>
     <par type="DOUBLE" name="ibg_RecoveringShare" value="0.5"/>
-    <par type="DOUBLE" name="ibg_KQsupportPu" value="2.5"/>
+    <par type="DOUBLE" name="ibg_Kqv" value="2.5"/>
     <par type="DOUBLE" name="ibg_IMaxPu" value="1.1"/>
     <par type="DOUBLE" name="ibg_tFilterU" value="0.02"/>
     <par type="DOUBLE" name="ibg_tFilterOmega" value="0.02"/>
@@ -62,12 +62,12 @@
     <par type="DOUBLE" name="ibg_tG" value="0.02"/>
     <par type="DOUBLE" name="ibg_tPord" value="0.02"/>
     <par type="DOUBLE" name="ibg_tIq" value="0.02"/>
-    <par type="DOUBLE" name="ibg_fDeadZoneMaxPu" value="0.4"/>
-    <par type="DOUBLE" name="ibg_fDeadZoneMinPu" value="-1"/>
+    <par type="DOUBLE" name="ibg_FDbd2Pu" value="0.4"/>
+    <par type="DOUBLE" name="ibg_FDbd1Pu" value="-1"/>
     <par type="DOUBLE" name="ibg_DdnPu" value="10"/>
     <par type="DOUBLE" name="ibg_DupPu" value="0"/>
-    <par type="DOUBLE" name="ibg_feMaxPu" value="99"/>
-    <par type="DOUBLE" name="ibg_feMinPu" value="-99"/>
+    <par type="DOUBLE" name="ibg_FEMaxPu" value="99"/>
+    <par type="DOUBLE" name="ibg_FEMinPu" value="-99"/>
     <par type="DOUBLE" name="ibg_Kpg" value="0.2"/>
     <par type="DOUBLE" name="ibg_Kig" value="12"/>
     <par type="DOUBLE" name="ibg_PMaxPu" value="1"/>
@@ -82,8 +82,8 @@
     <par type="DOUBLE" name="ibg_IpRateLimMax" value="2.5"/>
     <par type="DOUBLE" name="ibg_IpRateLimMin" value="-999"/>
     <par type="DOUBLE" name="ibg_VRefPu" value="1"/>
-    <par type="DOUBLE" name="ibg_VDeadzoneMaxPu" value="0.1"/>
-    <par type="DOUBLE" name="ibg_VDeadzoneMinPu" value="-0.1"/>
+    <par type="DOUBLE" name="ibg_Dbd2Pu" value="0.1"/>
+    <par type="DOUBLE" name="ibg_Dbd1Pu" value="-0.1"/>
     <par type="DOUBLE" name="ibg_Iqh1" value="999"/>
     <par type="DOUBLE" name="ibg_Iql1" value="-999"/>
   </set>

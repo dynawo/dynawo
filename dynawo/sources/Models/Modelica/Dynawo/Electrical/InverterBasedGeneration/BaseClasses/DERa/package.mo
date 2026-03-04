@@ -13,6 +13,6 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses;
 * of simulation tools for power systems.
 */
 
-package DERa "Base controls for der_a model"
+package DERa "Base controls for aggregated Ditributed Energy Ressources model"
   extends Icons.Package;
 end DERa;

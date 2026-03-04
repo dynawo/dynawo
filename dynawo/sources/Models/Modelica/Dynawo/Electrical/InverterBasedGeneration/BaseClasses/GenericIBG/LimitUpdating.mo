@@ -13,7 +13,7 @@ within Dynawo.Electrical.InverterBasedGeneration.BaseClasses.GenericIBG;
 * of simulation tools for power systems.
 */
 
-model LimitUpdating
+model LimitUpdating "Current limits calculation"
   parameter Types.CurrentModulePu IMaxPu "Maximum current of the injector in pu (base UNom, SNom)";
 
   Modelica.Blocks.Interfaces.RealInput IpCmdPu "Active current command in pu (base UNom, SNom)" annotation(
@@ -45,5 +45,7 @@ equation
     IqMinPu = -IqMaxPu;
   end if;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>This block calculates active and reactive current limits based on priority given to active or reactive injection.</body></html>"));
 end LimitUpdating;

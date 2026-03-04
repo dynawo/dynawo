@@ -37,7 +37,7 @@ model BaseIBG "Generic model of inverter-based generation (IBG)"
   parameter Real kRCA "Slope of reactive current decrease for high voltages in pu (base UNom, SNom)";
   parameter Real kRCI "Slope of reactive current increase for low voltages in pu (base UNom, SNom)";
   parameter Real m "Current injection just outside of lower deadband in pu (base IMaxPu)";
-  parameter Real n "Current injection just outside of lower deadband in pu (base IMaxPu)";
+  parameter Real n "Current injection just outside of upper deadband in pu (base IMaxPu)";
   parameter Types.VoltageModulePu UMaxPu "Maximum voltage over which the unit is disconnected in pu (base UNom)";
   parameter Types.VoltageModulePu US1 "Lower voltage limit of deadband in pu (base UNom)";
   parameter Types.VoltageModulePu US2 "Higher voltage limit of deadband in pu (base UNom)";
@@ -55,12 +55,14 @@ model BaseIBG "Generic model of inverter-based generation (IBG)"
   parameter Types.VoltageModulePu UPLLFreezePu "PLL freeze voltage threshold in pu (base UNom)";
   parameter Types.VoltageModulePu UQPrioPu "Voltage under which priority is given to reactive current injection in pu (base UNom)";
 
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput PextPu(start = -P0Pu*SystemBase.SnRef/SNom) "Available power from the DC source in pu (base SNom)" annotation(
     Placement(transformation(origin = {-420, 20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput iQrefPu(start = IqRef0Pu) "Target reactive current in pu (base UNom, SNom)" annotation(
     Placement(transformation(origin = {-420, -180}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-420, 160}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {390, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -100,7 +102,7 @@ model BaseIBG "Generic model of inverter-based generation (IBG)"
     Placement(visible = true, transformation(origin = {-210, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Controls.Machines.Protections.OVA overVoltageProtection(UMaxPu = UMaxPu, tLagAction = 0)  annotation(
     Placement(transformation(origin = {-150, 120}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter iPSlewLimit(DuMax = IpSlewMaxPu, Y0 = Id0Pu, tS = tRateLim) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter iPSlewLimit(DuMax = IpSlewMaxPu, DuMin = -99, Y0 = Id0Pu, tS = tRateLim) annotation(
     Placement(visible = true, transformation(origin = {170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.StandAloneRampRateLimiter iQSlewLimit(DuMax = IqSlewMaxPu, Y0 = -Iq0Pu, tS = tRateLim) annotation(
     Placement(visible = true, transformation(origin = {170, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -114,13 +116,13 @@ model BaseIBG "Generic model of inverter-based generation (IBG)"
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initial values
-  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (generator convention)";
+  parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.PerUnit Id0Pu "Start value of d-axs current at injector in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IqRef0Pu "Start value of the reference q-axis current at injector in pu (base UNom, SNom) (generator convention)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (generator convention)";
+  parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
@@ -156,8 +158,8 @@ equation
     Line(points = {{-79, -160}, {58, -160}}, color = {0, 0, 127}));
   connect(iQLimiter.y, iQcmdFirstOrder.u) annotation(
     Line(points = {{81, -160}, {118, -160}}, color = {0, 0, 127}));
-  connect(omegaRefPu, omegaFilter.u) annotation(
-    Line(points = {{-420, 160}, {-360, 160}, {-360, 120}, {-342, 120}}, color = {0, 0, 127}));
+  connect(PLLFreeze.omegaPLLPu, omegaFilter.u) annotation(
+    Line(points = {{62, 170}, {88, 170}, {88, 100}, {-360, 100}, {-360, 120}, {-342, 120}}, color = {0, 0, 127}));
   connect(PextPu, add2.u2) annotation(
     Line(points = {{-420, 20}, {-240, 20}, {-240, 54}, {-222, 54}}, color = {0, 0, 127}));
   connect(add2.y, division.u1) annotation(
