@@ -75,6 +75,12 @@ class OutputDispatcher {
   void addLogsPublisher(std::shared_ptr<OutputChannel>& publisher, const std::string formatStr);
 
   /**
+   * @brief add a dump output channel
+   * @param publisher channel for dumps
+   */
+  void addDumpPublisher(std::shared_ptr<OutputChannel>& publisher);
+
+  /**
    * @brief publish curves names
    * @param curvesCollection curves collection to publish
    */
@@ -97,6 +103,12 @@ class OutputDispatcher {
    * @param constraintsCollection constraints collection to publish
    */
   void publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection);
+
+  /**
+   * @brief publish constraints
+   * @param dumpState constraints collection to publish
+   */
+  void publishStateDump(const std::string& stateDumpString);
 
  private:
   /**
@@ -130,6 +142,7 @@ class OutputDispatcher {
   std::map<CurvesStreamFormat, std::vector<std::shared_ptr<OutputChannel> > > curvesPublishers_;            ///< curves publishers
   std::map<TimelineStreamFormat, std::vector<std::shared_ptr<OutputChannel> > > timelinePublishers_;        ///< timeline publishers
   std::map<ConstraintsStreamFormat, std::vector<std::shared_ptr<OutputChannel> > > constraintsPublishers_;  ///< constraints publishers
+  std::vector<std::shared_ptr<OutputChannel> > dumpPublishers_;                                             ///< dump publishers
 
   std::vector<std::uint8_t> curvesValues_;  ///< curves values buffer for BYTES export optimization
   std::atomic<bool> running_;               ///< running flag

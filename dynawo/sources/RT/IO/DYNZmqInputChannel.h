@@ -21,11 +21,8 @@
 #define RT_IO_DYNZMQINPUTCHANNEL_H_
 
 #include "DYNInputChannel.h"
-#include "DYNModel.h"
-#include "DYNSubModel.h"
+#include "DYNRTInputCommon.h"
 
-#include <mutex>
-#include <vector>
 #include <string>
 #include <condition_variable>
 #include <zmq.hpp>
@@ -43,13 +40,21 @@ namespace DYN {
  */
 class ZmqInputChannel: public InputChannel {
  public:
+  typedef enum {
+    STEP,     ///< Step next step
+    STOP,     ///< Stop signal: stop gracefully the simulation
+    ACTION,   ///< Action for the system
+    DUMP,     ///< Dump signal: ask for a dump
+    UNKNOWN   ///< else
+  } zmqControlType_t;
+
   /**
    * @brief Constructor.
    * @param id Identifier of the channel
    * @param messageFilter Filter applied on incoming messages
    * @param endpoint ZeroMQ endpoint to bind
    */
-  ZmqInputChannel(const std::string& id, MessageFilter messageFilter, const std::string& endpoint = "tcp://*:5555");
+  ZmqInputChannel(const std::string& id, InputMessageFilter messageFilter, const std::string& endpoint = "tcp://*:5555");
 
   /**
    * @brief Start receiving messages.
@@ -62,6 +67,12 @@ class ZmqInputChannel: public InputChannel {
    * @brief Stop receiving messages.
    */
   void stop();
+
+  /**
+   * @brief get the control type from header
+   * @param controlType control type received
+   */
+  zmqControlType_t getControlType(const std::string& header);
 
  private:
   /**

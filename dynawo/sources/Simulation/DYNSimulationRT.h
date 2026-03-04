@@ -20,17 +20,9 @@
 #ifndef SIMULATION_DYNSIMULATIONRT_H_
 #define SIMULATION_DYNSIMULATIONRT_H_
 
-#include <vector>
-#include <queue>
-#include <unordered_map>
-#include <boost/shared_ptr.hpp>
-#include <boost/optional.hpp>
-#include <boost/filesystem.hpp>
-#include <cstdint>
-
-
 #include "DYNSimulation.h"
 #include "DYNClock.h"
+#include "DYNDumpManager.h"
 #include "DYNActionBuffer.h"
 #include "DYNInputDispatcherAsync.h"
 #include "DYNOutputDispatcher.h"
@@ -101,17 +93,17 @@ class SimulationRT: public Simulation {
   /**
    * @brief configure RT Outputs
    */
-  void configureOutputsRT();
+  void configureRTOutputs();
 
   /**
    * @brief configure RT Inputs
    */
-  void configureInputsRT();
+  void configureRTInputs();
 
   /**
    * @brief configure Curves for RT Simulation
    */
-  void configureCurvesRT();
+  void configureRTCurves();
 
   /**
    * @copydoc Simulation::updateCurves()
@@ -144,14 +136,20 @@ class SimulationRT: public Simulation {
    */
   void initComputationTimeCurve();
 
+  /**
+   * @brief publish state dump
+   */
+  void publishStateDump();
+
  protected:
   std::chrono::steady_clock::time_point stepStart_;             ///< Clock time before step (after sleep)
   double stepComputationTime_;                                  ///< Step computation time in ms
   double couplingTimeStep_;                                     ///< Simulation period to call for wait / output values in seconds
 
-  std::shared_ptr<Clock> clock_;                                ///< Class managing RT pace
+  std::shared_ptr<Clock> clock_;                                ///< Clock managing RT pace
+  std::shared_ptr<DumpManager> dumpManager_;                    ///< State dump/load interface
   std::shared_ptr<ActionBuffer> actionBuffer_;                  ///< Action buffer
-  std::shared_ptr<InputDispatcherAsync> inputDispatcherAsync_;  ///< Input dispatcher
+  std::shared_ptr<InputDispatcherAsync> inputDispatcher_;       ///< Input dispatcher
   std::shared_ptr<OutputDispatcher> outputDispatcher_;          ///< Output dispatcher
 };
 

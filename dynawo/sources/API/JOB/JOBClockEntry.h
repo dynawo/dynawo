@@ -43,8 +43,8 @@ class ClockEntry {
   boost::optional<double> getSpeedup() const;
 
   /**
-   * @brief Trigger channel attribute getter
-   * @return Trigger channel as string (optional)
+   * @brief Step channel attribute getter
+   * @return Step channel as string (optional)
    */
   const std::string& getTriggerChannel() const;
 
@@ -61,15 +61,15 @@ class ClockEntry {
   void setSpeedup(boost::optional<double> speedup);
 
   /**
-   * @brief Trigger channel attribute setter
-   * @param triggerChannel Trigger channel
+   * @brief Step channel attribute setter
+   * @param triggerChannel Step channel
    */
   void setTriggerChannel(const std::string& triggerChannel);
 
  private:
   std::string type_;                 ///< Clock type (INTERNAL or EXTERNAL)
   boost::optional<double> speedup_;  ///< Speed-up factor (optional)
-  std::string triggerChannel_;       ///< Trigger channel (optional)
+  std::string triggerChannel_;       ///< Step channel (optional)
 };
 
 }  // namespace job
