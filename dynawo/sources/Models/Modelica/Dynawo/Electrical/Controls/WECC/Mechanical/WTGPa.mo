@@ -1,28 +1,25 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
 
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model WTGPa "WECC Pitch Controller Type A"
+  /*
+    * Copyright (c) 2025, RTE (http://www.rte-france.com)
+    * See AUTHORS.txt
+    * All rights reserved.
+    * This Source Code Form is subject to the terms of the Mozilla Public
+    * License, v. 2.0. If a copy of the MPL was not distributed with this
+    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    * SPDX-License-Identifier: MPL-2.0
+    *
+    * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    * of simulation tools for power systems.
+    */
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
-
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = Kic, YMax = ThetaMax, YMin = ThetaMin) annotation(
     Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = Kiw, YMax = ThetaMax, YMin = ThetaMin) annotation(
     Placement(transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = ThetaRMax, DyMin = ThetaRMin, tI = tTheta, YMax = ThetaMax, YMin = ThetaMin, Y0 = Theta0) annotation(
     Placement(transformation(origin = {86, 40}, extent = {{-10, -10}, {10, 10}})));
-
 equation
   connect(booleanConstant.y, absLimRateLimFirstOrderFreeze.freeze) annotation(
     Line(points = {{86, 82}, {86, 52}}, color = {255, 0, 255}));
@@ -38,7 +35,6 @@ equation
     Line(points = {{98, 40}, {110, 40}}, color = {0, 0, 127}));
   connect(sum.y, limitedIntegrator.u) annotation(
     Line(points = {{-70, -40}, {-60, -40}, {-60, -20}, {-42, -20}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> This block contains the Pitch controller model Type A for a WindTurbineGenerator Type 3 based on&nbsp;<br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p data-start=\"358\" data-end=\"553\" class=\"\">The Pitch Controller is designed to regulate the blade pitch angle, ensuring optimal performance and protection under varying wind conditions. It serves the following primary functions:</p><p><!--StartFragment-->

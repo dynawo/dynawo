@@ -1,19 +1,18 @@
 within Dynawo.Electrical.Wind.WECC;
 
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as interface with the grid and the mechanical controllers"
+  /*
+  * Copyright (c) 2025, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+  */
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
@@ -25,16 +24,14 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGAa;
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
-
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-
   // Line parameters
   parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
-    Placement(transformation(origin = {-110, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
+    Placement(transformation(origin = {-110, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(transformation(origin = {140, 100}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power at optimal pitch angle in pu (base SNom)" annotation(
     Placement(transformation(origin = {61, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -44,199 +41,30 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-110, -6}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(transformation(origin = {-110, -22}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(
-    Kip = Kip,
-    Kpp = Kpp,
-    tP = tP,
-    tOmegaRef = tOmegaRef,
-    TeMaxPu = TeMaxPu,
-    TeMinPu = TeMinPu,
-    P1 = P1,
-    Spd1 = Spd1,
-    P2 = P2,
-    Spd2 = Spd2,
-    P3 = P3,
-    Spd3 = Spd3,
-    P4 = P4,
-    Spd4 = Spd4,
-    TFlag = TFlag,
-    PInj0Pu = PInj0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(Kip = Kip, Kpp = Kpp, tP = tP, tOmegaRef = tOmegaRef, TeMaxPu = TeMaxPu, TeMinPu = TeMinPu, P1 = P1, Spd1 = Spd1, P2 = P2, Spd2 = Spd2, P3 = P3, Spd3 = Spd3, P4 = P4, Spd4 = Spd4, TFlag = TFlag, PInj0Pu = PInj0Pu, omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {-38, -56}, extent = {{-10, 10}, {10, -10}})));
-  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
-    Ht = Ht,
-    Hg = Hg,
-    Dshaft = Dshaft,
-    Kshaft = Kshaft,
-    PInj0Pu = PInj0Pu,
-    Pm0Pu = Pm0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(Ht = Ht, Hg = Hg, Dshaft = Dshaft, Kshaft = Kshaft, PInj0Pu = PInj0Pu, Pm0Pu = Pm0Pu, omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {110.307, -63.7777}, extent = {{-12.3077, -8.88892}, {12.3077, 8.88892}})));
-  Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
-    IqrMaxPu = IqrMaxPu,
-    IqrMinPu = IqrMinPu,
-    tFilterGC = tFilterGC,
-    tG = tG,
-    RrpwrPu = RrpwrPu,
-    UInj0Pu = UInj0Pu,
-    Id0Pu = Id0Pu,
-    Iq0Pu = Iq0Pu,
-    QInj0Pu = QInj0Pu,
-    brkpt = brkpt,
-    lvpl1 = lvpl1,
-    Lvplsw = Lvplsw,
-    zerox = zerox) annotation(
+  Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(IqrMaxPu = IqrMaxPu, IqrMinPu = IqrMinPu, tFilterGC = tFilterGC, tG = tG, RrpwrPu = RrpwrPu, UInj0Pu = UInj0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, QInj0Pu = QInj0Pu, brkpt = brkpt, lvpl1 = lvpl1, Lvplsw = Lvplsw, zerox = zerox) annotation(
     Placement(transformation(origin = {200, -10}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
-    DDn = DDn,
-    DUp = DUp,
-    FreqFlag = FreqFlag,
-    Kc = Kc,
-    Ki = Ki,
-    Kig = Kig,
-    Kp = Kp,
-    Kpg = Kpg,
-    PGen0Pu = -P0Pu*SystemBase.SnRef/SNom,
-    PInj0Pu = PInj0Pu,
-    PMaxPu = PMaxPu,
-    PMinPu = PMinPu,
-    QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom,
-    QInj0Pu = QInj0Pu,
-    QMaxPu = QMaxPu,
-    QMinPu = QMinPu,
-    RcPu = RPu,
-    RefFlag = RefFlag,
-    tFilterPC = tFilterPC,
-    tFt = tFt,
-    tFv = tFv,
-    tLag = tLag,
-    tP = tP,
-    U0Pu = U0Pu,
-    UInj0Pu = UInj0Pu,
-    VCompFlag = VCompFlag,
-    VFrz = VFrz,
-    XcPu = XPu,
-    DbdPu = DbdPu,
-    EMaxPu = EMaxPu,
-    EMinPu = EMinPu,
-    FDbd1Pu = FDbd1Pu,
-    FDbd2Pu = FDbd2Pu,
-    FEMaxPu = FEMaxPu,
-    FEMinPu = FEMinPu,
-    iInj0Pu = iInj0Pu,
-    u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = -P0Pu*SystemBase.SnRef/SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
     Placement(transformation(origin = {104, -10}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Sources.InjectorIDQ injector(
-    Id0Pu = Id0Pu,
-    Iq0Pu = Iq0Pu,
-    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
-    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
-    SNom = SNom,
-    U0Pu = UInj0Pu,
-    UPhase0 = UPhaseInj0,
-    i0Pu = i0Pu,
-    s0Pu = s0Pu,
-    u0Pu = uInj0Pu) annotation(
+  Dynawo.Electrical.Sources.InjectorIDQ injector(Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef), Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef), SNom = SNom, U0Pu = UInj0Pu, UPhase0 = UPhaseInj0, i0Pu = i0Pu, s0Pu = s0Pu, u0Pu = uInj0Pu) annotation(
     Placement(transformation(origin = {236, -10}, extent = {{-10, 10}, {10, -10}}, rotation = -0)));
-  Electrical.Controls.PLL.PLL pll(
-    Ki = KiPLL,
-    Kp = KpPLL,
-    OmegaMaxPu = OmegaMaxPu,
-    OmegaMinPu = OmegaMinPu,
-    u0Pu = uInj0Pu) annotation(
+  Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = uInj0Pu) annotation(
     Placement(transformation(origin = {52, 52}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Lines.Line line(
-    RPu = RPu,
-    XPu = XPu,
-    BPu = 0,
-    GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(RPu = RPu, XPu = XPu, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {274, -10}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom) annotation(
     Placement(transformation(origin = {302, -10}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Connectors.ACPower terminal(
-    V(im(start = u0Pu.im), re(start = u0Pu.re)),
-    i(im(start = i0Pu.im), re(start = i0Pu.re))) annotation(
+  Dynawo.Connectors.ACPower terminal(V(im(start = u0Pu.im), re(start = u0Pu.re)), i(im(start = i0Pu.im), re(start = i0Pu.re))) annotation(
     Placement(transformation(origin = {338, -10}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
-    DPMaxPu = DPMaxPu,
-    DPMinPu = DPMinPu,
-    Dbd1Pu = Dbd1Pu,
-    Dbd2Pu = Dbd2Pu,
-    IMaxPu = IMaxPu,
-    Id0Pu = Id0Pu,
-    Iq0Pu = Iq0Pu,
-    IqFrzPu = IqFrzPu,
-    Iqh1Pu = Iqh1Pu,
-    Iql1Pu = Iql1Pu,
-    Kqi = Kqi,
-    Kqp = Kqp,
-    Kqv = Kqv,
-    Kvi = Kvi,
-    Kvp = Kvp,
-    PF0 = PF0,
-    PFlag = PFlag,
-    PInj0Pu = PInj0Pu,
-    PMaxPu = PMaxPu,
-    PMinPu = PMinPu,
-    PQFlag = PQFlag,
-    PfFlag = PfFlag,
-    QFlag = QFlag,
-    QInj0Pu = QInj0Pu,
-    QMaxPu = QMaxPu,
-    QMinPu = QMinPu,
-    UInj0Pu = UInj0Pu,
-    VDLIp11 = VDLIp11,
-    VDLIp12 = VDLIp12,
-    VDLIp21 = VDLIp21,
-    VDLIp22 = VDLIp22,
-    VDLIp31 = VDLIp31,
-    VDLIp32 = VDLIp32,
-    VDLIp41 = VDLIp41,
-    VDLIp42 = VDLIp42,
-    VDLIq11 = VDLIq11,
-    VDLIq12 = VDLIq12,
-    VDLIq21 = VDLIq21,
-    VDLIq22 = VDLIq22,
-    VDLIq31 = VDLIq31,
-    VDLIq32 = VDLIq32,
-    VDLIq41 = VDLIq41,
-    VDLIq42 = VDLIq42,
-    VDipPu = VDipPu,
-    VFlag = VFlag,
-    VMaxPu = VMaxPu,
-    VMinPu = VMinPu,
-    VRef0Pu = VRef0Pu,
-    VRef1Pu = VRef1Pu,
-    VUpPu = VUpPu,
-    tHoldIpMax = tHoldIpMax,
-    tHoldIq = tHoldIq,
-    tIq = tIq,
-    tP = tP,
-    tPord = tPord,
-    tRv = tRv) annotation(
+  Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, IqFrzPu = IqFrzPu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PFlag = PFlag, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDLIp11 = VDLIp11, VDLIp12 = VDLIp12, VDLIp21 = VDLIp21, VDLIp22 = VDLIp22, VDLIp31 = VDLIp31, VDLIp32 = VDLIp32, VDLIp41 = VDLIp41, VDLIp42 = VDLIp42, VDLIq11 = VDLIq11, VDLIq12 = VDLIq12, VDLIq21 = VDLIq21, VDLIq22 = VDLIq22, VDLIq31 = VDLIq31, VDLIq32 = VDLIq32, VDLIq41 = VDLIq41, VDLIq42 = VDLIq42, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tHoldIpMax = tHoldIpMax, tHoldIq = tHoldIq, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
     Placement(transformation(origin = {140, -10}, extent = {{-10, -10}, {10, 10}})));
-  Controls.WECC.Mechanical.WTGPb wecc_wtgp(
-    Kiw = Kiw,
-    Kpw = Kpw,
-    Kic = Kic,
-    Kpc = Kpc,
-    Kcc = Kcc,
-    tTheta = tTheta,
-    ThetaMax = ThetaMax,
-    ThetaMin = ThetaMin,
-    ThetaRMax = ThetaRMax,
-    ThetaRMin = ThetaRMin,
-    ThetaWMax = ThetaWMax,
-    ThetaCMax = ThetaCMax,
-    ThetaCMin = ThetaCMin,
-    ThetaWMin = ThetaWMin,
-    PInj0Pu = PInj0Pu,
-    Theta0 = Theta0) annotation(
+  Controls.WECC.Mechanical.WTGPb wecc_wtgp(Kiw = Kiw, Kpw = Kpw, Kic = Kic, Kpc = Kpc, Kcc = Kcc, tTheta = tTheta, ThetaMax = ThetaMax, ThetaMin = ThetaMin, ThetaRMax = ThetaRMax, ThetaRMin = ThetaRMin, ThetaWMax = ThetaWMax, ThetaCMax = ThetaCMax, ThetaCMin = ThetaCMin, ThetaWMin = ThetaWMin, PInj0Pu = PInj0Pu, Theta0 = Theta0, omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {16, -56}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(
-    Theta0 = Theta0,
-    Ka = Ka,
-    Pm0Pu = Pm0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(Theta0 = Theta0, Ka = Ka, Pm0Pu = Pm0Pu) annotation(
     Placement(transformation(origin = {56, -56}, extent = {{-10, -10}, {10, 10}})));
-
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
@@ -248,7 +76,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at regulated bus in pu (base SnRef) (receptor convention)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   final parameter Types.VoltageModulePu URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
-
 equation
   line.switchOffSignal1.value = injector.switchOffSignal1.value;
   line.switchOffSignal2.value = injector.switchOffSignal2.value;
@@ -320,19 +147,16 @@ equation
     Line(points = {{152, -18}, {166, -18}, {166, -88}, {-8.5, -88}, {-8.5, -62}, {5, -62}}, color = {0, 0, 127}));
   connect(wecc_wtgt.omegaTPu, wecc_wtgp.omegaTPu) annotation(
     Line(points = {{105, -54}, {105, -34}, {9, -34}, {9, -45}}, color = {0, 0, 127}));
-  connect(wecc_wtgq.omegaRefPu, wecc_wtgp.omegaRefPu) annotation(
-    Line(points = {{-27, -50}, {5, -50}}, color = {0, 0, 127}));
   connect(wecc_repc.freeze, wecc_wtgq.freeze) annotation(
     Line(points = {{116, -10}, {120, -10}, {120, -27}, {-35.5, -27}, {-35.5, -45}, {-36, -45}}, color = {255, 0, 255}));
   connect(wecc_wtgq.PRefPu, wecc_wtgp.PRefPu) annotation(
     Line(points = {{-27, -62}, {-27, -78}, {7.5, -78}, {7.5, -67}, {10, -67}}, color = {0, 0, 127}));
   connect(PmRefPu, wecc_wtga.PmRefPu) annotation(
     Line(points = {{62, -110}, {60, -110}, {60, -66}}, color = {0, 0, 127}));
-  connect(pll.omegaPLLPu, wecc_wtgt.omegaRefPu) annotation(
-    Line(points = {{64, 58}, {74, 58}, {74, -64}, {96, -64}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-110, 46}, {42, 46}}, color = {0, 0, 127}));
-
+  connect(wecc_wtgq.omegaRefWTGQPu, wecc_wtgp.omegaRefWTGQPu) annotation(
+    Line(points = {{-26, -50}, {6, -50}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, 80}, {360, -100}})),
     version = "",

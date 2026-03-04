@@ -55,7 +55,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     ThetaRMax = ThetaRMax,
     ThetaRMin = ThetaRMin,
     PInj0Pu = PInj0Pu,
-    Theta0 = Theta0) annotation(
+    Theta0 = Theta0,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {12, -56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(
     Theta0 = Theta0,
@@ -78,7 +79,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     P4 = P4,
     Spd4 = Spd4,
     TFlag = TFlag,
-    PInj0Pu = PInj0Pu) annotation(
+    PInj0Pu = PInj0Pu,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {-38, -56}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
     Ht = Ht,
@@ -86,7 +88,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Dshaft = Dshaft,
     Kshaft = Kshaft,
     PInj0Pu = PInj0Pu,
-    Pm0Pu = Pm0Pu) annotation(
+    Pm0Pu = Pm0Pu,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {113.692, -60.4443}, extent = {{-7.69229, -5.55557}, {7.69229, 5.55557}})));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
     IqrMaxPu = IqrMaxPu,
@@ -160,7 +163,7 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     OmegaMaxPu = OmegaMaxPu,
     OmegaMinPu = OmegaMinPu,
     u0Pu = uInj0Pu) annotation(
-    Placement(transformation(origin = {52, 52}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Lines.Line line(
     RPu = RPu,
     XPu = XPu,
@@ -268,7 +271,7 @@ equation
   connect(measurements.terminal2, terminal) annotation(
     Line(points = {{312, -10}, {338, -10}}, color = {0, 0, 255}));
   connect(injector.uPu, pll.uPu) annotation(
-    Line(points = {{248, -6}, {253, -6}, {253, 70}, {32, 70}, {32, 58}, {41, 58}}, color = {85, 170, 255}));
+    Line(points = {{248, -6}, {253, -6}, {253, 70}, {32, 70}, {32, 56}, {39, 56}}, color = {85, 170, 255}));
   connect(measurements.uPu, wecc_repc.uPu) annotation(
     Line(points = {{304, 2}, {304, 28}, {101, 28}, {101, 1}}, color = {85, 170, 255}));
   connect(measurements.iPu, wecc_repc.iPu) annotation(
@@ -278,9 +281,9 @@ equation
   connect(measurements.PPu, wecc_repc.PRegPu) annotation(
     Line(points = {{296, 2}, {296, 22}, {112, 22}, {112, 1}}, color = {0, 0, 127}));
   connect(pll.phi, injector.UPhase) annotation(
-    Line(points = {{63, 53}, {84, 53}, {84, -46}, {236, -46}, {236, -22}}, color = {0, 0, 127}));
+    Line(points = {{61, 51}, {82, 51}, {82, -46}, {236, -46}, {236, -22}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
-    Line(points = {{63, 57}, {74, 57}, {74, -2}, {93, -2}}, color = {0, 0, 127}));
+    Line(points = {{61, 55}, {74, 55}, {74, -2}, {93, -2}}, color = {0, 0, 127}));
   connect(wecc_repc.QInjRefPu, wecc_reec.QInjRefPu) annotation(
     Line(points = {{115, -16}, {130, -16}}, color = {0, 0, 127}));
   connect(wecc_wtgq.PRefPu, wecc_reec.PInjRefPu) annotation(
@@ -298,7 +301,7 @@ equation
   connect(injector.UPu, wecc_reec.UPu) annotation(
     Line(points = {{248, -18}, {254, -18}, {254, -28}, {146, -28}, {146, -20}}, color = {0, 0, 127}));
   connect(injector.QInjPuSn, wecc_reec.QInjPu) annotation(
-    Line(points = {{248, -10}, {262, -10}, {262, -42}, {132, -42}, {132, -20}}, color = {0, 0, 127}));
+    Line(points = {{248, -10}, {262, -10}, {262, -29}, {196.5, -29}, {196.5, -21}, {131, -21}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(
     Line(points = {{-110, -2}, {54, -2}, {54, -16}, {93, -16}}, color = {0, 0, 127}));
   connect(URefPu, wecc_repc.URefPu) annotation(
@@ -317,14 +320,12 @@ equation
     Line(points = {{110, -54}, {110, -39}, {5, -39}, {5, -45}}, color = {0, 0, 127}));
   connect(PmRefPu, wecc_wtga.PmRefPu) annotation(
     Line(points = {{56, -110}, {56, -108.5}, {57, -108.5}, {57, -67}}, color = {0, 0, 127}));
-  connect(wecc_wtgq.omegaRefPu, wecc_wtgp.omegaRefPu) annotation(
+  connect(wecc_wtgq.omegaRefWTGQPu, wecc_wtgp.omegaRefWTGQPu) annotation(
     Line(points = {{-27, -50}, {1, -50}}, color = {0, 0, 127}));
   connect(wecc_wtgq.PRefPu, wecc_wtgp.PRefPu) annotation(
     Line(points = {{-27, -62}, {-27, -63}, {-19, -63}, {-19, -76}, {6, -76}, {6, -67}}, color = {0, 0, 127}));
   connect(PRefPu, wecc_repc.PRefPu) annotation(
     Line(points = {{-110, 15}, {60, 15}, {60, -12}, {92, -12}}, color = {0, 0, 127}));
-  connect(pll.omegaPLLPu, wecc_wtgt.omegaRefPu) annotation(
-    Line(points = {{64, 58}, {74, 58}, {74, -60}, {106, -60}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-110, 46}, {42, 46}}, color = {0, 0, 127}));
 
