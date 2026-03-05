@@ -70,7 +70,7 @@
     <par type="DOUBLE" name="BESS_Kig" value="1e-6"/>
     <par type="DOUBLE" name="BESS_Kp" value="1e-6"/>
     <par type="DOUBLE" name="BESS_Kpg" value="1"/>
-    <par type="BOOL" name="BESS_RefFlag" value="true"/>
+    <par type="INT" name="BESS_RefFlag" value="1"/>
     <par type="DOUBLE" name="BESS_tLag" value="0.1"/>
     <par type="DOUBLE" name="BESS_tFilterPC" value="0.02"/>
     <par type="DOUBLE" name="BESS_tFt" value="1e-10"/>
