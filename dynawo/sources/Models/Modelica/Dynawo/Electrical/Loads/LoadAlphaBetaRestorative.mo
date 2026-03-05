@@ -27,23 +27,18 @@ protected
   Types.VoltageModulePu UFilteredPu(start = ComplexMath.'abs'(u0Pu)) "Bounded filtered voltage amplitude at terminal in pu (base UNom)";
 
 equation
-  if (running.value) then
-    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-      tFilter * der(UFilteredRawPu) = - UFilteredRawPu;
-      PPu = 0;
-      QPu = 0;
-    else
-      tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
-      PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Alpha);
-      QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Beta);
-    end if;
+  if running.value then
+    tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
     UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
+    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Alpha);
+    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Beta);
   else
     UFilteredRawPu = 0;
     UFilteredPu = 0;
     terminal.i = Complex(0);
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>  After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical Alpha-Beta load.<div>This load restoration emulates the behaviour of a tap changer transformer that connects the load to the system and regulates the voltage at its terminal.</div></body></html>"));
 end LoadAlphaBetaRestorative;

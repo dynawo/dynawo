@@ -44,18 +44,22 @@ model Measurements "This block measures the voltage, current, active power and r
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolarI;
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolarU;
+
 equation
   terminal1.i = -terminal2.i;
   terminal1.V = terminal2.V;
   terminal1.i = iPu;
   terminal1.V = uPu;
-  IPhase = ComplexMath.arg(iPu);
-  IPu = ComplexMath.'abs'(iPu);
   PPu = ComplexMath.real(uPu * ComplexMath.conj(iPu));
   QPu = ComplexMath.imag(uPu * ComplexMath.conj(iPu));
-  UPhase = ComplexMath.arg(uPu);
-  UPu = ComplexMath.'abs'(uPu);
+  complexToPolarI.u = iPu;
+  IPu = complexToPolarI.len;
+  IPhase = complexToPolarI.phi;
+  complexToPolarU.u = uPu;
+  UPu = complexToPolarU.len;
+  UPhase = complexToPolarU.phi;
 
-  annotation(
-    preferredView = "text");
+  annotation(preferredView = "text");
 end Measurements;
