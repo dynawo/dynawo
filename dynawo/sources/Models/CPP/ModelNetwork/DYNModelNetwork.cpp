@@ -374,6 +374,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     initComponents_.push_back(modelLine);
 
     if (line->hasDynamicModel()) {
+      addBridge(std::make_shared<NetworkBridge>(modelLine));
       Trace::debug(Trace::network()) << DYNLog(LineExtDynModel, id) << Trace::endline;
       continue;
     }
