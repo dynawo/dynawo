@@ -110,7 +110,7 @@
     <par type="DOUBLE" name="WTG4B_tHoldIq" value="0"/>
     <par type="DOUBLE" name="WTG4B_tHoldIpMax" value="0"/>
     <par type="DOUBLE" name="WTG4B_VRef1Pu" value="0"/>
-    <par type="BOOL" name="WTG4B_PFlag" value="true"/>
+    <par type="BOOL" name="WTG4B_PFlag" value="false"/>
     <par type="DOUBLE" name="WTG4B_VDLIp11" value="1.1"/>
     <par type="DOUBLE" name="WTG4B_VDLIp12" value="1.1"/>
     <par type="DOUBLE" name="WTG4B_VDLIp21" value="1.15"/>

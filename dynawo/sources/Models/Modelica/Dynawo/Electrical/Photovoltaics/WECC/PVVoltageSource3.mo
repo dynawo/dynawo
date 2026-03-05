@@ -130,6 +130,8 @@ model PVVoltageSource3 "WECC PV model with a voltage source as interface with th
     tPord = tPord,
     tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant omegaGPu(k = 1) annotation(
+    Placement(transformation(origin = {-104.5, -25.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}})));
 
   // Initial parameters
   final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else U0Pu - Kc*Q0Pu*SystemBase.SnRef/SNom "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
@@ -181,8 +183,8 @@ equation
     Line(points = {{-34, 11}, {-34, 20}, {-88, 20}, {-88, 11}}, color = {0, 0, 127}));
   connect(pll.phi, wecc_regc.phi) annotation(
     Line(points = {{-149, 45}, {-60, 45}, {-60, 9}, {-51, 9}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(pll.omegaPLLPu, wecc_reec.omegaGPu) annotation(
-    Line(points = {{-149, 49}, {-140, 49}, {-140, -20}, {-85, -20}, {-85, -11}}, color = {0, 0, 127}));
+  connect(omegaGPu.y, wecc_reec.omegaGPu) annotation(
+    Line(points = {{-98, -25}, {-85, -25}, {-85, -11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

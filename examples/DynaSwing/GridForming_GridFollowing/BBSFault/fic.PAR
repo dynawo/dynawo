@@ -175,11 +175,11 @@
     <par type="INT" name="nbGen" value="5"/>
     <par type="DOUBLE" name="omegaRefMax" value="1.02"/>
     <par type="DOUBLE" name="omegaRefMin" value="0.80000000000000004"/>
-    <par type="DOUBLE" name="weight_gen_0" value="25"/>
+    <par type="DOUBLE" name="weight_gen_0" value="5000"/>
     <par type="DOUBLE" name="weight_gen_1" value="25"/>
     <par type="DOUBLE" name="weight_gen_2" value="25"/>
-    <par type="DOUBLE" name="weight_gen_3" value="25"/>
-    <par type="DOUBLE" name="weight_gen_4" value="5000"/>
+    <par type="DOUBLE" name="weight_gen_3" value="0.0001"/>
+    <par type="DOUBLE" name="weight_gen_4" value="0.0001"/>
   </set>
   <set id="FAULT">
     <par type="DOUBLE" name="fault_tBegin" value="1"/>

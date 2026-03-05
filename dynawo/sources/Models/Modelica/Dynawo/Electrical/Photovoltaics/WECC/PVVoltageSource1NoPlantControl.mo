@@ -85,6 +85,8 @@ model PVVoltageSource1NoPlantControl "WECC PV model with a voltage source as int
     tPord = tPord,
     tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant omegaGPu(k = 1) annotation(
+    Placement(transformation(origin = {-104.5, -25.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}})));
 
 equation
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
@@ -107,8 +109,8 @@ equation
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(pll.phi, wecc_regc.phi) annotation(
     Line(points = {{-149, 45}, {-60, 45}, {-60, 9}, {-51, 9}}, color = {0, 0, 127}));
-  connect(pll.omegaPLLPu, wecc_reec.omegaGPu) annotation(
-    Line(points = {{-149, 49}, {-100, 49}, {-100, -20}, {-85, -20}, {-85, -11}}, color = {0, 0, 127}));
+  connect(omegaGPu.y, wecc_reec.omegaGPu) annotation(
+    Line(points = {{-98, -25}, {-85, -25}, {-85, -11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
