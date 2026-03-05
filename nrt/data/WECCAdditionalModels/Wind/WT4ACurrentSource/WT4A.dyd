@@ -15,6 +15,8 @@
   <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WT4A.par" parId="1"/>
   <dyn:blackBoxModel id="Line" lib="Line" parFile="WT4A.par" parId="2"/>
   <dyn:blackBoxModel id="WT4A" lib="WT4AWeccCurrentSource" parFile="WT4A.par" parId="3"/>
+  <dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="WT4A.par" parId="4"/>
+  <dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="WT4A" var2="WT4A_omegaRefPu"/>
   <dyn:connect id1="InfBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
   <dyn:connect id1="Line" var1="line_terminal2" id2="WT4A" var2="WT4A_terminal"/>
 </dyn:dynamicModelsArchitecture>
