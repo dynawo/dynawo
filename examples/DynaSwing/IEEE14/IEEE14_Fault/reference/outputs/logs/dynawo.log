@@ -32,8 +32,8 @@ INFO | starting simulation with solver IDASolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 443
-INFO | number of discrete variables : 248
-INFO | number of root functions : 299
+INFO | number of discrete variables : 250
+INFO | number of root functions : 303
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   order (k)      time step (h)
 INFO | -----------------------------------------------------------------------
