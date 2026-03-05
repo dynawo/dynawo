@@ -26,7 +26,11 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    RPu = 0,
+    XPu = 0.0000020661,
+    BPu = 0,
+    GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Wind.WECC.WTG4BCurrentSource WTG4B(
     DDn = 20,
@@ -113,10 +117,10 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     VUpPu = 1.1,
     XPu = 0.15,
     brkpt = 0.1,
-    i0Pu( im(fixed = false),re(fixed = false)),
-    iInj0Pu ( im(fixed = false),re(fixed = false)),
+    i0Pu(im(fixed = false), re(fixed = false)),
+    iInj0Pu(im(fixed = false), re(fixed = false)),
     lvpl1 = 1.22,
-    s0Pu( im(fixed = false),re(fixed = false)),
+    s0Pu(im(fixed = false), re(fixed = false)),
     tFilterGC = 0.02,
     tFilterPC = 0.04,
     tFt = 1e-10,
@@ -129,19 +133,18 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model(including a plant controller) 
     tP = 0.05,
     tPord = 0.01,
     tRv = 0.01,
-    u0Pu( im(fixed = false),re(fixed = false)),
-    uInj0Pu( im(fixed = false),re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
     zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.2) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant URefPu(k = WTG4B.URef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4B.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
@@ -181,7 +184,6 @@ equation
   WTG4B.injector.switchOffSignal1.value = false;
   WTG4B.injector.switchOffSignal2.value = false;
   WTG4B.injector.switchOffSignal3.value = false;
-
   connect(line.terminal2, WTG4B.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
@@ -193,7 +195,7 @@ equation
   connect(PRefPu.y, WTG4B.PRefPu) annotation(
     Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URefPu.y, WTG4B.URefPu) annotation(
-    Line(points = {{79, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
+    Line(points = {{79, 80}, {12, 80}, {12, 22}, {20, 22}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG4B.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
 
