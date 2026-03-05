@@ -1,4 +1,6 @@
 BESSWeccCurrentSource
+BESSWeccCurrentSource2
+BESSWeccCurrentSource3
 BooleanTable
 Bus
 BusWithInit
