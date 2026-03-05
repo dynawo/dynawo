@@ -18,16 +18,50 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B;
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = - Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-  Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(DDn = DDn, DUp = DUp, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PGen0Pu = - P0Pu * SystemBase.SnRef / SNom, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QGen0Pu = - Q0Pu * SystemBase.SnRef / SNom, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, U0Pu = U0Pu, UInj0Pu = UInj0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, iInj0Pu = iInj0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
+    DDn = DDn,
+    DUp = DUp,
+    FreqFlag = FreqFlag,
+    Kc = Kc,
+    Ki = Ki,
+    Kig = Kig,
+    Kp = Kp,
+    Kpg = Kpg,
+    PGen0Pu = -P0Pu*SystemBase.SnRef/SNom,
+    PInj0Pu = PInj0Pu,
+    PMaxPu = PMaxPu,
+    PMinPu = PMinPu,
+    QGen0Pu = -Q0Pu*SystemBase.SnRef/SNom,
+    QInj0Pu = QInj0Pu,
+    QMaxPu = QMaxPu,
+    QMinPu = QMinPu,
+    RcPu = RPu,
+    RefFlag = RefFlag,
+    tFilterPC = tFilterPC,
+    tFt = tFt,
+    tFv = tFv,
+    tLag = tLag,
+    tP = tP,
+    U0Pu = U0Pu,
+    UInj0Pu = UInj0Pu,
+    VCompFlag = VCompFlag,
+    VFrz = VFrz,
+    XcPu = XPu,
+    DbdPu = DbdPu,
+    EMaxPu = EMaxPu,
+    EMinPu = EMinPu,
+    FDbd1Pu = FDbd1Pu,
+    FDbd2Pu = FDbd2Pu,
+    FEMaxPu = FEMaxPu,
+    FEMinPu = FEMinPu,
+    iInj0Pu = iInj0Pu,
+    u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
@@ -35,14 +69,11 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
   parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
-
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc * Q0Pu * SystemBase.SnRef / SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else (U0Pu - Kc*Q0Pu*SystemBase.SnRef/SNom) "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
 
 equation
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
     Line(points = {{-149, 49}, {-140, 49}, {-140, 8}, {-131, 8}}, color = {0, 0, 127}));
-  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
-    Line(points = {{-190, 20}, {-160, 20}, {-160, 4}, {-131, 4}}, color = {0, 0, 127}));
   connect(PRefPu, wecc_repc.PRefPu) annotation(
     Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(

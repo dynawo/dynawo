@@ -81,6 +81,13 @@ foreach(iec IN LISTS IEC)
   add_dependencies_if_exists(IEC_MODELS ${name})
 endforeach()
 
+## WECC
+add_custom_target(WECC_MODELS)
+file(STRINGS "WeccModels.txt" WECC_MODELS_LIST)
+foreach(wecc_model IN LISTS WECC_MODELS_LIST)
+  add_dependencies_if_exists(WECC_MODELS ${wecc_model})
+endforeach()
+
 ## SMIB
 
 add_custom_target(SMIB_MODELS)

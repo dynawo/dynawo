@@ -26,7 +26,11 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(
+    RPu = 0,
+    XPu = 0.0000020661,
+    BPu = 0,
+    GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Wind.WECC.WT4ACurrentSource WT4A(
     DPMaxPu = 2,
@@ -96,7 +100,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     VUpPu = 1.1,
     XPu = 0.15,
     brkpt = 0.1,
-    i0Pu( im(fixed = false),re(fixed = false)),
+    i0Pu(im(fixed = false), re(fixed = false)),
     lvpl1 = 1.22,
     s0Pu = Complex(-0.7, -0.2),
     tFilterGC = 0.02,
@@ -108,16 +112,17 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     tPord = 0.01,
     tRv = 0.01,
     u0Pu = Complex(1, 0),
-    uInj0Pu( im(fixed = false),re(fixed = false)),
+    uInj0Pu(im(fixed = false), re(fixed = false)),
     zerox = 0.05) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-
   Modelica.Blocks.Sources.Constant PInjRefPu(k = 0.7) annotation(
-    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+    Placement(transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QInjRefPu(k = 0.2) annotation(
-    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+    Placement(transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WT4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Constant omegaRef(k = 1)  annotation(
+    Placement(transformation(origin = {90, 40}, extent = {{10, -10}, {-10, 10}})));
 
   // Initialization
   Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
@@ -149,17 +154,18 @@ equation
   WT4A.injector.switchOffSignal1.value = false;
   WT4A.injector.switchOffSignal2.value = false;
   WT4A.injector.switchOffSignal3.value = false;
-
   connect(line.terminal2, WT4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(PInjRefPu.y, WT4A.PInjRefPu) annotation(
-    Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
+    Line(points = {{79, -40}, {61.5, -40}, {61.5, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(QInjRefPu.y, WT4A.QInjRefPu) annotation(
-    Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
+    Line(points = {{79, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PFaRef.y, WT4A.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
+  connect(omegaRef.y, WT4A.omegaRefPu) annotation(
+    Line(points = {{79, 40}, {62.5, 40}, {62.5, 12}, {42, 12}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
