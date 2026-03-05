@@ -16,8 +16,8 @@ partial model BaseWT4B "Base model for WECC Wind Turbine 4B"
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
 
 equation
-  connect(OmegaRef.y, wecc_reec.omegaGPu) annotation(
-    Line(points = {{-179, 38}, {-175, 38}, {-175, -60}, {-85, -60}, {-85, -11}}, color = {0, 0, 127}));
+  connect(pll.omegaPLLPu, wecc_reec.omegaGPu) annotation(
+    Line(points = {{-148, 50}, {-140, 50}, {-140, -46}, {-86, -46}, {-86, -12}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram");

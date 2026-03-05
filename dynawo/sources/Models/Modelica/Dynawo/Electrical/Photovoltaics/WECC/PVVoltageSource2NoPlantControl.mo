@@ -14,12 +14,11 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 
 model PVVoltageSource2NoPlantControl "WECC PV model with a voltage source as interface with the grid (REEC-B REGC-B)"
 
-/*                uSourcePu                                uInjPu                      uPu
-     --------         |                                       |                         |
-    | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
-     --------           iSourcePu                                                 iPu
-*/
-
+  /*                uSourcePu                                uInjPu                      uPu
+      --------         |                                       |                         |
+      | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
+      --------           iSourcePu                                                 iPu
+  */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceB;
 
@@ -33,7 +32,43 @@ model PVVoltageSource2NoPlantControl "WECC PV model with a voltage source as int
   Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(DPMaxPu = DPMaxPu, DPMinPu = DPMinPu, Dbd1Pu = Dbd1Pu, Dbd2Pu = Dbd2Pu, IMaxPu = IMaxPu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, Iqh1Pu = Iqh1Pu, Iql1Pu = Iql1Pu, Kqi = Kqi, Kqp = Kqp, Kqv = Kqv, Kvi = Kvi, Kvp = Kvp, PF0 = PF0, PInj0Pu = PInj0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, PQFlag = PQFlag, PfFlag = PfFlag, QFlag = QFlag, QInj0Pu = QInj0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, UInj0Pu = UInj0Pu, VDipPu = VDipPu, VFlag = VFlag, VMaxPu = VMaxPu, VMinPu = VMinPu, VRef0Pu = VRef0Pu, VRef1Pu = VRef1Pu, VUpPu = VUpPu, tIq = tIq, tP = tP, tPord = tPord, tRv = tRv) annotation(
+  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
+    DPMaxPu = DPMaxPu,
+    DPMinPu = DPMinPu,
+    Dbd1Pu = Dbd1Pu,
+    Dbd2Pu = Dbd2Pu,
+    IMaxPu = IMaxPu,
+    Id0Pu = Id0Pu,
+    Iq0Pu = Iq0Pu,
+    Iqh1Pu = Iqh1Pu,
+    Iql1Pu = Iql1Pu,
+    Kqi = Kqi,
+    Kqp = Kqp,
+    Kqv = Kqv,
+    Kvi = Kvi,
+    Kvp = Kvp,
+    PF0 = PF0,
+    PInj0Pu = PInj0Pu,
+    PMaxPu = PMaxPu,
+    PMinPu = PMinPu,
+    PQFlag = PQFlag,
+    PfFlag = PfFlag,
+    QFlag = QFlag,
+    QInj0Pu = QInj0Pu,
+    QMaxPu = QMaxPu,
+    QMinPu = QMinPu,
+    UInj0Pu = UInj0Pu,
+    VDipPu = VDipPu,
+    VFlag = VFlag,
+    VMaxPu = VMaxPu,
+    VMinPu = VMinPu,
+    VRef0Pu = VRef0Pu,
+    VRef1Pu = VRef1Pu,
+    VUpPu = VUpPu,
+    tIq = tIq,
+    tP = tP,
+    tPord = tPord,
+    tRv = tRv) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation

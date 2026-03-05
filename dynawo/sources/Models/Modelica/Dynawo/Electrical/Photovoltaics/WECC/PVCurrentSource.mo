@@ -17,8 +17,6 @@ model PVCurrentSource "WECC PV model with a current source as interface with the
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
@@ -52,8 +50,6 @@ equation
     Line(points = {{92, 11}, {92, 40}, {-123, 40}, {-123, 11}}, color = {85, 170, 255}));
   connect(measurements.iPu, wecc_repc.iPu) annotation(
     Line(points = {{96, 11}, {96, 50}, {-128, 50}, {-128, 11}}, color = {85, 170, 255}));
-  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
-    Line(points = {{-190, 20}, {-160, 20}, {-160, 4}, {-131, 4}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-131, -6}}, color = {0, 0, 127}));
   connect(URefPu, wecc_repc.URefPu) annotation(
