@@ -99,9 +99,9 @@ equation
     Line(points = {{-108, 38}, {-60, 38}, {-60, 16}, {-50, 16}}, color = {85, 170, 0}, thickness = 0.5));
   connect(QFilterRefPu, outerLoop.QFilterRefPu) annotation(
     Line(points = {{-108, 22}, {-68, 22}, {-68, 12}, {-50, 12}}, color = {85, 170, 0}, thickness = 0.5));
-  connect(PFilterPu, outerLoop.PFilterPu) annotation(
+  connect(PFilterPu, outerLoop.PFilteredFilterPu) annotation(
     Line(points = {{-108, -2}, {-80, -2}, {-80, 0}, {-50, 0}}, color = {85, 170, 0}));
-  connect(QFilterPu, outerLoop.QFilterPu) annotation(
+  connect(QFilterPu, outerLoop.QFilteredFilterPu) annotation(
     Line(points = {{-108, -16}, {-68, -16}, {-68, -4}, {-50, -4}}, color = {85, 170, 0}));
   connect(PLL.uqFilterPu, uqFilterPu) annotation(
     Line(points = {{-52, 54}, {-56, 54}, {-56, -40}, {48, -40}, {48, -108}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
