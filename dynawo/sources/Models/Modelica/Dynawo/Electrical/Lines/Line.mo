@@ -49,7 +49,7 @@ protected
 equation
   if (running.value) then
     ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
-    ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
+    terminal1.i + terminal2.i = YPu * (terminal1.V + terminal2.V);
   else
     terminal1.i = Complex(0);
     terminal2.i = Complex(0);
@@ -60,7 +60,8 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>
 The line model is a classical Pi-line mode with the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
