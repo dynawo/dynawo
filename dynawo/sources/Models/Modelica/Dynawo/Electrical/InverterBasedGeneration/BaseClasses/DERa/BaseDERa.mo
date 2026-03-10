@@ -60,7 +60,7 @@ model BaseDERa "Base model for der_a (Distributed Energy Resources model)"
   parameter Types.CurrentModulePu Iqh1 "Maximum reactive support current command (base SNom, UNom)";
   parameter Types.CurrentModulePu Iql1 "Maximum reactive support current command (base SNom, UNom)";
 
-  // Inout variables
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-460, 100}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
