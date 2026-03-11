@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="DERaGenericLVRT">
-    <dyn:unitDynamicModel id="ibg" name="Dynawo.Electrical.InverterBasedGeneration.DERaGenericLVRT" initName="Dynawo.Electrical.InverterBasedGeneration.DERa_INIT"/>
+    <dyn:unitDynamicModel id="ibg" name="Dynawo.Electrical.PEIR.Plants.DER.DERaGenericLVRT" initName="Dynawo.Electrical.PEIR.Plants.DER.DERa_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

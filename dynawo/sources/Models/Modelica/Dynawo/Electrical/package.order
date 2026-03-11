@@ -3,7 +3,6 @@ Constants
 BESS
 Buses
 HVDC
-InverterBasedGeneration
 Lines
 Transformers
 Loads
@@ -11,6 +10,7 @@ Sources
 Machines
 Controls
 Events
+PEIR
 Photovoltaics
 Shunts
 Switches
