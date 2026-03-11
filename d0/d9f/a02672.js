@@ -88,6 +88,7 @@ var a02672 =
       [ "OverspeedArming", "d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a4330c11a320844d39bd59817a9e6885d", null ],
       [ "OverspeedDisarming", "d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a33217d118fc9c76e899a48459b53bfc4", null ],
       [ "OverspeedTripped", "d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51ae445a58ad05cbddc6660dd0491416455", null ],
+      [ "PartialTripping", "d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51aab884d2119c68d4534682ae770bf9225", null ],
       [ "PhaseShifterAboveMax", "d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51ab3c092523d4e89267232ca79d313f0c2", null ],
       [ "PhaseShifterBelowMax", "d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51ac2ee7d1fcae1501fcc627a4689d0fe5d", null ],
       [ "PhaseShifterBelowMin", "d0/d9f/a02672.html#a9294fd85b78754e1a11fec544395ad51a23a5a4f5abdce71ab7942d44547bf676", null ],
