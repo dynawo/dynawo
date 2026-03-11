@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.Machines.ReactivePowerControlLoops;
 model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model for renewable energy sources"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
+
   parameter Types.PerUnit CqMaxPu "Max of Cq in the different exploitation schemes in pu (base UNom, QNom)";
   parameter Types.VoltageModulePu DeltaURefMaxPu "Maximum of deltaURef on one activation period (URef(t+1) - URef(t)) in pu (base UNom)";
   parameter Types.ReactivePowerPu QrPu "Participation factor of the generator to the secondary voltage control in pu (base QNom)";
@@ -23,8 +24,10 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
   parameter Types.Time Ti "Filters' time constant in s";
   parameter Types.VoltageModulePu UStatorRefMinPu = 0.85 "Minimum reference voltage for the generator voltage regulator in pu (base UNom)";
   parameter Types.VoltageModulePu UStatorRefMaxPu = 1.15 "Maximum reference voltage for the generator voltage regulator in pu (base UNom)";
-  parameter Types.ReactivePowerPu QDeadBand = 0 "Deadband of the difference between actual and requested generator stator reactive power in pu (base QNomAlt)";
+  parameter Types.ReactivePowerPu QDeadBandPu = 0 "Deadband of the difference between actual and requested generator stator reactive power in pu (base QNomAlt)";
+
   type UStatus = enumeration(Standard, LimitUMin, LimitUMax);
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput level "Level received from the secondary voltage control [-1;1] " annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -34,9 +37,11 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QStatorPu(start = QStator0Pu) "Generator stator reactive power in pu (base QNomAlt) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-172, -40}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-164, -28}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
+
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput UStatorRefPu(start = UStatorRef0Pu) "Reference voltage for the generator voltage regulator in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {218, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   // Blocks
   Modelica.Blocks.Math.Gain participation(k = QrPu) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -70,14 +75,17 @@ model ReactivePowerControlLoop2 "Simplified Reactive Power Control Loop model fo
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = 1/Tech2, Y0 = UStatorRef0Pu, YMax = UStatorRefMaxPu, YMin = UStatorRefMinPu) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand) annotation(
+    Placement(transformation(origin = {-74, 0}, extent = {{-10, -10}, {10, 10}})));
+
   parameter Boolean limUQDown0 "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Boolean limUQUp0 "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
   parameter Types.ReactivePowerPu QStator0Pu "Start value of the generator stator reactive power in pu (base QNomAlt) (generator convention)";
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of the generator stator voltage reference in pu (base UNom)";
-  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = QDeadBand, uMin = -QDeadBand) annotation(
-    Placement(transformation(origin = {-74, 0}, extent = {{-10, -10}, {10, 10}})));
+
 protected
   UStatus uStatus(start = UStatus.Standard) "Status of the voltage reference";
+
 equation
   when limiter_UStatorRefMinMaxPu.u >= limiter_UStatorRefMinMaxPu.uMax and pre(uStatus) <> UStatus.LimitUMax then
     uStatus = UStatus.LimitUMax;
@@ -92,6 +100,7 @@ equation
     uStatus = UStatus.Standard;
     Timeline.logEvent1(TimelineKeys.RPCLStandard);
   end when;
+
   connect(errQ.u1, participation.y) annotation(
     Line(points = {{-108, 0}, {-119, 0}}, color = {0, 0, 127}));
   connect(level, participation.u) annotation(
@@ -136,6 +145,7 @@ equation
     Line(points = {{-90, 0}, {-86, 0}}, color = {0, 0, 127}));
   connect(deadZone.y, gainIntegrator.u) annotation(
     Line(points = {{-62, 0}, {-58, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-160, -180}, {180, 140}})),
