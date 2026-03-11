@@ -359,7 +359,8 @@ DataInterfaceIIDM::importVoltageLevel(powsybl::iidm::VoltageLevel& voltageLevelI
     //  ADD SWITCH INTERFACE
     //===========================
     for (auto& switchIIDM : voltageLevelIIDM.getSwitches()) {
-      if (switchIIDM.isOpen() || switchIIDM.isRetained()) {
+      if (switchIIDM.isOpen() ||
+          switchIIDM.getKind() == powsybl::iidm::SwitchKind::BREAKER || switchIIDM.getKind() == powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH) {
         std::shared_ptr<BusInterface> bus1 = findNodeBreakerBusInterface(voltageLevelIIDM,
                                                                     static_cast<int>(voltageLevelIIDM.getNodeBreakerView().getNode1(switchIIDM.getId())));
         std::shared_ptr<BusInterface> bus2 = findNodeBreakerBusInterface(voltageLevelIIDM,

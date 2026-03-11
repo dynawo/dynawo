@@ -66,7 +66,7 @@ voltageLevelIIDM_(voltageLevel) {
 
     // Add edges
     for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
-      if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+      if (itSwitch.isOpen() && itSwitch.getKind() != powsybl::iidm::SwitchKind::BREAKER && itSwitch.getKind() != powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH) {
         // Disconnectors should never be closed
         continue;
       }
@@ -265,13 +265,14 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   std::unordered_map<string, float> electricalWeights;
 
   for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
-    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+    if (itSwitch.isOpen() &&
+      itSwitch.getKind() != powsybl::iidm::SwitchKind::BREAKER && itSwitch.getKind() != powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH ) {
       // Opened disconnectors are not in the graph
       continue;
     }
     string id = itSwitch.getId();
     bool open = itSwitch.isOpen();
-    bool retained = itSwitch.isRetained();
+    bool retained = itSwitch.getKind() == powsybl::iidm::SwitchKind::BREAKER ||  itSwitch.getKind() == powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH;
     topologicalWeights[id] = (!open && !retained) ? 1 : 0;
     electricalWeights[id] = (!open) ? 1 : 0;
   }
@@ -429,7 +430,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(unsigned int nodeToDisconnect) {
   // open all paths to bus bar section
   std::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
-    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+    if (itSwitch.isOpen() && itSwitch.getKind() != powsybl::iidm::SwitchKind::BREAKER && itSwitch.getKind() != powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH) {
       // Opened disconnectors are not in the graph
       continue;
     }
@@ -454,7 +455,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(unsigned int nodeToDisconnect) {
           somethingWasDisconnected = false;
           for (const auto& switchID : path) {
             const auto& sw = voltageLevelIIDM_.getNodeBreakerView().getSwitch(switchID);
-            if (sw && sw.get().getKind() == powsybl::iidm::SwitchKind::BREAKER) {
+            if (sw && (sw.get().getKind() == powsybl::iidm::SwitchKind::BREAKER || sw.get().getKind() == powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH)) {
               if (!sw.get().isOpen()) {
                 map<string, std::shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(switchID);
                 if (itSw != switchesById_.end()) {
@@ -482,7 +483,8 @@ VoltageLevelInterfaceIIDM::isNodeConnected(unsigned int nodeToCheck) {
   // Change weight of edges
   std::unordered_map<string, float> weights;
   for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
-    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
+    if (itSwitch.isOpen() &&
+      itSwitch.getKind() != powsybl::iidm::SwitchKind::BREAKER && itSwitch.getKind() != powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH) {
       // Opened disconnectors are not in the graph
       continue;
     }
