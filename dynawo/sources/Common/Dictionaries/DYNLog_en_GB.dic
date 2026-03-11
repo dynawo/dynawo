@@ -133,6 +133,7 @@ PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 i
 CriteriaDefinedButNoIIDM      =             a criteria file was defined without any IIDM file, it will be ignored
 RegulModeReqdNoSA             =             regulatingMode requested on %1% although StandbyAutomaton extension is unavailable
 VarCreatedForRef              =             var %1% created a posteriori on component %2% to satisfy ref with %3%, will likely be unused
+CouldNotDisconnectNode        =             node %1% in voltage level %2% could not be disconnected from bus bar section %3%
 
 //---------------------- OTHERS --------------------------------------
 // --> ModelAreaShedding

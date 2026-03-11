@@ -470,6 +470,10 @@ VoltageLevelInterfaceIIDM::disconnectNode(unsigned int nodeToDisconnect) {
           path.clear();
           graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), weights, path);
         }
+        graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), weights, path);
+        if (!path.empty()) {
+          Trace::warn() << DYNLog(CouldNotDisconnectNode, nodeToDisconnect, voltageLevelIIDM_.getId(), bus.get().getId()) << Trace::endline;
+        }
       }
     }
   }
