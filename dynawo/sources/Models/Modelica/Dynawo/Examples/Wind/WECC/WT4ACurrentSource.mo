@@ -112,8 +112,10 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     tPord = 0.01,
     tRv = 0.01,
     u0Pu = Complex(1, 0),
-    uInj0Pu(im(fixed = false), re(fixed = false)),
-    zerox = 0.05) annotation(
+    uInj0Pu(im(fixed = false),
+    re(fixed = false)),
+    zerox = 0.05,
+    omegaRefWTGQPu0(fixed = false)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PInjRefPu(k = 0.7) annotation(
     Placement(transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -147,6 +149,7 @@ initial algorithm
   WT4A.i0Pu.im := wt4CurrentSource_INIT.i0Pu.im;
   WT4A.uInj0Pu.re := wt4CurrentSource_INIT.uInj0Pu.re;
   WT4A.uInj0Pu.im := wt4CurrentSource_INIT.uInj0Pu.im;
+  WT4A.omegaRefWTGQPu0 := wt4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
   line.switchOffSignal1.value = false;

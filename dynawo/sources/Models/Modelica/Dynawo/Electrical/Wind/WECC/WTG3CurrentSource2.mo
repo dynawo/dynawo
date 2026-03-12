@@ -34,7 +34,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
-    Placement(transformation(origin = {-110, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
+    Placement(transformation(origin = {-110, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(transformation(origin = {140, 100}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power at optimal pitch angle in pu (base SNom)" annotation(
     Placement(transformation(origin = {61, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -60,7 +61,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     P4 = P4,
     Spd4 = Spd4,
     TFlag = TFlag,
-    PInj0Pu = PInj0Pu) annotation(
+    PInj0Pu = PInj0Pu,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {-38, -56}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
     Ht = Ht,
@@ -68,7 +70,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Dshaft = Dshaft,
     Kshaft = Kshaft,
     PInj0Pu = PInj0Pu,
-    Pm0Pu = Pm0Pu) annotation(
+    Pm0Pu = Pm0Pu,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {110.307, -63.7777}, extent = {{-12.3077, -8.88892}, {12.3077, 8.88892}})));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
     IqrMaxPu = IqrMaxPu,
@@ -211,7 +214,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     tIq = tIq,
     tP = tP,
     tPord = tPord,
-    tRv = tRv) annotation(
+    tRv = tRv,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {140, -10}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Mechanical.WTGPb wecc_wtgp(
     Kiw = Kiw,
@@ -229,7 +233,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     ThetaCMin = ThetaCMin,
     ThetaWMin = ThetaWMin,
     PInj0Pu = PInj0Pu,
-    Theta0 = Theta0) annotation(
+    Theta0 = Theta0,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {16, -56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(
     Theta0 = Theta0,
@@ -320,18 +325,16 @@ equation
     Line(points = {{152, -18}, {166, -18}, {166, -88}, {-8.5, -88}, {-8.5, -62}, {5, -62}}, color = {0, 0, 127}));
   connect(wecc_wtgt.omegaTPu, wecc_wtgp.omegaTPu) annotation(
     Line(points = {{105, -54}, {105, -34}, {9, -34}, {9, -45}}, color = {0, 0, 127}));
-  connect(wecc_wtgq.omegaRefPu, wecc_wtgp.omegaRefPu) annotation(
-    Line(points = {{-27, -50}, {5, -50}}, color = {0, 0, 127}));
   connect(wecc_repc.freeze, wecc_wtgq.freeze) annotation(
     Line(points = {{116, -10}, {120, -10}, {120, -27}, {-35.5, -27}, {-35.5, -45}, {-36, -45}}, color = {255, 0, 255}));
   connect(wecc_wtgq.PRefPu, wecc_wtgp.PRefPu) annotation(
     Line(points = {{-27, -62}, {-27, -78}, {7.5, -78}, {7.5, -67}, {10, -67}}, color = {0, 0, 127}));
   connect(PmRefPu, wecc_wtga.PmRefPu) annotation(
     Line(points = {{62, -110}, {60, -110}, {60, -66}}, color = {0, 0, 127}));
-  connect(pll.omegaPLLPu, wecc_wtgt.omegaRefPu) annotation(
-    Line(points = {{64, 58}, {74, 58}, {74, -64}, {96, -64}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-110, 46}, {42, 46}}, color = {0, 0, 127}));
+  connect(wecc_wtgq.omegaRefWTGQPu, wecc_wtgp.omegaRefWTGQPu) annotation(
+    Line(points = {{-26, -50}, {6, -50}}, color = {0, 0, 127}));
 
   annotation(
     Diagram(coordinateSystem(extent = {{-100, 80}, {360, -100}})),

@@ -21,20 +21,23 @@ partial model BaseWTGP "Base Pitch Controller"
     Placement(transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PInj0Pu) "Reference active power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-80, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefWTGQPu(start = omegaRefWTGQPu0) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput omegaTPu(start = SystemBase.omegaRef0Pu) "Turbine frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaTPu(start = omegaRefWTGQPu0) "Turbine frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-69, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Output variable
   Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Pitch angle in degree" annotation(
     Placement(transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-
   Modelica.Blocks.Math.Feedback sum annotation(
     Placement(transformation(origin = {-80, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain1(k = Kcc) annotation(
     Placement(transformation(origin = {-80, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Math.Sum sum1(nin = 3, each final k = {1, -1, 1}) annotation(
+  Modelica.Blocks.Math.Sum sum1(
+    nin = 3,
+    each final k = {1,
+    -1,
+    1}) annotation(
     Placement(transformation(origin = {-60, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain2(k = Kpc) annotation(
     Placement(transformation(origin = {-30, -60}, extent = {{-10, -10}, {10, 10}})));
@@ -44,9 +47,15 @@ partial model BaseWTGP "Base Pitch Controller"
     Placement(transformation(origin = {-30, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(transformation(origin = {2, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = ThetaMax, uMin = ThetaMin, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    uMax = ThetaMax,
+    uMin = ThetaMin,
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {30, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(uMax = ThetaMax, uMin = ThetaMin, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(
+    uMax = ThetaMax,
+    uMin = ThetaMin,
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {30, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(transformation(origin = {58, 40}, extent = {{-10, -10}, {10, 10}})));
@@ -58,7 +67,7 @@ equation
     Line(points = {{-110, -40}, {-88, -40}}, color = {0, 0, 127}));
   connect(PRefPu, sum.u2) annotation(
     Line(points = {{-80, -110}, {-80, -48}}, color = {0, 0, 127}));
-  connect(omegaRefPu, sum1.u[2]) annotation(
+  connect(omegaRefWTGQPu, sum1.u[2]) annotation(
     Line(points = {{-110, 60}, {-72, 60}}, color = {0, 0, 127}));
   connect(sum.y, gain2.u) annotation(
     Line(points = {{-71, -40}, {-59.75, -40}, {-59.75, -60}, {-42, -60}}, color = {0, 0, 127}));
