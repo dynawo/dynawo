@@ -453,6 +453,31 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("lowTapPosition", StaticParameter("lowTapPosition", StaticParameter::INT).setValue(tapMin)));
   staticParameters_.insert(std::make_pair("highTapPosition", StaticParameter("highTapPosition", StaticParameter::INT).setValue(tapMax)));
   // attention to sign (+/-) convention
+
+  const double vNom1 = getVNom1();
+  const double vNom2 = getVNom2();
+  assert(vNom1 == vNom1);  // control that vNom != NAN
+  assert(vNom2 == vNom2);  // control that vNom != NAN
+  if (vNom2 > 0) {
+    const double ratio = getRatedU2() / getRatedU1() * vNom1 / vNom2;
+    const double r = getR();
+    const double x = getX();
+    const double b = getB();
+    const double g = getG();
+    staticParameters_.insert(std::make_pair("ratio", StaticParameter("r", StaticParameter::DOUBLE).setValue(ratio)));
+    staticParameters_.insert(std::make_pair("r", StaticParameter("r", StaticParameter::DOUBLE).setValue(r)));
+    staticParameters_.insert(std::make_pair("x", StaticParameter("x", StaticParameter::DOUBLE).setValue(x)));
+    staticParameters_.insert(std::make_pair("b", StaticParameter("b", StaticParameter::DOUBLE).setValue(b)));
+    staticParameters_.insert(std::make_pair("g", StaticParameter("g", StaticParameter::DOUBLE).setValue(g)));
+
+    const double coeff = vNom2 * vNom2 / SNREF;  // PU with respect to the secondary voltage
+    staticParameters_.insert(std::make_pair("r_pu", StaticParameter("r_pu", StaticParameter::DOUBLE).setValue(r / coeff)));
+    staticParameters_.insert(std::make_pair("x_pu", StaticParameter("x_pu", StaticParameter::DOUBLE).setValue(x / coeff)));
+    staticParameters_.insert(std::make_pair("b_pu", StaticParameter("b_pu", StaticParameter::DOUBLE).setValue(b * coeff)));
+    staticParameters_.insert(std::make_pair("g_pu", StaticParameter("g_pu", StaticParameter::DOUBLE).setValue(g * coeff)));
+  } else {
+    throw DYNError(Error::MODELER, UndefinedNominalV, tfoIIDM_.getTerminal2().getVoltageLevel().getId());
+  }
 }
 
 std::string
