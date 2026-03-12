@@ -110,7 +110,7 @@
     <par type="DOUBLE" name="WTG3_tHoldIq" value="0"/>
     <par type="DOUBLE" name="WTG3_tHoldIpMax" value="0"/>
     <par type="DOUBLE" name="WTG3_VRef1Pu" value="0"/>
-    <par type="BOOL" name="WTG3_PFlag" value="true"/>
+    <par type="BOOL" name="WTG3_PFlag" value="false"/>
     <par type="DOUBLE" name="WTG3_VDLIp11" value="1.1"/>
     <par type="DOUBLE" name="WTG3_VDLIp12" value="1.1"/>
     <par type="DOUBLE" name="WTG3_VDLIp21" value="1.15"/>
@@ -128,8 +128,8 @@
     <par type="DOUBLE" name="WTG3_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="WTG3_VDLIq42" value="1"/>
     <par type="BOOL" name="WTG3_Lvplsw" value="false"/>
-    <par type="DOUBLE" name="WTG3_zerox" value="0.1"/>
-    <par type="DOUBLE" name="WTG3_brkpt" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_zerox" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_brkpt" value="0.1"/>
     <par type="DOUBLE" name="WTG3_lvpl1" value="1.22"/>
     <!-- Pitch Control -->
     <par type="DOUBLE" name="WTG3_Kiw" value="0.1"/>
@@ -143,8 +143,8 @@
     <par type="DOUBLE" name="WTG3_ThetaRMax" value="10"/>
     <par type="DOUBLE" name="WTG3_ThetaRMin" value="-10"/>
     <!-- Torque control -->
-    <par type="DOUBLE" name="WTG3_Kip" value="1"/>
-    <par type="DOUBLE" name="WTG3_Kpp" value="1"/>
+    <par type="DOUBLE" name="WTG3_Kip" value="10"/>
+    <par type="DOUBLE" name="WTG3_Kpp" value="2"/>
     <par type="DOUBLE" name="WTG3_P1" value="0"/>
     <par type="DOUBLE" name="WTG3_Spd1" value="0"/>
     <par type="DOUBLE" name="WTG3_P2" value="10"/>
@@ -153,8 +153,8 @@
     <par type="DOUBLE" name="WTG3_Spd3" value="20"/>
     <par type="DOUBLE" name="WTG3_P4" value="30"/>
     <par type="DOUBLE" name="WTG3_Spd4" value="30"/>
-    <par type="DOUBLE" name="WTG3_TeMaxPu" value="1"/>
-    <par type="DOUBLE" name="WTG3_TeMinPu" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_TeMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="WTG3_TeMinPu" value="0"/>
     <par type="BOOL" name="WTG3_TFlag" value="true"/>
     <par type="DOUBLE" name="WTG3_tp" value="0.05"/>
     <par type="DOUBLE" name="WTG3_tOmegaRef" value="60"/>
@@ -163,10 +163,10 @@
     <par type="DOUBLE" name="WTG3_Pm0Pu" value="0.7"/>
     <par type="DOUBLE" name="WTG3_Theta0" value="0"/>
     <!-- Drive train control-->
-    <par type="DOUBLE" name="WTG3_Dshaft" value="1.5"/>
-    <par type="DOUBLE" name="WTG3_Hg" value="1"/>
-    <par type="DOUBLE" name="WTG3_Ht" value="5"/>
-    <par type="DOUBLE" name="WTG3_Kshaft" value="200"/>
+    <par type="DOUBLE" name="WTG3_Dshaft" value="2.7"/>
+    <par type="DOUBLE" name="WTG3_Hg" value="0.5"/>
+    <par type="DOUBLE" name="WTG3_Ht" value="6"/>
+    <par type="DOUBLE" name="WTG3_Kshaft" value="15"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
