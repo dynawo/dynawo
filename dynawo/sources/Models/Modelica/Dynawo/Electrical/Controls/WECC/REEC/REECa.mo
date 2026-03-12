@@ -18,7 +18,7 @@ model REECa "WECC Electrical Control type A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
 
   // Input variable
-  Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -121}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
 
   // Output variables
