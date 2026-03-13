@@ -20,19 +20,21 @@
 #ifndef RT_COMMON_DYNRTINPUTCOMMON_H_
 #define RT_COMMON_DYNRTINPUTCOMMON_H_
 #include <string>
-#include <memory>
+#include <vector>
 
 namespace DYN {
 
 /**
- * @enum MessageFilter
+ * @enum InputMessageFilter
  * @brief Defines categories of messages that can be filtered.
  */
-enum class MessageFilter {
-  None = 0,                 ///< No filter
-  Actions = 1 << 0,         ///< Filter for action messages
-  TimeManagement = 1 << 1,  ///< Filter for time management messages
-  Trigger = 1 << 2          ///< Filter for trigger messages
+enum class InputMessageFilter {
+  NONE = 0,                  ///< Filter none
+  ACTIONS = 1 << 0,          ///< Filter for action messages
+  TIME_MANAGEMENT = 1 << 1,  ///< Filter for time management messages
+  STEP = 1 << 2,             ///< Filter for step trigger messages
+  DUMP = 1 << 3,             ///< Filter for dump signal messages
+  ALL = ACTIONS | TIME_MANAGEMENT | STEP | DUMP  ///< Filter for all messages
 };
 
 /**
@@ -41,18 +43,19 @@ enum class MessageFilter {
  * @param b Second filter
  * @return Combined filter
  */
-inline MessageFilter operator|(MessageFilter a, MessageFilter b) {
-  return static_cast<MessageFilter>(static_cast<int>(a) | static_cast<int>(b));
+inline InputMessageFilter operator|(InputMessageFilter a, InputMessageFilter b) {
+  return static_cast<InputMessageFilter>(static_cast<int>(a) | static_cast<int>(b));
 }
 
 /**
- * @enum MessageType
+ * @enum InputMessageType
  * @brief Defines the types of input messages.
  */
-enum class MessageType {
-  Action,       ///< Action message
-  StepTrigger,  ///< Step trigger message
-  Stop          ///< Stop message
+enum class InputMessageType {
+  ACTION,       ///< Action message
+  STEP,         ///< Step trigger message
+  STOP,         ///< Stop message
+  DUMP          ///< Dump message
 };
 
 /**
@@ -70,7 +73,7 @@ class InputMessage {
    * @brief Get the message type.
    * @return Type of the message
    */
-  virtual MessageType getType() const = 0;
+  virtual InputMessageType getType() const = 0;
 };
 
 /**
@@ -79,13 +82,11 @@ class InputMessage {
  */
 class ActionMessage : public InputMessage {
  public:
-  std::string payload;  ///< Message content
-
   /**
    * @brief Constructor.
-   * @param p Payload string
+   * @param p Action strings
    */
-  explicit ActionMessage(std::string p) : payload(std::move(p)) { }
+  explicit ActionMessage(std::vector<std::string> p) : payload(std::move(p)) { }
 
   /**
    * @brief Destructor.
@@ -94,9 +95,20 @@ class ActionMessage : public InputMessage {
 
   /**
    * @brief Get the message type.
-   * @return MessageType::Action
+   * @return InputMessageType::ACTION
    */
-  MessageType getType() const override { return MessageType::Action; }
+  InputMessageType getType() const override { return InputMessageType::ACTION; }
+
+  /**
+   * @brief Get actions strings
+   * @return Action strings
+   */
+  std::vector<std::string> getPayload() {
+    return payload;
+  }
+
+ private:
+  std::vector<std::string> payload;  ///< strings corresponding to the actions of a model
 };
 
 /**
@@ -112,9 +124,9 @@ class StepTriggerMessage : public InputMessage {
 
   /**
    * @brief Get the message type.
-   * @return MessageType::StepTrigger
+   * @return InputMessageType::STEP
    */
-  MessageType getType() const override { return MessageType::StepTrigger; }
+  InputMessageType getType() const override { return InputMessageType::STEP; }
 };
 
 /**
@@ -130,9 +142,22 @@ class StopMessage : public InputMessage {
 
   /**
    * @brief Get the message type.
-   * @return MessageType::Stop
+   * @return InputMessageType::STOP
    */
-  MessageType getType() const override { return MessageType::Stop; }
+  InputMessageType getType() const override { return InputMessageType::STOP; }
+};
+
+/**
+ * @class DumpTriggerMessage
+ * @brief Message used to trigger a simulation dump
+ */
+class DumpTriggerMessage : public InputMessage {
+ public:
+  /**
+   * @brief Get the message type.
+   * @return InputMessageType::DUMP
+   */
+  InputMessageType getType() const override { return InputMessageType::DUMP; }
 };
 
 }  // end of namespace DYN

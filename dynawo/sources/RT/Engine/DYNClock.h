@@ -20,12 +20,6 @@
 #ifndef RT_ENGINE_DYNCLOCK_H_
 #define RT_ENGINE_DYNCLOCK_H_
 
-#include <vector>
-#include <queue>
-#include <unordered_map>
-#include <boost/shared_ptr.hpp>
-#include <boost/optional.hpp>
-#include <boost/filesystem.hpp>
 #include <atomic>
 #include <mutex>
 #include <condition_variable>
@@ -59,7 +53,7 @@ class Clock {
   void stop();
 
   /**
-   * @brief wait for either trigger signal or time relative to simulation time
+   * @brief wait for either step trigger signal or time relative to simulation time
    * @param simulationTime current time of the simulation
    */
   void wait(double simulationTime);
@@ -71,10 +65,10 @@ class Clock {
   void setSpeedup(double speedup);
 
   /**
-   * @brief handle a received Trigger message
-   * @param triggerMessage trigger message
+   * @brief handle a received step trigger message
+   * @param stepTriggerMessage step trigger message
    */
-  void handleMessage(StepTriggerMessage& triggerMessage);
+  void handleMessage(StepTriggerMessage& stepTriggerMessage);
 
   /**
    * @brief handle a received Stop message
@@ -83,25 +77,25 @@ class Clock {
   void handleMessage(StopMessage& stopMessage);
 
   /**
-   * @brief use trigger attribute
-   * @param useTrigger use trigger attribute
+   * @brief use step trigger attribute setter
+   * @param useStepTrigger use step trigger attribute
    */
-  void setUseTrigger(const bool useTrigger);
+  void setUseStepTrigger(bool useStepTrigger);
 
   /**
-   * @brief use trigger attribute getter
-   * @return use trigger attribute
+   * @brief use step trigger attribute getter
+   * @return use step trigger attribute
    */
-  bool getUseTrigger() const;
+  bool getUseStepTrigger() const;
 
   /**
-   * @brief Stop message received flag getter
-   * @return Stop message received flag
+   * @brief stop message received flag getter
+   * @return stop message received flag
    */
   bool getStopMessageReceived() const;
 
  private:
-  bool useTrigger_;                   ///< true if wait needs a trigger from an input channel
+  bool useStepTrigger_;               ///< true if wait needs a step trigger signal from an input channel
   bool running_;                      ///< running status of clock
   bool stopMessageReceived_;          ///< true if a stop message has been received
 

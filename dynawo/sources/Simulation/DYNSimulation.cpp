@@ -25,6 +25,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
+#include <chrono>
 #ifdef _MSC_VER
 #include <process.h>
 #endif
@@ -513,7 +514,7 @@ Simulation::configureFinalStateOutputs() {
   }
   // The map is used here to sort the requested final states according to the time requested
   for (const auto& dumpStateDefinition : dumpStateDefinitionsMap) {
-    intermediateStates_.push(dumpStateDefinition.second);
+    intermediateStates_.push_back(dumpStateDefinition.second);
   }
 }
 
@@ -990,7 +991,11 @@ Simulation::simulate() {
   bool criteriaChecked = true;
   try {
     // update state variable only if the IIDM final state is exported, or criteria is checked, or lost equipments are exported
-    if (data_ && (finalState_.iidmFile_ || activateCriteria_ || isLostEquipmentsExported())) {
+    bool anyStateIidmFileSet = finalState_.iidmFile_.has_value();
+    for (auto &intermediateState : intermediateStates_)
+      anyStateIidmFileSet &= intermediateState.iidmFile_.has_value();
+
+    if (data_ && (anyStateIidmFileSet || activateCriteria_ || isLostEquipmentsExported())) {
       data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
                                          // either in a modelica model or in a C++ model.
       // save initial connection state at t0 for each equipment
@@ -1078,14 +1083,15 @@ Simulation::simulate() {
       }
       while (hasIntermediateStateToDump()) {
         const ExportStateDefinition& dumpDefinition = intermediateStates_.front();
-        data_->exportStateVariables();
         if (dumpDefinition.dumpFile_) {
           dumpState(*dumpDefinition.dumpFile_);
         }
-        if (dumpDefinition.iidmFile_) {
+        if (data_ && dumpDefinition.iidmFile_) {
+          data_->getStateVariableReference();
+          data_->exportStateVariables();
           dumpIIDMFile(*dumpDefinition.iidmFile_);
         }
-        intermediateStates_.pop();
+        intermediateStates_.pop_front();
       }
     }
 
@@ -1493,7 +1499,16 @@ Simulation::dumpState() {
 
 void
 Simulation::dumpState(const boost::filesystem::path& dumpFile) const {
-  if (!model_) return;
+  boost::shared_ptr<zip::ZipFile> archive = createDumpStateArchive();
+  if (archive)
+    zip::ZipOutputStream::write(dumpFile.generic_string(), archive);
+}
+
+boost::shared_ptr<zip::ZipFile>
+Simulation::createDumpStateArchive() const {
+  if (!model_)
+    return boost::shared_ptr<zip::ZipFile>();
+
   stringstream state;
   boost::archive::binary_oarchive os(state);
 
@@ -1512,12 +1527,20 @@ Simulation::dumpState(const boost::filesystem::path& dumpFile) const {
   for (const auto& mapValue : mapValues) {
     archive->addEntry(mapValue.first, mapValue.second);
   }
-  zip::ZipOutputStream::write(dumpFile.generic_string(), archive);
+  return archive;
 }
 
 double
 Simulation::loadState(const string& fileName) {
   boost::shared_ptr<zip::ZipFile> archive = zip::ZipInputStream::read(fileName);
+  return loadState(archive);
+}
+
+double
+Simulation::loadState(boost::shared_ptr<zip::ZipFile> archive) {
+  if (!archive)
+    throw DYNError(Error::GENERAL, IncompleteDump);
+
   map<string, string> mapValues;  // map associating file name with parameters/variables to dumpe
   for (const auto& entryPair : archive->getEntries()) {
     string name = entryPair.first;

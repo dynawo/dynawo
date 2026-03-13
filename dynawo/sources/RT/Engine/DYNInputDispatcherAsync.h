@@ -32,6 +32,7 @@
 #include "DYNModel.h"
 #include "DYNClock.h"
 #include "DYNInputChannel.h"
+#include "DYNDumpManager.h"
 
 
 
@@ -46,7 +47,7 @@ class InputDispatcherAsync {
    * @brief Constructor
    * @param clock pointer to the Clock object
    */
-  explicit InputDispatcherAsync(std::shared_ptr<Clock>& clock);
+  InputDispatcherAsync(std::shared_ptr<Clock> clock, std::shared_ptr<DumpManager> dumpManager);
 
   /**
    * Destructor
@@ -89,7 +90,8 @@ class InputDispatcherAsync {
 
  private:
   std::shared_ptr<Model> model_;                             ///< Model, handles action registration
-  std::shared_ptr<Clock> clock_;                             ///< Clock, handles trigger
+  std::shared_ptr<Clock> clock_;                             ///< Clock, handles trigger, manage time
+  std::shared_ptr<DumpManager> dumpManager_;                 ///< Dump manager handles dump & load messages
   std::vector<std::shared_ptr<InputChannel> > channels_;     ///< Receivers for inputs and trigger
 
   int loopWaitInMs_;                                         ///< loop wait for periodic lock release
