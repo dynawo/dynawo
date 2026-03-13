@@ -16,11 +16,23 @@ within Dynawo.Electrical.Controls.WECC.Mechanical;
 model WTGPa "WECC Pitch Controller Type A"
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGP;
 
-  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(K = Kic, YMax = ThetaMax, YMin = ThetaMin) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator(
+    K = Kic,
+    YMax = ThetaMax,
+    YMin = ThetaMin) annotation(
     Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(K = Kiw, YMax = ThetaMax, YMin = ThetaMin) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegrator limitedIntegrator1(
+    K = Kiw,
+    YMax = ThetaMax,
+    YMin = ThetaMin) annotation(
     Placement(transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(DyMax = ThetaRMax, DyMin = ThetaRMin, tI = tTheta, YMax = ThetaMax, YMin = ThetaMin, Y0 = Theta0) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderFreeze absLimRateLimFirstOrderFreeze(
+    DyMax = ThetaRMax,
+    DyMin = ThetaRMin,
+    tI = tTheta,
+    YMax = ThetaMax,
+    YMin = ThetaMin,
+    Y0 = Theta0) annotation(
     Placement(transformation(origin = {86, 40}, extent = {{-10, -10}, {10, 10}})));
 
 equation
