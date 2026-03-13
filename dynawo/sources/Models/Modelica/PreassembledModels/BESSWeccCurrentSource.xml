@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="BESSWeccCurrentSource">
-    <dyn:unitDynamicModel id="BESS" name="Dynawo.Electrical.BESS.WECC.BESSCurrentSource" initName="Dynawo.Electrical.BESS.WECC.BESS_INIT"/>
+    <dyn:unitDynamicModel id="BESS" name="Dynawo.Electrical.BESS.WECC.BESSCurrentSource" initName="Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

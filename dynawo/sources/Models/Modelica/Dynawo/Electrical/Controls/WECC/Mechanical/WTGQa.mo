@@ -19,9 +19,9 @@ model WTGQa "WECC Torque Controller Type A"
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PePu(start = PConv0Pu) "Electrical active power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput PRef0Pu(start = PInj0Pu) "Active power reference from the power plant controller in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRef0Pu(start = PConv0Pu) "Active power reference from the power plant controller in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-130, -12}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanInput freeze(start = false) "Boolean to freeze the regulation" annotation(
     Placement(transformation(origin = {100, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -29,7 +29,7 @@ model WTGQa "WECC Torque Controller Type A"
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput omegaRefWTGQPu(start = omegaRefWTGQPu0) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {290, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PInj0Pu) "Active power reference for the electrical controller (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PConv0Pu) "Active power reference for the electrical controller (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {290, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Tables.CombiTable1D combiTable1D(
     table = [P1,
@@ -41,7 +41,7 @@ model WTGQa "WECC Torque Controller Type A"
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     k = 1,
     T = tP,
-    y_start = PInj0Pu) annotation(
+    y_start = PConv0Pu) annotation(
     Placement(transformation(origin = {-90, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(
     k = 1,
@@ -75,7 +75,7 @@ model WTGQa "WECC Torque Controller Type A"
     K = Kip,
     YMax = TeMaxPu,
     YMin = TeMinPu,
-    Y0 = PInj0Pu/omegaRefWTGQPu0) annotation(
+    Y0 = PConv0Pu/omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}})));
 
 equation

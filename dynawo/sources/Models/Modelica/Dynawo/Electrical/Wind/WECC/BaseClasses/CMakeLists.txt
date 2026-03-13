@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BasePCS.mo
   BaseWT4.mo
   BaseWT4A.mo
   BaseWT4B.mo
