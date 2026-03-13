@@ -15,7 +15,6 @@ set(MODEL_FILES
   package.mo
   package.order
   CurrentLimitParameters.mo
-  CurrentLimitParameters3.mo
   GridProtectionParameters.mo
   PControlParameters.mo
   PControlWT3Parameters.mo
