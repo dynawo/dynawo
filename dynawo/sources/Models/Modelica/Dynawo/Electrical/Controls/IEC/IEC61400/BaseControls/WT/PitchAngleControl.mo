@@ -28,9 +28,9 @@ model PitchAngleControl "Wind turbine pitch angle control module from IEC 61400-
     Dialog(tab = "Aerodynamic"));
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-220, 160}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) "Wind turbine speed reference in pu (base SystemBase.omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) "Wind turbine speed reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-220, 120}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 30}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput POrdPu(start = POrd0Pu) "Active power order from wind turbine controller in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-220, -80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -30}, extent = {{-20, -20}, {20, 20}})));
@@ -75,7 +75,7 @@ model PitchAngleControl "Wind turbine pitch angle control module from IEC 61400-
     Placement(transformation(origin = {150, -1.77636e-15}, extent = {{-10, -10}, {10, 10}})));
 
   //Initial parameters
-  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base omegaNom)" annotation(
     Dialog(tab = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));

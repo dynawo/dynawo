@@ -17,7 +17,7 @@ model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.Mechanical.Aerodynamic2DParameters;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base SystemBase.omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Wind turbine rotor speed in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput theta(start = Theta0 + (PAg0Pu - PAvailPu) / DPThetaPu) "Wind turbine pitch angle in degrees" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -26,7 +26,7 @@ model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines
   Modelica.Blocks.Interfaces.RealOutput pAeroPu(start = PAg0Pu) "Wind turbine aerodynamic power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Add addDPOmega(k2 = +1, k1 = -1) annotation(
+  Modelica.Blocks.Math.Add addDPOmega(k1 = -1) annotation(
     Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add addOmega(k2 = -1) annotation(
     Placement(transformation(origin = {-30, -80}, extent = {{-10, -10}, {10, 10}})));
@@ -50,17 +50,9 @@ model Aerodynamic2D "Two-dimensional aerodynmaic module for type 3 wind turbines
     Placement(transformation(origin = {10, -40}, extent = {{-10, -10}, {10, 10}})));
 
   //Initial parameters
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initialization"));
 
 equation

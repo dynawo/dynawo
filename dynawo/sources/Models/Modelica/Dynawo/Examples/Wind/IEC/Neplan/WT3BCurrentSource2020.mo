@@ -19,6 +19,7 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
   Dynawo.Electrical.Wind.IEC.WT.WT3BCurrentSource2020 wt(
     BesPu = 0,
     CdrtPu = 2.344,
+    ConverterLVControl = false,
     DPMaxPu = 999,
     DPOmega0Pu = 0.48,
     DPOmegaThetaPu = 0.028,
@@ -39,20 +40,17 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
     DfpMaxPu = 5,
     DipMaxPu = 1,
     DiqMaxPu = 100,
-    GesPu = 0,
     Hgen = 3.395,
     Hwtr = 0.962,
-    IGsIm0Pu(fixed = false),// = 0,
-    IGsRe0Pu(fixed = false),// = 0.6,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
     Ip0Pu(fixed = false),
-    IpMax0Pu(fixed = false),// = 1.00005,
+    IpMax0Pu(fixed = false),
     Iq0Pu(fixed = false),
     IqH1Pu = 1.05,
-    IqMax0Pu(fixed = false),// = 0.33,
+    IqMax0Pu(fixed = false),
     IqMaxPu = 1.05,
-    IqMin0Pu(fixed = false),// = -0.33,
+    IqMin0Pu(fixed = false),
     IqMinPu = -1.05,
     IqPostPu = 0,
     KDtd = 1.5,
@@ -83,14 +81,13 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
     OmegaDtdPu = 11.3,
     OmegaOffsetPu = 0,
     P0Pu = -0.6,
-    PAg0Pu(fixed = false),
     PAvailPu = 0.6,
     PDtdMaxPu = 0.15,
     PWTRef0Pu = 1.1,
     Q0Pu = 0,
-    QMax0Pu(fixed = false),// = 0.8,
+    QMax0Pu(fixed = false),
     QMaxPu = 0.8,
-    QMin0Pu(fixed = false),// = -0.8,
+    QMin0Pu(fixed = false),
     QMinPu = -0.8,
     QlConst = false,
     RDropPu = 0,
@@ -225,8 +222,6 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
     ThetaOmegaMin = 0,
     U0Pu = 1,
     UDvsPu = 0.15,
-    UGsIm0Pu(fixed = false),// = 0.006,
-    UGsRe0Pu(fixed = false),// = 1,
     UMaxPu = 2,
     UMinPu = 0,
     UOverPu = 1.2,
@@ -235,18 +230,20 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
     UPll2Pu = 0.13,
     URef0Pu = 0,
     UUnderPu = 0.85,
+    UWt0DroppedPu(fixed = false),
     UpDipPu = 0.9,
     UpquMaxPu = 1.1,
     UqDipPu = 0.9,
     UqRisePu = 1.1,
     XDropPu = 0,
     XEqv = 10,
-    XWT0Pu(fixed = false),// = 0,
-    XesPu = 0.01,
+    XesPu = 0.1,
+    XWT0Pu(fixed = false),
     Zeta = 0.5,
     fOverPu = 1.02,
     fUnderPu = 0.98,
-    i0Pu(re(fixed = false), im(fixed = false)),// = Complex(-0.6, 0),
+    i0Pu(re(fixed = false), im(fixed = false)),
+    iGs0Pu(re(fixed = false), im(fixed = false)),
     tDvs = 0.05,
     tG = 0.01,
     tIcFilt = 0.005,
@@ -268,19 +265,21 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
     tWo = 0.001,
     tfcFilt = 0.005,
     tfpFilt = 0.005,
-    u0Pu(re(fixed = false), im(fixed = false))// = Complex(1, 0)
-    ) annotation(
-    Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    u0Pu(re(fixed = false), im(fixed = false)),
+    uGs0Pu(re(fixed = false), im(fixed = false))) annotation(
+    Placement(transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.1, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 999, tOmegaEvtStart = 999, tUEvtEnd = 1.2 * 9999, tUEvtStart = 1 * 9999) annotation(
-    Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -1, startTime = 999) annotation(
-    Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step xRefPu(height = 0.15, offset = 0, startTime = 999) annotation(
-    Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 999) annotation(
-    Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step PRefPu(height = -0.7, offset = wt.PWTRef0Pu, startTime = 1) annotation(
-    Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}})));
+
+  //Initialization
   Dynawo.Electrical.Wind.IEC.WT.WT3CurrentSource_INIT init(
     BesPu = wt.BesPu,
     GesPu = wt.GesPu,
@@ -292,6 +291,7 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
     QMaxPu = wt.QMaxPu,
     QMinPu = wt.QMinPu,
     QlConst = wt.QlConst,
+    RDropPu = wt.RDropPu,
     ResPu = wt.ResPu,
     SNom = wt.SNom,
     TableIpMaxUwt = wt.TableIpMaxUwt,
@@ -303,12 +303,12 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1 stan
     U0Pu = wt.U0Pu,
     UPhase0 = wt.UPhase0,
     UpquMaxPu = wt.UpquMaxPu,
+    URef0Pu = wt.URef0Pu,
+    XDropPu = wt.XDropPu,
     XesPu = wt.XesPu) annotation(
-    Placement(visible = true, transformation(origin = {2, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
 
 initial algorithm
-  wt.IGsIm0Pu := init.IGsIm0Pu;
-  wt.IGsRe0Pu := init.IGsRe0Pu;
   wt.Ip0Pu := init.Ip0Pu;
   wt.IpMax0Pu := init.IpMax0Pu;
   wt.Iq0Pu := init.Iq0Pu;
@@ -316,35 +316,36 @@ initial algorithm
   wt.IqMin0Pu := init.IqMin0Pu;
   wt.QMax0Pu := init.QMax0Pu;
   wt.QMin0Pu := init.QMin0Pu;
-  wt.UGsIm0Pu := init.UGsIm0Pu;
-  wt.UGsRe0Pu := init.UGsRe0Pu;
   wt.XWT0Pu := init.XWT0Pu;
   wt.i0Pu.re := init.i0Pu.re;
   wt.i0Pu.im := init.i0Pu.im;
+  wt.iGs0Pu.re := init.iGs0Pu.re;
+  wt.iGs0Pu.im := init.iGs0Pu.im;
   wt.u0Pu.re := init.u0Pu.re;
   wt.u0Pu.im := init.u0Pu.im;
+  wt.uGs0Pu.re := init.uGs0Pu.re;
+  wt.uGs0Pu.im := init.uGs0Pu.im;
 
 equation
   wt.injector.switchOffSignal1.value = false;
   wt.injector.switchOffSignal2.value = false;
   wt.injector.switchOffSignal3.value = false;
 
-  connect(wt.terminal, infiniteBusWithVariations.terminal) annotation(
-    Line(points = {{-19, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(tanPhi.y, wt.tanPhi) annotation(
-    Line(points = {{-118, 60}, {-60, 60}, {-60, 6}, {-40, 6}}, color = {0, 0, 127}));
+    Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));
   connect(PRefPu.y, wt.PWTRefPu) annotation(
-    Line(points = {{-118, 20}, {-80, 20}, {-80, 2}, {-40, 2}}, color = {0, 0, 127}));
+    Line(points = {{-79, 20}, {-60, 20}, {-60, 2}, {-1, 2}}, color = {0, 0, 127}));
   connect(xRefPu.y, wt.xWTRefPu) annotation(
-    Line(points = {{-118, -20}, {-80, -20}, {-80, -2}, {-40, -2}}, color = {0, 0, 127}));
+    Line(points = {{-79, -20}, {-60, -20}, {-60, -2}, {-1, -2}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, wt.omegaRefPu) annotation(
-    Line(points = {{-118, -60}, {-60, -60}, {-60, -6}, {-40, -6}}, color = {0, 0, 127}));
+    Line(points = {{-79, -60}, {-40, -60}, {-40, -6}, {-1, -6}}, color = {0, 0, 127}));
+  connect(wt.terminal, infiniteBusWithVariations.terminal) annotation(
+    Line(points = {{21, 0}, {80, 0}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-05, Interval = 0.001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
-    Diagram(coordinateSystem(extent = {{-140, -70}, {140, 70}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     Documentation(info = "<html><head></head>
   <body><div>This test case implements the IEC 61400-27-1
