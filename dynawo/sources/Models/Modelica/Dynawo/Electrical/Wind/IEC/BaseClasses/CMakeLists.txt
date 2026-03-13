@@ -13,7 +13,6 @@ set(MODEL_FILES
   package.mo
   package.order
   BaseWPP.mo
-  BaseWPP3.mo
   BaseWT3.mo
   BaseWT4.mo
   )

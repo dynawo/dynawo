@@ -17,8 +17,10 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
   extends Icons.Example;
 
   Dynawo.Electrical.Wind.IEC.WPP.WPP3BCurrentSource2020 wpp(
-    BesPu = 0,
+    BLvTrPu = 0,
+    BMvHvPu = 0,
     CdrtPu = 2.344,
+    ConverterLVControl = false,
     DPMaxPu = 999,
     DPOmega0Pu = 0.48,
     DPOmegaThetaPu = 0.028,
@@ -46,20 +48,20 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     DfpMaxPu = 5,
     DipMaxPu = 1,
     DiqMaxPu = 100,
-    GesPu = 0,
+    DiqMinPu = -100,
+    GLvTrPu = 0,
+    GMvHvPu = 0,
     Hgen = 3.395,
     Hwtr = 0.962,
-    IGsIm0Pu(fixed = false),// = -0.1,
-    IGsRe0Pu(fixed = false),// = 0.6,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
     Ip0Pu(fixed = false),
-    IpMax0Pu(fixed = false),// = 1.00005,
+    IpMax0Pu(fixed = false),
     Iq0Pu(fixed = false),
     IqH1Pu = 1.05,
-    IqMax0Pu(fixed = false),// = 0.33,
+    IqMax0Pu(fixed = false),
     IqMaxPu = 1.05,
-    IqMin0Pu(fixed = false),// = -0.33,
+    IqMin0Pu(fixed = false),
     IqMinPu = -1.05,
     IqPostPu = 0,
     KDtd = 1.5,
@@ -71,10 +73,13 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     KPomegaPu = 15,
     KPp = 8,
     KdrtPu = 1.378,
+    Kipaw = 100,
     Kiq = 2,
+    Kiqaw = 100,
     Kiu = 2,
     Kiwpp = 5,
     Kiwpx = 10,
+    Kpaw = 1000,
     Kpq = 0,
     Kpqu = 20,
     Kpu = 2,
@@ -99,22 +104,26 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     OmegaOffsetPu = 0,
     P0Pu = -0.6,
     PAvailPu = 0.6,
+    PControl0Pu(fixed = false),
     PDtdMaxPu = 0.15,
     PErrMaxPu = 1,
     PErrMinPu = -1,
     PKiwppMaxPu = 1,
     PKiwppMinPu = -1,
+    PPCLocal = true,
     PRefMaxPu = 1,
     PRefMinPu = 0,
     PWTRef0Pu = 1.1,
     Q0Pu = -0.1,
-    QMax0Pu(fixed = false),// = 0.8,
+    QControl0Pu(fixed = false),
+    QMax0Pu(fixed = false),
     QMaxPu = 0.8,
-    QMin0Pu(fixed = false),// = -0.8,
+    QMin0Pu(fixed = false),
     QMinPu = -0.8,
     QlConst = false,
     RDropPu = 0,
-    ResPu = 0,
+    RLvTrPu = 0,
+    RMvHvPu = 0,
     RwpDropPu = 0,
     SNom = 100,
     TTheta = 0.25,
@@ -246,8 +255,6 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     ThetaOmegaMin = 0,
     U0Pu = 1,
     UDvsPu = 0.15,
-    UGsIm0Pu(fixed = false),// = 0.06,
-    UGsRe0Pu(fixed = false),// = 1.01,
     UMaxPu = 2,
     UMinPu = 0,
     UOverPu = 1.2,
@@ -256,28 +263,33 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     UPll2Pu = 0.13,
     URef0Pu = 0,
     UUnderPu = 0.85,
+    UWt0DroppedPu(fixed = false),
     UpDipPu = 0.9,
     UpquMaxPu = 1.1,
     UqDipPu = 0.9,
     UqRisePu = 1.1,
     UwpqDipPu = 0.8,
     UwpqRisePu = 1.2,
-    X0Pu(fixed = false),// = 0.1,
+    X0Pu(fixed = false),
     XDropPu = 0,
     XEqv = 10,
     XErrMaxPu = 1,
     XErrMinPu = -1,
     XKiwpxMaxPu = 1,
     XKiwpxMinPu = -1,
+    XLvTrPu = 0,
+    XMvHvPu = 0.1,
     XRefMaxPu = 1,
     XRefMinPu = -1,
-    XWT0Pu(fixed = false),// = 0.1,
-    XesPu = 0.1,
+    XWT0Pu(fixed = false),
     XwpDropPu = 0,
     Zeta = 0.5,
     fOverPu = 1.02,
     fUnderPu = 0.98,
-    i0Pu(re(fixed = false), im(fixed = false)),// = Complex(-0.6, 0.1),
+    i0Pu(re(fixed = false), im(fixed = false)),
+    iControl0Pu(re(fixed = false), im(fixed = false)),
+    iGs0Pu(re(fixed = false), im(fixed = false)),
+    iWt0Pu(re(fixed = false), im(fixed = false)),
     tDvs = 0.05,
     tG = 0.01,
     tIFilt = 0.005,
@@ -307,32 +319,51 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     tfFilt = 0.005,
     tfcFilt = 0.005,
     tfpFilt = 0.005,
-    u0Pu(re(fixed = false), im(fixed = false))// = Complex(1, 0)
-    ) annotation(
-    Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    u0Pu(re(fixed = false), im(fixed = false)),
+    uGs0Pu(re(fixed = false), im(fixed = false)),
+    uControl0Pu(re(fixed = false), im(fixed = false)),
+    uWt0Pu(re(fixed = false), im(fixed = false))) annotation(
+    Placement(transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.2, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 999, tOmegaEvtStart = 999, tUEvtEnd = 1.1, tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = 0, startTime = 999) annotation(
-    Placement(visible = true, transformation(origin = {-130, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step xRefPu(height = 0.2, offset = wpp.XWT0Pu, startTime = 999) annotation(
-    Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 999) annotation(
-    Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step PRefPu(height = -0.7, offset = wpp.PWTRef0Pu, startTime = 1 * 99999) annotation(
-    Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant const(k = wpp.PPcc0Pu) annotation(
+    Placement(transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const1(k = wpp.QPcc0Pu) annotation(
+    Placement(transformation(origin = {-10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Modelica.ComplexMath.fromPolar(wpp.UPcc0Pu, wpp.UPccPhase0))  annotation(
+    Placement(transformation(origin = {30, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  //Initialization
   Dynawo.Electrical.Wind.IEC.WPP.WPP3CurrentSource_INIT init(
     BesPu = wpp.BesPu,
+    BLvTrPu = wpp.BLvTrPu,
+    BMvHvPu = wpp.BMvHvPu,
+    ConverterLVControl = wpp.ConverterLVControl,
     GesPu = wpp.GesPu,
+    GLvTrPu = wpp.GLvTrPu,
+    GMvHvPu = wpp.GMvHvPu,
     IMaxPu = wpp.IMaxPu,
     Kpqu = wpp.Kpqu,
     MwpqMode = wpp.MwpqMode,
     MqG = wpp.MqG,
     P0Pu = wpp.P0Pu,
+    PPCLocal = wpp.PPCLocal,
     Q0Pu = wpp.Q0Pu,
     QMaxPu = wpp.QMaxPu,
     QMinPu = wpp.QMinPu,
     QlConst = wpp.QlConst,
+    RDropPu = wpp.RDropPu,
     ResPu = wpp.ResPu,
+    RLvTrPu = wpp.RLvTrPu,
+    RMvHvPu = wpp.RMvHvPu,
     SNom = wpp.SNom,
     TableIpMaxUwt = wpp.TableIpMaxUwt,
     TableIqMaxUwt = wpp.TableIqMaxUwt,
@@ -343,27 +374,42 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     U0Pu = wpp.U0Pu,
     UPhase0 = wpp.UPhase0,
     UpquMaxPu = wpp.UpquMaxPu,
-    XesPu = wpp.XesPu) annotation(
-    Placement(visible = true, transformation(origin = {-12, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    URef0Pu = wpp.URef0Pu,
+    XDropPu = wpp.XDropPu,
+    XesPu = wpp.XesPu,
+    XLvTrPu = wpp.XLvTrPu,
+    XMvHvPu = wpp.XMvHvPu) annotation(
+    Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
 
 initial algorithm
-  wpp.IGsRe0Pu := init.IGsRe0Pu;
-  wpp.IGsIm0Pu := init.IGsIm0Pu;
   wpp.Ip0Pu := init.Ip0Pu;
   wpp.IpMax0Pu := init.IpMax0Pu;
   wpp.Iq0Pu := init.Iq0Pu;
   wpp.IqMax0Pu := init.IqMax0Pu;
   wpp.IqMin0Pu := init.IqMin0Pu;
+  wpp.PControl0Pu := init.PControl0Pu;
+  wpp.QControl0Pu := init.QControl0Pu;
   wpp.QMax0Pu := init.QMax0Pu;
   wpp.QMin0Pu := init.QMin0Pu;
-  wpp.UGsRe0Pu := init.UGsRe0Pu;
-  wpp.UGsIm0Pu := init.UGsIm0Pu;
+  wpp.UWt0DroppedPu := init.UWt0DroppedPu;
   wpp.X0Pu := init.X0Pu;
   wpp.XWT0Pu := init.XWT0Pu;
   wpp.i0Pu.re := init.i0Pu.re;
   wpp.i0Pu.im := init.i0Pu.im;
+  wpp.iControl0Pu.re := init.iControl0Pu.re;
+  wpp.iControl0Pu.im := init.iControl0Pu.im;
+  wpp.iGs0Pu.re := init.iGs0Pu.re;
+  wpp.iGs0Pu.im := init.iGs0Pu.im;
+  wpp.iWt0Pu.re := init.iWt0Pu.re;
+  wpp.iWt0Pu.im := init.iWt0Pu.im;
   wpp.u0Pu.re := init.u0Pu.re;
   wpp.u0Pu.im := init.u0Pu.im;
+  wpp.uControl0Pu.re := init.uControl0Pu.re;
+  wpp.uControl0Pu.im := init.uControl0Pu.im;
+  wpp.uGs0Pu.re := init.uGs0Pu.re;
+  wpp.uGs0Pu.im := init.uGs0Pu.im;
+  wpp.uWt0Pu.re := init.uWt0Pu.re;
+  wpp.uWt0Pu.im := init.uWt0Pu.im;
 
 equation
   wpp.wT3BCurrentSource.injector.switchOffSignal1.value = false;
@@ -371,21 +417,26 @@ equation
   wpp.wT3BCurrentSource.injector.switchOffSignal3.value = false;
 
   connect(tanPhi.y, wpp.tanPhi) annotation(
-    Line(points = {{-118, 60}, {-76, 60}, {-76, 6}, {-40, 6}}, color = {0, 0, 127}));
+    Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));
   connect(PRefPu.y, wpp.PWPRefPu) annotation(
-    Line(points = {{-118, 20}, {-84, 20}, {-84, 2}, {-40, 2}}, color = {0, 0, 127}));
+    Line(points = {{-79, 20}, {-60, 20}, {-60, 2}, {-1, 2}}, color = {0, 0, 127}));
   connect(xRefPu.y, wpp.xWPRefPu) annotation(
-    Line(points = {{-118, -20}, {-84, -20}, {-84, -2}, {-40, -2}}, color = {0, 0, 127}));
+    Line(points = {{-79, -20}, {-60, -20}, {-60, -2}, {-1, -2}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, wpp.omegaRefPu) annotation(
-    Line(points = {{-118, -60}, {-76, -60}, {-76, -6}, {-40, -6}}, color = {0, 0, 127}));
+    Line(points = {{-79, -60}, {-40, -60}, {-40, -6}, {-1, -6}}, color = {0, 0, 127}));
   connect(wpp.terminal, infiniteBusWithVariations.terminal) annotation(
-    Line(points = {{-18, 0}, {80, 0}}, color = {0, 0, 255}));
+    Line(points = {{21, 0}, {80, 0}}, color = {0, 0, 255}));
+  connect(const.y, wpp.PPccPu) annotation(
+    Line(points = {{2, -40}, {4, -40}, {4, -10}}, color = {0, 0, 127}));
+  connect(const1.y, wpp.QPccPu) annotation(
+    Line(points = {{2, -80}, {10, -80}, {10, -10}}, color = {0, 0, 127}));
+  connect(complexConst.y, wpp.uPccPu) annotation(
+    Line(points = {{20, -40}, {16, -40}, {16, -10}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-05, Interval = 0.001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
-    Diagram(coordinateSystem(extent = {{-140, -70}, {140, 70}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     Documentation(info = "<html><head></head><body><div>This test case implements the IEC 61400-27-1
 <b>Type 3 B</b> wind <b>power plant</b> model

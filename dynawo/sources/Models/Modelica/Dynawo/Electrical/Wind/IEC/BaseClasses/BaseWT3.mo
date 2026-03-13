@@ -14,7 +14,7 @@ within Dynawo.Electrical.Wind.IEC.BaseClasses;
 */
 
 partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2020 standard : measurement, PLL, protection, PControl, QControl, limiters, electrical, generator and mechanical modules"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters3;
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.GridProtectionParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
@@ -23,14 +23,16 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
   parameter Types.Time tS "Integration time step in s";
 
   //Circuit parameters
-  parameter Types.PerUnit BesPu "Shunt susceptance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit GesPu "Shunt conductance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit ResPu "Serial resistance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
-  parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
-    Dialog(tab = "Electrical"));
+  parameter Boolean ConverterLVControl = true "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
+    Dialog(tab="Converter control"));
+  parameter Types.PerUnit BesPu = 0 "Shunt susceptance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
+  parameter Types.PerUnit GesPu = 0 "Shunt conductance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
+  parameter Types.PerUnit ResPu = 0 "Serial resistance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
+  parameter Types.PerUnit XesPu = 0 "Serial reactance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
+    Dialog(tab="Converter control", enable = not ConverterLVControl));
 
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
@@ -100,7 +102,7 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
   parameter Types.Time tUpFilt "Filter time constant for voltage protection measurement in s" annotation(
     Dialog(tab = "MeasurementP"));
 
-  //WT QControl parameters
+  //QControl parameters
   parameter Types.VoltageModulePu DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.VoltageModulePu DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
@@ -150,10 +152,14 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
   parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));
 
+  //Interface
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
+    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frame for grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 90), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = Ip0Pu * U0Pu) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -161,11 +167,6 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
     Placement(visible = true, transformation(origin = {-130, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -19.5}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.PLL pll(U0Pu = U0Pu, UPhase0 = UPhase0, UPll1Pu = UPll1Pu, UPll2Pu = UPll2Pu, tPll = tPll, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
-
-  //Interface
-  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Grid terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measurements protectionMeasurements(DfMaxPu = DfpMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIpFilt, tPFilt = tPpFilt, tQFilt = tQpFilt, tS = tS, tUFilt = tUpFilt, tfFilt = tfpFilt, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {60, 80}, extent = {{20, 20}, {-20, -20}}, rotation = 90)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measurements controlMeasurements(DfMaxPu = DfcMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIcFilt, tPFilt = tPcFilt, tQFilt = tQcFilt, tS = tS, tUFilt = tUcFilt, tfFilt = tfcFilt, u0Pu = u0Pu) annotation(
@@ -176,9 +177,7 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.CurrentModulePu Ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
@@ -190,28 +189,24 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(group = "Initialization"));
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
-    Dialog(tab = "Operating point"));
-
-  //Operating point
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
+  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
+  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
+  parameter Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid WT terminal in pu (base SNom or UNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
 
 equation
   connect(omegaRefPu, protectionMeasurements.omegaRefPu) annotation(

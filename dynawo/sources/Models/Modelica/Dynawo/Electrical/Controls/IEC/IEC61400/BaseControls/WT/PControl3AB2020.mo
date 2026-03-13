@@ -86,9 +86,9 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {-170, -160}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Less lessUpdip annotation(
     Placement(transformation(origin = {-230, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limitDtd(limitsAtInit = true, uMax = PDtdMaxPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limitDtd(uMax = PDtdMaxPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {150, -260}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limitLargerZero(limitsAtInit = true, uMax = 9999, uMin = 0.01, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limitLargerZero(uMax = 9999, uMin = 0.01, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {190, 260}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product productPmax annotation(
     Placement(transformation(origin = {130, 220}, extent = {{-10, -10}, {10, 10}})));
@@ -106,35 +106,30 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {-150, -60}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.NonElectrical.Blocks.Continuous.TransferFunction tfDtd(a = {1, 2*Zeta*OmegaDtdPu, OmegaDtdPu*OmegaDtdPu}, b = {0, 2*Zeta*OmegaDtdPu*KDtd, 0}, u_start = SystemBase.omega0Pu, initType = Modelica.Blocks.Types.Init.SteadyState) annotation(
     Placement(transformation(origin = {50, -260}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MPUvrt = MPUvrt, P0Pu = P0Pu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UGsIm0Pu = UGsIm0Pu, UGsRe0Pu = UGsRe0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, tDvs = tDvs, tOmegafiltp3 = tOmegafiltp3, tS = tS, WT3Type = WT3Type, OmegaRef0Pu = OmegaRef0Pu) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, iGs0Pu = iGs0Pu, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MPUvrt = MPUvrt, P0Pu = P0Pu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, uGs0Pu = uGs0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, tDvs = tDvs, tOmegafiltp3 = tOmegafiltp3, tS = tS, WT3Type = WT3Type, OmegaRef0Pu = OmegaRef0Pu) annotation(
     Placement(transformation(origin = {39.2409, -169.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}})));
 
-  // Initial parameters
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
+  //Initial parameters
+  parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)" annotation(
+    Dialog(tab = "Initialization"));
+  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Initialization"));
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base omegaNom)" annotation(
+    Dialog(tab = "Initialization"));
+  parameter Types.ActivePowerPu POrd0Pu "Initial active power order in pu (base SNom) (generator convention)" annotation(
+    Dialog(tab = "Initialization"));
   parameter Types.ActivePower PWTRef0Pu "Initial upper power limit of the wind turbine (if less than PAvail then the turbine will be derated) in pu (base SNom), example value = 1.1" annotation(
+    Dialog(tab = "Initialization"));
+  parameter Types.ComplexVoltagePu uGs0Pu "Initial complex voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Initialization"));
+
+  //Operating point
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.ActivePowerPu POrd0Pu "Initial active power order in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)" annotation(
-    Dialog(tab = "Initialization"));
-
-//protected
-//  parameter Types.PerUnit x_scaled_2 = 1/(OmegaDtdPu*OmegaDtdPu) "Transfer function state variable at initialization";
 
 equation
   connect(limitLargerZero.y, divisionIPcmd.u2) annotation(
