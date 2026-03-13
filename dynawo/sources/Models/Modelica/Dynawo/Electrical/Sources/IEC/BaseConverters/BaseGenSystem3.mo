@@ -34,14 +34,18 @@ partial model BaseGenSystem3 "Base class of Type 3 generator system module (IEC 
   parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014) in pu (base UNom, SNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(
     Dialog(tab = "genSystem"));
 
+  //Interface
+  Dynawo.Connectors.ACPower terminal(V(re(start = uGs0Pu.re), im(start = uGs0Pu.im)), i(re(start = -iGs0Pu.re * SNom / SystemBase.SnRef), im(start = -iGs0Pu.im * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
+    Placement(transformation(origin = {250, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+
   //Input variables
   Modelica.Blocks.Interfaces.BooleanInput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(visible = true, transformation(origin = {0, 330}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = -P0Pu*SystemBase.SnRef/(SNom*U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = Ip0Pu) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-250, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IpMax0Pu) "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-250, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Q0Pu*SystemBase.SnRef/(SNom*U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Iq0Pu) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-250, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput iqMaxPu(start = IqMax0Pu) "Maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-250, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
@@ -52,14 +56,12 @@ partial model BaseGenSystem3 "Base class of Type 3 generator system module (IEC 
     Placement(transformation(origin = {-250, -80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
   //Output variable
-  Modelica.Blocks.Interfaces.RealOutput PAgPu(start = PAg0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PAgPu(start = Ip0Pu * U0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {250, -60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}})));
 
-  Dynawo.Connectors.ACPower terminal(V(re(start = UGsRe0Pu), im(start = UGsIm0Pu)), i(re(start = -IGsRe0Pu*SNom/SystemBase.SnRef), im(start = -IGsIm0Pu*SNom/SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Placement(transformation(origin = {250, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add addXIm(k1 = 1/XEqv) annotation(
+  Modelica.Blocks.Math.Add addXIm(k1 = 1 / XEqv) annotation(
     Placement(visible = true, transformation(origin = {78, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add addXRe(k2 = -1/XEqv) annotation(
+  Modelica.Blocks.Math.Add addXRe(k2 = -1 / XEqv) annotation(
     Placement(visible = true, transformation(origin = {78, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToPAg annotation(
     Placement(transformation(origin = {182, -66}, extent = {{-10, -10}, {10, 10}})));
@@ -75,13 +77,13 @@ partial model BaseGenSystem3 "Base class of Type 3 generator system module (IEC 
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.Product productPAg(useConjugateInput2 = true) annotation(
     Placement(transformation(origin = {154, -66}, extent = {{-10, 10}, {10, -10}})));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitP(Falling = -9999, Rising = DipMaxPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = -P0Pu*SystemBase.SnRef/(SNom*U0Pu), y(start = -P0Pu*SystemBase.SnRef/(SNom*U0Pu))) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitP(Falling = -9999, Rising = DipMaxPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Ip0Pu, y(start = Ip0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-100, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitQ(Rising = DiqMaxPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Q0Pu*SystemBase.SnRef/(SNom*U0Pu), y(start = Q0Pu*SystemBase.SnRef/(SNom*U0Pu))) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter rateLimitQ(Rising = DiqMaxPu, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Iq0Pu, y(start = Iq0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplexIGs annotation(
     Placement(visible = true, transformation(origin = {200, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation rotationWtToGrid(iGs0Pu = Complex(IGsRe0Pu, IGsIm0Pu), Ip0Pu = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), Iq0Pu = Q0Pu * SystemBase.SnRef / (SNom * U0Pu), P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation rotationWtToGrid(iGs0Pu = iGs0Pu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {1, -19}, extent = {{-7, -21}, {7, 21}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression theta2(y = theta) annotation(
     Placement(visible = true, transformation(origin = {1, -52}, extent = {{9, -10}, {-9, 10}}, rotation = 0)));
@@ -91,21 +93,19 @@ partial model BaseGenSystem3 "Base class of Type 3 generator system module (IEC 
     Placement(visible = true, transformation(origin = {176, 34}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.ComplexCurrentPu iGs0Pu "Initial complex current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
+  parameter Types.CurrentModulePu Ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
+  parameter Types.CurrentModulePu Iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
-  parameter Types.ActivePowerPu PAg0Pu = Modelica.ComplexMath.real(Complex(UGsRe0Pu, UGsIm0Pu)*Complex(IGsRe0Pu, -IGsIm0Pu)) "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.ComplexVoltagePu uGs0Pu "Initial complex voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initialization"));
 
   // Operating point

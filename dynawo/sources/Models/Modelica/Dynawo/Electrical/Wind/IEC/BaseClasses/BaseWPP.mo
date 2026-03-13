@@ -251,11 +251,11 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex1 annotation(
     Placement(transformation(origin = {12, -64}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y = -SystemBase.SnRef / SNom * Modelica.ComplexMath.imag(Modelica.ComplexMath.conj(Complex(PPccPu, QPccPu) / uPccPu))) annotation(
-    Placement(transformation(origin = {138, -18}, extent = {{10, -10}, {-10, 10}})));
+    Placement(visible = true, transformation(origin = {110, -18}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(transformation(origin = {148, -68}, extent = {{10, -10}, {-10, 10}}, rotation = -0)));
   Modelica.Blocks.Sources.RealExpression realExpression(y = -SystemBase.SnRef / SNom * Modelica.ComplexMath.real(Modelica.ComplexMath.conj(Complex(PPccPu, QPccPu) / uPccPu))) annotation(
-    Placement(transformation(origin = {138, 0}, extent = {{10, -10}, {-10, 10}})));
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -343,9 +343,9 @@ equation
   connect(switch4.y, realToComplex1.re) annotation(
     Line(points = {{40, -54}, {32, -54}, {32, -58}, {24, -58}}, color = {0, 0, 127}));
   connect(realExpression.y, switch1.u3) annotation(
-    Line(points = {{127, 0}, {54, 0}}, color = {0, 0, 127}));
+    Line(points = {{99, 0}, {54, 0}}, color = {0, 0, 127}));
   connect(realExpression1.y, switch2.u3) annotation(
-    Line(points = {{127, -18}, {54, -18}}, color = {0, 0, 127}));
+    Line(points = {{99, -18}, {54, -18}}, color = {0, 0, 127}));
   connect(uPccPu, complexToReal.u) annotation(
     Line(points = {{220, -68}, {160, -68}}, color = {85, 170, 255}));
   connect(complexToReal.im, switch3.u3) annotation(
