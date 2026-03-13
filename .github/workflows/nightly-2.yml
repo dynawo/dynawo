@@ -6,8 +6,8 @@ on:
     - cron:  '0 3 * * 2-6'
 
 jobs:
-  bionic:
-    name: Linux Bionic
+  noble:
+    name: Linux Noble
     runs-on: ubuntu-latest
     env:
       DYNAWO_RESULTS_SHOW: "false"
@@ -22,7 +22,7 @@ jobs:
       - name: Build and nrt
         uses: addnab/docker-run-action@v3
         with:
-          image: dynawo/dynawo-ci-nightly-bionic:latest
+          image: dynawo/dynawo-ci-nightly-noble:latest
           options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
