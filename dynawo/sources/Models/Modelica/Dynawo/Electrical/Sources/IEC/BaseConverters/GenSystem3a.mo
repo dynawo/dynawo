@@ -34,15 +34,15 @@ model GenSystem3a "Type 3A generator system module (IEC N°61400-27-1)"
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Modelica.Blocks.Math.Feedback feedbackQ annotation(
     Placement(visible = true, transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorIm(y_start = IGsIm0Pu - UGsRe0Pu/XEqv) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorIm(y_start = iGs0Pu.im - uGs0Pu.re / XEqv) annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorRe(y_start = IGsRe0Pu + UGsIm0Pu/XEqv) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorRe(y_start = iGs0Pu.re + uGs0Pu.im / XEqv) annotation(
     Placement(transformation(origin = {50, 60}, extent = {{-6, -6}, {6, 6}})));
   Dynawo.NonElectrical.Blocks.Continuous.PI piP(Ki = KPc/tIc, Kp = KPc, Y0 = 0) annotation(
     Placement(transformation(origin = {-41, 60}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.Continuous.PI piQ(Ki = KPc/tIc, Kp = KPc, Y0 = 0) annotation(
     Placement(transformation(origin = {-41, -20}, extent = {{-10, -10}, {10, 10}})));
-  RefFrameRotation rotationGridToWt(iGs0Pu = Complex(-P0Pu, Q0Pu) * SystemBase.SnRef / (SNom * U0Pu), Ip0Pu = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), Iq0Pu = Q0Pu * SystemBase.SnRef / (SNom * U0Pu), P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, iGsImPu(start = Q0Pu*SystemBase.SnRef/(SNom*U0Pu)), iGsRePu(start = -P0Pu*SystemBase.SnRef/(SNom*U0Pu)), ipCmdPu(start = IGsRe0Pu), iqCmdPu(start = IGsIm0Pu), theta(start = -UPhase0)) annotation(
+  RefFrameRotation rotationGridToWt(iGs0Pu = iGs0Pu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, iGsImPu(start = Iq0Pu), iGsRePu(start = Ip0Pu), ipCmdPu(start = iGs0Pu.re), iqCmdPu(start = iGs0Pu.re), theta(start = -UPhase0)) annotation(
     Placement(visible = true, transformation(origin = {1.02426e-05, 54}, extent = {{-8.00002, -24}, {8.00002, 24}}, rotation = 180)));
   Modelica.Blocks.Sources.RealExpression theta3(y = -theta) annotation(
     Placement(visible = true, transformation(origin = {0, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
