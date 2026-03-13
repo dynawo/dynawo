@@ -24,16 +24,16 @@ model Bus "Bus"
   Types.VoltageModule U "Voltage amplitude at terminal in kV";
   Types.Angle UPhase "Voltage angle at terminal in rad";
 
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar;
+
 equation
   terminal.i = Complex(0);
-  if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-    UPu = 0;
-  else
-    UPu = ComplexMath.'abs'(terminal.V);
-  end if;
-  UPhase = ComplexMath.arg(terminal.V);
+  complexToPolar.u = terminal.V;
+  UPu = complexToPolar.len;
+  UPhase = complexToPolar.phi;
   U = UPu * UNom;
 
-  annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body>The bus model doesn't provide any new equation to the system. It is present into the library for convenience purpose to build network tests.</body></html>"));
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The bus model does not provide any new equation to the system. It is present in the library for the purpose of convenience to build network tests.</body></html>"));
 end Bus;

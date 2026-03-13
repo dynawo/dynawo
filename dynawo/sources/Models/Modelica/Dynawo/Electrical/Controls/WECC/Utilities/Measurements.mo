@@ -44,16 +44,19 @@ model Measurements "This block measures the voltage, current, active power and r
   Modelica.Blocks.Interfaces.RealOutput QPuSnRef "Reactive power on side 1 in pu (base SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-20, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar;
+
 equation
-  terminal1.i = - terminal2.i;
+  terminal1.i = -terminal2.i;
   terminal1.V = terminal2.V;
   terminal1.i = iPu;
   terminal1.V = uPu;
-  UPu = Modelica.ComplexMath.'abs'(uPu);
   PPu = (SystemBase.SnRef / SNom) * ComplexMath.real(terminal1.V * ComplexMath.conj(iPu));
   QPu = (SystemBase.SnRef / SNom) * ComplexMath.imag(terminal1.V * ComplexMath.conj(iPu));
   PPuSnRef = (SNom / SystemBase.SnRef) * PPu;
   QPuSnRef = (SNom / SystemBase.SnRef) * QPu;
+  complexToPolar.u = uPu;
+  UPu = complexToPolar.len;
 
   annotation(preferredView = "text");
 end Measurements;

@@ -14,7 +14,7 @@ within Dynawo.Electrical.HVDC.BaseClasses;
 */
 
 partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of the active power"
-  extends BaseHvdc(P2Pu(start = s20Pu.re), PInj2Pu(start = - s20Pu.re), Q2Pu(start = s20Pu.im), QInj2Pu(start = - s20Pu.im), terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))));
+  extends BaseHvdc(P2Pu(start = s20Pu.re), PInj2Pu(start = -s20Pu.re), Q2Pu(start = s20Pu.im), QInj2Pu(start = -s20Pu.im), terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))));
 
 /*
   Equivalent circuit and conventions:
@@ -29,6 +29,9 @@ partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of 
   Dynawo.Connectors.AngleConnector Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
   Types.VoltageModulePu U2Pu(start = ComplexMath.'abs'(u20Pu)) "Voltage amplitude at terminal 2 in pu (base UNom)";
 
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar1;
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar2;
+
   parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexApparentPowerPu s20Pu "Start value of complex apparent power at terminal 2 in pu (base SnRef) (receptor convention)";
   parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base UNom)";
@@ -36,26 +39,18 @@ partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of 
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
 
 equation
-  if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
-    U1Pu = 0;
-    Theta1 = 0;
-  else
-    U1Pu = ComplexMath.'abs'(terminal1.V);
-    Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
-  end if;
-  if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
-    U2Pu = 0;
-    Theta2 = 0;
-  else
-    U2Pu = ComplexMath.'abs'(terminal2.V);
-    Theta2 = Modelica.Math.atan2(terminal2.V.im, terminal2.V.re);
-  end if;
   s2Pu = Complex(P2Pu, Q2Pu);
   s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
+  complexToPolar1.u = terminal1.V;
+  complexToPolar2.u = terminal2.V;
+  U1Pu = complexToPolar1.len;
+  U2Pu = complexToPolar2.len;
+  Theta1 = complexToPolar1.phi;
+  Theta2 = complexToPolar2.phi;
 
   if running.value then
     P1Pu = if P1RefPu > PMaxPu then PMaxPu elseif P1RefPu < -PMaxPu then -PMaxPu else P1RefPu;
-    P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
+    P2Pu = if P1Pu > 0 then -KLosses * P1Pu else -P1Pu / KLosses;
   else
     P1Pu = 0;
     P2Pu = 0;
