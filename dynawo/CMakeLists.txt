@@ -146,11 +146,11 @@ if (DEFINED ZMQ_HOME)
 endif()
 
 # Python Interpreter
-find_package(PythonInterp REQUIRED)
 if (DEFINED DYNAWO_PYTHON_COMMAND AND NOT DYNAWO_PYTHON_COMMAND STREQUAL "")
   set(PYTHON_EXECUTABLE ${DYNAWO_PYTHON_COMMAND})
   separate_arguments(PYTHON_EXECUTABLE)
 endif()
+find_package(PythonInterp REQUIRED)
 message(STATUS "Python command used: ${PYTHON_EXECUTABLE}")
 
 # Boost
