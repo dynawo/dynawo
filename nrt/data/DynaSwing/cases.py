@@ -459,6 +459,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+##########################################
+#     WECC Wind Type 4B Current Source   #
+##########################################
+
+case_name = "DynaSwing - WECC - Wind 4B Type - Current source"
+case_description = "WECC - Wind 4B Type - Current Source"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWT4BCurrentSource", "WECCWT4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
 ####################################################
 #     WECC Wind Type 4A Current Source with WTGTA  #
 ####################################################
@@ -503,9 +513,19 @@ test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeT
 #     WECC Wind Type 4B Current Source   #
 ##########################################
 
-case_name = "DynaSwing - WECC - Wind 4B Type - Current source"
-case_description = "WECC - Wind 4B Type - Current Source"
-job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4BCurrentSource", "WECCWTG4B.jobs")
+case_name = "DynaSwing - WECC - Wind 4B Type - Current source - External PCS"
+case_description = "WECC - Wind 4B Type - Current Source - External PCS"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4BCurrentSourceExternalPCS", "WECCWTG4B.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#     WECC Wind Type 4B Current Source   #
+##########################################
+
+case_name = "DynaSwing - WECC - Wind 4B Type - Current source - Internal PCS"
+case_description = "WECC - Wind 4B Type - Current Source - Internal PCS"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "Wind", "WECCWTG4BCurrentSourceInternalPCS", "WECCWTG4B.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
@@ -516,6 +536,16 @@ test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeT
 case_name = "DynaSwing - WECC - BESS - Current source"
 case_description = "WECC - BESS - Current Source"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESSCurrentSource", "WECCBESS.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#################################################################################################
+#     WECC Battery Energy Storage System with REPC-A REEC-C and REGC-A Current Source (no PPC)  #
+#################################################################################################
+
+case_name = "DynaSwing - WECC - BESS - Current source - No PPC"
+case_description = "WECC - BESS - Current Source - No PPC"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "WECC", "BESS", "WECCBESSCurrentSourceNoPPC", "WECCBESS.jobs")
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 

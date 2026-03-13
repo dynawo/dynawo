@@ -13,24 +13,24 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 */
 
 model REGCc "WECC Generator Converter REGC type C"
-  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze2.T = 1e-6, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze1.T = 1e-6, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UInj0Pu, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
+  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze2.T = 1e-6, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze1.T = 1e-6, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu*UInj0Pu, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCc;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Input variables
-  Modelica.ComplexBlocks.Interfaces.ComplexInput iInjPu(im(start = iInj0Pu.im), re(start = iInj0Pu.re)) "Complex current at injector in pu (base SnRef, UNom) (generator convention)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexInput iConvPu(im(start = iConv0Pu.im), re(start = iConv0Pu.re)) "Complex current at injector in pu (base SnRef, UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-210, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput ipMaxPu(start = IMaxPu) "p-axis maximum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {160, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput ipMinPu(start = - IMaxPu) "p-axis minimum current in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipMinPu(start = -IMaxPu) "p-axis minimum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {160, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {20, 109}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput iqMaxPu(start = IMaxPu) "q-axis maximum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {120, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-21, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput iqMinPu(start = - IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMinPu(start = -IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {120, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-61, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput phi(start = Modelica.ComplexMath.arg(uInj0Pu)) "Voltage phase at injector in rad" annotation(
+  Modelica.Blocks.Interfaces.RealInput phi(start = UPhaseConv0) "Voltage phase at injector in rad" annotation(
     Placement(visible = true, transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(im(start = uInj0Pu.im), re(start = uInj0Pu.re)) "Complex voltage at injector in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {257, -190}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {79, -109}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -49,35 +49,57 @@ model REGCc "WECC Generator Converter REGC type C"
     Placement(visible = true, transformation(origin = {-19, -120}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant RateFlag0(k = RateFlag) annotation(
     Placement(visible = true, transformation(origin = {-150, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, limitsAtInit = true, uMax = 999, uMin = 0.01) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy,
+    limitsAtInit = true,
+    uMax = 999,
+    uMin = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-99, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {120, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(Id0Pu =  Id0Pu, Iq0Pu =  -Iq0Pu, RSourcePu = RSourcePu, UdInj0Pu = UdInj0Pu, UqInj0Pu = UqInj0Pu, XSourcePu = XSourcePu, tE = tE, uInj0Pu = uInj0Pu, uSource0Pu = uSource0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.BaseControls.VSourceRef vSourceRef(
+    Id0Pu = Id0Pu,
+    Iq0Pu = -Iq0Pu,
+    RSourcePu = RSourcePu,
+    UdInj0Pu = UdInj0Pu,
+    UqInj0Pu = UqInj0Pu,
+    XSourcePu = XSourcePu,
+    tE = tE,
+    uInj0Pu = uInj0Pu,
+    uSource0Pu = uSource0Pu,
+    uConv0Pu = uConv0Pu,
+    UPhaseConv0 = UPhaseConv0) annotation(
     Placement(visible = true, transformation(origin = {255.5, 0.5}, extent = {{-25.5, -25.5}, {25.5, 25.5}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {100, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {159, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ annotation(
     Placement(visible = true, transformation(origin = {50, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(Ki = Kii, Kp = Kip, Y0 =  -Iq0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits(
+    Ki = Kii,
+    Kp = Kip,
+    Y0 = -Iq0Pu) annotation(
     Placement(visible = true, transformation(origin = {160, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits1(Ki = Kii, Kp = Kip, Y0 =  Id0Pu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupVariableLimits pIAntiWindupVariableLimits1(
+    Ki = Kii,
+    Kp = Kip,
+    Y0 = Id0Pu) annotation(
     Placement(visible = true, transformation(origin = {200, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Math.Gain gain(k = SystemBase.SnRef/SNom) annotation(
     Placement(visible = true, transformation(origin = {109, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(k = SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Math.Gain gain1(k = SystemBase.SnRef/SNom) annotation(
     Placement(visible = true, transformation(origin = {69, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Gain gain3(k = -1) annotation(
     Placement(visible = true, transformation(origin = {50, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at injector in pu (base SnRef, UNom) (generator convention)";
+  parameter Types.ComplexCurrentPu iConv0Pu "Start value of complex current at injector in pu (base SnRef, UNom) (generator convention)";
   parameter Types.PerUnit UdInj0Pu "Start value of d-axis voltage injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.PerUnit UqInj0Pu "Start value of q-axis voltage injector in pu (base UNom)";
   parameter Types.ComplexVoltagePu uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
+  parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
   connect(RateFlag0.y, switch.u2) annotation(
@@ -98,7 +120,7 @@ equation
     Line(points = {{-139, -40}, {-111, -40}}, color = {0, 0, 127}));
   connect(uInjPu, vSourceRef.uInjPu) annotation(
     Line(points = {{257, -190}, {257, -68}, {255.5, -68}, {255.5, -28}}, color = {85, 170, 255}));
-  connect(iInjPu, transformRItoDQ.u) annotation(
+  connect(iConvPu, transformRItoDQ.u) annotation(
     Line(points = {{-210, 20}, {39, 20}}, color = {85, 170, 255}));
   connect(vSourceRef.uiSourcePu, uiSource) annotation(
     Line(points = {{284, -9}, {284, -9.75}, {290, -9.75}, {290, -60}, {310, -60}}, color = {0, 0, 127}));
@@ -143,6 +165,6 @@ equation
 
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -180}, {300, 180}}, initialScale = 0.2, grid = {1, 1})),
-    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-27, 18}, extent = {{-53, 60}, {107, -100}}, textString = "REGC C"), Text(origin = {143, 49}, extent = {{-22, 16}, {36, -28}}, textString = "urSourcePu"), Text(origin = {143, -34}, extent = {{-22, 16}, {36, -28}}, textString = "uiSourcePu"), Text(origin = {74, -132}, extent = {{-19, 14}, {30, -24}}, textString = "uInjPu"), Text(origin = {-2, -135}, extent = {{-19, 14}, {30, -24}}, textString = "iInjPu"), Text(origin = {-32, 139}, extent = {{-22, 16}, {36, -28}}, textString = "iqMaxPu"), Text(origin = {-94, 137}, extent = {{-22, 16}, {36, -28}}, textString = "iqMinPu"), Text(origin = {86, 137}, extent = {{-22, 16}, {36, -28}}, textString = "ipMaxPu"), Text(origin = {25, 138}, extent = {{-22, 16}, {36, -28}}, textString = "ipMinPu"), Text(origin = {-150, 97}, extent = {{-10, 8}, {16, -14}}, textString = "phi")}),
-  Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">The block calculates the final setpoints for Iq and Id.</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It is&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">connected to the grid with a voltage source interface through urSource and uiSource.</span></div></body></html>"));
+    Icon(coordinateSystem(initialScale = 0.1), graphics = {Text(origin = {-27, 18}, extent = {{-53, 60}, {107, -100}}, textString = "REGC C"), Text(origin = {143, 49}, extent = {{-22, 16}, {36, -28}}, textString = "urSourcePu"), Text(origin = {143, -34}, extent = {{-22, 16}, {36, -28}}, textString = "uiSourcePu"), Text(origin = {74, -132}, extent = {{-19, 14}, {30, -24}}, textString = "uInjPu"), Text(origin = {-2, -135}, extent = {{-19, 14}, {30, -24}}, textString = "iConvPu"), Text(origin = {-32, 139}, extent = {{-22, 16}, {36, -28}}, textString = "iqMaxPu"), Text(origin = {-94, 137}, extent = {{-22, 16}, {36, -28}}, textString = "iqMinPu"), Text(origin = {86, 137}, extent = {{-22, 16}, {36, -28}}, textString = "ipMaxPu"), Text(origin = {25, 138}, extent = {{-22, 16}, {36, -28}}, textString = "ipMinPu"), Text(origin = {-150, 97}, extent = {{-10, 8}, {16, -14}}, textString = "phi")}),
+    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">The block calculates the final setpoints for Iq and Id.</span><div><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">It is&nbsp;</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">connected to the grid with a voltage source interface through urSource and uiSource.</span></div></body></html>"));
 end REGCc;

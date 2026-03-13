@@ -45,7 +45,7 @@ model LimPIDFreeze "PI controller with limited output, anti-windup compensation,
   Modelica.Blocks.Math.Add addP(k1 = Wp, k2 = -1) annotation(
     Placement(transformation(extent = {{-80, 40}, {-60, 60}})));
   Modelica.Blocks.Math.Gain P(k = 1) annotation(
-    Placement(transformation(extent = {{-50, 40}, {-30, 60}})));
+    Placement(visible = true, transformation(extent = {{-50, 40}, {-30, 60}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainPID(k = K) annotation(
     Placement(transformation(extent = {{20, -10}, {40, 10}})));
   Modelica.Blocks.Math.Add addPID annotation(
