@@ -17,7 +17,7 @@ model WTGTb "Drive train control with a mechanical power derived from filtered e
   extends Dynawo.Electrical.Controls.WECC.Mechanical.BaseClasses.BaseWTGT;
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGTb;
 
-  Modelica.Blocks.Continuous.FirstOrder Pmech(T = tp, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder Pmech(T = tp, y_start = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
