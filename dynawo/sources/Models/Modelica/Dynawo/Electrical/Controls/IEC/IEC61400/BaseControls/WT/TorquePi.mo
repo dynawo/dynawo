@@ -136,21 +136,17 @@ model TorquePi "Sub module for torque control inside active power control module
     Dialog(tab = "Operating point"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IGsIm0Pu "Initial imaginary component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
-  parameter Types.PerUnit IGsRe0Pu "Initial real component of the current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsIm0Pu "Initial imaginary component of the voltage at converter terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.PerUnit UGsRe0Pu "Initial real component of the voltage at converter terminal in pu (base UNom)" annotation(
+  parameter Types.ComplexVoltagePu uGs0Pu "Initial complex voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initialization"));
 
   // Initialization helpers
-  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base SystemBase.omegaRef0Pu)";
-  final parameter Types.PerUnit PiIntegrator0Pu = if Torque0Pu > TauEMax0Pu then TauEMax0Pu elseif Torque0Pu < TauEMinPu then TauEMinPu else Torque0Pu "Initial value of the integral part of the PI controller in pu (base SNom/OmegaNom)";
-  final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu/(if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom/OmegaNom)";
-  final parameter Types.PerUnit Torque0Type3bPu = ((IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0))*U0Pu/SystemBase.omega0Pu;
-  final parameter Types.PerUnit Torque0Type3aPu = -P0Pu*SystemBase.SnRef/SNom/SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base SNom/OmegaNom)";
+  parameter Types.PerUnit OmegaRef0Pu "Initial value for omegaRef (output of omega(p) characteristic) in pu (base omegaNom)";
+  final parameter Types.PerUnit PiIntegrator0Pu = if Torque0Pu > TauEMax0Pu then TauEMax0Pu elseif Torque0Pu < TauEMinPu then TauEMinPu else Torque0Pu "Initial value of the integral part of the PI controller in pu (base SNom / omegaNom)";
+  final parameter Types.PerUnit TauEMax0Pu = PWTRef0Pu/(if MOmegaTMax then OmegaRef0Pu else SystemBase.omega0Pu) "Initial value of maximum torque signal tauEMaxPu in pu (base SNom / omegaNom)";
+  final parameter Types.PerUnit Torque0Type3bPu = ((iGs0Pu.re + uGs0Pu.im / XEqv) * cos(UPhase0) + (iGs0Pu.im - uGs0Pu.re / XEqv) * sin(UPhase0)) * U0Pu / SystemBase.omega0Pu;
+  final parameter Types.PerUnit Torque0Type3aPu = -P0Pu*SystemBase.SnRef/SNom/SystemBase.omega0Pu "Initialization value of torque PI controller output in pu (base SNom / omegaNom)";
   final parameter Types.PerUnit Torque0Pu = if WT3Type then Torque0Type3aPu else Torque0Type3bPu;
   final parameter Types.PerUnit ratelimResetvalue0 = if U0Pu*TauUscalePu < PiIntegrator0Pu and U0Pu*TauUscalePu < 1 then U0Pu*TauUscalePu elseif U0Pu*TauUscalePu > PiIntegrator0Pu and PiIntegrator0Pu < 1 then PiIntegrator0Pu else 1;
 

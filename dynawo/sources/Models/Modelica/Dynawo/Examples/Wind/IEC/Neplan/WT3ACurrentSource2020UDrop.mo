@@ -23,7 +23,6 @@ model WT3ACurrentSource2020UDrop "Wind Turbine Type 3A model from IEC 61400-27-1
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-05, Interval = 0.001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
-    Diagram(coordinateSystem(extent = {{-140, -70}, {140, 70}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     Documentation(info = "<html><head></head><body><div>This test case implements the IEC 61400-27-1
 <b>Type 3 A</b> wind turbine model

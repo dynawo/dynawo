@@ -23,7 +23,11 @@ model GenSystem3b "Type 3B generator system module (IEC N°61400-27-1)"
       \__/--------------
 
     */
-  extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseGenSystem3(rateLimitP.y_start = (IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0), rateLimitP.y(start = (IGsRe0Pu + UGsIm0Pu/XEqv)*cos(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*sin(UPhase0)), rateLimitQ.y_start = -1*(IGsRe0Pu + UGsIm0Pu/XEqv)*sin(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*cos(UPhase0) - (UGsIm0Pu^2 + UGsRe0Pu^2)^0.5/XEqv, rateLimitQ.y(start = -1*(IGsRe0Pu + UGsIm0Pu/XEqv)*sin(UPhase0) + (IGsIm0Pu - UGsRe0Pu/XEqv)*cos(UPhase0) - (UGsIm0Pu^2 + UGsRe0Pu^2)^0.5/XEqv));
+  extends Dynawo.Electrical.Sources.IEC.BaseConverters.BaseGenSystem3(
+    rateLimitP.y_start = (iGs0Pu.re + uGs0Pu.im/XEqv)*cos(UPhase0) + (iGs0Pu.im - uGs0Pu.re/XEqv)*sin(UPhase0),
+    rateLimitP.y(start = (iGs0Pu.re + uGs0Pu.im/XEqv)*cos(UPhase0) + (iGs0Pu.im - uGs0Pu.re/XEqv)*sin(UPhase0)),
+    rateLimitQ.y_start = -1*(iGs0Pu.re + uGs0Pu.im/XEqv)*sin(UPhase0) + (iGs0Pu.im - uGs0Pu.re/XEqv)*cos(UPhase0) - (uGs0Pu.im^2 + uGs0Pu.re^2)^0.5/XEqv,
+    rateLimitQ.y(start = -1*(iGs0Pu.re + uGs0Pu.im/XEqv)*sin(UPhase0) + (iGs0Pu.im - uGs0Pu.re/XEqv)*cos(UPhase0) - (uGs0Pu.im^2 + uGs0Pu.re^2)^0.5/XEqv));
 
   // Control parameters
   parameter Boolean MCrb "Crowbar control mode (true=disable only iq control, false=disable iq and ip control, example value = false)" annotation(
@@ -57,9 +61,9 @@ model GenSystem3b "Type 3B generator system module (IEC N°61400-27-1)"
     Placement(transformation(origin = {-50, 300}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
     Placement(transformation(origin = {70, 300}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder lagTgP(T = tG, y_start = IGsRe0Pu + UGsIm0Pu/XEqv) annotation(
+  Modelica.Blocks.Continuous.FirstOrder lagTgP(T = tG, y_start = iGs0Pu.re + uGs0Pu.im/XEqv) annotation(
     Placement(visible = true, transformation(origin = {44, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder lagTgQ(T = tG, y_start = IGsIm0Pu - UGsRe0Pu/XEqv) annotation(
+  Modelica.Blocks.Continuous.FirstOrder lagTgQ(T = tG, y_start = iGs0Pu.im - uGs0Pu.re/XEqv) annotation(
     Placement(visible = true, transformation(origin = {42, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1D lutTCrb(table = tCrb) annotation(
     Placement(transformation(origin = {-150, 300}, extent = {{-10, -10}, {10, 10}})));
