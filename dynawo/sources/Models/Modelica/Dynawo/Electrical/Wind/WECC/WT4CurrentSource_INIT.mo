@@ -18,8 +18,8 @@ model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a cur
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SNom, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SNom, UNom)";
   parameter Types.PerUnit P0Pu "Start value of active power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
@@ -73,7 +73,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
   i0Pu = ComplexMath.conj(s0Pu/u0Pu);
   iInj0Pu = -i0Pu*SystemBase.SnRef/SNom;
-  uInj0Pu = u0Pu - Complex(RPu, XPu)*i0Pu;
+  uInj0Pu = u0Pu - Complex(RPu, XPu)*SystemBase.SnRef/SNom*i0Pu;
   sInj0Pu = uInj0Pu*ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);

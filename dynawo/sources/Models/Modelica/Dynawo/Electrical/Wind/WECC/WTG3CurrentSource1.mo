@@ -28,8 +28,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SNom, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SNom, UNom)";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
@@ -124,7 +124,7 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     QInj0Pu = QInj0Pu,
     QMaxPu = QMaxPu,
     QMinPu = QMinPu,
-    RcPu = RPu,
+    RcPu = RPu*SystemBase.SnRef/SNom,
     RefFlag = RefFlag,
     tFilterPC = tFilterPC,
     tFt = tFt,
@@ -135,7 +135,7 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     UInj0Pu = UInj0Pu,
     VCompFlag = VCompFlag,
     VFrz = VFrz,
-    XcPu = XPu,
+    XcPu = XPu*SystemBase.SnRef/SNom,
     DbdPu = DbdPu,
     EMaxPu = EMaxPu,
     EMinPu = EMinPu,
@@ -166,8 +166,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     u0Pu = uInj0Pu) annotation(
     Placement(transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Lines.Line line(
-    RPu = RPu,
-    XPu = XPu,
+    RPu = RPu*SystemBase.SnRef/SNom,
+    XPu = XPu*SystemBase.SnRef/SNom,
     BPu = 0,
     GPu = 0) annotation(
     Placement(transformation(origin = {274, -10}, extent = {{-10, -10}, {10, 10}})));

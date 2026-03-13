@@ -22,8 +22,8 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SNom, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SNom, UNom)";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
@@ -126,8 +126,8 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   Lines.Line line(
     BPu = 0,
     GPu = 0,
-    RPu = RPu,
-    XPu = XPu) annotation(
+    RPu = RPu*SystemBase.SnRef/SNom,
+    XPu = XPu*SystemBase.SnRef/SNom) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements measurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

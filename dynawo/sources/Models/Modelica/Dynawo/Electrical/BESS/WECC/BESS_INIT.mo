@@ -18,8 +18,8 @@ model BESS_INIT "Initialization model for WECC BESS model"
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SNom, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SNom, UNom)";
 
   parameter Types.ActivePowerPu P0Pu "Start value of active power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
@@ -45,7 +45,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
   i0Pu = ComplexMath.conj(s0Pu / u0Pu);
   iInj0Pu = -i0Pu * SystemBase.SnRef / SNom;
-  uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
+  uInj0Pu = u0Pu - Complex(RPu, XPu) * SystemBase.SnRef/SNom * i0Pu;
   sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);

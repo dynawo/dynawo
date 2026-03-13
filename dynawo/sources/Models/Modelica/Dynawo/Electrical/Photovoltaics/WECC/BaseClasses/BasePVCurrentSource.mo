@@ -22,8 +22,8 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Line parameters
-  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RPu "Resistance of equivalent branch connection to the grid in pu (base SNom, UNom)";
+  parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SNom, UNom)";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
@@ -35,8 +35,8 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line(
-    RPu = RPu,
-    XPu = XPu,
+    RPu = RPu*SystemBase.SnRef/SNom,
+    XPu = XPu*SystemBase.SnRef/SNom,
     BPu = 0,
     GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
