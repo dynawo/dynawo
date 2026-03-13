@@ -27,11 +27,14 @@ partial model BaseGeneratorVariables_INIT "Base initialization model for simplif
   Dynawo.Connectors.ComplexVoltagePuConnector u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Dynawo.Connectors.ComplexCurrentPuConnector i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  Dynawo.Connectors.ACPower terminal0 "Connector at initialization";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = Complex(P0Pu, Q0Pu);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
+  u0Pu = terminal0.V;
+  i0Pu = terminal0.i;
 
   // Convention change
   PGen0Pu = -P0Pu;
