@@ -265,10 +265,16 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    */
   void addGenCriteria();
 
+  /**
+   * @brief add a quadripole criteria to the criteria collection
+   */
+  void addQuadripoleCriteria();
+
   std::shared_ptr<CriteriaCollection> criteriaCollection_;  ///< Criteria collection parsed
   CriteriaHandler busCriteriaHandler_;  ///< handler used to read bus criteria element
   CriteriaHandler loadCriteriaHandler_;  ///< handler used to read load criteria element
   CriteriaHandler genCriteriaHandler_;  ///< handler used to read generator criteria element
+  CriteriaHandler quadripoleCriteriaHandler_;  ///< handler used to read quadripole criteria element
 };
 
 

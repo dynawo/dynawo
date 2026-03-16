@@ -9,6 +9,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
+import lxml.etree
 
 from ..utils.Common import *
 
@@ -66,6 +67,40 @@ class StaticRefs:
             static_ref_to_modify[0].attrib['var'] = new_var
         else:
             raise DuplicateStaticRefsError(current_var, self.__model_id, self.__model_xml_tree.base)
+
+    def get_number_of_static_ref(self):
+        static_ref_xpath = './dyn:staticRef'
+        static_ref = self.__model_xml_tree.xpath(static_ref_xpath, namespaces=NAMESPACE_URI)
+        return len(static_ref)
+
+    def get_number_of_macro_static_ref(self):
+        static_ref_xpath = './dyn:macroStaticRef'
+        static_ref = self.__model_xml_tree.xpath(static_ref_xpath, namespaces=NAMESPACE_URI)
+        return len(static_ref)
+
+    def add_static_ref(self, var, staticVar):
+        if self.get_number_of_macro_static_ref() > 0:
+            # check the staticRef we want to create doesn't exist in the first MacroStaticRef and add it if it doesn't exist
+            macro_static_refs_xpath = './dyn:macroStaticRef'
+            macro_static_refs = self.__model_xml_tree.xpath(macro_static_refs_xpath, namespaces=NAMESPACE_URI)
+            first_macro_static_reference_static_ref_xpath = '/dyn:dynamicModelsArchitecture/dyn:macroStaticReference[@id="' + \
+                                                        macro_static_refs[0].attrib['id'] + '"]'
+            first_macro_static_reference_static_ref = self.__dyd_root_tree.xpath(first_macro_static_reference_static_ref_xpath,
+                                                                            namespaces=NAMESPACE_URI)
+            static_ref_xpath = './dyn:staticRef[@var="' + var + '"]'
+            static_ref = first_macro_static_reference_static_ref[0].xpath(static_ref_xpath, namespaces=NAMESPACE_URI)
+            if len(static_ref) == 0:
+                lxml.etree.SubElement(first_macro_static_reference_static_ref[0],
+                                            xmlns(XML_STATICREF),
+                                            {'var': var, 'staticVar': staticVar})
+        else:
+            # check the staticRef we want to create doesn't exist and add it if it doesn't exist
+            static_ref_xpath = './dyn:staticRef[@var="' + var + '"]'
+            static_ref = self.__model_xml_tree.xpath(static_ref_xpath, namespaces=NAMESPACE_URI)
+            if len(static_ref) == 0:
+                lxml.etree.SubElement(self.__model_xml_tree,
+                                            xmlns(XML_STATICREF),
+                                            {'var': var, 'staticVar': staticVar})
 
     def remove_static_ref(self, var):
         static_ref_to_remove = list()
