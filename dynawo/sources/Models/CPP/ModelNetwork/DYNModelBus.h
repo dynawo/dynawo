@@ -311,6 +311,14 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
     return angle0_;
   }
 
+  /**
+   * @brief check if bus voltage is zero
+   * @return @b true if voltage (ur and ui) is 0
+   */
+  inline bool voltageIsZero() const {
+    return doubleIsZero(y_[urNum_]) && doubleIsZero(y_[uiNum_]);
+  }
+
   std::vector<std::weak_ptr<ModelBus> > neighbors_;  ///< list of buses within the same AC-connected component
 
   /**

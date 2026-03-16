@@ -218,6 +218,14 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_), calculatedVars[ModelBus::uNum_]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_), calculatedVars[ModelBus::phiNum_]);
   bus->switchOn();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::upuNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phipuNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::uNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phiNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_), calculatedVars[ModelBus::upuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_), calculatedVars[ModelBus::phipuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_), calculatedVars[ModelBus::uNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_), calculatedVars[ModelBus::phiNum_]);
 
   std::vector<double> res(2, 0.);
   y[ModelBus::urNum_] = 0.35;
@@ -254,6 +262,19 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   bus->switchOn();
+  // evalJ right after 0 undefined due to ur=ui=0 -> returns 0s
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, res));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, res));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, res));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, res));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
 //
   int offset = 2;
   bus->init(offset);

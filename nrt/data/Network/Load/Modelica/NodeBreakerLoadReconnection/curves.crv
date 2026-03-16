@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator" variable="generator_UPu"/>
+  <curve model="Generator" variable="generator_running"/>
+  <curve model="Generator" variable="generator_QGenPu"/>
+  <curve model="Generator" variable="generator_PGenPu"/>
+  <curve model="Generator" variable="generator_omegaRefPu"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_running_value"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_PPu"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_QPu"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_UPu"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_V_re"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_V_im"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_i_re"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_i_im"/>
+  <curve model="NETWORK" variable="VL2_Load0_switch_state_value"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_running_value"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_PPu"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_QPu"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_UPu"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_UFilteredPu"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_UFilteredRawPu"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_V_re"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_V_im"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_i_re"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_i_im"/>
+  <curve model="NETWORK" variable="VL2_Load1_switch_state_value"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_running_value"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_PPu"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_QPu"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_UPu"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_terminal_V_re"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_terminal_V_im"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_terminal_i_re"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_terminal_i_im"/>
+  <curve model="NETWORK" variable="VL2_Load2_switch_state_value"/>
+  <curve model="Load_LoadPQ" variable="load_running_value"/>
+  <curve model="Load_LoadPQ" variable="load_PPu"/>
+  <curve model="Load_LoadPQ" variable="load_QPu"/>
+  <curve model="Load_LoadPQ" variable="load_UPu"/>
+  <curve model="Load_LoadPQ" variable="load_terminal_V_re"/>
+  <curve model="Load_LoadPQ" variable="load_terminal_V_im"/>
+  <curve model="Load_LoadPQ" variable="load_terminal_i_re"/>
+  <curve model="Load_LoadPQ" variable="load_terminal_i_im"/>
+  <curve model="NETWORK" variable="VL2_Load3_switch_state_value"/>
+  <curve model="Load_LoadZIP" variable="load_running_value"/>
+  <curve model="Load_LoadZIP" variable="load_PPu"/>
+  <curve model="Load_LoadZIP" variable="load_QPu"/>
+  <curve model="Load_LoadZIP" variable="load_UPu"/>
+  <curve model="Load_LoadZIP" variable="load_terminal_V_re"/>
+  <curve model="Load_LoadZIP" variable="load_terminal_V_im"/>
+  <curve model="Load_LoadZIP" variable="load_terminal_i_re"/>
+  <curve model="Load_LoadZIP" variable="load_terminal_i_im"/>
+  <curve model="NETWORK" variable="VL2_Load4_switch_state_value"/>
+  <curve model="Load_ElectronicLoad" variable="load_running_value"/>
+  <curve model="Load_ElectronicLoad" variable="load_PPu"/>
+  <curve model="Load_ElectronicLoad" variable="load_QPu"/>
+  <curve model="Load_ElectronicLoad" variable="load_UPu"/>
+  <curve model="Load_ElectronicLoad" variable="load_terminal_V_re"/>
+  <curve model="Load_ElectronicLoad" variable="load_terminal_V_im"/>
+  <curve model="Load_ElectronicLoad" variable="load_terminal_i_re"/>
+  <curve model="Load_ElectronicLoad" variable="load_terminal_i_im"/>
+  <curve model="NETWORK" variable="VL2_Load5_switch_state_value"/>
+  <curve model="NETWORK" variable="Load6_state_value"/>
+  <curve model="NETWORK" variable="Load6_P_value"/>
+  <curve model="NETWORK" variable="Load6_Q_value"/>
+  <curve model="NETWORK" variable="VL2_Load6_switch_state_value"/>
+</curvesInput>

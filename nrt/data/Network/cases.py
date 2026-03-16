@@ -179,6 +179,16 @@ job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "VoltageV
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ########################################
+#     NodeBreakerLoadReconnection      #
+########################################
+
+case_name = "Node-breaker network load disconnection and reconnection"
+case_description = "Test the disconnection and reconnection of different types of loads using load switch-off signal or connected switch in node-breaker"
+job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "NodeBreakerLoadReconnection", "DisconnectLoad.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+########################################
 #           BaseCase                   #
 ########################################
 
