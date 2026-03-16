@@ -14,7 +14,7 @@ within Dynawo.Electrical.Loads;
 */
 
 model LoadAlphaBetaRestorativeReset "Load with voltage-dependent active and reactive power with load reset (Alpha-Beta model)"
-  extends Dynawo.Electrical.Loads.BaseClasses.BaseLoad;
+  extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
   parameter Real Alpha "Active load sensitivity to voltage";
@@ -45,9 +45,8 @@ equation
     else
       der(KqMlt) = Kq * (QRefPu - QPu) / QRefPu;
     end if;
-    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-      PPu = 0.;
-      QPu = 0.;
+    if terminal.V == Complex(0) then
+      terminal.i = Complex(0);
     else
       PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha) * KpMlt;
       QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Beta) * KqMlt;
