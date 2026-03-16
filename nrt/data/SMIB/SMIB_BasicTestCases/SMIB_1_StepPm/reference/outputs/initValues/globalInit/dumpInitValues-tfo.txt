@@ -8,6 +8,8 @@ transformer_terminal1_i_re                        : y =     -22.178985 yp =     
 transformer_terminal2_i_im                        : y =       0.961526 yp =       0.000000
 transformer_terminal2_i_re                        : y =      22.178985 yp =       0.000000
  ====== CALCULATED VARIABLES VALUES ======
+transformer_ISide1                                : y =      22.199818
+transformer_ISide2                                : y =      22.199818
 transformer_P1Pu                                  : y =     -19.979052
 transformer_P2Pu                                  : y =      19.979052
 transformer_Q1Pu                                  : y =      -6.352388

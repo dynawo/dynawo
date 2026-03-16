@@ -30,6 +30,8 @@
     <dyn:staticRef var="line_P2Pu" staticVar="p2"/>
     <dyn:staticRef var="line_Q2Pu" staticVar="q2"/>
     <dyn:staticRef var="line_state" staticVar="state"/>
+    <dyn:staticRef var="line_ISide1" staticVar="i1"/>
+    <dyn:staticRef var="line_ISide2" staticVar="i2"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="line2" lib="Line" parFile="SMIB.par" parId="line2" staticId="line2">
     <dyn:staticRef var="line_P1Pu" staticVar="p1"/>
@@ -37,6 +39,8 @@
     <dyn:staticRef var="line_P2Pu" staticVar="p2"/>
     <dyn:staticRef var="line_Q2Pu" staticVar="q2"/>
     <dyn:staticRef var="line_state" staticVar="state"/>
+    <dyn:staticRef var="line_ISide1" staticVar="i1"/>
+    <dyn:staticRef var="line_ISide2" staticVar="i2"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="tfo" lib="TransformerFixedRatio" parFile="SMIB.par" parId="tfo" staticId="TR">
     <dyn:staticRef var="transformer_P1Pu" staticVar="p1"/>
@@ -44,6 +48,8 @@
     <dyn:staticRef var="transformer_P2Pu" staticVar="p2"/>
     <dyn:staticRef var="transformer_Q2Pu" staticVar="q2"/>
     <dyn:staticRef var="transformer_state" staticVar="state"/>
+    <dyn:staticRef var="transformer_ISide1" staticVar="i1"/>
+    <dyn:staticRef var="transformer_ISide2" staticVar="i2"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="sm" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="SMIB.par" parId="sm" staticId="SM">
     <dyn:staticRef var="generator_PGenPu" staticVar="p"/>

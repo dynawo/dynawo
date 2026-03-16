@@ -175,7 +175,7 @@ class BusCriteria : public Criteria {
     /**
      * @brief Constructor
      * @param bound Crossed bound for a failing criteria
-     * @param busId bud id
+     * @param busId bus id
      * @param v voltage in kV
      * @param vPu voltage in pu
      * @param vBound voltage bound in kV
@@ -396,8 +396,110 @@ class GeneratorCriteria : public Criteria {
                                           double& sum,
                                           bool& atLeastOneEligibleGeneratorWasFound);
 
-  std::vector<std::shared_ptr<GeneratorInterface> > generators_;  ///< loads of this criteria
+  std::vector<std::shared_ptr<GeneratorInterface> > generators_;  ///< generators of this criteria
+};
+
+/**
+ * @brief QuadripoleCriteria class: handle the check of quadripole criteria
+ */
+template<typename T>
+class QuadripoleCriteria : public Criteria {
+ protected:
+  /**
+   * @brief Side of quadripole for a failing criteria
+   */
+  enum class Side {
+    ONE = 0,  ///< Quadripole side one
+    TWO       ///< Quadripole side two
+  };
+
+ public:
+  /**
+   * @brief Constructor
+   * @param params parameters of the criteria
+   */
+  explicit QuadripoleCriteria(const std::shared_ptr<criteria::CriteriaParams>& params);
+
+  /**
+   * @brief check that this criteria can be applied to quadripoles
+   * @param params parameters of the criteria
+   * @return true if this criteria is compatible with quadripoles
+   */
+  static bool criteriaEligibleForQuadripole(const std::shared_ptr<criteria::CriteriaParams>& params);
+
+  /**
+   * @brief returns true if the criteria is respected, false otherwise
+   * @param t current time of the simulation
+   * @param finalStep true if this is the final step of the simulation
+   * @param timeline timeline
+   *
+   * @return true if the criteria is respected, false otherwise
+   */
+  bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr) override;
+
+  /**
+   * @brief add a quadripole to the criteria
+   * @param quadripole quadripole to add
+   */
+  void addQuadripole(const std::shared_ptr<T>& quadripole);
+
+  /**
+   * @brief returns true if no quadripole was added
+   * @return true if no quadripole was added
+   */
+  bool empty() const {return quadripoles_.empty();}
+
+  /**
+   * @brief structure containing information about a failing criteria on a quadripole and related methods
+   */
+  class QuadripoleFailingCriteria : public FailingCriteria {
+   public:
+    /**
+     * @brief Constructor
+     * @param side Quadripole side for a failing criteria
+     * @param quadripoleId quadripole id
+     * @param i current in A
+     * @param iBound current bound in A
+     * @param criteriaId criteria id
+     */
+    QuadripoleFailingCriteria(Side side,
+                        std::string quadripoleId,
+                        double i,
+                        double iBound,
+                        const std::string& criteriaId);
+
+    /**
+     * @brief return the distance between the current in A and the crossed criteria bound
+     * @return the distance between the current in A and the crossed criteria bound
+     */
+    double getDistance() const override { return std::abs(i_ - iBound_); }
+
+    /**
+     * @brief print the failing criteria log in the log file
+     */
+    void printOneFailingCriteriaIntoLog() const override;
+
+    /**
+     * @brief print the failing criteria log in the timeline file
+     * @param timeline timeline
+     * @param failingCriteria array containing the failing criteria messages
+     * @param currentTime current simulation time
+     */
+    void printOneFailingCriteriaIntoTimeline(const boost::shared_ptr<timeline::Timeline>& timeline,
+                                              std::vector<std::pair<double, std::string> >& failingCriteria,
+                                              double currentTime) const override;
+
+   private:
+    Side side_;                     ///< side of the quadripole that crossed bound
+    double i_;                      ///< current in A
+    double iBound_;                 ///< current limit in A
+  };
+
+ private:
+  std::vector<std::shared_ptr<T> > quadripoles_;  ///< quadripoles of this criteria
 };
 }  // namespace DYN
+
+#include "DYNCriteria.hpp"
 
 #endif  // MODELER_DATAINTERFACE_DYNCRITERIA_H_
