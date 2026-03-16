@@ -13,10 +13,11 @@ within Dynawo.Electrical.Machines.Motors;
 * of simulation tools for power systems.
 */
 
-model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model, based on https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Load%20Characteristic%20MOTORW.htm, must be incorporated in a load model."
+model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model, must be incorporated in a load model"
+  import Modelica.Constants;
+
   extends BaseClasses.BaseMotor;
   extends AdditionalIcons.Machine;
-  import Modelica.Constants;
 
   parameter Types.PerUnit RsPu "Stator resistance in pu (base SNom, UNom)";
   parameter Types.PerUnit LsPu "Synchronous reactance in pu (base SNom, UNom)";
@@ -59,6 +60,8 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
   Boolean connected1(start = true) "True if the first block of motors is connected";
   Boolean connected2(start = true) "True if the second block of motors is connected";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
   // Initial values
   parameter Types.PerUnit EdP0Pu "Start value of voltage behind transient reactance d component in pu (base UNom)";
   parameter Types.PerUnit EqP0Pu "Start value of voltage behind transient reactance q component in pu (base UNom)";
@@ -93,7 +96,7 @@ equation
 
     s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
     cePu = EdPPPu * idPu + EqPPPu * iqPu;
-    clPu = ce0Pu * (omegaRPu / omegaR0Pu)^torqueExponent;
+    clPu = ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
   else
     der(EqPPu) = 0;
@@ -111,7 +114,8 @@ equation
     der(omegaRPu) = 0;
   end if;
 
-  UPu = ComplexMath.'abs'(V);
+  complexToPolar.u = V;
+  UPu = complexToPolar.len;
 
   // Trip block 1
   when UPu <= Utrip1Pu and pre(connected1) and running.value then
@@ -147,5 +151,7 @@ equation
     connected2 = true;
   end when;
 
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>This model is based on&nbsp;https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Load%20Characteristic%20MOTORW.htm</body></html>"));
 end MotorFifthOrder;

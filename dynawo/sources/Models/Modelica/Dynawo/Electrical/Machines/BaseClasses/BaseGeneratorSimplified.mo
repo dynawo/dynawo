@@ -31,13 +31,16 @@ partial model BaseGeneratorSimplified "Base model for simplified generator model
   Types.ComplexApparentPowerPu SGenPu(re(start = PGen0Pu), im(start = QGen0Pu)) "Complex apparent power at terminal in pu (base SnRef) (generator convention)";
   Dynawo.Connectors.VoltageModulePuConnector UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNom)";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
 equation
   PGen = SystemBase.SnRef * PGenPu;
   SGenPu = Complex(PGenPu, QGenPu);
   SGenPu = -terminal.V * ComplexMath.conj(terminal.i);
+  complexToPolar.u = terminal.V;
 
   if running.value then
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu = complexToPolar.len;
   else
     UPu = 0;
   end if;

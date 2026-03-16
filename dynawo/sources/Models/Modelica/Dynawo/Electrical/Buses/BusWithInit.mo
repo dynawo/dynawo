@@ -26,15 +26,17 @@ model BusWithInit "Bus with init"
   Types.Angle UPhase(start = ComplexMath.arg(u0Pu)) "Voltage angle at terminal in rad";
   Types.Angle UPhaseDeg(start = ComplexMath.arg(u0Pu) * 180.0 / Constants.pi) "Voltage angle at terminal in degree";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal (base UNom)";
 
 equation
   terminal.i = Complex(0);
-  UPu = ComplexMath.'abs'(terminal.V);
-  UPhase = ComplexMath.arg(terminal.V);
+  complexToPolar.u = terminal.V;
+  UPu = complexToPolar.len;
+  UPhase = complexToPolar.phi;
   UPhaseDeg = UPhase * 180.0 / Constants.pi;
   U = UPu * UNom;
 
   annotation(preferredView = "text");
-
 end BusWithInit;

@@ -27,31 +27,6 @@ model NetworkTransformer "Two windings transformer with a fixed ratio, same mode
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffTransformer;
   extends AdditionalIcons.Transformer;
 
-  Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
-  Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
-
-  Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
-  Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
-
-  Types.CurrentModulePu I1Pu "Current on side 1 in pu (base U1Nom, SnRef) (receptor convention)";
-  Types.CurrentModulePu I2Pu "Current on side 2 in pu (base U2Nom, SnRef) (receptor convention)";
-
-  Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
-  Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
-
-  // Transformer start values
-  parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 (base U1Nom)";
-  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 (base U1Nom, SnRef) (receptor convention)";
-  parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 (base U2Nom)";
-  parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
-
   parameter Types.VoltageModule RatedU1 "Rated voltage at terminal 1 in kV";
   parameter Types.VoltageModule RatedU2 "Rated voltage at terminal 2 in kV";
   parameter Types.VoltageModule U1Nom "Nominal voltage at terminal 1 in kV";
@@ -73,6 +48,36 @@ model NetworkTransformer "Two windings transformer with a fixed ratio, same mode
   final parameter Real factorPuToASide1 = 1000. * SystemBase.SnRef / (sqrt(3.) * U1Nom);
   final parameter Real factorPuToASide2 = 1000. * SystemBase.SnRef / (sqrt(3.) * U2Nom);
 
+  Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
+
+  Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
+  Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
+
+  Types.CurrentModulePu I1Pu "Current on side 1 in pu (base U1Nom, SnRef) (receptor convention)";
+  Types.CurrentModulePu I2Pu "Current on side 2 in pu (base U2Nom, SnRef) (receptor convention)";
+
+  Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
+  Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
+
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarI1;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarI2;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarU1;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarU2;
+
+  // Transformer start values
+  parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 (base U1Nom)";
+  parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 (base U1Nom, SnRef) (receptor convention)";
+  parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 (base U2Nom)";
+  parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
+
 equation
   if (running.value) then
     terminal2.V = rTfoPu * terminal1.V + ZPu * terminal2.i;
@@ -90,11 +95,16 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
+  complexToPolarU1.u = terminal1.V;
+  complexToPolarU2.u = terminal2.V;
+  complexToPolarI1.u = terminal1.i;
+  complexToPolarI2.u = terminal2.i;
+
   if (running.value) then
-    U1Pu = ComplexMath.'abs'(terminal1.V);
-    U2Pu = ComplexMath.'abs'(terminal2.V);
-    I1Pu = ComplexMath.'abs'(terminal1.i);
-    I2Pu = ComplexMath.'abs'(terminal2.i);
+    U1Pu = complexToPolarU1.len;
+    U2Pu = complexToPolarU2.len;
+    I1Pu = complexToPolarI1.len;
+    I2Pu = complexToPolarI2.len;
   else
     U1Pu = 0;
     U2Pu = 0;
@@ -105,7 +115,8 @@ equation
   ISide1 = factorPuToASide1 * I1Pu;
   ISide2 = factorPuToASide2 * I2Pu;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>

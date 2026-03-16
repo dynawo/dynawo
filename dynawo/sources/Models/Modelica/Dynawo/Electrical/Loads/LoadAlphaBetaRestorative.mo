@@ -28,10 +28,10 @@ protected
 
 equation
   if (running.value) then
-    tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
+    tFilter * der(UFilteredRawPu) = complexToPolar.len - UFilteredRawPu;
     UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
-    PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Alpha);
-    QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Beta);
+    PPu = PRefPu * (1 + deltaP) * ((complexToPolar.len / UFilteredPu) ^ Alpha);
+    QPu = QRefPu * (1 + deltaQ) * ((complexToPolar.len / UFilteredPu) ^ Beta);
   else
     UFilteredRawPu = 0;
     UFilteredPu = 0;

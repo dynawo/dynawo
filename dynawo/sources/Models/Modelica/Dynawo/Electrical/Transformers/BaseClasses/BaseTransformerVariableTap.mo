@@ -35,6 +35,9 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   Dynawo.Connectors.ImPin Q1Pu(value(start = Q10Pu)) "Reactive power on side 1";
   Dynawo.Connectors.ImPin U2Pu(value(start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar2;
+
   // Parameters coming from the initialization process
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base U1Nom, SnRef) (receptor convention)";
@@ -62,12 +65,15 @@ equation
     end if;
   end when;
 
+  complexToPolar1.u = terminal1.V;
+  complexToPolar2.u = terminal2.V;
+
   if (running.value) then
     // Variables for display or connection to another model (tap-changer for example)
     P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-    U1Pu.value = ComplexMath.'abs'(terminal1.V);
-    U2Pu.value = ComplexMath.'abs'(terminal2.V);
+    U1Pu.value = complexToPolar1.len;
+    U2Pu.value = complexToPolar2.len;
   else
     P1Pu.value = 0;
     Q1Pu.value = 0;

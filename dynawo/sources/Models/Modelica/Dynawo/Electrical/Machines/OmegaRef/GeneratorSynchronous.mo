@@ -65,9 +65,17 @@ model GeneratorSynchronous "Synchronous machine"
   Dynawo.Connectors.ComplexVoltagePuConnector uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at terminal in pu (base UNom)";
   Dynawo.Connectors.ComplexCurrentPuConnector iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator side in pu (base UNom, SnRef)";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarIs;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarU;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarUs;
+
 equation
+  complexToPolarIs.u = iStatorPu;
+  complexToPolarU.u = terminal.V;
+  complexToPolarUs.u = uStatorPu;
+
   if running.value then
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu = complexToPolarU.len;
     uPu = terminal.V;
 
     // Active and reactive power at terminal
@@ -82,9 +90,9 @@ equation
     sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
 
     // Output variables for external controllers
-    UStatorPu = ComplexMath.'abs'(uStatorPu);
-    IStatorPu = ComplexMath.'abs'(iStatorPu);
-    QStatorPu = - ComplexMath.imag(sStatorPu);
+    UStatorPu = complexToPolarUs.len;
+    IStatorPu = complexToPolarIs.len;
+    QStatorPu = -ComplexMath.imag(sStatorPu);
     QStatorPuQNom = QStatorPu * SystemBase.SnRef / QNomAlt;
     IRotorPu = RfPPu / (Kuf * rTfoPu) * ifPu;
     thetaInternal.value = ComplexMath.arg(Complex(uqPu, udPu));

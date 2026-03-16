@@ -24,11 +24,15 @@ partial model BaseHvdcPDangling "Base dynamic model for HVDC links with a regula
 
 */
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1;
+
 equation
+  complexToPolar1.u = terminal1.V;
+
   //Connected side
   if runningSide1.value then
     P1Pu = if P1RefPu > PMaxPu then PMaxPu elseif P1RefPu < -PMaxPu then -PMaxPu else P1RefPu;
-    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U1Pu = complexToPolar1.len;
   else
     P1Pu = 0;
     U1Pu = 0;

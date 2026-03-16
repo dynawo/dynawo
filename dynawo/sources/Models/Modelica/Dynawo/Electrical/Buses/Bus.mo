@@ -24,12 +24,16 @@ model Bus "Bus"
   Types.VoltageModule U "Voltage amplitude at terminal in kV";
   Types.Angle UPhase "Voltage angle at terminal in rad";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
 equation
   terminal.i = Complex(0);
-  UPu = ComplexMath.'abs'(terminal.V);
-  UPhase = ComplexMath.arg(terminal.V);
+  complexToPolar.u = terminal.V;
+  UPu = complexToPolar.len;
+  UPhase = complexToPolar.phi;
   U = UPu * UNom;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The bus model doesn't provide any new equation to the system. It is present into the library for convenience purpose to build network tests.</body></html>"));
 end Bus;
