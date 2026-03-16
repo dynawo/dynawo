@@ -20,6 +20,7 @@
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="busCriteria" type="dyn:BusCriteria" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="quadripoleCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="loadCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="generatorCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
       </xs:choice>
@@ -64,6 +65,8 @@
     <xs:attribute name="type" use="required" type="dyn:Type"/>
     <xs:attribute name="pMax" use="optional" type="xs:float"/>
     <xs:attribute name="pMin" use="optional" type="xs:float"/>
+    <xs:attribute name="i1Max" use="optional" type="xs:float"/>
+    <xs:attribute name="i2Max" use="optional" type="xs:float"/>
   </xs:complexType>
 
   <xs:complexType name="CriteriaParamsVoltageLevel">

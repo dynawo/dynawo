@@ -46,6 +46,8 @@
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/Bus.hpp>
 #include <powsybl/iidm/Load.hpp>
+#include <powsybl/iidm/Line.hpp>
+#include <powsybl/iidm/LineAdder.hpp>
 #include <powsybl/iidm/LoadAdder.hpp>
 #include <powsybl/iidm/Generator.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
@@ -60,7 +62,39 @@ using criteria::CriteriaCollectionFactory;
 
 namespace DYN {
 
-static shared_ptr<DataInterface>
+class LineInterfaceStub {
+ public:
+  /**
+  * @param id   Component id returned by getID()
+  * @param i1   Current on side 1 returned by getStateVarI1()
+  * @param i2   Current on side 2 returned by getStateVarI2()
+  */
+  explicit LineInterfaceStub(std::string id, double i1 = 0., double i2 = 0.) :
+        id_(id),
+        i1_(i1),
+        i2_(i2) {}
+
+  /** Used by QuadripoleCriteria::checkCriteria to compare against I1Max. */
+  double getStateVarI1() const { return i1_; }
+
+  /** Used by QuadripoleCriteria::checkCriteria to compare against I2Max. */
+  double getStateVarI2() const { return i2_; }
+
+  /** Used by QuadripoleFailingCriteria to build the timeline / log message. */
+  const std::string& getID() const { return id_; }
+
+ private:
+  std::string id_;
+  double      i1_;
+  double      i2_;
+};
+
+static std::shared_ptr<LineInterfaceStub>
+createLine(const std::string& id, double i1, double i2) {
+  return std::make_shared<LineInterfaceStub>(id, i1, i2);
+}
+
+static boost::shared_ptr<DataInterface>
 createDataItfFromNetworkCriteria(const boost::shared_ptr<powsybl::iidm::Network>& network) {
   shared_ptr<DataInterface> data;
   DataInterfaceIIDM* ptr = new DataInterfaceIIDM(network);
@@ -982,6 +1016,50 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       ASSERT_TRUE(failCritPreviousGeneratorPowerDistance >= failCritCurrentGeneratorPowerDistance);
       failCritPreviousGeneratorPowerDistance = failCritCurrentGeneratorPowerDistance;
     }
+
+    // Quadripole criteria
+    std::shared_ptr<CriteriaParams> LineParams = CriteriaParamsFactory::newCriteriaParams();
+    LineParams->setType(CriteriaParams::LOCAL_VALUE);
+    LineParams->setScope(criteriaScope);
+    LineParams->setId("crit_timeline_line");
+    LineParams->setI1Max(100.);
+    LineParams->setI2Max(100.);
+
+    std::shared_ptr<LineInterfaceStub> lineSide1 = createLine("MY_LINE_1", 205., 50.);
+    std::shared_ptr<LineInterfaceStub> lineSide2 = createLine("MY_LINE_2", 220., 200.);
+    std::shared_ptr<LineInterfaceStub> lineOK = createLine("MY_LINE_3", 50., 50.);
+
+    QuadripoleCriteria<LineInterfaceStub> LineCriteria(LineParams);
+    LineCriteria.addQuadripole(lineSide1);
+    LineCriteria.addQuadripole(lineSide2);
+    LineCriteria.addQuadripole(lineOK);
+
+    switch (criteriaScope) {
+      case CriteriaParams::DYNAMIC:
+        ASSERT_FALSE(LineCriteria.checkCriteria(0, false, timeline));
+        break;
+      case CriteriaParams::FINAL:
+        ASSERT_FALSE(LineCriteria.checkCriteria(0, true, timeline));
+        break;
+      case CriteriaParams::UNDEFINED_SCOPE:
+        GTEST_FAIL();
+    }
+    double quaripolePreviousCurrentDistance = std::numeric_limits<double>::max();
+    ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 3 + 3);
+    int firstTimelineQudripoleEvent = maxNumberOfEvents * 3;
+    for (int i = firstTimelineQudripoleEvent; i < timeline->getSizeEvents(); ++i) {
+      const std::string timelineLog = timeline->getEvents()[i]->getMessage();
+      std::vector<std::string> splitTimelineLog;
+      boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
+      const std::string quadripoleErrorLogName = splitTimelineLog[0];
+      ASSERT_EQ(quadripoleErrorLogName, "QuadripoleAboveCurrent");
+      const double quadripoleCurrent = std::stod(splitTimelineLog[3]);
+      const double quadripoleCurrentBound = std::stod(splitTimelineLog[4]);
+      double quadripoleCurrentDistance = std::abs(quadripoleCurrent - quadripoleCurrentBound);
+      // the timeline should display logs with the biggest gap between the current and the current bound
+      ASSERT_TRUE(quaripolePreviousCurrentDistance >= quadripoleCurrentDistance);
+      quaripolePreviousCurrentDistance = quadripoleCurrentDistance;
+    }
   }
 
   for (criteria::CriteriaParams::CriteriaScope_t criteriaScope : criteriaScopeArray) {
@@ -1098,6 +1176,52 @@ TEST(DataInterfaceIIDMTest, Timeline) {
       }
     }
   }
+}
+
+TEST(DataInterfaceIIDMTest, testQuadripoleCriteria) {
+  std::shared_ptr<CriteriaParams> criteriap1 = CriteriaParamsFactory::newCriteriaParams();
+  criteriap1->setType(CriteriaParams::LOCAL_VALUE);
+  ASSERT_FALSE(QuadripoleCriteria<LineInterfaceStub>::criteriaEligibleForQuadripole(criteriap1));
+  criteriap1->setScope(CriteriaParams::DYNAMIC);
+  ASSERT_FALSE(QuadripoleCriteria<LineInterfaceStub>::criteriaEligibleForQuadripole(criteriap1));
+  criteriap1->setI1Max(100.);
+  ASSERT_TRUE(QuadripoleCriteria<LineInterfaceStub>::criteriaEligibleForQuadripole(criteriap1));
+  criteriap1->setI2Max(100.);
+  ASSERT_TRUE(QuadripoleCriteria<LineInterfaceStub>::criteriaEligibleForQuadripole(criteriap1));
+  criteriap1->setId("quadripole_criteria");
+
+  QuadripoleCriteria<LineInterfaceStub> LineCriteriaOK(criteriap1);
+  ASSERT_TRUE(LineCriteriaOK.empty());
+  ASSERT_TRUE(LineCriteriaOK.checkCriteria(0., false));
+  std::shared_ptr<LineInterfaceStub> lineOK = createLine("MY_LINE_3", 50., 50.);
+  LineCriteriaOK.addQuadripole(lineOK);
+  ASSERT_TRUE(LineCriteriaOK.checkCriteria(0., false));
+  ASSERT_TRUE(LineCriteriaOK.getFailingCriteria().empty());
+
+  std::shared_ptr<LineInterfaceStub> lineSide1 = createLine("MY_LINE_1", 200., 50.);
+  QuadripoleCriteria<LineInterfaceStub> LineCriteriaSide1(criteriap1);
+  LineCriteriaSide1.addQuadripole(lineSide1);
+  ASSERT_FALSE(LineCriteriaSide1.checkCriteria(0., false));
+  ASSERT_EQ(1, LineCriteriaSide1.getFailingCriteria().size());
+
+  std::shared_ptr<LineInterfaceStub> lineSide2 = createLine("MY_LINE_2", 50., 200.);
+  QuadripoleCriteria<LineInterfaceStub> LineCriteriaSide2(criteriap1);
+  LineCriteriaSide2.addQuadripole(lineSide2);
+  ASSERT_FALSE(LineCriteriaSide2.checkCriteria(0., false));
+  ASSERT_EQ(1, LineCriteriaSide2.getFailingCriteria().size());
+
+
+  std::shared_ptr<LineInterfaceStub> lineBothSides = createLine("MY_LINE_4", 220., 200.);
+  QuadripoleCriteria<LineInterfaceStub> LineCriteriaBothSides(criteriap1);
+  LineCriteriaBothSides.addQuadripole(lineBothSides);
+  ASSERT_FALSE(LineCriteriaBothSides.checkCriteria(0., false));
+  ASSERT_EQ(2, LineCriteriaBothSides.getFailingCriteria().size());
+
+  criteriap1->setScope(CriteriaParams::FINAL);
+  QuadripoleCriteria<LineInterfaceStub> LineCriteriaFinal(criteriap1);
+  LineCriteriaFinal.addQuadripole(lineBothSides);
+  ASSERT_TRUE(LineCriteriaFinal.checkCriteria(0., false));
+  ASSERT_FALSE(LineCriteriaFinal.checkCriteria(0., true));
 }
 
 TEST(DataInterfaceIIDMTest, testBusCriteria) {
