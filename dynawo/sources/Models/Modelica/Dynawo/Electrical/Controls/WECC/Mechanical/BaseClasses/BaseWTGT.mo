@@ -19,18 +19,16 @@ partial model BaseWTGT "Drive Train Control Base Model"
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency used for Generator and Turbine in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency used for electrical control in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 140}, extent = {{20, -20}, {-20, 20}}, rotation = -90)));
 
   // Output variables
-  Modelica.Blocks.Interfaces.RealOutput omegaTPu "Turbine frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput omegaTPu(start = omegaRefWTGQPu0) "Turbine frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput dTorqueY "Torque derivative in pu/s (base SNom, omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 123}, extent = {{0, 0}, {0, 0}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput dampingY "Damping value in pu (base SNom, omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 123}, extent = {{0, 0}, {0, 0}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput omegaGPu(start = omegaRefWTGQPu0) "Generator frequency used for electrical control in pu (base omegaNom)" annotation(
+    Placement(visible = true, transformation(origin = {170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 140}, extent = {{20, -20}, {-20, 20}}, rotation = -90)));
 
   Modelica.Blocks.Math.Add OmegaGenerator annotation(
     Placement(visible = true, transformation(origin = {74, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -40,9 +38,9 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division TorqueM annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression omegaRefPu1(y = omegaRefPu) annotation(
+  Modelica.Blocks.Sources.RealExpression omegaRefPu1(y = omegaRefWTGQPu0) annotation(
     Placement(visible = true, transformation(origin = {10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression omegaRefPu2(y = omegaRefPu) annotation(
+  Modelica.Blocks.Sources.RealExpression omegaRefPu2(y = omegaRefWTGQPu0) annotation(
     Placement(visible = true, transformation(origin = {10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression dTorqueY1(y = dTorqueY) annotation(
     Placement(visible = true, transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -52,8 +50,8 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu/Kshaft) annotation(
-    Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu/omegaRefWTGQPu0/Kshaft) annotation(
+    Placement(transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1/(2*Ht)) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator dOmegaGenerator(k = 1/(2*Hg)) annotation(
@@ -62,7 +60,9 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 dTorqueE(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add3 dTorqueM(k1 = -1, k3 = -1) annotation(
+  Modelica.Blocks.Math.Add3 dTorqueM(
+    k1 = -1,
+    k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain Damping(k = Dshaft) annotation(
     Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -37,7 +37,8 @@ record ParamsWTGP
 
   // Initial parameters
   parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)";
-  parameter Types.AngleDegree Theta0 "Initial pitch angle in degree";
+  parameter Types.AngleDegree Theta0 = 0 "Initial pitch angle in degree";
+  parameter Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
   annotation(
   preferredView = "text");

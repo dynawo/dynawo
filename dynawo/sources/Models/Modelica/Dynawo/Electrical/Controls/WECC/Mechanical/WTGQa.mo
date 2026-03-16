@@ -17,7 +17,7 @@ model WTGQa "WECC Torque Controller Type A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaGPu(start = SystemBase.omegaRef0Pu) "Generator frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -27,18 +27,30 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {100, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput omegaRefWTGQPu(start = omegaRefWTGQPu0) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {290, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PInj0Pu) "Active power reference for the electrical controller (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {290, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
-
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
+    table = [P1,
+    Spd1; P2,
+    Spd2; P3,
+    Spd3; P4,
+    Spd4]) annotation(
     Placement(transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = tP, y_start = PInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(
+    k = 1,
+    T = tP,
+    y_start = PInj0Pu) annotation(
     Placement(transformation(origin = {-90, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = 1, T = tOmegaRef) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(
+    k = 1,
+    T = tOmegaRef,
+    y_start = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add add(k1 = +1, k2 = -1) annotation(
+  Modelica.Blocks.Math.Add add(
+    k1 = +1,
+    k2 = -1) annotation(
     Placement(transformation(origin = {30, 46}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add1(k1 = -1) annotation(
     Placement(transformation(origin = {-30, -6}, extent = {{-10, -10}, {10, 10}})));
@@ -54,9 +66,16 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {150, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product product annotation(
     Placement(transformation(origin = {250, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax = TeMaxPu, uMin = TeMinPu, homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    uMax = TeMaxPu,
+    uMin = TeMinPu,
+    homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy) annotation(
     Placement(transformation(origin = {188, 20}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegratorFreeze limitedIntegratorFreeze(K = Kip, YMax = TeMaxPu, YMin = TeMinPu, Y0 = PInj0Pu/SystemBase.omegaRef0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.LimitedIntegratorFreeze limitedIntegratorFreeze(
+    K = Kip,
+    YMax = TeMaxPu,
+    YMin = TeMinPu,
+    Y0 = PInj0Pu/omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}})));
 
 equation
@@ -96,7 +115,7 @@ equation
     Line(points = {{-19, -6}, {18, -6}}, color = {0, 0, 127}));
   connect(omegaGPu, division.u2) annotation(
     Line(points = {{-130, 100}, {6, 100}, {6, 6}, {18, 6}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, omegaRefPu) annotation(
+  connect(firstOrder1.y, omegaRefWTGQPu) annotation(
     Line(points = {{1, 40}, {14, 40}, {14, 80}, {290, 80}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(add.u1, omegaGPu) annotation(
     Line(points = {{18, 52}, {6, 52}, {6, 100}, {-130, 100}}, color = {0, 0, 127}));

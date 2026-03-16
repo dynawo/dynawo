@@ -140,7 +140,8 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     brkpt = 0.1,
     zerox = 0.05,
     Lvplsw = false,
-    lvpl1 = 1.22) annotation(
+    lvpl1 = 1.22,
+    omegaRefWTGQPu0(fixed = false)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -182,6 +183,7 @@ initial algorithm
   WTG4A.u0Pu.im := wt4CurrentSource_INIT.u0Pu.im;
   WTG4A.uInj0Pu.re := wt4CurrentSource_INIT.uInj0Pu.re;
   WTG4A.uInj0Pu.im := wt4CurrentSource_INIT.uInj0Pu.im;
+  WTG4A.omegaRefWTGQPu0 := wt4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
   line.switchOffSignal1.value = false;

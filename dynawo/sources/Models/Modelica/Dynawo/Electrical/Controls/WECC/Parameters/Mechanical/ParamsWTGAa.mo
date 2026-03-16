@@ -18,7 +18,7 @@ record ParamsWTGAa
   Dialog(tab="Aero-dynamic model"));
 
   // Initial parameters
-  parameter Types.AngleDegree Theta0 "Initial pitch angle in degree";
+  parameter Types.AngleDegree Theta0 = 0 "Initial pitch angle in degree";
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base SNom)";
 
   annotation(

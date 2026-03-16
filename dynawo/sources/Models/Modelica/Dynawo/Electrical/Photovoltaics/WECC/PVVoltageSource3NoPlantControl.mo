@@ -13,7 +13,6 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVVoltageSource3NoPlantControl "WECC PV model with a voltage source as interface with the grid (REEC-A REGC-C)"
-
   /*                uSourcePu                                uInjPu                      uPu
       --------         |                                       |                         |
       | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
@@ -84,7 +83,8 @@ model PVVoltageSource3NoPlantControl "WECC PV model with a voltage source as int
     tIq = tIq,
     tP = tP,
     tPord = tPord,
-    tRv = tRv) annotation(
+    tRv = tRv,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaGPu(k = 1) annotation(
     Placement(transformation(origin = {-104.5, -25.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}})));

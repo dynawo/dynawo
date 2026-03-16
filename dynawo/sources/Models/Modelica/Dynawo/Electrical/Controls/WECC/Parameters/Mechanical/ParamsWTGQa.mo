@@ -48,6 +48,8 @@ record ParamsWTGQa
   // Initial parameter
   parameter Types.ActivePowerPu PInj0Pu "Start value of active power at injector terminal in pu (base SNom) (generator convention)" annotation(
   Dialog(group="Initialization"));
+  parameter Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)" annotation(
+  Dialog(group="Initialization"));
 
   annotation(preferredView = "text");
 end ParamsWTGQa;

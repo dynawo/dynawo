@@ -17,24 +17,26 @@ partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4;
 
-  parameter Types.PerUnit OmegaShaft0 = 1 "Initial shaft speed";
-
-  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(Dshaft = Dshaft, Hg = Hg, Ht = Ht, Kshaft = Kshaft, PInj0Pu = PInj0Pu, PePu(start = PInj0Pu), Pm0Pu = PInj0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-91, -41}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
+  Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
+    Dshaft = Dshaft,
+    Hg = Hg,
+    Ht = Ht,
+    Kshaft = Kshaft,
+    PInj0Pu = PInj0Pu,
+    PePu(start = PInj0Pu),
+    Pm0Pu = PInj0Pu,
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    Placement(transformation(origin = {-89, -40}, extent = {{-10, -5}, {10, 5}})));
   Modelica.Blocks.Sources.Constant PmConst(k = PInj0Pu) annotation(
-    Placement(transformation(origin = {-115, -25}, extent = {{-5, -5}, {5, 5}})));
-  Modelica.Blocks.Sources.Constant Omega0(k = OmegaShaft0) annotation(
-    Placement(transformation(origin = {-115, -42}, extent = {{-5, -5}, {5, 5}})));
+    Placement(transformation(origin = {-120, -36}, extent = {{-5, -5}, {5, 5}})));
 
 equation
   connect(wecc_wtgt.omegaGPu, wecc_reec.omegaGPu) annotation(
-    Line(points = {{-86, -35}, {-85, -35}, {-85, -11}}, color = {0, 0, 127}));
+    Line(points = {{-85, -34}, {-85, -11}}, color = {0, 0, 127}));
   connect(injector.PInjPuSn, wecc_wtgt.PePu) annotation(
-    Line(points = {{12, -4}, {25, -4}, {25, -40}, {-79, -40}}, color = {0, 0, 127}));
+    Line(points = {{12, -4}, {25, -4}, {25, -40}, {-78, -40}}, color = {0, 0, 127}));
   connect(PmConst.y, wecc_wtgt.PmPu) annotation(
-    Line(points = {{-109.5, -25}, {-107.25, -25}, {-107.25, -37}, {-102, -37}}, color = {0, 0, 127}));
-  connect(Omega0.y, wecc_wtgt.omegaRefPu) annotation(
-    Line(points = {{-109.5, -42}, {-106.25, -42}, {-106.25, -41}, {-102, -41}}, color = {0, 0, 127}));
+    Line(points = {{-114.5, -36}, {-100, -36}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

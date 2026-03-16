@@ -1,0 +1,10 @@
+0.858071 | Generator | PMIN : activation
+2.303528 | Generator | PMIN : deactivation
+3.302162 | Generator | PTanPhi Generator : max reactive power limit reached
+3.404276 | Generator | PMAX : activation
+6.040505 | Generator | PMAX : deactivation
+6.142616 | Generator | PTanPhi Generator : back to reactive power following active power
+7.141258 | Generator | PMIN : activation
+8.586713 | Generator | PMIN : deactivation
+9.585347 | Generator | PTanPhi Generator : max reactive power limit reached
+9.687461 | Generator | PMAX : activation

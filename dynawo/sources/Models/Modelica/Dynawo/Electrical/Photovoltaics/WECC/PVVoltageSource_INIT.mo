@@ -13,13 +13,11 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltage source as interface with the grid"
-
 /*                uSource0Pu                                uInj0Pu                    u0Pu
      --------         |                                       |                         |
     | Source |--------+---->>--------RSourcePu+jXSourcePu-----+------RPu+jXPu-----<<----+---- terminal
      --------          iSource0Pu                                               i0Pu
 */
-
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -29,11 +27,28 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   parameter Types.PerUnit XPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
   parameter Types.PerUnit RSourcePu "Source resistance in pu (base SNom, UNom) (typically set to zero, typical: 0..0.01)";
   parameter Types.PerUnit XSourcePu "Source reactance in pu (base SNom, UNom) (typical: 0.05..0.2)";
-
   parameter Types.PerUnit P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.PerUnit Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
   parameter Types.PerUnit U0Pu "Start value of voltage magnitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
+
+  // Torque control parameters
+  parameter Types.PerUnit P1 = 0 "1st power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd1 = 1 "1st speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit P2 = 1 "2nd power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd2 = 1 "2nd speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit P3 = 2 "3rd power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd3 = 1 "3rd speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit P4 = 3 "4th power point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
+  parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
+  Dialog(tab="Torque control"));
 
   Types.ComplexPerUnit i0Pu "Start value of complex current in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current in pu (base UNom, SNom) (generator convention)";
@@ -51,24 +66,37 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.Angle UInjPhase0 "Start value of voltage phase angle at injector in rad";
   Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
   Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
+  Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
+    table = [P1,
+    Spd1; P2,
+    Spd2; P3,
+    Spd3; P4,
+    Spd4]) annotation(
+    Placement(transformation(extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
+    Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = Complex(P0Pu, Q0Pu);
-  i0Pu = ComplexMath.conj(s0Pu / u0Pu);
-  iSource0Pu = - i0Pu * SystemBase.SnRef / SNom;
-  uSource0Pu = u0Pu - Complex(RPu + RSourcePu * SystemBase.SnRef / SNom, XPu + XSourcePu * SystemBase.SnRef / SNom) * i0Pu;
-  uInj0Pu = u0Pu - Complex(RPu, XPu) * i0Pu;
+  i0Pu = ComplexMath.conj(s0Pu/u0Pu);
+  iSource0Pu = -i0Pu*SystemBase.SnRef/SNom;
+  uSource0Pu = u0Pu - Complex(RPu + RSourcePu*SystemBase.SnRef/SNom, XPu + XSourcePu*SystemBase.SnRef/SNom)*i0Pu;
+  uInj0Pu = u0Pu - Complex(RPu, XPu)*i0Pu;
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
   UInjPhase0 = ComplexMath.arg(uInj0Pu);
-  sInj0Pu = uInj0Pu * ComplexMath.conj(iSource0Pu);
+  sInj0Pu = uInj0Pu*ComplexMath.conj(iSource0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
-  PF0 = if (not(ComplexMath.'abs'(sInj0Pu) == 0)) then PInj0Pu / ComplexMath.'abs'(sInj0Pu) else 0;
-  UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
-  UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
-  Id0Pu = cos(UInjPhase0) * iSource0Pu.re + sin(UInjPhase0) * iSource0Pu.im;
-  Iq0Pu = sin(UInjPhase0) * iSource0Pu.re - cos(UInjPhase0) * iSource0Pu.im;
+  PF0 = if (not (ComplexMath.'abs'(sInj0Pu) == 0)) then PInj0Pu/ComplexMath.'abs'(sInj0Pu) else 0;
+  UdInj0Pu = cos(UInjPhase0)*uInj0Pu.re + sin(UInjPhase0)*uInj0Pu.im;
+  UqInj0Pu = -sin(UInjPhase0)*uInj0Pu.re + cos(UInjPhase0)*uInj0Pu.im;
+  Id0Pu = cos(UInjPhase0)*iSource0Pu.re + sin(UInjPhase0)*iSource0Pu.im;
+  Iq0Pu = sin(UInjPhase0)*iSource0Pu.re - cos(UInjPhase0)*iSource0Pu.im;
+  omegaRefWTGQPu0 = combiTable1D.y[1];
+  connect(realExpression.y, combiTable1D.u[1]) annotation(
+    Line(points = {{-48, 0}, {-12, 0}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "text");

@@ -20,8 +20,6 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
   extends Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGTb;
   extends Electrical.Wind.WECC.BaseClasses.BaseWT4;
 
-  parameter Types.PerUnit OmegaShaft0 = 1 "Initial shaft speed";
-
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Active power reference in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,10 +73,9 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
     Kshaft = Kshaft,
     tp = tp,
     PInj0Pu = PInj0Pu,
-    PePu(start = PInj0Pu)) annotation(
+    PePu(start = PInj0Pu),
+    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
     Placement(transformation(origin = {-89, -42}, extent = {{-10, -5}, {10, 5}})));
-  Modelica.Blocks.Sources.Constant Omega0(k = OmegaShaft0) annotation(
-    Placement(transformation(origin = {-115, -42}, extent = {{-5, -5}, {5, 5}})));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
@@ -112,8 +109,6 @@ equation
     Line(points = {{12, -4}, {25, -4}, {25, -42}, {-78, -42}}, color = {0, 0, 127}));
   connect(wecc_wtgt.omegaGPu, wecc_reec.omegaGPu) annotation(
     Line(points = {{-85, -36}, {-85, -11}}, color = {0, 0, 127}));
-  connect(Omega0.y, wecc_wtgt.omegaRefPu) annotation(
-    Line(points = {{-109, -42}, {-100, -42}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
