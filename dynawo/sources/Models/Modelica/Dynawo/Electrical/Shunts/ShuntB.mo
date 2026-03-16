@@ -32,11 +32,7 @@ model ShuntB "Shunt element with constant susceptance, reactive power depends on
 equation
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
-  if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-    UPu = 0;
-  else
-    UPu = ComplexMath.'abs'(terminal.V);
-  end if;
+  UPu = ComplexMath.'abs'(terminal.V);
 
   if (running.value) then
     QPu = BPu * UPu^2;

@@ -37,11 +37,7 @@ model ShuntBWithSections "Shunt element with voltage-dependent reactive power an
 equation
   section.value = tableBPu.u[1];
   BPu = tableBPu.y[1];
-  if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-    UPu = 0;
-  else
-    UPu = ComplexMath.'abs'(terminal.V);
-  end if;
+  UPu = ComplexMath.'abs'(terminal.V);
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
 

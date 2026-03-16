@@ -55,11 +55,7 @@ equation
     else
       UStatorPu = UStatorRefPu;
     end if;
-    if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
-      UStatorPu = 0.;
-    else
-      UStatorPu = ComplexMath.'abs'(uStatorPu);
-    end if;
+    UStatorPu = ComplexMath.'abs'(uStatorPu);
   else
     terminal.i.im = 0;
     UStatorPu = 0;
