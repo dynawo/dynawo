@@ -197,7 +197,7 @@ simulation.
 
 Here is an example of a crt file :
 \lstinputlisting[language=XML, morekeywords={criteria, parameters, component,
-busCriteria, loadCriteria, generatorCriteria}, deletekeywords={type}, title=crt
+busCriteria, loadCriteria, generatorCriteria, quadripoleCriteria}, deletekeywords={type}, title=crt
 file example]{../resources/syntaxExample/criteria.crt}
 
 There are three different kinds of criteria, depending on which type of
@@ -211,9 +211,10 @@ the criteria should be checked at every time step or 'FINAL' if the criteria
 should be respected only at the final step.
 
 An empty component list means that all the component corresponding to the specified type will be subject to this
-criterion. If some components id are specified then only those components will
+criterion (except for quadripole craterion for which an empty list will result in ignoring the corresponding criteria).
+If some components id are specified then only those components will
 be subject to this criterion. Components from the list should have the same type as the
-specified type (buses, loads or generators).
+specified type (buses, loads, quadripoles (i.e. lines or transformers) or generators).
 
 If some country ids are specified then only the components contained in a
 substation with the same country attribute can be subject to this
@@ -224,7 +225,7 @@ criterion. Components contained in a substation with an empty country attribute
 
 Bus criteria should have at least one of $UMinPu$ or $UMaxPu$ specified. Only
 local values can be checked (parameter type = 'LOCAL\_VALUE').
-It fails when the following condition happens for any of the bus: \\
+It is triggered when the following condition happens for any of the bus: \\
 \begin{center}
 $U_{bus} < UMinPu*U_n$\\
 and/or\\
@@ -243,14 +244,14 @@ specified, the corresponding condition is not applied.
 
 Load or generator (generically named source below) criteria should have at least
 one of $PMin$ or $PMax$ specified.
-If local values was selected  (parameter type = 'LOCAL\_VALUE'), it fails when
+If local values was selected  (parameter type = 'LOCAL\_VALUE'), it is triggered when
 the following condition happens for any of the source:\\
 \begin{center}
 $P_{source} < PMin$\\
 and/or\\
 $P_{source} > PMax$\\
 \end{center}
-If sum was selected  (parameter type = 'SUM'), it fails when the
+If sum was selected  (parameter type = 'SUM'), it is triggered when the
 following condition happens: \\
 \begin{center}
 $\sum P_{source} < PMin$\\
@@ -268,6 +269,20 @@ $UMaxPu*U_n \ge U_{source} \ge UMinPu*U_n$ \\
 $UNomMin$, $UNomMax$, $UMinPu$ and $UMaxPu$ are optionals. If one of them is not
 specified, the corresponding condition is not applied.
 If several voltage levels are specified then all loads satisfying at least one of the conditions will be taken into account.
+
+\subsection{quadripole criteria}
+
+Quadripole criteria applies to lines or two-winding transformers whose
+ids are specified in the componenent list. It
+should have $i1Max$ or $i2Max$ or both specified (in A). Only
+local values can be checked (parameter type = 'LOCAL\_VALUE').
+It is triggered when the following condition happens for any of the specified
+quadripoles: \\
+\begin{center}
+$I_{quadripole,side_1} > i1Max$\\
+and/or\\
+$I_{quadripole,side_2} > i2Max$\\
+\end{center}
 
 \section[Dynawo input files modification]{\Dynawo input files modification}
 

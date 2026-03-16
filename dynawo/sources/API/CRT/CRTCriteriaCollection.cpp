@@ -29,6 +29,9 @@ CriteriaCollection::add(CriteriaCollectionType_t type, const std::shared_ptr<Cri
   case CriteriaCollection::GENERATOR:
     generatorCriteria_.push_back(criteria);
     break;
+  case CriteriaCollection::QUADRIPOLE:
+    quadripoleCriteria_.push_back(criteria);
+    break;
   }
 }
 
@@ -39,6 +42,7 @@ CriteriaCollection::merge(const std::shared_ptr<CriteriaCollection>& other) {
   busCriteria_.insert(busCriteria_.end(), otherImpl->busCriteria_.begin(), otherImpl->busCriteria_.end());
   loadCriteria_.insert(loadCriteria_.end(), otherImpl->loadCriteria_.begin(), otherImpl->loadCriteria_.end());
   generatorCriteria_.insert(generatorCriteria_.end(), otherImpl->generatorCriteria_.begin(), otherImpl->generatorCriteria_.end());
+  quadripoleCriteria_.insert(quadripoleCriteria_.end(), otherImpl->quadripoleCriteria_.begin(), otherImpl->quadripoleCriteria_.end());
 }
 
 CriteriaCollection::CriteriaCollectionConstIterator

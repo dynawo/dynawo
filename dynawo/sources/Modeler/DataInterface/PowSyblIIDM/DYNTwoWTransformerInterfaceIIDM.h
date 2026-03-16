@@ -43,6 +43,8 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
     VAR_Q1,
     VAR_Q2,
     VAR_STATE,
+    VAR_I1,
+    VAR_I2,
     VAR_TAPINDEX
   } indexVar_t;
 
@@ -220,6 +222,16 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
    * @copydoc TwoWTransformerInterface::getQ2()
    */
   double getQ2();
+
+  /**
+  * @copydoc TwoWTransformerInterface::getStateVarI1() const
+  */
+  double getStateVarI1() const override;
+
+  /**
+  * @copydoc TwoWTransformerInterface::getStateVarI2() const
+  */
+  double getStateVarI2() const override;
 
   /**
    * @copydoc ComponentInterface::importStaticParameters()

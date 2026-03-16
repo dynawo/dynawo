@@ -19,4 +19,8 @@
       <voltageLevel  uMinPu="0.9" uNomMin="220"/>
     </parameters>
   </generatorCriteria>
+  <quadripoleCriteria>
+    <parameters id ="quadripole criteria" scope="DYNAMIC" type="LOCAL_VALUE" i1Max="139" i2Max="650"/>
+    <component id="_BUS____4-BUS____9-1_PT"/>
+  </quadripoleCriteria>
 </criteria>
