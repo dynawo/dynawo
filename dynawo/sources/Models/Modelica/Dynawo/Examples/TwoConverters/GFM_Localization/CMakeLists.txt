@@ -8,15 +8,16 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(GFM_Localization GL)
-
 set(MODEL_FILES
   package.mo
   package.order
-  TwoConvertersCsGFL.mo
-  TwoConvertersGFL.mo
-  TwoConvertersDynGFL.mo
-  TwoConvertersDynGFLDynLine.mo
+  GFM_base.mo
+  GFM_1transfo.mo
+  GFM_distrib.mo
+  GFM63kV.mo
+  GFM90kV.mo
+  GFM225kV.mo
+  GFM400kV.mo
   )
 
 #
