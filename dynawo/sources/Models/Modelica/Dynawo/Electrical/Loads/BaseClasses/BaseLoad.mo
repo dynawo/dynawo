@@ -34,6 +34,8 @@ partial model BaseLoad "Base model for loads"
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
   parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at load terminal in pu (base SnRef) (receptor convention)";
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -41,9 +43,10 @@ partial model BaseLoad "Base model for loads"
 equation
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
+  complexToPolar.u = terminal.V;
 
   if running.value then
-    UPu.value = ComplexMath.'abs'(terminal.V);
+    UPu.value = complexToPolar.len;
   else
     UPu.value = 0;
   end if;

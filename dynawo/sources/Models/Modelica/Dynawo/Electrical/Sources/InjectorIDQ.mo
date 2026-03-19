@@ -41,6 +41,8 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex inverter terminal voltage, used as complex connector instead of terminal connector, terminal only used for physical connection, in pu (base UNom)" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -33}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.PerUnit Id0Pu "Start value of idPu in pu (base SNom, UNom) (generator convention)";
   parameter Types.PerUnit Iq0Pu "Start value of iqPu in pu (base SNom, UNom) (generator convention)";
@@ -52,7 +54,8 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal in rad";
 
 equation
-  UPu = ComplexMath.'abs'(terminal.V);
+  complexToPolar.u = terminal.V;
+  UPu = complexToPolar.len;
   uPu = terminal.V;
 
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef

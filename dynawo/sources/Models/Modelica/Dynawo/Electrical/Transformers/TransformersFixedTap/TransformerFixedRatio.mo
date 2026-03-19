@@ -28,20 +28,22 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   extends BaseClasses.TransformerParameters;
   extends AdditionalIcons.Transformer;
 
+  parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
+
   Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
-
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
-
   Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
   Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
+
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar2;
 
 equation
   if (running.value) then
@@ -57,24 +59,20 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
+  complexToPolar1.u = terminal1.V;
+  complexToPolar2.u = terminal2.V;
+
   if (running.value) then
-    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
-      U1Pu = 0;
-    else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
-    end if;
-    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
-      U2Pu = 0;
-    else
-      U2Pu = ComplexMath.'abs'(terminal2.V);
-    end if;
+    U1Pu = complexToPolar1.len;
+    U2Pu = complexToPolar2.len;
   else
     U1Pu = 0;
     U2Pu = 0;
   end if;
 
-  annotation(preferredView = "text",
-      Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>

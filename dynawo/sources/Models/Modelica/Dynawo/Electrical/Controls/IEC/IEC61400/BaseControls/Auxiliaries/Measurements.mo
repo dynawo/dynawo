@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model Measurements "Measurement module for wind turbine controls (IEC N°61400-27-1)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ;
 
-  //Nominal parameters
+  //Nominal parameter
   parameter Types.Time tS "Integration time step in s";
 
   //Measurement parameters
@@ -52,9 +52,8 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
   Modelica.Blocks.Interfaces.RealOutput UPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  //Other variables
+  //Other variable
   Types.CurrentModulePu IWtPu(start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) "Current module at grid terminal in pu (base UNom, SNom)";
-  Types.VoltageModulePu UWtPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)";
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPFilt, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {90, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -74,9 +73,9 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Placement(visible = true, transformation(origin = {-70, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
     Placement(visible = true, transformation(origin = {-10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar annotation(
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarI annotation(
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1 annotation(
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolarU annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(T = tfFilt / 20, k = 1 / SystemBase.omegaNom, x_start = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -88,8 +87,7 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Dialog(tab = "Operating point"));
 
 equation
-  UWtPu = ComplexMath.'abs'(uPu);
-  IWtPu = ComplexMath.'abs'(iPu);
+  IWtPu = complexToPolarI.len;
 
   connect(iPu, product.u2) annotation(
     Line(points = {{-160, 80}, {-120, 80}, {-120, 106}, {-82, 106}}, color = {85, 170, 255}));
@@ -105,17 +103,17 @@ equation
     Line(points = {{102, 120}, {150, 120}}, color = {0, 0, 127}));
   connect(firstOrder1.y, QFiltPu) annotation(
     Line(points = {{102, 80}, {150, 80}}, color = {0, 0, 127}));
-  connect(iPu, complexToPolar.u) annotation(
+  connect(iPu, complexToPolarI.u) annotation(
     Line(points = {{-160, 80}, {-120, 80}, {-120, 40}, {-22, 40}}, color = {85, 170, 255}));
-  connect(uPu, complexToPolar1.u) annotation(
+  connect(uPu, complexToPolarU.u) annotation(
     Line(points = {{-160, 0}, {-82, 0}}, color = {85, 170, 255}));
-  connect(complexToPolar1.len, UPu) annotation(
+  connect(complexToPolarU.len, UPu) annotation(
     Line(points = {{-58, 6}, {40, 6}, {40, 0}, {150, 0}}, color = {0, 0, 127}));
-  connect(complexToPolar1.len, firstOrder3.u) annotation(
+  connect(complexToPolarU.len, firstOrder3.u) annotation(
     Line(points = {{-58, 6}, {40, 6}, {40, -40}, {78, -40}}, color = {0, 0, 127}));
   connect(firstOrder3.y, UFiltPu) annotation(
     Line(points = {{102, -40}, {150, -40}}, color = {0, 0, 127}));
-  connect(complexToPolar1.phi, theta) annotation(
+  connect(complexToPolarU.phi, theta) annotation(
     Line(points = {{-58, -6}, {20, -6}, {20, -80}, {150, -80}}, color = {0, 0, 127}));
   connect(omegaRefPu, add.u2) annotation(
     Line(points = {{-160, -120}, {-120, -120}, {-120, -126}, {78, -126}}, color = {0, 0, 127}));
@@ -125,13 +123,13 @@ equation
     Line(points = {{1, -100}, {18, -100}}, color = {0, 0, 127}));
   connect(firstOrder4.y, add.u1) annotation(
     Line(points = {{42, -100}, {60, -100}, {60, -114}, {78, -114}}, color = {0, 0, 127}));
-  connect(complexToPolar.len, firstOrder2.u) annotation(
+  connect(complexToPolarI.len, firstOrder2.u) annotation(
     Line(points = {{2, 46}, {40, 46}, {40, 40}, {78, 40}}, color = {0, 0, 127}));
   connect(firstOrder2.y, IFiltPu) annotation(
     Line(points = {{102, 40}, {150, 40}}, color = {0, 0, 127}));
   connect(derivative.y, rampLimiter.u) annotation(
     Line(points = {{-38, -100}, {-22, -100}}, color = {0, 0, 127}));
-  connect(complexToPolar1.phi, derivative.u) annotation(
+  connect(complexToPolarU.phi, derivative.u) annotation(
     Line(points = {{-58, -6}, {-40, -6}, {-40, -60}, {-80, -60}, {-80, -100}, {-62, -100}}, color = {0, 0, 127}));
 
   annotation(

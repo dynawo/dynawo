@@ -41,6 +41,9 @@ partial model BaseTransformer "Base model for a general two winding transformer 
 
   Dynawo.Types.ComplexPerUnit rTfoPu(re(start = RatioTfo0Pu * Modelica.Math.cos(AlphaTfo0)), im(start = RatioTfo0Pu * Modelica.Math.sin(AlphaTfo0))) "Transformation complex ratio in complex pu";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1;
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar2;
+
   // Initial parameters
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
@@ -65,20 +68,15 @@ equation
     terminal2.i = Complex(0);
   end if;
 
+  complexToPolar1.u = terminal1.V;
+  complexToPolar2.u = terminal2.V;
+
   if (running.value) then
-  // Variables for display or connection to another model (tap-changer for example)
+    // Variables for display or connection to another model (tap-changer for example)
     P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
-      U1Pu.value = 0;
-    else
-      U1Pu.value = ComplexMath.'abs'(terminal1.V);
-    end if;
-    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
-      U2Pu.value = 0;
-    else
-      U2Pu.value = ComplexMath.'abs'(terminal2.V);
-    end if;
+    U1Pu.value = complexToPolar1.len;
+    U2Pu.value = complexToPolar2.len;
   else
     P1Pu.value = 0;
     Q1Pu.value = 0;

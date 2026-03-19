@@ -82,6 +82,8 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (CFilter)         
   Types.Angle UPhase(start = UPhase0) "Voltage angle at terminal in rad";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage module at terminal in pu (base UNom)";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
   parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
   parameter Types.PerUnit UdPcc0Pu "Start value of the d-axis voltage at the PCC in pu (base UNom)";
@@ -106,6 +108,8 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (CFilter)         
   parameter Types.VoltageModulePu U0Pu "Start value of voltage module at terminal in pu (base UNom)";
 
 equation
+  complexToPolar.u = terminal.V;
+
   if running.value then
     /* DQ reference frame change from network reference to converter reference and pu base change */
     [udPccPu; uqPccPu] = [cos(theta), sin(theta); -sin(theta), cos(theta)] * [terminal.V.re; terminal.V.im];
@@ -138,14 +142,9 @@ equation
     PFilterPu = udFilterPu * idPccPu + uqFilterPu * iqPccPu;
     QFilterPu = uqFilterPu * idPccPu - udFilterPu * iqPccPu;
 
-    /* Phase calculation */
-    UPhase = Modelica.ComplexMath.arg(terminal.V);
-    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-      UPu = 0;
-    else
-      UPu = Modelica.ComplexMath.'abs'(terminal.V);
-    end if;
-
+    /* Phase and amplitude calculation */
+    UPhase = complexToPolar.phi;
+    UPu = complexToPolar.len;
   else
     udPccPu = 0;
     uqPccPu = 0;
@@ -170,7 +169,8 @@ equation
     UPu = 0;
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-55, -60}, {64, 60}})),
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-133, -85.5}, extent = {{-25, 5.5}, {8, -4.5}}, textString = "omegaPu"), Text(origin = {-133, 4.5}, extent = {{-35, 14.5}, {8, -4.5}}, textString = "IdcSourcePu"), Text(origin = {-133, 44.5}, extent = {{-39, 12.5}, {8, -4.5}}, textString = "udConvRefPu"), Text(origin = {-133, 94.5}, extent = {{-17, 5.5}, {8, -4.5}}, textString = "theta"), Text(origin = {-131, -66.5}, extent = {{-43, 16.5}, {8, -4.5}}, textString = "UdcSourceRefPu"), Text(origin = {119, 100.5}, extent = {{-8, 4.5}, {38, -12.5}}, textString = "udFilterPu"), Text(origin = {-133, -35.5}, extent = {{-41, 14.5}, {8, -4.5}}, textString = "uqConvRefPu"), Text(origin = {119, 68.5}, extent = {{-8, 4.5}, {25, -9.5}}, textString = "idPccPu"), Text(origin = {117, 10.5}, extent = {{-8, 4.5}, {38, -16.5}}, textString = "UdcSourcePu"), Text(origin = {118, 37.5}, extent = {{-8, 4.5}, {25, -9.5}}, textString = "idConvPu"), Text(origin = {118, -21.5}, extent = {{-8, 4.5}, {30, -10.5}}, textString = "iqConvPu"), Text(origin = {118, -51.5}, extent = {{-8, 4.5}, {24, -12.5}}, textString = "iqPccPu"), Text(origin = {118, -78.5}, extent = {{-8, 4.5}, {35, -16.5}}, textString = "uqFilterPu"), Text(origin = {17, -107.5}, extent = {{-8, 4.5}, {14, -7.5}}, textString = "ACPower"), Text(origin = {5, 6}, extent = {{-95, 56}, {90, -68}}, textString = "Converter"), Text(origin = {-58, -104.5}, extent = {{-8, 4.5}, {38, -12.5}}, textString = "PFilterPu"), Text(origin = {81, -104.5}, extent = {{-8, 4.5}, {38, -12.5}}, textString = "QFilterPu")}));
 end Converter;

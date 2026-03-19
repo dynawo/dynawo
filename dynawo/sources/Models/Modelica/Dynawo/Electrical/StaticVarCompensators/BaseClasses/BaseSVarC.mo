@@ -38,6 +38,8 @@ partial model BaseSVarC "Base dynamic model for static var compensator"
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in pu (base SnRef) (generator convention)";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in pu (base UNomLocal)";
 
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar;
+
   parameter Types.PerUnit B0Pu "Start value of the susceptance in pu (base UNom, SnRef)";
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in pu (base UNom)";
@@ -55,12 +57,10 @@ equation
     Timeline.logEvent1(TimelineKeys.SVarCBackRegulation);
   end when;
 
+  complexToPolar.u = terminal.V;
+
   if (running.value) then
-    if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
-      UPu = 0;
-    else
-      UPu = Modelica.ComplexMath.'abs'(terminal.V);
-    end if;
+    UPu = complexToPolar.len;
     terminal.i = terminal.V * Complex(0, BPu);
   else
     UPu = 0;
