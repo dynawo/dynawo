@@ -24,6 +24,10 @@ CurrentLimitAutomatonDisarming =        CLA : disarming by under-current constra
 GeneratorPVMaxQ           =             PV Generator : max reactive power limit reached
 GeneratorPVMinQ           =             PV Generator : min reactive power limit reached
 GeneratorPVBackRegulation =             PV Generator : back to voltage regulation
+// --> Generator PTanPhi
+GeneratorPTanPhiMaxQ           =        PTanPhi Generator : max reactive power limit reached
+GeneratorPTanPhiMinQ           =        PTanPhi Generator : min reactive power limit reached
+GeneratorPTanPhiBackRegulation =        PTanPhi Generator : back to reactive power following active power
 // --> ReactivePowerControlLoop
 RPCLLimitationUsRefMin    =             Reactive Power Control Loop : min voltage reference limit reached (UStatorRefMin)
 RPCLLimitationUsRefMax    =             Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)
