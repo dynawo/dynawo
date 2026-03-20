@@ -43,7 +43,7 @@ pollTimeoutMs_(10) {
 }
 
 void
-ZmqInputChannel::startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) {
+ZmqInputChannel::startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool const useThread) {
   callback_ = callback;
   useThread_ = useThread;
   if (useThread_) {

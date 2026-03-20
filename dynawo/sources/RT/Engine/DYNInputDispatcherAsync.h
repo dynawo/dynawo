@@ -45,7 +45,8 @@ class InputDispatcherAsync {
  public:
    /**
    * @brief Constructor
-   * @param clock pointer to the Clock object
+   * @param clock Clock instance
+   * @param dumpManager DumpManager instance
    */
   InputDispatcherAsync(std::shared_ptr<Clock> clock, std::shared_ptr<DumpManager> dumpManager);
 
