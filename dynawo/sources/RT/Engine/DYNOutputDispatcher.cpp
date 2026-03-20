@@ -158,7 +158,7 @@ OutputDispatcher::publishCurves(std::shared_ptr<curves::CurvesCollection>& curve
 }
 
 void
-OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timeline) {
+OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timeline) const {
   if (!timeline)
     return;
 
@@ -205,7 +205,7 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
 }
 
 void
-OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection) {
+OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection) const {
   if (!constraintsCollection)
     return;
 
@@ -243,7 +243,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
 }
 
 void
-OutputDispatcher::publishStateDump(const std::string& stateDumpString) {
+OutputDispatcher::publishStateDump(const std::string& stateDumpString) const {
   for (auto &publisher : dumpPublishers_)
     publisher->sendMessage(stateDumpString, "dump");
 }

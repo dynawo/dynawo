@@ -96,19 +96,19 @@ class OutputDispatcher {
    * @brief publish timeline
    * @param timeline timeline to publish
    */
-  void publishTimeline(boost::shared_ptr<timeline::Timeline>& timeline);
+  void publishTimeline(boost::shared_ptr<timeline::Timeline>& timeline) const;
 
   /**
    * @brief publish constraints
    * @param constraintsCollection constraints collection to publish
    */
-  void publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection);
+  void publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection) const;
 
   /**
    * @brief publish constraints
-   * @param dumpState constraints collection to publish
+   * @param stateDumpString constraints collection to publish
    */
-  void publishStateDump(const std::string& stateDumpString);
+  void publishStateDump(const std::string& stateDumpString) const;
 
  private:
   /**

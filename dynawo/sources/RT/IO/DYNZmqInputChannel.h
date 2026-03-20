@@ -40,6 +40,9 @@ namespace DYN {
  */
 class ZmqInputChannel: public InputChannel {
  public:
+  /**
+   * @brief type of control received in the message header
+   */
   typedef enum {
     STEP,     ///< Step next step
     STOP,     ///< Stop signal: stop gracefully the simulation
@@ -59,18 +62,19 @@ class ZmqInputChannel: public InputChannel {
   /**
    * @brief Start receiving messages.
    * @param callback Function called for each received message
-   * @param useThread Whether to run reception in a separate thread (default: true)
+   * @param useThread Whether to run reception in a separate thread
    */
-  void startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread = true) override;
+  void startReceiving(const std::function<void(std::shared_ptr<InputMessage>)>& callback, bool useThread) override;
 
   /**
    * @brief Stop receiving messages.
    */
-  void stop();
+  void stop() override;
 
   /**
-   * @brief get the control type from header
-   * @param controlType control type received
+   * @brief get the control type from the header
+   * @param header header to parse
+   * @return control type parsed from the header
    */
   zmqControlType_t getControlType(const std::string& header);
 
