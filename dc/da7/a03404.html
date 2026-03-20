@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::InputChannel Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('dc/da7/a03404.html','../../');});
+$(document).ready(function(){initNavTree('da/dc7/a03407.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,188 +94,32 @@ $(document).ready(function(){initNavTree('dc/da7/a03404.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="../../da/dfd/a03401.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::InputChannel Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::InputDispatcherAsync Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Abstract base class for real-time simulation input channels.  
- <a href="../../dc/da7/a03404.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../de/d9e/a01061_source.html">DYNInputChannel.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::InputChannel:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../dc/da7/a03404.png" usemap="#DYN::InputChannel_map" alt=""/>
-  <map id="DYN::InputChannel_map" name="DYN::InputChannel_map">
-<area href="../../d4/d57/a03412.html" title="Input channel implementation using ZeroMQ. " alt="DYN::ZmqInputChannel" shape="rect" coords="0,56,143,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:adf70ba4102f94151585cb10f6a04db53"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html#adf70ba4102f94151585cb10f6a04db53">InputChannel</a> (const std::string &amp;id, <a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">MessageFilter</a> supportedMessages)</td></tr>
-<tr class="memdesc:adf70ba4102f94151585cb10f6a04db53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#adf70ba4102f94151585cb10f6a04db53">More...</a><br /></td></tr>
-<tr class="separator:adf70ba4102f94151585cb10f6a04db53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cc47f5224ba616b38ec826686fef2f3"><td class="memItemLeft" align="right" valign="top"><a id="a2cc47f5224ba616b38ec826686fef2f3"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html#a2cc47f5224ba616b38ec826686fef2f3">~InputChannel</a> ()</td></tr>
-<tr class="memdesc:a2cc47f5224ba616b38ec826686fef2f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:a2cc47f5224ba616b38ec826686fef2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3a32f6996f22cae0e46d9f2d216bfda"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html#ac3a32f6996f22cae0e46d9f2d216bfda">startReceiving</a> (const std::function&lt; void(std::shared_ptr&lt; <a class="el" href="../../d7/d4f/a03376.html">InputMessage</a> &gt;)&gt; &amp;callback, bool useThread)=0</td></tr>
-<tr class="memdesc:ac3a32f6996f22cae0e46d9f2d216bfda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start receiving messages.  <a href="#ac3a32f6996f22cae0e46d9f2d216bfda">More...</a><br /></td></tr>
-<tr class="separator:ac3a32f6996f22cae0e46d9f2d216bfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f2f5fb1eb8e433a18c1c1820d16d88e"><td class="memItemLeft" align="right" valign="top"><a id="a9f2f5fb1eb8e433a18c1c1820d16d88e"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html#a9f2f5fb1eb8e433a18c1c1820d16d88e">stop</a> ()=0</td></tr>
-<tr class="memdesc:a9f2f5fb1eb8e433a18c1c1820d16d88e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop receiving messages. <br /></td></tr>
-<tr class="separator:a9f2f5fb1eb8e433a18c1c1820d16d88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af15e8cabd5c631c64ff9c609aef47655"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html#af15e8cabd5c631c64ff9c609aef47655">supports</a> (<a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">MessageFilter</a> value)</td></tr>
-<tr class="memdesc:af15e8cabd5c631c64ff9c609aef47655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this channel supports a given message type.  <a href="#af15e8cabd5c631c64ff9c609aef47655">More...</a><br /></td></tr>
-<tr class="separator:af15e8cabd5c631c64ff9c609aef47655"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a28aa9da4afc938ba3f136bf1fbab4822"><td class="memItemLeft" align="right" valign="top"><a id="a28aa9da4afc938ba3f136bf1fbab4822"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html#a28aa9da4afc938ba3f136bf1fbab4822">id_</a></td></tr>
-<tr class="memdesc:a28aa9da4afc938ba3f136bf1fbab4822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the input channel. <br /></td></tr>
-<tr class="separator:a28aa9da4afc938ba3f136bf1fbab4822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63f3b1e5c110d4cc9e275ef9da087fcb"><td class="memItemLeft" align="right" valign="top"><a id="a63f3b1e5c110d4cc9e275ef9da087fcb"></a>
-<a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">MessageFilter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html#a63f3b1e5c110d4cc9e275ef9da087fcb">supportedMessages_</a></td></tr>
-<tr class="memdesc:a63f3b1e5c110d4cc9e275ef9da087fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported message types. <br /></td></tr>
-<tr class="separator:a63f3b1e5c110d4cc9e275ef9da087fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract base class for real-time simulation input channels. </p>
-<p>Defines the interface for receiving messages from an external source into the simulation, with filtering capabilities. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adf70ba4102f94151585cb10f6a04db53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf70ba4102f94151585cb10f6a04db53">&#9670;&nbsp;</a></span>InputChannel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::InputChannel::InputChannel </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">MessageFilter</a>&#160;</td>
-          <td class="paramname"><em>supportedMessages</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>Identifier of the input channel </td></tr>
-    <tr><td class="paramname">supportedMessages</td><td><a class="el" href="../../dc/dcb/a02648.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> types supported by the channel </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac3a32f6996f22cae0e46d9f2d216bfda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3a32f6996f22cae0e46d9f2d216bfda">&#9670;&nbsp;</a></span>startReceiving()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DYN::InputChannel::startReceiving </td>
-          <td>(</td>
-          <td class="paramtype">const std::function&lt; void(std::shared_ptr&lt; <a class="el" href="../../d7/d4f/a03376.html">InputMessage</a> &gt;)&gt; &amp;&#160;</td>
-          <td class="paramname"><em>callback</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>useThread</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Start receiving messages. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">callback</td><td>Function called for each received message </td></tr>
-    <tr><td class="paramname">useThread</td><td>Whether to run reception in a separate thread </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="../../d4/d57/a03412.html#a3834de638f55f3bf3fd59e6263f06b48">DYN::ZmqInputChannel</a>.</p>
-
-</div>
-</div>
-<a id="af15e8cabd5c631c64ff9c609aef47655"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af15e8cabd5c631c64ff9c609aef47655">&#9670;&nbsp;</a></span>supports()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::InputChannel::supports </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../da/d17/a01046.html#a92932c35a7382682ccddd420baa1906a">MessageFilter</a>&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Check if this channel supports a given message type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td><a class="el" href="../../dc/dcb/a02648.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> filter to test </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the channel supports the message type, false otherwise </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../de/d9e/a01061_source.html">DYNInputChannel.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#add65490f0dc5e40f86f67be5391247ce">addInputChannel</a>(std::shared_ptr&lt; InputChannel &gt; &amp;inputChannel)</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a1bec589622897961343f8512fc467866">channels_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#ac0c6a8fd80587104e2e616844b396856">clock_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a5c7241e4440ff70ddceb759260db6a36">dispatchMessage</a>(std::shared_ptr&lt; InputMessage &gt; msg)</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#ad75b5327d7b593e2d876684af5f52f46">dumpManager_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#ab408c4fa31ff2b0eeff3e24a68e1cf91">InputDispatcherAsync</a>(std::shared_ptr&lt; Clock &gt; clock, std::shared_ptr&lt; DumpManager &gt; dumpManager)</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a44fd952f2252b76dd5baaee4ea59378c">loopWaitInMs_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a19c9fb2c934bc1ae4261099a8c1ba0c0">messageQueue_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a7be5e48f076671dbc08a8921205a39ca">model_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a225f26bf2cf60dfb33db4a04ba09ee6a">processLoop</a>()</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a98af237cf4b8bdb903f26afb105ca264">processorThread_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a08ef1ca2f3de0948b0d4413e273c890c">queueCond_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a9de1a5fda84a31b4b41a77d6166a24b5">queueMutex_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#ab5f8241f97c8edebd1f83387e913fc53">running_</a></td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a2ce9ed57f709b09f005a916eb24ceeea">setModel</a>(std::shared_ptr&lt; Model &gt; model)</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a281bb54199606f616a3a7d286014cf8f">start</a>()</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a16170b12ca9400a0178b71d88c6bbd36">stop</a>()</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/dc7/a03407.html#a5808f94b67a141900167a758d45b546b">~InputDispatcherAsync</a>()</td><td class="entry"><a class="el" href="../../da/dc7/a03407.html">DYN::InputDispatcherAsync</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -291,8 +135,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dc/da7/a03404.html">InputChannel</a></li>
-    <li class="footer">Generated on Wed Mar 18 2026 18:10:14 for Dynawo by
+    <li class="footer">Generated on Fri Mar 20 2026 13:49:38 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

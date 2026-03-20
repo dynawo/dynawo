@@ -1,6 +1,6 @@
 var a00560 =
 [
-    [ "TraceStream", "d4/d9d/a02704.html", "d4/d9d/a02704" ],
+    [ "TraceStream", "d8/d0f/a02707.html", "d8/d0f/a02707" ],
     [ "SeverityLevel", "d9/d19/a00560.html#a7f30ec83caa9180e23f0f9079c7f4794", [
       [ "DEBUG", "d9/d19/a00560.html#a7f30ec83caa9180e23f0f9079c7f4794aba17c0778dd43b6f34851dc72bb01bc0", null ],
       [ "INFO", "d9/d19/a00560.html#a7f30ec83caa9180e23f0f9079c7f4794a91c78882ba9f10f232f4d92f90bf5bb0", null ],
