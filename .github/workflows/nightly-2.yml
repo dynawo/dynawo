@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build and nrt
         uses: addnab/docker-run-action@v3
@@ -49,7 +49,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build
         env:
@@ -69,23 +69,24 @@ jobs:
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
 
-  centos7:
-    name: Linux Centos7
+  ol8:
+    name: Linux OL8
     runs-on: ubuntu-latest
     env:
       DYNAWO_RESULTS_SHOW: "false"
       DYNAWO_BUILD_TYPE: Release
+      DYNAWO_PYTHON_COMMAND: python3
       DYNAWO_NB_PROCESSORS_USED: 1
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build and nrt
         uses: addnab/docker-run-action@v3
         with:
-          image: dynawo/dynawo-distribution-centos7:latest
-          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED
+          image: dynawo/dynawo-distribution-ol8:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
             cd /dynawo

@@ -17,8 +17,8 @@ on:
         description: Create assets for Linux gcc11
         type: boolean
         default: true
-      perform-linux-centos7:
-        description: Create assets for Linux centos7
+      perform-linux-ol8:
+        description: Create assets for Linux OL8
         type: boolean
         default: true
       perform-windows:
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build
         uses: addnab/docker-run-action@v3
@@ -75,9 +75,9 @@ jobs:
             const release = require('.github/release.js')
             await release({github, context, core, glob})
 
-  distribution-centos7:
-    if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-centos7
-    name: Distribution Linux centos7
+  distribution-ol8:
+    if: github.event_name != 'workflow_dispatch' || inputs.perform-linux-ol8
+    name: Distribution Linux ol8
     runs-on: ubuntu-latest
     env:
       DYNAWO_BUILD_TYPE: Release
@@ -86,12 +86,12 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build
         uses: addnab/docker-run-action@v3
         with:
-          image: dynawo/dynawo-distribution-centos7:latest
+          image: dynawo/dynawo-distribution-ol8:latest
           options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED
           shell: bash
           run: |
@@ -99,7 +99,7 @@ jobs:
             export DYNAWO_HOME=$(pwd)
             util/envDynawo.sh build-user
             util/envDynawo.sh distrib-omc
-            for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_centos7_} ; done
+            for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_Linux_ol8_} ; done
         env:
           DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
@@ -130,7 +130,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build
         env:
@@ -167,7 +167,7 @@ jobs:
         run: git config --global core.autocrlf input
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Git move to keep path as short as possible
         shell: cmd
