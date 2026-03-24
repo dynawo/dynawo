@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 
 model REECa "WECC Electrical Control type A"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQPu0 = 1);
 
   // Input variable
   Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency from drive train control in pu (base omegaNom)" annotation(

@@ -31,7 +31,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
-    Placement(transformation(origin = {-188, 28}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-190, 58}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-79, 120}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power at optimal pitch angle in pu (base SNom)" annotation(
@@ -40,8 +40,9 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-188, 11}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-188, -6}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = wecc_repc.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(transformation(origin = {-188, -22}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(
     Kip = Kip,
     Kpp = Kpp,
@@ -83,8 +84,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Lvplsw = Lvplsw,
     zerox = zerox,
     QConv0Pu = QConv0Pu,
-    UInj0Pu = UInj0Pu,
-    uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu) annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
@@ -123,8 +122,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     PConv0Pu = PConv0Pu,
     QControl0Pu = QControl0Pu,
     QConv0Pu = QConv0Pu,
-    uControl0Pu = uControl0Pu,
-    URef0Pu = URef0Pu) annotation(
+    uControl0Pu = uControl0Pu) annotation(
     Placement(transformation(origin = {-121, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Sources.InjectorIDQ injector(
     Id0Pu = Id0Pu,
@@ -133,8 +131,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     UPhase0 = UPhaseConv0,
     i0Pu = i0Pu,
     s0Pu = s0Pu,
-    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
-    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
+    P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef),
+    Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef),
     u0Pu = uInj0Pu,
     U0Pu = UInj0Pu) annotation(
     Placement(transformation(extent = {{-10, 10}, {10, -10}})));
@@ -233,8 +231,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Ka = Ka,
     Pm0Pu = Pm0Pu) annotation(
     Placement(transformation(origin = {13, -56}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
-    Placement(transformation(origin = {-185.5, 45.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}})));
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,
@@ -259,10 +255,12 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc*QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
-    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
+  connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
+  connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_wtga.PmPu, wecc_wtgt.PmPu) annotation(
     Line(points = {{24, -56}, {54, -56}}, color = {0, 0, 127}));
   connect(wecc_wtgp.theta, wecc_wtga.theta) annotation(
@@ -277,8 +275,8 @@ equation
     Line(points = {{-188, 11}, {-170, 11}, {-170, -2}, {-132, -2}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
     Line(points = {{-149, 69}, {-140, 69}, {-140, 8}, {-132, 8}}, color = {0, 0, 127}));
-  connect(OmegaRef.y, pll.omegaRefPu) annotation(
-    Line(points = {{-179, 46}, {-176, 46}, {-176, 58}, {-171, 58}}, color = {0, 0, 127}));
+  connect(omegaRefPu, pll.omegaRefPu) annotation(
+    Line(points = {{-190, 58}, {-170, 58}}, color = {0, 0, 127}));
   connect(wecc_repc.freeze, wecc_wtgq.freeze) annotation(
     Line(points = {{-110, 0}, {-103, 0}, {-103, -40}, {-79, -40}, {-79, -45}}, color = {255, 0, 255}));
   connect(wecc_repc.QConvRefPu, wecc_reec.QConvRefPu) annotation(
@@ -344,7 +342,11 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Plant level control.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model Wtg3CurrentSource1 is the change of the pitch controller model, this one offers mor flexibility with the limits of the integrators.</font></div></body></html>"),
+    Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WTG model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Plant level control.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model Wtg3CurrentSource1 is the change of the pitch controller model, this one offers mor flexibility with the limits of the integrators.</font></div><div><br></div><div>The <b>power collection system</b> and measurement nodes are not specified in the WECC standard. Thus, we decided to make it flexible in the model.&nbsp;</div><div><br></div><div>With ConverterLVControl switch, you decide whether the inverter is controlling P,Q,U in low voltage or medium voltage.&nbsp;</div><div><br></div><div>With PPCLocal switch, you decide whether the plant controller is controlling P, Q, U at the model terminal or at a node outside the model.</div><div><br></div><div>Depending on PPCLocal and ConverterLVControl's values, the impedances of the group transformer (<span style=\"font-family: Arial, sans-serif;\">RLvTrPu, XLvTrPu) and of the main transformer (</span><span style=\"font-family: Arial, sans-serif;\">BMvHvPu ,GMvHvPu, RMvHvPu, XMvHvPu) won't be applied to the same block model. The following diagram explains it :
+    <figure>
+    <img width=\"800\" src=\"modelica://Dynawo/Electrical/Wind/WECC/Resources/PCSFlexibilityDiagram.png\">
+    </figure>
+    &nbsp;</span></div> </body></html>"),
     Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Diagram(coordinateSystem(extent = {{-180, -100}, {130, 110}})));
 end WTG3CurrentSource2;

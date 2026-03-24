@@ -25,7 +25,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     tOmegaEvtStart = 6,
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     RPu = 0,
     XPu = 0.0000020661,
@@ -33,6 +33,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource PV(
+    ConverterLVControl = true,
     DDn = 20,
     DPMaxPu = 999,
     DPMinPu = -999,
@@ -70,6 +71,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     P0Pu = -0.7,
     PMaxPu = 1,
     PMinPu = 0,
+    PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
@@ -122,27 +124,25 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     RMvHvPu = 0,
     XMvHvPu = 0.15,
     RLvTrPu = 0,
-    XLvTrPu = 0,
-    UPhase0 = 0) annotation(
+    XLvTrPu = 0) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0.2) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant URefPu(k = PV.URef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Constant URefPu(k = PV.wecc_repc.URef0Pu) annotation(
+    Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(PV.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
-    Placement(transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
-    Placement(transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = PV.BMvHvPu,
     ConverterLVControl = PV.ConverterLVControl,
     GMvHvPu = PV.GMvHvPu,
@@ -156,11 +156,11 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     SNom = PV.SNom,
     U0Pu = PV.U0Pu,
     UPcc0Pu = PV.UPcc0Pu,
-    UPhase0 = PV.UPhase0,
+    UPhase0 = 0,
     XLvTrPu = PV.XLvTrPu,
     XMvHvPu = PV.XMvHvPu,
     rTfoPu = PV.rTfoPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
   PV.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
@@ -194,10 +194,11 @@ equation
   PV.injector.switchOffSignal1.value = false;
   PV.injector.switchOffSignal2.value = false;
   PV.injector.switchOffSignal3.value = false;
+
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
-    Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, PV.omegaRefPu) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
   connect(QRefPu.y, PV.QRefPu) annotation(
@@ -209,19 +210,27 @@ equation
   connect(PFaRef.y, PV.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(const.y, PV.PPccPu) annotation(
-    Line(points = {{-38, -20}, {-20, -20}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));
+    Line(points = {{-39, -40}, {-20, -40}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));
   connect(const.y, PV.QPccPu) annotation(
-    Line(points = {{-38, -20}, {-20, -20}, {-20, -10}, {-2, -10}}, color = {0, 0, 127}));
+    Line(points = {{-39, -40}, {-20, -40}, {-20, -10}, {-2, -10}}, color = {0, 0, 127}));
   connect(complexConst.y, PV.uPccPu) annotation(
-    Line(points = {{-38, -50}, {-12, -50}, {-12, -14}, {-2, -14}}, color = {85, 170, 255}));
+    Line(points = {{-39, -80}, {-10, -80}, {-10, -14}, {-2, -14}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-     This test case consists in one PV park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal.    </div>
-    <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
- "),
+    This test case consists in one PV park connected to an infinite bus whose voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and whose frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal.    </div>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PVCurrentSource_PPuSnRef.png\">
+  </figure>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PVCurrentSource_QPuSnRef.png\">
+  </figure>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PVCurrentSource_UPu.png\">
+  </figure>
+</body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"));
 end PVCurrentSource;

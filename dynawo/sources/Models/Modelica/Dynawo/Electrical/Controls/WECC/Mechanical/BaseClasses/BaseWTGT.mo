@@ -124,8 +124,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3")),
     Diagram(coordinateSystem(extent = {{-200, -140}, {160, 140}})),
-    Icon(coordinateSystem(extent = {{-200, -140}, {160, 120}}, initialScale = 0.1), graphics = {Rectangle(origin = {-20, -10}, extent = {{-180, 130}, {180, -130}}), Text(origin = {-232, 37}, extent = {{-28, 21}, {28, -21}}, textString = "omegaRefPu"), Text(origin = {194, 34}, extent = {{-14, 16}, {14, -16}}, textString = "PePu"), Text(origin = {-148, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaTPu"), Text(origin = {16, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaGPu")}),
+    Icon(coordinateSystem(extent = {{-200, -120}, {160, 120}}, initialScale = 0.1), graphics = {Rectangle(extent = {{-200, 120}, {160, -120}}), Text(origin = {194, 34}, extent = {{-14, 16}, {14, -16}}, textString = "PePu"), Text(origin = {-148, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaTPu"), Text(origin = {16, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaGPu")}),
     version = "");
 end BaseWTGT;

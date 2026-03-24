@@ -18,30 +18,19 @@ model PVVoltageSource3NoPlantControl "WECC PV model with a voltage source as int
   | Source |--------+---->>--------RSourcePu+jXSourcePu-----+--->>---RPu+jXPu----->>----+----
   --------           iSourcePu                               iInjPu              iConvPu
   */
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceC(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQPu0 = 1);
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceC(LvTfo(RPu = RPu, XPu = XPu));
 
-  //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
-    Dialog(tab = "LV transformer"));
-
-  //Parameters for LV transformer
-  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom). Including source resistance for voltage source." annotation(
-    Dialog(tab = "LV transformer"));
-  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom). Including source reactance for voltage source." annotation(
-    Dialog(tab = "LV transformer"));
-
-  // In every cases (RPu + j*XPu) is the serial impedance between converter's output and injector terminal
-
-  //Depending on the value of ConverterLVControl we are correctly defining these parameters
-  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
-  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PConvRefPu(start = PConv0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+
   Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
@@ -105,16 +94,12 @@ model PVVoltageSource3NoPlantControl "WECC PV model with a voltage source as int
     uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.ACPower terminal(
-    V(re(start = u0Pu.re), im(start = u0Pu.im)),
-    i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaGPu(k = 1) annotation(
-    Placement(transformation(origin = {-104.5, -25.5}, extent = {{-5.5, -5.5}, {5.5, 5.5}})));
+    Placement(visible = true, transformation(origin = {-105, -40}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
 equation
   connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-79, 70}, {-79, 11}}, color = {0, 0, 127}));
+    Line(points = {{-190, 60}, {-79, 60}, {-79, 11}}, color = {0, 0, 127}));
   connect(QConvRefPu, wecc_reec.QConvRefPu) annotation(
     Line(points = {{-130, -20}, {-100, -20}, {-100, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(PConvRefPu, wecc_reec.PConvRefPu) annotation(
@@ -135,8 +120,6 @@ equation
     Line(points = {{62, -6}, {62, -20}, {-80, -20}, {-80, -11}}, color = {0, 0, 127}));
   connect(LvMeasurements.QPu, wecc_reec.QConvPu) annotation(
     Line(points = {{64, -6}, {64, -25}, {-89, -25}, {-89, -11}}, color = {0, 0, 127}));
-  connect(LvMeasurements.uPu, pll.uPu) annotation(
-    Line(points = {{66, -6}, {66, -30}, {-178, -30}, {-178, 50}, {-171, 50}}, color = {85, 170, 255}));
   connect(pll.phi, wecc_regc.phi) annotation(
     Line(points = {{-149, 45}, {-66, 45}, {-66, 9}, {-61, 9}}, color = {0, 0, 127}));
   connect(wecc_reec.iqMinPu, wecc_regc.iqMinPu) annotation(
@@ -149,15 +132,15 @@ equation
     Line(points = {{-88, 11}, {-88, 22}, {-44, 22}, {-44, 11}}, color = {0, 0, 127}));
   connect(SourceMeasurements.uPu, wecc_regc.uInjPu) annotation(
     Line(points = {{31, -5}, {31, -13}, {-42, -13}, {-42, -11}}, color = {85, 170, 255}));
-  connect(LvMeasurements.iPu, wecc_regc.iConvPu) annotation(
+  connect(LvMeasurements.iPu, wecc_regc.iInjPu) annotation(
     Line(points = {{68, -6}, {68, -35}, {-50, -35}, {-50, -11}}, color = {85, 170, 255}));
   connect(omegaGPu.y, wecc_reec.omegaGPu) annotation(
-    Line(points = {{-98, -25}, {-85, -25}, {-85, -11}}, color = {0, 0, 127}));
+    Line(points = {{-99, -40}, {-85, -40}, {-85, -11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>
 <p> This block contains the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p></html>"),
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(extent = {{-120, -60}, {120, 60}}, grid = {1, 1})),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -60}, {120, 60}})));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}),
+    Diagram(coordinateSystem(extent = {{-180, -60}, {120, 60}})));
 end PVVoltageSource3NoPlantControl;

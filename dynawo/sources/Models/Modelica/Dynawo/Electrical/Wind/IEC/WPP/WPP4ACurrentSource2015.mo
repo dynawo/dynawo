@@ -92,10 +92,13 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Placement(transformation(origin = {-60, 40}, extent = {{-20, -20}, {20, 20}})));
 
 equation
+  PCS.switchOffSignal1.value = wT4ACurrentSource.wT4Injector.switchOffSignal1.value;
+  PCS.switchOffSignal2.value = wT4ACurrentSource.wT4Injector.switchOffSignal2.value;
+
   connect(tanPhi, wT4ACurrentSource.tanPhi) annotation(
     Line(points = {{-20, 120}, {-20, 52}, {-2, 52}}, color = {0, 0, 127}));
   connect(omegaRefPu, wT4ACurrentSource.omegaRefPu) annotation(
-    Line(points = {{-140, 0}, {-19, 0}, {-19, 28}, {-2, 28}}, color = {0, 0, 127}));
+    Line(points = {{-140, 0}, {-20, 0}, {-20, 28}, {-2, 28}}, color = {0, 0, 127}));
   connect(wPPControl2015.PWPRefPu, PWPRefPu) annotation(
     Line(points = {{-82, 58}, {-100, 58}, {-100, 80}, {-140, 80}}, color = {0, 0, 127}));
   connect(QWPRefPu, wPPControl2015.QWPRefPu) annotation(

@@ -132,12 +132,15 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     Placement(transformation(origin = {-60, 40}, extent = {{-20, -20}, {20, 20}})));
 
 equation
+  PCS.switchOffSignal1.value = wT4BCurrentSource.wT4Injector.switchOffSignal1.value;
+  PCS.switchOffSignal2.value = wT4BCurrentSource.wT4Injector.switchOffSignal2.value;
+
   connect(wPPControl.PPDRefComPu, wT4BCurrentSource.PWTRefPu) annotation(
     Line(points = {{-38, 48}, {-20, 48}, {-20, 44}, {-2, 44}}, color = {0, 0, 127}));
   connect(wPPControl.xPDRefComPu, wT4BCurrentSource.xWTRefPu) annotation(
     Line(points = {{-38, 32}, {-20, 32}, {-20, 36}, {-2, 36}}, color = {0, 0, 127}));
   connect(omegaRefPu, wT4BCurrentSource.omegaRefPu) annotation(
-    Line(points = {{-140, 0}, {-19, 0}, {-19, 28}, {-2, 28}}, color = {0, 0, 127}));
+    Line(points = {{-140, 0}, {-20, 0}, {-20, 28}, {-2, 28}}, color = {0, 0, 127}));
   connect(xWPRefPu, wPPControl.xWPRefPu) annotation(
     Line(points = {{-140, 40}, {-111, 40}, {-111, 48}, {-82, 48}}, color = {0, 0, 127}));
   connect(PWPRefPu, wPPControl.PWPRefPu) annotation(

@@ -22,10 +22,13 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   // Input variables
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) annotation(
+    Placement(transformation(origin = {-190, 38}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary input in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-90, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(visible = true, transformation(origin = {-70, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {9.99201e-16, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.REEC.REECc reecC(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
@@ -96,12 +99,10 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
     Lvplsw = Lvplsw,
     QConv0Pu = QConv0Pu,
     RrpwrPu = RrpwrPu,
-    UInj0Pu = UInj0Pu,
     brkpt = brkpt,
     lvpl1 = lvpl1,
     tFilterGC = tFilterGC,
     tG = tG,
-    uConv0Pu = uConv0Pu,
     zerox = zerox,
     UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -115,8 +116,8 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   Sources.InjectorIDQ injector(
     Id0Pu = Id0Pu,
     Iq0Pu = -Iq0Pu,
-    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
-    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
+    P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef),
+    Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef),
     SNom = SNom,
     U0Pu = UInj0Pu,
     UPhase0 = UPhaseConv0,
@@ -129,9 +130,7 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,
-    RPu = RPu,
     SNom = SNom,
-    XPu = XPu,
     i20Pu = iConv0Pu,
     u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -147,12 +146,11 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) annotation(
-    Placement(transformation(origin = {-190, 38}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
 
 equation
+  connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(reecC.idCmdPu, regcA.idCmdPu) annotation(
     Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
   connect(reecC.iqCmdPu, regcA.iqCmdPu) annotation(
@@ -160,9 +158,9 @@ equation
   connect(regcA.idRefPu, injector.idPu) annotation(
     Line(points = {{-29, -6}, {-11, -6}}, color = {0, 0, 127}));
   connect(PFaRef, reecC.PFaRef) annotation(
-    Line(points = {{-70, 70}, {-70, 14}, {-79, 14}, {-79, 11}}, color = {0, 0, 127}));
+    Line(points = {{-70, 130}, {-70, 20}, {-79, 20}, {-79, 11}}, color = {0, 0, 127}));
   connect(PAuxPu, reecC.PAuxPu) annotation(
-    Line(points = {{-90, 70}, {-90, 14}, {-83, 14}, {-83, 11}}, color = {0, 0, 127}));
+    Line(points = {{-90, 130}, {-90, 20}, {-81, 20}, {-81, 11}}, color = {0, 0, 127}));
   connect(reecC.frtOn, regcA.frtOn) annotation(
     Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
   connect(pll.phi, injector.UPhase) annotation(
@@ -183,17 +181,11 @@ equation
     Line(points = {{64, -6}, {64, -30}, {-89, -30}, {-89, -11}}, color = {0, 0, 127}));
   connect(LvMeasurements.uPu, pll.uPu) annotation(
     Line(points = {{66, -6}, {66, -60}, {-173, -60}, {-173, 50}, {-171, 50}}, color = {85, 170, 255}));
-  connect(PAuxPu, reecC.PAuxPu) annotation(
-    Line(points = {{-90, 130}, {-90, 20}, {-81, 20}, {-81, 11}}, color = {0, 0, 127}));
-  connect(PFaRef, reecC.PFaRef) annotation(
-    Line(points = {{-70, 130}, {-70, 20}, {-79, 20}, {-79, 11}}, color = {0, 0, 127}));
-  connect(omegaRefPu, pll.omegaRefPu) annotation(
-    Line(points = {{-190, 38}, {-171, 38}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-190, 38}, {-171, 38}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC BESS")}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 120}})));
 end BaseBESSCurrentSource;

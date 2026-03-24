@@ -12,7 +12,6 @@ within Dynawo.Electrical.Controls.WECC.REEC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-
 model REECb "WECC Electrical Control type B"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;

@@ -19,6 +19,7 @@ add_subdirectory(REPC PC)
 set(MODEL_FILES
   package.mo
   package.order
+  ParamsLvTfo.mo
   ParamsPCS.mo
   ParamsVSourceRef.mo
   )

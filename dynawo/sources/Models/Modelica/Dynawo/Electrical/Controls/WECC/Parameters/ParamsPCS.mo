@@ -14,8 +14,9 @@ within Dynawo.Electrical.Controls.WECC.Parameters;
 */
 
 record ParamsPCS
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
 
-  //Nominal parameters
+  //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
   //Electrical parameters for internal MV network + MV/HV transformer
@@ -30,31 +31,18 @@ record ParamsPCS
   parameter Types.PerUnit rTfoPu = 1 "Transformation ratio in pu: UWT_terminal/UWTG_terminal in no load conditions" annotation(
     Dialog(tab = "MV network + MV/HV transformer"));
 
-  //Parameters for LV transformer
-  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom). Including source resistance for voltage source." annotation(
-    Dialog(tab = "LV transformer"));
-  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom). Including source reactance for voltage source." annotation(
-    Dialog(tab = "LV transformer"));
-
-  //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
-    Dialog(tab = "LV transformer"));
-  parameter Boolean PPCLocal = true "Boolean parameter to choose whether the Power Park Control is controlling at model's output terminal (True) or at a remote terminal using external measurements (False)" annotation(
+  //Configuration parameter to define how the user wants to represent the internal network
+  parameter Boolean PPCLocal "If true, the Power Park Control is controlling at model's output terminal, if false, at a remote terminal using external measurements" annotation(
     Dialog(tab = "MV network + MV/HV transformer"));
 
-  // In every case (RPcsPu + j*XPcsPu) and (GPcsPu + j*BPcsPu) are respectively the serial impedance and shunt admittance between Converter terminal and model's output terminal
+  // In every case (RPcsPu + j*XPcsPu) and (GPcsPu + j*BPcsPu) are respectively the serial impedance and shunt admittance between converter terminal and model's output terminal
   //Depending on the 4 possible combinations of (ConverterLVControl ; PPCLocal) we are correctly defining these parameters
-  final parameter Types.PerUnit BPcsPu = if PPCLocal then BMvHvPu else 1e-5 "Shunt susceptance between Converter terminal and model's output terminal in pu (base UNom, SNom)";
-  final parameter Types.PerUnit GPcsPu = if PPCLocal then GMvHvPu else 1e-5 "Shunt conductance between Converter terminal and model's output terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit BPcsPu = if PPCLocal then BMvHvPu else 1e-5 "Shunt susceptance between converter terminal and model's output terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit GPcsPu = if PPCLocal then GMvHvPu else 1e-5 "Shunt conductance between converter terminal and model's output terminal in pu (base UNom, SNom)";
   final parameter Types.PerUnit RPcsPu = if PPCLocal and ConverterLVControl then RLvTrPu + RMvHvPu elseif PPCLocal and not ConverterLVControl then RMvHvPu
-   elseif not PPCLocal and ConverterLVControl then RLvTrPu else 1e-5 "Serial resistance between Converter terminal and model's output terminal in pu (base UNom, SNom)";
+   elseif not PPCLocal and ConverterLVControl then RLvTrPu else 1e-5 "Serial resistance between converter terminal and model's output terminal in pu (base UNom, SNom)";
   final parameter Types.PerUnit XPcsPu = if PPCLocal and ConverterLVControl then XLvTrPu + XMvHvPu elseif PPCLocal and not ConverterLVControl then XMvHvPu
-   elseif not PPCLocal and ConverterLVControl then XLvTrPu else 1e-5 "Serial reactance between Converter terminal and model's output terminal in pu (base UNom, SNom)";
-
-  // In every case (RPu + j*XPu) is the serial impedance between converter's output and injector terminal
-  //Depending on the value of ConverterLVControl we are correctly defining these parameters
-  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
-  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
+   elseif not PPCLocal and ConverterLVControl then XLvTrPu else 1e-5 "Serial reactance between converter terminal and model's output terminal in pu (base UNom, SNom)";
 
   annotation(preferredView = "text");
 end ParamsPCS;
