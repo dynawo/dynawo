@@ -31,7 +31,6 @@
     <par type="BOOL" name="hvdc_modeU10" value="true"/>
     <reference name="hvdc_CosPhi1Ref0" origData="IIDM" origName="powerFactor" type="DOUBLE" componentId="LCCStation1"/>
     <reference name="hvdc_CosPhi2Ref0" origData="IIDM" origName="powerFactor" type="DOUBLE" componentId="LCCStation1"/>
-    <reference name="hvdc_U1Ref0Pu" origData="IIDM" origName="v1_pu" type="DOUBLE"/>
     <reference name="hvdc_U2Ref0Pu" origData="IIDM" origName="v2_pu" type="DOUBLE"/>
     <reference name="hvdc_Q1Ref0Pu" origData="IIDM" origName="q1_pu" type="DOUBLE"/>
     <reference name="hvdc_Q2Ref0Pu" origData="IIDM" origName="q2_pu" type="DOUBLE"/>
