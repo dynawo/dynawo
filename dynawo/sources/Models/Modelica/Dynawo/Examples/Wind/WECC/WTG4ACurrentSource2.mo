@@ -13,7 +13,7 @@ within Dynawo.Examples.Wind.WECC;
 */
 
 model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controller) - WTG4B - on infinite bus"
-  extends Modelica.Icons.Example;
+  extends Icons.Example;
 
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
     U0Pu = 1,
@@ -25,7 +25,7 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     tOmegaEvtStart = 26,
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     RPu = 0,
     XPu = 0.0000020661,
@@ -37,9 +37,9 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     DPMaxPu = 2,
     DPMinPu = -2,
     DUp = 0.001,
-    DbdPu = 0.01,
     Dbd1Pu = -0.05,
     Dbd2Pu = 0.05,
+    DbdPu = 0.01,
     Dshaft = 1.5,
     EMaxPu = 0.5,
     EMinPu = -0.5,
@@ -69,6 +69,7 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     Kshaft = 200,
     Kvi = 0.7,
     Kvp = 1,
+    Lvplsw = false,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     P0Pu = -0.7,
@@ -110,6 +111,8 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     VRef0Pu = 0,
     VRef1Pu = 0,
     VUpPu = 1.1,
+    brkpt = 0.1,
+    lvpl1 = 1.22,
     tFilterGC = 0.02,
     tFilterPC = 0.04,
     tFt = 1e-10,
@@ -123,10 +126,7 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     tPord = 0.01,
     tRv = 0.01,
     tp = 0.5,
-    brkpt = 0.1,
     zerox = 0.05,
-    Lvplsw = false,
-    lvpl1 = 1.22,
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
     PConv0Pu(fixed = false),
@@ -157,7 +157,7 @@ model WTG4ACurrentSource2 "WECC Wind Type 4A Model (including the plant controll
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant URefPu(k = WTG4A.URef0Pu) annotation(
+  Modelica.Blocks.Sources.Constant URefPu(k = WTG4A.wecc_repc.URef0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -220,6 +220,7 @@ equation
   WTG4A.injector.switchOffSignal1.value = false;
   WTG4A.injector.switchOffSignal2.value = false;
   WTG4A.injector.switchOffSignal3.value = false;
+
   connect(line.terminal2, WTG4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
@@ -239,20 +240,20 @@ equation
   connect(const.y, WTG4A.QPccPu) annotation(
     Line(points = {{-38, -40}, {-20, -40}, {-20, -10}, {-2, -10}}, color = {0, 0, 127}));
   connect(complexConst.y, WTG4A.uPccPu) annotation(
-    Line(points = {{-38, -80}, {-12, -80}, {-12, -14}, {-2, -14}}, color = {85, 170, 255}));
+    Line(points = {{-38, -80}, {-10, -80}, {-10, -14}, {-2, -14}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 0.0001, Interval = 0.0001),
     Documentation(info = "<html><head></head><body><!--StartFragment-->This test case consists in one simplified drive train model Wind Turbine park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the behavior of the drive train of a Wind Turbine type 4A park in response to a voltage and frequency variation at its terminal.<br data-start=\"530\" data-end=\"533\">
-In this improved version, the type A drive train model with constant mechanical power (Pm) is replaced by the type B model (WTGT_B), a two-mass equivalent model including a lag block between electrical power (Pe) and mechanical power (Pm). This lag mimics the effect of pitch control after disturbances, allowing Pm to adapt and preventing steady-state errors in Pe without modeling the full pitch control loop. &nbsp;&nbsp;<span style=\"font-size: 12px;\"><br><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></span></figure><figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/PInjPuWTG4ACurrentSource2.png\">
+    In this improved version, the type A drive train model with constant mechanical power (Pm) is replaced by the type B model (WTGT_B), a two-mass equivalent model including a lag block between electrical power (Pe) and mechanical power (Pm). This lag mimics the effect of pitch control after disturbances, allowing Pm to adapt and preventing steady-state errors in Pe without modeling the full pitch control loop. &nbsp;&nbsp;<span style=\"font-size: 12px;\"><br><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></span></figure><figure>
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4ACurrentSource2_PInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/QInjPuWTG4ACurrentSource2.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4ACurrentSource2_QInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/UPuWTG4ACurrentSource2.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4ACurrentSource2_UPu.png\">
     </figure></body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10", variableFilter = ".*"));

@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC.REGC;
 */
 
 model REGCb "WECC Generator Converter REGC type B"
-  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze1.T = tG, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu*UInj0Pu, rateLimFirstOrderFreeze2.T = tG, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
+  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze1.T = tG, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UConv0Pu, rateLimFirstOrderFreeze2.T = tG, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 
@@ -30,7 +30,7 @@ model REGCb "WECC Generator Converter REGC type B"
     Placement(visible = true, transformation(origin = {229, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {109, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant UNomFix(k = UInj0Pu) annotation(
+  Modelica.Blocks.Sources.Constant UNomFix(k = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, -99}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-19, -120}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -38,7 +38,6 @@ model REGCb "WECC Generator Converter REGC type B"
     Placement(visible = true, transformation(origin = {-150, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(
     homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy,
-    limitsAtInit = true,
     uMax = 999,
     uMin = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-99, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -15,8 +15,8 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 model REPCa "WECC Plant Control type A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
 
-  parameter Types.PerUnit RcPu "Line drop compensation resistance when VcompFlag = 1 in pu (base SnRef, UNom)";
-  parameter Types.PerUnit XcPu "Line drop compensation reactance when VcompFlag = 1 in pu (base SnRef, UNom)";
+  parameter Types.PerUnit RcPu "Line drop compensation resistance if VCompFlag is true in pu (base SnRef, UNom)";
+  parameter Types.PerUnit XcPu "Line drop compensation reactance if VCompFlag is true in pu (base SnRef, UNom)";
 
   // Inputs
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
@@ -43,6 +43,7 @@ model REPCa "WECC Plant Control type A"
     Placement(visible = true, transformation(origin = {210, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanOutput freeze(start = false) "Boolean to freeze the regulation" annotation(
     Placement(visible = true, transformation(origin = {-190, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant FreqFlag0(k = FreqFlag) annotation(
@@ -85,7 +86,6 @@ model REPCa "WECC Plant Control type A"
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZone(
-    deadZoneAtInit = true,
     uMax = DbdPu,
     uMin = -DbdPu) annotation(
     Placement(visible = true, transformation(origin = {50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -150,10 +150,8 @@ model REPCa "WECC Plant Control type A"
     UMaxPu = 999) annotation(
     Placement(visible = true, transformation(origin = {-230, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(
-    a = {tFv,
-    1},
-    b = {tFt,
-    1},
+    a = {tFv, 1},
+    b = {tFt, 1},
     initType = Modelica.Blocks.Types.Init.InitialState,
     x_start = {QConv0Pu},
     y_start = QConv0Pu) annotation(
@@ -161,14 +159,15 @@ model REPCa "WECC Plant Control type A"
   Modelica.Blocks.Sources.Constant OmegaRef(k = 1) annotation(
     Placement(transformation(origin = {-310, -110}, extent = {{-10, -10}, {10, 10}})));
 
-    //Initial parameters
+  //Initial parameters
   parameter Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention) (base UNom, SnRef)";
   parameter Types.ActivePowerPu PControl0Pu "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom) (generator convention)";
   parameter Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (generator convention) (base SNom)";
   parameter Types.ReactivePowerPu QControl0Pu "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
   parameter Types.ReactivePowerPu QConv0Pu "Start value of reactive power at converter terminal in pu (generator convention) (base SNom)";
   parameter Types.ComplexVoltagePu uControl0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
-  parameter Types.PerUnit URef0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
+
+  final parameter Types.VoltageModulePu URef0Pu = ComplexMath.'abs'(uControl0Pu) + (if VCompFlag then 0 else Kc * QControl0Pu) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
@@ -270,11 +269,8 @@ equation
     preferredView = "diagram",
     Documentation(info = "<html>
 <p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
-<p>Plant level active and reactive power/voltage control. Reactive power or voltage control dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = true), voltage at remote bus can be controlled when VcompFlag == true. Therefore, RcPu and XcPu shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, VcompFlag should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu). </p>
+<p>Plant level active and reactive power/voltage control. Reactive power or voltage control dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = true), voltage at remote bus can be controlled if VCompFlag is true. Therefore, RcPu and XcPu shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, VcompFlag should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu). </p>
 </html>"),
     Diagram(coordinateSystem(extent = {{-300, -150}, {200, 150}})),
-    version = "",
-    uses(Modelica(version = "3.2.3")),
-    __OpenModelica_commandLineOptions = "",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC A"), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PConvRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-149, 34}, extent = {{-55, 40}, {21, -10}}, textString = "omegaRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "omegaPu"), Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QConvRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze"), Text(origin = {1, -132}, extent = {{-23, 10}, {21, -10}}, textString = "URefPu")}, coordinateSystem(initialScale = 0.1)));
 end REPCa;

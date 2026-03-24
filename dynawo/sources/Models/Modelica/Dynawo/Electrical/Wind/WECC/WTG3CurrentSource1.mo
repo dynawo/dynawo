@@ -39,8 +39,9 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-190, 25}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-190, 8}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = wecc_repc.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGPa wecc_wtgp(
     Kiw = Kiw,
     Kpw = Kpw,
@@ -102,7 +103,6 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Lvplsw = Lvplsw,
     zerox = zerox,
     QConv0Pu = QConv0Pu,
-    UInj0Pu = UInj0Pu,
     uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu) annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -142,8 +142,7 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     PConv0Pu = PConv0Pu,
     QControl0Pu = QControl0Pu,
     QConv0Pu = QConv0Pu,
-    uControl0Pu = uControl0Pu,
-    URef0Pu = URef0Pu) annotation(
+    uControl0Pu = uControl0Pu) annotation(
     Placement(transformation(origin = {-121, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Sources.InjectorIDQ injector(
     Id0Pu = Id0Pu,
@@ -152,8 +151,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     UPhase0 = UPhaseConv0,
     i0Pu = i0Pu,
     s0Pu = s0Pu,
-    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
-    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
+    P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef),
+    Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef),
     u0Pu = uInj0Pu,
     U0Pu = UInj0Pu) annotation(
     Placement(transformation(extent = {{-10, 10}, {10, -10}})));
@@ -252,8 +251,6 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then UInj0Pu else ComplexMath.'abs'(uControl0Pu) + Kc*QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
-    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
 
 equation
   connect(wecc_wtgt.omegaGPu, wecc_wtgq.omegaGPu) annotation(
@@ -264,8 +261,6 @@ equation
     Line(points = {{-29, 4}, {-11.5, 4}}, color = {0, 0, 127}));
   connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
     Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
-  connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
-    Line(points = {{61, 55}, {74, 55}, {74, -2}, {93, -2}}, color = {0, 0, 127}));
   connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
     Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(

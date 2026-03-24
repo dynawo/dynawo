@@ -34,6 +34,5 @@ equation
     parameters (and variables) of this simple drive-train model cannot necessarily be compared with
     actual physical quantities directly. </p>
     <p>In this version A of the drive train, the mechanical power is dependant on an input. </p></body></html>"),
-    uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Icon(graphics = {Text(origin = {-229, 127}, extent = {{-19, 11}, {19, -11}}, textString = "Pm"), Text(origin = {-13, -3}, extent = {{-147, 103}, {133, -99}}, textString = "WTGT A")}));
 end WTGTa;

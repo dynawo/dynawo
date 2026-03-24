@@ -59,7 +59,7 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
   Modelica.Blocks.Math.Gain gain(k = SNom/SystemBase.SnRef) annotation(
     Placement(visible = true, transformation(origin = {64, 104}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = SNom/SystemBase.SnRef) annotation(
-    Placement(visible = true, transformation(origin = {64, 88}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {64, 89}, extent = {{4, -4}, {-4, 4}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal2 annotation(
     Placement(visible = true, transformation(origin = {99, 100}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal3 annotation(
@@ -72,19 +72,19 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexCurrentPu iControl0Pu = if PPCLocal then i0Pu else iPcc0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
-  final parameter Types.ComplexCurrentPu iPcc0Pu = ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu)/uPcc0Pu) "Start value of complex current at external PCC in pu (used when PPCLocal = False, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)";
+  final parameter Types.ComplexCurrentPu iPcc0Pu = ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu)/uPcc0Pu) "Start value of complex current at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
   final parameter Types.ActivePowerPu PControl0Pu = if PPCLocal then -P0Pu*SystemBase.SnRef/SNom else -PPcc0Pu*SystemBase.SnRef/SNom "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
-  parameter Types.ActivePowerPu PPcc0Pu = 1 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ActivePowerPu PPcc0Pu = 1 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
   final parameter Types.ReactivePowerPu QControl0Pu = if PPCLocal then -Q0Pu*SystemBase.SnRef/SNom else -QPcc0Pu*SystemBase.SnRef/SNom "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
-  parameter Types.ReactivePowerPu QPcc0Pu = 1 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ReactivePowerPu QPcc0Pu = 1 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   final parameter Types.ComplexVoltagePu uControl0Pu = if PPCLocal then u0Pu else uPcc0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
-  parameter Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = False, meaning the PCS is defined outside of the model) (base UNom)" annotation(
+  parameter Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.VoltageModulePu UPcc0Pu = 1 "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
@@ -125,7 +125,7 @@ equation
   connect(complexToReal1.im, switch3.u3) annotation(
     Line(points = {{93, 81}, {31, 81}}, color = {0, 0, 127}));
   connect(gain1.y, switch3.u1) annotation(
-    Line(points = {{60, 88}, {46, 88}, {46, 90}, {32, 90}}, color = {0, 0, 127}));
+    Line(points = {{60, 89}, {32, 89}}, color = {0, 0, 127}));
   connect(complexToReal1.re, switch4.u3) annotation(
     Line(points = {{93, 87}, {90, 87}, {90, 96}, {31, 96}}, color = {0, 0, 127}));
   connect(gain.y, switch4.u1) annotation(
@@ -133,7 +133,7 @@ equation
   connect(HvMeasurements.uPu, complexToReal3.u) annotation(
     Line(points = {{116, 6}, {116, 70}, {106, 70}}, color = {85, 170, 255}));
   connect(complexToReal3.im, switch2.u1) annotation(
-    Line(points = {{94, 68}, {80, 68}, {80, 60}, {32, 60}}, color = {0, 0, 127}));
+    Line(points = {{94, 67}, {80, 67}, {80, 60}, {32, 60}}, color = {0, 0, 127}));
   connect(complexToReal3.re, switch1.u1) annotation(
     Line(points = {{94, 74}, {32, 74}}, color = {0, 0, 127}));
   connect(HvMeasurements.iPu, complexToReal2.u) annotation(
@@ -141,7 +141,7 @@ equation
   connect(complexToReal2.re, gain.u) annotation(
     Line(points = {{94, 104}, {68, 104}}, color = {0, 0, 127}));
   connect(complexToReal2.im, gain1.u) annotation(
-    Line(points = {{94, 98}, {80, 98}, {80, 88}, {68, 88}}, color = {0, 0, 127}));
+    Line(points = {{94, 97}, {80, 97}, {80, 89}, {68, 89}}, color = {0, 0, 127}));
   connect(HvMeasurements.PPu, switch.u1) annotation(
     Line(points = {{112, 6}, {112, 27}, {31, 27}}, color = {0, 0, 127}));
   connect(HvMeasurements.QPu, switch5.u1) annotation(

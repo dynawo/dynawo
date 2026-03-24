@@ -57,13 +57,13 @@ model WPP4CurrentSource_INIT "Wind Power Plant Type 4 model from IEC 61400-27-1 
   final parameter Types.PerUnit XPcsPu = if PPCLocal and ConverterLVControl then XLvTrPu + XMvHvPu elseif PPCLocal and not ConverterLVControl then XMvHvPu
    elseif not PPCLocal and ConverterLVControl then XLvTrPu else 0 "Serial reactance between WT terminal and model's output terminal in pu (base UNom, SNom)";
 
-  parameter Types.ActivePowerPu PPcc0Pu = 0 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = False) in pu (base SnRef) (receptor convention) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ActivePowerPu PPcc0Pu = 0 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = false) in pu (base SnRef) (receptor convention) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
-  parameter Types.ReactivePowerPu QPcc0Pu = 0 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = False) in pu (base SnRef) (receptor convention) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ReactivePowerPu QPcc0Pu = 0 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false) in pu (base SnRef) (receptor convention) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
-  parameter Types.VoltageModulePu UPcc0Pu = 1 "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = False) in pu (base UNom) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.VoltageModulePu UPcc0Pu = 1 "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false) in pu (base UNom) (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
-  parameter Types.Angle UPccPhase0 = 0 "Initial voltage angle at the external bus controlled by the PPC (used when PPCLocal = False) in rad (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.Angle UPccPhase0 = 0 "Initial voltage angle at the external bus controlled by the PPC (used when PPCLocal = false) in rad (only if the PCS is defined outside of the model)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
 
   Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";

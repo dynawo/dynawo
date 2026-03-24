@@ -15,16 +15,17 @@ within Dynawo.Electrical.Wind.WECC;
 model WTG4BCurrentSource "WECC Wind Turbine model with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B(LvTfo(RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-120, -10}, {-100, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-120, 50}, {-100, 70}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power setpoint at regulated bus in pu (generator convention) (base SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-120, -10}, {-100, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = wecc_repc.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
     DDn = DDn,
     DUp = DUp,
@@ -52,7 +53,6 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     RcPu = RPu,
     RefFlag = RefFlag,
     SNom = SNom,
-    URef0Pu = URef0Pu,
     VCompFlag = VCompFlag,
     VFrz = VFrz,
     XcPu = XPu,
@@ -65,10 +65,6 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     uControl0Pu = uControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then ComplexMath.'abs'(uControl0Pu) else ComplexMath.'abs'(uControl0Pu) + Kc*QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)" annotation(
-    Placement(visible = false, transformation(extent = {{0, 0}, {0, 0}})));
-
 equation
   connect(wecc_repc.PConvRefPu, wecc_reec.PConvRefPu) annotation(
     Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));
@@ -77,9 +73,9 @@ equation
   connect(URefPu, wecc_repc.URefPu) annotation(
     Line(points = {{-190, -40}, {-120, -40}, {-120, -11}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(
-    Line(points = {{-190, -20}, {-150, -20}, {-150, -6}, {-131, -6}}, color = {0, 0, 127}));
+    Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-131, -6}}, color = {0, 0, 127}));
   connect(PRefPu, wecc_repc.PRefPu) annotation(
-    Line(points = {{-190, 0}, {-150, 0}, {-150, -2}, {-131, -2}}, color = {0, 0, 127}));
+    Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(switch.y, wecc_repc.PRegPu) annotation(
     Line(points = {{20, 23}, {-112, 23}, {-112, 11}}, color = {0, 0, 127}));
   connect(switch5.y, wecc_repc.QRegPu) annotation(

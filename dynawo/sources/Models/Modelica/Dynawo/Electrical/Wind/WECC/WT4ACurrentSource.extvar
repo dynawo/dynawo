@@ -15,7 +15,7 @@
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="PFaRef" optional="true"/>
-  <variable type="continuous" id="omegaRefPu"/>
+  <variable type="continuous" id="omegaRefPu" optional="true"/>
   <variable type="continuous" id="PConvRefPu" optional="true"/>
   <variable type="continuous" id="QConvRefPu" optional="true"/>
   <variable type="discrete" id="injector.switchOffSignal1.value" defaultValue="false"/>

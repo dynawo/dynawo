@@ -20,7 +20,7 @@ model PVVoltageSourceNoPlantControl_INIT "Initialization model for WECC PV model
        --------          iSource0Pu                                               i0Pu
   */
   extends AdditionalIcons.Init;
-  extends Electrical.Controls.WECC.Parameters.ParamsPCS;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.PerUnit RSourcePu "Source resistance in pu (base SNom, UNom) (typically set to zero, typical: 0..0.01)";

@@ -24,9 +24,9 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  parameter Types.ActivePowerPu PPcc0Pu "Initial active power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ActivePowerPu PPcc0Pu "Initial active power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(enable = not PPCLocal));
-  parameter Types.ReactivePowerPu QPcc0Pu "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = False) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ReactivePowerPu QPcc0Pu "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(enable = not PPCLocal));
   parameter Types.VoltageModulePu UPcc0Pu "Start value of voltage magnitude at PPC regulated bus in pu (bae UNom)" annotation(
     Dialog(enable = not PPCLocal));
@@ -43,28 +43,28 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
 
   // Torque control parameters
   parameter Types.PerUnit P1 = 0 "1st power point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
   parameter Types.PerUnit Spd1 = 1 "1st speed point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
   parameter Types.PerUnit P2 = 1 "2nd power point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
   parameter Types.PerUnit Spd2 = 1 "2nd speed point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
   parameter Types.PerUnit P3 = 2 "3rd power point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
   parameter Types.PerUnit Spd3 = 1 "3rd speed point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
   parameter Types.PerUnit P4 = 3 "4th power point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
   parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
-  Dialog(tab="Torque control"));
+    Dialog(tab="Torque control"));
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
-  Types.ComplexPerUnit iPcc0Pu "Start value of complex current at external PCC in pu (used when PPCLocal = False, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
+  Types.ComplexPerUnit iPcc0Pu "Start value of complex current at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
     Dialog(enable = not PPCLocal));
   Types.ComplexPerUnit iSource0Pu "Start value of complex current at source in pu (base UNom, SNom) (generator convention)";  Types.PerUnit PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
   Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (base SNom) (generator convention)";
@@ -74,7 +74,7 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexPerUnit sConv0Pu "Start value of complex apparent power at converter in pu (base SNom) (generator convention)";
   Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in pu (base SNom) (generator convention)";
-  Types.ComplexPerUnit sPcc0Pu "Start value of complex apparent power at external PCC in pu (used when PPCLocal = False, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
+  Types.ComplexPerUnit sPcc0Pu "Start value of complex apparent power at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
     Dialog(enable = not PPCLocal));
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
@@ -82,18 +82,14 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";  Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
-  Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = False, meaning the PCS is defined outside of the model) (base UNom)" annotation(
+  Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)" annotation(
     Dialog(enable = not PPCLocal));
   Types.Angle UInjPhase0 "Start value of voltage phase angle at injector in rad";
   Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
   Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
-    table = [P1,
-    Spd1; P2,
-    Spd2; P3,
-    Spd3; P4,
-    Spd4]) annotation(
+
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));

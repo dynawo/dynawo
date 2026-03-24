@@ -16,6 +16,17 @@ within Dynawo.Examples.BESS.WECC;
 model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
   extends Icons.Example;
 
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
+    U0Pu = 0.9906184368094055,
+    UEvtPu = 0.6,
+    UPhase = 0,
+    omega0Pu = 1,
+    omegaEvtPu = 1.01,
+    tOmegaEvtEnd = 17.5,
+    tOmegaEvtStart = 17,
+    tUEvtEnd = 13,
+    tUEvtStart = 12) annotation(
+    Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.BESS.WECC.BESSCurrentSource BESS(
     ConverterLVControl = true,
     DDn = 126,
@@ -83,7 +94,6 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plan
     U0Pu = 0.9948728673356535,
     UInj0Pu(fixed = false),
     UPcc0Pu = 1,
-    UPhase0 = 0.14453232453351325,
     VCompFlag = false,
     VDLIp11 = 0.2,
     VDLIp12 = 1.11,
@@ -138,29 +148,9 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plan
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(BESS.PF0)) annotation(
-    Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PAuxPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
-    BMvHvPu = BESS.BMvHvPu,
-    ConverterLVControl = BESS.ConverterLVControl,
-    GMvHvPu = BESS.GMvHvPu,
-    P0Pu = BESS.P0Pu,
-    PPCLocal = BESS.PPCLocal,
-    PPcc0Pu = BESS.PPcc0Pu,
-    Q0Pu = BESS.Q0Pu,
-    QPcc0Pu = BESS.QPcc0Pu,
-    RLvTrPu = BESS.RLvTrPu,
-    RMvHvPu = BESS.RMvHvPu,
-    SNom = BESS.SNom,
-    U0Pu = BESS.U0Pu,
-    UPcc0Pu = BESS.UPcc0Pu,
-    UPhase0 = BESS.UPhase0,
-    UPhasePcc0 = 0.03533563863002929,
-    XLvTrPu = BESS.XLvTrPu,
-    XMvHvPu = BESS.XMvHvPu,
-    rTfoPu = BESS.rTfoPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Controls.Utilities.Measurements PCCmeasurements annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(
@@ -176,17 +166,6 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plan
     RPu = 0,
     XPu = 0.05) annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Electrical.Buses.InfiniteBusWithVariations infiniteBus(
-    U0Pu = 0.9906184368094055,
-    UEvtPu = 0.6,
-    UPhase = 0,
-    omega0Pu = 1,
-    omegaEvtPu = 1.01,
-    tOmegaEvtEnd = 17.5,
-    tOmegaEvtStart = 17,
-    tUEvtEnd = 13,
-    tUEvtStart = 12) annotation(
-    Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.Step PRef(
     height = 0.1,
     offset = BESS.PControl0Pu,
@@ -194,9 +173,31 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plan
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step URef(
     height = 0.02,
-    offset = BESS.URef0Pu,
+    offset = BESS.repcA.URef0Pu,
     startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
+  // Initialization
+  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+    BMvHvPu = BESS.BMvHvPu,
+    ConverterLVControl = BESS.ConverterLVControl,
+    GMvHvPu = BESS.GMvHvPu,
+    P0Pu = BESS.P0Pu,
+    PPCLocal = BESS.PPCLocal,
+    PPcc0Pu = BESS.PPcc0Pu,
+    Q0Pu = BESS.Q0Pu,
+    QPcc0Pu = BESS.QPcc0Pu,
+    RLvTrPu = BESS.RLvTrPu,
+    RMvHvPu = BESS.RMvHvPu,
+    SNom = BESS.SNom,
+    U0Pu = BESS.U0Pu,
+    UPcc0Pu = BESS.UPcc0Pu,
+    UPhase0 = 0.14453232453351325,
+    UPhasePcc0 = 0.03533563863002929,
+    XLvTrPu = BESS.XLvTrPu,
+    XMvHvPu = BESS.XMvHvPu,
+    rTfoPu = BESS.rTfoPu) annotation(
+    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
   BESS.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
@@ -262,8 +263,18 @@ equation
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-05, Interval = 0.001),
+    experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
+    Documentation(info = "<html><head></head><body>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/BESSCurrentSourceExternalPCS_PInjPuSn.png\">
+  </figure>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/BESSCurrentSourceExternalPCS_QInjPuSn.png\">
+  </figure>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/BESS/WECC/Resources/BESSCurrentSourceExternalPCS_UPu.png\">
+  </figure>
+</body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"),
-    Documentation(info = "<html><head></head><body></body></html>"));
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10"));
 end BESSCurrentSourceExternalPCS;

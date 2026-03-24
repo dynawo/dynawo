@@ -13,22 +13,8 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSourceNoPlantControl "WECC PV model with a current source as interface with the grid (REEC-B REGC-A)"
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
-
-  //Configuration parameters to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl = true "Boolean parameter to choose whether the converter is controlling at its output (LV side of its transformer) : True ; or after its transformer (MV side): False" annotation(
-    Dialog(tab = "LV transformer"));
-
-  //Parameters for LV transformer
-  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom). Including source resistance for voltage source." annotation(
-    Dialog(tab = "LV transformer"));
-  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom). Including source reactance for voltage source." annotation(
-    Dialog(tab = "LV transformer"));
-
-  // In every cases (RPu + j*XPu) is the serial impedance between converter's output and injector terminal
-  //Depending on the value of ConverterLVControl we are correctly defining these parameters
-  final parameter Types.PerUnit RPu = if ConverterLVControl then 1e-5 else RLvTrPu "Serial resistance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
-  final parameter Types.PerUnit XPu = if ConverterLVControl then 1e-5 else XLvTrPu "Serial reactance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PConvRefPu(start = PConv0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(

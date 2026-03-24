@@ -193,7 +193,7 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG3.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PmRefPu(k = 0.7) annotation(
-    Placement(transformation(origin = {8, 82}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+    Placement(transformation(origin = {-30, 80}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
@@ -277,7 +277,7 @@ equation
   connect(PFaRef.y, WTG3.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(PmRefPu.y, WTG3.PmRefPu) annotation(
-    Line(points = {{8, 72}, {8, 22}}, color = {0, 0, 127}));
+    Line(points = {{-19, 80}, {8, 80}, {8, 22}}, color = {0, 0, 127}));
   connect(const.y, WTG3.PPccPu) annotation(
     Line(points = {{-38, -40}, {-20, -40}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));
   connect(const.y, WTG3.QPccPu) annotation(
@@ -289,13 +289,13 @@ equation
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\"><div><!--StartFragment-->This test case consists in one simplified Wind Turbine type 3 park connected to an infinite bus, which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This setup is used to observe the dynamic behavior of the WTG3 system in response to voltage and frequency variations at its terminal. In this version, Pitch Controller A has been replaced with Pitch Controller B, which provides enhanced flexibility through additional tuning parameters. This allows for better adjustment of the pitch response to rotor speed variations under different operating conditions.<!--EndFragment-->&nbsp;&nbsp;</div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></span></figure><figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/PInjPuWTG3CurrentSource2.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG3CurrentSource2_PInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/QInjPuWTG3CurrentSource2.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG3CurrentSource2_QInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/UPuWTG3CurrentSource2.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG3CurrentSource2_UPu.png\">
     </figure></body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10", variableFilter = ".*"));

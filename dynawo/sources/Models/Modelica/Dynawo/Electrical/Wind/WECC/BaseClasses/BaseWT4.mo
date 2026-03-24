@@ -21,11 +21,12 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  // Input variable
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-190, 38}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
@@ -98,7 +99,6 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
     Lvplsw = Lvplsw,
     QConv0Pu = QConv0Pu,
     RrpwrPu = RrpwrPu,
-    UInj0Pu = UInj0Pu,
     brkpt = brkpt,
     lvpl1 = lvpl1,
     tFilterGC = tFilterGC,
@@ -110,13 +110,13 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   Dynawo.Electrical.Sources.InjectorIDQ injector(
     Id0Pu = Id0Pu,
     Iq0Pu = -Iq0Pu,
-    P0Pu = -PInj0Pu*(SNom/SystemBase.SnRef),
-    Q0Pu = -QInj0Pu*(SNom/SystemBase.SnRef),
+    P0Pu = -PInj0Pu * (SNom / SystemBase.SnRef),
+    Q0Pu = -QInj0Pu * (SNom / SystemBase.SnRef),
     SNom = SNom,
     U0Pu = UInj0Pu,
     UPhase0 = UPhaseConv0,
     i0Pu = i0Pu,
-    s0Pu = Complex(-PInj0Pu*(SNom/SystemBase.SnRef), -QInj0Pu*(SNom/SystemBase.SnRef)),
+    s0Pu = -Complex(PInj0Pu, QInj0Pu) * (SNom / SystemBase.SnRef),
     u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
   Dynawo.Electrical.Controls.PLL.PLL pll(
@@ -129,9 +129,7 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,
-    RPu = RPu,
     SNom = SNom,
-    XPu = XPu,
     i20Pu = iConv0Pu,
     u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

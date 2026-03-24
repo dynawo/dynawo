@@ -41,7 +41,7 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Utilities.Measurements PCCmeasurements annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio ZPcs(
     BPu = 0,
     GPu = 0,
     RPu = 0.01,
@@ -50,7 +50,7 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Step URef(
     height = 0.02,
-    offset = WTG4B.URef0Pu,
+    offset = WTG4B.wecc_repc.URef0Pu,
     startTime = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRef(
@@ -58,7 +58,7 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     offset = 0.35,
     startTime = 8) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Electrical.Wind.WECC.WTG4BCurrentSource WTG4B(
+  Dynawo.Electrical.Wind.WECC.WTG4BCurrentSource WTG4B(
     BMvHvPu = 0,
     ConverterLVControl = true,
     DDn = 20,
@@ -265,7 +265,17 @@ equation
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 0.001, Interval = 0.0001),
-    Documentation(info = "<html><head></head><body><br></body></html>"),
+    Documentation(info = "<html><head></head><body>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4BCurrentSourceExternalPCS_PInjPu.png\">
+  </figure>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4BCurrentSourceExternalPCS_QInjPu.png\">
+  </figure>
+  <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4BCurrentSourceExternalPCS_UPu.png\">
+  </figure>
+</body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10", variableFilter = ".*"));
 end WTG4BCurrentSourceExternalPCS;

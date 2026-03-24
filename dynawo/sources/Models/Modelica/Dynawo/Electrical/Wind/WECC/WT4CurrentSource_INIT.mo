@@ -21,7 +21,6 @@ model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a cur
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
-  Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
   // Torque control parameters
   parameter Types.PerUnit P1 = 0 "1st power point for extrapolation table" annotation(
@@ -40,6 +39,8 @@ model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a cur
     Dialog(tab = "Torque control"));
   parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
     Dialog(tab = "Torque control"));
+
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
@@ -59,24 +60,19 @@ model WT4CurrentSource_INIT "Initialization model for WECC Wind model with a cur
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
-    table = [P1,
-    Spd1; P2,
-    Spd2; P3,
-    Spd3; P4,
-    Spd4]) annotation(
+
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-
-//PCC electrical quantities
+  //PCC electrical quantities
   i0Pu = ComplexMath.conj(s0Pu/u0Pu);
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = Complex(P0Pu, Q0Pu);
 
-//Converter terminal electrical quantities
+  //Converter terminal electrical quantities
   UConv0Pu = ComplexMath.'abs'(uConv0Pu);
   iConv0Pu = -i0Pu*SystemBase.SnRef/SNom;
   uConv0Pu = u0Pu;
@@ -85,20 +81,21 @@ equation
   QConv0Pu = ComplexMath.imag(sConv0Pu);
   UPhaseConv0 = ComplexMath.arg(uConv0Pu);
 
-//Injector terminal electrical quantities
+  //Injector terminal electrical quantities
   iInj0Pu = iConv0Pu;
   uInj0Pu = uConv0Pu + Complex(RPu, XPu)*iConv0Pu;
   sInj0Pu = uInj0Pu*ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
+
   omegaRefWTGQPu0 = combiTable1D.y[1];
-  connect(realExpression.y, combiTable1D.u[1]) annotation(
-    Line(points = {{-48, 0}, {-12, 0}}, color = {0, 0, 127}));
   PF0 = if (not (ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/ComplexMath.'abs'(s0Pu) else 0;
   Id0Pu = Modelica.Math.cos(UPhase0)*iInj0Pu.re + Modelica.Math.sin(UPhase0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhase0)*iInj0Pu.re - Modelica.Math.cos(UPhase0)*iInj0Pu.im;
 
-  annotation(
-    preferredView = "text");
+  connect(realExpression.y, combiTable1D.u[1]) annotation(
+    Line(points = {{-48, 0}, {-12, 0}}, color = {0, 0, 127}));
+
+  annotation(preferredView = "text");
 end WT4CurrentSource_INIT;

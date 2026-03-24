@@ -138,7 +138,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     Kic = 0.1,
     Kpc = 2,
     Kcc = 0,
-    tTheta = 0.3,
+    Theta0 = 0,
     ThetaMax = 35,
     ThetaMin = -5,
     ThetaRMax = 10,
@@ -147,13 +147,14 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     TeMaxPu = 1.5,
     TeMinPu = 0,
     TFlag = true,
-    Theta0 = 0,
     Ka = 0.007,
     Pm0Pu = 0.7,
     brkpt = 0.1,
     zerox = 0.05,
     Lvplsw = false,
     lvpl1 = 1.22,
+    omegaRefWTGQPu0(fixed = false),
+    tTheta = 0.3,
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
     PConv0Pu(fixed = false),
@@ -175,25 +176,24 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     XMvHvPu = 0.15,
     RLvTrPu = 0,
     XLvTrPu = 0,
-    UPhase0 = 0,
-    omegaRefWTGQPu0(fixed = false)) annotation(
+    UPhase0 = 0) annotation(
     Placement(transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = WTG3.PControl0Pu) annotation(
-    Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+    Placement(transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QRefPu(k = WTG3.QControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant URefPu(k = WTG3.URef0Pu) annotation(
+  Modelica.Blocks.Sources.Constant URefPu(k = WTG3.wecc_repc.URef0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG3.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
-    Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PmRefPu(k = WTG3.PControl0Pu) annotation(
-    Placement(transformation(origin = {8, 82}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+    Placement(transformation(origin = {-30, 80}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
+    Placement(transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
+    Placement(transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initialization
   Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
@@ -259,7 +259,7 @@ equation
   WTG3.injector.switchOffSignal3.value = false;
 
   connect(line.terminal2, WTG3.terminal) annotation(
-    Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
+    Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, WTG3.omegaRefPu) annotation(
@@ -271,9 +271,9 @@ equation
   connect(URefPu.y, WTG3.URefPu) annotation(
     Line(points = {{79, 80}, {32, 80}, {32, 22}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG3.PFaRef) annotation(
-    Line(points = {{80, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
+    Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(PmRefPu.y, WTG3.PmRefPu) annotation(
-    Line(points = {{8, 72}, {8, 22}}, color = {0, 0, 127}));
+    Line(points = {{-19, 80}, {8, 80}, {8, 22}}, color = {0, 0, 127}));
   connect(const.y, WTG3.PPccPu) annotation(
     Line(points = {{-38, -40}, {-20, -40}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));
   connect(const.y, WTG3.QPccPu) annotation(
@@ -285,13 +285,13 @@ equation
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\"><div><!--StartFragment-->This test case consists in one simplified Wind Turbine type 3 park connected to an infinite bus, which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This setup is used to observe the dynamic behavior of the WTG3 system in response to voltage and frequency variations at its terminal. Compared to type 4 WTGs, type 3 models include active representations of mechanical and control dynamics (e.g., pitch and torque control), leading to different responses during and after disturbances.<!--EndFragment-->&nbsp;&nbsp;</div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></span></figure><figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/PInjPuWTG3CurrentSource1.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG3CurrentSource1_PInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/QInjPuWTG3CurrentSource1.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG3CurrentSource1_QInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/UPuWTG3CurrentSource1.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG3CurrentSource1_UPu.png\">
     </figure></body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10", variableFilter = ".*"));

@@ -25,7 +25,7 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     tOmegaEvtStart = 16,
     tUEvtEnd = 8,
     tUEvtStart = 4) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     BPu = 0,
     GPu = 0,
@@ -124,28 +124,33 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     UdInj0Pu(fixed = false),
     UqInj0Pu(fixed = false),
     uPcc0Pu(im(fixed = false), re(fixed = false)),
-    UPhase0 = 0.203890124,
     RLvTrPu = 0,
     XLvTrPu = 0,
     XMvHvPu = 0.15) annotation(
-    Placement(transformation(origin = {22, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = PV.PControl0Pu) annotation(
-    Placement(transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant QRefPu(k = PV.QControl0Pu) annotation(
-    Placement(transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
-    Placement(transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant URefPu(k = PV.URef0Pu) annotation(
-    Placement(transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Constant URefPu(k = PV.wecc_repc.URef0Pu) annotation(
+    Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(PV.PF0)) annotation(
-    Placement(transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
+    Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
   Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pvVoltageSource_INIT(
     P0Pu = PV.P0Pu,
     Q0Pu = PV.Q0Pu,
     RSourcePu = PV.RSourcePu,
     SNom = PV.SNom,
     U0Pu = PV.U0Pu,
-    UPhase0 = PV.UPhase0,
+    UPhase0 = 0.203890124,
     XSourcePu = PV.XSourcePu,
     BMvHvPu = PV.BMvHvPu,
     GMvHvPu = PV.GMvHvPu,
@@ -156,11 +161,7 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     PPcc0Pu = PV.PPcc0Pu,
     QPcc0Pu = PV.QPcc0Pu,
     UPcc0Pu = PV.UPcc0Pu) annotation(
-    Placement(transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
-    Placement(transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
-    Placement(transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
   PV.uPcc0Pu.re := pvVoltageSource_INIT.uPcc0Pu.re;
@@ -196,42 +197,41 @@ equation
   PV.injector.switchOffSignal1.value = false;
   PV.injector.switchOffSignal2.value = false;
   PV.injector.switchOffSignal3.value = false;
-  connect(line.terminal2, PV.terminal) annotation(
-    Line(points = {{-20, 0}, {5, 0}}, color = {0, 0, 255}));
-  connect(infiniteBus.terminal, line.terminal1) annotation(
-    Line(points = {{-82, 0}, {-60, 0}, {-60, 0}, {-60, 0}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, PV.omegaRefPu) annotation(
-    Line(points = {{79, 40}, {54, 40}, {54, 20}, {33, 20}}, color = {0, 0, 127}));
-  connect(QRefPu.y, PV.QRefPu) annotation(
-    Line(points = {{79, 0}, {33, 0}}, color = {0, 0, 127}));
-  connect(PRefPu.y, PV.PRefPu) annotation(
-    Line(points = {{79, -40}, {54, -40}, {54, -20}, {33, -20}}, color = {0, 0, 127}));
-  connect(PV.PFaRef, PFaRef.y) annotation(
-    Line(points = {{19, -37}, {19, -80}, {79, -80}}, color = {0, 0, 127}));
+
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
+  connect(infiniteBus.terminal, line.terminal1) annotation(
+    Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
+  connect(omegaRefPu.y, PV.omegaRefPu) annotation(
+    Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
+  connect(QRefPu.y, PV.QRefPu) annotation(
+    Line(points = {{80, 0}, {42, 0}}, color = {0, 0, 127}));
+  connect(PRefPu.y, PV.PRefPu) annotation(
+    Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
+  connect(PFaRef.y, PV.PFaRef) annotation(
+    Line(points = {{80, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(const.y, PV.PPccPu) annotation(
-    Line(points = {{-38, -20}, {-20, -20}, {-20, -10}, {5, -10}}, color = {0, 0, 127}));
+    Line(points = {{-38, -40}, {-20, -40}, {-20, -6}, {-2, -6}}, color = {0, 0, 127}));
   connect(const.y, PV.QPccPu) annotation(
-    Line(points = {{-38, -20}, {-20, -20}, {-20, -17}, {5, -17}}, color = {0, 0, 127}));
+    Line(points = {{-38, -40}, {-20, -40}, {-20, -10}, {-2, -10}}, color = {0, 0, 127}));
   connect(complexConst.y, PV.uPccPu) annotation(
-    Line(points = {{-38, -50}, {-10, -50}, {-10, -23}, {5, -23}}, color = {85, 170, 255}));
+    Line(points = {{-38, -80}, {-10, -80}, {-10, -14}, {-2, -14}}, color = {85, 170, 255}));
   connect(URefPu.y, PV.URefPu) annotation(
-    Line(points = {{80, 80}, {18, 80}, {18, 36}}, color = {0, 0, 127}));
+    Line(points = {{79, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-05, Interval = 0.001),
+    experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-     This test case consists in one PV park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 4 s to t = 8 s, and which frequency is increased to 1.01 pu from t = 16 s to t = 16.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal.
+    This test case consists in one PV park connected to an infinite bus whose voltage is reduced to 0.5 pu from t = 4 s to t = 8 s, and whose frequency is increased to 1.01 pu from t = 16 s to t = 16.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal.
      <figure>
-    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PPuSnRef_PVVoltageSource4.png\">
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PVVoltageSource4_PPuSnRef.png\">
   </figure>
   <figure>
-    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/QPuSnRef_PVVoltageSource4.png\">
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PVVoltageSource4_QPuSnRef.png\">
   </figure>
   <figure>
-    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/UPu_PVVoltageSource4.png\">
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/Photovoltaics/WECC/Resources/PVVoltageSource4_UPu.png\">
   </figure>
         </div>
     <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
