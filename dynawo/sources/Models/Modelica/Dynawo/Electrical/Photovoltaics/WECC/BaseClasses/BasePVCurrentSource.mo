@@ -21,11 +21,12 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  // Input variable
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
-    Placement(visible = true, transformation(origin = {-79, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
+    Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-190, 38}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
+
   Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
@@ -77,12 +78,10 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     Lvplsw = Lvplsw,
     QConv0Pu = QConv0Pu,
     RrpwrPu = RrpwrPu,
-    UInj0Pu = UInj0Pu,
     brkpt = brkpt,
     lvpl1 = lvpl1,
     tFilterGC = tFilterGC,
     tG = tG,
-    uConv0Pu = uConv0Pu,
     zerox = zerox,
     UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -110,9 +109,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,
-    RPu = RPu,
     SNom = SNom,
-    XPu = XPu,
     i20Pu = iConv0Pu,
     u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -127,10 +124,11 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
     Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
   connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
@@ -144,7 +142,7 @@ equation
   connect(pll.phi, injector.UPhase) annotation(
     Line(points = {{-149, 45}, {-145, 45}, {-145, -50}, {0, -50}, {0, -11.5}}, color = {0, 0, 127}));
   connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-79, 70}, {-79, 11}}, color = {0, 0, 127}));
+    Line(points = {{-190, 60}, {-79, 60}, {-79, 11}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-190, 38}, {-171, 38}}, color = {0, 0, 127}));
   connect(LvMeasurements.UPu, wecc_regc.UPu) annotation(
@@ -156,7 +154,7 @@ equation
   connect(LvMeasurements.QPu, wecc_reec.QConvPu) annotation(
     Line(points = {{64, -6}, {64, -25}, {-89, -25}, {-89, -11}}, color = {0, 0, 127}));
   connect(LvMeasurements.uPu, pll.uPu) annotation(
-    Line(points = {{66, -6}, {66, -60}, {-177, -60}, {-177, 50}, {-171, 50}}, color = {85, 170, 255}));
+    Line(points = {{66, -6}, {66, -60}, {-175, -60}, {-175, 50}, {-171, 50}}, color = {85, 170, 255}));
   connect(injector.terminal, LvTfo.terminal1) annotation(
     Line(points = {{12, 8}, {24, 8}, {24, 0}, {29, 0}}, color = {0, 0, 255}));
   connect(LvTfo.terminal2, LvMeasurements.terminal1) annotation(
@@ -165,5 +163,5 @@ equation
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC PV")}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {120, 60}})));
 end BasePVCurrentSource;

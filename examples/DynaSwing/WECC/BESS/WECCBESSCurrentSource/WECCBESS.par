@@ -143,6 +143,7 @@
     <par type="DOUBLE" name="BESS_XMvHvPu" value="1e-6"/>
     <par type="DOUBLE" name="BESS_BMvHvPu" value="0"/>
     <par type="DOUBLE" name="BESS_GMvHvPu" value="0"/>
+    <!-- PCS parameters -->
     <par type="BOOL" name="BESS_PPCLocal" value="true"/>
     <par type="BOOL" name="BESS_ConverterLVControl" value="true"/>
   </set>

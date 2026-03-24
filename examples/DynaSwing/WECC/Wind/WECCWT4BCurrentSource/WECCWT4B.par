@@ -120,6 +120,7 @@
     <par type="DOUBLE" name="WT4B_rTfoPu" value="0.962"/>
     <par type="DOUBLE" name="WT4B_RLvTrPu" value="0.015"/>
     <par type="DOUBLE" name="WT4B_XLvTrPu" value="0.06"/>
+    <!-- PCS parameters -->
     <par type="BOOL" name="WT4B_ConverterLVControl" value="true"/>
   </set>
   <set id="PRefPu">
@@ -136,5 +137,8 @@
     <par type="DOUBLE" name="step_Height" value="0"/>
     <par type="DOUBLE" name="step_tStep" value="0"/>
     <par type="DOUBLE" name="step_Value0" value="0.2783"/>
+  </set>
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
 </parametersSet>

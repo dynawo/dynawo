@@ -45,6 +45,7 @@
     <par type="DOUBLE" name="WT4A_SNom" value="100"/>
     <par type="DOUBLE" name="WT4A_RLvTrPu" value="0"/>
     <par type="DOUBLE" name="WT4A_XLvTrPu" value="0"/>
+    <par type="BOOL" name="WT4A_PPCLocal" value="true"/>
     <par type="BOOL" name="WT4A_ConverterLVControl" value="true"/>
     <par type="DOUBLE" name="WT4A_DDn" value="20"/>
     <par type="DOUBLE" name="WT4A_DUp" value="0.001"/>

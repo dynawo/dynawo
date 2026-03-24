@@ -13,7 +13,7 @@ within Dynawo.Electrical.BESS.WECC;
 */
 
 model BESSCurrentSource "WECC BESS with electrical control model type C, generator/converter model type A and plant control type A "
-  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvTfo(BPu = 0, GPu = 0, RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
@@ -22,16 +22,15 @@ model BESSCurrentSource "WECC BESS with electrical control model type C, generat
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = repcA.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  Dynawo.Electrical.Controls.WECC.REPC.REPCa repcA(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, SNom = SNom, URef0Pu = URef0Pu, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iControl0Pu = iControl0Pu, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, uControl0Pu = uControl0Pu) annotation(
+  Dynawo.Electrical.Controls.WECC.REPC.REPCa repcA(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, PMaxPu = PMaxPu, PMinPu = PMinPu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, RcPu = RPu, RefFlag = RefFlag, SNom = SNom, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iControl0Pu = iControl0Pu, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tP = tP, uControl0Pu = uControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Initial parameters
-  final parameter Types.PerUnit URef0Pu = if VCompFlag == true then ComplexMath.'abs'(uControl0Pu) else ComplexMath.'abs'(uControl0Pu) + Kc * QControl0Pu "Start value of voltage setpoint for plant level control, calculated depending on VcompFlag, in pu (base UNom)";
-
 equation
+  connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(PRefPu, repcA.PRefPu) annotation(
     Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(QRefPu, repcA.QRefPu) annotation(
@@ -58,5 +57,10 @@ equation
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-180, -60}, {120, 60}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 120}})),
+    Documentation(info = "<html><head></head><body><div><br>The <b>power collection system</b> and measurement nodes are not specified in the WECC standard. Thus, we decided to make it flexible in the model.&nbsp;</div><div><br></div><div>With ConverterLVControl switch, you decide whether the inverter is controlling P,Q,U in low voltage or medium voltage.&nbsp;</div><div><br></div><div>With PPCLocal switch, you decide whether the plant controller is controlling P, Q, U at the model terminal or at a node outside the model.</div><div><br></div><div>Depending on PPCLocal and ConverterLVControl's values, the impedances of the group transformer (<span style=\"font-family: Arial, sans-serif;\">RLvTrPu, XLvTrPu) and of the main transformer (</span><span style=\"font-family: Arial, sans-serif;\">BMvHvPu ,GMvHvPu, RMvHvPu, XMvHvPu) won't be applied to the same block model. The following diagram explains it :
+    <figure>
+    <img width=\"800\" src=\"modelica://Dynawo/Electrical/Wind/WECC/Resources/PCSFlexibilityDiagram.png\">
+    </figure>
+    &nbsp;</span></div> </body></html>"));
 end BESSCurrentSource;

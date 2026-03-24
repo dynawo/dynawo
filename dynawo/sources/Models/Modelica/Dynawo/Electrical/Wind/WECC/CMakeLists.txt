@@ -23,12 +23,10 @@ set(MODEL_FILES
   WT4ACurrentSource.extvar
   WT4BCurrentSource.mo
   WT4BCurrentSource.extvar
-  WT4CurrentSource_INIT.mo
   WTG3CurrentSource1.mo
   WTG3CurrentSource1.extvar
   WTG3CurrentSource2.mo
   WTG3CurrentSource2.extvar
-  WTG4CurrentSource_INIT.mo
   )
 
 #

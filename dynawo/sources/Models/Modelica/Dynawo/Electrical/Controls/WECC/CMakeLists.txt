@@ -8,6 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
+add_subdirectory(BaseClasses_INIT BI)
 add_subdirectory(BaseControls B)
 add_subdirectory(Mechanical M)
 add_subdirectory(Parameters P)

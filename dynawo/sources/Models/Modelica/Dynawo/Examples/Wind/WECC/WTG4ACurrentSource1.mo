@@ -25,14 +25,15 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     tOmegaEvtStart = 26,
     tUEvtEnd = 2,
     tUEvtStart = 1) annotation(
-    Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(
     RPu = 0,
     XPu = 0.0000020661,
     BPu = 0,
     GPu = 0) annotation(
-    Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}})));
   Dynawo.Electrical.Wind.WECC.WTG4ACurrentSource1 WTG4A(
+    ConverterLVControl = true,
     DDn = 20,
     DPMaxPu = 2,
     DPMinPu = -2,
@@ -76,6 +77,7 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     PFlag = true,
     PMaxPu = 1,
     PMinPu = 0,
+    PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
@@ -156,7 +158,7 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant URefPu(k = WTG4A.URef0Pu) annotation(
+  Modelica.Blocks.Sources.Constant URefPu(k = WTG4A.wecc_repc.URef0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG4A.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -166,7 +168,7 @@ model WTG4ACurrentSource1 "WECC Wind Type 4A Model (including the plant controll
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = WTG4A.BMvHvPu,
     ConverterLVControl = WTG4A.ConverterLVControl,
     GMvHvPu = WTG4A.GMvHvPu,
@@ -219,8 +221,9 @@ equation
   WTG4A.injector.switchOffSignal1.value = false;
   WTG4A.injector.switchOffSignal2.value = false;
   WTG4A.injector.switchOffSignal3.value = false;
+
   connect(line.terminal2, WTG4A.terminal) annotation(
-    Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
+    Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, WTG4A.omegaRefPu) annotation(
@@ -228,9 +231,9 @@ equation
   connect(QRefPu.y, WTG4A.QRefPu) annotation(
     Line(points = {{79, 0}, {42, 0}}, color = {0, 0, 127}));
   connect(PRefPu.y, WTG4A.PRefPu) annotation(
-    Line(points = {{79, -40}, {60.5, -40}, {60.5, -12}, {42, -12}}, color = {0, 0, 127}));
+    Line(points = {{79, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
   connect(URefPu.y, WTG4A.URefPu) annotation(
-    Line(points = {{80, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
+    Line(points = {{79, 80}, {20, 80}, {20, 22}}, color = {0, 0, 127}));
   connect(PFaRef.y, WTG4A.PFaRef) annotation(
     Line(points = {{79, -80}, {20, -80}, {20, -22}}, color = {0, 0, 127}));
   connect(const.y, WTG4A.PPccPu) annotation(
@@ -242,17 +245,17 @@ equation
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 15, Tolerance = 0.0001, Interval = 0.001),
+    experiment(StartTime = 0, StopTime = 20, Tolerance = 0.0001, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
     This test case consists in one simplified drive train model Wind Turbine park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the behavior of the drive train of a Wind Turbine type 4A park in response to a voltage and frequency variation at its terminal.    </div>
     <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></figure><figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/PInjPuWTG4ACurrentSource1.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4ACurrentSource1_PInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/QInjPuWTG4ACurrentSource1.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4ACurrentSource1_QInjPu.png\">
     </figure>
     <figure>
-      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/UPuWTG4ACurrentSource1.png\">
+      <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WTG4ACurrentSource1_UPu.png\">
     </figure></body></html>"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "ida", maxIntegrationOrder = "2", nls = "kinsol", noHomotopyOnFirstTry = "()", noRestart = "()", noRootFinding = "()", initialStepSize = "0.00001", maxStepSize = "10", variableFilter = ".*"));
