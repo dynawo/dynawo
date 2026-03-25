@@ -284,6 +284,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a308d7ab3d08c31e500111339324cb44e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8f/a03255.html#a308d7ab3d08c31e500111339324cb44e">getAngle0</a> () const</td></tr>
 <tr class="memdesc:a308d7ab3d08c31e500111339324cb44e"><td class="mdescLeft">&#160;</td><td class="mdescRight">get initial angle of the bus  <a href="#a308d7ab3d08c31e500111339324cb44e">More...</a><br /></td></tr>
 <tr class="separator:a308d7ab3d08c31e500111339324cb44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b252e143e27b2cd09006897c0a2a7b0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8f/a03255.html#a8b252e143e27b2cd09006897c0a2a7b0">voltageIsZero</a> () const</td></tr>
+<tr class="memdesc:a8b252e143e27b2cd09006897c0a2a7b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if bus voltage is zero  <a href="#a8b252e143e27b2cd09006897c0a2a7b0">More...</a><br /></td></tr>
+<tr class="separator:a8b252e143e27b2cd09006897c0a2a7b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab94af95b242e7ecc29c879b10c830b95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8f/a03255.html#ab94af95b242e7ecc29c879b10c830b95">exploreNeighbors</a> (int <a class="el" href="../../d5/d8f/a03255.html#a620e06f9148198b759ec8c6793335888">numSubNetwork</a>, const boost::shared_ptr&lt; <a class="el" href="../../d6/d38/a03259.html">SubNetwork</a> &gt; &amp;subNetwork)</td></tr>
 <tr class="memdesc:ab94af95b242e7ecc29c879b10c830b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">scan a subnetwork in order to find all neighboring buses  <a href="#ab94af95b242e7ecc29c879b10c830b95">More...</a><br /></td></tr>
 <tr class="separator:ab94af95b242e7ecc29c879b10c830b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2817,6 +2820,34 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="a8b252e143e27b2cd09006897c0a2a7b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b252e143e27b2cd09006897c0a2a7b0">&#9670;&nbsp;</a></span>voltageIsZero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ModelBus::voltageIsZero </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check if bus voltage is zero </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if voltage (ur and ui) is 0 </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="../../df/d39/a00950_source.html">DYNModelBus.h</a></li>
 </ul>
@@ -2837,7 +2868,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d8f/a03255.html">ModelBus</a></li>
-    <li class="footer">Generated on Wed Mar 25 2026 15:52:17 for Dynawo by
+    <li class="footer">Generated on Wed Mar 25 2026 17:34:12 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

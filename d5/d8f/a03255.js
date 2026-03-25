@@ -104,6 +104,7 @@ var a03255 =
     [ "ur", "d5/d8f/a03255.html#a45410e8c0130965a6581f43dc840f5a6", null ],
     [ "urp", "d5/d8f/a03255.html#acdea3f1e1f3a1cb25f4ca3b52128ab43", null ],
     [ "urYNum", "d5/d8f/a03255.html#ab53422c36aa96fc3e1821661a8acb886", null ],
+    [ "voltageIsZero", "d5/d8f/a03255.html#a8b252e143e27b2cd09006897c0a2a7b0", null ],
     [ "angle0_", "d5/d8f/a03255.html#a7328231104a1d275d1f2f4ef038e82ae", null ],
     [ "bus_", "d5/d8f/a03255.html#a0723d935f202821690b6343b631b9e6b", null ],
     [ "busBarSectionIdentifiers_", "d5/d8f/a03255.html#a12c662e5fccb1b81ead255da6a31ff8c", null ],
