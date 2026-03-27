@@ -68,6 +68,11 @@ else()
                       "-DBUILD_SHARED_LIBS=ON"
                       "-DBUILD_TESTS=OFF"
                       "-DBUILD_TOOLS=OFF"
+                      "-DCMAKE_MACOSX_RPATH=True"
+                      "-DCMAKE_SKIP_BUILD_RPATH=False"
+                      "-DCMAKE_BUILD_WITH_INSTALL_RPATH=False"
+                      "-DCMAKE_INSTALL_RPATH=<INSTALL_DIR>/lib"
+                      "-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True"
   )
 
   unset(package_git_repo)

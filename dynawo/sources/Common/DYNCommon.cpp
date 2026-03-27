@@ -38,6 +38,8 @@ const char* sharedLibraryExtension() {
 static const char extension[] = ".dll";
 #elif __linux__
 static const char extension[] = ".so";
+#elif __APPLE__
+  static const char extension[] = ".dylib";
 #elif __unix__  // all unices not caught above
 static const char extension[] = ".so";
 #else

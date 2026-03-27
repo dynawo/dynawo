@@ -38,6 +38,23 @@ set(BIN_INSTALL_DIR "bin" CACHE PATH "The directory the executables are installe
 set(INCLUDE_INSTALL_DIR "include" CACHE PATH "The directory the headers are installed in.")
 set(LIB_INSTALL_DIR "lib" CACHE STRING "The directory the libraries are installed in.")
 
+if (APPLE)
+  set(CMAKE_MACOSX_RPATH True)
+
+  # use, i.e. don't skip the full RPATH for the build tree
+  set(CMAKE_SKIP_BUILD_RPATH  False)
+
+  # when building, don't use the install RPATH already
+  # (but later on when installing)
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH False)
+
+  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+
+  # add the automatically determined parts of the RPATH
+  # which point to directories outside the build tree to the install RPATH
+  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH True)
+endif()
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${Boost_INCLUDE_DIRS})
 if (LIBZIP_BUILD_TESTS)

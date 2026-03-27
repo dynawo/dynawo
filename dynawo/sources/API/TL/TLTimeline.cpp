@@ -79,7 +79,7 @@ struct dynawoDoubleLess : std::binary_function<double, vector<size_t>, bool> {
 
 void
 Timeline::filter(const unordered_map<string, unordered_set<string>>& oppositeEventDico) {
-  map<double, vector<size_t>, dynawoDoubleLess> timeToEventIndexes;
+  map<double, vector<size_t>, dynawoDoubleLess, std::allocator<std::pair<const double, vector<size_t>>>> timeToEventIndexes;
   for (size_t i = 0, iEnd = events_.size(); i < iEnd; ++i) {
     timeToEventIndexes[events_[i]->getTime()].push_back(i);
   }

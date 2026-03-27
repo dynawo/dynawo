@@ -184,7 +184,13 @@ int main(int argc, char ** argv) {
           throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
         copyFile(libName, compilationDir, modelDir);
 #ifndef _DEBUG_
-        removeAllInDirectory(compilationDir1);
+        if (hasEnvVar("DYNAWO_KEEP_MODELICA_BUILD_FILES")) {
+          if (!(getEnvVar("DYNAWO_KEEP_MODELICA_BUILD_FILES") == "YES")) {
+            removeAllInDirectory(compilationDir1);
+          }
+        } else {
+          removeAllInDirectory(compilationDir1);
+        }
 #endif
       }
     }
@@ -309,7 +315,10 @@ string
 mosRunFile(const string& mosFilePath, const string& path) {
   // OMC generates sources where it runs ... :(
   stringstream modelicaCommand;
-  modelicaCommand << "omcDynawo " << mosFilePath;
+  string omcDynawoCmd = "omcDynawo";
+  if (hasEnvVar("DYNAWO_OMCDYNAWO_COMMAND"))
+    omcDynawoCmd = getEnvVar("DYNAWO_OMCDYNAWO_COMMAND");
+  modelicaCommand << omcDynawoCmd << " " << mosFilePath;
   string command = modelicaCommand.str();
 
   bool doPrintLogs = true;
@@ -436,7 +445,7 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
 #if __linux__
-                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build "
+                           + " -DMODEL_NAME=" + modelName + " && { cmake --build " + compilationDir + " || cmake --build "
                             + compilationDir + " > /dev/null; }";
 #else
                            + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
