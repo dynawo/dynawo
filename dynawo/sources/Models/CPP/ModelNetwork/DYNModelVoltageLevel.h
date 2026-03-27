@@ -112,6 +112,13 @@ class ModelVoltageLevel : public NetworkComponent {
   void disconnectNode(unsigned int node);
 
   /**
+   * @brief return true if the node is connected to a bus bar section
+   * @param node node to disconnect
+   * @return true if the node is connected to a bus bar section
+   */
+  bool isNodeConnected(unsigned int node);
+
+  /**
    * @brief find the closest bus bar section of a bus in a voltage level
    * @param node the index of the bus for which to look for the closest bus bar section
    * @param shortestPath list of switch names that separate the bus bar section from the initial bus

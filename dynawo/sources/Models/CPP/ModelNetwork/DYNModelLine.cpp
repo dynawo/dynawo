@@ -1788,8 +1788,10 @@ ModelLine::getY0() {
             case CLOSED:
             {
               if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == CLOSED))) {
-                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (!modelBus1_->getVoltageLevel()->isNodeConnected(modelBus1_->getBusIndex()))
+                  modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                if (!modelBus2_->getVoltageLevel()->isNodeConnected(modelBus2_->getBusIndex()))
+                  modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 topologyModified_ = true;
               }
               break;
@@ -1806,7 +1808,8 @@ ModelLine::getY0() {
             case CLOSED_1:
             {
               if (!((modelBus1_->getConnectionState() == CLOSED) && (modelBus2_->getConnectionState() == OPEN))) {
-                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                if (!modelBus1_->getVoltageLevel()->isNodeConnected(modelBus1_->getBusIndex()))
+                  modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
                 modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
                 topologyModified_ = true;
               }
@@ -1816,7 +1819,8 @@ ModelLine::getY0() {
             {
               if (!((modelBus1_->getConnectionState() == OPEN) && (modelBus2_->getConnectionState() == CLOSED))) {
                 modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (!modelBus2_->getVoltageLevel()->isNodeConnected(modelBus2_->getBusIndex()))
+                  modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 topologyModified_ = true;
               }
               break;
@@ -1838,7 +1842,8 @@ ModelLine::getY0() {
             case CLOSED:
             {
               if (modelBus1_->getConnectionState() != CLOSED) {
-                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                if (!modelBus1_->getVoltageLevel()->isNodeConnected(modelBus1_->getBusIndex()))
+                  modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
                 topologyModified_ = true;
               }
               break;
@@ -1854,7 +1859,8 @@ ModelLine::getY0() {
             case CLOSED_1:
             {
               if (modelBus1_->getConnectionState() != CLOSED) {
-                modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+                if (!modelBus1_->getVoltageLevel()->isNodeConnected(modelBus1_->getBusIndex()))
+                  modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
                 topologyModified_ = true;
               }
               break;
@@ -1884,7 +1890,8 @@ ModelLine::getY0() {
             case CLOSED:
             {
               if (modelBus2_->getConnectionState() != CLOSED) {
-                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (!modelBus2_->getVoltageLevel()->isNodeConnected(modelBus2_->getBusIndex()))
+                  modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 topologyModified_ = true;
               }
               Trace::warn() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
@@ -1901,7 +1908,8 @@ ModelLine::getY0() {
             case CLOSED_2:
             {
               if (modelBus1_->getConnectionState() != CLOSED) {
-                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                if (!modelBus2_->getVoltageLevel()->isNodeConnected(modelBus2_->getBusIndex()))
+                  modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
                 topologyModified_ = true;
               }
               break;

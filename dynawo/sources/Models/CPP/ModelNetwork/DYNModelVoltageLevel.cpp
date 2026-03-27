@@ -311,6 +311,18 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
   }
 }
 
+bool
+ModelVoltageLevel::isNodeConnected(unsigned int node) {
+  if (topologyKind_ == VoltageLevelInterface::NODE_BREAKER) {
+    // find the shortest path between the node to connect and the bus bar section
+    vector<string> shortestPath;
+    auto closestBBS = findClosestBBS(node, shortestPath);
+
+    return closestBBS != std::numeric_limits<unsigned>::max();
+  }
+  return true;
+}
+
 void
 ModelVoltageLevel::initSize() {
   sizeY_ = 0;
