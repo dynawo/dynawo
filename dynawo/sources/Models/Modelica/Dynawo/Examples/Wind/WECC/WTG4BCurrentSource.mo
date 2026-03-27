@@ -33,6 +33,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model (including a plant controller)
     GPu = 0) annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}})));
   Dynawo.Electrical.Wind.WECC.WTG4BCurrentSource WTG4B(
+    ConverterLVControl = true,
     DDn = 20,
     DPMaxPu = 2,
     DPMinPu = -2,
@@ -72,6 +73,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model (including a plant controller)
     PFlag = true,
     PMaxPu = 1,
     PMinPu = 0,
+    PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,

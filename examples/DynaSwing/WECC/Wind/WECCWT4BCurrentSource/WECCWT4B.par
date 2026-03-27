@@ -120,6 +120,8 @@
     <par type="DOUBLE" name="WT4B_rTfoPu" value="0.962"/>
     <par type="DOUBLE" name="WT4B_RLvTrPu" value="0.015"/>
     <par type="DOUBLE" name="WT4B_XLvTrPu" value="0.06"/>
+    <!-- PCS parameters -->
+    <par type="BOOL" name="WT4B_PPCLocal" value="true"/>
     <par type="BOOL" name="WT4B_ConverterLVControl" value="true"/>
   </set>
   <set id="PRefPu">

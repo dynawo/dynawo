@@ -34,6 +34,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     XPu = 0.0000020661) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.BESS.WECC.BESSCurrentSource BESS(
+    ConverterLVControl = true,
     DDn = 126,
     DPMaxPu = 999,
     DPMinPu = -999,
@@ -71,6 +72,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     P0Pu = -0.03,
     PMaxPu = 1,
     PMinPu = -0.667,
+    PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = 0,

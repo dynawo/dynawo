@@ -114,6 +114,8 @@
     <par type="DOUBLE" name="BESS_SNom" value="200"/>
     <par type="DOUBLE" name="BESS_RLvTrPu" value="0.015"/>
     <par type="DOUBLE" name="BESS_XLvTrPu" value="0.06"/>
+    <!-- PCS parameters -->
+    <par type="BOOL" name="BESS_PPCLocal" value="true"/>
     <par type="BOOL" name="BESS_ConverterLVControl" value="true"/>
   </set>
   <set id="PRefPu">

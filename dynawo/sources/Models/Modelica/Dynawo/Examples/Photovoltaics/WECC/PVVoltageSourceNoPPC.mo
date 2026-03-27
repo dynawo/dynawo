@@ -36,6 +36,7 @@ model PVVoltageSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
   Modelica.Blocks.Sources.Step PRef(height = 0.1, offset = PV.PConv0Pu, startTime = 17) annotation(
     Placement(transformation(origin = {90, 40}, extent = {{10, -10}, {-10, 10}})));
   Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource1NoPlantControl PV(
+    ConverterLVControl = true,
     DPMaxPu = 999,
     DPMinPu = -999,
     Dbd1Pu = -0.1,

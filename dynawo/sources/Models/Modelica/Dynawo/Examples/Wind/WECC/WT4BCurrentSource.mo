@@ -132,6 +132,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
   Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
     ConverterLVControl = WT4B.ConverterLVControl,
     P0Pu = WT4B.s0Pu.re,
+    PPCLocal = true,
     Q0Pu = WT4B.s0Pu.im,
     RLvTrPu = WT4B.RLvTrPu,
     SNom = WT4B.SNom,

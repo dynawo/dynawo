@@ -128,6 +128,7 @@ model BESSCurrentSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
   Dynawo.Electrical.Wind.WECC.WT4CurrentSource_INIT wt4CurrentSource_INIT(
     ConverterLVControl = BESS.ConverterLVControl,
     P0Pu = BESS.s0Pu.re,
+    PPCLocal = true,
     Q0Pu = BESS.s0Pu.im,
     RLvTrPu = BESS.RLvTrPu,
     SNom = BESS.SNom,

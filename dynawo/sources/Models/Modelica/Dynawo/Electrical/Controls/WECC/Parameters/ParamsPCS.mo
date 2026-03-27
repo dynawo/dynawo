@@ -32,7 +32,7 @@ record ParamsPCS
     Dialog(tab = "MV network + MV/HV transformer"));
 
   //Configuration parameter to define how the user wants to represent the internal network
-  parameter Boolean PPCLocal = true "If true, the Power Park Control is controlling at model's output terminal, if false, at a remote terminal using external measurements" annotation(
+  parameter Boolean PPCLocal "If true, the Power Park Control is controlling at model's output terminal, if false, at a remote terminal using external measurements" annotation(
     Dialog(tab = "MV network + MV/HV transformer"));
 
   // In every case (RPcsPu + j*XPcsPu) and (GPcsPu + j*BPcsPu) are respectively the serial impedance and shunt admittance between converter terminal and model's output terminal

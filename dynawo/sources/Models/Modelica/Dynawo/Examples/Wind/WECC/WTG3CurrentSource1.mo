@@ -34,6 +34,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Wind.WECC.WTG3CurrentSource1 WTG3(
+    ConverterLVControl = true,
     DDn = 20,
     DPMaxPu = 2,
     DPMinPu = -2,
@@ -76,6 +77,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     PFlag = false,
     PMaxPu = 1,
     PMinPu = 0,
+    PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,

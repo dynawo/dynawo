@@ -22,7 +22,7 @@ record ParamsLvTfo
     Dialog(tab = "LV transformer"));
 
   //Configuration parameter to define how the user wants to represent the internal network
-  parameter Boolean ConverterLVControl = true "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
+  parameter Boolean ConverterLVControl "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
     Dialog(tab = "LV transformer"));
 
   // In every case (RPu + j*XPu) is the serial impedance between converter's output and injector terminal

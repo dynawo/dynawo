@@ -33,6 +33,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     GPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource PV(
+    ConverterLVControl = true,
     DDn = 20,
     DPMaxPu = 999,
     DPMinPu = -999,
@@ -70,6 +71,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     P0Pu = -0.7,
     PMaxPu = 1,
     PMinPu = 0,
+    PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,

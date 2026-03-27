@@ -33,6 +33,7 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     XPu = 0.3) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource4 PV(
+    ConverterLVControl = true,
     DDn = 20,
     DPMaxPu = 999,
     DPMinPu = -999,
@@ -71,6 +72,7 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     P0Pu = -0.7,
     PMaxPu = 1,
     PMinPu = 0,
+    PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
@@ -145,7 +147,9 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
 
   // Initialization
   Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pvVoltageSource_INIT(
+    ConverterLVControl = PV.ConverterLVControl,
     P0Pu = PV.P0Pu,
+    PPCLocal = PV.PPCLocal,
     Q0Pu = PV.Q0Pu,
     RSourcePu = PV.RSourcePu,
     SNom = PV.SNom,
