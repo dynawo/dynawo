@@ -319,6 +319,13 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    */
   void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
 
+  /**
+  * @brief keep out of main synchronous buses connected through an hvdc
+  */
+  bool keepHvdcForeignNodes() const {
+    return keepHvdcForeignNodes_;
+  }
+
  protected:
   /**
   * @copydoc SubModel::dumpUserReadableElementList()
@@ -399,12 +406,14 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   bool isInit_;  ///< whether the current process is the initialization process
   bool isInitModel_;  ///< whether the current model used is the init one
   bool withNodeBreakerTopology_;  ///< whether at least one voltageLevel has node breaker topology view
+  bool keepHvdcForeignNodes_;  ///< to keep out of main synchronous buses connected through an hvdc
 
   std::unique_ptr<ModelBusContainer> busContainer_;  ///< all network buses
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelInitComponents_;  ///< all voltage level components  (used for init model)
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all network components without dynamic Model
   std::vector<std::shared_ptr<NetworkComponent> > initComponents_;  ///< all network components even components with dynamic model
+  std::vector<std::shared_ptr<NetworkComponent> > hvdcComponents_;  ///< all network components even components with dynamic model
   std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated variable
 };
 
