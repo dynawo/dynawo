@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNSimulation.h File Reference</title>
+<title>Dynawo: DYNZmqOutputChannel.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,39 +97,28 @@ $(document).ready(function(){initNavTree('d2/d4d/a01079.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNSimulation.h File Reference</div>  </div>
+<div class="title">DYNZmqOutputChannel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Simulation header.  
+<p>ZmqOutputChannel header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;deque&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;libzip/ZipFile.h&gt;</code><br />
-<code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;boost/optional.hpp&gt;</code><br />
-<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/d80/a01076_source.html">DYNSignalHandler.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d4/dd3/a00428_source.html">PARParametersSetCollection.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d57/a00701_source.html">DYNDataInterface.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/dd5/a01115_source.html">DYNSolverFactory.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d4/dc4/a00617_source.html">DYNModeler.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;zmq.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d7c/a01073_source.html">DYNOutputChannel.h</a>&quot;</code><br />
 </div>
 <p><a href="../../d2/d4d/a01079_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/db9/a03435.html">DYN::Simulation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/db9/a03435.html" title="Simulation class. ">Simulation</a> class.  <a href="../../d0/db9/a03435.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d7e/a03439.html">DYN::Simulation::ExportStateDefinition</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">definition of dump to export  <a href="../../de/d7e/a03439.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc4/a03441.html">DYN::ZmqOutputChannel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output channel implementation using ZeroMQ.  <a href="../../de/dc4/a03441.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Simulation header. </p>
+<div class="textblock"><p>ZmqOutputChannel header. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -146,8 +135,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c196e9acfbd395f9ea7583269b7db29c.html">Simulation</a></li><li class="navelem"><a class="el" href="../../d2/d4d/a01079.html">DYNSimulation.h</a></li>
-    <li class="footer">Generated on Thu Mar 26 2026 13:20:44 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_6f7bf0b4e52f7268309c9f5bbf465bbd.html">IO</a></li><li class="navelem"><a class="el" href="../../d2/d4d/a01079.html">DYNZmqOutputChannel.h</a></li>
+    <li class="footer">Generated on Fri Mar 27 2026 16:39:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNOutputDispatcher.h File Reference</title>
+<title>Dynawo: DYNDumpManager.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,33 +97,26 @@ $(document).ready(function(){initNavTree('de/d9e/a01061.html','../../');});
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DYNOutputDispatcher.h File Reference</div>  </div>
+<div class="title">DYNDumpManager.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>OutputDispatcher header.  
+<p>DumpManager header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/d22/a01049_source.html">DYNRTOutputCommon.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/d42/a00575_source.html">DYNActionBuffer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/dce/a01052_source.html">DYNClock.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d2/d49/a01067_source.html">DYNOutputChannel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dd/d32/a00041_source.html">CRVCurvesCollection.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d5e/a00467_source.html">TLTimeline.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d1/d09/a00077_source.html">CSTRConstraintsCollection.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/dce/a01052_source.html">DYNRTInputCommon.h</a>&quot;</code><br />
 </div>
 <p><a href="../../de/d9e/a01061_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d74/a03411.html">DYN::OutputDispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for publishing outputs (curves, timeline, constraints) to output channels.  <a href="../../d3/d74/a03411.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9d/a03417.html">DYN::DumpManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d9d/a03417.html" title="DumpManager class. ">DumpManager</a> class.  <a href="../../d9/d9d/a03417.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>OutputDispatcher header. </p>
+<div class="textblock"><p>DumpManager header. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -140,8 +133,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_fd010f168572fde6d103f03fced15216.html">Engine</a></li><li class="navelem"><a class="el" href="../../de/d9e/a01061.html">DYNOutputDispatcher.h</a></li>
-    <li class="footer">Generated on Thu Mar 26 2026 13:20:44 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_fd010f168572fde6d103f03fced15216.html">Engine</a></li><li class="navelem"><a class="el" href="../../de/d9e/a01061.html">DYNDumpManager.h</a></li>
+    <li class="footer">Generated on Fri Mar 27 2026 16:39:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
