@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="GeneratorPQ">
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="generator_AlphaPuPNom" value="0.1"/>
+    <par type="DOUBLE" name="generator_PMin" value="0"/>
+    <par type="DOUBLE" name="generator_PMax" value="100"/>
+    <par type="DOUBLE" name="generator_PNom" value="100"/>
+  </set>
+  <set id="InfiniteBus">
+    <reference name="infiniteBus_UPu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="infiniteBus_UPhase" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1.0"/>
+  </set>
+  <set id="Load_LoadAlphaBetaRestorativeNetwork">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+  </set>
+  <set id="Disconnect_Load_LoadAlphaBetaRestorativeNetwork">
+    <par type="DOUBLE" name="event_tEvent" value="10"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadAlphaBetaRestorativeNetwork">
+    <par type="DOUBLE" name="event_tEvent" value="20"/>
+    <par type="BOOL" name="event_stateEvent1" value="false"/>
+  </set>
+  <set id="Disconnect_Load_LoadAlphaBetaRestorativeNetwork_switch">
+    <par type="DOUBLE" name="event_tEvent" value="50"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadAlphaBetaRestorativeNetwork_switch">
+    <par type="DOUBLE" name="event_tEvent" value="60"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Load_LoadAlphaBetaRestorative">
+    <par type="DOUBLE" name="load_Alpha" value="1.5"/>
+    <par type="DOUBLE" name="load_Beta" value="2.5"/>
+    <par type="DOUBLE" name="load_UMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="load_UMinPu" value="0.95"/>
+    <par type="DOUBLE" name="load_tFilter" value="10"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="Disconnect_Load_LoadAlphaBetaRestorative">
+    <par type="DOUBLE" name="event_tEvent" value="110"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadAlphaBetaRestorative">
+    <par type="DOUBLE" name="event_tEvent" value="120"/>
+    <par type="BOOL" name="event_stateEvent1" value="false"/>
+  </set>
+  <set id="Disconnect_Load_LoadAlphaBetaRestorative_switch">
+    <par type="DOUBLE" name="event_tEvent" value="150"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadAlphaBetaRestorative_switch">
+    <par type="DOUBLE" name="event_tEvent" value="160"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Load_LoadAlphaBeta">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+  </set>
+  <set id="Disconnect_Load_LoadAlphaBeta">
+    <par type="DOUBLE" name="event_tEvent" value="210"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadAlphaBeta">
+    <par type="DOUBLE" name="event_tEvent" value="220"/>
+    <par type="BOOL" name="event_stateEvent1" value="false"/>
+  </set>
+  <set id="Disconnect_Load_LoadAlphaBeta_switch">
+    <par type="DOUBLE" name="event_tEvent" value="250"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadAlphaBeta_switch">
+    <par type="DOUBLE" name="event_tEvent" value="260"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Load_LoadPQ">
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="Disconnect_Load_LoadPQ">
+    <par type="DOUBLE" name="event_tEvent" value="310"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadPQ">
+    <par type="DOUBLE" name="event_tEvent" value="320"/>
+    <par type="BOOL" name="event_stateEvent1" value="false"/>
+  </set>
+  <set id="Disconnect_Load_LoadPQ_switch">
+    <par type="DOUBLE" name="event_tEvent" value="350"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadPQ_switch">
+    <par type="DOUBLE" name="event_tEvent" value="360"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Load_LoadZIP">
+    <par type="DOUBLE" name="load_Zp" value="0"/>
+    <par type="DOUBLE" name="load_Ip" value="0"/>
+    <par type="DOUBLE" name="load_Pp" value="1"/>
+    <par type="DOUBLE" name="load_Zq" value="0"/>
+    <par type="DOUBLE" name="load_Iq" value="0"/>
+    <par type="DOUBLE" name="load_Pq" value="1"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="Disconnect_Load_LoadZIP">
+    <par type="DOUBLE" name="event_tEvent" value="410"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadZIP">
+    <par type="DOUBLE" name="event_tEvent" value="420"/>
+    <par type="BOOL" name="event_stateEvent1" value="false"/>
+  </set>
+  <set id="Disconnect_Load_LoadZIP_switch">
+    <par type="DOUBLE" name="event_tEvent" value="450"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_LoadZIP_switch">
+    <par type="DOUBLE" name="event_tEvent" value="460"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Load_ElectronicLoad">
+    <par type="DOUBLE" name="load_Ud1Pu" value="0"/>
+    <par type="DOUBLE" name="load_Ud2Pu" value="0"/>
+    <par type="DOUBLE" name="load_recoveringShare" value="0"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="Disconnect_Load_ElectronicLoad">
+    <par type="DOUBLE" name="event_tEvent" value="510"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <set id="Reconnect_Load_ElectronicLoad">
+    <par type="DOUBLE" name="event_tEvent" value="520"/>
+    <par type="BOOL" name="event_stateEvent1" value="false"/>
+  </set>
+  <set id="Disconnect_Load_ElectronicLoad_switch">
+    <par type="DOUBLE" name="event_tEvent" value="550"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_ElectronicLoad_switch">
+    <par type="DOUBLE" name="event_tEvent" value="560"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Disconnect_Load_cpp">
+    <par type="DOUBLE" name="event_tEvent" value="610"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_cpp">
+    <par type="DOUBLE" name="event_tEvent" value="620"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Disconnect_Load_cpp_switch">
+    <par type="DOUBLE" name="event_tEvent" value="650"/>
+    <par type="BOOL" name="event_open" value="true"/>
+  </set>
+  <set id="Reconnect_Load_cpp_switch">
+    <par type="DOUBLE" name="event_tEvent" value="660"/>
+    <par type="BOOL" name="event_open" value="false"/>
+  </set>
+  <set id="Network_LoadPQ">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.015"/>
+  </set>
+</parametersSet>

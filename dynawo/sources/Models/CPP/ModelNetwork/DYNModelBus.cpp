@@ -501,7 +501,7 @@ ModelBus::collectSilentZ(BitMask* silentZTable) {
 
 void
 ModelBus::evalCalculatedVars() {
-  if (getSwitchOff()) {
+  if (getSwitchOff() || voltageIsZero()) {
     calculatedVars_[upuNum_] = 0.;
     calculatedVars_[phipuNum_] = 0.;
     calculatedVars_[uNum_] = 0.;
@@ -825,7 +825,7 @@ ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) co
   const double ui = y_[uiNum_];
   switch (numCalculatedVar) {
     case upuNum_: {
-      if (getSwitchOff()) {
+      if (getSwitchOff() || voltageIsZero()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -835,7 +835,7 @@ ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) co
       break;
     }
     case phipuNum_: {
-      if (getSwitchOff()) {
+      if (getSwitchOff() || voltageIsZero()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -847,7 +847,7 @@ ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) co
       break;
     }
     case uNum_: {
-      if (getSwitchOff()) {
+      if (getSwitchOff() || voltageIsZero()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -857,7 +857,7 @@ ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) co
       break;
     }
     case phiNum_: {
-      if (getSwitchOff()) {
+      if (getSwitchOff() || voltageIsZero()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -880,25 +880,25 @@ ModelBus::evalCalculatedVarI(unsigned numCalculatedVar) const {
   const double ui = y_[uiNum_];
   switch (numCalculatedVar) {
     case upuNum_:
-      if (getSwitchOff())
+      if (getSwitchOff() || voltageIsZero())
         output = 0.0;
       else
         output = sqrt(ur * ur + ui * ui);  // Voltage module in pu
       break;
     case phipuNum_:
-      if (getSwitchOff())
+      if (getSwitchOff() || voltageIsZero())
         output = 0.0;
       else
         output = atan2(ui, ur);  // Voltage angle in pu
       break;
     case uNum_:
-      if (getSwitchOff())
+      if (getSwitchOff() || voltageIsZero())
         output = 0.0;
       else
         output = sqrt(ur * ur + ui * ui) * unom_;  // Voltage module in kV
       break;
     case phiNum_:
-      if (getSwitchOff())
+      if (getSwitchOff() || voltageIsZero())
         output = 0.0;
       else
         output = atan2(ui, ur) * RAD_TO_DEG;  // Voltage angle in degree
