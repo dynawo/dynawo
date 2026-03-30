@@ -279,16 +279,6 @@ ModelSwitch::close() {
 }
 
 void
-ModelSwitch::addBusNeighbors() {
-  std::shared_ptr<ModelBus> bus1 = modelBus1_;
-  std::shared_ptr<ModelBus> bus2 = modelBus2_;
-  if (getConnectionState() == CLOSED) {
-    bus1->addNeighbor(bus2);
-    bus2->addNeighbor(bus1);
-  }
-}
-
-void
 ModelSwitch::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
   // Column for node current / real part of the voltage (i depending on re(V))
   // --------------------------------------------------------------------------

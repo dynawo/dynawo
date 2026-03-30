@@ -968,6 +968,10 @@ DataInterfaceIIDM::mapConnections() {
       line->getBusInterface1()->hasConnection(true);
       line->getBusInterface2()->hasConnection(true);
     }
+    if (line->getBusInterface1()->hasDynamicModel())
+      line->hasConnectionSide1(true);
+    if (line->getBusInterface2()->hasDynamicModel())
+      line->hasConnectionSide2(true);
   }
 
   for (const auto& twoWtfo : network_->getTwoWTransformers()) {

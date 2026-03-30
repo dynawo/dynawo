@@ -88,7 +88,7 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief add bus neighbors
    */
-  virtual void addBusNeighbors() = 0;
+  virtual void addBusNeighbors() {}
 
   /**
    * @brief define variables

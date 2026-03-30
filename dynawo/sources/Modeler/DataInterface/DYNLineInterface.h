@@ -190,6 +190,30 @@ class LineInterface : public ComponentInterface {
   const std::string& getID() const override = 0;
 
   /**
+   * @brief Setter for line outside connection attribute side 1 (whether the bus this side has a dynamic model)
+   * @param hasConnection @b true if the line has an outside connection this side, @b false else
+   */
+  virtual void hasConnectionSide1(bool hasConnection) = 0;
+
+  /**
+   * @brief Getter for the line's connection attribute
+   * @return @b true if the line has an outside connection, @b false else
+   */
+  virtual bool hasConnectionSide1() const = 0;
+
+  /**
+   * @brief Setter for line outside connection attribute side 2 (whether the bus this side has a dynamic model)
+   * @param hasConnection @b true if the line has an outside connection this side, @b false else
+   */
+  virtual void hasConnectionSide2(bool hasConnection) = 0;
+
+  /**
+   * @brief Getter for the line's connection attribute
+   * @return @b true if the line has an outside connection, @b false else
+   */
+  virtual bool hasConnectionSide2() const = 0;
+
+  /**
    * @brief Retrieve active season for the line
    * @returns active season
    */

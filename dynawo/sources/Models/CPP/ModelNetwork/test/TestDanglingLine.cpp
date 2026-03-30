@@ -28,7 +28,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNModelDanglingLine.h"
 #include "DYNModelVoltageLevel.h"
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "DYNModelNetwork.h"
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
@@ -115,7 +115,7 @@ createModelDanglingLine(bool open, bool initModel) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   dl->setNetwork(network);
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, true);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(bus1ItfIIDM, true);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   dl->setModelBus(bus1);
@@ -130,8 +130,8 @@ createModelDanglingLine(bool open, bool initModel) {
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 3.5;
-  y1[ModelBus::uiNum_] = 2;
+  y1[ModelBusInjected::urNum_] = 3.5;
+  y1[ModelBusInjected::uiNum_] = 2;
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
