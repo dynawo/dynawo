@@ -148,6 +148,30 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   const std::string& getID() const override;
 
   /**
+   * @brief Setter for line outside connection attribute side 1 (whether the bus this side has a dynamic model)
+   * @param hasConnection @b true if the line has an outside connection this side, @b false else
+   */
+  void hasConnectionSide1(bool hasConnection) override {hasConnection1_ = hasConnection;}
+
+  /**
+   * @brief Getter for the line's connection attribute
+   * @return @b true if the line has an outside connection, @b false else
+   */
+  bool hasConnectionSide1() const override {return hasConnection1_;}
+
+  /**
+   * @brief Setter for line outside connection attribute side 2 (whether the bus this side has a dynamic model)
+   * @param hasConnection @b true if the line has an outside connection this side, @b false else
+   */
+  void hasConnectionSide2(bool hasConnection) override {hasConnection2_ = hasConnection;}
+
+  /**
+   * @brief Getter for the line's connection attribute
+   * @return @b true if the line has an outside connection, @b false else
+   */
+  bool hasConnectionSide2() const override {return hasConnection2_;}
+
+  /**
    * @brief Setter for the line's voltageLevel interface side 1
    * @param voltageLevelInterface of the bus where the side 1 of the line is connected
    */
@@ -298,6 +322,8 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   std::vector<std::unique_ptr<CurrentLimitInterface> > currentLimitInterfaces2_;  ///< current limit interfaces for side 2
   boost::optional<bool> initialConnected1_;                                         ///< side 1 initially connected
   boost::optional<bool> initialConnected2_;                                         ///< side 2 initially connected
+  bool hasConnection1_ = false;                 ///< @b true if the line has an outside connection (i.e, dynamic bus) side 1, @b false else
+  bool hasConnection2_ = false;                 ///< @b true if the line has an outside connection (i.e, dynamic bus) side 2, @b false else
 
   ActiveSeasonIIDMExtension* activeSeasonExtension_;                                         ///< Active season extension
   IIDMExtensions::DestroyFunction<ActiveSeasonIIDMExtension> destroyActiveSeasonExtension_;  ///< active season destroy function

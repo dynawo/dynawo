@@ -133,11 +133,6 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Mod
   void evalNodeInjection() override;
 
   /**
-   * @brief add bus neighbors
-   */
-  void addBusNeighbors() override;
-
-  /**
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
