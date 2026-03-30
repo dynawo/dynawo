@@ -150,6 +150,8 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(PFaRef, wecc_reec.PFaRef) annotation(
     Line(points = {{-190, 60}, {-79, 60}, {-79, 11}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(

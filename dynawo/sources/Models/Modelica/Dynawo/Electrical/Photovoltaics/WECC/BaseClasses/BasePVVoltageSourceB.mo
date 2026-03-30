@@ -99,9 +99,10 @@ partial model BasePVVoltageSourceB "Base model for WECC PV with a voltage source
   parameter Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
 
 equation
-  source.switchOffSignal1.value = injector.switchOffSignal1.value;
-  source.switchOffSignal2.value = injector.switchOffSignal2.value;
-
+  connect(source.switchOffSignal1, injector.switchOffSignal1);
+  connect(source.switchOffSignal2, injector.switchOffSignal2);
+  connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(injector.terminal, source.terminal1) annotation(
     Line(points = {{-8.5, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(wecc_regc.urSource, injector.urPu) annotation(

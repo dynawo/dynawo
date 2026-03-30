@@ -150,6 +150,8 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(reecC.idCmdPu, regcA.idCmdPu) annotation(
     Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
   connect(reecC.iqCmdPu, regcA.iqCmdPu) annotation(

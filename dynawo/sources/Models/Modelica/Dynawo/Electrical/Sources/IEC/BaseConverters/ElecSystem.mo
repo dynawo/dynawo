@@ -24,6 +24,7 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
                             |
                            ---
 */
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffTransformer;
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
@@ -78,12 +79,18 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
     Dialog(group = "Initialization"));
 
 equation
+  if running.value then
+    i1Pu = i2Pu + Complex(GPu, BPu) * u1Pu;
+    u2Pu = u1Pu - Complex(RPu, XPu) * i2Pu;
+  else
+    i1Pu = Complex(0);
+    i2Pu = Complex(0);
+  end if;
+
   u1Pu = terminal1.V;
   u2Pu = terminal2.V;
   i1Pu = terminal1.i*(SystemBase.SnRef/SNom);
   i2Pu = -terminal2.i*(SystemBase.SnRef/SNom);
-  u2Pu = u1Pu - Complex(RPu, XPu)*i2Pu;
-  i1Pu = i2Pu + Complex(GPu, BPu)*u1Pu;
   i1Pu = Complex(i1RePu, i1ImPu);
   i2Pu = Complex(i2RePu, i2ImPu);
   u1Pu = Complex(u1RePu, u1ImPu);

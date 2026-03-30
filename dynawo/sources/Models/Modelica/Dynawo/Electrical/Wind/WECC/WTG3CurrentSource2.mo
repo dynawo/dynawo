@@ -260,6 +260,10 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
+  connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_wtga.PmPu, wecc_wtgt.PmPu) annotation(
     Line(points = {{24, -56}, {54, -56}}, color = {0, 0, 127}));
   connect(wecc_wtgp.theta, wecc_wtga.theta) annotation(

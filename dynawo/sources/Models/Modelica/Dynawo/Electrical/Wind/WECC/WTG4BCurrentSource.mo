@@ -66,6 +66,8 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+  connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_repc.PConvRefPu, wecc_reec.PConvRefPu) annotation(
     Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(wecc_repc.QConvRefPu, wecc_reec.QConvRefPu) annotation(

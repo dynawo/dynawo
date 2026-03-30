@@ -89,9 +89,6 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
   parameter Types.VoltageModulePu UPcc0Pu = 1 "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
 equation
-  HvTfo.switchOffSignal1.value = false;
-  HvTfo.switchOffSignal2.value = false;
-
   connect(booleanConstant.y, switch4.u2) annotation(
     Line(points = {{40, 109.5}, {40, 100}, {31, 100}}, color = {255, 0, 255}));
   connect(booleanConstant.y, switch3.u2) annotation(

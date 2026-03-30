@@ -109,6 +109,8 @@ equation
   PGenPu = ComplexMath.real(terminal.V * ComplexMath.conj(-terminal.i));
   QGenPu = ComplexMath.imag(terminal.V * ComplexMath.conj(-terminal.i));
   genSystem.running = running.value;
+  elecSystem.switchOffSignal1.value = switchOffSignal1.value;
+  elecSystem.switchOffSignal2.value = switchOffSignal2.value;
 
   connect(theta, genSystem.theta) annotation(
     Line(points = {{-40, 110}, {-40, 22}}, color = {0, 0, 127}));

@@ -29,6 +29,8 @@ model BESSCurrentSource "WECC BESS with electrical control model type C, generat
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
+  connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(PRefPu, repcA.PRefPu) annotation(
     Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(QRefPu, repcA.QRefPu) annotation(

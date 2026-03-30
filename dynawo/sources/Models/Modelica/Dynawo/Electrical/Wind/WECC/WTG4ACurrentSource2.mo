@@ -79,6 +79,8 @@ model WTG4ACurrentSource2 "WECC Wind Turbine model with a simplified drive train
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
 equation
+  connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(URefPu, wecc_repc.URefPu) annotation(
     Line(points = {{-190, -40}, {-120, -40}, {-120, -11}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(

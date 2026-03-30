@@ -137,6 +137,8 @@ model PVVoltageSource1 "WECC PV model with a voltage source as interface with th
     Placement(transformation(origin = {-105, -40}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
 equation
+  connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
+  connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(PRefPu, wecc_repc.PRefPu) annotation(
     Line(points = {{-160, 0}, {-139, 0}, {-139, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(wecc_repc.PConvRefPu, wecc_reec.PConvRefPu) annotation(
