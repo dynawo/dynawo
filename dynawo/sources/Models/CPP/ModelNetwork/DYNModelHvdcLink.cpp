@@ -46,7 +46,7 @@ using std::abs;
 namespace DYN {
 
 ModelHvdcLink::ModelHvdcLink(const std::shared_ptr<HvdcLineInterface>& dcLine) :
-NetworkComponent(dcLine->getID()),
+ModelQuadripole(dcLine->getID()),
 dcLine_(dcLine),
 pSetPoint_(0.),
 vdcNom_(0.),

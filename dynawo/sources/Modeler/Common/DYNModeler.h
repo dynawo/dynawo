@@ -169,6 +169,7 @@ class Modeler {
   std::shared_ptr<ModelMulti> model_;  ///< model created thanks to previous data
 
   std::map<std::string, boost::shared_ptr<SubModel> > subModels_;  ///< association between name and subModel : usefull when the connectors should be created
+  boost::shared_ptr<SubModel> modelNetwork_ = nullptr;  ///< pointer to the special NETWORK submodel, if present
 };
 
 }  // namespace DYN

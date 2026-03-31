@@ -55,7 +55,7 @@ using std::string;
 namespace DYN {
 
 ModelLine::ModelLine(const std::shared_ptr<LineInterface>& line) :
-NetworkComponent(line->getID()),
+ModelQuadripole(line->getID()),
 topologyModified_(false),
 updateYMat_(true),
 isDynamic_(false),
@@ -1960,14 +1960,6 @@ ModelLine::evalState(const double /*time*/) {
     topologyModified_ = false;
   }
   return state;
-}
-
-void
-ModelLine::addBusNeighbors() {
-  if (getConnectionState() == CLOSED) {
-    modelBus1_->addNeighbor(modelBus2_);
-    modelBus2_->addNeighbor(modelBus1_);
-  }
 }
 
 void

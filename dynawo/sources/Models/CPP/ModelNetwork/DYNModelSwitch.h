@@ -21,7 +21,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELSWITCH_H_
 
 #include <boost/shared_ptr.hpp>
-#include "DYNNetworkComponent.h"
+#include "DYNModelQuadripole.h"
 #include "DYNModelBus.h"
 
 namespace DYN {
@@ -30,7 +30,7 @@ class SwitchInterface;
 /**
  * @brief Generic AC switch model
  */
-class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public NetworkComponent {
+class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public ModelQuadripole {
  public:
   /**
    * @brief default constructor
@@ -55,20 +55,12 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   } IndexVariables_t;
 
   /**
-   * @brief set the switch connection state
-   * @param state connection state
-   */
-  void setConnectionState(const State state) {
-    connectionState_ = state;
-  }
-
-  /**
    * @brief set the bus at end 1 of the switch
    *
    * @param model model of the bus
    */
-  void setModelBus1(const std::shared_ptr<ModelBus>& model) {
-    modelBus1_ = model;
+  void setModelBus1(const std::shared_ptr<ModelBus>& model) override {
+    ModelQuadripole::setModelBus1(model);
     modelBus1_->addSwitch(shared_from_this());
   }
 
@@ -77,17 +69,9 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    *
    * @param model model of the bus
    */
-  void setModelBus2(const std::shared_ptr<ModelBus>& model) {
-    modelBus2_ = model;
+  void setModelBus2(const std::shared_ptr<ModelBus>& model) override {
+    ModelQuadripole::setModelBus2(model);
     modelBus2_->addSwitch(shared_from_this());
-  }
-
-  /**
-   * @brief  retrieve the switch connection state
-   * @return connection status
-   */
-  State getConnectionState() const {
-    return connectionState_;
   }
 
   /**
@@ -135,13 +119,13 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
    * @brief retrieve the bus at end 1 of the switch
    * @return bus 1
    */
-  std::shared_ptr<ModelBus> getModelBus1() const;
+  const std::shared_ptr<ModelBus> & getModelBus1() const override;
 
   /**
    * @brief retrieve the bus at end 2 of the switch
    * @return bus 2
    */
-  std::shared_ptr<ModelBus> getModelBus2() const;
+  const std::shared_ptr<ModelBus> & getModelBus2() const override;
 
   /**
    * @brief evaluate node injection
@@ -333,9 +317,6 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Net
   void setInitialCurrents();
 
  private:
-  std::shared_ptr<ModelBus> modelBus1_;  ///< bus at end 1 of the switch
-  std::shared_ptr<ModelBus> modelBus2_;  ///< bus at end 2 of the switch
-  State connectionState_;  ///< "internal" switch connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the switch connection state was modified
   bool inLoop_;  ///< inLoop
   double ir0_;  ///< initial current (real part)

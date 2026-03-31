@@ -69,7 +69,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 ModelTwoWindingsTransformer::ModelTwoWindingsTransformer(const std::shared_ptr<TwoWTransformerInterface>& tfo) :
-NetworkComponent(tfo->getID()),
+ModelQuadripole(tfo->getID()),
 ir1_dUr1_(0.),
 ir1_dUi1_(0.),
 ir1_dUr2_(0.),
@@ -1784,14 +1784,6 @@ ModelTwoWindingsTransformer::evalState(const double /*time*/) {
     stateIndexModified_ = false;
   }
   return state;
-}
-
-void
-ModelTwoWindingsTransformer::addBusNeighbors() {
-  if (getConnectionState() == CLOSED) {
-    modelBus1_->addNeighbor(modelBus2_);
-    modelBus2_->addNeighbor(modelBus1_);
-  }
 }
 
 void
