@@ -366,6 +366,7 @@ var searchData=
   ['isretained',['isRetained',['../d6/d58/a02993.html#ad6ec1a8554557b6895cdf0034835a8ff',1,'DYN::SwitchInterface::isRetained()'],['../dd/d02/a03145.html#af99eba3e23be7bc650d3d6cb747c01ee',1,'DYN::SwitchInterfaceIIDM::isRetained()']]],
   ['isrunning',['isRunning',['../d1/df1/a03217.html#accf58c33624762d46583825cda678644',1,'DYN::ModelVoltageMeasurementsUtilities::isRunning()'],['../d2/d74/a03293.html#ad286cf935f2a7d0c8e466828cafdecf1',1,'DYN::ModelLoad::isRunning()']]],
   ['isself_5f',['isSelf_',['../d6/df4/a03201.html#a05f90f6ec9b0ca0a080acde2e8ee61b7',1,'DYN::ModelCentralizedShuntsSectionControl']]],
+  ['issettable_5f',['isSettable_',['../d2/d74/a03293.html#a03855353f7398bad06eb89866d6c06e9',1,'DYN::ModelLoad']]],
   ['isstandby',['isStandBy',['../dd/d5c/a02985.html#aa370d973a003559480f7acd0eb04a7ce',1,'DYN::StaticVarCompensatorInterface::isStandBy()'],['../d0/d2a/a03133.html#a58895780832b0ef28b74a350d2400490',1,'DYN::StaticVarCompensatorInterfaceIIDM::isStandBy()'],['../d2/d0f/a03137.html#a9824a971d819855462787f996432c5ca',1,'DYN::StaticVarCompensatorInterfaceIIDMExtension::isStandBy()']]],
   ['isstartingfromdump',['isStartingFromDump',['../d7/daf/a03181.html#ab535104320ef1f24aebae595ae4e8f1b',1,'DYN::ModelCPP']]],
   ['isstartingfromdump_5f',['isStartingFromDump_',['../d7/daf/a03181.html#abb9de82698c67d19a498506b5fba4449',1,'DYN::ModelCPP']]],

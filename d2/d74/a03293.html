@@ -135,6 +135,12 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a20529f40262b42453f79a4ff1f2d91e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculated variables type <br /></td></tr>
 <tr class="separator:a20529f40262b42453f79a4ff1f2d91e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac94669b9bdc4c1b888a81f262036724"><td class="memItemLeft" align="right" valign="top"><a id="aac94669b9bdc4c1b888a81f262036724"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#aac94669b9bdc4c1b888a81f262036724">DiscreteVariables_t</a> { <b>stateNum_</b> = 0, 
+<b>PRefPuNum_</b> = 1, 
+<b>QRefPuNum_</b> = 2
+ }</td></tr>
+<tr class="memdesc:aac94669b9bdc4c1b888a81f262036724"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of discreteVariables <br /></td></tr>
+<tr class="separator:aac94669b9bdc4c1b888a81f262036724"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_a03357"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a03357')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../d3/dfd/a03357.html">DYN::NetworkComponent</a></td></tr>
 <tr class="memitem:ab067ace2562da72e4017d1c2cca12867 inherit pub_types_a03357"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dfd/a03357.html#ab067ace2562da72e4017d1c2cca12867">StateChange_t</a> { <b>NO_CHANGE</b> = 0, 
 <b>STATE_CHANGE</b> = 1, 
@@ -415,6 +421,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a6eae5e1f2bc02d9c618c399d06916cce"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a6eae5e1f2bc02d9c618c399d06916cce">deltaPc</a> () const</td></tr>
 <tr class="memdesc:a6eae5e1f2bc02d9c618c399d06916cce"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute value  <a href="#a6eae5e1f2bc02d9c618c399d06916cce">More...</a><br /></td></tr>
 <tr class="separator:a6eae5e1f2bc02d9c618c399d06916cce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf0bc28a3786f7e48f4881c5b0a1ff4f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#abf0bc28a3786f7e48f4881c5b0a1ff4f">QRefPu</a> () const</td></tr>
+<tr class="memdesc:abf0bc28a3786f7e48f4881c5b0a1ff4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute QRefPu value  <a href="#abf0bc28a3786f7e48f4881c5b0a1ff4f">More...</a><br /></td></tr>
+<tr class="separator:abf0bc28a3786f7e48f4881c5b0a1ff4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a740aed564e631e588efebf4785c43c2e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a740aed564e631e588efebf4785c43c2e">PRefPu</a> () const</td></tr>
+<tr class="memdesc:a740aed564e631e588efebf4785c43c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute PRefPu value  <a href="#a740aed564e631e588efebf4785c43c2e">More...</a><br /></td></tr>
+<tr class="separator:a740aed564e631e588efebf4785c43c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a923765f5f5df42a2fefe4b09af5aabb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a923765f5f5df42a2fefe4b09af5aabb3">getI</a> (double ur, double ui, double U, double U2, double &amp;ir, double &amp;ii) const</td></tr>
 <tr class="memdesc:a923765f5f5df42a2fefe4b09af5aabb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the current real and imaginary values  <a href="#a923765f5f5df42a2fefe4b09af5aabb3">More...</a><br /></td></tr>
 <tr class="separator:a923765f5f5df42a2fefe4b09af5aabb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -475,14 +487,14 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a9eb5463381cf12aea870adccd0560cc6">kq_</a></td></tr>
 <tr class="memdesc:a9eb5463381cf12aea870adccd0560cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">gain kq <br /></td></tr>
 <tr class="separator:a9eb5463381cf12aea870adccd0560cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a560bb88f259fd1b632e679bb8388d78a"><td class="memItemLeft" align="right" valign="top"><a id="a560bb88f259fd1b632e679bb8388d78a"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a560bb88f259fd1b632e679bb8388d78a">P0_</a></td></tr>
-<tr class="memdesc:a560bb88f259fd1b632e679bb8388d78a"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial active power <br /></td></tr>
-<tr class="separator:a560bb88f259fd1b632e679bb8388d78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad737f594a09914eca88b40a3904c0757"><td class="memItemLeft" align="right" valign="top"><a id="ad737f594a09914eca88b40a3904c0757"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#ad737f594a09914eca88b40a3904c0757">Q0_</a></td></tr>
-<tr class="memdesc:ad737f594a09914eca88b40a3904c0757"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial reactive power <br /></td></tr>
-<tr class="separator:ad737f594a09914eca88b40a3904c0757"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ea6f030c16d00d0ee92dee1b13e7814"><td class="memItemLeft" align="right" valign="top"><a id="a5ea6f030c16d00d0ee92dee1b13e7814"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a5ea6f030c16d00d0ee92dee1b13e7814">PRef0Pu_</a></td></tr>
+<tr class="memdesc:a5ea6f030c16d00d0ee92dee1b13e7814"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial active power <br /></td></tr>
+<tr class="separator:a5ea6f030c16d00d0ee92dee1b13e7814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fdb688e34a6f3e30fa8fff8a3c6b842"><td class="memItemLeft" align="right" valign="top"><a id="a1fdb688e34a6f3e30fa8fff8a3c6b842"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a1fdb688e34a6f3e30fa8fff8a3c6b842">QRef0Pu_</a></td></tr>
+<tr class="memdesc:a1fdb688e34a6f3e30fa8fff8a3c6b842"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial reactive power <br /></td></tr>
+<tr class="separator:a1fdb688e34a6f3e30fa8fff8a3c6b842"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78f4c8e7dc4dc0014c1b0b44129af764"><td class="memItemLeft" align="right" valign="top"><a id="a78f4c8e7dc4dc0014c1b0b44129af764"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a78f4c8e7dc4dc0014c1b0b44129af764">ir0_</a></td></tr>
 <tr class="memdesc:a78f4c8e7dc4dc0014c1b0b44129af764"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial real part of the current <br /></td></tr>
@@ -515,6 +527,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a56614579a00e46c84c37b2b4dc55ad28">isControllable_</a></td></tr>
 <tr class="memdesc:a56614579a00e46c84c37b2b4dc55ad28"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the load can be controlled <br /></td></tr>
 <tr class="separator:a56614579a00e46c84c37b2b4dc55ad28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03855353f7398bad06eb89866d6c06e9"><td class="memItemLeft" align="right" valign="top"><a id="a03855353f7398bad06eb89866d6c06e9"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#a03855353f7398bad06eb89866d6c06e9">isSettable_</a></td></tr>
+<tr class="memdesc:a03855353f7398bad06eb89866d6c06e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether PRefPu and QRefPu can be set (defined as discrete variables) <br /></td></tr>
+<tr class="separator:a03855353f7398bad06eb89866d6c06e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb84de2d0daf38df702445728d7d38dc"><td class="memItemLeft" align="right" valign="top"><a id="acb84de2d0daf38df702445728d7d38dc"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d74/a03293.html#acb84de2d0daf38df702445728d7d38dc">Tp_</a></td></tr>
 <tr class="memdesc:acb84de2d0daf38df702445728d7d38dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">time constant Tp <br /></td></tr>
@@ -2657,6 +2673,34 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="a740aed564e631e588efebf4785c43c2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a740aed564e631e588efebf4785c43c2e">&#9670;&nbsp;</a></span>PRefPu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DYN::ModelLoad::PRefPu </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>compute PRefPu value </p>
+<dl class="section return"><dt>Returns</dt><dd>value </dd></dl>
+
+</div>
+</div>
 <a id="a9e5f1ccaf095f944d17e5e282b67f6b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e5f1ccaf095f944d17e5e282b67f6b3">&#9670;&nbsp;</a></span>Q()</h2>
 
@@ -2808,6 +2852,34 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>value </dd></dl>
+
+</div>
+</div>
+<a id="abf0bc28a3786f7e48f4881c5b0a1ff4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf0bc28a3786f7e48f4881c5b0a1ff4f">&#9670;&nbsp;</a></span>QRefPu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DYN::ModelLoad::QRefPu </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>compute QRefPu value </p>
 <dl class="section return"><dt>Returns</dt><dd>value </dd></dl>
 
 </div>
@@ -3086,7 +3158,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/d74/a03293.html">ModelLoad</a></li>
-    <li class="footer">Generated on Tue Mar 31 2026 13:05:40 for Dynawo by
+    <li class="footer">Generated on Wed Apr 1 2026 14:59:27 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

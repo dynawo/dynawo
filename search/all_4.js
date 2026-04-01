@@ -101,6 +101,7 @@ var searchData=
   ['disconnectnode',['disconnectNode',['../db/dc5/a03009.html#a4927802c73560d1292ccb2ec4a0f1185',1,'DYN::VoltageLevelInterface::disconnectNode()'],['../d2/df1/a03057.html#afab169ce624e1b1c10d0434ef76118b1',1,'DYN::FictVoltageLevelInterfaceIIDM::disconnectNode()'],['../d5/d27/a03157.html#a9361a1d56a511207a5fe82ed6d41ef10',1,'DYN::VoltageLevelInterfaceIIDM::disconnectNode()'],['../d6/df3/a03349.html#a21205a3b35158d0fd04c9ce4e66ab0e1',1,'DYN::ModelVoltageLevel::disconnectNode()']]],
   ['discrete',['DISCRETE',['../d8/de6/a02061.html#a47e7759d5921e5157692324e1947e3bea947436f2927405d3b5997a9ffbaee5c1',1,'externalVariables::Variable::DISCRETE()'],['../d6/d60/a00491.html#a24adc26d089791bc53f26183118aadfaa94ae2aa0554795b1955de4ed3572c807',1,'DYN::DISCRETE()']]],
   ['discrete_5farray',['DISCRETE_ARRAY',['../d8/de6/a02061.html#a47e7759d5921e5157692324e1947e3beacc9e2a07d0d49cff798948e61b05002b',1,'externalVariables::Variable']]],
+  ['discretevariables_5ft',['DiscreteVariables_t',['../d2/d74/a03293.html#aac94669b9bdc4c1b888a81f262036724',1,'DYN::ModelLoad']]],
   ['discretevars_5ft',['DiscreteVars_t',['../d1/df1/a03217.html#aaac467d3cff2b63fe7c7a7ac5b24639e',1,'DYN::ModelVoltageMeasurementsUtilities']]],
   ['dispatchmessage',['dispatchMessage',['../d9/d2c/a03421.html#a5c7241e4440ff70ddceb759260db6a36',1,'DYN::InputDispatcherAsync']]],
   ['distancetrippedzone1',['DistanceTrippedZone1',['../d4/d9d/a02681.html#a9294fd85b78754e1a11fec544395ad51a5474880034909113738914a5745db91b',1,'DYN::KeyTimeline_t']]],
