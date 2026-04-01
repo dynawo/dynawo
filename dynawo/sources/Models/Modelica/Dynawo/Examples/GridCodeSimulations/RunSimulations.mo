@@ -32,10 +32,11 @@ model RunSimulations
 
 equation
 
-annotation(
-  Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})),
-  Icon(coordinateSystem(extent = {{-120, -100}, {120, 100}})),
-  Documentation(info = "<html><head></head><body>Run this simulation to run at the same time all the simulation test cases fom the french grid code.<div><br></div><div>
+  annotation(
+    preferredView = "diagram",
+    Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})),
+    experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-06, Interval = 0.04),
+    Documentation(info = "<html><head></head><body>Run this simulation to run at the same time all the simulation test cases from the french grid code.<div><br></div><div>
 <p data-start=\"61\" data-end=\"96\"><strong data-start=\"61\" data-end=\"96\">Ideas for package improvements:</strong></p><p style=\"margin: 0px;\">
 </p><ul data-start=\"98\" data-end=\"297\">
 <li data-section-id=\"1is4hjg\" data-start=\"98\" data-end=\"230\">

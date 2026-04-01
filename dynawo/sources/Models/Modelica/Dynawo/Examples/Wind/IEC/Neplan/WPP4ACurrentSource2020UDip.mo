@@ -73,7 +73,7 @@ model WPP4ACurrentSource2020UDip "Wind Power Plant Type 4A model from IEC 61400-
     Mqfrt = 1,
     Mqpri = true,
     MwpqMode = 0,
-    P0Pu = -0.997314,
+    P0Pu = -PRefPu.offset * wPP4ACurrentSource.SNom / SystemBase.SnRef,
     PControl0Pu(fixed = false),
     PErrMaxPu = 1,
     PErrMinPu = -1,
@@ -82,7 +82,7 @@ model WPP4ACurrentSource2020UDip "Wind Power Plant Type 4A model from IEC 61400-
     PPCLocal = true,
     PRefMaxPu = 1,
     PRefMinPu = 0,
-    Q0Pu = 0.21,
+    Q0Pu = -xRefPu.offset * wPP4ACurrentSource.SNom / SystemBase.SnRef,
     QControl0Pu(fixed = false),
     QMax0Pu(fixed = false),
     QMaxPu = 0.8,
@@ -157,14 +157,14 @@ model WPP4ACurrentSource2020UDip "Wind Power Plant Type 4A model from IEC 61400-
     u0Pu(re(fixed = false), im(fixed = false)),
     uControl0Pu(re(fixed = false), im(fixed = false)),
     uWt0Pu(re(fixed = false), im(fixed = false))) annotation(
-    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(transformation(origin = {-116, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(transformation(origin = {-104, -64}, extent = {{-6, -6}, {6, 6}}, rotation = 90)));
 
   // Fault
-  Dynawo.Electrical.Events.VariableImpedantFault variableImpedantFault(ImpedanceTableFile = "../dynawo/examples/DynaSwing/IEC/Wind/Neplan/WPP4ACurrentSource2020UDip/TableVariableImpedance.txt", ImpedanceTimeTable = "ImpedanceTable", ZvTimeTable(table = [0, 0, 10000; 10, 0, 10000; 10, 0, 0.015; 10.15, 0, 0.015; 11.15, 0, 1.17; 15, 0, 1.17; 15, 0, 10000; 25, 0, 10000], tableOnFile = false)) annotation(
+  Dynawo.Electrical.Events.VariableImpedantFault variableImpedantFault(Table = [0, 0, 10000; 10, 0, 10000; 10, 0, 0.015; 10.15, 0, 0.015; 11.15, 0, 1.17; 15, 0, 1.17; 15, 0, 10000; 25, 0, 10000], TableOnFile = false) annotation(
     Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Reference inputs
@@ -172,7 +172,7 @@ model WPP4ACurrentSource2020UDip "Wind Power Plant Type 4A model from IEC 61400-
     Placement(visible = true, transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = 1, startTime = 2) annotation(
     Placement(visible = true, transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step xRefPu(height = 0, offset = 1, startTime = 4) annotation(
+  Modelica.Blocks.Sources.Step xRefPu(height = 0, offset = -0.21, startTime = 4) annotation(
     Placement(visible = true, transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
