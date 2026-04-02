@@ -12,6 +12,7 @@ var searchData=
   ['unitdynamicmodelhandler',['UnitDynamicModelHandler',['../d0/d2b/a01997.html#a7c08314c37e74cc061724aac45036b01',1,'dynamicdata::UnitDynamicModelHandler']]],
   ['unsetflags',['unsetFlags',['../de/d48/a02589.html#a1d39a147621f39e54fa89f3bed49ba25',1,'DYN::BitMask']]],
   ['update',['update',['../d5/d36/a01773.html#a2314b2515aa44763267db58df89877c2',1,'curves::Curve::update()'],['../d9/d93/a02753.html#a141efafced6dfae4c89ba693ced3e335',1,'DYN::Delay::update()']]],
+  ['updatealgebraicrestorationstatistics',['updateAlgebraicRestorationStatistics',['../d9/d54/a03537.html#a1f6ce50e992946be38a4b8f181c65e96',1,'DYN::SolverIDA']]],
   ['updatecalculatedvar',['updateCalculatedVar',['../d8/d1e/a02801.html#ad251cf90c329fd30fbecbeebcc92d4b4',1,'DYN::SubModel']]],
   ['updatecalculatedvarforcurves',['updateCalculatedVarForCurves',['../d1/da5/a02769.html#a9b50d7500f943886c683f0a54938de37',1,'DYN::Model::updateCalculatedVarForCurves()'],['../d9/d95/a02781.html#a8d6cb30a3a37c7e2ae2ac1d2aad757a7',1,'DYN::ModelMulti::updateCalculatedVarForCurves()']]],
   ['updatecurves',['updateCurves',['../d6/d27/a01781.html#a91357be76a9a91f7c48925da8a100cf0',1,'curves::CurvesCollection::updateCurves()'],['../d7/dc5/a03449.html#a1ba8fccff7e124ba3f8538e3d1abcd45',1,'DYN::Simulation::updateCurves()'],['../db/d1b/a03461.html#ae1a4bd64ca80154a7f17e113a417b018',1,'DYN::SimulationRT::updateCurves()']]],

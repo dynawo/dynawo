@@ -26,6 +26,7 @@ var a03537 =
     [ "setupNewAlgRestoration", "d9/d54/a03537.html#a479b7d9df4f8c8fb1d60ef3a1430bd85", null ],
     [ "solverType", "d9/d54/a03537.html#a917f0a6e76f89e2fe1e66c65de5650ce", null ],
     [ "solveStep", "d9/d54/a03537.html#a0a147c08a5e6929e5b9c5ca7e63a9b99", null ],
+    [ "updateAlgebraicRestorationStatistics", "d9/d54/a03537.html#a1f6ce50e992946be38a4b8f181c65e96", null ],
     [ "updateStatistics", "d9/d54/a03537.html#a5e0ddc4957eb6a508e8978afd5f14b89", null ],
     [ "absAccuracy_", "d9/d54/a03537.html#a1a5759af529e5fec2c6a954923a59b97", null ],
     [ "flagInit_", "d9/d54/a03537.html#abe5aace5ab79f9c0a874974a109813fc", null ],
