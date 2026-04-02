@@ -1660,6 +1660,15 @@ run_documentation_test() {
   rm -rf Test.desc.xml
   rm -rf Test_Dyn_definition.h
   popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/Basic
+
+  # Initialization model
+  pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestInitModel > /dev/null
+  launch_jobs Test.jobs || error_exit "Error during Initialization model example"
+  if [ ! -f "outputs/curves/curves.csv" ]; then
+    error_exit "Error during Initialization model example: cannot find expected output"
+  fi
+  rm -rf outputs
+  popd > /dev/null #TestInitModel
 }
 
 
