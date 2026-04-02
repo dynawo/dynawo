@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- IDA order 1 solver-->
+  <set id="1">
+    <par type="INT" name="order" value="1"/>
+    <par type="DOUBLE" name="initStep" value="0.001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+  <!-- IDA order 2 solver -->
+  <set id="2">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+  <!-- Simplified solver without step recalculation -->
+  <set id="3">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="1"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="STRING" name="linearSolverName" value="KLU"/>
+  </set>
+  <!-- IDA order 2 solver with higher accuracy requirements -->
+  <set id="5">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="0.01"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+  </set>
+  <set id="IDA_DynaSwing">
+    <par type="DOUBLE" name="absAccuracy" value="1.0E-4"/>
+    <par type="BOOL" name="activateCheckJacobian" value="false"/>
+    <par type="BOOL" name="activateCheckJacobianAfterInit" value="false"/>
+    <par type="BOOL" name="allLogs" value="false"/>
+    <par type="DOUBLE" name="deltacj" value="0.25"/>
+    <par type="BOOL" name="enableSilentZ" value="true"/>
+    <par type="DOUBLE" name="fnormtolAlg" value="1e-4"/>
+    <par type="DOUBLE" name="fnormtolAlgInit" value="1e-4"/>
+    <par type="DOUBLE" name="fnormtolAlgJ" value="1e-4"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="initialaddtolAlg" value="1"/>
+    <par type="DOUBLE" name="initialaddtolAlgInit" value="1"/>
+    <par type="DOUBLE" name="initialaddtolAlgJ" value="1"/>
+    <par type="DOUBLE" name="maxStep" value="100"/>
+    <par type="INT" name="maxcor" value="10"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="100"/>
+    <par type="INT" name="maxncf" value="10"/>
+    <par type="INT" name="maxnef" value="10"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-6"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_J_UPDATE"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestorationInit" value="ALGEBRAIC_J_UPDATE"/>
+    <par type="INT" name="msbsetAlg" value="0"/>
+    <par type="INT" name="msbsetAlgInit" value="1"/>
+    <par type="INT" name="msbsetAlgJ" value="1"/>
+    <par type="BOOL" name="multipleStrategiesForAlgebraicRestoration" value="true"/>
+    <par type="INT" name="mxiterAlg" value="10"/>
+    <par type="INT" name="mxiterAlgInit" value="10"/>
+    <par type="INT" name="mxiterAlgJ" value="10"/>
+    <par type="DOUBLE" name="mxnewtstepAlg" value="10000000"/>
+    <par type="DOUBLE" name="mxnewtstepAlgInit" value="10000000"/>
+    <par type="DOUBLE" name="mxnewtstepAlgJ" value="10000000"/>
+    <par type="BOOL" name="newReinit" value="true"/>
+    <par type="DOUBLE" name="nlscoef" value="0.33"/>
+    <par type="BOOL" name="optimizeReinitAlgebraicResidualsEvaluations" value="true"/>
+    <par type="INT" name="order" value="2"/>
+    <par type="BOOL" name="printLastNewtonY" value="false"/>
+    <par type="BOOL" name="printNewtonSolutions" value="false"/>
+    <par type="BOOL" name="printReinitResiduals" value="false"/>
+    <par type="BOOL" name="printUnstableRoot" value="false"/>
+    <par type="INT" name="printflAlg" value="0"/>
+    <par type="INT" name="printflAlgInit" value="0"/>
+    <par type="INT" name="printflAlgJ" value="0"/>
+    <par type="DOUBLE" name="relAccuracy" value="1.0E-4"/>
+    <par type="BOOL" name="restorationYPrim" value="true"/>
+    <par type="DOUBLE" name="scsteptolAlg" value="1e-6"/>
+    <par type="DOUBLE" name="scsteptolAlgInit" value="1e-4"/>
+    <par type="DOUBLE" name="scsteptolAlgJ" value="1e-6"/>
+    <par type="STRING" name="solveTask" value="ONE_STEP"/>
+    <par type="BOOL" name="uround" value="true"/>
+    <par type="DOUBLE" name="uroundPrecision" value="1.e-8"/>
+    <par type="BOOL" name="uroundPrecisionAlignedPrecision" value="true"/>
+    <par type="BOOL" name="useForceReinit" value="true"/>
+    </set>
+</parametersSet>

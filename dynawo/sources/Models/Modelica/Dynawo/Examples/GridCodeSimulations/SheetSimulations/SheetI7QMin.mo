@@ -18,7 +18,7 @@ model SheetI7QMin
   extends Examples.GridCodeSimulations.BaseUnitModel(XccPu = 0, Q0Pu = 0.3*SNom/Electrical.SystemBase.SnRef);
 
 equation
-  connect(infiniteBusFromTable.terminal, Unit.terminal) annotation(
+  connect(infiniteBusFromTable.terminal, Unit.terminalPcc) annotation(
     Line(points = {{-100, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, Unit.omegaRefPu) annotation(
     Line(points = {{80, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));

@@ -13,7 +13,10 @@ set(MODEL_FILES
   package.mo
   package.order
   Line.mo
+  DynLine.mo
+  DynLine_pi.mo
   Line.extvar
+  DynLine.extvar
   )
 
 #
