@@ -11,6 +11,7 @@
 
 add_subdirectory(General G)
 
+add_subdirectory(Average A)
 set(MODEL_FILES
   package.mo
   package.order
