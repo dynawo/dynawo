@@ -530,6 +530,27 @@ The transformers package contains a generator transformer model, a fixed ratio t
 
 The WTG4A and WTG4B \ac{WECC} models (see \cite{WECC}) are included into the Wind packages.
 
+\subsubsection[Initialization models in Dynawo]{Initialization models in \Dynawo}
+
+Initialization models in \Dynawo are fully independent algebraic models designed to compute an initial value
+for any variable of a given dynamic model (i.e. the model used during the simulation) with a non straighforward initialization.
+These initial values are computed by solving an independant specific problem, relying on input static network and model parameters.
+
+The initialization models are used during the local initialization phase, where each model is initialized independently,
+without enforcing consistency between interconnected models.
+
+By convention, the suffix \_INIT is used in the Modelica library to associate a dynamic model with its corresponding initialization model.
+
+The transfer of values from the initialization model to the dynamic model relies on a naming convention:
+a variable computed in the initialization model must have exactly the same name as a parameter in the dynamic model.
+
+The following example shows these conventions.
+
+\lstinputlisting[language=Modelica,title=Test\_INIT.mo]{../resources/exampleExecutables/TestInitModel/Test\_INIT.mo}
+\lstinputlisting[language=Modelica,title=Test.mo]{../resources/exampleExecutables/TestInitModel/Test.mo}
+
+In this example the \lstinline[language=Modelica]{u} variable will start with the value of \lstinline[language=Modelica]{u0} that is computed in the \_INIT model.
+
 \subsubsection{Preassembled models}
 
 Preassembled models are Modelica models that are compiled together during \Dynawo compilation to produce a .so library that can be directly used (as a blackbox model) in a simulation. With this mechanism these models don't have to be compiled at run time but only instantiated which allows to have acceptable performances with \Dynawo. \\
