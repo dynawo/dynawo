@@ -1,0 +1,9 @@
+ ====== VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
+event_state1_value                                : z =       0.005000
+event_state2_value                                : z =       0.001500
+ ====== PARAMETERS VALUES ======
+event_stateEvent1                                  =       0.004000
+event_stateEvent2                                  =       0.003000
+event_tEvent                                       =      20.000000
+event_nbEventVariables                             =              2

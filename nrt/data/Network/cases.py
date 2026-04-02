@@ -72,6 +72,16 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #           Limits4                    #
 ########################################
 
+case_name = "Set CPP load PRefPu and QRefPU"
+case_description = "Test the modification of Network load PRefPu and QRefPu"
+job_file = os.path.join(os.path.dirname(__file__), "Load", "CPP", "SetLoad", "SetLoad.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+########################################
+#           Limits4                    #
+########################################
+
 case_name = "Network Load with an increase voltage variation and limit not reached"
 case_description = "Test the basic behavior of the Restorative Network Load to an increase voltage variation"
 job_file = os.path.join(os.path.dirname(__file__), "Load", "CPP", "Limits4", "DisconnectLoad_VoltageVariation.jobs")
