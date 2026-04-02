@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls.PEIR;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package BaseControls "Base controls models"
+package BaseControls "PEIR control basic elements"
   extends Icons.Package;
 end BaseControls;

@@ -10,6 +10,7 @@
 
 add_subdirectory(IEC I)
 add_subdirectory(InertialGrid IG)
+add_subdirectory(PEIR PE)
 
 set(MODEL_FILES
   # Sources models
