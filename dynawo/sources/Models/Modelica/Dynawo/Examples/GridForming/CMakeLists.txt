@@ -13,6 +13,7 @@ add_subdirectory(Resources R)
 set(MODEL_FILES
   package.mo
   package.order
+  DynGFMVSMSmib.mo
   EpriSmib.mo
   GridForming.mo
   )
