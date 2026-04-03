@@ -5,11 +5,11 @@ model current_loop
   Modelica.Blocks.Interfaces.RealInput i_d_ref annotation(
     Placement(
       transformation(origin = {-81, 89}, extent = {{-11, -11}, {11, 11}}),
-      iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+      iconTransformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput i_d_meas annotation(
     Placement(
       transformation(origin = {-131, 67}, extent = {{-9, -9}, {9, 9}}),
-      iconTransformation(origin = {-110, 24}, extent = {{-10, -10}, {10, 10}})));
+      iconTransformation(origin = {-110, 72}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback sum_node_id annotation(
     Placement(transformation(origin = {-48, 88}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pi_controller pi_controller_d(k_p = k_p_d, k_i = k_i_d, y_start = y_start_current_d) annotation(
@@ -19,7 +19,7 @@ model current_loop
   Modelica.Blocks.Interfaces.RealInput v_d annotation(
     Placement(
       transformation(origin = {26, 116}, extent = {{-12, -12}, {12, 12}}, rotation = -90),
-      iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+      iconTransformation(origin = {32, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omega_pll annotation(
     Placement(
       transformation(origin = {-120, 2}, extent = {{-10, -10}, {10, 10}}),
@@ -43,7 +43,7 @@ model current_loop
   Modelica.Blocks.Interfaces.RealInput v_q annotation(
     Placement(
       transformation(origin = {-42, -74}, extent = {{-10, -10}, {10, 10}}),
-      iconTransformation(origin = {-40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+      iconTransformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(transformation(origin = {-18, -32}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product product_d annotation(

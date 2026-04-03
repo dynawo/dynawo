@@ -7,27 +7,27 @@ model outer_loop
   Modelica.Blocks.Interfaces.RealInput P_ref annotation(
     Placement(
       transformation(origin = {-90, 82}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {-226, 92}, extent = {{-14, -14}, {14, 14}})));
   Modelica.Blocks.Interfaces.RealInput P_meas annotation(
     Placement(
       transformation(origin = {-90, 50}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {-226, 160}, extent = {{-14, -14}, {14, 14}})));
   Modelica.Blocks.Interfaces.RealInput Q_ref annotation(
     Placement(
       transformation(origin = {-90, 18}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {-223, 15}, extent = {{-15, -15}, {15, 15}})));
   Modelica.Blocks.Interfaces.RealInput Q_meas annotation(
     Placement(
       transformation(origin = {-88, -12}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {-225, -65}, extent = {{-15, -15}, {15, 15}})));
   Modelica.Blocks.Interfaces.RealInput V_ref annotation(
     Placement(
       transformation(origin = {-88, -44}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {-4, 218}, extent = {{-14, -14}, {14, 14}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput V_meas annotation(
     Placement(
       transformation(origin = {-86, -76}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {-93, 219}, extent = {{-13, -13}, {13, 13}}, rotation = -90)));
 
   // ── Rate limiters on Pref and Qref ───────────────────────────
   // These limit how fast the power references can change (pu/s).
@@ -80,17 +80,17 @@ Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pi_controller pi_controller
     Kqv         = Kqv,
     IqBoostMax  = IqBoostMax,
     IqBoostMin  = IqBoostMin) annotation(
-    Placement(transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {92, 40}, extent = {{-10, -10}, {10, 10}})));
 
   // ── Outputs ──────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealOutput i_d_ref annotation(
     Placement(
       transformation(origin = {122, 50}, extent = {{-10, -10}, {10, 10}}),
-      iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {225, 59}, extent = {{-15, -15}, {15, 15}})));
   Modelica.Blocks.Interfaces.RealOutput i_q_ref annotation(
     Placement(
       transformation(origin = {122, 30}, extent = {{-10, -10}, {10, 10}}),
-      iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      iconTransformation(origin = {225, -23}, extent = {{-15, -15}, {15, 15}})));
 
   // ── Parameters ───────────────────────────────────────────────
   parameter Real k_i_d;
@@ -155,17 +155,17 @@ equation
 
   // ── Current limiter ──────────────────────────────────────────
   connect(pi_controller_d.y, current_limiter_outer_loop.id_raw) annotation(
-    Line(points = {{11, 66}, {70, 66}, {70, 44}, {79, 44}}, color = {0, 0, 127}));
+    Line(points = {{11, 66}, {70, 66}, {70, 44}, {81, 44}}, color = {0, 0, 127}));
 
   // ── Outputs ──────────────────────────────────────────────────
   connect(current_limiter_outer_loop.id_lim, i_d_ref) annotation(
-    Line(points = {{101, 44}, {110, 44}, {110, 50}, {122, 50}}, color = {0, 0, 127}));
+    Line(points = {{103, 44}, {110, 44}, {110, 50}, {122, 50}}, color = {0, 0, 127}));
   connect(current_limiter_outer_loop.iq_lim, i_q_ref) annotation(
-    Line(points = {{101, 36}, {110, 36}, {110, 30}, {122, 30}}, color = {0, 0, 127}));
+    Line(points = {{103, 36}, {112.5, 36}, {112.5, 30}, {122, 30}}, color = {0, 0, 127}));
   connect(pi_controller_q.y, current_limiter_outer_loop.iq_raw) annotation(
-    Line(points = {{64, -16}, {68, -16}, {68, 39.25}, {80, 39.25}, {80, 40}}, color = {0, 0, 127}));
+    Line(points = {{64, -16}, {68, -16}, {68, 39}, {81, 39}}, color = {0, 0, 127}));
   connect(current_limiter_outer_loop.U_meas_pu, V_meas) annotation(
-    Line(points = {{80, 36}, {80, -78}, {-86, -78}, {-86, -76}}, color = {0, 0, 127}));
+    Line(points = {{81, 35}, {81, -78}, {-86, -78}, {-86, -76}}, color = {0, 0, 127}));
 annotation(
   uses(Modelica(version = "3.2.3")),
 
