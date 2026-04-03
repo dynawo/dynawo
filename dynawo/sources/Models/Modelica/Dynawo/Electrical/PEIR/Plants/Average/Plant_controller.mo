@@ -34,47 +34,40 @@ model Plant_controller
   // ── Inputs ───────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu)
     "Voltage setpoint (pu)" annotation(
-    Placement(transformation(origin = {-140, 80}, extent = {{-10, -10}, {10, 10}})),
-    iconTransformation(origin = {-100, 80}, extent = {{-10, -10}, {10, 10}}));
+    Placement(transformation(origin = {-140, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealInput UfiltPu(start = U0Pu)
     "Filtered PCC voltage magnitude (pu)" annotation(
-    Placement(transformation(origin = {-140, 55}, extent = {{-10, -10}, {10, 10}})),
-    iconTransformation(origin = {-100, 55}, extent = {{-10, -10}, {10, 10}}));
+    Placement(transformation(origin = {-140, 55}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-6, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealInput QfiltPu(start = Q0Pu)
     "Filtered reactive power (pu)" annotation(
-    Placement(transformation(origin = {-140, 30}, extent = {{-10, -10}, {10, 10}})),
-    iconTransformation(origin = {-100, 30}, extent = {{-10, -10}, {10, 10}}));
+    Placement(transformation(origin = {-140, 30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {40, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu)
     "Active power setpoint - constant (pu)" annotation(
-    Placement(transformation(origin = {-140, 0}, extent = {{-10, -10}, {10, 10}})),
-    iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}));
+    Placement(transformation(origin = {-140, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealInput PfiltPu(start = P0Pu)
     "Filtered active power (pu)" annotation(
-    Placement(transformation(origin = {-140, -30}, extent = {{-10, -10}, {10, 10}})),
-    iconTransformation(origin = {-100, -30}, extent = {{-10, -10}, {10, 10}}));
+    Placement(transformation(origin = {-140, -30}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -8}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu)
     "Frequency setpoint - external input (pu)" annotation(
-    Placement(transformation(origin = {-140, -65}, extent = {{-10, -10}, {10, 10}})),
-    iconTransformation(origin = {-100, -65}, extent = {{-10, -10}, {10, 10}}));
+    Placement(transformation(origin = {-140, -65}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -67}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealInput omegaPLLPu(start = Omega0Pu)
     "Measured frequency from PLL (pu)" annotation(
-    Placement(transformation(origin = {-140, -85}, extent = {{-10, -10}, {10, 10}})),
-    iconTransformation(origin = {-100, -85}, extent = {{-10, -10}, {10, 10}}));
+    Placement(transformation(origin = {-140, -85}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, -111}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   // ── Outputs ──────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealOutput QInjRefPu(start = Q0Pu)
     "Reactive power reference to outer loop (pu)" annotation(
-    Placement(transformation(origin = {140, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {126, -50}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {140, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {116, -50}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealOutput PInjRefPu(start = P0Pu)
     "Active power reference to outer loop (pu)" annotation(
-    Placement(transformation(origin = {140, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {124, 70}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {140, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {116, 38}, extent = {{-10, -10}, {10, 10}})));
 
   // ── Internal blocks ──────────────────────────────────────────
 
