@@ -5,11 +5,11 @@ model GFLControl
   // ────────────────────────────────────────────────────────────
   // Complex initial conditions (Dynawo types)
   // ────────────────────────────────────────────────────────────
-  parameter Dynawo.Types.ComplexVoltagePu u0Pu
+  parameter Types.ComplexVoltagePu u0Pu
     "Initial complex PCC voltage in pu (base UNom)";
-  parameter Dynawo.Types.ComplexCurrentPu i0Pu
+  parameter Types.ComplexCurrentPu i0Pu
     "Initial complex PCC current in pu (base UNom, SnRef)";
-  parameter Dynawo.Types.ComplexVoltagePu uFilter0Pu
+  parameter Types.ComplexVoltagePu uFilter0Pu
     "Initial complex voltage at filter in pu (base UNom)";
 
   parameter Real P0Pu     "Initial active power at PCC (pu, generator convention)";
@@ -97,8 +97,8 @@ model GFLControl
   parameter Real IqBoostMin     "Min Iq boost (pu)";
 
   // Outer loop — rate limiters on references
-  parameter Real dPrefMaxPu = 99 "Max rate of change of Pref (pu/s)";
-  parameter Real dQrefMaxPu = 99 "Max rate of change of Qref (pu/s)";
+  parameter Real dPrefMaxPu "Max rate of change of Pref (pu/s)";
+  parameter Real dQrefMaxPu  "Max rate of change of Qref (pu/s)";
 
  
 // ───────────────── Plant controller parameters ─────────────────
@@ -165,7 +165,7 @@ model GFLControl
   // Sub-blocks
   // ────────────────────────────────────────────────────────────
 
-  current_loop current_loop_GFL(
+  Dynawo.Electrical.PEIR.Plants.Average.current_loop current_loop_GFL(
     k_p_d             = k_p_d_current,
     k_i_d             = k_i_d_current,
     k_p_q             = k_p_q_current,
@@ -173,9 +173,9 @@ model GFLControl
     L_g               = L_g,
     y_start_current_d = y_start_current_d,
     y_start_current_q = y_start_current_q, y_start_outer_d = y_start_outer_d, y_start_outer_q = y_start_outer_q) annotation(
-    Placement(transformation(origin = {69, 55}, extent = {{-19, -19}, {19, 19}})));
+    Placement(transformation(origin = {71, 57}, extent = {{-19, -19}, {19, 19}})));
 
-  outer_loop outer_loop_GFL(
+  Dynawo.Electrical.PEIR.Plants.Average.outer_loop outer_loop_GFL(
     k_p_d           = k_p_d_outer,
     k_i_d           = k_i_d_outer,
     k_p_q           = k_p_q_outer,
@@ -195,7 +195,7 @@ model GFLControl
     Q0Pu            = Q0Pu_param) annotation(
     Placement(transformation(origin = {-59, 51}, extent = {{-17, -17}, {17, 17}})));
 
-  PlantController plantController(
+  Dynawo.Electrical.PEIR.Plants.Average.Plant_controller plantController(
     Kp_q     = K_p_q_plant,
     Ki_q     = K_i_q_plant,
     Kp_p     = K_p_p_plant,
@@ -317,9 +317,9 @@ equation
   connect(transformDQtoRI.phi, pll.theta) annotation(
     Line(points = {{138, 27}, {40, 27}, {40, -56}}, color = {0, 0, 127}));
   connect(current_loop_GFL.vm_d, transformDQtoRI.ud) annotation(
-    Line(points = {{90, 52}, {138, 52}, {138, 51}}, color = {0, 0, 127}));
+    Line(points = {{91, 65}, {91, 51}, {138, 51}}, color = {0, 0, 127}));
   connect(current_loop_GFL.vm_q, transformDQtoRI.uq) annotation(
-    Line(points = {{90, 44}, {138, 44}, {138, 43}}, color = {0, 0, 127}));
+    Line(points = {{91, 52}, {91, 43}, {138, 43}}, color = {0, 0, 127}));
   connect(transformDQtoRI.ur, vm_re) annotation(
     Line(points = {{178, 49}, {177, 49}, {177, 48}, {232, 48}}, color = {0, 0, 127}));
   connect(transformDQtoRI.ui, vm_im) annotation(
@@ -327,19 +327,19 @@ equation
 
   // ── Current loop ─────────────────────────────────────────────
   connect(V_d_meas, current_loop_GFL.v_d) annotation(
-    Line(points = {{69, 111}, {69, 76}}, color = {0, 0, 127}));
+    Line(points = {{69, 111}, {69, 94}, {71, 94}, {71, 77}}, color = {0, 0, 127}));
   connect(V_q_meas, current_loop_GFL.v_q) annotation(
-    Line(points = {{-33, -29}, {62, -29}, {62, 34}}, color = {0, 0, 127}));
+    Line(points = {{-33, -29}, {-33, 37}, {62, 37}}, color = {0, 0, 127}));
   connect(i_d_meas, current_loop_GFL.i_d_meas) annotation(
-    Line(points = {{12, 60}, {29, 60}, {29, 61}, {48, 61}}, color = {0, 0, 127}));
+    Line(points = {{12, 60}, {51, 60}}, color = {0, 0, 127}));
   connect(i_q_meas, current_loop_GFL.i_q_meas) annotation(
-    Line(points = {{12, 42}, {48, 42}}, color = {0, 0, 127}));
+    Line(points = {{12, 42}, {30, 42}, {30, 50}, {51, 50}}, color = {0, 0, 127}));
 
   // ── Outer loop → current loop ─────────────────────────────────
   connect(outer_loop_GFL.i_d_ref, current_loop_GFL.i_d_ref) annotation(
-    Line(points = {{-40, 58}, {-9, 58}, {-9, 70}, {48, 70}}, color = {0, 0, 127}));
+    Line(points = {{-40, 58}, {-9, 58}, {-9, 65}, {51, 65}}, color = {0, 0, 127}));
   connect(outer_loop_GFL.i_q_ref, current_loop_GFL.i_q_ref) annotation(
-    Line(points = {{-40, 51}, {48, 51}, {48, 50}}, color = {0, 0, 127}));
+    Line(points = {{-40, 51}, {-40, 54}, {51, 54}}, color = {0, 0, 127}));
 
   // ── Outer loop inputs ────────────────────────────────────────
   connect(P_meas, outer_loop_GFL.P_meas) annotation(
@@ -373,7 +373,7 @@ equation
   connect(plantController.omegaPLLPu, pll.omegaPLLPu) annotation(
     Line(points = {{-222, 42.5}, {-222.25, 42.5}, {-222.25, -101}, {40, -101}, {40, -72}}, color = {0, 0, 127}));
   connect(current_loop_GFL.omega_pll, pll.omegaPLLPu) annotation(
-    Line(points = {{72, 34}, {40, 34}, {40, -72}}, color = {0, 0, 127}));
+    Line(points = {{72, 37}, {72, -72}, {40, -72}}, color = {0, 0, 127}));
   connect(pll.theta, theta_pll) annotation(
     Line(points = {{40, -56}, {74, -56}}, color = {0, 0, 127}));
   connect(V_q_grid, pll.uqFilterPu) annotation(
