@@ -15,7 +15,7 @@ within Dynawo.Examples.GridCodeSimulations.BaseSheetSimulations;
 model BaseSheetI6
   extends BaseParameters;
 
-  Electrical.Buses.InfiniteBusFromTable infiniteBusFromTable(TableFile = "../dynawo/dynawo/sources/Models/Modelica/Dynawo/Examples/GridCodeSimulations/BaseSheetSimulations/TableVoltageDip.txt", OmegaRefPuTableName = "OmegaTable", UPuTableName = "VoltageTable", UPhaseTableName = "PhaseTable", U0Pu = 1, UPhase0 = 0, OmegaRef0Pu = 1)  annotation(
+  Electrical.Buses.InfiniteBusFromTable infiniteBusFromTable(TableOnFile = false, OmegaRefPuTable = [0, 1; 10, 1], UPuTable = [0, 1; 2, 1; 2, 0; 2.15, 0; 3.5, 0.9; 7.5, 0.9; 7.5, 1; 20, 1], UPhaseTable = [0, 0; 2, 0], U0Pu = 1, UPhase0 = 0, OmegaRef0Pu = 1) annotation(
     Placement(transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 
 equation
