@@ -22,7 +22,7 @@
     <dyn:simulation startTime="0" stopTime="25"/>
     <dyn:outputs directory="outputs">
       <dyn:dumpInitValues local="true" global="true"/>
-      <dyn:curves inputFile="WPP4ACurrentSource2020.crv" exportMode="CSV"/>
+      <dyn:curves inputFile="WPP4ACurrentSource2020.crv" exportMode="CSV" timeStep="1e-4"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
       </dyn:logs>
