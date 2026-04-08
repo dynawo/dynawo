@@ -12,22 +12,22 @@ model VSC_with_pade_delay
   // Ingressi in dq
   Modelica.Blocks.Interfaces.RealInput udConvRefPu(start = UdConv0Pu)
     "Converter d-axis voltage reference (pu)" annotation(
-      Placement(transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-114, 40}, extent = {{-10, -10}, {10, 10}})));
+      Placement(transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-114, 40}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealInput uqConvRefPu(start = UqConv0Pu)
     "Converter q-axis voltage reference (pu)" annotation(
-      Placement(transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-114, -20}, extent = {{-10, -10}, {10, 10}})));
+      Placement(transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-114, -20}, extent = {{-10, -10}, {10, 10}})));
 
   // Uscite in dq
   Modelica.Blocks.Interfaces.RealOutput ureConvPu(start = UdConv0Pu)
     "Converter d-axis voltage (pu)" annotation(
-      Placement(transformation(origin = {80, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114, 40}, extent = {{-10, -10}, {10, 10}})));
+      Placement(transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114, 40}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealOutput uimConvPu(start = UqConv0Pu)
     "Converter q-axis voltage (pu)" annotation(
-      Placement(transformation(origin = {80, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114, -20}, extent = {{-10, -10}, {10, 10}})));
+      Placement(transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114, -20}, extent = {{-10, -10}, {10, 10}})));
   // joy said that the delay plays a very big delay so it is interesting to add
-  // Padé 1° ordine per il ritardo tVSC
+  // Padé 1° order for VSC Delay
   // e^{-s tVSC} ≈ (1 - s tVSC/2) / (1 + s tVSC/2)
   Modelica.Blocks.Continuous.TransferFunction pade_d(
     b = {1, -tVSC/2},

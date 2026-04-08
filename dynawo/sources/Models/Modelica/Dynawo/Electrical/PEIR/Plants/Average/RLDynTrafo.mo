@@ -7,7 +7,7 @@ model RLDynTrafo
  
 
   // Parameters (pu, base UNom, SNom)
-  parameter Dynawo.Types.PerUnit RPu
+  parameter Dynawo.Types.PerUnit RPu 
     "Transformer resistance in pu (base UNom, SNom)";
   parameter Dynawo.Types.PerUnit LPu
     "Transformer inductance in pu (base UNom, SNom)";
@@ -25,12 +25,10 @@ model RLDynTrafo
     "Start value of converter's frequency in pu (base omegaNom)";
 
   // Steady-state filter-side voltages (computed from RL equations)
-  final parameter Dynawo.Types.PerUnit UrFilter0Pu =
-    RPu * IrPcc0Pu - Omega0Pu * LPu * IiPcc0Pu + UrPcc0Pu
+  parameter Dynawo.Types.PerUnit UrFilter0Pu
     "Start value of real-axis voltage at the filter side in pu (base UNom)";
 
-  final parameter Dynawo.Types.PerUnit UiFilter0Pu =
-    RPu * IiPcc0Pu + Omega0Pu * LPu * IrPcc0Pu + UiPcc0Pu
+ parameter Dynawo.Types.PerUnit UiFilter0Pu
     "Start value of imag-axis voltage at the filter side in pu (base UNom)";
 
   // ── Inputs ──────────────────────────────────────────────────

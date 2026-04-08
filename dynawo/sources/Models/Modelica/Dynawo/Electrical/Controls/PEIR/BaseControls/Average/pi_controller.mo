@@ -38,7 +38,6 @@ model pi_controller
   Modelica.Blocks.Math.Add add annotation(
     Placement(transformation(origin = {40, 48},
                              extent = {{-10, -10}, {10, 10}})));
-
 equation
   connect(e, gain.u) annotation(
     Line(points = {{-80, 62}, {-46, 62}}, color = {0, 0, 127}));

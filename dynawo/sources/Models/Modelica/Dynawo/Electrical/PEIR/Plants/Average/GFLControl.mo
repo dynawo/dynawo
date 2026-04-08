@@ -15,6 +15,12 @@ model GFLControl
   parameter Real P0Pu     "Initial active power at PCC (pu, generator convention)";
   parameter Real Q0Pu     "Initial reactive power at PCC (pu, generator convention)";
   parameter Real Omega0Pu "Initial frequency (pu)";
+  parameter Real QInj0Pu "Initial reactive power at converter (pu, generator convention)"; 
+  parameter Real PInj0Pu "Initial active power at converter (pu, generator convention)";
+  parameter Real id_ref_0     "Initial d-axis current reference (pu)";
+  parameter Real id_conv_0    "Initial d-axis measured current (pu)";
+  parameter Real iq_ref_0     "Initial q-axis current reference (pu)";
+  parameter Real iq_conv_0    "Initial q-axis measured current (pu)";
 
     // ── dq voltages at filter in control frame (from grid re/im using Theta0) ─
   // uFilter0Pu is in grid frame (re/im), control dq frame is rotated by Theta0
@@ -81,6 +87,16 @@ model GFLControl
   parameter Real L_g "Grid equivaent inductance (pu)";
   parameter Real R_g "Grid equivaent resistance (pu)";
 
+
+  parameter Real vd_0         "Initial d-axis converter voltage (pu)";
+  parameter Real vq_0         "Initial q-axis converter voltage (pu)";
+
+
+  parameter Real vmd_0        "Initial modulation voltage reference (pu)";
+  parameter Real vmq_0        "Initial modulation voltage reference (pu)";
+
+
+
   // Outer loop — PI gains
   parameter Real k_p_d_outer "Outer loop Proportional gain PI d axis";
   parameter Real k_i_d_outer "Outer loop intgl gain PI d axis";
@@ -88,6 +104,10 @@ model GFLControl
   parameter Real k_i_q_outer "Outer loop intgl gain PI  q axis";
   parameter Real k_q_outer "Outer loop Q/V gain";
   parameter Real Imax "Maximum current (pu)";
+  parameter Real PInjPu0    "Initial injected active power (pu)";
+  parameter Real QInjPu0    "Initial injected reactive power (pu)";
+  parameter Real U_filter0  "Initial filter voltage magnitude (pu)";
+
 
   // Outer loop — current limiter
   parameter Boolean PQFlag      "Q(false) or P(true) priority";
@@ -161,6 +181,8 @@ model GFLControl
 
   parameter Real Theta0
     "Initial PLL angle (rad)";
+    
+    
   // ────────────────────────────────────────────────────────────
   // Sub-blocks
   // ────────────────────────────────────────────────────────────
@@ -172,7 +194,7 @@ model GFLControl
     k_i_q             = k_i_q_current,
     L_g               = L_g,
     y_start_current_d = y_start_current_d,
-    y_start_current_q = y_start_current_q, y_start_outer_d = y_start_outer_d, y_start_outer_q = y_start_outer_q) annotation(
+    y_start_current_q = y_start_current_q, id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
   Dynawo.Electrical.PEIR.Plants.Average.outer_loop outer_loop_GFL(
@@ -192,7 +214,7 @@ model GFLControl
     dPrefMaxPu      = dPrefMaxPu,
     dQrefMaxPu      = dQrefMaxPu,
     P0Pu            = P0Pu_param,
-    Q0Pu            = Q0Pu_param) annotation(
+    Q0Pu            = Q0Pu_param, PInjPu0 = PInjPu0, QInjPu0 = QInjPu0, U_filter0 = U_filter0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0) annotation(
     Placement(transformation(origin = {-46, 52}, extent = {{-36, -36}, {36, 36}})));
 
   Dynawo.Electrical.PEIR.Plants.Average.Plant_controller plantController(
@@ -214,7 +236,7 @@ model GFLControl
     U0Pu     = U0Pu,
     Q0Pu     = Q0Pu_param,
     P0Pu     = P0Pu_param,
-    Omega0Pu = Omega0Pu) annotation(
+    Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu) annotation(
     Placement(transformation(origin = {-180, 68}, extent = {{-30, -30}, {30, 30}})));
 
  Dynawo.Electrical.PEIR.Plants.Average.pll pll(
@@ -223,7 +245,7 @@ model GFLControl
     OmegaMaxPu = OmegaMaxPu,
     OmegaMinPu = OmegaMinPu,
     Theta0     = Theta0) annotation(
-    Placement(transformation(origin = {18, -66}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {15, -69}, extent = {{-23, -23}, {23, 23}})));
 
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(transformation(origin = {162, 42}, extent = {{-18, -18}, {18, 18}})));
@@ -231,11 +253,11 @@ model GFLControl
   // ── External inputs ──────────────────────────────────────────
 
   Modelica.Blocks.Interfaces.RealInput U_ref_pu annotation(
-    Placement(transformation(origin = {-23, 113}, extent = {{-9, -9}, {9, 9}}, rotation = 180),
+    Placement(transformation(origin = {-39, 129}, extent = {{-9, -9}, {9, 9}}, rotation = -90),
     iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealInput omegaRefPU annotation(
-    Placement(transformation(origin = {-241, -57}, extent = {{-7, -7}, {7, 7}}),
+    Placement(transformation(origin = {-267, -59}, extent = {{-7, -7}, {7, 7}}),
     iconTransformation(origin = {72, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealInput P_plant_c annotation(
@@ -293,11 +315,11 @@ model GFLControl
     iconTransformation(origin = {110, 8}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealOutput theta_pll annotation(
-    Placement(transformation(origin = {72, -74}, extent = {{-10, -10}, {10, 10}}),
+    Placement(transformation(origin = {72, -78}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealOutput omega_pll_pu annotation(
-    Placement(transformation(origin = {72, -58}, extent = {{-10, -10}, {10, 10}}),
+    Placement(transformation(origin = {74, -60}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}})));
 
   // Voltage magnitude for outer loop
@@ -305,7 +327,7 @@ model GFLControl
     y = sqrt(V_d_meas^2 + V_q_meas^2)) annotation(
     Placement(transformation(origin = {-82, 110}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput V_q_grid annotation(
-    Placement(transformation(origin = {-34, -82}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-278, -80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}})));
 equation
 // ── PLL ──────────────────────────────────────────────────────
 // ── Transform DQ→RI ──────────────────────────────────────────
@@ -321,11 +343,11 @@ equation
   connect(transformDQtoRI.ui, vm_im) annotation(
     Line(points = {{182, 31}, {200, 31}, {200, 30}, {208, 30}}, color = {0, 0, 127}));
   connect(pll.theta, theta_pll) annotation(
-    Line(points = {{40, -74}, {72, -74}}, color = {0, 0, 127}));
+    Line(points = {{40, -78}, {72, -78}}, color = {0, 0, 127}));
   connect(transformDQtoRI.phi, pll.theta) annotation(
-    Line(points = {{142, 31}, {133.5, 31}, {133.5, -94}, {134, -94}, {134, -95}, {40, -95}, {40, -74}}, color = {0, 0, 127}));
+    Line(points = {{142, 31}, {133.5, 31}, {133.5, -94}, {134, -94}, {134, -97}, {40, -97}, {40, -78}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, omega_pll_pu) annotation(
-    Line(points = {{40, -58}, {72, -58}}, color = {0, 0, 127}));
+    Line(points = {{40, -60}, {74, -60}}, color = {0, 0, 127}));
   connect(current_loop_GFL.vm_d, transformDQtoRI.ud) annotation(
     Line(points = {{90, 62}, {142, 62}, {142, 55}}, color = {0, 0, 127}));
   connect(current_loop_GFL.vm_q, transformDQtoRI.uq) annotation(
@@ -335,21 +357,19 @@ equation
   connect(current_loop_GFL.v_q, V_q_meas) annotation(
     Line(points = {{60, 78}, {59, 78}, {59, 103}}, color = {0, 0, 127}));
   connect(current_loop_GFL.omega_pll, pll.omegaPLLPu) annotation(
-    Line(points = {{72, 34}, {72, -46.25}, {40, -46.25}, {40, -58}}, color = {0, 0, 127}));
+    Line(points = {{72, 34}, {72, -46.25}, {40, -46.25}, {40, -60}}, color = {0, 0, 127}));
   connect(i_q_meas, current_loop_GFL.i_q_meas) annotation(
-    Line(points = {{12, 30}, {46, 30}, {46, 44}}, color = {0, 0, 127}));
+    Line(points = {{12, 30}, {12, 28}, {46, 28}, {46, 44}}, color = {0, 0, 127}));
   connect(i_d_meas, current_loop_GFL.i_d_meas) annotation(
-    Line(points = {{14, 72}, {46, 72}, {46, 70}}, color = {0, 0, 127}));
+    Line(points = {{14, 72}, {14, 70}, {46, 70}}, color = {0, 0, 127}));
   connect(V_q_grid, pll.uqFilterPu) annotation(
-    Line(points = {{-34, -82}, {-17, -82}, {-17, -74}, {-4, -74}}, color = {0, 0, 127}));
+    Line(points = {{-278, -80}, {-10.75, -80}, {-10.75, -78}, {-10, -78}}, color = {0, 0, 127}));
   connect(outer_loop_GFL.i_d_ref, current_loop_GFL.i_d_ref) annotation(
-    Line(points = {{-5.5, 63}, {46, 63}, {46, 62}}, color = {0, 0, 127}));
+    Line(points = {{-5.5, 63}, {-5.5, 62}, {46, 62}, {46, 63}}, color = {0, 0, 127}));
   connect(outer_loop_GFL.i_q_ref, current_loop_GFL.i_q_ref) annotation(
     Line(points = {{-5.5, 48}, {19.25, 48}, {19.25, 52}, {46, 52}}, color = {0, 0, 127}));
   connect(outer_loop_GFL.V_meas, U_meas_pu.y) annotation(
     Line(points = {{-62, 92}, {-71, 92}, {-71, 110}}, color = {0, 0, 127}));
-  connect(U_ref_pu, outer_loop_GFL.V_ref) annotation(
-    Line(points = {{-23, 113}, {-46, 113}, {-46, 92}}, color = {0, 0, 127}));
   connect(P_meas, outer_loop_GFL.P_meas) annotation(
     Line(points = {{-128, 86}, {-86, 86}, {-86, 80}}, color = {0, 0, 127}));
   connect(Q_meas, outer_loop_GFL.Q_meas) annotation(
@@ -359,11 +379,11 @@ equation
   connect(outer_loop_GFL.P_ref, plantController.PInjRefPu) annotation(
     Line(points = {{-86, 68}, {-146, 68}, {-146, 80}}, color = {0, 0, 127}));
   connect(omegaRefPU, pll.omegaRefPu) annotation(
-    Line(points = {{-241, -57}, {-3, -57}, {-3, -58}, {-4, -58}}, color = {0, 0, 127}));
+    Line(points = {{-267, -59}, {-11, -59}, {-11, -60}, {-10, -60}}, color = {0, 0, 127}));
   connect(plantController.omegaRefPu, omegaRefPU) annotation(
-    Line(points = {{-212, 48}, {-241, 48}, {-241, -57}}, color = {0, 0, 127}));
+    Line(points = {{-212, 48}, {-241, 48}, {-241, -59}, {-267, -59}}, color = {0, 0, 127}));
   connect(plantController.omegaPLLPu, pll.omegaPLLPu) annotation(
-    Line(points = {{-180, 34}, {-152.75, 34}, {-152.75, -30}, {40, -30}, {40, -58}}, color = {0, 0, 127}));
+    Line(points = {{-180, 34}, {-152.75, 34}, {-152.75, -32}, {40, -32}, {40, -60}}, color = {0, 0, 127}));
   connect(U_ref_pcc_pu, plantController.URefPu) annotation(
     Line(points = {{-231, 111}, {-198, 111}, {-198, 102}}, color = {0, 0, 127}));
   connect(U_pu_plant_c, plantController.UfiltPu) annotation(
@@ -374,6 +394,8 @@ equation
     Line(points = {{-241, 85}, {-233, 85}, {-233, 84}, {-214, 84}}, color = {0, 0, 127}));
   connect(P_plant_c, plantController.PfiltPu) annotation(
     Line(points = {{-245, 65}, {-212, 65}, {-212, 66}}, color = {0, 0, 127}));
+  connect(outer_loop_GFL.V_ref, U_ref_pu) annotation(
+    Line(points = {{-40, 90}, {-40, 129}, {-39, 129}}, color = {0, 0, 127}));
   annotation(
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Icon(graphics = {
@@ -385,7 +407,7 @@ equation
       Text(origin = {-6, -32}, extent = {{-90, 15}, {90, -15}},
            textString = "PLL")},
       coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-260, -120}, {240, 120}})));
+    Diagram(coordinateSystem(extent = {{-260, -120}, {240, 120}}), graphics = {Text(extent = {{-40, 60}, {-40, 60}}, textString = "text")}));
 
 
 end GFLControl;
