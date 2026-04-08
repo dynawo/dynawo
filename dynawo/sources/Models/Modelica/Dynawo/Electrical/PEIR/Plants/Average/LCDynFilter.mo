@@ -3,6 +3,20 @@ within Dynawo.Electrical.PEIR.Plants.Average;
 model LCDynFilter
 
   "LC filter in real/imag (RI) coordinates, dynamics similar to DynRLCFilter (all in pu)"
+  // ── Initial conditions for states and I/O (pu) ───────────────
+  parameter Real urConvPu0    "Initial converter real-axis voltage (pu)";
+  parameter Real uiConvPu0    "Initial converter imag-axis voltage (pu)";
+
+  parameter Real iPcc_rePu0   "Initial real-axis PCC current (from filter to network, pu)";
+  parameter Real iPcc_imPu0   "Initial imag-axis PCC current (from filter to network, pu)";
+
+  parameter Real omegaPu0     "Initial per-unit electrical frequency (pu)";
+
+  parameter Real iConv_rePu0  "Initial real-axis converter current into filter (pu)";
+  parameter Real iConv_imPu0  "Initial imag-axis converter current into filter (pu)";
+
+  parameter Real uFilt_rePu0  "Initial real-axis filter node voltage (pu)";
+  parameter Real uFilt_imPu0  "Initial imag-axis filter node voltage (pu)";
 
   // Series RL (between converter and filter node)
   parameter Real RfPu "Filter series resistance R_f (pu)";
@@ -16,47 +30,47 @@ model LCDynFilter
 
   // ── Inputs ──────────────────────────────────────────────────
   // Converter-side voltages (re/im) in pu
-  Modelica.Blocks.Interfaces.RealInput urConvPu
+  Modelica.Blocks.Interfaces.RealInput urConvPu (start=urConvPu0)
     "Converter real-axis voltage (pu)" annotation(
-      Placement(transformation(origin = {-80, 30}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}})));
+      Placement(transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}})));
 
-  Modelica.Blocks.Interfaces.RealInput uiConvPu
+  Modelica.Blocks.Interfaces.RealInput uiConvPu (start=uiConvPu0)
     "Converter imag-axis voltage (pu)" annotation(
-      Placement(transformation(origin = {-80, -10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 8}, extent = {{-20, -20}, {20, 20}})));
+      Placement(transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 8}, extent = {{-20, -20}, {20, 20}})));
 
   // Currents drawn by the network at the filter node (PCC side), in pu
   // Positive when flowing from filter node into the network
-  Modelica.Blocks.Interfaces.RealInput iPcc_rePu
+  Modelica.Blocks.Interfaces.RealInput iPcc_rePu (start=iPcc_rePu0)
     "Real-axis current from filter node to rest of network (pu)" annotation(
-      Placement(transformation(origin = {0, -80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, -34}, extent = {{-20, -20}, {20, 20}})));
+      Placement(transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, -34}, extent = {{-20, -20}, {20, 20}})));
 
-  Modelica.Blocks.Interfaces.RealInput iPcc_imPu
+  Modelica.Blocks.Interfaces.RealInput iPcc_imPu (start=iPcc_imPu0)
     "Imag-axis current from filter node to rest of network (pu)" annotation(
-      Placement(transformation(origin = {40, -80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, -82}, extent = {{-20, -20}, {20, 20}})));
+      Placement(transformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, -82}, extent = {{-20, -20}, {20, 20}})));
 
   // PLL frequency (per-unit)
-  Modelica.Blocks.Interfaces.RealInput omegaPu
+  Modelica.Blocks.Interfaces.RealInput omegaPu (start=omegaPu0)
     "Per-unit electrical frequency (pu, from PLL)" annotation(
-      Placement(transformation(origin = {-80, -50}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+      Placement(transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 
   // ── Outputs ─────────────────────────────────────────────────
   // Inductor current on converter side: current flowing from converter into filter
-  Modelica.Blocks.Interfaces.RealOutput iConv_rePu
+  Modelica.Blocks.Interfaces.RealOutput iConv_rePu (start=iConv_rePu0)
     "Real-axis current from converter into filter (pu)" annotation(
-      Placement(transformation(origin = {80, 30}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -34}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+      Placement(transformation(origin = {120, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -34}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
-  Modelica.Blocks.Interfaces.RealOutput iConv_imPu
+  Modelica.Blocks.Interfaces.RealOutput iConv_imPu (start=iConv_imPu0)
     "Imag-axis current from converter into filter (pu)" annotation(
-      Placement(transformation(origin = {80, -10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+      Placement(transformation(origin = {120, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
   // Filter node voltage (this is the PCC voltage from filter side)
-  Modelica.Blocks.Interfaces.RealOutput uFilt_rePu
+  Modelica.Blocks.Interfaces.RealOutput uFilt_rePu (start=uFilt_rePu0)
     "Real-axis voltage at filter node (pu)" annotation(
-      Placement(transformation(origin = {80, 70}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, 72}, extent = {{-20, -20}, {20, 20}})));
+      Placement(transformation(origin = {120, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, 72}, extent = {{-20, -20}, {20, 20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput uFilt_imPu
+  Modelica.Blocks.Interfaces.RealOutput uFilt_imPu (start=uFilt_imPu0)
     "Imag-axis voltage at filter node (pu)" annotation(
-      Placement(transformation(origin = {80, 50}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}})));
+      Placement(transformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}})));
 
 protected
   // States: inductor currents (converter side) and capacitor voltage at filter node

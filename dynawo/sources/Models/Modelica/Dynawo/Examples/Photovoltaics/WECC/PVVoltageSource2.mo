@@ -229,7 +229,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
+    experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-05, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
     This test case consists in one PV park connected to an infinite bus whose voltage is reduced to 0.5 pu from t = 4 s to t = 8 s, and whose frequency is increased to 1.01 pu from t = 16 s to t = 16.5 s. This is a way to observe the PV park's response to a voltage and frequency variation at its terminal.
      <figure>
