@@ -583,7 +583,7 @@
             <iidm:busBreakerTopology>
                 <iidm:bus id="BG21__11" v="14.492383987454486" angle="-3.157865608402211"/>
             </iidm:busBreakerTopology>
-            <iidm:generator id="g21" energySource="OTHER" minP="0.0" maxP="9999.0" voltageRegulatorOn="false" targetP="0.0" targetV="15.255000114440918" targetQ="0.0" bus="BG21__11" connectableBus="BG21__11" p="-0.0" q="-0.0">
+            <iidm:generator id="g21" energySource="OTHER" minP="0.0" maxP="9999.0" voltageRegulatorOn="true" targetP="0.0" targetV="15.255000114440918" targetQ="0.0" bus="BG21__11" connectableBus="BG21__11" p="-0.0" q="-0.0">
                 <iidm:property name="genreCvg" value="AUTRE"/>
                 <iidm:reactiveCapabilityCurve>
                     <iidm:point p="0.0" minQ="-300.0" maxQ="300.0"/>
