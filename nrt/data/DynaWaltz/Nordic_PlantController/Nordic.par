@@ -146,18 +146,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr4021-g11" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr4021-g11" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="300" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="285" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="285" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="300"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="285"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="285"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg10">
     <reference type="DOUBLE" name="gridFollowing_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -166,18 +167,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr4012-g10" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr4012-g10" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="800" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="760" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="760" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="800"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="760"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="760"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg02">
     <reference type="DOUBLE" name="gridFollowing_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -186,17 +188,17 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr1013-g2" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr1013-g2" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="600" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="570" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="570" />
-    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="600"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="570"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="570"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg01">
     <reference type="DOUBLE" name="gridFollowing_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -205,17 +207,17 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr1012-g1" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr1012-g1" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="800" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="760" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="760" />
-    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="800"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="760"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="760"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg12">
     <reference type="DOUBLE" name="gridFollowing_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -224,18 +226,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr4031-g12" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr4031-g12" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="350" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="332.5" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="332.5" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="350"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="332.5"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="332.5"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg04">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -297,18 +300,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr1014-g3" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr1014-g3" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="700" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="665" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="665" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="700"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="665"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="665"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg05">
     <reference type="DOUBLE" name="gridFollowing_P0Pu" origData="IIDM" origName="p_pu"/>
@@ -317,18 +321,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr1022-g5" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr1022-g5" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="250" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="237.5" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="237.5" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="99" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-99" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="250"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="237.5"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="237.5"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="99"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-99"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg08">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -443,18 +448,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr4011-g9" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr4011-g9" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="1000" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="950" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="950" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="1000"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="950"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="950"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg15">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -561,18 +567,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr1042-g6" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr1042-g6" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="400" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="360" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="360" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="400"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="360"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="360"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg17">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -679,18 +686,19 @@
     <reference type="DOUBLE" name="gridFollowing_UPhase0" origData="IIDM" origName="angle_pu"/>
     <reference name="gridFollowing_UReg0Pu" origData="IIDM" origName="v1_pu" componentId="Tr1043-g7" type="DOUBLE"/>
     <reference name="gridFollowing_QReg0Pu" origData="IIDM" origName="q1_pu" componentId="Tr1043-g7" type="DOUBLE"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="200" />
-    <par type="DOUBLE" name="gridFollowing_PMax" value="180" />
-    <par type="DOUBLE" name="gridFollowing_PNom" value="180" /><par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286" />
-    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001" />
-    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9" />
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32" />
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35" />
-    <par type="DOUBLE" name="gridFollowing_RPu" value="0" />
-    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095" />
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999" />
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999" />
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true" />
+    <par type="DOUBLE" name="gridFollowing_SNom" value="200"/>
+    <par type="DOUBLE" name="gridFollowing_PMax" value="180"/>
+    <par type="DOUBLE" name="gridFollowing_PNom" value="180"/>
+    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
+    <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
+    <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
+    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
+    <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
+    <par type="DOUBLE" name="gridFollowing_XPu" value="0.095"/>
+    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
+    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-999"/>
+    <reference name="gridFollowing_VRegFlag" origData="IIDM" origName="VRegOn" type="BOOL"/>
   </set>
   <set id="Nordicg18">
     <par type="DOUBLE" name="generator_DPu" value="0"/>
