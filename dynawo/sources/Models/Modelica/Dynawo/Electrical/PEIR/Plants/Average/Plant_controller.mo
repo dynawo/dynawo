@@ -22,16 +22,16 @@ model Plant_controller
 
   // ── Start values ─────────────────────────────────────────────
   parameter Real U0Pu     "Initial PCC voltage magnitude (pu)";
-  parameter Real Q0Pu     "Initial reactive power (pu)  in receptor convection";
-  parameter Real P0Pu     "Initial active power (pu)  in receptor convection";
+  parameter Real Q0Pu     "Initial reactive power (pu)  in generator convection";
+  parameter Real P0Pu     "Initial active power (pu)  in generator convection";
   parameter Real Omega0Pu  "Initial frequency (pu) - nominal";
   parameter Real QInj0Pu  "Intial reactive power in pu in gnerator convenction";
   parameter Real PInj0Pu "Intial reactive power in pu in gnerator convenction";
 
   // URef0: error = URef - (U + lambda*Q) = 0 at t=0
-  final parameter Real URef0Pu = U0Pu - Lambda * Q0Pu;
+  final parameter Real URef0Pu = U0Pu + Lambda * Q0Pu;
   // PRef0: frequency error = 0 at t=0 => PRef0 = P0
-  final parameter Real PRef0Pu = -P0Pu;
+  final parameter Real PRef0Pu = P0Pu;
 
   // ── Inputs ───────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu)
@@ -42,7 +42,7 @@ model Plant_controller
     "Filtered PCC voltage magnitude (pu)" annotation(
     Placement(transformation(origin = {-160, 61}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-6, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Modelica.Blocks.Interfaces.RealInput QfiltPu(start = -Q0Pu)
+  Modelica.Blocks.Interfaces.RealInput QfiltPu(start = Q0Pu)
     "Filtered reactive power (pu)" annotation(
     Placement(transformation(origin = {-160, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {40, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
@@ -50,7 +50,7 @@ model Plant_controller
     "Active power setpoint - constant (pu)" annotation(
     Placement(transformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}})));
 
-  Modelica.Blocks.Interfaces.RealInput PfiltPu(start = -P0Pu)
+  Modelica.Blocks.Interfaces.RealInput PfiltPu(start = P0Pu)
     "Filtered active power (pu)" annotation(
     Placement(transformation(origin = {-156, -100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -8}, extent = {{-10, -10}, {10, 10}})));
 

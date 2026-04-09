@@ -16,10 +16,10 @@ model GFLModel
 final parameter Real U0Sq = UrPcc0Pu^2 + UiPcc0Pu^2;
 final parameter Real U0Pu = sqrt(U0Sq);
 final parameter Real IrPcc0Pu =
-  (P0_pcc*UrPcc0Pu + Q0_pcc*UiPcc0Pu)/U0Sq;
+  (-P0_pcc*UrPcc0Pu -Q0_pcc*UiPcc0Pu)/U0Sq;
 
 final parameter Real IiPcc0Pu =
-  (P0_pcc*UiPcc0Pu - Q0_pcc*UrPcc0Pu)/U0Sq;
+  (-P0_pcc*UiPcc0Pu + Q0_pcc*UrPcc0Pu)/U0Sq;
   parameter Real Omega0Pu  "Initial frequency (pu) — nominal";
 
 

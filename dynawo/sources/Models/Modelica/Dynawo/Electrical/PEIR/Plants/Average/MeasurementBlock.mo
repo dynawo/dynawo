@@ -76,9 +76,9 @@ model MeasurementBlock
     Placement(transformation(origin = {30, 36}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression Q_plant_expre(y = transformRItoDQ.uq*transformRItoDQ1.ud - transformRItoDQ.ud*transformRItoDQ1.uq) annotation(
     Placement(transformation(origin = {36, 12}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(k = k_filter, T = T_filter, Y0 = -P0_pcc) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze1(k = k_filter, T = T_filter, Y0 = P0_pcc) annotation(
     Placement(transformation(origin = {68, 44}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze2(k = k_filter, T = T_filter, Y0 = -Q0_pcc) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze2(k = k_filter, T = T_filter, Y0 = Q0_pcc) annotation(
     Placement(transformation(origin = {72, 8}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression P_conv_expre(y = transformRItoDQ2.ud*transformRItoDQ3.ud + transformRItoDQ2.uq*transformRItoDQ3.uq) annotation(
     Placement(transformation(origin = {38, -30}, extent = {{-10, -10}, {10, 10}})));
