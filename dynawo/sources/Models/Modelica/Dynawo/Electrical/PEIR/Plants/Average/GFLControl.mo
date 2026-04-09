@@ -237,7 +237,7 @@ model GFLControl
     Q0Pu     = Q0Pu_param,
     P0Pu     = P0Pu_param,
     Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu) annotation(
-    Placement(transformation(origin = {-180, 68}, extent = {{-30, -30}, {30, 30}})));
+    Placement(transformation(origin = {-180, 70}, extent = {{-30, -30}, {30, 30}})));
 
  Dynawo.Electrical.PEIR.Plants.Average.pll pll(
     Ki         = K_i_pll,
@@ -375,25 +375,25 @@ equation
   connect(Q_meas, outer_loop_GFL.Q_meas) annotation(
     Line(points = {{-134, 30}, {-90, 30}, {-90, 40}, {-86, 40}}, color = {0, 0, 127}));
   connect(plantController.QInjRefPu, outer_loop_GFL.Q_ref) annotation(
-    Line(points = {{-146, 54}, {-86, 54}}, color = {0, 0, 127}));
+    Line(points = {{-145, 55}, {-116, 55}, {-116, 54}, {-86, 54}}, color = {0, 0, 127}));
   connect(outer_loop_GFL.P_ref, plantController.PInjRefPu) annotation(
-    Line(points = {{-86, 68}, {-146, 68}, {-146, 80}}, color = {0, 0, 127}));
+    Line(points = {{-86, 68}, {-86, 81}, {-145, 81}}, color = {0, 0, 127}));
   connect(omegaRefPU, pll.omegaRefPu) annotation(
     Line(points = {{-267, -59}, {-11, -59}, {-11, -60}, {-10, -60}}, color = {0, 0, 127}));
   connect(plantController.omegaRefPu, omegaRefPU) annotation(
-    Line(points = {{-212, 48}, {-241, 48}, {-241, -59}, {-267, -59}}, color = {0, 0, 127}));
+    Line(points = {{-213, 50}, {-241, 50}, {-241, -59}, {-267, -59}}, color = {0, 0, 127}));
   connect(plantController.omegaPLLPu, pll.omegaPLLPu) annotation(
-    Line(points = {{-180, 34}, {-152.75, 34}, {-152.75, -32}, {40, -32}, {40, -60}}, color = {0, 0, 127}));
+    Line(points = {{-180, 37}, {-180, 34}, {-152.75, 34}, {-152.75, -32}, {40, -32}, {40, -60}}, color = {0, 0, 127}));
   connect(U_ref_pcc_pu, plantController.URefPu) annotation(
-    Line(points = {{-231, 111}, {-198, 111}, {-198, 102}}, color = {0, 0, 127}));
+    Line(points = {{-231, 111}, {-231, 113}, {-198, 113}, {-198, 104}}, color = {0, 0, 127}));
   connect(U_pu_plant_c, plantController.UfiltPu) annotation(
-    Line(points = {{-181, 123}, {-182, 123}, {-182, 102}}, color = {0, 0, 127}));
+    Line(points = {{-181, 123}, {-181, 124}, {-182, 124}, {-182, 103}}, color = {0, 0, 127}));
   connect(Q_plant_pu, plantController.QfiltPu) annotation(
-    Line(points = {{-126, 110}, {-168, 110}, {-168, 102}}, color = {0, 0, 127}));
+    Line(points = {{-126, 110}, {-126, 112}, {-168, 112}, {-168, 104}}, color = {0, 0, 127}));
   connect(P_ref_pu, plantController.PRefPu) annotation(
-    Line(points = {{-241, 85}, {-233, 85}, {-233, 84}, {-214, 84}}, color = {0, 0, 127}));
+    Line(points = {{-241, 85}, {-233, 85}, {-233, 86}, {-214, 86}}, color = {0, 0, 127}));
   connect(P_plant_c, plantController.PfiltPu) annotation(
-    Line(points = {{-245, 65}, {-212, 65}, {-212, 66}}, color = {0, 0, 127}));
+    Line(points = {{-245, 65}, {-245, 68}, {-213, 68}}, color = {0, 0, 127}));
   connect(outer_loop_GFL.V_ref, U_ref_pu) annotation(
     Line(points = {{-40, 90}, {-40, 129}, {-39, 129}}, color = {0, 0, 127}));
   annotation(

@@ -11,7 +11,7 @@ model frst_smib_simulation
   GFLModel gFLModel( // ── Initial PCC conditions ────────────────────────────────
  // U_pcc = 1.0 pu, aligned with d-axis (theta0 = 0)
  // Q0 = 0 for clean initialisation — add reactive power after first test passes
-  UrPcc0Pu = 0.97, UiPcc0Pu = 0.0, P0_pcc = -0.8, Q0_pcc =0.7,  // ── VSC Pade delay ────────────────────────────────────────
+  UrPcc0Pu = 0.97, UiPcc0Pu = 0.0, P0_pcc = -0.8, Q0_pcc =0,  // ── VSC Pade delay ────────────────────────────────────────
   tVSC = 0.02,  // ── LC filter ─────────────────────────────────────────────
  // Lf = 0.15 pu: realistic filter inductance
   RfPu = 0.01, LfPu = 0.15, CfPu = 0.02, omegaNom = 2*Modelica.Constants.pi*50, Omega0Pu = 1,  // ── Transformer + grid (weak grid SCR ~ 2.5) ──────────────
