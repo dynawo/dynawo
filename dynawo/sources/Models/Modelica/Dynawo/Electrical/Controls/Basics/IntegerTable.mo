@@ -22,7 +22,7 @@ model IntegerTable "Generate an Integer output signal based on a table stored in
     caption = "Open file in which table is present")));
   parameter String TableName = "NoName" "Table name on file or in function usertab (see docu)";
 
-  Dynawo.Connectors.IntPin source "Output value";
+  Modelica.Blocks.Interfaces.IntegerOutput source "Output value";
 
   Modelica.Blocks.Sources.IntegerTable integerTable(
     combiTimeTable(fileName = FileName, tableName = TableName, tableOnFile = true),
@@ -31,7 +31,7 @@ model IntegerTable "Generate an Integer output signal based on a table stored in
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  source.value = integerTable.y;
+  source = integerTable.y;
 
   annotation(preferredView = "text");
 end IntegerTable;

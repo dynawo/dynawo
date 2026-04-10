@@ -58,7 +58,7 @@
   <macroConnect connector="OmegaRefToNumCCMachine" id1="OMEGAREF" id2="NETWORK" index1="4" name2="WP2"/>
   <!-- Events -->
   <blackBoxModel id="DISCONNECTLINE" lib="EventQuadripoleDisconnection" parFile="fic.PAR" parId="DISCONNECTLINE"/>
-  <connect id1="DISCONNECTLINE" var1="event_state1_value" id2="NETWORK" var2="AAAAAL72BBBBB_state_value"/>
+  <connect id1="DISCONNECTLINE" var1="event_state1" id2="NETWORK" var2="AAAAAL72BBBBB_state_value"/>
   <!-- Macro-connectors-->
   <macroConnector id="GFMToNode">
     <connect var1="converter_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>

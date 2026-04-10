@@ -118,5 +118,5 @@
   <dyn:connect id1="_BUS____7-BUS____8-1_AC_side1_Distance" var1="distance_UMonitoredPu" id2="NETWORK" var2="_BUS____7-BUS____8-1_AC_U1_value"/>
   <dyn:connect id1="_BUS____7-BUS____8-1_AC_side1_Distance" var1="distance_PMonitoredPu" id2="NETWORK" var2="_BUS____7-BUS____8-1_AC_P1_value"/>
   <dyn:connect id1="_BUS____7-BUS____8-1_AC_side1_Distance" var1="distance_QMonitoredPu" id2="NETWORK" var2="_BUS____7-BUS____8-1_AC_Q1_value"/>
-  <dyn:connect id1="_BUS____7-BUS____8-1_AC_side1_Distance" var1="distance_lineState" id2="NETWORK" var2="_BUS____7-BUS____8-1_AC_state"/>
+  <dyn:connect id1="_BUS____7-BUS____8-1_AC_side1_Distance" var1="distance_lineState" id2="NETWORK" var2="_BUS____7-BUS____8-1_AC_state_value"/>
 </dyn:dynamicModelsArchitecture>
