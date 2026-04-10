@@ -16,16 +16,15 @@ model BaseSheetI10
   extends BaseParameters;
 
   Electrical.Buses.Bus bus annotation(
-    Placement(transformation(origin = {-20, 0},extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+    Placement(transformation(origin = {-80, 0},extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Electrical.Loads.LoadAlphaBeta loadAlphaBeta(u0Pu = Complex(1, 0), s0Pu = Complex(0.8*SNom/Electrical.SystemBase.SnRef, 0), i0Pu = Modelica.ComplexMath.conj(loadAlphaBeta.s0Pu/loadAlphaBeta.u0Pu), alpha = 0, beta = 0) annotation(
-    Placement(transformation(origin = {-20, -60}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-80, -60}, extent = {{-20, -20}, {20, 20}})));
   Electrical.Sources.InertialGrid.InertialGrid inertialGrid1(DPu = 0, Fh = 1, H = 1, Km = 1, P0Pu = 0, Q0Pu = 0, R = 999999, SNom = SNom, Tr = 0.1, U0Pu = 1, UPhase0 = 0) annotation(
-    Placement(transformation(origin = {-80, 60}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}})));
   Electrical.Lines.Line line(RPu = 0, GPu = 0, BPu = 0, XPu = XbPu) annotation(
-    Placement(transformation(origin = {-60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+    Placement(transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
 equation
-
   // No variations in PspPu for the inertial grid
   der(inertialGrid1.reducedOrderSFR.PspPu) = 0;
 
@@ -45,14 +44,13 @@ equation
   loadAlphaBeta.switchOffSignal2.value = false;
 
   connect(loadAlphaBeta.terminal, bus.terminal) annotation(
-    Line(points = {{-20, -60}, {-20, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, -60}, {-80, 0}}, color = {0, 0, 255}));
   connect(inertialGrid1.omegaPu, inertialGrid1.omegaRefPu) annotation(
-    Line(points = {{-58, 76}, {-40, 76}, {-40, 100}, {-80, 100}, {-80, 84}}, color = {0, 0, 127}));
+    Line(points = {{-160, 16}, {-140, 16}, {-140, 40}, {-180, 40}, {-180, 24}}, color = {0, 0, 127}));
   connect(inertialGrid1.terminal, line.terminal2) annotation(
-    Line(points = {{-80, 60}, {-80, 0}}, color = {0, 0, 255}));
+    Line(points = {{-180.857, 0}, {-139.857, 0}}, color = {0, 0, 255}));
   connect(line.terminal1, bus.terminal) annotation(
-    Line(points = {{-40, 0}, {-20, 0}}, color = {0, 0, 255}));
+    Line(points = {{-100, 0}, {-80, 0}}, color = {0, 0, 255}));
 
-  annotation(
-    Diagram);
+  annotation(preferredView = "diagram");
 end BaseSheetI10;

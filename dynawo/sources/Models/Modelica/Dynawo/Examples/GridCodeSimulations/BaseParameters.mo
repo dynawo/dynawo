@@ -12,7 +12,7 @@ within Dynawo.Examples.GridCodeSimulations;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model BaseParameters
+record BaseParameters
 
   // Parameters to declare
   parameter Types.ApparentPowerModule SNom = 35 "Nominal apparent power in MVA";
@@ -23,12 +23,11 @@ model BaseParameters
   parameter Types.ActivePowerPu P0Pu = -1  * SNom / Electrical.SystemBase.SnRef "Start value of active power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.ReactivePowerPu Q0Pu = 0 * SNom / Electrical.SystemBase.SnRef "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.VoltageModulePu U0Pu = 1 "Start value of voltage magnitude at regulated bus in pu (base UNom)";
-  parameter Types.VoltageModulePu UInfPu = sqrt((P0Pu*XccPu)^2 + (Q0Pu*XccPu + U0Pu^2)^2)/U0Pu "Value voltage magnitude at infinite in pu (base UNom)";
+  parameter Types.VoltageModulePu UInfPu = sqrt((P0Pu*XccPu)^2 + (Q0Pu*XccPu + U0Pu^2)^2)/U0Pu "Value of voltage magnitude at infinite in pu (base UNom)";
   parameter Types.Angle UPhase0 = Modelica.Math.atan2(-P0Pu*XccPu, Q0Pu*XccPu + U0Pu^2) "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.PerUnit XccPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
-equation
-
-annotation(
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>In this file, you should declare :&nbsp;<div>- SNom of the plant being simulated (this won't change much as everything is in pu)</div><div>- XaPu and XbPu, stability impedances defined in the french grid code and provided in every connection project's requirement document.</div></body></html>"));
 end BaseParameters;
