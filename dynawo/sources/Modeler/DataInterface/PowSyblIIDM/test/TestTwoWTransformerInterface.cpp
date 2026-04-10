@@ -421,4 +421,40 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
 
   ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
 }  // TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections)
+
+TEST(DataInterfaceTest, TwoWTransformer_R_X_zero) {
+  powsybl::iidm::Network network = CreateTwoWTransformerNetwork();
+  powsybl::iidm::Substation& substation = network.getSubstation("S1");
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::VoltageLevel& vl2 = network.getVoltageLevel("VL2");
+  powsybl::iidm::Bus& vl1Bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Bus& vl2Bus1 = vl2.getBusBreakerView().getBus("VL2_BUS1");
+  substation.newTwoWindingsTransformer()
+      .setId("2WT_VL1_VL2")
+      .setVoltageLevel1(vl1.getId())
+      .setBus1(vl1Bus1.getId())
+      .setConnectableBus1(vl1Bus1.getId())
+      .setVoltageLevel2(vl2.getId())
+      .setBus2(vl2Bus1.getId())
+      .setConnectableBus2(vl2Bus1.getId())
+      .setR(0.0)
+      .setX(0.0)
+      .setG(1.0)
+      .setB(0.2)
+      .setRatedU1(2.0)
+      .setRatedU2(0.4)
+      .setRatedS(3.0)
+      .add();
+  powsybl::iidm::TwoWindingsTransformer& transformer = network.getTwoWindingsTransformer("2WT_VL1_VL2");
+
+  transformer.getTerminal1().setP(0.0);
+  transformer.getTerminal1().setQ(0.0);
+  transformer.getTerminal2().setP(0.0);
+  transformer.getTerminal2().setQ(0.0);
+
+  TwoWTransformerInterfaceIIDM tfoInterface(transformer);
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tfoInterface.getR(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tfoInterface.getX(), 0.01);
+}  // TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections)
 }  // namespace DYN

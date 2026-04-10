@@ -55,6 +55,15 @@ class ModelLoad : public NetworkComponent {
   } CalculatedVariables_t;
 
   /**
+   * @brief  index of discreteVariables
+   */
+  typedef enum {
+    stateNum_ = 0,
+    PRefPuNum_ = 1,
+    QRefPuNum_ = 2
+  } DiscreteVariables_t;
+
+  /**
    * @brief set the load connection status
    * @param state load connection status
    */
@@ -382,6 +391,18 @@ class ModelLoad : public NetworkComponent {
   double deltaPc() const;
 
   /**
+   * @brief compute QRefPu value
+   * @return value
+   */
+  double QRefPu() const;
+
+  /**
+   * @brief compute PRefPu value
+   * @return value
+   */
+  double PRefPu() const;
+
+  /**
    * @brief compute the current real and imaginary values
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
@@ -512,8 +533,8 @@ class ModelLoad : public NetworkComponent {
   bool stateModified_;  ///< true if the load connection state was modified
   double kp_;  ///< gain kp
   double kq_;  ///< gain kq
-  double P0_;  ///< initial active power
-  double Q0_;  ///< initial reactive power
+  double PRef0Pu_;  ///< initial active power
+  double QRef0Pu_;  ///< initial reactive power
   double ir0_;  ///< initial real part of the current
   double ii0_;  ///< initial imaginary part of the current
 
@@ -524,6 +545,7 @@ class ModelLoad : public NetworkComponent {
   bool isPControllable_;  ///< whether the load can be controlled on P
   bool isQControllable_;  ///< whether the load can be controlled on Q
   bool isControllable_;  ///< whether the load can be controlled
+  bool isSettable_;  ///< whether PRefPu and QRefPu can be set (defined as discrete variables)
   double Tp_;  ///< time constant Tp
   bool TpIsZero_;  ///< true if Tp == 0
   double Tq_;  ///< time constant Tq

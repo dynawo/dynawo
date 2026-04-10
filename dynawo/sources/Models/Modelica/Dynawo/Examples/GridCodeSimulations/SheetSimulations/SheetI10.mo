@@ -161,5 +161,4 @@ Voltage
 <li data-section-id=\"fbjn7\" data-start=\"2184\" data-end=\"2257\">
 <p data-start=\"2186\" data-end=\"2215\">Frequency must remain within:</p>
 <span class=\"katex-display\"><span class=\"katex\"><span class=\"katex-mathml\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><semantics><mrow><mn>49</mn><mtext> </mtext><mi>H</mi><mi>z</mi><mo>≤</mo><mi>f</mi><mo>≤</mo><mn>51</mn><mtext> </mtext><mi>H</mi><mi>z</mi></mrow></semantics></math></span></span></span></li></ul></body></html>"));
-
 end SheetI10;
