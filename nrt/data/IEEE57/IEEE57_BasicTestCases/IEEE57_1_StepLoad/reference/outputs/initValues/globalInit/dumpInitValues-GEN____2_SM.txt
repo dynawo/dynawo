@@ -1,9 +1,9 @@
  ====== VARIABLES VALUES ======
-generator_lambdaDPu                               : y =       1.009840 yp =       0.000000
-generator_lambdaQ1Pu                              : y =      -0.000000 yp =       0.000000
-generator_lambdaQ2Pu                              : y =      -0.000000 yp =       0.000000
-generator_lambdafPu                               : y =       1.126828 yp =       0.000000
-generator_omegaPu                                 : y =       1.000000 yp =       0.000000
+generator_lambdaDPu                               : y =       1.009840 yp =      -0.000064
+generator_lambdaQ1Pu                              : y =      -0.000000 yp =       0.000019
+generator_lambdaQ2Pu                              : y =      -0.000000 yp =       0.000101
+generator_lambdafPu                               : y =       1.126828 yp =       0.000011
+generator_omegaPu                                 : y =       1.000000 yp =       0.000002
 generator_omegaRefPu                              : y =       1.000000 yp =       0.000000
 generator_terminal_V_im                           : y =      -0.020962 yp =       0.000000
 generator_terminal_V_re                           : y =       1.009775 yp =       0.000000
