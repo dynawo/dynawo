@@ -398,7 +398,7 @@ SolverCommonFixedTimeStep::increaseStep() {
 }
 
 void SolverCommonFixedTimeStep::handleRoot(bool& redoStep) {
-  if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE) {
+  if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE || model_->getModeChangeType() == ALGEBRAIC_J_J_UPDATE_MODE) {
     factorizationForced_ = true;
   } else {
     factorizationForced_ = false;
@@ -431,7 +431,7 @@ bool SolverCommonFixedTimeStep::setupNewAlgRestoration(modeChangeType_t modeChan
       getSolverKINYPrim().setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 
     return false;  // no J factorization
-  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE || modeChangeType == ALGEBRAIC_J_J_UPDATE_MODE) {
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                            printflAlgJ_);
     setDifferentialVariablesIndices();

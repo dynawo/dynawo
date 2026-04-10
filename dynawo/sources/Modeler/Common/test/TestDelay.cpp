@@ -279,7 +279,7 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
   DYN::modeChangeType_t delay_mode = manager.evalMode(time, "TEST");
-  ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_UPDATE_MODE);
+  ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_J_UPDATE_MODE);
 
   manager.setGomc(&states[0], 1, time);  // always called before checking trigger
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
@@ -297,7 +297,7 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
   delay_mode = manager.evalMode(time, "TEST");
-  ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_UPDATE_MODE);
+  ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_J_UPDATE_MODE);
 }
 
 static bool
