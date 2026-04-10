@@ -138,17 +138,11 @@ connector ZPin "connector for propagating discrete values (and events)"
     discrete Real value;
 end ZPin;
 
-connector IntPin "Connector for propagating integer values"
-  Integer value;
-
-  annotation(preferredView = "text");
-end IntPin;
-
 model DYNDisconnection
-  IntPin switchOff (value(start = 2));
+  Integer switchOff(start = 2);
 equation
   when (time > 1) then
-    switchOff.value = 1;
+    switchOff = 1;
   end when;
 end DYNDisconnection;
 

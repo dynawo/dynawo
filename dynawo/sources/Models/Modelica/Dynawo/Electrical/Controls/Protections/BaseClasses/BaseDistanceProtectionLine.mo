@@ -33,7 +33,7 @@ model BaseDistanceProtectionLine "Base model for line distance protection"
   input Types.ActivePowerPu PMonitoredPu "Monitored active power in pu (base SnRef)";
   input Types.ReactivePowerPu QMonitoredPu "Monitored reactive power in pu (base SnRef)";
 
-  Connectors.IntPin lineState(value(start = 2)) "Switch off message for the protected line";
+  Modelica.Blocks.Interfaces.IntegerOutput lineState(start = 2) "Switch off message for the protected line";
 
   Boolean Blinded "True if the apparent impedance is in the load blinder area";
   Boolean[NbZones] tripped(each start = false) "true if the protection tripped (for each protected zone)";
@@ -78,8 +78,8 @@ equation
 
   // Trips
   /*
-  Trips are not included in the if lineState.value condition to avoid the following Modelica error
-  Following variable is discrete, but does not appear on the LHS of a when-statement: ‘lineState.value‘.
+  Trips are not included in the if lineState condition to avoid the following Modelica error
+  Following variable is discrete, but does not appear on the LHS of a when-statement: ‘lineState‘.
   */
   for i in 1:NbZones loop
     when time - tThresholdReached[i] >= tZone[i] + CircuitBreakerTime then
@@ -102,10 +102,10 @@ equation
   end for;
 
   when anyTrue(tripped) then
-    if lineState.value == 2 or lineState.value == 5 - LineSide then  // Other end is closed
-      lineState.value = 5 - LineSide;
+    if lineState == 2 or lineState == 5 - LineSide then  // Other end is closed
+      lineState = 5 - LineSide;
     else  // Other end is open
-      lineState.value = 1;
+      lineState = 1;
     end if;
   end when;
 

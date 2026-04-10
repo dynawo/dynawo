@@ -457,10 +457,10 @@ equation
   LineB57B56.switchOffSignal1 = false;
   LineB57B56.switchOffSignal2 = false;
 
-  HvdcLineB29B52.switchOffSignal1Side1.value = false;
-  HvdcLineB29B52.switchOffSignal2Side1.value = false;
-  HvdcLineB29B52.switchOffSignal1Side2.value = false;
-  HvdcLineB29B52.switchOffSignal2Side2.value = false;
+  HvdcLineB29B52.switchOffSignal1Side1 = false;
+  HvdcLineB29B52.switchOffSignal2Side1 = false;
+  HvdcLineB29B52.switchOffSignal1Side2 = false;
+  HvdcLineB29B52.switchOffSignal2Side2 = false;
 
   TfoB10B51.switchOffSignal1 = false;
   TfoB10B51.switchOffSignal2 = false;

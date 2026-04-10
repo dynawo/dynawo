@@ -37,7 +37,7 @@ model CurrentLimitAutomatonTwoLevels "Current Limit Automaton (CLA) monitoring t
   Dynawo.Connectors.ImPin IMonitored2 "Monitored current on element 2 (unit depending on IMax2 unit)";
 
   //Outputs
-  Dynawo.Connectors.IntPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
+  Modelica.Blocks.Interfaces.IntegerOutput order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
 protected
   //CLA 1 internals and output
@@ -99,15 +99,16 @@ equation
 
   //Top-level orders merge
   when Order1 == 1 or Order2 == 1 or (Order1 == 3 and Order2 == 4) or (Order1 == 4 and Order2 == 3) then
-    order.value = 1;
+    order = 1;
   elsewhen Order1 == 2 and Order2 == 2 then
-    order.value = 2;
+    order = 2;
   elsewhen ((Order1 == 2 or Order1 == 0) and Order2 == 3) or (Order1 == 3 and (Order2 == 2 or Order2 == 0)) or (Order1 == 3 and Order2 == 3) then
-    order.value = 3;
+    order = 3;
   elsewhen ((Order1 == 2 or Order1 == 0) and Order2 == 4) or (Order1 == 4 and (Order2 == 2 or Order2 == 0)) or (Order1 == 4 and Order2 == 4) then
-    order.value = 4;
+    order = 4;
   end when;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The automaton will open one component when the current stays higher than a predefined threshold during a certain amount of time on two monitored components (line, transformer, etc.) (one threshold and one time constant per element).</body></html>"));
 end CurrentLimitAutomatonTwoLevels;
