@@ -438,13 +438,13 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
   } while (change);
 
   updateStatistics();
-  
+
   printEnd();
-  
+
   int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
   if (flag0 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
-    
+
   Solver::Impl::resetStats();
 
   // reinit output
@@ -499,6 +499,15 @@ SolverIDA::analyseFlag(const int & flag) {
       break;
     case IDA_CONV_FAIL:
       msg << DYNLog(IdaConvFail);
+      break;
+    case IDA_ERR_FAIL:
+      msg << DYNLog(IdaErrFail);
+      break;
+    case IDA_TOO_MUCH_ACC:
+      msg << DYNLog(IdaAccuracyFail);
+      break;
+    case IDA_TOO_MUCH_WORK:
+      msg << DYNLog(IdaTooMuchWork);
       break;
     default:
 #ifdef _DEBUG_
@@ -731,7 +740,7 @@ bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
     setDifferentialVariablesIndices();
     solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
     return false;  // no J factorization
-  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE || modeChangeType == ALGEBRAIC_J_J_UPDATE_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                    printflAlgJ_);
     setDifferentialVariablesIndices();
@@ -770,6 +779,16 @@ SolverIDA::reinit() {
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
+
+  if (modeChangeType == DIFFERENTIAL_MODE) {
+    ++stats_.nmeDiff_;
+  } else if (modeChangeType == ALGEBRAIC_MODE) {
+    ++stats_.nmeAlg_;
+  } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+    ++stats_.nmeAlgJ_;
+  } else if (modeChangeType == ALGEBRAIC_J_J_UPDATE_MODE) {
+    ++stats_.nmeAlgJJ_;
+  }
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   if (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_) {
