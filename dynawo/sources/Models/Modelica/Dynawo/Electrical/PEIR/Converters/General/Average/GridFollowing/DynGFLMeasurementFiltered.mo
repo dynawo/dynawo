@@ -93,6 +93,8 @@ extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
   Controls.PEIR.Converters.Average.DynGridFollowingControlV2 Control(IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu, Kfd = Kfd, Kfq = Kfq, Ki = Ki, Kic = Kic, Kid = Kid, Kiq = Kiq, Kp = Kp, Kpc = Kpc, Kpd = Kpd, Kpq = Kpq, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdFilteredPcc0Pu = Measurements.udFilteredPcc0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqFilteredPcc0Pu = Measurements.uqFilteredPcc0Pu, tPFilt = tPFilt, tQFilt = tQFilt) annotation(
     Placement(visible = true, transformation(origin = {-46, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput Theta annotation(
+    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(Converter.terminal, terminal) annotation(
     Line(points = {{92, 42}, {106, 42}}, color = {0, 0, 255}));
@@ -120,10 +122,6 @@ equation
     Line(points = {{84, 20}, {84, -24}, {40, -24}}, color = {230, 97, 0}));
   connect(Converter.iqConvPu, Measurements.iqConvPu) annotation(
     Line(points = {{88, 20}, {86, 20}, {86, -28}, {40, -28}}, color = {255, 120, 0}));
-  connect(Measurements.idFilteredConvPu, Control.idConvPu) annotation(
-    Line(points = {{22, -54}, {22, -58}, {-62, -58}, {-62, 20}}, color = {230, 97, 0}));
-  connect(Measurements.iqFilteredConvPu, Control.iqConvPu) annotation(
-    Line(points = {{28, -54}, {28, -60}, {-58, -60}, {-58, 20}}, color = {230, 97, 0}, pattern = LinePattern.Dash));
   connect(Measurements.QFilterPu, Control.QFilterPu) annotation(
     Line(points = {{-4, -44}, {-86, -44}, {-86, 24}, {-68, 24}}, color = {0, 0, 127}));
   connect(Measurements.uq_PLLPu, Control.uq_PLLPu) annotation(
@@ -140,6 +138,12 @@ equation
     Line(points = {{-4, -28}, {-40, -28}, {-40, 20}}, color = {192, 97, 203}));
   connect(Measurements.uqFilteredFilterPu, Control.uqFilterPu) annotation(
     Line(points = {{-4, -32}, {-34, -32}, {-34, 16}, {-30, 16}, {-30, 20}}, color = {192, 97, 203}, pattern = LinePattern.Dash));
+  connect(Theta, Converter.theta) annotation(
+    Line(points = {{110, 60}, {96, 60}, {96, 80}, {80, 80}, {80, 64}}, color = {0, 0, 127}));
+  connect(Measurements.idFilteredPccPu, Control.idConvPu) annotation(
+    Line(points = {{8, -10}, {6, -10}, {6, -4}, {-62, -4}, {-62, 20}}, color = {0, 0, 127}));
+  connect(Measurements.iqFilteredPccPu, Control.iqConvPu) annotation(
+    Line(points = {{14, -10}, {14, 0}, {-58, 0}, {-58, 20}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),
