@@ -1,62 +1,50 @@
-within Dynawo.Examples.GFM_Rfgv2Tests.Test_VoltagePhaseJump;
+within Dynawo.Examples.GFM_Rfgv2Tests.SiteController;
 
-model VoltagePhaseJump
+model VSM_CurrentControl_VoltageJumpMagnitude_Site
 import Modelica.Constants.pi;
   //Nominal Values of the converter
   parameter Types.ApparentPowerModule Sbase1 = 100 "Base apparent power of VSC MVA";
   //Values of the line connection
-  parameter Types.PerUnit SCR = 2 "SCR of the grid connection";
+  parameter Types.PerUnit SCR = 10 "SCR of the grid connection";
   parameter Real Xeff_ENTSOETable = 0.25 "Xeffective to be se, we have excluded Xfilter=0.15t";
   final parameter Real Xeff_ENTSOETableWithGrid = Xeff_ENTSOETable + 1 / SCR "Xeffective to be set";
   parameter Real tEvtAnalysis = tOmegaEvtEnd "time to analyse the curves";
   parameter Real IdSteadyState = 0.7488 + 0.24 "Current at the DUT point in steady state after the event in SNom base";
   // Setting parameters for the Infinite Bus
-  parameter Types.Time tOmegaEvtStart = 10;
-  parameter Types.Time tOmegaEvtEnd = 10.0001;
+  parameter Types.Time tOmegaEvtStart = 100;
+  parameter Types.Time tOmegaEvtEnd = 100.0001;
   parameter Types.Time tMagnitudeEvtstart = 25;
   parameter Types.Time tMagnitudeEvtEnd = 25 + 3;
   //Bloc the Angle of the Power Synhcronisation
   parameter Boolean ActiveAngleHold = false;
   //Fault Values
-  parameter Real XFault = 0.1;
+  parameter Real XFault = 0.015;
   final parameter Real RFault = XFault / 20;
   parameter Real SNom = Sbase1;
   parameter Real DeltaAngleDUTTest = 0.90 "Mesured Angle at DUT side used for the test in degrees";
   parameter Real DeltaAngleGridTest = 3.7 " 1.58 Applied Step Angle at Grid side used for the test in degrees";
   // /*====== GFM INIT =======*/
-  /*Inputs*/
-  /*ENTSOE Report Measurements*/
-  // Variables Setting -- Voltage Calculation:
-  Types.PerUnit Ufilter "Tension at the DUT output ";
-  Types.PerUnit Uconv "Tension at the converter output ";
-  Types.PerUnit UconvRe;
-  Types.PerUnit UconvIm;
-  Types.PerUnit UfilterRe;
-  Types.PerUnit UfilterIm;
-  Types.PerUnit Upcc;
-  Types.PerUnit Ugrid;
-  //Variables Setting -- Angle calculation
-  Types.Angle AnglePcc;
-  Types.Angle AngleGrid;
-  Types.Angle AngleConv "Angle at the converter output";
-  Types.Angle AngleFilter "Angle at the DUT points";
-  Types.Angle AngleDroop "Angle at the output of the droop used for the dq Transf";
+
+
+
   // Define a discrete variable to store the previous value
   //Real previousValue(start=0);
   Modelica.Blocks.Sources.Step Qref(height = 0, offset = 0, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-134, 72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step Uref(height = 0, offset = 1, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-134, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step Pref(height = 0, offset = -0.95, startTime = 0) annotation(
+  Modelica.Blocks.Sources.Step Pref(height = 0, offset = 0.5, startTime = 5) annotation(
     Placement(visible = true, transformation(origin = {-134, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = Rconnection2, XPu = Lconnection2) annotation(
     Placement(visible = true, transformation(origin = {98, -52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step omegaRef(height = 0, offset = 1, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-134, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations BusInfinite(U0Pu = 0.99, UEvtPu = 1.05, UPhase = 0, omega0Pu = 1, omegaEvtPu = 3.5, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations BusInfinite(U0Pu = 1.03, UEvtPu = 1.06, UPhase = 0, omega0Pu = 1, omegaEvtPu = -1.8, tOmegaEvtEnd = tOmegaEvtEnd, tOmegaEvtStart = tOmegaEvtStart, tUEvtEnd = tMagnitudeEvtEnd, tUEvtStart = tMagnitudeEvtstart) annotation(
     Placement(visible = true, transformation(origin = {-6, -52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.GFM_VSM_cc_v3Prope_ForRLFilter gFM_VSM_cc(ActiveAngleBloc = false, AmortisementVSM = 0.52, CFilter = 0.00001, CurrentAngle0 = CurrentAngle0, CurrentModule0 = CurrentModule0, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, FDampingLC = 60, Fsw = 5000, Gffv = 1, H = 3, Imax = 1.4, Imax_XVI = 1.5, Ith_XVI = 1.2, LFilter = 0.15, LTransformer = 0.06, Lv_QSEM = 0, Mq = 0, PFilter0Pu = PFilter0Pu, PGen0Pu = PGen0Pu, PMesure0Pu = PMesure0Pu, PRef0Pu = PRef0Pu, QFilter0Pu = QFilter0Pu, QGen0Pu = QGen0Pu, QMesure0Pu = QMesure0Pu, QRef0Pu = QRef0Pu, RVI0 = RVI0, R_LCL = 0, Rv = 0, SNom = Sbase1, SigmaXR = 5, SwitchOffSignal10 = false, UFilterRef0Pu = UFilterRef0Pu, UPolar0Pu = UPolar0Pu, UPolarPhase0 = UPolarPhase0, WPLL = 0.01, W_CurrentLimit = 10000, Wnc = 1000, Wqsem = 100, Wref_FromPLL = false, XVI0 = XVI0, XVInduct = 0, i0Pu = i0Pu, idConv0Pu = idConv0Pu, idConvRef0Pu = idConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, idPcc0Pu = idPcc0Pu, iqConv0Pu = iqConv0Pu, iqConvRef0Pu = iqConvRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, iqPcc0Pu = iqPcc0Pu, omega0Pu = omega0Pu, omegaPLL0Pu = omegaPLL0Pu, omegaRef0Pu = omegaRef0Pu, omegaSetSelected0Pu = omegaSetSelected0Pu, theta0 = theta0, u0Pu = u0Pu, udConv0Pu = udConv0Pu, udConvRef0Pu = udConvRef0Pu, udFilter0Pu = udFilter0Pu, udFilterRef0Pu = udFilterRef0Pu, udPcc0Pu = udPcc0Pu, uqConv0Pu = uqConv0Pu, uqConvRef0Pu = uqConvRef0Pu, uqFilter0Pu = uqFilter0Pu, uqFilterRef0Pu = uqFilterRef0Pu, uqPcc0Pu = uqPcc0Pu) annotation(
+  Dynawo.Electrical.Controls.Converters.GFM_VSM_cc_v3Prope_ForRLFilter_Site gFM_VSM_cc(ActiveAngleBloc = false, AmortisementVSM = 0.52, CFilter = 0.00001, CurrentAngle0 = CurrentAngle0, CurrentModule0 = CurrentModule0, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, FDampingLC = 60, Fsw = 5000, Gffv = 0.8, H = 3, Imax = 1.4, Imax_XVI = 1.5, Ith_XVI = 1.2, LFilter = 0.15, LTransformer = 0.06, Lv_QSEM = 0, Mq = 0.5, PFilter0Pu = PFilter0Pu, PGen0Pu = PGen0Pu, PMesure0Pu = PMesure0Pu, PRef0Pu = PRef0Pu, QFilter0Pu = QFilter0Pu, QGen0Pu = QGen0Pu, QMesure0Pu = QMesure0Pu, QRef0Pu = QRef0Pu, RVI0 = RVI0, R_LCL = 0, Rv = 0, SNom = Sbase1, SigmaXR = 5, SwitchOffSignal10 = false, SwitchOffSignal20 = false, UFilterRef0Pu = UFilterRef0Pu, UPolar0Pu = UPolar0Pu, UPolarPhase0 = UPolarPhase0, WPLL = 0.01, W_CurrentLimit = 10000, Wnc = 1000, Wqsem = 100, Wref_FromPLL = false, XVI0 = XVI0, XVInduct = 0.19, i0Pu = i0Pu, idConv0Pu = idConv0Pu, idConvRef0Pu = idConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, idPcc0Pu = idPcc0Pu, iqConv0Pu = iqConv0Pu, iqConvRef0Pu = iqConvRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, iqPcc0Pu = iqPcc0Pu, omega0Pu = omega0Pu, omegaPLL0Pu = omegaPLL0Pu, omegaRef0Pu = omegaRef0Pu, omegaSetSelected0Pu = omegaSetSelected0Pu, theta0 = theta0, u0Pu = u0Pu, udConv0Pu = udConv0Pu, udConvRef0Pu = udConvRef0Pu, udFilter0Pu = udFilter0Pu, udFilterRef0Pu = udFilterRef0Pu, udPcc0Pu = udPcc0Pu, uqConv0Pu = uqConv0Pu, uqConvRef0Pu = uqConvRef0Pu, uqFilter0Pu = uqFilter0Pu, uqFilterRef0Pu = uqFilterRef0Pu, uqPcc0Pu = uqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {-2, 36}, extent = {{-36, -36}, {36, 36}}, rotation = 0)));
+  Electrical.Events.NodeFault nodeFault(RPu = RFault, XPu = XFault, tBegin = 27, tEnd = 27.1) annotation(
+    Placement(visible = true, transformation(origin = {98, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //Initial Parameters
   parameter Complex i0Pu = Complex(0, 0) "Start value of the complex current at ACPower PCC connection in pu (base UNom,SNom)";
   parameter Complex u0Pu = Complex(0.99, 0) "Start value of the complex voltage at ACPower PCC connection in pu (base UNom)";
@@ -117,38 +105,26 @@ import Modelica.Constants.pi;
   final parameter Types.PerUnit Rconnection1 = Lconnection1 / 30 "Resistance in pu base Sbase of VSC";
   final parameter Types.PerUnit Lconnection2 = Lconnection1 * Sbase2 / Sbase1 "Inductance in pu base Snref ";
   final parameter Types.PerUnit Rconnection2 = Lconnection2 / 30 "Resistance in pu base Snref";
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y = false) annotation(
+    Placement(visible = true, transformation(origin = {-22850, 5645}, extent = {{-984, 509}, {984, -509}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression1(y = true) annotation(
+    Placement(visible = true, transformation(origin = {-22850, 5645}, extent = {{-984, 509}, {984, -509}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression2(y = true) annotation(
+    Placement(visible = true, transformation(origin = {-22850, 5645}, extent = {{-984, 509}, {984, -509}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanExpression SiteActivation(y = true)  annotation(
+    Placement(visible = true, transformation(origin = {-134, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
   gFM_VSM_cc.switchOffSignal1.value = false;
   gFM_VSM_cc.switchOffSignal2.value = false;
   gFM_VSM_cc.switchOffSignal3.value = false;
-//Voltage Calculation:
-//====================
-// Uinv - Park's transformations dq-currents in generator convention, -> generation convention for terminal
-  UconvRe = cos(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.udConvPu - sin(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.uqConvPu;
-  UconvIm = sin(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.udConvPu + cos(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.uqConvPu;
-// Udut - Park's transformations dq-currents in generator convention, -> generation convention for terminal
-  UfilterRe = cos(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.udFilterPu - sin(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.uqFilterPu;
-  UfilterIm = sin(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.udFilterPu + cos(gFM_VSM_cc.virtualSynchroMachine.theta) * gFM_VSM_cc.VSC.uqFilterPu;
-  Ufilter = Modelica.ComplexMath.'abs'(Complex(UfilterRe, UfilterIm));
-// Magnitude is calculated in Re, Im base
-  Uconv = Modelica.ComplexMath.'abs'(Complex(UconvRe, UconvIm));
-// Magnitude is calculated in Re, Im base
-  Upcc = gFM_VSM_cc.measurementPcc.UPolarPu;
-//Magnitude is calculated in Re, Im base
-  Ugrid = BusInfinite.UPu;
-//Angle calculation
-//====================
-  AngleConv = Modelica.ComplexMath.arg(Complex(UconvRe, UconvIm)) * 180 / pi;
-// Angles are calculated in Re, Im base
-  AngleFilter = Modelica.ComplexMath.arg(Complex(UfilterRe, UfilterIm)) * 180 / pi;
-// Angles are calculated in Re, Im base
-  AnglePcc = gFM_VSM_cc.measurementPcc.UPolarPhase * 180 / pi;
-// Angles are calculated in Re, Im base
-  AngleGrid = (BusInfinite.UPhase - BusInfinite.UPhaseOffs) * 180 / pi;
-//Angle is calculated in Degrees
-  AngleDroop = gFM_VSM_cc.virtualSynchroMachine.theta * 180 / pi;
+
+
+
+
+
+
   connect(BusInfinite.terminal, line.terminal1) annotation(
     Line(points = {{-6, -52}, {88, -52}}, color = {0, 0, 255}));
   connect(Qref.y, gFM_VSM_cc.QrefPu) annotation(
@@ -161,7 +137,11 @@ equation
     Line(points = {{-123, -28}, {-80, -28}, {-80, 18}, {-43, 18}}, color = {0, 0, 127}));
   connect(gFM_VSM_cc.PCC, line.terminal2) annotation(
     Line(points = {{41, 39}, {132, 39}, {132, -52}, {108, -52}}, color = {0, 0, 255}));
+  connect(nodeFault.terminal, line.terminal2) annotation(
+    Line(points = {{98, -16}, {108, -16}, {108, -52}}, color = {0, 0, 255}));
+  connect(SiteActivation.y, gFM_VSM_cc.Site) annotation(
+    Line(points = {{-122, -60}, {-66, -60}, {-66, 6}, {-44, 6}}, color = {255, 0, 255}));
   annotation(
     Diagram(coordinateSystem(extent = {{-160, 100}, {200, -80}})),
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-06, Interval = 0.001));
-end VoltagePhaseJump;
+end VSM_CurrentControl_VoltageJumpMagnitude_Site;

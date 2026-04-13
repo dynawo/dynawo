@@ -44,14 +44,14 @@ model InjectorUDQ "Injector controlled by d and q current components idPu and iq
   parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal in rad";
   final parameter Types.VoltageModulePu  u0Pu_re = cos(UPhase0) * ud0Pu - sin(UPhase0) * uq0Pu "Start value of voltage (base UNom)";
   final parameter Types.VoltageModulePu  u0Pu_im = (sin(UPhase0) * ud0Pu + cos(UPhase0) * uq0Pu) "Start value of voltage (base UNom)";
-  final parameter Types.CurrentModulePu  i0Pu_re = (cos(UPhase0) * id0Pu - sin(UPhase0) * iq0Pu)*SNomInjector / SystemBase.SnRef "Start value of voltage (base UNom, SnRef)";
-  final parameter Types.CurrentModulePu  i0Pu_im = (sin(UPhase0) * id0Pu + cos(UPhase0) * iq0Pu)*SNomInjector / SystemBase.SnRef "Start value of voltage (base UNom, SnRef)";
+  final parameter Types.CurrentModulePu  i0Pu_re = (cos(UPhase0) * id0Pu - sin(UPhase0) * iq0Pu)*SNomInjector / SystemBase.SnRef "Start value of voltage (base UNom, SNomInjector)";
+  final parameter Types.CurrentModulePu  i0Pu_im = (sin(UPhase0) * id0Pu + cos(UPhase0) * iq0Pu)*SNomInjector / SystemBase.SnRef "Start value of voltage (base UNom, SNomInjector)";
   parameter Types.PerUnit ud0Pu "Start value of voltage in d axis (base UNom)";
   parameter Types.PerUnit uq0Pu "Start value of voltage in q axis (base UNom)";
   parameter Types.PerUnit id0Pu "Start value of current in d axis (base UNom, SnRef)";
   parameter Types.PerUnit iq0Pu "Start value of current in q axis (base UNom, SnRef)";
-  Types.PerUnit idPu "Value of current in d axis (base UNom, SnRef)";
-  Types.PerUnit iqPu "Value of current in q axis (base UNom, SnRef)";
+  Types.PerUnit idPu "Value of current in d axis (base UNom, SNomInjector) in generator convention";
+  Types.PerUnit iqPu "Value of current in q axis (base UNom, SNomInjector) in generator convention";
 
 equation
 
@@ -66,9 +66,11 @@ equation
   terminal.V.re = (cos(UPhase) * udPu - sin(UPhase) * uqPu) ;
   terminal.V.im = (sin(UPhase) * udPu + cos(UPhase) * uqPu) ;
 
-  idPu=( cos(UPhase) * terminal.i.re+ sin(UPhase) * terminal.i.im)*SystemBase.SnRef /SNomInjector   ;
-  iqPu =  (-sin(UPhase) * terminal.i.re + cos(UPhase) * terminal.i.im) *SystemBase.SnRef /SNomInjector ;
+ // idPu=( cos(UPhase) * terminal.i.re- sin(UPhase) * terminal.i.im)*SystemBase.SnRef /SNomInjector   ;
+ // iqPu =  (sin(UPhase) * terminal.i.re + cos(UPhase) * terminal.i.im) *SystemBase.SnRef /SNomInjector ;
 
+
+[idPu; iqPu] = -[cos(UPhase), sin(UPhase); -sin(UPhase), cos(UPhase)] * [terminal.i.re; terminal.i.im] * SystemBase.SnRef / SNomInjector;
 
   annotation(
     preferredView = "text",

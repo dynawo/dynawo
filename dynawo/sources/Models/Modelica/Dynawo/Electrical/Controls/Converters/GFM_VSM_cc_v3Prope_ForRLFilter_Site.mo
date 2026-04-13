@@ -1,6 +1,6 @@
 within Dynawo.Electrical.Controls.Converters;
 
-model GFM_VSM_cc_v3Prope_ForRLFilter "Grid Forming converters test case"
+model GFM_VSM_cc_v3Prope_ForRLFilter_Site "Grid Forming converters test case"
 
   import Modelica.Constants.pi;
   import Modelica;
@@ -190,25 +190,19 @@ model GFM_VSM_cc_v3Prope_ForRLFilter "Grid Forming converters test case"
   Modelica.Blocks.Interfaces.RealInput UFilterRefPu annotation(
     Placement(visible = true, transformation(origin = {-15544.5, 2092.5}, extent = {{-328.5, -328.5}, {328.5, 328.5}}, rotation = 0), iconTransformation(origin = {-116, 42}, extent = {{15, -15}, {-15, 15}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput QrefPu annotation(
-    Placement(visible = true, transformation(origin = {-15513.5, 837.5}, extent = {{-328.5, -328.5}, {328.5, 328.5}}, rotation = 0), iconTransformation(origin = {-116, 84}, extent = {{15, -15}, {-15, 15}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {-23769.5, 5119.5}, extent = {{-328.5, -328.5}, {328.5, 328.5}}, rotation = 0), iconTransformation(origin = {-116, 84}, extent = {{15, -15}, {-15, 15}}, rotation = 180)));
   Dynawo.Electrical.Controls.Converters.InnerControls.CurrentFilterLoopQSEM currentFilterLoop(EpsilonCurrent = EpsilonCurrent, Fsw = Fsw, Gffv = Gffv, Kic = Kic, Kpc = Kpc, LFilter =  LFilter,  Wn = Wn, Wnc = Wnc, idConv0Pu = idConv0Pu,  idConvSatRef0Pu = idConvSatRef0Pu, iqConv0Pu = iqConv0Pu,  iqConvSatRef0Pu = iqConvSatRef0Pu, omega0Pu = omega0Pu, udConvRef0Pu = udConvRef0Pu, udFilter0Pu = udFilter0Pu, uqConvRef0Pu = uqConvRef0Pu, uqFilter0Pu = uqFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {9402.42, -273.297}, extent = {{-1174.42, -1409.3}, {1174.42, 1409.3}}, rotation = 0)));
  Modelica.Blocks.Interfaces.RealOutput omegaPu annotation(
     Placement(visible = true, transformation(origin = {20852.5, 4618.5}, extent = {{-504.5, -504.5}, {504.5, 504.5}}, rotation = 0), iconTransformation(origin = {118, 76}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
  Dynawo.Electrical.Controls.Converters.OuterControls.Synchronization.VirtualSynchroMachine virtualSynchroMachine(H = H, K_VSM =Kd, PMesure0Pu = PMesure0Pu, PRef0Pu = PRef0Pu, WPLL = WPLL, Wref_FromPLL = Wref_FromPLL, omega0Pu = omega0Pu, omegaPLL0Pu = omegaPLL0Pu, omegaRef0Pu = omegaRef0Pu, omegaSetSelected0Pu = omegaSetSelected0Pu, theta0 = theta0)  annotation(
     Placement(visible = true, transformation(origin = {2342.5, 3540.5}, extent = {{-956.5, -956.5}, {956.5, 956.5}}, rotation = 0)));
- Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(visible = true, transformation(origin = {-28456.5, 3316.5}, extent = {{-852.5, -852.5}, {852.5, 852.5}}, rotation = 0)));
- Modelica.Blocks.Math.Gain gain(k = 0)  annotation(
-    Placement(visible = true, transformation(origin = {-24886.5, 3322.5}, extent = {{-627.5, -627.5}, {627.5, 627.5}}, rotation = 0)));
- Modelica.Blocks.Continuous.Integrator integrator(k = 0.1, y_start = 0)  annotation(
+ Modelica.Blocks.Math.Gain gain(k = 1)  annotation(
+    Placement(visible = true, transformation(origin = {-26810.5, 3384.5}, extent = {{-627.5, -627.5}, {627.5, 627.5}}, rotation = 0)));
+ Modelica.Blocks.Continuous.Integrator Error_Integrator(k = 1, y_start = 0)  annotation(
     Placement(visible = true, transformation(origin = {-24815, 575}, extent = {{-707, -707}, {707, 707}}, rotation = 0)));
  Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-21396.5, 2375.5}, extent = {{-680.5, -680.5}, {680.5, 680.5}}, rotation = 0)));
- Modelica.Blocks.Math.Add add1 annotation(
-    Placement(visible = true, transformation(origin = {-16067.5, 4976.5}, extent = {{-680.5, -680.5}, {680.5, 680.5}}, rotation = 0)));
- Modelica.Blocks.Math.Gain gain1(k = 0) annotation(
-    Placement(visible = true, transformation(origin = {-18503.5, 5479.5}, extent = {{-627.5, -627.5}, {627.5, 627.5}}, rotation = 0)));
  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = 0.95)  annotation(
     Placement(visible = true, transformation(origin = {31556.5, 7098.5}, extent = {{-544.5, -544.5}, {544.5, 544.5}}, rotation = 0)));
  Modelica.Blocks.Logical.And and1 annotation(
@@ -221,6 +215,16 @@ model GFM_VSM_cc_v3Prope_ForRLFilter "Grid Forming converters test case"
     Placement(visible = true, transformation(origin = {34241, 5486}, extent = {{-762, -762}, {762, 762}}, rotation = 0)));
  Modelica.Blocks.Interfaces.RealOutput theta annotation(
     Placement(visible = true, transformation(origin = {17945.5, 7070.5}, extent = {{-504.5, -504.5}, {504.5, 504.5}}, rotation = 0), iconTransformation(origin = {118, -66}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
+ Modelica.Blocks.Logical.Switch switch11 annotation(
+    Placement(visible = true, transformation(origin = {-16576, 7018}, extent = {{-1340, -1340}, {1340, 1340}}, rotation = 0)));
+ Modelica.Blocks.Interfaces.BooleanInput Site annotation(
+    Placement(visible = true, transformation(origin = {-24271, 7043}, extent = {{991, 991}, {-991, -991}}, rotation = 180), iconTransformation(origin = {-114, -86}, extent = {{-14, -14}, {14, 14}}, rotation = 0)));
+ Modelica.Blocks.Math.Add3 Error(k2 = -1, k3 = -1)  annotation(
+    Placement(visible = true, transformation(origin = {-31332, 3340}, extent = {{-1262, -1262}, {1262, 1262}}, rotation = 0)));
+ Modelica.Blocks.Math.Gain Lambda(k = 0.5)  annotation(
+    Placement(visible = true, transformation(origin = {-38434, 3284}, extent = {{-356, -356}, {356, 356}}, rotation = 0)));
+ Modelica.Blocks.Sources.Constant Uref(k = 1.05)  annotation(
+    Placement(visible = true, transformation(origin = {-42039, 4395}, extent = {{-797, -797}, {797, 797}}, rotation = 0)));
 equation
   connect(OmegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-5192, 2090}, {-3723, 2090}, {-3723, 2960}, {-2240, 2960}}, color = {0, 0, 127}));
@@ -286,22 +290,10 @@ equation
     Line(points = {{-2120, 1219}, {-2159, 1219}, {-2159, 1654}, {9402, 1654}, {9402, 1214}}, color = {0, 0, 127}));
   connect(virtualSynchroMachine.omegaPu, VoltageFilterControl.omegaPu) annotation(
     Line(points = {{3395, 3196}, {3675, 3196}, {3675, 2177}, {-2120, 2177}, {-2120, 1219}}, color = {0, 0, 127}));
-  connect(feedback.y, gain.u) annotation(
-    Line(points = {{-27689, 3317}, {-25639.5, 3317}, {-25639.5, 3322.5}}, color = {0, 0, 127}));
-  connect(gain.y, add.u1) annotation(
-    Line(points = {{-24196, 3322.5}, {-23046, 3322.5}, {-23046, 2784}, {-22213, 2784}}, color = {0, 0, 127}));
-  connect(integrator.u, feedback.y) annotation(
-    Line(points = {{-25663, 575}, {-27689, 575}, {-27689, 3317}}, color = {0, 0, 127}));
-  connect(integrator.y, add.u2) annotation(
+ connect(gain.y, add.u1) annotation(
+    Line(points = {{-26120, 3384.5}, {-23046, 3384.5}, {-23046, 2784}, {-22213, 2784}}, color = {0, 0, 127}));
+ connect(Error_Integrator.y, add.u2) annotation(
     Line(points = {{-24037, 575}, {-23099, 575}, {-23099, 1967}, {-22213, 1967}}, color = {0, 0, 127}));
-  connect(QrefPu, feedback.u1) annotation(
-    Line(points = {{-15513, 838}, {-13748, 838}, {-13748, 6702}, {-29801, 6702}, {-29801, 3317}, {-29138, 3317}}, color = {0, 0, 127}));
-  connect(UFilterRefPu, add1.u2) annotation(
-    Line(points = {{-15544, 2093}, {-14278, 2093}, {-14278, 3682}, {-17377, 3682}, {-17377, 4568}, {-16884, 4568}}, color = {0, 0, 127}));
-  connect(gain1.y, add1.u1) annotation(
-    Line(points = {{-17813, 5480}, {-16884, 5480}, {-16884, 5385}}, color = {0, 0, 127}));
-  connect(gain1.u, add.y) annotation(
-    Line(points = {{-19256, 5480}, {-19894, 5480}, {-19894, 2376}, {-20648, 2376}}, color = {0, 0, 127}));
   connect(lessThreshold.y, and1.u1) annotation(
     Line(points = {{32155.5, 7098.5}, {33156.4, 7098.5}, {33156.4, 6776.5}, {37050, 6776.5}}, color = {255, 0, 255}));
   connect(switch1.u2, and1.y) annotation(
@@ -326,16 +318,8 @@ equation
     Line(points = {{2712, -1361}, {2805, -1361}, {2805, -5829}, {21571, -5829}, {21571, 400}, {20652, 400}}, color = {0, 0, 127}));
   connect(virtualSynchroMachine.theta, theta) annotation(
     Line(points = {{3395, 3961}, {6979, 3961}, {6979, 7071}, {17946, 7071}}, color = {0, 0, 127}));
-  connect(add1.y, VoltageFilterReference.UFilterRefPu) annotation(
-    Line(points = {{-15319, 4976.5}, {-12874, 4976.5}, {-12874, 1369}, {-10369, 1369}}, color = {0, 0, 127}));
-  connect(QrefPu, VoltageFilterReference.QRefPu) annotation(
-    Line(points = {{-15513, 838}, {-12546, 838}, {-12546, 853}, {-10369, 853}}, color = {0, 0, 127}));
-  connect(feedback.u2, measurementPcc.QGenPu) annotation(
-    Line(points = {{-28456, 2635}, {-28356, 2635}, {-28356, -8375}, {32106, -8375}, {32106, -729}, {31179, -729}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, virtualSynchroMachine.omegaPLLPu) annotation(
     Line(points = {{-1099, 3531}, {-395, 3531}, {-395, 3024}, {1290, 3024}}, color = {0, 0, 127}));
-  connect(measurementPcc.QGenPu, VoltageFilterReference.QMesurePu) annotation(
-    Line(points = {{31179, -729}, {32640, -729}, {32640, -7624}, {-13283, -7624}, {-13283, 216}, {-10369, 216}}, color = {0, 0, 127}));
   connect(VirtualImpedance.DeltaVVIq, VoltageFilterReference.DeltaVVIq) annotation(
     Line(points = {{-14434, -2241}, {-12634, -2241}, {-12634, -2410}, {-10369, -2410}}, color = {0, 0, 127}));
   connect(VirtualImpedance.DeltaVVId, VoltageFilterReference.DeltaVVId) annotation(
@@ -344,14 +328,38 @@ equation
     Line(points = {{-1189, -65}, {-1305, -65}, {-1305, -6484}, {-18718, -6484}, {-18718, -2000}, {-16491, -2000}}, color = {0, 0, 127}));
   connect(VoltageFilterControl.iqConvRefPu, VirtualImpedance.iqConvPu) annotation(
     Line(points = {{-1189, -754}, {-449, -754}, {-449, -7340}, {-17535, -7340}, {-17535, -2406}, {-16482, -2406}, {-16482, -2399}}, color = {0, 0, 127}));
- connect(currentFilterLoop.udConvRefPu, VSC.udConvRefPu) annotation(
+  connect(currentFilterLoop.udConvRefPu, VSC.udConvRefPu) annotation(
     Line(points = {{10655, 651}, {16312, 651}, {16312, 605}, {18602, 605}}, color = {0, 0, 127}));
- connect(currentFilterLoop.uqConvRefPu, VSC.uqConvRefPu) annotation(
+  connect(currentFilterLoop.uqConvRefPu, VSC.uqConvRefPu) annotation(
     Line(points = {{10655, -649}, {13131, -649}, {13131, 46}, {18602, 46}}, color = {0, 0, 127}));
- connect(virtualSynchroMachine.PMesurePu, measurementPcc.PGenPu) annotation(
+  connect(virtualSynchroMachine.PMesurePu, measurementPcc.PGenPu) annotation(
     Line(points = {{1290, 3636}, {241, 3636}, {241, -4378}, {32952, -4378}, {32952, -416}, {31179, -416}}, color = {0, 0, 127}));
+  connect(UFilterRefPu, VoltageFilterReference.UFilterRefPu) annotation(
+    Line(points = {{-15544, 2092}, {-13530, 2092}, {-13530, 1368}, {-10368, 1368}}, color = {0, 0, 127}));
+  connect(Site, switch11.u2) annotation(
+    Line(points = {{-24271, 7043}, {-21258, 7043}, {-21258, 7018}, {-18184, 7018}}, color = {255, 0, 255}));
+  connect(switch11.y, VoltageFilterReference.QRefPu) annotation(
+    Line(points = {{-15102, 7018}, {-12600, 7018}, {-12600, 854}, {-10368, 854}}, color = {0, 0, 127}));
+ connect(Error.y, gain.u) annotation(
+    Line(points = {{-29944, 3340}, {-27563.5, 3340}, {-27563.5, 3384.5}}, color = {0, 0, 127}));
+ connect(Error_Integrator.u, Error.y) annotation(
+    Line(points = {{-25664, 576}, {-28860, 576}, {-28860, 3340}, {-29944, 3340}}, color = {0, 0, 127}));
+ connect(Lambda.y, Error.u2) annotation(
+    Line(points = {{-38042, 3284}, {-32846, 3284}, {-32846, 3340}}, color = {0, 0, 127}));
+ connect(Lambda.u, measurementPcc.QGenPu) annotation(
+    Line(points = {{-38862, 3284}, {-40280, 3284}, {-40280, -10396}, {36836, -10396}, {36836, -728}, {31180, -728}}, color = {0, 0, 127}));
+ connect(Uref.y, Error.u1) annotation(
+    Line(points = {{-41162, 4395}, {-37208, 4395}, {-37208, 4350}, {-32846, 4350}}, color = {0, 0, 127}));
+ connect(Error.u3, measurementPcc.UModule) annotation(
+    Line(points = {{-32846, 2330}, {-36370, 2330}, {-36370, -11420}, {38232, -11420}, {38232, 1042}, {31180, 1042}}, color = {0, 0, 127}));
+ connect(add.y, switch11.u1) annotation(
+    Line(points = {{-20648, 2376}, {-20296, 2376}, {-20296, 8090}, {-18184, 8090}}, color = {0, 0, 127}));
+ connect(QrefPu, switch11.u3) annotation(
+    Line(points = {{-23770, 5120}, {-19768, 5120}, {-19768, 5946}, {-18184, 5946}}, color = {0, 0, 127}));
+ connect(VSC.QFilterPu, VoltageFilterReference.QMesurePu) annotation(
+    Line(points = {{20652, -1874}, {22374, -1874}, {22374, -8628}, {-12940, -8628}, {-12940, 216}, {-10368, 216}}, color = {0, 0, 127}));
 protected
  annotation(
-    Diagram(coordinateSystem(extent = {{-29800, 9480}, {47920, -8400}})));
+    Diagram(coordinateSystem(extent = {{-43260, 9500}, {47940, -11440}})));
 
-end GFM_VSM_cc_v3Prope_ForRLFilter;
+end GFM_VSM_cc_v3Prope_ForRLFilter_Site;
