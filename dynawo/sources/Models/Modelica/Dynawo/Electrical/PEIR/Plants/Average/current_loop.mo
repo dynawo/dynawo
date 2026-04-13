@@ -19,7 +19,7 @@ model current_loop
   Modelica.Blocks.Interfaces.RealInput v_d (start=vd_0) annotation(
     Placement(
       transformation(origin = {60, 212}, extent = {{-12, -12}, {12, 12}}, rotation = -90),
-      iconTransformation(origin = {32, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+      iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omega_pll (start=Omega0Pu) annotation(
     Placement(
       transformation(origin = {-208, 0}, extent = {{-10, -10}, {10, 10}}),
