@@ -26,7 +26,7 @@ model VSC_with_pade_delay
   Modelica.Blocks.Interfaces.RealOutput uimConvPu(start = UqConv0Pu)
     "Converter q-axis voltage (pu)" annotation(
       Placement(transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114, -20}, extent = {{-10, -10}, {10, 10}})));
-  // joy said that the delay plays a very big delay so it is interesting to add
+  
   // Padé 1° order for VSC Delay
   // e^{-s tVSC} ≈ (1 - s tVSC/2) / (1 + s tVSC/2)
   Modelica.Blocks.Continuous.TransferFunction pade_d(

@@ -25,8 +25,8 @@ model Plant_controller
   parameter Real Q0Pu     "Initial reactive power (pu)  in generator convection";
   parameter Real P0Pu     "Initial active power (pu)  in generator convection";
   parameter Real Omega0Pu  "Initial frequency (pu) - nominal";
-  parameter Real QInj0Pu  "Intial reactive power in pu in gnerator convenction";
-  parameter Real PInj0Pu "Intial reactive power in pu in gnerator convenction";
+  parameter Real QInj0Pu  "Initial reactive power in pu in gnerator convenction";
+  parameter Real PInj0Pu "Initial active power in pu in gnerator convenction";
 
   // URef0: error = URef - (U + lambda*Q) = 0 at t=0
   final parameter Real URef0Pu = U0Pu + Lambda * Q0Pu;
@@ -36,36 +36,32 @@ model Plant_controller
   // ── Inputs ───────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu)
     "Voltage setpoint (pu)" annotation(
-    Placement(transformation(origin = {-160, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {-160, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -48}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealInput UfiltPu(start = U0Pu)
     "Filtered PCC voltage magnitude (pu)" annotation(
-    Placement(transformation(origin = {-160, 61}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-6, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {-160, 61}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {56, -111}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Interfaces.RealInput QfiltPu(start = Q0Pu)
     "Filtered reactive power (pu)" annotation(
-    Placement(transformation(origin = {-160, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {40, 112}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {-160, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu)
     "Active power setpoint - constant (pu)" annotation(
-    Placement(transformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealInput PfiltPu(start = P0Pu)
     "Filtered active power (pu)" annotation(
-    Placement(transformation(origin = {-156, -100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -8}, extent = {{-10, -10}, {10, 10}})));
-
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu)
-    "Frequency setpoint - external input (pu)" annotation(
-    Placement(transformation(origin = {-162, -47}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -67}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-156, -100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Interfaces.RealInput omegaPLLPu(start = Omega0Pu)
     "Measured frequency from PLL (pu)" annotation(
-    Placement(transformation(origin = {-160, -61}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, -111}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {-160, -59}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -9}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   // ── Outputs ──────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealOutput QInjRefPu(start = QInj0Pu) 
     "Reactive power reference to outer loop (pu)" annotation(
-    Placement(transformation(origin = {166, 70}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {116, -50}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {166, 70}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {116, -48}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.RealOutput PInjRefPu(start = PInj0Pu)
     "Active power reference to outer loop (pu)" annotation(
@@ -152,9 +148,10 @@ model Plant_controller
 
   Modelica.Blocks.Sources.Constant zeroP(k = 0) annotation(
     Placement(transformation(origin = {94, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
+  Modelica.Blocks.Sources.Constant const(k = 1)  annotation(
+    Placement(transformation(origin = {-157, -35}, extent = {{-7, -7}, {7, 7}})));
 equation
-  // ── Reactive / voltage path ──────────────────────────────────
+// ── Reactive / voltage path ──────────────────────────────────
   connect(QfiltPu, lambdaGain.u) annotation(
     Line(points = {{-160, 40}, {-90, 40}, {-90, 20}, {-84, 20}}, color = {0, 0, 127}));
   connect(UfiltPu, uLambdaQ.u1) annotation(
@@ -173,12 +170,9 @@ equation
     Line(points = {{72, 43}, {72, 58}}, color = {0, 0, 127}));
   connect(piQ.y, QInjRefPu) annotation(
     Line(points = {{83, 70}, {166, 70}}, color = {0, 0, 127}));
-
-  // ── Active power path ────────────────────────────────────────
-  connect(omegaRefPu, freqErr.u1) annotation(
-    Line(points = {{-162, -47}, {-138, -47}}, color = {0, 0, 127}));
+// ── Active power path ────────────────────────────────────────
   connect(omegaPLLPu, freqErr.u2) annotation(
-    Line(points = {{-160, -61}, {-149, -61}, {-149, -59}, {-138, -59}}, color = {0, 0, 127}));
+    Line(points = {{-160, -59}, {-138, -59}}, color = {0, 0, 127}));
   connect(freqErr.y, freqDeadband.u) annotation(
     Line(points = {{-115, -53}, {-107, -53}}, color = {0, 0, 127}));
   connect(freqDeadband.y, droopGain.u) annotation(
@@ -191,7 +185,6 @@ equation
     Line(points = {{3, -21}, {8.5, -21}, {8.5, -33}, {16, -33}}, color = {0, 0, 127}));
   connect(PfiltPu, activePowerErr.u2) annotation(
     Line(points = {{-156, -100}, {0, -100}, {0, -45}, {16, -45}}, color = {0, 0, 127}));
-
   connect(activePowerErr.y, piP.u_s) annotation(
     Line(points = {{39, -39}, {82, -39}}, color = {0, 0, 127}));
   connect(zeroP.y, piP.u_m) annotation(
@@ -200,6 +193,8 @@ equation
     Line(points = {{-20, -27}, {-20, -49.5}, {-27, -49.5}, {-27, -49}}, color = {0, 0, 127}));
   connect(piP.y, PInjRefPu) annotation(
     Line(points = {{105, -39}, {105, -40}, {174, -40}}, color = {0, 0, 127}));
+  connect(freqErr.u1, const.y) annotation(
+    Line(points = {{-138, -46}, {-149, -46}, {-149, -35}}, color = {0, 0, 127}));
   annotation(
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
     Icon(graphics = {

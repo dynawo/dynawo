@@ -1,119 +1,134 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
 model LCDynFilter
+  "LC filter in RI coordinates (pu) between a left port (voltage source) and a right node (to network)"
 
-  "LC filter in real/imag (RI) coordinates, dynamics similar to DynRLCFilter (all in pu)"
   // ── Initial conditions for states and I/O (pu) ───────────────
-  parameter Real urConvPu0    "Initial converter real-axis voltage (pu)";
-  parameter Real uiConvPu0    "Initial converter imag-axis voltage (pu)";
+  // Left-side voltage (es. convertitore)
+  parameter Real uLeft_rePu0  "Initial left-side real-axis voltage (pu)";
+  parameter Real uLeft_imPu0  "Initial left-side imag-axis voltage (pu)";
 
-  parameter Real iPcc_rePu0   "Initial real-axis PCC current (from filter to network, pu)";
-  parameter Real iPcc_imPu0   "Initial imag-axis PCC current (from filter to network, pu)";
+  // Currents drawn by the external network at the right node
+  // (positive from filter node to external network)
+  parameter Real iRight_rePu0 "Initial real-axis current from right node to network (pu)";
+  parameter Real iRight_imPu0 "Initial imag-axis current from right node to network (pu)";
 
+  // Electrical frequency
   parameter Real omegaPu0     "Initial per-unit electrical frequency (pu)";
 
-  parameter Real iConv_rePu0  "Initial real-axis converter current into filter (pu)";
-  parameter Real iConv_imPu0  "Initial imag-axis converter current into filter (pu)";
+  // Inductor current from left into the filter branch
+  parameter Real iLeft_rePu0  "Initial real-axis inductor current from left into filter (pu)";
+  parameter Real iLeft_imPu0  "Initial imag-axis inductor current from left into filter (pu)";
 
-  parameter Real uFilt_rePu0  "Initial real-axis filter node voltage (pu)";
-  parameter Real uFilt_imPu0  "Initial imag-axis filter node voltage (pu)";
+  // Right node voltage (node connected to network)
+  parameter Real uRight_rePu0 "Initial real-axis right-node voltage (pu)";
+  parameter Real uRight_imPu0 "Initial imag-axis right-node voltage (pu)";
 
-  // Series RL (between converter and filter node)
-  parameter Real RfPu "Filter series resistance R_f (pu)";
-  parameter Real LfPu "Filter inductance L_f (pu)";
+  // Series RL (between left side and right node)
+  parameter Real RfPu "Series resistance R_f (pu)";
+  parameter Real LfPu "Series inductance L_f (pu)";
 
-  // Shunt capacitance at filter node
-  parameter Real CfPu "Filter shunt capacitance C_f (pu)";
+  // Shunt capacitance at right node
+  parameter Real CfPu "Shunt capacitance C_f at right node (pu)";
 
   // Nominal angular frequency (base), e.g. SystemBase.omegaNom
   parameter Real omegaNom "Nominal angular frequency (rad/s or pu base)";
 
   // ── Inputs ──────────────────────────────────────────────────
-  // Converter-side voltages (re/im) in pu
-  Modelica.Blocks.Interfaces.RealInput urConvPu (start=urConvPu0)
-    "Converter real-axis voltage (pu)" annotation(
-      Placement(transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}})));
+  // Left-side voltages (re/im) in pu
+  Modelica.Blocks.Interfaces.RealInput uLeft_rePu (start = uLeft_rePu0)
+    "Left-side real-axis voltage (pu)" annotation(
+      Placement(transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}})));
 
-  Modelica.Blocks.Interfaces.RealInput uiConvPu (start=uiConvPu0)
-    "Converter imag-axis voltage (pu)" annotation(
-      Placement(transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 8}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealInput uLeft_imPu (start = uLeft_imPu0)
+    "Left-side imag-axis voltage (pu)" annotation(
+      Placement(transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {-120, 8}, extent = {{-20, -20}, {20, 20}})));
 
-  // Currents drawn by the network at the filter node (PCC side), in pu
-  // Positive when flowing from filter node into the network
-  Modelica.Blocks.Interfaces.RealInput iPcc_rePu (start=iPcc_rePu0)
-    "Real-axis current from filter node to rest of network (pu)" annotation(
-      Placement(transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, -34}, extent = {{-20, -20}, {20, 20}})));
+  // Currents drawn by the network at the right node (pu)
+  // Positive when flowing from right node into the external network
+  Modelica.Blocks.Interfaces.RealInput iRight_rePu (start = iRight_rePu0)
+    "Real-axis current from right node to network (pu)" annotation(
+      Placement(transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {120, -34}, extent = {{-20, -20}, {20, 20}})));
 
-  Modelica.Blocks.Interfaces.RealInput iPcc_imPu (start=iPcc_imPu0)
-    "Imag-axis current from filter node to rest of network (pu)" annotation(
-      Placement(transformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, -82}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealInput iRight_imPu (start = iRight_imPu0)
+    "Imag-axis current from right node to network (pu)" annotation(
+      Placement(transformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {120, -82}, extent = {{-20, -20}, {20, 20}})));
 
   // PLL frequency (per-unit)
-  Modelica.Blocks.Interfaces.RealInput omegaPu (start=omegaPu0)
+  Modelica.Blocks.Interfaces.RealInput omegaPu (start = omegaPu0)
     "Per-unit electrical frequency (pu, from PLL)" annotation(
-      Placement(transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+      Placement(transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {-60, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 
   // ── Outputs ─────────────────────────────────────────────────
-  // Inductor current on converter side: current flowing from converter into filter
-  Modelica.Blocks.Interfaces.RealOutput iConv_rePu (start=iConv_rePu0)
-    "Real-axis current from converter into filter (pu)" annotation(
-      Placement(transformation(origin = {120, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -34}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  // Inductor current on left side: current flowing from left into filter branch
+  Modelica.Blocks.Interfaces.RealOutput iLeft_rePu (start = iLeft_rePu0)
+    "Real-axis current from left into filter (pu)" annotation(
+      Placement(transformation(origin = {120, -20}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {-120, -34}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
-  Modelica.Blocks.Interfaces.RealOutput iConv_imPu (start=iConv_imPu0)
-    "Imag-axis current from converter into filter (pu)" annotation(
-      Placement(transformation(origin = {120, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.RealOutput iLeft_imPu (start = iLeft_imPu0)
+    "Imag-axis current from left into filter (pu)" annotation(
+      Placement(transformation(origin = {120, -60}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
-  // Filter node voltage (this is the PCC voltage from filter side)
-  Modelica.Blocks.Interfaces.RealOutput uFilt_rePu (start=uFilt_rePu0)
-    "Real-axis voltage at filter node (pu)" annotation(
-      Placement(transformation(origin = {120, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, 72}, extent = {{-20, -20}, {20, 20}})));
+  // Right node voltage (node connected to network)
+  Modelica.Blocks.Interfaces.RealOutput uRight_rePu (start = uRight_rePu0)
+    "Right-node real-axis voltage (pu)" annotation(
+      Placement(transformation(origin = {120, 60}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {120, 72}, extent = {{-20, -20}, {20, 20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput uFilt_imPu (start=uFilt_imPu0)
-    "Imag-axis voltage at filter node (pu)" annotation(
-      Placement(transformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealOutput uRight_imPu (start = uRight_imPu0)
+    "Right-node imag-axis voltage (pu)" annotation(
+      Placement(transformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}}),
+                iconTransformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}})));
 
 protected
-  // States: inductor currents (converter side) and capacitor voltage at filter node
-  Real iConv_re   "Lf real-axis current (pu)";
-  Real iConv_im   "Lf imag-axis current (pu)";
-  Real uFilt_re   "Filter node real-axis voltage (pu)";
-  Real uFilt_im   "Filter node imag-axis voltage (pu)";
+  // States: inductor currents (left side) and node voltage (right side)
+  Real iLeft_re   "Inductor real-axis current from left into filter (pu)";
+  Real iLeft_im   "Inductor imag-axis current from left into filter (pu)";
+  Real uRight_re  "Right-node real-axis voltage (pu)";
+  Real uRight_im  "Right-node imag-axis voltage (pu)";
 
 equation
-  // ── Inductor dynamics (series branch between converter and filter node) ──
-  // Lf/omegaNom * d(i_d)/dt = u_d_conv - Rf*i_d + omegaPu*Lf*i_q - u_d_filt
-  // Lf/omegaNom * d(i_q)/dt = u_q_conv - Rf*i_q - omegaPu*Lf*i_d - u_q_filt
+  // ── Inductor dynamics (series branch between left and right node) ──
+  // Lf/omegaNom * d(i_d)/dt = u_d_left - Rf*i_d + omegaPu*Lf*i_q - u_d_right
+  // Lf/omegaNom * d(i_q)/dt = u_q_left - Rf*i_q - omegaPu*Lf*i_d - u_q_right
 
-  LfPu/omegaNom * der(iConv_re) =
-    urConvPu - RfPu * iConv_re + omegaPu * LfPu * iConv_im - uFilt_re;
+  LfPu/omegaNom * der(iLeft_re) =
+    uLeft_rePu - RfPu * iLeft_re + omegaPu * LfPu * iLeft_im - uRight_re;
 
-  LfPu/omegaNom * der(iConv_im) =
-    uiConvPu - RfPu * iConv_im - omegaPu * LfPu * iConv_re - uFilt_im;
+  LfPu/omegaNom * der(iLeft_im) =
+    uLeft_imPu - RfPu * iLeft_im - omegaPu * LfPu * iLeft_re - uRight_im;
 
-  // ── Capacitor dynamics at filter node (shunt Cf to ground) ──
-  // Cf/omegaNom * d(u_d_filt)/dt = i_d_conv + omegaPu*Cf*u_q_filt - i_d_PCC
-  // Cf/omegaNom * d(u_q_filt)/dt = i_q_conv - omegaPu*Cf*u_d_filt - i_q_PCC
+  // ── Capacitor dynamics at right node (shunt Cf to ground) ──
+  // Cf/omegaNom * d(u_d_right)/dt = i_d_left + omegaPu*Cf*u_q_right - i_d_right
+  // Cf/omegaNom * d(u_q_right)/dt = i_q_left - omegaPu*Cf*u_d_right - i_q_right
 
-  CfPu/omegaNom * der(uFilt_re) =
-    iConv_re + omegaPu * CfPu * uFilt_im - iPcc_rePu;
+  CfPu/omegaNom * der(uRight_re) =
+    iLeft_re + omegaPu * CfPu * uRight_im - iRight_rePu;
 
-  CfPu/omegaNom * der(uFilt_im) =
-    iConv_im - omegaPu * CfPu * uFilt_re - iPcc_imPu;
+  CfPu/omegaNom * der(uRight_im) =
+    iLeft_im - omegaPu * CfPu * uRight_re - iRight_imPu;
 
   // ── Outputs ────────────────────────────────────────────────
-  iConv_rePu = iConv_re;
-  iConv_imPu = iConv_im;
+  iLeft_rePu  = iLeft_re;
+  iLeft_imPu  = iLeft_im;
 
-  uFilt_rePu = uFilt_re;
-  uFilt_imPu = uFilt_im;
+  uRight_rePu = uRight_re;
+  uRight_imPu = uRight_im;
 
   annotation(
-    uses(Modelica(version="3.2.3")),
+    uses(Modelica(version = "3.2.3")),
     Icon(graphics = {
-      Rectangle(extent={{-100,100},{100,-100}}),
-      Text(origin={0,60}, extent={{-80,20},{80,-20}},
-           textString="LC Filter")
+      Rectangle(extent = {{-100, 100}, {100, -100}}),
+      Text(origin = {-4, 12}, extent = {{-80, 20}, {80, -20}},
+           textString = "RLC 
+filter")
     }),
-    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
-
+    Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 end LCDynFilter;

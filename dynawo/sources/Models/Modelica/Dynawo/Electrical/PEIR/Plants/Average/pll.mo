@@ -8,13 +8,15 @@ model pll "Phase-Locked Loop"
   parameter Types.PerUnit OmegaMinPu "Lower frequency limit in pu (base OmegaNom)";
   // Initial parameter
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+  parameter Real Omega0Pu "initial frequency in pu";
+  parameter Real uqgrid0PU "initial voltage on q axis";
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system in pu (base OmegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) "Reference frequency of the system in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = 0) annotation(
+  Modelica.Blocks.Interfaces.RealInput uqgridPu(start =uqgrid0PU) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // Output variables
-  Modelica.Blocks.Interfaces.RealOutput omegaPLLPu(start = SystemBase.omegaRef0Pu) "Measured frequency in pu (base OmegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput omegaPLLPu(start = Omega0Pu) "Measured frequency in pu (base OmegaNom)" annotation(
     Placement(transformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Voltage phase at PCC in rad" annotation(
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}})));
@@ -23,7 +25,7 @@ model pll "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin = OmegaMinPu - SystemBase.omegaRef0Pu) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Ki, outMax = OmegaMaxPu - Omega0Pu, outMin = OmegaMinPu - Omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -44,9 +46,9 @@ equation
     Line(points = {{61, 0}, {80, 0}, {80, -54}, {98, -54}}, color = {0, 0, 127}));
   connect(gain.y, add1.u1) annotation(
     Line(points = {{11, 20}, {20, 20}, {20, 6}, {38, 6}}, color = {0, 0, 127}));
-  connect(uqFilterPu, gain.u) annotation(
+  connect(uqgridPu, gain.u) annotation(
     Line(points = {{-150, 0}, {-60, 0}, {-60, 20}, {-12, 20}}, color = {0, 0, 127}));
-  connect(limIntegrator.u, uqFilterPu) annotation(
+  connect(limIntegrator.u, uqgridPu) annotation(
     Line(points = {{-12, -20}, {-60, -20}, {-60, 0}, {-150, 0}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
