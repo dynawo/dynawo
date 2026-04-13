@@ -68,13 +68,44 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
     for (std::shared_ptr<Constraint> & constraint : constraints) {
       const string & descr = constraint->getDescription();
       Type_t type = constraint->getType();
+      std::string s = constraint->getModelName();
+        std::string substr = "DM_ADA";
+        if (s.find(substr) != std::string::npos) {
+          std::cout << constraint->getModelName() << ", " << filterType << ", " << descr << std::endl;
+        }
 
       if ((constraintsByDescr.find(descr) == constraintsByDescr.end()) || (activeConstraints.find(descr) == activeConstraints.end())) {  // open constraint
+        if (s.find(substr) != std::string::npos) {
+          std::cout << "boucle 1, " << descr << std::endl;
+          if (constraintsByDescr.find(descr) == constraintsByDescr.end()) {
+            std::cout << "option 1" << std::endl;
+          }
+          if (activeConstraints.find(descr) == activeConstraints.end()) {
+            std::cout << "option 2" << std::endl;
+          }
+          if (constraint->getData()) {
+            ConstraintData localData = constraint->getData().get();
+            std::cout << "data : " << localData.value << ", limit : " <<  localData.limit << std::endl;
+          }
+        }
         if (type == CONSTRAINT_BEGIN) {
+          ConstraintData beginData = constraint->getData().get();
+          if (!beginData.valueMax && (beginData.value > beginData.limit)) {
+            beginData.valueMax = beginData.value;
+          } else if (!beginData.valueMin && (beginData.value < beginData.limit)) {
+            beginData.valueMin = beginData.value;
+          }
+          constraint->setData(beginData);
           constraintsByDescr[descr].push_back(constraint);
           activeConstraints.insert(descr);
+          if (s.find(substr) != std::string::npos) {
+            std::cout << "contrainte begin" << std::endl;
+          }
         }
       } else if (filterType == DYN::CONSTRAINTS_DYNAFLOW) {
+        if (s.find(substr) != std::string::npos) {
+          std::cout << "boucle 2, " << descr << ", data : " << constraint->getData()->value << ", limit : " <<  constraint->getData()->limit << std::endl;
+        }
         std::shared_ptr<Constraint> & lastConstraint = constraintsByDescr[descr].back();
         if (lastConstraint->getData() && constraint->getData()) {  // update constraint by merging datas
           ConstraintData mergedData = lastConstraint->getData().get();
@@ -93,6 +124,9 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
         if (type == CONSTRAINT_END)  // close constraint
           activeConstraints.erase(activeConstraints.find(descr));
       } else if ((filterType == DYN::CONSTRAINTS_KEEP_FIRST) && (type == CONSTRAINT_END)) {  // classic mode, forget closed constraints
+        if (s.find(substr) != std::string::npos) {
+          std::cout << "boucle 3, " << descr << std::endl;
+        }
           constraintsByDescr.erase(constraintsByDescr.find(descr));
       }
     }

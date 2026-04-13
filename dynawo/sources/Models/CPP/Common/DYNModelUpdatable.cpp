@@ -82,6 +82,6 @@ void
 ModelUpdatable::setFequations() { /* not needed for DYNModelUpdatable */}
 
 void
-ModelUpdatable::initParams() { /* not needed for DYNModelUpdatable */}
+ModelUpdatable::initParams(const double /*t0*/) { /* not needed for DYNModelUpdatable */}
 
 }  // namespace DYN

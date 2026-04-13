@@ -1163,7 +1163,7 @@ ModelNetwork::getY0() {
 }
 
 void
-ModelNetwork::initParams() {
+ModelNetwork::initParams(const double /*t0*/) {
   if (!withNodeBreakerTopology_) {
     isInitModel_ = false;
     vLevelInitComponents_.clear();

@@ -91,7 +91,7 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
   /**
    * @copydoc SubModel::initParams()
    */
-  void initParams() override { /*no parameter*/ }
+  void initParams(double t0) override { /*no parameter*/ }
 
   /**
    * @copydoc SubModel::evalStaticFType()

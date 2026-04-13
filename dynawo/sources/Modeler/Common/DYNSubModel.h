@@ -1453,8 +1453,9 @@ class SubModel {
 
   /**
    * @brief initialize the parameters thanks to external values and internal equations
+   * @param t0 : initial time of the simulation
    */
-  virtual void initParams() = 0;
+  virtual void initParams(double t0) = 0;
 
   /**
    * @brief write initial variables values of a model in a file

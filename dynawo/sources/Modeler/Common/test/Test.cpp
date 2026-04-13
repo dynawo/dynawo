@@ -240,7 +240,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void initParams() override {
+  void initParams(const double t0) override {
     // Dummy class used for testing
   }
 

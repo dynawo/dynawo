@@ -657,7 +657,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
       assert(0);
   }
 
-  mm->initParams();
+  mm->initParams(0);
 
   for (std::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
       it != itEnd; ++it) {

@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.mo
   package.order
   CurrentLimitAutomaton.mo
+  CurrentLimitAutomaton_INIT.mo
   CurrentLimitAutomaton.extvar
   CurrentLimitAutomatonTwoLevels.mo
   CurrentLimitAutomatonTwoLevels.extvar

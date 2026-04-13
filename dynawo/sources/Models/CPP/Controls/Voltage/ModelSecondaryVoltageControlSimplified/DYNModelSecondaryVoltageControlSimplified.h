@@ -199,7 +199,7 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
   /**
    * @copydoc ModelCPP::initParams()
    */
-  void initParams() override { /* not needed */ }
+  void initParams(double t0) override { /* not needed */ }
   /**
    * @brief initialize the model from data interface
    *

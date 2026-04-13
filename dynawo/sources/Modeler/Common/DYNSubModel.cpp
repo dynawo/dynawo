@@ -177,7 +177,7 @@ SubModel::initSub(const double t0, const std::shared_ptr<parameters::ParametersS
 
   if (!withLoadedParameters_) {
     saveData();
-    initParams();
+    initParams(t0);
     restoreData();
   }
 

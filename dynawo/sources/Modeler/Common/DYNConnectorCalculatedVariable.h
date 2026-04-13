@@ -89,9 +89,9 @@ class ConnectorCalculatedVariable : public SubModel {
   void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
 
   /**
-   * @copydoc SubModel::initParams()
+   * @copydoc SubModel::initParams(double t0)
    */
-  void initParams() override { /*no parameter*/ }
+  void initParams(double t0) override { /*no parameter*/ }
 
   /**
    * @copydoc SubModel::evalStaticFType()

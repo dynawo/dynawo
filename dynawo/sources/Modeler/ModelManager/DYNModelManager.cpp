@@ -516,7 +516,7 @@ ModelManager::setSharedParametersDefaultValues(const bool isInit, const paramete
 }
 
 void
-ModelManager::initParams() {
+ModelManager::initParams(const double t0) {
   if (!hasInit()) {
     modelInitUsed_ = false;
     return;  // no init model => nothing to do
@@ -540,13 +540,13 @@ ModelManager::initParams() {
   getSize();
 
   // block init for calculation
-  setManagerTime(getCurrentTime());
+  setManagerTime(t0);
 
   associateBuffers();
   // call the parameter calculation method
   solveParameters();
   try {
-    checkDataCoherence(getCurrentTime());
+    checkDataCoherence(t0);
     checkParametersCoherence();
   } catch (const MessageError& Msg) {
     Trace::error() << Msg.what() << Trace::endline;

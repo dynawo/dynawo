@@ -211,7 +211,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::initParams() override;
    */
-  void initParams() override;
+  void initParams(double t0) override;
 
   /**
   * @brief write initial values parameters of a model in a file

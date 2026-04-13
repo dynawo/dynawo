@@ -258,7 +258,7 @@ class ModelVariationArea : public ModelCPP {
   /**
    * @copydoc ModelCPP::initParams()
    */
-  void initParams() override { /* not needed */ }
+  void initParams(double t0) override { /* not needed */ }
 
  private:
   // parameters

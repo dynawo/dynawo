@@ -280,7 +280,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   /**
    * @copydoc ModelCPP::initParams()
    */
-  void initParams() override;
+  void initParams(double t0) override;
 
    /**
    * @copydoc ModelCPP::initSubBuffers()
