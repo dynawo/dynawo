@@ -229,13 +229,13 @@ initial algorithm
   WTG4B.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
-  ZPcs.switchOffSignal1.value = false;
-  ZPcs.switchOffSignal2.value = false;
-  Zcc.switchOffSignal1.value = false;
-  Zcc.switchOffSignal2.value = false;
-  WTG4B.injector.switchOffSignal1.value = false;
-  WTG4B.injector.switchOffSignal2.value = false;
-  WTG4B.injector.switchOffSignal3.value = false;
+  ZPcs.switchOffSignal1 = false;
+  ZPcs.switchOffSignal2 = false;
+  Zcc.switchOffSignal1 = false;
+  Zcc.switchOffSignal2 = false;
+  WTG4B.injector.switchOffSignal1 = false;
+  WTG4B.injector.switchOffSignal2 = false;
+  WTG4B.injector.switchOffSignal3 = false;
 
   connect(infiniteBus.terminal, Zcc.terminal1) annotation(
     Line(points = {{-180, 0}, {-160, 0}}, color = {0, 0, 255}));

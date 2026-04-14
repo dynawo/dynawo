@@ -25,7 +25,7 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
   parameter Types.Time tLagBeforeActing "Time lag before taking action in s";
 
   //Inputs
-  Dynawo.Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton natively present in C++ object";
+  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton natively present in C++ object";
   Dynawo.Connectors.ImPin IMonitored "Monitored current (unit depending on IMax unit)";
 
   //Output
@@ -57,6 +57,7 @@ equation
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);
   end when;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The automaton will open one or several components when the current stays higher than a predefined threshold during a certain amount of time on a monitored component (line, transformer, etc.).</body></html>"));
 end CurrentLimitAutomaton;

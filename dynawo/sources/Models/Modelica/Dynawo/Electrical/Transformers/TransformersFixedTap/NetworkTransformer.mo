@@ -74,7 +74,7 @@ model NetworkTransformer "Two windings transformer with a fixed ratio, same mode
   final parameter Real factorPuToASide2 = 1000. * SystemBase.SnRef / (sqrt(3.) * U2Nom);
 
 equation
-  if (running.value) then
+  if running then
     terminal2.V = rTfoPu * terminal1.V + ZPu * terminal2.i;
     terminal1.i = rTfoPu * rTfoPu * YPu * terminal1.V - rTfoPu * terminal2.i;
     // Equations can also be rewritten with the following
@@ -90,7 +90,7 @@ equation
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
-  if (running.value) then
+  if running then
     if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
       U1Pu = 0;
     else

@@ -42,9 +42,9 @@ model LineFault "AC power line with fault - PI models"
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Fault connectors
-  Dynawo.Connectors.BPin lineFault(value(start = false)) "True when the fault is ongoing, false otherwise";
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(extent = {{0, 0}, {0, 0}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput lineFault(start = false) "True when the fault is ongoing, false otherwise";
 
   // Output variables
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
@@ -56,20 +56,20 @@ model LineFault "AC power line with fault - PI models"
   Dynawo.Electrical.Lines.Line line2(RPu = (1 - D) * RPu, XPu = (1 - D) * XPu, GPu = (1 - D) * GPu, BPu = (1 - D) * BPu);
 
 equation
-  line1.switchOffSignal1.value = switchOffSignal1.value;
-  line1.switchOffSignal2.value = false;
-  line2.switchOffSignal1.value = switchOffSignal1.value;
-  line2.switchOffSignal2.value = false;
+  line1.switchOffSignal1 = switchOffSignal1;
+  line1.switchOffSignal2 = false;
+  line2.switchOffSignal1 = switchOffSignal1;
+  line2.switchOffSignal2 = false;
 
   when time >= tEnd then
     Timeline.logEvent1(TimelineKeys.LineFaultEnd);
-    lineFault.value = false;
+    lineFault = false;
   elsewhen time >= tBegin then
     Timeline.logEvent1(TimelineKeys.LineFaultBegin);
-    lineFault.value = true;
+    lineFault = true;
   end when;
 
-  if lineFault.value or switchOffSignal1.value then
+  if lineFault or switchOffSignal1 then
     terminal.V = -ZFaultPu * terminal.i;
   else
     terminal.i = Complex(0);
@@ -97,5 +97,5 @@ The LineFault model is a juxtaposition of two classical Pi-line models with a po
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |          |           </span><span style=\"font-family: 'Courier New'; font-size: 12pt;\">|              </span><span style=\"font-family: 'Courier New'; font-size: 12pt;\">|</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                   ---        ---         </span><span style=\"font-family: 'Courier New'; font-size: 12pt;\">---            </span><span style=\"font-family: 'Courier New'; font-size: 12pt;\">---</span><span style=\"font-family: 'Courier New'; font-size: 12pt;\"><br></span><span style=\"font-family: 'Courier New'; font-size: 12pt;\">
 </span><p><span style=\"font-family: -webkit-standard; white-space: normal;\">Since the impedances are in series, the total impedance is their sum : R+jX.</span></p><p><span style=\"font-family: -webkit-standard; white-space: normal;\">Since the admittances are in parallel, the total admittance is their sum : G+jB.&nbsp;</span></p><!--EndFragment--></pre></div><div><div><pre style=\"text-align: center; margin-top: 0px; margin-bottom: 0px;\"><!--EndFragment--></pre></div></div></body></html>"),
-  Icon(graphics = {Polygon(origin = {0, -57}, fillPattern = FillPattern.Solid, points = {{0, 45}, {-6, 5}, {20, 5}, {0, -45}, {6, -5}, {-20, -5}, {0, 45}, {0, 45}})}));
+    Icon(graphics = {Polygon(origin = {0, -57}, fillPattern = FillPattern.Solid, points = {{0, 45}, {-6, 5}, {20, 5}, {0, -45}, {6, -5}, {-20, -5}, {0, 45}, {0, 45}})}));
 end LineFault;

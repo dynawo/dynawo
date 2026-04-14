@@ -30,18 +30,18 @@ model BaseSheetI5
 
 equation
   // Switches
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  line21.switchOffSignal1.value = if time < 2.1501 then false else true;
-  line21.switchOffSignal2.value = if time < 2.1501 then false else true;
-  line22.switchOffSignal1.value = if time < 2.1501 then false else true;
-  line22.switchOffSignal2.value = if time < 2.1501 then false else true;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  line21.switchOffSignal1 = if time < 2.1501 then false else true;
+  line21.switchOffSignal2 = if time < 2.1501 then false else true;
+  line22.switchOffSignal1 = if time < 2.1501 then false else true;
+  line22.switchOffSignal2 = if time < 2.1501 then false else true;
 
   // If the fault test doesn't run, try changing the switches equations with those below
-  //  line21.switchOffSignal1.value = false;
-  //  line21.switchOffSignal2.value = false;
-  //  line22.switchOffSignal1.value = false;
-  //  line22.switchOffSignal2.value = false;
+  //  line21.switchOffSignal1 = false;
+  //  line21.switchOffSignal2 = false;
+  //  line22.switchOffSignal1 = false;
+  //  line22.switchOffSignal2 = false;
 
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-100, 0}, {-80, 0}, {-80, 50}, {-70, 50}}, color = {0, 0, 255}));

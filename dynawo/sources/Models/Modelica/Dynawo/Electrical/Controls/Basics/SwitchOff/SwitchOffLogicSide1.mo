@@ -17,11 +17,11 @@ partial model SwitchOffLogicSide1 "Manage switch-off logic for side 1 of a quadr
 
   parameter Integer NbSwitchOffSignalsSide1(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 
-  Dynawo.Connectors.BPin switchOffSignal1Side1(value(start = SwitchOffSignal1Side10)) "Switch-off signal 1 for side 1 of the quadripole";
-  Dynawo.Connectors.BPin switchOffSignal2Side1(value(start = SwitchOffSignal2Side10)) if NbSwitchOffSignalsSide1 >= 2 "Switch-off signal 2 for side 1 of the quadripole";
-  Dynawo.Connectors.BPin switchOffSignal3Side1(value(start = SwitchOffSignal3Side10)) if NbSwitchOffSignalsSide1 >= 3 "Switch-off signal 3 for side 1 of the quadripole";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1Side1(start = SwitchOffSignal1Side10) "Switch-off signal 1 for side 1 of the quadripole";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2Side1(start = SwitchOffSignal2Side10) if NbSwitchOffSignalsSide1 >= 2 "Switch-off signal 2 for side 1 of the quadripole";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3Side1(start = SwitchOffSignal3Side10) if NbSwitchOffSignalsSide1 >= 3 "Switch-off signal 3 for side 1 of the quadripole";
 
-  Dynawo.Connectors.BPin runningSide1(value(start = RunningSide10)) "Indicates if the component is running on side 1 or not";
+  Modelica.Blocks.Interfaces.BooleanOutput runningSide1(start = RunningSide10) "Indicates if the component is running on side 1 or not";
 
   parameter Boolean SwitchOffSignal1Side10 = false "Initial switch-off signal 1 for side 1 of the quadripole";
   parameter Boolean SwitchOffSignal2Side10 = false "Initial switch-off signal 2 for side 1 of the quadripole";
@@ -31,22 +31,22 @@ partial model SwitchOffLogicSide1 "Manage switch-off logic for side 1 of a quadr
 
 equation
   if (NbSwitchOffSignalsSide1 >= 3) then
-    when switchOffSignal1Side1.value or switchOffSignal2Side1.value or switchOffSignal3Side1.value and pre(runningSide1.value) then
-      runningSide1.value = false;
-    elsewhen not switchOffSignal1Side1.value and not switchOffSignal2Side1.value and not switchOffSignal3Side1.value and not pre(runningSide1.value) then
-      runningSide1.value = true;
+    when switchOffSignal1Side1 or switchOffSignal2Side1 or switchOffSignal3Side1 and pre(runningSide1) then
+      runningSide1 = false;
+    elsewhen not switchOffSignal1Side1 and not switchOffSignal2Side1 and not switchOffSignal3Side1 and not pre(runningSide1) then
+      runningSide1 = true;
     end when;
   elseif (NbSwitchOffSignalsSide1 >= 2) then
-    when switchOffSignal1Side1.value or switchOffSignal2Side1.value and pre(runningSide1.value) then
-      runningSide1.value = false;
-    elsewhen not switchOffSignal1Side1.value and not switchOffSignal2Side1.value and not pre(runningSide1.value) then
-      runningSide1.value = true;
+    when switchOffSignal1Side1 or switchOffSignal2Side1 and pre(runningSide1) then
+      runningSide1 = false;
+    elsewhen not switchOffSignal1Side1 and not switchOffSignal2Side1 and not pre(runningSide1) then
+      runningSide1 = true;
     end when;
   else
-    when switchOffSignal1Side1.value and pre(runningSide1.value) then
-      runningSide1.value = false;
-    elsewhen not switchOffSignal1Side1.value and not pre(runningSide1.value) then
-      runningSide1.value = true;
+    when switchOffSignal1Side1 and pre(runningSide1) then
+      runningSide1 = false;
+    elsewhen not switchOffSignal1Side1 and not pre(runningSide1) then
+      runningSide1 = true;
     end when;
   end if;
 

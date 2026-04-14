@@ -34,10 +34,10 @@ model LVRTIBGa "Low voltage ride through for aggregated IBG"
   parameter Types.PerUnit g(min=0, max=1) "Share of units that disconnect at ULVRTArmingPu";
   parameter Types.PerUnit h(min=0, max=1) "Fraction of ULVRTArmingPu at which all units are disconnected";
 
-  Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
-
   Modelica.Blocks.Interfaces.RealInput UMonitoredPu "Monitored voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
+  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the generator";
 
   Types.PerUnit aux3(start = 1) "Auxiliary variable used to compute f3";
   Types.PerUnit f1(start = 1) "Partial tripping coefficient for trips in period [0, tLVRTMin], equals to 1 if no trip, 0 if fully tripped";
@@ -55,16 +55,16 @@ protected
 
 equation
   // Arming
-  when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal.value)) then
+  when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LVRTArming);
-  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
+  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
   end when;
 
   // Computation of minimum voltages
-  if switchOffSignal.value == true or tThresholdReached == Constants.inf then  // Not armed or tripped
+  if switchOffSignal == true or tThresholdReached == Constants.inf then  // Not armed or tripped
     der(UMin1Pu) = 0;
     der(UMinIntPu) = 0;
     der(UMinMaxPu) = 0;
@@ -87,7 +87,7 @@ equation
   end if;
 
   // Computation of tMaxRecovery
-  if switchOffSignal.value == true or tThresholdReached == Constants.inf then  // Not armed or tripped
+  if switchOffSignal == true or tThresholdReached == Constants.inf then  // Not armed or tripped
     der(tMaxRecovery) = 0;
   else
     tMaxRecovery + tFilter * der(tMaxRecovery) = if (time - tThresholdReached) > tMaxRecovery then (time - tThresholdReached) else tMaxRecovery;
@@ -120,7 +120,7 @@ equation
     f3 = 0;
   end if;*/
   // Modified model
-  if time - tThresholdReached < tLVRTMax and time - tThresholdReached > tLVRTInt and switchOffSignal.value == false and tThresholdReached <> Constants.inf then
+  if time - tThresholdReached < tLVRTMax and time - tThresholdReached > tLVRTInt and switchOffSignal == false and tThresholdReached <> Constants.inf then
     aux3 = g * (UMonitoredPu - (f*ULVRTIntPu + (h*ULVRTArmingPu - f*ULVRTIntPu) * (time - tThresholdReached - tLVRTInt) / (tLVRTMax - tLVRTInt)));
     f3 + der(f3) * tFilter = if aux3 < f3 then aux3 else f3;
   else
@@ -139,7 +139,7 @@ equation
   fLVRT = f1 * f2 * f3 * f4;
 
   when fLVRT < 0.001 then
-    switchOffSignal.value = true;
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
   end when;
 

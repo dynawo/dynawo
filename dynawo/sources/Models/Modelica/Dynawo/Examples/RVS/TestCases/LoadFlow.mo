@@ -168,12 +168,12 @@ model LoadFlow "Model of load flow calculation for the RVS test system"
     Q0Pu_sVarC_10114 = -1.2514318403502432);
 
 equation
-  line_106_110.switchOffSignal1.value = false;
-  line_106_110.switchOffSignal2.value = false;
-  line_reactor_110.switchOffSignal1.value = false;
-  line_reactor_110.switchOffSignal2.value = false;
-  line_reactor_106.switchOffSignal1.value = false;
-  line_reactor_106.switchOffSignal2.value = false;
+  line_106_110.switchOffSignal1 = false;
+  line_106_110.switchOffSignal2 = false;
+  line_reactor_110.switchOffSignal1 = false;
+  line_reactor_110.switchOffSignal2 = false;
+  line_reactor_106.switchOffSignal1 = false;
+  line_reactor_106.switchOffSignal2 = false;
 
   annotation(
     preferredView = "diagram",

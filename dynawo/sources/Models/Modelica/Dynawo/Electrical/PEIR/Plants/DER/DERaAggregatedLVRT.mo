@@ -38,8 +38,8 @@ model DERaAggregatedLVRT "der_a model with aggregate LVRT model"
 equation
   der(partialTrippingRatio) * 1e-3 = (FRT.connectedShare * lvrt.fLVRT) - partialTrippingRatio;
 
-  when (FRT.connectedShare <= 0.001 or lvrt.switchOffSignal.value) and not pre(injector.switchOffSignal3.value) then
-    injector.switchOffSignal3.value = true;
+  when (FRT.connectedShare <= 0.001 or lvrt.switchOffSignal) and not pre(injector.switchOffSignal3) then
+    injector.switchOffSignal3 = true;
   end when;
 
   connect(UFilter.y, lvrt.UMonitoredPu) annotation(

@@ -169,11 +169,11 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-16, -16}, {16, 16}}, rotation = -90)));
 
 equation
-  generatorSynchronous.switchOffSignal1.value = false;
-  generatorSynchronous.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal3.value = false;
-  avr.running = generatorSynchronous.running.value;
+  generatorSynchronous.switchOffSignal1 = false;
+  generatorSynchronous.switchOffSignal2 = false;
+  generatorSynchronous.switchOffSignal3 = false;
 
+  connect(avr.running, generatorSynchronous.running);
   connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
     Line(points = {{152, 80}, {110, 80}, {110, 54}, {118, 54}}, color = {0, 0, 127}, pattern = LinePattern.Dash));

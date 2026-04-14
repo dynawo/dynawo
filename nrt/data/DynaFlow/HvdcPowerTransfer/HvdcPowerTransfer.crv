@@ -18,6 +18,6 @@
   <curve model="HVDC2" variable="acemulation_PRefSetPu"/>
   <curve model="HVDC1" variable="acemulation_KACEmulation"/>
   <curve model="HVDC2" variable="acemulation_KACEmulation"/>
-  <curve model="HVDC1" variable="hvdc_running_value"/>
-  <curve model="HVDC2" variable="hvdc_running_value"/>
+  <curve model="HVDC1" variable="hvdc_running"/>
+  <curve model="HVDC2" variable="hvdc_running"/>
 </curvesInput>

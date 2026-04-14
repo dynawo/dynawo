@@ -91,14 +91,14 @@ equation
     transformerVariableTap.tap.value = tapChanger.tap.value;
   end when;
 
-  transformerVariableTap.switchOffSignal1.value = tapChanger.switchOffSignal1.value;
-  transformerVariableTap.switchOffSignal2.value = tapChanger.switchOffSignal2.value;
+  transformerVariableTap.switchOffSignal1 = tapChanger.switchOffSignal1;
+  transformerVariableTap.switchOffSignal2 = tapChanger.switchOffSignal2;
 
   connect(P1Pu, transformerVariableTap.P1Pu);
   connect(Q1Pu, transformerVariableTap.Q1Pu);
 
-  switchOffSignal1.value = transformerVariableTap.switchOffSignal1.value;
-  switchOffSignal2.value = transformerVariableTap.switchOffSignal2.value;
+  switchOffSignal1 = transformerVariableTap.switchOffSignal1;
+  switchOffSignal2 = transformerVariableTap.switchOffSignal2;
 
   connect(transformerVariableTap.terminal1, terminal1) annotation(
     Line(points = {{-10, 0}, {-100, 0}}, color = {0, 0, 255}));

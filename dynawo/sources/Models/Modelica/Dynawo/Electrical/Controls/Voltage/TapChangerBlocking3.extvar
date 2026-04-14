@@ -15,6 +15,6 @@
   <variable type="continuous" id="UMonitored1.value"/>
   <variable type="continuous" id="UMonitored2.value"/>
   <variable type="continuous" id="UMonitored3.value"/>
-  <variable type="discrete" id="blockOrder.value" defaultValue="false"/>
-  <variable type="discrete" id="unblockOrder.value" defaultValue="false"/>
+  <variable type="discrete" id="blockOrder" defaultValue="false"/>
+  <variable type="discrete" id="unblockOrder" defaultValue="false"/>
 </external_variables>

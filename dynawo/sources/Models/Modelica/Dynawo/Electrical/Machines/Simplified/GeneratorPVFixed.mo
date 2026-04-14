@@ -25,7 +25,7 @@ model GeneratorPVFixed "Generator with fixed active power and voltage"
 equation
   UPhase = ComplexMath.arg(terminal.V);
 
-  if running.value then
+  if running then
     PGenPu = PGen0Pu;
     UPu = U0Pu;
   else

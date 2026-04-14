@@ -25,7 +25,7 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
   extends AdditionalIcons.Machine;
 
 equation
-  if running.value then
+  if running then
     QGenPu = QGen0Pu;
   else
     terminal.i.im = 0;

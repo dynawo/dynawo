@@ -115,9 +115,9 @@ model TestCase1 "Voltage reference step on the synchronous machine (and its regu
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-16, -16}, {16, 16}}, rotation = -90)));
 
 equation
-  generatorSynchronous.switchOffSignal1.value = false;
-  generatorSynchronous.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal3.value = false;
+  generatorSynchronous.switchOffSignal1 = false;
+  generatorSynchronous.switchOffSignal2 = false;
+  generatorSynchronous.switchOffSignal3 = false;
 
   connect(Omega0Pu.y, pss.omegaRefPu);
   connect(Omega0Pu.y, governor.omegaRefPu);

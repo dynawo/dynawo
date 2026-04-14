@@ -24,7 +24,7 @@ model IdealTransformerVariableTap "Ideal transformer (lossless) with a variable 
   extends AdditionalIcons.Transformer;
 
 equation
-  if (running.value) then
+  if running then
     // Transformer equations
     terminal1.i = - rTfoPu * terminal2.i;
     rTfoPu * terminal1.V = terminal2.V;

@@ -24,8 +24,8 @@ model BaseSheetI2
 
 equation
   // Switches
-  Xcc_a.switchOffSignal1.value = false;
-  Xcc_a.switchOffSignal2.value = false;
+  Xcc_a.switchOffSignal1 = false;
+  Xcc_a.switchOffSignal2 = false;
 
   connect(infiniteBus.terminal, Xcc_a.terminal1) annotation(
     Line(points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}));

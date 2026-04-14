@@ -29,11 +29,11 @@ model HVRT "High-voltage ride-through protection"
   Modelica.Blocks.Interfaces.RealInput UMonitoredPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Placement(transformation(origin = {-160, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-108, -20}, extent = {{-20, -20}, {20, 20}})));
 
-  // Output variable
+  // Output variables
   Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the machine";
 
-  Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the machine";
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(tableOnFile = true, tableName = TabletUoverUfilt, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer annotation(
@@ -58,16 +58,16 @@ protected
   Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold is reached in s";
 
 equation
-  when filter.y >= UOverPu and not (pre(switchOffSignal.value)) then
+  when filter.y >= UOverPu and not (pre(switchOffSignal)) then
     Timeline.logEvent1(TimelineKeys.HVRTArming);
     tThresholdReached = time;
-  elsewhen (not (filter.y >= UOverPu)) and pre(tThresholdReached) <> Modelica.Constants.inf and not (pre(switchOffSignal.value)) and (not timer1.u) then
+  elsewhen (not (filter.y >= UOverPu)) and pre(tThresholdReached) <> Modelica.Constants.inf and not (pre(switchOffSignal)) and (not timer1.u) then
     Timeline.logEvent1(TimelineKeys.HVRTDisarming);
     tThresholdReached = Modelica.Constants.inf;
   end when;
 
   when fOCB then
-    switchOffSignal.value = true;
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.HVRTTripped);
   end when;
 

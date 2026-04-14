@@ -27,7 +27,7 @@ model HvdcPTanPhiDangling "Model for P/tan(Phi) HVDC link with terminal2 connect
 equation
   QInj1RawPu = tanPhi1Ref * PInj1Pu;
 
-  if runningSide1.value then
+  if runningSide1 then
     if QInj1RawPu >= Q1MaxPu then
      QInj1Pu = Q1MaxPu;
     elseif QInj1RawPu <= Q1MinPu then

@@ -211,11 +211,11 @@ initial algorithm
   BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal1.value = false;
-  BESS.injector.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal1 = false;
+  BESS.injector.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal3 = false;
 
   connect(QRefPu.y, BESS.QRefPu) annotation(
     Line(points = {{80, 0}, {42, 0}}, color = {0, 0, 127}));

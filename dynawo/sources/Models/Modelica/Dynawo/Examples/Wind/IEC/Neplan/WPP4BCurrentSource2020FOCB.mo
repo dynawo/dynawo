@@ -243,9 +243,9 @@ initial algorithm
   wPP4BCurrentSource.uWt0Pu.im := wPP4CurrentSource_INIT.uWt0Pu.im;
 
 equation
-  wPP4BCurrentSource.wT4BCurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wPP4BCurrentSource.wT4BCurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wPP4BCurrentSource.wT4BCurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wPP4BCurrentSource.wT4BCurrentSource.wT4Injector.switchOffSignal1 = false;
+  wPP4BCurrentSource.wT4BCurrentSource.wT4Injector.switchOffSignal2 = false;
+  wPP4BCurrentSource.wT4BCurrentSource.wT4Injector.switchOffSignal3 = false;
 
   connect(wPP4BCurrentSource.terminal, transformer.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));

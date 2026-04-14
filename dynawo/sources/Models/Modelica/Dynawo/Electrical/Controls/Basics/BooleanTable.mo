@@ -22,7 +22,7 @@ model BooleanTable "Generates a Boolean output signal based on a table stored in
     caption = "Open file in which table is present")));
   parameter String TableName = "NoName" "Table name on file or in function usertab (see docu)";
 
-  Dynawo.Connectors.BPin source "Output value";
+  Modelica.Blocks.Interfaces.BooleanOutput source "Output value";
 
   Modelica.Blocks.Sources.BooleanTable booleanTable(
     combiTimeTable.tableName = TableName,
@@ -34,7 +34,7 @@ model BooleanTable "Generates a Boolean output signal based on a table stored in
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  source.value = booleanTable.y;
+  source = booleanTable.y;
 
   annotation(preferredView = "text");
 end BooleanTable;

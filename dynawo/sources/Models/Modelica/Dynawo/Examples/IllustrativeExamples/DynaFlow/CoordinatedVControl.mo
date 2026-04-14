@@ -117,15 +117,15 @@ initial algorithm
 
 equation
   // SwitchOffSignals
-  Generator1.switchOffSignal1.value = false;
-  Generator1.switchOffSignal2.value = false;
-  Generator1.switchOffSignal3.value = false;
-  Generator2.switchOffSignal1.value = false;
-  Generator2.switchOffSignal2.value = false;
-  Generator2.switchOffSignal3.value = false;
-  Line1.switchOffSignal1.value = false;
-  Line1.switchOffSignal2.value = false;
-  Line1bis.switchOffSignal1.value = false;
+  Generator1.switchOffSignal1 = false;
+  Generator1.switchOffSignal2 = false;
+  Generator1.switchOffSignal3 = false;
+  Generator2.switchOffSignal1 = false;
+  Generator2.switchOffSignal2 = false;
+  Generator2.switchOffSignal3 = false;
+  Line1.switchOffSignal1 = false;
+  Line1.switchOffSignal2 = false;
+  Line1bis.switchOffSignal1 = false;
 
   // Generators controls and references
   Generator1.N = SignalN.step;
