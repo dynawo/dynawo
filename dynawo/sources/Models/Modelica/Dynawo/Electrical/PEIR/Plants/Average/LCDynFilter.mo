@@ -88,11 +88,11 @@ model LCDynFilter
                 iconTransformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}})));
 
 protected
-  // States: inductor currents (left side) and node voltage (right side)
-  Real iLeft_re   "Inductor real-axis current from left into filter (pu)";
-  Real iLeft_im   "Inductor imag-axis current from left into filter (pu)";
-  Real uRight_re  "Right-node real-axis voltage (pu)";
-  Real uRight_im  "Right-node imag-axis voltage (pu)";
+protected
+  Real iLeft_re(start = iLeft_rePu0);
+  Real iLeft_im(start = iLeft_imPu0);
+  Real uRight_re(start = uRight_rePu0);
+  Real uRight_im(start = uRight_imPu0);
 
 equation
   // ── Inductor dynamics (series branch between left and right node) ──
