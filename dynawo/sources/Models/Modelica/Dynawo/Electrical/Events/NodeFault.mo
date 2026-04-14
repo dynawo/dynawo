@@ -21,7 +21,7 @@ model NodeFault "Node fault which lasts from tBegin to tEnd"
 
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {2, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.BPin nodeFault(value(start = false)) "True when the fault is ongoing, false otherwise";
+  Modelica.Blocks.Interfaces.BooleanInput nodeFault(start = false) "True when the fault is ongoing, false otherwise";
 
   parameter Types.PerUnit RPu "Fault resistance in pu (base SnRef)";
   parameter Types.PerUnit XPu "Fault reactance in pu (base SnRef)";
@@ -34,19 +34,20 @@ protected
 equation
   when time >= tEnd then
     Timeline.logEvent1(TimelineKeys.NodeFaultEnd);
-    nodeFault.value = false;
+    nodeFault = false;
   elsewhen time >= tBegin then
     Timeline.logEvent1(TimelineKeys.NodeFaultBegin);
-    nodeFault.value = true;
+    nodeFault = true;
   end when;
 
-  if nodeFault.value then
+  if nodeFault then
     terminal.V = ZPu * terminal.i;
   else
     terminal.i = Complex(0);
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>During the fault, the impedance between the node and the ground is defined by R and X values.</body></html>"),
-  Icon(graphics = {Polygon(origin = {0, 55}, fillPattern = FillPattern.Solid, points = {{0, 45}, {-6, 5}, {20, 5}, {0, -45}, {6, -5}, {-20, -5}, {0, 45}, {0, 45}})}));
+    Icon(graphics = {Polygon(origin = {0, 55}, fillPattern = FillPattern.Solid, points = {{0, 45}, {-6, 5}, {20, 5}, {0, -45}, {6, -5}, {-20, -5}, {0, 45}, {0, 45}})}));
 end NodeFault;

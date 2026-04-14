@@ -47,35 +47,35 @@ equation
     tValueAboveMaxWhileRunning = Constants.inf;
     valueUnderStop = true;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBelowStop);
-   elsewhen running.value and locked then
+   elsewhen running and locked then
     valueAboveMax = pre(valueAboveMax);
     tValueAboveMaxWhileRunning = Constants.inf;
     valueUnderStop = pre(valueUnderStop);
   end when;
 
-  lookingToDecreaseTap = running.value and valueAboveMax and decreaseTapToDecreaseValue;
-  lookingToIncreaseTap = running.value and valueAboveMax and increaseTapToDecreaseValue;
+  lookingToDecreaseTap = running and valueAboveMax and decreaseTapToDecreaseValue;
+  lookingToIncreaseTap = running and valueAboveMax and increaseTapToDecreaseValue;
 
   //Transition to "Locked" (possible from any state and prioritary)
-  when (not running.value) or locked then
+  when (not running) or locked then
     state = State.Locked;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveDown" (possible from any state except down states)
-  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running.value and not(locked) then
+  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running and not(locked) then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveUp" (possible from any state except up states)
-  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running.value and not(locked) then
+  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running and not(locked) then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "Standard" (possible from any state)
-  elsewhen valueUnderStop and pre(state) <> State.Standard and running.value and not(locked) then
+  elsewhen valueUnderStop and pre(state) <> State.Standard and running and not(locked) then
     state = State.Standard;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;

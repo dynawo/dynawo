@@ -56,7 +56,7 @@ partial model BaseTransformer "Base model for a general two winding transformer 
   parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
 equation
-  if (running.value) then
+  if running then
     // Kirchoff law
     rTfoPu * ComplexMath.conj(rTfoPu) * terminal1.V = ComplexMath.conj(rTfoPu) * terminal2.V + ZPu * terminal1.i;
     terminal1.i = ComplexMath.conj(rTfoPu) * (YPu * terminal2.V - terminal2.i);
@@ -65,7 +65,7 @@ equation
     terminal2.i = Complex(0);
   end if;
 
-  if (running.value) then
+  if running then
   // Variables for display or connection to another model (tap-changer for example)
     P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));

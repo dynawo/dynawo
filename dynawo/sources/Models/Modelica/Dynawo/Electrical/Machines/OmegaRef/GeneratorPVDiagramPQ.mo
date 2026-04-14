@@ -78,7 +78,7 @@ equation
     Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
-  if running.value then
+  if running then
     URefPu + deltaURefPu.value = UPu + LambdaPu * (QGenRefPu + T * der(QGenRefPu));
     QGenPu = if qStatus == QStatus.AbsorptionMax then QMaxPu else if qStatus == QStatus.GenerationMax then QMinPu else QGenRefPu;
   else

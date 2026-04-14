@@ -52,11 +52,11 @@ model BaseSVarCTestCase "Base model for SVarC test cases"
     Placement(visible = true, transformation(origin = {-28, 20}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  sVarCStandard.injector.switchOffSignal1.value = false;
-  sVarCStandard.injector.switchOffSignal2.value = false;
-  sVarCStandard.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  sVarCStandard.injector.switchOffSignal1 = false;
+  sVarCStandard.injector.switchOffSignal2 = false;
+  sVarCStandard.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, infiniteBus.terminal) annotation(
     Line(points = {{72, 20}, {102, 20}}, color = {0, 0, 255}));

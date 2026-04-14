@@ -221,11 +221,11 @@ initial algorithm
   WTG4B.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  WTG4B.injector.switchOffSignal1.value = false;
-  WTG4B.injector.switchOffSignal2.value = false;
-  WTG4B.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  WTG4B.injector.switchOffSignal1 = false;
+  WTG4B.injector.switchOffSignal2 = false;
+  WTG4B.injector.switchOffSignal3 = false;
 
   connect(infiniteBus.terminal, line.terminal1) annotation(
     Line(points = {{-80, 0}, {-60, 0}}, color = {0, 0, 255}));

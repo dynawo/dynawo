@@ -24,8 +24,8 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
     Placement(visible = true, transformation(origin = {-270, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  when lvrt.switchOffSignal.value or frequencyProtection.switchOffSignal.value or overVoltageProtection.switchOffSignal.value and not pre(injector.switchOffSignal3.value) then
-    injector.switchOffSignal3.value = true;
+  when lvrt.switchOffSignal or frequencyProtection.switchOffSignal or overVoltageProtection.switchOffSignal and not pre(injector.switchOffSignal3) then
+    injector.switchOffSignal3 = true;
   end when;
 
   connect(UFilter.y, lvrt.UMonitoredPu) annotation(

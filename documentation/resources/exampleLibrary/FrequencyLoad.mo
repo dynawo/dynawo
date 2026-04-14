@@ -23,7 +23,7 @@ model FrequencyLoad "Load with frequency-dependent active and reactive power"
     Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
 
   equation
-    if (running.value) then
+    if running then
       PPu = PLoadPu.value * ((omegaRefPu/omegaRef0Pu) ^ Gamma);
       QPu = QLoadPu.value * ((omegaRefPu/omegaRef0Pu) ^ Delta);
     else

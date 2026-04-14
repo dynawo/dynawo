@@ -24,33 +24,33 @@ model LVRTIBG "Low voltage ride through for IBG"
   parameter Types.VoltageModulePu ULVRTIntPu "Voltage threshold under which the automaton is activated after tLVRTMin in pu (base UNom)";
   parameter Types.VoltageModulePu ULVRTMinPu "Voltage threshold under which the automaton is activated instantaneously in pu (base UNom)";
 
-  Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
-
   Modelica.Blocks.Interfaces.RealInput UMonitoredPu "Monitored voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
+  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the generator";
 
 protected
   Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold was reached in s";
 
 equation
   // Arming
-  when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal.value)) then
+  when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LVRTArming);
-  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Modelica.Constants.inf and not(pre(switchOffSignal.value)) then
+  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Modelica.Constants.inf and not(pre(switchOffSignal)) then
     tThresholdReached = Modelica.Constants.inf;
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
   end when;
 
   // Tripping
-  when UMonitoredPu < ULVRTMinPu and not pre(switchOffSignal.value) then  // No delay
-    switchOffSignal.value = true;
+  when UMonitoredPu < ULVRTMinPu and not pre(switchOffSignal) then  // No delay
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
-  elsewhen time - tThresholdReached >= tLVRTMin and UMonitoredPu < ULVRTIntPu and not pre(switchOffSignal.value) then
-    switchOffSignal.value = true;
+  elsewhen time - tThresholdReached >= tLVRTMin and UMonitoredPu < ULVRTIntPu and not pre(switchOffSignal) then
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
-  elsewhen UMonitoredPu >= ULVRTIntPu and  time - tThresholdReached >= tLVRTInt + (tLVRTMax - tLVRTInt) * (UMonitoredPu - ULVRTIntPu) / (ULVRTArmingPu - ULVRTIntPu) and not pre(switchOffSignal.value) then
-    switchOffSignal.value = true;
+  elsewhen UMonitoredPu >= ULVRTIntPu and time - tThresholdReached >= tLVRTInt + (tLVRTMax - tLVRTInt) * (UMonitoredPu - ULVRTIntPu) / (ULVRTArmingPu - ULVRTIntPu) and not pre(switchOffSignal) then
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
   end when;
 

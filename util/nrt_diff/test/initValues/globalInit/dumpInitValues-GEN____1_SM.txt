@@ -76,12 +76,12 @@ voltageRegulator_limiterWithLag_y                 : y =        1.11383 yp =     
  ====== INIT DISCRETE VARIABLES VALUES ======
 voltageRegulator_limiterWithLag_tUMaxReached      : z =          1e+60
 voltageRegulator_limiterWithLag_tUMinReached      : z =          1e+60
-generator_running_value                           : z =              1
-generator_switchOffSignal1_value                  : z =             -1
-generator_switchOffSignal2_value                  : z =             -1
-generator_switchOffSignal3_value                  : z =             -1
-voltageRegulator_limitationDown_value             : z =             -1
-voltageRegulator_limitationUp_value               : z =             -1
+generator_running                                 : z =              1
+generator_switchOffSignal1                        : z =             -1
+generator_switchOffSignal2                        : z =             -1
+generator_switchOffSignal3                        : z =             -1
+voltageRegulator_limitationDown                   : z =             -1
+voltageRegulator_limitationUp                     : z =             -1
 voltageRegulator_limiterWithLag_initSaturatedMax  : z =             -1
 voltageRegulator_limiterWithLag_initSaturatedMin  : z =             -1
 generator_state                                   : z =              2

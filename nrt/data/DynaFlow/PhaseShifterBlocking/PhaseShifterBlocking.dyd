@@ -13,7 +13,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:macroConnector id="GEN_NETWORK_CONNECTOR">
     <dyn:connect var1="generator_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
-    <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
+    <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff_value"/>
   </dyn:macroConnector>
   <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
     <dyn:connect var1="generator_N" var2="signalN_N"/>
@@ -84,7 +84,7 @@
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_tap" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_step"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_P" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_P1"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_iMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1"/>
-  <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_disable_internal_tapChanger"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_disable_internal_tapChanger_value"/>
   <dyn:blackBoxModel id="PhaseShifterLock" lib="PhaseShifterBlockingI" parFile="PhaseShifterBlocking.par" parId="PhaseShifterLock"/>
   <dyn:connect id1="PhaseShifterLock" var1="phaseShifterBlockingI_IMonitored" id2="NETWORK" var2="_BUS____5-BUS____6-1_PS_i1_value"/>
   <dyn:connect id1="PhaseShifterLock" var1="phaseShifterBlockingI_locked" id2="PhaseShifter" var2="phaseShifter_locked"/>

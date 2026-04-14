@@ -65,8 +65,8 @@ initial equation
 
 equation
   tfoVariableTap.locked = false;
-  tfoVariableTap.switchOffSignal1.value = false;
-  tfoVariableTap.switchOffSignal2.value = false;
+  tfoVariableTap.switchOffSignal1 = false;
+  tfoVariableTap.switchOffSignal2 = false;
 
   connect(tfoVariableTap.terminal1, terminal1) annotation(
     Line(points = {{-50, 0}, {-110, 0}}, color = {0, 0, 255}));

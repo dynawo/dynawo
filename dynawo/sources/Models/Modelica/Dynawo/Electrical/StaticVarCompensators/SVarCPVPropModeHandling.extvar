@@ -16,6 +16,6 @@
   <variable type="discrete" id="setModeManual"/>
   <variable type="discrete" id="selectModeAuto" defaultValue="true"/>
   <variable type="continuous" id="URef" optional="true"/>
-  <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2" defaultValue="false"/>
 </external_variables>

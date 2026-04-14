@@ -33,7 +33,7 @@ protected
   Types.ReactivePower zQ(start = 1.0) "Bounded zQRaw";
 
 equation
-  if (running.value) then
+  if running then
     if terminal.V == Complex(0) then
       Tp * der(zPRaw) = 0.;
       Tq * der(zQRaw) = 0.;

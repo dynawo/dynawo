@@ -58,8 +58,8 @@ equation
     Timeline.logEvent1(TimelineKeys.PartialTripping);
   end when;
 
-  when lvrt.switchOffSignal.value or frequencyProtection.switchOffSignal.value or overVoltageProtection.switchOffSignal.value and not pre(injector.switchOffSignal3.value) then
-    injector.switchOffSignal3.value = true;
+  when lvrt.switchOffSignal or frequencyProtection.switchOffSignal or overVoltageProtection.switchOffSignal and not pre(injector.switchOffSignal3) then
+    injector.switchOffSignal3 = true;
   end when;
 
   connect(UFilter.y, lvrt.UMonitoredPu) annotation(

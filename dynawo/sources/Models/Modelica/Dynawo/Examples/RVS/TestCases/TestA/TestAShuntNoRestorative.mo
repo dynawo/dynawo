@@ -238,14 +238,14 @@ model TestAShuntNoRestorative "RVS test system simulation case : shunt connectio
     Placement(visible = true, transformation(origin = {-294, -206}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
 
 equation
-  line_106_110.switchOffSignal1.value = if time < event_time_line_sw1 then false else true;
-  line_106_110.switchOffSignal2.value = if time < event_time_line_sw2 then false else true;
-  line_reactor_110.switchOffSignal1.value = if time < event_time_reactor110_sw1 then false else true;
-  line_reactor_110.switchOffSignal2.value = if time < event_time_reactor110_sw2 then false else true;
-  line_reactor_106.switchOffSignal1.value = if time < event_time_reactor106_sw1 then false else true;
-  line_reactor_106.switchOffSignal2.value = if time < event_time_reactor106_sw2 then false else true;
-  shunt.switchOffSignal1.value = if time < event_time_loadstep then true else false;
-  shunt.switchOffSignal2.value = if time < event_time_loadstep then true else false;
+  line_106_110.switchOffSignal1 = if time < event_time_line_sw1 then false else true;
+  line_106_110.switchOffSignal2 = if time < event_time_line_sw2 then false else true;
+  line_reactor_110.switchOffSignal1 = if time < event_time_reactor110_sw1 then false else true;
+  line_reactor_110.switchOffSignal2 = if time < event_time_reactor110_sw2 then false else true;
+  line_reactor_106.switchOffSignal1 = if time < event_time_reactor106_sw1 then false else true;
+  line_reactor_106.switchOffSignal2 = if time < event_time_reactor106_sw2 then false else true;
+  shunt.switchOffSignal1 = if time < event_time_loadstep then true else false;
+  shunt.switchOffSignal2 = if time < event_time_loadstep then true else false;
 
   connect(shunt.terminal, bus_101_ABEL.terminal) annotation(
     Line(points = {{-294, -206}, {-168, -206}}, color = {0, 0, 255}));

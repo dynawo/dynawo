@@ -50,7 +50,7 @@ equation
   PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
   QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
 
-  if running.value then
+  if running then
     terminal.i = terminal.V * YPuSnRef;
   else
     terminal.i = Complex(0);

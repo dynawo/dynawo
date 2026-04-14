@@ -238,18 +238,18 @@ model TestAAlphaBetaLoadNoRestorative "RVS test system simulation case : reactiv
     Placement(visible = true, transformation(origin = {-310, -206}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
 equation
-  line_106_110.switchOffSignal1.value = if time < event_time_line_sw1 then false else true;
-  line_106_110.switchOffSignal2.value = if time < event_time_line_sw2 then false else true;
-  line_reactor_110.switchOffSignal1.value = if time < event_time_reactor110_sw1 then false else true;
-  line_reactor_110.switchOffSignal2.value = if time < event_time_reactor110_sw2 then false else true;
-  line_reactor_106.switchOffSignal1.value = if time < event_time_reactor106_sw1 then false else true;
-  line_reactor_106.switchOffSignal2.value = if time < event_time_reactor106_sw2 then false else true;
+  line_106_110.switchOffSignal1 = if time < event_time_line_sw1 then false else true;
+  line_106_110.switchOffSignal2 = if time < event_time_line_sw2 then false else true;
+  line_reactor_110.switchOffSignal1 = if time < event_time_reactor110_sw1 then false else true;
+  line_reactor_110.switchOffSignal2 = if time < event_time_reactor110_sw2 then false else true;
+  line_reactor_106.switchOffSignal1 = if time < event_time_reactor106_sw1 then false else true;
+  line_reactor_106.switchOffSignal2 = if time < event_time_reactor106_sw2 then false else true;
   load_101.deltaP = 0;
   load_101.deltaQ = 0;
   load_101.PRefPu = 0;
   load_101.QRefPu = if time < event_time_loadstep then 0 else event_QPu_load_101;
-  load_101.switchOffSignal1.value = false;
-  load_101.switchOffSignal2.value = false;
+  load_101.switchOffSignal1 = false;
+  load_101.switchOffSignal2 = false;
 
   connect(load_101.terminal, bus_101_ABEL.terminal) annotation(
     Line(points = {{-310, -206}, {-168, -206}}, color = {0, 0, 255}));

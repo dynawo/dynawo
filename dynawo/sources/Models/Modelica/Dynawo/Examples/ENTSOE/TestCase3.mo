@@ -141,17 +141,17 @@ initial algorithm
 equation
   load.PRefPu = PRefPu.y;
   load.QRefPu = QRefPu.y;
-  gridImpedance.switchOffSignal1.value = false;
-  gridImpedance.switchOffSignal2.value = false;
-  transformer.switchOffSignal1.value = false;
-  transformer.switchOffSignal2.value = false;
-  load.switchOffSignal1.value = false;
-  load.switchOffSignal2.value = false;
+  gridImpedance.switchOffSignal1 = false;
+  gridImpedance.switchOffSignal2 = false;
+  transformer.switchOffSignal1 = false;
+  transformer.switchOffSignal2 = false;
+  load.switchOffSignal1 = false;
+  load.switchOffSignal2 = false;
   load.deltaP = 0;
   load.deltaQ = 0;
-  generatorSynchronous.switchOffSignal1.value = false;
-  generatorSynchronous.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal3.value = false;
+  generatorSynchronous.switchOffSignal1 = false;
+  generatorSynchronous.switchOffSignal2 = false;
+  generatorSynchronous.switchOffSignal3 = false;
 
   connect(Omega0Pu.y, pss.omegaRefPu);
   connect(Omega0Pu.y, governor.omegaRefPu);

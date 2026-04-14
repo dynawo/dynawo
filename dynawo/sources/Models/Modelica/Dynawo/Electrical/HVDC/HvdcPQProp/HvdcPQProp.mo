@@ -33,7 +33,7 @@ equation
   QInj2RawPu = if modeU2 then QInj2RawModeUPu else - Q2RefPu;
 
   // Reactive power regulation at terminal 1
-  if runningSide1.value then
+  if runningSide1 then
     if QInj1RawPu <= Q1MinPu then
       QInj1Pu = Q1MinPu;
     elseif QInj1RawPu >= Q1MaxPu then
@@ -64,7 +64,7 @@ equation
   end when;
 
   // Reactive power regulation at terminal 2
-  if runningSide2.value then
+  if runningSide2 then
     if QInj2RawPu <= Q2MinPu then
       QInj2Pu = Q2MinPu;
     elseif QInj2RawPu >= Q2MaxPu then

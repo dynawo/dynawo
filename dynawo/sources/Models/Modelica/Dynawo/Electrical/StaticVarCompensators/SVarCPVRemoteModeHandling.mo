@@ -49,7 +49,7 @@ equation
     BPu = 0;
   end if;
 
-  if (running.value) then
+  if running then
     if modeHandling.mode.value == Mode.RUNNING_V then
       if bStatus == BStatus.Standard then
         URegulatedPu = URefPu;

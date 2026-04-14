@@ -20,8 +20,8 @@
   <variable type="continuous" id="U1RefPu" optional="true"/>
   <variable type="continuous" id="Q1RefPu" optional="true"/>
   <variable type="discrete" id="modeU1" defaultValue="true"/>
-  <variable type="discrete" id="switchOffSignal1Side1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2Side1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal1Side2.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2Side2.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1Side1" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2Side1" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1Side2" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2Side2" defaultValue="false"/>
 </external_variables>
