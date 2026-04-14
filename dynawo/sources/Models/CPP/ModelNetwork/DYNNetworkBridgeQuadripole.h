@@ -109,7 +109,7 @@ class NetworkBridgeQuadripole : public ModelQuadripole {
   void evalNodeInjection() override {}
 
   /** @brief unused */
-  void defineNonGenericParameters(std::vector<ParameterModeler>&) override {};
+  void defineNonGenericParameters(std::vector<ParameterModeler>&) override {}
 
   /** @brief unused */
   void evalCalculatedVars() override {}
