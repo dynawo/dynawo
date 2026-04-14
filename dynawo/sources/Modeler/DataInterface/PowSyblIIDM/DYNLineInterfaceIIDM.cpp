@@ -536,12 +536,7 @@ LineInterfaceIIDM::importStaticParameters() {
   const bool connected1 = getInitialConnected1();
   const bool connected2 = getInitialConnected2();
 
-  double vNom = std::numeric_limits<double>::quiet_NaN();
-  if ((connected1 && connected2) || connected1) {
-    vNom = getVNom1();
-  } else if (connected2) {
-    vNom = getVNom2();
-  }
+  double vNom = getVNom1();
   assert(vNom == vNom);  // control that vNom != NAN
   if (vNom > 0) {
     const double coeff = vNom * vNom / SNREF;
