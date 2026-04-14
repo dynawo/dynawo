@@ -14,7 +14,7 @@ model current_loop
     Placement(transformation(origin = {-48, 88}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pi_controller pi_controller_d(k_p = k_p_d, k_i = k_i_d, y_start = y_start_current_d) annotation(
     Placement(transformation(origin = {-14, 88}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add3 add_d(k3 = -1) annotation(
+  Modelica.Blocks.Math.Add3 add_d(k3 = -1, k1 = voltagefeedforwardflag) annotation(
     Placement(transformation(origin = {72, 56}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput v_d (start=vd_0) annotation(
     Placement(
@@ -36,7 +36,7 @@ model current_loop
     Placement(transformation(origin = {-58, -60}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pi_controller pi_controller_iq(k_p = k_p_q, k_i = k_i_q, y_start = y_start_current_q)  annotation(
     Placement(transformation(origin = {-24, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add3 add_q(k1 = -1, k2 = +1, k3 = +1) annotation(
+  Modelica.Blocks.Math.Add3 add_q(k1 = -1, k2 = +1, k3 = voltagefeedforwardflag) annotation(
     Placement(transformation(origin = {16, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain L(k = L_g) annotation(
     Placement(transformation(origin = {-52, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -76,7 +76,9 @@ model current_loop
   parameter Real vmd_0        "Initial modulation voltage reference (pu)";
   parameter Real vmq_0        "Initial modulation voltage reference (pu)";
 
-  
+  parameter Real voltagefeedforwardflag
+  "If 0, no voltage feed-forward is applied in the current loop; if 1, it is applied";
+
 equation
   connect(i_d_ref, sum_node_id.u1) annotation(
     Line(points = {{-211, 99}, {-55, 99}, {-55, 88}, {-56, 88}}, color = {0, 0, 127}));

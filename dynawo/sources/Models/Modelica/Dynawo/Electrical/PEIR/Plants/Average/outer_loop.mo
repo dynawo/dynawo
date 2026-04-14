@@ -59,16 +59,16 @@ model outer_loop
   parameter Real tS_idref    "Sample time of i_d_ref ramp limiter (s)";
   // Initial values for rate limiter start conditions
   parameter Real delay_time_plant "Delay time between Plant controller and outer loop (s)";
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = delay_time_plant)  annotation(
-    Placement(transformation(origin = {-92, 82}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay1(delayTime = delay_time_plant) annotation(
-    Placement(transformation(origin = {-110, 18}, extent = {{-10, -10}, {10, 10}})));
   Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind(k_p = k_p_d, tI = 1/k_i_d, y_start = y_start_outer_d, DyMax = DyMax_pi_d, YMax = Imax)  annotation(
     Placement(transformation(origin = {26, 62}, extent = {{-20, -20}, {20, 20}})));
   Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind1(k_p = k_p_q, tI = 1/(k_i_q), y_start = y_start_outer_q, DyMax = DyMax_pi_q, YMax = Imax)  annotation(
     Placement(transformation(origin = {24, 18}, extent = {{-20, -20}, {20, 20}})));
   NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DuMax_idref, DuMin = DuMin_idref, tS = tS_idref, Y0 = i_d_ref_0, y(start = i_d_ref_0))  annotation(
     Placement(transformation(origin = {214, 62}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = delay_time_plant, y_start = PInjPu0)  annotation(
+    Placement(transformation(origin = {-148, 82}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = 1, y_start = QInjPu0, T = delay_time_plant)  annotation(
+    Placement(transformation(origin = {-148, 18}, extent = {{-10, -10}, {10, 10}})));
 equation
 // ── Pref path: rate limiter → sum node → PI ──────────────────
   connect(P_meas, sum_node_p.u2) annotation(
@@ -84,14 +84,6 @@ equation
     Line(points = {{86, 27.5}, {86, -60}, {-220, -60}}, color = {0, 0, 127}));
   connect(i_q_ref, current_limiter_outer_loop.iq_lim) annotation(
     Line(points = {{262, 32}, {260.5, 32}, {260.5, 30}, {169, 30}, {169, 31}, {172, 31}}, color = {0, 0, 127}));
-  connect(P_ref, fixedDelay.u) annotation(
-    Line(points = {{-220, 82}, {-104, 82}}, color = {0, 0, 127}));
-  connect(fixedDelay.y, sum_node_p.u1) annotation(
-    Line(points = {{-80, 82}, {-38, 82}}, color = {0, 0, 127}));
-  connect(Q_ref, fixedDelay1.u) annotation(
-    Line(points = {{-220, 18}, {-122, 18}}, color = {0, 0, 127}));
-  connect(fixedDelay1.y, sum_node_q.u1) annotation(
-    Line(points = {{-99, 18}, {-38, 18}}, color = {0, 0, 127}));
   connect(pi_controller_antiwind.y, current_limiter_outer_loop.id_raw) annotation(
     Line(points = {{48, 62}, {86, 62}}, color = {0, 0, 127}));
   connect(sum_node_p.y, pi_controller_antiwind.e) annotation(
@@ -104,6 +96,14 @@ equation
     Line(points = {{172, 62}, {202, 62}}, color = {0, 0, 127}));
   connect(rampLimiter.y, i_d_ref) annotation(
     Line(points = {{225, 62}, {262, 62}}, color = {0, 0, 127}));
+  connect(firstOrder.u, P_ref) annotation(
+    Line(points = {{-160, 82}, {-220, 82}}, color = {0, 0, 127}));
+  connect(firstOrder.y, sum_node_p.u1) annotation(
+    Line(points = {{-136, 82}, {-38, 82}}, color = {0, 0, 127}));
+  connect(Q_ref, firstOrder1.u) annotation(
+    Line(points = {{-220, 18}, {-160, 18}}, color = {0, 0, 127}));
+  connect(firstOrder1.y, sum_node_q.u1) annotation(
+    Line(points = {{-137, 18}, {-38, 18}}, color = {0, 0, 127}));
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "Pref/Qref rate limiters")}),

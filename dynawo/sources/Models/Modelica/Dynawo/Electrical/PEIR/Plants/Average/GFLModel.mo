@@ -232,6 +232,10 @@ final parameter Complex uFilter0Pu_init =
    -uFilter0Pu_init.re * sin(Theta0) + uFilter0Pu_init.im * cos(Theta0);
      final parameter Real Ud0Pu =
     uFilter0Pu_init.re * cos(Theta0) + uFilter0Pu_init.im * sin(Theta0);
+    
+    
+  parameter Real voltagefeedforwardflag
+  "If 0, no voltage feed-forward is applied in the current loop; if 1, it is applied";
   // ── Sub-blocks ───────────────────────────────────────────────
 GFLControl control_GFL_(
   // Complex initial conditions
@@ -293,14 +297,15 @@ GFLControl control_GFL_(
   DuMax_idref      = DuMax_idref,
   DuMin_idref      = DuMin_idref,
   tS_idref         = tS_idref,
-  delay_time_plant = delay_time_plant)
+  delay_time_plant = delay_time_plant,
+  voltagefeedforwardflagvoltagefeedforwardflag)
 annotation(
   Placement(transformation(origin = {-86, 38}, extent = {{-24, -24}, {24, 24}})));
 
   Dynawo.Electrical.Controls.PEIR.BaseControls.Average.VSC_with_pade_delay vsc_converter_delay_pade(
     tVSC      = tVSC,
-    UdConv0Pu =  Ud0Pu,
-    UqConv0Pu = Uq0Pu) annotation(
+    UdConv0Pu =  u0Pu_init.re,
+    UqConv0Pu = u0Pu_init.im) annotation(
     Placement(transformation(origin = {3, 81}, extent = {{-17, -17}, {17, 17}})));
 LCDynFilter lCFilter_RI(
   RfPu     = RfPu,
@@ -321,7 +326,8 @@ LCDynFilter lCFilter_RI(
   iRight_rePu0 = IrPcc0Pu,
   iRight_imPu0 = IiPcc0Pu,
   uRight_rePu0 = ucap0Pu_init.re,
-  uRight_imPu0 = ucap0Pu_init.im) annotation(
+  uRight_imPu0 = ucap0Pu_init.im
+  ) annotation(
   Placement(transformation(origin = {58, 76}, extent = {{-20, -20}, {20, 20}})));
 
 
@@ -480,7 +486,7 @@ equation
  connect(measurement_block1.I_pcc_im, lCFilter_RI.iRight_imPu) annotation(
     Line(points = {{-54, -104}, {82, -104}, {82, 60}}, color = {0, 0, 127}));
  connect(measurement_block1.Q_plant, plant_controller.QfiltPu) annotation(
-    Line(points = {{-116, -86}, {-168, -86}, {-168, 26}}, color = {0, 0, 127}));
+    Line(points = {{-116, -86}, {-168, -86}, {-167, 26}}, color = {0, 0, 127}));
  connect(measurement_block1.U_pcc_q, control_GFL_.V_q_grid) annotation(
     Line(points = {{-116, -68}, {-116, 26}, {-112, 26}}, color = {0, 0, 127}));
  connect(omegaRefPu, control_GFL_.omegaRefPU) annotation(

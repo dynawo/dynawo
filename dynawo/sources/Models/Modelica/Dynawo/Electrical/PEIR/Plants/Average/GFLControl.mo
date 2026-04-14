@@ -5,15 +5,9 @@ model GFLControl
   // ────────────────────────────────────────────────────────────
   // Complex initial conditions (Dynawo types)
   // ────────────────────────────────────────────────────────────
-  parameter Types.ComplexVoltagePu u0Pu
-    "Initial complex PCC voltage in pu (base UNom)";
-  parameter Types.ComplexCurrentPu i0Pu
-    "Initial complex PCC current in pu (base UNom, SnRef)";
-  parameter Types.ComplexVoltagePu uFilter0Pu
-    "Initial complex voltage at filter in pu (base UNom)";
 
-  parameter Real P0Pu     "Initial active power at PCC (pu, generator convention)";
-  parameter Real Q0Pu     "Initial reactive power at PCC (pu, generator convention)";
+  parameter Types.ComplexVoltagePu vm0
+    "Initial complex voltage at VSC in pu (base UNom)"; 
   parameter Real Omega0Pu "Initial frequency (pu)";
   parameter Real QInj0Pu "Initial reactive power at converter (pu, generator convention)"; 
   parameter Real PInj0Pu "Initial active power at converter (pu, generator convention)";
@@ -34,57 +28,7 @@ model GFLControl
   parameter Real delay_time_plant "Delay time between Plant controller and outer loop (s)";
 
 
-    // ── dq voltages at filter in control frame (from grid re/im using Theta0) ─
-  // uFilter0Pu is in grid frame (re/im), control dq frame is rotated by Theta0
-  final parameter Real Ud0Pu =
-    uFilter0Pu.re * cos(Theta0) + uFilter0Pu.im * sin(Theta0)
-    "Initial d-axis voltage at filter in control dq frame (pu)";
-
-  final parameter Real Uq0Pu =
-   -uFilter0Pu.re * sin(Theta0) + uFilter0Pu.im * cos(Theta0)
-    "Initial q-axis voltage at filter in control dq frame (pu)";
-
-  // Voltage magnitude squared U0^2 = Ud0^2 + Uq0^2
-  final parameter Real U0Pu_sq =
-    Ud0Pu^2 + Uq0Pu^2
-    "Squared magnitude of initial filter voltage (pu^2)";
-
-  // ── Initial dq currents at filter (your formulas) ───────────
-  // i_d,0 = (P0*Ud0 + Q0*Uq0) / U0^2
-  // i_q,0 = (P0*Uq0 - Q0*Ud0) / U0^2
-  final parameter Real Id0Pu =
-    (P0Pu * Ud0Pu + Q0Pu * Uq0Pu) / max(U0Pu_sq, 1e-6)
-    "Initial d-axis current at filter in pu (from P0, Q0, Ud0, Uq0)";
-
-  final parameter Real Iq0Pu =
-    (P0Pu * Uq0Pu - Q0Pu * Ud0Pu) / max(U0Pu_sq, 1e-6)
-    "Initial q-axis current at filter in pu (from P0, Q0, Ud0, Uq0)";
-
-  // ── Initial voltage references for inner current loop ───────
-  // v_d,ref,0 = U_d,0 + R_g*i_d,0 - Omega0Pu * L_g * i_q,0
-  // v_q,ref,0 = U_q,0 + R_g*i_q,0 + Omega0Pu * L_g * i_d,0
-  final parameter Real vd_ref_0 =
-    Ud0Pu + R_g * Id0Pu - Omega0Pu * L_g * Iq0Pu
-    "Initial d-axis voltage reference for current loop";
-
-  final parameter Real vq_ref_0 =
-    Uq0Pu + R_g * Iq0Pu + Omega0Pu * L_g * Id0Pu
-    "Initial q-axis voltage reference for current loop";
-
-  // ── Map to controller initial outputs ───────────────────────
-  // Inner current loop initial outputs
-  final parameter Real y_start_current_d =
-    vd_ref_0 "Initial output of d-axis current controller (v_d,ref,0)";
-
-  final parameter Real y_start_current_q =
-    vq_ref_0 "Initial output of q-axis current controller (v_q,ref,0)";
-
-  // Outer loop initial outputs (current references)
-  final parameter Real y_start_outer_d =
-    Id0Pu "Initial output of d-axis outer controller (i_d,ref,0)";
-
-  final parameter Real y_start_outer_q =
-    Iq0Pu "Initial output of q-axis outer controller (i_q,ref,0)";
+  
 
 
   // ────────────────────────────────────────────────────────────
@@ -115,9 +59,7 @@ model GFLControl
   parameter Real k_p_q_outer "Outer loop Proportional gain PI q axis";
   parameter Real k_i_q_outer "Outer loop intgl gain PI  q axis";
   parameter Real Imax "Maximum current (pu)";
-  parameter Real PInjPu0    "Initial injected active power (pu)";
-  parameter Real QInjPu0    "Initial injected reactive power (pu)";
-  parameter Real U_filter0  "Initial filter voltage magnitude (pu)";
+  parameter Real U_LV0  "Initial LV node voltage magnitude (pu)";
 
 
   // Outer loop — current limiter
@@ -143,8 +85,11 @@ model GFLControl
 
   parameter Real Theta0
     "Initial PLL angle (rad)";
-    
-    
+  parameter Real voltagefeedforwardflag
+  "If 0, no voltage feed-forward is applied in the current loop; if 1, it is applied";
+
+  parameter Real Uq0Pu
+    "Initial q-axis voltage at PCC in control dq frame (pu)";
   // ────────────────────────────────────────────────────────────
   // Sub-blocks
   // ────────────────────────────────────────────────────────────
@@ -155,8 +100,8 @@ model GFLControl
     k_p_q             = k_p_q_current,
     k_i_q             = k_i_q_current,
     L_g               = L_g,
-    y_start_current_d = y_start_current_d,
-    y_start_current_q = y_start_current_q, id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0) annotation(
+    y_start_current_d = vmd_0,
+    y_start_current_q = vmq_0, id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0, voltagefeedforwardflag = voltagefeedforwardflag) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
   Dynawo.Electrical.PEIR.Plants.Average.outer_loop outer_loop_GFL(
@@ -165,8 +110,8 @@ model GFLControl
     k_p_q           = k_p_q_outer,
     k_i_q           = k_i_q_outer,
     Imax            = Imax,
-    y_start_outer_d = y_start_outer_d,
-    y_start_outer_q = y_start_outer_q,
+    y_start_outer_d = id_ref_0,
+    y_start_outer_q = iq_ref_0,
     PQFlag          = PQFlag,
     UboostHigh    = UboostHigh,
     UboostLow    = UboostLow,
@@ -174,7 +119,7 @@ model GFLControl
     IqBoostMax      = IqBoostMax,
     IqBoostMin      = IqBoostMin,
     
-     PInjPu0 = PInjPu0, QInjPu0 = QInjPu0, U_filter0 = U_filter0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant) annotation(
+     PInjPu0 = PInj0Pu, QInjPu0 = QInj0Pu, U_filter0 = U_LV0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant) annotation(
     Placement(transformation(origin = {-200, 56}, extent = {{-36, -36}, {36, 36}})));
 
  Dynawo.Electrical.PEIR.Plants.Average.pll pll(
@@ -193,11 +138,11 @@ model GFLControl
     Placement(transformation(origin = {-270, -60}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {72, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Modelica.Blocks.Interfaces.RealInput P_meas (start=P0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput P_meas (start=PInj0Pu) annotation(
     Placement(transformation(origin = {-270, 84}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {-84, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  Modelica.Blocks.Interfaces.RealInput Q_meas (start=Q0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput Q_meas (start=QInj0Pu) annotation(
     Placement(transformation(origin = {-270, 28}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {-48, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
@@ -216,18 +161,18 @@ model GFLControl
   Modelica.Blocks.Interfaces.RealInput i_q_meas (start=iq_conv_0) annotation(
     Placement(transformation(origin = {12, 30}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {-8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput P_ref (start=P0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput P_ref (start=PInj0Pu) annotation(
     Placement(transformation(origin = {-271, 65}, extent = {{-11, -11}, {11, 11}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput Q_ref (start=Q0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput Q_ref (start=QInj0Pu) annotation(
     Placement(transformation(origin = {-270, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}})));
 
   // ── External outputs ─────────────────────────────────────────
 
-  Modelica.Blocks.Interfaces.RealOutput vm_re (start=uFilter0Pu.re) annotation(
+  Modelica.Blocks.Interfaces.RealOutput vm_re (start=vm0.re) annotation(
     Placement(transformation(origin = {206, 50}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput vm_im (start=uFilter0Pu.im) annotation(
+  Modelica.Blocks.Interfaces.RealOutput vm_im (start=vm0.im) annotation(
     Placement(transformation(origin = {208, 30}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, 8}, extent = {{-10, -10}, {10, 10}})));
 
