@@ -47,8 +47,6 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
   Dynawo.Connectors.ACPower terminal20 "Connector at initialization";
 
 equation
-  terminal20.i = i20Pu;
-  terminal20.V = u20Pu;
   s10Pu = Complex(P10Pu, Q10Pu);
   u10Pu = ComplexMath.fromPolar(U10Pu, U1Phase0);
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
@@ -57,6 +55,9 @@ equation
   Q20Pu = - ComplexMath.imag(u20Pu * ComplexMath.conj(i20Pu));
   U20Pu = ComplexMath.'abs'(u20Pu);
   U2Phase0 = ComplexMath.arg(u20Pu);
+
+  terminal20.i = i20Pu;
+  terminal20.V = u20Pu;
 
   annotation(preferredView = "text");
 end BaseGeneratorTransformer_INIT;
