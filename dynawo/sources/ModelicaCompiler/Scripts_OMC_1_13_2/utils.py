@@ -906,10 +906,10 @@ def transform_ternary_operator(body,num_ternary):
 def transform_atan3_operator(line):
     line = line.replace('threadData,','')
     atan3_ptrn = re.compile(REGULAR_EXPR_ATAN3)
-    line_tmp = atan3_ptrn.sub('atan2(\g<var1>,\g<var2>)',line)
+    line_tmp = atan3_ptrn.sub(r'atan2(\g<var1>,\g<var2>)',line)
 
     atan3_ptrn_bis = re.compile(REGULAR_EXPR_ATAN3)
-    line_tmp_bis = atan3_ptrn_bis.sub('atan2(\g<var1>,\g<var2>)',line_tmp)
+    line_tmp_bis = atan3_ptrn_bis.sub(r'atan2(\g<var1>,\g<var2>)',line_tmp)
 
     return line_tmp_bis
 
@@ -920,10 +920,10 @@ def transform_atan3_operator(line):
 def transform_atan3_operator_evalf(line):
     line = line.replace('threadData,','')
     atan3_ptrn = re.compile(REGULAR_EXPR_ATAN3)
-    line_tmp = atan3_ptrn.sub('atan(\g<var1>/\g<var2>)',line)
+    line_tmp = atan3_ptrn.sub(r'atan(\g<var1>/\g<var2>)',line)
 
     atan3_ptrn_bis = re.compile(REGULAR_EXPR_ATAN3)
-    line_tmp_bis = atan3_ptrn_bis.sub('atan(\g<var1>/\g<var2>)',line_tmp)
+    line_tmp_bis = atan3_ptrn_bis.sub(r'atan(\g<var1>/\g<var2>)',line_tmp)
 
     return line_tmp_bis
 
@@ -1229,7 +1229,7 @@ def format_for_modelica_reinit_evalmode(body):
         line = replace_var_names(line)
 
         # entering if evaluation : only keep the mode setting line
-        if ('if' in line) and ('VarsPre\[' in line):
+        if ('if' in line) and (r'VarsPre\[' in line):
             entered_if = True
 
         if (entered_if and (not exited_if)):

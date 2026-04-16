@@ -15,6 +15,7 @@ from content.Ticket import ticket
 
 # Same INIT models for BESS, PV and Wind
 @ticket(3801)
+def update(jobs):
     modelica_models = jobs.dyds.get_modelica_models(lambda _: True)
     for modelica_model in modelica_models:
         unit_dynamic_models = modelica_model.get_unit_dynamic_models(

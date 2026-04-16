@@ -118,7 +118,8 @@ class JobData:
                         raise UnknownJobElementError(modeler_element.tag)
             elif job_subelement.tag == xmlns('outputs') or \
                     job_subelement.tag == xmlns('simulation') or \
-                    job_subelement.tag == xmlns('localInit'):
+                    job_subelement.tag == xmlns('localInit') or \
+                    job_subelement.tag == xmlns('interactiveSettings'):
                 pass  # nothing to do
             else:
                 raise UnknownJobElementError(job_subelement.tag)

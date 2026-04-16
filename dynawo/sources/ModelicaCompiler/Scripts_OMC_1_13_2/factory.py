@@ -639,8 +639,8 @@ class Factory:
             function_name = ""
             for line in body:
                 for name in name_func_to_search:
-                    ptrn_function = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+name+'[ ]*\((?P<rhs>[^;]+);')
-                    ptrn_function_tmp = re.compile(r'[ ]*tmp[0-9]+[ ]* = [ ]*'+name+'[ ]*\((?P<rhs>[^;]+);')
+                    ptrn_function = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+name+r'[ ]*\((?P<rhs>[^;]+);')
+                    ptrn_function_tmp = re.compile(r'[ ]*tmp[0-9]+[ ]* = [ ]*'+name+r'[ ]*\((?P<rhs>[^;]+);')
                     match = re.match(ptrn_function, line)
                     if match is not None:
                         variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, name_func_to_search[name], None)
@@ -2381,13 +2381,13 @@ class Factory:
                 call_line = ""
                 func_call_line = line_split_by_equal[0]
             # Split this line at each function call ('(') and parameter (',')
-            line_split_by_parenthesis = re.split('(\()', func_call_line)
+            line_split_by_parenthesis = re.split(r'(\()', func_call_line)
             line_split_by_comma = []
             for l in line_split_by_parenthesis:
                 line_split_by_comma.extend(l.split(','))
             line_split = []
             for l in line_split_by_comma:
-                line_split.extend(re.split('(\))', l))
+                line_split.extend(re.split(r'(\))', l))
             line_split = [i for i in line_split if i and i != " "]
 
             # stack (FILO) containing the function called sorted by call stack

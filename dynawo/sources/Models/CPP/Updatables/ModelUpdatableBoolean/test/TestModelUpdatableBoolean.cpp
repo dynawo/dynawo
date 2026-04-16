@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022, RTE (http://www.rte-france.com)
+// Copyright (c) 2025, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -23,9 +23,9 @@
 #include "DYNModelUpdatableBoolean.h"
 #include "DYNModelUpdatableBoolean.hpp"
 #include "DYNParameterModeler.h"
-#include "DYNSparseMatrix.h"
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
+#include "DYNModelConstants.h"
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
 
@@ -33,101 +33,104 @@
 
 namespace DYN {
 
-static boost::shared_ptr<SubModel> initModelModelUpdatableBoolean() {
-  boost::shared_ptr<SubModel> modelModelUpdatableBoolean =
+static boost::shared_ptr<SubModel> initModelUpdatableBoolean() {
+  boost::shared_ptr<SubModel> modelUpdatableBoolean =
       SubModelFactory::createSubModelFromLib("../DYNModelUpdatableBoolean" + std::string(sharedLibraryExtension()));
 
   std::vector<ParameterModeler> parameters;
-  modelModelUpdatableBoolean->defineParameters(parameters);
+  modelUpdatableBoolean->defineParameters(parameters);
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet->createParameter(UPDATABLE_INPUT_NAME, true);
-  modelModelUpdatableBoolean->setPARParameters(parametersSet);
-  modelModelUpdatableBoolean->addParameters(parameters, false);
-  modelModelUpdatableBoolean->setParametersFromPARFile();
-  modelModelUpdatableBoolean->setSubModelParameters();
-  modelModelUpdatableBoolean->getSize();
+  modelUpdatableBoolean->setPARParameters(parametersSet);
+  modelUpdatableBoolean->addParameters(parameters, false);
+  modelUpdatableBoolean->setParametersFromPARFile();
+  modelUpdatableBoolean->setSubModelParameters();
+  modelUpdatableBoolean->getSize();
 
-  return modelModelUpdatableBoolean;
+  return modelUpdatableBoolean;
 }
 
-TEST(ModelsModelModelUpdatableBoolean, ModelModelUpdatableBooleanDefineMethods) {
-  boost::shared_ptr<SubModel> modelModelUpdatableBoolean = SubModelFactory::createSubModelFromLib("../DYNModelUpdatableBoolean" + std::string(sharedLibraryExtension()));
+TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanDefineMethods) {
+  boost::shared_ptr<SubModel> modelUpdatableBoolean = SubModelFactory::createSubModelFromLib(
+    "../DYNModelUpdatableBoolean" + std::string(sharedLibraryExtension()));
 
   std::vector<ParameterModeler> parameters;
-  modelModelUpdatableBoolean->defineParameters(parameters);
+  modelUpdatableBoolean->defineParameters(parameters);
   ASSERT_EQ(parameters.size(), 1);
 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
   parametersSet->createParameter(UPDATABLE_INPUT_NAME, true);
-  ASSERT_NO_THROW(modelModelUpdatableBoolean->setPARParameters(parametersSet));
+  ASSERT_NO_THROW(modelUpdatableBoolean->setPARParameters(parametersSet));
 
-  modelModelUpdatableBoolean->addParameters(parameters, false);
-  ASSERT_NO_THROW(modelModelUpdatableBoolean->setParametersFromPARFile());
-  ASSERT_NO_THROW(modelModelUpdatableBoolean->setSubModelParameters());
+  modelUpdatableBoolean->addParameters(parameters, false);
+  ASSERT_NO_THROW(modelUpdatableBoolean->setParametersFromPARFile());
+  ASSERT_NO_THROW(modelUpdatableBoolean->setSubModelParameters());
 
   std::vector<boost::shared_ptr<Variable> > variables;
-  modelModelUpdatableBoolean->defineVariables(variables);
+  modelUpdatableBoolean->defineVariables(variables);
   ASSERT_EQ(variables.size(), 1);
   boost::shared_ptr<Variable> variableModelUpdatableBoolean = variables[0];
-  ASSERT_EQ(variableModelUpdatableBoolean->getName(), UPDATABLE_INPUT_NAME);
+  ASSERT_EQ(variableModelUpdatableBoolean->getName(), UPDATABLE_INPUT_VAR_NAME);
   ASSERT_EQ(variableModelUpdatableBoolean->getType(), BOOLEAN);
   ASSERT_EQ(variableModelUpdatableBoolean->getNegated(), false);
-  ASSERT_EQ(variableModelUpdatableBoolean->isState(), false);
+  ASSERT_EQ(variableModelUpdatableBoolean->isState(), true);
   ASSERT_EQ(variableModelUpdatableBoolean->isAlias(), false);
 
   std::vector<Element> elements;
   std::map<std::string, int> mapElements;
-  modelModelUpdatableBoolean->defineElements(elements, mapElements);
+  modelUpdatableBoolean->defineElements(elements, mapElements);
   ASSERT_EQ(elements.size(), mapElements.size());
   ASSERT_EQ(elements.size(), 1);
   Element element = elements[0];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), UPDATABLE_INPUT_NAME);
-  ASSERT_EQ(mapElements[UPDATABLE_INPUT_NAME], 0);
+  ASSERT_EQ(element.name(), UPDATABLE_INPUT_VAR_NAME);
+  ASSERT_EQ(mapElements[UPDATABLE_INPUT_VAR_NAME], 0);
 }
 
-TEST(ModelsModelModelUpdatableBoolean, ModelModelUpdatableBooleanTypeMethods) {
-  boost::shared_ptr<SubModel> modelModelUpdatableBoolean = initModelModelUpdatableBoolean();
+TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanTypeMethods) {
+  boost::shared_ptr<SubModel> modelUpdatableBoolean = initModelUpdatableBoolean();
   unsigned nbY = 0;
   unsigned nbF = 0;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
-  modelModelUpdatableBoolean->setBufferYType(&yTypes[0], 0);
-  modelModelUpdatableBoolean->setBufferFType(&fTypes[0], 0);
+  modelUpdatableBoolean->setBufferYType(&yTypes[0], 0);
+  modelUpdatableBoolean->setBufferFType(&fTypes[0], 0);
 
-  ASSERT_EQ(modelModelUpdatableBoolean->sizeY(), nbY);
-  ASSERT_EQ(modelModelUpdatableBoolean->sizeF(), nbF);
-  ASSERT_EQ(modelModelUpdatableBoolean->sizeZ(), 0);
-  ASSERT_EQ(modelModelUpdatableBoolean->sizeG(), 1);
-  ASSERT_EQ(modelModelUpdatableBoolean->sizeMode(), 1);
+  ASSERT_EQ(modelUpdatableBoolean->sizeY(), nbY);
+  ASSERT_EQ(modelUpdatableBoolean->sizeF(), nbF);
+  ASSERT_EQ(modelUpdatableBoolean->sizeZ(), 1);
+  ASSERT_EQ(modelUpdatableBoolean->sizeG(), 1);
+  ASSERT_EQ(modelUpdatableBoolean->sizeMode(), 1);
 
-  ASSERT_NO_THROW(modelModelUpdatableBoolean->dumpUserReadableElementList("MyElement"));
+  ASSERT_NO_THROW(modelUpdatableBoolean->dumpUserReadableElementList("MyElement"));
 }
 
-TEST(ModelsModelModelUpdatableBoolean, ModelModelUpdatableBooleanUpdate) {
-  boost::shared_ptr<SubModel> modelModelUpdatableBoolean = initModelModelUpdatableBoolean();
-  std::vector<state_g> g(modelModelUpdatableBoolean->sizeG(), ROOT_DOWN);
-  modelModelUpdatableBoolean->setBufferG(&g[0], 0);
-  modelModelUpdatableBoolean->evalG(0);
-  modeChangeType_t mode = modelModelUpdatableBoolean->evalMode(0);
+TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanUpdate) {
+  boost::shared_ptr<SubModel> modelUpdatableBoolean = initModelUpdatableBoolean();
+  std::vector<state_g> g(modelUpdatableBoolean->sizeG(), ROOT_DOWN);
+  modelUpdatableBoolean->setBufferG(&g[0], 0);
+  modelUpdatableBoolean->evalG(0);
+  modeChangeType_t mode = modelUpdatableBoolean->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelModelUpdatableBoolean->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, true, false);
-  modelModelUpdatableBoolean->setSubModelParameters();
-  modelModelUpdatableBoolean->evalG(0);
-  mode = modelModelUpdatableBoolean->evalMode(0);
-  ASSERT_EQ(mode, ALGEBRAIC_MODE);
-
-  modelModelUpdatableBoolean->evalG(0);
-  mode = modelModelUpdatableBoolean->evalMode(0);
+  modelUpdatableBoolean->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, true, false);
+  modelUpdatableBoolean->setSubModelParameters();
+  modelUpdatableBoolean->evalG(0);
+  mode = modelUpdatableBoolean->evalMode(0);
+  ASSERT_EQ(modelUpdatableBoolean->findParameter(UPDATABLE_INPUT_NAME, false).getDoubleValue(), 1);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelModelUpdatableBoolean->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, false, false);
-  modelModelUpdatableBoolean->setSubModelParameters();
-  modelModelUpdatableBoolean->evalG(0);
-  mode = modelModelUpdatableBoolean->evalMode(0);
-  ASSERT_EQ(mode, ALGEBRAIC_MODE);
+  modelUpdatableBoolean->evalG(0);
+  mode = modelUpdatableBoolean->evalMode(0);
+  ASSERT_EQ(mode, NO_MODE);
+
+  modelUpdatableBoolean->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, false, false);
+  modelUpdatableBoolean->setSubModelParameters();
+  modelUpdatableBoolean->evalG(0);
+  mode = modelUpdatableBoolean->evalMode(0);
+  ASSERT_EQ(modelUpdatableBoolean->findParameter(UPDATABLE_INPUT_NAME, false).getDoubleValue(), -1);
+  ASSERT_EQ(mode, NO_MODE);
 }
 
 }  // namespace DYN

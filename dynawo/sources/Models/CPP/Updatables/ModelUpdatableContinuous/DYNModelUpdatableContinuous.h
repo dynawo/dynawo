@@ -23,9 +23,8 @@
 
 #include "DYNModelCPP.h"
 #include "DYNModelUpdatable.h"
-#include "DYNModelConstants.h"
 #include "DYNSubModelFactory.h"
-#include "PARParametersSet.h"
+#include "DYNSparseMatrix.h"
 
 namespace DYN {
 class DataInterface;
@@ -68,8 +67,7 @@ class ModelUpdatableContinuous : public ModelUpdatable {
     *
     */
   typedef enum {
-    inputValueIdx_ = 0,
-    nbCalculatedVars_ = 1
+    nbCalculatedVars_ = 0
   } CalculatedVars_t;
 
   /**
@@ -83,21 +81,25 @@ class ModelUpdatableContinuous : public ModelUpdatable {
    */
   void getSize() override;
   /**
-   * @copydoc ModelCPP::evalG()
+   * @copydoc ModelCPP::evalStaticYType()
    */
-  void evalG(const double t) override;
+  void evalStaticYType() override;
   /**
-   * @copydoc ModelCPP::evalMode()
+   * @copydoc SubModel::evalStaticFType()
    */
-  modeChangeType_t evalMode(const double t) override;
+  void evalStaticFType() override;
   /**
-   * @copydoc ModelCPP::evalCalculatedVars()
+   * @copydoc ModelCPP::evalF()
    */
-  void evalCalculatedVars() override;
+  void evalF(double t, propertyF_t type) override;
   /**
-   * @copydoc ModelCPP::evalCalculatedVarI()
+   * @copydoc SubModel::evalJt(double t, double cj, int rowOffset, SparseMatrix& jt)
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  void evalJt(double t, double cj, int rowOffset, SparseMatrix& jt) override;
+  /**
+   * @copydoc SubModel::evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim)
+   */
+  void evalJtPrim(double t, double cj, int rowOffset, SparseMatrix& jtPrim) override;
   /**
    * @copydoc ModelCPP::setSubModelParameters()
    */
@@ -108,6 +110,10 @@ class ModelUpdatableContinuous : public ModelUpdatable {
    * @param[out] mapElement Map associating each element index in the elements vector to its name
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
+  /**
+   * @copydoc ModelCPP::setFequations()
+   */
+  void setFequations() override;
   /**
    * @brief initialize variables of the model
    *
@@ -124,18 +130,6 @@ class ModelUpdatableContinuous : public ModelUpdatable {
    * @copydoc ModelCPP::getCheckSum()
    */
   std::string getCheckSum() const override;
-  /**
-   * @copydoc ModelCPP::setGequations()
-   */
-  void setGequations() override;
-  /**
-   * @copydoc ModelCPP::dumpInternalVariables()
-   */
-  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
-  /**
-   * @copydoc ModelCPP::loadInternalVariables()
-   */
-  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
    */
