@@ -28,8 +28,9 @@ namespace DYN {
 void
 ActionBuffer::applyActions() {
   std::lock_guard<std::mutex> actionLock(actionsMutex_);
-  for (auto& actionPair : actions_)
+  for (auto& actionPair : actions_) {
     actionPair.second.apply();
+  }
   actions_.clear();
 }
 

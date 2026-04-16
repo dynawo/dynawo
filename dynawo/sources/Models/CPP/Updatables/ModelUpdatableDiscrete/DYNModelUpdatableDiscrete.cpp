@@ -20,22 +20,19 @@
 
 
 
-#include <sstream>
 #include <vector>
-#include <algorithm>
 
 #include "PARParametersSet.h"
 
-#include "DYNNumericalUtils.h"
 #include "DYNModelUpdatableDiscrete.h"
 #include "DYNModelUpdatableDiscrete.hpp"
-#include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
+#include "DYNModelConstants.h"
 
 using std::vector;
 using std::string;
@@ -70,92 +67,64 @@ ModelUpdatableDiscrete::ModelUpdatableDiscrete(): ModelUpdatable("ModelUpdatable
 
 void
 ModelUpdatableDiscrete::getSize() {
+  sizeZ_ = 1;  // input value
   sizeG_ = 1;  // parameter updated
   sizeMode_ = 1;
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
-// evaluation of root functions
-void
-ModelUpdatableDiscrete::evalG(const double /*t*/) {
-  gLocal_[0] = (updated_) ? ROOT_UP : ROOT_DOWN;
-  updated_ = false;
-}
 
 void
-ModelUpdatableDiscrete::setFequations() {
-  // not needed
-}
-
-void
-ModelUpdatableDiscrete::setGequations() {
-  gEquationIndex_[0] = std::string("parameter update");
-}
-
-// evaluation of modes (alternatives) of F(t,y,y') functions
-modeChangeType_t
-ModelUpdatableDiscrete::evalMode(const double /*t*/) {
+ModelUpdatableDiscrete::evalZ(double /* t */) {
   if (gLocal_[0] == ROOT_UP) {
-    return ALGEBRAIC_MODE;
+    zLocal_[0] = inputValue_;
   }
-  return NO_MODE;
-}
-
-double
-ModelUpdatableDiscrete::evalCalculatedVarI(unsigned iCalculatedVar) const {
-  switch (iCalculatedVar) {
-    case inputValueIdx_:
-      return inputValue_;
-    default:
-      throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
-  }
-}
-
-void
-ModelUpdatableDiscrete::evalCalculatedVars() {
-  calculatedVars_[inputValueIdx_] = inputValue_;
 }
 
 void
 ModelUpdatableDiscrete::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated(UPDATABLE_INPUT_NAME, DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(UPDATABLE_INPUT_VAR_NAME, DISCRETE));
 }
 
 void
 ModelUpdatableDiscrete::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler(UPDATABLE_INPUT_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(UPDATABLE_MULTIPLIER_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
 }
 
 void
 ModelUpdatableDiscrete::setSubModelParameters() {
   if (findParameterDynamic(UPDATABLE_INPUT_NAME).hasValue()) {
-    double parameterValue = findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<double>();
-    if (!DYN::doubleEquals(parameterValue, inputValue_))
+    double inputValueParameter = findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<double>();
+    if (!doubleEquals(inputValueParameter, inputValue_)) {
+      inputValue_ = inputValueParameter;
       updated_ = true;
-    inputValue_ = parameterValue;
+    }
+  }
+  if (findParameterDynamic(UPDATABLE_MULTIPLIER_NAME).hasValue()) {
+    double inputMultiplierParameter = findParameterDynamic(UPDATABLE_MULTIPLIER_NAME).getValue<double>();
+    if (!doubleEquals(inputMultiplierParameter, 1.)) {
+      if (updated_) {
+        Trace::warn() << DYNLog(UpdatableIgnoredMultiplier, name()) << Trace::endline;
+      } else {
+        inputValue_ *= inputMultiplierParameter;
+        updated_ = true;
+      }
+      setParameterValue(UPDATABLE_MULTIPLIER_NAME, FINAL, 1., false);
+      setParameterValue(UPDATABLE_INPUT_NAME, FINAL, inputValue_, false);
+    }
   }
 }
 
 void
 ModelUpdatableDiscrete::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  addElement(UPDATABLE_INPUT_NAME, Element::TERMINAL, elements, mapElement);
+  addElement(UPDATABLE_INPUT_VAR_NAME, Element::TERMINAL, elements, mapElement);
 }
 
-void
-ModelUpdatableDiscrete::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, inputValue_);
-}
-
-void
-ModelUpdatableDiscrete::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
-  streamVariables >> inputValue_;
-}
 
 void
 ModelUpdatableDiscrete::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << UPDATABLE_INPUT_NAME << Trace::endline;
+  Trace::info() << "  -> " << UPDATABLE_INPUT_NAME << Trace::endline;
 }
 }  // namespace DYN

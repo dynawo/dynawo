@@ -276,16 +276,17 @@ encapsulated package LogKeys
   final constant Integer UnsopportedOutputChannel = 258;
   final constant Integer UnstableRoot = 259;
   final constant Integer UnstableRootFound = 260;
-  final constant Integer ValidatedModel = 261;
-  final constant Integer VarCreatedForRef = 262;
-  final constant Integer VariableNotSet = 263;
-  final constant Integer WrongCheckSum = 264;
-  final constant Integer WrongComponentType = 265;
-  final constant Integer WrongParameterNum = 266;
-  final constant Integer WrongStartTime = 267;
-  final constant Integer XmlParsingError = 268;
-  final constant Integer ZmqChannelCreated = 269;
-  final constant Integer ZmqDataSent = 270;
+  final constant Integer UpdatableIgnoredMultiplier = 261;
+  final constant Integer ValidatedModel = 262;
+  final constant Integer VarCreatedForRef = 263;
+  final constant Integer VariableNotSet = 264;
+  final constant Integer WrongCheckSum = 265;
+  final constant Integer WrongComponentType = 266;
+  final constant Integer WrongParameterNum = 267;
+  final constant Integer WrongStartTime = 268;
+  final constant Integer XmlParsingError = 269;
+  final constant Integer ZmqChannelCreated = 270;
+  final constant Integer ZmqDataSent = 271;
 
   annotation(preferredView = "text");
 end LogKeys;

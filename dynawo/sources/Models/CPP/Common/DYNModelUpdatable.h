@@ -22,9 +22,7 @@
 #define MODELS_CPP_COMMON_DYNMODELUPDATABLE_H_
 
 #include "DYNModelCPP.h"
-#include "DYNModelConstants.h"
 #include "DYNSubModelFactory.h"
-#include "PARParametersSet.h"
 
 namespace DYN {
 class DataInterface;
@@ -59,6 +57,11 @@ class ModelUpdatable : public ModelCPP {
    * @copydoc ModelCPP::collectSilentZ()
    */
   void collectSilentZ(BitMask* silentZTable) override;
+
+  /**
+   * @copydoc ModelCPP::evalCalculatedVarI()
+   */
+  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
 
   /**
    * @copydoc ModelCPP::evalCalculatedVars()
@@ -130,9 +133,34 @@ class ModelUpdatable : public ModelCPP {
    */
   void initParams() override;
 
+  /**
+   * @copydoc ModelCPP::evalG()
+   */
+  void evalG(const double t) override;
+
+  /**
+   * @copydoc ModelCPP::setGequations()
+   */
+  void setGequations() override;
+
+  /**
+   * @copydoc ModelCPP::evalMode()
+   */
+  modeChangeType_t evalMode(const double t) override;
+
+  /**
+   * @copydoc ModelCPP::dumpInternalVariables()
+   */
+  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
+
+  /**
+   * @copydoc ModelCPP::loadInternalVariables()
+   */
+  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
+
  protected:
-  double inputValue_;      ///< updatable value
-  bool updated_;           ///< @b true if updated from external input
+  double inputValue_;          ///< updatable value
+  bool updated_;               ///< set to true if updated this time step
 };
 
 }  // namespace DYN

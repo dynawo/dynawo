@@ -19,15 +19,14 @@
 
 #include <iomanip>
 #include <iostream>
-#include <map>
 #include <set>
 #include "DYNSparseMatrix.h"
 #include "DYNSubModel.h"
 #include "DYNVariable.h"
 #include "DYNConnector.h"
+
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
-#include "DYNElement.h"
 #include "DYNTimer.h"
 #include "DYNModelConstants.h"
 
@@ -716,7 +715,7 @@ ConnectorContainer::initUpdatableValues() {
 
 void
 ConnectorContainer::initYUpdatableValues() {
-  // for each YConnector linked to an output, copy y0 from a model value to y0 of an updatable value
+  // for each YConnector linked to updatable model, copy y0 from a model value to y0 of an updatable value
   for (std::size_t i = 0; i < yConnectors_.size(); ++i) {
     shared_ptr<Connector> yc = yConnectors_[i];
     if (yc->connectedSubModels().empty()) {
@@ -724,33 +723,29 @@ ConnectorContainer::initYUpdatableValues() {
     }
 
     // Searching the initialization reference
-    vector<connectedSubModel>::iterator itInput;
-    bool inputFound = false;
-    for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    vector<connectedSubModel>::iterator itUpdatable = yc->connectedSubModels().end();
+    for (auto it = yc->connectedSubModels().begin();
             it != yc->connectedSubModels().end();
             ++it) {
       if (it->subModel()->getIsUpdatable()) {
-          if (inputFound || yc->connectedSubModels().size() != 2) {
+          if (itUpdatable != yc->connectedSubModels().end() || yc->connectedSubModels().size() != 2) {
           // Can connect only 1 input and 1 other variable
           throw DYNError(Error::MODELER, ErrorConnectedInputs, it->subModel()->name(), it->variable()->getName());
         }
-        inputFound = true;
-        itInput = it;
+        itUpdatable = it;
       }
     }
 
-    if (!inputFound)
+    if (itUpdatable == yc->connectedSubModels().end())
       continue;
 
-    if (inputFound) {
-      for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
-        it != yc->connectedSubModels().end(); ++it) {
-        if (it != itInput) {
-          double sign = it->negated_ ? -1 : 1;
-          double value = yLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-          itInput->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, sign * value, false);
-          itInput->subModel()->setSubModelParameters();
-        }
+    for (auto it = yc->connectedSubModels().begin();
+      it != yc->connectedSubModels().end(); ++it) {
+      if (it != itUpdatable) {
+        double sign = it->negated_ ? -1 : 1;
+        double value = yLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
+        itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, sign * value, false);
+        itUpdatable->subModel()->setSubModelParameters();
       }
     }
   }
@@ -758,7 +753,7 @@ ConnectorContainer::initYUpdatableValues() {
 
 void
 ConnectorContainer::initZUpdatableValues() {
-  // for each ZConnector linked to an output, copy z0 from the variable to to zO of the udpatable model
+  // for each ZConnector linked to an updatable model, copy z0 from the variable to zO of the udpatable model
   for (unsigned int i = 0; i < nbZConnectors(); ++i) {
     boost::shared_ptr<Connector> zc = zConnectors_[i];
     if (zc->connectedSubModels().empty()) {
@@ -766,37 +761,45 @@ ConnectorContainer::initZUpdatableValues() {
     }
 
     // Searching the initialization reference
-    vector<connectedSubModel>::iterator itInput;
-    bool inputFound = false;
-    bool nonZeroInputVariableFound = false;
-    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+    vector<connectedSubModel>::iterator itUpdatable = zc->connectedSubModels().end();
+    for (auto it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
       if (it->subModel()->getIsUpdatable()) {
-        if (inputFound || zc->connectedSubModels().size() != 2) {
+        if (itUpdatable != zc->connectedSubModels().end() || zc->connectedSubModels().size() != 2) {
           // Can connect only 1 input and 1 other variable
           throw DYNError(Error::MODELER, ErrorConnectedInputs, it->subModel()->name(), it->variable()->getName());
         }
-        const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-
-        if (doubleNotEquals(zLocal_[numVar], 0)) {  // non-zero variable
-          itInput = it;
-          nonZeroInputVariableFound = true;
-          break;
-        }
+        itUpdatable = it;
       }
     }
 
-    if (!nonZeroInputVariableFound)
+    if (itUpdatable == zc->connectedSubModels().end())
       continue;
 
-    for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
+    for (auto it = zc->connectedSubModels().begin();
       it != zc->connectedSubModels().end(); ++it) {
-      if (it != itInput) {
-        double sign = it->negated_ ? -1 : 1;
-        double value = zLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-        itInput->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, sign * value, false);
-        itInput->subModel()->setSubModelParameters();
+      if (it != itUpdatable) {
+        const double sign = (it->negated_ ? -1 : 1);
+        double signedValue = sign * zLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
+        const ParameterModeler& parameter = itUpdatable->subModel()->findParameterDynamic(UPDATABLE_INPUT_NAME);
+        switch (parameter.getValueType()) {
+        case VAR_TYPE_DOUBLE: {
+          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, signedValue, false);
+          break;
+        }
+        case VAR_TYPE_INT: {
+          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, static_cast<int>(signedValue), false);
+          break;
+        }
+        case VAR_TYPE_BOOL: {
+          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, toNativeBool(signedValue), false);
+          break;
+        }
+        case VAR_TYPE_STRING:
+          break;
+        }
+        itUpdatable->subModel()->setSubModelParameters();
       }
     }
   }
@@ -866,5 +869,4 @@ ConnectorContainer::isConnected(const int numVariable) {
   if (flowConnectorByVarNum_.find(numVariable) != flowConnectorByVarNum_.end()) return true;
   return false;
 }
-
 }  // namespace DYN
