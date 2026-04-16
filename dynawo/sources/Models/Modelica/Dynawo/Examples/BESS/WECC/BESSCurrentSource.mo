@@ -164,7 +164,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = BESS.BMvHvPu,
     ConverterLVControl = BESS.ConverterLVControl,
     GMvHvPu = BESS.GMvHvPu,

@@ -13,7 +13,7 @@ within Dynawo.Examples.Photovoltaics.WECC;
 * of simulation tools for power systems.
 */
 
-model PVVoltageSourceNoPPC "WECC Wind Type 4B Model on infinite bus"
+model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controller on infinite bus"
   extends Modelica.Icons.Example;
 
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.0000020661, BPu = 0, GPu = 0) annotation(

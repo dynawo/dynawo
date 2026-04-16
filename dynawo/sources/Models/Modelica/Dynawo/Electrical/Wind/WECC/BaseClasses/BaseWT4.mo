@@ -103,7 +103,6 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
     lvpl1 = lvpl1,
     tFilterGC = tFilterGC,
     tG = tG,
-    uConv0Pu = uConv0Pu,
     zerox = zerox,
     UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

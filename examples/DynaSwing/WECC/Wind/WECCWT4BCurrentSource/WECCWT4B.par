@@ -139,4 +139,7 @@
     <par type="DOUBLE" name="step_tStep" value="0"/>
     <par type="DOUBLE" name="step_Value0" value="0.2783"/>
   </set>
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
 </parametersSet>

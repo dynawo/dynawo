@@ -84,7 +84,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Lvplsw = Lvplsw,
     zerox = zerox,
     QConv0Pu = QConv0Pu,
-    uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu) annotation(
     Placement(transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(

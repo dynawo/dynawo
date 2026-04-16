@@ -20,7 +20,7 @@ model PVVoltageSource1 "WECC PV model with a voltage source as interface with th
   */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceB(LvTfo(RPu = RPu, XPu = XPu), wecc_regc(UConv0Pu));
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceB(LvTfo(RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
   // Input variables

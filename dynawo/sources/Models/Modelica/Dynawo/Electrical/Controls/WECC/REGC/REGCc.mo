@@ -66,7 +66,6 @@ model REGCc "WECC Generator Converter REGC type C"
     tE = tE,
     uInj0Pu = uInj0Pu,
     uSource0Pu = uSource0Pu,
-    uConv0Pu = uConv0Pu,
     UPhaseConv0 = UPhaseConv0) annotation(
     Placement(visible = true, transformation(origin = {255.5, 0.5}, extent = {{-25.5, -25.5}, {25.5, 25.5}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k2 = -1) annotation(

@@ -181,7 +181,7 @@ model BaseUnitModel
     Placement(transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = Unit.BMvHvPu,
     ConverterLVControl = Unit.ConverterLVControl,
     GMvHvPu = Unit.GMvHvPu,

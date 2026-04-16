@@ -103,7 +103,6 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
     lvpl1 = lvpl1,
     tFilterGC = tFilterGC,
     tG = tG,
-    uConv0Pu = uConv0Pu,
     zerox = zerox,
     UConv0Pu = UConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

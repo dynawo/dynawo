@@ -63,7 +63,6 @@ partial model BaseREGC "Base class for WECC Generator Converter REGC"
   parameter Dynawo.Types.CurrentModulePu Iq0Pu "Start value of q-component current at injector terminal in pu (generator convention) (base SNom, UNom)";
   parameter Types.ReactivePowerPu QConv0Pu "Start value of reactive power at converter terminal in pu (generator convention) (base SNom)";
   parameter Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
-  parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
 
 equation
   connect(switch3.y, rateLimFirstOrderFreeze2.dyMin) annotation(

@@ -13,7 +13,7 @@ within Dynawo.Examples.BESS.WECC;
 * of simulation tools for power systems.
 */
 
-model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plant controller REPC-A on infinite bus"
+model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-A with a plant controller REPC-A on infinite bus"
   extends Icons.Example;
 
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
@@ -178,7 +178,7 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-B with a plan
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = BESS.BMvHvPu,
     ConverterLVControl = BESS.ConverterLVControl,
     GMvHvPu = BESS.GMvHvPu,

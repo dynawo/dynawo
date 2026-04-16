@@ -13,7 +13,7 @@ within Dynawo.Examples.Wind.WECC;
 * of simulation tools for power systems.
 */
 
-model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant controller) - WTG4B - on infinite bus"
+model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant controller and an external power collection system) - WTG4B - on infinite bus"
   extends Icons.Example;
 
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(
@@ -181,7 +181,7 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = WTG4B.BMvHvPu,
     ConverterLVControl = WTG4B.ConverterLVControl,
     GMvHvPu = WTG4B.GMvHvPu,

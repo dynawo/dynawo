@@ -173,7 +173,7 @@ model WTG4BCurrentSource "WECC Wind Type 4B Model (including a plant controller)
     Placement(transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = WTG4B.BMvHvPu,
     ConverterLVControl = WTG4B.ConverterLVControl,
     GMvHvPu = WTG4B.GMvHvPu,

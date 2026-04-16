@@ -198,7 +198,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     Placement(transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = WTG3.BMvHvPu,
     ConverterLVControl = WTG3.ConverterLVControl,
     GMvHvPu = WTG3.GMvHvPu,

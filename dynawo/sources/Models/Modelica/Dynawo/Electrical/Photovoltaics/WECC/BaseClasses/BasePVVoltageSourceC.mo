@@ -52,7 +52,6 @@ partial model BasePVVoltageSourceC "Base model for WECC PV with a voltage source
     uInj0Pu = uInj0Pu,
     uSource0Pu = uSource0Pu,
     QConv0Pu = QConv0Pu,
-    uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu,
     frtOn(start = false),
     iConv0Pu = iConv0Pu,

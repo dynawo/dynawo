@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Wind.WECC;
+within Dynawo.Electrical.Controls.WECC.BaseClasses_INIT;
 
 /*
 * Copyright (c) 2026, RTE (http://www.rte-france.com)
@@ -13,7 +13,7 @@ within Dynawo.Electrical.Wind.WECC;
 * of simulation tools for power systems.
 */
 
-model WTG4CurrentSource_INIT "Initialization model for WECC Wind model with a current source as interface with the grid"
+model WECCCurrentSource_INIT "Initialization model for WECC BESS, PV and WT models with a current source as interface with the grid"
   extends AdditionalIcons.Init;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsPCS;
 
@@ -116,6 +116,5 @@ equation
   connect(realExpression.y, combiTable1D.u[1]) annotation(
     Line(points = {{-48, 0}, {-12, 0}}, color = {0, 0, 127}));
 
-  annotation(
-    preferredView = "text");
-end WTG4CurrentSource_INIT;
+  annotation(preferredView = "text");
+end WECCCurrentSource_INIT;

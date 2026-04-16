@@ -142,7 +142,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Wind.WECC.WTG4CurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCCurrentSource_INIT wTG4CurrentSource_INIT(
     BMvHvPu = PV.BMvHvPu,
     ConverterLVControl = PV.ConverterLVControl,
     GMvHvPu = PV.GMvHvPu,

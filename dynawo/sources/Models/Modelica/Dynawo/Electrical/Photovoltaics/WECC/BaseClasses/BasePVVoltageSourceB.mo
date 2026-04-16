@@ -49,7 +49,6 @@ partial model BasePVVoltageSourceB "Base model for WECC PV with a voltage source
     uInj0Pu = uInj0Pu,
     uSource0Pu = uSource0Pu,
     QConv0Pu = QConv0Pu,
-    uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu,
     UPhaseConv0 = UPhaseConv0) annotation(
     Placement(transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}})));
