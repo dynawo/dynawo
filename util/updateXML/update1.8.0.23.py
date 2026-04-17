@@ -13,17 +13,20 @@
 
 from content.Ticket import ticket
 
-# remove the "_value" suffix or pass it to the other var of connects for given models and member variables
+# add or remove the "_value" suffix in the connect statements for given models and member variables
 @ticket(3748)
 def update(jobs):
-    cla_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "CurrentLimitAutomaton" in bbm.get_lib_name())}
-    add_value_suffix(jobs.dyds, cla_ids, "currentLimitAutomaton_order")
+    all_bbm_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda _: True)}
 
-    dpl_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "DistanceProtectionLine" in bbm.get_lib_name())}
-    add_value_suffix(jobs.dyds, dpl_ids, "distance_lineState")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "phaseShifter_tap")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "tapChanger_tap")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "shunt_section")
 
-    event_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "EventQuadripole" in bbm.get_lib_name() or bbm.get_lib_name() == "EventConnectedStatus")}
+    event_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "EventSetPointReal" or bbm.get_lib_name() == "EventSetPointDoubleReal")}
     remove_value_suffix(jobs.dyds, event_ids, "event_state1_value")
+
+    tfo_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "TransformerPhaseTapChanger" or bbm.get_lib_name() == "LoadOneTransformer" or bbm.get_lib_name() == "TransformerRatioTapChanger")}
+    remove_value_suffix(jobs.dyds, tfo_ids, "transformer_tap_value")
 
 def add_value_suffix(dyds, bbm_ids, var):
     if not bbm_ids:

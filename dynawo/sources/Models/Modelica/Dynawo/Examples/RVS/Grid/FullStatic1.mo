@@ -302,28 +302,28 @@ model FullStatic1 "RVS test grid with buses, lines, shunts, PQ loads and transfo
 
 equation
   when time >= 0 then
-    tfo_103_124.tap.value = tfo_103_124.Tap0;
-    tfo_109_111.tap.value = tfo_109_111.Tap0;
-    tfo_109_112.tap.value = tfo_109_112.Tap0;
-    tfo_110_111.tap.value = tfo_110_111.Tap0;
-    tfo_110_112.tap.value = tfo_110_112.Tap0;
-    tfo_1101_101.tap.value = tfo_1101_101.Tap0;
-    tfo_1102_102.tap.value = tfo_1102_102.Tap0;
-    tfo_1103_103.tap.value = tfo_1103_103.Tap0;
-    tfo_1104_104.tap.value = tfo_1104_104.Tap0;
-    tfo_1105_105.tap.value = tfo_1105_105.Tap0;
-    tfo_1106_106.tap.value = tfo_1106_106.Tap0;
-    tfo_1107_107.tap.value = tfo_1107_107.Tap0;
-    tfo_1108_108.tap.value = tfo_1108_108.Tap0;
-    tfo_1109_109.tap.value = tfo_1109_109.Tap0;
-    tfo_1110_110.tap.value = tfo_1110_110.Tap0;
-    tfo_1113_113.tap.value = tfo_1113_113.Tap0;
-    tfo_1114_114.tap.value = tfo_1114_114.Tap0;
-    tfo_1115_115.tap.value = tfo_1115_115.Tap0;
-    tfo_1116_116.tap.value = tfo_1116_116.Tap0;
-    tfo_1118_118.tap.value = tfo_1118_118.Tap0;
-    tfo_1119_119.tap.value = tfo_1119_119.Tap0;
-    tfo_1120_120.tap.value = tfo_1120_120.Tap0;
+    tfo_103_124.tap = tfo_103_124.Tap0;
+    tfo_109_111.tap = tfo_109_111.Tap0;
+    tfo_109_112.tap = tfo_109_112.Tap0;
+    tfo_110_111.tap = tfo_110_111.Tap0;
+    tfo_110_112.tap = tfo_110_112.Tap0;
+    tfo_1101_101.tap = tfo_1101_101.Tap0;
+    tfo_1102_102.tap = tfo_1102_102.Tap0;
+    tfo_1103_103.tap = tfo_1103_103.Tap0;
+    tfo_1104_104.tap = tfo_1104_104.Tap0;
+    tfo_1105_105.tap = tfo_1105_105.Tap0;
+    tfo_1106_106.tap = tfo_1106_106.Tap0;
+    tfo_1107_107.tap = tfo_1107_107.Tap0;
+    tfo_1108_108.tap = tfo_1108_108.Tap0;
+    tfo_1109_109.tap = tfo_1109_109.Tap0;
+    tfo_1110_110.tap = tfo_1110_110.Tap0;
+    tfo_1113_113.tap = tfo_1113_113.Tap0;
+    tfo_1114_114.tap = tfo_1114_114.Tap0;
+    tfo_1115_115.tap = tfo_1115_115.Tap0;
+    tfo_1116_116.tap = tfo_1116_116.Tap0;
+    tfo_1118_118.tap = tfo_1118_118.Tap0;
+    tfo_1119_119.tap = tfo_1119_119.Tap0;
+    tfo_1120_120.tap = tfo_1120_120.Tap0;
   end when;
 
   tfo_1101_101.switchOffSignal1 = false;
