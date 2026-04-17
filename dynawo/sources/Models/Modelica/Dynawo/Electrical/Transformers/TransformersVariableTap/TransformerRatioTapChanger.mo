@@ -40,25 +40,26 @@ model TransformerRatioTapChanger "Two winding transformer with a fixed phase and
   Types.PerUnit ratioTfoPu(start = RatioTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
 
   // Input connector
-  Dynawo.Connectors.ZPin tap(value(start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
+  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)";
 
   // Initial parameters
   parameter Integer Tap0 "Start value of transformer tap";
 
 equation
-  when (tap.value <> pre(tap.value)) then
+  when (tap <> pre(tap)) then
     // Transformation ratio calculation
     if (NbTap == 1) then
       ratioTfoPu = RatioTfoMinPu;
     else
-      ratioTfoPu = RatioTfoMinPu + (RatioTfoMaxPu - RatioTfoMinPu) * (tap.value / (NbTap - 1));
+      ratioTfoPu = RatioTfoMinPu + (RatioTfoMaxPu - RatioTfoMinPu) * (tap / (NbTap - 1));
     end if;
   end when;
 
   rTfoPu = ComplexMath.fromPolar(ratioTfoPu, AlphaTfo);
 
-  annotation(preferredView = "text",
-      Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r,alpha          I2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>

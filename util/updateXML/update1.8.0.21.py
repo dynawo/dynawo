@@ -151,7 +151,7 @@ def update(jobs):
         wecc.parset.remove_param_or_ref("WTG3_tp")
         wecc.parset.add_param("DOUBLE", "WTG3_tpWTGQa", value)
 
-    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() = "WTG4AWeccCurrentSource")
+    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource")
     for wecc in weccs:
         value = wecc.parset.get_param_value("WTG4A_PMaxPu")
         wecc.parset.remove_param_or_ref("WTG4A_PMaxPu")
@@ -177,7 +177,7 @@ def update(jobs):
         wecc.parset.remove_param_or_ref("WTG4A_tp")
         wecc.parset.add_param("DOUBLE", "WTG4A_tpWTGTb", value)
 
-    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() = "WTG4BWeccCurrentSource")
+    weccs = jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4BWeccCurrentSource")
     for wecc in weccs:
         value = wecc.parset.get_param_value("WTG4B_PMaxPu")
         wecc.parset.remove_param_or_ref("WTG4B_PMaxPu")

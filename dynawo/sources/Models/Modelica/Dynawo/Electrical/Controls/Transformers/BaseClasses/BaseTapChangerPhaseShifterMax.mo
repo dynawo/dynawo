@@ -59,52 +59,52 @@ equation
   //Transition to "Locked" (possible from any state and prioritary)
   when (not running) or locked then
     state = State.Locked;
-    tap.value = pre(tap.value);
+    tap = pre(tap);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveDown" (possible from any state except down states)
   elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running and not(locked) then
     state = State.WaitingToMoveDown;
-    tap.value = pre(tap.value);
+    tap = pre(tap);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveUp" (possible from any state except up states)
   elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running and not(locked) then
     state = State.WaitingToMoveUp;
-    tap.value = pre(tap.value);
+    tap = pre(tap);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "Standard" (possible from any state)
   elsewhen valueUnderStop and pre(state) <> State.Standard and running and not(locked) then
     state = State.Standard;
-    tap.value = pre(tap.value);
+    tap = pre(tap);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "MoveDown1" (only possible from WaitingToMoveDown)
-  elsewhen pre(state) == State.WaitingToMoveDown and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) > tapMin then
+  elsewhen pre(state) == State.WaitingToMoveDown and time - tValueAboveMaxWhileRunning>= t1st and pre(tap) > tapMin then
     state = State.MoveDown1;
-    tap.value = pre(tap.value) - 1;
+    tap = pre(tap) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveUp1" (only possible from WaitingToMoveUp)
-  elsewhen pre(state) == State.WaitingToMoveUp and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) < tapMax then
+  elsewhen pre(state) == State.WaitingToMoveUp and time - tValueAboveMaxWhileRunning>= t1st and pre(tap) < tapMax then
     state = State.MoveUp1;
-    tap.value = pre(tap.value) + 1;
+    tap = pre(tap) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
     Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveDownN" (only possible from MoveDown1 or MoveDownN)
-  elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
+  elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap) > tapMin then
     state = State.MoveDownN;
-    tap.value = pre(tap.value) - 1;
+    tap = pre(tap) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent3(TimelineKeys.TapDown, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);
   //Transition to "MoveUpN" (only possible from MoveUp1 or MoveUpN)
-  elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
+  elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap) < tapMax then
     state = State.MoveUpN;
-    tap.value = pre(tap.value) + 1;
+    tap = pre(tap) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
     Timeline.logEvent3(TimelineKeys.TapUp, String(valueToMonitor.value * factorValueToDisplay), unitValueToDisplay);

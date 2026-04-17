@@ -14,16 +14,16 @@ within Dynawo.NonElectrical.Blocks.NonLinear;
 
 model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-based output. This model has discrete inputs and outputs."
 
-  Dynawo.Connectors.ZPin u(value(start = U0)) "Input connector" annotation(
-    Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.ZPin y(value(start = Y0)) "Output connector" annotation(
-    Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   parameter Real Ki "Integrator constant";
   parameter Real Kp "Gain constant";
   parameter Real Kaw "Gain constant for AntiWindup";
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
+
+  discrete Modelica.Blocks.Interfaces.RealInput u(start = U0) "Input connector" annotation(
+    Placement(transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+  discrete Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output connector" annotation(
+    Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Tables.CombiTable1D combiTable1D(tableOnFile = true, tableName = PiTableName, fileName = PiTableFile) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -43,9 +43,9 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
 
 equation
   if time >= 0 then
-    y.value = combiTable1D.y[1];
+    y = combiTable1D.y[1];
   else
-    y.value = pre(y.value);
+    y = pre(y);
   end if;
 
   connect(add1.y, integrator.u) annotation(
@@ -62,8 +62,10 @@ equation
     Line(points = {{-18, -20}, {0, -20}, {0, -6}, {18, -6}}, color = {0, 0, 127}));
   connect(gain1.y, add.u1) annotation(
     Line(points = {{-18, 20}, {0, 20}, {0, 6}, {18, 6}}, color = {0, 0, 127}));
-  u.value = gain1.u;
-  u.value = add1.u1;
+  connect(u, gain1.u) annotation(
+    Line(points = {{-130, 0}, {-100, 0}, {-100, 20}, {-42, 20}}, color = {0, 0, 127}));
+  connect(u, add1.u1) annotation(
+    Line(points = {{-130, 0}, {-100, 0}, {-100, -14}, {-82, -14}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
