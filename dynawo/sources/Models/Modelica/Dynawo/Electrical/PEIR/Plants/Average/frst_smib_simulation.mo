@@ -17,7 +17,7 @@ model frst_smib_simulation
   Omega0Pu = 1.0,
 
   // ── VSC Pade delay ────────────────────────────────────────
-  tVSC     = 0.02,
+  tVSC     =0.02,
 
   // ── LC filter ─────────────────────────────────────────────
   RfPu     = 0.01,
@@ -86,7 +86,7 @@ model frst_smib_simulation
   DuMax_idref      = 10.0,
   DuMin_idref      = -10.0,
   tS_idref         = 1e-4,
-  delay_time_plant = 0.0);
+  delay_time_plant = 1e-3);
 
   // ── Infinite bus ──────────────────────────────────────────────
   // References — keep constant for first test, add step later

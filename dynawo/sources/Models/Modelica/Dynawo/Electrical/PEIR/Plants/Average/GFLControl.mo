@@ -100,8 +100,7 @@ model GFLControl
     k_p_q             = k_p_q_current,
     k_i_q             = k_i_q_current,
     L_g               = L_g,
-    y_start_current_d = vmd_0,
-    y_start_current_q = vmq_0, id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0, voltagefeedforwardflag = voltagefeedforwardflag) annotation(
+ id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0, voltagefeedforwardflag = voltagefeedforwardflag) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
   Dynawo.Electrical.PEIR.Plants.Average.outer_loop outer_loop_GFL(
@@ -127,7 +126,7 @@ model GFLControl
     Kp         = K_p_pll,
     OmegaMaxPu = OmegaMaxPu,
     OmegaMinPu = OmegaMinPu,
-    Theta0     = Theta0, Omega0Pu = Omega0Pu, uqgrid0PU = Uq0Pu) annotation(
+    Theta0     = Theta0/K_p_pll, Omega0Pu = Omega0Pu, uqgrid0PU = Uq0Pu) annotation(
     Placement(transformation(origin = {15, -69}, extent = {{-23, -23}, {23, 23}})));
 
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
@@ -187,7 +186,7 @@ model GFLControl
   // Voltage magnitude for outer loop
   Modelica.Blocks.Sources.RealExpression U_meas_pu(
     y = sqrt(V_d_meas^2 + V_q_meas^2)) annotation(
-    Placement(transformation(origin = {-240, 102}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-270, 102}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput V_q_grid annotation(
     Placement(transformation(origin = {-270, -78}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput omega_pll_pu_2 annotation(
@@ -229,7 +228,7 @@ equation
   connect(outer_loop_GFL.i_q_ref, current_loop_GFL.i_q_ref) annotation(
     Line(points = {{-159.5, 52}, {46, 52}}, color = {0, 0, 127}));
   connect(outer_loop_GFL.V_meas, U_meas_pu.y) annotation(
-    Line(points = {{-217, 95}, {-217, 102.5}, {-229, 102.5}, {-229, 102}}, color = {0, 0, 127}));
+    Line(points = {{-217, 95}, {-217, 100.5}, {-259, 100.5}, {-259, 102}}, color = {0, 0, 127}));
   connect(omegaRefPU, pll.omegaRefPu) annotation(
     Line(points = {{-270, -60}, {-10, -60}}, color = {0, 0, 127}));
 
