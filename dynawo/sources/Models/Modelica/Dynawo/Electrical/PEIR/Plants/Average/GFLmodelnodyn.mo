@@ -268,10 +268,10 @@ final parameter Complex uconv0Pu_init =
     Placement(transformation(origin = {113, 49}, extent = {{-12, -12}, {12, 12}})));
  MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0,   I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = ucaP0Pu_init.re, u_LV_im_0 = ucaP0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud0Pu, V_LV_q_0 = Uq0Pu)  annotation(
     Placement(transformation(origin = {-16, -56}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
- trafoNoDyn trafoHV (RPu = RPuHV, LPu = LPuHV, Omega0Pu = Omega0Pu, IrRight0Pu = IrPcc0Pu, IiRight0Pu = IiPcc0Pu, UrLeft0Pu =  uLV0Pu_init.re, UiLeft0Pu = uLV0Pu_init.im, UrRight0Pu = UrPcc0Pu, UiRight0Pu =UiPcc0Pu ) annotation(
+ trafoNoDyn trafoHV(RPu = RPuHV, LPu = LPuHV, Omega0Pu = Omega0Pu, IrRight0Pu = IrPcc0Pu, IiRight0Pu = IiPcc0Pu, UrLeft0Pu = uLV0Pu_init.re, UiLeft0Pu = uLV0Pu_init.im, UrRight0Pu = UrPcc0Pu, UiRight0Pu = UiPcc0Pu) annotation(
     Placement(transformation(origin = {153, 43}, extent = {{-12, -12}, {12, 12}})));
 equation
-  connect(PRefPu, plant_controller.PRefPu) annotation(
+ connect(PRefPu, plant_controller.PRefPu) annotation(
     Line(points = {{-109, 61}, {-86, 61}, {-86, 59.5}, {-84, 59.5}}, color = {0, 0, 127}));
   connect(UREfPu, plant_controller.URefPu) annotation(
     Line(points = {{-109, 45}, {-96.5, 45}, {-96.5, 43}, {-84, 43}}, color = {0, 0, 127}));
@@ -295,9 +295,9 @@ equation
     Line(points = {{78, 63}, {80.5, 63}, {80.5, 44}, {99, 44}}, color = {0, 0, 127}));
   connect(lCnoDynFilter.iRight_imPu, trafoLV.iiRightPu) annotation(
     Line(points = {{78, 58}, {78, 39}, {99, 39}}, color = {0, 0, 127}));
-  connect(gFLControl.omega_pll_pu, lCnoDynFilter.omegaPu) annotation(
+ connect(gFLControl.omega_pll_pu, lCnoDynFilter.omegaPu) annotation(
     Line(points = {{2, 44}, {59.5, 44}, {59.5, 54}, {60, 54}}, color = {0, 0, 127}));
-  connect(trafoLV.omegaPu, gFLControl.omega_pll_pu) annotation(
+ connect(trafoLV.omegaPu, gFLControl.omega_pll_pu) annotation(
     Line(points = {{113, 35}, {112.5, 35}, {112.5, 34}, {9.40625, 34}, {9.40625, 44}, {2, 44}}, color = {0, 0, 127}));
   terminalPcc.V.re = trafoHV.urRightPu;
   terminalPcc.V.im = trafoHV.uiRightPu;
@@ -307,9 +307,8 @@ equation
   measurementBlock.u_LV_im = trafoLV.uiRightPu;
   measurementBlock.V_pcc_re = trafoHV.urRightPu;
   measurementBlock.V_pcc_im = trafoHV.uiRightPu;
-lCnoDynFilter.iRight_rePu = trafoHV.irRightPu;
-lCnoDynFilter.iRight_imPu = trafoHV.iiRightPu;
-
+  lCnoDynFilter.iRight_rePu = trafoHV.irRightPu;
+  lCnoDynFilter.iRight_imPu = trafoHV.iiRightPu;
   connect(gFLControl.P_ref, plant_controller.PInjRefPu) annotation(
     Line(points = {{-36, 60}, {-41, 60}, {-41, 57}, {-45, 57}}, color = {0, 0, 127}));
   connect(plant_controller.QInjRefPu, gFLControl.Q_ref) annotation(
@@ -336,17 +335,17 @@ lCnoDynFilter.iRight_imPu = trafoHV.iiRightPu;
     Line(points = {{-1, -27}, {-1, 30}, {-4, 30}}, color = {0, 0, 127}));
   connect(measurementBlock.theta_pll, gFLControl.theta_pll) annotation(
     Line(points = {{7, -27}, {7, 38}, {2, 38}}, color = {0, 0, 127}));
-  connect(trafoHV.uiLeftPu, trafoLV.uiRightPu) annotation(
+ connect(trafoHV.uiLeftPu, trafoLV.uiRightPu) annotation(
     Line(points = {{139, 46}, {133.5, 46}, {133.5, 44}, {128, 44}}, color = {0, 0, 127}));
-  connect(trafoLV.urRightPu, trafoHV.urLeftPu) annotation(
+ connect(trafoLV.urRightPu, trafoHV.urLeftPu) annotation(
     Line(points = {{128, 54}, {138, 54}, {138, 52}, {139, 52}}, color = {0, 0, 127}));
-  connect(measurementBlock.I_conv_re, lCnoDynFilter.iLeft_rePu) annotation(
+ connect(measurementBlock.I_conv_re, lCnoDynFilter.iLeft_rePu) annotation(
     Line(points = {{12, -32}, {54, -32}, {54, 62}}, color = {0, 0, 127}));
-  connect(measurementBlock.I_conv_im, lCnoDynFilter.iLeft_imPu) annotation(
+ connect(measurementBlock.I_conv_im, lCnoDynFilter.iLeft_imPu) annotation(
     Line(points = {{12, -38}, {54, -38}, {54, 58}}, color = {0, 0, 127}));
-  connect(measurementBlock.I_pcc_re, trafoHV.irRightPu) annotation(
+ connect(measurementBlock.I_pcc_re, trafoHV.irRightPu) annotation(
     Line(points = {{12, -62}, {138, -62}, {138, 38}}, color = {0, 0, 127}));
-  connect(measurementBlock.I_pcc_im, trafoHV.iiRightPu) annotation(
+ connect(measurementBlock.I_pcc_im, trafoHV.iiRightPu) annotation(
     Line(points = {{12, -68}, {138, -68}, {138, 34}}, color = {0, 0, 127}));
  connect(trafoHV.omegaPu, gFLControl.omega_pll_pu) annotation(
     Line(points = {{154, 28}, {10, 28}, {10, 44}, {2, 44}}, color = {0, 0, 127}));
