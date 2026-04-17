@@ -12,11 +12,11 @@ model test
 
   GFLmodelnodyn gFLmodelnodyn(
     // ── Initial conditions — PCC node ────────────────────────
-    UrPcc0Pu = 0.982479,
-    UiPcc0Pu = 0.0,
+    UrPcc0Pu = 0.974926,
+    UiPcc0Pu = 0.048787,
     // Generator convention: positive = injected into grid
-    P0_pcc   = -0.610352,
-    Q0_pcc   = -0.00589147,
+    P0_pcc   = -0.601367,
+    Q0_pcc   = -0.0148257,
     Omega0Pu = 1.0,
 
     // ── VSC Pade delay ────────────────────────────────────────
@@ -86,7 +86,7 @@ model test
     K_i_pll    = 120.0,
     OmegaMaxPu = 1.05,
     OmegaMinPu = 0.95,
-    Theta0     = 0.0,
+    Theta0     = 0.05,
 
     // ── Rate limiters and delays ──────────────────────────────
     DyMax_pi_d       = 10000.0,
@@ -105,17 +105,17 @@ model test
   // across two transformers: R_tot=0.01, L_tot=0.4 pu
   // |Delta_U| ~ sqrt((R*I)^2 + (X*I)^2) ~ 0.03 pu => U_bus ~ 0.97 pu
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(
-    UPu    = 0.98,
-    UPhase = 0) annotation(
+    UPu    = 0.976146,
+    UPhase = 0.05) annotation(
     Placement(transformation(origin = {12, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   // PRef = 0.6 pu — constant for first test
-  Modelica.Blocks.Sources.Constant PRef(k = 0.601367) annotation(
+  Modelica.Blocks.Sources.Constant PRef(k = 0.624285) annotation(
     Placement(transformation(origin = {-62, 32}, extent = {{-10, -10}, {10, 10}})));
 
   // URef = U0 + Lambda*Q0 = 1.0 + 0.2*(-0.3) = 0.94 pu
   // This MUST equal URef0Pu computed inside the model otherwise PI starts with error
-  Modelica.Blocks.Sources.Constant URef(k = 0.98) annotation(
+  Modelica.Blocks.Sources.Constant URef(k = 0.976146) annotation(
     Placement(transformation(origin = {-64, -2}, extent = {{-10, -10}, {10, 10}})));
 
   // Frequency reference = nominal
