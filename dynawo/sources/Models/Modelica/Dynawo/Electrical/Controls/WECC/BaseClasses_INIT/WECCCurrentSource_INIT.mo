@@ -75,6 +75,7 @@ model WECCCurrentSource_INIT "Initialization model for WECC BESS, PV and WT mode
   Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)" annotation(
     Dialog(enable = not PPCLocal));
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
+  Types.PerUnit Pm0Pu "Initial mechanical power in pu (base SNom)";
 
   Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
@@ -112,6 +113,7 @@ equation
   Id0Pu = Modelica.Math.cos(UPhaseConv0)*iInj0Pu.re + Modelica.Math.sin(UPhaseConv0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseConv0)*iInj0Pu.re - Modelica.Math.cos(UPhaseConv0)*iInj0Pu.im;
   omegaRefWTGQPu0 = combiTable1D.y[1];
+  Pm0Pu = PConv0Pu;
 
   connect(realExpression.y, combiTable1D.u[1]) annotation(
     Line(points = {{-48, 0}, {-12, 0}}, color = {0, 0, 127}));
