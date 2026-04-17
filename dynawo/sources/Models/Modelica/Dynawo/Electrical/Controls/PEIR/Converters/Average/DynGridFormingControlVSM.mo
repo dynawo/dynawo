@@ -77,7 +77,7 @@ model DynGridFormingControlVSM
     Placement(visible = true, transformation(origin = {106, 72}, extent = {{-6, -6}, {6, 6}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(DeltaVVId0 = VI.DeltaVVId0, DeltaVVIq0 = VI.DeltaVVIq0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mq = Mq, QFilter0Pu = QFilter0Pu, URef0Pu = URef0Pu, UdRef0Pu = UdFilter0Pu, UqRef0Pu = UqFilter0Pu, Wf = Wf, Wff = Wff) annotation(
     Placement(visible = true, transformation(origin = {-38, 24}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilter = LFilterPu, RFilter = RFilterPu, UdFilter0Pu = UdFilter0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilter0Pu, UqPcc0Pu = UqPcc0Pu, XVI = XVI, Omega0Pu = Omega0Pu) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilter = LTransformerPu, Omega0Pu = Omega0Pu, RFilter = RTransformerPu, UdFilter0Pu = UdFilter0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilter0Pu, UqPcc0Pu = UqPcc0Pu, XVI = XVI) annotation(
     Placement(visible = true, transformation(origin = {16, 24}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops.DynCurrentLoop currentLoop(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Kfd = Kfd, Kfq = Kfq, Kic = Kic, Kpc = Kpc, LFilter = LFilterPu, RFilter = RFilterPu, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UqConv0Pu = UqConv0Pu, UqFilter0Pu = UqFilter0Pu, Omega0Pu = Omega0Pu) annotation(
     Placement(visible = true, transformation(origin = {76, 24}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
@@ -156,10 +156,10 @@ equation
     Line(points = {{-108, 24}, {-56, 24}}, color = {85, 170, 0}, thickness = 0.5));
   connect(QFilterRefPu, voltageReferenceControl.QFilterRefPu) annotation(
     Line(points = {{-108, 8}, {-56, 8}}, color = {85, 170, 0}, thickness = 0.5));
-  connect(udFilterPu, QSEM.udFilteredPCCPu) annotation(
-    Line(points = {{40, -108}, {40, -80}, {12, -80}, {12, 6}}, color = {85, 170, 0}));
-  connect(uqFilterPu, QSEM.uqFilteredPCCPu) annotation(
-    Line(points = {{88, -108}, {88, -66}, {20, -66}, {20, 6}}, color = {85, 170, 0}));
+  connect(udFilteredPccPu, QSEM.udFilteredPCCPu) annotation(
+    Line(points = {{-108, -78}, {12, -78}, {12, 6}}, color = {0, 0, 127}));
+  connect(uqFilteredPccPu, QSEM.uqFilteredPCCPu) annotation(
+    Line(points = {{-108, -92}, {20, -92}, {20, 6}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Text(origin = {45, 35}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {45, 23}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 35}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 23}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold})}));
