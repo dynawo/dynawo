@@ -90,6 +90,9 @@ model MeasurementBlock
     Placement(transformation(origin = {70, -34}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze4(k = k_filter, T = T_filter, Y0 = Q0_LV) annotation(
     Placement(transformation(origin = {70, -84}, extent = {{-10, -10}, {10, 10}})));
+
+Modelica.Blocks.Sources.RealExpression P_from_RI(
+  y = V_pcc_re*I_pcc_re + V_pcc_im*I_pcc_im);
 equation
   connect(transformRItoDQ.phi, theta_pll) annotation(
     Line(points = {{-33, 68}, {-88.5, 68}, {-88.5, 52}, {-112, 52}}, color = {0, 0, 127}));

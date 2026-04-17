@@ -126,7 +126,7 @@ model GFLControl
     Kp         = K_p_pll,
     OmegaMaxPu = OmegaMaxPu,
     OmegaMinPu = OmegaMinPu,
-    Theta0     = Theta0/K_p_pll, Omega0Pu = Omega0Pu, uqgrid0PU = Uq0Pu) annotation(
+    Theta0     = Theta0, Omega0Pu = Omega0Pu, uqgrid0PU = Uq0Pu) annotation(
     Placement(transformation(origin = {15, -69}, extent = {{-23, -23}, {23, 23}})));
 
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
