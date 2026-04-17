@@ -12,33 +12,33 @@ model test
 
   GFLmodelnodyn gFLmodelnodyn(
     // ── Initial conditions — PCC node ────────────────────────
-    UrPcc0Pu = 1.0,
+    UrPcc0Pu = 0.982479,
     UiPcc0Pu = 0.0,
     // Generator convention: positive = injected into grid
-    P0_pcc   = -0.6,
-    Q0_pcc   = -0.3,
+    P0_pcc   = -0.610352,
+    Q0_pcc   = -0.00589147,
     Omega0Pu = 1.0,
 
     // ── VSC Pade delay ────────────────────────────────────────
-    tVSC = 0.0,
+    tVSC = 1e-3,
 
     // ── LC filter ─────────────────────────────────────────────
-    RfPu     = 0.001,
-    LfPu     = 0.1,
-    CfPu     = 0.02,
+    RfPu     = 0.00001,
+    LfPu     = 0.001,
+    CfPu     = 0.00000000002,
     omegaNom = 2 * Modelica.Constants.pi * 50,
 
     // ── LV transformer (filter → LV node) ────────────────────
     RPuLV = 0.005,
-    LPuLV = 0.2,
+    LPuLV = 0.002,
 
     // ── HV transformer (LV node → PCC) ───────────────────────
-    RPuHV = 0.005,
-    LPuHV = 0.2,
+    RPuHV = 0.01,
+    LPuHV = 0.01,
 
     // ── Measurement filter ────────────────────────────────────
-    k_filter = 1.0,
-    T_filter = 0.02,
+    k_filter = 1,
+    T_filter = 0.00000002,
 
     // ── Inner current loop ────────────────────────────────────
     // omega_cc = 800 rad/s => bandwidth ~127 Hz
@@ -48,14 +48,14 @@ model test
     k_i_q_current = 80.0,
 
     // ── Outer loop (bandwidth 1-8 Hz — inside SSO range) ─────
-    k_p_d_outer = 0.35,
-    k_i_d_outer = 10.0,
-    k_p_q_outer = 0.30,
-    k_i_q_outer = 7.0,
+    k_p_d_outer = 1,
+    k_i_d_outer = 100.0,
+    k_p_q_outer = 1.0,
+    k_i_q_outer = 70.0,
 
     // ── Current limiter — Iq boost disabled for first test ────
     Imax       = 1.1,
-    PQFlag     = true,
+    PQFlag     = false,
     UboostHigh = 1.1,
     UboostLow  = 0.9,
     Kqv        = 0.0,
@@ -63,18 +63,18 @@ model test
     IqBoostMin = 0.0,
 
     // ── Plant controller ──────────────────────────────────────
-    K_p_q_plant = 0.1,
+    K_p_q_plant = 1,
     K_i_q_plant = 1.0,
-    K_p_p_plant = 0.1,
+    K_p_p_plant = 1,
     K_i_p_plant = 1.0,
-    // Lambda = 0.2: URef = U0 + Lambda*Q0 = 1.0 + 0.2*(-0.3) = 0.94
+
     // URefPu constant below must equal this value
-    Lambda      = 0.2,
+    Lambda      = 0.28,
     Kdroop      = 0.03,
     QMaxPu      = 0.5,
     QMinPu      = -0.5,
-    PMaxPu      = 1.2,
-    PMinPu      = 0.0,
+    PMaxPu      = 0.6,
+    PMinPu      = 0,
     FEMaxPu     = 0.05,
     FEMinPu     = -0.05,
     FDbd1Pu     = 0.005,
@@ -89,8 +89,8 @@ model test
     Theta0     = 0.0,
 
     // ── Rate limiters and delays ──────────────────────────────
-    DyMax_pi_d       = 10.0,
-    DyMax_pi_q       = 10.0,
+    DyMax_pi_d       = 10000.0,
+    DyMax_pi_q       = 100000.0,
     DuMax_idref      = 10.0,
     DuMin_idref      = -10.0,
     tS_idref         = 1e-4,
@@ -98,24 +98,24 @@ model test
 
     // ── Voltage feedforward flag ──────────────────────────────
     voltagefeedforwardflag = 1) annotation(
-    Placement(transformation(origin = {10, -2}, extent = {{-28, -28}, {28, 28}})));
+    Placement(transformation(origin = {12, 0}, extent = {{-28, -28}, {28, 28}})));
 
   // ── Infinite bus ──────────────────────────────────────────────
   // U_bus consistent with voltage drop at P=0.6, Q=-0.3
   // across two transformers: R_tot=0.01, L_tot=0.4 pu
   // |Delta_U| ~ sqrt((R*I)^2 + (X*I)^2) ~ 0.03 pu => U_bus ~ 0.97 pu
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(
-    UPu    = 0.97,
+    UPu    = 0.98,
     UPhase = 0) annotation(
-    Placement(transformation(origin = {74, 2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {12, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   // PRef = 0.6 pu — constant for first test
-  Modelica.Blocks.Sources.Constant PRef(k = 0.6) annotation(
+  Modelica.Blocks.Sources.Constant PRef(k = 0.601367) annotation(
     Placement(transformation(origin = {-62, 32}, extent = {{-10, -10}, {10, 10}})));
 
   // URef = U0 + Lambda*Q0 = 1.0 + 0.2*(-0.3) = 0.94 pu
   // This MUST equal URef0Pu computed inside the model otherwise PI starts with error
-  Modelica.Blocks.Sources.Constant URef(k = 0.94) annotation(
+  Modelica.Blocks.Sources.Constant URef(k = 0.98) annotation(
     Placement(transformation(origin = {-64, -2}, extent = {{-10, -10}, {10, 10}})));
 
   // Frequency reference = nominal
@@ -123,15 +123,16 @@ model test
     Placement(transformation(origin = {-58, -36}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  connect(gFLmodelnodyn.terminalPCC, infiniteBus.terminal) annotation(
-    Line(points = {{44, 0}, {59, 0}, {59, 2}, {74, 2}}, color = {0, 0, 255}));
-  connect(PRef.y, gFLmodelnodyn.PRefPu) annotation(
-    Line(points = {{-51, 32}, {-38.5, 32}, {-38.5, 18}, {-24, 18}}, color = {0, 0, 127}));
-  connect(URef.y, gFLmodelnodyn.UREfPu) annotation(
-    Line(points = {{-53, -2}, {-24, -2}}, color = {0, 0, 127}));
-  connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
-    Line(points = {{-47, -36}, {-35, -36}, {-35, -18}, {-24, -18}}, color = {0, 0, 127}));
 
+  connect(URef.y, gFLmodelnodyn.UREfPu) annotation(
+    Line(points = {{-53, -2}, {-38.5, -2}, {-38.5, 0}, {-22, 0}}, color = {0, 0, 127}));
+  connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
+    Line(points = {{-47, -36}, {-35, -36}, {-35, -17}, {-22, -17}}, color = {0, 0, 127}));
+
+  connect(PRef.y, gFLmodelnodyn.PRefPu) annotation(
+    Line(points = {{-50, 32}, {-30, 32}, {-30, 20}, {-21, 20}}, color = {0, 0, 127}));
+  connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(
+    Line(points = {{12, -22}, {10, -22}, {10, -62}, {12, -62}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     experiment(

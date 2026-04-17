@@ -29,7 +29,7 @@ model Plant_controller
   parameter Real PInj0Pu "Initial active power in pu in gnerator convenction";
 
   // URef0: error = URef - (U + lambda*Q) = 0 at t=0
-  final parameter Real URef0Pu = U0Pu + Lambda * Q0Pu;
+  final parameter Real URef0Pu = U0Pu - Lambda * Q0Pu;
   // PRef0: frequency error = 0 at t=0 => PRef0 = P0
   final parameter Real PRef0Pu = P0Pu;
 
@@ -44,7 +44,7 @@ model Plant_controller
 
   Modelica.Blocks.Interfaces.RealInput QfiltPu(start = Q0Pu)
     "Filtered reactive power (pu)" annotation(
-    Placement(transformation(origin = {-160, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {-162, 32}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PRef0Pu)
     "Active power setpoint - constant (pu)" annotation(
@@ -73,10 +73,10 @@ model Plant_controller
 
   // lambda * Q_filt
   Modelica.Blocks.Math.Gain lambdaGain(k = Lambda) annotation(
-    Placement(transformation(origin = {-72, 20}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-72, 32}, extent = {{-10, -10}, {10, 10}})));
 
   // U + lambda*Q
-  Modelica.Blocks.Math.Add uLambdaQ(k1 = +1, k2 = +1) annotation(
+  Modelica.Blocks.Math.Add uLambdaQ(k1 = +1, k2 = -1) annotation(
     Placement(transformation(origin = {-30, 38}, extent = {{-10, -10}, {10, 10}})));
 
   // URef - (U + lambda*Q)
@@ -96,7 +96,7 @@ model Plant_controller
     Ti       = Kp_q / Ki_q,
     yMax     = QMaxPu,
     yMin     = QMinPu,
-    xi_start = QInj0Pu / Kp_q,
+    xi_start = QInj0Pu/Kp_q,
     y_start  = QInj0Pu,
     initType = Modelica.Blocks.Types.InitPID.InitialState) annotation(
     Placement(transformation(origin = {72, 70}, extent = {{-10, -10}, {10, 10}})));
@@ -133,31 +133,21 @@ model Plant_controller
   // PRef_eff - P_filt
   Modelica.Blocks.Math.Add activePowerErr(k1 = +1, k2 = -1) annotation(
     Placement(transformation(origin = {28, -39}, extent = {{-10, -10}, {10, 10}})));
-
   // P PI controller
-  Modelica.Blocks.Continuous.LimPID piP(
-    controllerType = Modelica.Blocks.Types.SimpleController.PI,
-    k        = Kp_p,
-    Ti       = Kp_p / Ki_p,
-    yMax     = PMaxPu,
-    yMin     = PMinPu,
-    xi_start = PInj0Pu / Kp_p,
-    y_start  = PInj0Pu,
-    initType = Modelica.Blocks.Types.InitPID.InitialState) annotation(
+  Modelica.Blocks.Continuous.LimPID piP(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kp_p, Ti = Kp_p/Ki_p, yMax = PMaxPu, yMin = PMinPu, xi_start = PInj0Pu/Kp_p, y_start = PInj0Pu, initType = Modelica.Blocks.Types.InitPID.InitialState) annotation(
     Placement(transformation(origin = {94, -39}, extent = {{-10, -10}, {10, 10}})));
-
   Modelica.Blocks.Sources.Constant zeroP(k = 0) annotation(
     Placement(transformation(origin = {94, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.Constant const(k = 1)  annotation(
-    Placement(transformation(origin = {-157, -35}, extent = {{-7, -7}, {7, 7}})));
+  Modelica.Blocks.Sources.Constant const(k = 1) annotation(
+    Placement(transformation(origin = {-159, -29}, extent = {{-7, -7}, {7, 7}})));
 equation
 // ── Reactive / voltage path ──────────────────────────────────
   connect(QfiltPu, lambdaGain.u) annotation(
-    Line(points = {{-160, 40}, {-90, 40}, {-90, 20}, {-84, 20}}, color = {0, 0, 127}));
+    Line(points = {{-162, 32}, {-84, 32}}, color = {0, 0, 127}));
   connect(UfiltPu, uLambdaQ.u1) annotation(
     Line(points = {{-160, 61}, {-60, 61}, {-60, 44}, {-40, 44}}, color = {0, 0, 127}));
   connect(lambdaGain.y, uLambdaQ.u2) annotation(
-    Line(points = {{-61, 20}, {-50, 20}, {-50, 32}, {-40, 32}}, color = {0, 0, 127}));
+    Line(points = {{-61, 32}, {-40, 32}}, color = {0, 0, 127}));
   connect(URefPu, voltageErr.u1) annotation(
     Line(points = {{-160, 80}, {-10, 80}, {-10, 66}, {0, 66}}, color = {0, 0, 127}));
   connect(uLambdaQ.y, voltageErr.u2) annotation(
@@ -194,7 +184,7 @@ equation
   connect(piP.y, PInjRefPu) annotation(
     Line(points = {{105, -39}, {105, -40}, {174, -40}}, color = {0, 0, 127}));
   connect(freqErr.u1, const.y) annotation(
-    Line(points = {{-138, -46}, {-149, -46}, {-149, -35}}, color = {0, 0, 127}));
+    Line(points = {{-138, -46}, {-138, -48}, {-151, -48}, {-151, -29}}, color = {0, 0, 127}));
   annotation(
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
     Icon(graphics = {

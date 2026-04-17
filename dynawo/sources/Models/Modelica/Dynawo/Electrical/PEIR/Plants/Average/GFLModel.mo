@@ -220,7 +220,7 @@ final parameter Real Iq_conv_0 =
  final parameter Complex Z_f =
   Complex(RfPu, Omega0Pu*LfPu);
  final parameter Complex Z_g =
-  Complex(R_g, Omega0Pu*L_g);
+  Complex(RPu, Omega0Pu*LPu);
   final parameter Real QInj0Pu =-Q0_pcc + L_g*(IrPcc0Pu^2 + IiPcc0Pu^2) "Intial reactive power in pu in gnerator convenction";
   final parameter Real PInj0Pu = -P0_pcc + R_g*(IrPcc0Pu^2 + IiPcc0Pu^2)"Intial reactive power in pu in gnerator convenction";
   final parameter Real V_q_g_0=-u0Pu_init.re * sin(Theta0) + u0Pu_init.im * cos(Theta0);
@@ -232,10 +232,6 @@ final parameter Complex uFilter0Pu_init =
    -uFilter0Pu_init.re * sin(Theta0) + uFilter0Pu_init.im * cos(Theta0);
      final parameter Real Ud0Pu =
     uFilter0Pu_init.re * cos(Theta0) + uFilter0Pu_init.im * sin(Theta0);
-    
-    
-  parameter Real voltagefeedforwardflag
-  "If 0, no voltage feed-forward is applied in the current loop; if 1, it is applied";
   // ── Sub-blocks ───────────────────────────────────────────────
 GFLControl control_GFL_(
   // Complex initial conditions
@@ -297,16 +293,15 @@ GFLControl control_GFL_(
   DuMax_idref      = DuMax_idref,
   DuMin_idref      = DuMin_idref,
   tS_idref         = tS_idref,
-  delay_time_plant = delay_time_plant,
-  voltagefeedforwardflagvoltagefeedforwardflag)
+  delay_time_plant = delay_time_plant)
 annotation(
   Placement(transformation(origin = {-86, 38}, extent = {{-24, -24}, {24, 24}})));
 
   Dynawo.Electrical.Controls.PEIR.BaseControls.Average.VSC_with_pade_delay vsc_converter_delay_pade(
     tVSC      = tVSC,
-    UdConv0Pu =  u0Pu_init.re,
-    UqConv0Pu = u0Pu_init.im) annotation(
-    Placement(transformation(origin = {3, 81}, extent = {{-17, -17}, {17, 17}})));
+    UdConv0Pu =  Ud0Pu,
+    UqConv0Pu = Uq0Pu) annotation(
+    Placement(transformation(origin = {-13, 77}, extent = {{-17, -17}, {17, 17}})));
 LCDynFilter lCFilter_RI(
   RfPu     = RfPu,
   LfPu     = LfPu,
@@ -325,9 +320,8 @@ LCDynFilter lCFilter_RI(
   // Right-side initial current and voltage (PCC side)
   iRight_rePu0 = IrPcc0Pu,
   iRight_imPu0 = IiPcc0Pu,
-  uRight_rePu0 = ucap0Pu_init.re,
-  uRight_imPu0 = ucap0Pu_init.im
-  ) annotation(
+  uRight_rePu0 = uFilter0Pu_init.re,
+  uRight_imPu0 = uFilter0Pu_init.im) annotation(
   Placement(transformation(origin = {58, 76}, extent = {{-20, -20}, {20, 20}})));
 
 
@@ -340,8 +334,8 @@ RLDynTrafo rLTRansformer_RI(
   IiRight0Pu = IiPcc0Pu,
 
   // Initial voltages on the left side (filter side)
-  UrLeft0Pu  = ucap0Pu_init.re,
-  UiLeft0Pu  = ucap0Pu_init.im,
+  UrLeft0Pu  = uFilter0Pu_init.re,
+  UiLeft0Pu  = uFilter0Pu_init.im,
 
   // Initial voltages on the right side (PCC side)
   UrRight0Pu = UrPcc0Pu,
@@ -373,8 +367,8 @@ MeasurementBlock measurement_block1(
   U_pcc_q_0  = V_q_g_0,
   V_conv_d_0 = Ud0Pu,
   V_conv_q_0 = Uq0Pu,
-  u_filter_re_0 = ucap0Pu_init.re,
-  u_filter_im_0 = ucap0Pu_init.im,
+  u_filter_re_0 = uFilter0Pu_init.re,
+  u_filter_im_0 = uFilter0Pu_init.im,
   I_conv_d_0 = Id_conv_0,
   I_conv_q_0 = Iq_conv_0,
   I_conv_re_0 = IrConv0Pu,
@@ -405,8 +399,8 @@ equation
   terminal.V.re = rLTRansformer_RI.urRightPu;
   terminal.V.im = rLTRansformer_RI.uiRightPu;
 
-  terminal.i.re = -rLTRansformer_RI.irRightPu;
-  terminal.i.im = -rLTRansformer_RI.iiRightPu;
+  terminal.i.re = rLTRansformer_RI.irRightPu;
+  terminal.i.im = rLTRansformer_RI.iiRightPu;
 
   // ── Measurement block PCC voltage ────────────────────────────
   // Connected directly from terminal to avoid double-binding with transformer
@@ -486,7 +480,7 @@ equation
  connect(measurement_block1.I_pcc_im, lCFilter_RI.iRight_imPu) annotation(
     Line(points = {{-54, -104}, {82, -104}, {82, 60}}, color = {0, 0, 127}));
  connect(measurement_block1.Q_plant, plant_controller.QfiltPu) annotation(
-    Line(points = {{-116, -86}, {-168, -86}, {-167, 26}}, color = {0, 0, 127}));
+    Line(points = {{-116, -86}, {-168, -86}, {-168, 26}}, color = {0, 0, 127}));
  connect(measurement_block1.U_pcc_q, control_GFL_.V_q_grid) annotation(
     Line(points = {{-116, -68}, {-116, 26}, {-112, 26}}, color = {0, 0, 127}));
  connect(omegaRefPu, control_GFL_.omegaRefPU) annotation(

@@ -29,28 +29,25 @@ model VSC_with_pade_delay
     "Converter imag-axis voltage (pu)" annotation(
       Placement(transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}),
                 iconTransformation(origin = {114, -20}, extent = {{-10, -10}, {10, 10}})));
-
   // Padé 1° ordine per il ritardo del VSC
   // e^{-s tVSC} ≈ (1 - s tVSC/2) / (1 + s tVSC/2)
-  Modelica.Blocks.Continuous.TransferFunction pade_re(
-    b = {1, -tVSC/2},
-    a = {1,  tVSC/2},
-    x_start = {UreConv0Pu});
+   Modelica.Blocks.Continuous.TransferFunction pade_re(
+      b = {1, -tVSC/2},
+      a = {1,  tVSC/2},
+      x_start = {UreConv0Pu});
 
-  Modelica.Blocks.Continuous.TransferFunction pade_im(
-    b = {1, -tVSC/2},
-    a = {1,  tVSC/2},
-    x_start = {UimConv0Pu});
-
+    Modelica.Blocks.Continuous.TransferFunction pade_im(
+      b = {1, -tVSC/2},
+      a = {1,  tVSC/2},
+      x_start = {UimConv0Pu});
 equation
-  // Componente reale
+  //Real component
   connect(uReConvRefPu, pade_re.u);
   connect(pade_re.y,    uReConvPu);
 
-  // Componente immaginaria
+  //Imaginary component
   connect(uImConvRefPu, pade_im.u);
   connect(pade_im.y,    uImConvPu);
-
   annotation(
     Icon(
       coordinateSystem(extent = {{-100,-100},{100,100}}),
