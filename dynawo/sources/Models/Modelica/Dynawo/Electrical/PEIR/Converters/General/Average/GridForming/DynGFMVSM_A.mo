@@ -18,7 +18,7 @@ model DynGFMVSM_A "PEIR model with GFM VSM control and dynamic connections to th
   final parameter Types.Frequency fNom = 50 "System AC frequency Hz";
   final parameter Types.AngularVelocity Wn  = 2 * pi * fNom "nominal angular frequency rad/s";
   parameter Types.PerUnit SCR "SCR of the grid connection";
-  
+
   parameter Types.ApparentPowerModule SNom = 1 "Nominal apparent power module for the converter";
   parameter Types.Time tUFilt = 0.01 "Filter time constant for voltage measurement in s";
   // Voltage reference control parameters
@@ -50,13 +50,13 @@ model DynGFMVSM_A "PEIR model with GFM VSM control and dynamic connections to th
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfq = 1 "Feedforward gain on the q-axis" annotation(
     Dialog(tab = "Current loop"));
-  
+
   // Transformer parameters
   parameter Types.PerUnit RTransformerPu "Transformer resistance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Transformer"));
   parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Transformer"));
-  
+
   //VSM Parameters
   parameter Types.Time H "Inertia constant in s" annotation(
     Dialog(tab = "VSM"));
@@ -65,7 +65,7 @@ model DynGFMVSM_A "PEIR model with GFM VSM control and dynamic connections to th
   final parameter Real Kp_GFo = AmortisementVSM*sqrt(2/(H*Wn*1/Leq)) "parameter in between Kd";
   final parameter Real kVSM =2*H*Kp_GFo*Wn/Leq "";
 
-  
+
   // VSC parameter
   parameter Types.Time tVSC "VSC time response in s" annotation(
     Dialog(tab = "VSC"));
@@ -85,9 +85,9 @@ model DynGFMVSM_A "PEIR model with GFM VSM control and dynamic connections to th
     Placement(visible = true, transformation(origin = {66, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Electrical.Controls.PEIR.BaseControls.Auxiliaries.Measurements Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tUFilt = tUFilt) annotation(
     Placement(visible = true, transformation(origin = {18, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-    Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlVSM_CSA Control(kVSM = kVSM, H = H, Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, XVI = XVI, Kpc = Kpc, Kic = Kic, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, idConvRef0Pu = idConvRef0Pu, iqConvRef0Pu = iqConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit, Imax = Imax, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, Theta0 = Converter.Theta0, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, omegaRes0Pu = omegaRes0Pu) annotation(
+    Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlVSM_CSA Control(kVSM = kVSM, H = H, Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, XVI = XVI, Kpc = Kpc, Kic = Kic, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, idConvRef0Pu = idConvRef0Pu, iqConvRef0Pu = iqConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit, Imax = Imax, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, Theta0 = Converter.Theta0, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu) annotation(
     Placement(transformation(origin = {-48, 48}, extent = {{-20, -20}, {20, 20}})));
-  
+
   // Operating point
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal/PCC in rad";
@@ -108,7 +108,6 @@ model DynGFMVSM_A "PEIR model with GFM VSM control and dynamic connections to th
   parameter Real Imax "Current max threshold to limit a current's module";
   parameter Real DeltaVVId0 "d-axis delta voltage virtual impedance (base UNom, SNom)";
   parameter Real DeltaVVIq0 "q-axis delta voltage virtual impedance (base UNom, SNom)";
-  parameter Types.PerUnit omegaRes0Pu "Grid initial angular Frequency";
 
 equation
   connect(Measurements.idPccPu, Converter.idPccPu) annotation(

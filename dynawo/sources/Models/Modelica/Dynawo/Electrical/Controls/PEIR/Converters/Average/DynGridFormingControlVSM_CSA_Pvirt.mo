@@ -74,7 +74,7 @@ model DynGridFormingControlVSM_CSA_Pvirt
     Placement(visible = true, transformation(origin = {106, 72}, extent = {{-6, -6}, {6, 6}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Electrical.Controls.PEIR.BaseControls.CurrentLoops.DynCurrentLoop_delay currentLoop(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Kfd = Kfd, Kfq = Kfq, Kic = Kic, Kpc = Kpc, LFilter = LFilterPu, RFilter = RFilterPu, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UqConv0Pu = UqConv0Pu, UqFilter0Pu = UqFilter0Pu, Omega0Pu = Omega0Pu, Ts = Ts, XVI = XVI) annotation(
     Placement(transformation(origin = {75, 23}, extent = {{-17, -17}, {17, 17}})));
-  Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0, omegaRes0Pu = omegaRes0Pu) annotation(
+  Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0) annotation(
     Placement(visible = true, transformation(origin = {-46, 78}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Electrical.Controls.Converters.InnerControls.CurrentSaturation CSA(Imax = Imax, Imin = 0, idConvRef0Pu = idConvRef0Pu, iqConvRef0Pu = iqConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit) annotation(
     Placement(transformation(origin = {40, 24}, extent = {{-10, -10}, {10, 10}})));
@@ -117,7 +117,7 @@ model DynGridFormingControlVSM_CSA_Pvirt
   parameter Real Imax "Current max threshold to limit a current's module";
   parameter Real DeltaVVId0 "d-axis delta voltage virtual impedance (base UNom, SNom)";
   parameter Real DeltaVVIq0 "q-axis delta voltage virtual impedance (base UNom, SNom)";
-  parameter Types.PerUnit omegaRes0Pu "Start-value of the grid Frequency";
+
 equation
   connect(udConvRefPu, currentLoop.udConvRefPu) annotation(
     Line(points = {{107, 31}, {94, 31}, {94, 30}}, color = {245, 121, 0}, thickness = 0.5));

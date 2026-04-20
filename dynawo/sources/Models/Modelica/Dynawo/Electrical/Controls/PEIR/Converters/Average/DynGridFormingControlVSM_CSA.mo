@@ -73,11 +73,11 @@ model DynGridFormingControlVSM_CSA
     Placement(visible = true, transformation(origin = {106, 72}, extent = {{-6, -6}, {6, 6}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(DeltaVVId0 = 0, DeltaVVIq0 = 0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mq = Mq, QFilter0Pu = QFilter0Pu, URef0Pu = URef0Pu, UdRef0Pu = UdFilter0Pu, UqRef0Pu = UqFilter0Pu, Wf = Wf, Wff = Wff) annotation(
     Placement(transformation(origin = {-52, 24}, extent = {{-16, -16}, {16, 16}})));
-  Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilter = LFilterPu, RFilter = RFilterPu, UdFilter0Pu = UdFilter0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilter0Pu, UqPcc0Pu = UqPcc0Pu, XVI = XVI, Omega0Pu = Omega0Pu) annotation(
+  Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilter = LTransformerPu, Omega0Pu = Omega0Pu, RFilter = RTransformerPu, UdFilter0Pu = UdFilter0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilter0Pu, UqPcc0Pu = UqPcc0Pu, XVI = XVI) annotation(
     Placement(transformation(origin = {-8, 26}, extent = {{-16, -16}, {16, 16}})));
   Electrical.Controls.PEIR.BaseControls.CurrentLoops.DynCurrentLoop currentLoop(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Kfd = Kfd, Kfq = Kfq, Kic = Kic, Kpc = Kpc, LFilter = LFilterPu, RFilter = RFilterPu, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UqConv0Pu = UqConv0Pu, UqFilter0Pu = UqFilter0Pu, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {75, 23}, extent = {{-17, -17}, {17, 17}})));
-  Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0, omegaRes0Pu = omegaRes0Pu) annotation(
+  Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0) annotation(
     Placement(transformation(origin = {-14, 78}, extent = {{-16, -16}, {16, 16}})));
   Electrical.Controls.Converters.InnerControls.CurrentSaturation CSA(Imax =Imax, Imin = 0, idConvRef0Pu = idConvRef0Pu, iqConvRef0Pu = iqConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit)  annotation(
     Placement(transformation(origin = {40, 24}, extent = {{-10, -10}, {10, 10}})));
@@ -111,7 +111,7 @@ model DynGridFormingControlVSM_CSA
     Placement(transformation(origin = {-76, -30}, extent = {{-4, -4}, {4, 4}})));
   Modelica.Blocks.Math.Gain gain1(k = -XVI) annotation(
     Placement(transformation(origin = {-82, -10}, extent = {{-4, -4}, {4, 4}})));
-  parameter Types.PerUnit omegaRes0Pu "Grid initial angular Frequency";
+
 equation
   connect(udConvRefPu, currentLoop.udConvRefPu) annotation(
     Line(points = {{107, 31}, {94, 31}, {94, 30}}, color = {245, 121, 0}, thickness = 0.5));
@@ -167,10 +167,6 @@ equation
     Line(points = {{-108, -52}, {36, -52}, {36, 14}}, color = {85, 170, 255}));
   connect(iqPccPu, CSA.iqPcc) annotation(
     Line(points = {{-108, -64}, {46, -64}, {46, 14}}, color = {85, 170, 255}));
-  connect(uqFilterPu, QSEM.uqFilteredPCCPu) annotation(
-    Line(points = {{70, -106}, {-4, -106}, {-4, 8}}, color = {85, 170, 0}));
-  connect(udFilterPu, QSEM.udFilteredPCCPu) annotation(
-    Line(points = {{80, -106}, {80, -24}, {-12, -24}, {-12, 8}}, color = {85, 170, 0}));
   connect(iqConvPu, gain.u) annotation(
     Line(points = {{-108, -34}, {-81, -34}, {-81, -30}}, color = {0, 0, 127}));
   connect(gain.y, voltageReferenceControl.DeltaVVId) annotation(
@@ -179,9 +175,13 @@ equation
     Line(points = {{-108, -16}, {-92, -16}, {-92, -10}, {-86, -10}}, color = {0, 0, 127}));
   connect(gain1.y, voltageReferenceControl.DeltaVVIq) annotation(
     Line(points = {{-78, -10}, {-60, -10}, {-60, 6}}, color = {0, 0, 127}));
+  connect(udFilteredPccPu, QSEM.udFilteredPCCPu) annotation(
+    Line(points = {{-108, -78}, {-12, -78}, {-12, 8}}, color = {0, 0, 127}));
+  connect(QSEM.uqFilteredPCCPu, uqFilteredPccPu) annotation(
+    Line(points = {{-4, 8}, {-4, -92}, {-108, -92}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
-    Diagram(graphics = {Text(origin = {33, 35}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {33, 23}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-23, 35}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-23, 23}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold})}, coordinateSystem(extent = {{-120, 100}, {120, -120}})));
+    Diagram(graphics = {Text(origin = {33, 35}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {33, 23}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-23, 35}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-23, 23}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold})}, coordinateSystem(extent = {{-120, 100}, {120, -120}})));
 
 
 end DynGridFormingControlVSM_CSA;

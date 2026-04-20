@@ -19,11 +19,11 @@ model DynGFMVSM_A_Pvirt
   final parameter Types.Frequency fNom = 50 "System AC frequency Hz";
   final parameter Types.AngularVelocity Wn  = 2 * pi * fNom "nominal angular frequency rad/s";
   parameter Types.PerUnit SCR "SCR of the grid connection";
-  
+
   parameter Types.ApparentPowerModule SNom = 1 "Nominal apparent power module for the converter";
   parameter Types.Time tUFilt = 0.01 "Filter time constant for voltage measurement in s";
   parameter Types.Time tPLL = 0.01 "Time constant of the PLL Filter";
-  
+
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient" annotation(
     Dialog(tab = "Voltage Reference"));
@@ -59,7 +59,7 @@ model DynGFMVSM_A_Pvirt
     Dialog(tab = "Transformer"));
   parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Transformer"));
-  
+
   //VSM Parameters
   parameter Types.Time H "Inertia constant in s" annotation(
     Dialog(tab = "VSM"));
@@ -68,7 +68,7 @@ model DynGFMVSM_A_Pvirt
   final parameter Real Kp_GFo = AmortisementVSM*sqrt(2/(H*Wn*1/Leq)) "parameter in between Kd";
   final parameter Real kVSM =2*H*Kp_GFo*Wn/Leq "";
 
-  
+
   // VSC parameter
   parameter Types.Time tVSC "VSC time response in s" annotation(
     Dialog(tab = "VSC"));
@@ -84,14 +84,14 @@ model DynGFMVSM_A_Pvirt
     Placement(visible = true, transformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = Control.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
+
   Electrical.Sources.PEIR.Converters.Average.DynConverter1 Converter(CFilterPu = CFilterPu, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, SNom = SNom, Theta0 = Theta0, i0Pu = i0Pu, tVSC = tVSC, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {66, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Electrical.Controls.PEIR.BaseControls.Auxiliaries.Measurements Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tUFilt = tUFilt) annotation(
     Placement(visible = true, transformation(origin = {18, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-  Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlVSM_CSA_Pvirt Control(kVSM = kVSM, H = H, Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, XVI = XVI, Kpc = Kpc, Kic = Kic, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, idConvRef0Pu = idConvRef0Pu, iqConvRef0Pu = iqConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, Imax = Imax, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, Theta0 = Converter.Theta0, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, Ts = Ts, omegaRes0Pu = omegaRes0Pu) annotation(
+  Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlVSM_CSA_Pvirt Control(kVSM = kVSM, H = H, Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, XVI = XVI, Kpc = Kpc, Kic = Kic, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, idConvRef0Pu = idConvRef0Pu, iqConvRef0Pu = iqConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, Imax = Imax, UdConv0Pu = Converter.RLCFilter.UdConv0Pu, UqConv0Pu = Converter.RLCFilter.UqConv0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, IdConv0Pu = Converter.RLCFilter.IdConv0Pu, IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqConv0Pu = Converter.RLCFilter.IqConv0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, Theta0 = Converter.Theta0, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, Ts = Ts) annotation(
     Placement(transformation(origin = {-48, 48}, extent = {{-20, -20}, {20, 20}})));
-  
+
   // Operating point
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal/PCC in rad";
@@ -110,10 +110,10 @@ model DynGFMVSM_A_Pvirt
   parameter Real  CurrentAngle0 "start value of the Phase Angle of the current in dq representation idConvPu,iqConvPu";
   parameter Real W_CurrentLimit "Bandwidth of the current saturation block rad/sec";
   parameter Real Imax "Current max threshold to limit a current's module";
-  
+
   parameter Real DeltaVVId0 "d-axis delta voltage virtual impedance (base UNom, SNom)";
   parameter Real DeltaVVIq0 "q-axis delta voltage virtual impedance (base UNom, SNom)";
-  parameter Types.PerUnit omegaRes0Pu "Start-value of the grid Frequency";
+
   Controls.PLL.PLL pll(Ki = 795, Kp = 3, OmegaMaxPu = 1.05, OmegaMinPu = 0.95, u0Pu = u0Pu, omegaPLLPu(start = omegaRes0Pu))  annotation(
     Placement(transformation(origin = {-144, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPLL, y_start = omegaRes0Pu)  annotation(
