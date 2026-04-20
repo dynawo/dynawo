@@ -1,36 +1,31 @@
 within Dynawo.Electrical.Sources.PEIR.Converters.Average;
 
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-*/
-
 model DynConverter1 "Converter physical part comprising an AVM voltage source, a dynamic RLC Filter and a dynamic RL Transformer"
-
+  /*
+  * Copyright (c) 2025, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+  */
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter in MVA";
-
   // VSC parameter
   parameter Types.Time tVSC "VSC time response in s";
-
   // RLC filter parameters
   parameter Types.PerUnit RFilterPu "Resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LFilterPu "Inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit CFilterPu "Capacitance in pu (base UNom, SNom)";
-
   // RL transformer parameters
   parameter Types.PerUnit RTransformerPu "Resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LTransformerPu "Inductance in pu (base UNom, SNom)";
-
-   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+  //Verif
+  Types.PerUnit uFilterPu "voltage at the filter in pu";
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {105, 3}, extent = {{-5, -5}, {5, 5}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
   // Inputs
   Modelica.Blocks.Interfaces.RealInput udConvRefPu(start = RLCFilter.UdConv0Pu) "d-axis modulation voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-109, 41}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
@@ -40,7 +35,6 @@ model DynConverter1 "Converter physical part comprising an AVM voltage source, a
     Placement(visible = true, transformation(origin = {-112, -40}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-48, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
     Placement(visible = true, transformation(origin = {-112, -64}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {52, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
-
   // Outputs
   Modelica.Blocks.Interfaces.RealOutput idConvPu(start = RLCFilter.IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-52, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
@@ -58,23 +52,21 @@ model DynConverter1 "Converter physical part comprising an AVM voltage source, a
     Placement(visible = true, transformation(origin = {10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
   Modelica.Blocks.Interfaces.RealOutput iqPccPu(start = refFrameRotation.IqPcc0Pu) "q-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
-
-
-  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.VSCConverter VSC(tVSC = tVSC, UdConv0Pu = RLCFilter.UdConv0Pu, UqConv0Pu = RLCFilter.UqConv0Pu)  annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput UpccPu = terminal.V "" annotation(
+    Placement(transformation(origin = {110, -52}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.VSCConverter VSC(tVSC = tVSC, UdConv0Pu = RLCFilter.UdConv0Pu, UqConv0Pu = RLCFilter.UqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-73, 3}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.RefFrameRotation refFrameRotation(SNom = SNom, Theta0 = Theta0, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
+  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.RefFrameRotation refFrameRotation(SNom = SNom, Theta0 = Theta0, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {77, 3}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.DynRLCFilter RLCFilter(CPu = CFilterPu, LPu = LFilterPu, RPu = RFilterPu, IdPcc0Pu = refFrameRotation.IdPcc0Pu, IqPcc0Pu = refFrameRotation.IqPcc0Pu, Omega0Pu = Omega0Pu, UdFilter0Pu = RLTransformer.UdFilter0Pu, UqFilter0Pu = RLTransformer.UqFilter0Pu)  annotation(
+  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.DynRLCFilter RLCFilter(CPu = CFilterPu, LPu = LFilterPu, RPu = RFilterPu, IdPcc0Pu = refFrameRotation.IdPcc0Pu, IqPcc0Pu = refFrameRotation.IqPcc0Pu, Omega0Pu = Omega0Pu, UdFilter0Pu = RLTransformer.UdFilter0Pu, UqFilter0Pu = RLTransformer.UqFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-27, 3}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.DynRLTransformer RLTransformer(LPu = LTransformerPu, RPu = RTransformerPu, IdPcc0Pu = refFrameRotation.IdPcc0Pu, IqPcc0Pu = refFrameRotation.IqPcc0Pu, Omega0Pu = Omega0Pu, UdPcc0Pu = refFrameRotation.UdPcc0Pu, UqPcc0Pu = refFrameRotation.UqPcc0Pu)  annotation(
+  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.DynRLTransformer RLTransformer(LPu = LTransformerPu, RPu = RTransformerPu, IdPcc0Pu = refFrameRotation.IdPcc0Pu, IqPcc0Pu = refFrameRotation.IqPcc0Pu, Omega0Pu = Omega0Pu, UdPcc0Pu = refFrameRotation.UdPcc0Pu, UqPcc0Pu = refFrameRotation.UqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {25, 3}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-
   // Initial parameters
   parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
   parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
-
 equation
   connect(theta, refFrameRotation.theta) annotation(
     Line(points = {{-112, -64}, {77, -64}, {77, -13.5}}, color = {0, 0, 127}));
@@ -142,7 +134,8 @@ equation
     Line(points = {{-10, 8}, {8, 8}}, color = {0, 0, 255}));
   connect(refFrameRotation.iqPccPu, RLTransformer.iqPccPu) annotation(
     Line(points = {{60, 8}, {48, 8}, {48, 30}, {2, 30}, {2, 8}, {8, 8}}, color = {0, 0, 255}));
-
-annotation(preferredView = "diagram",
+  uFilterPu = sqrt(udFilterPu^2 + uqFilterPu^2);
+  annotation(
+    preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents the physical part of a converter with an ideal voltage source, a dynamic RLC filter, a dynamic RL transformer and a reference frame rotation.<div><br></div><div>The interface variables are the current and voltages from the terminal.</div></body></html>"));
 end DynConverter1;
