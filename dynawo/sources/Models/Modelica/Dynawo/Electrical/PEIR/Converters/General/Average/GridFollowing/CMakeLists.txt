@@ -13,8 +13,13 @@ set(MODEL_FILES
   package.mo
   package.order
   csGFL.mo
+  csGFL.extvar
+  csGFLBandwith.mo
+  csGFLBandwith.extvar
   DynGFL.mo
   DynGFL.extvar
+  DynGFLBandwith.mo
+  DynGFLBandwith.extvar
   GFL.mo
   GFL.extvar
   TP_GFL.mo

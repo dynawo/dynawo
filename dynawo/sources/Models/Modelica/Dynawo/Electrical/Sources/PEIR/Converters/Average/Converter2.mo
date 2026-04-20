@@ -1,6 +1,6 @@
 within Dynawo.Electrical.Sources.PEIR.Converters.Average;
 
-model Converter2 "Converter physical part comprising an ideal voltage source, a RLC Filter and a RL Transformer"
+model Converter2 "Converter physical part comprising an ideal current source and a RL Transformer"
   /*
   * Copyright (c) 2025, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -14,6 +14,13 @@ model Converter2 "Converter physical part comprising an ideal voltage source, a 
   */
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter in MVA";
 
+  // Generator parameters
+  parameter Types.PerUnit dIdMaxPu "Maximum rate-of-change of active current in pu (base UNom, SNom)";
+  parameter Types.PerUnit dIdMinPu "Minimum rate-of-change of active current in pu (base UNom, SNom)";
+  parameter Types.PerUnit dIqMaxPu "Maximum rate-of-change of reactive current in pu (base UNom, SNom)";
+  parameter Types.PerUnit dIqMinPu "Minimum rate-of-change of reactive current in pu (base UNom, SNom)";
+  parameter Types.Time tG "Emulated delay in converter controls in s";
+
   // RL transformer parameters
   parameter Types.PerUnit RTransformerPu "Resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit XTransformerPu "Impedance in pu (base UNom, SNom)";
@@ -25,7 +32,7 @@ model Converter2 "Converter physical part comprising an ideal voltage source, a 
   Modelica.Blocks.Interfaces.RealInput idFilterRefPu(start = refFrameRotation.IdPcc0Pu) "d-axis modulation voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-112, 28}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-109, 41}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqFilterRefPu(start = refFrameRotation.IqPcc0Pu) "q-axis modulation voltage reference in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-112, 8}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-112, -6}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
     Placement(visible = true, transformation(origin = {-112, -64}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
 
@@ -52,7 +59,8 @@ model Converter2 "Converter physical part comprising an ideal voltage source, a 
   parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
-
+  Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters.Generator Generator(IdFilter0Pu = refFrameRotation.IdPcc0Pu, IqFilter0Pu = refFrameRotation.IqPcc0Pu, dIdMaxPu = dIdMaxPu, dIdMinPu = dIdMinPu, dIqMaxPu = dIqMaxPu, dIqMinPu = dIqMinPu, tG = tG)  annotation(
+    Placement(visible = true, transformation(origin = {-57, 3}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 equation
   connect(theta, refFrameRotation.theta) annotation(
     Line(points = {{-112, -64}, {77, -64}, {77, -13.5}}, color = {0, 0, 127}));
@@ -62,8 +70,6 @@ equation
     Line(points = {{42, -2}, {60, -2}}, color = {85, 170, 255}));
   connect(RLTransformer.uqPccPu, refFrameRotation.uqPccPu) annotation(
     Line(points = {{42, -8}, {60, -8}}, color = {85, 170, 255}));
-  connect(refFrameRotation.iqPccPu, RLTransformer.iqPccPu) annotation(
-    Line(points = {{60, 8}, {48, 8}, {48, 30}, {2, 30}, {2, 8}, {8, 8}}, color = {85, 170, 255}));
   connect(RLTransformer.uqFilterPu, uqFilterPu) annotation(
     Line(points = {{8, -8}, {0, -8}, {0, -60}, {10, -60}, {10, -110}}, color = {85, 170, 0}));
   connect(refFrameRotation.uqPccPu, uqPccPu) annotation(
@@ -78,18 +84,22 @@ equation
     Line(points = {{42, -2}, {60, -2}}, color = {0, 0, 255}));
   connect(RLTransformer.uqPccPu, refFrameRotation.uqPccPu) annotation(
     Line(points = {{42, -8}, {60, -8}}, color = {0, 0, 255}));
-  connect(refFrameRotation.iqPccPu, RLTransformer.iqPccPu) annotation(
-    Line(points = {{60, 8}, {48, 8}, {48, 30}, {2, 30}, {2, 8}, {8, 8}}, color = {0, 0, 255}));
-  connect(iqFilterRefPu, RLTransformer.iqPccPu) annotation(
-    Line(points = {{-112, 8}, {8, 8}}, color = {85, 170, 0}, thickness = 0.5));
-  connect(idFilterRefPu, RLTransformer.idPccPu) annotation(
-    Line(points = {{-112, 28}, {-80, 28}, {-80, 14}, {8, 14}}, color = {85, 170, 0}, thickness = 0.5));
   connect(RLTransformer.idPccPu, refFrameRotation.idPccPu) annotation(
     Line(points = {{8, 14}, {-4, 14}, {-4, 40}, {54, 40}, {54, 14}, {60, 14}}, color = {85, 170, 255}));
   connect(RLTransformer.idPccPu, idPccPu) annotation(
     Line(points = {{8, 14}, {-4, 14}, {-4, 40}, {10, 40}, {10, 110}}, color = {85, 170, 255}, pattern = LinePattern.Dash));
   connect(udFilterPu, RLTransformer.udFilterPu) annotation(
     Line(points = {{-16, -110}, {-16, -2}, {8, -2}}, color = {85, 170, 0}));
+  connect(refFrameRotation.iqPccPu, RLTransformer.iqPccPu) annotation(
+    Line(points = {{60, 8}, {48, 8}, {48, 30}, {2, 30}, {2, 8}, {8, 8}}, color = {85, 170, 255}));
+  connect(idFilterRefPu, Generator.idRefFilterPu) annotation(
+    Line(points = {{-112, 28}, {-86, 28}, {-86, 15}, {-73.5, 15}}, color = {85, 170, 0}, thickness = 0.5));
+  connect(Generator.idFilterPu, RLTransformer.idPccPu) annotation(
+    Line(points = {{-40, 14}, {8, 14}}, color = {85, 170, 0}));
+  connect(Generator.iqFilterPu, RLTransformer.iqPccPu) annotation(
+    Line(points = {{-40, 8}, {8, 8}}, color = {85, 170, 0}));
+  connect(iqFilterRefPu, Generator.iqRefFilterPu) annotation(
+    Line(points = {{-112, -6}, {-86, -6}, {-86, 8}, {-74, 8}}, color = {85, 170, 0}, thickness = 0.5));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents the physical part of a converter with an ideal voltage source, a dynamic RLC filter, a dynamic RL transformer and a reference frame rotation.<div><br></div><div>The interface variables are the current and voltages from the terminal.</div></body></html>"));

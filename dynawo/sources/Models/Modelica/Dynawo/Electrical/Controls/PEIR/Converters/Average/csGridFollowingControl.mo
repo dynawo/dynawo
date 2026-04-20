@@ -25,23 +25,25 @@ model csGridFollowingControl
   parameter Types.PerUnit Kid "Active power PI controller integral gain in pu/s (base UNom, SNom)";
   parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu/s (base UNom, SNom)";
   parameter Types.PerUnit Kiq "Reactive power PI controller integral gain in pu/s (base UNom, SNom)";
-  parameter Types.Time tPFilt "Filter time constant for active power measurement in s";
-  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s";
+  parameter Types.PerUnit Kqv "Reactive current gain for fault-ride through mode in pu";
+  parameter Types.PerUnit UFrt "Voltage value to activate the frt mode in pu";
+  parameter Types.PerUnit IMaxPu "Maximum inverter current amplitude in pu (base UNom, SNom)";
+  parameter Boolean PQFlag "Q/P priority: Q (0) or P (1) priority selection on current limit flag";
 
   // Transformer parameters
   parameter Types.PerUnit RTransformerPu "Transformer resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit XTransformerPu "Transformer impedance in pu (base UNom, SNom)";
 
-  Modelica.Blocks.Interfaces.RealInput PFilterPu(start = PFilter0Pu) "Active power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PFilteredFilterPu(start = PFilter0Pu) "Active power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, -2}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, -73}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QFilteredFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, -16}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, -93}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-108, 54}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-37, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput uqFilteredPLLPu(start = UqFilter0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-108, 54}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 19}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilter0Pu) "Active power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, 38}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 77}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) "Frequency reference in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-108, 66}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 33}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-108, 66}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 47}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = QFilter0Pu) "Reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, 22}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, -19}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
 
@@ -55,7 +57,7 @@ model csGridFollowingControl
     Placement(visible = true, transformation(origin = {106, 54}, extent = {{-6, -6}, {6, 6}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.PLL PLL(Ki = Ki, Kp = Kp, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0)  annotation(
     Placement(visible = true, transformation(origin = {-34, 60}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.GFL.OuterLoop outerLoop(IdConv0Pu = IdFilter0Pu, IqConv0Pu = IqFilter0Pu,Kid = Kid, Kiq = Kiq, Kpd = Kpd, Kpq = Kpq, PFilter0Pu = PFilter0Pu, QFilter0Pu = QFilter0Pu, tPFilt = tPFilt, tQFilt = tQFilt)  annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.GFL.OuterLoop outerLoop(IMaxPu = IMaxPu,IdConv0Pu = IdFilter0Pu, IqConv0Pu = IqFilter0Pu,Kid = Kid, Kiq = Kiq, Kpd = Kpd, Kpq = Kpq, Kqv = Kqv, PFilter0Pu = PFilter0Pu, PQFlag = PQFlag, QFilter0Pu = QFilter0Pu, UFrt = UFrt, UPcc0Pu = UPcc0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-32, 4}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
 
   // Initial parameters
@@ -67,6 +69,10 @@ model csGridFollowingControl
   parameter Types.AngularVelocityPu Omega0Pu "Start value of converter's frequency in pu (base omegaNom)";
   parameter Types.ActivePowerPu PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
+  parameter Types.PerUnit UPcc0Pu "Start value of voltage at the converter's pcc in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealInput UFilteredPccPu(start = UPcc0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-108, -62}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-45, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+
 equation
   connect(PLL.theta, theta) annotation(
     Line(points = {{-16.4, 66.4}, {105.6, 66.4}}, color = {0, 0, 127}));
@@ -78,16 +84,22 @@ equation
     Line(points = {{-108, 38}, {-60, 38}, {-60, 16}, {-50, 16}}, color = {85, 170, 0}, thickness = 0.5));
   connect(QFilterRefPu, outerLoop.QFilterRefPu) annotation(
     Line(points = {{-108, 22}, {-68, 22}, {-68, 12}, {-50, 12}}, color = {85, 170, 0}, thickness = 0.5));
-  connect(PFilterPu, outerLoop.PFilterPu) annotation(
+  connect(PFilteredFilterPu, outerLoop.PFilteredFilterPu) annotation(
     Line(points = {{-108, -2}, {-80, -2}, {-80, 0}, {-50, 0}}, color = {85, 170, 0}));
-  connect(QFilterPu, outerLoop.QFilterPu) annotation(
+  connect(QFilteredFilterPu, outerLoop.QFilteredFilterPu) annotation(
     Line(points = {{-108, -16}, {-68, -16}, {-68, -4}, {-50, -4}}, color = {85, 170, 0}));
-  connect(PLL.uqFilterPu, uqFilterPu) annotation(
+  connect(PLL.uqFilterPu, uqFilteredPLLPu) annotation(
     Line(points = {{-52, 54}, {-108, 54}}, color = {85, 170, 0}));
   connect(outerLoop.idConvRefPu, idFilterRefPu) annotation(
     Line(points = {{-14, 10}, {43, 10}, {43, 11}, {107, 11}}, color = {85, 170, 0}, thickness = 0.5));
   connect(outerLoop.iqConvRefPu, iqFilterRefPu) annotation(
     Line(points = {{-14, -2}, {47, -2}, {47, -3}, {107, -3}}, color = {85, 170, 0}, thickness = 0.5));
+  connect(outerLoop.PFilteredFilterPu, PFilteredFilterPu) annotation(
+    Line(points = {{-50, 0}, {-92, 0}, {-92, -2}, {-108, -2}}, color = {85, 170, 0}));
+  connect(QFilteredFilterPu, outerLoop.QFilteredFilterPu) annotation(
+    Line(points = {{-108, -16}, {-60, -16}, {-60, -4}, {-50, -4}}, color = {85, 170, 0}));
+  connect(UFilteredPccPu, outerLoop.UPccFilteredPu) annotation(
+    Line(points = {{-108, -62}, {-44, -62}, {-44, -14}}, color = {85, 170, 255}));
   annotation(preferredView = "diagram",
     Diagram(graphics = {Text(origin = {13, 15}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idFilterRefPu", textStyle = {TextStyle.Bold}), Text(origin = {13, 1}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqFilterRefPu", textStyle = {TextStyle.Bold})}));
 end csGridFollowingControl;

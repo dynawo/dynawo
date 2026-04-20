@@ -13,6 +13,8 @@ set(MODEL_FILES
   package.mo
   package.order
   Measurements.mo
+  MeasurementsFiltered.mo
+  MeasurementsFiltered2.mo
   PLL.mo
   )
 

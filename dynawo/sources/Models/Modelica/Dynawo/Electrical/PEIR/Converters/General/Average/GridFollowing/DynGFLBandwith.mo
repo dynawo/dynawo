@@ -1,6 +1,6 @@
 within Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing;
 
-model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
+model DynGFLBandwith "PEIR model with GFL control and dynamic connections to the grid, dynamics provided through bandwith values"
   /*
   * Copyright (c) 2025, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -26,9 +26,9 @@ model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
     Dialog(tab = "Measurements"));
 
   // PLL parameters
-  parameter Types.PerUnit Ki "PLL integrator gain" annotation(
+  parameter Types.AngularVelocity OmegaPLL "PLL natural frequency (rad/s)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.PerUnit Kp "PLL proportional gain" annotation(
+  parameter Types.PerUnit KsiPLL "PLL damping" annotation(
     Dialog(tab = "PLL"));
   parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)" annotation(
     Dialog(tab = "PLL"));
@@ -36,31 +36,27 @@ model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
     Dialog(tab = "PLL"));
 
   // Outer loop parameters
-  parameter Types.PerUnit Kpd "Active power PI controller proportional gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
-  parameter Types.PerUnit Kid "Active power PI controller integral gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
-  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
-  parameter Types.PerUnit Kiq "Reactive power PI controller integral gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
   parameter Types.PerUnit Kqv "Reactive current gain for fault-ride through mode in pu"annotation(
-    Dialog(tab = "Outer loop"));
-  parameter Types.PerUnit UFrt "Voltage value to activate the frt mode in pu" annotation(
     Dialog(tab = "Outer loop"));
   parameter Types.PerUnit IMaxPu "Maximum inverter current amplitude in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Outer loop"));
+  parameter Types.AngularVelocity OmegaP "Bandwith for active power outer loop" annotation(
+    Dialog(tab = "Outer loop"));
+  parameter Types.AngularVelocity OmegaQ "Bandwith for reactive power outer loop" annotation(
+    Dialog(tab = "Outer loop"));
+  parameter Types.AngularVelocity OmegaLPF "Bandwith for low pass filter for the outer loop" annotation(
+    Dialog(tab = "Outer loop"));
   parameter Boolean PQFlag "Q/P priority: Q (0) or P (1) priority selection on current limit flag" annotation(
+    Dialog(tab = "Outer loop"));
+  parameter Types.PerUnit UFrt "Voltage value to activate the frt mode in pu" annotation(
     Dialog(tab = "Outer loop"));
 
   // Current loop parameters
-  parameter Types.PerUnit Kpc "Proportional gain of the current loop" annotation(
-    Dialog(tab = "Current loop"));
-  parameter Types.PerUnit Kic "Integral gain of the current loop" annotation(
-    Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfd = 0 "Feedforward gain on the d-axis" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfq = 0 "Feedforward gain on the q-axis" annotation(
+    Dialog(tab = "Current loop"));
+  parameter Types.AngularVelocity OmegaCC "Bandwith for low pass filter for the outer loop" annotation(
     Dialog(tab = "Current loop"));
 
   // Filter parameters
@@ -108,6 +104,15 @@ model DynGFL "PEIR model with GFL control and dynamic connections to the grid"
   final parameter Types.ComplexCurrentPu i0Pu = ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu)*i0Pu*SystemBase.SnRef/SNom "Start value of the complex voltage at the filter in pu (base UNom)";
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+
+  final parameter Types.PerUnit Ki = OmegaPLL * OmegaPLL / SystemBase.omegaNom "PLL integrator gain";
+  final parameter Types.PerUnit Kp = 2 * KsiPLL * OmegaPLL / SystemBase.omegaNom "PLL proportional gain";
+  final parameter Types.PerUnit Kpd = OmegaP / OmegaLPF "Active power PI controller proportional gain in pu/s (base UNom, SNom)";
+  final parameter Types.PerUnit Kid = OmegaP "Active power PI controller integral gain in pu/s (base UNom, SNom)";
+  final parameter Types.PerUnit Kpq = OmegaQ / OmegaLPF "Reactive power PI controller proportional gain in pu/s (base UNom, SNom)";
+  final parameter Types.PerUnit Kiq = OmegaQ "Reactive power PI controller integral gain in pu/s (base UNom, SNom)";
+  final parameter Types.PerUnit Kpc = LFilterPu * OmegaCC / SystemBase.omegaNom "Proportional gain of the current loop";
+  final parameter Types.PerUnit Kic = RFilterPu * OmegaCC "Integral gain of the current loop";
 
 equation
   connect(omegaRefPu, Control.omegaRefPu) annotation(
@@ -162,4 +167,4 @@ equation
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),
     Diagram(graphics = {Text(origin = {45, -19}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "idPccPu"), Text(origin = {53, -45}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "uqPccPu"), Text(origin = {53, -51}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterPu"), Text(origin = {55, -61}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterPu"), Text(origin = {-29, -51}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "QFilteredFilterPu"), Text(origin = {-29, -61}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "PFilteredFilterPu"), Text(origin = {9, 53}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {51, -29}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvPu"), Text(origin = {51, -33}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvPu"), Text(origin = {9, 83}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta"), Text(origin = {9, 75}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "omegaPu"), Text(origin = {51, -39}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "udPccPu"), Text(origin = {47, -25}, lineColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "iqPccPu"), Text(origin = {-29, -26}, lineColor = {85, 170, 0}, extent = {{-23, 2}, {23, -2}}, textString = "udFilteredFilterPu"), Text(origin = {-29, -34}, lineColor = {85, 170, 0}, extent = {{-25, 2}, {25, -2}}, textString = "uqFilteredFilterPu"), Text(origin = {-18, -77}, lineColor = {245, 121, 0}, extent = {{-20, 1}, {20, -1}}, textString = "idFilteredConvPu"), Text(origin = {-18, -85}, lineColor = {245, 121, 0}, extent = {{-20, 1}, {20, -1}}, textString = "iqFilteredConvPu"), Text(origin = {-25, -70}, lineColor = {97, 53, 131}, extent = {{-25, 2}, {25, -2}}, textString = "uqFilteredPLLPu"), Text(origin = {-18, -93}, lineColor = {85, 170, 255}, extent = {{-20, 1}, {20, -1}}, textString = "UFilteredPccPu")}));
-end DynGFL;
+end DynGFLBandwith;

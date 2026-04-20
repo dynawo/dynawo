@@ -1,6 +1,6 @@
 within Dynawo.Electrical.PEIR.Converters.General.Average.GridFollowing;
 
-model csGFL "PEIR model with GFL control and dynamic connections to the grid"
+model csGFLBandwith "PEIR model with GFL control and dynamic connections to the grid"
   /*
   * Copyright (c) 2025, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -25,9 +25,9 @@ model csGFL "PEIR model with GFL control and dynamic connections to the grid"
     Dialog(tab = "Measurements"));
 
   // PLL parameters
-  parameter Types.PerUnit Ki "PLL integrator gain" annotation(
+  parameter Types.AngularVelocity OmegaPLL "PLL natural frequency (rad/s)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.PerUnit Kp "PLL proportional gain" annotation(
+  parameter Types.PerUnit KsiPLL "PLL damping" annotation(
     Dialog(tab = "PLL"));
   parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)" annotation(
     Dialog(tab = "PLL"));
@@ -35,15 +35,13 @@ model csGFL "PEIR model with GFL control and dynamic connections to the grid"
     Dialog(tab = "PLL"));
 
   // Outer loop parameters
-  parameter Types.PerUnit Kpd "Active power PI controller proportional gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
-  parameter Types.PerUnit Kid "Active power PI controller integral gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
-  parameter Types.PerUnit Kpq "Reactive power PI controller proportional gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
-  parameter Types.PerUnit Kiq "Reactive power PI controller integral gain in pu/s (base UNom, SNom)" annotation(
-    Dialog(tab = "Outer loop"));
   parameter Types.PerUnit Kqv "Reactive current gain for fault-ride through mode in pu"annotation(
+    Dialog(tab = "Outer loop"));
+  parameter Types.AngularVelocity OmegaP "Bandwith for active power outer loop" annotation(
+    Dialog(tab = "Outer loop"));
+  parameter Types.AngularVelocity OmegaQ "Bandwith for reactive power outer loop" annotation(
+    Dialog(tab = "Outer loop"));
+  parameter Types.AngularVelocity OmegaLPF "Bandwith for low pass filter for the outer loop" annotation(
     Dialog(tab = "Outer loop"));
   parameter Types.PerUnit UFrt "Voltage value to activate the frt mode in pu" annotation(
     Dialog(tab = "Outer loop"));
@@ -88,7 +86,16 @@ model csGFL "PEIR model with GFL control and dynamic connections to the grid"
   final parameter Types.ComplexCurrentPu i0Pu = ComplexMath.conj(Complex(P0Pu, Q0Pu) / u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, XTransformerPu) * i0Pu * SystemBase.SnRef / SNom "Start value of the complex voltage at the filter in pu (base UNom)";
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
- Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.MeasurementsFiltered2 Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tPQFilt = tPQFilt, tUFilt = tUFilt, tUqPLL = tUqPLL)  annotation(
+
+  final parameter Types.PerUnit Ki = OmegaPLL * OmegaPLL / SystemBase.omegaNom "PLL integrator gain";
+  final parameter Types.PerUnit Kp = 2 * KsiPLL * OmegaPLL / SystemBase.omegaNom "PLL proportional gain";
+  final parameter Types.PerUnit Kpd = OmegaP / OmegaLPF "Active power PI controller proportional gain in pu/s (base UNom, SNom)";
+  final parameter Types.PerUnit Kid = OmegaP "Active power PI controller integral gain in pu/s (base UNom, SNom)";
+  final parameter Types.PerUnit Kpq = OmegaQ / OmegaLPF "Reactive power PI controller proportional gain in pu/s (base UNom, SNom)";
+  final parameter Types.PerUnit Kiq = OmegaQ "Reactive power PI controller integral gain in pu/s (base UNom, SNom)";
+
+
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries.MeasurementsFiltered2 Measurements(IdPcc0Pu = Converter.refFrameRotation.IdPcc0Pu, IqPcc0Pu = Converter.refFrameRotation.IqPcc0Pu, UdFilter0Pu = Converter.RLTransformer.UdFilter0Pu, UdPcc0Pu = Converter.refFrameRotation.UdPcc0Pu, UqFilter0Pu = Converter.RLTransformer.UqFilter0Pu, UqPcc0Pu = Converter.refFrameRotation.UqPcc0Pu, tPQFilt = tPQFilt, tUFilt = tUFilt, tUqPLL = tUqPLL)  annotation(
     Placement(visible = true, transformation(origin = {3, -49}, extent = {{-19, -19}, {19, 19}}, rotation = 180)));
 equation
   connect(Converter.terminal, terminal) annotation(
@@ -130,4 +137,4 @@ protected
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),
     Diagram(graphics = {Text(origin = {9, 53}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idFilterRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqFilterRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 83}, lineColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta")}));
-end csGFL;
+end csGFLBandwith;

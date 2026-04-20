@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.order
   DynRLCFilter.mo
   DynRLTransformer.mo
+  Generator.mo
   RefFrameRotation.mo
   RLCFilter.mo
   RLTransformer.mo

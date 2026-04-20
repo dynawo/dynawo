@@ -11,13 +11,15 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-  BESSWeccCurrentSource.xml
-  BESSWeccCurrentSourceNoPlantControl.xml
+  BESScbWeccCurrentSource.xml
+  BESScbWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
   CombiTimeTable.xml
   ConditionalForward.xml
+  CsGridFollowing.xml
+  CsGridFollowingBandwith.xml
   CurrentLimitAutomaton.xml
   CurrentLimitAutomatonTwoLevels.xml
   DiscreteIntegrator.xml
@@ -27,6 +29,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
   DynGridFollowing.xml
+  DynGridFollowingBandwith.xml
   DynGridFormingDroop.xml
   DynGridFormingVirtualSynchronousMachine.xml
   DynVcGridFormingVirtualSynchronousMachine.xml
@@ -39,10 +42,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   EventSetPointDoubleReal.xml
   GeneratorFictitious.xml
   GeneratorPQ.xml
-  GeneratorPQPropSignalN.xml
-  GeneratorPQPropSignalNSFR.xml
-  GeneratorPQPropDiagramPQSignalN.xml
-  GeneratorPQPropDiagramPQSignalNSFR.xml
+#  GeneratorPQPropSignalN.xml
+#  GeneratorPQPropSignalNSFR.xml
+#  GeneratorPQPropDiagramPQSignalN.xml
+#  GeneratorPQPropDiagramPQSignalNSFR.xml
   GeneratorPV.xml
   GeneratorPVFixed.xml
   GeneratorPVDiagramPQ.xml
@@ -170,6 +173,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingP.xml
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
+  HVRT.xml
   #IECWPP4ACurrentSource2015.xml
   #IECWPP4ACurrentSource2020.xml
   #IECWPP4BCurrentSource2015.xml
@@ -185,9 +189,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   IntegerDoubleStep.xml
-  IntegerTable.xml
+  LHVRT.xml
   Line.xml
-  LineFault.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeNetwork.xml
@@ -205,6 +208,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
   LossOfSynchronismProtection.xml
+  LVRT.xml
   LVRT4Points.xml
   LVRT10Points.xml
   Measurements.xml
@@ -214,16 +218,12 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhotovoltaicsWeccCurrentSource.xml
-  PhotovoltaicsWeccCurrentSourceNoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource1.xml
-  PhotovoltaicsWeccVoltageSource1NoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource2.xml
-  PhotovoltaicsWeccVoltageSource2NoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource3.xml
-  PhotovoltaicsWeccVoltageSource3NoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource4.xml
-  PhotovoltaicsWeccVoltageSource4NoPlantControl.xml
+  PhotovoltaicsWeccCurrentSourceB.xml
+  PhotovoltaicsWeccCurrentSourceBNoPlantControl.xml
+  PhotovoltaicsWeccVoltageSourceA.xml
+  PhotovoltaicsWeccVoltageSourceANoPlantControl.xml
+  PhotovoltaicsWeccVoltageSourceB.xml
+  PhotovoltaicsWeccVoltageSourceBNoPlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
@@ -263,10 +263,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
   WT4BWeccCurrentSource.xml
-  WTG3WeccCurrentSource1.xml
-  WTG3WeccCurrentSource2.xml
-  WTG4AWeccCurrentSource1.xml
-  WTG4AWeccCurrentSource2.xml
+  WTG4AWeccCurrentSource.xml
   WTG4BWeccCurrentSource.xml
   )
 

@@ -1,17 +1,13 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries;
 
-model MeasurementsFiltered "Measurements block for PEIR models"
+model MeasurementsFiltered2 "Measurements block for PEIR models"
 
   parameter Types.Time tPQFilt "Filter time constant for voltage/current measurement that goes to the PQ calculation in s";
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
   parameter Types.Time tUqPLL "Filter time constant for voltage q measurement specially designed for the PLL in s";
   // Inputs
-  Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current at the converter in pu (base UNom, SNom)" annotation(
-    Placement(transformation(origin = {-110, -260}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current at the PCC in pu (base UNom, SNom)" annotation(
     Placement(transformation(origin = {-110, 140}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput iqConvPu(start = IqConv0Pu) "q-axis current at the converter in pu (base UNom, SNom)" annotation(
-    Placement(transformation(origin = {-110, -300}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput iqPccPu(start = IqPcc0Pu) "q-axis current at the PCC in pu (base UNom, SNom)" annotation(
     Placement(transformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the filter in pu (base UNom)" annotation(
@@ -23,14 +19,10 @@ model MeasurementsFiltered "Measurements block for PEIR models"
   Modelica.Blocks.Interfaces.RealInput uqPccPu(start = UqPcc0Pu) "q-axis voltage at the PCC in pu (base UNom)" annotation(
     Placement(visible = true,transformation(origin = {-110, -226}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // Outputs
-  Modelica.Blocks.Interfaces.RealOutput idFilteredConvPu(start = IdConv0Pu) "Filtered d-axis current at the converter in pu (base UNom, SNom)" annotation(
-    Placement(visible = true,transformation(origin = {110, -260}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput idFilteredPccPu(start = IdPcc0Pu) "Filtered d-axis current at the PCC in pu (base UNom, SNom)" annotation(
     Placement(transformation(origin = {110, 140}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput idFilteredPccPQCalculPu(start = IdPcc0Pu) "Filtered d-axis current at the PCC for PQ calculation in pu (base UNom, SNom)" annotation(
     Placement(transformation(origin = {110, 180}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput iqFilteredConvPu(start = IqConv0Pu) "Filtered q-axis current at the converter in pu (base UNom, SNom)" annotation(
-    Placement(visible = true,transformation(origin = {110, -300}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-48, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput iqFilteredPccPu(start = IqPcc0Pu) "Filtered q-axis current at the PCC in pu (base UNom, SNom)" annotation(
     Placement(transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput iqFilteredPccPQCalculPu(start = IqPcc0Pu) "Filtered q-axis current at the PCC for PQ calculation in pu (base UNom, SNom)" annotation(
@@ -60,10 +52,6 @@ model MeasurementsFiltered "Measurements block for PEIR models"
     Placement(transformation(origin = {-10, 140}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tUFilt, k = 1, y_start = IqPcc0Pu) annotation(
     Placement(transformation(origin = {-10, 100}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tUFilt, k = 1, y_start = IdConv0Pu) annotation(
-    Placement(transformation(origin = {-10, -260}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder5(T = tUFilt, k = 1, y_start = IqConv0Pu) annotation(
-    Placement(transformation(origin = {-10, -300}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder6(T = tUqPLL, k = 1, y_start = UqFilter0Pu) annotation(
     Placement(transformation(origin = {-10, -160}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tUFilt, k = 1, y_start = UqFilter0Pu) annotation(
@@ -80,9 +68,7 @@ model MeasurementsFiltered "Measurements block for PEIR models"
     Placement(transformation(origin = {-10, -120}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameters
-  parameter Types.PerUnit IdConv0Pu "Start value of d-axis current at the converter in pu (base UNom, SNom) in generator convention";
   parameter Types.PerUnit IdPcc0Pu "Start value of d-axis current at PCC in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqConv0Pu "Start value of q-axis current at the converter in pu (base UNom, SNom) in generator convention";
   parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current at PCC in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the filter in pu (base UNom)";
   parameter Types.PerUnit UdPcc0Pu "Start value of d-axis voltage at PCC in pu (base UNom)";
@@ -129,14 +115,6 @@ equation
     Line(points = {{-22, -160}, {-80, -160}, {-80, -120}, {-112, -120}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(firstOrder6.y, uqFilteredFilterPLLPu) annotation(
     Line(points = {{1, -160}, {110, -160}}, color = {0, 0, 127}));
-  connect(idConvPu, firstOrder4.u) annotation(
-    Line(points = {{-110, -260}, {-22, -260}}, color = {0, 0, 127}));
-  connect(firstOrder4.y, idFilteredConvPu) annotation(
-    Line(points = {{1, -260}, {110, -260}}, color = {0, 0, 127}));
-  connect(iqConvPu, firstOrder5.u) annotation(
-    Line(points = {{-110, -300}, {-22, -300}}, color = {0, 0, 127}));
-  connect(firstOrder5.y, iqFilteredConvPu) annotation(
-    Line(points = {{1, -300}, {110, -300}}, color = {0, 0, 127}));
   connect(idPccPu, firstOrder7.u) annotation(
     Line(points = {{-110, 140}, {-80, 140}, {-80, 180}, {-22, 180}}, color = {0, 0, 127}));
   connect(firstOrder7.y, idFilteredPccPQCalculPu) annotation(
@@ -163,4 +141,4 @@ equation
     Line(points = {{1, -226}, {110, -226}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -300}, {100, 200}})));
-end MeasurementsFiltered;
+end MeasurementsFiltered2;
