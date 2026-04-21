@@ -255,7 +255,7 @@ final parameter Complex uconv0Pu_init =
   Modelica.Blocks.Interfaces.RealInput PRefPu (start=P0Pu)annotation(
     Placement(transformation(origin = {-109, 61}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-118, 72}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput UREfPu (start=U0Pu) annotation(
-    Placement(transformation(origin = {-109, 45}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-109, 43}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
   LCnoDynFilter lCnoDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu, iRight_imPu0 = IiPcc0Pu, omegaPu0 = Omega0Pu, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, omegaNom = omegaNom)  annotation(
     Placement(transformation(origin = {66, 66}, extent = {{-10, -10}, {10, 10}})));
   Controls.PEIR.BaseControls.Average.VSC_with_pade_delay vSC_with_pade_delay(tVSC = tVSC, UreConv0Pu = uconv0Pu_init.re, UimConv0Pu = uconv0Pu_init.im)  annotation(
@@ -274,7 +274,7 @@ equation
  connect(PRefPu, plant_controller.PRefPu) annotation(
     Line(points = {{-109, 61}, {-86, 61}, {-86, 59.5}, {-84, 59.5}}, color = {0, 0, 127}));
   connect(UREfPu, plant_controller.URefPu) annotation(
-    Line(points = {{-109, 45}, {-96.5, 45}, {-96.5, 43}, {-84, 43}}, color = {0, 0, 127}));
+    Line(points = {{-109, 43}, {-84, 43}}, color = {0, 0, 127}));
   connect(plant_controller.omegaPLLPu, gFLControl.omega_pll_pu_2) annotation(
     Line(points = {{-46, 49}, {-46, 54}, {-36, 54}, {-36, 56}}, color = {0, 0, 127}));
   connect(omegaRefPu, gFLControl.omegaRefPU) annotation(
