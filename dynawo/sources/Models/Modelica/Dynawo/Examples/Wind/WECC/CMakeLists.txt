@@ -11,15 +11,15 @@
 set(MODEL_FILES
   package.mo
   package.order
+  WPP3CurrentSource1.mo
+  WPP3CurrentSource2.mo
+  WPP4ACurrentSource.mo
+  WPP4BCurrentSource.mo
+  WPP4BCurrentSourceExternalPCS.mo
   WT3CurrentSource1.mo
   WT3CurrentSource2.mo
   WT4ACurrentSource.mo
   WT4BCurrentSource.mo
-  WTG3CurrentSource1.mo
-  WTG3CurrentSource2.mo
-  WTG4ACurrentSource.mo
-  WTG4BCurrentSource.mo
-  WTG4BCurrentSourceExternalPCS.mo
   )
 
 #

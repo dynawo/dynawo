@@ -15,7 +15,7 @@ within Dynawo.Examples.GridCodeSimulations;
 model BaseUnitModel
   extends BaseParameters;
 
-  Dynawo.Electrical.Wind.WECC.WTG3CurrentSource1 Unit(
+  Dynawo.Electrical.Wind.WECC.WPP3CurrentSource1 Unit(
     ConverterLVControl = true,
     DDn = 100,
     DPMaxPu = 0.1117,
@@ -187,7 +187,7 @@ model BaseUnitModel
     Placement(transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT weccPlantCurrentSource_INIT(
     BMvHvPu = Unit.BMvHvPu,
     ConverterLVControl = Unit.ConverterLVControl,
     GMvHvPu = Unit.GMvHvPu,
@@ -216,31 +216,31 @@ model BaseUnitModel
     Placement(transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
-  Unit.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
-  Unit.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
-  Unit.PF0 := wTG4CurrentSource_INIT.PF0;
-  Unit.PInj0Pu := wTG4CurrentSource_INIT.PInj0Pu;
-  Unit.QInj0Pu := wTG4CurrentSource_INIT.QInj0Pu;
-  Unit.UInj0Pu := wTG4CurrentSource_INIT.UInj0Pu;
-  Unit.i0Pu.re := wTG4CurrentSource_INIT.i0Pu.re;
-  Unit.i0Pu.im := wTG4CurrentSource_INIT.i0Pu.im;
-  Unit.iConv0Pu.re := wTG4CurrentSource_INIT.iConv0Pu.re;
-  Unit.iConv0Pu.im := wTG4CurrentSource_INIT.iConv0Pu.im;
-  Unit.s0Pu.re := wTG4CurrentSource_INIT.s0Pu.re;
-  Unit.s0Pu.im := wTG4CurrentSource_INIT.s0Pu.im;
-  Unit.u0Pu.re := wTG4CurrentSource_INIT.u0Pu.re;
-  Unit.u0Pu.im := wTG4CurrentSource_INIT.u0Pu.im;
-  Unit.uInj0Pu.re := wTG4CurrentSource_INIT.uInj0Pu.re;
-  Unit.uInj0Pu.im := wTG4CurrentSource_INIT.uInj0Pu.im;
-  Unit.UConv0Pu := wTG4CurrentSource_INIT.UConv0Pu;
-  Unit.uConv0Pu.re := wTG4CurrentSource_INIT.uConv0Pu.re;
-  Unit.uConv0Pu.im := wTG4CurrentSource_INIT.uConv0Pu.im;
-  Unit.uPcc0Pu.re := wTG4CurrentSource_INIT.uPcc0Pu.re;
-  Unit.uPcc0Pu.im := wTG4CurrentSource_INIT.uPcc0Pu.im;
-  Unit.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
-  Unit.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
-  Unit.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
-  Unit.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
+  Unit.Id0Pu := weccPlantCurrentSource_INIT.Id0Pu;
+  Unit.Iq0Pu := weccPlantCurrentSource_INIT.Iq0Pu;
+  Unit.PF0 := weccPlantCurrentSource_INIT.PF0;
+  Unit.PInj0Pu := weccPlantCurrentSource_INIT.PInj0Pu;
+  Unit.QInj0Pu := weccPlantCurrentSource_INIT.QInj0Pu;
+  Unit.UInj0Pu := weccPlantCurrentSource_INIT.UInj0Pu;
+  Unit.i0Pu.re := weccPlantCurrentSource_INIT.i0Pu.re;
+  Unit.i0Pu.im := weccPlantCurrentSource_INIT.i0Pu.im;
+  Unit.iConv0Pu.re := weccPlantCurrentSource_INIT.iConv0Pu.re;
+  Unit.iConv0Pu.im := weccPlantCurrentSource_INIT.iConv0Pu.im;
+  Unit.s0Pu.re := weccPlantCurrentSource_INIT.s0Pu.re;
+  Unit.s0Pu.im := weccPlantCurrentSource_INIT.s0Pu.im;
+  Unit.u0Pu.re := weccPlantCurrentSource_INIT.u0Pu.re;
+  Unit.u0Pu.im := weccPlantCurrentSource_INIT.u0Pu.im;
+  Unit.uInj0Pu.re := weccPlantCurrentSource_INIT.uInj0Pu.re;
+  Unit.uInj0Pu.im := weccPlantCurrentSource_INIT.uInj0Pu.im;
+  Unit.UConv0Pu := weccPlantCurrentSource_INIT.UConv0Pu;
+  Unit.uConv0Pu.re := weccPlantCurrentSource_INIT.uConv0Pu.re;
+  Unit.uConv0Pu.im := weccPlantCurrentSource_INIT.uConv0Pu.im;
+  Unit.uPcc0Pu.re := weccPlantCurrentSource_INIT.uPcc0Pu.re;
+  Unit.uPcc0Pu.im := weccPlantCurrentSource_INIT.uPcc0Pu.im;
+  Unit.PConv0Pu := weccPlantCurrentSource_INIT.PConv0Pu;
+  Unit.QConv0Pu := weccPlantCurrentSource_INIT.QConv0Pu;
+  Unit.UPhaseConv0 := weccPlantCurrentSource_INIT.UPhaseConv0;
+  Unit.omegaRefWTGQPu0 := weccPlantCurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
   Unit.injector.switchOffSignal1 = false;

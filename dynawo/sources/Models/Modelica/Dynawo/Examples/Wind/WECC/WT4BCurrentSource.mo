@@ -129,7 +129,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     Placement(transformation(origin = {90, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT wt4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT weccInverterCurrentSource_INIT(
     ConverterLVControl = WT4B.ConverterLVControl,
     P0Pu = WT4B.s0Pu.re,
     Q0Pu = WT4B.s0Pu.im,
@@ -141,25 +141,25 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
-  WT4B.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
-  WT4B.Iq0Pu := wt4CurrentSource_INIT.Iq0Pu;
-  WT4B.PF0 := wt4CurrentSource_INIT.PF0;
-  WT4B.PInj0Pu := wt4CurrentSource_INIT.PInj0Pu;
-  WT4B.QInj0Pu := wt4CurrentSource_INIT.QInj0Pu;
-  WT4B.UInj0Pu := wt4CurrentSource_INIT.UInj0Pu;
-  WT4B.i0Pu.re := wt4CurrentSource_INIT.i0Pu.re;
-  WT4B.i0Pu.im := wt4CurrentSource_INIT.i0Pu.im;
-  WT4B.uInj0Pu.re := wt4CurrentSource_INIT.uInj0Pu.re;
-  WT4B.uInj0Pu.im := wt4CurrentSource_INIT.uInj0Pu.im;
-  WT4B.omegaRefWTGQPu0 := wt4CurrentSource_INIT.omegaRefWTGQPu0;
-  WT4B.iConv0Pu.re := wt4CurrentSource_INIT.iConv0Pu.re;
-  WT4B.iConv0Pu.im := wt4CurrentSource_INIT.iConv0Pu.im;
-  WT4B.UConv0Pu := wt4CurrentSource_INIT.UConv0Pu;
-  WT4B.uConv0Pu.re := wt4CurrentSource_INIT.uConv0Pu.re;
-  WT4B.uConv0Pu.im := wt4CurrentSource_INIT.uConv0Pu.im;
-  WT4B.PConv0Pu := wt4CurrentSource_INIT.PConv0Pu;
-  WT4B.QConv0Pu := wt4CurrentSource_INIT.QConv0Pu;
-  WT4B.UPhaseConv0 := wt4CurrentSource_INIT.UPhaseConv0;
+  WT4B.Id0Pu := weccInverterCurrentSource_INIT.Id0Pu;
+  WT4B.Iq0Pu := weccInverterCurrentSource_INIT.Iq0Pu;
+  WT4B.PF0 := weccInverterCurrentSource_INIT.PF0;
+  WT4B.PInj0Pu := weccInverterCurrentSource_INIT.PInj0Pu;
+  WT4B.QInj0Pu := weccInverterCurrentSource_INIT.QInj0Pu;
+  WT4B.UInj0Pu := weccInverterCurrentSource_INIT.UInj0Pu;
+  WT4B.i0Pu.re := weccInverterCurrentSource_INIT.i0Pu.re;
+  WT4B.i0Pu.im := weccInverterCurrentSource_INIT.i0Pu.im;
+  WT4B.uInj0Pu.re := weccInverterCurrentSource_INIT.uInj0Pu.re;
+  WT4B.uInj0Pu.im := weccInverterCurrentSource_INIT.uInj0Pu.im;
+  WT4B.omegaRefWTGQPu0 := weccInverterCurrentSource_INIT.omegaRefWTGQPu0;
+  WT4B.iConv0Pu.re := weccInverterCurrentSource_INIT.iConv0Pu.re;
+  WT4B.iConv0Pu.im := weccInverterCurrentSource_INIT.iConv0Pu.im;
+  WT4B.UConv0Pu := weccInverterCurrentSource_INIT.UConv0Pu;
+  WT4B.uConv0Pu.re := weccInverterCurrentSource_INIT.uConv0Pu.re;
+  WT4B.uConv0Pu.im := weccInverterCurrentSource_INIT.uConv0Pu.im;
+  WT4B.PConv0Pu := weccInverterCurrentSource_INIT.PConv0Pu;
+  WT4B.QConv0Pu := weccInverterCurrentSource_INIT.QConv0Pu;
+  WT4B.UPhaseConv0 := weccInverterCurrentSource_INIT.UPhaseConv0;
 
 equation
   line.switchOffSignal1 = false;
@@ -185,7 +185,7 @@ equation
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-05, Interval = 0.001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-    This test case consists in one simplified drive train model Wind Turbine park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the behavior of the drive train of a Wind Turbine type 4A park in response to a voltage and frequency variation at its terminal.    </div>
+    This test case consists in one simplified drive train model Wind Turbine park connected to an infinite bus which voltage is reduced to 0.5 pu from t = 1 s to t = 2 s, and which frequency is increased to 1.01 pu from t = 6 s to t = 6.5 s. This is a way to observe the behavior of the drive train of a Wind Turbine type 4B in response to a voltage and frequency variation at its terminal.    </div>
     <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></figure><figure>
       <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/WECC/Resources/WT4BCurrentSource_PInjPu.png\">
     </figure>

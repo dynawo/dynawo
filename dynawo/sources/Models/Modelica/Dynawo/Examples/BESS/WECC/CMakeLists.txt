@@ -11,9 +11,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  BESSCurrentSource.mo
-  BESSCurrentSourceExternalPCS.mo
-  BESSCurrentSourceNoPPC.mo
+  BESSInverterCurrentSource.mo
+  BESSPlantCurrentSource.mo
+  BESSPlantCurrentSourceExternalPCS.mo
   )
 
 #

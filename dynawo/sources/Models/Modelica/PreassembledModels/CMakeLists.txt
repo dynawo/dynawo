@@ -12,8 +12,6 @@
 
 set(MODELICA_PREASSEMBLED_MODELS
   AggregatedIBG.xml
-  BESSWeccCurrentSource.xml
-  BESSWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
@@ -218,16 +216,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhotovoltaicsWeccCurrentSource.xml
-  PhotovoltaicsWeccCurrentSourceNoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource1.xml
-  PhotovoltaicsWeccVoltageSource1NoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource2.xml
-  PhotovoltaicsWeccVoltageSource2NoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource3.xml
-  PhotovoltaicsWeccVoltageSource3NoPlantControl.xml
-  PhotovoltaicsWeccVoltageSource4.xml
-  PhotovoltaicsWeccVoltageSource4NoPlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
@@ -264,15 +252,27 @@ set(MODELICA_PREASSEMBLED_MODELS
   UnderVoltageAutomaton.xml
   VariableImpedantFault.xml
   VRRemote.xml
+  WeccBESSInverterCurrentSource.xml
+  WeccBESSPlantCurrentSource.xml
+  WeccPVInverterCurrentSource.xml
+  WeccPVInverterVoltageSource1.xml
+  WeccPVInverterVoltageSource2.xml
+  WeccPVInverterVoltageSource3.xml
+  WeccPVInverterVoltageSource4.xml
+  WeccPVPlantCurrentSource.xml
+  WeccPVPlantVoltageSource1.xml
+  WeccPVPlantVoltageSource2.xml
+  WeccPVPlantVoltageSource3.xml
+  WeccPVPlantVoltageSource4.xml
+  WeccWPP3CurrentSource1.xml
+  WeccWPP3CurrentSource2.xml
+  WeccWPP4ACurrentSource.xml
+  WeccWPP4BCurrentSource.xml
   WeccWT3CurrentSource1.xml
   WeccWT3CurrentSource2.xml
+  WeccWT4ACurrentSource.xml
+  WeccWT4BCurrentSource.xml
   WeightedDifference.xml
-  WT4AWeccCurrentSource.xml
-  WT4BWeccCurrentSource.xml
-  WTG3WeccCurrentSource1.xml
-  WTG3WeccCurrentSource2.xml
-  WTG4AWeccCurrentSource.xml
-  WTG4BWeccCurrentSource.xml
   )
 
 # PYTHON scripts preassembled models

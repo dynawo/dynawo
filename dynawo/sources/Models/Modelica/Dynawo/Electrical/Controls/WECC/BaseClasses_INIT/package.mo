@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.WECC;
 * of simulation tools for power systems.
 */
 
-package BaseClasses_INIT "Initialization base models for voltage regulators"
+package BaseClasses_INIT "Initialization base models for WECC"
   extends Icons.BasesPackage;
 
 end BaseClasses_INIT;

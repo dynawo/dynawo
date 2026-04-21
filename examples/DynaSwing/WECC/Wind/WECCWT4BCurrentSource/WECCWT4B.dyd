@@ -13,7 +13,7 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithVariations" parFile="WECCWT4B.par" parId="InfBusPar"/>
-  <dyn:blackBoxModel id="WT4B" lib="WT4BWeccCurrentSource" parFile="WECCWT4B.par" parId="PlantPar"/>
+  <dyn:blackBoxModel id="WT4B" lib="WeccWT4BCurrentSource" parFile="WECCWT4B.par" parId="PlantPar"/>
   <dyn:blackBoxModel id="PRefPu" lib="Step" parFile="WECCWT4B.par" parId="PRefPu"/>
   <dyn:blackBoxModel id="QRefPu" lib="Step" parFile="WECCWT4B.par" parId="QRefPu"/>
   <dyn:blackBoxModel id="PFaRef" lib="Step" parFile="WECCWT4B.par" parId="PFaRef"/>

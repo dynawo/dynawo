@@ -2,6 +2,7 @@ Overview
 BaseClasses
 BESS
 ENTSOE
+GridCodeSimulations
 GridForming
 HVDC
 IEEE14
@@ -16,4 +17,3 @@ SMIB
 SVarC
 SystemFrequencyResponse
 Wind
-GridCodeSimulations

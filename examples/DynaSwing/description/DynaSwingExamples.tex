@@ -545,11 +545,12 @@ We observe that the voltage at node 2 falls to zero. As the voltage is zero duri
 This chapter presents 11 test cases simulating five models of renewable energies generators :
 \begin{itemize}
 \item A PV plant with the injector represented as a current source (WECCPVCurrentSource).
-\item A PV plant with the injector represented as a voltage source. Two REGC models enables the voltage source connection REGC-B : WECCPVVoltageSource1, WECCPVVoltageSource2 and REGC-C : WECCPVVoltageSource3, WECCPVVoltageSource4.
-\item A Wind plant of type 4A with the injector represented as a current source (WECCWTG4ACurrentSource).
-The type 4A is refered to the wind with representation of drive train control. There are two test cases : WECCWTG4ACurrentSource1 where WTGTA model is used to represent the drive train control with constant mechanical power and  WECCWTG4ACurrentSource2 with WTGTB model with the mechanical power derived from the electrical power.
-\item A Wind plant of type 4B with the injector represented as a current source (WECCWTG4BCurrentSource). The type 4B doesn't have a drive train control representation.
-\item A Wind plant of type 3  with the injector represented as a current source (WECCWTG3CurrentSource1 and WECCWTG3CurrentSource2). The type 3 wind model has a representation of the mechanical part. There are two test cases :  WECCWTG3CurrentSource1 with the combination of WTGQA, WTGPA, WTGAA and WTGTA for the mechanical part, and WECCWTG3CurrentSource2 with the combination of WTGQA, WTGPB, WTGAA and WTGTA.
+\item A PV plant with the injector represented as a voltage source. Two REGC models enables the voltage source connection REGC-B : WECCPVPlantVoltageSource1, WECCPVPlantVoltageSource2 and REGC-C : WECCPVPlantVoltageSource3, WECCPVPlantVoltageSource4.
+\item A Wind plant of type 4A with the injector represented as a current source (WECCWPP4ACurrentSource1 and WECCWPP4ACurrent
+Source2).
+The type 4A is referred to the wind with representation of drive train control. There are two test cases : WECCWPP4ACurrentSource1 where WTGTA model is used to represent the drive train control with constant mechanical power and  WECCWPP4ACurrentSource2 with WTGTB model with the mechanical power derived from the electrical power.
+\item A Wind plant of type 4B with the injector represented as a current source (WECCWPP4BCurrentSource). The type 4B doesn't have a drive train control representation.
+\item A Wind plant of type 3  with the injector represented as a current source (WECCWPP3CurrentSource1 and WECCWPP3CurrentSource2). The type 3 wind model has a representation of the mechanical part. There are two test cases :  WECCWPP3CurrentSource1 with the combination of WTGQA, WTGPA, WTGAA and WTGTA for the mechanical part, and WECCWPP3CurrentSource2 with the combination of WTGQA, WTGPB, WTGAA and WTGTA.
 \item A battery energy storage system (BESS) with the injector represented as current source (WECCBESSCurrentSource)
 \end{itemize}
 
@@ -571,7 +572,7 @@ All 11 models are taken from the WECC standard and can be found here:
 
 
 \section{PV and Wind current source}
-The implementation of the models WECCPVCurrentSource, WECCWTG4ACurrentSource and WECCWTG4BCurrentSource in Modelica has lead to the following publication in the 14th Modelica conference:\\
+The implementation of the models WECCPVCurrentSource, WECCWPP4ACurrentSource1 and WECCWPP4BCurrentSource in Modelica has led to the following publication in the 14th Modelica conference:\\
 
 M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation of the Generic WECC Photovoltaics and Wind Turbine Generator Models in Modelica", 2021.\\
 
@@ -621,12 +622,12 @@ M. Nuschke, S. Lohr, A. Guironnet and M. Saugier, "Implementation and Validation
 \end{figure}
 
 \section{PV with voltage source}
-Four test cases are available for the PV power plants connected with voltage source : WECCPVVoltageSource1, WECCPVVoltageSource2, WECCPVVoltageSource3 et WECCPVVoltageSource4.
+Four test cases are available for the PV power plants connected with voltage source : WECCPVPlantVoltageSource1, WECCPVPlantVoltageSource2, WECCPVPlantVoltageSource3 et WECCPVPlantVoltageSource4.
 
-N.B :WECCPVVoltageSource1 and WECCPVVoltageSource3 could also be used to represent wind turbines.
+N.B :WECCPVPlantVoltageSource1 and WECCPVPlantVoltageSource3 could also be used to represent wind turbines.
 
-\subsection{WECCPVVoltageSource2 and WECCPVVoltageSource4}
-Here we are going to compare results from WECCPVVoltageSource2 (REPC-A + REEC-B + REGC-B) against WECCPVVoltageSource4 (REPC-A + REEC-B + REGC-C) :
+\subsection{WECCPVPlantVoltageSource2 and WECCPVPlantVoltageSource4}
+Here we are going to compare results from WECCPVPlantVoltageSource2 (REPC-A + REEC-B + REGC-B) against WECCPVPlantVoltageSource4 (REPC-A + REEC-B + REGC-C) :
 
 \subsubsection{Test case description}
 In both test cases, the PV power plants are connected to an infinite bus through a line.
@@ -670,11 +671,11 @@ Also, in order to compare both test cases, the parameter $tG = 0.2$ of REGC-B is
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_injector_PInjPu}]
-        {../WECC/PV/WECCPVVoltageSource2/reference/outputs/curves/curves.csv};
+        {../WECC/PV/WECCPVPlantVoltageSource2/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_injector_PInjPu}]
-        {../WECC/PV/WECCPVVoltageSource4/reference/outputs/curves/curves.csv};
-        \legend{$WECCPVVoltageSource2$, $WECCPVVoltageSource4$}
+        {../WECC/PV/WECCPVPlantVoltageSource4/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVPlantVoltageSource2$, $WECCPVPlantVoltageSource4$}
     \end{axis}
   \end{tikzpicture}
 }
@@ -684,18 +685,18 @@ Also, in order to compare both test cases, the parameter $tG = 0.2$ of REGC-B is
     \begin{axis}[height =2.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_injector_QInjPu}]
-        {../WECC/PV/WECCPVVoltageSource2/reference/outputs/curves/curves.csv};
+        {../WECC/PV/WECCPVPlantVoltageSource2/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_injector_QInjPu}]
-        {../WECC/PV/WECCPVVoltageSource4/reference/outputs/curves/curves.csv};
-        \legend{$WECCPVVoltageSource2$, $WECCPVVoltageSource4$}
+        {../WECC/PV/WECCPVPlantVoltageSource4/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVPlantVoltageSource2$, $WECCPVPlantVoltageSource4$}
     \end{axis}
   \end{tikzpicture}
 }
 \end{figure}
 
-\subsection{WECCPVVoltageSource1 and WECCPVVoltageSource3}
-Here we are going to compare results from WECCPVVoltageSource1 (REPC-A + REEC-A + REGC-B) against WECCPVVoltageSource3 (REPC-A + REEC-A + REGC-C) :
+\subsection{WECCPVPlantVoltageSource1 and WECCPVPlantVoltageSource3}
+Here we are going to compare results from WECCPVPlantVoltageSource1 (REPC-A + REEC-A + REGC-B) against WECCPVPlantVoltageSource3 (REPC-A + REEC-A + REGC-C) :
 
 \subsubsection{Test case description}
 In both test cases, the PV power plants are connected to an infinite bus through a line.
@@ -737,11 +738,11 @@ Also, in order to compare both test cases, the parameter $tG = 0.02$ of REGC-B i
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_HvMeasurements_PPu}]
-        {../WECC/PV/WECCPVVoltageSource1/reference/outputs/curves/curves.csv};
+        {../WECC/PV/WECCPVPlantVoltageSource1/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_HvMeasurements_PPu}]
-        {../WECC/PV/WECCPVVoltageSource3/reference/outputs/curves/curves.csv};
-        \legend{$WECCPVVoltageSource1$, $WECCPVVoltageSource3$}
+        {../WECC/PV/WECCPVPlantVoltageSource3/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVPlantVoltageSource1$, $WECCPVPlantVoltageSource3$}
     \end{axis}
   \end{tikzpicture}
 }
@@ -751,11 +752,11 @@ Also, in order to compare both test cases, the parameter $tG = 0.02$ of REGC-B i
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_injector_QInjPu}]
-        {../WECC/PV/WECCPVVoltageSource1/reference/outputs/curves/curves.csv};
+        {../WECC/PV/WECCPVPlantVoltageSource1/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{WECCPVVSource_photovoltaics_injector_QInjPu}]
-        {../WECC/PV/WECCPVVoltageSource3/reference/outputs/curves/curves.csv};
-        \legend{$WECCPVVoltageSource1$, $WECCPVVoltageSource3$}
+        {../WECC/PV/WECCPVPlantVoltageSource3/reference/outputs/curves/curves.csv};
+        \legend{$WECCPVPlantVoltageSource1$, $WECCPVPlantVoltageSource3$}
     \end{axis}
   \end{tikzpicture}
 }
@@ -763,11 +764,11 @@ Also, in order to compare both test cases, the parameter $tG = 0.02$ of REGC-B i
 
 \section{Type 3 Wind}
 \subsection{Test case description}
-The WTG3 is connected to an infinite bus through a line in both test cases.
+The WPP3 is connected to an infinite bus through a line in both test cases.
 
 \begin{figure}[H]
 \center
-  \includegraphics[width=0.55\textwidth]{WTG3.png}
+  \includegraphics[width=0.55\textwidth]{WPP3.png}
   \caption{Test case diagram}
 \end{figure}
 
@@ -800,12 +801,12 @@ Here we plot active and reactive power for both test cases.
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_PInjPu}]
-        {../WECC/Wind/WECCWTG3CurrentSource1/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{WPP3_WPP3_injector_PInjPu}]
+        {../WECC/Wind/WECCWPP3CurrentSource1/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
-        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_PInjPu}]
-        {../WECC/Wind/WECCWTG3CurrentSource2/reference/outputs/curves/curves.csv};
-        \legend{$WECCWTG3CurrentSource1$, $WECCWTG3CurrentSource2$}
+        table[x=time, y expr=\thisrow{WPP3_WPP3_injector_PInjPu}]
+        {../WECC/Wind/WECCWPP3CurrentSource2/reference/outputs/curves/curves.csv};
+        \legend{$WECCWPP3CurrentSource1$, $WECCWPP3CurrentSource2$}
     \end{axis}
   \end{tikzpicture}
 }
@@ -814,12 +815,12 @@ Here we plot active and reactive power for both test cases.
 \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_QInjPu}]
-        {../WECC/Wind/WECCWTG3CurrentSource1/reference/outputs/curves/curves.csv};
+        table[x=time, y expr=\thisrow{WPP3_WPP3_injector_QInjPu}]
+        {../WECC/Wind/WECCWPP3CurrentSource1/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
-        table[x=time, y expr=\thisrow{WTG3_WTG3_injector_QInjPu}]
-        {../WECC/Wind/WECCWTG3CurrentSource2/reference/outputs/curves/curves.csv};
-        \legend{$WECCWTG3CurrentSource1$, $WECCWTG3CurrentSource2$}
+        table[x=time, y expr=\thisrow{WPP3_WPP3_injector_QInjPu}]
+        {../WECC/Wind/WECCWPP3CurrentSource2/reference/outputs/curves/curves.csv};
+        \legend{$WECCWPP3CurrentSource1$, $WECCWPP3CurrentSource2$}
     \end{axis}
   \end{tikzpicture}
 }
@@ -893,7 +894,7 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
         \addplot[color=blue!50]
         table[x=time,y expr=\thisrow{BESS_BESS_injector_UPu}
         ]
-        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
+        {../WECC/BESS/WECCBESSPlantCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
   }
@@ -903,7 +904,7 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{BESS_BESS_injector_PInjPuSn}]
-        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
+        {../WECC/BESS/WECCBESSPlantCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -913,7 +914,7 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{BESS_BESS_injector_QInjPuSn}]
-        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
+        {../WECC/BESS/WECCBESSPlantCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -923,7 +924,7 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{BESS_BESS_reecC_idCmdPu}]
-        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
+        {../WECC/BESS/WECCBESSPlantCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -933,7 +934,7 @@ At t = 1 s, a fault at the infinite bus is simulated and it can be seen that the
     \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{BESS_BESS_reecC_iqCmdPu}]
-        {../WECC/BESS/WECCBESSCurrentSource/reference/outputs/curves/curves.csv};
+        {../WECC/BESS/WECCBESSPlantCurrentSource/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
 }
@@ -1001,11 +1002,11 @@ The following figures show the evolution of active and reactive power and freque
 \chapter{Grid Forming - Grid Following}
 
 This chapter presents three test cases that simulate a 5-machine all-converter-interfaced power system.
-Two converters are grid following and use the WECC WTG4A model presented above and three converters are grid forming converters using a droop control.
+Two converters are grid following and use the WECC WPP4A model presented above and three converters are grid forming converters using a droop control.
 
 \section{Test cases description}
 
-\par The test case is presented in the following figure. INF, HVDC1 and HVDC2 are grid forming converters while WP1 and WP2 are wind plants using the grid following WECC WTG4A model.
+\par The test case is presented in the following figure. INF, HVDC1 and HVDC2 are grid forming converters while WP1 and WP2 are wind plants using the grid following WECC WPP4A model.
 
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{GFMGFL.png}
