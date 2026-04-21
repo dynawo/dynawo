@@ -63,7 +63,7 @@ model outer_loop
     Placement(transformation(origin = {192, 62}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = delay_time_plant, y_start = PInjPu0, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(
     Placement(transformation(origin = {-148, 82}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = 1, y_start = QInjPu0, T = delay_time_plant) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = 1, y_start = QInjPu0, T = delay_time_plant, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(
     Placement(transformation(origin = {-148, 18}, extent = {{-10, -10}, {10, 10}})));
   Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind(k_p = k_p_d, tI = 1/k_i_d, y_start = y_start_outer_d, DyMax = DyMax_pi_d, YMax = Imax) annotation(
     Placement(transformation(origin = {26, 62}, extent = {{-20, -20}, {20, 20}})));

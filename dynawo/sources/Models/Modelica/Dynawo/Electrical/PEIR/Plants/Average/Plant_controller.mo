@@ -28,7 +28,7 @@ model Plant_controller
   parameter Real QInj0Pu  "Initial reactive power in pu in gnerator convenction";
   parameter Real PInj0Pu "Initial active power in pu in gnerator convenction";
 
-  // URef0: error = URef - (U + lambda*Q) = 0 at t=0
+
   final parameter Real URef0Pu = U0Pu - Lambda * Q0Pu;
   // PRef0: frequency error = 0 at t=0 => PRef0 = P0
   final parameter Real PRef0Pu = P0Pu;
