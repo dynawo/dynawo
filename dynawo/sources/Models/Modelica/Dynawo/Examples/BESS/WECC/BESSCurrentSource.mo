@@ -99,7 +99,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     VMinPu = 0.9,
     VRef0Pu = 1,
     VUpPu = 99,
-    XPu = 1e-10,
+    XPu = 0,
     brkpt = 0.1,
     i0Pu( im(fixed = false),re(fixed = false)),
     iInj0Pu( im(fixed = false),re(fixed = false)),
