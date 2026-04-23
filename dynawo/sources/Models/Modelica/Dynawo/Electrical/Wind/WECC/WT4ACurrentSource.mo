@@ -16,8 +16,10 @@ model WT4ACurrentSource "WECC Wind Turbine model with a simplified drive train m
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A(LvTfo(RPu = RPu, XPu = XPu));
 
-  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Dynawo.Connectors.ACPower terminal(
+    V(re(start = u0Pu.re), im(start = u0Pu.im)),
+    i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+    Placement(transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}})));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PConvRefPu(start = PConv0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(

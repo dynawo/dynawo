@@ -19,6 +19,7 @@ set(MODEL_FILES
   WTG4ACurrentSource2.mo
   WTG4BCurrentSource.mo
   WTG4BCurrentSourceExternalPCS.mo
+  WT3CurrentSource1.mo
   )
 
 #

@@ -28,6 +28,8 @@ set(MODEL_FILES
   WTG3CurrentSource1.extvar
   WTG3CurrentSource2.mo
   WTG3CurrentSource2.extvar
+  WT3CurrentSource1.mo
+  WT3CurrentSource1.extvar
   )
 
 #
