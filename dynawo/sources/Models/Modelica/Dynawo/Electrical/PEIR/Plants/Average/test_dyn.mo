@@ -17,11 +17,11 @@ model test_dyn
     UiPcc0Pu = Ui,
     // Generator convention: positive = injected into grid
     P0_pcc   = -0.599658,
-    Q0_pcc   = -0.014,
+    Q0_pcc   = -0.0171959,
     Omega0Pu = 1.0,
 
     // ── VSC Pade delay ────────────────────────────────────────
-    tVSC = 1e-3,
+    tVSC = 0.1,
 
     // ── LC filter ─────────────────────────────────────────────
     RfPu     = 0.00001,
@@ -114,15 +114,9 @@ model test_dyn
   Modelica.Blocks.Sources.Constant PRef(k = 0.6) annotation(
     Placement(transformation(origin = {-62, 32}, extent = {{-10, -10}, {10, 10}})));
 
-  // URef = U0 + Lambda*Q0 = 1.0 + 0.2*(-0.3) = 0.94 pu
-  // This MUST equal URef0Pu computed inside the model otherwise PI starts with error
   Modelica.Blocks.Sources.Constant URef(k = 0.97) annotation(
     Placement(transformation(origin = {-54, 0}, extent = {{-10, -10}, {10, 10}})));
-// Verifica diagnostica
-Real derTrafoLV_re = der(gFLmodelnodyn.TrafoLV.iRe);
-Real derTrafoHV_re = der(gFLmodelnodyn.TrafoHV.iRe);
-Real derFilter_iL  = der(gFLmodelnodyn.lCDynFilter.iLeft_re);
-Real derFilter_uC  = der(gFLmodelnodyn.lCDynFilter.uRight_re);
+    
   // Frequency reference = nominal
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
     Placement(transformation(origin = {-58, -36}, extent = {{-10, -10}, {10, 10}})));
@@ -149,12 +143,14 @@ equation
     Line(points = {{-50, 32}, {-30, 32}, {-30, 20}, {-21, 20}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(
     Line(points = {{12, -22}, {10, -22}, {10, -62}, {12, -62}}, color = {0, 0, 255}));
+
   annotation(
     preferredView = "diagram",
     experiment(
-      StartTime = -10,
+      StartTime = 0,
       StopTime  = 20,
       Tolerance = 1e-6,
       Interval  = 0.0005));
+      
 
 end test_dyn;

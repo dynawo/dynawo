@@ -3,9 +3,8 @@ within Dynawo.Electrical.PEIR.Plants.Average;
 model GFLControl
 
   // ────────────────────────────────────────────────────────────
-  // Complex initial conditions (Dynawo types)
+  // internal gfl control outer current pll
   // ────────────────────────────────────────────────────────────
-
   parameter Types.ComplexVoltagePu vm0
     "Initial complex voltage at VSC in pu (base UNom)"; 
   parameter Real Omega0Pu "Initial frequency (pu)";
@@ -164,7 +163,8 @@ model GFLControl
     Placement(transformation(origin = {-271, 65}, extent = {{-11, -11}, {11, 11}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput Q_ref (start=QInj0Pu) annotation(
     Placement(transformation(origin = {-270, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}})));
-
+  Modelica.Blocks.Interfaces.RealInput V_q_grid annotation(
+    Placement(transformation(origin = {-270, -78}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
   // ── External outputs ─────────────────────────────────────────
 
   Modelica.Blocks.Interfaces.RealOutput vm_re (start=vm0.re) annotation(
@@ -183,12 +183,12 @@ model GFLControl
     Placement(transformation(origin = {74, -60}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}})));
 
-  // Voltage magnitude for outer loop
+// Voltage magnitude for outer loop
   Modelica.Blocks.Sources.RealExpression U_meas_pu(
     y = sqrt(V_d_meas^2 + V_q_meas^2)) annotation(
     Placement(transformation(origin = {-270, 102}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput V_q_grid annotation(
-    Placement(transformation(origin = {-270, -78}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
+ 
+ //for graphical clarity at upper level model
   Modelica.Blocks.Interfaces.RealOutput omega_pll_pu_2 annotation(
     Placement(transformation(origin = {110, -60}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 equation
@@ -250,12 +250,10 @@ equation
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Icon(graphics = {
       Rectangle(extent = {{-100, 100}, {100, -100}}),
-      Text(origin = {6, 22}, extent = {{-90, 20}, {90, -20}},
+      Text(origin = {4, -10}, extent = {{-90, 20}, {90, -20}},
            textString = "GFL Control"),
-      Text(origin = {6, -8}, extent = {{-90, 15}, {90, -15}},
-           textString = "Plant + outer/inner loops"),
-      Text(origin = {-6, -32}, extent = {{-90, 15}, {90, -15}},
-           textString = "PLL")},
+      Text(origin = {14, -8}, extent = {{-90, 15}, {90, -15}},
+           textString = "")},
       coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Diagram(coordinateSystem(extent = {{-260, -120}, {240, 120}}), graphics = {Text(extent = {{-40, 60}, {-40, 60}}, textString = "text")}));
 

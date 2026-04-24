@@ -112,12 +112,12 @@ model test
 
   // PRef = 0.6 pu — constant for first test
   Modelica.Blocks.Sources.Constant PRef(k = 0.624285) annotation(
-    Placement(transformation(origin = {-62, 32}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-56, 32}, extent = {{-10, -10}, {10, 10}})));
 
   // URef = U0 + Lambda*Q0 = 1.0 + 0.2*(-0.3) = 0.94 pu
   // This MUST equal URef0Pu computed inside the model otherwise PI starts with error
   Modelica.Blocks.Sources.Constant URef(k = 0.976146) annotation(
-    Placement(transformation(origin = {-64, -2}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-58, 0}, extent = {{-10, -10}, {10, 10}})));
 
   // Frequency reference = nominal
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
@@ -126,12 +126,12 @@ model test
 equation
 
   connect(URef.y, gFLmodelnodyn.UREfPu) annotation(
-    Line(points = {{-53, -2}, {-38.5, -2}, {-38.5, 0}, {-22, 0}}, color = {0, 0, 127}));
+    Line(points = {{-47, 0}, {-22, 0}}, color = {0, 0, 127}));
   connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
     Line(points = {{-47, -36}, {-35, -36}, {-35, -17}, {-22, -17}}, color = {0, 0, 127}));
 
   connect(PRef.y, gFLmodelnodyn.PRefPu) annotation(
-    Line(points = {{-50, 32}, {-30, 32}, {-30, 20}, {-21, 20}}, color = {0, 0, 127}));
+    Line(points = {{-45, 32}, {-35, 32}, {-35, 20}, {-21, 20}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(
     Line(points = {{12, -22}, {10, -22}, {10, -62}, {12, -62}}, color = {0, 0, 255}));
   annotation(
