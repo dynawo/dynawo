@@ -33,7 +33,7 @@ model GridFormingControl_INIT "Initialization model for the grid forming control
   Dynawo.Connectors.PerUnitConnector IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
   Dynawo.Connectors.PerUnitConnector UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
   Dynawo.Connectors.PerUnitConnector UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
-  Dynawo.Connectors.AngleConnector Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+  Dynawo.Connectors.AngleInput Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
   Dynawo.Connectors.ActivePowerPuConnector PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   Dynawo.Connectors.ReactivePowerPuConnector QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   Types.VoltageModulePu UFilterRef0Pu "Start value of voltage module reference at the converter's capacitor in pu (base UNom)";
