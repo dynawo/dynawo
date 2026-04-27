@@ -15,7 +15,8 @@ set(MODEL_FILES
   package.order
   ACPower.mo
   ActivePowerPuConnector.mo
-  AngleConnector.mo
+  AngleInput.mo
+  AngleOutput.mo
   AngularVelocityPuConnector.mo
   ComplexCurrentPuConnector.mo
   ComplexPerUnitConnector.mo

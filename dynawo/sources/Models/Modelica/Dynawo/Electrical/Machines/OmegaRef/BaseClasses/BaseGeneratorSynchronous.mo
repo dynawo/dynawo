@@ -112,7 +112,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   Types.PerUnit lambdaQ2Pu(start = LambdaQ20Pu) "Flux of quadrature axis 2nd damper in pu";
 
   // Other variables
-  Dynawo.Connectors.AngleConnector theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
+  Dynawo.Connectors.AngleOutput theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
   Types.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in pu (base PNomTurb/OmegaNom)";
   Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in pu (base SNom/OmegaNom)";
   Types.PerUnit PePu(start = Ce0Pu * SystemBase.omega0Pu) "Electrical active power in pu (base SNom)";

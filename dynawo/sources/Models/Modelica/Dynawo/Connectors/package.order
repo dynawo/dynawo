@@ -1,6 +1,7 @@
 ACPower
 ActivePowerPuConnector
-AngleConnector
+AngleInput
+AngleOutput
 AngularVelocityPuConnector
 ComplexCurrentPuConnector
 ComplexPerUnitConnector
