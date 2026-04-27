@@ -27,9 +27,9 @@ partial model BaseGeneratorSignalN_INIT "Base initialization model for SignalN g
   Dynawo.Connectors.ReactivePowerPuOutput QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) with limits (generator convention)";
   Dynawo.Connectors.VoltageModulePuOutput U0PuVar "Start value of voltage amplitude at terminal in pu (base UNom)";
 
-  Dynawo.Connectors.ComplexVoltagePuConnector u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Dynawo.Connectors.ComplexVoltagePuOutput u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-  Dynawo.Connectors.ComplexCurrentPuConnector i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  Dynawo.Connectors.ComplexCurrentPuOutput i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
   parameter Types.ActivePowerPu PMax "Maximum active power in MW";
   parameter Types.ActivePowerPu PMin "Minimum active power in MW";
