@@ -30,7 +30,7 @@ model Uel2c_INIT "IEEE overexcitation limiter type UEL2C initialization model"
   Types.ReactivePowerPu QRef0Pu "Initial reference reactive power in pu (base SnRef) (generator convention)";
   Types.VoltageModulePu U0Pu "Initial voltage amplitude at terminal in pu (base UNom)";
   Dynawo.Connectors.VoltageModulePuInput UsRef0Pu "Initial reference stator voltage in pu (base UNom)";
-  Dynawo.Connectors.ComplexVoltagePuConnector ut0Pu "Initial complex stator voltage in pu (base UNom)";
+  Dynawo.Connectors.ComplexVoltagePuInput ut0Pu "Initial complex stator voltage in pu (base UNom)";
   Types.VoltageModulePu VBias0Pu "Initial calculated voltage bias in pu (base UNom)";
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1DsInit(fileName = TablesFile, tableName = FPQTableName, tableOnFile = true);
