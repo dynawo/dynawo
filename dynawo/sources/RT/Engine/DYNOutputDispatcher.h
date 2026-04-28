@@ -101,8 +101,11 @@ class OutputDispatcher {
   /**
    * @brief publish constraints
    * @param constraintsCollection constraints collection to publish
+   * @param constraintsMinTime
    */
-  void publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection) const;
+  void publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>
+                              &constraintsCollection,
+                          double constraintsMinTime) const;
 
   /**
    * @brief publish constraints

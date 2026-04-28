@@ -939,3 +939,4 @@ endif()
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
 include("${CMAKE_CURRENT_SOURCE_DIR}/libiidm/libiidm.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/nlohmann/nlohmann.cmake")

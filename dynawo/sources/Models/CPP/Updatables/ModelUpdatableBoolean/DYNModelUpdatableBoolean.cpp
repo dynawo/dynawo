@@ -81,18 +81,18 @@ ModelUpdatableBoolean::evalZ(double /* t */) {
 
 void
 ModelUpdatableBoolean::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(UPDATABLE_INPUT_VAR_NAME, BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(UPDATABLE_VARIABLE_NAME, BOOLEAN));
 }
 
 void
 ModelUpdatableBoolean::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_NAME, VAR_TYPE_BOOL, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_VALUE_NAME, VAR_TYPE_BOOL, INTERNAL_PARAMETER));
 }
 
 void
 ModelUpdatableBoolean::setSubModelParameters() {
-  if (findParameterDynamic(UPDATABLE_INPUT_NAME).hasValue()) {
-    const double parameterValue = fromNativeBool(findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<bool>());
+  if (findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).hasValue()) {
+    const double parameterValue = fromNativeBool(findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).getValue<bool>());
     if (!doubleEquals(parameterValue, inputValue_)) {
       inputValue_ = parameterValue;
       updated_ = true;
@@ -102,13 +102,13 @@ ModelUpdatableBoolean::setSubModelParameters() {
 
 void
 ModelUpdatableBoolean::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  addElement(UPDATABLE_INPUT_VAR_NAME, Element::TERMINAL, elements, mapElement);
+  addElement(UPDATABLE_VARIABLE_NAME, Element::TERMINAL, elements, mapElement);
 }
 
 
 void
 ModelUpdatableBoolean::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << UPDATABLE_INPUT_NAME << Trace::endline;
+  Trace::info() << "  ->" << UPDATABLE_VARIABLE_NAME << Trace::endline;
 }
 }  // namespace DYN
