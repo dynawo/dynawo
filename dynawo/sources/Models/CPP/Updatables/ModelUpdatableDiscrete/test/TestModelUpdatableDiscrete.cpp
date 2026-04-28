@@ -40,7 +40,7 @@ static boost::shared_ptr<SubModel> initModelUpdatableDiscrete() {
   std::vector<ParameterModeler> parameters;
   modelUpdatableDiscrete->defineParameters(parameters);
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_INPUT_NAME, 1.2);
+  parametersSet->createParameter(UPDATABLE_INPUT_VALUE_NAME, 1.2);
   modelUpdatableDiscrete->setPARParameters(parametersSet);
   modelUpdatableDiscrete->addParameters(parameters, false);
   modelUpdatableDiscrete->setParametersFromPARFile();
@@ -60,7 +60,7 @@ TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteDefineMethods) {
   ASSERT_EQ(parameters.size(), 2);
 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_INPUT_NAME, 2.);
+  parametersSet->createParameter(UPDATABLE_INPUT_VALUE_NAME, 2.);
   ASSERT_NO_THROW(modelUpdatableDiscrete->setPARParameters(parametersSet));
 
   modelUpdatableDiscrete->addParameters(parameters, false);
@@ -71,7 +71,7 @@ TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteDefineMethods) {
   modelUpdatableDiscrete->defineVariables(variables);
   ASSERT_EQ(variables.size(), 1);
   boost::shared_ptr<Variable> variableModelUpdatableDiscrete = variables[0];
-  ASSERT_EQ(variableModelUpdatableDiscrete->getName(), UPDATABLE_INPUT_VAR_NAME);
+  ASSERT_EQ(variableModelUpdatableDiscrete->getName(), UPDATABLE_VARIABLE_NAME);
   ASSERT_EQ(variableModelUpdatableDiscrete->getType(), DISCRETE);
   ASSERT_EQ(variableModelUpdatableDiscrete->getNegated(), false);
   ASSERT_EQ(variableModelUpdatableDiscrete->isState(), true);
@@ -85,8 +85,8 @@ TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteDefineMethods) {
   Element element = elements[0];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), UPDATABLE_INPUT_VAR_NAME);
-  ASSERT_EQ(mapElements[UPDATABLE_INPUT_VAR_NAME], 0);
+  ASSERT_EQ(element.name(), UPDATABLE_VARIABLE_NAME);
+  ASSERT_EQ(mapElements[UPDATABLE_VARIABLE_NAME], 0);
 }
 
 TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteTypeMethods) {
@@ -115,45 +115,45 @@ TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteUpdate) {
   modeChangeType_t mode = modelUpdatableDiscrete->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, 2.5, false);
+  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 2.5, false);
   modelUpdatableDiscrete->setSubModelParameters();
   modelUpdatableDiscrete->evalG(0);
   mode = modelUpdatableDiscrete->evalMode(0);
-  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_NAME, false).getDoubleValue(), 2.5);
+  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 2.5);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableDiscrete->evalG(0);
   mode = modelUpdatableDiscrete->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, 3.1, false);
+  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 3.1, false);
   modelUpdatableDiscrete->setSubModelParameters();
   modelUpdatableDiscrete->evalG(0);
   mode = modelUpdatableDiscrete->evalMode(0);
-  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_NAME, false).getDoubleValue(), 3.1);
+  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 3.1);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableDiscrete->evalG(0);
   mode = modelUpdatableDiscrete->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableDiscrete->setParameterValue(UPDATABLE_MULTIPLIER_NAME, DYN::FINAL, 2., false);
+  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_MULTIPLIER_NAME, DYN::FINAL, 2., false);
   modelUpdatableDiscrete->setSubModelParameters();
   modelUpdatableDiscrete->evalG(0);
   mode = modelUpdatableDiscrete->evalMode(0);
-  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_NAME, false).getDoubleValue(), 6.2);
+  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 6.2);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableDiscrete->evalG(0);
   mode = modelUpdatableDiscrete->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, 3.1, false);
-  modelUpdatableDiscrete->setParameterValue(UPDATABLE_MULTIPLIER_NAME, DYN::FINAL, 2., false);
+  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 3.1, false);
+  modelUpdatableDiscrete->setParameterValue(UPDATABLE_INPUT_MULTIPLIER_NAME, DYN::FINAL, 2., false);
   modelUpdatableDiscrete->setSubModelParameters();
   modelUpdatableDiscrete->evalG(0);
   mode = modelUpdatableDiscrete->evalMode(0);
-  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_NAME, false).getDoubleValue(), 3.1);
+  ASSERT_EQ(modelUpdatableDiscrete->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 3.1);
   ASSERT_EQ(mode, NO_MODE);
 }
 

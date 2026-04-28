@@ -19,8 +19,7 @@
 #include <fstream>
 #include <sstream>
 
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
+#include <nlohmann/json.hpp>
 
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
@@ -30,7 +29,7 @@
 using std::fstream;
 using std::ostream;
 using std::string;
-using boost::property_tree::ptree;
+using json = nlohmann::json;
 
 namespace timeline {
 
@@ -48,22 +47,26 @@ JsonExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const st
 
 void
 JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
-  ptree root;
-  ptree array;
+  json j = json::array();
+
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
       continue;
-    ptree item;
+
+    json eventJson;
+
     if (exportWithTime_)
-      item.put("time", DYN::double2String(event->getTime()));
-    item.put("modelName", event->getModelName());
-    item.put("message", event->getMessage());
-    if (event->hasPriority()) {
-      item.put("priority", event->getPriority());
-    }
-    array.push_back(std::make_pair("", item));
+      eventJson["time"] = event->getTime();
+
+    eventJson["modelName"] = event->getModelName();
+    eventJson["message"] = event->getMessage();
+
+    if (event->hasPriority())
+      eventJson["priority"] = event->getPriority();
+
+    j.push_back(eventJson);
   }
-  root.push_back(std::make_pair("timeline", array));
-  write_json(stream, root, false);
+
+  stream << j.dump() << "\n";
 }
 }  // namespace timeline

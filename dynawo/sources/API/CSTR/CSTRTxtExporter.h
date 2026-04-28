@@ -38,16 +38,24 @@ class TxtExporter : public Exporter {
    *
    * @param constraints Constraints to export
    * @param filePath File to export txt formatted timeline to
+   * @param exportEventType Whether to export event type
    */
-  void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const override;
+  void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints,
+                    const std::string& filePath,
+                    bool exportEventType = false) const override;
 
-   /**
+  /**
    * @brief Export method in txt format
    *
    * @param constraints Constraints to export
    * @param stream Stream to export txt formatted timeline to
+   * @param minTime Minimum time threshold (constraints with time < minTime are excluded, negative value means no filtering)
+   * @param exportEventType Whether to export event type
    */
-  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const override;
+  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints,
+                      std::ostream& stream,
+                      double minTime = -1.0,
+                      bool exportEventType = false) const override;
 };
 
 }  // namespace constraints

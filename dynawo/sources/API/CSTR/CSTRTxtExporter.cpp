@@ -34,21 +34,28 @@ using std::string;
 namespace constraints {
 
 void
-TxtExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
+TxtExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints,
+                         const string& filePath,
+                         bool exportEventType) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
-  exportToStream(constraints, file);
+  exportToStream(constraints, file, -1.0, exportEventType);
   file.close();
 }
 
 void
-TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
+TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints,
+                           ostream& stream,
+                           double minTime,
+                           bool exportEventType) const {
   const std::string TXTEXPORTER_SEPARATOR = " | ";  ///< separator in txt file
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
+    if (constraint->getTime() < minTime)
+      continue;
     stream << constraint->getModelName()
             << TXTEXPORTER_SEPARATOR
             << DYN::double2String(constraint->getTime())
@@ -57,6 +64,14 @@ TxtExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
     if (constraint->hasModelType())
       stream << TXTEXPORTER_SEPARATOR
              << constraint->getModelType();
+
+    if (exportEventType) {
+      Type_t eventType = constraint->getType();
+      if (eventType == CONSTRAINT_BEGIN)
+        stream << TXTEXPORTER_SEPARATOR << "BEGIN";
+      else if (eventType == CONSTRAINT_END)
+        stream << TXTEXPORTER_SEPARATOR << "END";
+    }
 
     const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {

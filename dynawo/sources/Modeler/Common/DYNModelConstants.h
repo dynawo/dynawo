@@ -31,9 +31,9 @@ static const double DEG_TO_RAD = M_PI / 180.0;  ///< degree to radius conversion
 static const double RAD_TO_DEG = 180.0 / M_PI;  ///< radius to degree conversion constant
 static const int VHV_THRESHOLD = 130;  ///< lower voltage threshold (in kV) for the very high voltage grid
 static const int HV_THRESHOLD = 50;  ///< lower voltage threshold (in kV) for the high voltage grid
-static const char UPDATABLE_INPUT_NAME[] = "input_value";  ///< updatable model parameter name
-static const char UPDATABLE_MULTIPLIER_NAME[] = "input_multiplier";  ///< updatable model multiplier name
-static const char UPDATABLE_INPUT_VAR_NAME[] = "input_variable";  ///< updatable model variable name
+static const char UPDATABLE_INPUT_VALUE_NAME[] = "input_value";  ///< updatable model parameter name
+static const char UPDATABLE_INPUT_MULTIPLIER_NAME[] = "input_multiplier";  ///< updatable model multiplier name
+static const char UPDATABLE_VARIABLE_NAME[] = "input_variable";  ///< updatable model variable name
 
 /**
  * @brief state type : state of a network component

@@ -80,18 +80,18 @@ ModelUpdatableInteger::evalZ(double /* t */) {
 
 void
 ModelUpdatableInteger::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(UPDATABLE_INPUT_VAR_NAME, INTEGER));
+  variables.push_back(VariableNativeFactory::createState(UPDATABLE_VARIABLE_NAME, INTEGER));
 }
 
 void
 ModelUpdatableInteger::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_NAME, VAR_TYPE_INT, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_VALUE_NAME, VAR_TYPE_INT, INTERNAL_PARAMETER));
 }
 
 void
 ModelUpdatableInteger::setSubModelParameters() {
-  if (findParameterDynamic(UPDATABLE_INPUT_NAME).hasValue()) {
-    const double parameterValue = findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<int>();
+  if (findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).hasValue()) {
+    const double parameterValue = findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).getValue<int>();
     if (!doubleEquals(parameterValue, inputValue_)) {
       inputValue_ = parameterValue;
       updated_ = true;
@@ -101,12 +101,12 @@ ModelUpdatableInteger::setSubModelParameters() {
 
 void
 ModelUpdatableInteger::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  addElement(UPDATABLE_INPUT_VAR_NAME, Element::TERMINAL, elements, mapElement);
+  addElement(UPDATABLE_VARIABLE_NAME, Element::TERMINAL, elements, mapElement);
 }
 
 void
 ModelUpdatableInteger::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << UPDATABLE_INPUT_NAME << Trace::endline;
+  Trace::info() << "  ->" << UPDATABLE_VARIABLE_NAME << Trace::endline;
 }
 }  // namespace DYN

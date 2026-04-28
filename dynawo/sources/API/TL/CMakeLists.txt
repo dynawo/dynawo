@@ -51,6 +51,7 @@ target_include_directories(dynawo_API_TL
 target_include_directories(dynawo_API_TL SYSTEM
   PRIVATE
     $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+    ${NLOHMANN_HOME}/include
   )
 
 target_link_libraries(dynawo_API_TL

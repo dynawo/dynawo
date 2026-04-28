@@ -205,7 +205,8 @@ OutputDispatcher::publishTimeline(boost::shared_ptr<timeline::Timeline>& timelin
 }
 
 void
-OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection) const {
+OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCollection>& constraintsCollection,
+  const double constraintsMinTime) const {
   if (!constraintsCollection)
     return;
 
@@ -214,7 +215,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
     case ConstraintsStreamFormat::JSON: {
       std::stringstream stream;
       constraints::JsonExporter exporter;
-      exporter.exportToStream(constraintsCollection, stream);
+      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime);
       std::string strConstraints = stream.str();
       for (auto &publisher : constraintsPublishersPair.second)
         publisher->sendMessage(strConstraints, "constraints");
@@ -223,7 +224,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
     case ConstraintsStreamFormat::TXT: {
       std::stringstream stream;
       constraints::TxtExporter exporter;
-      exporter.exportToStream(constraintsCollection, stream);
+      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime);
       std::string strConstraints = stream.str();
       for (auto &publisher : constraintsPublishersPair.second)
         publisher->sendMessage(strConstraints, "constraints");
@@ -232,7 +233,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
     case ConstraintsStreamFormat::XML: {
       std::stringstream stream;
       constraints::XmlExporter exporter;
-      exporter.exportToStream(constraintsCollection, stream);
+      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime);
       std::string strConstraints = stream.str();
       for (auto &publisher : constraintsPublishersPair.second)
         publisher->sendMessage(strConstraints, "constraints");

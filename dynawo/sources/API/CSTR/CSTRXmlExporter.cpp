@@ -41,19 +41,24 @@ using xml::sax::formatter::FormatterPtr;
 namespace constraints {
 
 void
-XmlExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
+XmlExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints,
+                         const string& filePath,
+                         bool exportEventType) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
 
-  exportToStream(constraints, file);
+  exportToStream(constraints, file, -1.0, exportEventType);
   file.close();
 }
 
 void
-XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
+XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints,
+                           ostream& stream,
+                           double minTime,
+                           bool exportEventType) const {
   FormatterPtr formatter = Formatter::createFormatter(stream, "http://www.rte-france.com/dynawo");
 
   formatter->startDocument();
@@ -62,12 +67,22 @@ XmlExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constr
   formatter->startElement("constraints", attrs);
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
+    if (constraint->getTime() < minTime)
+      continue;
     attrs.clear();
     attrs.add("modelName", constraint->getModelName());
     attrs.add("description", constraint->getDescription());
     attrs.add("time", DYN::double2String(constraint->getTime()));
     if (constraint->hasModelType())
       attrs.add("type", constraint->getModelType());
+
+    if (exportEventType) {
+      Type_t eventType = constraint->getType();
+      if (eventType == CONSTRAINT_BEGIN)
+        attrs.add("eventType", "BEGIN");
+      else if (eventType == CONSTRAINT_END)
+        attrs.add("eventType", "END");
+    }
 
     const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {

@@ -744,7 +744,7 @@ ConnectorContainer::initYUpdatableValues() {
       if (it != itUpdatable) {
         double sign = it->negated_ ? -1 : 1;
         double value = yLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-        itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, sign * value, false);
+        itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, sign * value, false);
         itUpdatable->subModel()->setSubModelParameters();
       }
     }
@@ -782,18 +782,18 @@ ConnectorContainer::initZUpdatableValues() {
       if (it != itUpdatable) {
         const double sign = (it->negated_ ? -1 : 1);
         double signedValue = sign * zLocal_[it->subModel()->getVariableIndexGlobal(it->variable())];
-        const ParameterModeler& parameter = itUpdatable->subModel()->findParameterDynamic(UPDATABLE_INPUT_NAME);
+        const ParameterModeler& parameter = itUpdatable->subModel()->findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME);
         switch (parameter.getValueType()) {
         case VAR_TYPE_DOUBLE: {
-          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, signedValue, false);
+          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, signedValue, false);
           break;
         }
         case VAR_TYPE_INT: {
-          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, static_cast<int>(signedValue), false);
+          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, static_cast<int>(signedValue), false);
           break;
         }
         case VAR_TYPE_BOOL: {
-          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_NAME, DYN::FINAL, toNativeBool(signedValue), false);
+          itUpdatable->subModel()->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, toNativeBool(signedValue), false);
           break;
         }
         case VAR_TYPE_STRING:
