@@ -27,7 +27,7 @@ partial model BaseHVDC_INIT "Base initialization model for HVDC link"
   parameter Types.Angle UPhase20 "Start value of voltage angle at terminal 2 in rad";
 
   Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base UNom, SnRef) (receptor convention)";
-  Dynawo.Connectors.ActivePowerPuConnector P1Ref0Pu "Start value of active power reference at terminal 1 in pu (base SnRef) (receptor convention)";
+  Dynawo.Connectors.ActivePowerPuOutput P1Ref0Pu "Start value of active power reference at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in pu (base SnRef) (receptor convention)";
   Dynawo.Connectors.AngleOutput Theta10 "Start value of angle of the voltage at terminal 1 in rad";
   Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base UNom)";

@@ -29,7 +29,7 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
                              GenerationMax "Reactive power is fixed to its generation limit");
 
   Modelica.Blocks.Interfaces.RealInput deltaURefPu(start = 0) "Additional voltage reference in pu (base UNom)";
-  Dynawo.Connectors.VoltageModulePuConnector URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
 
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
