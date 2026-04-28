@@ -40,9 +40,9 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
   Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 (base U1Nom, SnRef) (receptor convention)";
   Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 (base U2Nom)";
   Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
-  Dynawo.Connectors.VoltageModulePuConnector U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
-  Dynawo.Connectors.ActivePowerPuConnector P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (generator convention)";
-  Dynawo.Connectors.ReactivePowerPuConnector Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (generator convention)";
+  Dynawo.Connectors.VoltageModulePuOutput U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
+  Dynawo.Connectors.ActivePowerPuOutput P20Pu "Start value of active power at terminal 2 in pu (base SnRef) (generator convention)";
+  Dynawo.Connectors.ReactivePowerPuOutput Q20Pu "Start value of reactive power at terminal 2 in pu (base SnRef) (generator convention)";
   Dynawo.Connectors.AngleOutput U2Phase0 "Start value of voltage angle in rad";
 
 equation

@@ -14,17 +14,23 @@ set(MODEL_FILES
   package.mo
   package.order
   ACPower.mo
-  ActivePowerPuConnector.mo
+  ActivePowerPuInput.mo
+  ActivePowerPuOutput.mo
   AngleInput.mo
   AngleOutput.mo
-  AngularVelocityPuConnector.mo
+  AngularVelocityPuInput.mo
+  AngularVelocityPuOutput.mo
   ComplexCurrentPuConnector.mo
   ComplexPerUnitConnector.mo
   ComplexVoltagePuConnector.mo
-  CurrentModulePuConnector.mo
-  PerUnitConnector.mo
-  ReactivePowerPuConnector.mo
-  VoltageModulePuConnector.mo
+  CurrentModulePuInput.mo
+  CurrentModulePuOutput.mo
+  PerUnitInput.mo
+  PerUnitOutput.mo
+  ReactivePowerPuInput.mo
+  ReactivePowerPuOutput.mo
+  VoltageModulePuInput.mo
+  VoltageModulePuOutput.mo
   )
 
 #

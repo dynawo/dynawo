@@ -20,7 +20,7 @@ model ACEmulationSet_INIT "Initialisation for AC Emulation for HVDC with PRefSet
 
   Dynawo.Connectors.AngleInput Theta10 "Start value of angle of the voltage at terminal 1 in rad";
   Dynawo.Connectors.AngleInput Theta20 "Start value of angle of the voltage at terminal 2 in rad";
-  Dynawo.Connectors.ActivePowerPuConnector PRef0Pu "Start value of active power reference in pu (base SnRef or SNom) (receptor or generator convention)";
+  Dynawo.Connectors.ActivePowerPuInput PRef0Pu "Start value of active power reference in pu (base SnRef or SNom) (receptor or generator convention)";
   Types.Angle DeltaThetaFiltered0 "Start value of filtered angle difference in rad";
 
 equation
