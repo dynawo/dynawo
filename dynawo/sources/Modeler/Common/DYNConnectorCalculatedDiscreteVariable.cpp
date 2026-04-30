@@ -59,6 +59,11 @@ ConnectorCalculatedDiscreteVariable::init(const double /*t0*/) {
 }
 
 void
+ConnectorCalculatedDiscreteVariable::initParams(const double /*t0*/) {
+  // no parameters needed
+}
+
+void
 ConnectorCalculatedDiscreteVariable::evalF(double /*t*/, propertyF_t /*type*/) {
   /* not needed*/
 }

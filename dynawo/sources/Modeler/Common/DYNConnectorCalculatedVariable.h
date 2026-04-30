@@ -91,7 +91,7 @@ class ConnectorCalculatedVariable : public SubModel {
   /**
    * @copydoc SubModel::initParams(double t0)
    */
-  void initParams(double t0) override { /*no parameter*/ }
+  void initParams(double t0) override;
 
   /**
    * @copydoc SubModel::evalStaticFType()

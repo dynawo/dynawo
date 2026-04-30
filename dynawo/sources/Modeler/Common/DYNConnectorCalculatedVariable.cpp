@@ -60,6 +60,11 @@ ConnectorCalculatedVariable::init(const double /*t0*/) {
 }
 
 void
+ConnectorCalculatedVariable::initParams(const double /*t0*/) {
+  // no parameters needed
+}
+
+void
 ConnectorCalculatedVariable::checkParametersCoherence() const {
   // no check
 }
