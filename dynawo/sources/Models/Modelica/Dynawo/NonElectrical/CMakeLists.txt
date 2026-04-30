@@ -12,6 +12,7 @@ add_subdirectory(Blocks B)
 add_subdirectory(Logs L)
 
 set(MODEL_FILES
+  ReverseCombiTable.mo
   package.mo
   package.order
   )

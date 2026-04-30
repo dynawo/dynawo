@@ -20,7 +20,6 @@ set(MODEL_FILES
   WT4BCurrentSource2015.extvar
   WT4BCurrentSource2020.mo
   WT4BCurrentSource2020.extvar
-  WT4CurrentSource_INIT.mo
   )
 
 #
