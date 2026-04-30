@@ -100,6 +100,10 @@ ModelAreaShedding::init(const double /*t0*/) {
 }
 
 void
+ModelAreaShedding::initParams(const double /*t0*/) {
+  // not needed
+}
+void
 ModelAreaShedding::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
   // not needed
 }

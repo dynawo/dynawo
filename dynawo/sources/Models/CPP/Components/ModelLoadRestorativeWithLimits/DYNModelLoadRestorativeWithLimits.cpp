@@ -143,6 +143,11 @@ namespace DYN {
   }
 
   void
+  ModelLoadRestorativeWithLimits::initParams(const double /*t0*/) {
+    /* not needed */
+  }
+
+  void
   ModelLoadRestorativeWithLimits::collectSilentZ(BitMask* silentZTable) {
     silentZTable[switchOffSignal1].setFlags(NotUsedInContinuousEquations);
     silentZTable[switchOffSignal2].setFlags(NotUsedInContinuousEquations);

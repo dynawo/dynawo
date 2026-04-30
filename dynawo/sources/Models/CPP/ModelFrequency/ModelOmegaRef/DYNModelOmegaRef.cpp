@@ -116,6 +116,11 @@ ModelOmegaRef::init(const double /*t0*/) {
 }
 
 void
+ModelOmegaRef::initParams(const double /*t0*/) {
+  // no parameters needed
+}
+
+void
 ModelOmegaRef::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
   // not needed
 }

@@ -86,6 +86,11 @@ ModelVoltageMeasurementsUtilities::init(const double /*t0*/) {
 }
 
 void
+ModelVoltageMeasurementsUtilities::initParams(const double /*t0*/) {
+  // not needed
+}
+
+void
 ModelVoltageMeasurementsUtilities::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
   // not needed
 }

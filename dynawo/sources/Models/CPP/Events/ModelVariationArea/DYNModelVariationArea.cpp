@@ -100,6 +100,11 @@ ModelVariationArea::init(const double /*t0*/) {
 }
 
 void
+ModelVariationArea::initParams(const double /*t0*/) {
+  // not needed
+}
+
+void
 ModelVariationArea::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
   // not needed
 }

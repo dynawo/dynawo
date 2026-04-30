@@ -175,6 +175,11 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   }
 
   void
+  ModelSecondaryVoltageControlSimplified::initParams(const double /*t0*/) {
+    /* not need */
+  }
+
+  void
   ModelSecondaryVoltageControlSimplified::collectSilentZ(BitMask* silentZTable) {
     for (unsigned int s = 0; s < sizeZ_; ++s) {
       silentZTable[s].setFlags(NotUsedInContinuousEquations);

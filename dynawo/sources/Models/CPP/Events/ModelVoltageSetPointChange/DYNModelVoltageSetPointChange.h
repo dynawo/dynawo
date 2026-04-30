@@ -258,8 +258,9 @@ class ModelVoltageSetPointChange : public ModelCPP {
 
   /**
    * @copydoc ModelCPP::initParams()
+   * @param t0 : initial time of the simulation
    */
-  void initParams(double t0) override { /* not needed */ }
+  void initParams(double t0) override;
 
  private:
   double startTime_;  ///< start time

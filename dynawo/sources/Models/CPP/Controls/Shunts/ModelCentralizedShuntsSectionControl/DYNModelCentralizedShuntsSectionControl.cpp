@@ -150,6 +150,10 @@ namespace DYN {
   }
 
   void
+  ModelCentralizedShuntsSectionControl::initParams(const double /*t0*/) {
+    /* not need */
+  }
+  void
   ModelCentralizedShuntsSectionControl::collectSilentZ(BitMask* silentZTable) {
     for (unsigned int s = 0; s < sizeZ_; ++s) {
       silentZTable[s].setFlags(NotUsedInContinuousEquations);

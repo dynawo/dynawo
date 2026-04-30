@@ -94,6 +94,11 @@ ModelVoltageSetPointChange::init(const double /*t0*/) {
 }
 
 void
+ModelVoltageSetPointChange::initParams(const double /*t0*/) {
+  // not needed
+}
+
+void
 ModelVoltageSetPointChange::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*/) {
   // not needed
 }
