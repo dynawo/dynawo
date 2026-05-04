@@ -182,6 +182,38 @@ TEST(DataInterfaceTest, TwoWTransformer_1) {
   ASSERT_EQ(tfoInterface.getRatedU1(), 2.0);
   ASSERT_EQ(tfoInterface.getRatedU2(), 0.4);
 
+    constexpr double SNREF  = 100;
+  tfoInterface.importStaticParameters();
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p1"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q1"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p2"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q2"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p1_pu"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q1_pu"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("p2_pu"), 0.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("q2_pu"), 0.);
+
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v1"), 10.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle1"), 0.01);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v1Nom"), 380.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v2"), 11.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle2"), 0.02);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v2Nom"), 225.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v1_pu"), 10. / 380.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle1_pu"), 0.01 * M_PI / 180);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("v2_pu"), 11. / 225.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("angle2_pu"), 0.02 * M_PI / 180);
+
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("r"), 3.0);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("x"), 33.);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("g"), 1.0);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("b"), .2);
+  const double coeff = tfoInterface.getVNom2() * tfoInterface.getVNom2() / SNREF;
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("r_pu"), 3.0 / coeff);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("x_pu"), 33. / coeff);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("g_pu"), 1.0 * coeff);
+  ASSERT_EQ(tfoInterface.getStaticParameterValue<double>("b_pu"), 0.2 * coeff);
+
   ASSERT_FALSE(tfoInterface.getRatioTapChanger());
   transformer.newRatioTapChanger()
     .setTapPosition(2L)
@@ -388,5 +420,41 @@ TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections) {
   ASSERT_EQ(tfoInterface.getQ2(), 0.0);
 
   ASSERT_EQ(tfoInterface.getActiveSeason(), "UNDEFINED");
+}  // TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections)
+
+TEST(DataInterfaceTest, TwoWTransformer_R_X_zero) {
+  powsybl::iidm::Network network = CreateTwoWTransformerNetwork();
+  powsybl::iidm::Substation& substation = network.getSubstation("S1");
+  powsybl::iidm::VoltageLevel& vl1 = network.getVoltageLevel("VL1");
+  powsybl::iidm::VoltageLevel& vl2 = network.getVoltageLevel("VL2");
+  powsybl::iidm::Bus& vl1Bus1 = vl1.getBusBreakerView().getBus("VL1_BUS1");
+  powsybl::iidm::Bus& vl2Bus1 = vl2.getBusBreakerView().getBus("VL2_BUS1");
+  substation.newTwoWindingsTransformer()
+      .setId("2WT_VL1_VL2")
+      .setVoltageLevel1(vl1.getId())
+      .setBus1(vl1Bus1.getId())
+      .setConnectableBus1(vl1Bus1.getId())
+      .setVoltageLevel2(vl2.getId())
+      .setBus2(vl2Bus1.getId())
+      .setConnectableBus2(vl2Bus1.getId())
+      .setR(0.0)
+      .setX(0.0)
+      .setG(1.0)
+      .setB(0.2)
+      .setRatedU1(2.0)
+      .setRatedU2(0.4)
+      .setRatedS(3.0)
+      .add();
+  powsybl::iidm::TwoWindingsTransformer& transformer = network.getTwoWindingsTransformer("2WT_VL1_VL2");
+
+  transformer.getTerminal1().setP(0.0);
+  transformer.getTerminal1().setQ(0.0);
+  transformer.getTerminal2().setP(0.0);
+  transformer.getTerminal2().setQ(0.0);
+
+  TwoWTransformerInterfaceIIDM tfoInterface(transformer);
+
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tfoInterface.getR(), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tfoInterface.getX(), 0.01);
 }  // TEST(DataInterfaceTest, TwoWTransformer_NoInitialConnections)
 }  // namespace DYN

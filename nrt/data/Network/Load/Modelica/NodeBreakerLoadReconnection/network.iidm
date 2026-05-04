@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_4" id="test" caseDate="2022-06-02T10:09:24.686+02:00" forecastDistance="0" sourceFormat="test">
+    <iidm:substation id="S1" name="S1_NAME" country="FR" tso="TSO">
+        <iidm:voltageLevel id="VL1" name="VL1_NAME" nominalV="1.0" lowVoltageLimit="0.8" highVoltageLimit="1.2" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="VL1_BUS1" v="1.0" angle="0.0"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="InfiniteBus" energySource="NUCLEAR" minP="0.0" maxP="10000.0" voltageRegulatorOn="true" targetP="0" targetV="1.0" targetQ="0" bus="VL1_BUS1" connectableBus="VL1_BUS1" p="0" q="0">
+                <iidm:minMaxReactiveLimits minQ="-1.7976931348623157E308" maxQ="1.7976931348623157E308"/>
+            </iidm:generator>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="S2" name="S2_NAME" country="FR" tso="TSO">
+        <iidm:voltageLevel id="VL2" name="VL2_NAME" nominalV="1.0" lowVoltageLimit="0.8" highVoltageLimit="1.2" topologyKind="NODE_BREAKER">
+            <iidm:nodeBreakerTopology>
+                <iidm:busbarSection id="VL2_BUS1_1A" name="1A" node="0"/>
+                <iidm:switch id="VL2_line1_switch" name="VL2_line1_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="1"/>
+                <iidm:switch id="VL2_Generator_switch" name="VL2_Generator_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="2"/>
+                <iidm:switch id="VL2_Load0_switch" name="VL2_Load_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="3"/>
+                <iidm:switch id="VL2_Load1_switch" name="VL2_Load_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="4"/>
+                <iidm:switch id="VL2_Load2_switch" name="VL2_Load_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="5"/>
+                <iidm:switch id="VL2_Load3_switch" name="VL2_Load_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="6"/>
+                <iidm:switch id="VL2_Load4_switch" name="VL2_Load_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="7"/>
+                <iidm:switch id="VL2_Load5_switch" name="VL2_Load_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="8"/>
+                <iidm:switch id="VL2_Load6_switch" name="VL2_Load_switch" kind="BREAKER" retained="true" open="false" node1="0" node2="9"/>
+                <iidm:bus v="1.002" angle="0.0099433" nodes="0,1,2,3"/>
+            </iidm:nodeBreakerTopology>
+            <iidm:generator id="Generator" energySource="NUCLEAR" minP="0.0" maxP="100.0" voltageRegulatorOn="true" targetP="0.8" targetV="1.002" targetQ="-0.3" node="2" p="-0.8" q="-0.3"/>
+            <iidm:load id="Load0" loadType="UNDEFINED" p0="0.050" q0="0.025" node="3" p="0.050" q="0.025"/>
+            <iidm:load id="Load1" loadType="UNDEFINED" p0="0.050" q0="0.025" node="4" p="0.050" q="0.025"/>
+            <iidm:load id="Load2" loadType="UNDEFINED" p0="0.050" q0="0.025" node="5" p="0.050" q="0.025"/>
+            <iidm:load id="Load3" loadType="UNDEFINED" p0="0.050" q0="0.025" node="6" p="0.050" q="0.025"/>
+            <iidm:load id="Load4" loadType="UNDEFINED" p0="0.050" q0="0.025" node="7" p="0.050" q="0.025"/>
+            <iidm:load id="Load5" loadType="UNDEFINED" p0="0.050" q0="0.025" node="8" p="0.050" q="0.025"/>
+            <iidm:load id="Load6" loadType="UNDEFINED" p0="0.050" q0="0.025" node="9" p="0.050" q="0.025"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:line id="line1" r="0.002" x="0.02" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="VL1_BUS1" connectableBus1="VL1_BUS1" voltageLevelId1="VL1" node2="1" voltageLevelId2="VL2" p1="0.300005" q1="0.050000" p2="-0.299821" q2="-0.048156"/>
+</iidm:network>

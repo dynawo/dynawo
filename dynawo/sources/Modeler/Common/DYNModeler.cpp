@@ -87,15 +87,15 @@ Modeler::initNetwork() {
   // --------------------------------------------
   const string DDBDir = getMandatoryEnvVar("DYNAWO_DDB_DIR");
 
-  const boost::shared_ptr<SubModel> modelNetwork = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork" + sharedLibraryExtension());
-  modelNetwork->initFromData(data_);
-  data_->setModelNetwork(modelNetwork);
-  modelNetwork->name("NETWORK");
+  modelNetwork_ = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork" + sharedLibraryExtension());
+  modelNetwork_->initFromData(data_);
+  data_->setModelNetwork(modelNetwork_);
+  modelNetwork_->name("NETWORK");
   const std::shared_ptr<ParametersSet>& networkParams = dyd_->getNetworkParameters();
-  modelNetwork->setPARParameters(networkParams);
+  modelNetwork_->setPARParameters(networkParams);
 
-  model_->addSubModel(modelNetwork, "DYNModelNetwork" + string(sharedLibraryExtension()));
-  subModels_["NETWORK"] = modelNetwork;
+  model_->addSubModel(modelNetwork_, "DYNModelNetwork" + string(sharedLibraryExtension()));
+  subModels_["NETWORK"] = modelNetwork_;
 }
 
 void
@@ -124,6 +124,8 @@ Modeler::initModelDescription() {
       if (!modelDescription->getStaticId().empty()) {
         data_->setDynamicModel(modelDescription->getStaticId(), model);
         initStaticRefs(model, modelDescription);
+        if (modelNetwork_ != nullptr)
+          modelNetwork_->mapToNetworkBridge(model);
       }
     } else {
       throw DYNError(Error::MODELER, CompileModel, modelDescription->getID());

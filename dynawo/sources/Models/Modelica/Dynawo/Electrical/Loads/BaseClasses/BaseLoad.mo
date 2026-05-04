@@ -42,7 +42,7 @@ equation
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
 
-  if running.value then
+  if running.value and terminal.V <> Complex(0) then
     UPu.value = ComplexMath.'abs'(terminal.V);
   else
     UPu.value = 0;

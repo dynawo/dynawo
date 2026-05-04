@@ -36,6 +36,8 @@ set(MODEL_SOURCES
   DYNModelPhaseTapChanger.cpp
   DYNModelHvdcLink.cpp
   DYNModelVoltageLevel.cpp
+  DYNModelQuadripole.cpp
+  DYNNetworkBridgeQuadripole.cpp
   )
 
 compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")

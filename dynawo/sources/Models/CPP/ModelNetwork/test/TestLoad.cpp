@@ -24,10 +24,13 @@
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNCurrentLimitInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
+#include "DYNCommon.h"
+#include "DYNEnumUtils.h"
 #include "DYNModelLoad.h"
 #include "DYNModelVoltageLevel.h"
 #include "DYNModelBus.h"
 #include "DYNModelNetwork.h"
+#include "DYNParameter.h"
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
 #include "DYNVariable.h"
@@ -112,7 +115,8 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
 }
 
 static void
-fillParameters(std::shared_ptr<ModelLoad> load, std::string& startingPoint, bool loadIsPControllable = false, bool loadIsQControllable = false) {
+fillParameters(std::shared_ptr<ModelLoad> load, std::string& startingPoint, bool loadIsPControllable = false, bool loadIsQControllable = false,
+  bool loadIsSettable = false) {
   std::unordered_map<std::string, ParameterModeler> parametersModels;
 
   {
@@ -147,6 +151,11 @@ fillParameters(std::shared_ptr<ModelLoad> load, std::string& startingPoint, bool
     } else {
       param.setValue<bool>(true, PAR);
     }
+    parametersModels.insert(std::make_pair(param.getName(), param));
+  }
+  if (loadIsSettable) {
+    ParameterModeler param = ParameterModeler("load_isSettable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+    param.setValue<bool>(true, PAR);
     parametersModels.insert(std::make_pair(param.getName(), param));
   }
   {
@@ -592,7 +601,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
   std::string startingPoint = "warm";
-  fillParameters(load, startingPoint);
+  fillParameters(load, startingPoint, false, false, true);
 
   std::vector<shared_ptr<Variable> > definedVariables;
   std::vector<shared_ptr<Variable> > instantiatedVariables;
@@ -615,7 +624,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
   load->defineParameters(genericParameters);
 
 
-  ASSERT_EQ(parameters.size(), 12);
+  ASSERT_EQ(parameters.size(), 13);
   for (size_t i = 0, iEnd = parameters.size(); i < iEnd; ++i) {
     std::string var = genericParameters[i].getName();
     boost::replace_all(var, "load", load->id());

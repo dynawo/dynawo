@@ -72,6 +72,16 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #           Limits4                    #
 ########################################
 
+case_name = "Set CPP load PRefPu and QRefPU"
+case_description = "Test the modification of Network load PRefPu and QRefPu"
+job_file = os.path.join(os.path.dirname(__file__), "Load", "CPP", "SetLoad", "SetLoad.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+########################################
+#           Limits4                    #
+########################################
+
 case_name = "Network Load with an increase voltage variation and limit not reached"
 case_description = "Test the basic behavior of the Restorative Network Load to an increase voltage variation"
 job_file = os.path.join(os.path.dirname(__file__), "Load", "CPP", "Limits4", "DisconnectLoad_VoltageVariation.jobs")
@@ -175,6 +185,16 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 case_name = "Modelica Network Load with voltage variation"
 case_description = "Test the basic behavior of the Modelica Network Load to a voltage variation"
 job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "VoltageVariation", "DisconnectLoad_VoltageVariation.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+########################################
+#     NodeBreakerLoadReconnection      #
+########################################
+
+case_name = "Node-breaker network load disconnection and reconnection"
+case_description = "Test the disconnection and reconnection of different types of loads using load switch-off signal or connected switch in node-breaker"
+job_file = os.path.join(os.path.dirname(__file__), "Load", "Modelica", "NodeBreakerLoadReconnection", "DisconnectLoad.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 

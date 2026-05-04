@@ -55,8 +55,8 @@ modelBus_(bus),
 stateModified_(false),
 kp_(0.),
 kq_(0.),
-P0_(0.),
-Q0_(0.),
+PRef0Pu_(0.),
+QRef0Pu_(0.),
 ir0_(0.),
 ii0_(0.),
 alpha_(1.),
@@ -65,6 +65,7 @@ isRestorative_(false),
 isPControllable_(false),
 isQControllable_(false),
 isControllable_(false),
+isSettable_(false),
 Tp_(0.),
 TpIsZero_(true),
 Tq_(0.),
@@ -112,6 +113,9 @@ ModelLoad::initSize() {
       sizeY_ += 2;  // zP and zQ
 
     sizeZ_ = 1;
+    if (isSettable_)
+      sizeZ_ += 2;
+
     sizeG_ = 0;
     sizeMode_ = 1;
     sizeCalculatedVar_ = nbCalculatedVariables_;
@@ -216,13 +220,13 @@ ModelLoad::init(int& yNum) {
     const double unomNode = load->getBusInterface()->getVNom();
     switch (startingPointMode_) {
     case FLAT:
-      P0_ = load->getP0() / SNREF;
-      Q0_ = load->getQ0() / SNREF;
+      PRef0Pu_ = load->getP0() / SNREF;
+      QRef0Pu_ = load->getQ0() / SNREF;
       u0_ = load->getBusInterface()->getVNom() / unomNode;
       break;
     case WARM:
-      P0_ = load->getP() / SNREF;
-      Q0_ = load->getQ() / SNREF;
+      PRef0Pu_ = load->getP() / SNREF;
+      QRef0Pu_ = load->getQ() / SNREF;
       u0_ = load->getBusInterface()->getV0() / unomNode;
       break;
     }
@@ -230,8 +234,8 @@ ModelLoad::init(int& yNum) {
     if (isConnected() && !doubleIsZero(u0_)) {
       const double ur0 = u0_ * cos(thetaNode * DEG_TO_RAD);
       const double ui0 = u0_ * sin(thetaNode * DEG_TO_RAD);
-      ir0_ = (P0_ * ur0 + Q0_ * ui0) / (ur0 * ur0 + ui0 * ui0);
-      ii0_ = (P0_ * ui0 - Q0_ * ur0) / (ur0 * ur0 + ui0 * ui0);
+      ir0_ = (PRef0Pu_ * ur0 + QRef0Pu_ * ui0) / (ur0 * ur0 + ui0 * ui0);
+      ii0_ = (PRef0Pu_ * ui0 - QRef0Pu_ * ur0) / (ur0 * ur0 + ui0 * ui0);
     } else {
       ir0_ = 0.;
       ii0_ = 0.;
@@ -373,12 +377,12 @@ ModelLoad::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
 
 double
 ModelLoad::P(const double U) const {
-  return zP() * P0_ * (1. + deltaPc()) * pow_dynawo(U, alpha_) * kp_;
+  return zP() * PRefPu() * (1. + deltaPc()) * pow_dynawo(U, alpha_) * kp_;
 }
 
 double
 ModelLoad::Q(const double U) const {
-  return zQ() * Q0_ * (1. + deltaQc()) * pow_dynawo(U, beta_) * kq_;
+  return zQ() * QRefPu() * (1. + deltaQc()) * pow_dynawo(U, beta_) * kq_;
 }
 
 double
@@ -449,6 +453,22 @@ ModelLoad::deltaPc() const {
     return y_[DeltaPcYNum_];
 }
 
+double
+ModelLoad::QRefPu() const {
+  if (network_->isInit() || !isSettable_)
+    return QRef0Pu_;
+  else
+    return z_[QRefPuNum_];
+}
+
+double
+ModelLoad::PRefPu() const {
+  if (network_->isInit() || !isSettable_)
+    return PRef0Pu_;
+  else
+    return z_[PRefPuNum_];
+}
+
 void
 ModelLoad::getI(const double ur, const double ui, const double U, const double U2, double& ir, double& ii) const {
   const double p = P(U);
@@ -459,42 +479,42 @@ ModelLoad::getI(const double ur, const double ui, const double U, const double U
 
 double
 ModelLoad::ir_dZp(const double ur, const double /*ui*/, const double U, const double U2) const {
-  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ur;
+  return 1. / U2 * (PRefPu() * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ur;
 }
 
 double
 ModelLoad::ir_dZq(const double /*ur*/, const double ui, const double U, const double U2) const {
-  return 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ui;
+  return 1. / U2 * (QRefPu() * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ui;
 }
 
 double
 ModelLoad::ii_dZp(const double /*ur*/, const double ui, const double U, const double U2) const {
-  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ui;
+  return 1. / U2 * (PRefPu() * (1. + deltaPc()) * kp_) * pow_dynawo(U, alpha_) * ui;
 }
 
 double
 ModelLoad::ii_dZq(const double ur, const double /*ui*/, const double U, const double U2) const {
-  return 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ur;
+  return 1. / U2 * (-1. * QRefPu() * (1. + deltaQc()) * kq_) * pow_dynawo(U, beta_) * ur;
 }
 
 double
 ModelLoad::P_dUr(const double ur, const double /*ui*/, const double U, const double U2) const {
-  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ur * pow_dynawo(U, alpha_);
+  return 1. / U2 * zP() * PRefPu() * (1. + deltaPc()) * kp_ * alpha_ * ur * pow_dynawo(U, alpha_);
 }
 
 double
 ModelLoad::P_dUi(const double /*ur*/, const double ui, const double U, const double U2) const {
-  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ui * pow_dynawo(U, alpha_);
+  return 1. / U2 * zP() * PRefPu() * (1. + deltaPc()) * kp_ * alpha_ * ui * pow_dynawo(U, alpha_);
 }
 
 double
 ModelLoad::Q_dUr(const double ur, const double /*ui*/, const double U, const double U2) const {
-  return 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ur * pow_dynawo(U, beta_);
+  return 1. / U2 * zQ() * QRefPu() * (1. + deltaQc()) * kq_ * beta_ * ur * pow_dynawo(U, beta_);
 }
 
 double
 ModelLoad::Q_dUi(const double /*ur*/, const double ui, const double U, const double U2) const {
-  return 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ui * pow_dynawo(U, beta_);
+  return 1. / U2 * zQ() * QRefPu() * (1. + deltaQc()) * kq_ * beta_ * ui * pow_dynawo(U, beta_);
 }
 
 void
@@ -576,6 +596,10 @@ ModelLoad::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Qc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_loadState_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
+  if (isSettable_) {
+    variables.push_back(VariableNativeFactory::createState(id_ + "_PRefPu_value", DISCRETE));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_QRefPu_value", DISCRETE));
+  }
 }
 
 void
@@ -590,6 +614,8 @@ ModelLoad::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_Qc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_loadState_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_PRefPu_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_QRefPu_value", DISCRETE));
 }
 
 void
@@ -612,16 +638,20 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
   addElementWithValue(loadName + string("_Pc"), "Load", elements, mapElement);
   addElementWithValue(loadName + string("_Qc"), "Load", elements, mapElement);
   addElementWithValue(loadName + string("_loadState"), "Load", elements, mapElement);
+  if (isSettable_) {
+    addElementWithValue(loadName + string("_PRefPu"), "Load", elements, mapElement);
+    addElementWithValue(loadName + string("_QRefPu"), "Load", elements, mapElement);
+  }
 }
 
 NetworkComponent::StateChange_t
 ModelLoad::evalZ(const double /*t*/) {
   if (modelBus_->getConnectionState() == OPEN)
-    z_[0] = OPEN;
+    z_[stateNum_] = OPEN;
 
-  const auto currState = static_cast<State>(static_cast<int>(z_[0]));
+  const auto currState = static_cast<State>(static_cast<int>(z_[stateNum_]));
   if (currState != getConnected()) {
-    Trace::info() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
+    Trace::info() << DYNLog(LoadStateChange, id_, getConnected(), z_[stateNum_]) << Trace::endline;
     if (currState == OPEN) {
       DYNAddTimelineEvent(network_, id_, LoadDisconnected);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
@@ -662,8 +692,11 @@ ModelLoad::getY0() {
         yp_[index] = zQprim0_;
         ++index;
       }
-
-      z_[0] = getConnected();
+      z_[stateNum_] = getConnected();
+      if (isSettable_) {
+        z_[PRefPuNum_] = PRef0Pu_;
+        z_[QRefPuNum_] = QRef0Pu_;
+      }
     } else {
       unsigned int index = 0;
       if (isPControllable_ || isControllable_) {
@@ -683,7 +716,7 @@ ModelLoad::getY0() {
         zQprim0_ = yp_[index];
         ++index;
       }
-      State loadCurrState = static_cast<State>(static_cast<int>(z_[0]));
+      State loadCurrState = static_cast<State>(static_cast<int>(z_[stateNum_]));
       if (loadCurrState == CLOSED) {
         if (modelBus_->getConnectionState() != CLOSED) {
           modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
@@ -700,14 +733,19 @@ ModelLoad::getY0() {
         throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
       }
       setConnected(loadCurrState);
+
+      if (isSettable_) {
+        PRef0Pu_ = z_[PRefPuNum_];
+        QRef0Pu_ = z_[QRefPuNum_];
+      }
     }
   }
 }
 
 void
 ModelLoad::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, P0_);
-  ModelCPP::dumpInStream(streamVariables, Q0_);
+  ModelCPP::dumpInStream(streamVariables, PRef0Pu_);
+  ModelCPP::dumpInStream(streamVariables, QRef0Pu_);
   ModelCPP::dumpInStream(streamVariables, u0_);
   ModelCPP::dumpInStream(streamVariables, ii0_);
   ModelCPP::dumpInStream(streamVariables, ir0_);
@@ -717,9 +755,9 @@ void
 ModelLoad::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
   char c;
   streamVariables >> c;
-  streamVariables >> P0_;
+  streamVariables >> PRef0Pu_;
   streamVariables >> c;
-  streamVariables >> Q0_;
+  streamVariables >> QRef0Pu_;
   streamVariables >> c;
   streamVariables >> u0_;
   streamVariables >> c;
@@ -730,7 +768,12 @@ ModelLoad::loadInternalVariables(boost::archive::binary_iarchive& streamVariable
 
 void
 ModelLoad::collectSilentZ(BitMask* silentZTable) {
-  silentZTable[0].setFlags(NotUsedInDiscreteEquations);
+  silentZTable[stateNum_].setFlags(NotUsedInDiscreteEquations);
+
+  if (isSettable_) {
+    silentZTable[PRefPuNum_].setFlags(NotUsedInDiscreteEquations);
+    silentZTable[QRefPuNum_].setFlags(NotUsedInDiscreteEquations);
+  }
 }
 
 void
@@ -764,6 +807,14 @@ ModelLoad::setSubModelParameters(const std::unordered_map<std::string, Parameter
       }
     }
     isControllable_ = getParameterDynamic<bool>(params, "isControllable", ids);
+
+    for (const string& id : ids) {
+      if (hasParameter(id + "_isSettable", params)) {
+        const ParameterModeler& isSettable = findParameter(id + "_isSettable", params);
+        if (isSettable.hasValue())
+          isSettable_ = getParameterDynamic<bool>(params, "isSettable", ids);
+      }
+    }
     if (isRestorative_) {
       Tp_ = getParameterDynamic<double>(params, "Tp", ids);
       TpIsZero_ = doubleIsZero(Tp_);
@@ -788,6 +839,7 @@ ModelLoad::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("load_isPControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_isQControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_isSettable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("load_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
@@ -805,6 +857,7 @@ ModelLoad::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler(id_ + "_isPControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_isQControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_isSettable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler(id_ + "_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
@@ -832,8 +885,8 @@ ModelLoad::evalCalculatedVars() {
     // Q
     calculatedVars_[qNum_] = Q(U);
 
-    calculatedVars_[pcNum_] = P0_ * (1. + deltaPc()) * kp_;
-    calculatedVars_[qcNum_] = Q0_ * (1. + deltaQc()) * kq_;
+    calculatedVars_[pcNum_] = PRefPu() * (1. + deltaPc()) * kp_;
+    calculatedVars_[qcNum_] = QRefPu() * (1. + deltaQc()) * kq_;
 
   } else {
     calculatedVars_[pNum_] = 0.;
@@ -851,7 +904,7 @@ ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar,
       numVars.push_back(modelBus_->urYNum());
       numVars.push_back(modelBus_->uiYNum());
       if (isPControllable_ || isControllable_)
-        numVars.push_back(DeltaPcYNum_ + yOffset_);
+        numVars.push_back(yOffset_ + DeltaPcYNum_);
       if (isRestorative_)
         numVars.push_back(zPYNum_ + yOffset_);
     }
@@ -902,16 +955,16 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
         const double U = sqrt(ur * ur + ui * ui);
 
         unsigned int indexRes = 0;
-        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ur * pow_dynawo(U, alpha_ - 2.);  // dP/dUr
+        res[indexRes] =  zPVal * PRefPu() * (1. + deltaPcVal) * kp_ * alpha_ * ur * pow_dynawo(U, alpha_ - 2.);  // dP/dUr
         ++indexRes;
-        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ui * pow_dynawo(U, alpha_ - 2.);  // dP/dUi
+        res[indexRes] =  zPVal * PRefPu() * (1. + deltaPcVal) * kp_ * alpha_ * ui * pow_dynawo(U, alpha_ - 2.);  // dP/dUi
         ++indexRes;
         if (isPControllable_ || isControllable_) {
-          res[indexRes] = zPVal * P0_ * pow_dynawo(U, alpha_) * kp_;  // dP/d(deltaPc)
+          res[indexRes] = zPVal * PRefPu() * pow_dynawo(U, alpha_) * kp_;  // dP/d(deltaPc)
           ++indexRes;
         }
         if (isRestorative_) {
-          res[indexRes] = P0_ * (1. + deltaPcVal) * pow_dynawo(U, alpha_) * kp_;  // dP/d(zP)
+          res[indexRes] = PRefPu() * (1. + deltaPcVal) * pow_dynawo(U, alpha_) * kp_;  // dP/d(zP)
         }
       }
     }
@@ -931,29 +984,29 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
         const double U = sqrt(ur * ur + ui * ui);
 
         unsigned int indexRes = 0;
-        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ur * pow_dynawo(U, beta_ - 2.);  // dQ/dUr
+        res[indexRes] = zQVal * QRefPu() * (1. + deltaQcVal) * kq_ * beta_ * ur * pow_dynawo(U, beta_ - 2.);  // dQ/dUr
         ++indexRes;
-        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ui * pow_dynawo(U, beta_ - 2.);  // dQ/dUi
+        res[indexRes] = zQVal * QRefPu() * (1. + deltaQcVal) * kq_ * beta_ * ui * pow_dynawo(U, beta_ - 2.);  // dQ/dUi
         ++indexRes;
         if (isQControllable_ || isControllable_) {
-          res[indexRes] = zQVal * Q0_ * pow_dynawo(U, beta_) * kq_;  // dQ/d(deltaQc)
+          res[indexRes] = zQVal * QRefPu() * pow_dynawo(U, beta_) * kq_;  // dQ/d(deltaQc)
           ++indexRes;
         }
         if (isRestorative_) {
-          res[indexRes] = Q0_ * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_;  // dQ/d(zQ)
+          res[indexRes] = QRefPu() * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_;  // dQ/d(zQ)
         }
       }
     }
     break;
     case pcNum_: {
        if (isRunning() && (isPControllable_ || isControllable_)) {
-         res[0] = P0_ * kp_;  // dPc / d(deltaPc)
+         res[0] = PRefPu() * kp_;  // dPc / d(deltaPc)
        }
     }
     break;
     case qcNum_: {
       if (isRunning() && (isQControllable_ || isControllable_)) {
-         res[0] = Q0_ * kq_;  // dQc / d(deltaQc)
+         res[0] = QRefPu() * kq_;  // dQc / d(deltaQc)
        }
     }
     break;
@@ -981,7 +1034,7 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
         if (isRestorative_) {
           zPVal = zP();
         }
-        output = zPVal * P0_ * (1. + deltaPcVal) * pow_dynawo(U, alpha_) * kp_;
+        output = zPVal * PRefPu() * (1. + deltaPcVal) * pow_dynawo(U, alpha_) * kp_;
       }
     }
     break;
@@ -998,21 +1051,21 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
         if (isRestorative_) {
           zQVal = zQ();
         }
-        output = zQVal * Q0_ * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_;
+        output = zQVal * QRefPu() * (1. + deltaQcVal) * pow_dynawo(U, beta_) * kq_;
       }
     }
     break;
     case pcNum_: {
       if (isRunning()) {
         const double deltaPcVal = (isPControllable_ || isControllable_) ? deltaPc() : 0.;
-        output = P0_ * (1. + deltaPcVal) * kp_;
+        output = PRefPu() * (1. + deltaPcVal) * kp_;
       }
     }
     break;
     case qcNum_: {
       if (isRunning()) {
         const double deltaQcVal = (isQControllable_ || isControllable_) ? deltaQc() : 0.;
-        output = Q0_ * (1. + deltaQcVal) * kq_;
+        output = QRefPu() * (1. + deltaQcVal) * kq_;
       }
     }
     break;
