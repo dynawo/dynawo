@@ -40,8 +40,4 @@
         <par type="BOOL" name="generator_isVoltageDependent" value="false"/>
         <par type="BOOL" name="deactivate_zero_crossing_functions" value="false"/>
     </set>
-    <!--InfiniteBus parameters-->
-    <set id="1">
-        <par type="DOUBLE" name="Theta" value="0"/>
-    </set>
 </parametersSet>
