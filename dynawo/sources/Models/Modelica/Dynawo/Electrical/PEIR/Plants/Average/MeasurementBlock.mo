@@ -250,9 +250,9 @@ model MeasurementBlock
     "Instantaneous active power at LV node in dq frame (pu)"
     annotation(Placement(transformation(origin = {40, -34}, extent = {{-10, -10}, {10, 10}})));
 
+
   // Reactive power at LV node: Q_LV = V_LV_q · Id_pcc − V_LV_d · Iq_pcc
-  Modelica.Blocks.Sources.RealExpression Q_LV_expr(
-    y = transformRItoDQ2.uq*transformRItoDQ1.ud - transformRItoDQ2.ud*transformRItoDQ1.uq)
+  Modelica.Blocks.Sources.RealExpression Q_LV_expr(y = transformRItoDQ2.uq*transformRItoDQ1.ud - transformRItoDQ2.ud*transformRItoDQ1.uq)
     "Instantaneous reactive power at LV node in dq frame (pu)"
     annotation(Placement(transformation(origin = {30, -84}, extent = {{-10, -10}, {10, 10}})));
 

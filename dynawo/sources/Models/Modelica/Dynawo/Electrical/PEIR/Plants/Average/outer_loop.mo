@@ -86,7 +86,7 @@ equation
     Line(points = {{210, 32}, {169, 32}, {169, 31}, {172, 31}}, color = {0, 0, 127}));
   connect(pi_controller_antiwind.y, current_limiter_outer_loop.id_raw) annotation(
     Line(points = {{48, 62}, {86, 62}}, color = {0, 0, 127}));
-  connect( sum_node_p.y, pi_controller_antiwind.e) annotation(
+  connect(sum_node_p.y, pi_controller_antiwind.e) annotation(
     Line(points = {{-21, 82}, {-9.125, 82}, {-9.125, 62}, {4, 62}}, color = {0, 0, 127}));
   connect(pi_controller_antiwind1.y, current_limiter_outer_loop.iq_raw) annotation(
     Line(points = {{46, 18}, {64, 18}, {64, 44}, {86, 44}}, color = {0, 0, 127}));
@@ -102,8 +102,8 @@ equation
     Line(points = {{-136, 82}, {-38, 82}}, color = {0, 0, 127}));
   connect(Q_ref, firstOrder1.u) annotation(
     Line(points = {{-220, 18}, {-160, 18}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, sum_node_q.u1) annotation(
-    Line(points = {{-137, 18}, {-38, 18}}, color = {0, 0, 127}));
+  connect(sum_node_q.u1, firstOrder1.y) annotation(
+    Line(points = {{-38, 18}, {-140, 18}, {-140, 14}, {-136, 14}, {-136, 18}}, color = {0, 0, 127}));
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "Pref/Qref rate limiters")}),

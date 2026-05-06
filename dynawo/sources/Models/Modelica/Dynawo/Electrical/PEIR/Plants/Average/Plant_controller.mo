@@ -76,7 +76,7 @@ model Plant_controller
     Placement(transformation(origin = {-72, 32}, extent = {{-10, -10}, {10, 10}})));
 
   // U + lambda*Q
-  Modelica.Blocks.Math.Add uLambdaQ(k1 = +1, k2 = -1) annotation(
+  Modelica.Blocks.Math.Add uLambdaQ(k1 = +1, k2 = 1) annotation(
     Placement(transformation(origin = {-30, 38}, extent = {{-10, -10}, {10, 10}})));
 
   // URef - (U + lambda*Q)
