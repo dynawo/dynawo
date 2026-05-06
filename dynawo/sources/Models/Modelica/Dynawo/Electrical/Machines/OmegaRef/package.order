@@ -14,3 +14,5 @@ GeneratorSynchronousExtTfo3W_INIT
 GeneratorSynchronousExtTfo4W_INIT
 GeneratorPTanPhi
 GeneratorPTanPhi_INIT
+GeneratorPVDeadband
+GeneratorPVDeadband_INIT

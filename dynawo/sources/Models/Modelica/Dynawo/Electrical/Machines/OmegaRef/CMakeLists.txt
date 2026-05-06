@@ -23,6 +23,9 @@ set(MODEL_FILES
   GeneratorPTanPhi.extvar
   GeneratorPTanPhi_INIT.mo
   GeneratorPV.mo
+  GeneratorPVDeadband.mo
+  GeneratorPVDeadband_INIT.mo
+  GeneratorPVDeadband.extvar
   GeneratorPV.extvar
   GeneratorPVDiagramPQ.mo
   GeneratorPVDiagramPQ.extvar

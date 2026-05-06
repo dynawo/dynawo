@@ -45,6 +45,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorPQPropDiagramPQSignalNSFR.xml
   GeneratorPTanPhi.xml
   GeneratorPV.xml
+  GeneratorPVDeadband.xml
   GeneratorPVFixed.xml
   GeneratorPVDiagramPQ.xml
   GeneratorPVSignalN.xml
