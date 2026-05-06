@@ -90,8 +90,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator4">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -141,8 +139,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator6">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -192,8 +188,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator8">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -243,8 +237,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator10">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -296,8 +288,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator12">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -349,8 +339,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator15">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -400,8 +388,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator18">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -451,8 +437,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator19">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -502,8 +486,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator24">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -553,8 +535,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator25">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -606,8 +586,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator26">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -659,8 +637,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator27">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -710,8 +686,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator31">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -763,8 +737,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator32">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -814,8 +786,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator34">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -865,8 +835,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator36">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -916,8 +884,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator40">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -967,8 +933,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator42">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1018,8 +982,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator46">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1071,8 +1033,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator49">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1124,8 +1084,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator54">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1177,8 +1135,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator55">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1228,8 +1184,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator56">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1279,8 +1233,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator59">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1332,8 +1284,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator61">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1385,8 +1335,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator62">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1436,8 +1384,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator65">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1489,8 +1435,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator66">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1542,8 +1486,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator69">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1595,8 +1537,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator70">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1646,8 +1586,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator72">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1697,8 +1635,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator73">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1748,8 +1684,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator74">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1799,8 +1733,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator76">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1850,8 +1782,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator77">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1901,8 +1831,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator80">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -1954,8 +1882,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator85">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2005,8 +1931,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator87">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2058,8 +1982,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator89">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2111,8 +2033,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator90">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2162,8 +2082,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator91">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2213,8 +2131,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator92">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2264,8 +2180,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator99">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2315,8 +2229,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator100">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2368,8 +2280,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator103">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2421,8 +2331,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator104">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2472,8 +2380,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator105">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2523,8 +2429,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator107">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2574,8 +2478,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator110">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2625,8 +2527,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator111">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2678,8 +2578,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator112">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2729,8 +2627,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator113">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2780,8 +2676,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="Generator116">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
@@ -2831,8 +2725,6 @@
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_re" value="0.0"/>
-    <par type="DOUBLE" name="generator_iStart0Pu_im" value="0.0"/>
   </set>
   <set id="OmegaRef">
     <par type="INT" name="nbGen" value="54"/>
