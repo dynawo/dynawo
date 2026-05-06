@@ -797,13 +797,6 @@ class SubModel {
   void setTimeline(const boost::shared_ptr<timeline::Timeline>& timeline);
 
   /**
-   * @brief determines if contains a timeline
-   *
-   * @returns whether the model has a timeline
-   */
-  bool hasTimeline() const;
-
-  /**
    * @brief set the constraints collection to use during the simulation (where constraints should be added)
    *
    * @param constraints constraints collections to use

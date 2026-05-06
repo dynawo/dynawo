@@ -55,25 +55,15 @@ TEST(TestModelManager, TestModelManagerCommonLogs) {
   ASSERT_NO_THROW(addLogEvent_(&mm, mess));
   ASSERT_EQ(timeline->getSizeEvents(), 1);
 
-  ASSERT_NO_THROW(addLogEventRaw2_(&mm, "blah.", "blah."));
-  ASSERT_EQ(timeline->getSizeEvents(), 2);
-
-  ASSERT_NO_THROW(addLogEventRaw3_(&mm, "blah.", "blah.", "blah."));
-  ASSERT_EQ(timeline->getSizeEvents(), 3);
-
-  ASSERT_NO_THROW(addLogEventRaw4_(&mm, "blah.", "blah.", "blah.", "blah."));
-  ASSERT_EQ(timeline->getSizeEvents(), 4);
-
-  ASSERT_NO_THROW(addLogEventRaw5_(&mm, "blah.", "blah.", "blah.", "blah.", "blah."));
-  ASSERT_EQ(timeline->getSizeEvents(), 5);
-
   std::shared_ptr<constraints::ConstraintsCollection> constraints = constraints::ConstraintsCollectionFactory::newInstance("MyConstraints");
   mm.setConstraints(constraints);
 
-  ASSERT_THROW(assert_(&mm, mess), MessageError);
-  ASSERT_THROW(throw_(&mm, mess), MessageError);
-  ASSERT_THROW(terminate_(&mm, mess),  DYN::Terminate);
-  ASSERT_EQ(timeline->getSizeEvents(), 6);
+  MessageTimeline mess2("", "Blah");
+
+  ASSERT_THROW(assert_(&mm, mess2), MessageError);
+  ASSERT_THROW(throw_(&mm, mess2), MessageError);
+  ASSERT_THROW(terminate_(&mm, mess2),  DYN::Terminate);
+  ASSERT_EQ(timeline->getSizeEvents(), 2);
 }
 
 TEST(TestModelManager, TestModelManagerCommonStrings) {

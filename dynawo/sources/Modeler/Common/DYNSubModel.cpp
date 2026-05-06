@@ -122,11 +122,6 @@ SubModel::setTimeline(const shared_ptr<Timeline>& timeline) {
   timeline_ = timeline;
 }
 
-bool
-SubModel::hasTimeline() const {
-  return timeline_.use_count() > 0;
-}
-
 void
 SubModel::setConstraints(const std::shared_ptr<ConstraintsCollection>& constraints) {
   constraints_ = constraints;

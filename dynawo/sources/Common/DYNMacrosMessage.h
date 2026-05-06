@@ -48,8 +48,7 @@
  * @param name the name of the model
  * @param key key to find the message
  */
-#define DYNAddTimelineEvent(model, name, key, ...) \
-  if (model->hasTimeline()) model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__))
+#define DYNAddTimelineEvent(model, name, key, ...) model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__))
 
 /**
  * @brief Macro to define a constraint message
@@ -66,8 +65,7 @@
  * @param type model type
  * @param key key to find the message
  */
-#define DYNAddConstraint(model, name, begin, type, key, ...) \
-  if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type)
+#define DYNAddConstraint(model, name, begin, type, key, ...) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type)
 
 /**
  * @brief Macro to add a constraint and add some structured data to be saved
@@ -80,8 +78,7 @@
  * @param data structure with detailed information
  * @param key key to find the message
  */
-#define DYNAddConstraintWithData(model, name, begin, type, data, key, ...) \
-  if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type, data)
+#define DYNAddConstraintWithData(model, name, begin, type, data, key, ...) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type, data)
 
 /**
  * @brief Macro description to have a shortcut.

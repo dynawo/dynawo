@@ -326,23 +326,17 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
  */
 #define DYNTimelineFromModelica(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::value(key))), ##__VA_ARGS__ )
 
-#define addLogEvent1(key) if ((this)->getModelManager()->hasTimeline()) \
-  addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key))
-#define addLogEvent2(key, arg1) if ((this)->getModelManager()->hasTimeline()) \
-  addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1))
-#define addLogEvent3(key, arg1, arg2) if ((this)->getModelManager()->hasTimeline()) \
-  addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2))
-#define addLogEvent4(key, arg1, arg2, arg3) if ((this)->getModelManager()->hasTimeline()) \
-  addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3))
-#define addLogEvent5(key, arg1, arg2, arg3, arg4) if ((this)->getModelManager()->hasTimeline()) \
-  addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3, arg4))
+#define addLogEvent1(key)                             addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key))
+#define addLogEvent2(key, arg1)                       addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1))
+#define addLogEvent3(key, arg1, arg2)                 addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2))
+#define addLogEvent4(key, arg1, arg2, arg3)           addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3))
+#define addLogEvent5(key, arg1, arg2, arg3, arg4)     addLogEvent_(this->getModelManager(), DYNTimelineFromModelica(key, arg1, arg2, arg3, arg4))
 
-#define addLogEventRaw1(key) if ((this)->getModelManager()->hasTimeline()) \
-  addLogEvent_((this)->getModelManager(), (MessageTimeline("", key)))
-#define addLogEventRaw2(key1, key2) addLogEventRaw2_((this)->getModelManager(), key1, key2)
-#define addLogEventRaw3(key1, key2, key3) addLogEventRaw3_((this)->getModelManager(), key1, key2, key3)
-#define addLogEventRaw4(key1, key2, key3, key4) addLogEventRaw4_((this)->getModelManager(), key1, key2, key3, key4)
-#define addLogEventRaw5(key1, key2, key3, key4, key5) addLogEventRaw5_((this)->getModelManager(), key1, key2, key3, key4, key5)
+#define addLogEventRaw1(msg)                          addLogEvent_(this->getModelManager(), MessageTimeline("", std::string(msg)))
+#define addLogEventRaw2(m1, m2)                       addLogEvent_(this->getModelManager(), MessageTimeline("", std::string(m1)+m2))
+#define addLogEventRaw3(m1, m2, m3)                   addLogEvent_(this->getModelManager(), MessageTimeline("", std::string(m1)+m2+m3))
+#define addLogEventRaw4(m1, m2, m3, m4)               addLogEvent_(this->getModelManager(), MessageTimeline("", std::string(m1)+m2+m3+m4))
+#define addLogEventRaw5(m1, m2, m3, m4, m5)           addLogEvent_(this->getModelManager(), MessageTimeline("", std::string(m1)+m2+m3+m4+m5))
 
 #define printLogToStdOut(message) printLogToStdOut_((this)->getModelManager(), std::string(message))
 #define printLogExecution(message) printLogExecution_((this)->getModelManager(), std::string(message))
@@ -602,44 +596,6 @@ void addLogConstraintEndData_(ModelManager* model, const Message& message, std::
  * @param messageTimeline description of the event
  */
 void addLogEvent_(ModelManager* model, const MessageTimeline& messageTimeline);
-
-/**
- * @brief add a raw event log based on multiple sub-log messages
- * @param model model where the event appears
- * @param message1 the first sub message
- * @param message2 the second sub message
- */
-void addLogEventRaw2_(ModelManager* model, const char* message1, const char* message2);
-
-/**
- * @brief add a raw event log based on multiple sub-log messages
- * @param model model where the event appears
- * @param message1 the first sub message
- * @param message2 the second sub message
- * @param message3 the third sub message
- */
-void addLogEventRaw3_(ModelManager* model, const char* message1, const char* message2, const char* message3);
-
-/**
- * @brief add a raw event log based on multiple sub-log messages
- * @param model model where the event appears
- * @param message1 the first sub message
- * @param message2 the second sub message
- * @param message3 the third sub message
- * @param message4 the fourth sub message
- */
-void addLogEventRaw4_(ModelManager* model, const char* message1, const char* message2, const char* message3, const char* message4);
-
-/**
- * @brief add a raw event log based on multiple sub-log messages
- * @param model model where the event appears
- * @param message1 the first sub message
- * @param message2 the second sub message
- * @param message3 the third sub message
- * @param message4 the fourth sub message
- * @param message5 the fifth sub message
- */
-void addLogEventRaw5_(ModelManager* model, const char* message1, const char* message2, const char* message3, const char* message4, const char* message5);
 
 /**
  * @brief  conversion of a modelica real number to modelica string
