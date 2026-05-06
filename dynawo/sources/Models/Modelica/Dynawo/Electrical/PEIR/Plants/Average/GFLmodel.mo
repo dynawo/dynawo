@@ -143,9 +143,15 @@ model GFLmodel
   final parameter Complex Z_g = Complex(R_g + RPuHV, Omega0Pu*(L_g + LPuHV));
   // HV transformer impedance alone (used to locate the internal LV bus)
   final parameter Complex Z_HV = Complex(RPuHV, Omega0Pu*LPuHV);
-  // Converter terminal voltage phasor: PCC voltage plus the full series drop
-  // across the equivalent grid impedance Z_g
-  final parameter Complex uconv0Pu_init = u0Pu_init + i0Pu_init*Z_g;
+  // Converter terminal voltage phasor
+final parameter Complex iConv0Pu_init =
+  Complex(IrConv0Pu, IiConv0Pu);
+
+final parameter Complex Z_filt =
+  Complex(RfPu, Omega0Pu*LfPu);
+
+final parameter Complex uconv0Pu_init =
+  ucaP0Pu_init + iConv0Pu_init*Z_filt;
   // Converter terminal voltage decomposed into dq components
   final parameter Real Uq0Pu = -uconv0Pu_init.re*sin(Theta0) + uconv0Pu_init.im*cos(Theta0);
   final parameter Real Ud0Pu = uconv0Pu_init.re*cos(Theta0) + uconv0Pu_init.im*sin(Theta0);
@@ -330,5 +336,5 @@ equation
   measurementBlock.I_pcc_im = -terminalPcc.i.im;
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(extent = {{-80, 20}, {80, -20}}, textString = "GFL model")}),
-    Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}})));
+    Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));
 end GFLmodel;

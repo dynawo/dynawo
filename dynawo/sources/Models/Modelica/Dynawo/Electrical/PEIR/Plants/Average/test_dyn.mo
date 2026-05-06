@@ -16,12 +16,12 @@ model test_dyn
     UrPcc0Pu = Ur,
     UiPcc0Pu = Ui,
     // Generator convention: positive = injected into grid
-    P0_pcc   = -0.599658,
-    Q0_pcc   = -0.0171959,
+    P0_pcc   = -0.6,
+    Q0_pcc   = -0.016854,
     Omega0Pu = 1.0,
 
     // ── VSC Pade delay ────────────────────────────────────────
-    tVSC = 1e-3,
+    tVSC = 1e-30,
 
     // ── LC filter ─────────────────────────────────────────────
     RfPu     = 0.00001,
@@ -39,14 +39,14 @@ model test_dyn
 
     // ── Measurement filter ────────────────────────────────────
     k_filter = 1,
-    T_filter = 0.002,
+    T_filter =1e-6,
 
     // ── Inner current loop ────────────────────────────────────
     // omega_cc = 800 rad/s => bandwidth ~127 Hz
     k_p_d_current = 30.0,
-    k_i_d_current = 800.0,
+    k_i_d_current = 80.0,
     k_p_q_current = 30.0,
-    k_i_q_current = 800.0,
+    k_i_q_current = 80.0,
 
     // ── Outer loop (bandwidth 1-8 Hz — inside SSO range) ─────
     k_p_d_outer = 1.0,
@@ -55,11 +55,11 @@ model test_dyn
     k_i_q_outer = 7.0,
 
     // ── Current limiter — Iq boost disabled for first test ────
-    Imax       = 1.1,
-    PQFlag     = false,
     UboostHigh = 1.1,
     UboostLow  = 0.9,
     Kqv        = 0.3,
+    Imax       = 8,
+    PQFlag     = false,
     IqBoostMax = 0.5,
     IqBoostMin = -0.5,
 
@@ -74,7 +74,7 @@ model test_dyn
     Kdroop      = 0.03,
     QMaxPu      = 0.5,
     QMinPu      = -0.5,
-    PMaxPu      = 0.6,
+    PMaxPu      = 23,
     PMinPu      = 0,
     FEMaxPu     = 0.05,
     FEMinPu     = -0.05,
@@ -83,8 +83,8 @@ model test_dyn
     DbdPu       = 0.005,
 
     // ── PLL (bandwidth ~49 Hz from table) ─────────────────────
-    K_p_pll    = 30.0,
-    K_i_pll    = 120.0,
+    K_p_pll    = 3.0,
+    K_i_pll    = 12.0,
     OmegaMaxPu = 1.05,
     OmegaMinPu = 0.95,
     Theta0     = Uphase,
@@ -99,51 +99,36 @@ model test_dyn
 
     // ── Voltage feedforward flag ──────────────────────────────
     voltagefeedforwardflag = 1) annotation(
-    Placement(transformation(origin = {12, 0}, extent = {{-28, -28}, {28, 28}})));
+    Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
 
-  // ── Infinite bus ──────────────────────────────────────────────
+// ── Infinite bus ──────────────────────────────────────────────
   // U_bus consistent with voltage drop at P=0.6, Q=-0.3
   // across two transformers: R_tot=0.01, L_tot=0.4 pu
   // |Delta_U| ~ sqrt((R*I)^2 + (X*I)^2) ~ 0.03 pu => U_bus ~ 0.97 pu
-  Dynawo.Electrical.Buses.InfiniteBus infiniteBus(
-    UPu    = 0.97,
-    UPhase = 0.033) annotation(
-    Placement(transformation(origin = {12, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-
   // PRef = 0.6 pu — constant for first test
-  Modelica.Blocks.Sources.Constant PRef(k = 0.6) annotation(
-    Placement(transformation(origin = {-62, 32}, extent = {{-10, -10}, {10, 10}})));
-
-  Modelica.Blocks.Sources.Constant URef(k = 0.97) annotation(
-    Placement(transformation(origin = {-54, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant URef(k = 1.0047) annotation(
+    Placement(transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}})));
     
   // Frequency reference = nominal
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
     Placement(transformation(origin = {-58, -36}, extent = {{-10, -10}, {10, 10}})));
-final parameter Real Ur=infiniteBus.UPu*cos(infiniteBus.UPhase);
-final parameter Real Ui=infiniteBus.UPu*sin(infiniteBus.UPhase);
-final parameter Real Uphase=infiniteBus.UPhase;
-  Real Q_instant;
-initial algorithm
-  gFLmodelnodyn.TrafoLV.iRe := gFLmodelnodyn.TrafoLV.Ir0Pu;
-  gFLmodelnodyn.TrafoLV.iIm := gFLmodelnodyn.TrafoLV.Ii0Pu;
-  gFLmodelnodyn.TrafoHV.iRe := gFLmodelnodyn.TrafoHV.Ir0Pu;
-  gFLmodelnodyn.TrafoHV.iIm := gFLmodelnodyn.TrafoHV.Ii0Pu;
+final parameter Real Ur=1.0047*cos(0.033);
+final parameter Real Ui=1.0047*sin(0.033);
+final parameter Real Uphase=0.033;
 
-
+  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.6, startTime = 10)  annotation(
+    Placement(transformation(origin = {-48, 36}, extent = {{-10, -10}, {10, 10}})));
+    Buses.InfiniteBus infiniteBus(UPu = 1.0047, UPhase = 0.033)  annotation(
+    Placement(transformation(origin = {41, -63}, extent = {{-19, -19}, {19, 19}})));
 equation
-  Q_instant = -(gFLmodelnodyn.terminalPcc.V.im * gFLmodelnodyn.terminalPcc.i.re 
-               - gFLmodelnodyn.terminalPcc.V.re * gFLmodelnodyn.terminalPcc.i.im);
   connect(URef.y, gFLmodelnodyn.UREfPu) annotation(
-    Line(points = {{-43, 0}, {-22, 0}}, color = {0, 0, 127}));
+    Line(points = {{-69, 0}, {-24.5, 0}, {-24.5, 8}, {8, 8}}, color = {0, 0, 127}));
   connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
-    Line(points = {{-47, -36}, {-35, -36}, {-35, -17}, {-22, -17}}, color = {0, 0, 127}));
-
-  connect(PRef.y, gFLmodelnodyn.PRefPu) annotation(
-    Line(points = {{-50, 32}, {-30, 32}, {-30, 20}, {-21, 20}}, color = {0, 0, 127}));
+    Line(points = {{-47, -36}, {-35, -36}, {-35, -9}, {8, -9}}, color = {0, 0, 127}));
+  connect(gFLmodelnodyn.PRefPu, step.y) annotation(
+    Line(points = {{9, 28}, {9, 26}, {-37, 26}, {-37, 36}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(
-    Line(points = {{12, -22}, {10, -22}, {10, -62}, {12, -62}}, color = {0, 0, 255}));
-
+    Line(points = {{42, -14}, {42, -62}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     experiment(
