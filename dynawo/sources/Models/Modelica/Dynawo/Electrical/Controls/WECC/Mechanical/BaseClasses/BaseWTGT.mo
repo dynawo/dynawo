@@ -17,7 +17,7 @@ partial model BaseWTGT "Drive Train Control Base Model"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput PePu(start = PInj0Pu) "Electrical active power in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PePu(start = PConv0Pu) "Electrical active power in pu (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-220, -54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
 
   // Output variables
@@ -50,7 +50,7 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression dampingY2(y = dampingY) annotation(
     Placement(visible = true, transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PInj0Pu/omegaRefWTGQPu0/Kshaft) annotation(
+  Modelica.Blocks.Continuous.Integrator dPhi(y_start = PConv0Pu/omegaRefWTGQPu0/Kshaft) annotation(
     Placement(transformation(origin = {90, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.Integrator dOmegaTurbine(k = 1/(2*Ht)) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -70,7 +70,7 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameters
-  parameter Types.PerUnit PInj0Pu "Initial value of mechanical power in pu (base SNom)";
+  parameter Types.PerUnit PConv0Pu "Initial value of mechanical power in pu (base SNom)";
 
 equation
   connect(dOmegaGenerator.y, OmegaGenerator.u1) annotation(
@@ -124,8 +124,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3")),
     Diagram(coordinateSystem(extent = {{-200, -140}, {160, 140}})),
-    Icon(coordinateSystem(extent = {{-200, -140}, {160, 120}}, initialScale = 0.1), graphics = {Rectangle(origin = {-20, -10}, extent = {{-180, 130}, {180, -130}}), Text(origin = {-232, 37}, extent = {{-28, 21}, {28, -21}}, textString = "omegaRefPu"), Text(origin = {194, 34}, extent = {{-14, 16}, {14, -16}}, textString = "PePu"), Text(origin = {-148, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaTPu"), Text(origin = {16, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaGPu")}),
+    Icon(coordinateSystem(extent = {{-200, -120}, {160, 120}}, initialScale = 0.1), graphics = {Rectangle(extent = {{-200, 120}, {160, -120}}), Text(origin = {194, 34}, extent = {{-14, 16}, {14, -16}}, textString = "PePu"), Text(origin = {-148, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaTPu"), Text(origin = {16, 135}, extent = {{-28, 21}, {28, -21}}, textString = "omegaGPu")}),
     version = "");
 end BaseWTGT;

@@ -13,19 +13,25 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 */
 
 model PVCurrentSourceNoPlantControl "WECC PV model with a current source as interface with the grid (REEC-B REGC-A)"
-  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
+  extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
 
   // Input variables
-  Modelica.Blocks.Interfaces.RealInput PInjRefPu(start = -PInj0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PConvRefPu(start = PConv0Pu) "Active power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QInjRefPu(start = -QInj0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+
 equation
-  connect(PInjRefPu, wecc_reec.PInjRefPu) annotation(
-    Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
-  connect(QInjRefPu, wecc_reec.QInjRefPu) annotation(
-    Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
+  connect(QConvRefPu, wecc_reec.QConvRefPu) annotation(
+    Line(points = {{-190, -20}, {-100, -20}, {-100, -6}, {-91, -6}}, color = {0, 0, 127}));
+  connect(PConvRefPu, wecc_reec.PConvRefPu) annotation(
+    Line(points = {{-190, 20}, {-100, 20}, {-100, 6}, {-91, 6}}, color = {0, 0, 127}));
+  connect(LvMeasurements.terminal2, terminal) annotation(
+    Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",

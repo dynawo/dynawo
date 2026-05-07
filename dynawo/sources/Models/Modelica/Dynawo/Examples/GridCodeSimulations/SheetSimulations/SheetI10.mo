@@ -19,11 +19,12 @@ model SheetI10
 
 equation
   connect(bus.terminal, Unit.terminal) annotation(
-    Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
+    Line(points = {{-80, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(inertialGrid1.omegaPu, Unit.omegaRefPu) annotation(
-    Line(points = {{-58, 76}, {60, 76}, {60, 12}, {42, 12}}, color = {0, 0, 127}));
+    Line(points = {{-158, 16}, {-140, 16}, {-140, 40}, {50, 40}, {50, -12}, {42, -12}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {0, 120}, extent = {{-100, 20}, {100, -20}}, textString = "I10")}),
     experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-06, Interval = 0.001),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",

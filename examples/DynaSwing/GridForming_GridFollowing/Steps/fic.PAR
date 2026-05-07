@@ -75,9 +75,19 @@
     <reference name="WTG4A_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="WTG4A_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="WTG4A_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <reference name="WTG4A_PPcc0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="WTG4A_QPcc0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="WTG4A_UPcc0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="WTG4A_UPhasePcc0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
     <reference name="WTG4A_SNom" origData="IIDM" origName="pMax" type="DOUBLE"/>
-    <par type="DOUBLE" name="WTG4A_XPu" value="0.0065"/>
-    <par type="DOUBLE" name="WTG4A_RPu" value="0"/>
+    <par type="DOUBLE" name="WTG4A_RLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WTG4A_XLvTrPu" value="0"/>
+    <par type="DOUBLE" name="WTG4A_RMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WTG4A_XMvHvPu" value="0.1495"/>
+    <par type="DOUBLE" name="WTG4A_BMvHvPu" value="0"/>
+    <par type="DOUBLE" name="WTG4A_GMvHvPu" value="0"/>
+    <par type="BOOL" name="WTG4A_PPCLocal" value="true"/>
+    <par type="BOOL" name="WTG4A_ConverterLVControl" value="true"/>
     <par type="DOUBLE" name="WTG4A_DDn" value="20"/>
     <par type="DOUBLE" name="WTG4A_DUp" value="0.001"/>
     <par type="BOOL" name="WTG4A_FreqFlag" value="true"/>

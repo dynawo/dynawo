@@ -17,9 +17,9 @@ partial model BaseWTGP "Base Pitch Controller"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGP;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput POrdPu(start = PInj0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput POrdPu(start = PConv0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PInj0Pu) "Reference active power in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PConv0Pu) "Reference active power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-80, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput omegaRefWTGQPu(start = omegaRefWTGQPu0) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));

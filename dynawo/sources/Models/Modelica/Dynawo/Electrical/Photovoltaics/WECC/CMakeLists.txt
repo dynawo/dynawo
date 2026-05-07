@@ -17,7 +17,7 @@ set(MODEL_FILES
   PVCurrentSource.extvar
   PVCurrentSourceNoPlantControl.mo
   PVCurrentSourceNoPlantControl.extvar
-  PVCurrentSource_INIT.mo
+  PVInverterVoltageSource_INIT.mo
   PVVoltageSource1.mo
   PVVoltageSource1.extvar
   PVVoltageSource1NoPlantControl.mo
