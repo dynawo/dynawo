@@ -230,7 +230,7 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    * @param cj Jacobian prime coefficient
    * @param rowOffset offset to use to identify the row where data should be
    * added
-   * @param jtPrim jacobian matrix to fullfill
+   * @param jt jacobian matrix to fullfill
    */
   void evalJtPrim(const double t, const double cj, SparseMatrix& jt, const int rowOffset) override;
   /**
