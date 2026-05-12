@@ -9,8 +9,5 @@ GFLControl
 DCBus
 GFLmodel
 test_dyn
-simulation
-test
-frst_smib_simulation
 LCnoDynFilter
-GFLModel
+p_step_simulation
