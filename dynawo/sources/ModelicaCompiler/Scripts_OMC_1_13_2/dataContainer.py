@@ -1465,7 +1465,7 @@ class EquationBase:
     # @param num_omc : index of the equation in omc arrays
     def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC, complex_eq = False):
         ## pattern to identify the variable evaluated
-        self.ptrn_evaluated_var = re.compile(r'[\(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*[^=]=[^=][ ]*(?P<rhs>[^;]+);')
+        self.ptrn_evaluated_var = re.compile(r'[\(]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ \)]*[^=^!]=[^=][ ]*(?P<rhs>[^;]+);')
         ## pattern to identify the residual variable evaluated
         self.ptrn_residual_var = re.compile(r'[\(]*data->simulationInfo->daeModeData->residualVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/[\) ]*=[ ]*(?P<rhs>[^;]+);')
 
@@ -1665,6 +1665,8 @@ class Equation(EquationBase):
                 text_to_return.append( line )
             else:
                 line = replace_var_names(line)
+                print ("BUBU? " + line)
+                print ("BUBU2? " + self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line))
                 text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line) )
                 if self.complex_eq:
                     index += 1

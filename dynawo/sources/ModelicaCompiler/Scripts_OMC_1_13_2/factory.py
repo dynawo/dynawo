@@ -1434,6 +1434,7 @@ class Factory:
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
             if var.get_use_start() and (var.get_init_by_param_in_06inz() and var.should_use_default_start(self.reader.list_omc_functions)):
+                 print ("BUBU0 " + var.get_name())
                  init_val = var.get_start_text()[0]
                  if init_val == "":
                      init_val = "0.0"
@@ -1442,6 +1443,7 @@ class Factory:
                  line = replace_var_names(line)
                  self.list_for_sety0.append(line)
             elif var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
+                print ("BUBU1 " + var.get_name())
                 var.clean_start_text () # Clean up initialization text before printing
 
                 # Lines for reading comfort at the impression
@@ -1466,6 +1468,7 @@ class Factory:
                 if len(var.get_start_text()) > 1 : self.list_for_sety0.append("\n") # reading comfort
 
             elif var.get_init_by_param_in_06inz():
+                print ("BUBU2 " + var.get_name())
                 var.clean_start_text_06inz()
                 # Lines for reading comfort at the impression
                 if len(var.get_start_text_06inz()) > 1 :
@@ -1488,6 +1491,7 @@ class Factory:
 
                 if len(var.get_start_text_06inz()) > 1 : self.list_for_sety0.append("\n") # reading comfort
             elif is_const_var(var) and var.is_alias():
+                print ("BUBU3 " + var.get_name())
                 test_param_address(var.get_name())
                 alias_name = var.get_alias_name()
                 test_param_address(alias_name)
@@ -1496,6 +1500,7 @@ class Factory:
                 line = replace_var_names(line)
                 self.list_for_sety0.append(line)
             else:
+                print ("BUBU4 " + var.get_name())
                 init_val = var.get_start_text()[0]
                 if init_val == "":
                     init_val = "0.0"
@@ -2040,8 +2045,8 @@ class Factory:
 
         # print all gout at the end of the function
         nb_zero_crossing = 0;
-        double_equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
-        double_equality_parameter_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
+        double_equality_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\) == \(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)\)')
+        double_equality_parameter_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\) == \(data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)\)')
         for line in filtered_func:
             if "gout" in line:
                 if "tmp" in line:
