@@ -34,7 +34,7 @@ model pi_controller_antiwind
 
 // Integral path
   // Sum P + I
-    Modelica.Blocks.Sources.BooleanConstant awOn(k = true);
+    Modelica.Blocks.Sources.BooleanConstant awOn(k = false);
   Modelica.Blocks.Math.Add add annotation(
     Placement(transformation(origin = {40, 48},
                              extent = {{-10, -10}, {10, 10}})));

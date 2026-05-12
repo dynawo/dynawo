@@ -36,7 +36,7 @@ model current_loop
     Placement(transformation(origin = {-58, -60}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pi_controller pi_controller_iq(k_p = k_p_q, k_i = k_i_q, y_start = y_start_current_q)  annotation(
     Placement(transformation(origin = {-26, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add3 add_q(k1 = -1, k2 = +1, k3 = voltagefeedforwardflag) annotation(
+  Modelica.Blocks.Math.Add3 add_q(k1 = 1, k2 = +1, k3 = voltagefeedforwardflag) annotation(
     Placement(transformation(origin = {18, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain L(k = L_g) annotation(
     Placement(transformation(origin = {-52, 0}, extent = {{-10, -10}, {10, 10}})));

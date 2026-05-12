@@ -101,17 +101,17 @@ equation
       iq_lim = 0;
     else
       id_lim = id_raw;
-      iq_lim = max(
+      iq_lim = -max(
                  min(iq_eff,  sqrt(max(Imax^2 - id_raw^2, 0))),
                 -sqrt(max(Imax^2 - id_raw^2, 0)));
     end if;
   else
     // Q priority (q-axis including boost)
     if noEvent(abs(iq_eff) >= Imax) then
-      iq_lim = sign(iq_eff) * Imax;
+      iq_lim = -sign(iq_eff) * Imax;
       id_lim = 0;
     else
-      iq_lim = iq_eff;
+      iq_lim = -iq_eff;
       id_lim = max(
                  min(id_raw,  sqrt(max(Imax^2 - iq_eff^2, 0))),
                 -sqrt(max(Imax^2 - iq_eff^2, 0)));
