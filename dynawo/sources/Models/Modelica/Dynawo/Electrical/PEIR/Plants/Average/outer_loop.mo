@@ -67,7 +67,7 @@ model outer_loop
     Placement(transformation(origin = {-148, 18}, extent = {{-10, -10}, {10, 10}})));
   Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind(k_p = k_p_d, tI = 1/k_i_d, y_start = y_start_outer_d, DyMax = DyMax_pi_d, YMax = Imax) annotation(
     Placement(transformation(origin = {26, 62}, extent = {{-20, -20}, {20, 20}})));
-  Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind1(k_p = k_p_q, tI = 1/(k_i_q), y_start = y_start_outer_q, DyMax = DyMax_pi_q, YMax = Imax) annotation(
+  Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind1(k_p = k_p_q, tI = 1/(k_i_q), y_start = -y_start_outer_q, DyMax = DyMax_pi_q, YMax = Imax) annotation(
     Placement(transformation(origin = {24, 18}, extent = {{-20, -20}, {20, 20}})));
 equation
 // ── Pref path: rate limiter → sum node → PI ──────────────────

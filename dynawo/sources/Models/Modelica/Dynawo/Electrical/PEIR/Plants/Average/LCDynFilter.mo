@@ -70,27 +70,14 @@ model LCDynFilter
   // Internal state variables
   Real iLeft_re(start = iLeft_rePu0, fixed = false);
   Real iLeft_im(start = iLeft_imPu0, fixed = false);
-  Real uRight_re(start = uRight_rePu0, fixed = true);
-  Real uRight_im(start = uRight_imPu0, fixed = true);
+  Real uRight_re(start = uRight_rePu0, fixed = false);
+  Real uRight_im(start = uRight_imPu0, fixed = false);
 initial equation
- 0 =
-    uLeft_rePu - RfPu * iLeft_re + omegaPu * LfPu * iLeft_im - uRight_re;
+  der(iLeft_re)  = 0;
+  der(iLeft_im)  = 0;
+  der(uRight_re) = 0;
+  der(uRight_im) = 0;
 
-  0 =
-    uLeft_imPu - RfPu * iLeft_im - omegaPu * LfPu * iLeft_re - uRight_im;
-
-  // ── Capacitor dynamics at right node (shunt Cf to ground) ──
-  // Cf/omegaNom * d(u_d_right)/dt = i_d_left + omegaPu*Cf*u_q_right - i_d_network
-  // Cf/omegaNom * d(u_q_right)/dt = i_q_left - omegaPu*Cf*u_d_right - i_q_network
-  //
-  // Convention: terminalRight.i is the current injected INTO the node
-//             (Dynawo.Connectors.ACPower.flow).
-// Currents "from right node to network" = -terminalRight.i.
-0 =
-    iLeft_re + omegaPu * CfPu * uRight_im - (-terminalRight.i.re);
-
-0 =
-    iLeft_im - omegaPu * CfPu * uRight_re - (-terminalRight.i.im);
 equation
   // ── Inductor dynamics (series branch between left and right node) ──
   // Lf/omegaNom * d(i_d)/dt = u_d_left - Rf*i_d + omegaPu*Lf*i_q - u_d_right
@@ -107,8 +94,9 @@ equation
   // Cf/omegaNom * d(u_q_right)/dt = i_q_left - omegaPu*Cf*u_d_right - i_q_network
   //
   // Convention: terminalRight.i is the current injected INTO the node
-//             (Dynawo.Connectors.ACPower.flow).
-// Currents "from right node to network" = -terminalRight.i.
+  //             (Dynawo.Connectors.ACPower.flow).
+  // Currents "from right node to network" = -terminalRight.i.
+
   CfPu/omegaNom * der(uRight_re) =
     iLeft_re + omegaPu * CfPu * uRight_im - (-terminalRight.i.re);
 
