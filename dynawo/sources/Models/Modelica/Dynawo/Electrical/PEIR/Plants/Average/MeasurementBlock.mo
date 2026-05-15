@@ -1,5 +1,14 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
+/**
+ * Author Gaia Bergamaschi
+ * Electrical measurement and filtering block for the GFL model.
+ *
+ * Computes all electrical measurements required by the GFL converter and
+ * plant controllers, starting from PCC and internal LV bus voltages/currents,
+ * and provides filtered quantities in dq and scalar form (P, Q, U, I).
+ */
+
 // ============================================================================
 // MeasurementBlock – Electrical Measurement and Filtering Block
 //
