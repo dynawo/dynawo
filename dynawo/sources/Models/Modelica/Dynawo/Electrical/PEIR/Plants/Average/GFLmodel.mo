@@ -2,22 +2,22 @@ within Dynawo.Electrical.PEIR.Plants.Average;
 
 model GFLmodel
   /**
-   * Author Gaia Bergamaschi
-   * Grid-Following (GFL) average converter model.
-   *
-   * This model represents a voltage-source converter (VSC) plant connected to the
-   * grid through an LC filter and a two-stage RL transformer. It includes:
-   *   - A PLL-based synchronisation unit
-   *   - Inner current controllers (d/q axes)
-   *   - Outer P/Q control loops
-   *   - A plant-level P–f and Q–U controller with droop
-   *   - A VSC Padé delay block
-   *   - A measurement/filter block
-   *
-   * Sign convention: load convention at the PCC (positive = power flowing into converter). 
-   * Sign convention: generator convention at the GFL (positive = power flowing out of the converter). 
-   * All electrical quantities are in per-unit on the machine base (UNom, SNom).
-   */
+     * Author Gaia Bergamaschi
+     * Grid-Following (GFL) average converter model.
+     *
+     * This model represents a voltage-source converter (VSC) plant connected to the
+     * grid through an LC filter and a two-stage RL transformer. It includes:
+     *   - A PLL-based synchronisation unit
+     *   - Inner current controllers (d/q axes)
+     *   - Outer P/Q control loops
+     *   - A plant-level P–f and Q–U controller with droop
+     *   - A VSC Padé delay block
+     *   - A measurement/filter block
+     *
+     * Sign convention: load convention at the PCC (positive = power flowing into converter). 
+     * Sign convention: generator convention at the GFL (positive = power flowing out of the converter). 
+     * All electrical quantities are in per-unit on the machine base (UNom, SNom).
+     */
   // ────────────────────────────────────────────────────────────
   // Network initial conditions (PCC, LV side)
   // ────────────────────────────────────────────────────────────
@@ -144,14 +144,9 @@ model GFLmodel
   // HV transformer impedance alone (used to locate the internal LV bus)
   final parameter Complex Z_HV = Complex(RPuHV, Omega0Pu*LPuHV);
   // Converter terminal voltage phasor
-final parameter Complex iConv0Pu_init =
-  Complex(IrConv0Pu, IiConv0Pu);
-
-final parameter Complex Z_filt =
-  Complex(RfPu, Omega0Pu*LfPu);
-
-final parameter Complex uconv0Pu_init =
-  ucaP0Pu_init + iConv0Pu_init*Z_filt;
+  final parameter Complex iConv0Pu_init = Complex(IrConv0Pu, IiConv0Pu);
+  final parameter Complex Z_filt = Complex(RfPu, Omega0Pu*LfPu);
+  final parameter Complex uconv0Pu_init = ucaP0Pu_init + iConv0Pu_init*Z_filt;
   // Converter terminal voltage decomposed into dq components
   final parameter Real Uq0Pu = -uconv0Pu_init.re*sin(Theta0) + uconv0Pu_init.im*cos(Theta0);
   final parameter Real Ud0Pu = uconv0Pu_init.re*cos(Theta0) + uconv0Pu_init.im*sin(Theta0);
@@ -168,7 +163,7 @@ final parameter Complex uconv0Pu_init =
   // ─────────────────────────────────────────────────────────────────────────
   // PCC terminal – AC connector to the external network.
   // Voltage and current are initialised at the computed steady-state values.
-  Dynawo.Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = IrPcc0Pu), im(start = IiPcc0Pu))) annotation(
+  Dynawo.Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu), im(start = -IiPcc0Pu))) annotation(
     Placement(transformation(origin = {104, 54}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {0, -80}, extent = {{-20, -20}, {20, 20}})));
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
@@ -212,7 +207,7 @@ final parameter Complex uconv0Pu_init =
     Placement(transformation(origin = {79, 53}, extent = {{-10, -10}, {10, 10}})));
   // Internal LV bus node (junction between the LV and HV transformer stages).
   // Voltages and powers at this node are measured by the MeasurementBlock
-  Dynawo.Connectors.ACPower terminalLV(V(re(start = uLV0Pu_init.re), im(start = uLV0Pu_init.im)), i(re(start = IrPcc0Pu), im(start = IiPcc0Pu))) annotation(
+  Dynawo.Connectors.ACPower terminalLV(V(re(start = uLV0Pu_init.re), im(start = uLV0Pu_init.im)), i(re(start = 0), im(start = 0))) annotation(
     Placement(transformation(origin = {57, 55}, extent = {{-5, -5}, {5, 5}}), iconTransformation(origin = {60, 50}, extent = {{-10, -10}, {10, 10}})));
 equation
 // ──────────────────────────────────────────────────────────────────────────

@@ -38,7 +38,7 @@ model pi_controller_antiwind
   Modelica.Blocks.Math.Add add annotation(
     Placement(transformation(origin = {40, 48},
                              extent = {{-10, -10}, {10, 10}})));
-  NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = DyMax, DyMin = -DyMax, tI = tI, YMax = YMax, YMin = -YMax, Y0 = y_start, fMax(start = true), fMin(start = true), y(start = y_start))  annotation(
+  NonElectrical.Blocks.Continuous.AntiWindupIntegrator antiWindupIntegrator(DyMax = DyMax, DyMin = -DyMax, tI = tI, YMax = YMax, YMin = -YMax, Y0 = y_start, fMax(start = false), fMin(start = false), y(start = y_start))  annotation(
     Placement(transformation(origin = {-22, 24}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(e, gain.u) annotation(

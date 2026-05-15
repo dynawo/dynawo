@@ -2,9 +2,13 @@ within Dynawo.Electrical.PEIR.Plants.Average;
 
 model GFLControl
 
-  // ────────────────────────────────────────────────────────────
-  // internal gfl control outer current pll
-  // ────────────────────────────────────────────────────────────
+// =============================================================================
+// Author : Gaia Bergamaschi
+//
+// Top-level GFL converter control block.
+// Assembles outer loop, inner current loop, and PLL.
+// =============================================================================
+
   parameter Types.ComplexVoltagePu vm0
     "Initial complex voltage at VSC in pu (base UNom)"; 
   parameter Real Omega0Pu "Initial frequency (pu)";
@@ -248,6 +252,12 @@ equation
     Line(points = {{110, -60}, {40, -60}}, color = {0, 0, 127}));
   annotation(
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
+    Documentation(info = "<html>
+      <p><b>Author:</b> Gaia Bergamaschi</p>
+      <p>Top-level control block for a Grid-Following (GFL) converter.</p>
+      <p>Assembles: outer loop (P/Q → id/iq references),
+      inner current loop (id/iq → vm_d/vm_q), and PLL (theta, omega).</p>
+    </html>"),
     Icon(graphics = {
       Rectangle(extent = {{-100, 100}, {100, -100}}),
       Text(origin = {4, -10}, extent = {{-90, 20}, {90, -20}},
