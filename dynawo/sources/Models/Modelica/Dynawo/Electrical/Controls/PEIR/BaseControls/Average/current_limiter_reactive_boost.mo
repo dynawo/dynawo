@@ -1,5 +1,33 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 
+// =============================================================================
+// Author  : Gaia Bergamaschi
+//
+// Current limiter with reactive boost for a GFL converter outer loop.
+//
+// This block enforces the current amplitude constraint sqrt(id² + iq²) ≤ Imax
+// and applies a voltage-dependent reactive current boost (Iq boost) to support
+// grid voltage during under- and overvoltage events.
+//
+// ── Reactive boost logic ─────────────────────────────────────────────────────
+//   U < UboostLow  → undervoltage: inject reactive current (iq_boost > 0)
+//   U > UboostHigh → overvoltage:  absorb reactive current (iq_boost < 0)
+//   UboostLow ≤ U ≤ UboostHigh → deadband: no boost
+//   The boost magnitude is proportional to the voltage deviation via gain Kqv.
+//   It is then saturated between IqBoostMin and IqBoostMax.
+//
+// ── Current limiting ─────────────────────────────────────────────────────────
+//   Priority is selected via PQFlag (consistent with WECC convention):
+//   PQFlag = true  → P priority: id_raw respected first, iq clipped to circle
+//   PQFlag = false → Q priority: iq_eff respected first, id clipped to circle
+//   In both cases the total current never exceeds Imax.
+//
+// ── Sign convention ──────────────────────────────────────────────────────────
+//   Inputs id_raw and iq_raw follow generator convention (injection positive).
+//   iq_lim is output with a sign flip (−iq_eff) to match the inner loop
+//   current reference convention used downstream.
+// =============================================================================
+
 model current_limiter_reactive_boost
   "Limit sqrt(id^2 + iq^2) to Imax with P/Q priority and bidirectional Iq boost (undervoltage + overvoltage)"
 
