@@ -29,6 +29,8 @@ model LCDynFilter
   "LC filter in RI coordinates (pu) between a left port (VSC) and a right AC terminal (to network)"
 
   // ── Initial conditions for states and I/O (pu) ───────────────
+  parameter Types.ApparentPowerModule SNom
+   "Nominal apparent power in MVA";
   // Left-side voltage (e.g. converter)
   parameter Real uLeft_rePu0  "Initial left-side real-axis voltage (pu)";
   parameter Real uLeft_imPu0  "Initial left-side imag-axis voltage (pu)";
@@ -123,10 +125,10 @@ equation
   // Currents "from right node to network" = -terminalRight.i.
 
   CfPu/omegaNom * der(uRight_re) =
-    iLeft_re + omegaPu * CfPu * uRight_im - (-terminalRight.i.re);
+    iLeft_re + omegaPu * CfPu * uRight_im - (-terminalRight.i.re* SystemBase.SnRef/SNom);
 
   CfPu/omegaNom * der(uRight_im) =
-    iLeft_im - omegaPu * CfPu * uRight_re - (-terminalRight.i.im);
+    iLeft_im - omegaPu * CfPu * uRight_re - (-terminalRight.i.im* SystemBase.SnRef/SNom);
 
   // ── Outputs ────────────────────────────────────────────────
   iLeft_rePu  = iLeft_re;

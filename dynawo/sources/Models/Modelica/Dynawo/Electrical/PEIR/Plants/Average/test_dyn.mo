@@ -20,10 +20,11 @@ model test_dyn
 
   GFLmodel gFLmodelnodyn(
     // ── Initial conditions — PCC node ────────────────────────
+    SNom=100,
     UrPcc0Pu = Ur,
     UiPcc0Pu = Ui,
     P0_pcc   = -0.6,
-    Q0_pcc   = -0.016854,
+    Q0_pcc   = -0.0016854,
     Omega0Pu = 1.0,
 
     // ── VSC Pade delay ────────────────────────────────────────
@@ -36,12 +37,12 @@ model test_dyn
     omegaNom = 2 * Modelica.Constants.pi * 50,
 
     // ── LV transformer (filter → LV node) ────────────────────
-    RPuLV = 0.005,
-    LPuLV = 0.008,
+    RPuLV = 0.00005,
+    LPuLV = 0.00008,
 
     // ── HV transformer (LV node → PCC) ───────────────────────
-    RPuHV = 0.001,
-    LPuHV = 0.005,
+    RPuHV = 0.00001,
+    LPuHV = 0.00005,
 
     // ── Measurement filter ────────────────────────────────────
     k_filter = 1,
@@ -122,7 +123,7 @@ model test_dyn
   final parameter Real Ui     = 1.0047 * sin(0.033);
   final parameter Real Uphase = 0.033;
 
-  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.6, startTime = 10) annotation(
+  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.6, startTime = 1000) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
 
   Buses.InfiniteBus infiniteBus(UPu = 1.0047, UPhase = 0.033) annotation(

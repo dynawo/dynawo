@@ -18,6 +18,8 @@ model GFLmodel
      * Sign convention: generator convention at the GFL (positive = power flowing out of the converter). 
      * All electrical quantities are in per-unit on the machine base (UNom, SNom).
      */
+  
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   // ────────────────────────────────────────────────────────────
   // Network initial conditions (PCC, LV side)
   // ────────────────────────────────────────────────────────────
@@ -40,10 +42,10 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // RL transformer /  equivalent impedances (referred to LV and HV side)
   // ────────────────────────────────────────────────────────────
-  parameter Real RPuHV "Transformer / grid series resistance (pu, HV side)";
-  parameter Real LPuHV "Transformer / grid series inductance (pu, HV side)";
-  parameter Real RPuLV "Transformer / grid series resistance (pu, LV side)";
-  parameter Real LPuLV "Transformer / grid series inductance (pu, LV side)";
+  parameter Real RPuHV "Transformer / grid series resistance (pu, base UNom, SNom, HV side)";
+  parameter Real LPuHV "Transformer / grid series inductance (pu, base UNom, SNom, HV side)";
+  parameter Real RPuLV "Transformer / grid series resistance (pu, base UNom, SNom, LV side)";
+  parameter Real LPuLV "Transformer / grid series inductance (pu, base UNom, SNom, LV side)";
   // ────────────────────────────────────────────────────────────
   // Measurement block filter variables
   // ────────────────────────────────────────────────────────────
@@ -111,8 +113,8 @@ model GFLmodel
   // Derived initial conditions (computed from the parameters above)
   // ─────────────────────────────────────────────────────────────────────────
   // Sign change: generator convention (injection positive)
-  final parameter Real P0Pu = -P0_pcc;
-  final parameter Real Q0Pu = -Q0_pcc;
+  final parameter Real P0Pu = -P0_pcc * SystemBase.SnRef / SNom;
+  final parameter Real Q0Pu = -Q0_pcc * SystemBase.SnRef / SNom;
   // PCC voltage phasor and magnitude
   final parameter Complex u0Pu_init = Complex(UrPcc0Pu, UiPcc0Pu);
   final parameter Real U0Sq = UrPcc0Pu^2 + UiPcc0Pu^2;
@@ -121,8 +123,8 @@ model GFLmodel
   // (used as PLL initial condition; should be ≈ 0 at steady state)
   final parameter Real V_q_g_0 = -u0Pu_init.re*sin(Theta0) + u0Pu_init.im*cos(Theta0);
   // PCC current phasor (derived from S = U · I*) in re/im coordinates
-  final parameter Real IrPcc0Pu = (-P0_pcc*UrPcc0Pu - Q0_pcc*UiPcc0Pu)/U0Sq;
-  final parameter Real IiPcc0Pu = (-P0_pcc*UiPcc0Pu + Q0_pcc*UrPcc0Pu)/U0Sq;
+  final parameter Real IrPcc0Pu = (P0Pu*UrPcc0Pu + Q0Pu*UiPcc0Pu)/U0Sq;
+  final parameter Real IiPcc0Pu = (P0Pu*UiPcc0Pu - Q0Pu*UrPcc0Pu)/U0Sq;
   final parameter Complex i0Pu_init = Complex(IrPcc0Pu, IiPcc0Pu);
   // Converter-side current: PCC current corrected for the capacitor branch in re/im e d/q
   // by current drawn by C_f at the filter node
@@ -132,8 +134,8 @@ model GFLmodel
   final parameter Real Iq_conv_0 = -IrConv0Pu*sin(Theta0) + IiConv0Pu*cos(Theta0) "Initial q-axis converter current (pu)";
   // Initial injected powers at the LV node (generator convention, corrected
   // for ohmic losses in the HV transformer stage)
-  final parameter Real QInj0Pu = -Q0_pcc + LPuHV*(IrPcc0Pu^2 + IiPcc0Pu^2) "Intial reactive power in pu in gnerator convenction";
-  final parameter Real PInj0Pu = -P0_pcc + RPuHV*(IrPcc0Pu^2 + IiPcc0Pu^2) "Intial reactive power in pu in gnerator convenction";
+  final parameter Real QInj0Pu = Q0Pu + LPuHV*(IrPcc0Pu^2 + IiPcc0Pu^2) "Intial reactive power in pu in gnerator convenction";
+  final parameter Real PInj0Pu = P0Pu + RPuHV*(IrPcc0Pu^2 + IiPcc0Pu^2) "Intial reactive power in pu in gnerator convenction";
   // Equivalent grid impedance seen from the LV node
   final parameter Real L_g = LfPu + LPuLV "grid inductance (pu)";
   final parameter Real R_g = RfPu + RPuLV "grid resistance (pu)";
@@ -163,7 +165,7 @@ model GFLmodel
   // ─────────────────────────────────────────────────────────────────────────
   // PCC terminal – AC connector to the external network.
   // Voltage and current are initialised at the computed steady-state values.
-  Dynawo.Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu), im(start = -IiPcc0Pu))) annotation(
+  Dynawo.Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu * SNom / SystemBase.SnRef), im(start = -IiPcc0Pu * SNom / SystemBase.SnRef))) annotation(
     Placement(transformation(origin = {104, 54}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {0, -80}, extent = {{-20, -20}, {20, 20}})));
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
@@ -195,15 +197,15 @@ model GFLmodel
   MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud_LV0Pu, V_LV_q_0 = Uq_LV0Pu) annotation(
     Placement(transformation(origin = {-90, -106}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
   // LC dynamic filter block
-  LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu, iRight_imPu0 = IiPcc0Pu, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom) annotation(
+  LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SystemBase.SnRef/SNom, iRight_imPu0 = IiPcc0Pu*SystemBase.SnRef/SNom, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
     Placement(transformation(origin = {3, 55}, extent = {{-11, -11}, {11, 11}})));
   // LV-side transformer RL stage.
   // Models the low-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoLV(RPu = RPuLV, LPu = LPuLV, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu, Ii0Pu = IiPcc0Pu) annotation(
+  RLDynTrafo TrafoLV(RPu = RPuLV, LPu = LPuLV, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {35, 55}, extent = {{-10, -10}, {10, 10}})));
   // HV-side transformer RL stage.
   // Models the high-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoHV(RPu = RPuHV, LPu = LPuHV, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu, Ii0Pu = IiPcc0Pu) annotation(
+  RLDynTrafo TrafoHV(RPu = RPuHV, LPu = LPuHV, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {79, 53}, extent = {{-10, -10}, {10, 10}})));
   // Internal LV bus node (junction between the LV and HV transformer stages).
   // Voltages and powers at this node are measured by the MeasurementBlock
@@ -304,8 +306,6 @@ equation
   connect(TrafoHV.left, terminalLV) annotation(
     Line(points = {{70, 54}, {55, 54}, {55, 55}, {57, 55}}, color = {0, 0, 255}));
 // Internal LV bus node → HV transformer input
-  connect(TrafoHV.right, terminalPcc) annotation(
-    Line(points = {{89, 53}, {98, 53}, {98, 54}, {104, 54}}, color = {0, 0, 255}));
 // HV transformer output → PCC terminal (connection to external network)
 // ── 13.9  Converter current feedback to the LC filter ─────────────────────
   connect(measurementBlock.I_conv_re, lCDynFilter.iLeft_rePu) annotation(
@@ -319,6 +319,7 @@ equation
   measurementBlock.u_LV_re = terminalLV.V.re;
 // real part of LV node voltage
   measurementBlock.u_LV_im = terminalLV.V.im;
+
 // imaginary part of LV node voltage
 // PCC voltage (from the external network connector)
   measurementBlock.V_pcc_re = terminalPcc.V.re;
@@ -327,8 +328,10 @@ equation
 // imaginary part of PCC voltage
 // PCC current with sign reversal: terminalPcc uses load convention (i > 0 into network),
 // while the measurement block uses generator convention (i > 0 out of converter).
-  measurementBlock.I_pcc_re = -terminalPcc.i.re;
-  measurementBlock.I_pcc_im = -terminalPcc.i.im;
+  measurementBlock.I_pcc_re = -terminalPcc.i.re * SystemBase.SnRef / SNom;
+  measurementBlock.I_pcc_im = -terminalPcc.i.im * SystemBase.SnRef / SNom;
+  connect(TrafoHV.right, terminalPcc) annotation(
+    Line(points = {{90, 54}, {104, 54}}, color = {0, 0, 255}));
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(extent = {{-80, 20}, {80, -20}}, textString = "GFL model")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));
