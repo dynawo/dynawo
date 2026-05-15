@@ -1,15 +1,36 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
 /**
- * Dynamic RL element in RI frame (per unit) between two AC terminals.
+ * Author Gaia Bergamaschi
+ * Dynamic RL branch model in RI coordinates (per-unit) for the GFL plant.
  *
- * - Series branch with impedance Z = RPu + j·omegaPu·LPu (in pu).
- * - Branch current iRe, iIm flows from left to right (generator convention):
- *   iRe, iIm > 0 → power flows from left terminal to right terminal.
+ * This model represents a series RL element between two AC terminals in
+ * real/imag (R/I) coordinates. It is typically used to model:
+ *   - transformer leakage impedance (LV or HV winding), or
+ *   - an equivalent line / grid impedance.
  *
- * - left.V.re/im, right.V.re/im : node voltages (pu)
- * - left.i.re/im, right.i.re/im : currents positive when entering the device
- *                                  (ACPower flow convention)
+ * The branch has impedance:
+ *   Z = RPu + j · omegaPu · LPu   (in per-unit),
+ * where:
+ *   - RPu : series resistance (pu, base UNom, SNom)
+ *   - LPu : series inductance (pu, base UNom, SNom)
+ *   - omegaPu : per-unit electrical frequency (base SystemBase.omegaNom)
+ *
+ * State variables:
+ *   - iRe, iIm : branch current components flowing from left to right (pu).
+ *
+ * Connectors:
+ *   - left.V.re/im,  right.V.re/im : node voltages (pu)
+ *   - left.i.re/im, right.i.re/im : currents positive when entering the device
+ *                                   (Dynawo ACPower flow convention).
+ *
+ * Current / power sign conventions:
+ *   - iRe, iIm > 0 : current flows from left terminal to right terminal
+ *                    (generator convention for the branch).
+ *   - left.i  = +iRe/iIm : current enters the device from the left node
+ *   - right.i = -iRe/iIm : current exits the device at the right node.
+ *
+ * All electrical quantities are expressed in per-unit on the system base.
  */
 model RLDynTrafo
   "Dynamic RL element in RI frame (pu) between two AC terminals"
@@ -58,8 +79,8 @@ model RLDynTrafo
     "Imag-axis branch current from left to right in pu";
 
 initial equation
- der( iRe) = 0;
-  der(iIm )= 0;
+  der(iRe) = 0;
+  der(iIm) = 0;
 
 equation
   // ────────────────────────────────────────────────────────────

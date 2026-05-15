@@ -78,8 +78,8 @@ model outer_loop
     Placement(transformation(origin = {210, 32}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {225, -23}, extent = {{-15, -15}, {15, 15}})));
   // ── Parameters ───────────────────────────────────────────────
   // Control mode selection
-  parameter Boolean k_direct_control_p = true "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
-  parameter Boolean k_direct_control_q = true "true: bypass Q PI, use i_q_ref = Q_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean k_direct_control_p = false "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean k_direct_control_q = false "true: bypass Q PI, use i_q_ref = Q_ref/V_meas | false: use PI regulator (default)";
   // PI tuning — d axis (active power)
   parameter Real k_p_d "Proportional gain of d-axis PI (pu)";
   parameter Real k_i_d "Integral gain of d-axis PI (pu/s)";

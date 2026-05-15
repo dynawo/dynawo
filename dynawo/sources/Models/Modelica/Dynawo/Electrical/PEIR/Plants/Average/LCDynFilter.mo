@@ -1,6 +1,31 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
 model LCDynFilter
+  /**
+     * Author Gaia Bergamaschi
+     * Dynamic LC filter model in RI coordinates (per-unit) for the GFL plant.
+     *
+     * This model represents the converter-side output LC filter in real/imag
+     * (R/I) coordinates, placed between:
+     *   - a left electrical port (voltage-source converter, VSC)
+     *   - a right AC terminal connected to the transformer / network.
+     *
+     * The filter consists of:
+     *   - a series RL branch (R_f, L_f) between the left and right nodes
+     *   - a shunt capacitor C_f connected at the right node to ground.
+     *
+     * State variables:
+     *   - iLeft_re, iLeft_im : inductor current flowing from left into the filter
+     *   - uRight_re, uRight_im : right-node voltage (capacitor voltage).
+     *
+     * Electrical variables are expressed in per-unit on the machine base.
+     * Dynamics are written using the nominal angular frequency omegaNom as base.
+     *
+     * Sign conventions:
+     *   - iLeft_* > 0 : current flowing from the converter (left side) into the filter.
+     *   - terminalRight.i follows Dynawo load convention (flow into the terminal);
+     *     currents from right node to the external network are therefore -terminalRight.i.
+     */
   "LC filter in RI coordinates (pu) between a left port (VSC) and a right AC terminal (to network)"
 
   // ── Initial conditions for states and I/O (pu) ───────────────

@@ -1,7 +1,55 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
+/**
+ * Author Gaia Bergamaschi
+ * Simplified plant-level P–f and Q–U controller for the GFL converter.
+ *
+ * This model implements a plant controller that generates active and reactive
+ * power references for the converter outer control loops. It operates on
+ * filtered measurements of PCC voltage, active power and reactive power, and
+ * uses frequency information from the PLL.
+ *
+ * Main functions:
+ *   - Reactive/voltage control via a U + λ·Q characteristic:
+ *       • Forms the composite signal U + λ·Q from filtered voltage and
+ *         reactive power.
+ *       • Compares it against a voltage reference URefPu.
+ *       • Applies a deadband on the voltage error (±DbdPu).
+ *       • Feeds the result to a PI controller with output limits [QMinPu, QMaxPu].
+ *       • Outputs QInjRefPu (reactive power reference, generator convention).
+ *
+ *   - Active power / frequency droop control:
+ *       • Computes frequency error between a reference (const = 1 pu) and the
+ *         measured PLL frequency omegaPLLPu.
+ *       • Applies an asymmetric deadband on frequency error [−FDbd1Pu, +FDbd2Pu].
+ *       • Scales the net frequency error by Kdroop and limits it to
+ *         [FEMinPu, FEMaxPu].
+ *       • Adds this droop term to the active power reference PRefPu to obtain
+ *         an effective reference PRefEff.
+ *       • Forms the active power error PRefEff − PfiltPu and feeds it to a
+ *         PI controller with output limits [PMinPu, PMaxPu].
+ *       • Outputs PInjRefPu (active power reference, generator convention).
+ *
+ * Inputs (per-unit):
+ *   - URefPu    : voltage set-point for U + λ·Q loop.
+ *   - UfiltPu   : filtered PCC voltage magnitude.
+ *   - QfiltPu   : filtered reactive power (generator convention).
+ *   - PRefPu    : active power set-point (no droop, generator convention).
+ *   - PfiltPu   : filtered active power (generator convention).
+ *   - omegaPLLPu: PLL frequency in pu (base SystemBase.omegaNom).
+ *
+ * Outputs (per-unit):
+ *   - QInjRefPu : reactive power reference to converter outer loop
+ *                 (generator convention, limited between QMinPu and QMaxPu).
+ *   - PInjRefPu : active power reference to converter outer loop
+ *                 (generator convention, limited between PMinPu and PMaxPu).
+ *
+ * All quantities are expressed in per-unit on the machine/system base. This
+ * plant controller assumes that signal filtering is done externally; it only
+ * applies deadbands, droop and PI control with saturation.
+ */
 model Plant_controller
-"Simplified Plant Controller - no internal filters, u+lambdaQ, P with frequency droop, deadbands"
+  "Simplified Plant Controller - no internal filters, u+lambdaQ, P with frequency droop, deadbands"
 
   // ── Parameters ───────────────────────────────────────────────
   parameter Real Kp_q    "PI proportional gain - voltage/Q loop";
@@ -21,13 +69,12 @@ model Plant_controller
   parameter Real DbdPu   "Voltage error deadband half-width (pu)";
 
   // ── Start values ─────────────────────────────────────────────
-  parameter Real U0Pu     "Initial PCC voltage magnitude (pu)";
-  parameter Real Q0Pu     "Initial reactive power (pu)  in generator convection";
-  parameter Real P0Pu     "Initial active power (pu)  in generator convection";
+  parameter Real U0Pu      "Initial PCC voltage magnitude (pu)";
+  parameter Real Q0Pu      "Initial reactive power (pu) in generator convention";
+  parameter Real P0Pu      "Initial active power (pu) in generator convention";
   parameter Real Omega0Pu  "Initial frequency (pu) - nominal";
-  parameter Real QInj0Pu  "Initial reactive power in pu in gnerator convenction";
-  parameter Real PInj0Pu "Initial active power in pu in gnerator convenction";
-
+  parameter Real QInj0Pu   "Initial reactive power in pu in generator convention";
+  parameter Real PInj0Pu   "Initial active power in pu in generator convention";
 
   final parameter Real URef0Pu = U0Pu - Lambda * Q0Pu;
   // PRef0: frequency error = 0 at t=0 => PRef0 = P0
@@ -133,13 +180,25 @@ model Plant_controller
   // PRef_eff - P_filt
   Modelica.Blocks.Math.Add activePowerErr(k1 = +1, k2 = -1) annotation(
     Placement(transformation(origin = {28, -39}, extent = {{-10, -10}, {10, 10}})));
+
   // P PI controller
-  Modelica.Blocks.Continuous.LimPID piP(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kp_p, Ti = Kp_p/Ki_p, yMax = PMaxPu, yMin = PMinPu, xi_start = PInj0Pu/Kp_p, y_start = PInj0Pu, initType = Modelica.Blocks.Types.InitPID.InitialState) annotation(
+  Modelica.Blocks.Continuous.LimPID piP(
+    controllerType = Modelica.Blocks.Types.SimpleController.PI,
+    k        = Kp_p,
+    Ti       = Kp_p/Ki_p,
+    yMax     = PMaxPu,
+    yMin     = PMinPu,
+    xi_start = PInj0Pu/Kp_p,
+    y_start  = PInj0Pu,
+    initType = Modelica.Blocks.Types.InitPID.InitialState) annotation(
     Placement(transformation(origin = {94, -39}, extent = {{-10, -10}, {10, 10}})));
+
   Modelica.Blocks.Sources.Constant zeroP(k = 0) annotation(
     Placement(transformation(origin = {94, -74}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Modelica.Blocks.Sources.Constant const(k = 1) annotation(
     Placement(transformation(origin = {-159, -29}, extent = {{-7, -7}, {7, 7}})));
+
 equation
 // ── Reactive / voltage path ──────────────────────────────────
   connect(QfiltPu, lambdaGain.u) annotation(
@@ -185,6 +244,7 @@ equation
     Line(points = {{105, -39}, {105, -40}, {174, -40}}, color = {0, 0, 127}));
   connect(freqErr.u1, const.y) annotation(
     Line(points = {{-138, -46}, {-138, -48}, {-151, -48}, {-151, -29}}, color = {0, 0, 127}));
+
   annotation(
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
     Icon(graphics = {
@@ -199,6 +259,5 @@ equation
            textString = "deadbands")},
       coordinateSystem(initialScale = 0.1)),
     Diagram(coordinateSystem(extent = {{-150, -110}, {150, 110}})));
-
 
 end Plant_controller;
