@@ -33,6 +33,20 @@ namespace curves {
 class CsvExporter : public Exporter {
  public:
   /**
+   * @brief Not used — CSV export is batch-only via exportToFile() / exportToStream().
+   */
+  void open(const std::string& /*filePath*/) override {}
+
+  /**
+   * @brief Not used — CSV export is batch-only via exportToFile() / exportToStream().
+   */
+  void appendRow(double /*time*/) override {}
+
+  /**
+   * @brief Not used — CSV export is batch-only via exportToFile() / exportToStream().
+   */
+  void close() override {/* not needed */}
+  /**
    * @brief Export method in csv format
    *
    * @param curves curves to export

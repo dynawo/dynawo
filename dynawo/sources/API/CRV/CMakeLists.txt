@@ -30,6 +30,7 @@ set(API_CRV_SOURCES
   CRVXmlImporter.cpp
   CRVXmlExporter.cpp
   CRVCsvExporter.cpp
+  CRVHdf5Exporter.cpp
   )
 
 set(API_CRV_INCLUDE_HEADERS
@@ -44,6 +45,7 @@ set(API_CRV_INCLUDE_HEADERS
   CRVExporter.h
   CRVXmlExporter.h
   CRVCsvExporter.h
+  CRVHdf5Exporter.h
   )
 
 add_library(dynawo_API_CRV SHARED ${API_CRV_SOURCES})
@@ -66,6 +68,11 @@ target_link_libraries(dynawo_API_CRV
     dynawo_Common
     Boost::system
   )
+
+if(HDF5_FOUND)
+  target_include_directories(dynawo_API_CRV SYSTEM PRIVATE ${HDF5_INCLUDE_DIRS})
+  target_link_libraries(dynawo_API_CRV PRIVATE ${HDF5_CXX_LIBRARIES})
+endif()
 
 set_target_properties(dynawo_API_CRV PROPERTIES VERSION ${API_CRV_VERSION_STRING}
                                               SOVERSION ${API_CRV_VERSION_MAJOR})

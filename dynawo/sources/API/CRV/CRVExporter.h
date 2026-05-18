@@ -45,6 +45,22 @@ class Exporter {
   virtual ~Exporter() = default;
 
   /**
+   * @brief Open (create) the output file and initialise the export context.
+   * @param filePath path of the file to create (truncates if exists)
+   */
+  virtual void open(const std::string& filePath) = 0;
+
+  /**
+   * @brief Append one row (one time step) to the output.
+   * @param time current simulation time
+   */
+  virtual void appendRow(double time) = 0;
+
+  /**
+   * @brief Flush pending data and close the output file.
+   */
+  virtual void close() = 0;
+  /**
    * @brief Export method for this exporter
    *
    * @param curves curvers to export

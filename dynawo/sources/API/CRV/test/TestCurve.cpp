@@ -110,25 +110,23 @@ TEST(APICRVTest, CurveUpdateParameterCurveValue) {
   variables.assign(2, 1);
   curve1->setBuffer(&variables[0]);
 
-  // update parameter curve (set the value of parameter curve to zero)
+  // set the fixed value to 5 and record 3 time steps
+  curve1->setFixedValue(5);
   ASSERT_NO_THROW(curve1->update(0));
   ASSERT_NO_THROW(curve1->update(1));
   ASSERT_NO_THROW(curve1->update(2));
 
-  // test updateParameterCurveValue (set the value to a given value)
-  ASSERT_NO_THROW(curve1->updateParameterCurveValue("variable1", 5));
-
   int nbPoints = 0;
   for (const auto& point : curve1->getPoints()) {
     if (nbPoints == 0) {
-      ASSERT_EQ(point->getTime(), 0);  // uptade method called at time = 0
-      ASSERT_EQ(point->getValue(), 5);  // the value has been set to 5 by the updateParameterCurveValue method
+      ASSERT_EQ(point->getTime(), 0);
+      ASSERT_EQ(point->getValue(), 5);
     } else if (nbPoints == 1) {
-      ASSERT_EQ(point->getTime(), 1);  // uptade method called at time = 1
-      ASSERT_EQ(point->getValue(), 5);  // the value has been set to 5 by the updateParameterCurveValue method
+      ASSERT_EQ(point->getTime(), 1);
+      ASSERT_EQ(point->getValue(), 5);
     } else {
-      ASSERT_EQ(point->getTime(), 2);  // uptade method called at time = 2
-      ASSERT_EQ(point->getValue(), 5);  // the value has been set to 5 by the updateParameterCurveValue method
+      ASSERT_EQ(point->getTime(), 2);
+      ASSERT_EQ(point->getValue(), 5);
     }
     ++nbPoints;
   }

@@ -440,8 +440,33 @@ Four export modes are available for the timeline: TXT, XML, CSV or JSON.
 <curves inputFile="MyCurves.crv" exportMode="CSV" timeStep="0.4"/>
 \end{lstlisting}
 
-Two export modes are available for curves export: CSV or XML.
+Three export modes are available for curves export: CSV, XML or HDF5.
 It's impossible to define both an iterationStep and a timeStep.
+
+The \textbf{HDF5} export mode writes a single binary file \path{curves/curves.h5} in the outputs directory.
+The file contains three datasets:
+\begin{itemize}
+  \item \texttt{/time} — 1-D array of simulation time values (one entry per recorded time step);
+  \item \texttt{/data} — 2-D array of shape \textit{(time steps} $\times$ \textit{curves)}, where each column corresponds to one requested curve;
+  \item \texttt{/curve\_names} — string attribute on \texttt{/data} listing the curve identifiers in column order.
+\end{itemize}
+
+\begin{lstlisting}[language=XML, morekeywords={curves},numbers=none]
+<curves inputFile="MyCurves.crv" exportMode="HDF5"/>
+\end{lstlisting}
+
+HDF5 export requires \Dynawo to have been compiled with HDF5 support (CMake option \texttt{DYNAWO\_ACTIVATE\_HDF5\_EXPORT}, enabled by default).
+If HDF5 support is not available and \texttt{exportMode="HDF5"} is requested, \Dynawo will raise an error at runtime.
+
+To visualise HDF5 curves, the \texttt{curves-visu} command of \path{envDynawo.sh} automatically detects HDF5 export mode and launches an interactive Streamlit viewer:
+\begin{lstlisting}[language=bash,numbers=none]
+./envDynawo.sh curves-visu path/to/simulation.jobs
+\end{lstlisting}
+The viewer requires the Python packages \texttt{h5py}, \texttt{streamlit} and \texttt{plotly}.
+They can be installed with:
+\begin{lstlisting}[language=bash,numbers=none]
+python -m pip install -r $DYNAWO_CURVES_VISU_APP_DIR/requirements.txt
+\end{lstlisting}
 
 \item \textbf{Final state values}: the user can observe final state values at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be observed.
 
@@ -914,6 +939,6 @@ $UPhase_0$ is defined as Real in the generator Modelica model and should be decl
 
 \subsubsection{Wrong variable name in crv file}
 
-Mistakes in variables names in the crv file won't trigger any error message, but simply won't be taken into account in the generation of the output curves.csv. If it happens that you can't find the variable that was supposed to figure in curves.csv, check that it is written correctly.
+Mistakes in variables names in the crv file won't trigger any error message, but simply won't be taken into account in the generation of the output curves file (\path{curves.csv}, \path{curves.xml} or \path{curves.h5} depending on the export mode). If it happens that you can't find the variable that was supposed to figure in the curves output, check that it is written correctly.
 
 \end{document}
