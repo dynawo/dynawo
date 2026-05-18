@@ -50,7 +50,7 @@ equation
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, pre(IMonitored), String(tLagBeforeActing, significantDigits = 2));
   end when;
 
-  when time - tThresholdReached >= tLagBeforeActing then
+  when time - tThresholdReached >= tLagBeforeActing and time > 0 then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
     order = OrderToEmit;
     tOrder = time;
