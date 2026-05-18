@@ -16,8 +16,10 @@ set(MODEL_FILES
   package.order
   BESSCurrentSource.mo
   BESSCurrentSource.extvar
+  BESSCurrentSource.mandatoryParam
   BESSCurrentSourceNoPlantControl.mo
   BESSCurrentSourceNoPlantControl.extvar
+  BESSCurrentSourceNoPlantControl.mandatoryParam
   )
 
 #

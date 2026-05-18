@@ -177,10 +177,15 @@ EXTERNAL_PARAMETER, SHARED_PARAMETER, INTERNAL_PARAMETER = range(3)
 # @return the parameter scope
 def param_scope(par):
     if is_param_with_private_equation (par):
+        assert(not par.is_mandatory())
         return INTERNAL_PARAMETER
     elif is_param_internal(par):
+        assert(not par.is_mandatory())
         return SHARED_PARAMETER
     else:
+        if not par.is_mandatory() :
+            print ("[ERROR] " + par.get_name() + " not found in mandatoryParam file")
+        assert(par.is_mandatory())
         return EXTERNAL_PARAMETER
 
 def param_scope_str (par_scope):
@@ -417,6 +422,8 @@ class Variable:
         self.index = -1
         ## Index of the init function in 06Inz file
         self.num_func_06inz = -1
+        ## True if this parameter has no default value (mandatory external parameter)
+        self.mandatory = False
 
 
     ##
@@ -580,6 +587,21 @@ class Variable:
     # @return
     def set_use_start(self, use_start):
         self.use_start = use_start != "false"
+
+    ##
+    # Set if this parameter is mandatory (has no default value)
+    # @param self : object pointer
+    # @param mandatory : @b true if this parameter has no default value
+    # @return
+    def set_mandatory(self, mandatory):
+        self.mandatory = mandatory
+
+    ##
+    # Return true if this parameter is mandatory (has no default value)
+    # @param self : object pointer
+    # @return @b true if this parameter has no default value
+    def is_mandatory(self):
+        return self.mandatory
 
     ##
     # Get the name of the variable

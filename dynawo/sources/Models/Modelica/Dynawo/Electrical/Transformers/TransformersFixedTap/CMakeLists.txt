@@ -16,15 +16,22 @@ set(MODEL_FILES
   package.order
   TransformerFixedRatio.mo
   TransformerFixedRatio.extvar
+  TransformerFixedRatio.mandatoryParam
   GeneratorTransformer.mo
   GeneratorTransformer.extvar
+  GeneratorTransformer.mandatoryParam
   GeneratorTransformer_INIT.mo
+  GeneratorTransformer_INIT.mandatoryParam
   NetworkTransformer.extvar
+  NetworkTransformer.mandatoryParam
   NetworkTransformer.mo
   NetworkTransformer_INIT.mo
+  NetworkTransformer_INIT.mandatoryParam
   TransformerFixedRatioAndPhase.mo
   TransformerFixedRatioAndPhase.extvar
+  TransformerFixedRatioAndPhase.mandatoryParam
   TransformerFixedRatioAndPhase_INIT.mo
+  TransformerFixedRatioAndPhase_INIT.mandatoryParam
   )
 
 #

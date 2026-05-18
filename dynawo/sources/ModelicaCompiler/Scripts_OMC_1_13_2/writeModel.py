@@ -96,6 +96,7 @@ if __name__ == '__main__':
         reader_init = ReaderOMC(mod_name_init, input_dir, is_init_pb = True, disable_calc_var_gen = disable_generate_calc_vars)
 
         #reader_init.readInfoXml()            # Read *_info.xml
+        reader_init.read_mandatory_param_file()
         reader_init.read_16dae_h_file()       # Read *_16dae.h
         reader_init.read_info_json()          # Read *_info.json
         reader_init.read_init_xml()           # Read *_init.xml
@@ -207,6 +208,7 @@ if __name__ == '__main__':
     reader = ReaderOMC(mod_name, input_dir, is_init_pb = False, disable_calc_var_gen = disable_generate_calc_vars)
 
     #reader.readInfoXml()            # Read *_info.xml
+    reader.read_mandatory_param_file()
     reader.read_16dae_h_file()           # Read *_16dae.h
     reader.read_info_json()              # Read *_info.json
     reader.read_init_xml()            # Read *_init.xml

@@ -15,13 +15,19 @@ set(MODEL_FILES
   package.order
   HvdcVsc.mo
   HvdcVsc_INIT.mo
+  HvdcVsc_INIT.mandatoryParam
   HvdcVsc.extvar
+  HvdcVsc.mandatoryParam
   HvdcVscDanglingP.mo
   HvdcVscDanglingP_INIT.mo
+  HvdcVscDanglingP_INIT.mandatoryParam
   HvdcVscDanglingP.extvar
+  HvdcVscDanglingP.mandatoryParam
   HvdcVscDanglingUDc.mo
   HvdcVscDanglingUDc_INIT.mo
+  HvdcVscDanglingUDc_INIT.mandatoryParam
   HvdcVscDanglingUDc.extvar
+  HvdcVscDanglingUDc.mandatoryParam
   )
 
 #

@@ -450,6 +450,17 @@ class Factory:
         self.list_params_integer =  list(filter(is_param_integer, list_vars_read)) # Full Params (all)
         self.list_params_string =  list(filter(is_param_string, list_vars_read)) # Params string (all)
 
+        mandatory_params = self.reader.mandatory_params
+        all_params = self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string
+        name_to_param = {p.get_name(): p for p in all_params}
+        for par in all_params:
+            is_mandatory = par.get_name() in mandatory_params
+            par.set_mandatory(is_mandatory)
+            if is_mandatory and par.get_alias_name():
+                alias = name_to_param.get(par.get_alias_name())
+                if alias is not None:
+                    alias.set_mandatory(True)
+
         ## Removing of WhenVar bool variables, we only keep "real" boolean variables
         tmp_var = []
         for var in self.list_vars_bool:

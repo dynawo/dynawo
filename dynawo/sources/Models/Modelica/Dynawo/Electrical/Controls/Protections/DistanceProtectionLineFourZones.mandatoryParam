@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="LineSide" type="INT"/>
+  <mandatoryParameter name="tZone[1]" type="DOUBLE"/>
+  <mandatoryParameter name="tZone[2]" type="DOUBLE"/>
+  <mandatoryParameter name="tZone[3]" type="DOUBLE"/>
+  <mandatoryParameter name="tZone[4]" type="DOUBLE"/>
+  <mandatoryParameter name="RPu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="RPu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="RPu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="RPu[4]" type="DOUBLE"/>
+  <mandatoryParameter name="XPu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="XPu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="XPu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="XPu[4]" type="DOUBLE"/>
+  <mandatoryParameter name="TrippingZone[1]" type="BOOL"/>
+  <mandatoryParameter name="TrippingZone[2]" type="BOOL"/>
+  <mandatoryParameter name="TrippingZone[3]" type="BOOL"/>
+  <mandatoryParameter name="TrippingZone[4]" type="BOOL"/>
+  <mandatoryParameter name="CircuitBreakerTime" type="DOUBLE"/>
+</mandatoryParameters>

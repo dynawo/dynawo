@@ -17,8 +17,10 @@ set(MODEL_FILES
   package.order
   NodeFault.mo
   NodeFault.extvar
+  NodeFault.mandatoryParam
   LineFault.mo
   LineFault.extvar
+  LineFault.mandatoryParam
   VariableImpedantFault.mo
   VariableImpedantFault.extvar
   )

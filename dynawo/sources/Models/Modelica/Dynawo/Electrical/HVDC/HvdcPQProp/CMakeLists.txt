@@ -13,16 +13,24 @@ set(MODEL_FILES
   package.order
   HvdcPQProp.mo
   HvdcPQProp_INIT.mo
+  HvdcPQProp_INIT.mandatoryParam
   HvdcPQProp.extvar
+  HvdcPQProp.mandatoryParam
   HvdcPQPropDiagramPQ.mo
   HvdcPQPropDiagramPQ_INIT.mo
+  HvdcPQPropDiagramPQ_INIT.mandatoryParam
   HvdcPQPropDiagramPQ.extvar
+  HvdcPQPropDiagramPQ.mandatoryParam
   HvdcPQPropDangling.mo
   HvdcPQPropDangling_INIT.mo
+  HvdcPQPropDangling_INIT.mandatoryParam
   HvdcPQPropDangling.extvar
+  HvdcPQPropDangling.mandatoryParam
   HvdcPQPropDanglingDiagramPQ.mo
   HvdcPQPropDanglingDiagramPQ_INIT.mo
+  HvdcPQPropDanglingDiagramPQ_INIT.mandatoryParam
   HvdcPQPropDanglingDiagramPQ.extvar
+  HvdcPQPropDanglingDiagramPQ.mandatoryParam
   )
 
 #

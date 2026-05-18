@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="DfMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="Mzc" type="BOOL"/>
+  <mandatoryParameter name="tfFilt" type="DOUBLE"/>
+  <mandatoryParameter name="tUFilt" type="DOUBLE"/>
+  <mandatoryParameter name="tphiFilt" type="DOUBLE"/>
+  <mandatoryParameter name="DPMaxP4BPu" type="DOUBLE"/>
+  <mandatoryParameter name="Kpaw" type="DOUBLE"/>
+  <mandatoryParameter name="tPAero" type="DOUBLE"/>
+  <mandatoryParameter name="tPOrdP4B" type="DOUBLE"/>
+  <mandatoryParameter name="tUFiltP4B" type="DOUBLE"/>
+  <mandatoryParameter name="tUFiltcl" type="DOUBLE"/>
+  <mandatoryParameter name="CdrtPu" type="DOUBLE"/>
+  <mandatoryParameter name="Hgen" type="DOUBLE"/>
+  <mandatoryParameter name="Hwtr" type="DOUBLE"/>
+  <mandatoryParameter name="KdrtPu" type="DOUBLE"/>
+  <mandatoryParameter name="MqUvrt" type="INT"/>
+  <mandatoryParameter name="tPFiltQ" type="DOUBLE"/>
+  <mandatoryParameter name="tUFiltQ" type="DOUBLE"/>
+  <mandatoryParameter name="Udb1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Udb2Pu" type="DOUBLE"/>
+  <mandatoryParameter name="tPFiltql" type="DOUBLE"/>
+  <mandatoryParameter name="tUFiltql" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="tS" type="DOUBLE"/>
+  <mandatoryParameter name="DipMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="DiqMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="DiqMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="Kipaw" type="DOUBLE"/>
+  <mandatoryParameter name="Kiqaw" type="DOUBLE"/>
+  <mandatoryParameter name="tG" type="DOUBLE"/>
+  <mandatoryParameter name="tPll" type="DOUBLE"/>
+  <mandatoryParameter name="UPll1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPll2Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Kpaw" type="DOUBLE"/>
+  <mandatoryParameter name="IMaxDipPu" type="DOUBLE"/>
+  <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="Kpqu" type="DOUBLE"/>
+  <mandatoryParameter name="MdfsLim" type="BOOL"/>
+  <mandatoryParameter name="Mqpri" type="BOOL"/>
+  <mandatoryParameter name="UpquMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="IqH1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="IqMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="IqPostPu" type="DOUBLE"/>
+  <mandatoryParameter name="Kiq" type="DOUBLE"/>
+  <mandatoryParameter name="Kiu" type="DOUBLE"/>
+  <mandatoryParameter name="Kpq" type="DOUBLE"/>
+  <mandatoryParameter name="Kpu" type="DOUBLE"/>
+  <mandatoryParameter name="Kqv" type="DOUBLE"/>
+  <mandatoryParameter name="MqG" type="INT"/>
+  <mandatoryParameter name="RDropPu" type="DOUBLE"/>
+  <mandatoryParameter name="tPost" type="DOUBLE"/>
+  <mandatoryParameter name="tQord" type="DOUBLE"/>
+  <mandatoryParameter name="UMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="UMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="UqDipPu" type="DOUBLE"/>
+  <mandatoryParameter name="URef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="XDropPu" type="DOUBLE"/>
+  <mandatoryParameter name="QlConst" type="BOOL"/>
+  <mandatoryParameter name="QMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="QMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="fOverPu" type="DOUBLE"/>
+  <mandatoryParameter name="fUnderPu" type="DOUBLE"/>
+  <mandatoryParameter name="UOverPu" type="DOUBLE"/>
+  <mandatoryParameter name="UUnderPu" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="iGs0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="iGs0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="Ip0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IpMax0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqMax0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqMin0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QMax0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QMin0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+  <mandatoryParameter name="UWt0DroppedPu" type="DOUBLE"/>
+  <mandatoryParameter name="XWT0Pu" type="DOUBLE"/>
+</mandatoryParameters>

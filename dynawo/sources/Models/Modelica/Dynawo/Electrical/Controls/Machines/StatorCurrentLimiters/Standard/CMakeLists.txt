@@ -16,9 +16,11 @@ set(MODEL_FILES
   package.order
   Scl1c.mo
   Scl1c.extvar
+  Scl1c.mandatoryParam
   Scl1c_INIT.mo
   Scl2c.mo
   Scl2c.extvar
+  Scl2c.mandatoryParam
   Scl2c_INIT.mo
   )
 

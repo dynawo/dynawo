@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="At" type="DOUBLE"/>
+  <mandatoryParameter name="DTurb" type="DOUBLE"/>
+  <mandatoryParameter name="FlowNoLoad" type="DOUBLE"/>
+  <mandatoryParameter name="KDroopPerm" type="DOUBLE"/>
+  <mandatoryParameter name="KDroopTemp" type="DOUBLE"/>
+  <mandatoryParameter name="OpeningGateMax" type="DOUBLE"/>
+  <mandatoryParameter name="OpeningGateMin" type="DOUBLE"/>
+  <mandatoryParameter name="tF" type="DOUBLE"/>
+  <mandatoryParameter name="tG" type="DOUBLE"/>
+  <mandatoryParameter name="tR" type="DOUBLE"/>
+  <mandatoryParameter name="tW" type="DOUBLE"/>
+  <mandatoryParameter name="VelMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="Pm0Pu" type="DOUBLE"/>
+</mandatoryParameters>

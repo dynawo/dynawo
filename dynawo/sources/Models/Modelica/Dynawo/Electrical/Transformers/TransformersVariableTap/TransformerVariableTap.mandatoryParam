@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="R" type="DOUBLE"/>
+  <mandatoryParameter name="X" type="DOUBLE"/>
+  <mandatoryParameter name="G" type="DOUBLE"/>
+  <mandatoryParameter name="B" type="DOUBLE"/>
+  <mandatoryParameter name="rTfoMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="rTfoMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="NbTap" type="INT"/>
+  <mandatoryParameter name="u10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="i10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="u20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="i20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="U10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="P10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Tap0" type="INT"/>
+  <mandatoryParameter name="rTfo0Pu" type="DOUBLE"/>
+</mandatoryParameters>

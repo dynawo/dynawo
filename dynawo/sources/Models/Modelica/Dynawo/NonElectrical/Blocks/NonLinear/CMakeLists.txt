@@ -42,12 +42,14 @@ set(MODEL_FILES
   MultiSwitchVariable.mo
   PIAntiWindUpTable.mo
   PIAntiWindUpTable.extvar
+  PIAntiWindUpTable.mandatoryParam
   PulseFixedDuration.mo
   PulseMinimumDuration.mo
   RampLimiter.mo
   StandAloneRampRateLimiter.mo
   ConditionalForward.mo
   ConditionalForward.extvar
+  ConditionalForward.mandatoryParam
   SwitchInteger.mo
   VariableDelayFlag.mo
   VariableLimiter.mo

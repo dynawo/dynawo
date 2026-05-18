@@ -17,20 +17,26 @@ set(MODEL_FILES
   package.order
   HVRT.mo
   HVRT.extvar
+  HVRT.mandatoryParam
   LVRT.mo
   LVRT.extvar
+  LVRT.mandatoryParam
   LossOfSynchronismProtection.mo
   LossOfSynchronismProtection.extvar
+  LossOfSynchronismProtection.mandatoryParam
   LVRT4Points.mo
   LVRT4Points.extvar
   LVRT10Points.mo
   LVRT10Points.extvar
   OVA.mo
   OVA.extvar
+  OVA.mandatoryParam
   SpeedProtection.mo
   SpeedProtection.extvar
+  SpeedProtection.mandatoryParam
   UVA.mo
   UVA.extvar
+  UVA.mandatoryParam
   )
 
 #

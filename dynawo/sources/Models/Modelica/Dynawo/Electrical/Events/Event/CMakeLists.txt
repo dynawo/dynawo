@@ -17,16 +17,22 @@ set(MODEL_FILES
   EventReal.mo
   EventInteger.mo
   SingleBooleanEvent.mo
+  SingleBooleanEvent.mandatoryParam
   DoubleBooleanEvent.mo
   TripleBooleanEvent.mo
   SingleRealEvent.mo
+  SingleRealEvent.mandatoryParam
   DoubleRealEvent.mo
+  DoubleRealEvent.mandatoryParam
   TripleRealEvent.mo
   SingleIntegerEvent.mo
   EventQuadripoleStatus.mo
   EventQuadripoleConnection.mo
+  EventQuadripoleConnection.mandatoryParam
   EventQuadripoleDisconnection.mo
+  EventQuadripoleDisconnection.mandatoryParam
   EventConnectedStatus.mo
+  EventConnectedStatus.mandatoryParam
   )
 
 #

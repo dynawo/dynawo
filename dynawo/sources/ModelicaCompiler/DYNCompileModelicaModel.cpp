@@ -151,6 +151,8 @@ int main(int argc, char ** argv) {
 
   copyFile(modelName + ".mo", modelDir, compilationDir);
   copyFile(modelName + ".extvar", modelDir, compilationDir);
+  copyFile(modelName + ".mandatoryParam", modelDir, compilationDir);
+  copyFile(modelName + "_INIT.mandatoryParam", modelDir, compilationDir);
   copyFile(modelName + "_INIT.mo", modelDir, compilationDir);
 
   // Launch the compile of the model

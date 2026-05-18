@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="Kh" type="DOUBLE"/>
+  <mandatoryParameter name="Kia" type="DOUBLE"/>
+  <mandatoryParameter name="Kl" type="DOUBLE"/>
+  <mandatoryParameter name="Kpa" type="DOUBLE"/>
+  <mandatoryParameter name="PositionOel" type="INT"/>
+  <mandatoryParameter name="PositionScl" type="INT"/>
+  <mandatoryParameter name="PositionUel" type="INT"/>
+  <mandatoryParameter name="tB" type="DOUBLE"/>
+  <mandatoryParameter name="tC" type="DOUBLE"/>
+  <mandatoryParameter name="tF" type="DOUBLE"/>
+  <mandatoryParameter name="tG" type="DOUBLE"/>
+  <mandatoryParameter name="tIa" type="DOUBLE"/>
+  <mandatoryParameter name="tR" type="DOUBLE"/>
+  <mandatoryParameter name="VMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VrMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VrMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="Efd0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Us0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UOel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="USclOel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="USclUel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UUel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UsRef0Pu" type="DOUBLE"/>
+</mandatoryParameters>

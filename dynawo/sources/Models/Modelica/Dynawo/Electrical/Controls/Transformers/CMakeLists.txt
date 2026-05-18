@@ -19,13 +19,19 @@ set(MODEL_FILES
   package.order
   PhaseShifterI.mo
   PhaseShifterI.extvar
+  PhaseShifterI.mandatoryParam
   PhaseShifterI_INIT.mo
+  PhaseShifterI_INIT.mandatoryParam
   PhaseShifterP.mo
   PhaseShifterP.extvar
+  PhaseShifterP.mandatoryParam
   PhaseShifterP_INIT.mo
+  PhaseShifterP_INIT.mandatoryParam
   TapChanger.mo
   TapChanger.extvar
+  TapChanger.mandatoryParam
   TapChanger_INIT.mo
+  TapChanger_INIT.mandatoryParam
   TapChangerWithTransformer_INIT.mo
   )
 

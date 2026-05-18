@@ -13,7 +13,9 @@ set(MODEL_FILES
   package.mo
   package.order
   WECCInverterCurrentSource_INIT.mo
+  WECCInverterCurrentSource_INIT.mandatoryParam
   WECCPlantCurrentSource_INIT.mo
+  WECCPlantCurrentSource_INIT.mandatoryParam
   )
 
 #

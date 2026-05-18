@@ -22,6 +22,7 @@ set(MODEL_FILES
   DecreaseDetection.mo
   DiscreteIntegrator.mo
   DiscreteIntegrator.extvar
+  DiscreteIntegrator.mandatoryParam
   IncreaseDetection.mo
   IntegratorWithReset.mo
   IntegratorSetFreeze.mo
@@ -47,6 +48,7 @@ set(MODEL_FILES
   Washout.mo
   WeightedDifference.mo
   WeightedDifference.extvar
+  WeightedDifference.mandatoryParam
   )
 
 #

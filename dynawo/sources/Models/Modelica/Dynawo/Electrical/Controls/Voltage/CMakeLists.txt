@@ -18,16 +18,22 @@ set(MODEL_FILES
   package.order
   TapChangerBlocking1.mo
   TapChangerBlocking1.extvar
+  TapChangerBlocking1.mandatoryParam
   TapChangerBlocking2.mo
   TapChangerBlocking2.extvar
+  TapChangerBlocking2.mandatoryParam
   TapChangerBlocking3.mo
   TapChangerBlocking3.extvar
+  TapChangerBlocking3.mandatoryParam
   TapChangerBlocking4.mo
   TapChangerBlocking4.extvar
+  TapChangerBlocking4.mandatoryParam
   TapChangerBlocking5.mo
   TapChangerBlocking5.extvar
+  TapChangerBlocking5.mandatoryParam
   VRRemote.mo
   VRRemote.extvar
+  VRRemote.mandatoryParam
   )
 
 #

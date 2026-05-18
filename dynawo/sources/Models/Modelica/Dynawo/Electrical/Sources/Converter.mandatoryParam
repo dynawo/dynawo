@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="RFilter" type="DOUBLE"/>
+  <mandatoryParameter name="LFilter" type="DOUBLE"/>
+  <mandatoryParameter name="CFilter" type="DOUBLE"/>
+  <mandatoryParameter name="RTransformer" type="DOUBLE"/>
+  <mandatoryParameter name="LTransformer" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="Cdc" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UdPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UqPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IdcSource0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UdcSource0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UdConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UqConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IdConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IdPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UdFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UqFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Theta0" type="DOUBLE"/>
+  <mandatoryParameter name="PFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+  <mandatoryParameter name="IConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+</mandatoryParameters>

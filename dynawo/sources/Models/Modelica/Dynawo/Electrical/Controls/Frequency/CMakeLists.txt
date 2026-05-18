@@ -18,6 +18,7 @@ set(MODEL_FILES
   SignalN.extvar
   SecondaryFrequencyRegulation.mo
   SecondaryFrequencyRegulation.extvar
+  SecondaryFrequencyRegulation.mandatoryParam
   )
 
 #

@@ -16,12 +16,17 @@ set(MODEL_FILES
   package.order
   IdealTransformerVariableTapControlled.mo
   IdealTransformerVariableTapControlled.extvar
+  IdealTransformerVariableTapControlled.mandatoryParam
   IdealTransformerVariableTapIControlled_INIT.mo
+  IdealTransformerVariableTapIControlled_INIT.mandatoryParam
   IdealTransformerVariableTapPQControlled_INIT.mo
   TransformerVariableTapControlled.mo
   TransformerVariableTapControlled.extvar
+  TransformerVariableTapControlled.mandatoryParam
   TransformerVariableTapIControlled_INIT.mo
+  TransformerVariableTapIControlled_INIT.mandatoryParam
   TransformerVariableTapPQControlled_INIT.mo
+  TransformerVariableTapPQControlled_INIT.mandatoryParam
   TransformerVariableTapXtdPuControlled.mo
   )
 

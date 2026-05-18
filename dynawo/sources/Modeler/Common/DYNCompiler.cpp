@@ -57,6 +57,9 @@
 #include "EXTVARVariablesCollectionFactory.h"
 #include "EXTVARVariable.h"
 
+#include "MANDATORYPARAMXmlImporter.h"
+#include "MANDATORYPARAMXmlExporter.h"
+
 #include "DYNCommon.h"
 
 using std::map;
@@ -168,6 +171,10 @@ Compiler::getDDB() {
     // scan for all .extvar (external variables files)
     searchModelsFiles(DDBDir, ".extvar", fileExtensionsForbiddenXML, pathsToIgnore_,
         searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
+
+    // scan for all .mandatoryParam files
+    searchModelsFiles(DDBDir, ".mandatoryParam", fileExtensionsForbiddenXML, pathsToIgnore_,
+        searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, mandatoryParamFiles_);
   }
 
   for (const auto& modelicaModelsDirsPath : modelicaModelsDirsPaths_) {
@@ -182,6 +189,9 @@ Compiler::getDDB() {
             moFilesAll_);
     searchModelsFiles(modelicaModelsDirPath, ".extvar", fileExtensionsForbiddenXML, pathsToIgnore_,
         modelicaModelsDirPathIsRecursive, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
+
+    searchModelsFiles(modelicaModelsDirPath, ".mandatoryParam", fileExtensionsForbiddenXML, pathsToIgnore_,
+        modelicaModelsDirPathIsRecursive, packageNeedsRecursive, !stopWhenSeePackage, mandatoryParamFiles_);
   }
   Trace::debug(Trace::compile()) << DYNLog(CompileFiles) << Trace::endline;
   for (const auto& moFileCompilationPair : moFilesCompilation_) {
@@ -514,6 +524,9 @@ Compiler::concatModel(const std::shared_ptr<ModelDescription>& modelicaModelDesc
   writeExtvarFile(modelicaModelDescription, macroConnection,
       unitDynamicModels, internalConnects, allExternalVariables);
 
+  // .mandatoryParam file generation
+  writeMandatoryParamFile(modelicaModelDescription, unitDynamicModels);
+
   // _init.mo file generation
   initConcatFile_ = "";
   if (hasInit) {
@@ -768,6 +781,49 @@ Compiler::writeExtvarFile(const std::shared_ptr<ModelDescription>& modelicaModel
     const string extVarFlatPath = absolute(modelConcatName + ".extvar", modelDirPath_);
     externalVariables::XmlExporter extVarExporter;
     extVarExporter.exportToFile(*modelExternalvariables, extVarFlatPath);
+  }
+}
+
+void
+Compiler::writeMandatoryParamFile(const std::shared_ptr<ModelDescription>& modelicaModelDescription,
+    const map<string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels) const {
+  mandatoryParameters::Collection dynCollection;
+  mandatoryParameters::Collection initCollection;
+  mandatoryParameters::XmlImporter importer;
+  mandatoryParameters::XmlExporter exporter;
+
+  for (const auto& unitDynamicModelPair : unitDynamicModels) {
+    const string& unitId = unitDynamicModelPair.first;
+    const std::shared_ptr<dynamicdata::UnitDynamicModel>& unitDynamicModel = unitDynamicModelPair.second;
+
+    const auto& itDyn = mandatoryParamFiles_.find(unitDynamicModel->getDynamicModelName());
+    if (itDyn != mandatoryParamFiles_.end()) {
+      const std::shared_ptr<mandatoryParameters::Collection> unitDynCollection = importer.importFromFile(itDyn->second);
+      for (const auto& param : unitDynCollection->getParameters())
+        dynCollection.addParameter(unitId + "." + param.getName(), param.getType());
+    }
+
+    const string& initName = unitDynamicModel->getInitModelName();
+    if (!initName.empty()) {
+      const auto& itInit = mandatoryParamFiles_.find(initName);
+      if (itInit != mandatoryParamFiles_.end()) {
+        const std::shared_ptr<mandatoryParameters::Collection> unitInitCollection = importer.importFromFile(itInit->second);
+        for (const auto& param : unitInitCollection->getParameters())
+          initCollection.addParameter(unitId + "." + param.getName(), param.getType());
+      }
+    }
+  }
+
+  const string& modelConcatName = modelicaModelDescription->getCompiledModelId();
+
+  if (!dynCollection.getParameters().empty()) {
+    const string dynPath = absolute(modelConcatName + ".mandatoryParam", modelDirPath_);
+    exporter.exportToFile(dynCollection, dynPath);
+  }
+
+  if (!initCollection.getParameters().empty()) {
+    const string initPath = absolute(modelConcatName + "_INIT.mandatoryParam", modelDirPath_);
+    exporter.exportToFile(initCollection, initPath);
   }
 }
 

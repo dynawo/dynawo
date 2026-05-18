@@ -14,10 +14,13 @@ set(MODEL_FILES
   package.order
   CurrentLimitAutomaton.mo
   CurrentLimitAutomaton.extvar
+  CurrentLimitAutomaton.mandatoryParam
   CurrentLimitAutomatonTwoLevels.mo
   CurrentLimitAutomatonTwoLevels.extvar
+  CurrentLimitAutomatonTwoLevels.mandatoryParam
   PhaseShifterBlockingI.mo
   PhaseShifterBlockingI.extvar
+  PhaseShifterBlockingI.mandatoryParam
   )
 
 #

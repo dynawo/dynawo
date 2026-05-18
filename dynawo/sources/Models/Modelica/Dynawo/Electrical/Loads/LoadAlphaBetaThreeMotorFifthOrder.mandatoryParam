@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="Alpha" type="DOUBLE"/>
+  <mandatoryParameter name="Beta" type="DOUBLE"/>
+  <mandatoryParameter name="ActiveMotorShare[1]" type="DOUBLE"/>
+  <mandatoryParameter name="ActiveMotorShare[2]" type="DOUBLE"/>
+  <mandatoryParameter name="ActiveMotorShare[3]" type="DOUBLE"/>
+  <mandatoryParameter name="RsPu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="RsPu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="RsPu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="LsPu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="LsPu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="LsPu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="LPPu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="LPPu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="LPPu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="LPPPu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="LPPPu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="LPPPu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="tP0[1]" type="DOUBLE"/>
+  <mandatoryParameter name="tP0[2]" type="DOUBLE"/>
+  <mandatoryParameter name="tP0[3]" type="DOUBLE"/>
+  <mandatoryParameter name="tPP0[1]" type="DOUBLE"/>
+  <mandatoryParameter name="tPP0[2]" type="DOUBLE"/>
+  <mandatoryParameter name="tPP0[3]" type="DOUBLE"/>
+  <mandatoryParameter name="H[1]" type="DOUBLE"/>
+  <mandatoryParameter name="H[2]" type="DOUBLE"/>
+  <mandatoryParameter name="H[3]" type="DOUBLE"/>
+  <mandatoryParameter name="torqueExponent[1]" type="DOUBLE"/>
+  <mandatoryParameter name="torqueExponent[2]" type="DOUBLE"/>
+  <mandatoryParameter name="torqueExponent[3]" type="DOUBLE"/>
+  <mandatoryParameter name="Utrip1Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="Utrip1Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="Utrip1Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="tTrip1Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="tTrip1Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="tTrip1Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="shareTrip1Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="shareTrip1Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="shareTrip1Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="Ureconnect1Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="Ureconnect1Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="Ureconnect1Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="tReconnect1Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="tReconnect1Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="tReconnect1Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="Utrip2Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="Utrip2Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="Utrip2Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="tTrip2Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="tTrip2Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="tTrip2Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="shareTrip2Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="shareTrip2Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="shareTrip2Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="Ureconnect2Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="Ureconnect2Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="Ureconnect2Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="tReconnect2Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="tReconnect2Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="tReconnect2Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="PLoad0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QLoad0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="EdP0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="EdP0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="EdP0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="EqP0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="EqP0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="EqP0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="EdPP0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="EdPP0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="EdPP0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="EqPP0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="EqPP0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="EqPP0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="id0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="id0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="id0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="iq0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="iq0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="iq0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="ce0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="ce0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="ce0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="s0[1]" type="DOUBLE"/>
+  <mandatoryParameter name="s0[2]" type="DOUBLE"/>
+  <mandatoryParameter name="s0[3]" type="DOUBLE"/>
+  <mandatoryParameter name="omegaR0Pu[1]" type="DOUBLE"/>
+  <mandatoryParameter name="omegaR0Pu[2]" type="DOUBLE"/>
+  <mandatoryParameter name="omegaR0Pu[3]" type="DOUBLE"/>
+  <mandatoryParameter name="motori0Pu[1].re" type="DOUBLE"/>
+  <mandatoryParameter name="motori0Pu[1].im" type="DOUBLE"/>
+  <mandatoryParameter name="motori0Pu[2].re" type="DOUBLE"/>
+  <mandatoryParameter name="motori0Pu[2].im" type="DOUBLE"/>
+  <mandatoryParameter name="motori0Pu[3].re" type="DOUBLE"/>
+  <mandatoryParameter name="motori0Pu[3].im" type="DOUBLE"/>
+  <mandatoryParameter name="motors0Pu[1].re" type="DOUBLE"/>
+  <mandatoryParameter name="motors0Pu[1].im" type="DOUBLE"/>
+  <mandatoryParameter name="motors0Pu[2].re" type="DOUBLE"/>
+  <mandatoryParameter name="motors0Pu[2].im" type="DOUBLE"/>
+  <mandatoryParameter name="motors0Pu[3].re" type="DOUBLE"/>
+  <mandatoryParameter name="motors0Pu[3].im" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
+</mandatoryParameters>

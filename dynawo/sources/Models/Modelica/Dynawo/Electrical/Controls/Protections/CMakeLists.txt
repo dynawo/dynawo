@@ -16,16 +16,22 @@ set(MODEL_FILES
   package.order
   DistanceProtectionLineFourZones.mo
   DistanceProtectionLineFourZones.extvar
+  DistanceProtectionLineFourZones.mandatoryParam
   DistanceProtectionLineFourZonesWithBlinder.mo
   DistanceProtectionLineFourZonesWithBlinder.extvar
+  DistanceProtectionLineFourZonesWithBlinder.mandatoryParam
   DistanceProtectionLineTwoZones.mo
   DistanceProtectionLineTwoZones.extvar
+  DistanceProtectionLineTwoZones.mandatoryParam
   DistanceProtectionLineTwoZonesWithBlinder.mo
   DistanceProtectionLineTwoZonesWithBlinder.extvar
+  DistanceProtectionLineTwoZonesWithBlinder.mandatoryParam
   UFLS3Steps.mo
   UFLS3Steps.extvar
+  UFLS3Steps.mandatoryParam
   UFLS10Steps.mo
   UFLS10Steps.extvar
+  UFLS10Steps.mandatoryParam
   )
 
 #

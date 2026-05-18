@@ -16,9 +16,12 @@ set(MODEL_FILES
   package.order
   GeneratorAlphaBeta.mo
   GeneratorAlphaBeta.extvar
+  GeneratorAlphaBeta.mandatoryParam
   GeneratorPVFixed.mo
   GeneratorPVFixed.extvar
+  GeneratorPVFixed.mandatoryParam
   GeneratorSimplified_INIT.mo
+  GeneratorSimplified_INIT.mandatoryParam
   )
 
 #

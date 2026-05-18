@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="tFilter" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaThetaFiltered0" type="DOUBLE"/>
+  <mandatoryParameter name="KACEmulation0" type="DOUBLE"/>
+  <mandatoryParameter name="PRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PRefSet0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Theta10" type="DOUBLE"/>
+  <mandatoryParameter name="Theta20" type="DOUBLE"/>
+</mandatoryParameters>

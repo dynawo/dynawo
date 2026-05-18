@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="Eta" type="DOUBLE"/>
+  <mandatoryParameter name="Alpha" type="DOUBLE"/>
+  <mandatoryParameter name="KDvoc" type="DOUBLE"/>
+  <mandatoryParameter name="KpVI" type="DOUBLE"/>
+  <mandatoryParameter name="XRratio" type="DOUBLE"/>
+  <mandatoryParameter name="IMaxVI" type="DOUBLE"/>
+  <mandatoryParameter name="Kpdc" type="DOUBLE"/>
+  <mandatoryParameter name="Kpv" type="DOUBLE"/>
+  <mandatoryParameter name="Kiv" type="DOUBLE"/>
+  <mandatoryParameter name="CFilter" type="DOUBLE"/>
+  <mandatoryParameter name="Kpc" type="DOUBLE"/>
+  <mandatoryParameter name="Kic" type="DOUBLE"/>
+  <mandatoryParameter name="LFilter" type="DOUBLE"/>
+  <mandatoryParameter name="RFilter" type="DOUBLE"/>
+  <mandatoryParameter name="IdcSourceRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IdcSource0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UdcSourceRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UdcSource0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UdConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UqConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IdConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IdPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UdFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UqFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Theta0" type="DOUBLE"/>
+  <mandatoryParameter name="PFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QFilter0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UFilterRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IConvSquare0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaIConvSquare0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="RVI0" type="DOUBLE"/>
+  <mandatoryParameter name="XVI0" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaVVId0" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaVVIq0" type="DOUBLE"/>
+</mandatoryParameters>

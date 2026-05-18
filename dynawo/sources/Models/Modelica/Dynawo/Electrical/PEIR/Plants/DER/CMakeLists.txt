@@ -16,16 +16,23 @@ set(MODEL_FILES
   package.order
   AggregatedIBG.mo
   AggregatedIBG.extvar
+  AggregatedIBG.mandatoryParam
   DERa.mo
   DERa.extvar
+  DERa.mandatoryParam
   DERaAggregatedLVRT.mo
   DERaAggregatedLVRT.extvar
+  DERaAggregatedLVRT.mandatoryParam
   DERaGenericLVRT.mo
   DERaGenericLVRT.extvar
+  DERaGenericLVRT.mandatoryParam
   GenericIBG.mo
   GenericIBG.extvar
+  GenericIBG.mandatoryParam
   DERa_INIT.mo
+  DERa_INIT.mandatoryParam
   IBG_INIT.mo
+  IBG_INIT.mandatoryParam
   )
 
 #

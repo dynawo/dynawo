@@ -18,23 +18,36 @@ set(MODEL_FILES
   package.order
   GeneratorPQ.mo
   GeneratorPQ.extvar
+  GeneratorPQ.mandatoryParam
   GeneratorPQ_INIT.mo
+  GeneratorPQ_INIT.mandatoryParam
   GeneratorPTanPhi.mo
   GeneratorPTanPhi.extvar
+  GeneratorPTanPhi.mandatoryParam
   GeneratorPTanPhi_INIT.mo
+  GeneratorPTanPhi_INIT.mandatoryParam
   GeneratorPV.mo
   GeneratorPV.extvar
+  GeneratorPV.mandatoryParam
   GeneratorPVDiagramPQ.mo
   GeneratorPVDiagramPQ.extvar
+  GeneratorPVDiagramPQ.mandatoryParam
   GeneratorPV_INIT.mo
+  GeneratorPV_INIT.mandatoryParam
   GeneratorSynchronous.mo
   GeneratorSynchronous.extvar
+  GeneratorSynchronous.mandatoryParam
   GeneratorSynchronousInt_INIT.mo
+  GeneratorSynchronousInt_INIT.mandatoryParam
   GeneratorSynchronousExt3W_INIT.mo
+  GeneratorSynchronousExt3W_INIT.mandatoryParam
   GeneratorSynchronousExt4W_INIT.mo
+  GeneratorSynchronousExt4W_INIT.mandatoryParam
   GeneratorSynchronousIntTfo_INIT.mo
   GeneratorSynchronousExtTfo3W_INIT.mo
+  GeneratorSynchronousExtTfo3W_INIT.mandatoryParam
   GeneratorSynchronousExtTfo4W_INIT.mo
+  GeneratorSynchronousExtTfo4W_INIT.mandatoryParam
   )
 
 #

@@ -15,10 +15,13 @@ set(MODEL_FILES
   package.order
   GoverDTRI8.mo
   GoverDTRI8.extvar
+  GoverDTRI8.mandatoryParam
   GoverNordic.mo
   GoverNordic.extvar
+  GoverNordic.mandatoryParam
   GoverProportional.mo
   GoverProportional.extvar
+  GoverProportional.mandatoryParam
   )
 
 #

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="RFilter" type="DOUBLE"/>
+  <mandatoryParameter name="LFilter" type="DOUBLE"/>
+  <mandatoryParameter name="CFilter" type="DOUBLE"/>
+  <mandatoryParameter name="RTransformer" type="DOUBLE"/>
+  <mandatoryParameter name="LTransformer" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+</mandatoryParameters>

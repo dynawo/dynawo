@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="CHcPu" type="DOUBLE"/>
+  <mandatoryParameter name="CHoPu" type="DOUBLE"/>
+  <mandatoryParameter name="CIcPu" type="DOUBLE"/>
+  <mandatoryParameter name="CIoPu" type="DOUBLE"/>
+  <mandatoryParameter name="DeltafDbPu" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaOmegaDbPu" type="DOUBLE"/>
+  <mandatoryParameter name="HHpMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="KE" type="DOUBLE"/>
+  <mandatoryParameter name="KFCor" type="DOUBLE"/>
+  <mandatoryParameter name="KHp" type="DOUBLE"/>
+  <mandatoryParameter name="KLp" type="DOUBLE"/>
+  <mandatoryParameter name="KOmegaCor" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaFMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaFMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMax1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMax2Pu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaOmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaOmegaMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="PBaseMw" type="DOUBLE"/>
+  <mandatoryParameter name="PMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="PRhMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="SimxPu" type="DOUBLE"/>
+  <mandatoryParameter name="tB" type="DOUBLE"/>
+  <mandatoryParameter name="tDp" type="DOUBLE"/>
+  <mandatoryParameter name="tEn" type="DOUBLE"/>
+  <mandatoryParameter name="tF" type="DOUBLE"/>
+  <mandatoryParameter name="tFp" type="DOUBLE"/>
+  <mandatoryParameter name="tHp" type="DOUBLE"/>
+  <mandatoryParameter name="tIp" type="DOUBLE"/>
+  <mandatoryParameter name="tLp" type="DOUBLE"/>
+  <mandatoryParameter name="tOmega" type="DOUBLE"/>
+  <mandatoryParameter name="tP" type="DOUBLE"/>
+  <mandatoryParameter name="tRh" type="DOUBLE"/>
+  <mandatoryParameter name="tVHp" type="DOUBLE"/>
+  <mandatoryParameter name="tVLp" type="DOUBLE"/>
+  <mandatoryParameter name="PGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Pm0Pu" type="DOUBLE"/>
+</mandatoryParameters>

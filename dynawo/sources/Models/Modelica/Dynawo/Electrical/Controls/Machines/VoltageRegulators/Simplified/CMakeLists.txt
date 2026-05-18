@@ -17,16 +17,23 @@ set(MODEL_FILES
   package.order
   VRDTRI8.mo
   VRDTRI8.extvar
+  VRDTRI8.mandatoryParam
   VRDTRI8_INIT.mo
+  VRDTRI8_INIT.mandatoryParam
   VRNordic.mo
   VRNordic.extvar
+  VRNordic.mandatoryParam
   VRNordic_INIT.mo
   VRProportional.extvar
+  VRProportional.mandatoryParam
   VRProportional.mo
   VRProportional_INIT.mo
+  VRProportional_INIT.mandatoryParam
   VRProportionalIntegral.extvar
+  VRProportionalIntegral.mandatoryParam
   VRProportionalIntegral.mo
   VRProportionalIntegral_INIT.mo
+  VRProportionalIntegral_INIT.mandatoryParam
   VRProportionalReactiveFeedback.extvar
   VRProportionalReactiveFeedback.mo
   )

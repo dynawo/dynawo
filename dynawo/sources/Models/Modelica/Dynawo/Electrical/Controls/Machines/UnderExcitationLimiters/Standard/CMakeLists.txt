@@ -14,10 +14,13 @@ set(MODEL_FILES
   package.order
   Uel1.mo
   Uel1.extvar
+  Uel1.mandatoryParam
   Uel1_INIT.mo
   Uel2c.mo
   Uel2c.extvar
+  Uel2c.mandatoryParam
   Uel2c_INIT.mo
+  Uel2c_INIT.mandatoryParam
   )
 
 #

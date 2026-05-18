@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="iMax" type="DOUBLE"/>
+  <mandatoryParameter name="iStop" type="DOUBLE"/>
+  <mandatoryParameter name="I0" type="DOUBLE"/>
+  <mandatoryParameter name="increasePhase" type="INT"/>
+  <mandatoryParameter name="P0" type="DOUBLE"/>
+  <mandatoryParameter name="t1st" type="DOUBLE"/>
+  <mandatoryParameter name="tNext" type="DOUBLE"/>
+  <mandatoryParameter name="tapMin" type="INT"/>
+  <mandatoryParameter name="tapMax" type="INT"/>
+  <mandatoryParameter name="regulating0" type="BOOL"/>
+  <mandatoryParameter name="tap0" type="INT"/>
+  <mandatoryParameter name="state0" type="INT"/>
+</mandatoryParameters>

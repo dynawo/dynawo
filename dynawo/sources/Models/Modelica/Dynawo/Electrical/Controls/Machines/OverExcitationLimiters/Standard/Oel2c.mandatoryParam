@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="C1" type="DOUBLE"/>
+  <mandatoryParameter name="C2" type="DOUBLE"/>
+  <mandatoryParameter name="FixedRd" type="DOUBLE"/>
+  <mandatoryParameter name="FixedRu" type="DOUBLE"/>
+  <mandatoryParameter name="IInstPu" type="DOUBLE"/>
+  <mandatoryParameter name="ILimPu" type="DOUBLE"/>
+  <mandatoryParameter name="IResetPu" type="DOUBLE"/>
+  <mandatoryParameter name="ITfPu" type="DOUBLE"/>
+  <mandatoryParameter name="IThOffPu" type="DOUBLE"/>
+  <mandatoryParameter name="K1" type="DOUBLE"/>
+  <mandatoryParameter name="K2" type="DOUBLE"/>
+  <mandatoryParameter name="KAct" type="DOUBLE"/>
+  <mandatoryParameter name="KdOel" type="DOUBLE"/>
+  <mandatoryParameter name="KFb" type="DOUBLE"/>
+  <mandatoryParameter name="KiOel" type="DOUBLE"/>
+  <mandatoryParameter name="KpOel" type="DOUBLE"/>
+  <mandatoryParameter name="Krd" type="DOUBLE"/>
+  <mandatoryParameter name="Kru" type="DOUBLE"/>
+  <mandatoryParameter name="KScale" type="DOUBLE"/>
+  <mandatoryParameter name="Kzru" type="DOUBLE"/>
+  <mandatoryParameter name="Sw1" type="BOOL"/>
+  <mandatoryParameter name="tAOel" type="DOUBLE"/>
+  <mandatoryParameter name="tB1Oel" type="DOUBLE"/>
+  <mandatoryParameter name="tB2Oel" type="DOUBLE"/>
+  <mandatoryParameter name="tC1Oel" type="DOUBLE"/>
+  <mandatoryParameter name="tC2Oel" type="DOUBLE"/>
+  <mandatoryParameter name="tDOel" type="DOUBLE"/>
+  <mandatoryParameter name="tEn" type="DOUBLE"/>
+  <mandatoryParameter name="tFcl" type="DOUBLE"/>
+  <mandatoryParameter name="tMax" type="DOUBLE"/>
+  <mandatoryParameter name="tMin" type="DOUBLE"/>
+  <mandatoryParameter name="tOff" type="DOUBLE"/>
+  <mandatoryParameter name="tROel" type="DOUBLE"/>
+  <mandatoryParameter name="VInvMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VInvMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOel1MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOel1MinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOel2MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOel2MinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOel3MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOel3MinPu" type="DOUBLE"/>
+  <mandatoryParameter name="Input0Pu" type="DOUBLE"/>
+</mandatoryParameters>

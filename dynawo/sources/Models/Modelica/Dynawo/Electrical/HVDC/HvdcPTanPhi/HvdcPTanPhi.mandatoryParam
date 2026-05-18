@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="i20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="s20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="u20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase10" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase20" type="DOUBLE"/>
+  <mandatoryParameter name="KLosses" type="DOUBLE"/>
+  <mandatoryParameter name="PMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="i10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="P1Ref0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="s10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="u10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="Q2MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="Q2MinPu" type="DOUBLE"/>
+  <mandatoryParameter name="Q1MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="Q1MinPu" type="DOUBLE"/>
+  <mandatoryParameter name="TanPhi2Ref0" type="DOUBLE"/>
+  <mandatoryParameter name="TanPhi1Ref0" type="DOUBLE"/>
+</mandatoryParameters>

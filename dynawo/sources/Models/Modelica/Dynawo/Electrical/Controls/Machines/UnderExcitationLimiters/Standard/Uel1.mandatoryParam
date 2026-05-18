@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="Kuc" type="DOUBLE"/>
+  <mandatoryParameter name="Kuf" type="DOUBLE"/>
+  <mandatoryParameter name="Kui" type="DOUBLE"/>
+  <mandatoryParameter name="Kul" type="DOUBLE"/>
+  <mandatoryParameter name="Kur" type="DOUBLE"/>
+  <mandatoryParameter name="tU1" type="DOUBLE"/>
+  <mandatoryParameter name="tU2" type="DOUBLE"/>
+  <mandatoryParameter name="tU3" type="DOUBLE"/>
+  <mandatoryParameter name="tU4" type="DOUBLE"/>
+  <mandatoryParameter name="VUcMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUiMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUiMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUrMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="it0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="it0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="ut0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="ut0Pu.im" type="DOUBLE"/>
+</mandatoryParameters>

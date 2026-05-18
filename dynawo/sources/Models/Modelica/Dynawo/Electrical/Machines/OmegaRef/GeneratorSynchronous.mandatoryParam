@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="PGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="sStator0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="sStator0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="uStator0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="uStator0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="iStator0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="iStator0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UStator0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IStator0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QStator0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QStator0PuQNom" type="DOUBLE"/>
+  <mandatoryParameter name="IRotor0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="ThetaInternal0" type="DOUBLE"/>
+  <mandatoryParameter name="RaPPu" type="DOUBLE"/>
+  <mandatoryParameter name="LdPPu" type="DOUBLE"/>
+  <mandatoryParameter name="MdPPu" type="DOUBLE"/>
+  <mandatoryParameter name="LDPPu" type="DOUBLE"/>
+  <mandatoryParameter name="RDPPu" type="DOUBLE"/>
+  <mandatoryParameter name="MrcPPu" type="DOUBLE"/>
+  <mandatoryParameter name="LfPPu" type="DOUBLE"/>
+  <mandatoryParameter name="RfPPu" type="DOUBLE"/>
+  <mandatoryParameter name="LqPPu" type="DOUBLE"/>
+  <mandatoryParameter name="MqPPu" type="DOUBLE"/>
+  <mandatoryParameter name="LQ1PPu" type="DOUBLE"/>
+  <mandatoryParameter name="RQ1PPu" type="DOUBLE"/>
+  <mandatoryParameter name="LQ2PPu" type="DOUBLE"/>
+  <mandatoryParameter name="RQ2PPu" type="DOUBLE"/>
+  <mandatoryParameter name="MsalPu" type="DOUBLE"/>
+  <mandatoryParameter name="MdPPuEfd" type="DOUBLE"/>
+  <mandatoryParameter name="MdPPuEfdNom" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+  <mandatoryParameter name="Efd0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Pm0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="Theta0" type="DOUBLE"/>
+  <mandatoryParameter name="Ud0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Uq0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Id0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="If0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Uf0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Lambdad0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Lambdaq0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="LambdaD0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Lambdaf0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="LambdaQ10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="LambdaQ20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Ce0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Cm0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="MdSat0PPu" type="DOUBLE"/>
+  <mandatoryParameter name="MqSat0PPu" type="DOUBLE"/>
+  <mandatoryParameter name="LambdaAirGap0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="LambdaAD0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="LambdaAQ0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Mds0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Mqs0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Cos2Eta0" type="DOUBLE"/>
+  <mandatoryParameter name="Sin2Eta0" type="DOUBLE"/>
+  <mandatoryParameter name="Mi0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UNom" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="PNomTurb" type="DOUBLE"/>
+  <mandatoryParameter name="PNomAlt" type="DOUBLE"/>
+  <mandatoryParameter name="ExcitationPu" type="INT"/>
+  <mandatoryParameter name="H" type="DOUBLE"/>
+  <mandatoryParameter name="DPu" type="DOUBLE"/>
+  <mandatoryParameter name="SnTfo" type="DOUBLE"/>
+  <mandatoryParameter name="UNomHV" type="DOUBLE"/>
+  <mandatoryParameter name="UNomLV" type="DOUBLE"/>
+  <mandatoryParameter name="UBaseHV" type="DOUBLE"/>
+  <mandatoryParameter name="UBaseLV" type="DOUBLE"/>
+  <mandatoryParameter name="RTfPu" type="DOUBLE"/>
+  <mandatoryParameter name="XTfPu" type="DOUBLE"/>
+  <mandatoryParameter name="md" type="DOUBLE"/>
+  <mandatoryParameter name="mq" type="DOUBLE"/>
+  <mandatoryParameter name="nd" type="DOUBLE"/>
+  <mandatoryParameter name="nq" type="DOUBLE"/>
+</mandatoryParameters>

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="K" type="DOUBLE"/>
+  <mandatoryParameter name="K1" type="DOUBLE"/>
+  <mandatoryParameter name="K2" type="DOUBLE"/>
+  <mandatoryParameter name="K3" type="DOUBLE"/>
+  <mandatoryParameter name="PMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="PMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="PrMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="t1" type="DOUBLE"/>
+  <mandatoryParameter name="t2" type="DOUBLE"/>
+  <mandatoryParameter name="t3" type="DOUBLE"/>
+  <mandatoryParameter name="t4" type="DOUBLE"/>
+  <mandatoryParameter name="t5" type="DOUBLE"/>
+  <mandatoryParameter name="t6" type="DOUBLE"/>
+  <mandatoryParameter name="tA" type="DOUBLE"/>
+  <mandatoryParameter name="tB" type="DOUBLE"/>
+  <mandatoryParameter name="tC" type="DOUBLE"/>
+  <mandatoryParameter name="Uc" type="DOUBLE"/>
+  <mandatoryParameter name="Uo" type="DOUBLE"/>
+  <mandatoryParameter name="FValveTableName" type="STRING"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="Pm0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Pr0Pu" type="DOUBLE"/>
+</mandatoryParameters>

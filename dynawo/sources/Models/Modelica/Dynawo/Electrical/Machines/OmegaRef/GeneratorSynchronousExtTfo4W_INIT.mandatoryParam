@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="XpqPu" type="DOUBLE"/>
+  <mandatoryParameter name="Tpq0" type="DOUBLE"/>
+  <mandatoryParameter name="XppqPu" type="DOUBLE"/>
+  <mandatoryParameter name="Tppq0" type="DOUBLE"/>
+  <mandatoryParameter name="UseApproximation" type="BOOL"/>
+  <mandatoryParameter name="RaPu" type="DOUBLE"/>
+  <mandatoryParameter name="XlPu" type="DOUBLE"/>
+  <mandatoryParameter name="XdPu" type="DOUBLE"/>
+  <mandatoryParameter name="XpdPu" type="DOUBLE"/>
+  <mandatoryParameter name="XppdPu" type="DOUBLE"/>
+  <mandatoryParameter name="Tpd0" type="DOUBLE"/>
+  <mandatoryParameter name="Tppd0" type="DOUBLE"/>
+  <mandatoryParameter name="XqPu" type="DOUBLE"/>
+  <mandatoryParameter name="MdPuEfd" type="DOUBLE"/>
+  <mandatoryParameter name="UNom" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="PNomTurb" type="DOUBLE"/>
+  <mandatoryParameter name="PNomAlt" type="DOUBLE"/>
+  <mandatoryParameter name="ExcitationPu" type="INT"/>
+  <mandatoryParameter name="H" type="DOUBLE"/>
+  <mandatoryParameter name="DPu" type="DOUBLE"/>
+  <mandatoryParameter name="SnTfo" type="DOUBLE"/>
+  <mandatoryParameter name="UNomHV" type="DOUBLE"/>
+  <mandatoryParameter name="UNomLV" type="DOUBLE"/>
+  <mandatoryParameter name="UBaseHV" type="DOUBLE"/>
+  <mandatoryParameter name="UBaseLV" type="DOUBLE"/>
+  <mandatoryParameter name="RTfPu" type="DOUBLE"/>
+  <mandatoryParameter name="XTfPu" type="DOUBLE"/>
+  <mandatoryParameter name="md" type="DOUBLE"/>
+  <mandatoryParameter name="mq" type="DOUBLE"/>
+  <mandatoryParameter name="nd" type="DOUBLE"/>
+  <mandatoryParameter name="nq" type="DOUBLE"/>
+</mandatoryParameters>

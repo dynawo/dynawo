@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="K1" type="DOUBLE"/>
+  <mandatoryParameter name="K2" type="DOUBLE"/>
+  <mandatoryParameter name="KFb" type="DOUBLE"/>
+  <mandatoryParameter name="KFix" type="DOUBLE"/>
+  <mandatoryParameter name="Kuf" type="DOUBLE"/>
+  <mandatoryParameter name="Kui" type="DOUBLE"/>
+  <mandatoryParameter name="Kul" type="DOUBLE"/>
+  <mandatoryParameter name="Sw1" type="BOOL"/>
+  <mandatoryParameter name="tAdj" type="DOUBLE"/>
+  <mandatoryParameter name="tQRef" type="DOUBLE"/>
+  <mandatoryParameter name="tU1" type="DOUBLE"/>
+  <mandatoryParameter name="tU2" type="DOUBLE"/>
+  <mandatoryParameter name="tU3" type="DOUBLE"/>
+  <mandatoryParameter name="tU4" type="DOUBLE"/>
+  <mandatoryParameter name="tUl" type="DOUBLE"/>
+  <mandatoryParameter name="tUP" type="DOUBLE"/>
+  <mandatoryParameter name="tUQ" type="DOUBLE"/>
+  <mandatoryParameter name="tUV" type="DOUBLE"/>
+  <mandatoryParameter name="VBiasPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUel1MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUel1MinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUel2MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUel2MinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUiMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VUiMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="XqPu" type="DOUBLE"/>
+  <mandatoryParameter name="FPQTableName" type="STRING"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="PGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="ut0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="ut0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UsRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="VBias0Pu" type="DOUBLE"/>
+</mandatoryParameters>

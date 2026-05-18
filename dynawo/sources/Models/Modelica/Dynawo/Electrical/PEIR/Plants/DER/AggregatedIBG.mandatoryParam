@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="pOmegaPu" type="DOUBLE"/>
+  <mandatoryParameter name="rOmega" type="DOUBLE"/>
+  <mandatoryParameter name="sOmega" type="DOUBLE"/>
+  <mandatoryParameter name="LVRTc" type="DOUBLE"/>
+  <mandatoryParameter name="LVRTd" type="DOUBLE"/>
+  <mandatoryParameter name="LVRTe" type="DOUBLE"/>
+  <mandatoryParameter name="LVRTf" type="DOUBLE"/>
+  <mandatoryParameter name="LVRTg" type="DOUBLE"/>
+  <mandatoryParameter name="LVRTh" type="DOUBLE"/>
+  <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="Ki" type="DOUBLE"/>
+  <mandatoryParameter name="Kp" type="DOUBLE"/>
+  <mandatoryParameter name="tFilterOmega" type="DOUBLE"/>
+  <mandatoryParameter name="tFilterU" type="DOUBLE"/>
+  <mandatoryParameter name="tG" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaDeadBandPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="kRCA" type="DOUBLE"/>
+  <mandatoryParameter name="kRCI" type="DOUBLE"/>
+  <mandatoryParameter name="m" type="DOUBLE"/>
+  <mandatoryParameter name="n" type="DOUBLE"/>
+  <mandatoryParameter name="UMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="US1" type="DOUBLE"/>
+  <mandatoryParameter name="US2" type="DOUBLE"/>
+  <mandatoryParameter name="tLVRTMax" type="DOUBLE"/>
+  <mandatoryParameter name="tLVRTMin" type="DOUBLE"/>
+  <mandatoryParameter name="tLVRTInt" type="DOUBLE"/>
+  <mandatoryParameter name="ULVRTArmingPu" type="DOUBLE"/>
+  <mandatoryParameter name="ULVRTIntPu" type="DOUBLE"/>
+  <mandatoryParameter name="ULVRTMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="IpSlewMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="IqSlewMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="UPLLFreezePu" type="DOUBLE"/>
+  <mandatoryParameter name="UQPrioPu" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="Id0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IqRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+</mandatoryParameters>

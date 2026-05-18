@@ -16,8 +16,10 @@ set(MODEL_FILES
   package.order
   GovHydro4.mo
   GovHydro4.extvar
+  GovHydro4.mandatoryParam
   HyGov.mo
   HyGov.extvar
+  HyGov.mandatoryParam
   )
 
 #

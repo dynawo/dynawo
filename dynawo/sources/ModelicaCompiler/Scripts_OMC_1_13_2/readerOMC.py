@@ -142,8 +142,11 @@ class ReaderOMC:
         self._literals_file = os.path.join (input_dir, self.mod_name + "_literals.h")
         ## List of constant strings literal names
         self.list_of_stringconstants = []
-        ## Full name of the _literals.h file
+        ## Full name of the _variables.txt file
         self._variables_file = os.path.join (input_dir, self.mod_name + "_variables.txt")
+
+        ## Full name of the .mandatoryParam file (optional — absent when no mandatory parameter)
+        self.mandatory_param_file = os.path.join (input_dir, self.mod_name + ".mandatoryParam")
 
         ## Regular expression to identify functions
         self.regular_expr_function_name = r'%s[ ]+%s\(.*\)[^;]$'
@@ -317,6 +320,12 @@ class ReaderOMC:
         self.nb_integer_vars = 0
         self.external_objects = []
         self.dummy_der_variables = []
+
+        # --------------------------------------------------------------------
+        # Attribute for reading .mandatoryParam file
+        # --------------------------------------------------------------------
+        ## Dict {param_name: type_str} of mandatory parameters (no default value)
+        self.mandatory_params = {}
 
     ##
     # Read a function in a file and try to identify a function thanks to a pattern
@@ -2118,3 +2127,20 @@ class ReaderOMC:
     # @return True if the variable is a residual derivative (not fictive) var
     def get_vars_type(self, var_name):
         return self.var_name_to_eq_type[var_name]
+
+    ##
+    # Read the .mandatoryParam file and fill self.mandatory_params.
+    # The file is optional: when absent (model has no mandatory parameter) the
+    # dict is left empty.
+    # @param self : object pointer
+    # @return
+    def read_mandatory_param_file(self):
+        file_to_read = self.mandatory_param_file
+        if not os.path.isfile(file_to_read):
+            return
+        doc = minidom.parse(file_to_read)
+        for node in doc.getElementsByTagName('mandatoryParameter'):
+            name = node.getAttribute('name')
+            ptype = node.getAttribute('type')
+            if name:
+                self.mandatory_params[name] = ptype
