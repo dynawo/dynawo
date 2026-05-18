@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="unqualified">
+
+  <xs:element name="mandatoryParameters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="mandatoryParameter" type="MandatoryParameter" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="MandatoryParameter">
+    <xs:attribute name="name" use="required" type="xs:string"/>
+    <xs:attribute name="type" use="required" type="ParameterType"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ParameterType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DOUBLE"/>
+      <xs:enumeration value="INT"/>
+      <xs:enumeration value="BOOL"/>
+      <xs:enumeration value="STRING"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

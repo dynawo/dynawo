@@ -16,20 +16,27 @@ set(MODEL_FILES
   package.order
   TransformerVariableTap.mo
   TransformerVariableTap.extvar
+  TransformerVariableTap.mandatoryParam
   TransformerVariableTapXtdPu.mo
   TransformerVariableTapXtdPu.extvar
   TransformerVariableTapPQ_INIT.mo
+  TransformerVariableTapPQ_INIT.mandatoryParam
   TransformerVariableTapI_INIT.mo
+  TransformerVariableTapI_INIT.mandatoryParam
   IdealTransformerVariableTap.mo
   IdealTransformerVariableTap.extvar
   IdealTransformerVariableTapPQ_INIT.mo
   IdealTransformerVariableTapI_INIT.mo
   TransformerPhaseTapChanger.mo
   TransformerPhaseTapChanger.extvar
+  TransformerPhaseTapChanger.mandatoryParam
   TransformerPhaseTapChanger_INIT.mo
+  TransformerPhaseTapChanger_INIT.mandatoryParam
   TransformerRatioTapChanger.mo
   TransformerRatioTapChanger.extvar
+  TransformerRatioTapChanger.mandatoryParam
   TransformerRatioTapChanger_INIT.mo
+  TransformerRatioTapChanger_INIT.mandatoryParam
   )
 
 #

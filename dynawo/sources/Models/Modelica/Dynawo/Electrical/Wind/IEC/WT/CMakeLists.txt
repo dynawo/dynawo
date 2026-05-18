@@ -14,13 +14,18 @@ set(MODEL_FILES
   package.order
   WT4ACurrentSource2015.mo
   WT4ACurrentSource2015.extvar
+  WT4ACurrentSource2015.mandatoryParam
   WT4ACurrentSource2020.mo
   WT4ACurrentSource2020.extvar
+  WT4ACurrentSource2020.mandatoryParam
   WT4BCurrentSource2015.mo
   WT4BCurrentSource2015.extvar
+  WT4BCurrentSource2015.mandatoryParam
   WT4BCurrentSource2020.mo
   WT4BCurrentSource2020.extvar
+  WT4BCurrentSource2020.mandatoryParam
   WT4CurrentSource_INIT.mo
+  WT4CurrentSource_INIT.mandatoryParam
   )
 
 #

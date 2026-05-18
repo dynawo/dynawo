@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="KSFR" type="DOUBLE"/>
+  <mandatoryParameter name="KGover" type="DOUBLE"/>
+  <mandatoryParameter name="PMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="PMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="PNom" type="DOUBLE"/>
+  <mandatoryParameter name="limUQDown0" type="BOOL"/>
+  <mandatoryParameter name="limUQUp0" type="BOOL"/>
+  <mandatoryParameter name="PRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="qStatus0" type="INT"/>
+  <mandatoryParameter name="PGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="QMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="QMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="QPercent" type="DOUBLE"/>
+  <mandatoryParameter name="QRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QDeadBandPu" type="DOUBLE"/>
+</mandatoryParameters>

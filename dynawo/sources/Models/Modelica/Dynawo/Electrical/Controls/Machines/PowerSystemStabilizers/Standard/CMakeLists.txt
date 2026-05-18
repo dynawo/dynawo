@@ -17,22 +17,30 @@ set(MODEL_FILES
     package.order
     Pss1aOmega.mo
     Pss1aOmega.extvar
+    Pss1aOmega.mandatoryParam
     Pss1aPGen.mo
     Pss1aPGen.extvar
+    Pss1aPGen.mandatoryParam
     Pss2a.mo
     Pss2a.extvar
+    Pss2a.mandatoryParam
     Pss2b.mo
     Pss2b.extvar
+    Pss2b.mandatoryParam
     Pss2c.mo
     Pss2c.extvar
+    Pss2c.mandatoryParam
     Pss3b.mo
     Pss3b.extvar
+    Pss3b.mandatoryParam
     Pss3c.mo
     Pss3c.extvar
     Pss6c.mo
     Pss6c.extvar
+    Pss6c.mandatoryParam
     PssKundur.mo
     PssKundur.extvar
+    PssKundur.mandatoryParam
     )
 
 #

@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="iConv0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="iConv0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="PConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PInj0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QInj0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="uConv0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="uConv0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="uInj0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="uInj0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+  <mandatoryParameter name="UPhaseConv0" type="DOUBLE"/>
+  <mandatoryParameter name="KiPLL" type="DOUBLE"/>
+  <mandatoryParameter name="KpPLL" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="PfFlag" type="BOOL"/>
+  <mandatoryParameter name="PQFlag" type="BOOL"/>
+  <mandatoryParameter name="QFlag" type="BOOL"/>
+  <mandatoryParameter name="VFlag" type="BOOL"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="Dbd1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Dbd2Pu" type="DOUBLE"/>
+  <mandatoryParameter name="DPMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="DPMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="Iqh1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Iql1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Kqi" type="DOUBLE"/>
+  <mandatoryParameter name="Kqp" type="DOUBLE"/>
+  <mandatoryParameter name="Kqv" type="DOUBLE"/>
+  <mandatoryParameter name="Kvi" type="DOUBLE"/>
+  <mandatoryParameter name="Kvp" type="DOUBLE"/>
+  <mandatoryParameter name="PMaxREECPu" type="DOUBLE"/>
+  <mandatoryParameter name="PMinREECPu" type="DOUBLE"/>
+  <mandatoryParameter name="QMaxREECPu" type="DOUBLE"/>
+  <mandatoryParameter name="QMinREECPu" type="DOUBLE"/>
+  <mandatoryParameter name="tIq" type="DOUBLE"/>
+  <mandatoryParameter name="tRv" type="DOUBLE"/>
+  <mandatoryParameter name="tpREEC" type="DOUBLE"/>
+  <mandatoryParameter name="tPord" type="DOUBLE"/>
+  <mandatoryParameter name="VDipPu" type="DOUBLE"/>
+  <mandatoryParameter name="VMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="VUpPu" type="DOUBLE"/>
+  <mandatoryParameter name="Id0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PF0" type="DOUBLE"/>
+  <mandatoryParameter name="PConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UInj0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="uConv0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="uConv0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp11" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp12" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp21" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp22" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp31" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp32" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp41" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIp42" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq11" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq12" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq21" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq22" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq31" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq32" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq41" type="DOUBLE"/>
+  <mandatoryParameter name="VDLIq42" type="DOUBLE"/>
+  <mandatoryParameter name="tHoldIpMax" type="DOUBLE"/>
+  <mandatoryParameter name="tHoldIq" type="DOUBLE"/>
+  <mandatoryParameter name="IqFrzPu" type="DOUBLE"/>
+  <mandatoryParameter name="PFlag" type="BOOL"/>
+  <mandatoryParameter name="VRef1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
+  <mandatoryParameter name="IqrMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="IqrMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="RrpwrPu" type="DOUBLE"/>
+  <mandatoryParameter name="tFilterGC" type="DOUBLE"/>
+  <mandatoryParameter name="tG" type="DOUBLE"/>
+  <mandatoryParameter name="brkpt" type="DOUBLE"/>
+  <mandatoryParameter name="lvpl1" type="DOUBLE"/>
+  <mandatoryParameter name="Lvplsw" type="BOOL"/>
+  <mandatoryParameter name="zerox" type="DOUBLE"/>
+</mandatoryParameters>

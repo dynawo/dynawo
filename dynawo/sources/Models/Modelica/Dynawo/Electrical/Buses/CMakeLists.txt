@@ -15,18 +15,26 @@ set(MODEL_FILES
   Bus.mo
   Bus.extvar
   BusWithInit.extvar
+  BusWithInit.mandatoryParam
   BusWithInit.mo
   Bus_INIT.mo
+  Bus_INIT.mandatoryParam
   InfiniteBus.mo
   InfiniteBus.extvar
+  InfiniteBus.mandatoryParam
   InfiniteBusFromTable.mo
   InfiniteBusFromTable_INIT.mo
+  InfiniteBusFromTable_INIT.mandatoryParam
   InfiniteBusFromTable.extvar
+  InfiniteBusFromTable.mandatoryParam
   InfiniteBusWithImpedance.mo
   InfiniteBusWithImpedance.extvar
+  InfiniteBusWithImpedance.mandatoryParam
   InfiniteBusWithImpedance_INIT.mo
+  InfiniteBusWithImpedance_INIT.mandatoryParam
   InfiniteBusWithVariations.mo
   InfiniteBusWithVariations.extvar
+  InfiniteBusWithVariations.mandatoryParam
   )
 
 #

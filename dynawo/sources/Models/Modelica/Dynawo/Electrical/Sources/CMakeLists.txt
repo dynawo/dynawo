@@ -17,13 +17,18 @@ set(MODEL_FILES
   package.order
   Converter.mo
   Converter.extvar
+  Converter.mandatoryParam
   Converter_INIT.mo
+  Converter_INIT.mandatoryParam
   InjectorBG.mo
   InjectorBG.extvar
+  InjectorBG.mandatoryParam
   InjectorBG_INIT.mo
+  InjectorBG_INIT.mandatoryParam
   InjectorIDQ.mo
   InjectorIDQ.extvar
   InjectorIDQ_INIT.mo
+  InjectorIDQ_INIT.mandatoryParam
   InjectorURI.mo
   InjectorURI.extvar
   )

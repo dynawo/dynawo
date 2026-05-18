@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="KOmega" type="DOUBLE"/>
+  <mandatoryParameter name="KOmegaRef" type="DOUBLE"/>
+  <mandatoryParameter name="K0" type="DOUBLE"/>
+  <mandatoryParameter name="K1" type="DOUBLE"/>
+  <mandatoryParameter name="K2" type="DOUBLE"/>
+  <mandatoryParameter name="K3" type="DOUBLE"/>
+  <mandatoryParameter name="K4" type="DOUBLE"/>
+  <mandatoryParameter name="Ki3" type="DOUBLE"/>
+  <mandatoryParameter name="Ki4" type="DOUBLE"/>
+  <mandatoryParameter name="Ks" type="DOUBLE"/>
+  <mandatoryParameter name="Ks1" type="DOUBLE"/>
+  <mandatoryParameter name="Ks2" type="DOUBLE"/>
+  <mandatoryParameter name="MAcc" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="PGenMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="PGenMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="PPssOffPu" type="DOUBLE"/>
+  <mandatoryParameter name="PPssOnPu" type="DOUBLE"/>
+  <mandatoryParameter name="t1" type="DOUBLE"/>
+  <mandatoryParameter name="t2" type="DOUBLE"/>
+  <mandatoryParameter name="t3" type="DOUBLE"/>
+  <mandatoryParameter name="t4" type="DOUBLE"/>
+  <mandatoryParameter name="tD" type="DOUBLE"/>
+  <mandatoryParameter name="tI1" type="DOUBLE"/>
+  <mandatoryParameter name="tI2" type="DOUBLE"/>
+  <mandatoryParameter name="tI3" type="DOUBLE"/>
+  <mandatoryParameter name="tI4" type="DOUBLE"/>
+  <mandatoryParameter name="VPssMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VPssMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="PGen0Pu" type="DOUBLE"/>
+</mandatoryParameters>

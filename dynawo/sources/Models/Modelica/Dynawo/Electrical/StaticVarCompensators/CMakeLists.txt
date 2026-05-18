@@ -17,27 +17,38 @@ set(MODEL_FILES
   package.mo
   package.order
   SVarCPV_INIT.mo
+  SVarCPV_INIT.mandatoryParam
   SVarCPV.mo
   SVarCPV.extvar
+  SVarCPV.mandatoryParam
   SVarCPVNoLimits.mo
   SVarCPVNoLimits.extvar
   SVarCPVModeHandling.mo
   SVarCPVModeHandling.extvar
+  SVarCPVModeHandling.mandatoryParam
   SVarCPVRemote.mo
   SVarCPVRemote.extvar
+  SVarCPVRemote.mandatoryParam
   SVarCPVRemoteModeHandling.mo
   SVarCPVRemoteModeHandling.extvar
+  SVarCPVRemoteModeHandling.mandatoryParam
   SVarCPVProp.mo
   SVarCPVProp.extvar
+  SVarCPVProp.mandatoryParam
   SVarCPVPropModeHandling.mo
   SVarCPVPropModeHandling.extvar
+  SVarCPVPropModeHandling.mandatoryParam
   SVarCPVPropRemote.mo
   SVarCPVPropRemote.extvar
+  SVarCPVPropRemote.mandatoryParam
   SVarCPVPropRemoteModeHandling.mo
   SVarCPVPropRemoteModeHandling.extvar
+  SVarCPVPropRemoteModeHandling.mandatoryParam
   SVarCStandard.mo
   SVarCStandard.extvar
+  SVarCStandard.mandatoryParam
   SVarCStandard_INIT.mo
+  SVarCStandard_INIT.mandatoryParam
   )
 
 #

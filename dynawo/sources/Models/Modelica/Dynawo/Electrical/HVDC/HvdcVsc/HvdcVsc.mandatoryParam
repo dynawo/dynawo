@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="IpDeadBandPu" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="i10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="i20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="i20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="Ip10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Ip20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Iq10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Iq20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="ModeU10" type="BOOL"/>
+  <mandatoryParameter name="ModeU20" type="BOOL"/>
+  <mandatoryParameter name="P10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="P20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="s10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="s20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="s20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="U10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="u10Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u10Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="u20Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="u20Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UDc10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UDc20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UDcRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase10" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase20" type="DOUBLE"/>
+  <mandatoryParameter name="KiPLL" type="DOUBLE"/>
+  <mandatoryParameter name="KpPLL" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="KiP" type="DOUBLE"/>
+  <mandatoryParameter name="KpP" type="DOUBLE"/>
+  <mandatoryParameter name="POpMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="POpMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="SlopePRefPu" type="DOUBLE"/>
+  <mandatoryParameter name="SlopeRPFault" type="DOUBLE"/>
+  <mandatoryParameter name="tMeasureP" type="DOUBLE"/>
+  <mandatoryParameter name="IqModTableName" type="STRING"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="tQ" type="DOUBLE"/>
+  <mandatoryParameter name="QOpMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="QOpMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="QPMaxTableName" type="STRING"/>
+  <mandatoryParameter name="QPMinTableName" type="STRING"/>
+  <mandatoryParameter name="QUMaxTableName" type="STRING"/>
+  <mandatoryParameter name="QUMinTableName" type="STRING"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="tMeasure" type="DOUBLE"/>
+  <mandatoryParameter name="KiAc" type="DOUBLE"/>
+  <mandatoryParameter name="KpAc" type="DOUBLE"/>
+  <mandatoryParameter name="LambdaPu" type="DOUBLE"/>
+  <mandatoryParameter name="SlopeQRefPu" type="DOUBLE"/>
+  <mandatoryParameter name="SlopeURefPu" type="DOUBLE"/>
+  <mandatoryParameter name="tBlock" type="DOUBLE"/>
+  <mandatoryParameter name="tBlockUnderV" type="DOUBLE"/>
+  <mandatoryParameter name="tUnblock" type="DOUBLE"/>
+  <mandatoryParameter name="tMeasureUBlock" type="DOUBLE"/>
+  <mandatoryParameter name="UBlockUnderVPu" type="DOUBLE"/>
+  <mandatoryParameter name="UMaxDbPu" type="DOUBLE"/>
+  <mandatoryParameter name="UMinDbPu" type="DOUBLE"/>
+  <mandatoryParameter name="CDcPu" type="DOUBLE"/>
+  <mandatoryParameter name="RDcPu" type="DOUBLE"/>
+  <mandatoryParameter name="KiDc" type="DOUBLE"/>
+  <mandatoryParameter name="KpDc" type="DOUBLE"/>
+  <mandatoryParameter name="tMeasureU" type="DOUBLE"/>
+  <mandatoryParameter name="UDcRefMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="UDcRefMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="KiDeltaP" type="DOUBLE"/>
+  <mandatoryParameter name="KpDeltaP" type="DOUBLE"/>
+  <mandatoryParameter name="UDcMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="UDcMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="InPu" type="DOUBLE"/>
+  <mandatoryParameter name="IpMaxPu" type="DOUBLE"/>
+</mandatoryParameters>

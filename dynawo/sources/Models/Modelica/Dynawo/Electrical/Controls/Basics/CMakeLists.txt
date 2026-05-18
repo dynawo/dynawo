@@ -14,16 +14,24 @@ set(MODEL_FILES
   package.mo
   package.order
   BooleanTable.mo
+  BooleanTable.mandatoryParam
   CombiTimeTable.mo
+  CombiTimeTable.mandatoryParam
   DoubleStep.mo
+  DoubleStep.mandatoryParam
   IntegerDoubleStep.mo
+  IntegerDoubleStep.mandatoryParam
   IntegerTable.mo
+  IntegerTable.mandatoryParam
   Perturbation.mo
   Perturbation_INIT.mo
   SetPoint.mo
+  SetPoint.mandatoryParam
   SetPoint_INIT.mo
   SineWave.mo
+  SineWave.mandatoryParam
   Step.mo
+  Step.mandatoryParam
   Step_INIT.mo
   )
 

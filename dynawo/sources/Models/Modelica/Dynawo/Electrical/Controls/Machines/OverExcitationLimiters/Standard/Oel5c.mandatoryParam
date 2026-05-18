@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="IBiasPu" type="DOUBLE"/>
+  <mandatoryParameter name="IfdLevelPu" type="DOUBLE"/>
+  <mandatoryParameter name="IfdLimPu" type="DOUBLE"/>
+  <mandatoryParameter name="IfdPu" type="DOUBLE"/>
+  <mandatoryParameter name="IfdRef1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="IfdRef2Pu" type="DOUBLE"/>
+  <mandatoryParameter name="K" type="DOUBLE"/>
+  <mandatoryParameter name="K1" type="DOUBLE"/>
+  <mandatoryParameter name="KIfdt" type="DOUBLE"/>
+  <mandatoryParameter name="KiOel" type="DOUBLE"/>
+  <mandatoryParameter name="KiVfe" type="DOUBLE"/>
+  <mandatoryParameter name="KpOel" type="DOUBLE"/>
+  <mandatoryParameter name="KpVfe" type="DOUBLE"/>
+  <mandatoryParameter name="KScale1" type="DOUBLE"/>
+  <mandatoryParameter name="KScale2" type="DOUBLE"/>
+  <mandatoryParameter name="Sw1" type="BOOL"/>
+  <mandatoryParameter name="tBOel" type="DOUBLE"/>
+  <mandatoryParameter name="tCOel" type="DOUBLE"/>
+  <mandatoryParameter name="tF1" type="DOUBLE"/>
+  <mandatoryParameter name="tF2" type="DOUBLE"/>
+  <mandatoryParameter name="tIfdLevel" type="DOUBLE"/>
+  <mandatoryParameter name="tOel" type="DOUBLE"/>
+  <mandatoryParameter name="TolPI" type="DOUBLE"/>
+  <mandatoryParameter name="VfeMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VfeMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="VfeRefPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOel1MaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOelMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VOelMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="Input0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Vfe0Pu" type="DOUBLE"/>
+</mandatoryParameters>

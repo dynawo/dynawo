@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="aSetPu" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaOmegaDbPu" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaOmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaOmegaMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="DeltaT" type="DOUBLE"/>
+  <mandatoryParameter name="Dm" type="DOUBLE"/>
+  <mandatoryParameter name="fLim10Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim1Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim2Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim3Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim4Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim5Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim6Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim7Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim8Hz" type="DOUBLE"/>
+  <mandatoryParameter name="fLim9Hz" type="DOUBLE"/>
+  <mandatoryParameter name="KA" type="DOUBLE"/>
+  <mandatoryParameter name="KDGov" type="DOUBLE"/>
+  <mandatoryParameter name="KIGov" type="DOUBLE"/>
+  <mandatoryParameter name="KILoad" type="DOUBLE"/>
+  <mandatoryParameter name="KIMw" type="DOUBLE"/>
+  <mandatoryParameter name="KPGov" type="DOUBLE"/>
+  <mandatoryParameter name="KPLoad" type="DOUBLE"/>
+  <mandatoryParameter name="KTurb" type="DOUBLE"/>
+  <mandatoryParameter name="PBaseMw" type="DOUBLE"/>
+  <mandatoryParameter name="PGenBaseMw" type="DOUBLE"/>
+  <mandatoryParameter name="PLdRefPu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim1Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim2Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim3Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim4Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim5Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim6Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim7Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim8Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PLim9Pu" type="DOUBLE"/>
+  <mandatoryParameter name="PRatePu" type="DOUBLE"/>
+  <mandatoryParameter name="RClosePu" type="DOUBLE"/>
+  <mandatoryParameter name="RDownPu" type="DOUBLE"/>
+  <mandatoryParameter name="ROpenPu" type="DOUBLE"/>
+  <mandatoryParameter name="RDroop" type="DOUBLE"/>
+  <mandatoryParameter name="RSelectInt" type="INT"/>
+  <mandatoryParameter name="RUpPu" type="DOUBLE"/>
+  <mandatoryParameter name="tActuator" type="DOUBLE"/>
+  <mandatoryParameter name="tA" type="DOUBLE"/>
+  <mandatoryParameter name="tB" type="DOUBLE"/>
+  <mandatoryParameter name="tC" type="DOUBLE"/>
+  <mandatoryParameter name="tDGov" type="DOUBLE"/>
+  <mandatoryParameter name="tDRatelim" type="DOUBLE"/>
+  <mandatoryParameter name="tEngine" type="DOUBLE"/>
+  <mandatoryParameter name="tFLoad" type="DOUBLE"/>
+  <mandatoryParameter name="tLastValue" type="DOUBLE"/>
+  <mandatoryParameter name="tPElec" type="DOUBLE"/>
+  <mandatoryParameter name="tSA" type="DOUBLE"/>
+  <mandatoryParameter name="tSB" type="DOUBLE"/>
+  <mandatoryParameter name="ValveMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="ValveMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="WFnlPu" type="DOUBLE"/>
+  <mandatoryParameter name="WFSpdBool" type="BOOL"/>
+  <mandatoryParameter name="PGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Pm0Pu" type="DOUBLE"/>
+</mandatoryParameters>

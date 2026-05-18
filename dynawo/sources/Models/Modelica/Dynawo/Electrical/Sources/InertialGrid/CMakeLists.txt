@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.order
   InertialGrid.mo
   InertialGrid.extvar
+  InertialGrid.mandatoryParam
   )
 
 #

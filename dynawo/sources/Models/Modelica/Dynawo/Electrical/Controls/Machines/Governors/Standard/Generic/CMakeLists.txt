@@ -15,6 +15,7 @@ set(MODEL_FILES
   package.order
   GovCt2.mo
   GovCt2.extvar
+  GovCt2.mandatoryParam
   )
 
 #

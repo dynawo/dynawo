@@ -13,13 +13,18 @@ set(MODEL_FILES
   package.order
   HvdcPTanPhi.mo
   HvdcPTanPhi_INIT.mo
+  HvdcPTanPhi_INIT.mandatoryParam
   HvdcPTanPhi.extvar
+  HvdcPTanPhi.mandatoryParam
   HvdcPTanPhiDiagramPQ.mo
   HvdcPTanPhiDiagramPQ.extvar
+  HvdcPTanPhiDiagramPQ.mandatoryParam
   HvdcPTanPhiDangling.mo
   HvdcPTanPhiDangling.extvar
+  HvdcPTanPhiDangling.mandatoryParam
   HvdcPTanPhiDanglingDiagramPQ.mo
   HvdcPTanPhiDanglingDiagramPQ.extvar
+  HvdcPTanPhiDanglingDiagramPQ.mandatoryParam
   )
 
 #

@@ -15,26 +15,38 @@ set(MODEL_FILES
   package.order
   PVCurrentSource.mo
   PVCurrentSource.extvar
+  PVCurrentSource.mandatoryParam
   PVCurrentSourceNoPlantControl.mo
   PVCurrentSourceNoPlantControl.extvar
+  PVCurrentSourceNoPlantControl.mandatoryParam
   PVInverterVoltageSource_INIT.mo
+  PVInverterVoltageSource_INIT.mandatoryParam
   PVVoltageSource1.mo
   PVVoltageSource1.extvar
+  PVVoltageSource1.mandatoryParam
   PVVoltageSource1NoPlantControl.mo
   PVVoltageSource1NoPlantControl.extvar
+  PVVoltageSource1NoPlantControl.mandatoryParam
   PVVoltageSource2.mo
   PVVoltageSource2.extvar
+  PVVoltageSource2.mandatoryParam
   PVVoltageSource2NoPlantControl.mo
   PVVoltageSource2NoPlantControl.extvar
+  PVVoltageSource2NoPlantControl.mandatoryParam
   PVVoltageSource3.mo
   PVVoltageSource3.extvar
+  PVVoltageSource3.mandatoryParam
   PVVoltageSource3NoPlantControl.mo
   PVVoltageSource3NoPlantControl.extvar
+  PVVoltageSource3NoPlantControl.mandatoryParam
   PVVoltageSource4.mo
   PVVoltageSource4.extvar
+  PVVoltageSource4.mandatoryParam
   PVVoltageSource4NoPlantControl.mo
   PVVoltageSource4NoPlantControl.extvar
+  PVVoltageSource4NoPlantControl.mandatoryParam
   PVVoltageSource_INIT.mo
+  PVVoltageSource_INIT.mandatoryParam
   )
 
 #

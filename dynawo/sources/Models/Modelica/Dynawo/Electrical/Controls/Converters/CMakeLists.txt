@@ -17,11 +17,15 @@ set(MODEL_FILES
   package.order
   GridFormingControlDroopControl.mo
   GridFormingControlDroopControl.extvar
+  GridFormingControlDroopControl.mandatoryParam
   GridFormingControlMatchingControl.mo
   GridFormingControlMatchingControl.extvar
+  GridFormingControlMatchingControl.mandatoryParam
   GridFormingControlDispatchableVirtualOscillatorControl.mo
   GridFormingControlDispatchableVirtualOscillatorControl.extvar
+  GridFormingControlDispatchableVirtualOscillatorControl.mandatoryParam
   GridFormingControl_INIT.mo
+  GridFormingControl_INIT.mandatoryParam
   )
 
 #

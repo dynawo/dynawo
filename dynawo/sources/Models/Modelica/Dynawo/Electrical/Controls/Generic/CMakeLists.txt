@@ -17,6 +17,7 @@ set(MODEL_FILES
   GenericAutomaton.mo
   GenericAutomatonConstants.mo
   GenericAutomaton.extvar
+  GenericAutomaton.mandatoryParam
   )
 
 #

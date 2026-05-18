@@ -14,8 +14,10 @@ set(MODEL_FILES
     package.order
     ReactivePowerControlLoop.mo
     ReactivePowerControlLoop.extvar
+  ReactivePowerControlLoop.mandatoryParam
     ReactivePowerControlLoop2.mo
     ReactivePowerControlLoop2.extvar
+  ReactivePowerControlLoop2.mandatoryParam
     ReactivePowerControlLoop_INIT.mo
     )
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="Ka" type="DOUBLE"/>
+  <mandatoryParameter name="Kas" type="DOUBLE"/>
+  <mandatoryParameter name="Kc" type="DOUBLE"/>
+  <mandatoryParameter name="Ki" type="DOUBLE"/>
+  <mandatoryParameter name="Kp" type="DOUBLE"/>
+  <mandatoryParameter name="Ku" type="DOUBLE"/>
+  <mandatoryParameter name="PositionOel" type="INT"/>
+  <mandatoryParameter name="PositionScl" type="INT"/>
+  <mandatoryParameter name="PositionUel" type="INT"/>
+  <mandatoryParameter name="Sw1" type="BOOL"/>
+  <mandatoryParameter name="tA" type="DOUBLE"/>
+  <mandatoryParameter name="tAs" type="DOUBLE"/>
+  <mandatoryParameter name="tAUel" type="DOUBLE"/>
+  <mandatoryParameter name="tBd" type="DOUBLE"/>
+  <mandatoryParameter name="tCd" type="DOUBLE"/>
+  <mandatoryParameter name="Thetap" type="DOUBLE"/>
+  <mandatoryParameter name="tR" type="DOUBLE"/>
+  <mandatoryParameter name="VbMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VrMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="VrMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="XlPu" type="DOUBLE"/>
+  <mandatoryParameter name="ZaPu" type="DOUBLE"/>
+  <mandatoryParameter name="Efd0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Ir0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="it0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="it0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="Us0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="ut0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="ut0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UOel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="USclOel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="USclUel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UUel0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Vb0Pu" type="DOUBLE"/>
+</mandatoryParameters>

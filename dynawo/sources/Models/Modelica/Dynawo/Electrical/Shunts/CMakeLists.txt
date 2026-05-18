@@ -15,9 +15,12 @@ set(MODEL_FILES
   package.order
   ShuntB.mo
   ShuntB.extvar
+  ShuntB.mandatoryParam
   ShuntBWithSections.mo
   ShuntBWithSections.extvar
+  ShuntBWithSections.mandatoryParam
   ShuntBWithSections_INIT.mo
+  ShuntBWithSections_INIT.mandatoryParam
   )
 
 #

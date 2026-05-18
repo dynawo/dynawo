@@ -205,6 +205,14 @@ class Compiler {
         const std::map<std::string, std::shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const;
 
   /**
+   * @brief write concatenate mandatory parameters file
+   * @param modelicaModelDescription modelica Model Description to concatenate
+   * @param unitDynamicModels modelica Model modelica models map
+   */
+  void writeMandatoryParamFile(const std::shared_ptr<ModelDescription>& modelicaModelDescription,
+        const std::map<std::string, std::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels) const;
+
+  /**
    * @brief write concatenate initialization model as modelica file (.mo)
    * @param modelicaModelDescription modelica Model Description to concatenate
    * @param unitDynamicModels modelica Model modelica models map
@@ -256,6 +264,7 @@ class Compiler {
 
   // Available models listing
   std::map<std::string, std::string> extVarFiles_;  ///< files gathering "external" variables (connected to C++ models)
+  std::map<std::string, std::string> mandatoryParamFiles_;  ///< files listing parameters without default value
   std::map<std::string, std::string> libFiles_;  ///< precompiled models
 
   // Only modelica files are allowed to have duplicate names

@@ -15,20 +15,28 @@ set(MODEL_FILES
   package.order
   WT3CurrentSource1.mo
   WT3CurrentSource1.extvar
+  WT3CurrentSource1.mandatoryParam
   WT3CurrentSource2.mo
   WT3CurrentSource2.extvar
+  WT3CurrentSource2.mandatoryParam
   WT4ACurrentSource.mo
   WT4ACurrentSource.extvar
+  WT4ACurrentSource.mandatoryParam
   WT4BCurrentSource.mo
   WT4BCurrentSource.extvar
+  WT4BCurrentSource.mandatoryParam
   WTG3CurrentSource1.mo
   WTG3CurrentSource1.extvar
+  WTG3CurrentSource1.mandatoryParam
   WTG3CurrentSource2.mo
   WTG3CurrentSource2.extvar
+  WTG3CurrentSource2.mandatoryParam
   WTG4ACurrentSource.mo
   WTG4ACurrentSource.extvar
+  WTG4ACurrentSource.mandatoryParam
   WTG4BCurrentSource.mo
   WTG4BCurrentSource.extvar
+  WTG4BCurrentSource.mandatoryParam
   )
 
 #

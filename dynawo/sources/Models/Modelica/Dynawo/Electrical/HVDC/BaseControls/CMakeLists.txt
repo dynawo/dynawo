@@ -13,11 +13,16 @@ set(MODEL_FILES
   package.order
   ACEmulation.mo
   ACEmulation_INIT.mo
+  ACEmulation_INIT.mandatoryParam
   ACEmulationSet_INIT.mo
+  ACEmulationSet_INIT.mandatoryParam
   ACEmulation.extvar
+  ACEmulation.mandatoryParam
   ACEmulationVariableK.mo
   ACEmulationVariableK_INIT.mo
+  ACEmulationVariableK_INIT.mandatoryParam
   ACEmulationVariableK.extvar
+  ACEmulationVariableK.mandatoryParam
   )
 
 #

@@ -17,7 +17,9 @@ set(MODEL_FILES
   package.order
   EpriGFM.mo
   EpriGFM.extvar
+  EpriGFM.mandatoryParam
   EpriGFM_INIT.mo
+  EpriGFM_INIT.mandatoryParam
   )
 
 #

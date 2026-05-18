@@ -16,14 +16,18 @@ set(MODEL_FILES
   package.order
   Oel2c.mo
   Oel2c.extvar
+  Oel2c.mandatoryParam
   Oel3c.mo
   Oel3c.extvar
+  Oel3c.mandatoryParam
   Oel23c_INIT.mo
   Oel4c.mo
   Oel4c.extvar
+  Oel4c.mandatoryParam
   Oel4c_INIT.mo
   Oel5c.mo
   Oel5c.extvar
+  Oel5c.mandatoryParam
   Oel5c_INIT.mo
   )
 

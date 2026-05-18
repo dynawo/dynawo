@@ -18,38 +18,57 @@ set(MODEL_FILES
   package.order
   ElectronicLoad.mo
   ElectronicLoad.extvar
+  ElectronicLoad.mandatoryParam
   Load_INIT.mo
+  Load_INIT.mandatoryParam
   LoadAlphaBeta.mo
   LoadAlphaBeta.extvar
+  LoadAlphaBeta.mandatoryParam
   LoadAlphaBetaRestorative.mo
   LoadAlphaBetaRestorative.extvar
+  LoadAlphaBetaRestorative.mandatoryParam
   LoadAlphaBetaRestorativeNetwork.mo
   LoadAlphaBetaRestorativeNetwork.extvar
+  LoadAlphaBetaRestorativeNetwork.mandatoryParam
   LoadAlphaBetaRestorativeLimitsRecalc_INIT.mo
+  LoadAlphaBetaRestorativeLimitsRecalc_INIT.mandatoryParam
   LoadAlphaBetaRestorativeReset.mo
   LoadAlphaBetaRestorativeReset.extvar
   LoadAlphaBetaMotorFifthOrder.mo
   LoadAlphaBetaMotorFifthOrder.extvar
+  LoadAlphaBetaMotorFifthOrder.mandatoryParam
   LoadAlphaBetaMotorFifthOrder_INIT.mo
+  LoadAlphaBetaMotorFifthOrder_INIT.mandatoryParam
   LoadAlphaBetaThreeMotorFifthOrder.mo
   LoadAlphaBetaThreeMotorFifthOrder.extvar
+  LoadAlphaBetaThreeMotorFifthOrder.mandatoryParam
   LoadAlphaBetaThreeMotorFifthOrder_INIT.mo
+  LoadAlphaBetaThreeMotorFifthOrder_INIT.mandatoryParam
   LoadAlphaBetaTwoMotorFifthOrder.mo
   LoadAlphaBetaTwoMotorFifthOrder.extvar
+  LoadAlphaBetaTwoMotorFifthOrder.mandatoryParam
   LoadAlphaBetaTwoMotorFifthOrder_INIT.mo
+  LoadAlphaBetaTwoMotorFifthOrder_INIT.mandatoryParam
   LoadAlphaBetaMotorSimplified.mo
   LoadAlphaBetaMotorSimplified.extvar
+  LoadAlphaBetaMotorSimplified.mandatoryParam
   LoadAlphaBetaMotorSimplified_INIT.mo
+  LoadAlphaBetaMotorSimplified_INIT.mandatoryParam
   LoadAlphaBetaTwoMotorSimplified.mo
   LoadAlphaBetaTwoMotorSimplified.extvar
+  LoadAlphaBetaTwoMotorSimplified.mandatoryParam
   LoadAlphaBetaTwoMotorSimplified_INIT.mo
+  LoadAlphaBetaTwoMotorSimplified_INIT.mandatoryParam
   LoadAuxiliaries_INIT.mo
+  LoadAuxiliaries_INIT.mandatoryParam
   LoadConnect_INIT.mo
   LoadPF_INIT.mo
   LoadPQ.mo
   LoadPQ.extvar
+  LoadPQ.mandatoryParam
   LoadZIP.mo
   LoadZIP.extvar
+  LoadZIP.mandatoryParam
   SwitchOffLoad.extvar
   )
 

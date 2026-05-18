@@ -14,15 +14,21 @@ set(MODEL_FILES
   package.order
   WPP4ACurrentSource2015.mo
   WPP4ACurrentSource2015.extvar
+  WPP4ACurrentSource2015.mandatoryParam
   WPP4ACurrentSource2020.mo
   WPP4ACurrentSource2020.extvar
+  WPP4ACurrentSource2020.mandatoryParam
   WPP4BCurrentSource2015.mo
   WPP4BCurrentSource2015.extvar
+  WPP4BCurrentSource2015.mandatoryParam
   WPP4BCurrentSource2020.mo
   WPP4BCurrentSource2020.extvar
+  WPP4BCurrentSource2020.mandatoryParam
   WPP4CurrentSource_INIT.mo
   WPP4CurrentSource2015_INIT.mo
+  WPP4CurrentSource2015_INIT.mandatoryParam
   WPP4CurrentSource2020_INIT.mo
+  WPP4CurrentSource2020_INIT.mandatoryParam
   )
 
 #

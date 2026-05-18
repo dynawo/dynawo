@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="P10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U10Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase10" type="DOUBLE"/>
+  <mandatoryParameter name="P20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U20Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase20" type="DOUBLE"/>
+  <mandatoryParameter name="QInj1Max0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QInj1Min0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="P1RefSetPu" type="DOUBLE"/>
+  <mandatoryParameter name="Q1Nom" type="DOUBLE"/>
+  <mandatoryParameter name="Lambda1Pu" type="DOUBLE"/>
+</mandatoryParameters>

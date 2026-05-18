@@ -16,6 +16,7 @@ set(MODEL_FILES
   PowerTransferHVDC.extvar
   PowerTransferHVDCEmulation.mo
   PowerTransferHVDCEmulation.extvar
+  PowerTransferHVDCEmulation.mandatoryParam
   )
 
 #
