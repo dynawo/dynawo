@@ -17,6 +17,7 @@ set(MODULE_SOURCES
   TestCurvesCollection.cpp
   TestXmlImporter.cpp
   TestExporters.cpp
+  TestHdf5Exporter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -24,6 +25,11 @@ add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 target_link_libraries(${MODULE_NAME}
                       dynawo_API_CRV
                       dynawo_Test)
+
+if(HDF5_FOUND)
+  target_include_directories(${MODULE_NAME} SYSTEM PRIVATE ${HDF5_INCLUDE_DIRS})
+  target_link_libraries(${MODULE_NAME} ${HDF5_CXX_LIBRARIES})
+endif()
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res

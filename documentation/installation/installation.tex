@@ -365,6 +365,8 @@ To run a simulation, \Dynawo uses several external libraries that are downloaded
 
 \item \href{https://www.powsybl.org/pages/documentation/developer/repositories/powsybl-iidm4cpp.html}{\underline{PowSyBl - iidm4cpp}} a C++ implementation of the IIDM grid model and distributed under the MPL License, Version 2.0. The current version used is 1.5.1.
 
+\item \href{https://www.hdfgroup.org/solutions/hdf5/}{\underline{HDF5}}, a data model, library and file format for storing and managing large amounts of numerical data, developed and maintained by The HDF Group and distributed under the HDF5 License (a BSD-style permissive open-source license). \Dynawo uses version 1.12.2 of the HDF5 library as an optional dependency to support the HDF5 curves export mode (\texttt{exportMode="HDF5"}). When this mode is not required, \Dynawo can be built without HDF5 support by setting the CMake option \texttt{DYNAWO\_ACTIVATE\_HDF5\_EXPORT} to \texttt{OFF}.
+
 \end{itemize}
 
 In addition to these libraries needed for the simulation process, \Dynawo downloads the code for two other libraries:

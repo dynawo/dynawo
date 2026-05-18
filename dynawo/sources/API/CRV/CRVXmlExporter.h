@@ -33,6 +33,20 @@ namespace curves {
 class XmlExporter : public Exporter {
  public:
   /**
+   * @brief Not used — XML export is batch-only via exportToFile() / exportToStream().
+   */
+  void open(const std::string& /*filePath*/) override {}
+
+  /**
+   * @brief Not used — XML export is batch-only via exportToFile() / exportToStream().
+   */
+  void appendRow(double /*time*/) override {}
+
+  /**
+   * @brief Not used — XML export is batch-only via exportToFile() / exportToStream().
+   */
+  void close() override {/* not needed */}
+  /**
    * @brief Export method in XML format
    *
    * @param curves curves to export

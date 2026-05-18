@@ -38,6 +38,7 @@
 #include "DYNDataInterface.h"
 #include "DYNSolverFactory.h"
 #include "DYNModeler.h"
+#include "CRVHdf5Exporter.h"
 
 namespace timeline {
 class Timeline;
@@ -84,7 +85,8 @@ class Simulation {
   typedef enum {
     EXPORT_CURVES_NONE,  ///< Export zero curves
     EXPORT_CURVES_XML,  ///< Export curves selected in input file in XML mode in output file
-    EXPORT_CURVES_CSV  ///< Export curves selected in input file in CSV mode in output file
+    EXPORT_CURVES_CSV,  ///< Export curves selected in input file in CSV mode in output file
+    EXPORT_CURVES_HDF5   ///< Export curves in HDF5 format
   } exportCurvesMode_t;
 
   /**
@@ -558,6 +560,12 @@ class Simulation {
   void printCurves(std::ostream& stream) const;
 
   /**
+   * @brief Export curves to an HDF5 file.
+   * @param filename path to the output .h5 file
+   */
+  void printCurvesHdf5(const std::string& filename) const;
+
+  /**
    * @brief print final state values of the simulation in the given stream
    * @param stream stream where the final state values should be printed
    */
@@ -649,16 +657,10 @@ class Simulation {
   void configureCriteria();
 
   /**
-   * @brief  update the curves depending on parameters values
-   * At the end of the simulation, parameter value is duplicated into curve
-   */
-  void updateParametersValues() const;
-
-  /**
    * @brief update curves : at the end of each iteration, new points are added to curve
    * @param updateCalculatedVariable @b true is calculated variables should be updated
    */
-  virtual void updateCurves(bool updateCalculatedVariable = true) const;
+  virtual void updateCurves(bool updateCalculatedVariable = true);
 
   /**
    * @brief dump the current time of the simulation in a file
@@ -717,6 +719,7 @@ class Simulation {
   exportCurvesMode_t exportCurvesMode_;  ///< curves' export mode
   std::string curvesInputFile_;  ///< curves' resquest input file
   std::string curvesOutputFile_;  ///< curves' output file
+  std::unique_ptr<curves::Hdf5Exporter> hdf5CurvesExporter_;  ///< incremental HDF5 exporter
 
   exportFinalStateValuesMode_t exportFinalStateValuesMode_;  ///< final state values export mode
   std::string finalStateValuesInputFile_;  ///< final state values input file

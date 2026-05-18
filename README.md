@@ -414,6 +414,7 @@ Dyna&omega;o is using some external libraries to run simulations:
 * [PowSyBl - iidm4cpp](https://www.powsybl.org/pages/documentation/developer/repositories/powsybl-iidm4cpp.html), a C++ implementation of the IIDM grid model and distributed under the MPL License, Version 2.0. The current version used is 1.5.1.
 * [jQuery](https://jquery.com/) that is distributed into Dyna&omega;o to display results into a minimalistic GUI after the simulation. The current version used is the 1.3.4 distributed under both a MIT and a GPL license.
 * [cpplint](https://github.com/google/styleguide/tree/gh-pages/cpplint), a tool used during Dyna&omega;o compilation process to ensure that the C++ files follow the Google's C++ style. It is distributed under a CC-By 3.0 License.
+* [HDF5](https://www.hdfgroup.org/solutions/hdf5/), a data model, library and file format for storing and managing large amounts of numerical data, developed and maintained by The HDF Group and distributed under the HDF5 License (a BSD-style permissive open-source license). It is used by Dyna&omega;o for the optional HDF5 curves export mode. The current version used is 1.12.2.
 
 <a name="maintainers"></a>
 ## Maintainers

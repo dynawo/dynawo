@@ -57,6 +57,7 @@
 #include "CRVCurve.h"
 #include "CRVXmlExporter.h"
 #include "CRVCsvExporter.h"
+#include "CRVHdf5Exporter.h"
 
 #include "FSVFinalStateValuesCollectionFactory.h"
 #include "FSVFinalStateValuesCollection.h"
@@ -418,6 +419,12 @@ Simulation::configureCurveOutputs() {
     } else if (exportMode == "XML") {
       exportModeFlag = Simulation::EXPORT_CURVES_XML;
       outputFile = createAbsolutePath("curves.xml", curvesDir);
+    } else if (exportMode == "HDF5") {
+#ifndef DYNAWO_WITH_HDF5
+      throw DYNError(Error::MODELER, HDF5NotEnabled);
+#endif
+      exportModeFlag = Simulation::EXPORT_CURVES_HDF5;
+      outputFile = createAbsolutePath("curves.h5", curvesDir);
     } else {
       throw DYNError(Error::MODELER, UnknownCurvesExport, exportMode);
     }
@@ -907,6 +914,11 @@ Simulation::init() {
   Trace::info() << DYNLog(CurveInitEnd, ss.str()) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
+  if (exportCurvesMode_ == EXPORT_CURVES_HDF5 && !curvesOutputFile_.empty()) {
+    hdf5CurvesExporter_.reset(new curves::Hdf5Exporter(curvesCollection_));
+    hdf5CurvesExporter_->open(curvesOutputFile_);
+  }
+
   solver_->setTimeline(timeline_);
   // no constraint registered during initialization
   if (jobEntry_->getOutputsEntry() && jobEntry_->getOutputsEntry()->getConstraintsEntry() &&
@@ -1186,28 +1198,7 @@ Simulation::getFailingCriteria(std::vector<std::pair<double, std::string> >& fai
 }
 
 void
-Simulation::updateParametersValues() const {
-  if (exportCurvesMode_ == EXPORT_CURVES_NONE)
-    return;
-
-  for (const auto& curve : curvesCollection_->getCurves()) {
-    if (curve->isParameterCurve()) {   // if a parameter curve
-      string curveModelName(curve->getModelName());
-      string curveVariable(curve->getVariable());
-
-      double value;
-      bool found(false);
-
-      model_->getModelParameterValue(curveModelName, curveVariable, value, found);   // get value
-
-      if (found)
-        curve->updateParameterCurveValue(curveVariable, value);   // update value
-    }
-  }
-}
-
-void
-Simulation::updateCurves(const bool updateCalculatedVariable) const {
+Simulation::updateCurves(const bool updateCalculatedVariable) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::updateCurves()");
 #endif
@@ -1217,7 +1208,12 @@ Simulation::updateCurves(const bool updateCalculatedVariable) const {
   if (updateCalculatedVariable)
     model_->updateCalculatedVarForCurves();
 
-  curvesCollection_->updateCurves(tCurrent_);
+  if (exportCurvesMode_ != EXPORT_CURVES_HDF5 || exportFinalStateValuesMode_ != EXPORT_FINAL_STATE_VALUES_NONE) {
+    curvesCollection_->updateCurves(tCurrent_);
+  }
+
+  if (exportCurvesMode_ == EXPORT_CURVES_HDF5 && hdf5CurvesExporter_ && hdf5CurvesExporter_->isOpen())
+    hdf5CurvesExporter_->appendRow(tCurrent_);
 }
 
 void
@@ -1272,13 +1268,16 @@ Simulation::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
 #endif
-  updateParametersValues();   // update parameter curves' value
 
   if (!curvesOutputFile_.empty()) {
-    ofstream fileCurves;
-    openFileStream(fileCurves, curvesOutputFile_);
-    printCurves(fileCurves);
-    fileCurves.close();
+    if (exportCurvesMode_ == EXPORT_CURVES_HDF5) {
+      printCurvesHdf5(curvesOutputFile_);
+    } else {
+      ofstream fileCurves;
+      openFileStream(fileCurves, curvesOutputFile_);
+      printCurves(fileCurves);
+      fileCurves.close();
+    }
   }
 
   if (!finalStateValuesOutputFile_.empty()) {
@@ -1359,7 +1358,16 @@ Simulation::printCurves(std::ostream& stream) const {
       csvExporter.exportToStream(curvesCollection_, stream);
       break;
     }
+    case EXPORT_CURVES_HDF5:
+      break;  // handled via printCurvesHdf5(), not through ostream
   }
+}
+
+void
+Simulation::printCurvesHdf5(const std::string& filename) const {
+  (void)filename;
+  if (hdf5CurvesExporter_ && hdf5CurvesExporter_->isOpen())
+    hdf5CurvesExporter_->close();
 }
 
 void Simulation::printFinalStateValues(std::ostream& stream) const {

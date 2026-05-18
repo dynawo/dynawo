@@ -328,6 +328,7 @@ set_environment() {
   # Build_config
   export_var_env DYNAWO_BUILD_TESTS=OFF
   export_var_env DYNAWO_BUILD_TESTS_COVERAGE=OFF
+  export_var_env DYNAWO_ACTIVATE_HDF5_EXPORT=true
   export_var_env DYNAWO_BUILD_TYPE=UNDEFINED
   export_var_env_force DYNAWO_USE_ADEPT=YES
 
@@ -417,6 +418,7 @@ set_environment() {
   export_var_env_force DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/sundials
   export_var_env_force DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/adept
   export_var_env_force DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/xerces-c
+  export_var_env_force DYNAWO_HDF5_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/hdf5
 
   export_var_env_force DYNAWO_LIBIIDM_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DIR_LIBIIDM
   export_var_env_force DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_LIBIIDM_HOME
@@ -439,6 +441,7 @@ set_environment() {
   export_var_env_force DYNAWO_EXAMPLES_DIR=$DYNAWO_HOME/examples
   export_var_env DYNAWO_RESULTS_SHOW=true
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
+  export_var_env_force DYNAWO_CURVES_VISU_APP_DIR=$DYNAWO_HOME/util/CurvesVisualisationApp
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force DYNAWO_UPDATE_XML_DIR=$DYNAWO_HOME/util/updateXML
@@ -567,6 +570,9 @@ set_standard_environment_variables() {
   ld_library_path_prepend $DYNAWO_LIBIIDM_HOME/lib
   ld_library_path_prepend $DYNAWO_ADEPT_INSTALL_DIR/lib
   ld_library_path_prepend $DYNAWO_XERCESC_INSTALL_DIR/lib
+  if [ -d "$DYNAWO_HDF5_INSTALL_DIR/lib" ]; then
+    ld_library_path_prepend $DYNAWO_HDF5_INSTALL_DIR/lib
+  fi
   ld_library_path_prepend $DYNAWO_INSTALL_DIR/lib
 
   path_prepend $DYNAWO_INSTALL_OPENMODELICA/bin
@@ -716,6 +722,7 @@ config_3rd_party() {
     -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
     -DOPENMODELICA_INSTALL=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_SRC=$DYNAWO_SRC_OPENMODELICA \
+    -DDYNAWO_ACTIVATE_HDF5_EXPORT=$DYNAWO_ACTIVATE_HDF5_EXPORT \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     $CMAKE_OPTIONAL
   RETURN_CODE=$?
@@ -847,6 +854,8 @@ config_dynawo() {
     -DLIBXML_HOME=$DYNAWO_LIBXML_INSTALL_DIR \
     -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
     -DXERCESC_HOME=$DYNAWO_XERCESC_INSTALL_DIR \
+    -DDYNAWO_ACTIVATE_HDF5_EXPORT=$DYNAWO_ACTIVATE_HDF5_EXPORT \
+    -DHDF5_HOME=$DYNAWO_HDF5_INSTALL_DIR \
     -DDYNAWO_PYTHON_COMMAND="$DYNAWO_PYTHON_COMMAND" \
     -DRELEASE_WITH_DEBUG:BOOL=$DYNAWO_RELEASE_WITH_DEBUG \
     $CMAKE_OPTIONAL \
@@ -1438,6 +1447,18 @@ jobs_with_curves() {
 }
 
 curves_visu() {
+  if grep -qE 'curves[^>]*exportMode="HDF5"' "$1" 2>/dev/null; then
+    if ! "$DYNAWO_PYTHON_COMMAND" -c "import h5py, streamlit, plotly" 2>/dev/null; then
+      echo "Missing Python dependencies for HDF5 curves viewer."
+      echo "Install them with: $DYNAWO_PYTHON_COMMAND -m pip install -r $DYNAWO_CURVES_VISU_APP_DIR/requirements.txt"
+      return 1
+    fi
+    echo "Curves are in HDF5 format, launching Streamlit viewer..."
+    jobs_absolute=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
+    "$DYNAWO_PYTHON_COMMAND" -m streamlit run "$DYNAWO_CURVES_VISU_APP_DIR/app.py" -- --jobsFile="$jobs_absolute" > /dev/null 2>&1 &
+    disown $!
+    return 0
+  fi
   verify_browser
   $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
@@ -1958,6 +1979,12 @@ deploy_dynawo() {
      cp -n -P -R ${libxml2_system_folder_include} include/
    fi
 
+  if [ -d "$DYNAWO_HDF5_INSTALL_DIR/lib" ]; then
+    echo "deploying HDF5 libraries"
+    cp -P $DYNAWO_HDF5_INSTALL_DIR/lib/libhdf5*.* lib/
+    cp -n -r $DYNAWO_HDF5_INSTALL_DIR/include/* include/
+  fi
+
   # DYNAWO
   echo "deploying Dynawo"
   cp $DYNAWO_INSTALL_DIR/dynawo.sh .
@@ -2262,6 +2289,7 @@ reset_environment_variables() {
   ld_library_path_remove $DYNAWO_LIBIIDM_HOME/lib
   ld_library_path_remove $DYNAWO_ADEPT_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_XERCESC_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_HDF5_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_ZLIB_HOME/lib
   ld_library_path_remove $DYNAWO_LIBARCHIVE_HOME/lib

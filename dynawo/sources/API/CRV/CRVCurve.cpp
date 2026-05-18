@@ -43,6 +43,7 @@ Curve::Curve::Curve() :
       curveType_(UNDEFINED),
       indexInGlobalTable_(std::numeric_limits<size_t>::max()),
       indexCalculatedVarInSubModel_(std::numeric_limits<unsigned>::max()),
+      fixedValue_(0.),
       exportType_(EXPORT_AS_CURVE) {}
 
 void
@@ -59,24 +60,14 @@ Curve::update(const double time) {
       } else {
         points_.back() = std::move(point);
       }
-    } else {  // this is a parameter curve
-              // we set the value of parameter curve to zero during the simulation
-              // and update the value at the end of simulation.
-      double value(0);
-      std::unique_ptr<Point> point = PointFactory::newPoint(time, value);
+    } else {
+      std::unique_ptr<Point> point = PointFactory::newPoint(time, getFixedValue());
       if (exportType_ == EXPORT_AS_CURVE || exportType_ == EXPORT_AS_BOTH || points_.empty()) {
         points_.push_back(std::move(point));
       } else {
         points_.back() = std::move(point);
       }
     }
-  }
-}
-
-void
-Curve::updateParameterCurveValue(std::string /*parameterName*/, double parameterValue) {
-  for (const auto& point : points_) {
-    point->setValue(parameterValue * factor_);
   }
 }
 
