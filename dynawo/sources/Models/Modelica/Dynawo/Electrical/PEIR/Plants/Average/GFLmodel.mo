@@ -23,8 +23,8 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // Network initial conditions (PCC, LV side)
   // ────────────────────────────────────────────────────────────
-  parameter Real UrPcc0Pu "Initial real part of PCC (LV) voltage (pu)";
-  parameter Real UiPcc0Pu "Initial imaginary part of PCC (LV) voltage (pu)";
+  parameter Real U0Pu "Initial abs voltage at PCC, base UNom Pu";
+  parameter Real Uphase "Initial phase of PCC voltage, rad";
   parameter Real P0_pcc "Initial active power at PCC (pu, load convention >0 into converter)";
   parameter Real Q0_pcc "Initial reactive power at PCC (pu, load convention >0 into converter)";
   parameter Real Omega0Pu "Initial per-unit frequency (pu) – nominal operating point";
@@ -80,7 +80,7 @@ model GFLmodel
   parameter Real K_i_q_plant "Plant Q/U PI: integral gain on Q (pu/pu·s)";
   parameter Real K_p_p_plant "Plant P/f PI: proportional gain on P (pu/pu)";
   parameter Real K_i_p_plant "Plant P/f PI: integral gain on P (pu/pu·s)";
-  parameter Real Lambda "Voltage–reactive droop coefficient λ in U + λ·Q (pu U / pu Q)";
+  parameter Real Lambda "Voltage–reactive droop coefficient λ in U + λ·Q (pu U / pu Q), (pu, base UNom, SNom)";
   parameter Real Kdroop "Frequency droop gain on active power (pu/pu)";
   parameter Real QMaxPu "Maximum reactive power reference (pu)";
   parameter Real QMinPu "Minimum reactive power reference (pu)";
@@ -116,9 +116,11 @@ model GFLmodel
   final parameter Real P0Pu = -P0_pcc * SystemBase.SnRef / SNom;
   final parameter Real Q0Pu = -Q0_pcc * SystemBase.SnRef / SNom;
   // PCC voltage phasor and magnitude
+  final parameter Complex terminalV     = ComplexMath.fromPolar(U0Pu, Uphase);
+  final parameter Real UrPcc0Pu  = terminalV.re;
+  final parameter Real UiPcc0Pu  = terminalV.im;
   final parameter Complex u0Pu_init = Complex(UrPcc0Pu, UiPcc0Pu);
   final parameter Real U0Sq = UrPcc0Pu^2 + UiPcc0Pu^2;
-  final parameter Real U0Pu = sqrt(U0Sq);
   // q-axis component of the PCC voltage in the PLL reference frame
   // (used as PLL initial condition; should be ≈ 0 at steady state)
   final parameter Real V_q_g_0 = -u0Pu_init.re*sin(Theta0) + u0Pu_init.im*cos(Theta0);
@@ -201,11 +203,11 @@ model GFLmodel
     Placement(transformation(origin = {3, 55}, extent = {{-11, -11}, {11, 11}})));
   // LV-side transformer RL stage.
   // Models the low-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoLV(RPu = RPuLV, LPu = LPuLV, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
+  RLDynTrafo TrafoLV(RPu = RPuLV*SNom/SystemBase.SnRef, LPu = LPuLV*SNom/SystemBase.SnRef, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {35, 55}, extent = {{-10, -10}, {10, 10}})));
   // HV-side transformer RL stage.
   // Models the high-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoHV(RPu = RPuHV, LPu = LPuHV, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
+  RLDynTrafo TrafoHV(RPu = RPuHV*SNom/SystemBase.SnRef, LPu = LPuHV*SNom/SystemBase.SnRef, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {79, 53}, extent = {{-10, -10}, {10, 10}})));
   // Internal LV bus node (junction between the LV and HV transformer stages).
   // Voltages and powers at this node are measured by the MeasurementBlock
