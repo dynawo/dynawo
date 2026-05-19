@@ -565,7 +565,9 @@ class ModelManager : public SubModel, public ConstraintSource, private boost::no
   *
   */
   void setEvalJIsSymbolic() override {
-    modelModelica()->setEvalJIsSymbolic();
+    if (hasInit() && modelInitUsed_)
+      modelModelicaInit()->setEvalJIsSymbolic();
+    modelModelicaDynamic()->setEvalJIsSymbolic();
   }
 
  /**
