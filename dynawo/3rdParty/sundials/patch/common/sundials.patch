@@ -138,6 +138,75 @@ index a9a0e1b8f..4d456ecc7 100644
    IDA_mem->ida_ncfn    = 0;
    IDA_mem->ida_netf    = 0;
    IDA_mem->ida_nni     = 0;
+@@ -2337,6 +2339,10 @@ static int IDAStep(IDAMem IDA_mem)
+     /* Compute predicted values for yy and yp */
+     IDAPredict(IDA_mem);
+ 
++    char debugMessage[2000];
++    snprintf(debugMessage, sizeof(debugMessage), "hh = %1.6e", IDA_mem->ida_hh);
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAStep", debugMessage, IDA_mem->ida_user_data);
++
+     /* Nonlinear system solution */
+     nflag = IDANls(IDA_mem);
+ 
+@@ -2713,6 +2719,10 @@ static int IDATestError(IDAMem IDA_mem, realtype ck,
+                      "ck_enorm_k = %"RSYM, ck * enorm_k);
+ #endif
+ 
++  char debugMessage[2000];
++  snprintf(debugMessage, sizeof(debugMessage), "ck * enorm_k = %1.6f (tol = 1)", ck * enorm_k);
++  IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDATestError", debugMessage, IDA_mem->ida_user_data);
++
+   /* Perform error test */
+   if (ck * enorm_k > ONE) return(ERROR_TEST_FAIL);
+   else                    return(IDA_SUCCESS);
+@@ -2830,6 +2840,10 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+         IDA_mem->ida_eta = SUNMAX(IDA_mem->ida_eta_cf,
+                                   IDA_mem->ida_hmin / SUNRabs(IDA_mem->ida_hh));
+       IDA_mem->ida_hh *= IDA_mem->ida_eta;
++      
++      char debugMessage[2000];
++      snprintf(debugMessage, sizeof(debugMessage), "Nonlinear solver failed, PREDICT_AGAIN with hh divided (ncfPtr = %d < mxncf = %d).", *ncfPtr, IDA_mem->ida_maxncf);
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", debugMessage, IDA_mem->ida_user_data);
+ 
+       return(PREDICT_AGAIN);
+     }
+@@ -2865,6 +2879,8 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+                          IDA_mem->ida_kk, IDA_mem->ida_eta, IDA_mem->ida_hh);
+ #endif
+ 
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", "PREDICT_AGAIN nefPtr == 1", IDA_mem->ida_user_data);
++
+       return(PREDICT_AGAIN);
+ 
+     } else if (*nefPtr == 2) {
+@@ -2876,7 +2892,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+       IDA_mem->ida_eta = SUNMAX(IDA_mem->ida_eta_min_ef,
+                                 IDA_mem->ida_hmin / SUNRabs(IDA_mem->ida_hh));
+       IDA_mem->ida_hh *= IDA_mem->ida_eta;
+-      
++
+ #if SUNDIALS_LOGGING_LEVEL >= SUNDIALS_LOGGING_INFO
+       SUNLogger_QueueMsg(IDA_LOGGER, SUN_LOGLEVEL_INFO,
+                          "IDA::IDAHandleNFlag", "second-error-test-fail",
+@@ -2884,6 +2900,8 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+                          IDA_mem->ida_kk, IDA_mem->ida_eta, IDA_mem->ida_hh);
+ #endif
+ 
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", "PREDICT_AGAIN nefPtr == 2", IDA_mem->ida_user_data);
++
+       return(PREDICT_AGAIN);
+ 
+     } else if (*nefPtr < IDA_mem->ida_maxnef) {
+@@ -2902,6 +2920,8 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+                          IDA_mem->ida_kk, IDA_mem->ida_eta, IDA_mem->ida_hh);
+ #endif
+ 
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "IDAHandleNFlag", "PREDICT_AGAIN nefPtr < IDA_mem->ida_maxnef", IDA_mem->ida_user_data);
++
+       return(PREDICT_AGAIN);
+ 
+     } else {
 @@ -3329,8 +3349,10 @@ static int IDARcheck2(IDAMem IDA_mem)
    if (IDA_mem->ida_irfnd == 0) return(IDA_SUCCESS);
  
@@ -185,7 +254,7 @@ index f3ab613b3..f8f0a20bd 100644
    long int ida_netf;     /* number of error test failures                     */
    long int ida_nni;      /* number of Newton iterations performed             */
 diff --git a/src/ida/ida_io.c b/src/ida/ida_io.c
-index 0e651a27e..086be86ef 100644
+index 0e651a27e..97d9004e9 100644
 --- a/src/ida/ida_io.c
 +++ b/src/ida/ida_io.c
 @@ -490,6 +490,8 @@ int IDASetMaxNonlinIters(void *ida_mem, int maxcor)
@@ -243,6 +312,49 @@ index 0e651a27e..086be86ef 100644
  /*-----------------------------------------------------------------*/
  
  int IDAGetNumLinSolvSetups(void *ida_mem, long int *nlinsetups)
+@@ -1032,6 +1066,42 @@ int IDAGetCurrentYp(void *ida_mem, N_Vector *ypcur)
+ 
+ /*-----------------------------------------------------------------*/
+ 
++int IDAGetCurrentYPred(void *ida_mem, N_Vector *ycurpred)
++{
++  IDAMem IDA_mem;
++
++  if (ida_mem==NULL) {
++    IDAProcessError(NULL, IDA_MEM_NULL, "IDA", "IDAGetCurrentYPred", MSG_NO_MEM);
++    return(IDA_MEM_NULL);
++  }
++
++  IDA_mem = (IDAMem) ida_mem;
++
++  *ycurpred = IDA_mem->ida_yypredict;
++
++  return(IDA_SUCCESS);
++}
++
++/*-----------------------------------------------------------------*/
++
++int IDAGetCurrentYpPred(void *ida_mem, N_Vector *ypcurpred)
++{
++  IDAMem IDA_mem;
++
++  if (ida_mem==NULL) {
++    IDAProcessError(NULL, IDA_MEM_NULL, "IDA", "IDAGetCurrentYpPred", MSG_NO_MEM);
++    return(IDA_MEM_NULL);
++  }
++
++  IDA_mem = (IDAMem) ida_mem;
++
++  *ypcurpred = IDA_mem->ida_yppredict;
++
++  return(IDA_SUCCESS);
++}
++
++/*-----------------------------------------------------------------*/
++
+ int IDAGetActualInitStep(void *ida_mem, realtype *hinused)
+ {
+   IDAMem IDA_mem;
 diff --git a/src/ida/ida_nls.c b/src/ida/ida_nls.c
 index d8f408cac..9897f5822 100644
 --- a/src/ida/ida_nls.c
@@ -301,6 +413,40 @@ index d8f408cac..9897f5822 100644
  
    /* test for convergence, first directly, then with rate estimate. */
    if (m == 0){
+@@ -345,11 +362,31 @@ static int idaNlsConvTest(SUNNonlinearSolver NLS, N_Vector ycor, N_Vector del,
+     if (delnrm <= PT0001 * IDA_mem->ida_toldel) return(SUN_NLS_SUCCESS);
+   } else {
+     rate = SUNRpowerR( delnrm/IDA_mem->ida_oldnrm, ONE/m );
+-    if (rate > RATEMAX) return(SUN_NLS_CONV_RECVR);
++    if (rate > RATEMAX) {
++      char debugMessage[2000];
++      snprintf(debugMessage, sizeof(debugMessage), "Newton diverged, m = %d, R = %1.6f > 0.9", m, rate);
++      IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", debugMessage, IDA_mem->ida_user_data);
++
++      return(SUN_NLS_CONV_RECVR);
++    }
++
+     IDA_mem->ida_ss = rate/(ONE - rate);
++
++    char debugMessage[2000];
++    snprintf(debugMessage, sizeof(debugMessage), "m = %d, R = %1.6f (divergence R > 0.9), S*||delta_m|| = %1.6f (tol = %.2f)", m, rate, IDA_mem->ida_ss*delnrm, tol);
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", debugMessage, IDA_mem->ida_user_data);
++  }
++
++  if (IDA_mem->ida_ss*delnrm <= tol) {
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", "Newton converged.", IDA_mem->ida_user_data);
++    return(SUN_NLS_SUCCESS);
+   }
+ 
+-  if (IDA_mem->ida_ss*delnrm <= tol) return(SUN_NLS_SUCCESS);
++  if (++m >= IDA_mem->ida_maxcor) {
++    char debugMessage[2000];
++    snprintf(debugMessage, sizeof(debugMessage), "Newton reached max iterations, m = %d and maxcor = %d.", m, IDA_mem->ida_maxcor);
++    IDA_mem->ida_ehfun(IDA_DEBUG, "IDA", "idaNlsConvTest", debugMessage, IDA_mem->ida_user_data);
++  }
+ 
+   /* not yet converged */
+   return(SUN_NLS_CONTINUE);
 diff --git a/src/kinsol/kinsol.c b/src/kinsol/kinsol.c
 index c1b392898..921436219 100644
 --- a/src/kinsol/kinsol.c

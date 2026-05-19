@@ -828,7 +828,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           const int msbsetAlgJSave = msbsetAlgJ_;
           const modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
           msbsetAlgJ_ = 1;
-          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;
+          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_J_UPDATE_MODE;
           model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
           reinit();
           msbsetAlgJ_ = msbsetAlgJSave;

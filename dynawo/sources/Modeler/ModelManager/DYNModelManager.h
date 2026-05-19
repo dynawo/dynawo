@@ -548,7 +548,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
   *
   */
   void setEvalJIsSymbolic() override {
-    modelModelica()->setEvalJIsSymbolic();
+    if (hasInit() && modelInitUsed_)
+      modelModelicaInit()->setEvalJIsSymbolic();
+    modelModelicaDynamic()->setEvalJIsSymbolic();
   }
 
  /**
