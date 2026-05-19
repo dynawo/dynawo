@@ -21,10 +21,11 @@ model p_step_simulation
 
   GFLmodel gFLmodelnodyn(
     // ── Initial conditions — PCC node ────────────────────────
+   SNom=100,
     UrPcc0Pu = Ur,
     UiPcc0Pu = Ui,
-    P0_pcc   = -0.6,
-    Q0_pcc   = -0.018325,
+    P0_pcc   = -0.7,
+    Q0_pcc   = -0.1966753431984517475,
     Omega0Pu = 1.0,
 
     // ── VSC Pade delay ────────────────────────────────────────
@@ -33,7 +34,7 @@ model p_step_simulation
     // ── LC filter ─────────────────────────────────────────────
     RfPu     = 0.00001,
     LfPu     = 0.001,
-    CfPu     = 1e-6,
+    CfPu     = 1e-4,
     omegaNom = 2 * Modelica.Constants.pi * 50,
 
     // ── LV transformer (filter → LV node) ────────────────────
@@ -46,24 +47,20 @@ model p_step_simulation
 
     // ── Measurement filter ────────────────────────────────────
     k_filter = 1,
-    T_filter = 1e-6,
+    T_filter = 1e-2,
 
     // ── Inner current loop ────────────────────────────────────
-    // L_g = LfPu + LPuLV = 0.009 pu
-    // omega_cc = 300 rad/s
-    // k_p = omega_cc * L_g = 2.7
-    // k_i = (omega_cc/10) * k_p = 81
-    k_p_d_current = 2.7,
-    k_i_d_current = 81.0,
-    k_p_q_current = 2.7,
-    k_i_q_current = 81.0,
+    k_p_d_current = 10.8,
+    k_i_d_current = 1296.0,
+    k_p_q_current = 10.8,
+    k_i_q_current = 1296.0,
 
     // ── Outer loop ────────────────────────────────────────────
     // omega_out = 30 rad/s (10x below current loop)
-    k_p_d_outer = 0.3,
-    k_i_d_outer = 1.0,
-    k_p_q_outer = 0.3,
-    k_i_q_outer = 1.0,
+  k_p_d_outer = 0.3,
+k_i_d_outer = 10.0,
+k_p_q_outer = 0.3,
+k_i_q_outer = 6.0,
 
     // ── Current limiter ───────────────────────────────────────
     UboostHigh = 1.1,
@@ -76,10 +73,10 @@ model p_step_simulation
 
     // ── Plant controller ──────────────────────────────────────
     // omega_plt ~ 2 rad/s (very slow, well below outer loop)
-    K_p_q_plant = 0.05,
-    K_i_q_plant = 0.5,
-    K_p_p_plant = 0.05,
-    K_i_p_plant = 0.5,
+    K_p_q_plant = 0.1,
+    K_i_q_plant = 1,
+    K_p_p_plant = 0.5,
+    K_i_p_plant = 2,
 
     Lambda      = 0.28,
     Kdroop      = 0.03,
@@ -107,47 +104,48 @@ model p_step_simulation
     DuMax_idref      = 10.0,
     DuMin_idref      = -10.0,
     tS_idref         = 1e-4,
-    delay_time_plant = 1e-5,
+    delay_time_plant = 1e-3,
 
     // ── Voltage feedforward ───────────────────────────────────
     voltagefeedforwardflag = 1) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
 
-  Modelica.Blocks.Sources.Constant URef(k = Upu0) annotation(
-    Placement(transformation(origin = {-56, 0}, extent = {{-10, -10}, {10, 10}})));
-
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
-    Placement(transformation(origin = {-58, -36}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-64, -34}, extent = {{-10, -10}, {10, 10}})));
 
-  final parameter Real Ur     = 0.9712;
-  final parameter Real Ui     =0.211317;
-  final parameter Real Uphase = atan(Ui/Ur);
-  final parameter Real Upu0 = sqrt(Ur^2+Ui^2);
+ final parameter Real U0Pu = 1.037213742957;//Modelica.ComplexMath.'abs'(Complex(0.9712,0.211317));
+  final parameter Real Uphase = 0.204890124;//Modelica.ComplexMath.arg(Complex(0.9712,0.211317));
+  final parameter Real URef0Pu =  U0Pu -gFLmodelnodyn.Lambda * gFLmodelnodyn.Q0_pcc;
+  final parameter Complex terminalV     = ComplexMath.fromPolar(U0Pu, Uphase);
+  final parameter Real Ur = terminalV.re;
+  final parameter Real Ui = terminalV.im;
 
-  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.6, startTime = 5) annotation(
+  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 10) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
-
-  Buses.InfiniteBus infiniteBus(UPu = 1.0047, UPhase = 0.033) annotation(
-    Placement(transformation(origin = {43, -57}, extent = {{-19, -19}, {19, 19}}, rotation = 180)));
   Lines.Line line(RPu = 0, XPu = 0.3, GPu = 0, BPu = 0)  annotation(
-    Placement(transformation(origin = {42, -34}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {42, -36}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Sources.Step step1(offset = URef0Pu, startTime = 10000, height = 0)  annotation(
+    Placement(transformation(origin = {-66, 8}, extent = {{-10, -10}, {10, 10}})));
+  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.55, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 100, tUEvtEnd = 140, tOmegaEvtStart = 10000, tOmegaEvtEnd = 10001)  annotation(
+    Placement(transformation(origin = {42, -76}, extent = {{-22, -22}, {22, 22}})));
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
-  connect(omegaRef.y,  gFLmodelnodyn.omegaRefPu) annotation(Line(points = {{-47, -36},{-35, -36},{-35, -9}, {8, -9}},  color = {0, 0, 127}));
+  connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
+    Line(points = {{-53, -34}, {-35, -34}, {-35, -9}, {8, -9}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(
     Line(points = {{8, 28}, {-54, 28}, {-54, 42}}, color = {0, 0, 127}));
-  connect(gFLmodelnodyn.UREfPu, URef.y) annotation(
-    Line(points = {{8, 8}, {-44, 8}, {-44, 0}}, color = {0, 0, 127}));
   connect(line.terminal1, gFLmodelnodyn.terminalPcc) annotation(
-    Line(points = {{42, -24}, {42, -14}}, color = {0, 0, 255}));
-  connect(infiniteBus.terminal, line.terminal2) annotation(
-    Line(points = {{43, -57}, {43, -56}, {42, -56}, {42, -44}}, color = {0, 0, 255}));
+    Line(points = {{42, -26}, {42, -14}}, color = {0, 0, 255}));
+  connect(step1.y, gFLmodelnodyn.UREfPu) annotation(
+    Line(points = {{-55, 8}, {8, 8}}, color = {0, 0, 127}));
+  connect(infiniteBusWithVariations.terminal, line.terminal2) annotation(
+    Line(points = {{42, -76}, {42, -46}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     experiment(
       StartTime = 0,
-      StopTime  = 20,
+      StopTime  = 5,
       Tolerance = 1e-6,
       Interval  = 0.0005));
 
