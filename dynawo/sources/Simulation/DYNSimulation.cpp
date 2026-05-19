@@ -916,6 +916,8 @@ Simulation::init() {
 
 void
 Simulation::calculateIC() {
+  bool symbolicJacobian = jobEntry_->getModelerEntry()->getSymbolicJacobian();
+
   // ensure locally satisfactory values for initial models
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelLocalInit) << Trace::endline;
@@ -950,6 +952,10 @@ Simulation::calculateIC() {
 
   model_->evalDynamicYType();
   model_->evalDynamicFType();
+
+  if (symbolicJacobian) {
+    model_->setSymbolicJacobian();
+  }
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(ModelGlobalInit) << Trace::endline;

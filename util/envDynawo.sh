@@ -1978,6 +1978,9 @@ deploy_dynawo() {
   cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpSolver sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled-${version} sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/methodsEvalFAdept.cpp sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/remove_comments.pl sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/generateEvalJ.sh sbin/
 
   if [ -d "$DYNAWO_INSTALL_DIR/doxygen" ]; then
     mkdir -p doxygen
