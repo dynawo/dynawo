@@ -31,7 +31,7 @@ equation
     if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
       U1Pu = 0;
     else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
+      U1Pu = ComplexMath.abs(terminal1.V);
     end if;
   else
     P1Pu = 0;

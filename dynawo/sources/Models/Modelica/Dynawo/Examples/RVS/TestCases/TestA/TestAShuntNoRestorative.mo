@@ -14,7 +14,7 @@ within Dynawo.Examples.RVS.TestCases.TestA;
 */
 
 model TestAShuntNoRestorative "RVS test system simulation case : shunt connection, alpha-beta loads"
-  import Modelica.SIunits.Conversions.from_deg;
+  import Modelica.Units.Conversions.from_deg;
 
   extends Icons.Example;
   extends Dynawo.Examples.RVS.Grid.FullDynamicInfiniteBusNoLoadReset(

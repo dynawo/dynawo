@@ -141,7 +141,7 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     Q0Pu = BESS.s0Pu.im,
     RLvTrPu = BESS.RLvTrPu,
     SNom = BESS.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(BESS.u0Pu),
+    U0Pu = Modelica.ComplexMath.abs(BESS.u0Pu),
     UPhase0 = 0,
     XLvTrPu = BESS.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

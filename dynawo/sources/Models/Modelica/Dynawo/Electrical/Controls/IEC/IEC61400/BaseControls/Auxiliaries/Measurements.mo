@@ -37,7 +37,7 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Placement(visible = true, transformation(origin = {-160, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput IFiltPu(start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) "Filtered current module at grid terminal in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput IFiltPu(start = ComplexMath.abs(i0Pu) * SystemBase.SnRef / SNom) "Filtered current module at grid terminal in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput omegaFiltPu(start = SystemBase.omegaRef0Pu) "Filtered grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {150, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -53,14 +53,14 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Other variables
-  Types.CurrentModulePu IWtPu(start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) "Current module at grid terminal in pu (base UNom, SNom)";
+  Types.CurrentModulePu IWtPu(start = ComplexMath.abs(i0Pu) * SystemBase.SnRef / SNom) "Current module at grid terminal in pu (base UNom, SNom)";
   Types.VoltageModulePu UWtPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)";
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPFilt, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {90, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tQFilt, y_start = -Q0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tIFilt, y_start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tIFilt, y_start = ComplexMath.abs(i0Pu) * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tUFilt, y_start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -88,8 +88,8 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Dialog(tab = "Operating point"));
 
 equation
-  UWtPu = ComplexMath.'abs'(uPu);
-  IWtPu = ComplexMath.'abs'(iPu);
+  UWtPu = ComplexMath.abs(uPu);
+  IWtPu = ComplexMath.abs(iPu);
 
   connect(iPu, product.u2) annotation(
     Line(points = {{-160, 80}, {-120, 80}, {-120, 106}, {-82, 106}}, color = {85, 170, 255}));

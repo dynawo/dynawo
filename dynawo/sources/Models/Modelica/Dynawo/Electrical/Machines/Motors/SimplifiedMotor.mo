@@ -12,21 +12,19 @@ within Dynawo.Electrical.Machines.Motors;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
-
 model SimplifiedMotor "Simplified model of an induction motor"
-/*
-                  isPu          umPu  irPu
-    terminal ------>----Rs+jXs---.----->--Rr+jXr------.
-                                 |                    |
-                                jXm                Rr(1-s)/s
-                                 |                    |
-               ----------------------------------------
+  /*
+                    isPu          umPu  irPu
+      terminal ------>----Rs+jXs---.----->--Rr+jXr------.
+                                   |                    |
+                                  jXm                Rr(1-s)/s
+                                   |                    |
+                 ----------------------------------------
 
-imPu goes downwards through jXm
-*/
+  imPu goes downwards through jXm
+  */
   extends BaseClasses.BaseMotor;
   extends AdditionalIcons.Machine;
-
   parameter Types.PerUnit RsPu "Stator resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit RrPu "Rotor resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit XsPu "Stator leakage reactance in pu (base UNom, SNom)";
@@ -34,40 +32,35 @@ imPu goes downwards through jXm
   parameter Types.PerUnit XmPu "Magnetizing reactance in pu (base UNom, SNom)";
   parameter Real H "Inertia constant in s";
   parameter Real torqueExponent "Exponent of the torsque speed dependency";
-
   Types.ComplexCurrentPu isPu(re(start = is0Pu.re), im(start = is0Pu.im)) "Stator current in pu (base UNom, SNom) (receptor convention)";
   Types.ComplexCurrentPu imPu(re(start = im0Pu.re), im(start = im0Pu.im)) "Magnetising current in pu (base UNom, SNom) (receptor convention)";
   Types.ComplexCurrentPu irPu(re(start = ir0Pu.re), im(start = ir0Pu.im)) "Rotor current in pu (base UNom, SNom) (receptor convention)";
-
   Types.PerUnit cePu(start = ce0Pu) "Electrical torque in pu (base SNom, omegaNom)";
   Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (base SNom, omegaNom)";
   Real s(start = s0) "Slip of the motor";
   Types.AngularVelocityPu omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
-
-protected
-  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu, XsPu) "Stator impedance in pu (base UNom, SNom)";
-  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu, XrPu) "Rotor impedance in pu (base UNom, SNom)";
-  final parameter Types.ComplexImpedancePu ZmPu = Complex(0, XmPu) "Magnetising impedance in pu (base UNom, SNom)";
-
-public
   parameter Types.ComplexCurrentPu is0Pu "Start value of the stator current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu im0Pu "Start value of the magnetising current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu ir0Pu "Start value of the rotor current in pu (base SNom, UNom)";
   parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (base SNom)";
   parameter Real s0 "Start value of the slip of the motor";
   parameter Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
-
+protected
+  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu, XsPu) "Stator impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu, XrPu) "Rotor impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZmPu = Complex(0, XmPu) "Magnetising impedance in pu (base UNom, SNom)";
 equation
   if (running.value) then
-    V = ZmPu * imPu + ZsPu * isPu;  // Kirchhoff’s voltage law in the first loop
-    isPu = V / (ZsPu + 1 / (1 / ZmPu + s / Complex(RrPu, XrPu * s)));  // Avoid numerical issues when s = 0
+    V = ZmPu*imPu + ZsPu*isPu;
+// Kirchhoff’s voltage law in the first loop
+    isPu = V/(ZsPu + 1/(1/ZmPu + s/Complex(RrPu, XrPu*s)));
+// Avoid numerical issues when s = 0
     isPu = imPu + irPu;
-    SPu = V * ComplexMath.conj(isPu) * (SNom / SystemBase.SnRef);
-
-    s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
-    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu.value * s);
-    clPu = ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
-    2 * H * der(omegaRPu) = cePu - clPu;
+    SPu = V*ComplexMath.conj(isPu)*(SNom/SystemBase.SnRef);
+    s = (omegaRefPu.value - omegaRPu)/omegaRefPu.value;
+    cePu = RrPu*ComplexMath.abs(irPu^2)/(omegaRefPu.value*s);
+    clPu = ce0Pu*(omegaRPu/omegaR0Pu)^torqueExponent;
+    2*H*der(omegaRPu) = cePu - clPu;
   else
     der(omegaRPu) = 0;
     isPu = Complex(0);
@@ -78,6 +71,6 @@ equation
     s = 0;
     SPu = Complex(0);
   end if;
-
-  annotation(preferredView = "text");
+  annotation(
+    preferredView = "text");
 end SimplifiedMotor;

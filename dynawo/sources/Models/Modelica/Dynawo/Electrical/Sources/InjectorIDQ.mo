@@ -52,7 +52,7 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal in rad";
 
 equation
-  UPu = ComplexMath.'abs'(terminal.V);
+  UPu = ComplexMath.abs(terminal.V);
   uPu = terminal.V;
 
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef

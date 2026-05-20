@@ -31,7 +31,7 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {290, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PConv0Pu) "Active power reference for the electrical controller (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {290, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(
     table = [P1,
     Spd1; P2,
     Spd2; P3,

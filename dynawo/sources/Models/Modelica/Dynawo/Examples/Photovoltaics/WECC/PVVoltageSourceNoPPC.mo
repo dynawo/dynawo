@@ -144,7 +144,7 @@ model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controlle
     Q0Pu = PV.s0Pu.im,
     RLvTrPu = PV.RLvTrPu,
     SNom = PV.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(PV.u0Pu),
+    U0Pu = Modelica.ComplexMath.abs(PV.u0Pu),
     UPhase0 = 0,
     XLvTrPu = PV.XLvTrPu,
     RSourcePu = PV.RSourcePu,

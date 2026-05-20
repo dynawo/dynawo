@@ -54,4 +54,3 @@ equation
 
   annotation(preferredView = "text");
 end BaseLoadMotorSimplified_INIT;
-

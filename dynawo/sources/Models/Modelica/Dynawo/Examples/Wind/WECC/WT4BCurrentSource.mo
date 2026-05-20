@@ -135,7 +135,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     Q0Pu = WT4B.s0Pu.im,
     RLvTrPu = WT4B.RLvTrPu,
     SNom = WT4B.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(WT4B.u0Pu),
+    U0Pu = Modelica.ComplexMath.abs(WT4B.u0Pu),
     UPhase0 = WT4B.UPhase0,
     XLvTrPu = WT4B.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

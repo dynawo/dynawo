@@ -14,7 +14,7 @@ within Dynawo.Examples.RVS.Grid;
 */
 
 model FullStatic2 "RVS test grid with buses, lines, shunts, PQ loads and transformers, used for load flow calculation (OpenModelica 1.24.4)"
-  import Modelica.SIunits.Conversions.from_deg;
+  import Modelica.Units.Conversions.from_deg;
 
   extends BaseClasses.NetworkWithPQLoads;
 
@@ -413,7 +413,7 @@ equation
   tfo_20123_123.switchOffSignal2.value = false;
   tfo_30123_123.switchOffSignal1.value = false;
   tfo_30123_123.switchOffSignal2.value = false;
-  vRRemote_bus_101.URegulatedPu = ComplexMath.'abs'(bus_101_ABEL.terminal.V) * UNom_lower;
+  vRRemote_bus_101.URegulatedPu = ComplexMath.abs(bus_101_ABEL.terminal.V) * UNom_lower;
   vRRemote_bus_101.URefPu = URef0Pu_bus_101 * UNom_lower;
   vRRemote_bus_101.limUQUp[1] = false;// gen_10101_ABEL_G1.limUQUp;
   vRRemote_bus_101.limUQUp[2] = false;// gen_20101_ABEL_G2.limUQUp;
@@ -435,7 +435,7 @@ equation
   gen_40101_ABEL_G4.switchOffSignal1.value = false;
   gen_40101_ABEL_G4.switchOffSignal2.value = false;
   gen_40101_ABEL_G4.switchOffSignal3.value = false;
-  vRRemote_bus_102.URegulatedPu = ComplexMath.'abs'(bus_102_ADAMS.terminal.V) * UNom_lower;
+  vRRemote_bus_102.URegulatedPu = ComplexMath.abs(bus_102_ADAMS.terminal.V) * UNom_lower;
   vRRemote_bus_102.URefPu = URef0Pu_bus_102 * UNom_lower;
   vRRemote_bus_102.limUQUp[1] = false;// gen_10102_ADAMS_G1.limUQUp;
   vRRemote_bus_102.limUQUp[2] = false;// gen_20102_ADAMS_G2.limUQUp;
@@ -457,7 +457,7 @@ equation
   gen_40102_ADAMS_G4.switchOffSignal1.value = false;
   gen_40102_ADAMS_G4.switchOffSignal2.value = false;
   gen_40102_ADAMS_G4.switchOffSignal3.value = false;
-  vRRemote_bus_107.URegulatedPu = ComplexMath.'abs'(bus_107_ALDER.terminal.V) * UNom_lower;
+  vRRemote_bus_107.URegulatedPu = ComplexMath.abs(bus_107_ALDER.terminal.V) * UNom_lower;
   vRRemote_bus_107.URefPu = URef0Pu_bus_107 * UNom_lower;
   vRRemote_bus_107.limUQUp[1] = false;// gen_10107_ALDER_G1.limUQUp;
   vRRemote_bus_107.limUQUp[2] = false;// gen_20107_ALDER_G2.limUQUp;
@@ -474,7 +474,7 @@ equation
   gen_30107_ALDER_G3.switchOffSignal1.value = false;
   gen_30107_ALDER_G3.switchOffSignal2.value = false;
   gen_30107_ALDER_G3.switchOffSignal3.value = false;
-  vRRemote_bus_113.URegulatedPu = ComplexMath.'abs'(bus_113_ARNE.terminal.V) * UNom_upper;
+  vRRemote_bus_113.URegulatedPu = ComplexMath.abs(bus_113_ARNE.terminal.V) * UNom_upper;
   vRRemote_bus_113.URefPu = URef0Pu_bus_113 * UNom_upper;
   vRRemote_bus_113.limUQUp[1] = false;// gen_10113_ARNE_G1.limUQUp;
   vRRemote_bus_113.limUQUp[2] = false;// gen_20113_ARNE_G2.limUQUp;
@@ -491,14 +491,14 @@ equation
   gen_30113_ARNE_G3.switchOffSignal1.value = false;
   gen_30113_ARNE_G3.switchOffSignal2.value = false;
   gen_30113_ARNE_G3.switchOffSignal3.value = false;
-  vRRemote_bus_118.URegulatedPu = ComplexMath.'abs'(bus_118_ASTOR.terminal.V) * UNom_upper;
+  vRRemote_bus_118.URegulatedPu = ComplexMath.abs(bus_118_ASTOR.terminal.V) * UNom_upper;
   vRRemote_bus_118.URefPu = URef0Pu_bus_118 * UNom_upper;
   vRRemote_bus_118.limUQUp[1] = false;// gen_10118_ASTOR_G1.limUQUp;
   vRRemote_bus_118.limUQDown[1] = false;// gen_10118_ASTOR_G1.limUQDown;
   gen_10118_ASTOR_G1.switchOffSignal1.value = false;
   gen_10118_ASTOR_G1.switchOffSignal2.value = false;
   gen_10118_ASTOR_G1.switchOffSignal3.value = false;
-  vRRemote_bus_115.URegulatedPu = ComplexMath.'abs'(bus_115_ARTHUR.terminal.V) * UNom_upper;
+  vRRemote_bus_115.URegulatedPu = ComplexMath.abs(bus_115_ARTHUR.terminal.V) * UNom_upper;
   vRRemote_bus_115.URefPu = URef0Pu_bus_115 * UNom_upper;
   vRRemote_bus_115.limUQUp[1] = false;// gen_10115_ARTHUR_G1.limUQUp;
   vRRemote_bus_115.limUQUp[2] = false;// gen_20115_ARTHUR_G2.limUQUp;
@@ -530,7 +530,7 @@ equation
   gen_60115_ARTHUR_G6.switchOffSignal1.value = false;
   gen_60115_ARTHUR_G6.switchOffSignal2.value = false;
   gen_60115_ARTHUR_G6.switchOffSignal3.value = false;
-  vRRemote_bus_122.URegulatedPu = ComplexMath.'abs'(bus_122_AUBREY.terminal.V) * UNom_upper;
+  vRRemote_bus_122.URegulatedPu = ComplexMath.abs(bus_122_AUBREY.terminal.V) * UNom_upper;
   vRRemote_bus_122.URefPu = URef0Pu_bus_122 * UNom_upper;
   vRRemote_bus_122.limUQUp[1] = false;// gen_10122_AUBREY_G1.limUQUp;
   vRRemote_bus_122.limUQUp[2] = false;// gen_20122_AUBREY_G2.limUQUp;
@@ -562,14 +562,14 @@ equation
   gen_60122_AUBREY_G6.switchOffSignal1.value = false;
   gen_60122_AUBREY_G6.switchOffSignal2.value = false;
   gen_60122_AUBREY_G6.switchOffSignal3.value = false;
-  vRRemote_bus_116.URegulatedPu = ComplexMath.'abs'(bus_116_ASSER.terminal.V) * UNom_upper;
+  vRRemote_bus_116.URegulatedPu = ComplexMath.abs(bus_116_ASSER.terminal.V) * UNom_upper;
   vRRemote_bus_116.URefPu = URef0Pu_bus_116 * UNom_upper;
   vRRemote_bus_116.limUQUp[1] = false;// gen_10116_ASSER_G1.limUQUp;
   vRRemote_bus_116.limUQDown[1] = false;// gen_10116_ASSER_G1.limUQDown;
   gen_10116_ASSER_G1.switchOffSignal1.value = false;
   gen_10116_ASSER_G1.switchOffSignal2.value = false;
   gen_10116_ASSER_G1.switchOffSignal3.value = false;
-  vRRemote_bus_123.URegulatedPu = ComplexMath.'abs'(bus_123_AUSTEN.terminal.V) * UNom_upper;
+  vRRemote_bus_123.URegulatedPu = ComplexMath.abs(bus_123_AUSTEN.terminal.V) * UNom_upper;
   vRRemote_bus_123.URefPu = URef0Pu_bus_123 * UNom_upper;
   vRRemote_bus_123.limUQUp[1] = false;// gen_10123_AUSTEN_G1.limUQUp;
   vRRemote_bus_123.limUQUp[2] = false;// gen_20123_AUSTEN_G2.limUQUp;

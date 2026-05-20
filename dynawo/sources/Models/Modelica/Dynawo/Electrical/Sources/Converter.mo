@@ -143,7 +143,7 @@ equation
     if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
       UPu = 0;
     else
-      UPu = Modelica.ComplexMath.'abs'(terminal.V);
+      UPu = Modelica.ComplexMath.abs(terminal.V);
     end if;
 
   else

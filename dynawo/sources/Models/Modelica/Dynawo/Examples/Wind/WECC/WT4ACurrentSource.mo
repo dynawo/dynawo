@@ -139,7 +139,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Q0Pu = WT4A.s0Pu.im,
     RLvTrPu = WT4A.RLvTrPu,
     SNom = WT4A.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(WT4A.u0Pu),
+    U0Pu = Modelica.ComplexMath.abs(WT4A.u0Pu),
     UPhase0 = WT4A.UPhase0,
     XLvTrPu = WT4A.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

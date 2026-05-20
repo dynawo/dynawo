@@ -14,7 +14,7 @@ within Dynawo.Examples.RVS.Grid;
 */
 
 model FullDynamicInfiniteBus "RVS test grid with buses, lines, shunts, restorative loads, transformers, generators and static var compensators"
-  import Modelica.SIunits.Conversions.from_deg;
+  import Modelica.Units.Conversions.from_deg;
 
   extends BaseClasses.NetworkWithTrfRestorative;
 

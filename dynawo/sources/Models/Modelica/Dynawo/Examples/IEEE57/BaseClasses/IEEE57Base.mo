@@ -17,9 +17,9 @@ model IEEE57Base "Base class for IEEE 57-bus system benchmark formed with 57 bus
   import Dynawo.Electrical.Machines.OmegaRef.GeneratorPV.QStatus;
 
   // Base calculation
-  final parameter Modelica.SIunits.Impedance ZBASE69_0 = 69.0 ^ 2 / SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE18_0 = 18.0 ^ 2 / SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE13_8 = 13.8 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE69_0 = 69.0 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE18_0 = 18.0 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE13_8 = 13.8 ^ 2 / SystemBase.SnRef;
 
    // Load parameters
   parameter Real alpha = 1.5 "Active load sensitivity to voltage";

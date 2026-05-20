@@ -51,8 +51,8 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
   Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";
   Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in pu (base SnRef)";
 
-  Modelica.Blocks.Tables.CombiTable1D QMaxPPu(table = tableQMaxPPu);
-  Modelica.Blocks.Tables.CombiTable1D QMinPPu(table = tableQMinPPu);
+  Modelica.Blocks.Tables.CombiTable1Dv QMaxPPu(table = tableQMaxPPu);
+  Modelica.Blocks.Tables.CombiTable1Dv QMinPPu(table = tableQMinPPu);
 
   parameter Types.ReactivePowerPu QMax0Pu "Initial value of maximum reactive power in pu (base SnRef)";
   parameter Types.ReactivePowerPu QMin0Pu "Initial value of minimum reactive power in pu (base SnRef)";

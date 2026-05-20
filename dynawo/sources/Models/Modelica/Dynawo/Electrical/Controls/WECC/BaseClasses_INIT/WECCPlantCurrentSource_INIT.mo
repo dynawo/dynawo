@@ -77,7 +77,7 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
   Types.PerUnit Pm0Pu "Initial mechanical power in pu (base SNom)";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -94,7 +94,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
 
   //Converter terminal electrical quantities
-  UConv0Pu = ComplexMath.'abs'(uConv0Pu);
+  UConv0Pu = ComplexMath.abs(uConv0Pu);
   iConv0Pu = (-i0Pu*SystemBase.SnRef/SNom)/rTfoPu + Complex(GPcsPu, BPcsPu)*uConv0Pu;
   uConv0Pu = rTfoPu*u0Pu - Complex(RPcsPu, XPcsPu)*(i0Pu*SystemBase.SnRef/SNom)/rTfoPu;
   sConv0Pu = uConv0Pu*ComplexMath.conj(iConv0Pu);
@@ -108,8 +108,8 @@ equation
   sInj0Pu = uInj0Pu*ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
-  UInj0Pu = ComplexMath.'abs'(uInj0Pu);
-  PF0 = if (not (ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/ComplexMath.'abs'(s0Pu) else 0;
+  UInj0Pu = ComplexMath.abs(uInj0Pu);
+  PF0 = if (not (ComplexMath.abs(s0Pu) == 0)) then -P0Pu/ComplexMath.abs(s0Pu) else 0;
   Id0Pu = Modelica.Math.cos(UPhaseConv0)*iInj0Pu.re + Modelica.Math.sin(UPhaseConv0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseConv0)*iInj0Pu.re - Modelica.Math.cos(UPhaseConv0)*iInj0Pu.im;
   omegaRefWTGQPu0 = combiTable1D.y[1];

@@ -25,7 +25,7 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(tableOnFile = true, tableName = PiTableName, fileName = PiTableFile) annotation(
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(tableOnFile = true, tableName = PiTableName, fileName = PiTableFile) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback discreteError annotation(
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));

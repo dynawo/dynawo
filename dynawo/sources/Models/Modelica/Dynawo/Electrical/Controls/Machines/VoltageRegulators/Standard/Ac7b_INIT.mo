@@ -27,7 +27,7 @@ model Ac7b_INIT "IEEE excitation system type AC7B initialization model"
   Types.VoltageModulePu Vb0Pu "Initial available exciter field voltage in pu (base UNom)";
 
 equation
-  Vb0Pu = Kp * Modelica.ComplexMath.'abs'(ut0Pu);
+  Vb0Pu = Kp * Modelica.ComplexMath.abs(ut0Pu);
 
   annotation(preferredView = "text");
 end Ac7b_INIT;

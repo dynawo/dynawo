@@ -42,7 +42,7 @@ equation
   v2 = iT * Complex(Ki + X * Kp * cos(Theta), X * Kp * sin(Theta));
 
   if running then
-    vE = Modelica.ComplexMath.'abs'(v1 + j * v2);
+    vE = Modelica.ComplexMath.abs(v1 + j * v2);
   else
     vE = 0;
   end if;

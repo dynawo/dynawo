@@ -48,8 +48,8 @@ equation
     if terminal.V == Complex(0) then
       terminal.i = Complex(0);
     else
-      PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha) * KpMlt;
-      QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Beta) * KqMlt;
+      PPu = PRefPu * (1 + deltaP) *((ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu))^Alpha) * KpMlt;
+      QPu = QRefPu * (1 + deltaQ) *((ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu))^Beta) * KqMlt;
     end if;
   else
     der(KpMlt) = 0;

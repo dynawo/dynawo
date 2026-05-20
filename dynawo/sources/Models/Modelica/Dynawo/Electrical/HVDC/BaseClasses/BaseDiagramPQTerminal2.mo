@@ -20,8 +20,8 @@ partial model BaseDiagramPQTerminal2 "Base dynamic model for a PQ diagram at ter
   parameter String QInj2MinTableFile "Text file that contains the table to get QInj2MinPu from PInj2Pu (generator convention)";
   parameter String QInj2MinTableName "Name of the table in the text file to get QInj2MinPu from PInj2Pu (generator convention)";
 
-  Modelica.Blocks.Tables.CombiTable1D tableQInj2Max(tableOnFile = true, tableName = QInj2MaxTableName, fileName = QInj2MaxTableFile) "Table to get QInj2MaxPu from PInj2Pu (generator convention)";
-  Modelica.Blocks.Tables.CombiTable1D tableQInj2Min(tableOnFile = true, tableName = QInj2MinTableName, fileName = QInj2MinTableFile) "Table to get QInj2MinPu from PInj2Pu (generator convention)";
+  Modelica.Blocks.Tables.CombiTable1Dv tableQInj2Max(tableOnFile = true, tableName = QInj2MaxTableName, fileName = QInj2MaxTableFile) "Table to get QInj2MaxPu from PInj2Pu (generator convention)";
+  Modelica.Blocks.Tables.CombiTable1Dv tableQInj2Min(tableOnFile = true, tableName = QInj2MinTableName, fileName = QInj2MinTableFile) "Table to get QInj2MinPu from PInj2Pu (generator convention)";
 
   Types.ReactivePowerPu QInj2MaxPu(start = QInj2Max0Pu) "Maximum reactive power at terminal 2 in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QInj2MinPu(start = QInj2Min0Pu) "Minimum reactive power at terminal 2 in pu (base SnRef) (generator convention)";

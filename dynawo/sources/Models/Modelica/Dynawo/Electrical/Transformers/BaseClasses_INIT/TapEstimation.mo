@@ -62,16 +62,16 @@ algorithm
   end if;
 
   // Handling zero voltage case
-  if (ComplexMath. 'abs'(u10Pu) == 0) then
+  if (ComplexMath.abs(u10Pu) == 0) then
     Tap0 := 0;
     return;
   end if;
 
   // Determining the ratio voltage corresponding to the voltage set point based on equation (5)
   deltauPu := ZPu * i10Pu;
-  A := ComplexMath. 'abs'(u10Pu) * ComplexMath. 'abs'(u10Pu);
+  A := ComplexMath.abs(u10Pu) * ComplexMath.abs(u10Pu);
   B := -2 * deltauPu.re * u10Pu.re -2 * deltauPu.im * u10Pu.im - Uc20Pu * Uc20Pu;
-  C := ComplexMath. 'abs'(deltauPu) * ComplexMath. 'abs'(deltauPu);
+  C := ComplexMath.abs(deltauPu) * ComplexMath.abs(deltauPu);
   delta := B * B - 4 * A * C;
   assert(delta > 0, "The power flow through the transformer is incoherent: rTfo0Pu is supposed to be positive");
   root := (-B + sqrt(delta)) / (2 * A);
