@@ -142,9 +142,9 @@ void throw_(ModelManager* model, const Message& message) {
   throw MessageError(model->name() + " : " + message.str());
 }
 
-void terminate_(ModelManager* model, const MessageTimeline& messageTimeline) {
-  model->addEvent(model->name(), messageTimeline);
-  throw DYNTerminate(TerminateInModel, model->name(), messageTimeline.str());
+void terminate_(ModelManager* model, const Message& message) {
+  model->addEvent(model->name(), DYNTimeline(TerminateInModel,  model->name(), message.str()));
+  throw DYNTerminate(TerminateInModel, model->name(), message.str());
 }
 
 #ifdef __clang__
