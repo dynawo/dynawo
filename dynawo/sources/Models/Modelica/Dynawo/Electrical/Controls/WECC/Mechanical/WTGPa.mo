@@ -69,7 +69,7 @@ equation
 <p data-start=\"1249\" data-end=\"1421\" class=\"\"><strong data-start=\"1249\" data-end=\"1271\">Low Wind Operation</strong>: In low wind conditions, the controller adjusts the blade pitch to ensure the turbine starts generating power efficiently, even at lower wind speeds.</p></li></ol>
 <p>
  </p><p></p></body></html>"),
-    uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
+    Dynawo(version = "1.8.0")),
     Icon(graphics = {Text(origin = {118, 18}, extent = {{-14, 8}, {14, -8}}, textString = "theta"), Text(origin = {-40, 112}, extent = {{-22, 14}, {22, -14}}, textString = "wt"), Text(origin = {-113, 92}, extent = {{-15, 14}, {15, -14}}, textString = "wref"), Text(origin = {-120, -30}, extent = {{-16, 10}, {16, -10}}, textString = "Pord"), Text(origin = {-29, -108}, extent = {{-15, 12}, {15, -12}}, textString = "Pref"), Text(origin = {4, 0}, extent = {{-60, 46}, {60, -46}}, textString = "WTGP A"), Rectangle(extent = {{-100, 100}, {100, -100}})}),
     Diagram);
 end WTGPa;

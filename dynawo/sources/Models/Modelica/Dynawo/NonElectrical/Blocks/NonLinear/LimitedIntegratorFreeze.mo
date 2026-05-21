@@ -40,7 +40,6 @@ equation
   end if;
 
   annotation(
-    uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

@@ -94,6 +94,6 @@ equation
 
   annotation(
     preferredView = "diagram",
-    uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
+    Dynawo(version = "1.8.0")),
     Diagram);
 end BaseWTGP;

@@ -133,7 +133,7 @@ controller (Prefo), and thus determines the electrical-torque needed.<!--EndFrag
 the speed reference and change in generator speed, or the power reference.</p><!--StartFragment--><!--EndFragment-->
 <p>
  </p><p></p></body></html>"),
-    uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
+    Dynawo(version = "1.8.0")),
     Diagram(coordinateSystem(extent = {{-120, 120}, {280, -40}})),
     version = "",
     Icon(graphics = {Text(origin = {-117, 94}, extent = {{-19, 12}, {19, -12}}, textString = "wg"), Text(origin = {-127, 32}, extent = {{-15, 12}, {15, -12}}, textString = "Pe"), Text(origin = {-126, -38}, extent = {{-22, 16}, {22, -16}}, textString = "Pref0"), Text(origin = {-1, 2}, extent = {{-59, 42}, {59, -42}}, textString = "WTGQ A"), Text(origin = {119, 84}, extent = {{-19, 12}, {19, -12}}, textString = "Pref"), Text(origin = {121, -37}, extent = {{-23, 11}, {23, -11}}, textString = "wref"), Text(origin = {52, -108}, extent = {{14, 20}, {-14, -20}}, textString = "Freeze"), Rectangle(extent = {{-100, 100}, {100, -100}})}));

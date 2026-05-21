@@ -60,7 +60,6 @@ equation
     Documentation(info = "<html><head></head><body><p> This block contains the Aero-Dynamic Model for a WindTurbineGenerator Type 3 according to <br><a href=\"3002027129_Model%20User%20Guide%20for%20Generic%20Renewable%20Energy%20Systems.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a> </p><p>This simple model will give you a value for the mechaniquel power developed by the wind turbine depending on the blade pitch angle.</p>
 <p>
  </p><p></p></body></html>"),
-    uses(Modelica(version = "3.2.3")),
     Diagram(coordinateSystem(extent = {{-120, 80}, {120, -80}})),
     Icon(graphics = {Text(origin = {77, -109}, extent = {{-17, 9}, {17, -9}}, textString = "PmRef"), Text(origin = {-111, 23}, extent = {{-15, 7}, {15, -7}}, textString = "theta"), Text(origin = {108, 21}, extent = {{-14, 9}, {14, -9}}, textString = "Pm"), Text(origin = {2, 3}, extent = {{-64, 41}, {64, -41}}, textString = "WTGA A"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end WTGAa;
