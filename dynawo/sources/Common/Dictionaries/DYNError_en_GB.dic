@@ -156,6 +156,7 @@ IncompleteMacroConnection   =             macroConnect between %1% and %2% using
 SystemInitConnectorForbidden =            system macro connector id (%1%) could not have an init connection
 FlowConnectionMixedSystemAndInternal =    the system flow connection %1%_%2%->%3%_%4% is also connected inside a modelica model which is forbidden. Please merge the models inside a single modelica model.
 DynamicLineStatusNotSupported =           connection status (CLOSED_1 or CLOSED_2) not supported for dynamic line %1%
+DynamicLineStatusNotSupported2 =          connected dynamic bus not supported for dynamic line %1%
 MismatchingVariableSizes    =             the number of %1% variables and corresponding size are different in model %2% (%3% != %4%)
 ConverterWrongType          =             wrong converter type for converter %1%
 AttemptToPropagateBeforeMerge        =    discrete variables connectors should be merged before propagating information to model

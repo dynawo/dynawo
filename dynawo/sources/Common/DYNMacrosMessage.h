@@ -43,13 +43,12 @@
 #define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
 
 /**
- * @brief Macro to add a timeline event, only if timeline exists
+ * @brief Macro to add a timeline event, only if timeline exists, implemented as a ternary operator to avoid if/else syntax traps
  * @param model the model to add the event to
  * @param name the name of the model
  * @param key key to find the message
  */
-#define DYNAddTimelineEvent(model, name, key, ...) \
-  if (model->hasTimeline()) model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__))
+#define DYNAddTimelineEvent(model, name, key, ...) (model->hasTimeline() ? model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__)) : (void)0)
 
 /**
  * @brief Macro to define a constraint message

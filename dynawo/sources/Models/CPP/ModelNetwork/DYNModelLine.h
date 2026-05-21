@@ -1,5 +1,4 @@
-//
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2026, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,14 +8,9 @@
 //
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 // simulation tool for power systems.
-//
 
-/**
- * @file  DYNModelLine.h
- *
- * @brief
- *
- */
+/** @file  DYNModelLine.h */
+
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_
 
@@ -31,9 +25,7 @@ class ModelBus;
 class LineInterface;
 class ModelCurrentLimits;
 
-/**
- * @brief Generic AC line model
- */
+/** @brief Generic AC line model */
 class ModelLine : public ModelQuadripole {
  public:
   /**
@@ -42,18 +34,7 @@ class ModelLine : public ModelQuadripole {
    */
   explicit ModelLine(const std::shared_ptr<LineInterface>& line);
 
-  /**
-   * @brief indicate which modelBus are known (case of line without modelBus at one side)
-   */
-  typedef enum {
-    BUS1_BUS2 = 0,
-    BUS1 = 1,
-    BUS2 = 2
-  } KnownBus_t;
-
-  /**
-   * @brief  calculated variables type
-   */
+  /** @brief calculated variables type */
   typedef enum {
     i1Num_ = 0,  // (unit pu)
     i2Num_ = 1,  // (unit pu)
@@ -75,48 +56,10 @@ class ModelLine : public ModelQuadripole {
   } CalculatedVariables_t;
 
   /**
-   * @brief set CurrentLimits Desactivate
-   * @param desactivate CurrentLimits Desactivate
-   */
-  void setCurrentLimitsDesactivate(const double desactivate) {
-    currentLimitsDesactivate_ = desactivate;
-  }
-
-  /**
-   * @brief get CurrentLimits Desactivate
-   * @return currentLimitsDesactivate
-   */
-  double getCurrentLimitsDesactivate() const {
-    return currentLimitsDesactivate_;
-  }
-
-  /**
-   * @brief evaluate node injection
-   */
-  void evalNodeInjection() override;
-
-  /**
-   * @brief evaluate derivatives
-   * @param cj Jacobian prime coefficient
-   */
-  void evalDerivatives(double cj) override;
-
-  /**
-   * @brief evaluate derivatives prim
-   */
-  void evalDerivativesPrim() override;
-
-  /**
    * @brief define variables
    * @param variables variables
    */
   static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
-
-  /**
-   * @brief instantiate variables
-   * @param variables variables
-   */
-  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
 
   /**
    * @brief define parameters
@@ -124,178 +67,53 @@ class ModelLine : public ModelQuadripole {
    */
   static void defineParameters(std::vector<ParameterModeler>& parameters);
 
-  /**
-   * @brief define non generic parameters
-   * @param parameters vector to fill with the non generic parameters
-   */
-  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
+  inline unsigned getNbInternalVariables() const override {return 4;}
 
-  /**
-   * @brief define elements
-   * @param elements vector of elements
-   * @param mapElement map of elements
-   */
+  void evalNodeInjection() override;
+  void evalDerivatives(double cj) override;
+  void evalDerivativesPrim() override;
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
+  void defineNonGenericParameters(std::vector<ParameterModeler> &) override { /* not needed */ }
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
-
-  /**
-   * @brief evaluation F
-   * @param[in] type type of the residues to compute (algebraic, differential or both)
-   */
   void evalF(propertyF_t type) override;
-
-  /**
-  * @copydoc NetworkComponent::evalZ()
-  */
-  NetworkComponent::StateChange_t evalZ(double t) override;  // get the local Z function for time t
-
-  /**
-   * @brief evaluation G
-   * @param t time
-   */
+  NetworkComponent::StateChange_t evalZ(double t) override;
   void evalG(double t) override;
-
-  /**
-   * @brief evaluation calculated variables (for outputs)
-   */
   void evalCalculatedVars() override;
-
-  /**
-   * @brief get the index of variables used to define the jacobian associated to a calculated variable
-   * @param numCalculatedVar index of the calculated variable
-   * @param numVars index of variables used to define the jacobian associated to a calculated variable
-   */
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const override;
-
-  /**
-   * @brief evaluate the jacobian associated to a calculated variable
-   *
-   * @param numCalculatedVar index of the calculated variable
-
-   * @param res values of the jacobian
-   */
   void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const override;
-
-  /**
-   * @copydoc NetworkComponent::evalJt(double cj, int rowOffset, SparseMatrix& jt)
-   */
   void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
-
-  /**
-   * @copydoc NetworkComponent::evalJtPrim(int rowOffset, SparseMatrix& jtPrim)
-   */
   void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
-
-  /**
-   * @brief evaluate the value of a calculated variable
-   *
-   * @param numCalculatedVar index of the calculated variable
-   *
-   * @return value of the calculated variable
-   */
   double evalCalculatedVarI(unsigned numCalculatedVar) const override;
-
-  /**
-   * @copydoc NetworkComponent::evalStaticYType()
-   */
   void evalStaticYType() override;
-
-  /**
-   * @copydoc NetworkComponent::evalDynamicYType()
-   */
   void evalDynamicYType() override;
-
-  /**
-   * @copydoc NetworkComponent::evalStaticFType()
-   */
   void evalStaticFType() override;
-
-  /**
-   * @copydoc NetworkComponent::evalDynamicFType()
-   */
   void evalDynamicFType() override;
-
-  /**
-   * @copydoc NetworkComponent::collectSilentZ()
-   */
   void collectSilentZ(BitMask* silentZTable) override;
-
-  /**
-   * @copydoc NetworkComponent::evalYMat()
-   */
   void evalYMat() override;
-
-  /**
-   * @copydoc NetworkComponent::init(int& yNum)
-   */
   void init(int & yNum) override;
-
-  /**
-   * @copydoc NetworkComponent::getY0()
-   */
   void getY0() override;
-
-  /**
-   * @copydoc NetworkComponent::setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params)
-   */
   void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& params) override;
-
-  /**
-   * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )
-   */
   void setFequations(std::map<int, std::string>& fEquationIndex) override;
-
-  /**
-   * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )
-   */
   void setGequations(std::map<int, std::string>& gEquationIndex) override;
-
-  /**
-   * @brief evaluate state
-   * @param time time
-   * @return state change type
-   */
-  StateChange_t evalState(double time) override;  // check whether a discrete event happened
-
-  /**
-   * @brief update data
-   */
+  StateChange_t evalState(double time) override;
   void initSize() override;
-
-  /**
-   * @brief get the number of internal variable of the model
-   *
-   * @return the number of internal variable of the model
-   */
-  inline unsigned getNbInternalVariables() const override {
-    return 4;
-  }
-
-  /**
-   * @brief append the internal variables values to a stringstream
-   *
-   * @param streamVariables : stream with binary formated internalVariables
-   */
   void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
-
-  /**
-   * @brief import the internal variables values of the component from stringstream
-   *
-   * @param streamVariables : stream with binary formated internalVariables
-   */
   void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
-
-  /**
-  * @brief write initial values internal parameters of a model in a file
-  *
-  * @param fstream the file to stream parameters to
-  */
   void printInternalParameters(std::ofstream& fstream) const override;
 
- private:
-  KnownBus_t knownBus_;  ///< known bus
-  boost::shared_ptr<ModelCurrentLimits> currentLimits1_;  ///< current limit side 1
-  boost::shared_ptr<ModelCurrentLimits> currentLimits2_;  ///< current limit side 2
+  /**
+   * @brief set CurrentLimits Desactivate
+   * @param newVal CurrentLimits Desactivate
+   */
+  void setCurrentLimitsDesactivate(double newVal) {currentLimitsDesactivate_ = newVal;}
 
+  /**
+   * @brief get CurrentLimits Desactivate
+   * @return currentLimitsDesactivate
+   */
+  double getCurrentLimitsDesactivate() const {return currentLimitsDesactivate_;}
+
+ private:
   /**
    * @brief compute the real part of the current on side 1
    * @param ur1 real part of the voltage on side 1
@@ -335,26 +153,6 @@ class ModelLine : public ModelQuadripole {
    * @return the imaginary part of the current on side 2
    */
   double ii2(double ur1, double ui1, double ur2, double ui2) const;
-
-  /**
-   * @brief compute the magnitude of the current on side 1
-   * @param ur1 real part of the voltage on side 1
-   * @param ui1 imaginary part of the voltage on side 1
-   * @param ur2 real part of the voltage on side 2
-   * @param ui2 imaginary part of the voltage on side 2
-   * @return the magnitude of the current on side 1
-   */
-  double i1(double ur1, double ui1, double ur2, double ui2) const;
-
-  /**
-   * @brief compute the magnitude of the current on side 2
-   * @param ur1 real part of the voltage on side 1
-   * @param ui1 imaginary part of the voltage on side 1
-   * @param ur2 real part of the voltage on side 2
-   * @param ui2 imaginary part of the voltage on side 2
-   * @return the magnitude of the current on side 2
-   */
-  double i2(double ur1, double ui1, double ur2, double ui2) const;
 
   /**
    * @brief get the partial derivative of ir1 with respect to Ur1
@@ -505,14 +303,55 @@ class ModelLine : public ModelQuadripole {
    * @param localIndex the local variable index inside the model
    * @return the global variable index
    */
-  inline unsigned int globalYIndex(const unsigned int localIndex) const {
-    return yOffset_ + localIndex;
-  }
+  inline int globalYIndex(int localIndex) const {return yOffset_ + localIndex;}
 
-  bool topologyModified_;  ///< true if the line connection state was modified
-  bool updateYMat_;  ///< true if the YMat need to be updated(= topologyModified)
-  double currentLimitsDesactivate_;  ///< current limit desactivate
-  bool isDynamic_;  ///< true if the line model is dynamic
+  /**
+   * @brief returns the index of the real part of voltage side 1 in the global Y vector
+   * @return the index
+   */
+  inline int ur1YNumGlobal() const;
+
+  /**
+   * @brief returns the index of the imaginary part of voltage side 1 in the global Y vector
+   * @return the index
+   */
+  inline int ui1YNumGlobal() const;
+
+  /**
+   * @brief returns the index of the real part of voltage side 2 in the global Y vector
+   * @return the index
+   */
+  inline int ur2YNumGlobal() const;
+
+  /**
+   * @brief returns the index of the imaginary part of voltage side 2 in the global Y vector
+   * @return the index
+   */
+  inline int ui2YNumGlobal() const;
+
+  /**
+   * @brief returns whether a given calculated variable depends on current side 1, 2 or neither
+   * @param numCalculatedVar index defining the type of calculated variable
+   * @return 1 if the variable depends on calulculated current side 1, 2 if side 2, 0 if neither
+   */
+  inline int varSide(unsigned int numCalculatedVar) const;
+
+  /**
+   * @brief throws if the state passed in argument is invalid for model Line
+   * @param state the state to check
+   */
+  inline void checkValidState(State state) const;
+
+ private :
+  boost::shared_ptr<ModelCurrentLimits> currentLimits1_;  ///< current limit side 1
+  boost::shared_ptr<ModelCurrentLimits> currentLimits2_;  ///< current limit side 2
+
+  bool topologyModified_ = false;  ///< true if the line connection state was modified
+  bool updateYMat_ = true;  ///< true if the YMat need to be updated(= topologyModified)
+  double currentLimitsDesactivate_ = 0;  ///< current limit desactivate
+  bool dynLineModel_ = false;  ///< when true, extend model with differential equations to mirror DynLine.mo
+  bool dynBus1_ = false;   ///< whether the bus on side 1 has a dynamic model from DLL or is implemented by ModelNetwork
+  bool dynBus2_ = false;   ///< whether the bus on side 2 has a dynamic model from DLL or is implemented by ModelNetwork
 
   double admittance_;  ///< admittance
   double lossAngle_;  ///< loss angle
@@ -522,38 +361,47 @@ class ModelLine : public ModelQuadripole {
   double conduct2_;  ///< conductance on side 2
   double resistance_;  ///< resistance
   double reactance_;  ///< reactance
-  // Injections
-  double ir1_dUr1_;  ///< injection matrix value
-  double ir1_dUi1_;  ///< injection matrix value
-  double ir1_dUr2_;  ///< injection matrix value
-  double ir1_dUi2_;  ///< injection matrix value
-  double ii1_dUr1_;  ///< injection matrix value
-  double ii1_dUi1_;  ///< injection matrix value
-  double ii1_dUr2_;  ///< injection matrix value
-  double ii1_dUi2_;  ///< injection matrix value
-  double ir2_dUr1_;  ///< injection matrix value
-  double ir2_dUi1_;  ///< injection matrix value
-  double ir2_dUr2_;  ///< injection matrix value
-  double ir2_dUi2_;  ///< injection matrix value
-  double ii2_dUr1_;  ///< injection matrix value
-  double ii2_dUi1_;  ///< injection matrix value
-  double ii2_dUr2_;  ///< injection matrix value
-  double ii2_dUi2_;  ///< injection matrix value
   double factorPuToA_;  ///< factor to convert current from pu to A
 
-  double ir01_;  ///< initial real part of the current at side 1
-  double ii01_;  ///< initial imaginary part of the current at side 1
-  double ir02_;  ///< initial real part of the current at side 2
-  double ii02_;  ///< initial imaginary part of the current at side 2
+  double ir1_dUr1_ = 0;  ///< injection matrix value
+  double ir1_dUi1_ = 0;  ///< injection matrix value
+  double ir1_dUr2_ = 0;  ///< injection matrix value
+  double ir1_dUi2_ = 0;  ///< injection matrix value
+  double ii1_dUr1_ = 0;  ///< injection matrix value
+  double ii1_dUi1_ = 0;  ///< injection matrix value
+  double ii1_dUr2_ = 0;  ///< injection matrix value
+  double ii1_dUi2_ = 0;  ///< injection matrix value
+  double ir2_dUr1_ = 0;  ///< injection matrix value
+  double ir2_dUi1_ = 0;  ///< injection matrix value
+  double ir2_dUr2_ = 0;  ///< injection matrix value
+  double ir2_dUi2_ = 0;  ///< injection matrix value
+  double ii2_dUr1_ = 0;  ///< injection matrix value
+  double ii2_dUi1_ = 0;  ///< injection matrix value
+  double ii2_dUr2_ = 0;  ///< injection matrix value
+  double ii2_dUi2_ = 0;  ///< injection matrix value
 
-  unsigned int yOffset_;  ///< global Y offset at the beginning of the line model
-  unsigned int IbReNum_;  ///< local Y index for IBranch_re
-  unsigned int IbImNum_;  ///< local Y index for IBranch_im
-  unsigned int omegaRefNum_;  ///< local Y index for omegaRef
+  double ir01_ = 0;  ///< initial real part of the current at side 1
+  double ii01_ = 0;  ///< initial imaginary part of the current at side 1
+  double ir02_ = 0;  ///< initial real part of the current at side 2
+  double ii02_ = 0;  ///< initial imaginary part of the current at side 2
+
+  int yOffset_ = -1;  ///< start of local Y indexes in global Y vector
+  int ur1YNum_ = -1;  ///< local Y index of real part of voltage side 1, if bus side 1 does not support node injection
+  int ui1YNum_ = -1;  ///< local Y index of imaginary part of voltage side 1, if bus side 1 does not support node injection
+  int ir1YNum_ = -1;  ///< local Y index of real part of current side 1, if bus side 1 does not support node injection
+  int ii1YNum_ = -1;  ///< local Y index of imaginary part of current side 1, if bus side 1 does not support node injection
+  int ur2YNum_ = -1;  ///< local Y index of real part of voltage side 2, if bus side 2 does not support node injection
+  int ui2YNum_ = -1;  ///< local Y index of imaginary part of voltage side 2, if bus side 2 does not support node injection
+  int ir2YNum_ = -1;  ///< local Y index of real part of current side 2, if bus side 2 does not support node injection
+  int ii2YNum_ = -1;  ///< local Y index of imaginary part of current side 2, if bus side 2 does not support node injection
+  int irbYNum_ = -1;  ///< local Y index for IBranch_re
+  int iibYNum_ = -1;  ///< local Y index for IBranch_im
+  int omegaRefNum_ = -1;  ///< local Y index for omegaRef
+
+  int offsetGCl2_ = 0;  ///< start of embedded current limit 2 variables in G vector of line
 
   double omegaNom_;  ///< nominal angular frequency
   double omegaRef_;  ///< reference angular frequency in pu
-  const std::string modelType_;  ///< model Type
 };
 }  // namespace DYN
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_

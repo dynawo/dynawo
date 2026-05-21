@@ -362,14 +362,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     componentsById[id] = line;
     std::shared_ptr<ModelLine> modelLine(new ModelLine(line));
     modelLine->setNetwork(this);
-    if (line->getBusInterface1()) {
-      std::shared_ptr<ModelBus> modelBus1 = modelBusById[line->getBusInterface1()->getID()];
-      modelLine->setModelBus1(modelBus1);
-    }
-    if (line->getBusInterface2()) {
-      std::shared_ptr<ModelBus> modelBus2 = modelBusById[line->getBusInterface2()->getID()];
-      modelLine->setModelBus2(modelBus2);
-    }
+    modelLine->setModelBus1(modelBusById[line->getBusInterface1()->getID()]);
+    modelLine->setModelBus2(modelBusById[line->getBusInterface2()->getID()]);
 
     initComponents_.push_back(modelLine);
 

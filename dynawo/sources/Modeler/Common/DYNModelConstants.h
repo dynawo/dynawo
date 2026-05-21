@@ -48,6 +48,25 @@ typedef enum {
   CLOSED_2 = 4,  ///< component is connected at side 2
   CLOSED_3 = 5  ///< component is connected at side 3
 } State;
+
+/**
+ * @brief checks whether a component connection state means side 1 is connected, regardless of other side(s)
+ * @param state the state to check
+ * @returns true if this state entails closed on side 1, false otherwise
+ */
+inline bool isClosedSide1(State state) {
+  return (state == CLOSED) || (state == CLOSED_1);
+}
+
+/**
+ * @brief checks whether a component connection state means side 2 is connected, regardless of other side(s)
+ * @param state the state to check
+ * @returns true if this state entails closed on side 2, false otherwise
+ */
+inline bool isClosedSide2(State state) {
+  return (state == CLOSED) || (state == CLOSED_2);
+}
+
 }  // namespace DYN
 
 #endif  // MODELER_COMMON_DYNMODELCONSTANTS_H_
