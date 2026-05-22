@@ -105,7 +105,7 @@ model MeasurementBlock
   Modelica.Blocks.Interfaces.RealOutput U_pcc_pu_abs(start = U0_pcc) "Filtered PCC voltage magnitude (pu)" annotation(
     Placement(transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {44, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   // q-axis PCC voltage in dq frame – used as PLL error signal in GFL control
-  Modelica.Blocks.Interfaces.RealOutput U_pcc_q(start = U_pcc_q_0) "q-axis PCC voltage in PLL dq frame; ≈ 0 at PLL lock (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput U_filter_q(start = U_pcc_q_0) "q-axis PCC voltage in PLL dq frame; ≈ 0 at PLL lock (pu)" annotation(
     Placement(transformation(origin = {110, -112}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {82, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   // dq-axis converter output currents – fed to inner current controller
   Modelica.Blocks.Interfaces.RealOutput I_conv_d(start = I_conv_d_0) "d-axis converter output current (pu)" annotation(
@@ -291,7 +291,7 @@ equation
     Line(points = {{41, -84}, {58, -84}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze4.y, Q_LV) annotation(
     Line(points = {{81, -84}, {110, -84}}, color = {0, 0, 127}));
-  connect(transformRItoDQ4.uq, U_pcc_q) annotation(
+  connect(transformRItoDQ4.uq, U_filter_q) annotation(
     Line(points = {{-10, -112}, {110, -112}}, color = {0, 0, 127}));
   connect(transformRItoDQ4.phi, theta_pll) annotation(
     Line(points = {{-32, -112}, {-72, -112}, {-72, -68}, {-88, -68}, {-88, 53}, {-112, 53}, {-112, 52}}, color = {0, 0, 127}));

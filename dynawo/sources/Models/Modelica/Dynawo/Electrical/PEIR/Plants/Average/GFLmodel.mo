@@ -250,7 +250,7 @@ equation
   connect(measurementBlock.theta_pll, gFLControl.theta_pll) annotation(
     Line(points = {{-67, -75}, {-67, 35}, {-76, 35}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // PLL angle θ → used to transform signals between αβ and dq frames
-  connect(measurementBlock.U_pcc_q, gFLControl.V_q_grid) annotation(
+  connect(measurementBlock.U_filter_q, gFLControl.V_q_grid) annotation(
     Line(points = {{-119, -83}, {-119, 38.75}, {-114, 38.75}, {-114, 38.5}}, color = {220, 138, 221}, thickness = 0.75));
 // q-axis PCC voltage → PLL error signal input
   connect(measurementBlock.P_LV, gFLControl.P_meas) annotation(
@@ -266,7 +266,7 @@ equation
     Line(points = {{-89, -75}, {-89, -78}, {-91, -78}, {-91, 27}, {-92, 27}, {-92, 28}}, color = {38, 162, 105}, thickness = 0.75));
 // d-axis converter current → inner current loop feedback
   connect(measurementBlock.V_LV_d, gFLControl.V_d_meas) annotation(
-    Line(points = {{-82, -75}, {-82, 21.875}, {-88, 21.875}, {-88, 28}, {-87, 28}}, color = {255, 120, 0}, thickness = 0.75));
+    Line(points = {{-85, -75}, {-85, 29.875}, {-88, 29.875}, {-88, 28}, {-87, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // d-axis LV node voltage → feed-forward / outer loop
   connect(measurementBlock.V_LV_q, gFLControl.V_q_meas) annotation(
     Line(points = {{-75, -75}, {-75, 28}, {-83, 28}}, color = {255, 120, 0}, thickness = 0.75));
