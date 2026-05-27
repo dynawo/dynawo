@@ -69,6 +69,7 @@ target_link_libraries(dynawo_API_PAR
     XMLSAXParser${LibXML_LINK_SUFFIX}
   PRIVATE
     dynawo_Common
+    Boost::filesystem
     )
 
 set_target_properties(dynawo_API_PAR PROPERTIES VERSION ${API_PAR_VERSION_STRING}
