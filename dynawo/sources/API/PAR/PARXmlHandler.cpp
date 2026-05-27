@@ -39,6 +39,7 @@
 #include "PARMacroParameterSet.h"
 #include "PARMacroParameterSet.h"
 #include "DYNMacrosMessage.h"
+#include "DYNExecUtils.h"
 
 
 using std::string;
@@ -49,6 +50,33 @@ namespace lambda_args = lambda::placeholders;
 namespace parser = xml::sax::parser;
 
 namespace parameters {
+
+// Replaces @DYNAWO_INSTALL_DIR@ and @PAR_PATH@ in STRING parameter values at parse time.
+// @PAR_PATH@ is only substituted when filePath is non-empty (i.e. parsing from a file, not a stream).
+static std::string substituteStringMacros(const std::string& value, const std::string& filePath) {
+  std::string result = value;
+
+  const std::string installDir = getEnvVar("DYNAWO_INSTALL_DIR");
+  if (!installDir.empty()) {
+    const std::string macro = "@DYNAWO_INSTALL_DIR@";
+    std::string::size_type pos = 0;
+    while ((pos = result.find(macro, pos)) != std::string::npos) {
+      result.replace(pos, macro.length(), installDir);
+      pos += installDir.length();
+    }
+  }
+
+  if (!filePath.empty()) {
+    const std::string macro = "@PAR_PATH@";
+    std::string::size_type pos = 0;
+    while ((pos = result.find(macro, pos)) != std::string::npos) {
+      result.replace(pos, macro.length(), filePath);
+      pos += filePath.length();
+    }
+  }
+
+  return result;
+}
 
 // namespace used to read xml file
 static parser::namespace_uri& namespace_uri() {
@@ -146,10 +174,16 @@ SetHandler::addTable() {
       double value = boost::lexical_cast<double>(pars[i].value);
       setRead_->createParameter(name, value, row, column);
     } else if (type == string("STRING")) {
-      string value = pars[i].value;
+      string value = substituteStringMacros(pars[i].value, filePath_);
       setRead_->createParameter(name, value, row, column);
     }
   }
+}
+
+void
+SetHandler::setFilePath(const std::string& filePath) {
+  filePath_ = filePath;
+  parHandler_.setFilePath(filePath);
 }
 
 ParTableHandler::ParTableHandler(elementName_type const & root_element) :
@@ -217,13 +251,18 @@ ParHandler::create(attributes_type const & attributes) {
     double dValue = boost::lexical_cast<double>(value);
     parameter_ = ParameterFactory::newParameter(name, dValue);
   } else if (type == string("STRING")) {
-    parameter_ = ParameterFactory::newParameter(name, value);
+    parameter_ = ParameterFactory::newParameter(name, substituteStringMacros(value, filePath_));
   }
 }
 
 std::shared_ptr<Parameter>
 ParHandler::get() const {
   return parameter_;
+}
+
+void
+ParHandler::setFilePath(const std::string& filePath) {
+  filePath_ = filePath;
 }
 
 RefHandler::RefHandler(elementName_type const& root_element) {
@@ -290,6 +329,11 @@ MacroParameterSetHandler::get() const {
   return macroParameterSet_;
 }
 
+void
+MacroParameterSetHandler::setFilePath(const std::string& filePath) {
+  parHandler_.setFilePath(filePath);
+}
+
 MacroParSetHandler::MacroParSetHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&MacroParSetHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
@@ -304,6 +348,12 @@ MacroParSetHandler::create(attributes_type const & attributes) {
 std::shared_ptr<MacroParSet>
 MacroParSetHandler::get() const {
   return macroParSet_;
+}
+
+void
+XmlHandler::setFilePath(const std::string& filePath) {
+  setHandler_.setFilePath(filePath);
+  macroParameterSetHandler_.setFilePath(filePath);
 }
 
 }  // namespace parameters

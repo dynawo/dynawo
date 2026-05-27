@@ -62,13 +62,13 @@
   </set>
   <set id="IMonitored1">
     <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
-    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/DynaWaltz/CLATwoLevels/IMonitored.txt"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="@PAR_PATH@/IMonitored.txt"/>
     <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
     <par type="STRING" name="combiTimeTable_TableName" value="IMonitored1"/>
   </set>
   <set id="IMonitored2">
     <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
-    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/DynaWaltz/CLATwoLevels/IMonitored.txt"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="@PAR_PATH@/IMonitored.txt"/>
     <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
     <par type="STRING" name="combiTimeTable_TableName" value="IMonitored2"/>
   </set>

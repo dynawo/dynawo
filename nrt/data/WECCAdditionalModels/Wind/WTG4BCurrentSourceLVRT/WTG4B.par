@@ -142,7 +142,7 @@
     <par type="DOUBLE" name="WTG4B_brkpt" value="0.05"/>
     <par type="DOUBLE" name="WTG4B_lvpl1" value="1.22"/>
     <!-- LHVRT parameters -->
-    <par type="STRING" name="lhvrt_TablesFile" value="nrt/data/WECCAdditionalModels/Wind/WTG4BCurrentSourceLVRT/LHVRT.txt"/>
+    <par type="STRING" name="lhvrt_TablesFile" value="@PAR_PATH@/LHVRT.txt"/>
     <par type="BOOL" name="lhvrt_TablesOnFile" value="true"/>
     <par type="STRING" name="lhvrt_TabletUoverUfilt" value="hvrt"/>
     <par type="STRING" name="lhvrt_TabletUunderUfilt" value="lvrt"/>
