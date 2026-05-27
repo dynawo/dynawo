@@ -41,6 +41,15 @@ class XmlImporter : public Importer {
    * @copydoc Importer::importFromStream()
    */
   std::shared_ptr<ParametersSetCollection> importFromStream(std::istream& stream) const override;
+
+ private:
+  /**
+   * @brief common parsing implementation shared by importFromFile and importFromStream
+   * @param stream input stream to parse
+   * @param filePath directory of the PAR file, or empty string when parsing from a stream
+   * @returns parsed parameters set collection
+   */
+  std::shared_ptr<ParametersSetCollection> importFromStream(std::istream& stream, const std::string& filePath) const;
 };
 
 }  // namespace parameters
