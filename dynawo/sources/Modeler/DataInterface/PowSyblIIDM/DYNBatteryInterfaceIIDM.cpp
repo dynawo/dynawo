@@ -147,6 +147,11 @@ BatteryInterfaceIIDM::getBusInterface() const {
 }
 
 bool
+BatteryInterfaceIIDM::isConnected() const {
+  return isConnectedInjector();
+}
+
+bool
 BatteryInterfaceIIDM::getInitialConnected() {
   return getInitialConnectedInjector();
 }
