@@ -78,6 +78,11 @@ class BatteryInterfaceIIDM : public GeneratorInterface, public InjectorInterface
   std::shared_ptr<BusInterface> getBusInterface() const override;
 
   /**
+   * @copydoc ComponentInterface::isConnected()
+   */
+  bool isConnected() const override;
+
+  /**
    * @copydoc GeneratorInterface::getInitialConnected()
    */
   bool getInitialConnected() override;
