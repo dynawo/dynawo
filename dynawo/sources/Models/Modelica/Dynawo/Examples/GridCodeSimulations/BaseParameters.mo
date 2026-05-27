@@ -31,3 +31,4 @@ record BaseParameters
     preferredView = "text",
     Documentation(info = "<html><head></head><body>In this file, you should declare :&nbsp;<div>- SNom of the plant being simulated (this won't change much as everything is in pu)</div><div>- XaPu and XbPu, stability impedances defined in the french grid code and provided in every connection project's requirement document.</div></body></html>"));
 end BaseParameters;
+ 
