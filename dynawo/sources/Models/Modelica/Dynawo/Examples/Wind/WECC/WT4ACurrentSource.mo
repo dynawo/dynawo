@@ -41,6 +41,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Dshaft = 1.5,
     Hg = 1,
     Ht = 5,
+    tp = 0.5,
     IMaxPu = 1.3,
     IqFrzPu = 0.1,
     Iqh1Pu = 1.1,
