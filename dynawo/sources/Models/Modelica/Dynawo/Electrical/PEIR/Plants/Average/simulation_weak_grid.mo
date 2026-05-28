@@ -94,6 +94,9 @@ model simulation_weak_grid
   Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.55, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
     Placement(transformation(origin = {42, -76}, extent = {{-22, -22}, {22, 22}})));
 equation
+  gFLmodelnodyn.switchOffSignal1.value=false;
+  gFLmodelnodyn.switchOffSignal2.value=false;
+  gFLmodelnodyn.switchOffSignal3.value=false;
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;
   connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
