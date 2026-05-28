@@ -15,7 +15,7 @@ within Dynawo.Examples.GridCodeSimulations;
 record BaseParameters
 
   // Parameters to declare
-  parameter Types.ApparentPowerModule SNom = 35 "Nominal apparent power in MVA";
+  parameter Types.ApparentPowerModule SNom = 100 "Nominal apparent power in MVA";
   parameter Types.PerUnit XaPu = 0.05 * Electrical.SystemBase.SnRef / SNom "Reactance a of the DTR in pu (base SnRef, UNom)";
   parameter Types.PerUnit XbPu = 0.3 * Electrical.SystemBase.SnRef / SNom "Reactance b of the DTR in pu (base SnRef, UNom)";
 

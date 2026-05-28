@@ -20,7 +20,7 @@ model SheetI2Xccb
   parameter Types.PerUnit XccPu_To_Be_Defined = XbPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
 equation
-  connect(Xcc_a.terminal2, Unit.terminal) annotation(
+  connect(Xcc_a.terminal2, Unit.terminalPcc) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, Unit.omegaRefPu) annotation(
     Line(points = {{80, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));

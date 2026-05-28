@@ -18,7 +18,7 @@ model GFLmodel
      * Sign convention: generator convention at the GFL (positive = power flowing out of the converter). 
      * All electrical quantities are in per-unit on the machine base (UNom, SNom).
      */
-  
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   // ────────────────────────────────────────────────────────────
   // Network initial conditions (PCC, LV side)
@@ -183,8 +183,9 @@ model GFLmodel
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) annotation(
     Placement(transformation(origin = {-209, 61}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-118, 72}, extent = {{-20, -20}, {20, 20}})));
   // External voltage (reactive power) set-point input
-  Modelica.Blocks.Interfaces.RealInput UREfPu(start = U0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput UREfPu(start = URef0Pu) annotation(
     Placement(transformation(origin = {-209, 45}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
+    final parameter Real URef0Pu = U0Pu - Lambda*Q0_pcc*SystemBase.SnRef/SNom;
   // Grid angular frequency reference (provided by the network / external bus model)
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) annotation(
     Placement(transformation(origin = {-83, 109}, extent = {{-9, -9}, {9, 9}}, rotation = -90), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}})));

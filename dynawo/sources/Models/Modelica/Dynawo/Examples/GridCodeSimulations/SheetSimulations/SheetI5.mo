@@ -20,9 +20,9 @@ model SheetI5
   parameter Types.PerUnit XccPu_To_Be_Defined = 3/4*XbPu "Reactance of equivalent branch connection to the grid in pu (base SnRef, UNom)";
 
 equation
-  connect(line22.terminal2, Unit.terminal) annotation(
+  connect(line22.terminal2, Unit.terminalPcc) annotation(
     Line(points = {{-26, 0}, {0, 0}}, color = {0, 0, 255}));
-  connect(line.terminal2, Unit.terminal) annotation(
+  connect(line.terminal2, Unit.terminalPcc) annotation(
     Line(points = {{-30, 50}, {-20, 50}, {-20, 0}, {0, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, Unit.omegaRefPu) annotation(
     Line(points = {{80, -40}, {60, -40}, {60, -12}, {42, -12}}, color = {0, 0, 127}));
