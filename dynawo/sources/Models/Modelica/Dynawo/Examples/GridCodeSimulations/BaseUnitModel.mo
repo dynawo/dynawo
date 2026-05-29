@@ -13,6 +13,25 @@ model BaseUnitModel
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
   extends BaseParameters;
+  // ────────────────────────────────────────────────────────────
+  // DyCoV output variables
+  // ────────────────────────────────────────────────────────────
+  Real BusPDR_BUS_Voltage;
+  Real BusPDR_BUS_ActivePower;
+  Real BusPDR_BUS_ReactivePower;
+  Real BusPDR_BUS_ActiveCurrent;
+  Real BusPDR_BUS_ReactiveCurrent;
+  Real Wind_Turbine_GEN_MagnitudeControlledByAVRPu;
+  Real Wind_Turbine_GEN_UPuInjTerminal;
+  Real Wind_Turbine_GEN_IpInjTerminal;
+  Real Wind_Turbine_GEN_IqInjTerminal;
+  Real Measurements_BUS_Voltage;
+  Real Measurements_BUS_ActivePower;
+  Real Measurements_BUS_ReactivePower;
+  Real StepUp_Xfmr_XFMR_Tap;
+  Real Wind_Turbine_GEN_VoltageSetpointPu;
+  Real Wind_Turbine_GEN_NetworkFrequencyPu;
+  Real NetworkFrequencyPu;
 
   Modelica.Blocks.Sources.Constant PRefPu(k = Unit.P0Pu*Electrical.SystemBase.SnRef/SNom) annotation(
     Placement(transformation(origin = {-70, 42}, extent = {{-10, 10}, {10, -10}})));
@@ -41,6 +60,23 @@ equation
 Unit.switchOffSignal1.value=false; 
 Unit.switchOffSignal2.value=false; 
 Unit.switchOffSignal3.value=false; 
+// ── DyCoV output assignments ──────────────────────────────
+BusPDR_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
+BusPDR_BUS_ActivePower = Unit.measurementBlock.P_plant;
+BusPDR_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
+BusPDR_BUS_ActiveCurrent = Unit.measurementBlock.transformRItoDQ1.ud;
+BusPDR_BUS_ReactiveCurrent = Unit.measurementBlock.transformRItoDQ1.uq;
+Wind_Turbine_GEN_MagnitudeControlledByAVRPu = Unit.plant_controller.uLambdaQ.y;
+Wind_Turbine_GEN_UPuInjTerminal = sqrt(Unit.lCDynFilter.uLeft_rePu^2 + Unit.lCDynFilter.uLeft_imPu^2);
+Wind_Turbine_GEN_IpInjTerminal = Unit.measurementBlock.I_conv_d;
+Wind_Turbine_GEN_IqInjTerminal = Unit.measurementBlock.I_conv_q;
+Measurements_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
+Measurements_BUS_ActivePower = Unit.measurementBlock.P_plant;
+Measurements_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
+StepUp_Xfmr_XFMR_Tap = 1.0;
+Wind_Turbine_GEN_VoltageSetpointPu = Unit.UREfPu;
+Wind_Turbine_GEN_NetworkFrequencyPu = Unit.gFLControl.omega_pll_pu * Electrical.SystemBase.fNom;
+NetworkFrequencyPu = Unit.gFLControl.omega_pll_pu * Electrical.SystemBase.fNom;
  connect(Unit.PRefPu, PRefPu.y) annotation(
     Line(points = {{-28, 28}, {-42.5, 28}, {-42.5, 42}, {-59, 42}}, color = {0, 0, 127}));
  connect(Unit.UREfPu, URefPu.y) annotation(
