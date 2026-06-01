@@ -11,7 +11,4 @@ GFLmodel
 test_dyn
 LCnoDynFilter
 simulation_weak_grid
-simulation
-test
-frst_smib_simulation
-GFLModel
+TwoConvertersStaticLIne

@@ -168,7 +168,7 @@ model GFLmodel
   // PCC terminal – AC connector to the external network.
   // Voltage and current are initialised at the computed steady-state values.
   Dynawo.Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu * SNom / SystemBase.SnRef), im(start = -IiPcc0Pu * SNom / SystemBase.SnRef))) annotation(
-    Placement(transformation(origin = {104, 54}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {0, -80}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {104, 54}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {80, 16}, extent = {{-20, -20}, {20, 20}})));
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
   // limitation with P/Q priority, and reactive-power boost logic.
@@ -213,7 +213,7 @@ model GFLmodel
   // Internal LV bus node (junction between the LV and HV transformer stages).
   // Voltages and powers at this node are measured by the MeasurementBlock
   Dynawo.Connectors.ACPower terminalLV(V(re(start = uLV0Pu_init.re), im(start = uLV0Pu_init.im)), i(re(start = 0), im(start = 0))) annotation(
-    Placement(transformation(origin = {57, 55}, extent = {{-5, -5}, {5, 5}}), iconTransformation(origin = {60, 50}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {57, 55}, extent = {{-5, -5}, {5, 5}}), iconTransformation(origin = {-32, -38}, extent = {{-10, -10}, {10, 10}})));
 equation
 // ──────────────────────────────────────────────────────────────────────────
 // SECTION 13 – Signal connections
@@ -339,6 +339,6 @@ equation
   connect(TrafoHV.right, terminalPcc) annotation(
     Line(points = {{90, 54}, {104, 54}}, color = {0, 0, 255}));
   annotation(
-    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(extent = {{-80, 20}, {80, -20}}, textString = "GFL model")}),
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));
 end GFLmodel;
