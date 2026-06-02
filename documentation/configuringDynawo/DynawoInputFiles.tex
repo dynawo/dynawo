@@ -171,6 +171,20 @@ For each parameter, the user should give the name, the type (DOUBLE, INT, BOOL o
 
 Sometimes, the par file contains references to parameters present in the iidm file or a given par file. (see paragraph \ref{sec:Set a reference to a value stored in the iidm file}).
 
+\subsubsection{Path macros in STRING parameters}
+
+For parameters of type STRING, two macros are available to express file paths without hard-coding absolute or installation-dependent paths:
+
+\begin{itemize}
+  \item \texttt{@DYNAWO\_INSTALL\_DIR@}: replaced by the installation path of \Dynawo.
+  \item \texttt{@PAR\_PATH@}: replaced by the path of the directory containing the par file.
+\end{itemize}
+
+\begin{lstlisting}[language=XML]
+<par type="STRING" name="generator_QMaxTableFile" value="@PAR_PATH@/Diagram.txt"/>
+<par type="STRING" name="generator_QMaxTableFile" value="@DYNAWO_INSTALL_DIR@/Tables/Diagram.txt"/>
+\end{lstlisting}
+
 \subsection{crv file}
 
 The curves file lists all variables or parameters to plot. \\
