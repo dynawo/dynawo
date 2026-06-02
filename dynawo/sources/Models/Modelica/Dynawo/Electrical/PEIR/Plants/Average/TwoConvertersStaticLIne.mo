@@ -4,10 +4,10 @@ model TwoConvertersStaticLIne
   GFLmodel gFLmodel(
     // ── Punto iniziale PCC (lato GFL1) ──
     SNom        = 100,
-    U0Pu        = 1.12535254,
-    Uphase      = 0.00428149,
+    U0Pu        = 1.1072,
+    Uphase      = 0.098,
     P0_pcc      = -0.50,   
-    Q0_pcc      = -0.21,
+    Q0_pcc      = -0.021,
     Omega0Pu    = 1.0,
     // ── VSC delay ──
     tVSC        = 1e-100,
@@ -77,10 +77,10 @@ model TwoConvertersStaticLIne
 
   GFLmodel gFLmodel1(
     SNom        = 100,
-    U0Pu        = 1.12535254,
-    Uphase      = 0.00428149,
-    P0_pcc      =  -0.50,    
-    Q0_pcc      = - 0.21,
+    U0Pu        = 1.0847,
+    Uphase      =-0.18,
+    P0_pcc      =  0.50,    
+    Q0_pcc      = 0.021,
     Omega0Pu    = 1.0,
     tVSC        = 1e-100,
     RfPu        = 0.003,
@@ -141,13 +141,13 @@ model TwoConvertersStaticLIne
   // line:  GFL1 → Bus  (R=0.00144, L=0.0144 → X = 314.16*0.0144 ≈ 0.0144·ωnom)
   // Nota: se Lines.Line usa XPu direttamente in pu, usa i valori sotto
   Lines.Line line(
-    RPu = 0.00144,  XPu = 0.0144,  BPu = 0,  GPu = 0
+    RPu = 0.00005 + 0.0001875,  XPu = 0.00005 + 0.0001875,  BPu = 0,  GPu = 0
   ) annotation(Placement(transformation(origin = {-34, 20},
       extent = {{-10,-10},{10,10}})));
 
   // line1: Bus → GFL2
   Lines.Line line1(
-    RPu = 0.00144,  XPu = 0.0144,  BPu = 0,  GPu = 0
+    RPu = 0.00005 + 0.0001875,  XPu = 0.00005 + 0.0001875,  BPu = 0,  GPu = 0
   ) annotation(Placement(transformation(origin = {26, 20},
       extent = {{-10,-10},{10,10}})));
 
@@ -173,6 +173,7 @@ model TwoConvertersStaticLIne
   ) annotation(Placement(transformation(origin = {-4, -74},
       extent = {{-10,-10},{10,10}})));
  final parameter Real URef0Pu = gFLmodel.U0Pu - gFLmodel.Lambda*gFLmodel.Q0_pcc;
+  final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda*gFLmodel1.Q0_pcc;
   // ── Setpoint in steady-state (height=0 → costanti) ──────────────────────
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1.0) annotation(
     Placement(transformation(origin = {-138, -10}, extent = {{-10,-10},{10,10}})));
@@ -187,10 +188,10 @@ model TwoConvertersStaticLIne
     Placement(transformation(origin = {-138, 22}, extent = {{-10,-10},{10,10}})));
 
   // GFL2: P = -5 pu (gen conv → importa), URef = U0Pu
-  Modelica.Blocks.Sources.Constant PrefPu1(k = 0.5) annotation(
+  Modelica.Blocks.Sources.Constant PrefPu1(k = -0.5) annotation(
     Placement(transformation(origin = {148, 58},
       extent = {{-10,-10},{10,10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant UrefPu1(k = URef0Pu) annotation(
+  Modelica.Blocks.Sources.Constant UrefPu1(k = URef0Pu1) annotation(
     Placement(transformation(origin = {148, 20},
       extent = {{-10,-10},{10,10}}, rotation = 180)));
 equation

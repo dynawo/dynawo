@@ -185,7 +185,7 @@ model GFLmodel
   // External voltage (reactive power) set-point input
   Modelica.Blocks.Interfaces.RealInput UREfPu(start = URef0Pu) annotation(
     Placement(transformation(origin = {-209, 45}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
-    final parameter Real URef0Pu = U0Pu - Lambda*Q0_pcc*SystemBase.SnRef/SNom;
+    final parameter Real URef0Pu = U0Pu + Lambda*Q0Pu;
   // Grid angular frequency reference (provided by the network / external bus model)
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) annotation(
     Placement(transformation(origin = {-83, 109}, extent = {{-9, -9}, {9, 9}}, rotation = -90), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}})));
@@ -200,21 +200,23 @@ model GFLmodel
   MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud_LV0Pu, V_LV_q_0 = Uq_LV0Pu) annotation(
     Placement(transformation(origin = {-90, -104}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
   // LC dynamic filter block
-  LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SystemBase.SnRef/SNom, iRight_imPu0 = IiPcc0Pu*SystemBase.SnRef/SNom, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
+  LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu* SNom / SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
     Placement(transformation(origin = {3, 55}, extent = {{-11, -11}, {11, 11}})));
   // LV-side transformer RL stage.
   // Models the low-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoLV(RPu = RPuLV*SNom/SystemBase.SnRef, LPu = LPuLV*SNom/SystemBase.SnRef, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
+  RLDynTrafo TrafoLV(RPu = RPuLV*SystemBase.SnRef/SNom, LPu = LPuLV*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {35, 55}, extent = {{-10, -10}, {10, 10}})));
   // HV-side transformer RL stage.
   // Models the high-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoHV(RPu = RPuHV*SNom/SystemBase.SnRef, LPu = LPuHV*SNom/SystemBase.SnRef, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
+  RLDynTrafo TrafoHV(RPu = RPuHV*SystemBase.SnRef/SNom, LPu = LPuHV*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {79, 53}, extent = {{-10, -10}, {10, 10}})));
   // Internal LV bus node (junction between the LV and HV transformer stages).
   // Voltages and powers at this node are measured by the MeasurementBlock
   Dynawo.Connectors.ACPower terminalLV(V(re(start = uLV0Pu_init.re), im(start = uLV0Pu_init.im)), i(re(start = 0), im(start = 0))) annotation(
     Placement(transformation(origin = {57, 55}, extent = {{-5, -5}, {5, 5}}), iconTransformation(origin = {-32, -38}, extent = {{-10, -10}, {10, 10}})));
+
 equation
+
 // ──────────────────────────────────────────────────────────────────────────
 // SECTION 13 – Signal connections
 //

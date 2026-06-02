@@ -62,14 +62,14 @@ model simulation_weak_grid
      *       [currently inactive: tOmegaEvtStart = 10 000 s]
      */
   GFLmodel gFLmodelnodyn( // ── Initial conditions — PCC node ────────────────────────
-  SNom = 100, U0Pu = U0Pu, Uphase = Uphase, P0_pcc = -0.7, Q0_pcc = -0.2, Omega0Pu = 1.0,  // ── VSC Pade delay ────────────────────────────────────────
+  SNom = 1000, U0Pu = U0Pu, Uphase = Uphase, P0_pcc = -7, Q0_pcc = -2, Omega0Pu = 1.0,  // ── VSC Pade delay ────────────────────────────────────────
   tVSC = 1e-100,  // ── LC filter — realistic values, fr ≈ 712 Hz ─────────────
-  RfPu = 0.003,  // realistic conduction losses ~0.3 %
-  LfPu = 0.1,  // 5 % filter reactance
-  CfPu = 1e-4,  // 1 % filter susceptance  →  fr ≈ 712 Hz
+  RfPu = 0.00003,  // realistic conduction losses ~0.3 %
+  LfPu = 0.01,  // 5 % filter reactance
+  CfPu = 1e-5,  // 1 % filter susceptance  →  fr ≈ 712 Hz
   omegaNom = 2*Modelica.Constants.pi*50,  // ── LV transformer (filter → LV node) ────────────────────
-  RPuLV = 0.005, LPuLV = 0.08,  // ── HV transformer (LV node → PCC) ───────────────────────
-  RPuHV = 0.002, LPuHV = 0.05,  // ── Measurement filter ────────────────────────────────────
+  RPuLV = 0.0005, LPuLV = 0.008,  // ── HV transformer (LV node → PCC) ───────────────────────
+  RPuHV = 0.0002, LPuHV = 0.005,  // ── Measurement filter ────────────────────────────────────
   k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
   k_p_d_current = 100.0, k_i_d_current = 100000.0, k_p_q_current = 100.0, k_i_q_current = 100000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
   k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.1, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
@@ -87,13 +87,14 @@ model simulation_weak_grid
   final parameter Real URef0Pu = U0Pu - gFLmodelnodyn.Lambda*gFLmodelnodyn.Q0_pcc*SystemBase.SnRef/gFLmodelnodyn.SNom;
   Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 100) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
-  Lines.Line line(RPu = 0, XPu = 0.3, GPu = 0, BPu = 0) annotation(
+  Lines.Line line(RPu = 0, XPu = 0.03, GPu = 0, BPu = 0) annotation(
     Placement(transformation(origin = {102, 12}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step step1(offset = URef0Pu, startTime = 100, height = URef0Pu*0.1) annotation(
     Placement(transformation(origin = {-66, 8}, extent = {{-10, -10}, {10, 10}})));
   Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.55, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
     Placement(transformation(origin = {128, 10}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
 equation
+
   gFLmodelnodyn.switchOffSignal1.value=false;
   gFLmodelnodyn.switchOffSignal2.value=false;
   gFLmodelnodyn.switchOffSignal3.value=false;

@@ -33,25 +33,25 @@ model BaseUnitModel
   Real Wind_Turbine_GEN_NetworkFrequencyPu;
   Real NetworkFrequencyPu;
 
-  Modelica.Blocks.Sources.Constant PRefPu(k = Unit.P0Pu*Electrical.SystemBase.SnRef/SNom) annotation(
+  Modelica.Blocks.Sources.Constant PRefPu(k = -Unit.P0_pcc*Electrical.SystemBase.SnRef/SNom) annotation(
     Placement(transformation(origin = {-70, 42}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Sources.Step URefPu(offset = Unit.URef0Pu, height = 0, startTime = 2) annotation(
     Placement(transformation(origin = {-72, 6}, extent = {{-10, 10}, {10, -10}})));
   Electrical.PEIR.Plants.Average.GFLmodel Unit ( // ── Initial conditions — PCC node ────────────────────────
   SNom = SNom, U0Pu = U0Pu, Uphase = UPhase0, P0_pcc = P0Pu, Q0_pcc = Q0Pu, Omega0Pu = 1.0,  // ── VSC Pade delay ────────────────────────────────────────
   tVSC = 1e-100,  // ── LC filter — realistic values, fr ≈ 712 Hz ─────────────
-  RfPu = 0.003,  // realistic conduction losses ~0.3 %
-  LfPu = 0.1,  // 5 % filter reactance
-  CfPu = 1e-4,  // 1 % filter susceptance  →  fr ≈ 712 Hz
+  RfPu =  0.00333,  // realistic conduction losses ~0.3 %
+  LfPu = 0.1111,  // 5 % filter reactance
+  CfPu = 1.111e-4,  // 1 % filter susceptance  →  fr ≈ 712 Hz
   omegaNom = 2*Modelica.Constants.pi*50,  // ── LV transformer (filter → LV node) ────────────────────
-  RPuLV = 0.005, LPuLV = 0.08,  // ── HV transformer (LV node → PCC) ───────────────────────
-  RPuHV = 0.002, LPuHV = 0.05,  // ── Measurement filter ────────────────────────────────────
+  RPuLV =  0.00556, LPuLV = 0.08889,  // ── HV transformer (LV node → PCC) ───────────────────────
+  RPuHV =  0.00222, LPuHV = 0.05556,  // ── Measurement filter ────────────────────────────────────
   k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
-  k_p_d_current = 100.0, k_i_d_current = 100000.0, k_p_q_current = 100.0, k_i_q_current = 100000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
-  k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.1, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0.3, Imax = 1.2, PQFlag = true, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
-  K_p_q_plant = 0.1, K_i_q_plant = 1.0, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.286, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
-  K_p_pll = 0.13, K_i_pll = 1.27, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
+  k_p_d_current = 100.0*100/90, k_i_d_current = 100000.0*100/90, k_p_q_current = 100.0*100/90, k_i_q_current = 100000.0*100/90,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
+  k_p_d_outer = 0.1*100/90, k_i_d_outer = 20.0*100/90, k_p_q_outer = 0.1*100/90, k_i_q_outer = 20.0*100/90,  // ── Current limiter ───────────────────────────────────────
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0.3, Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
+  K_p_q_plant = 0.1*100/90, K_i_q_plant = 1.0*100/90, K_p_p_plant = 0.8*100/90, K_i_p_plant = 5.0*100/90, Lambda = 0.317, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
+  K_p_pll = 0.13*100/90, K_i_pll = 1.27*100/90, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
   OmegaMinPu = 0.5,   // ── Rate limiters and delays ──────────────────────────────
   DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0, tS_idref = 1e-4, delay_time_plant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
   voltagefeedforwardflag = 1)  annotation(
@@ -65,7 +65,7 @@ BusPDR_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
 BusPDR_BUS_ActivePower = Unit.measurementBlock.P_plant;
 BusPDR_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
 BusPDR_BUS_ActiveCurrent = Unit.measurementBlock.transformRItoDQ1.ud;
-BusPDR_BUS_ReactiveCurrent = Unit.measurementBlock.transformRItoDQ1.uq;
+BusPDR_BUS_ReactiveCurrent = -Unit.measurementBlock.transformRItoDQ1.uq;
 Wind_Turbine_GEN_MagnitudeControlledByAVRPu = Unit.plant_controller.uLambdaQ.y;
 Wind_Turbine_GEN_UPuInjTerminal = sqrt(Unit.lCDynFilter.uLeft_rePu^2 + Unit.lCDynFilter.uLeft_imPu^2);
 Wind_Turbine_GEN_IpInjTerminal = Unit.measurementBlock.I_conv_d;
