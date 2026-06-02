@@ -269,8 +269,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   WT4BWeccCurrentSource.xml
   WTG3WeccCurrentSource1.xml
   WTG3WeccCurrentSource2.xml
-  WTG4AWeccCurrentSource1.xml
-  WTG4AWeccCurrentSource2.xml
+  WTG4AWeccCurrentSource.xml
   WTG4BWeccCurrentSource.xml
   )
 
