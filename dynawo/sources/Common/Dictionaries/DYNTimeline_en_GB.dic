@@ -182,6 +182,9 @@ MotorDisconnected          =             Motor : disconnecting
 // --> DYNCentralizedShuntsSectionControl Model
 CSSCSectionUp              =               Section of shunt %1% +1
 CSSCSectionDown            =               Section of shunt %1% -1
+// --> LackOfVoltageRelay Model
+LOVROpeningTriggered       =               Lack of Voltage Relay triggered opening of its switch.
+LOVRClosingTriggered       =               Lack of Voltage Relay triggered closing of its switch.
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off
