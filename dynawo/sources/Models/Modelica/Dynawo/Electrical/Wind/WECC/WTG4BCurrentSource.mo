@@ -44,12 +44,12 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     Kpg = Kpg,
     PControl0Pu = PControl0Pu,
     PConv0Pu = PConv0Pu,
-    PMaxPu = PMaxPu,
-    PMinPu = PMinPu,
+    PMaxREPCPu = PMaxREPCPu,
+    PMinREPCPu = PMinREPCPu,
     QControl0Pu = QControl0Pu,
     QConv0Pu = QConv0Pu,
-    QMaxPu = QMaxPu,
-    QMinPu = QMinPu,
+    QMaxREPCPu = QMaxREPCPu,
+    QMinREPCPu = QMinREPCPu,
     RcPu = RPu,
     RefFlag = RefFlag,
     SNom = SNom,
@@ -61,7 +61,7 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     tFt = tFt,
     tFv = tFv,
     tLag = tLag,
-    tP = tP,
+    tpREPC = tpREPC,
     uControl0Pu = uControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 

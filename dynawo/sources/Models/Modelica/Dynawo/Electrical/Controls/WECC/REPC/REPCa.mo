@@ -64,14 +64,14 @@ model REPCa "WECC Plant Control type A"
     controllerType = Modelica.Blocks.Types.SimpleController.PI,
     k = Kpg,
     xi_start = PConv0Pu / Kpg,
-    yMax = PMaxPu,
-    yMin = PMinPu,
+    yMax = PMaxREPCPu,
+    yMin = PMinREPCPu,
     y_start = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {10, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-70, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(
-    T = tP,
+    T = tpREPC,
     y_start = PControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter QVErrLim(
@@ -141,8 +141,8 @@ model REPCa "WECC Plant Control type A"
     Ti = Kp / Ki,
     K = Kp,
     Xi0 = QConv0Pu / Kp,
-    YMax = QMaxPu,
-    YMin = QMinPu,
+    YMax = QMaxREPCPu,
+    YMin = QMinREPCPu,
     Y0 = QConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(

@@ -53,13 +53,13 @@ record ParamsREPC
   Dialog(tab="Plant Control"));
   parameter Types.PerUnit Kpg "Droop regulator proportional gain" annotation(
   Dialog(tab="Plant Control"));
-  parameter Types.ActivePowerPu PMaxPu "Maximum plant level active power command in pu (base SNom)" annotation(
+  parameter Types.ActivePowerPu PMaxREPCPu "Maximum plant level active power command in REPC in pu (base SNom)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Types.ActivePowerPu PMinPu "Minimum plant level active power command in pu (base SNom)" annotation(
+  parameter Types.ActivePowerPu PMinREPCPu "Minimum plant level active power command in REPC in pu (base SNom)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Types.ReactivePowerPu QMaxPu "Maximum plant level reactive power command in pu (base SNom)" annotation(
+  parameter Types.ReactivePowerPu QMaxREPCPu "Maximum plant level reactive power command in REPC in pu (base SNom)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Types.ReactivePowerPu QMinPu "Minimum plant level reactive power command in pu (base SNom)" annotation(
+  parameter Types.ReactivePowerPu QMinREPCPu "Minimum plant level reactive power command in REPC in pu (base SNom)" annotation(
   Dialog(tab="Plant Control"));
   parameter Types.Time tFilterPC "Voltage and reactive power filter time constant in s (typical: 0.01..0.02)" annotation(
   Dialog(tab="Plant Control"));
@@ -69,7 +69,7 @@ record ParamsREPC
   Dialog(tab="Plant Control"));
   parameter Types.Time tLag "Plant controller P output lag time constant in s(typical: 0.15..5)" annotation(
   Dialog(tab="Plant Control"));
-  parameter Types.Time tP "Active power filter time constant in s (typical: 0.01..0.02)" annotation(
+  parameter Types.Time tpREPC "Active power filter time constant in REPC in s (typical: 0.01..0.02)" annotation(
   Dialog(tab="Plant Control"));
   parameter Types.VoltageModulePu VFrz "Voltage for freezing Volt/VAR regulator integrator (typical: 0..0.9)" annotation(
   Dialog(tab="Plant Control"));

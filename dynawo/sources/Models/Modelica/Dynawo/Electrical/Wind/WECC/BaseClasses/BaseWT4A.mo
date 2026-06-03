@@ -22,7 +22,7 @@ partial model BaseWT4A "Partial base model for WECC Wind Turbine 4A"
     Dshaft = Dshaft,
     Hg = Hg,
     Ht = Ht,
-    tp = tp,
+    tpWTGTb = tpWTGTb,
     Kshaft = Kshaft,
     PConv0Pu = PConv0Pu,
     PePu(start = PConv0Pu),

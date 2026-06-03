@@ -43,11 +43,11 @@
     <par type="DOUBLE" name="BESS_U0Pu" value="1.0"/>
     <par type="DOUBLE" name="BESS_UPhase0" value="0.03533563863002929"/>
     <!-- Electrical Control -->
-    <par type="DOUBLE" name="BESS_QMaxPu" value="0.4"/>
-    <par type="DOUBLE" name="BESS_QMinPu" value="-0.4"/>
-    <par type="DOUBLE" name="BESS_PMaxPu" value="0.9"/>
-    <par type="DOUBLE" name="BESS_PMinPu" value="0"/>
-    <par type="DOUBLE" name="BESS_tP" value="0.03"/>
+    <par type="DOUBLE" name="BESS_QMaxREECPu" value="0.4"/>
+    <par type="DOUBLE" name="BESS_QMinREECPu" value="-0.4"/>
+    <par type="DOUBLE" name="BESS_PMaxREECPu" value="0.9"/>
+    <par type="DOUBLE" name="BESS_PMinREECPu" value="0"/>
+    <par type="DOUBLE" name="BESS_tpREEC" value="0.03"/>
     <par type="BOOL" name="BESS_QFlag" value="false"/>
     <par type="BOOL" name="BESS_VFlag" value="true"/>
     <par type="BOOL" name="BESS_PfFlag" value="false"/>
