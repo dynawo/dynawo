@@ -363,3 +363,13 @@ case_description = "IEEE14 with distance protection on line 7-8 side 1"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_DistanceProtection", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#     IEEE14 - Lack of voltage relay    #
+#########################################
+
+case_name = "IEEE14 - Lack of voltage relay"
+case_description = "IEEE14 with lack of voltage relays on bus 12"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_LackOfVoltage", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

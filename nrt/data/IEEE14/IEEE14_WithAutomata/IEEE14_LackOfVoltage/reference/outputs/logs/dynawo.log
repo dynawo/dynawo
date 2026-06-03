@@ -1,0 +1,610 @@
+INFO |  ============================================================ 
+INFO | DYNAWO VERSION  :     1.8.0
+INFO | DYNAWO REVISION :  3722_add_recloser_relay_rebased-7ab844ebf94
+INFO |  ============================================================ 
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | building model from input files
+INFO | -----------------------------------------------------------------------
+INFO | model was built successfully
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting local initialization
+INFO | -----------------------------------------------------------------------
+WARN | the maximum number of nonlinear iterations has been reached
+INFO | end of local initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting global initialization
+INFO | -----------------------------------------------------------------------
+INFO | state of Switch Bus12_lineB6B12_switch change from 2 to 1
+INFO | Algebraic mode (with J recalculation) change at t = 0
+INFO | end of global initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting curve initialization
+INFO | -----------------------------------------------------------------------
+WARN | curve not added: Id: _LOAD__12_EC , name: load_UPu_value
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_state_value
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_loadState_value
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_running
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_UPu_value
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_P
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_Q
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_uBusMonitoredPu
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_busPhaseAngle
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_uEquipmentMonitoredPu
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_equipmentPhaseAngle
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_equipmentVoltageTrip
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_equipmentVoltageMin
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_busVoltageTrip
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_busVoltageMin
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_recloseBlocked
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_recloserModeInput
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_sleepStartTime
+WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_recloserTriggeredTime
+INFO | end of curve initialization, added 38 curves
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting simulation with solver SimplifiedSolver
+INFO | -----------------------------------------------------------------------
+INFO | -----------------------------------------------------------------------
+INFO | number of continuous variables : 551
+INFO | number of discrete variables : 568
+INFO | number of root functions : 763
+INFO | -----------------------------------------------------------------------
+INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
+INFO | -----------------------------------------------------------------------
+INFO |        0.000 ¦        0                0          0              1.000 
+INFO |        1.000 ¦        1                1          1              1.000 
+INFO |        2.000 ¦        2                2          1              1.000 
+INFO |        3.000 ¦        3                3          1              1.000 
+INFO |        4.000 ¦        4                4          1              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |        5.000 ¦        5                4          1              1.000 
+INFO |        6.000 ¦        6                4          1              1.000 
+INFO |        7.000 ¦        7                4          1              1.000 
+INFO |        8.000 ¦        8                4          1              1.000 
+INFO |        9.000 ¦        9                4          1              1.000 
+INFO | state of Switch Bus13_lineB12B13_switch change from 2 to 1
+INFO | switch Off bus : calculatedBus__BUS___12_VL_0
+INFO | switch Off bus : calculatedBus__BUS___12_VL_1
+INFO | switch Off bus : calculatedBus__BUS___12_VL_3
+INFO | switch Off bus : calculatedBus__BUS___13_VL_3
+INFO | Algebraic mode (with J recalculation) change at t = 10
+INFO |       10.000 ¦       10                4          1              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       10.000 ¦       10                7          4              1.000 
+INFO | Algebraic mode change at t = 11
+INFO |       11.000 ¦       11                9          5              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       11.000 ¦       11               10          5              1.000 
+INFO | state of Switch Bus12_lineB12B13_switch change from 2 to 1
+INFO | Algebraic mode (with J recalculation) change at t = 12
+INFO |       12.000 ¦       12               12          5              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       12.000 ¦       12               13          6              1.000 
+INFO |       13.000 ¦       13               14          7              1.000 
+INFO |       14.000 ¦       14               15          7              1.000 
+INFO |       15.000 ¦       15               16          7              1.000 
+INFO |       16.000 ¦       16               17          7              1.000 
+INFO |       17.000 ¦       17               18          7              1.000 
+INFO |       18.000 ¦       18               19          7              1.000 
+INFO |       19.000 ¦       19               20          7              1.000 
+INFO |       20.000 ¦       20               21          7              1.000 
+INFO |       21.000 ¦       21               22          7              1.000 
+INFO |       22.000 ¦       22               23          7              1.000 
+INFO |       23.000 ¦       23               24          7              1.000 
+INFO |       24.000 ¦       24               25          7              1.000 
+INFO |       25.000 ¦       25               26          7              1.000 
+INFO |       26.000 ¦       26               27          7              1.000 
+INFO |       27.000 ¦       27               28          7              1.000 
+INFO |       28.000 ¦       28               29          7              1.000 
+INFO |       29.000 ¦       29               30          7              1.000 
+INFO |       30.000 ¦       30               31          7              1.000 
+INFO |       31.000 ¦       31               32          7              1.000 
+INFO |       32.000 ¦       32               33          7              1.000 
+INFO |       33.000 ¦       33               34          7              1.000 
+INFO |       34.000 ¦       34               35          7              1.000 
+INFO |       35.000 ¦       35               36          7              1.000 
+INFO |       36.000 ¦       36               37          7              1.000 
+INFO |       37.000 ¦       37               38          7              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |       38.000 ¦       38               38          7              1.000 
+INFO |       39.000 ¦       39               38          7              1.000 
+INFO |       40.000 ¦       40               38          7              1.000 
+INFO |       41.000 ¦       41               38          7              1.000 
+INFO |       42.000 ¦       42               38          7              1.000 
+INFO |       43.000 ¦       43               38          7              1.000 
+INFO |       44.000 ¦       44               38          7              1.000 
+INFO |       45.000 ¦       45               38          7              1.000 
+INFO |       46.000 ¦       46               38          7              1.000 
+INFO |       47.000 ¦       47               38          7              1.000 
+INFO |       48.000 ¦       48               38          7              1.000 
+INFO |       49.000 ¦       49               38          7              1.000 
+INFO |       50.000 ¦       50               38          7              1.000 
+INFO |       51.000 ¦       51               38          7              1.000 
+INFO |       52.000 ¦       52               38          7              1.000 
+INFO |       53.000 ¦       53               38          7              1.000 
+INFO |       54.000 ¦       54               38          7              1.000 
+INFO |       55.000 ¦       55               38          7              1.000 
+INFO |       56.000 ¦       56               38          7              1.000 
+INFO |       57.000 ¦       57               38          7              1.000 
+INFO |       58.000 ¦       58               38          7              1.000 
+INFO |       59.000 ¦       59               38          7              1.000 
+INFO |       60.000 ¦       60               38          7              1.000 
+INFO |       61.000 ¦       61               38          7              1.000 
+INFO |       62.000 ¦       62               38          7              1.000 
+INFO |       63.000 ¦       63               38          7              1.000 
+INFO |       64.000 ¦       64               38          7              1.000 
+INFO |       65.000 ¦       65               38          7              1.000 
+INFO |       66.000 ¦       66               38          7              1.000 
+INFO |       67.000 ¦       67               38          7              1.000 
+INFO |       68.000 ¦       68               38          7              1.000 
+INFO |       69.000 ¦       69               38          7              1.000 
+INFO |       70.000 ¦       70               38          7              1.000 
+INFO |       71.000 ¦       71               38          7              1.000 
+INFO |       72.000 ¦       72               38          7              1.000 
+INFO |       73.000 ¦       73               38          7              1.000 
+INFO |       74.000 ¦       74               38          7              1.000 
+INFO |       75.000 ¦       75               38          7              1.000 
+INFO |       76.000 ¦       76               38          7              1.000 
+INFO |       77.000 ¦       77               38          7              1.000 
+INFO |       78.000 ¦       78               38          7              1.000 
+INFO |       79.000 ¦       79               38          7              1.000 
+INFO |       80.000 ¦       80               38          7              1.000 
+INFO |       81.000 ¦       81               38          7              1.000 
+INFO |       82.000 ¦       82               38          7              1.000 
+INFO |       83.000 ¦       83               38          7              1.000 
+INFO |       84.000 ¦       84               38          7              1.000 
+INFO |       85.000 ¦       85               38          7              1.000 
+INFO |       86.000 ¦       86               38          7              1.000 
+INFO |       87.000 ¦       87               38          7              1.000 
+INFO |       88.000 ¦       88               38          7              1.000 
+INFO |       89.000 ¦       89               38          7              1.000 
+INFO |       90.000 ¦       90               38          7              1.000 
+INFO |       91.000 ¦       91               38          7              1.000 
+INFO |       92.000 ¦       92               38          7              1.000 
+INFO |       93.000 ¦       93               38          7              1.000 
+INFO |       94.000 ¦       94               38          7              1.000 
+INFO |       95.000 ¦       95               38          7              1.000 
+INFO |       96.000 ¦       96               38          7              1.000 
+INFO |       97.000 ¦       97               38          7              1.000 
+INFO |       98.000 ¦       98               38          7              1.000 
+INFO |       99.000 ¦       99               38          7              1.000 
+INFO |      100.000 ¦      100               38          7              1.000 
+INFO |      101.000 ¦      101               38          7              1.000 
+INFO |      102.000 ¦      102               38          7              1.000 
+INFO |      103.000 ¦      103               38          7              1.000 
+INFO |      104.000 ¦      104               38          7              1.000 
+INFO |      105.000 ¦      105               38          7              1.000 
+INFO |      106.000 ¦      106               38          7              1.000 
+INFO |      107.000 ¦      107               38          7              1.000 
+INFO |      108.000 ¦      108               38          7              1.000 
+INFO |      109.000 ¦      109               38          7              1.000 
+INFO |      110.000 ¦      110               38          7              1.000 
+INFO |      111.000 ¦      111               38          7              1.000 
+INFO | state of Switch Bus12_lineB6B12_switch change from 1 to 2
+INFO | switch ON bus : calculatedBus__BUS___12_VL_0
+INFO | switch ON bus : calculatedBus__BUS___12_VL_1
+INFO | Algebraic mode (with J recalculation) change at t = 112
+INFO |      112.000 ¦      112               38          7              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      112.000 ¦      112               41         10              1.000 
+INFO |      113.000 ¦      113               43         11              1.000 
+INFO |      114.000 ¦      114               45         11              1.000 
+INFO |      115.000 ¦      115               46         11              1.000 
+INFO |      116.000 ¦      116               47         11              1.000 
+INFO |      117.000 ¦      117               48         11              1.000 
+INFO |      118.000 ¦      118               49         11              1.000 
+INFO |      119.000 ¦      119               50         11              1.000 
+INFO |      120.000 ¦      120               51         11              1.000 
+INFO |      121.000 ¦      121               52         11              1.000 
+INFO |      122.000 ¦      122               53         11              1.000 
+INFO |      123.000 ¦      123               54         11              1.000 
+INFO |      124.000 ¦      124               55         11              1.000 
+INFO |      125.000 ¦      125               56         11              1.000 
+INFO |      126.000 ¦      126               57         11              1.000 
+INFO |      127.000 ¦      127               58         11              1.000 
+INFO |      128.000 ¦      128               59         11              1.000 
+INFO |      129.000 ¦      129               60         11              1.000 
+INFO |      130.000 ¦      130               61         11              1.000 
+INFO | Algebraic mode change at t = 131
+INFO |      131.000 ¦      131               62         11              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      131.000 ¦      131               62         14              1.000 
+INFO |      132.000 ¦      132               63         14              1.000 
+INFO |      133.000 ¦      133               64         14              1.000 
+INFO |      134.000 ¦      134               65         14              1.000 
+INFO |      135.000 ¦      135               66         14              1.000 
+INFO |      136.000 ¦      136               67         14              1.000 
+INFO |      137.000 ¦      137               68         14              1.000 
+INFO |      138.000 ¦      138               69         14              1.000 
+INFO |      139.000 ¦      139               70         14              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |      140.000 ¦      140               70         14              1.000 
+INFO |      141.000 ¦      141               70         14              1.000 
+INFO |      142.000 ¦      142               70         14              1.000 
+INFO |      143.000 ¦      143               70         14              1.000 
+INFO |      144.000 ¦      144               70         14              1.000 
+INFO |      145.000 ¦      145               70         14              1.000 
+INFO |      146.000 ¦      146               70         14              1.000 
+INFO |      147.000 ¦      147               70         14              1.000 
+INFO |      148.000 ¦      148               70         14              1.000 
+INFO |      149.000 ¦      149               70         14              1.000 
+INFO |      150.000 ¦      150               70         14              1.000 
+INFO |      151.000 ¦      151               70         14              1.000 
+INFO |      152.000 ¦      152               70         14              1.000 
+INFO |      153.000 ¦      153               70         14              1.000 
+INFO |      154.000 ¦      154               70         14              1.000 
+INFO |      155.000 ¦      155               70         14              1.000 
+INFO |      156.000 ¦      156               70         14              1.000 
+INFO |      157.000 ¦      157               70         14              1.000 
+INFO |      158.000 ¦      158               70         14              1.000 
+INFO |      159.000 ¦      159               70         14              1.000 
+INFO |      160.000 ¦      160               70         14              1.000 
+INFO |      161.000 ¦      161               70         14              1.000 
+INFO |      162.000 ¦      162               70         14              1.000 
+INFO |      163.000 ¦      163               70         14              1.000 
+INFO |      164.000 ¦      164               70         14              1.000 
+INFO |      165.000 ¦      165               70         14              1.000 
+INFO |      166.000 ¦      166               70         14              1.000 
+INFO |      167.000 ¦      167               70         14              1.000 
+INFO |      168.000 ¦      168               70         14              1.000 
+INFO |      169.000 ¦      169               70         14              1.000 
+INFO |      170.000 ¦      170               70         14              1.000 
+INFO |      171.000 ¦      171               70         14              1.000 
+INFO |      172.000 ¦      172               70         14              1.000 
+INFO |      173.000 ¦      173               70         14              1.000 
+INFO |      174.000 ¦      174               70         14              1.000 
+INFO |      175.000 ¦      175               70         14              1.000 
+INFO |      176.000 ¦      176               70         14              1.000 
+INFO |      177.000 ¦      177               70         14              1.000 
+INFO |      178.000 ¦      178               70         14              1.000 
+INFO |      179.000 ¦      179               70         14              1.000 
+INFO |      180.000 ¦      180               70         14              1.000 
+INFO |      181.000 ¦      181               70         14              1.000 
+INFO |      182.000 ¦      182               70         14              1.000 
+INFO |      183.000 ¦      183               70         14              1.000 
+INFO |      184.000 ¦      184               70         14              1.000 
+INFO |      185.000 ¦      185               70         14              1.000 
+INFO |      186.000 ¦      186               70         14              1.000 
+INFO |      187.000 ¦      187               70         14              1.000 
+INFO |      188.000 ¦      188               70         14              1.000 
+INFO |      189.000 ¦      189               70         14              1.000 
+INFO |      190.000 ¦      190               70         14              1.000 
+INFO |      191.000 ¦      191               70         14              1.000 
+INFO |      192.000 ¦      192               70         14              1.000 
+INFO |      193.000 ¦      193               70         14              1.000 
+INFO |      194.000 ¦      194               70         14              1.000 
+INFO |      195.000 ¦      195               70         14              1.000 
+INFO |      196.000 ¦      196               70         14              1.000 
+INFO |      197.000 ¦      197               70         14              1.000 
+INFO |      198.000 ¦      198               70         14              1.000 
+INFO |      199.000 ¦      199               70         14              1.000 
+INFO |      200.000 ¦      200               70         14              1.000 
+INFO |      201.000 ¦      201               70         14              1.000 
+INFO |      202.000 ¦      202               70         14              1.000 
+INFO |      203.000 ¦      203               70         14              1.000 
+INFO |      204.000 ¦      204               70         14              1.000 
+INFO |      205.000 ¦      205               70         14              1.000 
+INFO |      206.000 ¦      206               70         14              1.000 
+INFO |      207.000 ¦      207               70         14              1.000 
+INFO |      208.000 ¦      208               70         14              1.000 
+INFO |      209.000 ¦      209               70         14              1.000 
+INFO |      210.000 ¦      210               70         14              1.000 
+INFO |      211.000 ¦      211               70         14              1.000 
+INFO |      212.000 ¦      212               70         14              1.000 
+INFO |      213.000 ¦      213               70         14              1.000 
+INFO |      214.000 ¦      214               70         14              1.000 
+INFO |      215.000 ¦      215               70         14              1.000 
+INFO |      216.000 ¦      216               70         14              1.000 
+INFO |      217.000 ¦      217               70         14              1.000 
+INFO |      218.000 ¦      218               70         14              1.000 
+INFO |      219.000 ¦      219               70         14              1.000 
+INFO |      220.000 ¦      220               70         14              1.000 
+INFO |      221.000 ¦      221               70         14              1.000 
+INFO |      222.000 ¦      222               70         14              1.000 
+INFO |      223.000 ¦      223               70         14              1.000 
+INFO |      224.000 ¦      224               70         14              1.000 
+INFO |      225.000 ¦      225               70         14              1.000 
+INFO |      226.000 ¦      226               70         14              1.000 
+INFO |      227.000 ¦      227               70         14              1.000 
+INFO |      228.000 ¦      228               70         14              1.000 
+INFO |      229.000 ¦      229               70         14              1.000 
+INFO |      230.000 ¦      230               70         14              1.000 
+INFO |      231.000 ¦      231               70         14              1.000 
+INFO |      232.000 ¦      232               70         14              1.000 
+INFO |      233.000 ¦      233               70         14              1.000 
+INFO |      234.000 ¦      234               70         14              1.000 
+INFO |      235.000 ¦      235               70         14              1.000 
+INFO |      236.000 ¦      236               70         14              1.000 
+INFO |      237.000 ¦      237               70         14              1.000 
+INFO |      238.000 ¦      238               70         14              1.000 
+INFO |      239.000 ¦      239               70         14              1.000 
+INFO |      240.000 ¦      240               70         14              1.000 
+INFO |      241.000 ¦      241               70         14              1.000 
+INFO |      242.000 ¦      242               70         14              1.000 
+INFO |      243.000 ¦      243               70         14              1.000 
+INFO |      244.000 ¦      244               70         14              1.000 
+INFO |      245.000 ¦      245               70         14              1.000 
+INFO |      246.000 ¦      246               70         14              1.000 
+INFO |      247.000 ¦      247               70         14              1.000 
+INFO |      248.000 ¦      248               70         14              1.000 
+INFO |      249.000 ¦      249               70         14              1.000 
+INFO |      250.000 ¦      250               70         14              1.000 
+INFO |      251.000 ¦      251               70         14              1.000 
+INFO |      252.000 ¦      252               70         14              1.000 
+INFO |      253.000 ¦      253               70         14              1.000 
+INFO |      254.000 ¦      254               70         14              1.000 
+INFO |      255.000 ¦      255               70         14              1.000 
+INFO |      256.000 ¦      256               70         14              1.000 
+INFO |      257.000 ¦      257               70         14              1.000 
+INFO |      258.000 ¦      258               70         14              1.000 
+INFO |      259.000 ¦      259               70         14              1.000 
+INFO |      260.000 ¦      260               70         14              1.000 
+INFO |      261.000 ¦      261               70         14              1.000 
+INFO |      262.000 ¦      262               70         14              1.000 
+INFO |      263.000 ¦      263               70         14              1.000 
+INFO |      264.000 ¦      264               70         14              1.000 
+INFO |      265.000 ¦      265               70         14              1.000 
+INFO |      266.000 ¦      266               70         14              1.000 
+INFO |      267.000 ¦      267               70         14              1.000 
+INFO |      268.000 ¦      268               70         14              1.000 
+INFO |      269.000 ¦      269               70         14              1.000 
+INFO |      270.000 ¦      270               70         14              1.000 
+INFO |      271.000 ¦      271               70         14              1.000 
+INFO |      272.000 ¦      272               70         14              1.000 
+INFO |      273.000 ¦      273               70         14              1.000 
+INFO |      274.000 ¦      274               70         14              1.000 
+INFO |      275.000 ¦      275               70         14              1.000 
+INFO |      276.000 ¦      276               70         14              1.000 
+INFO |      277.000 ¦      277               70         14              1.000 
+INFO |      278.000 ¦      278               70         14              1.000 
+INFO |      279.000 ¦      279               70         14              1.000 
+INFO |      280.000 ¦      280               70         14              1.000 
+INFO |      281.000 ¦      281               70         14              1.000 
+INFO |      282.000 ¦      282               70         14              1.000 
+INFO |      283.000 ¦      283               70         14              1.000 
+INFO |      284.000 ¦      284               70         14              1.000 
+INFO |      285.000 ¦      285               70         14              1.000 
+INFO |      286.000 ¦      286               70         14              1.000 
+INFO |      287.000 ¦      287               70         14              1.000 
+INFO |      288.000 ¦      288               70         14              1.000 
+INFO |      289.000 ¦      289               70         14              1.000 
+INFO |      290.000 ¦      290               70         14              1.000 
+INFO |      291.000 ¦      291               70         14              1.000 
+INFO |      292.000 ¦      292               70         14              1.000 
+INFO |      293.000 ¦      293               70         14              1.000 
+INFO |      294.000 ¦      294               70         14              1.000 
+INFO |      295.000 ¦      295               70         14              1.000 
+INFO |      296.000 ¦      296               70         14              1.000 
+INFO |      297.000 ¦      297               70         14              1.000 
+INFO |      298.000 ¦      298               70         14              1.000 
+INFO |      299.000 ¦      299               70         14              1.000 
+INFO |      300.000 ¦      300               70         14              1.000 
+INFO |      301.000 ¦      301               70         14              1.000 
+INFO |      302.000 ¦      302               70         14              1.000 
+INFO |      303.000 ¦      303               70         14              1.000 
+INFO |      304.000 ¦      304               70         14              1.000 
+INFO |      305.000 ¦      305               70         14              1.000 
+INFO |      306.000 ¦      306               70         14              1.000 
+INFO |      307.000 ¦      307               70         14              1.000 
+INFO |      308.000 ¦      308               70         14              1.000 
+INFO |      309.000 ¦      309               70         14              1.000 
+INFO |      310.000 ¦      310               70         14              1.000 
+INFO |      311.000 ¦      311               70         14              1.000 
+INFO |      312.000 ¦      312               70         14              1.000 
+INFO |      313.000 ¦      313               70         14              1.000 
+INFO |      314.000 ¦      314               70         14              1.000 
+INFO |      315.000 ¦      315               70         14              1.000 
+INFO |      316.000 ¦      316               70         14              1.000 
+INFO |      317.000 ¦      317               70         14              1.000 
+INFO |      318.000 ¦      318               70         14              1.000 
+INFO |      319.000 ¦      319               70         14              1.000 
+INFO |      320.000 ¦      320               70         14              1.000 
+INFO |      321.000 ¦      321               70         14              1.000 
+INFO |      322.000 ¦      322               70         14              1.000 
+INFO |      323.000 ¦      323               70         14              1.000 
+INFO |      324.000 ¦      324               70         14              1.000 
+INFO |      325.000 ¦      325               70         14              1.000 
+INFO |      326.000 ¦      326               70         14              1.000 
+INFO |      327.000 ¦      327               70         14              1.000 
+INFO |      328.000 ¦      328               70         14              1.000 
+INFO |      329.000 ¦      329               70         14              1.000 
+INFO |      330.000 ¦      330               70         14              1.000 
+INFO |      331.000 ¦      331               70         14              1.000 
+INFO |      332.000 ¦      332               70         14              1.000 
+INFO |      333.000 ¦      333               70         14              1.000 
+INFO |      334.000 ¦      334               70         14              1.000 
+INFO |      335.000 ¦      335               70         14              1.000 
+INFO |      336.000 ¦      336               70         14              1.000 
+INFO |      337.000 ¦      337               70         14              1.000 
+INFO |      338.000 ¦      338               70         14              1.000 
+INFO |      339.000 ¦      339               70         14              1.000 
+INFO |      340.000 ¦      340               70         14              1.000 
+INFO |      341.000 ¦      341               70         14              1.000 
+INFO |      342.000 ¦      342               70         14              1.000 
+INFO |      343.000 ¦      343               70         14              1.000 
+INFO |      344.000 ¦      344               70         14              1.000 
+INFO |      345.000 ¦      345               70         14              1.000 
+INFO |      346.000 ¦      346               70         14              1.000 
+INFO |      347.000 ¦      347               70         14              1.000 
+INFO |      348.000 ¦      348               70         14              1.000 
+INFO |      349.000 ¦      349               70         14              1.000 
+INFO |      350.000 ¦      350               70         14              1.000 
+INFO |      351.000 ¦      351               70         14              1.000 
+INFO |      352.000 ¦      352               70         14              1.000 
+INFO |      353.000 ¦      353               70         14              1.000 
+INFO |      354.000 ¦      354               70         14              1.000 
+INFO |      355.000 ¦      355               70         14              1.000 
+INFO |      356.000 ¦      356               70         14              1.000 
+INFO |      357.000 ¦      357               70         14              1.000 
+INFO |      358.000 ¦      358               70         14              1.000 
+INFO |      359.000 ¦      359               70         14              1.000 
+INFO |      360.000 ¦      360               70         14              1.000 
+INFO |      361.000 ¦      361               70         14              1.000 
+INFO |      362.000 ¦      362               70         14              1.000 
+INFO |      363.000 ¦      363               70         14              1.000 
+INFO |      364.000 ¦      364               70         14              1.000 
+INFO |      365.000 ¦      365               70         14              1.000 
+INFO |      366.000 ¦      366               70         14              1.000 
+INFO |      367.000 ¦      367               70         14              1.000 
+INFO |      368.000 ¦      368               70         14              1.000 
+INFO |      369.000 ¦      369               70         14              1.000 
+INFO |      370.000 ¦      370               70         14              1.000 
+INFO |      371.000 ¦      371               70         14              1.000 
+INFO |      372.000 ¦      372               70         14              1.000 
+INFO |      373.000 ¦      373               70         14              1.000 
+INFO |      374.000 ¦      374               70         14              1.000 
+INFO |      375.000 ¦      375               70         14              1.000 
+INFO |      376.000 ¦      376               70         14              1.000 
+INFO |      377.000 ¦      377               70         14              1.000 
+INFO |      378.000 ¦      378               70         14              1.000 
+INFO |      379.000 ¦      379               70         14              1.000 
+INFO |      380.000 ¦      380               70         14              1.000 
+INFO |      381.000 ¦      381               70         14              1.000 
+INFO |      382.000 ¦      382               70         14              1.000 
+INFO |      383.000 ¦      383               70         14              1.000 
+INFO |      384.000 ¦      384               70         14              1.000 
+INFO |      385.000 ¦      385               70         14              1.000 
+INFO |      386.000 ¦      386               70         14              1.000 
+INFO |      387.000 ¦      387               70         14              1.000 
+INFO |      388.000 ¦      388               70         14              1.000 
+INFO |      389.000 ¦      389               70         14              1.000 
+INFO |      390.000 ¦      390               70         14              1.000 
+INFO |      391.000 ¦      391               70         14              1.000 
+INFO |      392.000 ¦      392               70         14              1.000 
+INFO |      393.000 ¦      393               70         14              1.000 
+INFO |      394.000 ¦      394               70         14              1.000 
+INFO |      395.000 ¦      395               70         14              1.000 
+INFO |      396.000 ¦      396               70         14              1.000 
+INFO |      397.000 ¦      397               70         14              1.000 
+INFO |      398.000 ¦      398               70         14              1.000 
+INFO |      399.000 ¦      399               70         14              1.000 
+INFO |      400.000 ¦      400               70         14              1.000 
+INFO |      401.000 ¦      401               70         14              1.000 
+INFO |      402.000 ¦      402               70         14              1.000 
+INFO |      403.000 ¦      403               70         14              1.000 
+INFO |      404.000 ¦      404               70         14              1.000 
+INFO |      405.000 ¦      405               70         14              1.000 
+INFO |      406.000 ¦      406               70         14              1.000 
+INFO |      407.000 ¦      407               70         14              1.000 
+INFO |      408.000 ¦      408               70         14              1.000 
+INFO |      409.000 ¦      409               70         14              1.000 
+INFO |      410.000 ¦      410               70         14              1.000 
+INFO |      411.000 ¦      411               70         14              1.000 
+INFO |      412.000 ¦      412               70         14              1.000 
+INFO |      413.000 ¦      413               70         14              1.000 
+INFO |      414.000 ¦      414               70         14              1.000 
+INFO |      415.000 ¦      415               70         14              1.000 
+INFO |      416.000 ¦      416               70         14              1.000 
+INFO |      417.000 ¦      417               70         14              1.000 
+INFO |      418.000 ¦      418               70         14              1.000 
+INFO |      419.000 ¦      419               70         14              1.000 
+INFO |      420.000 ¦      420               70         14              1.000 
+INFO |      421.000 ¦      421               70         14              1.000 
+INFO |      422.000 ¦      422               70         14              1.000 
+INFO |      423.000 ¦      423               70         14              1.000 
+INFO |      424.000 ¦      424               70         14              1.000 
+INFO |      425.000 ¦      425               70         14              1.000 
+INFO |      426.000 ¦      426               70         14              1.000 
+INFO |      427.000 ¦      427               70         14              1.000 
+INFO |      428.000 ¦      428               70         14              1.000 
+INFO |      429.000 ¦      429               70         14              1.000 
+INFO |      430.000 ¦      430               70         14              1.000 
+INFO |      431.000 ¦      431               70         14              1.000 
+INFO |      432.000 ¦      432               70         14              1.000 
+INFO |      433.000 ¦      433               70         14              1.000 
+INFO |      434.000 ¦      434               70         14              1.000 
+INFO |      435.000 ¦      435               70         14              1.000 
+INFO |      436.000 ¦      436               70         14              1.000 
+INFO |      437.000 ¦      437               70         14              1.000 
+INFO |      438.000 ¦      438               70         14              1.000 
+INFO |      439.000 ¦      439               70         14              1.000 
+INFO |      440.000 ¦      440               70         14              1.000 
+INFO |      441.000 ¦      441               70         14              1.000 
+INFO |      442.000 ¦      442               70         14              1.000 
+INFO |      443.000 ¦      443               70         14              1.000 
+INFO |      444.000 ¦      444               70         14              1.000 
+INFO |      445.000 ¦      445               70         14              1.000 
+INFO |      446.000 ¦      446               70         14              1.000 
+INFO |      447.000 ¦      447               70         14              1.000 
+INFO |      448.000 ¦      448               70         14              1.000 
+INFO |      449.000 ¦      449               70         14              1.000 
+INFO |      450.000 ¦      450               70         14              1.000 
+INFO |      451.000 ¦      451               70         14              1.000 
+INFO |      452.000 ¦      452               70         14              1.000 
+INFO |      453.000 ¦      453               70         14              1.000 
+INFO |      454.000 ¦      454               70         14              1.000 
+INFO |      455.000 ¦      455               70         14              1.000 
+INFO |      456.000 ¦      456               70         14              1.000 
+INFO |      457.000 ¦      457               70         14              1.000 
+INFO |      458.000 ¦      458               70         14              1.000 
+INFO |      459.000 ¦      459               70         14              1.000 
+INFO |      460.000 ¦      460               70         14              1.000 
+INFO |      461.000 ¦      461               70         14              1.000 
+INFO |      462.000 ¦      462               70         14              1.000 
+INFO |      463.000 ¦      463               70         14              1.000 
+INFO |      464.000 ¦      464               70         14              1.000 
+INFO |      465.000 ¦      465               70         14              1.000 
+INFO |      466.000 ¦      466               70         14              1.000 
+INFO |      467.000 ¦      467               70         14              1.000 
+INFO |      468.000 ¦      468               70         14              1.000 
+INFO |      469.000 ¦      469               70         14              1.000 
+INFO |      470.000 ¦      470               70         14              1.000 
+INFO |      471.000 ¦      471               70         14              1.000 
+INFO |      472.000 ¦      472               70         14              1.000 
+INFO |      473.000 ¦      473               70         14              1.000 
+INFO |      474.000 ¦      474               70         14              1.000 
+INFO |      475.000 ¦      475               70         14              1.000 
+INFO |      476.000 ¦      476               70         14              1.000 
+INFO |      477.000 ¦      477               70         14              1.000 
+INFO |      478.000 ¦      478               70         14              1.000 
+INFO |      479.000 ¦      479               70         14              1.000 
+INFO |      480.000 ¦      480               70         14              1.000 
+INFO |      481.000 ¦      481               70         14              1.000 
+INFO |      482.000 ¦      482               70         14              1.000 
+INFO |      483.000 ¦      483               70         14              1.000 
+INFO |      484.000 ¦      484               70         14              1.000 
+INFO |      485.000 ¦      485               70         14              1.000 
+INFO |      486.000 ¦      486               70         14              1.000 
+INFO |      487.000 ¦      487               70         14              1.000 
+INFO |      488.000 ¦      488               70         14              1.000 
+INFO |      489.000 ¦      489               70         14              1.000 
+INFO |      490.000 ¦      490               70         14              1.000 
+INFO |      491.000 ¦      491               70         14              1.000 
+INFO |      492.000 ¦      492               70         14              1.000 
+INFO |      493.000 ¦      493               70         14              1.000 
+INFO |      494.000 ¦      494               70         14              1.000 
+INFO |      495.000 ¦      495               70         14              1.000 
+INFO |      496.000 ¦      496               70         14              1.000 
+INFO |      497.000 ¦      497               70         14              1.000 
+INFO |      498.000 ¦      498               70         14              1.000 
+INFO |      499.000 ¦      499               70         14              1.000 
+INFO |      500.000 ¦      500               70         14              1.000 
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 500
+INFO | number of residual evaluations                             = 124
+INFO | number of Jacobian evaluations                             = 4
+INFO | number of nonlinear iterations                             = 62
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 525
+INFO | number of discrete variables evaluations                   = 36
+INFO | number of mode evaluations                                 = 15
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 13
+INFO | number of algebraic restoration Jacobian evaluations       = 10
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+INFO | end of job 'IEEE14 - Lack of Voltage Relay Testcase'
