@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="minStep" value="1e-8"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  </set>
+  <set id="InfBusPar">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="0.9906184368094055"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="0.5"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="12"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="12.5"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="17"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="17.5"/>
+  </set>
+  <set id="LinePar">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.05"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+  </set>
+  <set id="PlantPar">
+    <par type="DOUBLE" name="WT4A_P0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="WT4A_Q0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="WT4A_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="WT4A_UPhase0" value="0.03533563863002929"/>
+    <par type="DOUBLE" name="WT4A_PPcc0Pu" value="-0.7"/>
+    <par type="DOUBLE" name="WT4A_QPcc0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="WT4A_UPcc0Pu" value="1"/>
+    <par type="DOUBLE" name="WT4A_UPhasePcc0" value="0.03533563863002929"/>
+    <!-- Electrical Control -->
+    <par type="DOUBLE" name="WT4A_QMaxREECPu" value="0.4"/>
+    <par type="DOUBLE" name="WT4A_QMinREECPu" value="-0.4"/>
+    <par type="DOUBLE" name="WT4A_PMaxREECPu" value="0.9"/>
+    <par type="DOUBLE" name="WT4A_PMinREECPu" value="0"/>
+    <par type="DOUBLE" name="WT4A_tP" value="0.03"/>
+    <par type="BOOL" name="WT4A_QFlag" value="false"/>
+    <par type="BOOL" name="WT4A_VFlag" value="true"/>
+    <par type="BOOL" name="WT4A_PfFlag" value="false"/>
+    <par type="BOOL" name="WT4A_PQFlag" value="false"/>
+    <par type="BOOL" name="WT4A_PPriority" value="false"/>
+    <par type="DOUBLE" name="WT4A_tRv" value="1e-5"/>
+    <par type="DOUBLE" name="WT4A_UMinPu" value="0.9"/>
+    <par type="DOUBLE" name="WT4A_UMaxPu" value="1.1"/>
+    <par type="DOUBLE" name="WT4A_VUpPu" value="1.12"/>
+    <par type="DOUBLE" name="WT4A_VDipPu" value="0.88"/>
+    <par type="DOUBLE" name="WT4A_VRef0Pu" value="1"/>
+    <par type="DOUBLE" name="WT4A_Dbd1Pu" value="-0.1"/>
+    <par type="DOUBLE" name="WT4A_Dbd2Pu" value="0.1"/>
+    <par type="DOUBLE" name="WT4A_Kqv" value="2"/>
+    <par type="DOUBLE" name="WT4A_Iqh1Pu" value="2"/>
+    <par type="DOUBLE" name="WT4A_Iql1Pu" value="-2"/>
+    <par type="DOUBLE" name="WT4A_Kqp" value="1e-5"/>
+    <par type="DOUBLE" name="WT4A_Kqi" value="1"/>
+    <par type="DOUBLE" name="WT4A_VMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="WT4A_VMinPu" value="0.8"/>
+    <par type="DOUBLE" name="WT4A_Kvp" value="1e-5"/>
+    <par type="DOUBLE" name="WT4A_Kvi" value="1"/>
+    <par type="DOUBLE" name="WT4A_tIq" value="0.01"/>
+    <par type="DOUBLE" name="WT4A_tPord" value="0.01"/>
+    <par type="DOUBLE" name="WT4A_DPMaxPu" value="1"/>
+    <par type="DOUBLE" name="WT4A_DPMinPu" value="-1"/>
+    <par type="DOUBLE" name="WT4A_IMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="WT4A_VDLIp11" value="0"/>
+    <par type="DOUBLE" name="WT4A_VDLIp12" value="1"/>
+    <par type="DOUBLE" name="WT4A_VDLIp21" value="0.33"/>
+    <par type="DOUBLE" name="WT4A_VDLIp22" value="1"/>
+    <par type="DOUBLE" name="WT4A_VDLIp31" value="0.66"/>
+    <par type="DOUBLE" name="WT4A_VDLIp32" value="1"/>
+    <par type="DOUBLE" name="WT4A_VDLIp41" value="1.05"/>
+    <par type="DOUBLE" name="WT4A_VDLIp42" value="1"/>
+    <par type="DOUBLE" name="WT4A_VDLIq11" value="1.1"/>
+    <par type="DOUBLE" name="WT4A_VDLIq12" value="1"/>
+    <par type="DOUBLE" name="WT4A_VDLIq21" value="1.15"/>
+    <par type="DOUBLE" name="WT4A_VDLIq22" value="1"/>
+    <par type="DOUBLE" name="WT4A_VDLIq31" value="1.2"/>
+    <par type="DOUBLE" name="WT4A_VDLIq32" value="1"/>
+    <par type="DOUBLE" name="WT4A_VDLIq41" value="1.3"/>
+    <par type="DOUBLE" name="WT4A_VDLIq42" value="1"/>
+    <par type="DOUBLE" name="WT4A_VRef1Pu" value="1"/>
+    <par type="DOUBLE" name="WT4A_tHoldIpMax" value="0"/>
+    <par type="DOUBLE" name="WT4A_tHoldIq" value="10"/>
+    <par type="DOUBLE" name="WT4A_IqFrzPu" value="0.42"/>
+    <par type="BOOL" name="WT4A_PFlag" value="false"/>
+    <!-- Generator Control -->
+    <par type="DOUBLE" name="WT4A_tG" value="0.02"/>
+    <par type="DOUBLE" name="WT4A_tFilterGC" value="1e-5"/>
+    <par type="DOUBLE" name="WT4A_IqrMinPu" value="-10"/>
+    <par type="DOUBLE" name="WT4A_IqrMaxPu" value="10"/>
+    <par type="DOUBLE" name="WT4A_RrpwrPu" value="5.01"/>
+    <par type="BOOL" name="WT4A_Lvplsw" value="false"/>
+    <par type="DOUBLE" name="WT4A_zerox" value="0.5"/>
+    <par type="DOUBLE" name="WT4A_brkpt" value="0.9"/>
+    <par type="DOUBLE" name="WT4A_lvpl1" value="1"/>
+    <!-- PLL Control -->
+    <par type="DOUBLE" name="WT4A_KiPLL" value="200"/>
+    <par type="DOUBLE" name="WT4A_KpPLL" value="30"/>
+    <par type="DOUBLE" name="WT4A_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="WT4A_OmegaMinPu" value="0.5"/>
+    <!-- BaseWT4 -->
+    <par type="DOUBLE" name="WT4A_SNom" value="200"/>
+    <par type="DOUBLE" name="WT4A_rTfoPu" value="0.962"/>
+    <par type="DOUBLE" name="WT4A_RLvTrPu" value="0.015"/>
+    <par type="DOUBLE" name="WT4A_XLvTrPu" value="0.06"/>
+    <!-- Drive train control -->
+    <par type="DOUBLE" name="WT4A_Ht" value="5"/>
+    <par type="DOUBLE" name="WT4A_Hg" value="1"/>
+    <par type="DOUBLE" name="WT4A_Dshaft" value="1.5"/>
+    <par type="DOUBLE" name="WT4A_Kshaft" value="200"/>
+    <par type="DOUBLE" name="WT4A_tpREEC" value="0.05"/>
+    <par type="DOUBLE" name="WT4A_tpWTGTb" value="0.5"/>
+    <!-- PCS parameters -->
+    <par type="BOOL" name="WT4A_PPCLocal" value="true"/>
+    <par type="BOOL" name="WT4A_ConverterLVControl" value="true"/>
+  </set>
+  <set id="PRefPu">
+    <par type="DOUBLE" name="step_Height" value="0.15"/>
+    <par type="DOUBLE" name="step_tStep" value="1"/>
+    <par type="DOUBLE" name="step_Value0" value="0.35"/>
+  </set>
+  <set id="QRefPu">
+    <par type="DOUBLE" name="step_Height" value="-0.1"/>
+    <par type="DOUBLE" name="step_tStep" value="8"/>
+    <par type="DOUBLE" name="step_Value0" value="0.1"/>
+  </set>
+  <set id="PFaRef">
+    <par type="DOUBLE" name="step_Height" value="0"/>
+    <par type="DOUBLE" name="step_tStep" value="0"/>
+    <par type="DOUBLE" name="step_Value0" value="0.2783"/>
+  </set>
+  <set id="OmegaRef">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+</parametersSet>
