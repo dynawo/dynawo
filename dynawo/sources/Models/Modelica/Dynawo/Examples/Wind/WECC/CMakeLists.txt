@@ -11,6 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
+  WT3CurrentSource1.mo
+  WT3CurrentSource2.mo
   WT4ACurrentSource.mo
   WT4BCurrentSource.mo
   WTG3CurrentSource1.mo
