@@ -40,7 +40,7 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     k = 1,
-    T = tP,
+    T = tpWTGQa,
     y_start = PConv0Pu) annotation(
     Placement(transformation(origin = {-90, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(

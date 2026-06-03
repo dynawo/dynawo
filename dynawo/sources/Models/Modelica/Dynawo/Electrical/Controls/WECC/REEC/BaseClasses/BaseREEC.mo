@@ -56,13 +56,13 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {330, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {27, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tP, y_start = PConv0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tpREEC, y_start = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, 170}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-190, 190}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {-120, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = QMaxPu, uMin = QMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter2(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = QMaxREECPu, uMin = QMinREECPu) annotation(
     Placement(visible = true, transformation(origin = {-80, 150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {280, 104}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -102,7 +102,7 @@ partial model BaseREEC "WECC Electrical Control REEC common"
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = tPord, UseFreeze = true, UseRateLim = false, Y0 = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {65, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter3(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxPu, uMin = PMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter3(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = PMaxREECPu, uMin = PMinREECPu) annotation(
     Placement(visible = true, transformation(origin = {130, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression FRTOn2(y = frtOn) annotation(
     Placement(visible = true, transformation(origin = {59, -105}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

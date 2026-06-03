@@ -40,7 +40,7 @@ record ParamsWTGQa
   Dialog(tab="Torque control"));
   parameter Boolean TFlag "Flag to specify PI controller input, if true : power control, if false : speed control" annotation(
   Dialog(tab="Torque control"));
-  parameter Types.Time tP "Power measurement lag time constant in s" annotation(
+  parameter Types.Time tpWTGQa "Power measurement lag time constant in WTGQa in s" annotation(
   Dialog(tab="Torque control"));
   parameter Types.Time tOmegaRef "Speed reference time constant ins s" annotation(
   Dialog(tab="Torque control"));
