@@ -213,6 +213,16 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   std::string getBusName(const std::string& staticID, const std::string& labelNode) override;
 
   /**
+   * @copydoc DataInterface::getVoltageLevelId(const std::string& staticId)
+   */
+  std::string getVoltageLevelId(const std::string& staticId) override;
+
+  /**
+   * @copydoc DataInterface::getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex)
+   */
+  std::string getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex) override;
+
+  /**
    * @brief find a component thanks to its id
    * @param id : id of the component to find
    *

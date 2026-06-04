@@ -110,17 +110,31 @@ class Modeler {
    */
   void initStaticRefs(const boost::shared_ptr<SubModel>& model, const std::shared_ptr<ModelDescription>& modelDescription) const;
 
+ protected:
   /**
    * @brief find a node connector name
    *
    * @param id : id of the node connector
    * @param labelNode : \@NODE\@ or \@NODE1\@ or \@NODE2\@
    * if the id contains \@static_id\@\@NODE\@, find the connection point of static id,
-   * and replace \@NODE\@ by the name of the connection point
-   * @return the id of the connector where \@static_id\@\@NODE\@ is replaced by the name of the connection point
+   * and replace \@NODE\@ by the name of the connection point.
+   * If the id contains \@vl_id\@\@NODE\@\@N\@, find the calculated bus of the voltage level
+   * at node index N and replace \@vl_id\@\@NODE\@\@N\@ by the bus name (NODE_BREAKER topology).
+   * @return the id of the connector with the node macro replaced by the bus name
    */
   std::string findNodeConnectorName(const std::string& id, const std::string& labelNode) const;
 
+  /**
+   * @brief replace \@STATIC_ID\@, \@VOLTAGE_LEVEL\@, \@NODE\@, \@NODE1\@, \@NODE2\@ macros
+   * @param subModel1 first connected model
+   * @param var1 first connected variable
+   * @param subModel2 second connected model
+   * @param var2 second connected variable
+   */
+  void replaceStaticAndNodeMacroInVariableName(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
+      const boost::shared_ptr<SubModel>& subModel2, std::string& var2) const;
+
+ private:
   /**
    * @brief Check for each flow connections that there is no mix of internal and system connections
    */
@@ -133,16 +147,6 @@ class Modeler {
    */
   void collectAllInternalConnections(const std::shared_ptr<dynamicdata::ModelicaModel>& model,
       std::vector<std::pair<std::string, std::string> >& variablesConnectedInternally) const;
-
-  /**
-   * @brief replace STATIC and NODE macros in a macro connection
-   * @param subModel1 first connected model
-   * @param var1 first connected variable
-   * @param subModel2 second connected model
-   * @param var2 second connected variable
-   */
-  void replaceStaticAndNodeMacroInVariableName(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
-      const boost::shared_ptr<SubModel>& subModel2, std::string& var2) const;
 
  private:
   /**
@@ -161,6 +165,7 @@ class Modeler {
    */
   void replaceNodeWithBus(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
       const boost::shared_ptr<SubModel>& subModel2, std::string& var2, const std::string& labelNode) const;
+
 
  private:
   boost::shared_ptr<DataInterface> data_;  ///< data used to build the model multi
