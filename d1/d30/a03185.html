@@ -136,6 +136,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7758019f18243df11e302a6bb78ff2f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#a7758019f18243df11e302a6bb78ff2f9">collectSilentZ</a> (<a class="el" href="../../de/d48/a02589.html">BitMask</a> *silentZTable) override</td></tr>
 <tr class="memdesc:a7758019f18243df11e302a6bb78ff2f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the silent flag for discrete variables  <a href="#a7758019f18243df11e302a6bb78ff2f9">More...</a><br /></td></tr>
 <tr class="separator:a7758019f18243df11e302a6bb78ff2f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef3963cd8ee3a6da830d29f3852c462"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#a4ef3963cd8ee3a6da830d29f3852c462">evalCalculatedVarI</a> (unsigned iCalculatedVar) const override</td></tr>
+<tr class="memdesc:a4ef3963cd8ee3a6da830d29f3852c462"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the value of a calculated variable  <a href="#a4ef3963cd8ee3a6da830d29f3852c462">More...</a><br /></td></tr>
+<tr class="separator:a4ef3963cd8ee3a6da830d29f3852c462"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf5789e605c2a192b33d106d0723bd20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#aaf5789e605c2a192b33d106d0723bd20">evalCalculatedVars</a> () override</td></tr>
 <tr class="memdesc:aaf5789e605c2a192b33d106d0723bd20"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate calculated variables  <a href="#aaf5789e605c2a192b33d106d0723bd20">More...</a><br /></td></tr>
 <tr class="separator:aaf5789e605c2a192b33d106d0723bd20"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,6 +181,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2164a941fd111168c53429cb43f1a839"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#a2164a941fd111168c53429cb43f1a839">initParams</a> () override</td></tr>
 <tr class="memdesc:a2164a941fd111168c53429cb43f1a839"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the parameters thanks to external values and internal equations  <a href="#a2164a941fd111168c53429cb43f1a839">More...</a><br /></td></tr>
 <tr class="separator:a2164a941fd111168c53429cb43f1a839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2ad37e35dfb4f8051c9cc6c5a2747a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#aed2ad37e35dfb4f8051c9cc6c5a2747a">evalG</a> (const double t) override</td></tr>
+<tr class="memdesc:aed2ad37e35dfb4f8051c9cc6c5a2747a"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../d1/da5/a02769.html" title="Generic model Generic class for Model. ">Model</a> G(t,y,y') function evaluation.  <a href="#aed2ad37e35dfb4f8051c9cc6c5a2747a">More...</a><br /></td></tr>
+<tr class="separator:aed2ad37e35dfb4f8051c9cc6c5a2747a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7f04538747e0c0ea3cbe34d0c58e937"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#ae7f04538747e0c0ea3cbe34d0c58e937">setGequations</a> () override</td></tr>
+<tr class="memdesc:ae7f04538747e0c0ea3cbe34d0c58e937"><td class="mdescLeft">&#160;</td><td class="mdescRight">set formula for modelica models' root equation  <a href="#ae7f04538747e0c0ea3cbe34d0c58e937">More...</a><br /></td></tr>
+<tr class="separator:ae7f04538747e0c0ea3cbe34d0c58e937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50f23126aea5d1acf12c1256faeb1ee4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d60/a00491.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#a50f23126aea5d1acf12c1256faeb1ee4">evalMode</a> (const double t) override</td></tr>
+<tr class="memdesc:a50f23126aea5d1acf12c1256faeb1ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/da5/a02769.html" title="Generic model Generic class for Model. ">Model</a> mode change type evaluation.  <a href="#a50f23126aea5d1acf12c1256faeb1ee4">More...</a><br /></td></tr>
+<tr class="separator:a50f23126aea5d1acf12c1256faeb1ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a563284a96684a9c80a2b529206e50e29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#a563284a96684a9c80a2b529206e50e29">dumpInternalVariables</a> (boost::archive::binary_oarchive &amp;streamVariables) const override</td></tr>
+<tr class="memdesc:a563284a96684a9c80a2b529206e50e29"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the internal variables values of the sub model for dump in a stream  <a href="#a563284a96684a9c80a2b529206e50e29">More...</a><br /></td></tr>
+<tr class="separator:a563284a96684a9c80a2b529206e50e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6414327df83883c82c8f01b31cdb5af5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#a6414327df83883c82c8f01b31cdb5af5">loadInternalVariables</a> (boost::archive::binary_iarchive &amp;streamVariables) override</td></tr>
+<tr class="memdesc:a6414327df83883c82c8f01b31cdb5af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the internal variables values from a previous dump  <a href="#a6414327df83883c82c8f01b31cdb5af5">More...</a><br /></td></tr>
+<tr class="separator:a6414327df83883c82c8f01b31cdb5af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a03181"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a03181')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d7/daf/a03181.html">DYN::ModelCPP</a></td></tr>
 <tr class="memitem:ab4096df55395b14b32ea402da654e5ca inherit pub_methods_a03181"><td class="memItemLeft" align="right" valign="top"><a id="ab4096df55395b14b32ea402da654e5ca"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#ab4096df55395b14b32ea402da654e5ca">ModelCPP</a> ()</td></tr>
@@ -190,21 +208,12 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#a2ad0f822c27f250cad7f8cf376ef3524">~ModelCPP</a> () override=default</td></tr>
 <tr class="memdesc:a2ad0f822c27f250cad7f8cf376ef3524 inherit pub_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a2ad0f822c27f250cad7f8cf376ef3524 inherit pub_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0026f2a8c2fc1091592a641284ed0f94 inherit pub_methods_a03181"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#a0026f2a8c2fc1091592a641284ed0f94">evalCalculatedVarI</a> (unsigned iCalculatedVar) const override=0</td></tr>
-<tr class="memdesc:a0026f2a8c2fc1091592a641284ed0f94 inherit pub_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the value of a calculated variable  <a href="../../d7/daf/a03181.html#a0026f2a8c2fc1091592a641284ed0f94">More...</a><br /></td></tr>
-<tr class="separator:a0026f2a8c2fc1091592a641284ed0f94 inherit pub_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adae8d63dac96f590a164a3aab6168ba6 inherit pub_methods_a03181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#adae8d63dac96f590a164a3aab6168ba6">dumpParameters</a> (std::map&lt; std::string, std::string &gt; &amp;mapParameters) override</td></tr>
 <tr class="memdesc:adae8d63dac96f590a164a3aab6168ba6 inherit pub_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the parameters of the sub model for dump  <a href="../../d7/daf/a03181.html#adae8d63dac96f590a164a3aab6168ba6">More...</a><br /></td></tr>
 <tr class="separator:adae8d63dac96f590a164a3aab6168ba6 inherit pub_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af33ccbe3835f6aae5431e3af9b110327 inherit pub_methods_a03181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#af33ccbe3835f6aae5431e3af9b110327">dumpVariables</a> (std::map&lt; std::string, std::string &gt; &amp;mapVariables) override</td></tr>
 <tr class="memdesc:af33ccbe3835f6aae5431e3af9b110327 inherit pub_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the variables values of the sub model for dump  <a href="../../d7/daf/a03181.html#af33ccbe3835f6aae5431e3af9b110327">More...</a><br /></td></tr>
 <tr class="separator:af33ccbe3835f6aae5431e3af9b110327 inherit pub_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a987a3146a7562b2dc1f328fafa95e664 inherit pub_methods_a03181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#a987a3146a7562b2dc1f328fafa95e664">evalG</a> (double t) override=0</td></tr>
-<tr class="memdesc:a987a3146a7562b2dc1f328fafa95e664 inherit pub_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../d1/da5/a02769.html" title="Generic model Generic class for Model. ">Model</a> G(t,y,y') function evaluation.  <a href="../../d7/daf/a03181.html#a987a3146a7562b2dc1f328fafa95e664">More...</a><br /></td></tr>
-<tr class="separator:a987a3146a7562b2dc1f328fafa95e664 inherit pub_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac869a30870189ac20e206f6079ff836d inherit pub_methods_a03181"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d60/a00491.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#ac869a30870189ac20e206f6079ff836d">evalMode</a> (double t) override=0</td></tr>
-<tr class="memdesc:ac869a30870189ac20e206f6079ff836d inherit pub_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/da5/a02769.html" title="Generic model Generic class for Model. ">Model</a> mode change type evaluation.  <a href="../../d7/daf/a03181.html#ac869a30870189ac20e206f6079ff836d">More...</a><br /></td></tr>
-<tr class="separator:ac869a30870189ac20e206f6079ff836d inherit pub_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71ea888f9efe8ea6d8a708963b15f28e inherit pub_methods_a03181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#a71ea888f9efe8ea6d8a708963b15f28e">getSize</a> () override=0</td></tr>
 <tr class="memdesc:a71ea888f9efe8ea6d8a708963b15f28e inherit pub_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPP <a class="el" href="../../d1/da5/a02769.html" title="Generic model Generic class for Model. ">Model</a> model's sizes getter.  <a href="../../d7/daf/a03181.html#a71ea888f9efe8ea6d8a708963b15f28e">More...</a><br /></td></tr>
 <tr class="separator:a71ea888f9efe8ea6d8a708963b15f28e inherit pub_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -294,10 +303,6 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <tr class="memitem:ad7da98bebca2cce6fb5b21f6eb6b605c inherit pub_methods_a02801"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02801.html#ad7da98bebca2cce6fb5b21f6eb6b605c">checkDataCoherence</a> (double t)</td></tr>
 <tr class="memdesc:ad7da98bebca2cce6fb5b21f6eb6b605c inherit pub_methods_a02801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coherence check on data (asserts, min/max values, sanity checks)  <a href="../../d8/d1e/a02801.html#ad7da98bebca2cce6fb5b21f6eb6b605c">More...</a><br /></td></tr>
 <tr class="separator:ad7da98bebca2cce6fb5b21f6eb6b605c inherit pub_methods_a02801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ff68a80aa4ba6e4c0b106ad48fa01f7 inherit pub_methods_a02801"><td class="memItemLeft" align="right" valign="top"><a id="a3ff68a80aa4ba6e4c0b106ad48fa01f7"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02801.html#a3ff68a80aa4ba6e4c0b106ad48fa01f7">setGequations</a> ()=0</td></tr>
-<tr class="memdesc:a3ff68a80aa4ba6e4c0b106ad48fa01f7 inherit pub_methods_a02801"><td class="mdescLeft">&#160;</td><td class="mdescRight">set formula for modelica models' root equation <br /></td></tr>
-<tr class="separator:a3ff68a80aa4ba6e4c0b106ad48fa01f7 inherit pub_methods_a02801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1899acfc2d9ec4a8aab429384492a9ad inherit pub_methods_a02801"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02801.html#a1899acfc2d9ec4a8aab429384492a9ad">printModelValues</a> (const std::string &amp;directory, const std::string &amp;dumpFileName)</td></tr>
 <tr class="memdesc:a1899acfc2d9ec4a8aab429384492a9ad inherit pub_methods_a02801"><td class="mdescLeft">&#160;</td><td class="mdescRight">write initial values of a model in a file  <a href="../../d8/d1e/a02801.html#a1899acfc2d9ec4a8aab429384492a9ad">More...</a><br /></td></tr>
 <tr class="separator:a1899acfc2d9ec4a8aab429384492a9ad inherit pub_methods_a02801"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -696,7 +701,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <tr class="separator:a93f7988ba9c4fc79b4e00fa52948687a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3e044fb7bad04d995f98b1f5a5a41b1"><td class="memItemLeft" align="right" valign="top"><a id="af3e044fb7bad04d995f98b1f5a5a41b1"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d30/a03185.html#af3e044fb7bad04d995f98b1f5a5a41b1">updated_</a></td></tr>
-<tr class="memdesc:af3e044fb7bad04d995f98b1f5a5a41b1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if updated from external input <br /></td></tr>
+<tr class="memdesc:af3e044fb7bad04d995f98b1f5a5a41b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">set to true if updated this time step <br /></td></tr>
 <tr class="separator:af3e044fb7bad04d995f98b1f5a5a41b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_a03181"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a03181')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d7/daf/a03181.html">DYN::ModelCPP</a></td></tr>
 <tr class="memitem:abb9de82698c67d19a498506b5fba4449 inherit pro_attribs_a03181"><td class="memItemLeft" align="right" valign="top"><a id="abb9de82698c67d19a498506b5fba4449"></a>
@@ -867,13 +872,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a1b628e6d4d2c0053e36eee5974eed816 inherit pub_static_methods_a02801"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02801.html#a1b628e6d4d2c0053e36eee5974eed816">setParameterFromSet</a> (const std::shared_ptr&lt; <a class="el" href="../../d8/d44/a02485.html">parameters::ParametersSet</a> &gt; &amp;parametersSet, const <a class="el" href="../../d3/d87/a00539.html#a291ef7e1a977f032272b802e8363df01">parameterOrigin_t</a> &amp;origin, <a class="el" href="../../db/d38/a02789.html">ParameterModeler</a> &amp;parameter)</td></tr>
 <tr class="memdesc:a1b628e6d4d2c0053e36eee5974eed816 inherit pub_static_methods_a02801"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a parameter value from a parameters set(only for unitary cardinality)  <a href="../../d8/d1e/a02801.html#a1b628e6d4d2c0053e36eee5974eed816">More...</a><br /></td></tr>
 <tr class="separator:a1b628e6d4d2c0053e36eee5974eed816 inherit pub_static_methods_a02801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_a03181"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a03181')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d7/daf/a03181.html">DYN::ModelCPP</a></td></tr>
-<tr class="memitem:aebbdd04ce7545a01f0f66f0d93fe619d inherit pro_methods_a03181"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#aebbdd04ce7545a01f0f66f0d93fe619d">dumpInternalVariables</a> (boost::archive::binary_oarchive &amp;streamVariables) const</td></tr>
-<tr class="memdesc:aebbdd04ce7545a01f0f66f0d93fe619d inherit pro_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the internal variables values of the sub model for dump in a stream  <a href="../../d7/daf/a03181.html#aebbdd04ce7545a01f0f66f0d93fe619d">More...</a><br /></td></tr>
-<tr class="separator:aebbdd04ce7545a01f0f66f0d93fe619d inherit pro_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cb2e5dba6edd766110589243c7b84c8 inherit pro_methods_a03181"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/daf/a03181.html#a5cb2e5dba6edd766110589243c7b84c8">loadInternalVariables</a> (boost::archive::binary_iarchive &amp;streamVariables)</td></tr>
-<tr class="memdesc:a5cb2e5dba6edd766110589243c7b84c8 inherit pro_methods_a03181"><td class="mdescLeft">&#160;</td><td class="mdescRight">load the internal variables values from a previous dump  <a href="../../d7/daf/a03181.html#a5cb2e5dba6edd766110589243c7b84c8">More...</a><br /></td></tr>
-<tr class="separator:a5cb2e5dba6edd766110589243c7b84c8 inherit pro_methods_a03181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_a02801"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a02801')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d8/d1e/a02801.html">DYN::SubModel</a></td></tr>
 <tr class="memitem:adf72905dfc581f53e294309a39515da3 inherit pro_methods_a02801"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1e/a02801.html#adf72905dfc581f53e294309a39515da3">parametersFileName</a> () const</td></tr>
 <tr class="memdesc:adf72905dfc581f53e294309a39515da3 inherit pro_methods_a02801"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the file where parameters should be dumped  <a href="../../d8/d1e/a02801.html#adf72905dfc581f53e294309a39515da3">More...</a><br /></td></tr>
@@ -974,6 +972,79 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a563284a96684a9c80a2b529206e50e29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a563284a96684a9c80a2b529206e50e29">&#9670;&nbsp;</a></span>dumpInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelUpdatable::dumpInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">boost::archive::binary_oarchive &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>export the internal variables values of the sub model for dump in a stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="../../d7/daf/a03181.html#aebbdd04ce7545a01f0f66f0d93fe619d">DYN::ModelCPP</a>.</p>
+
+</div>
+</div>
+<a id="a4ef3963cd8ee3a6da830d29f3852c462"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ef3963cd8ee3a6da830d29f3852c462">&#9670;&nbsp;</a></span>evalCalculatedVarI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DYN::ModelUpdatable::evalCalculatedVarI </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>iCalculatedVar</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>evaluate the value of a calculated variable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iCalculatedVar</td><td>index of the calculated variable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the calculated variable based on the current values of continuous variables </dd></dl>
+
+<p>Implements <a class="el" href="../../d7/daf/a03181.html#a0026f2a8c2fc1091592a641284ed0f94">DYN::ModelCPP</a>.</p>
+
+</div>
+</div>
 <a id="aaf5789e605c2a192b33d106d0723bd20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf5789e605c2a192b33d106d0723bd20">&#9670;&nbsp;</a></span>evalCalculatedVars()</h2>
 
@@ -1000,8 +1071,6 @@ Additional Inherited Members</h2></td></tr>
 <p>calculate calculated variables </p>
 
 <p>Implements <a class="el" href="../../d7/daf/a03181.html#a2201698d23b4107f0e1c90ef3bdb34b1">DYN::ModelCPP</a>.</p>
-
-<p>Reimplemented in <a class="el" href="../../d7/d13/a03365.html#abccb729e2cb7a8646ed7a932cb9852ea">DYN::ModelUpdatableBoolean</a>, <a class="el" href="../../d8/d60/a03373.html#ab8524f0b038f180958b9bbe9252adda5">DYN::ModelUpdatableContinuous</a>, <a class="el" href="../../d3/d0c/a03381.html#abc7fe2b01ba8d55e3662bb464d2af1a1">DYN::ModelUpdatableDiscrete</a>, and <a class="el" href="../../d2/dce/a03389.html#aab93239dd0304681c74efe005aa05332">DYN::ModelUpdatableInteger</a>.</p>
 
 </div>
 </div>
@@ -1107,6 +1176,44 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="../../d7/daf/a03181.html#a0886b3ed91b9d0702100a7f6f00c8ad8">DYN::ModelCPP</a>.</p>
+
+<p>Reimplemented in <a class="el" href="../../d8/d60/a03373.html#aaade4f650827b7b641bcfd55e761948e">DYN::ModelUpdatableContinuous</a>.</p>
+
+</div>
+</div>
+<a id="aed2ad37e35dfb4f8051c9cc6c5a2747a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2ad37e35dfb4f8051c9cc6c5a2747a">&#9670;&nbsp;</a></span>evalG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelUpdatable::evalG </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>CPP <a class="el" href="../../d1/da5/a02769.html" title="Generic model Generic class for Model. ">Model</a> G(t,y,y') function evaluation. </p>
+<p>Get the roots' value </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../d7/dc5/a03449.html" title="Simulation class. ">Simulation</a> instant </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../d7/daf/a03181.html#a987a3146a7562b2dc1f328fafa95e664">DYN::ModelCPP</a>.</p>
 
 </div>
 </div>
@@ -1216,6 +1323,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d7/daf/a03181.html#aec35720ae18ca00552ca8ab33075b942">DYN::ModelCPP</a>.</p>
 
+<p>Reimplemented in <a class="el" href="../../d8/d60/a03373.html#a44bbf65cdbd628afb3f33c11dcfb889d">DYN::ModelUpdatableContinuous</a>.</p>
+
 </div>
 </div>
 <a id="af03a4742089ededd46cb606d9f98b5c0"></a>
@@ -1277,6 +1386,45 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d7/daf/a03181.html#a58c1a6ecb5b172ee742d805481ccd68b">DYN::ModelCPP</a>.</p>
 
+<p>Reimplemented in <a class="el" href="../../d8/d60/a03373.html#a77717bc914e2254969f6c76b1af5d5b4">DYN::ModelUpdatableContinuous</a>.</p>
+
+</div>
+</div>
+<a id="a50f23126aea5d1acf12c1256faeb1ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50f23126aea5d1acf12c1256faeb1ee4">&#9670;&nbsp;</a></span>evalMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d60/a00491.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> DYN::ModelUpdatable::evalMode </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/da5/a02769.html" title="Generic model Generic class for Model. ">Model</a> mode change type evaluation. </p>
+<p>Set the mode change type value depending on current simulation instant and current state variables values. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td><a class="el" href="../../d7/dc5/a03449.html" title="Simulation class. ">Simulation</a> instant </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>mode change type value </dd></dl>
+
+<p>Implements <a class="el" href="../../d7/daf/a03181.html#ac869a30870189ac20e206f6079ff836d">DYN::ModelCPP</a>.</p>
+
 </div>
 </div>
 <a id="a8a9d092ab25321d55b1ded67b0e97dde"></a>
@@ -1306,6 +1454,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d7/daf/a03181.html#aaee92d24fbf9006c7389809de130e3ad">DYN::ModelCPP</a>.</p>
 
+<p>Reimplemented in <a class="el" href="../../d8/d60/a03373.html#a0ae863a6dbd4b8bb5194816c760c0a17">DYN::ModelUpdatableContinuous</a>.</p>
+
 </div>
 </div>
 <a id="adb9e9d241b74e74f3b0fee9ddce56045"></a>
@@ -1334,6 +1484,8 @@ Additional Inherited Members</h2></td></tr>
 <p>evaluate the properties of the variables that won't change during simulation (algebraic, differential, external or external optional variables) </p>
 
 <p>Implements <a class="el" href="../../d7/daf/a03181.html#a102dfd7fe6659b3c351cbbc4a0561379">DYN::ModelCPP</a>.</p>
+
+<p>Reimplemented in <a class="el" href="../../d8/d60/a03373.html#ac571b4e0dd8fa587d8d5857402e1ea03">DYN::ModelUpdatableContinuous</a>.</p>
 
 </div>
 </div>
@@ -1376,6 +1528,8 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="../../d7/daf/a03181.html#aecb1c4d569b1344b51ece3a605d7d49b">DYN::ModelCPP</a>.</p>
+
+<p>Reimplemented in <a class="el" href="../../d7/d13/a03365.html#a98f1b04c483960b8a04dbb70a133033f">DYN::ModelUpdatableBoolean</a>, <a class="el" href="../../d3/d0c/a03381.html#af08818b3eedf3863b9cfdafad507908b">DYN::ModelUpdatableDiscrete</a>, and <a class="el" href="../../d2/dce/a03389.html#a5f49667f836da42bb529c3977c4ece2e">DYN::ModelUpdatableInteger</a>.</p>
 
 </div>
 </div>
@@ -1586,6 +1740,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a6414327df83883c82c8f01b31cdb5af5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6414327df83883c82c8f01b31cdb5af5">&#9670;&nbsp;</a></span>loadInternalVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelUpdatable::loadInternalVariables </td>
+          <td>(</td>
+          <td class="paramtype">boost::archive::binary_iarchive &amp;&#160;</td>
+          <td class="paramname"><em>streamVariables</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>load the internal variables values from a previous dump </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamVariables</td><td>: stringstream with binary formated internalVariables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="../../d7/daf/a03181.html#a5cb2e5dba6edd766110589243c7b84c8">DYN::ModelCPP</a>.</p>
+
+</div>
+</div>
 <a id="acdcd89409cbd00ea057295b35054969c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acdcd89409cbd00ea057295b35054969c">&#9670;&nbsp;</a></span>setFequations()</h2>
 
@@ -1613,7 +1803,36 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d8/d1e/a02801.html#ad829c8df57432f24a36afd6ced616337">DYN::SubModel</a>.</p>
 
-<p>Reimplemented in <a class="el" href="../../d3/d0c/a03381.html#afe37215e32b41c5531d5c6d51f4c703e">DYN::ModelUpdatableDiscrete</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d8/d60/a03373.html#a79368632f775177a5ebfe66a9449ccdb">DYN::ModelUpdatableContinuous</a>.</p>
+
+</div>
+</div>
+<a id="ae7f04538747e0c0ea3cbe34d0c58e937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7f04538747e0c0ea3cbe34d0c58e937">&#9670;&nbsp;</a></span>setGequations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelUpdatable::setGequations </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set formula for modelica models' root equation </p>
+
+<p>Implements <a class="el" href="../../d8/d1e/a02801.html#a3ff68a80aa4ba6e4c0b106ad48fa01f7">DYN::SubModel</a>.</p>
 
 </div>
 </div>
@@ -1637,7 +1856,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/d30/a03185.html">ModelUpdatable</a></li>
-    <li class="footer">Generated on Thu Jun 4 2026 08:15:25 for Dynawo by
+    <li class="footer">Generated on Thu Jun 4 2026 12:34:24 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
