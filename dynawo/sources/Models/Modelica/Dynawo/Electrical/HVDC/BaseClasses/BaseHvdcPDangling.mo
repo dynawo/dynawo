@@ -26,7 +26,7 @@ partial model BaseHvdcPDangling "Base dynamic model for HVDC links with a regula
 
 equation
   //Connected side
-  if runningSide1.value then
+  if runningSide1 then
     P1Pu = if P1RefPu > PMaxPu then PMaxPu elseif P1RefPu < -PMaxPu then -PMaxPu else P1RefPu;
     if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
       U1Pu = 0;

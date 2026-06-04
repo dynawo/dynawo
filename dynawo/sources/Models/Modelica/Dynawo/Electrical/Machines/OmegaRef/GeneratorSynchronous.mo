@@ -66,7 +66,7 @@ model GeneratorSynchronous "Synchronous machine"
   Dynawo.Connectors.ComplexCurrentPuConnector iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator side in pu (base UNom, SnRef)";
 
 equation
-  if running.value then
+  if running then
     UPu = ComplexMath.'abs'(terminal.V);
     uPu = terminal.V;
 

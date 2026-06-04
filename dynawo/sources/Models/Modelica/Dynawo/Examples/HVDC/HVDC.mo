@@ -175,16 +175,16 @@ initial algorithm
   HVDC.u20Pu.im := hvdcVsc_INIT.u20Pu.im;
 
 equation
-  line1.switchOffSignal1.value = false;
-  line1.switchOffSignal2.value = false;
-  line2.switchOffSignal1.value = false;
-  line2.switchOffSignal2.value = false;
-  HVDC.Conv1.switchOffSignal1.value = false;
-  HVDC.Conv1.switchOffSignal2.value = false;
-  HVDC.Conv1.switchOffSignal3.value = false;
-  HVDC.Conv2.switchOffSignal1.value = false;
-  HVDC.Conv2.switchOffSignal2.value = false;
-  HVDC.Conv2.switchOffSignal3.value = false;
+  line1.switchOffSignal1 = false;
+  line1.switchOffSignal2 = false;
+  line2.switchOffSignal1 = false;
+  line2.switchOffSignal2 = false;
+  HVDC.Conv1.switchOffSignal1 = false;
+  HVDC.Conv1.switchOffSignal2 = false;
+  HVDC.Conv1.switchOffSignal3 = false;
+  HVDC.Conv2.switchOffSignal1 = false;
+  HVDC.Conv2.switchOffSignal2 = false;
+  HVDC.Conv2.switchOffSignal3 = false;
 
   connect(HVDC.terminal2, line2.terminal1) annotation(
     Line(points = {{30, -40}, {42, -40}}, color = {0, 0, 255}));

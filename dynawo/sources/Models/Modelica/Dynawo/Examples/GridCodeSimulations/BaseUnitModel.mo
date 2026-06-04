@@ -237,9 +237,9 @@ initial algorithm
   Unit.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
-  Unit.injector.switchOffSignal1.value = false;
-  Unit.injector.switchOffSignal2.value = false;
-  Unit.injector.switchOffSignal3.value = false;
+  Unit.injector.switchOffSignal1 = false;
+  Unit.injector.switchOffSignal2 = false;
+  Unit.injector.switchOffSignal3 = false;
 
   connect(QRefPu.y, Unit.QRefPu) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

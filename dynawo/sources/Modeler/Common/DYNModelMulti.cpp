@@ -1335,7 +1335,6 @@ void ModelMulti::registerAction(const string& actionString) {
           throw DYNError(Error::MODELER, ParameterBadType, parameter.getName());
         }
       }
-
       parameterValueSet.push_back(std::make_tuple(paramName, castedValue, parameter.getValueType()));
     } else {
       Trace::warn() << DYNLog(ActionParameterNotFound, paramName) << Trace::endline;

@@ -33,7 +33,7 @@ equation
   URefPu = URegulatedPu + LambdaPu * (BVarRawPu + BShuntPu) * UPu ^ 2;
   BVarPu = if BVarRawPu > BMaxPu then BMaxPu elseif BVarRawPu < BMinPu then BMinPu else BVarRawPu;
 
-  if (running.value) then
+  if running then
     BPu = BVarPu + BShuntPu;
   else
     BPu = 0;

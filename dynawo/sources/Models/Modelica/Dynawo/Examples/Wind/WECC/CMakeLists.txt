@@ -15,8 +15,7 @@ set(MODEL_FILES
   WT4BCurrentSource.mo
   WTG3CurrentSource1.mo
   WTG3CurrentSource2.mo
-  WTG4ACurrentSource1.mo
-  WTG4ACurrentSource2.mo
+  WTG4ACurrentSource.mo
   WTG4BCurrentSource.mo
   WTG4BCurrentSourceExternalPCS.mo
   )

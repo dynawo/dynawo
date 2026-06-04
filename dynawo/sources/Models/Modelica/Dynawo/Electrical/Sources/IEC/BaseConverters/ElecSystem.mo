@@ -79,7 +79,7 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
     Dialog(group = "Initialization"));
 
 equation
-  if running.value then
+  if running then
     i1Pu = i2Pu + Complex(GPu, BPu) * u1Pu;
     u2Pu = u1Pu - Complex(RPu, XPu) * i2Pu;
   else

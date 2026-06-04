@@ -26,10 +26,10 @@ partial model SwitchOffMotor "Switch-off model for a motor"
   parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
 equation
-  when not(running.value) then
+  when not(running) then
     Timeline.logEvent1 (TimelineKeys.MotorDisconnected);
     state = Constants.state.Open;
-  elsewhen running.value and not(pre(running.value)) then
+  elsewhen running and not(pre(running)) then
     Timeline.logEvent1 (TimelineKeys.MotorConnected);
     state = Constants.state.Closed;
   end when;

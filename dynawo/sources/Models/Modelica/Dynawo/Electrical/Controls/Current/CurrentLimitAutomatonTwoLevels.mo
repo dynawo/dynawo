@@ -32,7 +32,7 @@ model CurrentLimitAutomatonTwoLevels "Current Limit Automaton (CLA) monitoring t
   parameter Integer OrderToEmit2 "Order to emit by CLA 2 (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
   //Inputs
-  Dynawo.Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton natively present in C++ object";
+  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton natively present in C++ object";
   Dynawo.Connectors.ImPin IMonitored1 "Monitored current on element 1 (unit depending on IMax1 unit)";
   Dynawo.Connectors.ImPin IMonitored2 "Monitored current on element 2 (unit depending on IMax2 unit)";
 

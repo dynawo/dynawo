@@ -294,23 +294,9 @@ SimulationRT::simulate() {
 
     clock_->start(tCurrent_);
 
-    double nextOutputT = tCurrent_;  // Publish first time step
-    bool isPublicationTime = false;
-    bool isWaitTime = false;
+    double nextOutputT = tCurrent_ + couplingTimeStep_;      // Publish after a first period
+    updateStepStart();
     while (!end() && !clock_->getStopMessageReceived() && !SignalHandler::gotExitSignal()) {
-      // If simulated time corresponds to a completed period, publish the results at the end of the step,
-      // then wait for trigger and apply actions before next time step simulation
-      if (tCurrent_ >= nextOutputT) {
-        isPublicationTime = true;
-        nextOutputT += couplingTimeStep_;
-      }
-      if (isWaitTime) {
-        clock_->wait(tCurrent_);
-        updateStepStart();
-        actionBuffer_->applyActions();
-        isWaitTime = false;
-      }
-
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
 
@@ -332,25 +318,30 @@ SimulationRT::simulate() {
 
       model_->notifyTimeStep();  // check if needed
 
-      // Set up step times
-      updateStepComputationTime();
-      updateCurves(true);
+      // If simulated time corresponds to a completed period, publish the results at the end of the step,
+      // then wait for trigger and apply actions before next time step simulation
+      if (doubleEquals(tCurrent_, nextOutputT) || tCurrent_ > nextOutputT) {
+        // Set up step times
+        updateStepComputationTime();
+        updateCurves(true);
 
-      // Publish values
-      if (isPublicationTime) {
         outputDispatcher_->publishCurves(curvesCollection_);
         outputDispatcher_->publishTimeline(timeline_);
         timeline_->clear();
         outputDispatcher_->publishConstraints(constraintsCollection_);
         constraintsCollection_->clear();
-        isPublicationTime = false;
-        isWaitTime = true;
+
         // dump before wait time to have the correct tCurrent_ value
         if (dumpManager_->hasReceivedDumpSignal()) {
           publishStateDump();
           dumpManager_->resetDumpSignal();
         }
+        nextOutputT += couplingTimeStep_;
+        clock_->wait(tCurrent_);
+        updateStepStart();
+        actionBuffer_->applyActions();
       }
+
       if (SignalHandler::gotExitSignal() && !end()) {
         if (timeline_) {
           addEvent(DYNTimeline(SignalReceived));
@@ -388,7 +379,7 @@ SimulationRT::updateStepStart() {
 
 void
 SimulationRT::updateStepComputationTime() {
-  stepComputationTime_ = (1./1000)*(duration_cast<microseconds>(steady_clock::now() - stepStart_)).count();
+  stepComputationTime_ = (1./1000)*duration_cast<microseconds>(steady_clock::now() - stepStart_).count();
 }
 
 void
@@ -398,6 +389,7 @@ SimulationRT::initComputationTimeCurve() {
   curve->setVariable("stepDurationMs");
   curve->setAvailable(true);
   curve->setBuffer(&stepComputationTime_);
+  curve->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
   curvesCollection_->add(curve);
 }
 

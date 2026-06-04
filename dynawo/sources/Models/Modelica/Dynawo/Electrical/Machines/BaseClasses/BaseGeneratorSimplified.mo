@@ -36,7 +36,7 @@ equation
   SGenPu = Complex(PGenPu, QGenPu);
   SGenPu = -terminal.V * ComplexMath.conj(terminal.i);
 
-  if running.value then
+  if running then
     if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
       UPu = 0.;
     else

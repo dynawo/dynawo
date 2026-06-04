@@ -31,4 +31,9 @@
     <dyn:blackBoxModel id="12_1_deltaQc" lib="DYNModelUpdatableContinuous"/>
     <dyn:connect id1="12_1_deltaQc" var1="input_value" id2="NETWORK" var2="12_1_DeltaQc_value"/>
 
+    <dyn:blackBoxModel id="11_1_PRefPu" lib="DYNModelUpdatableDiscrete"/>
+    <dyn:connect id1="11_1_PRefPu" var1="input_value" id2="NETWORK" var2="11_1_PRefPu_value"/>
+    <dyn:blackBoxModel id="11_1_QRefPu" lib="DYNModelUpdatableDiscrete"/>
+    <dyn:connect id1="11_1_QRefPu" var1="input_value" id2="NETWORK" var2="11_1_QRefPu_value"/>
+
 </dyn:dynamicModelsArchitecture>

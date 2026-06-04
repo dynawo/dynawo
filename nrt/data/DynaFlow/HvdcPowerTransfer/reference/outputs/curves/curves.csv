@@ -1,4 +1,4 @@
-time;HVDC1_hvdc_P1Pu;HVDC2_hvdc_P1Pu;HVDC1_acemulation_PRefSetPu;HVDC2_acemulation_PRefSetPu;HVDC1_acemulation_KACEmulation;HVDC2_acemulation_KACEmulation;HVDC1_hvdc_running_value;HVDC2_hvdc_running_value;
+time;HVDC1_hvdc_P1Pu;HVDC2_hvdc_P1Pu;HVDC1_acemulation_PRefSetPu;HVDC2_acemulation_PRefSetPu;HVDC1_acemulation_KACEmulation;HVDC2_acemulation_KACEmulation;HVDC1_hvdc_running;HVDC2_hvdc_running;
 0.000000;4.192628;4.192628;0.000000;0.000000;250.000000;250.000000;1.000000;1.000000;
 10.000000;4.196116;4.196116;0.000000;0.000000;250.000000;250.000000;1.000000;1.000000;
 20.000000;4.198518;4.198518;0.000000;0.000000;250.000000;250.000000;1.000000;1.000000;

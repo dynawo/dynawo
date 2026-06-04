@@ -53,7 +53,7 @@ equation
   s2Pu = Complex(P2Pu, Q2Pu);
   s2Pu = terminal2.V * ComplexMath.conj(terminal2.i);
 
-  if running.value then
+  if running then
     P1Pu = if P1RefPu > PMaxPu then PMaxPu elseif P1RefPu < -PMaxPu then -PMaxPu else P1RefPu;
     P2Pu = if P1Pu > 0 then - KLosses * P1Pu else - P1Pu / KLosses;
   else

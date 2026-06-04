@@ -25,5 +25,5 @@
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_tap" id2="NETWORK" var2="PhaseShifter_step"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_P" id2="NETWORK" var2="PhaseShifter_P1"/>
   <dyn:connect id1="PhaseShifter" var1="phaseShifter_iMonitored" id2="NETWORK" var2="PhaseShifter_i1"/>
-  <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="PhaseShifter_disable_internal_tapChanger"/>
+  <dyn:connect id1="PhaseShifter" var1="phaseShifter_AutomatonExists" id2="NETWORK" var2="PhaseShifter_disable_internal_tapChanger_value"/>
 </dyn:dynamicModelsArchitecture>

@@ -41,7 +41,7 @@ protected
   parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in pu (base U2Nom, SnRef)";
 
 equation
-  if (running.value) then
+  if running then
     // Transformer equations
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
     ZPu * terminal1.i = rTfoPu * rTfoPu * terminal1.V - rTfoPu * terminal2.V;

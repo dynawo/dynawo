@@ -18,6 +18,6 @@
   <variable type="continuous" id="QRefPu" optional="true"/>
   <variable type="continuous" id="PFaRef" optional="true"/>
   <variable type="continuous" id="omegaRefPu"/>
-  <variable type="discrete" id="injector.switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="injector.switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="injector.switchOffSignal1" defaultValue="false"/>
+  <variable type="discrete" id="injector.switchOffSignal2" defaultValue="false"/>
 </external_variables>

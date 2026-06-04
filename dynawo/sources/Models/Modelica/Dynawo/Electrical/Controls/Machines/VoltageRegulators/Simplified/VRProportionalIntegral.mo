@@ -36,8 +36,8 @@ model VRProportionalIntegral "Proportional integral voltage regulator, keeps mac
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput EfdPu(start = Efd0Pu) "Exciter field voltage in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.BPin limitationDown(value(start = false)) "If true, lower limit is reached";
-  Dynawo.Connectors.BPin limitationUp(value(start = false)) "If true, upper limit is reached";
+  Modelica.Blocks.Interfaces.BooleanOutput limitationDown(start = false) "If true, lower limit is reached";
+  Modelica.Blocks.Interfaces.BooleanOutput limitationUp(start = false) "If true, upper limit is reached";
 
   //Blocks
   Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag limiterWithLag(LagMax = LagEfdMax, LagMin = LagEfdMin, tUMaxReached0 = Modelica.Constants.inf, tUMinReached0 = Modelica.Constants.inf, UMax = EfdMaxPu, UMin = EfdMinPu) "Limiter activated only after a given period outside the bounds" annotation(
@@ -104,8 +104,8 @@ equation
     limitationUsRefMax = false;
   end when;
 
-  limitationUp.value = limitationUsRefMax or limitationEfdMax;
-  limitationDown.value = limitationUsRefMin or limitationEfdMin;
+  limitationUp = limitationUsRefMax or limitationEfdMax;
+  limitationDown = limitationUsRefMin or limitationEfdMin;
 
   connect(limUsRef.y, feedback.u1) annotation(
     Line(points = {{-99, 0}, {-68, 0}}, color = {0, 0, 127}));
@@ -138,6 +138,7 @@ equation
   connect(UsPu, feedback.u2) annotation(
     Line(points = {{-220, -60}, {-60, -60}, {-60, -8}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}})));
 end VRProportionalIntegral;

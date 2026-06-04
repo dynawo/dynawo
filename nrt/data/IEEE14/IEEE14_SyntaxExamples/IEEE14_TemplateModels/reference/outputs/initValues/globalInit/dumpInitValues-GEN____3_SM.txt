@@ -1,9 +1,9 @@
  ====== VARIABLES VALUES ======
-generator_lambdaDPu                               : y =       1.015355 yp =       0.000000
-generator_lambdaQ1Pu                              : y =      -0.000002 yp =       0.000000
-generator_lambdaQ2Pu                              : y =      -0.000002 yp =       0.000000
-generator_lambdafPu                               : y =       1.137650 yp =       0.000000
-generator_omegaPu                                 : y =       1.000000 yp =       0.000000
+generator_lambdaDPu                               : y =       1.015355 yp =       0.000010
+generator_lambdaQ1Pu                              : y =      -0.000002 yp =       0.000030
+generator_lambdaQ2Pu                              : y =      -0.000002 yp =       0.000163
+generator_lambdafPu                               : y =       1.137650 yp =      -0.000001
+generator_omegaPu                                 : y =       1.000000 yp =       0.000004
 generator_omegaRefPu                              : y =       1.000000 yp =       0.000000
 generator_terminal_V_im                           : y =      -0.222540 yp =       0.000000
 generator_terminal_V_re                           : y =       0.985179 yp =       0.000000
@@ -98,14 +98,14 @@ governor_switch_u3                                : y =       0.000001
  ====== DISCRETE VARIABLES VALUES ======
 voltageRegulator_limiterWithLag_tUMaxReached      : z =   1.000000e+60
 voltageRegulator_limiterWithLag_tUMinReached      : z =   1.000000e+60
-generator_running_value                           : z =       1.000000
-generator_switchOffSignal1_value                  : z =      -1.000000
-generator_switchOffSignal2_value                  : z =      -1.000000
-generator_switchOffSignal3_value                  : z =      -1.000000
-voltageRegulator_limitationDown_value             : z =      -1.000000
+generator_running                                 : z =       1.000000
+generator_switchOffSignal1                        : z =      -1.000000
+generator_switchOffSignal2                        : z =      -1.000000
+generator_switchOffSignal3                        : z =      -1.000000
+voltageRegulator_limitationDown                   : z =      -1.000000
 voltageRegulator_limitationEfdMax                 : z =      -1.000000
 voltageRegulator_limitationEfdMin                 : z =      -1.000000
-voltageRegulator_limitationUp_value               : z =      -1.000000
+voltageRegulator_limitationUp                     : z =      -1.000000
 voltageRegulator_limitationUsRefMax               : z =      -1.000000
 voltageRegulator_limitationUsRefMin               : z =      -1.000000
 voltageRegulator_limiterWithLag_initSaturatedMax  : z =      -1.000000

@@ -25,7 +25,7 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
 
   Dynawo.Connectors.ImPin valueToMonitor(value(start = valueToMonitor0)) "Monitored value (unit depending on the monitored variable unit)";
   Dynawo.Connectors.ZPin tap(value(start = tap0)) "Current tap";
-  Dynawo.Connectors.BPin AutomatonExists(value = true) "Pin to indicate to deactivate internal automaton";
+  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton";
 
   Boolean locked(start = locked0) "Whether the tap-changer/phase-shifter is locked";
   State state(start = state0) "State of the tap-changer/phase-shifter";

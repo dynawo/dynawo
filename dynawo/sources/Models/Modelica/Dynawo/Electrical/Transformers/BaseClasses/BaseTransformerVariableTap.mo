@@ -62,7 +62,7 @@ equation
     end if;
   end when;
 
-  if (running.value) then
+  if running then
     // Variables for display or connection to another model (tap-changer for example)
     P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));

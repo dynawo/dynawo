@@ -25,13 +25,13 @@ partial model SwitchOffTapChangerPhaseShifter "Switch-off model for a tap-change
   parameter Automaton Type;
 
 equation
-  when not(running.value) then
+  when not(running) then
     if (Type == Automaton.TapChanger) then
       Timeline.logEvent1(TimelineKeys.TapChangerSwitchOff);
     elseif (Type == Automaton.PhaseShifter) then
       Timeline.logEvent1(TimelineKeys.PhaseShifterSwitchOff);
     end if;
-  elsewhen running.value and not(pre(running.value)) then
+  elsewhen running and not(pre(running)) then
     if (Type == Automaton.TapChanger) then
       Timeline.logEvent1(TimelineKeys.TapChangerSwitchOn);
     elseif (Type == Automaton.PhaseShifter) then

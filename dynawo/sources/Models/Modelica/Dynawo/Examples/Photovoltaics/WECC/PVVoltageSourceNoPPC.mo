@@ -178,11 +178,12 @@ initial algorithm
   PV.iSource0Pu.im := pVVoltageSourceNoPlantControl_INIT.iSource0Pu.im;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  PV.injector.switchOffSignal1.value = false;
-  PV.injector.switchOffSignal2.value = false;
-  PV.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  PV.injector.switchOffSignal1 = false;
+  PV.injector.switchOffSignal2 = false;
+  PV.injector.switchOffSignal3 = false;
+
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-80, 0}}, color = {0, 0, 255}));
   connect(PRef.y, PV.PConvRefPu) annotation(

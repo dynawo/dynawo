@@ -27,7 +27,7 @@ model HvdcPVDanglingDiagramPQ "Model for PV HVDC link with a PQ diagram and term
 */
 
 // blocks
-  Modelica.Blocks.Sources.BooleanExpression blockingSide1(y = (q1Status == QStatus.AbsorptionMax or q1Status == QStatus.GenerationMax or runningSide1.value == false)) "Expression determining if reactive power limits have been reached on converter side 1 or if the hvdc is disconnected on side 1"  annotation(
+  Modelica.Blocks.Sources.BooleanExpression blockingSide1(y = (q1Status == QStatus.AbsorptionMax or q1Status == QStatus.GenerationMax or runningSide1 == false)) "Expression determining if reactive power limits have been reached on converter side 1 or if the hvdc is disconnected on side 1"  annotation(
     Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.BooleanOutput blockerSide1(start = (q1Status0 == QStatus.AbsorptionMax or q1Status0 == QStatus.GenerationMax or RunningSide10 == false)) "If true, reactive power limits have been reached on converter side 1 or the hvdc is disconnected on side 1" annotation(
@@ -51,7 +51,7 @@ equation
     limUQUp1 = false;
   end when;
 
-  if runningSide1.value then
+  if runningSide1 then
     if modeU1 then
       if q1Status == QStatus.GenerationMax then
         QInj1Pu = QInj1MaxPu;
