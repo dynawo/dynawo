@@ -53,19 +53,19 @@ model StaticCase
 
 equation
   //Switch-off equations inhibitions
-  load.switchOffSignal1.value = false;
-  load.switchOffSignal2.value = false;
-  loadPQ.switchOffSignal1.value = false;
-  loadPQ.switchOffSignal2.value = false;
-  line1.switchOffSignal1.value = false;
-  line1.switchOffSignal2.value = false;
-  line2.switchOffSignal1.value = false;
-  line2.switchOffSignal2.value = false;
-  line3.switchOffSignal1.value = false;
-  line3.switchOffSignal2.value = false;
-  Gen2.switchOffSignal1.value = false;
-  Gen2.switchOffSignal2.value = false;
-  Gen2.switchOffSignal3.value = false;
+  load.switchOffSignal1 = false;
+  load.switchOffSignal2 = false;
+  loadPQ.switchOffSignal1 = false;
+  loadPQ.switchOffSignal2 = false;
+  line1.switchOffSignal1 = false;
+  line1.switchOffSignal2 = false;
+  line2.switchOffSignal1 = false;
+  line2.switchOffSignal2 = false;
+  line3.switchOffSignal1 = false;
+  line3.switchOffSignal2 = false;
+  Gen2.switchOffSignal1 = false;
+  Gen2.switchOffSignal2 = false;
+  Gen2.switchOffSignal3 = false;
 
   // No variations in the loads
   der(load.PRefPu) = 0;

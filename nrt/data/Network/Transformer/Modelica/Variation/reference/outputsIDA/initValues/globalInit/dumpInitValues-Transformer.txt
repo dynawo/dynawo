@@ -19,9 +19,9 @@ transformer_Q2Pu                                  : y =   0.0177214038
 transformer_U1Pu                                  : y =   0.9854090780
 transformer_U2Pu                                  : y =   1.0007580555
  ====== INIT DISCRETE VARIABLES VALUES ======
-transformer_running_value                         : z =   1.0000000000
-transformer_switchOffSignal1_value                : z =  -1.0000000000
-transformer_switchOffSignal2_value                : z =  -1.0000000000
+transformer_running                               : z =   1.0000000000
+transformer_switchOffSignal1                      : z =  -1.0000000000
+transformer_switchOffSignal2                      : z =  -1.0000000000
 transformer_state                                 : z =   2.0000000000
  ====== PARAMETERS VALUES ======
 transformer_B                                      =   0.0010000000

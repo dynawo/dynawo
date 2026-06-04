@@ -47,7 +47,7 @@ protected
   parameter Types.ComplexAdmittancePu YPu(re = GPu, im = BPu) "Line half-admittance";
 
 equation
-  if (running.value) then
+  if running then
     ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
     ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
   else

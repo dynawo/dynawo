@@ -226,13 +226,13 @@ initial algorithm
   BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
 
 equation
-  ZPcs.switchOffSignal1.value = false;
-  ZPcs.switchOffSignal2.value = false;
-  Zcc.switchOffSignal1.value = false;
-  Zcc.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal1.value = false;
-  BESS.injector.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal3.value = false;
+  ZPcs.switchOffSignal1 = false;
+  ZPcs.switchOffSignal2 = false;
+  Zcc.switchOffSignal1 = false;
+  Zcc.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal1 = false;
+  BESS.injector.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal3 = false;
 
   connect(omegaRefPu.y, BESS.omegaRefPu) annotation(
     Line(points = {{80, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

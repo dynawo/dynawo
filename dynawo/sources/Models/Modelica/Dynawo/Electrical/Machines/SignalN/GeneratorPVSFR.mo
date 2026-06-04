@@ -31,7 +31,7 @@ equation
     limUQUp = false;
   end when;
 
-  if running.value then
+  if running then
     if qStatus == QStatus.GenerationMax then
       QGenPu = QMaxPu;
     elseif qStatus == QStatus.AbsorptionMax then

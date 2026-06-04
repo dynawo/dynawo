@@ -132,7 +132,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
 equation
   assert(SNom <> PNomAlt, "The alternator nominal active power should be different from the nominal apparent power");
 
-  if running.value then
+  if running then
     // Park's transformations
     terminal.V.re = sin(theta) * udPu + cos(theta) * uqPu;
     terminal.V.im = (-cos(theta) * udPu) + sin(theta) * uqPu;

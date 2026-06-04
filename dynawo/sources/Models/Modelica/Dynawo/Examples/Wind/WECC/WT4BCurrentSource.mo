@@ -162,11 +162,11 @@ initial algorithm
   WT4B.UPhaseConv0 := wt4CurrentSource_INIT.UPhaseConv0;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  WT4B.injector.switchOffSignal1.value = false;
-  WT4B.injector.switchOffSignal2.value = false;
-  WT4B.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  WT4B.injector.switchOffSignal1 = false;
+  WT4B.injector.switchOffSignal2 = false;
+  WT4B.injector.switchOffSignal3 = false;
 
   connect(PFaRef.y, WT4B.PFaRef) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

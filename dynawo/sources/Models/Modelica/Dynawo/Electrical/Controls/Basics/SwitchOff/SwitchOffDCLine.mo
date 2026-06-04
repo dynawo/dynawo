@@ -21,22 +21,22 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
   extends SwitchOffLogicSide1(NbSwitchOffSignalsSide1 = 2);
   extends SwitchOffLogicSide2(NbSwitchOffSignalsSide2 = 2);
 
-  Dynawo.Connectors.BPin running(value(start = true)) "Indicates if the component is running or not";
+  Modelica.Blocks.Interfaces.BooleanOutput running(start = true) "Indicates if the component is running or not";
 
   Constants.state state(start = State0) "DC Line connection state";
 
   parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
 equation
-  when not(runningSide1.value) or not(runningSide2.value) then
+  when not(runningSide1) or not(runningSide2) then
     Timeline.logEvent1(TimelineKeys.DCLineOpen);
     state = Constants.state.Open;
-  elsewhen runningSide1.value and runningSide2.value and (not(pre(runningSide1.value)) or not(pre(runningSide2.value))) then
+  elsewhen runningSide1 and runningSide2 and (not(pre(runningSide1)) or not(pre(runningSide2))) then
     Timeline.logEvent1(TimelineKeys.DCLineClosed);
     state = Constants.state.Closed;
   end when;
 
-  running.value = runningSide1.value and runningSide2.value;
+  running = runningSide1 and runningSide2;
 
   annotation(preferredView = "text");
 end SwitchOffDCLine;

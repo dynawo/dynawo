@@ -106,8 +106,8 @@ model WPP4BCurrentSource2015
     Placement(transformation(origin = {-60, 40}, extent = {{-20, -20}, {20, 20}})));
 
 equation
-  PCS.switchOffSignal1.value = wT4BCurrentSource.wT4Injector.switchOffSignal1.value;
-  PCS.switchOffSignal2.value = wT4BCurrentSource.wT4Injector.switchOffSignal2.value;
+  PCS.switchOffSignal1 = wT4BCurrentSource.wT4Injector.switchOffSignal1;
+  PCS.switchOffSignal2 = wT4BCurrentSource.wT4Injector.switchOffSignal2;
 
   connect(tanPhi, wT4BCurrentSource.tanPhi) annotation(
     Line(points = {{-20, 120}, {-20, 52}, {-2, 52}}, color = {0, 0, 127}));

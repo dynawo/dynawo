@@ -77,7 +77,7 @@ equation
     Timeline.logEvent1(TimelineKeys.GeneratorPTanPhiBackRegulation);
   end when;
 
-  if running.value then
+  if running then
     PGenRawPu = PGen0Pu * (1 + PVariation) + deltaPRefPu * PNom / SystemBase.SnRef + AlphaPu * (1 - omegaRefPu);
     PGenPu = if pStatus == PStatus.LimitPMax then PMaxPu else if pStatus == PStatus.LimitPMin then PMinPu else PGenRawPu;
     QGenRawPu = TanPhiRef * PGenPu;

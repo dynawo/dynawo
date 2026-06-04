@@ -167,9 +167,9 @@ initial algorithm
   wT4ACurrentSource.u0Pu.im := wT4CurrentSource_INIT.u0Pu.im;
 
 equation
-  wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
+  wT4ACurrentSource.wT4Injector.switchOffSignal1 = false;
+  wT4ACurrentSource.wT4Injector.switchOffSignal2 = false;
+  wT4ACurrentSource.wT4Injector.switchOffSignal3 = false;
 
   connect(wT4ACurrentSource.terminal, transformer.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));

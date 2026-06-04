@@ -77,16 +77,16 @@ equation
   load01.deltaP = 0;
   load01.deltaQ = 0;
 
-  load01.switchOffSignal1.value = false;
-  load01.switchOffSignal2.value = false;
-  tfo01.switchOffSignal1.value = false;
-  tfo01.switchOffSignal2.value = false;
-  line01.switchOffSignal1.value = false;
-  line02.switchOffSignal1.value = false;
-  line01.switchOffSignal2.value = false;
-  line02.switchOffSignal2.value = false;
-  shiftController01.switchOffSignal1.value = false;
-  shiftController01.switchOffSignal2.value = false;
+  load01.switchOffSignal1 = false;
+  load01.switchOffSignal2 = false;
+  tfo01.switchOffSignal1 = false;
+  tfo01.switchOffSignal2 = false;
+  line01.switchOffSignal1 = false;
+  line02.switchOffSignal1 = false;
+  line01.switchOffSignal2 = false;
+  line02.switchOffSignal2 = false;
+  shiftController01.switchOffSignal1 = false;
+  shiftController01.switchOffSignal2 = false;
 
   checkGen01P = Dynawo.Electrical.SystemBase.SnRef * Modelica.ComplexMath.real(gen01.terminal.V * Modelica.ComplexMath.conj(gen01.terminal.i));
   checkGen01Q = Dynawo.Electrical.SystemBase.SnRef * Modelica.ComplexMath.imag(gen01.terminal.V * Modelica.ComplexMath.conj(gen01.terminal.i));

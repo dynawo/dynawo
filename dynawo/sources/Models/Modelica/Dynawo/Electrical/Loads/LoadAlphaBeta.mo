@@ -20,7 +20,7 @@ model LoadAlphaBeta "Load with voltage-dependent active and reactive power (alph
   parameter Real beta "Reactive load sensitivity to voltage";
 
 equation
-  if running.value and terminal.V <> Complex(0) then
+  if running and terminal.V <> Complex(0) then
     PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha);
     QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta);
   else

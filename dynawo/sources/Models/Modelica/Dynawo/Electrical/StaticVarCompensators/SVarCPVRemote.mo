@@ -26,7 +26,7 @@ equation
     bStatus = BStatus.Standard;
   end when;
 
-  if (running.value) then
+  if running then
     BPu = BVarPu + BShuntPu;
     if bStatus == BStatus.Standard then
       URegulatedPu = URefPu;

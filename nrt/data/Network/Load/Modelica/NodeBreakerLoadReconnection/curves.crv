@@ -17,7 +17,7 @@
   <curve model="Generator" variable="generator_QGenPu"/>
   <curve model="Generator" variable="generator_PGenPu"/>
   <curve model="Generator" variable="generator_omegaRefPu"/>
-  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_running_value"/>
+  <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_running"/>
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_PPu"/>
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_QPu"/>
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_UPu"/>
@@ -26,7 +26,7 @@
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_i_re"/>
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_i_im"/>
   <curve model="NETWORK" variable="VL2_Load0_switch_state_value"/>
-  <curve model="Load_LoadAlphaBetaRestorative" variable="load_running_value"/>
+  <curve model="Load_LoadAlphaBetaRestorative" variable="load_running"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_PPu"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_QPu"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_UPu"/>
@@ -37,7 +37,7 @@
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_i_re"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_i_im"/>
   <curve model="NETWORK" variable="VL2_Load1_switch_state_value"/>
-  <curve model="Load_LoadAlphaBeta" variable="load_running_value"/>
+  <curve model="Load_LoadAlphaBeta" variable="load_running"/>
   <curve model="Load_LoadAlphaBeta" variable="load_PPu"/>
   <curve model="Load_LoadAlphaBeta" variable="load_QPu"/>
   <curve model="Load_LoadAlphaBeta" variable="load_UPu"/>
@@ -46,7 +46,7 @@
   <curve model="Load_LoadAlphaBeta" variable="load_terminal_i_re"/>
   <curve model="Load_LoadAlphaBeta" variable="load_terminal_i_im"/>
   <curve model="NETWORK" variable="VL2_Load2_switch_state_value"/>
-  <curve model="Load_LoadPQ" variable="load_running_value"/>
+  <curve model="Load_LoadPQ" variable="load_running"/>
   <curve model="Load_LoadPQ" variable="load_PPu"/>
   <curve model="Load_LoadPQ" variable="load_QPu"/>
   <curve model="Load_LoadPQ" variable="load_UPu"/>
@@ -55,7 +55,7 @@
   <curve model="Load_LoadPQ" variable="load_terminal_i_re"/>
   <curve model="Load_LoadPQ" variable="load_terminal_i_im"/>
   <curve model="NETWORK" variable="VL2_Load3_switch_state_value"/>
-  <curve model="Load_LoadZIP" variable="load_running_value"/>
+  <curve model="Load_LoadZIP" variable="load_running"/>
   <curve model="Load_LoadZIP" variable="load_PPu"/>
   <curve model="Load_LoadZIP" variable="load_QPu"/>
   <curve model="Load_LoadZIP" variable="load_UPu"/>
@@ -64,7 +64,7 @@
   <curve model="Load_LoadZIP" variable="load_terminal_i_re"/>
   <curve model="Load_LoadZIP" variable="load_terminal_i_im"/>
   <curve model="NETWORK" variable="VL2_Load4_switch_state_value"/>
-  <curve model="Load_ElectronicLoad" variable="load_running_value"/>
+  <curve model="Load_ElectronicLoad" variable="load_running"/>
   <curve model="Load_ElectronicLoad" variable="load_PPu"/>
   <curve model="Load_ElectronicLoad" variable="load_QPu"/>
   <curve model="Load_ElectronicLoad" variable="load_UPu"/>

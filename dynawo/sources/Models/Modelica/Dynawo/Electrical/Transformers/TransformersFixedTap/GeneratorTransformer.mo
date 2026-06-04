@@ -64,7 +64,7 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
   parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 (base U2Nom, SnRef) (receptor convention)";
 
 equation
-  if (running.value) then
+  if running then
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
   else
@@ -72,7 +72,7 @@ equation
     terminal2.V = Complex(0);
   end if;
 
-  if (running.value) then
+  if running then
     U1Pu = ComplexMath.'abs'(terminal1.V);
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));

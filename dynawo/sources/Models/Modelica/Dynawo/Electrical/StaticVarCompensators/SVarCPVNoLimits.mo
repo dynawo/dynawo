@@ -17,7 +17,7 @@ model SVarCPVNoLimits "PV static var compensator model without mode handling and
   extends BaseClasses.BaseSVarC(BMaxPu = 99, BMinPu = -99);
 
 equation
-  if running.value then
+  if running then
     BPu = BVarPu + BShuntPu;
   else
     BPu = 0;

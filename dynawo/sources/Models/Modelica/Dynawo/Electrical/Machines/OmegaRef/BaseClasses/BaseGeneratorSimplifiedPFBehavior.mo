@@ -52,7 +52,7 @@ equation
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
 
-  if running.value then
+  if running then
     PGenRawPu = PGen0Pu + deltaPmRefPu.value * PNom / SystemBase.SnRef + AlphaPu * (1 - omegaRefPu.value);
     PGenPu = if pStatus == PStatus.LimitPMax then PMaxPu else if pStatus == PStatus.LimitPMin then PMinPu else PGenRawPu;
   else

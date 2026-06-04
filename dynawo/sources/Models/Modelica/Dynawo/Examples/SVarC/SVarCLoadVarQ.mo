@@ -46,8 +46,8 @@ initial algorithm
   loadPQ.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
-  loadPQ.switchOffSignal1.value = false;
-  loadPQ.switchOffSignal2.value = false;
+  loadPQ.switchOffSignal1 = false;
+  loadPQ.switchOffSignal2 = false;
   loadPQ.deltaP = 0;
   loadPQ.deltaQ = 0;
 
