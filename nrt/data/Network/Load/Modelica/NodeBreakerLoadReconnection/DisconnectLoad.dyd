@@ -16,12 +16,12 @@
   <dyn:blackBoxModel id="Generator" lib="GeneratorPQ" parFile="DisconnectLoad.par" parId="GeneratorPQ" staticId="Generator"/>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="DisconnectLoad.par" parId="OmegaRef"/>
   <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="NETWORK" var2="@InfiniteBus@@NODE@_ACPIN"/>
-  <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@Generator@@NODE@_ACPIN"/>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@2@_ACPIN"/>
   <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="Generator" var2="generator_omegaRefPu_value"/>
 
   <dyn:blackBoxModel id="Load_LoadAlphaBetaRestorativeNetwork" lib="LoadAlphaBetaRestorativeNetwork" parFile="DisconnectLoad.par" parId="Load_LoadAlphaBetaRestorativeNetwork" staticId="Load0"/>
-  <dyn:connect id1="Load_LoadAlphaBetaRestorativeNetwork" var1="load_terminal" id2="NETWORK" var2="@Load0@@NODE@_ACPIN"/>
-  <dyn:connect id1="Load_LoadAlphaBetaRestorativeNetwork" var1="load_switchOffSignal1" id2="NETWORK" var2="@Load0@@NODE@_switchOff"/>
+  <dyn:connect id1="Load_LoadAlphaBetaRestorativeNetwork" var1="load_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@3@_ACPIN"/>
+  <dyn:connect id1="Load_LoadAlphaBetaRestorativeNetwork" var1="load_switchOffSignal1" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@3@_switchOff"/>
   <dyn:blackBoxModel id="Disconnect_Load_LoadAlphaBetaRestorativeNetwork" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect_Load_LoadAlphaBetaRestorativeNetwork"/>
   <dyn:blackBoxModel id="Reconnect_Load_LoadAlphaBetaRestorativeNetwork" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Reconnect_Load_LoadAlphaBetaRestorativeNetwork"/>
   <dyn:connect id1="Disconnect_Load_LoadAlphaBetaRestorativeNetwork" var1="event_state1" id2="Load_LoadAlphaBetaRestorativeNetwork" var2="load_switchOffSignal2"/>
@@ -32,8 +32,8 @@
   <dyn:connect id1="Reconnect_Load_LoadAlphaBetaRestorativeNetwork_switch" var1="event_state1_value" id2="NETWORK" var2="VL2_Load0_switch_state_value"/>
 
   <dyn:blackBoxModel id="Load_LoadAlphaBetaRestorative" lib="LoadAlphaBetaRestorative" parFile="DisconnectLoad.par" parId="Load_LoadAlphaBetaRestorative" staticId="Load1"/>
-  <dyn:connect id1="Load_LoadAlphaBetaRestorative" var1="load_terminal" id2="NETWORK" var2="@Load1@@NODE@_ACPIN"/>
-  <dyn:connect id1="Load_LoadAlphaBetaRestorative" var1="load_switchOffSignal1" id2="NETWORK" var2="@Load1@@NODE@_switchOff"/>
+  <dyn:connect id1="Load_LoadAlphaBetaRestorative" var1="load_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@4@_ACPIN"/>
+  <dyn:connect id1="Load_LoadAlphaBetaRestorative" var1="load_switchOffSignal1" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@4@_switchOff"/>
   <dyn:blackBoxModel id="Disconnect_Load_LoadAlphaBetaRestorative" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect_Load_LoadAlphaBetaRestorative"/>
   <dyn:blackBoxModel id="Reconnect_Load_LoadAlphaBetaRestorative" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Reconnect_Load_LoadAlphaBetaRestorative"/>
   <dyn:connect id1="Disconnect_Load_LoadAlphaBetaRestorative" var1="event_state1" id2="Load_LoadAlphaBetaRestorative" var2="load_switchOffSignal2"/>
@@ -44,8 +44,8 @@
   <dyn:connect id1="Reconnect_Load_LoadAlphaBetaRestorative_switch" var1="event_state1_value" id2="NETWORK" var2="VL2_Load1_switch_state_value"/>
 
   <dyn:blackBoxModel id="Load_LoadAlphaBeta" lib="LoadAlphaBeta" parFile="DisconnectLoad.par" parId="Load_LoadAlphaBeta" staticId="Load2"/>
-  <dyn:connect id1="Load_LoadAlphaBeta" var1="load_terminal" id2="NETWORK" var2="@Load2@@NODE@_ACPIN"/>
-  <dyn:connect id1="Load_LoadAlphaBeta" var1="load_switchOffSignal1" id2="NETWORK" var2="@Load2@@NODE@_switchOff"/>
+  <dyn:connect id1="Load_LoadAlphaBeta" var1="load_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@5@_ACPIN"/>
+  <dyn:connect id1="Load_LoadAlphaBeta" var1="load_switchOffSignal1" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@5@_switchOff"/>
   <dyn:blackBoxModel id="Disconnect_Load_LoadAlphaBeta" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect_Load_LoadAlphaBeta"/>
   <dyn:blackBoxModel id="Reconnect_Load_LoadAlphaBeta" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Reconnect_Load_LoadAlphaBeta"/>
   <dyn:connect id1="Disconnect_Load_LoadAlphaBeta" var1="event_state1" id2="Load_LoadAlphaBeta" var2="load_switchOffSignal2"/>
@@ -56,8 +56,8 @@
   <dyn:connect id1="Reconnect_Load_LoadAlphaBeta_switch" var1="event_state1_value" id2="NETWORK" var2="VL2_Load2_switch_state_value"/>
 
   <dyn:blackBoxModel id="Load_LoadPQ" lib="LoadPQ" parFile="DisconnectLoad.par" parId="Load_LoadPQ" staticId="Load3"/>
-  <dyn:connect id1="Load_LoadPQ" var1="load_terminal" id2="NETWORK" var2="@Load3@@NODE@_ACPIN"/>
-  <dyn:connect id1="Load_LoadPQ" var1="load_switchOffSignal1" id2="NETWORK" var2="@Load3@@NODE@_switchOff"/>
+  <dyn:connect id1="Load_LoadPQ" var1="load_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@6@_ACPIN"/>
+  <dyn:connect id1="Load_LoadPQ" var1="load_switchOffSignal1" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@6@_switchOff"/>
   <dyn:blackBoxModel id="Disconnect_Load_LoadPQ" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect_Load_LoadPQ"/>
   <dyn:blackBoxModel id="Reconnect_Load_LoadPQ" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Reconnect_Load_LoadPQ"/>
   <dyn:connect id1="Disconnect_Load_LoadPQ" var1="event_state1" id2="Load_LoadPQ" var2="load_switchOffSignal2"/>
@@ -68,8 +68,8 @@
   <dyn:connect id1="Reconnect_Load_LoadPQ_switch" var1="event_state1_value" id2="NETWORK" var2="VL2_Load3_switch_state_value"/>
 
   <dyn:blackBoxModel id="Load_LoadZIP" lib="LoadZIP" parFile="DisconnectLoad.par" parId="Load_LoadZIP" staticId="Load4"/>
-  <dyn:connect id1="Load_LoadZIP" var1="load_terminal" id2="NETWORK" var2="@Load4@@NODE@_ACPIN"/>
-  <dyn:connect id1="Load_LoadZIP" var1="load_switchOffSignal1" id2="NETWORK" var2="@Load4@@NODE@_switchOff"/>
+  <dyn:connect id1="Load_LoadZIP" var1="load_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@7@_ACPIN"/>
+  <dyn:connect id1="Load_LoadZIP" var1="load_switchOffSignal1" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@7@_switchOff"/>
   <dyn:blackBoxModel id="Disconnect_Load_LoadZIP" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect_Load_LoadZIP"/>
   <dyn:blackBoxModel id="Reconnect_Load_LoadZIP" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Reconnect_Load_LoadZIP"/>
   <dyn:connect id1="Disconnect_Load_LoadZIP" var1="event_state1" id2="Load_LoadZIP" var2="load_switchOffSignal2"/>
@@ -80,8 +80,8 @@
   <dyn:connect id1="Reconnect_Load_LoadZIP_switch" var1="event_state1_value" id2="NETWORK" var2="VL2_Load4_switch_state_value"/>
 
   <dyn:blackBoxModel id="Load_ElectronicLoad" lib="ElectronicLoad" parFile="DisconnectLoad.par" parId="Load_ElectronicLoad" staticId="Load5"/>
-  <dyn:connect id1="Load_ElectronicLoad" var1="load_terminal" id2="NETWORK" var2="@Load5@@NODE@_ACPIN"/>
-  <dyn:connect id1="Load_ElectronicLoad" var1="load_switchOffSignal1" id2="NETWORK" var2="@Load5@@NODE@_switchOff"/>
+  <dyn:connect id1="Load_ElectronicLoad" var1="load_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@8@_ACPIN"/>
+  <dyn:connect id1="Load_ElectronicLoad" var1="load_switchOffSignal1" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@8@_switchOff"/>
   <dyn:blackBoxModel id="Disconnect_Load_ElectronicLoad" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Disconnect_Load_ElectronicLoad"/>
   <dyn:blackBoxModel id="Reconnect_Load_ElectronicLoad" lib="EventSetPointBoolean" parFile="DisconnectLoad.par" parId="Reconnect_Load_ElectronicLoad"/>
   <dyn:connect id1="Disconnect_Load_ElectronicLoad" var1="event_state1" id2="Load_ElectronicLoad" var2="load_switchOffSignal2"/>

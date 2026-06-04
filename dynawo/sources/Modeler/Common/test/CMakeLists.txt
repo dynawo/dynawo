@@ -16,12 +16,16 @@ set(MODULE_SOURCES
   TestDelay.cpp
   TestRingBuffer.cpp
   TestGetNames.cpp
+  TestModeler.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_link_libraries(${MODULE_NAME}
   dynawo_API_PAR
+  dynawo_API_CRT
+  dynawo_API_LEQ
+  dynawo_DataInterface
   dynawo_ModelerCommon
   dynawo_Test)
 

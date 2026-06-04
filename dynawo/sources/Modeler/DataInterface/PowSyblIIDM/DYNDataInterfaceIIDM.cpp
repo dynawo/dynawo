@@ -58,6 +58,7 @@
 #include <powsybl/iidm/converter/ExportOptions.hpp>
 #include <powsybl/iidm/converter/ImportOptions.hpp>
 #include <powsybl/iidm/converter/FakeAnonymizer.hpp>
+#include <powsybl/iidm/Connectable.hpp>
 #include <powsybl/iidm/Substation.hpp>
 
 #include <powsybl/iidm/ExtensionProviders.hpp>
@@ -895,6 +896,34 @@ DataInterfaceIIDM::findNodeBreakerBusInterface(const powsybl::iidm::VoltageLevel
       return bus;
   }
   throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId(), node);
+}
+
+std::string
+DataInterfaceIIDM::getVoltageLevelId(const std::string& staticId) {
+  if (voltageLevels_.find(staticId) != voltageLevels_.end())
+    return staticId;
+
+  const stdcxx::Reference<powsybl::iidm::Connectable> connectable =
+      networkIIDM_->find<powsybl::iidm::Connectable>(staticId);
+  if (connectable) {
+    const auto& terminals = connectable.get().getTerminals();
+    if (!terminals.empty())
+      return terminals[0].get().getVoltageLevel().getId();
+  }
+
+  return "";
+}
+
+std::string
+DataInterfaceIIDM::getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex) {
+  const auto vlIter = calculatedBusComponents_.find(voltageLevelId);
+  if (vlIter != calculatedBusComponents_.end()) {
+    for (const auto& bus : vlIter->second) {
+      if (bus->hasNode(nodeIndex))
+        return bus->getID();
+    }
+  }
+  return "";
 }
 
 std::shared_ptr<VoltageLevelInterface>

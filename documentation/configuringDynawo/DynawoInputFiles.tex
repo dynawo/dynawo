@@ -731,6 +731,40 @@ Here are a few rules to follow to write models connections:
 \verb|unitModelId_VariableNameInModel|;
 \end{itemize}
 
+\paragraph{Node macros for connections to the network model}
+
+When connecting a dynamic model (which has a \verb|staticId| attribute) to the NETWORK model, the variable name on the NETWORK side can contain special macros that are resolved at runtime to the name of the bus the static component is connected to.
+
+\textbf{Bus-breaker and node-breaker topologies -- \texttt{@STATIC\_ID@@NODE@}}
+
+The macro \verb|@STATIC_ID@@NODE@| (or \verb|@NODE1@|, \verb|@NODE2@| for two-terminal equipment) is replaced by the name of the bus to which the static component is connected. The static component is identified by the \verb|staticId| of the dynamic model on the other side of the connection. For example:
+
+\begin{lstlisting}[language=XML, morekeywords={connect}]
+<blackBoxModel id="MyLoad" lib="LoadAlphaBeta" staticId="Load1" .../>
+<connect id1="MyLoad" var1="load_terminal" id2="NETWORK" var2="@STATIC_ID@@NODE@_ACPIN"/>
+\end{lstlisting}
+
+At runtime, \verb|@STATIC_ID@| is substituted with the static identifier of \verb|MyLoad| (i.e.\ \verb|Load1|), then \verb|@NODE@| is resolved to the bus name of that component in the network, giving for example \verb|VL2_0_ACPIN|.
+
+The component name can also be written literally instead of using the \verb|@STATIC_ID@| keyword, for example \verb|@Load1@@NODE@_ACPIN|. In that case the bus of the named component is used directly, regardless of which model appears on the other side of the connection.
+
+\textbf{Node-breaker topology -- \texttt{@VOLTAGE\_LEVEL@@NODE@@\textit{N}@}}
+
+For networks described with a node-breaker topology, an alternative macro allows the bus to be looked up directly from a voltage level identifier and a node index:
+
+\begin{lstlisting}[language=XML, morekeywords={connect}]
+<blackBoxModel id="MyLoad" lib="LoadAlphaBeta" staticId="Load1" .../>
+<connect id1="MyLoad" var1="load_terminal" id2="NETWORK" var2="@VOLTAGE_LEVEL@@NODE@@3@_ACPIN"/>
+\end{lstlisting}
+
+\begin{itemize}
+  \item \verb|@VOLTAGE_LEVEL@| is replaced by the voltage level identifier of the static component on the other side of the connection (\verb|Load1| in the example above). It can also be replaced by a literal voltage level identifier written directly in the variable name (e.g.\ \verb|@MyVL@@NODE@@3@_ACPIN|).
+  \item \verb|@NODE@| is a mandatory anchor used to delimit the voltage level part from the node index part.
+  \item \verb|@|\textit{N}\verb|@| is a non-negative integer node index within the voltage level. The calculated bus that contains this node is used as the resolved bus name.
+\end{itemize}
+
+This macro is especially useful when the voltage level identifier or the node index is known but no static component identifier is available, or to make connections independent of the static component naming.
+
 \subsubsection{Associate a dynamic model to a static component}
 
 When an iidm file is used, a correspondence between the component in the iidm file and its dynamic equivalent in the dyd file is made thanks to the item ``staticId''.
