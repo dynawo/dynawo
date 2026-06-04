@@ -22,7 +22,6 @@
 
 #include "DYNModelPhaseTapChanger.h"
 
-#include <DYNTimer.h>
 
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"

@@ -35,8 +35,6 @@
 #include <DYNTimer.h>
 #include <iomanip>
 
-#include <DYNTimer.h>
-
 #include "DYNCommon.h"
 #include "DYNModelRatioTapChanger.h"
 #include "DYNModelPhaseTapChanger.h"
