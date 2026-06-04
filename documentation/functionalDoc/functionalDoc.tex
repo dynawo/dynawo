@@ -280,7 +280,7 @@ The following two parameters apply to the network model as a whole:
 \caption{Global network parameters}
 \end{table}
 
-\textbf{Note on \texttt{deactivate\_zero\_crossing\_functions}:} when set to \texttt{true}, this parameter disables the current limit automata and other protection mechanisms embedded in the network model (overload tripping for lines and transformers, shunt reclosing delays, etc.). This is intended for use cases such as DynaSwing simulations, where the studied phenomena (transient stability, inter-area oscillations) take place on a timescale much shorter than the operating time of protections: activating protections in this context would be physically irrelevant and would only slow down the simulation. \\
+\textbf{Note on \texttt{deactivate\_zero\_crossing\_functions}:} when set to \texttt{true}, this parameter disables the current limit automata and other protection mechanisms embedded in the network model (overload tripping for lines and transformers, transformer tap changer actions, shunt reclosing delays, etc.). This is intended for use cases such as DynaSwing simulations, where the studied phenomena (transient stability, inter-area oscillations) take place on a timescale much shorter than the operating time of protections: activating protections in this context would be physically irrelevant and would only slow down the simulation. \\
 
 \paragraph{Bus}
 ~~\\

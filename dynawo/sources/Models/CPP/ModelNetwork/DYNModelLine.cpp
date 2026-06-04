@@ -751,7 +751,7 @@ ModelLine::evalZ(const double t, bool onlyEvaluateStateChange) {
   State currState = getConnectionState();
   checkValidState(currState);
 
-  if (!currState != OPEN) {
+  if (currState != OPEN) {
     if (!onlyEvaluateStateChange && (CL_ACTIVE(currentLimits1_, 0) || CL_ACTIVE(currentLimits2_, offsetGCl2_)))  z_[0] = OPEN;
     if (isClosedSide1(currState) && (modelBus1_->getConnectionState() == OPEN))    z_[0] = (static_cast<State>(z_[0]) == CLOSED) ? CLOSED_2 : OPEN;
     if (isClosedSide2(currState) && (modelBus2_->getConnectionState() == OPEN))    z_[0] = (static_cast<State>(z_[0]) == CLOSED) ? CLOSED_1 : OPEN;
