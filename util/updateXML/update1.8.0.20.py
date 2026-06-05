@@ -16,45 +16,66 @@ from content.Ticket import ticket
 # add or remove the "_value" suffix in the connect statements for given models and member variables
 @ticket(3748)
 def update(jobs):
-    add_value_suffix(jobs.dyds.get_bbms(lambda _: True),"generator_switchOffSignal1")
-    add_value_suffix(jobs.dyds.get_bbms(lambda _: True),"generator_switchOffSignal2")
-    add_value_suffix(jobs.dyds.get_bbms(lambda _: True),"generator_switchOffSignal3")
-    add_value_suffix(jobs.dyds.get_bbms(lambda _: True),"load_switchOffSignal1")
-    add_value_suffix(jobs.dyds.get_bbms(lambda _: True),"currentLimitAutomaton_AutomatonExists")
-    add_value_suffix(jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GridFormingConverterDroopControl"),"converter_running")
-    add_value_suffix(jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource1"),"WTG4A_injector_running")
+    all_bbm_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda _: True)}
 
-    for j in range(0,53):
-        try:
-            concatenate_value_suffix(jobs.dyds.get_bbms(lambda _: True),"running_grp_" + str(j))
-        finally:
-            pass
+    add_value_suffix(jobs.dyds, all_bbm_ids, "generator_switchOffSignal1")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "generator_switchOffSignal2")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "generator_switchOffSignal3")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "load_switchOffSignal1")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "currentLimitAutomaton_AutomatonExists")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "phaseShifter_AutomatonExists")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "reactivePowerControlLoop_groupParticipating")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "reactivePowerControlLoop_limUQDown")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "reactivePowerControlLoop_limUQUp")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "reactivePowerControlLoop_limUQUp")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "hvdc_switchOffSignal1Side1")
+    add_value_suffix(jobs.dyds, all_bbm_ids, "hvdc_switchOffSignal1Side2")
 
-    remove_value_suffix(jobs.dyds.get_bbms(lambda bbm: "PowerTransferHVDCEmulation" in bbm.get_lib_name()),"hvdc_running_value")
-    remove_value_suffix(jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "LineFault"),"line_switchOffSignal1_value")
-    remove_value_suffix(jobs.dyds.get_bbms(lambda bbm: "ShuntB" in bbm.get_lib_name()),"shunt_running_value")
-    remove_value_suffix(jobs.dyds.get_bbms(lambda bbm: "ShuntB" in bbm.get_lib_name()),"shunt_switchOffSignal1_value")
-    remove_value_suffix(jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "EventSetPointBoolean"),"event_state1_value")
-    remove_value_suffix(jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "BooleanTable"),"booleanTable_source_value")
+    gfc_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "GridFormingConverterDroopControl")}
+    add_value_suffix(jobs.dyds, gfc_ids, "converter_running")
 
-def add_value_suffix(bbms, var):
-    for bbm in bbms:
-        for idx in ["1", "2"]:
-            opp_idx = str(3-int(idx))
-            for connect in bbm.connects.get_connects_with_var(var,idx):
-                if not connect.attrib['var' + opp_idx].endswith("_value"):
-                    connect.attrib['var' + opp_idx] += "_value"              # no suffix on opposite side : add suffix on opposite side
+    wtg_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource1")}
+    add_value_suffix(jobs.dyds, wtg_ids, "WTG4A_injector_running")
 
-def concatenate_value_suffix(bbms, var):
-    for bbm in bbms:
-        for idx in ["1", "2"]:
-            opp_idx = str(3-int(idx))
-            for connect in bbm.connects.get_connects_with_var(var,idx):
-                if connect.attrib['var' + opp_idx].endswith("_running"):
-                    connect.attrib['var' + idx] += "_value"
+    concatenate_value_suffix_grp(jobs.dyds, all_bbm_ids)
 
-def remove_value_suffix(bbms, var):
-    for bbm in bbms:
-        for idx in ["1", "2"]:
-            for connect in bbm.connects.get_connects_with_var(var,idx):
-                connect.attrib['var' + idx] = connect.attrib['var' + idx].replace("_value","")
+    hvdc_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "PowerTransferHVDCEmulation" in bbm.get_lib_name())}
+    remove_value_suffix(jobs.dyds, hvdc_ids, "hvdc_running_value")
+
+    line_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "LineFault")}
+    remove_value_suffix(jobs.dyds, line_ids, "line_switchOffSignal1_value")
+
+    shunt_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "ShuntB" in bbm.get_lib_name())}
+    remove_value_suffix(jobs.dyds, shunt_ids, "shunt_running_value")
+    remove_value_suffix(jobs.dyds, shunt_ids, "shunt_switchOffSignal1_value")
+
+    event_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "EventSetPointBoolean")}
+    remove_value_suffix(jobs.dyds, event_ids, "event_state1_value")
+
+    bool_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "BooleanTable")}
+    remove_value_suffix(jobs.dyds, bool_ids, "booleanTable_source_value")
+
+def add_value_suffix(dyds, bbm_ids, var):
+    if not bbm_ids:
+        return
+    for idx in ["1", "2"]:
+        opp_idx = str(3 - int(idx))
+        for connect in dyds.get_connects_with_var_for_models(var, idx, bbm_ids):
+            if not connect.attrib['var' + opp_idx].endswith("_value"):
+                connect.attrib['var' + opp_idx] += "_value"              # no suffix on opposite side : add suffix on opposite side
+
+def concatenate_value_suffix_grp(dyds, bbm_ids):
+    if not bbm_ids:
+        return
+    for idx in ["1", "2"]:
+        opp_idx = str(3 - int(idx))
+        for connect in dyds.get_connects_with_var_prefix_for_models("running_grp_", idx, bbm_ids):
+            if connect.attrib['var' + opp_idx].endswith("_running") and not connect.attrib['var' + idx].endswith("_value"):
+                connect.attrib['var' + idx] += "_value"
+
+def remove_value_suffix(dyds, bbm_ids, var):
+    if not bbm_ids:
+        return
+    for idx in ["1", "2"]:
+        for connect in dyds.get_connects_with_var_for_models(var, idx, bbm_ids):
+            connect.attrib['var' + idx] = connect.attrib['var' + idx].replace("_value", "")
