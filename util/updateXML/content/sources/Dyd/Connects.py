@@ -67,6 +67,28 @@ class Connects:
         return connects
 
 
+    def get_connects_with_var_prefix(self, var_prefix, idx):
+        """
+        Get the list of connects where var on side idx starts with var_prefix
+
+        Parameters:
+            var_prefix (str): prefix to filter connects by
+            idx (str): either "1" or "2", whether var is on "var1" or "var2" side
+
+        Returns:
+            the list of filtered connects
+        """
+        connects = list()
+
+        xpath = './dyn:' + self.__connect_type.name + '[@id' + idx + '="' + self.__model_id + '" and starts-with(@var' + idx + ', "' + var_prefix + '")]'
+        connects.extend(self.__parent_xml_tree.xpath(xpath, namespaces=NAMESPACE_URI))
+
+        for macro_connect in self.__parent_xml_tree.xpath('./dyn:macroConnect[@id' + idx + '="' + self.__model_id + '"]', namespaces=NAMESPACE_URI):
+            xpath = './dyn:macroConnector[@id="' + macro_connect.attrib['connector'] + '"]/dyn:connect[starts-with(@var' + idx + ', "' + var_prefix + '")]'
+            connects.extend(self.__parent_xml_tree.xpath(xpath, namespaces=NAMESPACE_URI))
+
+        return connects
+
     def change_var_name(self, current_var, new_var):
         """
         Modify var attribute
