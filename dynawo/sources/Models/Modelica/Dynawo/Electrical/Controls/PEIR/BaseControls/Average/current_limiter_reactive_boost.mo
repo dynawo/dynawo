@@ -81,7 +81,7 @@ model current_limiter_reactive_boost
       transformation(origin = {120, -30}, extent = {{-20, -20}, {20, 20}}),
       iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}})));
 
-protected
+
   Real iq_boost_raw "Reactive current boost before limiting (pu)";
   Real iq_boost     "Reactive current boost after limiting (pu)";
   Real iq_eff       "Effective reactive current reference after boost (pu)";
@@ -95,10 +95,10 @@ equation
   */
   if noEvent(U_meas_pu < UboostLow) then
     // Sottotensione: iniezione di Q
-    iq_boost_raw = Kqv * (UboostLow - U_meas_pu);
+    iq_boost_raw = Kqv * (1 - U_meas_pu);
   elseif noEvent(U_meas_pu > UboostHigh) then
     // Sovratensione: assorbimento di Q
-    iq_boost_raw = Kqv * (UboostHigh - U_meas_pu);
+    iq_boost_raw = Kqv * (1 - U_meas_pu);
   else
     // Banda morta: nessun contributo di boost
     iq_boost_raw = 0;

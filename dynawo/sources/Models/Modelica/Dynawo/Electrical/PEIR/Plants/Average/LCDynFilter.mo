@@ -99,11 +99,6 @@ model LCDynFilter
   Real iLeft_im(start = iLeft_imPu0, fixed = false);
   Real uRight_re(start = uRight_rePu0, fixed = false);
   Real uRight_im(start = uRight_imPu0, fixed = false);
-initial equation
-  der(iLeft_re)  = 0;
-  der(iLeft_im)  = 0;
-  der(uRight_re) = 0;
-  der(uRight_im) = 0;
 
 equation
   // ── Inductor dynamics (series branch between left and right node) ──

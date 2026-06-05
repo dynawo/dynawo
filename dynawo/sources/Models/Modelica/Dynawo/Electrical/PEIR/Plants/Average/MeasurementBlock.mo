@@ -161,6 +161,7 @@ model MeasurementBlock
   // Plant-level active power at PCC: P = Ud_pcc · Id_pcc + Uq_pcc · Iq_pcc
   Modelica.Blocks.Sources.RealExpression P_plant_expre(y = transformRItoDQ.ud*transformRItoDQ1.ud + transformRItoDQ.uq*transformRItoDQ1.uq) "Instantaneous active power at PCC in dq frame (pu)" annotation(
     Placement(transformation(origin = {30, 82}, extent = {{-10, -10}, {10, 10}})));
+
   // Plant-level reactive power at PCC: Q = Uq_pcc · Id_pcc − Ud_pcc · Iq_pcc
   Modelica.Blocks.Sources.RealExpression Q_plant_expre(y = transformRItoDQ.uq*transformRItoDQ1.ud - transformRItoDQ.ud*transformRItoDQ1.uq) "Instantaneous reactive power at PCC in dq frame (pu)" annotation(
     Placement(transformation(origin = {30, 50}, extent = {{-10, -10}, {10, 10}})));

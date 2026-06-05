@@ -71,11 +71,11 @@ model simulation_weak_grid
   RPuLV = 0.0005, LPuLV = 0.008,  // ── HV transformer (LV node → PCC) ───────────────────────
   RPuHV = 0.0002, LPuHV = 0.005,  // ── Measurement filter ────────────────────────────────────
   k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
-  k_p_d_current = 100.0, k_i_d_current = 100000.0, k_p_q_current = 100.0, k_i_q_current = 100000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
-  k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.1, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0.3, Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
-  K_p_q_plant = 0.1, K_i_q_plant = 1.0, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.286, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
-  K_p_pll = 0.13, K_i_pll = 1.27, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
+  k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
+  k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.01, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0.03, Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
+  K_p_q_plant = 0.1, K_i_q_plant = 1.0, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
+  K_p_pll = 0.32, K_i_pll = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
   OmegaMinPu = 0.5,   // ── Rate limiters and delays ──────────────────────────────
   DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0, tS_idref = 1e-4, delay_time_plant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
   voltagefeedforwardflag = 1) annotation(
@@ -88,11 +88,11 @@ model simulation_weak_grid
   Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 100) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
   Lines.Line line(RPu = 0, XPu = 0.03, GPu = 0, BPu = 0) annotation(
-    Placement(transformation(origin = {102, 12}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {88, 12}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step step1(offset = URef0Pu, startTime = 100, height = URef0Pu*0.1) annotation(
     Placement(transformation(origin = {-66, 8}, extent = {{-10, -10}, {10, 10}})));
-  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.55, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
-    Placement(transformation(origin = {128, 10}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
+  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.55, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10.0, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
+    Placement(transformation(origin = {108, 12}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
 equation
 
   gFLmodelnodyn.switchOffSignal1.value=false;
@@ -107,9 +107,9 @@ equation
   connect(step1.y, gFLmodelnodyn.UREfPu) annotation(
     Line(points = {{-55, 8}, {8, 8}}, color = {0, 0, 127}));
   connect(infiniteBusWithVariations.terminal, line.terminal2) annotation(
-    Line(points = {{128, 10}, {128, 11}, {112, 11}, {112, 12}}, color = {0, 0, 255}));
+    Line(points = {{108, 12}, {108, 11}, {98, 11}, {98, 12}}, color = {0, 0, 255}));
   connect(gFLmodelnodyn.terminalPcc, line.terminal1) annotation(
-    Line(points = {{64, 12}, {64, 11}, {92, 11}, {92, 12}}, color = {0, 0, 255}));
+    Line(points = {{64, 12}, {64, 13}, {78, 13}, {78, 12}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-5, Interval = 0.0005),

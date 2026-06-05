@@ -78,9 +78,7 @@ model RLDynTrafo
   Dynawo.Types.PerUnit iIm(start = Ii0Pu, fixed = false)
     "Imag-axis branch current from left to right in pu";
 
-initial equation
-  der(iRe) = 0;
-  der(iIm) = 0;
+
 
 equation
   // ────────────────────────────────────────────────────────────
