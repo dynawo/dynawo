@@ -30,6 +30,7 @@ var a03021 =
     [ "hasActivePowerControl", "d2/d76/a03021.html#a72c97acb09deea30eea9d7d59c62022e", null ],
     [ "hasCoordinatedReactiveControl", "d2/d76/a03021.html#a38e69365da52df9f532896244c02ae52", null ],
     [ "importStaticParameters", "d2/d76/a03021.html#ad0cd93b1dc9011963b0cc567c31fb486", null ],
+    [ "isConnected", "d2/d76/a03021.html#a24bbce1ca1080b995d52fc74fb780e8c", null ],
     [ "isParticipating", "d2/d76/a03021.html#a007b54b48f1be43ac0a13cb6cad513e3", null ],
     [ "isVoltageRegulationOn", "d2/d76/a03021.html#a44a85d950325dc3854cf11c86407efaf", null ],
     [ "setBusInterface", "d2/d76/a03021.html#aefe60284169634ea72e8e5ceeda59ec6", null ],

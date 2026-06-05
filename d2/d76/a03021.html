@@ -185,6 +185,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac45c6400ac95eb33ad628e05193d7304"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/da3/a02853.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/a03021.html#ac45c6400ac95eb33ad628e05193d7304">getBusInterface</a> () const override</td></tr>
 <tr class="memdesc:ac45c6400ac95eb33ad628e05193d7304"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the generator's bus interface.  <a href="#ac45c6400ac95eb33ad628e05193d7304">More...</a><br /></td></tr>
 <tr class="separator:ac45c6400ac95eb33ad628e05193d7304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24bbce1ca1080b995d52fc74fb780e8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/a03021.html#a24bbce1ca1080b995d52fc74fb780e8c">isConnected</a> () const override</td></tr>
+<tr class="memdesc:a24bbce1ca1080b995d52fc74fb780e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="#a24bbce1ca1080b995d52fc74fb780e8c">More...</a><br /></td></tr>
+<tr class="separator:a24bbce1ca1080b995d52fc74fb780e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ec547225ebb7c0ebbba4d9924ca80a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/a03021.html#a0ec547225ebb7c0ebbba4d9924ca80a2">getInitialConnected</a> () override</td></tr>
 <tr class="memdesc:a0ec547225ebb7c0ebbba4d9924ca80a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the generator.  <a href="#a0ec547225ebb7c0ebbba4d9924ca80a2">More...</a><br /></td></tr>
 <tr class="separator:a0ec547225ebb7c0ebbba4d9924ca80a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -297,9 +300,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02857"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dc1/a02857.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a> () const</td></tr>
 <tr class="memdesc:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02857"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type as string.  <a href="../../dd/dc1/a02857.html#a13bc31f9a55abf04ac162196ad6a3ace">More...</a><br /></td></tr>
 <tr class="separator:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02857"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02857"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dc1/a02857.html#a22639f8b88b1d70984852928d87676ec">isConnected</a> () const</td></tr>
-<tr class="memdesc:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02857"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../dd/dc1/a02857.html#a22639f8b88b1d70984852928d87676ec">More...</a><br /></td></tr>
-<tr class="separator:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02857"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02857"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dc1/a02857.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a> () const</td></tr>
 <tr class="memdesc:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02857"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../dd/dc1/a02857.html#ac298501e2706de0701bcf0405d69780c">More...</a><br /></td></tr>
 <tr class="separator:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02857"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1167,6 +1167,36 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d7/d93/a02981.html
 
 </div>
 </div>
+<a id="a24bbce1ca1080b995d52fc74fb780e8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24bbce1ca1080b995d52fc74fb780e8c">&#9670;&nbsp;</a></span>isConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::BatteryInterfaceIIDM::isConnected </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check the connection state of the component </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the component is connected, <b>false</b> else </dd></dl>
+
+<p>Reimplemented from <a class="el" href="../../dd/dc1/a02857.html#a22639f8b88b1d70984852928d87676ec">DYN::ComponentInterface</a>.</p>
+
+</div>
+</div>
 <a id="a007b54b48f1be43ac0a13cb6cad513e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a007b54b48f1be43ac0a13cb6cad513e3">&#9670;&nbsp;</a></span>isParticipating()</h2>
 
@@ -1353,7 +1383,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d7/d93/a02981.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/d76/a03021.html">BatteryInterfaceIIDM</a></li>
-    <li class="footer">Generated on Thu Jun 4 2026 12:34:23 for Dynawo by
+    <li class="footer">Generated on Fri Jun 5 2026 09:13:53 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
