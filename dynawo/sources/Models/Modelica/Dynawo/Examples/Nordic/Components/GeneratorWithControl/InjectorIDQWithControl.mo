@@ -37,12 +37,10 @@ model InjectorIDQWithControl
     Placement(transformation(origin = {-80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
 equation
   Vt = ComplexMath.abs(terminal.V);
-  injectorIDQ.idPu = Id0Pu;
-  injectorIDQ.iqPu = Iq0Pu;
-//  connect(electricalControlNordic.IdRef, injectorIDQ.idPu) annotation(
-//    Line(points = {{-18, 12}, {17, 12}}, color = {0, 0, 127}));
-//  connect(electricalControlNordic.IqRef, injectorIDQ.iqPu) annotation(
-//    Line(points = {{-18, -12}, {0, -12}, {0, -8}, {18, -8}}, color = {0, 0, 127}));
+  connect(electricalControlNordic.IdRef, injectorIDQ.idPu) annotation(
+    Line(points = {{-18, 12}, {17, 12}}, color = {0, 0, 127}));
+  connect(electricalControlNordic.IqRef, injectorIDQ.iqPu) annotation(
+    Line(points = {{-18, -12}, {0, -12}, {0, -8}, {18, -8}}, color = {0, 0, 127}));
   connect(realExpression3.y, pll.omegaRefPu) annotation(
     Line(points = {{106, 56}, {62, 56}}, color = {0, 0, 127}));
   connect(realExpression2.y, electricalControlNordic.VtRef) annotation(
