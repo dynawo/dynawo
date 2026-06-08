@@ -16,14 +16,17 @@ add_subdirectory(BaseClasses_INIT BI)
 set(MODEL_FILES
   package.mo
   package.order
-  ElectronicLoad.mo
   ElectronicLoad.extvar
   ElectronicLoad.mandatoryParam
+  ElectronicLoad.mo
   Load_INIT.mo
   Load_INIT.mandatoryParam
   LoadAlphaBeta.mo
   LoadAlphaBeta.extvar
   LoadAlphaBeta.mandatoryParam
+  LoadAlphaBetaFrequencyDependent.mo
+  LoadAlphaBetaFrequencyDependent.extvar
+  LoadAlphaBetaFrequencyDependent.mandatoryParam
   LoadAlphaBetaRestorative.mo
   LoadAlphaBetaRestorative.extvar
   LoadAlphaBetaRestorative.mandatoryParam
@@ -69,6 +72,9 @@ set(MODEL_FILES
   LoadZIP.mo
   LoadZIP.extvar
   LoadZIP.mandatoryParam
+  LoadZIPFrequencyDependent.mo
+  LoadZIPFrequencyDependent.extvar
+  LoadZIPFrequencyDependent.mandatoryParam
   SwitchOffLoad.extvar
   )
 

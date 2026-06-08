@@ -1,0 +1,136 @@
+%% Copyright (c) 2026, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tool for power systems.
+\documentclass[a4paper, 12pt]{report}
+\input{../../../documentation/latex_setup.tex}
+\usepackage{circuitikz}
+\begin{document}
+\chapter*{Static Load Models with frequency dependence}
+\section*{Theory - Kundur et al. p. 273}
+The exponential (alpha–beta) load model represents the active and reactive powers absorbed by the load as functions of the bus voltage $V$ and frequency $f$, with respect to a reference operating point $(P_0, Q_0, V_0, f_0)$. It is commonly written as:
+\begin{align}
+P(V,f) &= P_0 \left( \frac{V}{V_0} \right)^{\alpha}
+          \left[ 1 + K_{P_f}\,(f - f_0) \right], \\[4pt]
+Q(V,f) &= Q_0 \left( \frac{V}{V_0} \right)^{\beta}
+          \left[ 1 + K_{Q_f}\,(f - f_0) \right].
+\end{align}
+Here, $P(V,f)$ and $Q(V,f)$ are the active and reactive powers of the load at voltage $V$ and frequency $f$, $P_0$ and $Q_0$ are the active and reactive powers at the reference operating point, $V_0$ and $f_0$ are the reference voltage and frequency (e.g. $V_0$ nominal voltage, $f_0 = 50$~Hz or $60$~Hz), $\alpha$ and $\beta$ are the exponents characterizing the voltage dependence of active and reactive power, and $K_{P_f}$, $K_{Q_f}$ are the active and reactive power frequency-sensitivity coefficients with respect to the frequency deviation $(f - f_0)$.
+
+The ZIP (impedance–current–power) static load model describes the dependence of active and reactive powers on voltage and frequency as a weighted combination of constant impedance, constant current, and constant power components. It is written as:
+\begin{align}
+P(V,f) &= P_0 \left[
+      Z_{p} \left( \frac{V}{V_0} \right)^2
+    + I_{p} \left( \frac{V}{V_0} \right)
+    + P_{p}
+    \right] \left[ 1 + K_{P_f}\,(f - f_0) \right], \\[4pt]
+Q(V,f) &= Q_0 \left[
+      Z_{q} \left( \frac{V}{V_0} \right)^2
+    + I_{q} \left( \frac{V}{V_0} \right)
+    + P_{q}
+    \right] \left[ 1 + K_{Q_f}\,(f - f_0) \right],
+\end{align}
+subject to
+\begin{equation}
+Z_{p} + I_{p} + P_{p} = 1, \qquad
+Z_{q} + I_{q} + P_{q} = 1.
+\end{equation}
+In this model, $Z_{p}$, $I_{p}$, and $P_{p}$ denote the fractions of the active power load that behave as constant impedance, constant current, and constant power, respectively, while $Z_{q}$, $I_{q}$, and $P_{q}$ are the corresponding fractions for the reactive power load. The coefficients $K_{P_f}$ and $K_{Q_f}$ quantify the sensitivity of active and reactive power to frequency deviations $(f - f_0)$, in the same way as in the alpha–beta model.
+\section*{Test case description}
+The studied test case is a simple system with an infinite Bus, modelling the rest of the network and setting the voltage and frequency (drawn as a generator),
+connected to a load through a line, as depicted in Fig.~\ref{schema}. The load is represented as a resistor.
+\begin{figure}[!ht]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\fontsize{15.9pt}{20.7pt}\selectfont]
+\draw (12.125,10.75) to[short, -o] (12.125,10.75) ;
+\draw (12.125,10.75) to[short, -o] (12.125,10.75) ;
+\draw (12.125,10.75) to[short, -o] (12.125,10.75) ;
+\draw (12.125,10.875) to[short, -o] (12.125,10.875) ;
+\draw (6.25,10.625) to[european resistor] (8.75,10.625);
+\draw (8.75,10.625) to[L ] (10.25,10.625);
+\draw (10.25,10.625) to[european resistor] (10.25,7.75);
+\node [font=\fontsize{15.9pt}{20.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (12.25,9.25) {Load Model};
+\node [font=\fontsize{15.9pt}{20.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8.125,11.5) {Line};
+\draw (6.25,10.625) to[sinusoidal voltage source, sources/symbol/rotate=auto] (6.25,7.875);
+\node [font=\fontsize{15.9pt}{20.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (4.5,9) {Infinite Bus};
+\draw (6.25,7.875) to[short] (10.25,7.875);
+\draw (10.25,7.75) to (10.25,7.5) node[ground]{};
+
+\end{circuitikz}
+}%
+\caption{Initial test case}
+\label{schema}
+\end{figure}
+
+\subsection*{Events}
+Two events are simulated (see Fig.~\ref{events}):
+\begin{itemize}
+\item From $t = 2s$ to $t = 4s$, a decrease in the voltage of the infinite bus from 1.0 p.u. to 0.8 p.u.
+\item From $t = 6s$ to $t = 8s$, an increase in the frequency of the infinite bus from 1.0 p.u. to 1.05 p.u.
+\end{itemize}
+\begin{figure}[H]
+\begin{center}
+  \begin{tikzpicture}[scale = 0.8]
+    \begin{axis}[grid=major, xmin=0, xmax=12]
+        \addplot[color=blue!200]
+        table[x=time,y=infBus_infiniteBus_UPu]
+        {../LoadAlphaBetaFrequencyDependent/reference/outputs/curves/curves.csv};
+        \addplot[color=red!200]
+        table[x=time,y=infBus_infiniteBus_omegaPu]
+        {../LoadAlphaBetaFrequencyDependent/reference/outputs/curves/curves.csv};
+        \legend{$U_{bus}$,$\omega_{bus}$}
+    \end{axis}
+  \end{tikzpicture}
+  \end{center}
+  \caption{Events applied to the infinite bus\label{events}}
+\end{figure}
+\subsection*{Parameters}
+\begin{itemize}
+  \item Initial load parameters are set as $P_0 = 1.0$ p.u., $Q_0 = 0.5$ p.u., $f_0 = 1.0$ p.u. The initial voltage $V_0$ and current $i_0$ are calculated after a linear loadflow in Pypowsybl as the inifinte bus sets $U_{bus0} = 1.0$ p.u. and $\theta_{bus0} = 1.0$ p.u.
+  \item Alpha Beta : $\alpha = 1.5$, $\beta = 2.0$, $K_{P_f} = 2.0$, $K_{Q_f} = -2.0$.
+  \item ZIP : $Z_{p} = 0.6$, $I_{p} = 0.2$, $P_{p} = 0.2$, $Z_{q} = 0.2$, $I_{q} = 0.2$, $P_{q} = 0.6$, $K_{P_f} = 2.0$, $K_{Q_f} = -2.0$.
+\end{itemize}
+\newpage
+\section*{Results}
+The active and reactive powers $(P_{\alpha \beta},Q_{\alpha \beta})$ in p.u. for the Alpha Beta Load model are presented in Fig.~\ref{comp1}.
+\begin{figure}[H]
+\begin{center}
+  \begin{tikzpicture}[scale = 0.8]
+    \begin{axis}[grid=major, xmin=0, xmax=12]
+        \addplot[color=blue!200]
+        table[x=time,y=Load_load_PPu]
+        {../LoadAlphaBetaFrequencyDependent/reference/outputs/curves/curves.csv};
+        \addplot[color=red!200]
+        table[x=time,y=Load_load_QPu]
+        {../LoadAlphaBetaFrequencyDependent/reference/outputs/curves/curves.csv};
+        \legend{$P_{\alpha \beta}$,$Q_{\alpha \beta}$}
+    \end{axis}
+  \end{tikzpicture}
+  \end{center}
+  \caption{Active and reactive powers for the Alpha Beta Load model\label{comp1}}
+\end{figure}
+The active and reactive powers $(P_{ZIP},Q_{ZIP})$ in p.u. for the ZIP Load model are presented in Fig.~\ref{comp10}.
+\begin{figure}[H]
+\begin{center}
+  \begin{tikzpicture}[scale = 0.8]
+    \begin{axis}[grid=major, xmin=0, xmax=12]
+        \addplot[color=blue!200]
+        table[x=time,y=Load_load_PPu]
+        {../LoadZIPFrequencyDependent/reference/outputs/curves/curves.csv};
+        \addplot[color=red!200]
+        table[x=time,y=Load_load_QPu]
+        {../LoadZIPFrequencyDependent/reference/outputs/curves/curves.csv};
+        \legend{$P_{ZIP}$,$Q_{ZIP}$}
+    \end{axis}
+  \end{tikzpicture}
+    \end{center}
+  \caption{Active and reactive powers for the ZIP Load model\label{comp10}}
+\end{figure}
+\end{document}

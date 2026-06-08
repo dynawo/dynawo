@@ -1,0 +1,481 @@
+INFO |  ============================================================ 
+INFO | DYNAWO VERSION  :     1.8.0
+INFO | DYNAWO REVISION :  4106_LoadFrequencyDependent-8d12c3bbc48
+INFO |  ============================================================ 
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | building model from input files
+INFO | -----------------------------------------------------------------------
+INFO | model was built successfully
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting local initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of local initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting global initialization
+INFO | -----------------------------------------------------------------------
+INFO | Algebraic mode change at t = 0
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 0
+INFO | number of residual evaluations                             = 2
+INFO | number of Jacobian evaluations                             = 2
+INFO | number of nonlinear iterations                             = 0
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 2
+INFO | number of discrete variables evaluations                   = 2
+INFO | number of mode evaluations                                 = 2
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 2
+INFO | number of algebraic restoration Jacobian evaluations       = 1
+INFO | number of algebraic prim restoration residual evaluations  = 2
+INFO | number of algebraic prim restoration Jacobian evaluations  = 1
+INFO | end of global initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting curve initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of curve initialization, added 5 curves
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting simulation with solver IDASolver
+INFO | -----------------------------------------------------------------------
+INFO | -----------------------------------------------------------------------
+INFO | number of continuous variables : 34
+INFO | number of discrete variables : 10
+INFO | number of root functions : 12
+INFO | -----------------------------------------------------------------------
+INFO |         time ¦ iter num   order (k)      time step (h)
+INFO | -----------------------------------------------------------------------
+INFO |        0.000 ¦        0           0              0.000 
+INFO |        0.012 ¦        1           1              0.012 
+INFO |        0.024 ¦        2           1              0.012 
+INFO |        0.048 ¦        3           2              0.024 
+INFO |        0.096 ¦        4           1              0.048 
+INFO |        0.192 ¦        5           1              0.096 
+INFO |        0.384 ¦        6           1              0.192 
+INFO |        0.768 ¦        7           1              0.384 
+INFO |        1.536 ¦        8           1              0.768 
+INFO | Algebraic mode change at t = 2
+INFO |        2.000 ¦        9           1              1.536 
+INFO | calculation of the new starting point of the simulation.
+INFO |        2.000 ¦        0           0              0.000 
+INFO |        2.000 ¦        1           1              0.000 
+INFO |        2.000 ¦        2           1              0.000 
+INFO |        2.000 ¦        3           2              0.000 
+INFO |        2.000 ¦        4           3              0.000 
+INFO |        2.000 ¦        5           2              0.000 
+INFO |        2.000 ¦        6           2              0.000 
+INFO |        2.000 ¦        7           2              0.000 
+INFO |        2.000 ¦        8           2              0.000 
+INFO |        2.000 ¦        9           2              0.000 
+INFO |        2.001 ¦       10           2              0.000 
+INFO |        2.001 ¦       11           2              0.000 
+INFO |        2.002 ¦       12           2              0.000 
+INFO |        2.002 ¦       13           2              0.000 
+INFO |        2.003 ¦       14           3              0.001 
+INFO |        2.004 ¦       15           3              0.001 
+INFO |        2.004 ¦       16           3              0.001 
+INFO |        2.005 ¦       17           3              0.001 
+INFO |        2.006 ¦       18           3              0.001 
+INFO |        2.007 ¦       19           3              0.001 
+INFO |        2.008 ¦       20           4              0.002 
+INFO |        2.010 ¦       21           4              0.002 
+INFO |        2.012 ¦       22           4              0.002 
+INFO |        2.013 ¦       23           4              0.002 
+INFO |        2.015 ¦       24           4              0.002 
+INFO |        2.016 ¦       25           4              0.002 
+INFO |        2.018 ¦       26           5              0.002 
+INFO |        2.020 ¦       27           5              0.002 
+INFO |        2.023 ¦       28           5              0.003 
+INFO |        2.026 ¦       29           4              0.003 
+INFO |        2.028 ¦       30           4              0.003 
+INFO |        2.031 ¦       31           4              0.003 
+INFO |        2.033 ¦       32           4              0.003 
+INFO |        2.036 ¦       33           4              0.003 
+INFO |        2.039 ¦       34           4              0.003 
+INFO |        2.044 ¦       35           4              0.005 
+INFO |        2.049 ¦       36           4              0.005 
+INFO |        2.054 ¦       37           4              0.005 
+INFO |        2.059 ¦       38           3              0.005 
+INFO |        2.070 ¦       39           2              0.010 
+INFO |        2.080 ¦       40           2              0.010 
+INFO |        2.101 ¦       41           2              0.021 
+INFO |        2.121 ¦       42           2              0.021 
+INFO |        2.142 ¦       43           2              0.021 
+INFO |        2.163 ¦       44           2              0.021 
+INFO |        2.204 ¦       45           3              0.041 
+INFO |        2.245 ¦       46           3              0.041 
+INFO |        2.293 ¦       47           2              0.047 
+INFO |        2.335 ¦       48           2              0.043 
+INFO |        2.378 ¦       49           2              0.043 
+INFO |        2.420 ¦       50           2              0.043 
+INFO |        2.463 ¦       51           2              0.043 
+INFO |        2.548 ¦       52           3              0.085 
+INFO |        2.633 ¦       53           2              0.085 
+INFO |        2.803 ¦       54           1              0.170 
+INFO |        2.973 ¦       55           1              0.170 
+INFO |        3.313 ¦       56           1              0.340 
+INFO |        3.993 ¦       57           1              0.680 
+INFO | Algebraic mode change at t = 4
+INFO |        4.000 ¦       58           1              1.361 
+INFO | calculation of the new starting point of the simulation.
+INFO |        4.000 ¦        0           0              0.000 
+INFO |        4.000 ¦        1           1              0.000 
+INFO |        4.000 ¦        2           1              0.000 
+INFO |        4.000 ¦        3           2              0.000 
+INFO |        4.000 ¦        4           3              0.000 
+INFO |        4.000 ¦        5           2              0.000 
+INFO |        4.000 ¦        6           2              0.000 
+INFO |        4.000 ¦        7           2              0.000 
+INFO |        4.000 ¦        8           2              0.000 
+INFO |        4.000 ¦        9           2              0.000 
+INFO |        4.001 ¦       10           2              0.000 
+INFO |        4.001 ¦       11           2              0.000 
+INFO |        4.001 ¦       12           2              0.000 
+INFO |        4.002 ¦       13           2              0.000 
+INFO |        4.002 ¦       14           3              0.001 
+INFO |        4.003 ¦       15           3              0.001 
+INFO |        4.004 ¦       16           3              0.001 
+INFO |        4.004 ¦       17           3              0.001 
+INFO |        4.005 ¦       18           3              0.001 
+INFO |        4.006 ¦       19           3              0.001 
+INFO |        4.007 ¦       20           4              0.001 
+INFO |        4.008 ¦       21           4              0.001 
+INFO |        4.010 ¦       22           4              0.001 
+INFO |        4.011 ¦       23           4              0.001 
+INFO |        4.012 ¦       24           4              0.001 
+INFO |        4.013 ¦       25           4              0.001 
+INFO |        4.015 ¦       26           5              0.001 
+INFO |        4.016 ¦       27           5              0.001 
+INFO |        4.019 ¦       28           5              0.003 
+INFO |        4.021 ¦       29           4              0.002 
+INFO |        4.023 ¦       30           4              0.002 
+INFO |        4.025 ¦       31           4              0.002 
+INFO |        4.027 ¦       32           4              0.002 
+INFO |        4.030 ¦       33           4              0.002 
+INFO |        4.032 ¦       34           4              0.002 
+INFO |        4.036 ¦       35           4              0.004 
+INFO |        4.040 ¦       36           4              0.004 
+INFO |        4.044 ¦       37           4              0.004 
+INFO |        4.049 ¦       38           3              0.004 
+INFO |        4.057 ¦       39           2              0.009 
+INFO |        4.066 ¦       40           1              0.009 
+INFO |        4.074 ¦       41           1              0.009 
+INFO |        4.083 ¦       42           1              0.009 
+INFO |        4.100 ¦       43           2              0.017 
+INFO |        4.117 ¦       44           2              0.017 
+INFO |        4.151 ¦       45           2              0.034 
+INFO |        4.185 ¦       46           2              0.034 
+INFO |        4.219 ¦       47           2              0.034 
+INFO |        4.253 ¦       48           2              0.034 
+INFO |        4.287 ¦       49           3              0.034 
+INFO |        4.321 ¦       50           3              0.034 
+INFO |        4.389 ¦       51           3              0.068 
+INFO |        4.457 ¦       52           2              0.068 
+INFO |        4.525 ¦       53           1              0.068 
+INFO |        4.593 ¦       54           1              0.068 
+INFO |        4.729 ¦       55           1              0.136 
+INFO |        4.865 ¦       56           1              0.136 
+INFO |        5.137 ¦       57           1              0.272 
+INFO |        5.682 ¦       58           1              0.544 
+INFO | Algebraic mode change at t = 6
+INFO |        6.000 ¦       59           1              1.089 
+INFO | calculation of the new starting point of the simulation.
+INFO |        6.000 ¦        0           0              0.000 
+INFO |        6.000 ¦        1           1              0.000 
+INFO |        6.000 ¦        2           1              0.000 
+INFO |        6.000 ¦        3           1              0.000 
+INFO |        6.000 ¦        4           2              0.000 
+INFO |        6.000 ¦        5           2              0.000 
+INFO |        6.000 ¦        6           2              0.000 
+INFO |        6.000 ¦        7           2              0.000 
+INFO |        6.000 ¦        8           2              0.000 
+INFO |        6.001 ¦        9           2              0.000 
+INFO |        6.001 ¦       10           2              0.000 
+INFO |        6.001 ¦       11           2              0.000 
+INFO |        6.001 ¦       12           3              0.000 
+INFO |        6.002 ¦       13           3              0.000 
+INFO |        6.002 ¦       14           3              0.000 
+INFO |        6.003 ¦       15           3              0.000 
+INFO |        6.003 ¦       16           3              0.000 
+INFO |        6.003 ¦       17           4              0.000 
+INFO |        6.004 ¦       18           4              0.000 
+INFO |        6.004 ¦       19           4              0.001 
+INFO |        6.005 ¦       20           4              0.001 
+INFO |        6.006 ¦       21           4              0.001 
+INFO |        6.007 ¦       22           4              0.001 
+INFO |        6.007 ¦       23           4              0.001 
+INFO |        6.008 ¦       24           4              0.001 
+INFO |        6.009 ¦       25           5              0.001 
+INFO |        6.010 ¦       26           5              0.001 
+INFO |        6.011 ¦       27           5              0.002 
+INFO |        6.012 ¦       28           5              0.001 
+INFO |        6.014 ¦       29           5              0.001 
+INFO |        6.015 ¦       30           5              0.001 
+INFO |        6.016 ¦       31           5              0.001 
+INFO |        6.018 ¦       32           5              0.002 
+INFO |        6.019 ¦       33           5              0.002 
+INFO |        6.021 ¦       34           5              0.002 
+INFO |        6.023 ¦       35           5              0.002 
+INFO |        6.024 ¦       36           5              0.002 
+INFO |        6.026 ¦       37           5              0.002 
+INFO |        6.027 ¦       38           5              0.002 
+INFO |        6.029 ¦       39           5              0.002 
+INFO |        6.031 ¦       40           5              0.002 
+INFO |        6.034 ¦       41           5              0.003 
+INFO |        6.037 ¦       42           5              0.003 
+INFO |        6.040 ¦       43           5              0.003 
+INFO |        6.043 ¦       44           4              0.003 
+INFO |        6.046 ¦       45           4              0.003 
+INFO |        6.050 ¦       46           4              0.003 
+INFO |        6.053 ¦       47           3              0.003 
+INFO |        6.059 ¦       48           3              0.006 
+INFO |        6.066 ¦       49           3              0.006 
+INFO |        6.072 ¦       50           3              0.006 
+INFO |        6.079 ¦       51           3              0.007 
+INFO |        6.086 ¦       52           3              0.007 
+INFO |        6.092 ¦       53           3              0.007 
+INFO |        6.099 ¦       54           3              0.007 
+INFO |        6.105 ¦       55           3              0.007 
+INFO |        6.112 ¦       56           3              0.007 
+INFO |        6.119 ¦       57           3              0.007 
+INFO |        6.125 ¦       58           3              0.007 
+INFO |        6.132 ¦       59           4              0.007 
+INFO |        6.138 ¦       60           4              0.007 
+INFO |        6.145 ¦       61           3              0.007 
+INFO |        6.151 ¦       62           3              0.007 
+INFO |        6.158 ¦       63           3              0.007 
+INFO |        6.164 ¦       64           3              0.007 
+INFO |        6.171 ¦       65           3              0.007 
+INFO |        6.177 ¦       66           3              0.007 
+INFO |        6.191 ¦       67           4              0.013 
+INFO |        6.201 ¦       68           3              0.011 
+INFO |        6.211 ¦       69           3              0.009 
+INFO |        6.220 ¦       70           3              0.009 
+INFO |        6.229 ¦       71           3              0.009 
+INFO |        6.238 ¦       72           3              0.008 
+INFO |        6.243 ¦       73           3              0.006 
+INFO |        6.249 ¦       74           3              0.006 
+INFO |        6.255 ¦       75           3              0.006 
+INFO |        6.260 ¦       76           3              0.006 
+INFO |        6.266 ¦       77           3              0.006 
+INFO |        6.271 ¦       78           3              0.006 
+INFO |        6.281 ¦       79           3              0.010 
+INFO |        6.291 ¦       80           3              0.010 
+INFO |        6.300 ¦       81           3              0.009 
+INFO |        6.309 ¦       82           3              0.009 
+INFO |        6.319 ¦       83           3              0.009 
+INFO |        6.328 ¦       84           3              0.009 
+INFO |        6.337 ¦       85           3              0.009 
+INFO |        6.342 ¦       86           2              0.006 
+INFO |        6.347 ¦       87           2              0.005 
+INFO |        6.352 ¦       88           1              0.005 
+INFO |        6.357 ¦       89           1              0.005 
+INFO |        6.361 ¦       90           1              0.005 
+INFO |        6.366 ¦       91           1              0.005 
+INFO |        6.375 ¦       92           2              0.009 
+INFO |        6.384 ¦       93           2              0.009 
+INFO |        6.393 ¦       94           2              0.009 
+INFO |        6.411 ¦       95           2              0.018 
+INFO |        6.429 ¦       96           2              0.018 
+INFO |        6.448 ¦       97           2              0.018 
+INFO |        6.466 ¦       98           2              0.018 
+INFO |        6.502 ¦       99           3              0.036 
+INFO |        6.535 ¦      100           3              0.033 
+INFO |        6.551 ¦      101           3              0.016 
+INFO |        6.584 ¦      102           3              0.033 
+INFO |        6.617 ¦      103           3              0.033 
+INFO |        6.649 ¦      104           3              0.033 
+INFO |        6.682 ¦      105           3              0.033 
+INFO |        6.715 ¦      106           3              0.033 
+INFO |        6.747 ¦      107           4              0.033 
+INFO |        6.764 ¦      108           4              0.016 
+INFO |        6.796 ¦      109           4              0.033 
+INFO |        6.813 ¦      110           4              0.016 
+INFO |        6.845 ¦      111           4              0.033 
+INFO |        6.862 ¦      112           4              0.016 
+INFO |        6.894 ¦      113           4              0.033 
+INFO |        6.911 ¦      114           4              0.016 
+INFO |        6.943 ¦      115           4              0.033 
+INFO |        6.960 ¦      116           3              0.016 
+INFO |        6.993 ¦      117           3              0.033 
+INFO |        7.009 ¦      118           3              0.016 
+INFO |        7.042 ¦      119           3              0.033 
+INFO |        7.058 ¦      120           2              0.016 
+INFO |        7.091 ¦      121           2              0.033 
+INFO |        7.107 ¦      122           2              0.016 
+INFO |        7.140 ¦      123           2              0.033 
+INFO |        7.156 ¦      124           2              0.016 
+INFO |        7.189 ¦      125           2              0.033 
+INFO |        7.205 ¦      126           2              0.016 
+INFO |        7.238 ¦      127           2              0.033 
+INFO |        7.242 ¦      128           1              0.004 
+INFO |        7.250 ¦      129           1              0.008 
+INFO |        7.266 ¦      130           1              0.016 
+INFO |        7.275 ¦      131           1              0.008 
+INFO |        7.291 ¦      132           1              0.016 
+INFO |        7.299 ¦      133           1              0.008 
+INFO |        7.315 ¦      134           1              0.016 
+INFO |        7.324 ¦      135           1              0.008 
+INFO |        7.340 ¦      136           1              0.016 
+INFO |        7.348 ¦      137           1              0.008 
+INFO |        7.364 ¦      138           1              0.016 
+INFO |        7.373 ¦      139           1              0.008 
+INFO |        7.389 ¦      140           1              0.016 
+INFO |        7.397 ¦      141           1              0.008 
+INFO |        7.413 ¦      142           1              0.016 
+INFO |        7.422 ¦      143           1              0.008 
+INFO |        7.438 ¦      144           1              0.016 
+INFO |        7.446 ¦      145           1              0.008 
+INFO |        7.463 ¦      146           1              0.016 
+INFO |        7.471 ¦      147           1              0.008 
+INFO |        7.487 ¦      148           1              0.016 
+INFO |        7.495 ¦      149           1              0.008 
+INFO |        7.512 ¦      150           1              0.016 
+INFO |        7.520 ¦      151           1              0.008 
+INFO |        7.536 ¦      152           1              0.016 
+INFO |        7.544 ¦      153           1              0.008 
+INFO |        7.561 ¦      154           1              0.016 
+INFO |        7.569 ¦      155           1              0.008 
+INFO |        7.585 ¦      156           1              0.016 
+INFO |        7.593 ¦      157           1              0.008 
+INFO |        7.610 ¦      158           1              0.016 
+INFO |        7.618 ¦      159           1              0.008 
+INFO |        7.634 ¦      160           1              0.016 
+INFO |        7.642 ¦      161           1              0.008 
+INFO |        7.659 ¦      162           1              0.016 
+INFO |        7.667 ¦      163           1              0.008 
+INFO |        7.683 ¦      164           1              0.016 
+INFO |        7.691 ¦      165           1              0.008 
+INFO |        7.708 ¦      166           1              0.016 
+INFO |        7.716 ¦      167           1              0.008 
+INFO |        7.732 ¦      168           1              0.016 
+INFO |        7.740 ¦      169           1              0.008 
+INFO |        7.757 ¦      170           1              0.016 
+INFO |        7.765 ¦      171           1              0.008 
+INFO |        7.781 ¦      172           1              0.016 
+INFO |        7.789 ¦      173           1              0.008 
+INFO |        7.806 ¦      174           1              0.016 
+INFO |        7.814 ¦      175           1              0.008 
+INFO |        7.830 ¦      176           1              0.016 
+INFO |        7.838 ¦      177           1              0.008 
+INFO |        7.855 ¦      178           1              0.016 
+INFO |        7.863 ¦      179           1              0.008 
+INFO |        7.879 ¦      180           1              0.016 
+INFO |        7.888 ¦      181           1              0.008 
+INFO |        7.904 ¦      182           1              0.016 
+INFO |        7.912 ¦      183           1              0.008 
+INFO |        7.928 ¦      184           1              0.016 
+INFO |        7.937 ¦      185           1              0.008 
+INFO |        7.953 ¦      186           1              0.016 
+INFO |        7.961 ¦      187           1              0.008 
+INFO |        7.977 ¦      188           1              0.016 
+INFO |        7.986 ¦      189           1              0.008 
+INFO | Algebraic mode change at t = 8
+INFO |        8.000 ¦      190           1              0.016 
+INFO | calculation of the new starting point of the simulation.
+INFO |        8.000 ¦        0           0              0.000 
+INFO |        8.000 ¦        1           1              0.000 
+INFO |        8.000 ¦        2           1              0.000 
+INFO |        8.000 ¦        3           2              0.000 
+INFO |        8.000 ¦        4           3              0.000 
+INFO |        8.000 ¦        5           2              0.000 
+INFO |        8.000 ¦        6           2              0.000 
+INFO |        8.000 ¦        7           2              0.000 
+INFO |        8.001 ¦        8           2              0.000 
+INFO |        8.001 ¦        9           2              0.000 
+INFO |        8.002 ¦       10           2              0.000 
+INFO |        8.002 ¦       11           2              0.000 
+INFO |        8.003 ¦       12           3              0.001 
+INFO |        8.003 ¦       13           3              0.001 
+INFO |        8.004 ¦       14           3              0.001 
+INFO |        8.006 ¦       15           3              0.001 
+INFO |        8.007 ¦       16           3              0.001 
+INFO |        8.008 ¦       17           3              0.001 
+INFO |        8.009 ¦       18           3              0.001 
+INFO |        8.010 ¦       19           4              0.001 
+INFO |        8.011 ¦       20           4              0.001 
+INFO |        8.013 ¦       21           4              0.002 
+INFO |        8.015 ¦       22           4              0.002 
+INFO |        8.017 ¦       23           3              0.002 
+INFO |        8.019 ¦       24           3              0.002 
+INFO |        8.021 ¦       25           3              0.002 
+INFO |        8.023 ¦       26           3              0.002 
+INFO |        8.025 ¦       27           3              0.002 
+INFO |        8.027 ¦       28           3              0.002 
+INFO |        8.029 ¦       29           4              0.002 
+INFO |        8.033 ¦       30           4              0.004 
+INFO |        8.037 ¦       31           4              0.004 
+INFO |        8.042 ¦       32           4              0.004 
+INFO |        8.046 ¦       33           3              0.004 
+INFO |        8.054 ¦       34           3              0.008 
+INFO |        8.062 ¦       35           3              0.008 
+INFO |        8.070 ¦       36           3              0.008 
+INFO |        8.078 ¦       37           3              0.008 
+INFO |        8.087 ¦       38           3              0.008 
+INFO |        8.103 ¦       39           4              0.016 
+INFO |        8.119 ¦       40           4              0.016 
+INFO |        8.136 ¦       41           4              0.016 
+INFO |        8.152 ¦       42           4              0.016 
+INFO |        8.168 ¦       43           4              0.016 
+INFO |        8.185 ¦       44           4              0.016 
+INFO |        8.201 ¦       45           5              0.016 
+INFO |        8.218 ¦       46           5              0.016 
+INFO |        8.250 ¦       47           5              0.033 
+INFO |        8.280 ¦       48           5              0.029 
+INFO |        8.309 ¦       49           5              0.029 
+INFO |        8.339 ¦       50           5              0.029 
+INFO |        8.368 ¦       51           5              0.029 
+INFO |        8.398 ¦       52           5              0.029 
+INFO |        8.427 ¦       53           5              0.029 
+INFO |        8.457 ¦       54           5              0.029 
+INFO |        8.486 ¦       55           5              0.029 
+INFO |        8.516 ¦       56           5              0.029 
+INFO |        8.545 ¦       57           5              0.029 
+INFO |        8.604 ¦       58           5              0.059 
+INFO |        8.657 ¦       59           5              0.053 
+INFO |        8.710 ¦       60           5              0.053 
+INFO |        8.763 ¦       61           4              0.053 
+INFO |        8.816 ¦       62           4              0.053 
+INFO |        8.869 ¦       63           4              0.053 
+INFO |        8.922 ¦       64           3              0.053 
+INFO |        9.029 ¦       65           3              0.106 
+INFO |        9.135 ¦       66           3              0.106 
+INFO |        9.241 ¦       67           2              0.106 
+INFO |        9.453 ¦       68           1              0.212 
+INFO |        9.877 ¦       69           1              0.424 
+INFO |       10.726 ¦       70           1              0.849 
+INFO |       12.000 ¦       71           1              1.274 
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 387
+INFO | number of residual evaluations                             = 1088
+INFO | number of Jacobian evaluations                             = 232
+INFO | number of nonlinear iterations                             = 1088
+INFO | number of error test failures                              = 11
+INFO | number of nonlinear convergence failures                   = 68
+INFO | number of solver root functions evaluations                = 562
+INFO | number of internal root functions evaluations              = 8
+INFO | number of discrete variables evaluations                   = 4
+INFO | number of mode evaluations                                 = 4
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 13
+INFO | number of algebraic restoration Jacobian evaluations       = 0
+INFO | number of algebraic prim restoration residual evaluations  = 7
+INFO | number of algebraic prim restoration Jacobian evaluations  = 1
+INFO | end of job 'Load Alpha Beta with Frequency Dependence'

@@ -91,6 +91,7 @@ LackOfVoltageRelay
 Line
 LineFault
 LoadAlphaBeta
+LoadAlphaBetaFrequencyDependent
 LoadAlphaBetaRestorative
 LoadAlphaBetaRestorativeLimitsRecalc
 LoadAlphaBetaRestorativeNetwork
@@ -100,6 +101,7 @@ LoadOneTransformerTapChanger
 LoadPQ
 LoadTwoTransformersTapChangers
 LoadZIP
+LoadZIPFrequencyDependent
 LossOfSynchronismProtection
 LVRT
 NetworkTransformer
