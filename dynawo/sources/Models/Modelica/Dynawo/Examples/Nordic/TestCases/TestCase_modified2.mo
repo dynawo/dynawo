@@ -220,10 +220,10 @@ model TestCase_modified2 "Nordic test system case with variable reference freque
   Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 201, tEnd =201.1);
   Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 201.1);
 equation
-  check_UPu_bus_1041 = Modelica.ComplexMath.abs(bus_1041.terminal.V);
-  check_UPu_bus_1042 = Modelica.ComplexMath.abs(bus_1042.terminal.V);
-  check_UPu_bus_4012 = Modelica.ComplexMath.abs(bus_4012.terminal.V);
-  check_UPu_bus_4062 = Modelica.ComplexMath.abs(bus_4062.terminal.V);
+  check_UPu_bus_1041 = Modelica.ComplexMath.'abs'(bus_1041.terminal.V);
+  check_UPu_bus_1042 = Modelica.ComplexMath.'abs'(bus_1042.terminal.V);
+  check_UPu_bus_4012 = Modelica.ComplexMath.'abs'(bus_4012.terminal.V);
+  check_UPu_bus_4062 = Modelica.ComplexMath.'abs'(bus_4062.terminal.V);
   check_IrPu_g08 = g08.vrNordic.IrPu;
   check_IrPu_g14 = g14.vrNordic.IrPu;
   check_IrPu_g15 = g15.vrNordic.IrPu;

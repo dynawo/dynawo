@@ -36,7 +36,7 @@ model InjectorIDQWithControl
   Modelica.Blocks.Interfaces.RealInput VRef annotation(
     Placement(transformation(origin = {-80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
 equation
-  Vt = ComplexMath.abs(terminal.V);
+  Vt = ComplexMath.'abs'(terminal.V);
   injectorIDQ.idPu = Id0Pu;
   injectorIDQ.iqPu = Iq0Pu;
   injectorIDQ.UPhase = UPhase0;
