@@ -195,6 +195,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   Line.xml
   LineFault.xml
   LoadAlphaBeta.xml
+  LoadAlphaBetaFrequencyDependent.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeNetwork.xml
   LoadAlphaBetaRestorativeLimitsRecalc.xml
@@ -210,6 +211,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   LoadTwoTransformers.xml
   LoadTwoTransformersTapChangers.xml
   LoadZIP.xml
+  LoadZIPFrequencyDependent.xml
   LossOfSynchronismProtection.xml
   LVRT.xml
   LVRT4Points.xml
