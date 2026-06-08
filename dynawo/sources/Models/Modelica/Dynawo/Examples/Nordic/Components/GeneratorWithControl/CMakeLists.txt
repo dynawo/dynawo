@@ -15,6 +15,7 @@ set(MODEL_FILES
     GeneratorParameters.mo
     GeneratorSynchronousThreeWindingsWithControl.mo
     GeneratorSynchronousFourWindingsWithControl.mo
+    InjectorIDQWithControl.mo
     )
 
 #

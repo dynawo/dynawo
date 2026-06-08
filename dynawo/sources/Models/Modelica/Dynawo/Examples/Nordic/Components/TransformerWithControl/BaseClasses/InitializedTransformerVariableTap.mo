@@ -1,22 +1,13 @@
 within Dynawo.Examples.Nordic.Components.TransformerWithControl.BaseClasses;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model InitializedTransformerVariableTap "Model of transformer with variable tap and built-in initialization, for the Nordic 32 test system"
   import Dynawo.Examples.Nordic.Components.TransformerWithControl.TransformerParameters;
 
-  extends Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapXtdPuControlled(Tap0(fixed = false), rTfo0Pu(fixed = false), transformerVariableTap.rTfoPu(fixed = true), rTfoMaxPu = TransformerParameters.rTfoMaxPu, rTfoMinPu = TransformerParameters.rTfoMinPu, NbTap = TransformerParameters.NbTap, U20Pu(fixed = false), u10Pu.re(fixed = false), u10Pu.im(fixed = false), i10Pu.re(fixed = false), i10Pu.im(fixed = false), u20Pu.re(fixed = false), u20Pu.im(fixed = false), i20Pu.re(fixed = false), i20Pu.im(fixed = false));
+  extends Dynawo.Electrical.Transformers.TransformersVariableTapControlled.TransformerVariableTapXtdPuControlled(Tap0(fixed = false), rTfo0Pu(fixed = false),
+    transformerVariableTap(                                                                                                                                   rTfoPu(                       fixed = true)),rTfoMaxPu = TransformerParameters.rTfoMaxPu, rTfoMinPu = TransformerParameters.rTfoMinPu, NbTap = TransformerParameters.NbTap, U20Pu(fixed = false),
+    u10Pu(                                                                                                                                                                                                        re(      fixed = false), im(      fixed = false)),
+    i10Pu(                                                                                                                                                                                                        re(      fixed = false), im(      fixed = false)),
+    u20Pu(                                                                                                                                                                                                        re(      fixed = false), im(      fixed = false)),
+    i20Pu(                                                                                                                                                                                                        re(      fixed = false), im(      fixed = false)));
 
   Dynawo.Electrical.Transformers.TransformersVariableTap.TransformerVariableTapPQ_INIT init(
     rTfoMinPu = TransformerParameters.rTfoMinPu,

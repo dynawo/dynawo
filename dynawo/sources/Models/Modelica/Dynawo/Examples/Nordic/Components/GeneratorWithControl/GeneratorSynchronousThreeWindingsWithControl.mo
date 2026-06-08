@@ -41,9 +41,9 @@ initial algorithm
   goverNordic.Pm0Pu := generatorSynchronous.Pm0Pu;
 
 equation
-  generatorSynchronous.switchOffSignal1 = false;
-  generatorSynchronous.switchOffSignal2 = false;
-  generatorSynchronous.switchOffSignal3 = false;
+  generatorSynchronous.switchOffSignal1.value = false;
+  generatorSynchronous.switchOffSignal2.value = false;
+  generatorSynchronous.switchOffSignal3.value = false;
   generatorSynchronous.efdPu = vrNordic.efdPu;
   generatorSynchronous.IRotorPu = vrNordic.IrPu;
   generatorSynchronous.omegaPu = vrNordic.omegaPu;

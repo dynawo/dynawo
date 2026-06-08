@@ -1,11 +1,10 @@
 within Dynawo.Examples.Nordic.Grid;
-model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
+model FullDynamicModel_modified2
+  "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
   import Dynawo.Examples.Nordic.Components.GeneratorWithControl;
   import Dynawo.Examples.Nordic.Components.TransformerWithControl;
-
-  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithAlphaBetaLoads;
-//  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithPQLoads;
-
+  extends Examples.Nordic.Grid.BaseClasses.NetworkWithAlphaBetaLoads;
+  //  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithPQLoads;
   TransformerWithControl.TransformerWithControl trafo_1_1041(P10Pu = -P0Pu_load_01, Q10Pu = -Q0Pu_load_01, U10Pu = U0Pu_load_01, U1Phase0 = UPhase0_load_01, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_1_1041) annotation(
     Placement(visible = true, transformation(origin = {-55, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   TransformerWithControl.TransformerWithControl trafo_2_1042(P10Pu = -P0Pu_load_02, Q10Pu = -Q0Pu_load_02, U10Pu = U0Pu_load_02, U1Phase0 = UPhase0_load_02, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_2_1042) annotation(
@@ -50,89 +49,68 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
     Placement(visible = true, transformation(origin = {-95, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   TransformerWithControl.TransformerWithControl trafo_72_4072(P10Pu = -P0Pu_load_72, Q10Pu = -Q0Pu_load_72, U10Pu = U0Pu_load_72, U1Phase0 = UPhase0_load_72, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_72_4072) annotation(
     Placement(visible = true, transformation(origin = {-88, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1011_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1011_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*0.95^2*(100/1250.0), rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {0, 125}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1012_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1012_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*0.95^2*(100/1250.0), rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {-2, 96}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1022_4022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.93 ^ 2 * (100 / 833.3), rTfoPu = 0.93) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1022_4022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*0.93^2*(100/833.3), rTfoPu = 0.93) annotation(
     Placement(visible = true, transformation(origin = {-25, 43}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1044_4044a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.03 ^ 2 * (100 / 1000.0), rTfoPu = 1.03) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1044_4044a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.03^2*(100/1000.0), rTfoPu = 1.03) annotation(
     Placement(visible = true, transformation(origin = {-15, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1044_4044b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.03 ^ 2 * (100 / 1000.0), rTfoPu = 1.03) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1044_4044b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.03^2*(100/1000.0), rTfoPu = 1.03) annotation(
     Placement(visible = true, transformation(origin = {-8, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1045_4045a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.04 ^ 2 * (100 / 1000.0), rTfoPu = 1.04) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1045_4045a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.04^2*(100/1000.0), rTfoPu = 1.04) annotation(
     Placement(visible = true, transformation(origin = {-14, -100}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1045_4045b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.04 ^ 2 * (100 / 1000.0), rTfoPu = 1.04) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1045_4045b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.04^2*(100/1000.0), rTfoPu = 1.04) annotation(
     Placement(visible = true, transformation(origin = {-8, -100}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_2031_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.0 ^ 2 * (100 / 833.3), rTfoPu = 1.0) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_2031_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.0^2*(100/833.3), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {-26, 28}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g1_1012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 800.0), rTfoPu = 1.0) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g1_1012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.0^2*(100/800.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {25, 93}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g2_1013(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 600.0), rTfoPu = 1.0) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g2_1013(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.0^2*(100/600.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {75, 138}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g3_1014(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 700.0), rTfoPu = 1.0) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g3_1014(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.0^2*(100/700.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {85, 93}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g4_1021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 600.0), rTfoPu = 1.0) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g4_1021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.0^2*(100/600.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {-85, 43}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g5_1022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 250.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g5_1022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/250.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-45, 57}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g6_1042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 400.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g6_1042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/400.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {35, -72}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g7_1043(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 200.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g7_1043(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/200.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-53, -53}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g8_2032(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 850.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g8_2032(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/850.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-77, 13}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g9_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1000.0), rTfoPu = 1.05) annotation(
-    Placement(visible = true, transformation(origin = {-25, 138}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g10_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 800.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g9_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/1000.0), rTfoPu = 1.05) annotation(
+    Placement(transformation(origin = {-25, 138}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g10_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/800.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-35, 93}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g11_4021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 300.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g11_4021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/300.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {35, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g12_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 350.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g12_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/350.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-4, 28}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g13_4041(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.05 ^ 2 * (100 / 300.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g13_4041(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.05^2*(100/300.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-70, -17}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g14_4042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g14_4042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/700.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {50, -17}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g15_4047(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1200.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g15_4047(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/1200.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {80, -103}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g16_4051(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g16_4051(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/700.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {20, -123}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g17_4062(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 600.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g17_4062(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/600.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-78, -102}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g18_4063(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1200.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g18_4063(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/1200.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-95, -137}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g19_4071(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 500.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g19_4071(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/500.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-75, 137}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g20_4072(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 4500.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g20_4072(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/4500.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-75, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g01(P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g01) annotation(
-    Placement(visible = true, transformation(origin = {25, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g02(P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = U0Pu_g02, UPhase0 = UPhase0_g02, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g02) annotation(
-    Placement(visible = true, transformation(origin = {75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g03(P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = U0Pu_g03, UPhase0 = UPhase0_g03, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g03) annotation(
-    Placement(visible = true, transformation(origin = {85, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g04(P0Pu = P0Pu_g04, Q0Pu = Q0Pu_g04, U0Pu = U0Pu_g04, UPhase0 = UPhase0_g04, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g04) annotation(
     Placement(visible = true, transformation(origin = {-85, 30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g05(P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, U0Pu = U0Pu_g05, UPhase0 = UPhase0_g05, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g05) annotation(
-    Placement(visible = true, transformation(origin = {-45, 71}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g06(P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g06) annotation(
-    Placement(visible = true, transformation(origin = {35, -60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g07(P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = U0Pu_g07, UPhase0 = UPhase0_g07, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g07) annotation(
-    Placement(visible = true, transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g09) annotation(
-    Placement(visible = true, transformation(origin = {-25, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g10(P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g10) annotation(
-    Placement(visible = true, transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g11) annotation(
-    Placement(visible = true, transformation(origin = {35, 72}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g12(P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g12) annotation(
-    Placement(visible = true, transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g13(P0Pu = P0Pu_g13, Q0Pu = Q0Pu_g13, U0Pu = U0Pu_g13, UPhase0 = UPhase0_g13, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g13) annotation(
-    Placement(visible = true, transformation(origin = {-70, -29}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+    Placement(transformation(origin = {-70, -31}, extent = {{-3, -3}, {3, 3}})));
   GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g14(P0Pu = P0Pu_g14, Q0Pu = Q0Pu_g14, U0Pu = U0Pu_g14, UPhase0 = UPhase0_g14, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g14) annotation(
     Placement(visible = true, transformation(origin = {50, -30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g15(P0Pu = P0Pu_g15, Q0Pu = Q0Pu_g15, U0Pu = U0Pu_g15, UPhase0 = UPhase0_g15, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g15) annotation(
@@ -147,148 +125,218 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = U0Pu_g20, UPhase0 = UPhase0_g20, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
     Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-
   // g01 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g01;
   parameter Types.ReactivePowerPu Q0Pu_g01;
   parameter Types.VoltageModulePu U0Pu_g01;
   parameter Types.Angle UPhase0_g01;
-
   // g02 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g02;
   parameter Types.ReactivePowerPu Q0Pu_g02;
   parameter Types.VoltageModulePu U0Pu_g02;
   parameter Types.Angle UPhase0_g02;
-
   // g03 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g03;
   parameter Types.ReactivePowerPu Q0Pu_g03;
   parameter Types.VoltageModulePu U0Pu_g03;
   parameter Types.Angle UPhase0_g03;
-
   // g04 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g04;
   parameter Types.ReactivePowerPu Q0Pu_g04;
   parameter Types.VoltageModulePu U0Pu_g04;
   parameter Types.Angle UPhase0_g04;
-
   // g05 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g05;
   parameter Types.ReactivePowerPu Q0Pu_g05;
   parameter Types.VoltageModulePu U0Pu_g05;
   parameter Types.Angle UPhase0_g05;
-
   // g06 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g06;
   parameter Types.ReactivePowerPu Q0Pu_g06;
   parameter Types.VoltageModulePu U0Pu_g06;
   parameter Types.Angle UPhase0_g06;
-
   // g07 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g07;
   parameter Types.ReactivePowerPu Q0Pu_g07;
   parameter Types.VoltageModulePu U0Pu_g07;
   parameter Types.Angle UPhase0_g07;
-
   // g08 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g08;
   parameter Types.ReactivePowerPu Q0Pu_g08;
   parameter Types.VoltageModulePu U0Pu_g08;
   parameter Types.Angle UPhase0_g08;
-
   // g09 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g09;
   parameter Types.ReactivePowerPu Q0Pu_g09;
   parameter Types.VoltageModulePu U0Pu_g09;
   parameter Types.Angle UPhase0_g09;
-
   // g10 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g10;
   parameter Types.ReactivePowerPu Q0Pu_g10;
   parameter Types.VoltageModulePu U0Pu_g10;
   parameter Types.Angle UPhase0_g10;
-
   // g11 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g11;
   parameter Types.ReactivePowerPu Q0Pu_g11;
   parameter Types.VoltageModulePu U0Pu_g11;
   parameter Types.Angle UPhase0_g11;
-
   // g12 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g12;
   parameter Types.ReactivePowerPu Q0Pu_g12;
   parameter Types.VoltageModulePu U0Pu_g12;
   parameter Types.Angle UPhase0_g12;
-
   // g13 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g13;
   parameter Types.ReactivePowerPu Q0Pu_g13;
   parameter Types.VoltageModulePu U0Pu_g13;
   parameter Types.Angle UPhase0_g13;
-
   // g14 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g14;
   parameter Types.ReactivePowerPu Q0Pu_g14;
   parameter Types.VoltageModulePu U0Pu_g14;
   parameter Types.Angle UPhase0_g14;
-
   // g15 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g15;
   parameter Types.ReactivePowerPu Q0Pu_g15;
   parameter Types.VoltageModulePu U0Pu_g15;
   parameter Types.Angle UPhase0_g15;
-
   // g16 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g16;
   parameter Types.ReactivePowerPu Q0Pu_g16;
   parameter Types.VoltageModulePu U0Pu_g16;
   parameter Types.Angle UPhase0_g16;
-
   // g17 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g17;
   parameter Types.ReactivePowerPu Q0Pu_g17;
   parameter Types.VoltageModulePu U0Pu_g17;
   parameter Types.Angle UPhase0_g17;
-
   // g18 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g18;
   parameter Types.ReactivePowerPu Q0Pu_g18;
   parameter Types.VoltageModulePu U0Pu_g18;
   parameter Types.Angle UPhase0_g18;
-
   // g19 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g19;
   parameter Types.ReactivePowerPu Q0Pu_g19;
   parameter Types.VoltageModulePu U0Pu_g19;
   parameter Types.Angle UPhase0_g19;
-
   // g20 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g20;
   parameter Types.ReactivePowerPu Q0Pu_g20;
   parameter Types.VoltageModulePu U0Pu_g20;
   parameter Types.Angle UPhase0_g20;
+  
+  parameter Real Imax=1;
+  
+  Components.GeneratorWithControl.InjectorIDQWithControl Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, Snom = 1000, i0Pu = ComplexMath.conj(Complex(P0Pu_g09, Q0Pu_g09)/ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09)), Id0Pu = -(ComplexMath.real(Inj09.i0Pu)*cos(UPhase0_g09) + ComplexMath.imag(Inj09.i0Pu)*sin(UPhase0_g09))*(SystemBase.SnRef/Inj09.Snom), Iq0Pu = (ComplexMath.real(Inj09.i0Pu)*sin(UPhase0_g09) - ComplexMath.imag(Inj09.i0Pu)*cos(UPhase0_g09))*(SystemBase.SnRef/Inj09.Snom), s0Pu = Complex(P0Pu_g09, Q0Pu_g09), u0Pu = ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09), Imax = Imax)  annotation(
+    Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
+  Components.GeneratorWithControl.InjectorIDQWithControl Inj07(P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = U0Pu_g07, UPhase0 = UPhase0_g07, i0Pu = ComplexMath.conj(Complex(P0Pu_g07, Q0Pu_g07)/ComplexMath.fromPolar(U0Pu_g07, UPhase0_g07)), Id0Pu = -(ComplexMath.real(Inj07.i0Pu)*cos(UPhase0_g07) + ComplexMath.imag(Inj07.i0Pu)*sin(UPhase0_g07))*(SystemBase.SnRef/Inj07.Snom), Iq0Pu = (ComplexMath.real(Inj07.i0Pu)*sin(UPhase0_g07) - ComplexMath.imag(Inj07.i0Pu)*cos(UPhase0_g07))*(SystemBase.SnRef/Inj07.Snom), s0Pu = Complex(P0Pu_g07, Q0Pu_g07), u0Pu = ComplexMath.fromPolar(U0Pu_g07, UPhase0_g07), Imax = Imax, Snom = 200)  annotation(
+    Placement(transformation(origin = {-53, -37}, extent = {{-3, -3}, {3, 3}})));
+  Components.GeneratorWithControl.InjectorIDQWithControl Inj06(P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, i0Pu = ComplexMath.conj(Complex(P0Pu_g06, Q0Pu_g06)/ComplexMath.fromPolar(U0Pu_g06, UPhase0_g06)), Id0Pu = -(ComplexMath.real(Inj06.i0Pu)*cos(UPhase0_g06) + ComplexMath.imag(Inj06.i0Pu)*sin(UPhase0_g06))*(SystemBase.SnRef/Inj06.Snom), Iq0Pu = (ComplexMath.real(Inj06.i0Pu)*sin(UPhase0_g06) - ComplexMath.imag(Inj06.i0Pu)*cos(UPhase0_g06))*(SystemBase.SnRef/Inj06.Snom), s0Pu = Complex(P0Pu_g06, Q0Pu_g06), u0Pu = ComplexMath.fromPolar(U0Pu_g06, UPhase0_g06), Imax = Imax, Snom = 400)  annotation(
+    Placement(transformation(origin = {35, -59}, extent = {{-3, -3}, {3, 3}})));
+  Components.GeneratorWithControl.InjectorIDQWithControl Inj11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, i0Pu = ComplexMath.conj(Complex(P0Pu_g11, Q0Pu_g11)/ComplexMath.fromPolar(U0Pu_g11, UPhase0_g11)), Id0Pu = -(ComplexMath.real(Inj11.i0Pu)*cos(UPhase0_g11) + ComplexMath.imag(Inj11.i0Pu)*sin(UPhase0_g11))*(SystemBase.SnRef/Inj11.Snom), Iq0Pu = (ComplexMath.real(Inj11.i0Pu)*sin(UPhase0_g11) - ComplexMath.imag(Inj11.i0Pu)*cos(UPhase0_g11))*(SystemBase.SnRef/Inj11.Snom), s0Pu = Complex(P0Pu_g11, Q0Pu_g11), u0Pu = ComplexMath.fromPolar(U0Pu_g11, UPhase0_g11), Imax = Imax, Snom = 300)  annotation(
+    Placement(transformation(origin = {35, 71}, extent = {{-3, -3}, {3, 3}})));
+  Components.GeneratorWithControl.InjectorIDQWithControl Inj03(P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = U0Pu_g03, UPhase0 = UPhase0_g03, Snom = 700, i0Pu = ComplexMath.conj(Complex(P0Pu_g03, Q0Pu_g03)/ComplexMath.fromPolar(U0Pu_g03, UPhase0_g03)), Id0Pu = -(ComplexMath.real(Inj03.i0Pu)*cos(UPhase0_g03) + ComplexMath.imag(Inj03.i0Pu)*sin(UPhase0_g03))*(SystemBase.SnRef/Inj03.Snom), Iq0Pu = (ComplexMath.real(Inj03.i0Pu)*sin(UPhase0_g03) - ComplexMath.imag(Inj03.i0Pu)*cos(UPhase0_g03))*(SystemBase.SnRef/Inj03.Snom), s0Pu = Complex(P0Pu_g03, Q0Pu_g03), u0Pu = ComplexMath.fromPolar(U0Pu_g03, UPhase0_g03), Imax = Imax)  annotation(
+    Placement(transformation(origin = {85, 79}, extent = {{-3, -3}, {3, 3}})));
+  Components.GeneratorWithControl.InjectorIDQWithControl Inj02(P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = U0Pu_g02, UPhase0 = UPhase0_g02, i0Pu = ComplexMath.conj(Complex(P0Pu_g02, Q0Pu_g02)/ComplexMath.fromPolar(U0Pu_g02, UPhase0_g02)), Id0Pu = -(ComplexMath.real(Inj02.i0Pu)*cos(UPhase0_g02) + ComplexMath.imag(Inj02.i0Pu)*sin(UPhase0_g02))*(SystemBase.SnRef/Inj02.Snom), Iq0Pu = (ComplexMath.real(Inj02.i0Pu)*sin(UPhase0_g02) - ComplexMath.imag(Inj02.i0Pu)*cos(UPhase0_g02))*(SystemBase.SnRef/Inj02.Snom), s0Pu = Complex(P0Pu_g02, Q0Pu_g02), u0Pu = ComplexMath.fromPolar(U0Pu_g02, UPhase0_g02), Imax = Imax, Snom = 600)  annotation(
+    Placement(transformation(origin = {75, 151}, extent = {{-3, -3}, {3, 3}})));
+  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj01(Id0Pu = -(ComplexMath.real(Inj01.i0Pu)*cos(UPhase0_g01) + ComplexMath.imag(Inj01.i0Pu)*sin(UPhase0_g01))*(SystemBase.SnRef/Inj01.Snom), Imax = Imax, Iq0Pu = (ComplexMath.real(Inj01.i0Pu)*sin(UPhase0_g01) - ComplexMath.imag(Inj01.i0Pu)*cos(UPhase0_g01))*(SystemBase.SnRef/Inj01.Snom), P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, Snom = 800, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, i0Pu = ComplexMath.conj(Complex(P0Pu_g01, Q0Pu_g01)/ComplexMath.fromPolar(U0Pu_g01, UPhase0_g01)), s0Pu = Complex(P0Pu_g01, Q0Pu_g01), u0Pu = ComplexMath.fromPolar(U0Pu_g01, UPhase0_g01)) annotation(
+    Placement(transformation(origin = {25, 79}, extent = {{-3, -3}, {3, 3}})));
+  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj05(Id0Pu = -(ComplexMath.real(Inj05.i0Pu)*cos(UPhase0_g05) + ComplexMath.imag(Inj05.i0Pu)*sin(UPhase0_g05))*(SystemBase.SnRef/Inj05.Snom), Imax = Imax, Iq0Pu = (ComplexMath.real(Inj05.i0Pu)*sin(UPhase0_g05) - ComplexMath.imag(Inj05.i0Pu)*cos(UPhase0_g05))*(SystemBase.SnRef/Inj05.Snom), P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, Snom = 250, U0Pu = U0Pu_g05, UPhase0 = UPhase0_g05, i0Pu = ComplexMath.conj(Complex(P0Pu_g05, Q0Pu_g05)/ComplexMath.fromPolar(U0Pu_g05, UPhase0_g05)), s0Pu = Complex(P0Pu_g05, Q0Pu_g05), u0Pu = ComplexMath.fromPolar(U0Pu_g05, UPhase0_g05)) annotation(
+    Placement(transformation(origin = {-45, 71}, extent = {{-3, -3}, {3, 3}})));
+  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj10(Id0Pu = -(ComplexMath.real(Inj10.i0Pu)*cos(UPhase0_g10) + ComplexMath.imag(Inj10.i0Pu)*sin(UPhase0_g10))*(SystemBase.SnRef/Inj10.Snom), Imax = Imax, Iq0Pu = (ComplexMath.real(Inj10.i0Pu)*sin(UPhase0_g10) - ComplexMath.imag(Inj10.i0Pu)*cos(UPhase0_g10))*(SystemBase.SnRef/Inj10.Snom), P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, Snom = 800, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, i0Pu = ComplexMath.conj(Complex(P0Pu_g10, Q0Pu_g10)/ComplexMath.fromPolar(U0Pu_g10, UPhase0_g10)), s0Pu = Complex(P0Pu_g10, Q0Pu_g10), u0Pu = ComplexMath.fromPolar(U0Pu_g10, UPhase0_g10)) annotation(
+    Placement(transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}})));
+  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj12(Id0Pu = -(ComplexMath.real(Inj12.i0Pu)*cos(UPhase0_g12) + ComplexMath.imag(Inj12.i0Pu)*sin(UPhase0_g12))*(SystemBase.SnRef/Inj12.Snom), Imax = Imax, Iq0Pu = (ComplexMath.real(Inj12.i0Pu)*sin(UPhase0_g12) - ComplexMath.imag(Inj12.i0Pu)*cos(UPhase0_g12))*(SystemBase.SnRef/Inj12.Snom), P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, Snom = 350, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, i0Pu = ComplexMath.conj(Complex(P0Pu_g12, Q0Pu_g12)/ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)), s0Pu = Complex(P0Pu_g12, Q0Pu_g12), u0Pu = ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)) annotation(
+    Placement(transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}})));
+  Dynawo.Examples.Nordic.Components.GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl SC1042(P0Pu = P0Pu_g13, Q0Pu = Q0Pu_g13, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g13) annotation(
+    Placement(transformation(origin = {24, -101}, extent = {{-3, -3}, {3, 3}})));
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_SC1042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.05^2*(100/300.0), rTfoPu = 1.05) annotation(
+    Placement(transformation(origin = {24, -87}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
+  Dynawo.Electrical.Buses.Bus bus_BSC1042 annotation(
+    Placement(transformation(origin = {24, -95}, extent = {{-5, -5}, {5, 5}})));
+initial equation
+  Inj09.VRef = bus_4011.UPu;
+  Inj07.VRef = bus_1043.UPu;
+  Inj06.VRef = bus_1042.UPu;
+  Inj11.VRef = bus_4021.UPu;
+  Inj03.VRef = bus_1014.UPu;
+  Inj02.VRef = bus_1013.UPu;
+  Inj01.VRef = bus_1012.UPu;
+  Inj05.VRef = bus_1022.UPu;
+  Inj10.VRef = bus_4012.UPu;
+  Inj12.VRef = bus_4031.UPu;
 
 equation
+  Inj09.VReg = bus_4011.UPu;
+  der(Inj09.VRef) = 0;
+  Inj07.VReg = bus_1043.UPu;
+  der(Inj07.VRef) = 0;
+  Inj06.VReg = bus_1042.UPu;
+  der(Inj06.VRef) = 0;
+  Inj11.VReg = bus_4021.UPu;
+  der(Inj11.VRef) = 0;
+  Inj03.VReg = bus_1014.UPu;
+  der(Inj03.VRef) = 0;
+  Inj02.VReg = bus_1013.UPu;
+  der(Inj02.VRef) = 0;
+  Inj01.VReg = bus_1012.UPu;
+  der(Inj01.VRef) = 0;
+  Inj05.VReg = bus_1022.UPu;
+  der(Inj05.VRef) = 0;
+  Inj10.VReg = bus_4012.UPu;
+  der(Inj10.VRef) = 0;
+  Inj12.VReg = bus_4031.UPu;
+  der(Inj12.VRef) = 0;
+  Inj09.injectorIDQ.switchOffSignal1.value = false;
+  Inj09.injectorIDQ.switchOffSignal2.value = false;
+  Inj09.injectorIDQ.switchOffSignal3.value = false;
+  Inj07.injectorIDQ.switchOffSignal1.value = false;
+  Inj07.injectorIDQ.switchOffSignal2.value = false;
+  Inj07.injectorIDQ.switchOffSignal3.value = false;
+  Inj06.injectorIDQ.switchOffSignal1.value = false;
+  Inj06.injectorIDQ.switchOffSignal2.value = false;
+  Inj06.injectorIDQ.switchOffSignal3.value = false;
+  Inj11.injectorIDQ.switchOffSignal1.value = false;
+  Inj11.injectorIDQ.switchOffSignal2.value = false;
+  Inj11.injectorIDQ.switchOffSignal3.value = false;
+  Inj03.injectorIDQ.switchOffSignal1.value = false;
+  Inj03.injectorIDQ.switchOffSignal2.value = false;
+  Inj03.injectorIDQ.switchOffSignal3.value = false;
+  Inj02.injectorIDQ.switchOffSignal1.value = false;
+  Inj02.injectorIDQ.switchOffSignal2.value = false;
+  Inj02.injectorIDQ.switchOffSignal3.value = false;
+  Inj01.injectorIDQ.switchOffSignal1.value = false;
+  Inj01.injectorIDQ.switchOffSignal2.value = false;
+  Inj01.injectorIDQ.switchOffSignal3.value = false;
+  Inj05.injectorIDQ.switchOffSignal1.value = false;
+  Inj05.injectorIDQ.switchOffSignal2.value = false;
+  Inj05.injectorIDQ.switchOffSignal3.value = false;
+  Inj10.injectorIDQ.switchOffSignal1.value = false;
+  Inj10.injectorIDQ.switchOffSignal2.value = false;
+  Inj10.injectorIDQ.switchOffSignal3.value = false;
+  Inj12.injectorIDQ.switchOffSignal1.value = false;
+  Inj12.injectorIDQ.switchOffSignal2.value = false;
+  Inj12.injectorIDQ.switchOffSignal3.value = false;
   connect(trafo_1_1041.terminal20, load_01_INIT.terminal0);
   connect(trafo_2_1042.terminal20, load_02_INIT.terminal0);
   connect(trafo_3_1043.terminal20, load_03_INIT.terminal0);
@@ -311,7 +359,6 @@ equation
   connect(trafo_63_4063.terminal20, load_63_INIT.terminal0);
   connect(trafo_71_4071.terminal20, load_71_INIT.terminal0);
   connect(trafo_72_4072.terminal20, load_72_INIT.terminal0);
-
   trafo_g1_1012.switchOffSignal1.value = false;
   trafo_g1_1012.switchOffSignal2.value = false;
   trafo_g2_1013.switchOffSignal1.value = false;
@@ -352,6 +399,8 @@ equation
   trafo_g19_4071.switchOffSignal2.value = false;
   trafo_g20_4072.switchOffSignal1.value = false;
   trafo_g20_4072.switchOffSignal2.value = false;
+  trafo_SC1042.switchOffSignal1.value = false;
+  trafo_SC1042.switchOffSignal2.value = false;
   trafo_1011_4011.switchOffSignal1.value = false;
   trafo_1011_4011.switchOffSignal2.value = false;
   trafo_1012_4012.switchOffSignal1.value = false;
@@ -368,7 +417,6 @@ equation
   trafo_1045_4045b.switchOffSignal2.value = false;
   trafo_2031_4031.switchOffSignal1.value = false;
   trafo_2031_4031.switchOffSignal2.value = false;
-
   connect(g20.terminal, bus_BG20.terminal) annotation(
     Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal2, bus_1041.terminal) annotation(
@@ -503,8 +551,6 @@ equation
     Line(points = {{85, 88}, {85, 85}}, color = {0, 0, 255}));
   connect(trafo_g3_1014.terminal2, bus_1014.terminal) annotation(
     Line(points = {{85, 98}, {85, 100}, {80, 100}}, color = {0, 0, 255}));
-  connect(trafo_g4_1021.terminal1, bus_BG04.terminal) annotation(
-    Line(points = {{-85, 38}, {-85, 35}}, color = {0, 0, 255}));
   connect(trafo_g4_1021.terminal2, bus_1021.terminal) annotation(
     Line(points = {{-85, 48}, {-85, 50}, {-80, 50}}, color = {0, 0, 255}));
   connect(trafo_g5_1022.terminal1, bus_BG05.terminal) annotation(
@@ -532,7 +578,7 @@ equation
   connect(trafo_g10_4012.terminal2, bus_4012.terminal) annotation(
     Line(points = {{-35, 98}, {-35, 100}, {-30, 100}}, color = {0, 0, 255}));
   connect(trafo_g11_4021.terminal1, bus_BG11.terminal) annotation(
-    Line(points = {{35, 65}, {35, 63}}, color = {0, 0, 255}));
+    Line(points = {{35, 63}, {35, 65}}, color = {0, 0, 255}));
   connect(trafo_g11_4021.terminal2, bus_4021.terminal) annotation(
     Line(points = {{35, 53}, {35, 50}, {30, 50}}, color = {0, 0, 255}));
   connect(trafo_g12_4031.terminal1, bus_BG12.terminal) annotation(
@@ -541,8 +587,6 @@ equation
     Line(points = {{-4, 23}, {-4, 21}, {-13, 21}}, color = {0, 0, 255}));
   connect(trafo_g13_4041.terminal2, bus_4041.terminal) annotation(
     Line(points = {{-70, -12}, {-70, -10}, {-78, -10}}, color = {0, 0, 255}));
-  connect(trafo_g13_4041.terminal1, bus_BG13.terminal) annotation(
-    Line(points = {{-70, -22}, {-70, -25}}, color = {0, 0, 255}));
   connect(trafo_g15_4047.terminal1, bus_BG15.terminal) annotation(
     Line(points = {{80, -98}, {80, -95}}, color = {0, 0, 255}));
   connect(trafo_g15_4047.terminal2, bus_4047.terminal) annotation(
@@ -571,32 +615,8 @@ equation
     Line(points = {{-75, 68}, {-75, 65}}, color = {0, 0, 255}));
   connect(trafo_g20_4072.terminal2, bus_4072.terminal) annotation(
     Line(points = {{-75, 78}, {-75, 81}, {-82, 81}}, color = {0, 0, 255}));
-  connect(g01.terminal, bus_BG01.terminal) annotation(
-    Line(points = {{25, 79}, {25, 85}}, color = {0, 0, 255}));
-  connect(g02.terminal, bus_BG02.terminal) annotation(
-    Line(points = {{75, 151}, {75, 145}}, color = {0, 0, 255}));
-  connect(g03.terminal, bus_BG03.terminal) annotation(
-    Line(points = {{85, 79}, {85, 85}}, color = {0, 0, 255}));
-  connect(g04.terminal, bus_BG04.terminal) annotation(
-    Line(points = {{-85, 30}, {-85, 35}}, color = {0, 0, 255}));
-  connect(g05.terminal, bus_BG05.terminal) annotation(
-    Line(points = {{-45, 71}, {-45, 65}}, color = {0, 0, 255}));
-  connect(g06.terminal, bus_BG06.terminal) annotation(
-    Line(points = {{35, -60}, {35, -65}}, color = {0, 0, 255}));
-  connect(g07.terminal, bus_BG07.terminal) annotation(
-    Line(points = {{-53, -39}, {-53, -45}}, color = {0, 0, 255}));
   connect(g08.terminal, bus_BG08.terminal) annotation(
     Line(points = {{-77, 0}, {-77, 5}}, color = {0, 0, 255}));
-  connect(g09.terminal, bus_BG09.terminal) annotation(
-    Line(points = {{-25, 151}, {-25, 145}}, color = {0, 0, 255}));
-  connect(g10.terminal, bus_BG10.terminal) annotation(
-    Line(points = {{-35, 85}, {-35, 79}}, color = {0, 0, 255}));
-  connect(g11.terminal, bus_BG11.terminal) annotation(
-    Line(points = {{35, 72}, {35, 65}}, color = {0, 0, 255}));
-  connect(g12.terminal, bus_BG12.terminal) annotation(
-    Line(points = {{-4, 41}, {-4, 35}}, color = {0, 0, 255}));
-  connect(g13.terminal, bus_BG13.terminal) annotation(
-    Line(points = {{-70, -29}, {-70, -25}}, color = {0, 0, 255}));
   connect(g14.terminal, bus_BG14.terminal) annotation(
     Line(points = {{50, -30}, {50, -25}}, color = {0, 0, 255}));
   connect(g15.terminal, bus_BG15.terminal) annotation(
@@ -609,9 +629,45 @@ equation
     Line(points = {{-95, -151}, {-95, -145}}, color = {0, 0, 255}));
   connect(g19.terminal, bus_BG19.terminal) annotation(
     Line(points = {{-75, 151}, {-75, 145}}, color = {0, 0, 255}));
-
-  annotation(preferredView = "diagram",
+  connect(Inj09.terminal, bus_BG09.terminal) annotation(
+    Line(points = {{-25, 156}, {-25, 145}}, color = {0, 0, 255}));
+  connect(Inj07.terminal, bus_BG07.terminal) annotation(
+    Line(points = {{-53, -37}, {-53, -45}}, color = {0, 0, 255}));
+  connect(Inj06.terminal, bus_BG06.terminal) annotation(
+    Line(points = {{35, -59}, {35, -65}}, color = {0, 0, 255}));
+  connect(bus_BG11.terminal, Inj11.terminal) annotation(
+    Line(points = {{35, 65}, {35, 71}}, color = {0, 0, 255}));
+  connect(Inj03.terminal, bus_BG03.terminal) annotation(
+    Line(points = {{85, 79}, {85, 85}}, color = {0, 0, 255}));
+  connect(Inj02.terminal, bus_BG02.terminal) annotation(
+    Line(points = {{75, 151}, {75, 145}}, color = {0, 0, 255}));
+  connect(Inj01.terminal, bus_BG01.terminal) annotation(
+    Line(points = {{25, 79}, {25, 85}}, color = {0, 0, 255}));
+  connect(Inj05.terminal, bus_BG05.terminal) annotation(
+    Line(points = {{-45, 71}, {-45, 65}}, color = {0, 0, 255}));
+  connect(Inj10.terminal, bus_BG10.terminal) annotation(
+    Line(points = {{-35, 79}, {-35, 85}}, color = {0, 0, 255}));
+  connect(bus_BG12.terminal, Inj12.terminal) annotation(
+    Line(points = {{-4, 35}, {-4, 41}}, color = {0, 0, 255}));
+  connect(g04.terminal, bus_BG04.terminal) annotation(
+    Line(points={{-85,30},{-85,34},{-85,34},{-85,35}},
+                                          color = {0, 0, 255}));
+  connect(bus_BG04.terminal, trafo_g4_1021.terminal1) annotation(
+    Line(points={{-85,35},{-84,35},{-84,38},{-85,38}},
+                                          color = {0, 0, 255}));
+  connect(SC1042.terminal, bus_BSC1042.terminal) annotation(
+    Line(points={{24,-101},{24,-95}},      color = {0, 0, 255}));
+  connect(bus_BSC1042.terminal, trafo_SC1042.terminal1) annotation(
+    Line(points={{24,-95},{24,-92}},      color = {0, 0, 255}));
+  connect(trafo_SC1042.terminal2, bus_1042.terminal) annotation(
+    Line(points = {{24, -82}, {24, -80}, {30, -80}}, color = {0, 0, 255}));
+  connect(g13.terminal, bus_BG13.terminal) annotation(
+    Line(points={{-70,-31},{-70,-25}},      color = {0, 0, 255}));
+  connect(bus_BG13.terminal, trafo_g13_4041.terminal1) annotation(
+    Line(points={{-70,-25},{-70,-22}},      color = {0, 0, 255}));
+  annotation(
+    preferredView = "diagram",
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));
-end FullDynamicModel;
+end FullDynamicModel_modified2;

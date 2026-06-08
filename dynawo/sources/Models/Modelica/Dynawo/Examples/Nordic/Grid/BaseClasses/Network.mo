@@ -1,18 +1,4 @@
 within Dynawo.Examples.Nordic.Grid.BaseClasses;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model Network "Nordic test grid with buses and lines"
 
   Dynawo.Electrical.Buses.Bus bus_B01 annotation(
@@ -269,115 +255,115 @@ model Network "Nordic test grid with buses and lines"
   Dynawo.Electrical.Lines.Line line_4071_4072b(BPu = 9.3777e-4 * XBase_400, GPu = 0 * XBase_400, RPu = 4.80 / XBase_400, XPu = 48.00 / XBase_400) annotation(
     Placement(visible = true, transformation(origin = {-79, 105}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
 
-  final parameter Modelica.SIunits.Impedance XBase_130 = 130 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance XBase_220 = 220 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance XBase_400 = 400 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance XBase_130=130^2/Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance XBase_220=220^2/Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance XBase_400=400^2/Dynawo.Electrical.SystemBase.SnRef;
 
 equation
-  line_1011_1013a.switchOffSignal1 = false;
-  line_1011_1013a.switchOffSignal2 = false;
-  line_1011_1013b.switchOffSignal1 = false;
-  line_1011_1013b.switchOffSignal2 = false;
-  line_1012_1014a.switchOffSignal1 = false;
-  line_1012_1014a.switchOffSignal2 = false;
-  line_1012_1014b.switchOffSignal1 = false;
-  line_1012_1014b.switchOffSignal2 = false;
-  line_1013_1014a.switchOffSignal1 = false;
-  line_1013_1014a.switchOffSignal2 = false;
-  line_1013_1014b.switchOffSignal1 = false;
-  line_1013_1014b.switchOffSignal2 = false;
-  line_1021_1022a.switchOffSignal1 = false;
-  line_1021_1022a.switchOffSignal2 = false;
-  line_1021_1022b.switchOffSignal1 = false;
-  line_1021_1022b.switchOffSignal2 = false;
-  line_1041_1043a.switchOffSignal1 = false;
-  line_1041_1043a.switchOffSignal2 = false;
-  line_1041_1043b.switchOffSignal1 = false;
-  line_1041_1043b.switchOffSignal2 = false;
-  line_1041_1045a.switchOffSignal1 = false;
-  line_1041_1045a.switchOffSignal2 = false;
-  line_1041_1045b.switchOffSignal1 = false;
-  line_1041_1045b.switchOffSignal2 = false;
-  line_1042_1044a.switchOffSignal1 = false;
-  line_1042_1044a.switchOffSignal2 = false;
-  line_1042_1044b.switchOffSignal1 = false;
-  line_1042_1044b.switchOffSignal2 = false;
-  line_1042_1045.switchOffSignal1 = false;
-  line_1042_1045.switchOffSignal2 = false;
-  line_1043_1044a.switchOffSignal1 = false;
-  line_1043_1044a.switchOffSignal2 = false;
-  line_1043_1044b.switchOffSignal1 = false;
-  line_1043_1044b.switchOffSignal2 = false;
-  line_2031_2032a.switchOffSignal1 = false;
-  line_2031_2032a.switchOffSignal2 = false;
-  line_2031_2032b.switchOffSignal1 = false;
-  line_2031_2032b.switchOffSignal2 = false;
-  line_4011_4012.switchOffSignal1 = false;
-  line_4011_4012.switchOffSignal2 = false;
-  line_4011_4021.switchOffSignal1 = false;
-  line_4011_4021.switchOffSignal2 = false;
-  line_4011_4022.switchOffSignal1 = false;
-  line_4011_4022.switchOffSignal2 = false;
-  line_4011_4071.switchOffSignal1 = false;
-  line_4011_4071.switchOffSignal2 = false;
-  line_4012_4022.switchOffSignal1 = false;
-  line_4012_4022.switchOffSignal2 = false;
-  line_4012_4071.switchOffSignal1 = false;
-  line_4012_4071.switchOffSignal2 = false;
-  line_4021_4032.switchOffSignal1 = false;
-  line_4021_4032.switchOffSignal2 = false;
-  line_4021_4042.switchOffSignal1 = false;
-  line_4021_4042.switchOffSignal2 = false;
-  line_4022_4031a.switchOffSignal1 = false;
-  line_4022_4031a.switchOffSignal2 = false;
-  line_4022_4031b.switchOffSignal1 = false;
-  line_4022_4031b.switchOffSignal2 = false;
-  line_4031_4032.switchOffSignal1 = false;
-  line_4031_4032.switchOffSignal2 = false;
-  line_4031_4041a.switchOffSignal1 = false;
-  line_4031_4041a.switchOffSignal2 = false;
-  line_4031_4041b.switchOffSignal1 = false;
-  line_4031_4041b.switchOffSignal2 = false;
-  line_4032_4042.switchOffSignal1 = false;
-  line_4032_4042.switchOffSignal2 = false;
-//line_4032_4044.switchOffSignal1 = false; // to be disconnected to clear short circuit
-  line_4032_4044.switchOffSignal2 = false;
-  line_4041_4044.switchOffSignal1 = false;
-  line_4041_4044.switchOffSignal2 = false;
-  line_4041_4061.switchOffSignal1 = false;
-  line_4041_4061.switchOffSignal2 = false;
-  line_4042_4043.switchOffSignal1 = false;
-  line_4042_4043.switchOffSignal2 = false;
-  line_4042_4044.switchOffSignal1 = false;
-  line_4042_4044.switchOffSignal2 = false;
-  line_4043_4044.switchOffSignal1 = false;
-  line_4043_4044.switchOffSignal2 = false;
-  line_4043_4046.switchOffSignal1 = false;
-  line_4043_4046.switchOffSignal2 = false;
-  line_4043_4047.switchOffSignal1 = false;
-  line_4043_4047.switchOffSignal2 = false;
-  line_4044_4045a.switchOffSignal1 = false;
-  line_4044_4045a.switchOffSignal2 = false;
-  line_4044_4045b.switchOffSignal1 = false;
-  line_4044_4045b.switchOffSignal2 = false;
-  line_4045_4051a.switchOffSignal1 = false;
-  line_4045_4051a.switchOffSignal2 = false;
-  line_4045_4051b.switchOffSignal1 = false;
-  line_4045_4051b.switchOffSignal2 = false;
-  line_4045_4062.switchOffSignal1 = false;
-  line_4045_4062.switchOffSignal2 = false;
-  line_4046_4047.switchOffSignal1 = false;
-  line_4046_4047.switchOffSignal2 = false;
-  line_4061_4062.switchOffSignal1 = false;
-  line_4061_4062.switchOffSignal2 = false;
-  line_4062_4063a.switchOffSignal1 = false;
-  line_4062_4063a.switchOffSignal2 = false;
-  line_4062_4063b.switchOffSignal1 = false;
-  line_4062_4063b.switchOffSignal2 = false;
-  line_4071_4072a.switchOffSignal1 = false;
-  line_4071_4072a.switchOffSignal2 = false;
-  line_4071_4072b.switchOffSignal1 = false;
-  line_4071_4072b.switchOffSignal2 = false;
+  line_1011_1013a.switchOffSignal1.value = false;
+  line_1011_1013a.switchOffSignal2.value = false;
+  line_1011_1013b.switchOffSignal1.value = false;
+  line_1011_1013b.switchOffSignal2.value = false;
+  line_1012_1014a.switchOffSignal1.value = false;
+  line_1012_1014a.switchOffSignal2.value = false;
+  line_1012_1014b.switchOffSignal1.value = false;
+  line_1012_1014b.switchOffSignal2.value = false;
+  line_1013_1014a.switchOffSignal1.value = false;
+  line_1013_1014a.switchOffSignal2.value = false;
+  line_1013_1014b.switchOffSignal1.value = false;
+  line_1013_1014b.switchOffSignal2.value = false;
+  line_1021_1022a.switchOffSignal1.value = false;
+  line_1021_1022a.switchOffSignal2.value = false;
+  line_1021_1022b.switchOffSignal1.value = false;
+  line_1021_1022b.switchOffSignal2.value = false;
+  line_1041_1043a.switchOffSignal1.value = false;
+  line_1041_1043a.switchOffSignal2.value = false;
+  line_1041_1043b.switchOffSignal1.value = false;
+  line_1041_1043b.switchOffSignal2.value = false;
+  line_1041_1045a.switchOffSignal1.value = false;
+  line_1041_1045a.switchOffSignal2.value = false;
+  line_1041_1045b.switchOffSignal1.value = false;
+  line_1041_1045b.switchOffSignal2.value = false;
+  line_1042_1044a.switchOffSignal1.value = false;
+  line_1042_1044a.switchOffSignal2.value = false;
+  line_1042_1044b.switchOffSignal1.value = false;
+  line_1042_1044b.switchOffSignal2.value = false;
+  line_1042_1045.switchOffSignal1.value = false;
+  line_1042_1045.switchOffSignal2.value = false;
+  line_1043_1044a.switchOffSignal1.value = false;
+  line_1043_1044a.switchOffSignal2.value = false;
+  line_1043_1044b.switchOffSignal1.value = false;
+  line_1043_1044b.switchOffSignal2.value = false;
+  line_2031_2032a.switchOffSignal1.value = false;
+  line_2031_2032a.switchOffSignal2.value = false;
+  line_2031_2032b.switchOffSignal1.value = false;
+  line_2031_2032b.switchOffSignal2.value = false;
+  line_4011_4012.switchOffSignal1.value = false;
+  line_4011_4012.switchOffSignal2.value = false;
+  line_4011_4021.switchOffSignal1.value = false;
+  line_4011_4021.switchOffSignal2.value = false;
+  line_4011_4022.switchOffSignal1.value = false;
+  line_4011_4022.switchOffSignal2.value = false;
+  line_4011_4071.switchOffSignal1.value = false;
+  line_4011_4071.switchOffSignal2.value = false;
+  line_4012_4022.switchOffSignal1.value = false;
+  line_4012_4022.switchOffSignal2.value = false;
+  line_4012_4071.switchOffSignal1.value = false;
+  line_4012_4071.switchOffSignal2.value = false;
+  line_4021_4032.switchOffSignal1.value = false;
+  line_4021_4032.switchOffSignal2.value = false;
+  line_4021_4042.switchOffSignal1.value = false;
+  line_4021_4042.switchOffSignal2.value = false;
+  line_4022_4031a.switchOffSignal1.value = false;
+  line_4022_4031a.switchOffSignal2.value = false;
+  line_4022_4031b.switchOffSignal1.value = false;
+  line_4022_4031b.switchOffSignal2.value = false;
+  line_4031_4032.switchOffSignal1.value = false;
+  line_4031_4032.switchOffSignal2.value = false;
+  line_4031_4041a.switchOffSignal1.value = false;
+  line_4031_4041a.switchOffSignal2.value = false;
+  line_4031_4041b.switchOffSignal1.value = false;
+  line_4031_4041b.switchOffSignal2.value = false;
+  line_4032_4042.switchOffSignal1.value = false;
+  line_4032_4042.switchOffSignal2.value = false;
+//line_4032_4044.switchOffSignal1.value = false; // to be disconnected to clear short circuit
+  line_4032_4044.switchOffSignal2.value = false;
+  line_4041_4044.switchOffSignal1.value = false;
+  line_4041_4044.switchOffSignal2.value = false;
+  line_4041_4061.switchOffSignal1.value = false;
+  line_4041_4061.switchOffSignal2.value = false;
+  line_4042_4043.switchOffSignal1.value = false;
+  line_4042_4043.switchOffSignal2.value = false;
+  line_4042_4044.switchOffSignal1.value = false;
+  line_4042_4044.switchOffSignal2.value = false;
+  line_4043_4044.switchOffSignal1.value = false;
+  line_4043_4044.switchOffSignal2.value = false;
+  line_4043_4046.switchOffSignal1.value = false;
+  line_4043_4046.switchOffSignal2.value = false;
+  line_4043_4047.switchOffSignal1.value = false;
+  line_4043_4047.switchOffSignal2.value = false;
+  line_4044_4045a.switchOffSignal1.value = false;
+  line_4044_4045a.switchOffSignal2.value = false;
+  line_4044_4045b.switchOffSignal1.value = false;
+  line_4044_4045b.switchOffSignal2.value = false;
+  line_4045_4051a.switchOffSignal1.value = false;
+  line_4045_4051a.switchOffSignal2.value = false;
+  line_4045_4051b.switchOffSignal1.value = false;
+  line_4045_4051b.switchOffSignal2.value = false;
+  line_4045_4062.switchOffSignal1.value = false;
+  line_4045_4062.switchOffSignal2.value = false;
+  line_4046_4047.switchOffSignal1.value = false;
+  line_4046_4047.switchOffSignal2.value = false;
+  line_4061_4062.switchOffSignal1.value = false;
+  line_4061_4062.switchOffSignal2.value = false;
+  line_4062_4063a.switchOffSignal1.value = false;
+  line_4062_4063a.switchOffSignal2.value = false;
+  line_4062_4063b.switchOffSignal1.value = false;
+  line_4062_4063b.switchOffSignal2.value = false;
+  line_4071_4072a.switchOffSignal1.value = false;
+  line_4071_4072a.switchOffSignal2.value = false;
+  line_4071_4072b.switchOffSignal1.value = false;
+  line_4071_4072b.switchOffSignal2.value = false;
 
   connect(line_1011_1013b.terminal2, bus_1013.terminal) annotation(
     Line(points = {{55, 125}, {73, 125}, {73, 130}, {80, 130}}, color = {0, 0, 255}));
