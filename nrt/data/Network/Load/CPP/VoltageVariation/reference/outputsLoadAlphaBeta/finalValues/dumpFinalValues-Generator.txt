@@ -14,19 +14,11 @@ generator_SGenPu_re                               : alias of generator_PGenPu
 generator_PGen                                    : y =       0.800000
 generator_UPu                                     : y =       1.005090
 generator_genState                                : y =       2.000000
-<<<<<<< HEAD
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 generator_running                                 : z =       1.000000
 generator_switchOffSignal1                        : z =      -1.000000
 generator_switchOffSignal2                        : z =      -1.000000
 generator_switchOffSignal3                        : z =      -1.000000
-=======
- ====== DISCRETE VARIABLES VALUES ======
-generator_running_value                           : z =       1.000000
-generator_switchOffSignal1_value                  : z =      -1.000000
-generator_switchOffSignal2_value                  : z =      -1.000000
-generator_switchOffSignal3_value                  : z =      -1.000000
->>>>>>> 332043daec6 (#2292 use OM 1.24.5)
 generator_converter_u                             : z =       2.000000
 generator_pStatus                                 : z =       1.000000
 generator_state                                   : z =       2.000000
