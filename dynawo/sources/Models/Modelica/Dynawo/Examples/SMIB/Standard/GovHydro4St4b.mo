@@ -142,15 +142,15 @@ initial algorithm
   load.u0Pu.im := load_INIT.u0Pu.im;
 
 equation
-  generatorSynchronous.switchOffSignal1.value = false;
-  generatorSynchronous.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal3.value = false;
-  load.switchOffSignal1.value = false;
-  load.switchOffSignal2.value = false;
+  generatorSynchronous.switchOffSignal1 = false;
+  generatorSynchronous.switchOffSignal2 = false;
+  generatorSynchronous.switchOffSignal3 = false;
+  load.switchOffSignal1 = false;
+  load.switchOffSignal2 = false;
   load.deltaP = 0;
   load.deltaQ = 0;
-  avr.running = generatorSynchronous.running.value;
 
+  connect(avr.running, generatorSynchronous.running);
   connect(generatorSynchronous.omegaPu, generatorSynchronous.omegaRefPu);
   connect(const.y, avr.UUelPu) annotation(
     Line(points = {{152, 80}, {110, 80}, {110, 54}, {118, 54}}, color = {0, 0, 127}, pattern = LinePattern.Dash));

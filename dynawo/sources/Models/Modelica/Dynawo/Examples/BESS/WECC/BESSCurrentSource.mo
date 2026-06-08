@@ -70,15 +70,19 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     P0Pu = -0.03,
-    PMaxPu = 1,
-    PMinPu = -0.667,
+    PMaxREECPu = 1,
+    PMaxREPCPu = 1,
+    PMinREECPu = -0.667,
+    PMinREPCPu = -0.667,
     PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = 0,
     QFlag = false,
-    QMaxPu = 0.75,
-    QMinPu = -0.75,
+    QMaxREECPu = 0.75,
+    QMaxREPCPu = 0.75,
+    QMinREECPu = -0.75,
+    QMinREPCPu = -0.75,
     RefFlag = false,
     RrpwrPu = 10,
     SNom = 6,
@@ -120,7 +124,8 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     tG = 0.017,
     tIq = 0.017,
     tLag = 0.1,
-    tP = 0.05,
+    tpREEC = 0.05,
+    tpREPC = 0.05,
     tPord = 0.017,
     tRv = 0.01,
     zerox = 0.05,
@@ -211,11 +216,11 @@ initial algorithm
   BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal1.value = false;
-  BESS.injector.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal1 = false;
+  BESS.injector.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal3 = false;
 
   connect(QRefPu.y, BESS.QRefPu) annotation(
     Line(points = {{80, 0}, {42, 0}}, color = {0, 0, 127}));

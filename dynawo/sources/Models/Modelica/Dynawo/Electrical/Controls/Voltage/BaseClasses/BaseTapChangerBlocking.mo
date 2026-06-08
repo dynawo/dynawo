@@ -28,8 +28,8 @@ partial model BaseTapChangerBlocking "Base model for Tap Changer Blocking (TCB)"
   parameter Types.Time tLagTransBlockedT "Time to wait before sending block event to high voltage transformers";
   parameter Types.Time tLagTransBlockedD "Time to wait before sending block event to low voltage transformers";
 
-  Dynawo.Connectors.BPin blockOrder(value(start = blocked0)) "TCB manual block order";
-  Dynawo.Connectors.BPin unblockOrder(value(start = blocked0)) "TCB manual unblock order";
+  Modelica.Blocks.Interfaces.BooleanInput blockOrder(start = blocked0) "TCB manual block order";
+  Modelica.Blocks.Interfaces.BooleanInput unblockOrder(start = blocked0) "TCB manual unblock order";
   Boolean blockedT(start = blocked0) "High voltage transformers blocked ?";
   Boolean blockedD(start = blocked0) "Low voltage transformers blocked ?";
 
@@ -53,11 +53,11 @@ equation
     state = State.Standard;
     tLocked = Constants.inf;
     Timeline.logEvent1(TimelineKeys.TapChangersUnarming);
-  elsewhen (((time - tUnderUmin >= tLagBeforeBlocked) or (blockOrder.value and not(pre(blockOrder.value)))) and pre(state) == State.Armed) or (blockOrder.value and not(pre(blockOrder.value)) and pre(state) == State.Standard) then
+  elsewhen (((time - tUnderUmin >= tLagBeforeBlocked) or (blockOrder and not(pre(blockOrder)))) and pre(state) == State.Armed) or (blockOrder and not(pre(blockOrder)) and pre(state) == State.Standard) then
     state = State.Locked;
     tLocked = time;
     Timeline.logEvent1(TimelineKeys.TapChangersBlocked);
-  elsewhen unblockOrder.value and not(pre(unblockOrder.value)) and not(UUnderMin) and pre(state) == State.Locked then
+  elsewhen unblockOrder and not(pre(unblockOrder)) and not(UUnderMin) and pre(state) == State.Locked then
     state = State.Standard;
     tLocked = Constants.inf;
     Timeline.logEvent1(TimelineKeys.TapChangersUnblocked);

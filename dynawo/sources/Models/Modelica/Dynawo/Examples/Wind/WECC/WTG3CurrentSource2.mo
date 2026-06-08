@@ -75,15 +75,19 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     OmegaMinPu = 0.5,
     P0Pu = -0.7,
     PFlag = false,
-    PMaxPu = 1,
-    PMinPu = 0,
+    PMaxREECPu = 1,
+    PMaxREPCPu = 1,
+    PMinREECPu = 0,
+    PMinREPCPu = 0,
     PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
     QFlag = true,
-    QMaxPu = 0.4,
-    QMinPu = -0.4,
+    QMaxREECPu = 0.4,
+    QMaxREPCPu = 0.4,
+    QMinREECPu = -0.4,
+    QMinREPCPu = -0.4,
     RefFlag = true,
     RrpwrPu = 10,
     SNom = 100,
@@ -122,7 +126,9 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     tHoldIq = 0,
     tIq = 0.01,
     tLag = 0.1,
-    tP = 0.05,
+    tpWTGQa = 0.05,
+    tpREEC = 0.05,
+    tpREPC = 0.05,
     tPord = 0.01,
     tRv = 0.01,
     Kip = 10,
@@ -258,11 +264,11 @@ initial algorithm
   WTG3.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  WTG3.injector.switchOffSignal1.value = false;
-  WTG3.injector.switchOffSignal2.value = false;
-  WTG3.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  WTG3.injector.switchOffSignal1 = false;
+  WTG3.injector.switchOffSignal2 = false;
+  WTG3.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, WTG3.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));

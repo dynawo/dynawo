@@ -45,7 +45,7 @@ equation
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
 
-  if (running.value) then
+  if running then
     QPu = - BPu * UPu ^ 2;
     PPu = 0;
   else

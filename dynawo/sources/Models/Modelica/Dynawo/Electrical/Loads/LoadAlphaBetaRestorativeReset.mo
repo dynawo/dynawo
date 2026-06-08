@@ -30,7 +30,7 @@ model LoadAlphaBetaRestorativeReset "Load with voltage-dependent active and reac
   Types.PerUnit KqMlt(start = 1) "Reactive power load reset variable multiplier";
 
 equation
-  if running.value then
+  if running then
     if KpMlt > KpMltMax and Kp * (PRefPu - PPu) / PRefPu > 0 then
       der(KpMlt) = 0;
     elseif KpMlt < KpMltMin and Kp * (PRefPu - PPu) / PRefPu < 0 then

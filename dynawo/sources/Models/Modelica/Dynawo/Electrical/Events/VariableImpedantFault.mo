@@ -42,7 +42,7 @@ model VariableImpedantFault "Variable impedant fault with R and X of the fault g
 equation
   ZvPu = Complex(ZvTimeTable.y[1], ZvTimeTable.y[2]);
 
-  if (running.value) then
+  if running then
     ZvPu * terminal.i = terminal.V;
   else
     terminal.i = Complex(0);

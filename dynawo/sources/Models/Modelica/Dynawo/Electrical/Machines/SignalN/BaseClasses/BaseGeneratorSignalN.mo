@@ -17,7 +17,7 @@ partial model BaseGeneratorSignalN "Base dynamic model for generators based on S
   extends BaseClasses.BaseGenerator;
 
 equation
-  if running.value then
+  if running then
     PGenRawPu = - PRefPu + Alpha * N;
   else
     PGenRawPu = 0;

@@ -23,8 +23,7 @@
 namespace DYN {
 ModelUpdatable::ModelUpdatable(const std::string& modelType):
   ModelCPP(modelType),
-  inputValue_(0.),
-  updated_(false) {
+  inputValue_(0.) {
     setIsUpdatable(true);}
 
 void
@@ -42,6 +41,10 @@ ModelUpdatable::collectSilentZ(BitMask* /*silentZTable*/) { /* not needed for DY
 void
 ModelUpdatable::evalCalculatedVars() { /* not needed for DYNModelUpdatable */}
 
+double
+ModelUpdatable::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
+}
 void
 ModelUpdatable::evalJt(double /*t*/, double /*cj*/, int /*rowOffset*/, SparseMatrix& /*jt*/) { /* not needed for DYNModelUpdatable */}
 
@@ -83,5 +86,42 @@ ModelUpdatable::setFequations() { /* not needed for DYNModelUpdatable */}
 
 void
 ModelUpdatable::initParams() { /* not needed for DYNModelUpdatable */}
+
+void
+ModelUpdatable::evalG(const double /*t*/) {
+  // Supposing the updatable value is set before the next time step t: a single
+  // ROOT_UP is raised at time t, which should be OK both for solver SIM and IDA
+  // in the case of a single event (for IDA, time will go back until t+eps
+  // without raising ROOT_UP again, which makes the event occur at time t).
+  // Further evaluation is needed for multiple events with IDA, as only the
+  // first time step after an event has ROOT_UP, and multiple evaluations of a
+  // single time step will not raise ROOT_UP again.
+
+  gLocal_[0] = (updated_) ? ROOT_UP : ROOT_DOWN;
+  updated_ = false;
+}
+
+void
+ModelUpdatable::setGequations() {
+  gEquationIndex_[0] = std::string("parameter update");
+}
+
+modeChangeType_t
+ModelUpdatable::evalMode(const double /*t*/) {
+  // Mode change should be handled by the connected variable
+  return NO_MODE;
+}
+
+void
+ModelUpdatable::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
+  ModelCPP::dumpInStream(streamVariables, inputValue_);
+}
+
+void
+ModelUpdatable::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
+  char c;
+  streamVariables >> c;
+  streamVariables >> inputValue_;
+}
 
 }  // namespace DYN

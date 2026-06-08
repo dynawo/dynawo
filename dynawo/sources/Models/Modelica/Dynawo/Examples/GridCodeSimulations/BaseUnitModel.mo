@@ -75,8 +75,10 @@ model BaseUnitModel
     PF0(fixed = false),
     PFlag = false,
     PInj0Pu(fixed = false),
-    PMaxPu = 1.05,
-    PMinPu = 0,
+    PMaxREECPu = 1.05,
+    PMaxREPCPu = 1.05,
+    PMinREECPu = 0,
+    PMinREPCPu = 0,
     PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
@@ -85,8 +87,10 @@ model BaseUnitModel
     QConv0Pu(fixed = false),
     QFlag = false,
     QInj0Pu(fixed = false),
-    QMaxPu = 0.63583815,
-    QMinPu = -0.63583815,
+    QMaxREECPu = 0.63583815,
+    QMaxREPCPu = 0.63583815,
+    QMinREECPu = -0.63583815,
+    QMinREPCPu = -0.63583815,
     RLvTrPu = 0,
     RMvHvPu = 0,
     RefFlag = true,
@@ -136,7 +140,9 @@ model BaseUnitModel
     tIq = 1.05,
     tLag = 0.15,
     tOmegaRef = 10,
-    tP = 0.05,
+    tpWTGQa = 0.05,
+    tpREEC = 0.05,
+    tpREPC = 0.05,
     tPord = 0.01,
     tRv = 0.02,
     tTheta = 0.18,
@@ -237,9 +243,9 @@ initial algorithm
   Unit.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
-  Unit.injector.switchOffSignal1.value = false;
-  Unit.injector.switchOffSignal2.value = false;
-  Unit.injector.switchOffSignal3.value = false;
+  Unit.injector.switchOffSignal1 = false;
+  Unit.injector.switchOffSignal2 = false;
+  Unit.injector.switchOffSignal3 = false;
 
   connect(QRefPu.y, Unit.QRefPu) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

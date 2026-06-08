@@ -18,7 +18,7 @@ model GeneratorPVTfoDiagramPQ "Model for generator PV based on SignalN for the f
   extends BaseClasses.BaseQStator(QStatorPu(start = QStator0Pu));
 
   // blocks
-  Modelica.Blocks.Sources.BooleanExpression blocking(y = (qStatus == QStatus.AbsorptionMax or qStatus == QStatus.GenerationMax or running.value == false)) "Expression determining if reactive power limits have been reached or if the generator is disconnected" annotation(
+  Modelica.Blocks.Sources.BooleanExpression blocking(y = (qStatus == QStatus.AbsorptionMax or qStatus == QStatus.GenerationMax or running == false)) "Expression determining if reactive power limits have been reached or if the generator is disconnected" annotation(
     Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanOutput blocker(start =  (qStatus0 == QStatus.AbsorptionMax or qStatus0 == QStatus.GenerationMax or Running0 == false)) "If true, reactive power limits have been reached or the generator is disconnected" annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -47,7 +47,7 @@ equation
     limUQUp = false;
   end when;
 
-  if running.value then
+  if running then
     if qStatus == QStatus.GenerationMax then
       QGenPu = QMaxPu;
     elseif qStatus == QStatus.AbsorptionMax then

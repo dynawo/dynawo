@@ -27,7 +27,7 @@ model HvdcPTanPhiDanglingDiagramPQ "Model for P/tan(Phi) HVDC link with a PQ dia
 equation
   QInj1RawPu = tanPhi1Ref * PInj1Pu;
 
-  if runningSide1.value then
+  if runningSide1 then
     if QInj1RawPu >= QInj1MaxPu then
      QInj1Pu = QInj1MaxPu;
     elseif QInj1RawPu <= QInj1MinPu then

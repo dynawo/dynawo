@@ -88,7 +88,8 @@ Clock::wait(double simulationTime) {
     while (running_ && !SignalHandler::gotExitSignal()) {
       std::unique_lock<std::mutex> lock(mutex_);
       triggerCond_.wait_for(lock, std::chrono::milliseconds(100), [this]() { return triggeredStepCnt_ > 0 || !running_; });
-      if (triggeredStepCnt_-- > 0) {
+      if (triggeredStepCnt_ > 0) {
+        --triggeredStepCnt_;
         return;
       }
     }

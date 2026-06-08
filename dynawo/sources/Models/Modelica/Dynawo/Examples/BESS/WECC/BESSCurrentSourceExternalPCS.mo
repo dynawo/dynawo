@@ -70,8 +70,10 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-A with a plan
     UPhaseConv0(fixed = false),
     PF0(fixed = false),
     PInj0Pu(fixed = false),
-    PMaxPu = 1,
-    PMinPu = -0.667,
+    PMaxREECPu = 1,
+    PMaxREPCPu = 1,
+    PMinREECPu = -0.667,
+    PMinREPCPu = -0.667,
     PPCLocal = false,
     PPcc0Pu = -0.7,
     PQFlag = false,
@@ -80,8 +82,10 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-A with a plan
     QConv0Pu(fixed = false),
     QFlag = false,
     QInj0Pu(fixed = false),
-    QMaxPu = 0.75,
-    QMinPu = -0.75,
+    QMaxREECPu = 0.75,
+    QMaxREPCPu = 0.75,
+    QMinREECPu = -0.75,
+    QMinREPCPu = -0.75,
     QPcc0Pu = -0.2,
     RLvTrPu = 0.015,
     RMvHvPu = 0,
@@ -133,7 +137,8 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-A with a plan
     tG = 0.017,
     tIq = 0.017,
     tLag = 0.1,
-    tP = 0.05,
+    tpREEC = 0.04,
+    tpREPC = 0.04,
     tPord = 0.017,
     tRv = 0.01,
     u0Pu(im(fixed = false), re(fixed = false)),
@@ -226,13 +231,13 @@ initial algorithm
   BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
 
 equation
-  ZPcs.switchOffSignal1.value = false;
-  ZPcs.switchOffSignal2.value = false;
-  Zcc.switchOffSignal1.value = false;
-  Zcc.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal1.value = false;
-  BESS.injector.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal3.value = false;
+  ZPcs.switchOffSignal1 = false;
+  ZPcs.switchOffSignal2 = false;
+  Zcc.switchOffSignal1 = false;
+  Zcc.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal1 = false;
+  BESS.injector.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal3 = false;
 
   connect(omegaRefPu.y, BESS.omegaRefPu) annotation(
     Line(points = {{80, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

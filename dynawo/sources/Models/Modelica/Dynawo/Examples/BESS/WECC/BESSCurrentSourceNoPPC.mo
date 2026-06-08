@@ -62,15 +62,15 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     UPhaseConv0(fixed = false),
     PF0(fixed = false),
     PInj0Pu(fixed = false),
-    PMaxPu = 1,
-    PMinPu = 0,
+    PMaxREECPu = 1,
+    PMinREECPu = 0,
     PQFlag = false,
     PfFlag = false,
     QConv0Pu(fixed = false),
     QFlag = true,
     QInj0Pu(fixed = false),
-    QMaxPu = 0.4,
-    QMinPu = -0.4,
+    QMaxREECPu = 0.4,
+    QMinREECPu = -0.4,
     RLvTrPu = 0.015,
     RrpwrPu = 10,
     SNom = 100,
@@ -110,7 +110,7 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     tFilterGC = 0.02,
     tG = 0.02,
     tIq = 0.01,
-    tP = 0.05,
+    tpREEC = 0.05,
     tPord = 0.01,
     tRv = 0.01,
     u0Pu = Complex(1, 0),
@@ -167,11 +167,12 @@ initial algorithm
   BESS.UPhaseConv0 := wt4CurrentSource_INIT.UPhaseConv0;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal1.value = false;
-  BESS.injector.switchOffSignal2.value = false;
-  BESS.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal1 = false;
+  BESS.injector.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal3 = false;
+
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-80, 0}}, color = {0, 0, 255}));
   connect(BESS.terminal, line.terminal2) annotation(

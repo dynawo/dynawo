@@ -23,7 +23,7 @@ partial model BaseGeneratorSignalNSFR "Base dynamic model for generators based o
   input Types.PerUnit NSFR "Signal to change the active power reference setpoint of the generators participating in the secondary frequency regulation in pu (base SnRef)";
 
 equation
-  if running.value then
+  if running then
     PGenRawPu = - PRefPu + Alpha * N + AlphaSFR * NSFR;
   else
     PGenRawPu = 0;

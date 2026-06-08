@@ -105,8 +105,10 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     PF0(fixed = false),
     PFlag = true,
     PInj0Pu(fixed = false),
-    PMaxPu = 1,
-    PMinPu = 0,
+    PMaxREECPu = 1,
+    PMaxREPCPu = 1,
+    PMinREECPu = 0,
+    PMinREPCPu = 0,
     PPCLocal = false,
     PPcc0Pu = -0.7,
     PQFlag = false,
@@ -115,8 +117,10 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     QConv0Pu(fixed = false),
     QFlag = true,
     QInj0Pu(fixed = false),
-    QMaxPu = 0.5,
-    QMinPu = -0.5,
+    QMaxREECPu = 0.5,
+    QMaxREPCPu = 0.5,
+    QMinREECPu = -0.5,
+    QMinREPCPu = -0.5,
     QPcc0Pu = -0.2,
     RLvTrPu = 0.015,
     RMvHvPu = 0,
@@ -168,7 +172,8 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     tHoldIq = 0,
     tIq = 0.01,
     tLag = 0.1,
-    tP = 0.05,
+    tpREEC = 0.05,
+    tpREPC = 0.05,
     tPord = 0.01,
     tRv = 0.01,
     u0Pu(im(fixed = false), re(fixed = false)),
@@ -229,13 +234,13 @@ initial algorithm
   WTG4B.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
 
 equation
-  ZPcs.switchOffSignal1.value = false;
-  ZPcs.switchOffSignal2.value = false;
-  Zcc.switchOffSignal1.value = false;
-  Zcc.switchOffSignal2.value = false;
-  WTG4B.injector.switchOffSignal1.value = false;
-  WTG4B.injector.switchOffSignal2.value = false;
-  WTG4B.injector.switchOffSignal3.value = false;
+  ZPcs.switchOffSignal1 = false;
+  ZPcs.switchOffSignal2 = false;
+  Zcc.switchOffSignal1 = false;
+  Zcc.switchOffSignal2 = false;
+  WTG4B.injector.switchOffSignal1 = false;
+  WTG4B.injector.switchOffSignal2 = false;
+  WTG4B.injector.switchOffSignal3 = false;
 
   connect(infiniteBus.terminal, Zcc.terminal1) annotation(
     Line(points = {{-180, 0}, {-160, 0}}, color = {0, 0, 255}));

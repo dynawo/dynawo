@@ -106,7 +106,7 @@ UdcSourcePu (Cdc)     |  DC/AC   |  uConvPu         uFilterPu (CFilter)         
   parameter Types.VoltageModulePu U0Pu "Start value of voltage module at terminal in pu (base UNom)";
 
 equation
-  if running.value then
+  if running then
     /* DQ reference frame change from network reference to converter reference and pu base change */
     [udPccPu; uqPccPu] = [cos(theta), sin(theta); -sin(theta), cos(theta)] * [terminal.V.re; terminal.V.im];
     [idPccPu; iqPccPu] = - [cos(theta), sin(theta); -sin(theta), cos(theta)] * [terminal.i.re; terminal.i.im] * SystemBase.SnRef / SNom;

@@ -35,8 +35,8 @@ model DERa "Aggregated model of inverter-based generation (IBG) as defined by EP
 equation
   der(partialTrippingRatio) * 1e-3 = (FRT.connectedShare * lvrt.connectedShare * ovrt.connectedShare) - partialTrippingRatio;
 
-  when (FRT.connectedShare <= 0.001 or lvrt.Ul0Reached or ovrt.Uh0Reached) and not pre(injector.switchOffSignal3.value) then
-    injector.switchOffSignal3.value = true;
+  when (FRT.connectedShare <= 0.001 or lvrt.Ul0Reached or ovrt.Uh0Reached) and not pre(injector.switchOffSignal3) then
+    injector.switchOffSignal3 = true;
   end when;
 
   connect(UFilter.y, lvrt.UMonitoredPu) annotation(

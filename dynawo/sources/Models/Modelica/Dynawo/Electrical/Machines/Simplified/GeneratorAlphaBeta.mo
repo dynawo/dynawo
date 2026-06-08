@@ -21,7 +21,7 @@ model GeneratorAlphaBeta "Generator with voltage-dependent active and reactive p
   parameter Real Beta "Exponential reactive power sensitivity to voltage";
 
 equation
-  if running.value then
+  if running then
     PGenPu = PGen0Pu * (UPu / U0Pu) ^ Alpha;
     QGenPu = QGen0Pu * (UPu / U0Pu) ^ Beta;
   else

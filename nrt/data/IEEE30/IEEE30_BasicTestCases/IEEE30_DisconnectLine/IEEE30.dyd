@@ -176,39 +176,39 @@
   <dyn:connect id1="B26-L1" var1="load_terminal" id2="NETWORK" var2="B26_ACPIN"/>
   <dyn:connect id1="B29-L1" var1="load_terminal" id2="NETWORK" var2="B29_ACPIN"/>
   <dyn:connect id1="B30-L1" var1="load_terminal" id2="NETWORK" var2="B30_ACPIN"/>
-  <dyn:connect id1="B2-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B2_switchOff"/>
-  <dyn:connect id1="B3-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B3_switchOff"/>
-  <dyn:connect id1="B4-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B4_switchOff"/>
-  <dyn:connect id1="B12-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B12_switchOff"/>
-  <dyn:connect id1="B10-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B10_switchOff"/>
-  <dyn:connect id1="B7-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B7_switchOff"/>
-  <dyn:connect id1="B8-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B8_switchOff"/>
-  <dyn:connect id1="B5-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B5_switchOff"/>
-  <dyn:connect id1="B14-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B14_switchOff"/>
-  <dyn:connect id1="B15-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B15_switchOff"/>
-  <dyn:connect id1="B16-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B16_switchOff"/>
-  <dyn:connect id1="B17-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B17_switchOff"/>
-  <dyn:connect id1="B18-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B18_switchOff"/>
-  <dyn:connect id1="B19-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B19_switchOff"/>
-  <dyn:connect id1="B20-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B20_switchOff"/>
-  <dyn:connect id1="B21-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B21_switchOff"/>
-  <dyn:connect id1="B23-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B23_switchOff"/>
-  <dyn:connect id1="B24-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B24_switchOff"/>
-  <dyn:connect id1="B26-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B26_switchOff"/>
-  <dyn:connect id1="B29-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B29_switchOff"/>
-  <dyn:connect id1="B30-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B30_switchOff"/>
+  <dyn:connect id1="B2-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B2_switchOff_value"/>
+  <dyn:connect id1="B3-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B3_switchOff_value"/>
+  <dyn:connect id1="B4-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B4_switchOff_value"/>
+  <dyn:connect id1="B12-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B12_switchOff_value"/>
+  <dyn:connect id1="B10-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B10_switchOff_value"/>
+  <dyn:connect id1="B7-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B7_switchOff_value"/>
+  <dyn:connect id1="B8-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B8_switchOff_value"/>
+  <dyn:connect id1="B5-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B5_switchOff_value"/>
+  <dyn:connect id1="B14-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B14_switchOff_value"/>
+  <dyn:connect id1="B15-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B15_switchOff_value"/>
+  <dyn:connect id1="B16-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B16_switchOff_value"/>
+  <dyn:connect id1="B17-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B17_switchOff_value"/>
+  <dyn:connect id1="B18-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B18_switchOff_value"/>
+  <dyn:connect id1="B19-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B19_switchOff_value"/>
+  <dyn:connect id1="B20-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B20_switchOff_value"/>
+  <dyn:connect id1="B21-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B21_switchOff_value"/>
+  <dyn:connect id1="B23-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B23_switchOff_value"/>
+  <dyn:connect id1="B24-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B24_switchOff_value"/>
+  <dyn:connect id1="B26-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B26_switchOff_value"/>
+  <dyn:connect id1="B29-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B29_switchOff_value"/>
+  <dyn:connect id1="B30-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B30_switchOff_value"/>
   <dyn:connect id1="B1-G1" var1="generator_terminal" id2="NETWORK" var2="B1_ACPIN"/>
-  <dyn:connect id1="B1-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B1_switchOff"/>
+  <dyn:connect id1="B1-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B1_switchOff_value"/>
   <dyn:connect id1="B2-G1" var1="generator_terminal" id2="NETWORK" var2="B2_ACPIN"/>
-  <dyn:connect id1="B2-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B2_switchOff"/>
+  <dyn:connect id1="B2-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B2_switchOff_value"/>
   <dyn:connect id1="B5-G1" var1="generator_terminal" id2="NETWORK" var2="B5_ACPIN"/>
-  <dyn:connect id1="B5-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B5_switchOff"/>
+  <dyn:connect id1="B5-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B5_switchOff_value"/>
   <dyn:connect id1="B8-G1" var1="generator_terminal" id2="NETWORK" var2="B8_ACPIN"/>
-  <dyn:connect id1="B8-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B8_switchOff"/>
+  <dyn:connect id1="B8-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B8_switchOff_value"/>
   <dyn:connect id1="B11-G1" var1="generator_terminal" id2="NETWORK" var2="B11_ACPIN"/>
-  <dyn:connect id1="B11-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B11_switchOff"/>
+  <dyn:connect id1="B11-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B11_switchOff_value"/>
   <dyn:connect id1="B13-G1" var1="generator_terminal" id2="NETWORK" var2="B13_ACPIN"/>
-  <dyn:connect id1="B13-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B13_switchOff"/>
+  <dyn:connect id1="B13-G1" var1="generator_switchOffSignal1" id2="NETWORK" var2="B13_switchOff_value"/>
   <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="B1_phi_value"/>
   <dyn:connect id1="DISCONNECT_LINE" var1="event_state1_value" id2="NETWORK" var2="L-2-5-1_state_value"/>
 </dyn:dynamicModelsArchitecture>

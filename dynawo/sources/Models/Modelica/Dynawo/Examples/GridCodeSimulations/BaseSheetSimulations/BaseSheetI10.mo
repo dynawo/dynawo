@@ -35,13 +35,13 @@ equation
   der(loadAlphaBeta.deltaP) = 0;
 
   // Switches
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  inertialGrid1.injectorURI.switchOffSignal1.value = false;
-  inertialGrid1.injectorURI.switchOffSignal2.value = false;
-  inertialGrid1.injectorURI.switchOffSignal3.value = false;
-  loadAlphaBeta.switchOffSignal1.value = false;
-  loadAlphaBeta.switchOffSignal2.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  inertialGrid1.injectorURI.switchOffSignal1 = false;
+  inertialGrid1.injectorURI.switchOffSignal2 = false;
+  inertialGrid1.injectorURI.switchOffSignal3 = false;
+  loadAlphaBeta.switchOffSignal1 = false;
+  loadAlphaBeta.switchOffSignal2 = false;
 
   connect(loadAlphaBeta.terminal, bus.terminal) annotation(
     Line(points = {{-80, -60}, {-80, 0}}, color = {0, 0, 255}));

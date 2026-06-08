@@ -1063,7 +1063,8 @@ DataInterfaceIIDM::findLostEquipments(const std::shared_ptr<vector<std::shared_p
             alreadyLost3wt.insert(fict2wtIDto3wtID_[componentID]);
           }
         } else {
-          lostEquipments->addLostEquipment(componentID, component->getTypeAsString());
+          const std::string& typeStr = dynamic_pointer_cast<BatteryInterfaceIIDM>(component) ? "BATTERY" : component->getTypeAsString();
+          lostEquipments->addLostEquipment(componentID, typeStr);
         }
       }
     }

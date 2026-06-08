@@ -23,9 +23,7 @@
 
 #include "DYNModelCPP.h"
 #include "DYNModelUpdatable.h"
-#include "DYNModelConstants.h"
 #include "DYNSubModelFactory.h"
-#include "PARParametersSet.h"
 
 namespace DYN {
 class DataInterface;
@@ -68,8 +66,7 @@ class ModelUpdatableInteger : public ModelUpdatable {
    *
    */
   typedef enum {
-    inputValueIdx_ = 0,
-    nbCalculatedVars_ = 1
+    nbCalculatedVars_ = 0
   } CalculatedVars_t;
 
   /**
@@ -83,21 +80,9 @@ class ModelUpdatableInteger : public ModelUpdatable {
    */
   void getSize() override;
   /**
-   * @copydoc ModelCPP::evalG()
-   */
-  void evalG(const double t) override;
-  /**
-   * @copydoc ModelCPP::evalMode()
-   */
-  modeChangeType_t evalMode(const double t) override;
-  /**
-   * @copydoc ModelCPP::evalCalculatedVars()
-   */
-  void evalCalculatedVars() override;
-  /**
-   * @copydoc ModelCPP::evalCalculatedVarI()
-   */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  * @copydoc SubModel::evalZ(double t)
+  */
+  void evalZ(double t) override;
   /**
    * @copydoc ModelCPP::setSubModelParameters()
    */
@@ -124,18 +109,6 @@ class ModelUpdatableInteger : public ModelUpdatable {
    * @copydoc ModelCPP::getCheckSum()
    */
   std::string getCheckSum() const override;
-   /**
-   * @copydoc ModelCPP::setGequations()
-   */
-  void setGequations() override;
-  /**
-   * @copydoc ModelCPP::dumpInternalVariables()
-   */
-  void dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const override;
-  /**
-   * @copydoc ModelCPP::loadInternalVariables()
-   */
-  void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
   /**
    * @copydoc SubModel::dumpUserReadableElementList()
    */

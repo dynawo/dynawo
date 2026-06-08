@@ -140,6 +140,5 @@ WT4AWeccCurrentSource
 WT4BWeccCurrentSource
 WTG3WeccCurrentSource1
 WTG3WeccCurrentSource2
-WTG4AWeccCurrentSource1
-WTG4AWeccCurrentSource2
+WTG4AWeccCurrentSource
 WTG4BWeccCurrentSource

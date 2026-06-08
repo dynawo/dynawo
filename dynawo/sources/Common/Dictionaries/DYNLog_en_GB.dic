@@ -299,3 +299,4 @@ OutputStreamMissing           =             output channel '%1%' not used by a s
 UnknownChannelType            =             unknown channel type: %1%
 StreamDataNotManaged          =             stream data unknown or not managed: %1%
 RTModeCurvesDisabled          =             real time mode: disabling all curves recording (jobs-with-curves won't work!)
+UpdatableIgnoredMultiplier    =             updatable %1 received input_value and input_multiplier at the same time, input_multiplier ignored

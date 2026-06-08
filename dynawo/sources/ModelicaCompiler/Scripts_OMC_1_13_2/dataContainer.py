@@ -1206,7 +1206,7 @@ class RawOmcFunctions:
     # @param line_with_call: line to analyze
     # @return outputs variable list
     def find_outputs_from_call(self, line_with_call):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+r'[ ]*\((?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
         outputs = []
         if match is not None:
@@ -1226,7 +1226,7 @@ class RawOmcFunctions:
     # @param line_with_call: line to analyze
     # @return inputs variable list
     def find_inputs_from_call(self, line_with_call):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+r'[ ]*\((?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
         inputs = []
         if match is not None:

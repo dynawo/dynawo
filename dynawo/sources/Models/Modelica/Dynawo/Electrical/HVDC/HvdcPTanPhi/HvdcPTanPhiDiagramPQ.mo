@@ -28,7 +28,7 @@ equation
   QInj1RawPu = tanPhi1Ref * PInj1Pu;
   QInj2RawPu = tanPhi2Ref * PInj2Pu;
 
-  if running.value then
+  if running then
     if QInj1RawPu >= QInj1MaxPu then
      QInj1Pu = QInj1MaxPu;
     elseif QInj1RawPu <= QInj1MinPu then

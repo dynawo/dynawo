@@ -59,13 +59,13 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     PFlag = true,
-    PMaxPu = 1,
-    PMinPu = 0,
+    PMaxREECPu = 1,
+    PMinREECPu = 0,
     PQFlag = false,
     PfFlag = false,
     QFlag = true,
-    QMaxPu = 0.4,
-    QMinPu = -0.4,
+    QMaxREECPu = 0.4,
+    QMinREECPu = -0.4,
     RLvTrPu = 0,
     RrpwrPu = 10,
     SNom = 100,
@@ -101,7 +101,8 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     tHoldIpMax = 0,
     tHoldIq = 0.1,
     tIq = 0.01,
-    tP = 0.05,
+    tpWTGTb = 0.5,
+    tpREEC = 0.05,
     tPord = 0.01,
     tRv = 0.01,
     u0Pu = Complex(1, 0),
@@ -166,11 +167,11 @@ initial algorithm
   WT4A.UPhaseConv0 := wt4CurrentSource_INIT.UPhaseConv0;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  WT4A.injector.switchOffSignal1.value = false;
-  WT4A.injector.switchOffSignal2.value = false;
-  WT4A.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  WT4A.injector.switchOffSignal1 = false;
+  WT4A.injector.switchOffSignal2 = false;
+  WT4A.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, WT4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

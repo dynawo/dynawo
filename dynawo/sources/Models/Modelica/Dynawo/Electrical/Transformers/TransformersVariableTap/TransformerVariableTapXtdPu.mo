@@ -44,7 +44,7 @@ protected
 equation
   ZPu = Complex(R, X) / 100 * rTfoPu ^ 2 * SystemBase.SnRef / SNom;
 
-  if running.value then
+  if running then
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
     ZPu * terminal1.i = rTfoPu * rTfoPu * terminal1.V - rTfoPu * terminal2.V;
   else

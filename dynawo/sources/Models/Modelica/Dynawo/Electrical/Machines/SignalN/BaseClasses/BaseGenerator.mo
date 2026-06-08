@@ -69,7 +69,7 @@ equation
     Timeline.logEvent1(TimelineKeys.GeneratorBackRegulation);
   end when;
 
-  if running.value then
+  if running then
     PGenPu = if PGenRawPu >= PMaxPu then PMaxPu elseif PGenRawPu <= PMinPu then PMinPu else PGenRawPu;
   else
     terminal.i.re = 0;

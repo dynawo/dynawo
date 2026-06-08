@@ -14,7 +14,6 @@ set(MODEL_FILES
   package.mo
   package.order
   ACPower.mo
-  BPin.mo
   ImPin.mo
   IntPin.mo
   ZPin.mo

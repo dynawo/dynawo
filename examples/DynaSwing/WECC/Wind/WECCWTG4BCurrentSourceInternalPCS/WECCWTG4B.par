@@ -47,6 +47,10 @@
     <par type="DOUBLE" name="WTG4B_UPcc0Pu" value="1.0"/>
     <par type="DOUBLE" name="WTG4B_UPhasePcc0" value="0.03533563863002929"/>
     <!-- Electrical Control -->
+    <par type="DOUBLE" name="WTG4B_PMaxREECPu" value="0.9"/>
+    <par type="DOUBLE" name="WTG4B_PMinREECPu" value="0"/>
+    <par type="DOUBLE" name="WTG4B_QMaxREECPu" value="0.4"/>
+    <par type="DOUBLE" name="WTG4B_QMinREECPu" value="-0.4"/>
     <par type="BOOL" name="WTG4B_QFlag" value="false"/>
     <par type="BOOL" name="WTG4B_VFlag" value="true"/>
     <par type="BOOL" name="WTG4B_PfFlag" value="false"/>
@@ -111,11 +115,12 @@
     <par type="DOUBLE" name="WTG4B_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="WTG4B_OmegaMinPu" value="0.5"/>
     <!-- Plant Control -->
-    <par type="DOUBLE" name="WTG4B_QMaxPu" value="0.4"/>
-    <par type="DOUBLE" name="WTG4B_QMinPu" value="-0.4"/>
-    <par type="DOUBLE" name="WTG4B_PMaxPu" value="0.9"/>
-    <par type="DOUBLE" name="WTG4B_PMinPu" value="0"/>
-    <par type="DOUBLE" name="WTG4B_tP" value="0.03"/>
+    <par type="DOUBLE" name="WTG4B_QMaxREPCPu" value="0.4"/>
+    <par type="DOUBLE" name="WTG4B_QMinREPCPu" value="-0.4"/>
+    <par type="DOUBLE" name="WTG4B_PMaxREPCPu" value="0.9"/>
+    <par type="DOUBLE" name="WTG4B_PMinREPCPu" value="0"/>
+    <par type="DOUBLE" name="WTG4B_tpREPC" value="0.03"/>
+    <par type="DOUBLE" name="WTG4B_tpREEC" value="0.03"/>
     <par type="BOOL" name="WTG4B_RefFlag" value="true"/>
     <par type="BOOL" name="WTG4B_VCompFlag" value="false"/>
     <par type="BOOL" name="WTG4B_FreqFlag" value="true"/>

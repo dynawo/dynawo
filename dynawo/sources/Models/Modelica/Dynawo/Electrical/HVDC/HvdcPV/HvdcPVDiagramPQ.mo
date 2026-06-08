@@ -27,9 +27,9 @@ model HvdcPVDiagramPQ "Model of PV HVDC link with a PQ diagram. Each terminal ca
 */
 
 // blocks
-  Modelica.Blocks.Sources.BooleanExpression blockingSide1(y = (q1Status == QStatus.AbsorptionMax or q1Status == QStatus.GenerationMax or runningSide1.value == false)) "Expression determining if reactive power limits have been reached on converter side 1 or if the hvdc is disconnected on side 1" annotation(
+  Modelica.Blocks.Sources.BooleanExpression blockingSide1(y = (q1Status == QStatus.AbsorptionMax or q1Status == QStatus.GenerationMax or runningSide1 == false)) "Expression determining if reactive power limits have been reached on converter side 1 or if the hvdc is disconnected on side 1" annotation(
     Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanExpression blockingSide2(y = (q2Status == QStatus.AbsorptionMax or q2Status == QStatus.GenerationMax or runningSide2.value == false)) "Expression determining if reactive power limits have been reached on converter side 2 or if the hvdc is disconnected on side 2" annotation(
+  Modelica.Blocks.Sources.BooleanExpression blockingSide2(y = (q2Status == QStatus.AbsorptionMax or q2Status == QStatus.GenerationMax or runningSide2 == false)) "Expression determining if reactive power limits have been reached on converter side 2 or if the hvdc is disconnected on side 2" annotation(
     Placement(transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}})));
 
   Modelica.Blocks.Interfaces.BooleanOutput blockerSide1(start = (q1Status0 == QStatus.AbsorptionMax or q1Status0 == QStatus.GenerationMax or RunningSide10 == false)) "If true, reactive power limits have been reached on converter side 1 or the hvdc is disconnected on side 1" annotation(
@@ -70,7 +70,7 @@ equation
   end when;
 
   //Voltage/Reactive power regulation at terminal 1
-  if runningSide1.value then
+  if runningSide1 then
     if modeU1 then
       if q1Status == QStatus.GenerationMax then
         QInj1Pu = QInj1MaxPu;
@@ -97,7 +97,7 @@ equation
   end if;
 
   //Voltage/Reactive power regulation at terminal 2
-  if runningSide2.value then
+  if runningSide2 then
     if modeU2 then
       if q2Status == QStatus.GenerationMax then
         QInj2Pu = QInj2MaxPu;

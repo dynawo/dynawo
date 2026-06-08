@@ -42,20 +42,20 @@ partial model BaseWindNeplan "Base model of Neplan test cases for type 4 wind tu
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  line1.switchOffSignal1.value = false;
-  line1.switchOffSignal2.value = false;
-  line2A.switchOffSignal1.value = false;
-  line2A.switchOffSignal2.value = false;
-  line2B.switchOffSignal1.value = false;
-  line2B.switchOffSignal2.value = false;
-  line3.switchOffSignal1.value = false;
-  line3.switchOffSignal2.value = false;
-  transformer.switchOffSignal1.value = false;
-  transformer.switchOffSignal2.value = false;
-  transformer1.switchOffSignal1.value = false;
-  transformer1.switchOffSignal2.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  line1.switchOffSignal1 = false;
+  line1.switchOffSignal2 = false;
+  line2A.switchOffSignal1 = false;
+  line2A.switchOffSignal2 = false;
+  line2B.switchOffSignal1 = false;
+  line2B.switchOffSignal2 = false;
+  line3.switchOffSignal1 = false;
+  line3.switchOffSignal2 = false;
+  transformer.switchOffSignal1 = false;
+  transformer.switchOffSignal2 = false;
+  transformer1.switchOffSignal1 = false;
+  transformer1.switchOffSignal2 = false;
 
   connect(transformer.terminal2, line.terminal1) annotation(
     Line(points = {{-60, 0}, {-40, 0}}, color = {0, 0, 255}));

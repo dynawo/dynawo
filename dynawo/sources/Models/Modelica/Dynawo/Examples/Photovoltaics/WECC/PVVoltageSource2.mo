@@ -68,15 +68,19 @@ model PVVoltageSource2 "WECC PV Vsource Model on infinite bus"
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
     P0Pu = -0.7,
-    PMaxPu = 1,
-    PMinPu = 0,
+    PMaxREECPu = 1,
+    PMaxREPCPu = 1,
+    PMinREECPu = 0,
+    PMinREPCPu = 0,
     PPCLocal = true,
     PQFlag = false,
     PfFlag = false,
     Q0Pu = -0.2,
     QFlag = true,
-    QMaxPu = 0.4,
-    QMinPu = -0.4,
+    QMaxREECPu = 0.4,
+    QMaxREPCPu = 0.4,
+    QMinREECPu = -0.4,
+    QMinREPCPu = -0.4,
     RSourcePu = 0,
     RateFlag = false,
     RefFlag = true,
@@ -101,7 +105,8 @@ model PVVoltageSource2 "WECC PV Vsource Model on infinite bus"
     tG = 0.2,
     tIq = 0.02,
     tLag = 0.1,
-    tP = 0.04,
+    tpREEC = 0.04,
+    tpREPC = 0.04,
     tPord = 0.02,
     tRv = 0.02,
     i0Pu(im(fixed = false), re(fixed = false)),
@@ -195,11 +200,11 @@ initial algorithm
   PV.uSource0Pu.im := pvVoltageSource_INIT.uSource0Pu.im;
 
 equation
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  PV.injector.switchOffSignal1.value = false;
-  PV.injector.switchOffSignal2.value = false;
-  PV.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  PV.injector.switchOffSignal1 = false;
+  PV.injector.switchOffSignal2 = false;
+  PV.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

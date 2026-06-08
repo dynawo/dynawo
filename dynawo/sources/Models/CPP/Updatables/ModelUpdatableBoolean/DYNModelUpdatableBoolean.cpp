@@ -18,24 +18,19 @@
  *
  */
 
-
-
-#include <sstream>
 #include <vector>
-#include <algorithm>
 
 #include "PARParametersSet.h"
 
-#include "DYNNumericalUtils.h"
 #include "DYNModelUpdatableBoolean.h"
 #include "DYNModelUpdatableBoolean.hpp"
-#include "DYNSparseMatrix.h"
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
+#include "DYNModelConstants.h"
 
 using std::vector;
 using std::string;
@@ -70,51 +65,23 @@ ModelUpdatableBoolean::ModelUpdatableBoolean(): ModelUpdatable("ModelUpdatableBo
 
 void
 ModelUpdatableBoolean::getSize() {
+  sizeZ_ = 1;  // input value
   sizeG_ = 1;  // parameter updated
   sizeMode_ = 1;
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
-// evaluation of root functions
-void
-ModelUpdatableBoolean::evalG(const double /*t*/) {
-  gLocal_[0] = (updated_) ? ROOT_UP : ROOT_DOWN;
-  updated_ = false;
-}
 
 void
-ModelUpdatableBoolean::setGequations() {
-  gEquationIndex_[0] = std::string("parameter update");
-}
-
-
-// evaluation of modes (alternatives) of F(t,y,y') functions
-modeChangeType_t
-ModelUpdatableBoolean::evalMode(const double /*t*/) {
+ModelUpdatableBoolean::evalZ(double /* t */) {
   if (gLocal_[0] == ROOT_UP) {
-    return ALGEBRAIC_MODE;
+    zLocal_[0] = inputValue_;
   }
-  return NO_MODE;
-}
-
-double
-ModelUpdatableBoolean::evalCalculatedVarI(unsigned iCalculatedVar) const {
-  switch (iCalculatedVar) {
-    case inputValueIdx_:
-      return inputValue_;
-    default:
-      throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
-  }
-}
-
-void
-ModelUpdatableBoolean::evalCalculatedVars() {
-  calculatedVars_[inputValueIdx_] = inputValue_;
 }
 
 void
 ModelUpdatableBoolean::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated(UPDATABLE_INPUT_NAME, BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(UPDATABLE_INPUT_VAR_NAME, BOOLEAN));
 }
 
 void
@@ -125,31 +92,19 @@ ModelUpdatableBoolean::defineParameters(vector<ParameterModeler>& parameters) {
 void
 ModelUpdatableBoolean::setSubModelParameters() {
   if (findParameterDynamic(UPDATABLE_INPUT_NAME).hasValue()) {
-    double parameterValue = fromNativeBool(findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<bool>());
-    if (!DYN::doubleEquals(parameterValue, inputValue_))
+    const double parameterValue = fromNativeBool(findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<bool>());
+    if (!doubleEquals(parameterValue, inputValue_)) {
+      inputValue_ = parameterValue;
       updated_ = true;
-    inputValue_ = parameterValue;
-  } else {
-    inputValue_ = fromNativeBool(false);
+    }
   }
 }
 
 void
 ModelUpdatableBoolean::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  addElement(UPDATABLE_INPUT_NAME, Element::TERMINAL, elements, mapElement);
+  addElement(UPDATABLE_INPUT_VAR_NAME, Element::TERMINAL, elements, mapElement);
 }
 
-void
-ModelUpdatableBoolean::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, inputValue_);
-}
-
-void
-ModelUpdatableBoolean::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
-  streamVariables >> inputValue_;
-}
 
 void
 ModelUpdatableBoolean::dumpUserReadableElementList(const std::string& /*nameElement*/) const {

@@ -15,12 +15,12 @@ load_zP                                           : y =       1.000000 yp =     
 load_zQ                                           : y =       1.000000 yp =       0.000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 load_UPu_value                                    : y =       1.001585
- ====== INIT DISCRETE VARIABLES VALUES ======
-load_running_value                                : z =       1.000000
-load_switchOffSignal1_value                       : z =      -1.000000
-load_switchOffSignal2_value                       : z =      -1.000000
+ ====== DISCRETE VARIABLES VALUES ======
+load_running                                      : z =       1.000000
+load_switchOffSignal1                             : z =      -1.000000
+load_switchOffSignal2                             : z =      -1.000000
 load_state                                        : z =       2.000000
  ====== PARAMETERS VALUES ======
 load_Tp                                            =      90.000000

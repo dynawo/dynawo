@@ -370,6 +370,8 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
                                                   msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
   setDifferentialVariablesIndices();
+  solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlgInit_, initialaddtolAlgInit_, scsteptolAlgInit_, mxnewtstepAlgInit_,
+                                                msbsetAlgInit_, mxiterAlgInit_, printflAlgInit_);
 
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(true);
@@ -380,8 +382,13 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
     solverKINNormal_->solve();
     solverKINNormal_->getValues(vectorY_, vectorYp_);
 
+    solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+    solverKINYPrim_->solve();
+    solverKINYPrim_->getValues(vectorY_, vectorYp_);
+
     updateAlgebraicRestorationStatistics();
     updateStatistics();
+
     // Reinitialization (forced to start over with a small time step)
     // -------------------------------------------------------
     int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);
@@ -438,13 +445,13 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
   } while (change);
 
   updateStatistics();
-  
+
   printEnd();
-  
+
   int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
   if (flag0 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
-    
+
   Solver::Impl::resetStats();
 
   // reinit output

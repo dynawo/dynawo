@@ -38,7 +38,7 @@ equation
     UPu = ComplexMath.'abs'(terminal.V);
   end if;
 
-  if (running.value) then
+  if running then
     QPu = BPu * UPu^2;
     PPu = 0;
   else
