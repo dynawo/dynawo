@@ -30,15 +30,15 @@
   <curve model="B1-G1" variable="generator_omegaPu"/>
   <curve model="B1-G1" variable="generator_PGen"/>
   <curve model="B1-G1" variable="generator_QGen"/>
-  <curve model="NETWORK" variable="B1_U_value"/>
+  <curve model="NETWORK" variable="B1_U"/>
   <curve model="B2-G1" variable="generator_omegaPu"/>
   <curve model="B2-G1" variable="generator_PGen"/>
   <curve model="B2-G1" variable="generator_QGen"/>
-  <curve model="NETWORK" variable="B2_U_value"/>
+  <curve model="NETWORK" variable="B2_U"/>
   <curve model="B5-G1" variable="generator_omegaPu"/>
   <curve model="B5-G1" variable="generator_PGen"/>
   <curve model="B5-G1" variable="generator_QGen"/>
-  <curve model="NETWORK" variable="B5_U_value"/>
+  <curve model="NETWORK" variable="B5_U"/>
   <!-- <curve model="B5-G1" variable="generator_omegaPu"/>
   <curve model="B5-G1" variable="generator_PGen"/>
   <curve model="B5-G1" variable="generator_QGen"/>

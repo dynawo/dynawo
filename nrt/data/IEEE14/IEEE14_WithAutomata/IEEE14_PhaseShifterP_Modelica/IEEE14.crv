@@ -14,8 +14,8 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <!--Curves for scenario-->
   <curve model="NETWORK" variable="_BUS____9-BUS___10-1_AC_P1"/>
-  <curve model="NETWORK" variable="_BUS____5_TN_Upu_value"/>
-  <curve model="NETWORK" variable="_BUS____6_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS____5_TN_Upu"/>
+  <curve model="NETWORK" variable="_BUS____6_TN_Upu"/>
   <curve model="TfoTest" variable="transformer_P1Pu"/>
   <curve model="TfoTest" variable="transformer_tap"/>
   <curve model="TfoTest" variable="transformer_alphaTfo"/>
