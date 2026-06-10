@@ -11,15 +11,14 @@
     This file is part of Dynawo, a hybrid C++/Modelica open source suite of
     simulation tool for power systems.
 -->
-
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-    <dyn:blackBoxModel id="infBus" lib="InfiniteBusWithVariations" parFile="LoadAlphaBetaFrequencyDependent.par" parId="1"/>
-    <dyn:blackBoxModel id="Line" lib="Line" parFile="LoadAlphaBetaFrequencyDependent.par" parId="2"/>
-    <dyn:blackBoxModel id="Load" lib="LoadAlphaBetaFrequencyDependent" parFile="LoadAlphaBetaFrequencyDependent.par" parId="3"/>
-    <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="LoadAlphaBetaFrequencyDependent.par" parId="4"/>
-    <dyn:blackBoxModel id="QRefPu" lib="SetPoint" parFile="LoadAlphaBetaFrequencyDependent.par" parId="5"/>
-    <dyn:connect id1="Line" var1="line_terminal1" id2="infBus" var2="infiniteBus_terminal"/>
-    <dyn:connect id1="Line" var1="line_terminal2" id2="Load" var2="load_terminal"/>
-    <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="Load" var2="load_omegaRefPu"/>
-    <dyn:connect id1="QRefPu" var1="setPoint_setPoint" id2="Load" var2="load_QRefPu"/>
+  <dyn:blackBoxModel id="infBus" lib="InfiniteBusWithVariations" parFile="LoadAlphaBetaFrequencyDependent.par" parId="1"/>
+  <dyn:blackBoxModel id="Line" lib="Line" parFile="LoadAlphaBetaFrequencyDependent.par" parId="2"/>
+  <dyn:blackBoxModel id="Load" lib="LoadAlphaBetaFrequencyDependent" parFile="LoadAlphaBetaFrequencyDependent.par" parId="3"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="LoadAlphaBetaFrequencyDependent.par" parId="4"/>
+  <dyn:blackBoxModel id="QRefPu" lib="SetPoint" parFile="LoadAlphaBetaFrequencyDependent.par" parId="5"/>
+  <dyn:connect id1="Line" var1="line_terminal1" id2="infBus" var2="infiniteBus_terminal"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="Load" var2="load_terminal"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="Load" var2="load_omegaRefPu"/>
+  <dyn:connect id1="QRefPu" var1="setPoint_setPoint" id2="Load" var2="load_QRefPu"/>
 </dyn:dynamicModelsArchitecture>

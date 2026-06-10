@@ -12,13 +12,13 @@
     simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="NETWORK" variable="_KANA___1_TN_U_value"/>
-  <curve model="NETWORK" variable="_TURN___2_TN_U_value"/>
-  <curve model="NETWORK" variable="_LOGA___3_TN_U_value"/>
-  <curve model="NETWORK" variable="_BEAV___6_TN_U_value"/>
-  <curve model="NETWORK" variable="_CLIN___8_TN_U_value"/>
-  <curve model="NETWORK" variable="_SALT___9_TN_U_value"/>
-  <curve model="NETWORK" variable="_GLEN__12_TN_U_value"/>
+  <curve model="NETWORK" variable="_KANA___1_TN_U"/>
+  <curve model="NETWORK" variable="_TURN___2_TN_U"/>
+  <curve model="NETWORK" variable="_LOGA___3_TN_U"/>
+  <curve model="NETWORK" variable="_BEAV___6_TN_U"/>
+  <curve model="NETWORK" variable="_CLIN___8_TN_U"/>
+  <curve model="NETWORK" variable="_SALT___9_TN_U"/>
+  <curve model="NETWORK" variable="_GLEN__12_TN_U"/>
   <curve model="_LOAD___1_EC" variable="transformerT_tapChanger_UTarget"/>
   <curve model="_LOAD___1_EC" variable="transformerT_tapChanger_UMonitored"/>
   <curve model="_LOAD___1_EC" variable="transformerT_tapChanger_tap"/>

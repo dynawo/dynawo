@@ -13,20 +13,20 @@
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <!--Curves for scenario-->
-  <curve model="NETWORK" variable="_BUS____1_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____2_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____3_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____4_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____5_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____6_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____7_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____8_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS____9_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS___10_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS___11_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS___12_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS___13_TN_U_value"/>
-  <curve model="NETWORK" variable="_BUS___14_TN_U_value"/>
+  <curve model="NETWORK" variable="_BUS____1_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____2_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____3_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____4_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____5_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____6_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____7_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____8_TN_U"/>
+  <curve model="NETWORK" variable="_BUS____9_TN_U"/>
+  <curve model="NETWORK" variable="_BUS___10_TN_U"/>
+  <curve model="NETWORK" variable="_BUS___11_TN_U"/>
+  <curve model="NETWORK" variable="_BUS___12_TN_U"/>
+  <curve model="NETWORK" variable="_BUS___13_TN_U"/>
+  <curve model="NETWORK" variable="_BUS___14_TN_U"/>
   <curve model="GEN____3_SM" variable="generator_UPu"/>
   <curve model="UVA" variable="underVoltageAutomaton_UMinPu"/>
   <curve model="GEN____1_SM" variable="generator_efdPu"/>
