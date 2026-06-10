@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2026, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -13,46 +13,46 @@
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <!--Curves for scenario-->
-  <curve model="NETWORK" variable="Bus12_lineB6B12_switch_state_value"/>
-  <curve model="NETWORK" variable="Bus13_lineB12B13_switch_state_value"/>
-  <curve model="NETWORK" variable="Bus12_lineB12B13_switch_state_value"/>
-  <curve model="NETWORK" variable="Bus12_load12_switch_state_value"/>
-  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_state_value"/>
-  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_U1_value"/>
-  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_U2_value"/>
-  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_state_value"/>
-  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_U1_value"/>
-  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_U2_value"/>
-  <curve model="NETWORK" variable="_BUS____6_TN_U_value"/>
-  <curve model="NETWORK" variable="Bus12_1A_U_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_0_switchOff_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_switchOff_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_2_switchOff_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_3_switchOff_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_0_U_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_U_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_2_U_value"/>
-  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_3_U_value"/>
+  <curve model="NETWORK" variable="Bus12_lineB6B12_switch_state"/>
+  <curve model="NETWORK" variable="Bus13_lineB12B13_switch_state"/>
+  <curve model="NETWORK" variable="Bus12_lineB12B13_switch_state"/>
+  <curve model="NETWORK" variable="Bus12_load12_switch_state"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_state"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_U1"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_U2"/>
+  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_state"/>
+  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_U1"/>
+  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_U2"/>
+  <curve model="NETWORK" variable="_BUS____6_TN_U"/>
+  <curve model="NETWORK" variable="Bus12_1A_U"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_0_switchOff"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_switchOff"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_2_switchOff"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_3_switchOff"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_0_U"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_U"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_2_U"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_3_U"/>
   <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_V_re"/>
   <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_V_im"/>
   <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_i_re"/>
   <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_i_im"/>
-  <curve model="NETWORK" variable="Bus13_1A_U_value"/>
+  <curve model="NETWORK" variable="Bus13_1A_U"/>
   <curve model="_LOAD__12_EC" variable="load_switchOffSignal1"/>
   <curve model="_LOAD__12_EC" variable="load_switchOffSignal2"/>
   <curve model="_LOAD__12_EC" variable="load_running"/>
-  <curve model="_LOAD__12_EC" variable="load_UPu_value"/>
+  <curve model="_LOAD__12_EC" variable="load_UPu"/>
   <curve model="_LOAD__12_EC" variable="load_PPu"/>
   <curve model="_LOAD__12_EC" variable="load_QPu"/>
-  <curve model="NETWORK" variable="_LOAD__12_EC_state_value"/>
-  <curve model="NETWORK" variable="_LOAD__12_EC_loadState_value"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_state"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_loadState"/>
   <curve model="NETWORK" variable="_LOAD__12_EC_running"/>
-  <curve model="NETWORK" variable="_LOAD__12_EC_UPu_value"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_UPu"/>
   <curve model="NETWORK" variable="_LOAD__12_EC_P"/>
   <curve model="NETWORK" variable="_LOAD__12_EC_Q"/>
   <curve model="NETWORK" variable="Bus12_1A_switchOff"/>
-  <curve model="NETWORK" variable="Bus12_1A_phi_value"/>
-  <curve model="NETWORK" variable="Bus12_1A_Upu_value"/>
+  <curve model="NETWORK" variable="Bus12_1A_phi"/>
+  <curve model="NETWORK" variable="Bus12_1A_Upu"/>
   <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_uBusMonitoredPu"/>
   <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_busPhaseAngle"/>
   <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_uEquipmentMonitoredPu"/>
