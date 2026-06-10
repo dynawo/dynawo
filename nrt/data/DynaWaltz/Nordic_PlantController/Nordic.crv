@@ -142,6 +142,13 @@
   <curve model="g01" variable="gridFollowing_plantControllerPropInt_URefPu"/>
   <curve model="g01" variable="gridFollowing_plantControllerPropInt_URegPu"/>
   <curve model="g01" variable="gridFollowing_plantControllerPropInt_QRegPu"/>
+
+  <curve model="g01" variable="gridFollowing_QReg0Pu"/>
+  <curve model="g01" variable="gridFollowing_QGenPu"/>
+  <curve model="g01" variable="gridFollowing_Q0Pu"/>
+  <curve model="g01" variable="gridFollowing_URef0Pu"/>
+  <curve model="g01" variable="gridFollowing_UReg0Pu"/>
+
   <curve model="g02" variable="gridFollowing_plantControllerPropInt_URefPu"/>
   <curve model="g02" variable="gridFollowing_plantControllerPropInt_URegPu"/>
   <curve model="g02" variable="gridFollowing_plantControllerPropInt_QRegPu"/>

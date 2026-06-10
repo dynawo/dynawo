@@ -14,23 +14,23 @@ within Dynawo.Examples.PEIR.Plants.Simplified;
 
 model GridFollowingPlantPropInt
   extends Modelica.Icons.Example;
-  extends Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan(infiniteBusWithVariations(UEvtPu = 1, tUEvtStart = 2, tUEvtEnd = 3));
+  extends Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan(infiniteBusWithVariations(UEvtPu = 1, tUEvtStart = 2, tUEvtEnd = 4, tOmegaEvtStart = 30, tOmegaEvtEnd = 31));
 
   // Inputs
   Modelica.Blocks.Sources.Constant deltaPmRef(k = 0) annotation(
     Placement(transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) annotation(
     Placement(transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step URefStep(offset = gridFollowingPlantPropInt.URef0Pu, height = 0.5, startTime = 5) annotation(
+  Modelica.Blocks.Sources.Step URefStep(offset = gridFollowingPlantPropInt.URef0Pu, height = 0.5, startTime = 10) annotation(
     Placement(transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}})));
 
-  Dynawo.Electrical.PEIR.Plants.Simplified.GridFollowingPlantPropInt gridFollowingPlantPropInt(SNom = 15, Ki = 10, Kp = 5, LambdaPuSNom = 0.21, PMax = 20, PNom = 15, QMaxPu = 99, QMaxRegPu = 0.6667, QMinPu = -99, QMinRegPu = -0.6667, P0Pu = -0.2, Q0Pu = 0.0439939, U0Pu = 1.06437, UPhase0 = 0.00808331, QReg0Pu = 0.0458447, UReg0Pu = 1.06648, VRegFlag = true) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GridFollowingPlantPropInt gridFollowingPlantPropInt(SNom = 15, Ki = 10, Kp = 5, LambdaPuSNom = 0.21, PMax = 20, PNom = 15, QMaxPu = 99, QMaxRegPu = 0.6667, QMinPu = -99, QMinRegPu = -0.6667, P0Pu = -0.2, Q0Pu = 0.0439939, U0Pu = 1.06437, UPhase0 = 0.00808331, QReg0Pu = 0.0458447, UReg0Pu = 1.06648, VRegFlag = true, tFilter = 1, AlphaPuPNom = 0.5) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  gridFollowingPlantPropInt.injector.switchOffSignal1.value = false;
-  gridFollowingPlantPropInt.injector.switchOffSignal2.value = false;
-  gridFollowingPlantPropInt.injector.switchOffSignal3.value = false;
+  gridFollowingPlantPropInt.injector.switchOffSignal1 = false;
+  gridFollowingPlantPropInt.injector.switchOffSignal2 = false;
+  gridFollowingPlantPropInt.injector.switchOffSignal3 = false;
   gridFollowingPlantPropInt.URegPu = transformer1.U2Pu;
   gridFollowingPlantPropInt.QRegPu = transformer1.Q2Pu;
 
@@ -42,6 +42,7 @@ equation
     Line(points = {{-139, -20}, {-131, -20}, {-131, -4}, {-121, -4}}, color = {0, 0, 127}));
   connect(gridFollowingPlantPropInt.URefPu, URefStep.y) annotation(
     Line(points = {{-120, 0}, {-130, 0}, {-130, 20}, {-138, 20}}, color = {0, 0, 127}));
+
   annotation(
     Diagram(coordinateSystem(extent = {{-140, -100}, {160, 60}})),
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.001));

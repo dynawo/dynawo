@@ -27,7 +27,7 @@
     <par type="DOUBLE" name="fnormtolAlgInit" value="1e-3"/>
     <par type="DOUBLE" name="fnormtolAlgJ" value="1e-3"/>
     <par type="DOUBLE" name="hMax" value="2.0"/>
-    <par type="DOUBLE" name="hMin" value="1.0E-10"/>
+    <par type="DOUBLE" name="hMin" value="1.0E-6"/>
     <par type="DOUBLE" name="initialaddtol" value="1"/>
     <par type="DOUBLE" name="initialaddtolAlg" value="1"/>
     <par type="DOUBLE" name="initialaddtolAlgInit" value="1"/>

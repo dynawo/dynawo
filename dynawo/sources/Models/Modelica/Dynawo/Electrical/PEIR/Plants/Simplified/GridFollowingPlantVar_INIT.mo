@@ -22,7 +22,7 @@ model GridFollowingPlantVar_INIT "Grid following plant external variable initili
   Modelica.Blocks.Interfaces.RealInput UPhase0 "Start value of voltage angle at terminal in rad";
 
   // Initial variables at PCC
-  Modelica.Blocks.Interfaces.RealInput QReg0Pu "Start value of reactive power at regulated bus in pu (generator convention) (base SNom)";
+  Modelica.Blocks.Interfaces.RealInput QReg0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   Modelica.Blocks.Interfaces.RealInput UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
   annotation(

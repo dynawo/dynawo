@@ -152,6 +152,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
@@ -173,6 +178,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
@@ -194,6 +204,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
@@ -213,6 +228,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_QMaxPu" value="999"/>
@@ -232,6 +252,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
@@ -306,6 +331,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
@@ -327,6 +357,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
@@ -454,6 +489,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
@@ -573,6 +613,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>
@@ -692,6 +737,11 @@
     <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.286"/>
     <par type="DOUBLE" name="gridFollowing_Kp" value="0.00001"/>
     <par type="DOUBLE" name="gridFollowing_Ki" value="0.9"/>
+    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gridFollowing_tFilter" value="0.01"/>
     <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.32"/>
     <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.35"/>
     <par type="DOUBLE" name="gridFollowing_RPu" value="0"/>

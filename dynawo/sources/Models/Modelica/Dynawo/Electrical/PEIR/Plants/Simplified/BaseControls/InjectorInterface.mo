@@ -40,7 +40,7 @@ model InjectorInterface "Injector interface"
 equation
   UPu = ComplexMath.'abs'(terminal.V);
 
-  if running.value then
+  if running then
     QInjPu = -ComplexMath.imag(terminal.V*ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
     PInjPu = -ComplexMath.real(terminal.V*ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
   else

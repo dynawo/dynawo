@@ -15,6 +15,7 @@ set(MODEL_FILES
   package.order
   GridFollowingPlantPropInt.mo
   GridFollowingPlantPropInt.extvar
+  GridFollowingPlantPropInt.mandatoryParam
   GridFollowingPlantVar_INIT.mo
   )
 
