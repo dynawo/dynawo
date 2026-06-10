@@ -18,6 +18,6 @@
   <dyn:modelicaModel id="infiniteBus" staticId="GEN">
     <dyn:unitDynamicModel id="InfiniteBus" name="DYNInfiniteBus" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
-  <dyn:connect id1="lineDisconnection" var1="event_switchOff" id2="NETWORK" var2="_BUS___1__BUS___2_2_state_value"/>
+  <dyn:connect id1="lineDisconnection" var1="event_switchOff" id2="NETWORK" var2="_BUS___1__BUS___2_2_state"/>
   <dyn:connect id1="infiniteBus" var1="InfiniteBus_terminal" id2="NETWORK" var2="TN_ACPIN"/>
 </dyn:dynamicModelsArchitecture>

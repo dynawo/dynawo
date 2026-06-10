@@ -1,4 +1,4 @@
-time;PhaseShifter_phaseShifter_PMonitored;PhaseShifter_phaseShifter_tap;PhaseShifter_phaseShifter_PTarget;PhaseShifter_phaseShifter_increaseTapToIncreaseValue;PhaseShifterBis_phaseShifter_PMonitored;PhaseShifterBis_phaseShifter_tap;PhaseShifterBis_phaseShifter_PTarget;PhaseShifterBis_phaseShifter_increaseTapToIncreaseValue;NETWORK_Line_P1_value;Load_load_PPu;Generator_generator_PGenPu;
+time;PhaseShifter_phaseShifter_PMonitored;PhaseShifter_phaseShifter_tap;PhaseShifter_phaseShifter_PTarget;PhaseShifter_phaseShifter_increaseTapToIncreaseValue;PhaseShifterBis_phaseShifter_PMonitored;PhaseShifterBis_phaseShifter_tap;PhaseShifterBis_phaseShifter_PTarget;PhaseShifterBis_phaseShifter_increaseTapToIncreaseValue;NETWORK_Line_P1;Load_load_PPu;Generator_generator_PGenPu;
 0.000000;0.008178;13.000000;0.300000;-1.000000;0.008178;13.000000;0.000000;1.000000;-0.015996;0.000000;0.000360;
 10.000000;0.008178;13.000000;0.300000;-1.000000;0.008178;13.000000;0.000000;1.000000;-0.015996;0.000000;0.000360;
 10.000000;0.511884;13.000000;0.300000;-1.000000;0.511884;13.000000;0.000000;1.000000;0.476612;1.500000;1.500380;

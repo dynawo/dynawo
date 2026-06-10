@@ -785,8 +785,8 @@ Static references may be defined in order to describe which dynamic variables ma
 \begin{lstlisting}[language=XML, morekeywords={staticRef}]
 <modelicaModel id="MyGenerator" staticId="MyGeneratorIIDMId">
   ...
-  <staticRef var="P_value" staticVar="p"/>
-  <staticRef var="Q_value" staticVar="q"/>
+  <staticRef var="P" staticVar="p"/>
+  <staticRef var="Q" staticVar="q"/>
   <staticRef var="state" staticVar="state"/>
 </modelicaModel>
 \end{lstlisting}
@@ -798,9 +798,9 @@ If no static references are done, the simulation will proceed but \Dynawo will n
 The connection between two different dynamic models in the dyd file often needs more than one ``connect'' statement. For example,  in order to connect the reference frequency model to a generator model we need to connect three variables: omega, omegaRef, running. In order not to write the three connections for each generator model of the network, we can define a macro connection in the dyd file:
 \begin{lstlisting}[language=XML, morekeywords={macroConnector}]
 <macroConnector id="M1S_OMEGAREF_CONNECTOR">
-  <connect var1="omega_grp_@INDEX@" var2="M1S_omega"/>
-  <connect var1="running_grp_@INDEX@_value" var2="M1S_running"/>
-  <connect var1="omegaRef_grp_@INDEX@" var2="M1S_omegaRef"/>
+  <connect var1="omega_grp_@INDEX@_" var2="M1S_omega"/>
+  <connect var1="running_grp_@INDEX@_" var2="M1S_running"/>
+  <connect var1="omegaRef_grp_@INDEX@_" var2="M1S_omegaRef"/>
 </macroConnector>
 \end{lstlisting}
 
@@ -818,8 +818,8 @@ A macro connection can also contain an ``initConnect'' statement.
 For each dynamic model, we often need more than one ``staticRef'' statement to describe the link between the dynamic model and the static equivalent. For example, for the generator, we need to define three static references: active power, reactive power and connection state. In order not to write the three static references for each generator model of the network, we can define a macro static reference in the dyd file:
 \begin{lstlisting}[language=XML, morekeywords={macroStaticReference}]
 <macroStaticReference id="GEN">
-  <staticRef var="P_value" staticVar="p"/>
-  <staticRef var="Q_value" staticVar="q"/>
+  <staticRef var="P" staticVar="p"/>
+  <staticRef var="Q" staticVar="q"/>
   <staticRef var="state" staticVar="state"/>
 </macroStaticReference>
 \end{lstlisting}

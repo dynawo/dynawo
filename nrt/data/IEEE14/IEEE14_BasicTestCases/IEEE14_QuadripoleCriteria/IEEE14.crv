@@ -13,16 +13,16 @@
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <!--Curves for scenario-->
-  <curve model="NETWORK" variable="_BUS____3-BUS____4-1_AC_iSide1_value"/>
-  <curve model="NETWORK" variable="_BUS____3-BUS____4-1_AC_iSide2_value"/>
-  <curve model="NETWORK" variable="_BUS___10-BUS___11-1_AC_iSide1_value"/>
-  <curve model="NETWORK" variable="_BUS___10-BUS___11-1_AC_iSide2_value"/>
-  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_iSide1_value"/>
-  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_iSide2_value"/>
-  <curve model="NETWORK" variable="_BUS___13-BUS___14-1_AC_iSide1_value"/>
-  <curve model="NETWORK" variable="_BUS___13-BUS___14-1_AC_iSide2_value"/>
-  <curve model="NETWORK" variable="_BUS____1-BUS____2-1_AC_iSide1_value"/>
-  <curve model="NETWORK" variable="_BUS____1-BUS____2-1_AC_iSide2_value"/>
-  <curve model="NETWORK" variable="_BUS____4-BUS____9-1_PT_iSide1_value"/>
-  <curve model="NETWORK" variable="_BUS____4-BUS____9-1_PT_iSide2_value"/>
+  <curve model="NETWORK" variable="_BUS____3-BUS____4-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS____3-BUS____4-1_AC_iSide2"/>
+  <curve model="NETWORK" variable="_BUS___10-BUS___11-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS___10-BUS___11-1_AC_iSide2"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_iSide2"/>
+  <curve model="NETWORK" variable="_BUS___13-BUS___14-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS___13-BUS___14-1_AC_iSide2"/>
+  <curve model="NETWORK" variable="_BUS____1-BUS____2-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS____1-BUS____2-1_AC_iSide2"/>
+  <curve model="NETWORK" variable="_BUS____4-BUS____9-1_PT_iSide1"/>
+  <curve model="NETWORK" variable="_BUS____4-BUS____9-1_PT_iSide2"/>
 </curvesInput>
