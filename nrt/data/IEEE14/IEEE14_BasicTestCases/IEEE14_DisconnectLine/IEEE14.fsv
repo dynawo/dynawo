@@ -13,20 +13,20 @@
 -->
 <finalStateValuesInput xmlns="http://www.rte-france.com/dynawo">
   <!--Final state values requested for scenario-->
-  <finalStateValue model="NETWORK" variable="_BUS____1_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____2_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____3_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____4_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____5_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____6_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____7_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____8_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS____9_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS___10_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS___11_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS___12_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS___13_TN_Upu_value"/>
-  <finalStateValue model="NETWORK" variable="_BUS___14_TN_Upu_value"/>
+  <finalStateValue model="NETWORK" variable="_BUS____1_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____2_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____3_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____4_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____5_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____6_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____7_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____8_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS____9_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS___10_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS___11_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS___12_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS___13_TN_Upu"/>
+  <finalStateValue model="NETWORK" variable="_BUS___14_TN_Upu"/>
   <finalStateValue model="GEN____1_SM" variable="generator_omegaPu"/>
   <finalStateValue model="GEN____1_SM" variable="generator_PGen"/>
   <finalStateValue model="GEN____1_SM" variable="generator_QGen"/>

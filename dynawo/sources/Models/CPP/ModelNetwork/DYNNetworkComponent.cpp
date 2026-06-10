@@ -179,13 +179,6 @@ std::string NetworkComponent::getParameterDynamicNoThrow(const std::unordered_ma
   return value;
 }
 
-void
-NetworkComponent::addElementWithValue(const string& elementName, const std::string& parentType,
-    vector<Element>& elements, std::map<string, int>& mapElement) const {
-  addElement(elementName, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", elementName, Element::TERMINAL, id(), parentType, elements, mapElement);
-}
-
 NetworkComponent::startingPointMode_t
 NetworkComponent::getStartingPointMode(const std::string& startingPointMode) {
   std::map<std::string, startingPointMode_t> enumResolver = {{"flat", startingPointMode_t::FLAT},

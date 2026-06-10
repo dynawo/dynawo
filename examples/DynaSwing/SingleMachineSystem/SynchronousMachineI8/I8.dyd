@@ -31,10 +31,10 @@
   <dyn:connect id1="DISCONNECT_LOAD" var1="event_state1" id2="Load_de" var2="load_switchOffSignal2"/>
   <dyn:connect id1="StepUp_Xfmr" var1="transformer_terminal1" id2="BusPDR" var2="bus_terminal"/>
   <dyn:connect id1="Synch_Gen" var1="generator_terminal" id2="StepUp_Xfmr" var2="transformer_terminal2"/>
-  <dyn:connect id1="Generator" var1="generator_omegaPu" id2="OmegaRef" var2="omega_grp_0_value"/>
-  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="omegaRef_grp_0_value"/>
-  <dyn:connect id1="Generator" var1="generator_running" id2="OmegaRef" var2="running_grp_0_value"/>
-  <dyn:connect id1="Synch_Gen" var1="generator_omegaPu" id2="OmegaRef" var2="omega_grp_1_value"/>
-  <dyn:connect id1="Synch_Gen" var1="generator_omegaRefPu" id2="OmegaRef" var2="omegaRef_grp_1_value"/>
-  <dyn:connect id1="Synch_Gen" var1="generator_running" id2="OmegaRef" var2="running_grp_1_value"/>
+  <dyn:connect id1="Generator" var1="generator_omegaPu" id2="OmegaRef" var2="omega_grp_0_"/>
+  <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="omegaRef_grp_0_"/>
+  <dyn:connect id1="Generator" var1="generator_running" id2="OmegaRef" var2="running_grp_0_"/>
+  <dyn:connect id1="Synch_Gen" var1="generator_omegaPu" id2="OmegaRef" var2="omega_grp_1_"/>
+  <dyn:connect id1="Synch_Gen" var1="generator_omegaRefPu" id2="OmegaRef" var2="omegaRef_grp_1_"/>
+  <dyn:connect id1="Synch_Gen" var1="generator_running" id2="OmegaRef" var2="running_grp_1_"/>
 </dyn:dynamicModelsArchitecture>

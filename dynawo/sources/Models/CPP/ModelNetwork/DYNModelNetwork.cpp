@@ -185,8 +185,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       } else {
         modelBus = std::shared_ptr<ModelBusInjected>(new ModelBusInjected(bus, voltageLevel->isNodeBreakerTopology()));
         // declare reference between subModel and static data
-        data->setReference("v", id, id, "U_value");
-        data->setReference("angle", id, id, "phi_value");
+        data->setReference("v", id, id, "U");
+        data->setReference("angle", id, id, "phi");
         Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
       }
 
@@ -228,7 +228,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // Add to containers
       modelVoltageLevel->addSwitch(modelSwitch);
       // declare reference between subModel and static data
-      data->setReference("state", id, id, "state_value");
+      data->setReference("state", id, id, "state");
     }
 
     // =============================
@@ -250,9 +250,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // Add to containers
       modelVoltageLevel->addComponent(modelLoad);
       // declare reference between subModel and static data
-      data->setReference("p", id, id, "P_value");
-      data->setReference("q", id, id, "Q_value");
-      data->setReference("state", id, id, "state_value");
+      data->setReference("p", id, id, "P");
+      data->setReference("q", id, id, "Q");
+      data->setReference("state", id, id, "state");
     }
 
     // =============================
@@ -276,9 +276,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // add to containers
       modelVoltageLevel->addComponent(modelGenerator);
       // declare reference between subModel and static data
-      data->setReference("p", id, id, "P_value");
-      data->setReference("q", id, id, "Q_value");
-      data->setReference("state", id, id, "state_value");
+      data->setReference("p", id, id, "P");
+      data->setReference("q", id, id, "Q");
+      data->setReference("state", id, id, "state");
     }
 
     // =================================
@@ -302,9 +302,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // add to containers
       modelVoltageLevel->addComponent(modelShuntCompensator);
       // declare reference between subModel and static data
-      data->setReference("q", id, id, "Q_value");
-      data->setReference("state", id, id, "state_value");
-      data->setReference("currentSection", id, id, "currentSection_value");
+      data->setReference("q", id, id, "Q");
+      data->setReference("state", id, id, "state");
+      data->setReference("currentSection", id, id, "currentSection");
     }
 
     // =======================================
@@ -328,11 +328,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // Add to containers
       modelVoltageLevel->addComponent(modelStaticVarCompensator);
       // declare reference between subModel and static data
-      data->setReference("p", id, id, "P_value");
-      data->setReference("q", id, id, "Q_value");
-      data->setReference("state", id, id, "state_value");
+      data->setReference("p", id, id, "P");
+      data->setReference("q", id, id, "Q");
+      data->setReference("state", id, id, "state");
       if (sVarC->hasStandbyAutomaton()) {
-        data->setReference("regulatingMode", id, id, "mode_value");
+        data->setReference("regulatingMode", id, id, "mode");
       }
     }
 
@@ -358,9 +358,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // add to containers
       modelVoltageLevel->addComponent(modelDanglingLine);
       // declare reference between subModel and static data
-      data->setReference("p", id, id, "P_value");
-      data->setReference("q", id, id, "Q_value");
-      data->setReference("state", id, id, "state_value");
+      data->setReference("p", id, id, "P");
+      data->setReference("q", id, id, "Q");
+      data->setReference("state", id, id, "state");
     }
   }
 
@@ -390,14 +390,14 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     // add to containers
     components_.push_back(modelLine);
     // declare reference between subModel and static data
-    data->setReference("p1", id, id, "P1_value");
-    data->setReference("q1", id, id, "Q1_value");
-    data->setReference("p2", id, id, "P2_value");
-    data->setReference("q2", id, id, "Q2_value");
-    data->setReference("state", id, id, "state_value");
+    data->setReference("p1", id, id, "P1");
+    data->setReference("q1", id, id, "Q1");
+    data->setReference("p2", id, id, "P2");
+    data->setReference("q2", id, id, "Q2");
+    data->setReference("state", id, id, "state");
     // declare reference between subModel and some calculated data
-    data->setReference("i1", id, id, "iSide1_value");
-    data->setReference("i2", id, id, "iSide2_value");
+    data->setReference("i1", id, id, "iSide1");
+    data->setReference("i2", id, id, "iSide2");
   }
 
   // =================================
@@ -435,19 +435,19 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     components_.push_back(modelTwoWindingsTransformer);
 
     // declare reference between subModel and static data
-    data->setReference("p1", id, id, "P1_value");
-    data->setReference("q1", id, id, "Q1_value");
-    data->setReference("p2", id, id, "P2_value");
-    data->setReference("q2", id, id, "Q2_value");
-    data->setReference("state", id, id, "state_value");
+    data->setReference("p1", id, id, "P1");
+    data->setReference("q1", id, id, "Q1");
+    data->setReference("p2", id, id, "P2");
+    data->setReference("q2", id, id, "Q2");
+    data->setReference("state", id, id, "state");
     if (modelTwoWindingsTransformer->getModelRatioTapChanger() ||
         modelTwoWindingsTransformer->getModelPhaseTapChanger() ||
         (modelTwoWindingsTransformer->getModelTapChanger() && !modelTwoWindingsTransformer->getModelTapChanger()->isFictitious())) {
-      data->setReference("tapIndex", id, id, "step_value");
+      data->setReference("tapIndex", id, id, "step");
     }
     // declare reference between subModel and some calculated data (i1 and i2)
-    data->setReference("i1", id, id, "iSide1_value");
-    data->setReference("i2", id, id, "iSide2_value");
+    data->setReference("i1", id, id, "iSide1");
+    data->setReference("i2", id, id, "iSide2");
   }
 
   // =================================
@@ -624,12 +624,12 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     components_.push_back(modelHvdcLink);
 
     // declare reference between subModel and static data
-    data->setReference("p1", id, id, "P1_value");
-    data->setReference("q1", id, id, "Q1_value");
-    data->setReference("state1", id, id, "state1_value");
-    data->setReference("p2", id, id, "P2_value");
-    data->setReference("q2", id, id, "Q2_value");
-    data->setReference("state2", id, id, "state2_value");
+    data->setReference("p1", id, id, "P1");
+    data->setReference("q1", id, id, "Q1");
+    data->setReference("state1", id, id, "state1");
+    data->setReference("p2", id, id, "P2");
+    data->setReference("q2", id, id, "Q2");
+    data->setReference("state2", id, id, "state2");
   }
 
   if (Trace::logExists(Trace::network(), DEBUG))

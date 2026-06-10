@@ -105,7 +105,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesDefineMe
     std::vector<Element> elements;
     std::map<std::string, int> mapElements;
     voltmu->defineElements(elements, mapElements);
-    ASSERT_EQ(elements.size(), 2*nbVar);
+    ASSERT_EQ(elements.size(), nbVar);
     ASSERT_EQ(elements.size(), mapElements.size());
 }
 

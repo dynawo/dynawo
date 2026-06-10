@@ -30,6 +30,7 @@
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
+#include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
@@ -651,43 +652,43 @@ ModelDanglingLine::ui_Fict() const {
 
 void
 ModelDanglingLine::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_bus_vr", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_bus_vi", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits", BOOLEAN));
 }
 
 void
 ModelDanglingLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_bus_vr", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_bus_vi", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits", BOOLEAN));
 }
 
 void
 ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   const string lineName = id_;
   // ===== OUTPUT_I =====
-  addElementWithValue(lineName + string("_i"), modelType_, elements, mapElement);
+  addElement(lineName + string("_i"), Element::TERMINAL, elements, mapElement);
 
   // ===== OUTPUT_P =====
-  addElementWithValue(lineName + string("_P"), modelType_, elements, mapElement);
+  addElement(lineName + string("_P"), Element::TERMINAL, elements, mapElement);
 
   // ===== OUTPUT_Q =====
-  addElementWithValue(lineName + string("_Q"), modelType_, elements, mapElement);
+  addElement(lineName + string("_Q"), Element::TERMINAL, elements, mapElement);
 
   // ========  CONNECTION STATE ======
-  addElementWithValue(lineName + string("_state"), modelType_, elements, mapElement);
+  addElement(lineName + string("_state"), Element::TERMINAL, elements, mapElement);
 
   // ========= Desactivate_current_limit
-  addElementWithValue(lineName + string("_desactivate_currentLimits"), modelType_, elements, mapElement);
+  addElement(lineName + string("_desactivate_currentLimits"), Element::TERMINAL, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

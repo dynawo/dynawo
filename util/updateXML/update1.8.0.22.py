@@ -12,31 +12,38 @@
 # of simulation tools for power systems.
 
 from content.Ticket import ticket
+import re
+# add or remove the "_value" suffix in the connect/initConnect, curve, finalStateValue and
+# staticRef statements, for every model and member variable
+ARRAY_INDEX_RE = re.compile(r'_(\d+|@INDEX@)$')
 
-# remove the "_value" suffix or pass it to the other var of connects for given models and member variables
-@ticket(3748)
+@ticket(3741)
 def update(jobs):
-    cla_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "CurrentLimitAutomaton" in bbm.get_lib_name())}
-    add_value_suffix(jobs.dyds, cla_ids, "currentLimitAutomaton_order")
+    for connect in jobs.dyds.get_all_connects():
+        for idx in ("1", "2"):
+            migrate_attribute(connect, 'var' + idx)
 
-    dpl_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "DistanceProtectionLine" in bbm.get_lib_name())}
-    add_value_suffix(jobs.dyds, dpl_ids, "distance_lineState")
+    for curve in jobs.get_all_curves():
+        migrate_attribute(curve, 'variable')
 
-    event_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "EventQuadripole" in bbm.get_lib_name() or bbm.get_lib_name() == "EventConnectedStatus")}
-    remove_value_suffix(jobs.dyds, event_ids, "event_state1_value")
+    for final_state_value in jobs.get_all_final_state_values():
+        migrate_attribute(final_state_value, 'variable')
 
-def add_value_suffix(dyds, bbm_ids, var):
-    if not bbm_ids:
+    for static_ref in jobs.dyds.get_all_static_refs():
+        migrate_attribute(static_ref, 'var')
+
+
+def migrate_attribute(element, attribute_name):
+    if attribute_name not in element.attrib:
         return
-    for idx in ["1", "2"]:
-        opp_idx = str(3 - int(idx))
-        for connect in dyds.get_connects_with_var_for_models(var, idx, bbm_ids):
-            if not connect.attrib['var' + opp_idx].endswith("_value"):
-                connect.attrib['var' + opp_idx] += "_value"              # no suffix on opposite side : add suffix on opposite side
+    var = element.attrib[attribute_name]
+    new_var = migrate_var_name(var)
+    if new_var != var:
+        element.attrib[attribute_name] = new_var
 
-def remove_value_suffix(dyds, bbm_ids, var):
-    if not bbm_ids:
-        return
-    for idx in ["1", "2"]:
-        for connect in dyds.get_connects_with_var_for_models(var, idx, bbm_ids):
-            connect.attrib['var' + idx] = connect.attrib['var' + idx].replace("_value", "")
+
+def migrate_var_name(var):
+    base = var[:-len("_value")] if var.endswith("_value") else var
+    if ARRAY_INDEX_RE.search(base):
+        return base + "_"
+    return base

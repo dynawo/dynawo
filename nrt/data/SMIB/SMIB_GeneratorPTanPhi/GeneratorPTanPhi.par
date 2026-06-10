@@ -55,7 +55,8 @@
     <par type="DOUBLE" name="generator_PNom" value="200"/>
     <par type="DOUBLE" name="generator_SNom" value="208"/>
   </set>
-  <set id="7"> <!-- with these parameters the reactive power won't be limited to 60 MVar with the omegaRef simulation-->
+  <set id="7">
+    <!-- with these parameters the reactive power won't be limited to 60 MVar with the omegaRef simulation-->
     <par type="DOUBLE" name="generator_P0Pu" value="-1.5"/>
     <par type="DOUBLE" name="generator_Q0Pu" value="-0.5"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1"/>

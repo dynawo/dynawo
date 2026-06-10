@@ -77,13 +77,13 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeDefineMethods) 
   modelVoltageSetPointChange->defineVariables(variables);
   ASSERT_EQ(variables.size(), 2);
   boost::shared_ptr<Variable> variableVoltageSetPointChange = variables[0];
-  ASSERT_EQ(variableVoltageSetPointChange->getName(), "setPointChange_0");
+  ASSERT_EQ(variableVoltageSetPointChange->getName(), "setPointChange_0_");
   ASSERT_EQ(variableVoltageSetPointChange->getType(), DISCRETE);
   ASSERT_EQ(variableVoltageSetPointChange->getNegated(), false);
   ASSERT_EQ(variableVoltageSetPointChange->isState(), true);
   ASSERT_EQ(variableVoltageSetPointChange->isAlias(), false);
   variableVoltageSetPointChange = variables[1];
-  ASSERT_EQ(variableVoltageSetPointChange->getName(), "setPointChange_1");
+  ASSERT_EQ(variableVoltageSetPointChange->getName(), "setPointChange_1_");
   ASSERT_EQ(variableVoltageSetPointChange->getType(), DISCRETE);
   ASSERT_EQ(variableVoltageSetPointChange->getNegated(), false);
   ASSERT_EQ(variableVoltageSetPointChange->isState(), true);
@@ -97,16 +97,16 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeDefineMethods) 
   Element element = elements[0];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), "setPointChange_0");
+  ASSERT_EQ(element.name(), "setPointChange_0_");
   ASSERT_EQ(element.subElementsNum().size(), 0);
-  ASSERT_EQ(mapElements["setPointChange_0"], 0);
+  ASSERT_EQ(mapElements["setPointChange_0_"], 0);
 
   element = elements[1];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), "setPointChange_1");
+  ASSERT_EQ(element.name(), "setPointChange_1_");
   ASSERT_EQ(element.subElementsNum().size(), 0);
-  ASSERT_EQ(mapElements["setPointChange_1"], 1);
+  ASSERT_EQ(mapElements["setPointChange_1_"], 1);
 }
 
 TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeNoStopTime) {
