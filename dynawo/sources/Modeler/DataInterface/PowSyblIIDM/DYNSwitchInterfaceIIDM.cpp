@@ -97,7 +97,7 @@ SwitchInterfaceIIDM::importStaticParameters() {
 
 bool
 SwitchInterfaceIIDM::isRetained() const {
-  return switchIIDM_.isRetained();
+  return switchIIDM_.getKind() == powsybl::iidm::SwitchKind::BREAKER ||  switchIIDM_.getKind() == powsybl::iidm::SwitchKind::LOAD_BREAK_SWITCH;
 }
 
 }  // namespace DYN
