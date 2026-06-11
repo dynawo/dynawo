@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <math.h>
+#include <array>
 
 #include "DYNElement.h"
 #include "PARParametersSetFactory.h"
