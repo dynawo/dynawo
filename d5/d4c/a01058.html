@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNClock.h File Reference</title>
+<title>Dynawo: DYNRTOutputCommon.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,29 +95,42 @@ $(document).ready(function(){initNavTree('d5/d4c/a01058.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">DYNClock.h File Reference</div>  </div>
+<div class="title">DYNRTOutputCommon.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Clock header.  
+<p>Output message formats.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;atomic&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;condition_variable&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/dce/a01052_source.html">DYNRTInputCommon.h</a>&quot;</code><br />
-</div>
+
 <p><a href="../../d5/d4c/a01058_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/daa/a03413.html">DYN::Clock</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/daa/a03413.html" title="Clock class. ">Clock</a> class.  <a href="../../d6/daa/a03413.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a45ab03a18072eacc87f5043e2838ce53"><td class="memItemLeft" align="right" valign="top"><a id="a45ab03a18072eacc87f5043e2838ce53"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4c/a01058.html#a45ab03a18072eacc87f5043e2838ce53">DYN::CurvesStreamFormat</a> { <b>DYN::CurvesStreamFormat::BYTES</b>, 
+<b>DYN::CurvesStreamFormat::CSV</b>, 
+<b>DYN::CurvesStreamFormat::JSON</b>, 
+<b>DYN::CurvesStreamFormat::XML</b>
+ }</td></tr>
+<tr class="memdesc:a45ab03a18072eacc87f5043e2838ce53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported formats for curve outputs. <br /></td></tr>
+<tr class="separator:a45ab03a18072eacc87f5043e2838ce53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f45372885e5c03e44c2589af1ca7985"><td class="memItemLeft" align="right" valign="top"><a id="a3f45372885e5c03e44c2589af1ca7985"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4c/a01058.html#a3f45372885e5c03e44c2589af1ca7985">DYN::TimelineStreamFormat</a> { <b>DYN::TimelineStreamFormat::CSV</b>, 
+<b>DYN::TimelineStreamFormat::JSON</b>, 
+<b>DYN::TimelineStreamFormat::TXT</b>, 
+<b>DYN::TimelineStreamFormat::XML</b>
+ }</td></tr>
+<tr class="memdesc:a3f45372885e5c03e44c2589af1ca7985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported formats for timeline outputs. <br /></td></tr>
+<tr class="separator:a3f45372885e5c03e44c2589af1ca7985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a075ae49b0f8b429a4829727373e6f49c"><td class="memItemLeft" align="right" valign="top"><a id="a075ae49b0f8b429a4829727373e6f49c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4c/a01058.html#a075ae49b0f8b429a4829727373e6f49c">DYN::ConstraintsStreamFormat</a> { <b>DYN::ConstraintsStreamFormat::JSON</b>, 
+<b>DYN::ConstraintsStreamFormat::TXT</b>, 
+<b>DYN::ConstraintsStreamFormat::XML</b>
+ }</td></tr>
+<tr class="memdesc:a075ae49b0f8b429a4829727373e6f49c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported formats for constraints outputs. <br /></td></tr>
+<tr class="separator:a075ae49b0f8b429a4829727373e6f49c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Clock header. </p>
+<div class="textblock"><p>Output message formats. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -134,8 +147,8 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_fd010f168572fde6d103f03fced15216.html">Engine</a></li><li class="navelem"><a class="el" href="../../d5/d4c/a01058.html">DYNClock.h</a></li>
-    <li class="footer">Generated on Fri Jun 12 2026 12:38:50 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_833e443b4490d82614894b06975aa41e.html">Common</a></li><li class="navelem"><a class="el" href="../../d5/d4c/a01058.html">DYNRTOutputCommon.h</a></li>
+    <li class="footer">Generated on Fri Jun 12 2026 15:18:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNRTOutputCommon.h File Reference</title>
+<title>Dynawo: DYNRTInputCommon.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,43 +95,117 @@ $(document).ready(function(){initNavTree('d2/d71/a01055.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">DYNRTOutputCommon.h File Reference</div>  </div>
+<div class="title">DYNRTInputCommon.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Output message formats.  
+<p>Input message header.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div>
 <p><a href="../../d2/d71/a01055_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d9b/a03400.html">DYN::InputMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for input messages.  <a href="../../d2/d9b/a03400.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/a03404.html">DYN::ActionMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d18/a02664.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> carrying an action payload.  <a href="../../dc/da7/a03404.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d2e/a03408.html">DYN::StepTriggerMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d18/a02664.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> used to trigger a simulation step.  <a href="../../d2/d2e/a03408.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d57/a03412.html">DYN::StopMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d18/a02664.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> used to stop the simulation.  <a href="../../d4/d57/a03412.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/df7/a03416.html">DYN::DumpTriggerMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d18/a02664.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> used to trigger a simulation dump.  <a href="../../df/df7/a03416.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a45ab03a18072eacc87f5043e2838ce53"><td class="memItemLeft" align="right" valign="top"><a id="a45ab03a18072eacc87f5043e2838ce53"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/a01055.html#a45ab03a18072eacc87f5043e2838ce53">DYN::CurvesStreamFormat</a> { <b>DYN::CurvesStreamFormat::BYTES</b>, 
-<b>DYN::CurvesStreamFormat::CSV</b>, 
-<b>DYN::CurvesStreamFormat::JSON</b>, 
-<b>DYN::CurvesStreamFormat::XML</b>
+<tr class="memitem:a4d70f055a616e1945020c192030dca92"><td class="memItemLeft" align="right" valign="top"><a id="a4d70f055a616e1945020c192030dca92"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/a01055.html#a4d70f055a616e1945020c192030dca92">DYN::InputMessageFilter</a> { <br />
+&#160;&#160;<b>DYN::InputMessageFilter::NONE</b> = 0, 
+<b>DYN::InputMessageFilter::ACTIONS</b> = 1 &lt;&lt; 0, 
+<b>DYN::InputMessageFilter::TIME_MANAGEMENT</b> = 1 &lt;&lt; 1, 
+<b>DYN::InputMessageFilter::STEP</b> = 1 &lt;&lt; 2, 
+<br />
+&#160;&#160;<b>DYN::InputMessageFilter::DUMP</b> = 1 &lt;&lt; 3, 
+<b>DYN::InputMessageFilter::ALL</b> = ACTIONS | TIME_MANAGEMENT | STEP | DUMP
+<br />
  }</td></tr>
-<tr class="memdesc:a45ab03a18072eacc87f5043e2838ce53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported formats for curve outputs. <br /></td></tr>
-<tr class="separator:a45ab03a18072eacc87f5043e2838ce53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f45372885e5c03e44c2589af1ca7985"><td class="memItemLeft" align="right" valign="top"><a id="a3f45372885e5c03e44c2589af1ca7985"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/a01055.html#a3f45372885e5c03e44c2589af1ca7985">DYN::TimelineStreamFormat</a> { <b>DYN::TimelineStreamFormat::CSV</b>, 
-<b>DYN::TimelineStreamFormat::JSON</b>, 
-<b>DYN::TimelineStreamFormat::TXT</b>, 
-<b>DYN::TimelineStreamFormat::XML</b>
+<tr class="memdesc:a4d70f055a616e1945020c192030dca92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines categories of messages that can be filtered. <br /></td></tr>
+<tr class="separator:a4d70f055a616e1945020c192030dca92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e050a8bc3e5475d4837ee361c9daaa8"><td class="memItemLeft" align="right" valign="top"><a id="a1e050a8bc3e5475d4837ee361c9daaa8"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/a01055.html#a1e050a8bc3e5475d4837ee361c9daaa8">DYN::InputMessageType</a> { <b>DYN::InputMessageType::ACTION</b>, 
+<b>DYN::InputMessageType::STEP</b>, 
+<b>DYN::InputMessageType::STOP</b>, 
+<b>DYN::InputMessageType::DUMP</b>
  }</td></tr>
-<tr class="memdesc:a3f45372885e5c03e44c2589af1ca7985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported formats for timeline outputs. <br /></td></tr>
-<tr class="separator:a3f45372885e5c03e44c2589af1ca7985"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a075ae49b0f8b429a4829727373e6f49c"><td class="memItemLeft" align="right" valign="top"><a id="a075ae49b0f8b429a4829727373e6f49c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/a01055.html#a075ae49b0f8b429a4829727373e6f49c">DYN::ConstraintsStreamFormat</a> { <b>DYN::ConstraintsStreamFormat::JSON</b>, 
-<b>DYN::ConstraintsStreamFormat::TXT</b>, 
-<b>DYN::ConstraintsStreamFormat::XML</b>
- }</td></tr>
-<tr class="memdesc:a075ae49b0f8b429a4829727373e6f49c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported formats for constraints outputs. <br /></td></tr>
-<tr class="separator:a075ae49b0f8b429a4829727373e6f49c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a1e050a8bc3e5475d4837ee361c9daaa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the types of input messages. <br /></td></tr>
+<tr class="separator:a1e050a8bc3e5475d4837ee361c9daaa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5b24a413d4a0ce243438da3284179914"><td class="memItemLeft" align="right" valign="top">InputMessageFilter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d71/a01055.html#a5b24a413d4a0ce243438da3284179914">DYN::operator|</a> (InputMessageFilter a, InputMessageFilter b)</td></tr>
+<tr class="memdesc:a5b24a413d4a0ce243438da3284179914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitwise OR operator for combining message filters.  <a href="../../d2/d71/a01055.html#a5b24a413d4a0ce243438da3284179914">More...</a><br /></td></tr>
+<tr class="separator:a5b24a413d4a0ce243438da3284179914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Output message formats. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Input message header. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="file_a5b24a413d4a0ce243438da3284179914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a5b24a413d4a0ce243438da3284179914">&#9670;&nbsp;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">InputMessageFilter DYN::operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/d71/a01055.html#a4d70f055a616e1945020c192030dca92">InputMessageFilter</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/d71/a01055.html#a4d70f055a616e1945020c192030dca92">InputMessageFilter</a>&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bitwise OR operator for combining message filters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>First filter </td></tr>
+    <tr><td class="paramname">b</td><td>Second filter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Combined filter </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -147,8 +221,8 @@ Enumerations</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_833e443b4490d82614894b06975aa41e.html">Common</a></li><li class="navelem"><a class="el" href="../../d2/d71/a01055.html">DYNRTOutputCommon.h</a></li>
-    <li class="footer">Generated on Fri Jun 12 2026 12:38:51 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c46db7bd8c7067701c1d6b63dbd877bb.html">RT</a></li><li class="navelem"><a class="el" href="../../dir_833e443b4490d82614894b06975aa41e.html">Common</a></li><li class="navelem"><a class="el" href="../../d2/d71/a01055.html">DYNRTInputCommon.h</a></li>
+    <li class="footer">Generated on Fri Jun 12 2026 15:18:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
