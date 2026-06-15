@@ -53,7 +53,8 @@ TEST(APICSTRTest, ConstraintData) {
   ASSERT_FALSE(a.acceptableDuration);
   ASSERT_EQ(a.limitName, "");
 
-  ConstraintData b = ConstraintData("LineName", ConstraintData::PATL, 0.0, 0.0, 1, 0.5);
+  ConstraintData b = ConstraintData(ConstraintData::PATL, 0.0, 0.0, "LineName", 1);
+  b.acceptableDuration = 0.5;
   ASSERT_EQ(b.kind, ConstraintData::PATL);
   ASSERT_EQ(b.limit, 0.0);
   ASSERT_EQ(b.value, 0.0);
@@ -65,11 +66,14 @@ TEST(APICSTRTest, ConstraintData) {
 TEST(APICSTRTest, ConstraintWithData) {
   const std::unique_ptr<Constraint> constraint = ConstraintFactory::newConstraint();
 
+  ConstraintData cstrData(ConstraintData::PATL, 0.1, 0.2, "LineName", 2);
+  cstrData.acceptableDuration = 0.0;
+
   constraint->setModelName("model2");
   constraint->setType(CONSTRAINT_END);
   constraint->setTime(0.3);
   constraint->setDescription("constraint");
-  constraint->setData(ConstraintData("LineName", ConstraintData::PATL, 0.1, 0.2, 2, 0.0));
+  constraint->setData(cstrData);
 
   ASSERT_EQ(constraint->getModelName(), "model2");
   ASSERT_EQ(constraint->getType(), CONSTRAINT_END);

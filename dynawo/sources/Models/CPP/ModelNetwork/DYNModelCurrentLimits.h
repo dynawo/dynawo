@@ -120,12 +120,15 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
 
  private:
   /**
-   * @brief build constraint data details for a violation of limit i
-   * @param kind of limit violation
-   * @param i limit index
-   * @return details for the constraint
+   * @brief registers a constraint state change
+   * @param network the overarching network model from static data
+   * @param componentName the name of the component on which the current limit applies, in the network
+   * @param modelType the type of the component on which the current limit applies, eg "Line"
+   * @param i index of the limit being passed
+   * @param begin whether the state change is an activation (if @b true), or deactivation (if @b false)
+   * @param opening @b true if the event is an opening of the component and not just a limit reached
    */
-  constraints::ConstraintData constraintData(const constraints::ConstraintData::kind_t& kind, unsigned int i);
+  void logConstraint(ModelNetwork * network, const std::string & componentName, const std::string & modelType, int i, bool begin, bool opening = false) const;
 
   int nbTemporaryLimits_;  ///< number of temporary limits (limits with a time duration)
   side_t side_;  ///< side

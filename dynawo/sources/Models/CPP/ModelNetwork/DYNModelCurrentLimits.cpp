@@ -90,77 +90,62 @@ ModelCurrentLimits::evalG(const double& t, const double& current, state_g* g, co
   }
 }
 
-constraints::ConstraintData
-ModelCurrentLimits::constraintData(const constraints::ConstraintData::kind_t& kind, unsigned int i) {
-  // The value for the limit and the current in SI units (Amperes)
-  bool isTemporary = openingAuthorized_[i];
-  if (isTemporary) {
-    return constraints::ConstraintData(names_[i], kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_, acceptableDurations_[i]);
-  } else {
-    return constraints::ConstraintData(names_[i], kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, side_);
-  }
+#define CSTR_TYPE(value) {kind = ConstraintData::value; key = KeyConstraint_t::value;}
+static const bool CSTR_BEGIN = true;
+static const bool CSTR_END = false;
+static const bool OPENING = true;
+
+void
+ModelCurrentLimits::logConstraint(ModelNetwork * network, const string & componentName, const string & modelType, int i, bool begin, bool opening) const {
+  using constraints::ConstraintData;
+
+  if (!network->hasConstraints())
+    return;
+
+  ConstraintData::kind_t kind; KeyConstraint_t::value key;
+  if      (opening)                 CSTR_TYPE(OverloadOpen)
+  else if (openingAuthorized_[i])   CSTR_TYPE(OverloadUp)
+  else if (fictitious_[i])          CSTR_TYPE(FictLim)
+  else                              CSTR_TYPE(PATL)
+
+  ConstraintData data(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, names_[i], side_);
+  if (openingAuthorized_[i])
+    data.acceptableDuration = acceptableDurations_[i];
+
+  // operator "," is overloaded on Message and concatenates
+  Message msg(Message::CONSTRAINT_KEY, KeyConstraint_t::names(key));
+  if      (openingAuthorized_[i])   msg, acceptableDurations_[i];
+  else if (fictitious_[i])          msg, limits_[i]*factorPuToA_;
+  msg, side_;
+
+  network->addConstraint(componentName, begin, msg, modelType, data);
 }
 
+#undef CSTR_TYPE
+
 ModelCurrentLimits::state_t
-ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate,
-    const string& modelType) {
+ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate, const string& modelType) {
   state_t state = ModelCurrentLimits::COMPONENT_CLOSE;
-  using constraints::ConstraintData;
 
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {
       if (g[0 + 2 * i] == ROOT_UP) {
-        if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          DYNAddConstraintWithData(network, componentName, true, modelType,
-            constraintData(ConstraintData::OverloadUp, i),
-            OverloadUp, acceptableDurations_[i], side_);
-        } else {
-          if (fictitious_[i]) {
-            // Fictitious limit
-            DYNAddConstraintWithData(network, componentName, true, modelType,
-                constraintData(ConstraintData::FictLim, i),
-                FictLim, limits_[i]*factorPuToA_, side_);
-          } else {
-            // Permanent limit
-            DYNAddConstraintWithData(network, componentName, true, modelType,
-                constraintData(ConstraintData::PATL, i),
-                PATL, side_);
-          }
-        }
+        logConstraint(network, componentName, modelType, i, CSTR_BEGIN);
         if (!activated_[i])
           tLimitReached_[i] = t;
         activated_[i] = true;
       }
 
       if (g[0 + 2 * i] == ROOT_DOWN && activated_[i]) {
-        if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
-          DYNAddConstraintWithData(network, componentName, false, modelType,
-              constraintData(ConstraintData::OverloadUp, i),
-              OverloadUp, acceptableDurations_[i], side_);
-        } else {
-          if (fictitious_[i]) {
-            // Fictitious limit
-            DYNAddConstraintWithData(network, componentName, false, modelType,
-                constraintData(ConstraintData::FictLim, i),
-                FictLim, limits_[i]*factorPuToA_, side_);
-          } else {
-              // Permanent limit
-              DYNAddConstraintWithData(network, componentName, false, modelType,
-                  constraintData(ConstraintData::PATL, i),
-                  PATL, side_);
-            }
-        }
+        logConstraint(network, componentName, modelType, i, CSTR_END);
         activated_[i] = false;
         tLimitReached_[i] = std::numeric_limits<double>::quiet_NaN();
       }
 
       if (openingAuthorized_[i] && g[1 + 2 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
         state = ModelCurrentLimits::COMPONENT_OPEN;
-        if (!DYN::doubleIsZero(lastCurrentValue_)) {
-          DYNAddConstraintWithData(network, componentName, true, modelType,
-              constraintData(ConstraintData::OverloadOpen, i),
-              OverloadOpen, acceptableDurations_[i], side_);
-        }
+        if (!DYN::doubleIsZero(lastCurrentValue_))
+          logConstraint(network, componentName, modelType, i, CSTR_BEGIN, OPENING);
         DYNAddTimelineEvent(network, componentName, OverloadOpen, acceptableDurations_[i]);
       }
     }
