@@ -151,11 +151,11 @@ equation
   connect(tfo_1120_120.terminal20, load_1120_ATTILA_INIT.terminal0);
 
   when time >= 0 then
-    tfo_103_124.tap.value = tfo_103_124.Tap0;
-    tfo_109_111.tap.value = tfo_109_111.Tap0;
-    tfo_109_112.tap.value = tfo_109_112.Tap0;
-    tfo_110_111.tap.value = tfo_110_111.Tap0;
-    tfo_110_112.tap.value = tfo_110_112.Tap0;
+    tfo_103_124.tap = tfo_103_124.Tap0;
+    tfo_109_111.tap = tfo_109_111.Tap0;
+    tfo_109_112.tap = tfo_109_112.Tap0;
+    tfo_110_111.tap = tfo_110_111.Tap0;
+    tfo_110_112.tap = tfo_110_112.Tap0;
   end when;
 
   tfo_10101_101.switchOffSignal1 = false;

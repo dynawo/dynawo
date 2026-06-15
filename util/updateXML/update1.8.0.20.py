@@ -55,6 +55,18 @@ def update(jobs):
     bool_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "BooleanTable")}
     remove_value_suffix(jobs.dyds, bool_ids, "booleanTable_source_value")
 
+    ova_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "OverVoltageAutomaton")}
+    remove_value_suffix(jobs.dyds, ova_ids, "overVoltageAutomaton_switchOffSignal_value")
+
+    uva_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "UnderVoltageAutomaton")}
+    remove_value_suffix(jobs.dyds, uva_ids, "underVoltageAutomaton_switchOffSignal_value")
+
+    sp_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "SpeedProtection")}
+    remove_value_suffix(jobs.dyds, sp_ids, "speedProtection_switchOffSignal_value")
+
+    ls_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "LossOfSynchronismProtection")}
+    remove_value_suffix(jobs.dyds, ls_ids, "lossOfSynchronismProtection_switchOffSignal_value")
+
 def add_value_suffix(dyds, bbm_ids, var):
     if not bbm_ids:
         return

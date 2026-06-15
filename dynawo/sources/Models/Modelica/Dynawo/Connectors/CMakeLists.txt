@@ -15,7 +15,6 @@ set(MODEL_FILES
   package.order
   ACPower.mo
   ImPin.mo
-  ZPin.mo
   ActivePowerPuConnector.mo
   AngleConnector.mo
   AngularVelocityPuConnector.mo

@@ -60,8 +60,8 @@ initial algorithm
   tfoVariableTap.tapChanger.tap0 := tfoVariableTap.transformerVariableTap.Tap0;
 
 initial equation
-  tfoVariableTap.tapChanger.tap.value = tfoVariableTap.Tap0;
-  tfoVariableTap.transformerVariableTap.tap.value = tfoVariableTap.Tap0;
+  tfoVariableTap.tapChanger.tap = tfoVariableTap.Tap0;
+  tfoVariableTap.transformerVariableTap.tap = tfoVariableTap.Tap0;
 
 equation
   tfoVariableTap.locked = false;

@@ -22,8 +22,8 @@ equation
   PhaseShifterB7B29.locked = false;
   PhaseShifterB7B29.PMonitored.value = TfoB7B29.P1Pu.value * 100;
 
-  when PhaseShifterB7B29.tap.value <> pre(PhaseShifterB7B29.tap.value) then
-    TfoB7B29.tap.value = PhaseShifterB7B29.tap.value;
+  when PhaseShifterB7B29.tap <> pre(PhaseShifterB7B29.tap) then
+    TfoB7B29.tap = PhaseShifterB7B29.tap;
   end when;
 
   // HVDC references

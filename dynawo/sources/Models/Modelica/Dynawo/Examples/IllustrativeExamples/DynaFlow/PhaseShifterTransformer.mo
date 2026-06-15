@@ -68,8 +68,8 @@ equation
   shiftController01.locked = if time < 50 then true else false;
   PPuLine01.value = -line01.P2Pu;
 
-  when shiftController01.tap.value <> pre(shiftController01.tap.value) then
-    tfo01.tap.value = shiftController01.tap.value;
+  when shiftController01.tap <> pre(shiftController01.tap) then
+    tfo01.tap = shiftController01.tap;
   end when;
 
   PrefPuLoad01.setPoint = load01.PRefPu;

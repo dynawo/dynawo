@@ -83,8 +83,8 @@ equation
   tapChanger.UMonitored = transformerVariableTap.U1Pu;
   locked = tapChanger.locked;
 
-  when tapChanger.tap.value <> pre(tapChanger.tap.value) then
-    transformerVariableTap.tap.value = tapChanger.tap.value;
+  when tapChanger.tap <> pre(tapChanger.tap) then
+    transformerVariableTap.tap = tapChanger.tap;
   end when;
 
   transformerVariableTap.switchOffSignal1 = tapChanger.switchOffSignal1;

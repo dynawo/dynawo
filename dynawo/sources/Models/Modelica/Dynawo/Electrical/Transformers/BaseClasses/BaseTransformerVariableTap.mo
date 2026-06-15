@@ -26,8 +26,8 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid" annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Input connectors
-  Dynawo.Connectors.ZPin tap(value(start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
+  // Input connector
+  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)";
 
   // Output connectors
   Dynawo.Connectors.ImPin U1Pu(value(start = U10Pu)) "Absolute voltage on side 1";
@@ -53,12 +53,12 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   discrete Types.PerUnit rTfoPu(start = rTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
 
 equation
-  when (tap.value <> pre(tap.value)) then
+  when (tap <> pre(tap)) then
     // Transformer ratio calculation
     if (NbTap == 1) then
       rTfoPu = rTfoMinPu;
     else
-      rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap.value / (NbTap - 1));
+      rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap / (NbTap - 1));
     end if;
   end when;
 
