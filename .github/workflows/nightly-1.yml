@@ -30,6 +30,7 @@ jobs:
 
       - name: Build
         run: |
+          export DYNAWO_ACTIVATE_HDF5_EXPORT=false
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
