@@ -37,13 +37,10 @@ model InjectorIDQWithControl
     Placement(transformation(origin = {-80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
 equation
   Vt =Modelica.ComplexMath.abs(terminal.V);
-  injectorIDQ.idPu = Id0Pu;
-  injectorIDQ.iqPu = Iq0Pu;
-  injectorIDQ.UPhase = UPhase0;
-//  connect(electricalControlNordic.IdRef, injectorIDQ.idPu) annotation(
-//    Line(points = {{-18, 12}, {17, 12}}, color = {0, 0, 127}));
-//  connect(electricalControlNordic.IqRef, injectorIDQ.iqPu) annotation(
-//    Line(points = {{-18, -12}, {0, -12}, {0, -8}, {18, -8}}, color = {0, 0, 127}));
+  connect(electricalControlNordic.IdRef, injectorIDQ.idPu) annotation(
+    Line(points = {{-18, 12}, {17, 12}}, color = {0, 0, 127}));
+  connect(electricalControlNordic.IqRef, injectorIDQ.iqPu) annotation(
+    Line(points = {{-18, -12}, {0, -12}, {0, -8}, {18, -8}}, color = {0, 0, 127}));
   connect(realExpression3.y, pll.omegaRefPu) annotation(
     Line(points = {{106, 56}, {62, 56}}, color = {0, 0, 127}));
   connect(realExpression2.y, electricalControlNordic.VtRef) annotation(
@@ -54,8 +51,8 @@ equation
     Line(points = {{0, -120}, {0, -60}, {-86, -60}, {-86, 8}, {-64, 8}}, color = {0, 0, 127}));
   connect(injectorIDQ.terminal, terminal) annotation(
     Line(points = {{64, -16}, {110, -16}, {110, 10}}, color = {0, 0, 255}));
-//  connect(pll.phi, injectorIDQ.UPhase) annotation(
-//    Line(points = {{18, 70}, {0, 70}, {0, 40}, {40, 40}, {40, 24}}, color = {0, 0, 127}));
+  connect(pll.phi, injectorIDQ.UPhase) annotation(
+    Line(points = {{18, 70}, {0, 70}, {0, 40}, {40, 40}, {40, 24}}, color = {0, 0, 127}));
   connect(injectorIDQ.uPu, pll.uPu) annotation(
     Line(points = {{64, -6}, {86, -6}, {86, 80}, {62, 80}}, color = {85, 170, 255}));
   connect(realExpression4.y, electricalControlNordic.PRef) annotation(

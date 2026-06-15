@@ -268,7 +268,7 @@ model FullDynamicModel_10InjectorsWith1Condenser
     Placement(transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}})));
   Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj12(Id0Pu = -(ComplexMath.real(Inj12.i0Pu)*cos(UPhase0_g12) + ComplexMath.imag(Inj12.i0Pu)*sin(UPhase0_g12))*(SystemBase.SnRef/Inj12.Snom), Imax = Imax, Iq0Pu = (ComplexMath.real(Inj12.i0Pu)*sin(UPhase0_g12) - ComplexMath.imag(Inj12.i0Pu)*cos(UPhase0_g12))*(SystemBase.SnRef/Inj12.Snom), P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, Snom = 350, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, i0Pu = ComplexMath.conj(Complex(P0Pu_g12, Q0Pu_g12)/ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)), s0Pu = Complex(P0Pu_g12, Q0Pu_g12), u0Pu = ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)) annotation(
     Placement(transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Examples.Nordic.Components.GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl SC1042(P0Pu = P0Pu_g13, Q0Pu = Q0Pu_g13, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g13) annotation(
+  Dynawo.Examples.Nordic.Components.GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl SC1042(P0Pu = P0Pu_g13, Q0Pu = -0.16, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g13) annotation(
     Placement(transformation(origin = {24, -101}, extent = {{-3, -3}, {3, 3}})));
   Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_SC1042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10*1.05^2*(100/300.0), rTfoPu = 1.05) annotation(
     Placement(transformation(origin = {24, -87}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
