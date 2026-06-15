@@ -1,23 +1,9 @@
 within Dynawo.Electrical.Controls.WECC.Mechanical;
-
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model WTGQa "WECC Torque Controller Type A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGPu( start = omegaRefWTGQPu0) "Generator frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PePu(start = PConv0Pu) "Electrical active power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -31,13 +17,8 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {290, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PConv0Pu) "Active power reference for the electrical controller (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {290, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(
-    table = [P1,
-    Spd1; P2,
-    Spd2; P3,
-    Spd3; P4,
-    Spd4]) annotation(
-    Placement(transformation(origin = {-50, 40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(table=[P1,Spd1; P2,Spd2; P3,Spd3; P4,Spd4])
+    annotation (Placement(transformation(origin={-50,40}, extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     k = 1,
     T = tpWTGQa,

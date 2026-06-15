@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.Voltage.SecondaryVoltageControl.Simplified;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model SecondaryVoltageControl "Model for simplified secondary voltage control"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
@@ -85,10 +72,12 @@ equation
   blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
   blockedDown = Modelica.Math.BooleanVectors.allTrue(limUQDown);
   frozen = FreezingActivated and ((blockedUp and (UpRefPu - UpPu) > 0) or (blockedDown and (UpRefPu - UpPu) < 0));
-  when frozen and not(pre(frozen)) then
-    Timeline.logEvent1 (TimelineKeys.VRFrozen);
-  elsewhen not(frozen) and pre(frozen) then
-    Timeline.logEvent1 (TimelineKeys.VRUnfrozen);
+  when frozen and not
+                     (pre(frozen)) then
+    Timeline.logEvent1( TimelineKeys.VRFrozen);
+  elsewhen not
+              (frozen) and pre(frozen) then
+    Timeline.logEvent1( TimelineKeys.VRUnfrozen);
   end when;
   switch1.u2 = frozen;
 

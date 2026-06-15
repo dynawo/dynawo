@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.Protections;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model OVA "Over-Voltage Automaton"
   /* When the monitored voltage goes above a threshold (UMax)
      and does not go back below this threshold within a given time lag
@@ -33,15 +20,19 @@ protected
 
 equation
   // Voltage comparison with the maximum accepted value
-  when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal)) then
+  when UMonitoredPu >= UMaxPu and not
+                                     (pre(switchOffSignal)) then
     tThresholdReached = time;
-  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal)) then
+  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not
+                                                                                    (pre(switchOffSignal)) then
     tThresholdReached = Constants.inf;
   end when;
 
-  when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal)) and tLagAction > 0 then
+  when UMonitoredPu >= UMaxPu and not
+                                     (pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.OVAArming);
-  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal)) and tLagAction > 0 then
+  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not
+                                                                                    (pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.OVADisarming);
   end when;
 

@@ -1,18 +1,4 @@
 within Dynawo.Examples.IEEE57.BaseClasses;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model IEEE57BaseHvdcPs "Base class for IEEE 57-bus system benchmark formed with 57 buses, 7 generators, 3 shunts, 16 transformers, 1 phase shifter, 63 lines, 1 HVDC line  and 42 loads"
   import Dynawo.Electrical.Machines.OmegaRef.GeneratorPV.QStatus;
 

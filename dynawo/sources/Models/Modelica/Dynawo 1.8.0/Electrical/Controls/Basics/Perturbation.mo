@@ -1,0 +1,29 @@
+within Dynawo.Electrical.Controls.Basics;
+
+/*
+* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+*/
+
+model Perturbation "Parameterizable perturbation model : adds a constant signal at a given time"
+
+  Modelica.Blocks.Interfaces.RealInput signal(start = Value0);
+  Modelica.Blocks.Interfaces.RealOutput perturbatedSignal(start = Value0);
+
+  parameter Real Height "Amplitude of the perturbation to be added";
+  parameter Types.Time tStep "Time instant when the perturbation occurs";
+
+  parameter Real Value0 "Start value of the output";
+
+equation
+  perturbatedSignal = signal + (if time < tStep then 0 else Height);
+
+  annotation(preferredView = "text");
+end Perturbation;

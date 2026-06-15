@@ -1,20 +1,6 @@
 within Dynawo.Examples.RVS.Grid;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model FullStatic1 "RVS test grid with buses, lines, shunts, PQ loads and transformers, used for load flow calculation (OpenModelica 1.17.0)"
-  import Modelica.SIunits.Conversions.from_deg;
+  import Modelica.Units.Conversions.from_deg;
 
   extends BaseClasses.NetworkWithPQLoads;
 
@@ -438,7 +424,7 @@ equation
   tfo_20123_123.switchOffSignal2 = false;
   tfo_30123_123.switchOffSignal1 = false;
   tfo_30123_123.switchOffSignal2 = false;
-  vRRemote_bus_101.URegulatedPu = ComplexMath.'abs'(bus_101_ABEL.terminal.V) * UNom_lower;
+  vRRemote_bus_101.URegulatedPu =Modelica.ComplexMath.abs(bus_101_ABEL.terminal.V)*UNom_lower;
   vRRemote_bus_101.URefPu = URef0Pu_bus_101 * UNom_lower;
   vRRemote_bus_101.limUQUp[1] = gen_10101_ABEL_G1.limUQUp;
   vRRemote_bus_101.limUQUp[2] = gen_20101_ABEL_G2.limUQUp;
@@ -472,7 +458,7 @@ equation
   gen_40101_ABEL_G4.N = N.setPoint.value;
   gen_40101_ABEL_G4.NQ = vRRemote_bus_101.NQ;
   gen_40101_ABEL_G4.PRefPu = -PGen0Pu_gen_40101;
-  vRRemote_bus_102.URegulatedPu = ComplexMath.'abs'(bus_102_ADAMS.terminal.V) * UNom_lower;
+  vRRemote_bus_102.URegulatedPu =Modelica.ComplexMath.abs(bus_102_ADAMS.terminal.V)*UNom_lower;
   vRRemote_bus_102.URefPu = URef0Pu_bus_102 * UNom_lower;
   vRRemote_bus_102.limUQUp[1] = gen_10102_ADAMS_G1.limUQUp;
   vRRemote_bus_102.limUQUp[2] = gen_20102_ADAMS_G2.limUQUp;
@@ -506,7 +492,7 @@ equation
   gen_40102_ADAMS_G4.N = N.setPoint.value;
   gen_40102_ADAMS_G4.NQ = vRRemote_bus_102.NQ;
   gen_40102_ADAMS_G4.PRefPu = -PGen0Pu_gen_40102;
-  vRRemote_bus_107.URegulatedPu = ComplexMath.'abs'(bus_107_ALDER.terminal.V) * UNom_lower;
+  vRRemote_bus_107.URegulatedPu =Modelica.ComplexMath.abs(bus_107_ALDER.terminal.V)*UNom_lower;
   vRRemote_bus_107.URefPu = URef0Pu_bus_107 * UNom_lower;
   vRRemote_bus_107.limUQUp[1] = gen_10107_ALDER_G1.limUQUp;
   vRRemote_bus_107.limUQUp[2] = gen_20107_ALDER_G2.limUQUp;
@@ -532,7 +518,7 @@ equation
   gen_30107_ALDER_G3.N = N.setPoint.value;
   gen_30107_ALDER_G3.NQ = vRRemote_bus_107.NQ;
   gen_30107_ALDER_G3.PRefPu = -PGen0Pu_gen_30107;
-  vRRemote_bus_113.URegulatedPu = ComplexMath.'abs'(bus_113_ARNE.terminal.V) * UNom_upper;
+  vRRemote_bus_113.URegulatedPu =Modelica.ComplexMath.abs(bus_113_ARNE.terminal.V)*UNom_upper;
   vRRemote_bus_113.URefPu = URef0Pu_bus_113 * UNom_upper;
   vRRemote_bus_113.limUQUp[1] = gen_10113_ARNE_G1.limUQUp;
   vRRemote_bus_113.limUQUp[2] = gen_20113_ARNE_G2.limUQUp;
@@ -558,7 +544,7 @@ equation
   gen_30113_ARNE_G3.N = N.setPoint.value;
   gen_30113_ARNE_G3.NQ = vRRemote_bus_113.NQ;
   gen_30113_ARNE_G3.PRefPu = -PGen0Pu_gen_30113;
-  vRRemote_bus_118.URegulatedPu = ComplexMath.'abs'(bus_118_ASTOR.terminal.V) * UNom_upper;
+  vRRemote_bus_118.URegulatedPu =Modelica.ComplexMath.abs(bus_118_ASTOR.terminal.V)*UNom_upper;
   vRRemote_bus_118.URefPu = URef0Pu_bus_118 * UNom_upper;
   vRRemote_bus_118.limUQUp[1] = gen_10118_ASTOR_G1.limUQUp;
   vRRemote_bus_118.limUQDown[1] = gen_10118_ASTOR_G1.limUQDown;
@@ -568,7 +554,7 @@ equation
   gen_10118_ASTOR_G1.N = N.setPoint.value;
   gen_10118_ASTOR_G1.NQ = vRRemote_bus_118.NQ;
   gen_10118_ASTOR_G1.PRefPu = -PGen0Pu_gen_10118;
-  vRRemote_bus_115.URegulatedPu = ComplexMath.'abs'(bus_115_ARTHUR.terminal.V) * UNom_upper;
+  vRRemote_bus_115.URegulatedPu =Modelica.ComplexMath.abs(bus_115_ARTHUR.terminal.V)*UNom_upper;
   vRRemote_bus_115.URefPu = URef0Pu_bus_115 * UNom_upper;
   vRRemote_bus_115.limUQUp[1] = gen_10115_ARTHUR_G1.limUQUp;
   vRRemote_bus_115.limUQUp[2] = gen_20115_ARTHUR_G2.limUQUp;
@@ -618,7 +604,7 @@ equation
   gen_60115_ARTHUR_G6.N = N.setPoint.value;
   gen_60115_ARTHUR_G6.NQ = vRRemote_bus_115.NQ;
   gen_60115_ARTHUR_G6.PRefPu = -PGen0Pu_gen_60115;
-  vRRemote_bus_122.URegulatedPu = ComplexMath.'abs'(bus_122_AUBREY.terminal.V) * UNom_upper;
+  vRRemote_bus_122.URegulatedPu =Modelica.ComplexMath.abs(bus_122_AUBREY.terminal.V)*UNom_upper;
   vRRemote_bus_122.URefPu = URef0Pu_bus_122 * UNom_upper;
   vRRemote_bus_122.limUQUp[1] = gen_10122_AUBREY_G1.limUQUp;
   vRRemote_bus_122.limUQUp[2] = gen_20122_AUBREY_G2.limUQUp;
@@ -668,7 +654,7 @@ equation
   gen_60122_AUBREY_G6.N = N.setPoint.value;
   gen_60122_AUBREY_G6.NQ = vRRemote_bus_122.NQ;
   gen_60122_AUBREY_G6.PRefPu = -PGen0Pu_gen_60122;
-  vRRemote_bus_116.URegulatedPu = ComplexMath.'abs'(bus_116_ASSER.terminal.V) * UNom_upper;
+  vRRemote_bus_116.URegulatedPu =Modelica.ComplexMath.abs(bus_116_ASSER.terminal.V)*UNom_upper;
   vRRemote_bus_116.URefPu = URef0Pu_bus_116 * UNom_upper;
   vRRemote_bus_116.limUQUp[1] = gen_10116_ASSER_G1.limUQUp;
   vRRemote_bus_116.limUQDown[1] = gen_10116_ASSER_G1.limUQDown;
@@ -678,7 +664,7 @@ equation
   gen_10116_ASSER_G1.N = N.setPoint.value;
   gen_10116_ASSER_G1.NQ = vRRemote_bus_116.NQ;
   gen_10116_ASSER_G1.PRefPu = -PGen0Pu_gen_10116;
-  vRRemote_bus_123.URegulatedPu = ComplexMath.'abs'(bus_123_AUSTEN.terminal.V) * UNom_upper;
+  vRRemote_bus_123.URegulatedPu =Modelica.ComplexMath.abs(bus_123_AUSTEN.terminal.V)*UNom_upper;
   vRRemote_bus_123.URefPu = URef0Pu_bus_123 * UNom_upper;
   vRRemote_bus_123.limUQUp[1] = gen_10123_AUSTEN_G1.limUQUp;
   vRRemote_bus_123.limUQUp[2] = gen_20123_AUSTEN_G2.limUQUp;

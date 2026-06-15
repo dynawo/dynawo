@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Sources;
-
-/*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-*/
-
 model InjectorIDQ "Injector controlled by d and q current components idPu and iqPu"
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
 
@@ -52,7 +39,7 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   parameter Types.Angle UPhase0 "Start value of voltage angle at injector terminal in rad";
 
 equation
-  UPu = ComplexMath.'abs'(terminal.V);
+  UPu =Modelica.ComplexMath.abs(terminal.V);
   uPu = terminal.V;
 
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef

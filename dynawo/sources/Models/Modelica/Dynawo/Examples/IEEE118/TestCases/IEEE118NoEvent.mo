@@ -1,18 +1,4 @@
 within Dynawo.Examples.IEEE118.TestCases;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model IEEE118NoEvent "Base class for IEEE 118-bus system benchmark formed with 118 buses, 54 generators, 14 shunts, 9 transformers, 177 lines and 99 loads."
   extends Dynawo.Examples.IEEE118.BaseClasses.IEEE118Base;
   extends Icons.Example;

@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.Protections;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model LossOfSynchronismProtection "Loss of synchronism protection for generators"
   /* Trips when the internal angle (variable thetaInternal) of a generator is negative and lower than -abs(ThetaMin). The protection never disarms because there is a risk to "loop around" (thetaInternal is always between -pi and pi).*/
   import Modelica.Constants;
@@ -30,7 +17,8 @@ protected
 
 equation
   // Angle comparison with the minimum accepted value
-  when abs(thetaMonitored) > ThetaMax and not(pre(switchOffSignal)) then
+  when abs(thetaMonitored) > ThetaMax and not
+                                             (pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LossOfSynchronismArming);
   end when;

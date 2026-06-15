@@ -1,23 +1,11 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model Ac8c "IEEE exciter type AC8C model (2016 standard)"
   extends Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard.BaseClasses.BaseAc8(
-    limitedFirstOrder.Y0 = Efe0Pu / Vb0Pu,
-    pid.xi_start = Efe0Pu / (Ka * Vb0Pu),
-    pid.y_start = Efe0Pu / (Ka * Vb0Pu));
+      limitedFirstOrder(
+    Y0                   = Efe0Pu / Vb0Pu), pid(
+    xi_start     = Efe0Pu / (Ka * Vb0Pu),
+    y_start     = Efe0Pu / (Ka * Vb0Pu))
+                                       );
 
   //Regulation parameters
   parameter Types.PerUnit Kc1 "Rectifier loading factor proportional to commutating reactance (exciter)";

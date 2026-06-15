@@ -16,7 +16,7 @@ model InjectorIDQWithControl
   parameter Types.ComplexApparentPowerPu s0Pu;
   parameter Types.ComplexVoltagePu u0Pu;
   parameter Types.CurrentModulePu Imax;
-  Modelica.SIunits.Voltage Vt(start = U0Pu);
+  Modelica.Units.SI.Voltage Vt(start=U0Pu);
   Electrical.Sources.InjectorIDQ injectorIDQ(SwitchOffSignal20 = false, SNom = Snom, i0Pu = i0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, s0Pu = s0Pu, U0Pu = U0Pu, u0Pu = u0Pu, UPhase0 = UPhase0) annotation(
     Placement(transformation(origin = {40, 3.55271e-15}, extent = {{-20, -20}, {20, 20}})));
   ElectricalControlNordic electricalControlNordic(t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, Kp = 5, Ki = 0.01, Imax = Imax, Vt0 = U0Pu, Q0Pu = Q0Pu, P0Pu = P0Pu, U0Pu = U0Pu, baseratio = 100/Snom, Iq0Pu = Iq0Pu) annotation(
@@ -36,7 +36,7 @@ model InjectorIDQWithControl
   Modelica.Blocks.Interfaces.RealInput VRef annotation(
     Placement(transformation(origin = {-80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
 equation
-  Vt = ComplexMath.'abs'(terminal.V);
+  Vt =Modelica.ComplexMath.abs(terminal.V);
   injectorIDQ.idPu = Id0Pu;
   injectorIDQ.iqPu = Iq0Pu;
   injectorIDQ.UPhase = UPhase0;

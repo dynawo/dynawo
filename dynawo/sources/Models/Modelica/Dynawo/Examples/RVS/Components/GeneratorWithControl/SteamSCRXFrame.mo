@@ -1,18 +1,4 @@
 within Dynawo.Examples.RVS.Components.GeneratorWithControl;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model SteamSCRXFrame "Model of a steam generator with a governor, a voltage regulator, a power system stabilizer and an overexcitation limiter, for the RVS test system"
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersGenerators;
   import Dynawo.Examples.RVS.Components.GeneratorWithControl.BaseClasses.ParametersIEEEG1;

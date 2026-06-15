@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Transformers.BaseClasses_INIT;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 function TapEstimation "Function that estimates the initial tap of a transformer"
   extends Icons.Function;
 
@@ -62,16 +48,16 @@ algorithm
   end if;
 
   // Handling zero voltage case
-  if (ComplexMath. 'abs'(u10Pu) == 0) then
+  if (Modelica.ComplexMath.abs(u10Pu) == 0) then
     Tap0 := 0;
     return;
   end if;
 
   // Determining the ratio voltage corresponding to the voltage set point based on equation (5)
   deltauPu := ZPu * i10Pu;
-  A := ComplexMath. 'abs'(u10Pu) * ComplexMath. 'abs'(u10Pu);
+  A :=Modelica.ComplexMath.abs(u10Pu)*Modelica.ComplexMath.abs(u10Pu);
   B := -2 * deltauPu.re * u10Pu.re -2 * deltauPu.im * u10Pu.im - Uc20Pu * Uc20Pu;
-  C := ComplexMath. 'abs'(deltauPu) * ComplexMath. 'abs'(deltauPu);
+  C :=Modelica.ComplexMath.abs(deltauPu)*Modelica.ComplexMath.abs(deltauPu);
   delta := B * B - 4 * A * C;
   assert(delta > 0, "The power flow through the transformer is incoherent: rTfo0Pu is supposed to be positive");
   root := (-B + sqrt(delta)) / (2 * A);

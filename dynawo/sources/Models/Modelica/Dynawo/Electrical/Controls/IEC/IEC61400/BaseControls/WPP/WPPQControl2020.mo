@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model WPPQControl2020 "Reactive power control module for wind power plants (IEC N°61400-27-1:2020)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
@@ -59,7 +46,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = XErrMaxPu, uMin = XErrMinPu) annotation(
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  equation
+equation
   connect(xWPRefComPu, multiSwitch.u[1]) annotation(
     Line(points = {{-340, 120}, {-140, 120}, {-140, 103}, {-80, 103}}, color = {0, 0, 127}));
   connect(multiSwitch.y, variableLimiter.u) annotation(

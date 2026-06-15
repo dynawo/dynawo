@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Transformers.TransformersFixedTap;
-
-/*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-*/
-
 model GeneratorTransformer "Two winding transformer with a fixed ratio"
 
 /*
@@ -73,12 +60,12 @@ equation
   end if;
 
   if running then
-    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U1Pu =Modelica.ComplexMath.abs(terminal1.V);
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
     P1GenPu = - P1Pu;
     Q1GenPu = - Q1Pu;
-    U2Pu = ComplexMath.'abs'(terminal2.V);
+    U2Pu =Modelica.ComplexMath.abs(terminal2.V);
     P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
     Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
   else

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model SwitchOffLogic "Manage switch-off logic"
 
   parameter Integer NbSwitchOffSignals(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
@@ -27,7 +13,9 @@ partial model SwitchOffLogic "Manage switch-off logic"
   parameter Boolean SwitchOffSignal20 = false "Initial switch-off signal 2";
   parameter Boolean SwitchOffSignal30 = false "Initial switch-off signal 3";
 
-  final parameter Boolean Running0 = if NbSwitchOffSignals >= 3 then not(SwitchOffSignal10 or SwitchOffSignal20 or SwitchOffSignal30) elseif NbSwitchOffSignals >= 2 then not(SwitchOffSignal10 or SwitchOffSignal20) else not SwitchOffSignal10 "Indicates if the component is initially running or not";
+  final parameter Boolean Running0 = if NbSwitchOffSignals >= 3 then not
+                                                                        (SwitchOffSignal10 or SwitchOffSignal20 or SwitchOffSignal30) elseif NbSwitchOffSignals >= 2 then not
+                                                                                                                                                                             (SwitchOffSignal10 or SwitchOffSignal20) else not SwitchOffSignal10 "Indicates if the component is initially running or not";
 
 equation
   if (NbSwitchOffSignals >= 3) then

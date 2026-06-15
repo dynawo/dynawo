@@ -12,7 +12,7 @@ encapsulated package Dynawo "Dynawo models library"
   extends Icons.Package;
 
   annotation(
-    version = "1.8.0",
+    version="1.8.1",
     Documentation(info = "<html><head></head><body>
 <p>Copyright (c) 2015-2024, RTE (<a href=\"http://www.rte-france.com/\">http://www.rte-france.com</a>)</p>
 
@@ -34,6 +34,7 @@ SPDX-License-Identifier: MPL-2.0<p></p>
 <p>If you want to have more detail on the library, please have a look to the <a href=\"modelica://Dynawo.UsersGuide\"> User's Guide. </a> </p>
 
 <p>If you want to learn more about the Dynawo projet in general, please visit <a href=\"http://www.dynawo.org\"> our website</a> or send us an <a href=\"mailto:rte-dynawo@rte-france.com\">e-mail.</a></p></body></html>"),
-    uses(Modelica(version = "3.2.3")),
-    preferredView = "info");
+    uses(Modelica(version="4.1.0")),
+    preferredView = "info",
+    conversion(noneFromVersion="1.8.0"));
 end Dynawo;

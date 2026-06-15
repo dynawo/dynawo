@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model SCRX "Bus-fed or solid-fed exciter model"
 
   parameter Boolean CSwitch = false "If true, exciter is solid-fed, if false, exciter is bus-fed";
@@ -46,7 +32,7 @@ model SCRX "Bus-fed or solid-fed exciter model"
 
   Modelica.Blocks.Math.Sum sum1(k = {1, 1, 1, 1, -1}, nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB , 1}, b = {tA , 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Vr0Pu / K) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB,  1}, b = {tA,  1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Vr0Pu / K) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = K, Y0 = Vr0Pu, YMax = VrMaxPu, YMin = VrMinPu, tFilter = tE) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

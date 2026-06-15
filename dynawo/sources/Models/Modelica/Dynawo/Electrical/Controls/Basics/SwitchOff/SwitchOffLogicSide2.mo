@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model SwitchOffLogicSide2 "Manage switch-off logic for side 2 of a quadripole"
 
   parameter Integer NbSwitchOffSignalsSide2(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
@@ -27,7 +13,9 @@ partial model SwitchOffLogicSide2 "Manage switch-off logic for side 2 of a quadr
   parameter Boolean SwitchOffSignal2Side20 = false "Initial switch-off signal 2 for side 2 of the quadripole";
   parameter Boolean SwitchOffSignal3Side20 = false "Initial switch-off signal 3 for side 2 of the quadripole";
 
-  final parameter Boolean RunningSide20 = if NbSwitchOffSignalsSide2 >= 3 then not(SwitchOffSignal1Side20 or SwitchOffSignal2Side20 or SwitchOffSignal3Side20) elseif NbSwitchOffSignalsSide2 >= 2 then not(SwitchOffSignal1Side20 or SwitchOffSignal2Side20) else not SwitchOffSignal1Side20 "Indicates if the component is initially running on side 2 or not";
+  final parameter Boolean RunningSide20 = if NbSwitchOffSignalsSide2 >= 3 then not
+                                                                                  (SwitchOffSignal1Side20 or SwitchOffSignal2Side20 or SwitchOffSignal3Side20) elseif NbSwitchOffSignalsSide2 >= 2 then not
+                                                                                                                                                                                                        (SwitchOffSignal1Side20 or SwitchOffSignal2Side20) else not SwitchOffSignal1Side20 "Indicates if the component is initially running on side 2 or not";
 
 equation
   if (NbSwitchOffSignalsSide2 >= 3) then

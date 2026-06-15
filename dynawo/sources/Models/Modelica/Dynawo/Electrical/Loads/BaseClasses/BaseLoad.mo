@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Loads.BaseClasses;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseLoad "Base model for loads"
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffLoad;
 
@@ -29,7 +15,8 @@ partial model BaseLoad "Base model for loads"
   Modelica.Blocks.Interfaces.RealInput deltaQ(start = 0) "Delta to apply on QRef in %" annotation(
     Placement(visible = true, transformation(origin = {75, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
-  Dynawo.Connectors.ImPin UPu(value(start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in pu (base UNom)";
+  Dynawo.Connectors.ImPin UPu(value(start=Modelica.ComplexMath.abs(u0Pu)))
+    "Voltage amplitude at load terminal in pu (base UNom)";
   Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
@@ -43,7 +30,7 @@ equation
   SPu = terminal.V * ComplexMath.conj(terminal.i);
 
   if running and terminal.V <> Complex(0) then
-    UPu.value = ComplexMath.'abs'(terminal.V);
+    UPu.value =Modelica.ComplexMath.abs(terminal.V);
   else
     UPu.value = 0;
   end if;

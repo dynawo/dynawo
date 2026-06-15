@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Loads;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model LoadAlphaBetaRestorativeReset "Load with voltage-dependent active and reactive power with load reset (Alpha-Beta model)"
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
@@ -48,8 +34,10 @@ equation
     if terminal.V == Complex(0) then
       terminal.i = Complex(0);
     else
-      PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha) * KpMlt;
-      QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Beta) * KqMlt;
+      PPu =PRefPu*(1 + deltaP)*((Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(u0Pu))
+        ^Alpha)*KpMlt;
+      QPu =QRefPu*(1 + deltaQ)*((Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(u0Pu))
+        ^Beta)*KqMlt;
     end if;
   else
     der(KpMlt) = 0;

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.PEIR.Protections.DER;
-
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model FrequencyProtectionIBGa "Frequency protection of aggregated IBG"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
@@ -32,10 +18,12 @@ model FrequencyProtectionIBGa "Frequency protection of aggregated IBG"
   Types.AngularVelocityPu omegaMeasuredMinPu(start = 1) "Minimum measured frequency in pu (base omegaNom)";
 
 equation
-  when omegaPu > OmegaMaxPu and not(pre(switchOffSignal)) then
+  when omegaPu > OmegaMaxPu and not
+                                   (pre(switchOffSignal)) then
     switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.OverspeedTripped);
-  elsewhen omegaPu < OmegaMinPu - p and not(pre(switchOffSignal)) then
+  elsewhen omegaPu < OmegaMinPu - p and not
+                                           (pre(switchOffSignal)) then
     switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.UnderspeedTripped);
   end when;

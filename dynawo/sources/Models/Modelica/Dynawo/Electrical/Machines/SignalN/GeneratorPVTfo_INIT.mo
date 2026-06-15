@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Machines.SignalN;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model GeneratorPVTfo_INIT "Initialisation model for generator PV based on SignalN for the frequency handling, with a transformer and a voltage regulation at stator. The voltage module reference at stator is calculated using the voltage module reference at terminal."
   extends BaseClasses_INIT.BaseGeneratorSignalN_INIT;
   extends AdditionalIcons.Init;
@@ -51,8 +38,8 @@ equation
 
   uStator0Pu = u0Pu + iStator0Pu * Complex(0, XTfoPu);
   uStatorRef0Pu = uRef0Pu - iRef0Pu * Complex(0, XTfoPu) * SystemBase.SnRef / SNom;
-  UStator0Pu = ComplexMath.'abs'(uStator0Pu);
-  UStatorRef0Pu = ComplexMath.'abs'(uStatorRef0Pu);
+  UStator0Pu =Modelica.ComplexMath.abs(uStator0Pu);
+  UStatorRef0Pu =Modelica.ComplexMath.abs(uStatorRef0Pu);
   iStator0Pu = - i0Pu * SystemBase.SnRef / SNom;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
   QStator0Pu = sStator0Pu.im * SNom / QNomAlt;

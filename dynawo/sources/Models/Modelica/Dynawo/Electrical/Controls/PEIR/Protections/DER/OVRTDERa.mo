@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.PEIR.Protections.DER;
-
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model OVRTDERa "Over-voltage ride-through model for the der_a"
   import Modelica.Constants;
 
@@ -35,9 +21,11 @@ model OVRTDERa "Over-voltage ride-through model for the der_a"
 
 equation
   // Vl0 comparison
-  when UMonitoredPu >= Uh0Pu and not(pre(Uh0Reached)) then
+  when UMonitoredPu >= Uh0Pu and not
+                                    (pre(Uh0Reached)) then
     tUh0Reached = time;
-  elsewhen UMonitoredPu < Uh0Pu and pre(tUh0Reached) <> Constants.inf and not(pre(Uh0Reached)) then
+  elsewhen UMonitoredPu < Uh0Pu and pre(tUh0Reached) <> Constants.inf and not
+                                                                             (pre(Uh0Reached)) then
     tUh0Reached = Constants.inf;
   end when;
 
@@ -46,10 +34,12 @@ equation
   end when;
 
   // Vl1 comparison
-  when UMonitoredPu >= Uh1Pu and not(pre(Uh1Reached)) then
+  when UMonitoredPu >= Uh1Pu and not
+                                    (pre(Uh1Reached)) then
     tUh1Reached = time;
     UMaxPu = pre(UMaxPu);
-  elsewhen UMonitoredPu < Uh1Pu and pre(tUh1Reached) <> Constants.inf and not(pre(Uh1Reached)) then
+  elsewhen UMonitoredPu < Uh1Pu and pre(tUh1Reached) <> Constants.inf and not
+                                                                             (pre(Uh1Reached)) then
     tUh1Reached = Constants.inf;
     UMaxPu = UMonitoredPu;
   end when;

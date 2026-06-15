@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Machines.OmegaRef.BaseClasses_INIT;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseGeneratorSynchronous_INIT "Base initialization model for synchronous machine"
   extends BaseClasses.GeneratorSynchronousParameters;
 
@@ -124,14 +110,14 @@ equation
   Pm0Pu = Cm0Pu*SystemBase.omega0Pu;
 
   // Output variables for external controlers
-  UStator0Pu = ComplexMath.'abs'(uStator0Pu);
+  UStator0Pu =Modelica.ComplexMath.abs(uStator0Pu);
   IStator0Pu = rTfoPu * I0Pu * SNom/SystemBase.SnRef;
   QStator0Pu = - ComplexMath.imag(sStator0Pu);
   QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
   IRotor0Pu = RfPPu / (Kuf * rTfoPu) * If0Pu;
   ThetaInternal0 = ComplexMath.arg(Complex(Uq0Pu, Ud0Pu));
-  S0Pu = ComplexMath.'abs'(s0Pu)*SystemBase.SnRef/SNom;
-  I0Pu = ComplexMath.'abs'(i0Pu)*SystemBase.SnRef/SNom;
+  S0Pu =Modelica.ComplexMath.abs(s0Pu)*SystemBase.SnRef/SNom;
+  I0Pu =Modelica.ComplexMath.abs(i0Pu)*SystemBase.SnRef/SNom;
 
   annotation(preferredView = "text");
 end BaseGeneratorSynchronous_INIT;

@@ -1,19 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model PControl4B2020 "Active power control module for type 4B wind turbines (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(absLimRateLimFirstOrderAntiWindup.tI = tPOrdP4B, absLimRateLimFirstOrderAntiWindup.DyMax = DPMaxP4BPu, absLimRateLimFirstOrderAntiWindup.UseLimits = true);
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(
+      absLimRateLimFirstOrderAntiWindup(                                    tI                                   = tPOrdP4B, DyMax                                   = DPMaxP4BPu, UseLimits                                   = true));
 
   //Nominal parameter
   parameter Types.Time tS "Integration time step in s";

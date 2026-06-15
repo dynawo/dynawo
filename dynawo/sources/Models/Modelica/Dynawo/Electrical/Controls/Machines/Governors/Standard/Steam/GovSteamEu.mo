@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.Governors.Standard.Steam;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at
-* SPDX-License-Identifier:
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model GovSteamEu "Governor type GovSteamEU"
 
   // Public parameters
@@ -129,10 +116,17 @@ model GovSteamEu "Governor type GovSteamEU"
     Placement(visible = true, transformation(origin = {8, -294}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addPt1Rh(k1 = -1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {272, -164}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1D combiTableEmergency(table = [0, 1; OmegaMax1Pu, 1; OmegaMax2Pu, 0; OmegaMax2Pu + 0.01, 0], tableOnFile = false) annotation(
-    Placement(visible = true, transformation(origin = {240, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1D combiTableSimx(table = [0, 0; SimxPu, 1; 999999, 1]) annotation(
-    Placement(visible = true, transformation(origin = {-56, -260}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Tables.CombiTable1Dv combiTableEmergency(table=[0,1; OmegaMax1Pu,1; OmegaMax2Pu,0;
+        OmegaMax2Pu + 0.01,0], tableOnFile=false) annotation (Placement(visible=true,
+        transformation(
+        origin={240,-88},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Modelica.Blocks.Tables.CombiTable1Dv combiTableSimx(table=[0,0; SimxPu,1; 999999,1]) annotation (
+      Placement(visible=true, transformation(
+        origin={-56,-260},
+        extent={{-10,-10},{10,10}},
+        rotation=-90)));
   Modelica.Blocks.Nonlinear.DeadZone deadZoneFrequency(uMax = DeltafDbPu) annotation(
     Placement(visible = true, transformation(origin = {10, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.DeadZone deadZoneOmega(uMax = DeltaOmegaDbPu) annotation(

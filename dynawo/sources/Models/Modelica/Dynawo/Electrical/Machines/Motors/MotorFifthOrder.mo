@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Machines.Motors;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model, based on https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Load%20Characteristic%20MOTORW.htm, must be incorporated in a load model."
   extends BaseClasses.BaseMotor;
   extends AdditionalIcons.Machine;
@@ -51,7 +37,8 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
   Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (base SNom, omegaNom)";
   Types.ActivePowerPu PRawPu(start = s0Pu.re) "Active power at load terminal without considering diconnections in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QRawPu(start = s0Pu.im) "Reactive power at load terminal without considering diconnections in pu (base SnRef) (receptor convention)";
-  Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
+  Types.VoltageModulePu UPu(start=Modelica.ComplexMath.abs(u0Pu))
+    "Voltage amplitude at load terminal in pu (base UNom)";
   Types.Time tTripThresholdReached1(start = Constants.inf) "Time when the trip threshold 1 was reached in s";
   Types.Time tTripThresholdReached2(start = Constants.inf) "Time when the trip threshold 2 was reached in s";
   Types.Time tReconnectThresholdReached1(start = Constants.inf) "Time when the reconnect threshold 1 was reached in s";
@@ -114,7 +101,7 @@ equation
   if ((V.re == 0) and (V.im == 0)) then
     UPu = 0.;
   else
-    UPu = ComplexMath.'abs'(V);
+    UPu =Modelica.ComplexMath.abs(V);
   end if;
 
   // Trip block 1
@@ -123,9 +110,11 @@ equation
   elsewhen UPu > Utrip1Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected1) and running then
     tTripThresholdReached1 = Constants.inf;
   end when;
-  when UPu >= Ureconnect1Pu and not(pre(connected1)) and running then
+  when UPu >= Ureconnect1Pu and not
+                                   (pre(connected1)) and running then
     tReconnectThresholdReached1 = time;
-  elsewhen UPu < Ureconnect1Pu and pre(tReconnectThresholdReached1) <> Constants.inf and not(pre(connected1)) and running then
+  elsewhen UPu < Ureconnect1Pu and pre(tReconnectThresholdReached1) <> Constants.inf and not
+                                                                                            (pre(connected1)) and running then
     tReconnectThresholdReached1 = Constants.inf;
   end when;
   when time - tTripThresholdReached1 >= tTrip1Pu and running then
@@ -140,9 +129,11 @@ equation
   elsewhen UPu > Utrip2Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected2) and running then
     tTripThresholdReached2 = Constants.inf;
   end when;
-  when UPu >= Ureconnect2Pu and not(pre(connected2)) and running then
+  when UPu >= Ureconnect2Pu and not
+                                   (pre(connected2)) and running then
     tReconnectThresholdReached2 = time;
-  elsewhen UPu < Ureconnect2Pu and pre(tReconnectThresholdReached2) <> Constants.inf and not(pre(connected2)) and running then
+  elsewhen UPu < Ureconnect2Pu and pre(tReconnectThresholdReached2) <> Constants.inf and not
+                                                                                            (pre(connected2)) and running then
     tReconnectThresholdReached2 = Constants.inf;
   end when;
   when time - tTripThresholdReached2 >= tTrip2Pu and running then

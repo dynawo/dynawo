@@ -1,18 +1,4 @@
 within Dynawo.Examples.BESS.WECC;
-
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant controller on infinite bus"
   extends Icons.Example;
 
@@ -135,16 +121,19 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     Placement(transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT wt4CurrentSource_INIT(
-    ConverterLVControl = BESS.ConverterLVControl,
-    P0Pu = BESS.s0Pu.re,
-    Q0Pu = BESS.s0Pu.im,
-    RLvTrPu = BESS.RLvTrPu,
-    SNom = BESS.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(BESS.u0Pu),
-    UPhase0 = 0,
-    XLvTrPu = BESS.XLvTrPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT
+    wt4CurrentSource_INIT(
+    ConverterLVControl=BESS.ConverterLVControl,
+    P0Pu=BESS.s0Pu.re,
+    Q0Pu=BESS.s0Pu.im,
+    RLvTrPu=BESS.RLvTrPu,
+    SNom=BESS.SNom,
+    U0Pu=Modelica.ComplexMath.abs(BESS.u0Pu),
+    UPhase0=0,
+    XLvTrPu=BESS.XLvTrPu) annotation (Placement(visible=true, transformation(
+        origin={-70,70},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
 initial algorithm
   BESS.Id0Pu := wt4CurrentSource_INIT.Id0Pu;

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model SwitchOffDCLine "Switch-off signal for a DC line"
   /* The two possible/expected switch-off signals for each terminal of the DC line are:
      - a switch-off signal coming from the node in case of a node disconnection
@@ -28,10 +14,14 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
   parameter Constants.state State0 = Constants.state.Closed "Start value of connection state";
 
 equation
-  when not(runningSide1) or not(runningSide2) then
+  when not
+          (runningSide1) or not
+                               (runningSide2) then
     Timeline.logEvent1(TimelineKeys.DCLineOpen);
     state = Constants.state.Open;
-  elsewhen runningSide1 and runningSide2 and (not(pre(runningSide1)) or not(pre(runningSide2))) then
+  elsewhen runningSide1 and runningSide2 and (not
+                                                 (pre(runningSide1)) or not
+                                                                           (pre(runningSide2))) then
     Timeline.logEvent1(TimelineKeys.DCLineClosed);
     state = Constants.state.Closed;
   end when;

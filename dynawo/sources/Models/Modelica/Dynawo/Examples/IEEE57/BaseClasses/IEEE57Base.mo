@@ -1,25 +1,11 @@
 within Dynawo.Examples.IEEE57.BaseClasses;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model IEEE57Base "Base class for IEEE 57-bus system benchmark formed with 57 buses, 7 generators, 3 shunts, 16 transformers, 63 lines and 42 loads"
   import Dynawo.Electrical.Machines.OmegaRef.GeneratorPV.QStatus;
 
   // Base calculation
-  final parameter Modelica.SIunits.Impedance ZBASE69_0 = 69.0 ^ 2 / SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE18_0 = 18.0 ^ 2 / SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE13_8 = 13.8 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE69_0=69.0^2/SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE18_0=18.0^2/SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE13_8=13.8^2/SystemBase.SnRef;
 
    // Load parameters
   parameter Real alpha = 1.5 "Active load sensitivity to voltage";

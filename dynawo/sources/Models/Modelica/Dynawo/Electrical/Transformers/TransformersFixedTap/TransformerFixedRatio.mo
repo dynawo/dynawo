@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Transformers.TransformersFixedTap;
-
-/*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-*/
-
 model TransformerFixedRatio "Two winding transformer with a fixed ratio"
 
 /* This model works without initialization model
@@ -61,12 +48,12 @@ equation
     if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
       U1Pu = 0;
     else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
+      U1Pu =Modelica.ComplexMath.abs(terminal1.V);
     end if;
     if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
       U2Pu = 0;
     else
-      U2Pu = ComplexMath.'abs'(terminal2.V);
+      U2Pu =Modelica.ComplexMath.abs(terminal2.V);
     end if;
   else
     U1Pu = 0;

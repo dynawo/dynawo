@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.PEIR.Protections.DER;
-
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model LVRTIBG "Low voltage ride through for IBG"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
@@ -34,10 +20,12 @@ protected
 
 equation
   // Arming
-  when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal)) then
+  when UMonitoredPu <= ULVRTArmingPu and not
+                                            (pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LVRTArming);
-  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Modelica.Constants.inf and not(pre(switchOffSignal)) then
+  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Modelica.Constants.inf and not
+                                                                                                    (pre(switchOffSignal)) then
     tThresholdReached = Modelica.Constants.inf;
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
   end when;

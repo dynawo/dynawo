@@ -1,23 +1,9 @@
 within Dynawo.Examples.IllustrativeExamples.DynaFlow;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model PhaseShifterTransformer "Elementary system with one infinite bus, one load, two lines and a Phase Tap Changer Transformer"
   extends Icons.Example;
 
   // Base calculation
-  final parameter Modelica.SIunits.Impedance ZBASE69_0 = 69.0 ^ 2 / Dynawo.Electrical.SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE69_0=69.0^2/Dynawo.Electrical.SystemBase.SnRef;
 
   // gen01 init values:
   parameter Dynawo.Types.VoltageModulePu U0PuGen01 = 1.;

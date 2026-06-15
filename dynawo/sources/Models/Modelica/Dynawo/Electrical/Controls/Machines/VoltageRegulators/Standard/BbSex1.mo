@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Standard;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model BbSex1 "Model of exciter BBSEX1"
 
   //Regulation parameters
@@ -45,7 +31,7 @@ model BbSex1 "Model of exciter BBSEX1"
 
   Modelica.Blocks.Math.Sum sum1(k = {1, 1, 1, 1, -1}, nin = 5) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {t4 , 1}, b = {t3 , 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Efd0Pu / K) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {t4,  1}, b = {t3,  1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Efd0Pu / K) annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k =  t2 / t1) annotation(
     Placement(visible = true, transformation(origin = {50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

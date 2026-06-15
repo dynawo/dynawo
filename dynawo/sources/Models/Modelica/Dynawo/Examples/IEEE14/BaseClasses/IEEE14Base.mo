@@ -1,23 +1,9 @@
 within Dynawo.Examples.IEEE14.BaseClasses;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers, 17 lines and 11 loads"
 
   // Base Calculation
-  final parameter Modelica.SIunits.Impedance ZBASE1 = 69 ^ 2 / SystemBase.SnRef;
-  final parameter Modelica.SIunits.Impedance ZBASE2 = 13.8 ^ 2 / SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE1=69^2/SystemBase.SnRef;
+  final parameter Modelica.Units.SI.Impedance ZBASE2=13.8^2/SystemBase.SnRef;
 
   // Load parameters
   parameter Real alpha = 1.5 "Active load sensitivity to voltage";
@@ -67,7 +53,9 @@ model IEEE14Base "Base class for IEEE 14-bus system benchmark formed with 14 bus
     Placement(visible = true, transformation(origin = {10, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   // Buses
-  Dynawo.Electrical.Buses.Bus Bus1(terminal.V.re(start = 1)) annotation(
+  Dynawo.Electrical.Buses.Bus Bus1(terminal(V(
+                                   re(           start = 1))))
+                                                             annotation(
     Placement(visible = true, transformation(origin = {-170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Buses.Bus Bus2 annotation(
     Placement(visible = true, transformation(origin = {-90, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

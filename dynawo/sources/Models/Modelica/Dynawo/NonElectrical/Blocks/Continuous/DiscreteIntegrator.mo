@@ -1,17 +1,4 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of time domain simulation tools for power systems.
-*/
-
 block DiscreteIntegrator "Integrator with discrete input"
 
   parameter Types.Time tIntegral "Time integration constant";
@@ -24,7 +11,7 @@ block DiscreteIntegrator "Integrator with discrete input"
   Modelica.Blocks.Interfaces.RealOutput y(start = Y0) "Output of the PI controller." annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0, k=1/tIntegral ) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(y_start = Y0, k=1/tIntegral)  annotation(
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) "Constant 0 value in case of frozen PI" annotation(
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

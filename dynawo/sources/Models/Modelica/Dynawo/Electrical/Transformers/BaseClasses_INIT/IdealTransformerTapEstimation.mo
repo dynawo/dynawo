@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Transformers.BaseClasses_INIT;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 function IdealTransformerTapEstimation "Function that estimates the initial tap of an ideal transformer"
   extends Icons.Function;
 
@@ -41,13 +27,13 @@ algorithm
   end if;
 
   // Handling zero voltage case
-  if (ComplexMath. 'abs'(u10Pu) == 0) then
+  if (Modelica.ComplexMath.abs(u10Pu) == 0) then
     Tap0 := 0;
     return;
   end if;
 
   // Initial ratio calculation
-  rcTfo0Pu := Uc20Pu / ComplexMath. 'abs'(u10Pu);
+  rcTfo0Pu :=Uc20Pu/Modelica.ComplexMath.abs(u10Pu);
 
   // Finding the tap position closest to the ratio calculated (rounded to an integer)
   tapEstimation := ((rcTfo0Pu - rTfoMinPu) / (rTfoMaxPu - rTfoMinPu)) * (NbTap - 1);

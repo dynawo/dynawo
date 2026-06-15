@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.VoltageRegulators.Simplified;
-
-/*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-*/
-
 model VRProportionalReactiveFeedback
   import Dynawo.NonElectrical.Logs.Constraint;
   import Dynawo.NonElectrical.Logs.ConstraintKeys;
@@ -104,7 +91,8 @@ equation
   when (limiterEfd.u <= EfdMinPu) then
     Timeline.logEvent1(TimelineKeys.VRLimitationEfdMin);
     limitationEfd = true;
-  elsewhen(limiterEfd.u >= EfdMaxPu) then
+  elsewhen
+          (limiterEfd.u >= EfdMaxPu) then
     Timeline.logEvent1(TimelineKeys.VRLimitationEfdMax);
     limitationEfd = true;
   elsewhen (limiterEfd.u > EfdMinPu and limiterEfd.u < EfdMaxPu) and pre(limitationEfd) then

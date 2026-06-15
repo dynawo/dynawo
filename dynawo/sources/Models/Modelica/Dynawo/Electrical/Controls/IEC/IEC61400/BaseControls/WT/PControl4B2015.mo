@@ -1,19 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model PControl4B2015 "Active power control module for type 4B wind turbines (IEC N°61400-27-1:2015)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(absLimRateLimFirstOrderAntiWindup.UseLimits = true, absLimRateLimFirstOrderAntiWindup.tI = tPOrdP4B, absLimRateLimFirstOrderAntiWindup.DyMax = DPMaxP4BPu);
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BasePControl4(
+      absLimRateLimFirstOrderAntiWindup(                                    UseLimits                                   = true, tI                                   = tPOrdP4B, DyMax                                   = DPMaxP4BPu));
 
   //PControl parameters
   parameter Types.PerUnit DPMaxP4BPu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(

@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model WPPQControl2015 "Reactive power control module for wind power plants (IEC N°61400-27-1:2015)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2015;
@@ -29,11 +16,11 @@ model WPPQControl2015 "Reactive power control module for wind power plants (IEC 
     Dialog(tab = "QControlWP"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput PWPPu(start = -P0Pu * SystemBase.SnRef / SNom ) "Active power communicated to WP in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWPPu(start = -P0Pu * SystemBase.SnRef / SNom)  "Active power communicated to WP in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-340, 54}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QWPPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power communicated to WP in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-340, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom ) "Reference reactive power communicated to WP in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu * SystemBase.SnRef / SNom)  "Reference reactive power communicated to WP in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-340, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-220, 180}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-49, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));

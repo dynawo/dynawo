@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.PEIR.Protections.DER;
-
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model LVRTDERa "Low-voltage ride-through model for the der_a"
   import Modelica.Constants;
 
@@ -35,9 +21,11 @@ model LVRTDERa "Low-voltage ride-through model for the der_a"
 
 equation
   // Vl0 comparison
-  when UMonitoredPu <= Ul0Pu and not(pre(Ul0Reached)) then
+  when UMonitoredPu <= Ul0Pu and not
+                                    (pre(Ul0Reached)) then
     tUl0Reached = time;
-  elsewhen UMonitoredPu > Ul0Pu and pre(tUl0Reached) <> Constants.inf and not(pre(Ul0Reached)) then
+  elsewhen UMonitoredPu > Ul0Pu and pre(tUl0Reached) <> Constants.inf and not
+                                                                             (pre(Ul0Reached)) then
     tUl0Reached = Constants.inf;
   end when;
 
@@ -46,9 +34,11 @@ equation
   end when;
 
   // Vl1 comparison
-  when UMonitoredPu <= Ul1Pu and not(pre(Ul1Reached)) then
+  when UMonitoredPu <= Ul1Pu and not
+                                    (pre(Ul1Reached)) then
     tUl1Reached = time;
-  elsewhen UMonitoredPu > Ul1Pu and pre(tUl1Reached) <> Constants.inf and not(pre(Ul1Reached)) then
+  elsewhen UMonitoredPu > Ul1Pu and pre(tUl1Reached) <> Constants.inf and not
+                                                                             (pre(Ul1Reached)) then
     tUl1Reached = Constants.inf;
   end when;
 

@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Buses;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model InfiniteBusWithImpedance_INIT "Initial model for infinite bus connected to an impedance"
   extends AdditionalIcons.Init;
 
@@ -42,7 +29,7 @@ equation
   sTerminal0Pu = Complex(P0Pu, Q0Pu);
   sTerminal0Pu = uTerminal0Pu * ComplexMath.conj(iTerminal0Pu);
   uTerminal0Pu - uBus0Pu = ZPu * iTerminal0Pu;
-  UBus0Pu = ComplexMath.'abs'(uBus0Pu);
+  UBus0Pu =Modelica.ComplexMath.abs(uBus0Pu);
   UPhaseBus0 = ComplexMath.arg(uBus0Pu);
 
   annotation(

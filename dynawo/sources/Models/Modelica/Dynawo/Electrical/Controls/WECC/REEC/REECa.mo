@@ -1,24 +1,10 @@
 within Dynawo.Electrical.Controls.WECC.REEC;
-
-/*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model REECa "WECC Electrical Control type A"
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQPu0 = 1);
 
   // Input variable
-  Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGPu( start = omegaRefWTGQPu0) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -121}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
 
   // Output variables

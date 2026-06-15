@@ -1,18 +1,4 @@
 within Dynawo.Examples.IllustrativeExamples.DynaFlow;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model CoordinatedVControl "System with two generators and a coordinated voltage control"
   extends Icons.Example;
 
@@ -58,10 +44,12 @@ model CoordinatedVControl "System with two generators and a coordinated voltage 
     limUQDown0 = false,
     limUQUp0 = false,
     qStatus0 = Dynawo.Electrical.Machines.SignalN.GeneratorPQPropDiagramPQ.QStatus.Standard,
-    tableQMax.table = [0, 2; 1.5, 2; 1.601, 0],
-    tableQMax.tableOnFile = false,
-    tableQMin.table = [0, -2; 2, -1],
-    tableQMin.tableOnFile = false,
+    tableQMax(
+    table           = [0, 2; 1.5, 2; 1.601, 0],
+    tableOnFile           = false),
+    tableQMin(
+    table           = [0, -2; 2, -1],
+    tableOnFile           = false),
     u0Pu(re(fixed = false), im(fixed = false)),
     QDeadBandPu = 1e-4) annotation(
      Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Loads.BaseClasses;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseLoadMotorSimplified "Base model for loads in parallel to simplified motor model(s)"
   extends BaseLoad;
 
@@ -63,8 +49,9 @@ equation
     QLoadCmdPu = QRefPu * (1 + deltaQ) - sum(motors.s0Pu.im) * (PRefPu / s0Pu.re) * (1 + deltaP); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
     PPu = PLoadPu + sum(motors.PPu);
     QPu = QLoadPu + sum(motors.QPu);
-    PLoadPu = PLoadCmdPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Alpha);
-    QLoadPu = QLoadCmdPu * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ Beta);
+    PLoadPu =PLoadCmdPu*((Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(u0Pu))^
+      Alpha);
+    QLoadPu =QLoadCmdPu*((Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(u0Pu))^Beta);
   else
     PLoadCmdPu = 0;
     QLoadCmdPu = 0;
@@ -75,4 +62,3 @@ equation
 
   annotation(preferredView = "text");
 end BaseLoadMotorSimplified;
-

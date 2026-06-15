@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Transformers.BaseClasses;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseTapChangerPhaseShifterMax "Base model for tap-changers and phase-shifters which takes a maximum and stop value, and tries to bring the value back to the stop value when the maximum value is reached"
   import Modelica.Constants;
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -37,12 +23,14 @@ protected
   Boolean valueUnderStop "Whether the monitored signal is under the stop limit";
 
 equation
-  when (valueToMonitor.value > valueMax) and not(locked) then
+  when (valueToMonitor.value > valueMax) and not
+                                                (locked) then
     valueAboveMax = true;
     tValueAboveMaxWhileRunning = time;
     valueUnderStop = false;
     Timeline.logEvent1(TimelineKeys.PhaseShifterAboveMax);
-  elsewhen (valueToMonitor.value <= valueStop) and not(locked) then
+  elsewhen (valueToMonitor.value <= valueStop) and not
+                                                      (locked) then
     valueAboveMax = false;
     tValueAboveMaxWhileRunning = Constants.inf;
     valueUnderStop = true;
@@ -63,19 +51,22 @@ equation
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveDown" (possible from any state except down states)
-  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running and not(locked) then
+  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running and not
+                                                                                                                                                                                                        (locked) then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveUp" (possible from any state except up states)
-  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running and not(locked) then
+  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running and not
+                                                                                                                                                                                                        (locked) then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "Standard" (possible from any state)
-  elsewhen valueUnderStop and pre(state) <> State.Standard and running and not(locked) then
+  elsewhen valueUnderStop and pre(state) <> State.Standard and running and not
+                                                                              (locked) then
     state = State.Standard;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;

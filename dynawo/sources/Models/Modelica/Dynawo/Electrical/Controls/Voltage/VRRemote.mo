@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.Voltage;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model VRRemote "Model for coordinated primary voltage regulation. This model is used when several generators regulate the same bus with a control law U = URef."
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
@@ -49,10 +36,12 @@ equation
   blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
   blockedDown = Modelica.Math.BooleanVectors.allTrue(limUQDown);
   frozen = FreezingActivated and ((blockedUp and (URefPu - URegulatedPu) > 0) or (blockedDown and (URefPu - URegulatedPu) < 0));
-  when frozen and not(pre(frozen)) then
-    Timeline.logEvent1 (TimelineKeys.VRFrozen);
-  elsewhen not(frozen) and pre(frozen) then
-    Timeline.logEvent1 (TimelineKeys.VRUnfrozen);
+  when frozen and not
+                     (pre(frozen)) then
+    Timeline.logEvent1( TimelineKeys.VRFrozen);
+  elsewhen not
+              (frozen) and pre(frozen) then
+    Timeline.logEvent1( TimelineKeys.VRUnfrozen);
   end when;
   der(deltaUInt) = if frozen then 0 else (URefPu - URegulatedPu) / tIntegral;
   NQ = Gain * (deltaUInt + URefPu - URegulatedPu);

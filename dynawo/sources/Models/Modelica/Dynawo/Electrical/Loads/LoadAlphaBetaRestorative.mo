@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Loads;
-
-/*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-*/
-
 model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
@@ -23,8 +10,10 @@ model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
   parameter Real Beta "Reactive load sensitivity to voltage";
 
 protected
-  Types.VoltageModulePu UFilteredRawPu(start = ComplexMath.'abs'(u0Pu)) "Filtered voltage amplitude at terminal in pu (base UNom)";
-  Types.VoltageModulePu UFilteredPu(start = ComplexMath.'abs'(u0Pu)) "Bounded filtered voltage amplitude at terminal in pu (base UNom)";
+  Types.VoltageModulePu UFilteredRawPu(start=Modelica.ComplexMath.abs(u0Pu))
+    "Filtered voltage amplitude at terminal in pu (base UNom)";
+  Types.VoltageModulePu UFilteredPu(start=Modelica.ComplexMath.abs(u0Pu))
+    "Bounded filtered voltage amplitude at terminal in pu (base UNom)";
 
 equation
   if running then
@@ -32,12 +21,12 @@ equation
       tFilter * der(UFilteredRawPu) = -UFilteredRawPu;
       terminal.i = Complex(0);
     elseif UFilteredPu == 0 then
-      tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
+      tFilter * der(UFilteredRawPu) =Modelica.ComplexMath.abs(terminal.V) - UFilteredRawPu;
       terminal.i = Complex(0);
     else
-      tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
-      PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Alpha);
-      QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / UFilteredPu) ^ Beta);
+      tFilter * der(UFilteredRawPu) =Modelica.ComplexMath.abs(terminal.V) - UFilteredRawPu;
+      PPu =PRefPu*(1 + deltaP)*((Modelica.ComplexMath.abs(terminal.V)/UFilteredPu)^Alpha);
+      QPu =QRefPu*(1 + deltaQ)*((Modelica.ComplexMath.abs(terminal.V)/UFilteredPu)^Beta);
     end if;
     UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
   else

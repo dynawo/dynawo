@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.HVDC;
-
-/*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model PowerTransferHVDC "Power transfer model for HVDC"
 
   input Types.ActivePowerPu PRefSet1RawPu(start = PRefSet10Pu) "Raw reference active power of HVDC link 1 in pu (base SnRef)";
@@ -29,10 +16,12 @@ equation
   if running1 and running2 then
     PRefSet1Pu = PRefSet1RawPu;
     PRefSet2Pu = PRefSet2RawPu;
-  elseif not(running1) and running2 then
+  elseif not
+            (running1) and running2 then
     PRefSet1Pu = 0;
     PRefSet2Pu = PRefSet2RawPu + PRefSet1RawPu;
-  elseif running1 and not(running2) then
+  elseif running1 and not
+                         (running2) then
     PRefSet1Pu = PRefSet1RawPu + PRefSet2RawPu;
     PRefSet2Pu = 0;
   else

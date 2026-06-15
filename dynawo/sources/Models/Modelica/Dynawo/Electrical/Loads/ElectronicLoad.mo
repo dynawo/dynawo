@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Loads;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model ElectronicLoad "Constant power load with disconnection and reconnections depending on the voltage"
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
@@ -22,7 +8,8 @@ model ElectronicLoad "Constant power load with disconnection and reconnections d
   parameter Real recoveringShare "Share of the load that recovers from low voltage trip";
   parameter Types.Time tFilter = 1e-2 "Time constant for estimation of UMinPu in s";
 
-  Types.VoltageModulePu UMinPu(start = ComplexMath.'abs'(u0Pu)) "Minimum voltage during the simulation (with lower bound at Ud2Pu) in pu (base UNom)";
+  Types.VoltageModulePu UMinPu(start=Modelica.ComplexMath.abs(u0Pu))
+    "Minimum voltage during the simulation (with lower bound at Ud2Pu) in pu (base UNom)";
   Real connectedShare(start = 1) "Share of the load that is currently connected";
 
 equation

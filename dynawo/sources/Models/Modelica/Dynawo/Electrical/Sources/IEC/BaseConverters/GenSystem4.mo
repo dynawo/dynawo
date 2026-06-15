@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model GenSystem4 "Type 4 generator system module (IEC N°61400-27-1)"
 /*
 Equivalent circuit and conventions:
@@ -65,7 +52,9 @@ because the standard does not specify any change of behavior when the limits are
   Modelica.Blocks.Interfaces.RealOutput PAgPu(start = Ip0Pu * U0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(iGs0Pu.im = iGs0Pu.im, iGs0Pu.re = iGs0Pu.re, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, Iq0Pu = Iq0Pu, iGs0Pu = iGs0Pu, Ip0Pu = Ip0Pu) annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(                                              P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, Iq0Pu = Iq0Pu, iGs0Pu(
+      im=iGs0Pu.im,
+      re=iGs0Pu.re)                                                                                                                                                                                                        = iGs0Pu, Ip0Pu = Ip0Pu) annotation(
     Placement(visible = true, transformation(origin = {1.58946e-07, -4.76837e-07}, extent = {{-20, -60}, {20, 60}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.AbsLimRateLimFirstOrderAntiWindup absLimRateLimFirstOrderAntiWindup(DyMax = DipMaxPu, DyMin = -999, Kaw = Kipaw, UseLimits = true, Y0 = Ip0Pu, YMax = 999, tI = tG) annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -109,7 +98,8 @@ because the standard does not specify any change of behavior when the limits are
     Dialog(tab = "Operating point"));
 
 equation
-  if fOCB or not(running) then
+  if fOCB or not
+                (running) then
     terminal.i = Complex(0, 0);
   else
     Complex(iECFrameRotation.iGsRePu, iECFrameRotation.iGsImPu) = -terminal.i * (SystemBase.SnRef / SNom);

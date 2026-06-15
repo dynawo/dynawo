@@ -1,23 +1,11 @@
 within Dynawo.Examples.SystemFrequencyResponse;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model ReducedOrderSFR
   extends Icons.Example;
 
   parameter Real Pe0Pu = 0;
 
-  Dynawo.Electrical.Controls.Frequency.SystemFrequencyResponse.ReducedOrderSFR reducedOrderSFR(R = 0.05, H = 4, Km = 0.95, Fh = 0.3, Tr = 8, DPu = 1, gain3.k = 60, Pe0Pu = Pe0Pu) annotation(
+  Dynawo.Electrical.Controls.Frequency.SystemFrequencyResponse.ReducedOrderSFR reducedOrderSFR(R = 0.05, H = 4, Km = 0.95, Fh = 0.3, Tr = 8, DPu = 1,
+    gain3(                                                                                                                                            k       = 60),Pe0Pu = Pe0Pu) annotation(
       Placement(visible = true, transformation(origin = {4, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Psp(k = Pe0Pu / reducedOrderSFR.Km) annotation(
       Placement(visible = true, transformation(origin = {-34, 20}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));

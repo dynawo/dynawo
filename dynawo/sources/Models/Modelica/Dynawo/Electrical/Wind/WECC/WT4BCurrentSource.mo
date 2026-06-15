@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Wind.WECC;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model WT4BCurrentSource "WECC Wind Turbine model without plant controller and with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4B(LvTfo(RPu = RPu, XPu = XPu));

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Machines.BaseClasses;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseGeneratorSimplified "Base model for simplified generator models"
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffGenerator;
 
@@ -40,7 +26,7 @@ equation
     if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
       UPu = 0.;
     else
-      UPu = ComplexMath.'abs'(terminal.V);
+      UPu =Modelica.ComplexMath.abs(terminal.V);
     end if;
   else
     UPu = 0.;

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Buses;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model BusWithInit "Bus with init"
   extends AdditionalIcons.Bus;
   import Modelica.Constants;
@@ -21,7 +7,8 @@ model BusWithInit "Bus with init"
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = 0.), im(start = 0.)));
 
-  Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at terminal in pu (base UNom)";
+  Types.VoltageModulePu UPu(start=Modelica.ComplexMath.abs(u0Pu))
+    "Voltage amplitude at terminal in pu (base UNom)";
   Types.VoltageModule U "Voltage amplitude at terminal in kV";
   Types.Angle UPhase(start = ComplexMath.arg(u0Pu)) "Voltage angle at terminal in rad";
   Types.Angle UPhaseDeg(start = ComplexMath.arg(u0Pu) * 180.0 / Constants.pi) "Voltage angle at terminal in degree";
@@ -33,7 +20,7 @@ equation
   if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
     UPu = 0;
   else
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu =Modelica.ComplexMath.abs(terminal.V);
   end if;
   UPhase = ComplexMath.arg(terminal.V);
   UPhaseDeg = UPhase * 180.0 / Constants.pi;

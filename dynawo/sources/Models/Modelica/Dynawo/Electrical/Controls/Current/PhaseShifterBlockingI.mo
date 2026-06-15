@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.Current;
-
-/*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model PhaseShifterBlockingI "Phase Shifter blocking model"
   import Modelica.Constants;
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -28,10 +15,12 @@ protected
   discrete Types.Time tThresholdReached(start = Constants.inf) "Time when I > IMax was first reached";
 
 equation
-  when IMonitored > IMax and not(pre(locked)) then
+  when IMonitored > IMax and not
+                                (pre(locked)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIArming);
-  elsewhen IMonitored <= IMax and pre(tThresholdReached) <> Constants.inf and not(pre(locked)) then
+  elsewhen IMonitored <= IMax and pre(tThresholdReached) <> Constants.inf and not
+                                                                                 (pre(locked)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIDisarming);
   end when;

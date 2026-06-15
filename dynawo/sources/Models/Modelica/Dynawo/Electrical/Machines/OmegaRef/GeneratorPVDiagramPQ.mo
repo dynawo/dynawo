@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Machines.OmegaRef;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model GeneratorPVDiagramPQ "Generator with active power / frequency regulation and voltage / reactive power regulation and a PQ diagram"
   /*
   The P output is modulated according to the frequency (in order to model the frequency containment reserve)
@@ -51,8 +38,8 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
   Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";
   Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in pu (base SnRef)";
 
-  Modelica.Blocks.Tables.CombiTable1D QMaxPPu(table = tableQMaxPPu);
-  Modelica.Blocks.Tables.CombiTable1D QMinPPu(table = tableQMinPPu);
+  Modelica.Blocks.Tables.CombiTable1Dv QMaxPPu(table=tableQMaxPPu);
+  Modelica.Blocks.Tables.CombiTable1Dv QMinPPu(table=tableQMinPPu);
 
   parameter Types.ReactivePowerPu QMax0Pu "Initial value of maximum reactive power in pu (base SnRef)";
   parameter Types.ReactivePowerPu QMin0Pu "Initial value of minimum reactive power in pu (base SnRef)";

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.Protections.BaseClasses;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model BaseLVRT "Low-voltage ride-through protection"
   /* Disconnects the generator when the voltage pass below the LVRT curve of the machine. The curve created by linking a series of (tLagAction, UMinPu) points that should be given in increasing order of tLagAction. */
   import Modelica.Constants;
@@ -44,7 +30,8 @@ equation
   end when;
 
   // Delay before tripping the generator
-  when UMonitoredPu < UMinPu[1] and time - tThresholdReached >= tLagAction[1] and not(pre(tripped[1])) then
+  when UMonitoredPu < UMinPu[1] and time - tThresholdReached >= tLagAction[1] and not
+                                                                                     (pre(tripped[1])) then
     tripped[1] = true;
   end when;
 
@@ -52,7 +39,8 @@ equation
     assert(tLagAction[i] <= tLagAction[i+1], "values of tLagAction should be in increasing order");
     assert(UMinPu[i] <= UMinPu[i+1], "values of UMinPu should be in increasing order");
 
-    when UMonitoredPu < UMinPu[i+1] and UMonitoredPu > UMinPu[i] and time - tThresholdReached >= tLagAction[i] + (tLagAction[i+1] - tLagAction[i]) * (UMonitoredPu - UMinPu[i]) / (if UMinPu[i+1] - UMinPu[i] > 1e-6 then UMinPu[i+1] - UMinPu[i] else 1e-6) and not(pre(tripped[i+1])) then
+    when UMonitoredPu < UMinPu[i+1] and UMonitoredPu > UMinPu[i] and time - tThresholdReached >= tLagAction[i] + (tLagAction[i+1] - tLagAction[i]) * (UMonitoredPu - UMinPu[i]) / (if UMinPu[i+1] - UMinPu[i] > 1e-6 then UMinPu[i+1] - UMinPu[i] else 1e-6) and not
+                                                                                                                                                                                                        (pre(tripped[i+1])) then
       tripped[i+1] = true;
     end when;
   end for;

@@ -1,19 +1,8 @@
 within Dynawo.Electrical.Controls.WECC.REGC;
-
-/*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model REGCb "WECC Generator Converter REGC type B"
-  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze1.T = tG, rateLimFirstOrderFreeze1.UseRateLim = true, rateLimFirstOrderFreeze1.Y0 = Id0Pu * UConv0Pu, rateLimFirstOrderFreeze2.T = tG, rateLimFirstOrderFreeze2.UseRateLim = true, rateLimFirstOrderFreeze2.Y0 = Iq0Pu);
+  extends Dynawo.Electrical.Controls.WECC.REGC.BaseClasses.BaseREGC(rateLimFirstOrderFreeze1(
+                                                                    T                          = tG, UseRateLim                          = true, Y0                          = Id0Pu * UConv0Pu),
+      rateLimFirstOrderFreeze2(                                                                                                                                                                  T                          = tG, UseRateLim                          = true, Y0                          = Iq0Pu));
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsVSourceRef;
 

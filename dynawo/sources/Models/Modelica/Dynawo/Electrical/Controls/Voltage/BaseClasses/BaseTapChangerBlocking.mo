@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Voltage.BaseClasses;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseTapChangerBlocking "Base model for Tap Changer Blocking (TCB)"
 /* Lock tap changers when the voltage level goes below a predefined threshold
      in order to avoid a voltage collapse */
@@ -49,15 +35,20 @@ equation
     state = State.Armed;
     tLocked = Constants.inf;
     Timeline.logEvent1(TimelineKeys.TapChangersArming);
-  elsewhen not(UUnderMin) and pre(state) == State.Armed then
+  elsewhen not
+              (UUnderMin) and pre(state) == State.Armed then
     state = State.Standard;
     tLocked = Constants.inf;
     Timeline.logEvent1(TimelineKeys.TapChangersUnarming);
-  elsewhen (((time - tUnderUmin >= tLagBeforeBlocked) or (blockOrder and not(pre(blockOrder)))) and pre(state) == State.Armed) or (blockOrder and not(pre(blockOrder)) and pre(state) == State.Standard) then
+  elsewhen (((time - tUnderUmin >= tLagBeforeBlocked) or (blockOrder and not
+                                                                            (pre(blockOrder)))) and pre(state) == State.Armed) or (blockOrder and not
+                                                                                                                                                     (pre(blockOrder)) and pre(state) == State.Standard) then
     state = State.Locked;
     tLocked = time;
     Timeline.logEvent1(TimelineKeys.TapChangersBlocked);
-  elsewhen unblockOrder and not(pre(unblockOrder)) and not(UUnderMin) and pre(state) == State.Locked then
+  elsewhen unblockOrder and not
+                               (pre(unblockOrder)) and not
+                                                          (UUnderMin) and pre(state) == State.Locked then
     state = State.Standard;
     tLocked = Constants.inf;
     Timeline.logEvent1(TimelineKeys.TapChangersUnblocked);

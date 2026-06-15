@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Machines.OmegaRef;
-
-/*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-*/
-
 model GeneratorSynchronous "Synchronous machine"
   extends BaseClasses.BaseGeneratorSynchronous;
   extends AdditionalIcons.Machine;
@@ -67,7 +54,7 @@ model GeneratorSynchronous "Synchronous machine"
 
 equation
   if running then
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu =Modelica.ComplexMath.abs(terminal.V);
     uPu = terminal.V;
 
     // Active and reactive power at terminal
@@ -85,12 +72,12 @@ equation
     if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
       UStatorPu = 0.;
     else
-      UStatorPu = ComplexMath.'abs'(uStatorPu);
+      UStatorPu =Modelica.ComplexMath.abs(uStatorPu);
     end if;
     if ((iStatorPu.re == 0) and (iStatorPu.im == 0)) then
       IStatorPu = 0.;
     else
-      IStatorPu = ComplexMath.'abs'(iStatorPu);
+      IStatorPu =Modelica.ComplexMath.abs(iStatorPu);
     end if;
     QStatorPu = - ComplexMath.imag(sStatorPu);
     QStatorPuQNom = QStatorPu * SystemBase.SnRef / QNomAlt;

@@ -1,18 +1,4 @@
 within Dynawo.Examples.HVDC;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model HVDC "HVDC link connected to two infinite buses"
   extends Icons.Example;
 
@@ -88,26 +74,37 @@ model HVDC "HVDC link connected to two infinite buses"
     UMinDbPu = 0.8,
     UPhase10 = -0.103748,
     UPhase20 = 0.080137,
-    PPuSide.aCVoltageControl.IqMod.table = [0.467, 1; 0.8, 0; 1.2, 0; 1.533, -1],
-    PPuSide.aCVoltageControl.IqMod.tableOnFile = false,
-    PPuSide.aCVoltageControl.qRefLim.QPMax.table = [0, 0.34; 1.1, 0.34],
-    PPuSide.aCVoltageControl.qRefLim.QPMax.tableOnFile = false,
-    PPuSide.aCVoltageControl.qRefLim.QPMin.table = [0, -0.34; 1.1, -0.34],
-    PPuSide.aCVoltageControl.qRefLim.QPMin.tableOnFile = false,
-    PPuSide.aCVoltageControl.qRefLim.QUMax.table = [0, 0.34; 1.1, 0.34; 1.101, 0; 2, 0],
-    PPuSide.aCVoltageControl.qRefLim.QUMax.tableOnFile = false,
-    PPuSide.aCVoltageControl.qRefLim.QUMin.table = [0, 0; 0.85, 0; 0.851, -0.34; 2, -0.34],
-    PPuSide.aCVoltageControl.qRefLim.QUMin.tableOnFile = false,
-    UDcPuSide.aCVoltageControl.IqMod.table = [0.467, 1; 0.8, 0; 1.2, 0; 1.533, -1],
-    UDcPuSide.aCVoltageControl.IqMod.tableOnFile = false,
-    UDcPuSide.aCVoltageControl.qRefLim.QPMax.table = [0, 0.34; 1.1, 0.34],
-    UDcPuSide.aCVoltageControl.qRefLim.QPMax.tableOnFile = false,
-    UDcPuSide.aCVoltageControl.qRefLim.QPMin.table = [0, -0.34; 1.1, -0.34],
-    UDcPuSide.aCVoltageControl.qRefLim.QPMin.tableOnFile = false,
-    UDcPuSide.aCVoltageControl.qRefLim.QUMax.table = [0, 0.34; 1.1, 0.34; 1.101, 0; 2, 0],
-    UDcPuSide.aCVoltageControl.qRefLim.QUMax.tableOnFile = false,
-    UDcPuSide.aCVoltageControl.qRefLim.QUMin.table = [0, 0; 0.85, 0; 0.851, -0.34; 2, -0.34],
-    UDcPuSide.aCVoltageControl.qRefLim.QUMin.tableOnFile = false) annotation(
+    PPuSide(aCVoltageControl(IqMod(
+    table                                = [0.467, 1; 0.8, 0; 1.2, 0; 1.533, -1],
+    tableOnFile                                = false), qRefLim(
+          QPMax(
+    table                                        = [0, 0.34; 1.1, 0.34],
+    tableOnFile                                        = false),
+          QPMin(
+    table                                        = [0, -0.34; 1.1, -0.34],
+    tableOnFile                                        = false),
+          QUMax(
+    table                                        = [0, 0.34; 1.1, 0.34; 1.101, 0; 2, 0],
+    tableOnFile                                        = false),
+          QUMin(
+    table                                        = [0, 0; 0.85, 0; 0.851, -0.34; 2, -0.34],
+    tableOnFile                                        = false)))),
+    UDcPuSide(aCVoltageControl(IqMod(
+    table                                  = [0.467, 1; 0.8, 0; 1.2, 0; 1.533, -1],
+    tableOnFile                                  = false), qRefLim(
+          QPMax(
+    table                                          = [0, 0.34; 1.1, 0.34],
+    tableOnFile                                          = false),
+          QPMin(
+    table                                          = [0, -0.34; 1.1, -0.34],
+    tableOnFile                                          = false),
+          QUMax(
+    table                                          = [0, 0.34; 1.1, 0.34; 1.101, 0; 2, 0],
+    tableOnFile                                          = false),
+          QUMin(
+    table                                          = [0, 0; 0.85, 0; 0.851, -0.34; 2, -0.34],
+    tableOnFile                                          = false)))))
+                                                                  annotation(
     Placement(visible = true, transformation(origin = {20, -30}, extent = {{-50, -30}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.00037, XPu = 0.013) annotation(
     Placement(visible = true, transformation(origin = {-52, -25}, extent = {{-40, -40}, {10, 10}}, rotation = 0)));

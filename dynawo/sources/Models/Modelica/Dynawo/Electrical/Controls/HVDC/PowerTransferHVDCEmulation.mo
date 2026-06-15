@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.HVDC;
-
-/*
-* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model PowerTransferHVDCEmulation "Power transfer model for HVDC with AC emulation"
   extends Dynawo.Electrical.Controls.HVDC.PowerTransferHVDC;
 
@@ -25,10 +12,12 @@ equation
   if running1 and running2 then
     KACEmulation1 = KACEmulation10;
     KACEmulation2 = KACEmulation20;
-  elseif not(running1) and running2 then
+  elseif not
+            (running1) and running2 then
     KACEmulation1 = 0;
     KACEmulation2 = KACEmulation20 + KACEmulation10;
-  elseif running1 and not(running2) then
+  elseif running1 and not
+                         (running2) then
     KACEmulation1 = KACEmulation10 + KACEmulation20;
     KACEmulation2 = 0;
   else

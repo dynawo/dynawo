@@ -1,18 +1,4 @@
 within Dynawo.Examples.Photovoltaics.WECC;
-
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controller on infinite bus"
   extends Modelica.Icons.Example;
 
@@ -138,18 +124,19 @@ model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controlle
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
 
   // Initialization
-  Dynawo.Electrical.Photovoltaics.WECC.PVInverterVoltageSource_INIT pVVoltageSourceNoPlantControl_INIT(
-    ConverterLVControl = PV.ConverterLVControl,
-    P0Pu = PV.s0Pu.re,
-    Q0Pu = PV.s0Pu.im,
-    RLvTrPu = PV.RLvTrPu,
-    SNom = PV.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(PV.u0Pu),
-    UPhase0 = 0,
-    XLvTrPu = PV.XLvTrPu,
-    RSourcePu = PV.RSourcePu,
-    XSourcePu = PV.XSourcePu) annotation(
-    Placement(transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Photovoltaics.WECC.PVInverterVoltageSource_INIT
+    pVVoltageSourceNoPlantControl_INIT(
+    ConverterLVControl=PV.ConverterLVControl,
+    P0Pu=PV.s0Pu.re,
+    Q0Pu=PV.s0Pu.im,
+    RLvTrPu=PV.RLvTrPu,
+    SNom=PV.SNom,
+    U0Pu=Modelica.ComplexMath.abs(PV.u0Pu),
+    UPhase0=0,
+    XLvTrPu=PV.XLvTrPu,
+    RSourcePu=PV.RSourcePu,
+    XSourcePu=PV.XSourcePu)
+    annotation (Placement(transformation(origin={-70,70}, extent={{-10,-10},{10,10}})));
 
 initial algorithm
   PV.i0Pu.re := pVVoltageSourceNoPlantControl_INIT.i0Pu.re;

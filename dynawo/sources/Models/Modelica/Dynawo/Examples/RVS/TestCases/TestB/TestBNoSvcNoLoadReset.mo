@@ -1,18 +1,4 @@
 within Dynawo.Examples.RVS.TestCases.TestB;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model TestBNoSvcNoLoadReset "RVS test system simulation case : line disconnection, no SVC, no load reset"
   extends Icons.Example;
   extends Dynawo.Examples.RVS.Grid.FullDynamicInfiniteBusNoLoadReset(
@@ -222,7 +208,9 @@ model TestBNoSvcNoLoadReset "RVS test system simulation case : line disconnectio
     U0Pu_sVarC_10114_ARNOLD_SVC = 1.049999952316385,
     UPhase0_sVarC_10106_ALBER_SVC = -0.4170880483313303,
     UPhase0_sVarC_10114_ARNOLD_SVC = -0.17175578394927937,
-    sVarC_10106_ALBER_SVC.ControlInService = false);
+    sVarC_10106_ALBER_SVC(
+    ControlInService                       = false)
+                                                  );
 
   parameter Real event_time_line_sw1 = 1;
   parameter Real event_time_line_sw2 = 1;

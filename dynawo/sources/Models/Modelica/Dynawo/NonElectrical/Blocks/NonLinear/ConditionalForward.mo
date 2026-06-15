@@ -1,17 +1,4 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 block ConditionalForward "Forwards the first input if it is positive or if the second input is negative and returns a third (optional) one if neither one of the conditions is valid."
 
   discrete Modelica.Blocks.Interfaces.RealInput u1 "The first input" annotation(Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

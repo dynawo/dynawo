@@ -2,16 +2,25 @@ within Dynawo.Examples.Nordic.Components.GeneratorWithControl;
 
 model ElectricalControlNordic
 
-  parameter Modelica.SIunits.Time t1, t2, t3, t4, t5, t6;
+  parameter Modelica.Units.SI.Time t1;
+  parameter Modelica.Units.SI.Time t2;
+  parameter Modelica.Units.SI.Time t3;
+  parameter Modelica.Units.SI.Time t4;
+  parameter Modelica.Units.SI.Time t5;
+  parameter Modelica.Units.SI.Time t6;
   parameter Real Kp, Ki;
   parameter Types.CurrentModulePu Imax;
-  parameter Modelica.SIunits.Voltage Vt0;
+  parameter Modelica.Units.SI.Voltage Vt0;
   parameter Real Q0Pu, P0Pu, U0Pu;
   parameter Real baseratio;
   parameter Real Iq0Pu;
 
-  Modelica.SIunits.Power Qmax, Qmin;
-  Modelica.SIunits.Current IqMin, IqMax, IdMin, IdMax;
+  Modelica.Units.SI.Power Qmax;
+  Modelica.Units.SI.Power Qmin;
+  Modelica.Units.SI.Current IqMin;
+  Modelica.Units.SI.Current IqMax;
+  Modelica.Units.SI.Current IdMin;
+  Modelica.Units.SI.Current IdMax;
   Modelica.Blocks.Interfaces.RealOutput IqRef annotation(
     Placement(transformation(origin = {100, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput IdRef annotation(

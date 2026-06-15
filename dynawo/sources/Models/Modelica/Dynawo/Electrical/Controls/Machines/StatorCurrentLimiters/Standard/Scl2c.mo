@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Machines.StatorCurrentLimiters.Standard;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
 
   //Regulation parameters
@@ -112,14 +98,38 @@ model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
     Placement(visible = true, transformation(origin = {-310, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {-310, -20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tIpUel, k = KIpUel, y_start = KIpUel * PGen0Pu / Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-230, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tIpOel, k = KIpOel, y_start = KIpOel * PGen0Pu / Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-230, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tIqOel, k = KIqOel, y_start = KIqOel * QGen0Pu / Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tIqUel, k = KIqUel, y_start = KIqUel * QGen0Pu / Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-230, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(
+    T=tIpUel,
+    k=KIpUel,
+    y_start=KIpUel*PGen0Pu/Modelica.ComplexMath.abs(ut0Pu)) annotation (Placement(visible=true,
+        transformation(
+        origin={-230,140},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(
+    T=tIpOel,
+    k=KIpOel,
+    y_start=KIpOel*PGen0Pu/Modelica.ComplexMath.abs(ut0Pu)) annotation (Placement(visible=true,
+        transformation(
+        origin={-230,-100},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(
+    T=tIqOel,
+    k=KIqOel,
+    y_start=KIqOel*QGen0Pu/Modelica.ComplexMath.abs(ut0Pu)) annotation (Placement(visible=true,
+        transformation(
+        origin={-230,-60},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(
+    T=tIqUel,
+    k=KIqUel,
+    y_start=KIqUel*QGen0Pu/Modelica.ComplexMath.abs(ut0Pu)) annotation (Placement(visible=true,
+        transformation(
+        origin={-230,100},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
   Modelica.Blocks.Math.Pythagoras pythagoras annotation(
     Placement(visible = true, transformation(origin = {-170, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Pythagoras pythagoras1 annotation(
@@ -140,8 +150,11 @@ model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
     Placement(visible = true, transformation(origin = {230, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tVtScl, y_start = Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-230, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T=tVtScl, y_start=Modelica.ComplexMath.abs(
+        ut0Pu)) annotation (Placement(visible=true, transformation(
+        origin={-230,20},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
   Modelica.Blocks.Math.Add add2(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {170, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2(k = VtMinPu) annotation(
@@ -156,38 +169,50 @@ model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
     Placement(visible = true, transformation(origin = {350, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1 annotation(
     Placement(visible = true, transformation(origin = {-370, -146}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder5(T = tItScl, y_start = Modelica.ComplexMath.'abs'(it0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-230, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.StatorCurrentLimiters.Standard.BaseClasses.SclReferenceCurrent sclReferenceCurrent(
-    C1 = C1,
-    C2 = C2,
-    FixedRd = FixedRd,
-    FixedRu = FixedRu,
-    I0Pu = Modelica.ComplexMath.'abs'(it0Pu),
-    IInstPu = IInstPu,
-    ILimPu = ILimPu,
-    IRef0Pu = IRef0Pu,
-    ITfPu = ITfPu,
-    K1 = K1,
-    K2 = K2,
-    KFb = KFb,
-    KPRef = KPRef,
-    Krd = Krd,
-    Kru = Kru,
-    Kzru = Kzru,
-    Sw1 = Sw1,
-    VInvMaxPu = VInvMaxPu,
-    VInvMinPu = VInvMinPu,
-    Vt0Pu = Modelica.ComplexMath.'abs'(ut0Pu),
-    VtResetPu = VtResetPu,
-    tErr0 = tErr0,
-    tInt0 = tInt0,
-    tScl = tScl,
-    tMax = tMax,
-    tMin = tMin) annotation(
-    Placement(visible = true, transformation(origin = {-100, -140}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder6(T = tIpOel, k = KPRef, y_start = KPRef * PGen0Pu / Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
-    Placement(visible = true, transformation(origin = {-230, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder5(T=tItScl, y_start=Modelica.ComplexMath.abs(
+        it0Pu)) annotation (Placement(visible=true, transformation(
+        origin={-230,-140},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Dynawo.Electrical.Controls.Machines.StatorCurrentLimiters.Standard.BaseClasses.SclReferenceCurrent
+    sclReferenceCurrent(
+    C1=C1,
+    C2=C2,
+    FixedRd=FixedRd,
+    FixedRu=FixedRu,
+    I0Pu=Modelica.ComplexMath.abs(it0Pu),
+    IInstPu=IInstPu,
+    ILimPu=ILimPu,
+    IRef0Pu=IRef0Pu,
+    ITfPu=ITfPu,
+    K1=K1,
+    K2=K2,
+    KFb=KFb,
+    KPRef=KPRef,
+    Krd=Krd,
+    Kru=Kru,
+    Kzru=Kzru,
+    Sw1=Sw1,
+    VInvMaxPu=VInvMaxPu,
+    VInvMinPu=VInvMinPu,
+    Vt0Pu=Modelica.ComplexMath.abs(ut0Pu),
+    VtResetPu=VtResetPu,
+    tErr0=tErr0,
+    tInt0=tInt0,
+    tScl=tScl,
+    tMax=tMax,
+    tMin=tMin) annotation (Placement(visible=true, transformation(
+        origin={-100,-140},
+        extent={{-20,-20},{20,20}},
+        rotation=0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder6(
+    T=tIpOel,
+    k=KPRef,
+    y_start=KPRef*PGen0Pu/Modelica.ComplexMath.abs(ut0Pu)) annotation (Placement(visible=true,
+        transformation(
+        origin={-230,-180},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder7(T = tAScl, y_start = IRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-30, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = IInstUelPu, uMin = -999) annotation(
@@ -201,18 +226,21 @@ model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
     tErr0 = tErr0,
     tOff = tOff) annotation(
     Placement(visible = true, transformation(origin = {100, 160}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.StatorCurrentLimiters.Standard.BaseClasses.SclOelActivation sclOelActivation(
-    IInstPu = IInstPu,
-    IOelRef0Pu = IRef0Pu,
-    IResetPu = IResetPu,
-    IThOffPu = IThOffPu,
-    Vt0Pu = Modelica.ComplexMath.'abs'(ut0Pu),
-    VtMinPu = VtMinPu,
-    VtResetPu = VtResetPu,
-    tEnOel = tEnOel,
-    tErr0 = tErr0,
-    tOff = tOff) annotation(
-    Placement(visible = true, transformation(origin = {100, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.StatorCurrentLimiters.Standard.BaseClasses.SclOelActivation
+    sclOelActivation(
+    IInstPu=IInstPu,
+    IOelRef0Pu=IRef0Pu,
+    IResetPu=IResetPu,
+    IThOffPu=IThOffPu,
+    Vt0Pu=Modelica.ComplexMath.abs(ut0Pu),
+    VtMinPu=VtMinPu,
+    VtResetPu=VtResetPu,
+    tEnOel=tEnOel,
+    tErr0=tErr0,
+    tOff=tOff) annotation (Placement(visible=true, transformation(
+        origin={100,-80},
+        extent={{-20,-20},{20,20}},
+        rotation=0)));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu it0Pu "Initial complex stator current in pu (base SnRef, UNom)";
@@ -220,8 +248,8 @@ model Scl2c "IEEE (2016) stator current limiter type SCL2C model"
   parameter Types.ReactivePowerPu QGen0Pu "Initial reactive power in pu (base SnRef) (generator convention)";
   parameter Types.ComplexVoltagePu ut0Pu "Initial complex stator voltage in pu (base UNom)";
 
-  final parameter Types.CurrentModulePu IRef0Pu = sqrt((PGen0Pu ^ 2 + QGen0Pu ^ 2) / (Modelica.ComplexMath.'abs'(ut0Pu) ^ 2)) "Initial reference current in pu (base SnRef, UNom)";
-  final parameter Types.CurrentModulePu IScaled0Pu = Modelica.ComplexMath.'abs'(it0Pu) / ITfPu "Initial scaled current in pu (base SnRef, UNom)";
+  final parameter Types.CurrentModulePu IRef0Pu = sqrt((PGen0Pu ^ 2 + QGen0Pu ^ 2) / (Modelica.ComplexMath.abs(  ut0Pu) ^ 2)) "Initial reference current in pu (base SnRef, UNom)";
+  final parameter Types.CurrentModulePu IScaled0Pu = Modelica.ComplexMath.abs(  it0Pu) / ITfPu "Initial scaled current in pu (base SnRef, UNom)";
   final parameter Types.Time tErr0 = tScl - tInt0 "Initial SCL timer error in s";
   final parameter Types.Time tInt0 = (K2 * (IScaled0Pu ^ C2 - 1) + (if IScaled0Pu <= 1 then FixedRu else FixedRd)) / KFb "Initial SCL timer output in s";
 

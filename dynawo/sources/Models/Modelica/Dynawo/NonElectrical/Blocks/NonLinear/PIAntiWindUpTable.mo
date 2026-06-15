@@ -1,17 +1,4 @@
 within Dynawo.NonElectrical.Blocks.NonLinear;
-
-/*
-* Copyright (c) 2022, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-based output. This model has discrete inputs and outputs."
 
   Dynawo.Connectors.ZPin u(value(start = U0)) "Input connector" annotation(
@@ -25,8 +12,13 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
   parameter String PiTableFile "Name of the file describing the table";
   parameter String PiTableName "Name of the table in the text file";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(tableOnFile = true, tableName = PiTableName, fileName = PiTableFile) annotation(
-    Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(
+    tableOnFile=true,
+    tableName=PiTableName,
+    fileName=PiTableFile) annotation (Placement(visible=true, transformation(
+        origin={90,0},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
   Modelica.Blocks.Math.Feedback discreteError annotation(
     Placement(visible = true, transformation(origin = {60, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Continuous.Integrator integrator(k = Ki, y_start = Y0 + (1 - Kp) * U0) annotation(

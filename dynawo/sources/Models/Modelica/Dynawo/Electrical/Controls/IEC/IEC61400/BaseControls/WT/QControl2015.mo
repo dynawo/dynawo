@@ -1,19 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model QControl2015 "Reactive power control module for wind turbines (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone.uMax = Udb2Pu, deadZone.uMin = Udb1Pu);
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseQControl(deadZone(
+                                                                           uMax          = Udb2Pu, uMin          = Udb1Pu));
 
   //Q control parameters
   parameter Integer MqUvrt "UVRT Q control modes (0-2) (see Table 23, section 5.6.5.7, page 51 of the IEC norm N°61400-27-1:2015)" annotation(

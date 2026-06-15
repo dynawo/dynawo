@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Loads;
-
-/*
-* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model LoadZIP "ZIP coefficients load model"
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
@@ -28,8 +15,10 @@ model LoadZIP "ZIP coefficients load model"
 
 equation
   if running and terminal.V <> Complex(0) then
-      PPu = PRefPu * (1 + deltaP) * (Zp * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ 2 + Ip * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) + Pp);
-      QPu = QRefPu * (1 + deltaQ) * (Zq * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ 2 + Iq * (ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) + Pq);
+      PPu =PRefPu*(1 + deltaP)*(Zp*(Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(
+      u0Pu))^2 + Ip*(Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(u0Pu)) + Pp);
+      QPu =QRefPu*(1 + deltaQ)*(Zq*(Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(
+      u0Pu))^2 + Iq*(Modelica.ComplexMath.abs(terminal.V)/Modelica.ComplexMath.abs(u0Pu)) + Pq);
   else
     terminal.i = Complex(0);
   end if;

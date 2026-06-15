@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Transformers.TransformersFixedTap;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model NetworkTransformer "Two windings transformer with a fixed ratio, same model as the Network one."
 
 /* Equivalent circuit and conventions:
@@ -59,13 +45,14 @@ model NetworkTransformer "Two windings transformer with a fixed ratio, same mode
 
   final parameter Types.PerUnit rTfoPu = RatedU2 / RatedU1 * U1Nom / U2Nom "Transformation ratio in pu: U2/U1 in no load conditions";
 
-  parameter Modelica.SIunits.Resistance R "Resistance of the transformer in ohm";
-  parameter Modelica.SIunits.Reactance X "Reactance of the transformer in ohm";
-  parameter Modelica.SIunits.Conductance G "Conductance of the transformer in S";
-  parameter Modelica.SIunits.Susceptance B "Susceptance of the transformer in S";
+  parameter Modelica.Units.SI.Resistance R "Resistance of the transformer in ohm";
+  parameter Modelica.Units.SI.Reactance X "Reactance of the transformer in ohm";
+  parameter Modelica.Units.SI.Conductance G "Conductance of the transformer in S";
+  parameter Modelica.Units.SI.Susceptance B "Susceptance of the transformer in S";
 
-  final parameter Modelica.SIunits.ComplexImpedance Z = Complex(R, X) "Impedance of the transformer";
-  final parameter Modelica.SIunits.ComplexAdmittance Y = Complex(G, B) "Admittance of the transformer";
+  final parameter Modelica.Units.SI.ComplexImpedance Z=Complex(R, X) "Impedance of the transformer";
+  final parameter Modelica.Units.SI.ComplexAdmittance Y=Complex(G, B)
+    "Admittance of the transformer";
 
   final parameter Types.ComplexImpedancePu ZPu = Complex(R / (U2Nom * U2Nom / SystemBase.SnRef), X / (U2Nom * U2Nom / SystemBase.SnRef)) "Impedance in pu (base U2Nom, SnRef)";
   final parameter Types.ComplexAdmittancePu YPu = Complex(G * (U2Nom * U2Nom / SystemBase.SnRef), B * (U2Nom * U2Nom / SystemBase.SnRef)) "Admittance in pu (base U2Nom, SnRef)";
@@ -94,22 +81,22 @@ equation
     if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
       U1Pu = 0;
     else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
+      U1Pu =Modelica.ComplexMath.abs(terminal1.V);
     end if;
     if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
       U2Pu = 0;
     else
-      U2Pu = ComplexMath.'abs'(terminal2.V);
+      U2Pu =Modelica.ComplexMath.abs(terminal2.V);
     end if;
     if ((terminal1.i.re == 0) and (terminal1.i.im == 0)) then
       I1Pu = 0;
     else
-      I1Pu = ComplexMath.'abs'(terminal1.i);
+      I1Pu =Modelica.ComplexMath.abs(terminal1.i);
     end if;
     if ((terminal2.i.re == 0) and (terminal2.i.im == 0)) then
       I2Pu = 0;
     else
-      I2Pu = ComplexMath.'abs'(terminal2.i);
+      I2Pu =Modelica.ComplexMath.abs(terminal2.i);
     end if;
   else
     U1Pu = 0;

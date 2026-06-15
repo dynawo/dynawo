@@ -1,17 +1,4 @@
 within Dynawo.Electrical.HVDC.HvdcPQProp;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model HvdcPQPropDanglingDiagramPQ "Model of HVDC link with a proportional reactive power control and a PQ diagram. terminal1 can inject a fixed reactive power or use the proportional control, depending on the user's choice. terminal2 is connected to a switched-off bus"
   extends Dynawo.Electrical.HVDC.BaseClasses.BaseHvdcPDanglingDiagramPQ;
   extends Dynawo.Electrical.HVDC.BaseClasses.BaseQStatusDangling;

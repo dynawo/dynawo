@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Photovoltaics.WECC;
-
-/*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltage source as interface with the grid"
 
 /*                uSource0Pu                                uInj0Pu                    uConv0Pu
@@ -66,7 +53,8 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iPcc0Pu "Start value of complex current at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
     Dialog(enable = not PPCLocal));
-  Types.ComplexPerUnit iSource0Pu "Start value of complex current at source in pu (base UNom, SNom) (generator convention)";  Types.PerUnit PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
+  Types.ComplexPerUnit iSource0Pu "Start value of complex current at source in pu (base UNom, SNom) (generator convention)";
+                                                                                                                              Types.PerUnit PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
   Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (base SNom) (generator convention)";
   Types.PerUnit PF0 "Start value of power factor";
   Types.PerUnit QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)";
@@ -79,7 +67,8 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
   Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
-  Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";  Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
+  Types.PerUnit UdInj0Pu "Start value of d-axis voltage at injector in pu (base UNom)";
+                                                                                         Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
   Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)" annotation(
@@ -89,8 +78,8 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
-    Placement(transformation(extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(table=[P1,Spd1; P2,Spd2; P3,Spd3; P4,Spd4])
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));
 
@@ -107,7 +96,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
 
   //Converter terminal electrical quantities
-  UConv0Pu = ComplexMath.'abs'(uConv0Pu);
+  UConv0Pu =Modelica.ComplexMath.abs(uConv0Pu);
   iConv0Pu =  (- i0Pu * SystemBase.SnRef / SNom) / rTfoPu + Complex(GPcsPu, BPcsPu) * uConv0Pu;
   uConv0Pu = rTfoPu * u0Pu - Complex(RPcsPu, XPcsPu) * (i0Pu * SystemBase.SnRef / SNom) / rTfoPu;
   sConv0Pu = uConv0Pu * ComplexMath.conj(iConv0Pu);
@@ -121,13 +110,14 @@ equation
   sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
-  UInj0Pu = ComplexMath.'abs'(uInj0Pu);
+  UInj0Pu =Modelica.ComplexMath.abs(uInj0Pu);
   UInjPhase0 = ComplexMath.arg(uInj0Pu);
 
   iSource0Pu = - iInj0Pu * SystemBase.SnRef / SNom;
   uSource0Pu = uInj0Pu + Complex(RSourcePu * SystemBase.SnRef / SNom, XSourcePu * SystemBase.SnRef / SNom) * iInj0Pu;
 
-  PF0 = if (not(ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu / ComplexMath.'abs'(s0Pu) else 0;
+  PF0 =if (not (Modelica.ComplexMath.abs(s0Pu) == 0)) then -P0Pu/Modelica.ComplexMath.abs(s0Pu)
+     else 0;
   UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
   UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
   Id0Pu = Modelica.Math.cos(UPhaseConv0) * iInj0Pu.re + Modelica.Math.sin(UPhaseConv0) * iInj0Pu.im;

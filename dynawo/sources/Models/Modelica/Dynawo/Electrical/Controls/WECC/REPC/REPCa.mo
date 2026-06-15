@@ -1,17 +1,4 @@
 within Dynawo.Electrical.Controls.WECC.REPC;
-
-/*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model REPCa "WECC Plant Control type A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
 
@@ -167,7 +154,8 @@ model REPCa "WECC Plant Control type A"
   parameter Types.ReactivePowerPu QConv0Pu "Start value of reactive power at converter terminal in pu (generator convention) (base SNom)";
   parameter Types.ComplexVoltagePu uControl0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
 
-  final parameter Types.VoltageModulePu URef0Pu = ComplexMath.'abs'(uControl0Pu) + (if VCompFlag then 0 else Kc * QControl0Pu) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
+  final parameter Types.VoltageModulePu URef0Pu = Modelica.ComplexMath.abs(
+                                                                    uControl0Pu) + (if VCompFlag then 0 else Kc * QControl0Pu) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(

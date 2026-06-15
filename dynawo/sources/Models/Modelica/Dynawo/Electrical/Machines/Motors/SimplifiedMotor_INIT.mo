@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Machines.Motors;
-
-/*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model SimplifiedMotor_INIT "Initialization model for simplified induction motor"
   extends BaseClasses_INIT.BaseMotor_INIT;
   extends AdditionalIcons.Init;
@@ -43,7 +29,7 @@ equation
   s0Pu = u0Pu * ComplexMath.conj(is0Pu) * (SNom / SystemBase.SnRef);
 
   s0 = (SystemBase.omegaRef0Pu - omegaR0Pu) / SystemBase.omegaRef0Pu;
-  ce0Pu = RrPu * ComplexMath.'abs'(ir0Pu ^ 2) / (SystemBase.omegaRef0Pu * s0);
+  ce0Pu =RrPu*Modelica.ComplexMath.abs(ir0Pu^2)/(SystemBase.omegaRef0Pu*s0);
 
   annotation(preferredView = "text");
 end SimplifiedMotor_INIT;

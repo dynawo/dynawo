@@ -1,17 +1,4 @@
 within Dynawo.Examples.Wind.WECC;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-*/
-
 model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
   extends Icons.Example;
 
@@ -134,16 +121,19 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Placement(transformation(origin = {90, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT wt4CurrentSource_INIT(
-    ConverterLVControl = WT4A.ConverterLVControl,
-    P0Pu = WT4A.s0Pu.re,
-    Q0Pu = WT4A.s0Pu.im,
-    RLvTrPu = WT4A.RLvTrPu,
-    SNom = WT4A.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(WT4A.u0Pu),
-    UPhase0 = WT4A.UPhase0,
-    XLvTrPu = WT4A.XLvTrPu) annotation(
-    Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT
+    wt4CurrentSource_INIT(
+    ConverterLVControl=WT4A.ConverterLVControl,
+    P0Pu=WT4A.s0Pu.re,
+    Q0Pu=WT4A.s0Pu.im,
+    RLvTrPu=WT4A.RLvTrPu,
+    SNom=WT4A.SNom,
+    U0Pu=Modelica.ComplexMath.abs(WT4A.u0Pu),
+    UPhase0=WT4A.UPhase0,
+    XLvTrPu=WT4A.XLvTrPu) annotation (Placement(visible=true, transformation(
+        origin={-70,70},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
 initial algorithm
   WT4A.Id0Pu := wt4CurrentSource_INIT.Id0Pu;

@@ -1,18 +1,4 @@
 within Dynawo.Electrical.Controls.Transformers.BaseClasses;
-
-/*
-* Copyright (c) 2023, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 partial model BaseTapChangerPhaseShifterInterval "Base model for tap-changers and phase-shifters which tries to keep a value within a given interval"
   import Modelica.Constants;
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -31,22 +17,26 @@ protected
   Types.Time tValueUnderMinWhileRunning(start = Constants.inf) "Time when the monitored signal went under the minimum limit and the tap-changer/phase-shifter is running, in s";
 
 equation
-  when (valueToMonitor.value < valueMin) and not(locked) and running then
+  when (valueToMonitor.value < valueMin) and not
+                                                (locked) and running then
     valueUnderMin = true;
     tValueUnderMinWhileRunning = time;
     valueAboveMax = false;
     tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
-  elsewhen (valueToMonitor.value > valueMax) and not(locked) and running then
+  elsewhen (valueToMonitor.value > valueMax) and not
+                                                    (locked) and running then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
     valueAboveMax = true;
     tValueAboveMaxWhileRunning = time;
-  elsewhen (valueToMonitor.value >= valueMin and valueToMonitor.value <= valueMax) and not(locked) and running then
+  elsewhen (valueToMonitor.value >= valueMin and valueToMonitor.value <= valueMax) and not
+                                                                                          (locked) and running then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
     valueAboveMax = false;
     tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
-  elsewhen (running and locked) or not(running) then
+  elsewhen (running and locked) or not
+                                      (running) then
     valueUnderMin = pre(valueUnderMin);
     tValueUnderMinWhileRunning = Constants.inf;
     valueAboveMax = pre(valueAboveMax);
@@ -57,25 +47,31 @@ equation
   lookingToIncreaseTap = (valueUnderMin and increaseTapToIncreaseValue) or (valueAboveMax and increaseTapToDecreaseValue);
 
   //Transition to "Locked" (possible from any state and prioritary)
-  when not(running) or locked then
+  when not
+          (running) or locked then
     state = State.Locked;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveDown" (possible from any state other than the down ones)
-  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running and not(locked) then
+  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running and not
+                                                                                                                                                                                                        (locked) then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveUp" (possible from any state other than the up ones)
-  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running and not(locked) then
+  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running and not
+                                                                                                                                                                                                        (locked) then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "Standard" (possible from any state)
-  elsewhen not(valueUnderMin) and not(valueAboveMax) and pre(state) <> State.Standard and running and not(locked) then
+  elsewhen not
+              (valueUnderMin) and not
+                                     (valueAboveMax) and pre(state) <> State.Standard and running and not
+                                                                                                         (locked) then
     state = State.Standard;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
