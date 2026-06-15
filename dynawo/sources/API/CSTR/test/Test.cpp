@@ -56,13 +56,16 @@ TEST(APICSTRTest, CollectionAddConstraintsWithDetails) {
   collection = ConstraintsCollectionFactory::newInstance("test");
 
   int side = 1;
-  double acceptableDuration = 60;
+
+  ConstraintData dataWithAD(ConstraintData::OverloadUp, 1000, 1001, "", side);
+  dataWithAD.acceptableDuration = 60;
+
+
   collection->addConstraint("model", "constraint U", 0, CONSTRAINT_BEGIN, "Bus",
     ConstraintData(ConstraintData::USupUmax, 132.0, 133.0));
+  collection->addConstraint("model", "constraint I", 0, CONSTRAINT_BEGIN, "Line", dataWithAD);
   collection->addConstraint("model", "constraint I", 0, CONSTRAINT_BEGIN, "Line",
-    ConstraintData(ConstraintData::OverloadUp, 1000, 1001, side, acceptableDuration));
-  collection->addConstraint("model", "constraint I", 0, CONSTRAINT_BEGIN, "Line",
-    ConstraintData(ConstraintData::PATL, 1100, 1111, side));
+    ConstraintData(ConstraintData::PATL, 1100, 1111, "", side));
 
   int nbConstraint = 0;
   for (ConstraintsCollection::const_iterator itConstraint = collection->cbegin();

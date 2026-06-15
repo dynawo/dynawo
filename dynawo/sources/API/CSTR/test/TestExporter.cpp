@@ -34,13 +34,15 @@ TEST(APICSTRTest, ConstraintsCollectionXmlExporter) {
   constraintsCollection1->addConstraint("model", "PATL", 80, CONSTRAINT_BEGIN, "Line");
 
   int side = 1;
-  double acceptableDuration = 60;
+
+  ConstraintData dataWithAD(ConstraintData::OverloadUp, 1000, 1001, "LineName", side);
+  dataWithAD.acceptableDuration = 60;
+
   constraintsCollection1->addConstraint("modelDetail", "desc UInfUmin", 90, CONSTRAINT_BEGIN, "Bus",
     ConstraintData(ConstraintData::UInfUmin, 132.0, 130.0));
-  constraintsCollection1->addConstraint("modelDetail", "desc OverloadUp", 90, CONSTRAINT_BEGIN, "Line",
-    ConstraintData("LineName", ConstraintData::OverloadUp, 1000, 1001, side, acceptableDuration));
+  constraintsCollection1->addConstraint("modelDetail", "desc OverloadUp", 90, CONSTRAINT_BEGIN, "Line", dataWithAD);
   constraintsCollection1->addConstraint("modelDetail", "desc PATL", 90, CONSTRAINT_BEGIN, "Line",
-    ConstraintData("LineName", ConstraintData::PATL, 1100, 1111, side));
+    ConstraintData(ConstraintData::PATL, 1100, 1111, "LineName", side));
 
   XmlExporter xmlExporter;
   {
