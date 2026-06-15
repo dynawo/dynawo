@@ -347,7 +347,7 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
 #define printLogToStdOut(message) printLogToStdOut_((this)->getModelManager(), std::string(message))
 #define printLogExecution(message) printLogExecution_((this)->getModelManager(), std::string(message))
 
-#define omc_terminate(info, message, ...) terminate_((this)->getModelManager(), (MessageTimeline(std::string(message)), ##__VA_ARGS__))
+#define omc_terminate(info, message, ...) terminate_((this)->getModelManager(), (Message("", std::string(message)), ##__VA_ARGS__))
 #define omc_assert(info, message, ...) assert_((this)->getModelManager(), (Message("", std::string(message)), ##__VA_ARGS__))
 #define omc_assert_warning(message, ...) assert_((this)->getModelManager(), (Message("", std::string(message)), ##__VA_ARGS__))
 
@@ -743,7 +743,7 @@ void assert_(ModelManager* model, const Message& message);
  * @param model model where the terminate appears
  * @param message Message of the terminate
  */
-void terminate_(ModelManager* model, const MessageTimeline& message);
+void terminate_(ModelManager* model, const Message& message);
 
 /**
  * @brief transforms a throw in a modelica model to a throw instruction
