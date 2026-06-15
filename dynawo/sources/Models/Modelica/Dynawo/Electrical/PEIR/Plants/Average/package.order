@@ -16,3 +16,4 @@ test
 frst_smib_simulation
 GFLModel
 TwoConvertersStaticLine
+TwoConvertersWECC

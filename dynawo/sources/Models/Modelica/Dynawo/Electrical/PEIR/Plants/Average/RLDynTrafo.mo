@@ -80,6 +80,7 @@ model RLDynTrafo
 
 
 
+
 equation
   // ────────────────────────────────────────────────────────────
   // Connector equations (ACPower convention: .i positive entering device)

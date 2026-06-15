@@ -66,7 +66,7 @@ model outer_loop
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = k_direct_control_q) annotation(
     Placement(transformation(origin = {13, 11}, extent = {{-5, -5}, {5, 5}})));
   // ── Current limiter with reactive boost ──────────────────────
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin,  U0Pu = U_filter0) annotation(
     Placement(transformation(origin = {129, 47}, extent = {{-39, -39}, {39, 39}})));
   // ── Output ramp limiter on i_d_ref ────────────────────────────
   NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DuMax_idref, DuMin = DuMin_idref, tS = tS_idref, Y0 = i_d_ref_0, y(start = i_d_ref_0)) annotation(

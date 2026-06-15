@@ -15,6 +15,8 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 //   UboostLow ≤ U ≤ UboostHigh → deadband: no boost
 //   The boost magnitude is proportional to the voltage deviation via gain Kqv.
 //   It is then saturated between IqBoostMin and IqBoostMax.
+//   The boost signal is filtered by a first-order low-pass with time constant
+//   T_boost to avoid discontinuous jumps in the current reference.
 //
 // ── Current limiting ─────────────────────────────────────────────────────────
 //   Priority is selected via PQFlag (consistent with WECC convention):
@@ -48,6 +50,10 @@ model current_limiter_reactive_boost
     "Maximum additional reactive current boost (pu)";
   parameter Real IqBoostMin = -Imax
     "Minimum additional reactive current boost (pu)";
+  parameter Real T_boost =1e-3
+    "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
+  parameter Real U0Pu 
+    "Initial voltage magnitude at PCC (pu), used to initialise iq_boost";
 
   // ── Inputs ───────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealInput id_raw
@@ -81,47 +87,36 @@ model current_limiter_reactive_boost
       transformation(origin = {120, -30}, extent = {{-20, -20}, {20, 20}}),
       iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}})));
 
-
-  Real iq_boost_raw "Reactive current boost before limiting (pu)";
-  Real iq_boost     "Reactive current boost after limiting (pu)";
-  Real iq_eff       "Effective reactive current reference after boost (pu)";
+  // ── Internal variables ───────────────────────────────────────
+  Real iq_boost_raw        "Reactive current boost before limiting (pu)";
+  Real iq_boost_unfiltered "Reactive current boost after limiting, before filter (pu)";
+  Real iq_boost            "Reactive current boost after limiting and filtering (pu)";
+  Real iq_eff              "Effective reactive current reference after boost (pu)";
 
 equation
   // ── Step 1: compute raw boost (undervoltage + overvoltage) ───
-  /*
-     - Se U_meas_pu <  UboostLow  → inietto Q (iq_boost_raw > 0 se Kqv > 0)
-     - Se U_meas_pu >  UboostHigh → assorbo Q (iq_boost_raw < 0 se Kqv > 0)
-     - Fra UboostLow e UboostHigh → nessun boost (banda morta)
-  */
   if noEvent(U_meas_pu < UboostLow) then
-    // Sottotensione: iniezione di Q
     iq_boost_raw = Kqv * (1 - U_meas_pu);
   elseif noEvent(U_meas_pu > UboostHigh) then
-    // Sovratensione: assorbimento di Q
     iq_boost_raw = Kqv * (1 - U_meas_pu);
   else
-    // Banda morta: nessun contributo di boost
     iq_boost_raw = 0;
   end if;
 
   // ── Step 2: limit the boost ──────────────────────────────────
-  iq_boost = max(min(iq_boost_raw, IqBoostMax), IqBoostMin);
+  iq_boost_unfiltered = max(min(iq_boost_raw, IqBoostMax), IqBoostMin);
+
+  // ── Step 2b: first-order filter on boost ─────────────────────
+  if noEvent(T_boost > 0) then
+    T_boost * der(iq_boost) = iq_boost_unfiltered - iq_boost;
+  else
+    iq_boost = iq_boost_unfiltered;
+  end if;
 
   // ── Step 3: effective iq reference ───────────────────────────
   iq_eff = iq_raw + iq_boost;
 
   // ── Step 4: current limiting with P/Q priority ───────────────
-  /*
-     Se PQFlag = true  (priorità P):
-       - asse d prioritario
-       - se |id_raw| >= Imax: tutta la corrente su d, iq_lim = 0
-       - altrimenti: id_lim = id_raw, iq limitato dal cerchio
-
-     Se PQFlag = false (priorità Q):
-       - asse q (incluso boost) prioritario
-       - se |iq_eff| >= Imax: tutta la corrente su q, id_lim = 0
-       - altrimenti: iq_lim = iq_eff, id limitato dal cerchio
-  */
   if PQFlag then
     // P priority (d-axis)
     if noEvent(abs(id_raw) >= Imax) then
@@ -146,6 +141,18 @@ equation
     end if;
   end if;
 
+initial equation
+  // ── Initialise filter state at steady-state boost value ──────
+  if T_boost > 0 then
+    iq_boost = max(
+                 min(
+                   if U0Pu < UboostLow then Kqv * (1 - U0Pu)
+                   elseif U0Pu > UboostHigh then Kqv * (1 - U0Pu)
+                   else 0,
+                   IqBoostMax),
+                 IqBoostMin);
+  end if;
+
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(
@@ -157,7 +164,9 @@ equation
         Text(origin = {0, 20}, extent = {{-80, 20}, {80, -20}},
              textString = "Limiter"),
         Text(origin = {0, -20}, extent = {{-80, 20}, {80, -20}},
-             textString = "IqBoost ±")}),
+             textString = "IqBoost ±"),
+        Text(origin = {0, -60}, extent = {{-80, 20}, {80, -20}},
+             textString = "T_boost filter")}),
     Diagram);
 
 end current_limiter_reactive_boost;
