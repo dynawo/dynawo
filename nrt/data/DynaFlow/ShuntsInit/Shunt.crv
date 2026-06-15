@@ -18,7 +18,7 @@
   <curve model="Load__10" variable="load_UPu"/>
   <curve model="Generator___1" variable="generator_PGenPu"/>
   <curve model="Generator___1" variable="generator_QGenPu"/>
-  <curve model="Shunt" variable="shunt_section_value"/>
+  <curve model="Shunt" variable="shunt_section"/>
   <curve model="Shunt" variable="shunt_QPu"/>
   <curve model="Shunt" variable="shunt_BPu"/>
 </curvesInput>

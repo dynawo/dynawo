@@ -136,6 +136,8 @@ UFLS10Steps
 UnderVoltageAutomaton
 VariableImpedantFault
 VRRemote
+WeccWT3CurrentSource1
+WeccWT3CurrentSource2
 WT4AWeccCurrentSource
 WT4BWeccCurrentSource
 WTG3WeccCurrentSource1

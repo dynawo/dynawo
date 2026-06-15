@@ -29,18 +29,18 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
   Dynawo.Connectors.ImPin IMonitored "Monitored current (unit depending on IMax unit)";
 
   //Output
-  Dynawo.Connectors.IntPin order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
+  Modelica.Blocks.Interfaces.IntegerOutput order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
 protected
   discrete Types.Time tThresholdReached(start = Constants.inf) "Time when IMonitored > IMax was first reached in s";
   discrete Types.Time tOrder(start = Constants.inf) "Last time the automaton emitted an order in s";
 
 equation
-  when IMonitored.value > IMax and Running and pre(order.value) <> OrderToEmit then
+  when IMonitored.value > IMax and Running and pre(order) <> OrderToEmit then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
-  elsewhen IMonitored.value < IMax and pre(tThresholdReached) <> Constants.inf and pre(order.value) <> OrderToEmit then
+  elsewhen IMonitored.value < IMax and pre(tThresholdReached) <> Constants.inf and pre(order) <> OrderToEmit then
     Constraint.logConstraintEndData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
@@ -52,7 +52,7 @@ equation
 
   when time - tThresholdReached >= tLagBeforeActing then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax, IMonitored.value, String(tLagBeforeActing, significantDigits = 2));
-    order.value = OrderToEmit;
+    order = OrderToEmit;
     tOrder = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);
   end when;

@@ -145,6 +145,44 @@ class DydData:
                 selected_model_template_expansions.append(model_template_expansion)
         return selected_model_template_expansions
 
+    def _get_connects_with_var_for_models(self, var, idx, model_ids):
+        """
+        Get connects where var{idx}=var, restricted to models in model_ids.
+        Uses one XPath query over the whole tree instead of one per model.
+        """
+        root = self._dydtree.getroot()
+        xpath = './dyn:connect[@var' + idx + '="' + var + '"]'
+        connects = [c for c in root.xpath(xpath, namespaces=NAMESPACE_URI)
+                    if c.attrib.get('id' + idx) in model_ids]
+        seen_connectors = set()
+        for mc in root.xpath('./dyn:macroConnect', namespaces=NAMESPACE_URI):
+            if mc.attrib.get('id' + idx) in model_ids:
+                connector_id = mc.attrib['connector']
+                if connector_id not in seen_connectors:
+                    seen_connectors.add(connector_id)
+                    mc_xpath = './dyn:macroConnector[@id="' + connector_id + '"]/dyn:connect[@var' + idx + '="' + var + '"]'
+                    connects.extend(root.xpath(mc_xpath, namespaces=NAMESPACE_URI))
+        return connects
+
+    def _get_connects_with_var_prefix_for_models(self, var_prefix, idx, model_ids):
+        """
+        Get connects where var{idx} starts with var_prefix, restricted to models in model_ids.
+        Uses one XPath query over the whole tree instead of one per model.
+        """
+        root = self._dydtree.getroot()
+        xpath = './dyn:connect[starts-with(@var' + idx + ', "' + var_prefix + '")]'
+        connects = [c for c in root.xpath(xpath, namespaces=NAMESPACE_URI)
+                    if c.attrib.get('id' + idx) in model_ids]
+        seen_connectors = set()
+        for mc in root.xpath('./dyn:macroConnect', namespaces=NAMESPACE_URI):
+            if mc.attrib.get('id' + idx) in model_ids:
+                connector_id = mc.attrib['connector']
+                if connector_id not in seen_connectors:
+                    seen_connectors.add(connector_id)
+                    mc_xpath = './dyn:macroConnector[@id="' + connector_id + '"]/dyn:connect[starts-with(@var' + idx + ', "' + var_prefix + '")]'
+                    connects.extend(root.xpath(mc_xpath, namespaces=NAMESPACE_URI))
+        return connects
+
     def _remove_macro_connector(self, id):
         """
         Remove macroConnector using given id, then remove related macroConnects

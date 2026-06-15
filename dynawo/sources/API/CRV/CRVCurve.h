@@ -231,12 +231,6 @@ class Curve {
   void setIndexCalculatedVarInSubModel(unsigned indexCalculatedVarInSubModel) {
     indexCalculatedVarInSubModel_ = indexCalculatedVarInSubModel;
   }
-  /**
-   * @brief update parameter curve value
-   * @param parameterName name of parameter
-   * @param parameterValue value of parameter
-   */
-  void updateParameterCurveValue(std::string parameterName, double parameterValue);
 
   /**
   * @brief get points
@@ -245,6 +239,22 @@ class Curve {
   */
   const std::vector<std::unique_ptr<Point> >& getPoints() const {
     return points_;
+  }
+
+  /**
+  * @brief Set the fixed value used when the curve is unavailable or a parameter curve
+  * @param fixedValue : constant value to store
+  */
+  void setFixedValue(double fixedValue) {
+    fixedValue_ = fixedValue;
+  }
+
+  /**
+  * @brief Get the fixed value used when the curve is unavailable or a parameter curve
+  * @return the stored constant value used when the curve is unavailable or a parameter curve
+  */
+  double getFixedValue() const {
+    return fixedValue_;
   }
 
  private:
@@ -263,6 +273,7 @@ class Curve {
   CurveType_t curveType_;                          ///< @b true if a calculated variable curve, @b false if variable
   size_t indexInGlobalTable_;                      ///< curve's index in global table
   unsigned indexCalculatedVarInSubModel_;          ///< index of calculated variable in SubModel
+  double fixedValue_;                              ///< constant value used when the curve is unavailable or a parameter curve
 
   ExportType_t exportType_;                        ///< Whether this should be exported as a final state value or as a curve
 };

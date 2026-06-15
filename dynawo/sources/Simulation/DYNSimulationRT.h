@@ -108,7 +108,7 @@ class SimulationRT: public Simulation {
   /**
    * @copydoc Simulation::updateCurves()
    */
-  void updateCurves(bool updateCalculatedVariable = true) const override;
+  void updateCurves(bool updateCalculatedVariable = true) override;
 
   /**
    * @copydoc Simulation::createModeler()

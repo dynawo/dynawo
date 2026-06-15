@@ -328,6 +328,7 @@ class ModelWriter(ModelWriterBase):
         self.file_content.append("#include <string>\n")
         self.file_content.append("#include <vector>\n")
         self.file_content.append("#include <math.h>\n")
+        self.file_content.append("#include <array>\n")
         self.file_content.append("\n")
         self.file_content.append("#include \"DYNElement.h\"\n")
         self.file_content.append("#include \"PARParametersSetFactory.h\"\n")

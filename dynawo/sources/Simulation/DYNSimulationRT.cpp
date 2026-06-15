@@ -242,7 +242,7 @@ SimulationRT::configureRTCurves() {
 }
 
 void
-SimulationRT::updateCurves(bool updateCalculatedVariable) const {
+SimulationRT::updateCurves(bool updateCalculatedVariable) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SimulationRT::updateCurves()");
 #endif

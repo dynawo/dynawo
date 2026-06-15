@@ -50,6 +50,18 @@ class Dyds:
             selected_model_template_expansions.extend(model_template_expansions)
         return selected_model_template_expansions
 
+    def get_connects_with_var_for_models(self, var, idx, model_ids):
+        connects = []
+        for dyd in self._dyds_collection.values():
+            connects.extend(dyd._get_connects_with_var_for_models(var, idx, model_ids))
+        return connects
+
+    def get_connects_with_var_prefix_for_models(self, var_prefix, idx, model_ids):
+        connects = []
+        for dyd in self._dyds_collection.values():
+            connects.extend(dyd._get_connects_with_var_prefix_for_models(var_prefix, idx, model_ids))
+        return connects
+
     def remove_macro_connector(self, id):
         for dyd in self._dyds_collection.values():
             dyd._remove_macro_connector(id)

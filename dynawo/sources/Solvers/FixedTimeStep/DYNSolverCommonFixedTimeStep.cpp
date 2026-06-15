@@ -27,6 +27,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <set>
 
 #include <boost/shared_ptr.hpp>
 

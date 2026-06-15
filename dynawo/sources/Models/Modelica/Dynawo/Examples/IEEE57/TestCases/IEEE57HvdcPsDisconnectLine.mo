@@ -22,8 +22,8 @@ equation
   PhaseShifterB7B29.locked = false;
   PhaseShifterB7B29.PMonitored.value = TfoB7B29.P1Pu.value * 100;
 
-  when PhaseShifterB7B29.tap.value <> pre(PhaseShifterB7B29.tap.value) then
-    TfoB7B29.tap.value = PhaseShifterB7B29.tap.value;
+  when PhaseShifterB7B29.tap <> pre(PhaseShifterB7B29.tap) then
+    TfoB7B29.tap = PhaseShifterB7B29.tap;
   end when;
 
   // HVDC references
@@ -457,10 +457,10 @@ equation
   LineB57B56.switchOffSignal1 = false;
   LineB57B56.switchOffSignal2 = false;
 
-  HvdcLineB29B52.switchOffSignal1Side1.value = false;
-  HvdcLineB29B52.switchOffSignal2Side1.value = false;
-  HvdcLineB29B52.switchOffSignal1Side2.value = false;
-  HvdcLineB29B52.switchOffSignal2Side2.value = false;
+  HvdcLineB29B52.switchOffSignal1Side1 = false;
+  HvdcLineB29B52.switchOffSignal2Side1 = false;
+  HvdcLineB29B52.switchOffSignal1Side2 = false;
+  HvdcLineB29B52.switchOffSignal2Side2 = false;
 
   TfoB10B51.switchOffSignal1 = false;
   TfoB10B51.switchOffSignal2 = false;

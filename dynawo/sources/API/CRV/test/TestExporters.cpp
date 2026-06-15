@@ -46,29 +46,25 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   curve1->setBuffer(&variables[0]);
   curvesCollection1->add(curve1);
 
-  // update parameter curve (set the value of parameter curve to zero)
+  curve1->setFixedValue(5);
   ASSERT_NO_THROW(curve1->update(0));
   ASSERT_NO_THROW(curve1->update(1));
   ASSERT_NO_THROW(curve1->update(2));
-
-  // test updateParameterCurveValue (set the value to a given value)
-  ASSERT_NO_THROW(curve1->updateParameterCurveValue("variable1", 5));
 
   std::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
 
   curve2->setVariable("variable2");
   curve2->setAvailable(true);
-  curve2->setNegated(true);
+  curve2->setNegated(false);
   curve2->setFactor(10);
   curve2->setAsParameterCurve(false);
   std::vector<double> variables2;
-  variables2.assign(3, 4);
+  variables2.assign(3, 7);
   curve2->setBuffer(&variables2[0]);
   curvesCollection1->add(curve2);
   ASSERT_NO_THROW(curve2->update(0));
   ASSERT_NO_THROW(curve2->update(1));
   ASSERT_NO_THROW(curve2->update(2));
-  ASSERT_NO_THROW(curve2->updateParameterCurveValue("variable1", 7));
 
   CsvExporter exporter;
   std::stringstream ss;
@@ -90,33 +86,26 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   curve1->setBuffer(&variables[0]);
   curvesCollection1->add(curve1);
 
-  // update parameter curve (set the value of parameter curve to zero)
+  curve1->setFixedValue(5);
   ASSERT_NO_THROW(curve1->update(0));
   ASSERT_NO_THROW(curve1->update(1));
   ASSERT_NO_THROW(curve1->update(2));
-
-  // test updateParameterCurveValue (set the value to a given value)
-  ASSERT_NO_THROW(curve1->updateParameterCurveValue("--unused--", 5));
 
   std::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
 
   curve2->setVariable("variable2");
   curve2->setAvailable(true);
-  // Parameter curves ignore the negated flag
-  // This demonstrates that the value used in the updateParameterCurveValue method
-  // is the same value obtained when exporting, without a change in sign
-  curve2->setNegated(true);
+  curve2->setNegated(false);
   curve2->setAsParameterCurve(false);
   curve2->setFactor(10);
   curve2->setExportType(curves::Curve::EXPORT_AS_BOTH);
   std::vector<double> variables2;
-  variables2.assign(3, 4);
+  variables2.assign(3, 7);
   curve2->setBuffer(&variables2[0]);
   curvesCollection1->add(curve2);
   ASSERT_NO_THROW(curve2->update(0));
   ASSERT_NO_THROW(curve2->update(1));
   ASSERT_NO_THROW(curve2->update(2));
-  ASSERT_NO_THROW(curve2->updateParameterCurveValue("--unused--", 7));
 
   XmlExporter exporter;
   std::stringstream ss;
@@ -204,13 +193,10 @@ TEST(APICRVTest, CurvesCollectionDontExportUnmarked) {
   curve1->setBuffer(&variables[0]);
   curvesCollection1->add(curve1);
 
-  // update parameter curve (set the value of parameter curve to zero)
+  curve1->setFixedValue(5);
   ASSERT_NO_THROW(curve1->update(0));
   ASSERT_NO_THROW(curve1->update(1));
   ASSERT_NO_THROW(curve1->update(2));
-
-  // test updateParameterCurveValue (set the value to a given value)
-  ASSERT_NO_THROW(curve1->updateParameterCurveValue("variable1", 5));
 
   XmlExporter exporter;
   std::stringstream ss;

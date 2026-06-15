@@ -53,23 +53,23 @@ equation
   IB2B5 = sqrt(LineB2B5.terminal1.i.re * LineB2B5.terminal1.i.re + LineB2B5.terminal1.i.im * LineB2B5.terminal1.i.im);
 
   CLAB1B2.IMonitored.value = IB1B2;
-  when CLAB1B2.order.value > 3 then
+  when CLAB1B2.order > 3 then
     LineB1B2.switchOffSignal2 = true;
-  elsewhen CLAB1B2.order.value <= 3 then
+  elsewhen CLAB1B2.order <= 3 then
     LineB1B2.switchOffSignal2 = false;
   end when;
 
   CLAB2B5.IMonitored.value = IB2B5;
-  when CLAB2B5.order.value > 3 then
+  when CLAB2B5.order > 3 then
     LineB2B5.switchOffSignal2 = true;
-  elsewhen CLAB2B5.order.value <= 3 then
+  elsewhen CLAB2B5.order <= 3 then
     LineB2B5.switchOffSignal2 = false;
   end when;
 
   CLAB1B5.IMonitored.value = IB1B5;
-  when CLAB1B5.order.value > 3 then
+  when CLAB1B5.order > 3 then
     LineB1B5.switchOffSignal2 = true;
-  elsewhen CLAB1B5.order.value <= 3 then
+  elsewhen CLAB1B5.order <= 3 then
     LineB1B5.switchOffSignal2 = false;
   end when;
 

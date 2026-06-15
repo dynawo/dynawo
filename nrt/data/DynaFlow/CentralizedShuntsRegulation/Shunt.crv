@@ -18,11 +18,11 @@
   <curve model="Load__10" variable="load_UPu"/>
   <curve model="Generator___1" variable="generator_PGenPu"/>
   <curve model="Generator___1" variable="generator_QGenPu"/>
-  <curve model="Condenser" variable="shunt_section_value"/>
+  <curve model="Condenser" variable="shunt_section"/>
   <curve model="Condenser" variable="shunt_running"/>
   <curve model="Condenser" variable="shunt_QPu"/>
   <curve model="Condenser" variable="shunt_BPu"/>
-  <curve model="Self" variable="shunt_section_value"/>
+  <curve model="Self" variable="shunt_section"/>
   <curve model="Self" variable="shunt_QPu"/>
   <curve model="Self" variable="shunt_BPu"/>
   <curve model="Self" variable="shunt_running"/>

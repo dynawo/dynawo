@@ -264,6 +264,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   UnderVoltageAutomaton.xml
   VariableImpedantFault.xml
   VRRemote.xml
+  WeccWT3CurrentSource1.xml
+  WeccWT3CurrentSource2.xml
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
   WT4BWeccCurrentSource.xml

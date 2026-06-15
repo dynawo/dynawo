@@ -257,7 +257,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
             URL_MD5             ${googletest_md5}
 
             CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
-                                -DCMAKE_CXX_FLAGS_INIT:STRING=$<$<CONFIG:Debug>:-O0>
+                                -DCMAKE_CXX_FLAGS_INIT:STRING=-w\ $<$<CONFIG:Debug>:-O0>
 
             CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                                 -DCMAKE_BUILD_TYPE:STRING=Debug
@@ -865,6 +865,68 @@ else()
   )
   ExternalProject_Get_Property(libxml install_dir)
   set(LIBXML_HOME ${install_dir})
+endif()
+
+option(DYNAWO_ACTIVATE_HDF5_EXPORT "Enable HDF5 curves export (downloads HDF5 if not found on system)" ON)
+
+if(DYNAWO_ACTIVATE_HDF5_EXPORT)
+  set(hdf5_version  1.12.2)
+  set(hdf5_name     hdf5-${hdf5_version}.tar.gz)
+  set(hdf5_md5      30172c75e436d7f2180e274071a4ca97)
+  if(DEFINED ENV{DYNAWO_HDF5_DOWNLOAD_URL})
+    set(hdf5_prefix_url $ENV{DYNAWO_HDF5_DOWNLOAD_URL})
+  else()
+    set(hdf5_prefix_url https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-${hdf5_version}/src)
+  endif()
+  set(hdf5_url ${hdf5_prefix_url}/${hdf5_name})
+
+  # clear cache variables to force a fresh search
+  unset(HDF5_C_LIBRARY_hdf5 CACHE)
+  unset(HDF5_CXX_LIBRARY_hdf5_cpp CACHE)
+  unset(HDF5_INCLUDE_DIR CACHE)
+
+  if(DEFINED HDF5_HOME AND EXISTS "${HDF5_HOME}")
+    list(APPEND CMAKE_PREFIX_PATH "${HDF5_HOME}")
+  endif()
+
+  find_package(HDF5 QUIET COMPONENTS C CXX)
+
+  if(HDF5_FOUND)
+    add_custom_target(hdf5)
+    # Derive the real install prefix from the include path so the main build can locate the libs
+    get_filename_component(HDF5_HOME "${HDF5_INCLUDE_DIRS}" DIRECTORY)
+    set(HDF5_HOME ${HDF5_HOME} CACHE PATH "Path to HDF5 installation" FORCE)
+  else()
+    ExternalProject_Add(hdf5
+      INSTALL_DIR  ${CMAKE_INSTALL_PREFIX}/hdf5
+      DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/hdf5
+      TMP_DIR      ${TMP_DIR}
+      STAMP_DIR    ${DOWNLOAD_DIR}/hdf5-stamp
+      SOURCE_DIR   ${DOWNLOAD_DIR}/hdf5
+      BINARY_DIR   ${DOWNLOAD_DIR}/hdf5-build
+      URL          ${hdf5_url}
+      URL_MD5      ${hdf5_md5}
+
+      CMAKE_CACHE_ARGS  -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
+                        -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
+                        "-DCMAKE_C_FLAGS_INIT:STRING=-w"
+                        "-DCMAKE_CXX_FLAGS_INIT:STRING=-w ${CXX_STDFLAG}"
+                        -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+
+      CMAKE_ARGS        -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+                        -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+                        -DBUILD_SHARED_LIBS:BOOL=ON
+                        -DHDF5_BUILD_CPP_LIB:BOOL=ON
+                        -DHDF5_BUILD_TOOLS:BOOL=OFF
+                        -DHDF5_BUILD_EXAMPLES:BOOL=OFF
+                        -DBUILD_TESTING:BOOL=OFF
+    )
+    ExternalProject_Get_Property(hdf5 install_dir)
+    set(HDF5_HOME ${install_dir} CACHE PATH "Path to HDF5 installation" FORCE)
+  endif()
+else()
+  add_custom_target(hdf5)
+  message(STATUS "HDF5 export disabled (DYNAWO_ACTIVATE_HDF5_EXPORT=false)")
 endif()
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
