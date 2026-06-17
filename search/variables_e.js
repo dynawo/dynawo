@@ -2,6 +2,7 @@ var searchData=
 [
   ['offsetcalculatedvar_5f',['offsetCalculatedVar_',['../d4/dd6/a03364.html#ae7b43dcf96074ec741effc88f8c0c672',1,'DYN::NetworkComponent']]],
   ['offsetfoptional_5f',['offsetFOptional_',['../dd/dbf/a02788.html#a76dd1b5b8d4e86907958b6d756e8fbbd',1,'DYN::ModelMulti']]],
+  ['offsetgcl2_5f',['offsetGCl2_',['../d2/d76/a03296.html#afb979db8c401cbf49819c7e578e62de4',1,'DYN::ModelLine']]],
   ['offsetmodel_5f',['offsetModel_',['../d0/d1f/a02748.html#a029093a473c748f3ee26f211d09bb3a5',1,'DYN::ConnectorContainer']]],
   ['offsetysave_5f',['offsetYSave_',['../d1/dd0/a02808.html#adda162af7d6adf48ce6953963213d0fe',1,'DYN::SubModel']]],
   ['omega_5fnom',['OMEGA_NOM',['../d7/d80/a00614.html#a9c71d3abc10ab5c319ccef0587e7c5fc',1,'DYN']]],
@@ -10,7 +11,7 @@ var searchData=
   ['omegaref_5f',['omegaRef_',['../d2/d76/a03296.html#a4884c97cc8b15980eeb32792332649ec',1,'DYN::ModelLine']]],
   ['omegarefmax_5f',['omegaRefMax_',['../d3/d55/a03256.html#a66189f67e4302b09bbc565293b035654',1,'DYN::ModelOmegaRef']]],
   ['omegarefmin_5f',['omegaRefMin_',['../d3/d55/a03256.html#ae6c9b7263d02e545912fa887944dbc3d',1,'DYN::ModelOmegaRef']]],
-  ['omegarefnum_5f',['omegaRefNum_',['../d2/d76/a03296.html#a5ca94e70f59f7236d211ace83e1c0e64',1,'DYN::ModelLine']]],
+  ['omegarefnum_5f',['omegaRefNum_',['../d2/d76/a03296.html#a238777a7e8e90b379f6a770c49418c43',1,'DYN::ModelLine']]],
   ['openingauthorized_5f',['openingAuthorized_',['../de/d7f/a03280.html#a75db2b1bb7b57b0df8d7fae9527fde39',1,'DYN::ModelCurrentLimits']]],
   ['oppositeeventsdicos_5f',['oppositeEventsDicos_',['../d2/d7d/a02656.html#a5abafd245223c94b6941ba2714b3ce10',1,'DYN::IoDicos']]],
   ['optimizealgebraicresidualsevaluations_5f',['optimizeAlgebraicResidualsEvaluations_',['../d4/db4/a03520.html#a458b9e16ae7675c10d521237faac9bcf',1,'DYN::SolverCommonFixedTimeStep']]],

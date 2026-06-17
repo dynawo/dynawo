@@ -192,6 +192,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0e422522351467ffa9e8a480c233d87a"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d9c/a02948.html#a0e422522351467ffa9e8a480c233d87a">getID</a> () const override=0</td></tr>
 <tr class="memdesc:a0e422522351467ffa9e8a480c233d87a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the line's id.  <a href="#a0e422522351467ffa9e8a480c233d87a">More...</a><br /></td></tr>
 <tr class="separator:a0e422522351467ffa9e8a480c233d87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840822105d094a2cbce3c568f11d917e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d9c/a02948.html#a840822105d094a2cbce3c568f11d917e">hasConnectionSide1</a> (bool hasConnection)=0</td></tr>
+<tr class="memdesc:a840822105d094a2cbce3c568f11d917e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for line outside connection attribute side 1 (whether the bus this side has a dynamic model)  <a href="#a840822105d094a2cbce3c568f11d917e">More...</a><br /></td></tr>
+<tr class="separator:a840822105d094a2cbce3c568f11d917e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a0c7154b29015c09888fc47691c6bd"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d9c/a02948.html#aa4a0c7154b29015c09888fc47691c6bd">hasConnectionSide1</a> () const =0</td></tr>
+<tr class="memdesc:aa4a0c7154b29015c09888fc47691c6bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the line's connection attribute.  <a href="#aa4a0c7154b29015c09888fc47691c6bd">More...</a><br /></td></tr>
+<tr class="separator:aa4a0c7154b29015c09888fc47691c6bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f9e72d1661e1fb58639b5f7aff1415e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d9c/a02948.html#a4f9e72d1661e1fb58639b5f7aff1415e">hasConnectionSide2</a> (bool hasConnection)=0</td></tr>
+<tr class="memdesc:a4f9e72d1661e1fb58639b5f7aff1415e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for line outside connection attribute side 2 (whether the bus this side has a dynamic model)  <a href="#a4f9e72d1661e1fb58639b5f7aff1415e">More...</a><br /></td></tr>
+<tr class="separator:a4f9e72d1661e1fb58639b5f7aff1415e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a970f232233c1d495a7f2bd56dc82811d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d9c/a02948.html#a970f232233c1d495a7f2bd56dc82811d">hasConnectionSide2</a> () const =0</td></tr>
+<tr class="memdesc:a970f232233c1d495a7f2bd56dc82811d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the line's connection attribute.  <a href="#a970f232233c1d495a7f2bd56dc82811d">More...</a><br /></td></tr>
+<tr class="separator:a970f232233c1d495a7f2bd56dc82811d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6709b5de94e674447523d3516da7c2ba"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d9c/a02948.html#a6709b5de94e674447523d3516da7c2ba">getActiveSeason</a> () const =0</td></tr>
 <tr class="memdesc:a6709b5de94e674447523d3516da7c2ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve active season for the line.  <a href="#a6709b5de94e674447523d3516da7c2ba">More...</a><br /></td></tr>
 <tr class="separator:a6709b5de94e674447523d3516da7c2ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1388,6 +1400,138 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d8/d7d/a02988.html
 
 </div>
 </div>
+<a id="a840822105d094a2cbce3c568f11d917e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840822105d094a2cbce3c568f11d917e">&#9670;&nbsp;</a></span>hasConnectionSide1() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::LineInterface::hasConnectionSide1 </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hasConnection</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for line outside connection attribute side 1 (whether the bus this side has a dynamic model) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hasConnection</td><td><b>true</b> if the line has an outside connection this side, <b>false</b> else </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../de/dd1/a03112.html#a30b5590dd7fe457b90d6c9be9c59520a">DYN::LineInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="aa4a0c7154b29015c09888fc47691c6bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a0c7154b29015c09888fc47691c6bd">&#9670;&nbsp;</a></span>hasConnectionSide1() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::LineInterface::hasConnectionSide1 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the line's connection attribute. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the line has an outside connection, <b>false</b> else </dd></dl>
+
+<p>Implemented in <a class="el" href="../../de/dd1/a03112.html#a41a8846abf95b457fff23c4b0b6e1bf6">DYN::LineInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a4f9e72d1661e1fb58639b5f7aff1415e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f9e72d1661e1fb58639b5f7aff1415e">&#9670;&nbsp;</a></span>hasConnectionSide2() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void DYN::LineInterface::hasConnectionSide2 </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hasConnection</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for line outside connection attribute side 2 (whether the bus this side has a dynamic model) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hasConnection</td><td><b>true</b> if the line has an outside connection this side, <b>false</b> else </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../de/dd1/a03112.html#a1c970eceb0df27a0d75b4f976a9164f5">DYN::LineInterfaceIIDM</a>.</p>
+
+</div>
+</div>
+<a id="a970f232233c1d495a7f2bd56dc82811d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a970f232233c1d495a7f2bd56dc82811d">&#9670;&nbsp;</a></span>hasConnectionSide2() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DYN::LineInterface::hasConnectionSide2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the line's connection attribute. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the line has an outside connection, <b>false</b> else </dd></dl>
+
+<p>Implemented in <a class="el" href="../../de/dd1/a03112.html#accc39959a7f6623679983c4882c76a5f">DYN::LineInterfaceIIDM</a>.</p>
+
+</div>
+</div>
 <a id="a232e12707242f9f27e7b279383483074"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a232e12707242f9f27e7b279383483074">&#9670;&nbsp;</a></span>setBusInterface1()</h2>
 
@@ -1480,7 +1624,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d8/d7d/a02988.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/d9c/a02948.html">LineInterface</a></li>
-    <li class="footer">Generated on Wed Jun 17 2026 08:43:40 for Dynawo by
+    <li class="footer">Generated on Wed Jun 17 2026 11:32:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

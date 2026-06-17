@@ -96,6 +96,7 @@ $(document).ready(function(){initNavTree('d7/d80/a00614.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">DYNModelConstants.h File Reference</div>  </div>
@@ -122,6 +123,15 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:abb42cdf729ea47f41ab0af18beb2d352"><td class="mdescLeft">&#160;</td><td class="mdescRight">state type : state of a network component  <a href="../../d7/d80/a00614.html#abb42cdf729ea47f41ab0af18beb2d352">More...</a><br /></td></tr>
 <tr class="separator:abb42cdf729ea47f41ab0af18beb2d352"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab7cd8511fc8b29ac7f18cb64ba2f6be5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d80/a00614.html#ab7cd8511fc8b29ac7f18cb64ba2f6be5">DYN::isClosedSide1</a> (State state)</td></tr>
+<tr class="memdesc:ab7cd8511fc8b29ac7f18cb64ba2f6be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks whether a component connection state means side 1 is connected, regardless of other side(s)  <a href="../../d7/d80/a00614.html#ab7cd8511fc8b29ac7f18cb64ba2f6be5">More...</a><br /></td></tr>
+<tr class="separator:ab7cd8511fc8b29ac7f18cb64ba2f6be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab563167b0a53e94b8319d0744dea15c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d80/a00614.html#ab563167b0a53e94b8319d0744dea15c5">DYN::isClosedSide2</a> (State state)</td></tr>
+<tr class="memdesc:ab563167b0a53e94b8319d0744dea15c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks whether a component connection state means side 2 is connected, regardless of other side(s)  <a href="../../d7/d80/a00614.html#ab563167b0a53e94b8319d0744dea15c5">More...</a><br /></td></tr>
+<tr class="separator:ab563167b0a53e94b8319d0744dea15c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -203,6 +213,77 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="file_ab7cd8511fc8b29ac7f18cb64ba2f6be5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_ab7cd8511fc8b29ac7f18cb64ba2f6be5">&#9670;&nbsp;</a></span>isClosedSide1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::isClosedSide1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d80/a00614.html#abb42cdf729ea47f41ab0af18beb2d352">State</a>&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>checks whether a component connection state means side 1 is connected, regardless of other side(s) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>the state to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if this state entails closed on side 1, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="file_ab563167b0a53e94b8319d0744dea15c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_ab563167b0a53e94b8319d0744dea15c5">&#9670;&nbsp;</a></span>isClosedSide2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::isClosedSide2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d80/a00614.html#abb42cdf729ea47f41ab0af18beb2d352">State</a>&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>checks whether a component connection state means side 2 is connected, regardless of other side(s) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>the state to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if this state entails closed on side 2, false otherwise </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -220,7 +301,7 @@ static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_7d7d21115b5241938a60e6b8a57ea766.html">Modeler</a></li><li class="navelem"><a class="el" href="../../dir_a96cc45270be55e9fc3691253afb6f87.html">Common</a></li><li class="navelem"><a class="el" href="../../d7/d80/a00614.html">DYNModelConstants.h</a></li>
-    <li class="footer">Generated on Wed Jun 17 2026 08:43:40 for Dynawo by
+    <li class="footer">Generated on Wed Jun 17 2026 11:32:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

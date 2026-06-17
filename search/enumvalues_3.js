@@ -34,6 +34,7 @@ var searchData=
   ['dynamicconnect',['DynamicConnect',['../de/d7b/a02660.html#a963225344a251150ba0ad6d5264f567fa08e8901e7079343df1ac1f004d1064de',1,'DYN::KeyLog_t']]],
   ['dynamicconnectstart',['DynamicConnectStart',['../de/d7b/a02660.html#a963225344a251150ba0ad6d5264f567fa143879689167b7226f503538205284ad',1,'DYN::KeyLog_t']]],
   ['dynamiclinestatusnotsupported',['DynamicLineStatusNotSupported',['../d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea6fe518b275d1caf33398c3a21ee68e6d',1,'DYN::KeyError_t']]],
+  ['dynamiclinestatusnotsupported2',['DynamicLineStatusNotSupported2',['../d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea9ba0835908a959792c9ba8e5af3c4ce4',1,'DYN::KeyError_t']]],
   ['dynaworevision',['DynawoRevision',['../de/d7b/a02660.html#a963225344a251150ba0ad6d5264f567fab92be8126734feac689240a5bb208dad',1,'DYN::KeyLog_t']]],
   ['dynawoversion',['DynawoVersion',['../de/d7b/a02660.html#a963225344a251150ba0ad6d5264f567fa1492daeca9aae8b367e6c64958b743dd',1,'DYN::KeyLog_t']]]
 ];

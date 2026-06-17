@@ -2,6 +2,7 @@ var searchData=
 [
   ['offsetcalculatedvar_5f',['offsetCalculatedVar_',['../d4/dd6/a03364.html#ae7b43dcf96074ec741effc88f8c0c672',1,'DYN::NetworkComponent']]],
   ['offsetfoptional_5f',['offsetFOptional_',['../dd/dbf/a02788.html#a76dd1b5b8d4e86907958b6d756e8fbbd',1,'DYN::ModelMulti']]],
+  ['offsetgcl2_5f',['offsetGCl2_',['../d2/d76/a03296.html#afb979db8c401cbf49819c7e578e62de4',1,'DYN::ModelLine']]],
   ['offsetmodel_5f',['offsetModel_',['../d0/d1f/a02748.html#a029093a473c748f3ee26f211d09bb3a5',1,'DYN::ConnectorContainer']]],
   ['offsetysave_5f',['offsetYSave_',['../d1/dd0/a02808.html#adda162af7d6adf48ce6953963213d0fe',1,'DYN::SubModel']]],
   ['omcompilationfailed',['OMCompilationFailed',['../d6/dca/a02616.html#acfce33066451c48351076e31bd5b4eceaa09d8e568bda8e062a7d02288805e259',1,'DYN::KeyError_t']]],
@@ -11,7 +12,7 @@ var searchData=
   ['omegaref_5f',['omegaRef_',['../d2/d76/a03296.html#a4884c97cc8b15980eeb32792332649ec',1,'DYN::ModelLine']]],
   ['omegarefmax_5f',['omegaRefMax_',['../d3/d55/a03256.html#a66189f67e4302b09bbc565293b035654',1,'DYN::ModelOmegaRef']]],
   ['omegarefmin_5f',['omegaRefMin_',['../d3/d55/a03256.html#ae6c9b7263d02e545912fa887944dbc3d',1,'DYN::ModelOmegaRef']]],
-  ['omegarefnum_5f',['omegaRefNum_',['../d2/d76/a03296.html#a5ca94e70f59f7236d211ace83e1c0e64',1,'DYN::ModelLine']]],
+  ['omegarefnum_5f',['omegaRefNum_',['../d2/d76/a03296.html#a238777a7e8e90b379f6a770c49418c43',1,'DYN::ModelLine']]],
   ['open',['open',['../dd/d20/a01772.html#acc42aea3ca59ed2714bc5dc46d7c97c2',1,'curves::CsvExporter::open()'],['../dd/de9/a01792.html#acf16bb7c7b21fc20b7b35ece72fe88cc',1,'curves::Exporter::open()'],['../d3/d92/a01796.html#a957558453b940d0abef970d278fe1987',1,'curves::Hdf5Exporter::open()'],['../dc/d5b/a01812.html#a5080b338212157d215140b5abba21a60',1,'curves::XmlExporter::open()'],['../dd/d6f/a03000.html#ae6ec783d9c026478bd7b12fa25046b5b',1,'DYN::SwitchInterface::open()'],['../d0/d9f/a03152.html#ab35c28d7618e8babe1b896c2c548b657',1,'DYN::SwitchInterfaceIIDM::open()'],['../d6/d83/a03332.html#ac58a9c50ff27f85b99c36d629f6ee7ab',1,'DYN::ModelSwitch::open()'],['../d7/d80/a00614.html#abb42cdf729ea47f41ab0af18beb2d352ab0f4701129107d8a72eeb7bf5e7dc17f',1,'DYN::OPEN()']]],
   ['openfilefailed',['OpenFileFailed',['../d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea92b61933af1fcd3d079ba5cf37472d32',1,'DYN::KeyError_t']]],
   ['openfilestream',['openFileStream',['../d6/d36/a03456.html#a1e9dff9f472c6aa1e60bcab27127368f',1,'DYN::Simulation']]],

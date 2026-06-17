@@ -4,7 +4,7 @@ var searchData=
   ['kind',['kind',['../dc/d79/a01828.html#ad02b1b78371283242dcb02205e187d9e',1,'constraints::ConstraintData']]],
   ['kind_5f',['kind_',['../df/d28/a02152.html#a566f4074610091091fb788bd6402dc3c',1,'job::ChannelEntry']]],
   ['kinmem_5f',['KINMem_',['../dd/d74/a03476.html#aa318a5852764ed1df2e2278432b93fc0',1,'DYN::SolverKINCommon']]],
-  ['knownbus_5f',['knownBus_',['../d2/d76/a03296.html#a6fbdbb91704a48b8ce2c0d2f25bb83b1',1,'DYN::ModelLine::knownBus_()'],['../d2/d66/a03352.html#a7776bdcbecbc04d3898f67b260ba9d13',1,'DYN::ModelTwoWindingsTransformer::knownBus_()']]],
+  ['knownbus_5f',['knownBus_',['../d2/d66/a03352.html#a7776bdcbecbc04d3898f67b260ba9d13',1,'DYN::ModelTwoWindingsTransformer']]],
   ['kp_5f',['kp_',['../d0/d7c/a03300.html#a68de877356309b94db9b14fb4e4c0b14',1,'DYN::ModelLoad']]],
   ['kq_5f',['kq_',['../d0/d7c/a03300.html#a9eb5463381cf12aea870adccd0560cc6',1,'DYN::ModelLoad']]],
   ['kreducestep_5f',['kReduceStep_',['../d4/db4/a03520.html#ae86b87327b830528d9c270ab59d48494',1,'DYN::SolverCommonFixedTimeStep']]]

@@ -8,6 +8,8 @@ var a00614 =
       [ "CLOSED_2", "d7/d80/a00614.html#abb42cdf729ea47f41ab0af18beb2d352a64f10a9f0fbbfe24630203aff481eab0", null ],
       [ "CLOSED_3", "d7/d80/a00614.html#abb42cdf729ea47f41ab0af18beb2d352adb62983b5762b33bc366430c3f04218f", null ]
     ] ],
+    [ "isClosedSide1", "d7/d80/a00614.html#ab7cd8511fc8b29ac7f18cb64ba2f6be5", null ],
+    [ "isClosedSide2", "d7/d80/a00614.html#ab563167b0a53e94b8319d0744dea15c5", null ],
     [ "DEG_TO_RAD", "d7/d80/a00614.html#ac587e9acbea7014a53f080ebd663e09f", null ],
     [ "FNOM", "d7/d80/a00614.html#ac4a59b22850a3e833c08dd92f7090079", null ],
     [ "HV_THRESHOLD", "d7/d80/a00614.html#aaba183b2f282076432f39f220ac8f20a", null ],

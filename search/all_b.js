@@ -37,8 +37,8 @@ var searchData=
   ['kinstepltstptol',['KinStepLtStpTol',['../de/d7b/a02660.html#a963225344a251150ba0ad6d5264f567fac75681f6d888a3e7c3a195c9ca25a0c9',1,'DYN::KeyLog_t']]],
   ['kinsysfuncfail',['KinSysFuncFail',['../de/d7b/a02660.html#a963225344a251150ba0ad6d5264f567fa78ec17e16a95fff0b0baee4c2030c2d3',1,'DYN::KeyLog_t']]],
   ['kinvectoroperr',['KinVectoropErr',['../de/d7b/a02660.html#a963225344a251150ba0ad6d5264f567faeedc100f25bac9dbd3104fba7c8568b0',1,'DYN::KeyLog_t']]],
-  ['knownbus_5f',['knownBus_',['../d2/d76/a03296.html#a6fbdbb91704a48b8ce2c0d2f25bb83b1',1,'DYN::ModelLine::knownBus_()'],['../d2/d66/a03352.html#a7776bdcbecbc04d3898f67b260ba9d13',1,'DYN::ModelTwoWindingsTransformer::knownBus_()']]],
-  ['knownbus_5ft',['KnownBus_t',['../d2/d76/a03296.html#add62bcaad0b3548c7a216133916e466d',1,'DYN::ModelLine::KnownBus_t()'],['../d2/d66/a03352.html#aabc7a92403a2a9562f9b3627d547be48',1,'DYN::ModelTwoWindingsTransformer::KnownBus_t()']]],
+  ['knownbus_5f',['knownBus_',['../d2/d66/a03352.html#a7776bdcbecbc04d3898f67b260ba9d13',1,'DYN::ModelTwoWindingsTransformer']]],
+  ['knownbus_5ft',['KnownBus_t',['../d2/d66/a03352.html#aabc7a92403a2a9562f9b3627d547be48',1,'DYN::ModelTwoWindingsTransformer']]],
   ['kp_5f',['kp_',['../d0/d7c/a03300.html#a68de877356309b94db9b14fb4e4c0b14',1,'DYN::ModelLoad']]],
   ['kq_5f',['kq_',['../d0/d7c/a03300.html#a9eb5463381cf12aea870adccd0560cc6',1,'DYN::ModelLoad']]],
   ['kreducestep_5f',['kReduceStep_',['../d4/db4/a03520.html#ae86b87327b830528d9c270ab59d48494',1,'DYN::SolverCommonFixedTimeStep']]]

@@ -66,6 +66,7 @@ var searchData=
   ['checksum',['checkSum',['../d0/d08/a03184.html#a65378e8b8a27c2a700a56292404b3523',1,'DYN::ModelModelica']]],
   ['checktypecompatibility',['checkTypeCompatibility',['../dd/d9b/a02832.html#ae77bbb4d4c774e9d560c153e33189268',1,'DYN::VariableAlias']]],
   ['checkunusedparameters',['checkUnusedParameters',['../d8/d3d/a03492.html#aa70488ce4a7ed3cc56cc8ad1fa5021e8',1,'DYN::Solver::checkUnusedParameters()'],['../d1/dc3/a03516.html#a7c533e79e2a3068c6d4c2ac6668d273f',1,'DYN::Solver::Impl::checkUnusedParameters()']]],
+  ['checkvalidstate',['checkValidState',['../d2/d76/a03296.html#a854bda81ad156d6f2a5d871c51fb806e',1,'DYN::ModelLine']]],
   ['clean',['clean',['../d6/d36/a03456.html#a690a3dfc38c3468b5aecce993cc4f1d2',1,'DYN::Simulation::clean()'],['../dd/d74/a03476.html#a7f17551e466f66189dff3d1c0b4423f7',1,'DYN::SolverKINCommon::clean()'],['../d1/dc3/a03516.html#a06d34c6022a7faae9b3eef6fb64af600',1,'DYN::Solver::Impl::clean()']]],
   ['cleanalgebraicvectors',['cleanAlgebraicVectors',['../d6/d49/a03472.html#a0f93bad60bee65915af230a6010adde1',1,'DYN::SolverKINAlgRestoration']]],
   ['cleanida',['cleanIDA',['../d6/d02/a03544.html#a09f8f6e5eb1b58b78fb1f0536684854e',1,'DYN::SolverIDA']]],

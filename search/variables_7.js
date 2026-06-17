@@ -6,6 +6,8 @@ var searchData=
   ['hascheckdatacoherence_5f',['hasCheckDataCoherence_',['../d0/d08/a03184.html#afb70d5e1dea74d7a726766e8890d2d21',1,'DYN::ModelModelica']]],
   ['hascompiledmodel_5f',['hasCompiledModel_',['../df/de4/a02780.html#a946d5f2cfdd5dc5c68c8d8594f372c65',1,'DYN::ModelDescription']]],
   ['hasconnection_5f',['hasConnection_',['../d1/d60/a03032.html#a896c659ec7e87f50bbe9597a1cdee386',1,'DYN::BusInterfaceIIDM::hasConnection_()'],['../d5/d7f/a03036.html#a8a7e00d9dbf2ca03acfb29e39f9566a0',1,'DYN::CalculatedBusInterfaceIIDM::hasConnection_()'],['../d4/d90/a03056.html#a32182a399c6fb17b463d5ed310b60107',1,'DYN::FictBusInterfaceIIDM::hasConnection_()'],['../d4/dcb/a03268.html#ab1a27e407dd2b03a72a25d8688ce6d33',1,'DYN::ModelBus::hasConnection_()']]],
+  ['hasconnectionside1_5f',['hasConnectionSide1_',['../de/dd1/a03112.html#a3cec7959000d244a7810c5d1b0aead3a',1,'DYN::LineInterfaceIIDM']]],
+  ['hasconnectionside2_5f',['hasConnectionSide2_',['../de/dd1/a03112.html#a17ecb2cf2b1a1242b3413b8fbe94f446',1,'DYN::LineInterfaceIIDM']]],
   ['hasdifferentialvoltages_5f',['hasDifferentialVoltages_',['../d4/dcb/a03268.html#a731db809c3c2088a0c53f491037a4b41',1,'DYN::ModelBus']]],
   ['hasdynamicmodel_5f',['hasDynamicModel_',['../da/d47/a02864.html#aac19b67c9d03fb1c38a8f559fb6b51ca',1,'DYN::ComponentInterface']]],
   ['hasfmt_5f',['hasFmt_',['../d6/d18/a02664.html#a4eadeec80faf383399498a92af926539',1,'DYN::Message']]],

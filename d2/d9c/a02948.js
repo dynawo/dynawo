@@ -31,6 +31,10 @@ var a02948 =
     [ "getVNom1", "d2/d9c/a02948.html#a227ad2b86e59abb4e3824b04d896af5d", null ],
     [ "getVNom2", "d2/d9c/a02948.html#a190e51c129849fab68e3f7a14d0eb776", null ],
     [ "getX", "d2/d9c/a02948.html#a649e8263493dcd56c78d9e890493c613", null ],
+    [ "hasConnectionSide1", "d2/d9c/a02948.html#a840822105d094a2cbce3c568f11d917e", null ],
+    [ "hasConnectionSide1", "d2/d9c/a02948.html#aa4a0c7154b29015c09888fc47691c6bd", null ],
+    [ "hasConnectionSide2", "d2/d9c/a02948.html#a4f9e72d1661e1fb58639b5f7aff1415e", null ],
+    [ "hasConnectionSide2", "d2/d9c/a02948.html#a970f232233c1d495a7f2bd56dc82811d", null ],
     [ "setBusInterface1", "d2/d9c/a02948.html#a232e12707242f9f27e7b279383483074", null ],
     [ "setBusInterface2", "d2/d9c/a02948.html#aaf7b40abba92592990083ac991d51036", null ]
 ];

@@ -32,6 +32,7 @@ var a02616 =
       [ "DuplicateLibFile", "d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea20f24d6f95d9789172afe44fa25c52aa", null ],
       [ "DuplicateModelicaModel", "d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea220cffbded582d6930b6bf7e7cb5358a", null ],
       [ "DynamicLineStatusNotSupported", "d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea6fe518b275d1caf33398c3a21ee68e6d", null ],
+      [ "DynamicLineStatusNotSupported2", "d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea9ba0835908a959792c9ba8e5af3c4ce4", null ],
       [ "EmptyConnector", "d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea79573853d8d3b40c7356c1fd6d16ea7d", null ],
       [ "ErrorConnectedInputs", "d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea35e886b7c93009e27d4696bc27e811ab", null ],
       [ "ErrorInit", "d6/dca/a02616.html#acfce33066451c48351076e31bd5b4ecea6ba8e5d18273cb4d26f86abf862e65ab", null ],
