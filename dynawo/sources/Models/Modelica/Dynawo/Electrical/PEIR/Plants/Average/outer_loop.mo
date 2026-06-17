@@ -106,6 +106,10 @@ model outer_loop
   parameter Real U_filter0 "Initial filter voltage magnitude (pu)";
   parameter Real i_d_ref_0 "Initial d-axis current reference (pu)";
   parameter Real i_q_ref_0 "Initial q-axis current reference (pu)";
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = delay_time_plant, y_start = PInjPu0, y(start = PInjPu0)) annotation(
+    Placement(transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = delay_time_plant) annotation(
+    Placement(transformation(origin = {-148, 20}, extent = {{-10, -10}, {10, 10}})));
 equation
 // ── P path ───────────────────────────────────────────────────
   connect(P_meas, sum_node_p.u2) annotation(
@@ -153,14 +157,18 @@ equation
 // ── Current limiter → i_q_ref ────────────────────────────────
   connect(i_q_ref, current_limiter_outer_loop.iq_lim) annotation(
     Line(points = {{210, 32}, {172, 31}}, color = {0, 0, 127}));
-  connect(P_ref, sum_node_p.u1) annotation(
-    Line(points = {{-220, 82}, {-96, 82}}, color = {0, 0, 127}));
-  connect(Q_ref, sum_node_q.u1) annotation(
-    Line(points = {{-220, 18}, {-84, 18}, {-84, 20}, {-82, 20}}, color = {0, 0, 127}));
-  connect(division1.u1, P_ref) annotation(
-    Line(points = {{-78, 48}, {-204, 48}, {-204, 82}, {-220, 82}}, color = {0, 0, 127}));
-  connect(division.u1, Q_ref) annotation(
-    Line(points = {{-62, -30}, {-220, -30}, {-220, 18}}, color = {0, 0, 127}));
+  connect(P_ref, firstOrder.u) annotation(
+    Line(points = {{-220, 82}, {-182, 82}, {-182, 80}}, color = {0, 0, 127}));
+  connect(firstOrder.y, sum_node_p.u1) annotation(
+    Line(points = {{-158, 80}, {-96, 80}, {-96, 82}}, color = {0, 0, 127}));
+  connect(division1.u1, firstOrder.y) annotation(
+    Line(points = {{-78, 48}, {-158, 48}, {-158, 80}}, color = {0, 0, 127}));
+  connect(Q_ref, firstOrder1.u) annotation(
+    Line(points = {{-220, 18}, {-164, 18}, {-164, 20}, {-160, 20}}, color = {0, 0, 127}));
+  connect(firstOrder1.y, sum_node_q.u1) annotation(
+    Line(points = {{-136, 20}, {-82, 20}}, color = {0, 0, 127}));
+  connect(division.u1, firstOrder1.y) annotation(
+    Line(points = {{-62, -30}, {-136, -30}, {-136, 20}}, color = {0, 0, 127}));
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "PI / Direct switchable")}),
