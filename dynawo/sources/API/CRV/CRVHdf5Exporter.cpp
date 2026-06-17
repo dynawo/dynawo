@@ -27,7 +27,6 @@
 
 #ifdef DYNAWO_WITH_HDF5
 #include <H5Cpp.h>
-#endif
 
 #if defined(_MSC_VER)
 #include <xmmintrin.h>
@@ -36,6 +35,7 @@
 #define DYNAWO_PREFETCH(addr) __builtin_prefetch((addr), 0, 0)
 #else
 #define DYNAWO_PREFETCH(addr) ((void)(addr))
+#endif
 #endif
 
 namespace curves {
@@ -66,6 +66,7 @@ struct Hdf5ExporterPrivate {};
 // Hdf5Exporter
 // ---------------------------------------------------------------------------
 
+#ifdef DYNAWO_WITH_HDF5
 Hdf5Exporter::Hdf5Exporter(const std::shared_ptr<CurvesCollection>& curves) :
     curveCollection_(curves),
     pimpl_(new Hdf5ExporterPrivate()),
@@ -78,6 +79,11 @@ Hdf5Exporter::~Hdf5Exporter() {
     try { close(); } catch (...) {}
   }
 }
+#else
+Hdf5Exporter::Hdf5Exporter(const std::shared_ptr<CurvesCollection>& /*curves*/) {}
+
+Hdf5Exporter::~Hdf5Exporter() { }
+#endif
 
 void
 Hdf5Exporter::open(const std::string& filePath) {
@@ -279,8 +285,8 @@ Hdf5Exporter::close() {
     pimpl_->file.flush(H5F_SCOPE_GLOBAL);
     pimpl_->file.close();
   } catch (const H5::Exception& /*e*/) {}
-#endif
   isOpen_ = false;
+#endif
 }
 
 }  // namespace curves

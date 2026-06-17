@@ -520,6 +520,14 @@ else()
   set(ADEPT_HOME ${install_dir})
 endif()
 
+# clear cache variables to force find
+unset(KLU_INCLUDE_DIR CACHE)
+unset(KLU_LIBRARY CACHE)
+unset(SUITESPARSE_CONFIG_LIBRARY CACHE)
+unset(AMD_LIBRARY CACHE)
+unset(COLAMD_LIBRARY CACHE)
+unset(BTF_LIBRARY CACHE)
+
 set(SUITESPARSE_HOME ${CMAKE_INSTALL_PREFIX}/suitesparse)
 find_package(SuiteSparse QUIET)
 unset(SUITESPARSE_HOME)

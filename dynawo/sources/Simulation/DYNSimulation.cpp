@@ -422,9 +422,10 @@ Simulation::configureCurveOutputs() {
     } else if (exportMode == "HDF5") {
 #ifndef DYNAWO_WITH_HDF5
       throw DYNError(Error::MODELER, HDF5NotEnabled);
-#endif
+#else
       exportModeFlag = Simulation::EXPORT_CURVES_HDF5;
       outputFile = createAbsolutePath("curves.h5", curvesDir);
+#endif
     } else {
       throw DYNError(Error::MODELER, UnknownCurvesExport, exportMode);
     }
