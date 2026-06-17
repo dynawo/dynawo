@@ -58,7 +58,7 @@ class Hdf5Exporter : public Exporter {
   /**
    * @brief Destructor — flushes and closes the HDF5 file if still open
    */
-  ~Hdf5Exporter();
+  virtual ~Hdf5Exporter() override;
 
   /**
    * @brief Open (create) the HDF5 file and build the datasets.
@@ -82,11 +82,19 @@ class Hdf5Exporter : public Exporter {
    */
   void close() override;
 
+#ifdef DYNAWO_WITH_HDF5
   /**
    * @brief Whether the file is open and ready to receive rows.
    * @return @b true if the file is open, @b false else
    */
   bool isOpen() const { return isOpen_; }
+#else
+  /**
+   * @brief Whether the file is open and ready to receive rows.
+   * @return @b true if the file is open, @b false else
+   */
+  bool isOpen() const { return false; }
+#endif
 
   /**
    * @brief Not supported for incremental HDF5 export — use open()/appendRow()/close() instead.
@@ -104,6 +112,7 @@ class Hdf5Exporter : public Exporter {
    */
   void flushPending();
 
+#ifdef DYNAWO_WITH_HDF5
   const std::shared_ptr<CurvesCollection>& curveCollection_;  ///< curves collection passed at construction
   std::unique_ptr<Hdf5ExporterPrivate> pimpl_;                ///< HDF5 objects (pimpl to keep H5Cpp.h out of this header)
   std::vector<const double*>           bufPtrs_;              ///< direct pointer to buffer[0] per exported curve
@@ -112,6 +121,7 @@ class Hdf5Exporter : public Exporter {
   size_t nrows_;                                              ///< number of rows written so far
   size_t ncols_;                                              ///< number of exported curves (columns in /data)
   bool   isOpen_;                                             ///< @b true if the HDF5 file is open
+#endif
 };
 
 }  // namespace curves

@@ -118,6 +118,12 @@ xcopy %thirdPartyInstallPath%\libxml2\bin\xml*.exe %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\libxml2\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\libxml2\lib %deploy_dir%\lib /E /i
 
+if exist %thirdPartyInstallPath%\hdf5 (
+  xcopy %thirdPartyInstallPath%\hdf5\bin\*.dll %deploy_dir%\bin /E /i
+  xcopy %thirdPartyInstallPath%\hdf5\include %deploy_dir%\include /E /i
+  xcopy %thirdPartyInstallPath%\hdf5\lib %deploy_dir%\lib /E /i
+)
+
 :: OpenModelica
 xcopy %OPENMODELICA_HOME%\bin %deploy_dir%\OpenModelica\bin /E /i
 xcopy %OPENMODELICA_HOME%\include %deploy_dir%\OpenModelica\include /E /i
@@ -130,6 +136,6 @@ forfiles /p %deploy_dir%\OpenModelica /m *.la /s /c "cmd /c del @path /s /f /q"
 xcopy %dynawo_source_dir_abs%\util\windows\dynawo.cmd %deploy_dir% /i
 
 :: Create zip
-for /f %%i in ('%deploy_dir_abs%\dynawo.cmd version') do set dynawo_version=%%i
+set /p dynawo_version=<%deploy_dir_abs%\share\version.txt
 if exist %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip del %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip /s /f /q
 7z a %dynawo_source_dir_abs%\Dynawo_Windows_v%dynawo_version%.zip -r %deploy_dir_abs%\..\*
