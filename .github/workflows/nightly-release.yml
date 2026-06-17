@@ -80,6 +80,7 @@ jobs:
           run: |
             cd /dynawo
             export DYNAWO_HOME=$(pwd)
+            export DYNAWO_ACTIVATE_HDF5_EXPORT=false
             util/envDynawo.sh build-user
             util/envDynawo.sh build-doc
             util/envDynawo.sh distrib
