@@ -32,7 +32,7 @@ model TwoConvertersStaticLine
   final parameter Real kp_pll_1   = 2.0 * KsiPLL * OmegaPLL / SystemBase.omegaNom;
   final parameter Real ki_pll_1   = OmegaPLL * OmegaPLL / SystemBase.omegaNom;
   final parameter Real kp_plant_1 = w_cc_plant / w_cc_outer;
-  final parameter Real ki_plant_1 = kp_plant_1 * w_cc_plant;
+  final parameter Real ki_plant_1 =  w_cc_plant;
 
   // ═══════════════════════════════════════════════════════════════
   // Guadagni GFL2
@@ -44,7 +44,7 @@ model TwoConvertersStaticLine
   final parameter Real kp_pll_2   = 2.0 * KsiPLL * OmegaPLL / SystemBase.omegaNom;
   final parameter Real ki_pll_2   = OmegaPLL * OmegaPLL / SystemBase.omegaNom;
   final parameter Real kp_plant_2 = w_cc_plant / w_cc_outer;
-  final parameter Real ki_plant_2 = kp_plant_2 * w_cc_plant;
+  final parameter Real ki_plant_2 =  w_cc_plant;
 
   // ═══════════════════════════════════════════════════════════════
   // GFL1
@@ -63,7 +63,7 @@ model TwoConvertersStaticLine
     k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
     k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
     UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,
-    Imax = 2, PQFlag = false,
+    Imax = 20, PQFlag = false,
     IqBoostMax = 0.5, IqBoostMin = -0.5,
     K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
     K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
@@ -79,7 +79,7 @@ model TwoConvertersStaticLine
     DuMax_idref = 10.0,   DuMin_idref = -10.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag = 1
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1
   ) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
@@ -116,7 +116,7 @@ model TwoConvertersStaticLine
     DuMax_idref = 100000.0, DuMin_idref = -10000.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag = 1
+voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1
   ) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
@@ -127,7 +127,7 @@ model TwoConvertersStaticLine
     Placement(transformation(origin = {-34, 20}, extent = {{-10, -10}, {10, 10}})));
   Lines.Line line1(RPu = 0.00144, XPu = 0.0144, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {26, 20}, extent = {{-10, -10}, {10, 10}})));
-  Lines.Line line2(RPu = 0.01, XPu = 0.1, BPu = 0, GPu = 0) annotation(
+  Lines.Line line2(RPu = 0.01, XPu = 0.05, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {-4, -28}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Lines.Line line3(RPu = 0.0077775, XPu = 0.077775, GPu = 0, BPu = 0) annotation(
     Placement(transformation(origin = {-40, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));

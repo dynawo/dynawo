@@ -31,7 +31,8 @@ model GFLControl
   parameter Real delay_time_plant "Delay time between Plant controller and outer loop (s)";
 
 
-  
+    parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
+    parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
 
 
   // ────────────────────────────────────────────────────────────
@@ -88,8 +89,6 @@ model GFLControl
 
   parameter Real Theta0
     "Initial PLL angle (rad)";
-  parameter Real voltagefeedforwardflag
-  "If 0, no voltage feed-forward is applied in the current loop; if 1, it is applied";
 
   parameter Real Uq0Pu
     "Initial q-axis voltage at PCC in control dq frame (pu)";
@@ -103,7 +102,7 @@ model GFLControl
     k_p_q             = k_p_q_current,
     k_i_q             = k_i_q_current,
     L_g               = L_g,
- id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0, voltagefeedforwardflag = voltagefeedforwardflag) annotation(
+ id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0,  voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
   Dynawo.Electrical.PEIR.Plants.Average.outer_loop outer_loop_GFL(

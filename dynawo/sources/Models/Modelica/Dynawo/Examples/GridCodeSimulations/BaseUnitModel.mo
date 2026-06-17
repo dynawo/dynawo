@@ -32,6 +32,32 @@ model BaseUnitModel
   Real Wind_Turbine_GEN_VoltageSetpointPu;
   Real Wind_Turbine_GEN_NetworkFrequencyPu;
   Real NetworkFrequencyPu;
+    parameter Real OmegaCC          = 1200;  // inner current loop  [rad/s]
+  parameter Real w_cc_outer       = 10;    // outer P/Q loop      [rad/s]
+  parameter Real w_cc_plant       = 2;     // plant controller    [rad/s]
+  parameter Real OmegaPLL         = 100;    // PLL                 [rad/s]
+  parameter Real KsiPLL           = 1.0;   // PLL
+  parameter Real OmegaLPF         = 300;   // filter    [rad/s]
+  parameter Real delay_time_plant = 0.02;  // delay plant→outer [s]
+  final parameter Real T_filter   = 1.0 / OmegaLPF;
+// ═══════════════════════════════════════════════════════════════
+  // Impedenze effettive
+  // ═══════════════════════════════════════════════════════════════
+  final parameter Real Rf1 = Unit.RfPu  + Unit.RPuLV;
+  final parameter Real Lf1 = Unit.LfPu  + Unit.LPuLV;
+
+
+  // ═══════════════════════════════════════════════════════════════
+  // Guadagni GFL1
+  // ═══════════════════════════════════════════════════════════════
+  final parameter Real kp_cc_1    = Lf1 * OmegaCC / SystemBase.omegaNom;
+  final parameter Real ki_cc_1    = Rf1 * OmegaCC;
+  final parameter Real kp_outer_1 = w_cc_outer / OmegaLPF;
+  final parameter Real ki_outer_1 = w_cc_outer;
+  final parameter Real kp_pll_1   = 2.0 * KsiPLL * OmegaPLL / SystemBase.omegaNom;
+  final parameter Real ki_pll_1   = OmegaPLL * OmegaPLL / SystemBase.omegaNom;
+  final parameter Real kp_plant_1 = w_cc_plant / w_cc_outer;
+  final parameter Real ki_plant_1 =  w_cc_plant;
 
   Modelica.Blocks.Sources.Constant PRefPu(k = -Unit.P0_pcc*Electrical.SystemBase.SnRef/SNom) annotation(
     Placement(transformation(origin = {-70, 42}, extent = {{-10, 10}, {10, -10}})));
@@ -39,22 +65,34 @@ model BaseUnitModel
     Placement(transformation(origin = {-72, 6}, extent = {{-10, 10}, {10, -10}})));
 Electrical.PEIR.Plants.Average.GFLmodel Unit (
   SNom = SNom, U0Pu = U0Pu, Uphase = UPhase0, P0_pcc = P0Pu, Q0_pcc = Q0Pu, Omega0Pu = 1.0, // ── VSC Pade delay ────────────────────────────────────────
-  tVSC = 1e-100,  // ── LC filter — realistic values, fr ≈ 712 Hz ─────────────
-  RfPu = 0.00003,  // realistic conduction losses ~0.3 %
-  LfPu = 0.01,  // 5 % filter reactance
-  CfPu = 1e-5,  // 1 % filter susceptance  →  fr ≈ 712 Hz
-  omegaNom = 2*Modelica.Constants.pi*50,  // ── LV transformer (filter → LV node) ────────────────────
-  RPuLV = 0.0005, LPuLV = 0.008,  // ── HV transformer (LV node → PCC) ───────────────────────
-  RPuHV = 0.0002, LPuHV = 0.005,  // ── Measurement filter ────────────────────────────────────
-  k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
-  k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
-  k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.1, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0.1, Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
-  K_p_q_plant = 0.1, K_i_q_plant = 1, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
-  K_p_pll = 0.32, K_i_pll = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
-  OmegaMinPu = 0.5,   // ── Rate limiters and delays ──────────────────────────────
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0, tS_idref = 1e-4, delay_time_plant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
-  voltagefeedforwardflag = 1)  annotation(
+  tVSC = 1e-3,
+    RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
+    omegaNom = 2 * Modelica.Constants.pi * 50,
+    RPuLV = 0.001, LPuLV = 0.025,
+    RPuHV = 0.001, LPuHV = 0.025,
+    k_filter = 1, T_filter = T_filter,
+    k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
+    k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
+    k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
+    k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
+    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
+    Imax = 2, PQFlag = false,
+    IqBoostMax = 0.5, IqBoostMin = -0.5,
+    K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
+    K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
+    Lambda = 0.417, Kdroop = 15,
+    QMaxPu = 0.3, QMinPu = -0.3,
+    PMaxPu = 2,   PMinPu = 0,
+    FEMaxPu = 999, FEMinPu = -999,
+    FDbd1Pu = 0.005, FDbd2Pu = 0.1,
+    DbdPu = 0.0001,
+    K_p_pll = kp_pll_1, K_i_pll = ki_pll_1,
+    OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
+    DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
+    DuMax_idref = 10.0,   DuMin_idref = -10.0,
+    tS_idref = 1e-4,
+    delay_time_plant = delay_time_plant,
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1)  annotation(
     Placement(transformation(origin = {9, 5}, extent = {{-31, -31}, {31, 31}})));
 equation
   Unit.switchOffSignal1.value=false;

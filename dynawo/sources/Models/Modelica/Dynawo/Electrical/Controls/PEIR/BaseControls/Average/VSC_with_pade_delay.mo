@@ -2,33 +2,33 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 
 model VSC_with_pade_delay "VSC in RI with Pade delay"
   /**
-       * Author Gaia Bergamaschi
-       * Voltage-source converter (VSC) interface in RI coordinates with Padé delay.
-       *
-       * This block applies a first-order Padé approximation of a pure time delay
-       * to the converter voltage reference in real/imag (R/I) coordinates. It is
-       * used to emulate the finite dynamic response / modulation delay of the
-       * average VSC model.
-       *
-       * For each axis (real and imaginary), the delay is approximated as:
-       *
-       *   e^(−s·tVSC) ≈ (1 − s·tVSC/2) / (1 + s·tVSC/2)
-       *
-       * which corresponds to the transfer function:
-       *
-       *   G(s) = (1 − (tVSC/2)·s) / (1 + (tVSC/2)·s).
-       *
-       * Inputs (per-unit):
-       *   - uReConvRefPu : real-axis converter voltage reference.
-       *   - uImConvRefPu : imaginary-axis converter voltage reference.
-       *
-       * Outputs (per-unit):
-       *   - uReConvPu    : delayed real-axis converter voltage.
-       *   - uImConvPu    : delayed imaginary-axis converter voltage.
-       *
-       * The initial states of the Padé filters are set so that the outputs match
-       * the specified initial converter voltage (UreConv0Pu, UimConv0Pu).
-       */
+         * Author Gaia Bergamaschi
+         * Voltage-source converter (VSC) interface in RI coordinates with Padé delay.
+         *
+         * This block applies a first-order Padé approximation of a pure time delay
+         * to the converter voltage reference in real/imag (R/I) coordinates. It is
+         * used to emulate the finite dynamic response / modulation delay of the
+         * average VSC model.
+         *
+         * For each axis (real and imaginary), the delay is approximated as:
+         *
+         *   e^(−s·tVSC) ≈ (1 − s·tVSC/2) / (1 + s·tVSC/2)
+         *
+         * which corresponds to the transfer function:
+         *
+         *   G(s) = (1 − (tVSC/2)·s) / (1 + (tVSC/2)·s).
+         *
+         * Inputs (per-unit):
+         *   - uReConvRefPu : real-axis converter voltage reference.
+         *   - uImConvRefPu : imaginary-axis converter voltage reference.
+         *
+         * Outputs (per-unit):
+         *   - uReConvPu    : delayed real-axis converter voltage.
+         *   - uImConvPu    : delayed imaginary-axis converter voltage.
+         *
+         * The initial states of the Padé filters are set so that the outputs match
+         * the specified initial converter voltage (UreConv0Pu, UimConv0Pu).
+         */
   // ── Parameters ───────────────────────────────────────────────
   parameter Real tVSC "VSC time response / delay (s)";
   parameter Real UreConv0Pu "Initial real-axis converter voltage (pu)";
@@ -46,14 +46,14 @@ model VSC_with_pade_delay "VSC in RI with Pade delay"
   // ── Padé first-order delay for the VSC ───────────────────────
   // e^(−s·tVSC) ≈ (1 − s·tVSC/2) / (1 + s·tVSC/2)
   /* Modelica.Blocks.Continuous.TransferFunction pade_re(
-            b       = {1, -tVSC/2},
-            a       = {1,  tVSC/2},
-            x_start = {UreConv0Pu});
+              b       = {1, -tVSC/2},
+              a       = {1,  tVSC/2},
+              x_start = {UreConv0Pu});
 
-          Modelica.Blocks.Continuous.TransferFunction pade_im(
-            b       = {1, -tVSC/2},
-            a       = {1,  tVSC/2},
-            x_start = {UimConv0Pu});*/
+            Modelica.Blocks.Continuous.TransferFunction pade_im(
+              b       = {1, -tVSC/2},
+              a       = {1,  tVSC/2},
+              x_start = {UimConv0Pu});*/
   Modelica.Blocks.Continuous.FirstOrder re(T = tVSC) annotation(
     Placement(transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder im(T = tVSC) annotation(

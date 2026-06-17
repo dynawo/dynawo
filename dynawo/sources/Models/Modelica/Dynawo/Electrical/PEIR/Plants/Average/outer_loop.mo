@@ -27,10 +27,6 @@ model outer_loop
   // ── Plant communication delay ─────────────────────────────────
   // Models the delay between the plant-level controller and this outer loop.
   // A first-order filter with time constant delay_time_plant is used.
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(k = 1, T = delay_time_plant, y_start = PInjPu0, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(
-    Placement(transformation(origin = {-148, 82}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(k = 1, y_start = QInjPu0, T = delay_time_plant, initType = Modelica.Blocks.Types.Init.InitialOutput) annotation(
-    Placement(transformation(origin = {-148, 18}, extent = {{-10, -10}, {10, 10}})));
   // ── Sum nodes (P_ref - P_meas, Q_ref - Q_meas) ───────────────
   Modelica.Blocks.Math.Feedback sum_node_p annotation(
     Placement(transformation(origin = {-88, 82}, extent = {{-10, -10}, {10, 10}})));
@@ -66,7 +62,7 @@ model outer_loop
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = k_direct_control_q) annotation(
     Placement(transformation(origin = {13, 11}, extent = {{-5, -5}, {5, 5}})));
   // ── Current limiter with reactive boost ──────────────────────
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin,  U0Pu = U_filter0) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, U0Pu = U_filter0) annotation(
     Placement(transformation(origin = {129, 47}, extent = {{-39, -39}, {39, 39}})));
   // ── Output ramp limiter on i_d_ref ────────────────────────────
   NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DuMax_idref, DuMin = DuMin_idref, tS = tS_idref, Y0 = i_d_ref_0, y(start = i_d_ref_0)) annotation(
@@ -112,31 +108,19 @@ model outer_loop
   parameter Real i_q_ref_0 "Initial q-axis current reference (pu)";
 equation
 // ── P path ───────────────────────────────────────────────────
-  connect(P_ref, firstOrder.u) annotation(
-    Line(points = {{-220, 82}, {-160, 82}}, color = {0, 0, 127}));
-  connect(firstOrder.y, sum_node_p.u1) annotation(
-    Line(points = {{-136, 82}, {-96, 82}}, color = {46, 194, 126}, thickness = 0.75));
   connect(P_meas, sum_node_p.u2) annotation(
     Line(points = {{-220, 52}, {-88, 52}, {-88, 74}}, color = {46, 194, 126}, thickness = 0.75));
   connect(sum_node_p.y, pi_controller_antiwind.e) annotation(
     Line(points = {{-79, 82}, {-50, 82}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Q path ───────────────────────────────────────────────────
-  connect(Q_ref, firstOrder1.u) annotation(
-    Line(points = {{-220, 18}, {-160, 18}}, color = {0, 0, 127}));
-  connect(sum_node_q.u1, firstOrder1.y) annotation(
-    Line(points = {{-82, 20}, {-138, 20}, {-138, 18}, {-136, 18}}, color = {46, 194, 126}, thickness = 0.75));
   connect(Q_meas, sum_node_q.u2) annotation(
     Line(points = {{-220, -20}, {-74, -20}, {-74, 10}, {-72, 10}, {-72, 12}, {-74, 12}}, color = {46, 194, 126}, thickness = 0.75));
   connect(sum_node_q.y, pi_controller_antiwind1.e) annotation(
     Line(points = {{-65, 20}, {-46, 20}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Direct path: P_ref/V (orange) ────────────────────────────
-  connect(division1.u1, firstOrder.y) annotation(
-    Line(points = {{-78, 48}, {-136, 48}, {-136, 82}}, color = {230, 97, 0}, thickness = 0.75));
   connect(division1.u2, V_meas) annotation(
     Line(points = {{-78, 36}, {-190, 36}, {-190, -60}, {-220, -60}}, color = {230, 97, 0}, thickness = 0.75));
 // ── Direct path: Q_ref/V (orange) ────────────────────────────
-  connect(division.u1, firstOrder1.y) annotation(
-    Line(points = {{-62, -30}, {-122, -30}, {-122, 20}, {-136, 20}, {-136, 18}}, color = {230, 97, 0}, thickness = 0.75));
   connect(division.u2, V_meas) annotation(
     Line(points = {{-62, -42}, {-172, -42}, {-172, -60}, {-220, -60}}, color = {230, 97, 0}, thickness = 0.75));
 // ── Switch d: u1=direct(true), u3=PI(false) ──────────────────
@@ -169,6 +153,14 @@ equation
 // ── Current limiter → i_q_ref ────────────────────────────────
   connect(i_q_ref, current_limiter_outer_loop.iq_lim) annotation(
     Line(points = {{210, 32}, {172, 31}}, color = {0, 0, 127}));
+  connect(P_ref, sum_node_p.u1) annotation(
+    Line(points = {{-220, 82}, {-96, 82}}, color = {0, 0, 127}));
+  connect(Q_ref, sum_node_q.u1) annotation(
+    Line(points = {{-220, 18}, {-84, 18}, {-84, 20}, {-82, 20}}, color = {0, 0, 127}));
+  connect(division1.u1, P_ref) annotation(
+    Line(points = {{-78, 48}, {-204, 48}, {-204, 82}, {-220, 82}}, color = {0, 0, 127}));
+  connect(division.u1, Q_ref) annotation(
+    Line(points = {{-62, -30}, {-220, -30}, {-220, 18}}, color = {0, 0, 127}));
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "PI / Direct switchable")}),

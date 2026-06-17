@@ -82,17 +82,32 @@ equation
     preferredView = "diagram",
     Documentation(info = "<html>
     <p> This block contains the electrical inverter control of the generic WECC PV model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
-<p> Following control modes can be activated:
-<li> local coordinated V/Q control: QFlag = true, VFlag = true </li>
-<li> only plant level control active: QFlag = false, VFlag = false</li>
-<li> if plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li>
-<p> The block calculates the idCmdPu and iqCmdPu setpoint values for the generator control based on the selected control algorithm.
-</ul> </p></html>"),
+    <p> Following control modes can be activated:
+    <li> local coordinated V/Q control: QFlag = true, VFlag = true </li>
+    <li> only plant level control active: QFlag = false, VFlag = false</li>
+    <li> if plant level control not connected: local power factor control: PfFlag = true, otherwise PfFlag = false.</li>
+    <p> The block calculates the idCmdPu and iqCmdPu setpoint values for the generator control based on the selected control algorithm.
+    </ul> </p></html>"),
     Diagram(coordinateSystem(initialScale = 0.2)),
-<<<<<<< Updated upstream
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {137, 79}, extent = {{-23, 13}, {35, -21}}, textString = "idCmdPu"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}}, textString = "PInjPu"), Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"), Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu"), Text(origin = {-9, 10}, extent = {{-43, 22}, {80, -38}}, textString = "REEC B"), Text(origin = {114, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMinPu"), Text(origin = {55, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMaxPu"), Text(origin = {-104, 133}, extent = {{-23, 13}, {35, -21}}, textString = "ipMaxPu"), Text(origin = {-45, 134}, extent = {{-23, 13}, {35, -21}}, textString = "ipMinPu")}, coordinateSystem(initialScale = 0.1, preserveAspectRatio = false)));
+    Icon(
+      graphics = {
+        Rectangle(extent = {{-100, 100}, {100, -100}}),
+        Text(origin = {137, 79},  extent = {{-23, 13}, {35, -21}}, textString = "idCmdPu"),
+        Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"),
+        Text(origin = {141, 13},  extent = {{-23, 13}, {17, -11}}, textString = "frtOn"),
+        Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}},  textString = "UPu"),
+        Text(origin = {41, -117}, extent = {{-33, 21}, {9, -3}},  textString = "PInjPu"),
+        Text(origin = {-135, 79}, extent = {{-23, 13}, {35, -21}}, textString = "PInjRefPu"),
+        Text(origin = {-135, -41}, extent = {{-23, 13}, {35, -21}}, textString = "QInjRefPu"),
+        Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu"),
+        Text(origin = {-9, 10},   extent = {{-43, 22}, {80, -38}}, textString = "REEC B"),
+        Text(origin = {114, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMinPu"),
+        Text(origin = {55, 132},  extent = {{-23, 13}, {35, -21}}, textString = "iqMaxPu"),
+        Text(origin = {-104, 133}, extent = {{-23, 13}, {35, -21}}, textString = "ipMaxPu"),
+        Text(origin = {-45, 134}, extent = {{-23, 13}, {35, -21}}, textString = "ipMinPu")
+      },
+      coordinateSystem(initialScale = 0.1, preserveAspectRatio = false)
+    )
+  );
 end REECb;
-=======
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {137, 79}, extent = {{-23, 13}, {35, -21}}, textString = "idCmdPu"), Text(origin = {139, -41}, extent = {{-23, 13}, {35, -21}}, textString = "iqCmdPu"), Text(origin = {141, 13}, extent = {{-23, 13}, {17, -11}}, textString = "frtOn"), Text(origin = {89, -113}, extent = {{-23, 13}, {9, -3}}, textString = "UPu"), Text(origin = {-135, 21}, extent = {{-23, 13}, {35, -21}}, textString = "UFilteredPu"), Text(origin = {-9, 10}, extent = {{-43, 22}, {80, -38}}, textString = "REEC B"), Text(origin = {114, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMinPu"), Text(origin = {55, 132}, extent = {{-23, 13}, {35, -21}}, textString = "iqMaxPu"), Text(origin = {-104, 133}, extent = {{-23, 13}, {35, -21}}, textString = "ipMaxPu"), Text(origin = {-45, 134}, extent = {{-23, 13}, {35, -21}}, textString = "ipMinPu")}, coordinateSystem(initialScale = 0.1, preserveAspectRatio = false)));
-end REECb;
->>>>>>> Stashed changes
+
