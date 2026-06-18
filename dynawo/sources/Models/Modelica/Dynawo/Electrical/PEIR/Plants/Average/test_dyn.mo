@@ -21,8 +21,8 @@ model test_dyn
   GFLmodel gFLmodelnodyn(
     // ── Initial conditions — PCC node ────────────────────────
     SNom=100,
-    UrPcc0Pu = Ur,
-    UiPcc0Pu = Ui,
+    U0Pu = 1.0047,
+    Uphase= Uphase,
     P0_pcc   = -0.6,
     Q0_pcc   = -0.0016854,
     Omega0Pu = 1.0,
@@ -99,7 +99,7 @@ model test_dyn
     K_i_pll    = 25.0,
     OmegaMaxPu = 1.05,
     OmegaMinPu = 0.95,
-    Theta0     = Uphase,
+  
 
     // ── Rate limiters and delays ──────────────────────────────
     DyMax_pi_d       = 10000.0,
@@ -110,7 +110,7 @@ model test_dyn
     delay_time_plant = 1e-3,
 
     // ── Voltage feedforward ───────────────────────────────────
-    voltagefeedforwardflag = 1) annotation(
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
 
   Modelica.Blocks.Sources.Constant URef(k = 1.0047) annotation(
@@ -130,6 +130,9 @@ model test_dyn
     Placement(transformation(origin = {41, -63}, extent = {{-19, -19}, {19, 19}})));
 
 equation
+gFLmodelnodyn.switchOffSignal1.value=false;
+gFLmodelnodyn.switchOffSignal2.value=false;
+gFLmodelnodyn.switchOffSignal3.value=false;
   connect(omegaRef.y,  gFLmodelnodyn.omegaRefPu) annotation(Line(points = {{-47, -36},{-35, -36},{-35, -9}, {8, -9}},  color = {0, 0, 127}));
   connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(Line(points = {{42, -14}, {42, -62}}, color = {0, 0, 255}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(
@@ -142,6 +145,7 @@ equation
       StartTime = 0,
       StopTime  = 20,
       Tolerance = 1e-6,
-      Interval  = 0.0005));
+      Interval  = 0.0005),
+  Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
 
 end test_dyn;
