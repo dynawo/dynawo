@@ -15,3 +15,7 @@ TwoConvertersDynamicLine
 DynLine
 IdealSwitch
 test_dyn
+outer_loop_linearized
+test_outer_loop
+TwoConvertersStaticLine_7Hz
+test_outer_loop_linearized

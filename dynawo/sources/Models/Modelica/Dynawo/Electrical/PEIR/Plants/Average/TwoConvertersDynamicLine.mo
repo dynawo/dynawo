@@ -79,7 +79,7 @@ model TwoConvertersDynamicLine
     DuMax_idref = 10.0,   DuMin_idref = -10.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1
+    voltagefeedforwardflag_d = 0, voltagefeedforwardflag_q = 0
   ) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
@@ -116,7 +116,7 @@ model TwoConvertersDynamicLine
     DuMax_idref = 100000.0, DuMin_idref = -10000.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1
+voltagefeedforwardflag_d = 0, voltagefeedforwardflag_q = 0
   ) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
@@ -148,13 +148,13 @@ voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1
 
   final parameter Real URef0Pu  = gFLmodel.U0Pu  - gFLmodel.Lambda  * gFLmodel.Q0_pcc  * SystemBase.SnRef / gFLmodel.SNom;
   final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda * gFLmodel1.Q0_pcc * SystemBase.SnRef / gFLmodel1.SNom;
-  DynLine dynLine(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.01925978, UPhase01 = -11.490041*3.14/180, P01Pu = -5, Q01Pu = 0.21, U02Pu = 1.03733331, UPhase02 = -2.278818*3.14/180, P02Pu = 5.05725313, Q02Pu = 0.60359717)  annotation(
+  DynLine dynLine(RPu = 0.00144, LPu = 0.0144, U01Pu = gFLmodel.U0Pu, UPhase01 = gFLmodel.U0Pu, P01Pu = gFLmodel.P0_pcc, Q01Pu = gFLmodel.Q0_pcc, U02Pu = 1.03733331, UPhase02 = -2.278818*3.14/180, P02Pu = 5.05725313, Q02Pu = 0.60359717)  annotation(
     Placement(transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}})));
-  DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.04289359, UPhase01 = 6.668423*3.14/180, P01Pu = 5, Q01Pu = 0.21, U02Pu = 1.03733331, UPhase02 = -2.278818*180/3.14, P02Pu = -4.94531238, Q02Pu = 0.56713991)  annotation(
+  DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.04289359, UPhase01 = 6.668423*3.14/180, P01Pu = 5, Q01Pu = 0.21, U02Pu = gFLmodel1.U0Pu, UPhase02 = gFLmodel1.Uphase, P02Pu = gFLmodel1.P0_pcc, Q02Pu = gFLmodel1.Q0_pcc)  annotation(
     Placement(transformation(origin = {28, 20}, extent = {{-10, -10}, {10, 10}})));
-  DynLine dynLine2(RPu = 0.001, LPu = 0.05, U01Pu = 1.1, UPhase01 = -0.04, P01Pu = 0.11901040, Q01Pu = 1.24143346, U02Pu = 1.03733331, UPhase02 = -2.278818*3.14/180, P02Pu = -0.11194076, Q02Pu = -1.17073708)  annotation(
+  DynLine dynLine2(RPu = 0.001, LPu = 0.05, U01Pu = 1.1, UPhase01 = -0.04, P01Pu = 0.11901040, Q01Pu = 1.24143346, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.11194076, Q02Pu = -1.17073708)  annotation(
     Placement(transformation(origin = {-4, -32}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  DynLine dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = 1.0847, UPhase01 = -0.18, P01Pu = -5, Q01Pu = 0.21, U02Pu = 1.099, UPhase02 = -0.04, P02Pu = 5.505, Q02Pu = 0.508)  annotation(
+  DynLine dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = dynLine2.U02Pu, UPhase01 = dynLine2.UPhase02, P01Pu = dynLine2.P02Pu, Q01Pu = dynLine2.Q02Pu, U02Pu = dynLine2.U01Pu, UPhase02 =dynLine2.UPhase01, P02Pu = dynLine2.P01Pu, Q02Pu = dynLine2.Q01Pu)  annotation(
     Placement(transformation(origin = {-52, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   IdealSwitch idealSwitch annotation(
     Placement(transformation(origin = {-30, -16}, extent = {{-10, -10}, {10, 10}})));

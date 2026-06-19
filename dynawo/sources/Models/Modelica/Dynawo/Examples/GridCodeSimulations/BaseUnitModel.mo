@@ -32,14 +32,15 @@ model BaseUnitModel
   Real Wind_Turbine_GEN_VoltageSetpointPu;
   Real Wind_Turbine_GEN_NetworkFrequencyPu;
   Real NetworkFrequencyPu;
-    parameter Real OmegaCC          = 1200;  // inner current loop  [rad/s]
-  parameter Real w_cc_outer       = 10;    // outer P/Q loop      [rad/s]
-  parameter Real w_cc_plant       = 2;     // plant controller    [rad/s]
-  parameter Real OmegaPLL         = 100;    // PLL                 [rad/s]
-  parameter Real KsiPLL           = 1.0;   // PLL
-  parameter Real OmegaLPF         = 300;   // filter    [rad/s]
-  parameter Real delay_time_plant = 0.02;  // delay plant→outer [s]
-  final parameter Real T_filter   = 1.0 / OmegaLPF;
+ 
+  parameter Real OmegaCC          = 200  "Inner current loop bandwidth [rad/s]";
+  parameter Real w_cc_outer       = 4.5   "Outer P/Q loop bandwidth [rad/s]";
+  parameter Real w_cc_plant       = 1.3   "Plant (power) controller bandwidth [rad/s]";
+  parameter Real OmegaPLL         = 4.5  "PLL bandwidth [rad/s]";
+  parameter Real KsiPLL           = 0.5   "PLL damping ratio [-]";
+  parameter Real OmegaLPF         = 300   "Measurement low‑pass filter cutoff [rad/s]";
+  parameter Real delay_time_plant = 0.02  "Equivalent delay from plant to outer loop [s]";
+  final parameter Real T_filter   = 1.0 / OmegaLPF "Measurement filter time constant [s]";
 // ═══════════════════════════════════════════════════════════════
   // Impedenze effettive
   // ═══════════════════════════════════════════════════════════════

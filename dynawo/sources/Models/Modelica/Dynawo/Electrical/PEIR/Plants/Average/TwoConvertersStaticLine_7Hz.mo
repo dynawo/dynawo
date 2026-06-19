@@ -1,6 +1,6 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
-model TwoConvertersStaticLine
+model TwoConvertersStaticLine_7Hz
   /*
    * Author: Gaia Bergamaschi
    *
@@ -124,14 +124,15 @@ model TwoConvertersStaticLine
    *
    */
 
+
   // ═══════════════════════════════════════════════════════════════
   // Target bandwidths — edit only these high‑level settings
   // ═══════════════════════════════════════════════════════════════
-  parameter Real OmegaCC          = 1200  "Inner current loop bandwidth [rad/s]";
-  parameter Real w_cc_outer       = 10    "Outer P/Q loop bandwidth [rad/s]";
-  parameter Real w_cc_plant       = 2     "Plant (power) controller bandwidth [rad/s]";
-  parameter Real OmegaPLL         = 100   "PLL bandwidth [rad/s]";
-  parameter Real KsiPLL           = 1.0   "PLL damping ratio [-]";
+  parameter Real OmegaCC          = 200  "Inner current loop bandwidth [rad/s]";
+  parameter Real w_cc_outer       = 4.5   "Outer P/Q loop bandwidth [rad/s]";
+  parameter Real w_cc_plant       = 1.3   "Plant (power) controller bandwidth [rad/s]";
+  parameter Real OmegaPLL         = 4.5  "PLL bandwidth [rad/s]";
+  parameter Real KsiPLL           = 0.5   "PLL damping ratio [-]";
   parameter Real OmegaLPF         = 300   "Measurement low‑pass filter cutoff [rad/s]";
   parameter Real delay_time_plant = 0.02  "Equivalent delay from plant to outer loop [s]";
   final parameter Real T_filter   = 1.0 / OmegaLPF "Measurement filter time constant [s]";
@@ -559,4 +560,4 @@ equation
     preferredView = "diagram",
   Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
 
-end TwoConvertersStaticLine;
+end TwoConvertersStaticLine_7Hz;
