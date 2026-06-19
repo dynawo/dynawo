@@ -313,7 +313,7 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Dialog(group = "Initialization"));
   parameter Types.PerUnit X0Pu annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid WT terminal in pu (base SNom or UNom) (generator convention)" annotation(
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
 
 equation
