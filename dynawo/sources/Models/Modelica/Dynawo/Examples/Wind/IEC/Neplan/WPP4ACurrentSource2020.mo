@@ -186,9 +186,11 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
   Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource2020_INIT wPP4CurrentSource_INIT(
     BesPu = wPP4ACurrentSource.BesPu,
     BLvTrPu = wPP4ACurrentSource.BLvTrPu,
+    BMvHvPu = wPP4ACurrentSource.BMvHvPu,
     ConverterLVControl = wPP4ACurrentSource.ConverterLVControl,
     GesPu = wPP4ACurrentSource.GesPu,
     GLvTrPu = wPP4ACurrentSource.GLvTrPu,
+    GMvHvPu = wPP4ACurrentSource.GMvHvPu,
     IMaxPu = wPP4ACurrentSource.IMaxPu,
     Kpqu = wPP4ACurrentSource.Kpqu,
     Kwpqu = wPP4ACurrentSource.Kwpqu,
@@ -203,6 +205,7 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     RDropPu = wPP4ACurrentSource.RDropPu,
     ResPu = wPP4ACurrentSource.ResPu,
     RLvTrPu = wPP4ACurrentSource.RLvTrPu,
+    RMvHvPu = wPP4ACurrentSource.RMvHvPu,
     RwpDropPu = wPP4ACurrentSource.RwpDropPu,
     SNom = wPP4ACurrentSource.SNom,
     U0Pu = wPP4ACurrentSource.U0Pu,
@@ -212,6 +215,7 @@ model WPP4ACurrentSource2020 "Wind Power Plant Type 4A model from IEC 61400-27-1
     XDropPu = wPP4ACurrentSource.XDropPu,
     XesPu = wPP4ACurrentSource.XesPu,
     XLvTrPu = wPP4ACurrentSource.XLvTrPu,
+    XMvHvPu = wPP4ACurrentSource.XMvHvPu,
     XwpDropPu = wPP4ACurrentSource.XwpDropPu) annotation(
     Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -230,6 +234,8 @@ initial algorithm
   wPP4ACurrentSource.XWT0Pu := wPP4CurrentSource_INIT.XWT0Pu;
   wPP4ACurrentSource.i0Pu.re := wPP4CurrentSource_INIT.i0Pu.re;
   wPP4ACurrentSource.i0Pu.im := wPP4CurrentSource_INIT.i0Pu.im;
+  wPP4ACurrentSource.iControl0Pu.re := wPP4CurrentSource_INIT.iControl0Pu.re;
+  wPP4ACurrentSource.iControl0Pu.im := wPP4CurrentSource_INIT.iControl0Pu.im;
   wPP4ACurrentSource.iGs0Pu.re := wPP4CurrentSource_INIT.iGs0Pu.re;
   wPP4ACurrentSource.iGs0Pu.im := wPP4CurrentSource_INIT.iGs0Pu.im;
   wPP4ACurrentSource.iWt0Pu.re := wPP4CurrentSource_INIT.iWt0Pu.re;
@@ -269,7 +275,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-07, Interval = 0.001),
+    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-5, Interval = 0.001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode");
