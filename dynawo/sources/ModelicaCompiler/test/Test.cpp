@@ -45,27 +45,38 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   boost::erase_all(result, "\n");
   std::string res = "Executing command : " + varExtCommand +
       "    [INFO]: Starting init model generation"
-      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."
-      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
-      "    [INFO]: Starting dynamic model generation"
-      "    [INFO]: Discrete variable generator.state is defined as silent (not used in discrete equations)."
-      "    [INFO]: Discrete variable generator.state is defined as silent (not used in continuous equations)."
-      "    [INFO]: Discrete variable generator.switchOffSignal1.value is defined as silent (not used in continuous equations)."
-      "    [INFO]: Discrete variable generator.switchOffSignal2.value is defined as silent (not used in continuous equations)."
-      "    [INFO]: Discrete variable generator.switchOffSignal3.value is defined as silent (not used in continuous equations).";
-  std::string res2 = "Executing command : " + varExtCommand +
-      "    [INFO]: Starting init model generation"
-      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
-      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."
-      "    [INFO]: Starting dynamic model generation"
-      "    [INFO]: Discrete variable generator.state is defined as silent (not used in discrete equations)."
+      "    [INFO]: Adding fixed flag to variable generator.u0Pu.im"
+      "    [INFO]: Adding fixed flag to variable generator.u0Pu.re"
+      "    [INFO]: variable generator.PGen0Pu is considered as fixed (alias of fixed variable generator.P0Pu)."
+      "    [INFO]: variable generator.QGen0Pu is considered as fixed (alias of fixed variable generator.Q0Pu)."
+      "    [INFO]: variable generator.s0Pu.im is considered as fixed (alias of fixed variable generator.Q0Pu)."
+      "    [INFO]: variable generator.s0Pu.re is considered as fixed (alias of fixed variable generator.P0Pu)."
+      "    [INFO]: Starting dynamic model generation    [INFO]: Removing fixed flag from variable generator.switchOffSignal1.value"
+      "    [INFO]: Removing fixed flag from variable generator.switchOffSignal2.value"
+      "    [INFO]: Removing fixed flag from variable generator.switchOffSignal3.value"
+      "    [INFO]: Removing fixed flag from variable $whenCondition8"
+      "    [INFO]: Removing fixed flag from variable $whenCondition7"
+      "    [INFO]: Removing fixed flag from variable generator.running.value"
+      "    [INFO]: Removing fixed flag from variable $whenCondition4"
+      "    [INFO]: Removing fixed flag from variable $whenCondition3"
+      "    [INFO]: Removing fixed flag from variable $whenCondition2"
+      "    [INFO]: Removing fixed flag from variable $whenCondition1"
+      "    [INFO]: Removing fixed flag from variable generator.pStatus"
+      "    [INFO]: Removing fixed flag from variable $whenCondition6"
+      "    [INFO]: Removing fixed flag from variable $whenCondition5"
+      "    [INFO]: Removing fixed flag from variable generator.state"
+      "    [INFO]: Variable generator.PGen is set as a calculated variable of level 1."
+      "    [INFO]: Variable generator.UPu is set as a calculated variable of level 1."
+      "    [INFO]: Variable generator.genState is set as a calculated variable of level 1."
+      "    [INFO]: Discrete variable generator.converter.u is defined as silent (not used in discrete equations)."
+      "    [INFO]: Discrete variable generator.converter.u is defined as silent (not used in continuous equations)."
       "    [INFO]: Discrete variable generator.state is defined as silent (not used in continuous equations)."
       "    [INFO]: Discrete variable generator.switchOffSignal1.value is defined as silent (not used in continuous equations)."
       "    [INFO]: Discrete variable generator.switchOffSignal2.value is defined as silent (not used in continuous equations)."
       "    [INFO]: Discrete variable generator.switchOffSignal3.value is defined as silent (not used in continuous equations).";
   std::cout << result << std::endl;
   std::cout << res << std::endl;
-  if (result != res && result != res2)
+  if (result != res)
     assert(false);
   std::cout << ssPython.str() << std::endl;
   std::stringstream ssDiff;

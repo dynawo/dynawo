@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
+  <blackBoxModel id="automaton" lib="GenericAutomaton" parFile="automaton.par" parId="1"/>
+  <connect id1="automaton" var1="automaton_inputs_0_" id2="NETWORK" var2="_BUS___10_TN_U_value"/>
+  <connect id1="automaton" var1="automaton_inputs_1_" id2="GEN____2_SM" var2="generator_PGenPu"/>
+  <connect id1="automaton" var1="automaton_inputs_2_" id2="NETWORK" var2="_BUS___10-BUS___11-1_AC_lineState_value"/>
+  <connect id1="automaton" var1="automaton_intOutputs_0_" id2="NETWORK" var2="_BUS___10-BUS___11-1_AC_state_value"/>
+</dynamicModelsArchitecture>

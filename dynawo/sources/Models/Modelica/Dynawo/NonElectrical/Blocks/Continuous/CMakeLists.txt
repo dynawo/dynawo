@@ -37,6 +37,7 @@ set(MODEL_FILES
   PIAntiWindupVariableLimits.mo
   PIFreeze.mo
   Power.mo
+  PowerExp.mo
   RampTrackingFilter.mo
   RateLimFirstOrderFreeze.mo
   SecondOrder.mo

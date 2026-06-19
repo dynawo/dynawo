@@ -88,10 +88,12 @@
  * @param res result of the function
  * @param exp1 first operand
  * @param exp2 second operand
+ * @param exp1_nominal first operand
+ * @param exp2_nominal second operand
  * @param index position of the relation in the relationsPre map
  * @param op_w operator to used
  */
-#define RELATIONHYSTERESIS(res, exp1, exp2, index, op_w) { \
+#define relationhysteresis(res, exp1, exp2, exp1_nominal, exp2_nominal, index, op_w) { \
   if (data->simulationInfo->discreteCall == 0) { \
     res = data->simulationInfo->relationsPre[index]; \
   } else { \
@@ -296,11 +298,92 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
   return DYN::doubleEquals(a, b) || a > b;
 }
 
+
+/**
+ * generic less operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+inline modelica_boolean Less(modelica_real a, modelica_integer b) {
+  return Less(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic greater operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b b otherwise
+ */
+inline modelica_boolean Greater(modelica_real a, modelica_integer b) {
+  return Greater(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic less-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+inline modelica_boolean LessEq(modelica_real a, modelica_integer b) {
+  return LessEq(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic greater-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+inline modelica_boolean GreaterEq(modelica_real a, modelica_integer b) {
+  return GreaterEq(a, static_cast<modelica_real>(b));
+}
+
+/**
+ * generic less operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+inline modelica_boolean Less(modelica_integer a, modelica_real b) {
+  return Less(static_cast<modelica_real>(a), b);
+}
+
+/**
+ * generic greater operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b b otherwise
+ */
+inline modelica_boolean Greater(modelica_integer a, modelica_real b) {
+  return Greater(static_cast<modelica_real>(a), b);
+}
+
+/**
+ * generic less-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+inline modelica_boolean LessEq(modelica_integer a, modelica_real b) {
+  return LessEq(static_cast<modelica_real>(a), b);
+}
+
+/**
+ * generic greater-equal operator
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+inline modelica_boolean GreaterEq(modelica_integer a, modelica_real b) {
+  return GreaterEq(static_cast<modelica_real>(a), b);
+}
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-#define  LessZC(a, b, direction) Less(a, b)
-#define  LessEqZC(a, b, direction) LessEq(a, b)
-#define  GreaterZC(a, b, direction) Greater(a, b)
-#define  GreaterEqZC(a, b, direction) GreaterEq(a, b)
+#define  LessZC(a, b, a_nominal, b_nominal, direction) Less(a, b)
+#define  LessEqZC(a, b, a_nominal, b_nominal, direction) LessEq(a, b)
+#define  GreaterZC(a, b, a_nominal, b_nominal, direction) Greater(a, b)
+#define  GreaterEqZC(a, b, a_nominal, b_nominal, direction) GreaterEq(a, b)
 
 #define addLogConstraintBegin(key) \
   addLogConstraintBegin_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key)))))
@@ -383,11 +466,11 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
     callExternalAutomatonModel((this)->getModelManager()->name(), command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, \
     nbMaxOutputs, intOutputs, intOutputsName, nbIntOutputs, nbMaxIntOutputs, this->getModelManager()->getWorkingDirectory());
 
-#define delayImpl(data, exprNumber, exprValue, time, delayTime, delayMax) \
-  computeDelay((this)->getModelManager(), exprNumber, exprValue, time, delayTime, delayMax)
+#define delayImpl(data, exprNumber, exprValue, delayTime, delayMax) \
+  computeDelay((this)->getModelManager(), exprNumber, exprValue, data->localData[0]->timeValue, delayTime, delayMax)
 
-#define derDelayImpl(data, exprNumber, exprValue, time, delayTime, delayMax) \
-  computeDelayDerivative((this)->getModelManager(), exprNumber, exprValue, time, delayTime, delayMax)
+#define derDelayImpl(data, exprNumber, exprValue, delayTime, delayMax) \
+  computeDelayDerivative((this)->getModelManager(), exprNumber, exprValue, data->localData[0]->timeValue, delayTime, delayMax)
 
 #define createDelay(exprNumber, time, exprValue, delayMax) \
   addDelay((this)->getModelManager(), exprNumber, time, exprValue, delayMax)
