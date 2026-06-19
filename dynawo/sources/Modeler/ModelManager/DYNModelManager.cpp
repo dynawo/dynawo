@@ -385,6 +385,12 @@ ModelManager::evalG(const double t) {
 
   modelModelica()->setGomc(gLocal_);
   delayManager_.setGomc(gLocal_, modelData()->nZeroCrossings, t);
+
+  for (auto it : cstrMins_) {
+    double currValue = data()->localData[0]->realVars[it.first];
+    cstrMins_[it.first] = std::min(cstrMins_[it.first], currValue);
+    cstrMaxs_[it.first] = std::max(cstrMaxs_[it.first], currValue);
+  }
 }
 
 void
@@ -1522,5 +1528,55 @@ ModelManager::computeDelayDerivative(int exprNumber, adept::adouble exprValue, d
   }
 }
 #endif
+
+void
+ModelManager::addConstraintWithSource(const Message & message, bool begin, const std::string & kind, double limit, int varIndex) {
+  using constraints::ConstraintData;
+
+  if (!hasConstraints())
+    return;
+
+  if ((varIndex < 0) || (varIndex >= data()->nbVars))
+    throw DYNError(Error::API, InvalidVarIndex, varIndex, name());
+
+  double value = data()->localData[0]->realVars[varIndex];
+
+  if (cstrMins_.find(varIndex) == cstrMins_.end()) {
+    cstrMins_[varIndex] = value;
+    cstrMaxs_[varIndex] = value;
+  }
+
+  ConstraintData data(ConstraintData::str2Kind(kind), limit, value);
+  data.source = this;
+  data.varIndex = varIndex;
+  addConstraint(name(), begin,  message, kind, data);
+}
+
+void
+ModelManager::getFinalValues(ConstraintData::kind_t kind,
+                             int varIndex,
+                             double & valueFinal,
+                             boost::optional<double> & valueMin,
+                             boost::optional<double> & valueMax) const {
+  switch (kind) {
+    case ConstraintData::OverloadOpen:
+    case ConstraintData::OverloadUp:
+    case ConstraintData::FictLim:
+    case ConstraintData::PATL:
+    case ConstraintData::USupUmax: {
+      valueMax = cstrMaxs_.at(varIndex);
+      break;
+    }
+    case ConstraintData::UInfUmin: {
+      valueMin = cstrMins_.at(varIndex);
+      break;
+    }
+    case ConstraintData::Undefined:
+    default:
+      throw DYNError(Error::API, UnhandledConstraintKind, kind, name());
+  }
+
+  valueFinal = data()->localData[0]->realVars[varIndex];
+}
 
 }  // namespace DYN

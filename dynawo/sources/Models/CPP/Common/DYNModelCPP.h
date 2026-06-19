@@ -336,9 +336,7 @@ class ModelCPP : public SubModel {
 
   /**
    * @brief load the internal variables values from a previous dump
-   *
    * @param streamVariables : stringstream with binary formated internalVariables
-   * @return success
    */
   virtual void loadInternalVariables(boost::archive::binary_iarchive& streamVariables);
 

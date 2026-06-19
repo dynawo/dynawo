@@ -19,7 +19,7 @@
  */
 #include "CSTRConstraintsCollection.h"
 
-#include "CSTRConstraint.h"
+#include "CSTRConstraintSource.h"
 #include "CSTRConstraintFactory.h"
 
 #include <iostream>
@@ -62,36 +62,21 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
   for (auto & modelIt : constraintsByModel_) {
     std::vector<std::shared_ptr<Constraint> > & constraints = modelIt.second;
     std::unordered_map<std::string, std::vector<std::shared_ptr<Constraint> > > constraintsByDescr;
-    std::set<std::string> activeConstraints;
 
     for (std::shared_ptr<Constraint> & constraint : constraints) {
       const string & descr = constraint->getDescription();
       Type_t type = constraint->getType();
 
-      if ((constraintsByDescr.find(descr) == constraintsByDescr.end()) || (activeConstraints.find(descr) == activeConstraints.end())) {  // open constraint
-        if (type == CONSTRAINT_BEGIN) {
+      if ((constraintsByDescr.find(descr) == constraintsByDescr.end())) {  // new constraint
+        if ((type == CONSTRAINT_BEGIN)) {
           constraintsByDescr[descr].push_back(constraint);
-          activeConstraints.insert(descr);
+          if ((filterType == DYN::CONSTRAINTS_DYNAFLOW) && constraint->getData() && (constraint->getData()->source != nullptr)) {
+            ConstraintData data = constraint->getData().get();
+            data.source->getFinalValues(data.kind, data.varIndex, data.value, data.valueMin, data.valueMax);
+            constraint->setData(data);
+          }
         }
-      } else if (filterType == DYN::CONSTRAINTS_DYNAFLOW) {
-        std::shared_ptr<Constraint> & lastConstraint = constraintsByDescr[descr].back();
-        if (lastConstraint->getData() && constraint->getData()) {  // update constraint by merging datas
-          ConstraintData mergedData = lastConstraint->getData().get();
-          bool isPos = (type == CONSTRAINT_BEGIN) == (constraint->getData()->value > constraint->getData()->limit);
-          if (isPos && !mergedData.valueMax)
-            mergedData.valueMax = mergedData.value;
-          else if (!isPos && !mergedData.valueMin)
-            mergedData.valueMin = mergedData.value;
-          mergedData.value = constraint->getData()->value;
-          if (isPos)
-            mergedData.valueMax = std::max(mergedData.valueMax.value(), mergedData.value);
-          else
-            mergedData.valueMin = std::min(mergedData.valueMin.value(), mergedData.value);
-          lastConstraint->setData(mergedData);
-        }
-        if (type == CONSTRAINT_END)  // close constraint
-          activeConstraints.erase(activeConstraints.find(descr));
-      } else if ((filterType == DYN::CONSTRAINTS_KEEP_FIRST) && (type == CONSTRAINT_END)) {  // classic mode, forget closed constraints
+      } else if ((type == CONSTRAINT_END) && (filterType == DYN::CONSTRAINTS_KEEP_FIRST)) {  // in non-DFL mode, forget closed constraints
           constraintsByDescr.erase(constraintsByDescr.find(descr));
       }
     }

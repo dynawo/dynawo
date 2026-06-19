@@ -1922,6 +1922,7 @@ class Factory:
                 line = throw_stream_indexes(line)
                 line = mmc_strings_len1(line)
                 line = replace_var_names(line)
+                line = reference_constraint_var(line)
                 if "MMC_DEFSTRINGLIT" in line:
                     line = line.replace("static const MMC_DEFSTRINGLIT(","")
                     line = line.replace(");","")

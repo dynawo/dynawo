@@ -26,8 +26,12 @@
 
 #include "DYNNetworkComponent.h"
 #include "DYNBitMask.h"
+#include "CSTRConstraintSource.h"
 
 namespace DYN {
+using constraints::ConstraintData;
+using constraints::ConstraintSource;
+
 class SubNetwork;  ///< AC-connected network
 class BusInterface;
 class BusDerivatives;
@@ -37,7 +41,7 @@ class ModelVoltageLevel;
 /**
  * class ModelBus
  */
-class ModelBus : public NetworkComponent {  ///< Generic AC network bus
+class ModelBus : public NetworkComponent, public ConstraintSource {  ///< Generic AC network bus
  public:
   /**
    * @brief default constructor
@@ -411,6 +415,12 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
+  void getFinalValues(ConstraintData::kind_t kind,
+                      int varIndex,
+                      double & valueFinal,
+                      boost::optional<double> & valueMin,
+                      boost::optional<double> & valueMax) const;
+
   /**
    * @brief retrieve the real part of the voltage
    * @return the real part of the voltage
@@ -586,6 +596,8 @@ class ModelBus : public NetworkComponent {  ///< Generic AC network bus
   double U2Pu_;  ///< current value of U² (= 0 if not yet calculated)
   double UPu_;  ///< current value of U (=0 if not yet calculated)
   double U_;  ///< current value of U in S.I. unit (=0 if not yet calculated)
+  double UpuMin_ = 1000;  ///< minimum historical value of U (for dynaflow constraints output)
+  double UpuMax_ = 0;  ///< maximum historical value of U (for dynaflow constraints output)
   BitMask currentUStatus_;  ///< Bit mask value indicating which value of U have already been calculated for the current time step
 
 
