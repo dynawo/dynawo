@@ -683,7 +683,7 @@ void
 ModelBus::logConstraint(bool sup, bool begin) {
   using constraints::ConstraintData;
   Message msg(Message::CONSTRAINT_KEY, KeyConstraint_t::names(sup ? KeyConstraint_t::USupUmax : KeyConstraint_t::UInfUmin));
-  ConstraintData data(sup ? ConstraintData::USupUmax : ConstraintData::UInfUmin, (sup ? uMax_: uMin_)*unom_, getCurrentU(ModelBus::UType_));
+  ConstraintData data(sup ? ConstraintData::USupUmax : ConstraintData::UInfUmin, (sup ? uMax_: uMin_)*unom_, getCurrentU(ModelBus::UType_), this);
   network_->addConstraint(constraintId_, begin, msg, modelType_, data);
 }
 
@@ -737,6 +737,21 @@ ModelBus::evalG(const double& /*t*/) {
   double upu = getCurrentU(ModelBus::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
   g_[1] = (uMin_ - upu > 0 && !getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U < Umin
+  UpuMin_ = std::min(UpuMin_, upu);
+  UpuMax_ = std::max(UpuMax_, upu);
+}
+
+void
+ModelBus::getFinalValues(ConstraintData::kind_t kind,
+                                   int /*varIndex*/,
+                                   double & valueFinal,
+                                   boost::optional<double> & valueMin,
+                                   boost::optional<double> & valueMax) const {
+  if      (kind == ConstraintData::USupUmax)  valueMax = UpuMax_ * unom_;
+  else if (kind == ConstraintData::UInfUmin)  valueMin = UpuMin_ * unom_;
+  else                                        throw DYNError(Error::API, UnhandledConstraintKind, kind, id_);
+
+  valueFinal = evalCalculatedVarI(uNum_);
 }
 
 void

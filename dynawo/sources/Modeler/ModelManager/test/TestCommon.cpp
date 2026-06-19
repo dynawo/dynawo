@@ -71,7 +71,8 @@ TEST(TestModelManager, TestModelManagerCommonLogs) {
   mm.setConstraints(constraints);
   constraints::ConstraintsCollection::const_iterator it = constraints->cbegin();
   assert(it == constraints->cend());
-  ASSERT_NO_THROW(addLogConstraintBegin_(&mm, mess));
+
+  ASSERT_NO_THROW(mm.addConstraint(mm.name(), true, mess));
   it = constraints->cbegin();
   ++it;
   assert(it == constraints->cend());

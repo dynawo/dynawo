@@ -31,6 +31,7 @@ set(API_CSTR_INCLUDE_HEADERS
     CSTRConstraint.h
     CSTRConstraintFactory.h
     CSTRConstraintCommon.h
+    CSTRConstraintSource.h
     CSTRConstraintsCollection.h
     CSTRConstraintsCollectionFactory.h
     CSTRExporter.h

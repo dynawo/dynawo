@@ -64,4 +64,10 @@
   <curve model="CLA_2_5" variable="currentLimitAutomaton_order"/>
   <curve model="CLA_2_4" variable="currentLimitAutomaton_IMax"/>
   <curve model="CLA_2_5" variable="currentLimitAutomaton_IMax"/>
+
+  <!-- currents appearing in constraints.xml -->
+  <curve model="NETWORK" variable="_BUS____1-BUS____2-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS____2-BUS____3-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS____2-BUS____4-1_AC_iSide1"/>
+  <curve model="NETWORK" variable="_BUS____3-BUS____4-1_AC_iSide1"/>
 </curvesInput>
