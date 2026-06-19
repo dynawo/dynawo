@@ -53,8 +53,8 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Other variables
-  Types.CurrentModulePu IWtPu(start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) "Current module at grid terminal in pu (base UNom, SNom)";
-  Types.VoltageModulePu UWtPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)";
+  Types.CurrentModulePu IWtPu(start = ComplexMath.'abs'(i0Pu) * SystemBase.SnRef / SNom) "Current module at WT terminal in pu (base UNom, SNom)";
+  Types.VoltageModulePu UWtPu(start = U0Pu) "Voltage amplitude at WT terminal in pu (base UNom)";
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPFilt, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {90, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

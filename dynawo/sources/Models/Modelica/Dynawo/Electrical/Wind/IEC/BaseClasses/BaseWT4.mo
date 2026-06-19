@@ -124,9 +124,9 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   //QLimiter parameters
   parameter Boolean QlConst "True if limits are constant" annotation(
     Dialog(tab = "QLimiter"));
-  parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "QLimiter"));
-  parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "QLimiter"));
 
   //Grid protection parameters
@@ -146,7 +146,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frame for grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 90), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = Ip0Pu * U0Pu) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = Ip0Pu * U0Pu) "Active power reference at WT terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
@@ -162,7 +162,7 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Placement(visible = true, transformation(origin = {-20, 76}, extent = {{20, -20}, {-20, 20}}, rotation = 90)));
 
   //Initial parameters
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at WT terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
@@ -176,23 +176,23 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+  parameter Types.ActivePowerPu P0Pu "Initial active power at WT terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at WT terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
+  parameter Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at WT terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at WT terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
+  parameter Types.Angle UPhase0 "Initial voltage angle at WT terminal in rad" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid WT terminal in pu (base SNom or UNom) (generator convention)" annotation(
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at WT terminal in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
 
 equation

@@ -33,7 +33,7 @@ model GridProtection2015 "Grid protection system for wind turbines (IEC N°61400
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at WT terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.UfMeasurement ufMeasurement(DfMaxPu = DfMaxPu, Mzc = Mzc, U0Pu = U0Pu, UPhase0 = UPhase0, tS = tS, tUFilt = tUFilt, tfFilt = tfFilt, tphiFilt = tphiFilt, u0Pu = u0Pu) annotation(
