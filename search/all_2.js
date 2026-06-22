@@ -29,7 +29,6 @@ var searchData=
   ['bridge_5fprefix',['BRIDGE_PREFIX',['../d6/da3/a03360.html#a1850cce173a994c4233a598b9309233f',1,'DYN::NetworkBridgeQuadripole']]],
   ['bsvc0_5f',['bSvc0_',['../d3/d5d/a03328.html#abc0953104200c407688f9fd8841ce051',1,'DYN::ModelStaticVarCompensator']]],
   ['buffer_5f',['buffer_',['../dd/d00/a01776.html#a944675efd2f60a0d7c32a5793e89e790',1,'curves::Curve::buffer_()'],['../d5/d95/a02720.html#acba6bdb734370596554a408e0b6bcc31',1,'DYN::TraceStream::buffer_()'],['../d3/d55/a02760.html#a8189823da13bd42b2aa2ff6e3fddc04e',1,'DYN::Delay::buffer_()']]],
-  ['bufptrs_5f',['bufPtrs_',['../d3/d92/a01796.html#a0831bb3b3cf4e6fb1a575d4055f906f6',1,'curves::Hdf5Exporter']]],
   ['build',['build',['../da/dad/a02928.html#a82ccbaee5d34acacd97797a27d59c43b',1,'DYN::DataInterfaceFactory::build()'],['../d4/d15/a03052.html#aee5ab22697bf00334ceb5c08d338a2c2',1,'DYN::DataInterfaceIIDM::build()']]],
   ['builddefaultextensiondefinition',['buildDefaultExtensionDefinition',['../d1/d7a/a03080.html#aa69dc65d44dbc4738659f3cd0f0d5b86',1,'DYN::IIDMExtensions']]],
   ['buildgraph',['buildGraph',['../df/dbf/a03132.html#a1eae3fe132e374d82cbb775568612165',1,'DYN::ServiceManagerInterfaceIIDM']]],

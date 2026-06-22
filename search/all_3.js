@@ -384,7 +384,6 @@ var searchData=
   ['currenttime_5f',['currentTime_',['../d1/dd0/a02808.html#a2965b9fc877e99b1a599bb856912872b',1,'DYN::SubModel']]],
   ['currentustatus_5f',['currentUStatus_',['../d4/dcb/a03268.html#ab449fd7abe2c20cf098200c898bf6266',1,'DYN::ModelBus']]],
   ['curve',['Curve',['../dd/d00/a01776.html',1,'curves::Curve'],['../dd/d00/a01776.html#ac0710e6ab1226b0fc389dd5710100a92',1,'curves::Curve::Curve()']]],
-  ['curvecollection_5f',['curveCollection_',['../d3/d92/a01796.html#a31333cc5aa37e427fe63f5f8e4ad2d56',1,'curves::Hdf5Exporter']]],
   ['curvefactory',['CurveFactory',['../d0/dce/a01780.html',1,'curves']]],
   ['curvehandler',['CurveHandler',['../d6/dc4/a01816.html',1,'curves::CurveHandler'],['../d6/dc4/a01816.html#af5f5730927a7084cf3243e3a949c0208',1,'curves::CurveHandler::CurveHandler()']]],
   ['curvehandler_5f',['curveHandler_',['../d5/dd6/a01820.html#a842e4e0cee247709a1aea34f95ea5571',1,'curves::XmlHandler']]],

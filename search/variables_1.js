@@ -14,7 +14,6 @@ var searchData=
   ['bridge_5fprefix',['BRIDGE_PREFIX',['../d6/da3/a03360.html#a1850cce173a994c4233a598b9309233f',1,'DYN::NetworkBridgeQuadripole']]],
   ['bsvc0_5f',['bSvc0_',['../d3/d5d/a03328.html#abc0953104200c407688f9fd8841ce051',1,'DYN::ModelStaticVarCompensator']]],
   ['buffer_5f',['buffer_',['../dd/d00/a01776.html#a944675efd2f60a0d7c32a5793e89e790',1,'curves::Curve::buffer_()'],['../d5/d95/a02720.html#acba6bdb734370596554a408e0b6bcc31',1,'DYN::TraceStream::buffer_()'],['../d3/d55/a02760.html#a8189823da13bd42b2aa2ff6e3fddc04e',1,'DYN::Delay::buffer_()']]],
-  ['bufptrs_5f',['bufPtrs_',['../d3/d92/a01796.html#a0831bb3b3cf4e6fb1a575d4055f906f6',1,'curves::Hdf5Exporter']]],
   ['bus_5f',['bus_',['../d4/dcb/a03268.html#a0723d935f202821690b6343b631b9e6b',1,'DYN::ModelBus::bus_()'],['../d4/d1c/a03272.html#a7102fb2ebbca1ed9af75200997adac38',1,'DYN::SubNetwork::bus_()']]],
   ['busbarsectionidentifiers_5f',['busBarSectionIdentifiers_',['../d4/dcb/a03268.html#a12c662e5fccb1b81ead255da6a31ff8c',1,'DYN::ModelBus']]],
   ['buscomponents_5f',['busComponents_',['../d4/d15/a03052.html#aa5a7efc981604ec749e2cde26f765e30',1,'DYN::DataInterfaceIIDM']]],

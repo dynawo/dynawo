@@ -126,7 +126,6 @@ var searchData=
   ['phasetapchangerinterface',['PhaseTapChangerInterface',['../db/d1b/a02960.html',1,'DYN']]],
   ['phasetapchangerinterfaceiidm',['PhaseTapChangerInterfaceIIDM',['../d6/d1e/a03124.html',1,'DYN::PhaseTapChangerInterfaceIIDM'],['../d6/d1e/a03124.html#a80523865801ca4a0b1255db8a6309c41',1,'DYN::PhaseTapChangerInterfaceIIDM::PhaseTapChangerInterfaceIIDM()']]],
   ['pid_5f',['pid_',['../d6/d36/a03456.html#a2ac0cd6f754607ac09ed4d0e9e61151e',1,'DYN::Simulation']]],
-  ['pimpl_5f',['pimpl_',['../d3/d92/a01796.html#a4eb9d59185a76c6eb8802760e00a817e',1,'curves::Hdf5Exporter']]],
   ['pmax_5f',['pMax_',['../df/de0/a01728.html#a5d3b3458763d1906a1306c9d3d9e322c',1,'criteria::CriteriaParams']]],
   ['pmin_5f',['pMin_',['../df/de0/a01728.html#a8569f13100372ec0c67e446089236799',1,'criteria::CriteriaParams']]],
   ['point',['Point',['../dc/dec/a01804.html',1,'curves::Point'],['../dc/dec/a01804.html#a8eae1c5b8d73838346e196ac3eb886f3',1,'curves::Point::Point()']]],

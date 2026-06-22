@@ -104,7 +104,6 @@ var searchData=
   ['currentstepindex_5f',['currentStepIndex_',['../d2/d5b/a03340.html#ae52ab2c0da71cbbee7d2dd4a568799da',1,'DYN::ModelTapChanger']]],
   ['currenttime_5f',['currentTime_',['../d1/dd0/a02808.html#a2965b9fc877e99b1a599bb856912872b',1,'DYN::SubModel']]],
   ['currentustatus_5f',['currentUStatus_',['../d4/dcb/a03268.html#ab449fd7abe2c20cf098200c898bf6266',1,'DYN::ModelBus']]],
-  ['curvecollection_5f',['curveCollection_',['../d3/d92/a01796.html#a31333cc5aa37e427fe63f5f8e4ad2d56',1,'curves::Hdf5Exporter']]],
   ['curvehandler_5f',['curveHandler_',['../d5/dd6/a01820.html#a842e4e0cee247709a1aea34f95ea5571',1,'curves::XmlHandler']]],
   ['curveread_5f',['curveRead_',['../d6/dc4/a01816.html#ab38f59d09beaf1fe9d3fb1ebfab3e88b',1,'curves::CurveHandler']]],
   ['curves_5f',['curves_',['../d6/d3d/a01784.html#a740a14c99536d92adf930a1d6ff572f5',1,'curves::CurvesCollection::curves_()'],['../d3/d35/a02360.html#aa77e568ede4d6f5770416362b410f9a1',1,'job::CurvesHandler::curves_()'],['../d1/dd0/a02808.html#a3e16ea62de35322edc6945b217975f79',1,'DYN::SubModel::curves_()']]],
