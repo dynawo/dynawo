@@ -151,6 +151,26 @@ job_file = os.path.join(os.path.dirname(__file__), "SMIB_Nordic", "SMIB_Synchron
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ###############################################################
+#          SMIB with GovSteamEu, Ac6a and Pss1aOmega          #
+###############################################################
+
+case_name = "SMIB - Fault - GovSteamEu - Ac1c - Pss1aOmega"
+case_description = "SMIB test case with a fault using GovSteamEu, Ac1c and Pss1aOmega regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "GovSteamEuAc1cPss1aOmega", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
+#          SMIB with GovSteamEu, Ac6a and Pss1aPGen           #
+###############################################################
+
+case_name = "SMIB - Fault - GovSteamEu - Ac1c - Pss1aPGen"
+case_description = "SMIB test case with a fault using GovSteamEu, Ac1c and Pss1aPGen regulations"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE", "GovSteamEuAc1cPss1aPGen", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###############################################################
 #     SMIB with constant mechanical power, Ac6a and Pss3b     #
 ###############################################################
 
