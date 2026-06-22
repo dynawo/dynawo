@@ -7,6 +7,7 @@ CurrentLimitAutomaton
 CurrentLimitAutomatonTwoLevels
 DistanceProtectionLineTwoZones
 DoubleStep
+DynGridFormingVirtualSynchronousMachine
 ElectronicLoad
 EventConnectedStatus
 EventQuadripoleDisconnection

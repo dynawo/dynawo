@@ -74,7 +74,7 @@ model DynGridFormingControlVSM
     Placement(visible = true, transformation(origin = {-108, 24}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 3}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = voltageReferenceControl.QFilterRef0Pu) "Reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, 8}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, -19}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaSetPu annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaSetPu(start= OmegaSetPu) annotation(
     Placement(visible = true, transformation(origin = {-108, 60}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 55}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput udConvRefPu(start = UdConv0Pu) "d-axis modulation voltage reference in pu (base UNom)" annotation(
