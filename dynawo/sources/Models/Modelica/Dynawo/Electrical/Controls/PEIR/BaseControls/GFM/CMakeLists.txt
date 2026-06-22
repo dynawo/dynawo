@@ -13,6 +13,7 @@ add_subdirectory(VoltageControls V)
 
 set(MODEL_FILES
   # Converter control elements models
+  CurrentSaturation.mo
   package.mo
   package.order
   )

@@ -22,7 +22,7 @@ model PlantControl "Generic plant controller"
     Placement(visible = true, transformation(origin = {-114, -50}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-106, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tQFilt, y_start = QFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-76, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tUFilt, y_start = QFilter0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tUFilt, y_start = UPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {-76, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-12, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -30,7 +30,7 @@ model PlantControl "Generic plant controller"
     Placement(visible = true, transformation(origin = {6, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kpq) annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Kiq, outMax = 1, outMin = -1, y_start = IqConv0Pu) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = Kiq, outMax = 1, outMin = -1, y_start = QRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {44, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {82, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
