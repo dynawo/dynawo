@@ -12,7 +12,7 @@
 add_subdirectory(BaseControls B)
 add_subdirectory(Converters C)
 add_subdirectory(Plants P)
-add_subdirectory(Protections P)
+add_subdirectory(Protections Pr)
 
 set(MODEL_FILES
   # PEIR control models
