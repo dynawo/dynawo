@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2025, RTE (http://www.rte-france.com)
+# Copyright (c) 2026, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -28,10 +28,10 @@ def update(jobs):
         update_name(udm,"Dynawo.Electrical.Wind.WECC","WTG4ACurrentSource2","WTG4ACurrentSource")
 
     for windxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource1"):
-        windxml.set_lib_name("WTG4AWeccCurrentSource")
+        windxml.set_lib_name("WPP4AWeccCurrentSource")
 
     for windxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource2"):
-        windxml.set_lib_name("WTG4AWeccCurrentSource")
+        windxml.set_lib_name("WPP4AWeccCurrentSource")
 
     for wtg4a in jobs.dyds.get_bbms(lambda bbm: "WTG4AWeccCurrentSource1" in bbm.get_lib_name()):
         wtg4a.parset.add_param("DOUBLE", "WTG4A_tp", 0.5)

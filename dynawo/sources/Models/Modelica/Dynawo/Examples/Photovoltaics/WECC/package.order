@@ -1,4 +1,4 @@
-PVCurrentSource
-PVVoltageSource2
-PVVoltageSource4
-PVVoltageSourceNoPPC
+PVInverterVoltageSource
+PVPlantCurrentSource
+PVPlantVoltageSource2
+PVPlantVoltageSource4
