@@ -44,7 +44,8 @@ where [option] can be:"
         =========== Utilities
         compileModelicaModel ([args])         compile a single Modelica model (.mo) into a Dynawo model (.so)
         generate-preassembled ([args])        generate a preassembled model (.so) from a model description (.xml)
-        dump-model ([args])                   dump variables and parameters of a Dynawo model (.so) into a xml file"
+        dump-model ([args])                   dump variables and parameters of a Dynawo model (.so) into a xml file
+        create-mandatory-param-file ([args])  create a mandatory parameters XML file for a Modelica model (.mo)"
 
   export_var_env DYNAWO_DEVELOPER_OPTIONS="    =========== Dynawo Developer
         =========== Build
@@ -68,7 +69,7 @@ where [option] can be:"
         build-dynawo-solvers                  build Dynawo solver descriptions
         build-all                             call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
         build-nrt                             build dynawo to run nrt
-        build-tests ([args])                  build and launch Dynawo's unittest (launch all tests if [args] is empty)
+        build-tests ([args])                  build and launch Dynawo's unittest (launch all tests if [args] is empty, use --python-tests-only to run only Python tests)
         build-tests-coverage ([args])         build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
         build-minimal                         build Dynawo and install cpp models (core, cpp models and solvers), no preassembled models
 
@@ -445,6 +446,7 @@ set_environment() {
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force DYNAWO_UPDATE_XML_DIR=$DYNAWO_HOME/util/updateXML
+  export_var_env_force DYNAWO_MANDATORY_PARAM_DIR=$DYNAWO_HOME/util/mandatoryParameters
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
   export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
@@ -1080,37 +1082,58 @@ build_nrt() {
 }
 
 build_tests() {
-  build_3rd_party || error_exit "Error during build_3rd_party."
-  config_dynawo || error_exit "Error during config_dynawo."
-  ## for unit test, no need to generate modelica models
-  build_dynawo_core || error_exit "Error during build_dynawo_core."
-  build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
+  python_only=false
+  tests=""
+  for arg in "$@"; do
+    if [ "$arg" = "--python-tests-only" ]; then
+      python_only=true
+    else
+      tests="$tests $arg"
+    fi
+  done
+  tests="${tests# }"
 
-  tests=$@
-  if [ -z "$tests" ]; then
-    cmake --build $DYNAWO_BUILD_DIR --target tests-run --config Debug
-  else
-    cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Debug
-  fi
+  if [ "$python_only" = false ]; then
+    build_3rd_party || error_exit "Error during build_3rd_party."
+    config_dynawo || error_exit "Error during config_dynawo."
+    ## for unit test, no need to generate modelica models
+    build_dynawo_core || error_exit "Error during build_dynawo_core."
+    build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
 
-  RETURN_CODE=$?
-  if [ ${RETURN_CODE} -ne 0 ]; then
-    return ${RETURN_CODE}
+    if [ -z "$tests" ]; then
+      cmake --build $DYNAWO_BUILD_DIR --target tests-run --config Debug
+    else
+      cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Debug
+    fi
+
+    RETURN_CODE=$?
+    if [ ${RETURN_CODE} -ne 0 ]; then
+      return ${RETURN_CODE}
+    fi
   fi
 
   echo "#######################"
   echo "Running python tests"
   echo "#######################"
+  echo "Running nrtDiffTest.py"
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/nrtDiffTest.py
   RETURN_CODE=$?
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
+  echo "Running nrtUtilsTests.py"
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/nrtUtilsTests.py
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
+  echo "Running defineTestReferenceTests.py"
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/defineTestReferenceTests.py
+  if [ ${RETURN_CODE} -ne 0 ]; then
+    return ${RETURN_CODE}
+  fi
+  echo "Running testListMandatoryParameters.py"
+  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_MANDATORY_PARAM_DIR/test/testListMandatoryParameters.py
+  RETURN_CODE=$?
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
@@ -1622,6 +1645,19 @@ run_documentation_test() {
   rm -rf Test_Dyn_definition.h
   popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/ExternalVariables
 
+  # Third example: Modelica model with mandatory parameters
+  pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/MandatoryParameters > /dev/null
+  create_mandatory_param_file Test.mo --output Test_generated.mandatoryParam || error_exit "Error during example 3 of compile_Modelica_Model (mandatory parameters file generation)"
+  if [ ! -f "Test_generated.mandatoryParam" ]; then
+    error_exit "Error during example 3 of compile_Modelica_Model (mandatory parameters file generation): cannot find expected output"
+  fi
+
+  compile_Modelica_Model --model Test --lib Test.so || error_exit "Error during example 3 of compile_Modelica_Model (model compilation)"
+  rm -f Test_generated.mandatoryParam
+  rm -rf Test.so
+  rm -rf Test_Dyn_definition.h
+  popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/MandatoryParameters
+
   # generate-preassembled
   # First example: Model with fully connected external variables
   pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestPreassembledNoExternal > /dev/null
@@ -1712,6 +1748,13 @@ nrt_update() {
 
 update_xml() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/updateXML/update.py $@
+}
+
+create_mandatory_param_file() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_MANDATORY_PARAM_DIR/listMandatoryParameters.py \
+    "$1" \
+    --lib-dirs "$DYNAWO_SRC_DIR/sources/Models/Modelica" "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary" \
+    "${@:2}"
 }
 
 check_coding_files() {
@@ -2023,6 +2066,7 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
   cp -r $DYNAWO_HOME/util/updateXML sbin/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.
+  cp -r $DYNAWO_MANDATORY_PARAM_DIR sbin/.
 
   rm -f lib/*.la
   find OpenModelica/lib -name "*.la" -exec rm {} \;
@@ -2515,6 +2559,10 @@ case $MODE in
 
   config-dynawo)
     config_dynawo || error_exit "Error while configuring Dynawo"
+    ;;
+
+  create-mandatory-param-file)
+    create_mandatory_param_file ${ARGS} || error_exit "Error during mandatory parameters file creation"
     ;;
 
   curves)
