@@ -19,7 +19,7 @@
  */
 #include <fstream>
 
-#include <nlohmann/json.hpp>
+#include <sstream>
 
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
@@ -31,7 +31,7 @@
 using std::fstream;
 using std::ostream;
 using std::string;
-using json = nlohmann::json;
+using std::ostringstream;
 
 namespace constraints {
 
@@ -54,76 +54,85 @@ JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& const
                             ostream& stream,
                             double minTime,
                             bool exportEventType) const {
-  json j = json::array();
+  ostringstream oss;
+  oss << "[";
 
+  bool firstConstraint = true;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
     if (constraint->getTime() < minTime)
       continue;
 
-    json constraintJson;
-    constraintJson["modelName"] = constraint->getModelName();
-    constraintJson["description"] = constraint->getDescription();
-    constraintJson["time"] = constraint->getTime();
+    if (!firstConstraint) {
+      oss << ",";
+    }
+    firstConstraint = false;
 
-    if (constraint->hasModelType())
-      constraintJson["type"] = constraint->getModelType();
+    oss << "{";
+    oss << "\"modelName\":\"" << constraint->getModelName() << "\",";
+    oss << "\"description\":\"" << constraint->getDescription() << "\",";
+    oss << "\"time\":" << constraint->getTime();
+
+    if (constraint->hasModelType()) {
+      oss << ",\"type\":\"" << constraint->getModelType() << "\"";
+    }
 
     if (exportEventType) {
       Type_t eventType = constraint->getType();
       if (eventType == CONSTRAINT_BEGIN)
-        constraintJson["eventType"] = "BEGIN";
+        oss << ",\"eventType\":\"BEGIN\"";
       else if (eventType == CONSTRAINT_END)
-        constraintJson["eventType"] = "END";
+        oss << ",\"eventType\":\"END\"";
     }
 
     const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {
       switch (data->kind) {
         case ConstraintData::OverloadOpen:
-          constraintJson["kind"] = "OverloadOpen";
+          oss << ",\"kind\":\"OverloadOpen\"";
           break;
         case ConstraintData::OverloadUp:
-          constraintJson["kind"] = "OverloadUp";
+          oss << ",\"kind\":\"OverloadUp\"";
           break;
         case ConstraintData::PATL:
-          constraintJson["kind"] = "PATL";
+          oss << ",\"kind\":\"PATL\"";
           break;
         case ConstraintData::UInfUmin:
-          constraintJson["kind"] = "UInfUmin";
+          oss << ",\"kind\":\"UInfUmin\"";
           break;
         case ConstraintData::USupUmax:
-          constraintJson["kind"] = "USupUmax";
+          oss << ",\"kind\":\"USupUmax\"";
           break;
         case ConstraintData::FictLim:
-          constraintJson["kind"] = "Fictitious";
+          oss << ",\"kind\":\"Fictitious\"";
           break;
         case ConstraintData::Undefined:
           break;
       }
-      constraintJson["limit"] = data->limit;
-      constraintJson["value"] = data->value;
+      oss << ",\"limit\":" << data->limit;
+      oss << ",\"value\":" << data->value;
 
       if (data->valueMin)
-        constraintJson["valueMin"] = data->valueMin.value();
+        oss << ",\"valueMin\":" << data->valueMin.value();
 
       if (data->valueMax)
-        constraintJson["valueMax"] = data->valueMax.value();
+        oss << ",\"valueMax\":" << data->valueMax.value();
 
       if (data->side)
-        constraintJson["side"] = data->side.value();
+        oss << ",\"side\":" << data->side.value();
 
       if (data->acceptableDuration)
-        constraintJson["acceptableDuration"] = data->acceptableDuration.value();
+        oss << ",\"acceptableDuration\":" << data->acceptableDuration.value();
 
       if (!data->limitName.empty())
-        constraintJson["limitName"] = data->limitName;
+        oss << ",\"limitName\":\"" << data->limitName << "\"";
     }
 
-    j.push_back(constraintJson);
+    oss << "}";
   }
+  oss << "]";
 
-  stream << j.dump() << "\n";
+  stream << oss.str() << "\n";
 }
 
 }  // namespace constraints
