@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="generator.PMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.PMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.QMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.QMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.UMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.UMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.PNom" type="DOUBLE"/>
+  <mandatoryParameter name="generator.AlphaPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.PGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.QGen0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.u0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="generator.u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="generator.i0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="generator.i0Pu.im" type="DOUBLE"/>
+</mandatoryParameters>

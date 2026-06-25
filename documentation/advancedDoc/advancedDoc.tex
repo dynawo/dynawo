@@ -216,6 +216,30 @@ $> dynawo compileModelicaModel --model Test --lib Test.so
 
 \textbf{Warning}, at this point you cannot directly launch a simulation with only this model as it needs to be connected to another model providing the missing equation on \lstinline[language=Modelica]{v}. The way to do this is described in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Preassembled}.
 
+\paragraph{Third example: Modelica model with mandatory parameters}
+\label{Dynawo_Advanced_Documentation_Dynawo_executables_execDynawo_third_example}
+~~\\
+A mandatory parameter is a parameter that must be explicitly defined in a \lstinline[language=bash]{.par} file before launching a simulation. \\
+
+The \lstinline[language=bash]{.mandatoryParam} file lists all such parameters of a given Modelica model. It has the following structure:
+\begin{itemize}
+  \item The root element is \lstinline[language=XML]{<mandatoryParameters>}.
+  \item Each mandatory parameter is declared as a \lstinline[language=XML]{<mandatoryParameter>} child element with two attributes:
+  \begin{itemize}
+    \item \lstinline[language=XML]{name}: the parameter name as it appears in the Modelica model (using dot notation for parameters belonging to a sub-component, e.g. \lstinline[language=Modelica]{subComp.param}).
+    \item \lstinline[language=XML]{type}: the parameter type, one of \lstinline[language=XML]{DOUBLE}, \lstinline[language=XML]{INT}, \lstinline[language=XML]{BOOL} or \lstinline[language=XML]{STRING}.
+  \end{itemize}
+\end{itemize}
+
+We take as example the following Modelica model:
+\lstinputlisting[language=Modelica,title=Test.mo]{../resources/exampleExecutables/TestCompile/MandatoryParameters/Test.mo}
+In this model, the parameter \lstinline[language=Modelica]{a} must be explicitly defined and is therefore mandatory. The parameter \lstinline[language=Modelica]{b} has a default value of \lstinline[language=Modelica]{2} and does not need to be defined, so it does not appear in the mandatory parameters file. \\
+
+The corresponding \lstinline[language=bash]{Test.mandatoryParam} file is:
+\lstinputlisting[language=XML,title=Test.mandatoryParam]{../resources/exampleExecutables/TestCompile/MandatoryParameters/Test.mandatoryParam}
+
+This file can be used as a reference when writing the \lstinline[language=bash]{.par} file required for the simulation, to identify which parameters must be explicitly set.
+
 \subsection{Compilation and simulation of complex models}
 \label{Dynawo_Advanced_Documentation_Dynawo_executables_Preassembled}
 
