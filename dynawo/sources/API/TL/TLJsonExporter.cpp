@@ -19,8 +19,6 @@
 #include <fstream>
 #include <sstream>
 
-#include <nlohmann/json.hpp>
-
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
 #include "TLJsonExporter.h"
@@ -29,7 +27,7 @@
 using std::fstream;
 using std::ostream;
 using std::string;
-using json = nlohmann::json;
+using std::ostringstream;
 
 namespace timeline {
 
@@ -47,26 +45,38 @@ JsonExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const st
 
 void
 JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
-  json j = json::array();
+  ostringstream oss;
+  oss << "[";
 
+  bool firstEvent = true;
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
       continue;
 
-    json eventJson;
+    if (!firstEvent) {
+      oss << ",";
+    }
+    firstEvent = false;
 
-    if (exportWithTime_)
-      eventJson["time"] = event->getTime();
+    oss << "{";
+    bool firstField = true;
+    if (exportWithTime_) {
+      oss << "\"time\":" << event->getTime();
+      firstField = false;
+    }
 
-    eventJson["modelName"] = event->getModelName();
-    eventJson["message"] = event->getMessage();
+    if (!firstField) oss << ",";
+    oss << "\"modelName\":\"" << event->getModelName() << "\",";
+    oss << "\"message\":\"" << event->getMessage() << "\"";
 
-    if (event->hasPriority())
-      eventJson["priority"] = event->getPriority();
+    if (event->hasPriority()) {
+      oss << ",\"priority\":" << event->getPriority();
+    }
 
-    j.push_back(eventJson);
+    oss << "}";
   }
+  oss << "]";
 
-  stream << j.dump() << "\n";
+  stream << oss.str() << "\n";
 }
 }  // namespace timeline

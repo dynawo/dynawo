@@ -65,40 +65,40 @@ TEST(APICSTRTest, ConstraintsCollectionExporter) {
   {
     std::stringstream ss;
     jsonExporter.exportToStream(constraintsCollection1, ss);
-    ASSERT_EQ(ss.str(), "[{\"acceptableDuration\":60.0,\"description\":\"desc OverloadUp\",\"kind\":\"OverloadUp\",\"limit\":1000.0,"
-                        "\"limitName\":\"LineName\",\"modelName\":\"modelDetail\",\"side\":1,\"time\":90.0,\"type\":\"Line\","
-                        "\"value\":1001.0},{\"description\":\"desc PATL\",\"kind\":\"PATL\",\"limit\":1100.0,\"limitName\":\"LineName\","
-                        "\"modelName\":\"modelDetail\",\"side\":1,\"time\":90.0,\"type\":\"Line\",\"value\":1111.0},{\"description\":"
-                        "\"desc UInfUmin\",\"kind\":\"UInfUmin\",\"limit\":132.0,\"modelName\":\"modelDetail\",\"time\":90.0,\"type\":"
-                        "\"Bus\",\"value\":130.0},{\"description\":\"OverloadUp\",\"modelName\":\"model\",\"time\":80.0,\"type\":\"Line\"},"
-                        "{\"description\":\"PATL\",\"modelName\":\"model\",\"time\":80.0,\"type\":\"Line\"},{\"description\":\"USupUmax\","
-                        "\"modelName\":\"model\",\"time\":80.0,\"type\":\"Bus\"}]\n");
+    ASSERT_EQ(ss.str(), "[{\"modelName\":\"modelDetail\",\"description\":\"desc OverloadUp\",\"time\":90,\"type\":\"Line\","
+                        "\"kind\":\"OverloadUp\",\"limit\":1000,\"value\":1001,\"side\":1,\"acceptableDuration\":60,"
+                        "\"limitName\":\"LineName\"},{\"modelName\":\"modelDetail\",\"description\":\"desc PATL\","
+                        "\"time\":90,\"type\":\"Line\",\"kind\":\"PATL\",\"limit\":1100,\"value\":1111,\"side\":1,"
+                        "\"limitName\":\"LineName\"},{\"modelName\":\"modelDetail\",\"description\":\"desc UInfUmin\","
+                        "\"time\":90,\"type\":\"Bus\",\"kind\":\"UInfUmin\",\"limit\":132,\"value\":130},{\"modelName\":\"model\","
+                        "\"description\":\"OverloadUp\",\"time\":80,\"type\":\"Line\"},{\"modelName\":\"model\","
+                        "\"description\":\"PATL\",\"time\":80,\"type\":\"Line\"},{\"modelName\":\"model\",\"description\":\"USupUmax\","
+                        "\"time\":80,\"type\":\"Bus\"}]\n");
   }
 
   {
     std::stringstream ss;
     jsonExporter.exportToStream(constraintsCollection1, ss, -1.0, true);
-    ASSERT_EQ(ss.str(), "[{\"acceptableDuration\":60.0,\"description\":\"desc OverloadUp\",\"eventType\":\"BEGIN\",\"kind\":\"OverloadUp\","
-                        "\"limit\":1000.0,\"limitName\":\"LineName\",\"modelName\":\"modelDetail\",\"side\":1,\"time\":90.0,\"type\":\"Line\","
-                        "\"value\":1001.0},{\"description\":\"desc PATL\",\"eventType\":\"BEGIN\",\"kind\":\"PATL\",\"limit\":1100.0,"
-                        "\"limitName\":\"LineName\",\"modelName\":\"modelDetail\",\"side\":1,\"time\":90.0,\"type\":\"Line\",\"value\":1111.0},"
-                        "{\"description\":\"desc UInfUmin\",\"eventType\":\"BEGIN\",\"kind\":\"UInfUmin\",\"limit\":132.0,"
-                        "\"modelName\":\"modelDetail\",\"time\":90.0,\"type\":\"Bus\",\"value\":130.0},{\"description\":\"OverloadUp\","
-                        "\"eventType\":\"BEGIN\",\"modelName\":\"model\",\"time\":80.0,\"type\":\"Line\"},{\"description\":\"PATL\","
-                        "\"eventType\":\"BEGIN\",\"modelName\":\"model\",\"time\":80.0,\"type\":\"Line\"},{\"description\":\"USupUmax\","
-                        "\"eventType\":\"BEGIN\",\"modelName\":\"model\",\"time\":80.0,\"type\":\"Bus\"}]\n");
+    ASSERT_EQ(ss.str(), "[{\"modelName\":\"modelDetail\",\"description\":\"desc OverloadUp\",\"time\":90,\"type\":\"Line\","
+                        "\"eventType\":\"BEGIN\",\"kind\":\"OverloadUp\",\"limit\":1000,\"value\":1001,\"side\":1,\"acceptableDuration\":60,"
+                        "\"limitName\":\"LineName\"},{\"modelName\":\"modelDetail\",\"description\":\"desc PATL\",\"time\":90,\"type\":\"Line\","
+                        "\"eventType\":\"BEGIN\",\"kind\":\"PATL\",\"limit\":1100,\"value\":1111,\"side\":1,\"limitName\":\"LineName\"},"
+                        "{\"modelName\":\"modelDetail\",\"description\":\"desc UInfUmin\",\"time\":90,\"type\":\"Bus\","
+                        "\"eventType\":\"BEGIN\",\"kind\":\"UInfUmin\",\"limit\":132,\"value\":130},"
+                        "{\"modelName\":\"model\",\"description\":\"OverloadUp\",\"time\":80,\"type\":\"Line\",\"eventType\":\"BEGIN\"},"
+                        "{\"modelName\":\"model\",\"description\":\"PATL\",\"time\":80,\"type\":\"Line\",\"eventType\":\"BEGIN\"},"
+                        "{\"modelName\":\"model\",\"description\":\"USupUmax\",\"time\":80,\"type\":\"Bus\",\"eventType\":\"BEGIN\"}]\n");
   }
 
   {
     std::stringstream ss;
     jsonExporter.exportToStream(constraintsCollection1, ss, 85, true);
-    ASSERT_EQ(ss.str(), "[{\"acceptableDuration\":60.0,\"description\":\"desc OverloadUp\",\"eventType\":\"BEGIN\","
-                        "\"kind\":\"OverloadUp\",\"limit\":1000.0,\"limitName\":\"LineName\",\"modelName\":\"modelDetail\","
-                        "\"side\":1,\"time\":90.0,\"type\":\"Line\",\"value\":1001.0},{\"description\":\"desc PATL\","
-                        "\"eventType\":\"BEGIN\",\"kind\":\"PATL\",\"limit\":1100.0,\"limitName\":\"LineName\","
-                        "\"modelName\":\"modelDetail\",\"side\":1,\"time\":90.0,\"type\":\"Line\",\"value\":1111.0},"
-                        "{\"description\":\"desc UInfUmin\",\"eventType\":\"BEGIN\",\"kind\":\"UInfUmin\",\"limit\":132.0,"
-                        "\"modelName\":\"modelDetail\",\"time\":90.0,\"type\":\"Bus\",\"value\":130.0}]\n");
+    ASSERT_EQ(ss.str(), "[{\"modelName\":\"modelDetail\",\"description\":\"desc OverloadUp\",\"time\":90,\"type\":\"Line\","
+                        "\"eventType\":\"BEGIN\",\"kind\":\"OverloadUp\",\"limit\":1000,\"value\":1001,\"side\":1,"
+                        "\"acceptableDuration\":60,\"limitName\":\"LineName\"},{\"modelName\":\"modelDetail\",\"description\":\"desc PATL\","
+                        "\"time\":90,\"type\":\"Line\",\"eventType\":\"BEGIN\",\"kind\":\"PATL\",\"limit\":1100,\"value\":1111,\"side\":1,"
+                        "\"limitName\":\"LineName\"},{\"modelName\":\"modelDetail\",\"description\":\"desc UInfUmin\",\"time\":90,"
+                        "\"type\":\"Bus\",\"eventType\":\"BEGIN\",\"kind\":\"UInfUmin\",\"limit\":132,\"value\":130}]\n");
   }
 }
 }  // namespace constraints
