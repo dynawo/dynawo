@@ -1,0 +1,5 @@
+ ====== VARIABLES VALUES ======
+connector__LOAD___3_EC_transformer_U2Pu           : y =       0.992373 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
+ ====== INTERNAL PARAMETERS VALUES ======
