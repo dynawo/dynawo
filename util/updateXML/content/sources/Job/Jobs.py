@@ -503,38 +503,4 @@ class Jobs:
 
 
 def format_xml_tree(root_element):
-    container_xml_elements = [xmlns(XML_BLACKBOXMODEL),
-                                xmlns(XML_MODELICAMODEL),
-                                xmlns(XML_MODELTEMPLATE),
-                                xmlns(XML_MODELTEMPLATEEXPANSION),
-                                xmlns(XML_MACROCONNECTOR),
-                                xmlns(XML_MACROSTATICREFERENCE),
-                                xmlns(XML_SET)]
-    root_element.text = XML_SIMPLE_INDENTATION
-    for idx1 in range(len(root_element)-1):
-        first_level_elem = root_element[idx1]
-        if len(first_level_elem) != 0:
-            first_level_elem.text = XML_DOUBLE_INDENTATION
-        first_level_elem.tail = XML_SIMPLE_INDENTATION
-        if first_level_elem.tag in container_xml_elements:
-            first_level_elem.tail = XML_SIMPLE_INDENTATION
-            for idx2 in range(len(first_level_elem)-1):
-                first_level_elem[idx2].tail = XML_DOUBLE_INDENTATION
-            if len(first_level_elem) == 0:
-                first_level_elem.tail = XML_SIMPLE_INDENTATION
-                if first_level_elem.text is not None:
-                    first_level_elem.text = XML_SIMPLE_INDENTATION
-            else:
-                first_level_elem[-1].tail = XML_SIMPLE_INDENTATION
-    if len(root_element) != 0:
-        last_first_level_elem = root_element[-1]
-        if last_first_level_elem.tag in container_xml_elements:
-            for idx3 in range(len(last_first_level_elem)-1):
-                last_first_level_elem[idx3].tail = XML_DOUBLE_INDENTATION
-            if len(last_first_level_elem) != 0:
-                last_first_level_elem.text = XML_DOUBLE_INDENTATION
-                last_first_level_elem[-1].tail = XML_SIMPLE_INDENTATION
-            else:
-                if last_first_level_elem.text is not None:
-                    last_first_level_elem.text = XML_SIMPLE_INDENTATION
-        last_first_level_elem.tail = XML_ESCAPE_SEQUENCE
+    lxml.etree.indent(root_element, space="  ")
