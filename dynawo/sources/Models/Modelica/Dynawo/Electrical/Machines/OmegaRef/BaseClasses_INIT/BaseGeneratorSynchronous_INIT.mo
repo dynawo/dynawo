@@ -58,7 +58,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
   Dynawo.Connectors.ActivePowerPuConnector PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
   Dynawo.Connectors.ReactivePowerPuConnector QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
 
-  Dynawo.Connectors.AngleConnector Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
+  Dynawo.Connectors.AngleInput Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
 
   Types.PerUnit Ud0Pu "Start value of voltage of direct axis in pu";
   Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in pu";
