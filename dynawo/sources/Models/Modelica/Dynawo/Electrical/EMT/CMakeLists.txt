@@ -8,29 +8,31 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Constants Cs)
-add_subdirectory(Controls C)
-add_subdirectory(Events E)
-add_subdirectory(BESS BE)
-add_subdirectory(Buses B)
-add_subdirectory(Loads L)
-add_subdirectory(HVDC H)
-add_subdirectory(Machines M)
-add_subdirectory(Transformers T)
-add_subdirectory(Lines N)
-add_subdirectory(EMT EMT)
-add_subdirectory(Sources I)
-add_subdirectory(Shunts Q)
-add_subdirectory(StaticVarCompensators V)
-add_subdirectory(Switches S)
-add_subdirectory(PEIR PE)
-add_subdirectory(Photovoltaics P)
-add_subdirectory(Wind W)
-
 set(MODEL_FILES
+  # EMT models
   package.mo
   package.order
-  SystemBase.mo
+  PwPin.mo
+  TwoPin.mo
+  TwoPort.mo
+  SignalVoltage.mo
+  RLBranchDisym.mo
+  CParallel.mo
+  Ground.mo
+  VoltageSensor.mo
+  RVariable.mo
+  Bus.mo
+  Ideal.mo
+  Circuit_RLC.mo
+  ISGT.mo
+  IEEE_14bus.mo
+  GFf_Load_InfBus.mo
+  GFf_Load_InfBus_shunt.mo
+  PQLoad.mo
+  PQLoad_Circuit.mo
+  IEEE_5bus.mo
+  IEEE_5bus_modular.mo
+  GridFeedingConverter.mo
   )
 
 #

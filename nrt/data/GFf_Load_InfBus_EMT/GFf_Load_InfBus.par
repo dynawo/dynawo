@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="GFf">
+    <par type="DOUBLE" name="gFf_Load_InfBus_GFf_Load_InfBus_converter_Grid_Forming1_init_theta_e_rad" value="0.0"/>
+    <par type="DOUBLE" name="gFf_Load_InfBus_GFf_Load_InfBus_converter_Grid_Forming1_F_cal_Q0_pu" value="0.0"/>
+  </set>
+</parametersSet>

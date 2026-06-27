@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="GFf_Load_InfBus_test" variable="gFf_Load_InfBus_GFf_Load_InfBus_converter_Grid_Feeding1_Pref"/>
+  <curve model="GFf_Load_InfBus_test" variable="gFf_Load_InfBus_GFf_Load_InfBus_converter_Grid_Feeding1_Qref"/>
+  <curve model="GFf_Load_InfBus_test" variable="gFf_Load_InfBus_GFf_Load_InfBus_RL3_i_0_"/>
+  <curve model="GFf_Load_InfBus_test" variable="gFf_Load_InfBus_GFf_Load_InfBus_RL3_i_1_"/>
+  <curve model="GFf_Load_InfBus_test" variable="gFf_Load_InfBus_GFf_Load_InfBus_RL3_i_2_"/>
+</curvesInput>

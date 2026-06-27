@@ -1,0 +1,15 @@
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynamo">
+  <!-- IEEE 5 bus test case split in 2 submodels -->
+  <dyn:modelicaModel id="IEEE5bus_test_network">
+    <dyn:unitDynamicModel id="IEEE5bus_network" name="EMTSim.Examples.IEEE5bus_network" moFile="IEEE5bus_network.mo"/>
+  </dyn:modelicaModel>
+  <dyn:modelicaModel id="IEEE5bus_test_gridfeeding">
+    <dyn:unitDynamicModel id="IEEE5bus_gridfeeding" name="EMTSim.Examples.IEEE5bus_gridfeeding" moFile="IEEE5bus_gridfeeding.mo"/>
+  </dyn:modelicaModel>
+  <dyn:connect id1="IEEE5bus_test_network" var1="IEEE5bus_network_Bus2_p_i_1" id2="IEEE5bus_test_gridfeeding" var2="IEEE5bus_gridfeeding_GridFeeding2_p_i_1"/>
+  <dyn:connect id1="IEEE5bus_test_network" var1="IEEE5bus_network_Bus2_p_i_2" id2="IEEE5bus_test_gridfeeding" var2="IEEE5bus_gridfeeding_GridFeeding2_p_i_2"/>
+  <dyn:connect id1="IEEE5bus_test_network" var1="IEEE5bus_network_Bus2_p_i_3" id2="IEEE5bus_test_gridfeeding" var2="IEEE5bus_gridfeeding_GridFeeding2_p_i_3"/>
+  <dyn:connect id1="IEEE5bus_test_network" var1="IEEE5bus_network_Bus2_p_v_1" id2="IEEE5bus_test_gridfeeding" var2="IEEE5bus_gridfeeding_GridFeeding2_p_v_1"/>
+  <dyn:connect id1="IEEE5bus_test_network" var1="IEEE5bus_network_Bus2_p_v_2" id2="IEEE5bus_test_gridfeeding" var2="IEEE5bus_gridfeeding_GridFeeding2_p_v_2"/>
+  <dyn:connect id1="IEEE5bus_test_network" var1="IEEE5bus_network_Bus2_p_v_3" id2="IEEE5bus_test_gridfeeding" var2="IEEE5bus_gridfeeding_GridFeeding2_p_v_3"/>
+</dyn:dynamicModelsArchitecture>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<external_variables xmlns="http://www.rte-france.com/dynamo" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <variable type="continuous" id="GridFeeding2_p_i_1"/>
+  <variable type="continuous" id="GridFeeding2_p_i_2"/>
+  <variable type="continuous" id="GridFeeding2_p_i_3"/>
+  <variable type="continuous" id="GridFeeding2_p_v_1"/>
+  <variable type="continuous" id="GridFeeding2_p_v_2"/>
+  <variable type="continuous" id="GridFeeding2_p_v_3"/>
+</external_variables>

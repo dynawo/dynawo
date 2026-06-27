@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="PQLoad_Circuit_test" variable="pQLoad_Circuit_sensorLoad_V_0_"/>
+  <curve model="PQLoad_Circuit_test" variable="pQLoad_Circuit_sensorLoad_V_1_"/>
+  <curve model="PQLoad_Circuit_test" variable="pQLoad_Circuit_sensorLoad_V_2_"/>
+</curvesInput>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="IEEE 14-bus EMT - IDASPM">
+    <dyn:solver lib="dynawo_SolverIDASPM" parFile="solvers.par" parId="IDASPM"/>
+    <dyn:modeler compileDir="outputsSPM/compilation">
+      <dyn:dynModels dydFile="IEEE_14bus.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="3"/>
+    <dyn:outputs directory="outputsSPM">
+      <dyn:curves inputFile="IEEE_14bus.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>

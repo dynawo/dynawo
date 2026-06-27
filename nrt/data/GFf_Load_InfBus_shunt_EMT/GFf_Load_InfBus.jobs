@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="GFf_Load_InfBus EMT - IDA">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="IDA"/>
+    <dyn:modeler compileDir="outputs/compilation">
+      <dyn:dynModels dydFile="GFf_Load_InfBus.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="10"/>
+    <dyn:outputs directory="outputs">
+      <dyn:curves inputFile="GFf_Load_InfBus.crv" exportMode="CSV"/>
+      <dyn:logs><dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/></dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>

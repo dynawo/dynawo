@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="GFt" variable="gridFeeding_test_gf_p_i1"/>
+  <curve model="GFt" variable="gridFeeding_test_gf_p_i2"/>
+  <curve model="GFt" variable="gridFeeding_test_gf_p_i3"/>
+</curvesInput>

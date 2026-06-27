@@ -330,8 +330,14 @@ mosRunFile(const string& mosFilePath, const string& path) {
 
 string
 runOptions(const bool useAliasing) {
+  // --maxMixedDeterminedIndex raises OMC's default cap of 3 on the mixed-determined
+  // index of the (initialization) system. EMT converter models (ideal source +
+  // dq current control with fictitious-state filters) produce a higher mixed
+  // index; with the default cap OMC aborts with "mixed-determined [index > 3]"
+  // even though it can fall back to numerical solving of those loops in daeMode.
   return string("simCodeTarget=C +showErrorMessages -g=Modelica "
-      "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
+      "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls"
+      " --maxMixedDeterminedIndex=100")
       + (useAliasing ? string() : string(" --preOptModules-=comSubExp,removeSimpleEquations")) + string(" +numProcs=1 +daeMode ");
 }
 

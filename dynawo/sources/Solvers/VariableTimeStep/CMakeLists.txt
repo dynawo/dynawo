@@ -27,3 +27,4 @@ add_custom_target(VARIABLE_TIME_STEP_FILES_INSTALL
     )
 
 add_subdirectory(SolverIDA)
+add_subdirectory(SolverIDASPM)

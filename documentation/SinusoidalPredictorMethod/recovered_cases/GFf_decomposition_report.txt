@@ -1,0 +1,133 @@
+# Decomposition of flat model: GFf_Load_InfBus
+
+declarations: 1147   equations: 719   connection eqs: 49   top-level instances: 18
+
+## Top-level components
+
+### GRND
+   type      : Ground
+   children  : ['p']
+   #params   : 0   #internal eqs: 3
+
+### Load1
+   type      : PQ load (R//L//C, dq init)
+   children  : ['C_PQLoad', 'I0', 'I_load_0', 'L_PQLoad', 'P', 'Q', 'R_PQLoad', 'V', 'V0', 'V_load_0', 'i_LC', 'i_R', 'init_theta', 'init_theta_rad', 'p', 'phi']
+   #params   : 8   #internal eqs: 9
+   params    : P=600000000.0, Q=120000000.0, V=320000.0, V0=320000.0, init_theta=0.0, init_theta_rad=0.0174532925199433 * GFf_Load_InfBus.Load1.init_theta ...
+
+### Load2
+   type      : PQ load (R//L//C, dq init)
+   children  : ['C_PQLoad', 'I0', 'I_load_0', 'L_PQLoad', 'P', 'Q', 'R_PQLoad', 'V', 'V0', 'V_load_0', 'i_LC', 'i_R', 'init_theta', 'init_theta_rad', 'p', 'phi']
+   #params   : 8   #internal eqs: 9
+   params    : P=300000000.0, Q=10000000.0, V=320000.0, V0=320000.0, init_theta=0.0, init_theta_rad=0.0174532925199433 * GFf_Load_InfBus.Load2.init_theta ...
+
+### RL1
+   type      : RLBranchDisym (3-ph R-L series branch)
+   children  : ['L', 'R', 'X', 'i', 'n', 'p', 'pu', 'v']
+   #params   : 4   #internal eqs: 12
+   params    : X=0.1, L=GFf_Load_InfBus.L_grid, R=GFf_Load_InfBus.R_grid, pu=false
+
+### RL2
+   type      : RLBranchDisym (3-ph R-L series branch)
+   children  : ['L', 'R', 'X', 'i', 'n', 'p', 'pu', 'v']
+   #params   : 4   #internal eqs: 12
+   params    : X=0.1, L=GFf_Load_InfBus.L_grid, R=GFf_Load_InfBus.R_grid, pu=false
+
+### RL3
+   type      : RLBranchDisym (3-ph R-L series branch)
+   children  : ['L', 'R', 'X', 'i', 'n', 'p', 'pu', 'v']
+   #params   : 4   #internal eqs: 12
+   params    : X=0.1, L=0.0009554140127388535, R=0.03, pu=false
+
+### StepPref
+   type      : Modelica.Blocks.Sources.Step
+   children  : ['height', 'offset', 'startTime', 'y']
+   #params   : 3   #internal eqs: 1
+   params    : offset=0.0, startTime=6.08, height=-1111111.111111111
+
+### StepPref2
+   type      : Modelica.Blocks.Sources.Step
+   children  : ['height', 'offset', 'startTime', 'y']
+   #params   : 3   #internal eqs: 1
+   params    : offset=0.0, startTime=6.18, height=1111111.111111111
+
+### StepQref
+   type      : Modelica.Blocks.Sources.Step
+   children  : ['height', 'offset', 'startTime', 'y']
+   #params   : 3   #internal eqs: 1
+   params    : offset=0.0, startTime=6.14, height=1111111.111111111
+
+### bus1
+   type      : Bus
+   children  : ['V0', 'V_0', 'angle_0', 'angle_0_rad', 'p']
+   #params   : 3   #internal eqs: 3
+   params    : V_0=1.0, angle_0=0.0, angle_0_rad=0.0174532925199433 * GFf_Load_InfBus.bus1.angle_0
+
+### const
+   type      : Modelica.Blocks.Sources.Constant
+   children  : ['k', 'y']
+   #params   : 1   #internal eqs: 1
+   params    : k=1.0
+
+### const1
+   type      : Modelica.Blocks.Sources.Constant
+   children  : ['k', 'y']
+   #params   : 1   #internal eqs: 1
+   params    : k=0.0
+
+### const2
+   type      : Modelica.Blocks.Sources.Constant
+   children  : ['k', 'y']
+   #params   : 1   #internal eqs: 1
+   params    : k=640000.0
+
+### const3
+   type      : Modelica.Blocks.Sources.Constant
+   children  : ['k', 'y']
+   #params   : 1   #internal eqs: 1
+   params    : k=640000.0
+
+### converter_Grid_Feeding1
+   type      : GRID-FEEDING converter (composite)
+   children  : ['Conv', 'CurrentControl', 'Ground', 'I_Sensor', 'Ib', 'Is0', 'Ki_i', 'Kp_i', 'Kp_pll', 'Lf_SI', 'Lf_pu', 'PLL', 'Pn', 'Pref', 'Pref0', 'Pref0_pu', 'Qref', 'Qref0', 'Qref0_pu', 'RL_converter', 'RefCalculation', 'Rf_SI', 'Rf_pu', 'Sn', 'Ti_i', 'Ti_pll', 'Tr_i', 'Ub', 'Un', 'V0', 'V_Sensor', 'Vb', 'Vg0', 'Vs', 'Zb', 'cos_phin', 'fn', 'init_theta', 'init_theta_rad', 'init_w', 'isd0', 'isdref', 'isq0', 'isqref', 'p', 'vgd0', 'vgq0', 'wb', 'wn_i', 'wn_pll', 'zeta_i', 'zeta_pll']
+   #params   : 66   #internal eqs: 253
+   params    : Un=320000.0, cos_phin=0.9, fn=50.0, Pn=1000000000.0, Sn=GFf_Load_InfBus.converter_Grid_Feeding1.Pn / GFf_Load_InfBus.converter_Grid_Feeding1.cos_phin, Lf_pu=0.6 ...
+
+### converter_Grid_Forming1
+   type      : GRID-FORMING converter (composite)
+   children  : ['Add1', 'Add2', 'Add3', 'Add4', 'C_converter', 'Cf_SI', 'Cf_pu', 'Conv', 'CurrentControl', 'F_cal', 'Ground', 'Ib', 'Ig0', 'Ig_Sensor', 'Is0', 'Is_Sensor', 'Kp_i', 'Kp_v', 'Lf_SI', 'Lf_pu', 'P0_SI', 'P0_pu', 'Park_invr', 'Pn', 'Q0_SI', 'RL_converter', 'Rf_SI', 'Rf_pu', 'Sb', 'TVI1', 'T_LP', 'Ti_i', 'Ti_v', 'Tr_i', 'Tr_v', 'Un', 'Us', 'V0', 'V_Sensor', 'Vb', 'Vg0', 'VoltageControl', 'Zb', 'cos_phin', 'ed0', 'ed_ref', 'eq0', 'eq_ref', 'fn', 'igd0', 'igq0', 'init_theta_e', 'init_theta_e_rad', 'isd0', 'isq0', 'kffv', 'mp', 'p', 'sigma', 'wb', 'wn_i', 'wn_v', 'ws_pu', 'zeta_i', 'zeta_v']
+   #params   : 90   #internal eqs: 332
+   params    : Un=320000.0, Vb=GFf_Load_InfBus.converter_Grid_Forming1.Un, cos_phin=0.95782629, Pn=1000000000.0, Sb=GFf_Load_InfBus.converter_Grid_Forming1.Pn / GFf_Load_InfBus.converter_Grid_Forming1.cos_phin, Ib=1.732050807568877 * GFf_Load_InfBus.converter_Grid_Forming1.Pn / GFf_Load_InfBus.converter_Grid_Forming1.cos_phin / (1.732050807568877 * GFf_Load_InfBus.converter_Grid_Forming1.Un) ...
+
+### converter_Grid_InstFunction
+   type      : (OMC error artifact - not a component)
+   children  : ['getRecordConstructorFunction']
+   #params   : 0   #internal eqs: 0
+
+### sineVoltage1
+   type      : SignalVoltage / sine source (infinite bus)
+   children  : ['V', 'amp', 'i', 'n', 'p', 'signalSource1', 'signalSource2', 'signalSource3', 'v']
+   #params   : 1   #internal eqs: 15
+   params    : V=320000.0
+
+## Connection topology (electrical nodes / wiring)
+
+   RL3 <-> converter_Grid_Feeding1                              6 eqs
+   GRND <-> sineVoltage1                                        6 eqs
+   RL1 <-> RL2 <-> RL3 <-> bus1 <-> sineVoltage1                3 eqs
+   RL1 <-> RL2                                                  3 eqs
+   RL1 <-> RL3                                                  3 eqs
+   RL1 <-> bus1                                                 3 eqs
+   RL1 <-> sineVoltage1                                         3 eqs
+   Load1 <-> Load2 <-> RL1 <-> RL2 <-> converter_Grid_Forming1  3 eqs
+   Load1 <-> Load2                                              3 eqs
+   Load1 <-> RL1                                                3 eqs
+   Load1 <-> RL2                                                3 eqs
+   Load1 <-> converter_Grid_Forming1                            2 eqs
+   const <-> converter_Grid_Forming1                            2 eqs
+   StepPref <-> StepPref2 <-> converter_Grid_Feeding1           1 eqs
+   StepQref <-> converter_Grid_Feeding1                         1 eqs
+   const3 <-> converter_Grid_Feeding1                           1 eqs
+   Load1 <-> converter_Grid_InstFunction                        1 eqs
+   const2 <-> converter_Grid_Forming1                           1 eqs
+   const1 <-> converter_Grid_Forming1                           1 eqs

@@ -17,6 +17,15 @@ set(MODELICA_PREASSEMBLED_MODELS
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
+  Circuit_RLC.xml
+  IEEE_14bus.xml
+  ISGT.xml
+  GFf_Load_InfBus.xml
+  GFf_Load_InfBus_shunt.xml
+  PQLoad_Circuit.xml
+  IEEE_5bus.xml
+  IEEE_5bus_modular.xml
+  GridFeeding_test.xml
   CombiTimeTable.xml
   ConditionalForward.xml
   CurrentLimitAutomaton.xml

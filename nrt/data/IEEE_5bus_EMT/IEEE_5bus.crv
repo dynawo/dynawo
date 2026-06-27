@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_CurrentControl_Vs"/>
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_CurrentControl_Ws"/>
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_p_i1"/>
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_p_i2"/>
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_p_i3"/>
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_p_v1"/>
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_p_v2"/>
+  <curve model="IEEE_5bus_test" variable="iEEE_5bus_IEEE_5bus_GridFeeding2_p_v3"/>
+</curvesInput>

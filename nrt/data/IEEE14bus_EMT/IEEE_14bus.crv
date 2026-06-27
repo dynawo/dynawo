@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="IEEE_14bus" variable="iEEE_14bus_LineB2B4_i_0_"/>
+  <curve model="IEEE_14bus" variable="iEEE_14bus_LineB2B4_i_1_"/>
+  <curve model="IEEE_14bus" variable="iEEE_14bus_LineB2B4_i_2_"/>
+  <curve model="IEEE_14bus" variable="iEEE_14bus_LineB3B4_i_0_"/>
+  <curve model="IEEE_14bus" variable="iEEE_14bus_Bus4_p_v_0_"/>
+  <curve model="IEEE_14bus" variable="iEEE_14bus_Bus4_p_v_1_"/>
+  <curve model="IEEE_14bus" variable="iEEE_14bus_Bus4_p_v_2_"/>
+</curvesInput>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="ISGT" variable="iSGT_Line14_i_0_"/>
+  <curve model="ISGT" variable="iSGT_Line14_i_1_"/>
+  <curve model="ISGT" variable="iSGT_Line14_i_2_"/>
+  <curve model="ISGT" variable="iSGT_Line24_i_0_"/>
+  <curve model="ISGT" variable="iSGT_Rc_p_v_0_"/>
+  <curve model="ISGT" variable="iSGT_Rc_p_v_1_"/>
+  <curve model="ISGT" variable="iSGT_Rc_p_v_2_"/>
+</curvesInput>

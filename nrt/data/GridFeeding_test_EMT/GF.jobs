@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="GridFeeding test">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="IDA"/>
+    <dyn:modeler compileDir="outputs/compilation">
+      <dyn:dynModels dydFile="GF.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true"/>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="0.5"/>
+    <dyn:outputs directory="outputs">
+      <dyn:curves inputFile="GF.crv" exportMode="CSV"/>
+      <dyn:logs><dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/></dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>

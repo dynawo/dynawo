@@ -1,0 +1,268 @@
+--- a/src/ida/ida.c	2022-08-11 04:41:29.000000000 +0000
++++ b/src/ida/ida.c	2026-06-25 20:15:28.291042247 +0000
+@@ -85,6 +85,7 @@
+ #include <string.h>
+ 
+ #include "ida_impl.h"
++#include "ida_spm_impl.h"
+ #include <sundials/sundials_math.h>
+ #include <sunnonlinsol/sunnonlinsol_newton.h>
+ 
+@@ -523,6 +524,8 @@
+ 
+   IDA_mem->ida_SetupDone = SUNFALSE;
+ 
++  IDA_mem->ida_spm = NULL;
++
+   /* Problem memory has been successfully allocated */
+ 
+   IDA_mem->ida_MallocDone = SUNTRUE;
+@@ -1122,6 +1125,10 @@
+     /* set phi[1] = hh*y' */
+     N_VScale(IDA_mem->ida_hh, IDA_mem->ida_phi[1], IDA_mem->ida_phi[1]);
+ 
++    /* SPM: scale the parallel first divided differences by hh as well */
++    if (IDA_mem->ida_spm)
++      IDASPMhhScalePhiArrays(IDA_mem);
++
+     /* Set the convergence test constants epsNewt and toldel */
+     IDA_mem->ida_epsNewt = IDA_mem->ida_epcon;
+     IDA_mem->ida_toldel = PT0001 * IDA_mem->ida_epsNewt;
+@@ -1534,6 +1541,8 @@
+ 
+   IDA_mem = (IDAMem) (*ida_mem);
+ 
++  if (IDA_mem->ida_spm) IDASPMFree(IDA_mem);
++
+   IDAFreeVectors(IDA_mem);
+ 
+   /* if IDA created the NLS object then free it */
+@@ -2302,6 +2311,18 @@
+   err_k = ZERO;
+   err_km1 = ZERO;
+ 
++  /* SPM: estimate the Fourier coefficients, re-evaluate the periodic predictor
++     with the new coefficients, and re-base the correction-term history onto it */
++  if (IDA_mem->ida_spm) {
++    SPMMem spm_mem = (SPMMem) IDA_mem->ida_spm;
++    if (IDA_mem->ida_tn > IDA_mem->ida_t0 + spm_mem->Tbar)
++      IDASPMUpdatePriorModelParameters(IDA_mem);
++    IDASPMEvaluatePriorModel(IDA_mem, IDA_mem->ida_tn);
++    IDASPMEvaluatePriorModelphi(IDA_mem);
++    IDASPMContinuityCondition(IDA_mem);
++    IDASPMContinuityConditionphi(IDA_mem);
++  }
++
+   /* Looping point for attempts to take a step */
+ 
+   for(;;) {
+@@ -2334,6 +2355,10 @@
+       Advance state variables
+       -----------------------*/
+ 
++    /* SPM: evaluate the periodic predictor at the new time before prediction */
++    if (IDA_mem->ida_spm)
++      IDASPMEvaluatePriorModel(IDA_mem, IDA_mem->ida_tn);
++
+     /* Compute predicted values for yy and yp */
+     IDAPredict(IDA_mem);
+ 
+@@ -2452,6 +2477,17 @@
+                                IDA_mem->ida_beta+IDA_mem->ida_ns,
+                                IDA_mem->ida_phi+IDA_mem->ida_ns,
+                                IDA_mem->ida_phi+IDA_mem->ida_ns);
++
++    /* SPM: scale the parallel correction / predictor histories by beta */
++    if (IDA_mem->ida_spm) {
++      SPMMem spm_mem = (SPMMem) IDA_mem->ida_spm;
++      for (i = IDA_mem->ida_ns; i <= IDA_mem->ida_kk; i++) {
++        N_VScale(IDA_mem->ida_beta[i], spm_mem->phixi[i],   spm_mem->phixi[i]);
++        N_VScale(IDA_mem->ida_beta[i], spm_mem->phiybar[i], spm_mem->phiybar[i]);
++        spm_mem->phisinbar[i] *= IDA_mem->ida_beta[i];
++        spm_mem->phicosbar[i] *= IDA_mem->ida_beta[i];
++      }
++    }
+   }
+ 
+ }
+@@ -2609,6 +2645,26 @@
+ {
+   int j;
+ 
++  /* SPM: predict the correction term xi from its history, then rebuild the
++     predicted full solution yypredict = xi + ybar (ybar already at new tn). */
++  if (IDA_mem->ida_spm) {
++    SPMMem spm_mem = (SPMMem) IDA_mem->ida_spm;
++    N_VScale(ONE, spm_mem->phixi[0], spm_mem->xi);
++    N_VConst(ZERO, spm_mem->xip);
++    spm_mem->sinbarpred = spm_mem->phisinbar[0];
++    spm_mem->cosbarpred = spm_mem->phicosbar[0];
++    for (j = 1; j <= IDA_mem->ida_kk; j++) {
++      N_VLinearSum(ONE, spm_mem->phixi[j], ONE, spm_mem->xi, spm_mem->xi);
++      N_VLinearSum(IDA_mem->ida_gamma[j], spm_mem->phixi[j], ONE,
++                   spm_mem->xip, spm_mem->xip);
++      spm_mem->sinbarpred += spm_mem->phisinbar[j];
++      spm_mem->cosbarpred += spm_mem->phicosbar[j];
++    }
++    N_VLinearSum(ONE, spm_mem->xi,  ONE, spm_mem->ybar,  IDA_mem->ida_yypredict);
++    N_VLinearSum(ONE, spm_mem->xip, ONE, spm_mem->ybarp, IDA_mem->ida_yppredict);
++    return;
++  }
++
+   for(j=0; j<=IDA_mem->ida_kk; j++)
+     IDA_mem->ida_cvals[j] = ONE;
+ 
+@@ -2642,6 +2698,12 @@
+   realtype enorm_k, enorm_km1, enorm_km2;   /* error norms */
+   realtype terr_k, terr_km1, terr_km2;      /* local truncation error norms */
+ 
++  /* SPM: the lower-order error estimates use the correction-term history
++     (phixi) rather than the full-solution history (phi). */
++  N_Vector *errphi = IDA_mem->ida_spm
++                     ? ((SPMMem) IDA_mem->ida_spm)->phixi
++                     : IDA_mem->ida_phi;
++
+   /* Compute error for order k. */
+   enorm_k = IDAWrmsNorm(IDA_mem, IDA_mem->ida_ee, IDA_mem->ida_ewt, IDA_mem->ida_suppressalg);
+   *err_k = IDA_mem->ida_sigma[IDA_mem->ida_kk] * enorm_k;
+@@ -2659,7 +2721,7 @@
+   if ( IDA_mem->ida_kk > 1 ) {
+ 
+     /* Compute error at order k-1 */
+-    N_VLinearSum(ONE, IDA_mem->ida_phi[IDA_mem->ida_kk], ONE, IDA_mem->ida_ee, IDA_mem->ida_delta);
++    N_VLinearSum(ONE, errphi[IDA_mem->ida_kk], ONE, IDA_mem->ida_ee, IDA_mem->ida_delta);
+     enorm_km1 = IDAWrmsNorm(IDA_mem, IDA_mem->ida_delta,
+                             IDA_mem->ida_ewt, IDA_mem->ida_suppressalg);
+     *err_km1 = IDA_mem->ida_sigma[IDA_mem->ida_kk - 1] * enorm_km1;
+@@ -2675,7 +2737,7 @@
+     if ( IDA_mem->ida_kk > 2 ) {
+ 
+       /* Compute error at order k-2 */
+-      N_VLinearSum(ONE, IDA_mem->ida_phi[IDA_mem->ida_kk - 1], ONE,
++      N_VLinearSum(ONE, errphi[IDA_mem->ida_kk - 1], ONE,
+                    IDA_mem->ida_delta, IDA_mem->ida_delta);
+       enorm_km2 = IDAWrmsNorm(IDA_mem, IDA_mem->ida_delta,
+                               IDA_mem->ida_ewt, IDA_mem->ida_suppressalg);
+@@ -2743,6 +2805,18 @@
+                                IDA_mem->ida_cvals,
+                                IDA_mem->ida_phi+IDA_mem->ida_ns,
+                                IDA_mem->ida_phi+IDA_mem->ida_ns);
++
++    /* SPM: unscale the parallel correction / predictor histories by 1/beta */
++    if (IDA_mem->ida_spm) {
++      SPMMem spm_mem = (SPMMem) IDA_mem->ida_spm;
++      for (j = IDA_mem->ida_ns; j <= IDA_mem->ida_kk; j++) {
++        realtype inv = ONE/IDA_mem->ida_beta[j];
++        N_VScale(inv, spm_mem->phixi[j],   spm_mem->phixi[j]);
++        N_VScale(inv, spm_mem->phiybar[j], spm_mem->phiybar[j]);
++        spm_mem->phisinbar[j] *= inv;
++        spm_mem->phicosbar[j] *= inv;
++      }
++    }
+   }
+ 
+ }
+@@ -2927,6 +3001,15 @@
+   IDA_mem->ida_psi[0] = IDA_mem->ida_hh;
+ 
+   N_VScale(IDA_mem->ida_eta, IDA_mem->ida_phi[1], IDA_mem->ida_phi[1]);
++
++  /* SPM: scale the parallel first divided differences by eta as well */
++  if (IDA_mem->ida_spm) {
++    SPMMem spm_mem = (SPMMem) IDA_mem->ida_spm;
++    N_VScale(IDA_mem->ida_eta, spm_mem->phixi[1],   spm_mem->phixi[1]);
++    N_VScale(IDA_mem->ida_eta, spm_mem->phiybar[1], spm_mem->phiybar[1]);
++    spm_mem->phisinbar[1] *= IDA_mem->ida_eta;
++    spm_mem->phicosbar[1] *= IDA_mem->ida_eta;
++  }
+ }
+ 
+ /*
+@@ -3003,7 +3086,10 @@
+       /* Estimate the error at order k+1 */
+ 
+       N_VLinearSum(ONE, IDA_mem->ida_ee, -ONE,
+-                   IDA_mem->ida_phi[IDA_mem->ida_kk + 1], IDA_mem->ida_tempv1);
++                   (IDA_mem->ida_spm
++                    ? ((SPMMem) IDA_mem->ida_spm)->phixi[IDA_mem->ida_kk + 1]
++                    : IDA_mem->ida_phi[IDA_mem->ida_kk + 1]),
++                   IDA_mem->ida_tempv1);
+       enorm = IDAWrmsNorm(IDA_mem, IDA_mem->ida_tempv1, IDA_mem->ida_ewt,
+                           IDA_mem->ida_suppressalg);
+       err_kp1 = enorm / (IDA_mem->ida_kk + 2);
+@@ -3103,11 +3189,44 @@
+ 
+   /* Save ee for possible order increase on next step */
+   if (IDA_mem->ida_kused < IDA_mem->ida_maxord) {
+-    N_VScale(ONE, IDA_mem->ida_ee, IDA_mem->ida_phi[IDA_mem->ida_kused + 1]);
++    if (IDA_mem->ida_spm) {
++      SPMMem spm_mem = (SPMMem) IDA_mem->ida_spm;
++      N_VScale(ONE, IDA_mem->ida_ee, spm_mem->phixi[IDA_mem->ida_kused + 1]);
++      spm_mem->phisinbar[IDA_mem->ida_kused + 1] =
++          sin(spm_mem->wbar*IDA_mem->ida_tn) - spm_mem->sinbarpred;
++      spm_mem->phicosbar[IDA_mem->ida_kused + 1] =
++          cos(spm_mem->wbar*IDA_mem->ida_tn) - spm_mem->cosbarpred;
++    } else {
++      N_VScale(ONE, IDA_mem->ida_ee, IDA_mem->ida_phi[IDA_mem->ida_kused + 1]);
++    }
+   }
+ 
+   /* Update phi arrays */
+ 
++  if (IDA_mem->ida_spm) {
++    /* SPM: the BDF history update is performed on the correction term (phixi)
++       and on the predictor's sin/cos divided differences; the full-solution
++       history (phi) and yy/yp are then rebuilt from the SPM decomposition. */
++    SPMMem spm_mem = (SPMMem) IDA_mem->ida_spm;
++    realtype sdd = sin(spm_mem->wbar*IDA_mem->ida_tn) - spm_mem->sinbarpred;
++    realtype cdd = cos(spm_mem->wbar*IDA_mem->ida_tn) - spm_mem->cosbarpred;
++
++    N_VLinearSum(ONE, IDA_mem->ida_ee, ONE,
++                 spm_mem->phixi[IDA_mem->ida_kused], spm_mem->phixi[IDA_mem->ida_kused]);
++    spm_mem->phisinbar[IDA_mem->ida_kused] += sdd;
++    spm_mem->phicosbar[IDA_mem->ida_kused] += cdd;
++    for (j = IDA_mem->ida_kused-1; j >= 0; j--) {
++      N_VLinearSum(ONE, spm_mem->phixi[j], ONE, spm_mem->phixi[j+1], spm_mem->phixi[j]);
++      spm_mem->phisinbar[j] += spm_mem->phisinbar[j+1];
++      spm_mem->phicosbar[j] += spm_mem->phicosbar[j+1];
++    }
++
++    IDASPMEvaluatePriorModel(IDA_mem, IDA_mem->ida_tn);
++    IDASPMEvaluatePriorModelphi(IDA_mem);
++    IDASPMEvaluateSolutionphi(IDA_mem);
++    return;
++  }
++
+   /* To update phi arrays compute X += Z where                  */
+   /* X = [ phi[kused], phi[kused-1], phi[kused-2], ... phi[1] ] */
+   /* Z = [ ee,         phi[kused],   phi[kused-1], ... phi[0] ] */
+--- a/src/ida/ida_impl.h	2022-08-11 04:41:29.000000000 +0000
++++ b/src/ida/ida_impl.h	2026-06-25 20:12:25.283040499 +0000
+@@ -335,6 +335,9 @@
+   N_Vector ida_Xvecs[MXORDP1];
+   N_Vector ida_Zvecs[MXORDP1];
+ 
++  /* Sinusoidal Predictor Method (SPM) add-on data (NULL if SPM disabled) */
++  void *ida_spm;
++
+ } *IDAMem;
+ 
+ /*
+--- a/src/ida/CMakeLists.txt	2022-08-11 04:41:29.000000000 +0000
++++ b/src/ida/CMakeLists.txt	2026-06-25 20:30:50.747051059 +0000
+@@ -27,6 +27,7 @@
+   ida_ls.c
+   ida_nls.c
+   ida_spils.c
++  ida_spm.c
+   )
+ 
+ # Add variable ida_HEADERS with the exported IDA header files
+@@ -36,6 +37,7 @@
+   ida_direct.h
+   ida_ls.h
+   ida_spils.h
++  ida_spm.h
+   )
+ 
+ # Add prefix with complete path to the IDA header files
