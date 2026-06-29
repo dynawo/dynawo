@@ -126,6 +126,8 @@ var searchData=
   ['lostequipmentshandler_5f',['lostEquipmentsHandler_',['../df/d46/a02376.html#a76941a296169ca45218f5de6f8cfe342',1,'job::OutputsHandler']]],
   ['lostequipmentsoutputfile_5f',['lostEquipmentsOutputFile_',['../d6/d36/a03456.html#affa227e37812d0c891ec775bd24806e3',1,'DYN::Simulation']]],
   ['lostequipmentsset',['LostEquipmentsSet',['../d7/d00/a00401.html#a2eca8c75acb1c8f36b41dda29d2ef903',1,'lostEquipments']]],
+  ['lovrclosingtriggered',['LOVRClosingTriggered',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a1c584d9a4254e1b8c4c0f811c3f7043d',1,'DYN::KeyTimeline_t']]],
+  ['lovropeningtriggered',['LOVROpeningTriggered',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a5a22d4beebd44cd2097c17cf1c684925',1,'DYN::KeyTimeline_t']]],
   ['lowstepindex_5f',['lowStepIndex_',['../d2/d5b/a03340.html#a106c2455b5abb97fd50fd627edb9c445',1,'DYN::ModelTapChanger']]],
   ['lvlfilter_5f',['lvlFilter_',['../dc/d29/a02144.html#aa51097dde83fbed507c33010a6d8803b',1,'job::AppenderEntry::lvlFilter_()'],['../db/d1d/a02716.html#a9b93fee0c35fcabc279ad98eac335309',1,'DYN::Trace::TraceAppender::lvlFilter_()']]],
   ['lvrtarming',['LVRTArming',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a8e696c5be2fd733df9c4955b5e19004f',1,'DYN::KeyTimeline_t']]],

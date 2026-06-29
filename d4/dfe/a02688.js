@@ -57,6 +57,8 @@ var a02688 =
       [ "IECProtectionUUnder", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a062f7dd6922af254ed65a68e73dc52fb", null ],
       [ "IdealSwitchSwitchOff", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a0214c3ffef8d14ee1bb207628f598b4e", null ],
       [ "IdealSwitchSwitchOn", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a24c3a2fc17faaf353968b9f5b48d54ed", null ],
+      [ "LOVRClosingTriggered", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a1c584d9a4254e1b8c4c0f811c3f7043d", null ],
+      [ "LOVROpeningTriggered", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a5a22d4beebd44cd2097c17cf1c684925", null ],
       [ "LVRTArming", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a8e696c5be2fd733df9c4955b5e19004f", null ],
       [ "LVRTDisarming", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a366d917547ab8d5cc142b43ac8cf8955", null ],
       [ "LVRTTripped", "d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51acc7cd801ae7a32a3b8a7c54f2b3d2ce6", null ],

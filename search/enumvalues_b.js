@@ -31,6 +31,8 @@ var searchData=
   ['logstreamnotimplemented',['LogStreamNotImplemented',['../d6/dca/a02616.html#acfce33066451c48351076e31bd5b4eceab667c7decd15a43cc122f5d5d23f4586',1,'DYN::KeyError_t']]],
   ['lossofsynchronismarming',['LossOfSynchronismArming',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51aee2123433fb9bba01e9ebbccf1f6442f',1,'DYN::KeyTimeline_t']]],
   ['lossofsynchronismtripped',['LossOfSynchronismTripped',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a1897e924f649a9b16d7a7120f28c7ab5',1,'DYN::KeyTimeline_t']]],
+  ['lovrclosingtriggered',['LOVRClosingTriggered',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a1c584d9a4254e1b8c4c0f811c3f7043d',1,'DYN::KeyTimeline_t']]],
+  ['lovropeningtriggered',['LOVROpeningTriggered',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a5a22d4beebd44cd2097c17cf1c684925',1,'DYN::KeyTimeline_t']]],
   ['lvrtarming',['LVRTArming',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a8e696c5be2fd733df9c4955b5e19004f',1,'DYN::KeyTimeline_t']]],
   ['lvrtdisarming',['LVRTDisarming',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51a366d917547ab8d5cc142b43ac8cf8955',1,'DYN::KeyTimeline_t']]],
   ['lvrttripped',['LVRTTripped',['../d4/dfe/a02688.html#a9294fd85b78754e1a11fec544395ad51acc7cd801ae7a32a3b8a7c54f2b3d2ce6',1,'DYN::KeyTimeline_t']]]

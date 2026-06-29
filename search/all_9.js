@@ -313,7 +313,7 @@ var searchData=
   ['irload_5fdui',['irLoad_dUi',['../d6/d25/a03284.html#a8109711cc90674c49b3720c7459ad11e',1,'DYN::ModelDanglingLine']]],
   ['irload_5fdur',['irLoad_dUr',['../d6/d25/a03284.html#a81ff6baf6b407fc2cc932fa5598ea206',1,'DYN::ModelDanglingLine']]],
   ['irynum',['irYNum',['../d6/d83/a03332.html#a8566f917c853cda4ac9531b59daef8b2',1,'DYN::ModelSwitch']]],
-  ['irynum_5f',['irYNum_',['../d4/dcb/a03268.html#a8a82bf3dc1cbca7ce4bc6c2d5419b4c8',1,'DYN::ModelBus::irYNum_()'],['../d6/d83/a03332.html#abf2558caff750b5f388018084f40696b',1,'DYN::ModelSwitch::irYNum_()'],['../de/d3a/a03200.html#a29e30a87569aaf28a08469045088fe3b',1,'DYN::ModelLoadRestorativeWithLimits::IrYNum_()']]],
+  ['irynum_5f',['IrYNum_',['../de/d3a/a03200.html#a29e30a87569aaf28a08469045088fe3b',1,'DYN::ModelLoadRestorativeWithLimits::IrYNum_()'],['../d4/dcb/a03268.html#a8a82bf3dc1cbca7ce4bc6c2d5419b4c8',1,'DYN::ModelBus::irYNum_()'],['../d6/d83/a03332.html#abf2558caff750b5f388018084f40696b',1,'DYN::ModelSwitch::irYNum_()']]],
   ['isabsolutepath',['isAbsolutePath',['../df/db6/a00509.html#a56fc834fb0b2ce501e732480e3163353',1,'DYNFileSystemUtils.h']]],
   ['isactive_5f',['isActive_',['../d7/de1/a03224.html#aeafcd823c4670b11310470eb2dac74f7',1,'DYN::ModelVoltageMeasurementsUtilities']]],
   ['isactivepowercontrolenabled',['isActivePowerControlEnabled',['../de/db0/a02940.html#a14c02fe81b8d798d8b8163f4fd17f912',1,'DYN::HvdcLineInterface::isActivePowerControlEnabled()'],['../d5/d83/a03076.html#a2a1e34de555c0ce939314dc8197220eb',1,'DYN::HvdcLineInterfaceIIDM::isActivePowerControlEnabled()']]],
