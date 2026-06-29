@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Protections;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,35 +9,36 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Protections;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model Protection "Protection module (IEC63406)"
 
   // Voltage protection parameters
-  parameter Types.Time TLVP3 "Disconnection time for high voltage level 3" annotation(
+  parameter Types.Time tLvP3 "Disconnection time for high voltage level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLVP2 "Disconnection time for high voltage level 2" annotation(
+  parameter Types.Time tLvP2 "Disconnection time for high voltage level 2" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLVP1 "Disconnection time for high voltage level 1" annotation(
+  parameter Types.Time tLvP1 "Disconnection time for high voltage level 1" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THVP1 "Disconnection time for low voltage level 1" annotation(
+  parameter Types.Time tHvP1 "Disconnection time for low voltage level 1" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THVP2 "Disconnection time for low voltage level 2" annotation(
+  parameter Types.Time tHvP2 "Disconnection time for low voltage level 2" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THVP3 "Disconnection time for low voltage level 3" annotation(
+  parameter Types.Time tHvP3 "Disconnection time for low voltage level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.VoltageModulePu ULVP3 "Low voltage level 3 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu ULvP3 "Low voltage level 3 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.VoltageModulePu ULVP2 "Low voltage level 2 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu ULvP2 "Low voltage level 2 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.VoltageModulePu ULVP1 "Low voltage level 1 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu ULvP1 "Low voltage level 1 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.VoltageModulePu UHVP1 "High voltage level 1 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UHvP1 "High voltage level 1 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.VoltageModulePu UHVP2 "High voltage level 2 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UHvP2 "High voltage level 2 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.VoltageModulePu UHVP3 "High voltage level 3 in pu (base UNom)" annotation(
+  parameter Types.VoltageModulePu UHvP3 "High voltage level 3 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
 
   // Frequency protection parameters
@@ -53,17 +54,17 @@ model Protection "Protection module (IEC63406)"
     Dialog(tab = "Protection"));
   parameter Types.Frequency fHfP3 "High frequency level 3 in pu (base nominal frequency)" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLfP3 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time tLfP3 "Disconnection time for low frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLfP2 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time tLfP2 "Disconnection time for low frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLfP1 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time tLfP1 "Disconnection time for low frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THfP1 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time tHfP1 "Disconnection time for high frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THfP2 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time tHfP2 "Disconnection time for high frequency level 3" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THfP3 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time tHfP3 "Disconnection time for high frequency level 3" annotation(
     Dialog(tab = "Protection"));
 
   // Other protection parameters
@@ -71,9 +72,9 @@ model Protection "Protection module (IEC63406)"
     Dialog(tab = "Protection"));
   parameter Real DerThetaMax "Maximum level of angle variation in rad/s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TDerfMax "Disconnection time for high level of frequency variation" annotation(
+  parameter Types.Time tDerfMax "Disconnection time for high level of frequency variation" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TDerThetaMax "Disconnection time for high level of angle variation" annotation(
+  parameter Types.Time tDerThetaMax "Disconnection time for high level of angle variation" annotation(
     Dialog(tab = "Protection"));
 
   //Input variables
@@ -87,12 +88,6 @@ model Protection "Protection module (IEC63406)"
   //Output variables
   Modelica.Blocks.Interfaces.BooleanOutput tripFlag(start = false) "Disconnection flag (0 if unit is connected to the network, else 1)" annotation(
     Placement(visible = true, transformation(origin = {220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {240, 0}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
-
-  //Initial parameters
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(group = "Operating point"));
-  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
-    Dialog(group = "Operating point"));
 
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(visible = true, transformation(origin = {-10, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -176,7 +171,7 @@ model Protection "Protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {-130, -260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessEqual lessEqual19 annotation(
     Placement(visible = true, transformation(origin = {110, -272}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const6(k = TDerfMax) annotation(
+  Modelica.Blocks.Sources.Constant const6(k = tDerfMax) annotation(
     Placement(visible = true, transformation(origin = {50, -260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant8(k = DerThetaMax) annotation(
     Placement(visible = true, transformation(origin = {-130, -300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -184,7 +179,7 @@ model Protection "Protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {110, -312}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessEqual lessEqual21 annotation(
     Placement(visible = true, transformation(origin = {-70, -312}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant constant9(k = TDerThetaMax) annotation(
+  Modelica.Blocks.Sources.Constant constant9(k = tDerThetaMax) annotation(
     Placement(visible = true, transformation(origin = {50, -300}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Timer timer13 annotation(
     Placement(visible = true, transformation(origin = {-10, -320}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -192,29 +187,29 @@ model Protection "Protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {-160, -320}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative annotation(
     Placement(visible = true, transformation(origin = {-160, -280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = THVP1)  annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = tHvP1) annotation(
     Placement(visible = true, transformation(origin = {50, 232}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y = THVP2) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression1(y = tHvP2) annotation(
     Placement(visible = true, transformation(origin = {50, 272}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y = THVP3) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression2(y = tHvP3) annotation(
     Placement(visible = true, transformation(origin = {50, 312}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression3(y = TLVP1) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression3(y = tLvP1) annotation(
     Placement(visible = true, transformation(origin = {50, 168}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression4(y = TLVP2) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression4(y = tLvP2) annotation(
     Placement(visible = true, transformation(origin = {50, 128}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression5(y = TLVP3) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression5(y = tLvP3) annotation(
     Placement(visible = true, transformation(origin = {50, 88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression6(y = UHVP3) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression6(y = UHvP3) annotation(
     Placement(visible = true, transformation(origin = {-130, 320}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression7(y = UHVP2) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression7(y = UHvP2) annotation(
     Placement(visible = true, transformation(origin = {-130, 280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression8(y = UHVP1) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression8(y = UHvP1) annotation(
     Placement(visible = true, transformation(origin = {-130, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression9(y = ULVP1) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression9(y = ULvP1) annotation(
     Placement(visible = true, transformation(origin = {-130, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression10(y = ULVP2) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression10(y = ULvP2) annotation(
     Placement(visible = true, transformation(origin = {-130, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression11(y = ULVP3) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression11(y = ULvP3) annotation(
     Placement(visible = true, transformation(origin = {-130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression12(y = fHfP2) annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -228,18 +223,24 @@ model Protection "Protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {-130, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression17(y = fLfP3) annotation(
     Placement(visible = true, transformation(origin = {-130, -220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression18(y = THfP3) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression18(y = tHfP3) annotation(
     Placement(visible = true, transformation(origin = {50, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression19(y = THfP2) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression19(y = tHfP2) annotation(
     Placement(visible = true, transformation(origin = {50, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression20(y = THfP1) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression20(y = tHfP1) annotation(
     Placement(visible = true, transformation(origin = {50, -68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression21(y = TLfP1) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression21(y = tLfP1) annotation(
     Placement(visible = true, transformation(origin = {50, -132}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression22(y = TLfP2) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression22(y = tLfP2) annotation(
     Placement(visible = true, transformation(origin = {50, -172}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression23(y = TLfP3) annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression23(y = tLfP3) annotation(
     Placement(visible = true, transformation(origin = {50, -212}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  //Initial parameters
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(group = "Operating point"));
+  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
+    Dialog(group = "Operating point"));
 
 equation
 //  when or1.y == true then
@@ -420,7 +421,9 @@ equation
     Line(points = {{62, -68}, {98, -68}}, color = {0, 0, 127}));
   connect(or1.y, tripFlag) annotation(
     Line(points = {{182, 0}, {220, 0}}, color = {255, 0, 255}));
+
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-200, -340}, {200, 340}})),
     Icon(graphics = {Rectangle(extent = {{-200, 340}, {200, -340}}), Text(origin = {-1, 0}, extent = {{-197, 340}, {197, -340}}, textString = "Protection")}, coordinateSystem(extent = {{-200, -340}, {200, 340}})));
 end Protection;

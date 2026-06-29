@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model VoltageSourceIEC63406 "Converter system module with voltage source interface (IEC 63406)"
@@ -17,15 +18,17 @@ model VoltageSourceIEC63406 "Converter system module with voltage source interfa
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
-  //Control parameters
-  parameter Types.Time Tg "Time constant to represent the control delay effect of the inner current control loop. Alternatively set it to zero to bypass this delay." annotation(
-    Dialog(tab = "Source"));
-  parameter Types.Time Te "Time constant to represent the delay in the pulse width
-modulation/switching process." annotation(Dialog(tab = "Source"));
+  //Circuit parameters
   parameter Types.PerUnit XesPu "Coupling inductance in the filter or the transformer at the grid side in pu (base SNom, UNom)" annotation(
     Dialog(tab = "Electrical"));
   parameter Types.PerUnit ResPu "Coupling resistance in the filter or the transformer at the grid side in pu (base SNom, UNom)" annotation(
     Dialog(tab = "Electrical"));
+
+  //Control parameters
+  parameter Types.Time tE "Time constant to represent the delay in the pulse width modulation/switching process." annotation(
+    Dialog(tab = "Source"));
+  parameter Types.Time tG "Time constant to represent the control delay effect of the inner current control loop. Alternatively set it to zero to bypass this delay." annotation(
+    Dialog(tab = "Source"));
 
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = UeRe0Pu), im(start = UeIm0Pu)), i(re(start = -IsRe0Pu * SNom / SystemBase.SnRef), im(start = -IsIm0Pu * SNom / SystemBase.SnRef))) "Converter terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
@@ -52,15 +55,15 @@ modulation/switching process." annotation(Dialog(tab = "Source"));
 
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tg, y_start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tG, y_start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = Tg, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tG, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.UgridToUconverter ugridToUconverter(ResPu = ResPu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu)  annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.UgridToUconverter ugridToUconverter(ResPu = ResPu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu) annotation(
     Placement(visible = true, transformation(origin = {-100, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = Te, y_start = Ued0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tE, y_start = Ued0Pu) annotation(
     Placement(visible = true, transformation(origin = {-30, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = Te, y_start = Ueq0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tE, y_start = Ueq0Pu) annotation(
     Placement(visible = true, transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ annotation(
     Placement(visible = true, transformation(origin = {-40, -72}, extent = {{20, 20}, {-20, -20}}, rotation = 0)));
@@ -148,8 +151,9 @@ equation
     Line(points = {{141, -30}, {157, -30}}, color = {85, 170, 255}));
   connect(uGs.y, complexToPolar.u) annotation(
     Line(points = {{81, -60}, {117, -60}}, color = {85, 170, 255}));
+
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {130.991, 20.068}, points = {{-9, 0}, {9, 0}, {69, 0}}, color = {114, 159, 207})}, coordinateSystem(extent = {{-200, -100}, {200, 100}})),
-    Icon(coordinateSystem(extent = {{-200, -100}, {200, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 30}, extent = {{-100, -20}, {100, 20}}, textString = "Generator"), Text(origin = {0, -30}, extent = {{-100, -20}, {100, 20}}, textString = "System")}));
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 30}, extent = {{-100, -20}, {100, 20}}, textString = "Generator"), Text(origin = {0, -30}, extent = {{-100, -20}, {100, 20}}, textString = "System")}));
 end VoltageSourceIEC63406;

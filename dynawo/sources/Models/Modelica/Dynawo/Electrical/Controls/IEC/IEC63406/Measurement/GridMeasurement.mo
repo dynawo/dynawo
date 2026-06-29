@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Measurement;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Measurement;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model GridMeasurement "Representation of the measurements of electrical magnitudes on the grid side (IEC 63406)"
@@ -39,11 +40,11 @@ model GridMeasurement "Representation of the measurements of electrical magnitud
     Dialog(tab = "PLL"));
   parameter Integer PLLFlag "0 for the case when the phase angle can be read from the calculation result of the simulation program, 1 for the case of adding a filter based on case 1, 2 for the case where the dynamics of the PLL need to be considered" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.Time TpllFilt "Time constant in PLL angle filter. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
+  parameter Types.Time tPllFilt "Time constant in PLL angle filter. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.Time TfFilt "Time constant in PLL angle filter. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
+  parameter Types.Time tFFilt "Time constant in PLL angle filter. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.PerUnit UpllPu "Voltage below which the frequency of the voltage is filtered and the angle of the voltage is possibly frozen" annotation(
+  parameter Types.PerUnit UPllPu "Voltage below which the frequency of the voltage is filtered and the angle of the voltage is possibly frozen" annotation(
     Dialog(tab = "PLL"));
   parameter Types.PerUnit WMaxPu "Maximum PLL frequency deviation in pu (base rated frequency)" annotation(
     Dialog(tab = "PLL"));
@@ -88,7 +89,7 @@ model GridMeasurement "Representation of the measurements of electrical magnitud
     Placement(visible = true, transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar1 annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  PLL pll(DeltaT = DeltaT, DfMaxPu = DfMaxPu, KIpll = KIpll, KPpll = KPpll, PLLFlag = PLLFlag, TfFilt = TfFilt, TpllFilt = TpllFilt, UPhase0 = UPhase0, UpllPu = UpllPu, WMaxPu = WMaxPu, WMinPu = WMinPu, tS = tS, u0Pu = u0Pu) annotation(
+  PLL pll(DeltaT = DeltaT, DfMaxPu = DfMaxPu, KIpll = KIpll, KPpll = KPpll, PLLFlag = PLLFlag, tFFilt = tFFilt, tPllFilt = tPllFilt, UPhase0 = UPhase0, UPllPu = UPllPu, WMaxPu = WMaxPu, WMinPu = WMinPu, tS = tS, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {3.55271e-15, -100}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
 
   //Initial parameters
@@ -140,6 +141,7 @@ equation
     Line(points = {{44, -120}, {150, -120}}, color = {0, 0, 127}));
   connect(complexToPolar1.len, UPu) annotation(
     Line(points = {{-58, 6}, {40, 6}, {40, 0}, {150, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-140, -140}, {140, 140}})),
