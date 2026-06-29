@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Measurement;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Measurement;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model GridMeasurement "Representation of the measurements of electrical magnitudes on the grid side (IEC 63406)"
@@ -140,6 +141,7 @@ equation
     Line(points = {{44, -120}, {150, -120}}, color = {0, 0, 127}));
   connect(complexToPolar1.len, UPu) annotation(
     Line(points = {{-58, 6}, {40, 6}, {40, 0}, {150, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-140, -140}, {140, 140}})),

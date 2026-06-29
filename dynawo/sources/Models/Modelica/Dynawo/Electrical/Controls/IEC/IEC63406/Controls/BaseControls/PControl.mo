@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model PControl "Active power control (IEC 63406)"
@@ -51,16 +52,17 @@ model PControl "Active power control (IEC 63406)"
   Modelica.Blocks.Interfaces.RealInput uMeasPu(start = U0Pu) "Measured (and filtered) voltage component in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {10, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  //Output variables
+  //Output variable
   Modelica.Blocks.Interfaces.RealOutput iPcmdPu(start = - P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {200, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Inner variables
   Real iPcmdFreezePu(start = P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Value of iPcmdPu pre-fault that is kept until a new fault";
   Real pRefFreezePu(start = -P0Pu * SystemBase.SnRef / SNom) "Value of pRefPu pre-fault that is kept until a new fault";
+
   Modelica.Blocks.Math.Add add annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, limitsAtInit = false)  annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, limitsAtInit = false) annotation(
     Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -70,11 +72,11 @@ model PControl "Active power control (IEC 63406)"
     Placement(visible = true, transformation(origin = {16, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, limitsAtInit = false)  annotation(
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1(homotopyType = Modelica.Blocks.Types.VariableLimiterHomotopy.NoHomotopy, limitsAtInit = false) annotation(
     Placement(visible = true, transformation(origin = {162, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch11 annotation(
     Placement(visible = true, transformation(origin = {82, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = iPcmdFreezePu)  annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = iPcmdFreezePu) annotation(
     Placement(visible = true, transformation(origin = {41, -80}, extent = {{-19, -10}, {19, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.PIFreeze pIFreeze(Gain = KPp, Y0 = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), tIntegral = 1 / KIp) annotation(
     Placement(visible = true, transformation(origin = {50, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -83,9 +85,9 @@ model PControl "Active power control (IEC 63406)"
 
   //Initial parameters
   parameter Types.PerUnit IPMax0Pu = if PriorityFlag then sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else IMaxPu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.PerUnit IPMin0Pu = if PriorityFlag then -sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else -IMaxPu "Initial minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PAvailIn0Pu = if StorageFlag then -PMaxPu else 0 "Initial minimum output electrical power available to the active power control module in pu (base SNom)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
@@ -94,13 +96,15 @@ model PControl "Active power control (IEC 63406)"
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group="Operating point"));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = TpRef, UseFreeze = true, Y0 = -P0Pu * SystemBase.SnRef / SNom)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = TpRef, UseFreeze = true, Y0 = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   when FFlag == true then
     pRefFreezePu = pre(pRefPu);
     iPcmdFreezePu = pre(iPcmdPu);
   end when;
+
   connect(add.y, variableLimiter.u) annotation(
     Line(points = {{-59, 0}, {-32, 0}}, color = {0, 0, 127}));
   connect(division.y, switch1.u3) annotation(
@@ -149,7 +153,9 @@ equation
     Line(points = {{-128, 0}, {-100, 0}, {-100, -6}, {-82, -6}}, color = {0, 0, 127}));
   connect(FFlag, rateLimFirstOrderFreeze.freeze) annotation(
     Line(points = {{-80, -120}, {-80, -60}, {-146, -60}, {-146, -12}}, color = {255, 0, 255}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-180, 100}, {180, -100}}), Text(extent = {{-180, 100}, {180, -100}}, textString = "PControl")}, coordinateSystem(extent = {{-180, -100}, {180, 100}})),
     Diagram(coordinateSystem(extent = {{-180, -100}, {180, 100}})));
 end PControl;

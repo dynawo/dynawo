@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,13 +9,15 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model QControl "Reactive power control (IEC 63406)"
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
+
   parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base in UNom, SNom) (generator convention)";
   parameter Boolean PriorityFlag "0 for active current priority, 1 for reactive current priority";
   parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power defined by users in pu (base SNom)" annotation(
@@ -143,7 +145,7 @@ model QControl "Reactive power control (IEC 63406)"
     Placement(visible = true, transformation(origin = {90, -92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression22(y = iQMaxPu) annotation(
     Placement(visible = true, transformation(origin = {90, -69}, extent = {{-10, -9}, {10, 9}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(limitsAtInit = true, uMax = Modelica.Constants.inf, uMin = 0.01)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter1(limitsAtInit = true, uMax = Modelica.Constants.inf, uMin = 0.01) annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = TanPhi) annotation(
     Placement(visible = true, transformation(origin = {-250, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -155,36 +157,36 @@ model QControl "Reactive power control (IEC 63406)"
     Placement(visible = true, transformation(origin = {95, 120}, extent = {{-20, -15}, {20, 15}}, rotation = -90)));
   Modelica.Blocks.Sources.RealExpression realExpression3(y = uRefPu) annotation(
     Placement(visible = true, transformation(origin = {40, 120}, extent = {{-20, -16}, {20, 16}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 4)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 4) annotation(
     Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {260, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = LFlag)  annotation(
+  Modelica.Blocks.Sources.IntegerConstant integerConstant(k = LFlag) annotation(
     Placement(visible = true, transformation(origin = {260, 28}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression4(y = FFlag) annotation(
     Placement(visible = true, transformation(origin = {-210, -111}, extent = {{-10, -9}, {10, 9}}, rotation = 90)));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression2(y = FFlag) annotation(
     Placement(visible = true, transformation(origin = {201, -40}, extent = {{-20, -13}, {20, 13}}, rotation = 180)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = UFlag)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = UFlag) annotation(
     Placement(visible = true, transformation(origin = {60, 80}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant UMax(k = UMaxPu)  annotation(
+  Modelica.Blocks.Sources.Constant UMax(k = UMaxPu) annotation(
     Placement(visible = true, transformation(origin = {12, 68}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant UMin(k = UMinPu)  annotation(
+  Modelica.Blocks.Sources.Constant UMin(k = UMinPu) annotation(
     Placement(visible = true, transformation(origin = {12, 12}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant QMin(k = QMinPu)  annotation(
+  Modelica.Blocks.Sources.Constant QMin(k = QMinPu) annotation(
     Placement(visible = true, transformation(origin = {-227, 13}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QMax(k = QMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-227, 67}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant PFFLAG(k = PFFlag)  annotation(
+  Modelica.Blocks.Sources.IntegerConstant PFFLAG(k = PFFlag) annotation(
     Placement(visible = true, transformation(origin = {-120, 48}, extent = {{-8, -8}, {8, 8}}, rotation = -90)));
-  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = Tiq, UseFreeze = true, UseRateLim = true, Y0 = -Q0Pu * SystemBase.SnRef / (SNom * U0Pu))  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze(T = Tiq, UseFreeze = true, UseRateLim = true, Y0 = -Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {140, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.PerUnit IQMax0Pu = if PriorityFlag then IMaxPu else sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2)  "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.PerUnit IQMin0Pu = if PriorityFlag then -IMaxPu else -sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2)  "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
@@ -313,7 +315,9 @@ equation
     Line(points = {{152, -80}, {240, -80}, {240, -20}, {250, -20}}, color = {0, 0, 127}));
   connect(booleanExpression2.y, rateLimFirstOrderFreeze.freeze) annotation(
     Line(points = {{180, -40}, {134, -40}, {134, -92}}, color = {255, 0, 255}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-320, 100}, {320, -100}}), Text(extent = {{-320, 98}, {320, -98}}, textString = "QControl")}, coordinateSystem(extent = {{-320, -100}, {320, 100}})),
     Diagram(coordinateSystem(extent = {{-320, -100}, {320, 100}})));
 end QControl;

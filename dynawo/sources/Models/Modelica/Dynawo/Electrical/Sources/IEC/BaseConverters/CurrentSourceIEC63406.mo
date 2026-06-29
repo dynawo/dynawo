@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model CurrentSourceIEC63406 "Converter system module with current source interface (IEC 63406)"
@@ -110,6 +111,7 @@ equation
     Line(points = {{22, -90}, {58, -90}}, color = {85, 170, 255}));
   connect(complexToPolar.len, uBT) annotation(
     Line(points = {{82, -84}, {100, -84}, {100, -90}, {150, -90}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {90.7207, -0.279255}, points = {{-9, 0}, {9, 0}, {51, 0}}, color = {114, 159, 207})}, coordinateSystem(extent = {{-140, -100}, {140, 100}})),

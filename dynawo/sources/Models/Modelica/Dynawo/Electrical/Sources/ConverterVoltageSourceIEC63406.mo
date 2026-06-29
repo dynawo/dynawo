@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Sources;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model ConverterVoltageSourceIEC63406 "Converter model for the IEC 63406 standard with voltage source interface and for grid following applications"
@@ -141,57 +142,57 @@ model ConverterVoltageSourceIEC63406 "Converter model for the IEC 63406 standard
 
   //LVRT and HVRT parameters
   parameter Types.PerUnit K1IpLV "Active current factor 1 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IpLV "Active current factor 2 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IqLV "Reactive current factor 1 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IqLV "Reactive current factor 2 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KpLVRT "Active power factor during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KqLVRT "Reactive power factor during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IpHV "Active current factor 1 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IpHV "Active current factor 2 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IqHV "Reactive current factor 1 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IqHV "Reactive current factor 2 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KpHVRT "Active power factor during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KqHVRT "Reactive power factor during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean HVRTinPFlag "Active current flag during HVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean HVRTinQFlag "Reactive current flag during HVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iPSetHVPu "Active current setting during HVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iPSetLVPu "Active current setting during LVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iQSetHVPu "Reactive current setting during HVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iQSetLVPu "Reactive current setting during LVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean LVRTinPFlag "Active current flag during LVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean LVRTinQFlag "Reactive current flag during LVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ActivePowerPu pSetHVPu "Active power setting during HVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ActivePowerPu pSetLVPu "Active power setting during LVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ReactivePowerPu qSetHVPu "Reactive power setting during HVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ReactivePowerPu qSetLVPu "Reactive power setting during LVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit uHVRTPu "HVRT threshold value in pu (base UNom)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit uLVRTPu "LVRT threshold value in pu (base UNom)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean pqFRTFlag "Active/reactive control priority during FRT, 0/1" annotation(
     Dialog(tab = "FRT"));
 
@@ -321,7 +322,7 @@ model ConverterVoltageSourceIEC63406 "Converter model for the IEC 63406 standard
     Placement(visible = true, transformation(origin = {-70, 150}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC63406.PlantCommunication plantCommunication(ComFlag = ComFlag, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, Tcom = Tcom, Tlag = Tlag, Tlead = Tlead, U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-180, -140}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.InjectorVoltageSource injectorVoltageSource(IsIm0Pu = IsIm0Pu, IsRe0Pu = IsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, Te = Te, Tg = Tg, U0Pu = U0Pu, UPhase0 = UPhase0, UeIm0Pu = UeIm0Pu, UeRe0Pu = UeRe0Pu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
+  Dynawo.Electrical.Sources.IEC.InjectorVoltageSource injectorVoltageSource(IsIm0Pu = IsIm0Pu, IsRe0Pu = IsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, Te = Te, Tg = Tg, U0Pu = U0Pu, UPhase0 = UPhase0, UeIm0Pu = UeIm0Pu, UeRe0Pu = UeRe0Pu, Ued0Pu = Ued0Pu, Ueq0Pu = Ueq0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {160, -80}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
 
   //Initial parameters
@@ -393,11 +394,13 @@ equation
     Line(points = {{204, -48}, {220, -48}, {220, 70}, {206, 70}}, color = {85, 170, 255}));
   connect(injectorVoltageSource.uPu, gridMeasurement.uPu) annotation(
     Line(points = {{204, -60}, {230, -60}, {230, 100}, {206, 100}}, color = {85, 170, 255}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-240, 240}, {240, -240}}), Text(extent = {{-240, 240}, {240, -240}}, textString = "Converter
 Based
 Generating
 Unit")}, coordinateSystem(extent = {{-240, -240}, {240, 240}})),
     Diagram(coordinateSystem(extent = {{-240, -240}, {240, 240}})),
-  experiment(StartTime = 0, StopTime = 5, Tolerance = 1e-4, Interval = 0.001));
+    experiment(StartTime = 0, StopTime = 5, Tolerance = 1e-4, Interval = 0.001));
 end ConverterVoltageSourceIEC63406;

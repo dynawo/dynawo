@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model ControlAndProtection "Global control and protection module (IEC63406)"
@@ -267,7 +268,7 @@ model ControlAndProtection "Global control and protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {210, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch11 annotation(
     Placement(visible = true, transformation(origin = {210, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {150, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {150, 12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -283,6 +284,7 @@ model ControlAndProtection "Global control and protection module (IEC63406)"
     Dialog(group = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Operating point"));
+
 equation
   connect(thetaPLL, protection.thetaPLL) annotation(
     Line(points = {{-260, -140}, {-5, -140}}, color = {0, 0, 127}));
@@ -334,10 +336,12 @@ equation
     Line(points = {{80, -114}, {180, -114}, {180, 20}, {198, 20}}, color = {255, 0, 255}));
   connect(protection.tripFlag, switch1.u2) annotation(
     Line(points = {{80, -114}, {180, -114}, {180, 100}, {198, 100}}, color = {255, 0, 255}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-180, 180}, {180, -180}}), Text(extent = {{-180, 180}, {180, -180}}, textString = "Control
 &
 Protection")}, coordinateSystem(extent = {{-240, -180}, {240, 180}})),
     Diagram(coordinateSystem(extent = {{-240, -180}, {240, 180}})),
-  experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
+    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
 end ControlAndProtection;

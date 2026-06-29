@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,11 +9,11 @@ within Dynawo.Electrical.Sources;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model ConverterCurrentSourceIEC63406_INIT "Converter model from IEC63406 standard : initialization model"
-
   extends AdditionalIcons.Init;
 
   //Nominal parameter
@@ -103,8 +103,9 @@ equation
     Line(points = {{1, 40}, {19, 40}, {19, -74}, {57, -74}}, color = {0, 0, 127}));
   connect(combiTable1Ds.y[1], min.u1) annotation(
     Line(points = {{1, 80}, {19, 80}, {19, 86}, {57, 86}}, color = {0, 0, 127}));
+
   annotation(
-    preferredView = "text",
-  Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-  Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
+    preferredView = "diagram",
+    Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 end ConverterCurrentSourceIEC63406_INIT;

@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryCo
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model IqLimitation "Reactive current limitation block (IEC 63406)"
@@ -21,7 +22,7 @@ model IqLimitation "Reactive current limitation block (IEC 63406)"
   parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base in UNom, SNom) (generator convention)";
   parameter Boolean PriorityFlag "0 for active current priority, 1 for reactive current priority";
 
-  //Input variables
+  //Input variable
   Modelica.Blocks.Interfaces.RealInput iPcmdPu(start = - P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
@@ -40,7 +41,8 @@ model IqLimitation "Reactive current limitation block (IEC 63406)"
 equation
   iQMaxPu = if PriorityFlag then IMaxPu else noEvent(if IMaxPu ^ 2 > iPcmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iPcmdPu ^ 2) else 0);
 
-annotation(
+  annotation(
+    preferredView = "text",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-2, 2}, extent = {{-96, 96}, {96, -96}}, textString = "Limit
 Iq")}));
 end IqLimitation;

@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Protections;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Protections;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model FRTControl "Global control during FRT (IEC63406)"
@@ -19,7 +20,7 @@ model FRTControl "Global control during FRT (IEC63406)"
 
   //General parameters
   parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base in UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit IPMaxPu "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "FRT"));
   parameter Types.PerUnit IPMinPu "Minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -29,89 +30,122 @@ model FRTControl "Global control during FRT (IEC63406)"
   parameter Types.PerUnit IQMinPu "Minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "FRT"));
   parameter Boolean pqFRTFlag "Active/reactive control priority during FRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean StorageFlag "1 if it is a storage unit, 0 if not" annotation(
     Dialog(tab = "General"));
 
   //LVRT and HVRT parameters
   parameter Types.PerUnit K1IpLV "Active current factor 1 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IpLV "Active current factor 2 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IqLV "Reactive current factor 1 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IqLV "Reactive current factor 2 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KpLVRT "Active power factor during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KqLVRT "Reactive power factor during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IpHV "Active current factor 1 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IpHV "Active current factor 2 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IqHV "Reactive current factor 1 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IqHV "Reactive current factor 2 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KpHVRT "Active power factor during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KqHVRT "Reactive power factor during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean HVRTinPFlag "Active current flag during HVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean HVRTinQFlag "Reactive current flag during HVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iPSetHVPu "Active current setting during HVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iPSetLVPu "Active current setting during LVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iQSetHVPu "Reactive current setting during HVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit iQSetLVPu "Reactive current setting during LVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean LVRTinPFlag "Active current flag during LVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Boolean LVRTinQFlag "Reactive current flag during LVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ActivePowerPu pSetHVPu "Active power setting during HVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ActivePowerPu pSetLVPu "Active power setting during LVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ReactivePowerPu qSetHVPu "Reactive power setting during HVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ReactivePowerPu qSetLVPu "Reactive power setting during LVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit uHVRTPu "HVRT threshold value in pu (base UNom)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit uLVRTPu "LVRT threshold value in pu (base UNom)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput iPcmdPu(start = - P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iQcmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput pMeasPu(start = - P0Pu * SystemBase.SnRef / SNom) "Measured (and filtered) active power component in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput qMeasPu(start = - Q0Pu * SystemBase.SnRef / SNom) "Measured (and filtered) reactive power component at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uMeasPu(start = U0Pu) "Filtered voltage amplitude at grid terminal in pu (base UNom)" annotation(
-      Placement(visible = true, transformation(origin = {-180, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-180, 120}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-180, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput ippPu(start = - P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command in pu (base SNom, UNom) calculated by the FRT before trip_flag verification (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqqPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command in pu (base SNom, UNom) calculated by the FRT before trip_flag verification (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {180, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput ipHVRTPu(start = - P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current calculated by the HVRT module in pu (base UNom, SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput ipLVRTPu(start = - P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current calculated by the LVRT module in pu (base UNom, SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {170, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {170, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqHVRTPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current calculated by the HVRT module in pu (base UNom, SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqLVRTPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Rective current calculated by the LVRT module in pu (base UNom, SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {170, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Modelica.Blocks.Logical.Switch switch1 annotation(
+    Placement(visible = true, transformation(origin = {-20, 140}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch11 annotation(
+    Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
+    Placement(visible = true, transformation(origin = {140, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1 annotation(
+    Placement(visible = true, transformation(origin = {140, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter2 annotation(
+    Placement(visible = true, transformation(origin = {140, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch12 annotation(
+    Placement(visible = true, transformation(origin = {-20, -140}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter3 annotation(
+    Placement(visible = true, transformation(origin = {140, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch13 annotation(
+    Placement(visible = true, transformation(origin = {-20, -20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds LVRTCurrentBounds(IMaxPu = IMaxPu, IPMaxPu = IPMaxPu, IPMinPu = IPMinPu, IQMaxPu = IQMaxPu, IQMinPu = IQMinPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, StorageFlag = StorageFlag, U0Pu = U0Pu, pqFRTFlag = pqFRTFlag) annotation(
+    Placement(visible = true, transformation(origin = {60, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds HVRTCurrentBounds(StorageFlag = StorageFlag, IMaxPu = IMaxPu, IPMaxPu = IPMaxPu, IPMinPu = IPMinPu, IQMaxPu = IQMaxPu, IQMinPu = IQMinPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, pqFRTFlag = pqFRTFlag) annotation(
+    Placement(visible = true, transformation(origin = {60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentCalculation LVRTCurrentCalculation(K1Ip = K1IpLV, K1Iq = K1IqLV, K2Ip = K2IpLV, K2Iq = K2IqLV, KpRT = KpLVRT, KqRT = KqLVRT, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, iPSetPu = iPSetLVPu, iQSetPu = iQSetLVPu, pSetPu = pSetLVPu, qSetPu = qSetLVPu, uHVRTPu = uHVRTPu, uLVRTPu = uLVRTPu, uRTPu = uLVRTPu) annotation(
+    Placement(visible = true, transformation(origin = {-80, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentCalculation HVRTCurrentCalculation(K1Ip = K1IpHV, K1Iq = K1IqHV, K2Ip = K2IpHV, K2Iq = K2IqHV, KpRT = KpHVRT, KqRT = KqHVRT, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, iPSetPu = iPSetHVPu, iQSetPu = iQSetHVPu, pSetPu = pSetHVPu, qSetPu = qSetHVPu, uHVRTPu = uHVRTPu, uLVRTPu = uLVRTPu, uRTPu = uHVRTPu) annotation(
+    Placement(visible = true, transformation(origin = {-80, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant FRTFlag(k = LVRTinPFlag) annotation(
+    Placement(visible = true, transformation(origin = {-80, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = LVRTinQFlag) annotation(
+    Placement(visible = true, transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = HVRTinPFlag) annotation(
+    Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k = HVRTinQFlag) annotation(
+    Placement(visible = true, transformation(origin = {-80, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
@@ -121,42 +155,10 @@ model FRTControl "Global control during FRT (IEC63406)"
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group="Operating point"));
 
-  Modelica.Blocks.Logical.Switch switch1 annotation(
-      Placement(visible = true, transformation(origin = {-20, 140}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch11 annotation(
-      Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
-      Placement(visible = true, transformation(origin = {140, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1 annotation(
-      Placement(visible = true, transformation(origin = {140, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter2 annotation(
-      Placement(visible = true, transformation(origin = {140, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch12 annotation(
-      Placement(visible = true, transformation(origin = {-20, -140}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter3 annotation(
-      Placement(visible = true, transformation(origin = {140, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Logical.Switch switch13 annotation(
-      Placement(visible = true, transformation(origin = {-20, -20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds LVRTCurrentBounds(IMaxPu = IMaxPu, IPMaxPu = IPMaxPu, IPMinPu = IPMinPu, IQMaxPu = IQMaxPu, IQMinPu = IQMinPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, StorageFlag = StorageFlag, U0Pu = U0Pu, pqFRTFlag = pqFRTFlag)  annotation(
-    Placement(visible = true, transformation(origin = {60, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentBounds HVRTCurrentBounds(StorageFlag = StorageFlag, IMaxPu = IMaxPu, IPMaxPu = IPMaxPu, IPMinPu = IPMinPu, IQMaxPu = IQMaxPu, IQMinPu = IQMinPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, pqFRTFlag = pqFRTFlag)  annotation(
-    Placement(visible = true, transformation(origin = {60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentCalculation LVRTCurrentCalculation(K1Ip = K1IpLV, K1Iq = K1IqLV, K2Ip = K2IpLV, K2Iq = K2IqLV, KpRT = KpLVRT, KqRT = KqLVRT, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, iPSetPu = iPSetLVPu, iQSetPu = iQSetLVPu, pSetPu = pSetLVPu, qSetPu = qSetLVPu, uHVRTPu = uHVRTPu, uLVRTPu = uLVRTPu, uRTPu = uLVRTPu)  annotation(
-    Placement(visible = true, transformation(origin = {-80, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections.FRTCurrentCalculation HVRTCurrentCalculation(K1Ip = K1IpHV, K1Iq = K1IqHV, K2Ip = K2IpHV, K2Iq = K2IqHV, KpRT = KpHVRT, KqRT = KqHVRT, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, iPSetPu = iPSetHVPu, iQSetPu = iQSetHVPu, pSetPu = pSetHVPu, qSetPu = qSetHVPu, uHVRTPu = uHVRTPu, uLVRTPu = uLVRTPu, uRTPu = uHVRTPu)  annotation(
-    Placement(visible = true, transformation(origin = {-80, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant FRTFlag(k = LVRTinPFlag)  annotation(
-    Placement(visible = true, transformation(origin = {-80, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = LVRTinQFlag) annotation(
-    Placement(visible = true, transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = HVRTinPFlag)  annotation(
-    Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant2(k = HVRTinQFlag)  annotation(
-    Placement(visible = true, transformation(origin = {-80, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 equation
   ippPu = if uMeasPu > uHVRTPu then ipHVRTPu else if uMeasPu < uLVRTPu then ipLVRTPu else iPcmdPu;
   iqqPu = if uMeasPu > uHVRTPu then iqHVRTPu else if uMeasPu < uLVRTPu then iqLVRTPu else iQcmdPu;
+
   connect(switch11.y, variableLimiter1.u) annotation(
     Line(points = {{-9, 20}, {128, 20}}, color = {0, 0, 127}));
   connect(variableLimiter1.y, iqLVRTPu) annotation(
@@ -241,7 +243,9 @@ equation
     Line(points = {{-68, -20}, {-32, -20}}, color = {255, 0, 255}));
   connect(booleanConstant2.y, switch12.u2) annotation(
     Line(points = {{-68, -140}, {-32, -140}}, color = {255, 0, 255}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-160, 160}, {160, -160}}), Text(extent = {{-160, 160}, {160, -160}}, textString = "FRT
 Control")}, coordinateSystem(extent = {{-160, -160}, {160, 160}})),
     Diagram(coordinateSystem(extent = {{-160, -160}, {160, 160}})));

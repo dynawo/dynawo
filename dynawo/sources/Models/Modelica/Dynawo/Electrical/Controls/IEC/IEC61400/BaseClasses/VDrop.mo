@@ -49,6 +49,7 @@ block VDrop "Calculates the voltage in the serial impedance distance r+jx from t
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(tab = "Operating point"));
+
   final parameter Types.VoltageModulePu UDrop0Pu = sqrt((U0Pu - RDropPu * P0Pu / U0Pu - XDropPu * Q0Pu / U0Pu) ^ 2 + (XDropPu * P0Pu / U0Pu - RDropPu * Q0Pu / U0Pu) ^ 2) "Initial voltage amplitude at the point of control in pu (base UNom)";
 
 equation

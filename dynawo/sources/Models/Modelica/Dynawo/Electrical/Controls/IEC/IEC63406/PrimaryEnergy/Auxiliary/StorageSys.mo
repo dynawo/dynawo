@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model StorageSys "Primary energy source-driven electric conversion module of energy generation systems (IEC 63406)"
@@ -29,11 +30,11 @@ model StorageSys "Primary energy source-driven electric conversion module of ene
   parameter Types.Time Tess "Equivalent time constant (in s) for the battery, supercapacitor or flywheel energy storage systems (if you have Tess = 10, a system with 100% SOC and P = Pmax, the system will discharge completely in 10s)" annotation(
     Dialog(tab = "StorageSys"));
 
-  //Input variables
+  //Input variable
   Modelica.Blocks.Interfaces.RealInput pMeasPu(start = -P0Pu * SystemBase.SnRef / SNom) "Measured (and filtered) active power component in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 8.88178e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0)));
 
-  //Output variable
+  //Output variables
   Modelica.Blocks.Interfaces.RealOutput pAvailInPu(start = -PMaxPu) "Minimum output electrical power available to the active power control module in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput pAvailOutPu(start = PMaxPu) "Maximum output electrical power available to the active power control module in pu (base SNom) (generator convention)" annotation(
@@ -55,14 +56,15 @@ model StorageSys "Primary energy source-driven electric conversion module of ene
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = 100) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant SOCFLAG(k = SOCFlag) annotation(
+    Placement(visible = true, transformation(origin = {-60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   //Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.Percent SOCInit "Initial SOC amount in %" annotation(
     Dialog(tab = "StorageSys"));
-  Modelica.Blocks.Sources.BooleanConstant SOCFLAG(k = SOCFlag)  annotation(
-    Placement(visible = true, transformation(origin = {-60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
 equation
   connect(gain.y, SOCFlagSwitch.u3) annotation(
     Line(points = {{-71, 0}, {-66.5, 0}, {-66.5, -8}, {-54, -8}}, color = {0, 0, 127}));
@@ -90,6 +92,7 @@ equation
     Line(points = {{92, 2}, {96, 2}, {96, 40}, {110, 40}}, color = {0, 0, 127}));
   connect(SOCFLAG.y, SOCFlagSwitch.u2) annotation(
     Line(points = {{-60, -38}, {-60, 0}, {-54, 0}}, color = {255, 0, 255}));
+
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {8, -19}, extent = {{-107, 118}, {92, -81}}, textString = "Storage

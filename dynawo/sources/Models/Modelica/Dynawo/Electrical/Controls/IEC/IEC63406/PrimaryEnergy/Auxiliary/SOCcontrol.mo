@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model SOCcontrol "Module to limit output power depending on SOC (IEC 63406)"
@@ -22,7 +23,7 @@ model SOCcontrol "Module to limit output power depending on SOC (IEC 63406)"
   parameter Types.Percent SOCMin "Minimum SOC amount for discharging in %" annotation(
     Dialog(tab = "SOCcontrol"));
 
-  //Input variables
+  //Input variable
   Modelica.Blocks.Interfaces.RealInput soc(start = SOCInit) "State of charge of the storage system in %" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
@@ -32,7 +33,7 @@ model SOCcontrol "Module to limit output power depending on SOC (IEC 63406)"
   Modelica.Blocks.Interfaces.RealOutput pAvailOutPu(start = PMaxPu) "Maximum output electrical power available to the active power control module in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  //Initial parameters
+  //Initial parameter
   parameter Types.Percent SOCInit "Initial SOC amount in %" annotation(
     Dialog(tab = "StorageSys"));
 
@@ -50,5 +51,6 @@ equation
   end if;
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(origin = {4, 2}, extent = {{-88, 62}, {88, -62}}, textString = "SOC\nControl"), Rectangle(fillColor = {255, 255, 255}, extent = {{-100, 100}, {100, -100}})}));
 end SOCcontrol;

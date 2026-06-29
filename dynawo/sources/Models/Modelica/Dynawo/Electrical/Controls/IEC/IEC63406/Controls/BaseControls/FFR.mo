@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model FFR "Fast frequency response (IEC 63406)"
@@ -64,11 +65,11 @@ model FFR "Fast frequency response (IEC 63406)"
     Placement(visible = true, transformation(origin = {-42, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative(T = Trocof, initType = Modelica.Blocks.Types.Init.NoInit, k = Trocof, x_start = 0, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {-96, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant f0(k = f0Pu)  annotation(
+  Modelica.Blocks.Sources.Constant f0(k = f0Pu) annotation(
     Placement(visible = true, transformation(origin = {-130, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Zero(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {62, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant FFRFlag(k = FFRflag)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant FFRFlag(k = FFRflag) annotation(
     Placement(visible = true, transformation(origin = {62, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
@@ -104,7 +105,9 @@ equation
     Line(points = {{73, -40}, {80, -40}, {80, -8}, {90, -8}}, color = {0, 0, 127}));
   connect(FFRFlag.y, switch1.u2) annotation(
     Line(points = {{73, 0}, {90, 0}}, color = {255, 0, 255}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(extent = {{-92, 52}, {92, -52}}, textString = "FFR"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-120, -100}, {120, 100}})),
     Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})));
 end FFR;

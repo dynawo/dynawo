@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model EnergyConversion "Primary energy source driven electric conversion module (IEC 63406)"
@@ -47,13 +48,13 @@ model EnergyConversion "Primary energy source driven electric conversion module 
   Modelica.Blocks.Interfaces.RealOutput pAvailOutPu(start = PMaxPu) "Maximum output electrical power available to the active power control module in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary.StorageSys storageSys(P0Pu = P0Pu, PMaxPu = PMaxPu, SNom = SNom, SOCFlag = SOCFlag, SOCInit = SOCInit, SOCMax = SOCMax, SOCMin = SOCMin, Tess = Tess)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.Auxiliary.StorageSys storageSys(P0Pu = P0Pu, PMaxPu = PMaxPu, SNom = SNom, SOCFlag = SOCFlag, SOCInit = SOCInit, SOCMax = SOCMax, SOCMin = SOCMin, Tess = Tess) annotation(
     Placement(visible = true, transformation(origin = {-20, -40}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch11 annotation(
     Placement(visible = true, transformation(origin = {70, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = StorageFlag)  annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = StorageFlag) annotation(
     Placement(visible = true, transformation(origin = {40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(Y0 = -P0Pu * SystemBase.SnRef / SNom, YMax = PMaxPu, YMin = 0, tFilter = Tconv) annotation(
     Placement(visible = true, transformation(origin = {-20, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -63,8 +64,9 @@ model EnergyConversion "Primary energy source driven electric conversion module 
     Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PAvailIn0Pu = if StorageFlag then -PMaxPu else 0 "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
-  Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-20, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(switch11.y, pAvailOutPu) annotation(
     Line(points = {{81, 40}, {110, 40}}, color = {0, 0, 127}));
@@ -86,7 +88,9 @@ equation
     Line(points = {{-122, -40}, {-44, -40}}, color = {0, 0, 127}));
   connect(const.y, switch1.u3) annotation(
     Line(points = {{-8, -80}, {40, -80}, {40, -48}, {58, -48}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "Energy
 Conversion")}));
 end EnergyConversion;

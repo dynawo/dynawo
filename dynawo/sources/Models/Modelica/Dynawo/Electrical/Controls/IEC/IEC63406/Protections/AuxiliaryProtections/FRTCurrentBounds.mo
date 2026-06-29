@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Protections.AuxiliaryProtections;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model FRTCurrentBounds "Current limitation during FRT (IEC63406)"
@@ -51,13 +52,13 @@ model FRTCurrentBounds "Current limitation during FRT (IEC63406)"
 
   //Initial parameters
   parameter Types.PerUnit IPMax0Pu = if pqFRTFlag then min(sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2), IPMaxPu) else min(IMaxPu, IPMaxPu) "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.PerUnit IPMin0Pu = if StorageFlag then if pqFRTFlag then max(-sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2), IPMinPu) else max(-IMaxPu,IPMinPu) else 0 "Initial minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.PerUnit IQMax0Pu =  if pqFRTFlag then min(IMaxPu, IQMaxPu) else min(sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2), IQMaxPu) "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.PerUnit IQMin0Pu = if pqFRTFlag then max(-IMaxPu, IQMinPu) else max(-sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2), IQMinPu) "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
+    Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
@@ -72,6 +73,7 @@ equation
   iqMinPu = if pqFRTFlag then max(-IMaxPu, IQMinPu) else max(-sqrt(max(IMaxPu ^ 2 - ipLVRTPrimPu ^ 2, 0)), IQMinPu);
 
   annotation(
+    preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}})}),
     Icon(graphics = {Text(extent = {{-100, 100}, {100, -100}}, textString = "Ip&Iq
 limiter"), Rectangle(extent = {{-100, 100}, {100, -100}})}));

@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Protections;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Protections;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model Protection "Protection module (IEC63406)"
@@ -87,12 +88,6 @@ model Protection "Protection module (IEC63406)"
   //Output variables
   Modelica.Blocks.Interfaces.BooleanOutput tripFlag(start = false) "Disconnection flag (0 if unit is connected to the network, else 1)" annotation(
     Placement(visible = true, transformation(origin = {220, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {240, 0}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
-
-  //Initial parameters
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(group = "Operating point"));
-  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
-    Dialog(group = "Operating point"));
 
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(visible = true, transformation(origin = {-10, 240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -192,7 +187,7 @@ model Protection "Protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {-160, -320}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Derivative derivative annotation(
     Placement(visible = true, transformation(origin = {-160, -280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = THVP1)  annotation(
+  Modelica.Blocks.Sources.RealExpression realExpression(y = THVP1) annotation(
     Placement(visible = true, transformation(origin = {50, 232}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression1(y = THVP2) annotation(
     Placement(visible = true, transformation(origin = {50, 272}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -240,6 +235,12 @@ model Protection "Protection module (IEC63406)"
     Placement(visible = true, transformation(origin = {50, -172}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression23(y = TLfP3) annotation(
     Placement(visible = true, transformation(origin = {50, -212}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  //Initial parameters
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(group = "Operating point"));
+  parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
+    Dialog(group = "Operating point"));
 
 equation
 //  when or1.y == true then
@@ -420,7 +421,9 @@ equation
     Line(points = {{62, -68}, {98, -68}}, color = {0, 0, 127}));
   connect(or1.y, tripFlag) annotation(
     Line(points = {{182, 0}, {220, 0}}, color = {255, 0, 255}));
+
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-200, -340}, {200, 340}})),
     Icon(graphics = {Rectangle(extent = {{-200, 340}, {200, -340}}), Text(origin = {-1, 0}, extent = {{-197, 340}, {197, -340}}, textString = "Protection")}, coordinateSystem(extent = {{-200, -340}, {200, 340}})));
 end Protection;

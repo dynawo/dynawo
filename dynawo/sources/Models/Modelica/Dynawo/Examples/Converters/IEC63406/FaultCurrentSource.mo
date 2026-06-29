@@ -1,7 +1,7 @@
 within Dynawo.Examples.Converters.IEC63406;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,12 +9,13 @@ within Dynawo.Examples.Converters.IEC63406;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model FaultCurrentSource "Example for the IEC 63406 standard as a production unit with current source"
-
   extends Icons.Example;
+
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.05) annotation(
     Placement(visible = true, transformation(origin = {-1.77636e-15, 1.77636e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1.000315, UEvtPu = 0, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 0, tOmegaEvtStart = 0, tUEvtEnd = 0, tUEvtStart = 0) annotation(
@@ -33,6 +34,7 @@ model FaultCurrentSource "Example for the IEC 63406 standard as a production uni
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.001, tBegin = 2, tEnd = 2.15) annotation(
     Placement(visible = true, transformation(origin = {-60, -40}, extent = {{-20, 20}, {20, -20}}, rotation = 0)));
+
 initial algorithm
   converterCurrentSourceIEC63406.SNom := converterCurrentSourceIEC63406_INIT.SNom;
   converterCurrentSourceIEC63406.ResPu := converterCurrentSourceIEC63406_INIT.ResPu;
@@ -53,12 +55,14 @@ initial algorithm
   converterCurrentSourceIEC63406.UsRe0Pu := converterCurrentSourceIEC63406_INIT.UsRe0Pu;
 //  converterCurrentSourceIEC63406.QMax0Pu := converterCurrentSourceIEC63406_INIT.QMax0Pu;
 //  converterCurrentSourceIEC63406.QMin0Pu := converterCurrentSourceIEC63406_INIT.QMin0Pu;
+
 equation
-  converterCurrentSourceIEC63406.injectorCurrentSource.switchOffSignal1.value = false;
-  converterCurrentSourceIEC63406.injectorCurrentSource.switchOffSignal2.value = false;
-  converterCurrentSourceIEC63406.injectorCurrentSource.switchOffSignal3.value = false;
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
+  converterCurrentSourceIEC63406.injectorCurrentSource.switchOffSignal1 = false;
+  converterCurrentSourceIEC63406.injectorCurrentSource.switchOffSignal2 = false;
+  converterCurrentSourceIEC63406.injectorCurrentSource.switchOffSignal3 = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+
   connect(infiniteBusWithVariations.terminal, line.terminal2) annotation(
     Line(points = {{100, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(PPrimPu.y, converterCurrentSourceIEC63406.pPrimPu) annotation(
@@ -75,6 +79,7 @@ equation
     Line(points = {{-60, -40}, {-60, 0}, {-100, 0}}, color = {0, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 5, Tolerance = 0.0001, Interval = 0.001),
     Diagram(graphics = {Text(extent = {{-128, -4}, {-128, -4}}, textString = "text")}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),

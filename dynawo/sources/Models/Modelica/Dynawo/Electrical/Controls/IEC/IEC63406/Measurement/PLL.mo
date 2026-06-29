@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Measurement;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,12 +9,13 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Measurement;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model PLL "Phase-Locked-Loop (IEC 63406)"
 
-  //Nominal parameters
+  //Nominal parameter
   parameter Types.Time tS "Integration time step in s";
 
   //Parameters
@@ -39,7 +40,7 @@ model PLL "Phase-Locked-Loop (IEC 63406)"
   parameter Types.PerUnit WMinPu "Minimum PLL frequency deviation in pu (base rated frequency)" annotation(
     Dialog(tab = "PLL"));
 
-  //Input variables
+  //Input variable
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-112, 0}, extent = {{-12, -12}, {12, 12}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
@@ -77,7 +78,7 @@ model PLL "Phase-Locked-Loop (IEC 63406)"
     Placement(visible = true, transformation(origin = {48, 6}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = 1 / Dynawo.Electrical.SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {28, -80}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = KIpll, Kp = KPpll, YMax = WMaxPu * Dynawo.Electrical.SystemBase.omegaNom, YMin = WMinPu * Dynawo.Electrical.SystemBase.omegaNom)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.LimitedPI limitedPI(Ki = KIpll, Kp = KPpll, YMax = WMaxPu * Dynawo.Electrical.SystemBase.omegaNom, YMin = WMinPu * Dynawo.Electrical.SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DfMaxPu, Y0 = 0, tS = tS) annotation(
     Placement(visible = true, transformation(origin = {-36, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -85,7 +86,7 @@ model PLL "Phase-Locked-Loop (IEC 63406)"
     Placement(visible = true, transformation(origin = {54, -20}, extent = {{8, -8}, {-8, 8}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 3)  annotation(
+  NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
@@ -93,15 +94,15 @@ model PLL "Phase-Locked-Loop (IEC 63406)"
     Dialog(group="Operating point"));
   parameter Types.Angle UPhase0 "Initial Phase angle outputted by phase-locked loop (in rad)" annotation(
       Dialog(group="Operating point"));
-  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(0, 0))  annotation(
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(0, 0)) annotation(
     Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant PLLFLAG(k = PLLFlag)  annotation(
+  Modelica.Blocks.Sources.IntegerConstant PLLFLAG(k = PLLFlag) annotation(
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const(k = 1)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 1) annotation(
     Placement(visible = true, transformation(origin = {80, -40}, extent = {{6, -6}, {-6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Zero(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {14, -34}, extent = {{-6, -6}, {6, 6}}, rotation = 90)));
-  Modelica.Blocks.Sources.Constant const1(k = Dynawo.Electrical.SystemBase.omegaNom)  annotation(
+  Modelica.Blocks.Sources.Constant const1(k = Dynawo.Electrical.SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {-20, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90)));
 
 equation
@@ -177,7 +178,9 @@ equation
     Line(points = {{14, -28}, {14, -20}, {10, -20}, {10, -8}}, color = {0, 0, 127}));
   connect(const1.y, add.u2) annotation(
     Line(points = {{-20, -100}, {-20, -86}, {-12, -86}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Text(extent = {{-100, 100}, {100, -100}}, textString = "PLL"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(grid = {1, 1})),
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002),
   Diagram(coordinateSystem(grid = {1, 1})));

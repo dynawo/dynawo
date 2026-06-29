@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model PlantCommunication "Communication interface to plant power controller (IEC63406)"
@@ -19,38 +20,38 @@ model PlantCommunication "Communication interface to plant power controller (IEC
 
   //Parameters
   parameter Integer ComFlag "0 if the communication delay is relatively long and affects the control, 1 if accurate modeling of the communication delay is provided, 2 for linear communication and 3 for 1st order lag communication" annotation(
-      Dialog(tab = "PlantCommunication"));
+    Dialog(tab = "PlantCommunication"));
   parameter Types.Time Tcom "Time constant for communication delay between the plant-level controller and the generating unit-level controller" annotation(
-      Dialog(tab = "PlantCommunication"));
+    Dialog(tab = "PlantCommunication"));
   parameter Types.Time Tlag "Time constant for communication lag between the plant-level controller and the generating unit-level controller" annotation(
-      Dialog(tab = "PlantCommunication"));
+    Dialog(tab = "PlantCommunication"));
   parameter Types.Time Tlead "Time constant for communication lead between the plant-level controller and the generating unit-level controller" annotation(
-      Dialog(tab = "PlantCommunication"));
+    Dialog(tab = "PlantCommunication"));
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput pCmdPu(start = -P0Pu*SystemBase.SnRef / SNom) "Active power command from the plant controller in pu (base SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput qCmdPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power command from the plant controller in pu (base SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uCmdPu(start = U0Pu) "Voltage command from the plant controller in pu (base UNom)" annotation(
-      Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput pRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Active power reference provided by the plant controller in pu (base SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput qRefPu(start = -Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference provided by the plant controller in pu (base SNom) (generator convention)" annotation(
-      Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uRefPu(start = U0Pu) "Voltage reference provided by the plant controller in pu (base UNom)" annotation(
-      Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.IEC.IEC63406.AuxiliaryBlocks.StrongDelay strongDelay(T = Tcom)  annotation(
-      Placement(visible = true, transformation(origin = {-13, 80}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = Tcom)  annotation(
-      Placement(visible = true, transformation(origin = {14, 66}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tcom, y_start = -P0Pu*SystemBase.SnRef / SNom)  annotation(
-      Placement(visible = true, transformation(origin = {13, 40}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerExpression IntegerExpression(y = ComFlag)  annotation(
-      Placement(visible = true, transformation(origin = {70, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
+  Dynawo.Electrical.Controls.IEC.IEC63406.AuxiliaryBlocks.StrongDelay strongDelay(T = Tcom) annotation(
+    Placement(visible = true, transformation(origin = {-13, 80}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = Tcom) annotation(
+    Placement(visible = true, transformation(origin = {14, 66}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tcom, y_start = -P0Pu*SystemBase.SnRef / SNom) annotation(
+    Placement(visible = true, transformation(origin = {13, 40}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Sources.IntegerExpression IntegerExpression(y = ComFlag) annotation(
+    Placement(visible = true, transformation(origin = {70, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Dynawo.Electrical.Controls.IEC.IEC63406.AuxiliaryBlocks.StrongDelay strongDelay1(T = Tcom) annotation(
     Placement(visible = true, transformation(origin = {-13, 20}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay1(delayTime = Tcom) annotation(
@@ -77,7 +78,7 @@ model PlantCommunication "Communication interface to plant power controller (IEC
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
     Dialog(group = "Operating point"));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {Tlag, 1}, b = {Tlead, 1}, y_start = -P0Pu * SystemBase.SnRef / SNom)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {Tlag, 1}, b = {Tlead, 1}, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-13, 53}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {Tlag, 1}, b = {Tlead, 1}, y_start = -Q0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-13, -6}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
@@ -145,7 +146,9 @@ equation
     Line(points = {{-120, -60}, {-40, -60}, {-40, -66}, {-22, -66}}, color = {0, 0, 127}));
   connect(transferFunction2.y, multiSwitch2.u[4]) annotation(
     Line(points = {{-6, -66}, {40, -66}, {40, -60}, {60, -60}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "Plant
 Com")}));
 end PlantCommunication;
