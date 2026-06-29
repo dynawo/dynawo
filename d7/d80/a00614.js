@@ -16,9 +16,9 @@ var a00614 =
     [ "OMEGA_NOM", "d7/d80/a00614.html#a9c71d3abc10ab5c319ccef0587e7c5fc", null ],
     [ "RAD_TO_DEG", "d7/d80/a00614.html#a16bd724bd6be0d093dce8a1e211b6a99", null ],
     [ "SNREF", "d7/d80/a00614.html#a1f428ebe104012f2b6fc4f0cce752529", null ],
-    [ "UPDATABLE_INPUT_NAME", "d7/d80/a00614.html#a658c480f479cc7199aba82252dcc53cb", null ],
-    [ "UPDATABLE_INPUT_VAR_NAME", "d7/d80/a00614.html#ad7c9d3ab51f2190bba55fad38bb051ff", null ],
-    [ "UPDATABLE_MULTIPLIER_NAME", "d7/d80/a00614.html#a33bedf39bc89b72a6c5c3a7809bc1047", null ],
+    [ "UPDATABLE_INPUT_MULTIPLIER_NAME", "d7/d80/a00614.html#ab1a8ab3e5a81b68d6245d3e4f8e73a71", null ],
+    [ "UPDATABLE_INPUT_VALUE_NAME", "d7/d80/a00614.html#a56cf1c44784706bc1743ebdcb04f3d25", null ],
+    [ "UPDATABLE_VARIABLE_NAME", "d7/d80/a00614.html#a9acd06cb934786299a1875cb957e45cb", null ],
     [ "VALDEF", "d7/d80/a00614.html#aa4f77edc15494e9090dc3a7f87a842ad", null ],
     [ "VHV_THRESHOLD", "d7/d80/a00614.html#a6456be69bcc83ce0341e21262a0e1411", null ]
 ];
