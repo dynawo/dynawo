@@ -23,23 +23,21 @@ model ModeHandling "Static Var Compensator mode calculation"
   final parameter Types.VoltageModule UThresholdUpPu = UThresholdUp / UNom;
   final parameter Types.VoltageModule UThresholdDownPu = UThresholdDown / UNom;
 
-  Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
-    Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
-  Modelica.Blocks.Interfaces.RealOutput URefPu(start = URef0 / UNom) "Voltage reference for the regulation in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  ModeConnector mode(value(start = Mode0)) "Current mode of the static var compensator" annotation(
-    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  ModeConnector modeAuto(value(start = Mode0)) "Mode of the static var compensator when in automatic configuration";
-  ModeConnector modeManual(value(start = Mode0)) "Mode of the static var compensator when in manual configuration";
-
-  Modelica.Blocks.Interfaces.IntegerInput setModeManual "Mode selected when in manual configuration" annotation(
-    Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput selectModeAuto "Whether the static var compensator is in automatic configuration" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 28}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.IntegerInput setModeManual "Mode selected when in manual configuration" annotation(
+    Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
+    Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
+  ModeOutput mode(start = Mode0) "Current mode of the static var compensator" annotation(
+    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  ModeOutput modeAuto(start = Mode0) "Mode of the static var compensator when in automatic configuration";
+  ModeOutput modeManual(start = Mode0) "Mode of the static var compensator when in manual configuration";
+  Modelica.Blocks.Interfaces.RealOutput URefPu(start = URef0 / UNom) "Voltage reference for the regulation in pu (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Types.Time timerModeChangeUp(start = Modelica.Constants.inf) "Timer for the transition from standby to running mode for high voltage values";
   Types.Time timerModeChangeDown(start = Modelica.Constants.inf) "Timer for the transition from standby to running mode for low voltage values";
@@ -62,37 +60,38 @@ equation
     timerModeChangeDown = Modelica.Constants.inf;
   end when;
   // Transition from standby mode to running mode
-  when (time - timerModeChangeUp  >= tThresholdUp or time - timerModeChangeDown  >= tThresholdDown) and pre(modeAuto.value) == Mode.STANDBY then
-    modeAuto.value = Mode.RUNNING_V;
+  when (time - timerModeChangeUp  >= tThresholdUp or time - timerModeChangeDown  >= tThresholdDown) and pre(modeAuto) == Mode.STANDBY then
+    modeAuto = Mode.RUNNING_V;
     Timeline.logEvent1(TimelineKeys.SVarCRunning);
   end when;
   // URefAuto evaluation
-  when modeAuto.value == Mode.RUNNING_V and pre(modeAuto.value) == Mode.STANDBY and UPu > UThresholdUpPu then
+  when modeAuto == Mode.RUNNING_V and pre(modeAuto) == Mode.STANDBY and UPu > UThresholdUpPu then
     URefAuto = URefUp;
-  elsewhen modeAuto.value == Mode.RUNNING_V and pre(modeAuto.value) == Mode.STANDBY and UPu < UThresholdDownPu then
+  elsewhen modeAuto == Mode.RUNNING_V and pre(modeAuto) == Mode.STANDBY and UPu < UThresholdDownPu then
     URefAuto = URefDown;
   end when;
   // Manual mode setting
   if setModeManual == 1 then
-    modeManual.value = Mode.OFF;
+    modeManual = Mode.OFF;
   elseif setModeManual == 2 then
-    modeManual.value = Mode.STANDBY;
+    modeManual = Mode.STANDBY;
   elseif setModeManual == 3 then
-    modeManual.value = Mode.RUNNING_V;
+    modeManual = Mode.RUNNING_V;
   else
     assert(false, "Failed to convert setModeManual value into mode (enum: 1:OFF, 2:STANDBY, 3:RUNNING_V)");
-    modeManual.value = Mode.OFF;
+    modeManual = Mode.OFF;
   end if;
   // Evaluation of current mode and setpoint
   if selectModeAuto == true then
-    mode.value = modeAuto.value;
+    mode = modeAuto;
     URefPu = URefAuto / UNom;
   else
-    mode.value = modeManual.value;
+    mode = modeManual;
     URefPu = URef / UNom;
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 8}, extent = {{-57, 10}, {123, -22}}, textString = "ModeHandling")}, coordinateSystem(initialScale = 0.1)),
     Icon(graphics = {Rectangle(origin = {0, -1}, extent = {{-100, 101}, {100, -99}}), Text(origin = {-61, 18}, extent = {{-30, 20}, {156, -54}}, textString = "ModeHandling"), Text(origin = {142, -42}, extent = {{-26, 10}, {52, -22}}, textString = "URefPu"), Text(origin = {127, 14}, extent = {{-21, 12}, {57, -14}}, textString = "mode"), Text(origin = {-170, -15}, extent = {{-34, 13}, {34, -11}}, textString = "URef"), Text(origin = {-170, -62}, extent = {{-26, 10}, {32, -14}}, textString = "UPu"), Text(origin = {-193, 87}, extent = {{-125, 45}, {49, -27}}, textString = "setModeManual"), Text(origin = {-168, 36}, extent = {{-152, 46}, {22, -34}}, textString = "selectModeAuto")}, coordinateSystem(initialScale = 0.1)));
 end ModeHandling;

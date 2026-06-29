@@ -46,9 +46,9 @@ equation
   URefPu = UPu + LambdaPu * (BVarRawPu + BShuntPu) * UPu ^ 2;
   BVarPu = if BVarRawPu > BMaxPu then BMaxPu elseif BVarRawPu < BMinPu then BMinPu else BVarRawPu;
 
-  if modeHandling.mode.value == Mode.RUNNING_V then
+  if modeHandling.mode == Mode.RUNNING_V then
     BPu = BVarPu + BShuntPu;
-  elseif modeHandling.mode.value == Mode.STANDBY then
+  elseif modeHandling.mode == Mode.STANDBY then
     BPu = BShuntPu;
   else
     BPu = 0;
