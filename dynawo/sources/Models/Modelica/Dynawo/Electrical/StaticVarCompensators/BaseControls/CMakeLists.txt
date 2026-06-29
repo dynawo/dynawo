@@ -20,7 +20,8 @@ set(MODEL_FILES
   Regulation.mo
   Limitations.mo
   ModeHandling.mo
-  ModeConnector.mo
+  ModeInput.mo
+  ModeOutput.mo
   CSSCST.mo
   )
 
