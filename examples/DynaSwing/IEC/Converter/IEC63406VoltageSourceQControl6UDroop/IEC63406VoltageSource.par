@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,8 +8,8 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
-    simulation tools for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="Converter">
@@ -29,10 +29,10 @@
     <par type="DOUBLE" name="Converter_Q0Pu" value="0"/>
 
     <!-- FRT-->
-    <par type="DOUBLE" name="Converter_IPMaxPu" value="1.2"/>
-    <par type="DOUBLE" name="Converter_IPMinPu" value="-1.2"/>
-    <par type="DOUBLE" name="Converter_IQMaxPu" value="1.2"/>
-    <par type="DOUBLE" name="Converter_IQMinPu" value="-1.2"/>
+    <par type="DOUBLE" name="Converter_IpMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="Converter_IpMinPu" value="-1.2"/>
+    <par type="DOUBLE" name="Converter_IqMaxPu" value="1.2"/>
+    <par type="DOUBLE" name="Converter_IqMinPu" value="-1.2"/>
     <par type="DOUBLE" name="Converter_K1IpLV" value="0"/>
     <par type="DOUBLE" name="Converter_K2IpLV" value="1"/>
     <par type="DOUBLE" name="Converter_K1IqLV" value="-2"/>
@@ -63,34 +63,34 @@
 
     <!-- Plant Communication -->
     <par type="INT" name="Converter_ComFlag" value="3"/>
-    <par type="DOUBLE" name="Converter_Tcom" value="0.01"/>
-    <par type="DOUBLE" name="Converter_Tlead" value="1"/>
-    <par type="DOUBLE" name="Converter_Tlag" value="1"/>
+    <par type="DOUBLE" name="Converter_tCom" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tLead" value="1"/>
+    <par type="DOUBLE" name="Converter_tLag" value="1"/>
 
     <!-- Storage -->
     <par type="BOOL" name="Converter_SOCFlag" value="false"/>
     <par type="DOUBLE" name="Converter_SOCInit" value="50"/>
     <par type="DOUBLE" name="Converter_SOCMax" value="100"/>
     <par type="DOUBLE" name="Converter_SOCMin" value="0"/>
-    <par type="DOUBLE" name="Converter_Tess" value="100"/>
+    <par type="DOUBLE" name="Converter_tESS" value="100"/>
     <!-- Production-->
-    <par type="DOUBLE" name="Converter_Tconv" value="1"/>
+    <par type="DOUBLE" name="Converter_tConv" value="1"/>
 
     <!-- FFR -->
     <par type="DOUBLE" name="Converter_fThresholdPu" value="0.001"/>
     <par type="DOUBLE" name="Converter_f0Pu" value="1"/>
     <par type="STRING" name="Converter_FFRTableName" value="FFRTable"/>
-    <par type="BOOL" name="Converter_FFRflag" value="false"/>
+    <par type="BOOL" name="Converter_FFRFlag" value="false"/>
     <par type="STRING" name="Converter_InertialTableName" value="InertialTable"/>
     <par type="DOUBLE" name="Converter_PffrMaxPu" value="0.05"/>
     <par type="DOUBLE" name="Converter_PffrMinPu" value="-0.05"/>
-    <par type="DOUBLE" name="Converter_Trocof" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tRocof" value="0.01"/>
 
     <!-- PControl -->
     <par type="DOUBLE" name="Converter_KIp" value="10"/>
     <par type="DOUBLE" name="Converter_KPp" value="1"/>
     <par type="BOOL" name="Converter_PFlag" value="false"/>
-    <par type="DOUBLE" name="Converter_TpRef" value="0.1"/>
+    <par type="DOUBLE" name="Converter_tPRef" value="0.1"/>
 
     <!-- QControl -->
     <par type="DOUBLE" name="Converter_DUdb1Pu" value="-0.0001"/>
@@ -113,40 +113,40 @@
     <par type="STRING" name="Converter_QMintoUTableName" value="QMintoUTable"/>
     <par type="DOUBLE" name="Converter_QMaxPu" value="0.8"/>
     <par type="DOUBLE" name="Converter_QMinPu" value="-0.8"/>
-    <par type="DOUBLE" name="Converter_Tiq" value="99"/>
+    <par type="DOUBLE" name="Converter_tIq" value="99"/>
     <par type="BOOL" name="Converter_UFlag" value="true"/>
     <par type="DOUBLE" name="Converter_UMaxPu" value="1.1"/>
     <par type="DOUBLE" name="Converter_UMinPu" value="0.9"/>
 
     <!-- Protection -->
-    <par type="DOUBLE" name="Converter_TLVP3" value="0.3"/>
-    <par type="DOUBLE" name="Converter_TLVP2" value="0.5"/>
-    <par type="DOUBLE" name="Converter_TLVP1" value="1"/>
-    <par type="DOUBLE" name="Converter_THVP1" value="1"/>
-    <par type="DOUBLE" name="Converter_THVP2" value="0.5"/>
-    <par type="DOUBLE" name="Converter_THVP3" value="0.3"/>
-    <par type="DOUBLE" name="Converter_ULVP3" value="0.8"/>
-    <par type="DOUBLE" name="Converter_ULVP2" value="0.85"/>
-    <par type="DOUBLE" name="Converter_ULVP1" value="0.9"/>
-    <par type="DOUBLE" name="Converter_UHVP1" value="1.1"/>
-    <par type="DOUBLE" name="Converter_UHVP2" value="1.15"/>
-    <par type="DOUBLE" name="Converter_UHVP3" value="1.2"/>
+    <par type="DOUBLE" name="Converter_tLvP3" value="0.3"/>
+    <par type="DOUBLE" name="Converter_tLvP2" value="0.5"/>
+    <par type="DOUBLE" name="Converter_tLvP1" value="1"/>
+    <par type="DOUBLE" name="Converter_tHvP1" value="1"/>
+    <par type="DOUBLE" name="Converter_tHvP2" value="0.5"/>
+    <par type="DOUBLE" name="Converter_tHvP3" value="0.3"/>
+    <par type="DOUBLE" name="Converter_ULvP3" value="0.8"/>
+    <par type="DOUBLE" name="Converter_ULvP2" value="0.85"/>
+    <par type="DOUBLE" name="Converter_ULvP1" value="0.9"/>
+    <par type="DOUBLE" name="Converter_UHvP1" value="1.1"/>
+    <par type="DOUBLE" name="Converter_UHvP2" value="1.15"/>
+    <par type="DOUBLE" name="Converter_UHvP3" value="1.2"/>
     <par type="DOUBLE" name="Converter_fLfP3" value="0.98"/>
     <par type="DOUBLE" name="Converter_fLfP2" value="0.99"/>
     <par type="DOUBLE" name="Converter_fLfP1" value="0.996"/>
     <par type="DOUBLE" name="Converter_fHfP1" value="1.004"/>
     <par type="DOUBLE" name="Converter_fHfP2" value="1.01"/>
     <par type="DOUBLE" name="Converter_fHfP3" value="1.02"/>
-    <par type="DOUBLE" name="Converter_TLfP3" value="0.25"/>
-    <par type="DOUBLE" name="Converter_TLfP2" value="0.5"/>
-    <par type="DOUBLE" name="Converter_TLfP1" value="1"/>
-    <par type="DOUBLE" name="Converter_THfP1" value="1"/>
-    <par type="DOUBLE" name="Converter_THfP2" value="0.5"/>
-    <par type="DOUBLE" name="Converter_THfP3" value="0.25"/>
+    <par type="DOUBLE" name="Converter_tLfP3" value="0.25"/>
+    <par type="DOUBLE" name="Converter_tLfP2" value="0.5"/>
+    <par type="DOUBLE" name="Converter_tLfP1" value="1"/>
+    <par type="DOUBLE" name="Converter_tHfP1" value="1"/>
+    <par type="DOUBLE" name="Converter_tHfP2" value="0.5"/>
+    <par type="DOUBLE" name="Converter_tHfP3" value="0.25"/>
     <par type="DOUBLE" name="Converter_DerfMaxPu" value="0.02"/>
     <par type="DOUBLE" name="Converter_DerThetaMax" value="1"/>
-    <par type="DOUBLE" name="Converter_TDerfMax" value="0.5"/>
-    <par type="DOUBLE" name="Converter_TDerThetaMax" value="0.5"/>
+    <par type="DOUBLE" name="Converter_tDerfMax" value="0.5"/>
+    <par type="DOUBLE" name="Converter_tDerThetaMax" value="0.5"/>
 
     <!-- Electrical -->
     <par type="DOUBLE" name="Converter_BesPu" value="0.000001"/>
@@ -155,23 +155,23 @@
     <par type="DOUBLE" name="Converter_XesPu" value="0.15"/>
 
     <!-- VoltageSource -->
-    <par type="DOUBLE" name="Converter_Tg" value="0.01"/>
-    <par type="DOUBLE" name="Converter_Te" value="0.005"/>
+    <par type="DOUBLE" name="Converter_tG" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tE" value="0.005"/>
 
     <!-- GridMeasurement -->
-    <par type="DOUBLE" name="Converter_TpFilt" value="0.01"/>
-    <par type="DOUBLE" name="Converter_TqFilt" value="0.01"/>
-    <par type="DOUBLE" name="Converter_TiFilt" value="0.01"/>
-    <par type="DOUBLE" name="Converter_TuFilt" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tPFilt" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tQFilt" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tIFilt" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tUFilt" value="0.01"/>
 
     <!-- PLL -->
     <par type="DOUBLE" name="Converter_DeltaT" value="0.001"/>
     <par type="DOUBLE" name="Converter_KPpll" value="50"/>
     <par type="DOUBLE" name="Converter_KIpll" value="100"/>
     <par type="INT" name="Converter_PLLFlag" value="1"/>
-    <par type="DOUBLE" name="Converter_TpllFilt" value="0.01"/>
-    <par type="DOUBLE" name="Converter_TfFilt" value="0.01"/>
-    <par type="DOUBLE" name="Converter_UpllPu" value="0.1"/>
+    <par type="DOUBLE" name="Converter_tPllFilt" value="0.01"/>
+    <par type="DOUBLE" name="Converter_tFFilt" value="0.01"/>
+    <par type="DOUBLE" name="Converter_UPllPu" value="0.1"/>
     <par type="DOUBLE" name="Converter_WMaxPu" value="0.5"/>
     <par type="DOUBLE" name="Converter_WMinPu" value="-0.5"/>
   </set>

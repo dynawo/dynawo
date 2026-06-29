@@ -24,7 +24,7 @@ block SwitchComplex "Switch between two Complex signals"
   Modelica.ComplexBlocks.Interfaces.ComplexInput u3 "Connector of second Complex input signal" annotation(
     Placement(visible = true, transformation(origin = {-122, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  //Output variables
+  //Output variable
   Modelica.ComplexBlocks.Interfaces.ComplexOutput y "Connector of Real output signal" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -32,6 +32,7 @@ equation
   y = if u2 then u1 else u3;
 
   annotation(
+    preferredView = "text",
     defaultComponentName = "switch1",
     Documentation(info = "<html>
 <p>The Logical.Switch switches, depending on the

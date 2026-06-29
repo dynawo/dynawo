@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model QLimitation "Reactive power limitation (IEC 63406)"
@@ -75,16 +76,16 @@ model QLimitation "Reactive power limitation (IEC 63406)"
     Placement(visible = true, transformation(origin = {40, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.MinMax minMax1(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {40, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant QMax(k = QMaxPu)  annotation(
+  Modelica.Blocks.Sources.Constant QMax(k = QMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-40, 20}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QMin(k = QMinPu) annotation(
     Placement(visible = true, transformation(origin = {-40, -80}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Zero(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant Zero(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, 60}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-40, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
 
-//Initial parameters
+  //Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
@@ -149,7 +150,9 @@ equation
     Line(points = {{-36, -40}, {-26, -40}, {-26, -68}, {-12, -68}}, color = {0, 0, 127}));
   connect(QMin.y, switch15.u1) annotation(
     Line(points = {{-32, -80}, {68, -80}, {68, -48}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "Q
 Limitation")}));
 end QLimitation;

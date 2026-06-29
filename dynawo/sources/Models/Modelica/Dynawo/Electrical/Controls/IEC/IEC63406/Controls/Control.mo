@@ -27,7 +27,7 @@ model Control "Global control (IEC 63406)"
   //FFR parameters
   parameter String FFRTableName "Name given to the FFR table in the table file" annotation(
     Dialog(tab = "FFR"));
-  parameter Boolean FFRflag "1 to enable the fast frequency response, 0 to disable the fast frequency response" annotation(
+  parameter Boolean FFRFlag "1 to enable the fast frequency response, 0 to disable the fast frequency response" annotation(
     Dialog(tab = "FFR"));
   parameter Types.PerUnit fThresholdPu "Deadband threshold for FFR response in pu (base nominal frequency)" annotation(
     Dialog(tab = "FFR"));
@@ -39,7 +39,7 @@ model Control "Global control (IEC 63406)"
     Dialog(tab = "FFR"));
   parameter Types.ActivePowerPu PffrMinPu "Maximum absorbing active power utilized for FFR control in pu (base SNom)" annotation(
     Dialog(tab = "FFR"));
-  parameter Types.Time Trocof "Time constant for frequency differential operation" annotation(
+  parameter Types.Time tRocof "Time constant for frequency differential operation" annotation(
     Dialog(tab = "FFR"));
 
   //FRT parameters
@@ -55,7 +55,7 @@ model Control "Global control (IEC 63406)"
     Dialog(tab = "PControl"));
   parameter Boolean PFlag "1 for closed-loop active power control, 0 for open-loop active power control" annotation(
     Dialog(tab = "PControl"));
-  parameter Types.Time TpRef "Time constant in the active power filter" annotation(
+  parameter Types.Time tPRef "Time constant in the active power filter" annotation(
     Dialog(tab = "PControl"));
 
   //QControl parameters
@@ -95,7 +95,7 @@ model Control "Global control (IEC 63406)"
     Dialog(tab = "QControl"));
   parameter Real TanPhi "Power factor used in the power factor control" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.Time Tiq "Time constant in reactive power order lag" annotation(
+  parameter Types.Time tIq "Time constant in reactive power order lag" annotation(
     Dialog(tab = "QControl"));
   parameter Boolean UFlag "One of the 3 reactive control flags" annotation(
     Dialog(tab = "QControl"));
@@ -143,17 +143,17 @@ model Control "Global control (IEC 63406)"
   //Variables
   Boolean FFlag(start = false) "Flag indicating the generating unit operating condition";
 
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.PControl pControl(IMaxPu = IMaxPu, KIp = KIp, KPp = KPp, P0Pu = P0Pu, PFlag = PFlag, PMaxPu = PMaxPu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, SNom = SNom, StorageFlag = StorageFlag, TpRef = TpRef, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.PControl pControl(IMaxPu = IMaxPu, KIp = KIp, KPp = KPp, P0Pu = P0Pu, PFlag = PFlag, PMaxPu = PMaxPu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, SNom = SNom, StorageFlag = StorageFlag, tPRef = tPRef, U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {20.2, 59.2223}, extent = {{-40.2, -22.3333}, {40.2, 22.3333}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QControl qControl(DUdb1Pu = DUdb1Pu, DUdb2Pu = DUdb2Pu, IMaxPu = IMaxPu, KDroop = KDroop, KIqi = KIqi, KIqu = KIqu, KIui = KIui, KIuq = KIuq, KPqi = KPqi, KPqu = KPqu, KPui = KPui, KPuq = KPuq, LFlag = LFlag, P0Pu = P0Pu, PFFlag = PFFlag, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SNom = SNom, TanPhi = TanPhi, Tiq = Tiq, U0Pu = U0Pu, UFlag = UFlag, UMaxPu = UMaxPu, UMinPu = UMinPu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QControl qControl(DUdb1Pu = DUdb1Pu, DUdb2Pu = DUdb2Pu, IMaxPu = IMaxPu, KDroop = KDroop, KIqi = KIqi, KIqu = KIqu, KIui = KIui, KIuq = KIuq, KPqi = KPqi, KPqu = KPqu, KPui = KPui, KPuq = KPuq, LFlag = LFlag, P0Pu = P0Pu, PFFlag = PFFlag, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SNom = SNom, TanPhi = TanPhi, tIq = tIq, U0Pu = U0Pu, UFlag = UFlag, UMaxPu = UMaxPu, UMinPu = UMinPu) annotation(
     Placement(visible = true, transformation(origin = {0.8, -60}, extent = {{-59.6, -18.625}, {59.6, 18.625}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.CurrentLimitation currentLimitation(IMaxPu = IMaxPu, P0Pu = P0Pu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SNom = SNom, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.CurrentLimitation currentLimitation(IMaxPu = IMaxPu, P0Pu = P0Pu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, SNom = SNom, U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {20, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QLimitation qLimitation(P0Pu = P0Pu, Q0Pu = Q0Pu, QLimFlag = QLimFlag, QMaxPu = QMaxPu, QMaxtoPTableName = QMaxtoPTableName, QMaxtoUTableName = QMaxtoUTableName, QMinPu = QMinPu, QMintoPTableName = QMintoPTableName, QMintoUTableName = QMintoUTableName, SNom = SNom, TableFileName = TableFileName, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.QLimitation qLimitation(P0Pu = P0Pu, Q0Pu = Q0Pu, QLimFlag = QLimFlag, QMaxPu = QMaxPu, QMaxtoPTableName = QMaxtoPTableName, QMaxtoUTableName = QMaxtoUTableName, QMinPu = QMinPu, QMintoPTableName = QMintoPTableName, QMintoUTableName = QMintoUTableName, SNom = SNom, TableFileName = TableFileName, U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.FFR ffr(FFRTableName = FFRTableName,FFRflag = FFRflag, InertialTableName = InertialTableName, PffrMaxPu = PffrMaxPu, PffrMinPu = PffrMinPu, TableFileName = TableFileName, Trocof = Trocof, f0Pu = f0Pu, fThresholdPu = fThresholdPu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.FFR ffr(FFRTableName = FFRTableName, FFRFlag = FFRFlag, InertialTableName = InertialTableName, PffrMaxPu = PffrMaxPu, PffrMinPu = PffrMinPu, TableFileName = TableFileName, tRocof = tRocof, f0Pu = f0Pu, fThresholdPu = fThresholdPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 90}, extent = {{-12, -10}, {12, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y = FFlag)  annotation(
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y = FFlag) annotation(
     Placement(visible = true, transformation(origin = {110, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   //Initial parameters
@@ -233,5 +233,6 @@ equation
     Line(points = {{100, 30}, {84, 30}, {84, -32}, {1, -32}, {1, -38}}, color = {255, 0, 255}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{100, 100}, {-100, -100}}), Text(extent = {{-100, 100}, {100, -100}}, textString = "Control")}));
 end Control;

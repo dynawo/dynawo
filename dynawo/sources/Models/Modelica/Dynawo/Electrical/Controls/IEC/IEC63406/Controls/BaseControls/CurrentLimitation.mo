@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model CurrentLimitation "Global current limitation block (IEC 63406)"
@@ -48,23 +49,7 @@ model CurrentLimitation "Global current limitation block (IEC 63406)"
   Modelica.Blocks.Interfaces.RealOutput iQMinPu(start = IQMin0Pu) "Minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {130, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  //Initial parameters
-  parameter Types.PerUnit IPMax0Pu = if PriorityFlag then sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else IMaxPu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IPMin0Pu = if PriorityFlag then -sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else -IMaxPu "Initial minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IQMax0Pu = if PriorityFlag then IMaxPu else sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2)  "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.PerUnit IQMin0Pu = if PriorityFlag then -IMaxPu else -sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2)  "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(group = "Operating point"));
-
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IqLimitation iqLimitation(IMaxPu = IMaxPu, P0Pu = P0Pu, PriorityFlag = PriorityFlag, SNom = SNom, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IqLimitation iqLimitation(IMaxPu = IMaxPu, P0Pu = P0Pu, PriorityFlag = PriorityFlag, SNom = SNom, U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch12 annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -72,7 +57,7 @@ model CurrentLimitation "Global current limitation block (IEC 63406)"
     Placement(visible = true, transformation(origin = {58, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch13 annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IpLimitation ipLimitation(IMaxPu = IMaxPu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Controls.BaseControls.AuxiliaryControls.IpLimitation ipLimitation(IMaxPu = IMaxPu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch11 annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -96,7 +81,7 @@ model CurrentLimitation "Global current limitation block (IEC 63406)"
     Placement(visible = true, transformation(origin = {90, 20}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain3(k = -1) annotation(
     Placement(visible = true, transformation(origin = {60, 40}, extent = {{-6, -6}, {6, 6}}, rotation = -90)));
-  Modelica.Blocks.Math.MinMax minMax(nu = 3)  annotation(
+  Modelica.Blocks.Math.MinMax minMax(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {-10, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant IMax(k = IMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-60, 72}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
@@ -106,12 +91,28 @@ model CurrentLimitation "Global current limitation block (IEC 63406)"
     Placement(visible = true, transformation(origin = {-60, -100}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant Pritority(k = PriorityFlag) annotation(
     Placement(visible = true, transformation(origin = {74, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-5, 115}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-5, 68}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant3(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-5, 7}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+
+  //Initial parameters
+  parameter Types.PerUnit IPMax0Pu = if PriorityFlag then sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else IMaxPu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit IPMin0Pu = if PriorityFlag then -sqrt(IMaxPu ^ 2 - (Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2) else -IMaxPu "Initial minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit IQMax0Pu = if PriorityFlag then IMaxPu else sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2)  "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.PerUnit IQMin0Pu = if PriorityFlag then -IMaxPu else -sqrt(IMaxPu ^ 2 - (-P0Pu * SystemBase.SnRef / (SNom * U0Pu)) ^ 2)  "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(group = "Operating point"));
 
 equation
   connect(switch11.y, iQMaxPu) annotation(
@@ -196,7 +197,9 @@ equation
     Line(points = {{0, 68}, {28, 68}}, color = {0, 0, 127}));
   connect(constant3.y, freeze4.u1) annotation(
     Line(points = {{0.5, 7}, {14, 7}, {14, 8}, {28, 8}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-120, 120}, {120, -120}}), Text(extent = {{-120, 120}, {120, -120}}, textString = "Current
 Limitation")}, coordinateSystem(extent = {{-120, -120}, {120, 120}})),
     Diagram(coordinateSystem(extent = {{-120, -120}, {120, 120}})));

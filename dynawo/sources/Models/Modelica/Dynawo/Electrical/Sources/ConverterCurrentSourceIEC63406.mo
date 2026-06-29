@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,44 +9,46 @@ within Dynawo.Electrical.Sources;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard with current source interface and for grid following applications"
 
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
-  parameter Boolean StorageFlag "1 if it is a storage unit, 0 if not";
   parameter Types.Time tS "Integration time step in s";
 
   //General parameters
   parameter Types.PerUnit IMaxPu "Maximum current at converter terminal in pu (base in UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "General"));
-  parameter Types.PerUnit IPMaxPu "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IpMaxPu "Maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit IPMinPu "Minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IpMinPu "Minimum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit IQMaxPu "Maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IqMaxPu "Maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "FRT"));
-  parameter Types.PerUnit IQMinPu "Minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  parameter Types.PerUnit IqMinPu "Minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "FRT"));
   parameter String TableFileName "Name given to the general file containing all tables" annotation(
     Dialog(tab = "General"));
 
-  //Communication Interface Parameters
+  //Communication interface parameters
   parameter Integer ComFlag "0 if the communication delay is relatively long and affects the control, 1 if accurate modeling of the communication delay is provided, 2 for linear communication and 3 for 1st order lag communication" annotation(
     Dialog(tab = "PlantCommunication"));
-  parameter Types.Time Tcom "Time constant for communication delay between the plant-level controller and the generating unit-level controller" annotation(
+  parameter Types.Time tCom "Time constant for communication delay between the plant-level controller and the generating unit-level controller in s" annotation(
     Dialog(tab = "PlantCommunication"));
-  parameter Types.Time Tlead "Time constant for communication lead between the plant-level controller and the generating unit-level controller" annotation(
+  parameter Types.Time tLead "Time constant for communication lead between the plant-level controller and the generating unit-level controller in s" annotation(
     Dialog(tab = "PlantCommunication"));
-  parameter Types.Time Tlag "Time constant for communication lag between the plant-level controller and the generating unit-level controller" annotation(
+  parameter Types.Time tLag "Time constant for communication lag between the plant-level controller and the generating unit-level controller in s" annotation(
     Dialog(tab = "PlantCommunication"));
 
   //Storage parameters
   parameter Types.ActivePowerPu PMaxPu "Maximum active power at converter terminal in pu (base SNom)" annotation(
     Dialog(tab = "General"));
-  parameter Boolean SOCFlag "0 for battery energy storage systems, 1 for supercapacitor energy storage systems and flywheel energy storage systems" annotation(
+  parameter Boolean StorageFlag "If true, it is a storage unit, if false, it is not" annotation(
+    Dialog(tab = "Storage"));
+  parameter Boolean SOCFlag "If false, battery energy storage systems, if true, supercapacitor energy storage systems and flywheel energy storage systems" annotation(
     Dialog(tab = "Storage"));
   parameter Types.Percent SOCInit "Initial SOC amount in %" annotation(
     Dialog(tab = "Storage"));
@@ -54,19 +56,19 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
     Dialog(tab = "StorageSys"));
   parameter Types.Percent SOCMin "Minimum SOC amount for discharging in %" annotation(
     Dialog(tab = "StorageSys"));
-  parameter Types.Time Tess "Equivalent time constant (in s) for the battery, supercapacitor or flywheel energy storage systems (if you have Tess = 10, a system with 100% SOC and P = Pmax, the system will discharge completely in 10s)" annotation(
+  parameter Types.Time tESS "Equivalent time constant in s for the battery, supercapacitor or flywheel energy storage systems (if you have tESS = 10, a system with 100% SOC and P = Pmax, the system will discharge completely in 10 s)" annotation(
     Dialog(tab = "Storage"));
-  parameter Types.Time Tconv "Equivalent time for primary energy conversion" annotation(
+  parameter Types.Time tConv "Equivalent time for primary energy conversion in s" annotation(
     Dialog(tab = "Storage"));
 
-  //PControl Parameters
-  parameter Types.PerUnit fThresholdPu "Deadband threshold for FFR response in pu (base nominal frequency)" annotation(
+  //PControl parameters
+  parameter Types.PerUnit fThresholdPu "Deadband threshold for FFR response in pu (base fNom)" annotation(
     Dialog(tab = "FFR"));
-  parameter Types.PerUnit f0Pu "Frequency setpoint for FFR control in pu (base nominal frequency)" annotation(
+  parameter Types.PerUnit f0Pu "Frequency setpoint for FFR control in pu (base fNom)" annotation(
     Dialog(tab = "FFR"));
   parameter String FFRTableName "Name given to the FFR table in the table file" annotation(
     Dialog(tab = "FFR"));
-  parameter Boolean FFRflag "1 to enable the fast frequency response, 0 to disable the fast frequency response" annotation(
+  parameter Boolean FFRFlag "If true, fast frequency response enabled, if false, disabled" annotation(
     Dialog(tab = "FFR"));
   parameter Types.PerUnit KIp "Integral gain in the active power PI controller" annotation(
     Dialog(tab = "PControl"));
@@ -74,19 +76,19 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
     Dialog(tab = "PControl"));
   parameter String InertialTableName "Name given to the inertial table in the table file" annotation(
     Dialog(tab = "FFR"));
-  parameter Boolean PFlag "1 for closed-loop active power control, 0 for open-loop active power control" annotation(
+  parameter Boolean PFlag "If true, closed-loop active power control, if false, open-loop active power control" annotation(
     Dialog(tab = "PControl"));
   parameter Types.ActivePowerPu PffrMaxPu "Maximum active power utilized for FFR control in pu (base SNom)" annotation(
     Dialog(tab = "FFR"));
   parameter Types.ActivePowerPu PffrMinPu "Maximum absorbing active power utilized for FFR control in pu (base SNom)" annotation(
     Dialog(tab = "FFR"));
-  parameter Boolean PriorityFlag "0 for active current priority, 1 for reactive current priority";
-  parameter Types.Time Trocof "Time constant for frequency differential operation" annotation(
+  parameter Boolean PriorityFlag "If false, active current priority, if true, reactive current priority";
+  parameter Types.Time tRocof "Time constant for frequency differential operation in s" annotation(
     Dialog(tab = "FFR"));
-  parameter Types.Time TpRef "Time constant in the active power filter" annotation(
+  parameter Types.Time tPRef "Time constant in the active power filter in s" annotation(
     Dialog(tab = "PControl"));
 
-  //QControl Parameters
+  //QControl parameters
   parameter Types.PerUnit DUdb1Pu "Voltage change dead band lower limit (typically negative) in pu (base UNom)" annotation(
     Dialog(tab = "QControl"));
   parameter Types.PerUnit DUdb2Pu "Voltage change dead band upper limit (typically positive) in pu (base UNom)" annotation(
@@ -113,7 +115,7 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
     Dialog(tab = "QControl"));
   parameter Integer PFFlag "One of the 3 reactive control flags, possible values : 0, 1, 2 and 3" annotation(
     Dialog(tab = "QControl"));
-  parameter Boolean QLimFlag "0 to use the defined lookup tables, 1 to use the constant values" annotation(
+  parameter Boolean QLimFlag "If false, use of the defined lookup tables, if true, use of the constant values" annotation(
     Dialog(tab = "QControl"));
   parameter String QMaxtoPTableName "Table giving the maximum reactive power depending on the measured active power" annotation(
     Dialog(tab = "QControl"));
@@ -129,7 +131,7 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
     Dialog(tab = "QControl"));
   parameter Real TanPhi = Q0Pu / P0Pu "Power factor used in the power factor control" annotation(
     Dialog(tab = "QControl"));
-  parameter Types.Time Tiq "Time constant in reactive power order lag" annotation(
+  parameter Types.Time tIq "Time constant in reactive power order lag in s" annotation(
     Dialog(tab = "QControl"));
   parameter Boolean UFlag "One of the 3 reactive control flags" annotation(
     Dialog(tab = "QControl"));
@@ -140,120 +142,120 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
 
   //LVRT and HVRT parameters
   parameter Types.PerUnit K1IpLV "Active current factor 1 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IpLV "Active current factor 2 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IqLV "Reactive current factor 1 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IqLV "Reactive current factor 2 during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KpLVRT "Active power factor during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KqLVRT "Reactive power factor during LVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IpHV "Active current factor 1 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IpHV "Active current factor 2 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K1IqHV "Reactive current factor 1 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit K2IqHV "Reactive current factor 2 during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KpHVRT "Active power factor during HVRT" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit KqHVRT "Reactive power factor during HVRT" annotation(
-      Dialog(tab = "FRT"));
-  parameter Boolean HVRTinPFlag "Active current flag during HVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
-  parameter Boolean HVRTinQFlag "Reactive current flag during HVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
-  parameter Types.PerUnit iPSetHVPu "Active current setting during HVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
-  parameter Types.PerUnit iPSetLVPu "Active current setting during LVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
-  parameter Types.PerUnit iQSetHVPu "Reactive current setting during HVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
-  parameter Types.PerUnit iQSetLVPu "Reactive current setting during LVRT in pu base (UNom, SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
-  parameter Boolean LVRTinPFlag "Active current flag during LVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
-  parameter Boolean LVRTinQFlag "Reactive current flag during LVRT, 0/1" annotation(
-      Dialog(tab = "FRT"));
-  parameter Boolean pqFRTFlag "Active/reactive control priority during FRT, 0/1" annotation(
+    Dialog(tab = "FRT"));
+  parameter Boolean HVRTinPFlag "Active current flag during HVRT" annotation(
+    Dialog(tab = "FRT"));
+  parameter Boolean HVRTinQFlag "Reactive current flag during HVRT" annotation(
+    Dialog(tab = "FRT"));
+  parameter Types.PerUnit iPSetHVPu "Active current setting during HVRT in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "FRT"));
+  parameter Types.PerUnit iPSetLVPu "Active current setting during LVRT in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "FRT"));
+  parameter Types.PerUnit iQSetHVPu "Reactive current setting during HVRT in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "FRT"));
+  parameter Types.PerUnit iQSetLVPu "Reactive current setting during LVRT in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "FRT"));
+  parameter Boolean LVRTinPFlag "Active current flag during LVRT" annotation(
+    Dialog(tab = "FRT"));
+  parameter Boolean LVRTinQFlag "Reactive current flag during LVRT" annotation(
+    Dialog(tab = "FRT"));
+  parameter Boolean pqFRTFlag "Active/reactive control priority during FRT" annotation(
     Dialog(tab = "FRT"));
   parameter Types.ActivePowerPu pSetHVPu "Active power setting during HVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ActivePowerPu pSetLVPu "Active power setting during LVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ReactivePowerPu qSetHVPu "Reactive power setting during HVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.ReactivePowerPu qSetLVPu "Reactive power setting during LVRT (base SNom) (generator convention)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit uHVRTPu "HVRT threshold value in pu (base UNom)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
   parameter Types.PerUnit uLVRTPu "LVRT threshold value in pu (base UNom)" annotation(
-      Dialog(tab = "FRT"));
+    Dialog(tab = "FRT"));
 
   // Voltage protection parameters
-  parameter Types.Time TLVP3 "Disconnection time for high voltage level 3" annotation(
+  parameter Types.Time tLvP3 "Disconnection time for low voltage level 3 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLVP2 "Disconnection time for high voltage level 2" annotation(
+  parameter Types.Time tLvP2 "Disconnection time for low voltage level 2 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLVP1 "Disconnection time for high voltage level 1" annotation(
+  parameter Types.Time tLvP1 "Disconnection time for low voltage level 1 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THVP1 "Disconnection time for low voltage level 1" annotation(
+  parameter Types.Time tHvP1 "Disconnection time for high voltage level 1 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THVP2 "Disconnection time for low voltage level 2" annotation(
+  parameter Types.Time tHvP2 "Disconnection time for high voltage level 2 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THVP3 "Disconnection time for low voltage level 3" annotation(
+  parameter Types.Time tHvP3 "Disconnection time for high voltage level 3 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Real ULVP3 "Low voltage level 3 in pu (base UNom)" annotation(
+  parameter Real ULvP3 "Low voltage level 3 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real ULVP2 "Low voltage level 2 in pu (base UNom)" annotation(
+  parameter Real ULvP2 "Low voltage level 2 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real ULVP1 "Low voltage level 1 in pu (base UNom)" annotation(
+  parameter Real ULvP1 "Low voltage level 1 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real UHVP1 "High voltage level 1 in pu (base UNom)" annotation(
+  parameter Real UHvP1 "High voltage level 1 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real UHVP2 "High voltage level 2 in pu (base UNom)" annotation(
+  parameter Real UHvP2 "High voltage level 2 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real UHVP3 "High voltage level 3 in pu (base UNom)" annotation(
+  parameter Real UHvP3 "High voltage level 3 in pu (base UNom)" annotation(
     Dialog(tab = "Protection"));
 
   // Frequency protection parameters
-  parameter Real fLfP3 "Low frequency level 3 in pu (base nominal frequency)" annotation(
+  parameter Real fLfP3 "Low frequency level 3 in pu (base fNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fLfP2 "Low frequency level 2 in pu (base nominal frequency)" annotation(
+  parameter Real fLfP2 "Low frequency level 2 in pu (base fNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fLfP1 "Low frequency level 1 in pu (base nominal frequency)" annotation(
+  parameter Real fLfP1 "Low frequency level 1 in pu (base fNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fHfP1 "High frequency level 1 in pu (base nominal frequency)" annotation(
+  parameter Real fHfP1 "High frequency level 1 in pu (base fNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fHfP2 "High frequency level 2 in pu (base nominal frequency)" annotation(
+  parameter Real fHfP2 "High frequency level 2 in pu (base fNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Real fHfP3 "High frequency level 3 in pu (base nominal frequency)" annotation(
+  parameter Real fHfP3 "High frequency level 3 in pu (base fNom)" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLfP3 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time tLfP3 "Disconnection time for low frequency level 3 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLfP2 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time tLfP2 "Disconnection time for low frequency level 2 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TLfP1 "Disconnection time for low frequency level 3" annotation(
+  parameter Types.Time tLfP1 "Disconnection time for low frequency level 1 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THfP1 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time tHfP1 "Disconnection time for high frequency level 1 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THfP2 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time tHfP2 "Disconnection time for high frequency level 2 in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time THfP3 "Disconnection time for high frequency level 3" annotation(
+  parameter Types.Time tHfP3 "Disconnection time for high frequency level 3 in s" annotation(
     Dialog(tab = "Protection"));
 
   // Other protection parameters
-  parameter Real DerfMaxPu "Maximum level of frequency variation in pu (base nominal frequency per second)" annotation(
+  parameter Real DerfMaxPu "Maximum level of frequency variation in pu/s (base fNom)" annotation(
     Dialog(tab = "Protection"));
   parameter Real DerThetaMax "Maximum level of angle variation in rad/s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TDerfMax "Disconnection time for high level of frequency variation" annotation(
+  parameter Types.Time tDerfMax "Disconnection time for high level of frequency variation, in s" annotation(
     Dialog(tab = "Protection"));
-  parameter Types.Time TDerThetaMax "Disconnection time for high level of angle variation" annotation(
+  parameter Types.Time tDerThetaMax "Disconnection time for high level of angle variation, in s" annotation(
     Dialog(tab = "Protection"));
 
   //Circuit parameters
@@ -265,21 +267,21 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
     Dialog(tab = "Electrical"));
   parameter Types.PerUnit XesPu "Serial reactance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Electrical"));
-  parameter Types.Time Tg "Time constant to represent the control delay effect of the inner current control loop. Alternatively set it to zero to bypass this delay." annotation(
+  parameter Types.Time tG "Time constant in s to represent the control delay effect of the inner current control loop. Alternatively set it to zero to bypass this delay." annotation(
     Dialog(tab = "CurrentSource"));
 
-  //Grid measurement Parameters
-  parameter Types.Time TpFilt "Time constant in active power measurement filter" annotation(
+  //Grid measurement parameters
+  parameter Types.Time tIFilt "Filter time constant for current measurement in s" annotation(
     Dialog(tab = "GridMeasurement"));
-  parameter Types.Time TqFilt "Time constant in reactive power measurement filter" annotation(
+  parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(
     Dialog(tab = "GridMeasurement"));
-  parameter Types.Time TiFilt "Time constant in current measurement filter" annotation(
+  parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(
     Dialog(tab = "GridMeasurement"));
-  parameter Types.Time TuFilt "Time constant in voltage measurement filter" annotation(
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
     Dialog(tab = "GridMeasurement"));
 
   //PLL parameters
-  parameter Types.Time DeltaT "Integral time step" annotation(
+  parameter Types.Time DeltaT "Integral time step in s" annotation(
     Dialog(tab = "PLL"));
   parameter Types.AngularVelocityPu DfMaxPu = Dynawo.Electrical.SystemBase.omegaNom "Maximum angle rotation ramp rate in rad/s" annotation(
     Dialog(tab = "PLL"));
@@ -289,11 +291,11 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
     Dialog(tab = "PLL"));
   parameter Integer PLLFlag "0 for the case when the phase angle can be read from the calculation result of the simulation program, 1 for the case of adding a filter based on case 1, 2 for the case where the dynamics of the PLL need to be considered" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.Time TpllFilt "Time constant in PLL angle filter. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
+  parameter Types.Time tPllFilt "Time constant in PLL angle filter, in s. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.Time TfFilt "Time constant in PLL angle filter. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
+  parameter Types.Time tFFilt "Time constant in PLL angle filter, in s. Put 0 if no filter for the PLL (PLLFlag=2 in the norm)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.PerUnit UpllPu "Voltage below which the frequency of the voltage is filtered and the angle of the voltage is possibly frozen" annotation(
+  parameter Types.PerUnit UPllPu "Voltage below which the frequency of the voltage is filtered and the angle of the voltage is possibly frozen, in pu (base UNom)" annotation(
     Dialog(tab = "PLL"));
   parameter Types.PerUnit WMaxPu "Maximum PLL frequency deviation in pu (base rated frequency)" annotation(
     Dialog(tab = "PLL"));
@@ -314,15 +316,15 @@ model ConverterCurrentSourceIEC63406 "Converter model for the IEC 63406 standard
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {260, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {250, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.IEC.IEC63406.Measurement.GridMeasurement gridMeasurement(DeltaT = DeltaT, DfMaxPu = DfMaxPu, KIpll = KIpll, KPpll = KPpll, P0Pu = P0Pu, PLLFlag = PLLFlag, Q0Pu = Q0Pu, SNom = SNom, TfFilt = TfFilt, TpllFilt = TpllFilt, U0Pu = U0Pu, UPhase0 = UPhase0, UpllPu = UpllPu, WMaxPu = WMaxPu, WMinPu = WMinPu, i0Pu = i0Pu, tIFilt = TiFilt, tPFilt = TpFilt, tQFilt = TqFilt, tS = tS, tUFilt = TuFilt, thetaPLL(start = UPhase0), u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.Measurement.GridMeasurement gridMeasurement(DeltaT = DeltaT, DfMaxPu = DfMaxPu, KIpll = KIpll, KPpll = KPpll, P0Pu = P0Pu, PLLFlag = PLLFlag, Q0Pu = Q0Pu, SNom = SNom, tFFilt = tFFilt, tPllFilt = tPllFilt, U0Pu = U0Pu, UPhase0 = UPhase0, UPllPu = UPllPu, WMaxPu = WMaxPu, WMinPu = WMinPu, i0Pu = i0Pu, tIFilt = tIFilt, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, thetaPLL(start = UPhase0), u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {150, 70}, extent = {{50, -50}, {-50, 50}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.ControlAndProtection controlAndProtection(DUdb1Pu = DUdb1Pu, DUdb2Pu = DUdb2Pu, DerThetaMax = DerThetaMax, DerfMaxPu = DerfMaxPu, FFRTableName = FFRTableName, FFRflag = FFRflag, HVRTinQFlag = HVRTinQFlag, IMaxPu = IMaxPu, IPMaxPu = IPMaxPu, IPMinPu = IPMinPu, IQMaxPu = IQMaxPu, IQMinPu = IQMinPu, InertialTableName = InertialTableName, K1IpHV = K1IpHV, K1IpLV = K1IpLV, K1IqHV = K1IqHV, K1IqLV = K1IqLV, K2IpHV = K2IpHV, K2IpLV = K2IpLV, K2IqHV = K2IqHV, K2IqLV = K2IqLV, KDroop = KDroop, KIp = KIp, KIqi = KIqi, KIqu = KIqu, KIui = KIui, KIuq = KIuq, KPp = KPp, KPqi = KPqi, KPqu = KPqu, KPui = KPui, KPuq = KPuq, KpHVRT = KpHVRT, KpLVRT = KpLVRT, KqHVRT = KqHVRT, KqLVRT = KqLVRT, LFlag = LFlag, LVRTinQFlag = LVRTinQFlag, P0Pu = P0Pu, PFFlag = PFFlag, PFlag = PFlag, PMaxPu = PMaxPu, PffrMaxPu = PffrMaxPu, PffrMinPu = PffrMinPu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QLimFlag = QLimFlag, QMaxPu = QMaxPu, QMaxtoPTableName = QMaxtoPTableName, QMaxtoUTableName = QMaxtoUTableName, QMinPu = QMinPu, QMintoPTableName = QMintoPTableName, QMintoUTableName = QMintoUTableName, SNom = SNom, StorageFlag = StorageFlag, TDerThetaMax = TDerThetaMax, TDerfMax = TDerfMax, THVP1 = THVP1, THVP2 = THVP2, THVP3 = THVP3, THfP1 = THfP1, THfP2 = THfP2, THfP3 = THfP3, TLVP1 = TLVP1, TLVP2 = TLVP2, TLVP3 = TLVP3, TLfP1 = TLfP1, TLfP2 = TLfP2, TLfP3 = TLfP3, TableFileName = TableFileName, TanPhi = TanPhi, Tiq = Tiq, TpRef = TpRef, Trocof = Trocof, U0Pu = U0Pu, UFlag = UFlag, UHVP1 = UHVP1, UHVP2 = UHVP2, UHVP3 = UHVP3, ULVP1 = ULVP1, ULVP2 = ULVP2, ULVP3 = ULVP3, UMaxPu = UMaxPu, UMinPu = UMinPu, UPhase0 = UPhase0, f0Pu = f0Pu, fHfP1 = fHfP1, fHfP2 = fHfP2, fHfP3 = fHfP3, fLfP1 = fLfP1, fLfP2 = fLfP2, fLfP3 = fLfP3, fThresholdPu = fThresholdPu, iPSetHVPu = iPSetHVPu, iPSetLVPu = iPSetLVPu, iQSetHVPu = iQSetHVPu, iQSetLVPu = iQSetLVPu, pSetHVPu = pSetHVPu, pSetLVPu = pSetLVPu, pqFRTFlag = pqFRTFlag, qSetHVPu = qSetHVPu, qSetLVPu = qSetLVPu, uHVRTPu = uHVRTPu, uLVRTPu = uLVRTPu) annotation(
-    Placement(visible = true, transformation(origin = {-2.88658e-15, -80}, extent = {{-52, -52}, {52, 52}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.EnergyConversion energyConversion(P0Pu = P0Pu, PMaxPu = PMaxPu, SNom = SNom, SOCFlag = SOCFlag, SOCInit = SOCInit, SOCMax = SOCMax, SOCMin = SOCMin, StorageFlag = StorageFlag, Tconv = Tconv, Tess = Tess) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.ControlAndProtection controlAndProtection(DUdb1Pu = DUdb1Pu, DUdb2Pu = DUdb2Pu, DerThetaMax = DerThetaMax, DerfMaxPu = DerfMaxPu, FFRTableName = FFRTableName, FFRFlag = FFRFlag, HVRTinQFlag = HVRTinQFlag, IMaxPu = IMaxPu, IpMaxPu = IpMaxPu, IpMinPu = IpMinPu, IqMaxPu = IqMaxPu, IqMinPu = IqMinPu, InertialTableName = InertialTableName, K1IpHV = K1IpHV, K1IpLV = K1IpLV, K1IqHV = K1IqHV, K1IqLV = K1IqLV, K2IpHV = K2IpHV, K2IpLV = K2IpLV, K2IqHV = K2IqHV, K2IqLV = K2IqLV, KDroop = KDroop, KIp = KIp, KIqi = KIqi, KIqu = KIqu, KIui = KIui, KIuq = KIuq, KPp = KPp, KPqi = KPqi, KPqu = KPqu, KPui = KPui, KPuq = KPuq, KpHVRT = KpHVRT, KpLVRT = KpLVRT, KqHVRT = KqHVRT, KqLVRT = KqLVRT, LFlag = LFlag, LVRTinQFlag = LVRTinQFlag, P0Pu = P0Pu, PFFlag = PFFlag, PFlag = PFlag, PMaxPu = PMaxPu, PffrMaxPu = PffrMaxPu, PffrMinPu = PffrMinPu, PriorityFlag = PriorityFlag, Q0Pu = Q0Pu, QLimFlag = QLimFlag, QMaxPu = QMaxPu, QMaxtoPTableName = QMaxtoPTableName, QMaxtoUTableName = QMaxtoUTableName, QMinPu = QMinPu, QMintoPTableName = QMintoPTableName, QMintoUTableName = QMintoUTableName, SNom = SNom, StorageFlag = StorageFlag, tDerThetaMax = tDerThetaMax, tDerfMax = tDerfMax, tHvP1 = tHvP1, tHvP2 = tHvP2, tHvP3 = tHvP3, tHfP1 = tHfP1, tHfP2 = tHfP2, tHfP3 = tHfP3, tLvP1 = tLvP1, tLvP2 = tLvP2, tLvP3 = tLvP3, tLfP1 = tLfP1, tLfP2 = tLfP2, tLfP3 = tLfP3, TableFileName = TableFileName, TanPhi = TanPhi, tIq = tIq, tPRef = tPRef, tRocof = tRocof, U0Pu = U0Pu, UFlag = UFlag, UHvP1 = UHvP1, UHvP2 = UHvP2, UHvP3 = UHvP3, ULvP1 = ULvP1, ULvP2 = ULvP2, ULvP3 = ULvP3, UMaxPu = UMaxPu, UMinPu = UMinPu, UPhase0 = UPhase0, f0Pu = f0Pu, fHfP1 = fHfP1, fHfP2 = fHfP2, fHfP3 = fHfP3, fLfP1 = fLfP1, fLfP2 = fLfP2, fLfP3 = fLfP3, fThresholdPu = fThresholdPu, iPSetHVPu = iPSetHVPu, iPSetLVPu = iPSetLVPu, iQSetHVPu = iQSetHVPu, iQSetLVPu = iQSetLVPu, pSetHVPu = pSetHVPu, pSetLVPu = pSetLVPu, pqFRTFlag = pqFRTFlag, qSetHVPu = qSetHVPu, qSetLVPu = qSetLVPu, uHVRTPu = uHVRTPu, uLVRTPu = uLVRTPu) annotation(
+    Placement(visible = true, transformation(origin = {0, -80}, extent = {{-40, -52}, {40, 52}}, rotation = 0)));
+  Dynawo.Electrical.Controls.IEC.IEC63406.PrimaryEnergy.EnergyConversion energyConversion(P0Pu = P0Pu, PMaxPu = PMaxPu, SNom = SNom, SOCFlag = SOCFlag, SOCInit = SOCInit, SOCMax = SOCMax, SOCMin = SOCMin, StorageFlag = StorageFlag, tConv = tConv, tESS = tESS) annotation(
     Placement(visible = true, transformation(origin = {-70, 150}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC63406.PlantCommunication plantCommunication(ComFlag = ComFlag, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, Tcom = Tcom, Tlag = Tlag, Tlead = Tlead, U0Pu = U0Pu) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC63406.PlantCommunication plantCommunication(ComFlag = ComFlag, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, tCom = tCom, tLag = tLag, tLead = tLead, U0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {-180, -140}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.InjectorCurrentSource injectorCurrentSource(BesPu = BesPu, GesPu = GesPu, IsIm0Pu = IsIm0Pu, IsRe0Pu = IsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, Tg = Tg, U0Pu = U0Pu, UPhase0 = UPhase0, UsIm0Pu = UsIm0Pu, UsRe0Pu = UsRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Sources.IEC.InjectorCurrentSource injectorCurrentSource(BesPu = BesPu, GesPu = GesPu, IsIm0Pu = IsIm0Pu, IsRe0Pu = IsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, ResPu = ResPu, SNom = SNom, tG = tG, U0Pu = U0Pu, UPhase0 = UPhase0, UsIm0Pu = UsIm0Pu, UsRe0Pu = UsRe0Pu, XesPu = XesPu, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {160, -80}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
 
   //Initial parameters
@@ -390,7 +392,9 @@ equation
     Line(points = {{204, -60}, {230, -60}, {230, 100}, {206, 100}}, color = {85, 170, 255}));
   connect(plantCommunication.uRefPu, controlAndProtection.uRefPu) annotation(
     Line(points = {{-136, -160}, {-60, -160}, {-60, -115}, {-43, -115}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-240, 240}, {240, -240}}), Text(extent = {{-240, 240}, {240, -240}}, textString = "Converter
 Based
 Generating

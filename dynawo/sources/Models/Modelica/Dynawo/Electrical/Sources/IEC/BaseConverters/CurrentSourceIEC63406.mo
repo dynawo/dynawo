@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Sources.IEC.BaseConverters;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,8 @@ within Dynawo.Electrical.Sources.IEC.BaseConverters;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model CurrentSourceIEC63406 "Converter system module with current source interface (IEC 63406)"
@@ -17,8 +18,8 @@ model CurrentSourceIEC63406 "Converter system module with current source interfa
   //Nominal parameter
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
 
-  //Control parameters
-  parameter Types.Time Tg "Time constant to represent the control delay effect of the inner current control loop. Alternatively set it to zero to bypass this delay." annotation(
+  //Control parameter
+  parameter Types.Time tG "Time constant to represent the control delay effect of the inner current control loop. Alternatively set it to zero to bypass this delay." annotation(
     Dialog(tab = "CurrentSource"));
 
   //Interface
@@ -46,11 +47,11 @@ model CurrentSourceIEC63406 "Converter system module with current source interfa
     Placement(visible = true, transformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.RealToComplex realToComplex annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(IGsIm0Pu = IGsIm0Pu, IGsRe0Pu = IGsRe0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
+  Dynawo.Electrical.Sources.IEC.BaseConverters.RefFrameRotation iECFrameRotation(iGs0Pu = Complex(IGsRe0Pu,IGsIm0Pu), Ip0Pu = -P0Pu * SystemBase.SnRef / (SNom * U0Pu), Iq0Pu = Q0Pu * SystemBase.SnRef / (SNom * U0Pu), P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(visible = true, transformation(origin = {1.58946e-07, -4.76837e-07}, extent = {{-20, -60}, {20, 60}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = Tg, y_start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tG, y_start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = Tg, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tG, y_start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexExpression iGs(y = -terminal.i * (SystemBase.SnRef / SNom)) annotation(
     Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -110,6 +111,7 @@ equation
     Line(points = {{22, -90}, {58, -90}}, color = {85, 170, 255}));
   connect(complexToPolar.len, uBT) annotation(
     Line(points = {{82, -84}, {100, -84}, {100, -90}, {150, -90}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {90.7207, -0.279255}, points = {{-9, 0}, {9, 0}, {51, 0}}, color = {114, 159, 207})}, coordinateSystem(extent = {{-140, -100}, {140, 100}})),
