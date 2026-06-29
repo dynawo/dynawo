@@ -19,3 +19,8 @@ outer_loop_linearized
 test_outer_loop
 TwoConvertersStaticLine_7Hz
 test_outer_loop_linearized
+simulation
+test
+frst_smib_simulation
+GFLModel
+TwoConverterDynamicLine_7Hz

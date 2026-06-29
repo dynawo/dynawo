@@ -73,7 +73,8 @@ model simulation_weak_grid
   k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
   k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
   k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.01, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0.03, Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2
+  , Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
   K_p_q_plant = 0.1, K_i_q_plant = 1.0, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
   K_p_pll = 0.32, K_i_pll = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
   OmegaMinPu = 0.5,   // ── Rate limiters and delays ──────────────────────────────
@@ -91,7 +92,7 @@ model simulation_weak_grid
     Placement(transformation(origin = {88, 12}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step step1(offset = URef0Pu, startTime = 100, height = URef0Pu*0.1) annotation(
     Placement(transformation(origin = {-66, 8}, extent = {{-10, -10}, {10, 10}})));
-  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.55, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10.0, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
+  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.5, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 100, tUEvtEnd = 102, tOmegaEvtStart = 10.0, tOmegaEvtEnd = 10.5) annotation(
     Placement(transformation(origin = {108, 12}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
 equation
 

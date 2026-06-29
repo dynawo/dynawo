@@ -52,7 +52,7 @@ model TwoConvertersDynamicLine
   GFLmodel gFLmodel(
     SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246,
     P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0,
-    tVSC = 1e-3,
+    tVSC = 2e-3,
     RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
     omegaNom = 2 * Modelica.Constants.pi * 50,
     RPuLV = 0.001, LPuLV = 0.025,
@@ -89,7 +89,7 @@ model TwoConvertersDynamicLine
   GFLmodel gFLmodel1(
     SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421,
     P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0,
-    tVSC = 1e-3,
+    tVSC = 2e-3,
     RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
     omegaNom = 2 * Modelica.Constants.pi * 50,
     RPuLV = 0.001, LPuLV = 0.025,
@@ -152,7 +152,7 @@ voltagefeedforwardflag_d = 0, voltagefeedforwardflag_q = 0
     Placement(transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}})));
   DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.04289359, UPhase01 = 6.668423*3.14/180, P01Pu = 5, Q01Pu = 0.21, U02Pu = gFLmodel1.U0Pu, UPhase02 = gFLmodel1.Uphase, P02Pu = gFLmodel1.P0_pcc, Q02Pu = gFLmodel1.Q0_pcc)  annotation(
     Placement(transformation(origin = {28, 20}, extent = {{-10, -10}, {10, 10}})));
-  DynLine dynLine2(RPu = 0.001, LPu = 0.05, U01Pu = 1.1, UPhase01 = -0.04, P01Pu = 0.11901040, Q01Pu = 1.24143346, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.11194076, Q02Pu = -1.17073708)  annotation(
+  DynLine dynLine2(RPu = 0.005, LPu = 0.05, U01Pu = 1.1, UPhase01 = -0.04, P01Pu = 0.11901040, Q01Pu = 1.24143346, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.11194076, Q02Pu = -1.17073708)  annotation(
     Placement(transformation(origin = {-4, -32}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   DynLine dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = dynLine2.U02Pu, UPhase01 = dynLine2.UPhase02, P01Pu = dynLine2.P02Pu, Q01Pu = dynLine2.Q02Pu, U02Pu = dynLine2.U01Pu, UPhase02 =dynLine2.UPhase01, P02Pu = dynLine2.P01Pu, Q02Pu = dynLine2.Q01Pu)  annotation(
     Placement(transformation(origin = {-52, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

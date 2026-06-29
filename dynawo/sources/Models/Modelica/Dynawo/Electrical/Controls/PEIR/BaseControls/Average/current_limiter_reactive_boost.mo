@@ -50,7 +50,7 @@ model current_limiter_reactive_boost
     "Maximum additional reactive current boost (pu)";
   parameter Real IqBoostMin = -Imax
     "Minimum additional reactive current boost (pu)";
-  parameter Real T_boost =1e-3
+  parameter Real T_boost =1e-4
     "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
   parameter Real U0Pu 
     "Initial voltage magnitude at PCC (pu), used to initialise iq_boost";
@@ -96,9 +96,9 @@ model current_limiter_reactive_boost
 equation
   // ── Step 1: compute raw boost (undervoltage + overvoltage) ───
   if noEvent(U_meas_pu < UboostLow) then
-    iq_boost_raw = Kqv * (1 - U_meas_pu);
+    iq_boost_raw = Kqv * (UboostLow- U_meas_pu);
   elseif noEvent(U_meas_pu > UboostHigh) then
-    iq_boost_raw = Kqv * (1 - U_meas_pu);
+    iq_boost_raw = Kqv * (UboostHigh - U_meas_pu);
   else
     iq_boost_raw = 0;
   end if;
