@@ -191,6 +191,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   InjectorBG.xml
   IntegerDoubleStep.xml
   IntegerTable.xml
+  LackOfVoltageRelay.xml
   Line.xml
   LineFault.xml
   LoadAlphaBeta.xml

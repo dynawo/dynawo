@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!--Curves for scenario-->
+  <curve model="NETWORK" variable="Bus12_lineB6B12_switch_state_value"/>
+  <curve model="NETWORK" variable="Bus13_lineB12B13_switch_state_value"/>
+  <curve model="NETWORK" variable="Bus12_lineB12B13_switch_state_value"/>
+  <curve model="NETWORK" variable="Bus12_load12_switch_state_value"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_state_value"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_U1_value"/>
+  <curve model="NETWORK" variable="_BUS___12-BUS___13-1_AC_U2_value"/>
+  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_state_value"/>
+  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_U1_value"/>
+  <curve model="NETWORK" variable="_BUS____6-BUS___12-1_AC_U2_value"/>
+  <curve model="NETWORK" variable="_BUS____6_TN_U_value"/>
+  <curve model="NETWORK" variable="Bus12_1A_U_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_0_switchOff_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_switchOff_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_2_switchOff_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_3_switchOff_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_0_U_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_U_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_2_U_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_3_U_value"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_V_re"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_V_im"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_i_re"/>
+  <curve model="NETWORK" variable="calculatedBus__BUS___12_VL_1_ACPIN_i_im"/>
+  <curve model="NETWORK" variable="Bus13_1A_U_value"/>
+  <curve model="_LOAD__12_EC" variable="load_switchOffSignal1"/>
+  <curve model="_LOAD__12_EC" variable="load_switchOffSignal2"/>
+  <curve model="_LOAD__12_EC" variable="load_running"/>
+  <curve model="_LOAD__12_EC" variable="load_UPu_value"/>
+  <curve model="_LOAD__12_EC" variable="load_PPu"/>
+  <curve model="_LOAD__12_EC" variable="load_QPu"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_state_value"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_loadState_value"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_running"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_UPu_value"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_P"/>
+  <curve model="NETWORK" variable="_LOAD__12_EC_Q"/>
+  <curve model="NETWORK" variable="Bus12_1A_switchOff"/>
+  <curve model="NETWORK" variable="Bus12_1A_phi_value"/>
+  <curve model="NETWORK" variable="Bus12_1A_Upu_value"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_uBusMonitoredPu"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_busPhaseAngle"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_uEquipmentMonitoredPu"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_equipmentPhaseAngle"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_equipmentVoltageTrip"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_equipmentVoltageMin"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_busVoltageTrip"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_busVoltageMin"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_switchControlSignal"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_tripCond"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_busRecCond"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_recloseCond"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_recloseBlocked"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_recloserModeInput"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_sleepStartTime"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_sleepMode"/>
+  <curve model="ReclosingLOVR" variable="lackOfVoltageRelay_recloserTriggeredTime"/>
+</curvesInput>

@@ -87,6 +87,7 @@ InfiniteBus
 InfiniteBusFromTable
 InfiniteBusWithVariations
 IntegerDoubleStep
+LackOfVoltageRelay
 Line
 LineFault
 LoadAlphaBeta
