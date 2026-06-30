@@ -731,7 +731,7 @@ def print_block_code(residual_code, evalF_code, jacobian_code, jacobian_prim_cod
         if re.search(r"tmp[0-9]*", rhs_res_expr):
             print("tmp is present in " + rhs_res_expr)
             sys.exit(1)
-        sp_res_expr = sp.sympify(rhs_res_expr, locals={'x': x, 'xd': xd, **sym_exprs})
+        sp_res_expr = sp.sympify(rhs_res_expr, locals={'x': x, 'xd': xd, 'pow':sp.Pow , **sym_exprs})
         # derivs_x = [sp.diff(sp_res_expr, x[i]) for i in range(max(indices)+1)]
         # derivs_xd = [sp.diff(sp_res_expr, xd[i]) for i in range(max(indices) + 1)]
         derivs_x = [smart_derivative(sp_res_expr, x[i]) for i in range(max(indices)+1)]
