@@ -1,0 +1,14 @@
+0.000000 | Bus12_lineB6B12_switch | SWITCH : opening
+0.000000 | GEN____8_SM | PMIN : activation
+1.000000 | GEN____8_SM | PMIN : deactivation
+10.000000 | Bus13_lineB12B13_switch | SWITCH : opening
+10.000000 | _LOAD__12_EC | LOAD : disconnecting
+11.000000 | GEN____3_SM | PMIN : activation
+11.000000 | GEN____6_SM | PMIN : activation
+11.000000 | GEN____8_SM | PMIN : activation
+12.000000 | Bus12_lineB12B13_switch | SWITCH : opening
+12.000000 | OpeningLOVR | Lack of Voltage Relay triggered opening of its switch.
+112.000000 | Bus12_lineB6B12_switch | SWITCH : closing
+112.000000 | ReclosingLOVR | Lack of Voltage Relay triggered closing of its switch.
+112.000000 | _LOAD__12_EC | LOAD : connecting
+131.000000 | GEN____6_SM | PMIN : deactivation

@@ -121,6 +121,8 @@ SimulationRT::configureRT() {
   inputDispatcher_ = std::make_shared<InputDispatcherAsync>(clock_, dumpManager_);
 
   couplingTimeStep_ = jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep() < 0 ? 0 : jobEntry_->getInteractiveSettingsEntry()->getCouplingTimeStep();
+  if (constraintsCollection_)
+    constraintsCollection_->setExcludeTimeFromId(true);
 
   configureClock();
   configureRTOutputs();
@@ -182,8 +184,20 @@ SimulationRT::configureRTOutputs() {
       outputDispatcher_->addCurvesPublisher(outputChannel, streamEntry->getFormat());
     } else if (streamEntry->getData() == "TIMELINE") {
       outputDispatcher_->addTimelinePublisher(outputChannel, streamEntry->getFormat());
+      if (!timeline_) {
+        // If the timeline was not created as part of the outputs
+        stringstream pid_string;
+        pid_string << pid_;
+        timeline_ = TimelineFactory::newInstance("Simulation_" + pid_string.str());
+      }
     } else if (streamEntry->getData() == "CONSTRAINTS") {
       outputDispatcher_->addConstraintsPublisher(outputChannel, streamEntry->getFormat());
+      if (!constraintsCollection_) {
+        // If the constraints collection was not created as part of the outputs
+        stringstream pid_string;
+        pid_string << pid_;
+        constraintsCollection_ = ConstraintsCollectionFactory::newInstance("Simulation_" + pid_string.str());
+      }
     } else if (streamEntry->getData() == "DUMP") {
       outputDispatcher_->addDumpPublisher(outputChannel);
     } else {
@@ -296,6 +310,8 @@ SimulationRT::simulate() {
 
     double nextOutputT = tCurrent_ + couplingTimeStep_;      // Publish after a first period
     updateStepStart();
+    double constraintsMinTime = -1;   // Time from which constraints should be exported
+
     while (!end() && !clock_->getStopMessageReceived() && !SignalHandler::gotExitSignal()) {
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
@@ -328,8 +344,9 @@ SimulationRT::simulate() {
         outputDispatcher_->publishCurves(curvesCollection_);
         outputDispatcher_->publishTimeline(timeline_);
         timeline_->clear();
-        outputDispatcher_->publishConstraints(constraintsCollection_);
-        constraintsCollection_->clear();
+        outputDispatcher_->publishConstraints(constraintsCollection_, constraintsMinTime);
+        constraintsCollection_->filter(CONSTRAINTS_KEEP_FIRST);
+        constraintsMinTime = tCurrent_;
 
         // dump before wait time to have the correct tCurrent_ value
         if (dumpManager_->hasReceivedDumpSignal()) {

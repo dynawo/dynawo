@@ -83,26 +83,26 @@ ModelUpdatableDiscrete::evalZ(double /* t */) {
 
 void
 ModelUpdatableDiscrete::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(UPDATABLE_INPUT_VAR_NAME, DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(UPDATABLE_VARIABLE_NAME, DISCRETE));
 }
 
 void
 ModelUpdatableDiscrete::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(UPDATABLE_MULTIPLIER_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_VALUE_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_MULTIPLIER_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
 }
 
 void
 ModelUpdatableDiscrete::setSubModelParameters() {
-  if (findParameterDynamic(UPDATABLE_INPUT_NAME).hasValue()) {
-    double inputValueParameter = findParameterDynamic(UPDATABLE_INPUT_NAME).getValue<double>();
+  if (findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).hasValue()) {
+    double inputValueParameter = findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).getValue<double>();
     if (!doubleEquals(inputValueParameter, inputValue_)) {
       inputValue_ = inputValueParameter;
       updated_ = true;
     }
   }
-  if (findParameterDynamic(UPDATABLE_MULTIPLIER_NAME).hasValue()) {
-    double inputMultiplierParameter = findParameterDynamic(UPDATABLE_MULTIPLIER_NAME).getValue<double>();
+  if (findParameterDynamic(UPDATABLE_INPUT_MULTIPLIER_NAME).hasValue()) {
+    double inputMultiplierParameter = findParameterDynamic(UPDATABLE_INPUT_MULTIPLIER_NAME).getValue<double>();
     if (!doubleEquals(inputMultiplierParameter, 1.)) {
       if (updated_) {
         Trace::warn() << DYNLog(UpdatableIgnoredMultiplier, name()) << Trace::endline;
@@ -110,21 +110,21 @@ ModelUpdatableDiscrete::setSubModelParameters() {
         inputValue_ *= inputMultiplierParameter;
         updated_ = true;
       }
-      setParameterValue(UPDATABLE_MULTIPLIER_NAME, FINAL, 1., false);
-      setParameterValue(UPDATABLE_INPUT_NAME, FINAL, inputValue_, false);
+      setParameterValue(UPDATABLE_INPUT_MULTIPLIER_NAME, FINAL, 1., false);
+      setParameterValue(UPDATABLE_INPUT_VALUE_NAME, FINAL, inputValue_, false);
     }
   }
 }
 
 void
 ModelUpdatableDiscrete::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  addElement(UPDATABLE_INPUT_VAR_NAME, Element::TERMINAL, elements, mapElement);
+  addElement(UPDATABLE_VARIABLE_NAME, Element::TERMINAL, elements, mapElement);
 }
 
 
 void
 ModelUpdatableDiscrete::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  -> " << UPDATABLE_INPUT_NAME << Trace::endline;
+  Trace::info() << "  -> " << UPDATABLE_VARIABLE_NAME << Trace::endline;
 }
 }  // namespace DYN
