@@ -9,12 +9,14 @@
 # This file is part of Dynawo, a hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-add_subdirectory(Average A)
-add_subdirectory(DER D)
 
 set(MODEL_FILES
   package.mo
   package.order
+  current_limiter_reactive_boost.mo
+  pi_controller_antiwind.mo
+  pi_controller.mo
+  VSC_with_pade_delay.mo
   )
 
 #

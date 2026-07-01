@@ -132,6 +132,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
   GenericIBG.xml
+  GFLAverageModel.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml

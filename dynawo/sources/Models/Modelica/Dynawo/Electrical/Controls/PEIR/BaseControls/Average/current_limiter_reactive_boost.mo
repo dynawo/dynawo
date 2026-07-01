@@ -52,7 +52,7 @@ model current_limiter_reactive_boost
     "Minimum additional reactive current boost (pu)";
   parameter Real T_boost =1e-4
     "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
-  parameter Real U0Pu 
+  parameter Real U0Pu
     "Initial voltage magnitude at PCC (pu), used to initialise iq_boost";
 
   // ── Inputs ───────────────────────────────────────────────────
@@ -120,7 +120,7 @@ equation
   if PQFlag then
     // P priority (d-axis)
     if noEvent(abs(id_raw) >= Imax) then
-      id_lim = sign(id_raw) * Imax;
+      id_lim = if (id_raw)>0 then  Imax else -  Imax;
       iq_lim = 0;
     else
       id_lim = id_raw;
@@ -131,7 +131,7 @@ equation
   else
     // Q priority (q-axis including boost)
     if noEvent(abs(iq_eff) >= Imax) then
-      iq_lim = -sign(iq_eff) * Imax;
+      iq_lim =  if iq_eff>0 then  -Imax else Imax;
       id_lim = 0;
     else
       iq_lim = -iq_eff;

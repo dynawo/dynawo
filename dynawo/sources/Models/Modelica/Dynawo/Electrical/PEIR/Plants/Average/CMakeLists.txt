@@ -1,4 +1,4 @@
-# Copyright (c) 2021, RTE (http://www.rte-france.com)
+# Copyright (c) 2026, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,12 +8,35 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
+
 set(MODEL_FILES
   package.mo
   package.order
-  PVCurrentSource.mo
-  PVVoltageSource2.mo
-  PVVoltageSource4.mo
+  current_loop.mo
+  DynLine.mo
+  frst_smib_simulation.mo
+  GFLControl.mo
+  GFLmodel.mo
+  GFLmodel.extvar
+  IdealSwitch.mo
+  LCDynFilter.mo
+  LCnoDynFilter.mo
+  MeasurementBlock.mo
+  outer_loop_linearized.mo
+  outer_loop.mo
+  Plant_controller.mo
+  pll.mo
+  RLDynTrafo.mo
+  simulation_weak_grid.mo
+  simulation.mo
+  test_dyn.mo
+  test_outer_loop_linearized.mo
+  test_outer_loop.mo
+  test.mo
+  TwoConvertersDynamicLine.mo
+  TwoConvertersStaticLine_7Hz.mo
+  TwoConvertersStaticLine.mo
+  TwoConvertersWECC.mo
   )
 
 #
