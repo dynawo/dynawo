@@ -146,6 +146,7 @@ var menudata={children:[
 {text:"n",url:"functions_eval_n.html#index_n"},
 {text:"o",url:"functions_eval_o.html#index_o"},
 {text:"p",url:"functions_eval_p.html#index_p"},
+{text:"q",url:"functions_eval_q.html#index_q"},
 {text:"r",url:"functions_eval_r.html#index_r"},
 {text:"s",url:"functions_eval_s.html#index_s"},
 {text:"t",url:"functions_eval_t.html#index_t"},

@@ -1,9 +1,17 @@
 var a01124 =
 [
-    [ "SolverFactory", "d8/d63/a03500.html", "d8/d63/a03500" ],
-    [ "SolverFactories", "dd/d5d/a03504.html", "dd/d5d/a03504" ],
-    [ "SolverDelete", "db/d09/a03508.html", "db/d09/a03508" ],
-    [ "deleteSolverFactory_t", "d0/dc8/a01124.html#a9a665d86010839a8d1ae953009ab4201", null ],
-    [ "deleteFactory", "d0/dc8/a01124.html#ae06ace1114b6742f6c3f55977e345710", null ],
-    [ "getFactory", "d0/dc8/a01124.html#a743ccef1ceb9f11929145604b1b12196", null ]
+    [ "Solver", "d7/d83/a03506.html", "d7/d83/a03506" ],
+    [ "SolverType", "d0/dc8/a01124.html#a3af48b28f1cebf4b6d5f61a6c0104165", [
+      [ "SolverSimplifie", "d0/dc8/a01124.html#a3af48b28f1cebf4b6d5f61a6c0104165a2415257e539f7c29d3fcc52ee2b5e98b", null ],
+      [ "SolverSundials1", "d0/dc8/a01124.html#a3af48b28f1cebf4b6d5f61a6c0104165ab3d542f37e21263d5be86bc7c13564b3", null ],
+      [ "SolverSundials2", "d0/dc8/a01124.html#a3af48b28f1cebf4b6d5f61a6c0104165a8ad4c5d0ce57cc97a5272d52b248a60d", null ]
+    ] ],
+    [ "StateFlags", "d0/dc8/a01124.html#ae48eb449c5ebb36d96867a60dbda3a1d", [
+      [ "NoChange", "d0/dc8/a01124.html#ae48eb449c5ebb36d96867a60dbda3a1daaed52d48c031d665d94f3f05487e7e6c", null ],
+      [ "ModeChange", "d0/dc8/a01124.html#ae48eb449c5ebb36d96867a60dbda3a1da4eb81a49febc72731a6ceb502a990fbb", null ],
+      [ "NotSilentZChange", "d0/dc8/a01124.html#ae48eb449c5ebb36d96867a60dbda3a1da2434a2c813cfc5fb40337d7ccf563cfd", null ],
+      [ "SilentZNotUsedInDiscreteEqChange", "d0/dc8/a01124.html#ae48eb449c5ebb36d96867a60dbda3a1da848b694595bdabbffef85d11852569aa", null ],
+      [ "SilentZNotUsedInContinuousEqChange", "d0/dc8/a01124.html#ae48eb449c5ebb36d96867a60dbda3a1dac9db5d3942e95291b0aba717f2e863a6", null ]
+    ] ],
+    [ "maxNumberUnstableRoots", "d0/dc8/a01124.html#aa10b15d13b58ee98676c58319df21ff5", null ]
 ];
