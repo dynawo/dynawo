@@ -40,7 +40,7 @@ static boost::shared_ptr<SubModel> initModelUpdatableContinuous() {
   std::vector<ParameterModeler> parameters;
   modelUpdatableContinuous->defineParameters(parameters);
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_VARIABLE_NAME, 1.2);
+  parametersSet->createParameter(DYN::UPDATABLE_VARIABLE_NAME, 1.2);
   modelUpdatableContinuous->setPARParameters(parametersSet);
   modelUpdatableContinuous->addParameters(parameters, false);
   modelUpdatableContinuous->setParametersFromPARFile();
@@ -60,7 +60,7 @@ TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousDefineMethods) {
   ASSERT_EQ(parameters.size(), 2);
 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_INPUT_VALUE_NAME, 1.5);
+  parametersSet->createParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, 1.5);
   ASSERT_NO_THROW(modelUpdatableContinuous->setPARParameters(parametersSet));
 
   modelUpdatableContinuous->addParameters(parameters, false);
@@ -71,7 +71,7 @@ TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousDefineMethods) {
   modelUpdatableContinuous->defineVariables(variables);
   ASSERT_EQ(variables.size(), 1);
   boost::shared_ptr<Variable> variableModelUpdatableContinuous = variables[0];
-  ASSERT_EQ(variableModelUpdatableContinuous->getName(), UPDATABLE_VARIABLE_NAME);
+  ASSERT_EQ(variableModelUpdatableContinuous->getName(), DYN::UPDATABLE_VARIABLE_NAME);
   ASSERT_EQ(variableModelUpdatableContinuous->getType(), CONTINUOUS);
   ASSERT_EQ(variableModelUpdatableContinuous->getNegated(), false);
   ASSERT_EQ(variableModelUpdatableContinuous->isState(), true);
@@ -85,8 +85,8 @@ TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousDefineMethods) {
   Element element = elements[0];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), UPDATABLE_VARIABLE_NAME);
-  ASSERT_EQ(mapElements[UPDATABLE_VARIABLE_NAME], 0);
+  ASSERT_EQ(element.name(), DYN::UPDATABLE_VARIABLE_NAME);
+  ASSERT_EQ(mapElements[DYN::UPDATABLE_VARIABLE_NAME], 0);
 }
 
 TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousTypeMethods) {
@@ -115,34 +115,33 @@ TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousUpdate) {
   modeChangeType_t mode = modelUpdatableContinuous->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableContinuous->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 2.5, false);
+  modelUpdatableContinuous->setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 2.5, false);
   modelUpdatableContinuous->setSubModelParameters();
   modelUpdatableContinuous->evalG(0);
   mode = modelUpdatableContinuous->evalMode(0);
-  ASSERT_EQ(modelUpdatableContinuous->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 2.5);
-  // ASSERT_EQ(modelUpdatableContinuous->getParameterValue(UPDATABLE_VARIABLE_NAME), 2.5);
+  ASSERT_EQ(modelUpdatableContinuous->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 2.5);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableContinuous->evalG(0);
   mode = modelUpdatableContinuous->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableContinuous->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 3.1, false);
+  modelUpdatableContinuous->setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 3.1, false);
   modelUpdatableContinuous->setSubModelParameters();
   modelUpdatableContinuous->evalG(0);
   mode = modelUpdatableContinuous->evalMode(0);
-  ASSERT_EQ(modelUpdatableContinuous->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 3.1);
+  ASSERT_EQ(modelUpdatableContinuous->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 3.1);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableContinuous->evalG(0);
   mode = modelUpdatableContinuous->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableContinuous->setParameterValue(UPDATABLE_INPUT_MULTIPLIER_NAME, DYN::FINAL, 2., false);
+  modelUpdatableContinuous->setParameterValue(DYN::UPDATABLE_INPUT_MULTIPLIER_NAME, DYN::FINAL, 2., false);
   modelUpdatableContinuous->setSubModelParameters();
   modelUpdatableContinuous->evalG(0);
   mode = modelUpdatableContinuous->evalMode(0);
-  ASSERT_EQ(modelUpdatableContinuous->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 6.2);
+  ASSERT_EQ(modelUpdatableContinuous->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 6.2);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableContinuous->evalG(0);
@@ -150,12 +149,12 @@ TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousUpdate) {
   ASSERT_EQ(mode, NO_MODE);
 
 
-  modelUpdatableContinuous->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 3.1, false);
-  modelUpdatableContinuous->setParameterValue(UPDATABLE_INPUT_MULTIPLIER_NAME, DYN::FINAL, 2., false);
+  modelUpdatableContinuous->setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 3.1, false);
+  modelUpdatableContinuous->setParameterValue(DYN::UPDATABLE_INPUT_MULTIPLIER_NAME, DYN::FINAL, 2., false);
   modelUpdatableContinuous->setSubModelParameters();
   modelUpdatableContinuous->evalG(0);
   mode = modelUpdatableContinuous->evalMode(0);
-  ASSERT_EQ(modelUpdatableContinuous->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 3.1);
+  ASSERT_EQ(modelUpdatableContinuous->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 3.1);
   ASSERT_EQ(mode, NO_MODE);
 }
 

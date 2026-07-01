@@ -113,26 +113,26 @@ ModelUpdatableContinuous::evalJtPrim(const double /*t*/, const double /*cj*/, co
 
 void
 ModelUpdatableContinuous::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(UPDATABLE_VARIABLE_NAME, CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(DYN::UPDATABLE_VARIABLE_NAME, CONTINUOUS));
 }
 
 void
 ModelUpdatableContinuous::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_VALUE_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(UPDATABLE_INPUT_MULTIPLIER_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(DYN::UPDATABLE_INPUT_VALUE_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(DYN::UPDATABLE_INPUT_MULTIPLIER_NAME, VAR_TYPE_DOUBLE, INTERNAL_PARAMETER));
 }
 
 void
 ModelUpdatableContinuous::setSubModelParameters() {
-  if (findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).hasValue()) {
-    double parameterValue = findParameterDynamic(UPDATABLE_INPUT_VALUE_NAME).getValue<double>();
+  if (findParameterDynamic(DYN::UPDATABLE_INPUT_VALUE_NAME).hasValue()) {
+    double parameterValue = findParameterDynamic(DYN::UPDATABLE_INPUT_VALUE_NAME).getValue<double>();
     if (!doubleEquals(parameterValue, inputValue_)) {
       inputValue_ = parameterValue;
       updated_ = true;
     }
   }
-  if (findParameterDynamic(UPDATABLE_INPUT_MULTIPLIER_NAME).hasValue()) {
-    double parameterValue = findParameterDynamic(UPDATABLE_INPUT_MULTIPLIER_NAME).getValue<double>();
+  if (findParameterDynamic(DYN::UPDATABLE_INPUT_MULTIPLIER_NAME).hasValue()) {
+    double parameterValue = findParameterDynamic(DYN::UPDATABLE_INPUT_MULTIPLIER_NAME).getValue<double>();
     if (!doubleEquals(parameterValue, 1.)) {
       if (updated_) {
         Trace::warn() << DYNLog(UpdatableIgnoredMultiplier, name()) << Trace::endline;
@@ -140,21 +140,20 @@ ModelUpdatableContinuous::setSubModelParameters() {
         inputValue_ *= parameterValue;
         updated_ = true;
       }
-      setParameterValue(UPDATABLE_INPUT_VALUE_NAME, FINAL, inputValue_, false);
-      setParameterValue(UPDATABLE_INPUT_MULTIPLIER_NAME, FINAL, 1., false);
+      setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, FINAL, inputValue_, false);
+      setParameterValue(DYN::UPDATABLE_INPUT_MULTIPLIER_NAME, FINAL, 1., false);
     }
   }
 }
 
 void
-ModelUpdatableContinuous::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
-  addElement(UPDATABLE_VARIABLE_NAME, Element::TERMINAL, elements, mapElement);
+ModelUpdatableContinuous::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
+  addElement(DYN::UPDATABLE_VARIABLE_NAME, Element::TERMINAL, elements, mapElement);
 }
-
 
 void
 ModelUpdatableContinuous::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  -> " << UPDATABLE_VARIABLE_NAME << Trace::endline;
+  Trace::info() << "  -> " << DYN::UPDATABLE_VARIABLE_NAME << Trace::endline;
 }
 }  // namespace DYN

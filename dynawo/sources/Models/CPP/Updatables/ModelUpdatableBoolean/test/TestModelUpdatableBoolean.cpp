@@ -40,7 +40,7 @@ static boost::shared_ptr<SubModel> initModelUpdatableBoolean() {
   std::vector<ParameterModeler> parameters;
   modelUpdatableBoolean->defineParameters(parameters);
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_INPUT_VALUE_NAME, true);
+  parametersSet->createParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, true);
   modelUpdatableBoolean->setPARParameters(parametersSet);
   modelUpdatableBoolean->addParameters(parameters, false);
   modelUpdatableBoolean->setParametersFromPARFile();
@@ -59,7 +59,7 @@ TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanDefineMethods) {
   ASSERT_EQ(parameters.size(), 1);
 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_INPUT_VALUE_NAME, true);
+  parametersSet->createParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, true);
   ASSERT_NO_THROW(modelUpdatableBoolean->setPARParameters(parametersSet));
 
   modelUpdatableBoolean->addParameters(parameters, false);
@@ -70,7 +70,7 @@ TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanDefineMethods) {
   modelUpdatableBoolean->defineVariables(variables);
   ASSERT_EQ(variables.size(), 1);
   boost::shared_ptr<Variable> variableModelUpdatableBoolean = variables[0];
-  ASSERT_EQ(variableModelUpdatableBoolean->getName(), UPDATABLE_VARIABLE_NAME);
+  ASSERT_EQ(variableModelUpdatableBoolean->getName(), DYN::UPDATABLE_VARIABLE_NAME);
   ASSERT_EQ(variableModelUpdatableBoolean->getType(), BOOLEAN);
   ASSERT_EQ(variableModelUpdatableBoolean->getNegated(), false);
   ASSERT_EQ(variableModelUpdatableBoolean->isState(), true);
@@ -84,8 +84,8 @@ TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanDefineMethods) {
   Element element = elements[0];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), UPDATABLE_VARIABLE_NAME);
-  ASSERT_EQ(mapElements[UPDATABLE_VARIABLE_NAME], 0);
+  ASSERT_EQ(element.name(), DYN::UPDATABLE_VARIABLE_NAME);
+  ASSERT_EQ(mapElements[DYN::UPDATABLE_VARIABLE_NAME], 0);
 }
 
 TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanTypeMethods) {
@@ -114,22 +114,22 @@ TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanUpdate) {
   modeChangeType_t mode = modelUpdatableBoolean->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableBoolean->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, true, false);
+  modelUpdatableBoolean->setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, true, false);
   modelUpdatableBoolean->setSubModelParameters();
   modelUpdatableBoolean->evalG(0);
   mode = modelUpdatableBoolean->evalMode(0);
-  ASSERT_EQ(modelUpdatableBoolean->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 1);
+  ASSERT_EQ(modelUpdatableBoolean->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 1);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableBoolean->evalG(0);
   mode = modelUpdatableBoolean->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableBoolean->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, false, false);
+  modelUpdatableBoolean->setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, false, false);
   modelUpdatableBoolean->setSubModelParameters();
   modelUpdatableBoolean->evalG(0);
   mode = modelUpdatableBoolean->evalMode(0);
-  ASSERT_EQ(modelUpdatableBoolean->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), -1);
+  ASSERT_EQ(modelUpdatableBoolean->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), -1);
   ASSERT_EQ(mode, NO_MODE);
 }
 

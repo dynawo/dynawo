@@ -40,7 +40,7 @@ static boost::shared_ptr<SubModel> initModelUpdatableInteger() {
   std::vector<ParameterModeler> parameters;
   modelUpdatableInteger->defineParameters(parameters);
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_VARIABLE_NAME, 2);
+  parametersSet->createParameter(DYN::UPDATABLE_VARIABLE_NAME, 2);
   modelUpdatableInteger->setPARParameters(parametersSet);
   modelUpdatableInteger->addParameters(parameters, false);
   modelUpdatableInteger->setParametersFromPARFile();
@@ -60,7 +60,7 @@ TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerDefineMethods) {
   ASSERT_EQ(parameters.size(), 1);
 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("Parameterset");
-  parametersSet->createParameter(UPDATABLE_INPUT_VALUE_NAME, 3);
+  parametersSet->createParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, 3);
   ASSERT_NO_THROW(modelUpdatableInteger->setPARParameters(parametersSet));
 
   modelUpdatableInteger->addParameters(parameters, false);
@@ -71,7 +71,7 @@ TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerDefineMethods) {
   modelUpdatableInteger->defineVariables(variables);
   ASSERT_EQ(variables.size(), 1);
   boost::shared_ptr<Variable> variableModelUpdatableInteger = variables[0];
-  ASSERT_EQ(variableModelUpdatableInteger->getName(), UPDATABLE_VARIABLE_NAME);
+  ASSERT_EQ(variableModelUpdatableInteger->getName(), DYN::UPDATABLE_VARIABLE_NAME);
   ASSERT_EQ(variableModelUpdatableInteger->getType(), INTEGER);
   ASSERT_EQ(variableModelUpdatableInteger->getNegated(), false);
   ASSERT_EQ(variableModelUpdatableInteger->isState(), true);
@@ -85,8 +85,8 @@ TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerDefineMethods) {
   Element element = elements[0];
   ASSERT_EQ(element.getTypeElement(), Element::TERMINAL);
   ASSERT_EQ(element.name(), element.id());
-  ASSERT_EQ(element.name(), UPDATABLE_VARIABLE_NAME);
-  ASSERT_EQ(mapElements[UPDATABLE_VARIABLE_NAME], 0);
+  ASSERT_EQ(element.name(), DYN::UPDATABLE_VARIABLE_NAME);
+  ASSERT_EQ(mapElements[DYN::UPDATABLE_VARIABLE_NAME], 0);
 }
 
 TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerTypeMethods) {
@@ -115,22 +115,22 @@ TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerUpdate) {
   modeChangeType_t mode = modelUpdatableInteger->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableInteger->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 5, false);
+  modelUpdatableInteger->setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 5, false);
   modelUpdatableInteger->setSubModelParameters();
   modelUpdatableInteger->evalG(0);
   mode = modelUpdatableInteger->evalMode(0);
-  ASSERT_EQ(modelUpdatableInteger->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 5);
+  ASSERT_EQ(modelUpdatableInteger->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 5);
   ASSERT_EQ(mode, NO_MODE);
 
   modelUpdatableInteger->evalG(0);
   mode = modelUpdatableInteger->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
 
-  modelUpdatableInteger->setParameterValue(UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 2, false);
+  modelUpdatableInteger->setParameterValue(DYN::UPDATABLE_INPUT_VALUE_NAME, DYN::FINAL, 2, false);
   modelUpdatableInteger->setSubModelParameters();
   modelUpdatableInteger->evalG(0);
   mode = modelUpdatableInteger->evalMode(0);
-  ASSERT_EQ(modelUpdatableInteger->findParameter(UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 2);
+  ASSERT_EQ(modelUpdatableInteger->findParameter(DYN::UPDATABLE_INPUT_VALUE_NAME, false).getDoubleValue(), 2);
   ASSERT_EQ(mode, NO_MODE);
 }
 
