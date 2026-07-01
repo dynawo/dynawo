@@ -132,6 +132,10 @@ class ReaderOMC:
         self._16dae_h_file = os.path.join (input_dir, self.mod_name + "_16dae.h")
         exist_file(self._16dae_h_file)
 
+        ## Full name of the _12jac.c file
+        self._12jac_c_file = os.path.join (input_dir, self.mod_name + "_12jac.c")
+        exist_file(self._12jac_c_file)
+
         ## Delay file
         self._07dly_c_file = os.path.join (input_dir, self.mod_name + "_07dly.c")
 
@@ -182,6 +186,8 @@ class ReaderOMC:
 
         ## dictionary of residual variables with their types (differential, algebraic, or mixed - depending on some conditions)
         self.var_name_to_eq_type = {}
+        ## dictionary of residual variables associated to the litteral explicit equation from Modelica model
+        self.var_name_to_litteral_equation= {}
         ## dictionary of residual variables equation with type MIXED associated to the detailed list of types
         self.var_name_to_mixed_residual_vars_types = {}
         ## dictionary of residual variables equation with type MIXED associated to the list of differential variables for each branch
@@ -269,6 +275,12 @@ class ReaderOMC:
         self.var_init_val = {}
         ## List of warnings defined in this file
         self.warnings = []
+
+        # ---------------------------------------
+        # Attribute for reading *_12jac.c file
+        # ---------------------------------------
+        ## List of functions read in file
+        self.list_func_12jac_c = []
 
         # -----------------------------------------
         # Attribute for reading *_07dly.c file
@@ -416,7 +428,8 @@ class ReaderOMC:
             if "tag" in keys:
                 tag_eq = equation["tag"]
 
-            if type_eq == "residuals" or  type_eq == "container" or type_eq == "start" or  type_eq == "parameter" or  (type_eq == "initial" and "system" in tag_eq):
+            if type_eq == "residuals" or  type_eq == "container" or type_eq == "start" or  type_eq == "parameter" \
+              or  type_eq == "jacobian" or  (type_eq == "initial" and "system" in tag_eq) or  (type_eq == "initial" and "jacobian" in tag_eq):
                 index = str(int(equation["eqIndex"]))
 
                 self.map_tag_num_eq[index]=str(tag_eq)
@@ -428,6 +441,7 @@ class ReaderOMC:
                     for name in list_defined_vars :
                         if (index not in self.map_num_eq_vars_defined.keys()):
                             self.map_num_eq_vars_defined [index] = []
+                        print ("BUBU0 ADD " + name + " " + index)
                         self.map_num_eq_vars_defined [index].append(name)
 
                 # Get map [calculated var] --> [vars on which the equation depends]
@@ -441,6 +455,7 @@ class ReaderOMC:
                     if "equation" in keys:
                         eq = equation["equation"]
                         self.analyse_equations_and_get_types(str(eq), name)
+                        self.var_name_to_litteral_equation[name] = eq[0]
                     else:
                         self.var_name_to_eq_type[name] = ALGEBRAIC
             elif type_eq == "initial":
@@ -985,6 +1000,13 @@ class ReaderOMC:
             if func is not None:
                 self.setup_dae_data_struc_raw_func = func
 
+        name_func_to_search = {}
+        for func in self.list_omc_functions:
+            if "omc_Modelica_" in func.get_name() and "omc_Modelica_Blocks_Tables_Internal_getTable" not in func.get_name() \
+            and "omc_Modelica_Blocks_Tables_Internal_getTimeTable" not in func.get_name(): continue
+            if "array_alloc_scalar_real_array" in func.get_name(): continue
+            name_func_to_search[func.get_name()] = func
+
         for f in self.list_func_16dae_c:
             (body, depend) = replace_dynamic_indexing(f.body)
             f.body = body
@@ -995,6 +1017,46 @@ class ReaderOMC:
                 name_var_eval = self.map_num_eq_vars_defined[f.get_num_omc()] [0]
             if name_var_eval is not None and len(depend) > 0:
                 self.map_vars_depend_vars[name_var_eval].extend(depend)
+            if name_var_eval is None:
+                for line in f.get_body():
+                    for func_name in name_func_to_search:
+                        if func_name +"("  in line or func_name +" (" in line:
+                            func = name_func_to_search[func_name]
+                            inputs = func.find_inputs_from_call(line)
+                            outputs = func.find_outputs_from_call(line)
+                            for output in outputs:
+                                if (output not in self.map_vars_depend_vars):
+                                    self.map_vars_depend_vars[output] = []
+                                self.map_vars_depend_vars[output].extend(inputs)
+
+         ##
+    # Read the 12jac c file
+    # @param self: object pointer
+    # @return
+    def read_12jac_c_file(self):
+        # Reading of functions "..._eqFunction_${num}(...)"
+        self.list_func_12jac_c.extend(self.read_functions(self._12jac_c_file, self.ptrn_func_decl_main_c, self.functions_root_name))
+
+        ptrn_comments = re.compile(self.regular_expr_equation_index)
+        comment_opening = "/*"
+        comments_end = "*/"
+        with open(self._12jac_c_file, 'r') as f:
+            while True:
+                it = itertools.dropwhile(lambda line: comment_opening not in line, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                for line in list_body:
+                    if ptrn_comments.search(line) is not None:
+                        match = re.search(ptrn_comments, line)
+                        index = match.group('index')
+                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
+                        break
+
+
+        for f in self.list_func_12jac_c:
+            (body, depend) = replace_dynamic_indexing(f.body)
+            f.body = body
 
 
     ##
@@ -1077,9 +1139,7 @@ class ReaderOMC:
                         #Sometime a complex init ends up in 06...
                         #data->modelData->realVarsData[...].attribute.start = data->simulationInfo->realParameter[..];
                         #data->localData[0]->realVars[...]  = data->modelData->realVarsData[...].attribute.start;
-                        print ("BUBU TEST " + line)
                         if ptrn_assign_var_complex.search(line) is not None:
-                            print ("BUBU INIT? " + line)
                             match = re.search(ptrn_assign_var_complex, line)
                             var_name = str(match.group('varName'))
                             self.var_init_val[ var_name ] = list_body
@@ -1634,6 +1694,9 @@ class ReaderOMC:
                     set_param_address(name,  "integerParameter")
                 elif var_type == "stringParamVars":
                     set_param_address(name,  "stringParameter")
+                elif var_type == "seedVars":
+                    set_param_address(name, "seedVars")
+                    print ("BUBU ADD " + name)
                 elif var_type == "extObjVars":
                     set_param_address(name,  "data->simulationInfo->extObjs["+str(index_extobjs)+"]")
                     index_extobjs+=1
@@ -1763,6 +1826,7 @@ class ReaderOMC:
         index_string_param= 0
         index_aux_var= 0
         index_integer_double = 0
+        index_seed_var = 0
         alternative_way_to_declare_der = "$DER."
         for var in self.list_vars:
             name = var.get_name()
@@ -1798,6 +1862,18 @@ class ReaderOMC:
                 index_string_param+=1
         for var in self.list_vars:
             name = var.get_name()
+            if name.endswith("]"):
+                table_index = name.rfind('[')
+                name_seed = name[0:table_index]+".SeedA"+name[table_index:]
+            else:
+                name_seed = name+".SeedA"
+            if not has_param_address(name_seed):
+                addresses = get_map_var_name_2_addresses()
+                for address in addresses:
+                    if "SeedNLSJac" in address and re.sub(r'\.SeedNLSJac\d+', '', address) == name:
+                        name_seed = address
+                        break
+
             test_param_address(name)
             address = to_param_address(name)
             if "derivativesVars" in address:
@@ -1811,6 +1887,8 @@ class ReaderOMC:
                 set_param_address(name, "data->localData[0]->derivativesVars["+str(index)+"]")
                 set_param_address(name.replace(alternative_way_to_declare_der,"der(")+")", to_param_address(name))
                 set_param_address(name.replace("der(",alternative_way_to_declare_der)[:-1], to_param_address(name))
+            if has_param_address(name_seed):
+                set_param_address(name_seed, "jacobian->seedVars[" + address.replace("data->localData[0]->realVars[",""))
 
         self.nb_real_vars = index_real_var
         self.nb_discrete_vars = index_discrete_var
@@ -1924,95 +2002,60 @@ class ReaderOMC:
         variable_to_equation_dependencies = {}
         function_to_eval_variable = {}
 
+        eval_var_name_to_jacobian_func = {}
+        for f in self.list_func_12jac_c:
+            eq_mak_num_omc = f.get_num_omc()
+            name_var_eval = None
+            if eq_mak_num_omc in map_num_eq_vars_defined.keys():
+                if len(map_num_eq_vars_defined[eq_mak_num_omc]) > 1:
+                    error_exit("   Error: Found an equation (id: " + eq_mak_num_omc+") defining multiple variables. This is not supported in Dynawo.")
+                name_var_eval = map_num_eq_vars_defined[eq_mak_num_omc] [0]
+            if name_var_eval is not None:
+                var_name = jacobian_name_to_variable_name(name_var_eval)
+                eval_var_name_to_jacobian_func[var_name] = f
+
+        function_to_remove = []
         for f in self.list_func_16dae_c:
             f_num_omc = f.get_num_omc()
-            name_var_eval = None
+            name_var_eval = []
             if f_num_omc in map_num_eq_vars_defined.keys():
                 if len(map_num_eq_vars_defined[f_num_omc]) > 1:
                     error_exit("   Error: Found an equation (id: " + f_num_omc+") defining multiple variables. This is not supported in Dynawo.")
-                name_var_eval = map_num_eq_vars_defined[f_num_omc] [0]
+                name_var_eval.append(map_num_eq_vars_defined[f_num_omc] [0])
+                print ("BUBU NAME VAR EVAL ? " + str(name_var_eval))
 
-            if name_var_eval is not None and self.is_fictitious_residual_vars(name_var_eval):
+            if len(name_var_eval) == 0:
+                for line in f.get_body():
+                    for func_name in name_func_to_search:
+                        if func_name +"("  in line or func_name +" (" in line:
+                            func = name_func_to_search[func_name]
+                            outputs = func.find_outputs_from_call(line)
+                            if(len(outputs) >= 1):
+                                name_var_eval = outputs
+            if len(name_var_eval) == 0:
                 continue
+            for name in name_var_eval:
+                if self.is_fictitious_residual_vars(name):
+                    continue
+                if name in self.residual_vars_to_address_map:
+                    continue
+                if is_when_condition(name) : continue
+                if name in eval_var_name_to_jacobian_func: continue
+                var = self.find_variable_from_name(name)
+                if var is None: continue
+                if is_discrete_real_var(var): continue
+                if is_integer_var(var): continue
+                if is_bool_var(var): continue
+                if var.is_alias(): continue
 
-            list_depend = [] # list of vars on which depends the function
-            is_eligible = True
-            #derivative variables should be kept in f
-            if name_var_eval is not None and "der("+name_var_eval+")" in get_map_var_name_2_addresses():
-                is_eligible = False
-            #constant variables shouldn't become calculated variables
-            base_var = self.find_variable_from_name(name_var_eval)
-            if base_var is not None and base_var.is_fixed():
-                is_eligible = False
-            for line in f.get_body():
-                if "STATE_DER" in line or "DUMMY_DER" in line:
-                    # equations with derivatives should be kept in F
-                    is_eligible = False
-                if "relationhysteresis" in line:
-                    # equations with potential mode change should be kept in F
-                    is_eligible = False
-                for func_name in name_func_to_search:
-                    if func_name +"("  in line or func_name +" (" in line:
-                        is_eligible = False
-                        # equations with call to an external function  should be kept in F
-                        func = name_func_to_search[func_name]
-                        outputs = func.find_outputs_from_call(line)
-                        if(len(outputs) >= 1):
-                            name_var_eval = outputs[0]
-                        inputs = func.find_inputs_from_call(line)
-                        list_depend.extend(inputs)
-            if name_var_eval is not None:
-                list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
-                if name_var_eval in map_dep:
-                    list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
-                if is_eligible:
-                    function_to_eval_variable[f] = name_var_eval
-                for var_name in list_depend:
-                    if var_name == "time": continue
-                    if var_name in self.residual_vars_to_address_map: continue
-                    if var_name in self.list_flow_vars: continue
-                    var = self.find_variable_from_name(var_name)
-                    if (var is None): continue
-                    if is_discrete_real_var(var): continue
-                    if is_integer_var(var): continue
-                    if is_bool_var(var): continue
-                    if is_when_condition(var_name) : continue
-                    if var_name not in variable_to_equation_dependencies:
-                        variable_to_equation_dependencies[var_name] = []
-                    variable_to_equation_dependencies[var_name].append(f_num_omc)
-
-        function_to_remove = []
-        for f in function_to_eval_variable:
-            var_name = function_to_eval_variable[f]
-            if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
-                var = self.find_variable_from_name(var_name)
-                assert(var != None)
                 self.list_complex_calculated_vars[var] = f
-                function_to_remove.append(f)
-                print_info("Variable " + var_name + " is set as a calculated variable of level 1.")
-                set_param_address(var_name, "SHOULD NOT BE USED - CALCULATED VAR")
-        for f in function_to_remove:
-            self.list_func_16dae_c.remove(f)
-        was_modif = True
-        idx = 2
-        while was_modif:
-            was_modif = False
-            for f in function_to_remove:
-                for var in variable_to_equation_dependencies:
-                    if f.get_num_omc() in variable_to_equation_dependencies[var]:
-                        variable_to_equation_dependencies[var].remove(f.get_num_omc())
-            function_to_remove = []
-            for f in function_to_eval_variable:
-                var_name = function_to_eval_variable[f]
-                if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
-                    var = self.find_variable_from_name(var_name)
-                    assert(var != None)
-                    self.list_complex_calculated_vars[var] = f
+                if f not in function_to_remove:
                     function_to_remove.append(f)
-                    print_info("Variable " + var_name + " is set as a calculated variable of level " + str(idx) +".")
-                    set_param_address(var_name, "SHOULD NOT BE USED - CALCULATED VAR")
-                    was_modif = True
-            idx+=1
+                set_param_address(name, "SHOULD NOT BE USED - CALCULATED VAR")
+                print_info("Variable " + name + " is set as a calculated variable.")
+
+        for f in function_to_remove:
+             self.list_func_16dae_c.remove(f)
 
     ##
     # Find all calculated variables, collect their initial value and their associated equation
@@ -2029,7 +2072,6 @@ class ReaderOMC:
                     set_param_address(var.get_name(), "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]")
                     self.list_complex_const_vars.append(var)
 
-        ptrn_evaluated_var = re.compile(r'\(data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/\)[ ]* = [ ]*(?P<rhs>[^;]+);')
         map_dep = self.get_map_dep_vars_for_func()
         for var in self.list_vars:
             if var in self.list_complex_calculated_vars:
@@ -2038,8 +2080,6 @@ class ReaderOMC:
                 for line in self.list_complex_calculated_vars[var].get_body():
                     if has_omc_trace (line) or has_omc_equation_indexes (line) :
                         continue
-                    if re.search(ptrn_evaluated_var, line) is not None:
-                        line = ptrn_evaluated_var.sub(r'  return \g<3>;', line)
                     line=line.replace("threadData,", "")
                     line = sub_division_sim(line)
                     body.append("  "+line)

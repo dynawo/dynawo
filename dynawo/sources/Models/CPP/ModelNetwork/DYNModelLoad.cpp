@@ -938,7 +938,7 @@ ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar,
 }
 
 void
-ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isRunning()) {
@@ -1018,7 +1018,7 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
 }
 
 double
-ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) {
   double output = 0.;
   switch (numCalculatedVar) {
     case pNum_: {

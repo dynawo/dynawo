@@ -326,7 +326,7 @@ ModelStaticVarCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned n
 
 
 void
-ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) {
   switch (numCalculatedVar) {
     case pNum_:
       if (isConnected()) {
@@ -357,7 +357,7 @@ ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector
 }
 
 double
-ModelStaticVarCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelStaticVarCompensator::evalCalculatedVarI(unsigned numCalculatedVar) {
   switch (numCalculatedVar) {
     case pNum_:
       if (isConnected()) {

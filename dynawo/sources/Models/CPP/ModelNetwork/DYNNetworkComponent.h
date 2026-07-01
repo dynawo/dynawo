@@ -177,7 +177,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  virtual void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const = 0;
+  virtual void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) = 0;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -186,7 +186,7 @@ class NetworkComponent {  ///< Base class for network component models
    *
    * @return value of the calculated variable
    */
-  virtual double evalCalculatedVarI(unsigned numCalculatedVar) const = 0;
+  virtual double evalCalculatedVarI(unsigned numCalculatedVar) = 0;
 
   /**
    * @brief evaluate the continuous variable property

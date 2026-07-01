@@ -397,11 +397,23 @@ ModelManager::evalJt(const double t, const double cj, const int rowOffset, Spars
   Timer timer("ModelManager::evalJ");
 #endif
 
+
 #ifdef _ADEPT_
   evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
-#else
-  // Assert when Adept wasn't used
-  assert(0 && "evalJt : Adept not used");
+  // #else
+  /*  for (unsigned int i = 0; i < sizeF(); ++i) {
+    jt.changeCol();
+    for (unsigned int j = 0; j < sizeY(); ++j) {
+      const double term = modelModelica()->evalJtTerm(i, j, cj);
+      std::cout << "BUBU? " << name() << " " << i << " " << j << " " << term << std::endl;
+#ifdef _DEBUG_
+      if (isnan(term) || isinf(term)) {
+        throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
+      }
+#endif
+      jt.addTerm(j + rowOffset, term);
+    }
+  }*/
 #endif
 }
 
@@ -411,6 +423,7 @@ ModelManager::evalJtPrim(const double t, const double cj, const int rowOffset, S
   Timer timer("ModelManager::evalJPrim");
 #endif
 
+  // TODO(rosiereflo)
 #ifdef _ADEPT_
   evalJtAdept(t, yLocal_, ypLocal_, cj, jtPrim, rowOffset, false);
 #else
@@ -1402,12 +1415,12 @@ ModelManager::evalCalculatedVars() {
 }
 
 double
-ModelManager::evalCalculatedVarI(unsigned iCalculatedVar) const {
+ModelManager::evalCalculatedVarI(unsigned iCalculatedVar) {
   return modelModelica()->evalCalculatedVarI(iCalculatedVar);
 }
 
 void
-ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
+ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) {
 #ifdef _ADEPT_
   try {
     std::vector<int> indexes;

@@ -493,6 +493,17 @@ class DYNDATA : public DATA {
   std::vector<double> constCalcVars;  ///< values of constant calculated variables with complex initialization
 };
 
+/**
+ * @brief Class DYNDATA : class to define data needed for the symbolic jacobian
+ * @class SYMBOLICJACOBIAN
+ */
+class SYMBOLICJACOBIAN {
+ public:
+  modelica_real* seedVars;  ///< seed vector to specify which variable to evaluate
+  modelica_real* tmpVars;  ///< vector to store temporary values used several times
+  modelica_real dae_cj;  ///< Jacobian prime coefficient
+};
+
 namespace DYN {
 
 /**

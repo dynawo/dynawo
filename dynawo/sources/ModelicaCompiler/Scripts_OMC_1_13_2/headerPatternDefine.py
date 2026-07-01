@@ -59,7 +59,7 @@ class HeaderPatternDefine:
     void initRpar();
     void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
-    modeChangeType_t evalMode(const double t) const;
+    modeChangeType_t evalMode(const double t);
     void setZomc();
     void collectSilentZ(BitMask* silentZTable);
     void setOomc();
@@ -73,13 +73,14 @@ class HeaderPatternDefine:
     void setParameters( std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
+    double evalJtTerm(int fIndex, int varIndex, const double cj);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
-    double evalCalculatedVarI(unsigned iCalculatedVar) const;
+    double evalCalculatedVarI(unsigned iCalculatedVar);
     void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 #ifdef _ADEPT_
     void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) const;
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp);
 #endif
 
     void checkDataCoherence ();
@@ -95,6 +96,7 @@ class HeaderPatternDefine:
 
     private:
     DYNDATA * data;
+    SYMBOLICJACOBIAN* jacobian;
     ModelManager * modelManager_;
     bool dataStructInitialized_;
     std::string modelType_;
@@ -149,7 +151,7 @@ namespace DYN {
     void initRpar();
     void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
-    modeChangeType_t evalMode(const double t) const;
+    modeChangeType_t evalMode(const double t);
     void setZomc();
     void collectSilentZ(BitMask* silentZTable);
     void setY0omc();
@@ -162,13 +164,14 @@ namespace DYN {
     void setParameters(std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
+    double evalJtTerm(int fIndex, int varIndex, const double cj);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
-    double evalCalculatedVarI(unsigned iCalculatedVar) const;
+    double evalCalculatedVarI(unsigned iCalculatedVar);
     void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 #ifdef _ADEPT_
     void evalFAdept( const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) const;
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp);
 #endif
 
     void checkDataCoherence ();
@@ -184,6 +187,7 @@ namespace DYN {
 
     private:
     DYNDATA * data;
+    SYMBOLICJACOBIAN* jacobian;
     ModelManager * modelManager_;
     bool dataStructInitialized_;
     std::string modelType_;

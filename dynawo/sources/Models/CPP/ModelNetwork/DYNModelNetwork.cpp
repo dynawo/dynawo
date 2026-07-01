@@ -1124,7 +1124,7 @@ ModelNetwork::getIndexesOfVariablesUsedForCalculatedVarI(const unsigned iCalcula
 }
 
 void
-ModelNetwork::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& res) const {
+ModelNetwork::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& res) {
   const int index = componentIndexByCalculatedVar_[iCalculatedVar];
   const std::shared_ptr<NetworkComponent>& comp = isInitModel_ ?  initComponents_[index] : components_[index];
   const unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();
@@ -1132,7 +1132,7 @@ ModelNetwork::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double>& res) 
 }
 
 double
-ModelNetwork::evalCalculatedVarI(const unsigned iCalculatedVar) const {
+ModelNetwork::evalCalculatedVarI(const unsigned iCalculatedVar) {
   const int index = componentIndexByCalculatedVar_[iCalculatedVar];
   const std::shared_ptr<NetworkComponent>& comp = isInitModel_ ?  initComponents_[index] : components_[index];
   const unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();

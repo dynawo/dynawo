@@ -870,7 +870,7 @@ ModelLine::varSide(unsigned i) const {
 }
 
 double
-ModelLine::evalCalculatedVarI(unsigned i) const {
+ModelLine::evalCalculatedVarI(unsigned i) {
   if (i == lineStateNum_)
     return connectionState_;
 
@@ -983,7 +983,7 @@ ModelLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned i, vector<int> & 
 }
 
 void
-ModelLine::evalJCalculatedVarI(unsigned i, vector<double>& res) const {
+ModelLine::evalJCalculatedVarI(unsigned i, vector<double>& res) {
   if (i >= nbCalculatedVariables_)
     throw DYNError(Error::MODELER, UndefJCalculatedVarI, i);
 

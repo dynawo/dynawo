@@ -993,7 +993,7 @@ ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
 }
 
 void
-ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) {
   double ur1 = 0.;
   double ui1 = 0.;
   double ur2 = 0.;
@@ -1673,7 +1673,7 @@ ModelTwoWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned
 }
 
 double
-ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) {
   double output;
   double ur1 = 0.;
   double ui1 = 0.;

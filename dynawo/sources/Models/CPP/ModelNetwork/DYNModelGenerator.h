@@ -161,7 +161,7 @@ class ModelGenerator : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -170,7 +170,7 @@ class ModelGenerator : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned numCalculatedVar) override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()
@@ -385,7 +385,7 @@ class ModelGenerator : public NetworkComponent {
   double P0_;  ///< initial active power
   double Q0_;  ///< initial reactive power
   double u0_;  ///< initial voltage
-  double U0Pu_square_; ///< squared norm of initial voltage
+  double U0Pu_square_;  ///< squared norm of initial voltage
   double ir0_;  ///< initial current real part
   double ii0_;  ///< initial current imaginary part
   double alpha_;  ///< active power exponential sensitivity to voltage

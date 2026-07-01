@@ -274,7 +274,7 @@ class ModelTwoWindingsTransformer : public ModelQuadripole {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -283,7 +283,7 @@ class ModelTwoWindingsTransformer : public ModelQuadripole {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned numCalculatedVar) override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()

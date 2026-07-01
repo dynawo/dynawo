@@ -331,7 +331,7 @@ runOptions(const bool useAliasing) {
   return string("simCodeTarget=C +showErrorMessages -g=Modelica "
       "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
       + (useAliasing ? string(" --preOptModules-=resolveLoops") : string(" --preOptModules-=comSubExp,removeSimpleEquations,resolveLoops")) +
-      string(" +numProcs=1 +daeMode --allowNonStandardModelica=implicitParameterStartAttribute");
+      string(" +numProcs=1 +daeMode --allowNonStandardModelica=implicitParameterStartAttribute --generateSymbolicJacobian");
 }
 
 string

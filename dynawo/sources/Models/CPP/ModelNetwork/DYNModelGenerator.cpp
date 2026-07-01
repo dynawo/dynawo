@@ -406,7 +406,7 @@ ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculate
 }
 
 void
-ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const {
+ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
@@ -464,7 +464,7 @@ ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<doubl
 }
 
 double
-ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {

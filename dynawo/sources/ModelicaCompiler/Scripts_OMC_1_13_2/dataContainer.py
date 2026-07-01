@@ -1279,6 +1279,8 @@ class EqMaker():
         ## For whenCondition, index of the relation associated to this equation
         self.num_relation = ""
 
+        self.jacobian_body = None
+
         if raw_fct is not None:
             self.name = raw_fct.get_name()
             self.num_omc = raw_fct.get_num_omc()
@@ -1435,6 +1437,31 @@ class EqMaker():
         # done by make_various_treatments
         self.body_func = make_various_treatments( self.body_func )
 
+        #Do the same for Jacobian
+        if self.jacobian_body is not None:
+            self.jacobian_body.pop(0)
+            self.jacobian_body.pop()
+            # Remplacer "throwStreamPrintWithEquationIndexes(threadData, equationIndexes" par "throwStreamPrint(threadData"
+            body_tmp = []
+            for line in self.jacobian_body:
+                line_tmp = mmc_strings_len1(line)
+                if "throwStream" in line_tmp:
+                    line_tmp = throw_stream_indexes(line_tmp)
+                elif "threadData" in line_tmp:
+                    line_tmp=line_tmp.replace(THREAD_DATA_OMC_PARAM, "")
+                if "omc_assert_warning" in line_tmp:
+                    line_tmp = line_tmp.replace(INFO_OMC_PARAM,"")
+                body_tmp.append(line_tmp)
+            self.jacobian_body = body_tmp
+            self.jacobian_body = make_various_treatments( self.jacobian_body )
+
+    ##
+    # set the jacobian body
+    # @param self : object pointer
+    # @param jac_body : jacobian body
+    def set_body_for_jacobian(self, jac_body):
+        self.jacobian_body = jac_body
+
     ##
     # create an equation thanks to the information stored
     # @param self : object pointer
@@ -1447,7 +1474,8 @@ class EqMaker():
                          self.name, \
                          self.num_omc, \
                          self.type, \
-                         self.complex_eq)
+                         self.complex_eq,
+                         self.jacobian_body)
 
 
 ##
@@ -1612,8 +1640,9 @@ class Equation(EquationBase):
     # @param depend_vars : variables used in the equation
     # @param comes_from : name of the function using the equation
     # @param num_omc : index of the equation in omc arrays
-    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC, complex_eq = False):
+    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC, complex_eq = False, jacobian_body = None):
         EquationBase.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc, type, complex_eq)
+        self.jacobian_body = jacobian_body
 
     ##
     # retrieve the body formatted for Modelica reinit affectation
@@ -1665,12 +1694,55 @@ class Equation(EquationBase):
                 text_to_return.append( line )
             else:
                 line = replace_var_names(line)
-                print ("BUBU? " + line)
-                print ("BUBU2? " + self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line))
                 text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line) )
                 if self.complex_eq:
                     index += 1
         return text_to_return
+
+        ##
+    # Prepares the body of the equation to be used in setF function
+    # @param self : object pointer
+    # @return list of lines to print
+    def get_body_for_jacobian(self):
+        text_to_return = []
+        if self.jacobian_body is None:
+            return text_to_return
+        with_throw = False
+        for line in self.jacobian_body:
+            if "throwStreamPrint" in line:
+                with_throw = True
+                break
+        ptrn_residual_var_jacobian = re.compile(r'[\( ]*jacobian->resultVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) JACOBIAN_VAR\s*\*\/[\) ]*=[ ]*(?P<rhs>[^;]+);')
+        ptrn_residual_var_tmp = re.compile(r'[\( ]*jacobian->tmpVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) JACOBIAN_TMP_VAR\s*\*\/[\) ]*=[ ]*(?P<rhs>[^;]+);')
+
+        index = self.get_num_dyn()
+        #evaluated_address = to_param_address(self.evaluated_var)
+        #print ("BUBU JT " + self.evaluated_var +" " + evaluated_address)
+        text_to_return.append ("  if (fIndex == " + str(index) + ") {\n")
+        for line in self.jacobian_body:
+            if has_omc_trace (line) or has_omc_equation_indexes (line) or ("infoStreamPrint" in line)\
+                   or ("data->simulationInfo->needToIterate = 1") in line:
+                continue
+            if "omc_assert_warning" in line and with_throw:
+                continue
+            line = replace_var_names(line)
+            line = replace_relationhysteresis(line)
+            if ("TRACE_PUSH" in line)  or ("TRACE_POP" in line) \
+                    or  ("const int equationIndexes[2]"  in line) \
+                    or "const int baseClockIndex" in line \
+                    or "const int subClockIndex" in line:
+                continue
+            match = re.match(ptrn_residual_var_jacobian, line)
+            if match is not None:
+                line = "  return " + match.group(3) +";\n"
+            text_to_return.append( "  " + line )
+            match = re.match(ptrn_residual_var_tmp, line)
+            if match is not None:
+                text_to_return.append("    return jacobian->tmpVars[" + match.group(1) +"];\n")
+
+        text_to_return.append ("  }\n")
+        return text_to_return
+
 
     ##
     # Prepares the body of the equation to be used in evalFAdept function

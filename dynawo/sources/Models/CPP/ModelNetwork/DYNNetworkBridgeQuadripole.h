@@ -118,13 +118,13 @@ class NetworkBridgeQuadripole : public ModelQuadripole {
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
 
   /** @brief unused */
-  void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) override {}
 
   /** @brief unused, throws an error if called
    * @param numCalculatedVar index of the non-existant variable being evaled
    * @returns nothing, since it throws in all cases if called
   */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
+  double evalCalculatedVarI(unsigned numCalculatedVar) override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
 
   /** @brief unused */
   void evalStaticYType() override {}

@@ -253,7 +253,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned iCalculatedVar) override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -261,7 +261,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) override;
 
   /**
    * @brief get the global indexes of the variables used to compute a calculated variable

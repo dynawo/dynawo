@@ -242,7 +242,7 @@ ModelVariationArea::evalMode(const double t) {
 }
 
 void
-ModelVariationArea::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
+ModelVariationArea::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) {
   // output depends only on discrete variables
 }
 
@@ -252,7 +252,7 @@ ModelVariationArea::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalcu
 }
 
 double
-ModelVariationArea::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+ModelVariationArea::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
   return 0;
 }
 

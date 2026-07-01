@@ -349,7 +349,7 @@ ModelSwitch::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVa
 }
 
 void
-ModelSwitch::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& /*res*/) const {
+ModelSwitch::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& /*res*/) {
   switch (numCalculatedVar) {
     case swStateNum_:
       break;
@@ -359,7 +359,7 @@ ModelSwitch::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& /*re
 }
 
 double
-ModelSwitch::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelSwitch::evalCalculatedVarI(unsigned numCalculatedVar) {
   switch (numCalculatedVar) {
     case swStateNum_:
       return getConnectionState();

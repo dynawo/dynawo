@@ -230,7 +230,7 @@ void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
   }
 }
 
-modeChangeType_t ModelTest_Dyn::evalMode(const double t) const
+modeChangeType_t ModelTest_Dyn::evalMode(const double t)
 {
   modeChangeType_t modeChangeType = NO_MODE;
  
@@ -423,13 +423,13 @@ void ModelTest_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
 {
 }
 
-double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
+double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar)
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }

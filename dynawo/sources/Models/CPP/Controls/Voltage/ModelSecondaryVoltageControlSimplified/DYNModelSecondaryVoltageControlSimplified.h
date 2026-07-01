@@ -220,7 +220,7 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double> &res) const override;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double> &res) override;
   /**
    * @brief  ModelSecondaryVoltageControlSimplified transposed jacobian evaluation
    *
@@ -262,7 +262,7 @@ class ModelSecondaryVoltageControlSimplified : public ModelCPP {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned iCalculatedVar) override;
   /**
    * @brief ModelSecondaryVoltageControlSimplified elements initializer
    *

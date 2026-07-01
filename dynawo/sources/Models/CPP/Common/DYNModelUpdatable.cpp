@@ -42,7 +42,7 @@ void
 ModelUpdatable::evalCalculatedVars() { /* not needed for DYNModelUpdatable */}
 
 double
-ModelUpdatable::evalCalculatedVarI(unsigned iCalculatedVar) const {
+ModelUpdatable::evalCalculatedVarI(unsigned iCalculatedVar) {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 void
@@ -72,7 +72,7 @@ ModelUpdatable::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculate
   /* not needed for DYNModelUpdatable */ }
 
 void
-ModelUpdatable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {
+ModelUpdatable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) {
   /* not needed for DYNModelUpdatable */}
 
 void

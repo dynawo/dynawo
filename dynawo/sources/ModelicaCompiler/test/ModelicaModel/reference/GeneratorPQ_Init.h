@@ -30,7 +30,7 @@ namespace DYN {
     void initRpar();
     void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
-    modeChangeType_t evalMode(const double t) const;
+    modeChangeType_t evalMode(const double t);
     void setZomc();
     void collectSilentZ(BitMask* silentZTable);
     void setY0omc();
@@ -45,11 +45,11 @@ namespace DYN {
     void defineParameters(std::vector<ParameterModeler>& parameters);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
-    double evalCalculatedVarI(unsigned iCalculatedVar) const;
+    double evalCalculatedVarI(unsigned iCalculatedVar);
     void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 #ifdef _ADEPT_
     void evalFAdept( const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) const;
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp);
 #endif
 
     void checkDataCoherence ();

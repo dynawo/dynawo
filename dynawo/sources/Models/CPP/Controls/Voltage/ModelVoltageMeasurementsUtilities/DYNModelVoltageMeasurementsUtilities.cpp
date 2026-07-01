@@ -158,7 +158,7 @@ ModelVoltageMeasurementsUtilities::evalMode(const double /*t*/) {
 }
 
 void
-ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(const unsigned iCalculatedVar, vector<double>& /*res*/) const {
+ModelVoltageMeasurementsUtilities::evalJCalculatedVarI(const unsigned iCalculatedVar, vector<double>& /*res*/) {
   throw DYNError(Error::MODELER, UndefJCalculatedVarI, iCalculatedVar);
 }
 
@@ -168,7 +168,7 @@ ModelVoltageMeasurementsUtilities::getIndexesOfVariablesUsedForCalculatedVarI(co
 }
 
 double
-ModelVoltageMeasurementsUtilities::evalCalculatedVarI(const unsigned iCalculatedVar) const {
+ModelVoltageMeasurementsUtilities::evalCalculatedVarI(const unsigned iCalculatedVar) {
   double out = 0.;
   switch (iCalculatedVar) {
   case minValIdx_:

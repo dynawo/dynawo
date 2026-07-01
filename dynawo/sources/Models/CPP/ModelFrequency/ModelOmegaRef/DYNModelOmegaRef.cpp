@@ -309,7 +309,7 @@ ModelOmegaRef::sortGenByCC() {
 }
 
 void
-ModelOmegaRef::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
+ModelOmegaRef::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) {
   // output depends only on discrete variables
 }
 
@@ -319,7 +319,7 @@ ModelOmegaRef::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculated
 }
 
 double
-ModelOmegaRef::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+ModelOmegaRef::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
   return 0;
 }
 

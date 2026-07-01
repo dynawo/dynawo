@@ -754,7 +754,7 @@ ModelDanglingLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalcul
 }
 
 void
-ModelDanglingLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+ModelDanglingLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) {
   const double ur1 = modelBus_->ur();
   const double ui1 = modelBus_->ui();
   const double ur2 = y_[urFictNum_];
@@ -812,7 +812,7 @@ ModelDanglingLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>
 }
 
 double
-ModelDanglingLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelDanglingLine::evalCalculatedVarI(unsigned numCalculatedVar) {
   double output;
   const double ur1 = modelBus_->ur();
   const double ui1 = modelBus_->ui();

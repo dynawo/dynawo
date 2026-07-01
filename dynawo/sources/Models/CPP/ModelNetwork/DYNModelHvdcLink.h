@@ -163,7 +163,7 @@ class ModelHvdcLink : public ModelQuadripole {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const override;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -172,7 +172,7 @@ class ModelHvdcLink : public ModelQuadripole {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned numCalculatedVar) override;
 
   /**
    * @brief evaluate state
