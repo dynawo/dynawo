@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<criteria xmlns="http://www.rte-france.com/dynawo">
+  <quadripoleCriteria>
+    <parameters id ="test_line_criteria_1" scope="DYNAMIC" type="LOCAL_VALUE" i1Max="1871" i2Max="1871"/>
+    <component id="_BUS____1-BUS____2-1_AC"/>
+  </quadripoleCriteria>
+  <quadripoleCriteria>
+    <parameters id ="test_line_criteria" scope="DYNAMIC" type="LOCAL_VALUE" i1Max="139" i2Max="650"/>
+    <component id="_BUS____4-BUS____9-1_PT"/>
+  </quadripoleCriteria>
+</criteria>

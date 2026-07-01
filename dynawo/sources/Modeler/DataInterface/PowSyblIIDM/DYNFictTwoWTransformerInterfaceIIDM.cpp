@@ -53,14 +53,17 @@ namespace DYN {
     if (leg.get().hasPhaseTapChanger() ||
         (leg.get().hasRatioTapChanger() && leg.get().getRatioTapChanger().getRegulationTerminal() &&
          stdcxx::areSame(leg.get().getTerminal(), leg.get().getRatioTapChanger().getRegulationTerminal().get())))
-      stateVariables_.resize(6);
+      stateVariables_.resize(8);
     else
-      stateVariables_.resize(5);
+      stateVariables_.resize(7);
+    bool neededForCriteriaCheck = true;
     stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1
     stateVariables_[VAR_P2] = StateVariable("p2", StateVariable::DOUBLE);  // P2
     stateVariables_[VAR_Q1] = StateVariable("q1", StateVariable::DOUBLE);  // Q1
     stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);  // Q2
     stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
+    stateVariables_[VAR_I1] = StateVariable("i1", StateVariable::DOUBLE, neededForCriteriaCheck);     // I1
+    stateVariables_[VAR_I2] = StateVariable("i2", StateVariable::DOUBLE, neededForCriteriaCheck);     // I2
     if (leg.get().hasPhaseTapChanger() ||
       (leg.get().hasRatioTapChanger() && leg.get().getRatioTapChanger().getRegulationTerminal() &&
       stdcxx::areSame(leg.get().getTerminal(), leg.get().getRatioTapChanger().getRegulationTerminal().get()))) {
@@ -215,6 +218,16 @@ namespace DYN {
     return 0.0;
   }
 
+  double
+  FictTwoWTransformerInterfaceIIDM::getStateVarI1() const {
+    return 0.0;
+  }
+
+  double
+  FictTwoWTransformerInterfaceIIDM::getStateVarI2() const {
+    return 0.0;
+  }
+
   void
   FictTwoWTransformerInterfaceIIDM::importStaticParameters() {
     staticParameters_.clear();
@@ -327,6 +340,10 @@ namespace DYN {
       index = VAR_Q2;
     else if ( varName == "state" )
       index = VAR_STATE;
+    else if (varName == "i1")
+      index = VAR_I1;
+    else if (varName == "i2")
+      index = VAR_I2;
     else if ( varName == "tapIndex" )
       index = VAR_TAPINDEX;
     return index;

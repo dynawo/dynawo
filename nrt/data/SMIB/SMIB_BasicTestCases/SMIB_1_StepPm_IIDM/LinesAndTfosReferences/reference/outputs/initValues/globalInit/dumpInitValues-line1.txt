@@ -8,6 +8,8 @@ line_terminal1_i_re                               : y =     -14.423893 yp =     
 line_terminal2_i_im                               : y =       0.625509 yp =       0.000000
 line_terminal2_i_re                               : y =      14.423893 yp =       0.000000
  ====== CALCULATED VARIABLES VALUES ======
+line_ISide1                                       : y =      14.437450
+line_ISide2                                       : y =      14.437450
 line_P1Pu                                         : y =     -12.993187
 line_P2Pu                                         : y =      12.993187
 line_Q1Pu                                         : y =       0.563465

@@ -33,6 +33,9 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Dynawo.Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
+  Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
+
   parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
 
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
@@ -52,6 +55,8 @@ equation
     terminal2.i = Complex(0);
   end if;
 
+  ISide1 = ComplexMath.'abs'(terminal1.i);
+  ISide2 = ComplexMath.'abs'(terminal2.i);
   P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
   Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));

@@ -59,6 +59,7 @@ set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNReactiveCurvePointsInterface.h
     DYNDataInterfaceImpl.h
     DYNCriteria.h
+    DYNCriteria.hpp
     )
 
 set(DATA_INTERFACE_FACTORY_SOURCES
