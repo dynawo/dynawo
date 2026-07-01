@@ -31,6 +31,17 @@
 
 namespace timeline {
 
+// TLTimeline.h
+#ifdef _WIN32
+  #ifdef TL_EXPORTS
+    #define TL_API __declspec(dllexport)
+  #else
+    #define TL_API __declspec(dllimport)
+  #endif
+#else
+  #define TL_API
+#endif
+
 class Event;
 
 /**
@@ -69,7 +80,7 @@ class Timeline {
    * @param priority event priority, optional
    * @param key event key, empty if none
    */
-  void addEvent(const double& time, const std::string& modelName, const std::string& message, const boost::optional<int>& priority, const std::string& key);
+  void TL_API addEvent(const double& time, const std::string& modelName, const std::string& message, const boost::optional<int>& priority, const std::string& key);
 
   /**
    * @brief number of event getter

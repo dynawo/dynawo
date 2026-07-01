@@ -39,6 +39,9 @@ partial model BaseTransformer "Base model for a general two winding transformer 
   Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid (terminal 2)" annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
+  Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
+
   Dynawo.Types.ComplexPerUnit rTfoPu(re(start = RatioTfo0Pu * Modelica.Math.cos(AlphaTfo0)), im(start = RatioTfo0Pu * Modelica.Math.sin(AlphaTfo0))) "Transformation complex ratio in complex pu";
 
   // Initial parameters
@@ -64,6 +67,9 @@ equation
     terminal1.i = Complex(0);
     terminal2.i = Complex(0);
   end if;
+
+  ISide1 = ComplexMath.'abs'(terminal1.i);
+  ISide2 = ComplexMath.'abs'(terminal2.i);
 
   if running then
   // Variables for display or connection to another model (tap-changer for example)

@@ -35,7 +35,9 @@ using std::set;
 
 namespace constraints {
 
-ConstraintsCollection::ConstraintsCollection(const string& id) : id_(id) {}
+ConstraintsCollection::ConstraintsCollection(const string& id) :
+id_(id),
+excludeTimeFromId_(false)  {}
 
 void
 ConstraintsCollection::addConstraint(const string& modelName, const string& description, const double& time, Type_t type,
@@ -119,7 +121,10 @@ ConstraintsCollection::clear() {
 string
 ConstraintsCollection::idFromDetails(const string & modelName, const string & description, const double & time, Type_t type) const {
   stringstream stream;
-  stream << modelName << "_" << time << "_" << type << "_" << description;  // allow to sort constraint by modelName, then time and type
+  if (excludeTimeFromId_)
+    stream << modelName << "_" << type << "_" << description;  // allow to sort constraint by modelName and type
+  else
+    stream << modelName << "_" << time << "_" << type << "_" << description;  // allow to sort constraint by modelName, then time and type
   return stream.str();
 }
 

@@ -50,16 +50,24 @@ class Exporter {
    *
    * @param constraints ConstraintsCollection to export
    * @param filePath File to export to
+   * @param exportEventType Whether to export event type
    */
-  virtual void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const std::string& filePath) const = 0;
+  virtual void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints,
+                           const std::string& filePath,
+                           bool exportEventType = false) const = 0;
 
   /**
    * @brief Export method for this exporter
    *
    * @param constraints ConstraintsCollection to export
    * @param stream stream to export to
+   * @param minTime Minimum time threshold (constraints with time < minTime are excluded, negative value means no filtering)
+   * @param exportEventType Whether to export event type
    */
-  virtual void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, std::ostream& stream) const = 0;
+  virtual void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints,
+                              std::ostream& stream,
+                              double minTime = -1.0,
+                              bool exportEventType = false) const = 0;
 };
 
 #ifdef __clang__

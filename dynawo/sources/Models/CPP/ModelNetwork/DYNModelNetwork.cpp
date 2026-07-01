@@ -383,6 +383,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     data->setReference("p2", id, id, "P2_value");
     data->setReference("q2", id, id, "Q2_value");
     data->setReference("state", id, id, "state_value");
+    // declare reference between subModel and some calculated data
+    data->setReference("i1", id, id, "iSide1_value");
+    data->setReference("i2", id, id, "iSide2_value");
   }
 
   // =================================
@@ -428,6 +431,9 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
         (modelTwoWindingsTransformer->getModelTapChanger() && !modelTwoWindingsTransformer->getModelTapChanger()->isFictitious())) {
       data->setReference("tapIndex", id, id, "step_value");
     }
+    // declare reference between subModel and some calculated data (i1 and i2)
+    data->setReference("i1", id, id, "iSide1_value");
+    data->setReference("i2", id, id, "iSide2_value");
   }
 
   // =================================

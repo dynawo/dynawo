@@ -19,9 +19,6 @@
 #include <fstream>
 #include <sstream>
 
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
-
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
 #include "TLJsonExporter.h"
@@ -30,7 +27,7 @@
 using std::fstream;
 using std::ostream;
 using std::string;
-using boost::property_tree::ptree;
+using std::ostringstream;
 
 namespace timeline {
 
@@ -48,22 +45,38 @@ JsonExporter::exportToFile(const boost::shared_ptr<Timeline>& timeline, const st
 
 void
 JsonExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream& stream) const {
-  ptree root;
-  ptree array;
+  ostringstream oss;
+  oss << "[";
+
+  bool firstEvent = true;
   for (const auto& event : timeline->getEvents()) {
     if (event->hasPriority() && maxPriority_ != boost::none && event->getPriority() > maxPriority_)
       continue;
-    ptree item;
-    if (exportWithTime_)
-      item.put("time", DYN::double2String(event->getTime()));
-    item.put("modelName", event->getModelName());
-    item.put("message", event->getMessage());
-    if (event->hasPriority()) {
-      item.put("priority", event->getPriority());
+
+    if (!firstEvent) {
+      oss << ",";
     }
-    array.push_back(std::make_pair("", item));
+    firstEvent = false;
+
+    oss << "{";
+    bool firstField = true;
+    if (exportWithTime_) {
+      oss << "\"time\":" << event->getTime();
+      firstField = false;
+    }
+
+    if (!firstField) oss << ",";
+    oss << "\"modelName\":\"" << event->getModelName() << "\",";
+    oss << "\"message\":\"" << event->getMessage() << "\"";
+
+    if (event->hasPriority()) {
+      oss << ",\"priority\":" << event->getPriority();
+    }
+
+    oss << "}";
   }
-  root.push_back(std::make_pair("timeline", array));
-  write_json(stream, root, false);
+  oss << "]";
+
+  stream << oss.str() << "\n";
 }
 }  // namespace timeline

@@ -18,10 +18,8 @@
  *
  */
 #include <fstream>
-#include <sstream>
 
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
+#include <sstream>
 
 #include "DYNMacrosMessage.h"
 #include "DYNCommon.h"
@@ -33,89 +31,108 @@
 using std::fstream;
 using std::ostream;
 using std::string;
-
-using boost::property_tree::ptree;
+using std::ostringstream;
 
 namespace constraints {
 
 void
-JsonExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints, const string& filePath) const {
+JsonExporter::exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints,
+                          const string& filePath,
+                          bool exportEventType) const {
   fstream file;
   file.open(filePath.c_str(), fstream::out);
   if (!file.is_open()) {
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath.c_str());
   }
 
-  exportToStream(constraints, file);
+  exportToStream(constraints, file, -1.0, exportEventType);
   file.close();
 }
 
 void
-JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints, ostream& stream) const {
-  ptree root;
-  ptree array;
+JsonExporter::exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints,
+                            ostream& stream,
+                            double minTime,
+                            bool exportEventType) const {
+  ostringstream oss;
+  oss << "[";
+
+  bool firstConstraint = true;
   for (const auto& constraintPair : constraints->getConstraintsById()) {
     const auto& constraint = constraintPair.second;
-    ptree item;
-    item.put("modelName", constraint->getModelName());
-    item.put("description", constraint->getDescription());
-    item.put("time", DYN::double2String(constraint->getTime()));
-    if (constraint->hasModelType())
-      item.put("type", constraint->getModelType());
+    if (constraint->getTime() < minTime)
+      continue;
+
+    if (!firstConstraint) {
+      oss << ",";
+    }
+    firstConstraint = false;
+
+    oss << "{";
+    oss << "\"modelName\":\"" << constraint->getModelName() << "\",";
+    oss << "\"description\":\"" << constraint->getDescription() << "\",";
+    oss << "\"time\":" << constraint->getTime();
+
+    if (constraint->hasModelType()) {
+      oss << ",\"type\":\"" << constraint->getModelType() << "\"";
+    }
+
+    if (exportEventType) {
+      Type_t eventType = constraint->getType();
+      if (eventType == CONSTRAINT_BEGIN)
+        oss << ",\"eventType\":\"BEGIN\"";
+      else if (eventType == CONSTRAINT_END)
+        oss << ",\"eventType\":\"END\"";
+    }
+
     const boost::optional<ConstraintData>& data = constraint->getData();
     if (data) {
       switch (data->kind) {
         case ConstraintData::OverloadOpen:
-          item.put("kind", "OverloadOpen");
+          oss << ",\"kind\":\"OverloadOpen\"";
           break;
         case ConstraintData::OverloadUp:
-          item.put("kind", "OverloadUp");
+          oss << ",\"kind\":\"OverloadUp\"";
           break;
         case ConstraintData::PATL:
-          item.put("kind", "PATL");
+          oss << ",\"kind\":\"PATL\"";
           break;
         case ConstraintData::UInfUmin:
-          item.put("kind", "UInfUmin");
+          oss << ",\"kind\":\"UInfUmin\"";
           break;
         case ConstraintData::USupUmax:
-          item.put("kind", "USupUmax");
+          oss << ",\"kind\":\"USupUmax\"";
           break;
         case ConstraintData::FictLim:
-          item.put("kind", "Fictitious");
+          oss << ",\"kind\":\"Fictitious\"";
           break;
         case ConstraintData::Undefined:
           break;
       }
-      item.put("limit", data->limit);
-      item.put("value", data->value);
+      oss << ",\"limit\":" << data->limit;
+      oss << ",\"value\":" << data->value;
 
-      boost::optional<double> valueMin = data->valueMin;
-      if (valueMin)
-        item.put("valueMin", valueMin.value());
+      if (data->valueMin)
+        oss << ",\"valueMin\":" << data->valueMin.value();
 
-      boost::optional<double> valueMax = data->valueMax;
-      if (valueMax)
-        item.put("valueMax", valueMax.value());
+      if (data->valueMax)
+        oss << ",\"valueMax\":" << data->valueMax.value();
 
-      boost::optional<int> side = data->side;
-      if (side) {
-        item.put("side", side.value());
-      }
-      boost::optional<double> acceptableDuration = data->acceptableDuration;
-      if (acceptableDuration) {
-        item.put("acceptableDuration", acceptableDuration.value());
-      }
+      if (data->side)
+        oss << ",\"side\":" << data->side.value();
 
-      const std::string& limitName = data->limitName;
-      if (!limitName.empty()) {
-        item.put("limitName", limitName);
-      }
+      if (data->acceptableDuration)
+        oss << ",\"acceptableDuration\":" << data->acceptableDuration.value();
+
+      if (!data->limitName.empty())
+        oss << ",\"limitName\":\"" << data->limitName << "\"";
     }
-    array.push_back(std::make_pair("", item));
-  }
-  root.push_back(std::make_pair("constraints", array));
 
-  write_json(stream, root, false);
+    oss << "}";
+  }
+  oss << "]";
+
+  stream << oss.str() << "\n";
 }
 
 }  // namespace constraints

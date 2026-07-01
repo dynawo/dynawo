@@ -103,11 +103,18 @@ class ConstraintsCollection {
    */
   std::string idFromDetails(const std::string & modelName, const std::string & description, const double & time, Type_t type) const;
 
+  /**
+   * @brief Set excludeTimeFromId flag
+   *
+   * @param excludeTimeFromId excludeTimeFromId flag value
+   */
+  void setExcludeTimeFromId(bool excludeTimeFromId) { excludeTimeFromId_ = excludeTimeFromId; }
 
  private:
   std::string id_;                                                                        ///< ConstraintCollection's id
   std::map<std::string, std::vector<std::shared_ptr<Constraint> > > constraintsByModel_;  ///< constraint sorted by model
   std::map<std::string, std::shared_ptr<Constraint> > constraintsById_;                   ///< constraint sorted by id
+  bool excludeTimeFromId_;                                                                ///< exclude time from id
 };
 
 }  // end of namespace constraints
