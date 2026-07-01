@@ -2512,7 +2512,7 @@ index 2bf62ff1a1..ef9e4cad0f 100644
  public function printVarLstCrefs
      input list<SimCodeVar.SimVar> inVars;
      output String str;
-@@ -8950,6 +8980,59 @@ algorithm
+@@ -8950,6 +8980,61 @@ algorithm
    dumpFunctions(functions);
  end dumpModelInfo;
  
@@ -2541,12 +2541,13 @@ index 2bf62ff1a1..ef9e4cad0f 100644
 +  list<SimCodeVar.SimVar> intConstVars;
 +  list<SimCodeVar.SimVar> stringConstVars;
 +  list<SimCodeFunction.Function> functions;
++  list<SimCodeVar.SimVar> seedVars;
 +  File.File file = File.File();
 +algorithm
 +  File.open(file,AbsynUtil.pathString(modelInfo.name)+"_variables.txt",File.Mode.Write);
 +  SimCode.MODELINFO(vars=simVars, varInfo=varInfo, functions=functions) := modelInfo;
 +  SimCodeVar.SIMVARS(stateVars=stateVars,derivativeVars=derivativeVars,algVars=algVars,boolAlgVars=boolAlgVars,intAlgVars=intAlgVars,discreteAlgVars=discreteAlgVars,aliasVars=aliasVars,intAliasVars=intAliasVars,boolAliasVars=boolAliasVars,
-+  paramVars=paramVars,intParamVars=intParamVars,boolParamVars=boolParamVars, stringParamVars=stringParamVars, extObjVars=extObjVars,constVars=constVars,intConstVars=intConstVars,stringConstVars=stringConstVars) := simVars;
++  paramVars=paramVars,intParamVars=intParamVars,boolParamVars=boolParamVars, stringParamVars=stringParamVars, extObjVars=extObjVars,constVars=constVars,intConstVars=intConstVars,stringConstVars=stringConstVars, seedVars=seedVars) := simVars;
 +  SimCode.VARINFO(numStateVars=nsv,numAlgVars=nalgv) := varInfo;
 +  dumpVarLstFile(stateVars,"stateVars ("+intString(nsv)+")", file);
 +  dumpVarLstFile(derivativeVars,"derivativeVars", file);
@@ -2565,6 +2566,7 @@ index 2bf62ff1a1..ef9e4cad0f 100644
 +  dumpVarLstFile(constVars,"constVars", file);
 +  dumpVarLstFile(intConstVars,"intConstVars", file);
 +  dumpVarLstFile(stringConstVars,"stringConstVars", file);
++  dumpVarLstFile(seedVars,"seedVars", file);
 +end dumpModelInfoToFile;
 +
 +

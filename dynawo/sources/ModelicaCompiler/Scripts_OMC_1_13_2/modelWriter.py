@@ -382,7 +382,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalMode(self):
         self.addEmptyLine()
 
-        self.addLine("modeChangeType_t Model" + self.className + "::evalMode(const double t) const\n")
+        self.addLine("modeChangeType_t Model" + self.className + "::evalMode(const double t)\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_evalmode())
@@ -480,6 +480,17 @@ class ModelWriter(ModelWriterBase):
         self.addLine(self.void_function_prefix+ self.className + "::defineParameters(std::vector<ParameterModeler>& parameters)\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_defineparameters())
+        self.addLine("}\n")
+
+    ##
+    # Add the body of evalJt in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalJt(self):
+        self.addEmptyLine()
+        self.addLine("double Model"+ self.className + "::evalJtTerm(int fIndex, int varIndex, const double cj)\n")
+        self.addLine("{\n")
+        self.addBody(self.builder.get_list_for_evaljt())
         self.addLine("}\n")
 
     ##
@@ -782,7 +793,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_evalCalculatedVarI(self):
         self.addEmptyLine()
-        self.addLine("double Model" + self.className + "::evalCalculatedVarI(unsigned iCalculatedVar) const\n")
+        self.addLine("double Model" + self.className + "::evalCalculatedVarI(unsigned iCalculatedVar)\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_evalcalculatedvari())
         self.addLine("}\n")
@@ -795,7 +806,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalCalculatedVarIAdept(self):
         self.addEmptyLine()
         self.addLine("#ifdef _ADEPT_\n")
-        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const\n")
+        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_evalcalculatedvariadept())
         self.addLine("}\n")

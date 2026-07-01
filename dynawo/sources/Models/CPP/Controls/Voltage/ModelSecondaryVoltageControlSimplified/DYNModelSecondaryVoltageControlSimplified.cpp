@@ -320,7 +320,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   }
 
   void
-  ModelSecondaryVoltageControlSimplified::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {
+  ModelSecondaryVoltageControlSimplified::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) {
     /* not need */
   }
 
@@ -340,7 +340,7 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   }
 
   double
-  ModelSecondaryVoltageControlSimplified::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  ModelSecondaryVoltageControlSimplified::evalCalculatedVarI(unsigned iCalculatedVar) {
     double out = 0.;
     switch (iCalculatedVar) {
     case levelNum_:

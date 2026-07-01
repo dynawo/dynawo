@@ -110,7 +110,7 @@ ConnectorCalculatedDiscreteVariable::setParams(const shared_ptr<SubModel>& model
 }
 
 void
-ConnectorCalculatedDiscreteVariable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*JI*/) const {
+ConnectorCalculatedDiscreteVariable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*JI*/) {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 
@@ -120,7 +120,7 @@ ConnectorCalculatedDiscreteVariable::getIndexesOfVariablesUsedForCalculatedVarI(
 }
 
 double
-ConnectorCalculatedDiscreteVariable::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+ConnectorCalculatedDiscreteVariable::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 

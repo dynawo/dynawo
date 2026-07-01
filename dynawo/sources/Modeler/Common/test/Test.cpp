@@ -228,11 +228,11 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) override {
     // Dummy class used for testing
   }
 
-  double evalCalculatedVarI(unsigned) const override {
+  double evalCalculatedVarI(unsigned) override {
     return getCurrentTime();
   }
 

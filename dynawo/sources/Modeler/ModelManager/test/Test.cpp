@@ -129,7 +129,7 @@ class MyModelica: public ModelModelica {
     return nbCallG_;
   }
 
-  modeChangeType_t evalMode(const double /*t*/) const override {
+  modeChangeType_t evalMode(const double /*t*/) override {
     return DIFFERENTIAL_MODE;
   }
 
@@ -303,7 +303,7 @@ class MyModelica: public ModelModelica {
     return nbCallCalcVars_;
   }
 
-  double evalCalculatedVarI(unsigned /*iCalculatedVar*/) const override {
+  double evalCalculatedVarI(unsigned /*iCalculatedVar*/) override {
     return 10.;
   }
 

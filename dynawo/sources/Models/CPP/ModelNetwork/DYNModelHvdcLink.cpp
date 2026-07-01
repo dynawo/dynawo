@@ -385,7 +385,7 @@ ModelHvdcLink::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculated
 }
 
 void
-ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const {
+ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) {
   switch (numCalculatedVar) {
     case p1Num_: {
       if (isConnected1() && isConnected2()) {
@@ -449,7 +449,7 @@ ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double
 }
 
 double
-ModelHvdcLink::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelHvdcLink::evalCalculatedVarI(unsigned numCalculatedVar) {
   double ur1 = 0.;
   double ui1 = 0.;
   double ur2 = 0.;

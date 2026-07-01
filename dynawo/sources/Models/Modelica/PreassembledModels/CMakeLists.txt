@@ -12,7 +12,7 @@
 
 set(MODELICA_PREASSEMBLED_MODELS
   AcGridRoCoF.xml
-  AggregatedIBG.xml
+  #AggregatedIBG.xml
   BESSWeccCurrentSource.xml
   BESSWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
@@ -139,7 +139,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
-  GenericIBG.xml
+  #GenericIBG.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml

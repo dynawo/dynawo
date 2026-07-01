@@ -334,7 +334,7 @@ namespace DYN {
   }
 
   void
-  ModelCentralizedShuntsSectionControl::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) const {
+  ModelCentralizedShuntsSectionControl::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<double>& /*res*/) {
     /* not need */
   }
 
@@ -354,7 +354,7 @@ namespace DYN {
   }
 
   double
-  ModelCentralizedShuntsSectionControl::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+  ModelCentralizedShuntsSectionControl::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
     return 0.;
   }
 

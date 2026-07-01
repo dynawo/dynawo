@@ -508,7 +508,7 @@ ModelBusInjected::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalcula
 }
 
 void
-ModelBusInjected::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+ModelBusInjected::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) {
   const double ur = y_[urNum_];
   const double ui = y_[uiNum_];
   switch (numCalculatedVar) {
@@ -562,7 +562,7 @@ ModelBusInjected::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>&
 }
 
 double
-ModelBusInjected::evalCalculatedVarI(unsigned numCalculatedVar) const {
+ModelBusInjected::evalCalculatedVarI(unsigned numCalculatedVar) {
   double output = 0.0;
   const double ur = y_[urNum_];
   const double ui = y_[uiNum_];

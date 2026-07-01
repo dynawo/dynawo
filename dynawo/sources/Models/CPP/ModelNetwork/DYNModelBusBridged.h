@@ -57,7 +57,7 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
 
   // unused pure virtual methods from NetworkComponent from here on
   NetworkComponent::StateChange_t evalState(double) override {return NetworkComponent::NO_CHANGE;}
-  [[noreturn]] double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
+  [[noreturn]] double evalCalculatedVarI(unsigned numCalculatedVar) override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
   void evalDerivatives(double) override {}
   void evalDerivativesPrim() override {}
   void evalF(propertyF_t) override {}
@@ -67,7 +67,7 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void defineNonGenericParameters(std::vector<ParameterModeler>&) override {}
   void evalCalculatedVars() override {}
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
-  void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) override {}
   void evalStaticYType() override {}
   void evalDynamicYType() override {}
   void evalStaticFType() override {}

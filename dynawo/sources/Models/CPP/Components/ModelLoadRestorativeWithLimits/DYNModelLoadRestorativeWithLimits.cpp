@@ -389,7 +389,7 @@ namespace DYN {
   }
 
   double
-  ModelLoadRestorativeWithLimits::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  ModelLoadRestorativeWithLimits::evalCalculatedVarI(unsigned iCalculatedVar) {
     double output = 0;
     switch (iCalculatedVar) {
       case PPuNum_:
@@ -442,7 +442,7 @@ namespace DYN {
   }
 
   void
-  ModelLoadRestorativeWithLimits::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
+  ModelLoadRestorativeWithLimits::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) {
     switch (iCalculatedVar) {
       case PNum_:
         if (isConnected()) {

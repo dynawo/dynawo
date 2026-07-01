@@ -219,7 +219,7 @@ void ModelGeneratorPQ_Init::setFomc(double * f, propertyF_t type)
   }
 }
 
-modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double t) const
+modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double t) 
 {
   modeChangeType_t modeChangeType = NO_MODE;
  
@@ -414,7 +414,7 @@ void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVa
   calculatedVars[6] /* generator.s0Pu.re*/ = data->simulationInfo->realParameter[0] /* generator.P0Pu*/;
 }
 
-double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar) const
+double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar)
 {
   if (iCalculatedVar == 0)  /* generator.u0Pu.im */
     return data->constCalcVars[0];
@@ -434,7 +434,7 @@ double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
 {
   if (iCalculatedVar == 0)  /* generator.u0Pu.im */
      return data->constCalcVars[0];
