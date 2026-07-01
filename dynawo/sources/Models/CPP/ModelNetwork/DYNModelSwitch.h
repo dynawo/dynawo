@@ -187,7 +187,7 @@ class ModelSwitch : public std::enable_shared_from_this<ModelSwitch>, public Mod
   /**
   * @copydoc NetworkComponent::evalZ()
   */
-  NetworkComponent::StateChange_t evalZ(double t) override;
+  NetworkComponent::StateChange_t evalZ(double t, bool onlyEvaluateStateChange) override;
 
   /**
    * @brief evaluate G

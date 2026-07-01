@@ -76,7 +76,7 @@ class ModelLine : public ModelQuadripole {
   void defineNonGenericParameters(std::vector<ParameterModeler> &) override { /* not needed */ }
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
   void evalF(propertyF_t type) override;
-  NetworkComponent::StateChange_t evalZ(double t) override;
+  NetworkComponent::StateChange_t evalZ(double t, bool onlyEvaluateStateChange) override;
   void evalG(double t) override;
   void evalCalculatedVars() override;
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const override;
