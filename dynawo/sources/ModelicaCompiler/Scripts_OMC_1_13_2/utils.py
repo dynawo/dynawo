@@ -108,6 +108,15 @@ def to_compile_name(var_name):
     name = name.replace("]","_")
     name = name.replace(",","_")
     return name
+##
+# get the state variable name from the jacobian variable name
+# @param var_name : jacobian name of the variable
+# @return the variable name
+def jacobian_name_to_variable_name(jac_var_name):
+    name = jac_var_name.replace(".$pDERA.dummyVarA","")
+    name = re.sub(r'\.\$pDERNLSJac\d+\.dummyVarNLSJac\d+', '', name)
+    name = re.sub(r'\.SeedNLSJac\d+', '', name)
+    return name
 
 nb_braces_opened = 0
 stop_at_next_call = False
@@ -167,6 +176,8 @@ def replace_var_names(line):
     dummy_der_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) DUMMY_DER \*\/')
     state_var = re.compile(    r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) STATE\(.*\) \*\/')
     residual_var = re.compile(r'[ \(]*data->simulationInfo->daeModeData->(?P<var>[\w\[\]]+)[ \)]*\/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/')
+    residual_var = re.compile(r'[ \(]*data->simulationInfo->daeModeData->(?P<var>[\w\[\]]+)[ \)]*\/\*\s*(?P<varName>[ \w\$\.()\[\],]*) DAE_RESIDUAL_VAR\s*\*\/')
+    seed_var = re.compile(r'jacobian->seedVars\[(?P<seedIndex>[0-9]+)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) SEED_VAR \*\/')
     map_to_replace = {}
     pattern_index  = 0
     match = dummy_der_var.findall(line)
@@ -221,6 +232,20 @@ def replace_var_names(line):
         test_param_address(name)
         replacement_string = "@@@" + str(pattern_index) + "@@@"
         line = line.replace(data_simulation_info+ "daeModeData->"+idx, replacement_string)
+        map_to_replace[replacement_string] = to_param_address(name)
+        pattern_index +=1
+    match = residual_var.findall(line)
+    for idx, name in match:
+        test_param_address(name)
+        replacement_string = "@@@" + str(pattern_index) + "@@@"
+        line = line.replace(data_simulation_info+ "daeModeData->"+idx, replacement_string)
+        map_to_replace[replacement_string] = to_param_address(name)
+        pattern_index +=1
+    match = seed_var.findall(line)
+    for idx, name in match:
+        test_param_address(name)
+        replacement_string = "@@@" + str(pattern_index) + "@@@"
+        line = line.replace("jacobian->seedVars["+idx+"]", replacement_string)
         map_to_replace[replacement_string] = to_param_address(name)
         pattern_index +=1
 
@@ -393,7 +418,7 @@ def get_argument(line, start_pos):
 def replace_pow(line):
     line_to_return = line
     if 'pow(' in line:
-        line_to_return = line_to_return.replace("pow(", "pow_dynawo(")
+        line_to_return = line_to_return.replace("pow(", "pow_dynawo(").replace("real_int_pow_dynawo(", "real_int_pow(")
     return line_to_return
 
 ##

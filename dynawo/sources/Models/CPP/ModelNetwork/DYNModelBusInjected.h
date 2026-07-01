@@ -90,8 +90,8 @@ class ModelBusInjected : public ModelBus, public ConstraintSource {  ///< Generi
   void evalG(double t) override;
   void evalCalculatedVars() override;
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) override;
+  double evalCalculatedVarI(unsigned numCalculatedVar) override;
   void evalStaticYType() override;
   void evalDynamicYType() override;
   void evalDynamicFType() override;

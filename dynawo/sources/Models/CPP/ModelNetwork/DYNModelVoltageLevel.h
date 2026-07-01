@@ -268,7 +268,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -276,7 +276,7 @@ class ModelVoltageLevel : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned numCalculatedVar) override;
 
   /**
    * @copydoc NetworkComponent::instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables)

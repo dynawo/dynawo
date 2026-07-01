@@ -100,7 +100,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the Jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -109,7 +109,7 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned iCalculatedVar) override;
 
   /**
    * @brief evaluation F

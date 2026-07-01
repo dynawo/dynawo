@@ -94,7 +94,7 @@ class ModelModelica {
    * @param t the time for which to check
    * @return @b true if a mode has been trigered, @b false otherwise (for use by ModelManager)
    */
-  virtual modeChangeType_t evalMode(const double t) const = 0;
+  virtual modeChangeType_t evalMode(const double t) = 0;
 
   /**
    * @brief calculates the discrete values of the model
@@ -148,6 +148,15 @@ class ModelModelica {
    * @param checkSum value of the checkSum
    */
   virtual void checkSum(std::string& checkSum) = 0;
+
+  /**
+   * @brief compute the transpose jacobian of the sub model \f$ J = @F/@x + cj * @F/@x' \f$
+   *
+   * @param fIndex index of the residual equation to be evaluated
+   * @param varIndex index of the state variable to be evaluated
+   * @param cj Jacobian prime coefficient
+   */
+  virtual double evalJtTerm(int fIndex, int varIndex, const double cj) = 0;
 
 #ifdef _ADEPT_
   /**
@@ -260,7 +269,7 @@ class ModelModelica {
    *
    * @return value of the calculated variable based on current continuous variables values
    */
-  virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
+  virtual double evalCalculatedVarI(unsigned iCalculatedVar) = 0;
 
 #ifdef _ADEPT_
   /**
@@ -273,7 +282,7 @@ class ModelModelica {
    * @return value of the calculated variable
    */
   virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble>& y,
-      const std::vector<adept::adouble>& yp) const = 0;
+      const std::vector<adept::adouble>& yp) = 0;
 #endif
 
 /**

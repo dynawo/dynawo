@@ -229,7 +229,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -238,7 +238,7 @@ class ModelVoltageMeasurementsUtilities : public ModelCPP {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned iCalculatedVar) override;
 
   /**
    * @brief ModelVoltageMeasurementsUtilities parameters setter

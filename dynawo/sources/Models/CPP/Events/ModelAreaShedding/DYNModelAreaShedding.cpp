@@ -221,7 +221,7 @@ ModelAreaShedding::evalMode(const double t) {
 }
 
 void
-ModelAreaShedding::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
+ModelAreaShedding::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) {
   // output depends only on discrete variables
 }
 
@@ -231,7 +231,7 @@ ModelAreaShedding::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalcul
 }
 
 double
-ModelAreaShedding::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+ModelAreaShedding::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
   return 0;
 }
 

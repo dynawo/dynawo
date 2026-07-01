@@ -258,7 +258,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   *
   * @return value of the calculated variable
   */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned iCalculatedVar) override;
 
   /**
   * @brief calculate calculated variables
@@ -271,7 +271,7 @@ class ModelLoadRestorativeWithLimits : public ModelCPP {
   * @param iCalculatedVar index of the calculated variable
   * @param res values of the jacobian
   */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) override;
 
   /**
   * @brief get the global indexes of the variables used to compute a calculated variable

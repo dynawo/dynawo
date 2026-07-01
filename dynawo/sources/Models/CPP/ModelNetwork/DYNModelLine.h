@@ -80,10 +80,10 @@ class ModelLine : public ModelQuadripole {
   void evalG(double t) override;
   void evalCalculatedVars() override;
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const override;
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) const override;
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double> & res) override;
   void evalJt(double cj, int rowOffset, SparseMatrix& jt) override;
   void evalJtPrim(int rowOffset, SparseMatrix& jtPrim) override;
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned numCalculatedVar) override;
   void evalStaticYType() override;
   void evalDynamicYType() override;
   void evalStaticFType() override;

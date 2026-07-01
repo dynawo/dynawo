@@ -137,7 +137,7 @@ ConnectorCalculatedVariable::setParams(const boost::shared_ptr<SubModel>& model,
 }
 
 void
-ConnectorCalculatedVariable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*JI*/) const {
+ConnectorCalculatedVariable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*JI*/) {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 
@@ -147,7 +147,7 @@ ConnectorCalculatedVariable::getIndexesOfVariablesUsedForCalculatedVarI(unsigned
 }
 
 double
-ConnectorCalculatedVariable::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+ConnectorCalculatedVariable::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 

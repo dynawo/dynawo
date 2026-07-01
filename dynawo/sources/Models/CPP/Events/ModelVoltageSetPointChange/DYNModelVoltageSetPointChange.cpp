@@ -185,7 +185,7 @@ ModelVoltageSetPointChange::evalMode(const double /*t*/) {
 }
 
 void
-ModelVoltageSetPointChange::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
+ModelVoltageSetPointChange::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) {
   // not needed
 }
 
@@ -195,7 +195,7 @@ ModelVoltageSetPointChange::getIndexesOfVariablesUsedForCalculatedVarI(unsigned 
 }
 
 double
-ModelVoltageSetPointChange::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+ModelVoltageSetPointChange::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
   return 0;
 }
 

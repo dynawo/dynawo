@@ -56,8 +56,8 @@ class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
   void defineNonGenericParameters(std::vector<ParameterModeler>&) override {}
   void evalCalculatedVars() override {}
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
-  void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
+  void evalJCalculatedVarI(unsigned, std::vector<double>&) override {}
+  double evalCalculatedVarI(unsigned numCalculatedVar) override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
   void evalStaticYType() override {}
   void evalDynamicYType() override {}
   void evalStaticFType() override {}

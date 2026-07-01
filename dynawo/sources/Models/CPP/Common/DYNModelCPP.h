@@ -75,7 +75,7 @@ class ModelCPP : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override = 0;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) override = 0;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -83,7 +83,7 @@ class ModelCPP : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override = 0;
+  double evalCalculatedVarI(unsigned iCalculatedVar) override = 0;
 
   /**
    * @brief export the parameters of the sub model for dump

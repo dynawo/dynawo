@@ -61,7 +61,7 @@ class ModelUpdatable : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalCalculatedVarI()
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  double evalCalculatedVarI(unsigned iCalculatedVar) override;
 
   /**
    * @copydoc ModelCPP::evalCalculatedVars()
@@ -111,7 +111,7 @@ class ModelUpdatable : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalJCalculatedVarI()
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) override;
 
   /**
    * @copydoc ModelCPP::initializeStaticData()

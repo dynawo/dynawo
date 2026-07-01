@@ -356,7 +356,7 @@ class SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
+  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) = 0;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -364,7 +364,7 @@ class SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
+  virtual double evalCalculatedVarI(unsigned iCalculatedVar) = 0;
 
   /**
    * @brief set the submodel parameters value
