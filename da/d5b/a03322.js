@@ -59,6 +59,7 @@ var a03322 =
     [ "calculatedVarBuffer_", "da/d5b/a03322.html#ac2149f1b88824782837b1be0b09244f8", null ],
     [ "componentIndexByCalculatedVar_", "da/d5b/a03322.html#a4f2e695f1de4aa24014c21f2171b1313", null ],
     [ "components_", "da/d5b/a03322.html#ae3185765cdf471d0269801fbc5941609", null ],
+    [ "deactivateZeroCrossingFunctions_", "da/d5b/a03322.html#ad4829dea9af1be2a364f851b9ea68062", null ],
     [ "initComponents_", "da/d5b/a03322.html#a75a8a2d0d481872a8e99c73a7ec057d1", null ],
     [ "isInit_", "da/d5b/a03322.html#ab98345384b51212789829b2848ed17f4", null ],
     [ "isInitModel_", "da/d5b/a03322.html#a5ee7af01083ac1b6913429cb918deaf0", null ],

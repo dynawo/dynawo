@@ -7,6 +7,7 @@ var searchData=
   ['datainit_5f',['dataInit_',['../d2/d23/a03186.html#a24793c85bca14a3c57415bef1f34f451',1,'DYN::ModelManager']]],
   ['datainterface_5f',['dataInterface_',['../df/d91/a02774.html#ade237caf4effcf62000ffbd4bff10c4a',1,'DYN::DynamicData::dataInterface_()'],['../dc/df0/a03146.html#aebea6aa4aed93becafdd1ea71480a822',1,'DYN::ServiceManagerInterfaceIIDM::dataInterface_()']]],
   ['dcline_5f',['dcLine_',['../dd/d7a/a03306.html#a2648378b80ea425379ad6ded95c641fb',1,'DYN::ModelHvdcLink']]],
+  ['deactivatezerocrossingfunctions_5f',['deactivateZeroCrossingFunctions_',['../da/d5b/a03322.html#ad4829dea9af1be2a364f851b9ea68062',1,'DYN::ModelNetwork']]],
   ['deadbandsupu_5f',['deadBandsUPu_',['../d5/d2f/a03222.html#a975818c5bccf4e82fc783583db4fc25b',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['declaretopochange_5f',['declareTopoChange_',['../d4/d6f/a03374.html#a8d0cf9c9bed873b20063fb49c7bb9836',1,'DYN::NetworkBridgeQuadripole']]],
   ['defaultangle0',['defaultAngle0',['../d4/d9b/a00680.html#a92e9a06ef39b4a36dd624a260c60c572',1,'DYN']]],

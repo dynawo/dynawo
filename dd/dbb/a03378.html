@@ -192,9 +192,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a6a8d6c7cf415db1c0bea019dd5dcecfc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dbb/a03378.html#a6a8d6c7cf415db1c0bea019dd5dcecfc">evalG</a> (double t)=0</td></tr>
 <tr class="memdesc:a6a8d6c7cf415db1c0bea019dd5dcecfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation G  <a href="#a6a8d6c7cf415db1c0bea019dd5dcecfc">More...</a><br /></td></tr>
 <tr class="separator:a6a8d6c7cf415db1c0bea019dd5dcecfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a407e4a64014ac8840b9bf5faf6b8312d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dd/dbb/a03378.html#ab067ace2562da72e4017d1c2cca12867">StateChange_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dbb/a03378.html#a407e4a64014ac8840b9bf5faf6b8312d">evalZ</a> (double t)=0</td></tr>
-<tr class="memdesc:a407e4a64014ac8840b9bf5faf6b8312d"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation Z  <a href="#a407e4a64014ac8840b9bf5faf6b8312d">More...</a><br /></td></tr>
-<tr class="separator:a407e4a64014ac8840b9bf5faf6b8312d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9281ed931f938c386dd40486268bb4e6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../dd/dbb/a03378.html#ab067ace2562da72e4017d1c2cca12867">StateChange_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dbb/a03378.html#a9281ed931f938c386dd40486268bb4e6">evalZ</a> (double t, bool onlyEvaluateStateChange)=0</td></tr>
+<tr class="memdesc:a9281ed931f938c386dd40486268bb4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation Z  <a href="#a9281ed931f938c386dd40486268bb4e6">More...</a><br /></td></tr>
+<tr class="separator:a9281ed931f938c386dd40486268bb4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4eb6b0139e7d2aa928333dae49734e83"><td class="memItemLeft" align="right" valign="top"><a id="a4eb6b0139e7d2aa928333dae49734e83"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dbb/a03378.html#a4eb6b0139e7d2aa928333dae49734e83">evalCalculatedVars</a> ()=0</td></tr>
 <tr class="memdesc:a4eb6b0139e7d2aa928333dae49734e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation calculated variables (for outputs) <br /></td></tr>
@@ -1131,8 +1131,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a407e4a64014ac8840b9bf5faf6b8312d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a407e4a64014ac8840b9bf5faf6b8312d">&#9670;&nbsp;</a></span>evalZ()</h2>
+<a id="a9281ed931f938c386dd40486268bb4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9281ed931f938c386dd40486268bb4e6">&#9670;&nbsp;</a></span>evalZ()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1144,8 +1144,18 @@ Private Member Functions</h2></td></tr>
           <td class="memname">virtual <a class="el" href="../../dd/dbb/a03378.html#ab067ace2562da72e4017d1c2cca12867">StateChange_t</a> DYN::NetworkComponent::evalZ </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>onlyEvaluateStateChange</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1159,12 +1169,13 @@ Private Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">t</td><td>time </td></tr>
+    <tr><td class="paramname">onlyEvaluateStateChange</td><td>true to only evaluate state change in the network model </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the potential state change type </dd></dl>
 
-<p>Implemented in <a class="el" href="../../df/d7f/a03366.html#a1ae02e54bf84a32c3bd3ac2c6595bbbf">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../d4/dcb/a03370.html#a8fc90790bec45aa07fdd45a5fd9cbbbe">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d6/d1c/a03346.html#a0129a2166d347cc83d850c8f1049b489">DYN::ModelSwitch</a>, <a class="el" href="../../d4/d1b/a03282.html#ae21f8c803471138cf1b90988b672e4a1">DYN::ModelBus</a>, <a class="el" href="../../d6/d90/a03298.html#af4647ff8a1dda6f87819dd32f620d073">DYN::ModelDanglingLine</a>, <a class="el" href="../../db/dee/a03338.html#aea6c6141ca2233f05aea58e766243709">DYN::ModelShuntCompensator</a>, <a class="el" href="../../de/dce/a03362.html#abd4da3cea1b865b32e96992373fac2d0">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d5/da8/a03302.html#a40e6e5d71365e55cc7135af43379310b">DYN::ModelGenerator</a>, <a class="el" href="../../dd/dc8/a03342.html#a62a963df8b9feb3afae28fa3128bff90">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../dd/d7a/a03306.html#ab1e7c25d997902c4830d27771611dfef">DYN::ModelHvdcLink</a>, <a class="el" href="../../da/d6e/a03314.html#a8f2d6e150719463cd044a399148d2d54">DYN::ModelLoad</a>, <a class="el" href="../../d7/d2e/a03310.html#aa0dd50e07160458afdd311185299de65">DYN::ModelLine</a>, and <a class="el" href="../../d4/d6f/a03374.html#abfa85937516900bb912c8bbf6b6696fc">DYN::NetworkBridgeQuadripole</a>.</p>
+<p>Implemented in <a class="el" href="../../df/d7f/a03366.html#a8970a7f58d9eea874a9ae7773a2dd806">DYN::ModelTwoWindingsTransformer</a>, <a class="el" href="../../d4/dcb/a03370.html#a5cebaaec5c8df524af24ad8cfa314cd9">DYN::ModelVoltageLevel</a>, <a class="el" href="../../d6/d1c/a03346.html#aa8631ca04b5ef29f33ce5ef50a756207">DYN::ModelSwitch</a>, <a class="el" href="../../d4/d1b/a03282.html#af336d7e5f6ccf9acdb073f2a6b0a5fa2">DYN::ModelBus</a>, <a class="el" href="../../d6/d90/a03298.html#a17ed623814908896c6452fca76a6d31a">DYN::ModelDanglingLine</a>, <a class="el" href="../../db/dee/a03338.html#a86052be71e6e4509069780587cf48419">DYN::ModelShuntCompensator</a>, <a class="el" href="../../de/dce/a03362.html#ab22f33ae542a5205a288c424cccde46a">DYN::ModelThreeWindingsTransformer</a>, <a class="el" href="../../d5/da8/a03302.html#afe76a645bba0703292133dfec4a88efb">DYN::ModelGenerator</a>, <a class="el" href="../../dd/dc8/a03342.html#a7ef062e9ff4d6e4ca9f626426093d257">DYN::ModelStaticVarCompensator</a>, <a class="el" href="../../dd/d7a/a03306.html#a690abcbc0053a4a19cac018364d88e23">DYN::ModelHvdcLink</a>, <a class="el" href="../../da/d6e/a03314.html#afdcd3d0448d07be1d9980fa2ab02d42d">DYN::ModelLoad</a>, <a class="el" href="../../d7/d2e/a03310.html#a71192e89f00fe2e7cf10a29a71227710">DYN::ModelLine</a>, and <a class="el" href="../../d4/d6f/a03374.html#a210ba9d8c421b5e578d2b40ca927ef6d">DYN::NetworkBridgeQuadripole</a>.</p>
 
 </div>
 </div>
@@ -2549,7 +2560,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/dbb/a03378.html">NetworkComponent</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 08:45:18 for Dynawo by
+    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

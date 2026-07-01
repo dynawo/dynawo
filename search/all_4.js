@@ -27,6 +27,7 @@ var searchData=
   ['deactivatecurrentlimits',['DeactivateCurrentLimits',['../d1/d0c/a02666.html#a963225344a251150ba0ad6d5264f567fa6b0c6a71e88568537f2991c29297379c',1,'DYN::KeyLog_t']]],
   ['deactivatepmax',['DeactivatePMAX',['../d6/d50/a02694.html#a9294fd85b78754e1a11fec544395ad51a9d013be961b3e64fcee133aa2ef569e5',1,'DYN::KeyTimeline_t']]],
   ['deactivatepmin',['DeactivatePMIN',['../d6/d50/a02694.html#a9294fd85b78754e1a11fec544395ad51a65ceb795544a09aadbff2e8e4e78ad29',1,'DYN::KeyTimeline_t']]],
+  ['deactivatezerocrossingfunctions_5f',['deactivateZeroCrossingFunctions_',['../da/d5b/a03322.html#ad4829dea9af1be2a364f851b9ea68062',1,'DYN::ModelNetwork']]],
   ['deadbandsupu_5f',['deadBandsUPu_',['../d5/d2f/a03222.html#a975818c5bccf4e82fc783583db4fc25b',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['debug',['debug',['../d1/dc1/a02706.html#ac2b286a8d73821c19afa910857de6fc0',1,'DYN::Trace::debug()'],['../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794aba17c0778dd43b6f34851dc72bb01bc0',1,'DYN::DEBUG()']]],
   ['declaretopochange_5f',['declareTopoChange_',['../d4/d6f/a03374.html#a8d0cf9c9bed873b20063fb49c7bb9836',1,'DYN::NetworkBridgeQuadripole']]],

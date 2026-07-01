@@ -198,9 +198,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a3f646af8afede2330b8c4089b4e0a54f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/a03306.html#a3f646af8afede2330b8c4089b4e0a54f">evalJtPrim</a> (int rowOffset, <a class="el" href="../../df/dad/a02682.html">SparseMatrix</a> &amp;jtPrim) override</td></tr>
 <tr class="memdesc:a3f646af8afede2330b8c4089b4e0a54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate jacobian <img class="formulaInl" alt="$( J = @F/@x')$" src="../../form_7.png"/>  <a href="#a3f646af8afede2330b8c4089b4e0a54f">More...</a><br /></td></tr>
 <tr class="separator:a3f646af8afede2330b8c4089b4e0a54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1e7c25d997902c4830d27771611dfef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/dbb/a03378.html#ab067ace2562da72e4017d1c2cca12867">NetworkComponent::StateChange_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/a03306.html#ab1e7c25d997902c4830d27771611dfef">evalZ</a> (double t) override</td></tr>
-<tr class="memdesc:ab1e7c25d997902c4830d27771611dfef"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation Z  <a href="#ab1e7c25d997902c4830d27771611dfef">More...</a><br /></td></tr>
-<tr class="separator:ab1e7c25d997902c4830d27771611dfef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a690abcbc0053a4a19cac018364d88e23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/dbb/a03378.html#ab067ace2562da72e4017d1c2cca12867">NetworkComponent::StateChange_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/a03306.html#a690abcbc0053a4a19cac018364d88e23">evalZ</a> (double t, bool onlyEvaluateStateChange) override</td></tr>
+<tr class="memdesc:a690abcbc0053a4a19cac018364d88e23"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation Z  <a href="#a690abcbc0053a4a19cac018364d88e23">More...</a><br /></td></tr>
+<tr class="separator:a690abcbc0053a4a19cac018364d88e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e785c88f85550cb685d087c60c58a29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/a03306.html#a4e785c88f85550cb685d087c60c58a29">setGequations</a> (std::map&lt; int, std::string &gt; &amp;gEquationIndex) override</td></tr>
 <tr class="memdesc:a4e785c88f85550cb685d087c60c58a29"><td class="mdescLeft">&#160;</td><td class="mdescRight">set root equation's formula  <a href="#a4e785c88f85550cb685d087c60c58a29">More...</a><br /></td></tr>
 <tr class="separator:a4e785c88f85550cb685d087c60c58a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1370,8 +1370,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
-<a id="ab1e7c25d997902c4830d27771611dfef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1e7c25d997902c4830d27771611dfef">&#9670;&nbsp;</a></span>evalZ()</h2>
+<a id="a690abcbc0053a4a19cac018364d88e23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a690abcbc0053a4a19cac018364d88e23">&#9670;&nbsp;</a></span>evalZ()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1383,8 +1383,18 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
           <td class="memname"><a class="el" href="../../dd/dbb/a03378.html#ab067ace2562da72e4017d1c2cca12867">NetworkComponent::StateChange_t</a> DYN::ModelHvdcLink::evalZ </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>onlyEvaluateStateChange</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1398,12 +1408,13 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">t</td><td>time </td></tr>
+    <tr><td class="paramname">onlyEvaluateStateChange</td><td>true to only evaluate state change in the network model </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the potential state change type </dd></dl>
 
-<p>Implements <a class="el" href="../../dd/dbb/a03378.html#a407e4a64014ac8840b9bf5faf6b8312d">DYN::NetworkComponent</a>.</p>
+<p>Implements <a class="el" href="../../dd/dbb/a03378.html#a9281ed931f938c386dd40486268bb4e6">DYN::NetworkComponent</a>.</p>
 
 </div>
 </div>
@@ -2779,7 +2790,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/d7a/a03306.html">ModelHvdcLink</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 08:45:18 for Dynawo by
+    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
