@@ -1,7 +1,8 @@
 var a02494 =
 [
-    [ "newParameter", "dc/d28/a02494.html#a6ca2335bfca3238c19e7908ba94898a5", null ],
-    [ "newParameter", "dc/d28/a02494.html#a5c20f077bf594decb5982cbf0efd7394", null ],
-    [ "newParameter", "dc/d28/a02494.html#aa26e6f23192cba19c434c7f74766227b", null ],
-    [ "newParameter", "dc/d28/a02494.html#a7d48d4b2465ad665060e6f39e34c45b3", null ]
+    [ "Parameter", "dc/d28/a02494.html#a5186a15e28781ebc15b39bf9f2507b95", null ],
+    [ "getName", "dc/d28/a02494.html#a7130c3555f885d7e590bd6a4cc725751", null ],
+    [ "getType", "dc/d28/a02494.html#a35cda8c889370445d2bef4fb2aeb82c2", null ],
+    [ "name_", "dc/d28/a02494.html#a2d2ee14697bb1bc1f642cb6171b61833", null ],
+    [ "type_", "dc/d28/a02494.html#a45e26c9027834906f9b038cbb2e64b30", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: parameters::ParametersSetCollectionFactory Class Reference</title>
+<title>Dynawo: mandatoryParameters::XmlHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,96 +95,85 @@ $(document).ready(function(){initNavTree('d0/dff/a02506.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d1/d5d/a02503.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">parameters::ParametersSetCollectionFactory Class Reference</div>  </div>
+<div class="title">mandatoryParameters::XmlHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> factory class.  
+<p>SAX document handler for .mandatoryParam files.  
  <a href="../../d0/dff/a02506.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d1/d7e/a00434_source.html">PARParametersSetCollectionFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d3/d29/a00419_source.html">MANDATORYPARAMXmlHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for mandatoryParameters::XmlHandler:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d0/dff/a02506.png" usemap="#mandatoryParameters::XmlHandler_map" alt=""/>
+  <map id="mandatoryParameters::XmlHandler_map" name="mandatoryParameters::XmlHandler_map">
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a343f48cfd579e4d46c6e335d713e383d"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../db/d09/a02502.html">ParametersSetCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#a343f48cfd579e4d46c6e335d713e383d">newCollection</a> ()</td></tr>
-<tr class="memdesc:a343f48cfd579e4d46c6e335d713e383d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> instance.  <a href="#a343f48cfd579e4d46c6e335d713e383d">More...</a><br /></td></tr>
-<tr class="separator:a343f48cfd579e4d46c6e335d713e383d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a076a2040da308e91a5ae6c7c0533ab24"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../db/d09/a02502.html">ParametersSetCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#a076a2040da308e91a5ae6c7c0533ab24">copyCollection</a> (const std::unique_ptr&lt; <a class="el" href="../../db/d09/a02502.html">ParametersSetCollection</a> &gt; &amp;original)</td></tr>
-<tr class="memdesc:a076a2040da308e91a5ae6c7c0533ab24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> instance as a clone of given instance.  <a href="#a076a2040da308e91a5ae6c7c0533ab24">More...</a><br /></td></tr>
-<tr class="separator:a076a2040da308e91a5ae6c7c0533ab24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa6b920e6c9d43463d494dc1993cf71cb"><td class="memItemLeft" align="right" valign="top"><a id="aa6b920e6c9d43463d494dc1993cf71cb"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#aa6b920e6c9d43463d494dc1993cf71cb">XmlHandler</a> ()</td></tr>
+<tr class="memdesc:aa6b920e6c9d43463d494dc1993cf71cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:aa6b920e6c9d43463d494dc1993cf71cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88bc097a9cb2cec6eb12881c73921242"><td class="memItemLeft" align="right" valign="top"><a id="a88bc097a9cb2cec6eb12881c73921242"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#a88bc097a9cb2cec6eb12881c73921242">~XmlHandler</a> () override</td></tr>
+<tr class="memdesc:a88bc097a9cb2cec6eb12881c73921242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a88bc097a9cb2cec6eb12881c73921242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6cb46b568c699325c36d2eebf310c3c"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d5/ddd/a02490.html">Collection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#ab6cb46b568c699325c36d2eebf310c3c">getCollection</a> ()</td></tr>
+<tr class="memdesc:ab6cb46b568c699325c36d2eebf310c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parsed collection getter.  <a href="#ab6cb46b568c699325c36d2eebf310c3c">More...</a><br /></td></tr>
+<tr class="separator:ab6cb46b568c699325c36d2eebf310c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a61ca4cb06dd6eec06b82056cba843b67"><td class="memItemLeft" align="right" valign="top"><a id="a61ca4cb06dd6eec06b82056cba843b67"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#a61ca4cb06dd6eec06b82056cba843b67">addParameter</a> ()</td></tr>
+<tr class="memdesc:a61ca4cb06dd6eec06b82056cba843b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a mandatory parameter to the collection. <br /></td></tr>
+<tr class="separator:a61ca4cb06dd6eec06b82056cba843b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad71e617b7a01c52bd2a796cba5076e1b"><td class="memItemLeft" align="right" valign="top"><a id="ad71e617b7a01c52bd2a796cba5076e1b"></a>
+std::shared_ptr&lt; <a class="el" href="../../d5/ddd/a02490.html">Collection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#ad71e617b7a01c52bd2a796cba5076e1b">collection_</a></td></tr>
+<tr class="memdesc:ad71e617b7a01c52bd2a796cba5076e1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">collection being built <br /></td></tr>
+<tr class="separator:ad71e617b7a01c52bd2a796cba5076e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6278ead23ae9d4fb48b8d92b5d23f6a"><td class="memItemLeft" align="right" valign="top"><a id="af6278ead23ae9d4fb48b8d92b5d23f6a"></a>
+<a class="el" href="../../db/d09/a02502.html">ParameterHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dff/a02506.html#af6278ead23ae9d4fb48b8d92b5d23f6a">parameterHandler_</a></td></tr>
+<tr class="memdesc:af6278ead23ae9d4fb48b8d92b5d23f6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler for each mandatoryParameter element <br /></td></tr>
+<tr class="separator:af6278ead23ae9d4fb48b8d92b5d23f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> factory class. </p>
-<p><a class="el" href="../../d0/dff/a02506.html" title="ParametersSetCollection factory class. ">ParametersSetCollectionFactory</a> encapsulate methods for creating new <code><a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a></code> objects. </p>
+<div class="textblock"><p>SAX document handler for .mandatoryParam files. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a076a2040da308e91a5ae6c7c0533ab24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a076a2040da308e91a5ae6c7c0533ab24">&#9670;&nbsp;</a></span>copyCollection()</h2>
+<a id="ab6cb46b568c699325c36d2eebf310c3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6cb46b568c699325c36d2eebf310c3c">&#9670;&nbsp;</a></span>getCollection()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../db/d09/a02502.html">ParametersSetCollection</a>&gt; parameters::ParametersSetCollectionFactory::copyCollection </td>
-          <td>(</td>
-          <td class="paramtype">const std::unique_ptr&lt; <a class="el" href="../../db/d09/a02502.html">ParametersSetCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>original</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create new <a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> instance as a clone of given instance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">original</td><td><a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> to be cloned</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a></code> copied from original </dd></dl>
-
-</div>
-</div>
-<a id="a343f48cfd579e4d46c6e335d713e383d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a343f48cfd579e4d46c6e335d713e383d">&#9670;&nbsp;</a></span>newCollection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../db/d09/a02502.html">ParametersSetCollection</a>&gt; parameters::ParametersSetCollectionFactory::newCollection </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d5/ddd/a02490.html">Collection</a>&gt; mandatoryParameters::XmlHandler::getCollection </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Create new <a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new empty <code><a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a></code> </dd></dl>
+<p>Parsed collection getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>collection of mandatory parameters </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d1/d7e/a00434_source.html">PARParametersSetCollectionFactory.h</a></li>
+<li><a class="el" href="../../d3/d29/a00419_source.html">MANDATORYPARAMXmlHandler.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -202,8 +191,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../d0/dff/a02506.html">ParametersSetCollectionFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>mandatoryParameters</b></li><li class="navelem"><a class="el" href="../../d0/dff/a02506.html">XmlHandler</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

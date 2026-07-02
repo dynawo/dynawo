@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: job::FinalValuesEntry Class Reference</title>
+<title>Dynawo: job::DynModelsEntryFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,90 +95,57 @@ $(document).ready(function(){initNavTree('d7/db7/a02198.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../df/d0e/a02195.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::FinalValuesEntry Class Reference</div>  </div>
+<div class="title">job::DynModelsEntryFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Final values entries container class.  
+<p>dynamic model entry factory  
  <a href="../../d7/db7/a02198.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../db/d7b/a00296_source.html">JOBFinalValuesEntry.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../db/dc3/a00284_source.html">JOBDynModelsEntryFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a93d05ee8733fec5dbea8b732ab7ec2cf"><td class="memItemLeft" align="right" valign="top"><a id="a93d05ee8733fec5dbea8b732ab7ec2cf"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/a02198.html#a93d05ee8733fec5dbea8b732ab7ec2cf">FinalValuesEntry</a> ()</td></tr>
-<tr class="memdesc:a93d05ee8733fec5dbea8b732ab7ec2cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br /></td></tr>
-<tr class="separator:a93d05ee8733fec5dbea8b732ab7ec2cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75cb606b053bfcecd8d264ff5fac9505"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/a02198.html#a75cb606b053bfcecd8d264ff5fac9505">setDumpFinalValues</a> (const bool dumpFinalValues)</td></tr>
-<tr class="memdesc:a75cb606b053bfcecd8d264ff5fac9505"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to dump final values setter  <a href="#a75cb606b053bfcecd8d264ff5fac9505">More...</a><br /></td></tr>
-<tr class="separator:a75cb606b053bfcecd8d264ff5fac9505"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56afa1ddbce6b8afd983ee09a70c1cdd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/a02198.html#a56afa1ddbce6b8afd983ee09a70c1cdd">getDumpFinalValues</a> () const</td></tr>
-<tr class="memdesc:a56afa1ddbce6b8afd983ee09a70c1cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to dump the final values getter  <a href="#a56afa1ddbce6b8afd983ee09a70c1cdd">More...</a><br /></td></tr>
-<tr class="separator:a56afa1ddbce6b8afd983ee09a70c1cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a9b9a796a5594f6cc895d0c6f40ac4181"><td class="memItemLeft" align="right" valign="top"><a id="a9b9a796a5594f6cc895d0c6f40ac4181"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/a02198.html#a9b9a796a5594f6cc895d0c6f40ac4181">dumpFinalValues_</a></td></tr>
-<tr class="memdesc:a9b9a796a5594f6cc895d0c6f40ac4181"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to dump the final values in the outputs directory <br /></td></tr>
-<tr class="separator:a9b9a796a5594f6cc895d0c6f40ac4181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ad676eead73431ea031b0315ed4abaa37"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d0/db2/a02194.html">DynModelsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/a02198.html#ad676eead73431ea031b0315ed4abaa37">newInstance</a> ()</td></tr>
+<tr class="memdesc:ad676eead73431ea031b0315ed4abaa37"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of dynamic model entry  <a href="#ad676eead73431ea031b0315ed4abaa37">More...</a><br /></td></tr>
+<tr class="separator:ad676eead73431ea031b0315ed4abaa37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Final values entries container class. </p>
+<div class="textblock"><p>dynamic model entry factory </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a56afa1ddbce6b8afd983ee09a70c1cdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56afa1ddbce6b8afd983ee09a70c1cdd">&#9670;&nbsp;</a></span>getDumpFinalValues()</h2>
+<a id="ad676eead73431ea031b0315ed4abaa37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad676eead73431ea031b0315ed4abaa37">&#9670;&nbsp;</a></span>newInstance()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool job::FinalValuesEntry::getDumpFinalValues </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d0/db2/a02194.html">DynModelsEntry</a>&gt; job::DynModelsEntryFactory::newInstance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>whether to dump the final values getter </p>
-<dl class="section return"><dt>Returns</dt><dd>whether to dump the final values for the job </dd></dl>
-
-</div>
-</div>
-<a id="a75cb606b053bfcecd8d264ff5fac9505"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75cb606b053bfcecd8d264ff5fac9505">&#9670;&nbsp;</a></span>setDumpFinalValues()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void job::FinalValuesEntry::setDumpFinalValues </td>
-          <td>(</td>
-          <td class="paramtype">const bool&#160;</td>
-          <td class="paramname"><em>dumpFinalValues</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>whether to dump final values setter </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dumpFinalValues</td><td>: whether to dump the final values for the job </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>create a new instance of dynamic model entry </p>
+<dl class="section return"><dt>Returns</dt><dd>dynamic model entry </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../db/d7b/a00296_source.html">JOBFinalValuesEntry.h</a></li>
+<li><a class="el" href="../../db/dc3/a00284_source.html">JOBDynModelsEntryFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -196,8 +163,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d7/db7/a02198.html">FinalValuesEntry</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d7/db7/a02198.html">DynModelsEntryFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

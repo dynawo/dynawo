@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: externalVariables::Variable Class Reference</title>
+<title>Dynawo: dynamicdata::XmlHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,456 +95,171 @@ $(document).ready(function(){initNavTree('d1/d7d/a02074.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d5/d14/a02071.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">externalVariables::Variable Class Reference</div>  </div>
+<div class="title">dynamicdata::XmlHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> interface class.  
+<p>dynamic models file handler class  
  <a href="../../d1/d7d/a02074.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d3/de5/a00209_source.html">EXTVARVariable.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../de/db1/a00197_source.html">DYDXmlHandler.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for externalVariables::Variable:</div>
+Inheritance diagram for dynamicdata::XmlHandler:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d1/d7d/a02074.png" usemap="#externalVariables::Variable_map" alt=""/>
-  <map id="externalVariables::Variable_map" name="externalVariables::Variable_map">
+  <img src="../../d1/d7d/a02074.png" usemap="#dynamicdata::XmlHandler_map" alt=""/>
+  <map id="dynamicdata::XmlHandler_map" name="dynamicdata::XmlHandler_map">
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a47e7759d5921e5157692324e1947e3be"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Type</a> { <br />
-&#160;&#160;<a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3beab1fa9dd3af034b3ef4291579aa673c07">Type::CONTINUOUS</a>, 
-<a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3bea947436f2927405d3b5997a9ffbaee5c1">Type::DISCRETE</a>, 
-<a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3beac48d5da12d702e73d6966069f2687376">Type::BOOLEAN</a>, 
-<a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3bea86b390943d2641741d236796d75d4715">Type::CONTINUOUS_ARRAY</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3beacc9e2a07d0d49cff798948e61b05002b">Type::DISCRETE_ARRAY</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a47e7759d5921e5157692324e1947e3be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available model types enum.  <a href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">More...</a><br /></td></tr>
-<tr class="separator:a47e7759d5921e5157692324e1947e3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a24bd8fd0642e84f89631188c62310257"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a24bd8fd0642e84f89631188c62310257">Variable</a> (const std::string &amp;id, <a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Type</a> type)</td></tr>
-<tr class="memdesc:a24bd8fd0642e84f89631188c62310257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a>.  <a href="#a24bd8fd0642e84f89631188c62310257">More...</a><br /></td></tr>
-<tr class="separator:a24bd8fd0642e84f89631188c62310257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a72d201dd8046a28f16155359cbd5e6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a8a72d201dd8046a28f16155359cbd5e6">getId</a> () const</td></tr>
-<tr class="memdesc:a8a72d201dd8046a28f16155359cbd5e6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> id getter.  <a href="#a8a72d201dd8046a28f16155359cbd5e6">More...</a><br /></td></tr>
-<tr class="separator:a8a72d201dd8046a28f16155359cbd5e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46dc388a36b59f602de9cffab975404d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7d/a02074.html">Variable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a46dc388a36b59f602de9cffab975404d">setId</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:a46dc388a36b59f602de9cffab975404d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> id setter.  <a href="#a46dc388a36b59f602de9cffab975404d">More...</a><br /></td></tr>
-<tr class="separator:a46dc388a36b59f602de9cffab975404d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3815c43e4ee0f8bd7f9952906332f607"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a3815c43e4ee0f8bd7f9952906332f607">getType</a> () const</td></tr>
-<tr class="memdesc:a3815c43e4ee0f8bd7f9952906332f607"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> type getter.  <a href="#a3815c43e4ee0f8bd7f9952906332f607">More...</a><br /></td></tr>
-<tr class="separator:a3815c43e4ee0f8bd7f9952906332f607"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aab4405a1d14cb5a046c44f9a90769c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a9aab4405a1d14cb5a046c44f9a90769c">hasDefaultValue</a> () const</td></tr>
-<tr class="memdesc:a9aab4405a1d14cb5a046c44f9a90769c"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the external variable has a user-defined default value  <a href="#a9aab4405a1d14cb5a046c44f9a90769c">More...</a><br /></td></tr>
-<tr class="separator:a9aab4405a1d14cb5a046c44f9a90769c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fc805999211a257e21fe6026ef0c263"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7d/a02074.html">Variable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a9fc805999211a257e21fe6026ef0c263">setDefaultValue</a> (const std::string &amp;value)</td></tr>
-<tr class="memdesc:a9fc805999211a257e21fe6026ef0c263"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> default value setter.  <a href="#a9fc805999211a257e21fe6026ef0c263">More...</a><br /></td></tr>
-<tr class="separator:a9fc805999211a257e21fe6026ef0c263"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a172417a4981197198a41da0093a59a45"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a172417a4981197198a41da0093a59a45">getDefaultValue</a> () const</td></tr>
-<tr class="memdesc:a172417a4981197198a41da0093a59a45"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> default value getter.  <a href="#a172417a4981197198a41da0093a59a45">More...</a><br /></td></tr>
-<tr class="separator:a172417a4981197198a41da0093a59a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac53ce8c06423afb95a18e326893c94ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#ac53ce8c06423afb95a18e326893c94ce">hasSize</a> () const</td></tr>
-<tr class="memdesc:ac53ce8c06423afb95a18e326893c94ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the external variable has a size defined  <a href="#ac53ce8c06423afb95a18e326893c94ce">More...</a><br /></td></tr>
-<tr class="separator:ac53ce8c06423afb95a18e326893c94ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6003c645bdf1cfb043015a55caee3084"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7d/a02074.html">Variable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a6003c645bdf1cfb043015a55caee3084">setSize</a> (unsigned int size)</td></tr>
-<tr class="memdesc:a6003c645bdf1cfb043015a55caee3084"><td class="mdescLeft">&#160;</td><td class="mdescRight">variable array size setter  <a href="#a6003c645bdf1cfb043015a55caee3084">More...</a><br /></td></tr>
-<tr class="separator:a6003c645bdf1cfb043015a55caee3084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaca9787f4bfdeac7b4dec654582ea8f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#acaca9787f4bfdeac7b4dec654582ea8f">getSize</a> () const</td></tr>
-<tr class="memdesc:acaca9787f4bfdeac7b4dec654582ea8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">variable array size getter  <a href="#acaca9787f4bfdeac7b4dec654582ea8f">More...</a><br /></td></tr>
-<tr class="separator:acaca9787f4bfdeac7b4dec654582ea8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12befae6e97328c7a9e7697d0953dd16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a12befae6e97328c7a9e7697d0953dd16">hasOptional</a> () const</td></tr>
-<tr class="memdesc:a12befae6e97328c7a9e7697d0953dd16"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the external variable is optional  <a href="#a12befae6e97328c7a9e7697d0953dd16">More...</a><br /></td></tr>
-<tr class="separator:a12befae6e97328c7a9e7697d0953dd16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26c0b2de356c6870a55b35e830fbc3c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7d/a02074.html">Variable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a26c0b2de356c6870a55b35e830fbc3c9">setOptional</a> (bool optional)</td></tr>
-<tr class="memdesc:a26c0b2de356c6870a55b35e830fbc3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">variable array optional setter  <a href="#a26c0b2de356c6870a55b35e830fbc3c9">More...</a><br /></td></tr>
-<tr class="separator:a26c0b2de356c6870a55b35e830fbc3c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aec0165a4feebe3b8851457f9f531e1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a9aec0165a4feebe3b8851457f9f531e1">getOptional</a> () const</td></tr>
-<tr class="memdesc:a9aec0165a4feebe3b8851457f9f531e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">variable array optional getter  <a href="#a9aec0165a4feebe3b8851457f9f531e1">More...</a><br /></td></tr>
-<tr class="separator:a9aec0165a4feebe3b8851457f9f531e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a931cf19b79ab7161eec37b34e44dcf9e"><td class="memItemLeft" align="right" valign="top"><a id="a931cf19b79ab7161eec37b34e44dcf9e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a931cf19b79ab7161eec37b34e44dcf9e">XmlHandler</a> ()</td></tr>
+<tr class="memdesc:a931cf19b79ab7161eec37b34e44dcf9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a931cf19b79ab7161eec37b34e44dcf9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb16025463458835c5d16f52c1e4a80d"><td class="memItemLeft" align="right" valign="top"><a id="adb16025463458835c5d16f52c1e4a80d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#adb16025463458835c5d16f52c1e4a80d">~XmlHandler</a> () override</td></tr>
+<tr class="memdesc:adb16025463458835c5d16f52c1e4a80d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:adb16025463458835c5d16f52c1e4a80d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aa8ee1bcd9b900ce21dfcaa27175b45"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d2/dd7/a01902.html">DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a3aa8ee1bcd9b900ce21dfcaa27175b45">getDynamicModelsCollection</a> ()</td></tr>
+<tr class="memdesc:a3aa8ee1bcd9b900ce21dfcaa27175b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parsed parameters set collection getter.  <a href="#a3aa8ee1bcd9b900ce21dfcaa27175b45">More...</a><br /></td></tr>
+<tr class="separator:a3aa8ee1bcd9b900ce21dfcaa27175b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0073362d8c24b9b826302fdb577f3dd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a0073362d8c24b9b826302fdb577f3dd5">setRootDirectory</a> (const std::string &amp;root)</td></tr>
+<tr class="memdesc:a0073362d8c24b9b826302fdb577f3dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set root directory.  <a href="#a0073362d8c24b9b826302fdb577f3dd5">More...</a><br /></td></tr>
+<tr class="separator:a0073362d8c24b9b826302fdb577f3dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a1dfec03c979006533ff023e7a8d6af2e"><td class="memItemLeft" align="right" valign="top"><a id="a1dfec03c979006533ff023e7a8d6af2e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a1dfec03c979006533ff023e7a8d6af2e">addModelicaModel</a> ()</td></tr>
+<tr class="memdesc:a1dfec03c979006533ff023e7a8d6af2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a modelica model to the dynamic models collection <br /></td></tr>
+<tr class="separator:a1dfec03c979006533ff023e7a8d6af2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de65e0478bf8d4e0e4d90c130dabcb9"><td class="memItemLeft" align="right" valign="top"><a id="a8de65e0478bf8d4e0e4d90c130dabcb9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a8de65e0478bf8d4e0e4d90c130dabcb9">addModelTemplate</a> ()</td></tr>
+<tr class="memdesc:a8de65e0478bf8d4e0e4d90c130dabcb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a model template to the dynamic models collection <br /></td></tr>
+<tr class="separator:a8de65e0478bf8d4e0e4d90c130dabcb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9008d070bf5a6b96924777707673a46"><td class="memItemLeft" align="right" valign="top"><a id="ac9008d070bf5a6b96924777707673a46"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#ac9008d070bf5a6b96924777707673a46">addBlackBoxModel</a> ()</td></tr>
+<tr class="memdesc:ac9008d070bf5a6b96924777707673a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a black box model to the dynamic models collection <br /></td></tr>
+<tr class="separator:ac9008d070bf5a6b96924777707673a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a130bf57436e2d9c8380c4e48ba644913"><td class="memItemLeft" align="right" valign="top"><a id="a130bf57436e2d9c8380c4e48ba644913"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a130bf57436e2d9c8380c4e48ba644913">addModelTemplateExpansion</a> ()</td></tr>
+<tr class="memdesc:a130bf57436e2d9c8380c4e48ba644913"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a model template expansion to the dynamic models collection <br /></td></tr>
+<tr class="separator:a130bf57436e2d9c8380c4e48ba644913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7acf78e4c5ad42aee627fe9c9dc34119"><td class="memItemLeft" align="right" valign="top"><a id="a7acf78e4c5ad42aee627fe9c9dc34119"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a7acf78e4c5ad42aee627fe9c9dc34119">addConnect</a> ()</td></tr>
+<tr class="memdesc:a7acf78e4c5ad42aee627fe9c9dc34119"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a (system) connect to the dynamic models collection <br /></td></tr>
+<tr class="separator:a7acf78e4c5ad42aee627fe9c9dc34119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a018d26ff247365302ac0f022bb7a9489"><td class="memItemLeft" align="right" valign="top"><a id="a018d26ff247365302ac0f022bb7a9489"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a018d26ff247365302ac0f022bb7a9489">addMacroConnect</a> ()</td></tr>
+<tr class="memdesc:a018d26ff247365302ac0f022bb7a9489"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a (system) macroConnect to the dynamic models collection <br /></td></tr>
+<tr class="separator:a018d26ff247365302ac0f022bb7a9489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe811360fc3b8058abfec74d4dfeaccc"><td class="memItemLeft" align="right" valign="top"><a id="afe811360fc3b8058abfec74d4dfeaccc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#afe811360fc3b8058abfec74d4dfeaccc">addMacroConnector</a> ()</td></tr>
+<tr class="memdesc:afe811360fc3b8058abfec74d4dfeaccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a macro connector element to the dynamic models collection <br /></td></tr>
+<tr class="separator:afe811360fc3b8058abfec74d4dfeaccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23dcf03629aa14650ac9ed7a1b78db9f"><td class="memItemLeft" align="right" valign="top"><a id="a23dcf03629aa14650ac9ed7a1b78db9f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a23dcf03629aa14650ac9ed7a1b78db9f">addMacroStaticReference</a> ()</td></tr>
+<tr class="memdesc:a23dcf03629aa14650ac9ed7a1b78db9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a macroStaticReference to the dynamic models collection <br /></td></tr>
+<tr class="separator:a23dcf03629aa14650ac9ed7a1b78db9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a9240c7e54e0f81057abe6965f4010b37"><td class="memItemLeft" align="right" valign="top"><a id="a9240c7e54e0f81057abe6965f4010b37"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a9240c7e54e0f81057abe6965f4010b37">id_</a></td></tr>
-<tr class="memdesc:a9240c7e54e0f81057abe6965f4010b37"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> ID. <br /></td></tr>
-<tr class="separator:a9240c7e54e0f81057abe6965f4010b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c6ff8f48de1f465bedf5b67b181ad31"><td class="memItemLeft" align="right" valign="top"><a id="a1c6ff8f48de1f465bedf5b67b181ad31"></a>
-<a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a1c6ff8f48de1f465bedf5b67b181ad31">type_</a></td></tr>
-<tr class="memdesc:a1c6ff8f48de1f465bedf5b67b181ad31"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> type (discrete or continuous) <br /></td></tr>
-<tr class="separator:a1c6ff8f48de1f465bedf5b67b181ad31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad432e87107e6fb408f566c2d507fd621"><td class="memItemLeft" align="right" valign="top"><a id="ad432e87107e6fb408f566c2d507fd621"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#ad432e87107e6fb408f566c2d507fd621">defaultValue_</a></td></tr>
-<tr class="memdesc:ad432e87107e6fb408f566c2d507fd621"><td class="mdescLeft">&#160;</td><td class="mdescRight">default value to use in fictitious equations <br /></td></tr>
-<tr class="separator:ad432e87107e6fb408f566c2d507fd621"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46d0a39d9309105bfa74edbe12e36b87"><td class="memItemLeft" align="right" valign="top"><a id="a46d0a39d9309105bfa74edbe12e36b87"></a>
-boost::optional&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a46d0a39d9309105bfa74edbe12e36b87">size_</a></td></tr>
-<tr class="memdesc:a46d0a39d9309105bfa74edbe12e36b87"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of the array (if the variable is an array) <br /></td></tr>
-<tr class="separator:a46d0a39d9309105bfa74edbe12e36b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36012fccfbb5137f7686e31847081b0d"><td class="memItemLeft" align="right" valign="top"><a id="a36012fccfbb5137f7686e31847081b0d"></a>
-boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a36012fccfbb5137f7686e31847081b0d">optional_</a></td></tr>
-<tr class="memdesc:a36012fccfbb5137f7686e31847081b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if the variable is an optional external variable <br /></td></tr>
-<tr class="separator:a36012fccfbb5137f7686e31847081b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade6af9dcf972297a2387d3d665d0014d"><td class="memItemLeft" align="right" valign="top"><a id="ade6af9dcf972297a2387d3d665d0014d"></a>
+boost::shared_ptr&lt; <a class="el" href="../../d2/dd7/a01902.html">DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#ade6af9dcf972297a2387d3d665d0014d">dynamicModelsCollection_</a></td></tr>
+<tr class="memdesc:ade6af9dcf972297a2387d3d665d0014d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamic models collection parsed. <br /></td></tr>
+<tr class="separator:ade6af9dcf972297a2387d3d665d0014d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8af36f6a09c1719476517c79786c9ad"><td class="memItemLeft" align="right" valign="top"><a id="ad8af36f6a09c1719476517c79786c9ad"></a>
+<a class="el" href="../../df/d03/a02058.html">ModelicaModelHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#ad8af36f6a09c1719476517c79786c9ad">modelicaModelHandler_</a></td></tr>
+<tr class="memdesc:ad8af36f6a09c1719476517c79786c9ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read modelia model element <br /></td></tr>
+<tr class="separator:ad8af36f6a09c1719476517c79786c9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5061ab44d8ec9a56bbdc096286de7b50"><td class="memItemLeft" align="right" valign="top"><a id="a5061ab44d8ec9a56bbdc096286de7b50"></a>
+<a class="el" href="../../dc/d28/a02062.html">ModelTemplateHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a5061ab44d8ec9a56bbdc096286de7b50">modelTemplateHandler_</a></td></tr>
+<tr class="memdesc:a5061ab44d8ec9a56bbdc096286de7b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read model template element <br /></td></tr>
+<tr class="separator:a5061ab44d8ec9a56bbdc096286de7b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa440e39447126007e21a6285fd10f2"><td class="memItemLeft" align="right" valign="top"><a id="a7fa440e39447126007e21a6285fd10f2"></a>
+<a class="el" href="../../da/d14/a02066.html">BlackBoxModelHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a7fa440e39447126007e21a6285fd10f2">blackBoxModelHandler_</a></td></tr>
+<tr class="memdesc:a7fa440e39447126007e21a6285fd10f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read black box model element <br /></td></tr>
+<tr class="separator:a7fa440e39447126007e21a6285fd10f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2260caa74974e043f34c3164b9aafc66"><td class="memItemLeft" align="right" valign="top"><a id="a2260caa74974e043f34c3164b9aafc66"></a>
+<a class="el" href="../../d8/d9c/a02070.html">ModelTemplateExpansionHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a2260caa74974e043f34c3164b9aafc66">modelTemplateExpansionHandler_</a></td></tr>
+<tr class="memdesc:a2260caa74974e043f34c3164b9aafc66"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read model template expansion element <br /></td></tr>
+<tr class="separator:a2260caa74974e043f34c3164b9aafc66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb9b7adcc58da08332bb53bf7e1196f2"><td class="memItemLeft" align="right" valign="top"><a id="afb9b7adcc58da08332bb53bf7e1196f2"></a>
+<a class="el" href="../../d1/dc4/a02042.html">ConnectHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#afb9b7adcc58da08332bb53bf7e1196f2">connectHandler_</a></td></tr>
+<tr class="memdesc:afb9b7adcc58da08332bb53bf7e1196f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read connect element <br /></td></tr>
+<tr class="separator:afb9b7adcc58da08332bb53bf7e1196f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a343cffd038f2360e620a32062727ba49"><td class="memItemLeft" align="right" valign="top"><a id="a343cffd038f2360e620a32062727ba49"></a>
+<a class="el" href="../../d2/dd9/a02046.html">MacroConnectHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a343cffd038f2360e620a32062727ba49">macroConnectHandler_</a></td></tr>
+<tr class="memdesc:a343cffd038f2360e620a32062727ba49"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read macroConnect element <br /></td></tr>
+<tr class="separator:a343cffd038f2360e620a32062727ba49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2914ed345182d181ee8310187febdc1b"><td class="memItemLeft" align="right" valign="top"><a id="a2914ed345182d181ee8310187febdc1b"></a>
+<a class="el" href="../../d7/d38/a02054.html">MacroConnectorHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a2914ed345182d181ee8310187febdc1b">macroConnectorHandler_</a></td></tr>
+<tr class="memdesc:a2914ed345182d181ee8310187febdc1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read macroConnector element <br /></td></tr>
+<tr class="separator:a2914ed345182d181ee8310187febdc1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61154739bd811079f66b9302a48d0f12"><td class="memItemLeft" align="right" valign="top"><a id="a61154739bd811079f66b9302a48d0f12"></a>
+<a class="el" href="../../df/dcf/a02038.html">MacroStaticReferenceHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7d/a02074.html#a61154739bd811079f66b9302a48d0f12">macroStaticReferenceHandler_</a></td></tr>
+<tr class="memdesc:a61154739bd811079f66b9302a48d0f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read macroStaticReference element <br /></td></tr>
+<tr class="separator:a61154739bd811079f66b9302a48d0f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> interface class. </p>
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> is a base class for all model types </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a47e7759d5921e5157692324e1947e3be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47e7759d5921e5157692324e1947e3be">&#9670;&nbsp;</a></span>Type</h2>
+<div class="textblock"><p>dynamic models file handler class </p>
+<p><a class="el" href="../../d1/d7d/a02074.html" title="dynamic models file handler class ">XmlHandler</a> is the implementation of XML handler for parsing dynamic models files. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3aa8ee1bcd9b900ce21dfcaa27175b45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aa8ee1bcd9b900ce21dfcaa27175b45">&#9670;&nbsp;</a></span>getDynamicModelsCollection()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">externalVariables::Variable::Type</a></td>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d2/dd7/a01902.html">DynamicModelsCollection</a>&gt; dynamicdata::XmlHandler::getDynamicModelsCollection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Available model types enum. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a47e7759d5921e5157692324e1947e3beab1fa9dd3af034b3ef4291579aa673c07"></a>CONTINUOUS&#160;</td><td class="fielddoc"><p>For continuous variables. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a47e7759d5921e5157692324e1947e3bea947436f2927405d3b5997a9ffbaee5c1"></a>DISCRETE&#160;</td><td class="fielddoc"><p>For discrete (discrete real) variables. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a47e7759d5921e5157692324e1947e3beac48d5da12d702e73d6966069f2687376"></a>BOOLEAN&#160;</td><td class="fielddoc"><p>For boolean variables. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a47e7759d5921e5157692324e1947e3bea86b390943d2641741d236796d75d4715"></a>CONTINUOUS_ARRAY&#160;</td><td class="fielddoc"><p>For continuous array variables. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a47e7759d5921e5157692324e1947e3beacc9e2a07d0d49cff798948e61b05002b"></a>DISCRETE_ARRAY&#160;</td><td class="fielddoc"><p>For discrete array variables. </p>
-</td></tr>
-</table>
+<p>Parsed parameters set collection getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Parameters set collection parsed. </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a24bd8fd0642e84f89631188c62310257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24bd8fd0642e84f89631188c62310257">&#9670;&nbsp;</a></span>Variable()</h2>
+<a id="a0073362d8c24b9b826302fdb577f3dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0073362d8c24b9b826302fdb577f3dd5">&#9670;&nbsp;</a></span>setRootDirectory()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">externalVariables::Variable::Variable </td>
+          <td class="memname">void dynamicdata::XmlHandler::setRootDirectory </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Type</a>&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create new <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a>. </p>
+<p>Set root directory. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>the variable identifier </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the variable type (discrete or continuous) </td></tr>
+    <tr><td class="paramname">root</td><td>Root directory for files name completion. </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a172417a4981197198a41da0093a59a45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a172417a4981197198a41da0093a59a45">&#9670;&nbsp;</a></span>getDefaultValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string externalVariables::Variable::getDefaultValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> default value getter. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> default value </dd></dl>
-
-</div>
-</div>
-<a id="a8a72d201dd8046a28f16155359cbd5e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a72d201dd8046a28f16155359cbd5e6">&#9670;&nbsp;</a></span>getId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string externalVariables::Variable::getId </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> id getter. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> id </dd></dl>
-
-</div>
-</div>
-<a id="a9aec0165a4feebe3b8851457f9f531e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aec0165a4feebe3b8851457f9f531e1">&#9670;&nbsp;</a></span>getOptional()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool externalVariables::Variable::getOptional </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>variable array optional getter </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the external variable is optional </dd></dl>
-
-</div>
-</div>
-<a id="acaca9787f4bfdeac7b4dec654582ea8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acaca9787f4bfdeac7b4dec654582ea8f">&#9670;&nbsp;</a></span>getSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int externalVariables::Variable::getSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>variable array size getter </p>
-<dl class="section return"><dt>Returns</dt><dd>size of the array </dd></dl>
-
-</div>
-</div>
-<a id="a3815c43e4ee0f8bd7f9952906332f607"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3815c43e4ee0f8bd7f9952906332f607">&#9670;&nbsp;</a></span>getType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Type</a> externalVariables::Variable::getType </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> type getter. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> type </dd></dl>
-
-</div>
-</div>
-<a id="a9aab4405a1d14cb5a046c44f9a90769c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aab4405a1d14cb5a046c44f9a90769c">&#9670;&nbsp;</a></span>hasDefaultValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool externalVariables::Variable::hasDefaultValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>whether the external variable has a user-defined default value </p>
-<dl class="section return"><dt>Returns</dt><dd>whether it has a default value </dd></dl>
-
-</div>
-</div>
-<a id="a12befae6e97328c7a9e7697d0953dd16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12befae6e97328c7a9e7697d0953dd16">&#9670;&nbsp;</a></span>hasOptional()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool externalVariables::Variable::hasOptional </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>whether the external variable is optional </p>
-<dl class="section return"><dt>Returns</dt><dd>whether it's an optional external variable </dd></dl>
-
-</div>
-</div>
-<a id="ac53ce8c06423afb95a18e326893c94ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac53ce8c06423afb95a18e326893c94ce">&#9670;&nbsp;</a></span>hasSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool externalVariables::Variable::hasSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>whether the external variable has a size defined </p>
-<dl class="section return"><dt>Returns</dt><dd>whether it has a size defined </dd></dl>
-
-</div>
-</div>
-<a id="a9fc805999211a257e21fe6026ef0c263"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fc805999211a257e21fe6026ef0c263">&#9670;&nbsp;</a></span>setDefaultValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d1/d7d/a02074.html">Variable</a>&amp; externalVariables::Variable::setDefaultValue </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> default value setter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>: the default value to set </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> </dd></dl>
-
-</div>
-</div>
-<a id="a46dc388a36b59f602de9cffab975404d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46dc388a36b59f602de9cffab975404d">&#9670;&nbsp;</a></span>setId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d1/d7d/a02074.html">Variable</a>&amp; externalVariables::Variable::setId </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> id setter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>: the id to set </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> </dd></dl>
-
-</div>
-</div>
-<a id="a26c0b2de356c6870a55b35e830fbc3c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26c0b2de356c6870a55b35e830fbc3c9">&#9670;&nbsp;</a></span>setOptional()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d1/d7d/a02074.html">Variable</a>&amp; externalVariables::Variable::setOptional </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>optional</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>variable array optional setter </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">optional</td><td><b>true</b> if the variable array is optional </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> modified </dd></dl>
-
-</div>
-</div>
-<a id="a6003c645bdf1cfb043015a55caee3084"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6003c645bdf1cfb043015a55caee3084">&#9670;&nbsp;</a></span>setSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d1/d7d/a02074.html">Variable</a>&amp; externalVariables::Variable::setSize </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>variable array size setter </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>size of the array </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> modified </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d3/de5/a00209_source.html">EXTVARVariable.h</a></li>
+<li><a class="el" href="../../de/db1/a00197_source.html">DYDXmlHandler.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -562,8 +277,8 @@ boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../d1/d7d/a02074.html">Variable</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d1/d7d/a02074.html">XmlHandler</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SolverFactory Class Reference</title>
+<title>Dynawo: DYN::Simulation::ExportStateDefinition Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,76 +95,45 @@ $(document).ready(function(){initNavTree('dd/db6/a03514.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d9/d25/a03511.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SolverFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::Simulation::ExportStateDefinition Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../dd/db6/a03514.html" title="SolverFactory class. ">SolverFactory</a> class.  
+<p>definition of dump to export  
  <a href="../../dd/db6/a03514.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d0/d61/a01130_source.html">DYNSolverFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::SolverFactory:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../dd/db6/a03514.png" usemap="#DYN::SolverFactory_map" alt=""/>
-  <map id="DYN::SolverFactory_map" name="DYN::SolverFactory_map">
-<area href="../../d6/d76/a03554.html" title="SolverIDA factory class. " alt="DYN::SolverIDAFactory" shape="rect" coords="0,56,158,80"/>
-<area href="../../d4/d8b/a03538.html" title="SolverSIM factory class. " alt="DYN::SolverSIMFactory" shape="rect" coords="168,56,326,80"/>
-<area href="../../d7/d96/a03546.html" title="SolverTRAP factory class. " alt="DYN::SolverTRAPFactory" shape="rect" coords="336,56,494,80"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d8/dbf/a01109_source.html">DYNSimulation.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ae81d3f1e1eb1129f7fd351339b93b857"><td class="memItemLeft" align="right" valign="top"><a id="ae81d3f1e1eb1129f7fd351339b93b857"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> = std::unique_ptr&lt; <a class="el" href="../../d7/d83/a03506.html">Solver</a>, std::function&lt; void(<a class="el" href="../../d7/d83/a03506.html">Solver</a> *)&gt; &gt;</td></tr>
-<tr class="memdesc:ae81d3f1e1eb1129f7fd351339b93b857"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for <a class="el" href="../../d7/d83/a03506.html" title="Solver interface class. ">Solver</a> unique pointer with <a class="el" href="../../d3/d7f/a03522.html" title="SolverDelete class. ">SolverDelete</a> custom destructor. <br /></td></tr>
-<tr class="separator:ae81d3f1e1eb1129f7fd351339b93b857"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1a9995b963846832f7c1fd906c7f8d08"><td class="memItemLeft" align="right" valign="top"><a id="a1a9995b963846832f7c1fd906c7f8d08"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#a1a9995b963846832f7c1fd906c7f8d08">SolverFactory</a> ()</td></tr>
-<tr class="memdesc:a1a9995b963846832f7c1fd906c7f8d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a1a9995b963846832f7c1fd906c7f8d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="memItemLeft" align="right" valign="top"><a id="acab1ac8b0d0f36a325c891a939f2d0e5"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#acab1ac8b0d0f36a325c891a939f2d0e5">~SolverFactory</a> ()</td></tr>
-<tr class="memdesc:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acab1ac8b0d0f36a325c891a939f2d0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac65d140b18f58dda550003c47e97fc2e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d7/d83/a03506.html">Solver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#ac65d140b18f58dda550003c47e97fc2e">create</a> () const =0</td></tr>
-<tr class="memdesc:ac65d140b18f58dda550003c47e97fc2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of a solver  <a href="#ac65d140b18f58dda550003c47e97fc2e">More...</a><br /></td></tr>
-<tr class="separator:ac65d140b18f58dda550003c47e97fc2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dccb03730530e6b2bf7e0eec8d42492"><td class="memItemLeft" align="right" valign="top"><a id="a8dccb03730530e6b2bf7e0eec8d42492"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#a8dccb03730530e6b2bf7e0eec8d42492">destroy</a> (<a class="el" href="../../d7/d83/a03506.html">Solver</a> *) const =0</td></tr>
-<tr class="memdesc:a8dccb03730530e6b2bf7e0eec8d42492"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroy an instance of a solver <br /></td></tr>
-<tr class="separator:a8dccb03730530e6b2bf7e0eec8d42492"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a5eb79ca757549edba15c0879bba305e2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/db6/a03514.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#a5eb79ca757549edba15c0879bba305e2">createSolverFromLib</a> (const std::string &amp;lib)</td></tr>
-<tr class="memdesc:a5eb79ca757549edba15c0879bba305e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a solver loading given lib.  <a href="#a5eb79ca757549edba15c0879bba305e2">More...</a><br /></td></tr>
-<tr class="separator:a5eb79ca757549edba15c0879bba305e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44a64f15448f0821926edc89b74ca51d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#a44a64f15448f0821926edc89b74ca51d">ExportStateDefinition</a> (double timestamp, boost::optional&lt; boost::filesystem::path &gt; dumpFile=boost::none, boost::optional&lt; boost::filesystem::path &gt; iidmFile=boost::none)</td></tr>
+<tr class="memdesc:a44a64f15448f0821926edc89b74ca51d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a44a64f15448f0821926edc89b74ca51d">More...</a><br /></td></tr>
+<tr class="separator:a44a64f15448f0821926edc89b74ca51d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abbfdaf69d4a3f097dc187edac6c723c1"><td class="memItemLeft" align="right" valign="top"><a id="abbfdaf69d4a3f097dc187edac6c723c1"></a>
-boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#abbfdaf69d4a3f097dc187edac6c723c1">lib_</a></td></tr>
-<tr class="memdesc:abbfdaf69d4a3f097dc187edac6c723c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Library of the solver. <br /></td></tr>
-<tr class="separator:abbfdaf69d4a3f097dc187edac6c723c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75e09f44fd2944d081b625018e4c6e01"><td class="memItemLeft" align="right" valign="top"><a id="a75e09f44fd2944d081b625018e4c6e01"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#a75e09f44fd2944d081b625018e4c6e01">timestamp_</a></td></tr>
+<tr class="memdesc:a75e09f44fd2944d081b625018e4c6e01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp of the export (can be max for final state) <br /></td></tr>
+<tr class="separator:a75e09f44fd2944d081b625018e4c6e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1fd468c7c3941805f72c339b08cc8e5"><td class="memItemLeft" align="right" valign="top"><a id="ab1fd468c7c3941805f72c339b08cc8e5"></a>
+boost::optional&lt; boost::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#ab1fd468c7c3941805f72c339b08cc8e5">dumpFile_</a></td></tr>
+<tr class="memdesc:ab1fd468c7c3941805f72c339b08cc8e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path of the dump state file, if requested. <br /></td></tr>
+<tr class="separator:ab1fd468c7c3941805f72c339b08cc8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78c16337e1b3cf1a97090f50bb3a75b6"><td class="memItemLeft" align="right" valign="top"><a id="a78c16337e1b3cf1a97090f50bb3a75b6"></a>
+boost::optional&lt; boost::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/db6/a03514.html#a78c16337e1b3cf1a97090f50bb3a75b6">iidmFile_</a></td></tr>
+<tr class="memdesc:a78c16337e1b3cf1a97090f50bb3a75b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path of the IIDM export file, if requested. <br /></td></tr>
+<tr class="separator:a78c16337e1b3cf1a97090f50bb3a75b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../dd/db6/a03514.html" title="SolverFactory class. ">SolverFactory</a> class. </p>
-<p>Utility interface used to define a building class for solvers. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac65d140b18f58dda550003c47e97fc2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac65d140b18f58dda550003c47e97fc2e">&#9670;&nbsp;</a></span>create()</h2>
+<div class="textblock"><p>definition of dump to export </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a44a64f15448f0821926edc89b74ca51d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a64f15448f0821926edc89b74ca51d">&#9670;&nbsp;</a></span>ExportStateDefinition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,63 +142,50 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="../../d7/d83/a03506.html">Solver</a>* DYN::SolverFactory::create </td>
+          <td class="memname">DYN::Simulation::ExportStateDefinition::ExportStateDefinition </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>timestamp</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>create a new instance of a solver </p>
-<dl class="section return"><dt>Returns</dt><dd>the new instance of solver </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d7/d96/a03546.html#a54f41dc991832c25148e092ebe43c1a1">DYN::SolverTRAPFactory</a>, <a class="el" href="../../d4/d8b/a03538.html#a1d1f665741c94f2ae50141630663e847">DYN::SolverSIMFactory</a>, and <a class="el" href="../../d6/d76/a03554.html#a285abf1a156bfeb4c873a9d69ea2acd7">DYN::SolverIDAFactory</a>.</p>
-
-</div>
-</div>
-<a id="a5eb79ca757549edba15c0879bba305e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5eb79ca757549edba15c0879bba305e2">&#9670;&nbsp;</a></span>createSolverFromLib()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../dd/db6/a03514.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> DYN::SolverFactory::createSolverFromLib </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">boost::optional&lt; boost::filesystem::path &gt;&#160;</td>
+          <td class="paramname"><em>dumpFile</em> = <code>boost::none</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boost::optional&lt; boost::filesystem::path &gt;&#160;</td>
+          <td class="paramname"><em>iidmFile</em> = <code>boost::none</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create a solver loading given lib. </p>
+<p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the solver library to load </td></tr>
+    <tr><td class="paramname">timestamp</td><td>Timestamp of the export </td></tr>
+    <tr><td class="paramname">dumpFile</td><td>Path of the dump </td></tr>
+    <tr><td class="paramname">iidmFile</td><td>Path of the IIDM </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the created solver </dd></dl>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d0/d61/a01130_source.html">DYNSolverFactory.h</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li><a class="el" href="../../d8/dbf/a01109_source.html">DYNSimulation.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -247,8 +203,8 @@ boost::shared_ptr&lt; boost::dll::shared_library &gt;&#160;</td><td class="memIt
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../dd/db6/a03514.html">SolverFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d61/a03510.html">Simulation</a></li><li class="navelem"><a class="el" href="../../dd/db6/a03514.html">ExportStateDefinition</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

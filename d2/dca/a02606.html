@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::mapcompabs Struct Reference</title>
+<title>Dynawo: timeline::CsvExporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -98,26 +98,66 @@ $(document).ready(function(){initNavTree('d2/dca/a02606.html','../../');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../d1/d23/a02603.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::mapcompabs Struct Reference</div>  </div>
+<div class="title">timeline::CsvExporter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>structure use for sorting pairs in a vector  
+<p>CSV exporter interface class.  
  <a href="../../d2/dca/a02606.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/ddf/a00488_source.html">DYNCommon.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d0/d29/a00470_source.html">TLCsvExporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for timeline::CsvExporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d2/dca/a02606.png" usemap="#timeline::CsvExporter_map" alt=""/>
+  <map id="timeline::CsvExporter_map" name="timeline::CsvExporter_map">
+<area href="../../d7/df0/a02618.html" title="Exporter interface class. " alt="timeline::Exporter" shape="rect" coords="0,0,130,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5b94b9095aea081dc45c87b83c639857"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dca/a02606.html#a5b94b9095aea081dc45c87b83c639857">operator()</a> (const std::pair&lt; double, size_t &gt; &amp;p1, const std::pair&lt; double, size_t &gt; &amp;p2) const</td></tr>
-<tr class="memdesc:a5b94b9095aea081dc45c87b83c639857"><td class="mdescLeft">&#160;</td><td class="mdescRight">compare two pairs  <a href="#a5b94b9095aea081dc45c87b83c639857">More...</a><br /></td></tr>
-<tr class="separator:a5b94b9095aea081dc45c87b83c639857"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeabfd36ae852548834fd8fa8ed797120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dca/a02606.html#aeabfd36ae852548834fd8fa8ed797120">exportToFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;timeline, const std::string &amp;filePath) const override</td></tr>
+<tr class="memdesc:aeabfd36ae852548834fd8fa8ed797120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in csv format.  <a href="#aeabfd36ae852548834fd8fa8ed797120">More...</a><br /></td></tr>
+<tr class="separator:aeabfd36ae852548834fd8fa8ed797120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e2c4cd21d1cec6a25749cbe8747064c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dca/a02606.html#a4e2c4cd21d1cec6a25749cbe8747064c">exportToStream</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;timeline, std::ostream &amp;stream) const override</td></tr>
+<tr class="memdesc:a4e2c4cd21d1cec6a25749cbe8747064c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in csv format.  <a href="#a4e2c4cd21d1cec6a25749cbe8747064c">More...</a><br /></td></tr>
+<tr class="separator:a4e2c4cd21d1cec6a25749cbe8747064c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02618"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02618')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d7/df0/a02618.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top"><a id="a5d63ea81ae82ca92bce6bdcdcae4cfbc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a5d63ea81ae82ca92bce6bdcdcae4cfbc">Exporter</a> ()</td></tr>
+<tr class="memdesc:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top"><a id="acbb92c28b5baf0c79c9f77b98406b309"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#acbb92c28b5baf0c79c9f77b98406b309">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a3da56f52f72694fbe3860299e1f8aa56">setExportWithTime</a> (const bool exportWithTime)</td></tr>
+<tr class="memdesc:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time setter  <a href="../../d7/df0/a02618.html#a3da56f52f72694fbe3860299e1f8aa56">More...</a><br /></td></tr>
+<tr class="separator:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#ad7f1b498fc7cd3dea9c084ab3da448ae">setMaxPriority</a> (const boost::optional&lt; int &gt; maxPriority)</td></tr>
+<tr class="memdesc:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority setter  <a href="../../d7/df0/a02618.html#ad7f1b498fc7cd3dea9c084ab3da448ae">More...</a><br /></td></tr>
+<tr class="separator:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_a02618"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02618')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d7/df0/a02618.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02618"><td class="memItemLeft" align="right" valign="top"><a id="a3cea0999ec63144bb692b4fed5951c23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a3cea0999ec63144bb692b4fed5951c23">exportWithTime_</a></td></tr>
+<tr class="memdesc:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to export time when exporting timeline <br /></td></tr>
+<tr class="separator:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02618"><td class="memItemLeft" align="right" valign="top"><a id="add563d0da7b15436bd2fe60810e99c4f"></a>
+boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#add563d0da7b15436bd2fe60810e99c4f">maxPriority_</a></td></tr>
+<tr class="memdesc:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
+<tr class="separator:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>structure use for sorting pairs in a vector </p>
+<div class="textblock"><p>CSV exporter interface class. </p>
+<p>Csv export class for timeline </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5b94b9095aea081dc45c87b83c639857"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b94b9095aea081dc45c87b83c639857">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="aeabfd36ae852548834fd8fa8ed797120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabfd36ae852548834fd8fa8ed797120">&#9670;&nbsp;</a></span>exportToFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -126,16 +166,16 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool DYN::mapcompabs::operator() </td>
+          <td class="memname">void timeline::CsvExporter::exportToFile </td>
           <td>(</td>
-          <td class="paramtype">const std::pair&lt; double, size_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::pair&lt; double, size_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>p2</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -145,25 +185,73 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>compare two pairs </p>
+<p>Export method in csv format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p1</td><td>first pair to compare </td></tr>
-    <tr><td class="paramname">p2</td><td>second pair to compare </td></tr>
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export csv formatted timeline to </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> is the first pair double argument's absolute value is greater that the second one's </dd></dl>
+
+<p>Implements <a class="el" href="../../d7/df0/a02618.html#a1d9986c16a88a1541a012dfe74c88955">timeline::Exporter</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="../../d4/ddf/a00488_source.html">DYNCommon.h</a></li>
+<a id="a4e2c4cd21d1cec6a25749cbe8747064c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e2c4cd21d1cec6a25749cbe8747064c">&#9670;&nbsp;</a></span>exportToStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::CsvExporter::exportToStream </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method in csv format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">stream</td><td>stream to export csv formatted timeline to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../d7/df0/a02618.html#ad89cf490dc7a018d06d669d2acb9be4a">timeline::Exporter</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d0/d29/a00470_source.html">TLCsvExporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -181,8 +269,8 @@ Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/dca/a02606.html">mapcompabs</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../d2/dca/a02606.html">CsvExporter</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

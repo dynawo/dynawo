@@ -95,16 +95,31 @@ $(document).ready(function(){initNavTree('d7/da0/a03474.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::Simulation::ExportStateDefinition Member List</div>  </div>
+<div class="title">DYN::Clock Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d7/da0/a03474.html">DYN::Simulation::ExportStateDefinition</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#ab1fd468c7c3941805f72c339b08cc8e5">dumpFile_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Simulation::ExportStateDefinition</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a44a64f15448f0821926edc89b74ca51d">ExportStateDefinition</a>(double timestamp, boost::optional&lt; boost::filesystem::path &gt; dumpFile=boost::none, boost::optional&lt; boost::filesystem::path &gt; iidmFile=boost::none)</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Simulation::ExportStateDefinition</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a78c16337e1b3cf1a97090f50bb3a75b6">iidmFile_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Simulation::ExportStateDefinition</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a75e09f44fd2944d081b625018e4c6e01">timestamp_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Simulation::ExportStateDefinition</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a1f582e587fd9876b5914e1712c0cf057">Clock</a>()</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#aa6d0750d01c17ea1580bd4859ff0716a">getStopMessageReceived</a>() const</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a32576e86df8ae00a764539920a5ff97f">getUseStepTrigger</a>() const</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#af3b22ae2e93c851e1c0f062bc90689c7">handleMessage</a>(StepTriggerMessage &amp;stepTriggerMessage)</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a4a986074d786833d29c0007e0526a728">handleMessage</a>(StopMessage &amp;stopMessage)</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a0a50529ff46f30f214105128aabff6ab">mutex_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a11d453532f21844d29fcd35275ba8c66">referenceClockTime_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a9134fb1d5ea2e132271288803a68f469">referenceSimuTime_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#aac6b0a5724aab83a285d09525059bd31">running_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#acf5f97182ec4fc8e7cc4e6fa598995c2">setSpeedup</a>(double speedup)</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#abe0faca763b1eb9f0af96ea08fbb0cc2">setUseStepTrigger</a>(bool useStepTrigger)</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a8c4b90837092dba5f218d66f9b8c231b">speedup_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#af4808d149adf742602dfced554fc055d">start</a>(double simulationTime)</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a426fd74883b080cece6995315d48844f">stop</a>()</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a9839d77ddc265a15c5a62e31495ea370">stopMessageReceived_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#ac5accdb6417247b88676959c4cefe7dd">triggerCond_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a6a2729df1b426bc3fd79c78fa296c5de">triggeredStepCnt_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a74a76799cbdaf8655997bebe2d8376d7">useStepTrigger_</a></td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da0/a03474.html#a5b9b5d19d440cd5ef37f08e452cff91e">wait</a>(double simulationTime)</td><td class="entry"><a class="el" href="../../d7/da0/a03474.html">DYN::Clock</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -121,7 +136,7 @@ $(document).ready(function(){initNavTree('d7/da0/a03474.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

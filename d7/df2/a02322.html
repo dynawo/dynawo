@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: job::DirectoryHandler Class Reference</title>
+<title>Dynawo: job::StreamsEntry Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,84 +96,78 @@ $(document).ready(function(){initNavTree('d7/df2/a02322.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../dc/d52/a02319.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::DirectoryHandler Class Reference</div>  </div>
+<div class="title">job::StreamsEntry Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Handler used to parse directory element.  
+<p>Streams entries container class.  
  <a href="../../d7/df2/a02322.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for job::DirectoryHandler:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d7/df2/a02322.png" usemap="#job::DirectoryHandler_map" alt=""/>
-  <map id="job::DirectoryHandler_map" name="job::DirectoryHandler_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d4/d13/a00377_source.html">JOBStreamsEntry.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a026f43aa3d61e0f138856e2e235eac0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a026f43aa3d61e0f138856e2e235eac0b">DirectoryHandler</a> (elementName_type const &amp;root_element)</td></tr>
-<tr class="memdesc:a026f43aa3d61e0f138856e2e235eac0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a026f43aa3d61e0f138856e2e235eac0b">More...</a><br /></td></tr>
-<tr class="separator:a026f43aa3d61e0f138856e2e235eac0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab758e5efef6799fa2790ed745478c548"><td class="memItemLeft" align="right" valign="top"><a id="ab758e5efef6799fa2790ed745478c548"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#ab758e5efef6799fa2790ed745478c548">~DirectoryHandler</a> () override</td></tr>
-<tr class="memdesc:ab758e5efef6799fa2790ed745478c548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:ab758e5efef6799fa2790ed745478c548"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f07540e642f0aebe0ca83e3b734baa0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d0c/a02634.html">UserDefinedDirectory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a2f07540e642f0aebe0ca83e3b734baa0">get</a> () const</td></tr>
-<tr class="memdesc:a2f07540e642f0aebe0ca83e3b734baa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the directory read in xml file  <a href="#a2f07540e642f0aebe0ca83e3b734baa0">More...</a><br /></td></tr>
-<tr class="separator:a2f07540e642f0aebe0ca83e3b734baa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9193551321122a8fb0ca883df23ea0e"><td class="memItemLeft" align="right" valign="top"><a id="af9193551321122a8fb0ca883df23ea0e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#af9193551321122a8fb0ca883df23ea0e">StreamsEntry</a> ()=default</td></tr>
+<tr class="memdesc:af9193551321122a8fb0ca883df23ea0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:af9193551321122a8fb0ca883df23ea0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ecfc47f52db7dd924e8efc49598b08"><td class="memItemLeft" align="right" valign="top"><a id="a52ecfc47f52db7dd924e8efc49598b08"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a52ecfc47f52db7dd924e8efc49598b08">~StreamsEntry</a> ()=default</td></tr>
+<tr class="memdesc:a52ecfc47f52db7dd924e8efc49598b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a52ecfc47f52db7dd924e8efc49598b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f82ebcbb99e4671f48614a7650a8b44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a2f82ebcbb99e4671f48614a7650a8b44">StreamsEntry</a> (const <a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:a2f82ebcbb99e4671f48614a7650a8b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a2f82ebcbb99e4671f48614a7650a8b44">More...</a><br /></td></tr>
+<tr class="separator:a2f82ebcbb99e4671f48614a7650a8b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2637e3358c59912af862afa404025bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#ad2637e3358c59912af862afa404025bb">operator=</a> (const <a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:ad2637e3358c59912af862afa404025bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement Operator.  <a href="#ad2637e3358c59912af862afa404025bb">More...</a><br /></td></tr>
+<tr class="separator:ad2637e3358c59912af862afa404025bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a174d54a36425738448200d86cfc3ae84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a174d54a36425738448200d86cfc3ae84">addStreamEntry</a> (const std::shared_ptr&lt; <a class="el" href="../../db/dda/a02318.html">StreamEntry</a> &gt; &amp;streamEntry)</td></tr>
+<tr class="memdesc:a174d54a36425738448200d86cfc3ae84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream entry adder.  <a href="#a174d54a36425738448200d86cfc3ae84">More...</a><br /></td></tr>
+<tr class="separator:a174d54a36425738448200d86cfc3ae84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41de066d1b5ebb1bc74ee21ba662f6a2"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/dda/a02318.html">StreamEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a41de066d1b5ebb1bc74ee21ba662f6a2">getStreamEntries</a> () const</td></tr>
+<tr class="memdesc:a41de066d1b5ebb1bc74ee21ba662f6a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream entries getter.  <a href="#a41de066d1b5ebb1bc74ee21ba662f6a2">More...</a><br /></td></tr>
+<tr class="separator:a41de066d1b5ebb1bc74ee21ba662f6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a66e39e54e3aedaf2c06cad338e3cfb4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a66e39e54e3aedaf2c06cad338e3cfb4c">create</a> (attributes_type const &amp;attributes)</td></tr>
-<tr class="memdesc:a66e39e54e3aedaf2c06cad338e3cfb4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#a66e39e54e3aedaf2c06cad338e3cfb4c">More...</a><br /></td></tr>
-<tr class="separator:a66e39e54e3aedaf2c06cad338e3cfb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a915b4ea74b1a2f1c43f6ca831e159b53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a915b4ea74b1a2f1c43f6ca831e159b53">copy</a> (const <a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a> &amp;other)</td></tr>
+<tr class="memdesc:a915b4ea74b1a2f1c43f6ca831e159b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy.  <a href="#a915b4ea74b1a2f1c43f6ca831e159b53">More...</a><br /></td></tr>
+<tr class="separator:a915b4ea74b1a2f1c43f6ca831e159b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a5dde711914df3e42203163ae225add2e"><td class="memItemLeft" align="right" valign="top"><a id="a5dde711914df3e42203163ae225add2e"></a>
-<a class="el" href="../../df/d0c/a02634.html">UserDefinedDirectory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a5dde711914df3e42203163ae225add2e">dir_</a></td></tr>
-<tr class="memdesc:a5dde711914df3e42203163ae225add2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">current directory <br /></td></tr>
-<tr class="separator:a5dde711914df3e42203163ae225add2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a148ca9d56af0fb43392b0c295d7303a3"><td class="memItemLeft" align="right" valign="top"><a id="a148ca9d56af0fb43392b0c295d7303a3"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/dda/a02318.html">StreamEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df2/a02322.html#a148ca9d56af0fb43392b0c295d7303a3">streams_</a></td></tr>
+<tr class="memdesc:a148ca9d56af0fb43392b0c295d7303a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Streams for the job. <br /></td></tr>
+<tr class="separator:a148ca9d56af0fb43392b0c295d7303a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handler used to parse directory element. </p>
+<div class="textblock"><p>Streams entries container class. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a026f43aa3d61e0f138856e2e235eac0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026f43aa3d61e0f138856e2e235eac0b">&#9670;&nbsp;</a></span>DirectoryHandler()</h2>
+<a id="a2f82ebcbb99e4671f48614a7650a8b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f82ebcbb99e4671f48614a7650a8b44">&#9670;&nbsp;</a></span>StreamsEntry()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">job::DirectoryHandler::DirectoryHandler </td>
+          <td class="memname">job::StreamsEntry::StreamsEntry </td>
           <td>(</td>
-          <td class="paramtype">elementName_type const &amp;&#160;</td>
-          <td class="paramname"><em>root_element</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
+<p>Copy constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
+    <tr><td class="paramname">other</td><td>original to copy </td></tr>
   </table>
   </dd>
 </dl>
@@ -181,8 +175,34 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a66e39e54e3aedaf2c06cad338e3cfb4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66e39e54e3aedaf2c06cad338e3cfb4c">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a174d54a36425738448200d86cfc3ae84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a174d54a36425738448200d86cfc3ae84">&#9670;&nbsp;</a></span>addStreamEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::StreamsEntry::addStreamEntry </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../db/dda/a02318.html">StreamEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>streamEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stream entry adder. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">streamEntry</td><td>: stream for the job </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a915b4ea74b1a2f1c43f6ca831e159b53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a915b4ea74b1a2f1c43f6ca831e159b53">&#9670;&nbsp;</a></span>copy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,38 +211,38 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void job::DirectoryHandler::create </td>
+          <td class="memname">void job::StreamsEntry::copy </td>
           <td>(</td>
-          <td class="paramtype">attributes_type const &amp;&#160;</td>
-          <td class="paramname"><em>attributes</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the XML element opening tag is read. </p>
+<p>Copy. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
+    <tr><td class="paramname">other</td><td>original to copy </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a2f07540e642f0aebe0ca83e3b734baa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f07540e642f0aebe0ca83e3b734baa0">&#9670;&nbsp;</a></span>get()</h2>
+<a id="a41de066d1b5ebb1bc74ee21ba662f6a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41de066d1b5ebb1bc74ee21ba662f6a2">&#9670;&nbsp;</a></span>getStreamEntries()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d0c/a02634.html">UserDefinedDirectory</a> job::DirectoryHandler::get </td>
+          <td class="memname">const std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../db/dda/a02318.html">StreamEntry</a>&gt; &gt;&amp; job::StreamsEntry::getStreamEntries </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -230,13 +250,40 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>return the directory read in xml file </p>
-<dl class="section return"><dt>Returns</dt><dd>directory object build thanks to infos read in xml file </dd></dl>
+<p>Stream entries getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vector of the streams for the job </dd></dl>
+
+</div>
+</div>
+<a id="ad2637e3358c59912af862afa404025bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2637e3358c59912af862afa404025bb">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a>&amp; job::StreamsEntry::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assignement Operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>original to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference on current entry </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a></li>
+<li><a class="el" href="../../d4/d13/a00377_source.html">JOBStreamsEntry.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -254,8 +301,8 @@ Private Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d7/df2/a02322.html">DirectoryHandler</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d7/df2/a02322.html">StreamsEntry</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

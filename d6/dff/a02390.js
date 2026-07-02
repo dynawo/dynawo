@@ -1,10 +1,8 @@
 var a02390 =
 [
-    [ "SimulationHandler", "d6/dff/a02390.html#a7800ece3ca0c12cf70dd391c7378044b", null ],
-    [ "~SimulationHandler", "d6/dff/a02390.html#a827c8a18b514b40f80da22e674d81447", null ],
-    [ "addCriteriaFile", "d6/dff/a02390.html#af39ea4a05d74a7f81398527efd3d914d", null ],
-    [ "create", "d6/dff/a02390.html#a1996f7d69010b36833203ab26dc2cf77", null ],
-    [ "get", "d6/dff/a02390.html#a92e24099b7ff591f694e8bf7743bcc6a", null ],
-    [ "criteriaFileHandler_", "d6/dff/a02390.html#a68326694205b6dce54e14eaa03506b24", null ],
-    [ "simulation_", "d6/dff/a02390.html#a2c046be46b467778a16a6aba24ec4d67", null ]
+    [ "LostEquipmentsHandler", "d6/dff/a02390.html#a4dab856a2f02322945c3ac66d19a739f", null ],
+    [ "~LostEquipmentsHandler", "d6/dff/a02390.html#a726019751d7b617df0b75d66a3665c4b", null ],
+    [ "create", "d6/dff/a02390.html#a032988c1c9e9dcd46e8eb2879d172100", null ],
+    [ "get", "d6/dff/a02390.html#a6a6f98533da34f0eb33e254cc357fa02", null ],
+    [ "lostEquipments_", "d6/dff/a02390.html#ab2ffdca84e98b2f22124c3c3aa1476eb", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYNFileSystemUtils.h File Reference</title>
+<title>Dynawo: DYNEnumUtils.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,1140 +95,473 @@ $(document).ready(function(){initNavTree('df/db6/a00509.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">DYNFileSystemUtils.h File Reference</div>  </div>
+<div class="title">DYNEnumUtils.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>File system utility : BOOST FileSystem wrapper.  
+<p>Define some common enum and functions for the modeler.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;list&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;unordered_set&gt;</code><br />
-<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/de5/a00503_source.html">DYNCommon.h</a>&quot;</code><br />
 </div>
 <p><a href="../../df/db6/a00509_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3f/a02630.html">PathHash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for boost::filesystem::path.  <a href="../../d0/d3f/a02630.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0c/a02634.html">UserDefinedDirectory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure containing a directory and a boolean indicating whether to recursively scan sub-directories of this directory or not.  <a href="../../df/d0c/a02634.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ae79ff761d6fdde3e15728e07781775a8"><td class="memItemLeft" align="right" valign="top"><a id="ae79ff761d6fdde3e15728e07781775a8"></a>
+typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#ae79ff761d6fdde3e15728e07781775a8">DYN::state_g</a></td></tr>
+<tr class="memdesc:ae79ff761d6fdde3e15728e07781775a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">type definition for state of G (zero crossing? ) <br /></td></tr>
+<tr class="separator:ae79ff761d6fdde3e15728e07781775a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a732348349c2b2231cfb2b9d0417349a6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6">DYN::propertyContinuousVar_t</a> { <br />
+&#160;&#160;<a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a1b5b5bca6244cf1b949b6dcbf2d6f59a">DYN::UNDEFINED_PROPERTY</a> = 0, 
+<a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a9db0a4af877cb6f9ae593e62089999dc">DYN::DIFFERENTIAL</a> = 1, 
+<a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a6034c72e1439d822e3afb8eb8b797767">DYN::ALGEBRAIC</a> = -1, 
+<a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a302d482b140d46c6fb870e43089c5c5f">DYN::EXTERNAL</a> = -2, 
+<br />
+&#160;&#160;<a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6afba1c412b95bb2be42100eba984994e7">DYN::OPTIONAL_EXTERNAL</a> = -3
+<br />
+ }</td></tr>
+<tr class="memdesc:a732348349c2b2231cfb2b9d0417349a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">type definition for continuous variable's property  <a href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6">More...</a><br /></td></tr>
+<tr class="separator:a732348349c2b2231cfb2b9d0417349a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b1ac858a7be39680e8c19dc9e860dd2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2">DYN::propertyF_t</a> { <a class="el" href="../../df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2ad70cdfdf0109b5d2b7fe70293cc267f7">DYN::UNDEFINED_EQ</a> = 0, 
+<a class="el" href="../../df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2af1443cbe4e12e145947943d524db106f">DYN::DIFFERENTIAL_EQ</a> = 1, 
+<a class="el" href="../../df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2aa990fc4704101bbac841d13da3ac4756">DYN::ALGEBRAIC_EQ</a> = -1
+ }</td></tr>
+<tr class="memdesc:a8b1ac858a7be39680e8c19dc9e860dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">type definition for function's property  <a href="../../df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2">More...</a><br /></td></tr>
+<tr class="separator:a8b1ac858a7be39680e8c19dc9e860dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24adc26d089791bc53f26183118aadfa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">DYN::typeVar_t</a> { <br />
+&#160;&#160;<a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa94ae2aa0554795b1955de4ed3572c807">DYN::DISCRETE</a>, 
+<a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa2677d52c571f6ebb212079cf50c9ef9c">DYN::CONTINUOUS</a>, 
+<a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa84f924464087183eb569cee809c69d9e">DYN::FLOW</a>, 
+<a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa10293ce93de9b0f5a22f464bfc186acd">DYN::INTEGER</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaaf615f62c3b8f88967afdcc0d7338ea2a">DYN::BOOLEAN</a>, 
+<a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaac08826f6c158b74a9ca29056c7240ef8">DYN::UNDEFINED_TYPE</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a24adc26d089791bc53f26183118aadfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">type definition for variable  <a href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">More...</a><br /></td></tr>
+<tr class="separator:a24adc26d089791bc53f26183118aadfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aced0ccefc9b7e7ed8b64a4ece366863e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863e">DYN::parameterScope_t</a> { <a class="el" href="../../df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863ea264d540ce0c084195b13255a3440f83f">DYN::EXTERNAL_PARAMETER</a>, 
+<a class="el" href="../../df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863ea51f2acdf818ed3dc57ae80af0433d32b">DYN::SHARED_PARAMETER</a>, 
+<a class="el" href="../../df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863ea3b015cda81806c1b0909fa5607ced965">DYN::INTERNAL_PARAMETER</a>
+ }</td></tr>
+<tr class="memdesc:aced0ccefc9b7e7ed8b64a4ece366863e"><td class="mdescLeft">&#160;</td><td class="mdescRight">scope definition for parameter C++ parameters are only external parameters (internal parameters are not declared) Modelica parameters may rely on various scopes  <a href="../../df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863e">More...</a><br /></td></tr>
+<tr class="separator:aced0ccefc9b7e7ed8b64a4ece366863e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed4b32a47e0828630b9719fb4a720183"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183">DYN::modeChangeType_t</a> { <a class="el" href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183aaddcb46e489fd5f4f90a353d7daf8b90">DYN::NO_MODE</a> = 0, 
+<a class="el" href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183a61a562dbad6d7df3998d1ea7a78c9b1f">DYN::DIFFERENTIAL_MODE</a>, 
+<a class="el" href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183a122058426f2b9067d808ccb80ce6c74d">DYN::ALGEBRAIC_MODE</a>, 
+<a class="el" href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183a8a5e2a843fc1c5b0e26b95ad67dfe633">DYN::ALGEBRAIC_J_UPDATE_MODE</a>
+ }</td></tr>
+<tr class="memdesc:aed4b32a47e0828630b9719fb4a720183"><td class="mdescLeft">&#160;</td><td class="mdescRight">mode change type for function A mode change type can be a differential mode change, an algebraic mode change requiring a Jacobian update or not. The enum is ordered and the order is used to detect what is the most critical change at a certain time step. Order modification will change the simulation tool behavior.  <a href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183">More...</a><br /></td></tr>
+<tr class="separator:aed4b32a47e0828630b9719fb4a720183"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c738a076f5c024d4e79ccc205e927dd"><td class="memItemLeft" align="right" valign="top"><a id="a8c738a076f5c024d4e79ccc205e927dd"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a8c738a076f5c024d4e79ccc205e927dd">DYN::SilentZFlags</a> { <b>NotSilent</b> = 0x01, 
+<b>NotUsedInDiscreteEquations</b> = 0x02, 
+<b>NotUsedInContinuousEquations</b> = 0x04
+ }</td></tr>
+<tr class="memdesc:a8c738a076f5c024d4e79ccc205e927dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags for the different types of silent Z. <br /></td></tr>
+<tr class="separator:a8c738a076f5c024d4e79ccc205e927dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a4f84e6efed086709bbef8cd4ff945a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945a">DYN::zChangeType_t</a> { <a class="el" href="../../df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aa9f0960133a311e3a85f3e66c4052ff19">DYN::NO_Z_CHANGE</a> = 0, 
+<a class="el" href="../../df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aa1eb2468f1db18910afc5b155af87139e">DYN::NOT_SILENT_Z_CHANGE</a>, 
+<a class="el" href="../../df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aa22ad8f59872c8eb2849393b1e27c38ee">DYN::NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE</a>, 
+<a class="el" href="../../df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aabece3bd19a0df9ad93268eee79f52d0c">DYN::NOT_USED_IN_DISCRETE_EQ_Z_CHANGE</a>
+ }</td></tr>
+<tr class="memdesc:a1a4f84e6efed086709bbef8cd4ff945a"><td class="mdescLeft">&#160;</td><td class="mdescRight">discrete variable change type  <a href="../../df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945a">More...</a><br /></td></tr>
+<tr class="separator:a1a4f84e6efed086709bbef8cd4ff945a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae13ec6dec76f4eb5db262f8cc9cf4411"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411">DYN::ConstraintValueType_t</a> { <a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411a43c82a70cd80217c5f0c3d2d346eba3b">DYN::NO_CONSTRAINTS_FILTER</a> = 0, 
+<a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411ae9d99d6db143be320171a7ef6544ea2a">DYN::CONSTRAINTS_KEEP_FIRST</a>, 
+<a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411a68c90c8ed721358ea0c363bf1b3744f4">DYN::CONSTRAINTS_DYNAFLOW</a>, 
+<a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411a454676d8546f6863a546469377851cb0">DYN::SIZE_OF_ENUM</a>
+ }</td></tr>
+<tr class="separator:ae13ec6dec76f4eb5db262f8cc9cf4411"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3c610bdbcb5ad1de867447118398a890"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a3c610bdbcb5ad1de867447118398a890">searchFile</a> (const std::string &amp;pathFromDirectory, const std::string &amp;rootPath, bool searchInSubDirs)</td></tr>
-<tr class="memdesc:a3c610bdbcb5ad1de867447118398a890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a file within a directory.  <a href="#a3c610bdbcb5ad1de867447118398a890">More...</a><br /></td></tr>
-<tr class="separator:a3c610bdbcb5ad1de867447118398a890"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53122c28df73d4e72e79cfa7469ac4a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a53122c28df73d4e72e79cfa7469ac4a4">searchFilesAccordingToExtensions</a> (const std::string &amp;directoryToScan, const std::vector&lt; std::string &gt; &amp;fileExtensionsAllowed, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, bool searchInSubDirs, std::vector&lt; std::string &gt; &amp;filesFound)</td></tr>
-<tr class="memdesc:a53122c28df73d4e72e79cfa7469ac4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a files which have a given file extension within a directory.  <a href="#a53122c28df73d4e72e79cfa7469ac4a4">More...</a><br /></td></tr>
-<tr class="separator:a53122c28df73d4e72e79cfa7469ac4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b46588bd7985bb1caea3050e7704ab2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a4b46588bd7985bb1caea3050e7704ab2">searchFilesAccordingToExtension</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtensionAllowed, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, bool searchInSubDirs, std::vector&lt; std::string &gt; &amp;filesFound)</td></tr>
-<tr class="memdesc:a4b46588bd7985bb1caea3050e7704ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a files which have a given file extension within a directory.  <a href="#a4b46588bd7985bb1caea3050e7704ab2">More...</a><br /></td></tr>
-<tr class="separator:a4b46588bd7985bb1caea3050e7704ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae726cfecda8f0e5863da373af989f80d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#ae726cfecda8f0e5863da373af989f80d">searchModelsFiles</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d0/d3f/a02630.html">PathHash</a> &gt; &amp;pathsToIgnore, bool searchInSubDirs, bool packageForcesSubDirsSearch, bool stopWhenSeePackage, std::map&lt; std::string, std::string &gt; &amp;filesFound)</td></tr>
-<tr class="memdesc:ae726cfecda8f0e5863da373af989f80d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for models within a directory.  <a href="#ae726cfecda8f0e5863da373af989f80d">More...</a><br /></td></tr>
-<tr class="separator:ae726cfecda8f0e5863da373af989f80d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4919d02cff1378d10724621e2f6463fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a4919d02cff1378d10724621e2f6463fc">searchModelsFilesRec</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, const std::vector&lt; std::string &gt; &amp;fileExtensionsForbidden, const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d0/d3f/a02630.html">PathHash</a> &gt; &amp;pathsToIgnore, bool searchInSubDirs, bool isPackage, bool packageForcesSubDirsSearch, bool stopWhenSeePackage, const std::vector&lt; std::string &gt; &amp;namespaces, std::map&lt; std::string, std::string &gt; &amp;filesFound)</td></tr>
-<tr class="memdesc:a4919d02cff1378d10724621e2f6463fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search recursively for models within a directory.  <a href="#a4919d02cff1378d10724621e2f6463fc">More...</a><br /></td></tr>
-<tr class="separator:a4919d02cff1378d10724621e2f6463fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a805f24c2f4a669bf7cba29fe5fc73e12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a805f24c2f4a669bf7cba29fe5fc73e12">searchModelicaModels</a> (const std::string &amp;directoryToScan, const std::string &amp;fileExtension, bool searchInSubDirs, std::vector&lt; std::string &gt; &amp;filesFound)</td></tr>
-<tr class="memdesc:a805f24c2f4a669bf7cba29fe5fc73e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for Modelica models within a directory.  <a href="#a805f24c2f4a669bf7cba29fe5fc73e12">More...</a><br /></td></tr>
-<tr class="separator:a805f24c2f4a669bf7cba29fe5fc73e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6730593405a0c629bc152b7e23112037"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a6730593405a0c629bc152b7e23112037">canonical</a> (const std::string &amp;childPath, const std::string &amp;rootPath=&quot;.&quot;)</td></tr>
-<tr class="memdesc:a6730593405a0c629bc152b7e23112037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenate two paths.  <a href="#a6730593405a0c629bc152b7e23112037">More...</a><br /></td></tr>
-<tr class="separator:a6730593405a0c629bc152b7e23112037"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabeca097df4bc0136b0a6f7867bf3f4b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#aabeca097df4bc0136b0a6f7867bf3f4b">absolute</a> (const std::string &amp;name, const std::string &amp;rootName=&quot;.&quot;)</td></tr>
-<tr class="memdesc:aabeca097df4bc0136b0a6f7867bf3f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenate two paths.  <a href="#aabeca097df4bc0136b0a6f7867bf3f4b">More...</a><br /></td></tr>
-<tr class="separator:aabeca097df4bc0136b0a6f7867bf3f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f3fe2f158db70c4daa046c4c3ae4af4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a3f3fe2f158db70c4daa046c4c3ae4af4">createAbsolutePath</a> (const std::string &amp;name, const std::string &amp;rootName)</td></tr>
-<tr class="memdesc:a3f3fe2f158db70c4daa046c4c3ae4af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">return name if name is absolute, else concatenate name and rootName  <a href="#a3f3fe2f158db70c4daa046c4c3ae4af4">More...</a><br /></td></tr>
-<tr class="separator:a3f3fe2f158db70c4daa046c4c3ae4af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae033c59d263164d7f25cf3eb1d1d7700"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#ae033c59d263164d7f25cf3eb1d1d7700">exists</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:ae033c59d263164d7f25cf3eb1d1d7700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a given path exists.  <a href="#ae033c59d263164d7f25cf3eb1d1d7700">More...</a><br /></td></tr>
-<tr class="separator:ae033c59d263164d7f25cf3eb1d1d7700"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd4b28b5a694c48f003480bba6786d3b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#abd4b28b5a694c48f003480bba6786d3b">remove</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:abd4b28b5a694c48f003480bba6786d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a given path.  <a href="#abd4b28b5a694c48f003480bba6786d3b">More...</a><br /></td></tr>
-<tr class="separator:abd4b28b5a694c48f003480bba6786d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85029b869526ea4ec4c6f8a7d030f954"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a85029b869526ea4ec4c6f8a7d030f954">copy</a> (const std::string &amp;oldPath, const std::string &amp;newPath)</td></tr>
-<tr class="memdesc:a85029b869526ea4ec4c6f8a7d030f954"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy a given file  <a href="#a85029b869526ea4ec4c6f8a7d030f954">More...</a><br /></td></tr>
-<tr class="separator:a85029b869526ea4ec4c6f8a7d030f954"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac11e1bbef2265badc60cb7393c9a8bbb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#ac11e1bbef2265badc60cb7393c9a8bbb">currentPath</a> ()</td></tr>
-<tr class="memdesc:ac11e1bbef2265badc60cb7393c9a8bbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the current path WARNING : not thread-safe.  <a href="#ac11e1bbef2265badc60cb7393c9a8bbb">More...</a><br /></td></tr>
-<tr class="separator:ac11e1bbef2265badc60cb7393c9a8bbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a073b119ae0587dbd1abf327b925004a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a073b119ae0587dbd1abf327b925004a1">currentPath</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a073b119ae0587dbd1abf327b925004a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current file path WARNING : not thread-safe.  <a href="#a073b119ae0587dbd1abf327b925004a1">More...</a><br /></td></tr>
-<tr class="separator:a073b119ae0587dbd1abf327b925004a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89340cd6d31283905faffe7696e7fccc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a89340cd6d31283905faffe7696e7fccc">replaceExtension</a> (const std::string &amp;path, const std::string &amp;ext)</td></tr>
-<tr class="memdesc:a89340cd6d31283905faffe7696e7fccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">replace the file extension from a file path  <a href="#a89340cd6d31283905faffe7696e7fccc">More...</a><br /></td></tr>
-<tr class="separator:a89340cd6d31283905faffe7696e7fccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dae8bc35e1ef8ddb6c3f721eec1d515"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a9dae8bc35e1ef8ddb6c3f721eec1d515">isDirectory</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a9dae8bc35e1ef8ddb6c3f721eec1d515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a path points toward a directory.  <a href="#a9dae8bc35e1ef8ddb6c3f721eec1d515">More...</a><br /></td></tr>
-<tr class="separator:a9dae8bc35e1ef8ddb6c3f721eec1d515"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d74b36b84743cbe78550be557d59708"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a4d74b36b84743cbe78550be557d59708">createDirectory</a> (const std::string &amp;inputPath)</td></tr>
-<tr class="memdesc:a4d74b36b84743cbe78550be557d59708"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create all relevant directories in order to make a path relevant.  <a href="#a4d74b36b84743cbe78550be557d59708">More...</a><br /></td></tr>
-<tr class="separator:a4d74b36b84743cbe78550be557d59708"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bdf0b15b50e125e7721eeef066b7fd9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a9bdf0b15b50e125e7721eeef066b7fd9">extension</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a9bdf0b15b50e125e7721eeef066b7fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the file extension from a file path.  <a href="#a9bdf0b15b50e125e7721eeef066b7fd9">More...</a><br /></td></tr>
-<tr class="separator:a9bdf0b15b50e125e7721eeef066b7fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bf45b7da0a1615f4b674f2074198be0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a2bf45b7da0a1615f4b674f2074198be0">extensionFound</a> (const std::string &amp;directoryToScan, const std::vector&lt; std::string &gt; &amp;extensionList)</td></tr>
-<tr class="memdesc:a2bf45b7da0a1615f4b674f2074198be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether given extensions are found in a directory.  <a href="#a2bf45b7da0a1615f4b674f2074198be0">More...</a><br /></td></tr>
-<tr class="separator:a2bf45b7da0a1615f4b674f2074198be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a440601d04858ac245e63e8ae3835e783"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a440601d04858ac245e63e8ae3835e783">extensionEquals</a> (const std::string &amp;path, const std::string &amp;<a class="el" href="../../df/db6/a00509.html#a9bdf0b15b50e125e7721eeef066b7fd9">extension</a>)</td></tr>
-<tr class="memdesc:a440601d04858ac245e63e8ae3835e783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether file path ends with a given extension.  <a href="#a440601d04858ac245e63e8ae3835e783">More...</a><br /></td></tr>
-<tr class="separator:a440601d04858ac245e63e8ae3835e783"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1143a7ddebd4866b6ba3904ae9672e9c"><td class="memItemLeft" align="right" valign="top">std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a1143a7ddebd4866b6ba3904ae9672e9c">listDirectory</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a1143a7ddebd4866b6ba3904ae9672e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the file list in a directory.  <a href="#a1143a7ddebd4866b6ba3904ae9672e9c">More...</a><br /></td></tr>
-<tr class="separator:a1143a7ddebd4866b6ba3904ae9672e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62a5735167537bc57bd0a781088a4951"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a62a5735167537bc57bd0a781088a4951">fileNameFromPath</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a62a5735167537bc57bd0a781088a4951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the file name from a file path.  <a href="#a62a5735167537bc57bd0a781088a4951">More...</a><br /></td></tr>
-<tr class="separator:a62a5735167537bc57bd0a781088a4951"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43f58fe42c12b72ffc375c215791c9e9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a43f58fe42c12b72ffc375c215791c9e9">removeFileName</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a43f58fe42c12b72ffc375c215791c9e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the file name from a file path.  <a href="#a43f58fe42c12b72ffc375c215791c9e9">More...</a><br /></td></tr>
-<tr class="separator:a43f58fe42c12b72ffc375c215791c9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa10d835cf5580d64e047791e04ed3c22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#aa10d835cf5580d64e047791e04ed3c22">removeAllInDirectory</a> (const std::string &amp;directory)</td></tr>
-<tr class="memdesc:aa10d835cf5580d64e047791e04ed3c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete all contents in a directory.  <a href="#aa10d835cf5580d64e047791e04ed3c22">More...</a><br /></td></tr>
-<tr class="separator:aa10d835cf5580d64e047791e04ed3c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11439dcca4299514ea5b9d27fa27643d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a11439dcca4299514ea5b9d27fa27643d">parentDirectory</a> (const std::string &amp;childPath)</td></tr>
-<tr class="memdesc:a11439dcca4299514ea5b9d27fa27643d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the parent directory from a given path.  <a href="#a11439dcca4299514ea5b9d27fa27643d">More...</a><br /></td></tr>
-<tr class="separator:a11439dcca4299514ea5b9d27fa27643d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4ea352221a931cbbf2064d8028282c7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#af4ea352221a931cbbf2064d8028282c7">lastParentDirectory</a> (const std::string &amp;childPath)</td></tr>
-<tr class="memdesc:af4ea352221a931cbbf2064d8028282c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the last directory from a given path.  <a href="#af4ea352221a931cbbf2064d8028282c7">More...</a><br /></td></tr>
-<tr class="separator:af4ea352221a931cbbf2064d8028282c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56fc834fb0b2ce501e732480e3163353"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a56fc834fb0b2ce501e732480e3163353">isAbsolutePath</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a56fc834fb0b2ce501e732480e3163353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a given path is absolute or relative.  <a href="#a56fc834fb0b2ce501e732480e3163353">More...</a><br /></td></tr>
-<tr class="separator:a56fc834fb0b2ce501e732480e3163353"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a744b6e7bca90241fd544bca06338aee0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a744b6e7bca90241fd544bca06338aee0">DYN::modeChangeType2Str</a> (modeChangeType_t modeChangeType)</td></tr>
+<tr class="memdesc:a744b6e7bca90241fd544bca06338aee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test is the size of ConstraintValueTypeNames is relevant with the enumeration size.  <a href="../../df/db6/a00509.html#a744b6e7bca90241fd544bca06338aee0">More...</a><br /></td></tr>
+<tr class="separator:a744b6e7bca90241fd544bca06338aee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a969826207e0292c8f19d8a7a3ab44d7a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a969826207e0292c8f19d8a7a3ab44d7a">DYN::propertyVar2Str</a> (propertyContinuousVar_t property)</td></tr>
+<tr class="memdesc:a969826207e0292c8f19d8a7a3ab44d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the property of variable(differential, algebraic, or external)  <a href="../../df/db6/a00509.html#a969826207e0292c8f19d8a7a3ab44d7a">More...</a><br /></td></tr>
+<tr class="separator:a969826207e0292c8f19d8a7a3ab44d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead2c12f61412f35b1d05a6f4afcad72"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#aead2c12f61412f35b1d05a6f4afcad72">DYN::typeVar2Str</a> (typeVar_t type)</td></tr>
+<tr class="memdesc:aead2c12f61412f35b1d05a6f4afcad72"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the type of a variable as a string  <a href="../../df/db6/a00509.html#aead2c12f61412f35b1d05a6f4afcad72">More...</a><br /></td></tr>
+<tr class="separator:aead2c12f61412f35b1d05a6f4afcad72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9450a608aaf6035bd0902b9d6b754f9f"><td class="memItemLeft" align="right" valign="top">typeVarC_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a9450a608aaf6035bd0902b9d6b754f9f">DYN::toCTypeVar</a> (typeVar_t type)</td></tr>
+<tr class="memdesc:a9450a608aaf6035bd0902b9d6b754f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert the variable type from Modelica type to C type  <a href="../../df/db6/a00509.html#a9450a608aaf6035bd0902b9d6b754f9f">More...</a><br /></td></tr>
+<tr class="separator:a9450a608aaf6035bd0902b9d6b754f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cb087a6277986c5798710f7832f49dc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a6cb087a6277986c5798710f7832f49dc">DYN::paramScope2Str</a> (parameterScope_t scope)</td></tr>
+<tr class="memdesc:a6cb087a6277986c5798710f7832f49dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert a parameter scope to string  <a href="../../df/db6/a00509.html#a6cb087a6277986c5798710f7832f49dc">More...</a><br /></td></tr>
+<tr class="separator:a6cb087a6277986c5798710f7832f49dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a8bbbc61b05af0bd45dc26dcdb8c76827"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a8bbbc61b05af0bd45dc26dcdb8c76827">DYN::ConstraintValueTypeNames</a> [ConstraintValueType_t::SIZE_OF_ENUM]</td></tr>
+<tr class="memdesc:a8bbbc61b05af0bd45dc26dcdb8c76827"><td class="mdescLeft">&#160;</td><td class="mdescRight">string conversion of enum values  <a href="../../df/db6/a00509.html#a8bbbc61b05af0bd45dc26dcdb8c76827">More...</a><br /></td></tr>
+<tr class="separator:a8bbbc61b05af0bd45dc26dcdb8c76827"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29eb442c0386e73d26c182204b8dca3e"><td class="memItemLeft" align="right" valign="top"><a id="a29eb442c0386e73d26c182204b8dca3e"></a>
+static const state_g&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a29eb442c0386e73d26c182204b8dca3e">DYN::ROOT_UP</a> = 1</td></tr>
+<tr class="memdesc:a29eb442c0386e73d26c182204b8dca3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ROOT is activated. <br /></td></tr>
+<tr class="separator:a29eb442c0386e73d26c182204b8dca3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a085c8ed454a01dea61ea9b2bf22f5126"><td class="memItemLeft" align="right" valign="top"><a id="a085c8ed454a01dea61ea9b2bf22f5126"></a>
+static const state_g&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#a085c8ed454a01dea61ea9b2bf22f5126">DYN::ROOT_DOWN</a> = -1</td></tr>
+<tr class="memdesc:a085c8ed454a01dea61ea9b2bf22f5126"><td class="mdescLeft">&#160;</td><td class="mdescRight">ROOT is unactivated. <br /></td></tr>
+<tr class="separator:a085c8ed454a01dea61ea9b2bf22f5126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacd74f19a89d69a789b36973c809a1c7"><td class="memItemLeft" align="right" valign="top"><a id="aacd74f19a89d69a789b36973c809a1c7"></a>
+static const state_g&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/db6/a00509.html#aacd74f19a89d69a789b36973c809a1c7">DYN::NO_ROOT</a> = 0</td></tr>
+<tr class="memdesc:aacd74f19a89d69a789b36973c809a1c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of the root is undefined. <br /></td></tr>
+<tr class="separator:aacd74f19a89d69a789b36973c809a1c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>File system utility : BOOST FileSystem wrapper. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="aabeca097df4bc0136b0a6f7867bf3f4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabeca097df4bc0136b0a6f7867bf3f4b">&#9670;&nbsp;</a></span>absolute()</h2>
+<div class="textblock"><p>Define some common enum and functions for the modeler. </p>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="file_ae13ec6dec76f4eb5db262f8cc9cf4411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_ae13ec6dec76f4eb5db262f8cc9cf4411">&#9670;&nbsp;</a></span>ConstraintValueType_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string absolute </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="memname">enum <a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411">DYN::ConstraintValueType_t</a></td>
         </tr>
+      </table>
+</div><div class="memdoc">
+<p>define value type of the constraints </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411a43c82a70cd80217c5f0c3d2d346eba3b"></a>NO_CONSTRAINTS_FILTER&#160;</td><td class="fielddoc"><p>no value registered </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411ae9d99d6db143be320171a7ef6544ea2a"></a>CONSTRAINTS_KEEP_FIRST&#160;</td><td class="fielddoc"><p>value registered in the constraint should be the first value seen by the simulation </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411a68c90c8ed721358ea0c363bf1b3744f4"></a>CONSTRAINTS_DYNAFLOW&#160;</td><td class="fielddoc"><p>values registered in the constraint should be max and final value, keep closed constraints </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae13ec6dec76f4eb5db262f8cc9cf4411a454676d8546f6863a546469377851cb0"></a>SIZE_OF_ENUM&#160;</td><td class="fielddoc"><p>value to use ONLY to assess the enumeration size </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="file_aed4b32a47e0828630b9719fb4a720183"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_aed4b32a47e0828630b9719fb4a720183">&#9670;&nbsp;</a></span>modeChangeType_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>rootName</em> = <code>&quot;.&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">enum <a class="el" href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183">DYN::modeChangeType_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Concatenate two paths. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>mode change type for function A mode change type can be a differential mode change, an algebraic mode change requiring a Jacobian update or not. The enum is ordered and the order is used to detect what is the most critical change at a certain time step. Order modification will change the simulation tool behavior. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aed4b32a47e0828630b9719fb4a720183aaddcb46e489fd5f4f90a353d7daf8b90"></a>NO_MODE&#160;</td><td class="fielddoc"><p>No function change. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aed4b32a47e0828630b9719fb4a720183a61a562dbad6d7df3998d1ea7a78c9b1f"></a>DIFFERENTIAL_MODE&#160;</td><td class="fielddoc"><p>Mode change on a differential function. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aed4b32a47e0828630b9719fb4a720183a122058426f2b9067d808ccb80ce6c74d"></a>ALGEBRAIC_MODE&#160;</td><td class="fielddoc"><p>Mode change on an algebraic function not requiring a Jacobian update. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aed4b32a47e0828630b9719fb4a720183a8a5e2a843fc1c5b0e26b95ad67dfe633"></a>ALGEBRAIC_J_UPDATE_MODE&#160;</td><td class="fielddoc"><p>Mode change on an algebraic function requiring a Jacobian update. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="file_aced0ccefc9b7e7ed8b64a4ece366863e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_aced0ccefc9b7e7ed8b64a4ece366863e">&#9670;&nbsp;</a></span>parameterScope_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863e">DYN::parameterScope_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>scope definition for parameter C++ parameters are only external parameters (internal parameters are not declared) Modelica parameters may rely on various scopes </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aced0ccefc9b7e7ed8b64a4ece366863ea264d540ce0c084195b13255a3440f83f"></a>EXTERNAL_PARAMETER&#160;</td><td class="fielddoc"><p>The parameter only relies on external values. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aced0ccefc9b7e7ed8b64a4ece366863ea51f2acdf818ed3dc57ae80af0433d32b"></a>SHARED_PARAMETER&#160;</td><td class="fielddoc"><p>The parameter has a default internal value, which may be externally updated. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aced0ccefc9b7e7ed8b64a4ece366863ea3b015cda81806c1b0909fa5607ced965"></a>INTERNAL_PARAMETER&#160;</td><td class="fielddoc"><p>The parameter only computes its own value internally. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="file_a732348349c2b2231cfb2b9d0417349a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a732348349c2b2231cfb2b9d0417349a6">&#9670;&nbsp;</a></span>propertyContinuousVar_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6">DYN::propertyContinuousVar_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>type definition for continuous variable's property </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a732348349c2b2231cfb2b9d0417349a6a1b5b5bca6244cf1b949b6dcbf2d6f59a"></a>UNDEFINED_PROPERTY&#160;</td><td class="fielddoc"><p>Undefined type. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a732348349c2b2231cfb2b9d0417349a6a9db0a4af877cb6f9ae593e62089999dc"></a>DIFFERENTIAL&#160;</td><td class="fielddoc"><p>The continuous variable is a differential variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a732348349c2b2231cfb2b9d0417349a6a6034c72e1439d822e3afb8eb8b797767"></a>ALGEBRAIC&#160;</td><td class="fielddoc"><p>The continuous variable is an algebraic variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a732348349c2b2231cfb2b9d0417349a6a302d482b140d46c6fb870e43089c5c5f"></a>EXTERNAL&#160;</td><td class="fielddoc"><p>The continuous variable is an external variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a732348349c2b2231cfb2b9d0417349a6afba1c412b95bb2be42100eba984994e7"></a>OPTIONAL_EXTERNAL&#160;</td><td class="fielddoc"><p>The continuous variable is an optional external variable. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="file_a8b1ac858a7be39680e8c19dc9e860dd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a8b1ac858a7be39680e8c19dc9e860dd2">&#9670;&nbsp;</a></span>propertyF_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2">DYN::propertyF_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>type definition for function's property </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8b1ac858a7be39680e8c19dc9e860dd2ad70cdfdf0109b5d2b7fe70293cc267f7"></a>UNDEFINED_EQ&#160;</td><td class="fielddoc"><p>Undefined type. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8b1ac858a7be39680e8c19dc9e860dd2af1443cbe4e12e145947943d524db106f"></a>DIFFERENTIAL_EQ&#160;</td><td class="fielddoc"><p>The residual function is a differential equation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8b1ac858a7be39680e8c19dc9e860dd2aa990fc4704101bbac841d13da3ac4756"></a>ALGEBRAIC_EQ&#160;</td><td class="fielddoc"><p>The residual function is an algebraic equation. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="file_a24adc26d089791bc53f26183118aadfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a24adc26d089791bc53f26183118aadfa">&#9670;&nbsp;</a></span>typeVar_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">DYN::typeVar_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>type definition for variable </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a24adc26d089791bc53f26183118aadfaa94ae2aa0554795b1955de4ed3572c807"></a>DISCRETE&#160;</td><td class="fielddoc"><p>The variable is a discrete real variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a24adc26d089791bc53f26183118aadfaa2677d52c571f6ebb212079cf50c9ef9c"></a>CONTINUOUS&#160;</td><td class="fielddoc"><p>The variable is a continuous variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a24adc26d089791bc53f26183118aadfaa84f924464087183eb569cee809c69d9e"></a>FLOW&#160;</td><td class="fielddoc"><p>The variable is a flow variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a24adc26d089791bc53f26183118aadfaa10293ce93de9b0f5a22f464bfc186acd"></a>INTEGER&#160;</td><td class="fielddoc"><p>The variable is an integer variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a24adc26d089791bc53f26183118aadfaaf615f62c3b8f88967afdcc0d7338ea2a"></a>BOOLEAN&#160;</td><td class="fielddoc"><p>The variable is a boolean variable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a24adc26d089791bc53f26183118aadfaac08826f6c158b74a9ca29056c7240ef8"></a>UNDEFINED_TYPE&#160;</td><td class="fielddoc"><p>Undefined type. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="file_a1a4f84e6efed086709bbef8cd4ff945a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a1a4f84e6efed086709bbef8cd4ff945a">&#9670;&nbsp;</a></span>zChangeType_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945a">DYN::zChangeType_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>discrete variable change type </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1a4f84e6efed086709bbef8cd4ff945aa9f0960133a311e3a85f3e66c4052ff19"></a>NO_Z_CHANGE&#160;</td><td class="fielddoc"><p>no discrete variable has changed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1a4f84e6efed086709bbef8cd4ff945aa1eb2468f1db18910afc5b155af87139e"></a>NOT_SILENT_Z_CHANGE&#160;</td><td class="fielddoc"><p>at least one z that modify both continuous and discrete equation has changed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1a4f84e6efed086709bbef8cd4ff945aa22ad8f59872c8eb2849393b1e27c38ee"></a>NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE&#160;</td><td class="fielddoc"><p>at least on z that is used only in discrete equation has changed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1a4f84e6efed086709bbef8cd4ff945aabece3bd19a0df9ad93268eee79f52d0c"></a>NOT_USED_IN_DISCRETE_EQ_Z_CHANGE&#160;</td><td class="fielddoc"><p>only z that are used only in continuous equations were modified </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="file_a744b6e7bca90241fd544bca06338aee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a744b6e7bca90241fd544bca06338aee0">&#9670;&nbsp;</a></span>modeChangeType2Str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::modeChangeType2Str </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td>
+          <td class="paramname"><em>modeChangeType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test is the size of ConstraintValueTypeNames is relevant with the enumeration size. </p>
+<p>return the string associated to the mode change type </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>: the path relative to the root path (may be a file name) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rootName</td><td>: the path to the root directory</td></tr>
+    <tr><td class="paramname">modeChangeType</td><td>mode change type as an enum </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the concatenated file path (even when the path does not exist) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the string associated to the mode change type </dd></dl>
 
 </div>
 </div>
-<a id="a6730593405a0c629bc152b7e23112037"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6730593405a0c629bc152b7e23112037">&#9670;&nbsp;</a></span>canonical()</h2>
+<a id="file_a6cb087a6277986c5798710f7832f49dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a6cb087a6277986c5798710f7832f49dc">&#9670;&nbsp;</a></span>paramScope2Str()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string canonical </td>
+          <td class="memname">std::string DYN::paramScope2Str </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>childPath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="../../df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863e">parameterScope_t</a>&#160;</td>
+          <td class="paramname"><em>scope</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>rootPath</em> = <code>&quot;.&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Concatenate two paths. </p>
+<p>convert a parameter scope to string </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">childPath</td><td>: the path relative to the root path (may be a file name) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rootPath</td><td>: the path to the root directory</td></tr>
+    <tr><td class="paramname">scope</td><td>: the parameter origin as an enum </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the concatenated file path throw an exception when the path does not exist </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the converted scope as a string </dd></dl>
 
 </div>
 </div>
-<a id="a85029b869526ea4ec4c6f8a7d030f954"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85029b869526ea4ec4c6f8a7d030f954">&#9670;&nbsp;</a></span>copy()</h2>
+<a id="file_a969826207e0292c8f19d8a7a3ab44d7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a969826207e0292c8f19d8a7a3ab44d7a">&#9670;&nbsp;</a></span>propertyVar2Str()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void copy </td>
+          <td class="memname">std::string DYN::propertyVar2Str </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>oldPath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="../../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6">propertyContinuousVar_t</a>&#160;</td>
+          <td class="paramname"><em>property</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>newPath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>copy a given file </p>
+<p>return the property of variable(differential, algebraic, or external) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">oldPath</td><td>: the path to copy </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">newPath</td><td>: the copied file </td></tr>
+    <tr><td class="paramname">property</td><td>: property of a variable as an enum type </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>property of a variable as a string </dd></dl>
 
 </div>
 </div>
-<a id="a3f3fe2f158db70c4daa046c4c3ae4af4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f3fe2f158db70c4daa046c4c3ae4af4">&#9670;&nbsp;</a></span>createAbsolutePath()</h2>
+<a id="file_a9450a608aaf6035bd0902b9d6b754f9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a9450a608aaf6035bd0902b9d6b754f9f">&#9670;&nbsp;</a></span>toCTypeVar()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string createAbsolutePath </td>
+          <td class="memname">typeVarC_t DYN::toCTypeVar </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>rootName</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>return name if name is absolute, else concatenate name and rootName </p>
+<p>convert the variable type from Modelica type to C type </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>: the path relative to the root path (may be a file name) </td></tr>
-    <tr><td class="paramname">rootName</td><td>: the path to the root directory</td></tr>
+    <tr><td class="paramname">type</td><td>: type of a variable as an enum type </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the concatenated file path (if path is not absolute) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>type of a variable as C type (enum) </dd></dl>
 
 </div>
 </div>
-<a id="a4d74b36b84743cbe78550be557d59708"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d74b36b84743cbe78550be557d59708">&#9670;&nbsp;</a></span>createDirectory()</h2>
+<a id="file_aead2c12f61412f35b1d05a6f4afcad72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_aead2c12f61412f35b1d05a6f4afcad72">&#9670;&nbsp;</a></span>typeVar2Str()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void createDirectory </td>
+          <td class="memname">std::string DYN::typeVar2Str </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>inputPath</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create all relevant directories in order to make a path relevant. </p>
+<p>return the type of a variable as a string </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">inputPath</td><td>: the path from which to create directories </td></tr>
+    <tr><td class="paramname">type</td><td>: type of a variable as an enum type </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>type of a variable as a string </dd></dl>
 
 </div>
 </div>
-<a id="ac11e1bbef2265badc60cb7393c9a8bbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac11e1bbef2265badc60cb7393c9a8bbb">&#9670;&nbsp;</a></span>currentPath() <span class="overload">[1/2]</span></h2>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="file_a8bbbc61b05af0bd45dc26dcdb8c76827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a8bbbc61b05af0bd45dc26dcdb8c76827">&#9670;&nbsp;</a></span>ConstraintValueTypeNames</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string currentPath </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">const char* DYN::ConstraintValueTypeNames[ConstraintValueType_t::SIZE_OF_ENUM]</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>Retrieve the current path WARNING : not thread-safe. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current path as a string (equivalent of cd or pwd) </dd></dl>
-
-</div>
-</div>
-<a id="a073b119ae0587dbd1abf327b925004a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a073b119ae0587dbd1abf327b925004a1">&#9670;&nbsp;</a></span>currentPath() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void currentPath </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the current file path WARNING : not thread-safe. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the current path as a string </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae033c59d263164d7f25cf3eb1d1d7700"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae033c59d263164d7f25cf3eb1d1d7700">&#9670;&nbsp;</a></span>exists()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool exists </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether a given path exists. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path to check</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether the path exists Warning : using this function on a canonical path will either return true or throw an exception (when path is not relevant) </dd></dl>
-
-</div>
-</div>
-<a id="a9bdf0b15b50e125e7721eeef066b7fd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bdf0b15b50e125e7721eeef066b7fd9">&#9670;&nbsp;</a></span>extension()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string extension </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieve the file extension from a file path. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path from which to extract the file extension</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the file extension (or an empty string when no extension was found) Warning : extension ("file.txt.tmp") will return ".tmp" </dd></dl>
-
-</div>
-</div>
-<a id="a440601d04858ac245e63e8ae3835e783"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a440601d04858ac245e63e8ae3835e783">&#9670;&nbsp;</a></span>extensionEquals()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool extensionEquals </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>extension</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether file path ends with a given extension. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path to compare with the file extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">extension</td><td>: given extension to compare with the path </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether they are equals Warning : extensionEquals ("file.TXT.TMP", ".txt.tmp") will return false </dd></dl>
-
-</div>
-</div>
-<a id="a2bf45b7da0a1615f4b674f2074198be0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bf45b7da0a1615f4b674f2074198be0">&#9670;&nbsp;</a></span>extensionFound()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool extensionFound </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directoryToScan</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>extensionList</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether given extensions are found in a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">directoryToScan</td><td>: directory to scan </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">extensionList</td><td>: list of extensions to search in the directory </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether given extensions are found in directory </dd></dl>
-
-</div>
-</div>
-<a id="a62a5735167537bc57bd0a781088a4951"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62a5735167537bc57bd0a781088a4951">&#9670;&nbsp;</a></span>fileNameFromPath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string fileNameFromPath </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieve the file name from a file path. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path from which to extract the file name</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the file name (or an empty string when it fails) </dd></dl>
-
-</div>
-</div>
-<a id="a56fc834fb0b2ce501e732480e3163353"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56fc834fb0b2ce501e732480e3163353">&#9670;&nbsp;</a></span>isAbsolutePath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool isAbsolutePath </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether a given path is absolute or relative. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path to check</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether the path is absolute </dd></dl>
-
-</div>
-</div>
-<a id="a9dae8bc35e1ef8ddb6c3f721eec1d515"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9dae8bc35e1ef8ddb6c3f721eec1d515">&#9670;&nbsp;</a></span>isDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool isDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether a path points toward a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path to check</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether the path points toward a directory </dd></dl>
-
-</div>
-</div>
-<a id="af4ea352221a931cbbf2064d8028282c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4ea352221a931cbbf2064d8028282c7">&#9670;&nbsp;</a></span>lastParentDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string lastParentDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>childPath</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Generate the last directory from a given path. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">childPath</td><td>: the path from which to find the last directory</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the last directory lastParentDirectory (/users/test/model/alpha.mo) = model lastParentDirectory (/users/test/model) = model </dd></dl>
-
-</div>
-</div>
-<a id="a1143a7ddebd4866b6ba3904ae9672e9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1143a7ddebd4866b6ba3904ae9672e9c">&#9670;&nbsp;</a></span>listDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::list&lt;std::string&gt; listDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieve the file list in a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>: the path from which to extract the directories list </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the directories list in the path </dd></dl>
-
-</div>
-</div>
-<a id="a11439dcca4299514ea5b9d27fa27643d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11439dcca4299514ea5b9d27fa27643d">&#9670;&nbsp;</a></span>parentDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string parentDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>childPath</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Generate the parent directory from a given path. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">childPath</td><td>: the path from which to find the parent path</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the parent file path (return the input path when it is not possible to find the parent directory) parentDirectory (/users/test/model/alpha.mo) = /users/test/model </dd></dl>
-
-</div>
-</div>
-<a id="abd4b28b5a694c48f003480bba6786d3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd4b28b5a694c48f003480bba6786d3b">&#9670;&nbsp;</a></span>remove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool remove </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Remove a given path. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path to remove</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether the path existed (before trying to remove it) </dd></dl>
-
-</div>
-</div>
-<a id="aa10d835cf5580d64e047791e04ed3c22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa10d835cf5580d64e047791e04ed3c22">&#9670;&nbsp;</a></span>removeAllInDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void removeAllInDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directory</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Delete all contents in a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">directory</td><td>: the directory where all contents are deleted </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a43f58fe42c12b72ffc375c215791c9e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43f58fe42c12b72ffc375c215791c9e9">&#9670;&nbsp;</a></span>removeFileName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string removeFileName </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Remove the file name from a file path. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path from which to remove the file name</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the file path without the file name </dd></dl>
-
-</div>
-</div>
-<a id="a89340cd6d31283905faffe7696e7fccc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89340cd6d31283905faffe7696e7fccc">&#9670;&nbsp;</a></span>replaceExtension()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string replaceExtension </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>ext</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>replace the file extension from a file path </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>: the path for which to change the extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ext</td><td>: the new extension without dot (ex: "txt")</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the updated path as a string </dd></dl>
-
-</div>
-</div>
-<a id="a3c610bdbcb5ad1de867447118398a890"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c610bdbcb5ad1de867447118398a890">&#9670;&nbsp;</a></span>searchFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string searchFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>pathFromDirectory</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>rootPath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>searchInSubDirs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Search for a file within a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pathFromDirectory</td><td>: the path to the file relative to the root name (or one of the root subdirectories) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rootPath</td><td>: the path to the root directory from which to start looking </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">searchInSubDirs</td><td>: whether to search in subdirectories, or to only search in the root directory</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the file path ("" when the file was not found) throw an exception when the rootPath does not exist </dd></dl>
-
-</div>
-</div>
-<a id="a4b46588bd7985bb1caea3050e7704ab2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b46588bd7985bb1caea3050e7704ab2">&#9670;&nbsp;</a></span>searchFilesAccordingToExtension()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void searchFilesAccordingToExtension </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directoryToScan</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fileExtensionAllowed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fileExtensionsForbidden</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>searchInSubDirs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>filesFound</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Search for a files which have a given file extension within a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">directoryToScan</td><td>: the directory to scan </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtensionAllowed</td><td>: the allowed file extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtensionsForbidden</td><td>: the forbidden file extensions </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">searchInSubDirs</td><td>: whether to search in subdirectories, or to only search in the root directory </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">filesFound</td><td>: the list of relevant files found</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>throw an exception when the rootPath does not exist </p>
-
-</div>
-</div>
-<a id="a53122c28df73d4e72e79cfa7469ac4a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53122c28df73d4e72e79cfa7469ac4a4">&#9670;&nbsp;</a></span>searchFilesAccordingToExtensions()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void searchFilesAccordingToExtensions </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directoryToScan</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fileExtensionsAllowed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fileExtensionsForbidden</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>searchInSubDirs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>filesFound</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Search for a files which have a given file extension within a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">directoryToScan</td><td>: the directory to scan </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtensionsAllowed</td><td>: a list of allowed file extensions </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtensionsForbidden</td><td>: a list of forbidden file extensions </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">searchInSubDirs</td><td>: whether to search in subdirectories, or to only search in the root directory </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">filesFound</td><td>: the list of relevant absolute files paths found</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>throw an exception when the rootPath does not exist </p>
-
-</div>
-</div>
-<a id="a805f24c2f4a669bf7cba29fe5fc73e12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a805f24c2f4a669bf7cba29fe5fc73e12">&#9670;&nbsp;</a></span>searchModelicaModels()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void searchModelicaModels </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directoryToScan</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fileExtension</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>searchInSubDirs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>filesFound</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Search for Modelica models within a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">directoryToScan</td><td>: the directory to scan </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtension</td><td>: the allowed file extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">searchInSubDirs</td><td>: whether to search in subdirectories, or to only search in the root directory </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">filesFound</td><td>: the list of relevant files found</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>if a package.mo file is located at the root of the directory, it is not scanned any further (the Modelica compiler will deal with it) otherwise, the directory is scanned for Modelica files the same algorithm is applied to subdirectories when no package.mo was found in the current directory</p>
-<p>throw an exception when the rootPath does not exist </p>
-
-</div>
-</div>
-<a id="ae726cfecda8f0e5863da373af989f80d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae726cfecda8f0e5863da373af989f80d">&#9670;&nbsp;</a></span>searchModelsFiles()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void searchModelsFiles </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directoryToScan</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fileExtension</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fileExtensionsForbidden</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d0/d3f/a02630.html">PathHash</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pathsToIgnore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>searchInSubDirs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>packageForcesSubDirsSearch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>stopWhenSeePackage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>filesFound</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Search for models within a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">directoryToScan</td><td>: the directory to scan </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtension</td><td>: the allowed file extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtensionsForbidden</td><td>: the forbidden file extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pathsToIgnore</td><td>: paths that shouldn't be explored </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">searchInSubDirs</td><td>: whether to search in subdirectories, or to only search in the root directory </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">packageForcesSubDirsSearch</td><td>: true if for a package we have to look for models in subdirectories </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">stopWhenSeePackage</td><td>: true if for a package we don't want to look for models in subdirectories </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">filesFound</td><td>: map containing the model name and the file path</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>call searchModelsFilesRec </p>
-
-</div>
-</div>
-<a id="a4919d02cff1378d10724621e2f6463fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4919d02cff1378d10724621e2f6463fc">&#9670;&nbsp;</a></span>searchModelsFilesRec()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void searchModelsFilesRec </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>directoryToScan</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fileExtension</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fileExtensionsForbidden</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_set&lt; boost::filesystem::path, <a class="el" href="../../d0/d3f/a02630.html">PathHash</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pathsToIgnore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>searchInSubDirs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>isPackage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>packageForcesSubDirsSearch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>stopWhenSeePackage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>namespaces</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>filesFound</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Search recursively for models within a directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">directoryToScan</td><td>: the directory to scan </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtension</td><td>: the allowed file extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fileExtensionsForbidden</td><td>: the forbidden file extension </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pathsToIgnore</td><td>: paths that shouldn't be explored </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">searchInSubDirs</td><td>: whether to search in subdirectories, or to only search in the root directory </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">isPackage</td><td>: true if the current directory is a package </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">packageForcesSubDirsSearch</td><td>: true if for a package we have to look for models in subdirectories </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">stopWhenSeePackage</td><td>: true if for a package we don't want to look for models in subdirectories </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">namespaces</td><td>: models name to insert in the filesFound map </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">filesFound</td><td>: map containing the model name and the file path</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>throw an exception when the rootPath does not exist </p>
+<b>Initial value:</b><div class="fragment"><div class="line">= {<span class="stringliteral">&quot;DISABLED&quot;</span>,</div><div class="line">                                                                                    <span class="stringliteral">&quot;FIRST&quot;</span>,</div><div class="line">                                                                                    <span class="stringliteral">&quot;DYNAFLOW&quot;</span>}</div></div><!-- fragment -->
+<p>string conversion of enum values </p>
 
 </div>
 </div>
@@ -1248,8 +581,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../df/db6/a00509.html">DYNFileSystemUtils.h</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c5eaf1ac1cf936f6800d020d474d243d.html">Common</a></li><li class="navelem"><a class="el" href="../../df/db6/a00509.html">DYNEnumUtils.h</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

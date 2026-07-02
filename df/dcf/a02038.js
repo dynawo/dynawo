@@ -1,12 +1,10 @@
 var a02038 =
 [
-    [ "MacroConnectorHandler", "df/dcf/a02038.html#a8938dd26c40991107257c1e031c12540", null ],
-    [ "~MacroConnectorHandler", "df/dcf/a02038.html#af3ada7b8b9f5046893b68f3fb09c2636", null ],
-    [ "addConnect", "df/dcf/a02038.html#ad3738b62abd68b09743df206c99af1f2", null ],
-    [ "addInitConnect", "df/dcf/a02038.html#a051b8737a4b853c9879e6620afa1834e", null ],
-    [ "create", "df/dcf/a02038.html#a2721e5d9a6fe1602c20f20d933e6b1bb", null ],
-    [ "get", "df/dcf/a02038.html#ac9f753b2e673532cc1a8037b7e2b050e", null ],
-    [ "macroConnectionHandler_", "df/dcf/a02038.html#ab0131d4c8616aa8f6ef1924b0b7f5474", null ],
-    [ "macroConnector_", "df/dcf/a02038.html#a57539833ea7bc28364d64615de4d42dd", null ],
-    [ "macroInitConnectionHandler_", "df/dcf/a02038.html#a19221ce0a31f447d40205828f13a5298", null ]
+    [ "MacroStaticReferenceHandler", "df/dcf/a02038.html#a86e0b70b0c08e035553eeb22980c91de", null ],
+    [ "~MacroStaticReferenceHandler", "df/dcf/a02038.html#accd3fd281e4f74b429aa1fe990a07d36", null ],
+    [ "addStaticRef", "df/dcf/a02038.html#aed304e64290c6572943ad52eb1097124", null ],
+    [ "create", "df/dcf/a02038.html#ae9fab3736ea1b8c193d46a3fee31d785", null ],
+    [ "get", "df/dcf/a02038.html#a47d6c35075e452f18e89425147cd9757", null ],
+    [ "macroStaticReference_", "df/dcf/a02038.html#aadbe4964d9b7550c813fed2e232b4f7d", null ],
+    [ "staticRefHandler_", "df/dcf/a02038.html#a5dcb89a8fbb160e25a887532447d0f5b", null ]
 ];

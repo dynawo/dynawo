@@ -1,4 +1,5 @@
 var a02118 =
 [
-    [ "newFinalStateValue", "db/d34/a02118.html#a4281622c3a682ceaeef6724ee08298a7", null ]
+    [ "importFromFile", "db/d34/a02118.html#af720b43a8f65a2648302b771ed1705d7", null ],
+    [ "importFromStream", "db/d34/a02118.html#af31d1e252b0178f3592ef3504a0facd2", null ]
 ];

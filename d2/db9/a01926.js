@@ -1,12 +1,22 @@
 var a01926 =
 [
-    [ "MacroConnector", "d2/db9/a01926.html#a5d4fd73577e3885c5d31a1de194fde9c", null ],
-    [ "addConnect", "d2/db9/a01926.html#a6e49d9fd5b9e90d2822bbdb8a17979bf", null ],
-    [ "addInitConnect", "d2/db9/a01926.html#a6e7bf0fc00ab1071ff547a6a266e11f8", null ],
-    [ "getConnectors", "d2/db9/a01926.html#a32f414282962ce0263a52132abbd8360", null ],
-    [ "getId", "d2/db9/a01926.html#aaffdc015fa766e8ce386e19923c9772c", null ],
-    [ "getInitConnectors", "d2/db9/a01926.html#a2736ec6b0b91a16f93ec928284ae9479", null ],
-    [ "connectorsMap_", "d2/db9/a01926.html#a175455832175571c86253afa32285268", null ],
-    [ "id_", "d2/db9/a01926.html#ade4f8ef07d0eba5677dce86c72b46bd8", null ],
-    [ "initConnectorsMap_", "d2/db9/a01926.html#a1abb7f04e892d1b4f7f5637edc8c53f7", null ]
+    [ "MacroConnect", "d2/db9/a01926.html#a52532badb4f1fa9767d2bd242c93b853", null ],
+    [ "getConnector", "d2/db9/a01926.html#ac28a9a3512f711bd192f57242ca71832", null ],
+    [ "getFirstModelId", "d2/db9/a01926.html#aac1199361889f5d4027ab3e4e819f050", null ],
+    [ "getIndex1", "d2/db9/a01926.html#a534775110f20052fa98771cdaa62208a", null ],
+    [ "getIndex2", "d2/db9/a01926.html#a44c505ae22a5798cf041fab601f07e8c", null ],
+    [ "getName1", "d2/db9/a01926.html#a8dac06bc02d79392730cf02f3efd0eb0", null ],
+    [ "getName2", "d2/db9/a01926.html#a961eb710d8a1a9091d5ffd4b9dbbc086", null ],
+    [ "getSecondModelId", "d2/db9/a01926.html#a7a74df017d0f4ed96e132f3ddba30ffd", null ],
+    [ "setIndex1", "d2/db9/a01926.html#a79bdc99cc74ba8cd80b7099cb122e2ea", null ],
+    [ "setIndex2", "d2/db9/a01926.html#a823eb6898afdc195906bc686586d6631", null ],
+    [ "setName1", "d2/db9/a01926.html#a2c05a97644ef5417c5203b7f50914281", null ],
+    [ "setName2", "d2/db9/a01926.html#a66cdf6e7c5846569f82ce8cea82b9c37", null ],
+    [ "connectorId_", "d2/db9/a01926.html#afcb2992e50315c8235f35cc798f3f626", null ],
+    [ "firstModelId_", "d2/db9/a01926.html#a3248881fd5b6ee19e117cdfe8f3ad6e9", null ],
+    [ "index1_", "d2/db9/a01926.html#a66dae95a675858bf9a4fe35a8acf2aad", null ],
+    [ "index2_", "d2/db9/a01926.html#a817cc94d341a139f5c54d46637271a4a", null ],
+    [ "name1_", "d2/db9/a01926.html#abd97334a4d3905af01ada137461b8521", null ],
+    [ "name2_", "d2/db9/a01926.html#abe3cd4d32b9e280b43c76fef03721de8", null ],
+    [ "secondModelId_", "d2/db9/a01926.html#aef470cbf34ba92453726d0553e941e3e", null ]
 ];

@@ -1,13 +1,17 @@
 var a02810 =
 [
-    [ "~StaticRefInterface", "d6/d59/a02810.html#a3e109d66fed1323eab5a73ae861a0d62", null ],
-    [ "getModelID", "d6/d59/a02810.html#acb331dc2a93415fdb8b86a8653a84b95", null ],
-    [ "getModelVar", "d6/d59/a02810.html#a68daec62ae8a404766b050e5e0b11414", null ],
-    [ "getStaticVar", "d6/d59/a02810.html#a64e48c0d6631bb8a38400fd0ce2e2f66", null ],
-    [ "setModelID", "d6/d59/a02810.html#a869f557cbbee5f0e6d522acb02bb0e5b", null ],
-    [ "setModelVar", "d6/d59/a02810.html#a6a1ba26b0ca11ad2b6b9e73de5f204b7", null ],
-    [ "setStaticVar", "d6/d59/a02810.html#a8cfc48d6b6d027fb48fb0bc4a4ea7f78", null ],
-    [ "modelID_", "d6/d59/a02810.html#a65f2063c471f8dffbedf2ca538e65f15", null ],
-    [ "modelVar_", "d6/d59/a02810.html#a09d8dff117d7f701b68bb7a7fb13768a", null ],
-    [ "staticVar_", "d6/d59/a02810.html#a101886c8300663cd43f00f15a9503a12", null ]
+    [ "DelayManager", "d6/d59/a02810.html#a60c0fcc03a4d7ecf7d7f855e13262994", null ],
+    [ "addDelay", "d6/d59/a02810.html#ad14aabb6dd316ba33ec294ec3cc32d8f", null ],
+    [ "dumpDelays", "d6/d59/a02810.html#a435a2de1d59f33ae459a1ea74b6ae2ea", null ],
+    [ "evalMode", "d6/d59/a02810.html#af9f29b26aeb79683bc014936e0c448f2", null ],
+    [ "getDelay", "d6/d59/a02810.html#a73af3046eaf55af3c45712a7b9f44fd8", null ],
+    [ "getDelayById", "d6/d59/a02810.html#a67e9e91492947c0e57856df84477fb2d", null ],
+    [ "getInitialValue", "d6/d59/a02810.html#a0cfa789fdd41d1e478809342f529ef36", null ],
+    [ "isIdAcceptable", "d6/d59/a02810.html#af3d886daecb546a74a0b706803360521", null ],
+    [ "loadDelays", "d6/d59/a02810.html#a3fa788f0779697cd878c6a3497d8ea87", null ],
+    [ "saveTimepoint", "d6/d59/a02810.html#a3f52431deaf6283d94f4676aec2cfa7c", null ],
+    [ "setDelayTime", "d6/d59/a02810.html#a1bcdf81520f52ab9f41ad5e9170ecc37", null ],
+    [ "setGomc", "d6/d59/a02810.html#adff56c5f395a55a8473de442d06b1b36", null ],
+    [ "triggerDelay", "d6/d59/a02810.html#a5ee915c26b8b1ec90c3e10c40e32c4b9", null ],
+    [ "delays_", "d6/d59/a02810.html#af33ce3b807b1d6233895da82f3c5f360", null ]
 ];

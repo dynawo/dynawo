@@ -1,8 +1,8 @@
 var a02034 =
 [
-    [ "MacroConnectionHandler", "dc/ddb/a02034.html#a0a6c5edf31ff5a3870079791f9949f6b", null ],
-    [ "~MacroConnectionHandler", "dc/ddb/a02034.html#a0dd3788c7acde45445a42910d1fb15ec", null ],
-    [ "create", "dc/ddb/a02034.html#a9b94926f77a54742bf30c626030420fd", null ],
-    [ "get", "dc/ddb/a02034.html#a4f673606b453c9db877c68aced4a2afd", null ],
-    [ "macroConnection_", "dc/ddb/a02034.html#a969a7eb7801090cfebbdd53c1386169b", null ]
+    [ "MacroStaticRefHandler", "dc/ddb/a02034.html#aae7f8abc14dd77cf357deee890a59574", null ],
+    [ "~MacroStaticRefHandler", "dc/ddb/a02034.html#aa2e46046d5ac1ac1d1ebf43e4d84d55a", null ],
+    [ "create", "dc/ddb/a02034.html#a1408dacf0aa0f63e8b35fe7d22034819", null ],
+    [ "get", "dc/ddb/a02034.html#a1418a3d8901f4f897e51f28f63fb878c", null ],
+    [ "macroStaticRef_", "dc/ddb/a02034.html#ab1646eeaa36ed665f88101e936d4dc32", null ]
 ];

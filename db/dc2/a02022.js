@@ -1,10 +1,5 @@
 var a02022 =
 [
-    [ "MacroStaticReferenceHandler", "db/dc2/a02022.html#a86e0b70b0c08e035553eeb22980c91de", null ],
-    [ "~MacroStaticReferenceHandler", "db/dc2/a02022.html#accd3fd281e4f74b429aa1fe990a07d36", null ],
-    [ "addStaticRef", "db/dc2/a02022.html#aed304e64290c6572943ad52eb1097124", null ],
-    [ "create", "db/dc2/a02022.html#ae9fab3736ea1b8c193d46a3fee31d785", null ],
-    [ "get", "db/dc2/a02022.html#a47d6c35075e452f18e89425147cd9757", null ],
-    [ "macroStaticReference_", "db/dc2/a02022.html#aadbe4964d9b7550c813fed2e232b4f7d", null ],
-    [ "staticRefHandler_", "db/dc2/a02022.html#a5dcb89a8fbb160e25a887532447d0f5b", null ]
+    [ "var1", "db/dc2/a02022.html#ae024ccab2a06f5017316e63ae320b5d3", null ],
+    [ "var2", "db/dc2/a02022.html#a6b799528088b0d4103a6b2d20f722cc2", null ]
 ];

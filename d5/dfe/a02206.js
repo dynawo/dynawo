@@ -1,6 +1,4 @@
 var a02206 =
 [
-    [ "getInitialStateFile", "d5/dfe/a02206.html#a5cbdb3f84df61dc8539ed3871fe31bb4", null ],
-    [ "setInitialStateFile", "d5/dfe/a02206.html#afba0e41f1d6075ec9796bb766def77d6", null ],
-    [ "initialStateFile_", "d5/dfe/a02206.html#ae6880b4711c19f4a0422fa873fabac4c", null ]
+    [ "newInstance", "d5/dfe/a02206.html#a96843e3d5475a800f1235235ab7c1478", null ]
 ];

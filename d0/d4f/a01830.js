@@ -1,5 +1,4 @@
 var a01830 =
 [
-    [ "importFromFile", "d0/d4f/a01830.html#a177edce9fb1fa4aa914bc0beca3df2d8", null ],
-    [ "importFromStream", "d0/d4f/a01830.html#a1a1a7de131a8d1e654260f93573374de", null ]
+    [ "newPoint", "d0/d4f/a01830.html#a0bc2716a48f1a28d8eb646b6b3fb10f2", null ]
 ];

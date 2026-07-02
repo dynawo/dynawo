@@ -95,17 +95,15 @@ $(document).ready(function(){initNavTree('d1/dba/a01822.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">curves::CurveHandler Member List</div>  </div>
+<div class="title">curves::Importer Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d1/dba/a01822.html">curves::CurveHandler</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d1/dba/a01822.html">curves::Importer</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/dba/a01822.html#af299869a442d2d4cd6a96f599d5ebcb2">create</a>(attributes_type const &amp;attributes)</td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::CurveHandler</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/dba/a01822.html#af5f5730927a7084cf3243e3a949c0208">CurveHandler</a>(elementName_type const &amp;root_element)</td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::CurveHandler</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/dba/a01822.html#ab38f59d09beaf1fe9d3fb1ebfab3e88b">curveRead_</a></td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::CurveHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/dba/a01822.html#aa8be7a152afa7b6c5ac2447add134982">get</a>() const</td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::CurveHandler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/dba/a01822.html#a9af2642feb896ca8372aae455a9d6b5f">~CurveHandler</a>() override</td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::CurveHandler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/dba/a01822.html#a5d3e1d6addd0f76205613c5f664f68df">importFromFile</a>(const std::string &amp;fileName) const =0</td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::Importer</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/dba/a01822.html#ac1463f2a4b5c8966066b9a5b2b2b6076">importFromStream</a>(std::istream &amp;stream) const =0</td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::Importer</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/dba/a01822.html#a695ce5e9825f5b7d08986c1b5244980d">~Importer</a>()=default</td><td class="entry"><a class="el" href="../../d1/dba/a01822.html">curves::Importer</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -122,7 +120,7 @@ $(document).ready(function(){initNavTree('d1/dba/a01822.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

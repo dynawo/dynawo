@@ -1,12 +1,22 @@
 var a01978 =
 [
-    [ "StaticRef", "d3/d4e/a01978.html#ab3e3c20e9e277907a52a1949ea11cc38", null ],
-    [ "StaticRef", "d3/d4e/a01978.html#a5f58ad8ce9555bd57884d33bce8aa016", null ],
-    [ "getModelVar", "d3/d4e/a01978.html#a66cdbebb87eb06271b4552fd6cebea3a", null ],
-    [ "getStaticVar", "d3/d4e/a01978.html#a5cf10ac7521cdc28c7e9218f46f80795", null ],
-    [ "operator==", "d3/d4e/a01978.html#a0bf2253ae3ad5e09141bf13d6b098050", null ],
-    [ "setModelVar", "d3/d4e/a01978.html#a20ad7c0b6b7008f3fc98d703192e53fa", null ],
-    [ "setStaticVar", "d3/d4e/a01978.html#aad1e5cb131a79f2e28a6ec99f7485fec", null ],
-    [ "modelVar_", "d3/d4e/a01978.html#a5589e35436f501fed5fad06c18f4e779", null ],
-    [ "staticVar_", "d3/d4e/a01978.html#a2aef0b0007d02ea5079fdc18bf7d0388", null ]
+    [ "ModelTemplate", "d3/d4e/a01978.html#adb0001adabb1d25ebe8724a5857a1184", null ],
+    [ "~ModelTemplate", "d3/d4e/a01978.html#aff642969cc64ec13f1efd8d3f34c44aa", null ],
+    [ "addConnect", "d3/d4e/a01978.html#a64a53b2e6ebb8395a08bc058c73c4e95", null ],
+    [ "addInitConnect", "d3/d4e/a01978.html#ace1456775605a688727d97bed86972ab", null ],
+    [ "addMacroConnect", "d3/d4e/a01978.html#ac924a3b73165fe839bc14d66ef5d6f7b", null ],
+    [ "addUnitDynamicModel", "d3/d4e/a01978.html#a7d77b967964dc62b08aa804205f21e1e", null ],
+    [ "getConnectors", "d3/d4e/a01978.html#a5566a636ffe6bde8f9eb5e7e1c99ddf5", null ],
+    [ "getGenerateCalculatedVariables", "d3/d4e/a01978.html#a32506a990b4b3a07634f6dcfe7c93d9e", null ],
+    [ "getInitConnectors", "d3/d4e/a01978.html#af68aa8b8c67e03a988cf20d237df77a3", null ],
+    [ "getMacroConnects", "d3/d4e/a01978.html#ac7ca8f2f397734d7aaa535469caeeae7", null ],
+    [ "getUnitDynamicModels", "d3/d4e/a01978.html#a686ed8f0452066937ef9e47f7d900189", null ],
+    [ "getUseAliasing", "d3/d4e/a01978.html#af70019b9ee7cbfc2f5aeb979e2c7b627", null ],
+    [ "setCompilationOptions", "d3/d4e/a01978.html#a30023dd0625f35db71048b1f187a5c26", null ],
+    [ "connectorsMap_", "d3/d4e/a01978.html#a6dfce6701afa84d6ad99d0da7bf0323a", null ],
+    [ "generateCalculatedVariables_", "d3/d4e/a01978.html#a754fea5bf68b96ad01ff563d49a3aa81", null ],
+    [ "initConnectorsMap_", "d3/d4e/a01978.html#a601f2dc9db52ff015c15940a2628b87b", null ],
+    [ "macroConnectsMap_", "d3/d4e/a01978.html#a9322b685c9ee4c4a928bd0cdd53cf7f9", null ],
+    [ "unitDynamicModelsMap_", "d3/d4e/a01978.html#a54bad803dff30de50edeca5fdcc50bb9", null ],
+    [ "useAliasing_", "d3/d4e/a01978.html#ae2553bdeb12ecf8bd9904e5bf6c663e3", null ]
 ];

@@ -95,19 +95,19 @@ $(document).ready(function(){initNavTree('d6/d76/a03554.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::SolverIDAFactory Member List</div>  </div>
+<div class="title">DYN::SolverFactory Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d6/d76/a03554.html">DYN::SolverIDAFactory</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d76/a03554.html#a285abf1a156bfeb4c873a9d69ea2acd7">create</a>() const override</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverIDAFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dd/db6/a03514.html#a5eb79ca757549edba15c0879bba305e2">createSolverFromLib</a>(const std::string &amp;lib)</td><td class="entry"><a class="el" href="../../dd/db6/a03514.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d76/a03554.html#a77d463aaae7c61fa80cc80a4068b6a5e">destroy</a>(Solver *) const override</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverIDAFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dd/db6/a03514.html#abbfdaf69d4a3f097dc187edac6c723c1">lib_</a></td><td class="entry"><a class="el" href="../../dd/db6/a03514.html">DYN::SolverFactory</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../dd/db6/a03514.html#a1a9995b963846832f7c1fd906c7f8d08">SolverFactory</a>()</td><td class="entry"><a class="el" href="../../dd/db6/a03514.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../dd/db6/a03514.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> typedef</td><td class="entry"><a class="el" href="../../dd/db6/a03514.html">DYN::SolverFactory</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../dd/db6/a03514.html#acab1ac8b0d0f36a325c891a939f2d0e5">~SolverFactory</a>()</td><td class="entry"><a class="el" href="../../dd/db6/a03514.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d76/a03554.html#ac65d140b18f58dda550003c47e97fc2e">create</a>() const =0</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d76/a03554.html#a5eb79ca757549edba15c0879bba305e2">createSolverFromLib</a>(const std::string &amp;lib)</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d76/a03554.html#a8dccb03730530e6b2bf7e0eec8d42492">destroy</a>(Solver *) const =0</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d76/a03554.html#abbfdaf69d4a3f097dc187edac6c723c1">lib_</a></td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d76/a03554.html#a1a9995b963846832f7c1fd906c7f8d08">SolverFactory</a>()</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d76/a03554.html#ae81d3f1e1eb1129f7fd351339b93b857">SolverPtr</a> typedef</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d76/a03554.html#acab1ac8b0d0f36a325c891a939f2d0e5">~SolverFactory</a>()</td><td class="entry"><a class="el" href="../../d6/d76/a03554.html">DYN::SolverFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('d6/d76/a03554.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

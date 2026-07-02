@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::DanglingLineInterface Class Reference</title>
+<title>Dynawo: DYN::LoadCriteria Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,206 +95,109 @@ $(document).ready(function(){initNavTree('d9/dd9/a02934.html','../../');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../df/d74/a02931.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::DanglingLineInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::LoadCriteria Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dangling line interface class for dangling line model interface.  
+<p><a class="el" href="../../d9/dd9/a02934.html" title="LoadCriteria class: handle the check of load criteria. ">LoadCriteria</a> class: handle the check of load criteria.  
  <a href="../../d9/dd9/a02934.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/d6a/a00704_source.html">DYNDanglingLineInterface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d1/d56/a00707_source.html">DYNCriteria.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for DYN::DanglingLineInterface:</div>
+Inheritance diagram for DYN::LoadCriteria:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d9/dd9/a02934.png" usemap="#DYN::DanglingLineInterface_map" alt=""/>
-  <map id="DYN::DanglingLineInterface_map" name="DYN::DanglingLineInterface_map">
-<area href="../../d0/dee/a02870.html" title="Class describing a component of the network. " alt="DYN::ComponentInterface" shape="rect" coords="0,0,195,24"/>
-<area href="../../d6/d2a/a03062.html" title="class for dangling line interface " alt="DYN::DanglingLineInterfaceIIDM" shape="rect" coords="0,112,195,136"/>
+  <img src="../../d9/dd9/a02934.png" usemap="#DYN::LoadCriteria_map" alt=""/>
+  <map id="DYN::LoadCriteria_map" name="DYN::LoadCriteria_map">
+<area href="../../d4/db9/a02918.html" title="Criteria class: handle the check of criteria. " alt="DYN::Criteria" shape="rect" coords="0,0,115,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d06/a02938.html">LoadFailingCriteria</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure containing information about a failing criteria on a load and related methods  <a href="../../de/d06/a02938.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a19583e84706e1a82b8994a59427b513c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a19583e84706e1a82b8994a59427b513c">DanglingLineInterface</a> (bool <a class="el" href="../../d0/dee/a02870.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
-<tr class="memdesc:a19583e84706e1a82b8994a59427b513c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a19583e84706e1a82b8994a59427b513c">More...</a><br /></td></tr>
-<tr class="separator:a19583e84706e1a82b8994a59427b513c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd9cd02814ee4ec259d40141d9a7c110"><td class="memItemLeft" align="right" valign="top"><a id="afd9cd02814ee4ec259d40141d9a7c110"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#afd9cd02814ee4ec259d40141d9a7c110">~DanglingLineInterface</a> () override=default</td></tr>
-<tr class="memdesc:afd9cd02814ee4ec259d40141d9a7c110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:afd9cd02814ee4ec259d40141d9a7c110"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae93e7bade62a212fa814036236a7932a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#ae93e7bade62a212fa814036236a7932a">addCurrentLimitInterface</a> (std::unique_ptr&lt; <a class="el" href="../../d7/da7/a02914.html">CurrentLimitInterface</a> &gt; currentLimitInterface)=0</td></tr>
-<tr class="memdesc:ae93e7bade62a212fa814036236a7932a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a curent limit interface.  <a href="#ae93e7bade62a212fa814036236a7932a">More...</a><br /></td></tr>
-<tr class="separator:ae93e7bade62a212fa814036236a7932a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a865c3f453a78e333d7c433f254bf0b3b"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; std::unique_ptr&lt; <a class="el" href="../../d7/da7/a02914.html">CurrentLimitInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a865c3f453a78e333d7c433f254bf0b3b">getCurrentLimitInterfaces</a> () const =0</td></tr>
-<tr class="memdesc:a865c3f453a78e333d7c433f254bf0b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current limit interfaces f.  <a href="#a865c3f453a78e333d7c433f254bf0b3b">More...</a><br /></td></tr>
-<tr class="separator:a865c3f453a78e333d7c433f254bf0b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74f30d825b843bbc49b113f98be5fbaf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a74f30d825b843bbc49b113f98be5fbaf">setBusInterface</a> (const std::shared_ptr&lt; <a class="el" href="../../db/de7/a02866.html">BusInterface</a> &gt; &amp;busInterface)=0</td></tr>
-<tr class="memdesc:a74f30d825b843bbc49b113f98be5fbaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the danglingLine's bus interface.  <a href="#a74f30d825b843bbc49b113f98be5fbaf">More...</a><br /></td></tr>
-<tr class="separator:a74f30d825b843bbc49b113f98be5fbaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a123e8f068a65b19d28dceb1a3ea19007"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a123e8f068a65b19d28dceb1a3ea19007">setVoltageLevelInterface</a> (const std::shared_ptr&lt; <a class="el" href="../../da/d2f/a03030.html">VoltageLevelInterface</a> &gt; &amp;voltageLevelInterface)=0</td></tr>
-<tr class="memdesc:a123e8f068a65b19d28dceb1a3ea19007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the danglingLine's voltage interface.  <a href="#a123e8f068a65b19d28dceb1a3ea19007">More...</a><br /></td></tr>
-<tr class="separator:a123e8f068a65b19d28dceb1a3ea19007"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac441f3fcd5c5ecc0a8684b8277eb0de1"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../db/de7/a02866.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#ac441f3fcd5c5ecc0a8684b8277eb0de1">getBusInterface</a> () const =0</td></tr>
-<tr class="memdesc:ac441f3fcd5c5ecc0a8684b8277eb0de1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the danglingLine's bus interface.  <a href="#ac441f3fcd5c5ecc0a8684b8277eb0de1">More...</a><br /></td></tr>
-<tr class="separator:ac441f3fcd5c5ecc0a8684b8277eb0de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf3abeec92885e50c3a87c914855e5cc"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#acf3abeec92885e50c3a87c914855e5cc">getP</a> ()=0</td></tr>
-<tr class="memdesc:acf3abeec92885e50c3a87c914855e5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power of the dangling line.  <a href="#acf3abeec92885e50c3a87c914855e5cc">More...</a><br /></td></tr>
-<tr class="separator:acf3abeec92885e50c3a87c914855e5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21ee58a6ba4e752e4edf0fe1d5e2ee15"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a21ee58a6ba4e752e4edf0fe1d5e2ee15">getP0</a> () const =0</td></tr>
-<tr class="memdesc:a21ee58a6ba4e752e4edf0fe1d5e2ee15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power of the load injection.  <a href="#a21ee58a6ba4e752e4edf0fe1d5e2ee15">More...</a><br /></td></tr>
-<tr class="separator:a21ee58a6ba4e752e4edf0fe1d5e2ee15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96d395a088bedab53796edde1fec2d5d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a96d395a088bedab53796edde1fec2d5d">getQ</a> ()=0</td></tr>
-<tr class="memdesc:a96d395a088bedab53796edde1fec2d5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power of the dangling line.  <a href="#a96d395a088bedab53796edde1fec2d5d">More...</a><br /></td></tr>
-<tr class="separator:a96d395a088bedab53796edde1fec2d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d0261603bf006e20480247d8757f99d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a1d0261603bf006e20480247d8757f99d">getQ0</a> () const =0</td></tr>
-<tr class="memdesc:a1d0261603bf006e20480247d8757f99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power of the load injection.  <a href="#a1d0261603bf006e20480247d8757f99d">More...</a><br /></td></tr>
-<tr class="separator:a1d0261603bf006e20480247d8757f99d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45e31935edac168bf3a16f81127065a7"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a45e31935edac168bf3a16f81127065a7">getVNom</a> () const =0</td></tr>
-<tr class="memdesc:a45e31935edac168bf3a16f81127065a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the bus nominal voltage where the dangling line is connected.  <a href="#a45e31935edac168bf3a16f81127065a7">More...</a><br /></td></tr>
-<tr class="separator:a45e31935edac168bf3a16f81127065a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12311bd3ddcb36b1ef1c948547c947f3"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a12311bd3ddcb36b1ef1c948547c947f3">getR</a> () const =0</td></tr>
-<tr class="memdesc:a12311bd3ddcb36b1ef1c948547c947f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the resistance of the dangling line.  <a href="#a12311bd3ddcb36b1ef1c948547c947f3">More...</a><br /></td></tr>
-<tr class="separator:a12311bd3ddcb36b1ef1c948547c947f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a979c475bedc70e7ff5571855d5650db3"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a979c475bedc70e7ff5571855d5650db3">getX</a> () const =0</td></tr>
-<tr class="memdesc:a979c475bedc70e7ff5571855d5650db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactance of the dangling line.  <a href="#a979c475bedc70e7ff5571855d5650db3">More...</a><br /></td></tr>
-<tr class="separator:a979c475bedc70e7ff5571855d5650db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a102e66ddccb89df642d678cd69a99b46"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a102e66ddccb89df642d678cd69a99b46">getG</a> () const =0</td></tr>
-<tr class="memdesc:a102e66ddccb89df642d678cd69a99b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the conductance of the dangling line.  <a href="#a102e66ddccb89df642d678cd69a99b46">More...</a><br /></td></tr>
-<tr class="separator:a102e66ddccb89df642d678cd69a99b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e77a863223e0379f1b60ed2b22b9587"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a6e77a863223e0379f1b60ed2b22b9587">getB</a> () const =0</td></tr>
-<tr class="memdesc:a6e77a863223e0379f1b60ed2b22b9587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the susceptance of the dangling line.  <a href="#a6e77a863223e0379f1b60ed2b22b9587">More...</a><br /></td></tr>
-<tr class="separator:a6e77a863223e0379f1b60ed2b22b9587"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ab5a8d800e6f12ee7bbdb64a5495a0f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a9ab5a8d800e6f12ee7bbdb64a5495a0f">getInitialConnected</a> ()=0</td></tr>
-<tr class="memdesc:a9ab5a8d800e6f12ee7bbdb64a5495a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for initial connection state of the dangling line.  <a href="#a9ab5a8d800e6f12ee7bbdb64a5495a0f">More...</a><br /></td></tr>
-<tr class="separator:a9ab5a8d800e6f12ee7bbdb64a5495a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f28cc4215ad05204be880b12bb23772"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a4f28cc4215ad05204be880b12bb23772">getID</a> () const override=0</td></tr>
-<tr class="memdesc:a4f28cc4215ad05204be880b12bb23772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the dangling line's id.  <a href="#a4f28cc4215ad05204be880b12bb23772">More...</a><br /></td></tr>
-<tr class="separator:a4f28cc4215ad05204be880b12bb23772"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8c1400930bae103c32559c88a58c2f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#ac8c1400930bae103c32559c88a58c2f0">exportStateVariablesUnitComponent</a> () override=0</td></tr>
-<tr class="memdesc:ac8c1400930bae103c32559c88a58c2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables for each unit component  <a href="#ac8c1400930bae103c32559c88a58c2f0">More...</a><br /></td></tr>
-<tr class="separator:ac8c1400930bae103c32559c88a58c2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02870"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02870')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d0/dee/a02870.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a54a4adcbcd28a26428cafa45a848e172">ComponentInterface</a> (bool <a class="el" href="../../d0/dee/a02870.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>=true)</td></tr>
-<tr class="memdesc:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../d0/dee/a02870.html#a54a4adcbcd28a26428cafa45a848e172">More...</a><br /></td></tr>
-<tr class="separator:a54a4adcbcd28a26428cafa45a848e172 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top"><a id="aaeea1b605a906a6b2772ff8b092dc17b"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#aaeea1b605a906a6b2772ff8b092dc17b">~ComponentInterface</a> ()=default</td></tr>
-<tr class="memdesc:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:aaeea1b605a906a6b2772ff8b092dc17b inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a> (bool hasDynamicModel)</td></tr>
-<tr class="memdesc:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's hasDynamicModel_ attribute.  <a href="../../d0/dee/a02870.html#ae2a3edef5ec14f6635bcaa11a5def0c2">More...</a><br /></td></tr>
-<tr class="separator:ae2a3edef5ec14f6635bcaa11a5def0c2 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/d11/a02814.html">SubModel</a> &gt; &amp;model)</td></tr>
-<tr class="memdesc:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's model attribute.  <a href="../../d0/dee/a02870.html#ad4a2e77952f4983e5705c0feb2ffefd3">More...</a><br /></td></tr>
-<tr class="separator:ad4a2e77952f4983e5705c0feb2ffefd3 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a> (const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td></tr>
-<tr class="memdesc:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a component variable with a model variable  <a href="../../d0/dee/a02870.html#aa4d21f5feedc23bfd0c89f2b32e71746">More...</a><br /></td></tr>
-<tr class="separator:aa4d21f5feedc23bfd0c89f2b32e71746 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a> () const</td></tr>
-<tr class="memdesc:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component's hasDynamicModel_ attribute.  <a href="../../d0/dee/a02870.html#a22ebe68dfef59fe4b694885643908c31">More...</a><br /></td></tr>
-<tr class="separator:a22ebe68dfef59fe4b694885643908c31 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a> (bool filterForCriteriaCheck)</td></tr>
-<tr class="memdesc:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">update state variables with data from model (c++ or dynamic model)  <a href="../../d0/dee/a02870.html#ab673e4fea551130c3776e4a0fda6fea6">More...</a><br /></td></tr>
-<tr class="separator:ab673e4fea551130c3776e4a0fda6fea6 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top"><a id="aa68ff5ea43ce54304c3062f1614213dc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a> ()</td></tr>
-<tr class="memdesc:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">get state variable reference in dynamic model <br /></td></tr>
-<tr class="separator:aa68ff5ea43ce54304c3062f1614213dc inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a> (const <a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;type)</td></tr>
-<tr class="memdesc:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the interface.  <a href="../../d0/dee/a02870.html#ad2b7a24d4bb3aed941d24831988b3da5">More...</a><br /></td></tr>
-<tr class="separator:ad2b7a24d4bb3aed941d24831988b3da5 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a157a82e17608a36a7965614cde1c6234">getType</a> () const</td></tr>
-<tr class="memdesc:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type.  <a href="../../d0/dee/a02870.html#a157a82e17608a36a7965614cde1c6234">More...</a><br /></td></tr>
-<tr class="separator:a157a82e17608a36a7965614cde1c6234 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a> () const</td></tr>
-<tr class="memdesc:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter fot the interface's type as string.  <a href="../../d0/dee/a02870.html#a13bc31f9a55abf04ac162196ad6a3ace">More...</a><br /></td></tr>
-<tr class="separator:a13bc31f9a55abf04ac162196ad6a3ace inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a22639f8b88b1d70984852928d87676ec">isConnected</a> () const</td></tr>
-<tr class="memdesc:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../d0/dee/a02870.html#a22639f8b88b1d70984852928d87676ec">More...</a><br /></td></tr>
-<tr class="separator:a22639f8b88b1d70984852928d87676ec inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a> () const</td></tr>
-<tr class="memdesc:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the connection state of the component  <a href="../../d0/dee/a02870.html#ac298501e2706de0701bcf0405d69780c">More...</a><br /></td></tr>
-<tr class="separator:ac298501e2706de0701bcf0405d69780c inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac24fd6f4706d72ca980eb5c338f1b642 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top"><a id="ac24fd6f4706d72ca980eb5c338f1b642"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#ac24fd6f4706d72ca980eb5c338f1b642">importStaticParameters</a> ()=0</td></tr>
-<tr class="memdesc:ac24fd6f4706d72ca980eb5c338f1b642 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">import static parameters <br /></td></tr>
-<tr class="separator:ac24fd6f4706d72ca980eb5c338f1b642 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top"><a id="a0b2709afa47d455b8bc9512348d93f30"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a> ()</td></tr>
-<tr class="memdesc:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">update iidm structure from state variables <br /></td></tr>
-<tr class="separator:a0b2709afa47d455b8bc9512348d93f30 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d167dccb153a1ffcee78ad0f2e3a72e inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a> (const std::string &amp;varName) const =0</td></tr>
-<tr class="memdesc:a6d167dccb153a1ffcee78ad0f2e3a72e inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a state variable thanks to its name  <a href="../../d0/dee/a02870.html#a6d167dccb153a1ffcee78ad0f2e3a72e">More...</a><br /></td></tr>
-<tr class="separator:a6d167dccb153a1ffcee78ad0f2e3a72e inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ae1528a39c004efa24e63c1d4b0d8de inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a2ae1528a39c004efa24e63c1d4b0d8de">createComponentVarIndex</a> (const std::string &amp;varName)</td></tr>
-<tr class="memdesc:a2ae1528a39c004efa24e63c1d4b0d8de inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a yet-unexisting state variable, in the rare cases it makes sense  <a href="../../d0/dee/a02870.html#a2ae1528a39c004efa24e63c1d4b0d8de">More...</a><br /></td></tr>
-<tr class="separator:a2ae1528a39c004efa24e63c1d4b0d8de inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02870"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a> () const</td></tr>
-<tr class="memdesc:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the component's hasInitialConditions_ attribute.  <a href="../../d0/dee/a02870.html#a9be4aae7894693081ca3436f3d8aa328">More...</a><br /></td></tr>
-<tr class="separator:a9be4aae7894693081ca3436f3d8aa328 inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02870"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02870"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../d0/dee/a02870.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">More...</a><br /></td></tr>
-<tr class="separator:a22a01ec1b67b1e98e2277d2f1ddcdc4a inherit pub_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6f793bc650c4b916cb5cf6406a88354"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#aa6f793bc650c4b916cb5cf6406a88354">LoadCriteria</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">criteria::CriteriaParams</a> &gt; &amp;params)</td></tr>
+<tr class="memdesc:aa6f793bc650c4b916cb5cf6406a88354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aa6f793bc650c4b916cb5cf6406a88354">More...</a><br /></td></tr>
+<tr class="separator:aa6f793bc650c4b916cb5cf6406a88354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9e2b56e5453f8f629e42602993cf9b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#ae9e2b56e5453f8f629e42602993cf9b9">checkCriteria</a> (double t, bool finalStep, const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">timeline::Timeline</a> &gt; &amp;timeline=nullptr) override</td></tr>
+<tr class="memdesc:ae9e2b56e5453f8f629e42602993cf9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true if the criteria is respected, false otherwise  <a href="#ae9e2b56e5453f8f629e42602993cf9b9">More...</a><br /></td></tr>
+<tr class="separator:ae9e2b56e5453f8f629e42602993cf9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34e774415966010028fa1e56f09a9f58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a34e774415966010028fa1e56f09a9f58">addLoad</a> (const std::shared_ptr&lt; <a class="el" href="../../d7/de1/a03006.html">LoadInterface</a> &gt; &amp;load)</td></tr>
+<tr class="memdesc:a34e774415966010028fa1e56f09a9f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a load to the criteria  <a href="#a34e774415966010028fa1e56f09a9f58">More...</a><br /></td></tr>
+<tr class="separator:a34e774415966010028fa1e56f09a9f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a785c1680679616417e73762815078c19"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a785c1680679616417e73762815078c19">empty</a> () const</td></tr>
+<tr class="memdesc:a785c1680679616417e73762815078c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true if no load was added  <a href="#a785c1680679616417e73762815078c19">More...</a><br /></td></tr>
+<tr class="separator:a785c1680679616417e73762815078c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02918"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02918')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td></tr>
+<tr class="memitem:a04a9d18b48178d64a909cd0dc0e555e5 inherit pub_methods_a02918"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a04a9d18b48178d64a909cd0dc0e555e5">Criteria</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">criteria::CriteriaParams</a> &gt; &amp;params)</td></tr>
+<tr class="memdesc:a04a9d18b48178d64a909cd0dc0e555e5 inherit pub_methods_a02918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../d4/db9/a02918.html#a04a9d18b48178d64a909cd0dc0e555e5">More...</a><br /></td></tr>
+<tr class="separator:a04a9d18b48178d64a909cd0dc0e555e5 inherit pub_methods_a02918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab91b12e7731dfd62f0989c6ae50557ed inherit pub_methods_a02918"><td class="memItemLeft" align="right" valign="top"><a id="ab91b12e7731dfd62f0989c6ae50557ed"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a> ()</td></tr>
+<tr class="memdesc:ab91b12e7731dfd62f0989c6ae50557ed inherit pub_methods_a02918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:ab91b12e7731dfd62f0989c6ae50557ed inherit pub_methods_a02918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae37e82fe5de5482d924a4f3781287bc5 inherit pub_methods_a02918"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a> () const</td></tr>
+<tr class="memdesc:ae37e82fe5de5482d924a4f3781287bc5 inherit pub_methods_a02918"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the list of failing criteria  <a href="../../d4/db9/a02918.html#ae37e82fe5de5482d924a4f3781287bc5">More...</a><br /></td></tr>
+<tr class="separator:ae37e82fe5de5482d924a4f3781287bc5 inherit pub_methods_a02918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac189004a971be6fbdf14fb9b01c7e3e8"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#ac189004a971be6fbdf14fb9b01c7e3e8">criteriaEligibleForLoad</a> (const std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">criteria::CriteriaParams</a> &gt; &amp;params)</td></tr>
+<tr class="memdesc:ac189004a971be6fbdf14fb9b01c7e3e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">check that this criteria can be applied to loads  <a href="#ac189004a971be6fbdf14fb9b01c7e3e8">More...</a><br /></td></tr>
+<tr class="separator:ac189004a971be6fbdf14fb9b01c7e3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a6fec73d744a84e5e7593c51295f6b74c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a6fec73d744a84e5e7593c51295f6b74c">checkCriteriaInLocalValueOrSumType</a> (const std::shared_ptr&lt; <a class="el" href="../../d7/de1/a03006.html">DYN::LoadInterface</a> &gt; &amp;load, double loadActivePower, std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../d7/de1/a03006.html">LoadInterface</a> &gt; &gt; &amp;loadToSourcesAddedIntoSumMap, std::multimap&lt; double, std::unique_ptr&lt; <a class="el" href="../../d7/dfc/a02922.html">FailingCriteria</a> &gt; &gt; &amp;distanceToLoadFailingCriteriaMap, std::unordered_set&lt; std::string &gt; &amp;alreadyChecked, bool &amp;isCriteriaOk, double &amp;sum, bool &amp;atLeastOneEligibleLoadWasFound)</td></tr>
+<tr class="memdesc:a6fec73d744a84e5e7593c51295f6b74c"><td class="mdescLeft">&#160;</td><td class="mdescRight">check criteria in type LOCAL_VALUE or SUM  <a href="#a6fec73d744a84e5e7593c51295f6b74c">More...</a><br /></td></tr>
+<tr class="separator:a6fec73d744a84e5e7593c51295f6b74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a44abecfda14f1b5fe29e52ea66e79456"><td class="memItemLeft" align="right" valign="top"><a id="a44abecfda14f1b5fe29e52ea66e79456"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d7/de1/a03006.html">LoadInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd9/a02934.html#a44abecfda14f1b5fe29e52ea66e79456">loads_</a></td></tr>
+<tr class="memdesc:a44abecfda14f1b5fe29e52ea66e79456"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads of this criteria <br /></td></tr>
+<tr class="separator:a44abecfda14f1b5fe29e52ea66e79456"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_a02870"><td colspan="2" onclick="javascript:toggleInherit('pub_types_a02870')"><img src="../../closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="../../d0/dee/a02870.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02870"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> { <br />
-&#160;&#160;<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a>, 
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a>
-<br />
+<tr class="inherit_header pro_types_a02918"><td colspan="2" onclick="javascript:toggleInherit('pro_types_a02918')"><img src="../../closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td></tr>
+<tr class="memitem:a2a006412a6c16ae87e540f83e99f7ec3 inherit pro_types_a02918"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> { <a class="el" href="../../d4/db9/a02918.html#a2a006412a6c16ae87e540f83e99f7ec3a26a4b44a837bf97b972628509912b4a5">Bound::MAX</a> = 0, 
+<a class="el" href="../../d4/db9/a02918.html#a2a006412a6c16ae87e540f83e99f7ec3ace31e2a082d17e038fcc6e3006166653">Bound::MIN</a>
  }</td></tr>
-<tr class="memdesc:a8089dfd2e85bdc3fc21030715c846872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the type of the component.  <a href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872">More...</a><br /></td></tr>
-<tr class="separator:a8089dfd2e85bdc3fc21030715c846872 inherit pub_types_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_a02870"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a02870')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d0/dee/a02870.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02870"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02870"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a> (const int index) const</td></tr>
-<tr class="memdesc:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a state variable value thanks to its name  <a href="../../d0/dee/a02870.html#ac256bc3546483d0c4ccffb61dfa58a3a">More...</a><br /></td></tr>
-<tr class="separator:ac256bc3546483d0c4ccffb61dfa58a3a inherit pro_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a360fb8d74db3b5e8d1acb4f636c9647d">hasInitialConditions</a> (bool hasInitialConditions)</td></tr>
-<tr class="memdesc:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the component's hasInitialConditions_ attribute.  <a href="../../d0/dee/a02870.html#a360fb8d74db3b5e8d1acb4f636c9647d">More...</a><br /></td></tr>
-<tr class="separator:a360fb8d74db3b5e8d1acb4f636c9647d inherit pro_methods_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_a02870"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02870')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d0/dee/a02870.html">DYN::ComponentInterface</a></td></tr>
-<tr class="memitem:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02870"><td class="memItemLeft" align="right" valign="top"><a id="a4e9a1ad375b2c22292b200713cb94bac"></a>
-std::vector&lt; <a class="el" href="../../d5/db8/a02998.html">StateVariable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td></tr>
-<tr class="memdesc:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">state variable <br /></td></tr>
-<tr class="separator:a4e9a1ad375b2c22292b200713cb94bac inherit pro_attribs_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02870"><td class="memItemLeft" align="right" valign="top"><a id="afba20d4e78f70ec9e147378934d10b33"></a>
-std::unordered_map&lt; std::string, <a class="el" href="../../de/d27/a03002.html">StaticParameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#afba20d4e78f70ec9e147378934d10b33">staticParameters_</a></td></tr>
-<tr class="memdesc:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">static parameter by name, from iidm data <br /></td></tr>
-<tr class="separator:afba20d4e78f70ec9e147378934d10b33 inherit pro_attribs_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02870"><td class="memItemLeft" align="right" valign="top"><a id="a3b7f69e17315c6cb35ffb9231dcb5e6a"></a>
-<a class="el" href="../../d0/dee/a02870.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dee/a02870.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td></tr>
-<tr class="memdesc:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02870"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of the interface <br /></td></tr>
-<tr class="separator:a3b7f69e17315c6cb35ffb9231dcb5e6a inherit pro_attribs_a02870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a2a006412a6c16ae87e540f83e99f7ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crossed bound for a failing criteria.  <a href="../../d4/db9/a02918.html#a2a006412a6c16ae87e540f83e99f7ec3">More...</a><br /></td></tr>
+<tr class="separator:a2a006412a6c16ae87e540f83e99f7ec3 inherit pro_types_a02918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_a02918"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_a02918')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td></tr>
+<tr class="memitem:a246cd0ab90b0768892d910cf9c4b2355 inherit pro_methods_a02918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a246cd0ab90b0768892d910cf9c4b2355">printAllFailingCriteriaIntoLog</a> (std::multimap&lt; double, std::unique_ptr&lt; <a class="el" href="../../d7/dfc/a02922.html">FailingCriteria</a> &gt; &gt; &amp;distanceToFailingCriteriaMap, const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">timeline::Timeline</a> &gt; &amp;timeline, double currentTime)</td></tr>
+<tr class="memdesc:a246cd0ab90b0768892d910cf9c4b2355 inherit pro_methods_a02918"><td class="mdescLeft">&#160;</td><td class="mdescRight">print all the failing criteria in the log file and the timeline file  <a href="../../d4/db9/a02918.html#a246cd0ab90b0768892d910cf9c4b2355">More...</a><br /></td></tr>
+<tr class="separator:a246cd0ab90b0768892d910cf9c4b2355 inherit pro_methods_a02918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_a02918"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02918')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td></tr>
+<tr class="memitem:aa2e02bd65f615a2ff17d905802f21d8d inherit pro_attribs_a02918"><td class="memItemLeft" align="right" valign="top"><a id="aa2e02bd65f615a2ff17d905802f21d8d"></a>
+std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">criteria::CriteriaParams</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#aa2e02bd65f615a2ff17d905802f21d8d">params_</a></td></tr>
+<tr class="memdesc:aa2e02bd65f615a2ff17d905802f21d8d inherit pro_attribs_a02918"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameters of this criteria <br /></td></tr>
+<tr class="separator:aa2e02bd65f615a2ff17d905802f21d8d inherit pro_attribs_a02918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cfd58d7a5fc57e2d2438cf3c3603954 inherit pro_attribs_a02918"><td class="memItemLeft" align="right" valign="top"><a id="a2cfd58d7a5fc57e2d2438cf3c3603954"></a>
+std::vector&lt; std::pair&lt; double, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/db9/a02918.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td></tr>
+<tr class="memdesc:a2cfd58d7a5fc57e2d2438cf3c3603954 inherit pro_attribs_a02918"><td class="mdescLeft">&#160;</td><td class="mdescRight">keeps the ids of the failing criteria <br /></td></tr>
+<tr class="separator:a2cfd58d7a5fc57e2d2438cf3c3603954 inherit pro_attribs_a02918"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dangling line interface class for dangling line model interface. </p>
+<div class="textblock"><p><a class="el" href="../../d9/dd9/a02934.html" title="LoadCriteria class: handle the check of load criteria. ">LoadCriteria</a> class: handle the check of load criteria. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a19583e84706e1a82b8994a59427b513c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19583e84706e1a82b8994a59427b513c">&#9670;&nbsp;</a></span>DanglingLineInterface()</h2>
+<a id="aa6f793bc650c4b916cb5cf6406a88354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6f793bc650c4b916cb5cf6406a88354">&#9670;&nbsp;</a></span>LoadCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -303,16 +206,16 @@ std::unordered_map&lt; std::string, <a class="el" href="../../de/d27/a03002.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DYN::DanglingLineInterface::DanglingLineInterface </td>
+          <td class="memname">DYN::LoadCriteria::LoadCriteria </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>hasInitialConditions</em> = <code>true</code></td><td>)</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">criteria::CriteriaParams</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -320,7 +223,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../de/d27/a03002.html
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hasInitialConditions</td><td><b>true</b> if component has initial conditions set, <b>false</b> else </td></tr>
+    <tr><td class="paramname">params</td><td>parameters of the criteria </td></tr>
   </table>
   </dd>
 </dl>
@@ -328,44 +231,34 @@ std::unordered_map&lt; std::string, <a class="el" href="../../de/d27/a03002.html
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae93e7bade62a212fa814036236a7932a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae93e7bade62a212fa814036236a7932a">&#9670;&nbsp;</a></span>addCurrentLimitInterface()</h2>
+<a id="a34e774415966010028fa1e56f09a9f58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34e774415966010028fa1e56f09a9f58">&#9670;&nbsp;</a></span>addLoad()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::DanglingLineInterface::addCurrentLimitInterface </td>
+          <td class="memname">void DYN::LoadCriteria::addLoad </td>
           <td>(</td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="../../d7/da7/a02914.html">CurrentLimitInterface</a> &gt;&#160;</td>
-          <td class="paramname"><em>currentLimitInterface</em></td><td>)</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d7/de1/a03006.html">LoadInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>load</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Add a curent limit interface. </p>
+<p>add a load to the criteria </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">currentLimitInterface</td><td>current limit interface for the danglingline </td></tr>
+    <tr><td class="paramname">load</td><td>load to add </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a6d448c6de9701fcd704eb480382dfdac">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
 </div>
 </div>
-<a id="ac8c1400930bae103c32559c88a58c2f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8c1400930bae103c32559c88a58c2f0">&#9670;&nbsp;</a></span>exportStateVariablesUnitComponent()</h2>
+<a id="ae9e2b56e5453f8f629e42602993cf9b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9e2b56e5453f8f629e42602993cf9b9">&#9670;&nbsp;</a></span>checkCriteria()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -374,457 +267,140 @@ std::unordered_map&lt; std::string, <a class="el" href="../../de/d27/a03002.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::DanglingLineInterface::exportStateVariablesUnitComponent </td>
+          <td class="memname">bool DYN::LoadCriteria::checkCriteria </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>finalStep</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update iidm structure from state variables for each unit component </p>
-
-<p>Implements <a class="el" href="../../d0/dee/a02870.html#a24a19ea150b9d118f6b365cdbabcacff">DYN::ComponentInterface</a>.</p>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a4d805f1fe795c67c77b2784fa47c6f58">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a6e77a863223e0379f1b60ed2b22b9587"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e77a863223e0379f1b60ed2b22b9587">&#9670;&nbsp;</a></span>getB()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getB </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the susceptance of the dangling line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The susceptance of the dangling line in siemens </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#aa1bd574dc3a6d8b319f0146d59f8f06e">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="ac441f3fcd5c5ecc0a8684b8277eb0de1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac441f3fcd5c5ecc0a8684b8277eb0de1">&#9670;&nbsp;</a></span>getBusInterface()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../db/de7/a02866.html">BusInterface</a>&gt; DYN::DanglingLineInterface::getBusInterface </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the danglingLine's bus interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>busInterface of the bus where the dangling line is connected </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#ad2bed0edf47a74ede8d13087cd5c5df8">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a865c3f453a78e333d7c433f254bf0b3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a865c3f453a78e333d7c433f254bf0b3b">&#9670;&nbsp;</a></span>getCurrentLimitInterfaces()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt;std::unique_ptr&lt;<a class="el" href="../../d7/da7/a02914.html">CurrentLimitInterface</a>&gt; &gt;&amp; DYN::DanglingLineInterface::getCurrentLimitInterfaces </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current limit interfaces f. </p>
-<dl class="section return"><dt>Returns</dt><dd>currentLimitInterface of the danglingline </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#ac0f409f73f8437337d8e6692d02b14ba">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a102e66ddccb89df642d678cd69a99b46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a102e66ddccb89df642d678cd69a99b46">&#9670;&nbsp;</a></span>getG()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getG </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the conductance of the dangling line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The conductance of the dangling line in siemens </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a9de88c8fbcc0b0ad2e81020b0e552a81">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a4f28cc4215ad05204be880b12bb23772"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f28cc4215ad05204be880b12bb23772">&#9670;&nbsp;</a></span>getID()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; DYN::DanglingLineInterface::getID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the dangling line's id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The id of the dangling line </dd></dl>
-
-<p>Implements <a class="el" href="../../d0/dee/a02870.html#a452b88bee7f575411dc10043cbc09bd5">DYN::ComponentInterface</a>.</p>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#aa0d20c9f3ae7a081904b1350ba478b31">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a9ab5a8d800e6f12ee7bbdb64a5495a0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ab5a8d800e6f12ee7bbdb64a5495a0f">&#9670;&nbsp;</a></span>getInitialConnected()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::DanglingLineInterface::getInitialConnected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em> = <code>nullptr</code>&#160;</td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for initial connection state of the dangling line. </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> is the dangling line is connected, <b>false</b> else </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#aa435e17ce5eff5981440045de9528935">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="acf3abeec92885e50c3a87c914855e5cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf3abeec92885e50c3a87c914855e5cc">&#9670;&nbsp;</a></span>getP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getP </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
           <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the active power of the dangling line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The active power of the dangling line in MW </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#ad842ec6f97b7c3e0914a481a67b1f702">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a21ee58a6ba4e752e4edf0fe1d5e2ee15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21ee58a6ba4e752e4edf0fe1d5e2ee15">&#9670;&nbsp;</a></span>getP0()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getP0 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the active power of the load injection. </p>
-<dl class="section return"><dt>Returns</dt><dd>The active power of the load injection in MW </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#aaceb7cdeb34a8d49aa1a2f901e00f05b">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a96d395a088bedab53796edde1fec2d5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96d395a088bedab53796edde1fec2d5d">&#9670;&nbsp;</a></span>getQ()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getQ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the reactive power of the dangling line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The reactive power of the dangling line in Mvar </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#acbb789a05d87380adc7c378a374a650b">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a1d0261603bf006e20480247d8757f99d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d0261603bf006e20480247d8757f99d">&#9670;&nbsp;</a></span>getQ0()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getQ0 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the reactive power of the load injection. </p>
-<dl class="section return"><dt>Returns</dt><dd>The reactive power of the load injection in Mvar </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a845e206e65e252459b36fd9e60f7c785">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a12311bd3ddcb36b1ef1c948547c947f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12311bd3ddcb36b1ef1c948547c947f3">&#9670;&nbsp;</a></span>getR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the resistance of the dangling line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The resistance of the dangling line in ohm </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a9904a2703050918309e3251f4657514d">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a45e31935edac168bf3a16f81127065a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45e31935edac168bf3a16f81127065a7">&#9670;&nbsp;</a></span>getVNom()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getVNom </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the bus nominal voltage where the dangling line is connected. </p>
-<dl class="section return"><dt>Returns</dt><dd>The bus nominal voltage where the dangling line is connected in kV </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#ac217c5c4255153893aac8a085e4db299">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a979c475bedc70e7ff5571855d5650db3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a979c475bedc70e7ff5571855d5650db3">&#9670;&nbsp;</a></span>getX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::DanglingLineInterface::getX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the reactance of the dangling line. </p>
-<dl class="section return"><dt>Returns</dt><dd>The reactance of the dangling line in ohm </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a84d9aabee6dc9d1c1577f5db1bdeaf96">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a74f30d825b843bbc49b113f98be5fbaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74f30d825b843bbc49b113f98be5fbaf">&#9670;&nbsp;</a></span>setBusInterface()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DYN::DanglingLineInterface::setBusInterface </td>
-          <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../db/de7/a02866.html">BusInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>busInterface</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Setter for the danglingLine's bus interface. </p>
+<p>returns true if the criteria is respected, false otherwise </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">busInterface</td><td>of the bus where the dangling line is connected </td></tr>
+    <tr><td class="paramname">t</td><td>current time of the simulation </td></tr>
+    <tr><td class="paramname">finalStep</td><td>true if this is the final step of the simulation </td></tr>
+    <tr><td class="paramname">timeline</td><td>timeline</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the criteria is respected, false otherwise </dd></dl>
+
+<p>Implements <a class="el" href="../../d4/db9/a02918.html#a23993a47f79a29d933bebdda2502686e">DYN::Criteria</a>.</p>
+
+</div>
+</div>
+<a id="a6fec73d744a84e5e7593c51295f6b74c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fec73d744a84e5e7593c51295f6b74c">&#9670;&nbsp;</a></span>checkCriteriaInLocalValueOrSumType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::LoadCriteria::checkCriteriaInLocalValueOrSumType </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d7/de1/a03006.html">DYN::LoadInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>load</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>loadActivePower</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::multimap&lt; double, std::shared_ptr&lt; <a class="el" href="../../d7/de1/a03006.html">LoadInterface</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>loadToSourcesAddedIntoSumMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::multimap&lt; double, std::unique_ptr&lt; <a class="el" href="../../d7/dfc/a02922.html">FailingCriteria</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>distanceToLoadFailingCriteriaMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_set&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>alreadyChecked</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isCriteriaOk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>sum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>atLeastOneEligibleLoadWasFound</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check criteria in type LOCAL_VALUE or SUM </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">load</td><td>load to check </td></tr>
+    <tr><td class="paramname">loadActivePower</td><td>active power of the load to check </td></tr>
+    <tr><td class="paramname">loadToSourcesAddedIntoSumMap</td><td>map associating active power to the related load </td></tr>
+    <tr><td class="paramname">distanceToLoadFailingCriteriaMap</td><td>map associating the distance between active power and the crossed bound, and the related load </td></tr>
+    <tr><td class="paramname">alreadyChecked</td><td>set containing the loads already checked to not check them several times </td></tr>
+    <tr><td class="paramname">isCriteriaOk</td><td>true if criteria is ok, false otherwise </td></tr>
+    <tr><td class="paramname">sum</td><td>sum of network loads active powers </td></tr>
+    <tr><td class="paramname">atLeastOneEligibleLoadWasFound</td><td>true if there is at least one load to calculate the sum of network loads active powers </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a586963f47c64538c7b3017d23a759778">DYN::DanglingLineInterfaceIIDM</a>.</p>
-
 </div>
 </div>
-<a id="a123e8f068a65b19d28dceb1a3ea19007"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a123e8f068a65b19d28dceb1a3ea19007">&#9670;&nbsp;</a></span>setVoltageLevelInterface()</h2>
+<a id="ac189004a971be6fbdf14fb9b01c7e3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac189004a971be6fbdf14fb9b01c7e3e8">&#9670;&nbsp;</a></span>criteriaEligibleForLoad()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -833,34 +409,61 @@ std::unordered_map&lt; std::string, <a class="el" href="../../de/d27/a03002.html
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::DanglingLineInterface::setVoltageLevelInterface </td>
+          <td class="memname">static bool DYN::LoadCriteria::criteriaEligibleForLoad </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../da/d2f/a03030.html">VoltageLevelInterface</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>voltageLevelInterface</em></td><td>)</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">criteria::CriteriaParams</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Setter for the danglingLine's voltage interface. </p>
+<p>check that this criteria can be applied to loads </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">voltageLevelInterface</td><td>of the voltageLevel where the dangling line is connected </td></tr>
+    <tr><td class="paramname">params</td><td>parameters of the criteria </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>true if this criteria is compatible with loads </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d6/d2a/a03062.html#a92cacb4ef8773df550025397530f3d0b">DYN::DanglingLineInterfaceIIDM</a>.</p>
+</div>
+</div>
+<a id="a785c1680679616417e73762815078c19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a785c1680679616417e73762815078c19">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::LoadCriteria::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns true if no load was added </p>
+<dl class="section return"><dt>Returns</dt><dd>true if no load was added </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d4/d6a/a00704_source.html">DYNDanglingLineInterface.h</a></li>
+<li><a class="el" href="../../d1/d56/a00707_source.html">DYNCriteria.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -878,8 +481,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../de/d27/a03002.html
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dd9/a02934.html">DanglingLineInterface</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dd9/a02934.html">LoadCriteria</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

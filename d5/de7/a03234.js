@@ -1,6 +1,7 @@
 var a03234 =
 [
-    [ "~ModelVoltageMeasurementsUtilitiesFactory", "d5/de7/a03234.html#aa7a60e6da7a292f9a718c37d0bf319fa", null ],
-    [ "create", "d5/de7/a03234.html#ae433dadbda68583023c2f02b3e721d27", null ],
-    [ "destroy", "d5/de7/a03234.html#ad35de64c64ef6681d6f8ecf4d9736569", null ]
+    [ "memoryManagerChars", "d5/de7/a03234.html#a48854f613c484d91f28fafff8bd0dc05", null ],
+    [ "getInstance", "d5/de7/a03234.html#a9a327615153450dbbfe54ef8286b90c2", null ],
+    [ "keep", "d5/de7/a03234.html#a405846834c838b9f9a56fb00687ec486", null ],
+    [ "string2Keep_", "d5/de7/a03234.html#ac649e86df282bca2f389161c3b49b8c5", null ]
 ];

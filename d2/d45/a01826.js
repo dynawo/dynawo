@@ -1,9 +1,10 @@
 var a01826 =
 [
-    [ "XmlHandler", "d2/d45/a01826.html#a76c3dd07b960c6c4a719e1eb06848617", null ],
-    [ "~XmlHandler", "d2/d45/a01826.html#a5ec47da4f18a6bc6be9434f8bd8941da", null ],
-    [ "addCurve", "d2/d45/a01826.html#aa5ad97c9bc9a6b3f95ce1945f2ced325", null ],
-    [ "getCurvesCollection", "d2/d45/a01826.html#aa5798f2176cfe7369cbc20e52fdf393c", null ],
-    [ "curveHandler_", "d2/d45/a01826.html#a842e4e0cee247709a1aea34f95ea5571", null ],
-    [ "curvesCollection_", "d2/d45/a01826.html#aaefbc06dc7a9173a708eae28553e4f2d", null ]
+    [ "Point", "d2/d45/a01826.html#a8eae1c5b8d73838346e196ac3eb886f3", null ],
+    [ "getTime", "d2/d45/a01826.html#a84298e28010a02c9cadef1f0cfe92309", null ],
+    [ "getValue", "d2/d45/a01826.html#a396c1b978118ea28a4b8fd2c790a9839", null ],
+    [ "setTime", "d2/d45/a01826.html#a7442bde5f55d90ec77be9bcf0468abe0", null ],
+    [ "setValue", "d2/d45/a01826.html#aa72630bdbc7fd290134feeb3fbc918c4", null ],
+    [ "time_", "d2/d45/a01826.html#a8f6b9717dd4dbd8571a54745cdfaa291", null ],
+    [ "value_", "d2/d45/a01826.html#a0a1f3ab1b937dde910da34608c0005c0", null ]
 ];

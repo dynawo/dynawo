@@ -1,22 +1,11 @@
 var a02934 =
 [
-    [ "DanglingLineInterface", "d9/dd9/a02934.html#a19583e84706e1a82b8994a59427b513c", null ],
-    [ "~DanglingLineInterface", "d9/dd9/a02934.html#afd9cd02814ee4ec259d40141d9a7c110", null ],
-    [ "addCurrentLimitInterface", "d9/dd9/a02934.html#ae93e7bade62a212fa814036236a7932a", null ],
-    [ "exportStateVariablesUnitComponent", "d9/dd9/a02934.html#ac8c1400930bae103c32559c88a58c2f0", null ],
-    [ "getB", "d9/dd9/a02934.html#a6e77a863223e0379f1b60ed2b22b9587", null ],
-    [ "getBusInterface", "d9/dd9/a02934.html#ac441f3fcd5c5ecc0a8684b8277eb0de1", null ],
-    [ "getCurrentLimitInterfaces", "d9/dd9/a02934.html#a865c3f453a78e333d7c433f254bf0b3b", null ],
-    [ "getG", "d9/dd9/a02934.html#a102e66ddccb89df642d678cd69a99b46", null ],
-    [ "getID", "d9/dd9/a02934.html#a4f28cc4215ad05204be880b12bb23772", null ],
-    [ "getInitialConnected", "d9/dd9/a02934.html#a9ab5a8d800e6f12ee7bbdb64a5495a0f", null ],
-    [ "getP", "d9/dd9/a02934.html#acf3abeec92885e50c3a87c914855e5cc", null ],
-    [ "getP0", "d9/dd9/a02934.html#a21ee58a6ba4e752e4edf0fe1d5e2ee15", null ],
-    [ "getQ", "d9/dd9/a02934.html#a96d395a088bedab53796edde1fec2d5d", null ],
-    [ "getQ0", "d9/dd9/a02934.html#a1d0261603bf006e20480247d8757f99d", null ],
-    [ "getR", "d9/dd9/a02934.html#a12311bd3ddcb36b1ef1c948547c947f3", null ],
-    [ "getVNom", "d9/dd9/a02934.html#a45e31935edac168bf3a16f81127065a7", null ],
-    [ "getX", "d9/dd9/a02934.html#a979c475bedc70e7ff5571855d5650db3", null ],
-    [ "setBusInterface", "d9/dd9/a02934.html#a74f30d825b843bbc49b113f98be5fbaf", null ],
-    [ "setVoltageLevelInterface", "d9/dd9/a02934.html#a123e8f068a65b19d28dceb1a3ea19007", null ]
+    [ "LoadFailingCriteria", "de/d06/a02938.html", "de/d06/a02938" ],
+    [ "LoadCriteria", "d9/dd9/a02934.html#aa6f793bc650c4b916cb5cf6406a88354", null ],
+    [ "addLoad", "d9/dd9/a02934.html#a34e774415966010028fa1e56f09a9f58", null ],
+    [ "checkCriteria", "d9/dd9/a02934.html#ae9e2b56e5453f8f629e42602993cf9b9", null ],
+    [ "checkCriteriaInLocalValueOrSumType", "d9/dd9/a02934.html#a6fec73d744a84e5e7593c51295f6b74c", null ],
+    [ "criteriaEligibleForLoad", "d9/dd9/a02934.html#ac189004a971be6fbdf14fb9b01c7e3e8", null ],
+    [ "empty", "d9/dd9/a02934.html#a785c1680679616417e73762815078c19", null ],
+    [ "loads_", "d9/dd9/a02934.html#a44abecfda14f1b5fe29e52ea66e79456", null ]
 ];

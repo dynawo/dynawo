@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: positive_edge_weight&lt; EdgeWeightMap &gt; Struct Template Reference</title>
+<title>Dynawo: timeline::XmlExporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,123 +96,162 @@ $(document).ready(function(){initNavTree('d8/dab/a02638.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d9/d07/a02635.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">positive_edge_weight&lt; EdgeWeightMap &gt; Struct Template Reference</div>  </div>
+<div class="title">timeline::XmlExporter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>edge predicate to filter edge contained in a boost graph  
+<p>XML exporter interface class.  
  <a href="../../d8/dab/a02638.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/dfb/a00512_source.html">DYNGraph.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d5/d0f/a00494_source.html">TLXmlExporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for timeline::XmlExporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d8/dab/a02638.png" usemap="#timeline::XmlExporter_map" alt=""/>
+  <map id="timeline::XmlExporter_map" name="timeline::XmlExporter_map">
+<area href="../../d7/df0/a02618.html" title="Exporter interface class. " alt="timeline::Exporter" shape="rect" coords="0,0,129,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae30399aee6628bbefc196227a62ee38f"><td class="memItemLeft" align="right" valign="top"><a id="ae30399aee6628bbefc196227a62ee38f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dab/a02638.html#ae30399aee6628bbefc196227a62ee38f">positive_edge_weight</a> ()</td></tr>
-<tr class="memdesc:ae30399aee6628bbefc196227a62ee38f"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:ae30399aee6628bbefc196227a62ee38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad943a5a09f54abd26313e780213ab7a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dab/a02638.html#ad943a5a09f54abd26313e780213ab7a4">positive_edge_weight</a> (<a class="el" href="../../d4/dfb/a00512.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a> weight)</td></tr>
-<tr class="memdesc:ad943a5a09f54abd26313e780213ab7a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy constructor  <a href="#ad943a5a09f54abd26313e780213ab7a4">More...</a><br /></td></tr>
-<tr class="separator:ad943a5a09f54abd26313e780213ab7a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a018774fcd983c72dcf8844a4acecca0c"><td class="memTemplParams" colspan="2">template&lt;typename Edge &gt; </td></tr>
-<tr class="memitem:a018774fcd983c72dcf8844a4acecca0c"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dab/a02638.html#a018774fcd983c72dcf8844a4acecca0c">operator()</a> (const <a class="el" href="../../d4/dfb/a00512.html#a15934c7040701cca444651ffea895632">Edge</a> &amp;e) const</td></tr>
-<tr class="memdesc:a018774fcd983c72dcf8844a4acecca0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">edge predicate to filter edge  <a href="#a018774fcd983c72dcf8844a4acecca0c">More...</a><br /></td></tr>
-<tr class="separator:a018774fcd983c72dcf8844a4acecca0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a779f04facb8d90b64d6ca5cdb4ea0bda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dab/a02638.html#a779f04facb8d90b64d6ca5cdb4ea0bda">exportToFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;timeline, const std::string &amp;filePath) const override</td></tr>
+<tr class="memdesc:a779f04facb8d90b64d6ca5cdb4ea0bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#a779f04facb8d90b64d6ca5cdb4ea0bda">More...</a><br /></td></tr>
+<tr class="separator:a779f04facb8d90b64d6ca5cdb4ea0bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7aa9361d0f8f436a6b8baee98cdfa0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dab/a02638.html#ab7aa9361d0f8f436a6b8baee98cdfa0c">exportToStream</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;timeline, std::ostream &amp;stream) const override</td></tr>
+<tr class="memdesc:ab7aa9361d0f8f436a6b8baee98cdfa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#ab7aa9361d0f8f436a6b8baee98cdfa0c">More...</a><br /></td></tr>
+<tr class="separator:ab7aa9361d0f8f436a6b8baee98cdfa0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02618"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02618')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d7/df0/a02618.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top"><a id="a5d63ea81ae82ca92bce6bdcdcae4cfbc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a5d63ea81ae82ca92bce6bdcdcae4cfbc">Exporter</a> ()</td></tr>
+<tr class="memdesc:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top"><a id="acbb92c28b5baf0c79c9f77b98406b309"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#acbb92c28b5baf0c79c9f77b98406b309">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a3da56f52f72694fbe3860299e1f8aa56">setExportWithTime</a> (const bool exportWithTime)</td></tr>
+<tr class="memdesc:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time setter  <a href="../../d7/df0/a02618.html#a3da56f52f72694fbe3860299e1f8aa56">More...</a><br /></td></tr>
+<tr class="separator:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02618"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#ad7f1b498fc7cd3dea9c084ab3da448ae">setMaxPriority</a> (const boost::optional&lt; int &gt; maxPriority)</td></tr>
+<tr class="memdesc:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority setter  <a href="../../d7/df0/a02618.html#ad7f1b498fc7cd3dea9c084ab3da448ae">More...</a><br /></td></tr>
+<tr class="separator:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a38594d5fb468e2934ef249ed7805261b"><td class="memItemLeft" align="right" valign="top"><a id="a38594d5fb468e2934ef249ed7805261b"></a>
-<a class="el" href="../../d4/dfb/a00512.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dab/a02638.html#a38594d5fb468e2934ef249ed7805261b">m_weight</a></td></tr>
-<tr class="memdesc:a38594d5fb468e2934ef249ed7805261b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Property map associated to the weight of each edge. <br /></td></tr>
-<tr class="separator:a38594d5fb468e2934ef249ed7805261b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_a02618"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02618')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d7/df0/a02618.html">timeline::Exporter</a></td></tr>
+<tr class="memitem:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02618"><td class="memItemLeft" align="right" valign="top"><a id="a3cea0999ec63144bb692b4fed5951c23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a3cea0999ec63144bb692b4fed5951c23">exportWithTime_</a></td></tr>
+<tr class="memdesc:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to export time when exporting timeline <br /></td></tr>
+<tr class="separator:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02618"><td class="memItemLeft" align="right" valign="top"><a id="add563d0da7b15436bd2fe60810e99c4f"></a>
+boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#add563d0da7b15436bd2fe60810e99c4f">maxPriority_</a></td></tr>
+<tr class="memdesc:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02618"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
+<tr class="separator:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02618"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename EdgeWeightMap&gt;<br />
-struct positive_edge_weight&lt; EdgeWeightMap &gt;</h3>
-
-<p>edge predicate to filter edge contained in a boost graph </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad943a5a09f54abd26313e780213ab7a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad943a5a09f54abd26313e780213ab7a4">&#9670;&nbsp;</a></span>positive_edge_weight()</h2>
+<div class="textblock"><p>XML exporter interface class. </p>
+<p>XML export class for timeline </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a779f04facb8d90b64d6ca5cdb4ea0bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a779f04facb8d90b64d6ca5cdb4ea0bda">&#9670;&nbsp;</a></span>exportToFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename EdgeWeightMap &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d8/dab/a02638.html">positive_edge_weight</a>&lt; <a class="el" href="../../d4/dfb/a00512.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a> &gt;::<a class="el" href="../../d8/dab/a02638.html">positive_edge_weight</a> </td>
+          <td class="memname">void timeline::XmlExporter::exportToFile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d4/dfb/a00512.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a>&#160;</td>
-          <td class="paramname"><em>weight</em></td><td>)</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>copy constructor </p>
+<p>Export method in XML format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">weight</td><td>weight to use for the predicate </td></tr>
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export XML formatted timeline to </td></tr>
   </table>
   </dd>
 </dl>
 
+<p>Implements <a class="el" href="../../d7/df0/a02618.html#a1d9986c16a88a1541a012dfe74c88955">timeline::Exporter</a>.</p>
+
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a018774fcd983c72dcf8844a4acecca0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a018774fcd983c72dcf8844a4acecca0c">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="ab7aa9361d0f8f436a6b8baee98cdfa0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7aa9361d0f8f436a6b8baee98cdfa0c">&#9670;&nbsp;</a></span>exportToStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename EdgeWeightMap &gt; </div>
-<div class="memtemplate">
-template&lt;typename Edge &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="../../d8/dab/a02638.html">positive_edge_weight</a>&lt; <a class="el" href="../../d4/dfb/a00512.html#a2482b682f3dbd3065b4009fe7caffe41">EdgeWeightMap</a> &gt;::operator() </td>
+          <td class="memname">void timeline::XmlExporter::exportToStream </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/dfb/a00512.html#a15934c7040701cca444651ffea895632">Edge</a> &amp;&#160;</td>
-          <td class="paramname"><em>e</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>edge predicate to filter edge </p>
+<p>Export method in XML format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">e</td><td>edge to filter </td></tr>
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">stream</td><td>stream to export XML formatted timeline to </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the weight of the edge is positive, <b>false</b> otherwise </dd></dl>
+
+<p>Implements <a class="el" href="../../d7/df0/a02618.html#ad89cf490dc7a018d06d669d2acb9be4a">timeline::Exporter</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="../../d4/dfb/a00512_source.html">DYNGraph.h</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d5/d0f/a00494_source.html">TLXmlExporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -230,8 +269,8 @@ template&lt;typename Edge &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../d8/dab/a02638.html">positive_edge_weight</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../d8/dab/a02638.html">XmlExporter</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

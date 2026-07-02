@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::ZmqOutputChannel Class Reference</title>
+<title>Dynawo: DYN::StepTriggerMessage Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,59 +96,46 @@ $(document).ready(function(){initNavTree('d3/d66/a03462.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d4/d63/a03459.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::ZmqOutputChannel Class Reference</div>  </div>
+<div class="title">DYN::StepTriggerMessage Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Output channel implementation using ZeroMQ.  
+<p><a class="el" href="../../d9/d6c/a02710.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> used to trigger a simulation step.  
  <a href="../../d3/d66/a03462.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../da/db7/a01088_source.html">DYNZmqOutputChannel.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d6/d80/a01076_source.html">DYNRTInputCommon.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for DYN::ZmqOutputChannel:</div>
+Inheritance diagram for DYN::StepTriggerMessage:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d3/d66/a03462.png" usemap="#DYN::ZmqOutputChannel_map" alt=""/>
-  <map id="DYN::ZmqOutputChannel_map" name="DYN::ZmqOutputChannel_map">
-<area href="../../d5/d35/a03454.html" title="Abstract base class for real-time simulation output channels. " alt="DYN::OutputChannel" shape="rect" coords="0,0,153,24"/>
+  <img src="../../d3/d66/a03462.png" usemap="#DYN::StepTriggerMessage_map" alt=""/>
+  <map id="DYN::StepTriggerMessage_map" name="DYN::StepTriggerMessage_map">
+<area href="../../d5/d35/a03454.html" title="Abstract base class for input messages. " alt="DYN::InputMessage" shape="rect" coords="0,0,162,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af457111b44a5bd613aecef9d777e11c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#af457111b44a5bd613aecef9d777e11c4">ZmqOutputChannel</a> (const std::string &amp;endpoint=&quot;tcp://*:5556&quot;)</td></tr>
-<tr class="memdesc:af457111b44a5bd613aecef9d777e11c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#af457111b44a5bd613aecef9d777e11c4">More...</a><br /></td></tr>
-<tr class="separator:af457111b44a5bd613aecef9d777e11c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac973249bd3e3b6ad2678945507f87c24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#ac973249bd3e3b6ad2678945507f87c24">sendMessage</a> (const std::string &amp;data) override</td></tr>
-<tr class="memdesc:ac973249bd3e3b6ad2678945507f87c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message as a string.  <a href="#ac973249bd3e3b6ad2678945507f87c24">More...</a><br /></td></tr>
-<tr class="separator:ac973249bd3e3b6ad2678945507f87c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac17163c2fd8e37ee7c7f74d9ec31096b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#ac17163c2fd8e37ee7c7f74d9ec31096b">sendMessage</a> (const std::string &amp;data, const std::string &amp;topic) override</td></tr>
-<tr class="memdesc:ac17163c2fd8e37ee7c7f74d9ec31096b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message as a string with a topic.  <a href="#ac17163c2fd8e37ee7c7f74d9ec31096b">More...</a><br /></td></tr>
-<tr class="separator:ac17163c2fd8e37ee7c7f74d9ec31096b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbea743ad93c2f88d47fb3c723d7170f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#abbea743ad93c2f88d47fb3c723d7170f">sendMessage</a> (const std::vector&lt; std::uint8_t &gt; &amp;data, const std::string &amp;topic) override</td></tr>
-<tr class="memdesc:abbea743ad93c2f88d47fb3c723d7170f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message as raw bytes with a topic.  <a href="#abbea743ad93c2f88d47fb3c723d7170f">More...</a><br /></td></tr>
-<tr class="separator:abbea743ad93c2f88d47fb3c723d7170f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a02542684dfb73221f41325ecdf36ebb8"><td class="memItemLeft" align="right" valign="top"><a id="a02542684dfb73221f41325ecdf36ebb8"></a>
-zmq::context_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#a02542684dfb73221f41325ecdf36ebb8">context_</a></td></tr>
-<tr class="memdesc:a02542684dfb73221f41325ecdf36ebb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZeroMQ context. <br /></td></tr>
-<tr class="separator:a02542684dfb73221f41325ecdf36ebb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdda3b30e3702e2dd264a39f623bd1b9"><td class="memItemLeft" align="right" valign="top"><a id="afdda3b30e3702e2dd264a39f623bd1b9"></a>
-zmq::socket_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#afdda3b30e3702e2dd264a39f623bd1b9">socket_</a></td></tr>
-<tr class="memdesc:afdda3b30e3702e2dd264a39f623bd1b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZeroMQ PUB socket. <br /></td></tr>
-<tr class="separator:afdda3b30e3702e2dd264a39f623bd1b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5222e4bbbaf08daed15ad9e647f75df2"><td class="memItemLeft" align="right" valign="top"><a id="a5222e4bbbaf08daed15ad9e647f75df2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#a5222e4bbbaf08daed15ad9e647f75df2">~StepTriggerMessage</a> () override</td></tr>
+<tr class="memdesc:a5222e4bbbaf08daed15ad9e647f75df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a5222e4bbbaf08daed15ad9e647f75df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab32ba71302743fe668ba5a94334a47c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d80/a01076.html#a1e050a8bc3e5475d4837ee361c9daaa8">InputMessageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d66/a03462.html#ab32ba71302743fe668ba5a94334a47c8">getType</a> () const override</td></tr>
+<tr class="memdesc:ab32ba71302743fe668ba5a94334a47c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the message type.  <a href="#ab32ba71302743fe668ba5a94334a47c8">More...</a><br /></td></tr>
+<tr class="separator:ab32ba71302743fe668ba5a94334a47c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a03454"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a03454')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d5/d35/a03454.html">DYN::InputMessage</a></td></tr>
+<tr class="memitem:ab8fa4f1ae17d000b9b11af74d25f22bf inherit pub_methods_a03454"><td class="memItemLeft" align="right" valign="top"><a id="ab8fa4f1ae17d000b9b11af74d25f22bf"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d35/a03454.html#ab8fa4f1ae17d000b9b11af74d25f22bf">~InputMessage</a> ()</td></tr>
+<tr class="memdesc:ab8fa4f1ae17d000b9b11af74d25f22bf inherit pub_methods_a03454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:ab8fa4f1ae17d000b9b11af74d25f22bf inherit pub_methods_a03454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Output channel implementation using ZeroMQ. </p>
-<p>Provides an interface to push simulation output messages to external consumers via ZeroMQ sockets. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af457111b44a5bd613aecef9d777e11c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af457111b44a5bd613aecef9d777e11c4">&#9670;&nbsp;</a></span>ZmqOutputChannel()</h2>
+<div class="textblock"><p><a class="el" href="../../d9/d6c/a02710.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> used to trigger a simulation step. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab32ba71302743fe668ba5a94334a47c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab32ba71302743fe668ba5a94334a47c8">&#9670;&nbsp;</a></span>getType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,163 +144,28 @@ zmq::socket_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DYN::ZmqOutputChannel::ZmqOutputChannel </td>
+          <td class="memname"><a class="el" href="../../d6/d80/a01076.html#a1e050a8bc3e5475d4837ee361c9daaa8">InputMessageType</a> DYN::StepTriggerMessage::getType </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>endpoint</em> = <code>&quot;tcp://*:5556&quot;</code></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">endpoint</td><td>ZeroMQ endpoint to bind </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Get the message type. </p>
+<dl class="section return"><dt>Returns</dt><dd>InputMessageType::STEP </dd></dl>
 
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac973249bd3e3b6ad2678945507f87c24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac973249bd3e3b6ad2678945507f87c24">&#9670;&nbsp;</a></span>sendMessage() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::ZmqOutputChannel::sendMessage </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Send a message as a string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td><a class="el" href="../../d1/d47/a02670.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> content </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../d5/d35/a03454.html#a35f0dd9ab7964d1a0470befe8cbc539f">DYN::OutputChannel</a>.</p>
-
-</div>
-</div>
-<a id="ac17163c2fd8e37ee7c7f74d9ec31096b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac17163c2fd8e37ee7c7f74d9ec31096b">&#9670;&nbsp;</a></span>sendMessage() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::ZmqOutputChannel::sendMessage </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>topic</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Send a message as a string with a topic. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td><a class="el" href="../../d1/d47/a02670.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> content </td></tr>
-    <tr><td class="paramname">topic</td><td><a class="el" href="../../d1/d47/a02670.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> topic </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../d5/d35/a03454.html#add86cb00597f9dee29542e00a5e8ee96">DYN::OutputChannel</a>.</p>
-
-</div>
-</div>
-<a id="abbea743ad93c2f88d47fb3c723d7170f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbea743ad93c2f88d47fb3c723d7170f">&#9670;&nbsp;</a></span>sendMessage() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::ZmqOutputChannel::sendMessage </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::uint8_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>topic</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Send a message as raw bytes with a topic. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td><a class="el" href="../../d1/d47/a02670.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> content as a byte vector </td></tr>
-    <tr><td class="paramname">topic</td><td><a class="el" href="../../d1/d47/a02670.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> topic </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../d5/d35/a03454.html#af55a1853c21f314bcd021d0024056e15">DYN::OutputChannel</a>.</p>
+<p>Implements <a class="el" href="../../d5/d35/a03454.html#a5c9e6bc606c378c2b551a28cccbd9f0b">DYN::InputMessage</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../da/db7/a01088_source.html">DYNZmqOutputChannel.h</a></li>
+<li><a class="el" href="../../d6/d80/a01076_source.html">DYNRTInputCommon.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -331,8 +183,8 @@ zmq::socket_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d66/a03462.html">ZmqOutputChannel</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d66/a03462.html">StepTriggerMessage</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::IIDMExtensions Class Reference</title>
+<title>Dynawo: DYN::CurrentLimitInterfaceIIDM Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,151 +95,166 @@ $(document).ready(function(){initNavTree('da/d19/a03094.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-types">Private Types</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../da/dbe/a03091.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::IIDMExtensions Class Reference</div>  </div>
+<div class="title">DYN::CurrentLimitInterfaceIIDM Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>IIDM extensions management wrapper.  
+<p>class for Current limit interface  
  <a href="../../da/d19/a03094.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dc/d1b/a00827_source.html">DYNIIDMExtensions.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dd/d7e/a00809_source.html">DYNCurrentLimitInterfaceIIDM.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::CurrentLimitInterfaceIIDM:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../da/d19/a03094.png" usemap="#DYN::CurrentLimitInterfaceIIDM_map" alt=""/>
+  <map id="DYN::CurrentLimitInterfaceIIDM_map" name="DYN::CurrentLimitInterfaceIIDM_map">
+<area href="../../d4/dbc/a02954.html" title="Current limit interface class for current limit interface. " alt="DYN::CurrentLimitInterface" shape="rect" coords="0,0,189,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a4895dd028c5568bd63fc9c59943d3bae"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a4895dd028c5568bd63fc9c59943d3bae">ExtensionDefinitionIndex</a> { <a class="el" href="../../da/d19/a03094.html#a4895dd028c5568bd63fc9c59943d3baea20bfe2742258a5164ab6cf9fb1f61fc6">CREATE_FUNCTION</a> = 0, 
-<a class="el" href="../../da/d19/a03094.html#a4895dd028c5568bd63fc9c59943d3baea4ef78466e1e7f478919927a86641326a">DESTROY_FUNCTION</a>
- }</td></tr>
-<tr class="memdesc:a4895dd028c5568bd63fc9c59943d3bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extension enum to make access to Extension Definition fields easier.  <a href="../../da/d19/a03094.html#a4895dd028c5568bd63fc9c59943d3bae">More...</a><br /></td></tr>
-<tr class="separator:a4895dd028c5568bd63fc9c59943d3bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6774056b289e6297bd78deacdb4428a"><td class="memTemplParams" colspan="2"><a id="ac6774056b289e6297bd78deacdb4428a"></a>
-template&lt;class T &gt; </td></tr>
-<tr class="memitem:ac6774056b289e6297bd78deacdb4428a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#ac6774056b289e6297bd78deacdb4428a">CreateFunctionBase</a> = T *(typename <a class="el" href="../../d8/db1/a03098.html">IIDMExtensionTrait</a>&lt; T &gt;::NetworkComponentType &amp;)</td></tr>
-<tr class="memdesc:ac6774056b289e6297bd78deacdb4428a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias type for base extension create function. <br /></td></tr>
-<tr class="separator:ac6774056b289e6297bd78deacdb4428a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a629286dafaef8f408b154ffe03f98a55"><td class="memTemplParams" colspan="2"><a id="a629286dafaef8f408b154ffe03f98a55"></a>
-template&lt;class T &gt; </td></tr>
-<tr class="memitem:a629286dafaef8f408b154ffe03f98a55"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a629286dafaef8f408b154ffe03f98a55">CreateFunction</a> = std::function&lt; <a class="el" href="../../da/d19/a03094.html#ac6774056b289e6297bd78deacdb4428a">CreateFunctionBase</a>&lt; T &gt; &gt;</td></tr>
-<tr class="memdesc:a629286dafaef8f408b154ffe03f98a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias type for extension create function with STL wrapper. <br /></td></tr>
-<tr class="separator:a629286dafaef8f408b154ffe03f98a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace3f751cb9731e40dc4434a51c9efd04"><td class="memTemplParams" colspan="2"><a id="ace3f751cb9731e40dc4434a51c9efd04"></a>
-template&lt;class T &gt; </td></tr>
-<tr class="memitem:ace3f751cb9731e40dc4434a51c9efd04"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#ace3f751cb9731e40dc4434a51c9efd04">DestroyFunctionBase</a> = void(T *)</td></tr>
-<tr class="memdesc:ace3f751cb9731e40dc4434a51c9efd04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias type for extension destruction function. <br /></td></tr>
-<tr class="separator:ace3f751cb9731e40dc4434a51c9efd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a059d3ba2c94d27925287040ea881c017"><td class="memTemplParams" colspan="2"><a id="a059d3ba2c94d27925287040ea881c017"></a>
-template&lt;class T &gt; </td></tr>
-<tr class="memitem:a059d3ba2c94d27925287040ea881c017"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a059d3ba2c94d27925287040ea881c017">DestroyFunction</a> = std::function&lt; <a class="el" href="../../da/d19/a03094.html#ace3f751cb9731e40dc4434a51c9efd04">DestroyFunctionBase</a>&lt; T &gt; &gt;</td></tr>
-<tr class="memdesc:a059d3ba2c94d27925287040ea881c017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias type for extension destruction function with STL wrapper. <br /></td></tr>
-<tr class="separator:a059d3ba2c94d27925287040ea881c017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1081a3984bcad246ead1b1688025b924"><td class="memTemplParams" colspan="2"><a id="a1081a3984bcad246ead1b1688025b924"></a>
-template&lt;class T &gt; </td></tr>
-<tr class="memitem:a1081a3984bcad246ead1b1688025b924"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a1081a3984bcad246ead1b1688025b924">ExtensionDefinition</a> = std::tuple&lt; <a class="el" href="../../da/d19/a03094.html#a629286dafaef8f408b154ffe03f98a55">CreateFunction</a>&lt; T &gt;, <a class="el" href="../../da/d19/a03094.html#a059d3ba2c94d27925287040ea881c017">DestroyFunction</a>&lt; T &gt; &gt;</td></tr>
-<tr class="memdesc:a1081a3984bcad246ead1b1688025b924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias type for extension definition (creation/destruction) <br /></td></tr>
-<tr class="separator:a1081a3984bcad246ead1b1688025b924"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ada4a83e13047647636b50284039589bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#ada4a83e13047647636b50284039589bc">CurrentLimitInterfaceIIDM</a> (double limit, unsigned long duration, bool fictitious, const std::string &amp;name=&quot;&quot;)</td></tr>
+<tr class="memdesc:ada4a83e13047647636b50284039589bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ada4a83e13047647636b50284039589bc">More...</a><br /></td></tr>
+<tr class="separator:ada4a83e13047647636b50284039589bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a335776af8122d389c92b95816dbba168"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a335776af8122d389c92b95816dbba168">getLimit</a> () const override</td></tr>
+<tr class="memdesc:a335776af8122d389c92b95816dbba168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for current limit value.  <a href="#a335776af8122d389c92b95816dbba168">More...</a><br /></td></tr>
+<tr class="separator:a335776af8122d389c92b95816dbba168"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0698ee5ef269ca870e6ea28eb6fc3b4d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a0698ee5ef269ca870e6ea28eb6fc3b4d">getAcceptableDuration</a> () const override</td></tr>
+<tr class="memdesc:a0698ee5ef269ca870e6ea28eb6fc3b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the acceptable duration of the current limit.  <a href="#a0698ee5ef269ca870e6ea28eb6fc3b4d">More...</a><br /></td></tr>
+<tr class="separator:a0698ee5ef269ca870e6ea28eb6fc3b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5d08d7eec2ca0d371278d6977c57cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a4a5d08d7eec2ca0d371278d6977c57cc">isFictitious</a> () const override</td></tr>
+<tr class="memdesc:a4a5d08d7eec2ca0d371278d6977c57cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the fictitious status of the current limit.  <a href="#a4a5d08d7eec2ca0d371278d6977c57cc">More...</a><br /></td></tr>
+<tr class="separator:a4a5d08d7eec2ca0d371278d6977c57cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b5ee7f156208bf49ec535006e4f718"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a91b5ee7f156208bf49ec535006e4f718">getName</a> () const override</td></tr>
+<tr class="memdesc:a91b5ee7f156208bf49ec535006e4f718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the name of the current limit.  <a href="#a91b5ee7f156208bf49ec535006e4f718">More...</a><br /></td></tr>
+<tr class="separator:a91b5ee7f156208bf49ec535006e4f718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02954"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02954')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d4/dbc/a02954.html">DYN::CurrentLimitInterface</a></td></tr>
+<tr class="memitem:a2649ad67e2cdcbe0ca67333b56d26d8a inherit pub_methods_a02954"><td class="memItemLeft" align="right" valign="top"><a id="a2649ad67e2cdcbe0ca67333b56d26d8a"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbc/a02954.html#a2649ad67e2cdcbe0ca67333b56d26d8a">~CurrentLimitInterface</a> ()=default</td></tr>
+<tr class="memdesc:a2649ad67e2cdcbe0ca67333b56d26d8a inherit pub_methods_a02954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a2649ad67e2cdcbe0ca67333b56d26d8a inherit pub_methods_a02954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a43db5bd282ec4d0829d09b8299b81f37"><td class="memItemLeft" align="right" valign="top">static boost::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a43db5bd282ec4d0829d09b8299b81f37">findLibraryPath</a> ()</td></tr>
-<tr class="memdesc:a43db5bd282ec4d0829d09b8299b81f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find library path from DYNAMO environment.  <a href="#a43db5bd282ec4d0829d09b8299b81f37">More...</a><br /></td></tr>
-<tr class="separator:a43db5bd282ec4d0829d09b8299b81f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad33a8232883b41aa5fc9f389c7925e77"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:ad33a8232883b41aa5fc9f389c7925e77"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="../../da/d19/a03094.html#a1081a3984bcad246ead1b1688025b924">ExtensionDefinition</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#ad33a8232883b41aa5fc9f389c7925e77">getExtension</a> (const std::string &amp;libPath)</td></tr>
-<tr class="memdesc:ad33a8232883b41aa5fc9f389c7925e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the extension definition.  <a href="#ad33a8232883b41aa5fc9f389c7925e77">More...</a><br /></td></tr>
-<tr class="separator:ad33a8232883b41aa5fc9f389c7925e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af67b3a62c3323c8b7da907186a39f6a3"><td class="memItemLeft" align="right" valign="top">static std::unordered_map&lt; <a class="el" href="../../da/d19/a03094.html#a65c35ae5e840427d8bc6143709fc4d0e">IIDMExtensions::LibraryPath</a>, std::shared_ptr&lt; boost::dll::shared_library &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#af67b3a62c3323c8b7da907186a39f6a3">getLibraries</a> ()</td></tr>
-<tr class="memdesc:af67b3a62c3323c8b7da907186a39f6a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get list of loaded libraries.  <a href="#af67b3a62c3323c8b7da907186a39f6a3">More...</a><br /></td></tr>
-<tr class="separator:af67b3a62c3323c8b7da907186a39f6a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33eaa283a473dc0f6cf2a64290453649"><td class="memItemLeft" align="right" valign="top">static std::unordered_set&lt; <a class="el" href="../../da/d19/a03094.html#a65c35ae5e840427d8bc6143709fc4d0e">LibraryPath</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a33eaa283a473dc0f6cf2a64290453649">getLibrariesLoadingIssues</a> ()</td></tr>
-<tr class="memdesc:a33eaa283a473dc0f6cf2a64290453649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get list of libraries path for which a loading issue was detected.  <a href="#a33eaa283a473dc0f6cf2a64290453649">More...</a><br /></td></tr>
-<tr class="separator:a33eaa283a473dc0f6cf2a64290453649"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
-Private Types</h2></td></tr>
-<tr class="memitem:a65c35ae5e840427d8bc6143709fc4d0e"><td class="memItemLeft" align="right" valign="top"><a id="a65c35ae5e840427d8bc6143709fc4d0e"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a65c35ae5e840427d8bc6143709fc4d0e">LibraryPath</a> = std::string</td></tr>
-<tr class="memdesc:a65c35ae5e840427d8bc6143709fc4d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Alias for library path in map <br /></td></tr>
-<tr class="separator:a65c35ae5e840427d8bc6143709fc4d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:aa69dc65d44dbc4738659f3cd0f0d5b86"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:aa69dc65d44dbc4738659f3cd0f0d5b86"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="../../da/d19/a03094.html#a1081a3984bcad246ead1b1688025b924">ExtensionDefinition</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#aa69dc65d44dbc4738659f3cd0f0d5b86">buildDefaultExtensionDefinition</a> ()</td></tr>
-<tr class="memdesc:aa69dc65d44dbc4738659f3cd0f0d5b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a default extension definition.  <a href="#aa69dc65d44dbc4738659f3cd0f0d5b86">More...</a><br /></td></tr>
-<tr class="separator:aa69dc65d44dbc4738659f3cd0f0d5b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:adfa98be3fd4f0909c79d11b6e0b124b7"><td class="memItemLeft" align="right" valign="top"><a id="adfa98be3fd4f0909c79d11b6e0b124b7"></a>
-static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#adfa98be3fd4f0909c79d11b6e0b124b7">librariesMutex_</a></td></tr>
-<tr class="memdesc:adfa98be3fd4f0909c79d11b6e0b124b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to access libraries. <br /></td></tr>
-<tr class="separator:adfa98be3fd4f0909c79d11b6e0b124b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9f6d1b41ae6316c4fb06a9c70c5a7445"><td class="memItemLeft" align="right" valign="top"><a id="a9f6d1b41ae6316c4fb06a9c70c5a7445"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a9f6d1b41ae6316c4fb06a9c70c5a7445">limit_</a></td></tr>
+<tr class="memdesc:a9f6d1b41ae6316c4fb06a9c70c5a7445"><td class="mdescLeft">&#160;</td><td class="mdescRight">limit of the current limit <br /></td></tr>
+<tr class="separator:a9f6d1b41ae6316c4fb06a9c70c5a7445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ba69e688b8a1a642a334cc4a6c0f78"><td class="memItemLeft" align="right" valign="top"><a id="ae9ba69e688b8a1a642a334cc4a6c0f78"></a>
+unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#ae9ba69e688b8a1a642a334cc4a6c0f78">acceptableDuration_</a></td></tr>
+<tr class="memdesc:ae9ba69e688b8a1a642a334cc4a6c0f78"><td class="mdescLeft">&#160;</td><td class="mdescRight">authorized duration over the limit <br /></td></tr>
+<tr class="separator:ae9ba69e688b8a1a642a334cc4a6c0f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a324fe3865a180315d51f5ced6dbf2144"><td class="memItemLeft" align="right" valign="top"><a id="a324fe3865a180315d51f5ced6dbf2144"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a324fe3865a180315d51f5ced6dbf2144">fictitious_</a></td></tr>
+<tr class="memdesc:a324fe3865a180315d51f5ced6dbf2144"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the limit is fictitious <br /></td></tr>
+<tr class="separator:a324fe3865a180315d51f5ced6dbf2144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cdde113f76b341b7d003945480cbf86"><td class="memItemLeft" align="right" valign="top"><a id="a4cdde113f76b341b7d003945480cbf86"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d19/a03094.html#a4cdde113f76b341b7d003945480cbf86">name_</a></td></tr>
+<tr class="memdesc:a4cdde113f76b341b7d003945480cbf86"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the limit <br /></td></tr>
+<tr class="separator:a4cdde113f76b341b7d003945480cbf86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>IIDM extensions management wrapper. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a4895dd028c5568bd63fc9c59943d3bae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4895dd028c5568bd63fc9c59943d3bae">&#9670;&nbsp;</a></span>ExtensionDefinitionIndex</h2>
+<div class="textblock"><p>class for Current limit interface </p>
+<p>class <a class="el" href="../../da/d19/a03094.html" title="class for Current limit interface ">CurrentLimitInterfaceIIDM</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ada4a83e13047647636b50284039589bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada4a83e13047647636b50284039589bc">&#9670;&nbsp;</a></span>CurrentLimitInterfaceIIDM()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="../../da/d19/a03094.html#a4895dd028c5568bd63fc9c59943d3bae">DYN::IIDMExtensions::ExtensionDefinitionIndex</a></td>
+          <td class="memname">DYN::CurrentLimitInterfaceIIDM::CurrentLimitInterfaceIIDM </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>limit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fictitious</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Extension enum to make access to Extension Definition fields easier. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4895dd028c5568bd63fc9c59943d3baea20bfe2742258a5164ab6cf9fb1f61fc6"></a>CREATE_FUNCTION&#160;</td><td class="fielddoc"><p>Extension creation function. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a4895dd028c5568bd63fc9c59943d3baea4ef78466e1e7f478919927a86641326a"></a>DESTROY_FUNCTION&#160;</td><td class="fielddoc"><p>Extension destruction function. </p>
-</td></tr>
-</table>
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">limit</td><td>limit of the current limit </td></tr>
+    <tr><td class="paramname">duration</td><td>authorized duration over the limit (Nan if unset) </td></tr>
+    <tr><td class="paramname">fictitious</td><td>whether the current limit is fictitious </td></tr>
+    <tr><td class="paramname">name</td><td>name of the current limit </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa69dc65d44dbc4738659f3cd0f0d5b86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa69dc65d44dbc4738659f3cd0f0d5b86">&#9670;&nbsp;</a></span>buildDefaultExtensionDefinition()</h2>
+<a id="a0698ee5ef269ca870e6ea28eb6fc3b4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0698ee5ef269ca870e6ea28eb6fc3b4d">&#9670;&nbsp;</a></span>getAcceptableDuration()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../da/d19/a03094.html#a1081a3984bcad246ead1b1688025b924">ExtensionDefinition</a>&lt;T&gt; DYN::IIDMExtensions::buildDefaultExtensionDefinition </td>
+          <td class="memname">int DYN::CurrentLimitInterfaceIIDM::getAcceptableDuration </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Build a default extension definition. </p>
-<p>By default, the create function returns a NULL pointer By default the destroy function does nothing</p>
-<dl class="section return"><dt>Returns</dt><dd>an extension definition that does nothing </dd></dl>
+<p>Getter for the acceptable duration of the current limit. </p>
+<dl class="section return"><dt>Returns</dt><dd>The acceptable duration in s </dd></dl>
+
+<p>Implements <a class="el" href="../../d4/dbc/a02954.html#abf10c2fa3a5f97d0d75dde1412aab4b1">DYN::CurrentLimitInterface</a>.</p>
 
 </div>
 </div>
-<a id="a43db5bd282ec4d0829d09b8299b81f37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43db5bd282ec4d0829d09b8299b81f37">&#9670;&nbsp;</a></span>findLibraryPath()</h2>
+<a id="a335776af8122d389c92b95816dbba168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a335776af8122d389c92b95816dbba168">&#9670;&nbsp;</a></span>getLimit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,64 +263,28 @@ template&lt;class T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::filesystem::path DYN::IIDMExtensions::findLibraryPath </td>
+          <td class="memname">double DYN::CurrentLimitInterfaceIIDM::getLimit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Find library path from DYNAMO environment. </p>
-<dl class="section return"><dt>Returns</dt><dd>the IIDM extension library path </dd></dl>
+<p>Getter for current limit value. </p>
+<dl class="section return"><dt>Returns</dt><dd>The current limit value in kA </dd></dl>
+
+<p>Implements <a class="el" href="../../d4/dbc/a02954.html#a7031713913c28ceec6fe491d76ca96f0">DYN::CurrentLimitInterface</a>.</p>
 
 </div>
 </div>
-<a id="ad33a8232883b41aa5fc9f389c7925e77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad33a8232883b41aa5fc9f389c7925e77">&#9670;&nbsp;</a></span>getExtension()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../da/d19/a03094.html#a1081a3984bcad246ead1b1688025b924">ExtensionDefinition</a>&lt;T&gt; DYN::IIDMExtensions::getExtension </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>libPath</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieve the extension definition. </p>
-<p>This will extract the create/destroy functions with a name pattern</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">libPath</td><td>the path of the library containing the extension </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the extension definition </dd></dl>
-
-</div>
-</div>
-<a id="af67b3a62c3323c8b7da907186a39f6a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af67b3a62c3323c8b7da907186a39f6a3">&#9670;&nbsp;</a></span>getLibraries()</h2>
+<a id="a91b5ee7f156208bf49ec535006e4f718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b5ee7f156208bf49ec535006e4f718">&#9670;&nbsp;</a></span>getName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -314,26 +293,28 @@ template&lt;class T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::unordered_map&lt;<a class="el" href="../../da/d19/a03094.html#a65c35ae5e840427d8bc6143709fc4d0e">IIDMExtensions::LibraryPath</a>, std::shared_ptr&lt;boost::dll::shared_library&gt; &gt;&amp; DYN::IIDMExtensions::getLibraries </td>
+          <td class="memname">const std::string&amp; DYN::CurrentLimitInterfaceIIDM::getName </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get list of loaded libraries. </p>
-<dl class="section return"><dt>Returns</dt><dd>the list of loaded libraries </dd></dl>
+<p>Getter for the name of the current limit. </p>
+<dl class="section return"><dt>Returns</dt><dd>The name </dd></dl>
+
+<p>Implements <a class="el" href="../../d4/dbc/a02954.html#ac108725ac3a8dd54307d975da9377216">DYN::CurrentLimitInterface</a>.</p>
 
 </div>
 </div>
-<a id="a33eaa283a473dc0f6cf2a64290453649"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33eaa283a473dc0f6cf2a64290453649">&#9670;&nbsp;</a></span>getLibrariesLoadingIssues()</h2>
+<a id="a4a5d08d7eec2ca0d371278d6977c57cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5d08d7eec2ca0d371278d6977c57cc">&#9670;&nbsp;</a></span>isFictitious()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,26 +323,28 @@ template&lt;class T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::unordered_set&lt;<a class="el" href="../../da/d19/a03094.html#a65c35ae5e840427d8bc6143709fc4d0e">LibraryPath</a>&gt;&amp; DYN::IIDMExtensions::getLibrariesLoadingIssues </td>
+          <td class="memname">bool DYN::CurrentLimitInterfaceIIDM::isFictitious </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get list of libraries path for which a loading issue was detected. </p>
-<dl class="section return"><dt>Returns</dt><dd>the list of libraries path for which a loading issue was detected </dd></dl>
+<p>Getter for the fictitious status of the current limit. </p>
+<dl class="section return"><dt>Returns</dt><dd>whether the current limit is fictitious </dd></dl>
+
+<p>Implements <a class="el" href="../../d4/dbc/a02954.html#aa441de5dc2d3cff9e1408071cc03edea">DYN::CurrentLimitInterface</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dc/d1b/a00827_source.html">DYNIIDMExtensions.hpp</a></li>
+<li><a class="el" href="../../dd/d7e/a00809_source.html">DYNCurrentLimitInterfaceIIDM.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -379,8 +362,8 @@ template&lt;class T &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/d19/a03094.html">IIDMExtensions</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/d19/a03094.html">CurrentLimitInterfaceIIDM</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

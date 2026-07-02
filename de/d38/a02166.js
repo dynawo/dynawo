@@ -1,12 +1,22 @@
 var a02166 =
 [
-    [ "getSpeedup", "de/d38/a02166.html#ad4749114536ee63324d59a4f6e44711c", null ],
-    [ "getTriggerChannel", "de/d38/a02166.html#ab9ded55315b74c415b2ec8013ed58304", null ],
-    [ "getType", "de/d38/a02166.html#a23255bad2e4601b030b4cbf254a7d4c3", null ],
-    [ "setSpeedup", "de/d38/a02166.html#a47b639bd5674a51f0385c07ac272b6d9", null ],
-    [ "setTriggerChannel", "de/d38/a02166.html#a60c785d19654379803941f754d1aa92b", null ],
-    [ "setType", "de/d38/a02166.html#a3e5fc29a2ebaa749fd94cde251829d44", null ],
-    [ "speedup_", "de/d38/a02166.html#ac831b12a07cf399760aa69c9c8c5ac23", null ],
-    [ "triggerChannel_", "de/d38/a02166.html#a442b9089ff8c3789b03365d31a95e4bf", null ],
-    [ "type_", "de/d38/a02166.html#aa7157a63c179956487e688e5752bbda9", null ]
+    [ "AppenderEntry", "de/d38/a02166.html#a7f7a407b6b264a6baaf49bd37260b369", null ],
+    [ "getFilePath", "de/d38/a02166.html#a7d7aa2f6a9c42b08e40c6d0099e549ea", null ],
+    [ "getLvlFilter", "de/d38/a02166.html#acea982066bb0099efe54cf0a0112e966", null ],
+    [ "getSeparator", "de/d38/a02166.html#a2f8d7c806c35b2d99a74363dfc037766", null ],
+    [ "getShowLevelTag", "de/d38/a02166.html#a04feb7983ebf9514be5d616261ddbf53", null ],
+    [ "getTag", "de/d38/a02166.html#a4af24c6c81cbdc86f2780b89daea6572", null ],
+    [ "getTimeStampFormat", "de/d38/a02166.html#accc19ef61d9bff190c8fc46d033cee6b", null ],
+    [ "setFilePath", "de/d38/a02166.html#ad0c894a5177a2546cf84cd6a95b693b4", null ],
+    [ "setLvlFilter", "de/d38/a02166.html#ac08d588942dc4d5d55c159c62218483f", null ],
+    [ "setSeparator", "de/d38/a02166.html#a40caa2cf14a1a5ad56156bac90a28687", null ],
+    [ "setShowLevelTag", "de/d38/a02166.html#a21a4ec163db81158438f13ab26b7e625", null ],
+    [ "setTag", "de/d38/a02166.html#adfb465a9d8bea1b2ebd73ed6e9dcc4a9", null ],
+    [ "setTimeStampFormat", "de/d38/a02166.html#acbcc373318c3da87b2ee890057a0ba28", null ],
+    [ "filePath_", "de/d38/a02166.html#ae4d8252f930031878b3936359503f16e", null ],
+    [ "lvlFilter_", "de/d38/a02166.html#aa51097dde83fbed507c33010a6d8803b", null ],
+    [ "separator_", "de/d38/a02166.html#ac7fc22d8e5ad30b752e2212498dd5b2a", null ],
+    [ "showLevelTag_", "de/d38/a02166.html#a7e11ffda72bf72c94f6c053210546ce1", null ],
+    [ "tag_", "de/d38/a02166.html#a3c2ed2d50e21e556aad0ba9eed2248af", null ],
+    [ "timeStampFormat_", "de/d38/a02166.html#a423fee1053531e980dbb0eb6bf1e12cb", null ]
 ];

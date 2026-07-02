@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: parameters::MacroParSet Class Reference</title>
+<title>Dynawo: lostEquipments::XmlExporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,39 +96,46 @@ $(document).ready(function(){initNavTree('dc/d2b/a02486.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d3/de3/a02483.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">parameters::MacroParSet Class Reference</div>  </div>
+<div class="title">lostEquipments::XmlExporter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../dc/d2b/a02486.html" title="MacroParSet interface class. ">MacroParSet</a> interface class.  
+<p>XML exporter interface class.  
  <a href="../../dc/d2b/a02486.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d3/d29/a00419_source.html">PARMacroParSet.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d1/d98/a00407_source.html">LEQXmlExporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for lostEquipments::XmlExporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../dc/d2b/a02486.png" usemap="#lostEquipments::XmlExporter_map" alt=""/>
+  <map id="lostEquipments::XmlExporter_map" name="lostEquipments::XmlExporter_map">
+<area href="../../de/d91/a02458.html" title="Exporter interface class. " alt="lostEquipments::Exporter" shape="rect" coords="0,0,169,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0012d9de4b80bbb9dc801b17aa58842e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2b/a02486.html#a0012d9de4b80bbb9dc801b17aa58842e">MacroParSet</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:a0012d9de4b80bbb9dc801b17aa58842e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dc/d2b/a02486.html" title="MacroParSet interface class. ">MacroParSet</a> constructor.  <a href="#a0012d9de4b80bbb9dc801b17aa58842e">More...</a><br /></td></tr>
-<tr class="separator:a0012d9de4b80bbb9dc801b17aa58842e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a505ed34f0efd73ea7f191acd42408a9c"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2b/a02486.html#a505ed34f0efd73ea7f191acd42408a9c">getId</a> () const</td></tr>
-<tr class="memdesc:a505ed34f0efd73ea7f191acd42408a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">macroParSet id getter  <a href="#a505ed34f0efd73ea7f191acd42408a9c">More...</a><br /></td></tr>
-<tr class="separator:a505ed34f0efd73ea7f191acd42408a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:add67802e6a634d9744f21cd785b3d938"><td class="memItemLeft" align="right" valign="top"><a id="add67802e6a634d9744f21cd785b3d938"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2b/a02486.html#add67802e6a634d9744f21cd785b3d938">id_</a></td></tr>
-<tr class="memdesc:add67802e6a634d9744f21cd785b3d938"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the macroParSet <br /></td></tr>
-<tr class="separator:add67802e6a634d9744f21cd785b3d938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaed5253b526fe1f82f9bb7351d127b6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2b/a02486.html#aaed5253b526fe1f82f9bb7351d127b6e">exportToFile</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;lostEquipments, const std::string &amp;filePath) const override</td></tr>
+<tr class="memdesc:aaed5253b526fe1f82f9bb7351d127b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#aaed5253b526fe1f82f9bb7351d127b6e">More...</a><br /></td></tr>
+<tr class="separator:aaed5253b526fe1f82f9bb7351d127b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ee9ba664ef27b69f7c184817c55f296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2b/a02486.html#a9ee9ba664ef27b69f7c184817c55f296">exportToStream</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;lostEquipments, std::ostream &amp;stream) const override</td></tr>
+<tr class="memdesc:a9ee9ba664ef27b69f7c184817c55f296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#a9ee9ba664ef27b69f7c184817c55f296">More...</a><br /></td></tr>
+<tr class="separator:a9ee9ba664ef27b69f7c184817c55f296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a02458"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02458')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../de/d91/a02458.html">lostEquipments::Exporter</a></td></tr>
+<tr class="memitem:aaa126e851bc16817b29817a922aa5301 inherit pub_methods_a02458"><td class="memItemLeft" align="right" valign="top"><a id="aaa126e851bc16817b29817a922aa5301"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#aaa126e851bc16817b29817a922aa5301">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:aaa126e851bc16817b29817a922aa5301 inherit pub_methods_a02458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aaa126e851bc16817b29817a922aa5301 inherit pub_methods_a02458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../dc/d2b/a02486.html" title="MacroParSet interface class. ">MacroParSet</a> interface class. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0012d9de4b80bbb9dc801b17aa58842e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0012d9de4b80bbb9dc801b17aa58842e">&#9670;&nbsp;</a></span>MacroParSet()</h2>
+<div class="textblock"><p>XML exporter interface class. </p>
+<p>XML export class for lost equipments </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaed5253b526fe1f82f9bb7351d127b6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaed5253b526fe1f82f9bb7351d127b6e">&#9670;&nbsp;</a></span>exportToFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,53 +144,92 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">parameters::MacroParSet::MacroParSet </td>
+          <td class="memname">void lostEquipments::XmlExporter::exportToFile </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>lostEquipments</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../dc/d2b/a02486.html" title="MacroParSet interface class. ">MacroParSet</a> constructor. </p>
+<p>Export method in XML format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>id of the macroParSet </td></tr>
+    <tr><td class="paramname">lostEquipments</td><td>Lost equipments to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export XML formatted lost equipments to </td></tr>
   </table>
   </dd>
 </dl>
 
+<p>Implements <a class="el" href="../../de/d91/a02458.html#a6147ffc41592ac55e7a4e59e042ba736">lostEquipments::Exporter</a>.</p>
+
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a505ed34f0efd73ea7f191acd42408a9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a505ed34f0efd73ea7f191acd42408a9c">&#9670;&nbsp;</a></span>getId()</h2>
+<a id="a9ee9ba664ef27b69f7c184817c55f296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ee9ba664ef27b69f7c184817c55f296">&#9670;&nbsp;</a></span>exportToStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string&amp; parameters::MacroParSet::getId </td>
+          <td class="memname">void lostEquipments::XmlExporter::exportToStream </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>lostEquipments</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>macroParSet id getter </p>
-<dl class="section return"><dt>Returns</dt><dd>the id of the macroParSet </dd></dl>
+<p>Export method in XML format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lostEquipments</td><td>Lost equipments to export </td></tr>
+    <tr><td class="paramname">stream</td><td>Stream to export XML formatted lost equipments to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../de/d91/a02458.html#ade79b70f7d0dc230886ba13c4915f171">lostEquipments::Exporter</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d3/d29/a00419_source.html">PARMacroParSet.h</a></li>
+<li><a class="el" href="../../d1/d98/a00407_source.html">LEQXmlExporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -201,8 +247,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../dc/d2b/a02486.html">MacroParSet</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>lostEquipments</b></li><li class="navelem"><a class="el" href="../../dc/d2b/a02486.html">XmlExporter</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

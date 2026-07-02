@@ -1,4 +1,6 @@
 var a01922 =
 [
-    [ "newMacroConnection", "dd/d19/a01922.html#aba904f4fac30160723290b4f5ee20bd5", null ]
+    [ "~Importer", "dd/d19/a01922.html#a7fb7ed178989c1359a2cd67383713b2e", null ],
+    [ "importFromDydFiles", "dd/d19/a01922.html#a4af3873a831ba133905593f7d4ffe982", null ],
+    [ "importFromStream", "dd/d19/a01922.html#a42cc5e7750340a7dcf935472aeffda8e", null ]
 ];

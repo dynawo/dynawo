@@ -1,15 +1,10 @@
 var a02642 =
 [
-    [ "Graph", "d5/d96/a02642.html#a95009bed2557fc33d84c0b9303b40a04", null ],
-    [ "addEdge", "d5/d96/a02642.html#a3e0cf592681bfe49b6eaafafa65247fc", null ],
-    [ "addVertex", "d5/d96/a02642.html#ab669ac1ae4171048b74a181cbf9c8cee", null ],
-    [ "calculateComponents", "d5/d96/a02642.html#aff518b1f1093e339a60eeb68f3ea1907", null ],
-    [ "dijkstra", "d5/d96/a02642.html#ace7bafcb710fbae232e0859da70de2c6", null ],
-    [ "hasVertex", "d5/d96/a02642.html#a8360419378eab9adefac3a3545d07ab3", null ],
-    [ "pathExist", "d5/d96/a02642.html#a6dabbb1be84f9cd45e2f2d61ebdbdbfd", null ],
-    [ "setEdgesWeight", "d5/d96/a02642.html#a5858a6eabf7b0fcdee750296403ddb4d", null ],
-    [ "shortestPath", "d5/d96/a02642.html#acd97b4a0ced6c3727e47f1a8f7b530ef", null ],
-    [ "edges_", "d5/d96/a02642.html#a5fc80e477c4299de63bb6fc9a1d8e065", null ],
-    [ "internalGraph_", "d5/d96/a02642.html#a844c45da1c48544cb913a59fa021a71b", null ],
-    [ "vertices_", "d5/d96/a02642.html#aa7a7435519119601c949911c1f1ec548", null ]
+    [ "BitMask", "d5/d96/a02642.html#a7db8e98af3f6a1e62c1bb93c99788b77", null ],
+    [ "getFlags", "d5/d96/a02642.html#a5ba3936c9108bb8297dd8cbcf222305d", null ],
+    [ "noFlagSet", "d5/d96/a02642.html#a5e2d03aad1468cb8d86cbb9a6bfcc6c2", null ],
+    [ "reset", "d5/d96/a02642.html#a7691266a1e1ddc4f2080ca2b3b8e6ab9", null ],
+    [ "setFlags", "d5/d96/a02642.html#aa01e965a35ef476cd119ee4983a60f60", null ],
+    [ "unsetFlags", "d5/d96/a02642.html#a1d39a147621f39e54fa89f3bed49ba25", null ],
+    [ "bitmask_", "d5/d96/a02642.html#ad0d5ae8818a95060b9dd77678bbc0d15", null ]
 ];

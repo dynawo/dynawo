@@ -1,10 +1,13 @@
 var a02886 =
 [
-    [ "BusFailingCriteria", "d6/d92/a02890.html", "d6/d92/a02890" ],
-    [ "BusCriteria", "d6/d78/a02886.html#a3449c582ce719b065d65e4b68c44e96a", null ],
-    [ "addBus", "d6/d78/a02886.html#aeab62236d04f2caee7f5e2797875700d", null ],
-    [ "checkCriteria", "d6/d78/a02886.html#a615b16e466d4adc5bd055045e58177c0", null ],
-    [ "criteriaEligibleForBus", "d6/d78/a02886.html#a8a50e3c3758535d588b1716cc562260a", null ],
-    [ "empty", "d6/d78/a02886.html#aa709f28a847f4680db9e9356b6a723e2", null ],
-    [ "buses_", "d6/d78/a02886.html#a21d395d52f2dac532e82af9adb4bfaa6", null ]
+    [ "VariableMultiple", "d6/d78/a02886.html#a3adba6c4999fa32e0bc3a3c06a43a4db", null ],
+    [ "~VariableMultiple", "d6/d78/a02886.html#a26a4a90ca5db829df1e1ac82b204a973", null ],
+    [ "VariableMultiple", "d6/d78/a02886.html#ad5bf1a4bf59d8773cea303faaa2062f5", null ],
+    [ "cardinalitySet", "d6/d78/a02886.html#ae7f52b9c9bade2d9fcc201264950d8ba", null ],
+    [ "getCardinality", "d6/d78/a02886.html#a2950892a7a5d341fb598a513107caf41", null ],
+    [ "getCardinalityName", "d6/d78/a02886.html#a680cd87f229d6c79f4e9f383364e6302", null ],
+    [ "getIndex", "d6/d78/a02886.html#a3c0f1251702eacbf1990f1d98acc6b46", null ],
+    [ "setCardinality", "d6/d78/a02886.html#ae34ae17d7b1b48b01399f7fcbf7521a7", null ],
+    [ "cardinality_", "d6/d78/a02886.html#aff4e5b9d0869243363a5068150599c9a", null ],
+    [ "cardinalityName_", "d6/d78/a02886.html#a1274f102ea0468c085b5cf1517a67146", null ]
 ];

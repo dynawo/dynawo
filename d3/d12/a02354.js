@@ -1,8 +1,8 @@
 var a02354 =
 [
-    [ "TimelineHandler", "d3/d12/a02354.html#acd3b7dc54c004e81c28862a7fd7959e4", null ],
-    [ "~TimelineHandler", "d3/d12/a02354.html#a8b057a89360efb25fbbb942feccf827a", null ],
-    [ "create", "d3/d12/a02354.html#a74991b585b461fe95d0eca2f07e1be15", null ],
-    [ "get", "d3/d12/a02354.html#a2d639a7b57d2f49c131aa6ae3077ddda", null ],
-    [ "timeline_", "d3/d12/a02354.html#adbf27d53b381a82f35a71362003602de", null ]
+    [ "NetworkHandler", "d3/d12/a02354.html#a7e266c7e0a1482dba11333cff037cf5c", null ],
+    [ "~NetworkHandler", "d3/d12/a02354.html#a1687862a7d70541a50b32eb6262b9608", null ],
+    [ "create", "d3/d12/a02354.html#a8ca88c4fe02b069daa382dfccebe03cc", null ],
+    [ "get", "d3/d12/a02354.html#a6765092980ddb57fe62d9b2827069673", null ],
+    [ "network_", "d3/d12/a02354.html#aa7b8853df5eeb09162a8cb9dc7cf70fe", null ]
 ];

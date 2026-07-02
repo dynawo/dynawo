@@ -1,10 +1,7 @@
 var a03514 =
 [
-    [ "SolverPtr", "dd/db6/a03514.html#ae81d3f1e1eb1129f7fd351339b93b857", null ],
-    [ "SolverFactory", "dd/db6/a03514.html#a1a9995b963846832f7c1fd906c7f8d08", null ],
-    [ "~SolverFactory", "dd/db6/a03514.html#acab1ac8b0d0f36a325c891a939f2d0e5", null ],
-    [ "create", "dd/db6/a03514.html#ac65d140b18f58dda550003c47e97fc2e", null ],
-    [ "createSolverFromLib", "dd/db6/a03514.html#a5eb79ca757549edba15c0879bba305e2", null ],
-    [ "destroy", "dd/db6/a03514.html#a8dccb03730530e6b2bf7e0eec8d42492", null ],
-    [ "lib_", "dd/db6/a03514.html#abbfdaf69d4a3f097dc187edac6c723c1", null ]
+    [ "ExportStateDefinition", "dd/db6/a03514.html#a44a64f15448f0821926edc89b74ca51d", null ],
+    [ "dumpFile_", "dd/db6/a03514.html#ab1fd468c7c3941805f72c339b08cc8e5", null ],
+    [ "iidmFile_", "dd/db6/a03514.html#a78c16337e1b3cf1a97090f50bb3a75b6", null ],
+    [ "timestamp_", "dd/db6/a03514.html#a75e09f44fd2944d081b625018e4c6e01", null ]
 ];

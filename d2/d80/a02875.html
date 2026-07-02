@@ -95,20 +95,34 @@ $(document).ready(function(){initNavTree('da/d61/a02878.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::Criteria Member List</div>  </div>
+<div class="title">DYN::VariableAlias Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> enum name</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a23993a47f79a29d933bebdda2502686e">checkCriteria</a>(double t, bool finalStep, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline=nullptr)=0</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#a04a9d18b48178d64a909cd0dc0e555e5">Criteria</a>(const std::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a>() const</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#aa2e02bd65f615a2ff17d905802f21d8d">params_</a></td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#a246cd0ab90b0768892d910cf9c4b2355">printAllFailingCriteriaIntoLog</a>(std::multimap&lt; double, std::unique_ptr&lt; FailingCriteria &gt; &gt; &amp;distanceToFailingCriteriaMap, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline, double currentTime)</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a>()</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#ae77bbb4d4c774e9d560c153e33189268">checkTypeCompatibility</a>() const</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#aa2aa277a449a510175d9c01ee6d85946">getIndex</a>() const override</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#afb8fed133f36cb3846c3bb6abedbfb61">getLocalType</a>() const</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d2/d80/a02874.html#ac405b90d345ec23e7b2b81d6e3fd9e50">getName</a>() const</td><td class="entry"><a class="el" href="../../d2/d80/a02874.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#aaed655b20a82e758b464d7913a849253">getNegated</a>() const override</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a975726da141fc14467124ed5f47a8d38">getReferenceVariable</a>() const</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#a265e6b032074ba249acfb5e49114bae8">getReferenceVariableName</a>() const</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a8001a9c66396f4f29876ba0960d3c6ff">getType</a>() const override</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d80/a02874.html#a9b1c390db423cc65dfa295002ae9e610">isAlias</a>() const</td><td class="entry"><a class="el" href="../../d2/d80/a02874.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a0a271abe6b5bfd6b4c541b9502db9b8c">isState</a>() const override</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#abc8f6c821bde15f39ced8b8a742fd339">negated_</a></td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a9c50cf0e680fbf227f9ab8159945f116">referenceName_</a></td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#af2bd0089996bf18622e6564e55cc05b3">referenceVariable_</a></td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#ac9d6ec2ecbbb5c8defd4f6b5623a05f0">referenceVariableSet</a>() const</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#a03595de7bfadd1e7fe28301ae001b2a7">setReferenceVariable</a>(const boost::shared_ptr&lt; VariableNative &gt; &amp;refVar)</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a54618aaaed6da0f61308b56728742c31">type_</a></td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d80/a02874.html#afedfc480818763cdd9343d784fcfbd68">Variable</a>(const std::string &amp;name, bool isAlias)</td><td class="entry"><a class="el" href="../../d2/d80/a02874.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#ae2f29e11bac477319e4009a493a0cf2f">VariableAlias</a>(const std::string &amp;name, const std::string &amp;refName, typeVar_t type, bool negated)</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d61/a02878.html#a3ca546ee7ccd3d8c7420724176f6b8d8">VariableAlias</a>(const std::string &amp;name, const boost::shared_ptr&lt; VariableNative &gt; &amp;refVar, typeVar_t type, bool negated)</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a70709f4cd3485524b34b458a6280ad04">VariableAlias</a>()</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d2/d80/a02874.html#a764e54ddbd24a65d0ce70e69cd6c5d10">~Variable</a>()</td><td class="entry"><a class="el" href="../../d2/d80/a02874.html">DYN::Variable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d61/a02878.html#a28f82c4659e617f2a09d22c3444093b0">~VariableAlias</a>() override</td><td class="entry"><a class="el" href="../../da/d61/a02878.html">DYN::VariableAlias</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -125,7 +139,7 @@ $(document).ready(function(){initNavTree('da/d61/a02878.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

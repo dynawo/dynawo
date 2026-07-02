@@ -1,12 +1,8 @@
 var a02050 =
 [
-    [ "BlackBoxModelHandler", "d0/d3d/a02050.html#af7a1362e0ceceebe8f6cf03b9775b6c3", null ],
-    [ "~BlackBoxModelHandler", "d0/d3d/a02050.html#aa95b74b41a16140a1bc1fca16418082b", null ],
-    [ "addMacroStaticRef", "d0/d3d/a02050.html#ab19502158ad51f943ef52c1120203aca", null ],
-    [ "addStaticRef", "d0/d3d/a02050.html#a63c802aa546750b3504e679c38323b13", null ],
-    [ "create", "d0/d3d/a02050.html#a28ba274ae70d00b5860994d5849767a0", null ],
-    [ "get", "d0/d3d/a02050.html#ad6916da2c922ec885918b57107df9dab", null ],
-    [ "blackBoxModel_", "d0/d3d/a02050.html#a0e9bcd896a4b27f18f20b2e3ad0a9e4b", null ],
-    [ "macroStaticRefHandler_", "d0/d3d/a02050.html#af8172a2a17a13115f849f16bd82d0617", null ],
-    [ "staticRefHandler_", "d0/d3d/a02050.html#a0414b60c076478824719c874306f4751", null ]
+    [ "MacroConnectionHandler", "d0/d3d/a02050.html#a0a6c5edf31ff5a3870079791f9949f6b", null ],
+    [ "~MacroConnectionHandler", "d0/d3d/a02050.html#a0dd3788c7acde45445a42910d1fb15ec", null ],
+    [ "create", "d0/d3d/a02050.html#a9b94926f77a54742bf30c626030420fd", null ],
+    [ "get", "d0/d3d/a02050.html#a4f673606b453c9db877c68aced4a2afd", null ],
+    [ "macroConnection_", "d0/d3d/a02050.html#a969a7eb7801090cfebbdd53c1386169b", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: externalVariables::VariableFactory Class Reference</title>
+<title>Dynawo: dynamicdata::XmlImporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,30 +95,47 @@ $(document).ready(function(){initNavTree('d6/d5b/a02078.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../d9/d95/a02075.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">externalVariables::VariableFactory Class Reference</div>  </div>
+<div class="title">dynamicdata::XmlImporter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d6/d5b/a02078.html" title="VariableFactory factory class. ">VariableFactory</a> factory class.  
+<p>XML importer interface class.  
  <a href="../../d6/d5b/a02078.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dd/dc1/a00212_source.html">EXTVARVariableFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d3/db1/a00200_source.html">DYDXmlImporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for dynamicdata::XmlImporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d6/d5b/a02078.png" usemap="#dynamicdata::XmlImporter_map" alt=""/>
+  <map id="dynamicdata::XmlImporter_map" name="dynamicdata::XmlImporter_map">
+<area href="../../dd/d19/a01922.html" title="Importer interface class. " alt="dynamicdata::Importer" shape="rect" coords="0,0,156,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a61efb44f39f3703d45199b509fc749ef"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d1/d7d/a02074.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5b/a02078.html#a61efb44f39f3703d45199b509fc749ef">newVariable</a> (const std::string &amp;id, <a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Variable::Type</a> type)</td></tr>
-<tr class="memdesc:a61efb44f39f3703d45199b509fc749ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> instance.  <a href="#a61efb44f39f3703d45199b509fc749ef">More...</a><br /></td></tr>
-<tr class="separator:a61efb44f39f3703d45199b509fc749ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a563da63d085dba51ae473198183d3964"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d2/dd7/a01902.html">DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5b/a02078.html#a563da63d085dba51ae473198183d3964">importFromDydFiles</a> (const std::vector&lt; std::string &gt; &amp;fileNames) const override</td></tr>
+<tr class="memdesc:a563da63d085dba51ae473198183d3964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from files.  <a href="#a563da63d085dba51ae473198183d3964">More...</a><br /></td></tr>
+<tr class="separator:a563da63d085dba51ae473198183d3964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba87c5fa7193b89d9cf1af4c17aa2680"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5b/a02078.html#aba87c5fa7193b89d9cf1af4c17aa2680">importFromStream</a> (std::istream &amp;stream, <a class="el" href="../../d1/d7d/a02074.html">XmlHandler</a> &amp;dydHandler, xml::sax::parser::ParserPtr &amp;parser, bool xsdValidation) const override</td></tr>
+<tr class="memdesc:aba87c5fa7193b89d9cf1af4c17aa2680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from stream.  <a href="#aba87c5fa7193b89d9cf1af4c17aa2680">More...</a><br /></td></tr>
+<tr class="separator:aba87c5fa7193b89d9cf1af4c17aa2680"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_a01922"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01922')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dd/d19/a01922.html">dynamicdata::Importer</a></td></tr>
+<tr class="memitem:a7fb7ed178989c1359a2cd67383713b2e inherit pub_methods_a01922"><td class="memItemLeft" align="right" valign="top"><a id="a7fb7ed178989c1359a2cd67383713b2e"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d19/a01922.html#a7fb7ed178989c1359a2cd67383713b2e">~Importer</a> ()=default</td></tr>
+<tr class="memdesc:a7fb7ed178989c1359a2cd67383713b2e inherit pub_methods_a01922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a7fb7ed178989c1359a2cd67383713b2e inherit pub_methods_a01922"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d6/d5b/a02078.html" title="VariableFactory factory class. ">VariableFactory</a> factory class. </p>
-<p><a class="el" href="../../d6/d5b/a02078.html" title="VariableFactory factory class. ">VariableFactory</a> encapsulates methods for creating new <code><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a></code> objects. </p>
+<div class="textblock"><p>XML importer interface class. </p>
+<p>XML import class for dynamic models collections. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a61efb44f39f3703d45199b509fc749ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61efb44f39f3703d45199b509fc749ef">&#9670;&nbsp;</a></span>newVariable()</h2>
+<a id="a563da63d085dba51ae473198183d3964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a563da63d085dba51ae473198183d3964">&#9670;&nbsp;</a></span>importFromDydFiles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -127,44 +144,96 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d1/d7d/a02074.html">Variable</a>&gt; externalVariables::VariableFactory::newVariable </td>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../d2/dd7/a01902.html">DynamicModelsCollection</a>&gt; dynamicdata::XmlImporter::importFromDydFiles </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d1/d7d/a02074.html#a47e7759d5921e5157692324e1947e3be">Variable::Type</a>&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fileNames</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create new <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> instance. </p>
+<p>Import dynamic models collection from files. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>ID for new <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> instance </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the variable type </td></tr>
+    <tr><td class="paramname">fileNames</td><td>list of files to read </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a></code> with given ID and type </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection imported </dd></dl>
+
+<p>Implements <a class="el" href="../../dd/d19/a01922.html#a4af3873a831ba133905593f7d4ffe982">dynamicdata::Importer</a>.</p>
+
+</div>
+</div>
+<a id="aba87c5fa7193b89d9cf1af4c17aa2680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba87c5fa7193b89d9cf1af4c17aa2680">&#9670;&nbsp;</a></span>importFromStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dynamicdata::XmlImporter::importFromStream </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d1/d7d/a02074.html">XmlHandler</a> &amp;&#160;</td>
+          <td class="paramname"><em>dydHandler</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">xml::sax::parser::ParserPtr &amp;&#160;</td>
+          <td class="paramname"><em>parser</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>xsdValidation</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Import dynamic models collection from stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>stream to import </td></tr>
+    <tr><td class="paramname">dydHandler</td><td>dynamic models file handler </td></tr>
+    <tr><td class="paramname">parser</td><td>Smart pointer to SAX parser interface class </td></tr>
+    <tr><td class="paramname">xsdValidation</td><td>To use or not XSD validation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../dd/d19/a01922.html#a42cc5e7750340a7dcf935472aeffda8e">dynamicdata::Importer</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dd/dc1/a00212_source.html">EXTVARVariableFactory.h</a></li>
+<li><a class="el" href="../../d3/db1/a00200_source.html">DYDXmlImporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -182,8 +251,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../d6/d5b/a02078.html">VariableFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d6/d5b/a02078.html">XmlImporter</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

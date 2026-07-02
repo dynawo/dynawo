@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: curves::Point Class Reference</title>
+<title>Dynawo: curves::CurvesCollectionFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,184 +95,141 @@ $(document).ready(function(){initNavTree('df/d3a/a01810.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../df/d5b/a01807.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">curves::Point Class Reference</div>  </div>
+<div class="title">curves::CurvesCollectionFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../df/d3a/a01810.html" title="Point interface class. ">Point</a> interface class.  
+<p>Curves collection factory class.  
  <a href="../../df/d3a/a01810.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d9/d2e/a00056_source.html">CRVPoint.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d5/df9/a00044_source.html">CRVCurvesCollectionFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8eae1c5b8d73838346e196ac3eb886f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a8eae1c5b8d73838346e196ac3eb886f3">Point</a> (const double &amp;time, const double &amp;value)</td></tr>
-<tr class="memdesc:a8eae1c5b8d73838346e196ac3eb886f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a8eae1c5b8d73838346e196ac3eb886f3">More...</a><br /></td></tr>
-<tr class="separator:a8eae1c5b8d73838346e196ac3eb886f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7442bde5f55d90ec77be9bcf0468abe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a7442bde5f55d90ec77be9bcf0468abe0">setTime</a> (const double &amp;time)</td></tr>
-<tr class="memdesc:a7442bde5f55d90ec77be9bcf0468abe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for point's time.  <a href="#a7442bde5f55d90ec77be9bcf0468abe0">More...</a><br /></td></tr>
-<tr class="separator:a7442bde5f55d90ec77be9bcf0468abe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa72630bdbc7fd290134feeb3fbc918c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#aa72630bdbc7fd290134feeb3fbc918c4">setValue</a> (const double &amp;value)</td></tr>
-<tr class="memdesc:aa72630bdbc7fd290134feeb3fbc918c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for point's value.  <a href="#aa72630bdbc7fd290134feeb3fbc918c4">More...</a><br /></td></tr>
-<tr class="separator:aa72630bdbc7fd290134feeb3fbc918c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84298e28010a02c9cadef1f0cfe92309"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a84298e28010a02c9cadef1f0cfe92309">getTime</a> () const</td></tr>
-<tr class="memdesc:a84298e28010a02c9cadef1f0cfe92309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for point's time.  <a href="#a84298e28010a02c9cadef1f0cfe92309">More...</a><br /></td></tr>
-<tr class="separator:a84298e28010a02c9cadef1f0cfe92309"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a396c1b978118ea28a4b8fd2c790a9839"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a396c1b978118ea28a4b8fd2c790a9839">getValue</a> () const</td></tr>
-<tr class="memdesc:a396c1b978118ea28a4b8fd2c790a9839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for point's value.  <a href="#a396c1b978118ea28a4b8fd2c790a9839">More...</a><br /></td></tr>
-<tr class="separator:a396c1b978118ea28a4b8fd2c790a9839"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a8f6b9717dd4dbd8571a54745cdfaa291"><td class="memItemLeft" align="right" valign="top"><a id="a8f6b9717dd4dbd8571a54745cdfaa291"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a8f6b9717dd4dbd8571a54745cdfaa291">time_</a></td></tr>
-<tr class="memdesc:a8f6b9717dd4dbd8571a54745cdfaa291"><td class="mdescLeft">&#160;</td><td class="mdescRight">time associated to the point <br /></td></tr>
-<tr class="separator:a8f6b9717dd4dbd8571a54745cdfaa291"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a1f3ab1b937dde910da34608c0005c0"><td class="memItemLeft" align="right" valign="top"><a id="a0a1f3ab1b937dde910da34608c0005c0"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a0a1f3ab1b937dde910da34608c0005c0">value_</a></td></tr>
-<tr class="memdesc:a0a1f3ab1b937dde910da34608c0005c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">value associated to the point <br /></td></tr>
-<tr class="separator:a0a1f3ab1b937dde910da34608c0005c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a16844cf11296ad4125de9f0cdcef89b4"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a16844cf11296ad4125de9f0cdcef89b4">newInstance</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:a16844cf11296ad4125de9f0cdcef89b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> instance.  <a href="#a16844cf11296ad4125de9f0cdcef89b4">More...</a><br /></td></tr>
+<tr class="separator:a16844cf11296ad4125de9f0cdcef89b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cdfc07c79055e3ceb8ecfc3bca474f9"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#a2cdfc07c79055e3ceb8ecfc3bca474f9">copyInstance</a> (const std::shared_ptr&lt; <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &gt; &amp;original)</td></tr>
+<tr class="memdesc:a2cdfc07c79055e3ceb8ecfc3bca474f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> instance as a clone of given instance.  <a href="#a2cdfc07c79055e3ceb8ecfc3bca474f9">More...</a><br /></td></tr>
+<tr class="separator:a2cdfc07c79055e3ceb8ecfc3bca474f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4eb301a41b92da49ed123e7464fd0d6"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a01810.html#ac4eb301a41b92da49ed123e7464fd0d6">copyInstance</a> (const <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &amp;original)</td></tr>
+<tr class="memdesc:ac4eb301a41b92da49ed123e7464fd0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> instance as a clone of given instance.  <a href="#ac4eb301a41b92da49ed123e7464fd0d6">More...</a><br /></td></tr>
+<tr class="separator:ac4eb301a41b92da49ed123e7464fd0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../df/d3a/a01810.html" title="Point interface class. ">Point</a> interface class. </p>
-<p>Interface class for point. <a class="el" href="../../df/d3a/a01810.html" title="Point interface class. ">Point</a> is a container describing a point of a curve during simulation: for describing a point, there is two fields: time of the point, and value of the point. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8eae1c5b8d73838346e196ac3eb886f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8eae1c5b8d73838346e196ac3eb886f3">&#9670;&nbsp;</a></span>Point()</h2>
+<div class="textblock"><p>Curves collection factory class. </p>
+<p><a class="el" href="../../df/d3a/a01810.html" title="Curves collection factory class. ">CurvesCollectionFactory</a> encapsulate methods for creating new <code><a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a></code> objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2cdfc07c79055e3ceb8ecfc3bca474f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cdfc07c79055e3ceb8ecfc3bca474f9">&#9670;&nbsp;</a></span>copyInstance() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">curves::Point::Point </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../db/db2/a01806.html">CurvesCollection</a>&gt; curves::CurvesCollectionFactory::copyInstance </td>
           <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>original</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
+<p>Create new <a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> instance as a clone of given instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time</td><td>time associated to the point </td></tr>
-    <tr><td class="paramname">value</td><td>value associated to the point </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">original</td><td><a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> to be cloned</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a></code> copied from original </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a84298e28010a02c9cadef1f0cfe92309"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84298e28010a02c9cadef1f0cfe92309">&#9670;&nbsp;</a></span>getTime()</h2>
+<a id="ac4eb301a41b92da49ed123e7464fd0d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4eb301a41b92da49ed123e7464fd0d6">&#9670;&nbsp;</a></span>copyInstance() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double curves::Point::getTime </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../db/db2/a01806.html">CurvesCollection</a>&gt; curves::CurvesCollectionFactory::copyInstance </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Getter for point's time. </p>
-<dl class="section return"><dt>Returns</dt><dd>point's time </dd></dl>
-
-</div>
-</div>
-<a id="a396c1b978118ea28a4b8fd2c790a9839"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a396c1b978118ea28a4b8fd2c790a9839">&#9670;&nbsp;</a></span>getValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double curves::Point::getValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Getter for point's value. </p>
-<dl class="section return"><dt>Returns</dt><dd>point's value </dd></dl>
-
-</div>
-</div>
-<a id="a7442bde5f55d90ec77be9bcf0468abe0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7442bde5f55d90ec77be9bcf0468abe0">&#9670;&nbsp;</a></span>setTime()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void curves::Point::setTime </td>
-          <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &amp;&#160;</td>
+          <td class="paramname"><em>original</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Setter for point's time. </p>
+<p>Create new <a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> instance as a clone of given instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time</td><td>point's time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">original</td><td><a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> to be cloned</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a></code> copied from original </dd></dl>
 
 </div>
 </div>
-<a id="aa72630bdbc7fd290134feeb3fbc918c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa72630bdbc7fd290134feeb3fbc918c4">&#9670;&nbsp;</a></span>setValue()</h2>
+<a id="a16844cf11296ad4125de9f0cdcef89b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16844cf11296ad4125de9f0cdcef89b4">&#9670;&nbsp;</a></span>newInstance()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void curves::Point::setValue </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../db/db2/a01806.html">CurvesCollection</a>&gt; curves::CurvesCollectionFactory::newInstance </td>
           <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Setter for point's value. </p>
+<p>Create new <a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a> instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>point's value </td></tr>
+    <tr><td class="paramname">id</td><td>id of the new instance</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>unique pointer to a new empty <code><a class="el" href="../../db/db2/a01806.html" title="Curves collection interface class. ">CurvesCollection</a></code> </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d2e/a00056_source.html">CRVPoint.h</a></li>
+<li><a class="el" href="../../d5/df9/a00044_source.html">CRVCurvesCollectionFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -290,8 +247,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../df/d3a/a01810.html">Point</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../df/d3a/a01810.html">CurvesCollectionFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

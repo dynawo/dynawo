@@ -1,18 +1,10 @@
 var a02394 =
 [
-    [ "ModelerHandler", "dd/d4f/a02394.html#a93e3e6e8f248fe61f6d840cc220170d5", null ],
-    [ "~ModelerHandler", "dd/d4f/a02394.html#a003b1f2fd164292c0f8e495b58820c69", null ],
-    [ "addDynModel", "dd/d4f/a02394.html#aabf1bc3bfc11b459e25d799d8bc77cdc", null ],
-    [ "addInitialState", "dd/d4f/a02394.html#ac6659864887a5652e7edaf5953f9ca67", null ],
-    [ "addModelicaModel", "dd/d4f/a02394.html#ab68cdf3d119ed15dbc22215f4c9fb86c", null ],
-    [ "addNetwork", "dd/d4f/a02394.html#a9e6397a3b6eef79978a1e495a8498cfb", null ],
-    [ "addPreCompiledModels", "dd/d4f/a02394.html#aab75048dbe313d432e30c6e3086917d8", null ],
-    [ "create", "dd/d4f/a02394.html#ab0d179e5f4a61f06519fbeb7c81500f9", null ],
-    [ "get", "dd/d4f/a02394.html#a6c631573209b372ef14eb79011e20462", null ],
-    [ "dynModelsHandler_", "dd/d4f/a02394.html#a864d803c98c0b0b6120482f6f717c9ee", null ],
-    [ "initialStateHandler_", "dd/d4f/a02394.html#a744bdecc95fa9b82f8d4d9ccab82b197", null ],
-    [ "modeler_", "dd/d4f/a02394.html#a3994181a8bd2a922ee24d0ab2e6b41b4", null ],
-    [ "modelicaModelsHandler_", "dd/d4f/a02394.html#adf1a8e2e38a88446ce48fd9eb7e2d33b", null ],
-    [ "networkHandler_", "dd/d4f/a02394.html#ab0a3ad95a7dcb54c6ccc3fbd75ab0b15", null ],
-    [ "preCompiledModelsHandler_", "dd/d4f/a02394.html#aa0761cda7598cc2e59c1c01660669cb9", null ]
+    [ "LogsHandler", "dd/d4f/a02394.html#a37fddf995673e734257184f95bee187b", null ],
+    [ "~LogsHandler", "dd/d4f/a02394.html#aeb6210c3167c1299a2b00b77d5b1fc77", null ],
+    [ "addAppender", "dd/d4f/a02394.html#a4f4da273a06638a4663a4e257af493f8", null ],
+    [ "create", "dd/d4f/a02394.html#a54e0942b195d4809ddbb6b9a941d3edb", null ],
+    [ "get", "dd/d4f/a02394.html#aa6deb79b7c4fda0140ca867c42950ff6", null ],
+    [ "appenderHandler_", "dd/d4f/a02394.html#ad00562d3807e9580cf69732f2d76eed0", null ],
+    [ "logs_", "dd/d4f/a02394.html#af28db5f4f3551fe48e77a9777e9ecbb0", null ]
 ];

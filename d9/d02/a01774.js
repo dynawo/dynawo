@@ -1,5 +1,8 @@
 var a01774 =
 [
-    [ "importFromFile", "d9/d02/a01774.html#a328fa7395e6ca20a6af8f8eb59d9ff0c", null ],
-    [ "importFromStream", "d9/d02/a01774.html#a24ce4f288edd8cec49d6f1a2b32a9132", null ]
+    [ "CriteriaParamsVoltageLevelHandler", "d9/d02/a01774.html#a185e4abd59e891d43b070981597346c6", null ],
+    [ "~CriteriaParamsVoltageLevelHandler", "d9/d02/a01774.html#a49e32fe9f86cc47aed1beffcc198e964", null ],
+    [ "create", "d9/d02/a01774.html#af4f4073078fa3d97415f4b660f7455bf", null ],
+    [ "get", "d9/d02/a01774.html#a02a9b4bf34f0d295059f2f3695862750", null ],
+    [ "criteriaParamsVoltageLevelRead_", "d9/d02/a01774.html#adbe65ec85166001194473e7774d68c9a", null ]
 ];

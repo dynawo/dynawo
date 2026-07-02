@@ -1,32 +1,61 @@
 var a00509 =
 [
-    [ "PathHash", "d0/d3f/a02630.html", "d0/d3f/a02630" ],
-    [ "UserDefinedDirectory", "df/d0c/a02634.html", "df/d0c/a02634" ],
-    [ "absolute", "df/db6/a00509.html#aabeca097df4bc0136b0a6f7867bf3f4b", null ],
-    [ "canonical", "df/db6/a00509.html#a6730593405a0c629bc152b7e23112037", null ],
-    [ "copy", "df/db6/a00509.html#a85029b869526ea4ec4c6f8a7d030f954", null ],
-    [ "createAbsolutePath", "df/db6/a00509.html#a3f3fe2f158db70c4daa046c4c3ae4af4", null ],
-    [ "createDirectory", "df/db6/a00509.html#a4d74b36b84743cbe78550be557d59708", null ],
-    [ "currentPath", "df/db6/a00509.html#ac11e1bbef2265badc60cb7393c9a8bbb", null ],
-    [ "currentPath", "df/db6/a00509.html#a073b119ae0587dbd1abf327b925004a1", null ],
-    [ "exists", "df/db6/a00509.html#ae033c59d263164d7f25cf3eb1d1d7700", null ],
-    [ "extension", "df/db6/a00509.html#a9bdf0b15b50e125e7721eeef066b7fd9", null ],
-    [ "extensionEquals", "df/db6/a00509.html#a440601d04858ac245e63e8ae3835e783", null ],
-    [ "extensionFound", "df/db6/a00509.html#a2bf45b7da0a1615f4b674f2074198be0", null ],
-    [ "fileNameFromPath", "df/db6/a00509.html#a62a5735167537bc57bd0a781088a4951", null ],
-    [ "isAbsolutePath", "df/db6/a00509.html#a56fc834fb0b2ce501e732480e3163353", null ],
-    [ "isDirectory", "df/db6/a00509.html#a9dae8bc35e1ef8ddb6c3f721eec1d515", null ],
-    [ "lastParentDirectory", "df/db6/a00509.html#af4ea352221a931cbbf2064d8028282c7", null ],
-    [ "listDirectory", "df/db6/a00509.html#a1143a7ddebd4866b6ba3904ae9672e9c", null ],
-    [ "parentDirectory", "df/db6/a00509.html#a11439dcca4299514ea5b9d27fa27643d", null ],
-    [ "remove", "df/db6/a00509.html#abd4b28b5a694c48f003480bba6786d3b", null ],
-    [ "removeAllInDirectory", "df/db6/a00509.html#aa10d835cf5580d64e047791e04ed3c22", null ],
-    [ "removeFileName", "df/db6/a00509.html#a43f58fe42c12b72ffc375c215791c9e9", null ],
-    [ "replaceExtension", "df/db6/a00509.html#a89340cd6d31283905faffe7696e7fccc", null ],
-    [ "searchFile", "df/db6/a00509.html#a3c610bdbcb5ad1de867447118398a890", null ],
-    [ "searchFilesAccordingToExtension", "df/db6/a00509.html#a4b46588bd7985bb1caea3050e7704ab2", null ],
-    [ "searchFilesAccordingToExtensions", "df/db6/a00509.html#a53122c28df73d4e72e79cfa7469ac4a4", null ],
-    [ "searchModelicaModels", "df/db6/a00509.html#a805f24c2f4a669bf7cba29fe5fc73e12", null ],
-    [ "searchModelsFiles", "df/db6/a00509.html#ae726cfecda8f0e5863da373af989f80d", null ],
-    [ "searchModelsFilesRec", "df/db6/a00509.html#a4919d02cff1378d10724621e2f6463fc", null ]
+    [ "state_g", "df/db6/a00509.html#ae79ff761d6fdde3e15728e07781775a8", null ],
+    [ "ConstraintValueType_t", "df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411", [
+      [ "NO_CONSTRAINTS_FILTER", "df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411a43c82a70cd80217c5f0c3d2d346eba3b", null ],
+      [ "CONSTRAINTS_KEEP_FIRST", "df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411ae9d99d6db143be320171a7ef6544ea2a", null ],
+      [ "CONSTRAINTS_DYNAFLOW", "df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411a68c90c8ed721358ea0c363bf1b3744f4", null ],
+      [ "SIZE_OF_ENUM", "df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411a454676d8546f6863a546469377851cb0", null ]
+    ] ],
+    [ "modeChangeType_t", "df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183", [
+      [ "NO_MODE", "df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183aaddcb46e489fd5f4f90a353d7daf8b90", null ],
+      [ "DIFFERENTIAL_MODE", "df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183a61a562dbad6d7df3998d1ea7a78c9b1f", null ],
+      [ "ALGEBRAIC_MODE", "df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183a122058426f2b9067d808ccb80ce6c74d", null ],
+      [ "ALGEBRAIC_J_UPDATE_MODE", "df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183a8a5e2a843fc1c5b0e26b95ad67dfe633", null ]
+    ] ],
+    [ "parameterScope_t", "df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863e", [
+      [ "EXTERNAL_PARAMETER", "df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863ea264d540ce0c084195b13255a3440f83f", null ],
+      [ "SHARED_PARAMETER", "df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863ea51f2acdf818ed3dc57ae80af0433d32b", null ],
+      [ "INTERNAL_PARAMETER", "df/db6/a00509.html#aced0ccefc9b7e7ed8b64a4ece366863ea3b015cda81806c1b0909fa5607ced965", null ]
+    ] ],
+    [ "propertyContinuousVar_t", "df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6", [
+      [ "UNDEFINED_PROPERTY", "df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a1b5b5bca6244cf1b949b6dcbf2d6f59a", null ],
+      [ "DIFFERENTIAL", "df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a9db0a4af877cb6f9ae593e62089999dc", null ],
+      [ "ALGEBRAIC", "df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a6034c72e1439d822e3afb8eb8b797767", null ],
+      [ "EXTERNAL", "df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6a302d482b140d46c6fb870e43089c5c5f", null ],
+      [ "OPTIONAL_EXTERNAL", "df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6afba1c412b95bb2be42100eba984994e7", null ]
+    ] ],
+    [ "propertyF_t", "df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2", [
+      [ "UNDEFINED_EQ", "df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2ad70cdfdf0109b5d2b7fe70293cc267f7", null ],
+      [ "DIFFERENTIAL_EQ", "df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2af1443cbe4e12e145947943d524db106f", null ],
+      [ "ALGEBRAIC_EQ", "df/db6/a00509.html#a8b1ac858a7be39680e8c19dc9e860dd2aa990fc4704101bbac841d13da3ac4756", null ]
+    ] ],
+    [ "SilentZFlags", "df/db6/a00509.html#a8c738a076f5c024d4e79ccc205e927dd", [
+      [ "NotSilent", "df/db6/a00509.html#a8c738a076f5c024d4e79ccc205e927dda9e31ed43a5088b6fd01adb5552ad3495", null ],
+      [ "NotUsedInDiscreteEquations", "df/db6/a00509.html#a8c738a076f5c024d4e79ccc205e927ddaf8559be34e820c0b21ed40149ce47c7f", null ],
+      [ "NotUsedInContinuousEquations", "df/db6/a00509.html#a8c738a076f5c024d4e79ccc205e927ddae95adde52851475072b6765762b8ae5f", null ]
+    ] ],
+    [ "typeVar_t", "df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa", [
+      [ "DISCRETE", "df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa94ae2aa0554795b1955de4ed3572c807", null ],
+      [ "CONTINUOUS", "df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa2677d52c571f6ebb212079cf50c9ef9c", null ],
+      [ "FLOW", "df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa84f924464087183eb569cee809c69d9e", null ],
+      [ "INTEGER", "df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaa10293ce93de9b0f5a22f464bfc186acd", null ],
+      [ "BOOLEAN", "df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaaf615f62c3b8f88967afdcc0d7338ea2a", null ],
+      [ "UNDEFINED_TYPE", "df/db6/a00509.html#a24adc26d089791bc53f26183118aadfaac08826f6c158b74a9ca29056c7240ef8", null ]
+    ] ],
+    [ "zChangeType_t", "df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945a", [
+      [ "NO_Z_CHANGE", "df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aa9f0960133a311e3a85f3e66c4052ff19", null ],
+      [ "NOT_SILENT_Z_CHANGE", "df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aa1eb2468f1db18910afc5b155af87139e", null ],
+      [ "NOT_USED_IN_CONTINUOUS_EQ_Z_CHANGE", "df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aa22ad8f59872c8eb2849393b1e27c38ee", null ],
+      [ "NOT_USED_IN_DISCRETE_EQ_Z_CHANGE", "df/db6/a00509.html#a1a4f84e6efed086709bbef8cd4ff945aabece3bd19a0df9ad93268eee79f52d0c", null ]
+    ] ],
+    [ "modeChangeType2Str", "df/db6/a00509.html#a744b6e7bca90241fd544bca06338aee0", null ],
+    [ "paramScope2Str", "df/db6/a00509.html#a6cb087a6277986c5798710f7832f49dc", null ],
+    [ "propertyVar2Str", "df/db6/a00509.html#a969826207e0292c8f19d8a7a3ab44d7a", null ],
+    [ "toCTypeVar", "df/db6/a00509.html#a9450a608aaf6035bd0902b9d6b754f9f", null ],
+    [ "typeVar2Str", "df/db6/a00509.html#aead2c12f61412f35b1d05a6f4afcad72", null ],
+    [ "ConstraintValueTypeNames", "df/db6/a00509.html#a8bbbc61b05af0bd45dc26dcdb8c76827", null ],
+    [ "NO_ROOT", "df/db6/a00509.html#aacd74f19a89d69a789b36973c809a1c7", null ],
+    [ "ROOT_DOWN", "df/db6/a00509.html#a085c8ed454a01dea61ea9b2bf22f5126", null ],
+    [ "ROOT_UP", "df/db6/a00509.html#a29eb442c0386e73d26c182204b8dca3e", null ]
 ];

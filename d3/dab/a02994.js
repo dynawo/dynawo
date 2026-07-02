@@ -1,20 +1,25 @@
 var a02994 =
 [
-    [ "ShuntCompensatorInterface", "d3/dab/a02994.html#a2543ead92b3ebcb3775c6feb77d62ae0", null ],
-    [ "~ShuntCompensatorInterface", "d3/dab/a02994.html#add50d472fc6d3f96ef82fd90374deadc", null ],
-    [ "exportStateVariablesUnitComponent", "d3/dab/a02994.html#a7c79aeabb190f79c336bd28f3f496c7a", null ],
-    [ "getB", "d3/dab/a02994.html#a965f98fcf1a03eed3d1648eb6cc05738", null ],
-    [ "getBusInterface", "d3/dab/a02994.html#adf91d598814c21afb4e08bbc67e42bf0", null ],
-    [ "getCurrentSection", "d3/dab/a02994.html#aa6ba6a30fec441fb737d8f09c991e3e7", null ],
-    [ "getID", "d3/dab/a02994.html#ace1697f4de5b3afd1709001bf7f526ca", null ],
-    [ "getInitialConnected", "d3/dab/a02994.html#a4a71cf1d1f8dd11adb685d5e41744cfb", null ],
-    [ "getMaximumSection", "d3/dab/a02994.html#a027a4485b86ebc1da0d711c294e39183", null ],
-    [ "getQ", "d3/dab/a02994.html#a96c4afbdf48bb50a3cca3785cffcca16", null ],
-    [ "getTargetV", "d3/dab/a02994.html#a9a1c0127b22052e2fd4e23d17219637c", null ],
-    [ "getVNom", "d3/dab/a02994.html#aa0ced5b79061ff7746b57ee18664dd6c", null ],
-    [ "importStaticParameters", "d3/dab/a02994.html#ae2fb2ab3e940e4db0fa6ea1c5f2f0c4b", null ],
-    [ "isLinear", "d3/dab/a02994.html#ab196b770246ac7e8450bdb68846d3cb5", null ],
-    [ "isVoltageRegulationOn", "d3/dab/a02994.html#a0591ef504ce311bb55651d2dc152d461", null ],
-    [ "setBusInterface", "d3/dab/a02994.html#a84bc422173f832ed9e187c421444c795", null ],
-    [ "setVoltageLevelInterface", "d3/dab/a02994.html#af96d1cff1165c8ec2e553da418b0c1b9", null ]
+    [ "ConverterMode_t", "d3/dab/a02994.html#add5af0aa9a74313470077d9fa7abd0d4", [
+      [ "RECTIFIER_INVERTER", "d3/dab/a02994.html#add5af0aa9a74313470077d9fa7abd0d4a82c6531dc6f5f9ee43b0e0b71f661030", null ],
+      [ "INVERTER_RECTIFIER", "d3/dab/a02994.html#add5af0aa9a74313470077d9fa7abd0d4ab72ea88d766a4858c39504b14a0a5018", null ]
+    ] ],
+    [ "~HvdcLineInterface", "d3/dab/a02994.html#a6bc94d6c5d9d7b894eeb781ee5692e6e", null ],
+    [ "exportStateVariablesUnitComponent", "d3/dab/a02994.html#ac18df6c515f5b3d5f23f93a13ea3d4d7", null ],
+    [ "getActivePowerSetpoint", "d3/dab/a02994.html#a2cb765cd55e50c5baa22fce5abadadd8", null ],
+    [ "getConverter1", "d3/dab/a02994.html#a2f39514eb8373e1af9f597e3f607ea82", null ],
+    [ "getConverter2", "d3/dab/a02994.html#ae6387b37abfe1ab712f463362564505b", null ],
+    [ "getConverterMode", "d3/dab/a02994.html#ad67e1908e6afac76880be1f13535a302", null ],
+    [ "getDroop", "d3/dab/a02994.html#a714292c7ca5b60de110c6bc543e9c72b", null ],
+    [ "getID", "d3/dab/a02994.html#a0f898663fd11586f1730216789c6d7d9", null ],
+    [ "getIdConverter1", "d3/dab/a02994.html#a4d6a6966085cc3a4661bbf7b1cfdeec5", null ],
+    [ "getIdConverter2", "d3/dab/a02994.html#af0a1a9dde673e825301f4a8051da4a4d", null ],
+    [ "getOprFromCS1toCS2", "d3/dab/a02994.html#abfcb20c451bcfb269d9f33cef038e542", null ],
+    [ "getOprFromCS2toCS1", "d3/dab/a02994.html#afc914725e8bf9662dd5a39dcacc2d0f0", null ],
+    [ "getP0", "d3/dab/a02994.html#a59c1c038546e74b419d6221c6df7a292", null ],
+    [ "getPmax", "d3/dab/a02994.html#ab3c7095ee2716b6c8e44620d1a784a68", null ],
+    [ "getResistanceDC", "d3/dab/a02994.html#a7b46ada5a6c4b0dd62818c21706fb344", null ],
+    [ "getVNom", "d3/dab/a02994.html#a1f0baf163ed270785b08a353db7185f4", null ],
+    [ "importStaticParameters", "d3/dab/a02994.html#a41bf2f7960c3c762961ed62c74c577b1", null ],
+    [ "isActivePowerControlEnabled", "d3/dab/a02994.html#a14c02fe81b8d798d8b8163f4fd17f912", null ]
 ];

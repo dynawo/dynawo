@@ -1,6 +1,8 @@
 var a01934 =
 [
-    [ "MacroStaticRef", "de/da9/a01934.html#af70fdbfd45885e7784fbdcf7c5aba36a", null ],
-    [ "getId", "de/da9/a01934.html#ab03f45494a2504026d401d5025f28127", null ],
-    [ "id_", "de/da9/a01934.html#af98f2f331e88696172dc9f697f7ae64c", null ]
+    [ "MacroConnection", "de/da9/a01934.html#a088f910e9a4dd0a06159a73dcd3ac6a1", null ],
+    [ "getFirstVariableId", "de/da9/a01934.html#ab27c18887e6a6f2b0d1e965ef463f5cd", null ],
+    [ "getSecondVariableId", "de/da9/a01934.html#aa58ce286b8826e9b6223a0f2b4a0b419", null ],
+    [ "firstVariableId_", "de/da9/a01934.html#ab9726be739d32a5b85100a732ca0ffad", null ],
+    [ "secondVariableId_", "de/da9/a01934.html#a58ac08338a4b00b687b9f8c1f9c5473c", null ]
 ];

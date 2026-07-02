@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: finalStateValues::FinalStateValueHandler Class Reference</title>
+<title>Dynawo: finalStateValues::FinalStateValuesCollection Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,58 +96,50 @@ $(document).ready(function(){initNavTree('db/df6/a02138.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../df/daa/a02135.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">finalStateValues::FinalStateValueHandler Class Reference</div>  </div>
+<div class="title">finalStateValues::FinalStateValuesCollection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Handler used to parse final state value element.  
+<p>Final state values collection interface class.  
  <a href="../../db/df6/a02138.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d7/d03/a00254_source.html">FSVXmlHandler.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for finalStateValues::FinalStateValueHandler:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../db/df6/a02138.png" usemap="#finalStateValues::FinalStateValueHandler_map" alt=""/>
-  <map id="finalStateValues::FinalStateValueHandler_map" name="finalStateValues::FinalStateValueHandler_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d2/dc8/a00242_source.html">FSVFinalStateValuesCollection.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abce4581d0833da81dc4d8374b58d5d0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#abce4581d0833da81dc4d8374b58d5d0b">FinalStateValueHandler</a> (elementName_type const &amp;root_element)</td></tr>
-<tr class="memdesc:abce4581d0833da81dc4d8374b58d5d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#abce4581d0833da81dc4d8374b58d5d0b">More...</a><br /></td></tr>
-<tr class="separator:abce4581d0833da81dc4d8374b58d5d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98f41fcb7ee206e99f63de13bdbc8251"><td class="memItemLeft" align="right" valign="top"><a id="a98f41fcb7ee206e99f63de13bdbc8251"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#a98f41fcb7ee206e99f63de13bdbc8251">~FinalStateValueHandler</a> () override</td></tr>
-<tr class="memdesc:a98f41fcb7ee206e99f63de13bdbc8251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a98f41fcb7ee206e99f63de13bdbc8251"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd2853f30b1baab9c42d5c2f5609b15e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../da/d4a/a02114.html">FinalStateValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#abd2853f30b1baab9c42d5c2f5609b15e">get</a> () const</td></tr>
-<tr class="memdesc:abd2853f30b1baab9c42d5c2f5609b15e"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the final state value read in xml file  <a href="#abd2853f30b1baab9c42d5c2f5609b15e">More...</a><br /></td></tr>
-<tr class="separator:abd2853f30b1baab9c42d5c2f5609b15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a3cbafcb6f2397d0e0e885dd8713bbccb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#a3cbafcb6f2397d0e0e885dd8713bbccb">create</a> (attributes_type const &amp;attributes)</td></tr>
-<tr class="memdesc:a3cbafcb6f2397d0e0e885dd8713bbccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#a3cbafcb6f2397d0e0e885dd8713bbccb">More...</a><br /></td></tr>
-<tr class="separator:a3cbafcb6f2397d0e0e885dd8713bbccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae13aff9d915064da859f90fce1a63c55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#ae13aff9d915064da859f90fce1a63c55">FinalStateValuesCollection</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:ae13aff9d915064da859f90fce1a63c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#ae13aff9d915064da859f90fce1a63c55">More...</a><br /></td></tr>
+<tr class="separator:ae13aff9d915064da859f90fce1a63c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fa5efa592cc2138475f84393e39e057"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#a9fa5efa592cc2138475f84393e39e057">add</a> (const std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">FinalStateValue</a> &gt; &amp;finalStateValue)</td></tr>
+<tr class="memdesc:a9fa5efa592cc2138475f84393e39e057"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a final state value to the collection  <a href="#a9fa5efa592cc2138475f84393e39e057">More...</a><br /></td></tr>
+<tr class="separator:a9fa5efa592cc2138475f84393e39e057"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad54c69c9435b7598997f2fce8b823236"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#ad54c69c9435b7598997f2fce8b823236">updateFinalStateValues</a> (double time)</td></tr>
+<tr class="memdesc:ad54c69c9435b7598997f2fce8b823236"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a new point for each final state value  <a href="#ad54c69c9435b7598997f2fce8b823236">More...</a><br /></td></tr>
+<tr class="separator:ad54c69c9435b7598997f2fce8b823236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84f832a613805665bf4cbe95370c87c6"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">FinalStateValue</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#a84f832a613805665bf4cbe95370c87c6">getFinalStateValues</a> () const</td></tr>
+<tr class="memdesc:a84f832a613805665bf4cbe95370c87c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get final state values  <a href="#a84f832a613805665bf4cbe95370c87c6">More...</a><br /></td></tr>
+<tr class="separator:a84f832a613805665bf4cbe95370c87c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aadf405810ac75d71ba7a401197075f61"><td class="memItemLeft" align="right" valign="top"><a id="aadf405810ac75d71ba7a401197075f61"></a>
-std::shared_ptr&lt; <a class="el" href="../../da/d4a/a02114.html">FinalStateValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#aadf405810ac75d71ba7a401197075f61">finalStateValueRead_</a></td></tr>
-<tr class="memdesc:aadf405810ac75d71ba7a401197075f61"><td class="mdescLeft">&#160;</td><td class="mdescRight">current final state value <br /></td></tr>
-<tr class="separator:aadf405810ac75d71ba7a401197075f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad52cf49445ff8b1c13dfa708a2ebf66f"><td class="memItemLeft" align="right" valign="top"><a id="ad52cf49445ff8b1c13dfa708a2ebf66f"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">FinalStateValue</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#ad52cf49445ff8b1c13dfa708a2ebf66f">finalStateValues_</a></td></tr>
+<tr class="memdesc:ad52cf49445ff8b1c13dfa708a2ebf66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the final state values object. <br /></td></tr>
+<tr class="separator:ad52cf49445ff8b1c13dfa708a2ebf66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa21627a77e5e107a489376a39b8f2cc8"><td class="memItemLeft" align="right" valign="top"><a id="aa21627a77e5e107a489376a39b8f2cc8"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df6/a02138.html#aa21627a77e5e107a489376a39b8f2cc8">id_</a></td></tr>
+<tr class="memdesc:aa21627a77e5e107a489376a39b8f2cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Final state values collections id. <br /></td></tr>
+<tr class="separator:aa21627a77e5e107a489376a39b8f2cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handler used to parse final state value element. </p>
+<div class="textblock"><p>Final state values collection interface class. </p>
+<p>Interface class for final state values collection object. This is a container for final state values </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abce4581d0833da81dc4d8374b58d5d0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abce4581d0833da81dc4d8374b58d5d0b">&#9670;&nbsp;</a></span>FinalStateValueHandler()</h2>
+<a id="ae13aff9d915064da859f90fce1a63c55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae13aff9d915064da859f90fce1a63c55">&#9670;&nbsp;</a></span>FinalStateValuesCollection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,10 +148,10 @@ std::shared_ptr&lt; <a class="el" href="../../da/d4a/a02114.html">FinalStateValu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">finalStateValues::FinalStateValueHandler::FinalStateValueHandler </td>
+          <td class="memname">finalStateValues::FinalStateValuesCollection::FinalStateValuesCollection </td>
           <td>(</td>
-          <td class="paramtype">elementName_type const &amp;&#160;</td>
-          <td class="paramname"><em>root_element</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -170,10 +162,10 @@ std::shared_ptr&lt; <a class="el" href="../../da/d4a/a02114.html">FinalStateValu
 </table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
+<p>constructor </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
+    <tr><td class="paramname">id</td><td>finalStateValuesCollection's id </td></tr>
   </table>
   </dd>
 </dl>
@@ -181,8 +173,34 @@ std::shared_ptr&lt; <a class="el" href="../../da/d4a/a02114.html">FinalStateValu
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3cbafcb6f2397d0e0e885dd8713bbccb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cbafcb6f2397d0e0e885dd8713bbccb">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a9fa5efa592cc2138475f84393e39e057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fa5efa592cc2138475f84393e39e057">&#9670;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void finalStateValues::FinalStateValuesCollection::add </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">FinalStateValue</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>finalStateValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a final state value to the collection </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">finalStateValue</td><td>state value final state value to add to the collection </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a84f832a613805665bf4cbe95370c87c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f832a613805665bf4cbe95370c87c6">&#9670;&nbsp;</a></span>getFinalStateValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,52 +209,52 @@ std::shared_ptr&lt; <a class="el" href="../../da/d4a/a02114.html">FinalStateValu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void finalStateValues::FinalStateValueHandler::create </td>
+          <td class="memname">const std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../db/d6c/a02130.html">FinalStateValue</a>&gt; &gt;&amp; finalStateValues::FinalStateValuesCollection::getFinalStateValues </td>
           <td>(</td>
-          <td class="paramtype">attributes_type const &amp;&#160;</td>
-          <td class="paramname"><em>attributes</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the XML element opening tag is read. </p>
+<p>get final state values </p>
+<dl class="section return"><dt>Returns</dt><dd>final state values </dd></dl>
+
+</div>
+</div>
+<a id="ad54c69c9435b7598997f2fce8b823236"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad54c69c9435b7598997f2fce8b823236">&#9670;&nbsp;</a></span>updateFinalStateValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void finalStateValues::FinalStateValuesCollection::updateFinalStateValues </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a new point for each final state value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
+    <tr><td class="paramname">time</td><td>time of the new point </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="abd2853f30b1baab9c42d5c2f5609b15e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd2853f30b1baab9c42d5c2f5609b15e">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../da/d4a/a02114.html">FinalStateValue</a>&gt; finalStateValues::FinalStateValueHandler::get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>return the final state value read in xml file </p>
-<dl class="section return"><dt>Returns</dt><dd>final state value object build thanks to infos read in xml file </dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d7/d03/a00254_source.html">FSVXmlHandler.h</a></li>
+<li><a class="el" href="../../d2/dc8/a00242_source.html">FSVFinalStateValuesCollection.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -254,8 +272,8 @@ std::shared_ptr&lt; <a class="el" href="../../da/d4a/a02114.html">FinalStateValu
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>finalStateValues</b></li><li class="navelem"><a class="el" href="../../db/df6/a02138.html">FinalStateValueHandler</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>finalStateValues</b></li><li class="navelem"><a class="el" href="../../db/df6/a02138.html">FinalStateValuesCollection</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

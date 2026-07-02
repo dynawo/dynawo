@@ -95,13 +95,25 @@ $(document).ready(function(){initNavTree('d1/d75/a02926.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::CurrentLimits Member List</div>  </div>
+<div class="title">DYN::BusCriteria Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d1/d75/a02926.html">DYN::CurrentLimits</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d1/d75/a02926.html">DYN::BusCriteria</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/d75/a02926.html#a164db60be67bb41e3042b8057ee05c34">currentLimits</a></td><td class="entry"><a class="el" href="../../d1/d75/a02926.html">DYN::CurrentLimits</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/d75/a02926.html#aeab62236d04f2caee7f5e2797875700d">addBus</a>(const std::shared_ptr&lt; BusInterface &gt; &amp;bus)</td><td class="entry"><a class="el" href="../../d1/d75/a02926.html">DYN::BusCriteria</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> enum name</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/d75/a02926.html#a3449c582ce719b065d65e4b68c44e96a">BusCriteria</a>(const std::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d1/d75/a02926.html">DYN::BusCriteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/d75/a02926.html#a21d395d52f2dac532e82af9adb4bfaa6">buses_</a></td><td class="entry"><a class="el" href="../../d1/d75/a02926.html">DYN::BusCriteria</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/d75/a02926.html#a615b16e466d4adc5bd055045e58177c0">checkCriteria</a>(double t, bool finalStep, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline=nullptr) override</td><td class="entry"><a class="el" href="../../d1/d75/a02926.html">DYN::BusCriteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a04a9d18b48178d64a909cd0dc0e555e5">Criteria</a>(const std::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d1/d75/a02926.html#a8a50e3c3758535d588b1716cc562260a">criteriaEligibleForBus</a>(const std::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d1/d75/a02926.html">DYN::BusCriteria</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d1/d75/a02926.html#aa709f28a847f4680db9e9356b6a723e2">empty</a>() const</td><td class="entry"><a class="el" href="../../d1/d75/a02926.html">DYN::BusCriteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a>() const</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#aa2e02bd65f615a2ff17d905802f21d8d">params_</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a246cd0ab90b0768892d910cf9c4b2355">printAllFailingCriteriaIntoLog</a>(std::multimap&lt; double, std::unique_ptr&lt; FailingCriteria &gt; &gt; &amp;distanceToFailingCriteriaMap, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline, double currentTime)</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a>()</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -118,7 +130,7 @@ $(document).ready(function(){initNavTree('d1/d75/a02926.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

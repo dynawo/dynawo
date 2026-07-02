@@ -95,15 +95,15 @@ $(document).ready(function(){initNavTree('da/da0/a02126.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">finalStateValues::FinalStateValuesCollectionFactory Member List</div>  </div>
+<div class="title">finalStateValues::Exporter Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../da/da0/a02126.html">finalStateValues::FinalStateValuesCollectionFactory</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../da/da0/a02126.html">finalStateValues::Exporter</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../da/da0/a02126.html#aa3551c4a84edb86dda80d1801618867d">copyInstance</a>(const std::shared_ptr&lt; FinalStateValuesCollection &gt; &amp;original)</td><td class="entry"><a class="el" href="../../da/da0/a02126.html">finalStateValues::FinalStateValuesCollectionFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/da0/a02126.html#ac0945b50b97583ea25edc0c034d7aa22">copyInstance</a>(const FinalStateValuesCollection &amp;original)</td><td class="entry"><a class="el" href="../../da/da0/a02126.html">finalStateValues::FinalStateValuesCollectionFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../da/da0/a02126.html#ad1f49ca0177dd965038c7f7e23bc2f2a">newInstance</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../da/da0/a02126.html">finalStateValues::FinalStateValuesCollectionFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/da0/a02126.html#a8bd9b80fd1e97e21d3efc23b0e2614e7">exportToFile</a>(const boost::shared_ptr&lt; FinalStateValuesCollection &gt; &amp;finalStateValues, const std::string &amp;filePath) const =0</td><td class="entry"><a class="el" href="../../da/da0/a02126.html">finalStateValues::Exporter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/da0/a02126.html#a599acd0242617e2a915c215038ba50d5">exportToStream</a>(const boost::shared_ptr&lt; FinalStateValuesCollection &gt; &amp;finalStateValues, std::ostream &amp;stream) const =0</td><td class="entry"><a class="el" href="../../da/da0/a02126.html">finalStateValues::Exporter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/da0/a02126.html#a46de4161aebb544fad485a0dedc2cbc9">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../da/da0/a02126.html">finalStateValues::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('da/da0/a02126.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

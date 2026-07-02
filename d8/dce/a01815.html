@@ -95,18 +95,22 @@ $(document).ready(function(){initNavTree('d4/d56/a01818.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">curves::XmlExporter Member List</div>  </div>
+<div class="title">curves::Hdf5Exporter Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d4/d56/a01818.html">curves::XmlExporter</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a0a6570396d2f1c018d6db333f5602780">appendRow</a>(double) override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::XmlExporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d56/a01818.html#aa8acf88cc2fcd7f0e61572bcbe594d93">close</a>() override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::XmlExporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a05d4f4a646e5ea2dc0daafc0a6d73b08">exportToFile</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;curves, const std::string &amp;filePath) const override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::XmlExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a1c23efd959b3b6c37dd03c80eef2c9da">exportToStream</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;curves, std::ostream &amp;stream) const override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::XmlExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a5080b338212157d215140b5abba21a60">open</a>(const std::string &amp;) override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::XmlExporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d2/d86/a01798.html#a253ac4aec9368435a67d4e404b46d3f8">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../d2/d86/a01798.html">curves::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a5b797f31e0b30dad2bbfb523f4f61fa4">appendRow</a>(double time) override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a8bd9dbede95d645e016a38e332a99266">close</a>() override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a667edbedee116c16861987588011506b">exportToFile</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;, const std::string &amp;) const override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/d56/a01818.html#aeef86185d084a9d8eee476128a32cf3d">exportToStream</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;, std::ostream &amp;) const override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a8eb9be8f4abd12d3074ddf18c58a5b4a">flushPending</a>()</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/d56/a01818.html#afed173b5b21cb64343c2fcee24dc588b">Hdf5Exporter</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;curves)</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a28e724b862106ef75afa667366c37039">isOpen</a>() const</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/d56/a01818.html#a957558453b940d0abef970d278fe1987">open</a>(const std::string &amp;filePath) override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfc/a01814.html#a253ac4aec9368435a67d4e404b46d3f8">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../d6/dfc/a01814.html">curves::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/d56/a01818.html#abc8eefb3e1c4df5b92fdf366cfa7543b">~Hdf5Exporter</a>() override</td><td class="entry"><a class="el" href="../../d4/d56/a01818.html">curves::Hdf5Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -123,7 +127,7 @@ $(document).ready(function(){initNavTree('d4/d56/a01818.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

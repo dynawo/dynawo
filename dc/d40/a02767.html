@@ -95,26 +95,18 @@ $(document).ready(function(){initNavTree('d6/d92/a02770.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::DelayManager Member List</div>  </div>
+<div class="title">DYN::Action Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d6/d92/a02770.html">DYN::Action</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#ad14aabb6dd316ba33ec294ec3cc32d8f">addDelay</a>(size_t id, const double *time, const double *value, double delayMax)</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a60c0fcc03a4d7ecf7d7f855e13262994">DelayManager</a>()</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#af33ce3b807b1d6233895da82f3c5f360">delays_</a></td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a435a2de1d59f33ae459a1ea74b6ae2ea">dumpDelays</a>() const</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#af9f29b26aeb79683bc014936e0c448f2">evalMode</a>(double time, const std::string &amp;modelName)</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a73af3046eaf55af3c45712a7b9f44fd8">getDelay</a>(size_t id, double delayValue) const</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a67e9e91492947c0e57856df84477fb2d">getDelayById</a>(size_t id) const</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a0cfa789fdd41d1e478809342f529ef36">getInitialValue</a>(size_t id) const</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#af3d886daecb546a74a0b706803360521">isIdAcceptable</a>(size_t id) const</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a3fa788f0779697cd878c6a3497d8ea87">loadDelays</a>(const std::vector&lt; std::string &gt; &amp;values, double restartTime)</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a3f52431deaf6283d94f4676aec2cfa7c">saveTimepoint</a>()</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a1bcdf81520f52ab9f41ad5e9170ecc37">setDelayTime</a>(const size_t id, const double delayTime)</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#adff56c5f395a55a8473de442d06b1b36">setGomc</a>(state_g *p_glocal, size_t offset, double time) const</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a5ee915c26b8b1ec90c3e10c40e32c4b9">triggerDelay</a>(const size_t id)</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::DelayManager</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#ae69218ab4a115b4b1a1641ec8cbfd2d5">Action</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;subModel, ActionParameters &amp;parameterValueSet)</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::Action</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a0948a21b8a815b60df2b31410d006067">ActionParameters</a> typedef</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::Action</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#aa3b2038bb1f7711f6b25fe9a0948a60d">apply</a>()</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::Action</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#ab1ee200ca064d89830ce5131b5f55f24">parameterValueSet_</a></td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::Action</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a55f6b5c70eba641b1bd8ff510962d9b1">subModel_</a></td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::Action</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d92/a02770.html#a17fb45d167129c72f54b89376e740153">updateParameterValueSet</a>(ActionParameters &amp;newParameterValueSet)</td><td class="entry"><a class="el" href="../../d6/d92/a02770.html">DYN::Action</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -131,7 +123,7 @@ $(document).ready(function(){initNavTree('d6/d92/a02770.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

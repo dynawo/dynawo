@@ -95,18 +95,15 @@ $(document).ready(function(){initNavTree('d8/d23/a02122.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">finalStateValues::FinalStateValuesCollection Member List</div>  </div>
+<div class="title">finalStateValues::CsvExporter Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d8/d23/a02122.html">finalStateValues::FinalStateValuesCollection</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d8/d23/a02122.html">finalStateValues::CsvExporter</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d23/a02122.html#a9fa5efa592cc2138475f84393e39e057">add</a>(const std::shared_ptr&lt; FinalStateValue &gt; &amp;finalStateValue)</td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::FinalStateValuesCollection</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d23/a02122.html#ad52cf49445ff8b1c13dfa708a2ebf66f">finalStateValues_</a></td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::FinalStateValuesCollection</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d23/a02122.html#ae13aff9d915064da859f90fce1a63c55">FinalStateValuesCollection</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::FinalStateValuesCollection</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d23/a02122.html#a84f832a613805665bf4cbe95370c87c6">getFinalStateValues</a>() const</td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::FinalStateValuesCollection</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d8/d23/a02122.html#aa21627a77e5e107a489376a39b8f2cc8">id_</a></td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::FinalStateValuesCollection</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d8/d23/a02122.html#ad54c69c9435b7598997f2fce8b823236">updateFinalStateValues</a>(double time)</td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::FinalStateValuesCollection</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/d23/a02122.html#a83c7d19e28151af3fc49bc453fa66141">exportToFile</a>(const boost::shared_ptr&lt; FinalStateValuesCollection &gt; &amp;finalStateValues, const std::string &amp;filePath) const override</td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::CsvExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/d23/a02122.html#ae761e975ef0d6192a19ba94757cc3930">exportToStream</a>(const boost::shared_ptr&lt; FinalStateValuesCollection &gt; &amp;finalStateValues, std::ostream &amp;stream) const override</td><td class="entry"><a class="el" href="../../d8/d23/a02122.html">finalStateValues::CsvExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/da0/a02126.html#a46de4161aebb544fad485a0dedc2cbc9">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../da/da0/a02126.html">finalStateValues::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -123,7 +120,7 @@ $(document).ready(function(){initNavTree('d8/d23/a02122.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

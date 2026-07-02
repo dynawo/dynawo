@@ -1,5 +1,25 @@
 var a02002 =
 [
-    [ "staticVar", "df/d37/a02002.html#ab21e66e153e74fe0d5917a8268889bcd", null ],
-    [ "var", "df/d37/a02002.html#a16eb8833559840b1e7aae9d3cc3b0f90", null ]
+    [ "UnitDynamicModel", "df/d37/a02002.html#a1ea39860aae654ab685eaea933ada898", null ],
+    [ "getDynamicFileName", "df/d37/a02002.html#a6102ae344efcb3459230d3784c7c103c", null ],
+    [ "getDynamicModelName", "df/d37/a02002.html#a3709cb121d4018f3a11fdc20864ee7fa", null ],
+    [ "getId", "df/d37/a02002.html#ae795ea477ab224c03669fda76e44e499", null ],
+    [ "getInitFileName", "df/d37/a02002.html#a1a00692589132103ba100f80ba7948f2", null ],
+    [ "getInitModelName", "df/d37/a02002.html#a570f3185e85c8fbc07ca9ee977154071", null ],
+    [ "getParFile", "df/d37/a02002.html#a5909bdbb97db159a8938b8959f2bf03c", null ],
+    [ "getParId", "df/d37/a02002.html#af4724c7af0689c87b494cd53dd338a15", null ],
+    [ "operator!=", "df/d37/a02002.html#a7aabb000dd2ef937fced70eb7a47c4c9", null ],
+    [ "operator==", "df/d37/a02002.html#ac9266b916eae60f04e0989a1b70241f4", null ],
+    [ "setDynamicFileName", "df/d37/a02002.html#a33693c2005c9ee06fe7652643bf5d62d", null ],
+    [ "setInitFileName", "df/d37/a02002.html#a3eeb5f2bd7916b538a328dd2c25b1a31", null ],
+    [ "setInitModelName", "df/d37/a02002.html#ad3a2ca834d4ad77d4541c0a7a73c3d3d", null ],
+    [ "setParFile", "df/d37/a02002.html#a8e225748d3e7d85f66e295b1820e94a6", null ],
+    [ "setParId", "df/d37/a02002.html#a20ec669491ce23f888c06527337205a4", null ],
+    [ "dynamicFileName_", "df/d37/a02002.html#abe17f8f9e7ab75e1a15151de3311e3d3", null ],
+    [ "dynamicModelName_", "df/d37/a02002.html#a84fbfb3ce563a6591640194af419293e", null ],
+    [ "id_", "df/d37/a02002.html#a17ac4da12c003c89ba10eabec48fd047", null ],
+    [ "initFileName_", "df/d37/a02002.html#a9491c924ab00d09374505ee4561918d5", null ],
+    [ "initModelName_", "df/d37/a02002.html#a431d04725b8b2f5b28aee28fbc39c643", null ],
+    [ "parFile_", "df/d37/a02002.html#a270047d418e37c82cc0bb9b4f67d8440", null ],
+    [ "parId_", "df/d37/a02002.html#a407cc6f7c8700b42af45c3a3e253a011", null ]
 ];

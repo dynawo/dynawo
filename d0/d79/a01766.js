@@ -1,14 +1,8 @@
 var a01766 =
 [
-    [ "CriteriaHandler", "d0/d79/a01766.html#abc95c828b674c092dcce4bcbf1351844", null ],
-    [ "~CriteriaHandler", "d0/d79/a01766.html#ae5a64c17c4888b3dd5d0770d6a0fb920", null ],
-    [ "addComponent", "d0/d79/a01766.html#aaaad1f1af344eb8cb7fd822764c3b864", null ],
-    [ "addCountry", "d0/d79/a01766.html#a64e7af7c2faea99435ed954e8dad06e8", null ],
-    [ "addCriteriaParams", "d0/d79/a01766.html#aa69dcdcaa4a694cd9e3790dec82fa0a0", null ],
-    [ "create", "d0/d79/a01766.html#a7a292689dd244161362db17f6dedbde5", null ],
-    [ "get", "d0/d79/a01766.html#a3baec1f79e8f7c7cf7a05e5f0dda2c91", null ],
-    [ "cmpHandler_", "d0/d79/a01766.html#ae74a75cdd36532c26694822ba6bbd05d", null ],
-    [ "countryHandler_", "d0/d79/a01766.html#aa80bacb8255ebb2d69e14f93817d2418", null ],
-    [ "criteriaParamsHandler_", "d0/d79/a01766.html#afda53050b63f8de2c490fb563026b22d", null ],
-    [ "criteriaRead_", "d0/d79/a01766.html#af99aba782fea62a271f5b0988ef36ad9", null ]
+    [ "ElementWithIdHandler", "d0/d79/a01766.html#abccf55c41b6fce903dbf123292feeeb7", null ],
+    [ "~ElementWithIdHandler", "d0/d79/a01766.html#a0a1929711c6f7e1f6c865e303128688f", null ],
+    [ "create", "d0/d79/a01766.html#a540009ef4b32ef0447fdd2cc91a1559b", null ],
+    [ "getId", "d0/d79/a01766.html#abaa9ea20e88928b7dc8a55a0febaa600", null ],
+    [ "idRead_", "d0/d79/a01766.html#ad845ba06eaef299a57904dec5ffaa76c", null ]
 ];

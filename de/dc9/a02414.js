@@ -1,10 +1,8 @@
 var a02414 =
 [
-    [ "ChannelsHandler", "de/dc9/a02414.html#ae9aaa157fc175e9476bc750696629fd0", null ],
-    [ "~ChannelsHandler", "de/dc9/a02414.html#a7c0cc5d2a6ecd3eaf629cc4d898e2812", null ],
-    [ "addChannel", "de/dc9/a02414.html#a49dad284ba1ae5752034094362cd6f46", null ],
-    [ "create", "de/dc9/a02414.html#a37a69869d472e378cac48a0d2169892e", null ],
-    [ "get", "de/dc9/a02414.html#a5425681c9544642d8797ba62310d3efa", null ],
-    [ "channelHandler_", "de/dc9/a02414.html#ac8e3d147571bc47776d78b606cbb951b", null ],
-    [ "channels_", "de/dc9/a02414.html#a3a5b950c4bf6a991e7e62cff80ca3017", null ]
+    [ "SolverHandler", "de/dc9/a02414.html#af6a0060bf34344079efdff79a7ed3d59", null ],
+    [ "~SolverHandler", "de/dc9/a02414.html#a12f670c53a84e07b6c22e3fde6c24a2f", null ],
+    [ "create", "de/dc9/a02414.html#ad0a1e03d21d882dbb4a239998305148f", null ],
+    [ "get", "de/dc9/a02414.html#aba74aafdee4c903f8db66a91bf2e25ab", null ],
+    [ "solver_", "de/dc9/a02414.html#af453bbaa80f18cfb2bbbf12802462be7", null ]
 ];

@@ -1,8 +1,8 @@
 var a02418 =
 [
-    [ "StreamHandler", "da/dc1/a02418.html#a1ffe028d13519e6c65aee27752e73e1e", null ],
-    [ "~StreamHandler", "da/dc1/a02418.html#a76d5a2d10747c4247030eda491215643", null ],
-    [ "create", "da/dc1/a02418.html#abaa527fe739566f7b6a855b8b204b10d", null ],
-    [ "get", "da/dc1/a02418.html#a263b8e94289f65bb3abbaec89c0dbca2", null ],
-    [ "stream_", "da/dc1/a02418.html#a035ee0f058d08d81eb33ea49b28b5a4d", null ]
+    [ "LocalInitHandler", "da/dc1/a02418.html#a6f1acc348901dff257bc7190ef6da7b5", null ],
+    [ "~LocalInitHandler", "da/dc1/a02418.html#ae8f68b34c4fd05404cc1043a3124d859", null ],
+    [ "create", "da/dc1/a02418.html#a821678caa1e2a02d2e7aad662dc3ead7", null ],
+    [ "get", "da/dc1/a02418.html#a92c81d2ba7178ac4e4140ca7a7be272e", null ],
+    [ "localInit_", "da/dc1/a02418.html#a8ff86d393c3e56e02beff1de2d73876e", null ]
 ];

@@ -1,11 +1,27 @@
 var a03190 =
 [
-    [ "constCalcVars", "de/de3/a03190.html#a8ac7a544fba72263970d28121d9fbf12", null ],
-    [ "nbCalculatedVars", "de/de3/a03190.html#aadf574c342519fa6bdaa633d5e9b2cf7", null ],
-    [ "nbDelays", "de/de3/a03190.html#ad672825da45ede42efb53e39362154e1", null ],
-    [ "nbDummy", "de/de3/a03190.html#abedd737d8efb6d508db337c0d83ef749", null ],
-    [ "nbF", "de/de3/a03190.html#af4fde5d46c5ba1797fb2cbcced804428", null ],
-    [ "nbModes", "de/de3/a03190.html#a74feaa50a63e10f6b094bc997aeb5261", null ],
-    [ "nbVars", "de/de3/a03190.html#a90fea7d702851d0af2fe4fedeee07659", null ],
-    [ "nbZ", "de/de3/a03190.html#a49a35f826675149cccb137e078328ac0", null ]
+    [ "indexVar_t", "de/de3/a03190.html#a99b572a95186468109bec051462b9951", [
+      [ "VAR_Q", "de/de3/a03190.html#a99b572a95186468109bec051462b9951a7fe5e267517a3988932976b06f1d5731", null ],
+      [ "VAR_STATE", "de/de3/a03190.html#a99b572a95186468109bec051462b9951a8debcbee4d63f1f4a2ffb7837b09e00d", null ],
+      [ "VAR_CURRENTSECTION", "de/de3/a03190.html#a99b572a95186468109bec051462b9951ac3b91aff9c2662da3bb8dab02727ffca", null ]
+    ] ],
+    [ "ShuntCompensatorInterfaceIIDM", "de/de3/a03190.html#ad85b1c021d866ab2a40fb72545133dd8", null ],
+    [ "exportStateVariablesUnitComponent", "de/de3/a03190.html#acfdb6fc1e5ce753609170b22a653e40a", null ],
+    [ "getB", "de/de3/a03190.html#a97709a8e6a77fe2e6256d1602919f5c1", null ],
+    [ "getBusInterface", "de/de3/a03190.html#a3bd7d09552315ef76eae49fde17c4d53", null ],
+    [ "getComponentVarIndex", "de/de3/a03190.html#a9f6d392cee3d93a9e58b7f31d32de00a", null ],
+    [ "getCurrentSection", "de/de3/a03190.html#ac364e6a8f89faa47768b6fab6fc5fd44", null ],
+    [ "getID", "de/de3/a03190.html#a2c8c85ea4605d285d377b43fd17c49c6", null ],
+    [ "getInitialConnected", "de/de3/a03190.html#a6ace64e9775e2c9f5b574742f9db1181", null ],
+    [ "getMaximumSection", "de/de3/a03190.html#add894d15cc4ec9738ecbe2a6d63a06a4", null ],
+    [ "getQ", "de/de3/a03190.html#aac771f88e83837ab331eaac2b5201b93", null ],
+    [ "getTargetV", "de/de3/a03190.html#a6b134ec64f07f1d023753def3bd6eabd", null ],
+    [ "getVNom", "de/de3/a03190.html#a9d149154c6cbbc8b404bcf7995b90e4f", null ],
+    [ "importStaticParameters", "de/de3/a03190.html#a36337bb3b41ca5244eae762da0a43d39", null ],
+    [ "isConnected", "de/de3/a03190.html#a547d79a897c4cd8d6040ca93e7fb7c83", null ],
+    [ "isLinear", "de/de3/a03190.html#a423cda6c5e5cdfdcc7a3fa75e5fa622f", null ],
+    [ "isVoltageRegulationOn", "de/de3/a03190.html#a67fd04dd34e0c00a20abb4074c7954dd", null ],
+    [ "setBusInterface", "de/de3/a03190.html#a9fcd8bce67c1ff3b8c721d28f0bf5286", null ],
+    [ "setVoltageLevelInterface", "de/de3/a03190.html#abf1078fadb9c809f799db50928587c7d", null ],
+    [ "shuntCompensatorIIDM_", "de/de3/a03190.html#a9d52c6f739e282c65756e6e813c39a37", null ]
 ];

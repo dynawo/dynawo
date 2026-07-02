@@ -1,19 +1,14 @@
 var a02866 =
 [
-    [ "BusInterface", "db/de7/a02866.html#a496b1cf709d17989bd5e8a64882dbff5", null ],
-    [ "~BusInterface", "db/de7/a02866.html#af4d4505d1048127897bd1dc3098fcaef", null ],
-    [ "exportStateVariablesUnitComponent", "db/de7/a02866.html#ad786b170ee93ca0ee9ff72e07e3773bf", null ],
-    [ "getAngle0", "db/de7/a02866.html#a63dfdd48ac5cb8863c5a8027f75b4c5e", null ],
-    [ "getBusBarSectionIdentifiers", "db/de7/a02866.html#a51ecbf88288ebed91dad69b4a49c7f23", null ],
-    [ "getBusIndex", "db/de7/a02866.html#a121c0d8892ad82f8d25e0aa3e6d80182", null ],
-    [ "getID", "db/de7/a02866.html#ad01631f447ec9a500fbc9902434068e7", null ],
-    [ "getStateVarAngle", "db/de7/a02866.html#ac53c3d4ec936ead027840ecb45f9e37d", null ],
-    [ "getStateVarV", "db/de7/a02866.html#aa3a32b56f9b1760748b83c73d5d97883", null ],
-    [ "getV0", "db/de7/a02866.html#a929c447c1c2c3499db103450e406265d", null ],
-    [ "getVMax", "db/de7/a02866.html#aa7bde7df54ad1483067cea5cc9ba6c8b", null ],
-    [ "getVMin", "db/de7/a02866.html#a877bd3d9a937607dfc11b8580ba86c28", null ],
-    [ "getVNom", "db/de7/a02866.html#ac8382aaf37b7fb8484c6d502e0c9d3d6", null ],
-    [ "hasConnection", "db/de7/a02866.html#a971af09967c45693929a5b2685fd5d77", null ],
-    [ "hasConnection", "db/de7/a02866.html#abac7b1069b0ac6d6464024c8aabb0a70", null ],
-    [ "isFictitious", "db/de7/a02866.html#aefdf4b4245508773fb4b73fa584c6ca3", null ]
+    [ "SubmodelFactoryIterator", "db/de7/a02866.html#ab5351c207c612eb73ef3a9739a98ad61", null ],
+    [ "SubModelFactories", "db/de7/a02866.html#a4fdc8a4a7dd70013ba210eeb94d331eb", null ],
+    [ "~SubModelFactories", "db/de7/a02866.html#ac68cc519b03e4c72239c2f4b7378a278", null ],
+    [ "add", "db/de7/a02866.html#a9ee9d92721e6cc93227fa125c25197a0", null ],
+    [ "add", "db/de7/a02866.html#af9e0552afdb132766a0e2fc8fa3448f0", null ],
+    [ "end", "db/de7/a02866.html#a0d01b10206e7a1679aa2e151adc33123", null ],
+    [ "find", "db/de7/a02866.html#afc4c5c842403576888b3c7ca1e3878fc", null ],
+    [ "getInstance", "db/de7/a02866.html#a85998552d18633d6af5527d081a84ce8", null ],
+    [ "factoriesMutex_", "db/de7/a02866.html#a87c7565d49811d4ce00434c86757eaec", null ],
+    [ "factoryMap_", "db/de7/a02866.html#aa66382e18d00c812c8390232e6ed79aa", null ],
+    [ "factoryMapDelete_", "db/de7/a02866.html#a7898b3af84931d1572aa4a6d0ed1820c", null ]
 ];

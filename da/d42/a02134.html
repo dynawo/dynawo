@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: finalStateValues::XmlExporter Class Reference</title>
+<title>Dynawo: finalStateValues::FinalStateValueFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,47 +95,30 @@ $(document).ready(function(){initNavTree('da/d42/a02134.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../d3/da9/a02131.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">finalStateValues::XmlExporter Class Reference</div>  </div>
+<div class="title">finalStateValues::FinalStateValueFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>XML exporter interface class.  
+<p><a class="el" href="../../db/d6c/a02130.html" title="FinalStateValue interface class. ">FinalStateValue</a> factory class.  
  <a href="../../da/d42/a02134.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d3/d1a/a00251_source.html">FSVXmlExporter.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for finalStateValues::XmlExporter:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../da/d42/a02134.png" usemap="#finalStateValues::XmlExporter_map" alt=""/>
-  <map id="finalStateValues::XmlExporter_map" name="finalStateValues::XmlExporter_map">
-<area href="../../d5/d23/a02110.html" title="Exporter interface class. " alt="finalStateValues::Exporter" shape="rect" coords="0,0,178,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d0/d27/a00239_source.html">FSVFinalStateValueFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a62edf5842b30c0c66ade51b931659457"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d42/a02134.html#a62edf5842b30c0c66ade51b931659457">exportToFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../d8/d23/a02122.html">FinalStateValuesCollection</a> &gt; &amp;finalStateValues, const std::string &amp;filePath) const override</td></tr>
-<tr class="memdesc:a62edf5842b30c0c66ade51b931659457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format.  <a href="#a62edf5842b30c0c66ade51b931659457">More...</a><br /></td></tr>
-<tr class="separator:a62edf5842b30c0c66ade51b931659457"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35bc8a5154d5f3dc1c879995086b6601"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d42/a02134.html#a35bc8a5154d5f3dc1c879995086b6601">exportToStream</a> (const boost::shared_ptr&lt; <a class="el" href="../../d8/d23/a02122.html">FinalStateValuesCollection</a> &gt; &amp;finalStateValues, std::ostream &amp;stream) const override</td></tr>
-<tr class="memdesc:a35bc8a5154d5f3dc1c879995086b6601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in XML format. Note: Only those marked as final state values will be exported.  <a href="#a35bc8a5154d5f3dc1c879995086b6601">More...</a><br /></td></tr>
-<tr class="separator:a35bc8a5154d5f3dc1c879995086b6601"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02110"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02110')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d5/d23/a02110.html">finalStateValues::Exporter</a></td></tr>
-<tr class="memitem:a46de4161aebb544fad485a0dedc2cbc9 inherit pub_methods_a02110"><td class="memItemLeft" align="right" valign="top"><a id="a46de4161aebb544fad485a0dedc2cbc9"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d23/a02110.html#a46de4161aebb544fad485a0dedc2cbc9">~Exporter</a> ()=default</td></tr>
-<tr class="memdesc:a46de4161aebb544fad485a0dedc2cbc9 inherit pub_methods_a02110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a46de4161aebb544fad485a0dedc2cbc9 inherit pub_methods_a02110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a4281622c3a682ceaeef6724ee08298a7"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../db/d6c/a02130.html">FinalStateValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d42/a02134.html#a4281622c3a682ceaeef6724ee08298a7">newFinalStateValue</a> ()</td></tr>
+<tr class="memdesc:a4281622c3a682ceaeef6724ee08298a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../db/d6c/a02130.html" title="FinalStateValue interface class. ">FinalStateValue</a> instance.  <a href="#a4281622c3a682ceaeef6724ee08298a7">More...</a><br /></td></tr>
+<tr class="separator:a4281622c3a682ceaeef6724ee08298a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>XML exporter interface class. </p>
-<p>XML export class for final state values collection </p>
+<div class="textblock"><p><a class="el" href="../../db/d6c/a02130.html" title="FinalStateValue interface class. ">FinalStateValue</a> factory class. </p>
+<p><a class="el" href="../../da/d42/a02134.html" title="FinalStateValue factory class. ">FinalStateValueFactory</a> encapsulates methods for creating new <code><a class="el" href="../../db/d6c/a02130.html" title="FinalStateValue interface class. ">FinalStateValue</a></code> objects. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a62edf5842b30c0c66ade51b931659457"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62edf5842b30c0c66ade51b931659457">&#9670;&nbsp;</a></span>exportToFile()</h2>
+<a id="a4281622c3a682ceaeef6724ee08298a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4281622c3a682ceaeef6724ee08298a7">&#9670;&nbsp;</a></span>newFinalStateValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,92 +127,26 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void finalStateValues::XmlExporter::exportToFile </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../db/d6c/a02130.html">FinalStateValue</a>&gt; finalStateValues::FinalStateValueFactory::newFinalStateValue </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d8/d23/a02122.html">FinalStateValuesCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>finalStateValues</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filePath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method in XML format. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">finalStateValues</td><td>final state values </td></tr>
-    <tr><td class="paramname">filePath</td><td>file where the final state values must be exported </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../d5/d23/a02110.html#a8bd9b80fd1e97e21d3efc23b0e2614e7">finalStateValues::Exporter</a>.</p>
-
-</div>
-</div>
-<a id="a35bc8a5154d5f3dc1c879995086b6601"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35bc8a5154d5f3dc1c879995086b6601">&#9670;&nbsp;</a></span>exportToStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void finalStateValues::XmlExporter::exportToStream </td>
-          <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d8/d23/a02122.html">FinalStateValuesCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>finalStateValues</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Export method in XML format. Note: Only those marked as final state values will be exported. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">finalStateValues</td><td>final state values to export as final state values. </td></tr>
-    <tr><td class="paramname">stream</td><td>stream where the final state values must be exported </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../d5/d23/a02110.html#a599acd0242617e2a915c215038ba50d5">finalStateValues::Exporter</a>.</p>
+<p>Create new <a class="el" href="../../db/d6c/a02130.html" title="FinalStateValue interface class. ">FinalStateValue</a> instance. </p>
+<dl class="section return"><dt>Returns</dt><dd>a unique pointer to a new <code><a class="el" href="../../db/d6c/a02130.html" title="FinalStateValue interface class. ">FinalStateValue</a></code> </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d3/d1a/a00251_source.html">FSVXmlExporter.h</a></li>
+<li><a class="el" href="../../d0/d27/a00239_source.html">FSVFinalStateValueFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -247,8 +164,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>finalStateValues</b></li><li class="navelem"><a class="el" href="../../da/d42/a02134.html">XmlExporter</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>finalStateValues</b></li><li class="navelem"><a class="el" href="../../da/d42/a02134.html">FinalStateValueFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

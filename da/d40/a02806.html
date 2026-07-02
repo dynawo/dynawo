@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::RingBuffer Class Reference</title>
+<title>Dynawo: DYN::Delay Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,85 +96,146 @@ $(document).ready(function(){initNavTree('da/d40/a02806.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d6/daf/a02803.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::RingBuffer Class Reference</div>  </div>
+<div class="title">DYN::Delay Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Ring buffer for delay.  
+<p>Structure to store delay variables.  
  <a href="../../da/d40/a02806.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/d10/a00635_source.html">DYNRingBuffer.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d7/d80/a00614_source.html">DYNDelay.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af87a5ad958ec87bf59eafb5760d8f862"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#af87a5ad958ec87bf59eafb5760d8f862">RingBuffer</a> (double <a class="el" href="../../da/d40/a02806.html#a96df715cc4d327a537c92ca61d8c917d">maxDelay</a>)</td></tr>
-<tr class="memdesc:af87a5ad958ec87bf59eafb5760d8f862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#af87a5ad958ec87bf59eafb5760d8f862">More...</a><br /></td></tr>
-<tr class="separator:af87a5ad958ec87bf59eafb5760d8f862"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07a4add1e5799c6d73e6bc408341dfa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a07a4add1e5799c6d73e6bc408341dfa1">add</a> (double time, double value)</td></tr>
-<tr class="memdesc:a07a4add1e5799c6d73e6bc408341dfa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a timed value.  <a href="#a07a4add1e5799c6d73e6bc408341dfa1">More...</a><br /></td></tr>
-<tr class="separator:a07a4add1e5799c6d73e6bc408341dfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45b55406c41acc3342e6e180ae5876b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a45b55406c41acc3342e6e180ae5876b1">addNoCheck</a> (double time, double value)</td></tr>
-<tr class="memdesc:a45b55406c41acc3342e6e180ae5876b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add timed value without performing other actions.  <a href="#a45b55406c41acc3342e6e180ae5876b1">More...</a><br /></td></tr>
-<tr class="separator:a45b55406c41acc3342e6e180ae5876b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96df715cc4d327a537c92ca61d8c917d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a96df715cc4d327a537c92ca61d8c917d">maxDelay</a> (double delayMax)</td></tr>
-<tr class="memdesc:a96df715cc4d327a537c92ca61d8c917d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum allowed delay.  <a href="#a96df715cc4d327a537c92ca61d8c917d">More...</a><br /></td></tr>
-<tr class="separator:a96df715cc4d327a537c92ca61d8c917d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26007cf32fd0b9a5a456e59a040dcf0a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a26007cf32fd0b9a5a456e59a040dcf0a">get</a> (double time, double delay) const</td></tr>
-<tr class="memdesc:a26007cf32fd0b9a5a456e59a040dcf0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the variable's value with delay.  <a href="#a26007cf32fd0b9a5a456e59a040dcf0a">More...</a><br /></td></tr>
-<tr class="separator:a26007cf32fd0b9a5a456e59a040dcf0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae433c039455069df5c059b02050f7e59"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#ae433c039455069df5c059b02050f7e59">size</a> () const</td></tr>
-<tr class="memdesc:ae433c039455069df5c059b02050f7e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the number of elements stored in buffer.  <a href="#ae433c039455069df5c059b02050f7e59">More...</a><br /></td></tr>
-<tr class="separator:ae433c039455069df5c059b02050f7e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a609a67545ddf6ec2740b06634961511c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a609a67545ddf6ec2740b06634961511c">maxDelay</a> () const</td></tr>
-<tr class="memdesc:a609a67545ddf6ec2740b06634961511c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves maximum delay.  <a href="#a609a67545ddf6ec2740b06634961511c">More...</a><br /></td></tr>
-<tr class="separator:a609a67545ddf6ec2740b06634961511c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69ad1b5bc88d242d00a6697973c5880d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a69ad1b5bc88d242d00a6697973c5880d">points</a> (std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;vec) const</td></tr>
-<tr class="memdesc:a69ad1b5bc88d242d00a6697973c5880d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the list of registered timed values as a vector.  <a href="#a69ad1b5bc88d242d00a6697973c5880d">More...</a><br /></td></tr>
-<tr class="separator:a69ad1b5bc88d242d00a6697973c5880d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a92c0adbeef919c1f240c4e0d49b83c"><td class="memItemLeft" align="right" valign="top">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a6a92c0adbeef919c1f240c4e0d49b83c">getLastRegisteredPoint</a> () const</td></tr>
-<tr class="memdesc:a6a92c0adbeef919c1f240c4e0d49b83c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the last registered values (time, value) in the ring buffer.  <a href="#a6a92c0adbeef919c1f240c4e0d49b83c">More...</a><br /></td></tr>
-<tr class="separator:a6a92c0adbeef919c1f240c4e0d49b83c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a9a79374ea00ec0cb0e4d4899b14dd4a1"><td class="memItemLeft" align="right" valign="top"><a id="a9a79374ea00ec0cb0e4d4899b14dd4a1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a9a79374ea00ec0cb0e4d4899b14dd4a1">removeUseless</a> ()</td></tr>
-<tr class="memdesc:a9a79374ea00ec0cb0e4d4899b14dd4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove from the buffer useless variables. <br /></td></tr>
-<tr class="separator:a9a79374ea00ec0cb0e4d4899b14dd4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79909366fe3d2fd74e4db48a2d61eb11"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a79909366fe3d2fd74e4db48a2d61eb11">comparePairTime</a> (const std::pair&lt; double, double &gt; &amp;pair, double time_value) const</td></tr>
-<tr class="memdesc:a79909366fe3d2fd74e4db48a2d61eb11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare pair only using its first element (time)  <a href="#a79909366fe3d2fd74e4db48a2d61eb11">More...</a><br /></td></tr>
-<tr class="separator:a79909366fe3d2fd74e4db48a2d61eb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:afd1155173455e5cd1b7cc7535866c524"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#afd1155173455e5cd1b7cc7535866c524">interpol</a> (const std::pair&lt; double, double &gt; &amp;p1, const std::pair&lt; double, double &gt; &amp;p2, double time)</td></tr>
-<tr class="memdesc:afd1155173455e5cd1b7cc7535866c524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs linear interpolation between the two 2D points <code>p1</code> and <code>p2</code> in abcisse <code>time</code>.  <a href="#afd1155173455e5cd1b7cc7535866c524">More...</a><br /></td></tr>
-<tr class="separator:afd1155173455e5cd1b7cc7535866c524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d93521f5aee7cd0603623ddc5774ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#ab7d93521f5aee7cd0603623ddc5774ae">Delay</a> (const double *time, const double *value, double delayMax)</td></tr>
+<tr class="memdesc:ab7d93521f5aee7cd0603623ddc5774ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor by input reference.  <a href="#ab7d93521f5aee7cd0603623ddc5774ae">More...</a><br /></td></tr>
+<tr class="separator:ab7d93521f5aee7cd0603623ddc5774ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ebfe98ff0cc5400da67f6c602e7023d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a0ebfe98ff0cc5400da67f6c602e7023d">Delay</a> (const std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;timepoints, double delayMax, double initialTime)</td></tr>
+<tr class="memdesc:a0ebfe98ff0cc5400da67f6c602e7023d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor by timepoints.  <a href="#a0ebfe98ff0cc5400da67f6c602e7023d">More...</a><br /></td></tr>
+<tr class="separator:a0ebfe98ff0cc5400da67f6c602e7023d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a141efafced6dfae4c89ba693ced3e335"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a141efafced6dfae4c89ba693ced3e335">update</a> (const double *time, const double *value, double delayMax)</td></tr>
+<tr class="memdesc:a141efafced6dfae4c89ba693ced3e335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update reference internal values.  <a href="#a141efafced6dfae4c89ba693ced3e335">More...</a><br /></td></tr>
+<tr class="separator:a141efafced6dfae4c89ba693ced3e335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e13e7cb98ce4578e952fb8b4a5787e0"><td class="memItemLeft" align="right" valign="top"><a id="a6e13e7cb98ce4578e952fb8b4a5787e0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a6e13e7cb98ce4578e952fb8b4a5787e0">saveTimepoint</a> ()</td></tr>
+<tr class="memdesc:a6e13e7cb98ce4578e952fb8b4a5787e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Record a timepoint with the current value. <br /></td></tr>
+<tr class="separator:a6e13e7cb98ce4578e952fb8b4a5787e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2d79df83e2d2bc068db616b27f67c15"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#af2d79df83e2d2bc068db616b27f67c15">getDelay</a> (double delay) const</td></tr>
+<tr class="memdesc:af2d79df83e2d2bc068db616b27f67c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the delayed variable.  <a href="#af2d79df83e2d2bc068db616b27f67c15">More...</a><br /></td></tr>
+<tr class="separator:af2d79df83e2d2bc068db616b27f67c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ca59a5a64e4d53baa0b6f685415484f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a3ca59a5a64e4d53baa0b6f685415484f">size</a> () const</td></tr>
+<tr class="memdesc:a3ca59a5a64e4d53baa0b6f685415484f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the size of the delay.  <a href="#a3ca59a5a64e4d53baa0b6f685415484f">More...</a><br /></td></tr>
+<tr class="separator:a3ca59a5a64e4d53baa0b6f685415484f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0937d3aa14780b0804a7140a53910d"><td class="memItemLeft" align="right" valign="top">const boost::optional&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#abb0937d3aa14780b0804a7140a53910d">initialValue</a> () const</td></tr>
+<tr class="memdesc:abb0937d3aa14780b0804a7140a53910d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves initial value of variable.  <a href="#abb0937d3aa14780b0804a7140a53910d">More...</a><br /></td></tr>
+<tr class="separator:abb0937d3aa14780b0804a7140a53910d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c64d6b07845e43b5cab444f1d92fc85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a1c64d6b07845e43b5cab444f1d92fc85">points</a> (std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;vec) const</td></tr>
+<tr class="memdesc:a1c64d6b07845e43b5cab444f1d92fc85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the list of registered timepoints.  <a href="#a1c64d6b07845e43b5cab444f1d92fc85">More...</a><br /></td></tr>
+<tr class="separator:a1c64d6b07845e43b5cab444f1d92fc85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e66f795abb1d007458c93c91848e17f"><td class="memItemLeft" align="right" valign="top"><a id="a7e66f795abb1d007458c93c91848e17f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a7e66f795abb1d007458c93c91848e17f">trigger</a> ()</td></tr>
+<tr class="memdesc:a7e66f795abb1d007458c93c91848e17f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger the delay to notify that we must start compute its value. <br /></td></tr>
+<tr class="separator:a7e66f795abb1d007458c93c91848e17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f8923dcb5387180d26e749dab409e87"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a0f8923dcb5387180d26e749dab409e87">isTriggered</a> () const</td></tr>
+<tr class="memdesc:a0f8923dcb5387180d26e749dab409e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if delay is triggered.  <a href="#a0f8923dcb5387180d26e749dab409e87">More...</a><br /></td></tr>
+<tr class="separator:a0f8923dcb5387180d26e749dab409e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c4214757dc7bc5aefd682f93642b98f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a3c4214757dc7bc5aefd682f93642b98f">getDelayTime</a> () const</td></tr>
+<tr class="memdesc:a3c4214757dc7bc5aefd682f93642b98f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the time of the delay.  <a href="#a3c4214757dc7bc5aefd682f93642b98f">More...</a><br /></td></tr>
+<tr class="separator:a3c4214757dc7bc5aefd682f93642b98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061e40169d1fdda7122ad736676cebca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a061e40169d1fdda7122ad736676cebca">setDelayTime</a> (double delayTime)</td></tr>
+<tr class="memdesc:a061e40169d1fdda7122ad736676cebca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time of the delay.  <a href="#a061e40169d1fdda7122ad736676cebca">More...</a><br /></td></tr>
+<tr class="separator:a061e40169d1fdda7122ad736676cebca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a045ca4f053bd5a8cac582a93ba2b5cc2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a045ca4f053bd5a8cac582a93ba2b5cc2">getDelayMax</a> () const</td></tr>
+<tr class="memdesc:a045ca4f053bd5a8cac582a93ba2b5cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the time of the delay max.  <a href="#a045ca4f053bd5a8cac582a93ba2b5cc2">More...</a><br /></td></tr>
+<tr class="separator:a045ca4f053bd5a8cac582a93ba2b5cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d663181c4807e08df62b1044931ef9f"><td class="memItemLeft" align="right" valign="top">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a6d663181c4807e08df62b1044931ef9f">getLastRegisteredPoint</a> () const</td></tr>
+<tr class="memdesc:a6d663181c4807e08df62b1044931ef9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the last registered values (time, value) in the ring buffer.  <a href="#a6d663181c4807e08df62b1044931ef9f">More...</a><br /></td></tr>
+<tr class="separator:a6d663181c4807e08df62b1044931ef9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a110e553c846e4ca76e3d33084987ff93"><td class="memItemLeft" align="right" valign="top"><a id="a110e553c846e4ca76e3d33084987ff93"></a>
-std::deque&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a110e553c846e4ca76e3d33084987ff93">queue_</a></td></tr>
-<tr class="memdesc:a110e553c846e4ca76e3d33084987ff93"><td class="mdescLeft">&#160;</td><td class="mdescRight">queue of (timestamp, value) pairs <br /></td></tr>
-<tr class="separator:a110e553c846e4ca76e3d33084987ff93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5532385a381f135c208a5047969798fa"><td class="memItemLeft" align="right" valign="top"><a id="a5532385a381f135c208a5047969798fa"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a5532385a381f135c208a5047969798fa">maxDelay_</a></td></tr>
-<tr class="memdesc:a5532385a381f135c208a5047969798fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum delay allowed for this buffer <br /></td></tr>
-<tr class="separator:a5532385a381f135c208a5047969798fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f5ee9acca02e0dfcab318ada1edf3aa"><td class="memItemLeft" align="right" valign="top"><a id="a8f5ee9acca02e0dfcab318ada1edf3aa"></a>
+const double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a8f5ee9acca02e0dfcab318ada1edf3aa">time_</a></td></tr>
+<tr class="memdesc:a8f5ee9acca02e0dfcab318ada1edf3aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to time to use for timepoint and delay computation <br /></td></tr>
+<tr class="separator:a8f5ee9acca02e0dfcab318ada1edf3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a795dca7abc971d38f28e2f5423def346"><td class="memItemLeft" align="right" valign="top"><a id="a795dca7abc971d38f28e2f5423def346"></a>
+const double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a795dca7abc971d38f28e2f5423def346">value_</a></td></tr>
+<tr class="memdesc:a795dca7abc971d38f28e2f5423def346"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to value to use for timepoint <br /></td></tr>
+<tr class="separator:a795dca7abc971d38f28e2f5423def346"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a869b6f2e759f2de804ed26da35c156bc"><td class="memItemLeft" align="right" valign="top"><a id="a869b6f2e759f2de804ed26da35c156bc"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a869b6f2e759f2de804ed26da35c156bc">delayTime_</a></td></tr>
+<tr class="memdesc:a869b6f2e759f2de804ed26da35c156bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">delay time <br /></td></tr>
+<tr class="separator:a869b6f2e759f2de804ed26da35c156bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac15fb33cb4297d202c29139f27a11463"><td class="memItemLeft" align="right" valign="top"><a id="ac15fb33cb4297d202c29139f27a11463"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#ac15fb33cb4297d202c29139f27a11463">delayMax_</a></td></tr>
+<tr class="memdesc:ac15fb33cb4297d202c29139f27a11463"><td class="mdescLeft">&#160;</td><td class="mdescRight">delay max <br /></td></tr>
+<tr class="separator:ac15fb33cb4297d202c29139f27a11463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8189823da13bd42b2aa2ff6e3fddc04e"><td class="memItemLeft" align="right" valign="top"><a id="a8189823da13bd42b2aa2ff6e3fddc04e"></a>
+<a class="el" href="../../d5/d4c/a02846.html">RingBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a8189823da13bd42b2aa2ff6e3fddc04e">buffer_</a></td></tr>
+<tr class="memdesc:a8189823da13bd42b2aa2ff6e3fddc04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ring buffer to manage the records <br /></td></tr>
+<tr class="separator:a8189823da13bd42b2aa2ff6e3fddc04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe42214626c0f00f6ea4506a6d739f91"><td class="memItemLeft" align="right" valign="top"><a id="afe42214626c0f00f6ea4506a6d739f91"></a>
+boost::optional&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#afe42214626c0f00f6ea4506a6d739f91">initialValue_</a></td></tr>
+<tr class="memdesc:afe42214626c0f00f6ea4506a6d739f91"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial value to use when delay cannot be computed <br /></td></tr>
+<tr class="separator:afe42214626c0f00f6ea4506a6d739f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82205b46f2747ea59c0aefbda3a6ecb6"><td class="memItemLeft" align="right" valign="top"><a id="a82205b46f2747ea59c0aefbda3a6ecb6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d40/a02806.html#a82205b46f2747ea59c0aefbda3a6ecb6">delayActivated_</a></td></tr>
+<tr class="memdesc:a82205b46f2747ea59c0aefbda3a6ecb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">true when the delay has been activated <br /></td></tr>
+<tr class="separator:a82205b46f2747ea59c0aefbda3a6ecb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Ring buffer for delay. </p>
-<p>Implements circular buffer for delay variables</p>
-<p>When a variable value is added, the previous elements which timepoint that satisfies t - maxDelay &lt; tmax (where tmax is the most recent timepoint added) are removed</p>
-<p>When a variable value is requested, if the requested timepoint does not correspond to an element, linear interpolation is performed to retrieve the value </p>
+<div class="textblock"><p>Structure to store delay variables. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af87a5ad958ec87bf59eafb5760d8f862"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af87a5ad958ec87bf59eafb5760d8f862">&#9670;&nbsp;</a></span>RingBuffer()</h2>
+<a id="ab7d93521f5aee7cd0603623ddc5774ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d93521f5aee7cd0603623ddc5774ae">&#9670;&nbsp;</a></span>Delay() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DYN::Delay::Delay </td>
+          <td>(</td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>delayMax</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor by input reference. </p>
+<p>This constructor will be used during a normal simulation</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>pointer to the time variable used for this delay </td></tr>
+    <tr><td class="paramname">value</td><td>pointer to the value variable used for this delay </td></tr>
+    <tr><td class="paramname">delayMax</td><td>maximum allowed delay </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0ebfe98ff0cc5400da67f6c602e7023d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ebfe98ff0cc5400da67f6c602e7023d">&#9670;&nbsp;</a></span>Delay() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,11 +244,27 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DYN::RingBuffer::RingBuffer </td>
+          <td class="memname">DYN::Delay::Delay </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>maxDelay</em></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timepoints</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>delayMax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>initialTime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -197,10 +274,13 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 </table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
+<p>Constructor by timepoints. </p>
+<p>This constructor wil be used to start a simulation from a dump</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">maxDelay</td><td>the maximum delay allowed </td></tr>
+    <tr><td class="paramname">timepoints</td><td>the list of the timepoints to use </td></tr>
+    <tr><td class="paramname">delayMax</td><td>maximum allowed delay </td></tr>
+    <tr><td class="paramname">initialTime</td><td>start time of the simulation </td></tr>
   </table>
   </dd>
 </dl>
@@ -208,46 +288,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a07a4add1e5799c6d73e6bc408341dfa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07a4add1e5799c6d73e6bc408341dfa1">&#9670;&nbsp;</a></span>add()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::RingBuffer::add </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a timed value. </p>
-<p>After adding the value to the buffer, useless points which cannot be reached by using the maximum delay allowed are removed from the buffer</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">time</td><td>timestamp of the value </td></tr>
-    <tr><td class="paramname">value</td><td>value of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a45b55406c41acc3342e6e180ae5876b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45b55406c41acc3342e6e180ae5876b1">&#9670;&nbsp;</a></span>addNoCheck()</h2>
+<a id="af2d79df83e2d2bc068db616b27f67c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2d79df83e2d2bc068db616b27f67c15">&#9670;&nbsp;</a></span>getDelay()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,21 +298,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::RingBuffer::addNoCheck </td>
+          <td class="memname">double DYN::Delay::getDelay </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"><em>delay</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -280,19 +312,20 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 </table>
 </div><div class="memdoc">
 
-<p>Add timed value without performing other actions. </p>
+<p>Retrieves the delayed variable. </p>
+<p>Use the underlying ring buffer</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time</td><td>timestamp of the value </td></tr>
-    <tr><td class="paramname">value</td><td>value of the variable </td></tr>
+    <tr><td class="paramname">delay</td><td>the delay to apply</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>the value where timepoint is the delayed time value </dd></dl>
 
 </div>
 </div>
-<a id="a79909366fe3d2fd74e4db48a2d61eb11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79909366fe3d2fd74e4db48a2d61eb11">&#9670;&nbsp;</a></span>comparePairTime()</h2>
+<a id="a045ca4f053bd5a8cac582a93ba2b5cc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a045ca4f053bd5a8cac582a93ba2b5cc2">&#9670;&nbsp;</a></span>getDelayMax()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,89 +334,26 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool DYN::RingBuffer::comparePairTime </td>
+          <td class="memname">double DYN::Delay::getDelayMax </td>
           <td>(</td>
-          <td class="paramtype">const std::pair&lt; double, double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pair</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time_value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Compare pair only using its first element (time) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pair</td><td>the pair to test </td></tr>
-    <tr><td class="paramname">time_value</td><td>the time_value to compare the pair to</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the time_value is the pair is less than the time_value </dd></dl>
+<p>Get the time of the delay max. </p>
+<dl class="section return"><dt>Returns</dt><dd>the delay max </dd></dl>
 
 </div>
 </div>
-<a id="a26007cf32fd0b9a5a456e59a040dcf0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26007cf32fd0b9a5a456e59a040dcf0a">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::RingBuffer::get </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>delay</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieve the variable's value with delay. </p>
-<p>Computes the value associated with the timepoint <em>time</em> - <em>delay</em>. Performs linear interpolation if necessary and when it is possible</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">time</td><td>the timepoint requested </td></tr>
-    <tr><td class="paramname">delay</td><td>the delay requested </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">SIMULATION</td><td>error if the computed timepoint is beyon the maximum delay</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the computed value </dd></dl>
-
-</div>
-</div>
-<a id="a6a92c0adbeef919c1f240c4e0d49b83c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a92c0adbeef919c1f240c4e0d49b83c">&#9670;&nbsp;</a></span>getLastRegisteredPoint()</h2>
+<a id="a3c4214757dc7bc5aefd682f93642b98f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c4214757dc7bc5aefd682f93642b98f">&#9670;&nbsp;</a></span>getDelayTime()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -392,7 +362,35 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;double, double&gt; DYN::RingBuffer::getLastRegisteredPoint </td>
+          <td class="memname">double DYN::Delay::getDelayTime </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the time of the delay. </p>
+<dl class="section return"><dt>Returns</dt><dd>the delay time </dd></dl>
+
+</div>
+</div>
+<a id="a6d663181c4807e08df62b1044931ef9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d663181c4807e08df62b1044931ef9f">&#9670;&nbsp;</a></span>getLastRegisteredPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;double, double&gt; DYN::Delay::getLastRegisteredPoint </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -410,8 +408,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 
 </div>
 </div>
-<a id="afd1155173455e5cd1b7cc7535866c524"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd1155173455e5cd1b7cc7535866c524">&#9670;&nbsp;</a></span>interpol()</h2>
+<a id="abb0937d3aa14780b0804a7140a53910d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb0937d3aa14780b0804a7140a53910d">&#9670;&nbsp;</a></span>initialValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -420,22 +418,171 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static double DYN::RingBuffer::interpol </td>
+          <td class="memname">const boost::optional&lt;double&gt;&amp; DYN::Delay::initialValue </td>
           <td>(</td>
-          <td class="paramtype">const std::pair&lt; double, double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves initial value of variable. </p>
+<dl class="section return"><dt>Returns</dt><dd>initial value </dd></dl>
+
+</div>
+</div>
+<a id="a0f8923dcb5387180d26e749dab409e87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f8923dcb5387180d26e749dab409e87">&#9670;&nbsp;</a></span>isTriggered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::Delay::isTriggered </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if delay is triggered. </p>
+<dl class="section return"><dt>Returns</dt><dd>Whether the trigger has been activated by <em><a class="el" href="../../da/d40/a02806.html#a7e66f795abb1d007458c93c91848e17f" title="Trigger the delay to notify that we must start compute its value. ">trigger()</a></em> function </dd></dl>
+
+</div>
+</div>
+<a id="a1c64d6b07845e43b5cab444f1d92fc85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c64d6b07845e43b5cab444f1d92fc85">&#9670;&nbsp;</a></span>points()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::Delay::points </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the list of registered timepoints. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>the list of registered time points </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a061e40169d1fdda7122ad736676cebca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a061e40169d1fdda7122ad736676cebca">&#9670;&nbsp;</a></span>setDelayTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::Delay::setDelayTime </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>delayTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the time of the delay. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delayTime</td><td>the time of the delay </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3ca59a5a64e4d53baa0b6f685415484f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ca59a5a64e4d53baa0b6f685415484f">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t DYN::Delay::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the size of the delay. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of saved timepoints </dd></dl>
+
+</div>
+</div>
+<a id="a141efafced6dfae4c89ba693ced3e335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a141efafced6dfae4c89ba693ced3e335">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::Delay::update </td>
+          <td>(</td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::pair&lt; double, double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>time</em>&#160;</td>
+          <td class="paramname"><em>delayMax</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -443,53 +590,14 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Performs linear interpolation between the two 2D points <code>p1</code> and <code>p2</code> in abcisse <code>time</code>. </p>
+<p>Update reference internal values. </p>
+<p>This function MUST NOT be called for delays constructed with the references (Delay(time, value, delayMax))</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p1</td><td>the first point of interpolation </td></tr>
-    <tr><td class="paramname">p2</td><td>the second point of interpolation </td></tr>
-    <tr><td class="paramname">time</td><td>the abcisse to compute the interpolation at</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the interpolated value at <em>time</em> </dd></dl>
-
-</div>
-</div>
-<a id="a96df715cc4d327a537c92ca61d8c917d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96df715cc4d327a537c92ca61d8c917d">&#9670;&nbsp;</a></span>maxDelay() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::RingBuffer::maxDelay </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>delayMax</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the maximum allowed delay. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
+    <tr><td class="paramname">time</td><td>pointer to the time variable used for this delay </td></tr>
+    <tr><td class="paramname">value</td><td>pointer to the value variable used for this delay </td></tr>
     <tr><td class="paramname">delayMax</td><td>maximum allowed delay </td></tr>
   </table>
   </dd>
@@ -497,90 +605,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 
 </div>
 </div>
-<a id="a609a67545ddf6ec2740b06634961511c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a609a67545ddf6ec2740b06634961511c">&#9670;&nbsp;</a></span>maxDelay() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::RingBuffer::maxDelay </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves maximum delay. </p>
-<dl class="section return"><dt>Returns</dt><dd>maximum delay </dd></dl>
-
-</div>
-</div>
-<a id="a69ad1b5bc88d242d00a6697973c5880d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69ad1b5bc88d242d00a6697973c5880d">&#9670;&nbsp;</a></span>points()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::RingBuffer::points </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vec</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves the list of registered timed values as a vector. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vec</td><td>The list of timed values </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae433c039455069df5c059b02050f7e59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae433c039455069df5c059b02050f7e59">&#9670;&nbsp;</a></span>size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t DYN::RingBuffer::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves the number of elements stored in buffer. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current size of the buffer </dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d4/d10/a00635_source.html">DYNRingBuffer.h</a></li>
+<li><a class="el" href="../../d7/d80/a00614_source.html">DYNDelay.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -598,8 +624,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/d40/a02806.html">RingBuffer</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/d40/a02806.html">Delay</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

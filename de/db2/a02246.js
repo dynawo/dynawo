@@ -1,4 +1,7 @@
 var a02246 =
 [
-    [ "newInstance", "de/db2/a02246.html#a6876c5c69c2d3bf961a518efddaef806", null ]
+    [ "addJob", "de/db2/a02246.html#aa7a0ccfd742595bb2259b138e8aa6786", null ],
+    [ "getJobs", "de/db2/a02246.html#a7faf08a97c4c917c767115c45be3b9c1", null ],
+    [ "getNonCstJobs", "de/db2/a02246.html#aded12c1a677f6bd3f0daa09414f0bd9e", null ],
+    [ "jobs_", "de/db2/a02246.html#a4e5366ce7b63ef6bdeda3ee8c56505fe", null ]
 ];

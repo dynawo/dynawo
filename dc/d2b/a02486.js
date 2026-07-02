@@ -1,6 +1,5 @@
 var a02486 =
 [
-    [ "MacroParSet", "dc/d2b/a02486.html#a0012d9de4b80bbb9dc801b17aa58842e", null ],
-    [ "getId", "dc/d2b/a02486.html#a505ed34f0efd73ea7f191acd42408a9c", null ],
-    [ "id_", "dc/d2b/a02486.html#add67802e6a634d9744f21cd785b3d938", null ]
+    [ "exportToFile", "dc/d2b/a02486.html#aaed5253b526fe1f82f9bb7351d127b6e", null ],
+    [ "exportToStream", "dc/d2b/a02486.html#a9ee9ba664ef27b69f7c184817c55f296", null ]
 ];

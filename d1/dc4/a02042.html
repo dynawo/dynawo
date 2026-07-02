@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: dynamicdata::ModelicaModelHandler Class Reference</title>
+<title>Dynawo: dynamicdata::ConnectHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -100,102 +100,54 @@ $(document).ready(function(){initNavTree('d1/dc4/a02042.html','../../');});
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d4/d9b/a02039.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">dynamicdata::ModelicaModelHandler Class Reference</div>  </div>
+<div class="title">dynamicdata::ConnectHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Handler used to parse modelica model element.  
+<p>Handler used to parse connect element.  
  <a href="../../d1/dc4/a02042.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../de/db1/a00197_source.html">DYDXmlHandler.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for dynamicdata::ModelicaModelHandler:</div>
+Inheritance diagram for dynamicdata::ConnectHandler:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d1/dc4/a02042.png" usemap="#dynamicdata::ModelicaModelHandler_map" alt=""/>
-  <map id="dynamicdata::ModelicaModelHandler_map" name="dynamicdata::ModelicaModelHandler_map">
+  <img src="../../d1/dc4/a02042.png" usemap="#dynamicdata::ConnectHandler_map" alt=""/>
+  <map id="dynamicdata::ConnectHandler_map" name="dynamicdata::ConnectHandler_map">
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5fa857b1fb92fdf593ada268e4d8d008"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a5fa857b1fb92fdf593ada268e4d8d008">ModelicaModelHandler</a> (elementName_type const &amp;root_element)</td></tr>
-<tr class="memdesc:a5fa857b1fb92fdf593ada268e4d8d008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5fa857b1fb92fdf593ada268e4d8d008">More...</a><br /></td></tr>
-<tr class="separator:a5fa857b1fb92fdf593ada268e4d8d008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff89b30268cf3dad50cd2c4e2476219e"><td class="memItemLeft" align="right" valign="top"><a id="aff89b30268cf3dad50cd2c4e2476219e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#aff89b30268cf3dad50cd2c4e2476219e">~ModelicaModelHandler</a> () override</td></tr>
-<tr class="memdesc:aff89b30268cf3dad50cd2c4e2476219e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:aff89b30268cf3dad50cd2c4e2476219e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcdf256d8589edba5080a7ce9929257a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#adcdf256d8589edba5080a7ce9929257a">get</a> () const</td></tr>
-<tr class="memdesc:adcdf256d8589edba5080a7ce9929257a"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the modelica model read in xml file  <a href="#adcdf256d8589edba5080a7ce9929257a">More...</a><br /></td></tr>
-<tr class="separator:adcdf256d8589edba5080a7ce9929257a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad63eea06e32c5808a03f7f9ea9647210"><td class="memItemLeft" align="right" valign="top"><a id="ad63eea06e32c5808a03f7f9ea9647210"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#ad63eea06e32c5808a03f7f9ea9647210">addConnect</a> ()</td></tr>
-<tr class="memdesc:ad63eea06e32c5808a03f7f9ea9647210"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a connector to the modelica model <br /></td></tr>
-<tr class="separator:ad63eea06e32c5808a03f7f9ea9647210"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65c601cbe39cf27021655812ab19d586"><td class="memItemLeft" align="right" valign="top"><a id="a65c601cbe39cf27021655812ab19d586"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a65c601cbe39cf27021655812ab19d586">addInitConnect</a> ()</td></tr>
-<tr class="memdesc:a65c601cbe39cf27021655812ab19d586"><td class="mdescLeft">&#160;</td><td class="mdescRight">add an init connector to the modelica model <br /></td></tr>
-<tr class="separator:a65c601cbe39cf27021655812ab19d586"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cdfb329f1d1ecec27e46821eb9b1236"><td class="memItemLeft" align="right" valign="top"><a id="a5cdfb329f1d1ecec27e46821eb9b1236"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a5cdfb329f1d1ecec27e46821eb9b1236">addStaticRef</a> ()</td></tr>
-<tr class="memdesc:a5cdfb329f1d1ecec27e46821eb9b1236"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a static reference to the modelica model <br /></td></tr>
-<tr class="separator:a5cdfb329f1d1ecec27e46821eb9b1236"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25065e43d437b2497d06f78c84af34f3"><td class="memItemLeft" align="right" valign="top"><a id="a25065e43d437b2497d06f78c84af34f3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a25065e43d437b2497d06f78c84af34f3">addUnitDynamicModel</a> ()</td></tr>
-<tr class="memdesc:a25065e43d437b2497d06f78c84af34f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a unit dynamic model to the modelica model <br /></td></tr>
-<tr class="separator:a25065e43d437b2497d06f78c84af34f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a720fb918636a6b835682da7f761d4f49"><td class="memItemLeft" align="right" valign="top"><a id="a720fb918636a6b835682da7f761d4f49"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a720fb918636a6b835682da7f761d4f49">addMacroConnect</a> ()</td></tr>
-<tr class="memdesc:a720fb918636a6b835682da7f761d4f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a macro connect to the modelica model <br /></td></tr>
-<tr class="separator:a720fb918636a6b835682da7f761d4f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff538fffcf191111cea59c499b8a8e44"><td class="memItemLeft" align="right" valign="top"><a id="aff538fffcf191111cea59c499b8a8e44"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#aff538fffcf191111cea59c499b8a8e44">addMacroStaticRef</a> ()</td></tr>
-<tr class="memdesc:aff538fffcf191111cea59c499b8a8e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a macroStaticRef to the modelica model <br /></td></tr>
-<tr class="separator:aff538fffcf191111cea59c499b8a8e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fef8b3aa82073d69b10ed865fd7857a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a9fef8b3aa82073d69b10ed865fd7857a">ConnectHandler</a> (elementName_type const &amp;root_element)</td></tr>
+<tr class="memdesc:a9fef8b3aa82073d69b10ed865fd7857a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a9fef8b3aa82073d69b10ed865fd7857a">More...</a><br /></td></tr>
+<tr class="separator:a9fef8b3aa82073d69b10ed865fd7857a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec57a6b7445893421764e24b8a5e5898"><td class="memItemLeft" align="right" valign="top"><a id="aec57a6b7445893421764e24b8a5e5898"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#aec57a6b7445893421764e24b8a5e5898">~ConnectHandler</a> () override</td></tr>
+<tr class="memdesc:aec57a6b7445893421764e24b8a5e5898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aec57a6b7445893421764e24b8a5e5898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a612a02c1f2c66fb97533f4b3c2faa892"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d48/a02014.html">ConnectorRead</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a612a02c1f2c66fb97533f4b3c2faa892">get</a> () const</td></tr>
+<tr class="memdesc:a612a02c1f2c66fb97533f4b3c2faa892"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the connector read in xml file  <a href="#a612a02c1f2c66fb97533f4b3c2faa892">More...</a><br /></td></tr>
+<tr class="separator:a612a02c1f2c66fb97533f4b3c2faa892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:af2b76fbef04852bf0b202da15f5beaea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#af2b76fbef04852bf0b202da15f5beaea">create</a> (attributes_type const &amp;attributes)</td></tr>
-<tr class="memdesc:af2b76fbef04852bf0b202da15f5beaea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#af2b76fbef04852bf0b202da15f5beaea">More...</a><br /></td></tr>
-<tr class="separator:af2b76fbef04852bf0b202da15f5beaea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a724ce0ba658d068db5ee1bf78aed4182"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a724ce0ba658d068db5ee1bf78aed4182">create</a> (attributes_type const &amp;attributes)</td></tr>
+<tr class="memdesc:a724ce0ba658d068db5ee1bf78aed4182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#a724ce0ba658d068db5ee1bf78aed4182">More...</a><br /></td></tr>
+<tr class="separator:a724ce0ba658d068db5ee1bf78aed4182"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a1dc87da498674ef57409c1810939fcf3"><td class="memItemLeft" align="right" valign="top"><a id="a1dc87da498674ef57409c1810939fcf3"></a>
-<a class="el" href="../../d9/dd6/a02026.html">ConnectHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a1dc87da498674ef57409c1810939fcf3">connectHandler_</a></td></tr>
-<tr class="memdesc:a1dc87da498674ef57409c1810939fcf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read connect element <br /></td></tr>
-<tr class="separator:a1dc87da498674ef57409c1810939fcf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b2a34658939f5eea4aaa67bb0822b1b"><td class="memItemLeft" align="right" valign="top"><a id="a8b2a34658939f5eea4aaa67bb0822b1b"></a>
-<a class="el" href="../../d9/dd6/a02026.html">ConnectHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a8b2a34658939f5eea4aaa67bb0822b1b">initConnectHandler_</a></td></tr>
-<tr class="memdesc:a8b2a34658939f5eea4aaa67bb0822b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read init connect element <br /></td></tr>
-<tr class="separator:a8b2a34658939f5eea4aaa67bb0822b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f811cc35275c1beee5dea5ba7120f02"><td class="memItemLeft" align="right" valign="top"><a id="a2f811cc35275c1beee5dea5ba7120f02"></a>
-<a class="el" href="../../d8/de7/a02030.html">MacroConnectHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a2f811cc35275c1beee5dea5ba7120f02">macroConnectHandler_</a></td></tr>
-<tr class="memdesc:a2f811cc35275c1beee5dea5ba7120f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read macro connect element <br /></td></tr>
-<tr class="separator:a2f811cc35275c1beee5dea5ba7120f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b6f41862fa7fdca9ceeedbb0109fe85"><td class="memItemLeft" align="right" valign="top"><a id="a2b6f41862fa7fdca9ceeedbb0109fe85"></a>
-<a class="el" href="../../d0/d48/a02014.html">StaticRefHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a2b6f41862fa7fdca9ceeedbb0109fe85">staticRefHandler_</a></td></tr>
-<tr class="memdesc:a2b6f41862fa7fdca9ceeedbb0109fe85"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read static ref element <br /></td></tr>
-<tr class="separator:a2b6f41862fa7fdca9ceeedbb0109fe85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b158618dfabe53a09f30f456a261e86"><td class="memItemLeft" align="right" valign="top"><a id="a9b158618dfabe53a09f30f456a261e86"></a>
-<a class="el" href="../../da/d2d/a02018.html">MacroStaticRefHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a9b158618dfabe53a09f30f456a261e86">macroStaticRefHandler_</a></td></tr>
-<tr class="memdesc:a9b158618dfabe53a09f30f456a261e86"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read macroStaticRef element <br /></td></tr>
-<tr class="separator:a9b158618dfabe53a09f30f456a261e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf59096da84945eb9e518688091917e2"><td class="memItemLeft" align="right" valign="top"><a id="acf59096da84945eb9e518688091917e2"></a>
-<a class="el" href="../../d3/d59/a02010.html">UnitDynamicModelHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#acf59096da84945eb9e518688091917e2">unitDynamicModelHandler_</a></td></tr>
-<tr class="memdesc:acf59096da84945eb9e518688091917e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read unit dynamic model element <br /></td></tr>
-<tr class="separator:acf59096da84945eb9e518688091917e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab3687186350e087e01dadc58a4efaa4"><td class="memItemLeft" align="right" valign="top"><a id="aab3687186350e087e01dadc58a4efaa4"></a>
-std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#aab3687186350e087e01dadc58a4efaa4">modelicaModel_</a></td></tr>
-<tr class="memdesc:aab3687186350e087e01dadc58a4efaa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">current modelica model <br /></td></tr>
-<tr class="separator:aab3687186350e087e01dadc58a4efaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ab5d9d7087ad2c2c2077a6dff687b2"><td class="memItemLeft" align="right" valign="top"><a id="a10ab5d9d7087ad2c2c2077a6dff687b2"></a>
+<a class="el" href="../../d0/d48/a02014.html">ConnectorRead</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc4/a02042.html#a10ab5d9d7087ad2c2c2077a6dff687b2">connector_</a></td></tr>
+<tr class="memdesc:a10ab5d9d7087ad2c2c2077a6dff687b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">current connector object <br /></td></tr>
+<tr class="separator:a10ab5d9d7087ad2c2c2077a6dff687b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handler used to parse modelica model element. </p>
+<div class="textblock"><p>Handler used to parse connect element. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5fa857b1fb92fdf593ada268e4d8d008"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fa857b1fb92fdf593ada268e4d8d008">&#9670;&nbsp;</a></span>ModelicaModelHandler()</h2>
+<a id="a9fef8b3aa82073d69b10ed865fd7857a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fef8b3aa82073d69b10ed865fd7857a">&#9670;&nbsp;</a></span>ConnectHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +156,7 @@ std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel<
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dynamicdata::ModelicaModelHandler::ModelicaModelHandler </td>
+          <td class="memname">dynamicdata::ConnectHandler::ConnectHandler </td>
           <td>(</td>
           <td class="paramtype">elementName_type const &amp;&#160;</td>
           <td class="paramname"><em>root_element</em></td><td>)</td>
@@ -229,8 +181,8 @@ std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel<
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af2b76fbef04852bf0b202da15f5beaea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2b76fbef04852bf0b202da15f5beaea">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a724ce0ba658d068db5ee1bf78aed4182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a724ce0ba658d068db5ee1bf78aed4182">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,7 +191,7 @@ std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel<
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void dynamicdata::ModelicaModelHandler::create </td>
+          <td class="memname">void dynamicdata::ConnectHandler::create </td>
           <td>(</td>
           <td class="paramtype">attributes_type const &amp;&#160;</td>
           <td class="paramname"><em>attributes</em></td><td>)</td>
@@ -263,14 +215,14 @@ std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel<
 
 </div>
 </div>
-<a id="adcdf256d8589edba5080a7ce9929257a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcdf256d8589edba5080a7ce9929257a">&#9670;&nbsp;</a></span>get()</h2>
+<a id="a612a02c1f2c66fb97533f4b3c2faa892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a612a02c1f2c66fb97533f4b3c2faa892">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d7/d34/a01954.html">ModelicaModel</a>&gt; dynamicdata::ModelicaModelHandler::get </td>
+          <td class="memname"><a class="el" href="../../d0/d48/a02014.html">ConnectorRead</a> dynamicdata::ConnectHandler::get </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -278,8 +230,8 @@ std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel<
       </table>
 </div><div class="memdoc">
 
-<p>return the modelica model read in xml file </p>
-<dl class="section return"><dt>Returns</dt><dd>modelica model object build thanks to infos read in xml file </dd></dl>
+<p>return the connector read in xml file </p>
+<dl class="section return"><dt>Returns</dt><dd>connector object build thanks to infos read in xml file </dd></dl>
 
 </div>
 </div>
@@ -302,8 +254,8 @@ std::shared_ptr&lt; <a class="el" href="../../d7/d34/a01954.html">ModelicaModel<
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d1/dc4/a02042.html">ModelicaModelHandler</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d1/dc4/a02042.html">ConnectHandler</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

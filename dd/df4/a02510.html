@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: parameters::ParametersSetFactory Class Reference</title>
+<title>Dynawo: mandatoryParameters::XmlImporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,102 +95,86 @@ $(document).ready(function(){initNavTree('dd/df4/a02510.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../de/dbd/a02507.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">parameters::ParametersSetFactory Class Reference</div>  </div>
+<div class="title">mandatoryParameters::XmlImporter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>parameters set factory  
+<p>XML importer for .mandatoryParam files.  
  <a href="../../dd/df4/a02510.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/da8/a00437_source.html">PARParametersSetFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../db/d43/a00422_source.html">MANDATORYPARAMXmlImporter.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3192d86bfc5c7cc685fff83acd8f5ca2"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df4/a02510.html#a3192d86bfc5c7cc685fff83acd8f5ca2">newParametersSet</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:a3192d86bfc5c7cc685fff83acd8f5ca2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="../../dd/dd4/a02498.html" title="Parameters set interface class. ">ParametersSet</a> instance.  <a href="#a3192d86bfc5c7cc685fff83acd8f5ca2">More...</a><br /></td></tr>
-<tr class="separator:a3192d86bfc5c7cc685fff83acd8f5ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a920d895d678aa836e9899adde5aee468"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df4/a02510.html#a920d895d678aa836e9899adde5aee468">copySet</a> (const std::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">ParametersSet</a> &gt; &amp;original)</td></tr>
-<tr class="memdesc:a920d895d678aa836e9899adde5aee468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="../../dd/dd4/a02498.html" title="Parameters set interface class. ">ParametersSet</a> instance as a clone of a given instance.  <a href="#a920d895d678aa836e9899adde5aee468">More...</a><br /></td></tr>
-<tr class="separator:a920d895d678aa836e9899adde5aee468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae2fcc389c3c5e9c49e451bfb062f5c36"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d5/ddd/a02490.html">Collection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df4/a02510.html#ae2fcc389c3c5e9c49e451bfb062f5c36">importFromFile</a> (const std::string &amp;filePath) const</td></tr>
+<tr class="memdesc:ae2fcc389c3c5e9c49e451bfb062f5c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import a mandatory parameters collection from a file.  <a href="#ae2fcc389c3c5e9c49e451bfb062f5c36">More...</a><br /></td></tr>
+<tr class="separator:ae2fcc389c3c5e9c49e451bfb062f5c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a584927acd56389d5316678a18b39afea"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d5/ddd/a02490.html">Collection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df4/a02510.html#a584927acd56389d5316678a18b39afea">importFromStream</a> (std::istream &amp;stream) const</td></tr>
+<tr class="memdesc:a584927acd56389d5316678a18b39afea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import a mandatory parameters collection from a stream.  <a href="#a584927acd56389d5316678a18b39afea">More...</a><br /></td></tr>
+<tr class="separator:a584927acd56389d5316678a18b39afea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>parameters set factory </p>
+<div class="textblock"><p>XML importer for .mandatoryParam files. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a920d895d678aa836e9899adde5aee468"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a920d895d678aa836e9899adde5aee468">&#9670;&nbsp;</a></span>copySet()</h2>
+<a id="ae2fcc389c3c5e9c49e451bfb062f5c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2fcc389c3c5e9c49e451bfb062f5c36">&#9670;&nbsp;</a></span>importFromFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::shared_ptr&lt;<a class="el" href="../../dd/dd4/a02498.html">ParametersSet</a>&gt; parameters::ParametersSetFactory::copySet </td>
-          <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../dd/dd4/a02498.html">ParametersSet</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>original</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create a new <a class="el" href="../../dd/dd4/a02498.html" title="Parameters set interface class. ">ParametersSet</a> instance as a clone of a given instance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">original</td><td><a class="el" href="../../db/d09/a02502.html" title="Parameters set collection interface class. ">ParametersSetCollection</a> to be cloned</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../dd/dd4/a02498.html" title="Parameters set interface class. ">ParametersSet</a></code> copied from original </dd></dl>
-
-</div>
-</div>
-<a id="a3192d86bfc5c7cc685fff83acd8f5ca2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3192d86bfc5c7cc685fff83acd8f5ca2">&#9670;&nbsp;</a></span>newParametersSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::shared_ptr&lt;<a class="el" href="../../dd/dd4/a02498.html">ParametersSet</a>&gt; parameters::ParametersSetFactory::newParametersSet </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d5/ddd/a02490.html">Collection</a>&gt; mandatoryParameters::XmlImporter::importFromFile </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>filePath</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Create a new <a class="el" href="../../dd/dd4/a02498.html" title="Parameters set interface class. ">ParametersSet</a> instance. </p>
+<p>Import a mandatory parameters collection from a file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>id of the set of parameters</td></tr>
+    <tr><td class="paramname">filePath</td><td>path to the .mandatoryParam file </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new empty <code><a class="el" href="../../dd/dd4/a02498.html" title="Parameters set interface class. ">ParametersSet</a></code> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>parsed collection </dd></dl>
+
+</div>
+</div>
+<a id="a584927acd56389d5316678a18b39afea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a584927acd56389d5316678a18b39afea">&#9670;&nbsp;</a></span>importFromStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d5/ddd/a02490.html">Collection</a>&gt; mandatoryParameters::XmlImporter::importFromStream </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Import a mandatory parameters collection from a stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>input stream containing .mandatoryParam XML </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>parsed collection </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d4/da8/a00437_source.html">PARParametersSetFactory.h</a></li>
+<li><a class="el" href="../../db/d43/a00422_source.html">MANDATORYPARAMXmlImporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -208,8 +192,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../dd/df4/a02510.html">ParametersSetFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>mandatoryParameters</b></li><li class="navelem"><a class="el" href="../../dd/df4/a02510.html">XmlImporter</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

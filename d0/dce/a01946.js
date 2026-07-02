@@ -1,4 +1,4 @@
 var a01946 =
 [
-    [ "newMacroStaticRef", "d0/dce/a01946.html#aa6fa4ce0a828db63164293988e242d32", null ]
+    [ "newMacroConnector", "d0/dce/a01946.html#ac76b19c41c62abfcee4398b1b9b2a977", null ]
 ];

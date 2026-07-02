@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['vertex',['Vertex',['../d4/dfb/a00512.html#a647fa4b703900efea039dfd0f045be9f',1,'DYNGraph.h']]],
-  ['vertexproperty',['VertexProperty',['../d4/dfb/a00512.html#a3b41190895ba885934add0c54df91118',1,'DYNGraph.h']]]
+  ['vertex',['Vertex',['../d9/d44/a00527.html#a647fa4b703900efea039dfd0f045be9f',1,'DYNGraph.h']]],
+  ['vertexproperty',['VertexProperty',['../d9/d44/a00527.html#a3b41190895ba885934add0c54df91118',1,'DYNGraph.h']]]
 ];

@@ -1,9 +1,8 @@
 var a02434 =
 [
-    [ "XmlHandler", "da/d2f/a02434.html#aeed04b426f06fa19811604c7202e96e3", null ],
-    [ "~XmlHandler", "da/d2f/a02434.html#a6a88f59d96723f320941c6540d846fae", null ],
-    [ "addJob", "da/d2f/a02434.html#a035c1ed79cddd54d880ae3627787d374", null ],
-    [ "getJobsCollection", "da/d2f/a02434.html#a3e6c019a1b370817f0e7d862ded5654d", null ],
-    [ "jobHandler_", "da/d2f/a02434.html#a94736e22a657df41bd7b455833fd7d03", null ],
-    [ "jobsCollection_", "da/d2f/a02434.html#a16d7d03455abf96be7d911effcb9979a", null ]
+    [ "StreamHandler", "da/d2f/a02434.html#a1ffe028d13519e6c65aee27752e73e1e", null ],
+    [ "~StreamHandler", "da/d2f/a02434.html#a76d5a2d10747c4247030eda491215643", null ],
+    [ "create", "da/d2f/a02434.html#abaa527fe739566f7b6a855b8b204b10d", null ],
+    [ "get", "da/d2f/a02434.html#a263b8e94289f65bb3abbaec89c0dbca2", null ],
+    [ "stream_", "da/d2f/a02434.html#a035ee0f058d08d81eb33ea49b28b5a4d", null ]
 ];

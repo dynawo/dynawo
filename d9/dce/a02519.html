@@ -95,15 +95,21 @@ $(document).ready(function(){initNavTree('d7/da8/a02522.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">parameters::XmlExporter Member List</div>  </div>
+<div class="title">parameters::MacroParameterSet Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d7/da8/a02522.html">parameters::XmlExporter</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d7/da8/a02522.html#aad3d33a63866ebc87e0fd704a9b15446">exportToFile</a>(const std::shared_ptr&lt; ParametersSetCollection &gt; &amp;collection, const std::string &amp;filePath, const std::string &amp;encoding=&quot;&quot;) const override</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::XmlExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d7/da8/a02522.html#abea14d7607045a66908c7cdecc71f344">exportToStream</a>(const std::shared_ptr&lt; ParametersSetCollection &gt; &amp;collection, std::ostream &amp;stream, const std::string &amp;encoding=&quot;&quot;) const override</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::XmlExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d5/d61/a02474.html#a4be4567a81af482517744fd4628e54f6">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../d5/d61/a02474.html">parameters::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da8/a02522.html#aa34f8887b36945feab00bf3990a6e8fa">addParameter</a>(const std::shared_ptr&lt; Parameter &gt; &amp;parameter)</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da8/a02522.html#ab476869495b0604d5f7fb33f669bb9be">addReference</a>(const std::shared_ptr&lt; Reference &gt; &amp;reference)</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da8/a02522.html#a4cb644db34d73c925f5fc08734883f13">getId</a>() const</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da8/a02522.html#aa0abd9fce505a122b44c5efb37cb5e90">getParameters</a>() const</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da8/a02522.html#a85f81030ba5ad6a1bb0cfda00ca27793">getReferences</a>() const</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da8/a02522.html#af206b23f62a82e0b9ca825eced5f6347">id_</a></td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da8/a02522.html#a1f192aad25ddc1983b20136c80d0d5da">MacroParameterSet</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d7/da8/a02522.html#a47f507f00decd25ca0eca5051b6ac900">parameters_</a></td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d7/da8/a02522.html#af7fc32aa8cfb1cc828e76914b46bb1bd">references_</a></td><td class="entry"><a class="el" href="../../d7/da8/a02522.html">parameters::MacroParameterSet</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +126,7 @@ $(document).ready(function(){initNavTree('d7/da8/a02522.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

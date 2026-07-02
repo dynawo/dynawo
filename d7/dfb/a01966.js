@@ -1,17 +1,23 @@
 var a01966 =
 [
-    [ "ModelTemplateExpansion", "d7/dfb/a01966.html#a43ebb55b1977ae79647c52c33847f769", null ],
-    [ "~ModelTemplateExpansion", "d7/dfb/a01966.html#ad715fc19460d6cdd8a08287ab0be9099", null ],
-    [ "getParFile", "d7/dfb/a01966.html#a2a9b64e11b392f004df4b0cd0af2aafe", null ],
-    [ "getParId", "d7/dfb/a01966.html#aa3eae8ac023c0d547dce6e46cf089d05", null ],
-    [ "getStaticId", "d7/dfb/a01966.html#acf4f7b8c0c5008ce5ad2f39910486766", null ],
-    [ "getTemplateId", "d7/dfb/a01966.html#a204dbd6ec57fe36a37b3814f6958673e", null ],
-    [ "setParFile", "d7/dfb/a01966.html#a56d26b2699979d847ec8e906ecf7356f", null ],
-    [ "setParId", "d7/dfb/a01966.html#adeda3f74f761c92cf36342543055f233", null ],
-    [ "setStaticId", "d7/dfb/a01966.html#ac69eb5314e8bcc714f898418b8767788", null ],
-    [ "setTemplateId", "d7/dfb/a01966.html#acabde52067b16a4df36cab6c5b8d4b5a", null ],
-    [ "parFile_", "d7/dfb/a01966.html#a1d99cba3867f49e853cbb60880f94dfc", null ],
-    [ "parId_", "d7/dfb/a01966.html#a05c94782efff4d968ec26367dda085d4", null ],
-    [ "staticId_", "d7/dfb/a01966.html#a17600b737a067669a0bc1c913330e686", null ],
-    [ "templateId_", "d7/dfb/a01966.html#ac047d63e9da38d8e7d4a1bb19efb54bc", null ]
+    [ "ModelType", "d7/dfb/a01966.html#a4e9cfaeade924b852a17f9d04e7e1d7b", [
+      [ "BLACK_BOX_MODEL", "d7/dfb/a01966.html#a4e9cfaeade924b852a17f9d04e7e1d7ba77e7b4698a5fe4474c347068cf3222a1", null ],
+      [ "MODELICA_MODEL", "d7/dfb/a01966.html#a4e9cfaeade924b852a17f9d04e7e1d7bad748891457f0e33ee2f1d1934b32c1a1", null ],
+      [ "MODEL_TEMPLATE_EXPANSION", "d7/dfb/a01966.html#a4e9cfaeade924b852a17f9d04e7e1d7ba350c21dd0581a40b8f91afe8b9d026e4", null ],
+      [ "MODEL_TEMPLATE", "d7/dfb/a01966.html#a4e9cfaeade924b852a17f9d04e7e1d7bacc0e090e69e012a43fb83f6a83dcaf38", null ]
+    ] ],
+    [ "~Model", "d7/dfb/a01966.html#a24c7f953f830bb4d1566b24b036c5a35", null ],
+    [ "Model", "d7/dfb/a01966.html#aa10f478a94514aea4c435343867929a6", null ],
+    [ "addMacroStaticRef", "d7/dfb/a01966.html#afab5fe85ff295d07c0c46decb123d45c", null ],
+    [ "addStaticRef", "d7/dfb/a01966.html#ad505a3c3b8664e315d48b2417b9611c1", null ],
+    [ "findMacroStaticRef", "d7/dfb/a01966.html#a082c41a07a1461a92b9e33c621756a80", null ],
+    [ "findStaticRef", "d7/dfb/a01966.html#a20d16d4ac550edfe738a88c4f630a56a", null ],
+    [ "getId", "d7/dfb/a01966.html#ae1113a0a2ddb77986f2fea5fbb33f0a5", null ],
+    [ "getMacroStaticRefs", "d7/dfb/a01966.html#acff19bca31490bb33f566ed073133a72", null ],
+    [ "getStaticRefs", "d7/dfb/a01966.html#abbb057939c87213706e6c254eb2f3b7e", null ],
+    [ "getType", "d7/dfb/a01966.html#af9097f52349f043c47ff870834e0b8c0", null ],
+    [ "id_", "d7/dfb/a01966.html#a3980dfde631378acd0e09ddd48a28950", null ],
+    [ "macroStaticRefs_", "d7/dfb/a01966.html#a643289d681288b7e16775a0b78c12d04", null ],
+    [ "staticRefs_", "d7/dfb/a01966.html#a3447cf57374b5fc20e7a2dd7f352229e", null ],
+    [ "type_", "d7/dfb/a01966.html#ae8cd35eed59767c33ca27cb49a8204df", null ]
 ];

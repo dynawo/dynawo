@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: lostEquipments::LostEquipmentFactory Class Reference</title>
+<title>Dynawo: job::XmlHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,107 +95,82 @@ $(document).ready(function(){initNavTree('d8/db7/a02450.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d8/d9a/a02447.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">lostEquipments::LostEquipmentFactory Class Reference</div>  </div>
+<div class="title">job::XmlHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Lost equipment factory class.  
+<p>Jobs xml file handler class.  
  <a href="../../d8/db7/a02450.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d9/dd1/a00398_source.html">LEQLostEquipmentFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for job::XmlHandler:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d8/db7/a02450.png" usemap="#job::XmlHandler_map" alt=""/>
+  <map id="job::XmlHandler_map" name="job::XmlHandler_map">
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a30275703d01d0bb359d2bffbc90ee57a"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d3/d6c/a02446.html">LostEquipment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#a30275703d01d0bb359d2bffbc90ee57a">newLostEquipment</a> ()</td></tr>
-<tr class="memdesc:a30275703d01d0bb359d2bffbc90ee57a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d3/d6c/a02446.html" title="LostEquipment. ">LostEquipment</a> instance.  <a href="#a30275703d01d0bb359d2bffbc90ee57a">More...</a><br /></td></tr>
-<tr class="separator:a30275703d01d0bb359d2bffbc90ee57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03d8227ed4300eddb125dd93a76ba40f"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d3/d6c/a02446.html">LostEquipment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#a03d8227ed4300eddb125dd93a76ba40f">newLostEquipment</a> (const std::string &amp;id, const std::string &amp;type)</td></tr>
-<tr class="memdesc:a03d8227ed4300eddb125dd93a76ba40f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d3/d6c/a02446.html" title="LostEquipment. ">LostEquipment</a> instance.  <a href="#a03d8227ed4300eddb125dd93a76ba40f">More...</a><br /></td></tr>
-<tr class="separator:a03d8227ed4300eddb125dd93a76ba40f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aeed04b426f06fa19811604c7202e96e3"><td class="memItemLeft" align="right" valign="top"><a id="aeed04b426f06fa19811604c7202e96e3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#aeed04b426f06fa19811604c7202e96e3">XmlHandler</a> ()</td></tr>
+<tr class="memdesc:aeed04b426f06fa19811604c7202e96e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:aeed04b426f06fa19811604c7202e96e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a88f59d96723f320941c6540d846fae"><td class="memItemLeft" align="right" valign="top"><a id="a6a88f59d96723f320941c6540d846fae"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#a6a88f59d96723f320941c6540d846fae">~XmlHandler</a> () override</td></tr>
+<tr class="memdesc:a6a88f59d96723f320941c6540d846fae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a6a88f59d96723f320941c6540d846fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a035c1ed79cddd54d880ae3627787d374"><td class="memItemLeft" align="right" valign="top"><a id="a035c1ed79cddd54d880ae3627787d374"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#a035c1ed79cddd54d880ae3627787d374">addJob</a> ()</td></tr>
+<tr class="memdesc:a035c1ed79cddd54d880ae3627787d374"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a job to the jobs list <br /></td></tr>
+<tr class="separator:a035c1ed79cddd54d880ae3627787d374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e6c019a1b370817f0e7d862ded5654d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../de/db2/a02246.html">JobsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#a3e6c019a1b370817f0e7d862ded5654d">getJobsCollection</a> () const</td></tr>
+<tr class="memdesc:a3e6c019a1b370817f0e7d862ded5654d"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the jobs collection read in jobs file  <a href="#a3e6c019a1b370817f0e7d862ded5654d">More...</a><br /></td></tr>
+<tr class="separator:a3e6c019a1b370817f0e7d862ded5654d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a16d7d03455abf96be7d911effcb9979a"><td class="memItemLeft" align="right" valign="top"><a id="a16d7d03455abf96be7d911effcb9979a"></a>
+std::shared_ptr&lt; <a class="el" href="../../de/db2/a02246.html">JobsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#a16d7d03455abf96be7d911effcb9979a">jobsCollection_</a></td></tr>
+<tr class="memdesc:a16d7d03455abf96be7d911effcb9979a"><td class="mdescLeft">&#160;</td><td class="mdescRight">jobs collection parsed <br /></td></tr>
+<tr class="separator:a16d7d03455abf96be7d911effcb9979a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94736e22a657df41bd7b455833fd7d03"><td class="memItemLeft" align="right" valign="top"><a id="a94736e22a657df41bd7b455833fd7d03"></a>
+<a class="el" href="../../d3/d6c/a02446.html">JobHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db7/a02450.html#a94736e22a657df41bd7b455833fd7d03">jobHandler_</a></td></tr>
+<tr class="memdesc:a94736e22a657df41bd7b455833fd7d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read job element <br /></td></tr>
+<tr class="separator:a94736e22a657df41bd7b455833fd7d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Lost equipment factory class. </p>
-<p><a class="el" href="../../d8/db7/a02450.html" title="Lost equipment factory class. ">LostEquipmentFactory</a> encapsulate methods for creating new <code><a class="el" href="../../d3/d6c/a02446.html" title="LostEquipment. ">LostEquipment</a></code> objects. </p>
+<div class="textblock"><p>Jobs xml file handler class. </p>
+<p><a class="el" href="../../d8/db7/a02450.html" title="Jobs xml file handler class. ">XmlHandler</a> is the implementation of Dynawo handler for parsing jobs files. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a30275703d01d0bb359d2bffbc90ee57a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30275703d01d0bb359d2bffbc90ee57a">&#9670;&nbsp;</a></span>newLostEquipment() <span class="overload">[1/2]</span></h2>
+<a id="a3e6c019a1b370817f0e7d862ded5654d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e6c019a1b370817f0e7d862ded5654d">&#9670;&nbsp;</a></span>getJobsCollection()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d3/d6c/a02446.html">LostEquipment</a>&gt; lostEquipments::LostEquipmentFactory::newLostEquipment </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../de/db2/a02246.html">JobsCollection</a>&gt; job::XmlHandler::getJobsCollection </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Create new <a class="el" href="../../d3/d6c/a02446.html" title="LostEquipment. ">LostEquipment</a> instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>unique pointer to a new empty <code><a class="el" href="../../d3/d6c/a02446.html" title="LostEquipment. ">LostEquipment</a></code> </dd></dl>
-
-</div>
-</div>
-<a id="a03d8227ed4300eddb125dd93a76ba40f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03d8227ed4300eddb125dd93a76ba40f">&#9670;&nbsp;</a></span>newLostEquipment() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d3/d6c/a02446.html">LostEquipment</a>&gt; lostEquipments::LostEquipmentFactory::newLostEquipment </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create new <a class="el" href="../../d3/d6c/a02446.html" title="LostEquipment. ">LostEquipment</a> instance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>Lost equipment's id </td></tr>
-    <tr><td class="paramname">type</td><td>Lost equipment's type </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>unique pointer to a new <code><a class="el" href="../../d3/d6c/a02446.html" title="LostEquipment. ">LostEquipment</a></code> </dd></dl>
+<p>returns the jobs collection read in jobs file </p>
+<dl class="section return"><dt>Returns</dt><dd>jobs collection created thanks to the jobs file </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/dd1/a00398_source.html">LEQLostEquipmentFactory.h</a></li>
+<li><a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -213,8 +188,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>lostEquipments</b></li><li class="navelem"><a class="el" href="../../d8/db7/a02450.html">LostEquipmentFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d8/db7/a02450.html">XmlHandler</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

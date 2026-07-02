@@ -1,8 +1,26 @@
 var a02654 =
 [
-    [ "OppositeEventDico", "db/d4d/a02654.html#a71ef2c8183e5299a2902bda177a1f873", null ],
-    [ "getOppositeEvents", "db/d4d/a02654.html#aedff69ef6007d38481f24f8be86e6868", null ],
-    [ "readFile", "db/d4d/a02654.html#afa5406c8bd7b5a595638749820ed52ab", null ],
-    [ "map_", "db/d4d/a02654.html#a74f62ee1a07c96390bfbeb6224790e11", null ],
-    [ "name_", "db/d4d/a02654.html#ad1950ba56643149e5bf92147fd69c995", null ]
+    [ "TypeError_t", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58", [
+      [ "UNDEFINED", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58ac2607fe9ecc8227e1531a75c7538180f", null ],
+      [ "SUNDIALS_ERROR", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58a86ef1d7cfd34749b0a16be86df774122", null ],
+      [ "SOLVER_ALGO", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58aaf55a860449314599317b7ba6edc745e", null ],
+      [ "MODELER", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58a3d0496a23b5bf78b812f43e48f3aa38e", null ],
+      [ "GENERAL", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58af93e729b88cb0123395e2b2c43da0606", null ],
+      [ "SIMULATION", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58ac1233df1e780079e862f1d6026bbc182", null ],
+      [ "NUMERICAL_ERROR", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58a240b72c74f9201a26133d11fd63bdaa6", null ],
+      [ "STATIC_DATA", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58adc0c781fe67c0b7d1c87ed6bb0c46396", null ],
+      [ "API", "db/d4d/a02654.html#ab65468b98196803043b63655fcfd1d58adc9caeca5753a30e9d3a355f3bb353ea", null ]
+    ] ],
+    [ "Error", "db/d4d/a02654.html#acdcd7e365fc83f94c8a1c8b942c8f6ef", null ],
+    [ "~Error", "db/d4d/a02654.html#a64b51984933b87d3b0c6dcb3cd3964a2", null ],
+    [ "Error", "db/d4d/a02654.html#ad00ef0984d25ae11c3a04f13885d22eb", null ],
+    [ "Error", "db/d4d/a02654.html#a4f79ffc23261c7ec3f17f7765969bbe4", null ],
+    [ "key", "db/d4d/a02654.html#afece191155e6c688708e8f0ba53cce0d", null ],
+    [ "operator=", "db/d4d/a02654.html#a2f505fa788e2267b128013fb58d20e9d", null ],
+    [ "type", "db/d4d/a02654.html#aac9062d6b4ec4b85e227edfba4c2d4a5", null ],
+    [ "what", "db/d4d/a02654.html#a5503957fb7855a31ab1b9874c9251998", null ],
+    [ "operator<<", "db/d4d/a02654.html#acdc23f24f36a778dc2c2e8fdd6f0e80c", null ],
+    [ "key_", "db/d4d/a02654.html#a85d134958a547b827ef85834f8209fe2", null ],
+    [ "msgToReturn_", "db/d4d/a02654.html#a10583fc99ed3423045ad473e3d9abd02", null ],
+    [ "type_", "db/d4d/a02654.html#aeccba3810e780b76df94d196f3d44a41", null ]
 ];

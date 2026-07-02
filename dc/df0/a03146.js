@@ -1,10 +1,5 @@
 var a03146 =
 [
-    [ "ServiceManagerInterfaceIIDM", "dc/df0/a03146.html#a10b79af58e9ba76eaf278fbed3739ae5", null ],
-    [ "buildGraph", "dc/df0/a03146.html#a1eae3fe132e374d82cbb775568612165", null ],
-    [ "getBusesConnectedBySwitch", "dc/df0/a03146.html#a308135a9555587f824fdd04d9699662d", null ],
-    [ "getRegulatedBus", "dc/df0/a03146.html#a267e61fd49d68a4509064b60e393db30", null ],
-    [ "getRegulatedBusOnSide", "dc/df0/a03146.html#a4a2b3499e573dbece616843e84575fa0", null ],
-    [ "isBusConnected", "dc/df0/a03146.html#aca5da30efe59c14b34510e88e34311d8", null ],
-    [ "dataInterface_", "dc/df0/a03146.html#aebea6aa4aed93becafdd1ea71480a822", null ]
+    [ "NetworkComponentType", "dc/df0/a03146.html#a6525f4b3fdd4dad85c5f549f47590e1e", null ],
+    [ "name", "dc/df0/a03146.html#a95d05bb9adaa4472b0f46bd934e15838", null ]
 ];

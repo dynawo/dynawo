@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: job::InteractiveSettingsEntry Class Reference</title>
+<title>Dynawo: job::Importer Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,117 +96,45 @@ $(document).ready(function(){initNavTree('d4/d54/a02218.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../dd/d31/a02215.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::InteractiveSettingsEntry Class Reference</div>  </div>
+<div class="title">job::Importer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Container for interactive mode options: clock, channels, streams.  
+<p><a class="el" href="../../d4/d54/a02218.html" title="Importer interface class. ">Importer</a> interface class.  
  <a href="../../d4/d54/a02218.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d1/d5d/a00311_source.html">JOBInteractiveSettingsEntry.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../df/d95/a00299_source.html">JOBImporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for job::Importer:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d4/d54/a02218.png" usemap="#job::Importer_map" alt=""/>
+  <map id="job::Importer_map" name="job::Importer_map">
+<area href="../../d1/d9a/a02454.html" title="Xml Importer interface class. " alt="job::XmlImporter" shape="rect" coords="0,56,102,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a784db45a3cf59f5b411fa6e542fe781b"><td class="memItemLeft" align="right" valign="top"><a id="a784db45a3cf59f5b411fa6e542fe781b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a784db45a3cf59f5b411fa6e542fe781b">InteractiveSettingsEntry</a> ()</td></tr>
-<tr class="memdesc:a784db45a3cf59f5b411fa6e542fe781b"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br /></td></tr>
-<tr class="separator:a784db45a3cf59f5b411fa6e542fe781b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92fdd2c73dc2328fe2cfb67631d808c9"><td class="memItemLeft" align="right" valign="top"><a id="a92fdd2c73dc2328fe2cfb67631d808c9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a92fdd2c73dc2328fe2cfb67631d808c9">~InteractiveSettingsEntry</a> ()=default</td></tr>
-<tr class="memdesc:a92fdd2c73dc2328fe2cfb67631d808c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a92fdd2c73dc2328fe2cfb67631d808c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08cccf0e8b6dc9ae1bb1b47405d9ff74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a08cccf0e8b6dc9ae1bb1b47405d9ff74">InteractiveSettingsEntry</a> (const <a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a> &amp;other)</td></tr>
-<tr class="memdesc:a08cccf0e8b6dc9ae1bb1b47405d9ff74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a08cccf0e8b6dc9ae1bb1b47405d9ff74">More...</a><br /></td></tr>
-<tr class="separator:a08cccf0e8b6dc9ae1bb1b47405d9ff74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca980cfdf98f8b5d671bc6c556c755b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#aca980cfdf98f8b5d671bc6c556c755b4">operator=</a> (const <a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a> &amp;other)</td></tr>
-<tr class="memdesc:aca980cfdf98f8b5d671bc6c556c755b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement Operator.  <a href="#aca980cfdf98f8b5d671bc6c556c755b4">More...</a><br /></td></tr>
-<tr class="separator:aca980cfdf98f8b5d671bc6c556c755b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d7d174f4889f40736743f971ab06892"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a8d7d174f4889f40736743f971ab06892">setClockEntry</a> (std::shared_ptr&lt; <a class="el" href="../../de/d38/a02166.html">ClockEntry</a> &gt; clockEntry)</td></tr>
-<tr class="memdesc:a8d7d174f4889f40736743f971ab06892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock entry container setter.  <a href="#a8d7d174f4889f40736743f971ab06892">More...</a><br /></td></tr>
-<tr class="separator:a8d7d174f4889f40736743f971ab06892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa90893b20ce84c14cddb2eeb9cb3c707"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="../../de/d38/a02166.html">ClockEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#aa90893b20ce84c14cddb2eeb9cb3c707">getClockEntry</a> () const</td></tr>
-<tr class="memdesc:aa90893b20ce84c14cddb2eeb9cb3c707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock entry getter.  <a href="#aa90893b20ce84c14cddb2eeb9cb3c707">More...</a><br /></td></tr>
-<tr class="separator:aa90893b20ce84c14cddb2eeb9cb3c707"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21dbdc1f5c3bf3b3b73a27e567c68be3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a21dbdc1f5c3bf3b3b73a27e567c68be3">setChannelsEntry</a> (std::shared_ptr&lt; <a class="el" href="../../d7/d26/a02162.html">ChannelsEntry</a> &gt; channelsEntry)</td></tr>
-<tr class="memdesc:a21dbdc1f5c3bf3b3b73a27e567c68be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channels entry container setter.  <a href="#a21dbdc1f5c3bf3b3b73a27e567c68be3">More...</a><br /></td></tr>
-<tr class="separator:a21dbdc1f5c3bf3b3b73a27e567c68be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa13ee00588284e3cd7b0b2f494a9d109"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="../../d7/d26/a02162.html">ChannelsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#aa13ee00588284e3cd7b0b2f494a9d109">getChannelsEntry</a> () const</td></tr>
-<tr class="memdesc:aa13ee00588284e3cd7b0b2f494a9d109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channels entry getter.  <a href="#aa13ee00588284e3cd7b0b2f494a9d109">More...</a><br /></td></tr>
-<tr class="separator:aa13ee00588284e3cd7b0b2f494a9d109"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9378c8e25cda3bf8c0277817635fc01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#ab9378c8e25cda3bf8c0277817635fc01">setStreamsEntry</a> (std::shared_ptr&lt; <a class="el" href="../../d3/dc5/a02306.html">StreamsEntry</a> &gt; streamsEntry)</td></tr>
-<tr class="memdesc:ab9378c8e25cda3bf8c0277817635fc01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output streams entry container setter.  <a href="#ab9378c8e25cda3bf8c0277817635fc01">More...</a><br /></td></tr>
-<tr class="separator:ab9378c8e25cda3bf8c0277817635fc01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac600514bf463116a594de3b66774fac9"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="../../d3/dc5/a02306.html">StreamsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#ac600514bf463116a594de3b66774fac9">getStreamsEntry</a> () const</td></tr>
-<tr class="memdesc:ac600514bf463116a594de3b66774fac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output streams entry getter.  <a href="#ac600514bf463116a594de3b66774fac9">More...</a><br /></td></tr>
-<tr class="separator:ac600514bf463116a594de3b66774fac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a641671b52f3c905054c2d58bdd5405cc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a641671b52f3c905054c2d58bdd5405cc">getCouplingTimeStep</a> () const</td></tr>
-<tr class="memdesc:a641671b52f3c905054c2d58bdd5405cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">couplingTimeStep attribute getter  <a href="#a641671b52f3c905054c2d58bdd5405cc">More...</a><br /></td></tr>
-<tr class="separator:a641671b52f3c905054c2d58bdd5405cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a551c81dff00e5539e86c906ee9444b72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a551c81dff00e5539e86c906ee9444b72">setCouplingTimeStep</a> (const double couplingTimeStep)</td></tr>
-<tr class="memdesc:a551c81dff00e5539e86c906ee9444b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">couplingTimeStep setter  <a href="#a551c81dff00e5539e86c906ee9444b72">More...</a><br /></td></tr>
-<tr class="separator:a551c81dff00e5539e86c906ee9444b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a8231974edb48199c8d17d931ce660c4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a8231974edb48199c8d17d931ce660c4a">copy</a> (const <a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a> &amp;other)</td></tr>
-<tr class="memdesc:a8231974edb48199c8d17d931ce660c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy.  <a href="#a8231974edb48199c8d17d931ce660c4a">More...</a><br /></td></tr>
-<tr class="separator:a8231974edb48199c8d17d931ce660c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a5a7ddc7e6bf1f0db12fe83e0792844dc"><td class="memItemLeft" align="right" valign="top"><a id="a5a7ddc7e6bf1f0db12fe83e0792844dc"></a>
-std::shared_ptr&lt; <a class="el" href="../../de/d38/a02166.html">ClockEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a5a7ddc7e6bf1f0db12fe83e0792844dc">clock_</a></td></tr>
-<tr class="memdesc:a5a7ddc7e6bf1f0db12fe83e0792844dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock entry container. <br /></td></tr>
-<tr class="separator:a5a7ddc7e6bf1f0db12fe83e0792844dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2e55a8dd3d9d3a81f8092745ccffbfb"><td class="memItemLeft" align="right" valign="top"><a id="ac2e55a8dd3d9d3a81f8092745ccffbfb"></a>
-std::shared_ptr&lt; <a class="el" href="../../d7/d26/a02162.html">ChannelsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#ac2e55a8dd3d9d3a81f8092745ccffbfb">channels_</a></td></tr>
-<tr class="memdesc:ac2e55a8dd3d9d3a81f8092745ccffbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channels entry container. <br /></td></tr>
-<tr class="separator:ac2e55a8dd3d9d3a81f8092745ccffbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab16ffde21df0391e6eb10a7f7dd1f813"><td class="memItemLeft" align="right" valign="top"><a id="ab16ffde21df0391e6eb10a7f7dd1f813"></a>
-std::shared_ptr&lt; <a class="el" href="../../d3/dc5/a02306.html">StreamsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#ab16ffde21df0391e6eb10a7f7dd1f813">streams_</a></td></tr>
-<tr class="memdesc:ab16ffde21df0391e6eb10a7f7dd1f813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Streams entry container. <br /></td></tr>
-<tr class="separator:ab16ffde21df0391e6eb10a7f7dd1f813"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9055d1fb184e0f1f0ab5ab9a7fb36d2"><td class="memItemLeft" align="right" valign="top"><a id="ae9055d1fb184e0f1f0ab5ab9a7fb36d2"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#ae9055d1fb184e0f1f0ab5ab9a7fb36d2">couplingTimeStep_</a></td></tr>
-<tr class="memdesc:ae9055d1fb184e0f1f0ab5ab9a7fb36d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time step in s between two I/O phases with external systems in interactive mode. <br /></td></tr>
-<tr class="separator:ae9055d1fb184e0f1f0ab5ab9a7fb36d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad706ac45b3486ff1cc7716b886c48af7"><td class="memItemLeft" align="right" valign="top"><a id="ad706ac45b3486ff1cc7716b886c48af7"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#ad706ac45b3486ff1cc7716b886c48af7">~Importer</a> ()=default</td></tr>
+<tr class="memdesc:ad706ac45b3486ff1cc7716b886c48af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:ad706ac45b3486ff1cc7716b886c48af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d0149221b2130c143e56c923ad71d92"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../de/db2/a02246.html">JobsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#a3d0149221b2130c143e56c923ad71d92">importFromFile</a> (const std::string &amp;fileName) const =0</td></tr>
+<tr class="memdesc:a3d0149221b2130c143e56c923ad71d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import job's collection from file.  <a href="#a3d0149221b2130c143e56c923ad71d92">More...</a><br /></td></tr>
+<tr class="separator:a3d0149221b2130c143e56c923ad71d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adedf47dc224b656f598cfe3902cef920"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../de/db2/a02246.html">JobsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d54/a02218.html#adedf47dc224b656f598cfe3902cef920">importFromStream</a> (std::istream &amp;stream) const =0</td></tr>
+<tr class="memdesc:adedf47dc224b656f598cfe3902cef920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import job's collection from stream.  <a href="#adedf47dc224b656f598cfe3902cef920">More...</a><br /></td></tr>
+<tr class="separator:adedf47dc224b656f598cfe3902cef920"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Container for interactive mode options: clock, channels, streams. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a08cccf0e8b6dc9ae1bb1b47405d9ff74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08cccf0e8b6dc9ae1bb1b47405d9ff74">&#9670;&nbsp;</a></span>InteractiveSettingsEntry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">job::InteractiveSettingsEntry::InteractiveSettingsEntry </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copy constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>original to copy </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8231974edb48199c8d17d931ce660c4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8231974edb48199c8d17d931ce660c4a">&#9670;&nbsp;</a></span>copy()</h2>
+<div class="textblock"><p><a class="el" href="../../d4/d54/a02218.html" title="Importer interface class. ">Importer</a> interface class. </p>
+<p>Import class for job collection. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3d0149221b2130c143e56c923ad71d92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d0149221b2130c143e56c923ad71d92">&#9670;&nbsp;</a></span>importFromFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,243 +143,72 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void job::InteractiveSettingsEntry::copy </td>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../de/db2/a02246.html">JobsCollection</a>&gt; job::Importer::importFromFile </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Copy. </p>
+<p>Import job's collection from file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>original to copy </td></tr>
+    <tr><td class="paramname">fileName</td><td>file name</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>jobs description imported </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d1/d9a/a02454.html#a6225966d57cb9b8c024294e65af36eff">job::XmlImporter</a>.</p>
 
 </div>
 </div>
-<a id="aa13ee00588284e3cd7b0b2f494a9d109"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa13ee00588284e3cd7b0b2f494a9d109">&#9670;&nbsp;</a></span>getChannelsEntry()</h2>
+<a id="adedf47dc224b656f598cfe3902cef920"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adedf47dc224b656f598cfe3902cef920">&#9670;&nbsp;</a></span>importFromStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::shared_ptr&lt;<a class="el" href="../../d7/d26/a02162.html">ChannelsEntry</a>&gt; job::InteractiveSettingsEntry::getChannelsEntry </td>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../de/db2/a02246.html">JobsCollection</a>&gt; job::Importer::importFromStream </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Channels entry getter. </p>
-<dl class="section return"><dt>Returns</dt><dd>Channels entry for the interactive simulation </dd></dl>
-
-</div>
-</div>
-<a id="aa90893b20ce84c14cddb2eeb9cb3c707"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa90893b20ce84c14cddb2eeb9cb3c707">&#9670;&nbsp;</a></span>getClockEntry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::shared_ptr&lt;<a class="el" href="../../de/d38/a02166.html">ClockEntry</a>&gt; job::InteractiveSettingsEntry::getClockEntry </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clock entry getter. </p>
-<dl class="section return"><dt>Returns</dt><dd>clock entry for the interactive simulation </dd></dl>
-
-</div>
-</div>
-<a id="a641671b52f3c905054c2d58bdd5405cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a641671b52f3c905054c2d58bdd5405cc">&#9670;&nbsp;</a></span>getCouplingTimeStep()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double job::InteractiveSettingsEntry::getCouplingTimeStep </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>couplingTimeStep attribute getter </p>
-<dl class="section return"><dt>Returns</dt><dd>couplingTimeStep for the interactive simulation </dd></dl>
-
-</div>
-</div>
-<a id="ac600514bf463116a594de3b66774fac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac600514bf463116a594de3b66774fac9">&#9670;&nbsp;</a></span>getStreamsEntry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::shared_ptr&lt;<a class="el" href="../../d3/dc5/a02306.html">StreamsEntry</a>&gt; job::InteractiveSettingsEntry::getStreamsEntry </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Output streams entry getter. </p>
-<dl class="section return"><dt>Returns</dt><dd>Output streams entry for the interactive simulation </dd></dl>
-
-</div>
-</div>
-<a id="aca980cfdf98f8b5d671bc6c556c755b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca980cfdf98f8b5d671bc6c556c755b4">&#9670;&nbsp;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a>&amp; job::InteractiveSettingsEntry::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assignement Operator. </p>
+<p>Import job's collection from stream. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>original to copy </td></tr>
+    <tr><td class="paramname">stream</td><td>stream to import</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>reference on current entry </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>jobs description imported </dd></dl>
 
-</div>
-</div>
-<a id="a21dbdc1f5c3bf3b3b73a27e567c68be3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21dbdc1f5c3bf3b3b73a27e567c68be3">&#9670;&nbsp;</a></span>setChannelsEntry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void job::InteractiveSettingsEntry::setChannelsEntry </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d7/d26/a02162.html">ChannelsEntry</a> &gt;&#160;</td>
-          <td class="paramname"><em>channelsEntry</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Channels entry container setter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">channelsEntry</td><td>: Channels entry for the interactive simulation </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8d7d174f4889f40736743f971ab06892"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d7d174f4889f40736743f971ab06892">&#9670;&nbsp;</a></span>setClockEntry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void job::InteractiveSettingsEntry::setClockEntry </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../de/d38/a02166.html">ClockEntry</a> &gt;&#160;</td>
-          <td class="paramname"><em>clockEntry</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clock entry container setter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">clockEntry</td><td>: Clock entry for the interactive simulation </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a551c81dff00e5539e86c906ee9444b72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a551c81dff00e5539e86c906ee9444b72">&#9670;&nbsp;</a></span>setCouplingTimeStep()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void job::InteractiveSettingsEntry::setCouplingTimeStep </td>
-          <td>(</td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>couplingTimeStep</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>couplingTimeStep setter </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">couplingTimeStep</td><td>: time step for the interactive simulation </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab9378c8e25cda3bf8c0277817635fc01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9378c8e25cda3bf8c0277817635fc01">&#9670;&nbsp;</a></span>setStreamsEntry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void job::InteractiveSettingsEntry::setStreamsEntry </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d3/dc5/a02306.html">StreamsEntry</a> &gt;&#160;</td>
-          <td class="paramname"><em>streamsEntry</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Output streams entry container setter. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">streamsEntry</td><td>: Output streams entry for the interactive simulation </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Implemented in <a class="el" href="../../d1/d9a/a02454.html#a7d6a5918b26ccf540671e94a97cb8005">job::XmlImporter</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d1/d5d/a00311_source.html">JOBInteractiveSettingsEntry.h</a></li>
+<li><a class="el" href="../../df/d95/a00299_source.html">JOBImporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -469,8 +226,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d4/d54/a02218.html">InteractiveSettingsEntry</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d4/d54/a02218.html">Importer</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

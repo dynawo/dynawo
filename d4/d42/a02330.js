@@ -1,8 +1,7 @@
 var a02330 =
 [
-    [ "InitialStateHandler", "d4/d42/a02330.html#a87852c1aca3edcbc5cf8134df66a877a", null ],
-    [ "~InitialStateHandler", "d4/d42/a02330.html#ac037c348af60af2e1637a26cf4146a76", null ],
-    [ "create", "d4/d42/a02330.html#a52c9d3bd527d7ee12d68d5bd96286052", null ],
-    [ "get", "d4/d42/a02330.html#a90c3370f22b203f2fc45f92848cbab96", null ],
-    [ "initialState_", "d4/d42/a02330.html#a61d3bc21a6065fc3e8c51365f138f344", null ]
+    [ "TimetableEntry", "d4/d42/a02330.html#ad11287ff8cbe29eb159191100a5ed6b0", null ],
+    [ "getStep", "d4/d42/a02330.html#adf7b7acb2708bd6d4f2a6fa65d75bae1", null ],
+    [ "setStep", "d4/d42/a02330.html#a813b300dc63fa14409d9e8f62af59255", null ],
+    [ "step_", "d4/d42/a02330.html#a1113d377baf33ca989165f76dc62869f", null ]
 ];

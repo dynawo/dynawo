@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::StaticVarCompensatorInterfaceIIDMExtension Class Reference</title>
+<title>Dynawo: DYN::InjectorInterfaceIIDM Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,50 +96,105 @@ $(document).ready(function(){initNavTree('da/d8d/a03158.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../dc/d9b/a03155.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::StaticVarCompensatorInterfaceIIDMExtension Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::InjectorInterfaceIIDM Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="../../d7/d49/a00863_source.html">DYNStaticVarCompensatorInterfaceIIDMExtension.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d9/d30/a00848_source.html">DYNInjectorInterfaceIIDM.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::InjectorInterfaceIIDM:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../da/d8d/a03158.png" usemap="#DYN::InjectorInterfaceIIDM_map" alt=""/>
+  <map id="DYN::InjectorInterfaceIIDM_map" name="DYN::InjectorInterfaceIIDM_map">
+<area href="../../d9/d74/a03082.html" alt="DYN::BatteryInterfaceIIDM" shape="rect" coords="257,56,504,80"/>
+<area href="../../d8/d4f/a03102.html" title="class for dangling line interface " alt="DYN::DanglingLineInterfaceIIDM" shape="rect" coords="257,112,504,136"/>
+<area href="../../d9/d44/a03126.html" alt="DYN::GeneratorInterfaceIIDM" shape="rect" coords="257,168,504,192"/>
+<area href="../../d8/d29/a03162.html" alt="DYN::LccConverterInterfaceIIDM" shape="rect" coords="257,224,504,248"/>
+<area href="../../da/de5/a03170.html" alt="DYN::LoadInterfaceIIDM" shape="rect" coords="257,280,504,304"/>
+<area href="../../de/de3/a03190.html" alt="DYN::ShuntCompensatorInterfaceIIDM" shape="rect" coords="257,336,504,360"/>
+<area href="../../d9/dc1/a03194.html" alt="DYN::StaticVarCompensatorInterfaceIIDM" shape="rect" coords="257,392,504,416"/>
+<area href="../../d5/d2f/a03222.html" alt="DYN::VscConverterInterfaceIIDM" shape="rect" coords="257,448,504,472"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1d73bf010bd4f314319c4354dc268bca"><td class="memItemLeft" align="right" valign="top"><a id="a1d73bf010bd4f314319c4354dc268bca"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a1d73bf010bd4f314319c4354dc268bca">~StaticVarCompensatorInterfaceIIDMExtension</a> ()=default</td></tr>
-<tr class="memdesc:a1d73bf010bd4f314319c4354dc268bca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a1d73bf010bd4f314319c4354dc268bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5a43df78d26b2ba94fb0ad06dbd5411"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ab5a43df78d26b2ba94fb0ad06dbd5411">exportStandByMode</a> (bool standByMode)=0</td></tr>
-<tr class="memdesc:ab5a43df78d26b2ba94fb0ad06dbd5411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface to export the stand by mode of the svc.  <a href="#ab5a43df78d26b2ba94fb0ad06dbd5411">More...</a><br /></td></tr>
-<tr class="separator:ab5a43df78d26b2ba94fb0ad06dbd5411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e2bd5c3425c38b71b2e9930ddbfeb05"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a3e2bd5c3425c38b71b2e9930ddbfeb05">getUMinActivation</a> () const =0</td></tr>
-<tr class="memdesc:a3e2bd5c3425c38b71b2e9930ddbfeb05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage limit inf for running mode activation when in standby.  <a href="#a3e2bd5c3425c38b71b2e9930ddbfeb05">More...</a><br /></td></tr>
-<tr class="separator:a3e2bd5c3425c38b71b2e9930ddbfeb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7bdff51890f3025a8751fb570e18e38"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ad7bdff51890f3025a8751fb570e18e38">getUMaxActivation</a> () const =0</td></tr>
-<tr class="memdesc:ad7bdff51890f3025a8751fb570e18e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage limit sup for running mode activation when in standby.  <a href="#ad7bdff51890f3025a8751fb570e18e38">More...</a><br /></td></tr>
-<tr class="separator:ad7bdff51890f3025a8751fb570e18e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfb4bb53f0efda454d541da8e0864231"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#adfb4bb53f0efda454d541da8e0864231">getUSetPointMin</a> () const =0</td></tr>
-<tr class="memdesc:adfb4bb53f0efda454d541da8e0864231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage target once Umin has been reached.  <a href="#adfb4bb53f0efda454d541da8e0864231">More...</a><br /></td></tr>
-<tr class="separator:adfb4bb53f0efda454d541da8e0864231"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dffff27e20436d1d90f7d875f0ae251"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a8dffff27e20436d1d90f7d875f0ae251">getUSetPointMax</a> () const =0</td></tr>
-<tr class="memdesc:a8dffff27e20436d1d90f7d875f0ae251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage target once Umax has been reached.  <a href="#a8dffff27e20436d1d90f7d875f0ae251">More...</a><br /></td></tr>
-<tr class="separator:a8dffff27e20436d1d90f7d875f0ae251"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae82fbb9bbf3176aa513c14adbce13e80"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ae82fbb9bbf3176aa513c14adbce13e80">hasStandbyAutomaton</a> () const =0</td></tr>
-<tr class="memdesc:ae82fbb9bbf3176aa513c14adbce13e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the extension's presence.  <a href="#ae82fbb9bbf3176aa513c14adbce13e80">More...</a><br /></td></tr>
-<tr class="separator:ae82fbb9bbf3176aa513c14adbce13e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9824a971d819855462787f996432c5ca"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a9824a971d819855462787f996432c5ca">isStandBy</a> () const =0</td></tr>
-<tr class="memdesc:a9824a971d819855462787f996432c5ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the standby state of the svc.  <a href="#a9824a971d819855462787f996432c5ca">More...</a><br /></td></tr>
-<tr class="separator:a9824a971d819855462787f996432c5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab22b01f04351778463071073d3f8062e"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ab22b01f04351778463071073d3f8062e">getB0</a> () const =0</td></tr>
-<tr class="memdesc:ab22b01f04351778463071073d3f8062e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the constant shunt susceptance used in standby mode.  <a href="#ab22b01f04351778463071073d3f8062e">More...</a><br /></td></tr>
-<tr class="separator:ab22b01f04351778463071073d3f8062e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe68da93ed0db9d58da70f34f26c88b8"><td class="memItemLeft" align="right" valign="top"><a id="afe68da93ed0db9d58da70f34f26c88b8"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#afe68da93ed0db9d58da70f34f26c88b8">~InjectorInterfaceIIDM</a> ()=default</td></tr>
+<tr class="memdesc:afe68da93ed0db9d58da70f34f26c88b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:afe68da93ed0db9d58da70f34f26c88b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972d180a356869c15e6c12b0d55f55de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a972d180a356869c15e6c12b0d55f55de">InjectorInterfaceIIDM</a> (const powsybl::iidm::Injection &amp;injector, const std::string &amp;id)</td></tr>
+<tr class="memdesc:a972d180a356869c15e6c12b0d55f55de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a972d180a356869c15e6c12b0d55f55de">More...</a><br /></td></tr>
+<tr class="separator:a972d180a356869c15e6c12b0d55f55de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40577543c964828f7e7546aa114cbff1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a40577543c964828f7e7546aa114cbff1">setBusInterfaceInjector</a> (const std::shared_ptr&lt; <a class="el" href="../../d6/d1d/a02906.html">BusInterface</a> &gt; &amp;busInterface)</td></tr>
+<tr class="memdesc:a40577543c964828f7e7546aa114cbff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the injector's bus interface.  <a href="#a40577543c964828f7e7546aa114cbff1">More...</a><br /></td></tr>
+<tr class="separator:a40577543c964828f7e7546aa114cbff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab07977e039ac2b1e1b6670d29f105567"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="../../d6/d1d/a02906.html">BusInterface</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ab07977e039ac2b1e1b6670d29f105567">getBusInterfaceInjector</a> () const</td></tr>
+<tr class="memdesc:ab07977e039ac2b1e1b6670d29f105567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the injector's bus interface.  <a href="#ab07977e039ac2b1e1b6670d29f105567">More...</a><br /></td></tr>
+<tr class="separator:ab07977e039ac2b1e1b6670d29f105567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2044d6434b6a0c5193e3ca1f134da08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ac2044d6434b6a0c5193e3ca1f134da08">setVoltageLevelInterfaceInjector</a> (const std::shared_ptr&lt; <a class="el" href="../../d9/df4/a03070.html">VoltageLevelInterface</a> &gt; &amp;voltageLevelInterface)</td></tr>
+<tr class="memdesc:ac2044d6434b6a0c5193e3ca1f134da08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the injector's voltage level interface.  <a href="#ac2044d6434b6a0c5193e3ca1f134da08">More...</a><br /></td></tr>
+<tr class="separator:ac2044d6434b6a0c5193e3ca1f134da08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e6f4df64eaf21053b98fe16936e2607"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d9/df4/a03070.html">VoltageLevelInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a0e6f4df64eaf21053b98fe16936e2607">getVoltageLevelInterfaceInjector</a> () const</td></tr>
+<tr class="memdesc:a0e6f4df64eaf21053b98fe16936e2607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the injector's voltage level interface.  <a href="#a0e6f4df64eaf21053b98fe16936e2607">More...</a><br /></td></tr>
+<tr class="separator:a0e6f4df64eaf21053b98fe16936e2607"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d99ddd4cad7e14b1216806a9fefe349"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a3d99ddd4cad7e14b1216806a9fefe349">getVNomInjector</a> () const</td></tr>
+<tr class="memdesc:a3d99ddd4cad7e14b1216806a9fefe349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the nominal voltage of the bus where the injector is connected.  <a href="#a3d99ddd4cad7e14b1216806a9fefe349">More...</a><br /></td></tr>
+<tr class="separator:a3d99ddd4cad7e14b1216806a9fefe349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68db1ce7da94d981dc4cf10d7d47d8ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a68db1ce7da94d981dc4cf10d7d47d8ec">getInitialConnectedInjector</a> ()</td></tr>
+<tr class="memdesc:a68db1ce7da94d981dc4cf10d7d47d8ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the initial connection state of the injector.  <a href="#a68db1ce7da94d981dc4cf10d7d47d8ec">More...</a><br /></td></tr>
+<tr class="separator:a68db1ce7da94d981dc4cf10d7d47d8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab580c4da4d7057feb9065a4776c4f251"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ab580c4da4d7057feb9065a4776c4f251">isConnectedInjector</a> () const</td></tr>
+<tr class="memdesc:ab580c4da4d7057feb9065a4776c4f251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the connection state of the injector.  <a href="#ab580c4da4d7057feb9065a4776c4f251">More...</a><br /></td></tr>
+<tr class="separator:ab580c4da4d7057feb9065a4776c4f251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ec8b9b20252da413887fd7deb9e273"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a49ec8b9b20252da413887fd7deb9e273">hasPInjector</a> () const</td></tr>
+<tr class="memdesc:a49ec8b9b20252da413887fd7deb9e273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the injector knows its injected/consumed active power.  <a href="#a49ec8b9b20252da413887fd7deb9e273">More...</a><br /></td></tr>
+<tr class="separator:a49ec8b9b20252da413887fd7deb9e273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8d2f07bce0f84aa88fb05371303ab2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a3c8d2f07bce0f84aa88fb05371303ab2">hasQInjector</a> () const</td></tr>
+<tr class="memdesc:a3c8d2f07bce0f84aa88fb05371303ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the injector knows its injected/consumed reactive power.  <a href="#a3c8d2f07bce0f84aa88fb05371303ab2">More...</a><br /></td></tr>
+<tr class="separator:a3c8d2f07bce0f84aa88fb05371303ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1101d348ca3daffc1a95e66f5ab2a92f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a1101d348ca3daffc1a95e66f5ab2a92f">getPInjector</a> ()</td></tr>
+<tr class="memdesc:a1101d348ca3daffc1a95e66f5ab2a92f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the active power injected/consumed by the injector.  <a href="#a1101d348ca3daffc1a95e66f5ab2a92f">More...</a><br /></td></tr>
+<tr class="separator:a1101d348ca3daffc1a95e66f5ab2a92f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f966593530c9cbe1ac49bed796f26b2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a0f966593530c9cbe1ac49bed796f26b2">getQInjector</a> ()</td></tr>
+<tr class="memdesc:a0f966593530c9cbe1ac49bed796f26b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactive power injected/consumed by the injector.  <a href="#a0f966593530c9cbe1ac49bed796f26b2">More...</a><br /></td></tr>
+<tr class="separator:a0f966593530c9cbe1ac49bed796f26b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae075d2dfb9154199daac391abd0bf1b5"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ae075d2dfb9154199daac391abd0bf1b5">getIDInjector</a> () const</td></tr>
+<tr class="memdesc:ae075d2dfb9154199daac391abd0bf1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the injector's id.  <a href="#ae075d2dfb9154199daac391abd0bf1b5">More...</a><br /></td></tr>
+<tr class="separator:ae075d2dfb9154199daac391abd0bf1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab60ef87e72fab9ddd5a932bdff7c6a96"><td class="memItemLeft" align="right" valign="top"><a id="ab60ef87e72fab9ddd5a932bdff7c6a96"></a>
+const powsybl::iidm::Injection &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ab60ef87e72fab9ddd5a932bdff7c6a96">injectorIIDM_</a></td></tr>
+<tr class="memdesc:ab60ef87e72fab9ddd5a932bdff7c6a96"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to the iidm injector instance <br /></td></tr>
+<tr class="separator:ab60ef87e72fab9ddd5a932bdff7c6a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20881c4bbf285de9964a4a7a38ed509d"><td class="memItemLeft" align="right" valign="top"><a id="a20881c4bbf285de9964a4a7a38ed509d"></a>
+std::shared_ptr&lt; <a class="el" href="../../d6/d1d/a02906.html">BusInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a20881c4bbf285de9964a4a7a38ed509d">busInterface_</a></td></tr>
+<tr class="memdesc:a20881c4bbf285de9964a4a7a38ed509d"><td class="mdescLeft">&#160;</td><td class="mdescRight">busInterface of the bus where the injector is connected <br /></td></tr>
+<tr class="separator:a20881c4bbf285de9964a4a7a38ed509d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4372dabd8a5ec9f3f7be027dbbeecdd"><td class="memItemLeft" align="right" valign="top"><a id="ac4372dabd8a5ec9f3f7be027dbbeecdd"></a>
+std::weak_ptr&lt; <a class="el" href="../../d9/df4/a03070.html">VoltageLevelInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#ac4372dabd8a5ec9f3f7be027dbbeecdd">voltageLevelInterface_</a></td></tr>
+<tr class="memdesc:ac4372dabd8a5ec9f3f7be027dbbeecdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">voltageLevel interface where the injector is connected <br /></td></tr>
+<tr class="separator:ac4372dabd8a5ec9f3f7be027dbbeecdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d04ac57d843499185f36f32b6b3623e"><td class="memItemLeft" align="right" valign="top"><a id="a2d04ac57d843499185f36f32b6b3623e"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a2d04ac57d843499185f36f32b6b3623e">injectorId_</a></td></tr>
+<tr class="memdesc:a2d04ac57d843499185f36f32b6b3623e"><td class="mdescLeft">&#160;</td><td class="mdescRight">injector's id <br /></td></tr>
+<tr class="separator:a2d04ac57d843499185f36f32b6b3623e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6075132222d5700cec9fad445fb16fe7"><td class="memItemLeft" align="right" valign="top"><a id="a6075132222d5700cec9fad445fb16fe7"></a>
+boost::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8d/a03158.html#a6075132222d5700cec9fad445fb16fe7">initialConnected_</a></td></tr>
+<tr class="memdesc:a6075132222d5700cec9fad445fb16fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the injector is initially connected or not <br /></td></tr>
+<tr class="separator:a6075132222d5700cec9fad445fb16fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class <a class="el" href="../../d4/d1a/a03154.html">StaticVarCompensatorInterfaceIIDM</a> </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab5a43df78d26b2ba94fb0ad06dbd5411"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5a43df78d26b2ba94fb0ad06dbd5411">&#9670;&nbsp;</a></span>exportStandByMode()</h2>
+<div class="textblock"><p>class <a class="el" href="../../da/d8d/a03158.html">InjectorInterfaceIIDM</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a972d180a356869c15e6c12b0d55f55de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a972d180a356869c15e6c12b0d55f55de">&#9670;&nbsp;</a></span>InjectorInterfaceIIDM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,32 +203,44 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void DYN::StaticVarCompensatorInterfaceIIDMExtension::exportStandByMode </td>
+          <td class="memname">DYN::InjectorInterfaceIIDM::InjectorInterfaceIIDM </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>standByMode</em></td><td>)</td>
+          <td class="paramtype">const powsybl::iidm::Injection &amp;&#160;</td>
+          <td class="paramname"><em>injector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Interface to export the stand by mode of the svc. </p>
+<p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">standByMode</td><td>svc in standby or no </td></tr>
+    <tr><td class="paramname">injector</td><td>Injector's iidm instance </td></tr>
+    <tr><td class="paramname">id</td><td>Injector's id </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ab22b01f04351778463071073d3f8062e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab22b01f04351778463071073d3f8062e">&#9670;&nbsp;</a></span>getB0()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab07977e039ac2b1e1b6670d29f105567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab07977e039ac2b1e1b6670d29f105567">&#9670;&nbsp;</a></span>getBusInterfaceInjector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,7 +249,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getB0 </td>
+          <td class="memname">const std::shared_ptr&lt;<a class="el" href="../../d6/d1d/a02906.html">BusInterface</a>&gt;&amp; DYN::InjectorInterfaceIIDM::getBusInterfaceInjector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -190,18 +257,18 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the constant shunt susceptance used in standby mode. </p>
-<dl class="section return"><dt>Returns</dt><dd>the constant shunt susceptance used in standby mode </dd></dl>
+<p>Getter for the injector's bus interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>busInterface busInterface of the bus where the injector is connected </dd></dl>
 
 </div>
 </div>
-<a id="ad7bdff51890f3025a8751fb570e18e38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7bdff51890f3025a8751fb570e18e38">&#9670;&nbsp;</a></span>getUMaxActivation()</h2>
+<a id="ae075d2dfb9154199daac391abd0bf1b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae075d2dfb9154199daac391abd0bf1b5">&#9670;&nbsp;</a></span>getIDInjector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,7 +277,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUMaxActivation </td>
+          <td class="memname">const std::string&amp; DYN::InjectorInterfaceIIDM::getIDInjector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -218,18 +285,18 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the voltage limit sup for running mode activation when in standby. </p>
-<dl class="section return"><dt>Returns</dt><dd>the the voltage limit sup for running mode activation when in standby </dd></dl>
+<p>Getter for the injector's id. </p>
+<dl class="section return"><dt>Returns</dt><dd>The id of the injector </dd></dl>
 
 </div>
 </div>
-<a id="a3e2bd5c3425c38b71b2e9930ddbfeb05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e2bd5c3425c38b71b2e9930ddbfeb05">&#9670;&nbsp;</a></span>getUMinActivation()</h2>
+<a id="a68db1ce7da94d981dc4cf10d7d47d8ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68db1ce7da94d981dc4cf10d7d47d8ec">&#9670;&nbsp;</a></span>getInitialConnectedInjector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,26 +305,26 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUMinActivation </td>
+          <td class="memname">bool DYN::InjectorInterfaceIIDM::getInitialConnectedInjector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the voltage limit inf for running mode activation when in standby. </p>
-<dl class="section return"><dt>Returns</dt><dd>the the voltage limit inf for running mode activation when in standby </dd></dl>
+<p>Getter for the initial connection state of the injector. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the injector is connected, <b>false</b> else </dd></dl>
 
 </div>
 </div>
-<a id="a8dffff27e20436d1d90f7d875f0ae251"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dffff27e20436d1d90f7d875f0ae251">&#9670;&nbsp;</a></span>getUSetPointMax()</h2>
+<a id="a1101d348ca3daffc1a95e66f5ab2a92f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1101d348ca3daffc1a95e66f5ab2a92f">&#9670;&nbsp;</a></span>getPInjector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,26 +333,26 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUSetPointMax </td>
+          <td class="memname">double DYN::InjectorInterfaceIIDM::getPInjector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the voltage target once Umax has been reached. </p>
-<dl class="section return"><dt>Returns</dt><dd>the voltage target once Umax has been reached </dd></dl>
+<p>Getter for the active power injected/consumed by the injector. </p>
+<dl class="section return"><dt>Returns</dt><dd>The active power injected/consumed by the injector in MW (following iidm convention) </dd></dl>
 
 </div>
 </div>
-<a id="adfb4bb53f0efda454d541da8e0864231"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfb4bb53f0efda454d541da8e0864231">&#9670;&nbsp;</a></span>getUSetPointMin()</h2>
+<a id="a0f966593530c9cbe1ac49bed796f26b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f966593530c9cbe1ac49bed796f26b2">&#9670;&nbsp;</a></span>getQInjector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -294,26 +361,26 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double DYN::StaticVarCompensatorInterfaceIIDMExtension::getUSetPointMin </td>
+          <td class="memname">double DYN::InjectorInterfaceIIDM::getQInjector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the voltage target once Umin has been reached. </p>
-<dl class="section return"><dt>Returns</dt><dd>the voltage target once Umin has been reached </dd></dl>
+<p>Getter for the reactive power injected/consumed by the injector. </p>
+<dl class="section return"><dt>Returns</dt><dd>The reactive power injected/consumed by the injector in Mvar (following iidm convention) </dd></dl>
 
 </div>
 </div>
-<a id="ae82fbb9bbf3176aa513c14adbce13e80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae82fbb9bbf3176aa513c14adbce13e80">&#9670;&nbsp;</a></span>hasStandbyAutomaton()</h2>
+<a id="a3d99ddd4cad7e14b1216806a9fefe349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d99ddd4cad7e14b1216806a9fefe349">&#9670;&nbsp;</a></span>getVNomInjector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,7 +389,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool DYN::StaticVarCompensatorInterfaceIIDMExtension::hasStandbyAutomaton </td>
+          <td class="memname">double DYN::InjectorInterfaceIIDM::getVNomInjector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -330,18 +397,18 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the extension's presence. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if the extension is loaded </dd></dl>
+<p>Getter for the nominal voltage of the bus where the injector is connected. </p>
+<dl class="section return"><dt>Returns</dt><dd>The nominal voltage of the bus where the injector is connected in kV </dd></dl>
 
 </div>
 </div>
-<a id="a9824a971d819855462787f996432c5ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9824a971d819855462787f996432c5ca">&#9670;&nbsp;</a></span>isStandBy()</h2>
+<a id="a0e6f4df64eaf21053b98fe16936e2607"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e6f4df64eaf21053b98fe16936e2607">&#9670;&nbsp;</a></span>getVoltageLevelInterfaceInjector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +417,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool DYN::StaticVarCompensatorInterfaceIIDMExtension::isStandBy </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d9/df4/a03070.html">VoltageLevelInterface</a>&gt; DYN::InjectorInterfaceIIDM::getVoltageLevelInterfaceInjector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -358,18 +425,170 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Getter for the standby state of the svc. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if in standby mode </dd></dl>
+<p>Getter for the injector's voltage level interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>voltageLevelInterface voltageLevelInterface where the injector is connected </dd></dl>
+
+</div>
+</div>
+<a id="a49ec8b9b20252da413887fd7deb9e273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49ec8b9b20252da413887fd7deb9e273">&#9670;&nbsp;</a></span>hasPInjector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::InjectorInterfaceIIDM::hasPInjector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indicates whether the injector knows its injected/consumed active power. </p>
+<dl class="section return"><dt>Returns</dt><dd>Whether the injector knows its injected/consumed active power </dd></dl>
+
+</div>
+</div>
+<a id="a3c8d2f07bce0f84aa88fb05371303ab2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c8d2f07bce0f84aa88fb05371303ab2">&#9670;&nbsp;</a></span>hasQInjector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::InjectorInterfaceIIDM::hasQInjector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indicates whether the injector knows its injected/consumed reactive power. </p>
+<dl class="section return"><dt>Returns</dt><dd>Whether the injector knows its injected/consumed reactive power </dd></dl>
+
+</div>
+</div>
+<a id="ab580c4da4d7057feb9065a4776c4f251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab580c4da4d7057feb9065a4776c4f251">&#9670;&nbsp;</a></span>isConnectedInjector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::InjectorInterfaceIIDM::isConnectedInjector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks the connection state of the injector. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> is the injector is connected, <b>false</b> else </dd></dl>
+
+</div>
+</div>
+<a id="a40577543c964828f7e7546aa114cbff1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40577543c964828f7e7546aa114cbff1">&#9670;&nbsp;</a></span>setBusInterfaceInjector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::InjectorInterfaceIIDM::setBusInterfaceInjector </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d6/d1d/a02906.html">BusInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>busInterface</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for the injector's bus interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">busInterface</td><td>busInterface of the bus where the injector is connected </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac2044d6434b6a0c5193e3ca1f134da08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2044d6434b6a0c5193e3ca1f134da08">&#9670;&nbsp;</a></span>setVoltageLevelInterfaceInjector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::InjectorInterfaceIIDM::setVoltageLevelInterfaceInjector </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d9/df4/a03070.html">VoltageLevelInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>voltageLevelInterface</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter for the injector's voltage level interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">voltageLevelInterface</td><td>voltageLevelInterface of the voltage level where the injector is connected </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d7/d49/a00863_source.html">DYNStaticVarCompensatorInterfaceIIDMExtension.h</a></li>
+<li><a class="el" href="../../d9/d30/a00848_source.html">DYNInjectorInterfaceIIDM.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -387,8 +606,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/d8d/a03158.html">StaticVarCompensatorInterfaceIIDMExtension</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../da/d8d/a03158.html">InjectorInterfaceIIDM</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

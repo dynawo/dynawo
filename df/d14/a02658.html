@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::IoDico Class Reference</title>
+<title>Dynawo: DYN::MessageError Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,52 +96,101 @@ $(document).ready(function(){initNavTree('df/d14/a02658.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../dd/dd8/a02655.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::IoDico Class Reference</div>  </div>
+<div class="title">DYN::MessageError Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../df/d14/a02658.html" title="IoDico class description. ">IoDico</a> class description.  
+<p>Generic error handler for Dynawo (simple message). Used when dictionaries are not initialized.  
  <a href="../../df/d14/a02658.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d5/dee/a00518_source.html">DYNIoDico.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d4/dfb/a00512_source.html">DYNError.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DYN::MessageError:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../df/d14/a02658.png" usemap="#DYN::MessageError_map" alt=""/>
+  <map id="DYN::MessageError_map" name="DYN::MessageError_map">
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad25e45c2a1aa2d72f27679681a71bfae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#ad25e45c2a1aa2d72f27679681a71bfae">IoDico</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:ad25e45c2a1aa2d72f27679681a71bfae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ad25e45c2a1aa2d72f27679681a71bfae">More...</a><br /></td></tr>
-<tr class="separator:ad25e45c2a1aa2d72f27679681a71bfae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81be9d8668bd4d24b1450d032e2373cf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a81be9d8668bd4d24b1450d032e2373cf">msg</a> (const std::string &amp;msgId)</td></tr>
-<tr class="memdesc:a81be9d8668bd4d24b1450d032e2373cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the message description associated to the key  <a href="#a81be9d8668bd4d24b1450d032e2373cf">More...</a><br /></td></tr>
-<tr class="separator:a81be9d8668bd4d24b1450d032e2373cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b52a886c13f0ce540f0c9ec4bd9e249"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::string &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a5b52a886c13f0ce540f0c9ec4bd9e249">begin</a> () const</td></tr>
-<tr class="memdesc:a5b52a886c13f0ce540f0c9ec4bd9e249"><td class="mdescLeft">&#160;</td><td class="mdescRight">iteration over the key/msg map  <a href="#a5b52a886c13f0ce540f0c9ec4bd9e249">More...</a><br /></td></tr>
-<tr class="separator:a5b52a886c13f0ce540f0c9ec4bd9e249"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c58857bebbe8746a973548a3db75245"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::string &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a4c58857bebbe8746a973548a3db75245">end</a> () const</td></tr>
-<tr class="memdesc:a4c58857bebbe8746a973548a3db75245"><td class="mdescLeft">&#160;</td><td class="mdescRight">iteration over the key/msg map  <a href="#a4c58857bebbe8746a973548a3db75245">More...</a><br /></td></tr>
-<tr class="separator:a4c58857bebbe8746a973548a3db75245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6106addf801c3139876fa01fbcd2f59c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a6106addf801c3139876fa01fbcd2f59c">readFile</a> (const std::string &amp;fileName)</td></tr>
-<tr class="memdesc:a6106addf801c3139876fa01fbcd2f59c"><td class="mdescLeft">&#160;</td><td class="mdescRight">reads a file and extracts all pairs of &lt;key,message description&gt;  <a href="#a6106addf801c3139876fa01fbcd2f59c">More...</a><br /></td></tr>
-<tr class="separator:a6106addf801c3139876fa01fbcd2f59c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5433def0d1e47c5f186384e459d0fa7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a5433def0d1e47c5f186384e459d0fa7f">MessageError</a> (const <a class="el" href="../../df/d14/a02658.html">MessageError</a> &amp;e)</td></tr>
+<tr class="memdesc:a5433def0d1e47c5f186384e459d0fa7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Creates a new <a class="el" href="../../db/d4d/a02654.html" title="Generic error handler for Dynawo. ">Error</a> with same attributes as the object given.  <a href="#a5433def0d1e47c5f186384e459d0fa7f">More...</a><br /></td></tr>
+<tr class="separator:a5433def0d1e47c5f186384e459d0fa7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6bdc991ff78687ead44997331c43c8d"><td class="memItemLeft" align="right" valign="top"><a id="aa6bdc991ff78687ead44997331c43c8d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#aa6bdc991ff78687ead44997331c43c8d">~MessageError</a> () override=default</td></tr>
+<tr class="memdesc:aa6bdc991ff78687ead44997331c43c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aa6bdc991ff78687ead44997331c43c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a667ec0dabc34afc1325d91415104b151"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a667ec0dabc34afc1325d91415104b151">MessageError</a> (const std::string &amp;<a class="el" href="../../df/d14/a02658.html#a3fc31a3927850ff5cb1c3e5a38e8494b">message</a>)</td></tr>
+<tr class="memdesc:a667ec0dabc34afc1325d91415104b151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a667ec0dabc34afc1325d91415104b151">More...</a><br /></td></tr>
+<tr class="separator:a667ec0dabc34afc1325d91415104b151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2e5261cd4e70398ecb33169e541ca34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d14/a02658.html">MessageError</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#ab2e5261cd4e70398ecb33169e541ca34">operator=</a> (const <a class="el" href="../../df/d14/a02658.html">MessageError</a> &amp;e)</td></tr>
+<tr class="memdesc:ab2e5261cd4e70398ecb33169e541ca34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement operator.  <a href="#ab2e5261cd4e70398ecb33169e541ca34">More...</a><br /></td></tr>
+<tr class="separator:ab2e5261cd4e70398ecb33169e541ca34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb38c69d2c62c856e5e64301ac1046f9"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#aeb38c69d2c62c856e5e64301ac1046f9">what</a> () const noexcept override</td></tr>
+<tr class="memdesc:aeb38c69d2c62c856e5e64301ac1046f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the error description.  <a href="#aeb38c69d2c62c856e5e64301ac1046f9">More...</a><br /></td></tr>
+<tr class="separator:aeb38c69d2c62c856e5e64301ac1046f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fc31a3927850ff5cb1c3e5a38e8494b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a3fc31a3927850ff5cb1c3e5a38e8494b">message</a> () const</td></tr>
+<tr class="memdesc:a3fc31a3927850ff5cb1c3e5a38e8494b"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the error's message  <a href="#a3fc31a3927850ff5cb1c3e5a38e8494b">More...</a><br /></td></tr>
+<tr class="separator:a3fc31a3927850ff5cb1c3e5a38e8494b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac7faf156e6fde614cb4096ff69828cb6"><td class="memItemLeft" align="right" valign="top"><a id="ac7faf156e6fde614cb4096ff69828cb6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#ac7faf156e6fde614cb4096ff69828cb6">MessageError</a> ()</td></tr>
+<tr class="memdesc:ac7faf156e6fde614cb4096ff69828cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
+<tr class="separator:ac7faf156e6fde614cb4096ff69828cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:adce819e7402513fa187cded1655623eb"><td class="memItemLeft" align="right" valign="top"><a id="adce819e7402513fa187cded1655623eb"></a>
-std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#adce819e7402513fa187cded1655623eb">map_</a></td></tr>
-<tr class="memdesc:adce819e7402513fa187cded1655623eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">map association between key and message description <br /></td></tr>
-<tr class="separator:adce819e7402513fa187cded1655623eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84cc89bec75f1d89ec5582b712d7e51b"><td class="memItemLeft" align="right" valign="top"><a id="a84cc89bec75f1d89ec5582b712d7e51b"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a84cc89bec75f1d89ec5582b712d7e51b">name_</a></td></tr>
-<tr class="memdesc:a84cc89bec75f1d89ec5582b712d7e51b"><td class="mdescLeft">&#160;</td><td class="mdescRight">name of the dictionary <br /></td></tr>
-<tr class="separator:a84cc89bec75f1d89ec5582b712d7e51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26af407c80c8b184decbf46e1887a48e"><td class="memItemLeft" align="right" valign="top"><a id="a26af407c80c8b184decbf46e1887a48e"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a26af407c80c8b184decbf46e1887a48e">msgToReturn_</a></td></tr>
+<tr class="memdesc:a26af407c80c8b184decbf46e1887a48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">string message to return when the error is flushed <br /></td></tr>
+<tr class="separator:a26af407c80c8b184decbf46e1887a48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a023c8e84b3c76c90144b6ac9cbc9d872"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d14/a02658.html#a023c8e84b3c76c90144b6ac9cbc9d872">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../df/d14/a02658.html">MessageError</a> &amp;e)</td></tr>
+<tr class="memdesc:a023c8e84b3c76c90144b6ac9cbc9d872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator &lt;&lt; overload for error.  <a href="#a023c8e84b3c76c90144b6ac9cbc9d872">More...</a><br /></td></tr>
+<tr class="separator:a023c8e84b3c76c90144b6ac9cbc9d872"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../df/d14/a02658.html" title="IoDico class description. ">IoDico</a> class description. </p>
+<div class="textblock"><p>Generic error handler for Dynawo (simple message). Used when dictionaries are not initialized. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad25e45c2a1aa2d72f27679681a71bfae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad25e45c2a1aa2d72f27679681a71bfae">&#9670;&nbsp;</a></span>IoDico()</h2>
+<a id="a5433def0d1e47c5f186384e459d0fa7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5433def0d1e47c5f186384e459d0fa7f">&#9670;&nbsp;</a></span>MessageError() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DYN::MessageError::MessageError </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/d14/a02658.html">MessageError</a> &amp;&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy constructor. Creates a new <a class="el" href="../../db/d4d/a02654.html" title="Generic error handler for Dynawo. ">Error</a> with same attributes as the object given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>error to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a667ec0dabc34afc1325d91415104b151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a667ec0dabc34afc1325d91415104b151">&#9670;&nbsp;</a></span>MessageError() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,10 +199,10 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DYN::IoDico::IoDico </td>
+          <td class="memname">DYN::MessageError::MessageError </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -165,9 +214,10 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div><div class="memdoc">
 
 <p>Constructor. </p>
+<p>creates an error with a message</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>name of the <a class="el" href="../../df/d14/a02658.html" title="IoDico class description. ">IoDico</a> </td></tr>
+    <tr><td class="paramname">message</td><td>message of the error </td></tr>
   </table>
   </dd>
 </dl>
@@ -175,14 +225,14 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5b52a886c13f0ce540f0c9ec4bd9e249"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b52a886c13f0ce540f0c9ec4bd9e249">&#9670;&nbsp;</a></span>begin()</h2>
+<a id="a3fc31a3927850ff5cb1c3e5a38e8494b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fc31a3927850ff5cb1c3e5a38e8494b">&#9670;&nbsp;</a></span>message()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::map&lt;std::string, std::string&gt;::const_iterator DYN::IoDico::begin </td>
+          <td class="memname">std::string DYN::MessageError::message </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -190,86 +240,115 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
       </table>
 </div><div class="memdoc">
 
-<p>iteration over the key/msg map </p>
-<dl class="section return"><dt>Returns</dt><dd>the begin iterator of the dictionary </dd></dl>
+<p>returns the error's message </p>
+<dl class="section return"><dt>Returns</dt><dd>error's message </dd></dl>
 
 </div>
 </div>
-<a id="a4c58857bebbe8746a973548a3db75245"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c58857bebbe8746a973548a3db75245">&#9670;&nbsp;</a></span>end()</h2>
+<a id="ab2e5261cd4e70398ecb33169e541ca34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2e5261cd4e70398ecb33169e541ca34">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::map&lt;std::string, std::string&gt;::const_iterator DYN::IoDico::end </td>
+          <td class="memname"><a class="el" href="../../df/d14/a02658.html">MessageError</a>&amp; DYN::MessageError::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/d14/a02658.html">MessageError</a> &amp;&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assignement operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>error to copy</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an error with same value as e </dd></dl>
+
+</div>
+</div>
+<a id="aeb38c69d2c62c856e5e64301ac1046f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb38c69d2c62c856e5e64301ac1046f9">&#9670;&nbsp;</a></span>what()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* DYN::MessageError::what </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>iteration over the key/msg map </p>
-<dl class="section return"><dt>Returns</dt><dd>the end iterator of the dictionary </dd></dl>
+<p>Returns a pointer to the error description. </p>
+<dl class="section return"><dt>Returns</dt><dd>error's description </dd></dl>
 
 </div>
 </div>
-<a id="a81be9d8668bd4d24b1450d032e2373cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81be9d8668bd4d24b1450d032e2373cf">&#9670;&nbsp;</a></span>msg()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a023c8e84b3c76c90144b6ac9cbc9d872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a023c8e84b3c76c90144b6ac9cbc9d872">&#9670;&nbsp;</a></span>operator&lt;&lt;</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string DYN::IoDico::msg </td>
+          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>msgId</em></td><td>)</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="../../df/d14/a02658.html">MessageError</a> &amp;&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>returns the message description associated to the key </p>
+<p>Operator &lt;&lt; overload for error. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">msgId</td><td>id/key of the message to return</td></tr>
+    <tr><td class="paramname">os</td><td>stream instance where the error is added </td></tr>
+    <tr><td class="paramname">e</td><td>Object to add to the stream</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>message description of the message </dd></dl>
-
-</div>
-</div>
-<a id="a6106addf801c3139876fa01fbcd2f59c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6106addf801c3139876fa01fbcd2f59c">&#9670;&nbsp;</a></span>readFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::IoDico::readFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fileName</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>reads a file and extracts all pairs of &lt;key,message description&gt; </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fileName</td><td>the full path name of the file to read </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference to the stream instance </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d5/dee/a00518_source.html">DYNIoDico.h</a></li>
+<li><a class="el" href="../../d4/dfb/a00512_source.html">DYNError.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -287,8 +366,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d14/a02658.html">IoDico</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d14/a02658.html">MessageError</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

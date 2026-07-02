@@ -1,5 +1,5 @@
 var a02510 =
 [
-    [ "copySet", "dd/df4/a02510.html#a920d895d678aa836e9899adde5aee468", null ],
-    [ "newParametersSet", "dd/df4/a02510.html#a3192d86bfc5c7cc685fff83acd8f5ca2", null ]
+    [ "importFromFile", "dd/df4/a02510.html#ae2fcc389c3c5e9c49e451bfb062f5c36", null ],
+    [ "importFromStream", "dd/df4/a02510.html#a584927acd56389d5316678a18b39afea", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: externalVariables::VariableHandler Class Reference</title>
+<title>Dynawo: externalVariables::VariableFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,59 +95,30 @@ $(document).ready(function(){initNavTree('d6/db3/a02094.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../d9/d96/a02091.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">externalVariables::VariableHandler Class Reference</div>  </div>
+<div class="title">externalVariables::VariableFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>external variable handler  
+<p><a class="el" href="../../d6/db3/a02094.html" title="VariableFactory factory class. ">VariableFactory</a> factory class.  
  <a href="../../d6/db3/a02094.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d5/ddf/a00224_source.html">EXTVARXmlHandler.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for externalVariables::VariableHandler:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d6/db3/a02094.png" usemap="#externalVariables::VariableHandler_map" alt=""/>
-  <map id="externalVariables::VariableHandler_map" name="externalVariables::VariableHandler_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../dd/dc1/a00212_source.html">EXTVARVariableFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8b0ce95bfa76fb1c42b8e53d23ac45a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db3/a02094.html#a8b0ce95bfa76fb1c42b8e53d23ac45a7">VariableHandler</a> (elementName_type const &amp;root_element)</td></tr>
-<tr class="memdesc:a8b0ce95bfa76fb1c42b8e53d23ac45a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a8b0ce95bfa76fb1c42b8e53d23ac45a7">More...</a><br /></td></tr>
-<tr class="separator:a8b0ce95bfa76fb1c42b8e53d23ac45a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a342233496b4ba6dc8a276224fc2cbc91"><td class="memItemLeft" align="right" valign="top"><a id="a342233496b4ba6dc8a276224fc2cbc91"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db3/a02094.html#a342233496b4ba6dc8a276224fc2cbc91">~VariableHandler</a> () override</td></tr>
-<tr class="memdesc:a342233496b4ba6dc8a276224fc2cbc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a342233496b4ba6dc8a276224fc2cbc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67c942f482cd027b2a20ac5206b3952b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d7d/a02074.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db3/a02094.html#a67c942f482cd027b2a20ac5206b3952b">get</a> () const</td></tr>
-<tr class="memdesc:a67c942f482cd027b2a20ac5206b3952b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> getter.  <a href="#a67c942f482cd027b2a20ac5206b3952b">More...</a><br /></td></tr>
-<tr class="separator:a67c942f482cd027b2a20ac5206b3952b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ae90cd78e08ab1b2caeb42434c64b1119"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db3/a02094.html#ae90cd78e08ab1b2caeb42434c64b1119">create</a> (attributes_type const &amp;attributes)</td></tr>
-<tr class="memdesc:ae90cd78e08ab1b2caeb42434c64b1119"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a discrete <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> object  <a href="#ae90cd78e08ab1b2caeb42434c64b1119">More...</a><br /></td></tr>
-<tr class="separator:ae90cd78e08ab1b2caeb42434c64b1119"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a3b2940dbb5d19b5d53430b1edc0c2b53"><td class="memItemLeft" align="right" valign="top"><a id="a3b2940dbb5d19b5d53430b1edc0c2b53"></a>
-std::shared_ptr&lt; <a class="el" href="../../d1/d7d/a02074.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db3/a02094.html#a3b2940dbb5d19b5d53430b1edc0c2b53">variable_</a></td></tr>
-<tr class="memdesc:a3b2940dbb5d19b5d53430b1edc0c2b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">current external variable object <br /></td></tr>
-<tr class="separator:a3b2940dbb5d19b5d53430b1edc0c2b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a61efb44f39f3703d45199b509fc749ef"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d7/deb/a02090.html">Variable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db3/a02094.html#a61efb44f39f3703d45199b509fc749ef">newVariable</a> (const std::string &amp;id, <a class="el" href="../../d7/deb/a02090.html#a47e7759d5921e5157692324e1947e3be">Variable::Type</a> type)</td></tr>
+<tr class="memdesc:a61efb44f39f3703d45199b509fc749ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d7/deb/a02090.html" title="Variable interface class. ">Variable</a> instance.  <a href="#a61efb44f39f3703d45199b509fc749ef">More...</a><br /></td></tr>
+<tr class="separator:a61efb44f39f3703d45199b509fc749ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>external variable handler </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8b0ce95bfa76fb1c42b8e53d23ac45a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b0ce95bfa76fb1c42b8e53d23ac45a7">&#9670;&nbsp;</a></span>VariableHandler()</h2>
+<div class="textblock"><p><a class="el" href="../../d6/db3/a02094.html" title="VariableFactory factory class. ">VariableFactory</a> factory class. </p>
+<p><a class="el" href="../../d6/db3/a02094.html" title="VariableFactory factory class. ">VariableFactory</a> encapsulates methods for creating new <code><a class="el" href="../../d7/deb/a02090.html" title="Variable interface class. ">Variable</a></code> objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a61efb44f39f3703d45199b509fc749ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61efb44f39f3703d45199b509fc749ef">&#9670;&nbsp;</a></span>newVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,87 +127,44 @@ std::shared_ptr&lt; <a class="el" href="../../d1/d7d/a02074.html">Variable</a> &
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">externalVariables::VariableHandler::VariableHandler </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d7/deb/a02090.html">Variable</a>&gt; externalVariables::VariableFactory::newVariable </td>
           <td>(</td>
-          <td class="paramtype">elementName_type const &amp;&#160;</td>
-          <td class="paramname"><em>root_element</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/deb/a02090.html#a47e7759d5921e5157692324e1947e3be">Variable::Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
+<p>Create new <a class="el" href="../../d7/deb/a02090.html" title="Variable interface class. ">Variable</a> instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">root_element</td><td>the object XML location </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>ID for new <a class="el" href="../../d7/deb/a02090.html" title="Variable interface class. ">Variable</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the variable type </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae90cd78e08ab1b2caeb42434c64b1119"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae90cd78e08ab1b2caeb42434c64b1119">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void externalVariables::VariableHandler::create </td>
-          <td>(</td>
-          <td class="paramtype">attributes_type const &amp;&#160;</td>
-          <td class="paramname"><em>attributes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>create a discrete <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> object </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">attributes</td><td>the object XML attributes </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a67c942f482cd027b2a20ac5206b3952b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67c942f482cd027b2a20ac5206b3952b">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d1/d7d/a02074.html">Variable</a>&gt; externalVariables::VariableHandler::get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> getter. </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="../../d1/d7d/a02074.html" title="Variable interface class. ">Variable</a> object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../d7/deb/a02090.html" title="Variable interface class. ">Variable</a></code> with given ID and type </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d5/ddf/a00224_source.html">EXTVARXmlHandler.h</a></li>
+<li><a class="el" href="../../dd/dc1/a00212_source.html">EXTVARVariableFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -254,8 +182,8 @@ std::shared_ptr&lt; <a class="el" href="../../d1/d7d/a02074.html">Variable</a> &
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../d6/db3/a02094.html">VariableHandler</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../d6/db3/a02094.html">VariableFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: dynamicdata::MacroConnectionRead Struct Reference</title>
+<title>Dynawo: dynamicdata::UnitDynamicModelFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,33 +95,76 @@ $(document).ready(function(){initNavTree('d9/de8/a02006.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../d7/d98/a02003.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">dynamicdata::MacroConnectionRead Struct Reference</div>  </div>
+<div class="title">dynamicdata::UnitDynamicModelFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>structure defining a macroConnection element  
+<p><a class="el" href="../../d9/de8/a02006.html" title="UnitDynamicModelFactory factory class. ">UnitDynamicModelFactory</a> factory class.  
  <a href="../../d9/de8/a02006.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../de/db1/a00197_source.html">DYDXmlHandler.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../da/d15/a00188_source.html">DYDUnitDynamicModelFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ae024ccab2a06f5017316e63ae320b5d3"><td class="memItemLeft" align="right" valign="top"><a id="ae024ccab2a06f5017316e63ae320b5d3"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/de8/a02006.html#ae024ccab2a06f5017316e63ae320b5d3">var1</a></td></tr>
-<tr class="memdesc:ae024ccab2a06f5017316e63ae320b5d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the first variable to connect <br /></td></tr>
-<tr class="separator:ae024ccab2a06f5017316e63ae320b5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b799528088b0d4103a6b2d20f722cc2"><td class="memItemLeft" align="right" valign="top"><a id="a6b799528088b0d4103a6b2d20f722cc2"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/de8/a02006.html#a6b799528088b0d4103a6b2d20f722cc2">var2</a></td></tr>
-<tr class="memdesc:a6b799528088b0d4103a6b2d20f722cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the second variable to connect <br /></td></tr>
-<tr class="separator:a6b799528088b0d4103a6b2d20f722cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a594ecc0b5ba80715067f073bbefcaf78"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../df/d37/a02002.html">UnitDynamicModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/de8/a02006.html#a594ecc0b5ba80715067f073bbefcaf78">newModel</a> (const std::string &amp;modelId, const std::string &amp;modelName)</td></tr>
+<tr class="memdesc:a594ecc0b5ba80715067f073bbefcaf78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../df/d37/a02002.html" title="Modelica dynamic model interface class. ">UnitDynamicModel</a> instance.  <a href="#a594ecc0b5ba80715067f073bbefcaf78">More...</a><br /></td></tr>
+<tr class="separator:a594ecc0b5ba80715067f073bbefcaf78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>structure defining a macroConnection element </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="../../de/db1/a00197_source.html">DYDXmlHandler.h</a></li>
+<div class="textblock"><p><a class="el" href="../../d9/de8/a02006.html" title="UnitDynamicModelFactory factory class. ">UnitDynamicModelFactory</a> factory class. </p>
+<p><a class="el" href="../../d9/de8/a02006.html" title="UnitDynamicModelFactory factory class. ">UnitDynamicModelFactory</a> encapsulate methods for creating new <code><a class="el" href="../../df/d37/a02002.html" title="Modelica dynamic model interface class. ">UnitDynamicModel</a></code> objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a594ecc0b5ba80715067f073bbefcaf78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a594ecc0b5ba80715067f073bbefcaf78">&#9670;&nbsp;</a></span>newModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../df/d37/a02002.html">UnitDynamicModel</a>&gt; dynamicdata::UnitDynamicModelFactory::newModel </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create new <a class="el" href="../../df/d37/a02002.html" title="Modelica dynamic model interface class. ">UnitDynamicModel</a> instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">modelId</td><td>ID for new <a class="el" href="../../df/d37/a02002.html" title="Modelica dynamic model interface class. ">UnitDynamicModel</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">modelName</td><td>name of model used to instanciate this model </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../df/d37/a02002.html" title="Modelica dynamic model interface class. ">UnitDynamicModel</a></code> with given ID </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../da/d15/a00188_source.html">DYDUnitDynamicModelFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -139,8 +182,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d9/de8/a02006.html">MacroConnectionRead</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../d9/de8/a02006.html">UnitDynamicModelFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

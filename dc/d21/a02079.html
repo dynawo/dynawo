@@ -95,15 +95,15 @@ $(document).ready(function(){initNavTree('d6/d7f/a02082.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">externalVariables::VariablesCollection Member List</div>  </div>
+<div class="title">externalVariables::Exporter Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d6/d7f/a02082.html">externalVariables::VariablesCollection</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d6/d7f/a02082.html">externalVariables::Exporter</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d7f/a02082.html#a445a33d619ed80b5d98a9a0f9752bd2a">addVariable</a>(const std::shared_ptr&lt; Variable &gt; &amp;variable)</td><td class="entry"><a class="el" href="../../d6/d7f/a02082.html">externalVariables::VariablesCollection</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d6/d7f/a02082.html#a7ff75891c7a87a08b48831de3be4cd90">getVariables</a>() const</td><td class="entry"><a class="el" href="../../d6/d7f/a02082.html">externalVariables::VariablesCollection</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d6/d7f/a02082.html#ac52c0c08a934a7430e2601a3b87b1fea">variables_</a></td><td class="entry"><a class="el" href="../../d6/d7f/a02082.html">externalVariables::VariablesCollection</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d7f/a02082.html#ab0416a9391169284924590d5ae2b4cca">exportToFile</a>(const VariablesCollection &amp;collection, const std::string &amp;filePath) const =0</td><td class="entry"><a class="el" href="../../d6/d7f/a02082.html">externalVariables::Exporter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/d7f/a02082.html#a263714c6dc1bc35ee0630660c79098f2">exportToStream</a>(const VariablesCollection &amp;collection, std::ostream &amp;stream) const =0</td><td class="entry"><a class="el" href="../../d6/d7f/a02082.html">externalVariables::Exporter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/d7f/a02082.html#a86601796a01c98a1cabe16a3b862ca7c">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../d6/d7f/a02082.html">externalVariables::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('d6/d7f/a02082.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

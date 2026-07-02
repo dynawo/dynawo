@@ -1,21 +1,14 @@
 var a02874 =
 [
-    [ "ConverterType_t", "d2/d80/a02874.html#a2b86b878e89974293374c1c37ed381c9", [
-      [ "VSC_CONVERTER", "d2/d80/a02874.html#a2b86b878e89974293374c1c37ed381c9a550a6bcb27400d1116fee17ac3c6696c", null ],
-      [ "LCC_CONVERTER", "d2/d80/a02874.html#a2b86b878e89974293374c1c37ed381c9a80b97e7522513dd812973a549bb36f36", null ]
-    ] ],
-    [ "ConverterInterface", "d2/d80/a02874.html#a5fe1765a604e8c596d2904636a0d1578", null ],
-    [ "~ConverterInterface", "d2/d80/a02874.html#a8a20ecde1390fc224404f7622ed6a50c", null ],
-    [ "getBusInterface", "d2/d80/a02874.html#a97f4a8485ae1851ffdec2fb2192b6780", null ],
-    [ "getConverterType", "d2/d80/a02874.html#ae59b0310f6bfd4365bce2d716c240b5a", null ],
-    [ "getID", "d2/d80/a02874.html#ad508621557328d1967d8cfa60c69cf09", null ],
-    [ "getInitialConnected", "d2/d80/a02874.html#ac7d0bd1eba8523973400eab30bf342a6", null ],
-    [ "getLossFactor", "d2/d80/a02874.html#afb5b0b1c92a599026e4c2b8dcc19e1d1", null ],
-    [ "getP", "d2/d80/a02874.html#ab6cadfdee75922542d017c987e772e1a", null ],
-    [ "getQ", "d2/d80/a02874.html#a62d72b00920f498a175efe2a435e63eb", null ],
-    [ "getVNom", "d2/d80/a02874.html#aa29b1be4591f61be93fbdd77bf6b072f", null ],
-    [ "hasP", "d2/d80/a02874.html#a85b3e842a9c280f33c1ee9c138e1f82d", null ],
-    [ "hasQ", "d2/d80/a02874.html#a9a8c6ac0fc244bcd3e2c2c1023e9504e", null ],
-    [ "setBusInterface", "d2/d80/a02874.html#ab17a5ef15311f6a8c9d2bcf630e6a404", null ],
-    [ "setVoltageLevelInterface", "d2/d80/a02874.html#a181690129a52e501c59e22d857e618d9", null ]
+    [ "~Variable", "d2/d80/a02874.html#a764e54ddbd24a65d0ce70e69cd6c5d10", null ],
+    [ "Variable", "d2/d80/a02874.html#afedfc480818763cdd9343d784fcfbd68", null ],
+    [ "Variable", "d2/d80/a02874.html#a5d99c7754691acc631d8dfdf12f2a39c", null ],
+    [ "getIndex", "d2/d80/a02874.html#a9e7fd961e06a8c2b1901edf50a08907a", null ],
+    [ "getName", "d2/d80/a02874.html#ac405b90d345ec23e7b2b81d6e3fd9e50", null ],
+    [ "getNegated", "d2/d80/a02874.html#a20b8c8b06fcb814ede0f168ed97e3921", null ],
+    [ "getType", "d2/d80/a02874.html#a014fe7e26fa02c5f241af477e4213f5d", null ],
+    [ "isAlias", "d2/d80/a02874.html#a9b1c390db423cc65dfa295002ae9e610", null ],
+    [ "isState", "d2/d80/a02874.html#a61a3d74df3c1f96fe284f21f0ca3521c", null ],
+    [ "isAlias_", "d2/d80/a02874.html#af2bb43366ef0843ecd9f053e11b848a7", null ],
+    [ "name_", "d2/d80/a02874.html#ada325bfa1ac414c32202b16a16644a86", null ]
 ];

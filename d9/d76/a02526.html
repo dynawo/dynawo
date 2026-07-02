@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: parameters::TableParameter Struct Reference</title>
+<title>Dynawo: parameters::MacroParSet Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,37 +95,95 @@ $(document).ready(function(){initNavTree('d9/d76/a02526.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d7/d8d/a02523.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">parameters::TableParameter Struct Reference</div>  </div>
+<div class="title">parameters::MacroParSet Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>structure defining a parameter element inside a table  
+<p><a class="el" href="../../d9/d76/a02526.html" title="MacroParSet interface class. ">MacroParSet</a> interface class.  
  <a href="../../d9/d76/a02526.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d9/d10/a00449_source.html">PARXmlHandler.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d1/d7e/a00434_source.html">PARMacroParSet.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a245e4c21c011be1fb97b4dbcec6edd42"><td class="memItemLeft" align="right" valign="top"><a id="a245e4c21c011be1fb97b4dbcec6edd42"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d76/a02526.html#a245e4c21c011be1fb97b4dbcec6edd42">value</a></td></tr>
-<tr class="memdesc:a245e4c21c011be1fb97b4dbcec6edd42"><td class="mdescLeft">&#160;</td><td class="mdescRight">value of the parameter <br /></td></tr>
-<tr class="separator:a245e4c21c011be1fb97b4dbcec6edd42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa260c815ac95daf77740cec751fc2bc3"><td class="memItemLeft" align="right" valign="top"><a id="aa260c815ac95daf77740cec751fc2bc3"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d76/a02526.html#aa260c815ac95daf77740cec751fc2bc3">row</a></td></tr>
-<tr class="memdesc:aa260c815ac95daf77740cec751fc2bc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">row of the parameter <br /></td></tr>
-<tr class="separator:aa260c815ac95daf77740cec751fc2bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bf29ef5e8a1cc17ae3b04361e13f8f3"><td class="memItemLeft" align="right" valign="top"><a id="a4bf29ef5e8a1cc17ae3b04361e13f8f3"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d76/a02526.html#a4bf29ef5e8a1cc17ae3b04361e13f8f3">column</a></td></tr>
-<tr class="memdesc:a4bf29ef5e8a1cc17ae3b04361e13f8f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">column of the parameter <br /></td></tr>
-<tr class="separator:a4bf29ef5e8a1cc17ae3b04361e13f8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a0012d9de4b80bbb9dc801b17aa58842e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d76/a02526.html#a0012d9de4b80bbb9dc801b17aa58842e">MacroParSet</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:a0012d9de4b80bbb9dc801b17aa58842e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d76/a02526.html" title="MacroParSet interface class. ">MacroParSet</a> constructor.  <a href="#a0012d9de4b80bbb9dc801b17aa58842e">More...</a><br /></td></tr>
+<tr class="separator:a0012d9de4b80bbb9dc801b17aa58842e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a505ed34f0efd73ea7f191acd42408a9c"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d76/a02526.html#a505ed34f0efd73ea7f191acd42408a9c">getId</a> () const</td></tr>
+<tr class="memdesc:a505ed34f0efd73ea7f191acd42408a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">macroParSet id getter  <a href="#a505ed34f0efd73ea7f191acd42408a9c">More...</a><br /></td></tr>
+<tr class="separator:a505ed34f0efd73ea7f191acd42408a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:add67802e6a634d9744f21cd785b3d938"><td class="memItemLeft" align="right" valign="top"><a id="add67802e6a634d9744f21cd785b3d938"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d76/a02526.html#add67802e6a634d9744f21cd785b3d938">id_</a></td></tr>
+<tr class="memdesc:add67802e6a634d9744f21cd785b3d938"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the macroParSet <br /></td></tr>
+<tr class="separator:add67802e6a634d9744f21cd785b3d938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>structure defining a parameter element inside a table </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d10/a00449_source.html">PARXmlHandler.h</a></li>
+<div class="textblock"><p><a class="el" href="../../d9/d76/a02526.html" title="MacroParSet interface class. ">MacroParSet</a> interface class. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0012d9de4b80bbb9dc801b17aa58842e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0012d9de4b80bbb9dc801b17aa58842e">&#9670;&nbsp;</a></span>MacroParSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">parameters::MacroParSet::MacroParSet </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d9/d76/a02526.html" title="MacroParSet interface class. ">MacroParSet</a> constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>id of the macroParSet </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a505ed34f0efd73ea7f191acd42408a9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a505ed34f0efd73ea7f191acd42408a9c">&#9670;&nbsp;</a></span>getId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; parameters::MacroParSet::getId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>macroParSet id getter </p>
+<dl class="section return"><dt>Returns</dt><dd>the id of the macroParSet </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="../../d1/d7e/a00434_source.html">PARMacroParSet.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -143,8 +201,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../d9/d76/a02526.html">TableParameter</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../d9/d76/a02526.html">MacroParSet</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

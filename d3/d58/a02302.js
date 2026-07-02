@@ -1,12 +1,23 @@
 var a02302 =
 [
-    [ "getChannel", "d3/d58/a02302.html#a69fa4b4cf71e3ad6ccd8a23208306483", null ],
-    [ "getData", "d3/d58/a02302.html#a56079c919d887921f838f3f351b89e9d", null ],
-    [ "getFormat", "d3/d58/a02302.html#aecd6f956a51be81e89240d6150449dca", null ],
-    [ "setChannel", "d3/d58/a02302.html#a73a8285f84c219f017ee464392d762db", null ],
-    [ "setData", "d3/d58/a02302.html#ac404486b4fcd73e506216cf4746846d1", null ],
-    [ "setFormat", "d3/d58/a02302.html#a44a07ba8500c0bbee5d9d78dbe46f820", null ],
-    [ "channel_", "d3/d58/a02302.html#acea101b245a183d7c0e4de426192b470", null ],
-    [ "data_", "d3/d58/a02302.html#a9ef66c3243d78b75a8315d6bc77102f9", null ],
-    [ "format_", "d3/d58/a02302.html#a5527b39a7dd633571a86d4c8ed064e57", null ]
+    [ "SimulationEntry", "d3/d58/a02302.html#a465d99efd11e34b2c088a9b91f44b595", null ],
+    [ "addCriteriaFile", "d3/d58/a02302.html#a44eee0714dc9f1fa5045bd7d4f2a65ed", null ],
+    [ "getCriteriaFiles", "d3/d58/a02302.html#adda3ed2683d2196fa7a49b4d7f9c91f6", null ],
+    [ "getCriteriaStep", "d3/d58/a02302.html#ab431454dec4a913006f2ad87a1122580", null ],
+    [ "getPrecision", "d3/d58/a02302.html#a6c005644a6547d855d9dd2ccbc28288d", null ],
+    [ "getStartTime", "d3/d58/a02302.html#a48282efbfc066d6d6f7d96d603e12298", null ],
+    [ "getStopTime", "d3/d58/a02302.html#aaf6a707a4498627947d362815496940c", null ],
+    [ "getTimeout", "d3/d58/a02302.html#ae66771ab4d507f6278b5a599ec6956e1", null ],
+    [ "setCriteriaFile", "d3/d58/a02302.html#a531d01d0a1ecac31300a52a81916247d", null ],
+    [ "setCriteriaStep", "d3/d58/a02302.html#ae827197722a98561175998c6c2d2eb9b", null ],
+    [ "setPrecision", "d3/d58/a02302.html#a54eafb83ee275c60b3935f88abfb34a2", null ],
+    [ "setStartTime", "d3/d58/a02302.html#a7f097caa00191c234a7af0b2155305c7", null ],
+    [ "setStopTime", "d3/d58/a02302.html#a21856ff0867f3952754926026d8844f2", null ],
+    [ "setTimeout", "d3/d58/a02302.html#a8800cd41cc70cb6f91a45591129fb12d", null ],
+    [ "criteriaFiles_", "d3/d58/a02302.html#a306af7b9f18dbc3a45031573b3c01250", null ],
+    [ "criteriaStep_", "d3/d58/a02302.html#a2b0b4c38e649b3ee066298fc39fa31e4", null ],
+    [ "precision_", "d3/d58/a02302.html#aa05fbe4a712c3411b3f5b7e8666aef51", null ],
+    [ "startTime_", "d3/d58/a02302.html#a2d9610093c35b666c3862a66e83b0d57", null ],
+    [ "stopTime_", "d3/d58/a02302.html#a2907e247553e95acbf53e11fe1049ea5", null ],
+    [ "timeout_", "d3/d58/a02302.html#a6c6850ac57454abd02bd0c0be48ca9b0", null ]
 ];

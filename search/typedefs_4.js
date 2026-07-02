@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['edge',['Edge',['../d4/dfb/a00512.html#a15934c7040701cca444651ffea895632',1,'DYNGraph.h']]],
-  ['edgeproperty',['EdgeProperty',['../d4/dfb/a00512.html#aebe53ad155bce2c97bd20d6e64c88068',1,'DYNGraph.h']]],
-  ['edgeweightmap',['EdgeWeightMap',['../d4/dfb/a00512.html#a2482b682f3dbd3065b4009fe7caffe41',1,'DYNGraph.h']]],
-  ['extensiondefinition',['ExtensionDefinition',['../da/d19/a03094.html#a1081a3984bcad246ead1b1688025b924',1,'DYN::IIDMExtensions']]]
+  ['edge',['Edge',['../d9/d44/a00527.html#a15934c7040701cca444651ffea895632',1,'DYNGraph.h']]],
+  ['edgeproperty',['EdgeProperty',['../d9/d44/a00527.html#aebe53ad155bce2c97bd20d6e64c88068',1,'DYNGraph.h']]],
+  ['edgeweightmap',['EdgeWeightMap',['../d9/d44/a00527.html#a2482b682f3dbd3065b4009fe7caffe41',1,'DYNGraph.h']]],
+  ['extensiondefinition',['ExtensionDefinition',['../d7/d66/a03134.html#a1081a3984bcad246ead1b1688025b924',1,'DYN::IIDMExtensions']]]
 ];

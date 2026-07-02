@@ -1,14 +1,8 @@
 var a02426 =
 [
-    [ "InteractiveSettingsHandler", "d0/d1e/a02426.html#ac395736070f8deac3144fa369ae00453", null ],
-    [ "~InteractiveSettingsHandler", "d0/d1e/a02426.html#ac4643e0d85bc468ee6adb73a7b0f565f", null ],
-    [ "addChannels", "d0/d1e/a02426.html#ad350277237fe9bebd157d787eb615aa1", null ],
-    [ "addClock", "d0/d1e/a02426.html#a4e75db54a713800feff828ccdacaf2d1", null ],
-    [ "addStreams", "d0/d1e/a02426.html#a941e97dc9d20b32c9c88eb9a2f143210", null ],
-    [ "create", "d0/d1e/a02426.html#a3471501d79fecccbc907da3fdbd02b53", null ],
-    [ "get", "d0/d1e/a02426.html#a39f0c7f7dfb2b72f5ea03a4f55f166ad", null ],
-    [ "channelsHandler_", "d0/d1e/a02426.html#a87726ef77cd4091f1186514c3c025bf4", null ],
-    [ "clockHandler_", "d0/d1e/a02426.html#aabb85564f874468484109f356b917796", null ],
-    [ "interactiveSettings_", "d0/d1e/a02426.html#aed26195f7267ce2d8f97d257fada1446", null ],
-    [ "streamsHandler_", "d0/d1e/a02426.html#af90c230226ad041e88f418a04abba535", null ]
+    [ "ChannelHandler", "d0/d1e/a02426.html#ac2a7bb124042bba68be2957a1c8dfd7b", null ],
+    [ "~ChannelHandler", "d0/d1e/a02426.html#af5def22c17307b12f6573d27ab37aea6", null ],
+    [ "create", "d0/d1e/a02426.html#ad7165c834b6340437181b38f47eb3fe9", null ],
+    [ "get", "d0/d1e/a02426.html#a74a94ff1590dabe3226d3c5a5fc43396", null ],
+    [ "channel_", "d0/d1e/a02426.html#a6ff62c533f7281704f3e6419b3979cdb", null ]
 ];

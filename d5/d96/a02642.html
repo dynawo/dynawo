@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Graph Class Reference</title>
+<title>Dynawo: DYN::BitMask Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,378 +96,144 @@ $(document).ready(function(){initNavTree('d5/d96/a02642.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../dd/d75/a02639.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Graph Class Reference</div>  </div>
+<div class="title">DYN::BitMask Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d5/d96/a02642.html" title="Graph class to manipulate topology graph. ">Graph</a> class to manipulate topology graph.  
+<p>a generic bitmask class  
  <a href="../../d5/d96/a02642.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/dfb/a00512_source.html">DYNGraph.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d4/d1e/a00497_source.html">DYNBitMask.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a95009bed2557fc33d84c0b9303b40a04"><td class="memItemLeft" align="right" valign="top"><a id="a95009bed2557fc33d84c0b9303b40a04"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a95009bed2557fc33d84c0b9303b40a04">Graph</a> ()</td></tr>
-<tr class="memdesc:a95009bed2557fc33d84c0b9303b40a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:a95009bed2557fc33d84c0b9303b40a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab669ac1ae4171048b74a181cbf9c8cee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#ab669ac1ae4171048b74a181cbf9c8cee">addVertex</a> (unsigned int vertexId)</td></tr>
-<tr class="memdesc:ab669ac1ae4171048b74a181cbf9c8cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a vertex to the graph structure  <a href="#ab669ac1ae4171048b74a181cbf9c8cee">More...</a><br /></td></tr>
-<tr class="separator:ab669ac1ae4171048b74a181cbf9c8cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e0cf592681bfe49b6eaafafa65247fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a3e0cf592681bfe49b6eaafafa65247fc">addEdge</a> (unsigned idVertex1, unsigned idVertex2, const std::string &amp;id)</td></tr>
-<tr class="memdesc:a3e0cf592681bfe49b6eaafafa65247fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">add an edge between two vertices  <a href="#a3e0cf592681bfe49b6eaafafa65247fc">More...</a><br /></td></tr>
-<tr class="separator:a3e0cf592681bfe49b6eaafafa65247fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8360419378eab9adefac3a3545d07ab3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a8360419378eab9adefac3a3545d07ab3">hasVertex</a> (unsigned int id)</td></tr>
-<tr class="memdesc:a8360419378eab9adefac3a3545d07ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if a vertex exists  <a href="#a8360419378eab9adefac3a3545d07ab3">More...</a><br /></td></tr>
-<tr class="separator:a8360419378eab9adefac3a3545d07ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dabbb1be84f9cd45e2f2d61ebdbdbfd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a6dabbb1be84f9cd45e2f2d61ebdbdbfd">pathExist</a> (unsigned vertexOrigin, unsigned vertexExtremity, const std::unordered_map&lt; std::string, float &gt; &amp;edgeWeights)</td></tr>
-<tr class="memdesc:a6dabbb1be84f9cd45e2f2d61ebdbdbfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if a path exist between two vertices  <a href="#a6dabbb1be84f9cd45e2f2d61ebdbdbfd">More...</a><br /></td></tr>
-<tr class="separator:a6dabbb1be84f9cd45e2f2d61ebdbdbfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd97b4a0ced6c3727e47f1a8f7b530ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#acd97b4a0ced6c3727e47f1a8f7b530ef">shortestPath</a> (unsigned vertexOrigin, unsigned vertexExtremity, const std::unordered_map&lt; std::string, float &gt; &amp;edgeWeights, <a class="el" href="../../d4/dfb/a00512.html#a2756067ac4299feb1969fdeb75e33393">PathDescription</a> &amp;path)</td></tr>
-<tr class="memdesc:acd97b4a0ced6c3727e47f1a8f7b530ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between two vertices  <a href="#acd97b4a0ced6c3727e47f1a8f7b530ef">More...</a><br /></td></tr>
-<tr class="separator:acd97b4a0ced6c3727e47f1a8f7b530ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff518b1f1093e339a60eeb68f3ea1907"><td class="memItemLeft" align="right" valign="top">std::pair&lt; unsigned int, std::vector&lt; unsigned int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#aff518b1f1093e339a60eeb68f3ea1907">calculateComponents</a> (const std::unordered_map&lt; std::string, float &gt; &amp;edgeWeights)</td></tr>
-<tr class="memdesc:aff518b1f1093e339a60eeb68f3ea1907"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate connected components of a graph  <a href="#aff518b1f1093e339a60eeb68f3ea1907">More...</a><br /></td></tr>
-<tr class="separator:aff518b1f1093e339a60eeb68f3ea1907"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a5858a6eabf7b0fcdee750296403ddb4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a5858a6eabf7b0fcdee750296403ddb4d">setEdgesWeight</a> (const std::unordered_map&lt; std::string, float &gt; &amp;edgeWeights)</td></tr>
-<tr class="memdesc:a5858a6eabf7b0fcdee750296403ddb4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the weight/mask of each edge  <a href="#a5858a6eabf7b0fcdee750296403ddb4d">More...</a><br /></td></tr>
-<tr class="separator:a5858a6eabf7b0fcdee750296403ddb4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace7bafcb710fbae232e0859da70de2c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#ace7bafcb710fbae232e0859da70de2c6">dijkstra</a> (const unsigned vertexOrigin, const unsigned vertexExtremity, const std::unordered_map&lt; std::string, float &gt; &amp;edgeWeights, <a class="el" href="../../d4/dfb/a00512.html#a2756067ac4299feb1969fdeb75e33393">PathDescription</a> &amp;path)</td></tr>
-<tr class="memdesc:ace7bafcb710fbae232e0859da70de2c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the shortest path between two vertices  <a href="#ace7bafcb710fbae232e0859da70de2c6">More...</a><br /></td></tr>
-<tr class="separator:ace7bafcb710fbae232e0859da70de2c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db8e98af3f6a1e62c1bb93c99788b77"><td class="memItemLeft" align="right" valign="top"><a id="a7db8e98af3f6a1e62c1bb93c99788b77"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a7db8e98af3f6a1e62c1bb93c99788b77">BitMask</a> ()</td></tr>
+<tr class="memdesc:a7db8e98af3f6a1e62c1bb93c99788b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor initially all flags are false <br /></td></tr>
+<tr class="separator:a7db8e98af3f6a1e62c1bb93c99788b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa01e965a35ef476cd119ee4983a60f60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#aa01e965a35ef476cd119ee4983a60f60">setFlags</a> (const unsigned char &amp;flag)</td></tr>
+<tr class="memdesc:aa01e965a35ef476cd119ee4983a60f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">activate all flags that are activated in flag  <a href="#aa01e965a35ef476cd119ee4983a60f60">More...</a><br /></td></tr>
+<tr class="separator:aa01e965a35ef476cd119ee4983a60f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d39a147621f39e54fa89f3bed49ba25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a1d39a147621f39e54fa89f3bed49ba25">unsetFlags</a> (const unsigned char &amp;flag)</td></tr>
+<tr class="memdesc:a1d39a147621f39e54fa89f3bed49ba25"><td class="mdescLeft">&#160;</td><td class="mdescRight">deactivate all flags that are activated in flag  <a href="#a1d39a147621f39e54fa89f3bed49ba25">More...</a><br /></td></tr>
+<tr class="separator:a1d39a147621f39e54fa89f3bed49ba25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7691266a1e1ddc4f2080ca2b3b8e6ab9"><td class="memItemLeft" align="right" valign="top"><a id="a7691266a1e1ddc4f2080ca2b3b8e6ab9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a7691266a1e1ddc4f2080ca2b3b8e6ab9">reset</a> ()</td></tr>
+<tr class="memdesc:a7691266a1e1ddc4f2080ca2b3b8e6ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">deactivate all flags <br /></td></tr>
+<tr class="separator:a7691266a1e1ddc4f2080ca2b3b8e6ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e2d03aad1468cb8d86cbb9a6bfcc6c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a5e2d03aad1468cb8d86cbb9a6bfcc6c2">noFlagSet</a> () const</td></tr>
+<tr class="memdesc:a5e2d03aad1468cb8d86cbb9a6bfcc6c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">return true if all flags are deactivated  <a href="#a5e2d03aad1468cb8d86cbb9a6bfcc6c2">More...</a><br /></td></tr>
+<tr class="separator:a5e2d03aad1468cb8d86cbb9a6bfcc6c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ba3936c9108bb8297dd8cbcf222305d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a5ba3936c9108bb8297dd8cbcf222305d">getFlags</a> (const unsigned char &amp;flag) const</td></tr>
+<tr class="memdesc:a5ba3936c9108bb8297dd8cbcf222305d"><td class="mdescLeft">&#160;</td><td class="mdescRight">return true if all flags activated in flag are activated  <a href="#a5ba3936c9108bb8297dd8cbcf222305d">More...</a><br /></td></tr>
+<tr class="separator:a5ba3936c9108bb8297dd8cbcf222305d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a844c45da1c48544cb913a59fa021a71b"><td class="memItemLeft" align="right" valign="top"><a id="a844c45da1c48544cb913a59fa021a71b"></a>
-<a class="el" href="../../d4/dfb/a00512.html#a8b45114031aeed966d2b92a12cc720e3">BoostGraph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a844c45da1c48544cb913a59fa021a71b">internalGraph_</a></td></tr>
-<tr class="memdesc:a844c45da1c48544cb913a59fa021a71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">graph description <br /></td></tr>
-<tr class="separator:a844c45da1c48544cb913a59fa021a71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7a7435519119601c949911c1f1ec548"><td class="memItemLeft" align="right" valign="top"><a id="aa7a7435519119601c949911c1f1ec548"></a>
-std::unordered_map&lt; unsigned int, <a class="el" href="../../d4/dfb/a00512.html#a647fa4b703900efea039dfd0f045be9f">Vertex</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#aa7a7435519119601c949911c1f1ec548">vertices_</a></td></tr>
-<tr class="memdesc:aa7a7435519119601c949911c1f1ec548"><td class="mdescLeft">&#160;</td><td class="mdescRight">association between vertices and their id <br /></td></tr>
-<tr class="separator:aa7a7435519119601c949911c1f1ec548"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fc80e477c4299de63bb6fc9a1d8e065"><td class="memItemLeft" align="right" valign="top"><a id="a5fc80e477c4299de63bb6fc9a1d8e065"></a>
-std::unordered_map&lt; std::string, <a class="el" href="../../d4/dfb/a00512.html#a15934c7040701cca444651ffea895632">Edge</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#a5fc80e477c4299de63bb6fc9a1d8e065">edges_</a></td></tr>
-<tr class="memdesc:a5fc80e477c4299de63bb6fc9a1d8e065"><td class="mdescLeft">&#160;</td><td class="mdescRight">association between edges and their id <br /></td></tr>
-<tr class="separator:a5fc80e477c4299de63bb6fc9a1d8e065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0d5ae8818a95060b9dd77678bbc0d15"><td class="memItemLeft" align="right" valign="top"><a id="ad0d5ae8818a95060b9dd77678bbc0d15"></a>
+unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d96/a02642.html#ad0d5ae8818a95060b9dd77678bbc0d15">bitmask_</a></td></tr>
+<tr class="memdesc:ad0d5ae8818a95060b9dd77678bbc0d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">current mask <br /></td></tr>
+<tr class="separator:ad0d5ae8818a95060b9dd77678bbc0d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d5/d96/a02642.html" title="Graph class to manipulate topology graph. ">Graph</a> class to manipulate topology graph. </p>
+<div class="textblock"><p>a generic bitmask class </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3e0cf592681bfe49b6eaafafa65247fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e0cf592681bfe49b6eaafafa65247fc">&#9670;&nbsp;</a></span>addEdge()</h2>
+<a id="a5ba3936c9108bb8297dd8cbcf222305d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ba3936c9108bb8297dd8cbcf222305d">&#9670;&nbsp;</a></span>getFlags()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::Graph::addEdge </td>
+          <td class="memname">bool DYN::BitMask::getFlags </td>
           <td>(</td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>idVertex1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>idVertex2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">const unsigned char &amp;&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>add an edge between two vertices </p>
+<p>return true if all flags activated in flag are activated </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">idVertex1</td><td>id of the first vertex </td></tr>
-    <tr><td class="paramname">idVertex2</td><td>id of the second vertex </td></tr>
-    <tr><td class="paramname">id</td><td>id of the edge </td></tr>
+    <tr><td class="paramname">flag</td><td>mask to apply</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if all flags activated in flag are activated </dd></dl>
+
+</div>
+</div>
+<a id="a5e2d03aad1468cb8d86cbb9a6bfcc6c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e2d03aad1468cb8d86cbb9a6bfcc6c2">&#9670;&nbsp;</a></span>noFlagSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::BitMask::noFlagSet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>return true if all flags are deactivated </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if all flags are deactivated </dd></dl>
+
+</div>
+</div>
+<a id="aa01e965a35ef476cd119ee4983a60f60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa01e965a35ef476cd119ee4983a60f60">&#9670;&nbsp;</a></span>setFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::BitMask::setFlags </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char &amp;&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>activate all flags that are activated in flag </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>mask to apply </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ab669ac1ae4171048b74a181cbf9c8cee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab669ac1ae4171048b74a181cbf9c8cee">&#9670;&nbsp;</a></span>addVertex()</h2>
+<a id="a1d39a147621f39e54fa89f3bed49ba25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d39a147621f39e54fa89f3bed49ba25">&#9670;&nbsp;</a></span>unsetFlags()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::Graph::addVertex </td>
+          <td class="memname">void DYN::BitMask::unsetFlags </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>vertexId</em></td><td>)</td>
+          <td class="paramtype">const unsigned char &amp;&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>add a vertex to the graph structure </p>
+<p>deactivate all flags that are activated in flag </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vertexId</td><td>id of the vertex </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aff518b1f1093e339a60eeb68f3ea1907"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff518b1f1093e339a60eeb68f3ea1907">&#9670;&nbsp;</a></span>calculateComponents()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt;unsigned int, std::vector&lt;unsigned int&gt; &gt; DYN::Graph::calculateComponents </td>
-          <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, float &gt; &amp;&#160;</td>
-          <td class="paramname"><em>edgeWeights</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>calculate connected components of a graph </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">edgeWeights</td><td>weights/masks of each edge to filter the graph </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>number of components and component per vertices </dd></dl>
-
-</div>
-</div>
-<a id="ace7bafcb710fbae232e0859da70de2c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace7bafcb710fbae232e0859da70de2c6">&#9670;&nbsp;</a></span>dijkstra()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Graph::dijkstra </td>
-          <td>(</td>
-          <td class="paramtype">const unsigned&#160;</td>
-          <td class="paramname"><em>vertexOrigin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const unsigned&#160;</td>
-          <td class="paramname"><em>vertexExtremity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, float &gt; &amp;&#160;</td>
-          <td class="paramname"><em>edgeWeights</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d4/dfb/a00512.html#a2756067ac4299feb1969fdeb75e33393">PathDescription</a> &amp;&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>find the shortest path between two vertices </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vertexOrigin</td><td>index of the first vertex </td></tr>
-    <tr><td class="paramname">vertexExtremity</td><td>index of the second vertex </td></tr>
-    <tr><td class="paramname">edgeWeights</td><td>weights/masks of each edge to filter the graph </td></tr>
-    <tr><td class="paramname">path</td><td>a list of edge's id encountered between origin and extremity of the path this list is empty if there is no path or if the vertexOrigin and extremity are the same </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8360419378eab9adefac3a3545d07ab3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8360419378eab9adefac3a3545d07ab3">&#9670;&nbsp;</a></span>hasVertex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::Graph::hasVertex </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>check if a vertex exists </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>id of the vertex to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the vertex exists, <b>false</b> otherwise </dd></dl>
-
-</div>
-</div>
-<a id="a6dabbb1be84f9cd45e2f2d61ebdbdbfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dabbb1be84f9cd45e2f2d61ebdbdbfd">&#9670;&nbsp;</a></span>pathExist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::Graph::pathExist </td>
-          <td>(</td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>vertexOrigin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>vertexExtremity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, float &gt; &amp;&#160;</td>
-          <td class="paramname"><em>edgeWeights</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>check if a path exist between two vertices </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vertexOrigin</td><td>index of the first vertex </td></tr>
-    <tr><td class="paramname">vertexExtremity</td><td>index of the second vertex </td></tr>
-    <tr><td class="paramname">edgeWeights</td><td>weights/masks of each edge to filter the graph </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if a path exists, <b>false</b> otherwise </dd></dl>
-
-</div>
-</div>
-<a id="a5858a6eabf7b0fcdee750296403ddb4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5858a6eabf7b0fcdee750296403ddb4d">&#9670;&nbsp;</a></span>setEdgesWeight()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Graph::setEdgesWeight </td>
-          <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, float &gt; &amp;&#160;</td>
-          <td class="paramname"><em>edgeWeights</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>set the weight/mask of each edge </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">edgeWeights</td><td>weight to associate to each edge </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="acd97b4a0ced6c3727e47f1a8f7b530ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd97b4a0ced6c3727e47f1a8f7b530ef">&#9670;&nbsp;</a></span>shortestPath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Graph::shortestPath </td>
-          <td>(</td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>vertexOrigin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>vertexExtremity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, float &gt; &amp;&#160;</td>
-          <td class="paramname"><em>edgeWeights</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d4/dfb/a00512.html#a2756067ac4299feb1969fdeb75e33393">PathDescription</a> &amp;&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>find the shortest path between two vertices </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vertexOrigin</td><td>index of the first vertex </td></tr>
-    <tr><td class="paramname">vertexExtremity</td><td>index of the second vertex </td></tr>
-    <tr><td class="paramname">edgeWeights</td><td>weights/masks of each edge to filter the graph </td></tr>
-    <tr><td class="paramname">path</td><td>a list of edge's id encountered between origin and extremity of the path this list is empty if there is no path or if the vertexOrigin and extremity are the same </td></tr>
+    <tr><td class="paramname">flag</td><td>mask to apply </td></tr>
   </table>
   </dd>
 </dl>
@@ -475,7 +241,7 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/dfb/a00512.html
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d4/dfb/a00512_source.html">DYNGraph.h</a></li>
+<li><a class="el" href="../../d4/d1e/a00497_source.html">DYNBitMask.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -493,8 +259,8 @@ std::unordered_map&lt; std::string, <a class="el" href="../../d4/dfb/a00512.html
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d96/a02642.html">Graph</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d96/a02642.html">BitMask</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

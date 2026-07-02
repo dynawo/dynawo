@@ -1,10 +1,6 @@
 var a02098 =
 [
-    [ "XmlHandler", "d9/d6e/a02098.html#af00b56b28468f12766e96ce78b016770", null ],
-    [ "~XmlHandler", "d9/d6e/a02098.html#a46f3e3c49b66c4c228ef2ac117759e50", null ],
-    [ "addVariable", "d9/d6e/a02098.html#a6793b85b75ee26b95076620af120c510", null ],
-    [ "getVariablesCollection", "d9/d6e/a02098.html#a68982579de57d886c66352e82a8510d1", null ],
-    [ "setRootDirectory", "d9/d6e/a02098.html#a76141eeb64b108cdd8fb401e87c0a49c", null ],
-    [ "variablesCollection_", "d9/d6e/a02098.html#a7b54cab1c41b4ef93aac7976f6c68588", null ],
-    [ "variablesHandler_", "d9/d6e/a02098.html#a9316e0959b04edeaa020e73648a53fbe", null ]
+    [ "addVariable", "d9/d6e/a02098.html#a445a33d619ed80b5d98a9a0f9752bd2a", null ],
+    [ "getVariables", "d9/d6e/a02098.html#a7ff75891c7a87a08b48831de3be4cd90", null ],
+    [ "variables_", "d9/d6e/a02098.html#ac52c0c08a934a7430e2601a3b87b1fea", null ]
 ];

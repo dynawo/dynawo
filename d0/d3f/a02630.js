@@ -1,4 +1,4 @@
 var a02630 =
 [
-    [ "operator()", "d0/d3f/a02630.html#ab61b35fc01019befdd9df57c8f4f8685", null ]
+    [ "newInstance", "d0/d3f/a02630.html#a89ad67a951be20a97012bedaeb961dce", null ]
 ];

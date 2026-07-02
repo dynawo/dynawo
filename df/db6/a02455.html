@@ -95,16 +95,15 @@ $(document).ready(function(){initNavTree('de/d91/a02458.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">lostEquipments::LostEquipmentsCollection Member List</div>  </div>
+<div class="title">lostEquipments::Exporter Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../de/d91/a02458.html">lostEquipments::LostEquipmentsCollection</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../de/d91/a02458.html">lostEquipments::Exporter</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d91/a02458.html#ac3c44ddf4fad0c72d55f1f6672d7279b">addLostEquipment</a>(const std::string &amp;id, const std::string &amp;type)</td><td class="entry"><a class="el" href="../../de/d91/a02458.html">lostEquipments::LostEquipmentsCollection</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d91/a02458.html#abfe363fdb63d7a05c924209fa71d2e0d">cbegin</a>() const</td><td class="entry"><a class="el" href="../../de/d91/a02458.html">lostEquipments::LostEquipmentsCollection</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d91/a02458.html#ad94df57816565eb792347add18bf0fb6">cend</a>() const</td><td class="entry"><a class="el" href="../../de/d91/a02458.html">lostEquipments::LostEquipmentsCollection</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d91/a02458.html#abd293c3617743c14510ed0d2e4e7c169">lostEquipments_</a></td><td class="entry"><a class="el" href="../../de/d91/a02458.html">lostEquipments::LostEquipmentsCollection</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d91/a02458.html#a6147ffc41592ac55e7a4e59e042ba736">exportToFile</a>(const std::shared_ptr&lt; LostEquipmentsCollection &gt; &amp;lostEquipments, const std::string &amp;filePath) const =0</td><td class="entry"><a class="el" href="../../de/d91/a02458.html">lostEquipments::Exporter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d91/a02458.html#ade79b70f7d0dc230886ba13c4915f171">exportToStream</a>(const std::shared_ptr&lt; LostEquipmentsCollection &gt; &amp;lostEquipments, std::ostream &amp;stream) const =0</td><td class="entry"><a class="el" href="../../de/d91/a02458.html">lostEquipments::Exporter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d91/a02458.html#aaa126e851bc16817b29817a922aa5301">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../de/d91/a02458.html">lostEquipments::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -121,7 +120,7 @@ $(document).ready(function(){initNavTree('de/d91/a02458.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

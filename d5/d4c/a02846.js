@@ -1,13 +1,17 @@
 var a02846 =
 [
-    [ "VariableMultiple", "d5/d4c/a02846.html#a3adba6c4999fa32e0bc3a3c06a43a4db", null ],
-    [ "~VariableMultiple", "d5/d4c/a02846.html#a26a4a90ca5db829df1e1ac82b204a973", null ],
-    [ "VariableMultiple", "d5/d4c/a02846.html#ad5bf1a4bf59d8773cea303faaa2062f5", null ],
-    [ "cardinalitySet", "d5/d4c/a02846.html#ae7f52b9c9bade2d9fcc201264950d8ba", null ],
-    [ "getCardinality", "d5/d4c/a02846.html#a2950892a7a5d341fb598a513107caf41", null ],
-    [ "getCardinalityName", "d5/d4c/a02846.html#a680cd87f229d6c79f4e9f383364e6302", null ],
-    [ "getIndex", "d5/d4c/a02846.html#a3c0f1251702eacbf1990f1d98acc6b46", null ],
-    [ "setCardinality", "d5/d4c/a02846.html#ae34ae17d7b1b48b01399f7fcbf7521a7", null ],
-    [ "cardinality_", "d5/d4c/a02846.html#aff4e5b9d0869243363a5068150599c9a", null ],
-    [ "cardinalityName_", "d5/d4c/a02846.html#a1274f102ea0468c085b5cf1517a67146", null ]
+    [ "RingBuffer", "d5/d4c/a02846.html#af87a5ad958ec87bf59eafb5760d8f862", null ],
+    [ "add", "d5/d4c/a02846.html#a07a4add1e5799c6d73e6bc408341dfa1", null ],
+    [ "addNoCheck", "d5/d4c/a02846.html#a45b55406c41acc3342e6e180ae5876b1", null ],
+    [ "comparePairTime", "d5/d4c/a02846.html#a79909366fe3d2fd74e4db48a2d61eb11", null ],
+    [ "get", "d5/d4c/a02846.html#a26007cf32fd0b9a5a456e59a040dcf0a", null ],
+    [ "getLastRegisteredPoint", "d5/d4c/a02846.html#a6a92c0adbeef919c1f240c4e0d49b83c", null ],
+    [ "interpol", "d5/d4c/a02846.html#afd1155173455e5cd1b7cc7535866c524", null ],
+    [ "maxDelay", "d5/d4c/a02846.html#a96df715cc4d327a537c92ca61d8c917d", null ],
+    [ "maxDelay", "d5/d4c/a02846.html#a609a67545ddf6ec2740b06634961511c", null ],
+    [ "points", "d5/d4c/a02846.html#a69ad1b5bc88d242d00a6697973c5880d", null ],
+    [ "removeUseless", "d5/d4c/a02846.html#a9a79374ea00ec0cb0e4d4899b14dd4a1", null ],
+    [ "size", "d5/d4c/a02846.html#ae433c039455069df5c059b02050f7e59", null ],
+    [ "maxDelay_", "d5/d4c/a02846.html#a5532385a381f135c208a5047969798fa", null ],
+    [ "queue_", "d5/d4c/a02846.html#a110e553c846e4ca76e3d33084987ff93", null ]
 ];

@@ -95,15 +95,18 @@ $(document).ready(function(){initNavTree('d5/dec/a01794.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">curves::CurvesCollectionFactory Member List</div>  </div>
+<div class="title">curves::CsvExporter Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d5/dec/a01794.html">curves::CurvesCollectionFactory</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d5/dec/a01794.html">curves::CsvExporter</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d5/dec/a01794.html#a2cdfc07c79055e3ceb8ecfc3bca474f9">copyInstance</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;original)</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CurvesCollectionFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d5/dec/a01794.html#ac4eb301a41b92da49ed123e7464fd0d6">copyInstance</a>(const CurvesCollection &amp;original)</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CurvesCollectionFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d5/dec/a01794.html#a16844cf11296ad4125de9f0cdcef89b4">newInstance</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CurvesCollectionFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dec/a01794.html#a148a77de19f98101733cb7915495b59b">appendRow</a>(double) override</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CsvExporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dec/a01794.html#a033e230f756df6332bfe4cfc44596d34">close</a>() override</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CsvExporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dec/a01794.html#a2e6b33291c77ca420f92d168dfa267ba">exportToFile</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;curves, const std::string &amp;filePath) const override</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CsvExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d5/dec/a01794.html#a4655a0af2053e5e2ecfa1348b367ce16">exportToStream</a>(const std::shared_ptr&lt; CurvesCollection &gt; &amp;curves, std::ostream &amp;stream) const override</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CsvExporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d5/dec/a01794.html#acc42aea3ca59ed2714bc5dc46d7c97c2">open</a>(const std::string &amp;) override</td><td class="entry"><a class="el" href="../../d5/dec/a01794.html">curves::CsvExporter</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfc/a01814.html#a253ac4aec9368435a67d4e404b46d3f8">~Exporter</a>()=default</td><td class="entry"><a class="el" href="../../d6/dfc/a01814.html">curves::Exporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +123,7 @@ $(document).ready(function(){initNavTree('d5/dec/a01794.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

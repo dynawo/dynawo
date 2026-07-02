@@ -95,19 +95,20 @@ $(document).ready(function(){initNavTree('d0/d7c/a03318.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::ModelNetworkFactory Member List</div>  </div>
+<div class="title">DYN::BusDerivatives Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d0/d7c/a03318.html">DYN::ModelNetworkFactory</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#af07db2baee567bf9fc8b6e3f2c789431">create</a>() const override</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::ModelNetworkFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/de5/a02822.html#acadba5eed3d7b590d7a855998f7b264a">createSubModelFromLib</a>(const std::string &amp;lib)</td><td class="entry"><a class="el" href="../../d1/de5/a02822.html">DYN::SubModelFactory</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#a4c01f6293036764891a1064b6d23ed8c">destroy</a>(SubModel *) const override</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::ModelNetworkFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/de5/a02822.html#a801e01b80f9214f3af8c933f24e9f297">lib_</a></td><td class="entry"><a class="el" href="../../d1/de5/a02822.html">DYN::SubModelFactory</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#ab37aaa05a2102b9e76436f6b68b6737d">ModelNetworkFactory</a>()</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::ModelNetworkFactory</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d1/de5/a02822.html#a1bb6496935dc2d52e0c560aeefe28aa8">SubModelFactory</a>()</td><td class="entry"><a class="el" href="../../d1/de5/a02822.html">DYN::SubModelFactory</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d1/de5/a02822.html#aeae89abfad8d2a15989016592b78982a">~SubModelFactory</a>()</td><td class="entry"><a class="el" href="../../d1/de5/a02822.html">DYN::SubModelFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#aad00143c8bd6b82909c24134472fb741">addDerivative</a>(typeDerivative_t type, int numVar, double value)</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#a87b9d1698ccf7e339905c199fb40c82b">empty</a>() const</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#a9e499316baa3bbbd264651817f2a62bd">getDerivatives</a>(typeDerivative_t type)</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#abe479f7c2b3d32366da96fb81753e875">getIndices</a>(typeDerivative_t type) const</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#a800b589b3cffb32eae0ce786de875496">getValues</a>(typeDerivative_t type) const</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#a1e572a33a0890d3d8c37da6d50272206">iiDerivatives_</a></td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#a366665f1e556084e39e7082b9a2461c5">irDerivatives_</a></td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d0/d7c/a03318.html#a0d2b2061ce4f58d982a85feb94d5084f">reset</a>()</td><td class="entry"><a class="el" href="../../d0/d7c/a03318.html">DYN::BusDerivatives</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -124,7 +125,7 @@ $(document).ready(function(){initNavTree('d0/d7c/a03318.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

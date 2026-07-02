@@ -1,13 +1,15 @@
 var a03518 =
 [
-    [ "SolverFactoryIterator", "d7/d65/a03518.html#ac843e856916aff0102b87b77ac0f74e1", null ],
-    [ "SolverFactories", "d7/d65/a03518.html#a0cdb5a6199f004eadcde7fe4654e2d14", null ],
-    [ "~SolverFactories", "d7/d65/a03518.html#a64d31ce6a9fbdb5a5dc317f2969de1cc", null ],
-    [ "add", "d7/d65/a03518.html#a125134c2033a3ca852d9703d234497da", null ],
-    [ "add", "d7/d65/a03518.html#acb5aac937bbc6688a090c975c96f5af1", null ],
-    [ "end", "d7/d65/a03518.html#a4f8288eb185dab0cd47b16acf9d32a2f", null ],
-    [ "find", "d7/d65/a03518.html#ad3442843f76b3293771b727f22bfd16b", null ],
-    [ "getInstance", "d7/d65/a03518.html#a2316900a761747810aa84eaf4d69ab7c", null ],
-    [ "factoryMap_", "d7/d65/a03518.html#a073b6b6361761e6f5bff12242e04b97c", null ],
-    [ "factoryMapDelete_", "d7/d65/a03518.html#a7b9cea08b1e6dc91ab43b5955ff992ef", null ]
+    [ "getInputDirectory", "d7/d65/a03518.html#a6dcf5b27640ff3c69fbdf2c588cd2cec", null ],
+    [ "getLocale", "d7/d65/a03518.html#a17a1be26dbed984848d531f38d2e73e0", null ],
+    [ "getResourcesDirectory", "d7/d65/a03518.html#a7f074a9cd4414b38170d57344b69f595", null ],
+    [ "getWorkingDirectory", "d7/d65/a03518.html#aeb04e66e465c668870c8bd8f310e65fb", null ],
+    [ "setInputDirectory", "d7/d65/a03518.html#a348d074f4af20ac1614a6ee87d2f8feb", null ],
+    [ "setLocale", "d7/d65/a03518.html#a352c3fbb1a535163cd38b0824d42cd1e", null ],
+    [ "setResourcesDirectory", "d7/d65/a03518.html#a377ae8008bab4eb873705f088d899cb9", null ],
+    [ "setWorkingDirectory", "d7/d65/a03518.html#ab54366144fcbc2cc2dab25bf98f49f58", null ],
+    [ "inputDirectory_", "d7/d65/a03518.html#a85eaa39dfc2adaca373a6935c6b67936", null ],
+    [ "locale_", "d7/d65/a03518.html#a9e4ef77268b037f15556d928b23b67b5", null ],
+    [ "resourcesDirectory_", "d7/d65/a03518.html#a95521f2e6d52016aa69015b0b2750091", null ],
+    [ "workingDirectory_", "d7/d65/a03518.html#a4d8956d767c64c19a49653517d54a737", null ]
 ];

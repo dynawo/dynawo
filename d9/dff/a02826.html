@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::SubModelFactories Class Reference</title>
+<title>Dynawo: DYN::ModelDescription Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,214 +95,125 @@ $(document).ready(function(){initNavTree('d9/dff/a02826.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../df/d37/a02823.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::SubModelFactories Class Reference</div>  </div>
+<div class="title">DYN::ModelDescription Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d9/dff/a02826.html" title="SubModelFactories class. ">SubModelFactories</a> class.  
+<p>class of model description  
  <a href="../../d9/dff/a02826.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d3/d8e/a00647_source.html">DYNSubModelFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::SubModelFactories:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d9/dff/a02826.png" usemap="#DYN::SubModelFactories_map" alt=""/>
-  <map id="DYN::SubModelFactories_map" name="DYN::SubModelFactories_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d4/d2a/a00632_source.html">DYNModelDescription.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ab5351c207c612eb73ef3a9739a98ad61"><td class="memItemLeft" align="right" valign="top"><a id="ab5351c207c612eb73ef3a9739a98ad61"></a>
-typedef std::map&lt; std::string, <a class="el" href="../../d1/de5/a02822.html">SubModelFactory</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a></td></tr>
-<tr class="memdesc:ab5351c207c612eb73ef3a9739a98ad61"><td class="mdescLeft">&#160;</td><td class="mdescRight">iterator type on <a class="el" href="../../d1/de5/a02822.html" title="SubModelFactory class. ">SubModelFactory</a> map. <br /></td></tr>
-<tr class="separator:ab5351c207c612eb73ef3a9739a98ad61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4fdc8a4a7dd70013ba210eeb94d331eb"><td class="memItemLeft" align="right" valign="top"><a id="a4fdc8a4a7dd70013ba210eeb94d331eb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a4fdc8a4a7dd70013ba210eeb94d331eb">SubModelFactories</a> ()</td></tr>
-<tr class="memdesc:a4fdc8a4a7dd70013ba210eeb94d331eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a4fdc8a4a7dd70013ba210eeb94d331eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac68cc519b03e4c72239c2f4b7378a278"><td class="memItemLeft" align="right" valign="top"><a id="ac68cc519b03e4c72239c2f4b7378a278"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#ac68cc519b03e4c72239c2f4b7378a278">~SubModelFactories</a> ()</td></tr>
-<tr class="memdesc:ac68cc519b03e4c72239c2f4b7378a278"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:ac68cc519b03e4c72239c2f4b7378a278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc4c5c842403576888b3c7ca1e3878fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dff/a02826.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#afc4c5c842403576888b3c7ca1e3878fc">find</a> (const std::string &amp;lib)</td></tr>
-<tr class="memdesc:afc4c5c842403576888b3c7ca1e3878fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get available factory for a given library name.  <a href="#afc4c5c842403576888b3c7ca1e3878fc">More...</a><br /></td></tr>
-<tr class="separator:afc4c5c842403576888b3c7ca1e3878fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d01b10206e7a1679aa2e151adc33123"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a0d01b10206e7a1679aa2e151adc33123">end</a> (const <a class="el" href="../../d9/dff/a02826.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a> &amp;iter)</td></tr>
-<tr class="memdesc:a0d01b10206e7a1679aa2e151adc33123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a map iterator is the end operator of factories map.  <a href="#a0d01b10206e7a1679aa2e151adc33123">More...</a><br /></td></tr>
-<tr class="separator:a0d01b10206e7a1679aa2e151adc33123"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ee9d92721e6cc93227fa125c25197a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a9ee9d92721e6cc93227fa125c25197a0">add</a> (const std::string &amp;lib, <a class="el" href="../../d1/de5/a02822.html">SubModelFactory</a> *factory)</td></tr>
-<tr class="memdesc:a9ee9d92721e6cc93227fa125c25197a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a factory associated to a given given library name.  <a href="#a9ee9d92721e6cc93227fa125c25197a0">More...</a><br /></td></tr>
-<tr class="separator:a9ee9d92721e6cc93227fa125c25197a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e0552afdb132766a0e2fc8fa3448f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#af9e0552afdb132766a0e2fc8fa3448f0">add</a> (const std::string &amp;lib, const boost::function&lt; deleteSubModelFactory_t &gt; &amp;<a class="el" href="../../d0/d61/a01130.html#ae06ace1114b6742f6c3f55977e345710">deleteFactory</a>)</td></tr>
-<tr class="memdesc:af9e0552afdb132766a0e2fc8fa3448f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a factory associated to its destruction method.  <a href="#af9e0552afdb132766a0e2fc8fa3448f0">More...</a><br /></td></tr>
-<tr class="separator:af9e0552afdb132766a0e2fc8fa3448f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63742a7c302736bcf14c70d6d567c88b"><td class="memItemLeft" align="right" valign="top"><a id="a63742a7c302736bcf14c70d6d567c88b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a63742a7c302736bcf14c70d6d567c88b">ModelDescription</a> ()</td></tr>
+<tr class="memdesc:a63742a7c302736bcf14c70d6d567c88b"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor. <br /></td></tr>
+<tr class="separator:a63742a7c302736bcf14c70d6d567c88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66468e9a002112edb6497afd0f685758"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a66468e9a002112edb6497afd0f685758">ModelDescription</a> (const std::shared_ptr&lt; <a class="el" href="../../d7/dfb/a01966.html">dynamicdata::Model</a> &gt; &amp;model)</td></tr>
+<tr class="memdesc:a66468e9a002112edb6497afd0f685758"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor.  <a href="#a66468e9a002112edb6497afd0f685758">More...</a><br /></td></tr>
+<tr class="separator:a66468e9a002112edb6497afd0f685758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ba47acb97a04ad354369070cdf8911f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a5ba47acb97a04ad354369070cdf8911f">addStaticRefInterface</a> (const boost::shared_ptr&lt; <a class="el" href="../../d0/d9a/a02850.html">StaticRefInterface</a> &gt; &amp;staticRefInterface)</td></tr>
+<tr class="memdesc:a5ba47acb97a04ad354369070cdf8911f"><td class="mdescLeft">&#160;</td><td class="mdescRight">add static reference interface  <a href="#a5ba47acb97a04ad354369070cdf8911f">More...</a><br /></td></tr>
+<tr class="separator:a5ba47acb97a04ad354369070cdf8911f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a322ea7d9277e4aaf5915720bb974270d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/dfb/a01966.html#a4e9cfaeade924b852a17f9d04e7e1d7b">dynamicdata::Model::ModelType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a322ea7d9277e4aaf5915720bb974270d">getType</a> () const</td></tr>
+<tr class="memdesc:a322ea7d9277e4aaf5915720bb974270d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the type of the model  <a href="#a322ea7d9277e4aaf5915720bb974270d">More...</a><br /></td></tr>
+<tr class="separator:a322ea7d9277e4aaf5915720bb974270d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc371f330bc0abbcbd135af78306526"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a7cc371f330bc0abbcbd135af78306526">getID</a> () const</td></tr>
+<tr class="memdesc:a7cc371f330bc0abbcbd135af78306526"><td class="mdescLeft">&#160;</td><td class="mdescRight">get model id  <a href="#a7cc371f330bc0abbcbd135af78306526">More...</a><br /></td></tr>
+<tr class="separator:a7cc371f330bc0abbcbd135af78306526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9095928be05e7eb9aa295c36253485f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#ad9095928be05e7eb9aa295c36253485f">getStaticId</a> () const</td></tr>
+<tr class="memdesc:ad9095928be05e7eb9aa295c36253485f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static model id  <a href="#ad9095928be05e7eb9aa295c36253485f">More...</a><br /></td></tr>
+<tr class="separator:ad9095928be05e7eb9aa295c36253485f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac0e1439c4fa3aebce8f317c69231b28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#aac0e1439c4fa3aebce8f317c69231b28">setStaticId</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:aac0e1439c4fa3aebce8f317c69231b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">set static id of the model description  <a href="#aac0e1439c4fa3aebce8f317c69231b28">More...</a><br /></td></tr>
+<tr class="separator:aac0e1439c4fa3aebce8f317c69231b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a497b131fde09f9a601c12ec77aed65be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a497b131fde09f9a601c12ec77aed65be">setCompiledModelId</a> (const std::string &amp;compiledModelId)</td></tr>
+<tr class="memdesc:a497b131fde09f9a601c12ec77aed65be"><td class="mdescLeft">&#160;</td><td class="mdescRight">set compiled model ID  <a href="#a497b131fde09f9a601c12ec77aed65be">More...</a><br /></td></tr>
+<tr class="separator:a497b131fde09f9a601c12ec77aed65be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7c98b14a6bc738c087de7c0572791c3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#af7c98b14a6bc738c087de7c0572791c3">getCompiledModelId</a> () const</td></tr>
+<tr class="memdesc:af7c98b14a6bc738c087de7c0572791c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">get compiled model ID  <a href="#af7c98b14a6bc738c087de7c0572791c3">More...</a><br /></td></tr>
+<tr class="separator:af7c98b14a6bc738c087de7c0572791c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a064e97511f29d27e3e16ad4a88315ac0"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/d9a/a02850.html">StaticRefInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a064e97511f29d27e3e16ad4a88315ac0">getStaticRefInterfaces</a> () const</td></tr>
+<tr class="memdesc:a064e97511f29d27e3e16ad4a88315ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">get all static references  <a href="#a064e97511f29d27e3e16ad4a88315ac0">More...</a><br /></td></tr>
+<tr class="separator:a064e97511f29d27e3e16ad4a88315ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cc9a95933e45e1f63514dc4aa434e07"><td class="memItemLeft" align="right" valign="top"><a id="a4cc9a95933e45e1f63514dc4aa434e07"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a4cc9a95933e45e1f63514dc4aa434e07">resetStaticRefInterfaces</a> ()</td></tr>
+<tr class="memdesc:a4cc9a95933e45e1f63514dc4aa434e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset static references list <br /></td></tr>
+<tr class="separator:a4cc9a95933e45e1f63514dc4aa434e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad679648eb3b6948a2ed03a0e0f4a557"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d7/dfb/a01966.html">dynamicdata::Model</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#aad679648eb3b6948a2ed03a0e0f4a557">getModel</a> () const</td></tr>
+<tr class="memdesc:aad679648eb3b6948a2ed03a0e0f4a557"><td class="mdescLeft">&#160;</td><td class="mdescRight">get dynamic model  <a href="#aad679648eb3b6948a2ed03a0e0f4a557">More...</a><br /></td></tr>
+<tr class="separator:aad679648eb3b6948a2ed03a0e0f4a557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95e2c1b4ad87fe3ed8834f0314ffa4cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a95e2c1b4ad87fe3ed8834f0314ffa4cf">setParametersSet</a> (const std::shared_ptr&lt; <a class="el" href="../../d8/d5d/a02538.html">parameters::ParametersSet</a> &gt; &amp;params)</td></tr>
+<tr class="memdesc:a95e2c1b4ad87fe3ed8834f0314ffa4cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate a set of parameters to the model.  <a href="#a95e2c1b4ad87fe3ed8834f0314ffa4cf">More...</a><br /></td></tr>
+<tr class="separator:a95e2c1b4ad87fe3ed8834f0314ffa4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6189d0459fad4b7d4dc0031025be3d6d"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="../../d8/d5d/a02538.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a6189d0459fad4b7d4dc0031025be3d6d">getParametersSet</a> () const</td></tr>
+<tr class="memdesc:a6189d0459fad4b7d4dc0031025be3d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the set of parameters associated to the model.  <a href="#a6189d0459fad4b7d4dc0031025be3d6d">More...</a><br /></td></tr>
+<tr class="separator:a6189d0459fad4b7d4dc0031025be3d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d80bbce598aee3272867e12e7a7189"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#ac0d80bbce598aee3272867e12e7a7189">setLib</a> (const std::string &amp;lib)</td></tr>
+<tr class="memdesc:ac0d80bbce598aee3272867e12e7a7189"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the library to use to instantiate the model  <a href="#ac0d80bbce598aee3272867e12e7a7189">More...</a><br /></td></tr>
+<tr class="separator:ac0d80bbce598aee3272867e12e7a7189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a836700059d21f23be7df828e9b3abfb8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a836700059d21f23be7df828e9b3abfb8">getLib</a> () const</td></tr>
+<tr class="memdesc:a836700059d21f23be7df828e9b3abfb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the path of the library to use to instantiate this model  <a href="#a836700059d21f23be7df828e9b3abfb8">More...</a><br /></td></tr>
+<tr class="separator:a836700059d21f23be7df828e9b3abfb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97af9762ea7b1f6d90c6944934d494a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a97af9762ea7b1f6d90c6944934d494a9">hasCompiledModel</a> (bool hasCompiledModel)</td></tr>
+<tr class="memdesc:a97af9762ea7b1f6d90c6944934d494a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set if the model description has a compiled model  <a href="#a97af9762ea7b1f6d90c6944934d494a9">More...</a><br /></td></tr>
+<tr class="separator:a97af9762ea7b1f6d90c6944934d494a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c0a2bd8b1cc67f3f5874ef3d3961592"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a4c0a2bd8b1cc67f3f5874ef3d3961592">hasCompiledModel</a> () const</td></tr>
+<tr class="memdesc:a4c0a2bd8b1cc67f3f5874ef3d3961592"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if the model description has a compiled model  <a href="#a4c0a2bd8b1cc67f3f5874ef3d3961592">More...</a><br /></td></tr>
+<tr class="separator:a4c0a2bd8b1cc67f3f5874ef3d3961592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e54ab4d7228a7ac209184a98d2ba9d5"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../dc/d90/a02854.html">SubModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a5e54ab4d7228a7ac209184a98d2ba9d5">getSubModel</a> () const</td></tr>
+<tr class="memdesc:a5e54ab4d7228a7ac209184a98d2ba9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the sub model associated to the model description  <a href="#a5e54ab4d7228a7ac209184a98d2ba9d5">More...</a><br /></td></tr>
+<tr class="separator:a5e54ab4d7228a7ac209184a98d2ba9d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a929524df65b6f7387bd4750fe438e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a2a929524df65b6f7387bd4750fe438e6">setSubModel</a> (const boost::shared_ptr&lt; <a class="el" href="../../dc/d90/a02854.html">SubModel</a> &gt; &amp;subModel)</td></tr>
+<tr class="memdesc:a2a929524df65b6f7387bd4750fe438e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the <a class="el" href="../../dc/d90/a02854.html" title="SubModel Class. ">SubModel</a> associated to the model description  <a href="#a2a929524df65b6f7387bd4750fe438e6">More...</a><br /></td></tr>
+<tr class="separator:a2a929524df65b6f7387bd4750fe438e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a85998552d18633d6af5527d081a84ce8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d9/dff/a02826.html">SubModelFactories</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a85998552d18633d6af5527d081a84ce8">getInstance</a> ()</td></tr>
-<tr class="memdesc:a85998552d18633d6af5527d081a84ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get unique instance.  <a href="#a85998552d18633d6af5527d081a84ce8">More...</a><br /></td></tr>
-<tr class="separator:a85998552d18633d6af5527d081a84ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa66382e18d00c812c8390232e6ed79aa"><td class="memItemLeft" align="right" valign="top"><a id="aa66382e18d00c812c8390232e6ed79aa"></a>
-std::map&lt; std::string, <a class="el" href="../../d1/de5/a02822.html">SubModelFactory</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#aa66382e18d00c812c8390232e6ed79aa">factoryMap_</a></td></tr>
-<tr class="memdesc:aa66382e18d00c812c8390232e6ed79aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a library factory with the name of the library <br /></td></tr>
-<tr class="separator:aa66382e18d00c812c8390232e6ed79aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7898b3af84931d1572aa4a6d0ed1820c"><td class="memItemLeft" align="right" valign="top"><a id="a7898b3af84931d1572aa4a6d0ed1820c"></a>
-std::map&lt; std::string, boost::function&lt; deleteSubModelFactory_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a7898b3af84931d1572aa4a6d0ed1820c">factoryMapDelete_</a></td></tr>
-<tr class="memdesc:a7898b3af84931d1572aa4a6d0ed1820c"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate a library factory with its destruction method <br /></td></tr>
-<tr class="separator:a7898b3af84931d1572aa4a6d0ed1820c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87c7565d49811d4ce00434c86757eaec"><td class="memItemLeft" align="right" valign="top"><a id="a87c7565d49811d4ce00434c86757eaec"></a>
-std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a87c7565d49811d4ce00434c86757eaec">factoriesMutex_</a></td></tr>
-<tr class="memdesc:a87c7565d49811d4ce00434c86757eaec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to handle multithreading access to factories. <br /></td></tr>
-<tr class="separator:a87c7565d49811d4ce00434c86757eaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:aad710ee93efdbd6804bbddd6896d828f"><td class="memItemLeft" align="right" valign="top"><a id="aad710ee93efdbd6804bbddd6896d828f"></a>
+std::shared_ptr&lt; <a class="el" href="../../d7/dfb/a01966.html">dynamicdata::Model</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#aad710ee93efdbd6804bbddd6896d828f">model_</a></td></tr>
+<tr class="memdesc:aad710ee93efdbd6804bbddd6896d828f"><td class="mdescLeft">&#160;</td><td class="mdescRight">dynamic model <br /></td></tr>
+<tr class="separator:aad710ee93efdbd6804bbddd6896d828f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae886d33ebdd5824fb4367f9f0ef3b4"><td class="memItemLeft" align="right" valign="top"><a id="a9ae886d33ebdd5824fb4367f9f0ef3b4"></a>
+boost::weak_ptr&lt; <a class="el" href="../../dc/d90/a02854.html">SubModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a9ae886d33ebdd5824fb4367f9f0ef3b4">subModel_</a></td></tr>
+<tr class="memdesc:a9ae886d33ebdd5824fb4367f9f0ef3b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">submodel associated to the model description <br /></td></tr>
+<tr class="separator:a9ae886d33ebdd5824fb4367f9f0ef3b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf979470b1aaa7cbea7aae35a9b9961b"><td class="memItemLeft" align="right" valign="top"><a id="aaf979470b1aaa7cbea7aae35a9b9961b"></a>
+std::shared_ptr&lt; <a class="el" href="../../d8/d5d/a02538.html">parameters::ParametersSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#aaf979470b1aaa7cbea7aae35a9b9961b">parameters_</a></td></tr>
+<tr class="memdesc:aaf979470b1aaa7cbea7aae35a9b9961b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set of parameters associated to the model <br /></td></tr>
+<tr class="separator:aaf979470b1aaa7cbea7aae35a9b9961b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5e36d6889f372853b066f65ef0e755"><td class="memItemLeft" align="right" valign="top"><a id="aea5e36d6889f372853b066f65ef0e755"></a>
+std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d0/d9a/a02850.html">StaticRefInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#aea5e36d6889f372853b066f65ef0e755">staticRefInterfaces_</a></td></tr>
+<tr class="memdesc:aea5e36d6889f372853b066f65ef0e755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static reference. <br /></td></tr>
+<tr class="separator:aea5e36d6889f372853b066f65ef0e755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2dc939bf38342b6607c874bf99de1d9"><td class="memItemLeft" align="right" valign="top"><a id="aa2dc939bf38342b6607c874bf99de1d9"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#aa2dc939bf38342b6607c874bf99de1d9">compiledModelId_</a></td></tr>
+<tr class="memdesc:aa2dc939bf38342b6607c874bf99de1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiled <a class="el" href="../../d1/de5/a02822.html" title="Generic model Generic class for Model. ">Model</a> ID. <br /></td></tr>
+<tr class="separator:aa2dc939bf38342b6607c874bf99de1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55aa68e89c67a59d7a828bdef95dbac2"><td class="memItemLeft" align="right" valign="top"><a id="a55aa68e89c67a59d7a828bdef95dbac2"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a55aa68e89c67a59d7a828bdef95dbac2">lib_</a></td></tr>
+<tr class="memdesc:a55aa68e89c67a59d7a828bdef95dbac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">compiled lib .so <br /></td></tr>
+<tr class="separator:a55aa68e89c67a59d7a828bdef95dbac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946d5f2cfdd5dc5c68c8d8594f372c65"><td class="memItemLeft" align="right" valign="top"><a id="a946d5f2cfdd5dc5c68c8d8594f372c65"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a946d5f2cfdd5dc5c68c8d8594f372c65">hasCompiledModel_</a></td></tr>
+<tr class="memdesc:a946d5f2cfdd5dc5c68c8d8594f372c65"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if the model has a compiled model, <b>false</b> else <br /></td></tr>
+<tr class="separator:a946d5f2cfdd5dc5c68c8d8594f372c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0963b5cc11490b13205daf81fee3bad7"><td class="memItemLeft" align="right" valign="top"><a id="a0963b5cc11490b13205daf81fee3bad7"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/a02826.html#a0963b5cc11490b13205daf81fee3bad7">staticId_</a></td></tr>
+<tr class="memdesc:a0963b5cc11490b13205daf81fee3bad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">static id of the model description <br /></td></tr>
+<tr class="separator:a0963b5cc11490b13205daf81fee3bad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d9/dff/a02826.html" title="SubModelFactories class. ">SubModelFactories</a> class. </p>
-<p>Manage submodel factories to avoid loading the same library multiple time. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9ee9d92721e6cc93227fa125c25197a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ee9d92721e6cc93227fa125c25197a0">&#9670;&nbsp;</a></span>add() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SubModelFactories::add </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d1/de5/a02822.html">SubModelFactory</a> *&#160;</td>
-          <td class="paramname"><em>factory</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a factory associated to a given given library name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the submodel library to add - key in the map </td></tr>
-    <tr><td class="paramname">factory</td><td>: Pointer to the <a class="el" href="../../df/d11/a02814.html" title="SubModel Class. ">SubModel</a> to add - value in the map </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af9e0552afdb132766a0e2fc8fa3448f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e0552afdb132766a0e2fc8fa3448f0">&#9670;&nbsp;</a></span>add() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::SubModelFactories::add </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::function&lt; deleteSubModelFactory_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>deleteFactory</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a factory associated to its destruction method. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the submodel library to add - key in the map </td></tr>
-    <tr><td class="paramname">deleteFactory</td><td>: function pointer to a desctruction method map </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a0d01b10206e7a1679aa2e151adc33123"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d01b10206e7a1679aa2e151adc33123">&#9670;&nbsp;</a></span>end()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::SubModelFactories::end </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d9/dff/a02826.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a> &amp;&#160;</td>
-          <td class="paramname"><em>iter</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Test if a map iterator is the end operator of factories map. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iter</td><td>: Iterator to test, typically obtained via <code><a class="el" href="../../d9/dff/a02826.html#afc4c5c842403576888b3c7ca1e3878fc" title="Get available factory for a given library name. ">SubModelFactories::find()</a></code> function </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the iterator is the end operator of the factories, <b>false</b> otherwise. </dd></dl>
-
-</div>
-</div>
-<a id="afc4c5c842403576888b3c7ca1e3878fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc4c5c842403576888b3c7ca1e3878fc">&#9670;&nbsp;</a></span>find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d9/dff/a02826.html#ab5351c207c612eb73ef3a9739a98ad61">SubmodelFactoryIterator</a> DYN::SubModelFactories::find </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lib</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get available factory for a given library name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lib</td><td>: Name of the submodel library to load </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A map iterator whose key is the library name and whose value is a pointer to the <a class="el" href="../../d1/de5/a02822.html" title="SubModelFactory class. ">SubModelFactory</a>. </dd></dl>
-
-</div>
-</div>
-<a id="a85998552d18633d6af5527d081a84ce8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85998552d18633d6af5527d081a84ce8">&#9670;&nbsp;</a></span>getInstance()</h2>
+<div class="textblock"><p>class of model description </p>
+<p><a class="el" href="../../d9/dff/a02826.html" title="class of model description ">ModelDescription</a>. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a66468e9a002112edb6497afd0f685758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66468e9a002112edb6497afd0f685758">&#9670;&nbsp;</a></span>ModelDescription()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,26 +222,551 @@ std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d9/dff/a02826.html">SubModelFactories</a>&amp; DYN::SubModelFactories::getInstance </td>
+          <td class="memname">DYN::ModelDescription::ModelDescription </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d7/dfb/a01966.html">dynamicdata::Model</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>model</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get unique instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>The unique instance </dd></dl>
+<p>default constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td>another model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5ba47acb97a04ad354369070cdf8911f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ba47acb97a04ad354369070cdf8911f">&#9670;&nbsp;</a></span>addStaticRefInterface()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelDescription::addStaticRefInterface </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../d0/d9a/a02850.html">StaticRefInterface</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>staticRefInterface</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add static reference interface </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">staticRefInterface</td><td>static reference interface </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af7c98b14a6bc738c087de7c0572791c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7c98b14a6bc738c087de7c0572791c3">&#9670;&nbsp;</a></span>getCompiledModelId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::ModelDescription::getCompiledModelId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get compiled model ID </p>
+<dl class="section return"><dt>Returns</dt><dd>compiled model ID </dd></dl>
+
+</div>
+</div>
+<a id="a7cc371f330bc0abbcbd135af78306526"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc371f330bc0abbcbd135af78306526">&#9670;&nbsp;</a></span>getID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::ModelDescription::getID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get model id </p>
+<dl class="section return"><dt>Returns</dt><dd>id </dd></dl>
+
+</div>
+</div>
+<a id="a836700059d21f23be7df828e9b3abfb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a836700059d21f23be7df828e9b3abfb8">&#9670;&nbsp;</a></span>getLib()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::ModelDescription::getLib </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the path of the library to use to instantiate this model </p>
+<dl class="section return"><dt>Returns</dt><dd>path of the library to use for this model </dd></dl>
+
+</div>
+</div>
+<a id="aad679648eb3b6948a2ed03a0e0f4a557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad679648eb3b6948a2ed03a0e0f4a557">&#9670;&nbsp;</a></span>getModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d7/dfb/a01966.html">dynamicdata::Model</a>&gt; DYN::ModelDescription::getModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get dynamic model </p>
+<dl class="section return"><dt>Returns</dt><dd>dynamic model </dd></dl>
+
+</div>
+</div>
+<a id="a6189d0459fad4b7d4dc0031025be3d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6189d0459fad4b7d4dc0031025be3d6d">&#9670;&nbsp;</a></span>getParametersSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::shared_ptr&lt;<a class="el" href="../../d8/d5d/a02538.html">parameters::ParametersSet</a>&gt;&amp; DYN::ModelDescription::getParametersSet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the set of parameters associated to the model. </p>
+<dl class="section return"><dt>Returns</dt><dd>the set of parameters associated to the model </dd></dl>
+
+</div>
+</div>
+<a id="ad9095928be05e7eb9aa295c36253485f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9095928be05e7eb9aa295c36253485f">&#9670;&nbsp;</a></span>getStaticId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::ModelDescription::getStaticId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get static model id </p>
+<dl class="section return"><dt>Returns</dt><dd>id </dd></dl>
+
+</div>
+</div>
+<a id="a064e97511f29d27e3e16ad4a88315ac0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a064e97511f29d27e3e16ad4a88315ac0">&#9670;&nbsp;</a></span>getStaticRefInterfaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;boost::shared_ptr&lt;<a class="el" href="../../d0/d9a/a02850.html">StaticRefInterface</a>&gt; &gt; DYN::ModelDescription::getStaticRefInterfaces </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get all static references </p>
+<dl class="section return"><dt>Returns</dt><dd>list of static references </dd></dl>
+
+</div>
+</div>
+<a id="a5e54ab4d7228a7ac209184a98d2ba9d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e54ab4d7228a7ac209184a98d2ba9d5">&#9670;&nbsp;</a></span>getSubModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="../../dc/d90/a02854.html">SubModel</a>&gt; DYN::ModelDescription::getSubModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the sub model associated to the model description </p>
+<dl class="section return"><dt>Returns</dt><dd>sub model associated to the model description </dd></dl>
+
+</div>
+</div>
+<a id="a322ea7d9277e4aaf5915720bb974270d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a322ea7d9277e4aaf5915720bb974270d">&#9670;&nbsp;</a></span>getType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/dfb/a01966.html#a4e9cfaeade924b852a17f9d04e7e1d7b">dynamicdata::Model::ModelType</a> DYN::ModelDescription::getType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the type of the model </p>
+<dl class="section return"><dt>Returns</dt><dd>type of the model </dd></dl>
+
+</div>
+</div>
+<a id="a97af9762ea7b1f6d90c6944934d494a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97af9762ea7b1f6d90c6944934d494a9">&#9670;&nbsp;</a></span>hasCompiledModel() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelDescription::hasCompiledModel </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hasCompiledModel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set if the model description has a compiled model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hasCompiledModel</td><td>: <b>true</b> if the model has a compiled model, <b>false</b> else </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4c0a2bd8b1cc67f3f5874ef3d3961592"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c0a2bd8b1cc67f3f5874ef3d3961592">&#9670;&nbsp;</a></span>hasCompiledModel() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ModelDescription::hasCompiledModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check if the model description has a compiled model </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the model has a compiled model, <b>false</b> else </dd></dl>
+
+</div>
+</div>
+<a id="a497b131fde09f9a601c12ec77aed65be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a497b131fde09f9a601c12ec77aed65be">&#9670;&nbsp;</a></span>setCompiledModelId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelDescription::setCompiledModelId </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>compiledModelId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set compiled model ID </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">compiledModelId</td><td>compiled model ID </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac0d80bbce598aee3272867e12e7a7189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d80bbce598aee3272867e12e7a7189">&#9670;&nbsp;</a></span>setLib()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelDescription::setLib </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>lib</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the library to use to instantiate the model </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lib</td><td>: path of the library to use for this model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a95e2c1b4ad87fe3ed8834f0314ffa4cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95e2c1b4ad87fe3ed8834f0314ffa4cf">&#9670;&nbsp;</a></span>setParametersSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelDescription::setParametersSet </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d8/d5d/a02538.html">parameters::ParametersSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Associate a set of parameters to the model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>: set of parameters associated to the model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aac0e1439c4fa3aebce8f317c69231b28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac0e1439c4fa3aebce8f317c69231b28">&#9670;&nbsp;</a></span>setStaticId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelDescription::setStaticId </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set static id of the model description </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>: static id of the model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2a929524df65b6f7387bd4750fe438e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a929524df65b6f7387bd4750fe438e6">&#9670;&nbsp;</a></span>setSubModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelDescription::setSubModel </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../dc/d90/a02854.html">SubModel</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>subModel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the <a class="el" href="../../dc/d90/a02854.html" title="SubModel Class. ">SubModel</a> associated to the model description </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">subModel</td><td>: sub model associated to the model description </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d3/d8e/a00647_source.html">DYNSubModelFactory.h</a></li>
+<li><a class="el" href="../../d4/d2a/a00632_source.html">DYNModelDescription.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -348,8 +784,8 @@ std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dff/a02826.html">SubModelFactories</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d9/dff/a02826.html">ModelDescription</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

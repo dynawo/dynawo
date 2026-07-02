@@ -1,5 +1,5 @@
 var a02562 =
 [
-    [ "importFromFile", "d9/d66/a02562.html#af6b851edf447e9d932a97667351f0219", null ],
-    [ "importFromStream", "d9/d66/a02562.html#a981313fd2fb1299cf5d0a76dff88c708", null ]
+    [ "exportToFile", "d9/d66/a02562.html#aad3d33a63866ebc87e0fd704a9b15446", null ],
+    [ "exportToStream", "d9/d66/a02562.html#abea14d7607045a66908c7cdecc71f344", null ]
 ];

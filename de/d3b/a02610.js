@@ -1,16 +1,20 @@
 var a02610 =
 [
-    [ "value", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930b", [
-      [ "FictLim", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930ba69eedc2c3dddbcac09e0a1f9ab3de54b", null ],
-      [ "OverloadOpen", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930ba72c2e5e582711a37ea527c4968cc067a", null ],
-      [ "OverloadOpenCLA", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930ba52227b297844ee425ca41d35bdb1258c", null ],
-      [ "OverloadUp", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930baf10f54715a6cd6e6bfb5331e1e43f6a0", null ],
-      [ "OverloadUpCLA", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930ba5b23cf45c9e380c6c5efa62745168d45", null ],
-      [ "PATL", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930baa6b704c00c062b2b145e2e9412493b7e", null ],
-      [ "UInfUmin", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930bae6744c23311802c2ebea35d0cc483763", null ],
-      [ "USupUmax", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930bae7c35a45ef781f690d531b8637757bca", null ],
-      [ "UsMax", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930bab27f2fad04de4bb3823fd89744d92232", null ],
-      [ "UsMin", "de/d3b/a02610.html#adc8fd6f8b83764c54b9b60b888e5930baf88c22785e078a937e28f558f393dde5", null ]
-    ] ],
-    [ "names", "de/d3b/a02610.html#ac309544a70ab12883b8cf1095d0196b3", null ]
+    [ "Event", "de/d3b/a02610.html#a7fd50ec6c46dcb8c38bffed3e2b05d94", null ],
+    [ "getKey", "de/d3b/a02610.html#a853c50e77b39fc9cc022b69d48345e8d", null ],
+    [ "getMessage", "de/d3b/a02610.html#a43865ebc7e951af255127afa82536990", null ],
+    [ "getModelName", "de/d3b/a02610.html#ac7dac677a4edd4048e510124876a1a07", null ],
+    [ "getPriority", "de/d3b/a02610.html#abd13d5bb2e89b3f9bd256e736e3f76cc", null ],
+    [ "getTime", "de/d3b/a02610.html#ab618894d3959063b804f05684404d00b", null ],
+    [ "hasPriority", "de/d3b/a02610.html#af7a60b23d5cd2463421d613234cb5fe7", null ],
+    [ "setKey", "de/d3b/a02610.html#a202c228216103f8540d4493b1876082f", null ],
+    [ "setMessage", "de/d3b/a02610.html#a37036ff3525aa4cc0750e133412cde7e", null ],
+    [ "setModelName", "de/d3b/a02610.html#a62735f847a63c2a139c19502b2120c1e", null ],
+    [ "setPriority", "de/d3b/a02610.html#a8124bfe5c2ad11f66af2e2d14e2d7464", null ],
+    [ "setTime", "de/d3b/a02610.html#a400277bfc073576d237cb357d71c271d", null ],
+    [ "key_", "de/d3b/a02610.html#ab1a91180d1492d56c0c76c43c1303349", null ],
+    [ "message_", "de/d3b/a02610.html#a03205ea9679f7253f8573a3c1804a0bf", null ],
+    [ "modelName_", "de/d3b/a02610.html#ab2059749ea672a98d445bafc6ff3603f", null ],
+    [ "priority_", "de/d3b/a02610.html#a43db092b436b79885ffe7c7a1ad1444b", null ],
+    [ "time_", "de/d3b/a02610.html#a24a1bce54e41f2f87f35eacc52d7ec11", null ]
 ];

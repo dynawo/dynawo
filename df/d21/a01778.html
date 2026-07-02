@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: curves::CsvExporter Class Reference</title>
+<title>Dynawo: criteria::CriteriaParamsHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,58 +96,66 @@ $(document).ready(function(){initNavTree('df/d21/a01778.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d1/d6b/a01775.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">curves::CsvExporter Class Reference</div>  </div>
+<div class="title">criteria::CriteriaParamsHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>CSV exporter interface class.  
+<p>Handler used to parse criteria params element.  
  <a href="../../df/d21/a01778.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dc/d87/a00032_source.html">CRVCsvExporter.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d6/d5b/a00026_source.html">CRTXmlHandler.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for curves::CsvExporter:</div>
+Inheritance diagram for criteria::CriteriaParamsHandler:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../df/d21/a01778.png" usemap="#curves::CsvExporter_map" alt=""/>
-  <map id="curves::CsvExporter_map" name="curves::CsvExporter_map">
-<area href="../../d2/d86/a01798.html" title="Exporter interface class. " alt="curves::Exporter" shape="rect" coords="0,0,127,24"/>
+  <img src="../../df/d21/a01778.png" usemap="#criteria::CriteriaParamsHandler_map" alt=""/>
+  <map id="criteria::CriteriaParamsHandler_map" name="criteria::CriteriaParamsHandler_map">
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acc42aea3ca59ed2714bc5dc46d7c97c2"><td class="memItemLeft" align="right" valign="top"><a id="acc42aea3ca59ed2714bc5dc46d7c97c2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#acc42aea3ca59ed2714bc5dc46d7c97c2">open</a> (const std::string &amp;) override</td></tr>
-<tr class="memdesc:acc42aea3ca59ed2714bc5dc46d7c97c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not used — CSV export is batch-only via <a class="el" href="../../df/d21/a01778.html#a2e6b33291c77ca420f92d168dfa267ba" title="Export method in csv format. ">exportToFile()</a> / <a class="el" href="../../df/d21/a01778.html#a4655a0af2053e5e2ecfa1348b367ce16" title="Export method in csv format. ">exportToStream()</a>. <br /></td></tr>
-<tr class="separator:acc42aea3ca59ed2714bc5dc46d7c97c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a148a77de19f98101733cb7915495b59b"><td class="memItemLeft" align="right" valign="top"><a id="a148a77de19f98101733cb7915495b59b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#a148a77de19f98101733cb7915495b59b">appendRow</a> (double) override</td></tr>
-<tr class="memdesc:a148a77de19f98101733cb7915495b59b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not used — CSV export is batch-only via <a class="el" href="../../df/d21/a01778.html#a2e6b33291c77ca420f92d168dfa267ba" title="Export method in csv format. ">exportToFile()</a> / <a class="el" href="../../df/d21/a01778.html#a4655a0af2053e5e2ecfa1348b367ce16" title="Export method in csv format. ">exportToStream()</a>. <br /></td></tr>
-<tr class="separator:a148a77de19f98101733cb7915495b59b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a033e230f756df6332bfe4cfc44596d34"><td class="memItemLeft" align="right" valign="top"><a id="a033e230f756df6332bfe4cfc44596d34"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#a033e230f756df6332bfe4cfc44596d34">close</a> () override</td></tr>
-<tr class="memdesc:a033e230f756df6332bfe4cfc44596d34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not used — CSV export is batch-only via <a class="el" href="../../df/d21/a01778.html#a2e6b33291c77ca420f92d168dfa267ba" title="Export method in csv format. ">exportToFile()</a> / <a class="el" href="../../df/d21/a01778.html#a4655a0af2053e5e2ecfa1348b367ce16" title="Export method in csv format. ">exportToStream()</a>. <br /></td></tr>
-<tr class="separator:a033e230f756df6332bfe4cfc44596d34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e6b33291c77ca420f92d168dfa267ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#a2e6b33291c77ca420f92d168dfa267ba">exportToFile</a> (const std::shared_ptr&lt; <a class="el" href="../../d2/d20/a01790.html">CurvesCollection</a> &gt; &amp;curves, const std::string &amp;filePath) const override</td></tr>
-<tr class="memdesc:a2e6b33291c77ca420f92d168dfa267ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in csv format.  <a href="#a2e6b33291c77ca420f92d168dfa267ba">More...</a><br /></td></tr>
-<tr class="separator:a2e6b33291c77ca420f92d168dfa267ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4655a0af2053e5e2ecfa1348b367ce16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#a4655a0af2053e5e2ecfa1348b367ce16">exportToStream</a> (const std::shared_ptr&lt; <a class="el" href="../../d2/d20/a01790.html">CurvesCollection</a> &gt; &amp;curves, std::ostream &amp;stream) const override</td></tr>
-<tr class="memdesc:a4655a0af2053e5e2ecfa1348b367ce16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in csv format.  <a href="#a4655a0af2053e5e2ecfa1348b367ce16">More...</a><br /></td></tr>
-<tr class="separator:a4655a0af2053e5e2ecfa1348b367ce16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01798"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01798')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/d86/a01798.html">curves::Exporter</a></td></tr>
-<tr class="memitem:a253ac4aec9368435a67d4e404b46d3f8 inherit pub_methods_a01798"><td class="memItemLeft" align="right" valign="top"><a id="a253ac4aec9368435a67d4e404b46d3f8"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d86/a01798.html#a253ac4aec9368435a67d4e404b46d3f8">~Exporter</a> ()=default</td></tr>
-<tr class="memdesc:a253ac4aec9368435a67d4e404b46d3f8 inherit pub_methods_a01798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a253ac4aec9368435a67d4e404b46d3f8 inherit pub_methods_a01798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf5338336113e62af96af07915e0d86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#abbf5338336113e62af96af07915e0d86">CriteriaParamsHandler</a> (elementName_type const &amp;root_element)</td></tr>
+<tr class="memdesc:abbf5338336113e62af96af07915e0d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#abbf5338336113e62af96af07915e0d86">More...</a><br /></td></tr>
+<tr class="separator:abbf5338336113e62af96af07915e0d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af32ba44afefa5480d7b6c9a8dead9d67"><td class="memItemLeft" align="right" valign="top"><a id="af32ba44afefa5480d7b6c9a8dead9d67"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#af32ba44afefa5480d7b6c9a8dead9d67">~CriteriaParamsHandler</a> () override</td></tr>
+<tr class="memdesc:af32ba44afefa5480d7b6c9a8dead9d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:af32ba44afefa5480d7b6c9a8dead9d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b63042b0e6e0dc16faf78bc06769d56"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">CriteriaParams</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#a0b63042b0e6e0dc16faf78bc06769d56">get</a> () const</td></tr>
+<tr class="memdesc:a0b63042b0e6e0dc16faf78bc06769d56"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the criteria params read in xml file  <a href="#a0b63042b0e6e0dc16faf78bc06769d56">More...</a><br /></td></tr>
+<tr class="separator:a0b63042b0e6e0dc16faf78bc06769d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aced068da3dab8d272aa621baf272b0af"><td class="memItemLeft" align="right" valign="top"><a id="aced068da3dab8d272aa621baf272b0af"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#aced068da3dab8d272aa621baf272b0af">addCriteriaParamsVoltageLevel</a> ()</td></tr>
+<tr class="memdesc:aced068da3dab8d272aa621baf272b0af"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a criteria parameter voltage level to the criteria parameter <br /></td></tr>
+<tr class="separator:aced068da3dab8d272aa621baf272b0af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f1b56d672fcacef1c661ce9b4d9eff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#a67f1b56d672fcacef1c661ce9b4d9eff">create</a> (attributes_type const &amp;attributes)</td></tr>
+<tr class="memdesc:a67f1b56d672fcacef1c661ce9b4d9eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#a67f1b56d672fcacef1c661ce9b4d9eff">More...</a><br /></td></tr>
+<tr class="separator:a67f1b56d672fcacef1c661ce9b4d9eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a2e9d884ec37323358f2b18c1912c80de"><td class="memItemLeft" align="right" valign="top"><a id="a2e9d884ec37323358f2b18c1912c80de"></a>
+std::shared_ptr&lt; <a class="el" href="../../dc/d3a/a01750.html">CriteriaParams</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#a2e9d884ec37323358f2b18c1912c80de">criteriaParamsRead_</a></td></tr>
+<tr class="memdesc:a2e9d884ec37323358f2b18c1912c80de"><td class="mdescLeft">&#160;</td><td class="mdescRight">current parameters <br /></td></tr>
+<tr class="separator:a2e9d884ec37323358f2b18c1912c80de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeddf29fe469c38a835ad4c4ea333a2f3"><td class="memItemLeft" align="right" valign="top"><a id="aeddf29fe469c38a835ad4c4ea333a2f3"></a>
+<a class="el" href="../../d9/d02/a01774.html">CriteriaParamsVoltageLevelHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d21/a01778.html#aeddf29fe469c38a835ad4c4ea333a2f3">criteriaParamsVoltageLevelHandler_</a></td></tr>
+<tr class="memdesc:aeddf29fe469c38a835ad4c4ea333a2f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read voltage level elements <br /></td></tr>
+<tr class="separator:aeddf29fe469c38a835ad4c4ea333a2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>CSV exporter interface class. </p>
-<p>Csv export class for curves </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2e6b33291c77ca420f92d168dfa267ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e6b33291c77ca420f92d168dfa267ba">&#9670;&nbsp;</a></span>exportToFile()</h2>
+<div class="textblock"><p>Handler used to parse criteria params element. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abbf5338336113e62af96af07915e0d86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf5338336113e62af96af07915e0d86">&#9670;&nbsp;</a></span>CriteriaParamsHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,45 +164,33 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void curves::CsvExporter::exportToFile </td>
+          <td class="memname">criteria::CriteriaParamsHandler::CriteriaParamsHandler </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d2/d20/a01790.html">CurvesCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>curves</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">elementName_type const &amp;&#160;</td>
+          <td class="paramname"><em>root_element</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filePath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method in csv format. </p>
+<p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">curves</td><td>curves to export </td></tr>
-    <tr><td class="paramname">filePath</td><td>File to export csv formatted curves to </td></tr>
+    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d2/d86/a01798.html#a84a665caa633a7215b34088c844a2049">curves::Exporter</a>.</p>
-
 </div>
 </div>
-<a id="a4655a0af2053e5e2ecfa1348b367ce16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4655a0af2053e5e2ecfa1348b367ce16">&#9670;&nbsp;</a></span>exportToStream()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a67f1b56d672fcacef1c661ce9b4d9eff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67f1b56d672fcacef1c661ce9b4d9eff">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,45 +199,52 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void curves::CsvExporter::exportToStream </td>
+          <td class="memname">void criteria::CriteriaParamsHandler::create </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d2/d20/a01790.html">CurvesCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>curves</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">attributes_type const &amp;&#160;</td>
+          <td class="paramname"><em>attributes</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method in csv format. </p>
+<p>Called when the XML element opening tag is read. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">curves</td><td>curves to export </td></tr>
-    <tr><td class="paramname">stream</td><td>stream to export csv formatted curves to </td></tr>
+    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d2/d86/a01798.html#a5523a3b2dcdfad11d71e5b16c2360386">curves::Exporter</a>.</p>
+</div>
+</div>
+<a id="a0b63042b0e6e0dc16faf78bc06769d56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b63042b0e6e0dc16faf78bc06769d56">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../dc/d3a/a01750.html">CriteriaParams</a>&gt; criteria::CriteriaParamsHandler::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>return the criteria params read in xml file </p>
+<dl class="section return"><dt>Returns</dt><dd>criteria params object build thanks to infos read in xml file </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dc/d87/a00032_source.html">CRVCsvExporter.h</a></li>
+<li><a class="el" href="../../d6/d5b/a00026_source.html">CRTXmlHandler.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -259,8 +262,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../df/d21/a01778.html">CsvExporter</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>criteria</b></li><li class="navelem"><a class="el" href="../../df/d21/a01778.html">CriteriaParamsHandler</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

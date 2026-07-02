@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::MessageError Class Reference</title>
+<title>Dynawo: timeline::Exporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,101 +96,70 @@ $(document).ready(function(){initNavTree('d7/df0/a02618.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../dc/dcf/a02615.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::MessageError Class Reference</div>  </div>
+<div class="title">timeline::Exporter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Generic error handler for Dynawo (simple message). Used when dictionaries are not initialized.  
+<p><a class="el" href="../../d7/df0/a02618.html" title="Exporter interface class. ">Exporter</a> interface class.  
  <a href="../../d7/df0/a02618.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/d1e/a00497_source.html">DYNError.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d9/d4a/a00479_source.html">TLExporter.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for DYN::MessageError:</div>
+Inheritance diagram for timeline::Exporter:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d7/df0/a02618.png" usemap="#DYN::MessageError_map" alt=""/>
-  <map id="DYN::MessageError_map" name="DYN::MessageError_map">
+  <img src="../../d7/df0/a02618.png" usemap="#timeline::Exporter_map" alt=""/>
+  <map id="timeline::Exporter_map" name="timeline::Exporter_map">
+<area href="../../d2/dca/a02606.html" title="CSV exporter interface class. " alt="timeline::CsvExporter" shape="rect" coords="0,56,135,80"/>
+<area href="../../dc/ddf/a02622.html" title="JSON exporter interface class. " alt="timeline::JsonExporter" shape="rect" coords="145,56,280,80"/>
+<area href="../../df/d0c/a02634.html" title="TXT exporter interface class. " alt="timeline::TxtExporter" shape="rect" coords="290,56,425,80"/>
+<area href="../../d8/dab/a02638.html" title="XML exporter interface class. " alt="timeline::XmlExporter" shape="rect" coords="435,56,570,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5433def0d1e47c5f186384e459d0fa7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a5433def0d1e47c5f186384e459d0fa7f">MessageError</a> (const <a class="el" href="../../d7/df0/a02618.html">MessageError</a> &amp;e)</td></tr>
-<tr class="memdesc:a5433def0d1e47c5f186384e459d0fa7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. Creates a new <a class="el" href="../../dc/dd5/a02614.html" title="Generic error handler for Dynawo. ">Error</a> with same attributes as the object given.  <a href="#a5433def0d1e47c5f186384e459d0fa7f">More...</a><br /></td></tr>
-<tr class="separator:a5433def0d1e47c5f186384e459d0fa7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6bdc991ff78687ead44997331c43c8d"><td class="memItemLeft" align="right" valign="top"><a id="aa6bdc991ff78687ead44997331c43c8d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#aa6bdc991ff78687ead44997331c43c8d">~MessageError</a> () override=default</td></tr>
-<tr class="memdesc:aa6bdc991ff78687ead44997331c43c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:aa6bdc991ff78687ead44997331c43c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a667ec0dabc34afc1325d91415104b151"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a667ec0dabc34afc1325d91415104b151">MessageError</a> (const std::string &amp;<a class="el" href="../../d7/df0/a02618.html#a3fc31a3927850ff5cb1c3e5a38e8494b">message</a>)</td></tr>
-<tr class="memdesc:a667ec0dabc34afc1325d91415104b151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a667ec0dabc34afc1325d91415104b151">More...</a><br /></td></tr>
-<tr class="separator:a667ec0dabc34afc1325d91415104b151"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2e5261cd4e70398ecb33169e541ca34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/df0/a02618.html">MessageError</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#ab2e5261cd4e70398ecb33169e541ca34">operator=</a> (const <a class="el" href="../../d7/df0/a02618.html">MessageError</a> &amp;e)</td></tr>
-<tr class="memdesc:ab2e5261cd4e70398ecb33169e541ca34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement operator.  <a href="#ab2e5261cd4e70398ecb33169e541ca34">More...</a><br /></td></tr>
-<tr class="separator:ab2e5261cd4e70398ecb33169e541ca34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb38c69d2c62c856e5e64301ac1046f9"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#aeb38c69d2c62c856e5e64301ac1046f9">what</a> () const noexcept override</td></tr>
-<tr class="memdesc:aeb38c69d2c62c856e5e64301ac1046f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the error description.  <a href="#aeb38c69d2c62c856e5e64301ac1046f9">More...</a><br /></td></tr>
-<tr class="separator:aeb38c69d2c62c856e5e64301ac1046f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fc31a3927850ff5cb1c3e5a38e8494b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a3fc31a3927850ff5cb1c3e5a38e8494b">message</a> () const</td></tr>
-<tr class="memdesc:a3fc31a3927850ff5cb1c3e5a38e8494b"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the error's message  <a href="#a3fc31a3927850ff5cb1c3e5a38e8494b">More...</a><br /></td></tr>
-<tr class="separator:a3fc31a3927850ff5cb1c3e5a38e8494b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d63ea81ae82ca92bce6bdcdcae4cfbc"><td class="memItemLeft" align="right" valign="top"><a id="a5d63ea81ae82ca92bce6bdcdcae4cfbc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a5d63ea81ae82ca92bce6bdcdcae4cfbc">Exporter</a> ()</td></tr>
+<tr class="memdesc:a5d63ea81ae82ca92bce6bdcdcae4cfbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a5d63ea81ae82ca92bce6bdcdcae4cfbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb92c28b5baf0c79c9f77b98406b309"><td class="memItemLeft" align="right" valign="top"><a id="acbb92c28b5baf0c79c9f77b98406b309"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#acbb92c28b5baf0c79c9f77b98406b309">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:acbb92c28b5baf0c79c9f77b98406b309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:acbb92c28b5baf0c79c9f77b98406b309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9986c16a88a1541a012dfe74c88955"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a1d9986c16a88a1541a012dfe74c88955">exportToFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;timeline, const std::string &amp;filePath) const =0</td></tr>
+<tr class="memdesc:a1d9986c16a88a1541a012dfe74c88955"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#a1d9986c16a88a1541a012dfe74c88955">More...</a><br /></td></tr>
+<tr class="separator:a1d9986c16a88a1541a012dfe74c88955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad89cf490dc7a018d06d669d2acb9be4a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#ad89cf490dc7a018d06d669d2acb9be4a">exportToStream</a> (const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;timeline, std::ostream &amp;stream) const =0</td></tr>
+<tr class="memdesc:ad89cf490dc7a018d06d669d2acb9be4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#ad89cf490dc7a018d06d669d2acb9be4a">More...</a><br /></td></tr>
+<tr class="separator:ad89cf490dc7a018d06d669d2acb9be4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da56f52f72694fbe3860299e1f8aa56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a3da56f52f72694fbe3860299e1f8aa56">setExportWithTime</a> (const bool exportWithTime)</td></tr>
+<tr class="memdesc:a3da56f52f72694fbe3860299e1f8aa56"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time setter  <a href="#a3da56f52f72694fbe3860299e1f8aa56">More...</a><br /></td></tr>
+<tr class="separator:a3da56f52f72694fbe3860299e1f8aa56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f1b498fc7cd3dea9c084ab3da448ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#ad7f1b498fc7cd3dea9c084ab3da448ae">setMaxPriority</a> (const boost::optional&lt; int &gt; maxPriority)</td></tr>
+<tr class="memdesc:ad7f1b498fc7cd3dea9c084ab3da448ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority setter  <a href="#ad7f1b498fc7cd3dea9c084ab3da448ae">More...</a><br /></td></tr>
+<tr class="separator:ad7f1b498fc7cd3dea9c084ab3da448ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ac7faf156e6fde614cb4096ff69828cb6"><td class="memItemLeft" align="right" valign="top"><a id="ac7faf156e6fde614cb4096ff69828cb6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#ac7faf156e6fde614cb4096ff69828cb6">MessageError</a> ()</td></tr>
-<tr class="memdesc:ac7faf156e6fde614cb4096ff69828cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor <br /></td></tr>
-<tr class="separator:ac7faf156e6fde614cb4096ff69828cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a26af407c80c8b184decbf46e1887a48e"><td class="memItemLeft" align="right" valign="top"><a id="a26af407c80c8b184decbf46e1887a48e"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a26af407c80c8b184decbf46e1887a48e">msgToReturn_</a></td></tr>
-<tr class="memdesc:a26af407c80c8b184decbf46e1887a48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">string message to return when the error is flushed <br /></td></tr>
-<tr class="separator:a26af407c80c8b184decbf46e1887a48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a023c8e84b3c76c90144b6ac9cbc9d872"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a023c8e84b3c76c90144b6ac9cbc9d872">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d7/df0/a02618.html">MessageError</a> &amp;e)</td></tr>
-<tr class="memdesc:a023c8e84b3c76c90144b6ac9cbc9d872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator &lt;&lt; overload for error.  <a href="#a023c8e84b3c76c90144b6ac9cbc9d872">More...</a><br /></td></tr>
-<tr class="separator:a023c8e84b3c76c90144b6ac9cbc9d872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a3cea0999ec63144bb692b4fed5951c23"><td class="memItemLeft" align="right" valign="top"><a id="a3cea0999ec63144bb692b4fed5951c23"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#a3cea0999ec63144bb692b4fed5951c23">exportWithTime_</a></td></tr>
+<tr class="memdesc:a3cea0999ec63144bb692b4fed5951c23"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to export time when exporting timeline <br /></td></tr>
+<tr class="separator:a3cea0999ec63144bb692b4fed5951c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add563d0da7b15436bd2fe60810e99c4f"><td class="memItemLeft" align="right" valign="top"><a id="add563d0da7b15436bd2fe60810e99c4f"></a>
+boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/a02618.html#add563d0da7b15436bd2fe60810e99c4f">maxPriority_</a></td></tr>
+<tr class="memdesc:add563d0da7b15436bd2fe60810e99c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
+<tr class="separator:add563d0da7b15436bd2fe60810e99c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Generic error handler for Dynawo (simple message). Used when dictionaries are not initialized. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5433def0d1e47c5f186384e459d0fa7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5433def0d1e47c5f186384e459d0fa7f">&#9670;&nbsp;</a></span>MessageError() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::MessageError::MessageError </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d7/df0/a02618.html">MessageError</a> &amp;&#160;</td>
-          <td class="paramname"><em>e</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copy constructor. Creates a new <a class="el" href="../../dc/dd5/a02614.html" title="Generic error handler for Dynawo. ">Error</a> with same attributes as the object given. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">e</td><td>error to copy </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a667ec0dabc34afc1325d91415104b151"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a667ec0dabc34afc1325d91415104b151">&#9670;&nbsp;</a></span>MessageError() <span class="overload">[2/2]</span></h2>
+<div class="textblock"><p><a class="el" href="../../d7/df0/a02618.html" title="Exporter interface class. ">Exporter</a> interface class. </p>
+<p><a class="el" href="../../d7/df0/a02618.html" title="Exporter interface class. ">Exporter</a> class for timeline </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1d9986c16a88a1541a012dfe74c88955"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d9986c16a88a1541a012dfe74c88955">&#9670;&nbsp;</a></span>exportToFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,156 +168,160 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DYN::MessageError::MessageError </td>
+          <td class="memname">virtual void timeline::Exporter::exportToFile </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<p>creates an error with a message</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">message</td><td>message of the error </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3fc31a3927850ff5cb1c3e5a38e8494b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fc31a3927850ff5cb1c3e5a38e8494b">&#9670;&nbsp;</a></span>message()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string DYN::MessageError::message </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>returns the error's message </p>
-<dl class="section return"><dt>Returns</dt><dd>error's message </dd></dl>
-
-</div>
-</div>
-<a id="ab2e5261cd4e70398ecb33169e541ca34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2e5261cd4e70398ecb33169e541ca34">&#9670;&nbsp;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/df0/a02618.html">MessageError</a>&amp; DYN::MessageError::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d7/df0/a02618.html">MessageError</a> &amp;&#160;</td>
-          <td class="paramname"><em>e</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assignement operator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">e</td><td>error to copy</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>an error with same value as e </dd></dl>
-
-</div>
-</div>
-<a id="aeb38c69d2c62c856e5e64301ac1046f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb38c69d2c62c856e5e64301ac1046f9">&#9670;&nbsp;</a></span>what()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* DYN::MessageError::what </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a pointer to the error description. </p>
-<dl class="section return"><dt>Returns</dt><dd>error's description </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a023c8e84b3c76c90144b6ac9cbc9d872"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a023c8e84b3c76c90144b6ac9cbc9d872">&#9670;&nbsp;</a></span>operator&lt;&lt;</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d7/df0/a02618.html">MessageError</a> &amp;&#160;</td>
-          <td class="paramname"><em>e</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Operator &lt;&lt; overload for error. </p>
+<p>Export method for this exporter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">os</td><td>stream instance where the error is added </td></tr>
-    <tr><td class="paramname">e</td><td>Object to add to the stream</td></tr>
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export to </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>reference to the stream instance </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d2/dca/a02606.html#aeabfd36ae852548834fd8fa8ed797120">timeline::CsvExporter</a>, <a class="el" href="../../df/d0c/a02634.html#aeb18f1476b1b77c3d84a7a4d5a83bbbb">timeline::TxtExporter</a>, <a class="el" href="../../dc/ddf/a02622.html#a5ffbdcfb714d6bbe4c7d1cf1f078d836">timeline::JsonExporter</a>, and <a class="el" href="../../d8/dab/a02638.html#a779f04facb8d90b64d6ca5cdb4ea0bda">timeline::XmlExporter</a>.</p>
+
+</div>
+</div>
+<a id="ad89cf490dc7a018d06d669d2acb9be4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad89cf490dc7a018d06d669d2acb9be4a">&#9670;&nbsp;</a></span>exportToStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void timeline::Exporter::exportToStream </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../db/d99/a02626.html">Timeline</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>timeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Export method for this exporter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeline</td><td><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
+    <tr><td class="paramname">stream</td><td>stream to export to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d2/dca/a02606.html#a4e2c4cd21d1cec6a25749cbe8747064c">timeline::CsvExporter</a>, <a class="el" href="../../df/d0c/a02634.html#aa574dcf2690a8c1628fb31f0aa961b8b">timeline::TxtExporter</a>, <a class="el" href="../../dc/ddf/a02622.html#afb9c810eeb0bcf0eab74cc29504c8e72">timeline::JsonExporter</a>, and <a class="el" href="../../d8/dab/a02638.html#ab7aa9361d0f8f436a6b8baee98cdfa0c">timeline::XmlExporter</a>.</p>
+
+</div>
+</div>
+<a id="a3da56f52f72694fbe3860299e1f8aa56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da56f52f72694fbe3860299e1f8aa56">&#9670;&nbsp;</a></span>setExportWithTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::Exporter::setExportWithTime </td>
+          <td>(</td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>exportWithTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>whether to export time setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exportWithTime</td><td>whether to export time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad7f1b498fc7cd3dea9c084ab3da448ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7f1b498fc7cd3dea9c084ab3da448ae">&#9670;&nbsp;</a></span>setMaxPriority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::Exporter::setMaxPriority </td>
+          <td>(</td>
+          <td class="paramtype">const boost::optional&lt; int &gt;&#160;</td>
+          <td class="paramname"><em>maxPriority</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>maximum priority setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxPriority</td><td>maximum priority allowed </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d4/d1e/a00497_source.html">DYNError.h</a></li>
+<li><a class="el" href="../../d9/d4a/a00479_source.html">TLExporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -366,8 +339,8 @@ Friends</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d7/df0/a02618.html">MessageError</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../d7/df0/a02618.html">Exporter</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -95,16 +95,20 @@ $(document).ready(function(){initNavTree('d4/db9/a02918.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">DYN::TemporaryLimit Member List</div>  </div>
+<div class="title">DYN::Criteria Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../d4/db9/a02918.html">DYN::TemporaryLimit</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#afd332bfdec559fb903f180d20b6f6955">acceptableDuration</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::TemporaryLimit</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#ac012d8bf67db7df2d18cf81e60c68f69">fictitious</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::TemporaryLimit</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a8079c3ebec00626b29c1bf37051bc788">name</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::TemporaryLimit</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a526da012398ad4bb0db345e841961c7e">value</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::TemporaryLimit</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> enum name</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a23993a47f79a29d933bebdda2502686e">checkCriteria</a>(double t, bool finalStep, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline=nullptr)=0</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a04a9d18b48178d64a909cd0dc0e555e5">Criteria</a>(const std::shared_ptr&lt; criteria::CriteriaParams &gt; &amp;params)</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a2cfd58d7a5fc57e2d2438cf3c3603954">failingCriteria_</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#ae37e82fe5de5482d924a4f3781287bc5">getFailingCriteria</a>() const</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#aa2e02bd65f615a2ff17d905802f21d8d">params_</a></td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d4/db9/a02918.html#a246cd0ab90b0768892d910cf9c4b2355">printAllFailingCriteriaIntoLog</a>(std::multimap&lt; double, std::unique_ptr&lt; FailingCriteria &gt; &gt; &amp;distanceToFailingCriteriaMap, const boost::shared_ptr&lt; timeline::Timeline &gt; &amp;timeline, double currentTime)</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d4/db9/a02918.html#ab91b12e7731dfd62f0989c6ae50557ed">~Criteria</a>()</td><td class="entry"><a class="el" href="../../d4/db9/a02918.html">DYN::Criteria</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -121,7 +125,7 @@ $(document).ready(function(){initNavTree('d4/db9/a02918.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

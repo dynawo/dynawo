@@ -95,15 +95,19 @@ $(document).ready(function(){initNavTree('da/d6b/a02438.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">job::XmlImporter Member List</div>  </div>
+<div class="title">job::StreamsHandler Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../da/d6b/a02438.html">job::XmlImporter</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../da/d6b/a02438.html#a6225966d57cb9b8c024294e65af36eff">importFromFile</a>(const std::string &amp;fileName) const override</td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::XmlImporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../da/d6b/a02438.html#a7d6a5918b26ccf540671e94a97cb8005">importFromStream</a>(std::istream &amp;stream) const override</td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::XmlImporter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../d0/d9d/a02202.html#ad706ac45b3486ff1cc7716b886c48af7">~Importer</a>()=default</td><td class="entry"><a class="el" href="../../d0/d9d/a02202.html">job::Importer</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d6b/a02438.html#a1c12d8d51d1b9c0e1c7c17c5a061035e">addStream</a>()</td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d6b/a02438.html#a8d5a977b922c1022174c2585e424b367">create</a>(attributes_type const &amp;attributes)</td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d6b/a02438.html#acc1026cec89042bc3154ec50311d0312">get</a>() const</td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d6b/a02438.html#adab80a23462e2228785ec710301d2d7d">streamHandler_</a></td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d6b/a02438.html#aa53c2952f3344d5ffa8f9e11a60772c0">streams_</a></td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../da/d6b/a02438.html#afe52fc496bf2c325b5c733653df9e2ac">StreamsHandler</a>(elementName_type const &amp;root_element)</td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../da/d6b/a02438.html#a2d9b6a48e58bed294dd41c958713ccb2">~StreamsHandler</a>() override</td><td class="entry"><a class="el" href="../../da/d6b/a02438.html">job::StreamsHandler</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -120,7 +124,7 @@ $(document).ready(function(){initNavTree('da/d6b/a02438.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

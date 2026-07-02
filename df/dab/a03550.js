@@ -1,18 +1,10 @@
 var a03550 =
 [
-    [ "calculateIC", "df/dab/a03550.html#afe7883bbb091fb1b885350dd4282d5f9", null ],
-    [ "computePrediction", "df/dab/a03550.html#a5e883ff1b8309cf358280a3c86f1fc3d", null ],
-    [ "computeYP", "df/dab/a03550.html#ae18151db21a34c1bbaee6b3c6a77746c", null ],
-    [ "defineSpecificParameters", "df/dab/a03550.html#aaf5cff6ac76c1bbb40843659813413a9", null ],
-    [ "getName", "df/dab/a03550.html#af2c863d8c46fb5c00597a1a7a263cc66", null ],
-    [ "getTimeStep", "df/dab/a03550.html#a6ba437f2acc64fd876e430ca04471dcc", null ],
-    [ "hasPrediction", "df/dab/a03550.html#a42868d90a0612cb554c48c71b6678dbb", null ],
-    [ "init", "df/dab/a03550.html#acbdc053e17f6fe51f623b7b056053490", null ],
-    [ "restoreContinuousVariables", "df/dab/a03550.html#ae1460181ad9bc1fe00492273a5eff361", null ],
-    [ "saveContinuousVariables", "df/dab/a03550.html#a9647d88908d817777af739b78b43e614", null ],
-    [ "setSolverSpecificParameters", "df/dab/a03550.html#a5ca72159fc488adfd747d36523a6bdd3", null ],
-    [ "solverType", "df/dab/a03550.html#a82c9b1ff40e63a614f53dae2b4aa29b0", null ],
-    [ "solveStep", "df/dab/a03550.html#ace324bc43a60d741aa8d623e95bbf152", null ],
-    [ "updateVelocity", "df/dab/a03550.html#ac13e2380d7bc2d2abc94e9c36c0aa3fd", null ],
-    [ "solverKINYPrimInit_", "df/dab/a03550.html#a8a5765bc10c7b0bff4d053e12b79d837", null ]
+    [ "copySparseToKINSOL", "df/dab/a03550.html#ae22a765890981f862cc40c7f1ae313a2", null ],
+    [ "printLargestErrors", "df/dab/a03550.html#afc90baae8ddadbd9db634c38fd678f32", null ],
+    [ "propagateMatrixStructureChangeToKINSOL", "df/dab/a03550.html#a8e6598680f4c559ea6013d4bd5ec939d", null ],
+    [ "weightedInfinityNorm", "df/dab/a03550.html#a9a5db2f9fc86f4d05d026e36941946f7", null ],
+    [ "weightedInfinityNorm", "df/dab/a03550.html#a770961aba4603c6b798c09a35ae2bb33", null ],
+    [ "weightedL2Norm", "df/dab/a03550.html#ad73387d9a562e36de7b071196eece157", null ],
+    [ "weightedL2Norm", "df/dab/a03550.html#ab4aaac216b64f4c4666c25f96327cb62", null ]
 ];

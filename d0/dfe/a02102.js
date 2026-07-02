@@ -1,5 +1,5 @@
 var a02102 =
 [
-    [ "importFromFile", "d0/dfe/a02102.html#af720b43a8f65a2648302b771ed1705d7", null ],
-    [ "importFromStream", "d0/dfe/a02102.html#af31d1e252b0178f3592ef3504a0facd2", null ]
+    [ "copyCollection", "d0/dfe/a02102.html#a02102a1b95d79c96f9692824cf8293fe", null ],
+    [ "newCollection", "d0/dfe/a02102.html#ab949a8a450c4758847e9604050a0face", null ]
 ];

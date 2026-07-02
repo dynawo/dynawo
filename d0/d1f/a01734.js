@@ -1,45 +1,8 @@
 var a01734 =
 [
-    [ "CriteriaScope_t", "d0/d1f/a01734.html#abcc1bef1d5d8274f3eaa1b760392c98e", [
-      [ "UNDEFINED_SCOPE", "d0/d1f/a01734.html#abcc1bef1d5d8274f3eaa1b760392c98ea2fd57020f0a17b8c14159dc4c82414c1", null ],
-      [ "FINAL", "d0/d1f/a01734.html#abcc1bef1d5d8274f3eaa1b760392c98ea2348700b687566e5157f728420f31d79", null ],
-      [ "DYNAMIC", "d0/d1f/a01734.html#abcc1bef1d5d8274f3eaa1b760392c98ea7305b861f14b041df06f113d34826d11", null ]
-    ] ],
-    [ "CriteriaType_t", "d0/d1f/a01734.html#a792359efceea9564954735ba5ca8cef2", [
-      [ "UNDEFINED_TYPE", "d0/d1f/a01734.html#a792359efceea9564954735ba5ca8cef2a09fc8804ce5058524afa7a591f423107", null ],
-      [ "LOCAL_VALUE", "d0/d1f/a01734.html#a792359efceea9564954735ba5ca8cef2a77c5d061c63661ffeeb1afcc07b0467d", null ],
-      [ "SUM", "d0/d1f/a01734.html#a792359efceea9564954735ba5ca8cef2ab5fe923dfd6e73272d07179599c9b2ed", null ]
-    ] ],
-    [ "CriteriaParams", "d0/d1f/a01734.html#aee7a554dfa62cceb34cfd17e9c58f18b", null ],
-    [ "addVoltageLevel", "d0/d1f/a01734.html#a85b669fae736bb0024affe6c45bfc6ae", null ],
-    [ "getI1Max", "d0/d1f/a01734.html#ad4ff06dfed86a259f4d31089ee021c12", null ],
-    [ "getI2Max", "d0/d1f/a01734.html#a5d59c6845930713ca530ea0cfd42909b", null ],
-    [ "getId", "d0/d1f/a01734.html#a30b0d3d6aab1fdeb79fa81728972e9aa", null ],
-    [ "getPMax", "d0/d1f/a01734.html#a6f4cd4da3a1aa34a60b6a0dbd6042bb6", null ],
-    [ "getPMin", "d0/d1f/a01734.html#a28fd04efea37b417e2e48218fa5c5d33", null ],
-    [ "getScope", "d0/d1f/a01734.html#a5b487fc2d2cddacf2620689b81b080b7", null ],
-    [ "getType", "d0/d1f/a01734.html#a67345043982acff1464673d7b51125e0", null ],
-    [ "getVoltageLevels", "d0/d1f/a01734.html#ac9432090251e71aba1ec9cb2444f322a", null ],
-    [ "hasI1Max", "d0/d1f/a01734.html#a2d6346d3cda3a9f2f32a73c1be250f77", null ],
-    [ "hasI2Max", "d0/d1f/a01734.html#a5f536a8c5bada071beff08ccbeb5af68", null ],
-    [ "hasPMax", "d0/d1f/a01734.html#ade49f135dc0e19a91563c9b4386271d8", null ],
-    [ "hasPMin", "d0/d1f/a01734.html#a961b0448fb5c8a5ccc7f71cb00016740", null ],
-    [ "hasVoltageLevels", "d0/d1f/a01734.html#a428e8129ce8bec590a2e018ebe31f207", null ],
-    [ "setI1Max", "d0/d1f/a01734.html#a3c0b098abe965486b6d99ff4eda16f1c", null ],
-    [ "setI2Max", "d0/d1f/a01734.html#a8ea166e807a7e0ec77e3f98660480cb1", null ],
-    [ "setId", "d0/d1f/a01734.html#a977198abdd15f99231be452acc9231d9", null ],
-    [ "setPMax", "d0/d1f/a01734.html#ada19d40a27ce249e6e82d21c74cc02ce", null ],
-    [ "setPMin", "d0/d1f/a01734.html#a997a674d9174f2af3467bfb378c1de60", null ],
-    [ "setScope", "d0/d1f/a01734.html#a4d3a13e112bd7483b00ab897fa9a812c", null ],
-    [ "setType", "d0/d1f/a01734.html#acc95b07f9a8ccf6bc96f4b2977acbbf0", null ],
-    [ "string2Scope", "d0/d1f/a01734.html#ae03e59ab8e268e561a3ad7acc4a4b3c0", null ],
-    [ "string2Type", "d0/d1f/a01734.html#a63516d617d5023a5917aa2de05c94c14", null ],
-    [ "i1Max_", "d0/d1f/a01734.html#af9ce47642d781d0a6f84014c2066d79a", null ],
-    [ "i2Max_", "d0/d1f/a01734.html#ab521bf7aa9e06bb73cb3a986009db9a3", null ],
-    [ "id_", "d0/d1f/a01734.html#ac53d695f6922c5bd52cdb64a61e97213", null ],
-    [ "pMax_", "d0/d1f/a01734.html#a5d3b3458763d1906a1306c9d3d9e322c", null ],
-    [ "pMin_", "d0/d1f/a01734.html#a8569f13100372ec0c67e446089236799", null ],
-    [ "scope_", "d0/d1f/a01734.html#a797ee80f9a0093e8e5d98d5863ca0534", null ],
-    [ "type_", "d0/d1f/a01734.html#a03475d680d6bebcf55c965beb1967975", null ],
-    [ "voltageLevels_", "d0/d1f/a01734.html#ab960e4cdcde01fabfeffc6924b518bf3", null ]
+    [ "ComponentId", "d0/d1f/a01734.html#af4c7c335ac922719409898f7ab6e9447", null ],
+    [ "getId", "d0/d1f/a01734.html#a13d2556eb4dadf510aa166183af46b2e", null ],
+    [ "getVoltageLevelId", "d0/d1f/a01734.html#a8cc1197bd7ea33f1b3b1acb84f49c00b", null ],
+    [ "id_", "d0/d1f/a01734.html#a1d7ceda056b8dfae7905234695eb2bc0", null ],
+    [ "voltageLevelId_", "d0/d1f/a01734.html#ad8b9da35e80acd02ab64845f2374db34", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::BusCriteria::BusFailingCriteria Class Reference</title>
+<title>Dynawo: DYN::VariableMultipleFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,137 +95,72 @@ $(document).ready(function(){initNavTree('d6/d92/a02890.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../dd/d04/a02887.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::BusCriteria::BusFailingCriteria Class Reference</div>  </div>
+<div class="title">DYN::VariableMultipleFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>structure containing information about a failing criteria on a bus and related methods  
+<p>multiple variable factory class  
  <a href="../../d6/d92/a02890.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d0/db6/a00692_source.html">DYNCriteria.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::BusCriteria::BusFailingCriteria:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d6/d92/a02890.png" usemap="#DYN::BusCriteria::BusFailingCriteria_map" alt=""/>
-  <map id="DYN::BusCriteria::BusFailingCriteria_map" name="DYN::BusCriteria::BusFailingCriteria_map">
-<area href="../../d4/d57/a02882.html" title="structure containing information about a failing criteria and related methods " alt="DYN::Criteria::FailingCriteria" shape="rect" coords="0,0,215,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d4/d9b/a00680_source.html">DYNVariableMultipleFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ab9d417097f28ffac70ab3aba33b046b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#ab9d417097f28ffac70ab3aba33b046b4">BusFailingCriteria</a> (<a class="el" href="../../da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> bound, std::string busId, double v, double vPu, double vBound, double vBoundPu, const std::string &amp;criteriaId)</td></tr>
-<tr class="memdesc:ab9d417097f28ffac70ab3aba33b046b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ab9d417097f28ffac70ab3aba33b046b4">More...</a><br /></td></tr>
-<tr class="separator:ab9d417097f28ffac70ab3aba33b046b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0636fced5d74e9123d52f34a01aa8303"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#a0636fced5d74e9123d52f34a01aa8303">getDistance</a> () const override</td></tr>
-<tr class="memdesc:a0636fced5d74e9123d52f34a01aa8303"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the distance between the voltage in pu and the crossed criteria bound  <a href="#a0636fced5d74e9123d52f34a01aa8303">More...</a><br /></td></tr>
-<tr class="separator:a0636fced5d74e9123d52f34a01aa8303"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b2b18592f8f3a0a3442bcb6005bc409"><td class="memItemLeft" align="right" valign="top"><a id="a0b2b18592f8f3a0a3442bcb6005bc409"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#a0b2b18592f8f3a0a3442bcb6005bc409">printOneFailingCriteriaIntoLog</a> () const override</td></tr>
-<tr class="memdesc:a0b2b18592f8f3a0a3442bcb6005bc409"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the log file <br /></td></tr>
-<tr class="separator:a0b2b18592f8f3a0a3442bcb6005bc409"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e47e72926a31d455f91a52c80dbc9e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#a1e47e72926a31d455f91a52c80dbc9e5">printOneFailingCriteriaIntoTimeline</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/d44/a02586.html">timeline::Timeline</a> &gt; &amp;timeline, std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;failingCriteria, double currentTime) const override</td></tr>
-<tr class="memdesc:a1e47e72926a31d455f91a52c80dbc9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">print the failing criteria log in the timeline file  <a href="#a1e47e72926a31d455f91a52c80dbc9e5">More...</a><br /></td></tr>
-<tr class="separator:a1e47e72926a31d455f91a52c80dbc9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02882"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02882')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d4/d57/a02882.html">DYN::Criteria::FailingCriteria</a></td></tr>
-<tr class="memitem:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02882"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d57/a02882.html#afda670074d93f6adb4bb677a2be79d55">FailingCriteria</a> (<a class="el" href="../../da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a> bound, std::string nodeId, const std::string &amp;criteriaId)</td></tr>
-<tr class="memdesc:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02882"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="../../d4/d57/a02882.html#afda670074d93f6adb4bb677a2be79d55">More...</a><br /></td></tr>
-<tr class="separator:afda670074d93f6adb4bb677a2be79d55 inherit pub_methods_a02882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a26d9113d4d29d7ae2098948989f91a inherit pub_methods_a02882"><td class="memItemLeft" align="right" valign="top"><a id="a5a26d9113d4d29d7ae2098948989f91a"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d57/a02882.html#a5a26d9113d4d29d7ae2098948989f91a">~FailingCriteria</a> ()</td></tr>
-<tr class="memdesc:a5a26d9113d4d29d7ae2098948989f91a inherit pub_methods_a02882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a5a26d9113d4d29d7ae2098948989f91a inherit pub_methods_a02882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:af9f40a2ed42b95f8ba91d323c7667c5d"><td class="memItemLeft" align="right" valign="top"><a id="af9f40a2ed42b95f8ba91d323c7667c5d"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#af9f40a2ed42b95f8ba91d323c7667c5d">v_</a></td></tr>
-<tr class="memdesc:af9f40a2ed42b95f8ba91d323c7667c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">bus voltage in kV <br /></td></tr>
-<tr class="separator:af9f40a2ed42b95f8ba91d323c7667c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc8d14ba539819028ef3843adc93e9ee"><td class="memItemLeft" align="right" valign="top"><a id="acc8d14ba539819028ef3843adc93e9ee"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#acc8d14ba539819028ef3843adc93e9ee">vPu_</a></td></tr>
-<tr class="memdesc:acc8d14ba539819028ef3843adc93e9ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">bus voltage in pu <br /></td></tr>
-<tr class="separator:acc8d14ba539819028ef3843adc93e9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9add492a21834086f8c4f03081d81e1"><td class="memItemLeft" align="right" valign="top"><a id="af9add492a21834086f8c4f03081d81e1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#af9add492a21834086f8c4f03081d81e1">vBound_</a></td></tr>
-<tr class="memdesc:af9add492a21834086f8c4f03081d81e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">bus voltage limit in kV <br /></td></tr>
-<tr class="separator:af9add492a21834086f8c4f03081d81e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affc15977cc37c6f1cfca44294ba67cc8"><td class="memItemLeft" align="right" valign="top"><a id="affc15977cc37c6f1cfca44294ba67cc8"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#affc15977cc37c6f1cfca44294ba67cc8">vBoundPu_</a></td></tr>
-<tr class="memdesc:affc15977cc37c6f1cfca44294ba67cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">bus voltage limit in pu <br /></td></tr>
-<tr class="separator:affc15977cc37c6f1cfca44294ba67cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_a02882"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02882')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d4/d57/a02882.html">DYN::Criteria::FailingCriteria</a></td></tr>
-<tr class="memitem:ac44454bf196561f60aee0ccc895cded8 inherit pro_attribs_a02882"><td class="memItemLeft" align="right" valign="top"><a id="ac44454bf196561f60aee0ccc895cded8"></a>
-<a class="el" href="../../da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d57/a02882.html#ac44454bf196561f60aee0ccc895cded8">bound_</a></td></tr>
-<tr class="memdesc:ac44454bf196561f60aee0ccc895cded8 inherit pro_attribs_a02882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crossed bound : min or max. <br /></td></tr>
-<tr class="separator:ac44454bf196561f60aee0ccc895cded8 inherit pro_attribs_a02882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77b3855413f7469fb1c6d6fdc3e85a6c inherit pro_attribs_a02882"><td class="memItemLeft" align="right" valign="top"><a id="a77b3855413f7469fb1c6d6fdc3e85a6c"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d57/a02882.html#a77b3855413f7469fb1c6d6fdc3e85a6c">nodeId_</a></td></tr>
-<tr class="memdesc:a77b3855413f7469fb1c6d6fdc3e85a6c inherit pro_attribs_a02882"><td class="mdescLeft">&#160;</td><td class="mdescRight">node id <br /></td></tr>
-<tr class="separator:a77b3855413f7469fb1c6d6fdc3e85a6c inherit pro_attribs_a02882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af148f22030e0d930120ea21d4f2e489b inherit pro_attribs_a02882"><td class="memItemLeft" align="right" valign="top"><a id="af148f22030e0d930120ea21d4f2e489b"></a>
-const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d57/a02882.html#af148f22030e0d930120ea21d4f2e489b">criteriaId_</a></td></tr>
-<tr class="memdesc:af148f22030e0d930120ea21d4f2e489b inherit pro_attribs_a02882"><td class="mdescLeft">&#160;</td><td class="mdescRight">criteria id <br /></td></tr>
-<tr class="separator:af148f22030e0d930120ea21d4f2e489b inherit pro_attribs_a02882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ade511d9db211552d0c61d69b0e72ecd8"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d6/d78/a02886.html">VariableMultiple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#ade511d9db211552d0c61d69b0e72ecd8">create</a> (const std::string &amp;name, const std::string &amp;cardinalityName, <a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> type, bool isState, bool negated=false)</td></tr>
+<tr class="memdesc:ade511d9db211552d0c61d69b0e72ecd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance.  <a href="#ade511d9db211552d0c61d69b0e72ecd8">More...</a><br /></td></tr>
+<tr class="separator:ade511d9db211552d0c61d69b0e72ecd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ee07c49c8b6803f85967d5fddb79f9f"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d6/d78/a02886.html">VariableMultiple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#a3ee07c49c8b6803f85967d5fddb79f9f">createState</a> (const std::string &amp;name, const std::string &amp;cardinalityName, const <a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> type, const bool negated=false)</td></tr>
+<tr class="memdesc:a3ee07c49c8b6803f85967d5fddb79f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new (state) <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance.  <a href="#a3ee07c49c8b6803f85967d5fddb79f9f">More...</a><br /></td></tr>
+<tr class="separator:a3ee07c49c8b6803f85967d5fddb79f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a221d14c4c9ec11e3ed6d2348cbd9e072"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d6/d78/a02886.html">VariableMultiple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d92/a02890.html#a221d14c4c9ec11e3ed6d2348cbd9e072">createCalculated</a> (const std::string &amp;name, const std::string &amp;cardinalityName, const <a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> type, const bool negated=false)</td></tr>
+<tr class="memdesc:a221d14c4c9ec11e3ed6d2348cbd9e072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new (calculated, i.e. non-state) <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance.  <a href="#a221d14c4c9ec11e3ed6d2348cbd9e072">More...</a><br /></td></tr>
+<tr class="separator:a221d14c4c9ec11e3ed6d2348cbd9e072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>structure containing information about a failing criteria on a bus and related methods </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab9d417097f28ffac70ab3aba33b046b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9d417097f28ffac70ab3aba33b046b4">&#9670;&nbsp;</a></span>BusFailingCriteria()</h2>
+<div class="textblock"><p>multiple variable factory class </p>
+<p><a class="el" href="../../d6/d92/a02890.html" title="multiple variable factory class ">VariableMultipleFactory</a> encapsulates methods for creating new <code><a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> objects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ade511d9db211552d0c61d69b0e72ecd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade511d9db211552d0c61d69b0e72ecd8">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">DYN::BusCriteria::BusFailingCriteria::BusFailingCriteria </td>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d6/d78/a02886.html">VariableMultiple</a>&gt; DYN::VariableMultipleFactory::create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3">Bound</a>&#160;</td>
-          <td class="paramname"><em>bound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>busId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>v</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>vPu</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>vBound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>vBoundPu</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>criteriaId</em>&#160;</td>
+          <td class="paramname"><em>cardinalityName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -233,57 +168,30 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
           <td></td><td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bound</td><td>Crossed bound for a failing criteria </td></tr>
-    <tr><td class="paramname">busId</td><td>bus id </td></tr>
-    <tr><td class="paramname">v</td><td>voltage in kV </td></tr>
-    <tr><td class="paramname">vPu</td><td>voltage in pu </td></tr>
-    <tr><td class="paramname">vBound</td><td>voltage bound in kV </td></tr>
-    <tr><td class="paramname">vBoundPu</td><td>voltage bound in pu </td></tr>
-    <tr><td class="paramname">criteriaId</td><td>criteria id </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0636fced5d74e9123d52f34a01aa8303"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0636fced5d74e9123d52f34a01aa8303">&#9670;&nbsp;</a></span>getDistance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double DYN::BusCriteria::BusFailingCriteria::getDistance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>return the distance between the voltage in pu and the crossed criteria bound </p>
-<dl class="section return"><dt>Returns</dt><dd>the distance between the voltage in pu and the crossed criteria bound </dd></dl>
-
-<p>Implements <a class="el" href="../../d4/d57/a02882.html#a77928d4048f8890b849c3dd4002a13b4">DYN::Criteria::FailingCriteria</a>.</p>
+<p>Create new <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cardinalityName</td><td>name of the parameter to use to derive the number of variables </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> type (INTEGER, BOOLEAN, ...) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">isState</td><td><b>whether</b> the variable is needed for local model simulation </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> with given name, type, and negated attributes </dd></dl>
 
 </div>
 </div>
-<a id="a1e47e72926a31d455f91a52c80dbc9e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e47e72926a31d455f91a52c80dbc9e5">&#9670;&nbsp;</a></span>printOneFailingCriteriaIntoTimeline()</h2>
+<a id="a221d14c4c9ec11e3ed6d2348cbd9e072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a221d14c4c9ec11e3ed6d2348cbd9e072">&#9670;&nbsp;</a></span>createCalculated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,52 +200,118 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::BusCriteria::BusFailingCriteria::printOneFailingCriteriaIntoTimeline </td>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d6/d78/a02886.html">VariableMultiple</a>&gt; DYN::VariableMultipleFactory::createCalculated </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/d44/a02586.html">timeline::Timeline</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>timeline</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; std::pair&lt; double, std::string &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>failingCriteria</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>cardinalityName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>currentTime</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>print the failing criteria log in the timeline file </p>
+<p>Create new (calculated, i.e. non-state) <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">timeline</td><td>timeline </td></tr>
-    <tr><td class="paramname">failingCriteria</td><td>array containing the failing criteria messages </td></tr>
-    <tr><td class="paramname">currentTime</td><td>current simulation time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cardinalityName</td><td>name of the parameter to use to derive the number of variables </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> type (INTEGER, BOOLEAN, ...) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> with given name, type, and negated attributes </dd></dl>
 
-<p>Implements <a class="el" href="../../d4/d57/a02882.html#a9c727c23d9a180d3b268a91d91aeabc3">DYN::Criteria::FailingCriteria</a>.</p>
+</div>
+</div>
+<a id="a3ee07c49c8b6803f85967d5fddb79f9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ee07c49c8b6803f85967d5fddb79f9f">&#9670;&nbsp;</a></span>createState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d6/d78/a02886.html">VariableMultiple</a>&gt; DYN::VariableMultipleFactory::createState </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>cardinalityName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../df/db6/a00509.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create new (state) <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cardinalityName</td><td>name of the parameter to use to derive the number of variables </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a> type (INTEGER, BOOLEAN, ...) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d6/d78/a02886.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> with given name, type, and negated attributes </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d0/db6/a00692_source.html">DYNCriteria.h</a></li>
+<li><a class="el" href="../../d4/d9b/a00680_source.html">DYNVariableMultipleFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -355,8 +329,8 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d78/a02886.html">BusCriteria</a></li><li class="navelem"><a class="el" href="../../d6/d92/a02890.html">BusFailingCriteria</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d92/a02890.html">VariableMultipleFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::DYNErrorQueue Class Reference</title>
+<title>Dynawo: timeline::Timeline Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,78 +96,74 @@ $(document).ready(function(){initNavTree('db/d99/a02626.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d4/d29/a02623.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::DYNErrorQueue Class Reference</div>  </div>
+<div class="title">timeline::Timeline Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>class to register multiple errors before failing  
+<p><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> interface class.  
  <a href="../../db/d99/a02626.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/de5/a00503_source.html">DYNErrorQueue.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::DYNErrorQueue:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../db/d99/a02626.png" usemap="#DYN::DYNErrorQueue_map" alt=""/>
-  <map id="DYN::DYNErrorQueue_map" name="DYN::DYNErrorQueue_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d6/d1a/a00485_source.html">TLTimeline.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8250aa690caece149c5906008a8d1f6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#a8250aa690caece149c5906008a8d1f6d">push</a> (const <a class="el" href="../../dc/dd5/a02614.html">DYN::Error</a> &amp;exception)</td></tr>
-<tr class="memdesc:a8250aa690caece149c5906008a8d1f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a new error in the queue  <a href="#a8250aa690caece149c5906008a8d1f6d">More...</a><br /></td></tr>
-<tr class="separator:a8250aa690caece149c5906008a8d1f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3336f8a5153d955219151f20d4779ab8"><td class="memItemLeft" align="right" valign="top"><a id="a3336f8a5153d955219151f20d4779ab8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#a3336f8a5153d955219151f20d4779ab8">flush</a> ()</td></tr>
-<tr class="memdesc:a3336f8a5153d955219151f20d4779ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">throw errors if the queue is not empty, otherwise do nothing <br /></td></tr>
-<tr class="separator:a3336f8a5153d955219151f20d4779ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf9b3536a556df59effc860dfa4df386"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#adf9b3536a556df59effc860dfa4df386">getMaxDisplayedError</a> () const</td></tr>
-<tr class="memdesc:adf9b3536a556df59effc860dfa4df386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the maximum number of errors displayed.  <a href="#adf9b3536a556df59effc860dfa4df386">More...</a><br /></td></tr>
-<tr class="separator:adf9b3536a556df59effc860dfa4df386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9523afe943277a6874a86dd4676530e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#aa9523afe943277a6874a86dd4676530e">Timeline</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:aa9523afe943277a6874a86dd4676530e"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#aa9523afe943277a6874a86dd4676530e">More...</a><br /></td></tr>
+<tr class="separator:aa9523afe943277a6874a86dd4676530e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a229528bbc93d7def1f760bcee7a2d887"><td class="memItemLeft" align="right" valign="top"><a id="a229528bbc93d7def1f760bcee7a2d887"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#a229528bbc93d7def1f760bcee7a2d887">Timeline</a> (const <a class="el" href="../../db/d99/a02626.html">Timeline</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a229528bbc93d7def1f760bcee7a2d887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. <br /></td></tr>
+<tr class="separator:a229528bbc93d7def1f760bcee7a2d887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c74f85c3a51958986f0212331af09d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d99/a02626.html">Timeline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#ad0c74f85c3a51958986f0212331af09d">operator=</a> (const <a class="el" href="../../db/d99/a02626.html">Timeline</a> &amp;)=delete</td></tr>
+<tr class="memdesc:ad0c74f85c3a51958986f0212331af09d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assigment operator.  <a href="#ad0c74f85c3a51958986f0212331af09d">More...</a><br /></td></tr>
+<tr class="separator:ad0c74f85c3a51958986f0212331af09d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ba09205221d48eafd5ef55c3d4b1225"><td class="memItemLeft" align="right" valign="top">void TL_API&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#a4ba09205221d48eafd5ef55c3d4b1225">addEvent</a> (const double &amp;time, const std::string &amp;modelName, const std::string &amp;message, const boost::optional&lt; int &gt; &amp;priority, const std::string &amp;key)</td></tr>
+<tr class="memdesc:a4ba09205221d48eafd5ef55c3d4b1225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an event to the timeline.  <a href="#a4ba09205221d48eafd5ef55c3d4b1225">More...</a><br /></td></tr>
+<tr class="separator:a4ba09205221d48eafd5ef55c3d4b1225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7ffc731a92e1c9836888d6a18311b5c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#ab7ffc731a92e1c9836888d6a18311b5c">getSizeEvents</a> ()</td></tr>
+<tr class="memdesc:ab7ffc731a92e1c9836888d6a18311b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of event getter  <a href="#ab7ffc731a92e1c9836888d6a18311b5c">More...</a><br /></td></tr>
+<tr class="separator:ab7ffc731a92e1c9836888d6a18311b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a5b500579c727ca90b72bfe8443e3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#ad7a5b500579c727ca90b72bfe8443e3b">filter</a> (const std::unordered_map&lt; std::string, std::unordered_set&lt; std::string &gt;&gt; &amp;oppositeEventDico)</td></tr>
+<tr class="memdesc:ad7a5b500579c727ca90b72bfe8443e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter the timeline by removing duplicated events and opposed events happening in the same time step  <a href="#ad7a5b500579c727ca90b72bfe8443e3b">More...</a><br /></td></tr>
+<tr class="separator:ad7a5b500579c727ca90b72bfe8443e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2c695a96ca4b900f3b6d5748728a31b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#ae2c695a96ca4b900f3b6d5748728a31b">eraseEvents</a> (int nbEvents)</td></tr>
+<tr class="memdesc:ae2c695a96ca4b900f3b6d5748728a31b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase the nbEvents in the timeline being before lastEventPosition.  <a href="#ae2c695a96ca4b900f3b6d5748728a31b">More...</a><br /></td></tr>
+<tr class="separator:ae2c695a96ca4b900f3b6d5748728a31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c1c5d61face3b3f3582786bc013549"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::unique_ptr&lt; <a class="el" href="../../de/d3b/a02610.html">Event</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#a99c1c5d61face3b3f3582786bc013549">getEvents</a> () const</td></tr>
+<tr class="memdesc:a99c1c5d61face3b3f3582786bc013549"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of event getter  <a href="#a99c1c5d61face3b3f3582786bc013549">More...</a><br /></td></tr>
+<tr class="separator:a99c1c5d61face3b3f3582786bc013549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2760306dbff1e7de2220caba3e8964f"><td class="memItemLeft" align="right" valign="top"><a id="ab2760306dbff1e7de2220caba3e8964f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#ab2760306dbff1e7de2220caba3e8964f">clear</a> ()</td></tr>
+<tr class="memdesc:ab2760306dbff1e7de2220caba3e8964f"><td class="mdescLeft">&#160;</td><td class="mdescRight">empty constraint collection <br /></td></tr>
+<tr class="separator:ab2760306dbff1e7de2220caba3e8964f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a13d9e74aabbec14768a7cf28bf1b83ac"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../db/d99/a02626.html">DYNErrorQueue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#a13d9e74aabbec14768a7cf28bf1b83ac">instance</a> ()</td></tr>
-<tr class="memdesc:a13d9e74aabbec14768a7cf28bf1b83ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">get singleton  <a href="#a13d9e74aabbec14768a7cf28bf1b83ac">More...</a><br /></td></tr>
-<tr class="separator:a13d9e74aabbec14768a7cf28bf1b83ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aca75aef4c4bb324eaa57ea338be5f916"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#aca75aef4c4bb324eaa57ea338be5f916">eventEquals</a> (const <a class="el" href="../../de/d3b/a02610.html">Event</a> &amp;left, const <a class="el" href="../../de/d3b/a02610.html">Event</a> &amp;right) const</td></tr>
+<tr class="memdesc:aca75aef4c4bb324eaa57ea338be5f916"><td class="mdescLeft">&#160;</td><td class="mdescRight">compare two events  <a href="#aca75aef4c4bb324eaa57ea338be5f916">More...</a><br /></td></tr>
+<tr class="separator:aca75aef4c4bb324eaa57ea338be5f916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a9b425df6470b9ef7f8f3045071db6556"><td class="memItemLeft" align="right" valign="top"><a id="a9b425df6470b9ef7f8f3045071db6556"></a>
-std::queue&lt; <a class="el" href="../../dc/dd5/a02614.html">DYN::Error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#a9b425df6470b9ef7f8f3045071db6556">exceptionQueue_</a></td></tr>
-<tr class="memdesc:a9b425df6470b9ef7f8f3045071db6556"><td class="mdescLeft">&#160;</td><td class="mdescRight">error queue <br /></td></tr>
-<tr class="separator:a9b425df6470b9ef7f8f3045071db6556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="memItemLeft" align="right" valign="top"><a id="ab3c0a5b056f0decb9b46869a0fb38ad2"></a>
+std::vector&lt; std::unique_ptr&lt; <a class="el" href="../../de/d3b/a02610.html">Event</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#ab3c0a5b056f0decb9b46869a0fb38ad2">events_</a></td></tr>
+<tr class="memdesc:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of events. <br /></td></tr>
+<tr class="separator:ab3c0a5b056f0decb9b46869a0fb38ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e844662fdd46177d23db4a7c0a6ba7"><td class="memItemLeft" align="right" valign="top"><a id="af0e844662fdd46177d23db4a7c0a6ba7"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d99/a02626.html#af0e844662fdd46177d23db4a7c0a6ba7">id_</a></td></tr>
+<tr class="memdesc:af0e844662fdd46177d23db4a7c0a6ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a>'s id. <br /></td></tr>
+<tr class="separator:af0e844662fdd46177d23db4a7c0a6ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class to register multiple errors before failing </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="adf9b3536a556df59effc860dfa4df386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf9b3536a556df59effc860dfa4df386">&#9670;&nbsp;</a></span>getMaxDisplayedError()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t DYN::DYNErrorQueue::getMaxDisplayedError </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the maximum number of errors displayed. </p>
-<dl class="section return"><dt>Returns</dt><dd>maximum number of errors displayed </dd></dl>
-
-</div>
-</div>
-<a id="a13d9e74aabbec14768a7cf28bf1b83ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13d9e74aabbec14768a7cf28bf1b83ac">&#9670;&nbsp;</a></span>instance()</h2>
+<div class="textblock"><p><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a> interface class. </p>
+<p>Interface class for timeline object. This a container for events </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa9523afe943277a6874a86dd4676530e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9523afe943277a6874a86dd4676530e">&#9670;&nbsp;</a></span>Timeline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,52 +172,266 @@ std::queue&lt; <a class="el" href="../../dc/dd5/a02614.html">DYN::Error</a> &gt;
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../db/d99/a02626.html">DYNErrorQueue</a>&amp; DYN::DYNErrorQueue::instance </td>
+          <td class="memname">timeline::Timeline::Timeline </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>get singleton </p>
-<dl class="section return"><dt>Returns</dt><dd>singleton </dd></dl>
-
-</div>
-</div>
-<a id="a8250aa690caece149c5906008a8d1f6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8250aa690caece149c5906008a8d1f6d">&#9670;&nbsp;</a></span>push()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::DYNErrorQueue::push </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../dc/dd5/a02614.html">DYN::Error</a> &amp;&#160;</td>
-          <td class="paramname"><em>exception</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>register a new error in the queue </p>
+<p>constructor </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">exception</td><td>error to register </td></tr>
+    <tr><td class="paramname">id</td><td><a class="el" href="../../db/d99/a02626.html" title="Timeline interface class. ">Timeline</a>'s id </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4ba09205221d48eafd5ef55c3d4b1225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ba09205221d48eafd5ef55c3d4b1225">&#9670;&nbsp;</a></span>addEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TL_API timeline::Timeline::addEvent </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::optional&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>priority</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add an event to the timeline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>time when the event occurs </td></tr>
+    <tr><td class="paramname">modelName</td><td>model where the event occurs </td></tr>
+    <tr><td class="paramname">message</td><td>event message </td></tr>
+    <tr><td class="paramname">priority</td><td>event priority, optional </td></tr>
+    <tr><td class="paramname">key</td><td>event key, empty if none </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae2c695a96ca4b900f3b6d5748728a31b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2c695a96ca4b900f3b6d5748728a31b">&#9670;&nbsp;</a></span>eraseEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::Timeline::eraseEvents </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbEvents</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Erase the nbEvents in the timeline being before lastEventPosition. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbEvents</td><td>number of events to delete from the timeline starting from last event </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aca75aef4c4bb324eaa57ea338be5f916"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca75aef4c4bb324eaa57ea338be5f916">&#9670;&nbsp;</a></span>eventEquals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool timeline::Timeline::eventEquals </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d3b/a02610.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../de/d3b/a02610.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>compare two events </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>first event to compare </td></tr>
+    <tr><td class="paramname">right</td><td>second event to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if left is the same event as right </dd></dl>
+
+</div>
+</div>
+<a id="ad7a5b500579c727ca90b72bfe8443e3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a5b500579c727ca90b72bfe8443e3b">&#9670;&nbsp;</a></span>filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timeline::Timeline::filter </td>
+          <td>(</td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, std::unordered_set&lt; std::string &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>oppositeEventDico</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter the timeline by removing duplicated events and opposed events happening in the same time step </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oppositeEventDico</td><td>the opposite event dictionary </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a99c1c5d61face3b3f3582786bc013549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99c1c5d61face3b3f3582786bc013549">&#9670;&nbsp;</a></span>getEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;std::unique_ptr&lt;<a class="el" href="../../de/d3b/a02610.html">Event</a>&gt; &gt;&amp; timeline::Timeline::getEvents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>number of event getter </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of events stored in timeline </dd></dl>
+
+</div>
+</div>
+<a id="ab7ffc731a92e1c9836888d6a18311b5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7ffc731a92e1c9836888d6a18311b5c">&#9670;&nbsp;</a></span>getSizeEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int timeline::Timeline::getSizeEvents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>number of event getter </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of events stored in timeline </dd></dl>
+
+</div>
+</div>
+<a id="ad0c74f85c3a51958986f0212331af09d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0c74f85c3a51958986f0212331af09d">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../db/d99/a02626.html">Timeline</a>&amp; timeline::Timeline::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d99/a02626.html">Timeline</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default copy assigment operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>a new parameter </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d4/de5/a00503_source.html">DYNErrorQueue.h</a></li>
+<li><a class="el" href="../../d6/d1a/a00485_source.html">TLTimeline.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -239,8 +449,8 @@ std::queue&lt; <a class="el" href="../../dc/dd5/a02614.html">DYN::Error</a> &gt;
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../db/d99/a02626.html">DYNErrorQueue</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../db/d99/a02626.html">Timeline</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

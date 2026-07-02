@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Trace Class Reference</title>
+<title>Dynawo: DYN::KeyLog_t Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,249 +95,950 @@ $(document).ready(function(){initNavTree('d1/dc1/a02706.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="../../d8/d4a/a02703.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Trace Class Reference</div>  </div>
+<div class="title">DYN::KeyLog_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d1/dc1/a02706.html" title="Trace static class. ">Trace</a> static class.  
+<p>&lt; struct of KeyLog to declare enum values and names associated to the enum to be used in dynawo  
  <a href="../../d1/dc1/a02706.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d9/d19/a00560_source.html">DYNTrace.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d4/d33/a00536_source.html">DYNLog_keys.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db1/a02718.html">Hasher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash for current_thread_id::value_type.  <a href="../../d9/db1/a02718.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/a02710.html">TagAndSeverityLevelHash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for TagAndSeverityLevel.  <a href="../../d9/d6c/a02710.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d84/a02722.html">TraceAppender</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d1/dc1/a02706.html" title="Trace static class. ">Trace</a> appender class.  <a href="../../df/d84/a02722.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3c/a02714.html">TraceSinks</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stucture defining traces for a specific thread.  <a href="../../d1/d3c/a02714.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac6cbc4466135a8df56745e551c5fa942"><td class="memItemLeft" align="right" valign="top"><a id="ac6cbc4466135a8df56745e551c5fa942"></a>
-typedef boost::log::sinks::synchronous_sink&lt; boost::log::sinks::text_file_backend &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ac6cbc4466135a8df56745e551c5fa942">FileSink</a></td></tr>
-<tr class="memdesc:ac6cbc4466135a8df56745e551c5fa942"><td class="mdescLeft">&#160;</td><td class="mdescRight">File sink for log. <br /></td></tr>
-<tr class="separator:ac6cbc4466135a8df56745e551c5fa942"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e22b115025b40573e1d70adb147f303"><td class="memItemLeft" align="right" valign="top"><a id="a2e22b115025b40573e1d70adb147f303"></a>
-typedef boost::log::sinks::synchronous_sink&lt; boost::log::sinks::text_ostream_backend &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a2e22b115025b40573e1d70adb147f303">TextSink</a></td></tr>
-<tr class="memdesc:a2e22b115025b40573e1d70adb147f303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Text sink for log. <br /></td></tr>
-<tr class="separator:a2e22b115025b40573e1d70adb147f303"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="memItemLeft" align="right" valign="top"><a id="aafd2f7abce58ba76c46e7de79b45d7b7"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a> = std::pair&lt; std::string, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> &gt;</td></tr>
-<tr class="memdesc:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for tag and severity pair. <br /></td></tr>
-<tr class="separator:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a963225344a251150ba0ad6d5264f567f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567f">value</a> { <br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4e474157718b957471ff073a55a3c826">ActionListExtendedNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae85669c808eb9b8776a10a54eb318282">ActionListOverriden</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5f521f7f71fbfb6cacc3ddf072bc2fa9">ActionParameterNotFound</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa97deed143d529ebb13ad790d29f31680">ActionRegistered</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa86f97809441a85ff977dc71c4cf7846d">ActionUnknownSubModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa631019e103ee2e476116d72060085eed">ActionUnparsable</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5a4a5361893d28d8de6a490048250b68">AddingBusToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf138dcf8450f49b3ca4fb9eaf28ce65f">AddingCurve</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3b8c22dc17d676ef58492471647ef015">AddingCurveOutput</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fafb51db4f381a954935354e79b09c56de">AddingCurveParam</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1774ad56ac8b62f085acac1d32f56a85">AddingDanglingLineToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6e6995320e0fbc1142214e471d3168be">AddingDiscreteExtVar</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa3be4cbc81a328686d7b2b53f0c6205f">AddingExtVar</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa41c60474ca792e2e15e10d1b3bb97fdc">AddingGeneratorToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa83296fed3d19574c32b6d185e1b13b19">AddingHvdcToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac33f725f5698876e6f537c0e78658c6a">AddingLineToNetwork</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab01923f2f3f2f75c0f5bfa21a6cd0bb1">AddingLoadToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa552318293a9d960bff0785bca73de3ac">AddingModelToMap</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac962aec6ecdf76272edaf35b2b5d40fd">AddingSVCToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1dccebe246ea0b8a00fe402d41b043cd">AddingShuntToNetwork</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab62bcc194353fe75fe50ba7b07ca8808">AddingSwitchToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae03f0adbfb40d3b2dd7d1e59ba8e38d9">AddingThreeWTfoToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab703cf41460b12f01c31225681f5dac1">AddingTwoWTfoToNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3fc18e824c07e22551ebfd2cd10e4d34">AddingVoltageLevelToNetwork</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac7f33069374e32c61cb09bdf7c89cafe">AlreadyCompiledModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa512f667d5fc27eaccee9dc21677f860a">AlreadyMappedModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa7304bbfd444243272d20e88bfe0de231">BlackBoxModelCompiled</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac7f0aff95bbb9f11c135b42abdbe870b">BusAboveVoltage</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6c4fe28375ea0042b4081ce97b83b7b1">BusExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab209b0d4d20c054b1d146003bd57e5f3">BusUnderVoltage</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf699b4c732990df416cc35ad452bd857">CalcVarConnectionIgnored</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa49663c90ac5cbfc5b16d2d4c859ee2d6">CalculateIC</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab0615b5d5dc886eec8a439a3d47f30e3">CalculateICIteration</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa19a000a4b881e7159076304045e3d72c">CalculatedBusNotFound</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4de8070d20c11c03eaf90ca62f7d3db8">CompilationDone</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa319579cb0e52afe3c394d233842f6c05">CompileCommmand</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad4e60f461e4843e9ea2c4b978e16da41">CompileFiles</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa081f29e0b9914b030d2aa5983d7cf697">CompiledModelID</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faaa7873a451930a7e552ea7d5c9c6d275">CompilingModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac420bfe17d48dc7b22c6215884137a78">ComponentNotFound</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad2dc8f78ccd7bce8cf37e59cea88a50e">ConcatingNetworkConnects</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa321e8c2f8c1fc9376363531fa3cac723">ConnectedModels</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf52a122ad41fb884b96c9725cddb4782">Converter1StateChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fadd627fee7b401cf93dbe7da16e6c738c">Converter2StateChange</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fafac480f4eceb8de513137c195f90b72c">CreateDynamicConnectFailed</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8a057e2ae7bf0440e6c2502c827cb415">CreateStaticConnectFailed</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fafe188b309d86de3f7f62c5b535e6a21f">CriteriaDefinedButNoIIDM</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa198ecb894dfaf85986e1c4b50763c2bc">CurveInit</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac688a3ed39ee8fd22b814ba3b52f6ef9">CurveInitEnd</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567face1016f21f2de3785dd28d5323076c11">CurveNotAdded</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fabf282a98910f29af863146183fdc1f26">CustomDir</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac2df97d5ab77a50f2fa194d5f3cf7b1c">DDBDir</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac1abb889248841546625f52d1c149349">DanglingLineExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fafe41b1f740ab8c5f2942c0718ecb2362">DanglingLineStateChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6b0c6a71e88568537f2991c29297379c">DeactivateCurrentLimits</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae7887ca088b629cab1ce604b9ba2927f">DelayMode</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad7f93ea4ad83eb18c42461dda5021956">DisableInternalTapChanger</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa08e8901e7079343df1ac1f004d1064de">DynamicConnect</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa143879689167b7226f503538205284ad">DynamicConnectStart</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab92be8126734feac689240a5bb208dad">DynawoRevision</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1492daeca9aae8b367e6c64958b743dd">DynawoVersion</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa0d8adeb0ab8641adeebd1837f102a4f8">ElementNames</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa45d3afb6548ebb3f38d3761710257d6f">EndCalculateIC</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa83978d0c66d5820d5549cf45ac6634e7">EndOfJob</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2901b0a503a41b7ca5827aaca012329c">ExecutingCommand</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faba0aed63472bef0ffa91ab461903b69d">ExtVarFileNotFound</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa215ae7fdb08b0d61a319dfd80174994c">GenerateModelicaConcatFile</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa36472608dd1dd2ddee948598cabdf2bb">GeneratorExtDynModel</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae717e6b23454029763f5c9ba3ad6eecd">GeneratorStateChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa680b8a1334325e6e93f3a4596c3deafa">HvdcExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fabbc433c910511c6b0a723baf10a8432a">IIDMExtensionLibraryNotLoaded</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8c61462f1e74fb72e0676614489036ba">IIDMExtensionNoCreate</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa7cb8c749bf36657dce7d51182d09a05b">IIDMExtensionNoDestroy</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3a62a042c04d02859369ef39717e665a">IdaBadEwt</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fadd7c0ac2fbea29880914072f364bdc37">IdaConstrFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa746e6df08b9274f47a2af0cf0a958c21">IdaConvFail</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faaef61fa8c2430427f08f04dea6062d14">IdaFirstResFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8303274dfa43a934ca99d3cc5c95ff9e">IdaIllInput</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fabc55c2a3021cb8406b4038d2c8bc6fe8">IdaLinesearchFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4d8d9887ce92ecbd40ced732e76aa30a">IdaLinitFail</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6bd94d20c678fded1af561ddeaea64e9">IdaLsolveFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac499a18bdb3d9103d8049b6927d06a70">IdaMemNull</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab52522feafdc4523032778239799298b">IdaNoMalloc</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa4dc3adb58e8bf46930c8171b47ff8c5">IdaNoRecovery</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2deacb7a1996671696a989e37cbe89bf">IdaResFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa7153d414195a2d210a47a9f422509ee">IdaSuccess</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa708849131a8fa3c0cbec0fc4afd7c2b">IdalsetupFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fafae72683a454837ebd961d01003e12c9">ImpossibleConnection</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa18f651b18d6f9c31d1e80f4961a6e21d">IncoherentParamMinimumModeChangeType</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa44652c1d90e6e21d1254667f26ea0552">IncorrectConnectionDiffSize</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa775f152849b1278ca46759ff44a0a48b">InternalParam</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa808b46cf47d332ee4bc98bafff561b4b">InvalidModel</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa493a340e5386ebfbcbea9d65d9e148d4">InvalidSharedObjects</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faaed35e758be26c131a43c1c72219c97e">JobSuccess</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa57278a918c4155e2d5bc7733019ef396">KeepSubNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3af580d678f43cbd1c6550fd01a0d403">KinErrorValue</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3e0184f965f92492dc5a647562f25fdc">KinFirstSysFuncErr</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5e4db6ca4b6e227454dc6ba65be01dad">KinIllInput</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae66cbc3a5d9a98a18dd608bdd7063f8c">KinInitialGuessOk</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa291f889069698979f586cc87f0506005">KinLargestErrors</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa36b25741d2c5c220bd3a5b6c78b6d282">KinLineSearchBcFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faad4dc4b1bba426e83d0aaa14b9324178">KinLineSearchNonConv</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fabe970b9345bfb3803a9a6edf0b3f041b">KinLinitFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faec207eb7dc753ac589f9b04439634831">KinLinsolvNoRecovery</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf58a67dd41aebdcf14f4c9caa97b4449">KinLsetupFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2269d34cb8719742d8458765be3e0aae">KinLsolveFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1452bac7ec9c614f813594383e7c84e0">KinMaxIterReached</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf7d23320f78c039cd5b30cbb67885e6e">KinMemFail</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1ad6b9e35708edfb5ebc23863f06eb24">KinMemNull</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faef87a4baff834ffa043195fb9a19fa3a">KinMxNewt5xExceeded</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa9758f31869eb20d4381acc989ffd7950">KinNoMalloc</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1d53156b8ce2340a9e9e45e5c07ae19d">KinReptdSysfuncErr</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf09dd6e734082257852c6e69af1e2c6b">KinRestart</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac75681f6d888a3e7c3a195c9ca25a0c9">KinStepLtStpTol</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa78ec17e16a95fff0b0baee4c2030c2d3">KinSysFuncFail</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faeedc100f25bac9dbd3104fba7c8568b0">KinVectoropErr</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5123783ef469a54b9398936695886e2a">KinsolSucceeded</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa0d954580c468a0bed26bf3fe5ac4555f">LaunchingJob</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fadb4d7501f8d14294d675adfb34f9b38c">LineExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa04cb915d31e9c747aaa62f9d8196c01a">LineStateChange</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab05099965a7541c55f21341b7258e751">LoadExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faaf1d6a4617a2ec2dc3a7e9d19e1c9d46">LoadSheddingValueIncomplete</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa9d7b5c585cbe266fdd9a11bf4b198d0c">LoadStateChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa4010a1ff8a7da75d4d780e442cf5dba">MatrixStructureChange</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa96b2a6baf648cfd3cb6739f13e04dd59">ModeChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa63930402bf27caae776df080c06c36b2">ModeChangeGeneric</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa09cc6ccaee0a2e68d21a477caf2e4b3a">ModelBuilding</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fada0d952ec87d61cfb243b279b34e5e09">ModelBuildingEnd</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad9b0e0231e78e1f65951e4c20c896a89">ModelConnectorsList</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad93733293e124f49aa087305ff9b6eb5">ModelConnectorsNB</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa87ff0b3728e0550d62c7448a17bd6a8d">ModelDesc</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa708b5cf70f700e393c583aafdc5a298e">ModelGlobalInit</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa01c9f79b48566aa9add9957af1bbc4b">ModelGlobalInitEnd</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1f162f562a1bdd77899164987a9e8b72">ModelInitialStateLoad</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4e0b07e8c0065dfc5ba8856e30b73bda">ModelInitialStateLoadEnd</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1b6ec6acb2e8bc83bf33b1dc67ce8a6d">ModelLocalInit</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3b50468b94d2b802710fef99ae4f5f55">ModelLocalInitEnd</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae22dade0aaf132e6f5f749f1fc61fe4f">ModelMultiParamNotFound</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae859e842662901b0e1d705b2689aedf8">ModelName</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab16790451edd4f735937a6330b1d21b7">ModelTemplateExpansionCompiled</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa50c8bc1151e98c0a56200cc4763b32f0">NbRootFunctions</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa34f26e3d7e8e2f51db2c32528779ee18">NbSubNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5385eb0da8666d5e918a3d654e65b74c">NetworkComponentNotFoundInDump</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa03a9d41ebb6a073a73e9b863dba08158">NetworkElementCompNotFound</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa180e3c7285d46031f142cb62dd7a23f6">NetworkElementNames</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6fdf5952cb38140e7808161ca5b2ddb4">NetworkInitSwitchCurrentsFailed</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8d2bb4f1bd3a23ab1d873022254ffbf8">NetworkNbBus</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa7ff653b9550541010c7ad342956cee8b">NetworkNbDanglingLine</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa250533230330fbf4826e3982ce3c13d4">NetworkNbGenerators</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae46691feafdb2a36dcaf52887f42c5e5">NetworkNbHVDC</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2308e0d46748e6e766a282c4669d34ad">NetworkNbLine</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa9f135d5a5b627fceb7b51ef2ff4df332">NetworkNbLoads</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6231d05287cd11ff0a8a6717aa9dd115">NetworkNbSVC</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf111a4d69dd4210dc260b001666fac2a">NetworkNbShunt</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2fe39d1fe3ea062d905621b7a1095490">NetworkNbSwitches</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae5641d642711b53e4e800044682f826a">NetworkNbThreeWTfo</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa27f8b43910b3f66f463bf933100ac03f">NetworkNbTwoWTfo</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3af16c687ef439ae9ed0ffa8dd993ba3">NetworkNbVoltagelevel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa414b7a7edfd1e02cb527b59a49dc18cd">NetworkStats</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad17aff0b7c6029ae42ce9d07902486e5">NewStartPoint</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2f8d1b43a89e8c0073fd9034b439523e">NoNetworkConnection</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8c8a0c1e157e5853c073bf13f285ece5">NotInstancedModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8a6c6977d631468d2ac58c84449600c3">OutputStreamMissing</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa844db6f48a0869ead0b2f4dd1769a5ef">ParamNoValueFound</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa172caf5735f19d4686782e2e230cf540">ParamUnused</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5739671ec8c254b30d11dc67c18a07ec">ParamValueInOrigin</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faeb76c65e30a1c1c8da1449fda2b74161">ParsingExtVarFile</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab74479102eb66c6ee55306e2ef3ff102">PossibleDivisionByZero</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fae33a47ee12ffd79ad366f43d3217a843">PowerBusCriteriaIgnored</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5744d721b728c87fec77046a442c1bc6">PowerQuadripoleCriteriaIgnored</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa79991bd27370aa6e10a09a6c25efc567">PreassembledModelGenerated</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6997d800595af46fa7d261b4f313c784">QuadripoleAboveCurrent</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa89ace2ee127013bade48ca1ab4973472">RTModeCurvesDisabled</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa63b4c01fe54a6d24c071638c316b50ce">ReferenceModelDesc</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5e4895aa9682c0054c7f8c353127940e">RegulModeReqdNoSA</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa25e699edb587804035e49686c04d2d04">ResultFolder</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa119edb97c7093182850de9d80b526758">RootGeq</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1c4334d386fe4177aa9a08893dea1377">SVCExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa9f4e0fc05b19464475e3b056a1f94369">SVCStateChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567facaef1139d15b5e06c3113bafc7aa6730">SetLib</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa07ec615f677b4f18d6136360e5c9c971">ShuntExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa77394ee792d792eef0a44737ff7064d3">ShuntStateChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa9b49f8ccb78d8bf56ccea0ca25c6e9f7">SimulationStart</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac7ef88a93397a6e9e1899463258fbd26">SimulationTimeoutReached</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fadfe3e6d2880c2d450c0159fa8384995e">SolveParameters</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa69bc0cc6ccb92a6e09c25282e377f621">SolveParametersError</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac497962eef25a9b295e5337b22f453db">SolveParametersFError</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4c42b25713e583215f2c79a12a63b23d">SolveParametersOK</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa469bd1255925c654013245c8cfe13ffc">SolverEquationsType</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa3f890fbb45e088d18142f979a6787056">SolverExecutionStats</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa7fbe9474be627e865b5d21dc583b86ab">SolverFixedTimeStepInitGuessOK</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa92b96a5b95c5dba64708331eb8c8480e">SolverFixedTimeStepInitOK</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2a5ace1e95953cb1115ce6ef179e24b4">SolverIDAAfterInit</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad633dc61401e4430920d3d2bf4365019">SolverIDABeforeCalcIC</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad5a91f521db3960e18a9c12b7f94eaa8">SolverIDADebugResidual</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa62f957fcdd06acbdd1c136f482616ca">SolverIDAErrorValue</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad1d5c9aced1ca69d3f158311ae748a58">SolverIDAInitOk</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab4811d5c40c389b6ce4778b2d38a6c57">SolverIDALargestErrors</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa33f2df9fdb3d151be4054fa10c5bb074">SolverIDAMaxDiff</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad235b7d87022ee1fc0b7420ffb32f9c7">SolverIDANumRootsFound</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1376b7b13dc5fbd89badbddff0eb4529">SolverIDARestorAlgebraicEqu</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa7c3da6f7ad35b645bf4c5f190462c0b4">SolverIDAStartCalculateIC</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf86547965e43177c045c578d6f5b411a">SolverIDAUnknownError</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2d7c9c96877653b58700602d6b80e809">SolverInstableRoot</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad15134108b4fd70d44b5bde56d1bc3d4">SolverInstableRootFound</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa86cd531119a225a04417f8d9ab9fc254">SolverKINResidualNorm</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa950c989e705045e4f7460affbd653cd5">SolverKINResidualNormAlg</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa35e5715f021ee34805e010b0bcf6a6a8">SolverKINUnknownError</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa069ab0cc81bba9d917f43de8ddf39186">SolverLargestDeriv</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa88a8bb004b248dae033ae975a4853147">SolverLargestDerivValue</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab5f7eba06025b992d5ebf03f1f556a3b">SolverNbAlgebraicJacEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf6d5b59d0ea5cd67550b38c8bcbe7bce">SolverNbAlgebraicPrimJacEval</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab50b1d0c8f72186d0c46bdf18d00d4bf">SolverNbAlgebraicPrimResEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faedb553b38e0ce707b580eb20c73e9daa">SolverNbAlgebraicResEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1a81a23c92da061dffd2f3931c03f080">SolverNbDiscreteVarsEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa55f287b5a872cf3b4fa7d3ca2575bb27">SolverNbErrorTestFail</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa0ca18e5918b70b9facda05b7a30ccf60">SolverNbInternalRootFuncEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa73b2263e6cfe38df3457e37c6d06ef96">SolverNbIter</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf0941960258367dc7c315dc11521b23d">SolverNbJacEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2a170a0205b2020cfbe99b6ba6cab914">SolverNbModeEval</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4e00faae2e726cf28d28a0bdb86ee1c0">SolverNbModeEvalAlg</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa303b902c16e8f8158cc7c05b6036a7ad">SolverNbModeEvalAlgJ</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa28ac61cde31924ed5d40150f53a190a4">SolverNbModeEvalDiff</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf03d5eb38f5bacc58f41cf8077ff42eb">SolverNbNonLinConvFail</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa51d2e5f536fa830a29a6e83d30c17553">SolverNbNonLinIter</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4aa29378d7e74724e9307d1bf398b1fc">SolverNbResEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad3f9ca18e7a6663d823e596cec2bd72e">SolverNbSolverRootFuncEval</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa9c5182d17ef8edbaca883faca704503a">SolverNbYVar</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa21fba4e1f97cfd333218e82c9669e4af">SolverNbZVar</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad39ea10ff1923112a327ce31f9c94a93">SolverVariablesType</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa9efdd2e5acc048d7c21310951f75bc81">SourceAbovePower</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa76bc6d76f07f59619c2b03dd093479c8">SourcePowerAboveMax</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa0dc2c7f11b348464adc74dfd633f242d">SourcePowerBelowMin</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa1961a1c353b2ce0bfe971b12df6d50c6">SourcePowerTakenIntoAccount</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad235931b6f9d1e60f2006bcaaa0b7863">SourceUnderPower</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5f90ae108ec998dfd891fa0b203da578">StartingPointModeNotFound</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab513eda0d81d71e6e72faac1b9698a59">StaticConnect</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faae6116c2f520ed9cde3922083fcd80e9">StreamDataNotManaged</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa05c7e03abb9b48ad22cb25833c9218d8">SubModelExtVar</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa14b7a054b824a2b0b20547f84201e548">SubModelFeqFormulaNotExist</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567facbd5d993d59216b47dfa32a4b0aa5d74">SubModelGeqFormulaNotExist</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faf768f890e59ed9e52b637a1c8bd1baf5">SubNetwork</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6d16efd8ca80f7f1d1cdc94c1516b6ff">SumBusCriteriaIgnored</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa134d5aafb8b3c200a735a5c1956fda9b">SumQuadripoleCriteriaIgnored</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa6223e72b4273a618d176ad8fec6673c7">SwitchExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac412ce8cdf6e0f05205389053f74c721">SwitchOffBus</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa0e69e1465b4dc8f3e782ffc0511a943c">SwitchOnBus</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa476e542f340aeb3fcf6a70897b1a589b">SwitchStateChange</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa4ce4ca49746372b0c2b5bf2c98324db7">TapChangerLocked</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa50fbca4ad4256b39b52516d579a93619">TfoStateChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa00895c49bc30df4a492dfb438ea3737e">TfoTapChange</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa17ab9bf62d275910f7ca725f5833671e">ThreeWTfoExtDynModel</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa59e5d183e9bb9d3af8e3314eb3ff1562">TwoWTfoExtDynModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2c5fb088eede4f489db8c2f81d826d7c">UnableToCloseLine</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa96a5b42765147e8d25b258c2688ad788">UnableToCloseLineSide1</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa443aa27177a03fb6ff4e1a8a68eda9cf">UnableToCloseLineSide2</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa0ff8bc82972fa92ff55cde6daa5411af">UnableToCloseTfo</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567faa02a0cbcb5bb86b845e3d05775b7e794">UnableToCloseTfoSide1</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa881fc086ed336cd2e4eff2196f9e9b65">UnableToCloseTfoSide2</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8cfba1fad2958243c860f2cca9c7bb1b">UnexpectedError</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fada06915051ddfe1f72265f05d2bfd67f">UnknownChannelType</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad02787760f40481585429d82e6da5b4f">UnsopportedOutputChannel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fad1926939395ad67c74c88939c8023a4e">UnstableRoot</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fab7a6a4d12fd577285613ca35c3f24139">UnstableRootFound</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8f217929ddb840e6db35d07f25c69784">UpdatableIgnoredMultiplier</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fabce1a81b9dfb8b1fb0cabf71d9d08d38">ValidatedModel</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa941e37273f1621c20d74ef8731f8fa32">VarCreatedForRef</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa5feb6a7b6b0c6db7fe58789fdbaa2da3">VariableNotSet</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fac97f7a9f2697acc8a82127fcf6d19e38">WrongCheckSum</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa267d50e34d5eb0d1ac388eaf95f5ea16">WrongComponentType</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa65114e02866e2ba2bcf5aec5b97422cf">WrongParameterNum</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa2bcf5bd4c6e1912ed9d007d0ab767b3c">WrongStartTime</a>, 
+<br />
+&#160;&#160;<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa754e52e6935d68eeee837f3e50281e39">XmlParsingError</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa8f482be747dfaf4f1703276adb408e1f">ZmqChannelCreated</a>, 
+<a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567fa43ac875faa3cccd58ef50793f53ddab6">ZmqDataSent</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a963225344a251150ba0ad6d5264f567f"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; enum of possible key for Log  <a href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567f">More...</a><br /></td></tr>
+<tr class="separator:a963225344a251150ba0ad6d5264f567f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aeb4d1e4c93e960d1e3f7fcdf69c8de7b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aeb4d1e4c93e960d1e3f7fcdf69c8de7b">init</a> ()</td></tr>
-<tr class="memdesc:aeb4d1e4c93e960d1e3f7fcdf69c8de7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init function.  <a href="#aeb4d1e4c93e960d1e3f7fcdf69c8de7b">More...</a><br /></td></tr>
-<tr class="separator:aeb4d1e4c93e960d1e3f7fcdf69c8de7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66640be8ccf953a4aaa3b4856ebdc99a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a66640be8ccf953a4aaa3b4856ebdc99a">disableLogging</a> ()</td></tr>
-<tr class="memdesc:a66640be8ccf953a4aaa3b4856ebdc99a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable logging.  <a href="#a66640be8ccf953a4aaa3b4856ebdc99a">More...</a><br /></td></tr>
-<tr class="separator:a66640be8ccf953a4aaa3b4856ebdc99a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ead755599c78d30183ac714e6bbf07b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a6ead755599c78d30183ac714e6bbf07b">enableLogging</a> ()</td></tr>
-<tr class="memdesc:a6ead755599c78d30183ac714e6bbf07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging.  <a href="#a6ead755599c78d30183ac714e6bbf07b">More...</a><br /></td></tr>
-<tr class="separator:a6ead755599c78d30183ac714e6bbf07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a53362ff6bec8ecfccaa5c65237dacc9d">isLoggingEnabled</a> ()</td></tr>
-<tr class="memdesc:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if logging is enabled.  <a href="#a53362ff6bec8ecfccaa5c65237dacc9d">More...</a><br /></td></tr>
-<tr class="separator:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a632d5d8ddfe05fb0c4a75cdf98267995">clearAndAddAppenders</a> (const std::vector&lt; <a class="el" href="../../df/d84/a02722.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
-<tr class="memdesc:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#a632d5d8ddfe05fb0c4a75cdf98267995">More...</a><br /></td></tr>
-<tr class="separator:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a307efa62de51e067f029f51acf146e77"><td class="memItemLeft" align="right" valign="top"><a id="a307efa62de51e067f029f51acf146e77"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a307efa62de51e067f029f51acf146e77">resetCustomAppenders</a> ()</td></tr>
-<tr class="memdesc:a307efa62de51e067f029f51acf146e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistent custom appenders of trace system. <br /></td></tr>
-<tr class="separator:a307efa62de51e067f029f51acf146e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76de36fc84be513d3d2cb02daa313995"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a76de36fc84be513d3d2cb02daa313995">resetCustomAppender</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a76de36fc84be513d3d2cb02daa313995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistent custom appender of trace system.  <a href="#a76de36fc84be513d3d2cb02daa313995">More...</a><br /></td></tr>
-<tr class="separator:a76de36fc84be513d3d2cb02daa313995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="memItemLeft" align="right" valign="top"><a id="a3c4394a1492ec44bb3a95bf8fb116bb2"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a3c4394a1492ec44bb3a95bf8fb116bb2">resetPersistentCustomAppenders</a> ()</td></tr>
-<tr class="memdesc:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistent custom appenders of trace system. <br /></td></tr>
-<tr class="separator:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ab96ee04bf35308dc28a8f00f2b8fd035">resetPersistentCustomAppender</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistent custom appenders of trace system.  <a href="#ab96ee04bf35308dc28a8f00f2b8fd035">More...</a><br /></td></tr>
-<tr class="separator:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b32ed908d57a17b8e6fed12b11729f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#af3b32ed908d57a17b8e6fed12b11729f">severityLevelFromString</a> (const std::string &amp;level)</td></tr>
-<tr class="memdesc:af3b32ed908d57a17b8e6fed12b11729f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get SeverityLevel associated to a string.  <a href="#af3b32ed908d57a17b8e6fed12b11729f">More...</a><br /></td></tr>
-<tr class="separator:af3b32ed908d57a17b8e6fed12b11729f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af47b277a2efdd794a442b758f0f52b92"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#af47b277a2efdd794a442b758f0f52b92">stringFromSeverityLevel</a> (<a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> level)</td></tr>
-<tr class="memdesc:af47b277a2efdd794a442b758f0f52b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get string representation of a severity level.  <a href="#af47b277a2efdd794a442b758f0f52b92">More...</a><br /></td></tr>
-<tr class="separator:af47b277a2efdd794a442b758f0f52b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2b286a8d73821c19afa910857de6fc0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ac2b286a8d73821c19afa910857de6fc0">debug</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:ac2b286a8d73821c19afa910857de6fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get debug severity level stream.  <a href="#ac2b286a8d73821c19afa910857de6fc0">More...</a><br /></td></tr>
-<tr class="separator:ac2b286a8d73821c19afa910857de6fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a52c38e4b1900200dc8d044e44bdb6e7b">info</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get info severity level stream.  <a href="#a52c38e4b1900200dc8d044e44bdb6e7b">More...</a><br /></td></tr>
-<tr class="separator:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#aed71ecb5071fd4ad758cb4a11afe90d0">warn</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get warning severity level stream.  <a href="#aed71ecb5071fd4ad758cb4a11afe90d0">More...</a><br /></td></tr>
-<tr class="separator:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8622cc7364876bbbaabe38021fca2ff5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a8622cc7364876bbbaabe38021fca2ff5">error</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:a8622cc7364876bbbaabe38021fca2ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get error severity level stream.  <a href="#a8622cc7364876bbbaabe38021fca2ff5">More...</a><br /></td></tr>
-<tr class="separator:a8622cc7364876bbbaabe38021fca2ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a341e9509c5448c5ba113cefc68b9b2b9"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a341e9509c5448c5ba113cefc68b9b2b9">network</a> ()</td></tr>
-<tr class="memdesc:a341e9509c5448c5ba113cefc68b9b2b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network identifier.  <a href="#a341e9509c5448c5ba113cefc68b9b2b9">More...</a><br /></td></tr>
-<tr class="separator:a341e9509c5448c5ba113cefc68b9b2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d65c604c5c6cbf5617b38f0b4b97ddd"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a5d65c604c5c6cbf5617b38f0b4b97ddd">equations</a> ()</td></tr>
-<tr class="memdesc:a5d65c604c5c6cbf5617b38f0b4b97ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get equations identifier.  <a href="#a5d65c604c5c6cbf5617b38f0b4b97ddd">More...</a><br /></td></tr>
-<tr class="separator:a5d65c604c5c6cbf5617b38f0b4b97ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad09d54f3f5449472ac0d5fa4df242ff2"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ad09d54f3f5449472ac0d5fa4df242ff2">variables</a> ()</td></tr>
-<tr class="memdesc:ad09d54f3f5449472ac0d5fa4df242ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get variables identifier.  <a href="#ad09d54f3f5449472ac0d5fa4df242ff2">More...</a><br /></td></tr>
-<tr class="separator:ad09d54f3f5449472ac0d5fa4df242ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a895437987b11c322e386a71db0276ff1"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a895437987b11c322e386a71db0276ff1">parameters</a> ()</td></tr>
-<tr class="memdesc:a895437987b11c322e386a71db0276ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get parameters identifier.  <a href="#a895437987b11c322e386a71db0276ff1">More...</a><br /></td></tr>
-<tr class="separator:a895437987b11c322e386a71db0276ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90ce0bedf47a172a020ded5230213215"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a90ce0bedf47a172a020ded5230213215">compile</a> ()</td></tr>
-<tr class="memdesc:a90ce0bedf47a172a020ded5230213215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get compile identifier.  <a href="#a90ce0bedf47a172a020ded5230213215">More...</a><br /></td></tr>
-<tr class="separator:a90ce0bedf47a172a020ded5230213215"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dc793e91044d1105e542dbef99554fc"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a2dc793e91044d1105e542dbef99554fc">modeler</a> ()</td></tr>
-<tr class="memdesc:a2dc793e91044d1105e542dbef99554fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get modeler identifier.  <a href="#a2dc793e91044d1105e542dbef99554fc">More...</a><br /></td></tr>
-<tr class="separator:a2dc793e91044d1105e542dbef99554fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a095fbe7be6e7a689d79d776257dcb643"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a095fbe7be6e7a689d79d776257dcb643">solver</a> ()</td></tr>
-<tr class="memdesc:a095fbe7be6e7a689d79d776257dcb643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get solver identifier.  <a href="#a095fbe7be6e7a689d79d776257dcb643">More...</a><br /></td></tr>
-<tr class="separator:a095fbe7be6e7a689d79d776257dcb643"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73030d1e0ff4f63f34867c229263d85f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a73030d1e0ff4f63f34867c229263d85f">endline</a> (<a class="el" href="../../d6/d95/a02726.html">TraceStream</a> &amp;os)</td></tr>
-<tr class="memdesc:a73030d1e0ff4f63f34867c229263d85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print end of line in trace.  <a href="#a73030d1e0ff4f63f34867c229263d85f">More...</a><br /></td></tr>
-<tr class="separator:a73030d1e0ff4f63f34867c229263d85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54921ad88a19128556e6698d859ab21e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a54921ad88a19128556e6698d859ab21e">logExists</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a54921ad88a19128556e6698d859ab21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">test if a log exists  <a href="#a54921ad88a19128556e6698d859ab21e">More...</a><br /></td></tr>
-<tr class="separator:a54921ad88a19128556e6698d859ab21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a461adbbeb40c6d19199e168e6a3e7a14"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a461adbbeb40c6d19199e168e6a3e7a14">standardLogExists</a> (<a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a461adbbeb40c6d19199e168e6a3e7a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a standard log exists.  <a href="#a461adbbeb40c6d19199e168e6a3e7a14">More...</a><br /></td></tr>
-<tr class="separator:a461adbbeb40c6d19199e168e6a3e7a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a5dc8eeed52390a75e42b6bf5c69deb1d">printDynawoLogHeader</a> (const std::string &amp;tag)</td></tr>
-<tr class="memdesc:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print Dynawo log header in the log file corresponding to input tag.  <a href="#a5dc8eeed52390a75e42b6bf5c69deb1d">More...</a><br /></td></tr>
-<tr class="separator:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a709a2d09fed3d64a437ac19265ba7c82"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a709a2d09fed3d64a437ac19265ba7c82">clearLogFile</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a709a2d09fed3d64a437ac19265ba7c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a709a2d09fed3d64a437ac19265ba7c82">More...</a><br /></td></tr>
-<tr class="separator:a709a2d09fed3d64a437ac19265ba7c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a7864c4cc32f90dedd4dc6bc7ed00f919">init_</a> ()</td></tr>
-<tr class="memdesc:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init function.  <a href="#a7864c4cc32f90dedd4dc6bc7ed00f919">More...</a><br /></td></tr>
-<tr class="separator:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a453ef21746e95eba6d0709596f261dd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a453ef21746e95eba6d0709596f261dd5">clearAndAddAppenders_</a> (const std::vector&lt; <a class="el" href="../../df/d84/a02722.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
-<tr class="memdesc:a453ef21746e95eba6d0709596f261dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#a453ef21746e95eba6d0709596f261dd5">More...</a><br /></td></tr>
-<tr class="separator:a453ef21746e95eba6d0709596f261dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a439cfe7a22ca398d54d9f93d7122ca31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a439cfe7a22ca398d54d9f93d7122ca31">configureSink</a> (const std::vector&lt; <a class="el" href="../../df/d84/a02722.html">TraceAppender</a> &gt; &amp;appenders, bool eraseSinks)</td></tr>
-<tr class="memdesc:a439cfe7a22ca398d54d9f93d7122ca31"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure a sink to add it to the logging core singleton  <a href="#a439cfe7a22ca398d54d9f93d7122ca31">More...</a><br /></td></tr>
-<tr class="separator:a439cfe7a22ca398d54d9f93d7122ca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc3fe327a69bdfd37672ab9d5626af41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#afc3fe327a69bdfd37672ab9d5626af41">resetCustomAppenders_</a> ()</td></tr>
-<tr class="memdesc:afc3fe327a69bdfd37672ab9d5626af41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistent custom appenders of trace system.  <a href="#afc3fe327a69bdfd37672ab9d5626af41">More...</a><br /></td></tr>
-<tr class="separator:afc3fe327a69bdfd37672ab9d5626af41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a8bccbd6d9b48a016c34cfebe73d0db9a">resetCustomAppender_</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistent custom appender of trace system.  <a href="#a8bccbd6d9b48a016c34cfebe73d0db9a">More...</a><br /></td></tr>
-<tr class="separator:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a935f9eaefff49d3e4922f93882a5b973"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a935f9eaefff49d3e4922f93882a5b973">resetPersistentCustomAppenders_</a> ()</td></tr>
-<tr class="memdesc:a935f9eaefff49d3e4922f93882a5b973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistent custom appenders of trace system.  <a href="#a935f9eaefff49d3e4922f93882a5b973">More...</a><br /></td></tr>
-<tr class="separator:a935f9eaefff49d3e4922f93882a5b973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b31bd1980c016db75e45913c1f7b4cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a3b31bd1980c016db75e45913c1f7b4cb">resetPersistentCustomAppender_</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a3b31bd1980c016db75e45913c1f7b4cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistent custom appenders of trace system.  <a href="#a3b31bd1980c016db75e45913c1f7b4cb">More...</a><br /></td></tr>
-<tr class="separator:a3b31bd1980c016db75e45913c1f7b4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c21220bde51642160d957c4b0cc98dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a9c21220bde51642160d957c4b0cc98dc">logExists_</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a9c21220bde51642160d957c4b0cc98dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">test if a log exists  <a href="#a9c21220bde51642160d957c4b0cc98dc">More...</a><br /></td></tr>
-<tr class="separator:a9c21220bde51642160d957c4b0cc98dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73e79e893ac9c7738748237f3aaee341"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a73e79e893ac9c7738748237f3aaee341">log_</a> (<a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv, const std::string &amp;tag, const std::string &amp;message)</td></tr>
-<tr class="memdesc:a73e79e893ac9c7738748237f3aaee341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a log to logging core.  <a href="#a73e79e893ac9c7738748237f3aaee341">More...</a><br /></td></tr>
-<tr class="separator:a73e79e893ac9c7738748237f3aaee341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34a846264cffadc0debbcf69a6f11885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a34a846264cffadc0debbcf69a6f11885">clearLogFile_</a> (const std::string &amp;tag, <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a34a846264cffadc0debbcf69a6f11885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a34a846264cffadc0debbcf69a6f11885">More...</a><br /></td></tr>
-<tr class="separator:a34a846264cffadc0debbcf69a6f11885"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a0188db446e78ff2ae7cba793ecb7ef50"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/dc1/a02706.html">Trace</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a0188db446e78ff2ae7cba793ecb7ef50">instance</a> ()</td></tr>
-<tr class="memdesc:a0188db446e78ff2ae7cba793ecb7ef50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves static instance.  <a href="#a0188db446e78ff2ae7cba793ecb7ef50">More...</a><br /></td></tr>
-<tr class="separator:a0188db446e78ff2ae7cba793ecb7ef50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fd36125a1d3cf7d6ef897786cbe6191"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a0fd36125a1d3cf7d6ef897786cbe6191">log</a> (<a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv, const std::string &amp;tag, const std::string &amp;message)</td></tr>
-<tr class="memdesc:a0fd36125a1d3cf7d6ef897786cbe6191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a log to logging core.  <a href="#a0fd36125a1d3cf7d6ef897786cbe6191">More...</a><br /></td></tr>
-<tr class="separator:a0fd36125a1d3cf7d6ef897786cbe6191"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a46b645a509df6446195a38e250e5c74c"><td class="memItemLeft" align="right" valign="top"><a id="a46b645a509df6446195a38e250e5c74c"></a>
-std::unordered_multimap&lt; <a class="el" href="../../d1/dc1/a02706.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a>, <a class="el" href="../../df/d84/a02722.html">TraceAppender</a>, <a class="el" href="../../d9/d6c/a02710.html">TagAndSeverityLevelHash</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a46b645a509df6446195a38e250e5c74c">traceAppenders_</a></td></tr>
-<tr class="memdesc:a46b645a509df6446195a38e250e5c74c"><td class="mdescLeft">&#160;</td><td class="mdescRight">multimap each appender tag to its corresponding boost sink configuration <br /></td></tr>
-<tr class="separator:a46b645a509df6446195a38e250e5c74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="memItemLeft" align="right" valign="top"><a id="ad57e6aaa172f3f4e73dd445a7c22c260"></a>
-std::unordered_map&lt; boost::log::attributes::current_thread_id::value_type, <a class="el" href="../../d1/d3c/a02714.html">TraceSinks</a>, <a class="el" href="../../d9/db1/a02718.html">Hasher</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#ad57e6aaa172f3f4e73dd445a7c22c260">sinks_</a></td></tr>
-<tr class="memdesc:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="mdescLeft">&#160;</td><td class="mdescRight">thread specific sinks <br /></td></tr>
-<tr class="separator:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52b7b9674e794dda747107167ade0bce"><td class="memItemLeft" align="right" valign="top"><a id="a52b7b9674e794dda747107167ade0bce"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d1/dc1/a02706.html#a2e22b115025b40573e1d70adb147f303">Trace::TextSink</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a52b7b9674e794dda747107167ade0bce">originalSinks_</a></td></tr>
-<tr class="memdesc:a52b7b9674e794dda747107167ade0bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original sinks. <br /></td></tr>
-<tr class="separator:a52b7b9674e794dda747107167ade0bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27895ae6af1a3ea7783d450d0b4f9457"><td class="memItemLeft" align="right" valign="top"><a id="a27895ae6af1a3ea7783d450d0b4f9457"></a>
-boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a27895ae6af1a3ea7783d450d0b4f9457">mutex_</a></td></tr>
-<tr class="memdesc:a27895ae6af1a3ea7783d450d0b4f9457"><td class="mdescLeft">&#160;</td><td class="mdescRight">mutex to synchronize logs at init <br /></td></tr>
-<tr class="separator:a27895ae6af1a3ea7783d450d0b4f9457"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a375085fe7a8227699b8adf965404e365"><td class="memItemLeft" align="right" valign="top"><a id="a375085fe7a8227699b8adf965404e365"></a>
-static const <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a375085fe7a8227699b8adf965404e365">defaultLevel_</a></td></tr>
-<tr class="memdesc:a375085fe7a8227699b8adf965404e365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default log level for standard output. <br /></td></tr>
-<tr class="separator:a375085fe7a8227699b8adf965404e365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a891b3c8b59878fa15d6e05b8c9b89bd0"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc1/a02706.html#a891b3c8b59878fa15d6e05b8c9b89bd0">names</a> (const <a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567f">value</a> &amp;)</td></tr>
+<tr class="memdesc:a891b3c8b59878fa15d6e05b8c9b89bd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name associated to the enum.  <a href="#a891b3c8b59878fa15d6e05b8c9b89bd0">More...</a><br /></td></tr>
+<tr class="separator:a891b3c8b59878fa15d6e05b8c9b89bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d1/dc1/a02706.html" title="Trace static class. ">Trace</a> static class. </p>
-<p><a class="el" href="../../d1/dc1/a02706.html" title="Trace static class. ">Trace</a> static class is used to generate log files and configure them. It is also the only interface for logging streams in Dynawo.<br />
-Traces generated before any call to <code><a class="el" href="../../d1/dc1/a02706.html#aeb4d1e4c93e960d1e3f7fcdf69c8de7b" title="Init function. ">init()</a></code> static function are ignored. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a632d5d8ddfe05fb0c4a75cdf98267995"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a632d5d8ddfe05fb0c4a75cdf98267995">&#9670;&nbsp;</a></span>clearAndAddAppenders()</h2>
+<div class="textblock"><p>&lt; struct of KeyLog to declare enum values and names associated to the enum to be used in dynawo </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a963225344a251150ba0ad6d5264f567f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a963225344a251150ba0ad6d5264f567f">&#9670;&nbsp;</a></span>value</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void DYN::Trace::clearAndAddAppenders </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../df/d84/a02722.html">TraceAppender</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>appenders</em></td><td>)</td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567f">DYN::KeyLog_t::value</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Add custom appenders to trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">appenders</td><td>: Appenders to add </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>&lt; enum of possible key for Log </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4e474157718b957471ff073a55a3c826"></a>ActionListExtendedNetwork&#160;</td><td class="fielddoc"><p>action list extended for NETWORK <a class="el" href="../../dc/d90/a02854.html" title="SubModel Class. ">SubModel</a> </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae85669c808eb9b8776a10a54eb318282"></a>ActionListOverriden&#160;</td><td class="fielddoc"><p>actions overriden for <a class="el" href="../../dc/d90/a02854.html" title="SubModel Class. ">SubModel</a>: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5f521f7f71fbfb6cacc3ddf072bc2fa9"></a>ActionParameterNotFound&#160;</td><td class="fielddoc"><p>action registry failed: unknown parameter: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa97deed143d529ebb13ad790d29f31680"></a>ActionRegistered&#160;</td><td class="fielddoc"><p>action registered for <a class="el" href="../../dc/d90/a02854.html" title="SubModel Class. ">SubModel</a>: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa86f97809441a85ff977dc71c4cf7846d"></a>ActionUnknownSubModel&#160;</td><td class="fielddoc"><p>impossible to register action. Unknown <a class="el" href="../../dc/d90/a02854.html" title="SubModel Class. ">SubModel</a>: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa631019e103ee2e476116d72060085eed"></a>ActionUnparsable&#160;</td><td class="fielddoc"><p>could not parse action, incomplete data (%1%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5a4a5361893d28d8de6a490048250b68"></a>AddingBusToNetwork&#160;</td><td class="fielddoc"><p>adding bus %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf138dcf8450f49b3ca4fb9eaf28ce65f"></a>AddingCurve&#160;</td><td class="fielddoc"><p>adding curve : Id: %1%; curve: %2% found. (exact name) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3b8c22dc17d676ef58492471647ef015"></a>AddingCurveOutput&#160;</td><td class="fielddoc"><p>adding curve : Id: %1%; output: %2% found.( %3% ) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fafb51db4f381a954935354e79b09c56de"></a>AddingCurveParam&#160;</td><td class="fielddoc"><p>adding parameter curve: Id: %1%; parameter curve: %2% found. (exact name) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1774ad56ac8b62f085acac1d32f56a85"></a>AddingDanglingLineToNetwork&#160;</td><td class="fielddoc"><p>adding Dangling Line %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6e6995320e0fbc1142214e471d3168be"></a>AddingDiscreteExtVar&#160;</td><td class="fielddoc"><p>connected discrete variable %1% is added as external variable </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa3be4cbc81a328686d7b2b53f0c6205f"></a>AddingExtVar&#160;</td><td class="fielddoc"><p>variable %1% is added as external variable </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa41c60474ca792e2e15e10d1b3bb97fdc"></a>AddingGeneratorToNetwork&#160;</td><td class="fielddoc"><p>adding Generator %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa83296fed3d19574c32b6d185e1b13b19"></a>AddingHvdcToNetwork&#160;</td><td class="fielddoc"><p>adding HVDC %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac33f725f5698876e6f537c0e78658c6a"></a>AddingLineToNetwork&#160;</td><td class="fielddoc"><p>adding Line %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab01923f2f3f2f75c0f5bfa21a6cd0bb1"></a>AddingLoadToNetwork&#160;</td><td class="fielddoc"><p>adding load %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa552318293a9d960bff0785bca73de3ac"></a>AddingModelToMap&#160;</td><td class="fielddoc"><p>modelica model %1% has same structure as %2%. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac962aec6ecdf76272edaf35b2b5d40fd"></a>AddingSVCToNetwork&#160;</td><td class="fielddoc"><p>adding SVC %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1dccebe246ea0b8a00fe402d41b043cd"></a>AddingShuntToNetwork&#160;</td><td class="fielddoc"><p>adding Shunt Compensator %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab62bcc194353fe75fe50ba7b07ca8808"></a>AddingSwitchToNetwork&#160;</td><td class="fielddoc"><p>adding Switch %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae03f0adbfb40d3b2dd7d1e59ba8e38d9"></a>AddingThreeWTfoToNetwork&#160;</td><td class="fielddoc"><p>adding Three Windings Transformer %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab703cf41460b12f01c31225681f5dac1"></a>AddingTwoWTfoToNetwork&#160;</td><td class="fielddoc"><p>adding Two Windings Transformer %1% to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3fc18e824c07e22551ebfd2cd10e4d34"></a>AddingVoltageLevelToNetwork&#160;</td><td class="fielddoc"><p>adding voltage level %1% to the Network </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac7f33069374e32c61cb09bdf7c89cafe"></a>AlreadyCompiledModel&#160;</td><td class="fielddoc"><p>model %1% already compiled : nothing to do. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa512f667d5fc27eaccee9dc21677f860a"></a>AlreadyMappedModel&#160;</td><td class="fielddoc"><p>modelica model's model description %1% already mapped: nothing to do. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa7304bbfd444243272d20e88bfe0de231"></a>BlackBoxModelCompiled&#160;</td><td class="fielddoc"><p>blackBox <a class="el" href="../../d1/de5/a02822.html" title="Generic model Generic class for Model. ">Model</a>: %1%. Compilation succeed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac7f0aff95bbb9f11c135b42abdbe870b"></a>BusAboveVoltage&#160;</td><td class="fielddoc"><p>node: %1% has a voltage %2% kV (%3% pu) &gt; %4% kV (%5% pu) (criteria id: %6%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6c4fe28375ea0042b4081ce97b83b7b1"></a>BusExtDynModel&#160;</td><td class="fielddoc"><p>bus %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab209b0d4d20c054b1d146003bd57e5f3"></a>BusUnderVoltage&#160;</td><td class="fielddoc"><p>node: %1% has a voltage %2% kV (%3% pu) &lt; %4% kV (%5% pu) (criteria id: %6%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf699b4c732990df416cc35ad452bd857"></a>CalcVarConnectionIgnored&#160;</td><td class="fielddoc"><p>connection between calculated variables %1% and %2% will be ignored </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa49663c90ac5cbfc5b16d2d4c859ee2d6"></a>CalculateIC&#160;</td><td class="fielddoc"><p>calculate initial condition of the DAE </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab0615b5d5dc886eec8a439a3d47f30e3"></a>CalculateICIteration&#160;</td><td class="fielddoc"><p>initial condition iteration %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa19a000a4b881e7159076304045e3d72c"></a>CalculatedBusNotFound&#160;</td><td class="fielddoc"><p>calculated bus associated to '%1' bus bar section '%2' was not found </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4de8070d20c11c03eaf90ca62f7d3db8"></a>CompilationDone&#160;</td><td class="fielddoc"><p>COMPILATION ACCOMPLISHED. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa319579cb0e52afe3c394d233842f6c05"></a>CompileCommmand&#160;</td><td class="fielddoc"><p>compile command: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad4e60f461e4843e9ea2c4b978e16da41"></a>CompileFiles&#160;</td><td class="fielddoc"><p>compilation files (and packages) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa081f29e0b9914b030d2aa5983d7cf697"></a>CompiledModelID&#160;</td><td class="fielddoc"><p>compiled model ID: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faaa7873a451930a7e552ea7d5c9c6d275"></a>CompilingModel&#160;</td><td class="fielddoc"><p>compiling %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac420bfe17d48dc7b22c6215884137a78"></a>ComponentNotFound&#160;</td><td class="fielddoc"><p>component %1% was not found </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad2dc8f78ccd7bce8cf37e59cea88a50e"></a>ConcatingNetworkConnects&#160;</td><td class="fielddoc"><p>concatingNetworkConnects: %1% : %2% : %3% : %4%. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa321e8c2f8c1fc9376363531fa3cac723"></a>ConnectedModels&#160;</td><td class="fielddoc"><p>model %1% to model %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf52a122ad41fb884b96c9725cddb4782"></a>Converter1StateChange&#160;</td><td class="fielddoc"><p>state of converter 1 of HVDC link %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fadd627fee7b401cf93dbe7da16e6c738c"></a>Converter2StateChange&#160;</td><td class="fielddoc"><p>state of converter 2 of HVDC link %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fafac480f4eceb8de513137c195f90b72c"></a>CreateDynamicConnectFailed&#160;</td><td class="fielddoc"><p>impossible to create a connect between %1_%2% and %3_%4%. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8a057e2ae7bf0440e6c2502c827cb415"></a>CreateStaticConnectFailed&#160;</td><td class="fielddoc"><p>impossible to create a connect between %1_%2% and %3%. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fafe188b309d86de3f7f62c5b535e6a21f"></a>CriteriaDefinedButNoIIDM&#160;</td><td class="fielddoc"><p>a criteria file was defined without any IIDM file, it will be ignored </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa198ecb894dfaf85986e1c4b50763c2bc"></a>CurveInit&#160;</td><td class="fielddoc"><p>starting curve initialization </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac688a3ed39ee8fd22b814ba3b52f6ef9"></a>CurveInitEnd&#160;</td><td class="fielddoc"><p>end of curve initialization, added %1% curves </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567face1016f21f2de3785dd28d5323076c11"></a>CurveNotAdded&#160;</td><td class="fielddoc"><p>curve not added: Id: %1% , name: %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fabf282a98910f29af863146183fdc1f26"></a>CustomDir&#160;</td><td class="fielddoc"><p>custom Dir : %1% with extension %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac2df97d5ab77a50f2fa194d5f3cf7b1c"></a>DDBDir&#160;</td><td class="fielddoc"><p>DDB Dir : %1%. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac1abb889248841546625f52d1c149349"></a>DanglingLineExtDynModel&#160;</td><td class="fielddoc"><p>dangling Line %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fafe41b1f740ab8c5f2942c0718ecb2362"></a>DanglingLineStateChange&#160;</td><td class="fielddoc"><p>state of the Dangling Line %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6b0c6a71e88568537f2991c29297379c"></a>DeactivateCurrentLimits&#160;</td><td class="fielddoc"><p>%1% deactivate current Limits </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae7887ca088b629cab1ce604b9ba2927f"></a>DelayMode&#160;</td><td class="fielddoc"><p>%1% mode for delay %2% with delayTime %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad7f93ea4ad83eb18c42461dda5021956"></a>DisableInternalTapChanger&#160;</td><td class="fielddoc"><p>%1% disable internal tap changer, use external automaton </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa08e8901e7079343df1ac1f004d1064de"></a>DynamicConnect&#160;</td><td class="fielddoc"><p>connecting %1_%2% with %3_%4% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa143879689167b7226f503538205284ad"></a>DynamicConnectStart&#160;</td><td class="fielddoc"><p>connection list </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab92be8126734feac689240a5bb208dad"></a>DynawoRevision&#160;</td><td class="fielddoc"><p>DYNAWO REVISION : </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1492daeca9aae8b367e6c64958b743dd"></a>DynawoVersion&#160;</td><td class="fielddoc"><p>DYNAWO VERSION : </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa0d8adeb0ab8641adeebd1837f102a4f8"></a>ElementNames&#160;</td><td class="fielddoc"><p>possible elements for model %1% (type %2%): </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa45d3afb6548ebb3f38d3761710257d6f"></a>EndCalculateIC&#160;</td><td class="fielddoc"><p>end of calculate initial condition of the DAE </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa83978d0c66d5820d5549cf45ac6634e7"></a>EndOfJob&#160;</td><td class="fielddoc"><p>end of job '%1' </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2901b0a503a41b7ca5827aaca012329c"></a>ExecutingCommand&#160;</td><td class="fielddoc"><p>executing command : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faba0aed63472bef0ffa91ab461903b69d"></a>ExtVarFileNotFound&#160;</td><td class="fielddoc"><p>model %1% has no external variable file declared. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa215ae7fdb08b0d61a319dfd80174994c"></a>GenerateModelicaConcatFile&#160;</td><td class="fielddoc"><p>generating modelica concatenation file %1%. For model : %2%. For <a class="el" href="../../d9/dff/a02826.html" title="class of model description ">ModelDescription</a> : %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa36472608dd1dd2ddee948598cabdf2bb"></a>GeneratorExtDynModel&#160;</td><td class="fielddoc"><p>generator %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae717e6b23454029763f5c9ba3ad6eecd"></a>GeneratorStateChange&#160;</td><td class="fielddoc"><p>state of Generator %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa680b8a1334325e6e93f3a4596c3deafa"></a>HvdcExtDynModel&#160;</td><td class="fielddoc"><p>HVDC %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fabbc433c910511c6b0a723baf10a8432a"></a>IIDMExtensionLibraryNotLoaded&#160;</td><td class="fielddoc"><p>library %1% containing IIDM extension %2% cannot be loaded : %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8c61462f1e74fb72e0676614489036ba"></a>IIDMExtensionNoCreate&#160;</td><td class="fielddoc"><p>iidm extension %1% from library %2% has no create function %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa7cb8c749bf36657dce7d51182d09a05b"></a>IIDMExtensionNoDestroy&#160;</td><td class="fielddoc"><p>iidm extension %1% from library %2% has no destroy function %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3a62a042c04d02859369ef39717e665a"></a>IdaBadEwt&#160;</td><td class="fielddoc"><p>IDA_BAD_EWT : Some component of the error weight vector is zero (illegal), either for the input value of y0 or a corrected value. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fadd7c0ac2fbea29880914072f364bdc37"></a>IdaConstrFail&#160;</td><td class="fielddoc"><p>IDA_CONSTR_FAIL : IDACalcIC was unable to find a solution satisfying the inequality constraints. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa746e6df08b9274f47a2af0cf0a958c21"></a>IdaConvFail&#160;</td><td class="fielddoc"><p>IDA_CONV_FAIL : IDACalcIC failed to get convergence of the Newton iterations. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faaef61fa8c2430427f08f04dea6062d14"></a>IdaFirstResFail&#160;</td><td class="fielddoc"><p>IDA_FIRST_RES_FAIL : The user's residual function returned a recoverable error flag on the first call, but IDACalcIC was unable to recover. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8303274dfa43a934ca99d3cc5c95ff9e"></a>IdaIllInput&#160;</td><td class="fielddoc"><p>IDA_ILL_INPUT : One of the input arguments was illegal. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fabc55c2a3021cb8406b4038d2c8bc6fe8"></a>IdaLinesearchFail&#160;</td><td class="fielddoc"><p>IDA_LINESEARCH_FAIL : The linesearch algorithm failed to find a solution with a step larger than steptol in weighted RMS norm. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4d8d9887ce92ecbd40ced732e76aa30a"></a>IdaLinitFail&#160;</td><td class="fielddoc"><p>IDA_LINIT_FAIL : The linear solver's initialization function failed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6bd94d20c678fded1af561ddeaea64e9"></a>IdaLsolveFail&#160;</td><td class="fielddoc"><p>IDA_LSOLVE_FAIL : The linear solver's solve function failed in an unrecoverable manner. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac499a18bdb3d9103d8049b6927d06a70"></a>IdaMemNull&#160;</td><td class="fielddoc"><p>IDA_MEM_NULL : The argument ida mem was NULL. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab52522feafdc4523032778239799298b"></a>IdaNoMalloc&#160;</td><td class="fielddoc"><p>IDA_NO_MALLOC : The allocation function IDAInit has not been called. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa4dc3adb58e8bf46930c8171b47ff8c5"></a>IdaNoRecovery&#160;</td><td class="fielddoc"><p>IDA_NO_RECOVERY : The user's residual function, or the linear solver's setup or solve function had a recoverable error, but IDACalcIC was unable to recover. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2deacb7a1996671696a989e37cbe89bf"></a>IdaResFail&#160;</td><td class="fielddoc"><p>IDA_RES_FAIL : The user's residual function returned a nonrecoverable error flag. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa7153d414195a2d210a47a9f422509ee"></a>IdaSuccess&#160;</td><td class="fielddoc"><p>IDA_SUCCESS : IDASolve succeeded. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa708849131a8fa3c0cbec0fc4afd7c2b"></a>IdalsetupFail&#160;</td><td class="fielddoc"><p>IDA_LSETUP_FAIL : The linear solver's setup function failed in an unrecoverable manner. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fafae72683a454837ebd961d01003e12c9"></a>ImpossibleConnection&#160;</td><td class="fielddoc"><p>element 1 (id %1%: name :%2%) not found in model :%3% ( %4% ) element :%5% impossible connection </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa18f651b18d6f9c31d1e80f4961a6e21d"></a>IncoherentParamMinimumModeChangeType&#160;</td><td class="fielddoc"><p>parameter minimumModeChangeTypeForAlgebraicRestoration (value=%1%) of solver should be one of DIFFERENTIAL, ALGEBRAIC or ALGEBRAIC_J_UPDATE. Default value will be used (ALGEBRAIC). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa44652c1d90e6e21d1254667f26ea0552"></a>IncorrectConnectionDiffSize&#160;</td><td class="fielddoc"><p>impossible to connect model :%1% element :%2% to model :%3% element :%4% (different size structure %5% Vs %6%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa775f152849b1278ca46759ff44a0a48b"></a>InternalParam&#160;</td><td class="fielddoc"><p>parameter %1% was computed internally </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa808b46cf47d332ee4bc98bafff561b4b"></a>InvalidModel&#160;</td><td class="fielddoc"><p>invalid model: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa493a340e5386ebfbcbea9d65d9e148d4"></a>InvalidSharedObjects&#160;</td><td class="fielddoc"><p>FOLLOWING %1% SHARED OBJECTS ARE NOT VALID: </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faaed35e758be26c131a43c1c72219c97e"></a>JobSuccess&#160;</td><td class="fielddoc"><p>job '%1' succeeded </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa57278a918c4155e2d5bc7733019ef396"></a>KeepSubNetwork&#160;</td><td class="fielddoc"><p>keep SubNetworks num : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3af580d678f43cbd1c6550fd01a0d403"></a>KinErrorValue&#160;</td><td class="fielddoc"><p>F[%1%]=%2% (model=%3% index=%4% equation:%5%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3e0184f965f92492dc5a647562f25fdc"></a>KinFirstSysFuncErr&#160;</td><td class="fielddoc"><p>the system function failed recoverably at the first call </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5e4db6ca4b6e227454dc6ba65be01dad"></a>KinIllInput&#160;</td><td class="fielddoc"><p>one of the solution input is illegal </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae66cbc3a5d9a98a18dd608bdd7063f8c"></a>KinInitialGuessOk&#160;</td><td class="fielddoc"><p>the initial user-supplied guess already satisfies the stopping criterion </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa291f889069698979f586cc87f0506005"></a>KinLargestErrors&#160;</td><td class="fielddoc"><p>largest errors (truncated to the first %1%) at the current iteration </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa36b25741d2c5c220bd3a5b6c78b6d282"></a>KinLineSearchBcFail&#160;</td><td class="fielddoc"><p>the linesearch algorithm was unable to satisfy the beta-condtion for nbcfails iterations </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faad4dc4b1bba426e83d0aaa14b9324178"></a>KinLineSearchNonConv&#160;</td><td class="fielddoc"><p>the linesearch algortihm was unable to find an iterate sufficiently distinct from the current iterate </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fabe970b9345bfb3803a9a6edf0b3f041b"></a>KinLinitFail&#160;</td><td class="fielddoc"><p>the linear solver's initialization function failed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faec207eb7dc753ac589f9b04439634831"></a>KinLinsolvNoRecovery&#160;</td><td class="fielddoc"><p>the user-supplied routine preconditioner solve function failed recoveravly, but the preconditionner is already current </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf58a67dd41aebdcf14f4c9caa97b4449"></a>KinLsetupFail&#160;</td><td class="fielddoc"><p>the linear solver's setup function failed in an unrecoverable manner </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2269d34cb8719742d8458765be3e0aae"></a>KinLsolveFail&#160;</td><td class="fielddoc"><p>the linear solver's solve function failed in an unrecoverable manner </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1452bac7ec9c614f813594383e7c84e0"></a>KinMaxIterReached&#160;</td><td class="fielddoc"><p>the maximum number of nonlinear iterations has been reached </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf7d23320f78c039cd5b30cbb67885e6e"></a>KinMemFail&#160;</td><td class="fielddoc"><p>an allocation of memory failed in KINSOL </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1ad6b9e35708edfb5ebc23863f06eb24"></a>KinMemNull&#160;</td><td class="fielddoc"><p>the kin_mem argument was NULL </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faef87a4baff834ffa043195fb9a19fa3a"></a>KinMxNewt5xExceeded&#160;</td><td class="fielddoc"><p>five consecutive steps have been taken that satisfy a scaled step length test </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa9758f31869eb20d4381acc989ffd7950"></a>KinNoMalloc&#160;</td><td class="fielddoc"><p>the KINSOL memory was not allocated by a call to KINMalloc </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1d53156b8ce2340a9e9e45e5c07ae19d"></a>KinReptdSysfuncErr&#160;</td><td class="fielddoc"><p>the system function had repeated recoverable errors </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf09dd6e734082257852c6e69af1e2c6b"></a>KinRestart&#160;</td><td class="fielddoc"><p>restart algebraic restoration with KIN_LINESEARCH strategy </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac75681f6d888a3e7c3a195c9ca25a0c9"></a>KinStepLtStpTol&#160;</td><td class="fielddoc"><p>the stopping tolerance on scaled step length was satisfied </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa78ec17e16a95fff0b0baee4c2030c2d3"></a>KinSysFuncFail&#160;</td><td class="fielddoc"><p>the system function failed in an unrecoverable manner </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faeedc100f25bac9dbd3104fba7c8568b0"></a>KinVectoropErr&#160;</td><td class="fielddoc"><p>an operation on a vector failed in KINSOL </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5123783ef469a54b9398936695886e2a"></a>KinsolSucceeded&#160;</td><td class="fielddoc"><p>KINSOL succeeded. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa0d954580c468a0bed26bf3fe5ac4555f"></a>LaunchingJob&#160;</td><td class="fielddoc"><p>launching job '%1' </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fadb4d7501f8d14294d675adfb34f9b38c"></a>LineExtDynModel&#160;</td><td class="fielddoc"><p>line %1% using an external dynamic modelisation : only adding a bridge component to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa04cb915d31e9c747aaa62f9d8196c01a"></a>LineStateChange&#160;</td><td class="fielddoc"><p>state of Line %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab05099965a7541c55f21341b7258e751"></a>LoadExtDynModel&#160;</td><td class="fielddoc"><p>load %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faaf1d6a4617a2ec2dc3a7e9d19e1c9d46"></a>LoadSheddingValueIncomplete&#160;</td><td class="fielddoc"><p>load shedding quantities are not fully provided in %1% model's parameters, using default (0.) for missing values </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa9d7b5c585cbe266fdd9a11bf4b198d0c"></a>LoadStateChange&#160;</td><td class="fielddoc"><p>state of Load %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa4010a1ff8a7da75d4d780e442cf5dba"></a>MatrixStructureChange&#160;</td><td class="fielddoc"><p>call of SolverReInit i.e. a new symbolic and numerical factorization will be performed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa96b2a6baf648cfd3cb6739f13e04dd59"></a>ModeChange&#160;</td><td class="fielddoc"><p>%1% for model %2% at t = %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa63930402bf27caae776df080c06c36b2"></a>ModeChangeGeneric&#160;</td><td class="fielddoc"><p>%1% at t = %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa09cc6ccaee0a2e68d21a477caf2e4b3a"></a>ModelBuilding&#160;</td><td class="fielddoc"><p>building model from input files </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fada0d952ec87d61cfb243b279b34e5e09"></a>ModelBuildingEnd&#160;</td><td class="fielddoc"><p>model was built successfully </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad9b0e0231e78e1f65951e4c20c896a89"></a>ModelConnectorsList&#160;</td><td class="fielddoc"><p>connectors list </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad93733293e124f49aa087305ff9b6eb5"></a>ModelConnectorsNB&#160;</td><td class="fielddoc"><p>model connectors (Y,Flow) NB = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa87ff0b3728e0550d62c7448a17bd6a8d"></a>ModelDesc&#160;</td><td class="fielddoc"><p>instancing model description %1% ... </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa708b5cf70f700e393c583aafdc5a298e"></a>ModelGlobalInit&#160;</td><td class="fielddoc"><p>starting global initialization </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa01c9f79b48566aa9add9957af1bbc4b"></a>ModelGlobalInitEnd&#160;</td><td class="fielddoc"><p>end of global initialization </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1f162f562a1bdd77899164987a9e8b72"></a>ModelInitialStateLoad&#160;</td><td class="fielddoc"><p>starting load of initial state </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4e0b07e8c0065dfc5ba8856e30b73bda"></a>ModelInitialStateLoadEnd&#160;</td><td class="fielddoc"><p>initial state was successfully loaded </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1b6ec6acb2e8bc83bf33b1dc67ce8a6d"></a>ModelLocalInit&#160;</td><td class="fielddoc"><p>starting local initialization </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3b50468b94d2b802710fef99ae4f5f55"></a>ModelLocalInitEnd&#160;</td><td class="fielddoc"><p>end of local initialization </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae22dade0aaf132e6f5f749f1fc61fe4f"></a>ModelMultiParamNotFound&#160;</td><td class="fielddoc"><p>in model multi get parameter value: <a class="el" href="../../d1/de5/a02822.html" title="Generic model Generic class for Model. ">Model</a>: %1% Parameter: %2% not found. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae859e842662901b0e1d705b2689aedf8"></a>ModelName&#160;</td><td class="fielddoc"><p>model : </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab16790451edd4f735937a6330b1d21b7"></a>ModelTemplateExpansionCompiled&#160;</td><td class="fielddoc"><p>modelTemplateExpansion: %1%. Compilation succeed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa50c8bc1151e98c0a56200cc4763b32f0"></a>NbRootFunctions&#160;</td><td class="fielddoc"><p>number of root functions : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa34f26e3d7e8e2f51db2c32528779ee18"></a>NbSubNetwork&#160;</td><td class="fielddoc"><p>nbSubNetwork = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5385eb0da8666d5e918a3d654e65b74c"></a>NetworkComponentNotFoundInDump&#160;</td><td class="fielddoc"><p>ignoring dump state of component %1% as not found in current network (%2%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa03a9d41ebb6a073a73e9b863dba08158"></a>NetworkElementCompNotFound&#160;</td><td class="fielddoc"><p>unable to show the network component element list as no correspondence was found for the element %1%. <a class="el" href="../../d5/d85/a02818.html" title="class Element ">Element</a> names for model NETWORK should start with the static id of the component. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa180e3c7285d46031f142cb62dd7a23f6"></a>NetworkElementNames&#160;</td><td class="fielddoc"><p>possible elements for network model %1%: </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6fdf5952cb38140e7808161ca5b2ddb4"></a>NetworkInitSwitchCurrentsFailed&#160;</td><td class="fielddoc"><p>model network : initialization of switches' currents failed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8d2bb4f1bd3a23ab1d873022254ffbf8"></a>NetworkNbBus&#160;</td><td class="fielddoc"><p>number of buses : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa7ff653b9550541010c7ad342956cee8b"></a>NetworkNbDanglingLine&#160;</td><td class="fielddoc"><p>number of dangling lines : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa250533230330fbf4826e3982ce3c13d4"></a>NetworkNbGenerators&#160;</td><td class="fielddoc"><p>number of generator : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae46691feafdb2a36dcaf52887f42c5e5"></a>NetworkNbHVDC&#160;</td><td class="fielddoc"><p>number of HVDCs : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2308e0d46748e6e766a282c4669d34ad"></a>NetworkNbLine&#160;</td><td class="fielddoc"><p>number of lines : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa9f135d5a5b627fceb7b51ef2ff4df332"></a>NetworkNbLoads&#160;</td><td class="fielddoc"><p>number of loads : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6231d05287cd11ff0a8a6717aa9dd115"></a>NetworkNbSVC&#160;</td><td class="fielddoc"><p>number of SVCs : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf111a4d69dd4210dc260b001666fac2a"></a>NetworkNbShunt&#160;</td><td class="fielddoc"><p>number of shunt compensators : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2fe39d1fe3ea062d905621b7a1095490"></a>NetworkNbSwitches&#160;</td><td class="fielddoc"><p>number of switches : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae5641d642711b53e4e800044682f826a"></a>NetworkNbThreeWTfo&#160;</td><td class="fielddoc"><p>number of three windings transformers : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa27f8b43910b3f66f463bf933100ac03f"></a>NetworkNbTwoWTfo&#160;</td><td class="fielddoc"><p>number of two windings transformers : %1% (static: %2%, dynamic: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3af16c687ef439ae9ed0ffa8dd993ba3"></a>NetworkNbVoltagelevel&#160;</td><td class="fielddoc"><p>number of voltage levels : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa414b7a7edfd1e02cb527b59a49dc18cd"></a>NetworkStats&#160;</td><td class="fielddoc"><p>network statistics: </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad17aff0b7c6029ae42ce9d07902486e5"></a>NewStartPoint&#160;</td><td class="fielddoc"><p>calculation of the new starting point of the simulation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2f8d1b43a89e8c0073fd9034b439523e"></a>NoNetworkConnection&#160;</td><td class="fielddoc"><p>component %1% not imported : no network connection declared </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8c8a0c1e157e5853c073bf13f285ece5"></a>NotInstancedModel&#160;</td><td class="fielddoc"><p>one of the two models has not been instanced. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8a6c6977d631468d2ac58c84449600c3"></a>OutputStreamMissing&#160;</td><td class="fielddoc"><p>output channel '%1' not used by a stream, not instanciated </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa844db6f48a0869ead0b2f4dd1769a5ef"></a>ParamNoValueFound&#160;</td><td class="fielddoc"><p>no value found for parameter %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa172caf5735f19d4686782e2e230cf540"></a>ParamUnused&#160;</td><td class="fielddoc"><p>parameter %1% in model %2% is not used </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5739671ec8c254b30d11dc67c18a07ec"></a>ParamValueInOrigin&#160;</td><td class="fielddoc"><p>parameter %1% has value %3% (coming from origin %2%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faeb76c65e30a1c1c8da1449fda2b74161"></a>ParsingExtVarFile&#160;</td><td class="fielddoc"><p>parsing external variables file %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab74479102eb66c6ee55306e2ef3ff102"></a>PossibleDivisionByZero&#160;</td><td class="fielddoc"><p>impedance of component ID: %1% set to 0 in IIDM file, default parameters are then used: R = 0 and X = 0.01 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fae33a47ee12ffd79ad366f43d3217a843"></a>PowerBusCriteriaIgnored&#160;</td><td class="fielddoc"><p>active power criteria is not applicable to buses </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5744d721b728c87fec77046a442c1bc6"></a>PowerQuadripoleCriteriaIgnored&#160;</td><td class="fielddoc"><p>active power criteria is not applicable to quadripoles </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa79991bd27370aa6e10a09a6c25efc567"></a>PreassembledModelGenerated&#160;</td><td class="fielddoc"><p>preassembled model generated. Total No Models: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6997d800595af46fa7d261b4f313c784"></a>QuadripoleAboveCurrent&#160;</td><td class="fielddoc"><p>quadripole: %1% side %2% has a current %3% A &gt; %4% A (criteria id: %5%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa89ace2ee127013bade48ca1ab4973472"></a>RTModeCurvesDisabled&#160;</td><td class="fielddoc"><p>real time mode: disabling all curves recording (jobs-with-curves won't work!) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa63b4c01fe54a6d24c071638c316b50ce"></a>ReferenceModelDesc&#160;</td><td class="fielddoc"><p>modelica model's <a class="el" href="../../d1/de5/a02822.html" title="Generic model Generic class for Model. ">Model</a> Description: %1% is a reference model description to be compiled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5e4895aa9682c0054c7f8c353127940e"></a>RegulModeReqdNoSA&#160;</td><td class="fielddoc"><p>regulatingMode requested on %1% although StandbyAutomaton extension is unavailable </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa25e699edb587804035e49686c04d2d04"></a>ResultFolder&#160;</td><td class="fielddoc"><p>results are available in %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa119edb97c7093182850de9d80b526758"></a>RootGeq&#160;</td><td class="fielddoc"><p>root: %1% ( model: %2%, equation: %3%, localIndex: %4% ) at time %5% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1c4334d386fe4177aa9a08893dea1377"></a>SVCExtDynModel&#160;</td><td class="fielddoc"><p>SVC %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa9f4e0fc05b19464475e3b056a1f94369"></a>SVCStateChange&#160;</td><td class="fielddoc"><p>state of SVC %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567facaef1139d15b5e06c3113bafc7aa6730"></a>SetLib&#160;</td><td class="fielddoc"><p>setlib: %1% : %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa07ec615f677b4f18d6136360e5c9c971"></a>ShuntExtDynModel&#160;</td><td class="fielddoc"><p>shunt Compensator %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa77394ee792d792eef0a44737ff7064d3"></a>ShuntStateChange&#160;</td><td class="fielddoc"><p>state of Shunt %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa9b49f8ccb78d8bf56ccea0ca25c6e9f7"></a>SimulationStart&#160;</td><td class="fielddoc"><p>starting simulation with solver %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac7ef88a93397a6e9e1899463258fbd26"></a>SimulationTimeoutReached&#160;</td><td class="fielddoc"><p>simulation %1% run has reached timeout of %2% seconds : simulation aborted </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fadfe3e6d2880c2d450c0159fa8384995e"></a>SolveParameters&#160;</td><td class="fielddoc"><p>starting local initialization of model %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa69bc0cc6ccb92a6e09c25282e377f621"></a>SolveParametersError&#160;</td><td class="fielddoc"><p>local initialization of model %1% failed </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac497962eef25a9b295e5337b22f453db"></a>SolveParametersFError&#160;</td><td class="fielddoc"><p>error &gt; %1% : F[%2%] = %3% equation %4% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4c42b25713e583215f2c79a12a63b23d"></a>SolveParametersOK&#160;</td><td class="fielddoc"><p>local initialization of model %1% ended successfully </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa469bd1255925c654013245c8cfe13ffc"></a>SolverEquationsType&#160;</td><td class="fielddoc"><p>equation %1% has type %2% (equation:%3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa3f890fbb45e088d18142f979a6787056"></a>SolverExecutionStats&#160;</td><td class="fielddoc"><p>execution statistics : </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa7fbe9474be627e865b5d21dc583b86ab"></a>SolverFixedTimeStepInitGuessOK&#160;</td><td class="fielddoc"><p>initial guess of the algebraic solver is accurate, following %1% iterations will be skipped until the next mode change </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa92b96a5b95c5dba64708331eb8c8480e"></a>SolverFixedTimeStepInitOK&#160;</td><td class="fielddoc"><p>initialization of %1% : ok </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2a5ace1e95953cb1115ce6ef179e24b4"></a>SolverIDAAfterInit&#160;</td><td class="fielddoc"><p>after init </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad633dc61401e4430920d3d2bf4365019"></a>SolverIDABeforeCalcIC&#160;</td><td class="fielddoc"><p>before CalculateIC </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad5a91f521db3960e18a9c12b7f94eaa8"></a>SolverIDADebugResidual&#160;</td><td class="fielddoc"><p>DEBUG RESIDUAL. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa62f957fcdd06acbdd1c136f482616ca"></a>SolverIDAErrorValue&#160;</td><td class="fielddoc"><p>error &gt; %1% : variable %2% %3%, error %4% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad1d5c9aced1ca69d3f158311ae748a58"></a>SolverIDAInitOk&#160;</td><td class="fielddoc"><p>initialization of IDA solver : ok </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab4811d5c40c389b6ce4778b2d38a6c57"></a>SolverIDALargestErrors&#160;</td><td class="fielddoc"><p>largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa33f2df9fdb3d151be4054fa10c5bb074"></a>SolverIDAMaxDiff&#160;</td><td class="fielddoc"><p>max diff =%1% index =%2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad235b7d87022ee1fc0b7420ffb32f9c7"></a>SolverIDANumRootsFound&#160;</td><td class="fielddoc"><p>solverIDA: number of roots found %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1376b7b13dc5fbd89badbddff0eb4529"></a>SolverIDARestorAlgebraicEqu&#160;</td><td class="fielddoc"><p>restoration of the algebraic equations </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa7c3da6f7ad35b645bf4c5f190462c0b4"></a>SolverIDAStartCalculateIC&#160;</td><td class="fielddoc"><p>start CalculateIC </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf86547965e43177c045c578d6f5b411a"></a>SolverIDAUnknownError&#160;</td><td class="fielddoc"><p>unknown error during IDA Solve </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2d7c9c96877653b58700602d6b80e809"></a>SolverInstableRoot&#160;</td><td class="fielddoc"><p>instability for the root :%1% switch from %2% to %3% at time %4% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad15134108b4fd70d44b5bde56d1bc3d4"></a>SolverInstableRootFound&#160;</td><td class="fielddoc"><p>at least one root is not stable </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa86cd531119a225a04417f8d9ab9fc254"></a>SolverKINResidualNorm&#160;</td><td class="fielddoc"><p>newton iteration %1% : ||F(y_%1%)*Weight||_Infinity = %2% and ||F(y_%1%)*Weight||_2 = %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa950c989e705045e4f7460affbd653cd5"></a>SolverKINResidualNormAlg&#160;</td><td class="fielddoc"><p>algebraic restoration (%1%): newton iteration %2% : ||F(y_%2%)*Weight||_Infinity = %3% and ||F(y_%2%)*Weight||_2 = %4% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa35e5715f021ee34805e010b0bcf6a6a8"></a>SolverKINUnknownError&#160;</td><td class="fielddoc"><p>unknown error during KINSOL Solve </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa069ab0cc81bba9d917f43de8ddf39186"></a>SolverLargestDeriv&#160;</td><td class="fielddoc"><p>largest derivative values (truncated to the first %1%) at the current iteration </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa88a8bb004b248dae033ae975a4853147"></a>SolverLargestDerivValue&#160;</td><td class="fielddoc"><p>YP[%1%]=%2% (variable=%3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab5f7eba06025b992d5ebf03f1f556a3b"></a>SolverNbAlgebraicJacEval&#160;</td><td class="fielddoc"><p>number of algebraic restoration Jacobian evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf6d5b59d0ea5cd67550b38c8bcbe7bce"></a>SolverNbAlgebraicPrimJacEval&#160;</td><td class="fielddoc"><p>number of algebraic prim restoration Jacobian evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab50b1d0c8f72186d0c46bdf18d00d4bf"></a>SolverNbAlgebraicPrimResEval&#160;</td><td class="fielddoc"><p>number of algebraic prim restoration residual evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faedb553b38e0ce707b580eb20c73e9daa"></a>SolverNbAlgebraicResEval&#160;</td><td class="fielddoc"><p>number of algebraic restoration residual evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1a81a23c92da061dffd2f3931c03f080"></a>SolverNbDiscreteVarsEval&#160;</td><td class="fielddoc"><p>number of discrete variables evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa55f287b5a872cf3b4fa7d3ca2575bb27"></a>SolverNbErrorTestFail&#160;</td><td class="fielddoc"><p>number of error test failures = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa0ca18e5918b70b9facda05b7a30ccf60"></a>SolverNbInternalRootFuncEval&#160;</td><td class="fielddoc"><p>number of internal root functions evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa73b2263e6cfe38df3457e37c6d06ef96"></a>SolverNbIter&#160;</td><td class="fielddoc"><p>number of time iterations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf0941960258367dc7c315dc11521b23d"></a>SolverNbJacEval&#160;</td><td class="fielddoc"><p>number of Jacobian evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2a170a0205b2020cfbe99b6ba6cab914"></a>SolverNbModeEval&#160;</td><td class="fielddoc"><p>number of mode evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4e00faae2e726cf28d28a0bdb86ee1c0"></a>SolverNbModeEvalAlg&#160;</td><td class="fielddoc"><p>number of algebraic mode = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa303b902c16e8f8158cc7c05b6036a7ad"></a>SolverNbModeEvalAlgJ&#160;</td><td class="fielddoc"><p>number of algebraic J update mode = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa28ac61cde31924ed5d40150f53a190a4"></a>SolverNbModeEvalDiff&#160;</td><td class="fielddoc"><p>number of differential mode = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf03d5eb38f5bacc58f41cf8077ff42eb"></a>SolverNbNonLinConvFail&#160;</td><td class="fielddoc"><p>number of nonlinear convergence failures = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa51d2e5f536fa830a29a6e83d30c17553"></a>SolverNbNonLinIter&#160;</td><td class="fielddoc"><p>number of nonlinear iterations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4aa29378d7e74724e9307d1bf398b1fc"></a>SolverNbResEval&#160;</td><td class="fielddoc"><p>number of residual evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad3f9ca18e7a6663d823e596cec2bd72e"></a>SolverNbSolverRootFuncEval&#160;</td><td class="fielddoc"><p>number of solver root functions evaluations = %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa9c5182d17ef8edbaca883faca704503a"></a>SolverNbYVar&#160;</td><td class="fielddoc"><p>number of continuous variables : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa21fba4e1f97cfd333218e82c9669e4af"></a>SolverNbZVar&#160;</td><td class="fielddoc"><p>number of discrete variables : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad39ea10ff1923112a327ce31f9c94a93"></a>SolverVariablesType&#160;</td><td class="fielddoc"><p>variable %1% with index %2% has type %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa9efdd2e5acc048d7c21310951f75bc81"></a>SourceAbovePower&#160;</td><td class="fielddoc"><p>node: %1% has a power %2MW &gt; %3MW (criteria id: %4%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa76bc6d76f07f59619c2b03dd093479c8"></a>SourcePowerAboveMax&#160;</td><td class="fielddoc"><p>total load power = %1MW &gt; %2MW (criteria id: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa0dc2c7f11b348464adc74dfd633f242d"></a>SourcePowerBelowMin&#160;</td><td class="fielddoc"><p>total load power = %1MW &lt; %2MW (criteria id: %3%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa1961a1c353b2ce0bfe971b12df6d50c6"></a>SourcePowerTakenIntoAccount&#160;</td><td class="fielddoc"><p>power of %1% %2% was added into the total power sum (criteria id: %3%, power=%4%, V=%5%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad235931b6f9d1e60f2006bcaaa0b7863"></a>SourceUnderPower&#160;</td><td class="fielddoc"><p>node: %1% has a power %2MW &lt; %3MW (criteria id: %4%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5f90ae108ec998dfd891fa0b203da578"></a>StartingPointModeNotFound&#160;</td><td class="fielddoc"><p>startingPointMode %1% not found, should be warm or flat. Using warm starting point mode by default. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab513eda0d81d71e6e72faac1b9698a59"></a>StaticConnect&#160;</td><td class="fielddoc"><p>connecting %1_%2% with %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faae6116c2f520ed9cde3922083fcd80e9"></a>StreamDataNotManaged&#160;</td><td class="fielddoc"><p>stream data unknown or not managed: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa05c7e03abb9b48ad22cb25833c9218d8"></a>SubModelExtVar&#160;</td><td class="fielddoc"><p>subModel : %1% Var -%2%- is external and not connected </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa14b7a054b824a2b0b20547f84201e548"></a>SubModelFeqFormulaNotExist&#160;</td><td class="fielddoc"><p>failed to retrieve equation %2% of submodel %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567facbd5d993d59216b47dfa32a4b0aa5d74"></a>SubModelGeqFormulaNotExist&#160;</td><td class="fielddoc"><p>failed to retrieve root equation %2% of submodel %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faf768f890e59ed9e52b637a1c8bd1baf5"></a>SubNetwork&#160;</td><td class="fielddoc"><p>subNetwork[%1%] nbBus = %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6d16efd8ca80f7f1d1cdc94c1516b6ff"></a>SumBusCriteriaIgnored&#160;</td><td class="fielddoc"><p>sum criteria is not applicable to buses </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa134d5aafb8b3c200a735a5c1956fda9b"></a>SumQuadripoleCriteriaIgnored&#160;</td><td class="fielddoc"><p>sum criteria is not applicable to quadripoles </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa6223e72b4273a618d176ad8fec6673c7"></a>SwitchExtDynModel&#160;</td><td class="fielddoc"><p>switch %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac412ce8cdf6e0f05205389053f74c721"></a>SwitchOffBus&#160;</td><td class="fielddoc"><p>switch Off bus : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa0e69e1465b4dc8f3e782ffc0511a943c"></a>SwitchOnBus&#160;</td><td class="fielddoc"><p>switch ON bus : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa476e542f340aeb3fcf6a70897b1a589b"></a>SwitchStateChange&#160;</td><td class="fielddoc"><p>state of Switch %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa4ce4ca49746372b0c2b5bf2c98324db7"></a>TapChangerLocked&#160;</td><td class="fielddoc"><p>%1%: Tap changer is blocked </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa50fbca4ad4256b39b52516d579a93619"></a>TfoStateChange&#160;</td><td class="fielddoc"><p>state of Transformer %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa00895c49bc30df4a492dfb438ea3737e"></a>TfoTapChange&#160;</td><td class="fielddoc"><p>tap of Transformer %1% change from %2% to %3% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa17ab9bf62d275910f7ca725f5833671e"></a>ThreeWTfoExtDynModel&#160;</td><td class="fielddoc"><p>three Windings Transformer %1% using an external dynamic modelisation : not added to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa59e5d183e9bb9d3af8e3314eb3ff1562"></a>TwoWTfoExtDynModel&#160;</td><td class="fielddoc"><p>two Windings Transformer %1% using an external dynamic modelisation : only adding a bridge component to the Network. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2c5fb088eede4f489db8c2f81d826d7c"></a>UnableToCloseLine&#160;</td><td class="fielddoc"><p>impossible to close Line %1%, One of the line terminals is unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa96a5b42765147e8d25b258c2688ad788"></a>UnableToCloseLineSide1&#160;</td><td class="fielddoc"><p>impossible to close the side 1 of the Line %2%, the terminal 1 is unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa443aa27177a03fb6ff4e1a8a68eda9cf"></a>UnableToCloseLineSide2&#160;</td><td class="fielddoc"><p>impossible to close the side 2 of the Line %2%, the terminal 2 is unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa0ff8bc82972fa92ff55cde6daa5411af"></a>UnableToCloseTfo&#160;</td><td class="fielddoc"><p>impossible to close two windings transformer %1%, one of the terminals is unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567faa02a0cbcb5bb86b845e3d05775b7e794"></a>UnableToCloseTfoSide1&#160;</td><td class="fielddoc"><p>impossible to close the side 1 of the two windings transformer %1%, the terminal 1 is unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa881fc086ed336cd2e4eff2196f9e9b65"></a>UnableToCloseTfoSide2&#160;</td><td class="fielddoc"><p>impossible to close the side 2 of the two windings transformer %1%, the terminal 2 is unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8cfba1fad2958243c860f2cca9c7bb1b"></a>UnexpectedError&#160;</td><td class="fielddoc"><p>unexpected error </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fada06915051ddfe1f72265f05d2bfd67f"></a>UnknownChannelType&#160;</td><td class="fielddoc"><p>unknown channel type: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad02787760f40481585429d82e6da5b4f"></a>UnsopportedOutputChannel&#160;</td><td class="fielddoc"><p>unsupported output Channel type: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fad1926939395ad67c74c88939c8023a4e"></a>UnstableRoot&#160;</td><td class="fielddoc"><p>instability for root : %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fab7a6a4d12fd577285613ca35c3f24139"></a>UnstableRootFound&#160;</td><td class="fielddoc"><p>at least one root is not stable </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8f217929ddb840e6db35d07f25c69784"></a>UpdatableIgnoredMultiplier&#160;</td><td class="fielddoc"><p>updatable %1 received input_value and input_multiplier at the same time, input_multiplier ignored </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fabce1a81b9dfb8b1fb0cabf71d9d08d38"></a>ValidatedModel&#160;</td><td class="fielddoc"><p>model validated: %1% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa941e37273f1621c20d74ef8731f8fa32"></a>VarCreatedForRef&#160;</td><td class="fielddoc"><p>var %1% created a posteriori on component %2% to satisfy ref with %3%, will likely be unused </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa5feb6a7b6b0c6db7fe58789fdbaa2da3"></a>VariableNotSet&#160;</td><td class="fielddoc"><p>%1% : "%3%" is not set for model %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fac97f7a9f2697acc8a82127fcf6d19e38"></a>WrongCheckSum&#160;</td><td class="fielddoc"><p>unable to load dump state : Checksum is different from the registered state (%1%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa267d50e34d5eb0d1ac388eaf95f5ea16"></a>WrongComponentType&#160;</td><td class="fielddoc"><p>a %1% component has been found in a %2% criteria, it will be ignored </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa65114e02866e2ba2bcf5aec5b97422cf"></a>WrongParameterNum&#160;</td><td class="fielddoc"><p>unable to load dump state : Number of parameters has changed in comparison with the registered state (%1%) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa2bcf5bd4c6e1912ed9d007d0ab767b3c"></a>WrongStartTime&#160;</td><td class="fielddoc"><p>simulation's start time (%1%) should be equal to %2% (last time in dumpFile or 0 if there is no dump): start time ajusted </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa754e52e6935d68eeee837f3e50281e39"></a>XmlParsingError&#160;</td><td class="fielddoc"><p>error while parsing file %1% : %2% </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa8f482be747dfaf4f1703276adb408e1f"></a>ZmqChannelCreated&#160;</td><td class="fielddoc"><p>channel ZMQ (%1%) created </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a963225344a251150ba0ad6d5264f567fa43ac875faa3cccd58ef50793f53ddab6"></a>ZmqDataSent&#160;</td><td class="fielddoc"><p>data sent to ZMQ%1% </p>
+</td></tr>
+</table>
 
 </div>
 </div>
-<a id="a453ef21746e95eba6d0709596f261dd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a453ef21746e95eba6d0709596f261dd5">&#9670;&nbsp;</a></span>clearAndAddAppenders_()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a891b3c8b59878fa15d6e05b8c9b89bd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a891b3c8b59878fa15d6e05b8c9b89bd0">&#9670;&nbsp;</a></span>names()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -346,134 +1047,9 @@ Traces generated before any call to <code><a class="el" href="../../d1/dc1/a0270
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DYN::Trace::clearAndAddAppenders_ </td>
+          <td class="memname">static const char* DYN::KeyLog_t::names </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../df/d84/a02722.html">TraceAppender</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>appenders</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add custom appenders to trace system. </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">appenders</td><td>: Appenders to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a709a2d09fed3d64a437ac19265ba7c82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a709a2d09fed3d64a437ac19265ba7c82">&#9670;&nbsp;</a></span>clearLogFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::clearLogFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Clear the content of the log file related to a specific tag. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>the tag related to the log file to clear </td></tr>
-    <tr><td class="paramname">slv</td><td>severity level </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a34a846264cffadc0debbcf69a6f11885"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34a846264cffadc0debbcf69a6f11885">&#9670;&nbsp;</a></span>clearLogFile_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::clearLogFile_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Clear the content of the log file related to a specific tag. </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>the tag related to the log file to clear </td></tr>
-    <tr><td class="paramname">slv</td><td>severity level </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a90ce0bedf47a172a020ded5230213215"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90ce0bedf47a172a020ded5230213215">&#9670;&nbsp;</a></span>compile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::compile </td>
-          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d1/dc1/a02706.html#a963225344a251150ba0ad6d5264f567f">value</a> &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -485,1160 +1061,13 @@ Traces generated before any call to <code><a class="el" href="../../d1/dc1/a0270
 </table>
 </div><div class="memdoc">
 
-<p>Get compile identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>compile identifier </dd></dl>
+<p>Return the name associated to the enum. </p>
+<dl class="section return"><dt>Returns</dt><dd>The name associated to the enum.names associated to the enum </dd></dl>
 
 </div>
 </div>
-<a id="a439cfe7a22ca398d54d9f93d7122ca31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a439cfe7a22ca398d54d9f93d7122ca31">&#9670;&nbsp;</a></span>configureSink()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::configureSink </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../df/d84/a02722.html">TraceAppender</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>appenders</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>eraseSinks</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>configure a sink to add it to the logging core singleton </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">appenders</td><td>appenders containing the data to configure the sink </td></tr>
-    <tr><td class="paramname">eraseSinks</td><td>erase non-persistent sinks </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac2b286a8d73821c19afa910857de6fc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2b286a8d73821c19afa910857de6fc0">&#9670;&nbsp;</a></span>debug()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a> DYN::Trace::debug </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get debug severity level stream. </p>
-<p>Get a debug severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d1/dc1/a02706.html#ac2b286a8d73821c19afa910857de6fc0">Trace::debug</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d1/dc1/a02706.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d6/d95/a02726.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<a id="a66640be8ccf953a4aaa3b4856ebdc99a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66640be8ccf953a4aaa3b4856ebdc99a">&#9670;&nbsp;</a></span>disableLogging()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::disableLogging </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Disable logging. </p>
-<p>When no log file is needed, disable logging which is showed in console. </p>
-
-</div>
-</div>
-<a id="a6ead755599c78d30183ac714e6bbf07b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ead755599c78d30183ac714e6bbf07b">&#9670;&nbsp;</a></span>enableLogging()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::enableLogging </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Enable logging. </p>
-<p>Enable logging </p>
-
-</div>
-</div>
-<a id="a73030d1e0ff4f63f34867c229263d85f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73030d1e0ff4f63f34867c229263d85f">&#9670;&nbsp;</a></span>endline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a>&amp; DYN::Trace::endline </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d95/a02726.html">TraceStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>os</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Print end of line in trace. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">os</td><td>: <a class="el" href="../../d1/dc1/a02706.html" title="Trace static class. ">Trace</a> to add end of line. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="../../d6/d95/a02726.html" title="Trace stream class. ">TraceStream</a> with the end of line added.End of line function for stream-like logging </dd></dl>
-
-</div>
-</div>
-<a id="a5d65c604c5c6cbf5617b38f0b4b97ddd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d65c604c5c6cbf5617b38f0b4b97ddd">&#9670;&nbsp;</a></span>equations()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::equations </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get equations identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>equations identifier </dd></dl>
-
-</div>
-</div>
-<a id="a8622cc7364876bbbaabe38021fca2ff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8622cc7364876bbbaabe38021fca2ff5">&#9670;&nbsp;</a></span>error()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a> DYN::Trace::error </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get error severity level stream. </p>
-<p>Get an error severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d1/dc1/a02706.html#a8622cc7364876bbbaabe38021fca2ff5">Trace::error</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d1/dc1/a02706.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d6/d95/a02726.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<a id="a52c38e4b1900200dc8d044e44bdb6e7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52c38e4b1900200dc8d044e44bdb6e7b">&#9670;&nbsp;</a></span>info()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a> DYN::Trace::info </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get info severity level stream. </p>
-<p>Get an info severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d1/dc1/a02706.html#a52c38e4b1900200dc8d044e44bdb6e7b">Trace::info</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d1/dc1/a02706.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d6/d95/a02726.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<a id="aeb4d1e4c93e960d1e3f7fcdf69c8de7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb4d1e4c93e960d1e3f7fcdf69c8de7b">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::init </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Init function. </p>
-<p>Configure the appenders/sinks. Traces generated before any call to this function are ignored. </p>
-
-</div>
-</div>
-<a id="a7864c4cc32f90dedd4dc6bc7ed00f919"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7864c4cc32f90dedd4dc6bc7ed00f919">&#9670;&nbsp;</a></span>init_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::init_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Init function. </p>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="a0188db446e78ff2ae7cba793ecb7ef50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0188db446e78ff2ae7cba793ecb7ef50">&#9670;&nbsp;</a></span>instance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../d1/dc1/a02706.html">Trace</a>&amp; DYN::Trace::instance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves static instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>static instance </dd></dl>
-
-</div>
-</div>
-<a id="a53362ff6bec8ecfccaa5c65237dacc9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53362ff6bec8ecfccaa5c65237dacc9d">&#9670;&nbsp;</a></span>isLoggingEnabled()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool DYN::Trace::isLoggingEnabled </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determines if logging is enabled. </p>
-<dl class="section return"><dt>Returns</dt><dd>whether the logging is currently enabled </dd></dl>
-
-</div>
-</div>
-<a id="a0fd36125a1d3cf7d6ef897786cbe6191"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fd36125a1d3cf7d6ef897786cbe6191">&#9670;&nbsp;</a></span>log()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::log </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add a log to logging core. </p>
-<p>Add a message of given severity level with a given tag to the logging core. If tag=="" , no tag is added the log. The logging core get all the messages and each sink get info from the core that a log has arrived and is responsible for filtering. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slv</td><td>: Severity level of the log. </td></tr>
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">message</td><td>: <a class="el" href="../../d1/d47/a02670.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> to log. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a73e79e893ac9c7738748237f3aaee341"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73e79e893ac9c7738748237f3aaee341">&#9670;&nbsp;</a></span>log_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::log_ </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add a log to logging core. </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slv</td><td>: Severity level of the log. </td></tr>
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">message</td><td>: <a class="el" href="../../d1/d47/a02670.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> to log. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a54921ad88a19128556e6698d859ab21e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54921ad88a19128556e6698d859ab21e">&#9670;&nbsp;</a></span>logExists()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool DYN::Trace::logExists </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>test if a log exists </p>
-<p>This tests only the file logs</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if this log with this level exists </dd></dl>
-
-</div>
-</div>
-<a id="a9c21220bde51642160d957c4b0cc98dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c21220bde51642160d957c4b0cc98dc">&#9670;&nbsp;</a></span>logExists_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::Trace::logExists_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>test if a log exists </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if this log with this level exists </dd></dl>
-
-</div>
-</div>
-<a id="a2dc793e91044d1105e542dbef99554fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dc793e91044d1105e542dbef99554fc">&#9670;&nbsp;</a></span>modeler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::modeler </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get modeler identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>modeler identifier </dd></dl>
-
-</div>
-</div>
-<a id="a341e9509c5448c5ba113cefc68b9b2b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a341e9509c5448c5ba113cefc68b9b2b9">&#9670;&nbsp;</a></span>network()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::network </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get network identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>network identifier </dd></dl>
-
-</div>
-</div>
-<a id="a895437987b11c322e386a71db0276ff1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a895437987b11c322e386a71db0276ff1">&#9670;&nbsp;</a></span>parameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::parameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get parameters identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>parameters identifier </dd></dl>
-
-</div>
-</div>
-<a id="a5dc8eeed52390a75e42b6bf5c69deb1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc8eeed52390a75e42b6bf5c69deb1d">&#9670;&nbsp;</a></span>printDynawoLogHeader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::printDynawoLogHeader </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Print Dynawo log header in the log file corresponding to input tag. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>tag to print the Dynawo log header in the right log file </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a76de36fc84be513d3d2cb02daa313995"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76de36fc84be513d3d2cb02daa313995">&#9670;&nbsp;</a></span>resetCustomAppender()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::resetCustomAppender </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific non-persistent custom appender of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8bccbd6d9b48a016c34cfebe73d0db9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bccbd6d9b48a016c34cfebe73d0db9a">&#9670;&nbsp;</a></span>resetCustomAppender_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetCustomAppender_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific non-persistent custom appender of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="afc3fe327a69bdfd37672ab9d5626af41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc3fe327a69bdfd37672ab9d5626af41">&#9670;&nbsp;</a></span>resetCustomAppenders_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetCustomAppenders_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset non-persistent custom appenders of trace system. </p>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="ab96ee04bf35308dc28a8f00f2b8fd035"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab96ee04bf35308dc28a8f00f2b8fd035">&#9670;&nbsp;</a></span>resetPersistentCustomAppender()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::resetPersistentCustomAppender </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific persistent custom appenders of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3b31bd1980c016db75e45913c1f7b4cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b31bd1980c016db75e45913c1f7b4cb">&#9670;&nbsp;</a></span>resetPersistentCustomAppender_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetPersistentCustomAppender_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific persistent custom appenders of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="a935f9eaefff49d3e4922f93882a5b973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a935f9eaefff49d3e4922f93882a5b973">&#9670;&nbsp;</a></span>resetPersistentCustomAppenders_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetPersistentCustomAppenders_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset persistent custom appenders of trace system. </p>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="af3b32ed908d57a17b8e6fed12b11729f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b32ed908d57a17b8e6fed12b11729f">&#9670;&nbsp;</a></span>severityLevelFromString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> DYN::Trace::severityLevelFromString </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>level</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get SeverityLevel associated to a string. </p>
-<dl class="section note"><dt>Note</dt><dd>Must be accorded to <code>SeverityLevel</code> enum in <code><a class="el" href="../../dc/dae/a00563.html" title="Trace stream header. ">DYNTraceStream.h</a></code>. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">General</td><td>exception if the string has not been given any equivalent SeverityLevel representation in the method. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">level</td><td>: String to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Severity level representation of the string. </dd></dl>
-
-</div>
-</div>
-<a id="a095fbe7be6e7a689d79d776257dcb643"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a095fbe7be6e7a689d79d776257dcb643">&#9670;&nbsp;</a></span>solver()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::solver </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get solver identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>solver identifier </dd></dl>
-
-</div>
-</div>
-<a id="a461adbbeb40c6d19199e168e6a3e7a14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a461adbbeb40c6d19199e168e6a3e7a14">&#9670;&nbsp;</a></span>standardLogExists()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool DYN::Trace::standardLogExists </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Test if a standard log exists. </p>
-<p>This test the level of the standard output log</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slv</td><td>: Severity level </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether the standard log accepts the log level </dd></dl>
-
-</div>
-</div>
-<a id="af47b277a2efdd794a442b758f0f52b92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af47b277a2efdd794a442b758f0f52b92">&#9670;&nbsp;</a></span>stringFromSeverityLevel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::stringFromSeverityLevel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/dae/a00563.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>level</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get string representation of a severity level. </p>
-<dl class="section note"><dt>Note</dt><dd>Must be accorded to <code>SeverityLevel</code> enum in <code><a class="el" href="../../dc/dae/a00563.html" title="Trace stream header. ">DYNTraceStream.h</a></code>. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">General</td><td>exception if the SeverityLevel has not been given any equivalent string representation in the method. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">level</td><td>: Severity level to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>String representation of the severity level. </dd></dl>
-
-</div>
-</div>
-<a id="ad09d54f3f5449472ac0d5fa4df242ff2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad09d54f3f5449472ac0d5fa4df242ff2">&#9670;&nbsp;</a></span>variables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::variables </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get variables identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>variables identifier </dd></dl>
-
-</div>
-</div>
-<a id="aed71ecb5071fd4ad758cb4a11afe90d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed71ecb5071fd4ad758cb4a11afe90d0">&#9670;&nbsp;</a></span>warn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../d6/d95/a02726.html">TraceStream</a> DYN::Trace::warn </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get warning severity level stream. </p>
-<p>Get a warning severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d1/dc1/a02706.html#aed71ecb5071fd4ad758cb4a11afe90d0">Trace::warn</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d1/dc1/a02706.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../d6/d95/a02726.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d19/a00560_source.html">DYNTrace.h</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li><a class="el" href="../../d4/d33/a00536_source.html">DYNLog_keys.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1656,8 +1085,8 @@ Traces generated before any call to <code><a class="el" href="../../d1/dc1/a0270
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/dc1/a02706.html">Trace</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/dc1/a02706.html">KeyLog_t</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

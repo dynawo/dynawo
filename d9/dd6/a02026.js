@@ -1,8 +1,8 @@
 var a02026 =
 [
-    [ "ConnectHandler", "d9/dd6/a02026.html#a9fef8b3aa82073d69b10ed865fd7857a", null ],
-    [ "~ConnectHandler", "d9/dd6/a02026.html#aec57a6b7445893421764e24b8a5e5898", null ],
-    [ "create", "d9/dd6/a02026.html#a724ce0ba658d068db5ee1bf78aed4182", null ],
-    [ "get", "d9/dd6/a02026.html#a612a02c1f2c66fb97533f4b3c2faa892", null ],
-    [ "connector_", "d9/dd6/a02026.html#a10ab5d9d7087ad2c2c2077a6dff687b2", null ]
+    [ "UnitDynamicModelHandler", "d9/dd6/a02026.html#a7c08314c37e74cc061724aac45036b01", null ],
+    [ "~UnitDynamicModelHandler", "d9/dd6/a02026.html#a756408613243d3d0ca5eb08d9287f19d", null ],
+    [ "create", "d9/dd6/a02026.html#a0263f31d98f3956e3e65e829924b9f34", null ],
+    [ "get", "d9/dd6/a02026.html#ac436baf178eede7428576d2fedb10ed9", null ],
+    [ "unitDynamicModel_", "d9/dd6/a02026.html#ac69f795acc36f2e65b774199080433a4", null ]
 ];

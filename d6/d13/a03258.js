@@ -1,6 +1,6 @@
 var a03258 =
 [
-    [ "ModelVoltageSetPointChangeFactory", "d6/d13/a03258.html#a39228d1148836161ae2016d29233af64", null ],
-    [ "create", "d6/d13/a03258.html#a755119c12751ca076b75970569983dcf", null ],
-    [ "destroy", "d6/d13/a03258.html#a27515cb2201ff719f93bfbdf55046723", null ]
+    [ "~ModelCentralizedShuntsSectionControlFactory", "d6/d13/a03258.html#a9a02db2044b3189f558ec4e54a93a2d9", null ],
+    [ "create", "d6/d13/a03258.html#a2864b86ec1abc029d94dc9f2dd6128ad", null ],
+    [ "destroy", "d6/d13/a03258.html#aa1aa0472e5a7724a6b2f3aa6f193d3dd", null ]
 ];

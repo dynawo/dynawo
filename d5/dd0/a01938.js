@@ -1,10 +1,4 @@
 var a01938 =
 [
-    [ "MacroStaticReference", "d5/dd0/a01938.html#a08e64cf4c1662d0c256dd5158cbe8352", null ],
-    [ "addStaticRef", "d5/dd0/a01938.html#ae06d92ae5ea367d873add2306b5ada97", null ],
-    [ "findStaticRef", "d5/dd0/a01938.html#a480719550e47d591f4557de8977b021a", null ],
-    [ "getId", "d5/dd0/a01938.html#a10be611f5653950a4e58c91de01ff525", null ],
-    [ "getStaticReferences", "d5/dd0/a01938.html#a37469900a0398a5998cf57826a1b627b", null ],
-    [ "id_", "d5/dd0/a01938.html#a0059eaf4a34126a709be4d96c9025a47", null ],
-    [ "staticRefs_", "d5/dd0/a01938.html#a20f14b89077b6698e4e9a4a6eceab8ca", null ]
+    [ "newMacroConnection", "d5/dd0/a01938.html#aba904f4fac30160723290b4f5ee20bd5", null ]
 ];

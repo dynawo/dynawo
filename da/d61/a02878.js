@@ -1,15 +1,21 @@
 var a02878 =
 [
-    [ "FailingCriteria", "d4/d57/a02882.html", "d4/d57/a02882" ],
-    [ "Bound", "da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3", [
-      [ "MAX", "da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3a26a4b44a837bf97b972628509912b4a5", null ],
-      [ "MIN", "da/d61/a02878.html#a2a006412a6c16ae87e540f83e99f7ec3ace31e2a082d17e038fcc6e3006166653", null ]
-    ] ],
-    [ "Criteria", "da/d61/a02878.html#a04a9d18b48178d64a909cd0dc0e555e5", null ],
-    [ "~Criteria", "da/d61/a02878.html#ab91b12e7731dfd62f0989c6ae50557ed", null ],
-    [ "checkCriteria", "da/d61/a02878.html#a23993a47f79a29d933bebdda2502686e", null ],
-    [ "getFailingCriteria", "da/d61/a02878.html#ae37e82fe5de5482d924a4f3781287bc5", null ],
-    [ "printAllFailingCriteriaIntoLog", "da/d61/a02878.html#a246cd0ab90b0768892d910cf9c4b2355", null ],
-    [ "failingCriteria_", "da/d61/a02878.html#a2cfd58d7a5fc57e2d2438cf3c3603954", null ],
-    [ "params_", "da/d61/a02878.html#aa2e02bd65f615a2ff17d905802f21d8d", null ]
+    [ "VariableAlias", "da/d61/a02878.html#ae2f29e11bac477319e4009a493a0cf2f", null ],
+    [ "VariableAlias", "da/d61/a02878.html#a3ca546ee7ccd3d8c7420724176f6b8d8", null ],
+    [ "~VariableAlias", "da/d61/a02878.html#a28f82c4659e617f2a09d22c3444093b0", null ],
+    [ "VariableAlias", "da/d61/a02878.html#a70709f4cd3485524b34b458a6280ad04", null ],
+    [ "checkTypeCompatibility", "da/d61/a02878.html#ae77bbb4d4c774e9d560c153e33189268", null ],
+    [ "getIndex", "da/d61/a02878.html#aa2aa277a449a510175d9c01ee6d85946", null ],
+    [ "getLocalType", "da/d61/a02878.html#afb8fed133f36cb3846c3bb6abedbfb61", null ],
+    [ "getNegated", "da/d61/a02878.html#aaed655b20a82e758b464d7913a849253", null ],
+    [ "getReferenceVariable", "da/d61/a02878.html#a975726da141fc14467124ed5f47a8d38", null ],
+    [ "getReferenceVariableName", "da/d61/a02878.html#a265e6b032074ba249acfb5e49114bae8", null ],
+    [ "getType", "da/d61/a02878.html#a8001a9c66396f4f29876ba0960d3c6ff", null ],
+    [ "isState", "da/d61/a02878.html#a0a271abe6b5bfd6b4c541b9502db9b8c", null ],
+    [ "referenceVariableSet", "da/d61/a02878.html#ac9d6ec2ecbbb5c8defd4f6b5623a05f0", null ],
+    [ "setReferenceVariable", "da/d61/a02878.html#a03595de7bfadd1e7fe28301ae001b2a7", null ],
+    [ "negated_", "da/d61/a02878.html#abc8f6c821bde15f39ced8b8a742fd339", null ],
+    [ "referenceName_", "da/d61/a02878.html#a9c50cf0e680fbf227f9ab8159945f116", null ],
+    [ "referenceVariable_", "da/d61/a02878.html#af2bd0089996bf18622e6564e55cc05b3", null ],
+    [ "type_", "da/d61/a02878.html#a54618aaaed6da0f61308b56728742c31", null ]
 ];

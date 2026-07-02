@@ -1,14 +1,10 @@
 var a02502 =
 [
-    [ "addMacroParameterSet", "db/d09/a02502.html#a7725423f3c1e87e6ce2b0215aeab4107", null ],
-    [ "addParametersSet", "db/d09/a02502.html#a7920709235c0ef6382f68c4965e73621", null ],
-    [ "getMacroParametersSets", "db/d09/a02502.html#a06e0809b41343ab2c960cdd586197d26", null ],
-    [ "getParametersFromMacroParameter", "db/d09/a02502.html#ae1ce7a0145681277bc44e10ae575a826", null ],
-    [ "getParametersSet", "db/d09/a02502.html#afb3b04ff758df17ae9fe3c7d8689ca39", null ],
-    [ "getParametersSets", "db/d09/a02502.html#a15eda5b70272739bec5480425cb35802", null ],
-    [ "hasMacroParametersSet", "db/d09/a02502.html#acfeb3a13db500756adfbe18a2651f5f6", null ],
-    [ "hasParametersSet", "db/d09/a02502.html#a6cbb0c51988d1dda39f6618fd22a79c6", null ],
-    [ "propagateOriginData", "db/d09/a02502.html#af3924966088b412cf3cf76b17d088e3c", null ],
-    [ "macroParametersSets_", "db/d09/a02502.html#a4d1b678ab56490563b09c0d1b5878043", null ],
-    [ "parametersSets_", "db/d09/a02502.html#ae7dffb4dd4b65b143ff1a33ddd4ecda8", null ]
+    [ "ParameterHandler", "db/d09/a02502.html#aa5920a8328203610bb2a5d560c60e58e", null ],
+    [ "~ParameterHandler", "db/d09/a02502.html#a1e3f2845ef51e70baa6dbe4b9278181f", null ],
+    [ "create", "db/d09/a02502.html#a426e2b790d93ac99b881cd160ad4e047", null ],
+    [ "getName", "db/d09/a02502.html#abea528623f1436f713a83a99f8940ed5", null ],
+    [ "getType", "db/d09/a02502.html#a596bf2a00ebea0e190cfafbfc3cdb94b", null ],
+    [ "name_", "db/d09/a02502.html#a63c522d544b2f657daa87780bfc64c87", null ],
+    [ "type_", "db/d09/a02502.html#ad979ccf7165c09112387d3b4b3c1f9c5", null ]
 ];

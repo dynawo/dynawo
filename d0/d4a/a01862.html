@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: constraints::TxtExporter Class Reference</title>
+<title>Dynawo: constraints::ConstraintsCollection Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,46 +96,71 @@ $(document).ready(function(){initNavTree('d0/d4a/a01862.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d3/dce/a01859.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">constraints::TxtExporter Class Reference</div>  </div>
+<div class="title">constraints::ConstraintsCollection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>TXT exporter interface class.  
+<p>contraints interface class  
  <a href="../../d0/d4a/a01862.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d1/dc1/a00092_source.html">CSTRTxtExporter.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for constraints::TxtExporter:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d0/d4a/a01862.png" usemap="#constraints::TxtExporter_map" alt=""/>
-  <map id="constraints::TxtExporter_map" name="constraints::TxtExporter_map">
-<area href="../../d7/d97/a01854.html" title="Exporter interface class. " alt="constraints::Exporter" shape="rect" coords="0,0,143,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../da/dec/a00080_source.html">CSTRConstraintsCollection.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4bff159176b801da756b6a5904dee141"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a4bff159176b801da756b6a5904dee141">exportToFile</a> (const std::shared_ptr&lt; <a class="el" href="../../d4/df4/a01846.html">ConstraintsCollection</a> &gt; &amp;constraints, const std::string &amp;filePath, bool exportEventType=false) const override</td></tr>
-<tr class="memdesc:a4bff159176b801da756b6a5904dee141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in txt format.  <a href="#a4bff159176b801da756b6a5904dee141">More...</a><br /></td></tr>
-<tr class="separator:a4bff159176b801da756b6a5904dee141"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff3a1f023bcfd2be6a1a58bb97742eac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#aff3a1f023bcfd2be6a1a58bb97742eac">exportToStream</a> (const std::shared_ptr&lt; <a class="el" href="../../d4/df4/a01846.html">ConstraintsCollection</a> &gt; &amp;constraints, std::ostream &amp;stream, double minTime=-1.0, bool exportEventType=false) const override</td></tr>
-<tr class="memdesc:aff3a1f023bcfd2be6a1a58bb97742eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in txt format.  <a href="#aff3a1f023bcfd2be6a1a58bb97742eac">More...</a><br /></td></tr>
-<tr class="separator:aff3a1f023bcfd2be6a1a58bb97742eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a01854"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a01854')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d7/d97/a01854.html">constraints::Exporter</a></td></tr>
-<tr class="memitem:a187b559486a48d701a109d038ddc8ade inherit pub_methods_a01854"><td class="memItemLeft" align="right" valign="top"><a id="a187b559486a48d701a109d038ddc8ade"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d97/a01854.html#a187b559486a48d701a109d038ddc8ade">~Exporter</a> ()=default</td></tr>
-<tr class="memdesc:a187b559486a48d701a109d038ddc8ade inherit pub_methods_a01854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a187b559486a48d701a109d038ddc8ade inherit pub_methods_a01854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a176225b95744fede25307401434ede"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a7a176225b95744fede25307401434ede">ConstraintsCollection</a> (const std::string &amp;id)</td></tr>
+<tr class="memdesc:a7a176225b95744fede25307401434ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="#a7a176225b95744fede25307401434ede">More...</a><br /></td></tr>
+<tr class="separator:a7a176225b95744fede25307401434ede"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af081bba8b96fffce46b1d1067b5e1768"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#af081bba8b96fffce46b1d1067b5e1768">addConstraint</a> (const std::string &amp;modelName, const std::string &amp;description, const double &amp;time, <a class="el" href="../../db/db6/a00074.html#a007d4f24c06ca5c81c5e6793e7f3874c">Type_t</a> type, const std::string &amp;modelType=&quot;&quot;, const boost::optional&lt; <a class="el" href="../../da/d18/a01850.html">ConstraintData</a> &gt; &amp;data=boost::none)</td></tr>
+<tr class="memdesc:af081bba8b96fffce46b1d1067b5e1768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a constraint to the collection.  <a href="#af081bba8b96fffce46b1d1067b5e1768">More...</a><br /></td></tr>
+<tr class="separator:af081bba8b96fffce46b1d1067b5e1768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a177de3e9beaf2b00c9965671cd2b88ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a177de3e9beaf2b00c9965671cd2b88ca">filter</a> (<a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411">DYN::ConstraintValueType_t</a> type)</td></tr>
+<tr class="memdesc:a177de3e9beaf2b00c9965671cd2b88ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter the constraint collection by removing constraints cancelled during the simulation  <a href="#a177de3e9beaf2b00c9965671cd2b88ca">More...</a><br /></td></tr>
+<tr class="separator:a177de3e9beaf2b00c9965671cd2b88ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a081c6914146b0f2f4d231cfd303484"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d7/d97/a01854.html">Constraint</a> &gt; &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a1a081c6914146b0f2f4d231cfd303484">getConstraintsByModel</a> () const</td></tr>
+<tr class="memdesc:a1a081c6914146b0f2f4d231cfd303484"><td class="mdescLeft">&#160;</td><td class="mdescRight">get constraints by model  <a href="#a1a081c6914146b0f2f4d231cfd303484">More...</a><br /></td></tr>
+<tr class="separator:a1a081c6914146b0f2f4d231cfd303484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ad70336462a0bc91bb353094317388a"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../d7/d97/a01854.html">Constraint</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a6ad70336462a0bc91bb353094317388a">getConstraintsById</a> () const</td></tr>
+<tr class="memdesc:a6ad70336462a0bc91bb353094317388a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get constraints by id  <a href="#a6ad70336462a0bc91bb353094317388a">More...</a><br /></td></tr>
+<tr class="separator:a6ad70336462a0bc91bb353094317388a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ba255b00f75a5a001433b2d72f30e4"><td class="memItemLeft" align="right" valign="top"><a id="a52ba255b00f75a5a001433b2d72f30e4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a52ba255b00f75a5a001433b2d72f30e4">clear</a> ()</td></tr>
+<tr class="memdesc:a52ba255b00f75a5a001433b2d72f30e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">empty constraint collection <br /></td></tr>
+<tr class="separator:a52ba255b00f75a5a001433b2d72f30e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50706877a738d705035fe7702de49940"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a50706877a738d705035fe7702de49940">idFromDetails</a> (const std::string &amp;modelName, const std::string &amp;description, const double &amp;time, <a class="el" href="../../db/db6/a00074.html#a007d4f24c06ca5c81c5e6793e7f3874c">Type_t</a> type) const</td></tr>
+<tr class="memdesc:a50706877a738d705035fe7702de49940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a string id from constraint details.  <a href="#a50706877a738d705035fe7702de49940">More...</a><br /></td></tr>
+<tr class="separator:a50706877a738d705035fe7702de49940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02ccf9ed82abee06dd0de88e96ec349a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a02ccf9ed82abee06dd0de88e96ec349a">setExcludeTimeFromId</a> (bool excludeTimeFromId)</td></tr>
+<tr class="memdesc:a02ccf9ed82abee06dd0de88e96ec349a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set excludeTimeFromId flag.  <a href="#a02ccf9ed82abee06dd0de88e96ec349a">More...</a><br /></td></tr>
+<tr class="separator:a02ccf9ed82abee06dd0de88e96ec349a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a1955a14d395747a90016e1f4193f932d"><td class="memItemLeft" align="right" valign="top"><a id="a1955a14d395747a90016e1f4193f932d"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a1955a14d395747a90016e1f4193f932d">id_</a></td></tr>
+<tr class="memdesc:a1955a14d395747a90016e1f4193f932d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ConstraintCollection's id. <br /></td></tr>
+<tr class="separator:a1955a14d395747a90016e1f4193f932d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69fd5c2096cab1ca2600b9345a699c4e"><td class="memItemLeft" align="right" valign="top"><a id="a69fd5c2096cab1ca2600b9345a699c4e"></a>
+std::map&lt; std::string, std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d7/d97/a01854.html">Constraint</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a69fd5c2096cab1ca2600b9345a699c4e">constraintsByModel_</a></td></tr>
+<tr class="memdesc:a69fd5c2096cab1ca2600b9345a699c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">constraint sorted by model <br /></td></tr>
+<tr class="separator:a69fd5c2096cab1ca2600b9345a699c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b56865707ef72444de955e6c867539"><td class="memItemLeft" align="right" valign="top"><a id="a10b56865707ef72444de955e6c867539"></a>
+std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../d7/d97/a01854.html">Constraint</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#a10b56865707ef72444de955e6c867539">constraintsById_</a></td></tr>
+<tr class="memdesc:a10b56865707ef72444de955e6c867539"><td class="mdescLeft">&#160;</td><td class="mdescRight">constraint sorted by id <br /></td></tr>
+<tr class="separator:a10b56865707ef72444de955e6c867539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac02ef1feceaee4f6d5afb9973207de06"><td class="memItemLeft" align="right" valign="top"><a id="ac02ef1feceaee4f6d5afb9973207de06"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4a/a01862.html#ac02ef1feceaee4f6d5afb9973207de06">excludeTimeFromId_</a></td></tr>
+<tr class="memdesc:ac02ef1feceaee4f6d5afb9973207de06"><td class="mdescLeft">&#160;</td><td class="mdescRight">exclude time from id <br /></td></tr>
+<tr class="separator:ac02ef1feceaee4f6d5afb9973207de06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TXT exporter interface class. </p>
-<p>Txt export class for constraints collection </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4bff159176b801da756b6a5904dee141"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bff159176b801da756b6a5904dee141">&#9670;&nbsp;</a></span>exportToFile()</h2>
+<div class="textblock"><p>contraints interface class </p>
+<p>Interface class for ContraintsCollection object. This a container for constraints </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7a176225b95744fede25307401434ede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a176225b95744fede25307401434ede">&#9670;&nbsp;</a></span>ConstraintsCollection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,52 +169,124 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void constraints::TxtExporter::exportToFile </td>
+          <td class="memname">constraints::ConstraintsCollection::ConstraintsCollection </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d4/df4/a01846.html">ConstraintsCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>constraints</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>constructor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td><a class="el" href="../../d0/d4a/a01862.html" title="contraints interface class ">ConstraintsCollection</a>'s id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af081bba8b96fffce46b1d1067b5e1768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af081bba8b96fffce46b1d1067b5e1768">&#9670;&nbsp;</a></span>addConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void constraints::ConstraintsCollection::addConstraint </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filePath</em>, </td>
+          <td class="paramname"><em>description</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>exportEventType</em> = <code>false</code>&#160;</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../db/db6/a00074.html#a007d4f24c06ca5c81c5e6793e7f3874c">Type_t</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelType</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::optional&lt; <a class="el" href="../../da/d18/a01850.html">ConstraintData</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em> = <code>boost::none</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Export method in txt format. </p>
+<p>Add a constraint to the collection. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">constraints</td><td>Constraints to export </td></tr>
-    <tr><td class="paramname">filePath</td><td>File to export txt formatted timeline to </td></tr>
-    <tr><td class="paramname">exportEventType</td><td>Whether to export event type </td></tr>
+    <tr><td class="paramname">modelName</td><td>model where the constraint occurs </td></tr>
+    <tr><td class="paramname">description</td><td>description of the constraint </td></tr>
+    <tr><td class="paramname">time</td><td>time when the constraint occurs </td></tr>
+    <tr><td class="paramname">type</td><td>begin/end </td></tr>
+    <tr><td class="paramname">modelType</td><td>type of the model </td></tr>
+    <tr><td class="paramname">data</td><td>the constraint data to add </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d7/d97/a01854.html#aa8303e9e98c59e070e546d8d2e4a99a5">constraints::Exporter</a>.</p>
+</div>
+</div>
+<a id="a177de3e9beaf2b00c9965671cd2b88ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a177de3e9beaf2b00c9965671cd2b88ca">&#9670;&nbsp;</a></span>filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void constraints::ConstraintsCollection::filter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../df/db6/a00509.html#ae13ec6dec76f4eb5db262f8cc9cf4411">DYN::ConstraintValueType_t</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter the constraint collection by removing constraints cancelled during the simulation </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>filter type </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="aff3a1f023bcfd2be6a1a58bb97742eac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff3a1f023bcfd2be6a1a58bb97742eac">&#9670;&nbsp;</a></span>exportToStream()</h2>
+<a id="a6ad70336462a0bc91bb353094317388a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ad70336462a0bc91bb353094317388a">&#9670;&nbsp;</a></span>getConstraintsById()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,28 +295,81 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void constraints::TxtExporter::exportToStream </td>
+          <td class="memname">const std::map&lt;std::string, std::shared_ptr&lt;<a class="el" href="../../d7/d97/a01854.html">Constraint</a>&gt; &gt;&amp; constraints::ConstraintsCollection::getConstraintsById </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d4/df4/a01846.html">ConstraintsCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>constraints</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get constraints by id </p>
+<dl class="section return"><dt>Returns</dt><dd>constraints by id </dd></dl>
+
+</div>
+</div>
+<a id="a1a081c6914146b0f2f4d231cfd303484"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a081c6914146b0f2f4d231cfd303484">&#9670;&nbsp;</a></span>getConstraintsByModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt;std::string, std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../d7/d97/a01854.html">Constraint</a>&gt; &gt; &gt;&amp; constraints::ConstraintsCollection::getConstraintsByModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get constraints by model </p>
+<dl class="section return"><dt>Returns</dt><dd>constraints by model </dd></dl>
+
+</div>
+</div>
+<a id="a50706877a738d705035fe7702de49940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50706877a738d705035fe7702de49940">&#9670;&nbsp;</a></span>idFromDetails()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string constraints::ConstraintsCollection::idFromDetails </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>description</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>minTime</em> = <code>-1.0</code>, </td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>exportEventType</em> = <code>false</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../db/db6/a00074.html#a007d4f24c06ca5c81c5e6793e7f3874c">Type_t</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -227,30 +377,58 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
           <td></td><td> const</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+<p>Build a string id from constraint details. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelName</td><td>model where the constraint occurs </td></tr>
+    <tr><td class="paramname">description</td><td>description of the constraint </td></tr>
+    <tr><td class="paramname">time</td><td>time when the constraint occurs </td></tr>
+    <tr><td class="paramname">type</td><td>begin/end </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the sortable id string </dd></dl>
+
+</div>
+</div>
+<a id="a02ccf9ed82abee06dd0de88e96ec349a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02ccf9ed82abee06dd0de88e96ec349a">&#9670;&nbsp;</a></span>setExcludeTimeFromId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void constraints::ConstraintsCollection::setExcludeTimeFromId </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>excludeTimeFromId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method in txt format. </p>
+<p>Set excludeTimeFromId flag. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">constraints</td><td>Constraints to export </td></tr>
-    <tr><td class="paramname">stream</td><td>Stream to export txt formatted timeline to </td></tr>
-    <tr><td class="paramname">minTime</td><td>Minimum time threshold (constraints with time &lt; minTime are excluded, negative value means no filtering) </td></tr>
-    <tr><td class="paramname">exportEventType</td><td>Whether to export event type </td></tr>
+    <tr><td class="paramname">excludeTimeFromId</td><td>excludeTimeFromId flag value </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d7/d97/a01854.html#a945cb1410e11dd034f47e40cc58e40e9">constraints::Exporter</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d1/dc1/a00092_source.html">CSTRTxtExporter.h</a></li>
+<li><a class="el" href="../../da/dec/a00080_source.html">CSTRConstraintsCollection.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -268,8 +446,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>constraints</b></li><li class="navelem"><a class="el" href="../../d0/d4a/a01862.html">TxtExporter</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>constraints</b></li><li class="navelem"><a class="el" href="../../d0/d4a/a01862.html">ConstraintsCollection</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

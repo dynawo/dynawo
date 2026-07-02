@@ -1,6 +1,5 @@
 var a01906 =
 [
-    [ "~Importer", "d3/d1b/a01906.html#a7fb7ed178989c1359a2cd67383713b2e", null ],
-    [ "importFromDydFiles", "d3/d1b/a01906.html#a4af3873a831ba133905593f7d4ffe982", null ],
-    [ "importFromStream", "d3/d1b/a01906.html#a42cc5e7750340a7dcf935472aeffda8e", null ]
+    [ "copyCollection", "d3/d1b/a01906.html#a34ad005e1c68b8ded3b97ad38b7e6e63", null ],
+    [ "newCollection", "d3/d1b/a01906.html#af611454c8e0d3debdc0a4fd5c1417bd4", null ]
 ];

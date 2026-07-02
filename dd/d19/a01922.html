@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: dynamicdata::MacroConnectionFactory Class Reference</title>
+<title>Dynawo: dynamicdata::Importer Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,30 +95,46 @@ $(document).ready(function(){initNavTree('dd/d19/a01922.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../de/d90/a01919.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">dynamicdata::MacroConnectionFactory Class Reference</div>  </div>
+<div class="title">dynamicdata::Importer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../dc/d63/a01918.html" title="Dynawo MacroConnection interface class. ">MacroConnection</a> factory class.  
+<p><a class="el" href="../../dd/d19/a01922.html" title="Importer interface class. ">Importer</a> interface class.  
  <a href="../../dd/d19/a01922.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d2/df5/a00137_source.html">DYDMacroConnectionFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dc/dfe/a00125_source.html">DYDImporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for dynamicdata::Importer:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../dd/d19/a01922.png" usemap="#dynamicdata::Importer_map" alt=""/>
+  <map id="dynamicdata::Importer_map" name="dynamicdata::Importer_map">
+<area href="../../d6/d5b/a02078.html" title="XML importer interface class. " alt="dynamicdata::XmlImporter" shape="rect" coords="0,56,156,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aba904f4fac30160723290b4f5ee20bd5"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../dc/d63/a01918.html">MacroConnection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d19/a01922.html#aba904f4fac30160723290b4f5ee20bd5">newMacroConnection</a> (const std::string &amp;var1, const std::string &amp;var2)</td></tr>
-<tr class="memdesc:aba904f4fac30160723290b4f5ee20bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../dc/d63/a01918.html" title="Dynawo MacroConnection interface class. ">MacroConnection</a> instance.  <a href="#aba904f4fac30160723290b4f5ee20bd5">More...</a><br /></td></tr>
-<tr class="separator:aba904f4fac30160723290b4f5ee20bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7fb7ed178989c1359a2cd67383713b2e"><td class="memItemLeft" align="right" valign="top"><a id="a7fb7ed178989c1359a2cd67383713b2e"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d19/a01922.html#a7fb7ed178989c1359a2cd67383713b2e">~Importer</a> ()=default</td></tr>
+<tr class="memdesc:a7fb7ed178989c1359a2cd67383713b2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a7fb7ed178989c1359a2cd67383713b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af3873a831ba133905593f7d4ffe982"><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr&lt; <a class="el" href="../../d2/dd7/a01902.html">DynamicModelsCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d19/a01922.html#a4af3873a831ba133905593f7d4ffe982">importFromDydFiles</a> (const std::vector&lt; std::string &gt; &amp;fileNames) const =0</td></tr>
+<tr class="memdesc:a4af3873a831ba133905593f7d4ffe982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from files.  <a href="#a4af3873a831ba133905593f7d4ffe982">More...</a><br /></td></tr>
+<tr class="separator:a4af3873a831ba133905593f7d4ffe982"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42cc5e7750340a7dcf935472aeffda8e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d19/a01922.html#a42cc5e7750340a7dcf935472aeffda8e">importFromStream</a> (std::istream &amp;stream, <a class="el" href="../../d1/d7d/a02074.html">XmlHandler</a> &amp;dydHandler, xml::sax::parser::ParserPtr &amp;parser, bool xsdValidation) const =0</td></tr>
+<tr class="memdesc:a42cc5e7750340a7dcf935472aeffda8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import dynamic models collection from stream.  <a href="#a42cc5e7750340a7dcf935472aeffda8e">More...</a><br /></td></tr>
+<tr class="separator:a42cc5e7750340a7dcf935472aeffda8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../dc/d63/a01918.html" title="Dynawo MacroConnection interface class. ">MacroConnection</a> factory class. </p>
-<p><a class="el" href="../../dd/d19/a01922.html" title="MacroConnection factory class. ">MacroConnectionFactory</a> encapsulate methods for creating new <code><a class="el" href="../../dc/d63/a01918.html" title="Dynawo MacroConnection interface class. ">MacroConnection</a></code> objects. </p>
+<div class="textblock"><p><a class="el" href="../../dd/d19/a01922.html" title="Importer interface class. ">Importer</a> interface class. </p>
+<p>Import class for dynamic models collections. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aba904f4fac30160723290b4f5ee20bd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba904f4fac30160723290b4f5ee20bd5">&#9670;&nbsp;</a></span>newMacroConnection()</h2>
+<a id="a4af3873a831ba133905593f7d4ffe982"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4af3873a831ba133905593f7d4ffe982">&#9670;&nbsp;</a></span>importFromDydFiles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -127,44 +143,96 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../dc/d63/a01918.html">MacroConnection</a>&gt; dynamicdata::MacroConnectionFactory::newMacroConnection </td>
+          <td class="memname">virtual boost::shared_ptr&lt;<a class="el" href="../../d2/dd7/a01902.html">DynamicModelsCollection</a>&gt; dynamicdata::Importer::importFromDydFiles </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>var1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>var2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fileNames</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create new <a class="el" href="../../dc/d63/a01918.html" title="Dynawo MacroConnection interface class. ">MacroConnection</a> instance. </p>
+<p>Import dynamic models collection from files. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">var1</td><td>: first model connected port name </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">var2</td><td>: second model connected port name </td></tr>
+    <tr><td class="paramname">fileNames</td><td>list of files to read </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Unique pointer to a new <code><a class="el" href="../../dc/d63/a01918.html" title="Dynawo MacroConnection interface class. ">MacroConnection</a></code> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection imported </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/d5b/a02078.html#a563da63d085dba51ae473198183d3964">dynamicdata::XmlImporter</a>.</p>
+
+</div>
+</div>
+<a id="a42cc5e7750340a7dcf935472aeffda8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42cc5e7750340a7dcf935472aeffda8e">&#9670;&nbsp;</a></span>importFromStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void dynamicdata::Importer::importFromStream </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d1/d7d/a02074.html">XmlHandler</a> &amp;&#160;</td>
+          <td class="paramname"><em>dydHandler</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">xml::sax::parser::ParserPtr &amp;&#160;</td>
+          <td class="paramname"><em>parser</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>xsdValidation</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Import dynamic models collection from stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>stream to import </td></tr>
+    <tr><td class="paramname">dydHandler</td><td>dynamic models file handler </td></tr>
+    <tr><td class="paramname">parser</td><td>Smart pointer to SAX parser interface class </td></tr>
+    <tr><td class="paramname">xsdValidation</td><td>To use or not XSD validation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d5b/a02078.html#aba87c5fa7193b89d9cf1af4c17aa2680">dynamicdata::XmlImporter</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d2/df5/a00137_source.html">DYDMacroConnectionFactory.h</a></li>
+<li><a class="el" href="../../dc/dfe/a00125_source.html">DYDImporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -182,8 +250,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../dd/d19/a01922.html">MacroConnectionFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>dynamicdata</b></li><li class="navelem"><a class="el" href="../../dd/d19/a01922.html">Importer</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

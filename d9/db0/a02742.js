@@ -1,16 +1,10 @@
 var a02742 =
 [
-    [ "~ConnectInterface", "d9/db0/a02742.html#a190526ee9b64eb9ee061a7ea21d5a01c", null ],
-    [ "getConnectedModel1", "d9/db0/a02742.html#a95caf30812d4521b7cb152abf42abdd5", null ],
-    [ "getConnectedModel2", "d9/db0/a02742.html#a955d3f6542340d655e486eeab2a7d8ac", null ],
-    [ "getModel1Var", "d9/db0/a02742.html#a6cbb936006a136f9650556f7348ec67e", null ],
-    [ "getModel2Var", "d9/db0/a02742.html#a6090d7123b42a1ade9c07706d84c6e85", null ],
-    [ "setConnectedModel1", "d9/db0/a02742.html#a854cf3612763e70fe43266151e49b85d", null ],
-    [ "setConnectedModel2", "d9/db0/a02742.html#aad4ea680f68404f4a1ac9309d4a54530", null ],
-    [ "setModel1Var", "d9/db0/a02742.html#a5560bcc51b295087ded818d21e54c085", null ],
-    [ "setModel2Var", "d9/db0/a02742.html#ace47858d12786575d6a87296f6332926", null ],
-    [ "connectedModel1_", "d9/db0/a02742.html#a2b71ea118bf52f8f0faef1903fee3489", null ],
-    [ "connectedModel2_", "d9/db0/a02742.html#abb5b152fd367a6e7f33f98bfbf5035fb", null ],
-    [ "model1Var_", "d9/db0/a02742.html#ada363af906cd5bb46ad2abc405029486", null ],
-    [ "model2Var_", "d9/db0/a02742.html#ae4a8333e76c2524dd5c1a908b5848ea6", null ]
+    [ "Timer", "d9/db0/a02742.html#a050eb0937c85efe34aa6c228b130adba", null ],
+    [ "~Timer", "d9/db0/a02742.html#a0c86ff1ace2b540997bf8d81d714bc70", null ],
+    [ "elapsed", "d9/db0/a02742.html#a54631bd14db61f26b669a1ca94f31adc", null ],
+    [ "stop", "d9/db0/a02742.html#aeacbe1f3e101b710e49a989233ebdc76", null ],
+    [ "isStopped_", "d9/db0/a02742.html#a4e8da931d94227124f54af79ba60452c", null ],
+    [ "name_", "d9/db0/a02742.html#aebaecb746fb2d5c1db1511a70247ba74", null ],
+    [ "startPoint_", "d9/db0/a02742.html#a4cefa54f93937de38835d84887386453", null ]
 ];

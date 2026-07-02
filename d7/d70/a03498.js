@@ -1,15 +1,22 @@
 var a03498 =
 [
-    [ "SolverKINSubModel", "d7/d70/a03498.html#a7d9de9f1828e63b4c89fcdba5ca734c7", null ],
-    [ "~SolverKINSubModel", "d7/d70/a03498.html#abf56a0c97f3b11da2176f484d1c4d1f3", null ],
-    [ "evalFInit_KIN", "d7/d70/a03498.html#a78b92b31c506932abdb80ad901b79881", null ],
-    [ "evalJInit_KIN", "d7/d70/a03498.html#a8ee12bd64883ef7160ac200c1d91e601", null ],
-    [ "getSubModel", "d7/d70/a03498.html#ada1b4ab092bc1ea4ca7cee2e4f9c7ed4", null ],
-    [ "getYBuffer", "d7/d70/a03498.html#acb0d9f86ffac61c918e66166b2cf9892", null ],
-    [ "init", "d7/d70/a03498.html#aa5a5b75de8aef9b57a80b4c69a0cae21", null ],
-    [ "solve", "d7/d70/a03498.html#a5a433c9fc656f1c9bc0dbefb060d7cdf", null ],
-    [ "fBuffer_", "d7/d70/a03498.html#a425934b03e7c2a7b52aed5348fb681f5", null ],
-    [ "subModel_", "d7/d70/a03498.html#aab8dac538b6809a962aa17508c461812", null ],
-    [ "vectorYSubModel_", "d7/d70/a03498.html#a3d13f941d32477bd36e2161d459e376e", null ],
-    [ "yBuffer_", "d7/d70/a03498.html#abeec415dfb647fe5dc637088b2306aa9", null ]
+    [ "zmqControlType_t", "d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626", [
+      [ "STEP", "d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a5bb6b44d29091d7300502cad7848c688", null ],
+      [ "STOP", "d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a234b5d570fa51d5079ce87540c0b5eed", null ],
+      [ "ACTION", "d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a6f088bd3c3a4ab0d4c1aeaf3917e758e", null ],
+      [ "DUMP", "d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a5d98ca7bb15406927370142b78b27bef", null ],
+      [ "UNKNOWN", "d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a264ec37b8b35d2a8df6f27776de2f4d1", null ]
+    ] ],
+    [ "ZmqInputChannel", "d7/d70/a03498.html#ac79fa25b7ac0b7d760a48767a4dce26f", null ],
+    [ "getControlType", "d7/d70/a03498.html#a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e", null ],
+    [ "receiveLoop", "d7/d70/a03498.html#aa2f3a87226b5bee4cf089a9134860ef9", null ],
+    [ "startReceiving", "d7/d70/a03498.html#a3ed14440178b139db340cc83cb43e9cc", null ],
+    [ "stop", "d7/d70/a03498.html#a8e8494113add1a020e5ece7e8c9d3342", null ],
+    [ "callback_", "d7/d70/a03498.html#a185cc2c58983979ca83a5cd4462bf046", null ],
+    [ "context_", "d7/d70/a03498.html#a48eaee60b5d662a0445e13b2ff6d2ce0", null ],
+    [ "pollTimeoutMs_", "d7/d70/a03498.html#a286e0a3380943e034d96e5a97752381b", null ],
+    [ "socket_", "d7/d70/a03498.html#a265c31887f999fbdb9fb4e84db527fc6", null ],
+    [ "stopFlag_", "d7/d70/a03498.html#aa555e908549dc06a0e34ac483207943d", null ],
+    [ "thread_", "d7/d70/a03498.html#afe09366b3429269d7e1607b56669c5cd", null ],
+    [ "useThread_", "d7/d70/a03498.html#a05be7f07b6602375eee1148ddf2355d8", null ]
 ];

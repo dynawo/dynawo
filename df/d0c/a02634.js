@@ -1,5 +1,5 @@
 var a02634 =
 [
-    [ "isRecursive", "df/d0c/a02634.html#a982d09afba8de5f2844d261341036706", null ],
-    [ "path", "df/d0c/a02634.html#a3577e4e3d8d3efadd6465c96998be46e", null ]
+    [ "exportToFile", "df/d0c/a02634.html#aeb18f1476b1b77c3d84a7a4d5a83bbbb", null ],
+    [ "exportToStream", "df/d0c/a02634.html#aa574dcf2690a8c1628fb31f0aa961b8b", null ]
 ];

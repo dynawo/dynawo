@@ -1,10 +1,15 @@
 var a03450 =
 [
-    [ "InputChannel", "d1/d82/a03450.html#a57197e412135943fad4fa24b638d6d16", null ],
-    [ "~InputChannel", "d1/d82/a03450.html#a2cc47f5224ba616b38ec826686fef2f3", null ],
-    [ "startReceiving", "d1/d82/a03450.html#ac3a32f6996f22cae0e46d9f2d216bfda", null ],
-    [ "stop", "d1/d82/a03450.html#a9f2f5fb1eb8e433a18c1c1820d16d88e", null ],
-    [ "supports", "d1/d82/a03450.html#af230a398731fdc4222d73b452f070b33", null ],
-    [ "id_", "d1/d82/a03450.html#a28aa9da4afc938ba3f136bf1fbab4822", null ],
-    [ "supportedMessages_", "d1/d82/a03450.html#ab05937bd271681f3dc5630fe278c4f1a", null ]
+    [ "CalculatedVars_t", "d1/d82/a03450.html#ac700a77f7daa6028adc9cba81f2d8118", [
+      [ "nbCalculatedVars_", "d1/d82/a03450.html#ac700a77f7daa6028adc9cba81f2d8118a68d3da3ed49cb751444430832aaff4be", null ]
+    ] ],
+    [ "ModelUpdatableInteger", "d1/d82/a03450.html#ae06707a26f6799dd0a689b2c371ffd36", null ],
+    [ "defineElements", "d1/d82/a03450.html#a8b5997cdc3113ffbeeb661f93b2cfa2e", null ],
+    [ "defineParameters", "d1/d82/a03450.html#a6f4da4c26397b0a7041d7f6444e6a54b", null ],
+    [ "defineVariables", "d1/d82/a03450.html#a309cc53be5a9467e1d71e017a08f423f", null ],
+    [ "dumpUserReadableElementList", "d1/d82/a03450.html#ad8379762d647709ada04790b4b9c6817", null ],
+    [ "evalZ", "d1/d82/a03450.html#a5f49667f836da42bb529c3977c4ece2e", null ],
+    [ "getCheckSum", "d1/d82/a03450.html#af3afef0da5c5ebf9371ec0cd414e3f99", null ],
+    [ "getSize", "d1/d82/a03450.html#aff86200814afd8b2b8b965bc86c4c7b7", null ],
+    [ "setSubModelParameters", "d1/d82/a03450.html#a0c1d4a823b7e8f027584554e1b474b52", null ]
 ];

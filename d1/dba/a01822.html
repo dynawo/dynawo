@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: curves::CurveHandler Class Reference</title>
+<title>Dynawo: curves::Importer Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,58 +96,45 @@ $(document).ready(function(){initNavTree('d1/dba/a01822.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d7/d10/a01819.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">curves::CurveHandler Class Reference</div>  </div>
+<div class="title">curves::Importer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Handler used to parse curve element.  
+<p><a class="el" href="../../d1/dba/a01822.html" title="Importer interface class. ">Importer</a> interface class.  
  <a href="../../d1/dba/a01822.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../de/de1/a00065_source.html">CRVXmlHandler.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dc/dee/a00053_source.html">CRVImporter.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for curves::CurveHandler:</div>
+Inheritance diagram for curves::Importer:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d1/dba/a01822.png" usemap="#curves::CurveHandler_map" alt=""/>
-  <map id="curves::CurveHandler_map" name="curves::CurveHandler_map">
+  <img src="../../d1/dba/a01822.png" usemap="#curves::Importer_map" alt=""/>
+  <map id="curves::Importer_map" name="curves::Importer_map">
+<area href="../../d4/df4/a01846.html" title="Xml Importer interface class. " alt="curves::XmlImporter" shape="rect" coords="0,56,124,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af5f5730927a7084cf3243e3a949c0208"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#af5f5730927a7084cf3243e3a949c0208">CurveHandler</a> (elementName_type const &amp;root_element)</td></tr>
-<tr class="memdesc:af5f5730927a7084cf3243e3a949c0208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#af5f5730927a7084cf3243e3a949c0208">More...</a><br /></td></tr>
-<tr class="separator:af5f5730927a7084cf3243e3a949c0208"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9af2642feb896ca8372aae455a9d6b5f"><td class="memItemLeft" align="right" valign="top"><a id="a9af2642feb896ca8372aae455a9d6b5f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#a9af2642feb896ca8372aae455a9d6b5f">~CurveHandler</a> () override</td></tr>
-<tr class="memdesc:a9af2642feb896ca8372aae455a9d6b5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a9af2642feb896ca8372aae455a9d6b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8be7a152afa7b6c5ac2447add134982"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dd/dec/a01782.html">Curve</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#aa8be7a152afa7b6c5ac2447add134982">get</a> () const</td></tr>
-<tr class="memdesc:aa8be7a152afa7b6c5ac2447add134982"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the curve read in xml file  <a href="#aa8be7a152afa7b6c5ac2447add134982">More...</a><br /></td></tr>
-<tr class="separator:aa8be7a152afa7b6c5ac2447add134982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:af299869a442d2d4cd6a96f599d5ebcb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#af299869a442d2d4cd6a96f599d5ebcb2">create</a> (attributes_type const &amp;attributes)</td></tr>
-<tr class="memdesc:af299869a442d2d4cd6a96f599d5ebcb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#af299869a442d2d4cd6a96f599d5ebcb2">More...</a><br /></td></tr>
-<tr class="separator:af299869a442d2d4cd6a96f599d5ebcb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ab38f59d09beaf1fe9d3fb1ebfab3e88b"><td class="memItemLeft" align="right" valign="top"><a id="ab38f59d09beaf1fe9d3fb1ebfab3e88b"></a>
-std::shared_ptr&lt; <a class="el" href="../../dd/dec/a01782.html">Curve</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#ab38f59d09beaf1fe9d3fb1ebfab3e88b">curveRead_</a></td></tr>
-<tr class="memdesc:ab38f59d09beaf1fe9d3fb1ebfab3e88b"><td class="mdescLeft">&#160;</td><td class="mdescRight">current curve <br /></td></tr>
-<tr class="separator:ab38f59d09beaf1fe9d3fb1ebfab3e88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a695ce5e9825f5b7d08986c1b5244980d"><td class="memItemLeft" align="right" valign="top"><a id="a695ce5e9825f5b7d08986c1b5244980d"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#a695ce5e9825f5b7d08986c1b5244980d">~Importer</a> ()=default</td></tr>
+<tr class="memdesc:a695ce5e9825f5b7d08986c1b5244980d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a695ce5e9825f5b7d08986c1b5244980d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d3e1d6addd0f76205613c5f664f68df"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#a5d3e1d6addd0f76205613c5f664f68df">importFromFile</a> (const std::string &amp;fileName) const =0</td></tr>
+<tr class="memdesc:a5d3e1d6addd0f76205613c5f664f68df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import curves's collection from file.  <a href="#a5d3e1d6addd0f76205613c5f664f68df">More...</a><br /></td></tr>
+<tr class="separator:a5d3e1d6addd0f76205613c5f664f68df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1463f2a4b5c8966066b9a5b2b2b6076"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../db/db2/a01806.html">CurvesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dba/a01822.html#ac1463f2a4b5c8966066b9a5b2b2b6076">importFromStream</a> (std::istream &amp;stream) const =0</td></tr>
+<tr class="memdesc:ac1463f2a4b5c8966066b9a5b2b2b6076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import curves's collection from stream.  <a href="#ac1463f2a4b5c8966066b9a5b2b2b6076">More...</a><br /></td></tr>
+<tr class="separator:ac1463f2a4b5c8966066b9a5b2b2b6076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handler used to parse curve element. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af5f5730927a7084cf3243e3a949c0208"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5f5730927a7084cf3243e3a949c0208">&#9670;&nbsp;</a></span>CurveHandler()</h2>
+<div class="textblock"><p><a class="el" href="../../d1/dba/a01822.html" title="Importer interface class. ">Importer</a> interface class. </p>
+<p>Import class for curves collection. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5d3e1d6addd0f76205613c5f664f68df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d3e1d6addd0f76205613c5f664f68df">&#9670;&nbsp;</a></span>importFromFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,87 +143,72 @@ std::shared_ptr&lt; <a class="el" href="../../dd/dec/a01782.html">Curve</a> &gt;
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">curves::CurveHandler::CurveHandler </td>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../db/db2/a01806.html">CurvesCollection</a>&gt; curves::Importer::importFromFile </td>
           <td>(</td>
-          <td class="paramtype">elementName_type const &amp;&#160;</td>
-          <td class="paramname"><em>root_element</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af299869a442d2d4cd6a96f599d5ebcb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af299869a442d2d4cd6a96f599d5ebcb2">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void curves::CurveHandler::create </td>
-          <td>(</td>
-          <td class="paramtype">attributes_type const &amp;&#160;</td>
-          <td class="paramname"><em>attributes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the XML element opening tag is read. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa8be7a152afa7b6c5ac2447add134982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8be7a152afa7b6c5ac2447add134982">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../dd/dec/a01782.html">Curve</a>&gt; curves::CurveHandler::get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>return the curve read in xml file </p>
-<dl class="section return"><dt>Returns</dt><dd>curve object build thanks to infos read in xml file </dd></dl>
+<p>Import curves's collection from file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>file name</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Curves collection imported </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d4/df4/a01846.html#a177edce9fb1fa4aa914bc0beca3df2d8">curves::XmlImporter</a>.</p>
+
+</div>
+</div>
+<a id="ac1463f2a4b5c8966066b9a5b2b2b6076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1463f2a4b5c8966066b9a5b2b2b6076">&#9670;&nbsp;</a></span>importFromStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../db/db2/a01806.html">CurvesCollection</a>&gt; curves::Importer::importFromStream </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Import curves's collection from stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>stream from where the curves must be imported</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Curves collection imported </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d4/df4/a01846.html#a1a1a7de131a8d1e654260f93573374de">curves::XmlImporter</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../de/de1/a00065_source.html">CRVXmlHandler.h</a></li>
+<li><a class="el" href="../../dc/dee/a00053_source.html">CRVImporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -254,8 +226,8 @@ std::shared_ptr&lt; <a class="el" href="../../dd/dec/a01782.html">Curve</a> &gt;
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../d1/dba/a01822.html">CurveHandler</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:51 for Dynawo by
+    <li class="navelem"><b>curves</b></li><li class="navelem"><a class="el" href="../../d1/dba/a01822.html">Importer</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

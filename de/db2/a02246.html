@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: job::LogsEntryFactory Class Reference</title>
+<title>Dynawo: job::JobsCollection Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,29 +95,70 @@ $(document).ready(function(){initNavTree('de/db2/a02246.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d6/dd2/a02243.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::LogsEntryFactory Class Reference</div>  </div>
+<div class="title">job::JobsCollection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>dynamic model entry factory  
+<p>jobs collection interface class  
  <a href="../../de/db2/a02246.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dc/d50/a00332_source.html">JOBLogsEntryFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dd/de2/a00320_source.html">JOBJobsCollection.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a6876c5c69c2d3bf961a518efddaef806"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d1/d44/a02242.html">LogsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db2/a02246.html#a6876c5c69c2d3bf961a518efddaef806">newInstance</a> ()</td></tr>
-<tr class="memdesc:a6876c5c69c2d3bf961a518efddaef806"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of dynamic model entry  <a href="#a6876c5c69c2d3bf961a518efddaef806">More...</a><br /></td></tr>
-<tr class="separator:a6876c5c69c2d3bf961a518efddaef806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa7a0ccfd742595bb2259b138e8aa6786"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db2/a02246.html#aa7a0ccfd742595bb2259b138e8aa6786">addJob</a> (const std::shared_ptr&lt; <a class="el" href="../../d4/d5b/a02238.html">JobEntry</a> &gt; &amp;jobEntry)</td></tr>
+<tr class="memdesc:aa7a0ccfd742595bb2259b138e8aa6786"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a job to the jobs collection  <a href="#aa7a0ccfd742595bb2259b138e8aa6786">More...</a><br /></td></tr>
+<tr class="separator:aa7a0ccfd742595bb2259b138e8aa6786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7faf08a97c4c917c767115c45be3b9c1"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d4/d5b/a02238.html">JobEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db2/a02246.html#a7faf08a97c4c917c767115c45be3b9c1">getJobs</a> () const</td></tr>
+<tr class="memdesc:a7faf08a97c4c917c767115c45be3b9c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the variables  <a href="#a7faf08a97c4c917c767115c45be3b9c1">More...</a><br /></td></tr>
+<tr class="separator:a7faf08a97c4c917c767115c45be3b9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aded12c1a677f6bd3f0daa09414f0bd9e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d4/d5b/a02238.html">JobEntry</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db2/a02246.html#aded12c1a677f6bd3f0daa09414f0bd9e">getNonCstJobs</a> ()</td></tr>
+<tr class="memdesc:aded12c1a677f6bd3f0daa09414f0bd9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the variables  <a href="#aded12c1a677f6bd3f0daa09414f0bd9e">More...</a><br /></td></tr>
+<tr class="separator:aded12c1a677f6bd3f0daa09414f0bd9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="memItemLeft" align="right" valign="top"><a id="a4e5366ce7b63ef6bdeda3ee8c56505fe"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d4/d5b/a02238.html">JobEntry</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db2/a02246.html#a4e5366ce7b63ef6bdeda3ee8c56505fe">jobs_</a></td></tr>
+<tr class="memdesc:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of the jobs object. <br /></td></tr>
+<tr class="separator:a4e5366ce7b63ef6bdeda3ee8c56505fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>dynamic model entry factory </p>
+<div class="textblock"><p>jobs collection interface class </p>
+<p>Interface class for jobs collection object. This a container for jobs description </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6876c5c69c2d3bf961a518efddaef806"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6876c5c69c2d3bf961a518efddaef806">&#9670;&nbsp;</a></span>newInstance()</h2>
+<a id="aa7a0ccfd742595bb2259b138e8aa6786"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a0ccfd742595bb2259b138e8aa6786">&#9670;&nbsp;</a></span>addJob()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::JobsCollection::addJob </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d4/d5b/a02238.html">JobEntry</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>jobEntry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>add a job to the jobs collection </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jobEntry</td><td>job to add to the structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7faf08a97c4c917c767115c45be3b9c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7faf08a97c4c917c767115c45be3b9c1">&#9670;&nbsp;</a></span>getJobs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -126,7 +167,35 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d1/d44/a02242.html">LogsEntry</a>&gt; job::LogsEntryFactory::newInstance </td>
+          <td class="memname">const std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../d4/d5b/a02238.html">JobEntry</a>&gt; &gt;&amp; job::JobsCollection::getJobs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the variables </p>
+<dl class="section return"><dt>Returns</dt><dd>variables </dd></dl>
+
+</div>
+</div>
+<a id="aded12c1a677f6bd3f0daa09414f0bd9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aded12c1a677f6bd3f0daa09414f0bd9e">&#9670;&nbsp;</a></span>getNonCstJobs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../d4/d5b/a02238.html">JobEntry</a>&gt; &gt;&amp; job::JobsCollection::getNonCstJobs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -134,18 +203,18 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>create a new instance of dynamic model entry </p>
-<dl class="section return"><dt>Returns</dt><dd>dynamic model entry </dd></dl>
+<p>get the variables </p>
+<dl class="section return"><dt>Returns</dt><dd>variables </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dc/d50/a00332_source.html">JOBLogsEntryFactory.h</a></li>
+<li><a class="el" href="../../dd/de2/a00320_source.html">JOBJobsCollection.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -163,8 +232,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../de/db2/a02246.html">LogsEntryFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../de/db2/a02246.html">JobsCollection</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,11 +1,6 @@
 var a02890 =
 [
-    [ "BusFailingCriteria", "d6/d92/a02890.html#ab9d417097f28ffac70ab3aba33b046b4", null ],
-    [ "getDistance", "d6/d92/a02890.html#a0636fced5d74e9123d52f34a01aa8303", null ],
-    [ "printOneFailingCriteriaIntoLog", "d6/d92/a02890.html#a0b2b18592f8f3a0a3442bcb6005bc409", null ],
-    [ "printOneFailingCriteriaIntoTimeline", "d6/d92/a02890.html#a1e47e72926a31d455f91a52c80dbc9e5", null ],
-    [ "v_", "d6/d92/a02890.html#af9f40a2ed42b95f8ba91d323c7667c5d", null ],
-    [ "vBound_", "d6/d92/a02890.html#af9add492a21834086f8c4f03081d81e1", null ],
-    [ "vBoundPu_", "d6/d92/a02890.html#affc15977cc37c6f1cfca44294ba67cc8", null ],
-    [ "vPu_", "d6/d92/a02890.html#acc8d14ba539819028ef3843adc93e9ee", null ]
+    [ "create", "d6/d92/a02890.html#ade511d9db211552d0c61d69b0e72ecd8", null ],
+    [ "createCalculated", "d6/d92/a02890.html#a221d14c4c9ec11e3ed6d2348cbd9e072", null ],
+    [ "createState", "d6/d92/a02890.html#a3ee07c49c8b6803f85967d5fddb79f9f", null ]
 ];

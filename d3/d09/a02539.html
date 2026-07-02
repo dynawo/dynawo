@@ -95,17 +95,23 @@ $(document).ready(function(){initNavTree('de/d01/a02542.html','../../');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">parameters::RefHandler Member List</div>  </div>
+<div class="title">parameters::ParametersSetCollection Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="../../de/d01/a02542.html">parameters::RefHandler</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#ab1b3b6d6a8dc6606f3cde8ea51a9a307">create</a>(attributes_type const &amp;attributes)</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::RefHandler</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d01/a02542.html#a2309697929f4e8c35b0b290759fb44ed">get</a>() const</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::RefHandler</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#ac7e85e2f0ecf29905d2906e4228298bc">referenceRead_</a></td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::RefHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="../../de/d01/a02542.html#ad9e5b4eb0265e38116959e914b654189">RefHandler</a>(elementName_type const &amp;root_element)</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::RefHandler</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#a43a9bfdc986f9ac7c4527ddb686e79b8">~RefHandler</a>() override</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::RefHandler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#a7725423f3c1e87e6ce2b0215aeab4107">addMacroParameterSet</a>(const std::shared_ptr&lt; MacroParameterSet &gt; &amp;macroParamSet)</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d01/a02542.html#a7920709235c0ef6382f68c4965e73621">addParametersSet</a>(const std::shared_ptr&lt; ParametersSet &gt; &amp;paramSet, bool force=false)</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#a06e0809b41343ab2c960cdd586197d26">getMacroParametersSets</a>() const</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d01/a02542.html#ae1ce7a0145681277bc44e10ae575a826">getParametersFromMacroParameter</a>()</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#afb3b04ff758df17ae9fe3c7d8689ca39">getParametersSet</a>(const std::string &amp;id)</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d01/a02542.html#a15eda5b70272739bec5480425cb35802">getParametersSets</a>() const</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#acfeb3a13db500756adfbe18a2651f5f6">hasMacroParametersSet</a>(const std::string &amp;id) const</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d01/a02542.html#a6cbb0c51988d1dda39f6618fd22a79c6">hasParametersSet</a>(const std::string &amp;id) const</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#a4d1b678ab56490563b09c0d1b5878043">macroParametersSets_</a></td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../de/d01/a02542.html#ae7dffb4dd4b65b143ff1a33ddd4ecda8">parametersSets_</a></td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../de/d01/a02542.html#af3924966088b412cf3cf76b17d088e3c">propagateOriginData</a>(const std::string &amp;filepath) const</td><td class="entry"><a class="el" href="../../de/d01/a02542.html">parameters::ParametersSetCollection</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -122,7 +128,7 @@ $(document).ready(function(){initNavTree('de/d01/a02542.html','../../');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,9 +1,10 @@
 var a02698 =
 [
-    [ "~Timers", "da/d22/a02698.html#ab3672d402793caaa2dfac58a15cef244", null ],
-    [ "add", "da/d22/a02698.html#ade75b49e9ed3bafb0a8accdded941026", null ],
-    [ "add_", "da/d22/a02698.html#ab581f841f3714b6a444f00a77d1478f5", null ],
-    [ "instance", "da/d22/a02698.html#abb72441f57c5757298609fed6bbe00f5", null ],
-    [ "nbAppels_", "da/d22/a02698.html#ae33becbdc1202097f34fc59c4b52708c", null ],
-    [ "timers_", "da/d22/a02698.html#a762a6851042a228126e0efaa6b87f73f", null ]
+    [ "IoDico", "da/d22/a02698.html#ad25e45c2a1aa2d72f27679681a71bfae", null ],
+    [ "begin", "da/d22/a02698.html#a5b52a886c13f0ce540f0c9ec4bd9e249", null ],
+    [ "end", "da/d22/a02698.html#a4c58857bebbe8746a973548a3db75245", null ],
+    [ "msg", "da/d22/a02698.html#a81be9d8668bd4d24b1450d032e2373cf", null ],
+    [ "readFile", "da/d22/a02698.html#a6106addf801c3139876fa01fbcd2f59c", null ],
+    [ "map_", "da/d22/a02698.html#adce819e7402513fa187cded1655623eb", null ],
+    [ "name_", "da/d22/a02698.html#a84cc89bec75f1d89ec5582b712d7e51b", null ]
 ];

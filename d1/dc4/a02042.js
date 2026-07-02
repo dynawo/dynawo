@@ -1,20 +1,8 @@
 var a02042 =
 [
-    [ "ModelicaModelHandler", "d1/dc4/a02042.html#a5fa857b1fb92fdf593ada268e4d8d008", null ],
-    [ "~ModelicaModelHandler", "d1/dc4/a02042.html#aff89b30268cf3dad50cd2c4e2476219e", null ],
-    [ "addConnect", "d1/dc4/a02042.html#ad63eea06e32c5808a03f7f9ea9647210", null ],
-    [ "addInitConnect", "d1/dc4/a02042.html#a65c601cbe39cf27021655812ab19d586", null ],
-    [ "addMacroConnect", "d1/dc4/a02042.html#a720fb918636a6b835682da7f761d4f49", null ],
-    [ "addMacroStaticRef", "d1/dc4/a02042.html#aff538fffcf191111cea59c499b8a8e44", null ],
-    [ "addStaticRef", "d1/dc4/a02042.html#a5cdfb329f1d1ecec27e46821eb9b1236", null ],
-    [ "addUnitDynamicModel", "d1/dc4/a02042.html#a25065e43d437b2497d06f78c84af34f3", null ],
-    [ "create", "d1/dc4/a02042.html#af2b76fbef04852bf0b202da15f5beaea", null ],
-    [ "get", "d1/dc4/a02042.html#adcdf256d8589edba5080a7ce9929257a", null ],
-    [ "connectHandler_", "d1/dc4/a02042.html#a1dc87da498674ef57409c1810939fcf3", null ],
-    [ "initConnectHandler_", "d1/dc4/a02042.html#a8b2a34658939f5eea4aaa67bb0822b1b", null ],
-    [ "macroConnectHandler_", "d1/dc4/a02042.html#a2f811cc35275c1beee5dea5ba7120f02", null ],
-    [ "macroStaticRefHandler_", "d1/dc4/a02042.html#a9b158618dfabe53a09f30f456a261e86", null ],
-    [ "modelicaModel_", "d1/dc4/a02042.html#aab3687186350e087e01dadc58a4efaa4", null ],
-    [ "staticRefHandler_", "d1/dc4/a02042.html#a2b6f41862fa7fdca9ceeedbb0109fe85", null ],
-    [ "unitDynamicModelHandler_", "d1/dc4/a02042.html#acf59096da84945eb9e518688091917e2", null ]
+    [ "ConnectHandler", "d1/dc4/a02042.html#a9fef8b3aa82073d69b10ed865fd7857a", null ],
+    [ "~ConnectHandler", "d1/dc4/a02042.html#aec57a6b7445893421764e24b8a5e5898", null ],
+    [ "create", "d1/dc4/a02042.html#a724ce0ba658d068db5ee1bf78aed4182", null ],
+    [ "get", "d1/dc4/a02042.html#a612a02c1f2c66fb97533f4b3c2faa892", null ],
+    [ "connector_", "d1/dc4/a02042.html#a10ab5d9d7087ad2c2c2077a6dff687b2", null ]
 ];

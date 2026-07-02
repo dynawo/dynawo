@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: lostEquipments::Exporter Class Reference</title>
+<title>Dynawo: job::InteractiveSettingsHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,45 +96,82 @@ $(document).ready(function(){initNavTree('d4/d80/a02442.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../da/d13/a02439.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">lostEquipments::Exporter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">job::InteractiveSettingsHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/d80/a02442.html" title="Exporter interface class. ">Exporter</a> interface class.  
+<p>Handler used to parse interactive settings element.  
  <a href="../../d4/d80/a02442.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/d27/a00392_source.html">LEQExporter.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for lostEquipments::Exporter:</div>
+Inheritance diagram for job::InteractiveSettingsHandler:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d4/d80/a02442.png" usemap="#lostEquipments::Exporter_map" alt=""/>
-  <map id="lostEquipments::Exporter_map" name="lostEquipments::Exporter_map">
-<area href="../../df/ddf/a02470.html" title="XML exporter interface class. " alt="lostEquipments::XmlExporter" shape="rect" coords="0,56,169,80"/>
+  <img src="../../d4/d80/a02442.png" usemap="#job::InteractiveSettingsHandler_map" alt=""/>
+  <map id="job::InteractiveSettingsHandler_map" name="job::InteractiveSettingsHandler_map">
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aaa126e851bc16817b29817a922aa5301"><td class="memItemLeft" align="right" valign="top"><a id="aaa126e851bc16817b29817a922aa5301"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#aaa126e851bc16817b29817a922aa5301">~Exporter</a> ()=default</td></tr>
-<tr class="memdesc:aaa126e851bc16817b29817a922aa5301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:aaa126e851bc16817b29817a922aa5301"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6147ffc41592ac55e7a4e59e042ba736"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#a6147ffc41592ac55e7a4e59e042ba736">exportToFile</a> (const std::shared_ptr&lt; <a class="el" href="../../de/d91/a02458.html">LostEquipmentsCollection</a> &gt; &amp;lostEquipments, const std::string &amp;filePath) const =0</td></tr>
-<tr class="memdesc:a6147ffc41592ac55e7a4e59e042ba736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#a6147ffc41592ac55e7a4e59e042ba736">More...</a><br /></td></tr>
-<tr class="separator:a6147ffc41592ac55e7a4e59e042ba736"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade79b70f7d0dc230886ba13c4915f171"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#ade79b70f7d0dc230886ba13c4915f171">exportToStream</a> (const std::shared_ptr&lt; <a class="el" href="../../de/d91/a02458.html">LostEquipmentsCollection</a> &gt; &amp;lostEquipments, std::ostream &amp;stream) const =0</td></tr>
-<tr class="memdesc:ade79b70f7d0dc230886ba13c4915f171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#ade79b70f7d0dc230886ba13c4915f171">More...</a><br /></td></tr>
-<tr class="separator:ade79b70f7d0dc230886ba13c4915f171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac395736070f8deac3144fa369ae00453"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#ac395736070f8deac3144fa369ae00453">InteractiveSettingsHandler</a> (elementName_type const &amp;root_element)</td></tr>
+<tr class="memdesc:ac395736070f8deac3144fa369ae00453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ac395736070f8deac3144fa369ae00453">More...</a><br /></td></tr>
+<tr class="separator:ac395736070f8deac3144fa369ae00453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4643e0d85bc468ee6adb73a7b0f565f"><td class="memItemLeft" align="right" valign="top"><a id="ac4643e0d85bc468ee6adb73a7b0f565f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#ac4643e0d85bc468ee6adb73a7b0f565f">~InteractiveSettingsHandler</a> () override</td></tr>
+<tr class="memdesc:ac4643e0d85bc468ee6adb73a7b0f565f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:ac4643e0d85bc468ee6adb73a7b0f565f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39f0c7f7dfb2b72f5ea03a4f55f166ad"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/d6f/a02234.html">InteractiveSettingsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#a39f0c7f7dfb2b72f5ea03a4f55f166ad">get</a> () const</td></tr>
+<tr class="memdesc:a39f0c7f7dfb2b72f5ea03a4f55f166ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the interactive settings entry read in xml file  <a href="#a39f0c7f7dfb2b72f5ea03a4f55f166ad">More...</a><br /></td></tr>
+<tr class="separator:a39f0c7f7dfb2b72f5ea03a4f55f166ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e75db54a713800feff828ccdacaf2d1"><td class="memItemLeft" align="right" valign="top"><a id="a4e75db54a713800feff828ccdacaf2d1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#a4e75db54a713800feff828ccdacaf2d1">addClock</a> ()</td></tr>
+<tr class="memdesc:a4e75db54a713800feff828ccdacaf2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">set clock entry to the interactive settings entry <br /></td></tr>
+<tr class="separator:a4e75db54a713800feff828ccdacaf2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad350277237fe9bebd157d787eb615aa1"><td class="memItemLeft" align="right" valign="top"><a id="ad350277237fe9bebd157d787eb615aa1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#ad350277237fe9bebd157d787eb615aa1">addChannels</a> ()</td></tr>
+<tr class="memdesc:ad350277237fe9bebd157d787eb615aa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">set channels entry to the interactive settings entry <br /></td></tr>
+<tr class="separator:ad350277237fe9bebd157d787eb615aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a941e97dc9d20b32c9c88eb9a2f143210"><td class="memItemLeft" align="right" valign="top"><a id="a941e97dc9d20b32c9c88eb9a2f143210"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#a941e97dc9d20b32c9c88eb9a2f143210">addStreams</a> ()</td></tr>
+<tr class="memdesc:a941e97dc9d20b32c9c88eb9a2f143210"><td class="mdescLeft">&#160;</td><td class="mdescRight">set output streams entry to the interactive settings entry <br /></td></tr>
+<tr class="separator:a941e97dc9d20b32c9c88eb9a2f143210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a3471501d79fecccbc907da3fdbd02b53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#a3471501d79fecccbc907da3fdbd02b53">create</a> (attributes_type const &amp;attributes)</td></tr>
+<tr class="memdesc:a3471501d79fecccbc907da3fdbd02b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#a3471501d79fecccbc907da3fdbd02b53">More...</a><br /></td></tr>
+<tr class="separator:a3471501d79fecccbc907da3fdbd02b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aed26195f7267ce2d8f97d257fada1446"><td class="memItemLeft" align="right" valign="top"><a id="aed26195f7267ce2d8f97d257fada1446"></a>
+std::shared_ptr&lt; <a class="el" href="../../d8/d6f/a02234.html">InteractiveSettingsEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#aed26195f7267ce2d8f97d257fada1446">interactiveSettings_</a></td></tr>
+<tr class="memdesc:aed26195f7267ce2d8f97d257fada1446"><td class="mdescLeft">&#160;</td><td class="mdescRight">current interactive settings object <br /></td></tr>
+<tr class="separator:aed26195f7267ce2d8f97d257fada1446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabb85564f874468484109f356b917796"><td class="memItemLeft" align="right" valign="top"><a id="aabb85564f874468484109f356b917796"></a>
+<a class="el" href="../../d4/dde/a02422.html">ClockHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#aabb85564f874468484109f356b917796">clockHandler_</a></td></tr>
+<tr class="memdesc:aabb85564f874468484109f356b917796"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read clock element <br /></td></tr>
+<tr class="separator:aabb85564f874468484109f356b917796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87726ef77cd4091f1186514c3c025bf4"><td class="memItemLeft" align="right" valign="top"><a id="a87726ef77cd4091f1186514c3c025bf4"></a>
+<a class="el" href="../../d6/d07/a02430.html">ChannelsHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#a87726ef77cd4091f1186514c3c025bf4">channelsHandler_</a></td></tr>
+<tr class="memdesc:a87726ef77cd4091f1186514c3c025bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read channels element <br /></td></tr>
+<tr class="separator:a87726ef77cd4091f1186514c3c025bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af90c230226ad041e88f418a04abba535"><td class="memItemLeft" align="right" valign="top"><a id="af90c230226ad041e88f418a04abba535"></a>
+<a class="el" href="../../da/d6b/a02438.html">StreamsHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d80/a02442.html#af90c230226ad041e88f418a04abba535">streamsHandler_</a></td></tr>
+<tr class="memdesc:af90c230226ad041e88f418a04abba535"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to read streams element <br /></td></tr>
+<tr class="separator:af90c230226ad041e88f418a04abba535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/d80/a02442.html" title="Exporter interface class. ">Exporter</a> interface class. </p>
-<p><a class="el" href="../../d4/d80/a02442.html" title="Exporter interface class. ">Exporter</a> class for <a class="el" href="../../de/d91/a02458.html" title="LostEquipmentsCollection interface class. ">LostEquipmentsCollection</a> </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6147ffc41592ac55e7a4e59e042ba736"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6147ffc41592ac55e7a4e59e042ba736">&#9670;&nbsp;</a></span>exportToFile()</h2>
+<div class="textblock"><p>Handler used to parse interactive settings element. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac395736070f8deac3144fa369ae00453"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac395736070f8deac3144fa369ae00453">&#9670;&nbsp;</a></span>InteractiveSettingsHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,45 +180,33 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void lostEquipments::Exporter::exportToFile </td>
+          <td class="memname">job::InteractiveSettingsHandler::InteractiveSettingsHandler </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../de/d91/a02458.html">LostEquipmentsCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>lostEquipments</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">elementName_type const &amp;&#160;</td>
+          <td class="paramname"><em>root_element</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filePath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method for this exporter. </p>
+<p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lostEquipments</td><td>Lost equipments to export </td></tr>
-    <tr><td class="paramname">filePath</td><td>File to export to </td></tr>
+    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../df/ddf/a02470.html#aaed5253b526fe1f82f9bb7351d127b6e">lostEquipments::XmlExporter</a>.</p>
-
 </div>
 </div>
-<a id="ade79b70f7d0dc230886ba13c4915f171"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade79b70f7d0dc230886ba13c4915f171">&#9670;&nbsp;</a></span>exportToStream()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3471501d79fecccbc907da3fdbd02b53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3471501d79fecccbc907da3fdbd02b53">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,45 +215,52 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void lostEquipments::Exporter::exportToStream </td>
+          <td class="memname">void job::InteractiveSettingsHandler::create </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../de/d91/a02458.html">LostEquipmentsCollection</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>lostEquipments</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">attributes_type const &amp;&#160;</td>
+          <td class="paramname"><em>attributes</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method for this exporter. </p>
+<p>Called when the XML element opening tag is read. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lostEquipments</td><td>Lost equipments to export </td></tr>
-    <tr><td class="paramname">stream</td><td>Stream to export to </td></tr>
+    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../df/ddf/a02470.html#a9ee9ba664ef27b69f7c184817c55f296">lostEquipments::XmlExporter</a>.</p>
+</div>
+</div>
+<a id="a39f0c7f7dfb2b72f5ea03a4f55f166ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39f0c7f7dfb2b72f5ea03a4f55f166ad">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d8/d6f/a02234.html">InteractiveSettingsEntry</a>&gt; job::InteractiveSettingsHandler::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>return the interactive settings entry read in xml file </p>
+<dl class="section return"><dt>Returns</dt><dd>interactive settings entry object build thanks to infos read in xml file </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d4/d27/a00392_source.html">LEQExporter.h</a></li>
+<li><a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -246,8 +278,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>lostEquipments</b></li><li class="navelem"><a class="el" href="../../d4/d80/a02442.html">Exporter</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d4/d80/a02442.html">InteractiveSettingsHandler</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

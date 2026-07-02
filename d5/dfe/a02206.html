@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: job::InitialStateEntry Class Reference</title>
+<title>Dynawo: job::FinalStateEntryFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,86 +95,57 @@ $(document).ready(function(){initNavTree('d5/dfe/a02206.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../d3/d0f/a02203.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::InitialStateEntry Class Reference</div>  </div>
+<div class="title">job::FinalStateEntryFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Initial state entries container class.  
+<p>dynamic model entry factory  
  <a href="../../d5/dfe/a02206.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d0/d61/a00302_source.html">JOBInitialStateEntry.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../de/d25/a00290_source.html">JOBFinalStateEntryFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:afba0e41f1d6075ec9796bb766def77d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfe/a02206.html#afba0e41f1d6075ec9796bb766def77d6">setInitialStateFile</a> (const std::string &amp;initialStateFile)</td></tr>
-<tr class="memdesc:afba0e41f1d6075ec9796bb766def77d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial state file setter  <a href="#afba0e41f1d6075ec9796bb766def77d6">More...</a><br /></td></tr>
-<tr class="separator:afba0e41f1d6075ec9796bb766def77d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cbdb3f84df61dc8539ed3871fe31bb4"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfe/a02206.html#a5cbdb3f84df61dc8539ed3871fe31bb4">getInitialStateFile</a> () const</td></tr>
-<tr class="memdesc:a5cbdb3f84df61dc8539ed3871fe31bb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial state file getter  <a href="#a5cbdb3f84df61dc8539ed3871fe31bb4">More...</a><br /></td></tr>
-<tr class="separator:a5cbdb3f84df61dc8539ed3871fe31bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ae6880b4711c19f4a0422fa873fabac4c"><td class="memItemLeft" align="right" valign="top"><a id="ae6880b4711c19f4a0422fa873fabac4c"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfe/a02206.html#ae6880b4711c19f4a0422fa873fabac4c">initialStateFile_</a></td></tr>
-<tr class="memdesc:ae6880b4711c19f4a0422fa873fabac4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial state file for the simulation <br /></td></tr>
-<tr class="separator:ae6880b4711c19f4a0422fa873fabac4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a96843e3d5475a800f1235235ab7c1478"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="../../d0/d9d/a02202.html">FinalStateEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfe/a02206.html#a96843e3d5475a800f1235235ab7c1478">newInstance</a> ()</td></tr>
+<tr class="memdesc:a96843e3d5475a800f1235235ab7c1478"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new instance of dynamic model entry  <a href="#a96843e3d5475a800f1235235ab7c1478">More...</a><br /></td></tr>
+<tr class="separator:a96843e3d5475a800f1235235ab7c1478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Initial state entries container class. </p>
+<div class="textblock"><p>dynamic model entry factory </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5cbdb3f84df61dc8539ed3871fe31bb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cbdb3f84df61dc8539ed3871fe31bb4">&#9670;&nbsp;</a></span>getInitialStateFile()</h2>
+<a id="a96843e3d5475a800f1235235ab7c1478"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96843e3d5475a800f1235235ab7c1478">&#9670;&nbsp;</a></span>newInstance()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string&amp; job::InitialStateEntry::getInitialStateFile </td>
+          <td class="memname">static std::unique_ptr&lt;<a class="el" href="../../d0/d9d/a02202.html">FinalStateEntry</a>&gt; job::FinalStateEntryFactory::newInstance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>initial state file getter </p>
-<dl class="section return"><dt>Returns</dt><dd>initial state file for the job </dd></dl>
-
-</div>
-</div>
-<a id="afba0e41f1d6075ec9796bb766def77d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afba0e41f1d6075ec9796bb766def77d6">&#9670;&nbsp;</a></span>setInitialStateFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void job::InitialStateEntry::setInitialStateFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>initialStateFile</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>initial state file setter </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">initialStateFile</td><td>: initial state file for the job </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>create a new instance of dynamic model entry </p>
+<dl class="section return"><dt>Returns</dt><dd>dynamic model entry </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d0/d61/a00302_source.html">JOBInitialStateEntry.h</a></li>
+<li><a class="el" href="../../de/d25/a00290_source.html">JOBFinalStateEntryFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -192,8 +163,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d5/dfe/a02206.html">InitialStateEntry</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d5/dfe/a02206.html">FinalStateEntryFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

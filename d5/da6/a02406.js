@@ -1,8 +1,10 @@
 var a02406 =
 [
-    [ "ClockHandler", "d5/da6/a02406.html#a470f360e86eeec60dd678de7804b80ae", null ],
-    [ "~ClockHandler", "d5/da6/a02406.html#a62769a7a7b44c7fd7cb1731110b5cff0", null ],
-    [ "create", "d5/da6/a02406.html#a87ab7ef1960a5c7ce82d8d7594bf05c7", null ],
-    [ "get", "d5/da6/a02406.html#aea5f3a99b686998b2d2fda696715aac2", null ],
-    [ "clock_", "d5/da6/a02406.html#aae53941a6f75267d4ae81c1dd96cc659", null ]
+    [ "SimulationHandler", "d5/da6/a02406.html#a7800ece3ca0c12cf70dd391c7378044b", null ],
+    [ "~SimulationHandler", "d5/da6/a02406.html#a827c8a18b514b40f80da22e674d81447", null ],
+    [ "addCriteriaFile", "d5/da6/a02406.html#af39ea4a05d74a7f81398527efd3d914d", null ],
+    [ "create", "d5/da6/a02406.html#a1996f7d69010b36833203ab26dc2cf77", null ],
+    [ "get", "d5/da6/a02406.html#a92e24099b7ff591f694e8bf7743bcc6a", null ],
+    [ "criteriaFileHandler_", "d5/da6/a02406.html#a68326694205b6dce54e14eaa03506b24", null ],
+    [ "simulation_", "d5/da6/a02406.html#a2c046be46b467778a16a6aba24ec4d67", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::VariableMultipleFactory Class Reference</title>
+<title>Dynawo: DYN::StaticRefInterface Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,36 +95,59 @@ $(document).ready(function(){initNavTree('d0/d9a/a02850.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d1/d24/a02847.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::VariableMultipleFactory Class Reference</div>  </div>
+<div class="title">DYN::StaticRefInterface Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>multiple variable factory class  
+<p>interface class for static reference  
  <a href="../../d0/d9a/a02850.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../da/d46/a00665_source.html">DYNVariableMultipleFactory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../de/ddd/a00653_source.html">DYNStaticRefInterface.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ade511d9db211552d0c61d69b0e72ecd8"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d5/d4c/a02846.html">VariableMultiple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#ade511d9db211552d0c61d69b0e72ecd8">create</a> (const std::string &amp;name, const std::string &amp;cardinalityName, <a class="el" href="../../d5/d0f/a00494.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> type, bool isState, bool negated=false)</td></tr>
-<tr class="memdesc:ade511d9db211552d0c61d69b0e72ecd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance.  <a href="#ade511d9db211552d0c61d69b0e72ecd8">More...</a><br /></td></tr>
-<tr class="separator:ade511d9db211552d0c61d69b0e72ecd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ee07c49c8b6803f85967d5fddb79f9f"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d5/d4c/a02846.html">VariableMultiple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a3ee07c49c8b6803f85967d5fddb79f9f">createState</a> (const std::string &amp;name, const std::string &amp;cardinalityName, const <a class="el" href="../../d5/d0f/a00494.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> type, const bool negated=false)</td></tr>
-<tr class="memdesc:a3ee07c49c8b6803f85967d5fddb79f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new (state) <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance.  <a href="#a3ee07c49c8b6803f85967d5fddb79f9f">More...</a><br /></td></tr>
-<tr class="separator:a3ee07c49c8b6803f85967d5fddb79f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a221d14c4c9ec11e3ed6d2348cbd9e072"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d5/d4c/a02846.html">VariableMultiple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a221d14c4c9ec11e3ed6d2348cbd9e072">createCalculated</a> (const std::string &amp;name, const std::string &amp;cardinalityName, const <a class="el" href="../../d5/d0f/a00494.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a> type, const bool negated=false)</td></tr>
-<tr class="memdesc:a221d14c4c9ec11e3ed6d2348cbd9e072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new (calculated, i.e. non-state) <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance.  <a href="#a221d14c4c9ec11e3ed6d2348cbd9e072">More...</a><br /></td></tr>
-<tr class="separator:a221d14c4c9ec11e3ed6d2348cbd9e072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3e109d66fed1323eab5a73ae861a0d62"><td class="memItemLeft" align="right" valign="top"><a id="a3e109d66fed1323eab5a73ae861a0d62"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a3e109d66fed1323eab5a73ae861a0d62">~StaticRefInterface</a> ()=default</td></tr>
+<tr class="memdesc:a3e109d66fed1323eab5a73ae861a0d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">default destructor. <br /></td></tr>
+<tr class="separator:a3e109d66fed1323eab5a73ae861a0d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a869f557cbbee5f0e6d522acb02bb0e5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a869f557cbbee5f0e6d522acb02bb0e5b">setModelID</a> (const std::string &amp;modelID)</td></tr>
+<tr class="memdesc:a869f557cbbee5f0e6d522acb02bb0e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set model id  <a href="#a869f557cbbee5f0e6d522acb02bb0e5b">More...</a><br /></td></tr>
+<tr class="separator:a869f557cbbee5f0e6d522acb02bb0e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a1ba26b0ca11ad2b6b9e73de5f204b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a6a1ba26b0ca11ad2b6b9e73de5f204b7">setModelVar</a> (const std::string &amp;modelVar)</td></tr>
+<tr class="memdesc:a6a1ba26b0ca11ad2b6b9e73de5f204b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">set model variable  <a href="#a6a1ba26b0ca11ad2b6b9e73de5f204b7">More...</a><br /></td></tr>
+<tr class="separator:a6a1ba26b0ca11ad2b6b9e73de5f204b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cfc48d6b6d027fb48fb0bc4a4ea7f78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a8cfc48d6b6d027fb48fb0bc4a4ea7f78">setStaticVar</a> (const std::string &amp;staticVar)</td></tr>
+<tr class="memdesc:a8cfc48d6b6d027fb48fb0bc4a4ea7f78"><td class="mdescLeft">&#160;</td><td class="mdescRight">set static variable  <a href="#a8cfc48d6b6d027fb48fb0bc4a4ea7f78">More...</a><br /></td></tr>
+<tr class="separator:a8cfc48d6b6d027fb48fb0bc4a4ea7f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb331dc2a93415fdb8b86a8653a84b95"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#acb331dc2a93415fdb8b86a8653a84b95">getModelID</a> () const</td></tr>
+<tr class="memdesc:acb331dc2a93415fdb8b86a8653a84b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">get model id  <a href="#acb331dc2a93415fdb8b86a8653a84b95">More...</a><br /></td></tr>
+<tr class="separator:acb331dc2a93415fdb8b86a8653a84b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68daec62ae8a404766b050e5e0b11414"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a68daec62ae8a404766b050e5e0b11414">getModelVar</a> () const</td></tr>
+<tr class="memdesc:a68daec62ae8a404766b050e5e0b11414"><td class="mdescLeft">&#160;</td><td class="mdescRight">get model var  <a href="#a68daec62ae8a404766b050e5e0b11414">More...</a><br /></td></tr>
+<tr class="separator:a68daec62ae8a404766b050e5e0b11414"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e48c0d6631bb8a38400fd0ce2e2f66"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a64e48c0d6631bb8a38400fd0ce2e2f66">getStaticVar</a> () const</td></tr>
+<tr class="memdesc:a64e48c0d6631bb8a38400fd0ce2e2f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">get static var  <a href="#a64e48c0d6631bb8a38400fd0ce2e2f66">More...</a><br /></td></tr>
+<tr class="separator:a64e48c0d6631bb8a38400fd0ce2e2f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a65f2063c471f8dffbedf2ca538e65f15"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a65f2063c471f8dffbedf2ca538e65f15">modelID_</a></td></tr>
+<tr class="separator:a65f2063c471f8dffbedf2ca538e65f15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d8dff117d7f701b68bb7a7fb13768a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a09d8dff117d7f701b68bb7a7fb13768a">modelVar_</a></td></tr>
+<tr class="separator:a09d8dff117d7f701b68bb7a7fb13768a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a101886c8300663cd43f00f15a9503a12"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d9a/a02850.html#a101886c8300663cd43f00f15a9503a12">staticVar_</a></td></tr>
+<tr class="separator:a101886c8300663cd43f00f15a9503a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>multiple variable factory class </p>
-<p><a class="el" href="../../d0/d9a/a02850.html" title="multiple variable factory class ">VariableMultipleFactory</a> encapsulates methods for creating new <code><a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> objects. </p>
+<div class="textblock"><p>interface class for static reference </p>
+<p><a class="el" href="../../d0/d9a/a02850.html" title="interface class for static reference ">StaticRefInterface</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ade511d9db211552d0c61d69b0e72ecd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade511d9db211552d0c61d69b0e72ecd8">&#9670;&nbsp;</a></span>create()</h2>
+<a id="acb331dc2a93415fdb8b86a8653a84b95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb331dc2a93415fdb8b86a8653a84b95">&#9670;&nbsp;</a></span>getModelID()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -133,65 +156,26 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d5/d4c/a02846.html">VariableMultiple</a>&gt; DYN::VariableMultipleFactory::create </td>
+          <td class="memname">const std::string&amp; DYN::StaticRefInterface::getModelID </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>cardinalityName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d5/d0f/a00494.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>isState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create new <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cardinalityName</td><td>name of the parameter to use to derive the number of variables </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> type (INTEGER, BOOLEAN, ...) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">isState</td><td><b>whether</b> the variable is needed for local model simulation </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> with given name, type, and negated attributes </dd></dl>
+<p>get model id </p>
+<dl class="section return"><dt>Returns</dt><dd>model ID </dd></dl>
 
 </div>
 </div>
-<a id="a221d14c4c9ec11e3ed6d2348cbd9e072"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a221d14c4c9ec11e3ed6d2348cbd9e072">&#9670;&nbsp;</a></span>createCalculated()</h2>
+<a id="a68daec62ae8a404766b050e5e0b11414"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68daec62ae8a404766b050e5e0b11414">&#9670;&nbsp;</a></span>getModelVar()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,58 +184,26 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d5/d4c/a02846.html">VariableMultiple</a>&gt; DYN::VariableMultipleFactory::createCalculated </td>
+          <td class="memname">const std::string&amp; DYN::StaticRefInterface::getModelVar </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>cardinalityName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/d0f/a00494.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool&#160;</td>
-          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create new (calculated, i.e. non-state) <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cardinalityName</td><td>name of the parameter to use to derive the number of variables </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> type (INTEGER, BOOLEAN, ...) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> with given name, type, and negated attributes </dd></dl>
+<p>get model var </p>
+<dl class="section return"><dt>Returns</dt><dd>model var </dd></dl>
 
 </div>
 </div>
-<a id="a3ee07c49c8b6803f85967d5fddb79f9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ee07c49c8b6803f85967d5fddb79f9f">&#9670;&nbsp;</a></span>createState()</h2>
+<a id="a64e48c0d6631bb8a38400fd0ce2e2f66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64e48c0d6631bb8a38400fd0ce2e2f66">&#9670;&nbsp;</a></span>getStaticVar()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -260,58 +212,198 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d5/d4c/a02846.html">VariableMultiple</a>&gt; DYN::VariableMultipleFactory::createState </td>
+          <td class="memname">const std::string&amp; DYN::StaticRefInterface::getStaticVar </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>cardinalityName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/d0f/a00494.html#a24adc26d089791bc53f26183118aadfa">typeVar_t</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool&#160;</td>
-          <td class="paramname"><em>negated</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create new (state) <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance. </p>
+<p>get static var </p>
+<dl class="section return"><dt>Returns</dt><dd>static var </dd></dl>
+
+</div>
+</div>
+<a id="a869f557cbbee5f0e6d522acb02bb0e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a869f557cbbee5f0e6d522acb02bb0e5b">&#9670;&nbsp;</a></span>setModelID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::StaticRefInterface::setModelID </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set model id </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>name of the new <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> instance </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cardinalityName</td><td>name of the parameter to use to derive the number of variables </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the <a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a> type (INTEGER, BOOLEAN, ...) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">negated</td><td><b>whether</b> the variable is negated </td></tr>
+    <tr><td class="paramname">modelID</td><td>model's id </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Shared pointer to a new <code><a class="el" href="../../d5/d4c/a02846.html" title="VariableMultiple implemented class. ">VariableMultiple</a></code> with given name, type, and negated attributes </dd></dl>
+
+</div>
+</div>
+<a id="a6a1ba26b0ca11ad2b6b9e73de5f204b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a1ba26b0ca11ad2b6b9e73de5f204b7">&#9670;&nbsp;</a></span>setModelVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::StaticRefInterface::setModelVar </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelVar</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set model variable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelVar</td><td>model's variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8cfc48d6b6d027fb48fb0bc4a4ea7f78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cfc48d6b6d027fb48fb0bc4a4ea7f78">&#9670;&nbsp;</a></span>setStaticVar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::StaticRefInterface::setStaticVar </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>staticVar</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set static variable </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">staticVar</td><td>model's static variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a65f2063c471f8dffbedf2ca538e65f15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65f2063c471f8dffbedf2ca538e65f15">&#9670;&nbsp;</a></span>modelID_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::StaticRefInterface::modelID_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ID of the model </p>
+
+</div>
+</div>
+<a id="a09d8dff117d7f701b68bb7a7fb13768a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09d8dff117d7f701b68bb7a7fb13768a">&#9670;&nbsp;</a></span>modelVar_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::StaticRefInterface::modelVar_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Var name of the model </p>
+
+</div>
+</div>
+<a id="a101886c8300663cd43f00f15a9503a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101886c8300663cd43f00f15a9503a12">&#9670;&nbsp;</a></span>staticVar_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DYN::StaticRefInterface::staticVar_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pin name of the static Device </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../da/d46/a00665_source.html">DYNVariableMultipleFactory.h</a></li>
+<li><a class="el" href="../../de/ddd/a00653_source.html">DYNStaticRefInterface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -329,8 +421,8 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d0/d9a/a02850.html">VariableMultipleFactory</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d0/d9a/a02850.html">StaticRefInterface</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

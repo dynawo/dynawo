@@ -1,7 +1,9 @@
 var a02862 =
 [
-    [ "~BusBarSectionInterface", "d3/dee/a02862.html#a98c75bd14fcfc58109b7d4175df92d18", null ],
-    [ "id", "d3/dee/a02862.html#aa0c80e7812813ace775bdeab08e7aca3", null ],
-    [ "setAngle", "d3/dee/a02862.html#a71f944e9d39ff6582d8e9c0ede594287", null ],
-    [ "setV", "d3/dee/a02862.html#a946cb82d2873298ff4aa4c732cc7fb2a", null ]
+    [ "SubModelFactory", "d3/dee/a02862.html#a1bb6496935dc2d52e0c560aeefe28aa8", null ],
+    [ "~SubModelFactory", "d3/dee/a02862.html#aeae89abfad8d2a15989016592b78982a", null ],
+    [ "create", "d3/dee/a02862.html#acd583c8cef912d3c0ee48ac7dc7338a8", null ],
+    [ "createSubModelFromLib", "d3/dee/a02862.html#acadba5eed3d7b590d7a855998f7b264a", null ],
+    [ "destroy", "d3/dee/a02862.html#ac31031e42bdb59f3bd55ef9000c94762", null ],
+    [ "lib_", "d3/dee/a02862.html#a801e01b80f9214f3af8c933f24e9f297", null ]
 ];

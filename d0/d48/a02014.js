@@ -1,8 +1,7 @@
 var a02014 =
 [
-    [ "StaticRefHandler", "d0/d48/a02014.html#a5eaf75f5f8d8c1c004096f2420b090bc", null ],
-    [ "~StaticRefHandler", "d0/d48/a02014.html#a81af983aaac6ada8b7f4b15dac7fb1ce", null ],
-    [ "create", "d0/d48/a02014.html#a47e13c51a967915863251ab4385cea92", null ],
-    [ "get", "d0/d48/a02014.html#a7eaf9c0e8b9b393c84f8914a5be2284e", null ],
-    [ "staticRef_", "d0/d48/a02014.html#a5aecf815cee797f52c33c6ea043fac42", null ]
+    [ "id1", "d0/d48/a02014.html#a5eab0f04ffb879f7c9453f2c5ccbef60", null ],
+    [ "id2", "d0/d48/a02014.html#af3b70e7c4cbbe1f5016115013887aee8", null ],
+    [ "var1", "d0/d48/a02014.html#a80ef3c428e702176ea8a377d1f6292a2", null ],
+    [ "var2", "d0/d48/a02014.html#acfcc972a8446a499ce145228eae90d78", null ]
 ];

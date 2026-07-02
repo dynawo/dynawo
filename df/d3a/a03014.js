@@ -1,14 +1,20 @@
 var a03014 =
 [
-    [ "~SwitchInterface", "df/d3a/a03014.html#a09e8ac014f77d7f705f1fd5a1b482988", null ],
-    [ "close", "df/d3a/a03014.html#adbfa7cb8947709a26dcdfda10365b723", null ],
-    [ "exportStateVariablesUnitComponent", "df/d3a/a03014.html#ab81bc9e5f785ee3cff9b7235666afeb2", null ],
-    [ "getBusInterface1", "df/d3a/a03014.html#a82dc8871cb43b7f55e50d3cf55c12e7b", null ],
-    [ "getBusInterface2", "df/d3a/a03014.html#affe8d98c331718b3241dc3b50a182118", null ],
-    [ "getID", "df/d3a/a03014.html#a5421d59e4ecc906278fdf0c80a5f3c12", null ],
-    [ "isOpen", "df/d3a/a03014.html#acdd54991cade55b13dd3d9d611a9d1b3", null ],
-    [ "isRetained", "df/d3a/a03014.html#ad6ec1a8554557b6895cdf0034835a8ff", null ],
-    [ "open", "df/d3a/a03014.html#ae6ec783d9c026478bd7b12fa25046b5b", null ],
-    [ "setBusInterface1", "df/d3a/a03014.html#a5e073a3767de3c14b6220efe59d72ea7", null ],
-    [ "setBusInterface2", "df/d3a/a03014.html#ae01e2942596b41970784744e55301ac8", null ]
+    [ "~PhaseTapChangerInterface", "df/d3a/a03014.html#acce2301ec3328af9e4fee4cca6f9841f", null ],
+    [ "addStep", "df/d3a/a03014.html#aab4bd99811385addb6e6dea384756a57", null ],
+    [ "getCurrentAlpha", "df/d3a/a03014.html#a7f6f9630fe0e106a3d2c532230531495", null ],
+    [ "getCurrentB", "df/d3a/a03014.html#a2499f4d6e78c84c0c9d5a8ae505cb3a7", null ],
+    [ "getCurrentG", "df/d3a/a03014.html#acb9411782e98105e9399e7833e746f82", null ],
+    [ "getCurrentPosition", "df/d3a/a03014.html#ad7521a93fbe6923c8780747c1b09d06a", null ],
+    [ "getCurrentR", "df/d3a/a03014.html#a34fa12857c4bfef2c525bf4eba92f21d", null ],
+    [ "getCurrentRho", "df/d3a/a03014.html#a39417d8c7e5021c8a15253db4b835363", null ],
+    [ "getCurrentX", "df/d3a/a03014.html#a381d9009b6b4f9216b3127fbf2ad666c", null ],
+    [ "getLowPosition", "df/d3a/a03014.html#afc6e9e31b83770d830415b7b34fc0d00", null ],
+    [ "getNbTap", "df/d3a/a03014.html#a1e255e82e97c62426ba87fbf616bc67b", null ],
+    [ "getRegulating", "df/d3a/a03014.html#a1e672560f2ca7fb133c670ca46c246c2", null ],
+    [ "getRegulationValue", "df/d3a/a03014.html#af4ef90682d01a2b8b7c472a3baa23657", null ],
+    [ "getSteps", "df/d3a/a03014.html#a8b5cf46e391756ea8b9bd287284c6b68", null ],
+    [ "getTargetDeadBand", "df/d3a/a03014.html#a1ac23b5c6d3ca8f4e9c8f52658c4211b", null ],
+    [ "isCurrentLimiter", "df/d3a/a03014.html#acd992054612f5d436b2379631746dbc9", null ],
+    [ "setCurrentPosition", "df/d3a/a03014.html#abc3e0b367c58b1f1ccd454bebf81b490", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: job::ModelsDirHandler Class Reference</title>
+<title>Dynawo: job::TimelineEntry Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,141 +96,89 @@ $(document).ready(function(){initNavTree('d9/dfc/a02326.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d7/d67/a02323.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">job::ModelsDirHandler Class Reference</div>  </div>
+<div class="title">job::TimelineEntry Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Handler used to parse models directory element.  
+<p>Timeline entries container class.  
  <a href="../../d9/dfc/a02326.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for job::ModelsDirHandler:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d9/dfc/a02326.png" usemap="#job::ModelsDirHandler_map" alt=""/>
-  <map id="job::ModelsDirHandler_map" name="job::ModelsDirHandler_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d8/ddd/a00380_source.html">JOBTimelineEntry.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4e3d52b3d429ae9a9b28707835fea341"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a4e3d52b3d429ae9a9b28707835fea341">ModelsDirHandler</a> (elementName_type const &amp;root_element)</td></tr>
-<tr class="memdesc:a4e3d52b3d429ae9a9b28707835fea341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a4e3d52b3d429ae9a9b28707835fea341">More...</a><br /></td></tr>
-<tr class="separator:a4e3d52b3d429ae9a9b28707835fea341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a376ecbb4a76e47915d19df6dc8590e7a"><td class="memItemLeft" align="right" valign="top"><a id="a376ecbb4a76e47915d19df6dc8590e7a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a376ecbb4a76e47915d19df6dc8590e7a">~ModelsDirHandler</a> () override</td></tr>
-<tr class="memdesc:a376ecbb4a76e47915d19df6dc8590e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a376ecbb4a76e47915d19df6dc8590e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e107858085a879ac2e879ccf47da5e1"><td class="memItemLeft" align="right" valign="top"><a id="a1e107858085a879ac2e879ccf47da5e1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a1e107858085a879ac2e879ccf47da5e1">addDirectory</a> ()</td></tr>
-<tr class="memdesc:a1e107858085a879ac2e879ccf47da5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a directory to the list of directory <br /></td></tr>
-<tr class="separator:a1e107858085a879ac2e879ccf47da5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaa0597fea5f25766eebaf3d6393f754"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/ddb/a02262.html">ModelsDirEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#aaaa0597fea5f25766eebaf3d6393f754">get</a> () const</td></tr>
-<tr class="memdesc:aaaa0597fea5f25766eebaf3d6393f754"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the models objects read in xml file  <a href="#aaaa0597fea5f25766eebaf3d6393f754">More...</a><br /></td></tr>
-<tr class="separator:aaaa0597fea5f25766eebaf3d6393f754"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ad2a66dea861dff71d05f7cbeff6c763c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#ad2a66dea861dff71d05f7cbeff6c763c">create</a> (attributes_type const &amp;attributes)</td></tr>
-<tr class="memdesc:ad2a66dea861dff71d05f7cbeff6c763c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#ad2a66dea861dff71d05f7cbeff6c763c">More...</a><br /></td></tr>
-<tr class="separator:ad2a66dea861dff71d05f7cbeff6c763c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af51c75b65cefe1bf51d688e99deda9ec"><td class="memItemLeft" align="right" valign="top"><a id="af51c75b65cefe1bf51d688e99deda9ec"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#af51c75b65cefe1bf51d688e99deda9ec">TimelineEntry</a> ()</td></tr>
+<tr class="memdesc:af51c75b65cefe1bf51d688e99deda9ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br /></td></tr>
+<tr class="separator:af51c75b65cefe1bf51d688e99deda9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd6cba8c47fc08f2b4c60d792498bdeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#afd6cba8c47fc08f2b4c60d792498bdeb">setOutputFile</a> (const std::string &amp;outputFile)</td></tr>
+<tr class="memdesc:afd6cba8c47fc08f2b4c60d792498bdeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output file attribute setter.  <a href="#afd6cba8c47fc08f2b4c60d792498bdeb">More...</a><br /></td></tr>
+<tr class="separator:afd6cba8c47fc08f2b4c60d792498bdeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23f1e4911eca359c371f6d400af82a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a23f1e4911eca359c371f6d400af82a4b">setExportMode</a> (const std::string &amp;exportMode)</td></tr>
+<tr class="memdesc:a23f1e4911eca359c371f6d400af82a4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export Mode attribute setter.  <a href="#a23f1e4911eca359c371f6d400af82a4b">More...</a><br /></td></tr>
+<tr class="separator:a23f1e4911eca359c371f6d400af82a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a512aada8642b2051010fade40a377a8b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a512aada8642b2051010fade40a377a8b">getOutputFile</a> () const</td></tr>
+<tr class="memdesc:a512aada8642b2051010fade40a377a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output file attribute getter.  <a href="#a512aada8642b2051010fade40a377a8b">More...</a><br /></td></tr>
+<tr class="separator:a512aada8642b2051010fade40a377a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1181cb0bc089ffaacbe3486a596c725"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#ab1181cb0bc089ffaacbe3486a596c725">getExportMode</a> () const</td></tr>
+<tr class="memdesc:ab1181cb0bc089ffaacbe3486a596c725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export mode attribute getter.  <a href="#ab1181cb0bc089ffaacbe3486a596c725">More...</a><br /></td></tr>
+<tr class="separator:ab1181cb0bc089ffaacbe3486a596c725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc32411c3c3446be642e6a3123d99fcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#adc32411c3c3446be642e6a3123d99fcd">setExportWithTime</a> (const bool exportWithTime)</td></tr>
+<tr class="memdesc:adc32411c3c3446be642e6a3123d99fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time setter  <a href="#adc32411c3c3446be642e6a3123d99fcd">More...</a><br /></td></tr>
+<tr class="separator:adc32411c3c3446be642e6a3123d99fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac47cd36cff3243a8adae43b04301d66d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#ac47cd36cff3243a8adae43b04301d66d">getExportWithTime</a> () const</td></tr>
+<tr class="memdesc:ac47cd36cff3243a8adae43b04301d66d"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time getter  <a href="#ac47cd36cff3243a8adae43b04301d66d">More...</a><br /></td></tr>
+<tr class="separator:ac47cd36cff3243a8adae43b04301d66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f164e97f3299f69bda0fbadd89f229c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a1f164e97f3299f69bda0fbadd89f229c">setMaxPriority</a> (const boost::optional&lt; int &gt; maxPriority)</td></tr>
+<tr class="memdesc:a1f164e97f3299f69bda0fbadd89f229c"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority setter  <a href="#a1f164e97f3299f69bda0fbadd89f229c">More...</a><br /></td></tr>
+<tr class="separator:a1f164e97f3299f69bda0fbadd89f229c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74ab9c0435f505ad4c3110152c1db69c"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a74ab9c0435f505ad4c3110152c1db69c">getMaxPriority</a> () const</td></tr>
+<tr class="memdesc:a74ab9c0435f505ad4c3110152c1db69c"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority getter  <a href="#a74ab9c0435f505ad4c3110152c1db69c">More...</a><br /></td></tr>
+<tr class="separator:a74ab9c0435f505ad4c3110152c1db69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae92da4363bcf91bab22187eca3bf5602"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#ae92da4363bcf91bab22187eca3bf5602">setFilter</a> (bool filter)</td></tr>
+<tr class="memdesc:ae92da4363bcf91bab22187eca3bf5602"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter setter  <a href="#ae92da4363bcf91bab22187eca3bf5602">More...</a><br /></td></tr>
+<tr class="separator:ae92da4363bcf91bab22187eca3bf5602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4121b47a06d4dfe1a40c1572b8c5b2fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a4121b47a06d4dfe1a40c1572b8c5b2fe">isFilter</a> () const</td></tr>
+<tr class="memdesc:a4121b47a06d4dfe1a40c1572b8c5b2fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter getter  <a href="#a4121b47a06d4dfe1a40c1572b8c5b2fe">More...</a><br /></td></tr>
+<tr class="separator:a4121b47a06d4dfe1a40c1572b8c5b2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a87f67d8108b176b976704128ac301b3a"><td class="memItemLeft" align="right" valign="top"><a id="a87f67d8108b176b976704128ac301b3a"></a>
-std::shared_ptr&lt; <a class="el" href="../../d3/ddb/a02262.html">ModelsDirEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a87f67d8108b176b976704128ac301b3a">modelsDir_</a></td></tr>
-<tr class="memdesc:a87f67d8108b176b976704128ac301b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">current modelsDirEntry object <br /></td></tr>
-<tr class="separator:a87f67d8108b176b976704128ac301b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e6cf83a47f4b88918635d60f0f10e32"><td class="memItemLeft" align="right" valign="top"><a id="a6e6cf83a47f4b88918635d60f0f10e32"></a>
-<a class="el" href="../../d7/df2/a02322.html">DirectoryHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a6e6cf83a47f4b88918635d60f0f10e32">directoryHandler_</a></td></tr>
-<tr class="memdesc:a6e6cf83a47f4b88918635d60f0f10e32"><td class="mdescLeft">&#160;</td><td class="mdescRight">handler used to parse directory element <br /></td></tr>
-<tr class="separator:a6e6cf83a47f4b88918635d60f0f10e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab42a5ec13923f4eaa1a7904b5584c9e9"><td class="memItemLeft" align="right" valign="top"><a id="ab42a5ec13923f4eaa1a7904b5584c9e9"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#ab42a5ec13923f4eaa1a7904b5584c9e9">outputFile_</a></td></tr>
+<tr class="memdesc:ab42a5ec13923f4eaa1a7904b5584c9e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export file for timeline. <br /></td></tr>
+<tr class="separator:ab42a5ec13923f4eaa1a7904b5584c9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab337071094cafcfdeb56f7b569a36ddb"><td class="memItemLeft" align="right" valign="top"><a id="ab337071094cafcfdeb56f7b569a36ddb"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#ab337071094cafcfdeb56f7b569a36ddb">exportMode_</a></td></tr>
+<tr class="memdesc:ab337071094cafcfdeb56f7b569a36ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export mode TXT, CSV, XML for timeline output file. <br /></td></tr>
+<tr class="separator:ab337071094cafcfdeb56f7b569a36ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af57b71939bef66b8b30810cd2edd04a3"><td class="memItemLeft" align="right" valign="top"><a id="af57b71939bef66b8b30810cd2edd04a3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#af57b71939bef66b8b30810cd2edd04a3">exportWithTime_</a></td></tr>
+<tr class="memdesc:af57b71939bef66b8b30810cd2edd04a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to export time when exporting timeline <br /></td></tr>
+<tr class="separator:af57b71939bef66b8b30810cd2edd04a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a609fbd41887d0097339fd5898005b48c"><td class="memItemLeft" align="right" valign="top"><a id="a609fbd41887d0097339fd5898005b48c"></a>
+boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#a609fbd41887d0097339fd5898005b48c">maxPriority_</a></td></tr>
+<tr class="memdesc:a609fbd41887d0097339fd5898005b48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
+<tr class="separator:a609fbd41887d0097339fd5898005b48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad944d5c43790aa47f27418d68c63b508"><td class="memItemLeft" align="right" valign="top"><a id="ad944d5c43790aa47f27418d68c63b508"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfc/a02326.html#ad944d5c43790aa47f27418d68c63b508">filter_</a></td></tr>
+<tr class="memdesc:ad944d5c43790aa47f27418d68c63b508"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to filter timeline <br /></td></tr>
+<tr class="separator:ad944d5c43790aa47f27418d68c63b508"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handler used to parse models directory element. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4e3d52b3d429ae9a9b28707835fea341"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e3d52b3d429ae9a9b28707835fea341">&#9670;&nbsp;</a></span>ModelsDirHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">job::ModelsDirHandler::ModelsDirHandler </td>
-          <td>(</td>
-          <td class="paramtype">elementName_type const &amp;&#160;</td>
-          <td class="paramname"><em>root_element</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad2a66dea861dff71d05f7cbeff6c763c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2a66dea861dff71d05f7cbeff6c763c">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void job::ModelsDirHandler::create </td>
-          <td>(</td>
-          <td class="paramtype">attributes_type const &amp;&#160;</td>
-          <td class="paramname"><em>attributes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the XML element opening tag is read. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aaaa0597fea5f25766eebaf3d6393f754"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaa0597fea5f25766eebaf3d6393f754">&#9670;&nbsp;</a></span>get()</h2>
+<div class="textblock"><p>Timeline entries container class. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab1181cb0bc089ffaacbe3486a596c725"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1181cb0bc089ffaacbe3486a596c725">&#9670;&nbsp;</a></span>getExportMode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d3/ddb/a02262.html">ModelsDirEntry</a>&gt; job::ModelsDirHandler::get </td>
+          <td class="memname">const std::string&amp; job::TimelineEntry::getExportMode </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -238,13 +186,223 @@ std::shared_ptr&lt; <a class="el" href="../../d3/ddb/a02262.html">ModelsDirEntry
       </table>
 </div><div class="memdoc">
 
-<p>get the models objects read in xml file </p>
-<dl class="section return"><dt>Returns</dt><dd>models objects build thanks to infos read in xml file </dd></dl>
+<p>Export mode attribute getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Export mode for timeline </dd></dl>
+
+</div>
+</div>
+<a id="ac47cd36cff3243a8adae43b04301d66d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac47cd36cff3243a8adae43b04301d66d">&#9670;&nbsp;</a></span>getExportWithTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool job::TimelineEntry::getExportWithTime </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>whether to export time getter </p>
+<dl class="section return"><dt>Returns</dt><dd>whether to export time when exporting timeline </dd></dl>
+
+</div>
+</div>
+<a id="a74ab9c0435f505ad4c3110152c1db69c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74ab9c0435f505ad4c3110152c1db69c">&#9670;&nbsp;</a></span>getMaxPriority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::optional&lt;int&gt; job::TimelineEntry::getMaxPriority </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>maximum priority getter </p>
+<dl class="section return"><dt>Returns</dt><dd>maximum priority allowed when exporting timeline </dd></dl>
+
+</div>
+</div>
+<a id="a512aada8642b2051010fade40a377a8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a512aada8642b2051010fade40a377a8b">&#9670;&nbsp;</a></span>getOutputFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; job::TimelineEntry::getOutputFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output file attribute getter. </p>
+<dl class="section return"><dt>Returns</dt><dd>Output file for timeline </dd></dl>
+
+</div>
+</div>
+<a id="a4121b47a06d4dfe1a40c1572b8c5b2fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4121b47a06d4dfe1a40c1572b8c5b2fe">&#9670;&nbsp;</a></span>isFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool job::TimelineEntry::isFilter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter getter </p>
+<dl class="section return"><dt>Returns</dt><dd>whether to filter the timeline </dd></dl>
+
+</div>
+</div>
+<a id="a23f1e4911eca359c371f6d400af82a4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23f1e4911eca359c371f6d400af82a4b">&#9670;&nbsp;</a></span>setExportMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::TimelineEntry::setExportMode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>exportMode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Export Mode attribute setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exportMode</td><td>Export mode for timeline </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adc32411c3c3446be642e6a3123d99fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc32411c3c3446be642e6a3123d99fcd">&#9670;&nbsp;</a></span>setExportWithTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::TimelineEntry::setExportWithTime </td>
+          <td>(</td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>exportWithTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>whether to export time setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exportWithTime</td><td>whether to export time when exporting timeline </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae92da4363bcf91bab22187eca3bf5602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae92da4363bcf91bab22187eca3bf5602">&#9670;&nbsp;</a></span>setFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::TimelineEntry::setFilter </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filter</td><td>whether to filter the timeline </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1f164e97f3299f69bda0fbadd89f229c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f164e97f3299f69bda0fbadd89f229c">&#9670;&nbsp;</a></span>setMaxPriority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::TimelineEntry::setMaxPriority </td>
+          <td>(</td>
+          <td class="paramtype">const boost::optional&lt; int &gt;&#160;</td>
+          <td class="paramname"><em>maxPriority</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>maximum priority setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxPriority</td><td>maximum priority allowed when exporting timeline </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afd6cba8c47fc08f2b4c60d792498bdeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd6cba8c47fc08f2b4c60d792498bdeb">&#9670;&nbsp;</a></span>setOutputFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void job::TimelineEntry::setOutputFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>outputFile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output file attribute setter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputFile</td><td>Output file for timeline </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dd/df5/a00386_source.html">JOBXmlHandler.h</a></li>
+<li><a class="el" href="../../d8/ddd/a00380_source.html">JOBTimelineEntry.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -262,8 +420,8 @@ std::shared_ptr&lt; <a class="el" href="../../d3/ddb/a02262.html">ModelsDirEntry
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d9/dfc/a02326.html">ModelsDirHandler</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>job</b></li><li class="navelem"><a class="el" href="../../d9/dfc/a02326.html">TimelineEntry</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

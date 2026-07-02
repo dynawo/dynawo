@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::ReactiveCurvePointsInterface Class Reference</title>
+<title>Dynawo: DYN::DataInterfaceFactory Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,53 +95,58 @@ $(document).ready(function(){initNavTree('d2/d34/a02982.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../d4/d2b/a02979.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::ReactiveCurvePointsInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::DataInterfaceFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Curve points data interface.  
+<p><a class="el" href="../../d2/d34/a02982.html" title="DataInterfaceFactory class: factory to handle the different possible formats of static network inputs...">DataInterfaceFactory</a> class: factory to handle the different possible formats of static network inputs.  
  <a href="../../d2/d34/a02982.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../dc/dce/a00740_source.html">DYNReactiveCurvePointsInterface.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::ReactiveCurvePointsInterface:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d2/d34/a02982.png" usemap="#DYN::ReactiveCurvePointsInterface_map" alt=""/>
-  <map id="DYN::ReactiveCurvePointsInterface_map" name="DYN::ReactiveCurvePointsInterface_map">
-<area href="../../df/d16/a02950.html" title="Generator component Class for Generator data interface. " alt="DYN::GeneratorInterface" shape="rect" coords="111,56,324,80"/>
-<area href="../../dd/d84/a03034.html" title="VSC converter interface Interface class for Vsc Converter. " alt="DYN::VscConverterInterface" shape="rect" coords="446,56,659,80"/>
-<area href="../../d9/dbf/a03042.html" alt="DYN::BatteryInterfaceIIDM" shape="rect" coords="0,112,213,136"/>
-<area href="../../d9/d5e/a03086.html" alt="DYN::GeneratorInterfaceIIDM" shape="rect" coords="223,112,436,136"/>
-<area href="../../dd/d71/a03182.html" alt="DYN::VscConverterInterfaceIIDM" shape="rect" coords="446,112,659,136"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="../../d8/db9/a00725_source.html">DYNDataInterfaceFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d65/a02986.html">ReactiveCurvePoint</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reactive curve point.  <a href="../../d9/d65/a02986.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:af267d6198a033f242b66120c84cae469"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d34/a02982.html#af267d6198a033f242b66120c84cae469">dataInterfaceType_t</a> { <a class="el" href="../../d2/d34/a02982.html#af267d6198a033f242b66120c84cae469a5dd818d1bf6ed77013d76940139e2f0f">DATAINTERFACE_IIDM</a>
+ }</td></tr>
+<tr class="memdesc:af267d6198a033f242b66120c84cae469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of possibles inputs.  <a href="../../d2/d34/a02982.html#af267d6198a033f242b66120c84cae469">More...</a><br /></td></tr>
+<tr class="separator:af267d6198a033f242b66120c84cae469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:affc2934260bde2d15fe6d19ecdfd445f"><td class="memItemLeft" align="right" valign="top"><a id="affc2934260bde2d15fe6d19ecdfd445f"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d34/a02982.html#affc2934260bde2d15fe6d19ecdfd445f">~ReactiveCurvePointsInterface</a> ()=default</td></tr>
-<tr class="memdesc:affc2934260bde2d15fe6d19ecdfd445f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:affc2934260bde2d15fe6d19ecdfd445f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a350a4f24a851be8819f7d049cb144ebd"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="../../d9/d65/a02986.html">ReactiveCurvePoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d34/a02982.html#a350a4f24a851be8819f7d049cb144ebd">getReactiveCurvesPoints</a> () const =0</td></tr>
-<tr class="memdesc:a350a4f24a851be8819f7d049cb144ebd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of reactive curve points, if any.  <a href="#a350a4f24a851be8819f7d049cb144ebd">More...</a><br /></td></tr>
-<tr class="separator:a350a4f24a851be8819f7d049cb144ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a82ccbaee5d34acacd97797a27d59c43b"><td class="memItemLeft" align="right" valign="top">static boost::shared_ptr&lt; <a class="el" href="../../d0/dde/a02978.html">DataInterface</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d34/a02982.html#a82ccbaee5d34acacd97797a27d59c43b">build</a> (<a class="el" href="../../d2/d34/a02982.html#af267d6198a033f242b66120c84cae469">dataInterfaceType_t</a> type, const std::string &amp;filepath, unsigned int nbVariants=1)</td></tr>
+<tr class="memdesc:a82ccbaee5d34acacd97797a27d59c43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build an instance of a static network by reading a file.  <a href="#a82ccbaee5d34acacd97797a27d59c43b">More...</a><br /></td></tr>
+<tr class="separator:a82ccbaee5d34acacd97797a27d59c43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Curve points data interface. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a350a4f24a851be8819f7d049cb144ebd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a350a4f24a851be8819f7d049cb144ebd">&#9670;&nbsp;</a></span>getReactiveCurvesPoints()</h2>
+<div class="textblock"><p><a class="el" href="../../d2/d34/a02982.html" title="DataInterfaceFactory class: factory to handle the different possible formats of static network inputs...">DataInterfaceFactory</a> class: factory to handle the different possible formats of static network inputs. </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="af267d6198a033f242b66120c84cae469"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af267d6198a033f242b66120c84cae469">&#9670;&nbsp;</a></span>dataInterfaceType_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../d2/d34/a02982.html#af267d6198a033f242b66120c84cae469">DYN::DataInterfaceFactory::dataInterfaceType_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of possibles inputs. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af267d6198a033f242b66120c84cae469a5dd818d1bf6ed77013d76940139e2f0f"></a>DATAINTERFACE_IIDM&#160;</td><td class="fielddoc"><p>Use IIDM library. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a82ccbaee5d34acacd97797a27d59c43b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82ccbaee5d34acacd97797a27d59c43b">&#9670;&nbsp;</a></span>build()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,28 +155,51 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;<a class="el" href="../../d9/d65/a02986.html">ReactiveCurvePoint</a>&gt; DYN::ReactiveCurvePointsInterface::getReactiveCurvesPoints </td>
+          <td class="memname">static boost::shared_ptr&lt;<a class="el" href="../../d0/dde/a02978.html">DataInterface</a>&gt; DYN::DataInterfaceFactory::build </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="../../d2/d34/a02982.html#af267d6198a033f242b66120c84cae469">dataInterfaceType_t</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filepath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>nbVariants</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Retrieve the list of reactive curve points, if any. </p>
-<dl class="section return"><dt>Returns</dt><dd>list of reactive curve points </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d9/d5e/a03086.html#a9fae296fbfe3ea1f995752efadbc135b">DYN::GeneratorInterfaceIIDM</a>, <a class="el" href="../../df/d16/a02950.html#a02cc20de77a4826638b6acea831570e8">DYN::GeneratorInterface</a>, <a class="el" href="../../d9/dbf/a03042.html#a0339f56aafb65fd6a9e0e8e2249e0867">DYN::BatteryInterfaceIIDM</a>, <a class="el" href="../../dd/d71/a03182.html#ac171b3224b7e37efac9a7d3dd0925242">DYN::VscConverterInterfaceIIDM</a>, and <a class="el" href="../../dd/d84/a03034.html#aea02070da5288689c566dd907e33bd57">DYN::VscConverterInterface</a>.</p>
+<p>Build an instance of a static network by reading a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>format of the file </td></tr>
+    <tr><td class="paramname">filepath</td><td>input file path </td></tr>
+    <tr><td class="paramname">nbVariants</td><td>number of variants to handle (relevant only with basic network models with variant) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The data interface built from the input file </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../dc/dce/a00740_source.html">DYNReactiveCurvePointsInterface.h</a></li>
+<li><a class="el" href="../../d8/db9/a00725_source.html">DYNDataInterfaceFactory.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -189,8 +217,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/d34/a02982.html">ReactiveCurvePointsInterface</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:52 for Dynawo by
+    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d2/d34/a02982.html">DataInterfaceFactory</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:41 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

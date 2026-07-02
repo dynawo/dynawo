@@ -1,14 +1,18 @@
 var a03330 =
 [
-    [ "ModelQuadripole", "de/d93/a03330.html#a04f16858d3629aa3b69a0cd51a29a9d8", null ],
-    [ "addBusNeighbors", "de/d93/a03330.html#a96de17f629ea517f84fe4e6525abf691", null ],
-    [ "getConnectionState", "de/d93/a03330.html#aa018def8dcad961d0303b1a31839daea", null ],
-    [ "getModelBus1", "de/d93/a03330.html#abadc63ab47cedc556f2f4133ec30cf06", null ],
-    [ "getModelBus2", "de/d93/a03330.html#aac08bb975457182c481d67253bfd2d5c", null ],
-    [ "setConnectionState", "de/d93/a03330.html#ae5dc5e6bb431d489eb6a5374db42569c", null ],
-    [ "setModelBus1", "de/d93/a03330.html#a0bb324d684d5689c843b67979e3bcbd7", null ],
-    [ "setModelBus2", "de/d93/a03330.html#a9b143fb5824e67ad40faf79088c70393", null ],
-    [ "connectionState_", "de/d93/a03330.html#a5ad08c9ee95687ba78c12c52c811aa4e", null ],
-    [ "modelBus1_", "de/d93/a03330.html#a2fc51a17d69e6556ed763d38951001ff", null ],
-    [ "modelBus2_", "de/d93/a03330.html#a7091af3c966718cce35b352790f1a3f8", null ]
+    [ "ModelBusContainer", "de/d93/a03330.html#a07a5b6ac97b5f2695347bb01d070385a", null ],
+    [ "add", "de/d93/a03330.html#a77472dfc39288ab63086b925f523fef3", null ],
+    [ "evalF", "de/d93/a03330.html#aa884deb00a8ec768d1f7093502941c77", null ],
+    [ "evalJt", "de/d93/a03330.html#a3b5a3290f0a4b3a5b09b6729d0466e4c", null ],
+    [ "evalJtPrim", "de/d93/a03330.html#a2d591064f0cb33124f91e8c81d3da918", null ],
+    [ "exploreNeighbors", "de/d93/a03330.html#a67217e0627420b218eee4bc4ab3a09ab", null ],
+    [ "getSubNetworks", "de/d93/a03330.html#a66b7118174a02fcad238955d0c196b1c", null ],
+    [ "initDerivatives", "de/d93/a03330.html#a6c5cc2241578370a125419c3014edb2c", null ],
+    [ "initRefIslands", "de/d93/a03330.html#a4bb7cf8083a182f23ee843a9167c1072", null ],
+    [ "resetCurrentUStatus", "de/d93/a03330.html#a7b3ea90ccbfb4e8ce491c6632b7f41fb", null ],
+    [ "resetInjections", "de/d93/a03330.html#acd8242c1bebbcaf1e93938aef16f1c15", null ],
+    [ "resetNodeInjections", "de/d93/a03330.html#af47ec19771129cb5258e051195097230", null ],
+    [ "resetSubNetwork", "de/d93/a03330.html#a2c5160c1075defd95514fde8f4aca10d", null ],
+    [ "models_", "de/d93/a03330.html#afb4ee2d7db8afa6a9b28da31a351ca97", null ],
+    [ "subNetworks_", "de/d93/a03330.html#a564137dde21fc01280ef085f69551601", null ]
 ];

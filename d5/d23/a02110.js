@@ -1,6 +1,8 @@
 var a02110 =
 [
-    [ "~Exporter", "d5/d23/a02110.html#a46de4161aebb544fad485a0dedc2cbc9", null ],
-    [ "exportToFile", "d5/d23/a02110.html#a8bd9b80fd1e97e21d3efc23b0e2614e7", null ],
-    [ "exportToStream", "d5/d23/a02110.html#a599acd0242617e2a915c215038ba50d5", null ]
+    [ "VariableHandler", "d5/d23/a02110.html#a8b0ce95bfa76fb1c42b8e53d23ac45a7", null ],
+    [ "~VariableHandler", "d5/d23/a02110.html#a342233496b4ba6dc8a276224fc2cbc91", null ],
+    [ "create", "d5/d23/a02110.html#ae90cd78e08ab1b2caeb42434c64b1119", null ],
+    [ "get", "d5/d23/a02110.html#a67c942f482cd027b2a20ac5206b3952b", null ],
+    [ "variable_", "d5/d23/a02110.html#a3b2940dbb5d19b5d53430b1edc0c2b53", null ]
 ];

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: lostEquipments::LostEquipmentsCollection Class Reference</title>
+<title>Dynawo: lostEquipments::Exporter Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,128 +95,140 @@ $(document).ready(function(){initNavTree('de/d91/a02458.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../df/db6/a02455.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">lostEquipments::LostEquipmentsCollection Class Reference</div>  </div>
+<div class="title">lostEquipments::Exporter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../de/d91/a02458.html" title="LostEquipmentsCollection interface class. ">LostEquipmentsCollection</a> interface class.  
+<p><a class="el" href="../../de/d91/a02458.html" title="Exporter interface class. ">Exporter</a> interface class.  
  <a href="../../de/d91/a02458.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d7/d00/a00401_source.html">LEQLostEquipmentsCollection.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d4/d27/a00392_source.html">LEQExporter.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for lostEquipments::Exporter:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../de/d91/a02458.png" usemap="#lostEquipments::Exporter_map" alt=""/>
+  <map id="lostEquipments::Exporter_map" name="lostEquipments::Exporter_map">
+<area href="../../dc/d2b/a02486.html" title="XML exporter interface class. " alt="lostEquipments::XmlExporter" shape="rect" coords="0,56,169,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/a02462.html">LostEquipmentsCollectionConstIterator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over lost equipments.  <a href="../../df/d89/a02462.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac3c44ddf4fad0c72d55f1f6672d7279b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#ac3c44ddf4fad0c72d55f1f6672d7279b">addLostEquipment</a> (const std::string &amp;id, const std::string &amp;type)</td></tr>
-<tr class="memdesc:ac3c44ddf4fad0c72d55f1f6672d7279b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a lost equipment to the collection.  <a href="#ac3c44ddf4fad0c72d55f1f6672d7279b">More...</a><br /></td></tr>
-<tr class="separator:ac3c44ddf4fad0c72d55f1f6672d7279b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfe363fdb63d7a05c924209fa71d2e0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d89/a02462.html">LostEquipmentsCollectionConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#abfe363fdb63d7a05c924209fa71d2e0d">cbegin</a> () const</td></tr>
-<tr class="memdesc:abfe363fdb63d7a05c924209fa71d2e0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a const_iterator to the beginning of the lost equipments' vector.  <a href="#abfe363fdb63d7a05c924209fa71d2e0d">More...</a><br /></td></tr>
-<tr class="separator:abfe363fdb63d7a05c924209fa71d2e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad94df57816565eb792347add18bf0fb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d89/a02462.html">LostEquipmentsCollectionConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#ad94df57816565eb792347add18bf0fb6">cend</a> () const</td></tr>
-<tr class="memdesc:ad94df57816565eb792347add18bf0fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a const_iterator to the end of the lost equipments' vector.  <a href="#ad94df57816565eb792347add18bf0fb6">More...</a><br /></td></tr>
-<tr class="separator:ad94df57816565eb792347add18bf0fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:abd293c3617743c14510ed0d2e4e7c169"><td class="memItemLeft" align="right" valign="top"><a id="abd293c3617743c14510ed0d2e4e7c169"></a>
-<a class="el" href="../../d7/d00/a00401.html#a2eca8c75acb1c8f36b41dda29d2ef903">LostEquipmentsSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#abd293c3617743c14510ed0d2e4e7c169">lostEquipments_</a></td></tr>
-<tr class="memdesc:abd293c3617743c14510ed0d2e4e7c169"><td class="mdescLeft">&#160;</td><td class="mdescRight">set of the lost equipment objects <br /></td></tr>
-<tr class="separator:abd293c3617743c14510ed0d2e4e7c169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa126e851bc16817b29817a922aa5301"><td class="memItemLeft" align="right" valign="top"><a id="aaa126e851bc16817b29817a922aa5301"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#aaa126e851bc16817b29817a922aa5301">~Exporter</a> ()=default</td></tr>
+<tr class="memdesc:aaa126e851bc16817b29817a922aa5301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:aaa126e851bc16817b29817a922aa5301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6147ffc41592ac55e7a4e59e042ba736"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#a6147ffc41592ac55e7a4e59e042ba736">exportToFile</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;lostEquipments, const std::string &amp;filePath) const =0</td></tr>
+<tr class="memdesc:a6147ffc41592ac55e7a4e59e042ba736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#a6147ffc41592ac55e7a4e59e042ba736">More...</a><br /></td></tr>
+<tr class="separator:a6147ffc41592ac55e7a4e59e042ba736"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade79b70f7d0dc230886ba13c4915f171"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d91/a02458.html#ade79b70f7d0dc230886ba13c4915f171">exportToStream</a> (const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;lostEquipments, std::ostream &amp;stream) const =0</td></tr>
+<tr class="memdesc:ade79b70f7d0dc230886ba13c4915f171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method for this exporter.  <a href="#ade79b70f7d0dc230886ba13c4915f171">More...</a><br /></td></tr>
+<tr class="separator:ade79b70f7d0dc230886ba13c4915f171"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../de/d91/a02458.html" title="LostEquipmentsCollection interface class. ">LostEquipmentsCollection</a> interface class. </p>
-<p>Interface class for <a class="el" href="../../de/d91/a02458.html" title="LostEquipmentsCollection interface class. ">LostEquipmentsCollection</a> object. This a container for lost equipments </p>
+<div class="textblock"><p><a class="el" href="../../de/d91/a02458.html" title="Exporter interface class. ">Exporter</a> interface class. </p>
+<p><a class="el" href="../../de/d91/a02458.html" title="Exporter interface class. ">Exporter</a> class for <a class="el" href="../../d5/d61/a02474.html" title="LostEquipmentsCollection interface class. ">LostEquipmentsCollection</a> </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac3c44ddf4fad0c72d55f1f6672d7279b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3c44ddf4fad0c72d55f1f6672d7279b">&#9670;&nbsp;</a></span>addLostEquipment()</h2>
+<a id="a6147ffc41592ac55e7a4e59e042ba736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6147ffc41592ac55e7a4e59e042ba736">&#9670;&nbsp;</a></span>exportToFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void lostEquipments::LostEquipmentsCollection::addLostEquipment </td>
+          <td class="memname">virtual void lostEquipments::Exporter::exportToFile </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>lostEquipments</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname"><em>filePath</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Add a lost equipment to the collection. </p>
+<p>Export method for this exporter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>Lost equipment's id </td></tr>
-    <tr><td class="paramname">type</td><td>Lost equipment's type </td></tr>
+    <tr><td class="paramname">lostEquipments</td><td>Lost equipments to export </td></tr>
+    <tr><td class="paramname">filePath</td><td>File to export to </td></tr>
   </table>
   </dd>
 </dl>
 
+<p>Implemented in <a class="el" href="../../dc/d2b/a02486.html#aaed5253b526fe1f82f9bb7351d127b6e">lostEquipments::XmlExporter</a>.</p>
+
 </div>
 </div>
-<a id="abfe363fdb63d7a05c924209fa71d2e0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfe363fdb63d7a05c924209fa71d2e0d">&#9670;&nbsp;</a></span>cbegin()</h2>
+<a id="ade79b70f7d0dc230886ba13c4915f171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade79b70f7d0dc230886ba13c4915f171">&#9670;&nbsp;</a></span>exportToStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d89/a02462.html">LostEquipmentsCollectionConstIterator</a> lostEquipments::LostEquipmentsCollection::cbegin </td>
+          <td class="memname">virtual void lostEquipments::Exporter::exportToStream </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="../../d5/d61/a02474.html">LostEquipmentsCollection</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>lostEquipments</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get a const_iterator to the beginning of the lost equipments' vector. </p>
-<dl class="section return"><dt>Returns</dt><dd>beginning </dd></dl>
-
-</div>
-</div>
-<a id="ad94df57816565eb792347add18bf0fb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad94df57816565eb792347add18bf0fb6">&#9670;&nbsp;</a></span>cend()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d89/a02462.html">LostEquipmentsCollectionConstIterator</a> lostEquipments::LostEquipmentsCollection::cend </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Get a const_iterator to the end of the lost equipments' vector. </p>
-<dl class="section return"><dt>Returns</dt><dd>end </dd></dl>
+<p>Export method for this exporter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lostEquipments</td><td>Lost equipments to export </td></tr>
+    <tr><td class="paramname">stream</td><td>Stream to export to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../dc/d2b/a02486.html#a9ee9ba664ef27b69f7c184817c55f296">lostEquipments::XmlExporter</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d7/d00/a00401_source.html">LEQLostEquipmentsCollection.h</a></li>
+<li><a class="el" href="../../d4/d27/a00392_source.html">LEQExporter.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -234,8 +246,8 @@ Private Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>lostEquipments</b></li><li class="navelem"><a class="el" href="../../de/d91/a02458.html">LostEquipmentsCollection</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>lostEquipments</b></li><li class="navelem"><a class="el" href="../../de/d91/a02458.html">Exporter</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -1,10 +1,8 @@
 var a02422 =
 [
-    [ "StreamsHandler", "d4/dde/a02422.html#afe52fc496bf2c325b5c733653df9e2ac", null ],
-    [ "~StreamsHandler", "d4/dde/a02422.html#a2d9b6a48e58bed294dd41c958713ccb2", null ],
-    [ "addStream", "d4/dde/a02422.html#a1c12d8d51d1b9c0e1c7c17c5a061035e", null ],
-    [ "create", "d4/dde/a02422.html#a8d5a977b922c1022174c2585e424b367", null ],
-    [ "get", "d4/dde/a02422.html#acc1026cec89042bc3154ec50311d0312", null ],
-    [ "streamHandler_", "d4/dde/a02422.html#adab80a23462e2228785ec710301d2d7d", null ],
-    [ "streams_", "d4/dde/a02422.html#aa53c2952f3344d5ffa8f9e11a60772c0", null ]
+    [ "ClockHandler", "d4/dde/a02422.html#a470f360e86eeec60dd678de7804b80ae", null ],
+    [ "~ClockHandler", "d4/dde/a02422.html#a62769a7a7b44c7fd7cb1731110b5cff0", null ],
+    [ "create", "d4/dde/a02422.html#a87ab7ef1960a5c7ce82d8d7594bf05c7", null ],
+    [ "get", "d4/dde/a02422.html#aea5f3a99b686998b2d2fda696715aac2", null ],
+    [ "clock_", "d4/dde/a02422.html#aae53941a6f75267d4ae81c1dd96cc659", null ]
 ];

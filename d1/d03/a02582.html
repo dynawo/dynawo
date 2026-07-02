@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: timeline::JsonExporter Class Reference</title>
+<title>Dynawo: parameters::RefHandler Class Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,68 +96,58 @@ $(document).ready(function(){initNavTree('d1/d03/a02582.html','../../');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d4/d70/a02579.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">timeline::JsonExporter Class Reference</div>  </div>
+<div class="title">parameters::RefHandler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>JSON exporter interface class.  
+<p>Handler used to parse reference element.  
  <a href="../../d1/d03/a02582.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d7/d5e/a00467_source.html">TLJsonExporter.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d2/d9d/a00464_source.html">PARXmlHandler.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for timeline::JsonExporter:</div>
+Inheritance diagram for parameters::RefHandler:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d1/d03/a02582.png" usemap="#timeline::JsonExporter_map" alt=""/>
-  <map id="timeline::JsonExporter_map" name="timeline::JsonExporter_map">
-<area href="../../d9/dfb/a02578.html" title="Exporter interface class. " alt="timeline::Exporter" shape="rect" coords="0,0,135,24"/>
+  <img src="../../d1/d03/a02582.png" usemap="#parameters::RefHandler_map" alt=""/>
+  <map id="parameters::RefHandler_map" name="parameters::RefHandler_map">
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5ffbdcfb714d6bbe4c7d1cf1f078d836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d03/a02582.html#a5ffbdcfb714d6bbe4c7d1cf1f078d836">exportToFile</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/d44/a02586.html">Timeline</a> &gt; &amp;timeline, const std::string &amp;filePath) const override</td></tr>
-<tr class="memdesc:a5ffbdcfb714d6bbe4c7d1cf1f078d836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in JSON format.  <a href="#a5ffbdcfb714d6bbe4c7d1cf1f078d836">More...</a><br /></td></tr>
-<tr class="separator:a5ffbdcfb714d6bbe4c7d1cf1f078d836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb9c810eeb0bcf0eab74cc29504c8e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d03/a02582.html#afb9c810eeb0bcf0eab74cc29504c8e72">exportToStream</a> (const boost::shared_ptr&lt; <a class="el" href="../../df/d44/a02586.html">Timeline</a> &gt; &amp;timeline, std::ostream &amp;stream) const override</td></tr>
-<tr class="memdesc:afb9c810eeb0bcf0eab74cc29504c8e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export method in JSON format.  <a href="#afb9c810eeb0bcf0eab74cc29504c8e72">More...</a><br /></td></tr>
-<tr class="separator:afb9c810eeb0bcf0eab74cc29504c8e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a02578"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a02578')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/dfb/a02578.html">timeline::Exporter</a></td></tr>
-<tr class="memitem:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02578"><td class="memItemLeft" align="right" valign="top"><a id="a5d63ea81ae82ca92bce6bdcdcae4cfbc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfb/a02578.html#a5d63ea81ae82ca92bce6bdcdcae4cfbc">Exporter</a> ()</td></tr>
-<tr class="memdesc:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
-<tr class="separator:a5d63ea81ae82ca92bce6bdcdcae4cfbc inherit pub_methods_a02578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02578"><td class="memItemLeft" align="right" valign="top"><a id="acbb92c28b5baf0c79c9f77b98406b309"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfb/a02578.html#acbb92c28b5baf0c79c9f77b98406b309">~Exporter</a> ()=default</td></tr>
-<tr class="memdesc:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acbb92c28b5baf0c79c9f77b98406b309 inherit pub_methods_a02578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02578"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfb/a02578.html#a3da56f52f72694fbe3860299e1f8aa56">setExportWithTime</a> (const bool exportWithTime)</td></tr>
-<tr class="memdesc:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02578"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to export time setter  <a href="../../d9/dfb/a02578.html#a3da56f52f72694fbe3860299e1f8aa56">More...</a><br /></td></tr>
-<tr class="separator:a3da56f52f72694fbe3860299e1f8aa56 inherit pub_methods_a02578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02578"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfb/a02578.html#ad7f1b498fc7cd3dea9c084ab3da448ae">setMaxPriority</a> (const boost::optional&lt; int &gt; maxPriority)</td></tr>
-<tr class="memdesc:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02578"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority setter  <a href="../../d9/dfb/a02578.html#ad7f1b498fc7cd3dea9c084ab3da448ae">More...</a><br /></td></tr>
-<tr class="separator:ad7f1b498fc7cd3dea9c084ab3da448ae inherit pub_methods_a02578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e5b4eb0265e38116959e914b654189"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d03/a02582.html#ad9e5b4eb0265e38116959e914b654189">RefHandler</a> (elementName_type const &amp;root_element)</td></tr>
+<tr class="memdesc:ad9e5b4eb0265e38116959e914b654189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ad9e5b4eb0265e38116959e914b654189">More...</a><br /></td></tr>
+<tr class="separator:ad9e5b4eb0265e38116959e914b654189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43a9bfdc986f9ac7c4527ddb686e79b8"><td class="memItemLeft" align="right" valign="top"><a id="a43a9bfdc986f9ac7c4527ddb686e79b8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d03/a02582.html#a43a9bfdc986f9ac7c4527ddb686e79b8">~RefHandler</a> () override</td></tr>
+<tr class="memdesc:a43a9bfdc986f9ac7c4527ddb686e79b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a43a9bfdc986f9ac7c4527ddb686e79b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2309697929f4e8c35b0b290759fb44ed"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/dfc/a02554.html">Reference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d03/a02582.html#a2309697929f4e8c35b0b290759fb44ed">get</a> () const</td></tr>
+<tr class="memdesc:a2309697929f4e8c35b0b290759fb44ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the reference read in xml file  <a href="#a2309697929f4e8c35b0b290759fb44ed">More...</a><br /></td></tr>
+<tr class="separator:a2309697929f4e8c35b0b290759fb44ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_a02578"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a02578')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d9/dfb/a02578.html">timeline::Exporter</a></td></tr>
-<tr class="memitem:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02578"><td class="memItemLeft" align="right" valign="top"><a id="a3cea0999ec63144bb692b4fed5951c23"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfb/a02578.html#a3cea0999ec63144bb692b4fed5951c23">exportWithTime_</a></td></tr>
-<tr class="memdesc:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02578"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean indicating whether to export time when exporting timeline <br /></td></tr>
-<tr class="separator:a3cea0999ec63144bb692b4fed5951c23 inherit pro_attribs_a02578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02578"><td class="memItemLeft" align="right" valign="top"><a id="add563d0da7b15436bd2fe60810e99c4f"></a>
-boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dfb/a02578.html#add563d0da7b15436bd2fe60810e99c4f">maxPriority_</a></td></tr>
-<tr class="memdesc:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02578"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum priority allowed when exporting timeline <br /></td></tr>
-<tr class="separator:add563d0da7b15436bd2fe60810e99c4f inherit pro_attribs_a02578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ab1b3b6d6a8dc6606f3cde8ea51a9a307"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d03/a02582.html#ab1b3b6d6a8dc6606f3cde8ea51a9a307">create</a> (attributes_type const &amp;attributes)</td></tr>
+<tr class="memdesc:ab1b3b6d6a8dc6606f3cde8ea51a9a307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the XML element opening tag is read.  <a href="#ab1b3b6d6a8dc6606f3cde8ea51a9a307">More...</a><br /></td></tr>
+<tr class="separator:ab1b3b6d6a8dc6606f3cde8ea51a9a307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ac7e85e2f0ecf29905d2906e4228298bc"><td class="memItemLeft" align="right" valign="top"><a id="ac7e85e2f0ecf29905d2906e4228298bc"></a>
+std::shared_ptr&lt; <a class="el" href="../../d1/dfc/a02554.html">Reference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d03/a02582.html#ac7e85e2f0ecf29905d2906e4228298bc">referenceRead_</a></td></tr>
+<tr class="memdesc:ac7e85e2f0ecf29905d2906e4228298bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">current reference object <br /></td></tr>
+<tr class="separator:ac7e85e2f0ecf29905d2906e4228298bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>JSON exporter interface class. </p>
-<p>JSON export class for timeline </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5ffbdcfb714d6bbe4c7d1cf1f078d836"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ffbdcfb714d6bbe4c7d1cf1f078d836">&#9670;&nbsp;</a></span>exportToFile()</h2>
+<div class="textblock"><p>Handler used to parse reference element. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad9e5b4eb0265e38116959e914b654189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9e5b4eb0265e38116959e914b654189">&#9670;&nbsp;</a></span>RefHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,45 +156,33 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void timeline::JsonExporter::exportToFile </td>
+          <td class="memname">parameters::RefHandler::RefHandler </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/d44/a02586.html">Timeline</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>timeline</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">elementName_type const &amp;&#160;</td>
+          <td class="paramname"><em>root_element</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filePath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method in JSON format. </p>
+<p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">timeline</td><td><a class="el" href="../../df/d44/a02586.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
-    <tr><td class="paramname">filePath</td><td>File to export JSON formatted timeline to </td></tr>
+    <tr><td class="paramname">root_element</td><td>complete name of the element read by the handler </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d9/dfb/a02578.html#a1d9986c16a88a1541a012dfe74c88955">timeline::Exporter</a>.</p>
-
 </div>
 </div>
-<a id="afb9c810eeb0bcf0eab74cc29504c8e72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb9c810eeb0bcf0eab74cc29504c8e72">&#9670;&nbsp;</a></span>exportToStream()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab1b3b6d6a8dc6606f3cde8ea51a9a307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1b3b6d6a8dc6606f3cde8ea51a9a307">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,45 +191,52 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void timeline::JsonExporter::exportToStream </td>
+          <td class="memname">void parameters::RefHandler::create </td>
           <td>(</td>
-          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="../../df/d44/a02586.html">Timeline</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>timeline</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">attributes_type const &amp;&#160;</td>
+          <td class="paramname"><em>attributes</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Export method in JSON format. </p>
+<p>Called when the XML element opening tag is read. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">timeline</td><td><a class="el" href="../../df/d44/a02586.html" title="Timeline interface class. ">Timeline</a> to export </td></tr>
-    <tr><td class="paramname">stream</td><td>stream to export JSON formatted timeline to </td></tr>
+    <tr><td class="paramname">attributes</td><td>attributes of the element </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d9/dfb/a02578.html#ad89cf490dc7a018d06d669d2acb9be4a">timeline::Exporter</a>.</p>
+</div>
+</div>
+<a id="a2309697929f4e8c35b0b290759fb44ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2309697929f4e8c35b0b290759fb44ed">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d1/dfc/a02554.html">Reference</a>&gt; parameters::RefHandler::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>return the reference read in xml file </p>
+<dl class="section return"><dt>Returns</dt><dd>reference object build thanks to infos read in xml file </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d7/d5e/a00467_source.html">TLJsonExporter.h</a></li>
+<li><a class="el" href="../../d2/d9d/a00464_source.html">PARXmlHandler.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -269,8 +254,8 @@ boost::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>timeline</b></li><li class="navelem"><a class="el" href="../../d1/d03/a02582.html">JsonExporter</a></li>
-    <li class="footer">Generated on Wed Jul 1 2026 11:06:53 for Dynawo by
+    <li class="navelem"><b>parameters</b></li><li class="navelem"><a class="el" href="../../d1/d03/a02582.html">RefHandler</a></li>
+    <li class="footer">Generated on Thu Jul 2 2026 13:43:42 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

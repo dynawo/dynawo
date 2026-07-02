@@ -1,15 +1,8 @@
 var a03478 =
 [
-    [ "getInputDirectory", "de/df7/a03478.html#a6dcf5b27640ff3c69fbdf2c588cd2cec", null ],
-    [ "getLocale", "de/df7/a03478.html#a17a1be26dbed984848d531f38d2e73e0", null ],
-    [ "getResourcesDirectory", "de/df7/a03478.html#a7f074a9cd4414b38170d57344b69f595", null ],
-    [ "getWorkingDirectory", "de/df7/a03478.html#aeb04e66e465c668870c8bd8f310e65fb", null ],
-    [ "setInputDirectory", "de/df7/a03478.html#a348d074f4af20ac1614a6ee87d2f8feb", null ],
-    [ "setLocale", "de/df7/a03478.html#a352c3fbb1a535163cd38b0824d42cd1e", null ],
-    [ "setResourcesDirectory", "de/df7/a03478.html#a377ae8008bab4eb873705f088d899cb9", null ],
-    [ "setWorkingDirectory", "de/df7/a03478.html#ab54366144fcbc2cc2dab25bf98f49f58", null ],
-    [ "inputDirectory_", "de/df7/a03478.html#a85eaa39dfc2adaca373a6935c6b67936", null ],
-    [ "locale_", "de/df7/a03478.html#a9e4ef77268b037f15556d928b23b67b5", null ],
-    [ "resourcesDirectory_", "de/df7/a03478.html#a95521f2e6d52016aa69015b0b2750091", null ],
-    [ "workingDirectory_", "de/df7/a03478.html#a4d8956d767c64c19a49653517d54a737", null ]
+    [ "DumpManager", "de/df7/a03478.html#a88709c22201b5d3c8b930a2c986b879d", null ],
+    [ "handleMessage", "de/df7/a03478.html#ae04c939400938a7a9e7e0bbe9c377ff4", null ],
+    [ "hasReceivedDumpSignal", "de/df7/a03478.html#aab171312cc7edcc7fcf320aec025547e", null ],
+    [ "resetDumpSignal", "de/df7/a03478.html#a408dceadbe7177f2920f88b37c559220", null ],
+    [ "dumpSignalReceived_", "de/df7/a03478.html#a01665bda404f5c03d1fda4ebef544398", null ]
 ];

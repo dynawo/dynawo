@@ -1,10 +1,8 @@
 var a02378 =
 [
-    [ "LogsHandler", "d5/d43/a02378.html#a37fddf995673e734257184f95bee187b", null ],
-    [ "~LogsHandler", "d5/d43/a02378.html#aeb6210c3167c1299a2b00b77d5b1fc77", null ],
-    [ "addAppender", "d5/d43/a02378.html#a4f4da273a06638a4663a4e257af493f8", null ],
-    [ "create", "d5/d43/a02378.html#a54e0942b195d4809ddbb6b9a941d3edb", null ],
-    [ "get", "d5/d43/a02378.html#aa6deb79b7c4fda0140ca867c42950ff6", null ],
-    [ "appenderHandler_", "d5/d43/a02378.html#ad00562d3807e9580cf69732f2d76eed0", null ],
-    [ "logs_", "d5/d43/a02378.html#af28db5f4f3551fe48e77a9777e9ecbb0", null ]
+    [ "FinalStateHandler", "d5/d43/a02378.html#a20de51cf31b4bc5c6c63a42239db5c6a", null ],
+    [ "~FinalStateHandler", "d5/d43/a02378.html#a5113fe1399d82f08ac20df057b895879", null ],
+    [ "create", "d5/d43/a02378.html#ab23fb7163bc95a6d26374f2fdb5e5c5a", null ],
+    [ "get", "d5/d43/a02378.html#ad7865dd087dc00973bca9e81f0380143", null ],
+    [ "finalState_", "d5/d43/a02378.html#ab1d6ffdf5753ad8b931c703c4acc3ec5", null ]
 ];
