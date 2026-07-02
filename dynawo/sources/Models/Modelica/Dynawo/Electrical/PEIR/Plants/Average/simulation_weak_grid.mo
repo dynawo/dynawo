@@ -96,11 +96,11 @@ model simulation_weak_grid
     Placement(transformation(origin = {108, 12}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
 equation
 
-  gFLmodelnodyn.switchOffSignal1.value=false;
-  gFLmodelnodyn.switchOffSignal2.value=false;
-  gFLmodelnodyn.switchOffSignal3.value=false;
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
+  gFLmodelnodyn.switchOffSignal1=false;
+  gFLmodelnodyn.switchOffSignal2=false;
+  gFLmodelnodyn.switchOffSignal3=false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
   connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
     Line(points = {{-55, -30}, {-35, -30}, {-35, -9}, {8, -9}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(

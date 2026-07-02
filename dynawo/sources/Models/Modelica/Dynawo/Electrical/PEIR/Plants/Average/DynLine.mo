@@ -28,7 +28,7 @@ model DynLine "AC power line - Dynamic PI model"
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2(V(re(start = u02Pu.re), im(start = u02Pu.im)), i(re(start = i02Pu.re), im(start = i02Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Connectors.ImPin omegaPu(value(start = SystemBase.omegaRef0Pu));
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu);
 
   parameter Types.PerUnit RPu "Resistance in pu (base SnRef)";
   parameter Types.PerUnit LPu "Inductance in pu (base SnRef)";
@@ -57,8 +57,8 @@ equation
 
 
 
-    LPu / SystemBase.omegaNom * der(terminal1.i.re) + RPu * terminal1.i.re - omegaPu.value * LPu * terminal1.i.im = terminal1.V.re - terminal2.V.re;
-  LPu / SystemBase.omegaNom * der(terminal1.i.im) + RPu * terminal1.i.im + omegaPu.value * LPu * terminal1.i.re = terminal1.V.im - terminal2.V.im;
+    LPu / SystemBase.omegaNom * der(terminal1.i.re) + RPu * terminal1.i.re - omegaPu * LPu * terminal1.i.im = terminal1.V.re - terminal2.V.re;
+  LPu / SystemBase.omegaNom * der(terminal1.i.im) + RPu * terminal1.i.im + omegaPu * LPu * terminal1.i.re = terminal1.V.im - terminal2.V.im;
   terminal2.i = - terminal1.i;
 
 

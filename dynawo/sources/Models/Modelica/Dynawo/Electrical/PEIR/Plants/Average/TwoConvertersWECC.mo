@@ -43,7 +43,8 @@ model TwoConvertersWECC
     // Measurement filters — original RTE values
     tFilterPC     = 1/300,
     tFilterGC     = 1/300,
-    tP            = 1/300,
+    tpREPC        = 1/300,
+    tpREEC        = 1/300,
 
     // Plant controller REPC‑A — original RTE values
     PPCLocal      = true,
@@ -68,10 +69,14 @@ model TwoConvertersWECC
     FDbd2Pu       = 0.1,
     FEMaxPu       = 999.0,
     FEMinPu       = -999.0,
-    PMaxPu        = 2.0,
-    PMinPu        = 0.0,
-    QMaxPu        = 0.3,
-    QMinPu        = -0.3,
+    PMaxREPCPu    = 2.0,
+    PMaxREECPu    = 2.0,
+    PMinREPCPu    = 0.0,
+    PMinREECPu    = 0.0,
+    QMaxREPCPu    = 0.3,
+    QMaxREECPu    = 0.3,
+    QMinREPCPu    = -0.3,
+    QMinREECPu    = -0.3,
 
     // Electrical controller REEC‑B — original RTE values
     PfFlag        = false,
@@ -159,7 +164,8 @@ model TwoConvertersWECC
     // Measurement filters — original RTE values
     tFilterPC     = 1/300,
     tFilterGC     = 1/300,
-    tP            = 1/300,
+    tpREPC        = 1/300,
+    tpREEC        = 1/300,
 
     // Plant controller REPC‑A — original RTE values
     PPCLocal      = true,
@@ -184,10 +190,14 @@ model TwoConvertersWECC
     FDbd2Pu       = 0.1,
     FEMaxPu       = 999.0,
     FEMinPu       = -999.0,
-    PMaxPu        = 0.0,
-    PMinPu        = -2.0,
-    QMaxPu        = 0.3,
-    QMinPu        = -0.3,
+    PMaxREPCPu    = 0.0,
+    PMaxREECPu    = 0.0,
+    PMinREPCPu    = -2.0,
+    PMinREECPu    = -2.0,
+    QMaxREPCPu    = 0.3,
+    QMaxREECPu    = 0.3,
+    QMinREPCPu    = -0.3,
+    QMinREECPu    = -0.3,
 
     // Electrical controller REEC‑B — original RTE values
     PfFlag        = false,
@@ -486,20 +496,20 @@ initial algorithm
 equation
   // Lines and converters kept in service (switches forced closed),
   // except line3, which is controlled via IdealSwitch below
-  line.switchOffSignal1.value  = false;
-  line.switchOffSignal2.value  = false;
-  line1.switchOffSignal1.value = false;
-  line1.switchOffSignal2.value = false;
-  line2.switchOffSignal1.value = false;
-  line2.switchOffSignal2.value = false;
-  line3.switchOffSignal1.value = false;
-  line3.switchOffSignal2.value = false;
-  PV1.injector.switchOffSignal1.value = false;
-  PV1.injector.switchOffSignal2.value = false;
-  PV1.injector.switchOffSignal3.value = false;
-  PV2.injector.switchOffSignal1.value = false;
-  PV2.injector.switchOffSignal2.value = false;
-  PV2.injector.switchOffSignal3.value = false;
+  line.switchOffSignal1  = false;
+  line.switchOffSignal2  = false;
+  line1.switchOffSignal1 = false;
+  line1.switchOffSignal2 = false;
+  line2.switchOffSignal1 = false;
+  line2.switchOffSignal2 = false;
+  line3.switchOffSignal1 = false;
+  line3.switchOffSignal2 = false;
+  PV1.injector.switchOffSignal1 = false;
+  PV1.injector.switchOffSignal2 = false;
+  PV1.injector.switchOffSignal3 = false;
+  PV2.injector.switchOffSignal1 = false;
+  PV2.injector.switchOffSignal2 = false;
+  PV2.injector.switchOffSignal3 = false;
 
   // Network connections
   connect(infiniteBusWithVariations.terminal, line2.terminal2) annotation(
@@ -568,7 +578,7 @@ equation
       Tolerance = 1e-5,
       Interval  = 0.005),
     preferredView = "diagram",
-    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
+    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --allowNonStandardModelica --allowNonStandardModelica=",
     __OpenModelica_simulationFlags(
       lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS,LOG_LS",
       s  = "ida",

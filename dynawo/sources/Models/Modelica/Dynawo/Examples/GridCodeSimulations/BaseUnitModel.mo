@@ -32,7 +32,7 @@ model BaseUnitModel
   Real Wind_Turbine_GEN_VoltageSetpointPu;
   Real Wind_Turbine_GEN_NetworkFrequencyPu;
   Real NetworkFrequencyPu;
- 
+
   parameter Real OmegaCC          = 200  "Inner current loop bandwidth [rad/s]";
   parameter Real w_cc_outer       = 4.5   "Outer P/Q loop bandwidth [rad/s]";
   parameter Real w_cc_plant       = 1.3   "Plant (power) controller bandwidth [rad/s]";
@@ -96,9 +96,9 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1)  annotation(
     Placement(transformation(origin = {9, 5}, extent = {{-31, -31}, {31, 31}})));
 equation
-  Unit.switchOffSignal1.value=false;
-  Unit.switchOffSignal2.value=false;
-  Unit.switchOffSignal3.value=false;
+  Unit.switchOffSignal1=false;
+  Unit.switchOffSignal2=false;
+  Unit.switchOffSignal3=false;
   BusPDR_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
   BusPDR_BUS_ActivePower = Unit.measurementBlock.P_plant;
   BusPDR_BUS_ReactivePower = Unit.measurementBlock.Q_plant;

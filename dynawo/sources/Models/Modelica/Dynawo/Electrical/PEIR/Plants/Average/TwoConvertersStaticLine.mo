@@ -271,22 +271,22 @@ equation
 // (all lines and converters initially in service,
 //  except line3, which opens at t = 51.5 s)
 // ═══════════════════════════════════════════════════════════════
-  line.switchOffSignal1.value = false;
-  line.switchOffSignal2.value = false;
-  line1.switchOffSignal1.value = false;
-  line1.switchOffSignal2.value = false;
-  line2.switchOffSignal1.value = false;
-  line2.switchOffSignal2.value = false;
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  line1.switchOffSignal1 = false;
+  line1.switchOffSignal2 = false;
+  line2.switchOffSignal1 = false;
+  line2.switchOffSignal2 = false;
 // line3 opens on side 1 at t = 51.5 s (line trip event)
-  line3.switchOffSignal1.value = if time >= 51.5 then true else false;
-  line3.switchOffSignal2.value = false;
+  line3.switchOffSignal1 = if time >= 51.5 then true else false;
+  line3.switchOffSignal2 = false;
 // Keep both converters online during the whole simulation
-  gFLmodel.switchOffSignal1.value = false;
-  gFLmodel.switchOffSignal2.value = false;
-  gFLmodel.switchOffSignal3.value = false;
-  gFLmodel1.switchOffSignal1.value = false;
-  gFLmodel1.switchOffSignal2.value = false;
-  gFLmodel1.switchOffSignal3.value = false;
+  gFLmodel.switchOffSignal1 = false;
+  gFLmodel.switchOffSignal2 = false;
+  gFLmodel.switchOffSignal3 = false;
+  gFLmodel1.switchOffSignal1 = false;
+  gFLmodel1.switchOffSignal2 = false;
+  gFLmodel1.switchOffSignal3 = false;
 // ═══════════════════════════════════════════════════════════════
 // Electrical connections (network topology)
 // ═══════════════════════════════════════════════════════════════

@@ -99,7 +99,7 @@ model test_dyn
     K_i_pll    = 25.0,
     OmegaMaxPu = 1.05,
     OmegaMinPu = 0.95,
-  
+
 
     // ── Rate limiters and delays ──────────────────────────────
     DyMax_pi_d       = 10000.0,
@@ -130,9 +130,9 @@ model test_dyn
     Placement(transformation(origin = {41, -63}, extent = {{-19, -19}, {19, 19}})));
 
 equation
-gFLmodelnodyn.switchOffSignal1.value=false;
-gFLmodelnodyn.switchOffSignal2.value=false;
-gFLmodelnodyn.switchOffSignal3.value=false;
+gFLmodelnodyn.switchOffSignal1=false;
+gFLmodelnodyn.switchOffSignal2=false;
+gFLmodelnodyn.switchOffSignal3=false;
   connect(omegaRef.y,  gFLmodelnodyn.omegaRefPu) annotation(Line(points = {{-47, -36},{-35, -36},{-35, -9}, {8, -9}},  color = {0, 0, 127}));
   connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(Line(points = {{42, -14}, {42, -62}}, color = {0, 0, 255}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(

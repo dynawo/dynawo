@@ -1,24 +1,22 @@
-  current_loop
-  DynLine
-  frst_smib_simulation
-  GFLControl
-  GFLmodel
-  IdealSwitch
-  LCDynFilter
-  LCnoDynFilter
-  MeasurementBlock
-  outer_loop_linearized
-  outer_loop
-  Plant_controller
-  pll
-  RLDynTrafo
-  simulation_weak_grid
-  simulation
-  test_dyn
-  test_outer_loop_linearized
-  test_outer_loop
-  test
-  TwoConvertersDynamicLine
-  TwoConvertersStaticLine_7Hz
-  TwoConvertersStaticLine
-  TwoConvertersWECC
+current_loop
+DynLine
+frst_smib_simulation
+GFLControl
+GFLmodel
+IdealSwitch
+LCDynFilter
+LCnoDynFilter
+MeasurementBlock
+outer_loop_linearized
+outer_loop
+Plant_controller
+pll
+RLDynTrafo
+simulation_weak_grid
+test_dyn
+test_outer_loop_linearized
+test_outer_loop
+TwoConvertersDynamicLine
+TwoConvertersStaticLine_7Hz
+TwoConvertersStaticLine
+TwoConvertersWECC

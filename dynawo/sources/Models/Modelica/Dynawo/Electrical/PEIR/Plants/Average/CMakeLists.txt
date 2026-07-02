@@ -32,7 +32,6 @@ set(MODEL_FILES
   test_dyn.mo
   test_outer_loop_linearized.mo
   test_outer_loop.mo
-  test.mo
   TwoConvertersDynamicLine.mo
   TwoConvertersStaticLine_7Hz.mo
   TwoConvertersStaticLine.mo
