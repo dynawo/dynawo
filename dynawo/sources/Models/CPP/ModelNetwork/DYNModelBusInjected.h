@@ -174,7 +174,6 @@ class ModelBusInjected : public ModelBus {  ///< Generic AC network bus
   BitMask currentUStatus_;  ///< Bit mask value indicating which value of U have already been calculated for the current time step
 
   // equivalent to z_[switchOffNum_] but with discrete variable, to be able to switch off a node thanks to an outside event
-  bool topologyModified_;  ///< true if the bus connection state was modified
   double irConnection_;  ///< real current injected
   double iiConnection_;  ///< imaginary current injected
   boost::shared_ptr<BusDerivatives> derivatives_;  ///< derivatives

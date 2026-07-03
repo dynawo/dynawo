@@ -23,7 +23,7 @@ ModelBusBridged::ur() const {
     return 0.;
 
   if (!network_->isInit())
-    throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ur() after init", id());
+    throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ur() outside of init", id());
 
   if (dynModel_ == nullptr)
     throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
@@ -37,7 +37,7 @@ ModelBusBridged::ui() const {
     return 0.;
 
   if (!network_->isInit())
-    throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ui() after init", id());
+    throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ui() outside of init", id());
 
   if (dynModel_ == nullptr)
     throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());

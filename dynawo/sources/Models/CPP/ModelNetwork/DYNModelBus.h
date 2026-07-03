@@ -42,6 +42,7 @@ class ModelBus : public NetworkComponent {
 
  public :
   void initSize() override;
+  void getY0() override;
   void collectSilentZ(BitMask* silentZTable) override;
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) override;
@@ -244,8 +245,13 @@ class ModelBus : public NetworkComponent {
    */
   virtual void defineElementsById(const std::string& id, std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
+  static const bool DO_LOG_TIMELINE = true;
+  static const bool DO_NOT_LOG_TIMELINE = false;
+  void refreshConnectionStateFromZ(bool logTimeline);
+
  protected :
   int busIndex_;  ///< index of bus in its voltage level
+  bool topologyModified_ = false;  ///< true if the bus connection state was modified
   State connectionState_ = CLOSED;  ///< "internal" bus connection status
   bool hasDifferentialVoltages_ = false;  ///< whether the bus model has differential voltages
   std::weak_ptr<ModelVoltageLevel> modelVoltageLevel_;  ///< voltage level that contains the bus

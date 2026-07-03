@@ -15,6 +15,7 @@
 #include "DYNModelSubNetwork.hpp"
 #include "DYNModelNetwork.h"
 #include "DYNBusInterface.h"
+#include "DYNModelSwitch.h"
 #include "DYNVariableForModel.h"
 
 namespace DYN {
@@ -31,6 +32,49 @@ isNodeBreaker_(isNodeBreaker) {
 void
 ModelBus::initSize() {
   sizeZ_ = network_->isInitModel() ? 0 : 3;  // numSubnet, switchOff, state
+}
+
+void
+ModelBus::getY0() {
+  if (network_->isInitModel())
+    return;
+
+  if (network_->isStartingFromDump() && internalVariablesFoundInDump_) {
+    refreshConnectionStateFromZ(DO_NOT_LOG_TIMELINE);
+    return;
+  }
+
+  // We assume here that z_[numSubNetworkNum_] was already initialized!!
+
+  if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
+    z_[switchOffNum_] = fromNativeBool(false);
+
+  z_[connectionStateNum_] = connectionState_;
+}
+
+void
+ModelBus::refreshConnectionStateFromZ(bool logTimeline) {
+  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+  if (currState == connectionState_)
+    return;
+
+  if (isNodeBreaker_ && connectableSwitches_.empty())
+    throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
+
+  if (currState == OPEN) {
+    switchOff();
+    if (logTimeline)
+      DYNAddTimelineEvent(network_, id_, NodeOff);
+    for (unsigned int i = 0; i < connectableSwitches_.size(); ++i)
+      connectableSwitches_[i].lock()->open();  // open all switch connected to this node
+  } else if (currState == CLOSED) {
+    switchOn();
+    if (logTimeline)
+      DYNAddTimelineEvent(network_, id_, NodeOn);
+  }
+
+  topologyModified_ = true;
+  connectionState_ = currState;
 }
 
 void

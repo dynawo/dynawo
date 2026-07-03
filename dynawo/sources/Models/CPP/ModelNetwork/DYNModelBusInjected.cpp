@@ -22,7 +22,6 @@
 #include <DYNTimer.h>
 
 #include "DYNModelBusInjected.h"
-#include "DYNModelSwitch.h"
 #include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
 #include "DYNCommonModeler.h"
@@ -51,7 +50,6 @@ stateUmin_(false),
 U2Pu_(0.0),
 UPu_(0.0),
 U_(0.0),
-topologyModified_(false),
 irConnection_(0.0),
 iiConnection_(0.0),
 ir0_(0.0),
@@ -140,20 +138,49 @@ ModelBusInjected::calculateU2Pu() const {
 void
 ModelBusInjected::initSize() {
   ModelBus::initSize();
+  sizeF_ = 2;
+  sizeY_ = 2;
+  sizeMode_ = 0;
+  sizeG_ = 0;
+  sizeCalculatedVar_ = 0;
+
+  if (network_->isInitModel())
+    return;
+
+  if (hasConnection_ || hasShortCircuitCapabilities_)
+    sizeY_ += 2;  // ir and ii
+  sizeG_ += 2;  // U>Umax and U<Umin
+  sizeCalculatedVar_ = nbCalculatedVariables_;
+}
+
+void
+ModelBusInjected::getY0() {
+  ModelBus::getY0();
+
   if (network_->isInitModel()) {
-    sizeF_ = 2;
-    sizeY_ = 2;
-    sizeG_ = 0;
-    sizeMode_ = 0;
-    sizeCalculatedVar_ = 0;
-  } else {
-    sizeF_ = 2;
-    sizeY_ = 2;
-    if (hasConnection_ || hasShortCircuitCapabilities_)
-      sizeY_ = 4;
-    sizeG_ = 2;  // U> Umax or U< Umin
-    sizeMode_ = 0;
-    sizeCalculatedVar_ = nbCalculatedVariables_;
+    y_[urNum_] = getSwitchOff() ? 0. : ur0_;
+    y_[uiNum_] = getSwitchOff() ? 0. : ui0_;
+    return;
+  }
+
+  if (network_->isStartingFromDump() && internalVariablesFoundInDump_) {
+    ur0_ = y_[urNum_];
+    ui0_ = y_[uiNum_];
+    ir0_ = y_[irNum_];
+    ii0_ = y_[iiNum_];
+    return;
+  }
+
+  y_[urNum_] = getSwitchOff() ? 0. : ur0_;
+  y_[uiNum_] = getSwitchOff() ? 0. : ui0_;
+  yp_[urNum_] = 0.;
+  yp_[uiNum_] = 0.;
+
+  if (hasConnection_ || hasShortCircuitCapabilities_) {
+    y_[irNum_] = ir0_;
+    y_[iiNum_] = ii0_;
+    yp_[irNum_] = 0.;
+    yp_[iiNum_] = 0.;
   }
 }
 
@@ -392,68 +419,6 @@ ModelBusInjected::init(int& yNum) {
 }
 
 void
-ModelBusInjected::getY0() {
-  if (network_->isInitModel()) {
-    if (getSwitchOff()) {
-      y_[urNum_] = 0.0;
-      y_[uiNum_] = 0.0;
-    } else {
-      y_[urNum_] = ur0_;
-      y_[uiNum_] = ui0_;
-    }
-  } else {
-    if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
-      if (getSwitchOff()) {
-        y_[urNum_] = 0.0;
-        y_[uiNum_] = 0.0;
-      } else {
-        y_[urNum_] = ur0_;
-        y_[uiNum_] = ui0_;
-      }
-
-      yp_[urNum_] = 0.0;
-      yp_[uiNum_] = 0.0;
-      if (hasConnection_ || hasShortCircuitCapabilities_) {
-        y_[irNum_] = ir0_;
-        y_[iiNum_] = ii0_;
-        yp_[irNum_] = 0.0;
-        yp_[iiNum_] = 0.0;
-      }
-
-      // We assume here that z_[numSubNetworkNum_] was already initialized!!
-      if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.)) {
-        z_[switchOffNum_] = fromNativeBool(false);
-      }
-      z_[connectionStateNum_] = connectionState_;
-    } else {
-      ur0_ = y_[urNum_];
-      ui0_ = y_[uiNum_];
-      ir0_ = y_[irNum_];
-      ii0_ = y_[iiNum_];
-
-      State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
-
-      if (currState != connectionState_) {
-        topologyModified_ = true;
-        if (isNodeBreaker_ && connectableSwitches_.size() == 0) {
-          throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
-        }
-        if (currState == OPEN) {
-          switchOff();
-          // open all switch connected to this node
-          for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
-            connectableSwitches_[i].lock()->open();
-          }
-        } else if (currState == CLOSED) {
-          switchOn();
-        }
-      }
-      connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
-    }
-  }
-}
-
-void
 ModelBusInjected::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
   ModelCPP::dumpInStream(streamVariables, angle0_);
   ModelCPP::dumpInStream(streamVariables, u0_);
@@ -584,25 +549,7 @@ ModelBusInjected::evalZ(const double /*t*/) {
     }
   }
 
-  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
-  if (currState != connectionState_) {
-    topologyModified_ = true;
-    if (isNodeBreaker_ && connectableSwitches_.empty()) {
-      throw DYNError(Error::MODELER, CalculatedBusNoSwitchStateChange, id_);
-    }
-    if (currState == OPEN) {
-      switchOff();
-      DYNAddTimelineEvent(network_, id_, NodeOff);
-      // open all switch connected to this node
-      for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
-        connectableSwitches_[i].lock()->open();
-      }
-    } else if (currState == CLOSED) {
-      switchOn();
-      DYNAddTimelineEvent(network_, id_, NodeOn);
-    }
-    connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
-  }
+  refreshConnectionStateFromZ(DO_LOG_TIMELINE);
   return topologyModified_? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
 }
 

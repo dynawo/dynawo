@@ -67,7 +67,6 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void evalDynamicFType() override {}
   void evalYMat() override {}
   void init(int&) override {}
-  void getY0() override {}
   void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override {}
   void setFequations(std::map<int, std::string>&) override {}
 };
