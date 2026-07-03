@@ -25,7 +25,8 @@ add_subdirectory(SVarC SV)
 add_subdirectory(SystemFrequencyResponse SFR)
 add_subdirectory(Photovoltaics P)
 add_subdirectory(Wind W)
-add_subdirectory(GridCodeSimulations C)
+add_subdirectory(GridCodeSimulations GC)
+add_subdirectory(Converters C)
 
 set(MODEL_FILES
   package.mo

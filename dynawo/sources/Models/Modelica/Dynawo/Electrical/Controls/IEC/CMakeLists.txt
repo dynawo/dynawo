@@ -1,4 +1,4 @@
-# Copyright (c) 2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2024, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,7 +10,7 @@
 # of simulation tools for power systems.
 
 add_subdirectory(IEC61400 I)
-
+add_subdirectory(IEC63406 E)
 
 set(MODEL_FILES
   package.mo
