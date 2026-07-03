@@ -1118,6 +1118,8 @@ SolverIDA::errHandlerFn(int error_code, const char* module, const char* function
         char* msg, void* /*eh_data*/) {
   if (error_code == IDA_WARNING) {
     Trace::warn() << module << " " << function << " :" << msg << Trace::endline;
+  } else if (error_code == IDA_DEBUG) {
+    Trace::debug() << module << " " << function << " :" << msg << Trace::endline;
   } else {
     Trace::error() << module << " " << function << " :" << msg << Trace::endline;
   }
