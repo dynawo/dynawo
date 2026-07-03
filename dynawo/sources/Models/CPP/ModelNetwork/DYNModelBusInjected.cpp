@@ -139,10 +139,7 @@ void
 ModelBusInjected::initSize() {
   ModelBus::initSize();
   sizeF_ = 2;
-  sizeY_ = 2;
-  sizeMode_ = 0;
-  sizeG_ = 0;
-  sizeCalculatedVar_ = 0;
+  sizeY_ = 2;  // Ur and Ui
 
   if (network_->isInitModel())
     return;
@@ -393,6 +390,7 @@ ModelBusInjected::init(int& yNum) {
     ur0_ = u0_ * cos(angle0_);
     ui0_ = u0_ * sin(angle0_);
   }
+
   if (network_->isInitModel()) {
     urYNum_ = yNum;
     ++yNum;
@@ -682,6 +680,7 @@ ModelBusInjected::evalJt(const double /*cj*/, const int rowOffset, SparseMatrix&
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::ModelBusInjected::evalJt");
 #endif
+
   if (getSwitchOff()) {
     jt.changeCol();
     jt.addTerm(urYNum() + rowOffset, 1.0);

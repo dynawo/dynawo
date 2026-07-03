@@ -31,7 +31,12 @@ isNodeBreaker_(isNodeBreaker) {
 
 void
 ModelBus::initSize() {
+  sizeF_ = 0;
+  sizeG_ = 0;
+  sizeY_ = 0;
   sizeZ_ = network_->isInitModel() ? 0 : 3;  // numSubnet, switchOff, state
+  sizeMode_ = 0;
+  sizeCalculatedVar_ = 0;
 }
 
 void
