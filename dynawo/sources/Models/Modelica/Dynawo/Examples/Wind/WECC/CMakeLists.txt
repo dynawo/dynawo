@@ -11,10 +11,15 @@
 set(MODEL_FILES
   package.mo
   package.order
-  WTG4ACurrentSource.mo
-  WTG4BCurrentSource.mo
+  WT3CurrentSource1.mo
+  WT3CurrentSource2.mo
   WT4ACurrentSource.mo
   WT4BCurrentSource.mo
+  WTG3CurrentSource1.mo
+  WTG3CurrentSource2.mo
+  WTG4ACurrentSource.mo
+  WTG4BCurrentSource.mo
+  WTG4BCurrentSourceExternalPCS.mo
   )
 
 #

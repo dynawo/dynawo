@@ -23,24 +23,25 @@ model LossOfSynchronismProtection "Loss of synchronism protection for generators
 
   input Types.Angle thetaMonitored "Monitored angle in rad";
 
-  Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
+  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the generator";
 
 protected
   Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached in s";
 
 equation
   // Angle comparison with the minimum accepted value
-  when abs(thetaMonitored) > ThetaMax and not(pre(switchOffSignal.value)) then
+  when abs(thetaMonitored) > ThetaMax and not(pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LossOfSynchronismArming);
   end when;
 
   // Delay before tripping the generator
   when time - tThresholdReached >= tLagAction then
-    switchOffSignal.value = true;
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.LossOfSynchronismTripped);
   end when;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>This model will send a tripping order to a generator if its internal angle stays below a threshold during a certain amount of time.</body></html>"));
 end LossOfSynchronismProtection;

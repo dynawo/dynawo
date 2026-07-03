@@ -21,7 +21,7 @@ partial model BaseMotor_INIT "Base initialisation model of motors"
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at load terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at load terminal (in rad)";
 
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in pu (base SnRef) (receptor convention)";
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";

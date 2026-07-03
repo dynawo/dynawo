@@ -1,4 +1,4 @@
-BESScbWeccCurrentSource
+BESSWeccCurrentSource
 BooleanTable
 Bus
 BusWithInit
@@ -15,6 +15,7 @@ EventSetPointReal
 GeneratorPQ
 GeneratorPQPropDiagramPQSignalN
 GeneratorPQPropSignalN
+GeneratorPTanPhi
 GeneratorPVDiagramPQRpcl2SignalN
 GeneratorPVDiagramPQRpclSignalN
 GeneratorPVDiagramPQSignalN
@@ -32,7 +33,10 @@ GeneratorSynchronousFourWindingsGovCt2St4b
 GeneratorSynchronousFourWindingsGoverPropVRPropInt
 GeneratorSynchronousFourWindingsGovSteam1St4b
 GeneratorSynchronousFourWindingsGovSteam1St4bPss2b
+GeneratorSynchronousFourWindingsGovSteamEuAc1cPss1aOmega
+GeneratorSynchronousFourWindingsGovSteamEuAc1cPss1aPGen
 GeneratorSynchronousFourWindingsGovSteamEuSt4b
+GeneratorSynchronousFourWindingsGovSteamEuSt7b
 GeneratorSynchronousFourWindingsPmConstAc6aPss3b
 GeneratorSynchronousFourWindingsPmConstAc7bPss3b
 GeneratorSynchronousFourWindingsPmConstAc7cPss2c
@@ -50,6 +54,7 @@ GeneratorSynchronousFourWindingsTGov1SexsPss2a
 GeneratorSynchronousFourWindingsVRKundur
 GeneratorSynchronousFourWindingsVRKundurPssKundur
 GeneratorSynchronousThreeWindings
+GeneratorSynchronousThreeWindingsDTRI8
 GeneratorSynchronousThreeWindingsGoverNordicVRNordic
 GeneratorSynchronousThreeWindingsGoverPropVRPropInt
 GeneratorSynchronousThreeWindingsGovHydro4St4b
@@ -58,6 +63,7 @@ GeneratorSynchronousThreeWindingsProportionalRegulations
 GridFormingConverterDispatchableVirtualOscillatorControl
 GridFormingConverterDroopControl
 GridFormingConverterMatchingControl
+GridFormingEpri
 HvdcPQPropDiagramPQEmulation
 HvdcPTanPhiDangling
 HvdcPV
@@ -81,8 +87,9 @@ InfiniteBus
 InfiniteBusFromTable
 InfiniteBusWithVariations
 IntegerDoubleStep
-LHVRT
+LackOfVoltageRelay
 Line
+LineFault
 LoadAlphaBeta
 LoadAlphaBetaRestorative
 LoadAlphaBetaRestorativeLimitsRecalc
@@ -92,6 +99,7 @@ LoadOneTransformer
 LoadOneTransformerTapChanger
 LoadPQ
 LoadTwoTransformersTapChangers
+LoadZIP
 LossOfSynchronismProtection
 LVRT
 NetworkTransformer
@@ -100,8 +108,11 @@ OverVoltageAutomaton
 PhaseShifterBlockingI
 PhaseShifterI
 PhaseShifterP
-PhotovoltaicsWeccCurrentSourceB
-PhotovoltaicsWeccVoltageSourceB
+PhotovoltaicsWeccCurrentSource
+PhotovoltaicsWeccVoltageSource1
+PhotovoltaicsWeccVoltageSource2
+PhotovoltaicsWeccVoltageSource3
+PhotovoltaicsWeccVoltageSource4
 PowerTransferHVDCEmulation
 Ramp
 SecondaryVoltageControlSimp
@@ -128,7 +139,11 @@ UFLS10Steps
 UnderVoltageAutomaton
 VariableImpedantFault
 VRRemote
+WeccWT3CurrentSource1
+WeccWT3CurrentSource2
 WT4AWeccCurrentSource
 WT4BWeccCurrentSource
+WTG3WeccCurrentSource1
+WTG3WeccCurrentSource2
 WTG4AWeccCurrentSource
 WTG4BWeccCurrentSource

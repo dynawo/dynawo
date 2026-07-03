@@ -133,6 +133,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_01 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_01_INIT;
   parameter Types.ActivePowerPu P0Pu_load_01;
   parameter Types.ReactivePowerPu Q0Pu_load_01;
   parameter Types.VoltageModulePu U0Pu_load_01;
@@ -143,6 +144,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_02 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_02_INIT;
   parameter Types.ActivePowerPu P0Pu_load_02;
   parameter Types.ReactivePowerPu Q0Pu_load_02;
   parameter Types.VoltageModulePu U0Pu_load_02;
@@ -153,6 +155,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_03 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_03_INIT;
   parameter Types.ActivePowerPu P0Pu_load_03;
   parameter Types.ReactivePowerPu Q0Pu_load_03;
   parameter Types.VoltageModulePu U0Pu_load_03;
@@ -163,6 +166,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_04 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_04_INIT;
   parameter Types.ActivePowerPu P0Pu_load_04;
   parameter Types.ReactivePowerPu Q0Pu_load_04;
   parameter Types.VoltageModulePu U0Pu_load_04;
@@ -173,6 +177,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_05 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_05_INIT;
   parameter Types.ActivePowerPu P0Pu_load_05;
   parameter Types.ReactivePowerPu Q0Pu_load_05;
   parameter Types.VoltageModulePu U0Pu_load_05;
@@ -183,6 +188,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_11 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_11_INIT;
   parameter Types.ActivePowerPu P0Pu_load_11;
   parameter Types.ReactivePowerPu Q0Pu_load_11;
   parameter Types.VoltageModulePu U0Pu_load_11;
@@ -193,6 +199,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_12 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_12_INIT;
   parameter Types.ActivePowerPu P0Pu_load_12;
   parameter Types.ReactivePowerPu Q0Pu_load_12;
   parameter Types.VoltageModulePu U0Pu_load_12;
@@ -203,6 +210,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_13 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_13_INIT;
   parameter Types.ActivePowerPu P0Pu_load_13;
   parameter Types.ReactivePowerPu Q0Pu_load_13;
   parameter Types.VoltageModulePu U0Pu_load_13;
@@ -213,6 +221,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_22 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_22_INIT;
   parameter Types.ActivePowerPu P0Pu_load_22;
   parameter Types.ReactivePowerPu Q0Pu_load_22;
   parameter Types.VoltageModulePu U0Pu_load_22;
@@ -223,6 +232,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_31 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_31_INIT;
   parameter Types.ActivePowerPu P0Pu_load_31;
   parameter Types.ReactivePowerPu Q0Pu_load_31;
   parameter Types.VoltageModulePu U0Pu_load_31;
@@ -233,6 +243,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_32 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_32_INIT;
   parameter Types.ActivePowerPu P0Pu_load_32;
   parameter Types.ReactivePowerPu Q0Pu_load_32;
   parameter Types.VoltageModulePu U0Pu_load_32;
@@ -243,6 +254,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_41 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_41_INIT;
   parameter Types.ActivePowerPu P0Pu_load_41;
   parameter Types.ReactivePowerPu Q0Pu_load_41;
   parameter Types.VoltageModulePu U0Pu_load_41;
@@ -253,6 +265,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_42 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_42_INIT;
   parameter Types.ActivePowerPu P0Pu_load_42;
   parameter Types.ReactivePowerPu Q0Pu_load_42;
   parameter Types.VoltageModulePu U0Pu_load_42;
@@ -263,6 +276,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_43 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_43_INIT;
   parameter Types.ActivePowerPu P0Pu_load_43;
   parameter Types.ReactivePowerPu Q0Pu_load_43;
   parameter Types.VoltageModulePu U0Pu_load_43;
@@ -273,6 +287,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_46 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_46_INIT;
   parameter Types.ActivePowerPu P0Pu_load_46;
   parameter Types.ReactivePowerPu Q0Pu_load_46;
   parameter Types.VoltageModulePu U0Pu_load_46;
@@ -283,6 +298,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_47 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_47_INIT;
   parameter Types.ActivePowerPu P0Pu_load_47;
   parameter Types.ReactivePowerPu Q0Pu_load_47;
   parameter Types.VoltageModulePu U0Pu_load_47;
@@ -293,6 +309,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_51 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_51_INIT;
   parameter Types.ActivePowerPu P0Pu_load_51;
   parameter Types.ReactivePowerPu Q0Pu_load_51;
   parameter Types.VoltageModulePu U0Pu_load_51;
@@ -303,6 +320,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_61 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_61_INIT;
   parameter Types.ActivePowerPu P0Pu_load_61;
   parameter Types.ReactivePowerPu Q0Pu_load_61;
   parameter Types.VoltageModulePu U0Pu_load_61;
@@ -313,6 +331,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_62 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_62_INIT;
   parameter Types.ActivePowerPu P0Pu_load_62;
   parameter Types.ReactivePowerPu Q0Pu_load_62;
   parameter Types.VoltageModulePu U0Pu_load_62;
@@ -323,6 +342,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_63 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_63_INIT;
   parameter Types.ActivePowerPu P0Pu_load_63;
   parameter Types.ReactivePowerPu Q0Pu_load_63;
   parameter Types.VoltageModulePu U0Pu_load_63;
@@ -333,6 +353,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_71 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_71_INIT;
   parameter Types.ActivePowerPu P0Pu_load_71;
   parameter Types.ReactivePowerPu Q0Pu_load_71;
   parameter Types.VoltageModulePu U0Pu_load_71;
@@ -343,6 +364,7 @@ model NetworkWithAlphaBetaLoads "Nordic test grid with buses, lines, shunts and 
 
   // load_72 init values:
   // s0Pu, i0Pu in SnRef, receptor convention
+  Dynawo.Electrical.Loads.LoadConnect_INIT load_72_INIT;
   parameter Types.ActivePowerPu P0Pu_load_72;
   parameter Types.ReactivePowerPu Q0Pu_load_72;
   parameter Types.VoltageModulePu U0Pu_load_72;
@@ -506,116 +528,116 @@ equation
   load_71.deltaQ = 0;
   load_72.deltaP = 0;
   load_72.deltaQ = 0;
-  load_11.switchOffSignal1.value = false;
-  load_11.switchOffSignal2.value = false;
-  load_12.switchOffSignal1.value = false;
-  load_12.switchOffSignal2.value = false;
-  load_13.switchOffSignal1.value = false;
-  load_13.switchOffSignal2.value = false;
-  load_22.switchOffSignal1.value = false;
-  load_22.switchOffSignal2.value = false;
-  load_01.switchOffSignal1.value = false;
-  load_01.switchOffSignal2.value = false;
-  load_02.switchOffSignal1.value = false;
-  load_02.switchOffSignal2.value = false;
-  load_03.switchOffSignal1.value = false;
-  load_03.switchOffSignal2.value = false;
-  load_04.switchOffSignal1.value = false;
-  load_04.switchOffSignal2.value = false;
-  load_05.switchOffSignal1.value = false;
-  load_05.switchOffSignal2.value = false;
-  load_31.switchOffSignal1.value = false;
-  load_31.switchOffSignal2.value = false;
-  load_32.switchOffSignal1.value = false;
-  load_32.switchOffSignal2.value = false;
-  load_41.switchOffSignal1.value = false;
-  load_41.switchOffSignal2.value = false;
-  load_42.switchOffSignal1.value = false;
-  load_42.switchOffSignal2.value = false;
-  load_43.switchOffSignal1.value = false;
-  load_43.switchOffSignal2.value = false;
-  load_46.switchOffSignal1.value = false;
-  load_46.switchOffSignal2.value = false;
-  load_47.switchOffSignal1.value = false;
-  load_47.switchOffSignal2.value = false;
-  load_51.switchOffSignal1.value = false;
-  load_51.switchOffSignal2.value = false;
-  load_61.switchOffSignal1.value = false;
-  load_61.switchOffSignal2.value = false;
-  load_62.switchOffSignal1.value = false;
-  load_62.switchOffSignal2.value = false;
-  load_63.switchOffSignal1.value = false;
-  load_63.switchOffSignal2.value = false;
-  load_71.switchOffSignal1.value = false;
-  load_71.switchOffSignal2.value = false;
-  load_72.switchOffSignal1.value = false;
-  load_72.switchOffSignal2.value = false;
-  shunt_1022.switchOffSignal1.value = false;
-  shunt_1022.switchOffSignal2.value = false;
-  shunt_1041.switchOffSignal1.value = false;
-  shunt_1041.switchOffSignal2.value = false;
-  shunt_1043.switchOffSignal1.value = false;
-  shunt_1043.switchOffSignal2.value = false;
-  shunt_1044.switchOffSignal1.value = false;
-  shunt_1044.switchOffSignal2.value = false;
-  shunt_1045.switchOffSignal1.value = false;
-  shunt_1045.switchOffSignal2.value = false;
-  shunt_4012.switchOffSignal1.value = false;
-  shunt_4012.switchOffSignal2.value = false;
-  shunt_4041.switchOffSignal1.value = false;
-  shunt_4041.switchOffSignal2.value = false;
-  shunt_4043.switchOffSignal1.value = false;
-  shunt_4043.switchOffSignal2.value = false;
-  shunt_4046.switchOffSignal1.value = false;
-  shunt_4046.switchOffSignal2.value = false;
-  shunt_4051.switchOffSignal1.value = false;
-  shunt_4051.switchOffSignal2.value = false;
-  shunt_4071.switchOffSignal1.value = false;
-  shunt_4071.switchOffSignal2.value = false;
-  PrefPu_load_01.setPoint.value = load_01.PRefPu;
-  QrefPu_load_01.setPoint.value = load_01.QRefPu;
-  PrefPu_load_02.setPoint.value = load_02.PRefPu;
-  QrefPu_load_02.setPoint.value = load_02.QRefPu;
-  QrefPu_load_03.setPoint.value = load_03.QRefPu;
-  PrefPu_load_03.setPoint.value = load_03.PRefPu;
-  PrefPu_load_04.setPoint.value = load_04.PRefPu;
-  QrefPu_load_04.setPoint.value = load_04.QRefPu;
-  PrefPu_load_05.setPoint.value = load_05.PRefPu;
-  QrefPu_load_05.setPoint.value = load_05.QRefPu;
-  PrefPu_load_11.setPoint.value = load_11.PRefPu;
-  QrefPu_load_11.setPoint.value = load_11.QRefPu;
-  PrefPu_load_12.setPoint.value = load_12.PRefPu;
-  QrefPu_load_12.setPoint.value = load_12.QRefPu;
-  PrefPu_load_13.setPoint.value = load_13.PRefPu;
-  QrefPu_load_13.setPoint.value = load_13.QRefPu;
-  QrefPu_load_22.setPoint.value = load_22.QRefPu;
-  PrefPu_load_22.setPoint.value = load_22.PRefPu;
-  PrefPu_load_31.setPoint.value = load_31.PRefPu;
-  QrefPu_load_31.setPoint.value = load_31.QRefPu;
-  PrefPu_load_32.setPoint.value = load_32.PRefPu;
-  QrefPu_load_32.setPoint.value = load_32.QRefPu;
-  PrefPu_load_41.setPoint.value = load_41.PRefPu;
-  QrefPu_load_41.setPoint.value = load_41.QRefPu;
-  PrefPu_load_42.setPoint.value = load_42.PRefPu;
-  QrefPu_load_42.setPoint.value = load_42.QRefPu;
-  PrefPu_load_43.setPoint.value = load_43.PRefPu;
-  QrefPu_load_43.setPoint.value = load_43.QRefPu;
-  PrefPu_load_46.setPoint.value = load_46.PRefPu;
-  QrefPu_load_46.setPoint.value = load_46.QRefPu;
-  PrefPu_load_47.setPoint.value = load_47.PRefPu;
-  QrefPu_load_47.setPoint.value = load_47.QRefPu;
-  PrefPu_load_51.setPoint.value = load_51.PRefPu;
-  QrefPu_load_51.setPoint.value = load_51.QRefPu;
-  QrefPu_load_61.setPoint.value = load_61.QRefPu;
-  PrefPu_load_61.setPoint.value = load_61.PRefPu;
-  PrefPu_load_62.setPoint.value = load_62.PRefPu;
-  QrefPu_load_62.setPoint.value = load_62.QRefPu;
-  PrefPu_load_63.setPoint.value = load_63.PRefPu;
-  QrefPu_load_63.setPoint.value = load_63.QRefPu;
-  QrefPu_load_71.setPoint.value = load_71.QRefPu;
-  PrefPu_load_71.setPoint.value = load_71.PRefPu;
-  PrefPu_load_72.setPoint.value = load_72.PRefPu;
-  QrefPu_load_72.setPoint.value = load_72.QRefPu;
+  load_11.switchOffSignal1 = false;
+  load_11.switchOffSignal2 = false;
+  load_12.switchOffSignal1 = false;
+  load_12.switchOffSignal2 = false;
+  load_13.switchOffSignal1 = false;
+  load_13.switchOffSignal2 = false;
+  load_22.switchOffSignal1 = false;
+  load_22.switchOffSignal2 = false;
+  load_01.switchOffSignal1 = false;
+  load_01.switchOffSignal2 = false;
+  load_02.switchOffSignal1 = false;
+  load_02.switchOffSignal2 = false;
+  load_03.switchOffSignal1 = false;
+  load_03.switchOffSignal2 = false;
+  load_04.switchOffSignal1 = false;
+  load_04.switchOffSignal2 = false;
+  load_05.switchOffSignal1 = false;
+  load_05.switchOffSignal2 = false;
+  load_31.switchOffSignal1 = false;
+  load_31.switchOffSignal2 = false;
+  load_32.switchOffSignal1 = false;
+  load_32.switchOffSignal2 = false;
+  load_41.switchOffSignal1 = false;
+  load_41.switchOffSignal2 = false;
+  load_42.switchOffSignal1 = false;
+  load_42.switchOffSignal2 = false;
+  load_43.switchOffSignal1 = false;
+  load_43.switchOffSignal2 = false;
+  load_46.switchOffSignal1 = false;
+  load_46.switchOffSignal2 = false;
+  load_47.switchOffSignal1 = false;
+  load_47.switchOffSignal2 = false;
+  load_51.switchOffSignal1 = false;
+  load_51.switchOffSignal2 = false;
+  load_61.switchOffSignal1 = false;
+  load_61.switchOffSignal2 = false;
+  load_62.switchOffSignal1 = false;
+  load_62.switchOffSignal2 = false;
+  load_63.switchOffSignal1 = false;
+  load_63.switchOffSignal2 = false;
+  load_71.switchOffSignal1 = false;
+  load_71.switchOffSignal2 = false;
+  load_72.switchOffSignal1 = false;
+  load_72.switchOffSignal2 = false;
+  shunt_1022.switchOffSignal1 = false;
+  shunt_1022.switchOffSignal2 = false;
+  shunt_1041.switchOffSignal1 = false;
+  shunt_1041.switchOffSignal2 = false;
+  shunt_1043.switchOffSignal1 = false;
+  shunt_1043.switchOffSignal2 = false;
+  shunt_1044.switchOffSignal1 = false;
+  shunt_1044.switchOffSignal2 = false;
+  shunt_1045.switchOffSignal1 = false;
+  shunt_1045.switchOffSignal2 = false;
+  shunt_4012.switchOffSignal1 = false;
+  shunt_4012.switchOffSignal2 = false;
+  shunt_4041.switchOffSignal1 = false;
+  shunt_4041.switchOffSignal2 = false;
+  shunt_4043.switchOffSignal1 = false;
+  shunt_4043.switchOffSignal2 = false;
+  shunt_4046.switchOffSignal1 = false;
+  shunt_4046.switchOffSignal2 = false;
+  shunt_4051.switchOffSignal1 = false;
+  shunt_4051.switchOffSignal2 = false;
+  shunt_4071.switchOffSignal1 = false;
+  shunt_4071.switchOffSignal2 = false;
+  PrefPu_load_01.setPoint = load_01.PRefPu;
+  QrefPu_load_01.setPoint = load_01.QRefPu;
+  PrefPu_load_02.setPoint = load_02.PRefPu;
+  QrefPu_load_02.setPoint = load_02.QRefPu;
+  QrefPu_load_03.setPoint = load_03.QRefPu;
+  PrefPu_load_03.setPoint = load_03.PRefPu;
+  PrefPu_load_04.setPoint = load_04.PRefPu;
+  QrefPu_load_04.setPoint = load_04.QRefPu;
+  PrefPu_load_05.setPoint = load_05.PRefPu;
+  QrefPu_load_05.setPoint = load_05.QRefPu;
+  PrefPu_load_11.setPoint = load_11.PRefPu;
+  QrefPu_load_11.setPoint = load_11.QRefPu;
+  PrefPu_load_12.setPoint = load_12.PRefPu;
+  QrefPu_load_12.setPoint = load_12.QRefPu;
+  PrefPu_load_13.setPoint = load_13.PRefPu;
+  QrefPu_load_13.setPoint = load_13.QRefPu;
+  QrefPu_load_22.setPoint = load_22.QRefPu;
+  PrefPu_load_22.setPoint = load_22.PRefPu;
+  PrefPu_load_31.setPoint = load_31.PRefPu;
+  QrefPu_load_31.setPoint = load_31.QRefPu;
+  PrefPu_load_32.setPoint = load_32.PRefPu;
+  QrefPu_load_32.setPoint = load_32.QRefPu;
+  PrefPu_load_41.setPoint = load_41.PRefPu;
+  QrefPu_load_41.setPoint = load_41.QRefPu;
+  PrefPu_load_42.setPoint = load_42.PRefPu;
+  QrefPu_load_42.setPoint = load_42.QRefPu;
+  PrefPu_load_43.setPoint = load_43.PRefPu;
+  QrefPu_load_43.setPoint = load_43.QRefPu;
+  PrefPu_load_46.setPoint = load_46.PRefPu;
+  QrefPu_load_46.setPoint = load_46.QRefPu;
+  PrefPu_load_47.setPoint = load_47.PRefPu;
+  QrefPu_load_47.setPoint = load_47.QRefPu;
+  PrefPu_load_51.setPoint = load_51.PRefPu;
+  QrefPu_load_51.setPoint = load_51.QRefPu;
+  QrefPu_load_61.setPoint = load_61.QRefPu;
+  PrefPu_load_61.setPoint = load_61.PRefPu;
+  PrefPu_load_62.setPoint = load_62.PRefPu;
+  QrefPu_load_62.setPoint = load_62.QRefPu;
+  PrefPu_load_63.setPoint = load_63.PRefPu;
+  QrefPu_load_63.setPoint = load_63.QRefPu;
+  QrefPu_load_71.setPoint = load_71.QRefPu;
+  PrefPu_load_71.setPoint = load_71.PRefPu;
+  PrefPu_load_72.setPoint = load_72.PRefPu;
+  QrefPu_load_72.setPoint = load_72.QRefPu;
 
   connect(shunt_4012.terminal, bus_4012.terminal) annotation(
     Line(points = {{-22.5, 106.5}, {-22.5, 100}, {-30, 100}}, color = {0, 0, 255}));

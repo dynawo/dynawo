@@ -23,7 +23,7 @@ model CombiTimeTable "Table look-up with respect to time and linear/periodic ext
   parameter Modelica.Blocks.Types.Smoothness Smoothness "Smoothness of table interpolation";
   parameter String TableName = "NoName" "Table name on file or in function usertab (see docu)";
 
-  Dynawo.Connectors.ImPin source "Output connector";
+  Modelica.Blocks.Interfaces.RealOutput source "Output connector";
 
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     extrapolation = Extrapolation,
@@ -34,7 +34,7 @@ model CombiTimeTable "Table look-up with respect to time and linear/periodic ext
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  source.value = combiTimeTable.y[1];
+  source = combiTimeTable.y[1];
 
   annotation(preferredView = "text");
 end CombiTimeTable;

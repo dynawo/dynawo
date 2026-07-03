@@ -28,19 +28,21 @@ model VariableImpedantFault "Variable impedant fault with R and X of the fault g
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Parameters
-  parameter String ImpedanceTableFile "Text file that contains the table to get the impedance from time";
-  parameter String ImpedanceTimeTable "Table to get the impedance from time : 3 columns, the first for time, second for R and third for X";
+  parameter String ImpedanceTableFile = "NoName" "Text file that contains the table to get the impedance from time";
+  parameter String ImpedanceTimeTable = "NoName" "Table to get the impedance from time : 3 columns, the first for time, second for R and third for X";
+  parameter Real Table[:, :] = fill(0.0, 0, 2) "Table to get the impedance from time";
+  parameter Boolean TableOnFile = true "If true, tables are defined on file or in function usertab";
 
   // Variable
   Types.ComplexImpedancePu ZvPu "The complex variable representing the impedance of the fault";
 
-  Modelica.Blocks.Sources.CombiTimeTable ZvTimeTable(columns = 2:3, fileName = ImpedanceTableFile, tableName = ImpedanceTimeTable, tableOnFile = true) annotation(
+  Modelica.Blocks.Sources.CombiTimeTable ZvTimeTable(columns = 2:3, fileName = ImpedanceTableFile, tableName = ImpedanceTimeTable, table = Table, tableOnFile = TableOnFile) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 equation
   ZvPu = Complex(ZvTimeTable.y[1], ZvTimeTable.y[2]);
 
-  if (running.value) then
+  if running then
     ZvPu * terminal.i = terminal.V;
   else
     terminal.i = Complex(0);

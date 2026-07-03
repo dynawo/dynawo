@@ -14,10 +14,6 @@ set(MODEL_FILES
   package.mo
   package.order
   ACPower.mo
-  BPin.mo
-  ZPin.mo
-  ImPin.mo
-  IntPin.mo
   ActivePowerPuConnector.mo
   AngleInput.mo
   AngleOutput.mo

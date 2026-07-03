@@ -1,2 +1,4 @@
-PVCurrentSourceB
-PVVoltageSourceB
+PVCurrentSource
+PVVoltageSource2
+PVVoltageSource4
+PVVoltageSourceNoPPC

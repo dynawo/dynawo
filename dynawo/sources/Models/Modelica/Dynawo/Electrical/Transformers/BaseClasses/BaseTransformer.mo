@@ -29,15 +29,18 @@ partial model BaseTransformer "Base model for a general two winding transformer 
   extends Dynawo.Electrical.Transformers.BaseClasses.TransformerParameters;
 
   // Output connectors
-  Dynawo.Connectors.ImPin P1Pu(value(start = P10Pu)) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
-  Dynawo.Connectors.ImPin Q1Pu(value(start = Q10Pu)) "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
-  Dynawo.Connectors.ImPin U1Pu(value(start = U10Pu)) "Voltage amplitude at terminal 1 in pu (base U1Nom)";
-  Dynawo.Connectors.ImPin U2Pu(value(start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
+  Modelica.Blocks.Interfaces.RealOutput P1Pu(start = P10Pu) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput Q1Pu(start = Q10Pu) "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput U1Pu(start = U10Pu) "Voltage amplitude at terminal 1 in pu (base U1Nom)";
+  Modelica.Blocks.Interfaces.RealOutput U2Pu(start = U20Pu) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the transformer to the grid (terminal 1)" annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid (terminal 2)" annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
+  Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
 
   Dynawo.Types.ComplexPerUnit rTfoPu(re(start = RatioTfo0Pu * Modelica.Math.cos(AlphaTfo0)), im(start = RatioTfo0Pu * Modelica.Math.sin(AlphaTfo0))) "Transformation complex ratio in complex pu";
 
@@ -56,7 +59,7 @@ partial model BaseTransformer "Base model for a general two winding transformer 
   parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
 equation
-  if (running.value) then
+  if running then
     // Kirchoff law
     rTfoPu * ComplexMath.conj(rTfoPu) * terminal1.V = ComplexMath.conj(rTfoPu) * terminal2.V + ZPu * terminal1.i;
     terminal1.i = ComplexMath.conj(rTfoPu) * (YPu * terminal2.V - terminal2.i);
@@ -65,17 +68,30 @@ equation
     terminal2.i = Complex(0);
   end if;
 
-  if (running.value) then
+  ISide1 = ComplexMath.'abs'(terminal1.i);
+  ISide2 = ComplexMath.'abs'(terminal2.i);
+
+  if running then
   // Variables for display or connection to another model (tap-changer for example)
-    P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
-    Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-    U1Pu.value = ComplexMath.'abs'(terminal1.V);
-    U2Pu.value = ComplexMath.'abs'(terminal2.V);
+    P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
+    Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
+
+    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
+      U1Pu = 0;
+    else
+      U1Pu = ComplexMath.'abs'(terminal1.V);
+    end if;
+
+    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
+      U2Pu = 0;
+    else
+      U2Pu = ComplexMath.'abs'(terminal2.V);
+    end if;
   else
-    P1Pu.value = 0;
-    Q1Pu.value = 0;
-    U1Pu.value = 0;
-    U2Pu.value = 0;
+    P1Pu = 0;
+    Q1Pu = 0;
+    U1Pu = 0;
+    U2Pu = 0;
   end if;
 
   annotation(preferredView = "text");

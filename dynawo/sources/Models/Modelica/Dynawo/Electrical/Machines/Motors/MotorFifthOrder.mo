@@ -72,11 +72,11 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
 
 equation
   assert(shareTrip1Pu + shareTrip2Pu <= 1, "Total share of motors that trip should be lower or equal to 1");
-  if (running.value) then
-    der(EqPPu) * tP0 = -EqPPu + idPu * (LsPu - LPPu) - EdPPu * SystemBase.omegaNom * omegaRefPu.value * s * tP0;
-    der(EdPPu) * tP0 = -EdPPu - iqPu * (LsPu - LPPu) + EqPPu * SystemBase.omegaNom * omegaRefPu.value * s * tP0;
-    der(EqPPPu) = der(EqPPu) + 1/tPP0 * (EqPPu - EqPPPu + (LPPu - LPPPu) * idPu) + SystemBase.omegaNom * omegaRefPu.value * s * (EdPPu - EdPPPu);
-    der(EdPPPu) = der(EdPPu) + 1/tPP0 * (EdPPu - EdPPPu - (LPPu - LPPPu) * iqPu) - SystemBase.omegaNom * omegaRefPu.value * s * (EqPPu - EqPPPu);
+  if running then
+    der(EqPPu) * tP0 = -EqPPu + idPu * (LsPu - LPPu) - EdPPu * SystemBase.omegaNom * omegaRefPu * s * tP0;
+    der(EdPPu) * tP0 = -EdPPu - iqPu * (LsPu - LPPu) + EqPPu * SystemBase.omegaNom * omegaRefPu * s * tP0;
+    der(EqPPPu) = der(EqPPu) + 1/tPP0 * (EqPPu - EqPPPu + (LPPu - LPPPu) * idPu) + SystemBase.omegaNom * omegaRefPu * s * (EdPPu - EdPPPu);
+    der(EdPPPu) = der(EdPPu) + 1/tPP0 * (EdPPu - EdPPPu - (LPPu - LPPPu) * iqPu) - SystemBase.omegaNom * omegaRefPu * s * (EqPPu - EqPPPu);
 
     V = Complex(EdPPPu, EqPPPu) + Complex(RsPu, LPPPu) * Complex(idPu, iqPu);
     Complex(PRawPu, QRawPu) = V * Complex(idPu, -iqPu) * (SNom / SystemBase.SnRef);
@@ -91,7 +91,7 @@ equation
       Complex(PPu, QPu) = Complex(PRawPu, QRawPu) * (1-shareTrip1Pu-shareTrip2Pu);
     end if;
 
-    s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
+    s = (omegaRefPu - omegaRPu) / omegaRefPu;
     cePu = EdPPPu * idPu + EqPPPu * iqPu;
     clPu = ce0Pu * (omegaRPu / omegaR0Pu)^torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
@@ -111,39 +111,43 @@ equation
     der(omegaRPu) = 0;
   end if;
 
-  UPu = ComplexMath.'abs'(V);
+  if ((V.re == 0) and (V.im == 0)) then
+    UPu = 0.;
+  else
+    UPu = ComplexMath.'abs'(V);
+  end if;
 
   // Trip block 1
-  when UPu <= Utrip1Pu and pre(connected1) and running.value then
+  when UPu <= Utrip1Pu and pre(connected1) and running then
     tTripThresholdReached1 = time;
-  elsewhen UPu > Utrip1Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected1) and running.value then
+  elsewhen UPu > Utrip1Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected1) and running then
     tTripThresholdReached1 = Constants.inf;
   end when;
-  when UPu >= Ureconnect1Pu and not(pre(connected1)) and running.value then
+  when UPu >= Ureconnect1Pu and not(pre(connected1)) and running then
     tReconnectThresholdReached1 = time;
-  elsewhen UPu < Ureconnect1Pu and pre(tReconnectThresholdReached1) <> Constants.inf and not(pre(connected1)) and running.value then
+  elsewhen UPu < Ureconnect1Pu and pre(tReconnectThresholdReached1) <> Constants.inf and not(pre(connected1)) and running then
     tReconnectThresholdReached1 = Constants.inf;
   end when;
-  when time - tTripThresholdReached1 >= tTrip1Pu and running.value then
+  when time - tTripThresholdReached1 >= tTrip1Pu and running then
     connected1 = false;
-  elsewhen time - tReconnectThresholdReached1 >= tReconnect1Pu and running.value then
+  elsewhen time - tReconnectThresholdReached1 >= tReconnect1Pu and running then
     connected1 = true;
   end when;
 
   // Trip block 2
-  when UPu <= Utrip2Pu and pre(connected2) and running.value then
+  when UPu <= Utrip2Pu and pre(connected2) and running then
     tTripThresholdReached2 = time;
-  elsewhen UPu > Utrip2Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected2) and running.value then
+  elsewhen UPu > Utrip2Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected2) and running then
     tTripThresholdReached2 = Constants.inf;
   end when;
-  when UPu >= Ureconnect2Pu and not(pre(connected2)) and running.value then
+  when UPu >= Ureconnect2Pu and not(pre(connected2)) and running then
     tReconnectThresholdReached2 = time;
-  elsewhen UPu < Ureconnect2Pu and pre(tReconnectThresholdReached2) <> Constants.inf and not(pre(connected2)) and running.value then
+  elsewhen UPu < Ureconnect2Pu and pre(tReconnectThresholdReached2) <> Constants.inf and not(pre(connected2)) and running then
     tReconnectThresholdReached2 = Constants.inf;
   end when;
-  when time - tTripThresholdReached2 >= tTrip2Pu and running.value then
+  when time - tTripThresholdReached2 >= tTrip2Pu and running then
     connected2 = false;
-  elsewhen time - tReconnectThresholdReached2 >= tReconnect2Pu and running.value then
+  elsewhen time - tReconnectThresholdReached2 >= tReconnect2Pu and running then
     connected2 = true;
   end when;
 

@@ -23,7 +23,7 @@ function logConstraintBeginData "Create a begin constraint with data"
   input Real value;
   input String param;
 
-  external "C" addLogConstraintBeginData(key, kind, limit, value, param);
+  external "C" addLogConstraintBeginData(key, kind, limit, value, param) annotation(Include = "#include \"logConstraint.h\"");
 
   annotation(preferredView = "text");
 end logConstraintBeginData;

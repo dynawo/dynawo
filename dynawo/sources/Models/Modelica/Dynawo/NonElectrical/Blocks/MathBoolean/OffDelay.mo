@@ -19,19 +19,7 @@ model OffDelay "Delay a falling edge of the input, but do not delay a rising edg
 
 protected
   Boolean delaySignal(start = false);
-  discrete Modelica.SIunits.Time tNext;
-
-algorithm
-  when initial() then
-    delaySignal := u;
-    tNext := time - 1;
-  elsewhen u then
-    delaySignal := false;
-    tNext := time - 1;
-  elsewhen not u then
-    delaySignal := true;
-    tNext := time + tDelay;
-  end when;
+  discrete Modelica.SIunits.Time tNext(start = -1);
 
 equation
   if delaySignal then
@@ -39,6 +27,14 @@ equation
   else
     y = false;
   end if;
+
+  when u then
+    delaySignal = false;
+    tNext = time - 1;
+  elsewhen not u and pre(u) == true then
+    delaySignal = true;
+    tNext = time + tDelay;
+  end when;
 
   annotation(preferredView = "text");
 end OffDelay;

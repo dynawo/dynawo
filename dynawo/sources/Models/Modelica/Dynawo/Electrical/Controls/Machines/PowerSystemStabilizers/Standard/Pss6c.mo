@@ -16,8 +16,8 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard;
 model Pss6c "IEEE power system stabilizer type 6C"
 
   //Regulation parameters
-  parameter Types.PerUnit KOmega = 1 "Coefficient applied to angular frequency";
-  parameter Types.PerUnit KOmegaRef = 0 "Coefficient applied to reference angular frequency";
+  parameter Types.PerUnit KOmega "Coefficient applied to angular frequency";
+  parameter Types.PerUnit KOmegaRef "Coefficient applied to reference angular frequency";
   parameter Types.PerUnit K0 "Gain of first integrator input";
   parameter Types.PerUnit K1 "Gain of first integrator output";
   parameter Types.PerUnit K2 "Gain of second integrator output";

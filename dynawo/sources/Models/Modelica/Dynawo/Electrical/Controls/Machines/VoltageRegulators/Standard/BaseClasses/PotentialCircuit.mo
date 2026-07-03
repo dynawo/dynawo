@@ -20,7 +20,6 @@ block PotentialCircuit "Computes the absolute value of a generator field voltage
   parameter Types.PerUnit Kp "Gain coefficient";
   parameter Types.Angle Theta "Phase angle in rad";
   parameter Types.PerUnit X "Reactance associated with potential source";
-  parameter Boolean UseRunning = false "If true, running port enabled";
 
   constant Types.ComplexPerUnit j = Complex(0,1) "Unitary imaginary constant";
 
@@ -28,7 +27,7 @@ block PotentialCircuit "Computes the absolute value of a generator field voltage
     Placement(visible = true, transformation(extent = {{-140, 40}, {-100, 80}}, rotation = 0), iconTransformation(extent = {{-140, 40}, {-100, 80}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput iT "Complex stator current" annotation(
     Placement(visible = true, transformation(extent = {{-140, -80}, {-100, -40}}, rotation = 0), iconTransformation(extent = {{-140, -80}, {-100, -40}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput running(start = true) if UseRunning "Running value of generator" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput running(start = true) "Running value of generator" annotation(
     Placement(visible = true,transformation(extent = {{-140, -20}, {-100, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput vE "Output voltage" annotation(
@@ -42,14 +41,10 @@ equation
   v1 = uT * Complex(Kp * cos(Theta), Kp * sin(Theta));
   v2 = iT * Complex(Ki + X * Kp * cos(Theta), X * Kp * sin(Theta));
 
-  if UseRunning then
-    if running then
-      vE = Modelica.ComplexMath.'abs'(v1 + j * v2);
-    else
-      vE = 0;
-    end if;
-  else
+  if running then
     vE = Modelica.ComplexMath.'abs'(v1 + j * v2);
+  else
+    vE = 0;
   end if;
 
   annotation(

@@ -24,6 +24,7 @@ set(MODEL_FILES
   LimitedDivision.mo
   LimitedFirstOrder.mo
   LimitedIntegrator.mo
+  LimitedIntegratorFreeze.mo
   LimitedLeadLag.mo
   LimiterAtCurrentValueWithLag.mo
   LimiterAtCurrentValueWithLag_INIT.mo
@@ -37,6 +38,8 @@ set(MODEL_FILES
   Min3.mo
   MinThresholdSwitch.mo
   MultiSwitch.mo
+  MultiSwitchFixed.mo
+  MultiSwitchVariable.mo
   PIAntiWindUpTable.mo
   PIAntiWindUpTable.extvar
   PulseFixedDuration.mo

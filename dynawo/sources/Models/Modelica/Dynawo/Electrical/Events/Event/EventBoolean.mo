@@ -14,7 +14,7 @@ within Dynawo.Electrical.Events.Event;
 */
 
 model EventBoolean "Specific model for Boolean events"
-  extends EventEquations(redeclare type typeParameter = Boolean, redeclare connector typeConnector = Dynawo.Connectors.BPin);
+  extends EventEquations(redeclare type typeParameter = Boolean, redeclare connector typeConnector = Modelica.Blocks.Interfaces.BooleanOutput);
 
   annotation(preferredView = "text");
 end EventBoolean;

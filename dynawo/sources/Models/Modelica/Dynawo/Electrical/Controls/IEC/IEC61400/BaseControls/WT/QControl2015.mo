@@ -43,11 +43,9 @@ model QControl2015 "Reactive power control module for wind turbines (IEC N°6140
     Placement(visible = true, transformation(origin = {-270, -82}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tPFiltQ, y_start = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {-286, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant2(k = MqUvrt) annotation(
-    Placement(visible = true, transformation(origin = {150, -160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch2(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchFixed multiSwitch2(f = MqUvrt, nu = 3) annotation(
     Placement(visible = true, transformation(origin = {90, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch1(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchFixed multiSwitch1(f = MqUvrt, nu = 3) annotation(
     Placement(visible = true, transformation(origin = {126, -260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
@@ -83,16 +81,12 @@ equation
     Line(points = {{62, -200}, {64, -200}, {64, -180}, {80, -180}}, color = {0, 0, 127}));
   connect(add3.y, multiSwitch2.u[3]) annotation(
     Line(points = {{62, -200}, {64, -200}, {64, -180}, {80, -180}}, color = {0, 0, 127}));
-  connect(integerConstant2.y, multiSwitch2.f) annotation(
-    Line(points = {{140, -160}, {90, -160}, {90, -168}}, color = {255, 127, 0}));
   connect(multiSwitch2.y, multiSwitch1.u[1]) annotation(
     Line(points = {{102, -180}, {106, -180}, {106, -260}, {116, -260}}, color = {0, 0, 127}));
   connect(multiSwitch2.y, multiSwitch1.u[2]) annotation(
     Line(points = {{102, -180}, {106, -180}, {106, -260}, {116, -260}}, color = {0, 0, 127}));
   connect(add4.y, multiSwitch1.u[3]) annotation(
     Line(points = {{62, -260}, {116, -260}}, color = {0, 0, 127}));
-  connect(integerConstant2.y, multiSwitch1.f) annotation(
-    Line(points = {{140, -160}, {126, -160}, {126, -248}}, color = {255, 127, 0}));
   connect(multiSwitch2.y, limiter2.u) annotation(
     Line(points = {{102, -180}, {106, -180}, {106, -200}, {178, -200}}, color = {0, 0, 127}));
   connect(multiSwitch1.y, limiter3.u) annotation(

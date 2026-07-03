@@ -37,8 +37,8 @@ model InfiniteBusWithImpedance "Infinite bus connected to an impedance"
   parameter Types.ComplexVoltagePu uTerminal0Pu "Initial complex voltage at terminal in pu (base UNom)";
 
 equation
-  impedance.switchOffSignal1.value = false;
-  impedance.switchOffSignal2.value = false;
+  impedance.switchOffSignal1 = false;
+  impedance.switchOffSignal2 = false;
   connect(infiniteBus.terminal, impedance.terminal2) annotation(
     Line(points = {{0, -80}, {0, -40}}, color = {0, 0, 255}));
   connect(impedance.terminal1, terminal) annotation(

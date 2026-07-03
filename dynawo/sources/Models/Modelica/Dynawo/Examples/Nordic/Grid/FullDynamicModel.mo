@@ -64,61 +64,61 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
     Placement(visible = true, transformation(origin = {-95, 123}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   TransformerWithControl.TransformerWithControl trafo_72_4072(P10Pu = -P0Pu_load_72, Q10Pu = -Q0Pu_load_72, U10Pu = U0Pu_load_72, U1Phase0 = UPhase0_load_72, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_72_4072) annotation(
     Placement(visible = true, transformation(origin = {-88, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_1011_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1011_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {0, 125}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_1012_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1012_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.95 ^ 2 * (100 / 1250.0), rTfoPu = 0.95) annotation(
     Placement(visible = true, transformation(origin = {-2, 96}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_1022_4022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.93 ^ 2 * (100 / 833.3), rTfoPu = 0.93) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1022_4022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 0.93 ^ 2 * (100 / 833.3), rTfoPu = 0.93) annotation(
     Placement(visible = true, transformation(origin = {-25, 43}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_1044_4044a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.03 ^ 2 * (100 / 1000.0), rTfoPu = 1.03) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1044_4044a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.03 ^ 2 * (100 / 1000.0), rTfoPu = 1.03) annotation(
     Placement(visible = true, transformation(origin = {-15, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_1044_4044b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.03 ^ 2 * (100 / 1000.0), rTfoPu = 1.03) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1044_4044b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.03 ^ 2 * (100 / 1000.0), rTfoPu = 1.03) annotation(
     Placement(visible = true, transformation(origin = {-8, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_1045_4045a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.04 ^ 2 * (100 / 1000.0), rTfoPu = 1.04) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1045_4045a(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.04 ^ 2 * (100 / 1000.0), rTfoPu = 1.04) annotation(
     Placement(visible = true, transformation(origin = {-14, -100}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_1045_4045b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.04 ^ 2 * (100 / 1000.0), rTfoPu = 1.04) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_1045_4045b(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.04 ^ 2 * (100 / 1000.0), rTfoPu = 1.04) annotation(
     Placement(visible = true, transformation(origin = {-8, -100}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_2031_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.0 ^ 2 * (100 / 833.3), rTfoPu = 1.0) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_2031_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.0 ^ 2 * (100 / 833.3), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {-26, 28}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g1_1012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 800.0), rTfoPu = 1.0) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g1_1012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 800.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {25, 93}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g2_1013(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 600.0), rTfoPu = 1.0) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g2_1013(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 600.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {75, 138}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g3_1014(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 700.0), rTfoPu = 1.0) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g3_1014(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 700.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {85, 93}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g4_1021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 600.0), rTfoPu = 1.0) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g4_1021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.0 ^ 2 * (100 / 600.0), rTfoPu = 1.0) annotation(
     Placement(visible = true, transformation(origin = {-85, 43}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g5_1022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 250.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g5_1022(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 250.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-45, 57}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g6_1042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 400.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g6_1042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 400.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {35, -72}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g7_1043(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 200.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g7_1043(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 200.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-53, -53}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g8_2032(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 850.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g8_2032(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 850.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-77, 13}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g9_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1000.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g9_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1000.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-25, 138}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g10_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 800.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g10_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 800.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-35, 93}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g11_4021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 300.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g11_4021(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 300.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {35, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g12_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 350.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g12_4031(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 350.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-4, 28}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g13_4041(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.05 ^ 2 * (100 / 300.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g13_4041(BPu = 0, GPu = 0, RPu = 0, XPu = 0.10 * 1.05 ^ 2 * (100 / 300.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-70, -17}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g14_4042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g14_4042(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {50, -17}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g15_4047(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1200.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g15_4047(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1200.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {80, -103}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g16_4051(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g16_4051(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 700.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {20, -123}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g17_4062(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 600.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g17_4062(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 600.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-78, -102}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g18_4063(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1200.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g18_4063(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 1200.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-95, -137}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g19_4071(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 500.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g19_4071(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 500.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-75, 137}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-  Dynawo.Electrical.Transformers.TransformerFixedRatio trafo_g20_4072(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 4500.0), rTfoPu = 1.05) annotation(
+  Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g20_4072(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15 * 1.05 ^ 2 * (100 / 4500.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-75, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
 
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g01(P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g01) annotation(
@@ -303,62 +303,85 @@ model FullDynamicModel "Nordic test grid with buses, lines, shunts, loads, trans
   parameter Types.Angle UPhase0_g20;
 
 equation
-  trafo_g1_1012.switchOffSignal1.value = false;
-  trafo_g1_1012.switchOffSignal2.value = false;
-  trafo_g2_1013.switchOffSignal1.value = false;
-  trafo_g2_1013.switchOffSignal2.value = false;
-  trafo_g3_1014.switchOffSignal1.value = false;
-  trafo_g3_1014.switchOffSignal2.value = false;
-  trafo_g4_1021.switchOffSignal1.value = false;
-  trafo_g4_1021.switchOffSignal2.value = false;
-  trafo_g5_1022.switchOffSignal1.value = false;
-  trafo_g5_1022.switchOffSignal2.value = false;
-  trafo_g6_1042.switchOffSignal1.value = false;
-  trafo_g6_1042.switchOffSignal2.value = false;
-  trafo_g7_1043.switchOffSignal1.value = false;
-  trafo_g7_1043.switchOffSignal2.value = false;
-  trafo_g8_2032.switchOffSignal1.value = false;
-  trafo_g8_2032.switchOffSignal2.value = false;
-  trafo_g9_4011.switchOffSignal1.value = false;
-  trafo_g9_4011.switchOffSignal2.value = false;
-  trafo_g10_4012.switchOffSignal1.value = false;
-  trafo_g10_4012.switchOffSignal2.value = false;
-  trafo_g11_4021.switchOffSignal1.value = false;
-  trafo_g11_4021.switchOffSignal2.value = false;
-  trafo_g12_4031.switchOffSignal1.value = false;
-  trafo_g12_4031.switchOffSignal2.value = false;
-  trafo_g13_4041.switchOffSignal1.value = false;
-  trafo_g13_4041.switchOffSignal2.value = false;
-  trafo_g14_4042.switchOffSignal1.value = false;
-  trafo_g14_4042.switchOffSignal2.value = false;
-  trafo_g15_4047.switchOffSignal1.value = false;
-  trafo_g15_4047.switchOffSignal2.value = false;
-  trafo_g16_4051.switchOffSignal1.value = false;
-  trafo_g16_4051.switchOffSignal2.value = false;
-  trafo_g17_4062.switchOffSignal1.value = false;
-  trafo_g17_4062.switchOffSignal2.value = false;
-  trafo_g18_4063.switchOffSignal1.value = false;
-  trafo_g18_4063.switchOffSignal2.value = false;
-  trafo_g19_4071.switchOffSignal1.value = false;
-  trafo_g19_4071.switchOffSignal2.value = false;
-  trafo_g20_4072.switchOffSignal1.value = false;
-  trafo_g20_4072.switchOffSignal2.value = false;
-  trafo_1011_4011.switchOffSignal1.value = false;
-  trafo_1011_4011.switchOffSignal2.value = false;
-  trafo_1012_4012.switchOffSignal1.value = false;
-  trafo_1012_4012.switchOffSignal2.value = false;
-  trafo_1022_4022.switchOffSignal1.value = false;
-  trafo_1022_4022.switchOffSignal2.value = false;
-  trafo_1044_4044a.switchOffSignal1.value = false;
-  trafo_1044_4044a.switchOffSignal2.value = false;
-  trafo_1044_4044b.switchOffSignal1.value = false;
-  trafo_1044_4044b.switchOffSignal2.value = false;
-  trafo_1045_4045a.switchOffSignal1.value = false;
-  trafo_1045_4045a.switchOffSignal2.value = false;
-  trafo_1045_4045b.switchOffSignal1.value = false;
-  trafo_1045_4045b.switchOffSignal2.value = false;
-  trafo_2031_4031.switchOffSignal1.value = false;
-  trafo_2031_4031.switchOffSignal2.value = false;
+  connect(trafo_1_1041.terminal20, load_01_INIT.terminal0);
+  connect(trafo_2_1042.terminal20, load_02_INIT.terminal0);
+  connect(trafo_3_1043.terminal20, load_03_INIT.terminal0);
+  connect(trafo_4_1044.terminal20, load_04_INIT.terminal0);
+  connect(trafo_5_1045.terminal20, load_05_INIT.terminal0);
+  connect(trafo_11_1011.terminal20, load_11_INIT.terminal0);
+  connect(trafo_12_1012.terminal20, load_12_INIT.terminal0);
+  connect(trafo_13_1013.terminal20, load_13_INIT.terminal0);
+  connect(trafo_22_1022.terminal20, load_22_INIT.terminal0);
+  connect(trafo_31_2031.terminal20, load_31_INIT.terminal0);
+  connect(trafo_32_2032.terminal20, load_32_INIT.terminal0);
+  connect(trafo_41_4041.terminal20, load_41_INIT.terminal0);
+  connect(trafo_42_4042.terminal20, load_42_INIT.terminal0);
+  connect(trafo_43_4043.terminal20, load_43_INIT.terminal0);
+  connect(trafo_46_4046.terminal20, load_46_INIT.terminal0);
+  connect(trafo_47_4047.terminal20, load_47_INIT.terminal0);
+  connect(trafo_51_4051.terminal20, load_51_INIT.terminal0);
+  connect(trafo_61_4061.terminal20, load_61_INIT.terminal0);
+  connect(trafo_62_4062.terminal20, load_62_INIT.terminal0);
+  connect(trafo_63_4063.terminal20, load_63_INIT.terminal0);
+  connect(trafo_71_4071.terminal20, load_71_INIT.terminal0);
+  connect(trafo_72_4072.terminal20, load_72_INIT.terminal0);
+
+  trafo_g1_1012.switchOffSignal1 = false;
+  trafo_g1_1012.switchOffSignal2 = false;
+  trafo_g2_1013.switchOffSignal1 = false;
+  trafo_g2_1013.switchOffSignal2 = false;
+  trafo_g3_1014.switchOffSignal1 = false;
+  trafo_g3_1014.switchOffSignal2 = false;
+  trafo_g4_1021.switchOffSignal1 = false;
+  trafo_g4_1021.switchOffSignal2 = false;
+  trafo_g5_1022.switchOffSignal1 = false;
+  trafo_g5_1022.switchOffSignal2 = false;
+  trafo_g6_1042.switchOffSignal1 = false;
+  trafo_g6_1042.switchOffSignal2 = false;
+  trafo_g7_1043.switchOffSignal1 = false;
+  trafo_g7_1043.switchOffSignal2 = false;
+  trafo_g8_2032.switchOffSignal1 = false;
+  trafo_g8_2032.switchOffSignal2 = false;
+  trafo_g9_4011.switchOffSignal1 = false;
+  trafo_g9_4011.switchOffSignal2 = false;
+  trafo_g10_4012.switchOffSignal1 = false;
+  trafo_g10_4012.switchOffSignal2 = false;
+  trafo_g11_4021.switchOffSignal1 = false;
+  trafo_g11_4021.switchOffSignal2 = false;
+  trafo_g12_4031.switchOffSignal1 = false;
+  trafo_g12_4031.switchOffSignal2 = false;
+  trafo_g13_4041.switchOffSignal1 = false;
+  trafo_g13_4041.switchOffSignal2 = false;
+  trafo_g14_4042.switchOffSignal1 = false;
+  trafo_g14_4042.switchOffSignal2 = false;
+  trafo_g15_4047.switchOffSignal1 = false;
+  trafo_g15_4047.switchOffSignal2 = false;
+  trafo_g16_4051.switchOffSignal1 = false;
+  trafo_g16_4051.switchOffSignal2 = false;
+  trafo_g17_4062.switchOffSignal1 = false;
+  trafo_g17_4062.switchOffSignal2 = false;
+  trafo_g18_4063.switchOffSignal1 = false;
+  trafo_g18_4063.switchOffSignal2 = false;
+  trafo_g19_4071.switchOffSignal1 = false;
+  trafo_g19_4071.switchOffSignal2 = false;
+  trafo_g20_4072.switchOffSignal1 = false;
+  trafo_g20_4072.switchOffSignal2 = false;
+  trafo_1011_4011.switchOffSignal1 = false;
+  trafo_1011_4011.switchOffSignal2 = false;
+  trafo_1012_4012.switchOffSignal1 = false;
+  trafo_1012_4012.switchOffSignal2 = false;
+  trafo_1022_4022.switchOffSignal1 = false;
+  trafo_1022_4022.switchOffSignal2 = false;
+  trafo_1044_4044a.switchOffSignal1 = false;
+  trafo_1044_4044a.switchOffSignal2 = false;
+  trafo_1044_4044b.switchOffSignal1 = false;
+  trafo_1044_4044b.switchOffSignal2 = false;
+  trafo_1045_4045a.switchOffSignal1 = false;
+  trafo_1045_4045a.switchOffSignal2 = false;
+  trafo_1045_4045b.switchOffSignal1 = false;
+  trafo_1045_4045b.switchOffSignal2 = false;
+  trafo_2031_4031.switchOffSignal1 = false;
+  trafo_2031_4031.switchOffSignal2 = false;
 
   connect(g20.terminal, bus_BG20.terminal) annotation(
     Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));

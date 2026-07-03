@@ -9,11 +9,11 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 
-model IntegratorVariableLimits "Integrator with limited value of output (variable limits) and freeze"
+model IntegratorVariableLimits "Integrator with variable limits on output and frozen integration on the limits"
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
   parameter Types.Time tDer = 0.01 "Time constant of derivative filters for limits, in s";
@@ -41,8 +41,6 @@ equation
   derLimitMax = derivativeLimitMax.y;
   derLimitMin = derivativeLimitMin.y;
 
-  v = K * u;
-
   startFreezingMax = w > limitMax and v > derLimitMax;
   keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > derLimitMax and pre(isFrozenMax);
   isFrozenMax = startFreezingMax or keepFreezingMax;
@@ -50,6 +48,8 @@ equation
   startFreezingMin = w < limitMin and v < derLimitMin;
   keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < derLimitMin and pre(isFrozenMin);
   isFrozenMin = startFreezingMin or keepFreezingMin;
+
+  v = K * u;
 
   if isFrozenMax then
     w = limitMax;

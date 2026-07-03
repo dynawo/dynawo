@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,11 +9,11 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 
-model IntegratorVariableLimitsAntiWindupContinuous "Integrator with limited value of output (variable limits) and anti-windup"
+model IntegratorVariableLimitsAntiWindupContinuous "Integrator with variable limits on output, frozen integration on the limits and anti-windup, based on continuous functions"
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
   parameter Types.PerUnit Kaw "Antiwindup gain";
@@ -25,10 +25,10 @@ protected
   Types.PerUnit kFreezeMin "Freeze coefficient for lower limit";
 
 equation
-  v = K * u + Kaw * (y - w);
-
   kFreezeMax = (1 / 4) * (1 + tanh((w - limitMax) / TolOutput)) * (1 + tanh(v / TolInput));
   kFreezeMin = (1 / 4) * (1 + tanh((limitMin - w) / TolOutput)) * (1 - tanh(v / TolInput));
+
+  v = K * u + Kaw * (y - w);
 
   der(w) = v * (1 - kFreezeMax - kFreezeMin);
 

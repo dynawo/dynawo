@@ -17,7 +17,7 @@ model ShuntBWithSections "Shunt element with voltage-dependent reactive power an
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffShunt;
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
-  Dynawo.Connectors.ZPin section(value(start = section0)) "Section position of the shunt";
+  discrete Modelica.Blocks.Interfaces.RealInput section(start = section0) "Section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
   parameter String TableBPuName "Name of the table to calculate BPu from the section of the shunt";
@@ -35,13 +35,17 @@ model ShuntBWithSections "Shunt element with voltage-dependent reactive power an
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at shunt terminal in pu (base UNom, SnRef, receptor convention)";
 
 equation
-  section.value = tableBPu.u[1];
+  section = tableBPu.u[1];
   BPu = tableBPu.y[1];
-  UPu = ComplexMath.'abs'(terminal.V);
+  if ((terminal.V.re == 0) and (terminal.V.im == 0)) then
+    UPu = 0;
+  else
+    UPu = ComplexMath.'abs'(terminal.V);
+  end if;
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
 
-  if (running.value) then
+  if running then
     QPu = - BPu * UPu ^ 2;
     PPu = 0;
   else

@@ -23,28 +23,29 @@ model UVA "Under-Voltage Automaton"
   parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in pu (base UNom)";
   parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
 
-  Types.VoltageModulePu UMonitoredPu "Monitored voltage in pu (base UNom)";
-  Dynawo.Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
+  Dynawo.Connectors.VoltageModulePuConnector UMonitoredPu "Monitored voltage in pu (base UNom)";
+  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the generator";
 
 protected
   Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached";
 
 equation
   // Voltage comparison with the minimum accepted value
-  when UMonitoredPu <= UMinPu and not(pre(switchOffSignal.value)) then
+  when UMonitoredPu <= UMinPu and not(pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.UVAArming);
-  elsewhen UMonitoredPu > UMinPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
+  elsewhen UMonitoredPu > UMinPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.UVADisarming);
   end when;
 
   // Delay before tripping the generator
   when time - tThresholdReached >= tLagAction then
-    switchOffSignal.value = true;
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.UVATripped);
   end when;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>This model will send a tripping order to a generator if the voltage stays below a threshold during a certain amount of time.</body></html>"));
 end UVA;

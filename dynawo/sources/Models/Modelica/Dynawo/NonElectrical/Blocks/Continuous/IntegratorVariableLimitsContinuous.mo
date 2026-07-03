@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,11 +9,11 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 
-model IntegratorVariableLimitsContinuous "Integrator with limited value of output (variable limits) and freeze"
+model IntegratorVariableLimitsContinuous "Integrator with variable limits on output and frozen integration on the limits, based on continuous functions"
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
   parameter Types.Time tDer = 1e-3 "Time constant of derivative filter for limits in s";
@@ -35,10 +35,10 @@ equation
   derLimitMax = derivativeLimitMax.y;
   derLimitMin = derivativeLimitMin.y;
 
-  v = K * u;
-
   kFreezeMax = (1 / 4) * (1 + tanh((w - limitMax) / TolOutput)) * (1 + tanh((v - derLimitMax) / TolInput));
   kFreezeMin = (1 / 4) * (1 + tanh((limitMin - w) / TolOutput)) * (1 + tanh((derLimitMin - v) / TolInput));
+
+  v = K * u;
 
   der(w) = derLimitMax * kFreezeMax + derLimitMin * kFreezeMin + v * (1 - kFreezeMax - kFreezeMin);
 

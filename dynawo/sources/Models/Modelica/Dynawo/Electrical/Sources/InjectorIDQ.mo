@@ -61,7 +61,7 @@ equation
   QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
   PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
 
-  if running.value then
+  if running then
     // Park's transformations dq-currents in generator convention, -> receptor convention for terminal
     terminal.i.re = -(cos(UPhase) * idPu - sin(UPhase) * iqPu) * SNom / SystemBase.SnRef;
     terminal.i.im = -(sin(UPhase) * idPu + cos(UPhase) * iqPu) * SNom / SystemBase.SnRef;

@@ -32,7 +32,7 @@ model Ac6c "IEEE excitation system type AC6C model (2016 standard)"
   Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
-    Placement(visible = true, transformation(origin = {70, 6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters (inputs)
   parameter Types.VoltageModulePu UOel0Pu "Overexcitation limitation initial output voltage in pu (base UNom)";
@@ -81,7 +81,7 @@ equation
   connect(limitedLeadLag.y, max1.u[1]) annotation(
     Line(points = {{-38, 0}, {0, 0}}, color = {0, 0, 127}));
   connect(max1.y, min1.u[1]) annotation(
-    Line(points = {{22, 6}, {60, 6}}, color = {0, 0, 127}));
+    Line(points = {{22, 0}, {60, 0}}, color = {0, 0, 127}));
   connect(min1.y, feedback.u1) annotation(
     Line(points = {{82, 0}, {112, 0}}, color = {0, 0, 127}));
 

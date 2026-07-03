@@ -19,6 +19,9 @@ set(MODEL_FILES
   GeneratorPQ.mo
   GeneratorPQ.extvar
   GeneratorPQ_INIT.mo
+  GeneratorPTanPhi.mo
+  GeneratorPTanPhi.extvar
+  GeneratorPTanPhi_INIT.mo
   GeneratorPV.mo
   GeneratorPV.extvar
   GeneratorPVDiagramPQ.mo

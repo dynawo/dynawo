@@ -20,6 +20,13 @@ model St6b "IEEE exciter type ST6B model (2005 standard)"
     sum1.nin = 2,
     sum2.nin = 3);
 
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max1 annotation(
+    Placement(visible = true, transformation(origin = {-230, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min1 annotation(
+    Placement(visible = true, transformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min2 annotation(
+    Placement(transformation(origin = {210, -80}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   if PositionOel == 1 then
     sum1.u[2] = UOelPu;
@@ -57,9 +64,17 @@ equation
   connect(min4.y, product.u2) annotation(
     Line(points = {{281, -20}, {340, -20}, {340, -6}, {358, -6}}, color = {0, 0, 127}));
   connect(UUelPu, max1.u2) annotation(
-    Line(points = {{-460, -120}, {-260, -120}, {-260, -60}, {-240, -60}}, color = {0, 0, 127}));
+    Line(points = {{-460, -120}, {-260, -120}, {-260, -66}, {-240, -66}}, color = {0, 0, 127}));
   connect(const3.y, limPI1.limitMax) annotation(
     Line(points = {{-158, 0}, {-80, 0}, {-80, -94}, {-62, -94}}, color = {0, 0, 127}));
+  connect(sum1.y, max1.u1) annotation(
+    Line(points = {{-278, -60}, {-260, -60}, {-260, -54}, {-240, -54}}, color = {0, 0, 127}));
+  connect(max1.y, min1.u1) annotation(
+    Line(points = {{-218, -60}, {-200, -60}, {-200, -54}, {-180, -54}}, color = {0, 0, 127}));
+  connect(min1.y, sum2.u[1]) annotation(
+    Line(points = {{-158, -60}, {-140, -60}, {-140, -100}, {-122, -100}}, color = {0, 0, 127}));
+  connect(min2.y, min4.u2) annotation(
+    Line(points = {{221, -80}, {240, -80}, {240, -26}, {258, -26}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end St6b;

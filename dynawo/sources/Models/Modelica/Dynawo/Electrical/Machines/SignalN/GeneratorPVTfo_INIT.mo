@@ -23,24 +23,27 @@ model GeneratorPVTfo_INIT "Initialisation model for generator PV based on Signal
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point at terminal in pu (base UNom)";
 
   Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator in pu (base UNom, SNom) (generator convention)";
-  Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
+  Dynawo.Connectors.ReactivePowerPuConnector QStator0Pu "Start value of stator reactive power in pu (base QNomAlt) (generator convention)";
   Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";
   Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
   Types.ComplexVoltagePu uStatorRef0Pu "Start value of complex voltage regulation set point at stator in pu (base UNom)";
-  Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
 
 protected
   Types.ComplexCurrentPu iRef0Pu "Start value of complex current reference at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.ComplexVoltagePu uRef0Pu "Start value of complex voltage reference at terminal in pu (base UNom)";
 
 equation
-  if QGen0Pu <= QMinPu and UStator0Pu >= UStatorRef0Pu then
+  if QGenRaw0Pu <= QMinPu and UStator0Pu >= UStatorRef0Pu then
     qStatus0 = QStatus.AbsorptionMax;
-  elseif QGen0Pu >= QMaxPu and UStator0Pu <= UStatorRef0Pu then
+    QGen0Pu = QMinPu;
+  elseif QGenRaw0Pu >= QMaxPu and UStator0Pu <= UStatorRef0Pu then
     qStatus0 = QStatus.GenerationMax;
+    QGen0Pu = QMaxPu;
   else
     qStatus0 = QStatus.Standard;
+    QGen0Pu = QGenRaw0Pu;
   end if;
 
   uRef0Pu = ComplexMath.fromPolar(URef0Pu, UPhase0);

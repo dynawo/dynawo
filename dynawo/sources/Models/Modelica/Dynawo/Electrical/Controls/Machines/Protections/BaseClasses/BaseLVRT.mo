@@ -28,17 +28,17 @@ model BaseLVRT "Low-voltage ride-through protection"
 
   input Types.VoltageModulePu UMonitoredPu "Monitored voltage in pu (base UNom)";
 
-  Connectors.BPin switchOffSignal(value(start = false)) "Switch off message for the generator";
+  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the generator";
 
   Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached in s";
   Boolean[NbPoints] tripped(each start = false) "true if the protection tripped (for each point used to describe the LVRT curve)";
 
 equation
   // Voltage comparison with the minimum long-term sustainable value (i.e. last point, so highest point of the LVRT curve)
-  when UMonitoredPu <= UMinPu[NbPoints] and not (pre(switchOffSignal.value)) then
+  when UMonitoredPu <= UMinPu[NbPoints] and not (pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LVRTArming);
-  elsewhen UMonitoredPu > UMinPu[NbPoints] and pre(tThresholdReached) <> Constants.inf and not (pre(switchOffSignal.value)) then
+  elsewhen UMonitoredPu > UMinPu[NbPoints] and pre(tThresholdReached) <> Constants.inf and not (pre(switchOffSignal)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
   end when;
@@ -52,13 +52,13 @@ equation
     assert(tLagAction[i] <= tLagAction[i+1], "values of tLagAction should be in increasing order");
     assert(UMinPu[i] <= UMinPu[i+1], "values of UMinPu should be in increasing order");
 
-    when UMonitoredPu < UMinPu[i+1] and UMonitoredPu > UMinPu[i] and time - tThresholdReached >= tLagAction[i] + (tLagAction[i+1] - tLagAction[i]) * (UMonitoredPu-UMinPu[i])/max(UMinPu[i+1]-UMinPu[i], 1e-6) and not(pre(tripped[i+1])) then
+    when UMonitoredPu < UMinPu[i+1] and UMonitoredPu > UMinPu[i] and time - tThresholdReached >= tLagAction[i] + (tLagAction[i+1] - tLagAction[i]) * (UMonitoredPu - UMinPu[i]) / (if UMinPu[i+1] - UMinPu[i] > 1e-6 then UMinPu[i+1] - UMinPu[i] else 1e-6) and not(pre(tripped[i+1])) then
       tripped[i+1] = true;
     end when;
   end for;
 
   when anyTrue(tripped) then
-    switchOffSignal.value = true;
+    switchOffSignal = true;
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
   end when;
 

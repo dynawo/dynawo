@@ -18,6 +18,7 @@ partial model BaseIEEEX "IEEE excitation system base model"
   //Regulation parameters
   parameter Types.PerUnit AEx "Gain of saturation function";
   parameter Types.PerUnit BEx "Exponential coefficient of saturation function";
+  parameter Types.VoltageModulePu EfdMaxPu "Maximum excitation voltage in pu (user-selected base voltage) (IEEE standard value : 999)";
   parameter Types.VoltageModulePu EfdMinPu "Minimum excitation voltage in pu (user-selected base voltage)";
   parameter Types.PerUnit Ka "Voltage regulator gain";
   parameter Types.PerUnit Ke "Exciter field proportional constant";
@@ -51,13 +52,13 @@ partial model BaseIEEEX "IEEE excitation system base model"
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tC, 1}, x_start = {Va0Pu / Ka}, y_start = Va0Pu / Ka) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tB, 1}, b = {tC, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Va0Pu / Ka) annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.LimitedFirstOrder limitedFirstOrder(K = Ka, Y0 = Va0Pu, YMax = VrMaxPu, YMin = VrMinPu, tFilter = tA) annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1 / tE, outMax = 999, outMin = EfdMinPu, y_start = Efd0Pu) annotation(
+  Modelica.Blocks.Continuous.LimIntegrator limIntegrator(k = 1 / tE, outMax = EfdMaxPu, outMin = EfdMinPu, y_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k1 = AEx) annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

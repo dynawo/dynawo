@@ -16,6 +16,7 @@ set(MODEL_FILES
   CurrentLimitsCalculationC.mo
   IqInjectionLogic.mo
   LineDropCompensation.mo
+  LowVoltagePowerLogic.mo
   UdqRef.mo
   VoltageCheck.mo
   VSourceRef.mo

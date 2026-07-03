@@ -37,6 +37,8 @@ model Line "AC power line - PI model"
   parameter Types.PerUnit GPu "Half-conductance in pu (base SnRef)";
   parameter Types.PerUnit BPu "Half-susceptance in pu (base SnRef)";
 
+  Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
+  Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
@@ -47,7 +49,7 @@ protected
   parameter Types.ComplexAdmittancePu YPu(re = GPu, im = BPu) "Line half-admittance";
 
 equation
-  if (running.value) then
+  if running then
     ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
     ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
   else
@@ -55,6 +57,8 @@ equation
     terminal2.i = Complex(0);
   end if;
 
+  ISide1 = ComplexMath.'abs'(terminal1.i);
+  ISide2 = ComplexMath.'abs'(terminal2.i);
   P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
   Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));

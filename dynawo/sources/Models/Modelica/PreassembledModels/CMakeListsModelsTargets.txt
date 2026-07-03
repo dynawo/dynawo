@@ -34,7 +34,7 @@ file(GLOB Bus Bus.xml)
 file(GLOB Events Event*.xml)
 file(GLOB Generators Generator*.xml)
 file(GLOB SynchronousGenerators GeneratorSynchronous*.xml)
-file(GLOB GridForming GridForming*.xml)
+file(GLOB GridForming DynGridForming*.xml GridForming*.xml)
 file(GLOB Hvdcs Hvdc*.xml *HVDC*.xml)
 file(GLOB InfiniteBus InfiniteBus*.xml)
 file(GLOB Line Line.xml)
@@ -81,6 +81,13 @@ foreach(iec IN LISTS IEC)
   add_dependencies_if_exists(IEC_MODELS ${name})
 endforeach()
 
+## WECC
+add_custom_target(WECC_MODELS)
+file(STRINGS "WeccModels.txt" WECC_MODELS_LIST)
+foreach(wecc_model IN LISTS WECC_MODELS_LIST)
+  add_dependencies_if_exists(WECC_MODELS ${wecc_model})
+endforeach()
+
 ## SMIB
 
 add_custom_target(SMIB_MODELS)
@@ -125,12 +132,16 @@ endforeach()
 add_custom_target(NRT_MODELS)
 file(STRINGS "NrtModels.txt" NRT_MODELS_LIST)
 foreach(nrt_model IN LISTS NRT_MODELS_LIST)
-  #add_dependencies_if_exists(NRT_MODELS ${nrt_model})
+  add_dependencies_if_exists(NRT_MODELS ${nrt_model})
 endforeach()
 
 ## Nrt-extend models
 add_custom_target(NRT_EXTEND_MODELS)
 file(STRINGS "NrtExtendModels.txt" NRT_EXTEND_MODELS_LIST)
 foreach(nrt_extend_model IN LISTS NRT_EXTEND_MODELS_LIST)
-  #add_dependencies_if_exists(NRT_EXTEND_MODELS ${nrt_extend_model})
+  add_dependencies_if_exists(NRT_EXTEND_MODELS ${nrt_extend_model})
 endforeach()
+
+## Nrt dynawo-algorithms
+add_custom_target(DYNAWO_ALGORITHMS_MODELS)
+add_dependencies_if_exists_list(DYNAWO_ALGORITHMS_MODELS EventQuadripoleDisconnection EventSetPointBoolean GeneratorSynchronousFourWindingsProportionalRegulations GeneratorSynchronousThreeWindingsProportionalRegulations LoadAlphaBeta NodeFault)

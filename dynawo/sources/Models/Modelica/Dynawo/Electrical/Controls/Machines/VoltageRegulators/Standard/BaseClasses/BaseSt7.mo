@@ -58,7 +58,7 @@ partial model BaseSt7 "IEEE excitation system type ST7 base model"
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-330, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tB, 1}, b = {tC, 1}, x_start = {(1 + Kia) * Efd0Pu}, y_start = (1 + Kia) * Efd0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tB, 1}, b = {tC, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = (1 + Kia) * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VMaxPu, uMin = VMinPu) annotation(
     Placement(visible = true, transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -88,7 +88,7 @@ partial model BaseSt7 "IEEE excitation system type ST7 base model"
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k3 = -1) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tF, 1}, b = {tG, 1}, x_start = {Us0Pu}, y_start = Us0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tF, 1}, b = {tG, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tIa, k = Kia, y_start = Kia * Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {310, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

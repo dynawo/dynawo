@@ -14,8 +14,22 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses_INIT;
 */
 
 partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for SignalN generator models with PQ diagram"
-  extends Machines.BaseClasses_INIT.BaseGeneratorParameters_INIT;
   extends AdditionalIcons.Init;
+
+  parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
+
+  Dynawo.Connectors.ActivePowerPuConnector PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QGenRaw0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
+  Dynawo.Connectors.ReactivePowerPuConnector QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) with limits (generator convention)";
+  Dynawo.Connectors.VoltageModulePuConnector U0PuVar "Start value of voltage amplitude at terminal in pu (base UNom)";
+
+  Dynawo.Connectors.ComplexVoltagePuConnector u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
+  Dynawo.Connectors.ComplexCurrentPuConnector i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
   parameter Types.ActivePowerPu PMax "Maximum active power in MW";
   parameter Types.ActivePowerPu PMin "Minimum active power in MW";
@@ -26,8 +40,8 @@ partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for 
                              AbsorptionMax "Reactive power is fixed to its absorption limit",
                              GenerationMax "Reactive power is fixed to its generation limit");
 
-  Boolean limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
-  Boolean limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQDown0(start = false) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator), start value";
+  Modelica.Blocks.Interfaces.BooleanOutput limUQUp0(start = false) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator), start value";
   Types.ActivePowerPu PMaxPu "Maximum active power in pu (base SnRef)";
   Types.ActivePowerPu PMinPu "Minimum active power in pu (base SnRef)";
   Types.ReactivePowerPu QMax0Pu "Start value of maximum reactive power in pu (base SnRef)";
@@ -35,6 +49,15 @@ partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for 
   QStatus qStatus0(start = QStatus.Standard) "Start voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
+  U0PuVar = U0Pu;
+  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
+  s0Pu = Complex(P0Pu, Q0Pu);
+  s0Pu = u0Pu * ComplexMath.conj(i0Pu);
+
+  // Convention change
+  PGen0Pu = -P0Pu;
+  QGenRaw0Pu = -Q0Pu;
+
   PMinPu = PMin / Dynawo.Electrical.SystemBase.SnRef;
   QMin0Pu = QMin0 / Dynawo.Electrical.SystemBase.SnRef;
   PMaxPu = PMax / Dynawo.Electrical.SystemBase.SnRef;

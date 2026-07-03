@@ -25,7 +25,7 @@ model HvdcVscDanglingUDc_INIT "Initialisation model for the HVDC VSC model with 
   parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base UNom)";
   parameter Types.Angle UPhase10 "Start value of voltage angle at terminal 1 in rad";
 
-  flow Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
+  Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in pu (base SnRef, UNom) (AC to DC)";
   Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in pu (base SNom, UNom) (DC to AC)";
   Boolean ModeU10 "Initial mode of control on side 1 : if true, U mode, if false, Q mode";
@@ -35,7 +35,7 @@ model HvdcVscDanglingUDc_INIT "Initialisation model for the HVDC VSC model with 
   Types.PerUnit UDc10Pu "Start value of DC voltage at terminal 1 in pu (base UDcNom)";
   Types.PerUnit UDc20Pu "Start value of DC voltage at terminal 2 in pu (base UDcNom)";
   Types.VoltageModulePu UDcRef0Pu "Start value of DC voltage reference in pu (base UDcNom)";
-  Types.VoltageModulePu URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuConnector URef10Pu "Start value of the voltage reference for the side 1 of the HVDC link in pu (base UNom)";
 
 equation
   UDcRef0Pu = 1;

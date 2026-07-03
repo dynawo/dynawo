@@ -45,7 +45,7 @@ protected
 
 equation
   IConvSquarePu = idConvPu ^ 2 + iqConvPu ^ 2;
-  DeltaIConvSquarePu = max((IConvSquarePu - IMaxVI ^ 2), 0);
+  DeltaIConvSquarePu = if IConvSquarePu > IMaxVI ^ 2 then IConvSquarePu - IMaxVI ^ 2 else 0;
   RVI = KpVI * DeltaIConvSquarePu;
   XVI = RVI * XRratio;
   DeltaVVId = idConvPu * RVI - iqConvPu * XVI;

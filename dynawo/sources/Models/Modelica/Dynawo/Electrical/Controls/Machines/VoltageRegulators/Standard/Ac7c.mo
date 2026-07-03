@@ -59,15 +59,15 @@ model Ac7c "IEEE exciter type AC7C model (2016 standard)"
     Placement(visible = true, transformation(origin = {210, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = Kr) annotation(
     Placement(visible = true, transformation(origin = {390, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max1 annotation(
     Placement(visible = true, transformation(origin = {-230, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min1 annotation(
     Placement(visible = true, transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {-170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max2 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max3 max2 annotation(
     Placement(visible = true, transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min2 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min3 min2 annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {210, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -91,57 +91,73 @@ equation
 
   if PositionOel == 1 then
     sum1.u[3] = UOelPu;
-    min1.u2 = if PositionScl == 2 then USclOelPu else min1.u1;
-    min2.u2 = if PositionScl == 3 then USclOelPu else min2.u1;
+    min1.u[2] = min1.u[1];
+    min2.u[2] = min2.u[1];
     min3.u1 = min3.u2;
   elseif PositionOel == 2 then
     sum1.u[3] = 0;
-    min1.u2 = if PositionScl == 2 then min(UOelPu, USclOelPu) else UOelPu;
-    min2.u2 = if PositionScl == 3 then USclOelPu else min2.u1;
+    min1.u[2] = UOelPu;
+    min2.u[2] = min2.u[1];
     min3.u1 = min3.u2;
   elseif PositionOel == 3 then
     sum1.u[3] = 0;
-    min1.u2 = if PositionScl == 2 then USclOelPu else min1.u1;
-    min2.u2 = if PositionScl == 3 then min(UOelPu, USclOelPu) else UOelPu;
+    min1.u[2] = min1.u[1];
+    min2.u[2] = UOelPu;
     min3.u1 = min3.u2;
   elseif PositionOel == 4 then
     sum1.u[3] = 0;
-    min1.u2 = if PositionScl == 2 then USclOelPu else min1.u1;
-    min2.u2 = if PositionScl == 3 then USclOelPu else min2.u1;
+    min1.u[2] = min1.u[1];
+    min2.u[2] = min2.u[1];
     min3.u1 = UOelPu;
   else
     sum1.u[3] = 0;
-    min1.u2 = if PositionScl == 2 then USclOelPu else min1.u1;
-    min2.u2 = if PositionScl == 3 then USclOelPu else min2.u1;
+    min1.u[2] = min1.u[1];
+    min2.u[2] = min2.u[1];
     min3.u1 = min3.u2;
   end if;
 
   if PositionUel == 1 then
     sum1.u[4] = UUelPu;
-    max1.u2 = if PositionScl == 2 then USclUelPu else max1.u1;
-    max2.u2 = if PositionScl == 3 then USclUelPu else max2.u1;
+    max1.u[2] = max1.u[1];
+    max2.u[2] = max2.u[1];
   elseif PositionUel == 2 then
     sum1.u[4] = 0;
-    max1.u2 = if PositionScl == 2 then max(UUelPu, USclUelPu) else UUelPu;
-    max2.u2 = if PositionScl == 3 then USclUelPu else max2.u1;
+    max1.u[2] = UUelPu;
+    max2.u[2] = max2.u[1];
   elseif PositionUel == 3 then
     sum1.u[4] = 0;
-    max1.u2 = if PositionScl == 2 then USclUelPu else max1.u1;
-    max2.u2 = if PositionScl == 3 then max(UUelPu, USclUelPu) else UUelPu;
+    max1.u[2] = max1.u[1];
+    max2.u[2] = UUelPu;
   else
     sum1.u[4] = 0;
-    max1.u2 = if PositionScl == 2 then USclUelPu else max1.u1;
-    max2.u2 = if PositionScl == 3 then USclUelPu else max2.u1;
+    max1.u[2] = max1.u[1];
+    max2.u[2] = max2.u[1];
   end if;
 
   if PositionScl == 1 then
     sum1.u[5] = USclOelPu + USclUelPu;
+    max1.u[3] = max1.u[1];
+    min1.u[3] = min1.u[1];
+    max2.u[3] = max2.u[1];
+    min2.u[3] = min2.u[1];
   elseif PositionScl == 2 then
     sum1.u[5] = 0;
+    max1.u[3] = USclUelPu;
+    min1.u[3] = USclOelPu;
+    max2.u[3] = max2.u[1];
+    min2.u[3] = min2.u[1];
   elseif PositionScl == 3 then
     sum1.u[5] = 0;
+    max1.u[3] = max1.u[1];
+    min1.u[3] = min1.u[1];
+    max2.u[3] = USclUelPu;
+    min2.u[3] = USclOelPu;
   else
     sum1.u[5] = 0;
+    max1.u[3] = max1.u[1];
+    min1.u[3] = min1.u[1];
+    max2.u[3] = max2.u[1];
+    min2.u[3] = min2.u[1];
   end if;
 
   connect(acRotatingExciter.EfdPu, EfdPu) annotation(
@@ -182,18 +198,18 @@ equation
     Line(points = {{380, 60}, {180, 60}, {180, 72}, {198, 72}}, color = {0, 0, 127}));
   connect(switch1.y, product.u1) annotation(
     Line(points = {{222, 80}, {240, 80}, {240, 6}, {258, 6}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(feedback.y, max1.u1) annotation(
-    Line(points = {{-270, -40}, {-260, -40}, {-260, -34}, {-240, -34}}, color = {0, 0, 127}));
+  connect(feedback.y, max1.u[1]) annotation(
+    Line(points = {{-270, -40}, {-240, -40}}, color = {0, 0, 127}));
   connect(max1.y, add2.u1) annotation(
     Line(points = {{-218, -40}, {-200, -40}, {-200, -34}, {-182, -34}}, color = {0, 0, 127}));
-  connect(add2.y, min1.u1) annotation(
-    Line(points = {{-158, -40}, {-140, -40}, {-140, -34}, {-120, -34}}, color = {0, 0, 127}));
+  connect(add2.y, min1.u[1]) annotation(
+    Line(points = {{-158, -40}, {-120, -40}}, color = {0, 0, 127}));
   connect(min1.y, pid.u_s) annotation(
     Line(points = {{-99, -40}, {-82, -40}}, color = {0, 0, 127}));
-  connect(pid.y, max2.u1) annotation(
-    Line(points = {{-58, -40}, {-40, -40}, {-40, -34}, {-20, -34}}, color = {0, 0, 127}));
-  connect(max2.y, min2.u1) annotation(
-    Line(points = {{2, -40}, {20, -40}, {20, -34}, {38, -34}}, color = {0, 0, 127}));
+  connect(pid.y, max2.u[1]) annotation(
+    Line(points = {{-58, -40}, {-20, -40}}, color = {0, 0, 127}));
+  connect(max2.y, min2.u[1]) annotation(
+    Line(points = {{2, -40}, {38, -40}}, color = {0, 0, 127}));
   connect(limitedPI.y, min3.u2) annotation(
     Line(points = {{162, -40}, {180, -40}, {180, -26}, {198, -26}}, color = {0, 0, 127}));
   connect(min3.y, product.u2) annotation(

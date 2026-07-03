@@ -26,14 +26,14 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid" annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Input connectors
-  Dynawo.Connectors.ZPin tap(value(start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
+  // Input connector
+  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)";
 
   // Output connectors
-  Dynawo.Connectors.ImPin U1Pu(value(start = U10Pu)) "Absolute voltage on side 1";
-  Dynawo.Connectors.ImPin P1Pu(value(start = P10Pu)) "Active power on side 1";
-  Dynawo.Connectors.ImPin Q1Pu(value(start = Q10Pu)) "Reactive power on side 1";
-  Dynawo.Connectors.ImPin U2Pu(value(start = U20Pu)) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
+  Modelica.Blocks.Interfaces.RealOutput U1Pu(start = U10Pu) "Absolute voltage on side 1";
+  Modelica.Blocks.Interfaces.RealOutput P1Pu(start = P10Pu) "Active power on side 1";
+  Modelica.Blocks.Interfaces.RealOutput Q1Pu(start = Q10Pu) "Reactive power on side 1";
+  Modelica.Blocks.Interfaces.RealOutput U2Pu(start = U20Pu) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   // Parameters coming from the initialization process
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in pu (base U1Nom)";
@@ -53,26 +53,36 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   discrete Types.PerUnit rTfoPu(start = rTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
 
 equation
-  when (tap.value <> pre(tap.value)) then
+  when (tap <> pre(tap)) then
     // Transformer ratio calculation
     if (NbTap == 1) then
       rTfoPu = rTfoMinPu;
     else
-      rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap.value / (NbTap - 1));
+      rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap / (NbTap - 1));
     end if;
   end when;
 
-  if (running.value) then
+  if running then
     // Variables for display or connection to another model (tap-changer for example)
-    P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
-    Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-    U1Pu.value = ComplexMath.'abs'(terminal1.V);
-    U2Pu.value = ComplexMath.'abs'(terminal2.V);
+    P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
+    Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
+
+    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
+      U1Pu = 0;
+    else
+      U1Pu = ComplexMath.'abs'(terminal1.V);
+    end if;
+
+    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
+      U2Pu = 0;
+    else
+      U2Pu = ComplexMath.'abs'(terminal2.V);
+    end if;
   else
-    P1Pu.value = 0;
-    Q1Pu.value = 0;
-    U1Pu.value = 0;
-    U2Pu.value = 0;
+    P1Pu = 0;
+    Q1Pu = 0;
+    U1Pu = 0;
+    U2Pu = 0;
   end if;
 
   annotation(preferredView = "text");

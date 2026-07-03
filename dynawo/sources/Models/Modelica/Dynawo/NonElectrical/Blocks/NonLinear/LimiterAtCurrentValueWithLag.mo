@@ -17,7 +17,13 @@ block LimiterAtCurrentValueWithLag "Limiter that enforces saturations only after
   extends Dynawo.NonElectrical.Blocks.NonLinear.BaseClasses.BaseLimiterWithLag;
 
 equation
-  y = if (time - tUMinReached >= LagMin) then pre(y) elseif (time - tUMaxReached >= LagMax) then UMax else u;
+  if (time - tUMinReached >= LagMin) then
+    der(y) = 0;
+  elseif (time - tUMaxReached >= LagMax) then
+    y= UMax;
+  else
+    y = u;
+  end if;
 
   annotation(preferredView = "text");
 end LimiterAtCurrentValueWithLag;

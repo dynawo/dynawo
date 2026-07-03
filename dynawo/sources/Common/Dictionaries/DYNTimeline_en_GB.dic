@@ -24,6 +24,10 @@ CurrentLimitAutomatonDisarming =        CLA : disarming by under-current constra
 GeneratorPVMaxQ           =             PV Generator : max reactive power limit reached
 GeneratorPVMinQ           =             PV Generator : min reactive power limit reached
 GeneratorPVBackRegulation =             PV Generator : back to voltage regulation
+// --> Generator PTanPhi
+GeneratorPTanPhiMaxQ           =        PTanPhi Generator : max reactive power limit reached
+GeneratorPTanPhiMinQ           =        PTanPhi Generator : min reactive power limit reached
+GeneratorPTanPhiBackRegulation =        PTanPhi Generator : back to reactive power following active power
 // --> ReactivePowerControlLoop
 RPCLLimitationUsRefMin    =             Reactive Power Control Loop : min voltage reference limit reached (UStatorRefMin)
 RPCLLimitationUsRefMax    =             Reactive Power Control Loop : max voltage reference limit reached (UStatorRefMax)
@@ -46,8 +50,8 @@ HVDC2MaxQ           =             HVDC : maximum reactive power limit reached fo
 HVDC2MinQ           =             HVDC : minimum reactive power limit reached for converter 2
 HVDC2BackRegulation =             HVDC : back to voltage / reactive power regulation for converter 2
 // --> BaseTapChangerPhaseShifter
-TapUp                     =             Tap position change (increment)
-TapDown                   =             Tap position change (decrement)
+TapUp              =             Tap position change (increment) - value : %1%%2%
+TapDown            =             Tap position change (decrement) - value : %1%%2%
 // --> Tap-Changer
 TapChangerSwitchOn        =             Tap-changer : switched on
 TapChangerSwitchOff       =             Tap-changer : switched off
@@ -111,6 +115,9 @@ OverloadOpen              =             Overload %1% : opening line
 // --> NodeFault
 NodeFaultEnd              =             Fault (node) : end
 NodeFaultBegin            =             Fault (node) : beginning
+// --> LineFault
+LineFaultEnd              =             Fault (line) : end
+LineFaultBegin            =             Fault (line) : beginning
 // --> Ideal Switch
 IdealSwitchSwitchOff      =             Ideal switch opened
 IdealSwitchSwitchOn       =             Ideal switch closed
@@ -125,6 +132,8 @@ LVRTDisarming              =              LVRT automaton for generator disarming
 HVRTTripped                =              HVRT generator tripped
 HVRTArming                 =              HVRT automaton for generator arming
 HVRTDisarming              =              HVRT automaton for generator disarming
+// --> Aggregated IBG
+PartialTripping           =             Partial tripping ongoing
 // --> Distance protection
 DistanceTrippedZone1       =              Distance protection tripped zone 1
 DistanceTrippedZone2       =              Distance protection tripped zone 2
@@ -173,6 +182,9 @@ MotorDisconnected          =             Motor : disconnecting
 // --> DYNCentralizedShuntsSectionControl Model
 CSSCSectionUp              =               Section of shunt %1% +1
 CSSCSectionDown            =               Section of shunt %1% -1
+// --> LackOfVoltageRelay Model
+LOVROpeningTriggered       =               Lack of Voltage Relay triggered opening of its switch.
+LOVRClosingTriggered       =               Lack of Voltage Relay triggered closing of its switch.
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off
@@ -237,6 +249,7 @@ SignalReceived            =             Simulation stopped : one interrupt signa
 //-------------  Criteria not checked  --------------------------------------
 BusUnderVoltage             =           node: %1% has a voltage %2% kV (%3% pu) < %4% kV (%5% pu) (criteria id: %6%)
 BusAboveVoltage             =           node: %1% has a voltage %2% kV (%3% pu) > %4% kV (%5% pu) (criteria id: %6%)
+QuadripoleAboveCurrent      =           quadripole: %1% side %2% has a current %3% A > %4% A (criteria id: %5%)
 SourceUnderPower            =           node: %1% has a power %2%MW < %3%MW (criteria id: %4%)
 SourceAbovePower            =           node: %1% has a power %2%MW > %3%MW (criteria id: %4%)
 SourcePowerTakenIntoAccount =           power of %1% %2% was added into the total power sum (criteria id: %3%, power=%4%, V=%5%)

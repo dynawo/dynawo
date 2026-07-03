@@ -21,8 +21,8 @@ partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active
 
   type PStatus = enumeration(Standard "Active power is modulated by the frequency deviation", LimitPMin "Active power is fixed to its minimum value", LimitPMax "Active power is fixed to its maximum value");
 
-  Dynawo.Connectors.ImPin deltaPmRefPu(value(start = 0)) "Additional active power reference in pu (base PNom)";
-  Dynawo.Connectors.ImPin omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
+  Modelica.Blocks.Interfaces.RealInput deltaPmRefPu(start = 0) "Additional active power reference in pu (base PNom)";
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
 
   parameter Types.ActivePower PMin "Minimum active power in MW";
   parameter Types.ActivePower PMax "Maximum active power in MW";
@@ -52,8 +52,8 @@ equation
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
 
-  if running.value then
-    PGenRawPu = PGen0Pu + deltaPmRefPu.value * PNom / SystemBase.SnRef + AlphaPu * (1 - omegaRefPu.value);
+  if running then
+    PGenRawPu = PGen0Pu + deltaPmRefPu * PNom / SystemBase.SnRef + AlphaPu * (1 - omegaRefPu);
     PGenPu = if pStatus == PStatus.LimitPMax then PMaxPu else if pStatus == PStatus.LimitPMin then PMinPu else PGenRawPu;
   else
     PGenRawPu = 0;

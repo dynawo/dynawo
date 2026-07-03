@@ -17,22 +17,22 @@ model WT4ACurrentSource2015FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
   Dynawo.Electrical.Wind.IEC.WT.WT4ACurrentSource2015 wT4ACurrentSource(
-    BesPu = 0,
+    ConverterLVControl = false,
     DPMaxP4APu = 1,
     DfMaxPu = 1,
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
-    GesPu = 0,
-    IGsIm0Pu = 0.423168,
-    IGsRe0Pu = 0.930069,
+    GesPu = 0.0005,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
-    IpMax0Pu = 1.2,
+    Ip0Pu(fixed = false),
+    IpMax0Pu(fixed = false),
+    Iq0Pu(fixed = false),
     IqH1Pu = 1.05,
-    IqMax0Pu = 0.4,
+    IqMax0Pu(fixed = false),
     IqMaxPu = 1.05,
-    IqMin0Pu = -0.4,
+    IqMin0Pu(fixed = false),
     IqMinPu = -1.05,
     IqPostPu = 0,
     Kipaw = 100,
@@ -50,22 +50,19 @@ model WT4ACurrentSource2015FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     Mqpri = true,
     Mzc = false,
     P0Pu = -1,
-    PAg0Pu = 1,
     Q0Pu = 0.21,
-    QMax0Pu = 0.8,
+    QMax0Pu(fixed = false),
     QMaxPu = 0.8,
-    QMin0Pu = -0.8,
+    QMin0Pu(fixed = false),
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
-    ResPu = 0,
+    ResPu = 0.001,
     SNom = 100,
     TabletUunderUwtfilt12 = 0.5,
     TabletUunderUwtfilt22 = 0.5,
     TabletUunderUwtfilt32 = 0.5,
     U0Pu = 1,
-    UGsIm0Pu = 0.21823,
-    UGsRe0Pu = 0.975897,
     UMaxPu = 1.1,
     UMinPu = 0.9,
     UOverPu = 1.1,
@@ -74,16 +71,18 @@ model WT4ACurrentSource2015FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     UPll2Pu = 0.13,
     URef0Pu = 0,
     UUnderPu = 0.9,
+    UWt0DroppedPu(fixed = false),
     Udb1Pu = 0.9,
     Udb2Pu = 1.1,
     UpquMaxPu = 1.1,
     UqDipPu = 0.9,
     XDropPu = 0,
-    XWT0Pu = -0.21,
-    XesPu = 0,
+    XWT0Pu(fixed = false),
+    XesPu = 0.01,
     fOverPu = 1.1,
     fUnderPu = 0.9,
-    i0Pu = Complex(-0.930069, -0.423168),
+    i0Pu(re(fixed = false), im(fixed = false)),
+    iGs0Pu(re(fixed = false), im(fixed = false)),
     tG = 0.01,
     tPFiltQ = 0.01,
     tPFiltql = 0.01,
@@ -99,14 +98,14 @@ model WT4ACurrentSource2015FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     tUFiltql = 0.01,
     tfFilt = 0.01,
     tphiFilt = 0.02,
-    u0Pu = Complex(0.975897, 0.2183)) annotation(
+    u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Faults
-  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.4) annotation(
-    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0.4, tBegin = 12, tEnd = 12.15) annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Dynawo.Electrical.Events.NodeFault nodeFault1(RPu = 0, XPu = 0.09, tBegin = 6, tEnd = 6.4) annotation(
+    Placement(visible = true, transformation(origin = {70, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
 
   // Reference inputs
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 20) annotation(
@@ -118,16 +117,56 @@ model WT4ACurrentSource2015FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-equation
-  wT4ACurrentSource.wT4Injector.switchOffSignal1.value = false;
-  wT4ACurrentSource.wT4Injector.switchOffSignal2.value = false;
-  wT4ACurrentSource.wT4Injector.switchOffSignal3.value = false;
+  // Initialization
+  Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
+    BesPu = wT4ACurrentSource.BesPu,
+    GesPu = wT4ACurrentSource.GesPu,
+    IMaxPu = wT4ACurrentSource.IMaxPu,
+    Kpqu = wT4ACurrentSource.Kpqu,
+    MqG = wT4ACurrentSource.MqG,
+    P0Pu = wT4ACurrentSource.P0Pu,
+    Q0Pu = wT4ACurrentSource.Q0Pu,
+    QMaxPu = wT4ACurrentSource.QMaxPu,
+    QMinPu = wT4ACurrentSource.QMinPu,
+    QlConst = wT4ACurrentSource.QlConst,
+    RDropPu = wT4ACurrentSource.RDropPu,
+    ResPu = wT4ACurrentSource.ResPu,
+    SNom = wT4ACurrentSource.SNom,
+    U0Pu = wT4ACurrentSource.U0Pu,
+    UPhase0 = wT4ACurrentSource.UPhase0,
+    UpquMaxPu = wT4ACurrentSource.UpquMaxPu,
+    URef0Pu = wT4ACurrentSource.URef0Pu,
+    XDropPu = wT4ACurrentSource.XDropPu,
+    XesPu = wT4ACurrentSource.XesPu) annotation(
+    Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  connect(wT4ACurrentSource.terminal, transformer1.terminal1) annotation(
+initial algorithm
+  wT4ACurrentSource.Ip0Pu := wT4CurrentSource_INIT.Ip0Pu;
+  wT4ACurrentSource.IpMax0Pu := wT4CurrentSource_INIT.IpMax0Pu;
+  wT4ACurrentSource.Iq0Pu := wT4CurrentSource_INIT.Iq0Pu;
+  wT4ACurrentSource.IqMax0Pu := wT4CurrentSource_INIT.IqMax0Pu;
+  wT4ACurrentSource.IqMin0Pu := wT4CurrentSource_INIT.IqMin0Pu;
+  wT4ACurrentSource.QMax0Pu := wT4CurrentSource_INIT.QMax0Pu;
+  wT4ACurrentSource.QMin0Pu := wT4CurrentSource_INIT.QMin0Pu;
+  wT4ACurrentSource.UWt0DroppedPu := wT4CurrentSource_INIT.UWt0DroppedPu;
+  wT4ACurrentSource.XWT0Pu := wT4CurrentSource_INIT.XWT0Pu;
+  wT4ACurrentSource.i0Pu.re := wT4CurrentSource_INIT.i0Pu.re;
+  wT4ACurrentSource.i0Pu.im := wT4CurrentSource_INIT.i0Pu.im;
+  wT4ACurrentSource.iGs0Pu.re := wT4CurrentSource_INIT.iGs0Pu.re;
+  wT4ACurrentSource.iGs0Pu.im := wT4CurrentSource_INIT.iGs0Pu.im;
+  wT4ACurrentSource.u0Pu.re := wT4CurrentSource_INIT.u0Pu.re;
+  wT4ACurrentSource.u0Pu.im := wT4CurrentSource_INIT.u0Pu.im;
+
+equation
+  wT4ACurrentSource.wT4Injector.switchOffSignal1 = false;
+  wT4ACurrentSource.wT4Injector.switchOffSignal2 = false;
+  wT4ACurrentSource.wT4Injector.switchOffSignal3 = false;
+
+  connect(wT4ACurrentSource.terminal, transformer.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
-  connect(nodeFault.terminal, line.terminal2) annotation(
+  connect(nodeFault1.terminal, line2A.terminal2) annotation(
     Line(points = {{70, -40}, {70, -20}, {60, -20}}, color = {0, 0, 255}));
-  connect(nodeFault1.terminal, wT4ACurrentSource.terminal) annotation(
+  connect(nodeFault.terminal, wT4ACurrentSource.terminal) annotation(
     Line(points = {{-90, -40}, {-90, 0}, {-99, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, wT4ACurrentSource.omegaRefPu) annotation(
     Line(points = {{-139, -60}, {-125, -60}, {-125, -6}, {-121, -6}}, color = {0, 0, 127}));

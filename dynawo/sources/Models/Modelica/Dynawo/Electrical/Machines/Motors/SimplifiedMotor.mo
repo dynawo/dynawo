@@ -58,14 +58,14 @@ public
   parameter Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
 
 equation
-  if (running.value) then
+  if running then
     V = ZmPu * imPu + ZsPu * isPu;  // Kirchhoff’s voltage law in the first loop
     isPu = V / (ZsPu + 1 / (1 / ZmPu + s / Complex(RrPu, XrPu * s)));  // Avoid numerical issues when s = 0
     isPu = imPu + irPu;
     SPu = V * ComplexMath.conj(isPu) * (SNom / SystemBase.SnRef);
 
-    s = (omegaRefPu.value - omegaRPu) / omegaRefPu.value;
-    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu.value * s);
+    s = (omegaRefPu - omegaRPu) / omegaRefPu;
+    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu * s);
     clPu = ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
   else

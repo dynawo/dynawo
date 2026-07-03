@@ -11,8 +11,9 @@
 set(MODEL_FILES
   package.mo
   package.order
-  BESScbCurrentSource.mo
-  BESS_init.mo
+  BESSCurrentSource.mo
+  BESSCurrentSourceExternalPCS.mo
+  BESSCurrentSourceNoPPC.mo
   )
 
 #

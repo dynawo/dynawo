@@ -12,9 +12,9 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable type="continuous" id="iMonitored.value"/>
-  <variable type="continuous" id="P.value"/>
+  <variable type="continuous" id="iMonitored"/>
+  <variable type="continuous" id="P"/>
   <variable id="locked" type="discrete" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2" defaultValue="false"/>
 </external_variables>

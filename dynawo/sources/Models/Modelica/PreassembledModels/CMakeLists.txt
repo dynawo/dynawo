@@ -11,8 +11,9 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-  BESScbWeccCurrentSource.xml
-  BESScbWeccCurrentSourceNoPlantControl.xml
+  #AggregatedIBG.xml
+  BESSWeccCurrentSource.xml
+  BESSWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml
   Bus.xml
   BusWithInit.xml
@@ -20,11 +21,16 @@ set(MODELICA_PREASSEMBLED_MODELS
   ConditionalForward.xml
   CurrentLimitAutomaton.xml
   CurrentLimitAutomatonTwoLevels.xml
+  DERa.xml
+  DERaAggregatedLVRT.xml
+  DERaGenericLVRT.xml
   DiscreteIntegrator.xml
   DistanceProtectionLineFourZones.xml
   DistanceProtectionLineFourZonesWithBlinder.xml
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
+  DynGridFollowing.xml
+  DynGridFormingVirtualSynchronousMachine.xml
   DoubleStep.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
@@ -33,12 +39,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   EventSetPointBoolean.xml
   EventSetPointReal.xml
   EventSetPointDoubleReal.xml
-  GeneratorFictitious.xml
+  GeneratorAlphaBeta.xml
   GeneratorPQ.xml
-#  GeneratorPQPropSignalN.xml
-#  GeneratorPQPropSignalNSFR.xml
-#  GeneratorPQPropDiagramPQSignalN.xml
-#  GeneratorPQPropDiagramPQSignalNSFR.xml
+  #GeneratorPQPropSignalN.xml
+  #GeneratorPQPropSignalNSFR.xml
+  #GeneratorPQPropDiagramPQSignalN.xml
+  #GeneratorPQPropDiagramPQSignalNSFR.xml
+  GeneratorPTanPhi.xml
   GeneratorPV.xml
   GeneratorPVFixed.xml
   GeneratorPVDiagramPQ.xml
@@ -66,7 +73,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsGovCt2St4b.xml
   GeneratorSynchronousFourWindingsGovSteam1St4b.xml
   GeneratorSynchronousFourWindingsGovSteam1St4bPss2b.xml
+  GeneratorSynchronousFourWindingsGovSteamEuAc1cPss1aOmega.xml
+  GeneratorSynchronousFourWindingsGovSteamEuAc1cPss1aPGen.xml
   GeneratorSynchronousFourWindingsGovSteamEuSt4b.xml
+  GeneratorSynchronousFourWindingsGovSteamEuSt7b.xml
   GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
   GeneratorSynchronousFourWindingsIEEEG1Ac1a.xml
   GeneratorSynchronousFourWindingsIEEEG1Dc1a.xml
@@ -102,6 +112,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousFourWindingsVRKundurPssKundur.xml
   GeneratorSynchronousProportionalRegulationsInternalParameters.xml
   GeneratorSynchronousThreeWindings.xml
+  GeneratorSynchronousThreeWindingsDTRI8.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordic.xml
   GeneratorSynchronousThreeWindingsGoverNordicVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
@@ -122,9 +133,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   GeneratorSynchronousThreeWindingsPmConstVRNordicTfo.xml
   GeneratorSynchronousThreeWindingsProportionalRegulations.xml
   GenericAutomaton.xml
+  #GenericIBG.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml
   GridFormingConverterDispatchableVirtualOscillatorControl.xml
+  GridFormingEpri.xml
   HvdcPQProp.xml
   HvdcPQPropEmulation.xml
   HvdcPQPropEmulationSet.xml
@@ -179,8 +192,10 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusWithVariations.xml
   InjectorBG.xml
   IntegerDoubleStep.xml
-  LHVRT.xml
+  IntegerTable.xml
+  LackOfVoltageRelay.xml
   Line.xml
+  LineFault.xml
   LoadAlphaBeta.xml
   LoadAlphaBetaRestorative.xml
   LoadAlphaBetaRestorativeNetwork.xml
@@ -208,12 +223,16 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhotovoltaicsWeccCurrentSourceB.xml
-  PhotovoltaicsWeccCurrentSourceBNoPlantControl.xml
-  PhotovoltaicsWeccVoltageSourceA.xml
-  PhotovoltaicsWeccVoltageSourceANoPlantControl.xml
-  PhotovoltaicsWeccVoltageSourceB.xml
-  PhotovoltaicsWeccVoltageSourceBNoPlantControl.xml
+  PhotovoltaicsWeccCurrentSource.xml
+  PhotovoltaicsWeccCurrentSourceNoPlantControl.xml
+  PhotovoltaicsWeccVoltageSource1.xml
+  PhotovoltaicsWeccVoltageSource1NoPlantControl.xml
+  PhotovoltaicsWeccVoltageSource2.xml
+  PhotovoltaicsWeccVoltageSource2NoPlantControl.xml
+  PhotovoltaicsWeccVoltageSource3.xml
+  PhotovoltaicsWeccVoltageSource3NoPlantControl.xml
+  PhotovoltaicsWeccVoltageSource4.xml
+  PhotovoltaicsWeccVoltageSource4NoPlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
@@ -250,9 +269,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   UnderVoltageAutomaton.xml
   VariableImpedantFault.xml
   VRRemote.xml
+  WeccWT3CurrentSource1.xml
+  WeccWT3CurrentSource2.xml
   WeightedDifference.xml
   WT4AWeccCurrentSource.xml
   WT4BWeccCurrentSource.xml
+  WTG3WeccCurrentSource1.xml
+  WTG3WeccCurrentSource2.xml
   WTG4AWeccCurrentSource.xml
   WTG4BWeccCurrentSource.xml
   )
@@ -268,7 +291,7 @@ foreach( FILE ${MODELICA_PREASSEMBLED_MODELS} )
   compile_preassembled_model(${FILE})
 endforeach( FILE )
 
-include(CMakeListsModelsTargets.txt)
+#include(CMakeListsModelsTargets.txt)
 
 if(BUILD_TESTS OR BUILD_TESTS_COVERAGE)
   add_subdirectory(test)

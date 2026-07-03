@@ -33,9 +33,9 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Dialog(tab = "CurrentLimiter"));
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = -P0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ipCmdPu(start = Ip0Pu) "Active current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-320, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqCmdPu(start = Iq0Pu) "Reactive current command at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-320, -140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaGenPu(start = SystemBase.omegaRef0Pu) "Generator angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -56,13 +56,13 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {140, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch1(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min1 annotation(
     Placement(visible = true, transformation(origin = {70, 114}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.SqrtNoEvent sqrtNoEvent annotation(
     Placement(visible = true, transformation(origin = {30, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
-  Modelica.Blocks.Math.Min min2 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min2 annotation(
     Placement(visible = true, transformation(origin = {-150, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {-190, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -86,7 +86,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {-290, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product4 annotation(
     Placement(visible = true, transformation(origin = {210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min4 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min4 annotation(
     Placement(visible = true, transformation(origin = {90, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.SqrtNoEvent sqrtNoEvent1 annotation(
     Placement(visible = true, transformation(origin = {30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -94,7 +94,7 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {-100, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Abs abs annotation(
     Placement(visible = true, transformation(origin = {-270, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Min min3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {-210, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1(table = TableIpMaxUwt) annotation(
     Placement(visible = true, transformation(origin = {-250, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -106,27 +106,31 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {-150, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-110, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max1 annotation(
     Placement(visible = true, transformation(origin = {-30, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const5(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-70, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max3 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max3 annotation(
     Placement(visible = true, transformation(origin = {-10, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-50, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch3 annotation(
     Placement(visible = true, transformation(origin = {270, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Math.Max max2 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Max2 max2 annotation(
     Placement(visible = true, transformation(origin = {170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Greater greater annotation(
     Placement(visible = true, transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k1 = -1) annotation(
     Placement(visible = true, transformation(origin = {50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch4(nu = 3) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitchVariable switch4(nu = 3) annotation(
     Placement(visible = true, transformation(origin = {130, -106}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
+  parameter Types.CurrentModulePu Ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+    Dialog(group = "Initialization"));
+  parameter Types.CurrentModulePu Iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));

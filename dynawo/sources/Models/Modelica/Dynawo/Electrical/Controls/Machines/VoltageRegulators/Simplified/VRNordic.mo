@@ -39,9 +39,7 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
   Modelica.Blocks.Interfaces.RealOutput efdPu(start = Efd0Pu) "Excitation voltage in pu (user-selected base voltage)" annotation(
     Placement(visible = true, transformation(origin = {290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Connectors.ImPin efdPuPin(value(start = Efd0Pu)) "Pin for connecting efdPu to the generator";
-
-  Modelica.Blocks.Math.Min min1 annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.Min2 min1 annotation(
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = UsRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-270, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -79,7 +77,7 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
     Placement(visible = true, transformation(origin = {-270, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.LimIntegrator timer(outMax = 99, outMin = tOelMin, y_start = tOelMin) annotation(
     Placement(visible = true, transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tLagTgr, 1}, b = {tLeadTgr, 1}, x_start = {Efd0Pu}, y_start = Efd0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tLagTgr, 1}, b = {tLeadTgr, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Efd0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback dU annotation(
     Placement(visible = true, transformation(origin = {-220, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -93,8 +91,6 @@ model VRNordic "Voltage regulator model for the Nordic 32 test system used for v
   final parameter Types.VoltageModule UsRef0Pu = Efd0Pu / KTgr + Us0Pu "Reference stator voltage in pu (base UNom)";
 
 equation
-  efdPu = efdPuPin.value;
-
   connect(kMulDU.y, leadLag.u) annotation(
     Line(points = {{61, 0}, {77, 0}}, color = {0, 0, 127}));
   connect(leadLag2.y, limiter.u) annotation(
@@ -154,9 +150,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 120}, lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, extent = {{-60, 20}, {60, -20}}, textString = "%name"), Text(extent = {{-97, 117}, {97, -117}}, textString = "AVR, EXC,
-OEL, PSS")}),
-    uses(Modelica(version = "3.2.3")),
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {0, 120}, lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, extent = {{-60, 20}, {60, -20}}, textString = "%name"), Text(extent = {{-97, 117}, {97, -117}}, textString = "AVR, EXC,\nOEL, PSS")}),
     Documentation(info = "<html><head></head><body>This model implements the AVR, PSS and overexcitation limiter of the generator frames in the Nordic 32 test system used for voltage stability studies.<div>The overexcitation limiter uses a delayed activation with specifics depending on the generator.&nbsp;</div><div>Certain generators reduce the delay by assigning a linear function to the error signal of the excitation current and its limit, this is implemented in the overexcitation limitation model.</div></body></html>"),
     Diagram(coordinateSystem(extent = {{-280, -140}, {280, 140}})));
 end VRNordic;

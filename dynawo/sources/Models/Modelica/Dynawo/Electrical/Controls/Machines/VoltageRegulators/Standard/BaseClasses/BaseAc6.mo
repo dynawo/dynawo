@@ -61,7 +61,7 @@ partial model BaseAc6 "IEEE excitation system type AC6 base model"
     Placement(visible = true, transformation(origin = {-290, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add3 add3(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tA, 1}, b = {tK, 1}, x_start = {Va0Pu}, y_start = Va0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction(a = {tA, 1}, b = {tK, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Va0Pu) annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -95,7 +95,7 @@ partial model BaseAc6 "IEEE excitation system type AC6 base model"
     Placement(visible = true, transformation(origin = {230, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = VhMaxPu, uMin = 0) annotation(
     Placement(visible = true, transformation(origin = {190, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tH, 1}, b = {tJ, 1}, x_start = {Vh0Pu}, y_start = Vh0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction transferFunction1(a = {tH, 1}, b = {tJ, 1}, initType = Modelica.Blocks.Types.Init.SteadyState, u_start = Vh0Pu) annotation(
     Placement(visible = true, transformation(origin = {150, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain2(k = EfeMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-230, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

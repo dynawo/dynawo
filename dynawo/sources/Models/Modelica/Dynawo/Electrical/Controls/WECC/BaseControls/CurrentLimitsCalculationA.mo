@@ -41,6 +41,8 @@ model CurrentLimitsCalculationA "This block calculates the current limits of the
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Types.CurrentModulePu ipMaxFrzPu(start = 0);
+  Types.PerUnit ipRawMaxPu "p-axis maximum current (not accounting for voltage-dependent limit) in pu (base SNom, UNom)";
+  Types.PerUnit iqRawMaxPu "q-axis maximum current (not accounting for voltage-dependent limit) in pu (base SNom, UNom)";
   Types.Time vDipFrzEndTime(start = -1);
 
 equation
@@ -69,21 +71,26 @@ equation
     if time <= vDipFrzEndTime and vDipFrzEndTime >= 0 then
       ipMaxPu = ipMaxFrzPu;
     else
-      ipMaxPu = min(ipVdlPu, IMaxPu);
+      ipMaxPu = if ipVdlPu < IMaxPu then ipVdlPu else IMaxPu;
     end if;
-    iqMaxPu = min(iqVdlPu, noEvent(if IMaxPu ^ 2 > ipCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0));
+    ipRawMaxPu = 0;
+    iqRawMaxPu = noEvent(if IMaxPu ^ 2 > ipCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - ipCmdPu ^ 2) else 0);
+    iqMaxPu = if iqVdlPu < iqRawMaxPu then iqVdlPu else iqRawMaxPu;
   else
     if time <= vDipFrzEndTime and vDipFrzEndTime >= 0 then
       ipMaxPu = ipMaxFrzPu;
     else
-      ipMaxPu = min(ipVdlPu, noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0));
+      ipMaxPu = if ipVdlPu < ipRawMaxPu then ipVdlPu else ipRawMaxPu;
     end if;
-    iqMaxPu = min(iqVdlPu, IMaxPu);
+    ipRawMaxPu = noEvent(if IMaxPu ^ 2 > iqCmdPu ^ 2 then sqrt(IMaxPu ^ 2 - iqCmdPu ^ 2) else 0);
+    iqRawMaxPu = 0;
+    iqMaxPu = if iqVdlPu < IMaxPu then iqVdlPu else IMaxPu;
   end if;
 
   ipMinPu = 0;
   iqMinPu = -iqMaxPu;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {44, -1}, extent = {{-124, 81}, {36, 21}}, textString = "Current"), Text(origin = {-141, -71}, extent = {{-27, 9}, {13, -3}}, textString = "iqCmdPu"), Text(origin = {-141, 83}, extent = {{-27, 9}, {13, -3}}, textString = "ipCmdPu"), Text(origin = {135, -59}, extent = {{-27, 9}, {13, -3}}, textString = "iqMinPu"), Text(origin = {135, -13}, extent = {{-27, 9}, {13, -3}}, textString = "iqMaxPu"), Text(origin = {135, 43}, extent = {{-27, 9}, {13, -3}}, textString = "ipMinPu"), Text(origin = {133, 87}, extent = {{-27, 9}, {13, -3}}, textString = "ipMaxPu"), Text(origin = {44, -61}, extent = {{-124, 41}, {36, -19}}, textString = "limits"), Text(origin = {-146, 52}, extent = {{-20, 10}, {20, -10}}, textString = "ipVdlPu"), Text(origin = {-150, 8}, extent = {{-12, 6}, {12, -6}}, textString = "vDip"), Text(origin = {-146, -36}, extent = {{20, 6}, {-20, -6}}, textString = "iqVdlPu")}, coordinateSystem(initialScale = 0.1)));
 end CurrentLimitsCalculationA;

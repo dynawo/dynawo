@@ -26,6 +26,17 @@ model HvdcPV "Model of PV HVDC link. Each terminal can regulate the voltage or t
 
 */
 
+// blocks
+  Modelica.Blocks.Sources.BooleanExpression blockingSide1(y = (q1Status == QStatus.AbsorptionMax or q1Status == QStatus.GenerationMax or runningSide1 == false)) "Expression determining if reactive power limits have been reached on converter side 1 or if the hvdc is disconnected on side 1" annotation(
+    Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.BooleanExpression blockingSide2(y = (q2Status == QStatus.AbsorptionMax or q2Status == QStatus.GenerationMax or runningSide2 == false)) "Expression determining if reactive power limits have been reached on converter side 2 or if the hvdc is disconnected on side 2" annotation(
+    Placement(transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}})));
+
+  Modelica.Blocks.Interfaces.BooleanOutput blockerSide1(start = (q1Status0 == QStatus.AbsorptionMax or q1Status0 == QStatus.GenerationMax or RunningSide10 == false)) "If true, reactive power limits have been reached on converter side 1 or the hvdc is disconnected on side 1" annotation(
+    Placement(transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput blockerSide2(start = (q2Status0 == QStatus.AbsorptionMax or q2Status0 == QStatus.GenerationMax or RunningSide20 == false)) "If true, reactive power limits have been reached on converter side 2 or the hvdc is disconnected on side 2" annotation(
+    Placement(transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 0}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   QInj1PuQNom = QInj1Pu * SystemBase.SnRef / Q1Nom;
   QInj2PuQNom = QInj2Pu * SystemBase.SnRef / Q2Nom;
@@ -59,7 +70,7 @@ equation
   end when;
 
   //Voltage/Reactive power regulation at terminal 1
-  if runningSide1.value then
+  if runningSide1 then
     if modeU1 then
       if q1Status == QStatus.GenerationMax then
         QInj1Pu = Q1MaxPu;
@@ -86,7 +97,7 @@ equation
   end if;
 
   //Voltage/Reactive power regulation at terminal 2
-  if runningSide2.value then
+  if runningSide2 then
     if modeU2 then
       if q2Status == QStatus.GenerationMax then
         QInj2Pu = Q2MaxPu;
@@ -111,6 +122,11 @@ equation
   else
     QInj2Pu = 0;
   end if;
+
+  connect(blockingSide1.y, blockerSide1) annotation(
+    Line(points = {{82, 40}, {110, 40}}, color = {255, 0, 255}));
+  connect(blockingSide2.y, blockerSide2) annotation(
+    Line(points = {{82, -40}, {110, -40}}, color = {255, 0, 255}));
 
   annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself. It also regulates the voltage or the reactive power at each of its terminals. The active power setpoint is given as an input and can be modified during the simulation, as well as the voltage references and the reactive power references.</div></body></html>"));

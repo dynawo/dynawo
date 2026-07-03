@@ -61,15 +61,13 @@ model QControl2020 "Reactive power control module for wind turbines (IEC N°6140
     Placement(visible = true, transformation(origin = {110, 160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold = UqRisePu) annotation(
     Placement(visible = true, transformation(origin = {-210, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.IntegerConstant integerConstant2(k = Mqfrt) annotation(
-    Placement(visible = true, transformation(origin = {150, -160}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {190, 180}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.SwitchInteger switch5 annotation(
     Placement(visible = true, transformation(origin = {-10, -100}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch6(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch6(f = Mqfrt, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {90, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch8(nu = 4) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch switch8(f = Mqfrt, nu = 4) annotation(
     Placement(visible = true, transformation(origin = {130, -260}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.VariableLimiter variableLimiter1 annotation(
     Placement(visible = true, transformation(origin = {150, 200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -83,10 +81,6 @@ equation
     Line(points = {{102, -200}, {110, -200}, {110, -258}, {120, -258}}, color = {0, 0, 127}));
   connect(add4.y, switch8.u[3]) annotation(
     Line(points = {{61, -260}, {120, -260}}, color = {0, 0, 127}));
-  connect(integerConstant2.y, switch8.f) annotation(
-    Line(points = {{140, -160}, {130, -160}, {130, -248}}, color = {255, 127, 0}));
-  connect(integerConstant2.y, switch6.f) annotation(
-    Line(points = {{140, -160}, {90, -160}, {90, -188}}, color = {255, 127, 0}));
   connect(gain7.y, switch6.u[1]) annotation(
     Line(points = {{-59, -180}, {70, -180}, {70, -196}, {80, -196}}, color = {0, 0, 127}));
   connect(add3.y, switch6.u[2]) annotation(

@@ -16,23 +16,26 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifterTarget(targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.TapChanger);
+  extends BaseClasses.BaseTapChangerPhaseShifterTarget(targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, Type = BaseClasses.TapChangerPhaseShifterParams.Automaton.TapChanger, factorValueToDisplay = UNom, unitValueToDisplay = "kV");
 
   parameter Types.VoltageModule UTarget "Voltage set-point";
   parameter Types.VoltageModule UDeadBand(min = 0) "Voltage dead-band";
   parameter Types.VoltageModule U0 "Initial voltage";
+  parameter Types.VoltageModule UNom = 1 "Nominal voltage in kV";
 
-  Dynawo.Connectors.ImPin UMonitored(value(start = U0)) "Initial voltage";
+  Modelica.Blocks.Interfaces.RealInput UMonitored(start = U0) "Monitored voltage";
 
 equation
-  connect(UMonitored, valueToMonitor);
-  when (valueToMonitor.value < valueMin) and not(locked) then
+  when (valueToMonitor < valueMin) and not(locked) then
     Timeline.logEvent1(TimelineKeys.TapChangerBelowMin);
-  elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+  elsewhen (valueToMonitor > valueMax) and not(locked) then
     Timeline.logEvent1(TimelineKeys.TapChangerAboveMax);
   end when;
 
-  annotation(preferredView = "text",
+  connect(UMonitored, valueToMonitor);
+
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The tap changer controls a monitored voltage to keep it within a voltage range defined by [UMin ; UMax]. When the voltage goes above UMax or below UMin, the tap-changer is ready to begin increasing its tap until the voltage value comes back to an acceptable value.<div><br></div><div>The time interval before the first time change is specified with a first timer and a second timer indicates the time interval between further changes. The automaton can be locked by an external controller: in this case, it stops acting.&nbsp;</div><div><br></div><div>The detailed tap-changer behavior is explained in the following state diagram:
 
 <figure>

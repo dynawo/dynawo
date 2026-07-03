@@ -35,7 +35,8 @@ model SVarCRVS "Model of a regulated static var compensator with built-in initia
     BShuntPu = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BShuntPu],
     i0Pu(re(fixed = false), im(fixed = false)),
     u0Pu(re(fixed = false), im(fixed = false)),
-    U0Pu = U0Pu) annotation(
+    U0Pu = U0Pu,
+    URef0Pu = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.StaticVarCompensators.BaseControls.CSSCST csscst(
     BMax = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BMax],

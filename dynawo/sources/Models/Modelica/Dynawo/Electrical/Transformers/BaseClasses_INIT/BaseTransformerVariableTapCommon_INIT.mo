@@ -21,7 +21,7 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
   From the tap and ratio values, the final U2, P2 and Q2 values are calculated.
 */
 
-  // Transformer's parameters
+  // Transformer parameters
   parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in pu: U2/U1 in no load conditions";
   parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in pu: U2/U1 in no load conditions";
   parameter Integer NbTap "Number of taps";
@@ -29,8 +29,11 @@ partial model BaseTransformerVariableTapCommon_INIT "Base model for initializati
 
   // Transformer start values
   Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
-  flow Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
+  Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
   Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
+
+  // Terminal for init connections
+  Dynawo.Connectors.ACPower terminal20 "Connector on side 2 at initialization";
 
   Integer Tap0 "Start value of transformer tap";
   Types.PerUnit rTfo0Pu "Start value of transformer ratio";
@@ -46,6 +49,8 @@ equation
 
   // Voltage at terminal 2
   U20Pu = ComplexMath.'abs'(u20Pu);
+  u20Pu = terminal20.V;
+  i20Pu = terminal20.i;
 
   annotation(preferredView = "text");
 end BaseTransformerVariableTapCommon_INIT;

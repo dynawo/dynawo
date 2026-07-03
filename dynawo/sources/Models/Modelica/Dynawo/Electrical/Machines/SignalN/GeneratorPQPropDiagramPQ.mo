@@ -17,11 +17,11 @@ model GeneratorPQPropDiagramPQ "Model for generator PQ with a PQ diagram, based 
   extends BaseClasses.BasePQProp(QGenRawPu(start = QGen0Pu));
 
 equation
-  when QGenRawPu + QDeadBandPu <= QMinPu then
+  when QGenRawPu <= QMinPu then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenRawPu - QDeadBandPu >= QMaxPu then
+  elsewhen QGenRawPu >= QMaxPu then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
@@ -31,7 +31,7 @@ equation
     limUQUp = false;
   end when;
 
-  if running.value then
+  if running then
     if qStatus == QStatus.GenerationMax then
       QGenPu = QMaxPu;
     elseif qStatus == QStatus.AbsorptionMax then

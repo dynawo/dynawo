@@ -41,16 +41,16 @@ model GeneratorSynchronousThreeWindingsInterfaces "Synchronous generator with re
     Placement(visible = true, transformation(origin = {-32, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-30, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
-  PmPu.value = PmPu_in;
-  efdPu.value = efdPu_in;
-  omegaPu_out = omegaPu.value;
+  PmPu = PmPu_in;
+  efdPu = efdPu_in;
+  omegaPu_out = omegaPu;
   PGenPu_out = PGenPu;
-  omegaRefPu_out = omegaRefPu.value;
-  IRotorPu_out = IRotorPu.value;
+  omegaRefPu_out = omegaRefPu;
+  IRotorPu_out = IRotorPu;
   iStatorPu_out = iStatorPu;
   uPu_out = uPu;
   UPu_out = UPu;
-  UStatorPu_out = UStatorPu.value;
+  UStatorPu_out = UStatorPu;
 
   annotation(preferredView = "text");
 end GeneratorSynchronousThreeWindingsInterfaces;

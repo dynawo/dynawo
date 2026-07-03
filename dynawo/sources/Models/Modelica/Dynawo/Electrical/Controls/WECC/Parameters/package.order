@@ -1,5 +1,7 @@
-ParamsDriveTrain
-ParamsREEC
-ParamsREGC
-ParamsREPC
+Mechanical
+ParamsLvTfo
+ParamsPCS
 ParamsVSourceRef
+REEC
+REGC
+REPC

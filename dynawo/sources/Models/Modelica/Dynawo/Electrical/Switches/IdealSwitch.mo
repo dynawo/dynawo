@@ -42,7 +42,7 @@ model IdealSwitch "Ideal switch"
 
 equation
   // When the switch is closed, V and i are equal on both sides. Otherwise, the currents are zero.
-  if (running.value) then
+  if running then
     terminal1.i = - terminal2.i;
     terminal1.V = terminal2.V;
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));

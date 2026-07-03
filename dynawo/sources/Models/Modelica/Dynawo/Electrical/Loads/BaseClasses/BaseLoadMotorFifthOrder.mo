@@ -42,7 +42,7 @@ partial model BaseLoadMotorFifthOrder "Base model for loads in parallel to fifth
   parameter Types.VoltageModulePu Ureconnect2Pu[NbMotors] "Voltage at which the second block of motors reconnects in pu (base UNom)";
   parameter Types.Time tReconnect2Pu[NbMotors] "Time lag before reconnection of the second block of motors in s";
 
-  Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Network angular reference frequency in pu (base omegaNom)";
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base omegaNom)";
 
   Types.ActivePowerPu PLoadPu(start = PLoad0Pu) "Active power consumed by the load in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QLoadPu(start = QLoad0Pu) "Reactive power consumed by the load in pu (base SnRef) (receptor convention)";
@@ -70,11 +70,11 @@ equation
   for i in 1:NbMotors loop
     motors[i].V = terminal.V;
     connect(motors[i].omegaRefPu, omegaRefPu);
-    switchOffSignal1.value = motors[i].switchOffSignal1.value;
-    switchOffSignal2.value = motors[i].switchOffSignal2.value;
+    switchOffSignal1 = motors[i].switchOffSignal1;
+    switchOffSignal2 = motors[i].switchOffSignal2;
   end for;
 
-  if running.value then
+  if running then
     PLoadCmdPu = (1 - sum(ActiveMotorShare)) * PRefPu * (1 + deltaP);
     QLoadCmdPu = QRefPu * (1 + deltaQ) - sum(motors.s0Pu.im) * (PRefPu / s0Pu.re) * (1 + deltaP); // s0Pu.re = PRef0Pu (if PRefPu increases but QRefPu stays constant, the reactive power consumed by the motor increases, so the reactive power of the load is reduced to keep the total constant).
     PPu = PLoadPu + sum(motors.PPu);

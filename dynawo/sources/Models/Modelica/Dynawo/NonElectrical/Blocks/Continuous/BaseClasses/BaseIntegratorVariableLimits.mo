@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous.BaseClasses;
 
 /*
-* Copyright (c) 2024, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,11 +9,11 @@ within Dynawo.NonElectrical.Blocks.Continuous.BaseClasses;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 
-block BaseIntegratorVariableLimits "Integrator with variable limits on output and frozen integration on the limits"
+block BaseIntegratorVariableLimits "Base model of integrator with variable limits on output and frozen integration on the limits"
   extends Modelica.Blocks.Interfaces.SISO(y(start = Y0));
 
   parameter Boolean DefaultLimitMax = true "If limitMin > limitMax : if true, y = limitMax, if false, y = limitMin";
@@ -33,10 +33,8 @@ protected
   Types.PerUnit w(start = Y0) "Non-limited integrator output";
 
 equation
-  if limitMin > limitMax and DefaultLimitMax then
-    y = limitMax;
-  elseif limitMin > limitMax then
-    y = limitMin;
+  if limitMin > limitMax then
+    y = if DefaultLimitMax then limitMax else limitMin;
   elseif w < limitMin then
     y = limitMin;
   elseif w > limitMax then

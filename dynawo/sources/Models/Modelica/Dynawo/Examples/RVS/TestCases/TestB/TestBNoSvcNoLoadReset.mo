@@ -232,14 +232,15 @@ model TestBNoSvcNoLoadReset "RVS test system simulation case : line disconnectio
   parameter Real event_time_reactor106_sw2 = 1;
 
 equation
-  line_106_110.switchOffSignal1.value = if time < event_time_line_sw1 then false else true;
-  line_106_110.switchOffSignal2.value = if time < event_time_line_sw2 then false else true;
-  line_reactor_110.switchOffSignal1.value = if time < event_time_reactor110_sw1 then false else true;
-  line_reactor_110.switchOffSignal2.value = if time < event_time_reactor110_sw2 then false else true;
-  line_reactor_106.switchOffSignal1.value = if time < event_time_reactor106_sw1 then false else true;
-  line_reactor_106.switchOffSignal2.value = if time < event_time_reactor106_sw2 then false else true;
+  line_106_110.switchOffSignal1 = if time < event_time_line_sw1 then false else true;
+  line_106_110.switchOffSignal2 = if time < event_time_line_sw2 then false else true;
+  line_reactor_110.switchOffSignal1 = if time < event_time_reactor110_sw1 then false else true;
+  line_reactor_110.switchOffSignal2 = if time < event_time_reactor110_sw2 then false else true;
+  line_reactor_106.switchOffSignal1 = if time < event_time_reactor106_sw1 then false else true;
+  line_reactor_106.switchOffSignal2 = if time < event_time_reactor106_sw2 then false else true;
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 120, Tolerance = 0.001, Interval = 0.01),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "ida"),

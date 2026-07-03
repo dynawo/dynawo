@@ -16,6 +16,7 @@ within Dynawo.Examples.BaseClasses;
 model InitializedGeneratorSynchronousThreeWindings "Model of synchronous generator with three windings and built-in initialization, for the Nordic 32 test system"
   extends Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronous(RaPPu(fixed = false), LdPPu(fixed = false), MdPPu(fixed = false), LDPPu(fixed = false), RDPPu(fixed = false), MrcPPu(fixed = false), LfPPu(fixed = false), RfPPu(fixed = false), LqPPu(fixed = false), MqPPu(fixed = false), LQ1PPu(fixed = false), RQ1PPu(fixed = false), LQ2PPu(fixed = false), RQ2PPu(fixed = false), MsalPu(fixed = false), MdPPuEfd(fixed = false), MdPPuEfdNom(fixed = false), PGen0Pu(fixed = false), QGen0Pu(fixed = false), Theta0(fixed = false), Ud0Pu(fixed = false), Uq0Pu(fixed = false), Id0Pu(fixed = false), Iq0Pu(fixed = false), If0Pu(fixed = false), Uf0Pu(fixed = false), Efd0Pu(fixed = false), Lambdad0Pu(fixed = false), Lambdaq0Pu(fixed = false), LambdaD0Pu(fixed = false), Lambdaf0Pu(fixed = false), LambdaQ20Pu(fixed = false), LambdaQ10Pu(fixed = false), Ce0Pu(fixed = false), Cm0Pu(fixed = false), Pm0Pu(fixed = false), MdSat0PPu(fixed = false), MqSat0PPu(fixed = false), LambdaAirGap0Pu(fixed = false), LambdaAQ0Pu(fixed = false), LambdaAD0Pu(fixed = false), Mds0Pu(fixed = false), Mqs0Pu(fixed = false), Cos2Eta0(fixed = false), Sin2Eta0(fixed = false), Mi0Pu(fixed = false), ThetaInternal0(fixed = false), IRotor0Pu(fixed = false), QStator0PuQNom(fixed = false), QStator0Pu(fixed = false), IStator0Pu(fixed = false), UStator0Pu(fixed = false), u0Pu.re(fixed = false), u0Pu.im(fixed = false), i0Pu.re(fixed = false), i0Pu.im(fixed = false), s0Pu.re(fixed = false), s0Pu.im(fixed = false), iStator0Pu.re(fixed = false), iStator0Pu.im(fixed = false), uStator0Pu.re(fixed = false), uStator0Pu.im(fixed = false), sStator0Pu.re(fixed = false), sStator0Pu.im(fixed = false));
 
+  parameter Types.PerUnit MdPuEfd "Direct axis mutual inductance used to determine the excitation voltage in pu";
   parameter Types.PerUnit RaPu "Armature resistance in pu (base SNom, UNom)";
   parameter Types.PerUnit XlPu "Stator leakage in pu (base SNom, UNom)";
   parameter Types.PerUnit XdPu "Direct axis reactance in pu (base SNom, UNom)";
@@ -28,8 +29,9 @@ model InitializedGeneratorSynchronousThreeWindings "Model of synchronous generat
   parameter Types.Time Tppd0 "Direct axis, open circuit sub-transient time constant in s";
   parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant in s";
   parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant in s";
+  parameter Boolean UseApproximation "True if an approximate formula is used for the calculation of the internal parameters";
 
-  Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT gen_init3(U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, UNom = UNom, SNom = SNom, H = H, DPu = DPu, PNomTurb = PNomTurb, PNomAlt = PNomAlt, ExcitationPu = ExcitationPu, SnTfo = SnTfo, UNomHV = UNomHV, UNomLV = UNomLV, UBaseHV = UBaseHV, UBaseLV = UBaseLV, RTfPu = RTfPu, XTfPu = XTfPu, md = md, mq = mq, nd = nd, nq = nq, RaPu = RaPu, XlPu = XlPu, XdPu = XdPu, XpdPu = XpdPu, XppdPu = XppdPu, XqPu = XqPu, XppqPu = XppqPu, Tpd0 = Tpd0, Tppd0 = Tppd0, Tppq0 = Tppq0);
+  Dynawo.Electrical.Machines.OmegaRef.GeneratorSynchronousExt3W_INIT gen_init3(U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, UNom = UNom, SNom = SNom, H = H, DPu = DPu, PNomTurb = PNomTurb, PNomAlt = PNomAlt, ExcitationPu = ExcitationPu, SnTfo = SnTfo, UNomHV = UNomHV, UNomLV = UNomLV, UBaseHV = UBaseHV, UBaseLV = UBaseLV, RTfPu = RTfPu, XTfPu = XTfPu, md = md, mq = mq, nd = nd, nq = nq, RaPu = RaPu, XlPu = XlPu, XdPu = XdPu, XpdPu = XpdPu, XppdPu = XppdPu, XqPu = XqPu, XppqPu = XppqPu, Tpd0 = Tpd0, Tppd0 = Tppd0, Tppq0 = Tppq0, MdPuEfd = MdPuEfd, UseApproximation = UseApproximation);
 
 initial algorithm
   // Generator init values
@@ -103,6 +105,7 @@ initial algorithm
   MsalPu := gen_init3.MsalPu;
   MdPPuEfdNom := gen_init3.MdPPuEfdNom;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>This model implements a three windings synchronous generator which is automatically initialized by an initialization model.<div>The standard parameters are passed to the initialization model, which in turn calculates the necessary operational parameters. The calculated values are then assigned to the respective generator parameters in an initial algorithm section. This way, the generator has appropriate parameters before the simulation starts. The model can not use equations due to variability conflict (parameters and variables), therefore the assignment operator must be used. This is permissible, because the initial values do not change during simulation.</div></body></html>"));
 end InitializedGeneratorSynchronousThreeWindings;

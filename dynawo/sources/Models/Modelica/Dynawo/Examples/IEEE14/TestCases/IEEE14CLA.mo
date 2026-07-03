@@ -13,7 +13,7 @@ within Dynawo.Examples.IEEE14.TestCases;
 * of simulation tools for power systems.
 */
 
-model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers , 17 lines and 11 loads. At t=50s, the consumption of load 5 increases. Three Current Limit Automatons are supervising current on lines B1-B5, B1-B2 and B2-B5."
+model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators (2 generators and 3 synchronous condensers), 1 shunt, 3 transformers, 17 lines and 11 loads. At t = 50 s, the consumption of load 5 increases. Three Current Limit Automatons are supervising current on lines B1-B5, B1-B2 and B2-B5."
   extends Dynawo.Examples.IEEE14.BaseClasses.IEEE14Base;
   extends Modelica.Icons.Example;
 
@@ -52,28 +52,28 @@ equation
   IB1B2 = sqrt(LineB1B2.terminal1.i.re * LineB1B2.terminal1.i.re + LineB1B2.terminal1.i.im * LineB1B2.terminal1.i.im);
   IB2B5 = sqrt(LineB2B5.terminal1.i.re * LineB2B5.terminal1.i.re + LineB2B5.terminal1.i.im * LineB2B5.terminal1.i.im);
 
-  CLAB1B2.IMonitored.value = IB1B2;
-  when CLAB1B2.order.value > 3 then
-    LineB1B2.switchOffSignal2.value = true;
-  elsewhen CLAB1B2.order.value <= 3 then
-    LineB1B2.switchOffSignal2.value = false;
+  CLAB1B2.IMonitored = IB1B2;
+  when CLAB1B2.order > 3 then
+    LineB1B2.switchOffSignal2 = true;
+  elsewhen CLAB1B2.order <= 3 then
+    LineB1B2.switchOffSignal2 = false;
   end when;
 
-  CLAB2B5.IMonitored.value = IB2B5;
-  when CLAB2B5.order.value > 3 then
-    LineB2B5.switchOffSignal2.value = true;
-  elsewhen CLAB2B5.order.value <= 3 then
-    LineB2B5.switchOffSignal2.value = false;
+  CLAB2B5.IMonitored = IB2B5;
+  when CLAB2B5.order > 3 then
+    LineB2B5.switchOffSignal2 = true;
+  elsewhen CLAB2B5.order <= 3 then
+    LineB2B5.switchOffSignal2 = false;
   end when;
 
-  CLAB1B5.IMonitored.value = IB1B5;
-  when CLAB1B5.order.value > 3 then
-    LineB1B5.switchOffSignal2.value = true;
-  elsewhen CLAB1B5.order.value <= 3 then
-    LineB1B5.switchOffSignal2.value = false;
+  CLAB1B5.IMonitored = IB1B5;
+  when CLAB1B5.order > 3 then
+    LineB1B5.switchOffSignal2 = true;
+  elsewhen CLAB1B5.order <= 3 then
+    LineB1B5.switchOffSignal2 = false;
   end when;
 
-// Loads references
+  // Loads references
   Load2.PRefPu = P0Pu_Load2;
   Load2.QRefPu = Q0Pu_Load2;
   Load3.PRefPu = P0Pu_Load3;
@@ -119,7 +119,7 @@ equation
   Load14.deltaP = 0;
   Load14.deltaQ = 0;
 
-// Generators references
+  // Generators references
   Gen1.URefPu = Gen1.URef0Pu;
   Gen1.PRefPu = Gen1.PRef0Pu;
   Gen2.URefPu = Gen2.URef0Pu;
@@ -131,86 +131,87 @@ equation
   Gen8.URefPu = Gen8.URef0Pu;
   Gen8.PRefPu = Gen8.PRef0Pu;
 
-// Switch off signals for generators, loads, lines, transformers and bank
-  Gen1.switchOffSignal1.value = false;
-  Gen1.switchOffSignal2.value = false;
-  Gen1.switchOffSignal3.value = false;
-  Gen2.switchOffSignal1.value = false;
-  Gen2.switchOffSignal2.value = false;
-  Gen2.switchOffSignal3.value = false;
-  Gen3.switchOffSignal1.value = false;
-  Gen3.switchOffSignal2.value = false;
-  Gen3.switchOffSignal3.value = false;
-  Gen6.switchOffSignal1.value = false;
-  Gen6.switchOffSignal2.value = false;
-  Gen6.switchOffSignal3.value = false;
-  Gen8.switchOffSignal1.value = false;
-  Gen8.switchOffSignal2.value = false;
-  Gen8.switchOffSignal3.value = false;
-  Load2.switchOffSignal1.value = false;
-  Load2.switchOffSignal2.value = false;
-  Load3.switchOffSignal1.value = false;
-  Load3.switchOffSignal2.value = false;
-  Load4.switchOffSignal1.value = false;
-  Load4.switchOffSignal2.value = false;
-  Load5.switchOffSignal1.value = false;
-  Load5.switchOffSignal2.value = false;
-  Load6.switchOffSignal1.value = false;
-  Load6.switchOffSignal2.value = false;
-  Load9.switchOffSignal1.value = false;
-  Load9.switchOffSignal2.value = false;
-  Load10.switchOffSignal1.value = false;
-  Load10.switchOffSignal2.value = false;
-  Load11.switchOffSignal1.value = false;
-  Load11.switchOffSignal2.value = false;
-  Load12.switchOffSignal1.value = false;
-  Load12.switchOffSignal2.value = false;
-  Load13.switchOffSignal1.value = false;
-  Load13.switchOffSignal2.value = false;
-  Load14.switchOffSignal1.value = false;
-  Load14.switchOffSignal2.value = false;
-  LineB10B11.switchOffSignal1.value = false;
-  LineB10B11.switchOffSignal2.value = false;
-  LineB12B13.switchOffSignal1.value = false;
-  LineB12B13.switchOffSignal2.value = false;
-  LineB13B14.switchOffSignal1.value = false;
-  LineB13B14.switchOffSignal2.value = false;
-  LineB1B5.switchOffSignal1.value = false;
-  LineB1B2.switchOffSignal1.value = false;
-  LineB2B3.switchOffSignal1.value = false;
-  LineB2B3.switchOffSignal2.value = false;
-  LineB2B4.switchOffSignal1.value = false;
-  LineB2B4.switchOffSignal2.value = false;
-  LineB2B5.switchOffSignal1.value = false;
-  LineB3B4.switchOffSignal1.value = false;
-  LineB3B4.switchOffSignal2.value = false;
-  LineB4B5.switchOffSignal1.value = false;
-  LineB4B5.switchOffSignal2.value = false;
-  LineB6B11.switchOffSignal1.value = false;
-  LineB6B11.switchOffSignal2.value = false;
-  LineB6B12.switchOffSignal1.value = false;
-  LineB6B12.switchOffSignal2.value = false;
-  LineB6B13.switchOffSignal1.value = false;
-  LineB6B13.switchOffSignal2.value = false;
-  LineB7B8.switchOffSignal1.value = false;
-  LineB7B8.switchOffSignal2.value = false;
-  LineB7B9.switchOffSignal1.value = false;
-  LineB7B9.switchOffSignal2.value = false;
-  LineB9B10.switchOffSignal1.value = false;
-  LineB9B10.switchOffSignal2.value = false;
-  LineB9B14.switchOffSignal1.value = false;
-  LineB9B14.switchOffSignal2.value = false;
-  Tfo1.switchOffSignal1.value = false;
-  Tfo1.switchOffSignal2.value = false;
-  Tfo2.switchOffSignal1.value = false;
-  Tfo2.switchOffSignal2.value = false;
-  Tfo3.switchOffSignal1.value = false;
-  Tfo3.switchOffSignal2.value = false;
-  Bank9.switchOffSignal1.value = false;
-  Bank9.switchOffSignal2.value = false;
+  // Switch off signals for generators, loads, lines, transformers and bank
+  Gen1.switchOffSignal1 = false;
+  Gen1.switchOffSignal2 = false;
+  Gen1.switchOffSignal3 = false;
+  Gen2.switchOffSignal1 = false;
+  Gen2.switchOffSignal2 = false;
+  Gen2.switchOffSignal3 = false;
+  Gen3.switchOffSignal1 = false;
+  Gen3.switchOffSignal2 = false;
+  Gen3.switchOffSignal3 = false;
+  Gen6.switchOffSignal1 = false;
+  Gen6.switchOffSignal2 = false;
+  Gen6.switchOffSignal3 = false;
+  Gen8.switchOffSignal1 = false;
+  Gen8.switchOffSignal2 = false;
+  Gen8.switchOffSignal3 = false;
+  Load2.switchOffSignal1 = false;
+  Load2.switchOffSignal2 = false;
+  Load3.switchOffSignal1 = false;
+  Load3.switchOffSignal2 = false;
+  Load4.switchOffSignal1 = false;
+  Load4.switchOffSignal2 = false;
+  Load5.switchOffSignal1 = false;
+  Load5.switchOffSignal2 = false;
+  Load6.switchOffSignal1 = false;
+  Load6.switchOffSignal2 = false;
+  Load9.switchOffSignal1 = false;
+  Load9.switchOffSignal2 = false;
+  Load10.switchOffSignal1 = false;
+  Load10.switchOffSignal2 = false;
+  Load11.switchOffSignal1 = false;
+  Load11.switchOffSignal2 = false;
+  Load12.switchOffSignal1 = false;
+  Load12.switchOffSignal2 = false;
+  Load13.switchOffSignal1 = false;
+  Load13.switchOffSignal2 = false;
+  Load14.switchOffSignal1 = false;
+  Load14.switchOffSignal2 = false;
+  LineB10B11.switchOffSignal1 = false;
+  LineB10B11.switchOffSignal2 = false;
+  LineB12B13.switchOffSignal1 = false;
+  LineB12B13.switchOffSignal2 = false;
+  LineB13B14.switchOffSignal1 = false;
+  LineB13B14.switchOffSignal2 = false;
+  LineB1B5.switchOffSignal1 = false;
+  LineB1B2.switchOffSignal1 = false;
+  LineB2B3.switchOffSignal1 = false;
+  LineB2B3.switchOffSignal2 = false;
+  LineB2B4.switchOffSignal1 = false;
+  LineB2B4.switchOffSignal2 = false;
+  LineB2B5.switchOffSignal1 = false;
+  LineB3B4.switchOffSignal1 = false;
+  LineB3B4.switchOffSignal2 = false;
+  LineB4B5.switchOffSignal1 = false;
+  LineB4B5.switchOffSignal2 = false;
+  LineB6B11.switchOffSignal1 = false;
+  LineB6B11.switchOffSignal2 = false;
+  LineB6B12.switchOffSignal1 = false;
+  LineB6B12.switchOffSignal2 = false;
+  LineB6B13.switchOffSignal1 = false;
+  LineB6B13.switchOffSignal2 = false;
+  LineB7B8.switchOffSignal1 = false;
+  LineB7B8.switchOffSignal2 = false;
+  LineB7B9.switchOffSignal1 = false;
+  LineB7B9.switchOffSignal2 = false;
+  LineB9B10.switchOffSignal1 = false;
+  LineB9B10.switchOffSignal2 = false;
+  LineB9B14.switchOffSignal1 = false;
+  LineB9B14.switchOffSignal2 = false;
+  Tfo1.switchOffSignal1 = false;
+  Tfo1.switchOffSignal2 = false;
+  Tfo2.switchOffSignal1 = false;
+  Tfo2.switchOffSignal2 = false;
+  Tfo3.switchOffSignal1 = false;
+  Tfo3.switchOffSignal2 = false;
+  Bank9.switchOffSignal1 = false;
+  Bank9.switchOffSignal2 = false;
 
-  annotation(preferredView = "diagram",
-    //experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-06, Interval = 10),
+  annotation(
+    preferredView = "diagram",
+    experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-06, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
     Documentation(info = "<html><head></head><body><div>The purpose of the current limit automatons is to disconnect the monitored component when the current is<span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">&nbsp;higher than a predefined threshold during a certain amount of time.</span></div>At t =50s, the active power consumption of load 5 increases by 0.3 pu. Thus, the current on the lines increases.&nbsp;<div>For LineB1B2 and LineB2B5, the current is now higher than IMax. The controller CLAB2B5 will react after tLagBeforeActing = 20 s to disconnect the LineB2B5 before any reaction from the controller CLAB1B2 that has a tLagBeforeActing = 30 s.</div><div>The disconnection of Lineb2B5 decreases the current on LineB1B2 which is now below IMax = 1.55 pu. The current of LineB1B5 stays below IMax = 2 pu.</div><div>The final steady state is reached after the restoration of the loads.</div><div><br></div><div>Another scenario will occur if we change tLagBeforeActing for CLAB1B2 to 20 s and tLagBeforeActing for CLAB2B5 to 30 s.</div><div>After the increase of Load5.PRefPu, the current will increase on all the lines. However, here CLAB1B2 will react after 20 s before CLAB2B5 to disconnect LineB1B2.</div><div>The current of LineB2B5 is now below IMax but the current of LineB1B5 increases and it is now higher than IMax = 2 pu.&nbsp;</div><div>CLAB1B5 will react after 50s, at t = 120 s to disconnect LineB1B5. This event disconnects generator 1 and all the generated power now comes from generator 2. The simulation fails and stops at t = 120s.</div><div><br></div><div>These two scenarios show that a time-domain approach for steady-state calculation gives results closer to system's behavior that can not be described with a static load flow. It is important to consider the dynamics of the system that can influence the final steady-state result.</div><div><br></div><div><br></div><div><br></div></body></html>"));

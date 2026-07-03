@@ -89,6 +89,8 @@ model BaseWPPControl "Base control model for IEC N°61400-27-1 standard WPP"
     Dialog(group="Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
+  parameter Types.ActivePowerPu PPDRefCom0Pu "Initial reference active power communicated to WT in pu (base SNom) (generator convention)" annotation(
+    Dialog(group="Initialization"));
   parameter Types.ReactivePowerPu Q0Pu "Initial reactive power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
@@ -99,7 +101,7 @@ model BaseWPPControl "Base control model for IEC N°61400-27-1 standard WPP"
     Dialog(tab = "Operating point"));
   parameter Types.PerUnit X0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)" annotation(
+  parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "Operating point"));
 
   annotation(

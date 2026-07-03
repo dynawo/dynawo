@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,11 +9,11 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 
-model IntegratorVariableLimitsAntiWindup "Integrator with limited value of output (variable limits) and anti-windup"
+model IntegratorVariableLimitsAntiWindup "Integrator with variable limits on output, frozen integration on the limits and anti-windup"
   extends Dynawo.NonElectrical.Blocks.Continuous.BaseClasses.BaseIntegratorVariableLimits;
 
   parameter Types.PerUnit Kaw "Antiwindup gain";
@@ -25,10 +25,19 @@ model IntegratorVariableLimitsAntiWindup "Integrator with limited value of outpu
 protected
   Boolean isFrozenMax(start = FrozenMax0) "If true, integration is frozen at upper limit";
   Boolean isFrozenMin(start = FrozenMin0) "If true, integration is frozen at lower limit";
+  Boolean keepFreezingMax(start = FrozenMax0) "If true, integration stays frozen at upper limit";
+  Boolean keepFreezingMin(start = FrozenMin0) "If true, integration stays frozen at lower limit";
+  Boolean startFreezingMax(start = FrozenMax0) "If true, integration becomes frozen at upper limit";
+  Boolean startFreezingMin(start = FrozenMin0) "If true, integration becomes frozen at lower limit";
 
 equation
-  isFrozenMax = (w > limitMax and v > 0) or (w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > 0 and pre(isFrozenMax));
-  isFrozenMin = (w < limitMin and v < 0) or (w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < 0 and pre(isFrozenMin));
+  startFreezingMax = w > limitMax and v > 0;
+  keepFreezingMax = w > limitMax - Tol * abs(LimitMax0 - LimitMin0) and v > 0 and pre(isFrozenMax);
+  isFrozenMax = startFreezingMax or keepFreezingMax;
+
+  startFreezingMin = w < limitMin and v < 0;
+  keepFreezingMin = w < limitMin + Tol * abs(LimitMax0 - LimitMin0) and v < 0 and pre(isFrozenMin);
+  isFrozenMin = startFreezingMin or keepFreezingMin;
 
   v = K * u + Kaw * (y - w);
 

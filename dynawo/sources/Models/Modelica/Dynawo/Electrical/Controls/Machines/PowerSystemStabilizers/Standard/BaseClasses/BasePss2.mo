@@ -16,8 +16,8 @@ within Dynawo.Electrical.Controls.Machines.PowerSystemStabilizers.Standard.BaseC
 model BasePss2 "IEEE power system stabilizer type 2 base model"
 
   //Regulation parameters
-  parameter Types.PerUnit KOmega = 1 "Coefficient applied to angular frequency";
-  parameter Types.PerUnit KOmegaRef = 0 "Coefficient applied to reference angular frequency";
+  parameter Types.PerUnit KOmega "Coefficient applied to angular frequency";
+  parameter Types.PerUnit KOmegaRef "Coefficient applied to reference angular frequency";
   parameter Types.PerUnit Ks1 "Gain of power system stabilizer";
   parameter Types.PerUnit Ks2 "Gain of transducer (active power branch)";
   parameter Types.PerUnit Ks3 "Washouts coupling factor";
