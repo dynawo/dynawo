@@ -18,6 +18,17 @@ set(MODEL_FILES
   ZPin.mo
   ImPin.mo
   IntPin.mo
+  ActivePowerPuConnector.mo
+  AngleInput.mo
+  AngleOutput.mo
+  AngularVelocityPuConnector.mo
+  ComplexCurrentPuConnector.mo
+  ComplexPerUnitConnector.mo
+  ComplexVoltagePuConnector.mo
+  CurrentModulePuConnector.mo
+  PerUnitConnector.mo
+  ReactivePowerPuConnector.mo
+  VoltageModulePuConnector.mo
   )
 
 #
