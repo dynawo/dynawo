@@ -23,6 +23,7 @@
 #include <map>
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
 
 #include "TLTimeline.h"
 #include "CRVCurve.h"
@@ -550,7 +551,7 @@ ModelMulti::evalMode(const double t) {
   }
   if (modeChange_) {
     modeChangeType_ = modeChangeType;
-    Trace::info() << DYNLog(ModeChangeGeneric, modeChangeType2Str(modeChangeType), t) << Trace::endline;
+    Trace::info() << DYNLog(ModeChangeGeneric, modeChangeType2Str(modeChangeType), t) << std::setprecision(15) << " " << t << Trace::endline;
   }
 #ifdef _DEBUG_
   // Make sure evalMode does not modify discrete variables as side effect
