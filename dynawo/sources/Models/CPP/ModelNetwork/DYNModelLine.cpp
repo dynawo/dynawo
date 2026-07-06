@@ -1196,8 +1196,7 @@ ModelLine::printInternalParameters(std::ofstream& fstream) const {
 double
 ModelLine::ur1() const {
   if (dynBus1_)
-    return y_[ur1YNum_];
-    // return network_->isInit() ? 1. : y_[ur1YNum_];
+    return network_->isInit() ? modelBus1_->ur() : y_[ur1YNum_];
 
   if (isClosedSide1(getConnectionState()))
     return modelBus1_->ur();
@@ -1208,8 +1207,7 @@ ModelLine::ur1() const {
 double
 ModelLine::ui1() const {
   if (dynBus1_)
-    return y_[ui1YNum_];
-    // return network_->isInit() ? 0. : y_[ui1YNum_];
+    return network_->isInit() ? modelBus1_->ui() : y_[ui1YNum_];
 
   if (isClosedSide1(getConnectionState()))
     return modelBus1_->ui();
@@ -1220,8 +1218,7 @@ ModelLine::ui1() const {
 double
 ModelLine::ur2() const {
   if (dynBus2_)
-    return y_[ur2YNum_];
-    // return network_->isInit() ? 1. : y_[ur2YNum_];
+    return network_->isInit() ? modelBus2_->ur() : y_[ur2YNum_];
 
   if (isClosedSide2(getConnectionState()))
     return modelBus2_->ur();
@@ -1232,8 +1229,7 @@ ModelLine::ur2() const {
 double
 ModelLine::ui2() const {
   if (dynBus2_)
-    return y_[ui2YNum_];
-    // return network_->isInit() ? 0. : y_[ui2YNum_];
+    return network_->isInit() ? modelBus2_->ui() : y_[ui2YNum_];
 
   if (isClosedSide2(getConnectionState()))
     return modelBus2_->ui();

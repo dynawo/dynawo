@@ -261,6 +261,10 @@ class ModelBus : public NetworkComponent {
   const std::string modelType_;  ///< model Type
   const bool isNodeBreaker_;  ///< true if the bus is modeled as node-breaker (called also calculated bus)
 
+  double angle0_;  ///< initial angle
+  double ur0_;  ///< initial real voltage
+  double ui0_;  ///< initial imaginary voltage
+
 // unused virtual methods from NetworkComponent
  public :
   void evalYMat() override {}

@@ -28,7 +28,20 @@ ModelBusBridged::ur() const {
   if (dynModel_ == nullptr)
     throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
 
-  return dynModel_->getVariableValue("bus_terminal_V_re");
+  // return dynModel_->getVariableValue("bus_terminal_V_re");
+
+  std::string u0Str;
+  bool ok;
+  dynModel_->getInitSubModelParameterValue("bus_U0Pu", u0Str, ok);
+  if (!ok)
+    return ur0_;
+
+  std::string angle0Str;
+  dynModel_->getInitSubModelParameterValue("bus_UPhase0", angle0Str, ok);
+  if (!ok)
+    return ur0_;
+
+  return stod(u0Str) * cos(stod(angle0Str));
 }
 
 double
@@ -42,7 +55,20 @@ ModelBusBridged::ui() const {
   if (dynModel_ == nullptr)
     throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
 
-  return dynModel_->getVariableValue("bus_terminal_V_im");
+  // return dynModel_->getVariableValue("bus_terminal_V_im");
+
+  std::string u0Str;
+  bool ok;
+  dynModel_->getInitSubModelParameterValue("bus_U0Pu", u0Str, ok);
+  if (!ok)
+    return ur0_;
+
+  std::string angle0Str;
+  dynModel_->getInitSubModelParameterValue("bus_UPhase0", angle0Str, ok);
+  if (!ok)
+    return ur0_;
+
+  return stod(u0Str) * sin(stod(angle0Str));
 }
 
 }  // namespace DYN

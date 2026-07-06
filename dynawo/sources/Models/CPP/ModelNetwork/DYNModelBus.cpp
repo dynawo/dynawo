@@ -27,6 +27,10 @@ modelType_(isNodeBreaker? "Bus" : "Node"),
 isNodeBreaker_(isNodeBreaker) {
   busBarSectionIdentifiers_.clear();
   busBarSectionIdentifiers_ = bus->getBusBarSectionIdentifiers();
+
+  angle0_ = bus->getAngle0() * DEG_TO_RAD;
+  ur0_ = cos(angle0_);
+  ui0_ = sin(angle0_);
 }
 
 void

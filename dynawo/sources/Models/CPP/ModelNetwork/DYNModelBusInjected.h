@@ -178,23 +178,20 @@ class ModelBusInjected : public ModelBus {  ///< Generic AC network bus
   double iiConnection_;  ///< imaginary current injected
   boost::shared_ptr<BusDerivatives> derivatives_;  ///< derivatives
   boost::shared_ptr<BusDerivatives> derivativesPrim_;  ///< derivatives for JPrim
-  double ur0_{};  ///< initial real voltage
-  double ui0_{};  ///< initial imaginary voltage
-  double ir0_;  ///< initial real current
-  double ii0_;  ///< initial imaginary current
+  double ir0_ = 0.;  ///< initial real current
+  double ii0_ = 0.;  ///< initial imaginary current
 
   // index inside the whole Jacobian
-  int urYNum_;  ///< index ur
-  int uiYNum_;  ///< ui
-  int iiYNum_;  ///< ii
-  int irYNum_;  ///< ir
+  int urYNum_ = -1;  ///< index ur
+  int uiYNum_ = -1;  ///< ui
+  int iiYNum_ = -1;  ///< ii
+  int irYNum_ = -1;  ///< ir
 
   bool hasConnection_;  ///< whether the bus has connection
   bool hasShortCircuitCapabilities_;  ///< whether a short circuit could be applied to the bus
 
   double unom_;  ///< nominal voltage
-  double u0_{};  ///< initial voltage
-  double angle0_;  ///< initial angle
+  double u0_;  ///< initial voltage
 
   std::string constraintId_;  ///< id to use in constraints
   startingPointMode_t startingPointMode_;  ///< type of starting point for the model (FLAT,WARM)

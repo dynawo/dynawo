@@ -52,12 +52,6 @@ UPu_(0.0),
 U_(0.0),
 irConnection_(0.0),
 iiConnection_(0.0),
-ir0_(0.0),
-ii0_(0.0),
-urYNum_(0),
-uiYNum_(0),
-iiYNum_(0),
-irYNum_(0),
 hasConnection_(bus->hasConnection()),
 hasShortCircuitCapabilities_(false),
 startingPointMode_(WARM) {
@@ -66,73 +60,11 @@ startingPointMode_(WARM) {
   unom_ = bus->getVNom();
   uMax_ = bus->getVMax() / unom_;
   uMin_ = bus->getVMin() / unom_;
-  angle0_ = bus->getAngle0() * DEG_TO_RAD;
   constraintId_ = bus->getID();
   const vector<string>& busBarSections = bus->getBusBarSectionIdentifiers();
   if (isNodeBreaker && !busBarSections.empty()) {
     constraintId_ = busBarSections[0];
   }
-}
-
-void
-ModelBusInjected::resetCurrentUStatus() {
-  currentUStatus_.reset();
-}
-
-double
-ModelBusInjected::getCurrentU(const UType_t currentURequested) {
-  if (getSwitchOff())
-    return 0;
-  switch (currentURequested) {
-    case UType_:
-      if (currentUStatus_.getFlags(U)) {
-        return U_;
-      } else if (currentUStatus_.getFlags(UPu)) {
-        U_ = calculateU();
-        currentUStatus_.setFlags(U);
-        return U_;
-      } else if (currentUStatus_.getFlags(U2Pu)) {
-        UPu_ = sqrt(U2Pu_);
-        U_ = calculateU();
-        currentUStatus_.setFlags(UPu | U);
-        return U_;
-      } else {
-        U2Pu_ = calculateU2Pu();
-        UPu_ = sqrt(U2Pu_);
-        U_ = calculateU();
-        currentUStatus_.setFlags(U2Pu | UPu | U);
-        return U_;
-      }
-    case UPuType_:
-      if (currentUStatus_.getFlags(UPu)) {
-        return UPu_;
-      } else if (currentUStatus_.getFlags(U2Pu)) {
-        UPu_ = sqrt(U2Pu_);
-        currentUStatus_.setFlags(UPu);
-        return UPu_;
-      } else {
-        U2Pu_ = calculateU2Pu();
-        UPu_ = sqrt(U2Pu_);
-        currentUStatus_.setFlags(U2Pu | UPu);
-        return UPu_;
-      }
-    case U2PuType_:
-      if (currentUStatus_.getFlags(U2Pu)) {
-        return U2Pu_;
-      } else {
-        U2Pu_ = calculateU2Pu();
-        currentUStatus_.setFlags(U2Pu);
-        return U2Pu_;
-      }
-  }
-  return 0;
-}
-
-double
-ModelBusInjected::calculateU2Pu() const {
-  const double urPu = ur();
-  const double uiPu = ui();
-  return urPu * urPu + uiPu * uiPu;
 }
 
 void
@@ -148,6 +80,23 @@ ModelBusInjected::initSize() {
     sizeY_ += 2;  // ir and ii
   sizeG_ += 2;  // U>Umax and U<Umin
   sizeCalculatedVar_ = nbCalculatedVariables_;
+}
+
+void
+ModelBusInjected::init(int& yNum) {
+  if (!(network_->isStartingFromDump() && internalVariablesFoundInDump_) && (startingPointMode_ == WARM)) {
+    u0_ = bus_.lock()->getV0() / unom_;
+    ur0_ = u0_ * cos(angle0_);
+    ui0_ = u0_ * sin(angle0_);
+  }
+
+  urYNum_ = yNum++;
+  uiYNum_ = yNum++;
+
+  if (!network_->isInitModel() && (hasConnection_ || hasShortCircuitCapabilities_)) {
+    irYNum_ = yNum++;
+    iiYNum_ = yNum++;
+  }
 }
 
 void
@@ -373,46 +322,6 @@ ModelBusInjected::evalCalculatedVars() {
     calculatedVars_[upuNum_] = getCurrentU(ModelBusInjected::UPuType_);
     calculatedVars_[phipuNum_] = atan2(y_[uiNum_], y_[urNum_]);
     calculatedVars_[phiNum_] = calculatedVars_[phipuNum_] * RAD_TO_DEG;
-  }
-}
-
-void
-ModelBusInjected::init(int& yNum) {
-  if (!network_->isStartingFromDump() || !internalVariablesFoundInDump_) {
-    switch (startingPointMode_) {
-    case FLAT:
-      u0_ = bus_.lock()->getVNom() / unom_;
-      break;
-    case WARM:
-      u0_ = bus_.lock()->getV0() / unom_;
-      break;
-    }
-    ur0_ = u0_ * cos(angle0_);
-    ui0_ = u0_ * sin(angle0_);
-  }
-
-  if (network_->isInitModel()) {
-    urYNum_ = yNum;
-    ++yNum;
-    uiYNum_ = yNum;
-    ++yNum;
-    irYNum_ = -1;
-    iiYNum_ = -1;
-  } else {
-    urYNum_ = yNum;
-    ++yNum;
-    uiYNum_ = yNum;
-    ++yNum;
-
-    if (hasConnection_ || hasShortCircuitCapabilities_) {
-      irYNum_ = yNum;
-      ++yNum;
-      iiYNum_ = yNum;
-      ++yNum;
-    } else {
-      irYNum_ = -1;
-      iiYNum_ = -1;
-    }
   }
 }
 
@@ -756,6 +665,67 @@ ModelBusInjected::switchOff() {
     y_[urNum_] = 0.0;
     y_[uiNum_] = 0.0;
   }
+}
+
+void
+ModelBusInjected::resetCurrentUStatus() {
+  currentUStatus_.reset();
+}
+
+double
+ModelBusInjected::getCurrentU(const UType_t currentURequested) {
+  if (getSwitchOff())
+    return 0;
+  switch (currentURequested) {
+    case UType_:
+      if (currentUStatus_.getFlags(U)) {
+        return U_;
+      } else if (currentUStatus_.getFlags(UPu)) {
+        U_ = calculateU();
+        currentUStatus_.setFlags(U);
+        return U_;
+      } else if (currentUStatus_.getFlags(U2Pu)) {
+        UPu_ = sqrt(U2Pu_);
+        U_ = calculateU();
+        currentUStatus_.setFlags(UPu | U);
+        return U_;
+      } else {
+        U2Pu_ = calculateU2Pu();
+        UPu_ = sqrt(U2Pu_);
+        U_ = calculateU();
+        currentUStatus_.setFlags(U2Pu | UPu | U);
+        return U_;
+      }
+    case UPuType_:
+      if (currentUStatus_.getFlags(UPu)) {
+        return UPu_;
+      } else if (currentUStatus_.getFlags(U2Pu)) {
+        UPu_ = sqrt(U2Pu_);
+        currentUStatus_.setFlags(UPu);
+        return UPu_;
+      } else {
+        U2Pu_ = calculateU2Pu();
+        UPu_ = sqrt(U2Pu_);
+        currentUStatus_.setFlags(U2Pu | UPu);
+        return UPu_;
+      }
+    case U2PuType_:
+      if (currentUStatus_.getFlags(U2Pu)) {
+        return U2Pu_;
+      } else {
+        U2Pu_ = calculateU2Pu();
+        currentUStatus_.setFlags(U2Pu);
+        return U2Pu_;
+      }
+  }
+  return 0;
+}
+
+double
+ModelBusInjected::calculateU2Pu() const {
+  const double urPu = ur();
+  const double uiPu = ui();
+  return urPu * urPu + uiPu * uiPu;
 }
 
 }  // namespace DYN
