@@ -30,6 +30,7 @@
 #include "DYNModelNetwork.h"
 #include "DYNSparseMatrix.h"
 #include "TLTimelineFactory.h"
+#include "DYNModelBusInjected.h"
 
 using boost::shared_ptr;
 
@@ -77,9 +78,9 @@ createModelSwitch(bool open, bool initModel) {
   std::unique_ptr<SwitchInterfaceIIDM> swItfIIDM = DYN::make_unique<SwitchInterfaceIIDM>(swIIDM);
 
   std::shared_ptr<ModelSwitch> sw = ModelSwitchFactory::newInstance(std::move(swItfIIDM));
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(std::move(bus1ItfIIDM), false);
   sw->setModelBus1(bus1);
-  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(std::move(bus2ItfIIDM), false);
+  std::shared_ptr<ModelBusInjected> bus2 = std::make_shared<ModelBusInjected>(std::move(bus2ItfIIDM), false);
   sw->setModelBus2(bus2);
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
@@ -136,10 +137,10 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
   ASSERT_EQ(sw->irYNum(), 0);
   ASSERT_EQ(sw->iiYNum(), 0);
   ASSERT_THROW_DYNAWO(sw->getModelBus1(), Error::MODELER, KeyError_t::SwitchMissingBus1);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(std::move(bus1ItfIIDM), false);
   sw->setModelBus1(bus1);
   ASSERT_THROW_DYNAWO(sw->getModelBus2(), Error::MODELER, KeyError_t::SwitchMissingBus2);
-  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(std::move(bus2ItfIIDM), false);
+  std::shared_ptr<ModelBusInjected> bus2 = std::make_shared<ModelBusInjected>(std::move(bus2ItfIIDM), false);
   sw->setModelBus2(bus2);
   ASSERT_EQ(sw->getModelBus1(), bus1);
   ASSERT_EQ(sw->getModelBus2(), bus2);
@@ -192,10 +193,10 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
   ASSERT_EQ(sw->irYNum(), 0);
   ASSERT_EQ(sw->iiYNum(), 0);
   ASSERT_THROW_DYNAWO(sw->getModelBus1(), Error::MODELER, KeyError_t::SwitchMissingBus1);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(std::move(bus1ItfIIDM), false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(std::move(bus1ItfIIDM), false);
   sw->setModelBus1(bus1);
   ASSERT_THROW_DYNAWO(sw->getModelBus2(), Error::MODELER, KeyError_t::SwitchMissingBus2);
-  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(std::move(bus2ItfIIDM), false);
+  std::shared_ptr<ModelBusInjected> bus2 = std::make_shared<ModelBusInjected>(std::move(bus2ItfIIDM), false);
   sw->setModelBus2(bus2);
   ASSERT_EQ(sw->getModelBus1(), bus1);
   ASSERT_EQ(sw->getModelBus2(), bus2);
@@ -316,7 +317,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   bus1->setReferenceG(&g1[0], 0);
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
-  bus1->numSubNetwork(2);
+  bus1->setNumSubNetwork(2);
 
   std::shared_ptr<ModelBus> bus2 = sw->getModelBus2();
   bus2->initSize();
@@ -331,7 +332,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   bus2->setReferenceG(&g2[0], 0);
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
   bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
-  bus2->numSubNetwork(2);
+  bus2->setNumSubNetwork(2);
 
   const unsigned indexConnectionStateBus = 2;
   sw->close();
@@ -435,10 +436,10 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], 4.);
   sw->inLoop(false);
-  y1[ModelBus::urNum_] = 8.;
-  y2[ModelBus::urNum_] = 3.;
-  y1[ModelBus::uiNum_] = 12.;
-  y2[ModelBus::uiNum_] = 10.;
+  y1[ModelBusInjected::urNum_] = 8.;
+  y2[ModelBusInjected::urNum_] = 3.;
+  y1[ModelBusInjected::uiNum_] = 12.;
+  y2[ModelBusInjected::uiNum_] = 10.;
   sw->evalZ(0., onlyEvaluateStateChange);
   sw->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], 5.);
