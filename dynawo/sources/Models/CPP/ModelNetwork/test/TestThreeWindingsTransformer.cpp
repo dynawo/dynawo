@@ -24,7 +24,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNModelThreeWindingsTransformer.h"
 #include "DYNModelVoltageLevel.h"
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "DYNModelNetwork.h"
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
@@ -127,9 +127,9 @@ createModelThreeWindingsTransformer(bool open, bool initModel) {
   network->setIsInitModel(initModel);
   t3w->setNetwork(network);
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::unique_ptr<ModelBus> bus1 = DYN::make_unique<ModelBus>(bus1ItfIIDM, false);
-  std::unique_ptr<ModelBus> bus2 = DYN::make_unique<ModelBus>(bus2ItfIIDM, false);
-  std::unique_ptr<ModelBus> bus3 = DYN::make_unique<ModelBus>(bus3ItfIIDM, false);
+  std::unique_ptr<ModelBusInjected> bus1 = DYN::make_unique<ModelBusInjected>(bus1ItfIIDM, false);
+  std::unique_ptr<ModelBusInjected> bus2 = DYN::make_unique<ModelBusInjected>(bus2ItfIIDM, false);
+  std::unique_ptr<ModelBusInjected> bus3 = DYN::make_unique<ModelBusInjected>(bus3ItfIIDM, false);
   t3w->setModelBus1(std::move(bus1));
   t3w->setModelBus2(std::move(bus2));
   t3w->setModelBus3(std::move(bus3));

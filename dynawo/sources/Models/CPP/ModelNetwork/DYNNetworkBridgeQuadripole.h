@@ -18,47 +18,24 @@
 #define MODELS_CPP_MODELNETWORK_DYNNETWORKBRIDGEQUADRIPOLE_H_
 
 #include "DYNModelQuadripole.h"
+#include "DYNNetworkBridge.hpp"
 
 namespace DYN {
-class SubModel;
-
 /** @brief enables connection state changes propagation from dynamic quadripole models to their ModelNetwork equivalent */
-class NetworkBridgeQuadripole : public ModelQuadripole {
+class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
  public:
    /**
    * @brief constructor from a base quadripole
    * @param baseQuadripole the quadripole network component that needs bridging to its dynamic part
    * @param stateVarPrefix the prefix to prepend to the state variables of the dynamic part, depending on actual component type
-   * @param network the ModelNetwork, required for isInit checking
    */
   explicit NetworkBridgeQuadripole(const std::shared_ptr<ModelQuadripole> & baseQuadripole,
-                                   const std::string & stateVarPrefix,
-                                   ModelNetwork * network);
+                                   const std::string & stateVarPrefix);
 
-  /**
-   * @brief sets the pointer to the dynamic model overriding the ModelNetwork component passed at instanciation
-   * @param dynModel the pointer to the dynamic model
-   */
-  void setDynPart(boost::shared_ptr<SubModel> dynModel) {dynModel_ = dynModel;}
-
-  /** @copydoc NetworkComponent */
   void initSize() override;
-
-  /**
-   * @copydoc NetworkComponent
-   * @return TOPO_CHANGE if connection state variable has changed to or from CLOSED on dynamic model, NO_CHANGE otherwise
-  */
   StateChange_t evalZ(double, bool) override;
-
-  /** @copydoc NetworkComponent */
   void evalG(double) override;
-
-  /** @copydoc NetworkComponent */
   void setGequations(std::map<int, std::string>&) override;
-
- public:
-    static const char BRIDGE_PREFIX[];  ///< prefix added to static ID to build NetworkBridgeQuadripole ID,
-                                        ///< preventing confusion when listing ModelNetwork components
 
  private:
    /**
@@ -69,7 +46,6 @@ class NetworkBridgeQuadripole : public ModelQuadripole {
 
  private:
   std::string stateVarPrefix_;                        ///< dynamic state variable model type prefix
-  boost::shared_ptr<SubModel> dynModel_ = nullptr;    ///< dynamic model for the quadripole ModelNetwork component
   bool declareTopoChange_ = false;                    ///< flag indicating that evalG detected a topology change that needs to be forwarded to evalZ
 
 

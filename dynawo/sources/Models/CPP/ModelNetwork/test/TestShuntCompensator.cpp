@@ -26,7 +26,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNModelShuntCompensator.h"
 #include "DYNModelVoltageLevel.h"
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "DYNModelNetwork.h"
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
@@ -90,7 +90,7 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel, powsybl::
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   sc->setNetwork(network);
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(bus1ItfIIDM, false);
   vl->addComponent(sc);
   vl->addBus(bus1);
   bus1->setNetwork(network);
@@ -107,8 +107,8 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel, powsybl::
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 3.5;
-  y1[ModelBus::uiNum_] = 2;
+  y1[ModelBusInjected::urNum_] = 3.5;
+  y1[ModelBusInjected::uiNum_] = 2;
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
