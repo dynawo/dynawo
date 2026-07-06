@@ -23,6 +23,8 @@
 #include "DYNModelVoltageLevel.h"
 #include "DYNModelBus.h"
 #include "DYNModelNetwork.h"
+#include "DYNModelBusContainer.h"
+#include "DYNModelSubNetwork.hpp"
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
 #include "DYNVariable.h"
@@ -31,14 +33,15 @@
 #include "CSTRConstraintsCollection.h"
 #include "CSTRConstraint.h"
 
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "gtest_dynawo.h"
 
 using boost::shared_ptr;
 
 
 namespace DYN {
-static std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> >  // need to return the voltage level so that it is not destroyed
+// need to return the voltage level so that it is not destroyed
+static std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> >
 createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& networkIIDM, bool hasConnection = true) {
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
       .setId("S")
@@ -70,7 +73,7 @@ createModelBus(bool initModel, bool isNodeBreaker, powsybl::iidm::Network& netwo
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(std::move(constraints));
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, isNodeBreaker);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(bus1ItfIIDM, isNodeBreaker);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   return std::make_pair(bus1, vlItfIIDM);
@@ -89,12 +92,6 @@ fillParameters(const std::shared_ptr<ModelBus>& bus, std::string& startingPoint)
 
 TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   SubNetwork sub;
-  ASSERT_EQ(sub.getNum(), 0);
-  SubNetwork sub2(4);
-  ASSERT_EQ(sub2.getNum(), 4);
-
-  sub.setNum(8);
-  ASSERT_EQ(sub.getNum(), 8);
   ASSERT_EQ(sub.nbBus(), 0);
 #ifndef _MSC_VER
   EXPECT_ASSERT_DYNAWO(sub.bus(1));
@@ -103,8 +100,8 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 #endif
 
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   sub.addBus(bus);
@@ -127,8 +124,8 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -140,7 +137,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   ASSERT_EQ(bus->id(), "MyBus1");
   ASSERT_FALSE(bus->getSwitchOff());
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getAngle0(), M_PI/2);
-  ASSERT_EQ(bus->getRefIslands(), 0);
+  ASSERT_EQ(bus->refIslands, 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getVNom(), 5.);
   ASSERT_FALSE(bus->hasBBS());
   ASSERT_EQ(bus->getBusIndex(), 0);
@@ -149,8 +146,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusInitializationFlat) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   std::string startingPoint = "flat";
   fillParameters(bus, startingPoint);
@@ -165,19 +162,19 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitializationFlat) {
   for (int i = 0; i < bus->sizeZ(); ++i)
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
-  std::vector<double> calculatedVars(ModelBus::nbCalculatedVariables_, 0.);
+  std::vector<double> calculatedVars(ModelBusInjected::nbCalculatedVariables_, 0.);
   bus->setReferenceCalculatedVar(&calculatedVars[0], 0);
   bus->getY0();
   bus->evalCalculatedVars();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::upuNum_], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::upuNum_], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getAngle0(), M_PI/2);
   delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -190,89 +187,89 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
     zConnected[i] = true;
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
-  y[ModelBus::urNum_] = 0.35;
-  y[ModelBus::uiNum_] = 0.02;
-  ASSERT_EQ(bus->sizeCalculatedVar(), ModelBus::nbCalculatedVariables_);
+  y[ModelBusInjected::urNum_] = 0.35;
+  y[ModelBusInjected::uiNum_] = 0.02;
+  ASSERT_EQ(bus->sizeCalculatedVar(), ModelBusInjected::nbCalculatedVariables_);
 
-  std::vector<double> calculatedVars(ModelBus::nbCalculatedVariables_, 0.);
+  std::vector<double> calculatedVars(ModelBusInjected::nbCalculatedVariables_, 0.);
   bus->setReferenceCalculatedVar(&calculatedVars[0], 0);
   bus->evalCalculatedVars();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::upuNum_], 0.35057096285916206);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phipuNum_], 0.057080782406264609);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::uNum_], 1.7528548142958102);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phiNum_], 3.2704879231835657);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_), calculatedVars[ModelBus::upuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_), calculatedVars[ModelBus::phipuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_), calculatedVars[ModelBus::uNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_), calculatedVars[ModelBus::phiNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::upuNum_], 0.35057096285916206);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::phipuNum_], 0.057080782406264609);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::uNum_], 1.7528548142958102);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::phiNum_], 3.2704879231835657);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::upuNum_), calculatedVars[ModelBusInjected::upuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::phipuNum_), calculatedVars[ModelBusInjected::phipuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::uNum_), calculatedVars[ModelBusInjected::uNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::phiNum_), calculatedVars[ModelBusInjected::phiNum_]);
   ASSERT_THROW_DYNAWO(bus->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
   bus->switchOff();
   bus->evalCalculatedVars();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::upuNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phipuNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::uNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phiNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_), calculatedVars[ModelBus::upuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_), calculatedVars[ModelBus::phipuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_), calculatedVars[ModelBus::uNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_), calculatedVars[ModelBus::phiNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::upuNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::phipuNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::uNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::phiNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::upuNum_), calculatedVars[ModelBusInjected::upuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::phipuNum_), calculatedVars[ModelBusInjected::phipuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::uNum_), calculatedVars[ModelBusInjected::uNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::phiNum_), calculatedVars[ModelBusInjected::phiNum_]);
   bus->switchOn();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::upuNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phipuNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::uNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phiNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_), calculatedVars[ModelBus::upuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_), calculatedVars[ModelBus::phipuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_), calculatedVars[ModelBus::uNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_), calculatedVars[ModelBus::phiNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::upuNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::phipuNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::uNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBusInjected::phiNum_], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::upuNum_), calculatedVars[ModelBusInjected::upuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::phipuNum_), calculatedVars[ModelBusInjected::phipuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::uNum_), calculatedVars[ModelBusInjected::uNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBusInjected::phiNum_), calculatedVars[ModelBusInjected::phiNum_]);
 
   std::vector<double> res(2, 0.);
-  y[ModelBus::urNum_] = 0.35;
-  y[ModelBus::uiNum_] = 0.02;
+  y[ModelBusInjected::urNum_] = 0.35;
+  y[ModelBusInjected::uiNum_] = 0.02;
   ASSERT_THROW_DYNAWO(bus->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::upuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.99837133442397663);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.057049790538512953);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::phipuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.16273393002441011);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 2.8478437754271764);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::uNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 4.9918566721198836);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.28524895269256478);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::phiNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -9.3239673739759699);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 163.16942904457943);
   std::fill(res.begin(), res.end(), 0);
 
   bus->switchOff();
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::upuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::phipuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::uNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::phiNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   bus->switchOn();
   // evalJ right after 0 undefined due to ur=ui=0 -> returns 0s
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::upuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::phipuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::uNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBusInjected::phiNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
 //
@@ -280,33 +277,33 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   bus->init(offset);
   std::vector<int> numVars;
   ASSERT_THROW_DYNAWO(bus->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::upuNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBusInjected::upuNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phipuNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBusInjected::phipuNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::uNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBusInjected::uNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phiNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBusInjected::phiNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
-  std::shared_ptr<ModelBus> busInit = p2.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
+  std::shared_ptr<ModelBusInjected> busInit = p2.first;
   busInit->init(offSet);
   busInit->initSize();
   ASSERT_EQ(busInit->sizeCalculatedVar(), 0);
@@ -316,8 +313,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
   bool onlyEvaluateStateChange = false;
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -344,10 +341,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   bus->setNetwork(network);
 
 
-  bus->numSubNetwork(2);
-  ASSERT_TRUE(bus->numSubNetworkSet());
+  bus->setNumSubNetwork(2);
+  ASSERT_TRUE(bus->isNumSubNetworkSet());
   bus->getY0();
-  ASSERT_EQ(z[0], bus->numSubNetwork());
+  ASSERT_EQ(z[0], bus->getNumSubNetwork());
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[1], fromNativeBool(bus->getSwitchOff()));
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], CLOSED);
 
@@ -430,11 +427,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(gEquationIndex.size(), nbG);
 
   bus->clearNumSubNetwork();
-  ASSERT_FALSE(bus->numSubNetworkSet());
+  ASSERT_FALSE(bus->isNumSubNetworkSet());
 
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
-  std::shared_ptr<ModelBus> busInit = p2.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
+  std::shared_ptr<ModelBusInjected> busInit = p2.first;
   busInit->init(offSet);
   busInit->initSize();
   ASSERT_EQ(busInit->sizeZ(), 0);
@@ -445,8 +442,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariablesOnlyEvaluateStateChange) {
   powsybl::iidm::Network networkIIDM("test", "test");
   bool onlyEvaluateStateChange = true;
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -473,10 +470,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariablesOnlyEvaluateStateChange
   bus->setNetwork(network);
 
 
-  bus->numSubNetwork(2);
-  ASSERT_TRUE(bus->numSubNetworkSet());
+  bus->setNumSubNetwork(2);
+  ASSERT_TRUE(bus->isNumSubNetworkSet());
   bus->getY0();
-  ASSERT_EQ(z[0], bus->numSubNetwork());
+  ASSERT_EQ(z[0], bus->getNumSubNetwork());
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[1], fromNativeBool(bus->getSwitchOff()));
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], CLOSED);
 
@@ -514,11 +511,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariablesOnlyEvaluateStateChange
   ASSERT_EQ(gEquationIndex.size(), nbG);
 
   bus->clearNumSubNetwork();
-  ASSERT_FALSE(bus->numSubNetworkSet());
+  ASSERT_FALSE(bus->isNumSubNetworkSet());
 
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
-  std::shared_ptr<ModelBus> busInit = p2.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(true, false, networkIIDM2);
+  std::shared_ptr<ModelBusInjected> busInit = p2.first;
   busInit->init(offSet);
   busInit->initSize();
   ASSERT_EQ(busInit->sizeZ(), 0);
@@ -529,8 +526,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariablesOnlyEvaluateStateChange
 TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
   bool onlyEvaluateStateChange = false;
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, true, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -557,10 +554,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
   bus->setNetwork(network);
 
 
-  bus->numSubNetwork(2);
-  ASSERT_TRUE(bus->numSubNetworkSet());
+  bus->setNumSubNetwork(2);
+  ASSERT_TRUE(bus->isNumSubNetworkSet());
   bus->getY0();
-  ASSERT_EQ(z[0], bus->numSubNetwork());
+  ASSERT_EQ(z[0], bus->getNumSubNetwork());
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[1], fromNativeBool(bus->getSwitchOff()));
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], CLOSED);
 
@@ -574,18 +571,18 @@ TEST(ModelsModelNetwork, ModelNetworkBusNodeBreakerDiscreteVariables) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   unsigned nbY = 4;
   unsigned nbF = 2;
   bus->initSize();
   std::vector<double> y(nbY, 0.);
-  y[ModelBus::urNum_] = 0.35;
-  y[ModelBus::uiNum_] = 0.02;
-  y[ModelBus::irNum_] = 0.8;
-  y[ModelBus::iiNum_] = 0.4;
+  y[ModelBusInjected::urNum_] = 0.35;
+  y[ModelBusInjected::uiNum_] = 0.02;
+  y[ModelBusInjected::irNum_] = 0.8;
+  y[ModelBusInjected::iiNum_] = 0.4;
   std::vector<double> yp(nbY, 0.);
   std::vector<double> f(nbF, 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
@@ -606,21 +603,21 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
 
   // test eval(Static/Dynamic)(Y/F)Type
   bus->evalStaticYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], UNDEFINED_PROPERTY);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], UNDEFINED_PROPERTY);
-  ASSERT_EQ(yTypes[ModelBus::irNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::iiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], UNDEFINED_PROPERTY);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], UNDEFINED_PROPERTY);
+  ASSERT_EQ(yTypes[ModelBusInjected::irNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::iiNum_], ALGEBRAIC);
   bus->evalStaticFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], UNDEFINED_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], UNDEFINED_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], UNDEFINED_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], UNDEFINED_EQ);
   bus->evalDynamicYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::irNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::iiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::irNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::iiNum_], ALGEBRAIC);
   bus->evalDynamicFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], ALGEBRAIC_EQ);
 
   // test evalF
   bus->irAdd(3.2);
@@ -637,8 +634,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   bus->switchOff();
 
   // test evalF
-  y[ModelBus::urNum_] = 0.35;
-  y[ModelBus::uiNum_] = 0.02;
+  y[ModelBusInjected::urNum_] = 0.35;
+  y[ModelBusInjected::uiNum_] = 0.02;
   ASSERT_NO_THROW(bus->evalF(UNDEFINED_EQ));
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0.35);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0.02);
@@ -651,47 +648,47 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   // evalStaticYType, evalStaticFType, evalDynamicYType, evalDynamicFType
   bus->setHasDifferentialVoltages(true);
   bus->evalStaticYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
   bus->evalStaticFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], ALGEBRAIC_EQ);
   bus->evalDynamicYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
   bus->evalDynamicFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], ALGEBRAIC_EQ);
 
   // switch on again
   bus->switchOn();
   bus->evalStaticYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
   bus->evalStaticFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], ALGEBRAIC_EQ);
   bus->evalDynamicYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], DIFFERENTIAL);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], DIFFERENTIAL);
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], DIFFERENTIAL);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], DIFFERENTIAL);
   bus->evalDynamicFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], DIFFERENTIAL_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], DIFFERENTIAL_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], DIFFERENTIAL_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], DIFFERENTIAL_EQ);
   delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(true, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(true, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   unsigned nbY = 2;
   unsigned nbF = 2;
   bus->initSize();
   std::vector<double> y(nbY, 0.);
-  y[ModelBus::urNum_] = 0.35;
-  y[ModelBus::uiNum_] = 0.02;
+  y[ModelBusInjected::urNum_] = 0.35;
+  y[ModelBusInjected::uiNum_] = 0.02;
   std::vector<double> yp(nbY, 0.);
   std::vector<double> f(nbF, 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
@@ -713,12 +710,12 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   // test evalStaticYType
   bus->evalStaticYType();
   bus->evalDynamicYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
   bus->evalStaticFType();
   bus->evalDynamicFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], ALGEBRAIC_EQ);
 
   // test evalF
   bus->irAdd(3.2);
@@ -731,8 +728,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   std::vector<shared_ptr<Variable> > definedVariables;
@@ -784,8 +781,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
 
   // The tests on the parameter hasShortCircuitCapabilities are done using the model size.
   powsybl::iidm::Network networkIIDM2("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(false, false, networkIIDM2, false);
-  std::shared_ptr<ModelBus> bus2 = p2.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p2 = createModelBus(false, false, networkIIDM2, false);
+  std::shared_ptr<ModelBusInjected> bus2 = p2.first;
   bus2->init(offSet);
   bus2->initSize();
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus2->sizeY(), 2.);
@@ -819,8 +816,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -834,8 +831,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   bus->evalYMat();
-  y[ModelBus::urNum_] = 0.35;
-  y[ModelBus::uiNum_] = 0.02;
+  y[ModelBusInjected::urNum_] = 0.35;
+  y[ModelBusInjected::uiNum_] = 0.02;
   SparseMatrix smj;
   int size = bus->sizeY();
   smj.init(size, size);
@@ -930,13 +927,13 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(std::move(constraints));
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(bus1ItfIIDM, false);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
-  std::shared_ptr<ModelBus> bus2 = std::make_shared<ModelBus>(bus2ItfIIDM, false);
+  std::shared_ptr<ModelBusInjected> bus2 = std::make_shared<ModelBusInjected>(bus2ItfIIDM, false);
   bus2->setNetwork(network);
   bus2->setVoltageLevel(vl);
-  std::shared_ptr<ModelBus> bus3 = std::make_shared<ModelBus>(bus3ItfIIDM, false);
+  std::shared_ptr<ModelBusInjected> bus3 = std::make_shared<ModelBusInjected>(bus3ItfIIDM, false);
   bus3->setNetwork(network);
   bus3->setVoltageLevel(vl);
 
@@ -995,18 +992,18 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 
   container.resetSubNetwork();
   bus1->addNeighbor(bus2);
-  ASSERT_FALSE(bus1->numSubNetworkSet());
-  ASSERT_FALSE(bus2->numSubNetworkSet());
-  ASSERT_FALSE(bus3->numSubNetworkSet());
+  ASSERT_FALSE(bus1->isNumSubNetworkSet());
+  ASSERT_FALSE(bus2->isNumSubNetworkSet());
+  ASSERT_FALSE(bus3->isNumSubNetworkSet());
   container.exploreNeighbors(0);
-  ASSERT_EQ(bus1->numSubNetwork(), 0);
-  ASSERT_EQ(bus2->numSubNetwork(), 0);
-  ASSERT_EQ(bus3->numSubNetwork(), 1);
+  ASSERT_EQ(bus1->getNumSubNetwork(), 0);
+  ASSERT_EQ(bus2->getNumSubNetwork(), 0);
+  ASSERT_EQ(bus3->getNumSubNetwork(), 1);
   ASSERT_EQ(container.getSubNetworks().size(), 2);
   container.resetSubNetwork();
-  ASSERT_FALSE(bus1->numSubNetworkSet());
-  ASSERT_FALSE(bus2->numSubNetworkSet());
-  ASSERT_FALSE(bus3->numSubNetworkSet());
+  ASSERT_FALSE(bus1->isNumSubNetworkSet());
+  ASSERT_FALSE(bus2->isNumSubNetworkSet());
+  ASSERT_FALSE(bus3->isNumSubNetworkSet());
   ASSERT_EQ(container.getSubNetworks().size(), 0);
 
   container.evalF(UNDEFINED_EQ);
@@ -1050,7 +1047,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   ASSERT_EQ(smj.Ap_[4], 4);
   ASSERT_EQ(smj.Ap_[5], 5);
   ASSERT_EQ(smj.Ap_[6], 6);
-  container.initDerivatives();
+  container.resetDerivatives();
   SparseMatrix smj2;
   smj2.init(size, size);
   container.evalJt(1., 0, smj2);
@@ -1063,9 +1060,9 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 
 
   container.initRefIslands();
-  ASSERT_EQ(bus1->getRefIslands(), 0);
-  ASSERT_EQ(bus2->getRefIslands(), 0);
-  ASSERT_EQ(bus3->getRefIslands(), 0);
+  ASSERT_EQ(bus1->refIslands, 0);
+  ASSERT_EQ(bus2->refIslands, 0);
+  ASSERT_EQ(bus3->refIslands, 0);
   delete[] zConnected1;
   delete[] zConnected2;
   delete[] zConnected3;
@@ -1073,8 +1070,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 
 TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
   powsybl::iidm::Network networkIIDM("test", "test");
-  std::pair<std::shared_ptr<ModelBus>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
-  std::shared_ptr<ModelBus> bus = p.first;
+  std::pair<std::shared_ptr<ModelBusInjected>, std::shared_ptr<VoltageLevelInterfaceIIDM> > p = createModelBus(false, false, networkIIDM);
+  std::shared_ptr<ModelBusInjected> bus = p.first;
   int offSet = 0;
   bus->init(offSet);
   bus->initSize();
@@ -1082,8 +1079,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
   std::vector<double> yp(bus->sizeY(), 0.);
   std::vector<double> f(bus->sizeF(), 0.);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
-  y[ModelBus::urNum_] = 1;
-  y[ModelBus::uiNum_] = 2.;
+  y[ModelBusInjected::urNum_] = 1;
+  y[ModelBusInjected::uiNum_] = 2.;
   std::vector<double> z(bus->sizeZ(), 0.);
   bool* zConnected = new bool[bus->sizeZ()];
   for (int i = 0; i < bus->sizeZ(); ++i)

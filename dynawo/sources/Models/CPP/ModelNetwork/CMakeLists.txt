@@ -19,6 +19,9 @@ set(MODEL_SOURCES
   DYNDerivative.cpp
   DYNNetworkComponent.cpp
   DYNModelBus.cpp
+  DYNModelBusInjected.cpp
+  DYNModelBusBridged.cpp
+  DYNModelBusContainer.cpp
   DYNModelGenerator.cpp
   DYNModelSwitch.cpp
   DYNModelSwitchFactory.cpp
