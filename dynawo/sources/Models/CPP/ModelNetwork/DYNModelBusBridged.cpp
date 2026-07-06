@@ -25,23 +25,9 @@ ModelBusBridged::ur() const {
   if (!network_->isInit())
     throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ur() outside of init", id());
 
-  if (dynModel_ == nullptr)
-    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
-
-  // return dynModel_->getVariableValue("bus_terminal_V_re");
-
-  std::string u0Str;
-  bool ok;
-  dynModel_->getInitSubModelParameterValue("bus_U0Pu", u0Str, ok);
-  if (!ok)
-    return ur0_;
-
-  std::string angle0Str;
-  dynModel_->getInitSubModelParameterValue("bus_UPhase0", angle0Str, ok);
-  if (!ok)
-    return ur0_;
-
-  return stod(u0Str) * cos(stod(angle0Str));
+  // we would like something along the line of dynModel_->getVariableValue("bus_terminal_V_re") here,
+  // however the modelica init has not run yet
+  return ur0_;
 }
 
 double
@@ -52,23 +38,10 @@ ModelBusBridged::ui() const {
   if (!network_->isInit())
     throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ui() outside of init", id());
 
-  if (dynModel_ == nullptr)
-    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
-
-  // return dynModel_->getVariableValue("bus_terminal_V_im");
-
-  std::string u0Str;
-  bool ok;
-  dynModel_->getInitSubModelParameterValue("bus_U0Pu", u0Str, ok);
-  if (!ok)
-    return ur0_;
-
-  std::string angle0Str;
-  dynModel_->getInitSubModelParameterValue("bus_UPhase0", angle0Str, ok);
-  if (!ok)
-    return ur0_;
-
-  return stod(u0Str) * sin(stod(angle0Str));
+  return ui0_;
 }
+
+// if (dynModel_ == nullptr)
+//   throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
 
 }  // namespace DYN
