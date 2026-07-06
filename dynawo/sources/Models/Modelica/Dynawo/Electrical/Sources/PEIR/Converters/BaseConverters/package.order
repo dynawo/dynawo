@@ -2,3 +2,5 @@ DynRLCFilter
 DynRLTransformer
 RefFrameRotation
 VSCConverter
+DynRLCFilterRI
+DynRLTransformerRI

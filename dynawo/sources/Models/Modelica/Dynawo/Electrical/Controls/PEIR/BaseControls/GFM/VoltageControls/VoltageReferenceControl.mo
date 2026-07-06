@@ -34,9 +34,9 @@ model VoltageReferenceControl "Voltage reference control block"
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = QFilterRef0Pu) "Reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput udRefPu(start = UdRef0Pu) "d-axis voltage reference in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput udFilterRefPu(start = UdRef0Pu) "d-axis voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput uqRefPu(start = UqRef0Pu) "q-axis voltage reference in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uqFilterRefPu(start = UqRef0Pu) "q-axis voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 1 / Wff, y_start = -Kff * IqPcc0Pu) annotation(
@@ -74,11 +74,11 @@ model VoltageReferenceControl "Voltage reference control block"
   final parameter Types.ReactivePowerPu QFilterRef0Pu = QFilter0Pu + (Kff * IdPcc0Pu + DeltaVVId0) / Mq "Start value of reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
 
 equation
-  connect(feedback5.y, udRefPu) annotation(
+  connect(feedback5.y, udFilterRefPu) annotation(
     Line(points = {{91, 78}, {110, 78}}, color = {0, 0, 127}));
   connect(gain1.u, idPccPu) annotation(
     Line(points = {{-60, 4}, {-110, 4}}, color = {0, 0, 127}));
-  connect(QPu, firstOrder1.u) annotation(
+  connect(QFilterPu, firstOrder1.u) annotation(
     Line(points = {{-110, 54}, {-88, 54}}, color = {0, 0, 127}));
   connect(feedback3.y, gain3.u) annotation(
     Line(points = {{-49, 84}, {-38, 84}}, color = {0, 0, 127}));
@@ -104,7 +104,7 @@ equation
     Line(points = {{33, 78}, {44, 78}}, color = {0, 0, 127}));
   connect(firstOrder3.y, feedback7.u1) annotation(
     Line(points = {{-7, -36}, {74, -36}}, color = {0, 0, 127}));
-  connect(feedback7.y, uqRefPu) annotation(
+  connect(feedback7.y, uqFilterRefPu) annotation(
     Line(points = {{91, -36}, {110, -36}}, color = {0, 0, 127}));
   connect(DeltaVVIq, feedback7.u2) annotation(
     Line(points = {{-110, -56}, {82, -56}, {82, -44}}, color = {0, 0, 127}));

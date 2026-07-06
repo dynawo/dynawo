@@ -43,7 +43,7 @@ model DynQSEM "Quasi-Static Electrical Model"
   parameter Types.AngularVelocityPu Omega0Pu "Start value of converter's frequency in pu (base omegaNom)";
 
 equation
-  [idConvRefPu; iqConvRefPu] = 1/(RFilter^2 + (LFilter*omegaPu + XVI)^2)*[RFilter, LFilter*omegaPu + XVI; -(LFilter*omegaPu + XVI), RFilter] * [udFilterRefPu-udFilteredPCCPu; uqFilterRefPu-uqFilteredPCCPu];
+  [idConvRefPu; iqConvRefPu] = 1/(RFilter^2 + (LFilter*omegaPu + XVI)^2)*[RFilter, LFilter*omegaPu + XVI; -(LFilter*omegaPu) + XVI, RFilter] * [udFilterRefPu-udFilteredPCCPu; uqFilterRefPu-uqFilteredPCCPu];
 
 annotation(preferredView = "text",
     Icon(coordinateSystem(grid = {1, 1})));
