@@ -28,7 +28,7 @@
 #include "DYNEnumUtils.h"
 #include "DYNModelLoad.h"
 #include "DYNModelVoltageLevel.h"
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "DYNModelNetwork.h"
 #include "DYNParameter.h"
 #include "TLTimelineFactory.h"
@@ -42,7 +42,7 @@ namespace DYN {
 
 // need to return the voltage level so that it is not destroyed
 static std::tuple<std::shared_ptr<ModelLoad>,
-std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
+std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBusInjected>, std::shared_ptr<BusInterfaceIIDM>,
 std::shared_ptr<VoltageLevelInterfaceIIDM> >
 createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) {
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -87,7 +87,7 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(bus1ItfIIDM, false);
   vl->addBus(bus1);
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
@@ -105,8 +105,8 @@ createModelLoad(bool open, bool initModel, powsybl::iidm::Network& networkIIDM) 
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 3.5;
-  y1[ModelBus::uiNum_] = 2;
+  y1[ModelBusInjected::urNum_] = 3.5;
+  y1[ModelBusInjected::uiNum_] = 2;
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
@@ -375,7 +375,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   bool onlyEvaluateStateChange = false;
   std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
+  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBusInjected>, std::shared_ptr<BusInterfaceIIDM>,
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
@@ -437,11 +437,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
 TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
+  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBusInjected>, std::shared_ptr<BusInterfaceIIDM>,
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
-  std::shared_ptr<ModelBus> bus = std::get<2>(myTuple);
+  std::shared_ptr<ModelBusInjected> bus = std::get<2>(myTuple);
   int yNum = 0;
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
@@ -558,7 +558,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
 TEST(ModelsModelNetwork, ModelNetworkLoadPControllable) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
+  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBusInjected>, std::shared_ptr<BusInterfaceIIDM>,
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
@@ -577,7 +577,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadPControllable) {
 TEST(ModelsModelNetwork, ModelNetworkLoadQControllable) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
+  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBusInjected>, std::shared_ptr<BusInterfaceIIDM>,
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
@@ -597,7 +597,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadQControllable) {
 TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
+  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBusInjected>, std::shared_ptr<BusInterfaceIIDM>,
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
@@ -638,11 +638,11 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
 TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   std::tuple<std::shared_ptr<ModelLoad>,
-  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBus>, std::shared_ptr<BusInterfaceIIDM>,
+  std::shared_ptr<ModelVoltageLevel>, std::shared_ptr<ModelBusInjected>, std::shared_ptr<BusInterfaceIIDM>,
   std::shared_ptr<VoltageLevelInterfaceIIDM>> myTuple = createModelLoad(false, false, networkIIDM);
   std::shared_ptr<ModelLoad> load = std::get<0>(myTuple);
   std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(myTuple);
-  std::shared_ptr<ModelBus> bus = std::get<2>(myTuple);
+  std::shared_ptr<ModelBusInjected> bus = std::get<2>(myTuple);
   std::string startingPoint = "warm";
   fillParameters(load, startingPoint);
   load->initSize();

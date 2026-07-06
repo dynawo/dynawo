@@ -341,9 +341,8 @@ ModelLine::evalStaticFType() {
   if (network_->isInitModel())
     return;
 
-  int eqYNum = 0;
-  for (int i=0; i < 2*dynBus1_ + 2*dynBus2_; ++i)  // 2 algebraic eqs per dynamic bus
-    fType_[eqYNum++] = ALGEBRAIC_EQ;
+  for (int eqYNum=0; eqYNum < 2*dynBus1_ + 2*dynBus2_; ++eqYNum)  // 2 algebraic eqs per dynamic bus
+    fType_[eqYNum] = ALGEBRAIC_EQ;
 }
 
 void
@@ -480,13 +479,25 @@ ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
 
 void
 ModelLine::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
-  if (network_->isInitModel() || !dynLineModel_ || (getConnectionState() != CLOSED))
+  if (network_->isInitModel())
     return;
 
-  jtPrim.changeCol();
-  jtPrim.addTerm(globalYIndex(irbYNum_) + rowOffset, - reactance_);  // column for equation IBranch_re
-  jtPrim.changeCol();
-  jtPrim.addTerm(globalYIndex(iibYNum_) + rowOffset, - reactance_);  // column for equation IBranch_im
+  if (dynBus1_) {
+    jtPrim.changeCol();
+    jtPrim.changeCol();
+  }
+
+  if (dynBus2_) {
+    jtPrim.changeCol();
+    jtPrim.changeCol();
+  }
+
+  if (dynLineModel_ && (getConnectionState() == CLOSED)) {
+    jtPrim.changeCol();
+    jtPrim.addTerm(globalYIndex(irbYNum_) + rowOffset, - reactance_);  // column for equation IBranch_re
+    jtPrim.changeCol();
+    jtPrim.addTerm(globalYIndex(iibYNum_) + rowOffset, - reactance_);  // column for equation IBranch_im
+  }
 }
 
 void
@@ -1185,7 +1196,7 @@ ModelLine::printInternalParameters(std::ofstream& fstream) const {
 double
 ModelLine::ur1() const {
   if (dynBus1_)
-    return y_[ur1YNum_];
+    return network_->isInit() ? modelBus1_->ur() : y_[ur1YNum_];
 
   if (isClosedSide1(getConnectionState()))
     return modelBus1_->ur();
@@ -1196,7 +1207,7 @@ ModelLine::ur1() const {
 double
 ModelLine::ui1() const {
   if (dynBus1_)
-    return y_[ui1YNum_];
+    return network_->isInit() ? modelBus1_->ui() : y_[ui1YNum_];
 
   if (isClosedSide1(getConnectionState()))
     return modelBus1_->ui();
@@ -1207,7 +1218,7 @@ ModelLine::ui1() const {
 double
 ModelLine::ur2() const {
   if (dynBus2_)
-    return y_[ur2YNum_];
+    return network_->isInit() ? modelBus2_->ur() : y_[ur2YNum_];
 
   if (isClosedSide2(getConnectionState()))
     return modelBus2_->ur();
@@ -1218,7 +1229,7 @@ ModelLine::ur2() const {
 double
 ModelLine::ui2() const {
   if (dynBus2_)
-    return y_[ui2YNum_];
+    return network_->isInit() ? modelBus2_->ui() : y_[ui2YNum_];
 
   if (isClosedSide2(getConnectionState()))
     return modelBus2_->ui();

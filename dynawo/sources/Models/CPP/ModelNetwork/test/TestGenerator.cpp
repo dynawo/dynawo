@@ -24,7 +24,7 @@
 #include "DYNBusInterfaceIIDM.h"
 #include "DYNGeneratorInterfaceIIDM.h"
 #include "DYNModelGenerator.h"
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "DYNModelNetwork.h"
 #include "TLTimelineFactory.h"
 #include "DYNModelVoltageLevel.h"
@@ -90,7 +90,7 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
   network->setIsInitModel(initModel);
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   gen->setNetwork(network);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(bus1ItfIIDM, false);
   std::shared_ptr<ModelVoltageLevel> vl = std::make_shared<ModelVoltageLevel>(vlItfIIDM);
   vl->addComponent(gen);
   vl->addBus(bus1);
@@ -108,8 +108,8 @@ createModelGenerator(bool open, bool initModel, powsybl::iidm::Network& networkI
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 0.35;
-  y1[ModelBus::uiNum_] = 0.02;
+  y1[ModelBusInjected::urNum_] = 0.35;
+  y1[ModelBusInjected::uiNum_] = 0.02;
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
