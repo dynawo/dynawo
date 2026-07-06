@@ -11,6 +11,7 @@
 
 set(MODEL_FILES
   DynConverter1.mo
+  DynConverter2.mo
   package.mo
   package.order
   )

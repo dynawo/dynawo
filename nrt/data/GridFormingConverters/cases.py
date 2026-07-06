@@ -37,3 +37,13 @@ case_description = "SMIB test case with a step on the GFM reference power"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMVSM", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#           GridForming - DYNGFMVSM2 - PFilterRef Step and InfiniteBus variations           #
+###################################################################
+
+case_name = "SMIB - Step PFilterRef and InfiniteBus variations"
+case_description = "SMIB test case with a step on the GFM reference power and variations on frequency and voltage of the infinite bus"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMVSM2", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))

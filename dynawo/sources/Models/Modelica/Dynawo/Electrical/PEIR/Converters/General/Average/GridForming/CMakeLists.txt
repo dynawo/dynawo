@@ -14,6 +14,8 @@ set(MODEL_FILES
   package.order
   DynGFMVSM.mo
   DynGFMVSM.extvar
+  DynGFMVSM2.mo
+  DynGFMVSM2.extvar
   )
 
 #

@@ -12,7 +12,7 @@
     simulation tool for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-  <!-- InfiniteBus -->
+  <!-- InfiniteBus With Variations -->
   <set id="1">
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0"/>
     <par type="DOUBLE" name="infiniteBus_UEvtPu" value="1.04"/>

@@ -13,7 +13,7 @@ within Dynawo.Electrical.PEIR.Converters.General.Average.GridForming;
 */
 
 model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the grid"
-  //extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   // Installation parameter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
   parameter Types.Time tUFilt = 0.01 "Filter time constant for voltage measurement in s";
@@ -57,7 +57,7 @@ model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {106, 42}, extent = {{-6, -6}, {6, 6}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = Control.PFilter0Pu) "Active power reference at the filter in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = Control.PFilter0Pu) "Active power reference at the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "System frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -65,7 +65,7 @@ model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the 
     Placement(visible = true, transformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaSet(k = OmegaSetPu)  annotation(
     Placement(visible = true, transformation(origin = {-106, 66}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = Control.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = Control.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Dynawo.Electrical.Sources.PEIR.Converters.Average.DynConverter1 Converter(CFilterPu = CFilterPu, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Omega0Pu = SystemBase.omegaRef0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, SNom = SNom, Theta0 = Theta0, i0Pu = i0Pu, tVSC = tVSC, u0Pu = u0Pu)  annotation(
@@ -88,57 +88,57 @@ model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the 
 
 
 equation
-  connect(Converter.iqConvPu, Control.iqConvPu) annotation(
+   connect(Converter.iqConvPu, Control.iqConvPu) annotation(
     Line(points = {{84, 20}, {84, -86}, {-63, -86}, {-63, 20}}, color = {245, 121, 0}));
-  connect(Converter.idConvPu, Control.idConvPu) annotation(
+   connect(Converter.idConvPu, Control.idConvPu) annotation(
     Line(points = {{80, 20}, {80, -80}, {-59, -80}, {-59, 20}}, color = {245, 121, 0}));
-  connect(Converter.uqFilterPu, Control.uqFilterPu) annotation(
+   connect(Converter.uqFilterPu, Control.uqFilterPu) annotation(
     Line(points = {{74, 20}, {74, -74}, {-53, -74}, {-53, 20}}, color = {85, 170, 0}));
-  connect(Converter.idPccPu, Control.idPccPu) annotation(
+   connect(Converter.idPccPu, Control.idPccPu) annotation(
     Line(points = {{48, 20}, {48, 8}, {-29, 8}, {-29, 20}}, color = {85, 170, 255}));
-  connect(Converter.iqPccPu, Control.iqPccPu) annotation(
+   connect(Converter.iqPccPu, Control.iqPccPu) annotation(
     Line(points = {{52, 20}, {52, 0}, {-33, 0}, {-33, 20}}, color = {85, 170, 255}));
-  connect(Measurements.QFilterPu, Control.QFilterPu) annotation(
+   connect(Measurements.QFilterPu, Control.QFilterPu) annotation(
     Line(points = {{-4, -37}, {-84, -37}, {-84, 23}, {-68, 23}}, color = {85, 170, 0}));
-  connect(Measurements.PFilterPu, Control.PFilterPu) annotation(
-    Line(points = {{-4, -44}, {-88, -44}, {-88, 27}, {-68, 27}}, color = {85, 170, 0}));
-  connect(Measurements.udFilteredPccPu, Control.udFilteredPccPu) annotation(
-    Line(points = {{-4, -20}, {-38, -20}, {-38, 20}}, color = {85, 170, 255}));
-  connect(Measurements.uqFilteredPccPu, Control.uqFilteredPccPu) annotation(
-    Line(points = {{-4, -28}, {-42, -28}, {-42, 20}}, color = {85, 170, 255}));
-  connect(Measurements.idPccPu, Converter.idPccPu) annotation(
-    Line(points = {{40, -16}, {48, -16}, {48, 20}}, color = {85, 170, 255}, pattern = LinePattern.Dash));
-  connect(Measurements.iqPccPu, Converter.iqPccPu) annotation(
-    Line(points = {{40, -20}, {52, -20}, {52, 20}}, color = {85, 170, 255}, pattern = LinePattern.Dash));
-  connect(Measurements.udPccPu, Converter.udPccPu) annotation(
-    Line(points = {{40, -30}, {60, -30}, {60, 20}}, color = {85, 170, 255}));
-  connect(Measurements.uqPccPu, Converter.uqPccPu) annotation(
-    Line(points = {{40, -34}, {64, -34}, {64, 20}}, color = {85, 170, 255}));
-  connect(Control.udFilterPu, Converter.udFilterPu) annotation(
-    Line(points = {{-50, 20}, {-50, -64}, {70, -64}, {70, 20}}, color = {85, 170, 0}));
-  connect(Converter.udFilterPu, Measurements.udFilterPu) annotation(
-    Line(points = {{70, 20}, {70, -44}, {40, -44}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
-  connect(Converter.uqFilterPu, Measurements.uqFilterPu) annotation(
-    Line(points = {{74, 20}, {74, -46}, {40, -46}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
-  connect(Control.omegaPu, Converter.omegaPu) annotation(
-    Line(points = {{-36, 64}, {-36, 72}, {56, 72}, {56, 64}}, color = {0, 0, 127}));
-  connect(Control.theta, Converter.theta) annotation(
-    Line(points = {{-56, 64}, {-56, 80}, {76, 80}, {76, 64}}, color = {0, 0, 127}));
-  connect(Converter.terminal, terminal) annotation(
-    Line(points = {{88, 42}, {106, 42}}, color = {0, 0, 255}));
-  connect(Control.PFilterRefPu, PFilterRefPu) annotation(
-    Line(points = {{-68, 58}, {-74, 58}, {-74, 80}, {-110, 80}}, color = {85, 170, 0}, thickness = 0.5));
-  connect(omegaRefPu, Control.omegaRefPu) annotation(
-    Line(points = {{-110, 48}, {-68, 48}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(omegaSet.y, Control.omegaSetPu) annotation(
-    Line(points = {{-99, 66}, {-80, 66}, {-80, 54}, {-68, 54}}, color = {0, 0, 127}));
-  connect(QFilterRefPu, Control.QFilterRefPu) annotation(
-    Line(points = {{-110, 16}, {-98, 16}, {-98, 30}, {-72, 30}, {-72, 38}, {-68, 38}}, color = {85, 170, 0}, thickness = 0.5));
-  connect(Converter.udConvRefPu, Control.udConvRefPu) annotation(
-    Line(points = {{44, 50}, {-24, 50}}, color = {245, 121, 0}, thickness = 0.5));
-  connect(Control.uqConvRefPu, Converter.uqConvRefPu) annotation(
-    Line(points = {{-24, 34}, {44, 34}}, color = {245, 121, 0}, thickness = 0.5));
-  connect(UFilterRefPu, Control.URefPu) annotation(
+   connect(Measurements.PFilterPu, Control.PFilterPu) annotation(
+      Line(points = {{-4, -44}, {-88, -44}, {-88, 27}, {-68, 27}}, color = {85, 170, 0}));
+   connect(Measurements.udFilteredPccPu, Control.udFilteredPccPu) annotation(
+      Line(points = {{-4, -20}, {-38, -20}, {-38, 20}}, color = {85, 170, 255}));
+   connect(Measurements.uqFilteredPccPu, Control.uqFilteredPccPu) annotation(
+      Line(points = {{-4, -28}, {-42, -28}, {-42, 20}}, color = {85, 170, 255}));
+   connect(Measurements.idPccPu, Converter.idPccPu) annotation(
+      Line(points = {{40, -16}, {48, -16}, {48, 20}}, color = {85, 170, 255}, pattern = LinePattern.Dash));
+   connect(Measurements.iqPccPu, Converter.iqPccPu) annotation(
+      Line(points = {{40, -20}, {52, -20}, {52, 20}}, color = {85, 170, 255}, pattern = LinePattern.Dash));
+   connect(Measurements.udPccPu, Converter.udPccPu) annotation(
+      Line(points = {{40, -30}, {60, -30}, {60, 20}}, color = {85, 170, 255}));
+   connect(Measurements.uqPccPu, Converter.uqPccPu) annotation(
+      Line(points = {{40, -34}, {64, -34}, {64, 20}}, color = {85, 170, 255}));
+   connect(Control.udFilterPu, Converter.udFilterPu) annotation(
+      Line(points = {{-50, 20}, {-50, -64}, {70, -64}, {70, 20}}, color = {85, 170, 0}));
+   connect(Converter.udFilterPu, Measurements.udFilterPu) annotation(
+      Line(points = {{70, 20}, {70, -44}, {40, -44}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
+   connect(Converter.uqFilterPu, Measurements.uqFilterPu) annotation(
+      Line(points = {{74, 20}, {74, -46}, {40, -46}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
+   connect(Control.omegaPu, Converter.omegaPu) annotation(
+      Line(points = {{-36, 64}, {-36, 72}, {56, 72}, {56, 64}}, color = {0, 0, 127}));
+   connect(Control.theta, Converter.theta) annotation(
+      Line(points = {{-56, 64}, {-56, 80}, {76, 80}, {76, 64}}, color = {0, 0, 127}));
+   connect(Converter.terminal, terminal) annotation(
+      Line(points = {{88, 42}, {106, 42}}, color = {0, 0, 255}));
+   connect(Control.PFilterRefPu, PFilterRefPu) annotation(
+      Line(points = {{-68, 58}, {-74, 58}, {-74, 80}, {-110, 80}}, color = {85, 170, 0}, thickness = 0.5));
+   connect(omegaRefPu, Control.omegaRefPu) annotation(
+      Line(points = {{-110, 48}, {-68, 48}}, color = {0, 0, 127}, thickness = 0.5));
+   connect(omegaSet.y, Control.omegaSetPu) annotation(
+      Line(points = {{-99, 66}, {-80, 66}, {-80, 54}, {-68, 54}}, color = {0, 0, 127}));
+   connect(QFilterRefPu, Control.QFilterRefPu) annotation(
+      Line(points = {{-110, 16}, {-98, 16}, {-98, 30}, {-72, 30}, {-72, 38}, {-68, 38}}, color = {85, 170, 0}, thickness = 0.5));
+   connect(Converter.udConvRefPu, Control.udConvRefPu) annotation(
+      Line(points = {{44, 50}, {-24, 50}}, color = {245, 121, 0}, thickness = 0.5));
+   connect(Control.uqConvRefPu, Converter.uqConvRefPu) annotation(
+      Line(points = {{-24, 34}, {44, 34}}, color = {245, 121, 0}, thickness = 0.5));
+   connect(UFilterRefPu, Control.URefPu) annotation(
     Line(points = {{-110, 34}, {-80, 34}, {-80, 42}, {-68, 42}}, color = {85, 170, 0}, thickness = 0.5));
   annotation(preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),

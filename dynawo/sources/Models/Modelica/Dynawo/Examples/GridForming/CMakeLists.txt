@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.mo
   package.order
   DynGFMVSMSmib.mo
+  DynGFMVSMSmib2.mo
   EpriSmib.mo
   GridForming.mo
   )
