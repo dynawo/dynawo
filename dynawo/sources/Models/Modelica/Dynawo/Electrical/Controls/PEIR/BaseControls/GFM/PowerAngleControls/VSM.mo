@@ -18,9 +18,9 @@ model VSM "Virtual Synchronous Machine control"
   parameter Types.Time H "Inertia constant in s";
 
   // Inputs
-  Modelica.Blocks.Interfaces.RealInput PFilterPu(start = PFilter0Pu) "Active power after the filter in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PFilterPu(start = PFilter0Pu) "Active power after the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilter0Pu) "Active power reference after the filter in pu (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilter0Pu) "Active power reference after the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) "System frequency response in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {30, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -47,9 +47,9 @@ model VSM "Virtual Synchronous Machine control"
     Placement(visible = true, transformation(origin = {78, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initial parameter
-  parameter Types.PerUnit PFilter0Pu "Start value of active power after the filter in pu (base SNom)";
-  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
-  parameter Types.Angle Theta0 "Start value of the phase shift between the converter and grid rotating frames in rad";
+  parameter Types.PerUnit PFilter0Pu "Start value of active power after the filter in pu (base SNom) (generator convention)";
+  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom) (generator convention)";
+  parameter Types.Angle Theta0 "Start value of the phase shift between the converter and grid rotating frames in rad (generator convention)";
 
 equation
   connect(PFilterRefPu, add3.u1) annotation(

@@ -49,6 +49,7 @@ equation
   LPu / SystemBase.omegaNom * der(idPccPu) = udFilterPu - RPu * idPccPu + omegaPu * LPu * iqPccPu - udPccPu;
   LPu / SystemBase.omegaNom * der(iqPccPu) = uqFilterPu - RPu * iqPccPu - omegaPu * LPu * idPccPu - uqPccPu;
 
+
   annotation(preferredView = "text",
     Icon(graphics = {Line(origin = {0.292174, 0},points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(origin = {0.4243, 0.292221}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {30, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {60, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {60, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {90, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Rectangle(extent = {{-100, 100}, {100, -100}}), Line(origin = {160.466, 0.26087}, points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255})}, coordinateSystem(initialScale = 0.01)));
 end DynRLTransformer;

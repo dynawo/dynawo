@@ -72,8 +72,8 @@ model DynConverter1 "Converter physical part comprising an AVM voltage source, a
   // Initial parameters
   parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
-  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
-  parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+  parameter Types.AngularVelocityPu Omega0Pu"Start value of the converter's frequency in pu (base omegaNom)";
+  parameter Types.Angle Theta0"Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
 
 equation
   connect(theta, refFrameRotation.theta) annotation(
