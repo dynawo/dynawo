@@ -19,26 +19,21 @@ namespace DYN {
 
 double
 ModelBusBridged::ur() const {
-  if (getSwitchOff())
-    return 0.;
-
   if (!network_->isInit())
     throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ur() outside of init", id());
 
   // we would like something along the line of dynModel_->getVariableValue("bus_terminal_V_re") here,
   // however the modelica init has not run yet
-  return ur0_;
+
+  return getSwitchOff() ? 0. : ur0_;
 }
 
 double
 ModelBusBridged::ui() const {
-  if (getSwitchOff())
-    return 0.;
-
   if (!network_->isInit())
     throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "ui() outside of init", id());
 
-  return ui0_;
+  return getSwitchOff() ? 0. : ui0_;
 }
 
 // if (dynModel_ == nullptr)
