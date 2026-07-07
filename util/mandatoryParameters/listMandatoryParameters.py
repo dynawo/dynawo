@@ -597,7 +597,8 @@ class ModelicaParamChecker(object):
                                          within_package=within)
                 if base_file:
                     merged_provided = provided_from_parent | alias_provided
-                    merged_int = {**known_int_params, **alias_int}
+                    merged_int = dict(known_int_params)
+                    merged_int.update(alias_int)
                     return self._analyse_class(
                         base_file, base_name,
                         origin_prefix, merged_provided, merged_int,
@@ -609,7 +610,8 @@ class ModelicaParamChecker(object):
 
         # Collect redeclare params (e.g. redeclare parameter Integer NbMotors = 1)
         redeclare_provided, redeclare_int = _parse_redeclare_params(body)
-        eff_int_params = {**known_int_params, **redeclare_int}
+        eff_int_params = dict(known_int_params)
+        eff_int_params.update(redeclare_int)
 
         results = []
 
@@ -695,7 +697,8 @@ class ModelicaParamChecker(object):
                 merged_provided = (provided_in_extends | redeclare_provided
                                    | provided_from_parent)
                 # propagate integer values (e.g. nbEventVariables=1) to parent
-                merged_int = {**eff_int_params, **int_vals}
+                merged_int = dict(eff_int_params)
+                merged_int.update(int_vals)
                 # merge comp_mods from this extends clause with those received from
                 # our own parent so they propagate through multi-level inheritance
                 merged_comp_mods = {}
