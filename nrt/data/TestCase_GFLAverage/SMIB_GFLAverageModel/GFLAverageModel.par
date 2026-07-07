@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- InfiniteBus -->
+  <set id="1">
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+  </set>
+  <!-- PwLine -->
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.03"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <!-- Generator -->
+  <set id="6">
+    <par type="DOUBLE" name="GFL_P0_pcc" value="-7"/>
+    <par type="DOUBLE" name="GFL_Q0_pcc" value="-2"/>
+    <par type="DOUBLE" name="GFL_U0Pu" value="1.03713742957"/>
+    <par type="DOUBLE" name="GFL_Uphase" value="0.203890124"/>
+    <par type="DOUBLE" name="GFL_SNom" value="508.8"/>
+    <par type="DOUBLE" name="GFL_tVSC" value="1e-5"/>
+    <par type="DOUBLE" name="GFL_RfPu" value="0.00003"/>
+    <par type="DOUBLE" name="GFL_LfPu" value="0.01"/>
+    <par type="DOUBLE" name="GFL_CfPu" value="1e-5"/>
+    <par type="DOUBLE" name="GFL_RPuHV" value="0.0002"/>
+    <par type="DOUBLE" name="GFL_LPuHV" value="0.005"/>
+    <par type="DOUBLE" name="GFL_RPuLV" value="0.0005"/>
+    <par type="DOUBLE" name="GFL_LPuLV" value="0.008"/>
+    <par type="DOUBLE" name="GFL_k_filter" value="1"/>
+    <par type="DOUBLE" name="GFL_T_filter" value="1e-2"/>
+    <par type="DOUBLE" name="GFL_k_p_d_current" value="100"/>
+    <par type="DOUBLE" name="GFL_k_i_d_current" value="200000"/>
+    <par type="DOUBLE" name="GFL_k_p_q_current" value="100"/>
+    <par type="DOUBLE" name="GFL_k_i_q_current" value="200000"/>
+    <par type="DOUBLE" name="GFL_k_p_d_outer" value="0.1"/>
+    <par type="DOUBLE" name="GFL_k_i_d_outer" value="20"/>
+    <par type="DOUBLE" name="GFL_k_p_q_outer" value="0.01"/>
+    <par type="DOUBLE" name="GFL_k_i_q_outer" value="20"/>
+    <par type="DOUBLE" name="GFL_K_p_p_plant" value="0.1"/>
+    <par type="DOUBLE" name="GFL_K_i_p_plant" value="1"/>
+    <par type="DOUBLE" name="GFL_K_p_q_plant" value="0.8"/>
+    <par type="DOUBLE" name="GFL_K_i_q_plant" value="5"/>
+    <par type="DOUBLE" name="GFL_K_p_pll" value="0.32"/>
+    <par type="DOUBLE" name="GFL_K_i_pll" value="8"/>
+    <par type="DOUBLE" name="GFL_Imax" value="1.2"/>
+    <par type="BOOL" name="GFL_PQFlag" value="false"/>
+    <par type="DOUBLE" name="GFL_UboostHigh" value="1.1"/>
+    <par type="DOUBLE" name="GFL_UboostLow" value="0.9"/>
+    <par type="DOUBLE" name="GFL_Kqv" value="2"/>
+    <par type="DOUBLE" name="GFL_IqBoostMax" value="0.5"/>
+    <par type="DOUBLE" name="GFL_IqBoostMin" value="-0.5"/>
+    <par type="DOUBLE" name="GFL_Lambda" value="0.417"/>
+    <par type="DOUBLE" name="GFL_Kdroop" value="15"/>
+    <par type="DOUBLE" name="GFL_QMaxPu" value="0.5"/>
+    <par type="DOUBLE" name="GFL_QMinPu" value="-0.5"/>
+    <par type="DOUBLE" name="GFL_PMaxPu" value="2"/>
+    <par type="DOUBLE" name="GFL_PMinPu" value="0"/>
+    <par type="DOUBLE" name="GFL_FEMaxPu" value="999"/>
+    <par type="DOUBLE" name="GFL_FEMinPu" value="-999"/>
+    <par type="DOUBLE" name="GFL_FDbd1Pu" value="0.05"/>
+    <par type="DOUBLE" name="GFL_FDbd2Pu" value="0.1"/>
+    <par type="DOUBLE" name="GFL_DbdPu" value="0.0001"/>
+    <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="GFL_DyMax_pi_d" value="10000"/>
+    <par type="DOUBLE" name="GFL_DyMax_pi_q" value="100000"/>
+    <par type="DOUBLE" name="GFL_DuMax_idref" value="10"/>
+    <par type="DOUBLE" name="GFL_DuMin_idref" value="-10"/>
+    <par type="DOUBLE" name="GFL_tS_idref" value="1e-4"/>
+    <par type="DOUBLE" name="GFL_delay_time_plant" value="1e-3"/>
+    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
+    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="1"/>
+  </set>
+  <!-- OmegaRef -->
+  <set id="8">
+    <par type="DOUBLE" name="setPoint_Value0" value="1.0"/>
+  </set>
+</parametersSet>

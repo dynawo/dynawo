@@ -14,8 +14,8 @@ model GFLmodel
      *   - A VSC Padé delay block
      *   - A measurement/filter block
      *
-     * Sign convention: load convention at the PCC (positive = power flowing into converter). 
-     * Sign convention: generator convention at the GFL (positive = power flowing out of the converter). 
+     * Sign convention: load convention at the PCC (positive = power flowing into converter).
+     * Sign convention: generator convention at the GFL (positive = power flowing out of the converter).
      * All electrical quantities are in per-unit on the machine base (UNom, SNom).
      */
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
@@ -27,7 +27,7 @@ model GFLmodel
   parameter Real Uphase "Initial phase of PCC voltage, rad";
   parameter Real P0_pcc "Initial active power at PCC (pu, load convention >0 into converter)";
   parameter Real Q0_pcc "Initial reactive power at PCC (pu, load convention >0 into converter)";
-  parameter Real Omega0Pu "Initial per-unit frequency (pu) – nominal operating point";
+  parameter Real Omega0Pu = Dynawo.Electrical.SystemBase.omega0Pu "Initial per-unit frequency (pu) – nominal operating point";
   // ────────────────────────────────────────────────────────────
   // VSC Padé delay
   // ────────────────────────────────────────────────────────────
@@ -38,7 +38,7 @@ model GFLmodel
   parameter Real RfPu "Filter series resistance R_f (pu, base UNom, SNom)";
   parameter Real LfPu "Filter series inductance L_f (pu, base UNom, SNom)";
   parameter Real CfPu "Filter shunt capacitance C_f (pu, base UNom, SNom)";
-  parameter Real omegaNom "Nominal angular frequency ω_nom (rad/s) used as base";
+  parameter Real omegaNom = Dynawo.Electrical.SystemBase.omegaNom "Nominal angular frequency ω_nom (rad/s) used as base";
   // ────────────────────────────────────────────────────────────
   // RL transformer /  equivalent impedances (referred to LV and HV side)
   // ────────────────────────────────────────────────────────────
@@ -213,8 +213,6 @@ model GFLmodel
     Placement(transformation(origin = {79, 53}, extent = {{-10, -10}, {10, 10}})));
   // Internal LV bus node (junction between the LV and HV transformer stages).
   // Voltages and powers at this node are measured by the MeasurementBlock
-  Dynawo.Connectors.ACPower terminalLV(V(re(start = uLV0Pu_init.re), im(start = uLV0Pu_init.im)), i(re(start = 0), im(start = 0))) annotation(
-    Placement(transformation(origin = {57, 55}, extent = {{-5, -5}, {5, 5}}), iconTransformation(origin = {-32, -38}, extent = {{-10, -10}, {10, 10}})));
 
 equation
 
@@ -306,11 +304,7 @@ equation
   connect(lCDynFilter.terminalRight, TrafoLV.left) annotation(
     Line(points = {{14, 55}, {25, 55}}, color = {0, 0, 255}));
 // LC filter right port → LV transformer input
-  connect(TrafoLV.right, terminalLV) annotation(
-    Line(points = {{45, 55}, {57, 55}}, color = {0, 0, 255}));
 // LV transformer output → internal LV bus node
-  connect(TrafoHV.left, terminalLV) annotation(
-    Line(points = {{70, 54}, {55, 54}, {55, 55}, {57, 55}}, color = {0, 0, 255}));
 // Internal LV bus node → HV transformer input
 // HV transformer output → PCC terminal (connection to external network)
 // ── 13.9  Converter current feedback to the LC filter ─────────────────────
@@ -322,9 +316,9 @@ equation
 // Imaginary part of converter current → LC filter state
 // ── 13.10  Algebraic assignments: terminal quantities → measurement block ──
 // Internal LV bus voltage (between the two transformer stages)
-  measurementBlock.u_LV_re = terminalLV.V.re;
+  measurementBlock.u_LV_re = TrafoHV.left.V.re;
 // real part of LV node voltage
-  measurementBlock.u_LV_im = terminalLV.V.im;
+  measurementBlock.u_LV_im = TrafoHV.left.V.im;
 
 // imaginary part of LV node voltage
 // PCC voltage (from the external network connector)
@@ -333,7 +327,7 @@ equation
   measurementBlock.V_pcc_im = terminalPcc.V.im;
   measurementBlock.v_filt_re=lCDynFilter.terminalRight.V.re;
    measurementBlock.v_filt_im=lCDynFilter.terminalRight.V.im;
-  
+
 // imaginary part of PCC voltage
 // PCC current with sign reversal: terminalPcc uses load convention (i > 0 into network),
 // while the measurement block uses generator convention (i > 0 out of converter).
@@ -341,6 +335,9 @@ equation
   measurementBlock.I_pcc_im = -terminalPcc.i.im * SystemBase.SnRef / SNom;
   connect(TrafoHV.right, terminalPcc) annotation(
     Line(points = {{90, 54}, {104, 54}}, color = {0, 0, 255}));
+  connect(TrafoLV.right, TrafoHV.left) annotation(
+    Line(points = {{46, 56}, {68, 56}, {68, 54}, {70, 54}}, color = {0, 0, 255}));
+
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));
