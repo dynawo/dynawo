@@ -114,7 +114,7 @@ equation
   end if;
 
   // ── Step 3: effective iq reference ───────────────────────────
-  iq_eff = iq_raw + iq_boost;
+  iq_eff = iq_raw + iq_boost_raw;
 
   // ── Step 4: current limiting with P/Q priority ───────────────
   if PQFlag then
