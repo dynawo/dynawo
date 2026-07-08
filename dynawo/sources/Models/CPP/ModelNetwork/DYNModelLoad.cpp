@@ -284,7 +284,7 @@ ModelLoad::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
     return;
 
   if (isRestorative_) {
-    if (!isRunning()) {
+    if (!isRunning() || voltageIsZero()) {
       // column for equations Zp
       jt.changeCol();
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, cj);
@@ -546,14 +546,12 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
 #endif
   if (network_->isInitModel())
     return;
-  if (isRunning()) {
+  if (isRunning() && !voltageIsZero()) {
     const int urYNum = modelBus_->urYNum();
     const int uiYNum = modelBus_->uiYNum();
     const double ur = modelBus_->ur();
     const double ui = modelBus_->ui();
     const double U2 = ur * ur + ui * ui;
-    if (doubleIsZero(U2))
-      return;
     const double U = sqrt(U2);
     const double p = P(U);
     const double q = Q(U);
@@ -941,7 +939,7 @@ void
 ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   switch (numCalculatedVar) {
     case pNum_: {
-      if (isRunning()) {
+      if (isRunning() && !voltageIsZero()) {
         const double ur = modelBus_->ur();
         const double ui = modelBus_->ui();
         double deltaPcVal = 0.;
@@ -970,7 +968,7 @@ ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) c
     }
     break;
     case qNum_: {
-      if (isRunning()) {
+      if (isRunning() && !voltageIsZero()) {
         const double ur = modelBus_->ur();
         const double ui = modelBus_->ui();
         double deltaQcVal = 0.;

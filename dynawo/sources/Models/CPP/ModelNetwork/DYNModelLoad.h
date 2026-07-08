@@ -526,6 +526,14 @@ class ModelLoad : public NetworkComponent {
     return yOffset_ + localIndex;
   }
 
+  /**
+   * @brief check if bus voltage is zero
+   * @return @b true if voltage (ur and ui) is 0
+   */
+  inline bool voltageIsZero() const {
+    return doubleIsZero(modelBus_->ur()) && doubleIsZero(modelBus_->ui());
+  }
+
  private:
   std::weak_ptr<LoadInterface> load_;  ///< reference to the load interface object
   std::shared_ptr<ModelBus> modelBus_;  ///< model bus
