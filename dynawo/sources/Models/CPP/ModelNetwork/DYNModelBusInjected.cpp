@@ -430,28 +430,37 @@ ModelBusInjected::defineElementsById(const std::string& id, std::vector<Element>
   ModelBus::defineElementsById(id, elements, mapElement);
 }
 
+static const bool U_SUP = true;
+static const bool U_INF = false;
+static const bool CSTR_BEGIN = true;
+static const bool CSTR_END = false;
+
+void
+ModelBusInjected::logConstraint(bool sup, bool begin) {
+  using constraints::ConstraintData;
+  Message msg(Message::CONSTRAINT_KEY, KeyConstraint_t::names(sup ? KeyConstraint_t::USupUmax : KeyConstraint_t::UInfUmin));
+  ConstraintData data(sup ? ConstraintData::USupUmax : ConstraintData::UInfUmin, (sup ? uMax_: uMin_)*unom_, getCurrentU(ModelBus::UType_));
+  network_->addConstraint(constraintId_, begin, msg, modelType_, data);
+}
+
 NetworkComponent::StateChange_t
 ModelBusInjected::evalZ(const double /*t*/, bool onlyEvaluateStateChange) {
   using constraints::ConstraintData;
 
   if (!onlyEvaluateStateChange && network_->hasConstraints()) {
     if (g_[0] == ROOT_UP) {
-      DYNAddConstraintWithData(network_, constraintId_, true, modelType_,
-        ConstraintData(ConstraintData::USupUmax, uMax_*unom_, getCurrentU(ModelBusInjected::UType_)), USupUmax);
+      logConstraint(U_SUP, CSTR_BEGIN);
       stateUmax_ = true;
     } else if (g_[0] == ROOT_DOWN && stateUmax_) {
-      DYNAddConstraintWithData(network_, constraintId_, false, modelType_,
-        ConstraintData(ConstraintData::USupUmax, uMax_*unom_, getCurrentU(ModelBusInjected::UType_)), USupUmax);
+      logConstraint(U_SUP, CSTR_END);
       stateUmax_ = false;
     }
 
     if (g_[1] == ROOT_UP) {
-      DYNAddConstraintWithData(network_, constraintId_, true, modelType_,
-        ConstraintData(ConstraintData::UInfUmin, uMin_*unom_, getCurrentU(ModelBusInjected::UType_)), UInfUmin);
+      logConstraint(U_INF, CSTR_BEGIN);
       stateUmin_ = true;
     } else if (g_[1] == ROOT_DOWN && stateUmin_) {
-      DYNAddConstraintWithData(network_, constraintId_, false, modelType_,
-        ConstraintData(ConstraintData::UInfUmin, uMin_*unom_, getCurrentU(ModelBusInjected::UType_)), UInfUmin);
+      logConstraint(U_INF, CSTR_END);
       stateUmin_ = false;
     }
   }

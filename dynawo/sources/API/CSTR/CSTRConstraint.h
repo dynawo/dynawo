@@ -1,5 +1,4 @@
-//
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2026, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,14 +8,12 @@
 //
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 // simulation tool for power systems.
-//
 
 /**
  * @file  CSTRConstraint.h
- *
  * @brief Dynawo constraint : interface file
- *
  */
+
 #ifndef API_CSTR_CSTRCONSTRAINT_H_
 #define API_CSTR_CSTRCONSTRAINT_H_
 
@@ -27,68 +24,39 @@
 
 namespace constraints {
 
-/**
- * @brief Constraint data definition
- */
+/** @brief Constraint data definition */
 class ConstraintData {
  public:
-  /**
-   * @brief possible values for kind
-   */
+  /** @brief possible values for kind */
   typedef enum { PATL = 0, OverloadUp, OverloadOpen, UInfUmin, USupUmax, FictLim, Undefined  } kind_t;
 
-  kind_t kind;                                 ///< Kind of constraint
-  double limit;                                ///< Limit of the constraint
-  double value;                                ///< value of the constraint
-  std::string limitName;                       ///< name of the original limit
-  boost::optional<double> valueMin;            ///< minimum value reached during the presence of the constraint
-  boost::optional<double> valueMax;            ///< maximum value reached during the presence of the constraint
-  boost::optional<int> side;                   ///< Side the constraint applies
-  boost::optional<double> acceptableDuration;  ///< the acceptable duration of the constraint
+  kind_t kind;                                                ///< Kind of constraint
+  double limit;                                               ///< Limit of the constraint
+  double value;                                               ///< value of the constraint
+  std::string limitName;                                      ///< name of the original limit
+  boost::optional<double> valueMin = boost::none;             ///< minimum value reached during the presence of the constraint
+  boost::optional<double> valueMax = boost::none;             ///< maximum value reached during the presence of the constraint
+  boost::optional<int> side = boost::none;                    ///< Side the constraint applies
+  boost::optional<double> acceptableDuration = boost::none;   ///< the acceptable duration of the constraint
 
   /**
    * @brief Construct a new Constraint Data object
-   *
    * @param constraintKind Kind of constraint
    * @param constraintLimit Limit of the constraint
    * @param constraintValue value of the constraint
+   * @param constraintLimitName Textual description of the limit of the constraint
    * @param constraintSide Side the constraint applies
-   * @param constraintAcceptableDuration the acceptable duration of the constraint
    */
   ConstraintData(kind_t constraintKind, double constraintLimit, double constraintValue,
-      boost::optional<int> constraintSide = boost::none, boost::optional<double> constraintAcceptableDuration = boost::none) :
-      kind(constraintKind),
-      limit(constraintLimit),
-      value(constraintValue),
-      valueMin(boost::none),
-      valueMax(boost::none),
-      side(constraintSide),
-      acceptableDuration(constraintAcceptableDuration) {}
-
-  /**
-   * @brief Construct a new Constraint Data object
-   *
-   * @param constraintLimitName name of the original limit
-   * @param constraintKind Kind of constraint
-   * @param constraintLimit Limit of the constraint
-   * @param constraintValue value of the constraint
-   * @param constraintSide Side the constraint applies
-   * @param constraintAcceptableDuration the acceptable duration of the constraint
-   */
-  ConstraintData(const std::string& constraintLimitName, kind_t constraintKind, double constraintLimit, double constraintValue,
-      boost::optional<int> constraintSide = boost::none, boost::optional<double> constraintAcceptableDuration = boost::none) :
+                 const std::string& constraintLimitName = "", boost::optional<int> constraintSide = boost::none) :
       kind(constraintKind),
       limit(constraintLimit),
       value(constraintValue),
       limitName(constraintLimitName),
-      valueMin(boost::none),
-      valueMax(boost::none),
-      side(constraintSide),
-      acceptableDuration(constraintAcceptableDuration) {}
+      side(constraintSide) {}
 
   /**
    * @brief get a kind from a string
-   *
    * @param kind in a string format
    * @return the corresponding kind or Undefined if none found
    */

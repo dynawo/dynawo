@@ -160,6 +160,13 @@ class ModelBusInjected : public ModelBus {  ///< Generic AC network bus
     return UPu_ * unom_;
   }
 
+  /**
+   * @brief registers a constraint state change
+   * @param sup whether the state change concerns overvoltage (if @b true), or undervoltage (if @b false)
+   * @param begin whether the state change is an activation (if @b true), or deactivation (if @b false)
+   */
+  inline void logConstraint(bool sup, bool begin);
+
  private:
   std::weak_ptr<BusInterface> bus_;  ///< reference to the bus interface object
 
