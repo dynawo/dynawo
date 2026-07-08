@@ -21,7 +21,7 @@ partial model BasePV "Base dynamic model for PV control"
 
   final parameter Boolean UseLambda2 = not(Lambda2Pu == 0) "If true, the voltage regulation follows the law U2RefPu = U2Pu + Lambda2Pu * QInj2Pu at terminal 2";
 
-  input Types.VoltageModulePu U2RefPu(start = U2Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 2";
+  Types.VoltageModulePu U2RefPu(start = U2Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 2";
 
   Types.ReactivePowerPu QInj2PuQNom "Reactive power at terminal 2 in pu (base Q2Nom) (generator convention)";
   Types.ReactivePower QInj2 "Reactive power at terminal 2 in MVar (generator convention)";

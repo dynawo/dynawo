@@ -22,10 +22,10 @@ partial model BaseGeneratorSignalNPQDiagram_INIT "Base initialization model for 
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
 
-  Dynawo.Connectors.ActivePowerPuConnector PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
+  Dynawo.Connectors.ActivePowerPuOutput PGen0Pu "Start value of active power at terminal in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QGenRaw0Pu "Start value of reactive power at terminal in pu (base SnRef) (generator convention)";
-  Dynawo.Connectors.ReactivePowerPuConnector QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) with limits (generator convention)";
-  Dynawo.Connectors.VoltageModulePuConnector U0PuVar "Start value of voltage amplitude at terminal in pu (base UNom)";
+  Dynawo.Connectors.ReactivePowerPuOutput QGen0Pu "Start value of reactive power at terminal in pu (base SnRef) with limits (generator convention)";
+  Dynawo.Connectors.VoltageModulePuOutput U0PuVar "Start value of voltage amplitude at terminal in pu (base UNom)";
 
   Dynawo.Connectors.ComplexVoltagePuConnector u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";

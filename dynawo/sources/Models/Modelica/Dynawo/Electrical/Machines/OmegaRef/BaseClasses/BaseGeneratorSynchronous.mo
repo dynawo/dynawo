@@ -21,12 +21,12 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input variables
-  input Dynawo.Connectors.AngularVelocityPuConnector omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu";
-  input Dynawo.Connectors.ActivePowerPuConnector PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)";
-  input Dynawo.Connectors.VoltageModulePuConnector efdPu(start = Efd0Pu) "Input voltage of exciter winding in pu (user-selected base voltage)";
+  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu";
+  Dynawo.Connectors.ActivePowerPuInput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)";
+  Dynawo.Connectors.VoltageModulePuInput efdPu(start = Efd0Pu) "Input voltage of exciter winding in pu (user-selected base voltage)";
 
-  // Output variables
-  output Dynawo.Connectors.AngularVelocityPuConnector omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu";
+  // Output variable
+  Dynawo.Connectors.AngularVelocityPuOutput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu";
 
   // Internal parameters of the synchronous machine in pu (base UNom, SNom)
   // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)
@@ -97,7 +97,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   // d-q axis pu variables (base UNom, SNom)
   Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in pu";
   Types.PerUnit uqPu(start = Uq0Pu) "Voltage of quadrature axis in pu";
-  Dynawo.Connectors.PerUnitConnector idPu(start = Id0Pu) "Current of direct axis in pu";
+  Dynawo.Connectors.PerUnitOutput idPu(start = Id0Pu) "Current of direct axis in pu";
   Types.PerUnit iqPu(start = Iq0Pu) "Current of quadrature axis in pu";
   Types.PerUnit iDPu(start = 0) "Current of direct axis damper in pu";
   Types.PerUnit iQ1Pu(start = 0) "Current of quadrature axis 1st damper in pu";
