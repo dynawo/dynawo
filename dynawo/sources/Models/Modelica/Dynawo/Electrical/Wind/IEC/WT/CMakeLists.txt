@@ -12,6 +12,11 @@
 set(MODEL_FILES
   package.mo
   package.order
+  WT3ACurrentSource2020.mo
+  WT3ACurrentSource2020.extvar
+  WT3BCurrentSource2020.mo
+  WT3BCurrentSource2020.extvar
+  WT3CurrentSource_INIT.mo
   WT4ACurrentSource2015.mo
   WT4ACurrentSource2015.extvar
   WT4ACurrentSource2015.mandatoryParam

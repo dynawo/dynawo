@@ -31,6 +31,8 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
   //WT PControl parameters
   parameter Types.PerUnit DPMaxP4APu "Maximum WT power ramp rate in pu/s (base SNom) (generator convention)" annotation(
     Dialog(tab = "PControl"));
+  parameter Types.PerUnit Kpaw "Anti-windup gain for active power in pu/s (base SNom)" annotation(
+    Dialog(tab = "PControl"));
   parameter Types.Time tPOrdP4A "Power order lag time constant in s" annotation(
     Dialog(tab = "PControl"));
   parameter Types.Time tUFiltP4A "Filter time constant for voltage measurement in s" annotation(
@@ -79,6 +81,20 @@ model WPP4ACurrentSource2015 "Wind Power Plant Type 4A model from IEC 61400-27-1
     Dialog(tab = "QControlWP"));
   parameter Types.Time txfv "Lag time constant in the reference value transfer function in s" annotation(
     Dialog(tab = "QControlWP"));
+
+  //Control parameters
+  parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMaxPu "Maximum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit DiqMinPu "Minimum reactive current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kipaw "Anti-windup gain for active current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.PerUnit Kiqaw "Anti-windup gain for reactive current in pu/s (base UNom, SNom)" annotation(
+    Dialog(tab = "Control"));
+  parameter Types.Time tG "Current generation time constant in s" annotation(
+    Dialog(tab = "Control"));
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput QWPRefPu(start = -Q0Pu*SystemBase.SnRef/SNom) "Reference reactive power in pu (base SNom) (generator convention)" annotation(
