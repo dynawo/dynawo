@@ -445,6 +445,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ab3ded95d8d451d51eecad576f8a62eea"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d67/a03354.html#ab3ded95d8d451d51eecad576f8a62eea">globalYIndex</a> (const unsigned int &amp;localIndex)</td></tr>
 <tr class="memdesc:ab3ded95d8d451d51eecad576f8a62eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the global Y index inside the Y matrix  <a href="#ab3ded95d8d451d51eecad576f8a62eea">More...</a><br /></td></tr>
 <tr class="separator:ab3ded95d8d451d51eecad576f8a62eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3df27e0224f931ec5e8c48119ec8d88b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d67/a03354.html#a3df27e0224f931ec5e8c48119ec8d88b">voltageIsZero</a> () const</td></tr>
+<tr class="memdesc:a3df27e0224f931ec5e8c48119ec8d88b"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if bus voltage is zero  <a href="#a3df27e0224f931ec5e8c48119ec8d88b">More...</a><br /></td></tr>
+<tr class="separator:a3df27e0224f931ec5e8c48119ec8d88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -3037,6 +3040,34 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="a3df27e0224f931ec5e8c48119ec8d88b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3df27e0224f931ec5e8c48119ec8d88b">&#9670;&nbsp;</a></span>voltageIsZero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DYN::ModelLoad::voltageIsZero </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check if bus voltage is zero </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true</b> if voltage (ur and ui) is 0 </dd></dl>
+
+</div>
+</div>
 <a id="a2a760cfc53e53bd797e10e2476f8ceff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a760cfc53e53bd797e10e2476f8ceff">&#9670;&nbsp;</a></span>zP()</h2>
 
@@ -3169,7 +3200,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/d67/a03354.html">ModelLoad</a></li>
-    <li class="footer">Generated on Thu Jul 9 2026 14:57:08 for Dynawo by
+    <li class="footer">Generated on Thu Jul 9 2026 15:27:18 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

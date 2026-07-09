@@ -10,7 +10,7 @@ var searchData=
   ['variablesbynameinit',['variablesByNameInit',['../dc/d90/a02854.html#a3814b6d6230398ca03710a7f245d9ec2',1,'DYN::SubModel']]],
   ['variablesfilename',['variablesFileName',['../dc/d90/a02854.html#a0492a323276da4957bedce0d998d9b7d',1,'DYN::SubModel']]],
   ['varside',['varSide',['../d6/d18/a03350.html#a33b49a5d71967b20427c45ac4e986e3d',1,'DYN::ModelLine']]],
-  ['voltageiszero',['voltageIsZero',['../da/d5b/a03322.html#a8b252e143e27b2cd09006897c0a2a7b0',1,'DYN::ModelBus']]],
+  ['voltageiszero',['voltageIsZero',['../da/d5b/a03322.html#a8b252e143e27b2cd09006897c0a2a7b0',1,'DYN::ModelBus::voltageIsZero()'],['../d3/d67/a03354.html#a3df27e0224f931ec5e8c48119ec8d88b',1,'DYN::ModelLoad::voltageIsZero()']]],
   ['voltagelevelinterfaceiidm',['VoltageLevelInterfaceIIDM',['../d1/d48/a03218.html#a6e9ef40e2e025b2051e4dc62f0ec253c',1,'DYN::VoltageLevelInterfaceIIDM']]],
   ['vscconverterinterface',['VscConverterInterface',['../d1/d44/a03074.html#a4f6b18353a43507e178636aadb09c107',1,'DYN::VscConverterInterface']]],
   ['vscconverterinterfaceiidm',['VscConverterInterfaceIIDM',['../d5/d2f/a03222.html#a668cba0be50ad6784fd6b6ab5ca5c056',1,'DYN::VscConverterInterfaceIIDM']]]

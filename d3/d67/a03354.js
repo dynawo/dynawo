@@ -72,6 +72,7 @@ var a03354 =
     [ "setFequations", "d3/d67/a03354.html#a55334b20bda38c1ef02ed8ae1831fabb", null ],
     [ "setGequations", "d3/d67/a03354.html#a6ffaa124b7ebdebf932c445ec7f5beb8", null ],
     [ "setSubModelParameters", "d3/d67/a03354.html#a58a22825f6ab1ff1c32f0377f1d9e9c2", null ],
+    [ "voltageIsZero", "d3/d67/a03354.html#a3df27e0224f931ec5e8c48119ec8d88b", null ],
     [ "zP", "d3/d67/a03354.html#a2a760cfc53e53bd797e10e2476f8ceff", null ],
     [ "zPPrim", "d3/d67/a03354.html#a01e44755d93262da603727dc6fcca469", null ],
     [ "zQ", "d3/d67/a03354.html#a78d2eacbb394bef50c2b3f44dbafcdee", null ],

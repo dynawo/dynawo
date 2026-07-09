@@ -83,7 +83,7 @@ var searchData=
   ['vnom1_5f',['VNom1_',['../db/dbc/a03114.html#a70a7b8cb4178a0331e27924e65ae9731',1,'DYN::FictTwoWTransformerInterfaceIIDM::VNom1_()'],['../d6/d15/a03406.html#a640ebe2a5873b225e43ddcc184dc2220',1,'DYN::ModelTwoWindingsTransformer::vNom1_()']]],
   ['vnom2_5f',['vNom2_',['../d6/d15/a03406.html#a2b900500a9dba8fc0afb73d7846a8f69',1,'DYN::ModelTwoWindingsTransformer']]],
   ['vnom_5f',['VNom_',['../dc/d00/a03118.html#a19c37f9637b50434b9924e3720c29d01',1,'DYN::FictVoltageLevelInterfaceIIDM::VNom_()'],['../df/d64/a03110.html#a53cf102f2c7906f79131701ea6d625a7',1,'DYN::FictBusInterfaceIIDM::Vnom_()'],['../da/de5/a03170.html#a0f202ed56ec5afa1b68da47324509182',1,'DYN::LoadInterfaceIIDM::vNom_()'],['../dd/dbb/a03378.html#a19580c22e8ba069f208039e04f34ceff',1,'DYN::ModelShuntCompensator::vNom_()']]],
-  ['voltageiszero',['voltageIsZero',['../da/d5b/a03322.html#a8b252e143e27b2cd09006897c0a2a7b0',1,'DYN::ModelBus']]],
+  ['voltageiszero',['voltageIsZero',['../da/d5b/a03322.html#a8b252e143e27b2cd09006897c0a2a7b0',1,'DYN::ModelBus::voltageIsZero()'],['../d3/d67/a03354.html#a3df27e0224f931ec5e8c48119ec8d88b',1,'DYN::ModelLoad::voltageIsZero()']]],
   ['voltagelevel_5f',['voltageLevel_',['../d2/d8b/a03090.html#a962f7043ab2feb0bc4f4c03b61841042',1,'DYN::CalculatedBusInterfaceIIDM']]],
   ['voltagelevelgraphundefined',['VoltageLevelGraphUndefined',['../d3/dd0/a02662.html#acfce33066451c48351076e31bd5b4ecea7d5987c3fd721e188a7ffbf02baacf6d',1,'DYN::KeyError_t']]],
   ['voltagelevelid_5f',['voltageLevelId_',['../d0/d1f/a01734.html#ad8b9da35e80acd02ab64845f2374db34',1,'criteria::Criteria::ComponentId']]],
