@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 
 import os
+import shutil
 import sys
 import tempfile
 import unittest
@@ -27,7 +28,8 @@ except Exception:
 
 def _run(mo_content, filename='Model.mo', extra_files=None):
     """Write mo_content to a temp file, run the checker, return (results, known_enums)."""
-    with tempfile.TemporaryDirectory() as tmpdir:
+    tmpdir = tempfile.mkdtemp()
+    try:
         mo_file = os.path.join(tmpdir, filename)
         with open(mo_file, 'w') as fh:
             fh.write(mo_content)
@@ -38,6 +40,8 @@ def _run(mo_content, filename='Model.mo', extra_files=None):
         checker = ModelicaParamChecker(search_dirs=[tmpdir])
         results = checker.check_file(mo_file)
         return results, checker.known_enums
+    finally:
+        shutil.rmtree(tmpdir, ignore_errors=True)
 
 
 def _names(results):
