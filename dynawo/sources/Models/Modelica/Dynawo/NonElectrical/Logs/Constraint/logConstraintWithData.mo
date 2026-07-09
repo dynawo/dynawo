@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Logs.Constraint;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,17 +13,17 @@ within Dynawo.NonElectrical.Logs.Constraint;
 * of simulation tools for power systems.
 */
 
-function logConstraintBeginData "Create a begin constraint with data"
+function logConstraintWithData "Create a constraint with data"
   extends Icons.Function;
 
   input Integer key;
-
+  input Boolean begin;
   input String kind;
   input Real limit;
   input Real value;
   input String param;
 
-  external "C" addLogConstraintBeginData(key, kind, limit, value, param) annotation(Include = "#include \"logConstraint.h\"");
+  external "C" logConstraintFromModelicaWithData(key, begin, kind, limit, value, param);
 
   annotation(preferredView = "text");
-end logConstraintBeginData;
+end logConstraintWithData;

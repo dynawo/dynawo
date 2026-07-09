@@ -37,21 +37,17 @@ protected
 
 equation
   when IMonitored > IMax and Running and pre(order) <> OrderToEmit then
-    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
+    Constraint.logConstraintWithData(ConstraintKeys.OverloadUpCLA, true, "OverloadUp", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
   elsewhen IMonitored < IMax and pre(tThresholdReached) <> Constants.inf and pre(order) <> OrderToEmit then
-    Constraint.logConstraintEndData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
+    Constraint.logConstraintWithData(ConstraintKeys.OverloadUpCLA, false, "OverloadUp", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
-  when tThresholdReached <> Constants.inf and tOrder == Constants.inf and der(IMonitored) < 0 then
-    Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax, pre(IMonitored), String(tLagBeforeActing, significantDigits = 2));
-  end when;
-
   when time - tThresholdReached >= tLagBeforeActing then
-    Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
+    Constraint.logConstraintWithData(ConstraintKeys.OverloadOpenCLA, true, "OverloadOpen", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
     order = OrderToEmit;
     tOrder = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);

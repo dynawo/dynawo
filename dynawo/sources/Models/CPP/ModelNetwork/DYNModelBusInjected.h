@@ -21,10 +21,14 @@
 
 #include "DYNModelBus.h"
 #include "DYNBitMask.h"
+#include "CSTRConstraintSource.h"
 
 namespace DYN {
+using constraints::ConstraintData;
+using constraints::ConstraintSource;
+
 /** class ModelBusInjected */
-class ModelBusInjected : public ModelBus {  ///< Generic AC network bus
+class ModelBusInjected : public ModelBus, public ConstraintSource {  ///< Generic AC network bus
  public:
   /**
    * @brief default constructor
@@ -112,6 +116,11 @@ class ModelBusInjected : public ModelBus {  ///< Generic AC network bus
   void loadInternalVariables(boost::archive::binary_iarchive& streamVariables) override;
   void resetDerivatives() override;
   void defineElementsById(const std::string& id, std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
+  void getFinalValues(ConstraintData::kind_t kind,
+                      int varIndex,
+                      double & valueFinal,
+                      boost::optional<double> & valueMin,
+                      boost::optional<double> & valueMax) const override;
 
 
   inline boost::shared_ptr<BusDerivatives>& derivatives() override {return derivatives_;}
@@ -178,6 +187,8 @@ class ModelBusInjected : public ModelBus {  ///< Generic AC network bus
   double U2Pu_;  ///< current value of U² (= 0 if not yet calculated)
   double UPu_;  ///< current value of U (=0 if not yet calculated)
   double U_;  ///< current value of U in S.I. unit (=0 if not yet calculated)
+  double UpuMin_ = 1000;  ///< minimum historical value of U (for dynaflow constraints output)
+  double UpuMax_ = 0;  ///< maximum historical value of U (for dynaflow constraints output)
   BitMask currentUStatus_;  ///< Bit mask value indicating which value of U have already been calculated for the current time step
 
   // equivalent to z_[switchOffNum_] but with discrete variable, to be able to switch off a node thanks to an outside event

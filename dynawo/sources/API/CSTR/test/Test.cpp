@@ -57,14 +57,14 @@ TEST(APICSTRTest, CollectionAddConstraintsWithDetails) {
 
   int side = 1;
 
-  ConstraintData dataWithAD(ConstraintData::OverloadUp, 1000, 1001, "", side);
+  ConstraintData dataWithAD(ConstraintData::OverloadUp, 1000, 1001, nullptr, "", side);
   dataWithAD.acceptableDuration = 60;
 
   collection->addConstraint("model", "constraint U", 0, CONSTRAINT_BEGIN, "Bus",
     ConstraintData(ConstraintData::USupUmax, 132.0, 133.0));
   collection->addConstraint("model", "constraint I", 0, CONSTRAINT_BEGIN, "Line", dataWithAD);
   collection->addConstraint("model", "constraint I", 0, CONSTRAINT_BEGIN, "Line",
-    ConstraintData(ConstraintData::PATL, 1100, 1111, "", side));
+    ConstraintData(ConstraintData::PATL, 1100, 1111, nullptr, "", side));
 
   auto nbConstraint = collection->getConstraintsById().size();
   ASSERT_EQ(nbConstraint, 2);  // the two constraints have been added
@@ -143,23 +143,19 @@ TEST(APICSTRTest, CollectionFilterConstraintDynaflowMode) {
   nbConstraint = 0;
   nbConstraint = collection->getConstraintsById().size();
 
-  ASSERT_EQ(nbConstraint, 3);  // closed constraints are kept
+  ASSERT_EQ(nbConstraint, 2);  // closed constraints are kept
 
   auto constraints =  collection->getConstraintsById();
   auto it = constraints.find("model_0_0_constraint 1");
   ASSERT_TRUE(it != constraints.end());
-  ASSERT_EQ(it->second->getData().get().value, 128);
-  ASSERT_EQ(it->second->getData().get().valueMax.get(), 133);
+  ASSERT_EQ(it->second->getData().get().value, 133);
 
   it = constraints.find("model_8_0_constraint 1");
-  ASSERT_TRUE(it != constraints.end());
-  ASSERT_EQ(it->second->getData().get().value, 136);
-  ASSERT_EQ(it->second->getData().get().valueMax.get(), 136);
+  ASSERT_TRUE(it == constraints.end());
 
   it = constraints.find("model_7_0_constraint 3");
   ASSERT_TRUE(it != constraints.end());
-  ASSERT_EQ(it->second->getData().get().value, 128);
-  ASSERT_EQ(it->second->getData().get().valueMax.get(), 133);
+  ASSERT_EQ(it->second->getData().get().value, 133);
 }
 
 TEST(APICSTRTest, CollectionClearConstraints) {

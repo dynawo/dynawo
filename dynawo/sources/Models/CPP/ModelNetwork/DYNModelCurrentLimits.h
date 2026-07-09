@@ -21,16 +21,18 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELCURRENTLIMITS_H_
 
 #include <vector>
-#include "CSTRConstraint.h"
+#include "CSTRConstraintSource.h"
 #include "DYNEnumUtils.h"
 
 namespace DYN {
+using constraints::ConstraintData;
+using constraints::ConstraintSource;
 class ModelNetwork;
 
 /**
  * @brief  Generic Current Limits model
  */
-class ModelCurrentLimits {  ///< Generic Current Limits model
+class ModelCurrentLimits : public ConstraintSource {  ///< Generic Current Limits model
  public:
   /**
    * @brief structure for side
@@ -118,6 +120,12 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    */
   int sizeZ() const;
 
+  void getFinalValues(ConstraintData::kind_t kind,
+                    int varIndex,
+                    double & valueFinal,
+                    boost::optional<double> & valueMin,
+                    boost::optional<double> & valueMax) const override;
+
  private:
   /**
    * @brief registers a constraint state change
@@ -136,6 +144,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
 
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
   double lastCurrentValue_;  ///< last value of the current, kept to be reported in constraints
+  double maxCurrentValue_ = 0;  ///< max value of the current, kept to be reported in constraints
   double factorPuToA_;  ///< factor to convert pu values to Amperes
 
   std::vector<double> limits_;  ///< vector of current limits (pu base UNom, base SNRef)
