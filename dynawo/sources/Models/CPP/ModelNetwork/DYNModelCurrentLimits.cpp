@@ -88,6 +88,7 @@ ModelCurrentLimits::evalG(const double t, const double current, const double des
   Timer timer("ModelNetwork::ModelCurrentLimits::evalG");
 #endif
   lastCurrentValue_ = current;
+  maxCurrentValue_ = std::max(maxCurrentValue_, current);
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 2 * i] = (current > limits_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
     if (openingAuthorized_[i])
@@ -114,7 +115,7 @@ ModelCurrentLimits::logConstraint(ModelNetwork * network, const string & compone
   else if (fictitious_[i])          CSTR_TYPE(FictLim)
   else                              CSTR_TYPE(PATL)
 
-  ConstraintData data(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, names_[i], side_);
+  ConstraintData data(kind, limits_[i]*factorPuToA_, lastCurrentValue_*factorPuToA_, this, names_[i], side_);
   if (openingAuthorized_[i])
     data.acceptableDuration = acceptableDurations_[i];
 
@@ -158,6 +159,28 @@ ModelCurrentLimits::evalZ(const string& componentName, double t, const state_g* 
   }
 
   return state;
+}
+
+void
+ModelCurrentLimits::getFinalValues(ConstraintData::kind_t kind,
+                                   int /*varIndex*/,
+                                   double & valueFinal,
+                                   boost::optional<double> & /*valueMin*/,
+                                   boost::optional<double> & valueMax) const {
+  switch (kind) {
+    case ConstraintData::OverloadOpen:
+    case ConstraintData::OverloadUp:
+    case ConstraintData::FictLim:
+    case ConstraintData::PATL:
+      break;
+    case ConstraintData::UInfUmin:
+    case ConstraintData::USupUmax:
+    case ConstraintData::Undefined:
+    default:
+      throw DYNError(Error::API, UnhandledConstraintKind, kind, "CurrentLimits");
+  }
+  valueFinal = lastCurrentValue_*factorPuToA_;
+  valueMax = maxCurrentValue_*factorPuToA_;
 }
 
 }  // namespace DYN

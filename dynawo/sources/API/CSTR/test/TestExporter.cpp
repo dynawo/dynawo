@@ -36,14 +36,14 @@ TEST(APICSTRTest, ConstraintsCollectionExporter) {
 
   int side = 1;
 
-  ConstraintData dataWithAD(ConstraintData::OverloadUp, 1000, 1001, "LineName", side);
+  ConstraintData dataWithAD(ConstraintData::OverloadUp, 1000, 1001, nullptr, "LineName", side);
   dataWithAD.acceptableDuration = 60;
 
   constraintsCollection1->addConstraint("modelDetail", "desc UInfUmin", 90, CONSTRAINT_BEGIN, "Bus",
     ConstraintData(ConstraintData::UInfUmin, 132.0, 130.0));
   constraintsCollection1->addConstraint("modelDetail", "desc OverloadUp", 90, CONSTRAINT_BEGIN, "Line", dataWithAD);
   constraintsCollection1->addConstraint("modelDetail", "desc PATL", 90, CONSTRAINT_BEGIN, "Line",
-    ConstraintData(ConstraintData::PATL, 1100, 1111, "LineName", side));
+    ConstraintData(ConstraintData::PATL, 1100, 1111, nullptr, "LineName", side));
 
   XmlExporter xmlExporter;
   {

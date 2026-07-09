@@ -23,6 +23,7 @@
 #include <string>
 
 namespace constraints {
+class ConstraintSource;
 
 /** @brief Constraint data definition */
 class ConstraintData {
@@ -34,6 +35,8 @@ class ConstraintData {
   double limit;                                               ///< Limit of the constraint
   double value;                                               ///< value of the constraint
   std::string limitName;                                      ///< name of the original limit
+  const ConstraintSource * source = nullptr;                  ///< object that emitted the constraint and can acces the relevant variable
+  int varIndex = -1;                                          ///< index of the variable, used by the source in some cases
   boost::optional<double> valueMin = boost::none;             ///< minimum value reached during the presence of the constraint
   boost::optional<double> valueMax = boost::none;             ///< maximum value reached during the presence of the constraint
   boost::optional<int> side = boost::none;                    ///< Side the constraint applies
@@ -41,19 +44,23 @@ class ConstraintData {
 
   /**
    * @brief Construct a new Constraint Data object
-   * @param constraintKind Kind of constraint
-   * @param constraintLimit Limit of the constraint
-   * @param constraintValue value of the constraint
-   * @param constraintLimitName Textual description of the limit of the constraint
-   * @param constraintSide Side the constraint applies
+   * @param cstrKind Kind of constraint
+   * @param cstrLimit Limit of the constraint
+   * @param cstrValue value of the constraint
+   * @param cstrSource source of the constraint
+   * @param cstrLimitName Textual description of the limit of the constraint
+   * @param cstrSide Side the constraint applies
    */
-  ConstraintData(kind_t constraintKind, double constraintLimit, double constraintValue,
-                 const std::string& constraintLimitName = "", boost::optional<int> constraintSide = boost::none) :
-      kind(constraintKind),
-      limit(constraintLimit),
-      value(constraintValue),
-      limitName(constraintLimitName),
-      side(constraintSide) {}
+  ConstraintData(kind_t cstrKind, double cstrLimit, double cstrValue,
+                 const ConstraintSource * cstrSource = nullptr,
+                 const std::string& cstrLimitName = "",
+                 boost::optional<int> cstrSide = boost::none) :
+    kind(cstrKind),
+    limit(cstrLimit),
+    value(cstrValue),
+    limitName(cstrLimitName),
+    source(cstrSource),
+    side(cstrSide) {}
 
   /**
    * @brief get a kind from a string

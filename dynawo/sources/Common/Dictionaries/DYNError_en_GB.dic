@@ -243,6 +243,8 @@ NumericalErrorFunction      =             A numerical error occurs during the ca
 //---GENERAL-----------------
 //---CRV---------------------
 //---CSTR--------------------
+UnhandledConstraintKind     =             constraint kind %1% unhandled by component %2%
+InvalidVarIndex             =             out-of-bounds local var index %1% for component %2%
 //---DYD---------------------
 ModelIDNotUnique            =             model id (%1%) is not unique
 UnitModelIDSameAsModelName  =             unitDynamicModel %1% id should be different from modelicaModel id
