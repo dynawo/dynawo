@@ -309,6 +309,7 @@ class SolverIDA : public Solver::Impl {
   double uroundPrecisionInit_;  ///< save uround precision in case of force reinit
   double precisionInit_;  ///< save precision in case of force reinit
   double minimalAcceptableStepInit_;   ///< save minimal acceptable step in case of force reinit
+  algebraicRestorationReinitMode_t algebraicRestorationReinitMode_;  ///< when IDAReInit is called after a mode change
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
