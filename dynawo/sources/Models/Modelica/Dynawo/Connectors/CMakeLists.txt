@@ -20,9 +20,12 @@ set(MODEL_FILES
   AngleOutput.mo
   AngularVelocityPuInput.mo
   AngularVelocityPuOutput.mo
-  ComplexCurrentPuConnector.mo
-  ComplexPerUnitConnector.mo
-  ComplexVoltagePuConnector.mo
+  ComplexCurrentPuInput.mo
+  ComplexCurrentPuOutput.mo
+  ComplexPerUnitInput.mo
+  ComplexPerUnitOutput.mo
+  ComplexVoltagePuInput.mo
+  ComplexVoltagePuOutput.mo
   CurrentModulePuInput.mo
   CurrentModulePuOutput.mo
   PerUnitInput.mo
