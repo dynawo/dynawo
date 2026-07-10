@@ -28,7 +28,6 @@ set(MODEL_FILES
   pll.mo
   RLDynTrafo.mo
   simulation_weak_grid.mo
-  simulation.mo
   test_dyn.mo
   test_outer_loop_linearized.mo
   test_outer_loop.mo
@@ -36,6 +35,7 @@ set(MODEL_FILES
   TwoConvertersStaticLine_7Hz.mo
   TwoConvertersStaticLine.mo
   TwoConvertersWECC.mo
+  TwoConvertersDynamicLine_7Hz.mo
   )
 
 #

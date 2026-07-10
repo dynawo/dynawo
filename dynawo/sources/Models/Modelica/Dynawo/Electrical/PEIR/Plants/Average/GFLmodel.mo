@@ -124,7 +124,7 @@ model GFLmodel
   final parameter Real U0Sq = UrPcc0Pu^2 + UiPcc0Pu^2;
   // q-axis component of the PCC voltage in the PLL reference frame
   // (used as PLL initial condition; should be ≈ 0 at steady state)
-  final parameter Real V_q_g_0 = -u0Pu_init.re*sin(Theta0) + u0Pu_init.im*cos(Theta0);
+  final parameter Real V_q_g_0 = -ucaP0Pu_init.re*sin(Theta0) + ucaP0Pu_init.im*cos(Theta0);
   // PCC current phasor (derived from S = U · I*) in re/im coordinates
   final parameter Real IrPcc0Pu = (P0Pu*UrPcc0Pu + Q0Pu*UiPcc0Pu)/U0Sq;
   final parameter Real IiPcc0Pu = (P0Pu*UiPcc0Pu - Q0Pu*UrPcc0Pu)/U0Sq;
@@ -203,16 +203,17 @@ model GFLmodel
   // LC dynamic filter block
   LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu* SNom / SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
     Placement(transformation(origin = {3, 55}, extent = {{-11, -11}, {11, 11}})));
-  // LV-side transformer RL stage.
-  // Models the low-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoLV(RPu = RPuLV*SystemBase.SnRef/SNom, LPu = LPuLV*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
-    Placement(transformation(origin = {35, 55}, extent = {{-10, -10}, {10, 10}})));
-  // HV-side transformer RL stage.
-  // Models the high-voltage winding leakage impedance as a dynamic RL element
-  RLDynTrafo TrafoHV(RPu = RPuHV*SystemBase.SnRef/SNom, LPu = LPuHV*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
-    Placement(transformation(origin = {79, 53}, extent = {{-10, -10}, {10, 10}})));
-  // Internal LV bus node (junction between the LV and HV transformer stages).
-  // Voltages and powers at this node are measured by the MeasurementBlock
+  // Combined LV+HV transformer RL stage.
+  // Models the two winding leakage impedances (LV and HV) as a single lumped
+  // dynamic RL element (R = RPuLV+RPuHV, L = LPuLV+LPuHV). The two stages are
+  // strictly in series with nothing tapped at their junction, so their branch
+  // currents are identical at every instant (Kirchhoff's current law) and a
+  // second dynamic state there would be a redundant alias, not an independent
+  // degree of freedom. The internal LV-bus voltage (junction between the two
+  // stages, used by the MeasurementBlock) is instead recovered algebraically
+  // below from this single current and the HV-leg impedance alone.
+  RLDynTrafo Trafo(RPu = (RPuLV + RPuHV)*SystemBase.SnRef/SNom, LPu = (LPuLV + LPuHV)*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
+    Placement(transformation(origin = {57, 54}, extent = {{-10, -10}, {10, 10}})));
 
 equation
 
@@ -294,19 +295,14 @@ equation
   connect(lCDynFilter.omegaPu, gFLControl.omega_pll_pu) annotation(
     Line(points = {{-4, 42}, {-76, 42}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // LC filter feeds back PLL frequency to the GFL controller
-  connect(TrafoLV.omegaPu, gFLControl.omega_pll_pu) annotation(
-    Line(points = {{35, 44}, {36.625, 44}, {36.625, 42}, {-76, 42}}, color = {153, 193, 241}, thickness = 0.75));
-// LV trafo receives PLL frequency for dq-frame inductance voltage terms
-  connect(TrafoHV.omegaPu, gFLControl.omega_pll_pu) annotation(
-    Line(points = {{80, 42}, {-76, 42}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
-// HV trafo receives PLL frequency for dq-frame inductance voltage terms
-// ── 13.8  Electrical power path: converter → filter → LV trafo → LV bus → HV trafo → PCC ──
-  connect(lCDynFilter.terminalRight, TrafoLV.left) annotation(
-    Line(points = {{14, 55}, {25, 55}}, color = {0, 0, 255}));
-// LC filter right port → LV transformer input
-// LV transformer output → internal LV bus node
-// Internal LV bus node → HV transformer input
-// HV transformer output → PCC terminal (connection to external network)
+  connect(Trafo.omegaPu, gFLControl.omega_pll_pu) annotation(
+    Line(points = {{58, 42}, {-76, 42}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
+// Trafo receives PLL frequency for dq-frame inductance voltage terms
+// ── 13.8  Electrical power path: converter → filter → transformer → PCC ──
+  connect(lCDynFilter.terminalRight, Trafo.left) annotation(
+    Line(points = {{14, 55}, {47, 55}}, color = {0, 0, 255}));
+// LC filter right port → transformer input
+// Transformer output → PCC terminal (connection to external network)
 // ── 13.9  Converter current feedback to the LC filter ─────────────────────
   connect(measurementBlock.I_conv_re, lCDynFilter.iLeft_rePu) annotation(
     Line(points = {{-61, -81}, {-61, -82.625}, {-27, -82.625}, {-27, 51.75}, {-10, 51.75}, {-10, 51}}, color = {38, 162, 105}, thickness = 0.75));
@@ -315,10 +311,12 @@ equation
     Line(points = {{-61, -86}, {-12, -86}, {-12, 46}, {-10, 46}}, color = {38, 162, 105}, thickness = 0.75));
 // Imaginary part of converter current → LC filter state
 // ── 13.10  Algebraic assignments: terminal quantities → measurement block ──
-// Internal LV bus voltage (between the two transformer stages)
-  measurementBlock.u_LV_re = TrafoHV.left.V.re;
+// Internal LV bus voltage (junction between the LV and HV transformer stages).
+// Recovered algebraically from the single branch current and the HV-leg
+// impedance alone (no dynamic state at the junction, see Trafo declaration).
+  measurementBlock.u_LV_re = terminalPcc.V.re + Trafo.iRe*SystemBase.SnRef/SNom*RPuHV - Trafo.iIm*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV;
 // real part of LV node voltage
-  measurementBlock.u_LV_im = TrafoHV.left.V.im;
+  measurementBlock.u_LV_im = terminalPcc.V.im + Trafo.iRe*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV + Trafo.iIm*SystemBase.SnRef/SNom*RPuHV;
 
 // imaginary part of LV node voltage
 // PCC voltage (from the external network connector)
@@ -333,10 +331,8 @@ equation
 // while the measurement block uses generator convention (i > 0 out of converter).
   measurementBlock.I_pcc_re = -terminalPcc.i.re * SystemBase.SnRef / SNom;
   measurementBlock.I_pcc_im = -terminalPcc.i.im * SystemBase.SnRef / SNom;
-  connect(TrafoHV.right, terminalPcc) annotation(
-    Line(points = {{90, 54}, {104, 54}}, color = {0, 0, 255}));
-  connect(TrafoLV.right, TrafoHV.left) annotation(
-    Line(points = {{46, 56}, {68, 56}, {68, 54}, {70, 54}}, color = {0, 0, 255}));
+  connect(Trafo.right, terminalPcc) annotation(
+    Line(points = {{68, 54}, {104, 54}}, color = {0, 0, 255}));
 
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),

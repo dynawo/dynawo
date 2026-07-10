@@ -54,18 +54,12 @@ model VSC_with_pade_delay "VSC in RI with Pade delay"
               b       = {1, -tVSC/2},
               a       = {1,  tVSC/2},
               x_start = {UimConv0Pu});*/
-  Modelica.Blocks.Continuous.FirstOrder re(T = tVSC) annotation(
+  Modelica.Blocks.Continuous.FirstOrder re(T = tVSC, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = UreConv0Pu) annotation(
     Placement(transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder im(T = tVSC) annotation(
+  Modelica.Blocks.Continuous.FirstOrder im(T = tVSC, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = UimConv0Pu) annotation(
     Placement(transformation(origin = {-38, -20}, extent = {{-10, -10}, {10, 10}})));
 equation
-/* // Real component
-  connect(uReConvRefPu, pade_re.u);
-  connect(pade_re.y,    uReConvPu);
 
-  // Imaginary component
-  connect(uImConvRefPu, pade_im.u);
-  connect(pade_im.y,    uImConvPu); */
   connect(uReConvRefPu, re.u) annotation(
     Line(points = {{-110, 20}, {-52, 20}}, color = {0, 0, 127}));
   connect(re.y, uReConvPu) annotation(

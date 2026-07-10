@@ -129,7 +129,7 @@ model TwoConvertersStaticLine
   parameter Real OmegaCC = 1200 "Inner current loop bandwidth [rad/s]";
   parameter Real w_cc_outer = 10 "Outer P/Q loop bandwidth [rad/s]";
   parameter Real w_cc_plant = 2 "Plant (power) controller bandwidth [rad/s]";
-  parameter Real OmegaPLL = 100 "PLL bandwidth [rad/s]";
+  parameter Real OmegaPLL = 30 "PLL bandwidth [rad/s]";
   parameter Real KsiPLL = 1"PLL damping ratio [-]";
   parameter Real OmegaLPF = 300 "Measurement low‑pass filter cutoff [rad/s]";
   parameter Real delay_time_plant = 0.02 "Equivalent delay from plant to outer loop [s]";
@@ -170,51 +170,48 @@ model TwoConvertersStaticLine
   // Converter 1: grid‑following VSC (GFL1)
   // Includes inner/outer loops, PLL, droop and plant controller
   // ═══════════════════════════════════════════════════════════════
-  GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC                     = 0.001,  // Filter and transformer impedances (per unit)
-  RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,  // Measurement filter
-  k_filter = 1, T_filter = T_filter,  // Inner d‑axis current controller
-  k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,  // Inner q‑axis current controller (same as d‑axis)
-  k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,  // Outer d‑axis controller (P / voltage loop)
-  k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,  // Outer q‑axis controller (Q / voltage loop)
-  k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,  // Voltage support and reactive power behaviour
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,  // Current limits and operation mode
-  Imax = 20, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // Plant controller for Q
-  K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,  // Plant controller for P
-  K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,  // Droop and voltage‑Q coupling
-  Lambda = 0.417, Kdroop = 15,  // Reactive power limits
-  QMaxPu = 0.3, QMinPu = -0.3,  // Active power limits
-  PMaxPu = 2, PMinPu = 0,  // Frequency / angle limits
-  FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
-  K_p_pll = kp_pll_1, K_i_pll = ki_pll_1, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0,  // Active power reference sampling time
-  tS_idref = 1e-4,  // Equivalent delay between plant and outer loop
-  delay_time_plant = delay_time_plant,  // Enable voltage feed‑forward on both d and q axis
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1) annotation(
+GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001,
+  RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,
+  k_filter = 1, T_filter = T_filter,
+  k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
+  k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
+  k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
+  k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
+  Imax = 10, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,
+  K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
+  K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
+  Lambda = 0.417, Kdroop = 15,
+  QMaxPu = 0.3, QMinPu = -0.3,
+  PMaxPu = 2, PMinPu = 0,
+  FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,
+  K_p_pll = kp_pll_1, K_i_pll = ki_pll_1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0,
+  tS_idref = 1e-4,
+  delay_time_plant = delay_time_plant,
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
-  // ═══════════════════════════════════════════════════════════════
-  // Converter 2: grid‑following VSC (GFL2)
-  // Similar controller structure, different ratings and limits
-  // ═══════════════════════════════════════════════════════════════
-  GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC                     = 0.001,  // Filter and transformer impedances (per unit)
-  RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,  // Measurement filter
-  k_filter = 1, T_filter = T_filter,  // Inner d‑axis current controller
-  k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2,  // Inner q‑axis current controller
-  k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,  // Outer d‑axis controller
-  k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2,  // Outer q‑axis controller
-  k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2,  // Voltage support and reactive power behaviour
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,  // Current limits and operation mode
-  Imax = 2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // Plant controller for Q
-  K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,  // Plant controller for P
-  K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,  // Droop and voltage‑Q coupling
-  Lambda = 0.417, Kdroop = 15,  // Reactive power limits
-  QMaxPu = 0.3, QMinPu = -0.3,  // Active power limits (note inversion of sign)
-  PMaxPu = 0, PMinPu = -2,  // Frequency / angle limits
-  FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
-  K_p_pll = kp_pll_2, K_i_pll = ki_pll_2, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 100000.0, DuMin_idref = -10000.0,  // Active power reference sampling time
-  tS_idref = 1e-4,  // Equivalent delay between plant and outer loop
-  delay_time_plant = delay_time_plant,  // Enable voltage feed‑forward on both d and q axis
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1) annotation(
+
+GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001,
+  RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,
+  k_filter = 1, T_filter = T_filter,
+  k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2,
+  k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,
+  k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2,
+  k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2,
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
+  Imax = 10, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,
+  K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,
+  K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,
+  Lambda = 0.417, Kdroop = 15,
+  QMaxPu = 0.3, QMinPu = -0.3,
+  PMaxPu = 0, PMinPu = -2,
+  FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,
+  K_p_pll = kp_pll_2, K_i_pll = ki_pll_2, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 100000.0, DuMin_idref = -10000.0,
+  tS_idref = 1e-4,
+  delay_time_plant = delay_time_plant,
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
   // Network elements (transmission lines and buses)
@@ -225,7 +222,7 @@ model TwoConvertersStaticLine
   Lines.Line line1(RPu = 0.00144, XPu = 0.0144, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {26, 20}, extent = {{-10, -10}, {10, 10}})));
   // Vertical line to infinite bus (segment 1)
-  Lines.Line line2(RPu = 0.01, XPu = 0.1, BPu = 0, GPu = 0) annotation(
+  Lines.Line line2(RPu = 0.02, XPu = 0.2, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {-4, -28}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   // Parallel / additional segment, which will be opened during the simulation
   Lines.Line line3(RPu = 0.0077775, XPu = 0.077775, GPu = 0, BPu = 0) annotation(
