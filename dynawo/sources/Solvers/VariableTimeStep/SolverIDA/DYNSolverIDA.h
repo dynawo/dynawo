@@ -280,18 +280,19 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
-  bool uround_;  ///< to activate change on uround
-  double uroundPrecision_;  ///< the uround precision to use
-  int countForceReinit_;  ///< number of reinit after a failure, only one reinit can be done and if no time step is validated after the simulation ends
-  bool activateForceReinit_;  ///< to activate force reinit
-  double minStepSave_;  ///< minimal step size saved in case of force reinit
-  double uroundPrecisionSave_;  ///< save uround precision in case of force reinit
-  double precisionSave_;  ///< save precision in case of force reinit
-  double minimalAcceptableStepSave_;   ///< save minimal acceptable step in case of force reinit
-  double minStepInit_;  ///< minimal step size saved in case of force reinit
-  double uroundPrecisionInit_;  ///< save uround precision in case of force reinit
-  double precisionInit_;  ///< save precision in case of force reinit
-  double minimalAcceptableStepInit_;   ///< save minimal acceptable step in case of force reinit
+  bool activateTimeScaledURound_;  ///< to activate the time-scaled recomputation of IDA's unit roundoff
+  double timeScaledURoundPrecision_;  ///< the reference precision used to derive the time-scaled unit roundoff
+  int alternativeStrategiesOnDivergenceStage_;  ///< escalation stage of the alternative strategies on divergence
+                                                // (0: none tried, 1: reinit tried, 2: reduced step/precision also tried)
+  bool activateAlternativeStrategiesOnDivergence_;  ///< to activate the progressive relaunch strategies (reinit, then reduced step/precision) when IDA diverges
+  double minStepSave_;  ///< minimal step size saved in case of alternative strategy on divergence
+  double timeScaledURoundPrecisionSave_;  ///< save reference precision for time-scaled unit roundoff in case of alternative strategy on divergence
+  double precisionSave_;  ///< save precision in case of alternative strategy on divergence
+  double minimalAcceptableStepSave_;   ///< save minimal acceptable step in case of alternative strategy on divergence
+  double minStepInit_;  ///< minimal step size saved in case of alternative strategy on divergence
+  double timeScaledURoundPrecisionInit_;  ///< save reference precision for time-scaled unit roundoff in case of alternative strategy on divergence
+  double precisionInit_;  ///< save precision in case of alternative strategy on divergence
+  double minimalAcceptableStepInit_;   ///< save minimal acceptable step in case of alternative strategy on divergence
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

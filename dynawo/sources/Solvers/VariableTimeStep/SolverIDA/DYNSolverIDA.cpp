@@ -93,16 +93,16 @@ minStep_(0.),
 maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
-uround_(false),
-uroundPrecision_(std::numeric_limits<double>::min()),
-countForceReinit_(0),
-activateForceReinit_(false),
+activateTimeScaledURound_(false),
+timeScaledURoundPrecision_(std::numeric_limits<double>::min()),
+alternativeStrategiesOnDivergenceStage_(0),
+activateAlternativeStrategiesOnDivergence_(false),
 minStepSave_(0.),
-uroundPrecisionSave_(0.),
+timeScaledURoundPrecisionSave_(0.),
 precisionSave_(0.),
 minimalAcceptableStepSave_(0.),
 minStepInit_(0.),
-uroundPrecisionInit_(0.),
+timeScaledURoundPrecisionInit_(0.),
 precisionInit_(0.),
 minimalAcceptableStepInit_(0.),
 flagInit_(false),
@@ -149,9 +149,10 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE, mandatory)));
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE, mandatory)));
-  parameters_.insert(make_pair("activateForceReinit", ParameterSolver("activateForceReinit", VAR_TYPE_BOOL, optional)));
-  parameters_.insert(make_pair("uround", ParameterSolver("uround", VAR_TYPE_BOOL, optional)));
-  parameters_.insert(make_pair("uroundPrecision", ParameterSolver("uroundPrecision", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("activateAlternativeStrategiesOnDivergence",
+    ParameterSolver("activateAlternativeStrategiesOnDivergence", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("activateTimeScaledURound", ParameterSolver("activateTimeScaledURound", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("timeScaledURoundPrecision", ParameterSolver("timeScaledURoundPrecision", VAR_TYPE_DOUBLE, optional)));
 }
 
 void
@@ -162,19 +163,19 @@ SolverIDA::setSolverSpecificParameters() {
   maxStep_ = findParameter("maxStep").getValue<double>();
   absAccuracy_ = findParameter("absAccuracy").getValue<double>();
   relAccuracy_ = findParameter("relAccuracy").getValue<double>();
-  const ParameterSolver& uround = findParameter("uround");
-  if (uround.hasValue())
-    uround_ = uround.getValue<bool>();
-  const ParameterSolver& uroundPrecision = findParameter("uroundPrecision");
-  if (uroundPrecision.hasValue())
-    uroundPrecision_ = uroundPrecision.getValue<double>();
+  const ParameterSolver& activateTimeScaledURound = findParameter("activateTimeScaledURound");
+  if (activateTimeScaledURound.hasValue())
+    activateTimeScaledURound_ = activateTimeScaledURound.getValue<bool>();
+  const ParameterSolver& timeScaledURoundPrecision = findParameter("timeScaledURoundPrecision");
+  if (timeScaledURoundPrecision.hasValue())
+    timeScaledURoundPrecision_ = timeScaledURoundPrecision.getValue<double>();
   else
-    uroundPrecision_ = getCurrentPrecision();
-  if (getCurrentPrecision() < uroundPrecision_)
-    uroundPrecision_ = getCurrentPrecision();
-  const ParameterSolver& activateForceReinit = findParameter("activateForceReinit");
-  if (activateForceReinit.hasValue())
-    activateForceReinit_ = activateForceReinit.getValue<bool>();
+    timeScaledURoundPrecision_ = getCurrentPrecision();
+  if (getCurrentPrecision() < timeScaledURoundPrecision_)
+    timeScaledURoundPrecision_ = getCurrentPrecision();
+  const ParameterSolver& activateAlternativeStrategiesOnDivergence = findParameter("activateAlternativeStrategiesOnDivergence");
+  if (activateAlternativeStrategiesOnDivergence.hasValue())
+    activateAlternativeStrategiesOnDivergence_ = activateAlternativeStrategiesOnDivergence.getValue<bool>();
 }
 
 const std::string&
@@ -320,8 +321,8 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetNoInactiveRootWarn");
 
-  if (uround_) {
-    flag = IDASetURound(IDAMem_, uroundPrecision_ / (100. * minStep_));
+  if (activateTimeScaledURound_) {
+    flag = IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * minStep_));
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
   }
@@ -363,8 +364,8 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   solverKINYPrim_.reset(new SolverKINAlgRestoration(printReinitResiduals_));
   solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_DERIVATIVES);
 
-  uroundPrecisionInit_ = uroundPrecision_;
-  uroundPrecisionSave_ = uroundPrecision_;
+  timeScaledURoundPrecisionInit_ = timeScaledURoundPrecision_;
+  timeScaledURoundPrecisionSave_ = timeScaledURoundPrecision_;
   precisionInit_ = getCurrentPrecision();
   minStepInit_ = minStep_;
   minimalAcceptableStepInit_ = minimalAcceptableStep_;
@@ -717,10 +718,10 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
-  if (uround_) {
+  if (activateTimeScaledURound_) {
     // formula from https://sundials.readthedocs.io/en/latest/ida/Mathematics_link.html#rootfinding
-    double currentUroundPrecision = uroundPrecision_ / (100. * (getTimeStep() + tNxt));
-    int flag1 = IDASetURound(IDAMem_, currentUroundPrecision);
+    double currentTimeScaledURoundPrecision = timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt));
+    int flag1 = IDASetURound(IDAMem_, currentTimeScaledURoundPrecision);
     if (flag1 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetURound");
   }
@@ -729,26 +730,26 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   switch (flag) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
-      if (activateForceReinit_) {
-        if (countForceReinit_ >= 1) {
-          countForceReinit_ = 0;
+      if (activateAlternativeStrategiesOnDivergence_) {
+        if (alternativeStrategiesOnDivergenceStage_ >= 1) {
+          alternativeStrategiesOnDivergenceStage_ = 0;
         }
-        if (uroundPrecisionSave_ < uroundPrecisionInit_) {
-          if (getTimeStep() / uroundPrecisionInit_ > 100) {
-            uroundPrecisionSave_ = uroundPrecisionInit_;
+        if (timeScaledURoundPrecisionSave_ < timeScaledURoundPrecisionInit_) {
+          if (getTimeStep() / timeScaledURoundPrecisionInit_ > 100) {
+            timeScaledURoundPrecisionSave_ = timeScaledURoundPrecisionInit_;
             minStepSave_ = minStepInit_;
             minimalAcceptableStepSave_ = minimalAcceptableStepInit_;
             precisionSave_ = precisionInit_;
           }
         }
-        if (doubleNotEquals(uroundPrecision_, uroundPrecisionSave_)) {
-          if (getTimeStep() / uroundPrecisionSave_ > 100) {
-            uroundPrecision_ = uroundPrecisionSave_;
+        if (doubleNotEquals(timeScaledURoundPrecision_, timeScaledURoundPrecisionSave_)) {
+          if (getTimeStep() / timeScaledURoundPrecisionSave_ > 100) {
+            timeScaledURoundPrecision_ = timeScaledURoundPrecisionSave_;
             minStep_ = minStepSave_;
             setCurrentPrecision(precisionSave_);
             minimalAcceptableStep_ = minimalAcceptableStepSave_;
             IDASetMinStep(IDAMem_, minStep_);
-            IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+            IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
           }
         }
       }
@@ -764,11 +765,11 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       msg = "IDA_TSTOP_RETURN";
       break;
     case IDA_CONV_FAIL:
-      if (activateForceReinit_) {
+      if (activateAlternativeStrategiesOnDivergence_) {
         if (stats_.nst_ == 0) {
-          ++countForceReinit_;  // If we fail at first time step we need to force reinit with divided time step and not with simple reinit
+          ++alternativeStrategiesOnDivergenceStage_;  // If we fail at first time step we need to force reinit with divided time step and not with simple reinit
         }
-        if (countForceReinit_ == 0) {
+        if (alternativeStrategiesOnDivergenceStage_ == 0) {
           Trace::info() << DYNLog(SolverIDAForceReinitConvFail) << Trace::endline;
           const int msbsetAlgSave = msbsetAlg_;
           const modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
@@ -779,28 +780,28 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           msbsetAlg_ = msbsetAlgSave;
           minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
           model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
-          ++countForceReinit_;
+          ++alternativeStrategiesOnDivergenceStage_;
           break;
-        } else if (countForceReinit_ == 1) {
+        } else if (alternativeStrategiesOnDivergenceStage_ == 1) {
           Trace::info() << DYNLog(SolverIDAForceReinitTimeStepConvFail) << Trace::endline;
-          uroundPrecisionSave_ = uroundPrecision_;
+          timeScaledURoundPrecisionSave_ = timeScaledURoundPrecision_;
           precisionSave_ = getCurrentPrecision();
           minStepSave_ = minStep_;
           minimalAcceptableStepSave_ = minimalAcceptableStep_;
           const double factor = 100.;
           minStep_ /= factor;
-          uroundPrecision_ /= factor;
+          timeScaledURoundPrecision_ /= factor;
           setCurrentPrecision(precisionSave_ / factor);
           minimalAcceptableStep_ /= factor;
           IDASetMinStep(IDAMem_, minStep_);
-          if (uround_) {
+          if (activateTimeScaledURound_) {
             if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
-              IDASetURound(IDAMem_, uroundPrecision_);
+              IDASetURound(IDAMem_, timeScaledURoundPrecision_);
             } else {
-              IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+              IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
             }
           }
-          ++countForceReinit_;
+          ++alternativeStrategiesOnDivergenceStage_;
           break;
         } else {
           analyseFlag(flag);
@@ -810,11 +811,11 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       }
       break;
     case IDA_ERR_FAIL:
-      if (activateForceReinit_) {
+      if (activateAlternativeStrategiesOnDivergence_) {
         if (stats_.nst_ == 0) {
-          ++countForceReinit_;  // If we fail at first time step we need to force reinit with divided time step and not with simple reinit
+          ++alternativeStrategiesOnDivergenceStage_;  // If we fail at first time step we need to force reinit with divided time step and not with simple reinit
         }
-        if (countForceReinit_ == 0) {
+        if (alternativeStrategiesOnDivergenceStage_ == 0) {
           Trace::info() << DYNLog(SolverIDAForceReinitErrFail) << Trace::endline;
           const int msbsetAlgJSave = msbsetAlgJ_;
           const modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
@@ -825,28 +826,28 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
           msbsetAlgJ_ = msbsetAlgJSave;
           minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
           model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
-          ++countForceReinit_;
+          ++alternativeStrategiesOnDivergenceStage_;
           break;
-        } else if (countForceReinit_ == 1) {
+        } else if (alternativeStrategiesOnDivergenceStage_ == 1) {
           Trace::info() << DYNLog(SolverIDAForceReinitTimeStepErrFail) << Trace::endline;
-          uroundPrecisionSave_ = uroundPrecision_;
+          timeScaledURoundPrecisionSave_ = timeScaledURoundPrecision_;
           precisionSave_ = getCurrentPrecision();
           minStepSave_ = minStep_;
           minimalAcceptableStepSave_ = minimalAcceptableStep_;
           const double factor = 100.;
           minStep_ /= factor;
-          uroundPrecision_ /= factor;
+          timeScaledURoundPrecision_ /= factor;
           setCurrentPrecision(precisionSave_ / factor);
           minimalAcceptableStep_ /= factor;
           IDASetMinStep(IDAMem_, minStep_);
-          if (uround_) {
+          if (activateTimeScaledURound_) {
             if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
-              IDASetURound(IDAMem_, uroundPrecision_);
+              IDASetURound(IDAMem_, timeScaledURoundPrecision_);
             } else {
-              IDASetURound(IDAMem_, uroundPrecision_ / (100. * (getTimeStep() + tNxt)));
+              IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
             }
           }
-          ++countForceReinit_;
+          ++alternativeStrategiesOnDivergenceStage_;
           break;
         } else {
           analyseFlag(flag);
