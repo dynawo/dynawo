@@ -253,6 +253,7 @@ SolverIDAForceReinitConvFail  =             solverIDA fails with IDA_CONV_FAIL w
 SolverIDAForceReinitErrFail   =             solverIDA fails with IDA_ERR_FAIL we force a reinit
 SolverIDAForceReinitTimeStepConvFail =      solverIDA fails with IDA_CONV_FAIL we force a reinit with a divided min step
 SolverIDAForceReinitTimeStepErrFail =       solverIDA fails with IDA_ERR_FAIL we force a reinit with a divided min step
+IncoherentParamAlgebraicRestorationReinitMode =    parameter AlgebraicRestorationReinitMode (value=%1%) of solver should be one of ALWAYS or ONLY_ON_ALGEBRAIC_RESTORATION. Default value will be used (ALWAYS).
 // --> DYNSolverFixedTimeStep
 SolverFixedTimeStepInitOK     =             initialization of %1% : ok
 SolverFixedTimeStepInitGuessOK =            initial guess of the algebraic solver is accurate, following %1% iterations will be skipped until the next mode change

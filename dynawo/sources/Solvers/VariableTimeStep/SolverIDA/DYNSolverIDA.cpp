@@ -105,6 +105,7 @@ minStepInit_(0.),
 uroundPrecisionInit_(0.),
 precisionInit_(0.),
 minimalAcceptableStepInit_(0.),
+algebraicRestorationReinitMode_(ALWAYS),
 flagInit_(false),
 nbLastTimeSimulated_(0) {
 }
@@ -148,6 +149,8 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("activateForceReinit", ParameterSolver("activateForceReinit", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("uround", ParameterSolver("uround", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("uroundPrecision", ParameterSolver("uroundPrecision", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("AlgebraicRestorationReinitMode",
+      ParameterSolver("AlgebraicRestorationReinitMode", VAR_TYPE_STRING, optional)));
 }
 
 void
@@ -171,6 +174,16 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& activateForceReinit = findParameter("activateForceReinit");
   if (activateForceReinit.hasValue())
     activateForceReinit_ = activateForceReinit.getValue<bool>();
+  const ParameterSolver& algebraicRestorationReinitMode = findParameter("AlgebraicRestorationReinitMode");
+  if (algebraicRestorationReinitMode.hasValue()) {
+    const std::string& value = algebraicRestorationReinitMode.getValue<std::string>();
+    if (value == "ALWAYS")
+      algebraicRestorationReinitMode_ = ALWAYS;
+    else if (value == "ONLY_ON_ALGEBRAIC_RESTORATION")
+      algebraicRestorationReinitMode_ = ONLY_ON_ALGEBRAIC_RESTORATION;
+    else
+      Trace::warn() << DYNLog(IncoherentParamAlgebraicRestorationReinitMode, value) << Trace::endline;
+  }
 }
 
 const std::string&
@@ -1009,13 +1022,23 @@ SolverIDA::reinit() {
       if (counter >= maxNumberUnstableRoots)
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_);
+
+    if (algebraicRestorationReinitMode_ == ONLY_ON_ALGEBRAIC_RESTORATION) {
+      updateStatistics();
+
+      int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+      if (flag0 < 0)
+        throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+    }
   }
 
-  updateStatistics();
+  if (algebraicRestorationReinitMode_ == ALWAYS) {
+    updateStatistics();
 
-  int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
-  if (flag0 < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+    int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+    if (flag0 < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+  }
 }
 
 vector<state_g>
