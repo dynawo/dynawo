@@ -204,6 +204,12 @@ Compiler::getDDB() {
     Trace::debug(Trace::compile()) << extVarFilePair.second << Trace::endline;
   }
   Trace::debug(Trace::compile()) << "" << Trace::endline;
+
+  Trace::debug(Trace::compile()) << "Mandatory parameter files" << Trace::endline;
+  for (const auto& mandatoryParamFilePair : mandatoryParamFiles_) {
+    Trace::debug(Trace::compile()) << mandatoryParamFilePair.second << Trace::endline;
+  }
+  Trace::debug(Trace::compile()) << "" << Trace::endline;
 }
 
 void
