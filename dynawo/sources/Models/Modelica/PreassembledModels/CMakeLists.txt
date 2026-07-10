@@ -30,6 +30,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  DynLine.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml

@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="GFLAverageModel">
-    <dyn:unitDynamicModel id="GFL" name="Dynawo.Electrical.PEIR.Plants.Average.GFLmodel"/>
+  <dyn:modelicaModel id="DynLine">
+    <dyn:unitDynamicModel id="dynLine" name="Dynawo.Electrical.PEIR.Plants.Average.DynLine"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

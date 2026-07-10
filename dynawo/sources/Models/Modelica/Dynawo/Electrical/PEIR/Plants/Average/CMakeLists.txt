@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.order
   current_loop.mo
   DynLine.mo
+  DynLine.extvar
   frst_smib_simulation.mo
   GFLControl.mo
   GFLmodel.mo
