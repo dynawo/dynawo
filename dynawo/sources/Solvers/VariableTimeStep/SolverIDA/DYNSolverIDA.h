@@ -234,6 +234,31 @@ class SolverIDA : public Solver::Impl {
   void analyseFlag(const int & flag);
 
   /**
+   * @brief force a reinit with an aggressive algebraic restoration Jacobian recalculation,
+   * used as the first alternative strategy when IDA diverges
+   *
+   * @param modeChangeType minimum mode change type to force for this reinit (ALGEBRAIC_MODE for a
+   * convergence failure, ALGEBRAIC_J_UPDATE_MODE for an error test failure)
+   */
+  void forceReinitOnDivergence(modeChangeType_t modeChangeType);
+
+  /**
+   * @brief reduce the minimum time step and the time-scaled URound reference precision by a factor 100,
+   * used as the second alternative strategy when IDA still diverges after a forced reinit
+   *
+   * @param tNxt time reached by the last (failed) step attempt
+   */
+  void reduceStepAndPrecisionOnDivergence(double tNxt);
+
+  /**
+   * @brief progressively restore the nominal minimum time step and time-scaled URound reference precision
+   * once the simulation has been stable long enough since the last alternative strategy was used
+   *
+   * @param tNxt time reached by the last successful step
+   */
+  void restoreNominalStrategyIfStable(double tNxt);
+
+  /**
    * @copydoc Solver::getTimeStep()
    */
   double getTimeStep() const override;

@@ -46,7 +46,7 @@ INIT_XML_DYNAWO;
 
 namespace DYN {
 
-static SolverFactory::SolverPtr initSolver(bool enableSilentZ = true) {
+static SolverFactory::SolverPtr initSolver(bool enableSilentZ = true, bool activateAlternativeStrategiesOnDivergence = false) {
   // Solver
   SolverFactory::SolverPtr solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
 
@@ -72,6 +72,11 @@ static SolverFactory::SolverPtr initSolver(bool enableSilentZ = true) {
   params->addParameter(parameters::ParameterFactory::newParameter("minimalAcceptableStep", 10e-6));
   params->addParameter(parameters::ParameterFactory::newParameter("maximumNumberSlowStepIncrease", 10));
   params->addParameter(parameters::ParameterFactory::newParameter("enableSilentZ", enableSilentZ));
+  if (activateAlternativeStrategiesOnDivergence) {
+    params->addParameter(parameters::ParameterFactory::newParameter("activateAlternativeStrategiesOnDivergence", true));
+    params->addParameter(parameters::ParameterFactory::newParameter("activateTimeScaledURound", true));
+    params->addParameter(parameters::ParameterFactory::newParameter("timeScaledURoundPrecision", 1e-6));
+  }
   solver->setParameters(params);
 
   return solver;
@@ -188,8 +193,8 @@ static std::shared_ptr<Model> initModelFromDyd(std::string dydFileName, bool ena
 }
 
 static std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
- const double& tStart, const double& tStop, bool enableSilentZ = true) {
-  SolverFactory::SolverPtr solver = initSolver(enableSilentZ);
+ const double& tStart, const double& tStop, bool enableSilentZ = true, bool activateAlternativeStrategiesOnDivergence = false) {
+  SolverFactory::SolverPtr solver = initSolver(enableSilentZ, activateAlternativeStrategiesOnDivergence);
   std::shared_ptr<Model> model = initModelFromDyd(dydFileName, enableSilentZ);
   solver->init(model, tStart, tStop);
 
@@ -261,6 +266,48 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   solver->printHeader();
   solver->printSolve();
   solver->printEnd();
+}
+
+TEST(SimulationTest, testSolverIDAAlternativeStrategiesOnDivergenceNoOp) {
+  // Activating activateAlternativeStrategiesOnDivergence/activateTimeScaledURound on a model that never
+  // diverges must not change the nominal simulation results: the parameters should be read without error
+  // and restoreNominalStrategyIfStable() (called on every successful step) should be a no-op here.
+  const double tStart = 0.;
+  const double tStop = 5.;
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p =
+      initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop, true, true);
+  const SolverFactory::SolverPtr& solver = p.first;
+  std::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC(tStop);
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  model->getY0(tStart, y0, yp0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[1], -1);
+
+  double tCurrent = tStart;
+  std::vector<double> y;
+  std::vector<double> yp;
+
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
+
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 }
 
 TEST(SimulationTest, testSolverIDATestBeta) {

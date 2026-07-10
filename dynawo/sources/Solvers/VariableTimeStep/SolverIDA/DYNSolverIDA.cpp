@@ -716,6 +716,66 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 }
 
 void
+SolverIDA::forceReinitOnDivergence(const modeChangeType_t modeChangeType) {
+  int& msbset = (modeChangeType == ALGEBRAIC_MODE) ? msbsetAlg_ : msbsetAlgJ_;
+  const int msbsetSave = msbset;
+  const modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
+  msbset = 1;
+  minimumModeChangeTypeForAlgebraicRestoration_ = modeChangeType;
+  model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+  reinit();
+  msbset = msbsetSave;
+  minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
+  model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+}
+
+void
+SolverIDA::reduceStepAndPrecisionOnDivergence(const double tNxt) {
+  timeScaledURoundPrecisionSave_ = timeScaledURoundPrecision_;
+  precisionSave_ = getCurrentPrecision();
+  minStepSave_ = minStep_;
+  minimalAcceptableStepSave_ = minimalAcceptableStep_;
+  const double factor = 100.;
+  minStep_ /= factor;
+  timeScaledURoundPrecision_ /= factor;
+  setCurrentPrecision(precisionSave_ / factor);
+  minimalAcceptableStep_ /= factor;
+  IDASetMinStep(IDAMem_, minStep_);
+  if (activateTimeScaledURound_) {
+    if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
+      IDASetURound(IDAMem_, timeScaledURoundPrecision_);
+    } else {
+      IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
+    }
+  }
+}
+
+void
+SolverIDA::restoreNominalStrategyIfStable(const double tNxt) {
+  if (alternativeStrategiesOnDivergenceStage_ >= 1) {
+    alternativeStrategiesOnDivergenceStage_ = 0;
+  }
+  if (timeScaledURoundPrecisionSave_ < timeScaledURoundPrecisionInit_) {
+    if (getTimeStep() / timeScaledURoundPrecisionInit_ > 100) {
+      timeScaledURoundPrecisionSave_ = timeScaledURoundPrecisionInit_;
+      minStepSave_ = minStepInit_;
+      minimalAcceptableStepSave_ = minimalAcceptableStepInit_;
+      precisionSave_ = precisionInit_;
+    }
+  }
+  if (doubleNotEquals(timeScaledURoundPrecision_, timeScaledURoundPrecisionSave_)) {
+    if (getTimeStep() / timeScaledURoundPrecisionSave_ > 100) {
+      timeScaledURoundPrecision_ = timeScaledURoundPrecisionSave_;
+      minStep_ = minStepSave_;
+      setCurrentPrecision(precisionSave_);
+      minimalAcceptableStep_ = minimalAcceptableStepSave_;
+      IDASetMinStep(IDAMem_, minStep_);
+      IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
+    }
+  }
+}
+
+void
 SolverIDA::solveStep(double tAim, double& tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
   if (activateTimeScaledURound_) {
@@ -731,27 +791,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
       if (activateAlternativeStrategiesOnDivergence_) {
-        if (alternativeStrategiesOnDivergenceStage_ >= 1) {
-          alternativeStrategiesOnDivergenceStage_ = 0;
-        }
-        if (timeScaledURoundPrecisionSave_ < timeScaledURoundPrecisionInit_) {
-          if (getTimeStep() / timeScaledURoundPrecisionInit_ > 100) {
-            timeScaledURoundPrecisionSave_ = timeScaledURoundPrecisionInit_;
-            minStepSave_ = minStepInit_;
-            minimalAcceptableStepSave_ = minimalAcceptableStepInit_;
-            precisionSave_ = precisionInit_;
-          }
-        }
-        if (doubleNotEquals(timeScaledURoundPrecision_, timeScaledURoundPrecisionSave_)) {
-          if (getTimeStep() / timeScaledURoundPrecisionSave_ > 100) {
-            timeScaledURoundPrecision_ = timeScaledURoundPrecisionSave_;
-            minStep_ = minStepSave_;
-            setCurrentPrecision(precisionSave_);
-            minimalAcceptableStep_ = minimalAcceptableStepSave_;
-            IDASetMinStep(IDAMem_, minStep_);
-            IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
-          }
-        }
+        restoreNominalStrategyIfStable(tNxt);
       }
       break;
     case IDA_ROOT_RETURN:
@@ -771,36 +811,12 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
         }
         if (alternativeStrategiesOnDivergenceStage_ == 0) {
           Trace::info() << DYNLog(SolverIDAForceReinitConvFail) << Trace::endline;
-          const int msbsetAlgSave = msbsetAlg_;
-          const modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
-          msbsetAlg_ = 1;
-          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
-          model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
-          reinit();
-          msbsetAlg_ = msbsetAlgSave;
-          minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
-          model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+          forceReinitOnDivergence(ALGEBRAIC_MODE);
           ++alternativeStrategiesOnDivergenceStage_;
           break;
         } else if (alternativeStrategiesOnDivergenceStage_ == 1) {
           Trace::info() << DYNLog(SolverIDAForceReinitTimeStepConvFail) << Trace::endline;
-          timeScaledURoundPrecisionSave_ = timeScaledURoundPrecision_;
-          precisionSave_ = getCurrentPrecision();
-          minStepSave_ = minStep_;
-          minimalAcceptableStepSave_ = minimalAcceptableStep_;
-          const double factor = 100.;
-          minStep_ /= factor;
-          timeScaledURoundPrecision_ /= factor;
-          setCurrentPrecision(precisionSave_ / factor);
-          minimalAcceptableStep_ /= factor;
-          IDASetMinStep(IDAMem_, minStep_);
-          if (activateTimeScaledURound_) {
-            if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
-              IDASetURound(IDAMem_, timeScaledURoundPrecision_);
-            } else {
-              IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
-            }
-          }
+          reduceStepAndPrecisionOnDivergence(tNxt);
           ++alternativeStrategiesOnDivergenceStage_;
           break;
         } else {
@@ -817,36 +833,12 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
         }
         if (alternativeStrategiesOnDivergenceStage_ == 0) {
           Trace::info() << DYNLog(SolverIDAForceReinitErrFail) << Trace::endline;
-          const int msbsetAlgJSave = msbsetAlgJ_;
-          const modeChangeType_t minimumModeChangeTypeForAlgebraicRestorationSave = minimumModeChangeTypeForAlgebraicRestoration_;
-          msbsetAlgJ_ = 1;
-          minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;
-          model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
-          reinit();
-          msbsetAlgJ_ = msbsetAlgJSave;
-          minimumModeChangeTypeForAlgebraicRestoration_ = minimumModeChangeTypeForAlgebraicRestorationSave;
-          model_->setModeChangeType(minimumModeChangeTypeForAlgebraicRestoration_);
+          forceReinitOnDivergence(ALGEBRAIC_J_UPDATE_MODE);
           ++alternativeStrategiesOnDivergenceStage_;
           break;
         } else if (alternativeStrategiesOnDivergenceStage_ == 1) {
           Trace::info() << DYNLog(SolverIDAForceReinitTimeStepErrFail) << Trace::endline;
-          timeScaledURoundPrecisionSave_ = timeScaledURoundPrecision_;
-          precisionSave_ = getCurrentPrecision();
-          minStepSave_ = minStep_;
-          minimalAcceptableStepSave_ = minimalAcceptableStep_;
-          const double factor = 100.;
-          minStep_ /= factor;
-          timeScaledURoundPrecision_ /= factor;
-          setCurrentPrecision(precisionSave_ / factor);
-          minimalAcceptableStep_ /= factor;
-          IDASetMinStep(IDAMem_, minStep_);
-          if (activateTimeScaledURound_) {
-            if (doubleIsZero(tNxt) || doubleIsZero(getTimeStep())) {
-              IDASetURound(IDAMem_, timeScaledURoundPrecision_);
-            } else {
-              IDASetURound(IDAMem_, timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt)));
-            }
-          }
+          reduceStepAndPrecisionOnDivergence(tNxt);
           ++alternativeStrategiesOnDivergenceStage_;
           break;
         } else {
