@@ -1,26 +1,23 @@
 within Dynawo.Electrical.Controls.WECC.REEC;
 
-/*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model REECa "WECC Electrical Control type A"
+  /*
+  * Copyright (c) 2021, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+  */
   extends Dynawo.Electrical.Controls.WECC.REEC.BaseClasses.BaseREEC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQPu0 = 1);
-
   // Input variable
-  Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGPu(start = omegaRefWTGQPu0) "Generator frequency from drive train control in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, -121}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-51, -110}, extent = {{10, 10}, {-10, -10}}, rotation = -90)));
-
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput ipMaxPu(start = IMaxPu) "p-axis maximum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {550, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -28,11 +25,10 @@ model REECa "WECC Electrical Control type A"
     Placement(visible = true, transformation(origin = {550, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput iqMaxPu(start = IMaxPu) "q-axis maximum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {550, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = - IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqMinPu(start = -IMaxPu) "q-axis minimum current in pu (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {550, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput POrdPu(start = PConv0Pu) "Active power order in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {551, -153}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -89}, extent = {{-10, -10}, {10, 10}})));
-
   Modelica.Blocks.Sources.RealExpression UFilteredPu5(y = UFilteredPu) annotation(
     Placement(visible = true, transformation(origin = {249, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression IqMax(y = currentLimitsCalculation1.iqMaxPu) annotation(
@@ -58,12 +54,11 @@ model REECa "WECC Electrical Control type A"
   Modelica.Blocks.Tables.CombiTable1Ds IqmaxFromUPu(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments, table = VDLIqPoints, tableOnFile = false, verboseExtrapolation = false, verboseRead = false) annotation(
     Placement(visible = true, transformation(origin = {279, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter1(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = Iqh1Pu, uMin = Iql1Pu) annotation(
-    Placement(visible = true, transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {264, 220}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.BaseControls.IqInjectionLogic iqInjectionLogic(IqFrzPu = IqFrzPu, tHoldIq = tHoldIq) annotation(
     Placement(visible = true, transformation(origin = {309, 190}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Dynawo.Electrical.Controls.WECC.BaseControls.CurrentLimitsCalculationA currentLimitsCalculation1(IMaxPu = IMaxPu, PQFlag = PQFlag, tHoldIpMax = tHoldIpMax) annotation(
     Placement(visible = true, transformation(origin = {403, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 equation
   connect(FRTOn4.y, currentLimitsCalculation1.vDip) annotation(
     Line(points = {{315, 0}, {392, 0}}, color = {255, 0, 255}));
@@ -129,7 +124,6 @@ equation
     Line(points = {{151, 90}, {157, 90}, {157, 106}, {168, 106}}, color = {0, 0, 127}));
   connect(IqMax.y, varLimPIDFreeze.yMax) annotation(
     Line(points = {{151, 130}, {156, 130}, {156, 118}, {168, 118}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px;\">This block contains the electrical inverter control of the generic WECC Wind (or PV) model according to (in case page cannot be found, copy link in browser):<br><a href=\"https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf\">https://www.wecc.org/Reliability/WECC%20Wind%20Plant%20Dynamic%20Modeling%20Guidelines.pdf</a></p>

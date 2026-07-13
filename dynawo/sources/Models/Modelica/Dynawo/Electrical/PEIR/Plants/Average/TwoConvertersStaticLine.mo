@@ -177,7 +177,7 @@ GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.0
   k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
   k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
   k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,
   Imax = 10, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,
   K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
   K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
@@ -189,7 +189,7 @@ GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.0
   DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0,
   tS_idref = 1e-4,
   delay_time_plant = delay_time_plant,
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0) annotation(
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-4) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
 GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001,
@@ -199,7 +199,7 @@ GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.
   k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,
   k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2,
   k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2,
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,
   Imax = 10, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,
   K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,
   K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,
@@ -211,7 +211,7 @@ GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.
   DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 100000.0, DuMin_idref = -10000.0,
   tS_idref = 1e-4,
   delay_time_plant = delay_time_plant,
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0) annotation(
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-4) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
   // Network elements (transmission lines and buses)

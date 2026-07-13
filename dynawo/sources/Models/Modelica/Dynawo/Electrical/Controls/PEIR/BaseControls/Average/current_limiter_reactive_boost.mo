@@ -50,8 +50,8 @@ model current_limiter_reactive_boost
     "Maximum additional reactive current boost (pu)";
   parameter Real IqBoostMin = -Imax
     "Minimum additional reactive current boost (pu)";
-  parameter Real T_boost =1e-4
-    "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
+  parameter Real T_boost
+    "Time constant of first-order filter on iq_boost (s) to delay the reactive boost response. Set 0 to disable";
   parameter Real U0Pu
     "Initial voltage magnitude at PCC (pu), used to initialise iq_boost";
 

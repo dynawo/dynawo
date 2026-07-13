@@ -80,7 +80,7 @@ model TwoConvertersDynamicLine_7Hz
     DuMax_idref = 10.0,   DuMin_idref = -10.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
@@ -117,7 +117,7 @@ model TwoConvertersDynamicLine_7Hz
     DuMax_idref = 100000.0, DuMin_idref = -10000.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1
+voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════

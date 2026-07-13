@@ -163,6 +163,8 @@ model GFLmodel
   final parameter Complex uLV0Pu_init = u0Pu_init + i0Pu_init*Z_HV;
   final parameter Real Ud_LV0Pu = uLV0Pu_init.re*cos(Theta0) + uLV0Pu_init.im*sin(Theta0);
   final parameter Real Uq_LV0Pu = -uLV0Pu_init.re*sin(Theta0) + uLV0Pu_init.im*cos(Theta0);
+   parameter Real T_boost
+    "Time constant of first-order filter on iq_boost (s) to delay the current boost response. Set 0 to disable";
   // ──────────────────────────────────────────────────────────────────────────
   // SECTION 12 – Component declarations
   // ─────────────────────────────────────────────────────────────────────────
@@ -173,7 +175,7 @@ model GFLmodel
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
   // limitation with P/Q priority, and reactive-power boost logic.
-  GFLControl gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, id_ref_0 = Id_conv_0, id_conv_0 = Id_conv_0, iq_ref_0 = Iq_conv_0, iq_conv_0 = Iq_conv_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, k_p_d_current = k_p_d_current, k_i_d_current = k_i_d_current, k_p_q_current = k_p_q_current, k_i_q_current = k_i_q_current, L_g = L_g, R_g = R_g, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, k_p_d_outer = k_p_d_outer, k_i_d_outer = k_i_d_outer, k_p_q_outer = k_p_q_outer, k_i_q_outer = k_i_q_outer, Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, K_p_pll = K_p_pll, K_i_pll = K_i_pll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q) annotation(
+  GFLControl gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, id_ref_0 = Id_conv_0, id_conv_0 = Id_conv_0, iq_ref_0 = Iq_conv_0, iq_conv_0 = Iq_conv_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, k_p_d_current = k_p_d_current, k_i_d_current = k_i_d_current, k_p_q_current = k_p_q_current, k_i_q_current = k_i_q_current, L_g = L_g, R_g = R_g, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, k_p_d_outer = k_p_d_outer, k_i_d_outer = k_i_d_outer, k_p_q_outer = k_p_q_outer, k_i_q_outer = k_i_q_outer, Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, K_p_pll = K_p_pll, K_i_pll = K_i_pll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q, T_boost = T_boost) annotation(
     Placement(transformation(origin = {-95, 47}, extent = {{-17, -17}, {17, 17}})));
   // Plant-level controller block.
   // Implements: P–f droop, Q–U droop, frequency and voltage deadbands,
@@ -199,7 +201,7 @@ model GFLmodel
   // Computes filtered signals for P, Q, U, I fom the PLL angle θ, the
   // instantaneous terminal voltages and currents at the PCC and LV node
   MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud_LV0Pu, V_LV_q_0 = Uq_LV0Pu) annotation(
-    Placement(transformation(origin = {-90, -104}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
+    Placement(transformation(origin = {-90, -106}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
   // LC dynamic filter block
   LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu* SNom / SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
     Placement(transformation(origin = {3, 55}, extent = {{-11, -11}, {11, 11}})));
@@ -251,38 +253,38 @@ equation
 // Imaginary part of the modulation voltage reference → VSC delay input
 // ── 13.4  Measurement block → GFL converter controller ───────────────────
   connect(measurementBlock.theta_pll, gFLControl.theta_pll) annotation(
-    Line(points = {{-67, -75}, {-67, 35}, {-76, 35}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
+    Line(points = {{-72, -77}, {-72, 35}, {-76, 35}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // PLL angle θ → used to transform signals between αβ and dq frames
   connect(measurementBlock.U_filter_q, gFLControl.V_q_grid) annotation(
-    Line(points = {{-119, -83}, {-119, 38.75}, {-114, 38.75}, {-114, 38.5}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-118, -85}, {-118, -23.25}, {-114, -23.25}, {-114, 38.5}}, color = {220, 138, 221}, thickness = 0.75));
 // q-axis PCC voltage → PLL error signal input
   connect(measurementBlock.P_LV, gFLControl.P_meas) annotation(
-    Line(points = {{-111, -75}, {-111, 28}, {-109, 28}}, color = {255, 120, 0}, thickness = 0.75));
+    Line(points = {{-111, -77}, {-111, -24.5}, {-109, -24.5}, {-109, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // Filtered active power at LV node → outer loop feedback
   connect(measurementBlock.Q_LV, gFLControl.Q_meas) annotation(
-    Line(points = {{-103, -75}, {-103, 26}, {-104, 26}, {-104, 28}, {-103, 28}}, color = {255, 120, 0}, thickness = 0.75));
+    Line(points = {{-104, -77}, {-104, 28}, {-103, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // Filtered reactive power at LV node → outer loop feedback
   connect(measurementBlock.I_conv_q, gFLControl.i_q_meas) annotation(
-    Line(points = {{-96, -75}, {-96, 28}, {-98, 28}, {-98, 29}, {-96, 29}, {-96, 28}}, color = {38, 162, 105}, thickness = 0.75));
+    Line(points = {{-98, -77}, {-98, 29}, {-96, 29}, {-96, 28}}, color = {38, 162, 105}, thickness = 0.75));
 // q-axis converter current → inner current loop feedback
   connect(measurementBlock.I_conv_d, gFLControl.i_d_meas) annotation(
-    Line(points = {{-89, -75}, {-89, -78}, {-91, -78}, {-91, 27}, {-92, 27}, {-92, 28}}, color = {38, 162, 105}, thickness = 0.75));
+    Line(points = {{-92, -77}, {-92, -78}, {-91, -78}, {-91, 27}, {-92, 27}, {-92, 28}}, color = {38, 162, 105}, thickness = 0.75));
 // d-axis converter current → inner current loop feedback
   connect(measurementBlock.V_LV_d, gFLControl.V_d_meas) annotation(
-    Line(points = {{-85, -75}, {-85, 29.875}, {-88, 29.875}, {-88, 28}, {-87, 28}}, color = {255, 120, 0}, thickness = 0.75));
+    Line(points = {{-85, -77}, {-85, 29.875}, {-88, 29.875}, {-88, 28}, {-87, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // d-axis LV node voltage → feed-forward / outer loop
   connect(measurementBlock.V_LV_q, gFLControl.V_q_meas) annotation(
-    Line(points = {{-75, -75}, {-75, 28}, {-83, 28}}, color = {255, 120, 0}, thickness = 0.75));
+    Line(points = {{-79, -77}, {-79, 28}, {-83, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // q-axis LV node voltage → feed-forward / outer loop
 // ── 13.5  Measurement block → plant controller ────────────────────────────
   connect(measurementBlock.U_pcc_pu_abs, plant_controller.UfiltPu) annotation(
-    Line(points = {{-119, -93}, {-119, -94.5}, {-142, -94.5}, {-142, 34}, {-141, 34}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-118, -95}, {-118, -94.5}, {-142, -94.5}, {-142, 34}, {-141, 34}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered PCC voltage magnitude → Q–U droop and PI in plant controller
   connect(measurementBlock.Q_plant, plant_controller.QfiltPu) annotation(
-    Line(points = {{-119, -100}, {-119, -102}, {-150, -102}, {-150, 34}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-118, -102}, {-150, -102}, {-150, 34}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level reactive power → Q–U PI in plant controller
   connect(measurementBlock.P_plant, plant_controller.PfiltPu) annotation(
-    Line(points = {{-119, -107}, {-119, -108}, {-158, -108}, {-158, 34}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-118, -109}, {-118, -108}, {-158, -108}, {-158, 34}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level active power → P–f PI in plant controller
 // ── 13.6  VSC delay → LC filter ───────────────────────────────────────────
   connect(vSC_with_pade_delay.uReConvPu, lCDynFilter.uLeft_rePu) annotation(
@@ -305,10 +307,10 @@ equation
 // Transformer output → PCC terminal (connection to external network)
 // ── 13.9  Converter current feedback to the LC filter ─────────────────────
   connect(measurementBlock.I_conv_re, lCDynFilter.iLeft_rePu) annotation(
-    Line(points = {{-61, -81}, {-61, -82.625}, {-27, -82.625}, {-27, 51.75}, {-10, 51.75}, {-10, 51}}, color = {38, 162, 105}, thickness = 0.75));
+    Line(points = {{-66, -83}, {-66, -82.625}, {-27, -82.625}, {-27, 51.75}, {-10, 51.75}, {-10, 51}}, color = {38, 162, 105}, thickness = 0.75));
 // Real part of converter current (from measurement block) → LC filter state
   connect(measurementBlock.I_conv_im, lCDynFilter.iLeft_imPu) annotation(
-    Line(points = {{-61, -86}, {-12, -86}, {-12, 46}, {-10, 46}}, color = {38, 162, 105}, thickness = 0.75));
+    Line(points = {{-66, -88}, {-12, -88}, {-12, 46}, {-10, 46}}, color = {38, 162, 105}, thickness = 0.75));
 // Imaginary part of converter current → LC filter state
 // ── 13.10  Algebraic assignments: terminal quantities → measurement block ──
 // Internal LV bus voltage (junction between the LV and HV transformer stages).

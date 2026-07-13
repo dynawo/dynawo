@@ -29,7 +29,8 @@ model GFLControl
 
   // Delay between plant controller ed outer loop
   parameter Real delay_time_plant "Delay time between Plant controller and outer loop (s)";
-
+ parameter Real T_boost
+    "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
 
     parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
     parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
@@ -120,7 +121,7 @@ model GFLControl
     IqBoostMax      = IqBoostMax,
     IqBoostMin      = IqBoostMin,
 
-     PInjPu0 = PInj0Pu, QInjPu0 = QInj0Pu, U_filter0 = U_LV0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant) annotation(
+     PInjPu0 = PInj0Pu, QInjPu0 = QInj0Pu, U_filter0 = U_LV0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, T_boost = T_boost) annotation(
     Placement(transformation(origin = {-200, 56}, extent = {{-36, -36}, {36, 36}})));
 
  Dynawo.Electrical.PEIR.Plants.Average.pll PLL(
