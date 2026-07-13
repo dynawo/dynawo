@@ -273,7 +273,8 @@ model TwoConvertersStaticLine_7Hz
 
     // Enable voltage feed‑forward on both d and q axis
     voltagefeedforwardflag_d = 1,
-    voltagefeedforwardflag_q = 1
+    voltagefeedforwardflag_q = 1,
+    T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
@@ -378,7 +379,8 @@ model TwoConvertersStaticLine_7Hz
 
     // Enable voltage feed‑forward on both d and q axis
     voltagefeedforwardflag_d = 1,
-    voltagefeedforwardflag_q = 1
+    voltagefeedforwardflag_q = 1,
+    T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 

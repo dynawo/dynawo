@@ -162,24 +162,24 @@ voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
   Modelica.Blocks.Sources.BooleanTable booleanTable(table = {0, 51.5}, startValue = true)  annotation(
     Placement(transformation(origin = {42, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 equation
-  dynLine.switchOffSignal1.value = false;
-  dynLine.switchOffSignal2.value = false;
-  dynLine1.switchOffSignal1.value = false;
-  dynLine1.switchOffSignal2.value = false;
-  dynLine2.switchOffSignal1.value = false;
-  dynLine2.switchOffSignal2.value = false;
-  dynLine3.switchOffSignal1.value = if time >= 51.5 then true else false;
-  dynLine3.switchOffSignal2.value = false;
-  gFLmodel.switchOffSignal1.value = false;
-  gFLmodel.switchOffSignal2.value = false;
-  gFLmodel.switchOffSignal3.value = false;
-  gFLmodel1.switchOffSignal1.value = false;
-  gFLmodel1.switchOffSignal2.value = false;
-  gFLmodel1.switchOffSignal3.value = false;
-  dynLine.omegaPu.value = 1;
-  dynLine1.omegaPu.value = 1;
-  dynLine2.omegaPu.value = 1;
-  dynLine3.omegaPu.value = 1;
+  dynLine.switchOffSignal1 = false;
+  dynLine.switchOffSignal2 = false;
+  dynLine1.switchOffSignal1 = false;
+  dynLine1.switchOffSignal2 = false;
+  dynLine2.switchOffSignal1 = false;
+  dynLine2.switchOffSignal2 = false;
+  dynLine3.switchOffSignal1 = if time >= 51.5 then true else false;
+  dynLine3.switchOffSignal2 = false;
+  gFLmodel.switchOffSignal1 = false;
+  gFLmodel.switchOffSignal2 = false;
+  gFLmodel.switchOffSignal3 = false;
+  gFLmodel1.switchOffSignal1 = false;
+  gFLmodel1.switchOffSignal2 = false;
+  gFLmodel1.switchOffSignal3 = false;
+  dynLine.omegaPu = 1;
+  dynLine1.omegaPu = 1;
+  dynLine2.omegaPu = 1;
+  dynLine3.omegaPu = 1;
   connect(omegaRefPu.y, gFLmodel.omegaRefPu) annotation(
     Line(points = {{-119, -38}, {-119, 4}, {-104, 4}}, color = {0, 0, 127}));
   connect(step.y, gFLmodel.PRefPu) annotation(
