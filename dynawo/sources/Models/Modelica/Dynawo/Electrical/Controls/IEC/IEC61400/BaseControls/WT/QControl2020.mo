@@ -141,7 +141,7 @@ equation
     Line(points = {{-320, 280}, {-180, 280}, {-180, 248}}, color = {0, 0, 127}));
   connect(QWTCFiltPu, gain6.u) annotation(
     Line(points = {{-320, 280}, {-294, 280}, {-294, -20}, {-242, -20}}, color = {0, 0, 127}));
-  connect(PWTCFiltPu, abs.u) annotation(
+  connect(PWTCFiltPu, abs1.u) annotation(
     Line(points = {{-320, 0}, {-286, 0}, {-286, 6}}, color = {0, 0, 127}));
   connect(PWTCFiltPu, gain5.u) annotation(
     Line(points = {{-320, 0}, {-262, 0}}, color = {0, 0, 127}));
