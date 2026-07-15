@@ -41,16 +41,16 @@ equation
     bStatus = BStatus.Standard;
   end when;
 
-  if modeHandling.mode.value == Mode.RUNNING_V then
+  if modeHandling.mode == Mode.RUNNING_V then
     BPu = BVarPu + BShuntPu;
-  elseif modeHandling.mode.value == Mode.STANDBY then
+  elseif modeHandling.mode == Mode.STANDBY then
     BPu = BShuntPu;
   else
     BPu = 0;
   end if;
 
   if running then
-    if modeHandling.mode.value == Mode.RUNNING_V then
+    if modeHandling.mode == Mode.RUNNING_V then
       if bStatus == BStatus.Standard then
         URegulatedPu = URefPu;
       elseif bStatus == BStatus.SusceptanceMax then

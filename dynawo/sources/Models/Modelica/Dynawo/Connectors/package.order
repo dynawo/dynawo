@@ -5,9 +5,12 @@ AngleInput
 AngleOutput
 AngularVelocityPuInput
 AngularVelocityPuOutput
-ComplexCurrentPuConnector
-ComplexPerUnitConnector
-ComplexVoltagePuConnector
+ComplexCurrentPuInput
+ComplexCurrentPuOutput
+ComplexPerUnitInput
+ComplexPerUnitOutput
+ComplexVoltagePuInput
+ComplexVoltagePuOutput
 CurrentModulePuInput
 CurrentModulePuOutput
 PerUnitInput

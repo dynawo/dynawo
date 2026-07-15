@@ -1,6 +1,7 @@
 Parameters
 Mode
-ModeConnector
+ModeInput
+ModeOutput
 BlockingFunction
 CalculationBG
 Regulation

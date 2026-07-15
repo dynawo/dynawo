@@ -48,7 +48,7 @@ namespace curves {
 struct Hdf5ExporterPrivate {
   // Target ~64 MB per chunk. For very wide datasets (e.g. 400 K curves × 8 B = 3.2 MB/row)
   // this gives ~20 rows/batch → ~60 HDF5 flushes instead of ~600 with an 8 MB target.
-  static constexpr size_t TARGET_CHUNK_BYTES = 64ULL * 1024 * 1024;
+  static constexpr size_t TARGET_CHUNK_BYTES = 64 * 1024 * 1024;
   H5::H5File           file;
   H5::DataSet          timeDs;
   H5::DataSet          dataDs;
