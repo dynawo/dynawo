@@ -115,6 +115,15 @@ job_file = os.path.join(os.path.dirname(__file__), "HvdcCLA", "HvdcCLA.jobs")
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ########################################################
+#  Small System with HVDC link and CLA 2 levels        #
+########################################################
+
+case_name = "DynaFlow - HVDC and CLA Two levels"
+case_description = "Small System with HVDC link and CLA two Levels"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcCLATwoLevels", "HvdcCLATwoLevels.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+########################################################
 #  Small System with dangling HVDC links (VSC and LCC) #
 ########################################################
 
