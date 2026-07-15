@@ -204,6 +204,16 @@ model MeasurementBlock
     Placement(transformation(origin = {-110, -116}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ4 annotation(
     Placement(transformation(origin = {-22, -106}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze5(T = T_filter, Y0 = V_LV_d_0, k = k_filter) annotation(
+    Placement(transformation(origin = {32, 0}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze51(T = T_filter, Y0 = I_conv_d_0, k = k_filter) annotation(
+    Placement(transformation(origin = {8, -54}, extent = {{-6, -6}, {6, 6}})));
+  Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze511(T = T_filter, Y0 = V_LV_q_0, k = k_filter) annotation(
+    Placement(transformation(origin = {11, -19}, extent = {{-7, -7}, {7, 7}})));
+  NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze52(T = T_filter, Y0 = I_conv_q_0, k = k_filter) annotation(
+    Placement(transformation(origin = {4, -72}, extent = {{-6, -6}, {6, 6}})));
+  NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze rateLimFirstOrderFreeze6(T = T_filter, Y0 = U_pcc_q_0, k = k_filter) annotation(
+    Placement(transformation(origin = {26, -110}, extent = {{-10, -10}, {10, 10}})));
 equation
 // ──────────────────────────────────────────────────────────────────────────
 // SECTION 7 – PLL angle distribution
@@ -251,21 +261,13 @@ equation
 // ──────────────────────────────────────────────────────────────────────────
 // LV node voltage dq components – direct pass-through (no filter needed
 // because these are used as feed-forward, not as slow plant feedback)
-  connect(transformRItoDQ2.ud, V_LV_d) annotation(
-    Line(points = {{-7, 0}, {110, 0}}, color = {0, 0, 127}));
 // d-axis LV node voltage → output port V_LV_d
-  connect(V_LV_q, transformRItoDQ2.uq) annotation(
-    Line(points = {{110, -14}, {-7, -14}}, color = {0, 0, 127}));
 // q-axis LV node voltage → output port V_LV_q
 // q-axis PCC voltage – direct pass-through (used as PLL error; must not be
 // delayed by a filter to preserve PLL bandwidth)
 // q-axis PCC voltage → output port U_pcc_q (PLL error signal)
 // Converter current dq components – direct pass-through to inner current loop
-  connect(I_conv_d, transformRItoDQ3.ud) annotation(
-    Line(points = {{110, -54}, {-11, -54}}, color = {0, 0, 127}));
 // d-axis converter current → output port I_conv_d
-  connect(transformRItoDQ3.uq, I_conv_q) annotation(
-    Line(points = {{-11, -68}, {110, -68}}, color = {0, 0, 127}));
 // q-axis converter current → output port I_conv_q
 // PCC voltage magnitude: expression → filter → output
   connect(abs_value.y, rateLimFirstOrderFreeze.u) annotation(
@@ -292,10 +294,28 @@ equation
     Line(points = {{41, -84}, {58, -84}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze4.y, Q_LV) annotation(
     Line(points = {{81, -84}, {110, -84}}, color = {0, 0, 127}));
-  connect(transformRItoDQ4.uq, U_filter_q) annotation(
-    Line(points = {{-10, -112}, {110, -112}}, color = {0, 0, 127}));
   connect(transformRItoDQ4.phi, theta_pll) annotation(
-    Line(points = {{-32, -112}, {-72, -112}, {-72, -68}, {-88, -68}, {-88, 53}, {-112, 53}, {-112, 52}}, color = {0, 0, 127}));
+    Line(points = {{-32, -112}, {-88, -112}, {-88, 51}, {-112, 51}, {-112, 52}}, color = {0, 0, 127}));
+  connect(transformRItoDQ2.ud, rateLimFirstOrderFreeze5.u) annotation(
+    Line(points = {{-6, 0}, {20, 0}}, color = {0, 0, 127}));
+  connect(rateLimFirstOrderFreeze5.y, V_LV_d) annotation(
+    Line(points = {{43, 0}, {110, 0}}, color = {0, 0, 127}));
+  connect(transformRItoDQ2.uq, rateLimFirstOrderFreeze511.u) annotation(
+    Line(points = {{-6, -14}, {3, -14}, {3, -19}}, color = {0, 0, 127}));
+  connect(rateLimFirstOrderFreeze511.y, V_LV_q) annotation(
+    Line(points = {{19, -19}, {110, -19}, {110, -14}}, color = {0, 0, 127}));
+  connect(transformRItoDQ3.ud, rateLimFirstOrderFreeze51.u) annotation(
+    Line(points = {{-10, -54}, {1, -54}}, color = {0, 0, 127}));
+  connect(rateLimFirstOrderFreeze51.y, I_conv_d) annotation(
+    Line(points = {{14, -54}, {110, -54}}, color = {0, 0, 127}));
+  connect(transformRItoDQ3.uq, rateLimFirstOrderFreeze52.u) annotation(
+    Line(points = {{-10, -68}, {-4, -68}, {-4, -72}}, color = {0, 0, 127}));
+  connect(rateLimFirstOrderFreeze52.y, I_conv_q) annotation(
+    Line(points = {{10, -72}, {110, -72}, {110, -68}}, color = {0, 0, 127}));
+  connect(transformRItoDQ4.uq, rateLimFirstOrderFreeze6.u) annotation(
+    Line(points = {{-10, -112}, {14, -112}, {14, -110}}, color = {0, 0, 127}));
+  connect(U_filter_q, rateLimFirstOrderFreeze6.y) annotation(
+    Line(points = {{110, -112}, {38, -112}, {38, -110}}, color = {0, 0, 127}));
   annotation(
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(extent = {{-90, 20}, {90, -20}}, textString = "measurement filters")}, coordinateSystem(extent = {{-100, -120}, {100, 100}})),
     uses(Modelica(version = "3.2.3"), Dynawo(version = "1.8.0")),
