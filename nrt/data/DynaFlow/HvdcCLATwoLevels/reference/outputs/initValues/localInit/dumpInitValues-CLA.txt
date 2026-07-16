@@ -1,0 +1,21 @@
+ ====== VARIABLES VALUES ======
+currentLimitAutomaton_IMonitored1_value           : y =     762.450188 yp =       0.000000
+currentLimitAutomaton_IMonitored2_value           : y =    1525.585330 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
+currentLimitAutomaton_tOrder1                     : z =   1.000000e+60
+currentLimitAutomaton_tOrder2                     : z =   1.000000e+60
+currentLimitAutomaton_tThresholdReached1          : z =   1.000000e+60
+currentLimitAutomaton_tThresholdReached2          : z =   1.000000e+60
+currentLimitAutomaton_AutomatonExists_value       : z =       1.000000
+currentLimitAutomaton_Order1                      : z =       0.000000
+currentLimitAutomaton_Order2                      : z =       0.000000
+currentLimitAutomaton_order_value                 : z =       2.000000
+ ====== PARAMETERS VALUES ======
+currentLimitAutomaton_IMax1                        =    1450.000000
+currentLimitAutomaton_IMax2                        =    1450.000000
+currentLimitAutomaton_tLagBeforeActing1            =       0.000000
+currentLimitAutomaton_tLagBeforeActing2            =       0.000000
+currentLimitAutomaton_Running1                     =       1.000000
+currentLimitAutomaton_Running2                     =       1.000000
+currentLimitAutomaton_OrderToEmit1                 =              3
+currentLimitAutomaton_OrderToEmit2                 =              3
