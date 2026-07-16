@@ -95,12 +95,32 @@ job_file = os.path.join(os.path.dirname(__file__), "ShuntsInit", "Shunt.jobs")
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #######################################################################
-#  Small System with two Shunts with sections and sections regulation  #
+#  Small System with two Shunts with sections and sections regulation #
 #######################################################################
 
 case_name = "DynaFlow - Centralized Shunts with regulation"
 case_description = "Small System with two Shunts with sections and sections regulation"
 job_file = os.path.join(os.path.dirname(__file__), "CentralizedShuntsRegulation", "Shunt.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+########################################################
+#  Small System with HVDC link and CLA                 #
+########################################################
+
+case_name = "DynaFlow - HVDC and CLA"
+case_description = "Small System with HVDC link and CLA"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcCLA", "HvdcCLA.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+########################################################
+#  Small System with HVDC link and CLA 2 levels        #
+########################################################
+
+case_name = "DynaFlow - HVDC and CLA Two levels"
+case_description = "Small System with HVDC link and CLA two Levels"
+job_file = os.path.join(os.path.dirname(__file__), "HvdcCLATwoLevels", "HvdcCLATwoLevels.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 

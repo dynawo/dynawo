@@ -64,7 +64,7 @@ equation
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
-  when time - tThresholdReached1 >= tLagBeforeActing1 then
+  when time - tThresholdReached1 >= tLagBeforeActing1 and time > 0 then
     Constraint.logConstraintWithData(ConstraintKeys.OverloadOpenCLA, true, "OverloadOpen", IMax1, IMonitored1.value, String(tLagBeforeActing1, significantDigits = 2));
     Order1 = OrderToEmit1;
     tOrder1 = time;
@@ -82,7 +82,7 @@ equation
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);
   end when;
 
-  when time - tThresholdReached2 >= tLagBeforeActing2 then
+  when time - tThresholdReached2 >= tLagBeforeActing2 and time > 0 then
     Constraint.logConstraintWithData(ConstraintKeys.OverloadOpenCLA, true, "OverloadOpen", IMax2, IMonitored2.value, String(tLagBeforeActing2, significantDigits = 2));
     Order2 = OrderToEmit2;
     tOrder2 = time;

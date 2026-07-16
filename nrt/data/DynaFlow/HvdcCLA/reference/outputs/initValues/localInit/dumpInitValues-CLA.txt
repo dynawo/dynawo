@@ -1,0 +1,12 @@
+ ====== VARIABLES VALUES ======
+currentLimitAutomaton_IMonitored_value            : y =    1525.585330 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
+currentLimitAutomaton_tOrder                      : z =   1.000000e+60
+currentLimitAutomaton_tThresholdReached           : z =   1.000000e+60
+currentLimitAutomaton_AutomatonExists_value       : z =       1.000000
+currentLimitAutomaton_order_value                 : z =       2.000000
+ ====== PARAMETERS VALUES ======
+currentLimitAutomaton_IMax                         =    1450.000000
+currentLimitAutomaton_tLagBeforeActing             =       0.000000
+currentLimitAutomaton_Running                      =       1.000000
+currentLimitAutomaton_OrderToEmit                  =              3
