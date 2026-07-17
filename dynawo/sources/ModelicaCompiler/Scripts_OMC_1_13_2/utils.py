@@ -114,9 +114,29 @@ def to_compile_name(var_name):
 # @return the variable name
 def jacobian_name_to_variable_name(jac_var_name):
     name = jac_var_name.replace(".$pDERA.dummyVarA","")
-    name = re.sub(r'\.\$pDERNLSJac\d+\.dummyVarNLSJac\d+', '', name)
-    name = re.sub(r'\.SeedNLSJac\d+', '', name)
+    #name = re.sub(r'\.\$pDERNLSJac\d+\.dummyVarNLSJac\d+', '', name)
+    #name = re.sub(r'\.SeedNLSJac\d+', '', name)
     return name
+
+##
+# Rewrite jacobian->tmpVars[N] operand references (not the line's own assignment target)
+# by jacobian->seedVars[k], since a variable tagged .$pDERA.dummyVarA always has its own
+# DAE equation and its own seedVars slot
+# @param line : line to rewrite
+# @return the rewritten line
+def rewrite_tmp_operand_refs(line):
+    ptrn_tmp_ref = re.compile(r'jacobian->tmpVars\[[0-9]+\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*)\.\$pDERA\.dummyVarA JACOBIAN_TMP_VAR\s*\*/')
+    ptrn_tmp_assign = re.compile(r'^(?P<target>[\( ]*jacobian->tmpVars\[[0-9]+\][ \)]*/\*.*\.\$pDERA\.dummyVarA JACOBIAN_TMP_VAR\s*\*/[\) ]*=[ ]*)(?P<rhs>.*)$')
+
+    def replace_operand(m):
+        address = to_param_address(m.group('varName'))
+        return "jacobian->seedVars[" + address.replace("data->localData[0]->realVars[", "") \
+            + "/* " + m.group('varName') + " SEED_VAR */"
+
+    assign_match = ptrn_tmp_assign.match(line)
+    if assign_match is not None:
+        return assign_match.group('target') + ptrn_tmp_ref.sub(replace_operand, assign_match.group('rhs'))
+    return ptrn_tmp_ref.sub(replace_operand, line)
 
 nb_braces_opened = 0
 stop_at_next_call = False
