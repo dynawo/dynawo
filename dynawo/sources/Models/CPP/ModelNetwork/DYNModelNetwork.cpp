@@ -1481,10 +1481,6 @@ ModelNetwork::dumpVariables(map< string, string >& mapVariables) {
   // Dump variables of components
   for (const auto& component : getComponents()) {
     os << component->getId();
-    // Each component's payload is wrapped as an opaque, self-describing blob (boost serializes
-    // the string with its own length prefix) so that an entry can always be skipped safely on
-    // reload without knowing its internal format: some component types (e.g. ModelVoltageLevel)
-    // do not follow the standard NetworkComponent y/yp/z/g + internal variables layout.
     stringstream componentValues;
     boost::archive::binary_oarchive componentOs(componentValues);
     component->dumpVariables(componentOs);
@@ -1530,8 +1526,7 @@ ModelNetwork::loadVariables(const string& variables) {
       boost::archive::binary_iarchive componentIs(componentValues);
       couldBeLoaded &= components[it->second]->loadVariables(componentIs, variablesFileName());
     } else {
-      // Not found, skip the component: componentBlob was already fully consumed above regardless
-      // of its actual serialization format, so the stream stays aligned for subsequent entries.
+      // Not found, skip the component
       Trace::debug() << DYNLog(NetworkComponentNotFoundInDump, idRead, variablesFileName().c_str()) << Trace::endline;
       couldBeLoaded = false;
     }

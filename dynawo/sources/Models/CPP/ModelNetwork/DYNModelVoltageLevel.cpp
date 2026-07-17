@@ -684,10 +684,6 @@ ModelVoltageLevel::dumpVariables(boost::archive::binary_oarchive& os) const {
   // Dump variables of components
   for (const auto& component : getComponents()) {
     os << component->getId();
-    // Wrapped as an opaque, self-describing blob (boost serializes the string with its own
-    // length prefix) so that an entry can always be skipped safely on reload without knowing
-    // its internal format, and so that a mismatch on one component cannot desynchronize the
-    // stream for its siblings.
     stringstream componentValues;
     boost::archive::binary_oarchive componentOs(componentValues);
     component->dumpVariables(componentOs);
