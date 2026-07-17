@@ -1747,7 +1747,7 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const
 
 void
 ModelTwoWindingsTransformer::getY0() {
-  if (!network_->isInitModel() && !network_->isStartingFromDump()) {
+  if (!network_->isInitModel() && !(network_->isStartingFromDump() && internalVariablesFoundInDump_)) {
     z_[connectionStateNum_] = getConnectionState();
     z_[currentStepIndexNum_] = getCurrentStepIndex();
     z_[currentLimitsDesactivateNum_] = getCurrentLimitsDesactivate();

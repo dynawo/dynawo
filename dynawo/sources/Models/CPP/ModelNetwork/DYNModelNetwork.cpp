@@ -1481,7 +1481,14 @@ ModelNetwork::dumpVariables(map< string, string >& mapVariables) {
   // Dump variables of components
   for (const auto& component : getComponents()) {
     os << component->getId();
-    component->dumpVariables(os);
+    // Each component's payload is wrapped as an opaque, self-describing blob (boost serializes
+    // the string with its own length prefix) so that an entry can always be skipped safely on
+    // reload without knowing its internal format: some component types (e.g. ModelVoltageLevel)
+    // do not follow the standard NetworkComponent y/yp/z/g + internal variables layout.
+    stringstream componentValues;
+    boost::archive::binary_oarchive componentOs(componentValues);
+    component->dumpVariables(componentOs);
+    os << componentValues.str();
   }
 
   mapVariables[ variablesFileName() ] = values.str();
@@ -1515,35 +1522,17 @@ ModelNetwork::loadVariables(const string& variables) {
   for (size_t i = 0; i < nbComponent; ++i) {
     std::string idRead;
     is >> idRead;
+    std::string componentBlob;
+    is >> componentBlob;
     auto it = ids2Indexes.find(idRead);
     if (it != ids2Indexes.end()) {
-      couldBeLoaded &= components[it->second]->loadVariables(is, variablesFileName());
+      stringstream componentValues(componentBlob);
+      boost::archive::binary_iarchive componentIs(componentValues);
+      couldBeLoaded &= components[it->second]->loadVariables(componentIs, variablesFileName());
     } else {
-      // Not found, skip the component
+      // Not found, skip the component: componentBlob was already fully consumed above regardless
+      // of its actual serialization format, so the stream stays aligned for subsequent entries.
       Trace::debug() << DYNLog(NetworkComponentNotFoundInDump, idRead, variablesFileName().c_str()) << Trace::endline;
-      vector<double> yValues;
-      vector<double> ypValues;
-      vector<double> zValues;
-      vector<double> gValues;
-      is >> yValues;
-      is >> ypValues;
-      is >> zValues;
-      is >> gValues;
-      double dummyValueD;
-      bool dummyValueB;
-      int dummyValueI;
-      char type;
-      unsigned nbInternalVar;
-      is >> nbInternalVar;
-      for (unsigned j = 0; j < nbInternalVar; ++j) {
-        is >> type;
-        if (type == 'B')
-          is >> dummyValueB;
-        else if (type == 'D')
-          is >> dummyValueD;
-        else if (type == 'I')
-          is >> dummyValueI;
-      }
       couldBeLoaded = false;
     }
   }
