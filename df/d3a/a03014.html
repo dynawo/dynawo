@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::PhaseTapChangerInterface Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('df/d3a/a03014.html','../../');});
+$(document).ready(function(){initNavTree('dd/dfd/a03017.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,582 +94,95 @@ $(document).ready(function(){initNavTree('df/d3a/a03014.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="../../d6/d97/a03011.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::PhaseTapChangerInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::LineInterface Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Phase tap changer interface class for phase tap chagner interface.  
- <a href="../../df/d3a/a03014.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d5/de8/a00749_source.html">DYNPhaseTapChangerInterface.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::PhaseTapChangerInterface:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../df/d3a/a03014.png" usemap="#DYN::PhaseTapChangerInterface_map" alt=""/>
-  <map id="DYN::PhaseTapChangerInterface_map" name="DYN::PhaseTapChangerInterface_map">
-<area href="../../d8/dde/a03178.html" alt="DYN::PhaseTapChangerInterfaceIIDM" shape="rect" coords="0,56,226,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:acce2301ec3328af9e4fee4cca6f9841f"><td class="memItemLeft" align="right" valign="top"><a id="acce2301ec3328af9e4fee4cca6f9841f"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#acce2301ec3328af9e4fee4cca6f9841f">~PhaseTapChangerInterface</a> ()=default</td></tr>
-<tr class="memdesc:acce2301ec3328af9e4fee4cca6f9841f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:acce2301ec3328af9e4fee4cca6f9841f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b5cf46e391756ea8b9bd287284c6b68"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; std::unique_ptr&lt; <a class="el" href="../../d4/d47/a03050.html">StepInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a8b5cf46e391756ea8b9bd287284c6b68">getSteps</a> () const =0</td></tr>
-<tr class="memdesc:a8b5cf46e391756ea8b9bd287284c6b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for steps of the phase tap changer.  <a href="#a8b5cf46e391756ea8b9bd287284c6b68">More...</a><br /></td></tr>
-<tr class="separator:a8b5cf46e391756ea8b9bd287284c6b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab4bd99811385addb6e6dea384756a57"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#aab4bd99811385addb6e6dea384756a57">addStep</a> (std::unique_ptr&lt; <a class="el" href="../../d4/d47/a03050.html">StepInterface</a> &gt; step)=0</td></tr>
-<tr class="memdesc:aab4bd99811385addb6e6dea384756a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new step to the phase tap changer.  <a href="#aab4bd99811385addb6e6dea384756a57">More...</a><br /></td></tr>
-<tr class="separator:aab4bd99811385addb6e6dea384756a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7521a93fbe6923c8780747c1b09d06a"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#ad7521a93fbe6923c8780747c1b09d06a">getCurrentPosition</a> () const =0</td></tr>
-<tr class="memdesc:ad7521a93fbe6923c8780747c1b09d06a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current tap position.  <a href="#ad7521a93fbe6923c8780747c1b09d06a">More...</a><br /></td></tr>
-<tr class="separator:ad7521a93fbe6923c8780747c1b09d06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc3e0b367c58b1f1ccd454bebf81b490"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#abc3e0b367c58b1f1ccd454bebf81b490">setCurrentPosition</a> (const int &amp;position)=0</td></tr>
-<tr class="memdesc:abc3e0b367c58b1f1ccd454bebf81b490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the current tap position.  <a href="#abc3e0b367c58b1f1ccd454bebf81b490">More...</a><br /></td></tr>
-<tr class="separator:abc3e0b367c58b1f1ccd454bebf81b490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc6e9e31b83770d830415b7b34fc0d00"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#afc6e9e31b83770d830415b7b34fc0d00">getLowPosition</a> () const =0</td></tr>
-<tr class="memdesc:afc6e9e31b83770d830415b7b34fc0d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the lowest tap position.  <a href="#afc6e9e31b83770d830415b7b34fc0d00">More...</a><br /></td></tr>
-<tr class="separator:afc6e9e31b83770d830415b7b34fc0d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e255e82e97c62426ba87fbf616bc67b"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a1e255e82e97c62426ba87fbf616bc67b">getNbTap</a> () const =0</td></tr>
-<tr class="memdesc:a1e255e82e97c62426ba87fbf616bc67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the number of tap.  <a href="#a1e255e82e97c62426ba87fbf616bc67b">More...</a><br /></td></tr>
-<tr class="separator:a1e255e82e97c62426ba87fbf616bc67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd992054612f5d436b2379631746dbc9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#acd992054612f5d436b2379631746dbc9">isCurrentLimiter</a> () const =0</td></tr>
-<tr class="memdesc:acd992054612f5d436b2379631746dbc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the regulation mode is current limiter.  <a href="#acd992054612f5d436b2379631746dbc9">More...</a><br /></td></tr>
-<tr class="separator:acd992054612f5d436b2379631746dbc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e672560f2ca7fb133c670ca46c246c2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a1e672560f2ca7fb133c670ca46c246c2">getRegulating</a> () const =0</td></tr>
-<tr class="memdesc:a1e672560f2ca7fb133c670ca46c246c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current status of the phase tap changer.  <a href="#a1e672560f2ca7fb133c670ca46c246c2">More...</a><br /></td></tr>
-<tr class="separator:a1e672560f2ca7fb133c670ca46c246c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4ef90682d01a2b8b7c472a3baa23657"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#af4ef90682d01a2b8b7c472a3baa23657">getRegulationValue</a> () const =0</td></tr>
-<tr class="memdesc:af4ef90682d01a2b8b7c472a3baa23657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the regulation value of the phase tap changer depending on regulation mode.  <a href="#af4ef90682d01a2b8b7c472a3baa23657">More...</a><br /></td></tr>
-<tr class="separator:af4ef90682d01a2b8b7c472a3baa23657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34fa12857c4bfef2c525bf4eba92f21d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a34fa12857c4bfef2c525bf4eba92f21d">getCurrentR</a> () const =0</td></tr>
-<tr class="memdesc:a34fa12857c4bfef2c525bf4eba92f21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current step's resistance of the phase tap changer.  <a href="#a34fa12857c4bfef2c525bf4eba92f21d">More...</a><br /></td></tr>
-<tr class="separator:a34fa12857c4bfef2c525bf4eba92f21d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381d9009b6b4f9216b3127fbf2ad666c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a381d9009b6b4f9216b3127fbf2ad666c">getCurrentX</a> () const =0</td></tr>
-<tr class="memdesc:a381d9009b6b4f9216b3127fbf2ad666c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current step's reactance of the phase tap changer.  <a href="#a381d9009b6b4f9216b3127fbf2ad666c">More...</a><br /></td></tr>
-<tr class="separator:a381d9009b6b4f9216b3127fbf2ad666c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2499f4d6e78c84c0c9d5a8ae505cb3a7"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a2499f4d6e78c84c0c9d5a8ae505cb3a7">getCurrentB</a> () const =0</td></tr>
-<tr class="memdesc:a2499f4d6e78c84c0c9d5a8ae505cb3a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current step's susceptance of the phase tap changer.  <a href="#a2499f4d6e78c84c0c9d5a8ae505cb3a7">More...</a><br /></td></tr>
-<tr class="separator:a2499f4d6e78c84c0c9d5a8ae505cb3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb9411782e98105e9399e7833e746f82"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#acb9411782e98105e9399e7833e746f82">getCurrentG</a> () const =0</td></tr>
-<tr class="memdesc:acb9411782e98105e9399e7833e746f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current step's conductance of the phase tap changer.  <a href="#acb9411782e98105e9399e7833e746f82">More...</a><br /></td></tr>
-<tr class="separator:acb9411782e98105e9399e7833e746f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39417d8c7e5021c8a15253db4b835363"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a39417d8c7e5021c8a15253db4b835363">getCurrentRho</a> () const =0</td></tr>
-<tr class="memdesc:a39417d8c7e5021c8a15253db4b835363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current ratio of the phase tap changer.  <a href="#a39417d8c7e5021c8a15253db4b835363">More...</a><br /></td></tr>
-<tr class="separator:a39417d8c7e5021c8a15253db4b835363"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f6f9630fe0e106a3d2c532230531495"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a7f6f9630fe0e106a3d2c532230531495">getCurrentAlpha</a> () const =0</td></tr>
-<tr class="memdesc:a7f6f9630fe0e106a3d2c532230531495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current phase shift of the phase tap changer.  <a href="#a7f6f9630fe0e106a3d2c532230531495">More...</a><br /></td></tr>
-<tr class="separator:a7f6f9630fe0e106a3d2c532230531495"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ac23b5c6d3ca8f4e9c8f52658c4211b"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d3a/a03014.html#a1ac23b5c6d3ca8f4e9c8f52658c4211b">getTargetDeadBand</a> () const =0</td></tr>
-<tr class="memdesc:a1ac23b5c6d3ca8f4e9c8f52658c4211b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the voltage target deadband of the phase tap changer.  <a href="#a1ac23b5c6d3ca8f4e9c8f52658c4211b">More...</a><br /></td></tr>
-<tr class="separator:a1ac23b5c6d3ca8f4e9c8f52658c4211b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Phase tap changer interface class for phase tap chagner interface. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aab4bd99811385addb6e6dea384756a57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab4bd99811385addb6e6dea384756a57">&#9670;&nbsp;</a></span>addStep()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DYN::PhaseTapChangerInterface::addStep </td>
-          <td>(</td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="../../d4/d47/a03050.html">StepInterface</a> &gt;&#160;</td>
-          <td class="paramname"><em>step</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add a new step to the phase tap changer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">step</td><td>step to add to the phase tap changer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#ac43804b9536be47709a27b322020a150">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a7f6f9630fe0e106a3d2c532230531495"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f6f9630fe0e106a3d2c532230531495">&#9670;&nbsp;</a></span>getCurrentAlpha()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getCurrentAlpha </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current phase shift of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current phase shift of the phase tap changer in degree </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a0f5650ce5c027416de574c48ef9ca83b">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a2499f4d6e78c84c0c9d5a8ae505cb3a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2499f4d6e78c84c0c9d5a8ae505cb3a7">&#9670;&nbsp;</a></span>getCurrentB()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getCurrentB </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current step's susceptance of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current step's susceptance of the phase tap changer in siemens </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a72efa2fc1e6ef856ed632fc99e640b81">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="acb9411782e98105e9399e7833e746f82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb9411782e98105e9399e7833e746f82">&#9670;&nbsp;</a></span>getCurrentG()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getCurrentG </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current step's conductance of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current step's conductance of the phase tap changer in siemens </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#ac076837ae1b145b2d3d96c42afc8f942">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="ad7521a93fbe6923c8780747c1b09d06a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7521a93fbe6923c8780747c1b09d06a">&#9670;&nbsp;</a></span>getCurrentPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int DYN::PhaseTapChangerInterface::getCurrentPosition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current tap position. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current tap position </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#ae33038e000e8bd7bdea50fd3422e9cf1">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a34fa12857c4bfef2c525bf4eba92f21d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34fa12857c4bfef2c525bf4eba92f21d">&#9670;&nbsp;</a></span>getCurrentR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getCurrentR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current step's resistance of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current step's resistance of the phase tap changer in ohm </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#afe9fe00d46cd5292ad5ed259bd48bec1">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a39417d8c7e5021c8a15253db4b835363"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39417d8c7e5021c8a15253db4b835363">&#9670;&nbsp;</a></span>getCurrentRho()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getCurrentRho </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current ratio of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current ratio of the phase tap changer in pu </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a1c34120071f5d7a769cfac4d54061bac">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a381d9009b6b4f9216b3127fbf2ad666c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a381d9009b6b4f9216b3127fbf2ad666c">&#9670;&nbsp;</a></span>getCurrentX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getCurrentX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current step's reactance of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current step's reactance of the phase tap changer in ohm </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a49bf18415c8011d6f168752cb5457293">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="afc6e9e31b83770d830415b7b34fc0d00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc6e9e31b83770d830415b7b34fc0d00">&#9670;&nbsp;</a></span>getLowPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int DYN::PhaseTapChangerInterface::getLowPosition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the lowest tap position. </p>
-<dl class="section return"><dt>Returns</dt><dd>the lowest tap position </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a1663acfcabcaec208a664d88377f4bdf">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a1e255e82e97c62426ba87fbf616bc67b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e255e82e97c62426ba87fbf616bc67b">&#9670;&nbsp;</a></span>getNbTap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual unsigned int DYN::PhaseTapChangerInterface::getNbTap </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the number of tap. </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of tap </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#ab3c8dabb7dc971f41df455df483c5117">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a1e672560f2ca7fb133c670ca46c246c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e672560f2ca7fb133c670ca46c246c2">&#9670;&nbsp;</a></span>getRegulating()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::PhaseTapChangerInterface::getRegulating </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the current status of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the phase tap changer is regulating, <b>false</b> else </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a716fbe205463deef81e2b18ae403f578">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="af4ef90682d01a2b8b7c472a3baa23657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4ef90682d01a2b8b7c472a3baa23657">&#9670;&nbsp;</a></span>getRegulationValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getRegulationValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the regulation value of the phase tap changer depending on regulation mode. </p>
-<dl class="section return"><dt>Returns</dt><dd>the current threshold if regulationMode = "CURRENT_LIMITER" / the power target if regulationMode = "ACTIVE_POWER_CONTROL" </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#ad0ba99e8ef26476d674955a5187fb5c0">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a8b5cf46e391756ea8b9bd287284c6b68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b5cf46e391756ea8b9bd287284c6b68">&#9670;&nbsp;</a></span>getSteps()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt;std::unique_ptr&lt;<a class="el" href="../../d4/d47/a03050.html">StepInterface</a>&gt; &gt;&amp; DYN::PhaseTapChangerInterface::getSteps </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for steps of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>steps of the phase tap changer </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a23b4ad6c67bd67187d6a5d11407ec499">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a1ac23b5c6d3ca8f4e9c8f52658c4211b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ac23b5c6d3ca8f4e9c8f52658c4211b">&#9670;&nbsp;</a></span>getTargetDeadBand()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::PhaseTapChangerInterface::getTargetDeadBand </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the voltage target deadband of the phase tap changer. </p>
-<dl class="section return"><dt>Returns</dt><dd>the voltage regulation target deadband </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a6b530aa79f942cd8e088c6ddac19db9d">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="acd992054612f5d436b2379631746dbc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd992054612f5d436b2379631746dbc9">&#9670;&nbsp;</a></span>isCurrentLimiter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::PhaseTapChangerInterface::isCurrentLimiter </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Indicates if the regulation mode is current limiter. </p>
-<dl class="section return"><dt>Returns</dt><dd><b>true</b> if the phase tap changer regulation mode is current limiter, <b>false</b> otherwise </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#af33356469c26de4fc3d0bcd45cdd8c78">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="abc3e0b367c58b1f1ccd454bebf81b490"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc3e0b367c58b1f1ccd454bebf81b490">&#9670;&nbsp;</a></span>setCurrentPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DYN::PhaseTapChangerInterface::setCurrentPosition </td>
-          <td>(</td>
-          <td class="paramtype">const int &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Setter for the current tap position. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>the current tap position </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="../../d8/dde/a03178.html#a8fc3a47c3c771eaffab1a1e3b3807aae">DYN::PhaseTapChangerInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d5/de8/a00749_source.html">DYNPhaseTapChangerInterface.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ac631e3948d14ee713436ede3786b4424">addCurrentLimitInterface1</a>(std::unique_ptr&lt; CurrentLimitInterface &gt; currentLimitInterface)=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a29e4d2f84edb92c3413c7e98125e82ea">addCurrentLimitInterface2</a>(std::unique_ptr&lt; CurrentLimitInterface &gt; currentLimitInterface)=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a54a4adcbcd28a26428cafa45a848e172">ComponentInterface</a>(bool hasInitialConditions=true)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> enum name</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a2ae1528a39c004efa24e63c1d4b0d8de">createComponentVarIndex</a>(const std::string &amp;varName)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#aab4d1b6637fc47c06c5018614d47e0fd">derivedType</a>()</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a>()</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ac04e992cf7b4a99378f23781f81a8f8a">exportStateVariablesUnitComponent</a>() override=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a6709b5de94e674447523d3516da7c2ba">getActiveSeason</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a4fb8b2d2d1baf9c88ece9c04f5bdfb70">getB1</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a160477afffdfedd696d8069c5e8d8ad6">getB2</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ae9e64469644ff169db148999375b4ea0">getBusInterface1</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ad68437b5e48b8dd6ae67304f6efd691a">getBusInterface2</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a>(const std::string &amp;varName) const =0</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a0aec1e68f2cda28af021e29f3dfc23a4">getCurrentLimitInterfaces1</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a343aba50c73d75a2f0ce7bb44882b93d">getCurrentLimitInterfaces2</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ace69af302afb8e25af870591e46494ad">getCurrentLimitNbTemporary</a>(const std::string &amp;season, CurrentLimitSide side) const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a51689c7258746d317aca165e652834ee">getCurrentLimitPermanent</a>(const std::string &amp;season, CurrentLimitSide side) const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a67b03e35ac59e8bbbf6fc6c934f0c2f8">getCurrentLimitTemporaryAcceptableDuration</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ad2f6c914139e4a1e0a987499989ced14">getCurrentLimitTemporaryFictitious</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a4f244e9a5ff13860c8ccff8e2d2524fa">getCurrentLimitTemporaryName</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a8e4667b162cbf0e2b79796226fb41822">getCurrentLimitTemporaryValue</a>(const std::string &amp;season, CurrentLimitSide side, unsigned int indexTemporary) const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#af00be172cef58512bfb6ae9ae6215bfd">getG1</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a529d91828fd6e0bbdccb55e78f239d7b">getG2</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a0e422522351467ffa9e8a480c233d87a">getID</a>() const override=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ac4b66a913296bc88ec9f9018a162536b">getInitialConnected1</a>()=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a64f42b8bf5e86fcc8955c4cca71e2206">getInitialConnected2</a>()=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a47803af48bad13fc85fa13672df061cf">getP1</a>()=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a27dfbe7e8913ab1e0c23647026e2d15b">getP2</a>()=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a2f8b1b3adaef73ee14ec2ab9c32dec83">getQ1</a>()=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a3c3d1da28cf30fb8fcc23ca01f426d33">getQ2</a>()=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a86791d9a29eba67bf80628772edc40c3">getR</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#ae8d9e88ba15c0de8ae24271ce563568b">getStateVarI1</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a475ee3462ed1b1251bde498262820b6b">getStateVarI2</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a>()</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a157a82e17608a36a7965614cde1c6234">getType</a>() const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a>() const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a>(const int index) const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a227ad2b86e59abb4e3824b04d896af5d">getVNom1</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a190e51c129849fab68e3f7a14d0eb776">getVNom2</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a649e8263493dcd56c78d9e890493c613">getX</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a840822105d094a2cbce3c568f11d917e">hasConnectionSide1</a>(bool hasConnection)=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#aa4a0c7154b29015c09888fc47691c6bd">hasConnectionSide1</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a4f9e72d1661e1fb58639b5f7aff1415e">hasConnectionSide2</a>(bool hasConnection)=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a970f232233c1d495a7f2bd56dc82811d">hasConnectionSide2</a>() const =0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a>(bool hasDynamicModel)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a>() const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>() const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a360fb8d74db3b5e8d1acb4f636c9647d">hasInitialConditions</a>(bool hasInitialConditions)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#ac24fd6f4706d72ca980eb5c338f1b642">importStaticParameters</a>()=0</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a22639f8b88b1d70984852928d87676ec">isConnected</a>() const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a>() const</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a184d5e2cd21f029ac718f04d0cd2f661">LineInterface</a>(bool hasInitialConditions=true)</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a232e12707242f9f27e7b279383483074">setBusInterface1</a>(const std::shared_ptr&lt; BusInterface &gt; &amp;busInterface)=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#aaf7b40abba92592990083ac991d51036">setBusInterface2</a>(const std::shared_ptr&lt; BusInterface &gt; &amp;busInterface)=0</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;model)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a>(const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a>(const ComponentType_t &amp;type)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#afba20d4e78f70ec9e147378934d10b33">staticParameters_</a></td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a>(bool filterForCriteriaCheck)</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/de8/a02925.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/de8/a02925.html#aaeea1b605a906a6b2772ff8b092dc17b">~ComponentInterface</a>()=default</td><td class="entry"><a class="el" href="../../d8/de8/a02925.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../dd/dfd/a03017.html#a1b8a5194f54a422311a6a3062f38ca7b">~LineInterface</a>() override=default</td><td class="entry"><a class="el" href="../../dd/dfd/a03017.html">DYN::LineInterface</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -685,8 +198,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d3a/a03014.html">PhaseTapChangerInterface</a></li>
-    <li class="footer">Generated on Thu Jul 16 2026 11:22:42 for Dynawo by
+    <li class="footer">Generated on Fri Jul 17 2026 15:31:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::StepInterface Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d4/d47/a03050.html','../../');});
+$(document).ready(function(){initNavTree('d6/dfe/a03053.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,237 +94,41 @@ $(document).ready(function(){initNavTree('d4/d47/a03050.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="../../d2/de4/a03047.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::StepInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::StateVariable Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="../../d3/d95/a00779_source.html">DYNStepInterface.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::StepInterface:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d4/d47/a03050.png" usemap="#DYN::StepInterface_map" alt=""/>
-  <map id="DYN::StepInterface_map" name="DYN::StepInterface_map">
-<area href="../../d6/d9b/a03202.html" title="interface class for step of tap changer " alt="DYN::StepInterfaceIIDM" shape="rect" coords="0,56,146,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa49f27dc73a4f28b4e9b188df72c3027"><td class="memItemLeft" align="right" valign="top"><a id="aa49f27dc73a4f28b4e9b188df72c3027"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d47/a03050.html#aa49f27dc73a4f28b4e9b188df72c3027">~StepInterface</a> ()=default</td></tr>
-<tr class="memdesc:aa49f27dc73a4f28b4e9b188df72c3027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:aa49f27dc73a4f28b4e9b188df72c3027"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa136a845822728fe6421e862103ee9b1"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d47/a03050.html#aa136a845822728fe6421e862103ee9b1">getR</a> () const =0</td></tr>
-<tr class="memdesc:aa136a845822728fe6421e862103ee9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the resistance of the step.  <a href="#aa136a845822728fe6421e862103ee9b1">More...</a><br /></td></tr>
-<tr class="separator:aa136a845822728fe6421e862103ee9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a949d63cd0e570645063ce921680d386d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d47/a03050.html#a949d63cd0e570645063ce921680d386d">getX</a> () const =0</td></tr>
-<tr class="memdesc:a949d63cd0e570645063ce921680d386d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the reactance of the step.  <a href="#a949d63cd0e570645063ce921680d386d">More...</a><br /></td></tr>
-<tr class="separator:a949d63cd0e570645063ce921680d386d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73a17d68be9ed824de6dd2373ed31a6a"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d47/a03050.html#a73a17d68be9ed824de6dd2373ed31a6a">getB</a> () const =0</td></tr>
-<tr class="memdesc:a73a17d68be9ed824de6dd2373ed31a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the susceptance of the step.  <a href="#a73a17d68be9ed824de6dd2373ed31a6a">More...</a><br /></td></tr>
-<tr class="separator:a73a17d68be9ed824de6dd2373ed31a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a363cc6fb9cab520bf62c5e5777378a1c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d47/a03050.html#a363cc6fb9cab520bf62c5e5777378a1c">getG</a> () const =0</td></tr>
-<tr class="memdesc:a363cc6fb9cab520bf62c5e5777378a1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the conductance of the step.  <a href="#a363cc6fb9cab520bf62c5e5777378a1c">More...</a><br /></td></tr>
-<tr class="separator:a363cc6fb9cab520bf62c5e5777378a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4e9c658158f1dfc32c12934f700d9fb"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d47/a03050.html#af4e9c658158f1dfc32c12934f700d9fb">getRho</a> () const =0</td></tr>
-<tr class="memdesc:af4e9c658158f1dfc32c12934f700d9fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the ratio of the step.  <a href="#af4e9c658158f1dfc32c12934f700d9fb">More...</a><br /></td></tr>
-<tr class="separator:af4e9c658158f1dfc32c12934f700d9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae79c100856d3b7549c96ff1ed53efe15"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d47/a03050.html#ae79c100856d3b7549c96ff1ed53efe15">getAlpha</a> () const =0</td></tr>
-<tr class="memdesc:ae79c100856d3b7549c96ff1ed53efe15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the phase shift of the step.  <a href="#ae79c100856d3b7549c96ff1ed53efe15">More...</a><br /></td></tr>
-<tr class="separator:ae79c100856d3b7549c96ff1ed53efe15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>class <a class="el" href="../../d4/d47/a03050.html">StepInterface</a> </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae79c100856d3b7549c96ff1ed53efe15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae79c100856d3b7549c96ff1ed53efe15">&#9670;&nbsp;</a></span>getAlpha()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::StepInterface::getAlpha </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the phase shift of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The phase shift of the step in degree </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d9b/a03202.html#a5d12e8e157f7f8f4da818fcae8a2cbbb">DYN::StepInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a73a17d68be9ed824de6dd2373ed31a6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73a17d68be9ed824de6dd2373ed31a6a">&#9670;&nbsp;</a></span>getB()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::StepInterface::getB </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the susceptance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The susceptance of the step in siemens </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d9b/a03202.html#a80f0447c511ab4550f7516d6a293a490">DYN::StepInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a363cc6fb9cab520bf62c5e5777378a1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a363cc6fb9cab520bf62c5e5777378a1c">&#9670;&nbsp;</a></span>getG()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::StepInterface::getG </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the conductance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The conductance of the step in siemens </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d9b/a03202.html#a2eb0521dec81780f64ae021eee0e8f51">DYN::StepInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="aa136a845822728fe6421e862103ee9b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa136a845822728fe6421e862103ee9b1">&#9670;&nbsp;</a></span>getR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::StepInterface::getR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the resistance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The resistance of the step in ohm </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d9b/a03202.html#ab25d899dfa1831945925988a82ab9a7f">DYN::StepInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="af4e9c658158f1dfc32c12934f700d9fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4e9c658158f1dfc32c12934f700d9fb">&#9670;&nbsp;</a></span>getRho()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::StepInterface::getRho </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the ratio of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The ratio of the step in pu </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d9b/a03202.html#a2eceba2343c251c1553651473704c597">DYN::StepInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a949d63cd0e570645063ce921680d386d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a949d63cd0e570645063ce921680d386d">&#9670;&nbsp;</a></span>getX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::StepInterface::getX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the reactance of the step. </p>
-<dl class="section return"><dt>Returns</dt><dd>The reactance of the step in ohm </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d6/d9b/a03202.html#a26263ad69e4aa4d0f67d0a2ded98c6db">DYN::StepInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d3/d95/a00779_source.html">DYNStepInterface.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#af404bdea1223607a505379fcd45c93c1a98ecdfbd4c80eb467693593e5844d63f">BOOL</a> enum value</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#af404bdea1223607a505379fcd45c93c1addca62de32b5709b67c9c206c08c9373">DOUBLE</a> enum value</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a893fab7199939daba8780f0e1139b0d9">getModelId</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a05d3e88355bc852d44f63c733f852cdd">getName</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#acf77afc86f11654a200ad66cb7a87485">getType</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a66044687e8ab9128f182d3a58f744b60">getValue</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#ac9c8c66dcc8fd973350c2d8e12e9c2c1">getVariable</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a8e47787f467773e4773b7faa747aee61">getVariableId</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#af404bdea1223607a505379fcd45c93c1a5fd7acc7542b4be327bc9ac49ab28b15">INT</a> enum value</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#aae976a749dd878c91073e5094b30268e">isNeededForCriteriaCheck</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a4dffa81ec00bcf963416ed37b1096f2d">modelId_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a6ee351933194a3d0fa8e27085dd860f8">name_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a278b619b594985f8b56f25590a5aa7c2">neededForCriteriaCheck_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a931008751291d5db825b8fdcd43d1a91">setModelId</a>(const std::string &amp;modelId)</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a62c5af3d2220a5dcb664b47dbcc7e8db">setValue</a>(const double &amp;value)</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a7ac6b7ccf101fcd2ea9911885694c7c2">setVariable</a>(const boost::shared_ptr&lt; Variable &gt; &amp;variable)</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#aae408bf5206af11c80901d8959101375">setVariableId</a>(const std::string &amp;variableId)</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a57494ae608c75a1019b4e61d57f48743">StateVariable</a>()</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a1c51b4976b2e5d6c9b07fae252608a58">StateVariable</a>(const std::string &amp;name, const StateVariableType &amp;type, bool neededForCriteriaCheck=false)</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#af404bdea1223607a505379fcd45c93c1">StateVariableType</a> enum name</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#adc6eb0a519a45157802c3f8f900311e6">type_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#af8f562ad1637dc955516a24393799a15">typeAsString</a>(const StateVariableType &amp;type)</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a41ed2a23cd003e19e253c654372afd6e">value_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#aeedb0347823df646ac4064414c4e3194">valueAffected</a>() const</td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a47fc6acb52cd20f5b7826d113bb469d0">valueAffected_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a40a192daf1f459002428110ae62c74d6">variable_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/dfe/a03053.html#a6ce1051b613f57afbe153ec8f6b72574">variableId_</a></td><td class="entry"><a class="el" href="../../d6/dfe/a03053.html">DYN::StateVariable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -340,8 +144,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/d47/a03050.html">StepInterface</a></li>
-    <li class="footer">Generated on Thu Jul 16 2026 11:22:42 for Dynawo by
+    <li class="footer">Generated on Fri Jul 17 2026 15:31:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

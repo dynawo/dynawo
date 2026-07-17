@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::ZmqInputChannel Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d7/d70/a03498.html','../../');});
+$(document).ready(function(){initNavTree('d8/dbb/a03501.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,278 +94,33 @@ $(document).ready(function(){initNavTree('d7/d70/a03498.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="../../dd/d6c/a03495.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::ZmqInputChannel Class Reference</div>  </div>
+<div class="title">DYN::Clock Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Input channel implementation using ZeroMQ.  
- <a href="../../d7/d70/a03498.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d3/dbd/a01100_source.html">DYNZmqInputChannel.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::ZmqInputChannel:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../d7/d70/a03498.png" usemap="#DYN::ZmqInputChannel_map" alt=""/>
-  <map id="DYN::ZmqInputChannel_map" name="DYN::ZmqInputChannel_map">
-<area href="../../d3/d87/a03490.html" title="Abstract base class for real-time simulation input channels. " alt="DYN::InputChannel" shape="rect" coords="0,0,143,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ab3a7f4952c3777ec04e07216b36b8626"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626">zmqControlType_t</a> { <br />
-&#160;&#160;<a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a5bb6b44d29091d7300502cad7848c688">STEP</a>, 
-<a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a234b5d570fa51d5079ce87540c0b5eed">STOP</a>, 
-<a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a6f088bd3c3a4ab0d4c1aeaf3917e758e">ACTION</a>, 
-<a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a5d98ca7bb15406927370142b78b27bef">DUMP</a>, 
-<br />
-&#160;&#160;<a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626a264ec37b8b35d2a8df6f27776de2f4d1">UNKNOWN</a>
-<br />
- }</td></tr>
-<tr class="memdesc:ab3a7f4952c3777ec04e07216b36b8626"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of control received in the message header  <a href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626">More...</a><br /></td></tr>
-<tr class="separator:ab3a7f4952c3777ec04e07216b36b8626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ac79fa25b7ac0b7d760a48767a4dce26f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#ac79fa25b7ac0b7d760a48767a4dce26f">ZmqInputChannel</a> (const std::string &amp;id, <a class="el" href="../../d6/d80/a01076.html#a4d70f055a616e1945020c192030dca92">InputMessageFilter</a> messageFilter, const std::string &amp;endpoint=&quot;tcp://*:5555&quot;)</td></tr>
-<tr class="memdesc:ac79fa25b7ac0b7d760a48767a4dce26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ac79fa25b7ac0b7d760a48767a4dce26f">More...</a><br /></td></tr>
-<tr class="separator:ac79fa25b7ac0b7d760a48767a4dce26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ed14440178b139db340cc83cb43e9cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a3ed14440178b139db340cc83cb43e9cc">startReceiving</a> (const std::function&lt; void(std::shared_ptr&lt; <a class="el" href="../../d5/d35/a03454.html">InputMessage</a> &gt;)&gt; &amp;callback, bool useThread) override</td></tr>
-<tr class="memdesc:a3ed14440178b139db340cc83cb43e9cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start receiving messages.  <a href="#a3ed14440178b139db340cc83cb43e9cc">More...</a><br /></td></tr>
-<tr class="separator:a3ed14440178b139db340cc83cb43e9cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e8494113add1a020e5ece7e8c9d3342"><td class="memItemLeft" align="right" valign="top"><a id="a8e8494113add1a020e5ece7e8c9d3342"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a8e8494113add1a020e5ece7e8c9d3342">stop</a> () override</td></tr>
-<tr class="memdesc:a8e8494113add1a020e5ece7e8c9d3342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop receiving messages. <br /></td></tr>
-<tr class="separator:a8e8494113add1a020e5ece7e8c9d3342"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626">zmqControlType_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e">getControlType</a> (const std::string &amp;header)</td></tr>
-<tr class="memdesc:a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the control type from the header  <a href="#a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e">More...</a><br /></td></tr>
-<tr class="separator:a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_a03490"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a03490')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/d87/a03490.html">DYN::InputChannel</a></td></tr>
-<tr class="memitem:a57197e412135943fad4fa24b638d6d16 inherit pub_methods_a03490"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d87/a03490.html#a57197e412135943fad4fa24b638d6d16">InputChannel</a> (const std::string &amp;id, <a class="el" href="../../d6/d80/a01076.html#a4d70f055a616e1945020c192030dca92">InputMessageFilter</a> supportedMessages)</td></tr>
-<tr class="memdesc:a57197e412135943fad4fa24b638d6d16 inherit pub_methods_a03490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="../../d3/d87/a03490.html#a57197e412135943fad4fa24b638d6d16">More...</a><br /></td></tr>
-<tr class="separator:a57197e412135943fad4fa24b638d6d16 inherit pub_methods_a03490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cc47f5224ba616b38ec826686fef2f3 inherit pub_methods_a03490"><td class="memItemLeft" align="right" valign="top"><a id="a2cc47f5224ba616b38ec826686fef2f3"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d87/a03490.html#a2cc47f5224ba616b38ec826686fef2f3">~InputChannel</a> ()</td></tr>
-<tr class="memdesc:a2cc47f5224ba616b38ec826686fef2f3 inherit pub_methods_a03490"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
-<tr class="separator:a2cc47f5224ba616b38ec826686fef2f3 inherit pub_methods_a03490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af230a398731fdc4222d73b452f070b33 inherit pub_methods_a03490"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d87/a03490.html#af230a398731fdc4222d73b452f070b33">supports</a> (<a class="el" href="../../d6/d80/a01076.html#a4d70f055a616e1945020c192030dca92">InputMessageFilter</a> value)</td></tr>
-<tr class="memdesc:af230a398731fdc4222d73b452f070b33 inherit pub_methods_a03490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this channel supports a given message type.  <a href="../../d3/d87/a03490.html#af230a398731fdc4222d73b452f070b33">More...</a><br /></td></tr>
-<tr class="separator:af230a398731fdc4222d73b452f070b33 inherit pub_methods_a03490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:aa2f3a87226b5bee4cf089a9134860ef9"><td class="memItemLeft" align="right" valign="top"><a id="aa2f3a87226b5bee4cf089a9134860ef9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#aa2f3a87226b5bee4cf089a9134860ef9">receiveLoop</a> ()</td></tr>
-<tr class="memdesc:aa2f3a87226b5bee4cf089a9134860ef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reception loop executed in a thread when enabled. <br /></td></tr>
-<tr class="separator:aa2f3a87226b5bee4cf089a9134860ef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a48eaee60b5d662a0445e13b2ff6d2ce0"><td class="memItemLeft" align="right" valign="top"><a id="a48eaee60b5d662a0445e13b2ff6d2ce0"></a>
-zmq::context_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a48eaee60b5d662a0445e13b2ff6d2ce0">context_</a></td></tr>
-<tr class="memdesc:a48eaee60b5d662a0445e13b2ff6d2ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZeroMQ context. <br /></td></tr>
-<tr class="separator:a48eaee60b5d662a0445e13b2ff6d2ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a265c31887f999fbdb9fb4e84db527fc6"><td class="memItemLeft" align="right" valign="top"><a id="a265c31887f999fbdb9fb4e84db527fc6"></a>
-zmq::socket_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a265c31887f999fbdb9fb4e84db527fc6">socket_</a></td></tr>
-<tr class="memdesc:a265c31887f999fbdb9fb4e84db527fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZeroMQ socket. <br /></td></tr>
-<tr class="separator:a265c31887f999fbdb9fb4e84db527fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05be7f07b6602375eee1148ddf2355d8"><td class="memItemLeft" align="right" valign="top"><a id="a05be7f07b6602375eee1148ddf2355d8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a05be7f07b6602375eee1148ddf2355d8">useThread_</a></td></tr>
-<tr class="memdesc:a05be7f07b6602375eee1148ddf2355d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether reception uses a dedicated thread. <br /></td></tr>
-<tr class="separator:a05be7f07b6602375eee1148ddf2355d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa555e908549dc06a0e34ac483207943d"><td class="memItemLeft" align="right" valign="top"><a id="aa555e908549dc06a0e34ac483207943d"></a>
-std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#aa555e908549dc06a0e34ac483207943d">stopFlag_</a></td></tr>
-<tr class="memdesc:aa555e908549dc06a0e34ac483207943d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to signal stopping reception. <br /></td></tr>
-<tr class="separator:aa555e908549dc06a0e34ac483207943d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a286e0a3380943e034d96e5a97752381b"><td class="memItemLeft" align="right" valign="top"><a id="a286e0a3380943e034d96e5a97752381b"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a286e0a3380943e034d96e5a97752381b">pollTimeoutMs_</a></td></tr>
-<tr class="memdesc:a286e0a3380943e034d96e5a97752381b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polling timeout in milliseconds. <br /></td></tr>
-<tr class="separator:a286e0a3380943e034d96e5a97752381b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a185cc2c58983979ca83a5cd4462bf046"><td class="memItemLeft" align="right" valign="top"><a id="a185cc2c58983979ca83a5cd4462bf046"></a>
-std::function&lt; void(std::shared_ptr&lt; <a class="el" href="../../d5/d35/a03454.html">InputMessage</a> &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#a185cc2c58983979ca83a5cd4462bf046">callback_</a></td></tr>
-<tr class="memdesc:a185cc2c58983979ca83a5cd4462bf046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for received messages. <br /></td></tr>
-<tr class="separator:a185cc2c58983979ca83a5cd4462bf046"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe09366b3429269d7e1607b56669c5cd"><td class="memItemLeft" align="right" valign="top"><a id="afe09366b3429269d7e1607b56669c5cd"></a>
-std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d70/a03498.html#afe09366b3429269d7e1607b56669c5cd">thread_</a></td></tr>
-<tr class="memdesc:afe09366b3429269d7e1607b56669c5cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread for message reception. <br /></td></tr>
-<tr class="separator:afe09366b3429269d7e1607b56669c5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_a03490"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_a03490')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d3/d87/a03490.html">DYN::InputChannel</a></td></tr>
-<tr class="memitem:a28aa9da4afc938ba3f136bf1fbab4822 inherit pro_attribs_a03490"><td class="memItemLeft" align="right" valign="top"><a id="a28aa9da4afc938ba3f136bf1fbab4822"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d87/a03490.html#a28aa9da4afc938ba3f136bf1fbab4822">id_</a></td></tr>
-<tr class="memdesc:a28aa9da4afc938ba3f136bf1fbab4822 inherit pro_attribs_a03490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the input channel. <br /></td></tr>
-<tr class="separator:a28aa9da4afc938ba3f136bf1fbab4822 inherit pro_attribs_a03490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab05937bd271681f3dc5630fe278c4f1a inherit pro_attribs_a03490"><td class="memItemLeft" align="right" valign="top"><a id="ab05937bd271681f3dc5630fe278c4f1a"></a>
-<a class="el" href="../../d6/d80/a01076.html#a4d70f055a616e1945020c192030dca92">InputMessageFilter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d87/a03490.html#ab05937bd271681f3dc5630fe278c4f1a">supportedMessages_</a></td></tr>
-<tr class="memdesc:ab05937bd271681f3dc5630fe278c4f1a inherit pro_attribs_a03490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported message types. <br /></td></tr>
-<tr class="separator:ab05937bd271681f3dc5630fe278c4f1a inherit pro_attribs_a03490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Input channel implementation using ZeroMQ. </p>
-<p>Provides an interface for receiving messages via ZeroMQ sockets, with optional threaded reception and stop signaling. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="ab3a7f4952c3777ec04e07216b36b8626"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3a7f4952c3777ec04e07216b36b8626">&#9670;&nbsp;</a></span>zmqControlType_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626">DYN::ZmqInputChannel::zmqControlType_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>type of control received in the message header </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab3a7f4952c3777ec04e07216b36b8626a5bb6b44d29091d7300502cad7848c688"></a>STEP&#160;</td><td class="fielddoc"><p>Step next step. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ab3a7f4952c3777ec04e07216b36b8626a234b5d570fa51d5079ce87540c0b5eed"></a>STOP&#160;</td><td class="fielddoc"><p>Stop signal: stop gracefully the simulation. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ab3a7f4952c3777ec04e07216b36b8626a6f088bd3c3a4ab0d4c1aeaf3917e758e"></a>ACTION&#160;</td><td class="fielddoc"><p><a class="el" href="../../d6/d92/a02770.html" title="Action class. ">Action</a> for the system. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ab3a7f4952c3777ec04e07216b36b8626a5d98ca7bb15406927370142b78b27bef"></a>DUMP&#160;</td><td class="fielddoc"><p>Dump signal: ask for a dump. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ab3a7f4952c3777ec04e07216b36b8626a264ec37b8b35d2a8df6f27776de2f4d1"></a>UNKNOWN&#160;</td><td class="fielddoc"><p>else </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac79fa25b7ac0b7d760a48767a4dce26f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac79fa25b7ac0b7d760a48767a4dce26f">&#9670;&nbsp;</a></span>ZmqInputChannel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DYN::ZmqInputChannel::ZmqInputChannel </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d80/a01076.html#a4d70f055a616e1945020c192030dca92">InputMessageFilter</a>&#160;</td>
-          <td class="paramname"><em>messageFilter</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>endpoint</em> = <code>&quot;tcp://*:5555&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>Identifier of the channel </td></tr>
-    <tr><td class="paramname">messageFilter</td><td>Filter applied on incoming messages </td></tr>
-    <tr><td class="paramname">endpoint</td><td>ZeroMQ endpoint to bind </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a1aa5f0eb8cdb2bdf62c6ab8d1f2c5e">&#9670;&nbsp;</a></span>getControlType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d70/a03498.html#ab3a7f4952c3777ec04e07216b36b8626">zmqControlType_t</a> DYN::ZmqInputChannel::getControlType </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>header</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the control type from the header </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">header</td><td>header to parse </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>control type parsed from the header </dd></dl>
-
-</div>
-</div>
-<a id="a3ed14440178b139db340cc83cb43e9cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ed14440178b139db340cc83cb43e9cc">&#9670;&nbsp;</a></span>startReceiving()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::ZmqInputChannel::startReceiving </td>
-          <td>(</td>
-          <td class="paramtype">const std::function&lt; void(std::shared_ptr&lt; <a class="el" href="../../d5/d35/a03454.html">InputMessage</a> &gt;)&gt; &amp;&#160;</td>
-          <td class="paramname"><em>callback</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>useThread</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Start receiving messages. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">callback</td><td>Function called for each received message </td></tr>
-    <tr><td class="paramname">useThread</td><td>Whether to run reception in a separate thread </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="../../d3/d87/a03490.html#ac3a32f6996f22cae0e46d9f2d216bfda">DYN::InputChannel</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d3/dbd/a01100_source.html">DYNZmqInputChannel.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a1f582e587fd9876b5914e1712c0cf057">Clock</a>()</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#aa6d0750d01c17ea1580bd4859ff0716a">getStopMessageReceived</a>() const</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a32576e86df8ae00a764539920a5ff97f">getUseStepTrigger</a>() const</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#af3b22ae2e93c851e1c0f062bc90689c7">handleMessage</a>(StepTriggerMessage &amp;stepTriggerMessage)</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a4a986074d786833d29c0007e0526a728">handleMessage</a>(StopMessage &amp;stopMessage)</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a0a50529ff46f30f214105128aabff6ab">mutex_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a11d453532f21844d29fcd35275ba8c66">referenceClockTime_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a9134fb1d5ea2e132271288803a68f469">referenceSimuTime_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#aac6b0a5724aab83a285d09525059bd31">running_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#acf5f97182ec4fc8e7cc4e6fa598995c2">setSpeedup</a>(double speedup)</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#abe0faca763b1eb9f0af96ea08fbb0cc2">setUseStepTrigger</a>(bool useStepTrigger)</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a8c4b90837092dba5f218d66f9b8c231b">speedup_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#af4808d149adf742602dfced554fc055d">start</a>(double simulationTime)</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a426fd74883b080cece6995315d48844f">stop</a>()</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a9839d77ddc265a15c5a62e31495ea370">stopMessageReceived_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#ac5accdb6417247b88676959c4cefe7dd">triggerCond_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a6a2729df1b426bc3fd79c78fa296c5de">triggeredStepCnt_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a74a76799cbdaf8655997bebe2d8376d7">useStepTrigger_</a></td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d8/dbb/a03501.html#a5b9b5d19d440cd5ef37f08e452cff91e">wait</a>(double simulationTime)</td><td class="entry"><a class="el" href="../../d8/dbb/a03501.html">DYN::Clock</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -381,8 +136,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d7/d70/a03498.html">ZmqInputChannel</a></li>
-    <li class="footer">Generated on Thu Jul 16 2026 11:22:42 for Dynawo by
+    <li class="footer">Generated on Fri Jul 17 2026 15:31:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

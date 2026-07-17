@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::Trace Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('d4/da5/a02746.html','../../');});
+$(document).ready(function(){initNavTree('df/d40/a02749.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,1553 +94,210 @@ $(document).ready(function(){initNavTree('d4/da5/a02746.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
-<a href="../../df/dee/a02743.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::Trace Class Reference</div>  </div>
+<div class="title">DYN::KeyTimeline_t Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d4/da5/a02746.html" title="Trace static class. ">Trace</a> static class.  
- <a href="../../d4/da5/a02746.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d9/d42/a00575_source.html">DYNTrace.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d93/a02758.html">Hasher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash for current_thread_id::value_type.  <a href="../../d2/d93/a02758.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d14/a02750.html">TagAndSeverityLevelHash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash structure for TagAndSeverityLevel.  <a href="../../d7/d14/a02750.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d8e/a02762.html">TraceAppender</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d4/da5/a02746.html" title="Trace static class. ">Trace</a> appender class.  <a href="../../de/d8e/a02762.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d83/a02754.html">TraceSinks</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stucture defining traces for a specific thread.  <a href="../../d2/d83/a02754.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ac6cbc4466135a8df56745e551c5fa942"><td class="memItemLeft" align="right" valign="top"><a id="ac6cbc4466135a8df56745e551c5fa942"></a>
-typedef boost::log::sinks::synchronous_sink&lt; boost::log::sinks::text_file_backend &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#ac6cbc4466135a8df56745e551c5fa942">FileSink</a></td></tr>
-<tr class="memdesc:ac6cbc4466135a8df56745e551c5fa942"><td class="mdescLeft">&#160;</td><td class="mdescRight">File sink for log. <br /></td></tr>
-<tr class="separator:ac6cbc4466135a8df56745e551c5fa942"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e22b115025b40573e1d70adb147f303"><td class="memItemLeft" align="right" valign="top"><a id="a2e22b115025b40573e1d70adb147f303"></a>
-typedef boost::log::sinks::synchronous_sink&lt; boost::log::sinks::text_ostream_backend &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a2e22b115025b40573e1d70adb147f303">TextSink</a></td></tr>
-<tr class="memdesc:a2e22b115025b40573e1d70adb147f303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Text sink for log. <br /></td></tr>
-<tr class="separator:a2e22b115025b40573e1d70adb147f303"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="memItemLeft" align="right" valign="top"><a id="aafd2f7abce58ba76c46e7de79b45d7b7"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a> = std::pair&lt; std::string, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> &gt;</td></tr>
-<tr class="memdesc:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for tag and severity pair. <br /></td></tr>
-<tr class="separator:aafd2f7abce58ba76c46e7de79b45d7b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aeb4d1e4c93e960d1e3f7fcdf69c8de7b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#aeb4d1e4c93e960d1e3f7fcdf69c8de7b">init</a> ()</td></tr>
-<tr class="memdesc:aeb4d1e4c93e960d1e3f7fcdf69c8de7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init function.  <a href="#aeb4d1e4c93e960d1e3f7fcdf69c8de7b">More...</a><br /></td></tr>
-<tr class="separator:aeb4d1e4c93e960d1e3f7fcdf69c8de7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66640be8ccf953a4aaa3b4856ebdc99a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a66640be8ccf953a4aaa3b4856ebdc99a">disableLogging</a> ()</td></tr>
-<tr class="memdesc:a66640be8ccf953a4aaa3b4856ebdc99a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable logging.  <a href="#a66640be8ccf953a4aaa3b4856ebdc99a">More...</a><br /></td></tr>
-<tr class="separator:a66640be8ccf953a4aaa3b4856ebdc99a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ead755599c78d30183ac714e6bbf07b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a6ead755599c78d30183ac714e6bbf07b">enableLogging</a> ()</td></tr>
-<tr class="memdesc:a6ead755599c78d30183ac714e6bbf07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable logging.  <a href="#a6ead755599c78d30183ac714e6bbf07b">More...</a><br /></td></tr>
-<tr class="separator:a6ead755599c78d30183ac714e6bbf07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a53362ff6bec8ecfccaa5c65237dacc9d">isLoggingEnabled</a> ()</td></tr>
-<tr class="memdesc:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if logging is enabled.  <a href="#a53362ff6bec8ecfccaa5c65237dacc9d">More...</a><br /></td></tr>
-<tr class="separator:a53362ff6bec8ecfccaa5c65237dacc9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a632d5d8ddfe05fb0c4a75cdf98267995">clearAndAddAppenders</a> (const std::vector&lt; <a class="el" href="../../de/d8e/a02762.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
-<tr class="memdesc:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#a632d5d8ddfe05fb0c4a75cdf98267995">More...</a><br /></td></tr>
-<tr class="separator:a632d5d8ddfe05fb0c4a75cdf98267995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a307efa62de51e067f029f51acf146e77"><td class="memItemLeft" align="right" valign="top"><a id="a307efa62de51e067f029f51acf146e77"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a307efa62de51e067f029f51acf146e77">resetCustomAppenders</a> ()</td></tr>
-<tr class="memdesc:a307efa62de51e067f029f51acf146e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistent custom appenders of trace system. <br /></td></tr>
-<tr class="separator:a307efa62de51e067f029f51acf146e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76de36fc84be513d3d2cb02daa313995"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a76de36fc84be513d3d2cb02daa313995">resetCustomAppender</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a76de36fc84be513d3d2cb02daa313995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistent custom appender of trace system.  <a href="#a76de36fc84be513d3d2cb02daa313995">More...</a><br /></td></tr>
-<tr class="separator:a76de36fc84be513d3d2cb02daa313995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="memItemLeft" align="right" valign="top"><a id="a3c4394a1492ec44bb3a95bf8fb116bb2"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a3c4394a1492ec44bb3a95bf8fb116bb2">resetPersistentCustomAppenders</a> ()</td></tr>
-<tr class="memdesc:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistent custom appenders of trace system. <br /></td></tr>
-<tr class="separator:a3c4394a1492ec44bb3a95bf8fb116bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#ab96ee04bf35308dc28a8f00f2b8fd035">resetPersistentCustomAppender</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistent custom appenders of trace system.  <a href="#ab96ee04bf35308dc28a8f00f2b8fd035">More...</a><br /></td></tr>
-<tr class="separator:ab96ee04bf35308dc28a8f00f2b8fd035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b32ed908d57a17b8e6fed12b11729f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#af3b32ed908d57a17b8e6fed12b11729f">severityLevelFromString</a> (const std::string &amp;level)</td></tr>
-<tr class="memdesc:af3b32ed908d57a17b8e6fed12b11729f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get SeverityLevel associated to a string.  <a href="#af3b32ed908d57a17b8e6fed12b11729f">More...</a><br /></td></tr>
-<tr class="separator:af3b32ed908d57a17b8e6fed12b11729f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af47b277a2efdd794a442b758f0f52b92"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#af47b277a2efdd794a442b758f0f52b92">stringFromSeverityLevel</a> (<a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> level)</td></tr>
-<tr class="memdesc:af47b277a2efdd794a442b758f0f52b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get string representation of a severity level.  <a href="#af47b277a2efdd794a442b758f0f52b92">More...</a><br /></td></tr>
-<tr class="separator:af47b277a2efdd794a442b758f0f52b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2b286a8d73821c19afa910857de6fc0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#ac2b286a8d73821c19afa910857de6fc0">debug</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:ac2b286a8d73821c19afa910857de6fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get debug severity level stream.  <a href="#ac2b286a8d73821c19afa910857de6fc0">More...</a><br /></td></tr>
-<tr class="separator:ac2b286a8d73821c19afa910857de6fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a52c38e4b1900200dc8d044e44bdb6e7b">info</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get info severity level stream.  <a href="#a52c38e4b1900200dc8d044e44bdb6e7b">More...</a><br /></td></tr>
-<tr class="separator:a52c38e4b1900200dc8d044e44bdb6e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#aed71ecb5071fd4ad758cb4a11afe90d0">warn</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get warning severity level stream.  <a href="#aed71ecb5071fd4ad758cb4a11afe90d0">More...</a><br /></td></tr>
-<tr class="separator:aed71ecb5071fd4ad758cb4a11afe90d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8622cc7364876bbbaabe38021fca2ff5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a8622cc7364876bbbaabe38021fca2ff5">error</a> (const std::string &amp;tag=&quot;&quot;)</td></tr>
-<tr class="memdesc:a8622cc7364876bbbaabe38021fca2ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get error severity level stream.  <a href="#a8622cc7364876bbbaabe38021fca2ff5">More...</a><br /></td></tr>
-<tr class="separator:a8622cc7364876bbbaabe38021fca2ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a341e9509c5448c5ba113cefc68b9b2b9"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a341e9509c5448c5ba113cefc68b9b2b9">network</a> ()</td></tr>
-<tr class="memdesc:a341e9509c5448c5ba113cefc68b9b2b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network identifier.  <a href="#a341e9509c5448c5ba113cefc68b9b2b9">More...</a><br /></td></tr>
-<tr class="separator:a341e9509c5448c5ba113cefc68b9b2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d65c604c5c6cbf5617b38f0b4b97ddd"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a5d65c604c5c6cbf5617b38f0b4b97ddd">equations</a> ()</td></tr>
-<tr class="memdesc:a5d65c604c5c6cbf5617b38f0b4b97ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get equations identifier.  <a href="#a5d65c604c5c6cbf5617b38f0b4b97ddd">More...</a><br /></td></tr>
-<tr class="separator:a5d65c604c5c6cbf5617b38f0b4b97ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad09d54f3f5449472ac0d5fa4df242ff2"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#ad09d54f3f5449472ac0d5fa4df242ff2">variables</a> ()</td></tr>
-<tr class="memdesc:ad09d54f3f5449472ac0d5fa4df242ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get variables identifier.  <a href="#ad09d54f3f5449472ac0d5fa4df242ff2">More...</a><br /></td></tr>
-<tr class="separator:ad09d54f3f5449472ac0d5fa4df242ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a895437987b11c322e386a71db0276ff1"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a895437987b11c322e386a71db0276ff1">parameters</a> ()</td></tr>
-<tr class="memdesc:a895437987b11c322e386a71db0276ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get parameters identifier.  <a href="#a895437987b11c322e386a71db0276ff1">More...</a><br /></td></tr>
-<tr class="separator:a895437987b11c322e386a71db0276ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90ce0bedf47a172a020ded5230213215"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a90ce0bedf47a172a020ded5230213215">compile</a> ()</td></tr>
-<tr class="memdesc:a90ce0bedf47a172a020ded5230213215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get compile identifier.  <a href="#a90ce0bedf47a172a020ded5230213215">More...</a><br /></td></tr>
-<tr class="separator:a90ce0bedf47a172a020ded5230213215"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dc793e91044d1105e542dbef99554fc"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a2dc793e91044d1105e542dbef99554fc">modeler</a> ()</td></tr>
-<tr class="memdesc:a2dc793e91044d1105e542dbef99554fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get modeler identifier.  <a href="#a2dc793e91044d1105e542dbef99554fc">More...</a><br /></td></tr>
-<tr class="separator:a2dc793e91044d1105e542dbef99554fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a095fbe7be6e7a689d79d776257dcb643"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a095fbe7be6e7a689d79d776257dcb643">solver</a> ()</td></tr>
-<tr class="memdesc:a095fbe7be6e7a689d79d776257dcb643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get solver identifier.  <a href="#a095fbe7be6e7a689d79d776257dcb643">More...</a><br /></td></tr>
-<tr class="separator:a095fbe7be6e7a689d79d776257dcb643"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73030d1e0ff4f63f34867c229263d85f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a73030d1e0ff4f63f34867c229263d85f">endline</a> (<a class="el" href="../../dd/deb/a02766.html">TraceStream</a> &amp;os)</td></tr>
-<tr class="memdesc:a73030d1e0ff4f63f34867c229263d85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print end of line in trace.  <a href="#a73030d1e0ff4f63f34867c229263d85f">More...</a><br /></td></tr>
-<tr class="separator:a73030d1e0ff4f63f34867c229263d85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54921ad88a19128556e6698d859ab21e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a54921ad88a19128556e6698d859ab21e">logExists</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a54921ad88a19128556e6698d859ab21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">test if a log exists  <a href="#a54921ad88a19128556e6698d859ab21e">More...</a><br /></td></tr>
-<tr class="separator:a54921ad88a19128556e6698d859ab21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a461adbbeb40c6d19199e168e6a3e7a14"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a461adbbeb40c6d19199e168e6a3e7a14">standardLogExists</a> (<a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a461adbbeb40c6d19199e168e6a3e7a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a standard log exists.  <a href="#a461adbbeb40c6d19199e168e6a3e7a14">More...</a><br /></td></tr>
-<tr class="separator:a461adbbeb40c6d19199e168e6a3e7a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a5dc8eeed52390a75e42b6bf5c69deb1d">printDynawoLogHeader</a> (const std::string &amp;tag)</td></tr>
-<tr class="memdesc:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print Dynawo log header in the log file corresponding to input tag.  <a href="#a5dc8eeed52390a75e42b6bf5c69deb1d">More...</a><br /></td></tr>
-<tr class="separator:a5dc8eeed52390a75e42b6bf5c69deb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a709a2d09fed3d64a437ac19265ba7c82"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a709a2d09fed3d64a437ac19265ba7c82">clearLogFile</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a709a2d09fed3d64a437ac19265ba7c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a709a2d09fed3d64a437ac19265ba7c82">More...</a><br /></td></tr>
-<tr class="separator:a709a2d09fed3d64a437ac19265ba7c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a7864c4cc32f90dedd4dc6bc7ed00f919">init_</a> ()</td></tr>
-<tr class="memdesc:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init function.  <a href="#a7864c4cc32f90dedd4dc6bc7ed00f919">More...</a><br /></td></tr>
-<tr class="separator:a7864c4cc32f90dedd4dc6bc7ed00f919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a453ef21746e95eba6d0709596f261dd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a453ef21746e95eba6d0709596f261dd5">clearAndAddAppenders_</a> (const std::vector&lt; <a class="el" href="../../de/d8e/a02762.html">TraceAppender</a> &gt; &amp;appenders)</td></tr>
-<tr class="memdesc:a453ef21746e95eba6d0709596f261dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add custom appenders to trace system.  <a href="#a453ef21746e95eba6d0709596f261dd5">More...</a><br /></td></tr>
-<tr class="separator:a453ef21746e95eba6d0709596f261dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a439cfe7a22ca398d54d9f93d7122ca31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a439cfe7a22ca398d54d9f93d7122ca31">configureSink</a> (const std::vector&lt; <a class="el" href="../../de/d8e/a02762.html">TraceAppender</a> &gt; &amp;appenders, bool eraseSinks)</td></tr>
-<tr class="memdesc:a439cfe7a22ca398d54d9f93d7122ca31"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure a sink to add it to the logging core singleton  <a href="#a439cfe7a22ca398d54d9f93d7122ca31">More...</a><br /></td></tr>
-<tr class="separator:a439cfe7a22ca398d54d9f93d7122ca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc3fe327a69bdfd37672ab9d5626af41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#afc3fe327a69bdfd37672ab9d5626af41">resetCustomAppenders_</a> ()</td></tr>
-<tr class="memdesc:afc3fe327a69bdfd37672ab9d5626af41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset non-persistent custom appenders of trace system.  <a href="#afc3fe327a69bdfd37672ab9d5626af41">More...</a><br /></td></tr>
-<tr class="separator:afc3fe327a69bdfd37672ab9d5626af41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a8bccbd6d9b48a016c34cfebe73d0db9a">resetCustomAppender_</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific non-persistent custom appender of trace system.  <a href="#a8bccbd6d9b48a016c34cfebe73d0db9a">More...</a><br /></td></tr>
-<tr class="separator:a8bccbd6d9b48a016c34cfebe73d0db9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a935f9eaefff49d3e4922f93882a5b973"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a935f9eaefff49d3e4922f93882a5b973">resetPersistentCustomAppenders_</a> ()</td></tr>
-<tr class="memdesc:a935f9eaefff49d3e4922f93882a5b973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset persistent custom appenders of trace system.  <a href="#a935f9eaefff49d3e4922f93882a5b973">More...</a><br /></td></tr>
-<tr class="separator:a935f9eaefff49d3e4922f93882a5b973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b31bd1980c016db75e45913c1f7b4cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a3b31bd1980c016db75e45913c1f7b4cb">resetPersistentCustomAppender_</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a3b31bd1980c016db75e45913c1f7b4cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a specific persistent custom appenders of trace system.  <a href="#a3b31bd1980c016db75e45913c1f7b4cb">More...</a><br /></td></tr>
-<tr class="separator:a3b31bd1980c016db75e45913c1f7b4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c21220bde51642160d957c4b0cc98dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a9c21220bde51642160d957c4b0cc98dc">logExists_</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a9c21220bde51642160d957c4b0cc98dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">test if a log exists  <a href="#a9c21220bde51642160d957c4b0cc98dc">More...</a><br /></td></tr>
-<tr class="separator:a9c21220bde51642160d957c4b0cc98dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73e79e893ac9c7738748237f3aaee341"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a73e79e893ac9c7738748237f3aaee341">log_</a> (<a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv, const std::string &amp;tag, const std::string &amp;message)</td></tr>
-<tr class="memdesc:a73e79e893ac9c7738748237f3aaee341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a log to logging core.  <a href="#a73e79e893ac9c7738748237f3aaee341">More...</a><br /></td></tr>
-<tr class="separator:a73e79e893ac9c7738748237f3aaee341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34a846264cffadc0debbcf69a6f11885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a34a846264cffadc0debbcf69a6f11885">clearLogFile_</a> (const std::string &amp;tag, <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv)</td></tr>
-<tr class="memdesc:a34a846264cffadc0debbcf69a6f11885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the content of the log file related to a specific tag.  <a href="#a34a846264cffadc0debbcf69a6f11885">More...</a><br /></td></tr>
-<tr class="separator:a34a846264cffadc0debbcf69a6f11885"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a0188db446e78ff2ae7cba793ecb7ef50"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/da5/a02746.html">Trace</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a0188db446e78ff2ae7cba793ecb7ef50">instance</a> ()</td></tr>
-<tr class="memdesc:a0188db446e78ff2ae7cba793ecb7ef50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves static instance.  <a href="#a0188db446e78ff2ae7cba793ecb7ef50">More...</a><br /></td></tr>
-<tr class="separator:a0188db446e78ff2ae7cba793ecb7ef50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fd36125a1d3cf7d6ef897786cbe6191"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a0fd36125a1d3cf7d6ef897786cbe6191">log</a> (<a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> slv, const std::string &amp;tag, const std::string &amp;message)</td></tr>
-<tr class="memdesc:a0fd36125a1d3cf7d6ef897786cbe6191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a log to logging core.  <a href="#a0fd36125a1d3cf7d6ef897786cbe6191">More...</a><br /></td></tr>
-<tr class="separator:a0fd36125a1d3cf7d6ef897786cbe6191"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a46b645a509df6446195a38e250e5c74c"><td class="memItemLeft" align="right" valign="top"><a id="a46b645a509df6446195a38e250e5c74c"></a>
-std::unordered_multimap&lt; <a class="el" href="../../d4/da5/a02746.html#aafd2f7abce58ba76c46e7de79b45d7b7">TagAndSeverityLevel</a>, <a class="el" href="../../de/d8e/a02762.html">TraceAppender</a>, <a class="el" href="../../d7/d14/a02750.html">TagAndSeverityLevelHash</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a46b645a509df6446195a38e250e5c74c">traceAppenders_</a></td></tr>
-<tr class="memdesc:a46b645a509df6446195a38e250e5c74c"><td class="mdescLeft">&#160;</td><td class="mdescRight">multimap each appender tag to its corresponding boost sink configuration <br /></td></tr>
-<tr class="separator:a46b645a509df6446195a38e250e5c74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="memItemLeft" align="right" valign="top"><a id="ad57e6aaa172f3f4e73dd445a7c22c260"></a>
-std::unordered_map&lt; boost::log::attributes::current_thread_id::value_type, <a class="el" href="../../d2/d83/a02754.html">TraceSinks</a>, <a class="el" href="../../d2/d93/a02758.html">Hasher</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#ad57e6aaa172f3f4e73dd445a7c22c260">sinks_</a></td></tr>
-<tr class="memdesc:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="mdescLeft">&#160;</td><td class="mdescRight">thread specific sinks <br /></td></tr>
-<tr class="separator:ad57e6aaa172f3f4e73dd445a7c22c260"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52b7b9674e794dda747107167ade0bce"><td class="memItemLeft" align="right" valign="top"><a id="a52b7b9674e794dda747107167ade0bce"></a>
-std::vector&lt; boost::shared_ptr&lt; <a class="el" href="../../d4/da5/a02746.html#a2e22b115025b40573e1d70adb147f303">Trace::TextSink</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a52b7b9674e794dda747107167ade0bce">originalSinks_</a></td></tr>
-<tr class="memdesc:a52b7b9674e794dda747107167ade0bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original sinks. <br /></td></tr>
-<tr class="separator:a52b7b9674e794dda747107167ade0bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27895ae6af1a3ea7783d450d0b4f9457"><td class="memItemLeft" align="right" valign="top"><a id="a27895ae6af1a3ea7783d450d0b4f9457"></a>
-boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a27895ae6af1a3ea7783d450d0b4f9457">mutex_</a></td></tr>
-<tr class="memdesc:a27895ae6af1a3ea7783d450d0b4f9457"><td class="mdescLeft">&#160;</td><td class="mdescRight">mutex to synchronize logs at init <br /></td></tr>
-<tr class="separator:a27895ae6af1a3ea7783d450d0b4f9457"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a375085fe7a8227699b8adf965404e365"><td class="memItemLeft" align="right" valign="top"><a id="a375085fe7a8227699b8adf965404e365"></a>
-static const <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da5/a02746.html#a375085fe7a8227699b8adf965404e365">defaultLevel_</a></td></tr>
-<tr class="memdesc:a375085fe7a8227699b8adf965404e365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default log level for standard output. <br /></td></tr>
-<tr class="separator:a375085fe7a8227699b8adf965404e365"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d4/da5/a02746.html" title="Trace static class. ">Trace</a> static class. </p>
-<p><a class="el" href="../../d4/da5/a02746.html" title="Trace static class. ">Trace</a> static class is used to generate log files and configure them. It is also the only interface for logging streams in Dynawo.<br />
-Traces generated before any call to <code><a class="el" href="../../d4/da5/a02746.html#aeb4d1e4c93e960d1e3f7fcdf69c8de7b" title="Init function. ">init()</a></code> static function are ignored. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a632d5d8ddfe05fb0c4a75cdf98267995"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a632d5d8ddfe05fb0c4a75cdf98267995">&#9670;&nbsp;</a></span>clearAndAddAppenders()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::clearAndAddAppenders </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../de/d8e/a02762.html">TraceAppender</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>appenders</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add custom appenders to trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">appenders</td><td>: Appenders to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a453ef21746e95eba6d0709596f261dd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a453ef21746e95eba6d0709596f261dd5">&#9670;&nbsp;</a></span>clearAndAddAppenders_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::clearAndAddAppenders_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../de/d8e/a02762.html">TraceAppender</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>appenders</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add custom appenders to trace system. </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">appenders</td><td>: Appenders to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a709a2d09fed3d64a437ac19265ba7c82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a709a2d09fed3d64a437ac19265ba7c82">&#9670;&nbsp;</a></span>clearLogFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::clearLogFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Clear the content of the log file related to a specific tag. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>the tag related to the log file to clear </td></tr>
-    <tr><td class="paramname">slv</td><td>severity level </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a34a846264cffadc0debbcf69a6f11885"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34a846264cffadc0debbcf69a6f11885">&#9670;&nbsp;</a></span>clearLogFile_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::clearLogFile_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Clear the content of the log file related to a specific tag. </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>the tag related to the log file to clear </td></tr>
-    <tr><td class="paramname">slv</td><td>severity level </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a90ce0bedf47a172a020ded5230213215"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90ce0bedf47a172a020ded5230213215">&#9670;&nbsp;</a></span>compile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::compile </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get compile identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>compile identifier </dd></dl>
-
-</div>
-</div>
-<a id="a439cfe7a22ca398d54d9f93d7122ca31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a439cfe7a22ca398d54d9f93d7122ca31">&#9670;&nbsp;</a></span>configureSink()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::configureSink </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../de/d8e/a02762.html">TraceAppender</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>appenders</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>eraseSinks</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>configure a sink to add it to the logging core singleton </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">appenders</td><td>appenders containing the data to configure the sink </td></tr>
-    <tr><td class="paramname">eraseSinks</td><td>erase non-persistent sinks </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac2b286a8d73821c19afa910857de6fc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2b286a8d73821c19afa910857de6fc0">&#9670;&nbsp;</a></span>debug()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a> DYN::Trace::debug </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get debug severity level stream. </p>
-<p>Get a debug severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d4/da5/a02746.html#ac2b286a8d73821c19afa910857de6fc0">Trace::debug</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d4/da5/a02746.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../dd/deb/a02766.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<a id="a66640be8ccf953a4aaa3b4856ebdc99a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66640be8ccf953a4aaa3b4856ebdc99a">&#9670;&nbsp;</a></span>disableLogging()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::disableLogging </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Disable logging. </p>
-<p>When no log file is needed, disable logging which is showed in console. </p>
-
-</div>
-</div>
-<a id="a6ead755599c78d30183ac714e6bbf07b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ead755599c78d30183ac714e6bbf07b">&#9670;&nbsp;</a></span>enableLogging()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::enableLogging </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Enable logging. </p>
-<p>Enable logging </p>
-
-</div>
-</div>
-<a id="a73030d1e0ff4f63f34867c229263d85f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73030d1e0ff4f63f34867c229263d85f">&#9670;&nbsp;</a></span>endline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a>&amp; DYN::Trace::endline </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/deb/a02766.html">TraceStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>os</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Print end of line in trace. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">os</td><td>: <a class="el" href="../../d4/da5/a02746.html" title="Trace static class. ">Trace</a> to add end of line. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="../../dd/deb/a02766.html" title="Trace stream class. ">TraceStream</a> with the end of line added.End of line function for stream-like logging </dd></dl>
-
-</div>
-</div>
-<a id="a5d65c604c5c6cbf5617b38f0b4b97ddd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d65c604c5c6cbf5617b38f0b4b97ddd">&#9670;&nbsp;</a></span>equations()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::equations </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get equations identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>equations identifier </dd></dl>
-
-</div>
-</div>
-<a id="a8622cc7364876bbbaabe38021fca2ff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8622cc7364876bbbaabe38021fca2ff5">&#9670;&nbsp;</a></span>error()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a> DYN::Trace::error </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get error severity level stream. </p>
-<p>Get an error severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d4/da5/a02746.html#a8622cc7364876bbbaabe38021fca2ff5">Trace::error</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d4/da5/a02746.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../dd/deb/a02766.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<a id="a52c38e4b1900200dc8d044e44bdb6e7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52c38e4b1900200dc8d044e44bdb6e7b">&#9670;&nbsp;</a></span>info()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a> DYN::Trace::info </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get info severity level stream. </p>
-<p>Get an info severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d4/da5/a02746.html#a52c38e4b1900200dc8d044e44bdb6e7b">Trace::info</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d4/da5/a02746.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../dd/deb/a02766.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<a id="aeb4d1e4c93e960d1e3f7fcdf69c8de7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb4d1e4c93e960d1e3f7fcdf69c8de7b">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::init </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Init function. </p>
-<p>Configure the appenders/sinks. Traces generated before any call to this function are ignored. </p>
-
-</div>
-</div>
-<a id="a7864c4cc32f90dedd4dc6bc7ed00f919"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7864c4cc32f90dedd4dc6bc7ed00f919">&#9670;&nbsp;</a></span>init_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::init_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Init function. </p>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="a0188db446e78ff2ae7cba793ecb7ef50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0188db446e78ff2ae7cba793ecb7ef50">&#9670;&nbsp;</a></span>instance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../d4/da5/a02746.html">Trace</a>&amp; DYN::Trace::instance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Retrieves static instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>static instance </dd></dl>
-
-</div>
-</div>
-<a id="a53362ff6bec8ecfccaa5c65237dacc9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53362ff6bec8ecfccaa5c65237dacc9d">&#9670;&nbsp;</a></span>isLoggingEnabled()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool DYN::Trace::isLoggingEnabled </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determines if logging is enabled. </p>
-<dl class="section return"><dt>Returns</dt><dd>whether the logging is currently enabled </dd></dl>
-
-</div>
-</div>
-<a id="a0fd36125a1d3cf7d6ef897786cbe6191"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fd36125a1d3cf7d6ef897786cbe6191">&#9670;&nbsp;</a></span>log()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::log </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add a log to logging core. </p>
-<p>Add a message of given severity level with a given tag to the logging core. If tag=="" , no tag is added the log. The logging core get all the messages and each sink get info from the core that a log has arrived and is responsible for filtering. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slv</td><td>: Severity level of the log. </td></tr>
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">message</td><td>: <a class="el" href="../../d9/d6c/a02710.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> to log. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a73e79e893ac9c7738748237f3aaee341"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73e79e893ac9c7738748237f3aaee341">&#9670;&nbsp;</a></span>log_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::log_ </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add a log to logging core. </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slv</td><td>: Severity level of the log. </td></tr>
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">message</td><td>: <a class="el" href="../../d9/d6c/a02710.html" title="Message are used to access to dictionnary log where log are described with the boost::format conventi...">Message</a> to log. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a54921ad88a19128556e6698d859ab21e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54921ad88a19128556e6698d859ab21e">&#9670;&nbsp;</a></span>logExists()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool DYN::Trace::logExists </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>test if a log exists </p>
-<p>This tests only the file logs</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if this log with this level exists </dd></dl>
-
-</div>
-</div>
-<a id="a9c21220bde51642160d957c4b0cc98dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c21220bde51642160d957c4b0cc98dc">&#9670;&nbsp;</a></span>logExists_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DYN::Trace::logExists_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>test if a log exists </p>
-<p>Implementation of static function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if this log with this level exists </dd></dl>
-
-</div>
-</div>
-<a id="a2dc793e91044d1105e542dbef99554fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dc793e91044d1105e542dbef99554fc">&#9670;&nbsp;</a></span>modeler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::modeler </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get modeler identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>modeler identifier </dd></dl>
-
-</div>
-</div>
-<a id="a341e9509c5448c5ba113cefc68b9b2b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a341e9509c5448c5ba113cefc68b9b2b9">&#9670;&nbsp;</a></span>network()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::network </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get network identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>network identifier </dd></dl>
-
-</div>
-</div>
-<a id="a895437987b11c322e386a71db0276ff1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a895437987b11c322e386a71db0276ff1">&#9670;&nbsp;</a></span>parameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::parameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get parameters identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>parameters identifier </dd></dl>
-
-</div>
-</div>
-<a id="a5dc8eeed52390a75e42b6bf5c69deb1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc8eeed52390a75e42b6bf5c69deb1d">&#9670;&nbsp;</a></span>printDynawoLogHeader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::printDynawoLogHeader </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Print Dynawo log header in the log file corresponding to input tag. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>tag to print the Dynawo log header in the right log file </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a76de36fc84be513d3d2cb02daa313995"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76de36fc84be513d3d2cb02daa313995">&#9670;&nbsp;</a></span>resetCustomAppender()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::resetCustomAppender </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific non-persistent custom appender of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8bccbd6d9b48a016c34cfebe73d0db9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bccbd6d9b48a016c34cfebe73d0db9a">&#9670;&nbsp;</a></span>resetCustomAppender_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetCustomAppender_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific non-persistent custom appender of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="afc3fe327a69bdfd37672ab9d5626af41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc3fe327a69bdfd37672ab9d5626af41">&#9670;&nbsp;</a></span>resetCustomAppenders_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetCustomAppenders_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset non-persistent custom appenders of trace system. </p>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="ab96ee04bf35308dc28a8f00f2b8fd035"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab96ee04bf35308dc28a8f00f2b8fd035">&#9670;&nbsp;</a></span>resetPersistentCustomAppender()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void DYN::Trace::resetPersistentCustomAppender </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific persistent custom appenders of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3b31bd1980c016db75e45913c1f7b4cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b31bd1980c016db75e45913c1f7b4cb">&#9670;&nbsp;</a></span>resetPersistentCustomAppender_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetPersistentCustomAppender_ </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset a specific persistent custom appenders of trace system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-    <tr><td class="paramname">slv</td><td>: Severity level.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="a935f9eaefff49d3e4922f93882a5b973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a935f9eaefff49d3e4922f93882a5b973">&#9670;&nbsp;</a></span>resetPersistentCustomAppenders_()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DYN::Trace::resetPersistentCustomAppenders_ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reset persistent custom appenders of trace system. </p>
-<p>Implementation of static function </p>
-
-</div>
-</div>
-<a id="af3b32ed908d57a17b8e6fed12b11729f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b32ed908d57a17b8e6fed12b11729f">&#9670;&nbsp;</a></span>severityLevelFromString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a> DYN::Trace::severityLevelFromString </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>level</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get SeverityLevel associated to a string. </p>
-<dl class="section note"><dt>Note</dt><dd>Must be accorded to <code>SeverityLevel</code> enum in <code><a class="el" href="../../dd/d5c/a00578.html" title="Trace stream header. ">DYNTraceStream.h</a></code>. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">General</td><td>exception if the string has not been given any equivalent SeverityLevel representation in the method. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">level</td><td>: String to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Severity level representation of the string. </dd></dl>
-
-</div>
-</div>
-<a id="a095fbe7be6e7a689d79d776257dcb643"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a095fbe7be6e7a689d79d776257dcb643">&#9670;&nbsp;</a></span>solver()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::solver </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get solver identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>solver identifier </dd></dl>
-
-</div>
-</div>
-<a id="a461adbbeb40c6d19199e168e6a3e7a14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a461adbbeb40c6d19199e168e6a3e7a14">&#9670;&nbsp;</a></span>standardLogExists()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool DYN::Trace::standardLogExists </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>slv</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Test if a standard log exists. </p>
-<p>This test the level of the standard output log</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slv</td><td>: Severity level </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whether the standard log accepts the log level </dd></dl>
-
-</div>
-</div>
-<a id="af47b277a2efdd794a442b758f0f52b92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af47b277a2efdd794a442b758f0f52b92">&#9670;&nbsp;</a></span>stringFromSeverityLevel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::stringFromSeverityLevel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794">SeverityLevel</a>&#160;</td>
-          <td class="paramname"><em>level</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get string representation of a severity level. </p>
-<dl class="section note"><dt>Note</dt><dd>Must be accorded to <code>SeverityLevel</code> enum in <code><a class="el" href="../../dd/d5c/a00578.html" title="Trace stream header. ">DYNTraceStream.h</a></code>. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">General</td><td>exception if the SeverityLevel has not been given any equivalent string representation in the method. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">level</td><td>: Severity level to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>String representation of the severity level. </dd></dl>
-
-</div>
-</div>
-<a id="ad09d54f3f5449472ac0d5fa4df242ff2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad09d54f3f5449472ac0d5fa4df242ff2">&#9670;&nbsp;</a></span>variables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::string DYN::Trace::variables </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get variables identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>variables identifier </dd></dl>
-
-</div>
-</div>
-<a id="aed71ecb5071fd4ad758cb4a11afe90d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed71ecb5071fd4ad758cb4a11afe90d0">&#9670;&nbsp;</a></span>warn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="../../dd/deb/a02766.html">TraceStream</a> DYN::Trace::warn </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em> = <code>&quot;&quot;</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get warning severity level stream. </p>
-<p>Get a warning severity level stream for logging. </p><div class="fragment"><div class="line"><a class="code" href="../../d4/da5/a02746.html#aed71ecb5071fd4ad758cb4a11afe90d0">Trace::warn</a>(<span class="stringliteral">&quot;MyTag&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Hello world!&quot;</span> &lt;&lt; <a class="code" href="../../d4/da5/a02746.html#a73030d1e0ff4f63f34867c229263d85f">Trace::endline</a>; </div></div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>: Tag added to the log, can be used as a filter in logging sinks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="../../dd/deb/a02766.html" title="Trace stream class. ">TraceStream</a> that can be used for stream-like logging. </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d9/d42/a00575_source.html">DYNTrace.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab3f1c6eb37197699d3b9f547a30effd2">ActivatePMAX</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a1579797f7625ad0a60b4cf886cc6d876">ActivatePMIN</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab461400856b8780d7edcd8d74a6ef813">BusAboveVoltage</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a2e6f22970e928f3abb63222a4190c477">BusUnderVoltage</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aa13d5bc6933e1049adc7b1d62d80ced7">ComponentConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a67470943016a43b5589cdf9f160aaf5b">ComponentDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a765b55227c72c0eb62100df936ef4d57">Converter1Connected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a7a995a5c89b5962a22ba5fd91098c2ab">Converter1SwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae1c84fe523d7091983fd078d253b99a8">Converter2Connected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac9f4f1d6256816e3433eba763ea67cf4">Converter2SwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a8d8a274668d885aca5ebf5afe43cef06">CriteriaNotChecked</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae4c4aee0637aa65c82d77fdb29de427a">CSSCSectionDown</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a215d23dcbaa9c0e2bc184097f2e7a60a">CSSCSectionUp</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae3d08d13f854cf9161c86b85a95cf6f5">CurrentLimitAutomatonActing</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ace09a47a4b4f6525a14fd74dd50b08a4">CurrentLimitAutomatonArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a0844976df2e04d8cea9f4f51faa85f60">CurrentLimitAutomatonDisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a1dc6640ee39174c2a10cd83712f155e8">DanglingLineConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ad4114d120487b348737a61e0cdb05877">DanglingLineDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9a79483159374b886fe734df53b0920e">DCLineClosed</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a821c9d4e4ebd75bbe860f2b55f3bcc60">DCLineOpen</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9d013be961b3e64fcee133aa2ef569e5">DeactivatePMAX</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a65ceb795544a09aadbff2e8e4e78ad29">DeactivatePMIN</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a5474880034909113738914a5745db91b">DistanceTrippedZone1</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51af781c6cef3ebcec2a37700777d304b84">DistanceTrippedZone2</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aa08811d6a3a5a7d8dfee5c48a0f54df8">DistanceTrippedZone3</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae8aa2bfb8141b5c7acf21a2cc1d5de30">DistanceTrippedZone4</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a13368a8492f9c5a77269f51b981998c8">GeneratorBackRegulation</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a5d6cad41dbea493b5aca85d605475ec6">GeneratorConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a3a0e6991039d651d8521c13a5fc4b8d1">GeneratorDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a64272409b677bf50b6c89e07a43b0664">GeneratorMaxQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a5a43176d1f4f3797734b419987ec2b4a">GeneratorMinQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a234baad12723f70078a399cf77464f3a">GeneratorPTanPhiBackRegulation</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a1af8a8bd306239d0ad92946cfac12e25">GeneratorPTanPhiMaxQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a17e3b970947614104f0cf14655640857">GeneratorPTanPhiMinQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a7c8de55d0af0b3a08c8df2c6a6ecd017">GeneratorPVBackRegulation</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a8f271b026e16a35459bcff204ca74704">GeneratorPVMaxQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51acb415dec0c0a64de8a5de9c02b7c4789">GeneratorPVMinQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a411f13efdbb55d9b1b10bab7a03bbb8b">GeneratorTargetP</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a453a5ec05bc1232489288788acd46892">GeneratorTargetQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ad34756ceaf42c94ce0a0c03d1b684dbf">HVDC1BackRegulation</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae5b49ace6446f633ca7a38a044bc5205">HVDC1MaxQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a3e81ff1d113af1b60338afd71e9efbaf">HVDC1MinQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a97c1a2625ecc15baf9c7f6bd316bcc6b">HVDC2BackRegulation</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a0c99e8adc75b88ed07509a603bae602c">HVDC2MaxQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac68920880a247c39b595c7432667b1ae">HVDC2MinQ</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aada8137fa26abed373c7b569dfc5caee">HVDCDeactivateMaxP</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a069ff507c1d542d699b69144c7740977">HVDCMaxP</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a3eb6863a0c8bfcae3bb5024fb2aa5341">HVRTArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae9b7ebdbf664fb4d1472b352a6e4429c">HVRTDisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae1a29783c780cc48781a8b0d4c4b80ec">HVRTTripped</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a0214c3ffef8d14ee1bb207628f598b4e">IdealSwitchSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a24c3a2fc17faaf353968b9f5b48d54ed">IdealSwitchSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a7f34cdcea64bf93fc81d4ef855b83ee0">IECProtectionFOver</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a20286094bd4421efba3334c199d5d46e">IECProtectionFUnder</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a84d198e74deff78ff18b7ae21bf9a287">IECProtectionUOver</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a062f7dd6922af254ed65a68e73dc52fb">IECProtectionUUnder</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a666dc0cc868df38796914b69e5db5d6a">LineClosed</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae0d0530ea85e655fbfa7ef26ad8cefa3">LineCloseSide1</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab2271db3f882e2d88abf1907e00613bc">LineCloseSide2</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a5351c24bef5173525752620bc0ffa3cf">LineFaultBegin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a60dd43aef23e2fe6e8d37e6731c84603">LineFaultEnd</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51af7cf49c4424f243d19b37f8701b07129">LineOpen</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a62e352e003b47bde603f47a67c90cb05">LineOpenSide1</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab7397233af0d0c9c087c966476f888ae">LineOpenSide2</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a78d43eb97bfa40865cf8b078474402cc">LoadConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aba04cce06792478f58b5df0198d61665">LoadDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a42b407251eb7bc6ec169d7d9ab8de263">LoadModificationEnded</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ad7dc5766568463c4481ee0c717416700">LoadModificationStarted</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51af2902c07598ca7b236751c7e772011fe">LoadSheddingStarted</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab67a91a099dd6459070c531b71d7461a">LoadSheddingStartedAndDisplay</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aee2123433fb9bba01e9ebbccf1f6442f">LossOfSynchronismArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a1897e924f649a9b16d7a7120f28c7ab5">LossOfSynchronismTripped</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a1c584d9a4254e1b8c4c0f811c3f7043d">LOVRClosingTriggered</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a5a22d4beebd44cd2097c17cf1c684925">LOVROpeningTriggered</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a8e696c5be2fd733df9c4955b5e19004f">LVRTArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a366d917547ab8d5cc142b43ac8cf8955">LVRTDisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51acc7cd801ae7a32a3b8a7c54f2b3d2ce6">LVRTTripped</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a463bea4df40d76b6898128a11681ed78">MotorConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4ba7ed7f06f930ca42a3d21b88ee366d">MotorDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#ade477154931168ba7597483389ec6f46">names</a>(const value &amp;)</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ad1d263de7b652318c13c1e7007ad3e1e">NodeFaultBegin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab6473944acee9fdf27b7cd42027f1148">NodeFaultEnd</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aee4da1fedf4d5bc8d4aab248a9b90eee">NodeOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51afa5978f40c543f97b4a18c66432b09a3">NodeOn</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a63eea61144c79d4f11729751c9a2fed3">OVAArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a2ffa5b4f447af4b326d83958ec312ed9">OVADisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a04de16ed8f89f522544e39192dd0a02f">OVATripped</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9e0880a15a9d514527d4ca4d6aca54d3">OverloadDown</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9203de8257815209867fec64107958e2">OverloadOpen</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4510b3c286998a642043079addf09816">OverloadUp</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4330c11a320844d39bd59817a9e6885d">OverspeedArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a33217d118fc9c76e899a48459b53bfc4">OverspeedDisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae445a58ad05cbddc6660dd0491416455">OverspeedTripped</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aab884d2119c68d4534682ae770bf9225">PartialTripping</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab3c092523d4e89267232ca79d313f0c2">PhaseShifterAboveMax</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac2ee7d1fcae1501fcc627a4689d0fe5d">PhaseShifterBelowMax</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a23a5a4f5abdce71ab7942d44547bf676">PhaseShifterBelowMin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9473dbe04920f629517f61f5191ddfb9">PhaseShifterBelowStop</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51afa20dc128e4eb2e076df572b93df67dc">PhaseShifterBlockingIActing</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a6c96c62777454c82411b9916d52fa9e9">PhaseShifterBlockingIArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac598f1b593ad408d10fb3a1c4fe5d20d">PhaseShifterBlockingIDisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a911606f782cf22760ed2539aee3507f9">PhaseShifterSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ada5228a03ef90778c3e8e530e75aaf76">PhaseShifterSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a2de466369f4a0e9b3fa7130b2cc8a709">PhaseShifterWithinInterval</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae8099983ce6dcd1a5bb33fa2c2e1d449">ProtectionConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a79f195c40a709c17a20fa00a97f2053c">ProtectionDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51acbde4c8b229af37c6008b861c369e0bf">QuadripoleAboveCurrent</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aa8e49980a299227fc790e05f9e06ffce">RPCLLimitationUsRefMax</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a90d72eee1e864067690a0b30f9c4d179">RPCLLimitationUsRefMin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4a121a1006386048f70f9b5d284dd994">RPCLStandard</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a5ee60227c27ff835a3362e015294ee2b">ShuntConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a218a42b06329e134a89d858c771c5ad8">ShuntDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ad41d8284e306f6b20857de712a647423">SignalReceived</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a434a775b0d6219c646603fb6ac934a74">SourceAbovePower</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a8a1802e407de4253dc717e611b3e7210">SourcePowerAboveMax</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4d98b4aa28cda15d413012c789713a3e">SourcePowerBelowMin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae71739723693f6f72565746fabeb9213">SourcePowerTakenIntoAccount</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a61db229b547c8da5c12d11d68dbe6734">SourceUnderPower</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a15e5b7eeeeeaed91398cdcb753c87d9d">SVarCBackRegulation</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a6e2866986983dee4f8f78d39905d641c">SVarCConnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a716a8444398751f87d4ce2d562a227f0">SVarCDisconnected</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a14a3a8673767d695e5f26154a88b005f">SVarCMaxB</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a70cfb9da77c6d4bea8629483d18fe36c">SVarCMinB</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab95912325f7a0a84353d49b50ed4c50a">SVarCOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a226d86c2b436122224400a1c58ea96fa">SVarCRunning</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab0b01b86477c3c833f359c8b2fc9a3ad">SVarCStandby</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a8ea81dd8b3514edbbae1e39f2e9644d9">SVarCUmaxreached</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab3273b1327c15e8022806beb4b05c547">SVarCUminreached</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a112f0d7f24c8a9c4065b89d719aaf841">SVRLevelNew</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51af591dbcce7eb81438765366f91faca7c">SwitchClosed</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a11b545f3864cca5247e88a71161b8f04">SwitchOpened</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac51ad316011a60d924659b3b4b68cbc9">TapChangerAboveMax</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a7c5e0f90e26b5db51929a1f51fc98e02">TapChangerBelowMin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9a8e8eca3b37afc439b8d8aa2784f75a">TapChangersArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a47fbdb5bae550bff1b8ed408327ac4c7">TapChangersBlocked</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a8896c67a0d7d21eb3177fe90257efa3f">TapChangersBlockedD</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a257e80db73e5a1f115f4a07e778d5c25">TapChangersBlockedT</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aad4fc870b1b67f7585144d76df5e0bde">TapChangersUnarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a182c52ba50a39f87013560c04daca685">TapChangersUnblocked</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a69c95848af10d9f69f5978f300992ff0">TapChangerSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51af7851db03e1d9e3d512af5dfa8696201">TapChangerSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a720a6fa673931b7a15c0c04a09106762">TapDown</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a3fc197dcf30c013c460ac5881b8de3c0">TapUp</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9dba49c1d7b74e168fdd604b4753c357">TerminateInModel</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a65c2318ff69cfa7cff469683d5eca20a">TransformerSwitchOff</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a49d476259be13f8de0f29d8d72f76239">TransformerSwitchOn</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a77699926041e24687a0314974f61b858">TwoWTFOClosed</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4cd614d072b8b6d46552b152f69cf686">TwoWTFOCloseSide1</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51af03af18e8d51130effe90db941afa9b9">TwoWTFOCloseSide2</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9ebe599ec7cfa88ee5de4ffba4459dd0">TwoWTFOOpen</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a93e51741b05cc2a263b2a16ea3def8ed">TwoWTFOOpenSide1</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51acbe34bc3dcd89a9c673c593914f70283">TwoWTFOOpenSide2</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a8b6484a13a72d76ab3b045cecf6ac43d">UFLS10Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a2bf7ef9b678da8f958962bd1e9e5c28a">UFLS10Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aa710ed3c86d96d90c043fb045f684151">UFLS1Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a90b4602a14e882d85fd2cfc055c9bcac">UFLS1Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aa503ffaae64f4001db7d92b0df869f2d">UFLS2Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aca51f47b854e56db98b024b6c791d2bc">UFLS2Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae098f78d8a9ab82cfe37c9cd2b773050">UFLS3Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4b0593ea0958be9df886ae2f50fca9d6">UFLS3Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ae8bdedbfb6db5c12b13365f437ec76c7">UFLS4Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a0339b705f0a13d7e08d2c68aaf7781f8">UFLS4Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a60faa8b476976dd3513c81f8271270e5">UFLS5Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a6ed31ffa3898b7fb7e3637bafff96a5a">UFLS5Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac23299d7f89829bc3b4c9c835026c92f">UFLS6Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a6854055d0e8b37f27fa1ab4755f1c900">UFLS6Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a425c151d34486b12ed143a96731eeda2">UFLS7Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51acc04b6f50246163aa782f0a624af293e">UFLS7Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aeaf0f54edf110d579aca43cb5e04634d">UFLS8Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a49846d5f86567cb6af3d0acc3bf23ebc">UFLS8Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9d8ef8317e150d81528b197b77ae174a">UFLS9Activated</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a75d13362a1c42289c26b20fcd991adc2">UFLS9Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a76d9ea6d1598c17d28804ce4289454c5">UnderspeedArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aefd79321c41dae3397c0b32a41648b73">UnderspeedDisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a2ba5b2d1644e28c4f9a6460ffb10d18e">UnderspeedTripped</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a9401f91672680684e8f1e2370e60f9b0">UVAArming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aae9a0fefc5fd00a6aa789240f22dfa02">UVADisarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a1b754d3bee29b18f7afcbec4e52e434e">UVATripped</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51">value</a> enum name</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a51485bfaa5530cd69c9290071f4e37e7">VoltageSetPointChangeEnded</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aa63ff20251481f8cd905247476512623">VoltageSetPointChangeStarted</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a811fa3e99506a649eaa56e9d2be38be4">VRBackToRegulation</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51aa181d0676d220016814fb5f77eb191d6">VRFrozen</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a23bd5163d6a188a791b5c6ed9be85412">VRLimitationEfdMax</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a6ab37af7a9750a2083331b2f49b67ee8">VRLimitationEfdMin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a55dc85ad183eabad10ff6ee37a296b4d">VRLimitationUsRefMax</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac7dcf68071cff5135b157baec476593e">VRLimitationUsRefMin</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a71b277262e9544ee4d409b6d71270d51">VRUnfrozen</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ad08ce0762379bef94f248120994a2c06">Zone1Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a43861f70045720129f4400262966d7af">Zone1Disarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac6a105a277ba53b4da5e405363cbb3b5">Zone2Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ac3eca67564206200c4ea3b39dd1eb9db">Zone2Disarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a12e890b28220a03862d40994f1ef2031">Zone3Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51a4f9e34c4e9dbb1f34439efbf22090cae">Zone3Disarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51abf84b4a52600bbdd65696d9cd722a3db">Zone4Arming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../df/d40/a02749.html#a9294fd85b78754e1a11fec544395ad51ab22dbacfe6777b41d9b7103e9f30a58b">Zone4Disarming</a> enum value</td><td class="entry"><a class="el" href="../../df/d40/a02749.html">DYN::KeyTimeline_t</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -1656,8 +313,7 @@ Traces generated before any call to <code><a class="el" href="../../d4/da5/a0274
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d4/da5/a02746.html">Trace</a></li>
-    <li class="footer">Generated on Thu Jul 16 2026 11:22:42 for Dynawo by
+    <li class="footer">Generated on Fri Jul 17 2026 15:31:29 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

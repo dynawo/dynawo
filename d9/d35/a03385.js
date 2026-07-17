@@ -1,0 +1,25 @@
+var a03385 =
+[
+    [ "ModelPhaseTapChanger", "d9/d35/a03385.html#ae2884c6ffa913078f7d30827a89ec96f", null ],
+    [ "~ModelPhaseTapChanger", "d9/d35/a03385.html#a3f7dd9507b46baab3e3c0129c670dbd5", null ],
+    [ "dumpInternalVariables", "d9/d35/a03385.html#af2b28c4ebc370c3aa44217b6c09f9668", null ],
+    [ "evalG", "d9/d35/a03385.html#a70af792a6f59a64f61e4fa7c5123fe6f", null ],
+    [ "evalZ", "d9/d35/a03385.html#ae92a3ffd70641259da7dddb8b1bc7334", null ],
+    [ "getIncreaseTap", "d9/d35/a03385.html#a87d4d2154b37158761d63c38ce63b39c", null ],
+    [ "getNbInternalVariables", "d9/d35/a03385.html#a5e1ab7ad8977e58d512c996709254627", null ],
+    [ "loadInternalVariables", "d9/d35/a03385.html#a787c9a457ef2e984c038db225681bf92", null ],
+    [ "resetInternalVariables", "d9/d35/a03385.html#a924108625b3501e3acca1780106e8a21", null ],
+    [ "setThresholdI", "d9/d35/a03385.html#a28cbac12026b30ecd63b4c402d85330b", null ],
+    [ "sizeG", "d9/d35/a03385.html#a5e293b9b67909d929ac2a8e048fd4d78", null ],
+    [ "sizeZ", "d9/d35/a03385.html#aa47b07d675c20b05560abb2d57141299", null ],
+    [ "currentOverThresholdState_", "d9/d35/a03385.html#a427dc94a52b90f71f2b8061ba9d3701c", null ],
+    [ "latestIValue_", "d9/d35/a03385.html#aae9f08c43877ae04123813a60a7e6f21", null ],
+    [ "moveDown_", "d9/d35/a03385.html#a7419c2b9c443fb687ca1ebae55056538", null ],
+    [ "moveUp_", "d9/d35/a03385.html#af96af982d2c7fbddb55ca9c2cd9f4a38", null ],
+    [ "tapRefDown_", "d9/d35/a03385.html#a7f06271c2b435f723f378579e40a3b0d", null ],
+    [ "tapRefUp_", "d9/d35/a03385.html#adc5460893e2a1cccab0849fdda52973a", null ],
+    [ "thresholdI_", "d9/d35/a03385.html#a098981618c393089d70140f91941fb66", null ],
+    [ "whenDown_", "d9/d35/a03385.html#ad17b24102b5ca4c1d6d2b21fb45084fe", null ],
+    [ "whenLastTap_", "d9/d35/a03385.html#a6da4d2d9e8a2ebd8e6cd5ecf1cd9144a", null ],
+    [ "whenUp_", "d9/d35/a03385.html#a43db91d131eb00f12cfa1672a7360477", null ]
+];

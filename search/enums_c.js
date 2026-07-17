@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ustatusflags',['UStatusFlags',['../da/d5b/a03322.html#a5273bfb583f8e620fbc024cf84cde33b',1,'DYN::ModelBus']]],
-  ['utype_5ft',['UType_t',['../da/d5b/a03322.html#afe4be7c50c685595c509a3e43683314c',1,'DYN::ModelBus']]]
+  ['ustatusflags',['UStatusFlags',['../d6/df3/a03349.html#a20379a0a5f1108818dbd9175e724fc9c',1,'DYN::ModelBusInjected']]],
+  ['utype_5ft',['UType_t',['../d5/d83/a03337.html#afe4be7c50c685595c509a3e43683314c',1,'DYN::ModelBus']]]
 ];

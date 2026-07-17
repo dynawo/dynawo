@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: externalVariables::Importer Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('df/d4d/a02086.html','../../');});
+$(document).ready(function(){initNavTree('db/ddd/a02089.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,123 +94,35 @@ $(document).ready(function(){initNavTree('df/d4d/a02086.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="../../d3/d79/a02083.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">externalVariables::Importer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">dynamicdata::XmlHandler Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../df/d4d/a02086.html" title="Importer interface class. ">Importer</a> interface class.  
- <a href="../../df/d4d/a02086.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d5/df1/a00206_source.html">EXTVARImporter.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for externalVariables::Importer:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../df/d4d/a02086.png" usemap="#externalVariables::Importer_map" alt=""/>
-  <map id="externalVariables::Importer_map" name="externalVariables::Importer_map">
-<area href="../../db/d34/a02118.html" title="XML importer interface class. " alt="externalVariables::XmlImporter" shape="rect" coords="0,56,184,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a93f76660e61ef93618c1ff07a4c11413"><td class="memItemLeft" align="right" valign="top"><a id="a93f76660e61ef93618c1ff07a4c11413"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4d/a02086.html#a93f76660e61ef93618c1ff07a4c11413">~Importer</a> ()=default</td></tr>
-<tr class="memdesc:a93f76660e61ef93618c1ff07a4c11413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a93f76660e61ef93618c1ff07a4c11413"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5109fb4860f5979a854a1b16781e0e1d"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../d9/d6e/a02098.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4d/a02086.html#a5109fb4860f5979a854a1b16781e0e1d">importFromFile</a> (const std::string &amp;fileName) const =0</td></tr>
-<tr class="memdesc:a5109fb4860f5979a854a1b16781e0e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#a5109fb4860f5979a854a1b16781e0e1d">More...</a><br /></td></tr>
-<tr class="separator:a5109fb4860f5979a854a1b16781e0e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa33d7128667caf7ac95c6b003bee82b"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../d9/d6e/a02098.html">VariablesCollection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d4d/a02086.html#afa33d7128667caf7ac95c6b003bee82b">importFromStream</a> (std::istream &amp;stream) const =0</td></tr>
-<tr class="memdesc:afa33d7128667caf7ac95c6b003bee82b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import external (i.e. C++-connected) variables.  <a href="#afa33d7128667caf7ac95c6b003bee82b">More...</a><br /></td></tr>
-<tr class="separator:afa33d7128667caf7ac95c6b003bee82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../df/d4d/a02086.html" title="Importer interface class. ">Importer</a> interface class. </p>
-<p>Import class for dynamic models collections. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5109fb4860f5979a854a1b16781e0e1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5109fb4860f5979a854a1b16781e0e1d">&#9670;&nbsp;</a></span>importFromFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../d9/d6e/a02098.html">VariablesCollection</a>&gt; externalVariables::Importer::importFromFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fileName</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Import external (i.e. C++-connected) variables. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fileName</td><td>File name </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Collection imported </dd></dl>
-
-<p>Implemented in <a class="el" href="../../db/d34/a02118.html#af720b43a8f65a2648302b771ed1705d7">externalVariables::XmlImporter</a>.</p>
-
-</div>
-</div>
-<a id="afa33d7128667caf7ac95c6b003bee82b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa33d7128667caf7ac95c6b003bee82b">&#9670;&nbsp;</a></span>importFromStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="../../d9/d6e/a02098.html">VariablesCollection</a>&gt; externalVariables::Importer::importFromStream </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Import external (i.e. C++-connected) variables. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>Stream to import </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Collection imported </dd></dl>
-
-<p>Implemented in <a class="el" href="../../db/d34/a02118.html#af31d1e252b0178f3592ef3504a0facd2">externalVariables::XmlImporter</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d5/df1/a00206_source.html">EXTVARImporter.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#ac9008d070bf5a6b96924777707673a46">addBlackBoxModel</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a7acf78e4c5ad42aee627fe9c9dc34119">addConnect</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a018d26ff247365302ac0f022bb7a9489">addMacroConnect</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#afe811360fc3b8058abfec74d4dfeaccc">addMacroConnector</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a23dcf03629aa14650ac9ed7a1b78db9f">addMacroStaticReference</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a1dfec03c979006533ff023e7a8d6af2e">addModelicaModel</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a8de65e0478bf8d4e0e4d90c130dabcb9">addModelTemplate</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a130bf57436e2d9c8380c4e48ba644913">addModelTemplateExpansion</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a7fa440e39447126007e21a6285fd10f2">blackBoxModelHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#afb9b7adcc58da08332bb53bf7e1196f2">connectHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#ade6af9dcf972297a2387d3d665d0014d">dynamicModelsCollection_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a3aa8ee1bcd9b900ce21dfcaa27175b45">getDynamicModelsCollection</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a343cffd038f2360e620a32062727ba49">macroConnectHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a2914ed345182d181ee8310187febdc1b">macroConnectorHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a61154739bd811079f66b9302a48d0f12">macroStaticReferenceHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#ad8af36f6a09c1719476517c79786c9ad">modelicaModelHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a2260caa74974e043f34c3164b9aafc66">modelTemplateExpansionHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a5061ab44d8ec9a56bbdc096286de7b50">modelTemplateHandler_</a></td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a0073362d8c24b9b826302fdb577f3dd5">setRootDirectory</a>(const std::string &amp;root)</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../db/ddd/a02089.html#a931cf19b79ab7161eec37b34e44dcf9e">XmlHandler</a>()</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../db/ddd/a02089.html#adb16025463458835c5d16f52c1e4a80d">~XmlHandler</a>() override</td><td class="entry"><a class="el" href="../../db/ddd/a02089.html">dynamicdata::XmlHandler</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -226,8 +138,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>externalVariables</b></li><li class="navelem"><a class="el" href="../../df/d4d/a02086.html">Importer</a></li>
-    <li class="footer">Generated on Thu Jul 16 2026 11:22:42 for Dynawo by
+    <li class="footer">Generated on Fri Jul 17 2026 15:31:30 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
