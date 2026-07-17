@@ -389,16 +389,13 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
 
   void
   ModelSecondaryVoltageControlSimplified::dumpInternalVariables(boost::archive::binary_oarchive& os) const {
-    ModelCPP::dumpInStream(os, iTerm_);
-    ModelCPP::dumpInStream(os, feedBackCorrection_);
+    os << iTerm_;
+    os << feedBackCorrection_;
   }
 
   void
   ModelSecondaryVoltageControlSimplified::loadInternalVariables(boost::archive::binary_iarchive& is) {
-    char c;
-    is >> c;
     is >> iTerm_;
-    is >> c;
     is >> feedBackCorrection_;
   }
 
