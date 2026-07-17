@@ -45,6 +45,8 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
     VAR_P2,
     VAR_Q1,
     VAR_Q2,
+    VAR_I1,
+    VAR_I2,
     VAR_STATE
   } indexVar_t;
 
@@ -119,6 +121,16 @@ class LineInterfaceIIDM : public LineInterface, public boost::noncopyable {
   * @copydoc LineInterface::getQ2()
   */
   double getQ2();
+
+  /**
+  * @copydoc LineInterface::getStateVarI1() const
+  */
+  double getStateVarI1() const override;
+
+  /**
+  * @copydoc LineInterface::getStateVarI2() const
+  */
+  double getStateVarI2() const override;
 
   /**
    * @copydoc LineInterface::getInitialConnected1()

@@ -36,6 +36,7 @@ XML_CONNECT = "connect"
 XML_MACROCONNECT = "macroConnect"
 XML_MACROCONNECTOR = "macroConnector"
 XML_MACROSTATICREFERENCE = "macroStaticReference"
+XML_STATICREF = "staticRef"
 NETWORK_ID = "NETWORK"
 
 # Par
