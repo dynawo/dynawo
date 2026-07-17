@@ -488,8 +488,11 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_evalJt(self):
         self.addEmptyLine()
-        self.addLine("double Model"+ self.className + "::evalJtTerm(int fIndex, int varIndex, const double cj)\n")
+        self.addLine("double Model"+ self.className + "::evalJtTerm(int fIndex, int varIndex, const double cj, bool complete)\n")
         self.addLine("{\n")
+        self.addLine("  if (!complete)\n")
+        self.addLine("    return evalJtTerm(fIndex, varIndex, cj, true) - evalJtTerm(fIndex, varIndex, 0., true);\n")
+        self.addLine("\n")
         self.addBody(self.builder.get_list_for_evaljt())
         self.addLine("}\n")
 
