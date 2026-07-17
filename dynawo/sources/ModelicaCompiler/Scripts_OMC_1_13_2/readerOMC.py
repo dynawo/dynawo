@@ -441,7 +441,6 @@ class ReaderOMC:
                     for name in list_defined_vars :
                         if (index not in self.map_num_eq_vars_defined.keys()):
                             self.map_num_eq_vars_defined [index] = []
-                        print ("BUBU0 ADD " + name + " " + index)
                         self.map_num_eq_vars_defined [index].append(name)
 
                 # Get map [calculated var] --> [vars on which the equation depends]
@@ -1696,7 +1695,6 @@ class ReaderOMC:
                     set_param_address(name,  "stringParameter")
                 elif var_type == "seedVars":
                     set_param_address(name, "seedVars")
-                    print ("BUBU ADD " + name)
                 elif var_type == "extObjVars":
                     set_param_address(name,  "data->simulationInfo->extObjs["+str(index_extobjs)+"]")
                     index_extobjs+=1
@@ -2022,7 +2020,6 @@ class ReaderOMC:
                 if len(map_num_eq_vars_defined[f_num_omc]) > 1:
                     error_exit("   Error: Found an equation (id: " + f_num_omc+") defining multiple variables. This is not supported in Dynawo.")
                 name_var_eval.append(map_num_eq_vars_defined[f_num_omc] [0])
-                print ("BUBU NAME VAR EVAL ? " + str(name_var_eval))
 
             if len(name_var_eval) == 0:
                 for line in f.get_body():

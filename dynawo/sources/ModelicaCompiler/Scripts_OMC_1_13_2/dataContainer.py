@@ -1716,29 +1716,46 @@ class Equation(EquationBase):
         ptrn_residual_var_tmp = re.compile(r'[\( ]*jacobian->tmpVars\[(?P<residualIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*) JACOBIAN_TMP_VAR\s*\*\/[\) ]*=[ ]*(?P<rhs>[^;]+);')
 
         index = self.get_num_dyn()
-        #evaluated_address = to_param_address(self.evaluated_var)
-        #print ("BUBU JT " + self.evaluated_var +" " + evaluated_address)
         text_to_return.append ("  if (fIndex == " + str(index) + ") {\n")
+
+        # If this equation's own jacobian body just reassigns a jacobian->tmpVars[] entry,
+        # that value was already computed once by get_body_for_shared_tmp_vars: everything
+        # before that assignment is redundant (and re-running it can retrigger side effects
+        # such as hysteresis/relations), so skip straight to the return.
+        own_tmp_assign = None
+        for line in self.jacobian_body:
+            match = re.match(ptrn_residual_var_tmp, line)
+            if match is not None:
+                own_tmp_assign = match
+                break
+
+        if own_tmp_assign is not None:
+            address = to_param_address(self.evaluated_var)
+            seed_address = "jacobian->seedVars[" + address.replace("data->localData[0]->realVars[", "") + "/* " + self.evaluated_var + " SEED_VAR */"
+            text_to_return.append("  return " + seed_address + " - jacobian->tmpVars[" + own_tmp_assign.group('residualIdx') + "]/* " + own_tmp_assign.group('varName') + " JACOBIAN_TMP_VAR */;\n")
+            text_to_return.append ("  }\n")
+            return text_to_return
+
         for line in self.jacobian_body:
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ("infoStreamPrint" in line)\
                    or ("data->simulationInfo->needToIterate = 1") in line:
                 continue
             if "omc_assert_warning" in line and with_throw:
                 continue
+            line = sub_division_sim(line)
             line = replace_var_names(line)
+            line = rewrite_tmp_operand_refs(line)
             line = replace_relationhysteresis(line)
             if ("TRACE_PUSH" in line)  or ("TRACE_POP" in line) \
                     or  ("const int equationIndexes[2]"  in line) \
                     or "const int baseClockIndex" in line \
                     or "const int subClockIndex" in line:
                 continue
-            match = re.match(ptrn_residual_var_jacobian, line)
-            if match is not None:
-                line = "  return " + match.group(3) +";\n"
-            text_to_return.append( "  " + line )
-            match = re.match(ptrn_residual_var_tmp, line)
-            if match is not None:
-                text_to_return.append("    return jacobian->tmpVars[" + match.group(1) +"];\n")
+            match_jacobian = re.match(ptrn_residual_var_jacobian, line)
+            if match_jacobian is not None:
+                text_to_return.append( "  return " + match_jacobian.group(3) +";\n" )
+            else:
+                text_to_return.append( "  " + line )
 
         text_to_return.append ("  }\n")
         return text_to_return

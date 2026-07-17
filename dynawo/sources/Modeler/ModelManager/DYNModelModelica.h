@@ -155,8 +155,9 @@ class ModelModelica {
    * @param fIndex index of the residual equation to be evaluated
    * @param varIndex index of the state variable to be evaluated
    * @param cj Jacobian prime coefficient
+   * @param complete whether to include the algebraic (non cj-scaled) part of the term
    */
-  virtual double evalJtTerm(int fIndex, int varIndex, const double cj) = 0;
+  virtual double evalJtTerm(int fIndex, int varIndex, const double cj, bool complete = true) = 0;
 
 #ifdef _ADEPT_
   /**

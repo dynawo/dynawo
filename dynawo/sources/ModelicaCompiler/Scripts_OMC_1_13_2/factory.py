@@ -1846,6 +1846,75 @@ class Factory:
         return self.list_for_setf
 
     ##
+    # Prepares the lines that compute, once per evalJtTerm call, every jacobian->tmpVars[]
+    # entry from the *_12jac.c file. These are intermediate derivatives (not tied to any
+    # DAE equation) that other jacobian bodies read by index, so they must be refreshed
+    # for the current seed vector before any "if (fIndex == ...)" branch runs.
+    # @param self : object pointer
+    # @return list of lines
+    def get_body_for_shared_tmp_vars(self):
+        text_to_return = []
+        ptrn_tmp_assign = re.compile(r'[\( ]*jacobian->tmpVars\[[0-9]+\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*)\.\$pDERA\.dummyVarA JACOBIAN_TMP_VAR\s*\*/[\) ]*=')
+        var_name_to_src_fct_name = {}
+        for eq in self.get_list_eq_syst():
+            var_name_to_src_fct_name[eq.get_evaluated_var()] = eq.get_src_fct_name()
+        for f in self.reader.list_func_12jac_c:
+            body = f.get_body()
+            assign_match = None
+            for line in body:
+                assign_match = re.match(ptrn_tmp_assign, line)
+                if assign_match is not None:
+                    break
+            if assign_match is None:
+                continue
+            var_name = assign_match.group('varName')
+
+            with_throw = any("throwStreamPrint" in line for line in body)
+            cleaned_lines = []
+            for line in body:
+                if has_omc_trace(line) or has_omc_equation_indexes(line) or ("infoStreamPrint" in line) \
+                       or ("data->simulationInfo->needToIterate = 1") in line:
+                    continue
+                if "omc_assert_warning" in line and with_throw:
+                    continue
+                line = sub_division_sim(line)
+                line = replace_var_names(line)
+                line = rewrite_tmp_operand_refs(line)
+                line = replace_relationhysteresis(line)
+                if ("TRACE_PUSH" in line) or ("TRACE_POP" in line) \
+                        or ("const int equationIndexes[2]" in line) \
+                        or "const int baseClockIndex" in line \
+                        or "const int subClockIndex" in line:
+                    continue
+                cleaned_lines.append(line.rstrip("\n") + "\n")
+
+            # A "Greater"/"Less" comparison here must read the same mode as setF's own
+            # relationhysteresis-tracked relation for this equation, not a live comparison,
+            # otherwise the jacobian branch can disagree with the actual residual's branch.
+            no_event_nodes = []
+            if var_name in self.reader.var_name_to_mixed_residual_vars_types:
+                no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
+            if self.create_additional_relations() and var_name in var_name_to_src_fct_name:
+                index_if = 0
+                index_relation = 0
+                src_fct_name = var_name_to_src_fct_name[var_name]
+                for i, line in enumerate(cleaned_lines):
+                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not no_event_nodes[index_if]):
+                        index_relations = self.modes.find_index_relation(src_fct_name)
+                        if index_relation < len(index_relations):
+                            cleaned_lines[i] = self.transform_in_relation(line, index_relations[index_relation])
+                            index_relation += 1
+                    if "else" in line:
+                        index_if += 1
+                    if "fmin" in line:
+                        index_if += 1
+
+            text_to_return.append("  {\n")
+            text_to_return.extend([ "  " + line for line in cleaned_lines ])
+            text_to_return.append("  }\n")
+        return text_to_return
+
+    ##
     # prepare the lines that constitues the body of defineParameters
     # @param self : object pointer
     # @return
@@ -1863,6 +1932,8 @@ class Factory:
         self.list_for_evaljt.append("  jacobian->dae_cj = cj;\n\n")
         self.list_for_evaljt.append("  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);\n")
         self.list_for_evaljt.append("  jacobian->seedVars[varIndex] = 1.;\n\n")
+        self.list_for_evaljt.extend(self.get_body_for_shared_tmp_vars())
+        self.list_for_evaljt.append("\n")
         for eq in self.get_list_eq_syst():
             standard_eq_body = []
             standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
@@ -2019,7 +2090,6 @@ class Factory:
             already_handled.append(var)
             test_param_address(var)
             address = to_param_address(var)
-            print ("BUBU? " + var + " " + address)
             index = address.split("[")[2].replace("]","")
             not_used_in_discr=var in self.reader.silent_discrete_vars_not_used_in_discr_eq
             not_used_in_cont = var in self.reader.silent_discrete_vars_not_used_in_continuous_eq
@@ -2951,8 +3021,21 @@ class Factory:
                     line = self.replace_adept_functions_in_line(line, adept_tmp)
                     match = ptrn_calc_var.findall(line)
                     for name in match:
+                        calc_var_index = str(calc_var_2_index[name])
+                        calc_var_adept_call = "\n".join([
+                            "[&]() {",
+                            "  std::vector<int> calcVarIndexes;",
+                            "  getIndexesOfVariablesUsedForCalculatedVarI(" + calc_var_index + ", calcVarIndexes);",
+                            "  std::vector<adept::adouble> calcVarX(calcVarIndexes.size());",
+                            "  std::vector<adept::adouble> calcVarXP(calcVarIndexes.size());",
+                            "  for (size_t k = 0; k < calcVarIndexes.size(); ++k) {",
+                            "    calcVarX[k] = x[calcVarIndexes[k]];",
+                            "    calcVarXP[k] = xd[calcVarIndexes[k]];",
+                            "  }",
+                            "  return evalCalculatedVarIAdept(" + calc_var_index + ", 0, calcVarX, calcVarXP);",
+                            "}()"])
                         line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                                "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                                calc_var_adept_call + " /* " + name)
 
                     ptrn_complex_tmp = re.compile(r'\s*(?P<type>.*)\s* tmp[0-9]+;')
                     match = ptrn_complex_tmp.search(line)

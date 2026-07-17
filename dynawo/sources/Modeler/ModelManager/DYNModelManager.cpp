@@ -358,6 +358,11 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
       for (unsigned int j = 0; j < sizeY(); ++j) {
         const int indice = i + j * sizeY();
         const double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
+
+        const double term2 = modelModelica()->evalJtTerm(i, j, cj, complete);
+        if (!doubleEquals(term, term2))
+          std::cout << "BUBU ERROR " << name() << " " << t << " " << i << " " << j << " " << term << " " << term2 << " "
+            << jac[indice] << " " <<  jac[indice + offsetJPrim] << std::endl;
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index

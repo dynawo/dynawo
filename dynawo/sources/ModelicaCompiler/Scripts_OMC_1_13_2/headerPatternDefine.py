@@ -73,7 +73,7 @@ class HeaderPatternDefine:
     void setParameters( std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
-    double evalJtTerm(int fIndex, int varIndex, const double cj);
+    double evalJtTerm(int fIndex, int varIndex, const double cj, bool complete = true);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar);
@@ -164,7 +164,7 @@ namespace DYN {
     void setParameters(std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
-    double evalJtTerm(int fIndex, int varIndex, const double cj);
+    double evalJtTerm(int fIndex, int varIndex, const double cj, bool complete = true);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar);
