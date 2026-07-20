@@ -13,7 +13,7 @@
 import os
 import sys
 import traceback
-import imp
+import importlib.util
 import lxml.etree
 from optparse import OptionParser
 from collections import Counter
@@ -198,7 +198,7 @@ class Jobs:
         for update_module_path in self.__update_modules_filepath_list:
             update_module_filename = os.path.basename(update_module_path)
             update_module_filename_without_extension = update_module_filename.split('.')[0]
-            update_module = imp.load_source(update_module_filename_without_extension, update_module_path)
+            update_module = self.__load_module_from_path(update_module_filename_without_extension, update_module_path)
             if not self.__does_update_nrt and hasattr(update_module.update, 'ticket_number'):
                 print("Apply ticket " + str(update_module.update.ticket_number))
             if self.__does_print_logs:
@@ -332,7 +332,7 @@ class Jobs:
         for update_module_path in sorted_update_modules_filepath_list:
             update_module_filename = os.path.basename(update_module_path)
             update_module_filename_without_extension = update_module_filename.split('.')[0]
-            update_module = imp.load_source(update_module_filename_without_extension, update_module_path)
+            update_module = self.__load_module_from_path(update_module_filename_without_extension, update_module_path)
             if hasattr(update_module.update, 'ticket_number'):
                 all_tickets_list.append(update_module.update.ticket_number)
             if not hasattr(update_module.update, 'ticket_number'):
@@ -352,6 +352,12 @@ class Jobs:
             sys.exit(1)
 
         return filtered_update_modules_filepath_list
+
+    def __load_module_from_path(self, module_name, file_path):
+        spec = importlib.util.spec_from_file_location(module_name, file_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
 
     def __generate_configuration_files(self):
         """
