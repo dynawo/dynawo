@@ -108,8 +108,8 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
   # => caused by NULL macro use in many places (mandatory with c++98, should be replaced by nullptr with c++11)
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-zero-as-null-pointer-constant")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Werror")
-  # -Wno-c++98-compat shall be kept to allow c++11 code !
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat")
+  # -Wno-c++98-compat / -Wno-c++98-compat-pedantic shall be kept to allow c++11 code !
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-c++98-compat -Wno-c++98-compat-pedantic")
   if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-return-std-move-in-c++11")
   endif()
