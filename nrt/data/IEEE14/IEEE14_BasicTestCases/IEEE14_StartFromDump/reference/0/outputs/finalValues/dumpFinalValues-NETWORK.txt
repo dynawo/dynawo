@@ -19,8 +19,6 @@ _BUS___14_TN_ACPIN_V_re                           : y =       0.961038 yp =     
 _BUS___14_TN_ACPIN_V_im                           : y =      -0.380856 yp =       0.000000
 _BUS___14_TN_ACPIN_i_re                           : y =      -0.116110 yp =       0.000000
 _BUS___14_TN_ACPIN_i_im                           : y =       0.097985 yp =       0.000000
-_BUS___15_TN_ACPIN_V_re                           : y =       0.000000 yp =       0.000000
-_BUS___15_TN_ACPIN_V_im                           : y =       0.000000 yp =       0.000000
 _BUS____1_TN_ACPIN_V_re                           : y =       1.060000 yp =       0.000000
 _BUS____1_TN_ACPIN_V_im                           : y =       0.000000 yp =       0.000000
 _BUS____1_TN_ACPIN_i_re                           : y =       2.211359 yp =       0.000000
@@ -688,14 +686,6 @@ _BUS____9-BUS___14-1_AC_conduct1                   =              0
 _BUS____9-BUS___14-1_AC_conduct2                   =              0
 _BUS____9-BUS___14-1_AC_resistance                 =        0.12711
 _BUS____9-BUS___14-1_AC_reactance                  =        0.27038
-_BUS___14-BUS___15-1_AC_admittance                 =        3.34708
-_BUS___14-BUS___15-1_AC_lossAngle                  =       0.439455
-_BUS___14-BUS___15-1_AC_suscept1                   =              0
-_BUS___14-BUS___15-1_AC_suscept2                   =              0
-_BUS___14-BUS___15-1_AC_conduct1                   =              0
-_BUS___14-BUS___15-1_AC_conduct2                   =              0
-_BUS___14-BUS___15-1_AC_resistance                 =        0.12711
-_BUS___14-BUS___15-1_AC_reactance                  =        0.27038
 _BUS____4-BUS____9-1_PT_R                          =              0
 _BUS____4-BUS____9-1_PT_X                          =       0.556179
 _BUS____4-BUS____9-1_PT_B                          =              0
