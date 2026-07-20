@@ -119,6 +119,16 @@ def jacobian_name_to_variable_name(jac_var_name):
     return name
 
 ##
+# Check whether a 12jac.c raw function's own output is a jacobian->resultVars[] entry
+# (a genuine analytic jacobian result) rather than a jacobian->tmpVars[] scratch entry
+# (an intermediate value only used to chain other jacobian computations)
+# @param f : RawFunc read from the _12jac.c file
+# @return whether f's own assignment target is jacobian->resultVars[]
+def is_result_var_jacobian_func(f):
+    ptrn_result_assign = re.compile(r'[\( ]*jacobian->resultVars\[[0-9]+\][ \)]*/\*.*JACOBIAN_VAR\s*\*/[\) ]*=')
+    return any(re.match(ptrn_result_assign, line) is not None for line in f.get_body())
+
+##
 # Rewrite jacobian->tmpVars[N] operand references (not the line's own assignment target)
 # by jacobian->seedVars[k], since a variable tagged .$pDERA.dummyVarA always has its own
 # DAE equation and its own seedVars slot
@@ -130,6 +140,10 @@ def rewrite_tmp_operand_refs(line):
 
     def replace_operand(m):
         address = to_param_address(m.group('varName'))
+        if address is None or not address.startswith("data->localData[0]->realVars["):
+            # the variable became a calculated var (no longer has its own seedVars slot):
+            # chaining through the jacobian->tmpVars[] formula is the correct behavior.
+            return m.group(0)
         return "jacobian->seedVars[" + address.replace("data->localData[0]->realVars[", "") \
             + "/* " + m.group('varName') + " SEED_VAR */"
 
