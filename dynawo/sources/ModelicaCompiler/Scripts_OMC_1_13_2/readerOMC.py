@@ -2002,6 +2002,8 @@ class ReaderOMC:
 
         eval_var_name_to_jacobian_func = {}
         for f in self.list_func_12jac_c:
+            if not is_result_var_jacobian_func(f):
+                continue
             eq_mak_num_omc = f.get_num_omc()
             name_var_eval = None
             if eq_mak_num_omc in map_num_eq_vars_defined.keys():

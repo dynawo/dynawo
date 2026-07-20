@@ -563,6 +563,9 @@ class Factory:
 
         index = 0
         ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+        name_func_to_search_for_deps = {}
+        for func in self.reader.list_omc_functions:
+            name_func_to_search_for_deps[func.get_name()] = func
         for var in self.reader.list_calculated_vars:
             self.dic_calc_var_index[var.get_name()] = index
             index += 1
@@ -570,13 +573,22 @@ class Factory:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
             if type(expr)==list:
                 for line in expr:
+                    # A multi-output OMC function call (X = func(..., &Y, &Z, ...)) assigns several
+                    # calculated vars from a single call: Y/Z are sibling outputs, not dependencies
+                    # of X, even though their own "SHOULD NOT BE USED" marker appears on this line.
+                    sibling_outputs = []
+                    for func_name in name_func_to_search_for_deps:
+                        if func_name + "(" in line or func_name + " (" in line:
+                            sibling_outputs.extend(name_func_to_search_for_deps[func_name].find_outputs_from_call(line))
                     line_tmp = transform_line(line)
                     match = ptrn_calc_var.findall(line_tmp)
                     for name in match:
                         if name == var.get_name(): continue
+                        if name in sibling_outputs: continue
                         if var.get_name() not in self.dic_calc_var_recursive_deps:
                             self.dic_calc_var_recursive_deps[var.get_name()] = []
-                        self.dic_calc_var_recursive_deps [var.get_name()].append(name)
+                        if name not in self.dic_calc_var_recursive_deps[var.get_name()]:
+                            self.dic_calc_var_recursive_deps [var.get_name()].append(name)
 
     ##
     # build the list of all elements
@@ -858,6 +870,8 @@ class Factory:
         #retrieve the existing jacobian functions
         eval_var_name_to_jacobian_func = {}
         for f in self.reader.list_func_12jac_c:
+            if not is_result_var_jacobian_func(f):
+                continue
             eq_mak_num_omc = f.get_num_omc()
             name_var_eval = None
 
@@ -1932,7 +1946,12 @@ class Factory:
         self.list_for_evaljt.append("  jacobian->dae_cj = cj;\n\n")
         self.list_for_evaljt.append("  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);\n")
         self.list_for_evaljt.append("  jacobian->seedVars[varIndex] = 1.;\n\n")
-        self.list_for_evaljt.extend(self.get_body_for_shared_tmp_vars())
+        for line in self.get_body_for_shared_tmp_vars():
+            match = ptrn_calc_var.findall(line)
+            for name in match:
+                line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                        "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+            self.list_for_evaljt.append(line)
         self.list_for_evaljt.append("\n")
         for eq in self.get_list_eq_syst():
             standard_eq_body = []
@@ -4038,7 +4057,7 @@ class Factory:
         return self.list_for_evalcalculatedvari
 
     def compute_recursive_calc_vars_num_deps(self):
-        recursive_calc_vars_num_deps = {}
+        direct_count = {}
         map_dep = self.reader.get_map_dep_vars_for_func()
         for var in self.reader.list_calculated_vars:
             if var in self.reader.list_complex_calculated_vars:
@@ -4052,7 +4071,30 @@ class Factory:
                             dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
                             if dependency_index not in list_of_indexes:
                                 list_of_indexes.append(dependency_index)
-                recursive_calc_vars_num_deps[var_name] = len(list_of_indexes)
+                direct_count[var_name] = len(list_of_indexes)
+        self.calc_var_direct_count = direct_count
+
+        # The offset of a calculated var within the flattened "gathered" x[]/xd[] vector must
+        # skip past the *entire* recursive footprint of every calculated var gathered before it
+        # (its own direct deps plus everything pulled in by its own nested calc-var deps), not
+        # just its own direct dependency count.
+        computed_sizes = {}
+        def total_size(var_name, visited):
+            if var_name in computed_sizes:
+                return computed_sizes[var_name]
+            if var_name in visited:
+                print("BUBU CYCLE " + " -> ".join(visited + [var_name]))
+                return 0
+            visited = visited + [var_name]
+            size = direct_count.get(var_name, 0)
+            for dep in self.dic_calc_var_recursive_deps.get(var_name, []):
+                size += total_size(dep, visited)
+            computed_sizes[var_name] = size
+            return size
+
+        recursive_calc_vars_num_deps = {}
+        for var_name in direct_count:
+            recursive_calc_vars_num_deps[var_name] = total_size(var_name, [])
         return recursive_calc_vars_num_deps
 
     ##
@@ -4188,13 +4230,14 @@ class Factory:
             convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
             calc_var_to_offset = {}
             if var.get_name() in self.dic_calc_var_recursive_deps:
-                offset = 0
-                prev_name = var.get_name()
+                # The gathered x[]/xd[] vector for this var is laid out as:
+                # [var's own direct deps] [dep0's full recursive subtree] [dep1's full recursive subtree] ...
+                # so dep0 starts right after var's own direct deps, and each following dep starts
+                # right after the *entire* subtree of the previous one (not just its own direct part).
+                offset = self.calc_var_direct_count.get(var.get_name(), 0)
                 for name in self.dic_calc_var_recursive_deps[var.get_name()]:
-                    if prev_name in recursive_calc_vars_num_deps:
-                        offset += recursive_calc_vars_num_deps[prev_name]
                     calc_var_to_offset[name] = offset
-                    prev_name = name
+                    offset += recursive_calc_vars_num_deps.get(name, 0)
             body = []
             sorted_indexes = []
             for line in body_translated:
@@ -4204,11 +4247,15 @@ class Factory:
                         sorted_indexes.append(int(val))
                 assert("xd[" not in line)
             sorted_indexes.sort()
+            ptrn_adept_relation_condition = re.compile(r'(Greater|Less|GreaterEq|LessEq)<adept::adouble>\(')
             for line in body_translated:
                 index_var = 0
                 for val in sorted_indexes:
                     line = line.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
                     index_var += 1
+                is_relation_condition_line = ptrn_adept_relation_condition.search(line) is not None
+                if is_relation_condition_line:
+                    line = ptrn_adept_relation_condition.sub(r'\1(', line)
                 if var.get_name() in self.dic_calc_var_recursive_deps:
                     for name in self.dic_calc_var_recursive_deps[var.get_name()]:
                         offset = 0
@@ -4221,8 +4268,12 @@ class Factory:
                                 # there is an x[..] in the name of the variable itself!
                                 name_to_use = name_to_use.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
                                 index_var += 1
-                        line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
-                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
+                        if is_relation_condition_line:
+                            line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
+                                "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
+                        else:
+                            line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
+                                "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
                 body.append(line)
 
             self.list_for_evalcalculatedvariadept.append("  if (iCalculatedVar == " + str(index_calc_var)+")  /* "+ var.get_name() + " */\n")
@@ -4292,7 +4343,13 @@ class Factory:
    # @param self : object pointer
    # @return list of lines
     def get_list_for_initializedatastruc(self):
-        # TODO PROPERLY COMPUTE jacobian->tmpVars size
+        ptrn_tmp_vars_index = re.compile(r'jacobian->tmpVars\[([0-9]+)\]')
+        nb_tmp_vars = 0
+        for f in self.reader.list_func_12jac_c:
+            for line in f.get_body():
+                for match in ptrn_tmp_vars_index.finditer(line):
+                    nb_tmp_vars = max(nb_tmp_vars, int(match.group(1)) + 1)
+
         body="""
   dataStructInitialized_ = true;
   data->localData = (SIMULATION_DATA**) calloc(1, sizeof(SIMULATION_DATA*));
@@ -4303,7 +4360,7 @@ class Factory:
   nb = (data->modelData->nVariablesReal > 0) ? data->modelData->nVariablesReal : 0;
   data->simulationInfo->realVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
   jacobian->seedVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
-  jacobian->tmpVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
+  jacobian->tmpVars = (modelica_real*) calloc(nb > """ + str(nb_tmp_vars) + """ ? nb : """ + str(nb_tmp_vars) + """, sizeof(modelica_real));
 
   nb = (data->modelData->nStates > 0) ? data->modelData->nStates  : 0;
   data->simulationInfo->derivativesVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
