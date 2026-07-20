@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
 */
 
 block TransformRItoDQ "Transformation from real/imaginary in stationary reference frame to d/q rotating reference frame with rotation angle phi"
-
   Modelica.Blocks.Interfaces.RealInput phi "Angle of the dq transform in rad" annotation(
     Placement(visible = true, transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput u "Complex input" annotation(
@@ -23,6 +22,15 @@ block TransformRItoDQ "Transformation from real/imaginary in stationary referenc
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uq "q-axis output" annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialisation
+  parameter Real phi0 "Initial angle of the dq transform in rad";
+  parameter Types.ComplexVoltagePu u0Pu "Complex initial value of the voltage in RI frame";
+
+  final parameter Types.PerUnit ud0 = u0Pu.re * cos(phi0) + u0Pu.im * sin(phi0)
+    "Initial value of the d-axis component in pu";
+  final parameter Types.PerUnit uq0 = - u0Pu.re * sin(phi0) + u0Pu.im * cos(phi0)
+    "Initial value of the q-axis component in pu";
 
 equation
   ud = ComplexMath.real(u) * cos(phi) + ComplexMath.imag(u) * sin(phi);
