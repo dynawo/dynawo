@@ -31,9 +31,9 @@
     <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:macroStaticReference>
   <dyn:macroStaticReference id="LoadRef">
-    <dyn:staticRef var="PPu_value" staticVar="p"/>
-    <dyn:staticRef var="QPu_value" staticVar="q"/>
-    <dyn:staticRef var="state_value" staticVar="state"/>
+    <dyn:staticRef var="PPu" staticVar="p"/>
+    <dyn:staticRef var="QPu" staticVar="q"/>
+    <dyn:staticRef var="state" staticVar="state"/>
   </dyn:macroStaticReference>
   <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN"/>
   <dyn:blackBoxModel id="_GEN____1_SM" staticId="_GEN____1_SM" lib="GeneratorPVDiagramPQSignalN" parFile="PhaseShifterBlocking.par" parId="12497041103945231709">

@@ -19,8 +19,6 @@ _BUS___14_TN_ACPIN_V_re                           : y =       0.961038 yp =     
 _BUS___14_TN_ACPIN_V_im                           : y =      -0.380856 yp =       0.000000
 _BUS___14_TN_ACPIN_i_re                           : y =      -0.116110 yp =       0.000000
 _BUS___14_TN_ACPIN_i_im                           : y =       0.097985 yp =       0.000000
-_BUS___15_TN_ACPIN_V_re                           : y =       0.000000 yp =       0.000000
-_BUS___15_TN_ACPIN_V_im                           : y =       0.000000 yp =       0.000000
 _BUS____1_TN_ACPIN_V_re                           : y =       1.060000 yp =       0.000000
 _BUS____1_TN_ACPIN_V_im                           : y =       0.000000 yp =       0.000000
 _BUS____1_TN_ACPIN_i_re                           : y =       2.211359 yp =       0.000000
@@ -76,10 +74,6 @@ _BUS___14_TN_Upu                                  : y =       1.033753
 _BUS___14_TN_phipu                                : y =      -0.377309
 _BUS___14_TN_U                                    : y =      14.265793
 _BUS___14_TN_phi                                  : y =     -21.618237
-_BUS___15_TN_Upu                                  : y =       0.000000
-_BUS___15_TN_phipu                                : y =       0.000000
-_BUS___15_TN_U                                    : y =       0.000000
-_BUS___15_TN_phi                                  : y =       0.000000
 _BUS____1_TN_Upu                                  : y =       1.060000
 _BUS____1_TN_phipu                                : y =       0.000000
 _BUS____1_TN_U                                    : y =      73.140000
@@ -372,21 +366,6 @@ _BUS____9-BUS___14-1_AC_iSide2                    : y =     419.582958
 _BUS____9-BUS___14-1_AC_U1                        : y =       1.052890
 _BUS____9-BUS___14-1_AC_U2                        : y =       1.033753
 _BUS____9-BUS___14-1_AC_lineState                 : y =       2.000000
-_BUS___14-BUS___15-1_AC_i1                        : y =       0.000000
-_BUS___14-BUS___15-1_AC_i2                        : y =       0.000000
-_BUS___14-BUS___15-1_AC_P1                        : y =       0.000000
-_BUS___14-BUS___15-1_AC_P2                        : y =       0.000000
-_BUS___14-BUS___15-1_AC_Q1                        : y =      -0.000000
-_BUS___14-BUS___15-1_AC_Q2                        : y =       0.000000
-_BUS___14-BUS___15-1_AC_iS1ToS2Side1              : y =       0.000000
-_BUS___14-BUS___15-1_AC_iS2ToS1Side1              : y =      -0.000000
-_BUS___14-BUS___15-1_AC_iS1ToS2Side2              : y =      -0.000000
-_BUS___14-BUS___15-1_AC_iS2ToS1Side2              : y =       0.000000
-_BUS___14-BUS___15-1_AC_iSide1                    : y =       0.000000
-_BUS___14-BUS___15-1_AC_iSide2                    : y =       0.000000
-_BUS___14-BUS___15-1_AC_U1                        : y =       1.033753
-_BUS___14-BUS___15-1_AC_U2                        : y =       0.000000
-_BUS___14-BUS___15-1_AC_lineState                 : y =       3.000000
 _BUS____4-BUS____9-1_PT_i1                        : y =       0.166740
 _BUS____4-BUS____9-1_PT_i2                        : y =       0.161571
 _BUS____4-BUS____9-1_PT_P1                        : y =       0.167559
@@ -442,9 +421,6 @@ _BUS___13_TN_state                                : z =       2.000000
 _BUS___14_TN_numcc                                : z =       0.000000
 _BUS___14_TN_switchOff                            : z =      -1.000000
 _BUS___14_TN_state                                : z =       2.000000
-_BUS___15_TN_numcc                                : z =       1.000000
-_BUS___15_TN_switchOff                            : z =       1.000000
-_BUS___15_TN_state                                : z =       2.000000
 _BUS____1_TN_numcc                                : z =       0.000000
 _BUS____1_TN_switchOff                            : z =      -1.000000
 _BUS____1_TN_state                                : z =       2.000000
@@ -510,8 +486,6 @@ _BUS____9-BUS___10-1_AC_state                     : z =       2.000000
 _BUS____9-BUS___10-1_AC_desactivate_currentLimits : z =       0.000000
 _BUS____9-BUS___14-1_AC_state                     : z =       2.000000
 _BUS____9-BUS___14-1_AC_desactivate_currentLimits : z =       0.000000
-_BUS___14-BUS___15-1_AC_state                     : z =       3.000000
-_BUS___14-BUS___15-1_AC_desactivate_currentLimits : z =       0.000000
 _BUS____4-BUS____9-1_PT_state                     : z =       2.000000
 _BUS____4-BUS____9-1_PT_step                      : z =       4.000000
 _BUS____4-BUS____9-1_PT_desactivate_currentLimits : z =       0.000000
@@ -688,14 +662,6 @@ _BUS____9-BUS___14-1_AC_conduct1                   =              0
 _BUS____9-BUS___14-1_AC_conduct2                   =              0
 _BUS____9-BUS___14-1_AC_resistance                 =        0.12711
 _BUS____9-BUS___14-1_AC_reactance                  =        0.27038
-_BUS___14-BUS___15-1_AC_admittance                 =        3.34708
-_BUS___14-BUS___15-1_AC_lossAngle                  =       0.439455
-_BUS___14-BUS___15-1_AC_suscept1                   =              0
-_BUS___14-BUS___15-1_AC_suscept2                   =              0
-_BUS___14-BUS___15-1_AC_conduct1                   =              0
-_BUS___14-BUS___15-1_AC_conduct2                   =              0
-_BUS___14-BUS___15-1_AC_resistance                 =        0.12711
-_BUS___14-BUS___15-1_AC_reactance                  =        0.27038
 _BUS____4-BUS____9-1_PT_R                          =              0
 _BUS____4-BUS____9-1_PT_X                          =       0.556179
 _BUS____4-BUS____9-1_PT_B                          =              0

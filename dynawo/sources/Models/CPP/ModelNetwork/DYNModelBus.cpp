@@ -17,6 +17,7 @@
 #include "DYNBusInterface.h"
 #include "DYNModelSwitch.h"
 #include "DYNVariableForModel.h"
+#include "DYNCommonModeler.h"
 
 namespace DYN {
 
@@ -117,9 +118,9 @@ ModelBus::defineElements(std::vector<Element>& elements, std::map<std::string, i
 void
 ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   // Discrete variables addition
-  addElement(id + string("_numcc"), Element::TERMINAL, elements, mapElement);
-  addElement(id + string("_switchOff"), Element::TERMINAL, elements, mapElement);
-  addElement(id + string("_state"), Element::TERMINAL, elements, mapElement);
+  addElement(id + std::string("_numcc"), Element::TERMINAL, elements, mapElement);
+  addElement(id + std::string("_switchOff"), Element::TERMINAL, elements, mapElement);
+  addElement(id + std::string("_state"), Element::TERMINAL, elements, mapElement);
 }
 
 void

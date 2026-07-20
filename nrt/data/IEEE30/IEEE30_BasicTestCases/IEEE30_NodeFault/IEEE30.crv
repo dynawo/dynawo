@@ -12,21 +12,21 @@
     of simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <!-- <curve model="NETWORK" variable="B1_U_value"/>
-  <curve model="NETWORK" variable="B2_U_value"/>
-  <curve model="NETWORK" variable="B3_U_value"/>
-  <curve model="NETWORK" variable="B4_U_value"/>
-  <curve model="NETWORK" variable="B5_U_value"/>
-  <curve model="NETWORK" variable="B6_U_value"/>
-  <curve model="NETWORK" variable="B7_U_value"/>
-  <curve model="NETWORK" variable="B8_U_value"/>
-  <curve model="NETWORK" variable="B9_U_value"/>
-  <curve model="NETWORK" variable="B10_U_value"/>
-  <curve model="NETWORK" variable="B11_U_value"/>
-  <curve model="NETWORK" variable="B12_U_value"/>
-  <curve model="NETWORK" variable="B13_U_value"/>
-  <curve model="NETWORK" variable="B14_U_value"/>
-  <curve model="NETWORK" variable="B15_U_value"/ > -->
+  <!-- <curve model="NETWORK" variable="B1_U"/>
+  <curve model="NETWORK" variable="B2_U"/>
+  <curve model="NETWORK" variable="B3_U"/>
+  <curve model="NETWORK" variable="B4_U"/>
+  <curve model="NETWORK" variable="B5_U"/>
+  <curve model="NETWORK" variable="B6_U"/>
+  <curve model="NETWORK" variable="B7_U"/>
+  <curve model="NETWORK" variable="B8_U"/>
+  <curve model="NETWORK" variable="B9_U"/>
+  <curve model="NETWORK" variable="B10_U"/>
+  <curve model="NETWORK" variable="B11_U"/>
+  <curve model="NETWORK" variable="B12_U"/>
+  <curve model="NETWORK" variable="B13_U"/>
+  <curve model="NETWORK" variable="B14_U"/>
+  <curve model="NETWORK" variable="B15_U"/ > -->
   <curve model="B1-G1" variable="generator_omegaPu"/>
   <curve model="B1-G1" variable="generator_PGen"/>
   <curve model="B1-G1" variable="generator_QGen"/>
