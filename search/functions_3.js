@@ -115,7 +115,7 @@ var searchData=
   ['connectorcontainer',['ConnectorContainer',['../d5/d34/a02809.html#ad6d6c16683e72fdbe1b4d4e9c6cf310a',1,'DYN::ConnectorContainer']]],
   ['connectvariablename',['connectVariableName',['../df/d9c/a02793.html#af778d8707bcc8ae510142ed5be1d92ff',1,'DYN::Compiler']]],
   ['constraint',['Constraint',['../d8/d3a/a01869.html#abc0187e0037b1d8d2047f0628c8a1592',1,'constraints::Constraint']]],
-  ['constraintdata',['ConstraintData',['../d5/da8/a01865.html#ac71b70d0292e91cc8a65e35563f9bce8',1,'constraints::ConstraintData::ConstraintData(kind_t constraintKind, double constraintLimit, double constraintValue, boost::optional&lt; int &gt; constraintSide=boost::none, boost::optional&lt; double &gt; constraintAcceptableDuration=boost::none)'],['../d5/da8/a01865.html#a3d47dc0ef22dfba9e44b44abc010d8a7',1,'constraints::ConstraintData::ConstraintData(const std::string &amp;constraintLimitName, kind_t constraintKind, double constraintLimit, double constraintValue, boost::optional&lt; int &gt; constraintSide=boost::none, boost::optional&lt; double &gt; constraintAcceptableDuration=boost::none)'],['../d1/d3a/a03353.html#aebe0158ffe473065d1717d01119471de',1,'DYN::ModelCurrentLimits::constraintData()']]],
+  ['constraintdata',['ConstraintData',['../d5/da8/a01865.html#af467aefd882c86824457b3f2f9199c32',1,'constraints::ConstraintData']]],
   ['constraintscollection',['ConstraintsCollection',['../d9/d63/a01877.html#a7a176225b95744fede25307401434ede',1,'constraints::ConstraintsCollection']]],
   ['constraintsentry',['ConstraintsEntry',['../dd/d14/a02201.html#a0c3b5976d58e32d74a140e0dd01c9ac4',1,'job::ConstraintsEntry']]],
   ['constraintshandler',['ConstraintsHandler',['../d7/d1a/a02381.html#a7bf198e6c616d961b0ec4ea7671a5a78',1,'job::ConstraintsHandler']]],

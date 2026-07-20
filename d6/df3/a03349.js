@@ -57,6 +57,7 @@ var a03349 =
     [ "instantiateVariables", "d6/df3/a03349.html#a5f81c478429c3e5f10a4215359911852", null ],
     [ "irAdd", "d6/df3/a03349.html#a98f76ac3b0b4bd4fb5461e68c4cb8a07", null ],
     [ "loadInternalVariables", "d6/df3/a03349.html#a0d0752bec01d4f161dbce811f8af9f15", null ],
+    [ "logConstraint", "d6/df3/a03349.html#ac754df600903f8f0c69e086a171ff4bb", null ],
     [ "resetCurrentUStatus", "d6/df3/a03349.html#a75adb46824875ae6abdb705b062bd568", null ],
     [ "resetDerivatives", "d6/df3/a03349.html#a8028e6144bca27eaf2c6c09ac5ea4320", null ],
     [ "resetNodeInjection", "d6/df3/a03349.html#a873ab09c6bdbc0bc07ceaf895a082d5e", null ],

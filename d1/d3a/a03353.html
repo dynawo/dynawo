@@ -158,9 +158,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:aebe0158ffe473065d1717d01119471de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/da8/a01865.html">constraints::ConstraintData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3a/a03353.html#aebe0158ffe473065d1717d01119471de">constraintData</a> (const <a class="el" href="../../d5/da8/a01865.html#a6207b5c13ad5fa57b92d6477f533d387">constraints::ConstraintData::kind_t</a> &amp;kind, unsigned int i)</td></tr>
-<tr class="memdesc:aebe0158ffe473065d1717d01119471de"><td class="mdescLeft">&#160;</td><td class="mdescRight">build constraint data details for a violation of limit i  <a href="#aebe0158ffe473065d1717d01119471de">More...</a><br /></td></tr>
-<tr class="separator:aebe0158ffe473065d1717d01119471de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4764cf40797095e1bb160338f9aa4c78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d3a/a03353.html#a4764cf40797095e1bb160338f9aa4c78">logConstraint</a> (<a class="el" href="../../d3/d0c/a03381.html">ModelNetwork</a> *network, const std::string &amp;componentName, const std::string &amp;modelType, int i, bool begin, bool opening=false) const</td></tr>
+<tr class="memdesc:a4764cf40797095e1bb160338f9aa4c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a constraint state change  <a href="#a4764cf40797095e1bb160338f9aa4c78">More...</a><br /></td></tr>
+<tr class="separator:a4764cf40797095e1bb160338f9aa4c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -285,52 +285,6 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
 
 </div>
 </div>
-<a id="aebe0158ffe473065d1717d01119471de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebe0158ffe473065d1717d01119471de">&#9670;&nbsp;</a></span>constraintData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d5/da8/a01865.html">constraints::ConstraintData</a> DYN::ModelCurrentLimits::constraintData </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d5/da8/a01865.html#a6207b5c13ad5fa57b92d6477f533d387">constraints::ConstraintData::kind_t</a> &amp;&#160;</td>
-          <td class="paramname"><em>kind</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>i</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>build constraint data details for a violation of limit i </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">kind</td><td>of limit violation </td></tr>
-    <tr><td class="paramname">i</td><td>limit index </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>details for the constraint </dd></dl>
-
-</div>
-</div>
 <a id="afc09f801e9a998f0d846ae1a453cdbfd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afc09f801e9a998f0d846ae1a453cdbfd">&#9670;&nbsp;</a></span>evalG()</h2>
 
@@ -445,6 +399,79 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the state of the current limits </dd></dl>
+
+</div>
+</div>
+<a id="a4764cf40797095e1bb160338f9aa4c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4764cf40797095e1bb160338f9aa4c78">&#9670;&nbsp;</a></span>logConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelCurrentLimits::logConstraint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d0c/a03381.html">ModelNetwork</a> *&#160;</td>
+          <td class="paramname"><em>network</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>componentName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>begin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>opening</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>registers a constraint state change </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">network</td><td>the overarching network model from static data </td></tr>
+    <tr><td class="paramname">componentName</td><td>the name of the component on which the current limit applies, in the network </td></tr>
+    <tr><td class="paramname">modelType</td><td>the type of the component on which the current limit applies, eg "Line" </td></tr>
+    <tr><td class="paramname">i</td><td>index of the limit being passed </td></tr>
+    <tr><td class="paramname">begin</td><td>whether the state change is an activation (if <b>true</b>), or deactivation (if <b>false</b>) </td></tr>
+    <tr><td class="paramname">opening</td><td><b>true</b> if the event is an opening of the component and not just a limit reached </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -586,7 +613,7 @@ std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d1/d3a/a03353.html">ModelCurrentLimits</a></li>
-    <li class="footer">Generated on Fri Jul 17 2026 15:31:29 for Dynawo by
+    <li class="footer">Generated on Mon Jul 20 2026 11:04:46 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
