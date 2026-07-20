@@ -28,25 +28,29 @@ model DynRLCFilterRI "Dynamic RLC Filter in (RI) frame"
 
   // Initial parameters
   parameter Types.ComplexVoltagePu UFilter0Pu "Start value of complex voltage at the filter terminal in pu (base UNom)";
-  parameter Types.ComplexCurrentPu IPcc0Pu "Start value of complex current at the PCC terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.ComplexCurrentPu IPcc0Pu "Start value of complex current at the PCC terminal in pu (base UNom, SNom) (receptor convention)";
+  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
 
  // Final parameters
-  final parameter Types.ComplexCurrentPu IConv0Pu =  - IPcc0Pu "Start value of d-axis current at the converter in pu (base UNom, SNom) in generator convention";
-  final parameter Types.ComplexVoltagePu UConv0Pu = RPu * IConv0Pu  + UFilter0Pu "Start value of d-axis voltage at the converter in pu (base UNom)";
+  final parameter Types.ComplexCurrentPu IConv0Pu =  Complex(- IPcc0Pu.re - Omega0Pu * CPu * UFilter0Pu.im,
+                                                             - IPcc0Pu.im + Omega0Pu * CPu * UFilter0Pu.re) "Start value of d-axis current at the converter in pu (base UNom, SNom) in generator convention";
+  final parameter Types.ComplexVoltagePu UConv0Pu = Complex(RPu * IConv0Pu.re - Omega0Pu * LPu * IConv0Pu.im  + UFilter0Pu.re,
+                                                            RPu * IConv0Pu.im + Omega0Pu * LPu * IConv0Pu.re  + UFilter0Pu.im) "Start value of d-axis voltage at the converter in pu (base UNom)";
 
   // Terminals
   Dynawo.Connectors.ACPower terminal1(V(re(start = UConv0Pu.re), im(start = UConv0Pu.im)), i(re(start = IConv0Pu.re), im(start = IConv0Pu.im))) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-115, -3}, extent = {{-15, -15}, {15, 15}})));
-  Dynawo.Connectors.ACPower terminal2(V(re(start = UFilter0Pu.re), im(start = UFilter0Pu.im)), i(re(start = IPcc0Pu.re), im(start = IPcc0Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal2 annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114,-2}, extent = {{-15, -15}, {15, 15}})));
-
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = Omega0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
+  Placement(transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 equation
   if running then
-    LPu / SystemBase.omegaNom * der(terminal1.i.re) = terminal1.V.re - terminal2.V.re - RPu*terminal1.i.re;
-    LPu / SystemBase.omegaNom * der(terminal1.i.im) = terminal1.V.im - terminal2.V.im - RPu*terminal1.i.im;
-    CPu / SystemBase.omegaNom * der(terminal2.V.re) = terminal1.i.re + terminal2.i.re;
-    CPu / SystemBase.omegaNom * der(terminal2.V.im) = terminal1.i.im + terminal2.i.im;
-   else
+    LPu / SystemBase.omegaNom * der(terminal1.i.re) = terminal1.V.re - terminal2.V.re - RPu*terminal1.i.re + omegaPu*LPu*terminal1.i.im;
+    LPu / SystemBase.omegaNom * der(terminal1.i.im) = terminal1.V.im - terminal2.V.im - RPu*terminal1.i.im - omegaPu*LPu*terminal1.i.re;
+    CPu / SystemBase.omegaNom * der(terminal2.V.re) = terminal1.i.re + terminal2.i.re + omegaPu*CPu*terminal2.V.im;
+    CPu / SystemBase.omegaNom * der(terminal2.V.im) = terminal1.i.im + terminal2.i.im - omegaPu*CPu*terminal2.V.re;
+  else
     terminal1.i = Complex(0);
     terminal2.i = Complex(0);
     end if;

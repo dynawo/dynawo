@@ -18,16 +18,17 @@ model DynRLTransformerRI "Dynamic RL Transformer in (RI) frame"
 
     */
    extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffLine;
-    // Transformer parameters
+   // Transformer parameters
   parameter Types.PerUnit RPu "Resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LPu "Inductance in pu (base UNom, SNom)";
 
   // Initial parameters
-  parameter Types.ComplexCurrentPu IPcc0Pu "Complex start value of  current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.ComplexCurrentPu IPcc0Pu "Complex start value of  current in the grid in pu (base UNom, SNom) (receptor convention)";
   parameter Types.ComplexVoltagePu UPcc0Pu "Complex start value of voltage at the PCC in pu (base UNom)";
-
+  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
   // Final Parameters
-  final parameter Types.ComplexVoltagePu UFilter0Pu = - RPu*IPcc0Pu + UPcc0Pu "Complex start value of voltage at the filter in pu (base UNom)";
+  final parameter Types.ComplexVoltagePu UFilter0Pu = Complex(- RPu * IPcc0Pu.re + Omega0Pu * LPu * IPcc0Pu.im + UPcc0Pu.re,
+                                                              - RPu * IPcc0Pu.im - Omega0Pu * LPu * IPcc0Pu.re + UPcc0Pu.im) "Complex start value of voltage at the filter in pu (base UNom)";
   final parameter Types.ComplexCurrentPu IFilter0Pu = - IPcc0Pu "Complex start value of the current at the filter in pu (base UNom, SNom)";
 
   // Terminals
@@ -36,16 +37,18 @@ model DynRLTransformerRI "Dynamic RL Transformer in (RI) frame"
   Dynawo.Connectors.ACPower terminal2(V(re(start = UPcc0Pu.re), im(start = UPcc0Pu.im)), i(re(start = IPcc0Pu.re), im(start = IPcc0Pu.im))) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114,-2}, extent = {{-15, -15}, {15, 15}})));
 
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = Omega0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
+  Placement(transformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 equation
   if running then
-    LPu/SystemBase.omegaNom * der(terminal1.i.re) = terminal1.V.re - RPu*terminal1.i.re - terminal2.V.re;
-    LPu/SystemBase.omegaNom * der(terminal1.i.im) = terminal1.V.im - RPu*terminal1.i.im - terminal2.V.im;
+    LPu/SystemBase.omegaNom * der(terminal1.i.re) = terminal1.V.re - RPu*terminal1.i.re - terminal2.V.re + omegaPu*LPu*terminal1.i.im;
+    LPu/SystemBase.omegaNom * der(terminal1.i.im) = terminal1.V.im - RPu*terminal1.i.im - terminal2.V.im - omegaPu*LPu*terminal1.i.re;
     terminal2.i.re = -terminal1.i.re;
     terminal2.i.im = -terminal1.i.im;
-   else
+  else
     terminal1.i = Complex(0);
     terminal2.i = Complex(0);
-   end if;
+  end if;
   annotation(
     preferredView = "text",
     Icon(graphics = {Line(origin = {0.292174, 0}, points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255}), Line(origin = {0.4243, 0.292221}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {30, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {60, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {60, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Line(origin = {90, 0}, points = {{-60, 0}, {-59, 6}, {-52, 14}, {-38, 14}, {-31, 6}, {-30, 0}}, color = {0, 0, 255}, smooth = Smooth.Bezier), Rectangle(extent = {{-100, 100}, {100, -100}}), Line(origin = {160.466, 0.26087}, points = {{-100, 0}, {-60, 0}}, color = {0, 0, 255})}, coordinateSystem(initialScale = 0.01)));

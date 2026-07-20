@@ -65,16 +65,16 @@ equation
     Line(points = {{-270, 120}, {-0.5, 120}, {-0.5, 96}, {19, 96}}, color = {85, 170, 255}));
   connect(transformRItoDQ1.ud, changeOfBaseD.u) annotation(
     Line(points = {{41, 16}, {48.5, 16}, {48.5, 40}, {58, 40}}, color = {0, 0, 127}));
-  connect(changeOfBaseD.y, idConvPu) annotation(
-    Line(points = {{81, 40}, {270, 40}}, color = {0, 0, 127}));
   connect(transformRItoDQ1.uq, changeOfBaseq.u) annotation(
     Line(points = {{42, 4}, {48, 4}, {48, -20}, {58, -20}}, color = {0, 0, 127}));
-  connect(changeOfBaseq.y, iqConvPu) annotation(
-    Line(points = {{82, -20}, {270, -20}}, color = {0, 0, 127}));
   connect(thetaGFM, transformRItoDQ.phi) annotation(
     Line(points = {{-280, -100}, {0, -100}, {0, 82}, {20, 82}, {20, 84}}, color = {0, 0, 127}));
   connect(thetaGFM, transformRItoDQ1.phi) annotation(
     Line(points = {{-280, -100}, {0, -100}, {0, 6}, {20, 6}, {20, 4}}, color = {0, 0, 127}));
+  connect(changeOfBaseq.y, iqConvPu) annotation(
+    Line(points = {{82, -20}, {270, -20}}, color = {0, 0, 127}));
+  connect(changeOfBaseD.y, idConvPu) annotation(
+    Line(points = {{82, 40}, {270, 40}}, color = {0, 0, 127}));
   annotation(
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {1, 3}, extent = {{-83, 65}, {83, -65}}, textString = "computation
 to
