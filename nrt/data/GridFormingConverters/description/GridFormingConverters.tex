@@ -78,21 +78,21 @@ All the three controls are stable for this simulation and manage to bring back t
 \newpage
 \chapter*{Single Machine Infinite Bus test with Grid Forming Converter}
 \section*{Test case descriptions}
-This section explore two similar test case consisting of a current-controlled grid-forming converter based on a Virtual Synschronous Machine Control (VSM) and current saturation enforced through a Quasi-Static Electrical Model with Virtual Impedance.
-The cases differs by the implementation of the Converter Block in the GFM model. In the first case (DynGFMVSM), the Converter Block is
-modelled with RMS equations for the RLC Filter and the RL Transformer and values within the loop are computed in the DQ (rotating) reference frame. In the second case (DynGFMVSMSmib), the Converter Block is modelled with RMS equations for the RLC Filter and the RL Transformer and values within the loop are computed in the DQ (rotating) reference frame.
+This section explores two similar test cases consisting of a current-controlled grid-forming converter based on a Virtual Synschronous Machine Control (VSM) and current saturation enforced through a Quasi-Static Electrical Model with Virtual Impedance.
+The cases differ by the implementation of the Converter Block in the GFM model. In the first case (DynGFMVSM), the Converter Block is
+modelled with RMS equations for the RLC Filter and the RL Transformer and values within the loop are computed in the DQ (rotating) reference frame.
 In the latter case (DynGFMVSM2), the Converter Block is modelled with explicit differential equations with time derivatives within the RLC Filter and the RL Transformer and values within the loop are computed in the Real-Imaginary (grid) reference frame.
 
-Simulation conditions are equal for both setups : GFM models are connected to an infinite bus through a RL line (R=0.0001667 p.u., L=0.005 p.u.) and the following events are simulated :
+Simulation conditions are identical for both setups : GFM models are connected to an infinite bus through a RL line (R=0.0001667 p.u., X=0.005 p.u.) and the following events are simulated :
 \begin{itemize}
-   \item At t = 8 s, the reference active power PRefPu increases from 0.75 to 1.00 pu with a step.
-   \item At t = 10 s, a sudden increase in frequency at the bus is simulated (88\% increase over 0.0001 s)
+   \item At t = 8 s, the reference active power PRefPu increases from 0.75 to 1.00 pu with a step. This event typically embodies a change in the generated power output from the generator.
+   \item At t = 10 s, a sudden increase in frequency at the bus is simulated (88\% increase over 0.0001 s). This event simulates a sudden oscillation in the grid frequency, which can be attributed to supply/demand imbalances.
    \item At t = 20 s, an increase of 4\% at the bus voltage happens. Return to the original value is made after 3 seconds.
 \end{itemize}
 
 \section*{Results}
 The graph in Figure \ref{comp20} shows the evolution of PFilterRefPu (reference active power in p.u. for the GFM) and PFilterPu : the active power in p.u.
-for the two GFM models. DynGFMVSM is referenced by DQ and DynGFMVSM2 is referenced by RI.
+for the two GFM models. In the figure, DynGFMVSM is referenced by the superscript DQ and DynGFMVSM2 is referenced by the superscript RI.
 
 \begin{figure}[H]
   \centering
