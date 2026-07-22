@@ -64,6 +64,9 @@ if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
     "  int retval = SUNContext_Create(NULL, &ctx);\n"
     "  void* IDAMem = IDACreate(ctx);\n"
     "  int flag = IDASetMinStep(IDAMem, 0.1);\n"
+    "  flag = IDASetURound(IDAMem, 0.1);\n"
+    "  long int newtoncuriter;\n"
+    "  flag = IDAGetNewtonCurIter(IDAMem, &newtoncuriter);\n"
     "  static_cast<void>(flag);\n"
     "  IDAFree(&IDAMem);\n"
     "  SUNContext_Free(&ctx);\n"
@@ -83,6 +86,7 @@ if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
     unset(SUNDIALS_NVECSERIAL_LIBRARY CACHE)
     unset(SUNDIALS_INCLUDE_DIR CACHE)
     unset(SUNDIALS_SUNLINSOLKLU_LIBRARY CACHE)
+    set(Sundials_FOUND OFF)
   endif()
 endif()
 
