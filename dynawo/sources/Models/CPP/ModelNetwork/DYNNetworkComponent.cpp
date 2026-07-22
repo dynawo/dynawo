@@ -253,10 +253,6 @@ NetworkComponent::loadVariables(boost::archive::binary_iarchive& streamVariables
       zValues.size() != static_cast<size_t>(sizeZ()) || gValues.size() != static_cast<size_t>(sizeG()) ||
       readNbInternalVariables != getNbInternalVariables()) {
     Trace::debug() << DYNLog(WrongParameterNum, id_) << Trace::endline;
-    // streamVariables is a component-local, self-contained blob (see ModelNetwork::loadVariables /
-    // ModelVoltageLevel::loadVariables): it is discarded after this call regardless of the outcome,
-    // so there is no need to drain the remaining internal variables to keep a shared stream aligned.
-    // Fall back on default initialization for this component
     getY0();
     return false;
   }
