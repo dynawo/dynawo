@@ -318,6 +318,21 @@ computeDelay(ModelManager* manager, int exprNumber, double exprValue, double tim
   return manager->computeDelay(exprNumber, exprValue, time, delayTime, delayMax);
 }
 
+double
+getCalculatedVar(ModelManager* manager, int indexCalculatedVar) {
+  return manager->getCalculatedVar(indexCalculatedVar);
+}
+
+void
+setCalculatedVar(ModelManager* manager, int indexCalculatedVar, double value) {
+  manager->setCalculatedVar(indexCalculatedVar, value);
+}
+
+const double*
+getCalculatedVarAddress(ModelManager* manager, int indexCalculatedVar) {
+  return manager->getCalculatedVarAddress(indexCalculatedVar);
+}
+
 #ifdef _ADEPT_
 adept::adouble
 computeDelayDerivative(ModelManager* manager, int exprNumber, adept::adouble exprValue, double time, adept::adouble delayTime, double delayMax) {

@@ -548,6 +548,14 @@ class SubModel {
   double getCalculatedVar(int indexCalculatedVar) const;
 
   /**
+   * @brief set the value of a given calculated variable
+   *
+   * @param indexCalculatedVar index of the calculated variable to set
+   * @param value value to store
+   */
+  void setCalculatedVar(int indexCalculatedVar, double value);
+
+  /**
    * @brief get the values of all variables at the initial time
    */
   void getY0Sub();

@@ -610,6 +610,41 @@ const char* stringAppend(const std::string s1, const modelica_string s2);
 modelica_real computeDelay(ModelManager* manager, int exprNumber, double exprValue, double time, double delayTime, double delayMax);
 
 /**
+ * @brief Retrieve the value of a given calculated variable
+ *
+ * Calls the corresponding function of @p manager
+ *
+ * @param manager the model manager to use
+ * @param indexCalculatedVar index of the calculated variable to retrieve
+ *
+ * @returns the value of the calculated variable
+ */
+double getCalculatedVar(ModelManager* manager, int indexCalculatedVar);
+
+/**
+ * @brief Set the value of a given calculated variable
+ *
+ * Calls the corresponding function of @p manager
+ *
+ * @param manager the model manager to use
+ * @param indexCalculatedVar index of the calculated variable to set
+ * @param value value to store
+ */
+void setCalculatedVar(ModelManager* manager, int indexCalculatedVar, double value);
+
+/**
+ * @brief Retrieve the address of a given calculated variable's cached value
+ *
+ * Calls the corresponding function of @p manager
+ *
+ * @param manager the model manager to use
+ * @param indexCalculatedVar index of the calculated variable
+ *
+ * @returns address of the calculated variable's cached value
+ */
+const double* getCalculatedVarAddress(ModelManager* manager, int indexCalculatedVar);
+
+/**
  * @brief Computes an estimation of the derivative of the delayed value
  *
  * Calls the corresponding function of @p manager

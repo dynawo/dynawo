@@ -365,6 +365,19 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void addDelay(int exprNumber, const double* time, const double* exprValue, double delayMax);
 
   /**
+   * @brief retrieve the address of a given calculated variable's cached value
+   *
+   * The returned address is stable for the lifetime of the model, unlike a local variable: it is
+   * meant to be used where a long-lived pointer to a calculated variable's value is required (e.g.
+   * to create a delay on a calculated variable).
+   *
+   * @param indexCalculatedVar index of the calculated variable
+   *
+   * @return address of the calculated variable's cached value
+   */
+  const double* getCalculatedVarAddress(int indexCalculatedVar) const;
+
+  /**
    * @copydoc SubModel::hasDataCheckCoherence() const override
    */
   bool hasDataCheckCoherence() const override;

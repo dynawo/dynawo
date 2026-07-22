@@ -43,9 +43,21 @@ $(function () {
     };
     oldOptions = options;
     plot = $.plot(placeholder, dataToPlot, options);
+    // Firefox sometimes leaves the canvas blank unless setupGrid/draw runs
+    // again in a later tick (the same fix as panning/zooming, but doing it
+    // synchronously right after $.plot() does not work: it has to happen
+    // after the browser has had a chance to paint).
+    setTimeout(function () {
+      plot.setupGrid();
+      plot.draw();
+    }, 100);
 
     $("#resetButton").click(function() {
   plot=$.plot(placeholder, dataToPlot, options);
+  setTimeout(function () {
+    plot.setupGrid();
+    plot.draw();
+  }, 100);
       });
 
     $("#zoomOut").click(function() {
@@ -89,6 +101,10 @@ $(function () {
                           xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
                           yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to },
         }));
+        setTimeout(function () {
+          plot.setupGrid();
+          plot.draw();
+        }, 100);
      });
 
   $("<div id='tooltip'></div>").css({

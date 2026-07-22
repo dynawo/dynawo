@@ -908,6 +908,11 @@ SubModel::getCalculatedVar(const int indexCalculatedVar) const {
 }
 
 void
+SubModel::setCalculatedVar(const int indexCalculatedVar, const double value) {
+  calculatedVars_[indexCalculatedVar] = value;
+}
+
+void
 SubModel::evalJtSub(const double t, const double cj, int& rowOffset, SparseMatrix& jt) {
   setCurrentTime(t);
   evalJt(t, cj, rowOffset, jt);

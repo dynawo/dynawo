@@ -205,6 +205,18 @@ class ReaderOMC:
         self.list_complex_const_vars = []
         ## Dictionary of calculated variables depending on others variables to the associated function
         self.list_complex_calculated_vars = {}
+        ## List of calculated variable dependency cycles found, each as the ordered list of variable
+        ## names in the cycle (evaluation order: each is evaluated from a local variable holding the
+        ## previous one's value, except the first, which is seeded from the calculated variables
+        ## cache; every member's freshly computed value is then written back to that same cache)
+        self.calc_var_cycles = []
+        ## Dictionary mapping a variable name involved in a cycle to the ordered cycle list (an entry
+        ## of calc_var_cycles) it belongs to
+        self.calc_var_cycle_membership = {}
+        ## Set of (from_var_name, to_var_name) references between calculated variables that must be
+        ## resolved at codegen time by reading the calculated variables cache instead of recursively
+        ## re-evaluating (the reference has not been evaluated yet at that point in the cycle)
+        self.calc_var_cycle_back_edges = set()
 
 
         # ---------------------------------------
@@ -2055,6 +2067,63 @@ class ReaderOMC:
 
         for f in function_to_remove:
              self.list_func_16dae_c.remove(f)
+
+        self.detect_calc_var_dependency_cycles()
+
+    ##
+    # Detect dependency cycles among the calculated variables just reclassified in
+    # list_complex_calculated_vars (e.g. a delay/switch feedback pattern where each variable's
+    # equation references the other): evaluating such a cycle through recursive
+    # evalCalculatedVarI calls never terminates. For each cycle found, its members are evaluated
+    # together, in ascending index order: each reference to another member of the same cycle
+    # reads a local variable if that member was already evaluated earlier in this order, or the
+    # calculated variables cache otherwise (that member has not been evaluated yet at this point).
+    # @param self : object pointer
+    # @return
+    def detect_calc_var_dependency_cycles(self):
+        calc_var_names = set(var.get_name() for var in self.list_complex_calculated_vars)
+        index_order = {}
+        graph = {}
+        for i, var in enumerate(self.list_complex_calculated_vars):
+            name = var.get_name()
+            index_order[name] = i
+            deps = self.map_vars_depend_vars.get(name, [])
+            graph[name] = [d for d in deps if d in calc_var_names and d != name]
+
+        WHITE, GRAY, BLACK = 0, 1, 2
+        color = {name: WHITE for name in graph}
+        seen_cycles = set()
+
+        def visit(name, stack):
+            color[name] = GRAY
+            stack.append(name)
+            for dep in graph[name]:
+                if color[dep] == GRAY:
+                    members = frozenset(stack[stack.index(dep):])
+                    if members not in seen_cycles:
+                        seen_cycles.add(members)
+                        cycle_order = sorted(members, key=lambda n: index_order[n])
+                        position = {n: i for i, n in enumerate(cycle_order)}
+                        self.calc_var_cycles.append(cycle_order)
+                        for member in cycle_order:
+                            self.calc_var_cycle_membership[member] = cycle_order
+                        cached_refs = []
+                        for member in cycle_order:
+                            for member_dep in graph[member]:
+                                if member_dep in position and position[member_dep] >= position[member]:
+                                    self.calc_var_cycle_back_edges.add((member, member_dep))
+                                    cached_refs.append(member + " -> " + member_dep)
+                        print_warning("Calculated variable dependency cycle detected: " + " -> ".join(cycle_order + [cycle_order[0]])
+                                      + ". Evaluating " + ", ".join(cycle_order) + " together in index order"
+                                      + ", reading the calculated variables cache for: " + ", ".join(cached_refs) + ".")
+                elif color[dep] == WHITE:
+                    visit(dep, stack)
+            stack.pop()
+            color[name] = BLACK
+
+        for name in graph:
+            if color[name] == WHITE:
+                visit(name, [])
 
     ##
     # Find all calculated variables, collect their initial value and their associated equation

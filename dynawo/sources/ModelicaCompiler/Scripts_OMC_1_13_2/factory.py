@@ -1251,6 +1251,12 @@ class Factory:
                 assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
 
+        for f in self.reader.list_complex_calculated_vars.values():
+            relations_found = re.findall(r'relationhysteresis\(data, &tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(f.get_body()))
+            for relation in relations_found:
+                index_relation = relation.split(", ")[6]
+                map_relations[index_relation] = [ALGEBRAIC, f.get_name()]
+
         # bulding relations objects
         content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
         relations_found = re.findall(r'  data->simulationInfo->relations.*?= tmp[0-9]+;', content_to_analyze)
@@ -1352,6 +1358,39 @@ class Factory:
                         index_if +=1
                     if "fmin" in line:
                         index_if +=1
+
+            for var, f in self.reader.list_complex_calculated_vars.items():
+                var_name = var.get_name()
+                no_event_nodes = []
+                if var_name in self.reader.var_name_to_mixed_residual_vars_types:
+                    no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
+
+                index_if = 0
+                for line in f.get_body():
+                    if (re.search(r'modelica_[a-z]+ tmp[0-9]+?;', line)):
+                        tmps_definition.append(str(line).replace("  ", ""))
+                    if (re.search(r'tmp[0-9]+ = [a-zA-Z]*.*?\;', line)):
+                        tmps_assignment.append(str(line).replace("  ", ""))
+                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line) and index_if >= len(no_event_nodes):
+                        error_exit("Could not determine whether the branch at index " + str(index_if) + " of calculated variable "
+                            + var_name + " is a noEvent() node (no_event_nodes has " + str(len(no_event_nodes)) + " entries): " + line.strip())
+                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line  and not no_event_nodes[index_if]):
+                        tmps_relation = find_all_temporary_variable_in_line(line)
+                        for tmp in tmps_relation:
+                            tmps_to_add.extend(add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add))
+                        index_relation_to_create = index_additional_relation + self.nb_existing_relations
+                        index_additional_relation += 1
+                        relation_to_create = Relation(index_relation_to_create, ALGEBRAIC)
+                        relation_to_create.set_condition(line)
+                        relation_to_create.add_eq(f.get_name())
+                        relation_to_create.set_body_definition("  data->simulationInfo->relations[" + str(index_relation_to_create) + "] = " + line.split(" = ")[0].replace("tmp", "tmp_cr").replace("  ", "") + ";\n")
+                        self.modes.add_created_relation(relation_to_create)
+                        self.nb_created_relations = index_additional_relation
+                    if "else" in line:
+                        index_if +=1
+                    if "fmin" in line:
+                        index_if +=1
+
             self.add_tmps_for_modes(tmps_to_add, tmps_assignment, tmps_definition, True)
 
     ##
@@ -1613,12 +1652,14 @@ class Factory:
             address = to_param_address(item["name"])
             if address.startswith("SHOULD NOT BE USED - CALCULATED VAR"):
                 calc_index = calc_var_2_index[item["name"]]
-                tmp_name = "_delay_init_" + item["exprId"]
-                self.list_for_callcustomparametersconstructors.append(
-                    "  double " + tmp_name + " = evalCalculatedVarI(" + str(calc_index) + ") /* " + item["name"] + " */;\n")
+                # A calculated variable has no stable memory address of its own to point a Delay at
+                # (unlike a state variable's slot in data->localData[0]->realVars). Point it at the
+                # calculated variables cache instead, which is stable for the model's lifetime;
+                # Delay only stores this pointer at construction and dereferences it later (once the
+                # cache has actually been populated), so no eager evaluation is needed here.
                 line_tmp = "  createDelay(" + item["exprId"] + \
                 ", &(data->localData[0]->timeValue)" + \
-                ", &(" + tmp_name + ")" + \
+                ", getCalculatedVarAddress((this)->getModelManager(), " + str(calc_index) + ")" + \
                 ", " + item["delayMax"] + ");\n"
             else:
                 line_tmp = "  createDelay(" + item["exprId"] + \
@@ -1868,20 +1909,25 @@ class Factory:
     # @return list of lines
     def get_body_for_shared_tmp_vars(self):
         text_to_return = []
-        ptrn_tmp_assign = re.compile(r'[\( ]*jacobian->tmpVars\[[0-9]+\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*)\.\$pDERA\.dummyVarA JACOBIAN_TMP_VAR\s*\*/[\) ]*=')
+        ptrn_tmp_assign = re.compile(r'[\( ]*jacobian->tmpVars\[(?P<tmpIdx>[0-9]+)\][ \)]*/\*\s*(?P<varName>[ \w\$\.()\[\],]*?)(?:\.\$pDERA\.dummyVarA)?(?P<arrayIdx>\[[0-9]+\])? JACOBIAN_TMP_VAR\s*\*/[\) ]*=')
         var_name_to_src_fct_name = {}
         for eq in self.get_list_eq_syst():
             var_name_to_src_fct_name[eq.get_evaluated_var()] = eq.get_src_fct_name()
+        for calc_var, f_calc in self.reader.list_complex_calculated_vars.items():
+            var_name_to_src_fct_name[calc_var.get_name()] = f_calc.get_name()
         for f in self.reader.list_func_12jac_c:
             body = f.get_body()
             assign_match = None
             for line in body:
-                assign_match = re.match(ptrn_tmp_assign, line)
-                if assign_match is not None:
+                match = re.match(ptrn_tmp_assign, line)
+                if match is not None and "$pDER" in match.group('varName'):
+                    match = None
+                if match is not None:
+                    assign_match = match
                     break
             if assign_match is None:
                 continue
-            var_name = assign_match.group('varName')
+            var_name = assign_match.group('varName') + (assign_match.group('arrayIdx') or '')
 
             with_throw = any("throwStreamPrint" in line for line in body)
             cleaned_lines = []
@@ -1891,6 +1937,9 @@ class Factory:
                     continue
                 if "omc_assert_warning" in line and with_throw:
                     continue
+                line = throw_stream_indexes(line)
+                if THREAD_DATA_OMC_PARAM in line:
+                    line = line.replace(THREAD_DATA_OMC_PARAM, "")
                 line = sub_division_sim(line)
                 line = replace_var_names(line)
                 line = rewrite_tmp_operand_refs(line)
@@ -1902,26 +1951,17 @@ class Factory:
                     continue
                 cleaned_lines.append(line.rstrip("\n") + "\n")
 
-            # A "Greater"/"Less" comparison here must read the same mode as setF's own
-            # relationhysteresis-tracked relation for this equation, not a live comparison,
-            # otherwise the jacobian branch can disagree with the actual residual's branch.
-            no_event_nodes = []
-            if var_name in self.reader.var_name_to_mixed_residual_vars_types:
-                no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
+            # The jacobian's branch layout doesn't line up 1:1 with the value equation's, so
+            # no_event is not re-checked here; relations already reflect it (see build_relations).
             if self.create_additional_relations() and var_name in var_name_to_src_fct_name:
-                index_if = 0
                 index_relation = 0
                 src_fct_name = var_name_to_src_fct_name[var_name]
+                index_relations = self.modes.find_index_relation(src_fct_name)
                 for i, line in enumerate(cleaned_lines):
-                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not no_event_nodes[index_if]):
-                        index_relations = self.modes.find_index_relation(src_fct_name)
+                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line):
                         if index_relation < len(index_relations):
                             cleaned_lines[i] = self.transform_in_relation(line, index_relations[index_relation])
                             index_relation += 1
-                    if "else" in line:
-                        index_if += 1
-                    if "fmin" in line:
-                        index_if += 1
 
             text_to_return.append("  {\n")
             text_to_return.extend([ "  " + line for line in cleaned_lines ])
@@ -1971,6 +2011,8 @@ class Factory:
 
         #TODO PROPER ERROR
         self.list_for_evaljt.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, 0);\n")
+
+        convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_evaljt)
 
         # remove atan3, replace pow by pow_dynawo
         for index, line in enumerate(self.list_for_evaljt):
@@ -2879,13 +2921,30 @@ class Factory:
                     if (not is_adept_func(func, self.list_adept_structs) or not main_func_is_adept) \
                     and param.get_is_input() and param.get_type() == "modelica_real":
                         match_global = ptrn_vars.findall(l) # Is this a word that matches the regex?
+                        ptrn_name_with_tag = re.compile(r'\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+                        ptrn_name_no_tag = re.compile(r'\/\* (?P<varName>[\w\$\.()\[\],]*) \*\/')
                         for name in match_global:
-                            match = ptrn_real_der_var.search(l)
-                            if match is not None:
-                                l = l.replace(name, "xd[" + match.group('varId')+"].value()")
-                            match = ptrn_real_var.search(l)
-                            if match is not None:
-                                l = l.replace(name, "x[" + match.group('varId')+"].value()")
+                            name_match = ptrn_name_with_tag.search(name)
+                            if name_match is None:
+                                name_match = ptrn_name_no_tag.search(name)
+                            resolved_address = to_param_address(name_match.group('varName')) if name_match is not None else None
+                            resolved_der = re.match(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\]', resolved_address) if resolved_address is not None else None
+                            resolved_real = re.match(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\]', resolved_address) if resolved_address is not None else None
+                            if resolved_der is not None:
+                                l = l.replace(name, "xd[" + resolved_der.group('varId')+"].value()")
+                            elif resolved_real is not None:
+                                l = l.replace(name, "x[" + resolved_real.group('varId')+"].value()")
+                            elif resolved_address is not None and resolved_address.startswith("SHOULD NOT BE USED - CALCULATED VAR"):
+                                l = l.replace(name, resolved_address + " /* " + name_match.group('varName') + " variable */")
+                            elif resolved_address is not None:
+                                l = l.replace(name, resolved_address)
+                            else:
+                                match = ptrn_real_der_var.search(l)
+                                if match is not None:
+                                    l = l.replace(name, "xd[" + match.group('varId')+"].value()")
+                                match = ptrn_real_var.search(l)
+                                if match is not None:
+                                    l = l.replace(name, "x[" + match.group('varId')+"].value()")
                     call_line += l
                     add_comma = True
                     if curr_param_idx == len(func.get_params()) - 1 \
@@ -3037,7 +3096,15 @@ class Factory:
                         if (symbolic_func + "(" in line or symbolic_func + " (" in line):
                             if not is_adept_func(func, self.list_adept_structs) : continue
                             used_functions.append(func)
+                    line = replace_combi_table_jacobian_adept(line)
                     line = self.replace_adept_functions_in_line(line, adept_tmp)
+
+                    if self.create_additional_relations() and (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not no_event_nodes[index_if]):
+                        index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
+                        assert(len(index_relations) > 0 and index_relation < len(index_relations))
+                        line = self.transform_in_relation(line, index_relations[index_relation])
+                        index_relation+=1
+
                     match = ptrn_calc_var.findall(line)
                     for name in match:
                         calc_var_index = str(calc_var_2_index[name])
@@ -3051,7 +3118,7 @@ class Factory:
                             "    calcVarX[k] = x[calcVarIndexes[k]];",
                             "    calcVarXP[k] = xd[calcVarIndexes[k]];",
                             "  }",
-                            "  return evalCalculatedVarIAdept(" + calc_var_index + ", 0, calcVarX, calcVarXP);",
+                            "  return evalCalculatedVarIAdept(" + calc_var_index + ", 0, calcVarX, calcVarXP); /* " + name + " */",
                             "}()"])
                         line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                                 calc_var_adept_call + " /* " + name)
@@ -3065,11 +3132,6 @@ class Factory:
                             if tmp in line:
                                 line = line.replace(match.group('type'), match.group('type')+"_adept")
 
-                    if self.create_additional_relations() and (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not no_event_nodes[index_if]):
-                        index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
-                        assert(len(index_relations) > 0 and index_relation < len(index_relations))
-                        line = self.transform_in_relation(line, index_relations[index_relation])
-                        index_relation+=1
                     if "else" in line:
                         index_if +=1
                     if "fmin" in line:
@@ -3169,6 +3231,7 @@ class Factory:
                     if (symbolic_func + "(" in line or symbolic_func + " (" in line):
                         if not is_adept_func(func, self.list_adept_structs) : continue
                         used_functions.append(func)
+                line = replace_combi_table_jacobian_adept(line)
                 line = self.replace_adept_functions_in_line(line, adept_tmp)
                 if "double external_call_" in line:
                     line = line.replace("double external_call_","adept::adouble external_call_")
@@ -3554,6 +3617,7 @@ class Factory:
     # @return
     def prepare_for_evaldynamictype(self):
         ind = 0
+        ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
         diff_var_to_eq = {}
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
@@ -3587,6 +3651,11 @@ class Factory:
                                                                 self.reader.var_name_to_mixed_residual_vars_types[eq.get_evaluated_var()], \
                                                                 alg_vars, diff_var_to_eq, 4)
                     convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
+                    for i, line in enumerate(body):
+                        match = ptrn_calc_var.findall(line)
+                        for name in match:
+                            body[i] = body[i].replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
                     if len(body) > 0:
                         self.list_for_evaldynamicytype.append("  {\n")
                         self.list_for_evaldynamicytype.extend(body)
@@ -3613,6 +3682,7 @@ class Factory:
     # @return
     def prepare_for_evaldynamicftype(self):
         ind = 0
+        ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
@@ -3622,6 +3692,11 @@ class Factory:
                     body = replace_equations_in_a_if_statement(eq.get_body_for_setf(), self.reader.var_name_to_mixed_residual_vars_types[var_name], \
                                                                "type = ALGEBRAIC_EQ;\n", "type = DIFFERENTIAL_EQ;\n", 4)
                     convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
+                    for i, line in enumerate(body):
+                        match = ptrn_calc_var.findall(line)
+                        for name in match:
+                            body[i] = body[i].replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
                     self.list_for_evaldynamicftype.extend(body)
                     line = "     fType[ %s ] = type;\n" % (str(ind))
                     self.list_for_evaldynamicftype.append(line)
@@ -3637,6 +3712,11 @@ class Factory:
                     body = replace_equations_in_a_if_statement(eq.get_body_for_setf(), self.reader.var_name_to_mixed_residual_vars_types[var_name], \
                                                                "type = ALGEBRAIC_EQ;\n", "type = DIFFERENTIAL_EQ;\n", 4)
                     convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
+                    for i, line in enumerate(body):
+                        match = ptrn_calc_var.findall(line)
+                        for name in match:
+                            body[i] = body[i].replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
                     self.list_for_evaldynamicftype.extend(body)
                     line = "     fType[ %s ] = type;\n" % (str(ind))
                     self.list_for_evaldynamicftype.append(line)
@@ -3953,6 +4033,12 @@ class Factory:
                         if function_found and var.get_name() == name:
                             line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                                         "&external_call_tmp /* " + name)
+                        elif (var.get_name(), name) in self.reader.calc_var_cycle_back_edges:
+                            # this reference closes a calculated-variable dependency cycle: the target
+                            # was (or will be) computed earlier/later in this same pass, so read it
+                            # directly from the local buffer instead of recursively re-evaluating it
+                            line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                        "calculatedVars[" + str(calc_var_2_index[name]) + "] /* " + name)
                         else:
                             line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                                         "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
@@ -3965,7 +4051,11 @@ class Factory:
                 expr = transform_line(expr)
                 match = ptrn_calc_var.findall(expr)
                 for name in match:
-                    expr = expr.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                    if (var.get_name(), name) in self.reader.calc_var_cycle_back_edges:
+                        expr = expr.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                        "calculatedVars[" + str(calc_var_2_index[name]) + "] /* " + name)
+                    else:
+                        expr = expr.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                                         "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
                 self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = " + expr+";\n")
 
@@ -3976,6 +4066,43 @@ class Factory:
     # @return list of lines
     def get_list_for_evalcalculatedvars(self):
         return self.list_for_evalcalculatedvars
+
+    ##
+    # insert a write to the calculated variables cache right before each return statement of a
+    # calculated variable's body, so that other members of the same dependency cycle can read it
+    # @param self : object pointer
+    # @param body : lines of the calculated variable's body
+    # @param var_name : name of the calculated variable being computed
+    # @param is_adept : whether body is an adept::adouble body (needs .value() to store a plain double)
+    # @return the body with the cache write inserted before each return
+    def inject_calc_var_cache_writeback(self, body, var_name, is_adept=False):
+        idx = self.dic_calc_var_index[var_name]
+        ptrn_return = re.compile(r'^(?P<indent>\s*)return (?P<value>.+);\s*$')
+        value_suffix = ".value()" if is_adept else ""
+        new_body = []
+        for line in body:
+            match = ptrn_return.match(line)
+            if match is not None:
+                new_body.append(match.group('indent') + "setCalculatedVar((this)->getModelManager(), " \
+                                 + str(idx) + ", (" + match.group('value') + ")" + value_suffix + ");\n")
+            new_body.append(line)
+        return new_body
+
+    ##
+    # determine how current_var_name's body should reference target_name in generated code
+    # @param self : object pointer
+    # @param current_var_name : name of the calculated variable whose body is being generated
+    # @param target_name : name of the calculated variable being referenced
+    # @return 'cache' (read the calculated variables cache), 'local' (read a local variable
+    # already computed earlier in the same cycle block), or 'normal' (regular evalCalculatedVarI call)
+    def calc_var_ref_kind(self, current_var_name, target_name):
+        if (current_var_name, target_name) in self.reader.calc_var_cycle_back_edges:
+            return 'cache'
+        membership = self.reader.calc_var_cycle_membership
+        if current_var_name in membership and target_name in membership \
+           and membership[current_var_name] is membership[target_name]:
+            return 'local'
+        return 'normal'
 
     ##
     # prepare the lines that constitues the body for evalCalculatedVars
@@ -3994,57 +4121,129 @@ class Factory:
         ptrn_evaluated_var = re.compile(r'\(data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/\)[ ]* = [ ]*(?P<rhs>[^;]+);')
         ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[\w\$\.()\[\],]*)[ \w\(\),\.]*\*\/')
 
+        var_name_to_src_fct_name = {}
+        for eq in self.get_list_eq_syst():
+            var_name_to_src_fct_name[eq.get_evaluated_var()] = eq.get_src_fct_name()
+        for calc_var, f in self.reader.list_complex_calculated_vars.items():
+            var_name_to_src_fct_name[calc_var.get_name()] = f.get_name()
+
+        var_by_name = {var.get_name(): var for var in self.reader.list_calculated_vars}
+
+        # build the C++ body (without the surrounding "if (iCalculatedVar == idx)") for a single
+        # calculated variable; references to other calculated variables are resolved via
+        # calc_var_ref_kind, so this can be reused unchanged for a cycle's merged block
+        def build_var_body(var):
+            var_name = var.get_name()
+            body_translated = []
+            for line in self.reader.dic_calculated_vars_values[var_name]:
+                if "throwStreamPrint" in line:
+                    with_throw = True
+                    break
+            for line in self.reader.dic_calculated_vars_values[var_name]:
+                if "omc_assert_warning" in line and with_throw:
+                    continue
+                if "infoStreamPrintWithEquationIndexes" in line:
+                    continue
+                match = re.search(ptrn_evaluated_var, line)
+                function_found = False
+                if match is not None:
+                    for name in name_func_to_search:
+                        if name+"(" in line or name +" (" in line:
+                            variables_to_replace = self.find_variables_set_by_omc_function(line, name_func_to_search[name], lambda var_name: True)
+                            global_pattern_index = 0
+                            (line, dic_var_name_to_temporary_name, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_to_replace, global_pattern_index)
+                            for name in dic_var_name_to_temporary_name.keys():
+                                body_translated.append("    modelica_real " + dic_var_name_to_temporary_name[name]+ " = 0." + " /* " + name + "*/;\n")
+                            function_found = True
+                            break
+                    if not function_found:
+                        line = ptrn_evaluated_var.sub(r'  return \g<3>;', line)
+                line_tmp = throw_stream_indexes(line)
+                line_tmp = transform_line(line_tmp)
+                if var_name in self.dic_calc_var_recursive_deps:
+                    for name in self.dic_calc_var_recursive_deps[var_name]:
+                        if function_found and var.get_name() == name:
+                            line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "&external_call_tmp /* " + name)
+                            continue
+                        ref_kind = self.calc_var_ref_kind(var_name, name)
+                        if ref_kind == 'cache':
+                            # this reference is part of a calculated-variable dependency cycle and has
+                            # not been evaluated yet at this point: read the cache instead of
+                            # recursively re-evaluating, which would never terminate
+                            line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "getCalculatedVar((this)->getModelManager(), " + str(self.dic_calc_var_index[name]) + ") /* " + name)
+                        elif ref_kind == 'local':
+                            # same cycle, already evaluated earlier in this same merged block
+                            line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "calculatedVar" + str(self.dic_calc_var_index[name]) + " /* " + name)
+                        else:
+                            line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
+                body_translated.append(line_tmp)
+                if function_found :
+                    body_translated.append("    return " + dic_var_name_to_temporary_name[var.get_name()] +";\n")
+            # convert native boolean variables
+            convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
+
+            if self.create_additional_relations() and var_name in var_name_to_src_fct_name:
+                no_event_nodes = []
+                if var_name in self.reader.var_name_to_mixed_residual_vars_types:
+                    no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
+                src_fct_name = var_name_to_src_fct_name[var_name]
+                index_if = 0
+                index_relation = 0
+                index_relations = self.modes.find_index_relation(src_fct_name)
+                for i, line in enumerate(body_translated):
+                    is_no_event_node = index_if < len(no_event_nodes) and no_event_nodes[index_if]
+                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not is_no_event_node):
+                        if index_relation < len(index_relations):
+                            body_translated[i] = self.transform_in_relation(line, index_relations[index_relation])
+                            index_relation += 1
+                    if "else" in line:
+                        index_if += 1
+                    if "fmin" in line:
+                        index_if += 1
+            return body_translated
+
+        handled_cycle_members = set()
         for var in self.reader.list_calculated_vars:
             var_name = var.get_name()
+            if var_name in handled_cycle_members:
+                continue
             expr = self.reader.dic_calculated_vars_values[var_name]
             index = self.dic_calc_var_index[var_name]
-            self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var_name + " */\n")
-            if type(expr)==list:
-                body_translated = []
-                for line in self.reader.dic_calculated_vars_values[var_name]:
-                    if "throwStreamPrint" in line:
-                        with_throw = True
-                        break
-                for line in self.reader.dic_calculated_vars_values[var_name]:
-                    if "omc_assert_warning" in line and with_throw:
-                        continue
-                    if "infoStreamPrintWithEquationIndexes" in line:
-                        continue
-                    match = re.search(ptrn_evaluated_var, line)
-                    function_found = False
-                    if match is not None:
-                        for name in name_func_to_search:
-                            if name+"(" in line or name +" (" in line:
-                                variables_to_replace = self.find_variables_set_by_omc_function(line, name_func_to_search[name], lambda var_name: True)
-                                global_pattern_index = 0
-                                (line, dic_var_name_to_temporary_name, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_to_replace, global_pattern_index)
-                                for name in dic_var_name_to_temporary_name.keys():
-                                    body_translated.append("    modelica_real " + dic_var_name_to_temporary_name[name]+ " = 0." + " /* " + name + "*/;\n")
-                                function_found = True
-                                break
-                        if not function_found:
-                            line = ptrn_evaluated_var.sub(r'  return \g<3>;', line)
-                    line_tmp = throw_stream_indexes(line)
-                    line_tmp = transform_line(line_tmp)
-                    if var_name in self.dic_calc_var_recursive_deps:
-                        for name in self.dic_calc_var_recursive_deps[var_name]:
-                            if function_found and var.get_name() == name:
-                                line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                                        "&external_call_tmp /* " + name)
-                            else:
-                                line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                                        "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
-                    body_translated.append(line_tmp)
-                    if function_found :
-                        body_translated.append("    return " + dic_var_name_to_temporary_name[var.get_name()] +";\n")
-                # convert native boolean variables
-                convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
-                self.list_for_evalcalculatedvari.extend(body_translated)
+
+            if type(expr)==list and var_name in self.reader.calc_var_cycle_membership:
+                cycle_order = self.reader.calc_var_cycle_membership[var_name]
+                handled_cycle_members.update(cycle_order)
+                indexes = [self.dic_calc_var_index[n] for n in cycle_order]
+                self.list_for_evalcalculatedvari.append("  if (" \
+                    + " || ".join("iCalculatedVar == " + str(i) for i in indexes) \
+                    + ")  /* " + ", ".join(cycle_order) + " */\n")
+                self.list_for_evalcalculatedvari.append("  {\n")
+                for i, member_name in enumerate(cycle_order):
+                    member_idx = self.dic_calc_var_index[member_name]
+                    self.list_for_evalcalculatedvari.append("    modelica_real calculatedVar" + str(member_idx) + " = [&]() {\n")
+                    self.list_for_evalcalculatedvari.extend(build_var_body(var_by_name[member_name]))
+                    self.list_for_evalcalculatedvari.append("    }();\n")
+                    self.list_for_evalcalculatedvari.append("    setCalculatedVar((this)->getModelManager(), " \
+                        + str(member_idx) + ", calculatedVar" + str(member_idx) + ");\n")
+                    if i < len(cycle_order) - 1:
+                        self.list_for_evalcalculatedvari.append("    if (iCalculatedVar == " + str(member_idx) \
+                            + ") return calculatedVar" + str(member_idx) + ";\n")
+                    else:
+                        self.list_for_evalcalculatedvari.append("    return calculatedVar" + str(member_idx) + ";\n")
+                self.list_for_evalcalculatedvari.append("  }\n")
+            elif type(expr)==list:
+                self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var_name + " */\n")
+                self.list_for_evalcalculatedvari.extend(build_var_body(var))
             else:
+                self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var_name + " */\n")
                 match = ptrn_calc_var.findall(expr)
                 for name in match:
                     expr = expr.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                                        "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                                    "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
                 self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
         self.list_for_evalcalculatedvari.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
@@ -4138,6 +4337,13 @@ class Factory:
         ptrn_complex_tmp_assign2 = re.compile(r'\s*(?P<type>.*)\s* (?P<tmp_assigned>tmp[0-9]+).* = .*data->localData\[0\]->realVars.*;')
         recursive_calc_vars_num_deps = self.compute_recursive_calc_vars_num_deps()
         used_functions = []
+
+        var_name_to_src_fct_name = {}
+        for eq in self.get_list_eq_syst():
+            var_name_to_src_fct_name[eq.get_evaluated_var()] = eq.get_src_fct_name()
+        for calc_var, f in self.reader.list_complex_calculated_vars.items():
+            var_name_to_src_fct_name[calc_var.get_name()] = f.get_name()
+
         for var in self.reader.list_calculated_vars:
             body = []
             adept_tmp = []
@@ -4201,6 +4407,7 @@ class Factory:
                         if (func_name + "(" in line or func_name + " (" in line):
                             if is_adept_func(func, self.list_adept_structs):
                                 used_functions.append(func)
+                    line = replace_combi_table_jacobian_adept(line)
                     line = self.replace_adept_functions_in_line(line, adept_tmp)
                     body.append(transform_line_adept(line))
                     if function_found and var.get_name() in dic_var_name_to_temporary_name:
@@ -4228,6 +4435,26 @@ class Factory:
 
             # convert native boolean variables
             convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
+
+            if self.create_additional_relations() and var.get_name() in var_name_to_src_fct_name:
+                no_event_nodes = []
+                if var.get_name() in self.reader.var_name_to_mixed_residual_vars_types:
+                    no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var.get_name()].get_no_event()
+                src_fct_name = var_name_to_src_fct_name[var.get_name()]
+                index_if = 0
+                index_relation = 0
+                index_relations = self.modes.find_index_relation(src_fct_name)
+                for i, line in enumerate(body_translated):
+                    is_no_event_node = index_if < len(no_event_nodes) and no_event_nodes[index_if]
+                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not is_no_event_node):
+                        if index_relation < len(index_relations):
+                            body_translated[i] = self.transform_in_relation(line, index_relations[index_relation])
+                            index_relation += 1
+                    if "else" in line:
+                        index_if += 1
+                    if "fmin" in line:
+                        index_if += 1
+
             calc_var_to_offset = {}
             if var.get_name() in self.dic_calc_var_recursive_deps:
                 # The gathered x[]/xd[] vector for this var is laid out as:
@@ -4253,9 +4480,16 @@ class Factory:
                 for val in sorted_indexes:
                     line = line.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
                     index_var += 1
-                is_relation_condition_line = ptrn_adept_relation_condition.search(line) is not None
+                is_relation_condition_line = ptrn_adept_relation_condition.search(line) is not None and "x[indexOffset" not in line
                 if is_relation_condition_line:
                     line = ptrn_adept_relation_condition.sub(r'\1(', line)
+                # Same classification used everywhere else in this function (is_adept_func):
+                # if the line calls a function with no adept equivalent (delayImpl, the "NoDer"
+                # table lookups, event_floor/ceil, ...), a calc-var used as its argument must
+                # stay a plain double, never adept::adouble.
+                is_non_adept_func_call = any(
+                    (func_name + "(" in line or func_name + " (" in line) and not is_adept_func(define_methods[func_name], self.list_adept_structs)
+                    for func_name in define_methods)
                 if var.get_name() in self.dic_calc_var_recursive_deps:
                     for name in self.dic_calc_var_recursive_deps[var.get_name()]:
                         offset = 0
@@ -4268,13 +4502,27 @@ class Factory:
                                 # there is an x[..] in the name of the variable itself!
                                 name_to_use = name_to_use.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
                                 index_var += 1
-                        if is_relation_condition_line:
+                        if self.calc_var_ref_kind(var.get_name(), name) != 'normal':
+                            # this reference is part of a calculated-variable dependency cycle. Unlike
+                            # the plain evalCalculatedVarI dispatcher, cycle members here cannot share
+                            # local variables: each has its own indexOffset/x/xd gather set up by the
+                            # caller for the *specific* iCalculatedVar it asked for, so another
+                            # member's x[]/xd[] layout would not apply. Read the cache instead (a plain
+                            # double converts implicitly to adept::adouble, valid in both expression
+                            # contexts below); every member's own value is written back to that same
+                            # cache below so it stays as fresh as possible.
+                            line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
+                                "getCalculatedVar((this)->getModelManager(), " + str(self.dic_calc_var_index[name]) + ") /* " + name)
+                        elif is_relation_condition_line or is_non_adept_func_call:
                             line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
                                 "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
                         else:
                             line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
                                 "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
                 body.append(line)
+
+            if var.get_name() in self.reader.calc_var_cycle_membership:
+                body = self.inject_calc_var_cache_writeback(body, var.get_name(), is_adept=True)
 
             self.list_for_evalcalculatedvariadept.append("  if (iCalculatedVar == " + str(index_calc_var)+")  /* "+ var.get_name() + " */\n")
             self.list_for_evalcalculatedvariadept.extend(body)
@@ -4318,6 +4566,12 @@ class Factory:
                         self.list_for_getindexofvarusedforcalcvari.append("    indexes.push_back(" + str(dependency_index) + ");\n")
                     if var_name in self.dic_calc_var_recursive_deps:
                         for name in self.dic_calc_var_recursive_deps[var_name]:
+                            if self.calc_var_ref_kind(var_name, name) != 'normal':
+                                # this dependency is resolved via the calculated variables cache (a
+                                # plain, non-differentiable double), not through a live adept chain:
+                                # its own x[]/xd[] indexes are not part of this variable's gather set,
+                                # and recursing into it would never terminate for a dependency cycle
+                                continue
                             self.list_for_getindexofvarusedforcalcvari.append("    getIndexesOfVariablesUsedForCalculatedVarI(" + str(self.dic_calc_var_index[name])+ ", indexes);\n")
                     self.list_for_getindexofvarusedforcalcvari.append("  }\n")
             index+=1

@@ -221,6 +221,9 @@ ModelManager::associateBuffers() {
       const int offset = dataDyn_->nbZ;
       dataDyn_->localData[0]->integerDoubleVars = &(zLocal_[offset]);
     }
+
+    if (calculatedVars_.empty())
+      calculatedVars_.assign(dataDyn_->nbCalculatedVars, 0);
   }
 }
 
@@ -361,8 +364,7 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
 
         const double term2 = modelModelica()->evalJtTerm(i, j, cj, complete);
         if (!doubleEquals(term, term2))
-          std::cout << "BUBU ERROR " << name() << " " << t << " " << i << " " << j << " " << term << " " << term2 << " "
-            << jac[indice] << " " <<  jac[indice + offsetJPrim] << std::endl;
+          Trace::warn() << DYNLog(JacobianSymbolicMismatch, name(), t, i, j, term2, term, jac[indice], jac[indice + offsetJPrim]) << Trace::endline;
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
@@ -1477,6 +1479,11 @@ ModelManager::initializeFromData(const boost::shared_ptr<DataInterface>& /*data*
 void
 ModelManager::addDelay(int exprNumber, const double* time, const double* exprValue, double delayMax) {
   delayManager_.addDelay(exprNumber, time, exprValue, delayMax);
+}
+
+const double*
+ModelManager::getCalculatedVarAddress(const int indexCalculatedVar) const {
+  return &calculatedVars_[indexCalculatedVar];
 }
 
 double

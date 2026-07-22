@@ -1045,7 +1045,11 @@ Simulation::simulate() {
       BitMask solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
+        std::vector<double> zNew;
+        model_->getCurrentZ(zNew);
+        model_->setCurrentZ(zCurrent_);
         updateCurves(true);
+        model_->setCurrentZ(zNew);
         model_->notifyTimeStep();
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
@@ -1055,7 +1059,11 @@ Simulation::simulate() {
       } else if (solverState.getFlags(NotSilentZChange)
           || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
           || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {
+        std::vector<double> zNew;
+        model_->getCurrentZ(zNew);
+        model_->setCurrentZ(zCurrent_);
         updateCurves(true);
+        model_->setCurrentZ(zNew);
         model_->getCurrentZ(zCurrent_);
         modifZ = true;
       }
