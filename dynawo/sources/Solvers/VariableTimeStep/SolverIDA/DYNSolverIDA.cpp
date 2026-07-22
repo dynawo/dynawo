@@ -167,10 +167,13 @@ SolverIDA::setSolverSpecificParameters() {
   if (activateTimeScaledURound.hasValue())
     activateTimeScaledURound_ = activateTimeScaledURound.getValue<bool>();
   const ParameterSolver& timeScaledURoundPrecision = findParameter("timeScaledURoundPrecision");
-  if (timeScaledURoundPrecision.hasValue())
+  if (timeScaledURoundPrecision.hasValue()) {
+    if (!activateTimeScaledURound_)
+      Trace::warn() << DYNLog(SolverIDATimeScaledURoundPrecisionNotUsed) << Trace::endline;
     timeScaledURoundPrecision_ = timeScaledURoundPrecision.getValue<double>();
-  else
+  } else {
     timeScaledURoundPrecision_ = getCurrentPrecision();
+  }
   if (getCurrentPrecision() < timeScaledURoundPrecision_)
     timeScaledURoundPrecision_ = getCurrentPrecision();
   const ParameterSolver& activateAlternativeStrategiesOnDivergence = findParameter("activateAlternativeStrategiesOnDivergence");
