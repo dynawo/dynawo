@@ -148,9 +148,7 @@ CalculatedBusInterfaceIIDM::getComponentVarIndex(const std::string& varName) con
 
 void
 CalculatedBusInterfaceIIDM::exportStateVariablesUnitComponent() {
-  double angle = getStateVarAngle();
-  if (doubleIsZero(angle))
-    angle = 0.;
+  double angle = doubleRounded(getStateVarAngle());
   for (auto& node : nodes_) {
     const auto& terminal = voltageLevel_.getNodeBreakerView().getTerminal(node);
     if (terminal) {
