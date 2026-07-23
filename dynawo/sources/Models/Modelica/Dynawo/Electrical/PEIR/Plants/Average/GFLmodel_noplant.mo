@@ -1,6 +1,7 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
-model GFLmodel
+model GFLmodel_noplant
+
   /**
      * Author Gaia Bergamaschi
      * Grid-Following (GFL) average converter model.
@@ -181,15 +182,12 @@ model GFLmodel
   // Plant-level controller block.
   // Implements: P–f droop, Q–U droop, frequency and voltage deadbands,
   // PI loops for active and reactive power, and output limiter
-  Plant_controller plant_controller(Kp_q = K_p_q_plant, Ki_q = K_i_q_plant, Kp_p = K_p_p_plant, Ki_p = K_i_p_plant, Lambda = Lambda, Kdroop = Kdroop, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, U0Pu = U0Pu, Q0Pu = Q0Pu, P0Pu = P0Pu, Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu) annotation(
-    Placement(transformation(origin = {-151, 53}, extent = {{-17, -17}, {17, 17}})));
   // External active power set-point input
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = PInj0Pu) annotation(
     Placement(transformation(origin = {-209, 61}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-118, 72}, extent = {{-20, -20}, {20, 20}})));
   // External voltage (reactive power) set-point input
-  Modelica.Blocks.Interfaces.RealInput UREfPu(start = URef0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QInj0Pu) annotation(
     Placement(transformation(origin = {-209, 45}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
-    final parameter Real URef0Pu = U0Pu + Lambda*Q0Pu;
   // Grid angular frequency reference (provided by the network / external bus model)
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) annotation(
     Placement(transformation(origin = {-83, 109}, extent = {{-9, -9}, {9, 9}}, rotation = -90), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}})));
@@ -226,24 +224,14 @@ equation
 // The connections are grouped by functional path to aid readability.
 // ──────────────────────────────────────────────────────────────────────────
 // ── 13.1  External references → plant controller ─────────────────────────
-  connect(PRefPu, plant_controller.PRefPu) annotation(
-    Line(points = {{-209, 61}, {-170, 61}, {-170, 61.5}}, color = {220, 138, 221}, thickness = 0.75));
 // Active power set-point from the dispatcher to the plant controller
-  connect(UREfPu, plant_controller.URefPu) annotation(
-    Line(points = {{-209, 45}, {-170, 45}}, color = {220, 138, 221}, thickness = 0.75));
 // Voltage / reactive power set-point to the plant controller
   connect(omegaRefPu, gFLControl.omegaRefPU) annotation(
     Line(points = {{-83, 109}, {-83, 66}}, color = {220, 138, 221}, thickness = 0.75));
 // Network frequency reference fed directly to the GFL converter controller
 // ── 13.2  Plant controller ↔ GFL converter controller ────────────────────
-  connect(plant_controller.PInjRefPu, gFLControl.P_ref) annotation(
-    Line(points = {{-131, 59}, {-114, 59}}, color = {255, 120, 0}, thickness = 0.75));
 // Active power reference from plant controller to GFL outer loop
-  connect(plant_controller.omegaPLLPu, gFLControl.omega_pll_pu_2) annotation(
-    Line(points = {{-132, 51}, {-132, 52.5}, {-114, 52.5}, {-114, 54}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // PLL frequency fed back from plant controller to GFL controller (dashed = feedback)
-  connect(gFLControl.Q_ref, plant_controller.QInjRefPu) annotation(
-    Line(points = {{-114, 49}, {-114.5, 49}, {-114.5, 45}, {-131, 45}}, color = {255, 120, 0}, thickness = 0.75));
 // Reactive power reference from GFL controller back to plant controller
 // ── 13.3  GFL controller → VSC Padé delay ────────────────────────────────
   connect(gFLControl.vm_re, vSC_with_pade_delay.uReConvRefPu) annotation(
@@ -278,14 +266,8 @@ equation
     Line(points = {{-79, -77}, {-79, 28}, {-83, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // q-axis LV node voltage → feed-forward / outer loop
 // ── 13.5  Measurement block → plant controller ────────────────────────────
-  connect(measurementBlock.U_pcc_pu_abs, plant_controller.UfiltPu) annotation(
-    Line(points = {{-118, -95}, {-118, -94.5}, {-142, -94.5}, {-142, 34}, {-141, 34}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered PCC voltage magnitude → Q–U droop and PI in plant controller
-  connect(measurementBlock.Q_plant, plant_controller.QfiltPu) annotation(
-    Line(points = {{-118, -102}, {-150, -102}, {-150, 34}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level reactive power → Q–U PI in plant controller
-  connect(measurementBlock.P_plant, plant_controller.PfiltPu) annotation(
-    Line(points = {{-118, -109}, {-118, -108}, {-158, -108}, {-158, 34}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level active power → P–f PI in plant controller
 // ── 13.6  VSC delay → LC filter ───────────────────────────────────────────
   connect(vSC_with_pade_delay.uReConvPu, lCDynFilter.uLeft_rePu) annotation(
@@ -336,8 +318,13 @@ equation
   measurementBlock.I_pcc_im = -terminalPcc.i.im * SystemBase.SnRef / SNom;
   connect(Trafo.right, terminalPcc) annotation(
     Line(points = {{68, 54}, {104, 54}}, color = {0, 0, 255}));
-
+  connect(PRefPu, gFLControl.P_ref) annotation(
+    Line(points = {{-208, 62}, {-114, 62}, {-114, 58}}, color = {0, 0, 127}));
+  connect(QRefPu, gFLControl.Q_ref) annotation(
+    Line(points = {{-208, 46}, {-114, 46}, {-114, 48}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));
-end GFLmodel;
+
+
+end GFLmodel_noplant;
