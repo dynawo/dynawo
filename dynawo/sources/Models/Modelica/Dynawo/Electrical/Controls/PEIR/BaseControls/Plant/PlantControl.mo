@@ -14,11 +14,11 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Plant;
 
 model PlantControl "Generic plant controller"
 
-  Modelica.Blocks.Interfaces.RealInput UPccPu annotation(
+  Modelica.Blocks.Interfaces.RealInput UPccPu "Voltage at the PCC in p.u. (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-114, -80}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-106, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPccPu annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPccPu "Refenrece voltage at the PCC in p.u. (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-114, -20}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-106, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QPccPu annotation(
+  Modelica.Blocks.Interfaces.RealInput QPccPu "Reactive power at the PCC in p.u." annotation(
     Placement(visible = true, transformation(origin = {-114, -50}, extent = {{-14, -14}, {14, 14}}, rotation = 0), iconTransformation(origin = {-106, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tQFilt, y_start = QFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {-76, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
