@@ -46,9 +46,9 @@ model DynConverter2 "Converter physical part comprising an AVM voltage source, a
     Placement(transformation(origin = {-112, -12}, extent = {{-12, -12}, {12, 12}}), iconTransformation(origin = {52, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
 
   // Outputs
-  Modelica.Blocks.Interfaces.RealOutput idConvPu(start = -transformRItoDQConv.ud0) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput idConvPu(start = transformRItoDQConv.ud0) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {114, 76}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
-  Modelica.Blocks.Interfaces.RealOutput iqConvPu(start = -transformRItoDQConv.uq0) "q-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqConvPu(start = transformRItoDQConv.uq0) "q-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {114, 62}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {92, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
   Modelica.Blocks.Interfaces.RealOutput udFilterPu(start = transformRItoDQFilter.ud0) "d-axis voltage at the filter in pu (base UNom)" annotation(
     Placement(transformation(origin = {110, 6}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {16, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
@@ -66,7 +66,7 @@ model DynConverter2 "Converter physical part comprising an AVM voltage source, a
   // Initialization
   BaseConverters.VSCConverter VSC(tVSC = tVSC, UdConv0Pu = transformRItoDQUConv.ud0, UqConv0Pu = transformRItoDQUConv.uq0) annotation(
     Placement(transformation(origin = {-70, 50}, extent = {{-10, -10}, {10, 10}})));
-  InjectorURI injectorURI(u0Pu = RLCFilter.UConv0Pu, i0Pu = RLCFilter.IConv0Pu*SNom/SystemBase.SnRef) annotation(
+  InjectorURI injectorURI(u0Pu = RLCFilter.UConv0Pu, i0Pu = -RLCFilter.IConv0Pu) annotation(
     Placement(transformation(origin = {10, 50}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Utilities.TransformRItoDQ transformRItoDQConv(phi0 = Theta0, u0Pu = RLCFilter.IConv0Pu) annotation(
     Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
@@ -75,7 +75,7 @@ model DynConverter2 "Converter physical part comprising an AVM voltage source, a
   Controls.WECC.Utilities.TransformRItoDQ transformRItoDQUPcc(phi0 = Theta0, u0Pu = changeofBaseSNom.UPcc0Pu) annotation(
     Placement(transformation(origin = {80, -36}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Utilities.TransformRItoDQ transformRItoDQIPcc(phi0 = Theta0, u0Pu = -changeofBaseSNom.IPcc0Pu) annotation(
-    Placement(transformation(origin = {80, -58}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {82, -58}, extent = {{-10, -10}, {10, 10}})));
   BaseConverters.DynRLCFilterRI RLCFilter(RPu = RFilterPu, LPu = LFilterPu, CPu = CFilterPu, UFilter0Pu = RLTransformer.UFilter0Pu, IPcc0Pu = RLTransformer.IPcc0Pu, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {50, 28}, extent = {{-9, -9}, {9, 9}}, rotation = -90)));
   BaseConverters.DynRLTransformerRI RLTransformer(RPu = RTransformerPu, LPu = LTransformerPu, Omega0Pu = Omega0Pu, IPcc0Pu = changeofBaseSNom.IPcc0Pu, UPcc0Pu = changeofBaseSNom.UPcc0Pu) annotation(
@@ -90,18 +90,6 @@ model DynConverter2 "Converter physical part comprising an AVM voltage source, a
     Placement(transformation(origin = {38, 50}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Utilities.TransformRItoDQ transformRItoDQUConv(phi0 = Theta0, u0Pu = RLCFilter.UConv0Pu) annotation(
     Placement(transformation(origin = {-19, 77}, extent = {{9, -9}, {-9, 9}})));
-  Modelica.Blocks.Math.Product productidConv annotation(
-    Placement(transformation(origin = {93, 75}, extent = {{-3, -3}, {3, 3}})));
-  Modelica.Blocks.Math.Product productiqConv annotation(
-    Placement(transformation(origin = {93, 65}, extent = {{-3, -3}, {3, 3}})));
-  Modelica.Blocks.Math.Product productiqPcc annotation(
-    Placement(transformation(origin = {120, -62}, extent = {{-4, -4}, {4, 4}})));
-  Modelica.Blocks.Math.Product productidPcc annotation(
-    Placement(transformation(origin = {120, -52}, extent = {{-4, -4}, {4, 4}})));
-  Modelica.Blocks.Sources.Constant constPcc(k = 1) annotation(
-    Placement(transformation(origin = {106, -58}, extent = {{-4, -4}, {4, 4}})));
-  Modelica.Blocks.Sources.Constant constConv(k = -1) annotation(
-    Placement(transformation(origin = {84, 70}, extent = {{-4, -4}, {4, 4}})));
   Controls.Utilities.ChangeofBaseSNom changeofBaseSNom(SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
     Placement(transformation(origin = {72, -86}, extent = {{-10, -10}, {10, 10}})));
 equation
@@ -110,7 +98,7 @@ equation
   connect(measurementsPcc.uPu, transformRItoDQUPcc.u) annotation(
     Line(points = {{62, -60}, {64, -60}, {64, -30}, {69, -30}}, color = {85, 170, 255}));
   connect(measurementsPcc.iPu, transformRItoDQIPcc.u) annotation(
-    Line(points = {{62, -64}, {66, -64}, {66, -52}, {70, -52}}, color = {85, 170, 255}));
+    Line(points = {{62, -64}, {66, -64}, {66, -52}, {71, -52}}, color = {85, 170, 255}));
   connect(RLTransformer.terminal1, measurementsFilter.terminal2) annotation(
     Line(points = {{48, -20}, {50, -20}, {50, -12}}, color = {0, 0, 255}));
   connect(measurementsFilter.terminal1, RLCFilter.terminal2) annotation(
@@ -146,7 +134,7 @@ equation
   connect(theta, transformRItoDQConv.phi) annotation(
     Line(points = {{-112, -12}, {24, -12}, {24, 64}, {60, 64}}, color = {0, 0, 127}));
   connect(theta, transformRItoDQIPcc.phi) annotation(
-    Line(points = {{-112, -12}, {24, -12}, {24, -70}, {70, -70}, {70, -64}}, color = {0, 0, 127}));
+    Line(points = {{-112, -12}, {24, -12}, {24, -70}, {70, -70}, {70, -64}, {71, -64}}, color = {0, 0, 127}));
   connect(theta, transformRItoDQFilter.phi) annotation(
     Line(points = {{-112, -12}, {34, -12}, {34, -14}, {66, -14}, {66, -12}, {70, -12}}, color = {0, 0, 127}));
   connect(theta, transformRItoDQUPcc.phi) annotation(
@@ -168,34 +156,18 @@ equation
     Line(points = {{-112, 12}, {30, 12}, {30, 28}, {40, 28}}, color = {0, 0, 127}));
   connect(omegaPu, RLTransformer.omegaPu) annotation(
     Line(points = {{-112, 12}, {18, 12}, {18, -30}, {38, -30}}, color = {0, 0, 127}));
-  connect(productidConv.y, idConvPu) annotation(
-    Line(points = {{96, 75}, {105, 75}, {105, 76}, {114, 76}}, color = {0, 0, 127}));
-  connect(productiqConv.y, iqConvPu) annotation(
-    Line(points = {{96, 65}, {106, 65}, {106, 62}, {114, 62}}, color = {0, 0, 127}));
-  connect(productiqPcc.y, iqPccPu) annotation(
-    Line(points = {{124, -62}, {130, -62}, {130, -64}, {136, -64}}, color = {0, 0, 127}));
-  connect(productidPcc.y, idPccPu) annotation(
-    Line(points = {{124, -52}, {136, -52}}, color = {0, 0, 127}));
-  connect(transformRItoDQIPcc.uq, productiqPcc.u2) annotation(
-    Line(points = {{92, -64}, {116, -64}}, color = {0, 0, 127}));
-  connect(transformRItoDQIPcc.ud, productidPcc.u1) annotation(
-    Line(points = {{92, -52}, {112, -52}, {112, -50}, {116, -50}}, color = {0, 0, 127}));
-  connect(constPcc.y, productidPcc.u2) annotation(
-    Line(points = {{110, -58}, {112, -58}, {112, -54}, {116, -54}}, color = {0, 0, 127}));
-  connect(constPcc.y, productiqPcc.u1) annotation(
-    Line(points = {{110, -58}, {116, -58}, {116, -60}}, color = {0, 0, 127}));
-  connect(transformRItoDQConv.ud, productidConv.u1) annotation(
-    Line(points = {{82, 76}, {90, 76}}, color = {0, 0, 127}));
-  connect(transformRItoDQConv.uq, productiqConv.u2) annotation(
-    Line(points = {{82, 64}, {90, 64}}, color = {0, 0, 127}));
-  connect(constConv.y, productidConv.u2) annotation(
-    Line(points = {{88, 70}, {88, 72}, {90, 72}, {90, 74}}, color = {0, 0, 127}));
-  connect(constConv.y, productiqConv.u1) annotation(
-    Line(points = {{88, 70}, {90, 70}, {90, 66}}, color = {0, 0, 127}));
   connect(changeofBaseSNom.terminalSNom, measurementsPcc.terminal2) annotation(
     Line(points = {{62, -86}, {50, -86}, {50, -68}}, color = {0, 0, 255}));
   connect(changeofBaseSNom.terminalSNref, terminal) annotation(
     Line(points = {{82, -86}, {106, -86}, {106, -80}}, color = {0, 0, 255}));
+  connect(transformRItoDQConv.ud, idConvPu) annotation(
+    Line(points = {{82, 76}, {114, 76}}, color = {0, 0, 127}));
+  connect(transformRItoDQConv.uq, iqConvPu) annotation(
+    Line(points = {{82, 64}, {114, 64}, {114, 62}}, color = {0, 0, 127}));
+  connect(transformRItoDQIPcc.ud, idPccPu) annotation(
+    Line(points = {{94, -52}, {136, -52}}, color = {0, 0, 127}));
+  connect(transformRItoDQIPcc.uq, iqPccPu) annotation(
+    Line(points = {{94, -64}, {136, -64}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents the physical part of a converter with an ideal voltage source, a dynamic RLC filter, a dynamic RL transformer and a reference frame rotation.<div><br></div><div>The interface variables are the current and voltages from the terminal.</div></body></html>"),
