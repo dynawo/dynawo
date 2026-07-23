@@ -13,8 +13,8 @@
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="GFM - Classical connection -- AG">
-        <!--solver lib="dynawo_SolverSIM" parFile="SMIB.par" parId="SimplifiedSolver"/-->
-        <solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="4"/>
+        <solver lib="dynawo_SolverSIM" parFile="SMIB.par" parId="SimplifiedSolver"/>
+        <!--solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="4"/-->
         <modeler compileDir="outputs/compilation">
             <dynModels dydFile="SMIB.dyd"/>
             <precompiledModels useStandardModels="true"/>

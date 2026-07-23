@@ -101,10 +101,6 @@ model DynGridFormingControlVSM
   parameter Types.ActivePowerPu PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   final parameter Types.VoltageModulePu URef0Pu = sqrt(UdFilter0Pu*UdFilter0Pu + UqFilter0Pu*UqFilter0Pu) "Start value of voltage module reference in pu (base UNom)";
-  Modelica.Blocks.Sources.Constant idConvRefPu(k = 0.7489) annotation(
-    Placement(transformation(origin = {46, 50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant iqConvRefPu(k = 0.0062) annotation(
-    Placement(transformation(origin = {42, -2}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(udConvRefPu, currentLoop.udConvRefPu) annotation(
     Line(points = {{107, 31}, {94, 31}, {94, 30}}, color = {245, 121, 0}, thickness = 0.5));
