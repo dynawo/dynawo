@@ -177,6 +177,12 @@ class ParHandler : public xml::sax::parser::ComposableElementHandler {
    */
   std::shared_ptr<Parameter> get() const;
 
+  /**
+   * @brief set the directory of the PAR file (enables \@PAR_PATH\@ substitution in STRING values)
+   * @param filePath directory of the PAR file
+   */
+  void setFilePath(const std::string& filePath);
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -186,6 +192,7 @@ class ParHandler : public xml::sax::parser::ComposableElementHandler {
 
  private:
   std::shared_ptr<Parameter> parameter_;  ///< current parameter object
+  std::string filePath_;  ///< directory of the PAR file (for \@PAR_PATH\@ macro substitution)
 };
 
 /**
@@ -299,6 +306,12 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addMacroParSet();
 
+  /**
+   * @brief set the directory of the PAR file (propagated to sub-handlers for macro substitution)
+   * @param filePath directory of the PAR file
+   */
+  void setFilePath(const std::string& filePath);
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -312,6 +325,7 @@ class SetHandler : public xml::sax::parser::ComposableElementHandler {
   ParTableHandler parTableHandler_;  ///< handler used to read parTable element
   RefHandler refHandler_;  ///< handler used to read reference element
   MacroParSetHandler macroParSetHandler_;  ///< handler used to read macroParSet element
+  std::string filePath_;  ///< directory of the PAR file (for \@PAR_PATH\@ macro substitution in parTable)
 };
 
 /**
@@ -346,6 +360,12 @@ class MacroParameterSetHandler : public xml::sax::parser::ComposableElementHandl
    * @brief  add a parameter object to the set of macroParameter
    */
   void addParameter();
+
+  /**
+   * @brief set the directory of the PAR file (propagated to par sub-handler for macro substitution)
+   * @param filePath directory of the PAR file
+   */
+  void setFilePath(const std::string& filePath);
 
  protected:
   /**
@@ -396,6 +416,12 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
    * @brief add a macroParameterSet object to the parameters set collection
    */
   void addMacroParameterSet();
+
+  /**
+   * @brief set the directory of the PAR file (propagated to sub-handlers for macro substitution)
+   * @param filePath directory of the PAR file
+   */
+  void setFilePath(const std::string& filePath);
 
  private:
   SetHandler setHandler_;  ///< handler used to read a set of parameter element
