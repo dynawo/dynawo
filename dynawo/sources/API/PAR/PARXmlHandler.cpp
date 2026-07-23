@@ -51,29 +51,40 @@ namespace parser = xml::sax::parser;
 
 namespace parameters {
 
-// Replaces @DYNAWO_INSTALL_DIR@ and @PAR_PATH@ in STRING parameter values at parse time.
-// @PAR_PATH@ is only substituted when filePath is non-empty (i.e. parsing from a file, not a stream).
+/**
+ * @brief Replaces every occurrence of a macro in a string by its replacement value
+ *
+ * @param value string to modify in place
+ * @param macro macro token to search for (e.g. "@PAR_PATH@")
+ * @param replacement value to substitute the macro with
+ */
+static void replaceMacro(std::string& value, const std::string& macro, const std::string& replacement) {
+  std::string::size_type pos = 0;
+  while ((pos = value.find(macro, pos)) != std::string::npos) {
+    value.replace(pos, macro.length(), replacement);
+    pos += replacement.length();
+  }
+}
+
+/**
+ * @brief Replaces @DYNAWO_INSTALL_DIR@ and @PAR_PATH@ macros in a STRING parameter value at parse time
+ *
+ * @DYNAWO_INSTALL_DIR@ is substituted with the DYNAWO_INSTALL_DIR environment variable, when set.
+ * @PAR_PATH@ is substituted with filePath, only when filePath is non-empty (i.e. parsing from a file, not a stream).
+ *
+ * @param value string to modify
+ * @param filePath path of the PAR file being parsed
+ * @return the value with macros substituted
+ */
 static std::string substituteStringMacros(const std::string& value, const std::string& filePath) {
   std::string result = value;
 
   const std::string installDir = getEnvVar("DYNAWO_INSTALL_DIR");
-  if (!installDir.empty()) {
-    const std::string macro = "@DYNAWO_INSTALL_DIR@";
-    std::string::size_type pos = 0;
-    while ((pos = result.find(macro, pos)) != std::string::npos) {
-      result.replace(pos, macro.length(), installDir);
-      pos += installDir.length();
-    }
-  }
+  if (!installDir.empty())
+    replaceMacro(result, "@DYNAWO_INSTALL_DIR@", installDir);
 
-  if (!filePath.empty()) {
-    const std::string macro = "@PAR_PATH@";
-    std::string::size_type pos = 0;
-    while ((pos = result.find(macro, pos)) != std::string::npos) {
-      result.replace(pos, macro.length(), filePath);
-      pos += filePath.length();
-    }
-  }
+  if (!filePath.empty())
+    replaceMacro(result, "@PAR_PATH@", filePath);
 
   return result;
 }
