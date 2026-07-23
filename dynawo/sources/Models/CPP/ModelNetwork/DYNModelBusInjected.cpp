@@ -333,25 +333,19 @@ ModelBusInjected::evalCalculatedVars() {
 
 void
 ModelBusInjected::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, angle0_);
-  ModelCPP::dumpInStream(streamVariables, u0_);
-  ModelCPP::dumpInStream(streamVariables, U_);
-  ModelCPP::dumpInStream(streamVariables, U2Pu_);
-  ModelCPP::dumpInStream(streamVariables, UPu_);
+  streamVariables << angle0_;
+  streamVariables << u0_;
+  streamVariables << U_;
+  streamVariables << U2Pu_;
+  streamVariables << UPu_;
 }
 
 void
 ModelBusInjected::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
   streamVariables >> angle0_;
-  streamVariables >> c;
   streamVariables >> u0_;
-  streamVariables >> c;
   streamVariables >> U_;
-  streamVariables >> c;
   streamVariables >> U2Pu_;
-  streamVariables >> c;
   streamVariables >> UPu_;
 }
 

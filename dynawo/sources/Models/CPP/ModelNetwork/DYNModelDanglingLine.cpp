@@ -883,22 +883,17 @@ ModelDanglingLine::getY0() {
 
 void
 ModelDanglingLine::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, P0_);
-  ModelCPP::dumpInStream(streamVariables, Q0_);
-  ModelCPP::dumpInStream(streamVariables, ir0_);
-  ModelCPP::dumpInStream(streamVariables, ii0_);
+  streamVariables << P0_;
+  streamVariables << Q0_;
+  streamVariables << ir0_;
+  streamVariables << ii0_;
 }
 
 void
 ModelDanglingLine::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
   streamVariables >> P0_;
-  streamVariables >> c;
   streamVariables >> Q0_;
-  streamVariables >> c;
   streamVariables >> ir0_;
-  streamVariables >> c;
   streamVariables >> ii0_;
 }
 

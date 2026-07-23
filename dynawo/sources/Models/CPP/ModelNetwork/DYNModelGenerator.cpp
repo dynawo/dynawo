@@ -333,16 +333,13 @@ ModelGenerator::getY0() {
 
 void
 ModelGenerator::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, ir0_);
-  ModelCPP::dumpInStream(streamVariables, ii0_);
+  streamVariables << ir0_;
+  streamVariables << ii0_;
 }
 
 void
 ModelGenerator::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
   streamVariables >> ir0_;
-  streamVariables >> c;
   streamVariables >> ii0_;
 }
 
