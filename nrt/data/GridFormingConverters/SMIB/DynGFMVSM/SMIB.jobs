@@ -12,8 +12,9 @@
     simulation tool for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="GFM - Classical connection">
+    <job name="GFM - SMIB Connection with Step on PFilterRef">
         <solver lib="dynawo_SolverSIM" parFile="SMIB.par" parId="SimplifiedSolver"/>
+        <!--solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="IDASolver"/-->
         <modeler compileDir="outputs/compilation">
             <dynModels dydFile="SMIB.dyd"/>
             <precompiledModels useStandardModels="true"/>

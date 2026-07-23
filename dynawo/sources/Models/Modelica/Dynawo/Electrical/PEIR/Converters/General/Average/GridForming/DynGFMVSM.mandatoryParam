@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+    <mandatoryParameter name="CFilterPu" type="DOUBLE"/>
+    <mandatoryParameter name="H" type="DOUBLE"/>
+    <mandatoryParameter name="IMaxVI" type="DOUBLE"/>
+    <mandatoryParameter name="Kff" type="DOUBLE"/>
+    <mandatoryParameter name="Kic" type="DOUBLE"/>
+    <mandatoryParameter name="KpVI" type="DOUBLE"/>
+    <mandatoryParameter name="Kpc" type="DOUBLE"/>
+    <mandatoryParameter name="LFilterPu" type="DOUBLE"/>
+    <mandatoryParameter name="LTransformerPu" type="DOUBLE"/>
+    <mandatoryParameter name="Mq" type="DOUBLE"/>
+    <mandatoryParameter name="OmegaSetPu" type="DOUBLE"/>
+    <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="RFilterPu" type="DOUBLE"/>
+    <mandatoryParameter name="RTransformerPu" type="DOUBLE"/>
+    <mandatoryParameter name="SNom" type="DOUBLE"/>
+    <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+    <mandatoryParameter name="Wf" type="DOUBLE"/>
+    <mandatoryParameter name="Wff" type="DOUBLE"/>
+    <mandatoryParameter name="XRratio" type="DOUBLE"/>
+    <mandatoryParameter name="XVI" type="DOUBLE"/>
+    <mandatoryParameter name="kVSM" type="DOUBLE"/>
+    <mandatoryParameter name="tVSC" type="DOUBLE"/>
+</mandatoryParameters>

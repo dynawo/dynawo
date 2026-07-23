@@ -144,10 +144,6 @@ equation
     Line(points = {{-108, -78}, {12, -78}, {12, 6}}, color = {85, 170, 255}));
   connect(idConvPu, VI.idConvPu) annotation(
     Line(points = {{-108, -16}, {-94, -16}}, color = {245, 121, 0}));
-  connect(QSEM.idConvRefPu, currentLoop.idConvRefPu) annotation(
-    Line(points = {{34, 30}, {58, 30}}, color = {245, 121, 0}, thickness = 0.5));
-  connect(QSEM.iqConvRefPu, currentLoop.iqConvRefPu) annotation(
-    Line(points = {{34, 18}, {58, 18}}, color = {245, 121, 0}, thickness = 0.5));
   connect(VSM.theta, theta) annotation(
     Line(points = {{-28, 84}, {106, 84}}, color = {0, 0, 127}));
   connect(voltageReferenceControl.udFilterRefPu, QSEM.udFilterRefPu) annotation(
@@ -160,6 +156,10 @@ equation
     Line(points = {{-108, 8}, {-56, 8}}, color = {85, 170, 0}, thickness = 0.5));
   connect(QFilterPu, voltageReferenceControl.QFilterPu) annotation(
     Line(points = {{-108, 46}, {-46, 46}, {-46, 42}}, color = {0, 0, 127}));
+  connect(QSEM.idConvRefPu, currentLoop.idConvRefPu) annotation(
+    Line(points = {{34, 30}, {58, 30}}, color = {0, 0, 127}));
+  connect(QSEM.iqConvRefPu, currentLoop.iqConvRefPu) annotation(
+    Line(points = {{34, 18}, {58, 18}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Text(origin = {45, 35}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {45, 23}, lineColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 35}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 23}, lineColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold})}),

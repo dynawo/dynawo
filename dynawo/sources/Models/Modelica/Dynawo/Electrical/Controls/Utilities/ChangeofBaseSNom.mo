@@ -26,7 +26,7 @@ model ChangeofBaseSNom "Change of base from SnRef to SNom"
   final parameter Types.ComplexPerUnit IPcc0Pu = i0Pu*SystemBase.SnRef/SNom "Start value of the complex current at terminal in pu (base UNom, SNom) (receptor convention)";
 equation
   terminalSNom.V = terminalSNref.V;
-  terminalSNom.i = terminalSNref.i*SystemBase.SnRef/SNom;
+  terminalSNom.i = -terminalSNref.i*SystemBase.SnRef/SNom;
 
   annotation(
     preferredView = "diagram");

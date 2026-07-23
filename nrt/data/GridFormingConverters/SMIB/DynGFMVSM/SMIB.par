@@ -35,9 +35,7 @@
     <par name="GFM_CFilterPu" type="DOUBLE" value="1e-05"/>
     <par name="GFM_H" type="DOUBLE" value="3"/>
     <par name="GFM_IMaxVI" type="DOUBLE" value="1.2"/>
-    <par name="GFM_Kfd" type="DOUBLE"  value="0.8"/>
     <par name="GFM_Kff" type="DOUBLE" value="0"/>
-    <par name="GFM_Kfq" type="DOUBLE"  value="0"/>
     <par name="GFM_Kic" type="DOUBLE" value="15"/>
     <par name="GFM_KpVI" type="DOUBLE" value="0.6"/>
     <par name="GFM_Kpc" type="DOUBLE" value="0.477465"/>
@@ -59,7 +57,7 @@
     <par name="GFM_kVSM" type="DOUBLE" value="155.955"/>
     <par name="GFM_tVSC" type="DOUBLE" value="0.0004"/>
   </set>
-  <set id="4">
+  <set id="IDASolver">
     <par type="INT" name="order" value="2"/>
     <par type="DOUBLE" name="initStep" value="0.00001"/>
     <par type="DOUBLE" name="minStep" value="0.000001"/>

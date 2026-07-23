@@ -77,13 +77,9 @@ All the three controls are stable for this simulation and manage to bring back t
 \end{figure}
 \newpage
 \chapter*{Single Machine Infinite Bus test with Grid Forming Converter}
-\section*{Test case descriptions}
-This section explores two similar test cases consisting of a current-controlled grid-forming converter based on a Virtual Synschronous Machine Control (VSM) and current saturation enforced through a Quasi-Static Electrical Model with Virtual Impedance.
-The cases differ by the implementation of the Converter Block in the GFM model. In the first case (DynGFMVSM), the Converter Block is
-modelled with RMS equations for the RLC Filter and the RL Transformer and values within the loop are computed in the DQ (rotating) reference frame.
-In the latter case (DynGFMVSM2), the Converter Block is modelled with explicit differential equations with time derivatives within the RLC Filter and the RL Transformer and values within the loop are computed in the Real-Imaginary (grid) reference frame.
-
-Simulation conditions are identical for both setups : GFM models are connected to an infinite bus through a RL line (R=0.0001667 p.u., X=0.005 p.u.) and the following events are simulated :
+\section*{Test case description}
+This test case consists of a current-controlled grid-forming converter based on a Virtual Synchronous Machine Control (VSM), with current limitation enforced through a proportional virtual impedance (activated above IMaxVI) combined with a Quasi-Static Electrical Model to translate the resulting voltage reference into a current reference.
+The GFM model is connected to an infinite bus through a RL line (R=0.0001667 p.u., X=0.005 p.u.) and the following events are simulated :
 \begin{itemize}
    \item At t = 8 s, the reference active power PRefPu increases from 0.75 to 1.00 pu with a step. This event typically embodies a change in the generated power output from the generator.
    \item At t = 10 s, a sudden increase in frequency at the bus is simulated (88\% increase over 0.0001 s). This event simulates a sudden oscillation in the grid frequency, which can be attributed to supply/demand imbalances.
@@ -92,7 +88,7 @@ Simulation conditions are identical for both setups : GFM models are connected t
 
 \section*{Results}
 The graph in Figure \ref{comp20} shows the evolution of PFilterRefPu (reference active power in p.u. for the GFM) and PFilterPu : the active power in p.u.
-for the two GFM models. In the figure, DynGFMVSM is referenced by the superscript DQ and DynGFMVSM2 is referenced by the superscript RI.
+measured at the RLC Filter of the Converter block.
 
 \begin{figure}[H]
   \centering
@@ -105,30 +101,23 @@ for the two GFM models. In the figure, DynGFMVSM is referenced by the superscrip
       xlabel={Time [s]},
       ylabel={Active power $P_{\text{Filter}}$ [p.u.]}
     ]
-      % DynGFMVSM2: PFilterPu
+      % DynGFMVSM: PFilterRefPu
       \addplot[color=red!300]
-        table[x=time,y=GFM_GFM_Control_PFilterPu]
-        {../SMIB/DynGFMVSM2/reference/outputs/curves/curves.csv};
-
-      % DynGFMVSM2: PFilterRefPu
-      \addplot[color=blue!300]
         table[x=time,y=GFM_GFM_Control_PFilterRefPu]
-        {../SMIB/DynGFMVSM2/reference/outputs/curves/curves.csv};
+        {../SMIB/DynGFMVSM/outputs/curves/curves.csv};
 
       % DynGFMVSM: PFilterPu
-      \addplot[color=green!300]
+      \addplot[color=blue!300]
         table[x=time,y=GFM_GFM_Control_PFilterPu]
         {../SMIB/DynGFMVSM/reference/outputs/curves/curves.csv};
 
-      \legend{$P_{\text{FilterRI}}$,$P_{\text{FilterRef}}$,$P_{\text{FilterDQ}}$}
+      \legend{$P_{\text{FilterRef}}$,$P_{\text{Filter}}$}
     \end{axis}
   \end{tikzpicture}
-  \caption{Active power in p.u. at the GFM converters}
+  \caption{Active power in p.u. at the GFM filter and its reference value}
   \label{comp20}
 \end{figure}
 
-Results show tha tboth models are able to track the changes in reference active power and to react to the sudden changes in frequency and voltage at the bus. The two models show similar behavior, with slight differences in the transient response due to the different implementations of the Converter Block.
-For instance, we can see that initial fluctuations are captured in the RI model while it is not the case for the DQ model. This is due to the fact that the RI model captures the dynamics of the RLC filter and RL transformer more accurately, while the DQ model assumes a quasi-static behavior.  A similar consideration can be done for
-spikes during transient events, which are more pronounced in the RI model. Overall, both models provide a good representation of the GFM behavior under the tested conditions.
-
+Results show that the converter is able to track the changes in reference active power and to react to the sudden changes in frequency and voltage at the bus.
+As a note, the whole converter block is computed in the Real-Imaginary frame i.e. same as the grid's. A previous version of this model existed with the Converter block in the GFM rotating frame (DQ) and produced identical results.
 \end{document}
