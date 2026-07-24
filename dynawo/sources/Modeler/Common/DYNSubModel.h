@@ -167,6 +167,15 @@ class SubModel {
   virtual void evalCalculatedVars() = 0;
 
   /**
+   * @brief mark this submodel's cached calculated variables as stale
+   *
+   * Called whenever y/y' are overwritten, regardless of whether it happened through a genuine
+   * evalF or through a solver-internal interpolation (e.g. SUNDIALS' root-search dense output),
+   * so any value read from the cache afterwards is recomputed first.
+   */
+  void invalidateCalculatedVarsBuffer() { calculatedVarsUpToDate_ = false; }
+
+  /**
    * @brief compute the transpose jacobian of the sub model \f$ J = @F/@x + cj * @F/@x' \f$
    *
    * @param t time to use for the evaluation
@@ -1589,6 +1598,7 @@ class SubModel {
 
   std::vector<double> calculatedVars_;  ///< local buffer to fill when calculating calculated variables
   std::vector<double> calculatedVarsInit_;  ///< local buffer to fill when calculating calculated variables for init model
+  bool calculatedVarsUpToDate_ = false;  ///< whether calculatedVars_/calculatedVarsInit_ still reflect the current y/y'
   std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByName_;  ///< association between variables and its name for dynamic model
   std::unordered_map<std::string, boost::shared_ptr<Variable> > variablesByNameInit_;  ///< association between variables and its name for init model
 

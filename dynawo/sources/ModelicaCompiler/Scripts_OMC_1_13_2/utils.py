@@ -282,6 +282,15 @@ def replace_var_names(line):
         line = line.replace("jacobian->seedVars["+idx+"]", replacement_string)
         map_to_replace[replacement_string] = to_param_address(name)
         pattern_index +=1
+    ptrn_der_record = re.compile(r'_omcQ_[0-9]+DER(?:\._\w+)+')
+    for full_match in ptrn_der_record.findall(line):
+        segments = [s for s in full_match.split('._')[1:] if s]
+        name = "der(" + '.'.join(segments) + ")"
+        test_param_address(name)
+        replacement_string = "@@@" + str(pattern_index) + "@@@"
+        line = line.replace(full_match, replacement_string)
+        map_to_replace[replacement_string] = to_param_address(name)
+        pattern_index +=1
 
     for pattern_to_replace in map_to_replace:
         line = line.replace(pattern_to_replace, map_to_replace[pattern_to_replace])
