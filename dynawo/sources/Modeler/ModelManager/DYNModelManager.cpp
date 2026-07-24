@@ -63,6 +63,7 @@ modelInit_(NULL),
 modelDyn_(NULL),
 dataInit_(new DYNDATA),
 dataDyn_(new DYNDATA),
+calculatedVarsUpToDate_(false),
 modelInitUsed_(false) { }
 
 ModelManager::~ModelManager() {
@@ -246,6 +247,7 @@ ModelManager::evalF(double t, propertyF_t type) {
   setManagerTime(t);
 
   modelModelica()->setFomc(fLocal_, type);
+  calculatedVarsUpToDate_ = false;
 }
 
 bool
@@ -393,6 +395,10 @@ ModelManager::evalG(const double t) {
 #endif
   setManagerTime(t);
 
+  if (!calculatedVarsUpToDate_) {
+    evalCalculatedVars();
+    calculatedVarsUpToDate_ = true;
+  }
   modelModelica()->setGomc(gLocal_);
   delayManager_.setGomc(gLocal_, modelData()->nZeroCrossings, t);
 
