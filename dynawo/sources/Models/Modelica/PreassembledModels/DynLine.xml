@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="DynLine">
-    <dyn:unitDynamicModel id="dynLine" name="Dynawo.Electrical.PEIR.Plants.Average.DynLine"/>
+    <dyn:unitDynamicModel id="line" name="Dynawo.Electrical.PEIR.Plants.Average.DynLine"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
