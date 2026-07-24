@@ -130,7 +130,7 @@ def build_dummy_equations(liste_var_ext):
         functions_lines.append("annotation(Evaluate = false);\n")
         functions_lines.append("end dummy" + str(i) + ";\n\n")
 
-        equations_lines.append("der(" + var_names[i - 1] + ") = dummy" + str(i) + "(" + ", ".join(arg_names) + ");\n")
+        equations_lines.append("0 = dummy" + str(i) + "(" + ", ".join(arg_names) + ");\n")
     return functions_lines, equations_lines
 
 ##

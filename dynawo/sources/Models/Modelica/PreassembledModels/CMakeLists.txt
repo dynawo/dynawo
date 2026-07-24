@@ -19,8 +19,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   BusWithInit.xml
   CombiTimeTable.xml
   ConditionalForward.xml
-  CurrentLimitAutomaton.xml
-  CurrentLimitAutomatonTwoLevels.xml
+  #CurrentLimitAutomaton.xml
+  #CurrentLimitAutomatonTwoLevels.xml
   DERa.xml
   DERaAggregatedLVRT.xml
   DERaGenericLVRT.xml
@@ -174,13 +174,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscEmulation.xml
   HVRT.xml
   IECWPP4ACurrentSource2015.xml
-  IECWPP4ACurrentSource2020.xml
+  #IECWPP4ACurrentSource2020.xml
   IECWPP4BCurrentSource2015.xml
-  IECWPP4BCurrentSource2020.xml
+  #IECWPP4BCurrentSource2020.xml
   IECWT4ACurrentSource2015.xml
-  IECWT4ACurrentSource2020.xml
+  #IECWT4ACurrentSource2020.xml
   IECWT4BCurrentSource2015.xml
-  IECWT4BCurrentSource2020.xml
+  #IECWT4BCurrentSource2020.xml
   InertialGrid.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml
