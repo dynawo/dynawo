@@ -1346,7 +1346,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {
   std::vector<Element> elements;
   std::map<std::string, int> mapElement;
   dl->defineElements(elements, mapElement);
-  ASSERT_EQ(elements.size(), 39);
+  ASSERT_EQ(elements.size(), 21);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineJt) {

@@ -127,19 +127,19 @@ namespace DYN {
   void
   ModelCentralizedShuntsSectionControl::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
     // only one UMonitoredPu variable shared among all shunts as all of them are regulating the same node
-    variables.push_back(VariableNativeFactory::createState("UMonitoredPu_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("URefPu_value", DISCRETE));
+    variables.push_back(VariableNativeFactory::createState("UMonitoredPu", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("URefPu", DISCRETE));
     std::stringstream sectionName;
     for (int s = 0; s < nbShunts_; ++s) {
       sectionName.str(std::string());
       sectionName.clear();
-      sectionName << "section_" << s << "_value";
+      sectionName << "section_" << s << "_";
       variables.push_back(VariableNativeFactory::createState(sectionName.str(), DISCRETE));
     }
     for (int s = 0; s < nbShunts_; ++s) {
       sectionName.str(std::string());
       sectionName.clear();
-      sectionName << "running_" << s << "_value";
+      sectionName << "running_" << s << "_";
       variables.push_back(VariableNativeFactory::createState(sectionName.str(), BOOLEAN));
     }
   }
@@ -360,23 +360,19 @@ namespace DYN {
 
   void
   ModelCentralizedShuntsSectionControl::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) {
-    addElement("UMonitoredPu", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "UMonitoredPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("URefPu", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "URefPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("UMonitoredPu", Element::TERMINAL, elements, mapElement);
+    addElement("URefPu", Element::TERMINAL, elements, mapElement);
     std::stringstream sectionName;
     for (int s = 0; s < nbShunts_; ++s) {
       sectionName.str(std::string());
       sectionName.clear();
-      sectionName << "section_" << s;
-      addElement(sectionName.str(), Element::STRUCTURE, elements, mapElement);
-      addSubElement("value", sectionName.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+      sectionName << "section_" << s << "_";
+      addElement(sectionName.str(), Element::TERMINAL, elements, mapElement);
 
       sectionName.str(std::string());
       sectionName.clear();
-      sectionName << "running_" << s;
-      addElement(sectionName.str(), Element::STRUCTURE, elements, mapElement);
-      addSubElement("value", sectionName.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+      sectionName << "running_" << s << "_";
+      addElement(sectionName.str(), Element::TERMINAL, elements, mapElement);
     }
   }
 

@@ -496,7 +496,7 @@ We observe that the voltage at node 2 falls to zero. As the voltage is zero duri
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time,y=NETWORK_B2_U_value]
+        table[x=time,y=NETWORK_B2_U]
         {../WSCC9/WSCC9_Fault/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -1214,7 +1214,7 @@ We observe that the voltage at the node 2 falls to zero. As the voltage is zero 
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time,y expr=\thisrow{NETWORK__BUS____2_TN_Upu_value}*69]
+        table[x=time,y expr=\thisrow{NETWORK__BUS____2_TN_Upu}*69]
         {../IEEE14/IEEE14_Fault/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -1355,7 +1355,7 @@ We observe that the voltage at the node 12 falls to zero. As the voltage is zero
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time,y expr=\thisrow{NETWORK__GLEN__12_TN_Upu_value}*69]
+        table[x=time,y expr=\thisrow{NETWORK__GLEN__12_TN_Upu}*69]
         {../IEEE57/IEEE57_Fault/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -1406,7 +1406,7 @@ Generator 9 is electrically close to generator 12. When the fault is applied on 
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time,y expr=\thisrow{NETWORK__SALT___9_TN_Upu_value}*69]
+        table[x=time,y expr=\thisrow{NETWORK__SALT___9_TN_Upu}*69]
         {../IEEE57/IEEE57_Fault/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -1493,7 +1493,7 @@ The two figures below show the evolution of the voltage at the load bus for the 
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time,y=NETWORK_NLOAD_Upu_value]
+        table[x=time,y=NETWORK_NLOAD_Upu]
         {../SingleMachineSystem/SingleMachineSystem_ElectronicLoad/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -1503,7 +1503,7 @@ The two figures below show the evolution of the voltage at the load bus for the 
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time, y=NETWORK_NLOAD_Upu_value]
+        table[x=time, y=NETWORK_NLOAD_Upu]
         {../SingleMachineSystem/SingleMachineSystem_LoadAlphaBetaMotorFifthOrder/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}

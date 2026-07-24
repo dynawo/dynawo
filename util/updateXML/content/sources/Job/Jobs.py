@@ -228,6 +228,18 @@ class Jobs:
             solvers.append(job.solver)
         return solvers
 
+    def get_all_curves(self):
+        curves = list()
+        for curves_tree in self.__curves_collection.values():
+            curves.extend(curves_tree.xpath('//dyn:curve', namespaces=NAMESPACE_URI))
+        return curves
+
+    def get_all_final_state_values(self):
+        final_state_values = list()
+        for final_state_values_tree in self.__final_state_values_collection.values():
+            final_state_values.extend(final_state_values_tree.xpath('//dyn:finalStateValue', namespaces=NAMESPACE_URI))
+        return final_state_values
+
     # ---------------------------------------------------------------
     #   UTILITY METHODS
     # ---------------------------------------------------------------

@@ -227,7 +227,7 @@ ModelVoltageSetPointChange::defineVariables(vector<shared_ptr<Variable> >& varia
   for (int i = 0; i < numLoads_; ++i) {
     name.str("");
     name.clear();
-    name << "setPointChange_" << i;
+    name << "setPointChange_" << i << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
   }
 }
@@ -258,7 +258,7 @@ ModelVoltageSetPointChange::defineElements(std::vector<Element>& elements, std::
   for (int i = 0; i < numLoads_; ++i) {
     name.str("");
     name.clear();
-    name << "setPointChange_" << i;
+    name << "setPointChange_" << i << "_";
     addElement(name.str(), Element::TERMINAL, elements, mapElement);
   }
 }
@@ -266,6 +266,6 @@ ModelVoltageSetPointChange::defineElements(std::vector<Element>& elements, std::
 void
 ModelVoltageSetPointChange::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "setPointChange_" << "<0-" << numLoads_ << ">" << Trace::endline;
+  Trace::info() << "  ->" << "setPointChange_" << "<0-" << numLoads_ << "_>" << Trace::endline;
 }
 }  // namespace DYN

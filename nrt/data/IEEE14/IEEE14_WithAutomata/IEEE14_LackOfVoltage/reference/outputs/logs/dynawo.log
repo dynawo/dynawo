@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  3722_add_recloser_relay_rebased-7ab844ebf94
+INFO | DYNAWO REVISION :  3741_value_cpp-7c2478ccd8f
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -27,11 +27,10 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting curve initialization
 INFO | -----------------------------------------------------------------------
-WARN | curve not added: Id: _LOAD__12_EC , name: load_UPu_value
-WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_state_value
-WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_loadState_value
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_state
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_loadState
 WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_running
-WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_UPu_value
+WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_UPu
 WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_P
 WARN | curve not added: Id: NETWORK , name: _LOAD__12_EC_Q
 WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_uBusMonitoredPu
@@ -46,7 +45,7 @@ WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_recloseBloc
 WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_recloserModeInput
 WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_sleepStartTime
 WARN | curve not added: Id: ReclosingLOVR , name: lackOfVoltageRelay_recloserTriggeredTime
-INFO | end of curve initialization, added 38 curves
+INFO | end of curve initialization, added 39 curves
 INFO | -----------------------------------------------------------------------
 INFO | 
 INFO | -----------------------------------------------------------------------

@@ -25,6 +25,7 @@
 #include <DYNNumericalUtils.h>
 
 #include "DYNModelBus.h"
+#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
@@ -176,24 +177,24 @@ ModelGenerator::evalF(propertyF_t /*type*/) {
 
 void
 ModelGenerator::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_Pc_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_Qc_value", DISCRETE));
-  variables.push_back(VariableAliasFactory::create(id_ + "_GENERATOR_state_value", id_ + "_state_value"));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_genState_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_Pc", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_Qc", DISCRETE));
+  variables.push_back(VariableAliasFactory::create(id_ + "_GENERATOR_state", id_ + "_state"));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_genState", CONTINUOUS));
 }
 
 void
 ModelGenerator::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState("@ID@_Pc_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_Qc_value", DISCRETE));
-  variables.push_back(VariableAliasFactory::create("@ID@_GENERATOR_state_value", "@ID@_state_value"));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_genState_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_Pc", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_Qc", DISCRETE));
+  variables.push_back(VariableAliasFactory::create("@ID@_GENERATOR_state", "@ID@_state"));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_genState", CONTINUOUS));
 }
 
 void
@@ -244,22 +245,22 @@ void
 ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   const string genName = id_;
   // ========  CONNECTION STATE ======
-  addElementWithValue(genName + string("_state"), "Generator", elements, mapElement);
+  addElement(genName + string("_state"), Element::TERMINAL, elements, mapElement);
 
   // ========  Active power target ======
-  addElementWithValue(genName + string("_Pc"), "Generator", elements, mapElement);
+  addElement(genName + string("_Pc"), Element::TERMINAL, elements, mapElement);
 
   // ========  Reactive power target ======
-  addElementWithValue(genName + string("_Qc"), "Generator", elements, mapElement);
+  addElement(genName + string("_Qc"), Element::TERMINAL, elements, mapElement);
 
   // ========  P VALUE  ======
-  addElementWithValue(genName + string("_P"), "Generator", elements, mapElement);
+  addElement(genName + string("_P"), Element::TERMINAL, elements, mapElement);
 
   // ========  Q VALUE  ======
-  addElementWithValue(genName + string("_Q"), "Generator", elements, mapElement);
+  addElement(genName + string("_Q"), Element::TERMINAL, elements, mapElement);
 
   // ========  state VALUE as continuous variable ======
-  addElementWithValue(genName + string("_genState"), "Generator", elements, mapElement);
+  addElement(genName + string("_genState"), Element::TERMINAL, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

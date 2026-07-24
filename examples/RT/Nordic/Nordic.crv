@@ -12,22 +12,22 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-    <curve model="NETWORK" variable="L4032-4044_state_value"/>
-    <curve model="NETWORK" variable="L4032-4042_state_value"/>
-    <curve model="NETWORK" variable="L4032-4042_P1_value" factor="100"/>
-    <curve model="NETWORK" variable="L4032-4042_Q1_value" factor="100"/>
-    <curve model="NETWORK" variable="L4032-4042_iS1ToS2Side1_value"/>
-    <curve model="NETWORK" variable="L4032-4042_P2_value" factor="100"/>
-    <curve model="NETWORK" variable="L4032-4042_Q2_value" factor="100"/>
-    <curve model="NETWORK" variable="L4032-4042_iS2ToS1Side2_value"/>
-    <curve model="NETWORK" variable="Tr4042-g14_P1_value" factor="100"/>
-    <curve model="NETWORK" variable="Tr4042-g14_Q1_value" factor="100"/>
-    <curve model="NETWORK" variable="Tr4042-g14_iS1ToS2Side1_value"/>
-    <curve model="NETWORK" variable="Tr4042-g14_P2_value" factor="100"/>
-    <curve model="NETWORK" variable="Tr4042-g14_Q2_value" factor="100"/>
-    <curve model="NETWORK" variable="Tr4042-g14_iS2ToS1Side2_value"/>
-    <curve model="NETWORK" variable="42_1_P_value" factor="100"/>
-    <curve model="NETWORK" variable="42_1_Q_value" factor="100"/>
+    <curve model="NETWORK" variable="L4032-4044_state"/>
+    <curve model="NETWORK" variable="L4032-4042_state"/>
+    <curve model="NETWORK" variable="L4032-4042_P1" factor="100"/>
+    <curve model="NETWORK" variable="L4032-4042_Q1" factor="100"/>
+    <curve model="NETWORK" variable="L4032-4042_iS1ToS2Side1"/>
+    <curve model="NETWORK" variable="L4032-4042_P2" factor="100"/>
+    <curve model="NETWORK" variable="L4032-4042_Q2" factor="100"/>
+    <curve model="NETWORK" variable="L4032-4042_iS2ToS1Side2"/>
+    <curve model="NETWORK" variable="Tr4042-g14_P1" factor="100"/>
+    <curve model="NETWORK" variable="Tr4042-g14_Q1" factor="100"/>
+    <curve model="NETWORK" variable="Tr4042-g14_iS1ToS2Side1"/>
+    <curve model="NETWORK" variable="Tr4042-g14_P2" factor="100"/>
+    <curve model="NETWORK" variable="Tr4042-g14_Q2" factor="100"/>
+    <curve model="NETWORK" variable="Tr4042-g14_iS2ToS1Side2"/>
+    <curve model="NETWORK" variable="42_1_P" factor="100"/>
+    <curve model="NETWORK" variable="42_1_Q" factor="100"/>
     <curve model="g01" variable="generator_PGen"/>
     <curve model="g01" variable="generator_PGenPu"/>
     <curve model="g01" variable="generator_P0Pu"/>
@@ -46,6 +46,6 @@
     <curve model="11_1_PRefPu" variable="input_value"/>
     <curve model="11_1_QRefPu" variable="input_value"/>
     <curve model="NETWORK" variable="12_1_P"/>
-    <curve model="NETWORK" variable="12_1_DeltaPc_value"/>
-    <curve model="OmegaRef" variable="omegaRef_0_value"/>
+    <curve model="NETWORK" variable="12_1_DeltaPc"/>
+    <curve model="OmegaRef" variable="omegaRef_0"/>
 </curvesInput>

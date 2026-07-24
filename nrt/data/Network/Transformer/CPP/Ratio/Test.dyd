@@ -27,9 +27,9 @@
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="Test.par" parId="OmegaRef"/>
   <dyn:connect id1="Generator" var1="generator_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
   <dyn:blackBoxModel id="Disconnect_Load4" lib="EventConnectedStatus" parFile="Test.par" parId="Disconnect_Load4"/>
-  <dyn:connect id1="Disconnect_Load4" var1="event_state1" id2="NETWORK" var2="Load4_state_value"/>
+  <dyn:connect id1="Disconnect_Load4" var1="event_state1" id2="NETWORK" var2="Load4_state"/>
   <dyn:blackBoxModel id="Connect_Load4" lib="EventConnectedStatus" parFile="Test.par" parId="Connect_Load4"/>
-  <dyn:connect id1="Connect_Load4" var1="event_state1" id2="NETWORK" var2="Load4_state_value"/>
+  <dyn:connect id1="Connect_Load4" var1="event_state1" id2="NETWORK" var2="Load4_state"/>
   <dyn:blackBoxModel id="Disconnect_Load1" lib="EventConnectedStatus" parFile="Test.par" parId="Disconnect_Load1"/>
-  <dyn:connect id1="Disconnect_Load1" var1="event_state1" id2="NETWORK" var2="Load1_state_value"/>
+  <dyn:connect id1="Disconnect_Load1" var1="event_state1" id2="NETWORK" var2="Load1_state"/>
 </dyn:dynamicModelsArchitecture>

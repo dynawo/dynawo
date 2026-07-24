@@ -496,16 +496,6 @@ class NetworkComponent {  ///< Base class for network component models
   template <typename T> T getParameterDynamicNoThrow(const std::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids = std::vector<std::string>()) const;
 
-  /**
-   * @brief add an element along a value subelement
-   * @param elementName element to add
-   * @param parentType type of the parent model
-   * @param elements vector of elements to fill with new elements defined
-   * @param mapElement map of elements to fill with new elements
-   */
-  void addElementWithValue(const std::string& elementName, const std::string& parentType,
-      std::vector<Element>& elements, std::map<std::string, int>& mapElement) const;
-
  private:
   /**
    * @brief get the value of a given parameter
