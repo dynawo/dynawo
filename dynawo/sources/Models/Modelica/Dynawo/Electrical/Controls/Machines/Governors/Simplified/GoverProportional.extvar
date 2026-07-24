@@ -15,4 +15,5 @@
   <variable id="deltaPmRefPu" type="continuous" optional="true"/>
   <variable id="omegaPu" type="continuous"/>
   <variable id="PmRefPu" type="continuous" optional="true"/>
+  <variable id="activeFrequencyRegulation" type="boolean" defaultValue="false"/>
 </external_variables>
