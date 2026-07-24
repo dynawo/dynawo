@@ -571,6 +571,7 @@ class ModelManager : public SubModel, public ConstraintSource, private boost::no
   DYNDATA* dataDyn_;  ///< dynamic data
   std::string modelType_;  ///< model type
   DelayManager delayManager_;  ///< manager of delayed values
+  bool calculatedVarsUpToDate_;  ///< whether calculatedVars_ still reflects the last evalF call
 
  private:
   /**
