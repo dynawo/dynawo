@@ -1261,6 +1261,20 @@ class Factory:
         content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
         relations_found = re.findall(r'  data->simulationInfo->relations.*?= tmp[0-9]+;', content_to_analyze)
         self.nb_existing_relations = len(relations_found)
+        if len(map_relations) > 0:
+            self.nb_existing_relations = max(self.nb_existing_relations, max(int(idx) for idx in map_relations) + 1)
+        # Some relationhysteresis calls live in equations that are neither part of list_eq_syst
+        # (e.g. equations only computing a $whenCondition helper variable, never solved as part
+        # of the system) nor exposed as a calculated var. They still consume a native relation
+        # index in the OMC-generated code, so we must include them when computing the first free
+        # index, otherwise a synthetic relation we create can collide with one of these.
+        all_native_relation_indexes = set(int(idx) for idx in map_relations)
+        for eq in self.list_all_equations:
+            relations_found = re.findall(r'relationhysteresis\(data, &tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_raw_body()))
+            for relation in relations_found:
+                all_native_relation_indexes.add(int(relation.split(", ")[6]))
+        if len(all_native_relation_indexes) > 0:
+            self.nb_existing_relations = max(self.nb_existing_relations, max(all_native_relation_indexes) + 1)
         content_to_analyze = list(self.zc_filter.get_function_zero_crossings_raw_func())
         gout_assignements = []
         gout_relations = []
@@ -1986,6 +2000,12 @@ class Factory:
         self.list_for_evaljt.append("  jacobian->dae_cj = cj;\n\n")
         self.list_for_evaljt.append("  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);\n")
         self.list_for_evaljt.append("  jacobian->seedVars[varIndex] = 1.;\n\n")
+        self.list_for_evaljt.append(
+            "  if (fIndex == 22 && (varIndex == 30 || varIndex == 81)) " \
+            + "std::cout << \"BUBU JT t=\" << data->localData[0]->timeValue << \" fIndex=\" << fIndex << \" varIndex=\" << varIndex" \
+            + " << \" discreteCall=\" << (int)data->simulationInfo->discreteCall" \
+            + " << \" relPre73=\" << (int)data->simulationInfo->relationsPre[73] << \" relPre74=\" << (int)data->simulationInfo->relationsPre[74]" \
+            + " << \" rel73=\" << (int)data->simulationInfo->relations[73] << \" rel74=\" << (int)data->simulationInfo->relations[74] << std::endl;\n")
         for line in self.get_body_for_shared_tmp_vars():
             match = ptrn_calc_var.findall(line)
             for name in match:
@@ -2003,6 +2023,20 @@ class Factory:
                     line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                             "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
                 eq_body.append(line)
+            # This per-equation jacobian body re-evaluates its branch conditions from a raw
+            # Greater/Less call instead of reusing the persisted/hysteresis-aware relation used
+            # by the value equation (setF/evalFAdept). At an exact tie between the two compared
+            # operands, the raw comparison and the cached relation can disagree on which branch
+            # is active, so the derivative and the adept reference pick different branches. Same
+            # substitution as get_body_for_shared_tmp_vars, so both stay consistent.
+            if self.create_additional_relations():
+                index_relation = 0
+                index_relations = self.modes.find_index_relation(eq.get_src_fct_name())
+                for i, line in enumerate(eq_body):
+                    if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line):
+                        if index_relation < len(index_relations):
+                            eq_body[i] = self.transform_in_relation(line, index_relations[index_relation])
+                            index_relation += 1
             standard_eq_body.extend(eq_body)
             self.list_for_evaljt.append("  {\n")
             self.list_for_evaljt.extend(standard_eq_body)
@@ -2113,7 +2147,7 @@ class Factory:
             match = ptrn_calc_var.findall(line)
             for name in match:
                 line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                        "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                        "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
             body.append(line)
 
         ## adding first the modes related to relations
@@ -2186,7 +2220,7 @@ class Factory:
                 match = ptrn_calc_var.findall(line)
                 for name in match:
                     line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                            "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
                 body.append(line)
             self.list_for_setz.extend(body)
             self.list_for_setz.append(" \n")
@@ -2198,7 +2232,7 @@ class Factory:
                 match = ptrn_calc_var.findall(line)
                 for name in match:
                     line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                            "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
                 body.append(line)
             self.list_for_setz.extend(body)
 
@@ -2209,7 +2243,7 @@ class Factory:
                 match = ptrn_calc_var.findall(line)
                 for name in match:
                     line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                            "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
                 body.append(line)
             self.list_for_setz.extend(body)
 
@@ -2259,6 +2293,15 @@ class Factory:
         for line in self.list_for_setz:
             self.list_for_setz[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
             index+=1
+
+        new_list_for_setz = []
+        for line in self.list_for_setz:
+            new_list_for_setz.append(line)
+            bvar_match = re.search(r'getCalculatedVar\(\(this\)->getModelManager\(\), (?P<idx>[0-9]+)\) /\* [\w\.\[\]]*\.BVarRawPu variable', line)
+            if bvar_match is not None:
+                new_list_for_setz.append("  std::cout << \"BUBU BVarRawPu t=\" << data->localData[0]->timeValue << \" val=\" << evalCalculatedVarI(" \
+                             + bvar_match.group('idx') + ") << std::endl;\n")
+        self.list_for_setz = new_list_for_setz
 
     ##
     # returns the lines that constitues the body of setF
@@ -2340,7 +2383,7 @@ class Factory:
                 match = ptrn_calc_var.findall(line)
                 for name in match:
                     line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                            "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
                 self.list_for_setg.append(line)
                 nb_zero_crossing +=1
 
@@ -2364,7 +2407,7 @@ class Factory:
             match = ptrn_calc_var.findall(self.list_for_setg[index])
             for name in match:
                  self.list_for_setg[index] = self.list_for_setg[index].replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                            "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
             index+=1
 
     ##
@@ -3020,6 +3063,11 @@ class Factory:
         list_residual_vars_for_sys_build = sorted(self.reader.residual_vars_to_address_map.keys())
         for name in list_residual_vars_for_sys_build:
             self.list_for_evalfadept.append("  adept::adouble " + name +";\n")
+        self.list_for_evalfadept.append(
+            "  std::cout << \"BUBU F t=\" << data->localData[0]->timeValue" \
+            + " << \" discreteCall=\" << (int)data->simulationInfo->discreteCall" \
+            + " << \" relPre73=\" << (int)data->simulationInfo->relationsPre[73] << \" relPre74=\" << (int)data->simulationInfo->relationsPre[74]" \
+            + " << \" rel73=\" << (int)data->simulationInfo->relations[73] << \" rel74=\" << (int)data->simulationInfo->relations[74] << std::endl;\n")
         # Recovery of the text content of the equations that evaluate the system's vars
         # and 2-step treatment:
         #   Replacement of "modelica_real" by "adept::adouble"
@@ -4662,6 +4710,7 @@ class Factory:
   nb = (data->modelData->nRelations > 0) ? data->modelData->nRelations : 0;
   data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
   data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
+  std::cout << "BUBU ALLOC nb=" << nb << " relPre73=" << (int)data->simulationInfo->relationsPre[73] << " relPre74=" << (int)data->simulationInfo->relationsPre[74] << std::endl;
 
   // buffer for mathematical events
   data->simulationInfo->mathEventsValuePre = (modelica_real*) calloc(data->modelData->nMathEvents, sizeof(modelica_real));
