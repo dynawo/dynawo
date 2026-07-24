@@ -378,6 +378,19 @@ class ModelManager : public SubModel, private boost::noncopyable {
   const double* getCalculatedVarAddress(int indexCalculatedVar) const;
 
   /**
+   * @brief retrieve a calculated variable's cached value
+   *
+   * Hides SubModel::getCalculatedVar(int) const: reads from whichever of calculatedVars_ /
+   * calculatedVarsInit_ matches the model currently in use (modelInitUsed_), since the two hold
+   * different variable counts and are populated independently.
+   *
+   * @param indexCalculatedVar index of the calculated variable
+   *
+   * @return the calculated variable's cached value
+   */
+  double getCalculatedVar(int indexCalculatedVar) const;
+
+  /**
    * @copydoc SubModel::hasDataCheckCoherence() const override
    */
   bool hasDataCheckCoherence() const override;
@@ -553,7 +566,6 @@ class ModelManager : public SubModel, private boost::noncopyable {
   DYNDATA* dataDyn_;  ///< dynamic data
   std::string modelType_;  ///< model type
   DelayManager delayManager_;  ///< manager of delayed values
-  bool calculatedVarsUpToDate_;  ///< whether calculatedVars_ still reflects the last evalF call
 
  private:
   /**

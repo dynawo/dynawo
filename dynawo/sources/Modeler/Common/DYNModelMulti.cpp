@@ -332,6 +332,11 @@ void
 ModelMulti::copyContinuousVariables(const double* y, const double* yp) {
   yLocal_.assign(y, y + sizeY());
   ypLocal_.assign(yp, yp + sizeY());
+  // y/y' just changed, whether through a genuine evalF or a solver-internal interpolation (e.g.
+  // SUNDIALS' root-search dense output, which calls this directly without ever going through
+  // evalF) -- any cached calculated variable is now potentially stale.
+  for (const auto& subModel : subModels_)
+    subModel->invalidateCalculatedVarsBuffer();
 }
 
 void ModelMulti::restoreResidual(const std::vector<double>& f) {

@@ -96,14 +96,8 @@
 #define relationhysteresis(res, exp1, exp2, exp1_nominal, exp2_nominal, index, op_w) { \
   if (data->simulationInfo->discreteCall == 0) { \
     res = data->simulationInfo->relationsPre[index]; \
-    if ((index) == 73 || (index) == 74) \
-      std::cout << "BUBU READ index=" << (index) << " res=" << static_cast<int>(static_cast<modelica_boolean>(res)) \
-                 << " t=" << data->localData[0]->timeValue << std::endl; \
   } else { \
     res = ((op_w)((exp1), (exp2))); \
-    if ((index) == 73 || (index) == 74) \
-      std::cout << "BUBU COMMIT index=" << (index) << " res=" << static_cast<int>(static_cast<modelica_boolean>(res)) \
-                 << " t=" << data->localData[0]->timeValue << std::endl; \
     data->simulationInfo->relations[index] = res; \
   } \
 }

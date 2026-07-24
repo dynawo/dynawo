@@ -64,7 +64,6 @@ modelInit_(NULL),
 modelDyn_(NULL),
 dataInit_(new DYNDATA),
 dataDyn_(new DYNDATA),
-calculatedVarsUpToDate_(false),
 modelInitUsed_(false) { }
 
 ModelManager::~ModelManager() {
@@ -248,7 +247,6 @@ ModelManager::evalF(double t, propertyF_t type) {
   setManagerTime(t);
 
   modelModelica()->setFomc(fLocal_, type);
-  calculatedVarsUpToDate_ = false;
 }
 
 bool
@@ -1424,7 +1422,18 @@ void ModelManager::notifyTimeStep() {
 
 void
 ModelManager::evalCalculatedVars() {
-  modelModelica()->evalCalculatedVars(calculatedVars_);
+  if (modelInitUsed_) {
+    if (calculatedVarsInit_.empty())
+      calculatedVarsInit_.assign(dataInit_->nbCalculatedVars, 0);
+    modelModelica()->evalCalculatedVars(calculatedVarsInit_);
+  } else {
+    modelModelica()->evalCalculatedVars(calculatedVars_);
+  }
+}
+
+double
+ModelManager::getCalculatedVar(const int indexCalculatedVar) const {
+  return modelInitUsed_ ? calculatedVarsInit_[indexCalculatedVar] : calculatedVars_[indexCalculatedVar];
 }
 
 double
@@ -1489,7 +1498,7 @@ ModelManager::addDelay(int exprNumber, const double* time, const double* exprVal
 
 const double*
 ModelManager::getCalculatedVarAddress(const int indexCalculatedVar) const {
-  return &calculatedVars_[indexCalculatedVar];
+  return modelInitUsed_ ? &calculatedVarsInit_[indexCalculatedVar] : &calculatedVars_[indexCalculatedVar];
 }
 
 double

@@ -927,7 +927,13 @@ class Factory:
 
 
         # Build an equation for each function in the dae *.c file
+        ptrn_dummy_ext_var_call = re.compile(r'\bomc_dummy[0-9]+\s*\(')
         for eq_mak in list_eq_maker_16dae_c:
+            if any(ptrn_dummy_ext_var_call.search(line) for line in eq_mak.get_raw_body()):
+                # This equation only exists to keep OMC from treating an external variable as
+                # trivially constant/removable (see scriptVarExt.py's dummy1/dummy2/... calls);
+                # it carries no real physics and must not appear in the generated dynamic model.
+                continue
             eq_mak.prepare_body_for_equation()
             self.list_all_equations.append( eq_mak.create_equation() )
             self.list_eq_maker_16dae.append(eq_mak)
@@ -1233,6 +1239,12 @@ class Factory:
         self.build_relations()
         self.build_modes_discretes()
 
+    ptrn_relationhysteresis_index = re.compile(
+        r'relationhysteresis\(data, &tmp[0-9]+,.*?, (?P<index>[0-9]+), (?:Greater|Less|GreaterEq|LessEq)\);')
+
+    def find_relationhysteresis_indexes(self, text):
+        return self.ptrn_relationhysteresis_index.findall(text)
+
     ##
     # Build the relations objects by parsing the existing equations
     # @param self : object pointer
@@ -1240,9 +1252,7 @@ class Factory:
         map_relations = {}
         # finding existing relations in system equations
         for eq in self.list_eq_syst:
-            relations_found = re.findall(r'relationhysteresis\(data, &tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_raw_body()))
-            for relation in relations_found:
-                index_relation = relation.split(", ")[6]
+            for index_relation in self.find_relationhysteresis_indexes(transform_rawbody_to_string(eq.get_raw_body())):
                 eq_type = ALGEBRAIC
                 if eq.get_type() == DIFFERENTIAL:
                     eq_type = DIFFERENTIAL
@@ -1252,9 +1262,7 @@ class Factory:
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
 
         for f in self.reader.list_complex_calculated_vars.values():
-            relations_found = re.findall(r'relationhysteresis\(data, &tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(f.get_body()))
-            for relation in relations_found:
-                index_relation = relation.split(", ")[6]
+            for index_relation in self.find_relationhysteresis_indexes(transform_rawbody_to_string(f.get_body())):
                 map_relations[index_relation] = [ALGEBRAIC, f.get_name()]
 
         # bulding relations objects
@@ -1270,9 +1278,11 @@ class Factory:
         # index, otherwise a synthetic relation we create can collide with one of these.
         all_native_relation_indexes = set(int(idx) for idx in map_relations)
         for eq in self.list_all_equations:
-            relations_found = re.findall(r'relationhysteresis\(data, &tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_raw_body()))
-            for relation in relations_found:
-                all_native_relation_indexes.add(int(relation.split(", ")[6]))
+            raw_body = eq.get_raw_body()
+            if not any("relationhysteresis" in line for line in raw_body):
+                continue
+            for index_relation in self.find_relationhysteresis_indexes(transform_rawbody_to_string(raw_body)):
+                all_native_relation_indexes.add(int(index_relation))
         if len(all_native_relation_indexes) > 0:
             self.nb_existing_relations = max(self.nb_existing_relations, max(all_native_relation_indexes) + 1)
         content_to_analyze = list(self.zc_filter.get_function_zero_crossings_raw_func())
@@ -1815,6 +1825,8 @@ class Factory:
     # @return
     def dump_warnings_in_checkdatacoherence(self):
         for warn in self.list_warnings:
+            if any("solve_nonlinear_system(" in line for line in warn.get_body_for_setf()):
+                continue
             if warn.get_is_parameter_warning():
                 self.list_for_parameters_warnings.append("{\n")
                 self.list_for_parameters_warnings.extend(warn.get_body_for_setf())
@@ -2000,12 +2012,6 @@ class Factory:
         self.list_for_evaljt.append("  jacobian->dae_cj = cj;\n\n")
         self.list_for_evaljt.append("  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);\n")
         self.list_for_evaljt.append("  jacobian->seedVars[varIndex] = 1.;\n\n")
-        self.list_for_evaljt.append(
-            "  if (fIndex == 22 && (varIndex == 30 || varIndex == 81)) " \
-            + "std::cout << \"BUBU JT t=\" << data->localData[0]->timeValue << \" fIndex=\" << fIndex << \" varIndex=\" << varIndex" \
-            + " << \" discreteCall=\" << (int)data->simulationInfo->discreteCall" \
-            + " << \" relPre73=\" << (int)data->simulationInfo->relationsPre[73] << \" relPre74=\" << (int)data->simulationInfo->relationsPre[74]" \
-            + " << \" rel73=\" << (int)data->simulationInfo->relations[73] << \" rel74=\" << (int)data->simulationInfo->relations[74] << std::endl;\n")
         for line in self.get_body_for_shared_tmp_vars():
             match = ptrn_calc_var.findall(line)
             for name in match:
@@ -2257,7 +2263,7 @@ class Factory:
                 match = ptrn_calc_var.findall(line)
                 for name in match:
                     line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
-                                            "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                                            "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
                 if "MMC_DEFSTRINGLIT" in line:
                     line = line.replace("static const MMC_DEFSTRINGLIT(","")
                     line = line.replace(");","")
@@ -3063,11 +3069,6 @@ class Factory:
         list_residual_vars_for_sys_build = sorted(self.reader.residual_vars_to_address_map.keys())
         for name in list_residual_vars_for_sys_build:
             self.list_for_evalfadept.append("  adept::adouble " + name +";\n")
-        self.list_for_evalfadept.append(
-            "  std::cout << \"BUBU F t=\" << data->localData[0]->timeValue" \
-            + " << \" discreteCall=\" << (int)data->simulationInfo->discreteCall" \
-            + " << \" relPre73=\" << (int)data->simulationInfo->relationsPre[73] << \" relPre74=\" << (int)data->simulationInfo->relationsPre[74]" \
-            + " << \" rel73=\" << (int)data->simulationInfo->relations[73] << \" rel74=\" << (int)data->simulationInfo->relations[74] << std::endl;\n")
         # Recovery of the text content of the equations that evaluate the system's vars
         # and 2-step treatment:
         #   Replacement of "modelica_real" by "adept::adouble"
@@ -4710,7 +4711,6 @@ class Factory:
   nb = (data->modelData->nRelations > 0) ? data->modelData->nRelations : 0;
   data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
   data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
-  std::cout << "BUBU ALLOC nb=" << nb << " relPre73=" << (int)data->simulationInfo->relationsPre[73] << " relPre74=" << (int)data->simulationInfo->relationsPre[74] << std::endl;
 
   // buffer for mathematical events
   data->simulationInfo->mathEventsValuePre = (modelica_real*) calloc(data->modelData->nMathEvents, sizeof(modelica_real));
