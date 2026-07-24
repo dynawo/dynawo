@@ -25,7 +25,7 @@ model GoverProportional "Keeps the mechanical power as a constant modulated by t
     Placement(transformation(origin = {-178, 16}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power in pu (base PNom)" annotation(
     Placement(transformation(origin = {-178, -66}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Blocks.Interfaces.BooleanInput activeFrequencyRegulation(start = if Pm0Pu < PMin/PNom or Pm0Pu > PMax/PNom then false else true) "If true, the group participates to primary frequency control" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput activeFrequencyRegulation(start = ActiveFrequencyRegulation) "If true, the group participates to primary frequency control" annotation(
     Placement(transformation(origin = {36, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {70, 0}, extent = {{-20, -20}, {20, 20}})));
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNom)" annotation(
@@ -34,6 +34,7 @@ model GoverProportional "Keeps the mechanical power as a constant modulated by t
   parameter Types.ActivePower PMax "Maximum mechanical power in MW";
   parameter Types.ActivePower PMin "Minimum mechanical power in MW";
   parameter Types.ActivePower PNom "Nominal active power in MW";
+  final parameter Boolean ActiveFrequencyRegulation = if Pm0Pu < PMin/PNom or Pm0Pu > PMax/PNom then false else true "If true, the group initially participates to primary frequency control";
   final parameter Types.ActivePowerPu PMaxPu = PMax / PNom "Maximum mechanical power in pu (base PNom)";
   final parameter Types.ActivePowerPu PMinPu = PMin / PNom "Minimum mechanical power in pu (base PNom)";
   status state(start = status.Standard);
