@@ -19,6 +19,8 @@ set(MODEL_FILES
   GFLControl.mo
   GFLmodel.mo
   GFLmodel.extvar
+  GFLmodel_noplant.mo
+  GFLmodel_noplant.extvar
   IdealSwitch.mo
   LCDynFilter.mo
   LCnoDynFilter.mo
