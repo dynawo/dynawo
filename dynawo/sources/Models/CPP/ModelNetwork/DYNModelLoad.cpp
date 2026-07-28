@@ -27,6 +27,7 @@
 #include "DYNModelLoad.h"
 #include "DYNCommon.h"
 #include "DYNNumericalUtils.h"
+#include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
@@ -578,42 +579,42 @@ ModelLoad::evalDerivatives(const double /*cj*/) {
 void
 ModelLoad::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   if (isPControllable_ || isControllable_) {
-    variables.push_back(VariableNativeFactory::createState(id_ + "_DeltaPc_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_DeltaPc", CONTINUOUS));
   }
   if (isQControllable_ || isControllable_) {
-    variables.push_back(VariableNativeFactory::createState(id_ + "_DeltaQc_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_DeltaQc", CONTINUOUS));
   }
 
   if (isRestorative_) {
-    variables.push_back(VariableNativeFactory::createState(id_ + "_zP_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState(id_ + "_zQ_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_zP", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_zQ", CONTINUOUS));
   }
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Pc_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Qc_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_loadState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Pc", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Qc", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_loadState", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
   if (isSettable_) {
-    variables.push_back(VariableNativeFactory::createState(id_ + "_PRefPu_value", DISCRETE));
-    variables.push_back(VariableNativeFactory::createState(id_ + "_QRefPu_value", DISCRETE));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_PRefPu", DISCRETE));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_QRefPu", DISCRETE));
   }
 }
 
 void
 ModelLoad::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("@ID@_DeltaPc_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_DeltaQc_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_zP_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_zQ_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Pc_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Qc_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_loadState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState("@ID@_PRefPu_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_QRefPu_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_DeltaPc", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_DeltaQc", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_zP", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_zQ", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Pc", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Qc", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_loadState", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_PRefPu", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_QRefPu", DISCRETE));
 }
 
 void
@@ -621,24 +622,24 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
   const string loadName = id_;
   // ======= STATE VARIABLES ========
   if (isPControllable_ || isControllable_) {
-    addElementWithValue(loadName + string("_DeltaPc"), "Load", elements, mapElement);
+    addElement(loadName + string("_DeltaPc"), Element::TERMINAL, elements, mapElement);
   }
   if (isQControllable_ || isControllable_) {
-    addElementWithValue(loadName + string("_DeltaQc"), "Load", elements, mapElement);
+    addElement(loadName + string("_DeltaQc"), Element::TERMINAL, elements, mapElement);
   }
   if (isRestorative_) {
-    addElementWithValue(loadName + string("_zP"), "Load", elements, mapElement);
-    addElementWithValue(loadName + string("_zQ"), "Load", elements, mapElement);
+    addElement(loadName + string("_zP"), Element::TERMINAL, elements, mapElement);
+    addElement(loadName + string("_zQ"), Element::TERMINAL, elements, mapElement);
   }
-  addElementWithValue(loadName + string("_state"), "Load", elements, mapElement);
-  addElementWithValue(loadName + string("_P"), "Load", elements, mapElement);
-  addElementWithValue(loadName + string("_Q"), "Load", elements, mapElement);
-  addElementWithValue(loadName + string("_Pc"), "Load", elements, mapElement);
-  addElementWithValue(loadName + string("_Qc"), "Load", elements, mapElement);
-  addElementWithValue(loadName + string("_loadState"), "Load", elements, mapElement);
+  addElement(loadName + string("_state"), Element::TERMINAL, elements, mapElement);
+  addElement(loadName + string("_P"), Element::TERMINAL, elements, mapElement);
+  addElement(loadName + string("_Q"), Element::TERMINAL, elements, mapElement);
+  addElement(loadName + string("_Pc"), Element::TERMINAL, elements, mapElement);
+  addElement(loadName + string("_Qc"), Element::TERMINAL, elements, mapElement);
+  addElement(loadName + string("_loadState"), Element::TERMINAL, elements, mapElement);
   if (isSettable_) {
-    addElementWithValue(loadName + string("_PRefPu"), "Load", elements, mapElement);
-    addElementWithValue(loadName + string("_QRefPu"), "Load", elements, mapElement);
+    addElement(loadName + string("_PRefPu"), Element::TERMINAL, elements, mapElement);
+    addElement(loadName + string("_QRefPu"), Element::TERMINAL, elements, mapElement);
   }
 }
 

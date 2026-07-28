@@ -149,24 +149,24 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
 
   void
   ModelSecondaryVoltageControlSimplified::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back(VariableNativeFactory::createState("UpPu_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("UpRefPu_value", DISCRETE));
-    variables.push_back(VariableNativeFactory::createState("tLastActivation_value", DISCRETE));
-    variables.push_back(VariableNativeFactory::createState("levelVal_value", DISCRETE));
+    variables.push_back(VariableNativeFactory::createState("UpPu", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("UpRefPu", DISCRETE));
+    variables.push_back(VariableNativeFactory::createState("tLastActivation", DISCRETE));
+    variables.push_back(VariableNativeFactory::createState("levelVal", DISCRETE));
     std::stringstream blockerName;
     std::stringstream Qs;
     for (int s = 0; s < nbGenerators_; ++s) {
       blockerName.str(std::string());
       blockerName.clear();
-      blockerName << "blocker_" << s << "_value";
+      blockerName << "blocker_" << s << "_";
       variables.push_back(VariableNativeFactory::createState(blockerName.str(), BOOLEAN));
 
       Qs.str(std::string());
       Qs.clear();
-      Qs << "QStator_" << s << "_value";
+      Qs << "QStator_" << s << "_";
       variables.push_back(VariableNativeFactory::createState(Qs.str(), CONTINUOUS));
     }
-    variables.push_back(VariableNativeFactory::createCalculated("level_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createCalculated("level", CONTINUOUS));
   }
 
   void
@@ -360,31 +360,24 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
 
   void
   ModelSecondaryVoltageControlSimplified::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement) {
-    addElement("UpPu", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "UpPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("UpRefPu", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "UpRefPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("tLastActivation", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "tLastActivation", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("levelVal", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "levelVal", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("UpPu", Element::TERMINAL, elements, mapElement);
+    addElement("UpRefPu", Element::TERMINAL, elements, mapElement);
+    addElement("tLastActivation", Element::TERMINAL, elements, mapElement);
+    addElement("levelVal", Element::TERMINAL, elements, mapElement);
     std::stringstream blockerName;
     std::stringstream Qs;
     for (int s = 0; s < nbGenerators_; ++s) {
       blockerName.str(std::string());
       blockerName.clear();
-      blockerName << "blocker_" << s;
-      addElement(blockerName.str(), Element::STRUCTURE, elements, mapElement);
-      addSubElement("value", blockerName.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+      blockerName << "blocker_" << s << "_";
+      addElement(blockerName.str(), Element::TERMINAL, elements, mapElement);
 
       Qs.str(std::string());
       Qs.clear();
-      Qs << "QStator_" << s;
-      addElement(Qs.str(), Element::STRUCTURE, elements, mapElement);
-      addSubElement("value", Qs.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+      Qs << "QStator_" << s << "_";
+      addElement(Qs.str(), Element::TERMINAL, elements, mapElement);
     }
-    addElement("level", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "level", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("level", Element::TERMINAL, elements, mapElement);
   }
 
   void
@@ -405,13 +398,13 @@ constexpr double ModelSecondaryVoltageControlSimplified::LEVEL_MIN;  ///< Minima
   void
   ModelSecondaryVoltageControlSimplified::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
     Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-    Trace::info() << "  ->" << "UpPu_value" << Trace::endline;
-    Trace::info() << "  ->" << "UpRefPu_value" << Trace::endline;
-    Trace::info() << "  ->" << "UpPu_value" << Trace::endline;
-    Trace::info() << "  ->" << "levelVal_value" << Trace::endline;
-    Trace::info() << "  ->" << "level_value" << Trace::endline;
-    Trace::info() << "  ->" << "blocker_" << "<0-" << nbGenerators_ << ">_value" << Trace::endline;
-    Trace::info() << "  ->" << "QStator_" << "<0-" << nbGenerators_ << ">_value" << Trace::endline;
+    Trace::info() << "  ->" << "UpPu" << Trace::endline;
+    Trace::info() << "  ->" << "UpRefPu" << Trace::endline;
+    Trace::info() << "  ->" << "UpPu" << Trace::endline;
+    Trace::info() << "  ->" << "levelVal" << Trace::endline;
+    Trace::info() << "  ->" << "level" << Trace::endline;
+    Trace::info() << "  ->" << "blocker_" << "<0-" << nbGenerators_ << ">_" << Trace::endline;
+    Trace::info() << "  ->" << "QStator_" << "<0-" << nbGenerators_ << ">_" << Trace::endline;
   }
 
 }  // namespace DYN

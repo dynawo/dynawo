@@ -13,27 +13,27 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
     <dyn:blackBoxModel id="DisconnectLine" lib="EventQuadripoleDisconnection" parFile="Events.par" parId="DisconnectLine"/>
-    <dyn:connect id1="DisconnectLine" var1="event_state1" id2="NETWORK" var2="L4032-4044_state_value"/>
+    <dyn:connect id1="DisconnectLine" var1="event_state1" id2="NETWORK" var2="L4032-4044_state"/>
 
     <dyn:blackBoxModel id="LineStatus" lib="DYNModelUpdatableInteger"/>
-    <dyn:connect id1="LineStatus" var1="input_value" id2="NETWORK" var2="L4032-4042_state_value"/>
+    <dyn:connect id1="LineStatus" var1="input_value" id2="NETWORK" var2="L4032-4042_state"/>
 
     <dyn:blackBoxModel id="SouthLoadsDelta" lib="SetPoint" parFile="Events.par" parId="SouthLoadsDelta"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="61_1_DeltaPc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="62_1_DeltaPc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="63_1_DeltaPc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="61_1_DeltaQc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="62_1_DeltaQc_value"/>
-    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="63_1_DeltaQc_value"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="61_1_DeltaPc"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="62_1_DeltaPc"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="63_1_DeltaPc"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="61_1_DeltaQc"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="62_1_DeltaQc"/>
+    <dyn:connect id1="SouthLoadsDelta" var1="setPoint_setPoint" id2="NETWORK" var2="63_1_DeltaQc"/>
 
     <dyn:blackBoxModel id="12_1_deltaPc" lib="DYNModelUpdatableContinuous"/>
-    <dyn:connect id1="12_1_deltaPc" var1="input_value" id2="NETWORK" var2="12_1_DeltaPc_value"/>
+    <dyn:connect id1="12_1_deltaPc" var1="input_value" id2="NETWORK" var2="12_1_DeltaPc"/>
     <dyn:blackBoxModel id="12_1_deltaQc" lib="DYNModelUpdatableContinuous"/>
-    <dyn:connect id1="12_1_deltaQc" var1="input_value" id2="NETWORK" var2="12_1_DeltaQc_value"/>
+    <dyn:connect id1="12_1_deltaQc" var1="input_value" id2="NETWORK" var2="12_1_DeltaQc"/>
 
     <dyn:blackBoxModel id="11_1_PRefPu" lib="DYNModelUpdatableDiscrete"/>
-    <dyn:connect id1="11_1_PRefPu" var1="input_value" id2="NETWORK" var2="11_1_PRefPu_value"/>
+    <dyn:connect id1="11_1_PRefPu" var1="input_value" id2="NETWORK" var2="11_1_PRefPu"/>
     <dyn:blackBoxModel id="11_1_QRefPu" lib="DYNModelUpdatableDiscrete"/>
-    <dyn:connect id1="11_1_QRefPu" var1="input_value" id2="NETWORK" var2="11_1_QRefPu_value"/>
+    <dyn:connect id1="11_1_QRefPu" var1="input_value" id2="NETWORK" var2="11_1_QRefPu"/>
 
 </dyn:dynamicModelsArchitecture>

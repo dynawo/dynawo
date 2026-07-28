@@ -232,7 +232,7 @@ As generator 2 was injecting active and reactive power, we observe that its loss
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____1_TN_Upu_value}*69]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____1_TN_Upu}*69]
         {../IEEE14_DisconnectGroup/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -298,7 +298,7 @@ We observe that the system is oscillating after the event but stabilizes after a
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____1_TN_Upu_value}*69]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____1_TN_Upu}*69]
         {../IEEE14_DisconnectLine/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -341,7 +341,7 @@ We observe that the reactive load variation triggers a sudden voltage drop at bu
   \begin{tikzpicture}
     \begin{axis}[height = 1.4in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu_value}*69]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu}*69]
         {../IEEE14_LoadVariation/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}

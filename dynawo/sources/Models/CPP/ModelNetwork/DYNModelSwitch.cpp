@@ -22,6 +22,7 @@
 
 #include "DYNModelSwitch.h"
 #include "DYNModelBus.h"
+#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
@@ -231,16 +232,16 @@ void
 ModelSwitch::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_irsw", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_iisw", FLOW));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_swState_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_swState", CONTINUOUS));
 }
 
 void
 ModelSwitch::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState(id_ + "_irsw", FLOW));
   variables.push_back(VariableNativeFactory::createState(id_ + "_iisw", FLOW));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_swState_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_swState", CONTINUOUS));
 }
 
 void
@@ -251,8 +252,8 @@ ModelSwitch::defineParameters(vector<ParameterModeler>& /*parameters*/) {
 void
 ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   const string switchName = id_;
-  addElementWithValue(switchName + string("_state"), "Switch", elements, mapElement);
-  addElementWithValue(switchName + string("_swState"), "Switch", elements, mapElement);
+  addElement(switchName + string("_state"), Element::TERMINAL, elements, mapElement);
+  addElement(switchName + string("_swState"), Element::TERMINAL, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

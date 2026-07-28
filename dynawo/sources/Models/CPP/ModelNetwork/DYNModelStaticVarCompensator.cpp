@@ -24,6 +24,7 @@
 #include "DYNModelStaticVarCompensator.h"
 
 #include "DYNModelBus.h"
+#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNVariableForModel.h"
@@ -416,18 +417,18 @@ ModelStaticVarCompensator::evalDerivatives(const double /*cj*/) {
 
 void
 ModelStaticVarCompensator::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_mode_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_mode", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
 }
 
 void
 ModelStaticVarCompensator::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_mode_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_mode", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
 }
 
 void
@@ -435,12 +436,12 @@ ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string,
   const string svcName = id_;
 
   // ========  CALCULATED VARIABLE ======
-  addElementWithValue(svcName + string("_P"), "StaticVarCompensator", elements, mapElement);
-  addElementWithValue(svcName + string("_Q"), "StaticVarCompensator", elements, mapElement);
+  addElement(svcName + string("_P"), Element::TERMINAL, elements, mapElement);
+  addElement(svcName + string("_Q"), Element::TERMINAL, elements, mapElement);
 
   // ========  DISCRETE VARIABLE ======
-  addElementWithValue(svcName + string("_mode"), "StaticVarCompensator", elements, mapElement);
-  addElementWithValue(svcName + string("_state"), "StaticVarCompensator", elements, mapElement);
+  addElement(svcName + string("_mode"), Element::TERMINAL, elements, mapElement);
+  addElement(svcName + string("_state"), Element::TERMINAL, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

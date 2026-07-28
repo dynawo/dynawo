@@ -25,6 +25,7 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelBus.h"
+#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
@@ -176,30 +177,30 @@ ModelShuntCompensator::evalDerivatives(const double /*cj*/) {
 
 void
 ModelShuntCompensator::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_isCapacitor_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_isAvailable_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_currentSection_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_isCapacitor", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_isAvailable", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_currentSection", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q", CONTINUOUS));
 }
 
 void
 ModelShuntCompensator::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState("@ID@_isCapacitor_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_isAvailable_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_currentSection_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_isCapacitor", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_isAvailable", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_currentSection", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q", CONTINUOUS));
 }
 
 void
 ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   const string shName = id_;
-  addElementWithValue(shName + string("_state"), "ShuntCompensator", elements, mapElement);
-  addElementWithValue(shName + string("_isCapacitor"), "ShuntCompensator", elements, mapElement);
-  addElementWithValue(shName + string("_isAvailable"), "ShuntCompensator", elements, mapElement);
-  addElementWithValue(shName + string("_currentSection"), "ShuntCompensator", elements, mapElement);
-  addElementWithValue(shName + string("_Q"), "ShuntCompensator", elements, mapElement);
+  addElement(shName + string("_state"), Element::TERMINAL, elements, mapElement);
+  addElement(shName + string("_isCapacitor"), Element::TERMINAL, elements, mapElement);
+  addElement(shName + string("_isAvailable"), Element::TERMINAL, elements, mapElement);
+  addElement(shName + string("_currentSection"), Element::TERMINAL, elements, mapElement);
+  addElement(shName + string("_Q"), Element::TERMINAL, elements, mapElement);
 }
 
 void

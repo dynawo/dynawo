@@ -394,34 +394,34 @@ ModelOmegaRef::defineVariables(vector<shared_ptr<Variable> >& variables) {
   for (int i = 0; i < nbMaxCC; ++i) {
     name.str("");
     name.clear();
-    name << "omegaRef_" << i << "_value";
+    name << "omegaRef_" << i << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   for (int k = 0; k < nbGen_; ++k) {
     if (weights_[k] > 0) {
       name.str("");
       name.clear();
-      name << "omega_grp_" << k << "_value";
+      name << "omega_grp_" << k << "_";
       variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
     }
   }
   for (int k = 0; k < nbGen_; ++k) {
     name.str("");
     name.clear();
-    name << "omegaRef_grp_" << k << "_value";
+    name << "omegaRef_grp_" << k << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   for (int k = 0; k < nbGen_; ++k) {
     name.str("");
     name.clear();
-    name << "numcc_node_" << k << "_value";
+    name << "numcc_node_" << k << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
   }
 
   for (int k = 0; k < nbGen_; ++k) {
     name.str("");
     name.clear();
-    name << "running_grp_" << k << "_value";
+    name << "running_grp_" << k << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), BOOLEAN));
   }
 }
@@ -484,48 +484,43 @@ ModelOmegaRef::defineElements(std::vector<Element> &elements, std::map<std::stri
   for (int i = 0; i < nbMaxCC; ++i) {
     namess.str("");
     namess.clear();
-    namess << "omegaRef_" << i;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess << "omegaRef_" << i << "_";
+    addElement(namess.str(), Element::TERMINAL, elements, mapElement);
   }
 
   for (int k = 0; k < nbGen_; ++k) {
     if (weights_[k] > 0) {
       namess.str("");
       namess.clear();
-      namess << "omega_grp_" << k;
-      addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-      addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+      namess << "omega_grp_" << k << "_";
+      addElement(namess.str(), Element::TERMINAL, elements, mapElement);
     }
 
     namess.str("");
     namess.clear();
-    namess << "numcc_node_" << k;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess << "numcc_node_" << k << "_";
+    addElement(namess.str(), Element::TERMINAL, elements, mapElement);
 
     namess.str("");
     namess.clear();
-    namess << "running_grp_" << k;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess << "running_grp_" << k << "_";
+    addElement(namess.str(), Element::TERMINAL, elements, mapElement);
 
     namess.str("");
     namess.clear();
-    namess << "omegaRef_grp_" << k;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess << "omegaRef_grp_" << k << "_";
+    addElement(namess.str(), Element::TERMINAL, elements, mapElement);
   }
 }
 
 void
 ModelOmegaRef::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_value (and weight_gen_<num> > 0)" << Trace::endline;
-  Trace::info() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "omegaRef_" << "<0-" << nbMaxCC << ">_" << Trace::endline;
+  Trace::info() << "  ->" << "omega_grp_" << "<0-" << nbGen_ << ">_ (and weight_gen_<num> > 0)" << Trace::endline;
+  Trace::info() << "  ->" << "numcc_node_" << "<0-" << nbGen_ << ">_" << Trace::endline;
+  Trace::info() << "  ->" << "running_grp_" << "<0-" << nbGen_ << ">_" << Trace::endline;
+  Trace::info() << "  ->" << "omegaRef_grp_" << "<0-" << nbGen_ << ">_" << Trace::endline;
 }
 
 void
