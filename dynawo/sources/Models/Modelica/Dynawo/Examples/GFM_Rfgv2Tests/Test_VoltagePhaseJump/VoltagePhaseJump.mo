@@ -117,6 +117,8 @@ import Modelica.Constants.pi;
   final parameter Types.PerUnit Rconnection1 = Lconnection1 / 30 "Resistance in pu base Sbase of VSC";
   final parameter Types.PerUnit Lconnection2 = Lconnection1 * Sbase2 / Sbase1 "Inductance in pu base Snref ";
   final parameter Types.PerUnit Rconnection2 = Lconnection2 / 30 "Resistance in pu base Snref";
+  Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump annotation(
+    Placement(transformation(origin = {-40, -34}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1.value = false;
   line.switchOffSignal2.value = false;

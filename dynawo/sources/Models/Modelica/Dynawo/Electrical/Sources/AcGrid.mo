@@ -65,7 +65,7 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {238, 104}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Wrotor_t0(k = 0)  annotation(
     Placement(visible = true, transformation(origin = {161, 131}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanStep ActivateOmegaConstante(startTime = 0)  annotation(
+  Modelica.Blocks.Sources.BooleanStep ActivateOmegaConstante(startTime = 0, startValue = false)  annotation(
     Placement(visible = true, transformation(origin = {107, 103}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
   Modelica.Blocks.Math.Add add6 annotation(
     Placement(visible = true, transformation(origin = {226, 254}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -83,6 +83,8 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {332, 216}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add8 annotation(
     Placement(visible = true, transformation(origin = {378, 224}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump annotation(
+    Placement(transformation(origin = {-142, 190}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(firstOrder.y, add.u2) annotation(
     Line(points = {{-26, 24}, {-14, 24}, {-14, 46}, {-2, 46}}, color = {0, 0, 127}));
@@ -157,7 +159,7 @@ equation
   connect(integrator2.y, add7.u1) annotation(
     Line(points = {{450, 198}, {480, 198}, {480, 162}, {390, 162}, {390, 98}, {406, 98}}, color = {0, 0, 127}));
   annotation(
-    Diagram(coordinateSystem(extent = {{-200, 300}, {720, -80}}), graphics = {Text(origin = {5, 241}, extent = {{-139, 9}, {139, -9}}, textString = "add a disturbance to omega to emulate a RoCof"), Text(origin = {82, 63}, extent = {{-14, 5}, {14, -5}}, textString = "Pm"), Text(origin = {82, 55}, extent = {{-14, 5}, {14, -5}}, textString = "Pe"), Text(origin = {145, 72}, extent = {{-21, 12}, {21, -12}}, textString = "1/(2H+s)"), Text(origin = {-150, 121}, extent = {{-14, 5}, {14, -5}}, textString = "Pref"), Text(origin = {-144, 69}, extent = {{-14, 5}, {14, -5}}, textString = "PRF"), Text(origin = {211, 57}, extent = {{-15, 9}, {15, -9}}, textString = "Wrotor-W0"), Rectangle(origin = {153, 36}, extent = {{-35, 46}, {35, -46}}), Text(origin = {309, 75}, extent = {{-25, 9}, {25, -9}}, textString = "Wrotor"), Text(origin = {-3, 156}, extent = {{-121, 66}, {121, -66}}, textString = "not consider inertia of AC GRID if ACTIVATE is TRUE"), Text(origin = {72, 204}, extent = {{-72, 16}, {72, -16}}, textString = "offset StartTime")}),
+    Diagram(coordinateSystem(extent = {{-200, 300}, {720, -80}}), graphics = {Text(origin = {5, 241}, extent = {{-139, 9}, {139, -9}}, textString = "add a disturbance to omega to emulate a RoCof"), Text(origin = {82, 63}, extent = {{-14, 5}, {14, -5}}, textString = "Pm"), Text(origin = {82, 55}, extent = {{-14, 5}, {14, -5}}, textString = "Pe"), Text(origin = {145, 72}, extent = {{-21, 12}, {21, -12}}, textString = "1/(2H+s)"), Text(origin = {-150, 121}, extent = {{-14, 5}, {14, -5}}, textString = "Pref"), Text(origin = {-144, 69}, extent = {{-14, 5}, {14, -5}}, textString = "PRF"), Text(origin = {211, 57}, extent = {{-15, 9}, {15, -9}}, textString = "Wrotor-W0"), Rectangle(origin = {153, 36}, extent = {{-35, 46}, {35, -46}}), Text(origin = {309, 75}, extent = {{-25, 9}, {25, -9}}, textString = "Wrotor"), Text(origin = {-3, 160}, extent = {{-121, 66}, {121, -66}}, textString = "consider inertia of AC GRID if ACTIVATE is TRUE"), Text(origin = {72, 204}, extent = {{-72, 16}, {72, -16}}, textString = "offset StartTime")}),
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002),
   Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Text(origin = {175, -38}, extent = {{-45, 40}, {45, -40}}, textString = "OmegaPu"), Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 8}, extent = {{-74, 50}, {74, -50}}, textString = "ACGrid")}));
 end AcGrid;

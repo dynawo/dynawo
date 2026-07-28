@@ -102,10 +102,10 @@ model ENTSOE_RoCOFLineWithoutDynamicCC_QSEMFiltreRL
     Placement(visible = true, transformation(origin = {-134, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = Rconnection2, XPu = Lconnection2) annotation(
     Placement(visible = true, transformation(origin = {110, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.GFM_VSM_cc_v3Prope_ForRLFilter gFM_VSM_cc(ActiveAngleBloc = true, AmortisementVSM = 0.7, CFilter = 0.000001, CurrentAngle0 = CurrentAngle0, CurrentModule0 = CurrentModule0, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, FDampingLC = 100, Fsw = 5000, Gffv = 0.8, H = 3, LFilter = 0.06, LTransformer = 0.06, Lv_QSEM = 0, Mq = 0, PFilter0Pu = PFilter0Pu, PGen0Pu = PGen0Pu, PMesure0Pu = PMesure0Pu, PRef0Pu = PRef0Pu, QFilter0Pu = QFilter0Pu, QGen0Pu = QGen0Pu, QMesure0Pu = QMesure0Pu, QRef0Pu = QRef0Pu, RVI0 = RVI0, R_LCL = 0, Rv = 0, SNom = Sbase1, SwitchOffSignal10 = false, UFilterRef0Pu = UFilterRef0Pu, UPolar0Pu = UPolar0Pu, UPolarPhase0 = UPolarPhase0, WPLL = 100, W_CurrentLimit = 10000, Wnc = 1000, Wqsem = 100, Wref_FromPLL = true, XVI0 = XVI0, XVInduct = 0.19, i0Pu = i0Pu, idConv0Pu = idConv0Pu, idConvRef0Pu = idConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, idPcc0Pu = idPcc0Pu, iqConv0Pu = iqConv0Pu, iqConvRef0Pu = iqConvRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, iqPcc0Pu = iqPcc0Pu, omega0Pu = omega0Pu, omegaPLL0Pu = omegaPLL0Pu, omegaRef0Pu = omegaRef0Pu, omegaSetSelected0Pu = omegaSetSelected0Pu, theta0 = theta0, u0Pu = u0Pu, udConv0Pu = udConv0Pu, udConvRef0Pu = udConvRef0Pu, udFilter0Pu = udFilter0Pu, udFilterRef0Pu = udFilterRef0Pu, udPcc0Pu = udPcc0Pu, uqConv0Pu = uqConv0Pu, uqConvRef0Pu = uqConvRef0Pu, uqFilter0Pu = uqFilter0Pu, uqFilterRef0Pu = uqFilterRef0Pu, uqPcc0Pu = uqPcc0Pu) annotation(
+  Dynawo.Electrical.Controls.Converters.GFM_VSM_cc_v3Prope_ForRLFilter gFM_VSM_cc( AmortisementVSM = 0.7, CFilter = 0.000001, CurrentAngle0 = CurrentAngle0, CurrentModule0 = CurrentModule0, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, FDampingLC = 100, Fsw = 5000, Gffv = 0.8, H = 3, LFilter = 0.06, LTransformer = 0.06, Lv_QSEM = 0, Mq = 0, PFilter0Pu = PFilter0Pu, PGen0Pu = PGen0Pu, PMesure0Pu = PMesure0Pu, PRef0Pu = PRef0Pu, QFilter0Pu = QFilter0Pu, QGen0Pu = QGen0Pu, QMesure0Pu = QMesure0Pu, QRef0Pu = QRef0Pu, RVI0 = RVI0, R_LCL = 0, Rv = 0, SNom = Sbase1, SwitchOffSignal10 = false, UFilterRef0Pu = UFilterRef0Pu, UPolar0Pu = UPolar0Pu, UPolarPhase0 = UPolarPhase0, WPLL = 100, W_CurrentLimit = 10000, Wnc = 1000, Wqsem = 100, Wref_FromPLL = false, XVI0 = XVI0, XVInduct = 0.19, i0Pu = i0Pu, idConv0Pu = idConv0Pu, idConvRef0Pu = idConvRef0Pu, idConvSatRef0Pu = idConvSatRef0Pu, idPcc0Pu = idPcc0Pu, iqConv0Pu = iqConv0Pu, iqConvRef0Pu = iqConvRef0Pu, iqConvSatRef0Pu = iqConvSatRef0Pu, iqPcc0Pu = iqPcc0Pu, omega0Pu = omega0Pu, omegaPLL0Pu = omegaPLL0Pu, omegaRef0Pu = omegaRef0Pu, omegaSetSelected0Pu = omegaSetSelected0Pu, theta0 = theta0, u0Pu = u0Pu, udConv0Pu = udConv0Pu, udConvRef0Pu = udConvRef0Pu, udFilter0Pu = udFilter0Pu, udFilterRef0Pu = udFilterRef0Pu, udPcc0Pu = udPcc0Pu, uqConv0Pu = uqConv0Pu, uqConvRef0Pu = uqConvRef0Pu, uqFilter0Pu = uqFilter0Pu, uqFilterRef0Pu = uqFilterRef0Pu, uqPcc0Pu = uqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 32}, extent = {{-36, -36}, {36, 36}}, rotation = 0)));
   Dynawo.Electrical.Sources.AcGrid acGrid(H = 3, SNom = 100, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
-    Placement(visible = true, transformation(origin = {-36, -46}, extent = {{-24, -24}, {24, 24}}, rotation = 0)));
+    Placement(transformation(origin = {-14, -48}, extent = {{-24, -24}, {24, 24}})));
   Modelica.Blocks.Sources.Constant Pref_(k = 0.5) annotation(
     Placement(visible = true, transformation(origin = {-134, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 1) annotation(
@@ -153,11 +153,11 @@ equation
   connect(gFM_VSM_cc.PCC, line.terminal2) annotation(
     Line(points = {{43, 35}, {132, 35}, {132, -38}, {120, -38}}, color = {0, 0, 255}));
   connect(acGrid.aCPower, line.terminal1) annotation(
-    Line(points = {{-8, -29}, {100, -29}, {100, -38}}, color = {0, 0, 255}));
+    Line(points = {{14, -31}, {102, -31}, {102, -38}, {100, -38}}, color = {0, 0, 255}));
   connect(Pref_.y, gFM_VSM_cc.PrefPu) annotation(
     Line(points = {{-122, 4}, {-86, 4}, {-86, 32}, {-42, 32}}, color = {0, 0, 127}));
   connect(const.y, acGrid.OmegaRef) annotation(
-    Line(points = {{-116, -36}, {-64, -36}, {-64, -34}}, color = {0, 0, 127}));
+    Line(points = {{-116, -36}, {-43, -36}}, color = {0, 0, 127}));
   connect(const.y, gFM_VSM_cc.OmegaRefPu) annotation(
     Line(points = {{-116, -36}, {-70, -36}, {-70, 14}, {-42, 14}}, color = {0, 0, 127}));
   annotation(

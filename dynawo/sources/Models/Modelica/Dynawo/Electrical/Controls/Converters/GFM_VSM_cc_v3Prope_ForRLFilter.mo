@@ -169,7 +169,7 @@ model GFM_VSM_cc_v3Prope_ForRLFilter "Grid Forming converters test case"
     Placement(visible = true, transformation(origin = {25109, -73}, extent = {{-812, -812}, {812, 812}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.MeasurementPcc measurementPcc(PGen0Pu = PGen0Pu, QGen0Pu = QGen0Pu, SNom = SNom, UPolar0Pu = UPolar0Pu, UPolarPhase0 = UPolarPhase0, i0Pu = Complex(i0Pu.re, i0Pu.im), idPcc0Pu = idPcc0Pu, iqPcc0Pu = iqPcc0Pu, theta0 = theta0, u0Pu = Complex(u0Pu.re, u0Pu.im), udPcc0Pu = udPcc0Pu, uqPcc0Pu = uqPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {29987, 66}, extent = {{-1084, -1084}, {1084, 1084}}, rotation = 0)));
-  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, u0Pu = u0Pu, OmegaMaxPu = 2.0, OmegaMinPu = 0) annotation(
     Placement(visible = true, transformation(origin = {-1669.5, 3271.5}, extent = {{-518.5, -518.5}, {518.5, 518.5}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.BridgeInverterRLC VSC(CFilter = CFilter, LFilter = LFilter, PFilter0Pu = PFilter0Pu, QFilter0Pu = QFilter0Pu, RFilter = RFilter, TrVSC = TrVSC, idConv0Pu = idConv0Pu, idPcc0Pu = idPcc0Pu, iqConv0Pu = iqConv0Pu, iqPcc0Pu = iqPcc0Pu, omega0Pu = omega0Pu, udConv0Pu = udConv0Pu,  udConvRef0Pu = udConvRef0Pu, udFilter0Pu = udFilter0Pu, uqConv0Pu = uqConv0Pu, uqConvRef0Pu = uqConvRef0Pu,   uqFilter0Pu = uqFilter0Pu) annotation(
     Placement(visible = true, transformation(origin = {19626.9, -513.699}, extent = {{-932.056, -1677.7}, {932.056, 1677.7}}, rotation = 0)));
