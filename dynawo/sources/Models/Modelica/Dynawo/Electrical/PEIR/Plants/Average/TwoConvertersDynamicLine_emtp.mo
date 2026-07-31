@@ -88,7 +88,7 @@ model TwoConvertersDynamicLine_emtp
     DuMax_idref = 10.0,   DuMin_idref = -10.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d =1, voltagefeedforwardflag_q = 0, T_boost = 1e-4
+    voltagefeedforwardflag_d =1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
@@ -131,7 +131,7 @@ model TwoConvertersDynamicLine_emtp
     DuMax_idref = 10.0,   DuMin_idref = -10.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d =1, voltagefeedforwardflag_q = 0, T_boost = 1e-4
+    voltagefeedforwardflag_d =1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
 
@@ -202,7 +202,7 @@ model TwoConvertersDynamicLine_emtp
   // dynLine2.terminal1->bus, terminal2->infiniteBus => scambiati 1<->2
   // ═══════════════════════════════════════════════════════════════
   DynLine dynLine2(
-    RPu = 0.04, LPu = 0.4,
+    RPu = 0.01, LPu = 0.1,
     U01Pu = 1.03733331, UPhase01 = -2.278818 * 3.14 / 180,
     P01Pu = -0.11194076, Q01Pu = -1.17073708,
     U02Pu = 1.1,          UPhase02 = -0.04,

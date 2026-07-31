@@ -4,12 +4,15 @@ model TwoConvertersDynamicLine
 
   // ═══════════════════════════════════════════════════════════════
   // Frequenze di taglio target — modifica solo questi
+  // NOTA: questo blocco resta come "dead code" rispetto ai guadagni
+  // hardcoded nei due GFLmodel sotto (vedi discussione precedente).
+  // Non l'ho collegato per non introdurre cambi non richiesti.
   // ═══════════════════════════════════════════════════════════════
   parameter Real OmegaCC          = 1200;  // inner current loop  [rad/s]
   parameter Real w_cc_outer       = 10;    // outer P/Q loop      [rad/s]
   parameter Real w_cc_plant       = 2;     // plant controller    [rad/s]
-  parameter Real OmegaPLL         = 30;    // PLL                 [rad/s]
-  parameter Real KsiPLL           = 1.0;   // PLL
+  parameter Real OmegaPLL         = 100;    // PLL                 [rad/s]
+  parameter Real KsiPLL           = 1;   // PLL
   parameter Real OmegaLPF         = 300;   // filter    [rad/s]
   parameter Real delay_time_plant = 0.02;  // delay plant→outer [s]
   final parameter Real T_filter   = 1.0 / OmegaLPF;
@@ -48,22 +51,25 @@ model TwoConvertersDynamicLine
 
   // ═══════════════════════════════════════════════════════════════
   // GFL1
+  // CAMBI vs originale: Kqv 0 -> 1/300 ; tVSC 0.00001 -> 0 ;
+  //   k_p_q_current 3.6 -> 0.3819 ; k_i_q_current 0.3819 -> 3.60
+  //   (asse q allineato all'asse d, come in file 1 dove Kpc/Kic sono unici)
   // ═══════════════════════════════════════════════════════════════
   GFLmodel gFLmodel(
     SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246,
-    P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0,
-    tVSC = 0.00001,
+    P0_pcc = -4.99, Q0_pcc = -0.21, Omega0Pu = 1.0,
+   tVSC = 0,
     RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
     omegaNom = 2 * Modelica.Constants.pi * 50,
     RPuLV = 0.001, LPuLV = 0.025,
     RPuHV = 0.001, LPuHV = 0.025,
     k_filter = 1, T_filter = T_filter,
-    k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
-    k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
-    k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
-    k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
-    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
-    Imax = 10, PQFlag = false,
+    k_i_d_current = 3.60, k_p_d_current = 0.3819,
+    k_p_q_current = 0.3819, k_i_q_current = 3.60,
+    k_p_d_outer = 0.033, k_i_d_outer = 10,
+    k_p_q_outer = 0.033, k_i_q_outer = 10,
+    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 1/300,
+    Imax = 10, PQFlag = true,
     IqBoostMax = 0.5, IqBoostMin = -0.5,
     K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
     K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
@@ -73,52 +79,59 @@ model TwoConvertersDynamicLine
     FEMaxPu = 999, FEMinPu = -999,
     FDbd1Pu = 0.005, FDbd2Pu = 0.1,
     DbdPu = 0.0001,
-    K_p_pll = kp_pll_1, K_i_pll = ki_pll_1,
-    OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+    K_p_pll =0.318, K_i_pll = 7.95,
+    OmegaMaxPu = 10, OmegaMinPu = 0,
     DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
     DuMax_idref = 10.0,   DuMin_idref = -10.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d =1, voltagefeedforwardflag_q = 0, T_boost = 1e-4
+    voltagefeedforwardflag_d =0, voltagefeedforwardflag_q = 0, T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
   // ═══════════════════════════════════════════════════════════════
   // GFL2
+  // Stessi cambi di GFL1: Kqv, tVSC, asse q current loop
+  // NOTA: K_p/K_i_*_plant usano ancora i coefficienti "_1" come
+  // nell'originale (kp_plant_1/ki_plant_1) — non l'ho toccato perché
+  // numericamente identico a "_2" (stessa formula, nessuna dipendenza
+  // da parametri del convertitore). Segnalato in precedenza come
+  // copy-paste da eventualmente sistemare per chiarezza.
   // ═══════════════════════════════════════════════════════════════
   GFLmodel gFLmodel1(
     SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421,
     P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0,
-    tVSC =0.00001,
+    tVSC = 0,
     RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
     omegaNom = 2 * Modelica.Constants.pi * 50,
     RPuLV = 0.001, LPuLV = 0.025,
     RPuHV = 0.001, LPuHV = 0.025,
     k_filter = 1, T_filter = T_filter,
-    k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2,
-    k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,
-    k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2,
-    k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2,
-    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
-    Imax = 10, PQFlag = false,
+    k_i_d_current = 3.60, k_p_d_current = 0.3819,
+    k_p_q_current = 0.3819, k_i_q_current = 3.60,
+    k_p_d_outer = 0.033, k_i_d_outer = 10,
+    k_p_q_outer = 0.033, k_i_q_outer = 10,
+    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 1/300,
+    Imax = 10, PQFlag = true,
     IqBoostMax = 0.5, IqBoostMin = -0.5,
-    K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,
-    K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,
+    K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
+    K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
     Lambda = 0.417, Kdroop = 15,
     QMaxPu = 0.3, QMinPu = -0.3,
     PMaxPu = 0,   PMinPu = -2,
     FEMaxPu = 999, FEMinPu = -999,
     FDbd1Pu = 0.005, FDbd2Pu = 0.1,
     DbdPu = 0.0001,
-    K_p_pll = kp_pll_2, K_i_pll = ki_pll_2,
-    OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+    K_p_pll =0.318, K_i_pll = 7.95,
+    OmegaMaxPu = 10, OmegaMinPu = 0,
     DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
-    DuMax_idref = 100000.0, DuMin_idref = -10000.0,
+    DuMax_idref = 10.0,   DuMin_idref = -10.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-4
+    voltagefeedforwardflag_d =0, voltagefeedforwardflag_q = 0, T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+
   // ═══════════════════════════════════════════════════════════════
   // Rete
   // ═══════════════════════════════════════════════════════════════
@@ -137,25 +150,75 @@ voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-4
     Placement(transformation(origin = {-130, -38}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant omegaRefPu1(k = 1.0) annotation(
     Placement(transformation(origin = {132, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Step step(offset = 0.5, height = 0.1, startTime = 50) annotation(
+  Modelica.Blocks.Sources.Step step(offset = 0.5, height = 0.1, startTime = 500) annotation(
     Placement(transformation(origin = {-162, 68}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step step1(height = 0.1*URef0Pu, offset = URef0Pu, startTime = 480) annotation(
     Placement(transformation(origin = {-178, 16}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step step2(height = 0.1, offset = -0.5, startTime = 50) annotation(
+  Modelica.Blocks.Sources.Step step2(height = -0.1, offset = -0.5, startTime = 500) annotation(
     Placement(transformation(origin = {130, -56}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant UrefPu1(k = URef0Pu1) annotation(
     Placement(transformation(origin = {152, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
   final parameter Real URef0Pu  = gFLmodel.U0Pu  - gFLmodel.Lambda  * gFLmodel.Q0_pcc  * SystemBase.SnRef / gFLmodel.SNom;
   final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda * gFLmodel1.Q0_pcc * SystemBase.SnRef / gFLmodel1.SNom;
-   DynLine dynLine(RPu = 0.00144, LPu = 0.0144, U01Pu = gFLmodel.U0Pu, UPhase01 = gFLmodel.U0Pu, P01Pu = gFLmodel.P0_pcc, Q01Pu = gFLmodel.Q0_pcc, U02Pu = 1.036053, UPhase02 = 0, P02Pu = -0.50, Q02Pu = -0.012)  annotation(
+
+  // ═══════════════════════════════════════════════════════════════
+  // dynLine (GFL1 -> bus)
+  // Copiata da ZGFL1 in file 1, STESSO orientamento
+  // (ZGFL1.terminal1->GFL1, terminal2->Bus  ==
+  //  dynLine.terminal1->gFLmodel, terminal2->bus)
+  // ═══════════════════════════════════════════════════════════════
+  DynLine dynLine(
+    RPu = 0.00144, LPu = 0.0144,
+    U01Pu = 1.01925978, UPhase01 = -11.490041 * 3.14 / 180,
+    P01Pu = -5,          Q01Pu = 0.21,
+    U02Pu = 1.03733331,  UPhase02 = -2.278818 * 3.14 / 180,
+    P02Pu = 5.05725313,  Q02Pu = 0.60359717) annotation(
     Placement(transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}})));
-  DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.499, Q01Pu = 0.0125, U02Pu = gFLmodel1.U0Pu, UPhase02 = gFLmodel1.Uphase, P02Pu = -gFLmodel1.P0_pcc, Q02Pu = -gFLmodel1.Q0_pcc)  annotation(
+
+  // ═══════════════════════════════════════════════════════════════
+  // dynLine1 (bus -> GFL2)
+  // Copiata da ZGFL2, ma ORIENTAMENTO INVERTITO rispetto a ZGFL2:
+  // ZGFL2.terminal1->GFL2, terminal2->Bus  ==
+  // dynLine1.terminal1->bus, terminal2->gFLmodel1  => scambiati 1<->2
+  // NOTA: uso UPhase02 = -2.278818*3.14/180 (versione corretta),
+  // non il refuso "*180/3.14" presente nell'originale ZGFL2.UPhase02
+  // ═══════════════════════════════════════════════════════════════
+  DynLine dynLine1(
+    RPu = 0.00144, LPu = 0.0144,
+    U01Pu = 1.03733331, UPhase01 = -2.278818 * 3.14 / 180,
+    P01Pu = -4.94531238, Q01Pu = 0.56713991,
+    U02Pu = 1.04289359,  UPhase02 = 6.668423 * 3.14 / 180,
+    P02Pu = 5,            Q02Pu = 0.21) annotation(
     Placement(transformation(origin = {28, 20}, extent = {{-10, -10}, {10, 10}})));
-  DynLine dynLine2(RPu = 0.04, LPu = 0.4, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.0005, Q01Pu = -0.013, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.0005, Q02Pu = 0.013)  annotation(
+
+  // ═══════════════════════════════════════════════════════════════
+  // dynLine2 (bus -> infiniteBus)
+  // Copiata da Zgrid1, ORIENTAMENTO INVERTITO rispetto a Zgrid1:
+  // Zgrid1.terminal1->infiniteBus, terminal2->Bus  ==
+  // dynLine2.terminal1->bus, terminal2->infiniteBus => scambiati 1<->2
+  // ═══════════════════════════════════════════════════════════════
+  DynLine dynLine2(
+    RPu = 0.003, LPu = 0.03,
+    U01Pu = 1.03733331, UPhase01 = -2.278818 * 3.14 / 180,
+    P01Pu = -0.11194076, Q01Pu = -1.17073708,
+    U02Pu = 1.1,          UPhase02 = -0.04,
+    P02Pu = 0.11901040,   Q02Pu = 1.24143346) annotation(
     Placement(transformation(origin = {-4, -36}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  DynLine dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = dynLine2.U02Pu, UPhase01 = dynLine2.UPhase02, P01Pu = dynLine2.P02Pu, Q01Pu = dynLine2.Q02Pu, U02Pu = dynLine2.U01Pu, UPhase02 =dynLine2.UPhase01, P02Pu = dynLine2.P01Pu, Q02Pu = dynLine2.Q01Pu)  annotation(
+
+  // ═══════════════════════════════════════════════════════════════
+  // dynLine3 (ramo parallelo, commutato da idealSwitch)
+  // Copiata da Zgrid2, STESSO orientamento di Zgrid2
+  // (terminal1 lato infiniteBus, terminal2 lato bus/switch)
+  // ═══════════════════════════════════════════════════════════════
+  DynLine dynLine3(
+    RPu = 0.00388, LPu = 0.0388,
+    U01Pu = 1.1,          UPhase01 = -0.04,
+    P01Pu = 0.11901040,   Q01Pu = 1.24143346,
+    U02Pu = 1.03733331,   UPhase02 = -2.278818 * 3.14 / 180,
+    P02Pu = -0.11194076,  Q02Pu = -1.17073708) annotation(
     Placement(transformation(origin = {-52, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   IdealSwitch idealSwitch annotation(
     Placement(transformation(origin = {-30, -16}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanTable booleanTable(table = {0, 51.5}, startValue = true)  annotation(
@@ -167,7 +230,7 @@ equation
   dynLine1.switchOffSignal2 = false;
   dynLine2.switchOffSignal1 = false;
   dynLine2.switchOffSignal2 = false;
-  dynLine3.switchOffSignal1 = if time >= 51.5 then true else false;
+  dynLine3.switchOffSignal1 = if time >= 51.5 then false else false;
   dynLine3.switchOffSignal2 = false;
   gFLmodel.switchOffSignal1 = false;
   gFLmodel.switchOffSignal2 = false;

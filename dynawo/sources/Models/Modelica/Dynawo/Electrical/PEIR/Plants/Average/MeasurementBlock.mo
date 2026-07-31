@@ -109,6 +109,7 @@ model MeasurementBlock
   // q-axis PCC voltage in dq frame – used as PLL error signal in GFL control
   Modelica.Blocks.Interfaces.RealOutput U_filter_q(start = U_pcc_q_0) "q-axis PCC voltage in PLL dq frame; ≈ 0 at PLL lock (pu)" annotation(
     Placement(transformation(origin = {110, -112}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {82, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   // dq-axis converter output currents – fed to inner current controller
   Modelica.Blocks.Interfaces.RealOutput I_conv_d(start = I_conv_d_0) "d-axis converter output current (pu)" annotation(
     Placement(transformation(origin = {110, -54}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -2}, extent = {{-10, -10}, {10, 10}})));

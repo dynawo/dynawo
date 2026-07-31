@@ -79,7 +79,7 @@ model simulation_weak_grid
   K_p_pll = 0.32, K_i_pll = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
   OmegaMinPu = 0.5,   // ── Rate limiters and delays ──────────────────────────────
   DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0, tS_idref = 1e-4, delay_time_plant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
-  voltagefeedforwardflag_d = 1,  voltagefeedforwardflag_q = 1) annotation(
+  voltagefeedforwardflag_d = 1,  voltagefeedforwardflag_q = 1, T_boost=1e-3) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
     Placement(transformation(origin = {-66, -30}, extent = {{-10, -10}, {10, 10}})));
@@ -92,7 +92,7 @@ model simulation_weak_grid
     Placement(transformation(origin = {88, 12}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step step1(offset = URef0Pu, startTime = 100, height = URef0Pu*0.1) annotation(
     Placement(transformation(origin = {-66, 8}, extent = {{-10, -10}, {10, 10}})));
-  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.5, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 100, tUEvtEnd = 102, tOmegaEvtStart = 10.0, tOmegaEvtEnd = 10.5) annotation(
+  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.5, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10.0, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
     Placement(transformation(origin = {108, 12}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
 equation
 

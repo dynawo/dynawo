@@ -174,7 +174,7 @@ equation
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "PI / Direct switchable")}),
-    Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Text(origin = {-5, -118}, extent = {{-147, 38}, {147, -38}}, textString = "Author: Gaia Bergamaschi
+    Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Text(origin = {-3, -120}, extent = {{-147, 38}, {147, -38}}, textString = "Author: Gaia Bergamaschi
 Model of the outer loop of a GFL converter.
 Green path (default): PI regulators for P and Q.
 Orange path: direct control via P_ref/V and Q_ref/V.
