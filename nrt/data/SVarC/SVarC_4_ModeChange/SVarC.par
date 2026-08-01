@@ -69,7 +69,7 @@
   <!-- selectModeAuto -->
   <set id="5">
     <par type="INT" name="booleanTable_Extrapolation" value="1"/>
-    <par type="STRING" name="booleanTable_FileName" value="nrt/data/SVarC/SVarC_4_ModeChange/SVarC.txt"/>
+    <par type="STRING" name="booleanTable_FileName" value="@PAR_PATH@/SVarC.txt"/>
     <par type="STRING" name="booleanTable_TableName" value="selectModeAuto"/>
   </set>
   <!-- setModeManual -->
