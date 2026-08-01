@@ -23,6 +23,9 @@
 #pragma clang diagnostic ignored "-Wunused-function"
 # endif  // __clang__
 
+// For Windows issue std::numeric_limits<double>::min() or max
+#define NOMINMAX
+
 #include <cstdlib>
 #include <cstdarg>
 #include <cassert>
@@ -38,6 +41,13 @@
 #else
 #define MMC_LOG2_SIZE_INT 2
 #endif
+
+#define OPENMODELICA_TYPES_H_
+
+#ifdef _MSC_VER
+#define OMC_NO_THREADS   ///< to avoid inclusion of pthread.h
+#endif
+#include "gc/omc_gc.h"
 
 #define MMC_STRINGHDR(nbytes)     ((((mmc_uint_t)nbytes) << (3))+((1 << (3+MMC_LOG2_SIZE_INT))+5))
 #define MMC_HDRISSTRING(hdr)      (((hdr) & (7)) == 5)
@@ -588,14 +598,6 @@ static modelica_string string_get(const string_array_t a, size_t i) {
   return (reinterpret_cast<modelica_string *> (a.data))[i];
 }
 
-static inline size_t base_array_nr_of_elements(const base_array_t a) {
-  size_t nr_of_elements = 1;
-  for (int i = 0; i < a.ndims; ++i) {
-    nr_of_elements *= a.dim_size[i];
-  }
-  return nr_of_elements;
-}
-
 const char** data_of_string_c89_array(const string_array_t *a) {
   size_t sz = base_array_nr_of_elements(*a);
   const char **res = new const char*[sz]();
@@ -631,7 +633,7 @@ void put_real_element(modelica_real value, int i1, real_array_t *dest) {
 
 modelica_real max_real_array(const real_array_t a) {
     size_t nr_of_elements;
-    modelica_real max_element =  std::numeric_limits<double>::min();
+    modelica_real max_element = std::numeric_limits<double>::min();
 
     assert(base_array_ok(&a));
 
@@ -964,7 +966,7 @@ void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap) {
 
     /* uncomment for debugging!
     fprintf(stderr, "created array ndims[%d] (", ndims);
-    for(i = 0; i < ndims; ++i) {
+    for (i = 0; i < ndims; ++i) {
       fprintf(stderr, "size(%d)=[%d], ", i, (int)dest->dim_size[i]);
     }
     fprintf(stderr, ")\n"); fflush(stderr);
@@ -1325,6 +1327,412 @@ int index_spec_fit_base_array(const index_spec_t *s, const base_array_t *a) {
 
     return 1;
 }
+void index_real_array(const real_array_t * source,
+                      const index_spec_t* source_spec,
+                      real_array_t* dest) {
+  _index_t* idx_vec1;
+  _index_t* idx_size;
+  int j;
+  int i;
+
+  // omc_assert_macro(base_array_ok(source));
+  // omc_assert_macro(base_array_ok(dest));
+  // omc_assert_macro(index_spec_ok(source_spec));
+  // omc_assert_macro(index_spec_fit_base_array(source_spec,source));
+
+  /*for (i = 0, j = 0; i < source->ndims; ++i)
+  {
+    printf("source_spec->index_type[%d] = %c\n", i, source_spec->index_type[i]);
+      if ((source_spec->index_type[i] == 'W')
+          ||
+          (source_spec->index_type[i] == 'A'))
+          ++j;
+  }
+  omc_assert_macro(j == dest->ndims);*/
+  for (i = 0, j = 0; i < source_spec->ndims; ++i) {
+    if (source_spec->dim_size[i] != 0) {
+      ++j;
+    }
+  }
+  // omc_assert_macro(j == dest->ndims);
+
+  idx_vec1 = size_alloc(source->ndims);  /*indices in the source array*/
+  /* idx_vec2 = size_alloc(dest->ndims); / * indices in the destination array* / */
+  idx_size = size_alloc(source_spec->ndims);
+
+  for (i = 0; i < source->ndims; ++i) {
+    idx_vec1[i] = 0;
+  }
+  for (i = 0; i < source_spec->ndims; ++i) {
+    if (source_spec->index[i] != NULL) { /* is 'S' or 'A' */
+      idx_size[i] = imax(source_spec->dim_size[i], 1); /* the imax() is not needed, because there is (idx[d] >= size[d]) in the next_index(), but ... */
+    } else { /* is 'W' */
+      idx_size[i] = source->dim_size[i];
+    }
+  }
+
+  j = 0;
+  do {
+    /*
+    for (i = 0, j = 0; i < source->ndims; ++i) {
+        if ((source_spec->index_type[i] == 'W')
+            ||
+            (source_spec->index_type[i] == 'A')) {
+            idx_vec2[j] = idx_vec1[i];
+            j++;
+        }
+    }
+    */
+    real_set(dest, j,  /* calc_base_index(dest->ndims, idx_vec2, dest), */
+             real_get(*source,
+                      calc_base_index_spec(source->ndims, idx_vec1,
+                                           source, source_spec)));
+    j++;
+  } while (0 == next_index(source->ndims, idx_vec1, idx_size));
+
+  // omc_assert_macro(j == base_array_nr_of_elements(*dest));
+}
+
+void index_alloc_real_array(const real_array_t * source,
+                            const index_spec_t* source_spec,
+                            real_array_t* dest) {
+  index_alloc_base_array_size(source, source_spec, dest);
+  alloc_real_array_data(dest);
+  index_real_array(source, source_spec, dest);
+}
+
+void index_alloc_base_array_size(const real_array_t * source,
+                                 const index_spec_t* source_spec,
+                                 base_array_t* dest) {
+  int i;
+  int j;
+
+  // omc_assert_macro(base_array_ok(source));
+  // omc_assert_macro(index_spec_ok(source_spec));
+  // omc_assert_macro(index_spec_fit_base_array(source_spec, source));
+
+  for (i = 0, j = 0; i < source_spec->ndims; ++i) {
+    if (source_spec->dim_size[i] != 0) { /* is 'W' or 'A' */
+      ++j;
+    }
+  }
+  dest->ndims = j;
+  dest->dim_size = size_alloc(dest->ndims);
+
+  for (i = 0, j = 0; i < source_spec->ndims; ++i) {
+    if (source_spec->dim_size[i] != 0) { /* is 'W' or 'A' */
+      if (source_spec->index[i] != NULL) { /* is 'A' */
+        dest->dim_size[j] = source_spec->dim_size[i];
+      } else { /* is 'W' */
+        dest->dim_size[j] = source->dim_size[i];
+      }
+
+      ++j;
+    }
+  }
+}
+
+int ndims_base_array(const base_array_t* a) {
+  assert(base_array_ok(a));
+  return a->ndims;
+}
+
+void promote_alloc_real_array(const real_array_t * a, int n, real_array_t* dest) {
+  clone_real_array_spec(a, dest);
+  alloc_real_array_data(dest);
+  promote_real_array(a, n, dest);
+}
+
+void promote_real_array(const real_array_t * a, int n, real_array_t* dest) {
+  int i;
+
+  dest->dim_size = size_alloc(n+a->ndims);
+  dest->data = a->data;
+  /* Assert a->ndims>=n */
+  for (i = 0; i < a->ndims; ++i) {
+    dest->dim_size[i] = a->dim_size[i];
+  }
+  for (i = a->ndims; i < (n + a->ndims); ++i) {
+    dest->dim_size[i] = 1;
+  }
+
+  dest->ndims = n+a->ndims;
+}
+
+void cat_alloc_real_array(int k, real_array_t* dest, int n,
+                          const real_array_t* first, ...) {
+  va_list ap;
+  int i, j, r, c;
+  int n_sub = 1, n_super = 1;
+  int new_k_dim_size = 0;
+  const real_array_t **elts = (const real_array_t**)malloc(sizeof(real_array_t *) * n);
+
+  // omc_assert_macro(elts);
+  /* collect all array ptrs to simplify traversal.*/
+  va_start(ap, first);
+  elts[0] = first;
+
+  for (i = 1; i < n; i++) {
+    elts[i] = va_arg(ap, const real_array_t*);
+  }
+  va_end(ap);
+
+  /* check dim sizes of all inputs */
+  // omc_assert_macro(elts[0]->ndims >= k);
+  new_k_dim_size = elts[0]->dim_size[k-1];
+  for (i = 1; i < n; i++) {
+    // omc_assert_macro(elts[0]->ndims == elts[i]->ndims);
+    /*for (j = 0; j < (k - 1); j++) {
+      omc_assert_macro(elts[0]->dim_size[j] == elts[i]->dim_size[j]);
+    }*/
+    new_k_dim_size += elts[i]->dim_size[k-1];
+    /*for (j = k; j < elts[0]->ndims; j++) {
+      omc_assert_macro(elts[0]->dim_size[j] == elts[i]->dim_size[j]);
+    }*/
+  }
+
+  /* calculate size of sub and super structure in 1-dim data representation */
+  for (i = 0; i < (k - 1); i++) {
+    n_super *= elts[0]->dim_size[i];
+  }
+  for (i = k; i < elts[0]->ndims; i++) {
+    n_sub *= elts[0]->dim_size[i];
+  }
+  /* allocate dest structure */
+  dest->data = real_alloc(n_super * new_k_dim_size * n_sub);
+  dest->ndims = elts[0]->ndims;
+  dest->dim_size = size_alloc(dest->ndims);
+  for (j = 0; j < dest->ndims; j++) {
+    dest->dim_size[j] = elts[0]->dim_size[j];
+  }
+  dest->dim_size[k-1] = new_k_dim_size;
+  /* concatenation along k-th dimension */
+  j = 0;
+  for (i = 0; i < n_super; i++) {
+    for (c = 0; c < n; c++) {
+      int n_sub_k = n_sub * elts[c]->dim_size[k-1];
+      for (r = 0; r < n_sub_k; r++) {
+        real_set(dest, j,
+                 real_get(*elts[c], r + (i * n_sub_k)));
+        j++;
+      }
+    }
+  }
+  free(elts);
+}
+
+void div_real_array_scalar(const real_array_t * a, modelica_real b, real_array_t* dest) {
+  size_t nr_of_elements;
+  size_t i;
+  /* Assert that dest has correct size*/
+  /* Do we need to check for b=0? */
+  nr_of_elements = base_array_nr_of_elements(*a);
+  for (i=0; i < nr_of_elements; ++i) {
+    real_set(dest, i, real_get(*a, i)/b);
+  }
+}
+
+real_array_t div_alloc_real_array_scalar(const real_array_t a, modelica_real b) {
+  real_array_t dest;
+  clone_real_array_spec(&a, &dest);
+  alloc_real_array_data(&dest);
+  div_real_array_scalar(&a, b, &dest);
+  return dest;
+}
+
+void usub_alloc_real_array(const real_array_t a, real_array_t* dest) {
+  size_t nr_of_elements, i;
+  clone_real_array_spec(&a, dest);
+  alloc_real_array_data(dest);
+
+  nr_of_elements = base_array_nr_of_elements(*dest);
+  for (i = 0; i < nr_of_elements; ++i) {
+    real_set(dest, i, -real_get(a, i));
+  }
+}
+
+void mul_real_array_scalar(const real_array_t * a, modelica_real b, real_array_t* dest) {
+  size_t nr_of_elements;
+  size_t i;
+  /* Assert that dest has correct size*/
+  nr_of_elements = base_array_nr_of_elements(*a);
+  for (i=0; i < nr_of_elements; ++i) {
+    real_set(dest, i, real_get(*a, i) * b);
+  }
+}
+
+real_array_t mul_alloc_real_array_scalar(const real_array_t a, modelica_real b) {
+  real_array_t dest;
+  clone_real_array_spec(&a, &dest);
+  alloc_real_array_data(&dest);
+  mul_real_array_scalar(&a, b, &dest);
+  return dest;
+}
+
+void copy_real_array(const real_array_t source, real_array_t *dest) {
+  clone_base_array_spec(&source, dest);
+  alloc_real_array_data(dest);
+  copy_real_array_data(source, dest);
+}
+
+modelica_real sum_real_array(const real_array_t a) {
+  size_t i;
+  size_t nr_of_elements;
+  modelica_real sum = 0;
+
+  // omc_assert_macro(base_array_ok(&a));
+
+  nr_of_elements = base_array_nr_of_elements(a);
+
+  for (i = 0; i < nr_of_elements; ++i) {
+    sum += real_get(a, i);
+  }
+
+  return sum;
+}
+
+_index_t* make_index_array(int nridx, ...) {
+  int i;
+  _index_t* res;
+  va_list ap;
+  va_start(ap, nridx);
+
+  res = size_alloc(nridx);
+  for (i = 0; i < nridx; ++i) {
+    res[i] = va_arg(ap, _index_t);
+  }
+
+  return res;
+}
+
+#define OMC_MINIMAL_RUNTIME ;
+
+#if !defined(OMC_NO_THREADS)
+static pthread_mutex_t memory_pool_mutex = PTHREAD_MUTEX_INITIALIZER;
+#endif
+
+typedef struct list_s {
+  void *memory;
+  size_t used;
+  size_t size;
+  struct list_s *next;
+} list;
+
+static list *memory_pools = NULL;
+
+static void pool_init(void) {
+  memory_pools = static_cast<list *>(malloc(sizeof(list)));
+  memory_pools->used = 0;
+  memory_pools->size = 2*1024*1024; /* 2MB pool by default */
+  memory_pools->memory = malloc(memory_pools->size);
+  memory_pools->next = NULL;
+}
+
+static inline size_t round_up(size_t num, size_t factor) {
+  return num + factor - 1 - (num - 1) % factor;
+}
+
+static unsigned long upper_power_of_two(unsigned long v) {
+  v--;
+  v |= v >> 1;
+  v |= v >> 2;
+  v |= v >> 4;
+  v |= v >> 8;
+  v |= v >> 16;
+  v++;
+  return v;
+}
+
+static inline void pool_expand(size_t len) {
+  list *newlist = NULL;
+  if (0 == memory_pools) {
+    pool_init();
+  }
+  // Check if we have enough memory already
+  if (memory_pools->size - memory_pools->used >= len) {
+    return;
+  }
+  newlist = static_cast<list *>(malloc(sizeof(list)));
+  newlist->next = memory_pools;
+  memory_pools = newlist;
+  memory_pools->used = 0;
+  memory_pools->size = upper_power_of_two(3*memory_pools->next->size/2 + len); // expand by 1.5x the old memory pool. More if we request a very large array.
+  memory_pools->memory = malloc(memory_pools->size);
+}
+
+static void* pool_malloc(size_t sz) {
+  void *res;
+  sz = round_up(sz, 8);
+#if !defined(OMC_NO_THREADS)
+  pthread_mutex_lock(&memory_pool_mutex);
+#endif
+  pool_expand(sz);
+  res = static_cast<void *>(static_cast<char *>(memory_pools->memory) + memory_pools->used);
+  memory_pools->used += sz;
+#if !defined(OMC_NO_THREADS)
+  pthread_mutex_unlock(&memory_pool_mutex);
+#endif
+  memset(res, 0, sz);
+  return res;
+}
+
+static int pool_free(void) {
+  list *freelist = memory_pools->next;
+  while (freelist) {
+    list *next = freelist->next;
+    free(freelist->memory);
+    free(freelist);
+    freelist = next;
+  }
+  memory_pools->used = 0;
+  memory_pools->next = 0;
+  return 0;
+}
+
+static void* malloc_zero(size_t sz) {
+  return calloc(1, sz);
+}
+
+extern omc_alloc_interface_t omc_alloc_interface;
+
+omc_alloc_interface_t omc_alloc_interface = {
+#if !defined(OMC_MINIMAL_RUNTIME)
+#if !defined(OMC_RECORD_ALLOC_WORDS)
+  GC_init,
+  GC_malloc,
+  GC_malloc_atomic,
+  (char*(*)(size_t)) GC_malloc_atomic,
+  GC_strdup,
+  GC_collect_a_little_or_not,
+  GC_malloc_uncollectable,
+  GC_free,
+  GC_malloc_atomic,
+  nofree
+#else
+  GC_init,
+  OMC_record_malloc,
+  OMC_record_malloc_atomic,
+  (char*(*)(size_t)) OMC_record_malloc_atomic,
+  OMC_record_strdup,
+  GC_collect_a_little_or_not,
+  OMC_record_malloc_uncollectable,
+  GC_free,
+  OMC_record_malloc_atomic,
+  nofree
+#endif
+#else
+  pool_init,
+  pool_malloc,
+  pool_malloc,
+  (char*(*)(size_t)) malloc,
+  strdup,
+  pool_free,
+  malloc_zero, // calloc, but with malloc interface
+  free,
+  malloc,
+  free
+#endif
+};
 
 #ifdef __clang__
 #pragma clang diagnostic pop
