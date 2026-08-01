@@ -1120,22 +1120,17 @@ ModelLine::evalState(const double /*time*/) {
 
 void
 ModelLine::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, ir01_);
-  ModelCPP::dumpInStream(streamVariables, ii01_);
-  ModelCPP::dumpInStream(streamVariables, ir02_);
-  ModelCPP::dumpInStream(streamVariables, ii02_);
+  streamVariables << ir01_;
+  streamVariables << ii01_;
+  streamVariables << ir02_;
+  streamVariables << ii02_;
 }
 
 void
 ModelLine::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
   streamVariables >> ir01_;
-  streamVariables >> c;
   streamVariables >> ii01_;
-  streamVariables >> c;
   streamVariables >> ir02_;
-  streamVariables >> c;
   streamVariables >> ii02_;
 }
 

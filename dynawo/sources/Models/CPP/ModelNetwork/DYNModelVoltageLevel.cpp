@@ -21,6 +21,8 @@
  *
  */
 
+#include <sstream>
+
 #include "DYNModelVoltageLevel.h"
 
 #include <DYNTimer.h>
@@ -48,6 +50,7 @@ using boost::dynamic_pointer_cast;
 using std::map;
 using std::string;
 using std::make_pair;
+using std::stringstream;
 
 namespace DYN {
 
@@ -677,7 +680,10 @@ ModelVoltageLevel::dumpVariables(boost::archive::binary_oarchive& os) const {
   // Dump variables of components
   for (const auto& component : getComponents()) {
     os << component->getId();
-    component->dumpVariables(os);
+    stringstream componentValues;
+    boost::archive::binary_oarchive componentOs(componentValues);
+    component->dumpVariables(componentOs);
+    os << componentValues.str();
   }
 }
 
@@ -697,35 +703,16 @@ ModelVoltageLevel::loadVariables(boost::archive::binary_iarchive& is, const std:
   for (size_t i = 0; i < nbComponent; ++i) {
     std::string idRead;
     is >> idRead;
+    std::string componentBlob;
+    is >> componentBlob;
     auto it = ids2Indexes.find(idRead);
     if (it != ids2Indexes.end()) {
-      couldBeLoaded &= components[it->second]->loadVariables(is, variablesFileName);
+      stringstream componentValues(componentBlob);
+      boost::archive::binary_iarchive componentIs(componentValues);
+      couldBeLoaded &= components[it->second]->loadVariables(componentIs, variablesFileName);
     } else {
       // Not found, skip the component
       Trace::debug() << DYNLog(NetworkComponentNotFoundInDump, idRead, variablesFileName) << Trace::endline;
-      vector<double> yValues;
-      vector<double> ypValues;
-      vector<double> zValues;
-      vector<double> gValues;
-      is >> yValues;
-      is >> ypValues;
-      is >> zValues;
-      is >> gValues;
-      double dummyValueD;
-      bool dummyValueB;
-      int dummyValueI;
-      char type;
-      unsigned nbInternalVar;
-      is >> nbInternalVar;
-      for (unsigned j = 0; j < nbInternalVar; ++j) {
-        is >> type;
-        if (type == 'B')
-          is >> dummyValueB;
-        else if (type == 'D')
-          is >> dummyValueD;
-        else if (type == 'I')
-          is >> dummyValueI;
-      }
       couldBeLoaded = false;
     }
   }
