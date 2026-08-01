@@ -130,14 +130,13 @@ BusInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
 
 void
 BusInterfaceIIDM::exportStateVariablesUnitComponent() {
-  busIIDM_.setV(getStateVarV());
-  double angle = getStateVarAngle();
-  if (doubleIsZero(angle)) {
-    // Avoid to dump very small values (that can't be read by iidm library anymore) instead of 0 on some architectures
-    busIIDM_.setAngle(0.);
-  } else {
-    busIIDM_.setAngle(angle);
-  }
+  // Avoid to dump any value if none whas given at init and bus stayed deconnected the whole simulation
+  if (std::isnan(busIIDM_.getV()) && (getStateVarV() == 0.))
+    return;
+
+  // Also avoid to dump very small values (that can't be read by iidm library anymore) instead of 0 on some architectures
+  busIIDM_.setV(doubleRounded(getStateVarV()));
+  busIIDM_.setAngle(doubleRounded(getStateVarAngle()));
 }
 
 void
