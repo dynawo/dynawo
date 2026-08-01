@@ -66,7 +66,7 @@ partial model BaseIEEEX "IEEE excitation system base model"
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tR, y_start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-230, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Abs abs1 annotation(
+  Modelica.Blocks.Math.Abs abs1(generateEvent = true) annotation(
     Placement(visible = true, transformation(origin = {210, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Power power(base = exp(BEx)) annotation(
     Placement(visible = true, transformation(origin = {170, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
