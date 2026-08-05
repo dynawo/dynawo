@@ -18,7 +18,7 @@ model GenericIBG "Generic model of inverter-based generation (IBG)"
 
   Dynawo.Electrical.Controls.PEIR.Protections.DER.LVRTIBG lvrt(ULVRTArmingPu = ULVRTArmingPu, ULVRTIntPu = ULVRTIntPu, ULVRTMinPu = ULVRTMinPu, tLVRTMin = tLVRTMin, tLVRTInt = tLVRTInt, tLVRTMax = tLVRTMax) annotation(
     Placement(visible = true, transformation(origin = {-150, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Controls.Machines.Protections.SpeedProtection frequencyProtection(OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, tLagAction = 0)  annotation(
+  Controls.Machines.Protections.SpeedProtection frequencyProtection(OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, tLagAction = 0) annotation(
     Placement(transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.PEIR.BaseControls.DER.OverFrequencySupportIBG overFrequencySupport(OmegaDeadBandPu = OmegaDeadBandPu, OmegaMaxPu = OmegaMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-270, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

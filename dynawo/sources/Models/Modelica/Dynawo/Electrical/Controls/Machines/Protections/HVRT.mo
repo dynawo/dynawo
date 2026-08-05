@@ -46,7 +46,7 @@ model HVRT "High-voltage ride-through protection"
     Placement(transformation(origin = {30, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = U0Pu) annotation(
     Placement(transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.MathBoolean.Or or1(nu = 2)  annotation(
+  Modelica.Blocks.MathBoolean.Or or1(nu = 2) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Pre pre1 annotation(
     Placement(transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}})));

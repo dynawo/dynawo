@@ -86,7 +86,7 @@ the integral away from the bounds.</p>
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-        Rectangle( lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
+        Rectangle(lineColor={0,0,255}, extent={{-60,60},{60,-60}}),
         Text(
           extent={{-54,46},{-4,-48}},
           textString="lim"),
