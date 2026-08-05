@@ -1,2 +1,5 @@
 LoadFlow
 TestCase
+TestCase_1Injector
+TestCase_10InjectorsWith1Condenser
+TestCase_10Injectors

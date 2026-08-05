@@ -1,3 +1,5 @@
 GeneratorParameters
 GeneratorSynchronousFourWindingsWithControl
 GeneratorSynchronousThreeWindingsWithControl
+InjectorIDQWithControl
+ElectricalControlNordic
