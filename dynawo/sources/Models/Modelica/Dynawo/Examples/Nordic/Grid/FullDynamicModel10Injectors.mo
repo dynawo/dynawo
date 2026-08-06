@@ -1,10 +1,25 @@
 within Dynawo.Examples.Nordic.Grid;
-model FullDynamicModel_10Injectors
-  "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
+
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model FullDynamicModel10Injectors "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
   import Dynawo.Examples.Nordic.Components.GeneratorWithControl;
   import Dynawo.Examples.Nordic.Components.TransformerWithControl;
+
   extends Examples.Nordic.Grid.BaseClasses.NetworkWithAlphaBetaLoads;
   //  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithPQLoads;
+
   TransformerWithControl.TransformerWithControl trafo_1_1041(P10Pu = -P0Pu_load_01, Q10Pu = -Q0Pu_load_01, U10Pu = U0Pu_load_01, U1Phase0 = UPhase0_load_01, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_1_1041) annotation(
     Placement(visible = true, transformation(origin = {-55, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   TransformerWithControl.TransformerWithControl trafo_2_1042(P10Pu = -P0Pu_load_02, Q10Pu = -Q0Pu_load_02, U10Pu = U0Pu_load_02, U1Phase0 = UPhase0_load_02, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_2_1042) annotation(
@@ -125,6 +140,27 @@ model FullDynamicModel_10Injectors
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = U0Pu_g20, UPhase0 = UPhase0_g20, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
     Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+  GeneratorWithControl.InjectorIDQWithControl Inj01(Id0Pu = -(ComplexMath.real(Inj01.i0Pu)*cos(UPhase0_g01) + ComplexMath.imag(Inj01.i0Pu)*sin(UPhase0_g01))*(SystemBase.SnRef/Inj01.SNom), IMaxPu = 1, Iq0Pu = (ComplexMath.real(Inj01.i0Pu)*sin(UPhase0_g01) - ComplexMath.imag(Inj01.i0Pu)*cos(UPhase0_g01))*(SystemBase.SnRef/Inj01.SNom), P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, SNom = 800, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, i0Pu = ComplexMath.conj(Complex(P0Pu_g01, Q0Pu_g01)/ComplexMath.fromPolar(U0Pu_g01, UPhase0_g01)), s0Pu = Complex(P0Pu_g01, Q0Pu_g01), u0Pu = ComplexMath.fromPolar(U0Pu_g01, UPhase0_g01)) annotation(
+    Placement(transformation(origin = {25, 79}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj02(P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = U0Pu_g02, UPhase0 = UPhase0_g02, i0Pu = ComplexMath.conj(Complex(P0Pu_g02, Q0Pu_g02)/ComplexMath.fromPolar(U0Pu_g02, UPhase0_g02)), Id0Pu = -(ComplexMath.real(Inj02.i0Pu)*cos(UPhase0_g02) + ComplexMath.imag(Inj02.i0Pu)*sin(UPhase0_g02))*(SystemBase.SnRef/Inj02.SNom), Iq0Pu = (ComplexMath.real(Inj02.i0Pu)*sin(UPhase0_g02) - ComplexMath.imag(Inj02.i0Pu)*cos(UPhase0_g02))*(SystemBase.SnRef/Inj02.SNom), s0Pu = Complex(P0Pu_g02, Q0Pu_g02), u0Pu = ComplexMath.fromPolar(U0Pu_g02, UPhase0_g02), IMaxPu = 1, SNom = 600) annotation(
+    Placement(transformation(origin = {75, 151}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj03(P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = U0Pu_g03, UPhase0 = UPhase0_g03, SNom = 700, i0Pu = ComplexMath.conj(Complex(P0Pu_g03, Q0Pu_g03)/ComplexMath.fromPolar(U0Pu_g03, UPhase0_g03)), Id0Pu = -(ComplexMath.real(Inj03.i0Pu)*cos(UPhase0_g03) + ComplexMath.imag(Inj03.i0Pu)*sin(UPhase0_g03))*(SystemBase.SnRef/Inj03.SNom), Iq0Pu = (ComplexMath.real(Inj03.i0Pu)*sin(UPhase0_g03) - ComplexMath.imag(Inj03.i0Pu)*cos(UPhase0_g03))*(SystemBase.SnRef/Inj03.SNom), s0Pu = Complex(P0Pu_g03, Q0Pu_g03), u0Pu = ComplexMath.fromPolar(U0Pu_g03, UPhase0_g03), IMaxPu = 1) annotation(
+    Placement(transformation(origin = {85, 79}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj05(Id0Pu = -(ComplexMath.real(Inj05.i0Pu)*cos(UPhase0_g05) + ComplexMath.imag(Inj05.i0Pu)*sin(UPhase0_g05))*(SystemBase.SnRef/Inj05.SNom), IMaxPu = 1, Iq0Pu = (ComplexMath.real(Inj05.i0Pu)*sin(UPhase0_g05) - ComplexMath.imag(Inj05.i0Pu)*cos(UPhase0_g05))*(SystemBase.SnRef/Inj05.SNom), P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, SNom = 250, U0Pu = U0Pu_g05, UPhase0 = UPhase0_g05, i0Pu = ComplexMath.conj(Complex(P0Pu_g05, Q0Pu_g05)/ComplexMath.fromPolar(U0Pu_g05, UPhase0_g05)), s0Pu = Complex(P0Pu_g05, Q0Pu_g05), u0Pu = ComplexMath.fromPolar(U0Pu_g05, UPhase0_g05)) annotation(
+    Placement(transformation(origin = {-45, 71}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj06(P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, i0Pu = ComplexMath.conj(Complex(P0Pu_g06, Q0Pu_g06)/ComplexMath.fromPolar(U0Pu_g06, UPhase0_g06)), Id0Pu = -(ComplexMath.real(Inj06.i0Pu)*cos(UPhase0_g06) + ComplexMath.imag(Inj06.i0Pu)*sin(UPhase0_g06))*(SystemBase.SnRef/Inj06.SNom), Iq0Pu = (ComplexMath.real(Inj06.i0Pu)*sin(UPhase0_g06) - ComplexMath.imag(Inj06.i0Pu)*cos(UPhase0_g06))*(SystemBase.SnRef/Inj06.SNom), s0Pu = Complex(P0Pu_g06, Q0Pu_g06), u0Pu = ComplexMath.fromPolar(U0Pu_g06, UPhase0_g06), IMaxPu = 1, SNom = 400) annotation(
+    Placement(transformation(origin = {35, -59}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj07(P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = U0Pu_g07, UPhase0 = UPhase0_g07, i0Pu = ComplexMath.conj(Complex(P0Pu_g07, Q0Pu_g07)/ComplexMath.fromPolar(U0Pu_g07, UPhase0_g07)), Id0Pu = -(ComplexMath.real(Inj07.i0Pu)*cos(UPhase0_g07) + ComplexMath.imag(Inj07.i0Pu)*sin(UPhase0_g07))*(SystemBase.SnRef/Inj07.SNom), Iq0Pu = (ComplexMath.real(Inj07.i0Pu)*sin(UPhase0_g07) - ComplexMath.imag(Inj07.i0Pu)*cos(UPhase0_g07))*(SystemBase.SnRef/Inj07.SNom), s0Pu = Complex(P0Pu_g07, Q0Pu_g07), u0Pu = ComplexMath.fromPolar(U0Pu_g07, UPhase0_g07), IMaxPu = 1, SNom = 200) annotation(
+    Placement(transformation(origin = {-53, -37}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, SNom = 1000, i0Pu = ComplexMath.conj(Complex(P0Pu_g09, Q0Pu_g09)/ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09)), Id0Pu = -(ComplexMath.real(Inj09.i0Pu)*cos(UPhase0_g09) + ComplexMath.imag(Inj09.i0Pu)*sin(UPhase0_g09))*(SystemBase.SnRef/Inj09.SNom), Iq0Pu = (ComplexMath.real(Inj09.i0Pu)*sin(UPhase0_g09) - ComplexMath.imag(Inj09.i0Pu)*cos(UPhase0_g09))*(SystemBase.SnRef/Inj09.SNom), s0Pu = Complex(P0Pu_g09, Q0Pu_g09), u0Pu = ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09), IMaxPu = 1) annotation(
+    Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj10(Id0Pu = -(ComplexMath.real(Inj10.i0Pu)*cos(UPhase0_g10) + ComplexMath.imag(Inj10.i0Pu)*sin(UPhase0_g10))*(SystemBase.SnRef/Inj10.SNom), IMaxPu = 1, Iq0Pu = (ComplexMath.real(Inj10.i0Pu)*sin(UPhase0_g10) - ComplexMath.imag(Inj10.i0Pu)*cos(UPhase0_g10))*(SystemBase.SnRef/Inj10.SNom), P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, SNom = 800, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, i0Pu = ComplexMath.conj(Complex(P0Pu_g10, Q0Pu_g10)/ComplexMath.fromPolar(U0Pu_g10, UPhase0_g10)), s0Pu = Complex(P0Pu_g10, Q0Pu_g10), u0Pu = ComplexMath.fromPolar(U0Pu_g10, UPhase0_g10)) annotation(
+    Placement(transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, i0Pu = ComplexMath.conj(Complex(P0Pu_g11, Q0Pu_g11)/ComplexMath.fromPolar(U0Pu_g11, UPhase0_g11)), Id0Pu = -(ComplexMath.real(Inj11.i0Pu)*cos(UPhase0_g11) + ComplexMath.imag(Inj11.i0Pu)*sin(UPhase0_g11))*(SystemBase.SnRef/Inj11.SNom), Iq0Pu = (ComplexMath.real(Inj11.i0Pu)*sin(UPhase0_g11) - ComplexMath.imag(Inj11.i0Pu)*cos(UPhase0_g11))*(SystemBase.SnRef/Inj11.SNom), s0Pu = Complex(P0Pu_g11, Q0Pu_g11), u0Pu = ComplexMath.fromPolar(U0Pu_g11, UPhase0_g11), IMaxPu = 1, SNom = 300) annotation(
+    Placement(transformation(origin = {35, 71}, extent = {{-3, -3}, {3, 3}})));
+  GeneratorWithControl.InjectorIDQWithControl Inj12(Id0Pu = -(ComplexMath.real(Inj12.i0Pu)*cos(UPhase0_g12) + ComplexMath.imag(Inj12.i0Pu)*sin(UPhase0_g12))*(SystemBase.SnRef/Inj12.SNom), IMaxPu = 1, Iq0Pu = (ComplexMath.real(Inj12.i0Pu)*sin(UPhase0_g12) - ComplexMath.imag(Inj12.i0Pu)*cos(UPhase0_g12))*(SystemBase.SnRef/Inj12.SNom), P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, SNom = 350, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, i0Pu = ComplexMath.conj(Complex(P0Pu_g12, Q0Pu_g12)/ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)), s0Pu = Complex(P0Pu_g12, Q0Pu_g12), u0Pu = ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)) annotation(
+    Placement(transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}})));
+
   // g01 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g01;
@@ -245,89 +281,71 @@ model FullDynamicModel_10Injectors
   parameter Types.ReactivePowerPu Q0Pu_g20;
   parameter Types.VoltageModulePu U0Pu_g20;
   parameter Types.Angle UPhase0_g20;
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, Snom = 1000, i0Pu = ComplexMath.conj(Complex(P0Pu_g09, Q0Pu_g09)/ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09)), Id0Pu = -(ComplexMath.real(Inj09.i0Pu)*cos(UPhase0_g09) + ComplexMath.imag(Inj09.i0Pu)*sin(UPhase0_g09))*(SystemBase.SnRef/Inj09.Snom), Iq0Pu = (ComplexMath.real(Inj09.i0Pu)*sin(UPhase0_g09) - ComplexMath.imag(Inj09.i0Pu)*cos(UPhase0_g09))*(SystemBase.SnRef/Inj09.Snom), s0Pu = Complex(P0Pu_g09, Q0Pu_g09), u0Pu = ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09), Imax = 1)  annotation(
-    Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj07(P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = U0Pu_g07, UPhase0 = UPhase0_g07, i0Pu = ComplexMath.conj(Complex(P0Pu_g07, Q0Pu_g07)/ComplexMath.fromPolar(U0Pu_g07, UPhase0_g07)), Id0Pu = -(ComplexMath.real(Inj07.i0Pu)*cos(UPhase0_g07) + ComplexMath.imag(Inj07.i0Pu)*sin(UPhase0_g07))*(SystemBase.SnRef/Inj07.Snom), Iq0Pu = (ComplexMath.real(Inj07.i0Pu)*sin(UPhase0_g07) - ComplexMath.imag(Inj07.i0Pu)*cos(UPhase0_g07))*(SystemBase.SnRef/Inj07.Snom), s0Pu = Complex(P0Pu_g07, Q0Pu_g07), u0Pu = ComplexMath.fromPolar(U0Pu_g07, UPhase0_g07), Imax = 1, Snom = 200)  annotation(
-    Placement(transformation(origin = {-53, -37}, extent = {{-3, -3}, {3, 3}})));
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj06(P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, i0Pu = ComplexMath.conj(Complex(P0Pu_g06, Q0Pu_g06)/ComplexMath.fromPolar(U0Pu_g06, UPhase0_g06)), Id0Pu = -(ComplexMath.real(Inj06.i0Pu)*cos(UPhase0_g06) + ComplexMath.imag(Inj06.i0Pu)*sin(UPhase0_g06))*(SystemBase.SnRef/Inj06.Snom), Iq0Pu = (ComplexMath.real(Inj06.i0Pu)*sin(UPhase0_g06) - ComplexMath.imag(Inj06.i0Pu)*cos(UPhase0_g06))*(SystemBase.SnRef/Inj06.Snom), s0Pu = Complex(P0Pu_g06, Q0Pu_g06), u0Pu = ComplexMath.fromPolar(U0Pu_g06, UPhase0_g06), Imax = 1, Snom = 400)  annotation(
-    Placement(transformation(origin = {35, -59}, extent = {{-3, -3}, {3, 3}})));
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, i0Pu = ComplexMath.conj(Complex(P0Pu_g11, Q0Pu_g11)/ComplexMath.fromPolar(U0Pu_g11, UPhase0_g11)), Id0Pu = -(ComplexMath.real(Inj11.i0Pu)*cos(UPhase0_g11) + ComplexMath.imag(Inj11.i0Pu)*sin(UPhase0_g11))*(SystemBase.SnRef/Inj11.Snom), Iq0Pu = (ComplexMath.real(Inj11.i0Pu)*sin(UPhase0_g11) - ComplexMath.imag(Inj11.i0Pu)*cos(UPhase0_g11))*(SystemBase.SnRef/Inj11.Snom), s0Pu = Complex(P0Pu_g11, Q0Pu_g11), u0Pu = ComplexMath.fromPolar(U0Pu_g11, UPhase0_g11), Imax = 1, Snom = 300)  annotation(
-    Placement(transformation(origin = {35, 71}, extent = {{-3, -3}, {3, 3}})));
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj03(P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = U0Pu_g03, UPhase0 = UPhase0_g03, Snom = 700, i0Pu = ComplexMath.conj(Complex(P0Pu_g03, Q0Pu_g03)/ComplexMath.fromPolar(U0Pu_g03, UPhase0_g03)), Id0Pu = -(ComplexMath.real(Inj03.i0Pu)*cos(UPhase0_g03) + ComplexMath.imag(Inj03.i0Pu)*sin(UPhase0_g03))*(SystemBase.SnRef/Inj03.Snom), Iq0Pu = (ComplexMath.real(Inj03.i0Pu)*sin(UPhase0_g03) - ComplexMath.imag(Inj03.i0Pu)*cos(UPhase0_g03))*(SystemBase.SnRef/Inj03.Snom), s0Pu = Complex(P0Pu_g03, Q0Pu_g03), u0Pu = ComplexMath.fromPolar(U0Pu_g03, UPhase0_g03), Imax = 1)  annotation(
-    Placement(transformation(origin = {85, 79}, extent = {{-3, -3}, {3, 3}})));
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj02(P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = U0Pu_g02, UPhase0 = UPhase0_g02, i0Pu = ComplexMath.conj(Complex(P0Pu_g02, Q0Pu_g02)/ComplexMath.fromPolar(U0Pu_g02, UPhase0_g02)), Id0Pu = -(ComplexMath.real(Inj02.i0Pu)*cos(UPhase0_g02) + ComplexMath.imag(Inj02.i0Pu)*sin(UPhase0_g02))*(SystemBase.SnRef/Inj02.Snom), Iq0Pu = (ComplexMath.real(Inj02.i0Pu)*sin(UPhase0_g02) - ComplexMath.imag(Inj02.i0Pu)*cos(UPhase0_g02))*(SystemBase.SnRef/Inj02.Snom), s0Pu = Complex(P0Pu_g02, Q0Pu_g02), u0Pu = ComplexMath.fromPolar(U0Pu_g02, UPhase0_g02), Imax = 1, Snom = 600)  annotation(
-    Placement(transformation(origin = {75, 151}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj01(Id0Pu = -(ComplexMath.real(Inj01.i0Pu)*cos(UPhase0_g01) + ComplexMath.imag(Inj01.i0Pu)*sin(UPhase0_g01))*(SystemBase.SnRef/Inj01.Snom), Imax = 1, Iq0Pu = (ComplexMath.real(Inj01.i0Pu)*sin(UPhase0_g01) - ComplexMath.imag(Inj01.i0Pu)*cos(UPhase0_g01))*(SystemBase.SnRef/Inj01.Snom), P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, Snom = 800, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, i0Pu = ComplexMath.conj(Complex(P0Pu_g01, Q0Pu_g01)/ComplexMath.fromPolar(U0Pu_g01, UPhase0_g01)), s0Pu = Complex(P0Pu_g01, Q0Pu_g01), u0Pu = ComplexMath.fromPolar(U0Pu_g01, UPhase0_g01)) annotation(
-    Placement(transformation(origin = {25, 79}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj05(Id0Pu = -(ComplexMath.real(Inj05.i0Pu)*cos(UPhase0_g05) + ComplexMath.imag(Inj05.i0Pu)*sin(UPhase0_g05))*(SystemBase.SnRef/Inj05.Snom), Imax = 1, Iq0Pu = (ComplexMath.real(Inj05.i0Pu)*sin(UPhase0_g05) - ComplexMath.imag(Inj05.i0Pu)*cos(UPhase0_g05))*(SystemBase.SnRef/Inj05.Snom), P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, Snom = 250, U0Pu = U0Pu_g05, UPhase0 = UPhase0_g05, i0Pu = ComplexMath.conj(Complex(P0Pu_g05, Q0Pu_g05)/ComplexMath.fromPolar(U0Pu_g05, UPhase0_g05)), s0Pu = Complex(P0Pu_g05, Q0Pu_g05), u0Pu = ComplexMath.fromPolar(U0Pu_g05, UPhase0_g05)) annotation(
-    Placement(transformation(origin = {-45, 71}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj10(Id0Pu = -(ComplexMath.real(Inj10.i0Pu)*cos(UPhase0_g10) + ComplexMath.imag(Inj10.i0Pu)*sin(UPhase0_g10))*(SystemBase.SnRef/Inj10.Snom), Imax = 1, Iq0Pu = (ComplexMath.real(Inj10.i0Pu)*sin(UPhase0_g10) - ComplexMath.imag(Inj10.i0Pu)*cos(UPhase0_g10))*(SystemBase.SnRef/Inj10.Snom), P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, Snom = 800, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, i0Pu = ComplexMath.conj(Complex(P0Pu_g10, Q0Pu_g10)/ComplexMath.fromPolar(U0Pu_g10, UPhase0_g10)), s0Pu = Complex(P0Pu_g10, Q0Pu_g10), u0Pu = ComplexMath.fromPolar(U0Pu_g10, UPhase0_g10)) annotation(
-    Placement(transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Examples.Nordic.Components.GeneratorWithControl.InjectorIDQWithControl Inj12(Id0Pu = -(ComplexMath.real(Inj12.i0Pu)*cos(UPhase0_g12) + ComplexMath.imag(Inj12.i0Pu)*sin(UPhase0_g12))*(SystemBase.SnRef/Inj12.Snom), Imax = 1, Iq0Pu = (ComplexMath.real(Inj12.i0Pu)*sin(UPhase0_g12) - ComplexMath.imag(Inj12.i0Pu)*cos(UPhase0_g12))*(SystemBase.SnRef/Inj12.Snom), P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, Snom = 350, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, i0Pu = ComplexMath.conj(Complex(P0Pu_g12, Q0Pu_g12)/ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)), s0Pu = Complex(P0Pu_g12, Q0Pu_g12), u0Pu = ComplexMath.fromPolar(U0Pu_g12, UPhase0_g12)) annotation(
-    Placement(transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}})));
+
 initial equation
-  Inj09.VRef = bus_4011.UPu;
-  Inj07.VRef = bus_1043.UPu;
-  Inj06.VRef = bus_1042.UPu;
-  Inj11.VRef = bus_4021.UPu;
-  Inj03.VRef = bus_1014.UPu;
-  Inj02.VRef = bus_1013.UPu;
-  Inj01.VRef = bus_1012.UPu;
-  Inj05.VRef = bus_1022.UPu;
-  Inj10.VRef = bus_4012.UPu;
-  Inj12.VRef = bus_4031.UPu;
+  Inj09.VRefPu = bus_4011.UPu;
+  Inj07.VRefPu = bus_1043.UPu;
+  Inj06.VRefPu = bus_1042.UPu;
+  Inj11.VRefPu = bus_4021.UPu;
+  Inj03.VRefPu = bus_1014.UPu;
+  Inj02.VRefPu = bus_1013.UPu;
+  Inj01.VRefPu = bus_1012.UPu;
+  Inj05.VRefPu = bus_1022.UPu;
+  Inj10.VRefPu = bus_4012.UPu;
+  Inj12.VRefPu = bus_4031.UPu;
 
 equation
-  Inj09.VReg = bus_4011.UPu;
-  der(Inj09.VRef) = 0;
-  Inj07.VReg = bus_1043.UPu;
-  der(Inj07.VRef) = 0;
-  Inj06.VReg = bus_1042.UPu;
-  der(Inj06.VRef) = 0;
-  Inj11.VReg = bus_4021.UPu;
-  der(Inj11.VRef) = 0;
-  Inj03.VReg = bus_1014.UPu;
-  der(Inj03.VRef) = 0;
-  Inj02.VReg = bus_1013.UPu;
-  der(Inj02.VRef) = 0;
-  Inj01.VReg = bus_1012.UPu;
-  der(Inj01.VRef) = 0;
-  Inj05.VReg = bus_1022.UPu;
-  der(Inj05.VRef) = 0;
-  Inj10.VReg = bus_4012.UPu;
-  der(Inj10.VRef) = 0;
-  Inj12.VReg = bus_4031.UPu;
-  der(Inj12.VRef) = 0;
-  Inj09.injectorIDQ.switchOffSignal1 = false;
-  Inj09.injectorIDQ.switchOffSignal2 = false;
-  Inj09.injectorIDQ.switchOffSignal3 = false;
-  Inj07.injectorIDQ.switchOffSignal1 = false;
-  Inj07.injectorIDQ.switchOffSignal2 = false;
-  Inj07.injectorIDQ.switchOffSignal3 = false;
-  Inj06.injectorIDQ.switchOffSignal1 = false;
-  Inj06.injectorIDQ.switchOffSignal2 = false;
-  Inj06.injectorIDQ.switchOffSignal3 = false;
-  Inj11.injectorIDQ.switchOffSignal1 = false;
-  Inj11.injectorIDQ.switchOffSignal2 = false;
-  Inj11.injectorIDQ.switchOffSignal3 = false;
-  Inj03.injectorIDQ.switchOffSignal1 = false;
-  Inj03.injectorIDQ.switchOffSignal2 = false;
-  Inj03.injectorIDQ.switchOffSignal3 = false;
-  Inj02.injectorIDQ.switchOffSignal1 = false;
-  Inj02.injectorIDQ.switchOffSignal2 = false;
-  Inj02.injectorIDQ.switchOffSignal3 = false;
+  Inj09.VRegPu = bus_4011.UPu;
+  der(Inj09.VRefPu) = 0;
+  Inj07.VRegPu = bus_1043.UPu;
+  der(Inj07.VRefPu) = 0;
+  Inj06.VRegPu = bus_1042.UPu;
+  der(Inj06.VRefPu) = 0;
+  Inj11.VRegPu = bus_4021.UPu;
+  der(Inj11.VRefPu) = 0;
+  Inj03.VRegPu = bus_1014.UPu;
+  der(Inj03.VRefPu) = 0;
+  Inj02.VRegPu = bus_1013.UPu;
+  der(Inj02.VRefPu) = 0;
+  Inj01.VRegPu = bus_1012.UPu;
+  der(Inj01.VRefPu) = 0;
+  Inj05.VRegPu = bus_1022.UPu;
+  der(Inj05.VRefPu) = 0;
+  Inj10.VRegPu = bus_4012.UPu;
+  der(Inj10.VRefPu) = 0;
+  Inj12.VRegPu = bus_4031.UPu;
+  der(Inj12.VRefPu) = 0;
   Inj01.injectorIDQ.switchOffSignal1 = false;
   Inj01.injectorIDQ.switchOffSignal2 = false;
   Inj01.injectorIDQ.switchOffSignal3 = false;
+  Inj02.injectorIDQ.switchOffSignal1 = false;
+  Inj02.injectorIDQ.switchOffSignal2 = false;
+  Inj02.injectorIDQ.switchOffSignal3 = false;
+  Inj03.injectorIDQ.switchOffSignal1 = false;
+  Inj03.injectorIDQ.switchOffSignal2 = false;
+  Inj03.injectorIDQ.switchOffSignal3 = false;
   Inj05.injectorIDQ.switchOffSignal1 = false;
   Inj05.injectorIDQ.switchOffSignal2 = false;
   Inj05.injectorIDQ.switchOffSignal3 = false;
+  Inj06.injectorIDQ.switchOffSignal1 = false;
+  Inj06.injectorIDQ.switchOffSignal2 = false;
+  Inj06.injectorIDQ.switchOffSignal3 = false;
+  Inj07.injectorIDQ.switchOffSignal1 = false;
+  Inj07.injectorIDQ.switchOffSignal2 = false;
+  Inj07.injectorIDQ.switchOffSignal3 = false;
+  Inj09.injectorIDQ.switchOffSignal1 = false;
+  Inj09.injectorIDQ.switchOffSignal2 = false;
+  Inj09.injectorIDQ.switchOffSignal3 = false;
   Inj10.injectorIDQ.switchOffSignal1 = false;
   Inj10.injectorIDQ.switchOffSignal2 = false;
   Inj10.injectorIDQ.switchOffSignal3 = false;
+  Inj11.injectorIDQ.switchOffSignal1 = false;
+  Inj11.injectorIDQ.switchOffSignal2 = false;
+  Inj11.injectorIDQ.switchOffSignal3 = false;
   Inj12.injectorIDQ.switchOffSignal1 = false;
   Inj12.injectorIDQ.switchOffSignal2 = false;
   Inj12.injectorIDQ.switchOffSignal3 = false;
+
   connect(trafo_1_1041.terminal20, load_01_INIT.terminal0);
   connect(trafo_2_1042.terminal20, load_02_INIT.terminal0);
   connect(trafo_3_1043.terminal20, load_03_INIT.terminal0);
@@ -350,6 +368,7 @@ equation
   connect(trafo_63_4063.terminal20, load_63_INIT.terminal0);
   connect(trafo_71_4071.terminal20, load_71_INIT.terminal0);
   connect(trafo_72_4072.terminal20, load_72_INIT.terminal0);
+
   trafo_g1_1012.switchOffSignal1 = false;
   trafo_g1_1012.switchOffSignal2 = false;
   trafo_g2_1013.switchOffSignal1 = false;
@@ -406,6 +425,7 @@ equation
   trafo_1045_4045b.switchOffSignal2 = false;
   trafo_2031_4031.switchOffSignal1 = false;
   trafo_2031_4031.switchOffSignal2 = false;
+
   connect(g20.terminal, bus_BG20.terminal) annotation(
     Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal2, bus_1041.terminal) annotation(
@@ -639,18 +659,17 @@ equation
   connect(bus_BG12.terminal, Inj12.terminal) annotation(
     Line(points = {{-4, 35}, {-4, 41}}, color = {0, 0, 255}));
   connect(g04.terminal, bus_BG04.terminal) annotation(
-    Line(points={{-85,30},{-85,34},{-85,34},{-85,35}},
-                                          color = {0, 0, 255}));
+    Line(points={{-85,30},{-85,34},{-85,34},{-85,35}}, color = {0, 0, 255}));
   connect(bus_BG04.terminal, trafo_g4_1021.terminal1) annotation(
-    Line(points={{-85,35},{-84,35},{-84,38},{-85,38}},
-                                          color = {0, 0, 255}));
+    Line(points={{-85,35},{-84,35},{-84,38},{-85,38}}, color = {0, 0, 255}));
   connect(g13.terminal, bus_BG13.terminal) annotation(
-    Line(points={{-70,-31},{-70,-25}},      color = {0, 0, 255}));
+    Line(points={{-70,-31},{-70,-25}}, color = {0, 0, 255}));
   connect(bus_BG13.terminal, trafo_g13_4041.terminal1) annotation(
-    Line(points={{-70,-25},{-70,-22}},      color = {0, 0, 255}));
+    Line(points={{-70,-25},{-70,-22}}, color = {0, 0, 255}));
+
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));
-end FullDynamicModel_10Injectors;
+end FullDynamicModel10Injectors;

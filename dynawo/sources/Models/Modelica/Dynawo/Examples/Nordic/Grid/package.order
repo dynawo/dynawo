@@ -1,6 +1,6 @@
 BaseClasses
 FullDynamicModel
 FullStaticModel
-FullDynamicModel_1Injector
-FullDynamicModel_10InjectorsWith1Condenser
-FullDynamicModel_10Injectors
+FullDynamicModel1Injector
+FullDynamicModel10Injectors
+FullDynamicModel10InjectorsWith1Condenser

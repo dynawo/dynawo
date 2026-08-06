@@ -1,10 +1,25 @@
 within Dynawo.Examples.Nordic.Grid;
-model FullDynamicModel_1Injector
-  "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
+
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
   import Dynawo.Examples.Nordic.Components.GeneratorWithControl;
   import Dynawo.Examples.Nordic.Components.TransformerWithControl;
+
   extends Examples.Nordic.Grid.BaseClasses.NetworkWithAlphaBetaLoads;
   //  extends Dynawo.Examples.Nordic.Grid.BaseClasses.NetworkWithPQLoads;
+
   TransformerWithControl.TransformerWithControl trafo_1_1041(P10Pu = -P0Pu_load_01, Q10Pu = -Q0Pu_load_01, U10Pu = U0Pu_load_01, U1Phase0 = UPhase0_load_01, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_1_1041) annotation(
     Placement(visible = true, transformation(origin = {-55, -97}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
   TransformerWithControl.TransformerWithControl trafo_2_1042(P10Pu = -P0Pu_load_02, Q10Pu = -Q0Pu_load_02, U10Pu = U0Pu_load_02, U1Phase0 = UPhase0_load_02, tfo = TransformerWithControl.TransformerParameters.tfoPreset.trafo_2_1042) annotation(
@@ -143,6 +158,9 @@ model FullDynamicModel_1Injector
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = U0Pu_g20, UPhase0 = UPhase0_g20, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
     Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+  Components.GeneratorWithControl.InjectorIDQWithControl Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, SNom = 1000, i0Pu = ComplexMath.conj(Complex(P0Pu_g09, Q0Pu_g09)/ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09)), Id0Pu = -(ComplexMath.real(Inj09.i0Pu)*cos(UPhase0_g09) + ComplexMath.imag(Inj09.i0Pu)*sin(UPhase0_g09))*(SystemBase.SnRef/Inj09.SNom), Iq0Pu = (ComplexMath.real(Inj09.i0Pu)*sin(UPhase0_g09) - ComplexMath.imag(Inj09.i0Pu)*cos(UPhase0_g09))*(SystemBase.SnRef/Inj09.SNom), s0Pu = Complex(P0Pu_g09, Q0Pu_g09), u0Pu = ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09), IMaxPu = 1) annotation(
+    Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
+
   // g01 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g01;
@@ -263,17 +281,17 @@ model FullDynamicModel_1Injector
   parameter Types.ReactivePowerPu Q0Pu_g20;
   parameter Types.VoltageModulePu U0Pu_g20;
   parameter Types.Angle UPhase0_g20;
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, Snom = 1000, i0Pu = ComplexMath.conj(Complex(P0Pu_g09, Q0Pu_g09)/ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09)), Id0Pu = -(ComplexMath.real(Inj09.i0Pu)*cos(UPhase0_g09) + ComplexMath.imag(Inj09.i0Pu)*sin(UPhase0_g09))*(SystemBase.SnRef/Inj09.Snom), Iq0Pu = (ComplexMath.real(Inj09.i0Pu)*sin(UPhase0_g09) - ComplexMath.imag(Inj09.i0Pu)*cos(UPhase0_g09))*(SystemBase.SnRef/Inj09.Snom), s0Pu = Complex(P0Pu_g09, Q0Pu_g09), u0Pu = ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09), Imax = 1)  annotation(
-    Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
+
 initial equation
-  Inj09.VRef = bus_4011.UPu;
+  Inj09.VRefPu = bus_4011.UPu;
 
 equation
-  der(Inj09.VRef) = 0;
-  Inj09.VReg = bus_4011.UPu;
-  Inj09.injectorIDQ.switchOffSignal1.value = false;
-  Inj09.injectorIDQ.switchOffSignal2.value = false;
-  Inj09.injectorIDQ.switchOffSignal3.value = false;
+  Inj09.VRegPu = bus_4011.UPu;
+  der(Inj09.VRefPu) = 0;
+  Inj09.injectorIDQ.switchOffSignal1 = false;
+  Inj09.injectorIDQ.switchOffSignal2 = false;
+  Inj09.injectorIDQ.switchOffSignal3 = false;
+
   connect(trafo_1_1041.terminal20, load_01_INIT.terminal0);
   connect(trafo_2_1042.terminal20, load_02_INIT.terminal0);
   connect(trafo_3_1043.terminal20, load_03_INIT.terminal0);
@@ -296,62 +314,64 @@ equation
   connect(trafo_63_4063.terminal20, load_63_INIT.terminal0);
   connect(trafo_71_4071.terminal20, load_71_INIT.terminal0);
   connect(trafo_72_4072.terminal20, load_72_INIT.terminal0);
-  trafo_g1_1012.switchOffSignal1.value = false;
-  trafo_g1_1012.switchOffSignal2.value = false;
-  trafo_g2_1013.switchOffSignal1.value = false;
-  trafo_g2_1013.switchOffSignal2.value = false;
-  trafo_g3_1014.switchOffSignal1.value = false;
-  trafo_g3_1014.switchOffSignal2.value = false;
-  trafo_g4_1021.switchOffSignal1.value = false;
-  trafo_g4_1021.switchOffSignal2.value = false;
-  trafo_g5_1022.switchOffSignal1.value = false;
-  trafo_g5_1022.switchOffSignal2.value = false;
-  trafo_g6_1042.switchOffSignal1.value = false;
-  trafo_g6_1042.switchOffSignal2.value = false;
-  trafo_g7_1043.switchOffSignal1.value = false;
-  trafo_g7_1043.switchOffSignal2.value = false;
-  trafo_g8_2032.switchOffSignal1.value = false;
-  trafo_g8_2032.switchOffSignal2.value = false;
-  trafo_g9_4011.switchOffSignal1.value = false;
-  trafo_g9_4011.switchOffSignal2.value = false;
-  trafo_g10_4012.switchOffSignal1.value = false;
-  trafo_g10_4012.switchOffSignal2.value = false;
-  trafo_g11_4021.switchOffSignal1.value = false;
-  trafo_g11_4021.switchOffSignal2.value = false;
-  trafo_g12_4031.switchOffSignal1.value = false;
-  trafo_g12_4031.switchOffSignal2.value = false;
-  trafo_g13_4041.switchOffSignal1.value = false;
-  trafo_g13_4041.switchOffSignal2.value = false;
-  trafo_g14_4042.switchOffSignal1.value = false;
-  trafo_g14_4042.switchOffSignal2.value = false;
-  trafo_g15_4047.switchOffSignal1.value = false;
-  trafo_g15_4047.switchOffSignal2.value = false;
-  trafo_g16_4051.switchOffSignal1.value = false;
-  trafo_g16_4051.switchOffSignal2.value = false;
-  trafo_g17_4062.switchOffSignal1.value = false;
-  trafo_g17_4062.switchOffSignal2.value = false;
-  trafo_g18_4063.switchOffSignal1.value = false;
-  trafo_g18_4063.switchOffSignal2.value = false;
-  trafo_g19_4071.switchOffSignal1.value = false;
-  trafo_g19_4071.switchOffSignal2.value = false;
-  trafo_g20_4072.switchOffSignal1.value = false;
-  trafo_g20_4072.switchOffSignal2.value = false;
-  trafo_1011_4011.switchOffSignal1.value = false;
-  trafo_1011_4011.switchOffSignal2.value = false;
-  trafo_1012_4012.switchOffSignal1.value = false;
-  trafo_1012_4012.switchOffSignal2.value = false;
-  trafo_1022_4022.switchOffSignal1.value = false;
-  trafo_1022_4022.switchOffSignal2.value = false;
-  trafo_1044_4044a.switchOffSignal1.value = false;
-  trafo_1044_4044a.switchOffSignal2.value = false;
-  trafo_1044_4044b.switchOffSignal1.value = false;
-  trafo_1044_4044b.switchOffSignal2.value = false;
-  trafo_1045_4045a.switchOffSignal1.value = false;
-  trafo_1045_4045a.switchOffSignal2.value = false;
-  trafo_1045_4045b.switchOffSignal1.value = false;
-  trafo_1045_4045b.switchOffSignal2.value = false;
-  trafo_2031_4031.switchOffSignal1.value = false;
-  trafo_2031_4031.switchOffSignal2.value = false;
+
+  trafo_g1_1012.switchOffSignal1 = false;
+  trafo_g1_1012.switchOffSignal2 = false;
+  trafo_g2_1013.switchOffSignal1 = false;
+  trafo_g2_1013.switchOffSignal2 = false;
+  trafo_g3_1014.switchOffSignal1 = false;
+  trafo_g3_1014.switchOffSignal2 = false;
+  trafo_g4_1021.switchOffSignal1 = false;
+  trafo_g4_1021.switchOffSignal2 = false;
+  trafo_g5_1022.switchOffSignal1 = false;
+  trafo_g5_1022.switchOffSignal2 = false;
+  trafo_g6_1042.switchOffSignal1 = false;
+  trafo_g6_1042.switchOffSignal2 = false;
+  trafo_g7_1043.switchOffSignal1 = false;
+  trafo_g7_1043.switchOffSignal2 = false;
+  trafo_g8_2032.switchOffSignal1 = false;
+  trafo_g8_2032.switchOffSignal2 = false;
+  trafo_g9_4011.switchOffSignal1 = false;
+  trafo_g9_4011.switchOffSignal2 = false;
+  trafo_g10_4012.switchOffSignal1 = false;
+  trafo_g10_4012.switchOffSignal2 = false;
+  trafo_g11_4021.switchOffSignal1 = false;
+  trafo_g11_4021.switchOffSignal2 = false;
+  trafo_g12_4031.switchOffSignal1 = false;
+  trafo_g12_4031.switchOffSignal2 = false;
+  trafo_g13_4041.switchOffSignal1 = false;
+  trafo_g13_4041.switchOffSignal2 = false;
+  trafo_g14_4042.switchOffSignal1 = false;
+  trafo_g14_4042.switchOffSignal2 = false;
+  trafo_g15_4047.switchOffSignal1 = false;
+  trafo_g15_4047.switchOffSignal2 = false;
+  trafo_g16_4051.switchOffSignal1 = false;
+  trafo_g16_4051.switchOffSignal2 = false;
+  trafo_g17_4062.switchOffSignal1 = false;
+  trafo_g17_4062.switchOffSignal2 = false;
+  trafo_g18_4063.switchOffSignal1 = false;
+  trafo_g18_4063.switchOffSignal2 = false;
+  trafo_g19_4071.switchOffSignal1 = false;
+  trafo_g19_4071.switchOffSignal2 = false;
+  trafo_g20_4072.switchOffSignal1 = false;
+  trafo_g20_4072.switchOffSignal2 = false;
+  trafo_1011_4011.switchOffSignal1 = false;
+  trafo_1011_4011.switchOffSignal2 = false;
+  trafo_1012_4012.switchOffSignal1 = false;
+  trafo_1012_4012.switchOffSignal2 = false;
+  trafo_1022_4022.switchOffSignal1 = false;
+  trafo_1022_4022.switchOffSignal2 = false;
+  trafo_1044_4044a.switchOffSignal1 = false;
+  trafo_1044_4044a.switchOffSignal2 = false;
+  trafo_1044_4044b.switchOffSignal1 = false;
+  trafo_1044_4044b.switchOffSignal2 = false;
+  trafo_1045_4045a.switchOffSignal1 = false;
+  trafo_1045_4045a.switchOffSignal2 = false;
+  trafo_1045_4045b.switchOffSignal1 = false;
+  trafo_1045_4045b.switchOffSignal2 = false;
+  trafo_2031_4031.switchOffSignal1 = false;
+  trafo_2031_4031.switchOffSignal2 = false;
+
   connect(g20.terminal, bus_BG20.terminal) annotation(
     Line(points = {{-75, 60}, {-75, 65}}, color = {0, 0, 255}));
   connect(trafo_1_1041.terminal2, bus_1041.terminal) annotation(
@@ -515,7 +535,7 @@ equation
   connect(trafo_g10_4012.terminal2, bus_4012.terminal) annotation(
     Line(points = {{-35, 98}, {-35, 100}, {-30, 100}}, color = {0, 0, 255}));
   connect(trafo_g11_4021.terminal1, bus_BG11.terminal) annotation(
-    Line(points={{35,63},{35,65}},      color = {0, 0, 255}));
+    Line(points = {{35, 63}, {35, 65}}, color = {0, 0, 255}));
   connect(trafo_g11_4021.terminal2, bus_4021.terminal) annotation(
     Line(points = {{35, 53}, {35, 50}, {30, 50}}, color = {0, 0, 255}));
   connect(trafo_g12_4031.terminal1, bus_BG12.terminal) annotation(
@@ -571,7 +591,7 @@ equation
   connect(g08.terminal, bus_BG08.terminal) annotation(
     Line(points = {{-77, 0}, {-77, 5}}, color = {0, 0, 255}));
   connect(g10.terminal, bus_BG10.terminal) annotation(
-    Line(points={{-35,79},{-35,85}},      color = {0, 0, 255}));
+    Line(points={{-35,79}, {-35,85}}, color = {0, 0, 255}));
   connect(g11.terminal, bus_BG11.terminal) annotation(
     Line(points = {{35, 72}, {35, 65}}, color = {0, 0, 255}));
   connect(g12.terminal, bus_BG12.terminal) annotation(
@@ -592,9 +612,10 @@ equation
     Line(points = {{-75, 151}, {-75, 145}}, color = {0, 0, 255}));
   connect(Inj09.terminal, bus_BG09.terminal) annotation(
     Line(points = {{-25, 156}, {-25, 151}, {-25, 151}, {-25, 145}}, color = {0, 0, 255}));
+
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));
-end FullDynamicModel_1Injector;
+end FullDynamicModel1Injector;
