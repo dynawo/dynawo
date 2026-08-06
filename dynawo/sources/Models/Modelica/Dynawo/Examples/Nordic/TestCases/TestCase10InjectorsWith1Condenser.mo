@@ -1,7 +1,20 @@
 within Dynawo.Examples.Nordic.TestCases;
-model TestCase_10InjectorsWith1Condenser
-  "Nordic test system case with variable reference frequency"
-  extends Grid.FullDynamicModel_10InjectorsWith1Condenser(
+
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model TestCase10InjectorsWith1Condenser "Nordic test system case with variable reference frequency"
+  extends Grid.FullDynamicModel10InjectorsWith1Condenser(
     Alpha = 1,
     Beta = 2,
     P0Pu_g01 = -6,
@@ -218,13 +231,15 @@ model TestCase_10InjectorsWith1Condenser
   Types.CurrentModulePu check_IrPu_g16;
   Types.CurrentModulePu check_IrPu_g18;
   Types.AngularVelocityPu check_f_g17;
+
   Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 1, tEnd =1.1);
   Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent =1.1);
+
 equation
-  check_UPu_bus_1041 =Modelica.ComplexMath.abs(bus_1041.terminal.V);
-  check_UPu_bus_1042 =Modelica.ComplexMath.abs(bus_1042.terminal.V);
-  check_UPu_bus_4012 =Modelica.ComplexMath.abs(bus_4012.terminal.V);
-  check_UPu_bus_4062 =Modelica.ComplexMath.abs(bus_4062.terminal.V);
+  check_UPu_bus_1041 =Modelica.ComplexMath.'abs'(bus_1041.terminal.V);
+  check_UPu_bus_1042 =Modelica.ComplexMath.'abs'(bus_1042.terminal.V);
+  check_UPu_bus_4012 =Modelica.ComplexMath.'abs'(bus_4012.terminal.V);
+  check_UPu_bus_4062 =Modelica.ComplexMath.'abs'(bus_4062.terminal.V);
   check_IrPu_g08 = g08.vrNordic.IrPu;
   check_IrPu_g14 = g14.vrNordic.IrPu;
   check_IrPu_g15 = g15.vrNordic.IrPu;
@@ -242,23 +257,25 @@ equation
   g18.generatorSynchronous.omegaRefPu = omegaCOI;
   g19.generatorSynchronous.omegaRefPu = omegaCOI;
   g20.generatorSynchronous.omegaRefPu = omegaCOI;
-  Inj01.OmegaCOI = omegaCOI;
-  Inj02.OmegaCOI = omegaCOI;
-  Inj03.OmegaCOI = omegaCOI;
-  Inj05.OmegaCOI = omegaCOI;
-  Inj06.OmegaCOI = omegaCOI;
-  Inj07.OmegaCOI = omegaCOI;
-  Inj09.OmegaCOI = omegaCOI;
-  Inj10.OmegaCOI = omegaCOI;
-  Inj11.OmegaCOI = omegaCOI;
-  Inj12.OmegaCOI = omegaCOI;
+  Inj01.omegaCOI = omegaCOI;
+  Inj02.omegaCOI = omegaCOI;
+  Inj03.omegaCOI = omegaCOI;
+  Inj05.omegaCOI = omegaCOI;
+  Inj06.omegaCOI = omegaCOI;
+  Inj07.omegaCOI = omegaCOI;
+  Inj09.omegaCOI = omegaCOI;
+  Inj10.omegaCOI = omegaCOI;
+  Inj11.omegaCOI = omegaCOI;
+  Inj12.omegaCOI = omegaCOI;
   SC1042.generatorSynchronous.omegaRefPu = omegaCOI;
+
   connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 166, Tolerance = 0.005, Interval = 0.01),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection --maxSizeLinearTearing=1040 --maxSizeNonlinearTearing=1040 --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "euler", lssMaxDensity = "0.1"),
     Documentation(info = "<html><head></head><body><span style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">This test case is meant to investigate the long term dynamic response of the Nordic 32 test system, operating point A, regarding a contingency. This particular test case corresponds to the setup presented in Chapter 3.1 of the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015.</span><div><font face=\"MS Shell Dlg 2\"><br></font><div><font face=\"MS Shell Dlg 2\">OmegaRef of the generators is set to the center of inertia of the whole system.</font></div><div><font face=\"MS Shell Dlg 2\"><br></font></div><div><font face=\"MS Shell Dlg 2\">The simulation runs in DAEmode, starts at t = 0 s, ends at t = 169.8 s (just before crashing) and uses the euler solver with a step size of 0.01 s and a tolerance of 0.005.</font></div><div><font face=\"MS Shell Dlg 2\"><br></font><div><font face=\"MS Shell Dlg 2\">At t = 1 s, a node fault occurs at bus 4032, which is cleared by tripping line 4032-4044&nbsp;</font><span style=\"font-family: 'MS Shell Dlg 2';\">after 0.1 s</span>.</div><div><br></div><div><div style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">While voltage remains more or less stable at bus 4012 and 4062, voltage keeps dropping at bus 1041 and 1042, until the voltage collapses ~160 s later.</div></div></div></div></body></html>"));
-end TestCase_10InjectorsWith1Condenser;
+end TestCase10InjectorsWith1Condenser;

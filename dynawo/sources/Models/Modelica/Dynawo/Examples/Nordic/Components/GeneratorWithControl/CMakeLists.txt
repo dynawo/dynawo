@@ -16,6 +16,7 @@ set(MODEL_FILES
     GeneratorSynchronousThreeWindingsWithControl.mo
     GeneratorSynchronousFourWindingsWithControl.mo
     InjectorIDQWithControl.mo
+    ElectricalControlNordic.mo
     )
 
 #

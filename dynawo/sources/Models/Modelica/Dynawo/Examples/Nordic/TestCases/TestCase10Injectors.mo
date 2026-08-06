@@ -1,6 +1,20 @@
 within Dynawo.Examples.Nordic.TestCases;
-model TestCase_1Injector "Nordic test system case with variable reference frequency"
-  extends Grid.FullDynamicModel_1Injector(
+
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model TestCase10Injectors "Nordic test system case with variable reference frequency"
+  extends Grid.FullDynamicModel10Injectors(
     Alpha = 1,
     Beta = 2,
     P0Pu_g01 = -6,
@@ -211,53 +225,30 @@ model TestCase_1Injector "Nordic test system case with variable reference freque
   Types.VoltageModulePu check_UPu_bus_1042;
   Types.VoltageModulePu check_UPu_bus_4012;
   Types.VoltageModulePu check_UPu_bus_4062;
-  Types.VoltageModulePu check_UtPu_g06;
-  Types.VoltageModulePu check_UtPu_g07;
-  Types.CurrentModulePu check_IrPu_g06;
-  Types.CurrentModulePu check_IrPu_g07;
   Types.CurrentModulePu check_IrPu_g08;
-  Types.CurrentModulePu check_IrPu_g11;
-  Types.CurrentModulePu check_IrPu_g12;
   Types.CurrentModulePu check_IrPu_g14;
   Types.CurrentModulePu check_IrPu_g15;
   Types.CurrentModulePu check_IrPu_g16;
   Types.CurrentModulePu check_IrPu_g18;
-  Types.AngularVelocityPu check_f_g06;
-  Types.AngularVelocityPu check_f_g07;
   Types.AngularVelocityPu check_f_g17;
-  Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 201, tEnd = 201.1);
-  Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 201.1);
+
+  Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 1, tEnd =1.1);
+  Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
+
 equation
-  check_UPu_bus_1041 = Modelica.ComplexMath.abs(bus_1041.terminal.V);
-  check_UPu_bus_1042 = Modelica.ComplexMath.abs(bus_1042.terminal.V);
-  check_UPu_bus_4012 = Modelica.ComplexMath.abs(bus_4012.terminal.V);
-  check_UPu_bus_4062 = Modelica.ComplexMath.abs(bus_4062.terminal.V);
-  check_IrPu_g06 = g06.vrNordic.IrPu;
-  check_IrPu_g07 = g07.vrNordic.IrPu;
+  check_UPu_bus_1041 = Modelica.ComplexMath.'abs'(bus_1041.terminal.V);
+  check_UPu_bus_1042 = Modelica.ComplexMath.'abs'(bus_1042.terminal.V);
+  check_UPu_bus_4012 = Modelica.ComplexMath.'abs'(bus_4012.terminal.V);
+  check_UPu_bus_4062 = Modelica.ComplexMath.'abs'(bus_4062.terminal.V);
   check_IrPu_g08 = g08.vrNordic.IrPu;
-  check_IrPu_g11 = g11.vrNordic.IrPu;
-  check_IrPu_g12 = g12.vrNordic.IrPu;
   check_IrPu_g14 = g14.vrNordic.IrPu;
   check_IrPu_g15 = g15.vrNordic.IrPu;
   check_IrPu_g16 = g16.vrNordic.IrPu;
   check_IrPu_g18 = g18.vrNordic.IrPu;
-  check_f_g06 = g06.generatorSynchronous.omegaPu;
-  check_f_g07 = g07.generatorSynchronous.omegaPu;
   check_f_g17 = g17.generatorSynchronous.omegaPu;
-  check_UtPu_g06 = g06.generatorSynchronous.UPu;
-  check_UtPu_g07 = g07.generatorSynchronous.UPu;
-  omegaCOI = (g01.generatorSynchronous.omegaPu*g01.generatorSynchronous.H*g01.generatorSynchronous.SNom + g02.generatorSynchronous.omegaPu*g02.generatorSynchronous.H*g02.generatorSynchronous.SNom + g03.generatorSynchronous.omegaPu*g03.generatorSynchronous.H*g03.generatorSynchronous.SNom + g04.generatorSynchronous.omegaPu*g04.generatorSynchronous.H*g04.generatorSynchronous.SNom + g05.generatorSynchronous.omegaPu*g05.generatorSynchronous.H*g05.generatorSynchronous.SNom + g06.generatorSynchronous.omegaPu*g06.generatorSynchronous.H*g06.generatorSynchronous.SNom + g07.generatorSynchronous.omegaPu*g07.generatorSynchronous.H*g07.generatorSynchronous.SNom + g08.generatorSynchronous.omegaPu*g08.generatorSynchronous.H*g08.generatorSynchronous.SNom +  g10.generatorSynchronous.omegaPu*g10.generatorSynchronous.H*g10.generatorSynchronous.SNom + g11.generatorSynchronous.omegaPu*g11.generatorSynchronous.H*g11.generatorSynchronous.SNom + g12.generatorSynchronous.omegaPu*g12.generatorSynchronous.H*g12.generatorSynchronous.SNom + g13.generatorSynchronous.omegaPu*g13.generatorSynchronous.H*g13.generatorSynchronous.SNom + g14.generatorSynchronous.omegaPu*g14.generatorSynchronous.H*g14.generatorSynchronous.SNom + g15.generatorSynchronous.omegaPu*g15.generatorSynchronous.H*g15.generatorSynchronous.SNom + g16.generatorSynchronous.omegaPu*g16.generatorSynchronous.H*g16.generatorSynchronous.SNom + g17.generatorSynchronous.omegaPu*g17.generatorSynchronous.H*g17.generatorSynchronous.SNom + g18.generatorSynchronous.omegaPu*g18.generatorSynchronous.H*g18.generatorSynchronous.SNom + g19.generatorSynchronous.omegaPu*g19.generatorSynchronous.H*g19.generatorSynchronous.SNom + g20.generatorSynchronous.omegaPu*g20.generatorSynchronous.H*g20.generatorSynchronous.SNom)/(g01.generatorSynchronous.SNom*g01.generatorSynchronous.H + g02.generatorSynchronous.SNom*g02.generatorSynchronous.H + g03.generatorSynchronous.SNom*g03.generatorSynchronous.H + g04.generatorSynchronous.SNom*g04.generatorSynchronous.H + g05.generatorSynchronous.SNom*g05.generatorSynchronous.H + g06.generatorSynchronous.SNom*g06.generatorSynchronous.H + g07.generatorSynchronous.SNom*g07.generatorSynchronous.H + g08.generatorSynchronous.SNom*g08.generatorSynchronous.H + g10.generatorSynchronous.SNom*g10.generatorSynchronous.H + g11.generatorSynchronous.SNom*g11.generatorSynchronous.H + g12.generatorSynchronous.SNom*g12.generatorSynchronous.H + g13.generatorSynchronous.SNom*g13.generatorSynchronous.H + g14.generatorSynchronous.SNom*g14.generatorSynchronous.H + g15.generatorSynchronous.SNom*g15.generatorSynchronous.H + g16.generatorSynchronous.SNom*g16.generatorSynchronous.H + g17.generatorSynchronous.SNom*g17.generatorSynchronous.H + g18.generatorSynchronous.SNom*g18.generatorSynchronous.H + g19.generatorSynchronous.SNom*g19.generatorSynchronous.H + g20.generatorSynchronous.SNom*g20.generatorSynchronous.H);
-  g01.generatorSynchronous.omegaRefPu = omegaCOI;
-  g02.generatorSynchronous.omegaRefPu = omegaCOI;
-  g03.generatorSynchronous.omegaRefPu = omegaCOI;
+  omegaCOI = (g04.generatorSynchronous.omegaPu*g04.generatorSynchronous.H*g04.generatorSynchronous.SNom + g08.generatorSynchronous.omegaPu*g08.generatorSynchronous.H*g08.generatorSynchronous.SNom + g13.generatorSynchronous.omegaPu*g13.generatorSynchronous.H*g13.generatorSynchronous.SNom + g14.generatorSynchronous.omegaPu*g14.generatorSynchronous.H*g14.generatorSynchronous.SNom + g15.generatorSynchronous.omegaPu*g15.generatorSynchronous.H*g15.generatorSynchronous.SNom + g16.generatorSynchronous.omegaPu*g16.generatorSynchronous.H*g16.generatorSynchronous.SNom + g17.generatorSynchronous.omegaPu*g17.generatorSynchronous.H*g17.generatorSynchronous.SNom + g18.generatorSynchronous.omegaPu*g18.generatorSynchronous.H*g18.generatorSynchronous.SNom + g19.generatorSynchronous.omegaPu*g19.generatorSynchronous.H*g19.generatorSynchronous.SNom + g20.generatorSynchronous.omegaPu*g20.generatorSynchronous.H*g20.generatorSynchronous.SNom)/(g04.generatorSynchronous.SNom*g04.generatorSynchronous.H +  g08.generatorSynchronous.SNom*g08.generatorSynchronous.H + g13.generatorSynchronous.SNom*g13.generatorSynchronous.H + g14.generatorSynchronous.SNom*g14.generatorSynchronous.H + g15.generatorSynchronous.SNom*g15.generatorSynchronous.H + g16.generatorSynchronous.SNom*g16.generatorSynchronous.H + g17.generatorSynchronous.SNom*g17.generatorSynchronous.H + g18.generatorSynchronous.SNom*g18.generatorSynchronous.H + g19.generatorSynchronous.SNom*g19.generatorSynchronous.H + g20.generatorSynchronous.SNom*g20.generatorSynchronous.H);
   g04.generatorSynchronous.omegaRefPu = omegaCOI;
-  g05.generatorSynchronous.omegaRefPu = omegaCOI;
-  g06.generatorSynchronous.omegaRefPu = omegaCOI;
-  g07.generatorSynchronous.omegaRefPu = omegaCOI;
   g08.generatorSynchronous.omegaRefPu = omegaCOI;
-  g10.generatorSynchronous.omegaRefPu = omegaCOI;
-  g11.generatorSynchronous.omegaRefPu = omegaCOI;
-  g12.generatorSynchronous.omegaRefPu = omegaCOI;
   g13.generatorSynchronous.omegaRefPu = omegaCOI;
   g14.generatorSynchronous.omegaRefPu = omegaCOI;
   g15.generatorSynchronous.omegaRefPu = omegaCOI;
@@ -266,12 +257,24 @@ equation
   g18.generatorSynchronous.omegaRefPu = omegaCOI;
   g19.generatorSynchronous.omegaRefPu = omegaCOI;
   g20.generatorSynchronous.omegaRefPu = omegaCOI;
+  Inj01.omegaCOI = omegaCOI;
+  Inj02.omegaCOI = omegaCOI;
+  Inj03.omegaCOI = omegaCOI;
+  Inj05.omegaCOI = omegaCOI;
+  Inj06.omegaCOI = omegaCOI;
+  Inj07.omegaCOI = omegaCOI;
+  Inj09.omegaCOI = omegaCOI;
+  Inj10.omegaCOI = omegaCOI;
+  Inj11.omegaCOI = omegaCOI;
+  Inj12.omegaCOI = omegaCOI;
+
   connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);
+
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 166, Tolerance = 0.005, Interval = 0.01),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection --maxSizeLinearTearing=1040 --maxSizeNonlinearTearing=1040 --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "euler", lssMaxDensity = "0.1"),
     Documentation(info = "<html><head></head><body><span style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">This test case is meant to investigate the long term dynamic response of the Nordic 32 test system, operating point A, regarding a contingency. This particular test case corresponds to the setup presented in Chapter 3.1 of the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015.</span><div><font face=\"MS Shell Dlg 2\"><br></font><div><font face=\"MS Shell Dlg 2\">OmegaRef of the generators is set to the center of inertia of the whole system.</font></div><div><font face=\"MS Shell Dlg 2\"><br></font></div><div><font face=\"MS Shell Dlg 2\">The simulation runs in DAEmode, starts at t = 0 s, ends at t = 169.8 s (just before crashing) and uses the euler solver with a step size of 0.01 s and a tolerance of 0.005.</font></div><div><font face=\"MS Shell Dlg 2\"><br></font><div><font face=\"MS Shell Dlg 2\">At t = 1 s, a node fault occurs at bus 4032, which is cleared by tripping line 4032-4044&nbsp;</font><span style=\"font-family: 'MS Shell Dlg 2';\">after 0.1 s</span>.</div><div><br></div><div><div style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">While voltage remains more or less stable at bus 4012 and 4062, voltage keeps dropping at bus 1041 and 1042, until the voltage collapses ~160 s later.</div></div></div></div></body></html>"));
-end TestCase_1Injector;
+end TestCase10Injectors;
