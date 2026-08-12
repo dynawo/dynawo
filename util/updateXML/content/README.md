@@ -72,7 +72,7 @@ This will execute **update.py** which will call its **update()** method, then th
 
 ### Implement update scripts
 
-To code an update script **updateMAJOR.MINOR.PATCH.NUMMODIF.py**, just define an update() function in your update script file :
+To code an update script **updateMAJOR.MINOR.PATCH.NUMMODIF.NUMMODIFOPTIONAL.py**, just define an update() function in your update script file :
 
 ```python
 def update(jobs):
