@@ -4,3 +4,5 @@ GridFormingControlMatchingControl
 GridFormingControlDispatchableVirtualOscillatorControl
 GridFormingControl_INIT
 EpriGFM
+InnerControls
+OuterControls
