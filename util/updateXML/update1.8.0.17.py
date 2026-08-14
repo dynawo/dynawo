@@ -13,33 +13,10 @@
 
 from content.Ticket import ticket
 
-# Remove outdated WPP parameters, add new ones, replace a single INIT model by two new ones
-@ticket(3612)
+# Static VAR compensators : mode_value -> mode
+@ticket(3748)
 def update(jobs):
-    wpps = jobs.dyds.get_bbms(lambda bbm: "IECWPP" in bbm.get_lib_name())
-    for wpp in wpps:
-        wpp.parset.remove_param_or_ref("BesPu")
-        wpp.parset.remove_param_or_ref("GesPu")
-        wpp.parset.remove_param_or_ref("ResPu")
-        wpp.parset.remove_param_or_ref("XesPu")
-        wpp.parset.add_param("BOOL", "WPP_PPCLocal", True)
-        wpp.parset.add_param("DOUBLE", "WPP_BMvHvPu", 0)
-        wpp.parset.add_param("DOUBLE", "WPP_GMvHvPu", 0)
-        wpp.parset.add_param("DOUBLE", "WPP_RMvHvPu", 0)
-        wpp.parset.add_param("DOUBLE", "WPP_XMvHvPu", 0)
-        wpp.parset.add_param("BOOL", "WPP_ConverterLVControl", False)
-        wpp.parset.add_param("DOUBLE", "WPP_BLvTrPu", 0)
-        wpp.parset.add_param("DOUBLE", "WPP_GLvTrPu", 0)
-        wpp.parset.add_param("DOUBLE", "WPP_RLvTrPu", 0)
-        wpp.parset.add_param("DOUBLE", "WPP_XLvTrPu", 0)
-
-    modelica_models = jobs.dyds.get_modelica_models(lambda _: True)
-    for modelica_model in modelica_models:
-        unit_dynamic_models = modelica_model.get_unit_dynamic_models(
-            lambda unit_dynamic_model: "CurrentSource2015" in unit_dynamic_model.get_name())
-        for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_init_name("Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource2015_INIT")
-        unit_dynamic_models = modelica_model.get_unit_dynamic_models(
-            lambda unit_dynamic_model: "CurrentSource2020" in unit_dynamic_model.get_name())
-        for unit_dynamic_model in unit_dynamic_models:
-            unit_dynamic_model.set_init_name("Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource2020_INIT")
+    svarcs = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "StaticVarCompensator" in bbm.get_lib_name() and "ModeHandling" in bbm.get_lib_name())}
+    for svarc in svarcs:
+        if (svarc.static_refs.get_number_of_static_ref() > 0 or svarc.static_refs.get_number_of_macro_static_ref() > 0):
+            svarc.static_refs.change_static_ref_var_name("SVarC_modeHandling_mode_value", "SVarC_modeHandling_mode")
