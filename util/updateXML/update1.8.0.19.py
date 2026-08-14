@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2025, RTE (http://www.rte-france.com)
+# Copyright (c) 2026, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,29 +13,21 @@
 
 from content.Ticket import ticket
 
-# update 3 unit dynamic model names in modelica models and model templates
-@ticket(3593)
+# WECC models : adding the HVRT and LVRT parameters
+@ticket(4202)
 def update(jobs):
-    udms = list()
-    for mm in jobs.dyds.get_modelica_models(lambda _: True):
-        udms.extend(mm.get_unit_dynamic_models(lambda _: True))
-
-    for mt in jobs.dyds.get_model_templates(lambda _: True):
-        udms.extend(mt.get_unit_dynamic_models(lambda _: True))
-
-    for udm in udms:
-        update_name(udm,"Dynawo.Electrical.Wind.WECC","WTG4ACurrentSource1","WTG4ACurrentSource")
-        update_name(udm,"Dynawo.Electrical.Wind.WECC","WTG4ACurrentSource2","WTG4ACurrentSource")
-
-    for windxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource1"):
-        windxml.set_lib_name("WTG4AWeccCurrentSource")
-
-    for windxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "WTG4AWeccCurrentSource2"):
-        windxml.set_lib_name("WTG4AWeccCurrentSource")
-
-    for wtg4a in jobs.dyds.get_bbms(lambda bbm: "WTG4AWeccCurrentSource1" in bbm.get_lib_name()):
-        wtg4a.parset.add_param("DOUBLE", "WTG4A_tp", 0.5)
-
-def update_name(udm,prefix,old,new):
-    if udm.get_name() == prefix+"."+old:
-        udm.set_name(prefix+"."+new)
+    weccs = jobs.dyds.get_bbms(lambda bbm: "Wecc" in bbm.get_lib_name())
+    for wecc in weccs:
+        if "Photovoltaics" in wecc:
+            instance = "photovoltaics"
+        elif "WT3" in wecc:
+            instance = "WT3"
+        else:
+            instance = str(wecc.split("Wecc")[0])
+        wecc.parset.add_param("STRING", instance + "_TablesFile", "LHVRT.txt")
+        wecc.parset.add_param("STRING", instance + "_TabletUoverUfilt", "hvrt")
+        wecc.parset.add_param("STRING", instance + "_TabletUunderUfilt", "lvrt")
+        wecc.parset.add_param("DOUBLE", instance + "_tLagAction", 0.05)
+        wecc.parset.add_param("DOUBLE", instance + "_tUFilt", 0.01)
+        wecc.parset.add_param("DOUBLE", instance + "_UOverPu", 1.5)
+        wecc.parset.add_param("DOUBLE", instance + "_UUnderPu", 0.5)
