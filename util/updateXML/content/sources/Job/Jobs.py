@@ -320,7 +320,6 @@ class Jobs:
         int(os.path.basename(update_filepath).split(".")[3]),
         int(os.path.basename(update_filepath).count(".")),
         int(os.path.basename(update_filepath).split(".")[-2])))
-        print(sorted_update_modules_list)
         return sorted_update_modules_list
 
     def __filter_update_modules(self, sorted_update_modules_filepath_list):
