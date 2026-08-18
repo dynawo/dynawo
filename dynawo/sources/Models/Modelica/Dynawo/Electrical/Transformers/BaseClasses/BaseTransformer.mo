@@ -60,7 +60,7 @@ partial model BaseTransformer "Base model for a general two winding transformer 
 
 equation
   if running then
-    // Kirchoff law
+    // Kirchhoff's laws
     rTfoPu * ComplexMath.conj(rTfoPu) * terminal1.V = ComplexMath.conj(rTfoPu) * terminal2.V + ZPu * terminal1.i;
     terminal1.i = ComplexMath.conj(rTfoPu) * (YPu * terminal2.V - terminal2.i);
   else
@@ -72,21 +72,11 @@ equation
   ISide2 = ComplexMath.'abs'(terminal2.i);
 
   if running then
-  // Variables for display or connection to another model (tap-changer for example)
+    // Variables for display or connection to another model (tap-changer for example)
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-
-    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
-      U1Pu = 0;
-    else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
-    end if;
-
-    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
-      U2Pu = 0;
-    else
-      U2Pu = ComplexMath.'abs'(terminal2.V);
-    end if;
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U2Pu = ComplexMath.'abs'(terminal2.V);
   else
     P1Pu = 0;
     Q1Pu = 0;
