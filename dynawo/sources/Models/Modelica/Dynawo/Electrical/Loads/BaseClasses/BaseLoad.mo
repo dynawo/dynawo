@@ -29,10 +29,11 @@ partial model BaseLoad "Base model for loads"
   Modelica.Blocks.Interfaces.RealInput deltaQ(start = 0) "Delta to apply on QRef in %" annotation(
     Placement(visible = true, transformation(origin = {75, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
-  Modelica.Blocks.Interfaces.RealOutput UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
+  Boolean nonZeroVoltage "If true, voltage amplitude at terminal is greater than zero";
   Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in pu (base UNom)";
   parameter Types.ComplexApparentPowerPu s0Pu "Start value of apparent power at load terminal in pu (base SnRef) (receptor convention)";
@@ -41,8 +42,9 @@ partial model BaseLoad "Base model for loads"
 equation
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
+  nonZeroVoltage = terminal.V.re > Modelica.Constants.eps or terminal.V.re < -Modelica.Constants.eps or terminal.V.im > Modelica.Constants.eps or terminal.V.im < -Modelica.Constants.eps;
 
-  if running and terminal.V <> Complex(0) then
+  if running and nonZeroVoltage then
     UPu = ComplexMath.'abs'(terminal.V);
   else
     UPu = 0;

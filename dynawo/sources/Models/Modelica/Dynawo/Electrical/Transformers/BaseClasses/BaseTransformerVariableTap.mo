@@ -30,9 +30,9 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)";
 
   // Output connectors
-  Modelica.Blocks.Interfaces.RealOutput U1Pu(start = U10Pu) "Absolute voltage on side 1";
   Modelica.Blocks.Interfaces.RealOutput P1Pu(start = P10Pu) "Active power on side 1";
   Modelica.Blocks.Interfaces.RealOutput Q1Pu(start = Q10Pu) "Reactive power on side 1";
+  Modelica.Blocks.Interfaces.RealOutput U1Pu(start = U10Pu) "Absolute voltage on side 1";
   Modelica.Blocks.Interfaces.RealOutput U2Pu(start = U20Pu) "Voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   // Parameters coming from the initialization process
@@ -41,10 +41,10 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in pu (base U2Nom)";
   parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in pu (base U2Nom, SnRef) (receptor convention)";
 
-  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
-  parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
   parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in pu (base U1Nom)";
+  parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in pu (base U2Nom)";
 
   parameter Integer Tap0 "Start value of transformer tap";
   parameter Types.PerUnit rTfo0Pu "Start value of transformer ratio";
@@ -66,18 +66,8 @@ equation
     // Variables for display or connection to another model (tap-changer for example)
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-
-    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
-      U1Pu = 0;
-    else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
-    end if;
-
-    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
-      U2Pu = 0;
-    else
-      U2Pu = ComplexMath.'abs'(terminal2.V);
-    end if;
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U2Pu = ComplexMath.'abs'(terminal2.V);
   else
     P1Pu = 0;
     Q1Pu = 0;

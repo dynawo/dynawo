@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  3585_transformers_variable_tap-3f1617f6d16
+INFO | DYNAWO REVISION :  3783_running_instead_of_equal_0-65a473cdd74
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -18,6 +18,7 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting global initialization
 INFO | -----------------------------------------------------------------------
+INFO | Algebraic mode (with J recalculation) change at t = 0
 INFO | end of global initialization
 INFO | -----------------------------------------------------------------------
 INFO | 
@@ -32,8 +33,8 @@ INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 520
-INFO | number of discrete variables : 545
-INFO | number of root functions : 714
+INFO | number of discrete variables : 556
+INFO | number of root functions : 738
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -612,13 +613,21 @@ INFO |      500.000 ¦      500              401         16              1.000
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 500
-INFO | number of residual evaluations             = 616
-INFO | number of Jacobian evaluations             = 16
-INFO | number of nonlinear iterations             = 401
-INFO | number of error test failures              = 0
-INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 623
-INFO | number of discrete variables evaluations   = 174
-INFO | number of mode evaluations                 = 71
+INFO | number of time iterations                                  = 500
+INFO | number of residual evaluations                             = 555
+INFO | number of Jacobian evaluations                             = 7
+INFO | number of nonlinear iterations                             = 359
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 623
+INFO | number of discrete variables evaluations                   = 174
+INFO | number of mode evaluations                                 = 71
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 62
+INFO | number of algebraic restoration Jacobian evaluations       = 9
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
 INFO | end of job 'IEEE14 - Cascading line trippings'
