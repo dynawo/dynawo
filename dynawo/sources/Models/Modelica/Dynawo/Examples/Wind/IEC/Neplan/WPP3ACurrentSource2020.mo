@@ -412,9 +412,9 @@ initial algorithm
   wpp.uWt0Pu.im := init.uWt0Pu.im;
 
 equation
-  wpp.wT3ACurrentSource.injector.switchOffSignal1.value = false;
-  wpp.wT3ACurrentSource.injector.switchOffSignal2.value = false;
-  wpp.wT3ACurrentSource.injector.switchOffSignal3.value = false;
+  wpp.wT3ACurrentSource.injector.switchOffSignal1 = false;
+  wpp.wT3ACurrentSource.injector.switchOffSignal2 = false;
+  wpp.wT3ACurrentSource.injector.switchOffSignal3 = false;
 
   connect(tanPhi.y, wpp.tanPhi) annotation(
     Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));
@@ -444,9 +444,9 @@ equation
 no crowbar implemented)
 in a single machine infinite bus system.</div><div>As an event, a voltage drop to 0.2 pu&nbsp;</div><div>with 100 ms duration is used.</div><div><br></div><div>
 
-The following image shows the voltage drop
+The following images show the voltage drop
 and the model's P and Q responses.</div><div><b><br></b></div><div>
 
-<b>Active power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3aUDropP.png\"></div><div><b><u><br></u></b></div><div><b>Rective power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3aUDropQ.png\"></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div>
-<div><b><u>Bug desription:</u></b></div><div>This model does not behave as expected.</div><div>please see example WT3ACurrentSource2020.</div><div><br></div></body></html>"));
+<b>Active power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3aUDropP.png\"></div><div><b><u><br></u></b></div><div><b>Reactive power response:</b> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/wppType3aUDropQ.png\"></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div><div><b><u><br></u></b></div>
+<div><b><u>Bug description:</u></b></div><div>This model does not behave as expected.</div><div>please see example WT3ACurrentSource2020.</div><div><br></div></body></html>"));
 end WPP3ACurrentSource2020;

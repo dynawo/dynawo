@@ -327,9 +327,9 @@ initial algorithm
   wt.uGs0Pu.im := init.uGs0Pu.im;
 
 equation
-  wt.injector.switchOffSignal1.value = false;
-  wt.injector.switchOffSignal2.value = false;
-  wt.injector.switchOffSignal3.value = false;
+  wt.injector.switchOffSignal1 = false;
+  wt.injector.switchOffSignal2 = false;
+  wt.injector.switchOffSignal3 = false;
 
   connect(tanPhi.y, wt.tanPhi) annotation(
     Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));
@@ -359,6 +359,6 @@ The following image shows the reference step&nbsp;</div><div>and the model's P r
 
 <b>Active power and rotation speed responses:</b></div><div> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/type3bPrefstepP.png\"><br></div><div><br></div><div>
 
-<div>Attention should be paid when parameterizing the&nbsp;</div><div>active power control parameter KPp. Too high valiues&nbsp;</div><div>have lead to stability problems on PRef changes.</div></div><div><br></div><div>&nbsp;
+<div>Attention should be paid when parameterizing the&nbsp;</div><div>active power control parameter KPp. Too high values&nbsp;</div><div>have lead to stability problems on PRef changes.</div></div><div><br></div><div>&nbsp;
 </div></div></body></html>"));
 end WT3BCurrentSource2020;
