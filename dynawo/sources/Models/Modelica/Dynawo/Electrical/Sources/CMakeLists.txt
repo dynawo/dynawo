@@ -16,6 +16,9 @@ set(MODEL_FILES
   # Sources models
   package.mo
   package.order
+  AcGrid.mo
+  AcGrid.extvar
+  AcGrid.mandatoryParam
   Converter.mo
   Converter.extvar
   Converter.mandatoryParam
@@ -32,6 +35,9 @@ set(MODEL_FILES
   InjectorIDQ_INIT.mandatoryParam
   InjectorURI.mo
   InjectorURI.extvar
+  PhaseurGrid.mo
+  PhaseurGrid.extvar
+  PhaseurGrid.mandatoryParam
   )
 
 #

@@ -40,8 +40,8 @@ equation
   der(iqConvRefFilterPu)*1/W_CurrentLimit + iqConvRefFilterPu = iqConvRefPu;
   IConvRefFilterModulePu = sqrt(idConvRefFilterPu*idConvRefFilterPu + iqConvRefFilterPu*iqConvRefFilterPu);
   // CHANGE : Compute the IConvRefFilterAnglePu on the unfiltered current
-  IConvRefFilterAnglePu = atan2(iqConvRefFilterPu, idConvRefFilterPu);
-//  IConvRefFilterAnglePu = atan2(iqConvRefPu, idConvRefPu);
+  // IConvRefFilterAnglePu = atan2(iqConvRefFilterPu, idConvRefFilterPu);
+  IConvRefFilterAnglePu = atan2(iqConvRefPu, idConvRefPu);
   der(idPccFilterPu)*1/W_CurrentLimit + idPccFilterPu = idPcc;
   der(iqPccFilterPu)*1/W_CurrentLimit + iqPccFilterPu = iqPcc;
   CurrentModulePcc = sqrt(idPccFilterPu^2 + iqPccFilterPu^2);

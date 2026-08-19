@@ -16,6 +16,10 @@ set(MODEL_FILES
   DynGFMVSMSmib.mo
   EpriSmib.mo
   GridForming.mo
+  DynGFMVSMSmibConvPLL.mo
+  DynGFMCCVSMSmib.mo
+  DynGFMDroopSmib.mo
+  DynGFMPlantControl.mo
   )
 
 #

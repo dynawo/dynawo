@@ -26,7 +26,7 @@ model DynGFMVSMSmibConvPLL "Single machine infinite bus test case for Grid Formi
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSMConvPLL DynGFMVSMConvPLL(CFilterPu = 1e-05, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.6, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.94, Q0Pu = 0.65, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.997, UPhase0 = 0.05, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0, kVSM = 155.955, OmegaSetPu = 1, tVSC = 0.0004) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSMConvPLL DynGFMVSMConvPLL(CFilterPu = 1e-05, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.6, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.94, Q0Pu = 0.65, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.997, UPhase0 = 0.05, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0, kVSM = 155.955, OmegaSetPu = 1, tVSC = 0.0004, KiPLL = 900, KpPLL = 42) annotation(
     Placement(transformation(origin = {-19, -1}, extent = {{-23, -23}, {23, 23}})));
   Dynawo.Electrical.Sources.AcGrid AcGrid(SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1, RoCoFValue = 0.01) annotation(
     Placement(transformation(origin = {44, 64}, extent = {{-10, -10}, {10, 10}})));

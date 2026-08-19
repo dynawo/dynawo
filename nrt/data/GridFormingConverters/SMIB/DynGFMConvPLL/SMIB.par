@@ -32,32 +32,34 @@
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
   <set id="3">
-    <par name="GFM_CFilterPu" type="DOUBLE" value="1e-05"/>
-    <par name="GFM_H" type="DOUBLE" value="3"/>
-    <par name="GFM_IMaxVI" type="DOUBLE" value="1.2"/>
-    <par name="GFM_Kff" type="DOUBLE" value="0"/>
-    <par name="GFM_Kic" type="DOUBLE" value="15"/>
-    <par name="GFM_KpVI" type="DOUBLE" value="0.6"/>
-    <par name="GFM_Kpc" type="DOUBLE" value="0.477465"/>
-    <par name="GFM_Kfd" type="DOUBLE" value="0"/>
-    <par name="GFM_Kfq" type="DOUBLE" value="0"/>
-    <par name="GFM_LFilterPu" type="DOUBLE" value="0.15"/>
-    <par name="GFM_LTransformerPu" type="DOUBLE" value="0.06"/>
-    <par name="GFM_Mq" type="DOUBLE" value="0.2"/>
-    <par name="GFM_OmegaSetPu" type="DOUBLE" value="1"/>
-    <par name="GFM_P0Pu" type="DOUBLE" value="-7.4663"/>
-    <par name="GFM_Q0Pu" type="DOUBLE" value="0.4119"/>
-    <par name="GFM_RFilterPu" type="DOUBLE" value="0.015"/>
-    <par name="GFM_RTransformerPu" type="DOUBLE" value="0.006"/>
-    <par name="GFM_SNom" type="DOUBLE" value="1000"/>
-    <par name="GFM_U0Pu" type="DOUBLE" value="0.9984"/>
-    <par name="GFM_UPhase0" type="DOUBLE" value="0.0374"/>
-    <par name="GFM_Wf" type="DOUBLE" value="31.4159"/>
-    <par name="GFM_Wff" type="DOUBLE" value="60"/>
-    <par name="GFM_XRratio" type="DOUBLE" value="10"/>
-    <par name="GFM_XVI" type="DOUBLE" value="0"/>
-    <par name="GFM_kVSM" type="DOUBLE" value="155.955"/>
-    <par name="GFM_tVSC" type="DOUBLE" value="0.0004"/>
+    <par name="GFMConvPLL_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <par name="GFMConvPLL_H" type="DOUBLE" value="3"/>
+    <par name="GFMConvPLL_IMaxVI" type="DOUBLE" value="1.2"/>
+    <par name="GFMConvPLL_Kff" type="DOUBLE" value="0"/>
+    <par name="GFMConvPLL_Kic" type="DOUBLE" value="15"/>
+     <par name="GFMConvPLL_KpPLL" type="DOUBLE" value="92"/>
+    <par name="GFMConvPLL_KiPLL" type="DOUBLE" value="400"/>
+    <par name="GFMConvPLL_KpVI" type="DOUBLE" value="0.6"/>
+    <par name="GFMConvPLL_Kpc" type="DOUBLE" value="0.477465"/>
+    <par name="GFMConvPLL_Kfd" type="DOUBLE" value="0"/>
+    <par name="GFMConvPLL_Kfq" type="DOUBLE" value="0"/>
+    <par name="GFMConvPLL_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMConvPLL_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <par name="GFMConvPLL_Mq" type="DOUBLE" value="0.2"/>
+    <par name="GFMConvPLL_OmegaSetPu" type="DOUBLE" value="1"/>
+    <par name="GFMConvPLL_P0Pu" type="DOUBLE" value="-7.4663"/>
+    <par name="GFMConvPLL_Q0Pu" type="DOUBLE" value="0.4119"/>
+    <par name="GFMConvPLL_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFMConvPLL_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="GFMConvPLL_SNom" type="DOUBLE" value="1000"/>
+    <par name="GFMConvPLL_U0Pu" type="DOUBLE" value="0.9984"/>
+    <par name="GFMConvPLL_UPhase0" type="DOUBLE" value="0.0374"/>
+    <par name="GFMConvPLL_Wf" type="DOUBLE" value="31.4159"/>
+    <par name="GFMConvPLL_Wff" type="DOUBLE" value="60"/>
+    <par name="GFMConvPLL_XRratio" type="DOUBLE" value="10"/>
+    <par name="GFMConvPLL_XVI" type="DOUBLE" value="0"/>
+    <par name="GFMConvPLL_kVSM" type="DOUBLE" value="155.955"/>
+    <par name="GFMConvPLL_tVSC" type="DOUBLE" value="0.0004"/>
   </set>
   <set id="IDASolver">
     <par type="INT" name="order" value="2"/>

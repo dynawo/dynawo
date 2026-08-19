@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   DynQSEM.mo
   VoltageReferenceControl.mo
+  VoltageReferenceControlCC.mo
   )
 
 #

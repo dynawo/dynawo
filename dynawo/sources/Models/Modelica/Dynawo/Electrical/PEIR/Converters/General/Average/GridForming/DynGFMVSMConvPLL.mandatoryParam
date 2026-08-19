@@ -29,6 +29,8 @@
     <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
     <mandatoryParameter name="RFilterPu" type="DOUBLE"/>
     <mandatoryParameter name="RTransformerPu" type="DOUBLE"/>
+    <mandatoryParameter name="KiPLL" type="DOUBLE"/>
+    <mandatoryParameter name="KpPLL" type="DOUBLE"/>
     <mandatoryParameter name="SNom" type="DOUBLE"/>
     <mandatoryParameter name="U0Pu" type="DOUBLE"/>
     <mandatoryParameter name="UPhase0" type="DOUBLE"/>

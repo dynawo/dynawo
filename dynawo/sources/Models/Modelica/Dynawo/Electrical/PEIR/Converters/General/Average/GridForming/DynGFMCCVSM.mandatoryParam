@@ -13,14 +13,19 @@
 -->
 <mandatoryParameters>
     <mandatoryParameter name="CFilterPu" type="DOUBLE"/>
+    <mandatoryParameter name="DeltaIConvMaxPu" type="DOUBLE"/>
     <mandatoryParameter name="H" type="DOUBLE"/>
     <mandatoryParameter name="IMaxVI" type="DOUBLE"/>
+    <mandatoryParameter name="Imax" type="DOUBLE"/>
+    <mandatoryParameter name="Imin" type="DOUBLE"/>
+    <mandatoryParameter name="Kfd" type="DOUBLE"/>
     <mandatoryParameter name="Kff" type="DOUBLE"/>
+    <mandatoryParameter name="Kfq" type="DOUBLE"/>
     <mandatoryParameter name="Kic" type="DOUBLE"/>
+    <mandatoryParameter name="KiPLL" type="DOUBLE"/>
+    <mandatoryParameter name="KpPLL" type="DOUBLE"/>
     <mandatoryParameter name="KpVI" type="DOUBLE"/>
     <mandatoryParameter name="Kpc" type="DOUBLE"/>
-    <mandatoryParameter name="Kfd" type="DOUBLE"/>
-    <mandatoryParameter name="Kfq" type="DOUBLE"/>
     <mandatoryParameter name="LFilterPu" type="DOUBLE"/>
     <mandatoryParameter name="LTransformerPu" type="DOUBLE"/>
     <mandatoryParameter name="Mq" type="DOUBLE"/>
@@ -32,6 +37,7 @@
     <mandatoryParameter name="SNom" type="DOUBLE"/>
     <mandatoryParameter name="U0Pu" type="DOUBLE"/>
     <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+    <mandatoryParameter name="W_CurrentLimit" type="DOUBLE"/>
     <mandatoryParameter name="Wf" type="DOUBLE"/>
     <mandatoryParameter name="Wff" type="DOUBLE"/>
     <mandatoryParameter name="XRratio" type="DOUBLE"/>

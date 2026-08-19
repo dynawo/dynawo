@@ -20,6 +20,7 @@ set(MODEL_FILES
   package.mo
   package.order
   VirtualImpedance2.mo
+  VirtualImpedance2CC.mo
   )
 
 #

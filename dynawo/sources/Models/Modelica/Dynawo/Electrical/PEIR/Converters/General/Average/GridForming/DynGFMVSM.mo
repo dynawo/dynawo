@@ -66,16 +66,14 @@ model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the 
     Dialog(tab = "VSC"));
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {106, 42}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-  // Initial Injected active and reactive power
-  parameter Types.PerUnit PFilterRef0Pu "Initial active power reference at the filter in pu (base SNom) (generator convention)";
-  parameter Types.PerUnit QFilterRef0Pu "Initial reactive power reference at the filter in pu (base SNom) (generator convention)";
-  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilterRef0Pu) "Active power reference at the filter in pu (base SNom) (generator convention)" annotation(
+
+  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = Control.PFilter0Pu) "Active power reference at the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "System frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = Control.URef0Pu) "Voltage reference at the filter in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = QFilterRef0Pu) "Reactive power reference at the filter in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = Control.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlVSM Control(H = H, IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, Kic = Kic, KpVI = KpVI, Kpc = Kpc, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, kVSM = kVSM, u0Pu = u0Pu, KpPLL = 100, KiPLL = 10, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(transformation(origin = {-44, 42}, extent = {{-20, -20}, {20, 20}})));
@@ -89,12 +87,12 @@ model DynGFMVSM "PEIR model with GFM VSM control and dynamic connections to the 
   parameter Types.AngularVelocityPu OmegaSetPu "Defaut angular velocity reference for the converter in pu (base omegaNom)";
   final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Start value of the complex voltage at terminal/PCC in pu (base UNom)";
   final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu)*i0Pu*SystemBase.SnRef/SNom "Start value of the complex voltage at the filter in pu (base UNom)";
+  final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu + XVI)*i0Pu*SystemBase.SnRef/SNom "Start value of the complex voltage at the filter in pu (base UNom)";
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
   Sources.PEIR.Converters.Average.DynConverter Converter(SNom = SNom, tVSC = tVSC, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, i0Pu = i0Pu, u0Pu = u0Pu, Theta0 = Theta0, Omega0Pu = SystemBase.omegaRef0Pu)  annotation(
     Placement(transformation(origin = {59, 41}, extent = {{-21, -21}, {21, 21}})));
-  Controls.Utilities.Measurements MeasurementPcc annotation(
-    Placement(transformation(origin = {78, 92}, extent = {{-6, -6}, {6, 6}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput omegaVSMPu(start = SystemBase.omegaRef0Pu) "Converter's own VSM frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(origin = {106, 74}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 equation
   connect(Measurements.QFilterPu, Control.QFilterPu) annotation(
     Line(points = {{-4, -37}, {-84, -37}, {-84, 23}, {-66, 23}}, color = {85, 170, 0}));
@@ -144,12 +142,11 @@ equation
     Line(points = {{-22, 50}, {36, 50}}, color = {0, 0, 127}));
   connect(Control.uqConvRefPu, Converter.uqConvRefPu) annotation(
     Line(points = {{-22, 34}, {38, 34}, {38, 32}, {36, 32}}, color = {0, 0, 127}));
-  connect(terminal, MeasurementPcc.terminal2) annotation(
-    Line(points = {{106, 42}, {98, 42}, {98, 98}, {78, 98}}));
-  connect(MeasurementPcc.uPu, Control.uPccPu) annotation(
-    Line(points = {{71, 97}, {-84, 97}, {-84, 53}, {-66, 53}}, color = {85, 170, 255}));
   connect(Control.omegaPu, Converter.omegaPu) annotation(
     Line(points = {{-34, 64}, {-34, 74}, {48, 74}, {48, 64}}, color = {0, 0, 127}));
+  connect(Control.omegaPu, omegaVSMPu) annotation(
+    Line(points = {{-34, 64}, {-34, 74}, {106, 74}}, color = {0, 0, 127}));
+  Control.uPccPu = terminal.V;
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),

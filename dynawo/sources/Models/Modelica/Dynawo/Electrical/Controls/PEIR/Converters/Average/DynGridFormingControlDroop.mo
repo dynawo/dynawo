@@ -104,14 +104,14 @@ model DynGridFormingControlDroop
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   final parameter Types.VoltageModulePu URef0Pu = sqrt(UdFilter0Pu*UdFilter0Pu + UqFilter0Pu*UqFilter0Pu) "Start value of voltage module reference in pu (base UNom)";
   PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = 2.0, OmegaMinPu = 0, u0Pu = u0Pu) annotation(
-    Placement(transformation(origin = {-84, 42}, extent = {{-6, -6}, {6, 6}})));
+    Placement(transformation(origin = {-90, 42}, extent = {{-6, -6}, {6, 6}})));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(re(start = u0Pu.re), im(start = u0Pu.im)) annotation(
     Placement(transformation(origin = {-108, 54}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-109, 55}, extent = {{-9, -9}, {9, 9}})));
   Modelica.Blocks.Continuous.FirstOrder PLLFilter(T = 0.01, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Omega0Pu) annotation(
-    Placement(transformation(origin = {-76, 60}, extent = {{-6, -6}, {6, 6}})));
+    Placement(transformation(origin = {-76, 64}, extent = {{-6, -6}, {6, 6}})));
   PLL.PLL_INIT pll_init(U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(transformation(origin = {-138, 14}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.Converters.BaseControls.DroopControl droopControl(IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mp = Mp, Mq = Mq, PFilter0Pu = PFilter0Pu, PRef0Pu = PFilter0Pu, QFilter0Pu = QFilter0Pu, QRef0Pu = QFilter0Pu, Theta0 = Theta0, UFilterRef0Pu = URef0Pu, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, Wf = Wf, Wff = Wff, DeltaVVId0=VI.DeltaVVId0, DeltaVVIq0=VI.DeltaVVIq0) annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.DroopControl droopControl(IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mp = Mp, Mq = Mq, PFilter0Pu = PFilter0Pu, PRef0Pu = PFilter0Pu, QFilter0Pu = QFilter0Pu, QRef0Pu = QFilter0Pu, Theta0 = Theta0, UFilterRef0Pu = URef0Pu, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, Wf = Wf, Wff = Wff, DeltaVVId0 = VI.DeltaVVId0, DeltaVVIq0 = VI.DeltaVVIq0) annotation(
     Placement(transformation(origin = {-23, 77}, extent = {{-15, -15}, {15, 15}})));
 equation
   connect(udConvRefPu, currentLoop.udConvRefPu) annotation(
@@ -139,9 +139,9 @@ equation
   connect(QSEM.iqConvRefPu, currentLoop.iqConvRefPu) annotation(
     Line(points = {{36, 18}, {58, 18}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, omegaPLL) annotation(
-    Line(points = {{-77, 45}, {36, 45}, {36, 62}, {106, 62}}, color = {0, 0, 127}));
+    Line(points = {{-83, 45}, {36, 45}, {36, 62}, {106, 62}}, color = {0, 0, 127}));
   connect(uPccPu, pll.uPu) annotation(
-    Line(points = {{-108, 54}, {-98.5, 54}, {-98.5, 46}, {-91, 46}}, color = {85, 170, 255}));
+    Line(points = {{-108, 54}, {-103.5, 54}, {-103.5, 46}, {-97, 46}}, color = {85, 170, 255}));
   connect(droopControl.uqFilterRefPu, QSEM.uqFilterRefPu) annotation(
     Line(points = {{-6.5, 62}, {-13, 62}, {-13, 18}, {0, 18}}, color = {0, 0, 127}));
   connect(droopControl.udFilterRefPu, QSEM.udFilterRefPu) annotation(
@@ -151,7 +151,7 @@ equation
   connect(droopControl.omegaPu, omegaPu) annotation(
     Line(points = {{-6.5, 77}, {39, 77}, {39, 76}, {106, 76}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
-    Line(points = {{-108, 96}, {-108, 94}, {-91, 94}, {-91, 38}}, color = {0, 0, 127}));
+    Line(points = {{-108, 96}, {-108, 94}, {-97, 94}, {-97, 38}}, color = {0, 0, 127}));
   connect(VI.DeltaVVId, droopControl.DeltaVVId) annotation(
     Line(points = {{-56, -16}, {-54, -16}, {-54, 60.5}, {-38, 60.5}}, color = {0, 0, 127}));
   connect(VI.DeltaVVIq, droopControl.DeltaVVIq) annotation(
@@ -161,7 +161,7 @@ equation
   connect(iqPccPu, droopControl.iqPccPu) annotation(
     Line(points = {{-108, -64}, {-31.5, -64}, {-31.5, 60.5}, {-15.5, 60.5}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, PLLFilter.u) annotation(
-    Line(points = {{-77, 45}, {-77, 53.5}, {-83, 53.5}, {-83, 60}}, color = {0, 0, 127}));
+    Line(points = {{-83, 45}, {-83, 64}}, color = {0, 0, 127}));
   connect(PFilterPu, droopControl.PFilterPu) annotation(
     Line(points = {{-32, 110}, {-32, 102}, {-15.5, 102}, {-15.5, 93.5}}, color = {0, 0, 127}));
   connect(QFilterPu, droopControl.QFilterPu) annotation(

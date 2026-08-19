@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- InfiniteBus -->
+  <set id="1">
+    <par type="DOUBLE" name="Grid_U0pu" value="1.0"/>
+    <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
+    <par type="DOUBLE" name="Grid_SNom" value="1000"/>
+    <par type="DOUBLE" name="Grid_OmegaRef" value="1.0"/>
+    <par type="DOUBLE" name="Grid_RoCoFValue" value="0.01"/>
+  </set>
+  <!-- line 1 -->
+  <set id="2">
+    <par type="DOUBLE" name="line_RPu" value="0.000166667"/>
+    <par type="DOUBLE" name="line_XPu" value="0.005"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="3">
+
+    <par name="GFMDroop_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <par name="GFMDroop_IMaxVI" type="DOUBLE" value="1.2"/>
+    <par name="GFMDroop_Kff" type="DOUBLE" value="0.1"/>
+    <par name="GFMDroop_Kic" type="DOUBLE" value="15"/>
+    <par name="GFMDroop_KpPLL" type="DOUBLE" value="10"/>
+    <par name="GFMDroop_KiPLL" type="DOUBLE" value="100"/>
+    <par name="GFMDroop_KpVI" type="DOUBLE" value="0.1"/>
+    <par name="GFMDroop_Kpc" type="DOUBLE" value="0.477465"/>
+    <par name="GFMDroop_Kfd" type="DOUBLE" value="0.8"/>
+    <par name="GFMDroop_Kfq" type="DOUBLE" value="0"/>
+    <par name="GFMDroop_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMDroop_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <par name="GFMDroop_Mp" type="DOUBLE" value="0.013"/>
+    <par name="GFMDroop_Mq" type="DOUBLE" value="0"/>
+    <par name="GFMDroop_P0Pu" type="DOUBLE" value="-9.93324"/>
+    <par name="GFMDroop_Q0Pu" type="DOUBLE" value="0.5896"/>
+    <par name="GFMDroop_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFMDroop_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="GFMDroop_SNom" type="DOUBLE" value="1000"/>
+    <par name="GFMDroop_U0Pu" type="DOUBLE" value="0.997204592849431"/>
+    <par name="GFMDroop_UPhase0" type="DOUBLE" value="0.0491571539684231"/>
+    <par name="GFMDroop_Wf" type="DOUBLE" value="40"/>
+    <par name="GFMDroop_Wff" type="DOUBLE" value="50"/>
+    <par name="GFMDroop_XRratio" type="DOUBLE" value="10"/>
+    <par name="GFMDroop_XVI" type="DOUBLE" value="0.1"/>
+    <par name="GFMDroop_tVSC" type="DOUBLE" value="0.0004"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+</set>
+<set id="5">
+    <par type="DOUBLE" name="setPoint_Value0" value="0"/>
+</set>
+  <set id="IDASolver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.00001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+  </set>
+
+  <set id="SimplifiedSolver">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="0.001"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+  </set>
+</parametersSet>

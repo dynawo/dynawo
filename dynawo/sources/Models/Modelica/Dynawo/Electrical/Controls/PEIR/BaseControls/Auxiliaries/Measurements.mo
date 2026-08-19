@@ -14,7 +14,7 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries;
 
 model Measurements "Measurements block for PEIR models"
 
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
+  parameter Types.Time tUFilt "Filter time constant for voltage measuremeMais nt in s";
 
   // Inputs
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current at the PCC in pu (base UNom, SNom) (generator convention)" annotation(
