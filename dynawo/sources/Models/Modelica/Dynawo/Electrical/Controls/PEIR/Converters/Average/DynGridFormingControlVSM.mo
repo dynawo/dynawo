@@ -91,7 +91,7 @@ model DynGridFormingControlVSM
   Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0) annotation(
     Placement(transformation(origin = {-10, 80}, extent = {{-16, -16}, {16, 16}})));
   Electrical.Controls.PEIR.BaseControls.VirtualImpedance2 VI(IMaxVI = IMaxVI, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, KpVI = KpVI, XRratio = XRratio) annotation(
-    Placement(visible = true, transformation(origin = {-75, -25}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
+    Placement(transformation(origin = {-69, -21}, extent = {{-17, -17}, {17, 17}})));
   // Initial parameters
   parameter Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage reference in pu (base UNom)";
   parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage reference in pu (base UNom)";
@@ -130,11 +130,11 @@ equation
   connect(VSM.omegaPu, currentLoop.omegaPu) annotation(
     Line(points = {{8, 74}, {78, 74}, {78, 42}, {76, 42}}, color = {0, 0, 127}));
   connect(VI.DeltaVVId, voltageReferenceControl.DeltaVVId) annotation(
-    Line(points = {{-56.3, -16.5}, {-82, -16.5}, {-82, 4}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-50, -12.5}, {-79.7, -12.5}, {-79.7, 4}, {-82, 4}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(VI.DeltaVVIq, voltageReferenceControl.DeltaVVIq) annotation(
-    Line(points = {{-56.3, -33.5}, {-74, -33.5}, {-74, 4}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-50, -29.5}, {-71.7, -29.5}, {-71.7, 4}, {-74, 4}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(iqConvPu, VI.iqConvPu) annotation(
-    Line(points = {{-108, -34}, {-94, -34}}, color = {0, 0, 127}));
+    Line(points = {{-108, -34}, {-101, -34}, {-101, -29.5}, {-88, -29.5}}, color = {0, 0, 127}));
   connect(idConvPu, currentLoop.idConvPu) annotation(
     Line(points = {{-108, -16}, {84, -16}, {84, 6}}, color = {245, 121, 0}, pattern = LinePattern.Dash));
   connect(iqConvPu, currentLoop.iqConvPu) annotation(
@@ -152,7 +152,7 @@ equation
   connect(currentLoop.uqConvRefPu, uqConvRefPu) annotation(
     Line(points = {{94, 18}, {94, 17}, {107, 17}}, color = {245, 121, 0}, thickness = 0.5));
   connect(idConvPu, VI.idConvPu) annotation(
-    Line(points = {{-108, -16}, {-94, -16}}, color = {245, 121, 0}));
+    Line(points = {{-108, -16}, {-101, -16}, {-101, -12.5}, {-88, -12.5}}, color = {245, 121, 0}));
   connect(VSM.theta, theta) annotation(
     Line(points = {{8, 86}, {106, 86}}, color = {0, 0, 127}));
   connect(voltageReferenceControl.udFilterRefPu, QSEM.udFilterRefPu) annotation(

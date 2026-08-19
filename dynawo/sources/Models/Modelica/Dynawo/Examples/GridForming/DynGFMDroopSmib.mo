@@ -24,11 +24,11 @@ model DynGFMDroopSmib "Single machine infinite bus test case for Grid Forming VS
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 1) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.01, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+  Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.001, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
     Placement(transformation(origin = {44, 64}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0, tUPhaseEvt = 0) annotation(
+  Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.4, tUPhaseEvt = 10) annotation(
     Placement(transformation(origin = {72, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMDroop DynGFMDroop(CFilterPu = 1e-05, IMaxVI = 12.0, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.1, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0, P0Pu = -9.94, Q0Pu = 0.65, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.997, UPhase0 = 0.05, Wf = 30, Wff = 6, XRratio = 10, XVI = 0, tVSC = 0.0004, Mp = 0.01)  annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMDroop DynGFMDroop(CFilterPu = 1e-05, IMaxVI = 1.2, Kfd = 0.8, Kff = 0.1, Kfq = 0, Kic = 15, KpVI = 0.1, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0, P0Pu = -9.93324, Q0Pu = 0.5896, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.997204592849431, UPhase0 = 0.0491571539684231, Wf = 40, Wff = 50, XRratio = 10, XVI = 0.1, tVSC = 0.0004, Mp = 0.013, KiPLL = 100, KpPLL = 10)  annotation(
     Placement(transformation(origin = {-10, 0}, extent = {{-28, -28}, {28, 28}})));
 equation
   line.switchOffSignal1 = false;
@@ -48,8 +48,8 @@ equation
     Line(points = {{-100, -60}, {-100, -22}, {-41, -22}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, DynGFMDroop.omegaRefPu) annotation(
     Line(points = {{-100, 20}, {-45, 20}, {-45, 11}, {-41, 11}}, color = {0, 0, 127}));
-  connect(line.terminal2, AcGrid.aCPower) annotation(
-    Line(points = {{54, 0}, {56, 0}, {56, 70}}, color = {0, 0, 255}));
+  connect(AcGrid.aCPower, line.terminal2) annotation(
+    Line(points = {{56, 70}, {64, 70}, {64, 0}, {54, 0}}, color = {0, 0, 255}));
   annotation(
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),

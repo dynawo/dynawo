@@ -13,18 +13,19 @@
 -->
 <mandatoryParameters>
     <mandatoryParameter name="CFilterPu" type="DOUBLE"/>
-    <mandatoryParameter name="H" type="DOUBLE"/>
     <mandatoryParameter name="IMaxVI" type="DOUBLE"/>
+    <mandatoryParameter name="Kfd" type="DOUBLE"/>
     <mandatoryParameter name="Kff" type="DOUBLE"/>
+    <mandatoryParameter name="Kfq" type="DOUBLE"/>
     <mandatoryParameter name="Kic" type="DOUBLE"/>
     <mandatoryParameter name="KpVI" type="DOUBLE"/>
     <mandatoryParameter name="Kpc" type="DOUBLE"/>
-    <mandatoryParameter name="Kfd" type="DOUBLE"/>
-    <mandatoryParameter name="Kfq" type="DOUBLE"/>
+    <mandatoryParameter name="KiPLL" type="DOUBLE"/>
+    <mandatoryParameter name="KpPLL" type="DOUBLE"/>
     <mandatoryParameter name="LFilterPu" type="DOUBLE"/>
     <mandatoryParameter name="LTransformerPu" type="DOUBLE"/>
+    <mandatoryParameter name="Mp" type="DOUBLE"/>
     <mandatoryParameter name="Mq" type="DOUBLE"/>
-    <mandatoryParameter name="OmegaSetPu" type="DOUBLE"/>
     <mandatoryParameter name="P0Pu" type="DOUBLE"/>
     <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
     <mandatoryParameter name="RFilterPu" type="DOUBLE"/>
@@ -36,6 +37,5 @@
     <mandatoryParameter name="Wff" type="DOUBLE"/>
     <mandatoryParameter name="XRratio" type="DOUBLE"/>
     <mandatoryParameter name="XVI" type="DOUBLE"/>
-    <mandatoryParameter name="kVSM" type="DOUBLE"/>
     <mandatoryParameter name="tVSC" type="DOUBLE"/>
 </mandatoryParameters>

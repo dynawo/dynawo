@@ -16,8 +16,14 @@ set(MODEL_FILES
   DynGFMVSM.extvar
   DynGFMVSM.mandatoryParam
   DynGFMCCVSM.mo
+  DynGFMCCVSM.extvar
+  DynGFMCCVSM.mandatoryParam
   DynGFMVSMConvPLL.mo
+  DynGFMVSMConvPLL.extvar
+  DynGFMVSMConvPLL.mandatoryParam
   DynGFMDroop.mo
+  DynGFMDroop.extvar
+  DynGFMDroop.mandatoryParam
   )
 
 #

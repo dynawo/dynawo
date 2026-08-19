@@ -16,7 +16,7 @@ model DynGFMVSMSmib "Single machine infinite bus test case for Grid Forming VSM 
   extends Modelica.Icons.Example;
   Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.000166667, XPu = 0.005) annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
+  Modelica.Blocks.Sources.Constant QRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -26,7 +26,7 @@ model DynGFMVSMSmib "Single machine infinite bus test case for Grid Forming VSM 
     Placement(transformation(origin = {-21, -1}, extent = {{-23, -23}, {23, 23}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = 1)  annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.01, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+  Dynawo.Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
     Placement(transformation(origin = {44, 64}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.46, tUPhaseEvt = 10)  annotation(
     Placement(transformation(origin = {72, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
