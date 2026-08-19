@@ -93,7 +93,7 @@ model TorquePi "Sub module for torque control inside active power control module
   Modelica.Blocks.Math.Gain gainTauUscale(k = TauUscalePu) annotation(
     Placement(transformation(origin = {-350, -180}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
-    Placement(transformation(origin = {-54, 42}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-70, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.IntegerToReal integerToReal annotation(
     Placement(transformation(origin = {-310, -60}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.NonElectrical.Blocks.NonLinear.IntegratorVariableLimitsContinuousSetFreeze integratorDTauMax(LimitMax0 = TauEMax0Pu, LimitMin0 = TauEMinPu, UseFreeze = false, UseReset = true, UseSet = true, Y0 = TauEMax0Pu) annotation(
@@ -123,9 +123,11 @@ model TorquePi "Sub module for torque control inside active power control module
   Modelica.Blocks.Logical.Switch switchKIpKPp annotation(
     Placement(transformation(origin = {-30, -60}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Logical.Switch switchOmegaErr annotation(
-    Placement(transformation(origin = {-148, 140}, extent = {{-10, 10}, {10, -10}})));
+    Placement(transformation(origin = {-150, 140}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterZero(threshold = 0.1) annotation(
     Placement(transformation(origin = {-270, -60}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.NonElectrical.Blocks.NonLinear.FixedBooleanDelay fixedBooleanDelay(tDelay = 1e-5, Y0 = false) annotation(
+    Placement(transformation(origin = {-30, 40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
@@ -174,13 +176,13 @@ equation
   connect(lessUPdip.y, orKIpKPp.u[1]) annotation(
     Line(points = {{-299, 80}, {-281, 80}, {-281, 0}, {-80, 0}}, color = {255, 0, 255}));
   connect(constZero.y, switchOmegaErr.u1) annotation(
-    Line(points = {{-179, 120}, {-170.5, 120}, {-170.5, 132}, {-160, 132}}, color = {0, 0, 127}));
+    Line(points = {{-179, 120}, {-170, 120}, {-170, 132}, {-162, 132}}, color = {0, 0, 127}));
   connect(omegaErrPu, switchOmegaErr.u3) annotation(
-    Line(points = {{-410, 140}, {-280, 140}, {-280, 148}, {-160, 148}}, color = {0, 0, 127}));
+    Line(points = {{-410, 140}, {-280, 140}, {-280, 148}, {-162, 148}}, color = {0, 0, 127}));
   connect(switchOmegaErr.y, gainKPp.u) annotation(
-    Line(points = {{-137, 140}, {38, 140}}, color = {0, 0, 127}));
+    Line(points = {{-139, 140}, {38, 140}}, color = {0, 0, 127}));
   connect(OrReset.y, switchOmegaErr.u2) annotation(
-    Line(points = {{-218.5, -20}, {-208.95, -20}, {-208.95, 140}, {-160, 140}}, color = {255, 0, 255}));
+    Line(points = {{-218.5, -20}, {-208.95, -20}, {-208.95, 140}, {-162, 140}}, color = {255, 0, 255}));
   connect(orKIpKPp.y, switchKIpKPp.u2) annotation(
     Line(points = {{-58.5, 0}, {-50.475, 0}, {-50.475, -60}, {-42, -60}}, color = {255, 0, 255}));
   connect(addKIpKPp.y, switchKIpKPp.u3) annotation(
@@ -223,8 +225,10 @@ equation
     Line(points = {{190, 78.5}, {190, -90}, {-2, -90}, {-2, -72}}, color = {255, 0, 255}, pattern = LinePattern.Dash));
   connect(switchKIpKPp.y, integratorKIpKPp.u) annotation(
     Line(points = {{-19, -60}, {-8, -60}}, color = {0, 0, 127}));
-  connect(greaterEqual.y, orKIpKPp.u[2]) annotation(
-    Line(points = {{-43, 42}, {-50, 42}, {-50, 24}, {-94, 24}, {-94, 0}, {-80, 0}}, color = {255, 0, 255}));
+  connect(greaterEqual.y, fixedBooleanDelay.u) annotation(
+    Line(points = {{-58, 40}, {-42, 40}}, color = {255, 0, 255}));
+  connect(fixedBooleanDelay.y, orKIpKPp.u[2]) annotation(
+    Line(points = {{-18, 40}, {0, 40}, {0, 20}, {-94, 20}, {-94, 0}, {-80, 0}}, color = {255, 0, 255}));
   connect(andResetKIpKPp.y, freeze.freeze) annotation(
     Line(points = {{-118.5, -120}, {-114.5, -120}, {-114.5, -256}, {-83.25, -256}, {-83.25, -252}, {-84, -252}}, color = {255, 0, 255}, pattern = LinePattern.Dash));
   connect(tauEMaxPu, integratorDTauMax.limitMax) annotation(
@@ -232,7 +236,7 @@ equation
   connect(integratorDTauMax.y, minDTauMaxTauOut.u1) annotation(
     Line(points = {{-99, 80}, {38, 80}}, color = {0, 0, 127}));
   connect(integratorKIpKPp.y, minDTauMaxTauOut.u2) annotation(
-    Line(points = {{15, -60}, {16, -60}, {16, 68}, {38, 68}}, color = {0, 0, 127}));
+    Line(points = {{15, -60}, {20, -60}, {20, 68}, {38, 68}}, color = {0, 0, 127}));
   connect(integratorKIpKPp.y, addKIpKPp.u2) annotation(
     Line(points = {{15, -60}, {20, -60}, {20, -102}, {-94, -102}, {-94, -58}, {-88, -58}}, color = {0, 0, 127}));
   connect(integratorKIpKPp.y, freeze.u) annotation(
@@ -246,13 +250,13 @@ equation
   connect(integratorKIpKPp.limitMax, tauEMaxPu) annotation(
     Line(points = {{-8, -52}, {-14, -52}, {-14, 180}, {-410, 180}}, color = {0, 0, 127}));
   connect(greaterEqual.u1, integratorKIpKPp.y) annotation(
-    Line(points = {{-66, 42}, {-88, 42}, {-88, 72}, {20, 72}, {20, -60}, {15, -60}}, color = {0, 0, 127}));
+    Line(points = {{-82, 40}, {-88, 40}, {-88, 72}, {20, 72}, {20, -60}, {15, -60}}, color = {0, 0, 127}));
   connect(andResetKIpKPp.y, integratorKIpKPp.reset) annotation(
     Line(points = {{-118.5, -120}, {-114.5, -120}, {-114.5, -98}, {8.75, -98}, {8.75, -72}, {10, -72}}, color = {255, 0, 255}));
   connect(ratelimResetvalue.y, integratorKIpKPp.set) annotation(
     Line(points = {{-219, -180}, {13, -180}, {13, -34}, {12, -34}, {12, -48}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
   connect(integratorDTauMax.y, greaterEqual.u2) annotation(
-    Line(points = {{-99, 80}, {-96, 80}, {-96, 34}, {-66, 34}}, color = {0, 0, 127}));
+    Line(points = {{-99, 80}, {-96, 80}, {-96, 32}, {-82, 32}}, color = {0, 0, 127}));
   connect(add.u1, tauEMaxPu) annotation(
     Line(points = {{118, 186}, {-133, 186}, {-133, 180}, {-410, 180}}, color = {0, 0, 127}));
   connect(add.y, limitTauOut.yMax) annotation(
