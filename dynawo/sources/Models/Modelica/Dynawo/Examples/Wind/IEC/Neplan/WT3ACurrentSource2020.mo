@@ -324,9 +324,9 @@ initial algorithm
   wt.uGs0Pu.im := init.uGs0Pu.im;
 
 equation
-  wt.injector.switchOffSignal1.value = false;
-  wt.injector.switchOffSignal2.value = false;
-  wt.injector.switchOffSignal3.value = false;
+  wt.injector.switchOffSignal1 = false;
+  wt.injector.switchOffSignal2 = false;
+  wt.injector.switchOffSignal3 = false;
 
   connect(tanPhi.y, wt.tanPhi) annotation(
     Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));
