@@ -31,11 +31,11 @@ no crowbar implemented)
 in a single machine infinite bus system.
 As an event, a voltage drop to 0.2 pu with 100 ms duration is used.</div><div><br></div><div>
 
-The following image shows the drop
+The following images show the drop
 and the model's P and Q responses.</div><div><br></div><div>
 
 <b>Active power response:</b></div><div> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/type3aUDropP.png\"><br>
-<b>Rective power response:</b></div><div> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/type3aUDropQ.png\"><figure>    </figure>
+<b>Reactive power response:</b></div><div> <img width=\"450\" src=\"modelica://Dynawo/Examples/Wind/IEC/Resources/Images/type3aUDropQ.png\"><figure>    </figure>
 
 </div></div></body></html>"));
 end WT3ACurrentSource2020UDrop;
