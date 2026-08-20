@@ -42,5 +42,5 @@ equation
 
 
 
-  omegaPu = der(UPhase+UPhaseOffs)+ SystemBase.omegaRef0Pu;
+  omegaPu = der(UPhaseOffs)+ SystemBase.omegaRef0Pu;
 end PhaseurGrid;

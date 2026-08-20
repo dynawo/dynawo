@@ -33,12 +33,12 @@ model DynGridFormingControlDroop
   // Filter parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LFilterPu "Filter inductance in pu (base UNom, SNom)";
-  // Transformer parameters
-  parameter Types.PerUnit RTransformerPu "Transformer resistance in pu (base UNom, SNom)";
-  parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)";
   //PLL parameters
   parameter Types.PerUnit KpPLL "PLL Proportional gain";
   parameter Types.PerUnit KiPLL "PLL Integrator gain";
+  // Transformer parameters
+  parameter Types.PerUnit RTransformerPu "Transformer resistance in pu (base UNom, SNom)";
+  parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)";
   //Operating Point
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal/PCC in rad";
@@ -78,8 +78,6 @@ model DynGridFormingControlDroop
     Placement(transformation(origin = {106, 86}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput omegaPu(start = Omega0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {106, 76}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput omegaPLL(start = Omega0Pu) "Measured frequency from the grid (base omegaNom)" annotation(
-    Placement(transformation(origin = {106, 62}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilter = LTransformerPu, RFilter = RTransformerPu, UdFilter0Pu = UdFilter0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilter0Pu, UqPcc0Pu = UqPcc0Pu, XVI = XVI, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {18, 24}, extent = {{-16, -16}, {16, 16}})));
   Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops.DynCurrentLoop currentLoop(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Kfd = Kfd, Kfq = Kfq, Kic = Kic, Kpc = Kpc, LFilter = LFilterPu, RFilter = RFilterPu, UdConv0Pu = UdConv0Pu, UdFilter0Pu = UdFilter0Pu, UqConv0Pu = UqConv0Pu, UqFilter0Pu = UqFilter0Pu, Omega0Pu = Omega0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu) annotation(
@@ -103,14 +101,17 @@ model DynGridFormingControlDroop
   parameter Types.ActivePowerPu PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   final parameter Types.VoltageModulePu URef0Pu = sqrt(UdFilter0Pu*UdFilter0Pu + UqFilter0Pu*UqFilter0Pu) "Start value of voltage module reference in pu (base UNom)";
+  PLL.PLL_INIT pll_init(U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
+    Placement(transformation(origin = {-138, 14}, extent = {{-10, -10}, {10, 10}})));
   PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = 2.0, OmegaMinPu = 0, u0Pu = u0Pu) annotation(
-    Placement(transformation(origin = {-90, 42}, extent = {{-6, -6}, {6, 6}})));
+    Placement(transformation(origin = {-74, 50}, extent = {{-6, -6}, {6, 6}})));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(re(start = u0Pu.re), im(start = u0Pu.im)) annotation(
     Placement(transformation(origin = {-108, 54}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-109, 55}, extent = {{-9, -9}, {9, 9}})));
   Modelica.Blocks.Continuous.FirstOrder PLLFilter(T = 0.01, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Omega0Pu) annotation(
-    Placement(transformation(origin = {-76, 64}, extent = {{-6, -6}, {6, 6}})));
-  PLL.PLL_INIT pll_init(U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
-    Placement(transformation(origin = {-138, 14}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-58, 66}, extent = {{-6, -6}, {6, 6}})));
+   Modelica.Blocks.Interfaces.RealOutput omegaPLL(start = Omega0Pu) "Measured frequency from the grid (base omegaNom)" annotation(
+    Placement(transformation(origin = {106, 62}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Dynawo.Electrical.Controls.Converters.BaseControls.DroopControl droopControl(IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mp = Mp, Mq = Mq, PFilter0Pu = PFilter0Pu, PRef0Pu = PFilter0Pu, QFilter0Pu = QFilter0Pu, QRef0Pu = QFilter0Pu, Theta0 = Theta0, UFilterRef0Pu = URef0Pu, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, Wf = Wf, Wff = Wff, DeltaVVId0 = VI.DeltaVVId0, DeltaVVIq0 = VI.DeltaVVIq0) annotation(
     Placement(transformation(origin = {-23, 77}, extent = {{-15, -15}, {15, 15}})));
 equation
@@ -138,10 +139,6 @@ equation
     Line(points = {{36, 30}, {58, 30}}, color = {0, 0, 127}));
   connect(QSEM.iqConvRefPu, currentLoop.iqConvRefPu) annotation(
     Line(points = {{36, 18}, {58, 18}}, color = {0, 0, 127}));
-  connect(pll.omegaPLLPu, omegaPLL) annotation(
-    Line(points = {{-83, 45}, {36, 45}, {36, 62}, {106, 62}}, color = {0, 0, 127}));
-  connect(uPccPu, pll.uPu) annotation(
-    Line(points = {{-108, 54}, {-103.5, 54}, {-103.5, 46}, {-97, 46}}, color = {85, 170, 255}));
   connect(droopControl.uqFilterRefPu, QSEM.uqFilterRefPu) annotation(
     Line(points = {{-6.5, 62}, {-13, 62}, {-13, 18}, {0, 18}}, color = {0, 0, 127}));
   connect(droopControl.udFilterRefPu, QSEM.udFilterRefPu) annotation(
@@ -150,8 +147,6 @@ equation
     Line(points = {{-6.5, 84.5}, {39, 84.5}, {39, 86}, {106, 86}}, color = {0, 0, 127}));
   connect(droopControl.omegaPu, omegaPu) annotation(
     Line(points = {{-6.5, 77}, {39, 77}, {39, 76}, {106, 76}}, color = {0, 0, 127}));
-  connect(omegaRefPu, pll.omegaRefPu) annotation(
-    Line(points = {{-108, 96}, {-108, 94}, {-97, 94}, {-97, 38}}, color = {0, 0, 127}));
   connect(VI.DeltaVVId, droopControl.DeltaVVId) annotation(
     Line(points = {{-56, -16}, {-54, -16}, {-54, 60.5}, {-38, 60.5}}, color = {0, 0, 127}));
   connect(VI.DeltaVVIq, droopControl.DeltaVVIq) annotation(
@@ -160,8 +155,6 @@ equation
     Line(points = {{-108, -52}, {-39, -52}, {-39, 60.5}, {-23, 60.5}}, color = {0, 0, 127}));
   connect(iqPccPu, droopControl.iqPccPu) annotation(
     Line(points = {{-108, -64}, {-31.5, -64}, {-31.5, 60.5}, {-15.5, 60.5}}, color = {0, 0, 127}));
-  connect(pll.omegaPLLPu, PLLFilter.u) annotation(
-    Line(points = {{-83, 45}, {-83, 64}}, color = {0, 0, 127}));
   connect(PFilterPu, droopControl.PFilterPu) annotation(
     Line(points = {{-32, 110}, {-32, 102}, {-15.5, 102}, {-15.5, 93.5}}, color = {0, 0, 127}));
   connect(QFilterPu, droopControl.QFilterPu) annotation(
@@ -178,6 +171,14 @@ equation
     Line(points = {{-6, 76}, {76, 76}, {76, 42}}, color = {0, 0, 127}));
   connect(omegaRefPu, droopControl.omegaRefPu) annotation(
     Line(points = {{-108, 96}, {-8, 96}, {-8, 60}}, color = {0, 0, 127}));
+  connect(uPccPu, pll.uPu) annotation(
+    Line(points = {{-108, 54}, {-80, 54}}, color = {85, 170, 255}));
+  connect(pll.omegaPLLPu, PLLFilter.u) annotation(
+    Line(points = {{-68, 54}, {-66, 54}, {-66, 66}}, color = {0, 0, 127}));
+  connect(omegaRefPu, pll.omegaRefPu) annotation(
+    Line(points = {{-108, 96}, {-86, 96}, {-86, 46}, {-80, 46}}, color = {0, 0, 127}));
+  connect(pll.omegaPLLPu, omegaPLL) annotation(
+    Line(points = {{-68, 54}, {106, 54}, {106, 62}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Text(origin = {45, 35}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {45, 23}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 35}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 23}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold})}),

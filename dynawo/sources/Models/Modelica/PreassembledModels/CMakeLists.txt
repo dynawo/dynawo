@@ -12,6 +12,7 @@
 
 set(MODELICA_PREASSEMBLED_MODELS
   AcGrid.xml
+  AcGridRoCoF.xml
   AggregatedIBG.xml
   BESSWeccCurrentSource.xml
   BESSWeccCurrentSourceNoPlantControl.xml
@@ -239,6 +240,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccVoltageSource3NoPlantControl.xml
   PhotovoltaicsWeccVoltageSource4.xml
   PhotovoltaicsWeccVoltageSource4NoPlantControl.xml
+  PlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml
