@@ -50,11 +50,11 @@ partial model BaseWTInjector "Converter model and grid interface according to IE
     Placement(visible = true, transformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-60, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 
   //Output variables
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput iWtPu(re(start = elecSystem.i20Pu.re), im(start = elecSystem.i20Pu.im)) "Complex current at grid terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput iWtPu(re(start = elecSystem.i20Pu.re), im(start = elecSystem.i20Pu.im)) "Complex current at WT terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput PAgPu(start = Ip0Pu * U0Pu) "Generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-80, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = elecSystem.u20Pu.re), im(start = elecSystem.u20Pu.im)) "Complex voltage at grid terminal in pu (base UNom)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput uWtPu(re(start = elecSystem.u20Pu.re), im(start = elecSystem.u20Pu.im)) "Complex voltage at WT terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Types.ActivePowerPu PGenPu(start = -P0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
@@ -78,9 +78,9 @@ partial model BaseWTInjector "Converter model and grid interface according to IE
     Dialog(tab = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
-  parameter Types.ComplexCurrentPu iWt0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+  parameter Types.ComplexCurrentPu iWt0Pu "Initial complex current at WT terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+  parameter Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at WT terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
 
   // Operating point

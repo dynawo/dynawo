@@ -65,6 +65,9 @@ protected
   parameter Boolean WT3Type = false "If true : type a, if false type b";
 
 equation
+  connect(switchOffSignal1, injector.switchOffSignal1);
+  connect(switchOffSignal2, injector.switchOffSignal2);
+  connect(switchOffSignal3, injector.switchOffSignal3);
   connect(control.ipMaxPu, injector.ipMaxPu) annotation(
     Line(points = {{-34, -30}, {-28, -30}, {-28, -21}, {-10, -21}}, color = {0, 0, 127}));
   connect(control.ipCmdPu, injector.ipCmdPu) annotation(
