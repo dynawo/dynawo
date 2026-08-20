@@ -12,13 +12,12 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="Grid" lib="AcGridRoCoF" parFile="DroopRoCoF.par" parId="1"/>
-  <!--dyn:blackBoxModel id="Bus" lib="InfiniteBus" parFile="DroopRoCoF.par" parId="bus"/!-->
+  <dyn:blackBoxModel id="Grid" lib="AcGridRoCoF" parFile="CCVSMRoCoF.par" parId="1"/>
   <dyn:blackBoxModel id="line" lib="Line" parFile="DroopRoCoF.par" parId="2"/>
-  <dyn:blackBoxModel id="GFMDroop" lib="DynGridFormingDroop" parFile="DroopRoCoF.par" parId="3"/>
-  <dyn:blackBoxModel id="SetPointOne" lib="SetPoint" parFile="DroopRoCoF.par" parId="4"/>
-  <dyn:blackBoxModel id="SetPointZero" lib="SetPoint" parFile="DroopRoCoF.par" parId="5"/>
-  <!--dyn:connect id1="Bus" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/-->
+  <dyn:blackBoxModel id="GFMCCVSM" lib="DynGridFormingCurrentControlledVirtualSynchronousMachine" parFile="CCVSMRoCoF.par" parId="3"/>
+  <dyn:blackBoxModel id="SetPointOne" lib="SetPoint" parFile="CCVSMRoCoF.par" parId="4"/>
+  <dyn:blackBoxModel id="SetPointZero" lib="SetPoint" parFile="CCVSMRoCoF.par" parId="5"/>
+
   <dyn:connect id1="Grid" var1="Grid_aCPower" id2="line" var2="line_terminal1"/>
   <dyn:connect id1="line" var1="line_terminal2" id2="GFMDroop" var2="GFMDroop_terminal"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_PFilterRefPu"/>

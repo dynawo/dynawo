@@ -13,6 +13,8 @@ set(MODEL_FILES
   package.mo
   package.order
   PlantControl.mo
+  PlantControl.extvar
+  PlantControl.mandatoryParam
   )
 
 #

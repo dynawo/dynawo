@@ -12,6 +12,6 @@
     simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="GFMDroop" variable="GFMDroop_ControlDroop_PFilterPu"/>
-  <curve model="GFMDroop" variable="GFMDroop_ControlDroop_PFilterRefPu"/>
+  <curve model="GFMCCVSM" variable="GFMCCVSM_ControlCC_PFilterPu"/>
+  <curve model="GFMCCVSM" variable="GFMCCVSM_ControlCC_PFilterRefPu"/>
 </curvesInput>

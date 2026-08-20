@@ -65,7 +65,7 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {238, 104}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Wrotor_t0(k = 0)  annotation(
     Placement(visible = true, transformation(origin = {161, 131}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanStep ActivateOmegaConstante(startTime = 0, startValue = false)  annotation(
+  Modelica.Blocks.Sources.BooleanStep ActivateOmegaConstante(startTime = -1, startValue = false)  annotation(
     Placement(visible = true, transformation(origin = {107, 103}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
   Modelica.Blocks.Math.Add add6 annotation(
     Placement(visible = true, transformation(origin = {226, 254}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

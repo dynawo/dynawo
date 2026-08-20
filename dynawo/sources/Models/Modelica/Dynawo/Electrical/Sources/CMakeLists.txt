@@ -19,6 +19,9 @@ set(MODEL_FILES
   AcGrid.mo
   AcGrid.extvar
   AcGrid.mandatoryParam
+  AcGridRoCoF.mo
+  AcGridRoCoF.extvar
+  AcGridRoCoF.mandatoryParam
   Converter.mo
   Converter.extvar
   Converter.mandatoryParam

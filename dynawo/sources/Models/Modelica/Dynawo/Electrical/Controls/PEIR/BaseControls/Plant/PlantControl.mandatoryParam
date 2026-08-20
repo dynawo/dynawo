@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+    <mandatoryParameter name="SNom" type="DOUBLE"/>
+    <mandatoryParameter name="Lambd" type="DOUBLE"/>
+    <mandatoryParameter name="Kdroop" type="DOUBLE"/>
+    <mandatoryParameter name="tQFilt" type="DOUBLE"/>
+    <mandatoryParameter name="tPFilt" type="DOUBLE"/>
+    <mandatoryParameter name="tUFilt" type="DOUBLE"/>
+    <mandatoryParameter name="Kpq" type="DOUBLE"/>
+    <mandatoryParameter name="Kiq" type="DOUBLE"/>
+    <mandatoryParameter name="Kpp" type="DOUBLE"/>
+    <mandatoryParameter name="Kip" type="DOUBLE"/>
+    <mandatoryParameter name="QMaxPu" type="DOUBLE"/>
+    <mandatoryParameter name="QMinPu" type="DOUBLE"/>
+    <mandatoryParameter name="PMaxPu" type="DOUBLE"/>
+    <mandatoryParameter name="PMinPu" type="DOUBLE"/>
+    <mandatoryParameter name="FEMaxPu" type="DOUBLE"/>
+    <mandatoryParameter name="FEMinPu" type="DOUBLE"/>
+    <mandatoryParameter name="FDbd1Pu" type="DOUBLE"/>
+    <mandatoryParameter name="FDbd2Pu" type="DOUBLE"/>
+    <mandatoryParameter name="DbdPu" type="DOUBLE"/>
+    <mandatoryParameter name="QPcc0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="Omega0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="UPcc0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="PPcc0Pu" type="DOUBLE"/>
+</mandatoryParameters>
