@@ -118,6 +118,18 @@ class SimulationEntry {
     timeout_ = timeout;
   }
 
+  /**
+   * @brief enable real time tracking getter
+   * @return true if real time tracking is enabled
+   */
+  bool getEnableRealTimeTracking() const;
+
+  /**
+   * @brief enable real time tracking setter
+   * @param enable true to enable real time tracking
+   */
+  void setEnableRealTimeTracking(bool enable);
+
  private:
   double startTime_;                        ///< Start time of the simulation
   double stopTime_;                         ///< Stop time of the simulation
@@ -125,6 +137,7 @@ class SimulationEntry {
   int criteriaStep_;                        ///< criteria verification time step
   double precision_;                        ///< precision of the simulation
   double timeout_;                          ///< simulation timeout
+  bool enableRealTimeTracking_;             ///< enable real time tracking for timestep timing
 };
 
 }  // namespace job
