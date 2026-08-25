@@ -28,33 +28,38 @@
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
   <set id="3">
-
-    <par name="GFMDroop_CFilterPu" type="DOUBLE" value="1e-05"/>
-    <par name="GFMDroop_IMaxVI" type="DOUBLE" value="2.0"/>
-    <par name="GFMDroop_Kff" type="DOUBLE" value="0.1"/>
-    <par name="GFMDroop_Kic" type="DOUBLE" value="15"/>
-    <par name="GFMDroop_KpPLL" type="DOUBLE" value="10"/>
-    <par name="GFMDroop_KiPLL" type="DOUBLE" value="100"/>
-    <par name="GFMDroop_KpVI" type="DOUBLE" value="0.1"/>
-    <par name="GFMDroop_Kpc" type="DOUBLE" value="0.477465"/>
-    <par name="GFMDroop_Kfd" type="DOUBLE" value="0.8"/>
-    <par name="GFMDroop_Kfq" type="DOUBLE" value="0"/>
-    <par name="GFMDroop_LFilterPu" type="DOUBLE" value="0.15"/>
-    <par name="GFMDroop_LTransformerPu" type="DOUBLE" value="0.06"/>
-    <par name="GFMDroop_Mp" type="DOUBLE" value="0.013"/>
-    <par name="GFMDroop_Mq" type="DOUBLE" value="0"/>
-    <par name="GFMDroop_P0Pu" type="DOUBLE" value="-9.93324"/>
-    <par name="GFMDroop_Q0Pu" type="DOUBLE" value="0.5896"/>
-    <par name="GFMDroop_RFilterPu" type="DOUBLE" value="0.015"/>
-    <par name="GFMDroop_RTransformerPu" type="DOUBLE" value="0.006"/>
-    <par name="GFMDroop_SNom" type="DOUBLE" value="1000"/>
-    <par name="GFMDroop_U0Pu" type="DOUBLE" value="0.997204592849431"/>
-    <par name="GFMDroop_UPhase0" type="DOUBLE" value="0.0491571539684231"/>
-    <par name="GFMDroop_Wf" type="DOUBLE" value="40"/>
-    <par name="GFMDroop_Wff" type="DOUBLE" value="50"/>
-    <par name="GFMDroop_XRratio" type="DOUBLE" value="10"/>
-    <par name="GFMDroop_XVI" type="DOUBLE" value="0.1"/>
-    <par name="GFMDroop_tVSC" type="DOUBLE" value="0.0004"/>
+    <par name="GFMCC_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <par name="GFMCC_DeltaIConvMaxPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMCC_H" type="DOUBLE" value="3"/>
+    <par name="GFMCC_IMaxVI" type="DOUBLE" value="10"/>
+    <par name="GFMCC_Imax" type="DOUBLE" value="1.2"/>
+    <par name="GFMCC_Imin" type="DOUBLE" value="0"/>
+    <par name="GFMCC_Kfd" type="DOUBLE" value="1"/>
+    <par name="GFMCC_Kff" type="DOUBLE" value="0.01"/>
+    <par name="GFMCC_Kfq" type="DOUBLE" value="0.8"/>
+    <par name="GFMCC_Kic" type="DOUBLE" value="15"/>
+    <par name="GFMCC_KiPLL" type="DOUBLE" value="10"/>
+    <par name="GFMCC_KpPLL" type="DOUBLE" value="100"/>
+    <par name="GFMCC_KpVI" type="DOUBLE" value="0.05"/>
+    <par name="GFMCC_Kpc" type="DOUBLE" value="2.09"/>
+    <par name="GFMCC_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMCC_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <par name="GFMCC_Mq" type="DOUBLE" value="0.2"/>
+    <par name="GFMCC_OmegaSetPu" type="DOUBLE" value="1"/>
+    <par name="GFMCC_P0Pu" type="DOUBLE" value="-9.9633"/>
+    <par name="GFMCC_Q0Pu" type="DOUBLE" value="1.0049"/>
+    <par name="GFMCC_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFMCC_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="GFMCC_SNom" type="DOUBLE" value="1000"/>
+    <par name="GFMCC_U0Pu" type="DOUBLE" value="0.99714"/>
+    <par name="GFMCC_UPhase0" type="DOUBLE" value="0.04996"/>
+    <par name="GFMCC_W_CurrentLimit" type="DOUBLE" value="50"/>
+    <par name="GFMCC_Wf" type="DOUBLE" value="31.4159"/>
+    <par name="GFMCC_Wff" type="DOUBLE" value="60"/>
+    <par name="GFMCC_XRratio" type="DOUBLE" value="2"/>
+    <par name="GFMCC_XVI" type="DOUBLE" value="0"/>
+    <par name="GFMCC_kVSM" type="DOUBLE" value="155.955"/>
+    <par name="GFMCC_tVSC" type="DOUBLE" value="0.0004"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

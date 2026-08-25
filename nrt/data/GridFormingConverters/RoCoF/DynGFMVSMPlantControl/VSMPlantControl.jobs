@@ -12,11 +12,11 @@
     simulation tool for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="GFM with Droop - AcGrid connection with RoCoF test">
-        <solver lib="dynawo_SolverSIM" parFile="CCVSMRoCoF.par" parId="SimplifiedSolver"/>
-        <!--solver lib="dynawo_SolverIDA" parFile="DroopRoCoF.par" parId="IDASolver"/-->
+    <job name="VSM with Plant Control - AcGrid connection with RoCoF test">
+        <solver lib="dynawo_SolverSIM" parFile="VSMPlantControl.par" parId="SimplifiedSolver"/>
+        <!--solver lib="dynawo_SolverIDA" parFile="VSMPlantControl.par" parId="IDASolver"/-->
         <modeler compileDir="outputs/compilation">
-            <dynModels dydFile="CCVSMRoCoF.dyd"/>
+            <dynModels dydFile="VSMPlantControl.dyd"/>
             <precompiledModels useStandardModels="true"/>
             <modelicaModels useStandardModels="true">
               <directory path="." recursive="false"/>
@@ -25,7 +25,7 @@
         <simulation startTime="0" stopTime="25" precision="1e-4"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true"/>
-            <curves inputFile="CCVSMRoCoF.crv" exportMode="CSV"/>
+            <curves inputFile="VSMPlantControl.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
               <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
