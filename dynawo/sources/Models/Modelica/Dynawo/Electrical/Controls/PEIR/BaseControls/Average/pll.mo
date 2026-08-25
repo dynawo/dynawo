@@ -1,4 +1,5 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
+
 
 // =============================================================================
 // Author  : Gaia Bergamaschi

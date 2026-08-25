@@ -31,7 +31,7 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // VSC Padé delay
   // ────────────────────────────────────────────────────────────
-  parameter Real tVSC "VSC Pade delay time constant (s)";
+  parameter Real tVSC "VSC  delay time constant (s)";
   // ────────────────────────────────────────────────────────────
   // LC filter (converter-side output filter)
   // ────────────────────────────────────────────────────────────
@@ -176,13 +176,13 @@ model GFLmodel
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
   // limitation with P/Q priority, and reactive-power boost logic.
-  GFLControl gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, id_ref_0 = Id_conv_0, id_conv_0 = Id_conv_0, iq_ref_0 = Iq_conv_0, iq_conv_0 = Iq_conv_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, k_p_d_current = k_p_d_current, k_i_d_current = k_i_d_current, k_p_q_current = k_p_q_current, k_i_q_current = k_i_q_current, L_g = L_g, R_g = R_g, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, k_p_d_outer = k_p_d_outer, k_i_d_outer = k_i_d_outer, k_p_q_outer = k_p_q_outer, k_i_q_outer = k_i_q_outer, Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, K_p_pll = K_p_pll, K_i_pll = K_i_pll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q, T_boost = T_boost) annotation(
+  BaseClasses.GFLControl gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, id_ref_0 = Id_conv_0, id_conv_0 = Id_conv_0, iq_ref_0 = Iq_conv_0, iq_conv_0 = Iq_conv_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, k_p_d_current = k_p_d_current, k_i_d_current = k_i_d_current, k_p_q_current = k_p_q_current, k_i_q_current = k_i_q_current, L_g = L_g, R_g = R_g, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, k_p_d_outer = k_p_d_outer, k_i_d_outer = k_i_d_outer, k_p_q_outer = k_p_q_outer, k_i_q_outer = k_i_q_outer, Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, K_p_pll = K_p_pll, K_i_pll = K_i_pll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q, T_boost = T_boost) annotation(
     Placement(transformation(origin = {-95, 47}, extent = {{-17, -17}, {17, 17}})));
   // Plant-level controller block.
   // Implements: P–f droop, Q–U droop, frequency and voltage deadbands,
   // PI loops for active and reactive power, and output limiter
-  Plant_controller plant_controller(Kp_q = K_p_q_plant, Ki_q = K_i_q_plant, Kp_p = K_p_p_plant, Ki_p = K_i_p_plant, Lambda = Lambda, Kdroop = Kdroop, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, U0Pu = U0Pu, Q0Pu = Q0Pu, P0Pu = P0Pu, Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu) annotation(
-    Placement(transformation(origin = {-151, 53}, extent = {{-17, -17}, {17, 17}})));
+  BaseClasses.Plant_controller plant_controller(Kp_q = K_p_q_plant, Ki_q = K_i_q_plant, Kp_p = K_p_p_plant, Ki_p = K_i_p_plant, Lambda = Lambda, Kdroop = Kdroop, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, U0Pu = U0Pu, Q0Pu = Q0Pu, P0Pu = P0Pu, Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu) annotation(
+    Placement(transformation(origin = {-153, 57}, extent = {{-17, -17}, {17, 17}})));
   // External active power set-point input
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) annotation(
     Placement(transformation(origin = {-209, 61}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-118, 72}, extent = {{-20, -20}, {20, 20}})));
@@ -196,15 +196,15 @@ model GFLmodel
   // VSC switching delay block (first-order Padé approximation).
   // Introduces a realistic delay between the voltage reference computed by the
   // controller and the actual converter output voltage
-  Controls.PEIR.BaseControls.Average.VSC_with_pade_delay vSC_with_pade_delay(tVSC = tVSC, UreConv0Pu = uconv0Pu_init.re, UimConv0Pu = uconv0Pu_init.im) annotation(
+  BaseClasses.VSC_with_first_order_delay vSC_delay(tVSC = tVSC, UreConv0Pu = uconv0Pu_init.re, UimConv0Pu = uconv0Pu_init.im) annotation(
     Placement(transformation(origin = {-40, 58}, extent = {{-10, -10}, {10, 10}})));
   // Measurement and filtering block.
   // Computes filtered signals for P, Q, U, I fom the PLL angle θ, the
   // instantaneous terminal voltages and currents at the PCC and LV node
-  MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud_LV0Pu, V_LV_q_0 = Uq_LV0Pu) annotation(
+  Controls.Utilities.Average.MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud_LV0Pu, V_LV_q_0 = Uq_LV0Pu) annotation(
     Placement(transformation(origin = {-90, -106}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
   // LC dynamic filter block
-  LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu* SNom / SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
+  BaseClasses.LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu* SNom / SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
     Placement(transformation(origin = {3, 55}, extent = {{-11, -11}, {11, 11}})));
   // Combined LV+HV transformer RL stage.
   // Models the two winding leakage impedances (LV and HV) as a single lumped
@@ -215,7 +215,7 @@ model GFLmodel
   // degree of freedom. The internal LV-bus voltage (junction between the two
   // stages, used by the MeasurementBlock) is instead recovered algebraically
   // below from this single current and the HV-leg impedance alone.
-  RLDynTrafo Trafo(RPu = (RPuLV + RPuHV)*SystemBase.SnRef/SNom, LPu = (LPuLV + LPuHV)*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
+  BaseClasses.RLDynTrafo Trafo(RPu = (RPuLV + RPuHV)*SystemBase.SnRef/SNom, LPu = (LPuLV + LPuHV)*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {57, 54}, extent = {{-10, -10}, {10, 10}})));
 
 equation
@@ -227,29 +227,25 @@ equation
 // ──────────────────────────────────────────────────────────────────────────
 // ── 13.1  External references → plant controller ─────────────────────────
   connect(PRefPu, plant_controller.PRefPu) annotation(
-    Line(points = {{-209, 61}, {-170, 61}, {-170, 61.5}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-209, 61}, {-209, 63}, {-172, 63}, {-172, 65.5}}, color = {220, 138, 221}, thickness = 0.75));
 // Active power set-point from the dispatcher to the plant controller
   connect(UREfPu, plant_controller.URefPu) annotation(
-    Line(points = {{-209, 45}, {-170, 45}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-209, 45}, {-190.5, 45}, {-190.5, 49}, {-172, 49}}, color = {220, 138, 221}, thickness = 0.75));
 // Voltage / reactive power set-point to the plant controller
   connect(omegaRefPu, gFLControl.omegaRefPU) annotation(
     Line(points = {{-83, 109}, {-83, 66}}, color = {220, 138, 221}, thickness = 0.75));
 // Network frequency reference fed directly to the GFL converter controller
 // ── 13.2  Plant controller ↔ GFL converter controller ────────────────────
-  connect(plant_controller.PInjRefPu, gFLControl.P_ref) annotation(
-    Line(points = {{-131, 59}, {-114, 59}}, color = {255, 120, 0}, thickness = 0.75));
 // Active power reference from plant controller to GFL outer loop
   connect(plant_controller.omegaPLLPu, gFLControl.omega_pll_pu_2) annotation(
-    Line(points = {{-132, 51}, {-132, 52.5}, {-114, 52.5}, {-114, 54}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
+    Line(points = {{-134, 55}, {-134, 52.5}, {-114, 52.5}, {-114, 54}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // PLL frequency fed back from plant controller to GFL controller (dashed = feedback)
-  connect(gFLControl.Q_ref, plant_controller.QInjRefPu) annotation(
-    Line(points = {{-114, 49}, {-114.5, 49}, {-114.5, 45}, {-131, 45}}, color = {255, 120, 0}, thickness = 0.75));
 // Reactive power reference from GFL controller back to plant controller
 // ── 13.3  GFL controller → VSC Padé delay ────────────────────────────────
-  connect(gFLControl.vm_re, vSC_with_pade_delay.uReConvRefPu) annotation(
+  connect(gFLControl.vm_re, vSC_delay.uReConvRefPu) annotation(
     Line(points = {{-76, 55.5}, {-61.5, 55.5}, {-61.5, 62}, {-51, 62}}, color = {38, 162, 105}, thickness = 0.75));
 // Real part of the modulation voltage reference → VSC delay input
-  connect(gFLControl.vm_im, vSC_with_pade_delay.uImConvRefPu) annotation(
+  connect(gFLControl.vm_im, vSC_delay.uImConvRefPu) annotation(
     Line(points = {{-76, 48}, {-55.5, 48}, {-55.5, 56}, {-51, 56}}, color = {38, 162, 105}, thickness = 0.75));
 // Imaginary part of the modulation voltage reference → VSC delay input
 // ── 13.4  Measurement block → GFL converter controller ───────────────────
@@ -279,19 +275,19 @@ equation
 // q-axis LV node voltage → feed-forward / outer loop
 // ── 13.5  Measurement block → plant controller ────────────────────────────
   connect(measurementBlock.U_pcc_pu_abs, plant_controller.UfiltPu) annotation(
-    Line(points = {{-118, -95}, {-118, -94.5}, {-142, -94.5}, {-142, 34}, {-141, 34}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-118, -95}, {-118, -94.5}, {-142, -94.5}, {-142, 38}, {-143, 38}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered PCC voltage magnitude → Q–U droop and PI in plant controller
   connect(measurementBlock.Q_plant, plant_controller.QfiltPu) annotation(
-    Line(points = {{-118, -102}, {-150, -102}, {-150, 34}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-118, -102}, {-118, -100}, {-152, -100}, {-152, 38}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level reactive power → Q–U PI in plant controller
   connect(measurementBlock.P_plant, plant_controller.PfiltPu) annotation(
-    Line(points = {{-118, -109}, {-118, -108}, {-158, -108}, {-158, 34}}, color = {220, 138, 221}, thickness = 0.75));
+    Line(points = {{-118, -109}, {-118, -108}, {-160, -108}, {-160, 38}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level active power → P–f PI in plant controller
 // ── 13.6  VSC delay → LC filter ───────────────────────────────────────────
-  connect(vSC_with_pade_delay.uReConvPu, lCDynFilter.uLeft_rePu) annotation(
+  connect(vSC_delay.uReConvPu, lCDynFilter.uLeft_rePu) annotation(
     Line(points = {{-29, 62}, {-10, 62}}, color = {38, 162, 105}, thickness = 0.75));
 // Delayed real part of converter voltage → LC filter left port
-  connect(vSC_with_pade_delay.uImConvPu, lCDynFilter.uLeft_imPu) annotation(
+  connect(vSC_delay.uImConvPu, lCDynFilter.uLeft_imPu) annotation(
     Line(points = {{-29, 56}, {-10, 56}}, color = {38, 162, 105}, thickness = 0.75));
 // Delayed imaginary part of converter voltage → LC filter left port
 // ── 13.7  PLL frequency shared across all dynamic electrical elements ──────
@@ -336,7 +332,10 @@ equation
   measurementBlock.I_pcc_im = -terminalPcc.i.im * SystemBase.SnRef / SNom;
   connect(Trafo.right, terminalPcc) annotation(
     Line(points = {{68, 54}, {104, 54}}, color = {0, 0, 255}));
-
+  connect(plant_controller.QInjRefPu, gFLControl.Q_ref) annotation(
+    Line(points = {{-133, 49}, {-133, 48}, {-114, 48}}, color = {0, 0, 127}));
+  connect(plant_controller.PInjRefPu, gFLControl.P_ref) annotation(
+    Line(points = {{-133, 63}, {-123, 63}, {-123, 58}, {-114, 58}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));

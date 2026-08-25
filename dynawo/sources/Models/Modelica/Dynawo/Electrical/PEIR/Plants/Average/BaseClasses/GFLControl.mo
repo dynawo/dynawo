@@ -1,4 +1,6 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.PEIR.Plants.Average.BaseClasses;
+
+
 
 model GFLControl
 
@@ -97,7 +99,7 @@ model GFLControl
   // Sub-blocks
   // ────────────────────────────────────────────────────────────
 
-  Dynawo.Electrical.PEIR.Plants.Average.current_loop current_loop_GFL(
+ Electrical.Controls.PEIR.BaseControls.Average.current_loop current_loop_GFL(
     k_p_d             = k_p_d_current,
     k_i_d             = k_i_d_current,
     k_p_q             = k_p_q_current,
@@ -106,7 +108,7 @@ model GFLControl
  id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0,  voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
-  Dynawo.Electrical.PEIR.Plants.Average.outer_loop outer_loop_GFL(
+  Electrical.Controls.PEIR.BaseControls.Average.outer_loop outer_loop_GFL(
     k_p_d           = k_p_d_outer,
     k_i_d           = k_i_d_outer,
     k_p_q           = k_p_q_outer,
@@ -124,7 +126,7 @@ model GFLControl
      PInjPu0 = PInj0Pu, QInjPu0 = QInj0Pu, U_filter0 = U_LV0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, T_boost = T_boost) annotation(
     Placement(transformation(origin = {-200, 56}, extent = {{-36, -36}, {36, 36}})));
 
- Dynawo.Electrical.PEIR.Plants.Average.pll PLL(
+ Electrical.Controls.PEIR.BaseControls.Average.pll PLL(
     Ki         = K_i_pll,
     Kp         = K_p_pll,
     OmegaMaxPu = OmegaMaxPu,

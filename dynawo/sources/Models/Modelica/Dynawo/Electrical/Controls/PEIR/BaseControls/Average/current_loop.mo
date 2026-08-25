@@ -1,4 +1,4 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 
 model current_loop
   // =============================================================================
@@ -62,7 +62,7 @@ model current_loop
   // ── D-axis: error node + PI + output sum ──────────────────────
   Modelica.Blocks.Math.Feedback sum_node_id annotation(
     Placement(transformation(origin = {-48, 88}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pi_controller pi_controller_d(k_p = k_p_d, k_i = k_i_d, y_start = y_start_current_d) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller pi_controller_d(k_p = k_p_d, k_i = k_i_d, y_start = y_start_current_d) annotation(
     Placement(transformation(origin = {-14, 88}, extent = {{-10, -10}, {10, 10}})));
   // vm_d = ff·v_d + PI_d − ω·Lg·iq_meas  (k1=ff, k2=PI, k3=-decoupling)
   Modelica.Blocks.Math.Add3 add_d(k3 = -1, k1 = voltagefeedforwardflag_d) annotation(
@@ -70,7 +70,7 @@ model current_loop
   // ── Q-axis: error node + PI + output sum ──────────────────────
   Modelica.Blocks.Math.Feedback sum_node_iq annotation(
     Placement(transformation(origin = {-58, -60}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pi_controller pi_controller_iq(k_p = k_p_q, k_i = k_i_q, y_start = y_start_current_q) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller pi_controller_iq(k_p = k_p_q, k_i = k_i_q, y_start = y_start_current_q) annotation(
     Placement(transformation(origin = {-26, -60}, extent = {{-10, -10}, {10, 10}})));
   // vm_q = decoupling + PI_q + ff·v_q  (k1=+1, k2=PI, k3=ff)
   Modelica.Blocks.Math.Add3 add_q(k1 = 1, k2 = +1, k3 = voltagefeedforwardflag_q) annotation(

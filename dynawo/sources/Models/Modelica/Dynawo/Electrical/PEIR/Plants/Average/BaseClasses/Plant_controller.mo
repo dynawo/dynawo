@@ -1,4 +1,4 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.PEIR.Plants.Average.BaseClasses;
 
 model Plant_controller "Simplified Plant Controller - no internal filters, u+lambdaQ, P with frequency droop, deadbands"
   /**

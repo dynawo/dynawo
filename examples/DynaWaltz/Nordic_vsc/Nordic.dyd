@@ -2,58 +2,58 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
 
 <!-- Synchronous generators -->
-<dyn:blackBoxModel id="g01" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg01" staticId="g01">
+<dyn:blackBoxModel id="g01" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg01" staticId="g01">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g02" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg02" staticId="g02">
+<dyn:blackBoxModel id="g02" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg02" staticId="g02">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g03" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg03" staticId="g03">
+<dyn:blackBoxModel id="g03" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg03" staticId="g03">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g04" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg04" staticId="g04">
+<dyn:blackBoxModel id="g04" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg04" staticId="g04">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g05" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg05" staticId="g05">
+<dyn:blackBoxModel id="g05" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg05" staticId="g05">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
 
 <!-- GFL units -->
-<dyn:blackBoxModel id="g06" lib="GFLAverageModel" parFile="../Nordic/Nordic.par" parId="Nordicg06_GFL" staticId="g06"/>
-<dyn:blackBoxModel id="g07" lib="GFLAverageModel" parFile="../Nordic/Nordic.par" parId="Nordicg07_GFL" staticId="g07"/>
-<dyn:blackBoxModel id="g11" lib="GFLAverageModel" parFile="../Nordic/Nordic.par" parId="Nordicg11_GFL" staticId="g11"/>
-<dyn:blackBoxModel id="g12" lib="GFLAverageModel" parFile="../Nordic/Nordic.par" parId="Nordicg12_GFL" staticId="g12"/>
-<dyn:blackBoxModel id="g14" lib="GFLAverageModel" parFile="../Nordic/Nordic.par" parId="Nordicg14_GFL" staticId="g14"/>
+<dyn:blackBoxModel id="g06" lib="GFLAverageModel" parFile="Nordic.par" parId="Nordicg06_GFL" staticId="g06"/>
+<dyn:blackBoxModel id="g07" lib="GFLAverageModel" parFile="Nordic.par" parId="Nordicg07_GFL" staticId="g07"/>
+<dyn:blackBoxModel id="g11" lib="GFLAverageModel" parFile="Nordic.par" parId="Nordicg11_GFL" staticId="g11"/>
+<dyn:blackBoxModel id="g12" lib="GFLAverageModel" parFile="Nordic.par" parId="Nordicg12_GFL" staticId="g12"/>
+<dyn:blackBoxModel id="g14" lib="GFLAverageModel" parFile="Nordic.par" parId="Nordicg14_GFL" staticId="g14"/>
 
 <!-- Remaining synchronous generators -->
-<dyn:blackBoxModel id="g08" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg08" staticId="g08">
+<dyn:blackBoxModel id="g08" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg08" staticId="g08">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g09" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg09" staticId="g09">
+<dyn:blackBoxModel id="g09" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg09" staticId="g09">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g10" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg10" staticId="g10">
+<dyn:blackBoxModel id="g10" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg10" staticId="g10">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g13" lib="GeneratorSynchronousThreeWindingsPmConstVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg13" staticId="g13">
+<dyn:blackBoxModel id="g13" lib="GeneratorSynchronousThreeWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg13" staticId="g13">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsPmConstVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g15" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg15" staticId="g15">
+<dyn:blackBoxModel id="g15" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg15" staticId="g15">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g16" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg16" staticId="g16">
+<dyn:blackBoxModel id="g16" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg16" staticId="g16">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g17" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg17" staticId="g17">
+<dyn:blackBoxModel id="g17" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg17" staticId="g17">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g18" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg18" staticId="g18">
+<dyn:blackBoxModel id="g18" lib="GeneratorSynchronousFourWindingsPmConstVRNordic" parFile="Nordic.par" parId="Nordicg18" staticId="g18">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousFourWindingsPmConstVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g19" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg19" staticId="g19">
+<dyn:blackBoxModel id="g19" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg19" staticId="g19">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
-<dyn:blackBoxModel id="g20" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="../Nordic/Nordic.par" parId="Nordicg20" staticId="g20">
+<dyn:blackBoxModel id="g20" lib="GeneratorSynchronousThreeWindingsGoverNordicVRNordic" parFile="Nordic.par" parId="Nordicg20" staticId="g20">
 <dyn:macroStaticRef id="MSR_GeneratorSynchronousThreeWindingsGoverNordicVRNordic"/>
 </dyn:blackBoxModel>
 
@@ -61,7 +61,7 @@
 <dyn:blackBoxModel id="DISCONNECT_GROUP1" lib="EventSetPointBoolean" parFile="Events.par" parId="10"/>
 
 <!-- OmegaRef -->
-<dyn:blackBoxModel id="OmegaRef" lib="DYNModelOmegaRef" parFile="../Nordic/Nordic.par" parId="OmegaRef"/>
+<dyn:blackBoxModel id="OmegaRef" lib="DYNModelOmegaRef" parFile="Nordic.par" parId="OmegaRef"/>
 
 <!-- Generators <-> network -->
 <dyn:macroConnect connector="MC_GeneratorSynchronousThreeWindingsGoverNordicVRNordic-NetworkBus" id1="g01" id2="NETWORK" name2="BG01__11"/>

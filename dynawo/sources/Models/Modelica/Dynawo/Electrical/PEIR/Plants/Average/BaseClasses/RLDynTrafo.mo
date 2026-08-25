@@ -1,4 +1,6 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.PEIR.Plants.Average.BaseClasses;
+
+
 
 /**
  * Author Gaia Bergamaschi

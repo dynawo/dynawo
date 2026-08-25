@@ -1,4 +1,5 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.PEIR.Plants.Average.BaseClasses;
+
 
 model LCDynFilter
   /**
@@ -99,9 +100,9 @@ model LCDynFilter
   Real iLeft_im(start = iLeft_imPu0, fixed = false);
   Real uRight_re(start = uRight_rePu0, fixed = false);
   Real uRight_im(start = uRight_imPu0, fixed = false);
-  
 
- 
+
+
 
 equation
   // ── Inductor dynamics (series branch between left and right node) ──

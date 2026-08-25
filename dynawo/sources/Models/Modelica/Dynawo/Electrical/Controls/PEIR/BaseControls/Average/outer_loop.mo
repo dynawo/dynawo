@@ -1,4 +1,6 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
+
+
 
 model outer_loop
   // =============================================================================
@@ -36,9 +38,9 @@ model outer_loop
   // Anti-windup PI regulators. Active when k_direct_control_* = false.
   // Note: interaction between PI bandwidth and PLL is a known cause
   // of low-frequency SSO (Cheng et al. 2023, third mechanism).
-  Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind(k_p = k_p_d, tI = 1/k_i_d, y_start = y_start_outer_d, DyMax = DyMax_pi_d, YMax = Imax) annotation(
+  Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller_antiwind pi_controller_antiwind(k_p = k_p_d, tI = 1/k_i_d, y_start = y_start_outer_d, DyMax = DyMax_pi_d, YMax = Imax) annotation(
     Placement(transformation(origin = {-28, 82}, extent = {{-20, -20}, {20, 20}})));
-  Controls.PEIR.BaseControls.Average.pi_controller_antiwind pi_controller_antiwind1(k_p = k_p_q, tI = 1/(k_i_q), y_start = -y_start_outer_q, DyMax = DyMax_pi_q, YMax = Imax) annotation(
+  Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller_antiwind pi_controller_antiwind1(k_p = k_p_q, tI = 1/(k_i_q), y_start = -y_start_outer_q, DyMax = DyMax_pi_q, YMax = Imax) annotation(
     Placement(transformation(origin = {-24, 20}, extent = {{-20, -20}, {20, 20}})));
   // ── Direct path (orange path) ─────────────────────────────────
   // Stateless feedforward: i_d_ref = P_ref / V_meas
@@ -56,7 +58,7 @@ model outer_loop
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(transformation(origin = {34, 74}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch2 annotation(
-    Placement(transformation(origin = {42, 12}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {46, 18}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = k_direct_control_p) annotation(
     Placement(transformation(origin = {6, 70}, extent = {{-6, -6}, {6, 6}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = k_direct_control_q) annotation(
@@ -106,7 +108,7 @@ model outer_loop
   parameter Real U_filter0 "Initial filter voltage magnitude (pu)";
   parameter Real i_d_ref_0 "Initial d-axis current reference (pu)";
   parameter Real i_q_ref_0 "Initial q-axis current reference (pu)";
-   parameter Real T_boost
+    parameter Real T_boost
     "Time constant of first-order filter on iq_boost (s) to delay the reactive boost response. Set 0 to disable";
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = delay_time_plant, y_start = PInjPu0, y(start = PInjPu0)) annotation(
     Placement(transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}})));
@@ -138,16 +140,16 @@ equation
     Line(points = {{-6, 82}, {22, 82}, {22, 66}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Switch q: u1=direct(true), u3=PI(false) ──────────────────
   connect(booleanConstant1.y, switch2.u2) annotation(
-    Line(points = {{18.5, 11}, {10, 11}, {10, 12}, {30, 12}}, color = {255, 0, 255}));
+    Line(points = {{18.5, 11}, {10, 11}, {10, 18}, {34, 18}}, color = {255, 0, 255}));
   connect(division.y, switch2.u1) annotation(
-    Line(points = {{-38, -36}, {28, -36}, {28, 20}, {30, 20}}, color = {230, 97, 0}, thickness = 0.75));
+    Line(points = {{-38, -36}, {28, -36}, {28, 26}, {34, 26}}, color = {230, 97, 0}, thickness = 0.75));
   connect(pi_controller_antiwind1.y, switch2.u3) annotation(
-    Line(points = {{-2, 20}, {30, 20}, {30, 4}}, color = {46, 194, 126}, thickness = 0.75));
+    Line(points = {{-2, 20}, {-2, 22}, {34, 22}, {34, 10}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Switch outputs → current limiter ─────────────────────────
   connect(switch1.y, current_limiter_outer_loop.id_raw) annotation(
     Line(points = {{46, 74}, {46, 62}, {86, 62}}, color = {0, 0, 127}));
   connect(switch2.y, current_limiter_outer_loop.iq_raw) annotation(
-    Line(points = {{53, 12}, {69, 12}, {69, 42}, {86, 44}}, color = {0, 0, 127}));
+    Line(points = {{57, 18}, {69, 18}, {69, 44}, {86, 44}}, color = {0, 0, 127}));
 // ── V_meas → current limiter ──────────────────────────────────
   connect(V_meas, current_limiter_outer_loop.U_meas_pu) annotation(
     Line(points = {{-220, -60}, {86, -60}, {86, 27.5}}, color = {0, 0, 127}));
@@ -174,7 +176,7 @@ equation
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "PI / Direct switchable")}),
-    Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Text(origin = {-3, -120}, extent = {{-147, 38}, {147, -38}}, textString = "Author: Gaia Bergamaschi
+    Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Text(origin = {-5, -118}, extent = {{-147, 38}, {147, -38}}, textString = "Author: Gaia Bergamaschi
 Model of the outer loop of a GFL converter.
 Green path (default): PI regulators for P and Q.
 Orange path: direct control via P_ref/V and Q_ref/V.
