@@ -1,5 +1,5 @@
 within Dynawo.Examples.Average;
 
-package FourConverter
+package FourVSC
  extends Icons.Package;
-end FourConverter;
+end FourVSC;
