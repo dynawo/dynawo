@@ -33,6 +33,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
   DynGridFormingVirtualSynchronousMachine.xml
+  DynGridFormingVirtualSynchronousMachinePlantControl.xml
   DynGridFormingDroop.xml
   DynGridFormingCurrentControlledVirtualSynchronousMachine.xml
   DynGridFormingVirtualSynchronousMachineConvPLL.xml

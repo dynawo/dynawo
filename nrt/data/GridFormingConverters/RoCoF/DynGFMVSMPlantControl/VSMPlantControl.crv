@@ -12,6 +12,6 @@
     simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="GFMCCVSM" variable="GFMCC_ControlCC_PFilterPu"/>
-  <curve model="GFMCCVSM" variable="GFMCC_ControlCC_PFilterRefPu"/>
+  <curve model="PlantControlVSM" variable="PlantControlVSM_DynGFMVSM_Control_PFilterPu"/>
+  <curve model="PlantControlVSM" variable="PlantControlVSM_DynGFMVSM-Control_PFilterRefPu"/>
 </curvesInput>

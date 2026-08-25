@@ -14,21 +14,21 @@ model DynGFMVSMSmib "Single machine infinite bus test case for Grid Forming VSM 
       * of simulation tools for power systems.
       */
   extends Modelica.Icons.Example;
-  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.000166667, XPu = 0.005) annotation(
+  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.001, XPu = 0.1) annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant QRefPu(k = 1) annotation(
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-112, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.6, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.94, Q0Pu = 0.65, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.997, UPhase0 = 0.05, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0, kVSM = 155.955, OmegaSetPu = 1, tVSC = 0.0004) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 15, KpVI = 0.6, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.94, Q0Pu = 0.65, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.997, UPhase0 = 0.05, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0, kVSM = 250, OmegaSetPu = 1, tVSC = 0.0004) annotation(
     Placement(transformation(origin = {-21, -1}, extent = {{-23, -23}, {23, 23}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = 1)  annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.01, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
     Placement(transformation(origin = {44, 64}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.46, tUPhaseEvt = 10)  annotation(
+  Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.093, tUPhaseEvt = 10)  annotation(
     Placement(transformation(origin = {72, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 equation
   line.switchOffSignal1 = false;
@@ -48,8 +48,8 @@ equation
     Line(points = {{-102, 56}, {-102, 17}, {-46, 17}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, AcGrid.OmegaRef) annotation(
     Line(points = {{-100, 20}, {-56, 20}, {-56, 70}, {32, 70}}, color = {0, 0, 127}));
-  connect(AcGrid.aCPower, line.terminal2) annotation(
-    Line(points = {{56, 70}, {54, 70}, {54, 0}}, color = {0, 0, 255}));
+  connect(line.terminal2, infiniteBusWithVariations_PhaseJump.terminal) annotation(
+    Line(points = {{54, 0}, {72, 0}, {72, -44}}, color = {0, 0, 255}));
   annotation(
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),

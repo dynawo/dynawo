@@ -13,16 +13,16 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="Grid" lib="AcGridRoCoF" parFile="CCVSMRoCoF.par" parId="1"/>
-  <dyn:blackBoxModel id="line" lib="Line" parFile="DroopRoCoF.par" parId="2"/>
+  <dyn:blackBoxModel id="line" lib="Line" parFile="CCVSMRoCoF.par" parId="2"/>
   <dyn:blackBoxModel id="GFMCCVSM" lib="DynGridFormingCurrentControlledVirtualSynchronousMachine" parFile="CCVSMRoCoF.par" parId="3"/>
   <dyn:blackBoxModel id="SetPointOne" lib="SetPoint" parFile="CCVSMRoCoF.par" parId="4"/>
   <dyn:blackBoxModel id="SetPointZero" lib="SetPoint" parFile="CCVSMRoCoF.par" parId="5"/>
 
   <dyn:connect id1="Grid" var1="Grid_aCPower" id2="line" var2="line_terminal1"/>
-  <dyn:connect id1="line" var1="line_terminal2" id2="GFMDroop" var2="GFMDroop_terminal"/>
-  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_PFilterRefPu"/>
-  <dyn:connect id1="SetPointZero" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_QFilterRefPu"/>
-  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_UFilterRefPu"/>
-  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_omegaRefPu"/>
+  <dyn:connect id1="line" var1="line_terminal2" id2="GFMCCVSM" var2="GFMCC_terminal"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_PFilterRefPu"/>
+  <dyn:connect id1="SetPointZero" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_QFilterRefPu"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_UFilterRefPu"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_omegaRefPu"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="Grid" var2="Grid_OmegaRef"/>
 </dyn:dynamicModelsArchitecture>

@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<mandatoryParameters>
+    <mandatoryParameter name="SNom" type="DOUBLE"/>
+    <mandatoryParameter name="Lambd" type="DOUBLE"/>
+    <mandatoryParameter name="Kdroop" type="DOUBLE"/>
+    <mandatoryParameter name="tQFilt" type="DOUBLE"/>
+    <mandatoryParameter name="tPFilt" type="DOUBLE"/>
+    <mandatoryParameter name="tUFilt" type="DOUBLE"/>
+    <mandatoryParameter name="Kpq" type="DOUBLE"/>
+    <mandatoryParameter name="Kiq" type="DOUBLE"/>
+    <mandatoryParameter name="Kpp" type="DOUBLE"/>
+    <mandatoryParameter name="Kip" type="DOUBLE"/>
+    <mandatoryParameter name="QMaxPu" type="DOUBLE"/>
+    <mandatoryParameter name="QMinPu" type="DOUBLE"/>
+    <mandatoryParameter name="PMaxPu" type="DOUBLE"/>
+    <mandatoryParameter name="PMinPu" type="DOUBLE"/>
+    <mandatoryParameter name="FEMaxPu" type="DOUBLE"/>
+    <mandatoryParameter name="FEMinPu" type="DOUBLE"/>
+    <mandatoryParameter name="FDbd1Pu" type="DOUBLE"/>
+    <mandatoryParameter name="FDbd2Pu" type="DOUBLE"/>
+    <mandatoryParameter name="DbdPu" type="DOUBLE"/>
+    <mandatoryParameter name="QPcc0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="Omega0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="UPcc0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="PPcc0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="UPccPhase0" type="DOUBLE"/>
+    <mandatoryParameter name="CFilterPu" type="DOUBLE"/>
+    <mandatoryParameter name="H" type="DOUBLE"/>
+    <mandatoryParameter name="IMaxVI" type="DOUBLE"/>
+    <mandatoryParameter name="Kff" type="DOUBLE"/>
+    <mandatoryParameter name="Kic" type="DOUBLE"/>
+    <mandatoryParameter name="KpVI" type="DOUBLE"/>
+    <mandatoryParameter name="Kpc" type="DOUBLE"/>
+    <mandatoryParameter name="Kfd" type="DOUBLE"/>
+    <mandatoryParameter name="Kfq" type="DOUBLE"/>
+    <mandatoryParameter name="LFilterPu" type="DOUBLE"/>
+    <mandatoryParameter name="LTransformerPu" type="DOUBLE"/>
+    <mandatoryParameter name="Mq" type="DOUBLE"/>
+    <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="RFilterPu" type="DOUBLE"/>
+    <mandatoryParameter name="RTransformerPu" type="DOUBLE"/>
+    <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+    <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+    <mandatoryParameter name="Wf" type="DOUBLE"/>
+    <mandatoryParameter name="Wff" type="DOUBLE"/>
+    <mandatoryParameter name="XRratio" type="DOUBLE"/>
+    <mandatoryParameter name="XVI" type="DOUBLE"/>
+    <mandatoryParameter name="kVSM" type="DOUBLE"/>
+    <mandatoryParameter name="tVSC" type="DOUBLE"/>
+</mandatoryParameters>
