@@ -1,4 +1,4 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Examples.Average.SMIB;
 
 model test_dyn
 
@@ -10,15 +10,22 @@ model test_dyn
    *   - Inner current loop : omega_cc  = 300 rad/s  (~48 Hz)
    *       k_p = omega_cc * L_g = 300 * 0.009 = 2.7
    *       k_i = (omega_cc/10) * k_p = 30 * 2.7 = 81
+   *
    *   - Outer loop         : omega_out =  30 rad/s  (~5 Hz)
    *       k_p = 0.3,  k_i = 1.0
+   *
    *   - PLL                : omega_pll =  10 rad/s  (~1.6 Hz)
    *       k_p = 10,   k_i = 25
+   *
    *   - Plant controller   : omega_plt ~  2 rad/s
    *       k_p = 0.05, k_i = 0.5
+   *
+   * Model used to assess the presence of initialization issues and to
+   * verify whether the model was able to operate. Not included in the
+   * results of Gaia Bergamaschi's thesis.
    */
 
-  GFLmodel gFLmodelnodyn(
+  Electrical.PEIR.Plants.Average.GFLmodel gFLmodelnodyn(
     // ── Initial conditions — PCC node ────────────────────────
     SNom=100,
     U0Pu = 1.0047,
@@ -100,7 +107,6 @@ model test_dyn
     OmegaMaxPu = 1.05,
     OmegaMinPu = 0.95,
 
-
     // ── Rate limiters and delays ──────────────────────────────
     DyMax_pi_d       = 10000.0,
     DyMax_pi_q       = 100000.0,
@@ -110,7 +116,7 @@ model test_dyn
     delay_time_plant = 1e-3,
 
     // ── Voltage feedforward ───────────────────────────────────
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1) annotation(
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost=1e-5) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
 
   Modelica.Blocks.Sources.Constant URef(k = 1.0047) annotation(
@@ -126,19 +132,22 @@ model test_dyn
   Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.6, startTime = 1000) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
 
-  Buses.InfiniteBus infiniteBus(UPu = 1.0047, UPhase = 0.033) annotation(
+  Electrical.Buses.InfiniteBus infiniteBus(UPu = 1.0047, UPhase = 0.033) annotation(
     Placement(transformation(origin = {41, -63}, extent = {{-19, -19}, {19, 19}})));
 
 equation
-gFLmodelnodyn.switchOffSignal1=false;
-gFLmodelnodyn.switchOffSignal2=false;
-gFLmodelnodyn.switchOffSignal3=false;
+
+  gFLmodelnodyn.switchOffSignal1=false;
+  gFLmodelnodyn.switchOffSignal2=false;
+  gFLmodelnodyn.switchOffSignal3=false;
+
   connect(omegaRef.y,  gFLmodelnodyn.omegaRefPu) annotation(Line(points = {{-47, -36},{-35, -36},{-35, -9}, {8, -9}},  color = {0, 0, 127}));
   connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(Line(points = {{42, -14}, {42, -62}}, color = {0, 0, 255}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(
     Line(points = {{8, 28}, {-54, 28}, {-54, 42}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.UREfPu, URef.y) annotation(
     Line(points = {{8, 8}, {-44, 8}, {-44, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     experiment(

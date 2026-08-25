@@ -1,10 +1,14 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Examples.Average.SMIB;
 
-model simulation_weak_grid
+model OneConverterWeakGrid
+
   /*
      * Author Gaia Bergamaschi
      * SMIB test — GFL converter
      * Operating point: P = 0.6999 pu, Q = 0.1977 pu, U_pcc = 1.0372 pu, theta = 0.2049 rad
+     *
+     * Used in thesis Gaia Bergamaschi for model validation, parametrized
+     * from the time response of PVVoltageSource4Example. Use solver IDA
      *
      * ── Controller tuning ────────────────────────────────────────────────────────
      *
@@ -61,7 +65,7 @@ model simulation_weak_grid
      *       Suggested: tOmegaEvtStart = 10 s, tOmegaEvtEnd = 10.5 s, omegaEvtPu = 1.02 pu
      *       [currently inactive: tOmegaEvtStart = 10 000 s]
      */
-  GFLmodel gFLmodelnodyn( // ── Initial conditions — PCC node ────────────────────────
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodelnodyn( // ── Initial conditions — PCC node ────────────────────────
   SNom = 1000, U0Pu = U0Pu, Uphase = Uphase, P0_pcc = -7, Q0_pcc = -2, Omega0Pu = 1.0,  // ── VSC Pade delay ────────────────────────────────────────
   tVSC = 1e-100,  // ── LC filter — realistic values, fr ≈ 712 Hz ─────────────
   RfPu = 0.00003,  // realistic conduction losses ~0.3 %
@@ -88,11 +92,11 @@ model simulation_weak_grid
   final parameter Real URef0Pu = U0Pu - gFLmodelnodyn.Lambda*gFLmodelnodyn.Q0_pcc*SystemBase.SnRef/gFLmodelnodyn.SNom;
   Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 100) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
-  Lines.Line line(RPu = 0, XPu = 0.03, GPu = 0, BPu = 0) annotation(
+  Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.03, GPu = 0, BPu = 0) annotation(
     Placement(transformation(origin = {88, 12}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Step step1(offset = URef0Pu, startTime = 100, height = URef0Pu*0.1) annotation(
     Placement(transformation(origin = {-66, 8}, extent = {{-10, -10}, {10, 10}})));
-  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.5, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10.0, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.5, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10.0, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
     Placement(transformation(origin = {108, 12}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
 equation
 
@@ -116,4 +120,5 @@ equation
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-5, Interval = 0.0005),
     Diagram,
   Icon(graphics = {Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}}), Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
-end simulation_weak_grid;
+
+end OneConverterWeakGrid;

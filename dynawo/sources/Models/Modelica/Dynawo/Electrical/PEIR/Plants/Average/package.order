@@ -1,6 +1,4 @@
 threevsc1sm_linetrip
-test_dyn
-simulation_weak_grid
 TwoConvertersWECC
 TwoConvertersStaticLine_7Hz
 TwoConvertersStaticLine
@@ -8,7 +6,6 @@ TwoConvertersDynamicLine_emtp
 TwoConvertersDynamicLine_7Hz
 TwoConvertersDynamicLine
 TwoConverterStaticLine_emtp
-GFLmodel_noplant
 GFLmodel
 FourVSC_System_Dynamic_line_linetrip
 FourVSC_System_DYnamic_line
