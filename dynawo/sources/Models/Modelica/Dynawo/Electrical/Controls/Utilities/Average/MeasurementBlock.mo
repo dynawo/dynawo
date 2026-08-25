@@ -1,4 +1,5 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Electrical.Controls.Utilities.Average;
+
 
 model MeasurementBlock
   /**
