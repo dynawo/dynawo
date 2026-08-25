@@ -54,7 +54,18 @@ class Exporter {
    */
   virtual void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints,
                            const std::string& filePath,
-                           bool exportEventType = false) const = 0;
+                           bool exportEventType) const = 0;
+
+  /**
+ * @brief Export method for this exporter
+ *
+ * @param constraints ConstraintsCollection to export
+ * @param filePath File to export to
+ */
+  void exportToFile(const std::shared_ptr<ConstraintsCollection>& constraints,
+                           const std::string& filePath) const {
+    exportToFile(constraints, filePath, false);
+  }
 
   /**
    * @brief Export method for this exporter
@@ -66,8 +77,18 @@ class Exporter {
    */
   virtual void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints,
                               std::ostream& stream,
-                              double minTime = -1.0,
-                              bool exportEventType = false) const = 0;
+                              double minTime,
+                              bool exportEventType) const = 0;
+  /**
+   * @brief Export method for this exporter
+   *
+   * @param constraints ConstraintsCollection to export
+   * @param stream stream to export to
+   */
+  void exportToStream(const std::shared_ptr<ConstraintsCollection>& constraints,
+                              std::ostream& stream) const {
+    exportToStream(constraints, stream, -1.0, false);
+  }
 };
 
 #ifdef __clang__
