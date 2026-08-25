@@ -1,4 +1,4 @@
-within Dynawo.Electrical.PEIR.Plants;
+within Dynawo.Examples;
 
 package Average
  extends Icons.Package;
