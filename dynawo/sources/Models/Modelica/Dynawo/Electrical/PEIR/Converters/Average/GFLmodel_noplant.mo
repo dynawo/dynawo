@@ -75,24 +75,7 @@ model GFLmodel_noplant
   parameter Real Kqv "Reactive boost gain dIq/dU (pu/pu), 0 to disable";
   parameter Real IqBoostMax "Maximum additional Iq boost (pu)";
   parameter Real IqBoostMin "Minimum additional Iq boost (pu)";
-  // ────────────────────────────────────────────────────────────
-  // Plant controller (P–f and Q–U droop and PI loops)
-  // ────────────────────────────────────────────────────────────
-  parameter Real K_p_q_plant "Plant Q/U PI: proportional gain on Q (pu/pu)";
-  parameter Real K_i_q_plant "Plant Q/U PI: integral gain on Q (pu/pu·s)";
-  parameter Real K_p_p_plant "Plant P/f PI: proportional gain on P (pu/pu)";
-  parameter Real K_i_p_plant "Plant P/f PI: integral gain on P (pu/pu·s)";
-  parameter Real Lambda "Voltage–reactive droop coefficient λ in U + λ·Q (pu U / pu Q), (pu, base UNom, SNom)";
-  parameter Real Kdroop "Frequency droop gain on active power (pu/pu)";
-  parameter Real QMaxPu "Maximum reactive power reference (pu)";
-  parameter Real QMinPu "Minimum reactive power reference (pu)";
-  parameter Real PMaxPu "Maximum active power reference (pu)";
-  parameter Real PMinPu "Minimum active power reference (pu)";
-  parameter Real FEMaxPu "Maximum frequency error after droop limiter (pu)";
-  parameter Real FEMinPu "Minimum frequency error after droop limiter (pu)";
-  parameter Real FDbd1Pu "Inner frequency deadband limit (pu, lower/first threshold)";
-  parameter Real FDbd2Pu "Outer frequency deadband limit (pu, upper/second threshold)";
-  parameter Real DbdPu "Voltage error deadband half-width in U + λ·Q loop (pu)";
+
   // ────────────────────────────────────────────────────────────
   // PLL parameters
   // ────────────────────────────────────────────────────────────
@@ -109,7 +92,6 @@ model GFLmodel_noplant
   parameter Real DuMax_idref "Maximum rate of change of i_d_ref (pu/s)";
   parameter Real DuMin_idref "Minimum rate of change of i_d_ref (pu/s)";
   parameter Real tS_idref "Sample/update time of i_d_ref ramp limiter (s)";
-  parameter Real delay_time_plant "Time delay between plant controller output and outer loop (s)";
   parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
   parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
   // ─────────────────────────────────────────────────────────────────────────
@@ -178,7 +160,7 @@ model GFLmodel_noplant
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
   // limitation with P/Q priority, and reactive-power boost logic.
-   Plants.Average.BaseClasses.GFLControl gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, id_ref_0 = Id_conv_0, id_conv_0 = Id_conv_0, iq_ref_0 = Iq_conv_0, iq_conv_0 = Iq_conv_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, k_p_d_current = k_p_d_current, k_i_d_current = k_i_d_current, k_p_q_current = k_p_q_current, k_i_q_current = k_i_q_current, L_g = L_g, R_g = R_g, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, k_p_d_outer = k_p_d_outer, k_i_d_outer = k_i_d_outer, k_p_q_outer = k_p_q_outer, k_i_q_outer = k_i_q_outer, Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, K_p_pll = K_p_pll, K_i_pll = K_i_pll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q, T_boost = T_boost) annotation(
+   Converters.Average.BaseClasses.GFLControl_noplant gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, id_ref_0 = Id_conv_0, id_conv_0 = Id_conv_0, iq_ref_0 = Iq_conv_0, iq_conv_0 = Iq_conv_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, k_p_d_current = k_p_d_current, k_i_d_current = k_i_d_current, k_p_q_current = k_p_q_current, k_i_q_current = k_i_q_current, L_g = L_g, R_g = R_g, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, k_p_d_outer = k_p_d_outer, k_i_d_outer = k_i_d_outer, k_p_q_outer = k_p_q_outer, k_i_q_outer = k_i_q_outer, Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, K_p_pll = K_p_pll, K_i_pll = K_i_pll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q, T_boost = T_boost) annotation(
     Placement(transformation(origin = {-95, 47}, extent = {{-17, -17}, {17, 17}})));
   // Plant-level controller block.
   // Implements: P–f droop, Q–U droop, frequency and voltage deadbands,
@@ -187,7 +169,7 @@ model GFLmodel_noplant
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PInj0Pu) annotation(
     Placement(transformation(origin = {-209, 61}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-118, 72}, extent = {{-20, -20}, {20, 20}})));
   // External voltage (reactive power) set-point input
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = QInj0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = QInj0Pu) annotation(
     Placement(transformation(origin = {-209, 45}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
   // Grid angular frequency reference (provided by the network / external bus model)
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) annotation(
@@ -251,9 +233,6 @@ equation
   connect(measurementBlock.P_LV, gFLControl.P_meas) annotation(
     Line(points = {{-111, -77}, {-111, -24.5}, {-109, -24.5}, {-109, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // Filtered active power at LV node → outer loop feedback
-  connect(measurementBlock.Q_LV, gFLControl.Q_meas) annotation(
-    Line(points = {{-104, -77}, {-104, 28}, {-103, 28}}, color = {255, 120, 0}, thickness = 0.75));
-// Filtered reactive power at LV node → outer loop feedback
   connect(measurementBlock.I_conv_q, gFLControl.i_q_meas) annotation(
     Line(points = {{-98, -77}, {-98, 29}, {-96, 29}, {-96, 28}}, color = {38, 162, 105}, thickness = 0.75));
 // q-axis converter current → inner current loop feedback
@@ -321,7 +300,7 @@ equation
     Line(points = {{68, 54}, {104, 54}}, color = {0, 0, 255}));
   connect(PRefPu, gFLControl.P_ref) annotation(
     Line(points = {{-208, 62}, {-114, 62}, {-114, 58}}, color = {0, 0, 127}));
-  connect(QRefPu, gFLControl.Q_ref) annotation(
+  connect(URefPu, gFLControl.U_ref) annotation(
     Line(points = {{-208, 46}, {-114, 46}, {-114, 48}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
