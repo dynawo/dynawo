@@ -2,29 +2,6 @@ within Dynawo.Examples.Average.SMIB;
 
 model test_dyn
 
-  /*
-   * SMIB test — GFL converter
-   * Operating point: P = 0.6 pu, Q ~ 0 pu, U_pcc = 1.0047 pu
-   *
-   * Tuning strategy (bandwidth separation):
-   *   - Inner current loop : omega_cc  = 300 rad/s  (~48 Hz)
-   *       k_p = omega_cc * L_g = 300 * 0.009 = 2.7
-   *       k_i = (omega_cc/10) * k_p = 30 * 2.7 = 81
-   *
-   *   - Outer loop         : omega_out =  30 rad/s  (~5 Hz)
-   *       k_p = 0.3,  k_i = 1.0
-   *
-   *   - PLL                : omega_pll =  10 rad/s  (~1.6 Hz)
-   *       k_p = 10,   k_i = 25
-   *
-   *   - Plant controller   : omega_plt ~  2 rad/s
-   *       k_p = 0.05, k_i = 0.5
-   *
-   * Model used to assess the presence of initialization issues and to
-   * verify whether the model was able to operate. Not included in the
-   * results of Gaia Bergamaschi's thesis.
-   */
-
   Electrical.PEIR.Plants.Average.GFLmodel gFLmodelnodyn(
     // ── Initial conditions — PCC node ────────────────────────
     SNom=100,
@@ -155,6 +132,30 @@ equation
       StopTime  = 20,
       Tolerance = 1e-6,
       Interval  = 0.0005),
-  Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
+    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
+    Documentation(info = "<html>
+<p>SMIB test — GFL converter</p>
+<p>Operating point: P = 0.6 pu, Q ~ 0 pu, U_pcc = 1.0047 pu</p>
+
+<pre>
+Tuning strategy (bandwidth separation):
+  - Inner current loop : omega_cc  = 300 rad/s  (~48 Hz)
+      k_p = omega_cc * L_g = 300 * 0.009 = 2.7
+      k_i = (omega_cc/10) * k_p = 30 * 2.7 = 81
+
+  - Outer loop         : omega_out =  30 rad/s  (~5 Hz)
+      k_p = 0.3,  k_i = 1.0
+
+  - PLL                : omega_pll =  10 rad/s  (~1.6 Hz)
+      k_p = 10,   k_i = 25
+
+  - Plant controller   : omega_plt ~  2 rad/s
+      k_p = 0.05, k_i = 0.5
+</pre>
+
+<p>Model used to assess the presence of initialization issues and to
+verify whether the model was able to operate. Not included in the
+results of Gaia Bergamaschi's thesis.</p>
+</html>"));
 
 end test_dyn;

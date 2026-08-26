@@ -1,9 +1,9 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Examples.Average.TwoVSC;
 
 model TwoConvertersDynamicLine_7Hz
 
   // ═══════════════════════════════════════════════════════════════
-  // Frequenze di taglio target — modifica solo questi
+  // Target cutoff frequencies — modify only these
   // ═══════════════════════════════════════════════════════════════
   parameter Real OmegaCC          = 1200 "Inner current loop bandwidth [rad/s]";
   parameter Real w_cc_outer = 4.5 "Outer P/Q loop bandwidth [rad/s]";
@@ -16,7 +16,7 @@ model TwoConvertersDynamicLine_7Hz
   // ═══════════════════════════════════════════════════════════════
 
   // ═══════════════════════════════════════════════════════════════
-  // Impedenze effettive
+  // Effective impedances
   // ═══════════════════════════════════════════════════════════════
   final parameter Real Rf1 = gFLmodel.RfPu  + gFLmodel.RPuLV;
   final parameter Real Lf1 = gFLmodel.LfPu  + gFLmodel.LPuLV;
@@ -24,7 +24,7 @@ model TwoConvertersDynamicLine_7Hz
   final parameter Real Lf2 = gFLmodel1.LfPu + gFLmodel1.LPuLV;
 
   // ═══════════════════════════════════════════════════════════════
-  // Guadagni GFL1
+  // GFL1 gains
   // ═══════════════════════════════════════════════════════════════
   final parameter Real kp_cc_1    = Lf1 * OmegaCC / SystemBase.omegaNom;
   final parameter Real ki_cc_1    = Rf1 * OmegaCC;
@@ -36,7 +36,7 @@ model TwoConvertersDynamicLine_7Hz
   final parameter Real ki_plant_1 =  w_cc_plant;
 
   // ═══════════════════════════════════════════════════════════════
-  // Guadagni GFL2
+  // GFL2 gains
   // ═══════════════════════════════════════════════════════════════
   final parameter Real kp_cc_2    = Lf2 * OmegaCC / SystemBase.omegaNom;
   final parameter Real ki_cc_2    = Rf2 * OmegaCC;
@@ -50,7 +50,7 @@ model TwoConvertersDynamicLine_7Hz
   // ═══════════════════════════════════════════════════════════════
   // GFL1
   // ═══════════════════════════════════════════════════════════════
-  GFLmodel gFLmodel(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(
     SNom = 1000, U0Pu = 1.045333, Uphase = 0.0665,
     P0_pcc = -5.03, Q0_pcc = -0.21, Omega0Pu = 1.0,
     tVSC = 2e-3,
@@ -87,7 +87,7 @@ model TwoConvertersDynamicLine_7Hz
   // ═══════════════════════════════════════════════════════════════
   // GFL2
   // ═══════════════════════════════════════════════════════════════
-  GFLmodel gFLmodel1(
+   Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(
     SNom = 1000, U0Pu = 1.029, Uphase = -0.06721,
     P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0,
     tVSC = 2e-3,
@@ -117,13 +117,13 @@ model TwoConvertersDynamicLine_7Hz
     DuMax_idref = 100000.0, DuMin_idref = -10000.0,
     tS_idref = 1e-4,
     delay_time_plant = delay_time_plant,
-voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
   ) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
-  // Rete
+  // Network
   // ═══════════════════════════════════════════════════════════════
-  Buses.Bus bus annotation(
+  Dynawo.Electrical.Buses.Bus bus annotation(
     Placement(transformation(origin = {-4, 20}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(
     U0Pu = 1.100000, UPhase = -0.001082, omega0Pu = 1.0,
@@ -132,7 +132,7 @@ voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
     Placement(transformation(origin = {-4, -74}, extent = {{-10, -10}, {10, 10}})));
 
   // ═══════════════════════════════════════════════════════════════
-  // Setpoint
+  // Setpoints
   // ═══════════════════════════════════════════════════════════════
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1.0) annotation(
     Placement(transformation(origin = {-130, -38}, extent = {{-10, -10}, {10, 10}})));
@@ -149,15 +149,15 @@ voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
 
   final parameter Real URef0Pu  = gFLmodel.U0Pu  - gFLmodel.Lambda  * gFLmodel.Q0_pcc  * SystemBase.SnRef / gFLmodel.SNom;
   final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda * gFLmodel1.Q0_pcc * SystemBase.SnRef / gFLmodel1.SNom;
-  DynLine dynLine(RPu = 0.00144, LPu = 0.0144, U01Pu = gFLmodel.U0Pu, UPhase01 = gFLmodel.U0Pu, P01Pu = gFLmodel.P0_pcc, Q01Pu = gFLmodel.Q0_pcc, U02Pu = 1.036053, UPhase02 = 0, P02Pu = -0.50, Q02Pu = -0.012)  annotation(
+  Dynawo.Electrical.Lines.DynLine dynLine(RPu = 0.00144, LPu = 0.0144, U01Pu = gFLmodel.U0Pu, UPhase01 = gFLmodel.U0Pu, P01Pu = gFLmodel.P0_pcc, Q01Pu = gFLmodel.Q0_pcc, U02Pu = 1.036053, UPhase02 = 0, P02Pu = -0.50, Q02Pu = -0.012)  annotation(
     Placement(transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}})));
-  DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.499, Q01Pu = 0.0125, U02Pu = gFLmodel1.U0Pu, UPhase02 = gFLmodel1.Uphase, P02Pu = -gFLmodel1.P0_pcc, Q02Pu = -gFLmodel1.Q0_pcc)  annotation(
+  Dynawo.Electrical.Lines.DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.499, Q01Pu = 0.0125, U02Pu = gFLmodel1.U0Pu, UPhase02 = gFLmodel1.Uphase, P02Pu = -gFLmodel1.P0_pcc, Q02Pu = -gFLmodel1.Q0_pcc)  annotation(
     Placement(transformation(origin = {28, 20}, extent = {{-10, -10}, {10, 10}})));
-  DynLine dynLine2(RPu = 0.04, LPu = 0.2, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.0005, Q01Pu = -0.013, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.0005, Q02Pu = 0.013)  annotation(
+  Dynawo.Electrical.Lines.DynLine dynLine2(RPu = 0.04, LPu = 0.2, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.0005, Q01Pu = -0.013, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.0005, Q02Pu = 0.013)  annotation(
     Placement(transformation(origin = {-4, -36}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  DynLine dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = dynLine2.U02Pu, UPhase01 = dynLine2.UPhase02, P01Pu = dynLine2.P02Pu, Q01Pu = dynLine2.Q02Pu, U02Pu = dynLine2.U01Pu, UPhase02 =dynLine2.UPhase01, P02Pu = dynLine2.P01Pu, Q02Pu = dynLine2.Q01Pu)  annotation(
+  Dynawo.Electrical.Lines.DynLine  dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = dynLine2.U02Pu, UPhase01 = dynLine2.UPhase02, P01Pu = dynLine2.P02Pu, Q01Pu = dynLine2.Q02Pu, U02Pu = dynLine2.U01Pu, UPhase02 =dynLine2.UPhase01, P02Pu = dynLine2.P01Pu, Q02Pu = dynLine2.Q01Pu)  annotation(
     Placement(transformation(origin = {-52, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  IdealSwitch idealSwitch annotation(
+  Dynawo.Electrical.Switches.IdealSwitch idealSwitch annotation(
     Placement(transformation(origin = {-30, -16}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanTable booleanTable(table = {0, 51.5}, startValue = true)  annotation(
     Placement(transformation(origin = {42, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
@@ -215,6 +215,23 @@ equation
   annotation(
     experiment(StartTime = 0, StopTime = 70, Tolerance = 1e-5, Interval = 0.0005),
     preferredView = "diagram",
-  Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
+    Documentation(info="
+Author: Gaia Bergameaschi.
+7 Hz oscillation should be seen and, if run with the Julia script for parameter swap,
+the linear relationship between current loop and SSOS frequency can be observed.
+Run with dynamic lines."),
+    Icon(graphics = {
+      Ellipse(
+        lineColor = {75, 138, 73},
+        fillColor = {255, 255, 255},
+        fillPattern = FillPattern.Solid,
+        extent = {{-100, -100}, {100, 100}}),
+      Polygon(
+        lineColor = {0, 0, 255},
+        fillColor = {75, 138, 73},
+        pattern = LinePattern.None,
+        fillPattern = FillPattern.Solid,
+        points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})
+    }));
 
 end TwoConvertersDynamicLine_7Hz;

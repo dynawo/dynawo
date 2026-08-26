@@ -1,4 +1,5 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Examples.Average.TwoVSC;
+
 
 model TwoConvertersWECC
   /*
@@ -16,7 +17,7 @@ model TwoConvertersWECC
    *                     │
    *                   line2 ‖ line3  (line3 opens at t = 51.5 s)
    *                     │
-   *                 InfiniteBus (voltage dip at t = 15.1 s)
+   *                 InfiniteBus
    */
 
   // ════════════════════════════════════════════════════════════════
@@ -417,7 +418,7 @@ model TwoConvertersWECC
     Placement(transformation(origin = {-48, -92}, extent = {{-10, -10}, {10, 10}})));
 
   // Ideal switch used to open/close line3 w.r.t. line2
-  IdealSwitch idealSwitch annotation(
+  Dynawo.Electrical.Switches.IdealSwitch idealSwitch annotation(
     Placement(transformation(origin = {-18, -20}, extent = {{-10, -10}, {10, 10}})));
 
 initial algorithm
@@ -588,19 +589,16 @@ equation
       maxStepSize          = "0.0001"),
     Documentation(info = "<html><body>
       <h3>TwoConvertersWECC — hybrid configuration</h3>
-      <p>Physical impedance mapped from GFLmodel (RSourcePu=0.004, XSourcePu=0.125).</p>
-      <p>Control parameters: original RTE values (WECC structure != GFLmodel).</p>
-      <ul>
-        <li>KpPLL=0.32, KiPLL=8.0 (RTE)</li>
-        <li>Kip=3.0, Kii=20.0 (RTE)</li>
-        <li>Kqp=1.0, Kqi=0.5, Kvp=1.0, Kvi=1.0 (RTE)</li>
-        <li>Kpg=0.05, Kig=2.36 (RTE)</li>
-        <li>tE=0.005, tFilterPC=0.04, tFilterGC=0.02, tP=0.04 (RTE)</li>
-        <li>IMaxPu=1.3, Iqh1/Iql1=±1.2 (physically meaningful)</li>
-        <li>line2 XPu=0.1, InfiniteBus U0=1.1 / UPhase=-0.001082 aligned</li>
-        <li>line3: opening on both sides at t=51.5 s (fix singular Jacobian)</li>
-        <li>Tolerance=1e-5, maxStepSize=0.0005</li>
-      </ul>
+       * Author: Gaia Bergamaschi
+   *
+   * Two‑converter test — WECC PVVoltageSource4 models
+   *
+   * Purpose:
+   *   Recreate the TwoConvertersStaticLine scenario, but replacing
+   *   the internal average GFL models (GFLmodel / GFLmodel1) with
+   *   WECC‑type PVVoltageSource4 blocks (PV1 / PV2).
+   static lines used. instability detected as expected from the user guide
+   *
     </body></html>"),
   Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
 

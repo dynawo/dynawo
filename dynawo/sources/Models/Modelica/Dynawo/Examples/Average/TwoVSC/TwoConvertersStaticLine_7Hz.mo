@@ -1,4 +1,5 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Examples.Average.TwoVSC;
+
 
 model TwoConvertersStaticLine_7Hz
   /*
@@ -560,6 +561,11 @@ equation
       Tolerance = 1e-5,
       Interval = 0.0005),
     preferredView = "diagram",
+        Documentation(info="
+Author: Gaia Bergameaschi.
+7 Hz oscillation should be seen and, if run with the Julia script for parameter swap,
+the linear relationship between current loop and SSOS frequency can be observed.
+Run with dynamic lines."),
   Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
 
 end TwoConvertersStaticLine_7Hz;

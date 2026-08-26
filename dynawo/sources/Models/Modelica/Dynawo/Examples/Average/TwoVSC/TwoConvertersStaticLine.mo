@@ -1,136 +1,14 @@
-within Dynawo.Electrical.PEIR.Plants.Average;
+within Dynawo.Examples.Average.TwoVSC;
 
-model TwoConverterStaticLine_emtp
 
-  /*
-     * Author: Gaia Bergamaschi
-     *
-     * Two‑converter test — grid‑following (GFL) converters with static line
-     *
-     * Purpose:
-     *   Recreate the two‑converter EMT simulation performed at RTE last year,
-     *   with two grid‑following VSCs connected through a static transmission
-     *   corridor and an infinite bus at the remote end.
-     *
-     * Description:
-     *   - Two GFL converters (gFLmodel, gFLmodel1) connected to a common AC bus.
-     *   - Each converter has its own L‑filter and LV/HV transformer impedances.
-     *   - The common bus is linked to an infinite bus via a two‑segment line
-     *     (line2 and line3), with line3 opened at t = 51.5 s to emulate a
-     *     topology change / line outage.
-     *   - Controllers include:
-     *       * Inner d‑q current loop
-     *       * Outer P/Q control loop
-     *       * SRF‑PLL
-     *       * Slow plant (power) controller with droop
-     *   - All powers and voltages are in per‑unit on each converter base.
-     *
-     * Operating point (initial conditions):
-     *   - Converter 1 (gFLmodel):
-     *       SNom   = 1000 MVA
-     *       U0Pu   = 1.091230 pu
-     *       P0_pcc = -5.010676 pu
-     *       Q0_pcc = -0.21 pu
-     *       Uphase = 0.063246 rad
-     *
-     *   - Converter 2 (gFLmodel1):
-     *       SNom   = 1000 MVA
-     *       U0Pu   = 1.086638 pu
-     *       P0_pcc =  4.989324 pu
-     *       Q0_pcc = -0.21 pu
-     *       Uphase = -0.063421 rad
-     *
-     *   - Infinite bus (infiniteBusWithVariations):
-     *       U0Pu     = 1.10 pu
-     *       UPhase   = -0.001082 rad
-     *       omega0Pu = 1.0 pu
-     *       Voltage event: dip to 0.5 pu at t = 15.1 s (instantaneous)
-     *
-     * ── Controller tuning overview ─────────────────────────────────
-     *
-     *   Shared target bandwidths (for both converters):
-     *     - Inner current loop:      Ω_cc       = 1200 rad/s
-     *     - Outer P/Q control loop:  ω_cc_outer = 10   rad/s
-     *     - Plant controller:        ω_cc_plant = 2    rad/s
-     *     - PLL:                     Ω_PLL      = 100  rad/s
-     *     - Measurement LPF:         Ω_LPF      = 300  rad/s
-     *
-     *   Inner current loop (d/q identical):
-     *     - Effective impedances include filter + LV transformer:
-     *         Rf_i = R_filter_i + R_LV_i
-     *         Lf_i = L_filter_i + L_LV_i
-     *     - PI gains for each converter i = 1,2:
-     *         k_p_cc_i = Lf_i · Ω_cc / ω_nom
-     *         k_i_cc_i = Rf_i · Ω_cc
-     *
-     *   Outer P/Q loop:
-     *     - Simple bandwidth assignment:
-     *         k_p_outer_i = ω_cc_outer / Ω_LPF
-     *         k_i_outer_i = ω_cc_outer
-     *     - Same structure on d‑ and q‑axis:
-     *         k_p_d_outer = k_p_q_outer = k_p_outer_i
-     *         k_i_d_outer = k_i_q_outer = k_i_outer_i
-     *
-     *   PLL (synchronous reference frame PLL):
-     *     - Target bandwidth:
-     *         Ω_PLL = 100 rad/s
-     *     - Damping ratio:
-     *         ζ_PLL = 1.0
-     *     - SRF‑PLL formulas (per unit on ω_nom):
-     *         k_p_pll_i = 2 ζ_PLL Ω_PLL / ω_nom
-     *         k_i_pll_i = Ω_PLL² / ω_nom
-     *     - Frequency limits:
-     *         OmegaMinPu = 0.9 pu
-     *         OmegaMaxPu = 1.1 pu
-     *
-     *   Plant (slow power) controller:
-     *     - Target bandwidth:
-     *         ω_cc_plant = 2 rad/s
-     *     - PI gains (same for P and Q channels):
-     *         K_p_plant_i = ω_cc_plant / ω_cc_outer
-     *         K_i_plant_i = ω_cc_plant
-     *     - Voltage‑reactive power coupling and droop:
-     *         Lambda = 0.417
-     *         Kdroop = 15
-     *
-     * ── Filter and delay design ────────────────────────────────────
-     *
-     *   Voltage / measurement low‑pass filter:
-     *     - Cutoff:
-     *         Ω_LPF   = 300 rad/s
-     *         T_filter = 1 / Ω_LPF
-     *
-     *   Control delay:
-     *     - Equivalent plant→outer‑loop delay:
-     *         delay_time_plant = 0.02 s
-     *
-     * ── Network topology ───────────────────────────────────────────
-     *
-     *   - gFLmodel  → line  → common bus → line2+line3 → infinite bus
-     *   - gFLmodel1 → line1 → common bus
-     *   - All line parameters are given in per‑unit (R, X, B, G).
-     *   - line3 is opened at t = 51.5 s to emulate a line trip.
-     *
-     * ── Simulation setup ───────────────────────────────────────────
-     *
-     *   - Time span:        0 s → 70 s
-     *   - Fixed output step: 0.0005 s
-     *   - Tolerance:        1e‑5
-     *   - Active power references:
-     *       * gFLmodel:  step at t = 50 s, from 0.5 pu to 0.6 pu
-     *       * gFLmodel1: step at t = 50 s, from −0.5 pu to −0.4 pu
-     *   - Voltage reference:
-     *       * gFLmodel: step at t = 480 s (outside main window here)
-     *       * gFLmodel1: constant URef0Pu1
-     *
-     */
+model TwoConvertersStaticLine
   // ═══════════════════════════════════════════════════════════════
   // Target bandwidths — edit only these high‑level settings
   // ═══════════════════════════════════════════════════════════════
   parameter Real OmegaCC = 1200 "Inner current loop bandwidth [rad/s]";
-  parameter Real w_cc_outer = 3 "Outer P/Q loop bandwidth [rad/s]";
+  parameter Real w_cc_outer = 10 "Outer P/Q loop bandwidth [rad/s]";
   parameter Real w_cc_plant = 2 "Plant (power) controller bandwidth [rad/s]";
-  parameter Real OmegaPLL          = 110 "PLL bandwidth [rad/s]";
+  parameter Real OmegaPLL = 100 "PLL bandwidth [rad/s]";
   parameter Real KsiPLL = 1"PLL damping ratio [-]";
   parameter Real OmegaLPF = 300 "Measurement low‑pass filter cutoff [rad/s]";
   parameter Real delay_time_plant = 0.02 "Equivalent delay from plant to outer loop [s]";
@@ -171,88 +49,65 @@ model TwoConverterStaticLine_emtp
   // Converter 1: grid‑following VSC (GFL1)
   // Includes inner/outer loops, PLL, droop and plant controller
   // ═══════════════════════════════════════════════════════════════
-GFLmodel gFLmodel ( SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246,
-    P0_pcc = -4.99, Q0_pcc = -0.21, Omega0Pu = 1.0,
-   tVSC = 0,
-    RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
-    omegaNom = 2 * Modelica.Constants.pi * 50,
-    RPuLV = 0.001, LPuLV = 0.025,
-    RPuHV = 0.001, LPuHV = 0.025,
-    k_filter = 1, T_filter = T_filter,
-    k_i_d_current = 3.60, k_p_d_current = 0.3819,
-    k_p_q_current = 0.3819, k_i_q_current = 3.60,
-    k_p_d_outer = 0.033, k_i_d_outer = 10,
-    k_p_q_outer = 0.033, k_i_q_outer = 10,
-    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,
-    Imax = 10, PQFlag = true,
-    IqBoostMax = 0.5, IqBoostMin = -0.5,
-    K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
-    K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
-    Lambda = 0.417, Kdroop = 15,
-    QMaxPu = 0.3, QMinPu = -0.3,
-    PMaxPu = 2,   PMinPu = 0,
-    FEMaxPu = 999, FEMinPu = -999,
-    FDbd1Pu = 0.005, FDbd2Pu = 0.1,
-    DbdPu = 0.0001,
-    K_p_pll =0.318, K_i_pll = 7.95,
-    OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
-    DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
-    DuMax_idref = 10.0,   DuMin_idref = -10.0,
-    tS_idref = 1e-4,
-    delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d =0, voltagefeedforwardflag_q = 0, T_boost = 1e-4
-  ) annotation(
+Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001,
+  RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,
+  k_filter = 1, T_filter = T_filter,
+  k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
+  k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
+  k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
+  k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,
+  Imax = 10, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,
+  K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
+  K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
+  Lambda = 0.417, Kdroop = 15,
+  QMaxPu = 0.3, QMinPu = -0.3,
+  PMaxPu = 2, PMinPu = 0,
+  FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,
+  K_p_pll = kp_pll_1, K_i_pll = ki_pll_1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0,
+  tS_idref = 1e-4,
+  delay_time_plant = delay_time_plant,
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-4) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
 
-GFLmodel gFLmodel1(
-    SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421,
-    P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0,
-    tVSC = 0,
-    RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
-    omegaNom = 2 * Modelica.Constants.pi * 50,
-    RPuLV = 0.001, LPuLV = 0.025,
-    RPuHV = 0.001, LPuHV = 0.025,
-    k_filter = 1, T_filter = T_filter,
-    k_i_d_current = 3.60, k_p_d_current = 0.3819,
-    k_p_q_current = 0.3819, k_i_q_current = 3.60,
-    k_p_d_outer = 0.033, k_i_d_outer = 10,
-    k_p_q_outer = 0.033, k_i_q_outer = 10,
-    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,
-    Imax = 10, PQFlag = true,
-    IqBoostMax = 0.5, IqBoostMin = -0.5,
-    K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
-    K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
-    Lambda = 0.417, Kdroop = 15,
-    QMaxPu = 0.3, QMinPu = -0.3,
-    PMaxPu = 0,   PMinPu = -2,
-    FEMaxPu = 999, FEMinPu = -999,
-    FDbd1Pu = 0.005, FDbd2Pu = 0.1,
-    DbdPu = 0.0001,
-    K_p_pll =0.318, K_i_pll = 7.95,
-    OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
-    DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
-    DuMax_idref = 10.0,   DuMin_idref = -10.0,
-    tS_idref = 1e-4,
-    delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d =0, voltagefeedforwardflag_q = 0, T_boost = 1e-4
-  ) annotation(
+Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001,
+  RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,
+  k_filter = 1, T_filter = T_filter,
+  k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2,
+  k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,
+  k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2,
+  k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2,
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,
+  Imax = 10, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,
+  K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,
+  K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,
+  Lambda = 0.417, Kdroop = 15,
+  QMaxPu = 0.3, QMinPu = -0.3,
+  PMaxPu = 0, PMinPu = -2,
+  FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,
+  K_p_pll = kp_pll_2, K_i_pll = ki_pll_2, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 100000.0, DuMin_idref = -10000.0,
+  tS_idref = 1e-4,
+  delay_time_plant = delay_time_plant,
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-4) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
   // Network elements (transmission lines and buses)
   // All parameters in per unit on the system base
   // ═══════════════════════════════════════════════════════════════
-  Lines.Line line(RPu = 0.00144, XPu = 0.0144, BPu = 0, GPu = 0) annotation(
+  Electrical.Lines.Line line(RPu = 0.00144, XPu = 0.0144, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {-34, 20}, extent = {{-10, -10}, {10, 10}})));
-  Lines.Line line1(RPu = 0.00144, XPu = 0.0144, BPu = 0, GPu = 0) annotation(
+ Electrical.Lines.Line line1(RPu = 0.00144, XPu = 0.0144, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {26, 20}, extent = {{-10, -10}, {10, 10}})));
   // Vertical line to infinite bus (segment 1)
-  Lines.Line line2(RPu = 0.0028, XPu = 0.028, BPu = 0, GPu = 0) annotation(
+ Electrical.Lines.Line line2(RPu = 0.02, XPu = 0.2, BPu = 0, GPu = 0) annotation(
     Placement(transformation(origin = {-4, -28}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   // Parallel / additional segment, which will be opened during the simulation
-  Lines.Line line3(RPu = 0.0077775, XPu = 0.077775, GPu = 0, BPu = 0) annotation(
+  Electrical.Lines.Line line3(RPu = 0.0077775, XPu = 0.077775, GPu = 0, BPu = 0) annotation(
     Placement(transformation(origin = {-40, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   // Main AC bus connecting the two converters and the line to the infinite bus
-  Buses.Bus bus annotation(
+  Dynawo.Electrical.Buses.Bus bus annotation(
     Placement(transformation(origin = {-4, 20}, extent = {{-10, -10}, {10, 10}})));
   // Infinite bus with voltage and frequency variations
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1.100000, UPhase = -0.001082, omega0Pu = 1.0,  // Voltage event (dip)
@@ -270,7 +125,7 @@ GFLmodel gFLmodel1(
     Placement(transformation(origin = {132, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   // Active power reference for gFLmodel:
   // PRef: step from 0.5 pu to 0.6 pu at t = 50 s
-  Modelica.Blocks.Sources.Step step(offset = 0.5, height = 0.1, startTime = 250) annotation(
+  Modelica.Blocks.Sources.Step step(offset = 0.5, height = 0.1, startTime = 50) annotation(
     Placement(transformation(origin = {-162, 68}, extent = {{-10, -10}, {10, 10}})));
   // Voltage reference for gFLmodel:
   // Step of +10% relative to URef0Pu at t = 480 s (outside main window)
@@ -278,7 +133,7 @@ GFLmodel gFLmodel1(
     Placement(transformation(origin = {-178, 16}, extent = {{-10, -10}, {10, 10}})));
   // Active power reference for gFLmodel1:
   // PRef: step from -0.5 pu to -0.4 pu at t = 50 s
-  Modelica.Blocks.Sources.Step step2(height = -0.1, offset = -0.5, startTime = 250) annotation(
+  Modelica.Blocks.Sources.Step step2(height = 0.1, offset = -0.5, startTime = 50) annotation(
     Placement(transformation(origin = {130, -56}, extent = {{-10, -10}, {10, 10}})));
   // Constant voltage reference for gFLmodel1
   Modelica.Blocks.Sources.Constant UrefPu1(k = URef0Pu1) annotation(
@@ -299,7 +154,7 @@ equation
   line2.switchOffSignal1 = false;
   line2.switchOffSignal2 = false;
 // line3 opens on side 1 at t = 51.5 s (line trip event)
-  line3.switchOffSignal1 = if time >= 5.5 then true else false;
+  line3.switchOffSignal1 = if time >= 51.5 then true else false;
   line3.switchOffSignal2 = false;
 // Keep both converters online during the whole simulation
   gFLmodel.switchOffSignal1 = false;
@@ -351,6 +206,18 @@ equation
   annotation(
     experiment(StartTime = 0, StopTime = 70, Tolerance = 1e-5, Interval = 0.0005),
     preferredView = "diagram",
-    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
+    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
+    Documentation(info = "<html>
+<p>Author: Gaia Bergamaschi</p>
+<p>Two‑converter test — grid‑following (GFL) converters with static line</p>
+<p><b>Purpose:</b></p>
+<p>Recreate the two‑converter EMT simulation performed at RTE last year,
+with two grid‑following VSCs connected through a static transmission
+lines and an infinite bus at the remote end.</p>
 
-end TwoConverterStaticLine_emtp;
+<p><b>Note:</b> to recreate the RTE EMT results, remove the delay
+and take the X values from Claudia Zanabria. If instead the results
+are to be recreated with the delay included, keep the control unchanged
+with tVSC = 1 ms and act on X. Results available in the master thesis of Gaia Bergamaschi</p>
+</html>"));
+end TwoConvertersStaticLine;
