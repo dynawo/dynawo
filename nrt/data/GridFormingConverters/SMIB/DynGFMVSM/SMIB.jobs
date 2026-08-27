@@ -13,8 +13,8 @@
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="GFM - SMIB Connection with Step on PFilterRef">
-        <solver lib="dynawo_SolverSIM" parFile="SMIB.par" parId="SimplifiedSolver"/>
-        <!--solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="IDASolver"/-->
+        <!--solver lib="dynawo_SolverSIM" parFile="SMIB.par" parId="SimplifiedSolver"/-->
+        <solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="IDASolver"/>
         <modeler compileDir="outputs/compilation">
             <dynModels dydFile="SMIB.dyd"/>
             <precompiledModels useStandardModels="true"/>
@@ -27,7 +27,12 @@
             <dumpInitValues local="true" global="true"/>
             <curves inputFile="SMIB.crv" exportMode="CSV"/>
             <logs>
-              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+              <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+              <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
+              <appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
+              <appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
+              <appender tag="VARIABLES" file="variables.log" lvlFilter="DEBUG"/>
+              <appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
               </logs>
         </outputs>
     </job>

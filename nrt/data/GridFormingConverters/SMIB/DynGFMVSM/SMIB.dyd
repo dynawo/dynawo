@@ -16,7 +16,13 @@
   <dyn:blackBoxModel id="line" lib="Line" parFile="SMIB.par" parId="2"/>
   <dyn:blackBoxModel id="GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="SMIB.par" parId="3"/>
   <dyn:blackBoxModel id="PFilterRef" lib="Step" parFile="SMIB.par" parId="5"/>
+  <dyn:blackBoxModel id="QFilterRef" lib="Step" parFile="SMIB.par" parId="6"/>
+  <dyn:blackBoxModel id="UFilterRef" lib="Step" parFile="SMIB.par" parId="7"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="Step" parFile="SMIB.par" parId="8"/>
   <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line" var2="line_terminal1"/>
   <dyn:connect id1="line" var1="line_terminal2" id2="GFM" var2="GFM_terminal"/>
   <dyn:connect id1="PFilterRef" var1="step_step" id2="GFM" var2="GFM_PFilterRefPu"/>
+  <dyn:connect id1="QFilterRef" var1="step_step" id2="GFM" var2="GFM_QFilterRefPu"/>
+  <dyn:connect id1="UFilterRef" var1="step_step" id2="GFM" var2="GFM_UFilterRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="step_step" id2="GFM" var2="GFM_omegaRefPu"/>
 </dyn:dynamicModelsArchitecture>

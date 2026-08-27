@@ -354,6 +354,19 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
+#if _DEBUG_
+  if (solver->checkJacobian_) {
+    // --- TRACE TEMPORAIRE ---
+    std::vector<double> zValues;
+    model.getCurrentZ(zValues);
+    Trace::debug() << "DEBUG_Z_DUMP: sizeZ=" << model.sizeZ() << " zValues.size()=" << zValues.size() << Trace::endline;
+    for (size_t i = 0; i < zValues.size(); ++i) {
+      Trace::debug() << "DEBUG_Z_DUMP: Z[" << i << "] = " << zValues[i] << Trace::endline;
+    }
+    // --- fin trace temporaire ---
+    checkJacobian(smjKin, model);
+  }
+#endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
