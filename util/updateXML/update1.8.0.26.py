@@ -16,7 +16,7 @@ from content.Ticket import ticket
 # Static VAR compensators : mode_value -> mode
 @ticket(3748)
 def update(jobs):
-    svarcs = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: "StaticVarCompensator" in bbm.get_lib_name() and "ModeHandling" in bbm.get_lib_name())}
-    for svarc in svarcs:
+    for svarc in jobs.dyds.get_bbms(lambda bbm: "StaticVarCompensator" in bbm.get_lib_name() and "ModeHandling" in bbm.get_lib_name()):
+        svarc.curves.change_variable_name("SVarC_modeHandling_mode_value", "SVarC_modeHandling_mode")
         if (svarc.static_refs.get_number_of_static_ref() > 0 or svarc.static_refs.get_number_of_macro_static_ref() > 0):
-            svarc.static_refs.change_static_ref_var_name("SVarC_modeHandling_mode_value", "SVarC_modeHandling_mode")
+            svarc.static_refs.change_var_name("SVarC_modeHandling_mode_value", "SVarC_modeHandling_mode")
