@@ -1,24 +1,29 @@
 within Dynawo.Electrical.PEIR.Plants.Average;
 
-model GFLmodel
+model GFLmodel_bandwidth
   /**
-     * Author Gaia Bergamaschi
-     * Grid-Following (GFL) average converter model.
-     *
-     * This model represents a voltage-source converter (VSC) plant connected to the
-     * grid through an LC filter and a two-stage RL transformer. It includes:
-     *   - A PLL-based synchronisation unit
-     *   - Inner current controllers (d/q axes)
-     *   - Outer P/Q control loops
-     *   - A plant-level P–f and Q–U controller with droop
-     *   - A VSC Padé delay block
-     *   - A measurement/filter block
-     *
-     * Sign convention: load convention at the PCC (positive = power flowing into converter).
-     * Sign convention: generator convention at the GFL (positive = power flowing out of the converter).
-     * All electrical quantities are in per-unit on the machine base (UNom, SNom).
-     */
-  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
+       * Author Gaia Bergamaschi
+       * Grid-Following (GFL) average converter model.
+       *
+       * This model represents a voltage-source converter (VSC) plant connected to the
+       * grid through an LC filter and a two-stage RL transformer. It includes:
+       *   - A PLL-based synchronisation unit
+       *   - Inner current controllers (d/q axes)
+       *   - Outer P/Q control loops
+       *   - A plant-level P–f and Q–U controller with droop
+       *   - A VSC Padé delay block
+       *   - A measurement/filter block
+       *
+       * Sign convention: load convention at the PCC (positive = power flowing into converter).
+       * Sign convention: generator convention at the GFL (positive = power flowing out of the converter).
+       * All electrical quantities are in per-unit on the machine base (UNom, SNom).
+       *
+       * Controller gains (current, outer, PLL, plant) are NOT given directly:
+       * the user sets target bandwidths (OmegaCC, OmegaOuter, OmegaPlant, OmegaPLL,
+       * KsiPLL, OmegaLPF) and all kp/ki are derived internally as final parameters,
+       * following the same decade-separation design used in TwoConvertersStaticLine.
+       */
+  extends Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   // ────────────────────────────────────────────────────────────
   // Network initial conditions (PCC, LV side)
@@ -27,7 +32,7 @@ model GFLmodel
   parameter Real Uphase "Initial phase of PCC voltage, rad";
   parameter Real P0_pcc "Initial active power at PCC (pu, load convention >0 into converter)";
   parameter Real Q0_pcc "Initial reactive power at PCC (pu, load convention >0 into converter)";
-  parameter Real Omega0Pu = Dynawo.Electrical.SystemBase.omega0Pu "Initial per-unit frequency (pu) – nominal operating point";
+  parameter Real Omega0Pu = Electrical.SystemBase.omega0Pu "Initial per-unit frequency (pu) – nominal operating point";
   // ────────────────────────────────────────────────────────────
   // VSC Padé delay
   // ────────────────────────────────────────────────────────────
@@ -38,7 +43,7 @@ model GFLmodel
   parameter Real RfPu "Filter series resistance R_f (pu, base UNom, SNom)";
   parameter Real LfPu "Filter series inductance L_f (pu, base UNom, SNom)";
   parameter Real CfPu "Filter shunt capacitance C_f (pu, base UNom, SNom)";
-  parameter Real omegaNom = Dynawo.Electrical.SystemBase.omegaNom "Nominal angular frequency ω_nom (rad/s) used as base";
+  parameter Real omegaNom = Electrical.SystemBase.omegaNom "Nominal angular frequency ω_nom (rad/s) used as base";
   // ────────────────────────────────────────────────────────────
   // RL transformer /  equivalent impedances (referred to LV and HV side)
   // ────────────────────────────────────────────────────────────
@@ -50,21 +55,26 @@ model GFLmodel
   // Measurement block filter variables
   // ────────────────────────────────────────────────────────────
   parameter Real k_filter "Measurement filter gain";
-  parameter Real T_filter "Measurement filter time constant (s)";
+  parameter Real OmegaLPF "Measurement low-pass filter cutoff (rad/s)";
+  final parameter Real T_filter = 1.0/OmegaLPF "Measurement filter time constant (s), derived from OmegaLPF";
   // ────────────────────────────────────────────────────────────
-  // Inner  current controllers (converter control)
+  // Inner current controllers (converter control)
   // ────────────────────────────────────────────────────────────
-  parameter Real k_p_d_current "Inner current loop PI: proportional gain on d-axis";
-  parameter Real k_i_d_current "Inner current loop PI: integral gain on d-axis";
-  parameter Real k_p_q_current "Inner current loop PI: proportional gain on q-axis";
-  parameter Real k_i_q_current "Inner current loop PI: integral gain on q-axis";
+  parameter Real OmegaCC "Inner current loop bandwidth (rad/s)";
+  final parameter Real RfEqPu = RfPu + RPuLV "Effective series resistance seen by current loop, filter + LV transformer (pu)";
+  final parameter Real LfEqPu = LfPu + LPuLV "Effective series inductance seen by current loop, filter + LV transformer (pu)";
+  final parameter Real k_p_d_current = LfEqPu*OmegaCC/omegaNom "Inner current loop PI: proportional gain on d-axis";
+  final parameter Real k_i_d_current = RfEqPu*OmegaCC "Inner current loop PI: integral gain on d-axis";
+  final parameter Real k_p_q_current = LfEqPu*OmegaCC/omegaNom "Inner current loop PI: proportional gain on q-axis";
+  final parameter Real k_i_q_current = RfEqPu*OmegaCC "Inner current loop PI: integral gain on q-axis";
   // ────────────────────────────────────────────────────────────
   // Outer P/Q loop control loops (converter control)
   // ────────────────────────────────────────────────────────────
-  parameter Real k_p_d_outer "Outer loop PI: proportional gain on d-axis (active power)";
-  parameter Real k_i_d_outer "Outer loop PI: integral gain on d-axis (active power)";
-  parameter Real k_p_q_outer "Outer loop PI: proportional gain on q-axis (reactive/voltage)";
-  parameter Real k_i_q_outer "Outer loop PI: integral gain on q-axis (reactive/voltage)";
+  parameter Real OmegaOuter "Outer P/Q loop bandwidth (rad/s)";
+  final parameter Real k_p_d_outer = OmegaOuter/OmegaLPF "Outer loop PI: proportional gain on d-axis (active power)";
+  final parameter Real k_i_d_outer = OmegaOuter "Outer loop PI: integral gain on d-axis (active power)";
+  final parameter Real k_p_q_outer = OmegaOuter/OmegaLPF "Outer loop PI: proportional gain on q-axis (reactive/voltage)";
+  final parameter Real k_i_q_outer = OmegaOuter "Outer loop PI: integral gain on q-axis (reactive/voltage)";
   parameter Real Imax "Maximum converter current magnitude (pu)";
   parameter Boolean PQFlag "Priority flag: false = Q-priority, true = P-priority";
   // Reactive power boost around voltage thresholds
@@ -76,10 +86,11 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // Plant controller (P–f and Q–U droop and PI loops)
   // ────────────────────────────────────────────────────────────
-  parameter Real K_p_q_plant "Plant Q/U PI: proportional gain on Q (pu/pu)";
-  parameter Real K_i_q_plant "Plant Q/U PI: integral gain on Q (pu/pu·s)";
-  parameter Real K_p_p_plant "Plant P/f PI: proportional gain on P (pu/pu)";
-  parameter Real K_i_p_plant "Plant P/f PI: integral gain on P (pu/pu·s)";
+  parameter Real OmegaPlant "Plant (power) controller bandwidth (rad/s)";
+  final parameter Real K_p_q_plant = OmegaPlant/OmegaOuter "Plant Q/U PI: proportional gain on Q (pu/pu)";
+  final parameter Real K_i_q_plant = OmegaPlant "Plant Q/U PI: integral gain on Q (pu/pu·s)";
+  final parameter Real K_p_p_plant = OmegaPlant/OmegaOuter "Plant P/f PI: proportional gain on P (pu/pu)";
+  final parameter Real K_i_p_plant = OmegaPlant "Plant P/f PI: integral gain on P (pu/pu·s)";
   parameter Real Lambda "Voltage–reactive droop coefficient λ in U + λ·Q (pu U / pu Q), (pu, base UNom, SNom)";
   parameter Real Kdroop "Frequency droop gain on active power (pu/pu)";
   parameter Real QMaxPu "Maximum reactive power reference (pu)";
@@ -94,8 +105,10 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // PLL parameters
   // ────────────────────────────────────────────────────────────
-  parameter Real K_p_pll "PLL PI: proportional gain";
-  parameter Real K_i_pll "PLL PI: integral gain";
+  parameter Real OmegaPLL "PLL bandwidth (rad/s)";
+  parameter Real KsiPLL "PLL damping ratio (-)";
+  final parameter Real K_p_pll = 2.0*KsiPLL*OmegaPLL/omegaNom "PLL PI: proportional gain";
+  final parameter Real K_i_pll = OmegaPLL*OmegaPLL/omegaNom "PLL PI: integral gain";
   parameter Real OmegaMaxPu "Maximum PLL frequency (pu)";
   parameter Real OmegaMinPu "Minimum PLL frequency (pu)";
   final parameter Real Theta0 = Modelica.Math.atan2(ucaP0Pu_init.im, ucaP0Pu_init.re) "Initial PLL angle (rad)";
@@ -114,12 +127,12 @@ model GFLmodel
   // Derived initial conditions (computed from the parameters above)
   // ─────────────────────────────────────────────────────────────────────────
   // Sign change: generator convention (injection positive)
-  final parameter Real P0Pu = -P0_pcc * SystemBase.SnRef / SNom;
-  final parameter Real Q0Pu = -Q0_pcc * SystemBase.SnRef / SNom;
+  final parameter Real P0Pu = -P0_pcc*SystemBase.SnRef/SNom;
+  final parameter Real Q0Pu = -Q0_pcc*SystemBase.SnRef/SNom;
   // PCC voltage phasor and magnitude
-  final parameter Complex terminalV     = ComplexMath.fromPolar(U0Pu, Uphase);
-  final parameter Real UrPcc0Pu  = terminalV.re;
-  final parameter Real UiPcc0Pu  = terminalV.im;
+  final parameter Complex terminalV = Modelica.ComplexMath.fromPolar(U0Pu, Uphase);
+  final parameter Real UrPcc0Pu = terminalV.re;
+  final parameter Real UiPcc0Pu = terminalV.im;
   final parameter Complex u0Pu_init = Complex(UrPcc0Pu, UiPcc0Pu);
   final parameter Real U0Sq = UrPcc0Pu^2 + UiPcc0Pu^2;
   // q-axis component of the PCC voltage in the PLL reference frame
@@ -163,15 +176,13 @@ model GFLmodel
   final parameter Complex uLV0Pu_init = u0Pu_init + i0Pu_init*Z_HV;
   final parameter Real Ud_LV0Pu = uLV0Pu_init.re*cos(Theta0) + uLV0Pu_init.im*sin(Theta0);
   final parameter Real Uq_LV0Pu = -uLV0Pu_init.re*sin(Theta0) + uLV0Pu_init.im*cos(Theta0);
-   parameter Real T_boost
-    "Time constant of first-order filter on iq_boost (s) to delay the current boost response. Set 0 to disable";
-
+  parameter Real T_boost "Time constant of first-order filter on iq_boost (s) to delay the current boost response. Set 0 to disable";
   // ──────────────────────────────────────────────────────────────────────────
   // SECTION 12 – Component declarations
   // ─────────────────────────────────────────────────────────────────────────
   // PCC terminal – AC connector to the external network.
   // Voltage and current are initialised at the computed steady-state values.
-  Dynawo.Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu * SNom / SystemBase.SnRef), im(start = -IiPcc0Pu * SNom / SystemBase.SnRef))) annotation(
+  Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu*SNom/SystemBase.SnRef), im(start = -IiPcc0Pu*SNom/SystemBase.SnRef))) annotation(
     Placement(transformation(origin = {104, 54}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {80, 16}, extent = {{-20, -20}, {20, 20}})));
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
@@ -189,7 +200,7 @@ model GFLmodel
   // External voltage (reactive power) set-point input
   Modelica.Blocks.Interfaces.RealInput UREfPu(start = URef0Pu) annotation(
     Placement(transformation(origin = {-209, 45}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
-    final parameter Real URef0Pu = U0Pu + Lambda*Q0Pu;
+  final parameter Real URef0Pu = U0Pu + Lambda*Q0Pu;
   // Grid angular frequency reference (provided by the network / external bus model)
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) annotation(
     Placement(transformation(origin = {-83, 109}, extent = {{-9, -9}, {9, 9}}, rotation = -90), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}})));
@@ -204,7 +215,7 @@ model GFLmodel
   Controls.Utilities.Average.MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud_LV0Pu, V_LV_q_0 = Uq_LV0Pu) annotation(
     Placement(transformation(origin = {-90, -106}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
   // LC dynamic filter block
-  BaseClasses.LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu* SNom / SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
+  BaseClasses.LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu*SNom/SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
     Placement(transformation(origin = {3, 55}, extent = {{-11, -11}, {11, 11}})));
   // Combined LV+HV transformer RL stage.
   // Models the two winding leakage impedances (LV and HV) as a single lumped
@@ -218,7 +229,6 @@ model GFLmodel
   BaseClasses.RLDynTrafo Trafo(RPu = (RPuLV + RPuHV)*SystemBase.SnRef/SNom, LPu = (LPuLV + LPuHV)*SystemBase.SnRef/SNom, Omega0Pu = Omega0Pu, Ir0Pu = IrPcc0Pu*SNom/SystemBase.SnRef, Ii0Pu = IiPcc0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {57, 54}, extent = {{-10, -10}, {10, 10}})));
 equation
-
 // ──────────────────────────────────────────────────────────────────────────
 // SECTION 13 – Signal connections
 //
@@ -315,20 +325,18 @@ equation
   measurementBlock.u_LV_re = terminalPcc.V.re + Trafo.iRe*SystemBase.SnRef/SNom*RPuHV - Trafo.iIm*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV;
 // real part of LV node voltage
   measurementBlock.u_LV_im = terminalPcc.V.im + Trafo.iRe*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV + Trafo.iIm*SystemBase.SnRef/SNom*RPuHV;
-
 // imaginary part of LV node voltage
 // PCC voltage (from the external network connector)
   measurementBlock.V_pcc_re = terminalPcc.V.re;
 // real part of PCC voltage
   measurementBlock.V_pcc_im = terminalPcc.V.im;
-  measurementBlock.v_filt_re=lCDynFilter.terminalRight.V.re;
-   measurementBlock.v_filt_im=lCDynFilter.terminalRight.V.im;
-
+  measurementBlock.v_filt_re = lCDynFilter.terminalRight.V.re;
+  measurementBlock.v_filt_im = lCDynFilter.terminalRight.V.im;
 // imaginary part of PCC voltage
 // PCC current with sign reversal: terminalPcc uses load convention (i > 0 into network),
 // while the measurement block uses generator convention (i > 0 out of converter).
-  measurementBlock.I_pcc_re = -terminalPcc.i.re * SystemBase.SnRef / SNom;
-  measurementBlock.I_pcc_im = -terminalPcc.i.im * SystemBase.SnRef / SNom;
+  measurementBlock.I_pcc_re = -terminalPcc.i.re*SystemBase.SnRef/SNom;
+  measurementBlock.I_pcc_im = -terminalPcc.i.im*SystemBase.SnRef/SNom;
   connect(Trafo.right, terminalPcc) annotation(
     Line(points = {{68, 54}, {104, 54}}, color = {0, 0, 255}));
   connect(plant_controller.QInjRefPu, gFLControl.Q_ref) annotation(
@@ -336,6 +344,6 @@ equation
   connect(plant_controller.PInjRefPu, gFLControl.P_ref) annotation(
     Line(points = {{-133, 63}, {-123, 63}, {-123, 58}, {-114, 58}}, color = {0, 0, 127}));
   annotation(
-    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16}, extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));
-end GFLmodel;
+end GFLmodel_bandwidth;
