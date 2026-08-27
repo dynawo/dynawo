@@ -375,6 +375,7 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
 
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(true);
+  solverKINYPrim_->setCheckJacobian(true);
 #endif
   do {
     // call to solver KIN in order to find the new (adequate) algebraic variables' values
@@ -458,6 +459,7 @@ SolverIDA::calculateIC(const double /*tEnd*/) {
   flagInit_ = false;
 #if _DEBUG_
   solverKINNormal_->setCheckJacobian(false);
+  solverKINYPrim_->setCheckJacobian(false);
 #endif
 }
 

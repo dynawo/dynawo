@@ -15,8 +15,6 @@
  <dyn:blackBoxModel id="PlantControlVSM"
     lib="DynGridFormingVirtualSynchronousMachinePlantControl"
     parFile="VSMPlantControl.par" parId="1"/>
-<dyn:blackBoxModel id="Measurements"
-    lib="Measurements"/>
 <dyn:blackBoxModel id="Grid"
     lib="AcGridRoCoF"
     parFile="VSMPlantControl.par" parId="4"/>
@@ -32,11 +30,11 @@
 <dyn:blackBoxModel id="PRefSrc"
     lib="SetPoint"
     parFile="VSMPlantControl.par" parId="8"/>
+<!--dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="VSMPlantControl.par" parId="9"/-->
 
 <!-- Chaîne électrique -->
-<dyn:connect id1="PlantControlVSM" var1="Transformer_terminal2" id2="Measurements" var2="measurements_terminal2"/>
-<dyn:connect id1="Measurements" var1="measurements_terminal1" id2="Grid" var2="Grid_aCPower"/>
-
+<dyn:connect id1="PlantControlVSM" var1="Transformer_terminal2" id2="Grid" var2="Grid_aCPower"/>
+<!--dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="Measurements" var2="measurements_terminal1"/-->
 <!-- Consignes -->
 <dyn:connect id1="OmegaRefSrc" var1="setPoint_setPoint" id2="Grid" var2="Grid_OmegaRef"/>
 <dyn:connect id1="OmegaRefSrc" var1="setPoint_setPoint" id2="PlantControlVSM" var2="PlantControlVSM_omegaRefPu"/>
@@ -44,8 +42,5 @@
 <dyn:connect id1="URefSrc" var1="setPoint_setPoint" id2="PlantControlVSM" var2="PlantControlVSM_URefPu"/>
 <dyn:connect id1="URefGfmSrc" var1="setPoint_setPoint" id2="PlantControlVSM" var2="PlantControlVSM_UFilterRefPu"/>
 
-<!-- Mesures -> Plant Control -->
-<dyn:connect id1="Measurements" var1="measurements_PPu" id2="PlantControlVSM" var2="PlantControlVSM_PPccPu"/>
-<dyn:connect id1="Measurements" var1="measurements_QPu" id2="PlantControlVSM" var2="PlantControlVSM_QPccPu"/>
-<dyn:connect id1="Measurements" var1="measurements_UPu" id2="PlantControlVSM" var2="PlantControlVSM_UPccPu"/>
+
 </dyn:dynamicModelsArchitecture>

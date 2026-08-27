@@ -87,7 +87,12 @@
   <par type="DOUBLE" name="setPoint_Value0" value="1.04765613156226"/>
 </set>
 <set id="8">
-  <par type="DOUBLE" name="setPoint_Value0" value="-9.893036274525434"/>
+  <!--par type="DOUBLE" name="setPoint_Value0" value="-9.893036274525434"/-->
+  <par type="DOUBLE" name="setPoint_Value0" value="-9.0"/>
+</set>
+<set id="9">
+  <par type="DOUBLE" name="infiniteBus_UPu" value="1.0"/>
+  <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
 </set>
 <set id="IDASolver">
   <par type="INT" name="order" value="2"/>
@@ -106,4 +111,5 @@
   <par type="INT" name="maxNewtonTry" value="10"/>
   <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
 </set>
+
 </parametersSet>

@@ -40,46 +40,42 @@ model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(transformation(origin = {-8, 82}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Electrical.Lines.Line line(RPu = 0.000166667, XPu = 0.005, GPu = 0, BPu = 0) annotation(
-    Placement(transformation(origin = {38, 4}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {40, 4}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio Transformer(XPu = 0.005, GPu = 0, BPu = 0, rTfoPu = 1, RPu = 0.000166667) annotation(
     Placement(transformation(origin = {68, 4}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Controls.Utilities.Measurements measurementsPCC annotation(
-    Placement(transformation(origin = {96, 4}, extent = {{-12, -12}, {12, 12}}, rotation = 180)));
-  Electrical.Sources.AcGrid acGrid(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, RoCoFValue = 0) annotation(
-    Placement(transformation(origin = {124, -2}, extent = {{8, -8}, {-8, 8}})));
   Modelica.Blocks.Sources.Constant URefGfmPu(k = UGfm0Pu) annotation(
     Placement(transformation(origin = {-74, -24}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.PEIR.BaseControls.Plant.DynVSMPlantControl dynVSMPlantControl(SNom = SNom, U0Pu = UGfm0Pu, UPhase0 = UPhaseGfm0, P0Pu = PGfm0Pu, Q0Pu = QGfm0Pu, UPcc0Pu = UPcc0Pu, UPccPhase0 = UPccPhase0, PPcc0Pu = PPcc0Pu, QPcc0Pu = QPcc0Pu, Lambd = 0.01, Kdroop = 1, tQFilt = 0.1, tPFilt = 0.01, tUFilt = 0.1, Kpq = 0.1, Kiq = 1.0, Kpp = 0.1, Kip = 1.0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 12, QMinPu = -12, PMaxPu = 12, PMinPu = -12, CFilterPu = 1e-05, H = 3, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, Kic = 5, KpVI = 0.6, Kpc = 0.477465, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2,RFilterPu = 0.015, RTransformerPu = 0.006, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0, kVSM = 155.955, tVSC = 0.0004)  annotation(
     Placement(transformation(origin = {-8, 4}, extent = {{-10, -10}, {10, 10}})));
+  Electrical.Sources.AcGridRoCoF acGridRoCoF(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, RoCoFValue = 0)  annotation(
+    Placement(transformation(origin = {100, -2}, extent = {{10, -10}, {-10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   Transformer.switchOffSignal1 = false;
   Transformer.switchOffSignal2 = false;
   connect(line.terminal2, Transformer.terminal1) annotation(
-    Line(points = {{48, 4}, {58, 4}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, acGrid.OmegaRef) annotation(
-    Line(points = {{-8, 71}, {-8, 69}, {134, 69}, {134, 2}}, color = {0, 0, 255}, pattern = LinePattern.Dot));
-  connect(Transformer.terminal2, measurementsPCC.terminal2) annotation(
-    Line(points = {{78, 4}, {84, 4}}, color = {0, 0, 255}));
-  connect(measurementsPCC.terminal1, acGrid.aCPower) annotation(
-    Line(points = {{108, 4}, {114, 4}}, color = {0, 0, 255}));
+    Line(points = {{50, 4}, {58, 4}}, color = {0, 0, 255}));
   connect(dynVSMPlantControl.terminal, line.terminal1) annotation(
-    Line(points = {{2, 4}, {28, 4}}, color = {0, 0, 255}));
+    Line(points = {{2, 4}, {30, 4}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, dynVSMPlantControl.omegaRefPu) annotation(
     Line(points = {{-8, 72}, {-8, 16}}, color = {0, 0, 127}));
   connect(PRefPu.y, dynVSMPlantControl.PRefPu) annotation(
     Line(points = {{-60, 36}, {-26, 36}, {-26, 8}, {-20, 8}}, color = {0, 0, 127}));
-  connect(measurementsPCC.PPu, dynVSMPlantControl.PPccPu) annotation(
-    Line(points = {{94, -10}, {-12, -10}, {-12, 16}, {-20, 16}, {-20, 12}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
-  connect(measurementsPCC.QPu, dynVSMPlantControl.QPccPu) annotation(
-    Line(points = {{92, -10}, {-24, -10}, {-24, -2}, {-20, -2}}, color = {0, 0, 127}));
-  connect(measurementsPCC.UPu, dynVSMPlantControl.UPccPu) annotation(
-    Line(points = {{108, -10}, {108, -20}, {-24, -20}, {-24, -4}, {-20, -4}}, color = {0, 0, 127}));
   connect(URefGfmPu.y, dynVSMPlantControl.UFilterRefPu) annotation(
     Line(points = {{-62, -24}, {-8, -24}, {-8, -8}}, color = {0, 0, 127}));
   connect(URefPu.y, dynVSMPlantControl.URefPu) annotation(
     Line(points = {{-62, 6}, {-20, 6}, {-20, 2}}, color = {0, 0, 127}));
+  connect(Transformer.U2Pu, dynVSMPlantControl.UPccPu) annotation(
+    Line(points = {{78, -6}, {78, -40}, {-32, -40}, {-32, -4}, {-20, -4}}, color = {0, 0, 127}));
+  connect(Transformer.P2Pu, dynVSMPlantControl.PPccPu) annotation(
+    Line(points = {{68, -6}, {68, -50}, {-42, -50}, {-42, 12}, {-20, 12}}, color = {0, 0, 127}));
+  connect(Transformer.Q2Pu, dynVSMPlantControl.QPccPu) annotation(
+    Line(points = {{58, -6}, {54, -6}, {54, -44}, {-36, -44}, {-36, -2}, {-20, -2}}, color = {0, 0, 127}));
+  connect(Transformer.terminal2, acGridRoCoF.aCPower) annotation(
+    Line(points = {{78, 4}, {88, 4}}, color = {0, 0, 255}));
+  connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+    Line(points = {{-8, 72}, {112, 72}, {112, 4}}, color = {0, 0, 127}));
   annotation(
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),
     Diagram);

@@ -40,7 +40,7 @@ model DynRLCFilterRI "Dynamic RLC Filter in (RI) frame"
   // Terminals
   Dynawo.Connectors.ACPower terminal1(V(re(start = UConv0Pu.re), im(start = UConv0Pu.im)), i(re(start = IConv0Pu.re), im(start = IConv0Pu.im))) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-115, -3}, extent = {{-15, -15}, {15, 15}})));
-  Dynawo.Connectors.ACPower terminal2 annotation(
+  Dynawo.Connectors.ACPower terminal2(V(re(start = UFilter0Pu.re), im(start = UFilter0Pu.im)), i(re(start = IPcc0Pu.re), im(start = IPcc0Pu.im))) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114,-2}, extent = {{-15, -15}, {15, 15}})));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = Omega0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
   Placement(transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));

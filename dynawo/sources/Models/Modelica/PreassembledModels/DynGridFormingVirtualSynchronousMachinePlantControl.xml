@@ -21,5 +21,9 @@
     name="Dynawo.Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio"/>
 <dyn:connect id1="PlantControlVSM" var1="terminal" id2="Line" var2="terminal1"/>
 <dyn:connect id1="Line" var1="terminal2" id2="Transformer" var2="terminal1"/>
+<dyn:connect id1="Transformer" var1="P2Pu" id2="PlantControlVSM" var2="PPccPu"/>
+<dyn:connect id1="Transformer" var1="Q2Pu" id2="PlantControlVSM" var2="QPccPu"/>
+<dyn:connect id1="Transformer" var1="U2Pu" id2="PlantControlVSM" var2="UPccPu"/>
+
 </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
