@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
+within Dynawo.Electrical.Controls.PEIR.BaseControls.Average.BaseClasses;
 
 
 
