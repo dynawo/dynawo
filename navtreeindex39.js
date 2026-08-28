@@ -1,5 +1,7 @@
 var NAVTREEINDEX39 =
 {
+"functions_eval_q.html":[1,3,5,16],
+"functions_eval_r.html":[1,3,5,17],
 "functions_eval_s.html":[1,3,5,18],
 "functions_eval_t.html":[1,3,5,19],
 "functions_eval_u.html":[1,3,5,20],
@@ -8,8 +10,8 @@ var NAVTREEINDEX39 =
 "functions_eval_x.html":[1,3,5,23],
 "functions_eval_z.html":[1,3,5,24],
 "functions_f.html":[1,3,0,5],
-"functions_func.html":[1,3,1],
 "functions_func.html":[1,3,1,0],
+"functions_func.html":[1,3,1],
 "functions_func_0x7e.html":[1,3,1,26],
 "functions_func_b.html":[1,3,1,1],
 "functions_func_c.html":[1,3,1,2],
