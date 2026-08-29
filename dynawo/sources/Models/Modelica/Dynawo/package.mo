@@ -2,7 +2,7 @@ encapsulated package Dynawo "Dynawo models library"
   // generic import commands
   import Complex "Complex numbers foundation class";
   import Modelica;
-  import Modelica.ComplexMath "Complex numbers operators (+, - , *, exp, abs...)";
+  import Modelica.ComplexMath "Complex numbers operators (+, -, *, exp, abs...)";
   import Modelica.Icons;
   import Dynawo;
   import Dynawo.AdditionalIcons;
