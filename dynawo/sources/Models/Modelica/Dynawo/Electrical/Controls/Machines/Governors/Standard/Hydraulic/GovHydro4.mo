@@ -9,7 +9,7 @@ within Dynawo.Electrical.Controls.Machines.Governors.Standard.Hydraulic;
 * file, you can obtain one at
 * SPDX-License-Identifier:
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model GovHydro4 "Governor type GovHydro4"

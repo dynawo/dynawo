@@ -9,7 +9,7 @@ within Dynawo.Electrical.HVDC.HvdcVsc.BaseControls.ActivePowerControl;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model ActivePowerControlDangling "Active power control for the HVDC VSC model with terminal2 connected to a switched-off bus (P control on terminal 1)"
