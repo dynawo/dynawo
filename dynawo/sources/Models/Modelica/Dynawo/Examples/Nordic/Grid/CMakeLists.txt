@@ -16,6 +16,9 @@ set(MODEL_FILES
     package.order
     FullDynamicModel.mo
     FullStaticModel.mo
+    FullDynamicModel1Injector.mo
+    FullDynamicModel10Injectors.mo
+    FullDynamicModel10InjectorsWith1Condenser.mo
     )
 
 #
