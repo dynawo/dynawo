@@ -6,7 +6,7 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+# This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 include(FindGit)
 find_package(Git)
@@ -43,7 +43,7 @@ file(WRITE ${OUTPUT_DIR}/gitversion.h.txt
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+// This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 #define DYNAWO_GIT_BRANCH \"${GIT_BRANCH}\"\n#define DYNAWO_GIT_HASH \"${GIT_COMMIT_HASH}\"\n")
 # copy the file to the final header only if the version changes
 # reduces needless rebuilds
