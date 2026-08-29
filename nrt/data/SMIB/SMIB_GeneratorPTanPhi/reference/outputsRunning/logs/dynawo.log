@@ -1,82 +1,90 @@
-2025-12-03 12:37:59 | INFO |  ============================================================ 
-2025-12-03 12:37:59 | INFO | DYNAWO VERSION  :     1.8.0
-2025-12-03 12:37:59 | INFO | DYNAWO REVISION :  3926_add_generator_PTanPhi-9219c3d9719
-2025-12-03 12:37:59 | INFO |  ============================================================ 
-2025-12-03 12:37:59 | INFO | 
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | building model from input files
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | model was built successfully
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | 
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | starting local initialization
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | end of local initialization
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | 
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | starting global initialization
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | end of global initialization
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | 
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | starting curve initialization
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | WARN | curve not added: Id: Generator , name: generator_URefPu
-2025-12-03 12:37:59 | WARN | curve not added: Id: Generator , name: generator_QGenRefPu
-2025-12-03 12:37:59 | WARN | curve not added: Id: Generator , name: generator_LambdaPu
-2025-12-03 12:37:59 | INFO | end of curve initialization, added 10 curves
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | 
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | starting simulation with solver SimplifiedSolver
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO | number of continuous variables : 34
-2025-12-03 12:37:59 | INFO | number of discrete variables : 17
-2025-12-03 12:37:59 | INFO | number of root functions : 24
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
-2025-12-03 12:37:59 | INFO | -----------------------------------------------------------------------
-2025-12-03 12:37:59 | INFO |        0.000 ¦        0                0          0              1.000 
-2025-12-03 12:37:59 | INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
-2025-12-03 12:37:59 | INFO |        1.000 ¦        1                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        2.000 ¦        2                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        3.000 ¦        3                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        4.000 ¦        4                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        5.000 ¦        5                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        6.000 ¦        6                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        7.000 ¦        7                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        8.000 ¦        8                0          0              1.000 
-2025-12-03 12:37:59 | INFO |        9.000 ¦        9                0          0              1.000 
-2025-12-03 12:37:59 | INFO | Algebraic mode (with J recalculation) change at t = 10
-2025-12-03 12:37:59 | INFO |       10.000 ¦       10                0          0              1.000 
-2025-12-03 12:37:59 | INFO | calculation of the new starting point of the simulation.
-2025-12-03 12:37:59 | INFO | Algebraic mode change at t = 10
-2025-12-03 12:37:59 | INFO |       10.000 ¦       10                2          4              1.000 
-2025-12-03 12:37:59 | INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
-2025-12-03 12:37:59 | INFO |       11.000 ¦       11                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       12.000 ¦       12                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       13.000 ¦       13                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       14.000 ¦       14                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       15.000 ¦       15                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       16.000 ¦       16                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       17.000 ¦       17                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       18.000 ¦       18                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       19.000 ¦       19                2          4              1.000 
-2025-12-03 12:37:59 | INFO |       20.000 ¦       20                2          4              1.000 
-2025-12-03 12:37:59 | INFO | 
-2025-12-03 12:37:59 | INFO | execution statistics :
-2025-12-03 12:37:59 | INFO | 
-2025-12-03 12:37:59 | INFO | number of time iterations                  = 20
-2025-12-03 12:37:59 | INFO | number of residual evaluations             = 6
-2025-12-03 12:37:59 | INFO | number of Jacobian evaluations             = 4
-2025-12-03 12:37:59 | INFO | number of nonlinear iterations             = 2
-2025-12-03 12:37:59 | INFO | number of error test failures              = 0
-2025-12-03 12:37:59 | INFO | number of nonlinear convergence failures   = 0
-2025-12-03 12:37:59 | INFO | number of root functions evaluations       = 25
-2025-12-03 12:37:59 | INFO | number of discrete variables evaluations   = 9
-2025-12-03 12:37:59 | INFO | number of mode evaluations                 = 5
-2025-12-03 12:37:59 | INFO | end of job 'Generator PTanPhi running test'
+INFO |  ============================================================ 
+INFO | DYNAWO VERSION  :     1.8.0
+INFO | DYNAWO REVISION :  3783_running_instead_of_equal_0-65a473cdd74
+INFO |  ============================================================ 
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | building model from input files
+INFO | -----------------------------------------------------------------------
+INFO | model was built successfully
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting local initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of local initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting global initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of global initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting curve initialization
+INFO | -----------------------------------------------------------------------
+WARN | curve not added: Id: Generator , name: generator_URefPu
+WARN | curve not added: Id: Generator , name: generator_QGenRefPu
+WARN | curve not added: Id: Generator , name: generator_LambdaPu
+INFO | end of curve initialization, added 10 curves
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting simulation with solver SimplifiedSolver
+INFO | -----------------------------------------------------------------------
+INFO | -----------------------------------------------------------------------
+INFO | number of continuous variables : 34
+INFO | number of discrete variables : 18
+INFO | number of root functions : 21
+INFO | -----------------------------------------------------------------------
+INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
+INFO | -----------------------------------------------------------------------
+INFO |        0.000 ¦        0                0          0              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |        1.000 ¦        1                0          0              1.000 
+INFO |        2.000 ¦        2                0          0              1.000 
+INFO |        3.000 ¦        3                0          0              1.000 
+INFO |        4.000 ¦        4                0          0              1.000 
+INFO |        5.000 ¦        5                0          0              1.000 
+INFO |        6.000 ¦        6                0          0              1.000 
+INFO |        7.000 ¦        7                0          0              1.000 
+INFO |        8.000 ¦        8                0          0              1.000 
+INFO |        9.000 ¦        9                0          0              1.000 
+INFO | Algebraic mode (with J recalculation) change at t = 10
+INFO |       10.000 ¦       10                0          0              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO | Algebraic mode change at t = 10
+INFO |       10.000 ¦       10                2          4              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |       11.000 ¦       11                2          4              1.000 
+INFO |       12.000 ¦       12                2          4              1.000 
+INFO |       13.000 ¦       13                2          4              1.000 
+INFO |       14.000 ¦       14                2          4              1.000 
+INFO |       15.000 ¦       15                2          4              1.000 
+INFO |       16.000 ¦       16                2          4              1.000 
+INFO |       17.000 ¦       17                2          4              1.000 
+INFO |       18.000 ¦       18                2          4              1.000 
+INFO |       19.000 ¦       19                2          4              1.000 
+INFO |       20.000 ¦       20                2          4              1.000 
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 20
+INFO | number of residual evaluations                             = 3
+INFO | number of Jacobian evaluations                             = 0
+INFO | number of nonlinear iterations                             = 0
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 25
+INFO | number of discrete variables evaluations                   = 9
+INFO | number of mode evaluations                                 = 5
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 4
+INFO | number of algebraic restoration Jacobian evaluations       = 4
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+INFO | end of job 'Generator PTanPhi running test'

@@ -28,6 +28,8 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   extends BaseClasses.TransformerParameters;
   extends AdditionalIcons.Transformer;
 
+  parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
+
   Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2 annotation(
@@ -35,8 +37,6 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
 
   Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
   Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
-
-  parameter Types.PerUnit rTfoPu "Transformation ratio in pu: U2/U1 in no load conditions";
 
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
@@ -63,23 +63,16 @@ equation
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
   if running then
-    if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
-      U1Pu = 0;
-    else
-      U1Pu = ComplexMath.'abs'(terminal1.V);
-    end if;
-    if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
-      U2Pu = 0;
-    else
-      U2Pu = ComplexMath.'abs'(terminal2.V);
-    end if;
+    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U2Pu = ComplexMath.'abs'(terminal2.V);
   else
     U1Pu = 0;
     U2Pu = 0;
   end if;
 
-  annotation(preferredView = "text",
-      Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
+  annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
 <p style=\"margin: 0px;\"><br></p>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>
