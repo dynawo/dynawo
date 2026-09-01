@@ -1,11 +1,5 @@
 var NAVTREEINDEX39 =
 {
-"functions_eval_q.html":[1,3,5,16],
-"functions_eval_r.html":[1,3,5,17],
-"functions_eval_s.html":[1,3,5,18],
-"functions_eval_t.html":[1,3,5,19],
-"functions_eval_u.html":[1,3,5,20],
-"functions_eval_v.html":[1,3,5,21],
 "functions_eval_w.html":[1,3,5,22],
 "functions_eval_x.html":[1,3,5,23],
 "functions_eval_z.html":[1,3,5,24],

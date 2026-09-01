@@ -1,19 +1,19 @@
 var searchData=
 [
   ['severitylevel',['SeverityLevel',['../dd/d5c/a00578.html#a7f30ec83caa9180e23f0f9079c7f4794',1,'DYN']]],
-  ['sheddingstate_5ft',['sheddingState_t',['../d1/d24/a03301.html#a24dbda857352f86c8c518df375e20405',1,'DYN::ModelAreaShedding']]],
-  ['shunttype_5ft',['ShuntType_t',['../dd/df1/a03397.html#ae2ab78282f2c47f2c93cab7a281ccdc6',1,'DYN::ModelShuntCompensator']]],
-  ['side',['Side',['../da/df1/a02961.html#aabd4bb28c90613fc15b4918b427598f4',1,'DYN::QuadripoleCriteria']]],
-  ['side_5ft',['side_t',['../d1/d3a/a03353.html#a29a71bc96416cbb9a294eec80bd96ba5',1,'DYN::ModelCurrentLimits']]],
+  ['sheddingstate_5ft',['sheddingState_t',['../d6/d90/a03298.html#a24dbda857352f86c8c518df375e20405',1,'DYN::ModelAreaShedding']]],
+  ['shunttype_5ft',['ShuntType_t',['../d0/d2b/a03394.html#ae2ab78282f2c47f2c93cab7a281ccdc6',1,'DYN::ModelShuntCompensator']]],
+  ['side',['Side',['../dd/dde/a02958.html#aabd4bb28c90613fc15b4918b427598f4',1,'DYN::QuadripoleCriteria']]],
+  ['side_5ft',['side_t',['../d6/d18/a03350.html#a29a71bc96416cbb9a294eec80bd96ba5',1,'DYN::ModelCurrentLimits']]],
   ['silentzflags',['SilentZFlags',['../df/db6/a00509.html#a8c738a076f5c024d4e79ccc205e927dd',1,'DYN']]],
-  ['solverstatus_5ft',['SolverStatus_t',['../d6/d8c/a03601.html#a79d97b8a16615b099f11b80affbc0d96',1,'DYN::SolverCommonFixedTimeStep']]],
-  ['solvertype',['SolverType',['../d5/d16/a01154.html#a3af48b28f1cebf4b6d5f61a6c0104165',1,'DYN']]],
-  ['sparsematrixtype',['SparseMatrixType',['../dc/de8/a02737.html#a63a0e4bdff6627843b528e5867483f9a',1,'DYN::SparseMatrix']]],
-  ['startingpointmode_5ft',['startingPointMode_t',['../d9/d11/a03445.html#a946e05126d29e11cc9e4c92bd796dde4',1,'DYN::NetworkComponent']]],
+  ['solverstatus_5ft',['SolverStatus_t',['../d9/df0/a03598.html#a79d97b8a16615b099f11b80affbc0d96',1,'DYN::SolverCommonFixedTimeStep']]],
+  ['solvertype',['SolverType',['../de/df1/a01151.html#a3af48b28f1cebf4b6d5f61a6c0104165',1,'DYN']]],
+  ['sparsematrixtype',['SparseMatrixType',['../d6/d87/a02734.html#a63a0e4bdff6627843b528e5867483f9a',1,'DYN::SparseMatrix']]],
+  ['startingpointmode_5ft',['startingPointMode_t',['../d7/d5e/a03442.html#a946e05126d29e11cc9e4c92bd796dde4',1,'DYN::NetworkComponent']]],
   ['state',['State',['../da/dd1/a00629.html#abb42cdf729ea47f41ab0af18beb2d352',1,'DYN']]],
-  ['state_5ft',['state_t',['../d1/d3a/a03353.html#a43e3e5308575fdfe91a02cf1a5321fa8',1,'DYN::ModelCurrentLimits']]],
-  ['statechange_5ft',['StateChange_t',['../d9/d11/a03445.html#ab067ace2562da72e4017d1c2cca12867',1,'DYN::NetworkComponent']]],
-  ['stateflags',['StateFlags',['../d5/d16/a01154.html#ae48eb449c5ebb36d96867a60dbda3a1d',1,'DYN']]],
-  ['statevariabletype',['StateVariableType',['../d6/dfe/a03053.html#af404bdea1223607a505379fcd45c93c1',1,'DYN::StateVariable']]],
-  ['staticparametertype',['StaticParameterType',['../d2/df1/a03057.html#a3269f81522dc42ab14097f0605f66b9e',1,'DYN::StaticParameter']]]
+  ['state_5ft',['state_t',['../d6/d18/a03350.html#a43e3e5308575fdfe91a02cf1a5321fa8',1,'DYN::ModelCurrentLimits']]],
+  ['statechange_5ft',['StateChange_t',['../d7/d5e/a03442.html#ab067ace2562da72e4017d1c2cca12867',1,'DYN::NetworkComponent']]],
+  ['stateflags',['StateFlags',['../de/df1/a01151.html#ae48eb449c5ebb36d96867a60dbda3a1d',1,'DYN']]],
+  ['statevariabletype',['StateVariableType',['../d4/d47/a03050.html#af404bdea1223607a505379fcd45c93c1',1,'DYN::StateVariable']]],
+  ['staticparametertype',['StaticParameterType',['../de/d96/a03054.html#a3269f81522dc42ab14097f0605f66b9e',1,'DYN::StaticParameter']]]
 ];
