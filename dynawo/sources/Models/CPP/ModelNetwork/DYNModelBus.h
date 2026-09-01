@@ -87,7 +87,7 @@ class ModelBus : public NetworkComponent {
    * @brief trivial getter for the ID of the subnetwork the bus is in
    * @returns the current value of the ID
    */
-  inline int  getNumSubNetwork() const    {return z_[numSubNetworkNum_];}
+  inline int  getNumSubNetwork() const    {return static_cast<int>(z_[numSubNetworkNum_]);}
 
   /**
    * @brief checks whether a valid ID for a subnetwork is currently set
@@ -275,7 +275,7 @@ class ModelBus : public NetworkComponent {
   void evalDerivativesPrim() override {}
   void evalNodeInjection() override {}
   void evalStaticFType() override {}
-  void addBusNeighbors() override {};
+  void addBusNeighbors() override {}
 };
 
 }  // namespace DYN

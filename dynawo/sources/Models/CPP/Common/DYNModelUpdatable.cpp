@@ -23,7 +23,8 @@
 namespace DYN {
 ModelUpdatable::ModelUpdatable(const std::string& modelType):
   ModelCPP(modelType),
-  inputValue_(0.) {
+  inputValue_(0.),
+  updated_(false) {
     setIsUpdatable(true);}
 
 void
