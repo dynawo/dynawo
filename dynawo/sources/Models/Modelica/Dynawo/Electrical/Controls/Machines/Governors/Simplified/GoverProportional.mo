@@ -24,7 +24,7 @@ model GoverProportional "Keeps the mechanical power as a constant modulated by t
   Modelica.Blocks.Interfaces.BooleanInput activeFrequencyRegulation(start = ActiveFrequencyRegulation) "If true, the group participates to primary frequency control" annotation(
     Placement(transformation(origin = {40, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {70, 0}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput deltaPmRefPu(start = 0) "Additional reference mechanical power in pu (base PNom)" annotation(
-    Placement(transformation(origin = {-180, -14}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-180, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-180, 20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power in pu (base PNom)" annotation(
@@ -55,9 +55,7 @@ model GoverProportional "Keeps the mechanical power as a constant modulated by t
     Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add PmRefTotPu annotation(
-    Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add PmRawPu annotation(
+  Modelica.Blocks.Math.Add3 PmRawPu annotation(
     Placement(transformation(origin = {30, 40}, extent = {{-10, -10}, {10, 10}})));
 
   parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base PNom)";
@@ -87,20 +85,18 @@ equation
     Line(points = {{141, 0}, {170, 0}}, color = {0, 0, 127}));
   connect(omegaPu, feedback.u2) annotation(
     Line(points = {{-180, 20}, {-80, 20}, {-80, 52}}, color = {0, 0, 127}));
-  connect(deltaPmRefPu, PmRefTotPu.u1) annotation(
-    Line(points = {{-180, -14}, {-42, -14}}, color = {0, 0, 127}));
-  connect(gain.y, PmRawPu.u1) annotation(
-    Line(points = {{-19, 60}, {0, 60}, {0, 47}, {18, 47}, {18, 46}}, color = {0, 0, 127}));
-  connect(PmRefTotPu.y, PmRawPu.u2) annotation(
-    Line(points = {{-19, -20}, {0, -20}, {0, 34}, {18, 34}}, color = {0, 0, 127}));
-  connect(PmRawPu.y, limiter.u) annotation(
-    Line(points = {{41, 40}, {58, 40}}, color = {0, 0, 127}));
   connect(activeFrequencyRegulation, switch.u2) annotation(
     Line(points = {{40, 0}, {118, 0}}, color = {255, 0, 255}));
   connect(PmRefPu, switch.u3) annotation(
     Line(points = {{-180, -60}, {100, -60}, {100, -8}, {118, -8}, {118, -8}}, color = {0, 0, 127}));
-  connect(PmRefTotPu.u2, PmRefPu) annotation(
-    Line(points = {{-42, -26}, {-60, -26}, {-60, -60}, {-180, -60}}, color = {0, 0, 127}));
+  connect(limiter.u, PmRawPu.y) annotation(
+    Line(points = {{58, 40}, {41, 40}}, color = {0, 0, 127}));
+  connect(gain.y, PmRawPu.u1) annotation(
+    Line(points = {{-18, 60}, {0, 60}, {0, 48}, {18, 48}}, color = {0, 0, 127}));
+  connect(deltaPmRefPu, PmRawPu.u2) annotation(
+    Line(points = {{-180, -20}, {-20, -20}, {-20, 40}, {18, 40}}, color = {0, 0, 127}));
+  connect(PmRawPu.u3, PmRefPu) annotation(
+    Line(points = {{18, 32}, {0, 32}, {0, -60}, {-180, -60}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
