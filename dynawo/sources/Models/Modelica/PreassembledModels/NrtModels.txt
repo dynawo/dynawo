@@ -104,6 +104,7 @@ LoadZIP
 LoadZIPFrequencyDependent
 LossOfSynchronismProtection
 LVRT
+Measurements
 NetworkTransformer
 NodeFault
 OverVoltageAutomaton
@@ -121,6 +122,7 @@ SecondaryVoltageControlSimp
 SetPoint
 ShuntBWithSections
 SignalN
+SineWave
 SpeedProtection
 StaticVarCompensator
 StaticVarCompensatorPV
