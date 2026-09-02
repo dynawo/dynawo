@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['value',['value',['../d3/dd0/a02662.html#adc8fd6f8b83764c54b9b60b888e5930b',1,'DYN::KeyConstraint_t::value()'],['../d5/dc3/a02674.html#acfce33066451c48351076e31bd5b4ece',1,'DYN::KeyError_t::value()'],['../d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567f',1,'DYN::KeyLog_t::value()'],['../d4/da5/a02746.html#a9294fd85b78754e1a11fec544395ad51',1,'DYN::KeyTimeline_t::value()']]],
-  ['variationstate_5ft',['variationState_t',['../dd/d7a/a03306.html#ac9e6502775aa33992b2bc8c3ffabebad',1,'DYN::ModelVariationArea']]],
-  ['voltageleveltopologykind_5ft',['VoltageLevelTopologyKind_t',['../d9/d74/a03082.html#aa640378559edc3ac305b0dcde5446d68',1,'DYN::VoltageLevelInterface']]]
+  ['ustatusflags',['UStatusFlags',['../d6/d1c/a03346.html#a20379a0a5f1108818dbd9175e724fc9c',1,'DYN::ModelBusInjected']]],
+  ['utype_5ft',['UType_t',['../d2/db9/a03334.html#afe4be7c50c685595c509a3e43683314c',1,'DYN::ModelBus']]]
 ];

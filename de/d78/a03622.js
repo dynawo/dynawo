@@ -1,5 +1,9 @@
 var a03622 =
 [
+    [ "algebraicRestorationReinitMode_t", "de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598b", [
+      [ "ALWAYS", "de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598baf67d3227c58cd2d010d91194cb39d555", null ],
+      [ "ONLY_ON_ALGEBRAIC_RESTORATION", "de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598bae97bf759e5d6ddd063717a52c135c5ff", null ]
+    ] ],
     [ "SolverIDA", "de/d78/a03622.html#a4e853c1138948020011e1fbef0825382", null ],
     [ "~SolverIDA", "de/d78/a03622.html#a4e85c1f9a289bcb02318cbb3e19ca7bb", null ],
     [ "analyseFlag", "de/d78/a03622.html#af1a1301153511e8133862f4f06eabdca", null ],
@@ -29,6 +33,7 @@ var a03622 =
     [ "updateAlgebraicRestorationStatistics", "de/d78/a03622.html#a1f6ce50e992946be38a4b8f181c65e96", null ],
     [ "updateStatistics", "de/d78/a03622.html#a5e0ddc4957eb6a508e8978afd5f14b89", null ],
     [ "absAccuracy_", "de/d78/a03622.html#a1a5759af529e5fec2c6a954923a59b97", null ],
+    [ "algebraicRestorationReinitMode_", "de/d78/a03622.html#acdd24efebbba6b978b9b1f157ec6cab8", null ],
     [ "flagInit_", "de/d78/a03622.html#abe5aace5ab79f9c0a874974a109813fc", null ],
     [ "IDAMem_", "de/d78/a03622.html#adab3a44303274daa0630ce40b793941a", null ],
     [ "initStep_", "de/d78/a03622.html#a1824cf6c6950a8d779314d34425151af", null ],

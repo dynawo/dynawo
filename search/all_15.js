@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['u0_5f',['U0_',['../d8/db1/a03098.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../d8/d4f/a03102.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../d8/dfb/a03122.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()'],['../d6/d1c/a03346.html#a26a599d7de68640d6269d0593e6c4018',1,'DYN::ModelBusInjected::u0_()'],['../df/d24/a03358.html#a0700c5c3fe4ffc06f0b6cd792c4baeb2',1,'DYN::ModelGenerator::u0_()'],['../d4/dcb/a03370.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()']]],
-  ['u0pu_5f',['u0Pu_',['../d6/d8d/a03266.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits::u0Pu_()'],['../d4/d1b/a03282.html#a5781d900bbe83f0577ec4161ab4a0624',1,'DYN::ModelSecondaryVoltageControlSimplified::U0Pu_()']]],
+  ['u0_5f',['u0_',['../d6/d1c/a03346.html#a26a599d7de68640d6269d0593e6c4018',1,'DYN::ModelBusInjected::u0_()'],['../df/d24/a03358.html#a0700c5c3fe4ffc06f0b6cd792c4baeb2',1,'DYN::ModelGenerator::u0_()'],['../d4/dcb/a03370.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()'],['../d8/db1/a03098.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../d8/d4f/a03102.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../d8/dfb/a03122.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()']]],
+  ['u0pu_5f',['U0Pu_',['../d4/d1b/a03282.html#a5781d900bbe83f0577ec4161ab4a0624',1,'DYN::ModelSecondaryVoltageControlSimplified::U0Pu_()'],['../d6/d8d/a03266.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits::u0Pu_()']]],
   ['u0pu_5fsquare_5f',['U0Pu_square_',['../df/d24/a03358.html#a7952ad2f7bd17256e9e01c92e7c550c1',1,'DYN::ModelGenerator']]],
   ['u2pu_5f',['U2Pu_',['../d6/d1c/a03346.html#a1315a831364864f6f2ac2229f5953db1',1,'DYN::ModelBusInjected']]],
   ['u_5f',['U_',['../d6/d1c/a03346.html#a3b7037c8eb099771670acb73bc3c6cef',1,'DYN::ModelBusInjected']]],
@@ -44,10 +44,10 @@ var searchData=
   ['uip1',['uip1',['../df/d7f/a03366.html#a2c7259b2bcd39febd313e93e23a6ed10',1,'DYN::ModelLine']]],
   ['uip2',['uip2',['../df/d7f/a03366.html#aa4c4f46b6a68a0ea27e6386cae821d3b',1,'DYN::ModelLine']]],
   ['uiynum',['uiYNum',['../d2/db9/a03334.html#a2928677e82d021397f343a87677ae2cb',1,'DYN::ModelBus::uiYNum()'],['../db/dee/a03338.html#a17ad7dd0a473ed2bd510c7d7247c1e63',1,'DYN::ModelBusBridged::uiYNum()'],['../d6/d1c/a03346.html#a6dc9abf4bea8caab8fcefe4483af3426',1,'DYN::ModelBusInjected::uiYNum()']]],
-  ['uiynum_5f',['uiYNum_',['../d6/d1c/a03346.html#a6a2fe5df5b9a9894850a235a27098415',1,'DYN::ModelBusInjected::uiYNum_()'],['../d6/d8d/a03266.html#a4646af8ab360389c30c5c2f6ea689b5a',1,'DYN::ModelLoadRestorativeWithLimits::UiYNum_()']]],
+  ['uiynum_5f',['UiYNum_',['../d6/d8d/a03266.html#a4646af8ab360389c30c5c2f6ea689b5a',1,'DYN::ModelLoadRestorativeWithLimits::UiYNum_()'],['../d6/d1c/a03346.html#a6a2fe5df5b9a9894850a235a27098415',1,'DYN::ModelBusInjected::uiYNum_()']]],
   ['umax_5f',['uMax_',['../d6/d1c/a03346.html#aee7e8d8253054ea723c212963340939c',1,'DYN::ModelBusInjected']]],
   ['umaxpu',['uMaxPu',['../d5/d5b/a00695.html#a7c73f32795a103e24f6099683bce9467',1,'DYN']]],
-  ['umaxpu_5f',['UMaxPu_',['../d6/d8d/a03266.html#a9c944f2c96d0e634e2bf6c2f7a3f91ae',1,'DYN::ModelLoadRestorativeWithLimits::UMaxPu_()'],['../d4/dfe/a01770.html#a5014970323102f139d28c7c2c0128f23',1,'criteria::CriteriaParamsVoltageLevel::uMaxPu_()']]],
+  ['umaxpu_5f',['uMaxPu_',['../d4/dfe/a01770.html#a5014970323102f139d28c7c2c0128f23',1,'criteria::CriteriaParamsVoltageLevel::uMaxPu_()'],['../d6/d8d/a03266.html#a9c944f2c96d0e634e2bf6c2f7a3f91ae',1,'DYN::ModelLoadRestorativeWithLimits::UMaxPu_()']]],
   ['umaxpureached_5f',['UMaxPuReached_',['../d6/d8d/a03266.html#a8cd33c56045cb062e43a0a9c62a856f3',1,'DYN::ModelLoadRestorativeWithLimits']]],
   ['umaxstate_5f',['uMaxState_',['../d9/dc1/a03390.html#a230bda68edddc6841375937e6642f83d',1,'DYN::ModelRatioTapChanger']]],
   ['umin_5f',['uMin_',['../d6/d1c/a03346.html#a935dcd1fa86e56b6f2df1d0cd22b595d',1,'DYN::ModelBusInjected']]],

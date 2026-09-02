@@ -95,6 +95,7 @@ $(document).ready(function(){initNavTree('de/d78/a03622.html','../../');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
@@ -121,6 +122,14 @@ Inheritance diagram for DYN::SolverIDA:</div>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a4d93cf387f95a23b29c38baa8809598b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598b">algebraicRestorationReinitMode_t</a> { <a class="el" href="../../de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598baf67d3227c58cd2d010d91194cb39d555">ALWAYS</a>, 
+<a class="el" href="../../de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598bae97bf759e5d6ddd063717a52c135c5ff">ONLY_ON_ALGEBRAIC_RESTORATION</a>
+ }</td></tr>
+<tr class="memdesc:a4d93cf387f95a23b29c38baa8809598b"><td class="mdescLeft">&#160;</td><td class="mdescRight">define when IDAReInit is called after a mode change  <a href="../../de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598b">More...</a><br /></td></tr>
+<tr class="separator:a4d93cf387f95a23b29c38baa8809598b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4e853c1138948020011e1fbef0825382"><td class="memItemLeft" align="right" valign="top"><a id="a4e853c1138948020011e1fbef0825382"></a>
@@ -395,6 +404,10 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/a03622.html#a5b80cf31fad5315b1646797cafdb07f9">relAccuracy_</a></td></tr>
 <tr class="memdesc:a5b80cf31fad5315b1646797cafdb07f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">absolute error tolerance <br /></td></tr>
 <tr class="separator:a5b80cf31fad5315b1646797cafdb07f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdd24efebbba6b978b9b1f157ec6cab8"><td class="memItemLeft" align="right" valign="top"><a id="acdd24efebbba6b978b9b1f157ec6cab8"></a>
+<a class="el" href="../../de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598b">algebraicRestorationReinitMode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/a03622.html#acdd24efebbba6b978b9b1f157ec6cab8">algebraicRestorationReinitMode_</a></td></tr>
+<tr class="memdesc:acdd24efebbba6b978b9b1f157ec6cab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">when IDAReInit is called after a mode change <br /></td></tr>
+<tr class="separator:acdd24efebbba6b978b9b1f157ec6cab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe5aace5ab79f9c0a874974a109813fc"><td class="memItemLeft" align="right" valign="top"><a id="abe5aace5ab79f9c0a874974a109813fc"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/a03622.html#abe5aace5ab79f9c0a874974a109813fc">flagInit_</a></td></tr>
 <tr class="memdesc:abe5aace5ab79f9c0a874974a109813fc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if the solver is in initialization mode <br /></td></tr>
@@ -592,7 +605,30 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class <a class="el" href="../../d3/d6e/a03570.html" title="Solver interface class. ">Solver</a> IDA </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a4d93cf387f95a23b29c38baa8809598b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d93cf387f95a23b29c38baa8809598b">&#9670;&nbsp;</a></span>algebraicRestorationReinitMode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598b">DYN::SolverIDA::algebraicRestorationReinitMode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>define when IDAReInit is called after a mode change </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4d93cf387f95a23b29c38baa8809598baf67d3227c58cd2d010d91194cb39d555"></a>ALWAYS&#160;</td><td class="fielddoc"><p>IDAReInit is called after every mode change. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4d93cf387f95a23b29c38baa8809598bae97bf759e5d6ddd063717a52c135c5ff"></a>ONLY_ON_ALGEBRAIC_RESTORATION&#160;</td><td class="fielddoc"><p>IDAReInit is only called when the mode change requires an algebraic restoration. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="af1a1301153511e8133862f4f06eabdca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af1a1301153511e8133862f4f06eabdca">&#9670;&nbsp;</a></span>analyseFlag()</h2>
 
@@ -1516,7 +1552,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../de/d78/a03622.html">SolverIDA</a></li>
-    <li class="footer">Generated on Wed Sep 2 2026 12:26:06 for Dynawo by
+    <li class="footer">Generated on Wed Sep 2 2026 16:57:04 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

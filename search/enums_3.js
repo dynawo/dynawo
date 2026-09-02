@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['energysource_5ft',['EnergySource_t',['../de/d27/a03002.html#a872c0d65cf9d9cebb4f650d98e5f49c2',1,'DYN::GeneratorInterface']]],
-  ['exportconstraintsmode_5ft',['exportConstraintsMode_t',['../d6/de6/a03534.html#a890ce711602c38c8d673a9f5ab3fb31e',1,'DYN::Simulation']]],
-  ['exportcurvesmode_5ft',['exportCurvesMode_t',['../d6/de6/a03534.html#a01926c41064d20ba55fc6e542887f8e9',1,'DYN::Simulation']]],
-  ['exportfinalstatevaluesmode_5ft',['exportFinalStateValuesMode_t',['../d6/de6/a03534.html#add6f6caa3b592fd1943a1b1160e41336',1,'DYN::Simulation']]],
-  ['exportlostequipmentsmode_5ft',['exportLostEquipmentsMode_t',['../d6/de6/a03534.html#ad24c3867b33118df29d76469ab12f7b0',1,'DYN::Simulation']]],
-  ['exporttimelinemode_5ft',['exportTimelineMode_t',['../d6/de6/a03534.html#a530fa3f47f86d18ea57e19c593415cd5',1,'DYN::Simulation']]],
-  ['exporttype_5ft',['ExportType_t',['../df/d3a/a01810.html#a0e5d8fd2d34749211d3239b66739d19d',1,'curves::Curve']]],
-  ['extensiondefinitionindex',['ExtensionDefinitionIndex',['../dc/df0/a03146.html#a4895dd028c5568bd63fc9c59943d3bae',1,'DYN::IIDMExtensions']]]
+  ['datainterfacetype_5ft',['dataInterfaceType_t',['../d3/dab/a02994.html#af267d6198a033f242b66120c84cae469',1,'DYN::DataInterfaceFactory']]],
+  ['dictionarykey',['dictionaryKey',['../df/d84/a02722.html#afbb1c87f16575e50ad81b186c8726926',1,'DYN::Message']]],
+  ['discretevariables_5ft',['DiscreteVariables_t',['../d4/dcb/a03370.html#aac94669b9bdc4c1b888a81f262036724',1,'DYN::ModelLoad']]],
+  ['discretevars_5ft',['DiscreteVars_t',['../d6/d85/a03290.html#aaac467d3cff2b63fe7c7a7ac5b24639e',1,'DYN::ModelVoltageMeasurementsUtilities']]]
 ];

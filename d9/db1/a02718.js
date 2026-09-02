@@ -89,6 +89,7 @@ var a02718 =
       [ "IdaSuccess", "d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567faa7153d414195a2d210a47a9f422509ee", null ],
       [ "IdalsetupFail", "d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567faa708849131a8fa3c0cbec0fc4afd7c2b", null ],
       [ "ImpossibleConnection", "d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567fafae72683a454837ebd961d01003e12c9", null ],
+      [ "IncoherentParamAlgebraicRestorationReinitMode", "d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567faf0c79143a7e10b928d7e9c5b2e4178b5", null ],
       [ "IncoherentParamMinimumModeChangeType", "d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567fa18f651b18d6f9c31d1e80f4961a6e21d", null ],
       [ "IncorrectConnectionDiffSize", "d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567fa44652c1d90e6e21d1254667f26ea0552", null ],
       [ "InternalParam", "d9/db1/a02718.html#a963225344a251150ba0ad6d5264f567fa775f152849b1278ca46759ff44a0a48b", null ],

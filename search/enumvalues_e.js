@@ -2,6 +2,7 @@ var searchData=
 [
   ['omcompilationfailed',['OMCompilationFailed',['../d5/dc3/a02674.html#acfce33066451c48351076e31bd5b4eceaa09d8e568bda8e062a7d02288805e259',1,'DYN::KeyError_t']]],
   ['one',['ONE',['../dd/dde/a02958.html#aabd4bb28c90613fc15b4918b427598f4abc21e6484530fc9d0313cb816b733396',1,'DYN::QuadripoleCriteria']]],
+  ['only_5fon_5falgebraic_5frestoration',['ONLY_ON_ALGEBRAIC_RESTORATION',['../de/d78/a03622.html#a4d93cf387f95a23b29c38baa8809598bae97bf759e5d6ddd063717a52c135c5ff',1,'DYN::SolverIDA']]],
   ['open',['OPEN',['../da/dd1/a00629.html#abb42cdf729ea47f41ab0af18beb2d352ab0f4701129107d8a72eeb7bf5e7dc17f',1,'DYN']]],
   ['openfilefailed',['OpenFileFailed',['../d5/dc3/a02674.html#acfce33066451c48351076e31bd5b4ecea92b61933af1fcd3d079ba5cf37472d32',1,'DYN::KeyError_t']]],
   ['optional_5fexternal',['OPTIONAL_EXTERNAL',['../df/db6/a00509.html#a732348349c2b2231cfb2b9d0417349a6afba1c412b95bb2be42100eba984994e7',1,'DYN']]],

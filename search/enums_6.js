@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['modechangetype_5ft',['modeChangeType_t',['../df/db6/a00509.html#aed4b32a47e0828630b9719fb4a720183',1,'DYN']]],
-  ['modekin_5ft',['modeKin_t',['../df/dab/a03550.html#a4bf0942b1f7375689c1a69d86ce7b6dd',1,'DYN::SolverKINAlgRestoration']]],
-  ['modeltype',['ModelType',['../d3/d4e/a01978.html#a4e9cfaeade924b852a17f9d04e7e1d7b',1,'dynamicdata::Model']]]
+  ['kind_5ft',['kind_t',['../d0/d4a/a01862.html#a6207b5c13ad5fa57b92d6477f533d387',1,'constraints::ConstraintData']]],
+  ['knownbus_5ft',['KnownBus_t',['../d8/d75/a03426.html#aabc7a92403a2a9562f9b3627d547be48',1,'DYN::ModelTwoWindingsTransformer']]]
 ];
