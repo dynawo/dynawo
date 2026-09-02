@@ -234,6 +234,31 @@ class SolverIDA : public Solver::Impl {
   void analyseFlag(const int & flag);
 
   /**
+   * @brief force a reinit with an aggressive algebraic restoration Jacobian recalculation,
+   * used as the first alternative strategy when IDA diverges
+   *
+   * @param modeChangeType minimum mode change type to force for this reinit (ALGEBRAIC_MODE for a
+   * convergence failure, ALGEBRAIC_J_UPDATE_MODE for an error test failure)
+   */
+  void forceReinitOnDivergence(modeChangeType_t modeChangeType);
+
+  /**
+   * @brief reduce the minimum time step and the time-scaled URound reference precision by a factor 100,
+   * used as the second alternative strategy when IDA still diverges after a forced reinit
+   *
+   * @param tNxt time reached by the last (failed) step attempt
+   */
+  void reduceStepAndPrecisionOnDivergence(double tNxt);
+
+  /**
+   * @brief progressively restore the nominal minimum time step and time-scaled URound reference precision
+   * once the simulation has been stable long enough since the last alternative strategy was used
+   *
+   * @param tNxt time reached by the last successful step
+   */
+  void restoreNominalStrategyIfStable(double tNxt);
+
+  /**
    * @copydoc Solver::getTimeStep()
    */
   double getTimeStep() const override;
@@ -280,6 +305,19 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+  bool activateTimeScaledURound_;  ///< to activate the time-scaled recomputation of IDA's unit roundoff
+  double timeScaledURoundPrecision_;  ///< the reference precision used to derive the time-scaled unit roundoff
+  int alternativeStrategiesOnDivergenceStage_;  ///< escalation stage of the alternative strategies on divergence
+                                                // (0: none tried, 1: reinit tried, 2: reduced step/precision also tried)
+  bool activateAlternativeStrategiesOnDivergence_;  ///< to activate the progressive relaunch strategies (reinit, then reduced step/precision) when IDA diverges
+  double minStepSave_;  ///< minimal step size saved in case of alternative strategy on divergence
+  double timeScaledURoundPrecisionSave_;  ///< save reference precision for time-scaled unit roundoff in case of alternative strategy on divergence
+  double precisionSave_;  ///< save precision in case of alternative strategy on divergence
+  double minimalAcceptableStepSave_;   ///< save minimal acceptable step in case of alternative strategy on divergence
+  double minStepInit_;  ///< minimal step size saved in case of alternative strategy on divergence
+  double timeScaledURoundPrecisionInit_;  ///< save reference precision for time-scaled unit roundoff in case of alternative strategy on divergence
+  double precisionInit_;  ///< save precision in case of alternative strategy on divergence
+  double minimalAcceptableStepInit_;   ///< save minimal acceptable step in case of alternative strategy on divergence
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

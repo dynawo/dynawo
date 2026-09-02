@@ -1091,6 +1091,7 @@ maxNewtonTry & 10 \\
 In addition to these parameters, other have default values in the tool but could be overwritten by the user. There are the parameters related to the Newton-Raphson execution and are declined in three sets depending on the resolution being done (normal time-step resolution - Time Step -, algebraic equations restoration following a soft event - Alg - or algebraic equations restoration following a tough event - AlgJ -):
 \begin{itemize}
 \item the stopping tolerance on L2-norm of residual function \textit{fnormtol}
+\item the initial tolerance multiplier used at the first Newton iteration (tol = \textit{initialaddtol} * \textit{fnormtol}) \textit{initialaddtol}
 \item the scaled step length tolerance \textit{scsteptol}
 \item the maximum allowable scaled step length \textit{mxnewtstep}
 \item the maximum number of non linear iterations that may be performed between two calls to the linear solver setup routine \textit{msbset}
@@ -1111,6 +1112,7 @@ The default values for all these parameters are the following ones:
 \multicolumn{2}{c}{\textbf{AlgJ}} \\
 \midrule
 fnormtol & 1e-4 & fnormtolAlg & 1e-4 & fnormtolAlgJ & 1e-4 \\
+initialaddtol & 0.1 & initialaddtolAlg & 0.1 & initialaddtolAlgJ & 0.1 \\
 scsteptol & 1e-4 & scsteptolAlg & 1e-4 & scsteptolAlgJ & 1e-4 \\
 mxnewtstep & 100 000 & mxnewtstepAlg & 100 000 & mxnewtstepAlgJ & 100 000 \\
 msbset & 10 & msbsetAlg & 5 & msbsetAlgJ & 1 \\
@@ -1122,7 +1124,15 @@ printfl & 0 & prinflAlg & 0 & printflAlgJ & 0 \\
 \label{OptionalParameters}
 \end{table}
 
-In addition, a few other parameters are available for the simplified solver. They enable to discard some algorithmic optimizations realized in the solver implementation (for example, we currently avoid recalculate algebraic residuals at the first iteration of a time-step because their value is the same due to the 0-order prediction scheme use). We advise not to modify these parameters except if you encounter an unexpected simulation problem ; in this case, you can try to deactivate some of these parameters. Nevertheless, they have been thoroughly tested before being integrated.
+In addition, a few other parameters are available for all solvers (Simplified, Trapezoidal and \ac{IDA}) to fine-tune the algebraic equations restoration and the solver behavior [see below]. We advise not to modify these parameters except if you encounter an unexpected simulation problem ; in this case, you can try to deactivate some of these parameters. Nevertheless, they have been thoroughly tested before being integrated.
+\label{CommonBehaviorParameters}
+\begin{itemize}
+\item \textit{optimizeReinitAlgebraicResidualsEvaluations} (boolean, true by default) discards some algorithmic optimizations realized in the solver implementation (for example, we currently avoid recalculating algebraic residuals at the first iteration of a time-step because their value is the same due to the 0-order prediction scheme use) ;
+\item \textit{enableSilentZ} (boolean, true by default) allows the discrete variable propagation loop to stop early when only "silent" discrete variables (i.e. without effect on the continuous equations) are still being modified ;
+\item \textit{minimumModeChangeTypeForAlgebraicRestoration} (string, \textit{ALGEBRAIC} by default, other possible value \textit{ALGEBRAIC\_J\_UPDATE}) sets the minimum mode change severity that triggers an algebraic equations restoration ; \textit{minimumModeChangeTypeForAlgebraicRestorationInit} sets the same threshold but only during the solver initialization (no restoration is triggered by default during initialization) ;
+\item \textit{multipleStrategiesForAlgebraicRestoration} (boolean, false by default) allows the algebraic equations restoration to retry with an alternative Newton-Raphson strategy (line search) if the default strategy fails to converge ;
+\item \textit{printResiduals}, \textit{printReinitResiduals} and \textit{printUnstableRoot} (booleans, false by default) respectively print in the logs the residuals during the Newton-Raphson resolution, the residuals during an algebraic equations restoration, and the unstable roots detected by the solver.
+\end{itemize}
 
 \subsection{Trapezoidal solver}
 \label{Trapezoidal}
@@ -1234,7 +1244,16 @@ relAccuracy & 1e-4 \\
 \caption{Required parameters for \ac{IDA} solver}
 \end{table}
 
-In addition to these parameters, parameters defining the Newton-Raphson solver behavior during algebraic equations restoration are also used. They have a similar default value than for the simplified solver but can be overwritten by the user [see Table \ref{OptionalParameters}].
+In addition to these parameters, parameters defining the Newton-Raphson solver behavior during algebraic equations restoration are also used. They have a similar default value than for the simplified solver but can be overwritten by the user [see Table \ref{OptionalParameters}]. The common solver behavior parameters described in [\ref{CommonBehaviorParameters}] also apply to \ac{IDA}.
+
+The optional boolean parameter \textit{activateAlternativeStrategiesOnDivergence} (false by default) activates a dedicated recovery strategy used when \ac{IDA} fails to converge or fails an error test on a time step. On a first failure, a reinitialization forcing the recalculation of the algebraic restoration Jacobian is triggered. If the step still fails, the minimum time step and the unit roundoff precision (see below) are both divided by a factor 100 before the step is retried, so that \ac{IDA} can resolve the transient with a finer resolution. These relaxed values are progressively restored to their original ones once the simulation has run long enough without further failure.
+
+Two optional parameters enable to activate a time-scaled recomputation of \ac{IDA}'s internal unit roundoff (\textit{URound}), used by \ac{IDA} to compute the perturbations of finite-difference approximations and the root-finding tolerance (see the \href{https://sundials.readthedocs.io/en/latest/ida/Mathematics_link.html\#rootfinding}{\underline{Sundials documentation}}):
+\begin{itemize}
+\item \textit{activateTimeScaledURound} (boolean, false by default) activates the mechanism ;
+\item \textit{timeScaledURoundPrecision} (double) is the reference precision from which the unit roundoff is recomputed at each time step, scaled with the current simulation time. By default, it is set to the simulation precision (parameter \textit{precision} of the \textit{.jobs} file, 1e-6 by default).
+\end{itemize}
+These two parameters are used in conjunction with \textit{activateAlternativeStrategiesOnDivergence}: when the recovery strategy divides the minimum time step by 100, it also divides \textit{timeScaledURoundPrecision} by the same factor.
 
 Finally, two parameters enable to stop the calculation if the time-step remains locked below a threshold - minimalAcceptableStep = 10e-6 by default - during more than
 maximumNumberSlowStepIncrease (= 10 by default).
