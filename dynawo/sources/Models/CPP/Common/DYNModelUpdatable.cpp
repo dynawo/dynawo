@@ -23,7 +23,8 @@
 namespace DYN {
 ModelUpdatable::ModelUpdatable(const std::string& modelType):
   ModelCPP(modelType),
-  inputValue_(0.) {
+  inputValue_(0.),
+  updated_(false) {
     setIsUpdatable(true);}
 
 void
@@ -114,13 +115,11 @@ ModelUpdatable::evalMode(const double /*t*/) {
 
 void
 ModelUpdatable::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, inputValue_);
+  streamVariables << inputValue_;
 }
 
 void
 ModelUpdatable::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
   streamVariables >> inputValue_;
 }
 

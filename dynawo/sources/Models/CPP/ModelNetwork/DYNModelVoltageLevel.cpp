@@ -21,11 +21,14 @@
  *
  */
 
+#include <sstream>
+
 #include "DYNModelVoltageLevel.h"
 
 #include <DYNTimer.h>
 
 #include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "DYNModelSwitch.h"
 #include "DYNModelLoad.h"
 #include "DYNModelGenerator.h"
@@ -47,6 +50,7 @@ using boost::dynamic_pointer_cast;
 using std::map;
 using std::string;
 using std::make_pair;
+using std::stringstream;
 
 namespace DYN {
 
@@ -145,12 +149,12 @@ ModelVoltageLevel::computeLoops() {
     aSwitch->inLoop(false);
     // If the switch is closed we get the island index of its nodes and we compare them
     if (aSwitch->getConnectionState() == CLOSED) {
-      int ref1 = aSwitch->getModelBus1()->getRefIslands();
-      int ref2 = aSwitch->getModelBus2()->getRefIslands();
+      int ref1 = aSwitch->getModelBus1()->refIslands;
+      int ref2 = aSwitch->getModelBus2()->refIslands;
       if (ref1 == ref2) {      // 1) node 1 and node 2 indexes are the same: two cases
         if (ref1 == 0) {             // a) ref1 = ref2 = 0 (default) : we set the island index to islandIndex
-          aSwitch->getModelBus1()->setRefIslands(islandIndex);
-          aSwitch->getModelBus2()->setRefIslands(islandIndex);
+          aSwitch->getModelBus1()->refIslands = islandIndex;
+          aSwitch->getModelBus2()->refIslands = islandIndex;
           busByRefIslands[islandIndex].push_back(aSwitch->getModelBus1());
           busByRefIslands[islandIndex].push_back(aSwitch->getModelBus2());
           ++islandIndex;
@@ -158,10 +162,10 @@ ModelVoltageLevel::computeLoops() {
           aSwitch->inLoop(true);
         }
       } else if (ref1 == 0) {  // 2) node 1 index has not been set : we set node 1 index equals to node 2 index
-        aSwitch->getModelBus1()->setRefIslands(ref2);
+        aSwitch->getModelBus1()->refIslands = ref2;
         busByRefIslands[ref2].push_back(aSwitch->getModelBus1());
       } else if (ref2 == 0) {  // 3) node 2 index has not been set : we set node 2 index equals to node 1 index
-        aSwitch->getModelBus2()->setRefIslands(ref1);
+        aSwitch->getModelBus2()->refIslands = ref1;
         busByRefIslands[ref1].push_back(aSwitch->getModelBus2());
       } else {                 // 4) node 1 and node 2 indexes have been set but are different : we set node 2 index equals to node 1 index
                                //    and propagate the index value
@@ -169,11 +173,11 @@ ModelVoltageLevel::computeLoops() {
         if (iter != busByRefIslands.end()) {
           vector<std::shared_ptr<ModelBus> > vectBus = iter->second;
           for (unsigned int i = 0; i < vectBus.size(); ++i) {
-            vectBus[i]->setRefIslands(ref1);
+            vectBus[i]->refIslands = ref1;
             busByRefIslands[ref1].push_back(vectBus[i]);
           }
           busByRefIslands.erase(iter);  // erase old reference
-          aSwitch->getModelBus2()->setRefIslands(ref1);  // update node 2
+          aSwitch->getModelBus2()->refIslands = ref1;  // update node 2
           busByRefIslands[ref1].push_back(aSwitch->getModelBus2());
         }
       }
@@ -572,6 +576,7 @@ ModelVoltageLevel::evalCalculatedVarI(const unsigned numCalculatedVar) const {
 void
 ModelVoltageLevel::defineVariables(vector<shared_ptr<Variable> >& variables) {
   ModelBus::defineVariables(variables);
+  ModelBusInjected::defineVariables(variables);
   ModelDanglingLine::defineVariables(variables);
   ModelGenerator::defineVariables(variables);
   ModelLoad::defineVariables(variables);
@@ -595,7 +600,7 @@ ModelVoltageLevel::setSubModelParameters(const std::unordered_map<std::string, P
 
 void
 ModelVoltageLevel::defineParameters(vector<ParameterModeler>& parameters) {
-  ModelBus::defineParameters(parameters);
+  ModelBusInjected::defineParameters(parameters);
   ModelDanglingLine::defineParameters(parameters);
   ModelGenerator::defineParameters(parameters);
   ModelLoad::defineParameters(parameters);
@@ -675,7 +680,10 @@ ModelVoltageLevel::dumpVariables(boost::archive::binary_oarchive& os) const {
   // Dump variables of components
   for (const auto& component : getComponents()) {
     os << component->getId();
-    component->dumpVariables(os);
+    stringstream componentValues;
+    boost::archive::binary_oarchive componentOs(componentValues);
+    component->dumpVariables(componentOs);
+    os << componentValues.str();
   }
 }
 
@@ -695,35 +703,16 @@ ModelVoltageLevel::loadVariables(boost::archive::binary_iarchive& is, const std:
   for (size_t i = 0; i < nbComponent; ++i) {
     std::string idRead;
     is >> idRead;
+    std::string componentBlob;
+    is >> componentBlob;
     auto it = ids2Indexes.find(idRead);
     if (it != ids2Indexes.end()) {
-      couldBeLoaded &= components[it->second]->loadVariables(is, variablesFileName);
+      stringstream componentValues(componentBlob);
+      boost::archive::binary_iarchive componentIs(componentValues);
+      couldBeLoaded &= components[it->second]->loadVariables(componentIs, variablesFileName);
     } else {
       // Not found, skip the component
       Trace::debug() << DYNLog(NetworkComponentNotFoundInDump, idRead, variablesFileName) << Trace::endline;
-      vector<double> yValues;
-      vector<double> ypValues;
-      vector<double> zValues;
-      vector<double> gValues;
-      is >> yValues;
-      is >> ypValues;
-      is >> zValues;
-      is >> gValues;
-      double dummyValueD;
-      bool dummyValueB;
-      int dummyValueI;
-      char type;
-      unsigned nbInternalVar;
-      is >> nbInternalVar;
-      for (unsigned j = 0; j < nbInternalVar; ++j) {
-        is >> type;
-        if (type == 'B')
-          is >> dummyValueB;
-        else if (type == 'D')
-          is >> dummyValueD;
-        else if (type == 'I')
-          is >> dummyValueI;
-      }
       couldBeLoaded = false;
     }
   }

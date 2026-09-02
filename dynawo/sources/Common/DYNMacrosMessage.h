@@ -51,38 +51,6 @@
 #define DYNAddTimelineEvent(model, name, key, ...) (model->hasTimeline() ? model->addEvent(name, DYNTimeline(key, ##__VA_ARGS__)) : (void)0)
 
 /**
- * @brief Macro to define a constraint message
- * @param key key to find the message
- */
-#define DYNConstraint(key, ...) (DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::key)), ##__VA_ARGS__ )
-
-/**
- * @brief Macro to add a constraint, only if constraints collection exists
- *
- * @param model the model to add the event to
- * @param name the name of the model
- * @param begin boolean determining if the constraint starts
- * @param type model type
- * @param key key to find the message
- */
-#define DYNAddConstraint(model, name, begin, type, key, ...) \
-  if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type)
-
-/**
- * @brief Macro to add a constraint and add some structured data to be saved
- * only if constraints collection exists. Expects the message to have extra
- * arguments
- *
- * @param model the model to add the event to
- * @param name the name of the model
- * @param begin boolean determining if the constraint starts
- * @param data structure with detailed information
- * @param key key to find the message
- */
-#define DYNAddConstraintWithData(model, name, begin, type, data, key, ...) \
-  if (model->hasConstraints()) model->addConstraint(name, begin, DYNConstraint(key, ##__VA_ARGS__), type, data)
-
-/**
  * @brief Macro description to have a shortcut.
  *  Thanks to this macro, user can only call an error with the type and the key to access
  *  to the message (+ optional arguments if the message need)

@@ -43,8 +43,8 @@
     <curve model="NETWORK" variable="11_1_Q"/>
     <curve model="NETWORK" variable="11_1_PRefPu"/>
     <curve model="NETWORK" variable="11_1_QRefPu"/>
-    <curve model="11_1_PRefPu" variable="input_value"/>
-    <curve model="11_1_QRefPu" variable="input_value"/>
+    <curve model="11_1_PRefPu" variable="input_variable"/>
+    <curve model="11_1_QRefPu" variable="input_variable"/>
     <curve model="NETWORK" variable="12_1_P"/>
     <curve model="NETWORK" variable="12_1_DeltaPc_value"/>
     <curve model="OmegaRef" variable="omegaRef_0_value"/>

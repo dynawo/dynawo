@@ -35,7 +35,10 @@
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
 #include "DYNModelConstants.h"
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
+#include "DYNModelBusBridged.h"
+#include "DYNModelBusContainer.h"
+#include "DYNModelSubNetwork.hpp"
 #include "DYNModelSwitchFactory.h"
 #include "DYNModelLine.h"
 #include "DYNModelTwoWindingsTransformer.h"
@@ -172,23 +175,29 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     // ==============================
     for (const auto& bus : voltageLevel->getBuses()) {
       string id = bus->getID();
-      std::shared_ptr<ModelBus> modelBus(new ModelBus(bus, voltageLevel->isNodeBreakerTopology()));
       componentsById[id] = bus;
-      modelBusById[id] = modelBus;
-      // Add to containers
-      modelVoltageLevelInit->addBus(modelBus);
+      std::shared_ptr<ModelBus> modelBus;
+      if (bus->hasDynamicModel()) {
+        std::shared_ptr<ModelBusBridged> modelBusBridged(new ModelBusBridged(bus, voltageLevel->isNodeBreakerTopology()));
+        unmappedBridges_[id] = modelBusBridged;
+        modelBus = modelBusBridged;
+        Trace::debug(Trace::network()) << DYNLog(BusExtDynModel, id) << Trace::endline;
+      } else {
+        modelBus = std::shared_ptr<ModelBusInjected>(new ModelBusInjected(bus, voltageLevel->isNodeBreakerTopology()));
+        // declare reference between subModel and static data
+        data->setReference("v", id, id, "U_value");
+        data->setReference("angle", id, id, "phi_value");
+        Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
+      }
+
       modelBus->setNetwork(this);
       modelBus->setVoltageLevel(modelVoltageLevel);
-      if (bus->hasDynamicModel()) {
-        Trace::debug(Trace::network()) << DYNLog(BusExtDynModel, id) << Trace::endline;
-        continue;
-      }
-      Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
+
+      // Add to containers
+      modelBusById[id] = modelBus;
+      modelVoltageLevelInit->addBus(modelBus);
       modelVoltageLevel->addBus(modelBus);
       busContainer_->add(modelBus);
-      // declare reference between subModel and static data
-      data->setReference("v", id, id, "U_value");
-      data->setReference("angle", id, id, "phi_value");
     }
 
     // =============================
@@ -369,7 +378,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     initComponents_.push_back(modelLine);
 
     if (line->hasDynamicModel()) {
-      addBridge(std::make_shared<NetworkBridgeQuadripole>(modelLine, "line", this));
+      std::shared_ptr<NetworkBridgeQuadripole> bridge = std::make_shared<NetworkBridgeQuadripole>(modelLine, "line");
+      bridge->setNetwork(this);
+      components_.push_back(bridge);
+      unmappedBridges_[id] = bridge;
       Trace::debug(Trace::network()) << DYNLog(LineExtDynModel, id) << Trace::endline;
       continue;
     }
@@ -409,9 +421,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
     initComponents_.push_back(modelTwoWindingsTransformer);
 
-
     if (twoWTfo->hasDynamicModel()) {
-      addBridge(std::make_shared<NetworkBridgeQuadripole>(modelTwoWindingsTransformer, "transformer", this));
+      std::shared_ptr<NetworkBridgeQuadripole> bridge = std::make_shared<NetworkBridgeQuadripole>(modelTwoWindingsTransformer, "transformer");
+      bridge->setNetwork(this);
+      components_.push_back(bridge);
+      unmappedBridges_[id] = bridge;
       Trace::debug(Trace::network()) << DYNLog(TwoWTfoExtDynModel, id) << Trace::endline;
       continue;
     }
@@ -1086,11 +1100,11 @@ ModelNetwork::evalJt(const double /*t*/, const double cj, const int rowOffset, S
   Timer timer("ModelNetwork::evalJ");
 #endif
 
-  // init bus derivatives
+  // reset bus derivatives
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
-  Timer* timer2 = new Timer("ModelNetwork::evalJt_initBusDerivatives");
+  Timer* timer2 = new Timer("ModelNetwork::evalJt_resetBusDerivatives");
 #endif
-  busContainer_->initDerivatives();
+  busContainer_->resetDerivatives();
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer2;
 #endif
@@ -1424,7 +1438,10 @@ ModelNetwork::dumpVariables(map< string, string >& mapVariables) {
   // Dump variables of components
   for (const auto& component : getComponents()) {
     os << component->getId();
-    component->dumpVariables(os);
+    stringstream componentValues;
+    boost::archive::binary_oarchive componentOs(componentValues);
+    component->dumpVariables(componentOs);
+    os << componentValues.str();
   }
 
   mapVariables[ variablesFileName() ] = values.str();
@@ -1458,35 +1475,17 @@ ModelNetwork::loadVariables(const string& variables) {
   for (size_t i = 0; i < nbComponent; ++i) {
     std::string idRead;
     is >> idRead;
+    std::string componentBlob;
+    is >> componentBlob;
     auto it = ids2Indexes.find(idRead);
     if (it != ids2Indexes.end()) {
-      couldBeLoaded &= components[it->second]->loadVariables(is, variablesFileName());
+      stringstream componentValues(componentBlob);
+      boost::archive::binary_iarchive componentIs(componentValues);
+      couldBeLoaded &= components[it->second]->loadVariables(componentIs, variablesFileName());
     } else {
-      // Not found, skip the component
+      // Not found, skip the component: componentBlob was already fully consumed above regardless
+      // of its actual serialization format, so the stream stays aligned for subsequent entries.
       Trace::debug() << DYNLog(NetworkComponentNotFoundInDump, idRead, variablesFileName().c_str()) << Trace::endline;
-      vector<double> yValues;
-      vector<double> ypValues;
-      vector<double> zValues;
-      vector<double> gValues;
-      is >> yValues;
-      is >> ypValues;
-      is >> zValues;
-      is >> gValues;
-      double dummyValueD;
-      bool dummyValueB;
-      int dummyValueI;
-      char type;
-      unsigned nbInternalVar;
-      is >> nbInternalVar;
-      for (unsigned j = 0; j < nbInternalVar; ++j) {
-        is >> type;
-        if (type == 'B')
-          is >> dummyValueB;
-        else if (type == 'D')
-          is >> dummyValueD;
-        else if (type == 'I')
-          is >> dummyValueI;
-      }
       couldBeLoaded = false;
     }
   }
@@ -1503,20 +1502,11 @@ ModelNetwork::loadInternalVariables(boost::archive::binary_iarchive&) {
 }
 
 void
-ModelNetwork::addBridge(const std::shared_ptr<NetworkBridgeQuadripole> & bridge) {
-  components_.push_back(bridge);
-  unmappedBridges_[bridge->id()] = bridge;
-}
-
-void
 ModelNetwork::mapToNetworkBridge(const boost::shared_ptr<SubModel> & submodel) {
-  std::string bridgeId = NetworkBridgeQuadripole::BRIDGE_PREFIX + submodel->staticId();
-
-  if (unmappedBridges_.find(bridgeId) != unmappedBridges_.end()) {
-    unmappedBridges_[bridgeId]->setDynPart(submodel);
-    unmappedBridges_.erase(bridgeId);
-  }
+  if (unmappedBridges_.find(submodel->staticId()) == unmappedBridges_.end())
+    return;
+  unmappedBridges_[submodel->staticId()]->setDynPart(submodel);
+  unmappedBridges_.erase(submodel->staticId());
 }
-
 
 }  // namespace DYN

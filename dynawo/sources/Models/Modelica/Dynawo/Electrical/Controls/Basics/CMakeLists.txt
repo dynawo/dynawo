@@ -24,6 +24,7 @@ set(MODEL_FILES
   IntegerTable.mo
   IntegerTable.mandatoryParam
   Perturbation.mo
+  Perturbation.mandatoryParam
   Perturbation_INIT.mo
   SetPoint.mo
   SetPoint.mandatoryParam

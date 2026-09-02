@@ -20,17 +20,13 @@
 
 namespace DYN {
 
-const char NetworkBridgeQuadripole::BRIDGE_PREFIX[] = "NetworkBridge_";
-
 NetworkBridgeQuadripole::NetworkBridgeQuadripole(const std::shared_ptr<ModelQuadripole> & baseQuadripole,
-                                                 const std::string & stateVarPrefix,
-                                                 ModelNetwork * network) :
-  ModelQuadripole(BRIDGE_PREFIX+baseQuadripole->id()),
+                                                 const std::string & stateVarPrefix) :
+  ModelQuadripole("NetworkBridge_" + baseQuadripole->id()),
   stateVarPrefix_(stateVarPrefix) {
   setModelBus1(baseQuadripole->getModelBus1());
   setModelBus2(baseQuadripole->getModelBus2());
   connectionState_ = baseQuadripole->getConnectionState();
-  setNetwork(network);
 }
 
 void

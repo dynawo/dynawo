@@ -162,11 +162,12 @@ ConverterWrongType          =             wrong converter type for converter %1%
 AttemptToPropagateBeforeMerge        =    discrete variables connectors should be merged before propagating information to model
 ZValueIsNaN                 =             discrete variable with index %1% has a NaN value
 UnmappedNetworkBridge       =             network component %1% topology-forwarding-bridge missing its dynamic part
+UnhandledBridgedBusCall     =             unhandled call to %1% on bridged bus %2%
 //---Parameter---------------
 ParameterDeclaredTwice      =             model (%1%): parameter %2% is declared twice: once in par file and once in init model
 ParameterWrongTypeReference =             wrong type for reference parameter: %1%
 ParameterUnknownType        =             unknown type for parameter %2% of unit dynamic model %1%
-ParameterInvalidTypeRequested =             invalid parameter type in request of %1% (expected %3%, got %2%, warning with string you need to explicitly cast the parameter given to newParameter)
+ParameterInvalidTypeRequested =           invalid parameter type in request of %1% (expected %3%, got %2%, warning with string you need to explicitly cast the parameter given to newParameter)
 ParameterBadCast            =             unable to cast the value of the parameter %1% (type '%2%')
 ParameterAlreadyExists      =             the %1% parameter already exists
 ParameterCardinalityBadType =             the %1% parameter %2% cardinality should be an integer but is a %3%

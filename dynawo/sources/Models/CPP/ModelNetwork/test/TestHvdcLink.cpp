@@ -33,7 +33,7 @@
 #include "DYNNetworkInterfaceIIDM.h"
 #include "DYNHvdcLineInterfaceIIDM.h"
 #include "DYNModelVoltageLevel.h"
-#include "DYNModelBus.h"
+#include "DYNModelBusInjected.h"
 #include "DYNModelNetwork.h"
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
@@ -200,7 +200,7 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
   }
   networkItfIIDM->addHvdcLine(hvdcItfIIDM);
   hvdc->setNetwork(network);
-  std::shared_ptr<ModelBus> bus1 = std::make_shared<ModelBus>(bus1ItfIIDM, false);
+  std::shared_ptr<ModelBusInjected> bus1 = std::make_shared<ModelBusInjected>(bus1ItfIIDM, false);
   bus1->setNetwork(network);
   bus1->initSize();
   vl->addBus(bus1);
@@ -214,14 +214,14 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
     zConnected1[i] = true;
   bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
-  y1[ModelBus::urNum_] = 3.5;
-  y1[ModelBus::uiNum_] = 2;
+  y1[ModelBusInjected::urNum_] = 3.5;
+  y1[ModelBusInjected::uiNum_] = 2;
   if (!initModel)
     z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
   bus1->init(offset);
   bus1->setVoltageLevel(vl);
-  std::unique_ptr<ModelBus> bus2 = DYN::make_unique<ModelBus>(bus2ItfIIDM, false);
+  std::unique_ptr<ModelBusInjected> bus2 = DYN::make_unique<ModelBusInjected>(bus2ItfIIDM, false);
   bus2->setNetwork(network);
   bus2->initSize();
   // There is a memory leak here, but whatever ...
@@ -234,8 +234,8 @@ createModelHvdcLink(bool initModel, bool withVsc, powsybl::iidm::Network& networ
     zConnected2[i] = true;
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
   bus2->setReferenceY(y2, yp2, f2, 0, 0);
-  y2[ModelBus::urNum_] = 5.;
-  y2[ModelBus::uiNum_] = 2.5;
+  y2[ModelBusInjected::urNum_] = 5.;
+  y2[ModelBusInjected::uiNum_] = 2.5;
   if (!initModel)
     z2[ModelBus::switchOffNum_] = -1;
   bus2->init(offset);

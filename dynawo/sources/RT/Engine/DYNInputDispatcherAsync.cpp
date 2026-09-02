@@ -51,8 +51,8 @@ InputDispatcherAsync::start() {
 
   for (auto channel : channels_)
     channel->startReceiving([this](std::shared_ptr<InputMessage> msg){ this->dispatchMessage(std::move(msg)); }, true);
+  running_ = true;  // Running must be set to true before launching the processorThread_ or it might exit immediately
   processorThread_ = std::thread([this](){ processLoop(); });
-  running_ = true;
 }
 
 void

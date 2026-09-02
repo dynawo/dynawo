@@ -68,7 +68,7 @@ equation
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax1, pre(IMonitored1), String(tLagBeforeActing1, significantDigits = 2));
   end when;
 
-  when time - tThresholdReached1 >= tLagBeforeActing1 then
+  when time - tThresholdReached1 >= tLagBeforeActing1 and time > 0 then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax1, IMonitored1, String(tLagBeforeActing1, significantDigits = 2));
     Order1 = OrderToEmit1;
     tOrder1 = time;
@@ -90,7 +90,7 @@ equation
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadUpCLA, "OverloadUp", IMax2, pre(IMonitored2), String(tLagBeforeActing2, significantDigits = 2));
   end when;
 
-  when time - tThresholdReached2 >= tLagBeforeActing2 then
+  when time - tThresholdReached2 >= tLagBeforeActing2 and time > 0 then
     Constraint.logConstraintBeginData(ConstraintKeys.OverloadOpenCLA, "OverloadOpen", IMax2, IMonitored2, String(tLagBeforeActing2, significantDigits = 2));
     Order2 = OrderToEmit2;
     tOrder2 = time;

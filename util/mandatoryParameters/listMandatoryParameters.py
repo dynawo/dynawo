@@ -35,6 +35,7 @@ from __future__ import print_function
 
 import argparse
 import datetime
+import io
 import os
 import re
 import sys
@@ -524,7 +525,7 @@ class ModelicaParamChecker(object):
 
     def _load(self, filepath):
         if filepath not in self._file_cache:
-            with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
+            with io.open(filepath, 'r', encoding='utf-8', errors='replace') as f:
                 raw = f.read()
             self._file_cache[filepath] = _prepare(raw)
             self.known_enums.update(m.group(1) for m in _RE_ENUM_DEF.finditer(raw))
@@ -816,7 +817,9 @@ _LICENSE_COMMENT = """\
 
 def _pretty_xml(element):
     """Return a nicely indented XML string with license header."""
-    raw = ET.tostring(element, encoding='unicode')
+    raw = ET.tostring(element, encoding='utf-8')
+    if isinstance(raw, bytes):
+        raw = raw.decode('utf-8')
     parsed = minidom.parseString(raw)
     license_node = parsed.createComment(
         _LICENSE_COMMENT.format(year=datetime.date.today().year)
@@ -874,7 +877,7 @@ def main():
         base = os.path.splitext(os.path.abspath(args.mo_file))[0]
         out_path = base + '.mandatoryParam'
 
-    with open(out_path, 'w', encoding='utf-8') as f:
+    with io.open(out_path, 'w', encoding='utf-8') as f:
         f.write(xml_str)
     print("Written to {}".format(out_path))
 
