@@ -474,6 +474,8 @@ ModelManager::getY0() {
     modelModelica()->setY0omc();
   }
 
+  evalCalculatedVars();
+
   simulationInfo()->initial = false;
 }
 

@@ -94,7 +94,10 @@
  * @param op_w operator to used
  */
 #define relationhysteresis(res, exp1, exp2, exp1_nominal, exp2_nominal, index, op_w) { \
-  if (data->simulationInfo->discreteCall == 0) { \
+  if (data->simulationInfo->initial) { \
+    res = ((op_w)((exp1), (exp2))); \
+    data->simulationInfo->relations[index] = res; \
+  } else if (data->simulationInfo->discreteCall == 0) { \
     res = data->simulationInfo->relationsPre[index]; \
   } else { \
     res = ((op_w)((exp1), (exp2))); \
