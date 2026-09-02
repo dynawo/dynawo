@@ -1240,7 +1240,7 @@ class Factory:
         self.build_modes_discretes()
 
     ptrn_relationhysteresis_index = re.compile(
-        r'relationhysteresis\(data, &tmp[0-9]+,.*?, (?P<index>[0-9]+), (?:Greater|Less|GreaterEq|LessEq)\);')
+        r'relationhysteresis\(data, &tmp[0-9]+,.*?, (?P<index>[0-9]+), (?:Greater|Less|GreaterEq|LessEq)(?:, \w+)?\);')
 
     def find_relationhysteresis_indexes(self, text):
         return self.ptrn_relationhysteresis_index.findall(text)
@@ -1261,8 +1261,10 @@ class Factory:
                 assert(eq_type == ALGEBRAIC or eq_type == DIFFERENTIAL)
                 map_relations[index_relation] = [eq_type, eq.get_src_fct_name()]
 
-        for f in self.reader.list_complex_calculated_vars.values():
-            for index_relation in self.find_relationhysteresis_indexes(transform_rawbody_to_string(f.get_body())):
+        for var, f in self.reader.list_complex_calculated_vars.items():
+            raw_text = transform_rawbody_to_string(f.get_body())
+            found_indexes = self.find_relationhysteresis_indexes(raw_text)
+            for index_relation in found_indexes:
                 map_relations[index_relation] = [ALGEBRAIC, f.get_name()]
 
         # bulding relations objects
@@ -2105,7 +2107,7 @@ class Factory:
         nb_zero_crossing = 0;
         for line in filtered_func :
             self.list_for_setgequations.append(line)
-            if "  static const char *res[] = {" != line and "  };" != line.rstrip():
+            if line.strip().startswith('"'):
                 nb_zero_crossing +=1
         for i in range(nb_zero_crossing):
             value = "res[" + str(i) + "]"
@@ -2371,25 +2373,26 @@ class Factory:
 
         # print all gout at the end of the function
         nb_zero_crossing = 0;
-        double_equality_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\) == \(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)\)')
-        double_equality_parameter_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\) == \(data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)\)')
+        double_equality_term_prtn = (
+            r'data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+            r'|data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+            r'|getCalculatedVar\(\(this\)->getModelManager\(\), [0-9]+\)[ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+        )
+        double_equality_prtn = re.compile(
+            r'\(\((?:' + double_equality_term_prtn + r')\) == \((?:' + double_equality_term_prtn + r')\)\)')
         for line in filtered_func:
             if "gout" in line:
                 if "tmp" in line:
                     line = line.replace("tmp", "tmp_zc")
                 line = line.replace("1 : -1;", "ROOT_UP : ROOT_DOWN;")
-                found = re.search(double_equality_prtn, line)
-                if found is not None:
-                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
-                    line = line.replace(found.group(0), test)
-                found = re.search(double_equality_parameter_prtn, line)
-                if found is not None:
-                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
-                    line = line.replace(found.group(0), test)
                 match = ptrn_calc_var.findall(line)
                 for name in match:
                     line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
                                             "getCalculatedVar((this)->getModelManager(), " + str(calc_var_2_index[name]) + ") /* " + name)
+                found = re.search(double_equality_prtn, line)
+                if found is not None:
+                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
+                    line = line.replace(found.group(0), test)
                 self.list_for_setg.append(line)
                 nb_zero_crossing +=1
 

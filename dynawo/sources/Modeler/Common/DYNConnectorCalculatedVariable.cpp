@@ -153,9 +153,7 @@ ConnectorCalculatedVariable::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
 
 void
 ConnectorCalculatedVariable::getY0() {
-  model_->getY0Sub();
-
-  yLocal_[0] = model_->getCalculatedVar(indexCalculatedVariable_);  // value computed at t=0
+  yLocal_[0] = 0.;
   ypLocal_[0] = 0.;
 }
 

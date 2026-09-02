@@ -19,6 +19,7 @@
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="INT" name="msbsetAlg" value="1"/>
   </set>
   <macroParameterSet id="macro_generator">
     <par type="DOUBLE" name="generator_QMin" value="-200"/>

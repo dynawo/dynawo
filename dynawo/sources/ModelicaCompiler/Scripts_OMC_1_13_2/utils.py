@@ -1153,7 +1153,7 @@ def replace_getTable1DValue(match):
     ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/|SHOULD NOT BE USED - CALCULATED VAR')
     text = match.group()
     match_state_var = ptrn_vars.search(match.group('var_input'))
-    if match_state_var is not None:
+    if match_state_var is not None and "DISCRETE" not in match.group('var_input'):
         text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTable1DValue", "ModelicaStandardTables_CombiTable1D_getDerValue")
     return text
 
@@ -1162,7 +1162,8 @@ def replace_getTable2DValue(match):
     text = match.group()
     match_state_var1 = ptrn_vars.search(match.group('var_input1'))
     match_state_var2 = ptrn_vars.search(match.group('var_input2'))
-    if match_state_var1 is not None and match_state_var2 is not None:
+    if match_state_var1 is not None and match_state_var2 is not None \
+    and "DISCRETE" not in match.group('var_input1') and "DISCRETE" not in match.group('var_input2'):
         text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTable2DValue", "ModelicaStandardTables_CombiTable2D_getDerValue")
     return text
 
@@ -1171,7 +1172,7 @@ def replace_getTimeTableValue(match):
 
     text = match.group()
     match_state_var = ptrn_vars.search(match.group('var_input'))
-    if match_state_var is not None:
+    if match_state_var is not None and "DISCRETE" not in match.group('var_input'):
         text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTimeTableValue", "ModelicaStandardTables_CombiTimeTable_getDerValue")
     return text
 
@@ -1194,15 +1195,15 @@ def replace_combi_table_jacobian_adept(line):
     match1d = re.search(r"omc_Modelica_Blocks_Tables_Internal_getTable1DValue\([^,]+,[^,]+,\s*(?P<var_input>.*)\)", line)
     match2d = re.search(r'omc_Modelica_Blocks_Tables_Internal_getTable2DValue\(.*,(?P<var_input1>.*),(?P<var_input2>.*)\)', line)
     matcht = re.search(r'omc_Modelica_Blocks_Tables_Internal_getTimeTableValue\(.*,.*,(?P<var_input>.*),.*,.*\)', line)
-    if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line and match1d and ('derivativesVars' in match1d.group('var_input') or 'realVars' in match1d.group('var_input')):
+    if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line and match1d and ('derivativesVars' in match1d.group('var_input') or 'realVars' in match1d.group('var_input')) and "DISCRETE" not in match1d.group('var_input'):
         if 'NoDer' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable1DValue in adept Jacobian.")
-    elif "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line and match2d and ('derivativesVars' in match2d.group('var_input1') or 'realVars' in match2d.group('var_input1') or 'derivativesVars' in match2d.group('var_input2') or 'realVars' in match2d.group('var_input2')):
+    elif "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line and match2d and ((('derivativesVars' in match2d.group('var_input1') or 'realVars' in match2d.group('var_input1')) and "DISCRETE" not in match2d.group('var_input1')) or (('derivativesVars' in match2d.group('var_input2') or 'realVars' in match2d.group('var_input2')) and "DISCRETE" not in match2d.group('var_input2'))):
         if 'NoDer' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable2DValue in adept Jacobian.")
-    elif "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line and matcht and ('derivativesVars' in matcht.group('var_input') or 'realVars' in matcht.group('var_input')):
+    elif "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line and matcht and ('derivativesVars' in matcht.group('var_input') or 'realVars' in matcht.group('var_input')) and "DISCRETE" not in matcht.group('var_input'):
         if 'NoDer' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTimeTableValue in adept Jacobian.")

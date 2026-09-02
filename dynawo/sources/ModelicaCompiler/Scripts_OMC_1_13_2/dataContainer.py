@@ -1926,8 +1926,13 @@ class RootObject:
         # cleaning the block, removing the start and end braces
         new_body = []
         i = 0
-        double_equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
-        double_equality_parameter_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
+        double_equality_term_prtn = (
+            r'data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+            r'|data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+            r'|getCalculatedVar\(\(this\)->getModelManager\(\), [0-9]+\)[ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+        )
+        double_equality_prtn = re.compile(
+            r'\((?:' + double_equality_term_prtn + r') == (?:' + double_equality_term_prtn + r')\)')
         for line in self.body_for_num_relation:
             line = replace_var_names(line)
             line = replace_relationhysteresis(line)
@@ -1939,10 +1944,6 @@ class RootObject:
                 line = sub_division_sim(line)
                 line = line.replace('threadData,','')
                 found = re.search(double_equality_prtn, line)
-                if found is not None:
-                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
-                    line = line.replace(found.group(0), test)
-                found = re.search(double_equality_parameter_prtn, line)
                 if found is not None:
                     test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
                     line = line.replace(found.group(0), test)

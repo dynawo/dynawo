@@ -961,6 +961,17 @@ class ReaderOMC:
         for name in self.fictive_optional_continuous_vars:
           self.fictive_continuous_vars_der.append("der(%s)" % name)
 
+        for lst in (self.fictive_continuous_vars, self.fictive_optional_continuous_vars):
+            modified = True
+            while modified:
+                modified = False
+                for name in list(lst):
+                    var = self.find_variable_from_name(name)
+                    if var is not None and var.is_alias() and var.get_alias_name() not in lst:
+                        lst.append(var.get_alias_name())
+                        print_info("Adding external status to variable " + var.get_alias_name() + " (alias of external variable " + name + ")")
+                        modified = True
+
     ##
     # Read the main c file
     # @param self: object pointer
