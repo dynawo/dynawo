@@ -79,7 +79,7 @@
     <par type="BOOL" name="governor_ValveOn" value="true"/>
     <par type="STRING" name="governor_PgvTableName" value="Pgv"/>
     <par type="STRING" name="governor_PgvInvTableName" value="PgvInv"/>
-    <par type="STRING" name="governor_TablesFile" value="nrt/data/SMIB/Standard/Gain_power.txt"/>
+    <par type="STRING" name="governor_TablesFile" value="@PAR_PATH@/../Gain_power.txt"/>
     <par type="DOUBLE" name="voltageRegulator_Kc" value="0.113"/>
     <par type="DOUBLE" name="voltageRegulator_Kg" value="0.1"/>
     <par type="DOUBLE" name="voltageRegulator_Ki" value="0"/>

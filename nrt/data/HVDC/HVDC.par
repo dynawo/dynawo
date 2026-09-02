@@ -60,7 +60,7 @@
     <par type="STRING" name="hvdc_QUMinTableName" value="QUMin"/>
     <par type="DOUBLE" name="hvdc_SlopeQRefPu" value="100"/>
     <par type="DOUBLE" name="hvdc_SlopeURefPu" value="100"/>
-    <par type="STRING" name="hvdc_TablesFile" value="nrt/data/HVDC/AcVoltageControl.txt"/>
+    <par type="STRING" name="hvdc_TablesFile" value="@PAR_PATH@/AcVoltageControl.txt"/>
     <par type="DOUBLE" name="hvdc_tMeasure" value="0.01"/>
     <par type="DOUBLE" name="hvdc_tQ" value="0.01"/>
     <!-- Active power control -->
@@ -115,28 +115,28 @@
   <!-- PRef -->
   <set id="71">
     <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
-    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="@PAR_PATH@/Inputs.txt"/>
     <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
     <par type="STRING" name="combiTimeTable_TableName" value="PRef"/>
   </set>
   <!-- UDcRef -->
   <set id="72">
     <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
-    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="@PAR_PATH@/Inputs.txt"/>
     <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
     <par type="STRING" name="combiTimeTable_TableName" value="UDcRef"/>
   </set>
   <!-- URef1 -->
   <set id="73">
     <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
-    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="@PAR_PATH@/Inputs.txt"/>
     <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
     <par type="STRING" name="combiTimeTable_TableName" value="URef1"/>
   </set>
   <!-- URef2 -->
   <set id="74">
     <!-- <par type="INT" name="combiTimeTable_Extrapolation" value="1"/>
-    <par type="STRING" name="combiTimeTable_FileName" value="nrt/data/HVDC/Inputs.txt"/>
+    <par type="STRING" name="combiTimeTable_FileName" value="@PAR_PATH@/Inputs.txt"/>
     <par type="INT" name="combiTimeTable_Smoothness" value="3"/>
     <par type="STRING" name="combiTimeTable_TableName" value="URef2"/> -->
     <par type="DOUBLE" name="doubleStep_Value0" value="0.9797"/>

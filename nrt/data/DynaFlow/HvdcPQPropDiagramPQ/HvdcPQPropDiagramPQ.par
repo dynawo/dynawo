@@ -47,13 +47,13 @@
     <reference type="DOUBLE" name="hvdc_PMaxPu" origData="IIDM" origName="pMax_pu"/>
     <reference type="DOUBLE" name="hvdc_QPercent1" origData="IIDM" componentId="HVDC1_CONV1" origName="q_pu"/>
     <reference type="DOUBLE" name="hvdc_QPercent2" origData="IIDM" componentId="HVDC1_CONV2" origName="q_pu"/>
-    <par name="hvdc_QInj1MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj1MinTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc1.txt"/>
     <par name="hvdc_QInj1MinTableName" type="STRING" value="tableqminconv1"/>
-    <par name="hvdc_QInj2MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj2MinTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc1.txt"/>
     <par name="hvdc_QInj2MinTableName" type="STRING" value="tableqminconv2"/>
-    <par name="hvdc_QInj1MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj1MaxTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc1.txt"/>
     <par name="hvdc_QInj1MaxTableName" type="STRING" value="tableqmaxconv1"/>
-    <par name="hvdc_QInj2MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc1.txt"/>
+    <par name="hvdc_QInj2MaxTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc1.txt"/>
     <par name="hvdc_QInj2MaxTableName" type="STRING" value="tableqmaxconv2"/>
     <par type="DOUBLE" name="hvdc_QInj1Min0Pu" value="-6"/>
     <par type="DOUBLE" name="hvdc_QInj1Max0Pu" value="0.4"/>
@@ -82,13 +82,13 @@
     <reference type="DOUBLE" name="hvdc_PMaxPu" origData="IIDM" origName="pMax_pu"/>
     <reference type="DOUBLE" name="hvdc_QPercent1" origData="IIDM" componentId="HVDC2_CONV1" origName="q_pu"/>
     <reference type="DOUBLE" name="hvdc_QPercent2" origData="IIDM" componentId="HVDC2_CONV2" origName="q_pu"/>
-    <par name="hvdc_QInj1MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj1MinTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc2.txt"/>
     <par name="hvdc_QInj1MinTableName" type="STRING" value="tableqminconv1"/>
-    <par name="hvdc_QInj2MinTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj2MinTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc2.txt"/>
     <par name="hvdc_QInj2MinTableName" type="STRING" value="tableqminconv2"/>
-    <par name="hvdc_QInj1MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj1MaxTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc2.txt"/>
     <par name="hvdc_QInj1MaxTableName" type="STRING" value="tableqmaxconv1"/>
-    <par name="hvdc_QInj2MaxTableFile" type="STRING" value="nrt/data/DynaFlow/HvdcPQPropDiagramPQ/DiagramHvdc2.txt"/>
+    <par name="hvdc_QInj2MaxTableFile" type="STRING" value="@PAR_PATH@/DiagramHvdc2.txt"/>
     <par name="hvdc_QInj2MaxTableName" type="STRING" value="tableqmaxconv2"/>
     <par type="DOUBLE" name="hvdc_QInj1Min0Pu" value="-6"/>
     <par type="DOUBLE" name="hvdc_QInj1Max0Pu" value="0.4"/>
