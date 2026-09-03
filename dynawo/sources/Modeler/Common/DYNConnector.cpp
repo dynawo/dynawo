@@ -157,6 +157,7 @@ ConnectorContainer::mergeFlowConnector() {
   flowConnectors_.clear();
   flowConnectorByVarNum_.clear();
   flowAliasNameToFictitiousVarNum_.clear();
+  flowConnectedRealVarNum_.clear();
   const bool flowConnector = true;
   list<shared_ptr<Connector> > flowConnectorsList;
   for (const auto& flowConnectorDeclared : flowConnectorsDeclared_) {
@@ -176,6 +177,14 @@ ConnectorContainer::mergeFlowConnector() {
       for (const auto& connectedSubModels : flowc->connectedSubModels()) {
         int numVar = getConnectorVarNum(connectedSubModels.subModel(), connectedSubModels.variable(), flowConnector);
         flowConnectorByVarNum_[numVar] = flowc;
+      }
+    }
+  }
+
+  for (const auto& flowc : flowConnectorsList) {
+    for (const auto& connectedSubModel : flowc->connectedSubModels()) {
+      if (connectedSubModel.variable()->isState()) {
+        flowConnectedRealVarNum_.insert(connectedSubModel.subModel()->getVariableIndexGlobal(connectedSubModel.variable()));
       }
     }
   }
@@ -867,6 +876,7 @@ ConnectorContainer::isConnected(const int numVariable) {
   if (!connectorsMerged_) mergeConnectors();
   if (yConnectorByVarNum_.find(numVariable) != yConnectorByVarNum_.end()) return true;
   if (flowConnectorByVarNum_.find(numVariable) != flowConnectorByVarNum_.end()) return true;
+  if (flowConnectedRealVarNum_.find(numVariable) != flowConnectedRealVarNum_.end()) return true;
   return false;
 }
 }  // namespace DYN

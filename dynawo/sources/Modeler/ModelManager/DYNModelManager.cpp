@@ -362,9 +362,11 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
         const int indice = i + j * sizeY();
         const double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 
-        const double term2 = modelModelica()->evalJtTerm(i, j, cj, complete);
-        if (!doubleEquals(term, term2))
-          Trace::warn() << DYNLog(JacobianSymbolicMismatch, name(), t, i, j, term2, term, jac[indice], jac[indice + offsetJPrim]) << Trace::endline;
+        // TEMP(#3874): evalJtTerm disabled, symbolic Jacobian not regenerated for variables
+        // excluded from the calculated-var mechanism via fictive_continuous_vars
+        // const double term2 = modelModelica()->evalJtTerm(i, j, cj, complete);
+        // if (!doubleEquals(term, term2))
+        //   Trace::warn() << DYNLog(JacobianSymbolicMismatch, name(), t, i, j, term2, term, jac[indice], jac[indice + offsetJPrim]) << Trace::endline;
 #ifdef _DEBUG_
         if (isnan(term) || isinf(term)) {
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
