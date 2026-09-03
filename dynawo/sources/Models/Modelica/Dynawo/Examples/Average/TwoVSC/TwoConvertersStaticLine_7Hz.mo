@@ -177,7 +177,7 @@ model TwoConvertersStaticLine_7Hz
   // Converter 1: grid‑following VSC (GFL1)
   // Includes inner/outer loops, PLL, droop and plant controller
   // ═══════════════════════════════════════════════════════════════
-  GFLmodel gFLmodel(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(
     SNom = 1000,
     U0Pu = 1.091230,
     Uphase = 0.063246,
@@ -283,7 +283,7 @@ model TwoConvertersStaticLine_7Hz
   // Converter 2: grid‑following VSC (GFL2)
   // Similar controller structure, different ratings and limits
   // ═══════════════════════════════════════════════════════════════
-  GFLmodel gFLmodel1(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(
     SNom = 1000,
     U0Pu = 1.086638,
     Uphase = -0.063421,
@@ -389,14 +389,14 @@ model TwoConvertersStaticLine_7Hz
   // Network elements (transmission lines and buses)
   // All parameters in per unit on the system base
   // ═══════════════════════════════════════════════════════════════
-  Lines.Line line(
+  Dynawo.Electrical.Lines.Line line(
     RPu = 0.00144,
     XPu = 0.0144,
     BPu = 0,
     GPu = 0) annotation(
     Placement(transformation(origin = {-34, 20}, extent = {{-10, -10}, {10, 10}})));
 
-  Lines.Line line1(
+  Dynawo.Electrical.Lines.Line line1(
     RPu = 0.00144,
     XPu = 0.0144,
     BPu = 0,
@@ -404,7 +404,7 @@ model TwoConvertersStaticLine_7Hz
     Placement(transformation(origin = {26, 20}, extent = {{-10, -10}, {10, 10}})));
 
   // Vertical line to infinite bus (segment 1)
-  Lines.Line line2(
+  Dynawo.Electrical.Lines.Line line2(
     RPu = 0.01,
     XPu = 0.07,
     BPu = 0,
@@ -412,7 +412,7 @@ model TwoConvertersStaticLine_7Hz
     Placement(transformation(origin = {-4, -28}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   // Parallel / additional segment, which will be opened during the simulation
-  Lines.Line line3(
+  Dynawo.Electrical.Lines.Line line3(
     RPu = 0.0077775,
     XPu = 0.077775,
     GPu = 0,
@@ -420,7 +420,7 @@ model TwoConvertersStaticLine_7Hz
     Placement(transformation(origin = {-40, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   // Main AC bus connecting the two converters and the line to the infinite bus
-  Buses.Bus bus annotation(
+  Dynawo.Electrical.Buses.Bus bus annotation(
     Placement(transformation(origin = {-4, 20}, extent = {{-10, -10}, {10, 10}})));
 
   // Infinite bus with voltage and frequency variations
