@@ -133,8 +133,8 @@
   <!-- IDA order 2 solver -->
   <set id="IDA">
     <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="0.000001"/>
-    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="initStep" value="0.0000001"/>
+    <par type="DOUBLE" name="minStep" value="0.0000001"/>
     <par type="DOUBLE" name="maxStep" value="1"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-6"/>

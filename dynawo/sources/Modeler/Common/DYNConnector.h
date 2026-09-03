@@ -21,6 +21,7 @@
 #define MODELER_COMMON_DYNCONNECTOR_H_
 
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
@@ -471,6 +472,7 @@ class ConnectorContainer {
   std::unordered_map<int, boost::shared_ptr<Connector> > yConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
   std::unordered_map<int, boost::shared_ptr<Connector> > flowConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
   std::unordered_map<std::string, int> flowAliasNameToFictitiousVarNum_;  ///< Alias variable name to their fictitious index
+  std::unordered_set<int> flowConnectedRealVarNum_;  ///< (global) index of the real (alias-resolved) variables connected through a flow connector
   std::unordered_map<int, boost::shared_ptr<Connector> > zConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
 
   int offsetModel_;  ///< offset to use when filling the residual's vector
