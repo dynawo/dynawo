@@ -134,6 +134,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   GenericAutomaton.xml
   GenericIBG.xml
   GFLAverageModel.xml
+  GFLmodelbandwidth.xml
   GFLAverageConverter.xml
   GridFormingConverterDroopControl.xml
   GridFormingConverterMatchingControl.xml

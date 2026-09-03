@@ -9,12 +9,15 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
+
 set(MODEL_FILES
     package.mo
     package.order
-    LoadFlow.mo
-    TestCase.mo
-    TestCase_VSC.mo
+    TwoConvertersDynamicLine_7Hz.mo
+    TwoConvertersDynamicLine.mo
+    TwoConvertersStaticLine_7Hz.mo
+    TwoConvertersStaticLine.mo
+    TwoConvertersWECC.mo
     )
 
 #

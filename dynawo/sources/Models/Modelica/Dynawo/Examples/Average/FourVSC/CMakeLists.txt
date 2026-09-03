@@ -6,20 +6,21 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+# This file is part of Dynawo, an hybrid C++/Modelica open source suite
+# of simulation tools for power systems.
 
 
-add_subdirectory(Average A)
 set(MODEL_FILES
-  package.mo
-  package.order
-  Measurements.mo
-  Measurements.extvar
-  )
+    package.mo
+    package.order
+    FourVSC_dynamic_lines.mo
+    FourVSC_noplant.mo
+    FourVSC_static_lines.mo
+    )
 
 #
 # Modelica models install
 #
-foreach(MODEL_FILE ${MODEL_FILES})
-  install_model_file(${MODEL_FILE})
-endforeach(MODEL_FILE)
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )

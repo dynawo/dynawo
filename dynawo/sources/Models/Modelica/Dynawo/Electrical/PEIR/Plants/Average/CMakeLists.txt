@@ -9,36 +9,15 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 
+add_subdirectory(BaseClasses B)
+
 set(MODEL_FILES
   package.mo
   package.order
-  current_loop.mo
-  DynLine.mo
-  DynLine.extvar
-  frst_smib_simulation.mo
-  GFLControl.mo
+  GFLControl_bandwidth.mo
   GFLmodel.mo
   GFLmodel.extvar
-  GFLmodel_noplant.mo
-  GFLmodel_noplant.extvar
-  IdealSwitch.mo
-  LCDynFilter.mo
-  LCnoDynFilter.mo
-  MeasurementBlock.mo
-  outer_loop_linearized.mo
-  outer_loop.mo
-  Plant_controller.mo
-  pll.mo
-  RLDynTrafo.mo
-  simulation_weak_grid.mo
-  test_dyn.mo
-  test_outer_loop_linearized.mo
-  test_outer_loop.mo
-  TwoConvertersDynamicLine.mo
-  TwoConvertersStaticLine_7Hz.mo
-  TwoConvertersStaticLine.mo
-  TwoConvertersWECC.mo
-  TwoConvertersDynamicLine_7Hz.mo
+  GFLmodel_bandwidth.extvar
   )
 
 #

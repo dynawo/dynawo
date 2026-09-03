@@ -1,4 +1,4 @@
-# Copyright (c) 2022, RTE (http://www.rte-france.com)
+# Copyright (c) 2026, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,17 +9,18 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
 
-add_subdirectory(Average A)
+add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  Measurements.mo
-  Measurements.extvar
+  GFLmodel_noplant_v_control.mo
+  GFLmodel_noplant.mo
+  GFLmodel_noplant.extvar
   )
 
 #
 # Modelica models install
 #
-foreach(MODEL_FILE ${MODEL_FILES})
-  install_model_file(${MODEL_FILE})
-endforeach(MODEL_FILE)
+foreach( MODEL_FILE ${MODEL_FILES} )
+    install_model_file(${MODEL_FILE})
+endforeach( MODEL_FILE )

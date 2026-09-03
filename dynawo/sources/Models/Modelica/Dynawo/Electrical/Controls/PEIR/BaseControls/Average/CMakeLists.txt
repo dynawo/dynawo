@@ -10,13 +10,15 @@
 # of simulation tools for power systems.
 
 
+add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
   current_limiter_reactive_boost.mo
-  pi_controller_antiwind.mo
-  pi_controller.mo
-  VSC_with_pade_delay.mo
+  pll.mo
+  current_loop.mo
+  outer_loop.mo
+  outer_loop_no_plant.mo
   )
 
 #
