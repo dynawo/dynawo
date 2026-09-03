@@ -18,7 +18,7 @@
     <par type="DOUBLE" name="minStep" value="1e-8"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
-    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
   </set>
   <set id="InfBusPar">
     <par type="DOUBLE" name="infiniteBus_U0Pu" value="0.9906184368094055"/>

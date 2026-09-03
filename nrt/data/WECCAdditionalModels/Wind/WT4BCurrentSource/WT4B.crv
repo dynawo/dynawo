@@ -19,4 +19,9 @@
   <curve model="WT4B" variable="WT4B_injector_terminal_V_im"/>
   <curve model="WT4B" variable="WT4B_injector_terminal_i_im"/>
   <curve model="WT4B" variable="WT4B_pll_omegaPLLPu"/>
+  <curve model="Line" variable="line_terminal1_V_im"/>
+  <curve model="Line" variable="line_terminal1_V_re"/>
+  <curve model="InfBus" variable="infiniteBus_UPu"/>
+  <curve model="InfBus" variable="infiniteBus_omegaPu"/>
+  <curve model="InfBus" variable="infiniteBus_UPhaseOffs"/>
 </curvesInput>

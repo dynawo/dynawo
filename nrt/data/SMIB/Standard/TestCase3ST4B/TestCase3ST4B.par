@@ -174,7 +174,7 @@
     <par type="DOUBLE" name="minStep" value="1e-9"/>
     <par type="DOUBLE" name="maxStep" value="1"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
-    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-3"/>
     <par type="DOUBLE" name="minimalAcceptableStep" value="1e-10"/>
     <par type="INT" name="maximumNumberSlowStepIncrease" value="40"/>
   </set>
