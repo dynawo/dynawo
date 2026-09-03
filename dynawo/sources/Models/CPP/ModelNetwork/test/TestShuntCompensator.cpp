@@ -553,7 +553,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDefineInstantiate) {
   std::vector<Element> elements;
   std::map<std::string, int> mapElement;
   ASSERT_NO_THROW(capa->defineElements(elements, mapElement));
-  ASSERT_EQ(elements.size(), 10);
+  ASSERT_EQ(elements.size(), 5);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {

@@ -11,11 +11,10 @@
     This file is part of Dynawo, a hybrid C++/Modelica open source suite of
     simulation tool for power systems.
 -->
-
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <curve model="infBus" variable="infiniteBus_omegaPu"/>
   <curve model="infBus" variable="infiniteBus_UPu"/>
   <curve model="Load" variable="load_PPu"/>
   <curve model="Load" variable="load_QPu"/>
-   <curve model="Load" variable="load_UPu"/>
+  <curve model="Load" variable="load_UPu"/>
 </curvesInput>

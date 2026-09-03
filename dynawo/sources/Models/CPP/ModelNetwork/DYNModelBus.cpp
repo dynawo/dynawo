@@ -17,6 +17,7 @@
 #include "DYNBusInterface.h"
 #include "DYNModelSwitch.h"
 #include "DYNVariableForModel.h"
+#include "DYNCommonModeler.h"
 
 namespace DYN {
 
@@ -88,22 +89,22 @@ ModelBus::refreshConnectionStateFromZ(bool logTimeline) {
 
 void
 ModelBus::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value",     DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_switchOff_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value",     INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_numcc",     DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_switchOff", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state",     INTEGER));
 }
 
 void
 ModelBus::instantiateVariables(std::vector<boost::shared_ptr<Variable> > & variables) {
-  variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value",     DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value",     INTEGER));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_numcc",     DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state",     INTEGER));
 
   for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i) {
     std::string busBarSectionId = busBarSectionIdentifiers_[i];
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_numcc_value",     id_ + "_numcc_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_switchOff_value", id_ + "_switchOff_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_state_value",     id_ + "_state_value"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_numcc",     id_ + "_numcc"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_switchOff", id_ + "_switchOff"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_state",     id_ + "_state"));
   }
 }
 
@@ -117,9 +118,9 @@ ModelBus::defineElements(std::vector<Element>& elements, std::map<std::string, i
 void
 ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   // Discrete variables addition
-  addElementWithValue(id + std::string("_numcc"),     modelType_, elements, mapElement);
-  addElementWithValue(id + std::string("_switchOff"), modelType_, elements, mapElement);
-  addElementWithValue(id + std::string("_state"),     modelType_, elements, mapElement);
+  addElement(id + std::string("_numcc"), Element::TERMINAL, elements, mapElement);
+  addElement(id + std::string("_switchOff"), Element::TERMINAL, elements, mapElement);
+  addElement(id + std::string("_state"), Element::TERMINAL, elements, mapElement);
 }
 
 void

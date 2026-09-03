@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
     Copyright (c) 2026, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -101,7 +101,7 @@
     <reference name="transformerT_U10Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="transformerT_U1Phase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
-    <set id="Load12">
+  <set id="Load12">
     <par type="DOUBLE" name="load_alpha" value="1"/>
     <par type="DOUBLE" name="load_beta" value="2"/>
     <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>

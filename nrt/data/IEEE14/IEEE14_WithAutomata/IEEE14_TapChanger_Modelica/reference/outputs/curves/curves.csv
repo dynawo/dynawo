@@ -1,4 +1,4 @@
-time;NETWORK__BUS____5_TN_Upu_value;NETWORK__BUS____6_TN_Upu_value;_LOAD___5_EC_load_PPu;_LOAD___5_EC_load_QPu;TfoTest_transformer_tap;TfoTest_transformer_ratioTfoPu;
+time;NETWORK__BUS____5_TN_Upu;NETWORK__BUS____6_TN_Upu;_LOAD___5_EC_load_PPu;_LOAD___5_EC_load_QPu;TfoTest_transformer_tap;TfoTest_transformer_ratioTfoPu;
 0.000000;1.021440;1.066467;0.076216;0.016076;2.000000;1.060000;
 0.000001;1.021441;1.066468;0.076216;0.016076;2.000000;1.060000;
 0.000002;1.021441;1.066468;0.076216;0.016076;2.000000;1.060000;
