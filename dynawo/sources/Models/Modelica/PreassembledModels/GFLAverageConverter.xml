@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="GFLAverageConverter">
-    <dyn:unitDynamicModel id="GFL" name="Dynawo.Electrical.PEIR.Plants.Average.GFLmodel_noplant"/>
+    <dyn:unitDynamicModel id="GFL" name="Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

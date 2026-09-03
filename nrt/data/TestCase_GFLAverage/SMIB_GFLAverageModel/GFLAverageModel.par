@@ -83,6 +83,7 @@
     <par type="DOUBLE" name="GFL_delay_time_plant" value="1e-3"/>
     <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
     <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="1"/>
+    <par type="DOUBLE" name="GFL_T_boost" value="1e-4"/>
   </set>
   <!-- OmegaRef -->
   <set id="8">

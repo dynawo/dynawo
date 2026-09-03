@@ -14,10 +14,10 @@ add_subdirectory(BaseClasses B)
 set(MODEL_FILES
   package.mo
   package.order
-  GFLControl_bandwidth.mo
   GFLmodel.mo
   GFLmodel.extvar
   GFLmodel_bandwidth.extvar
+  GFLmodel_bandwidth.mo
   )
 
 #
