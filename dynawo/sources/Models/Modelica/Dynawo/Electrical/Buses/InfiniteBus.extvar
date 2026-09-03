@@ -11,7 +11,11 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
+<!-- TEMPORARY (#3874): terminal.V.re/im used as the external variable instead of terminal.i.re/im
+     so it stays a joint Newton unknown instead of being reclassified as a calculated variable,
+     which was causing severe solver convergence difficulties (see issue #3874). This means OMC
+     does not generate a symbolic Jacobian term for this equation; revisit once that is solved. -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable type="continuous" id="terminal.i.re"/>
-  <variable type="continuous" id="terminal.i.im"/>
+  <variable type="continuous" id="terminal.V.re"/>
+  <variable type="continuous" id="terminal.V.im"/>
 </external_variables>
