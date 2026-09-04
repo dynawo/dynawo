@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['quadripolecriteria',['QuadripoleCriteria',['../dd/dde/a02958.html',1,'DYN']]],
-  ['quadripolefailingcriteria',['QuadripoleFailingCriteria',['../d6/d0c/a02962.html',1,'DYN::QuadripoleCriteria']]]
+  ['quadripolecriteria',['QuadripoleCriteria',['../d4/d39/a02965.html',1,'DYN']]],
+  ['quadripolefailingcriteria',['QuadripoleFailingCriteria',['../db/d6c/a02969.html',1,'DYN::QuadripoleCriteria']]]
 ];

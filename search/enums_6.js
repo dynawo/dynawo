@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['kind_5ft',['kind_t',['../d0/d4a/a01862.html#a6207b5c13ad5fa57b92d6477f533d387',1,'constraints::ConstraintData']]],
-  ['knownbus_5ft',['KnownBus_t',['../d8/d75/a03426.html#aabc7a92403a2a9562f9b3627d547be48',1,'DYN::ModelTwoWindingsTransformer']]]
+  ['kind_5ft',['kind_t',['../d5/da8/a01865.html#a6207b5c13ad5fa57b92d6477f533d387',1,'constraints::ConstraintData']]],
+  ['knownbus_5ft',['KnownBus_t',['../d0/d19/a03433.html#aabc7a92403a2a9562f9b3627d547be48',1,'DYN::ModelTwoWindingsTransformer']]]
 ];

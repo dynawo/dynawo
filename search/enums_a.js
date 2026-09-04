@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['regulationmode_5ft',['RegulationMode_t',['../de/dd9/a03058.html#a76a7f5186b999ddb0b6cd0f6fcac4ea5',1,'DYN::StaticVarCompensatorInterface']]],
-  ['rootvars_5ft',['RootVars_t',['../d6/d85/a03290.html#a38df204f2e5a1dfffc3b652b9bf68a5e',1,'DYN::ModelVoltageMeasurementsUtilities']]]
+  ['regulationmode_5ft',['RegulationMode_t',['../d4/d44/a03065.html#a76a7f5186b999ddb0b6cd0f6fcac4ea5',1,'DYN::StaticVarCompensatorInterface']]],
+  ['rootvars_5ft',['RootVars_t',['../da/d0a/a03297.html#a38df204f2e5a1dfffc3b652b9bf68a5e',1,'DYN::ModelVoltageMeasurementsUtilities']]]
 ];
