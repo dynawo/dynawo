@@ -31,6 +31,7 @@ TEST(APIJOBTest, testSimulationEntry) {
   ASSERT_EQ(simulation->getCriteriaStep(), 10);
   ASSERT_EQ(simulation->getPrecision(), 1e-6);
   ASSERT_EQ(simulation->getTimeout(), std::numeric_limits<double>::max());
+  ASSERT_EQ(simulation->getEnableRealTimeTracking(), false);
 
   simulation->setStartTime(10);
   simulation->setStopTime(100);
@@ -39,6 +40,7 @@ TEST(APIJOBTest, testSimulationEntry) {
   simulation->setCriteriaStep(15);
   simulation->setPrecision(1e-8);
   simulation->setTimeout(10.);
+  simulation->setEnableRealTimeTracking(true);
 
   ASSERT_EQ(simulation->getStartTime(), 10);
   ASSERT_EQ(simulation->getStopTime(), 100);
@@ -50,6 +52,7 @@ TEST(APIJOBTest, testSimulationEntry) {
   ASSERT_EQ(simulation->getCriteriaStep(), 15);
   ASSERT_EQ(simulation->getPrecision(), 1e-8);
   ASSERT_EQ(simulation->getTimeout(), 10.);
+  ASSERT_EQ(simulation->getEnableRealTimeTracking(), true);
 
   simulation->setCriteriaFile("MyFile");
   ASSERT_EQ(simulation->getCriteriaFiles().size(), 1);
