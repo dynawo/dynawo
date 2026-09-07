@@ -232,7 +232,7 @@ model TestCase10Injectors "Nordic test system case with variable reference frequ
   Types.CurrentModulePu check_IrPu_g18;
   Types.AngularVelocityPu check_f_g17;
 
-  Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 1, tEnd =1.1);
+  Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 1, tEnd = 1.1);
   Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
 
 equation
@@ -257,16 +257,16 @@ equation
   g18.generatorSynchronous.omegaRefPu = omegaCOI;
   g19.generatorSynchronous.omegaRefPu = omegaCOI;
   g20.generatorSynchronous.omegaRefPu = omegaCOI;
-  Inj01.omegaCOI = omegaCOI;
-  Inj02.omegaCOI = omegaCOI;
-  Inj03.omegaCOI = omegaCOI;
-  Inj05.omegaCOI = omegaCOI;
-  Inj06.omegaCOI = omegaCOI;
-  Inj07.omegaCOI = omegaCOI;
-  Inj09.omegaCOI = omegaCOI;
-  Inj10.omegaCOI = omegaCOI;
-  Inj11.omegaCOI = omegaCOI;
-  Inj12.omegaCOI = omegaCOI;
+  Inj01.omegaRefPu = omegaCOI;
+  Inj02.omegaRefPu = omegaCOI;
+  Inj03.omegaRefPu = omegaCOI;
+  Inj05.omegaRefPu = omegaCOI;
+  Inj06.omegaRefPu = omegaCOI;
+  Inj07.omegaRefPu = omegaCOI;
+  Inj09.omegaRefPu = omegaCOI;
+  Inj10.omegaRefPu = omegaCOI;
+  Inj11.omegaRefPu = omegaCOI;
+  Inj12.omegaRefPu = omegaCOI;
 
   connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);
