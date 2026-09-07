@@ -12,7 +12,9 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseW3CurrentSource_INIT.mo
   BaseWPP.mo
+  BaseWT3.mo
   BaseWT4.mo
   )
 
