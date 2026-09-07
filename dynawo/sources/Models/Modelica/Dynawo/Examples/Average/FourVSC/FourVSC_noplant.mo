@@ -19,7 +19,7 @@ model FourVSC_noplant
   // ═══════════════════════════════════════════════════════════════
 
 
-    Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant gFL_HVDC1(
+    Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_HVDC1(
     SNom = 1200, U0Pu = 1.016485, Uphase = 0.210724, P0_pcc = -11.445, Q0_pcc = 0.536945,
     Omega0Pu = 1.0, tVSC = 1e-3,
     RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50,
@@ -44,7 +44,7 @@ model FourVSC_noplant
   // correspondingly less (or no) current-limiter engagement than
   // gFL_HVDC1.
   // ═══════════════════════════════════════════════════════════════
-   Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant gFL_HVDC2(
+   Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_HVDC2(
     SNom = 1700, U0Pu = 1.018446, Uphase = 0.216682, P0_pcc =  -13.94108, Q0_pcc = -5.04,
     Omega0Pu = 1.0, tVSC = 1e-3,
     RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50,
@@ -68,7 +68,7 @@ model FourVSC_noplant
   // from the faulted Bus A: sees an attenuated but still significant
   // voltage dip during the fault.
   // ═══════════════════════════════════════════════════════════════
-   Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant gFL_WP1(
+   Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_WP1(
     SNom = 2400, U0Pu =  1.06870, Uphase = 0.352335, P0_pcc = -19.916, Q0_pcc = 1.594,
     Omega0Pu = 1.0, tVSC = 1e-3,
     RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50,
@@ -94,7 +94,7 @@ model FourVSC_noplant
   // when checking that only the current limiter (not an oscillatory
   // instability) explains the transients seen elsewhere.
   // ═══════════════════════════════════════════════════════════════
-   Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant gFL_WP2(
+   Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_WP2(
     SNom = 2400, U0Pu = 1.037386, Uphase = 0.366498, P0_pcc = -19.917, Q0_pcc = 7.368258,
     Omega0Pu = 1.0, tVSC = 1e-3,
     RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50,
