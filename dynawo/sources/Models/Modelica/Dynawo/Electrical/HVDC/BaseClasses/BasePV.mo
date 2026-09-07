@@ -9,7 +9,7 @@ within Dynawo.Electrical.HVDC.BaseClasses;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 
@@ -24,7 +24,7 @@ partial model BasePV "Base dynamic model for PV control"
   Types.VoltageModulePu U2RefPu(start = U2Ref0Pu) "Voltage regulation set point in pu (base UNom) at terminal 2";
 
   Types.ReactivePowerPu QInj2PuQNom "Reactive power at terminal 2 in pu (base Q2Nom) (generator convention)";
-  Types.ReactivePower QInj2 "Reactive power at terminal 2 in MVar (generator convention)";
+  Types.ReactivePower QInj2 "Reactive power at terminal 2 in Mvar (generator convention)";
 
   parameter Types.VoltageModulePu U2Ref0Pu "Start value of the voltage regulation set point in pu (base UNom) at terminal 2";
 

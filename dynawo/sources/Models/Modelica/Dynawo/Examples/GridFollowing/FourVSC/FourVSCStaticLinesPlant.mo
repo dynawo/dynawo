@@ -9,7 +9,7 @@ within Dynawo.Examples.GridFollowing.FourVSC;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model FourVSCStaticLinesPlant "Four grid-following converters with plant control in a meshed network with static lines: fault at bus A"
