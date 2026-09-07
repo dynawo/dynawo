@@ -13,7 +13,7 @@ within Dynawo.Examples.Nordic.Grid;
 * of simulation tools for power systems.
 */
 
-model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loads, transformers and generators"
+model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loads, transformers, generators and one injector"
   import Dynawo.Examples.Nordic.Components.GeneratorWithControl;
   import Dynawo.Examples.Nordic.Components.TransformerWithControl;
 
@@ -96,7 +96,7 @@ model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loa
     Placement(visible = true, transformation(origin = {-53, -53}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g8_2032(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/850.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-77, 13}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g9_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/1000.0), rTfoPu = 1.05) annotation(
+  Electrical.Transformers.TransformersFixedTap.GeneratorTransformer trafo_g9_4011(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/1000.0), rTfoPu = 1.05, P10Pu = -P0Pu_g09, Q10Pu = -Q0Pu_g09, U10Pu = U0Pu_g09, P20Pu(fixed = false), Q20Pu(fixed = false), U20Pu(fixed = false), i10Pu(re(fixed = false), im(fixed = false)), i20Pu(re(fixed = false), im(fixed = false)), u10Pu(re(fixed = false), im(fixed = false)), u20Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {-25, 138}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g10_4012(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/800.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-35, 93}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
@@ -136,6 +136,8 @@ model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loa
     Placement(visible = true, transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, IMaxPu = 1, SNom = 1000, VReg0Pu(fixed = false)) annotation(
+    Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g10(P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g10) annotation(
     Placement(visible = true, transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g11) annotation(
@@ -143,7 +145,7 @@ model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loa
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g12(P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g12) annotation(
     Placement(visible = true, transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g13(P0Pu = P0Pu_g13, Q0Pu = Q0Pu_g13, U0Pu = U0Pu_g13, UPhase0 = UPhase0_g13, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g13) annotation(
-    Placement(visible = true, transformation(origin = {-70, -29}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
+    Placement(transformation(origin = {-70, -29}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g14(P0Pu = P0Pu_g14, Q0Pu = Q0Pu_g14, U0Pu = U0Pu_g14, UPhase0 = UPhase0_g14, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g14) annotation(
     Placement(visible = true, transformation(origin = {50, -30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousFourWindingsWithControl g15(P0Pu = P0Pu_g15, Q0Pu = Q0Pu_g15, U0Pu = U0Pu_g15, UPhase0 = UPhase0_g15, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g15) annotation(
@@ -158,8 +160,6 @@ model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loa
     Placement(visible = true, transformation(origin = {-75, 151}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g20(P0Pu = P0Pu_g20, Q0Pu = Q0Pu_g20, U0Pu = U0Pu_g20, UPhase0 = UPhase0_g20, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g20) annotation(
     Placement(visible = true, transformation(origin = {-75, 60}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Components.GeneratorWithControl.InjectorIDQWithControl Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, SNom = 1000, i0Pu = ComplexMath.conj(Complex(P0Pu_g09, Q0Pu_g09)/ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09)), Id0Pu = -(ComplexMath.real(Inj09.i0Pu)*cos(UPhase0_g09) + ComplexMath.imag(Inj09.i0Pu)*sin(UPhase0_g09))*(SystemBase.SnRef/Inj09.SNom), Iq0Pu = (ComplexMath.real(Inj09.i0Pu)*sin(UPhase0_g09) - ComplexMath.imag(Inj09.i0Pu)*cos(UPhase0_g09))*(SystemBase.SnRef/Inj09.SNom), s0Pu = Complex(P0Pu_g09, Q0Pu_g09), u0Pu = ComplexMath.fromPolar(U0Pu_g09, UPhase0_g09), IMaxPu = 1) annotation(
-    Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
 
   // g01 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
@@ -282,12 +282,29 @@ model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loa
   parameter Types.VoltageModulePu U0Pu_g20;
   parameter Types.Angle UPhase0_g20;
 
-initial equation
-  Inj09.VRefPu = bus_4011.UPu;
+  //Initialization
+  Dynawo.Electrical.Transformers.TransformersFixedTap.GeneratorTransformer_INIT trafo_g9_4011_INIT(BPu = 0, GPu = 0, RPu = 0, XPu = trafo_g9_4011.XPu, rTfoPu = trafo_g9_4011.rTfoPu, P10Pu = -P0Pu_g09, Q10Pu = -Q0Pu_g09, U10Pu = U0Pu_g09, U1Phase0 = UPhase0_g09);
+
+initial algorithm
+  trafo_g9_4011.P20Pu := trafo_g9_4011_INIT.P20Pu;
+  trafo_g9_4011.Q20Pu := trafo_g9_4011_INIT.Q20Pu;
+  trafo_g9_4011.U20Pu := trafo_g9_4011_INIT.U20Pu;
+  trafo_g9_4011.i10Pu.re := trafo_g9_4011_INIT.i10Pu.re;
+  trafo_g9_4011.i10Pu.im := trafo_g9_4011_INIT.i10Pu.im;
+  trafo_g9_4011.i20Pu.re := trafo_g9_4011_INIT.i20Pu.re;
+  trafo_g9_4011.i20Pu.im := trafo_g9_4011_INIT.i20Pu.im;
+  trafo_g9_4011.u10Pu.re := trafo_g9_4011_INIT.u10Pu.re;
+  trafo_g9_4011.u10Pu.im := trafo_g9_4011_INIT.u10Pu.im;
+  trafo_g9_4011.u20Pu.re := trafo_g9_4011_INIT.u20Pu.re;
+  trafo_g9_4011.u20Pu.im := trafo_g9_4011_INIT.u20Pu.im;
+  Inj09.VReg0Pu := trafo_g9_4011_INIT.U20Pu;
 
 equation
+  Inj09.PRefPu = -Inj09.P0Pu * SystemBase.SnRef / Inj09.SNom;
+  Inj09.VRefPu = Inj09.VReg0Pu;
   Inj09.VRegPu = bus_4011.UPu;
-  der(Inj09.VRefPu) = 0;
+  Inj09.VtRefPu = Inj09.U0Pu;
+
   Inj09.injectorIDQ.switchOffSignal1 = false;
   Inj09.injectorIDQ.switchOffSignal2 = false;
   Inj09.injectorIDQ.switchOffSignal3 = false;
@@ -591,7 +608,7 @@ equation
   connect(g08.terminal, bus_BG08.terminal) annotation(
     Line(points = {{-77, 0}, {-77, 5}}, color = {0, 0, 255}));
   connect(g10.terminal, bus_BG10.terminal) annotation(
-    Line(points={{-35,79}, {-35,85}}, color = {0, 0, 255}));
+    Line(points = {{-35, 79}, {-35, 85}}, color = {0, 0, 255}));
   connect(g11.terminal, bus_BG11.terminal) annotation(
     Line(points = {{35, 72}, {35, 65}}, color = {0, 0, 255}));
   connect(g12.terminal, bus_BG12.terminal) annotation(
@@ -611,11 +628,11 @@ equation
   connect(g19.terminal, bus_BG19.terminal) annotation(
     Line(points = {{-75, 151}, {-75, 145}}, color = {0, 0, 255}));
   connect(Inj09.terminal, bus_BG09.terminal) annotation(
-    Line(points = {{-25, 156}, {-25, 151}, {-25, 151}, {-25, 145}}, color = {0, 0, 255}));
+    Line(points = {{-25, 156}, {-25, 145}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Line(origin = {1.18, 21.94}, points = {{-103.176, -26.9412}, {19.8235, -26.9412}, {103.824, 42.0588}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-58.3, -98.4}, points = {{-44.7012, 54.3963}, {-25.7012, 54.3963}, {-13.7012, 42.3963}, {-13.7012, -9.60369}, {31.2988, -54.6037}}, pattern = LinePattern.Dash, thickness = 0.5), Line(origin = {-80.5, 104}, points = {{-22.5, -48}, {22.5, -48}, {22.5, 48}}, pattern = LinePattern.Dash, thickness = 0.5), Text(origin = {-55, -145}, extent = {{-15, 5}, {15, -5}}, textString = "SOUTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-35, -25}, extent = {{-15, 5}, {15, -5}}, textString = "CENTRAL", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {5, 145}, extent = {{-15, 5}, {15, -5}}, textString = "NORTH", textStyle = {TextStyle.Bold, TextStyle.Italic}), Text(origin = {-100, 150}, extent = {{-15, 5}, {15, -5}}, textString = "EQUIV.", textStyle = {TextStyle.Bold, TextStyle.Italic})}),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators and distribution transformers are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));
+    Documentation(info = "<html><head></head><body><div>This model extends the network with alpha-beta loads model, it could also extend the network with PQ loads model.</div><div><br><div>This model implements the Nordic 32 test system presented in the IEEE Technical Report \"Test Systems for Voltage Stability Analysis and Security Assessment\" from August, 2015. It is a modified version of the so-called Nordic32 test system, which was first proposed by K. Walve.</div><div><br><div>The system consists of 74 buses, 32 at transmission, 22 at distribution and 20 at generator level. Synchronous generators, distribution transformers and the injector are regulated. The initial values have been taken from the report.</div><div><br></div><div>Its main purpose is to simulate and study long-term voltage instabilities.</div></div></div></body></html>"));
 end FullDynamicModel1Injector;

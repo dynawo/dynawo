@@ -240,8 +240,8 @@ model TestCase1Injector "Nordic test system case with variable reference frequen
   Types.AngularVelocityPu check_f_g07;
   Types.AngularVelocityPu check_f_g17;
 
-  Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 201, tEnd = 201.1);
-  Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 201.1);
+  Electrical.Events.NodeFault nodeFault(RPu = 40/400^2*Electrical.SystemBase.SnRef, XPu = 40/400^2*Electrical.SystemBase.SnRef, tBegin = 1, tEnd = 1.1);
+  Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
 
 equation
   check_UPu_bus_1041 = Modelica.ComplexMath.'abs'(bus_1041.terminal.V);
@@ -282,7 +282,7 @@ equation
   g18.generatorSynchronous.omegaRefPu = omegaCOI;
   g19.generatorSynchronous.omegaRefPu = omegaCOI;
   g20.generatorSynchronous.omegaRefPu = omegaCOI;
-  Inj09.omegaCOI = omegaCOI;
+  Inj09.omegaRefPu = omegaCOI;
 
   connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);
