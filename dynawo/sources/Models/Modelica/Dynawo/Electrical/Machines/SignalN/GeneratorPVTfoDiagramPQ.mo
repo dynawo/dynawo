@@ -9,7 +9,7 @@ within Dynawo.Electrical.Machines.SignalN;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
 model GeneratorPVTfoDiagramPQ "Model for generator PV based on SignalN for the frequency handling, with a simplified transformer, a voltage regulation at stator and with an N points PQ diagram."
