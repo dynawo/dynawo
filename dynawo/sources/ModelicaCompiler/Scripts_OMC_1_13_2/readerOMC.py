@@ -2076,6 +2076,10 @@ class ReaderOMC:
                 # Jacobian comparison. Revisit once the symbolic Jacobian is meant to replace Adept.
                 if name in self.fictive_continuous_vars or name in self.fictive_optional_continuous_vars: continue
 
+                if name in self.list_flow_vars:
+                    print_warning("Flow variable " + name + " is being set as a calculated variable: "
+                                   "this can break the joint Newton solve of connector equations relying on it.")
+
                 self.list_complex_calculated_vars[var] = f
                 if f not in function_to_remove:
                     function_to_remove.append(f)

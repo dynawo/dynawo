@@ -1265,7 +1265,15 @@ class Factory:
             raw_text = transform_rawbody_to_string(f.get_body())
             found_indexes = self.find_relationhysteresis_indexes(raw_text)
             for index_relation in found_indexes:
-                map_relations[index_relation] = [ALGEBRAIC, f.get_name()]
+                if index_relation not in map_relations:
+                    map_relations[index_relation] = [ALGEBRAIC, f.get_name()]
+                elif map_relations[index_relation][0] == DIFFERENTIAL:
+                    # this relation is also read by a calculated variable's own formula, which
+                    # needs a fresh recomputation whenever it changes: upgrade its type to
+                    # ALGEBRAIC (keeping its original owning equation) so a mode change on it
+                    # triggers a full restoration (rotateBuffers + KINSOL resolve) instead of
+                    # being skipped as a "cheap" differential-only mode change
+                    map_relations[index_relation][0] = ALGEBRAIC
 
         # bulding relations objects
         content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
@@ -4111,6 +4119,8 @@ class Factory:
                                                         "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
                 self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = " + expr+";\n")
 
+        for index, line in enumerate(self.list_for_evalcalculatedvars):
+            self.list_for_evalcalculatedvars[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
 
     ##
     # return the list of lines that constitues the body of evalCalculatedVars
@@ -4125,18 +4135,28 @@ class Factory:
     # @param self : object pointer
     # @param body : lines of the calculated variable's body
     # @param var_name : name of the calculated variable being computed
-    # @param is_adept : whether body is an adept::adouble body (needs .value() to store a plain double)
+    # @param is_adept : whether body is evaluated in the evalCalculatedVarIAdept dispatcher, where a
+    # return value may be either a genuine adept::adouble Expression (needs .scalar_value() to store
+    # a plain double into the cache; .value() only exists on the leaf Active<double> type, not on
+    # compound Expression results such as BinaryOperation) or, when built purely from cache reads
+    # (getCalculatedVar) and parameters with no x[]/evalCalculatedVarIAdept term at all, a plain
+    # double that must NOT get a .scalar_value() suffix. Detected per return statement below.
     # @return the body with the cache write inserted before each return
     def inject_calc_var_cache_writeback(self, body, var_name, is_adept=False):
         idx = self.dic_calc_var_index[var_name]
         ptrn_return = re.compile(r'^(?P<indent>\s*)return (?P<value>.+);\s*$')
-        value_suffix = ".value()" if is_adept else ""
+        ptrn_adept_decl = re.compile(r'\badept::adouble\s+(\w+)')
+        adept_vars = set(ptrn_adept_decl.findall("".join(body)))
+        ptrn_adept_term = re.compile(r'x\[indexOffset|evalCalculatedVarIAdept\(')
         new_body = []
         for line in body:
             match = ptrn_return.match(line)
             if match is not None:
+                value = match.group('value')
+                is_value_adept = is_adept and (value.strip() in adept_vars or ptrn_adept_term.search(value) is not None)
+                value_suffix = ".scalar_value()" if is_value_adept else ""
                 new_body.append(match.group('indent') + "setCalculatedVar((this)->getModelManager(), " \
-                                 + str(idx) + ", (" + match.group('value') + ")" + value_suffix + ");\n")
+                                 + str(idx) + ", (" + value + ")" + value_suffix + ");\n")
             new_body.append(line)
         return new_body
 
@@ -4299,6 +4319,9 @@ class Factory:
                 self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
         self.list_for_evalcalculatedvari.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
+        for index, line in enumerate(self.list_for_evalcalculatedvari):
+            self.list_for_evalcalculatedvari[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
+
 
     ##
     # return the list of lines that constitues the body of evalCalculatedVars
@@ -4334,11 +4357,17 @@ class Factory:
             if var_name in computed_sizes:
                 return computed_sizes[var_name]
             if var_name in visited:
-                print("BUBU CYCLE " + " -> ".join(visited + [var_name]))
                 return 0
             visited = visited + [var_name]
             size = direct_count.get(var_name, 0)
             for dep in self.dic_calc_var_recursive_deps.get(var_name, []):
+                # only true cycle back-edges ('cache' kind) are read from the stale cache and
+                # so consume no x[]/xd[] slots of their own; 'local' kind deps (same cycle, not
+                # the back-edge) get a genuine recursive evalCalculatedVarIAdept call and do
+                # consume slots, exactly like 'normal' kind (see
+                # prepare_for_getindexofvarusedforcalcvari, which gathers the same way)
+                if self.calc_var_ref_kind(var_name, dep) == 'cache':
+                    continue
                 size += total_size(dep, visited)
             computed_sizes[var_name] = size
             return size
@@ -4516,7 +4545,11 @@ class Factory:
                 offset = self.calc_var_direct_count.get(var.get_name(), 0)
                 for name in self.dic_calc_var_recursive_deps[var.get_name()]:
                     calc_var_to_offset[name] = offset
-                    offset += recursive_calc_vars_num_deps.get(name, 0)
+                    # only true back-edges ('cache' kind) are read via getCalculatedVar instead
+                    # of gathered into x[]/xd[] (see prepare_for_getindexofvarusedforcalcvari),
+                    # so only they must not consume any offset space
+                    if self.calc_var_ref_kind(var.get_name(), name) != 'cache':
+                        offset += recursive_calc_vars_num_deps.get(name, 0)
             body = []
             sorted_indexes = []
             for line in body_translated:
@@ -4554,15 +4587,16 @@ class Factory:
                                 # there is an x[..] in the name of the variable itself!
                                 name_to_use = name_to_use.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
                                 index_var += 1
-                        if self.calc_var_ref_kind(var.get_name(), name) != 'normal':
-                            # this reference is part of a calculated-variable dependency cycle. Unlike
-                            # the plain evalCalculatedVarI dispatcher, cycle members here cannot share
-                            # local variables: each has its own indexOffset/x/xd gather set up by the
-                            # caller for the *specific* iCalculatedVar it asked for, so another
-                            # member's x[]/xd[] layout would not apply. Read the cache instead (a plain
-                            # double converts implicitly to adept::adouble, valid in both expression
-                            # contexts below); every member's own value is written back to that same
-                            # cache below so it stays as fresh as possible.
+                        if self.calc_var_ref_kind(var.get_name(), name) == 'cache':
+                            # this reference is the back-edge that was cut to break a calculated-
+                            # variable dependency cycle: the target isn't computed yet at this point
+                            # (computing it would recurse back into this same var), so it can only be
+                            # read from the stale cache, as a plain double (not wrapped in
+                            # adept::adouble) since some callers (e.g. delayImpl) require an actual
+                            # double argument, not an Adept expression; see
+                            # inject_calc_var_cache_writeback for how the return value's type (plain
+                            # double vs Adept Expression) is detected. Every member's own value is
+                            # written back to that same cache below so it stays as fresh as possible.
                             line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
                                 "getCalculatedVar((this)->getModelManager(), " + str(self.dic_calc_var_index[name]) + ") /* " + name)
                         elif is_relation_condition_line or is_non_adept_func_call:
@@ -4582,6 +4616,10 @@ class Factory:
 
             self.list_for_evalcalculatedvariadept.append("\n\n")
         self.list_for_evalcalculatedvariadept.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
+
+        for index, line in enumerate(self.list_for_evalcalculatedvariadept):
+            self.list_for_evalcalculatedvariadept[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
+
         self.prepare_for_evalfadept_external_call(used_functions)
 
 
@@ -4618,11 +4656,12 @@ class Factory:
                         self.list_for_getindexofvarusedforcalcvari.append("    indexes.push_back(" + str(dependency_index) + ");\n")
                     if var_name in self.dic_calc_var_recursive_deps:
                         for name in self.dic_calc_var_recursive_deps[var_name]:
-                            if self.calc_var_ref_kind(var_name, name) != 'normal':
-                                # this dependency is resolved via the calculated variables cache (a
-                                # plain, non-differentiable double), not through a live adept chain:
-                                # its own x[]/xd[] indexes are not part of this variable's gather set,
-                                # and recursing into it would never terminate for a dependency cycle
+                            if self.calc_var_ref_kind(var_name, name) == 'cache':
+                                # this dependency is the back-edge cut to break a calculated-variable
+                                # dependency cycle: it's resolved via the calculated variables cache (a
+                                # plain, non-differentiable double), not through a live adept chain, so
+                                # its own x[]/xd[] indexes are not part of this variable's gather set;
+                                # recursing into it would never terminate anyway
                                 continue
                             self.list_for_getindexofvarusedforcalcvari.append("    getIndexesOfVariablesUsedForCalculatedVarI(" + str(self.dic_calc_var_index[name])+ ", indexes);\n")
                     self.list_for_getindexofvarusedforcalcvari.append("  }\n")

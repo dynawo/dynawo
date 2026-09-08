@@ -1440,6 +1440,14 @@ ModelManager::getCalculatedVar(const int indexCalculatedVar) const {
   return modelInitUsed_ ? calculatedVarsInit_[indexCalculatedVar] : calculatedVars_[indexCalculatedVar];
 }
 
+void
+ModelManager::setCalculatedVar(const int indexCalculatedVar, const double value) {
+  if (modelInitUsed_)
+    calculatedVarsInit_[indexCalculatedVar] = value;
+  else
+    calculatedVars_[indexCalculatedVar] = value;
+}
+
 double
 ModelManager::evalCalculatedVarI(unsigned iCalculatedVar) {
   return modelModelica()->evalCalculatedVarI(iCalculatedVar);
