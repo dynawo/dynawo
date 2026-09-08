@@ -39,9 +39,7 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
   parameter Real XVI "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
     Dialog(tab = "QSEM"));
   // Current loop parameters
-  parameter Types.PerUnit Kpc "Proportional gain of the current loop" annotation(
-    Dialog(tab = "Current loop"));
-  parameter Types.PerUnit Kic "Integral gain of the current loop" annotation(
+  parameter Types.PerUnit omegaC "Current Loop bandwidth (in rad/s)" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfd "Feedforward gain on the d-axis" annotation(
     Dialog(tab = "Current loop"));
@@ -60,9 +58,9 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
   parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Transformer"));
   // PLL parameters
-  parameter Real KiPLL "Integrator gain of the PLL"annotation(
+    parameter Types.PerUnit omegaNPLL "PLL bandwidth (in rad/s)" annotation(
     Dialog(tab = "PLL"));
-  parameter Real KpPLL "Feed-forward gain of the PLL" annotation(
+  parameter Types.PerUnit ZetaPLL "PLL damping ratio (dimensionless)"annotation(
     Dialog(tab = "PLL"));
 
   // VSC parameter
@@ -92,7 +90,7 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
   Sources.PEIR.Converters.Average.DynConverter Converter(SNom = SNom, tVSC = tVSC, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, i0Pu = i0Pu, u0Pu = u0Pu, Theta0 = Theta0, Omega0Pu = SystemBase.omegaRef0Pu)  annotation(
     Placement(transformation(origin = {59, 41}, extent = {{-21, -21}, {21, 21}})));
-  Controls.PEIR.Converters.Average.DynGridFormingControlDroop ControlDroop(IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, Kic = Kic, KpVI = KpVI, Kpc = Kpc, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, Mp = Mp, u0Pu = u0Pu, U0Pu = U0Pu, UPhase0 = UPhase0, KpPLL = KpPLL, KiPLL = KiPLL) annotation(
+  Controls.PEIR.Converters.Average.DynGridFormingControlDroop ControlDroop(IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, KpVI = KpVI, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, Mp = Mp, u0Pu = u0Pu, U0Pu = U0Pu, UPhase0 = UPhase0, omegaC = omegaC, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL) annotation(
     Placement(transformation(origin = {-41, 41}, extent = {{-21, -21}, {21, 21}})));
 equation
   connect(Converter.terminal, terminal) annotation(

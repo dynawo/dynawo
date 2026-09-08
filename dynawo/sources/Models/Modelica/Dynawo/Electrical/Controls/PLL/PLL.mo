@@ -15,8 +15,11 @@ within Dynawo.Electrical.Controls.PLL;
 model PLL "Phase-Locked Loop"
 
   //Parameters
-  parameter Types.PerUnit Ki "PLL integrator gain";
-  parameter Types.PerUnit Kp "PLL proportional gain";
+  parameter Types.PerUnit OmegaN "PLL design bandwidth (linearized around U0Pu) in rad/s";
+  parameter Types.PerUnit Zeta "PLL damping ratio (dimensionless)";
+  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at PCC in pu (base UNom)";
+  final parameter Types.PerUnit Ki = OmegaN^2 / (SystemBase.omegaNom) "PLL integrator gain";
+  final parameter Types.PerUnit Kp = 2 * Zeta * OmegaN / (SystemBase.omegaNom) "PLL proportional gain, derived from OmegaN and Zeta";
   parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)";
   parameter Types.PerUnit OmegaMinPu "Lower frequency limit in pu (base OmegaNom)";
 
@@ -44,9 +47,6 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {0, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  //Initial parameter
-  parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at PCC in pu (base UNom)";
 
 equation
   connect(add2.y, omegaPLLPu) annotation(

@@ -10,7 +10,7 @@
 
 set(MODEL_FILES
   current.png
-  DynGFMVSM.png
+  DynGFMComparison.png
   frequency.png
   epri_omega.png
   epri_pq.png

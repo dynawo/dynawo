@@ -12,12 +12,16 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
   */
-  parameter Types.PerUnit Kpc "Proportional gain of the current loop";
-  parameter Types.PerUnit Kic "Integral gain of the current loop";
+  parameter Types.PerUnit OmegaC "Current loop closed-loop bandwidth in rad/s";
+  //Internal PI gains, derived from OmegaC by cancelling the plant pole at s = -R/L*omegaNom
+  //with the controller zero (Ki/Kp = R/L*omegaNom), which reduces the closed loop to a
+  //first-order system I/Iref = omegaC/(s+omegaC). See Kpc = L*omegaC/omegaNom, Kic = R*omegaC.
+  final parameter Types.PerUnit Kpc = LFilter * OmegaC / SystemBase.omegaNom "Proportional gain of the current loop, derived from OmegaC";
+  final parameter Types.PerUnit Kic = RFilter * OmegaC "Integral gain of the current loop, derived from OmegaC";
   parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LFilter "Filter inductance in pu (base UNom, SNom)";
-  parameter Types.PerUnit Kfd = 1 "Feedforward gain on the d-axis";
-  parameter Types.PerUnit Kfq = 1 "Feedforward gain on the q-axis";
+  parameter Types.PerUnit Kfd "Feedforward gain on the d-axis";
+  parameter Types.PerUnit Kfq  "Feedforward gain on the q-axis";
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(

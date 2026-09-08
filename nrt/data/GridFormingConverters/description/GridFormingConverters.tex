@@ -9,6 +9,8 @@
 %% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 \documentclass[a4paper, 12pt]{report}
 \input{../../../documentation/latex_setup.tex}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.18}
 \begin{document}
 \chapter*{Three-converter system with three different types of Grid Forming Converters}
 \section*{Test case description}
@@ -37,7 +39,7 @@ Three events are simulated:
 The currents in the three converters during the whole simulation are presented in Fig.~\ref{comp1}.
 \begin{figure}[H]
 \begin{center}
-  \begin{tikzpicture}[scale = 0.8]
+  \begin{tikzpicture}
     \begin{axis}[grid=major, xmin=0.47, xmax=2.1]
         \addplot[color=blue!50]
         table[x=time,y=Converter250_converter_IConvPu]
@@ -76,48 +78,188 @@ All the three controls are stable for this simulation and manage to bring back t
   \caption{Frequency of the three converters with static lines\label{comp10}}
 \end{figure}
 \newpage
-\chapter*{Single Machine Infinite Bus test with Grid Forming Converter}
+\chapter*{Voltage Angle Step Test on Grid Forming Converters}
 \section*{Test case description}
-This test case consists of a current-controlled grid-forming converter based on a Virtual Synchronous Machine Control (VSM), with current limitation enforced through a proportional virtual impedance (activated above IMaxVI) combined with a Quasi-Static Electrical Model to translate the resulting voltage reference into a current reference.
-The GFM model is connected to an infinite bus through a RL line (R=0.0001667 p.u., X=0.005 p.u.) and the following events are simulated :
+This test case implements a scenario from the I18 technical documentation of the French Grid (DTR Chapter 8, Article 8.3.3). The chose test case is named \texttt{S\_VolAngStep7\_OC4} and applied identically to three Grid-Forming
+converter architectures:
 \begin{itemize}
-   \item At t = 8 s, the reference active power PRefPu increases from 0.75 to 1.00 pu with a step. This event typically embodies a change in the generated power output from the generator.
-   \item At t = 10 s, a sudden increase in frequency at the bus is simulated (88\% increase over 0.0001 s). This event simulates a sudden oscillation in the grid frequency, which can be attributed to supply/demand imbalances.
-   \item At t = 20 s, an increase of 4\% at the bus voltage happens. Return to the original value is made after 3 seconds.
+\item \texttt{DynGFMVSM} — Virtual Synchronous Machine control with a PLL feeding the
+      Control block frequency reference; the Converter's Park frame remains
+      slaved to the internal virtual angle produced by the swing equation.
+\item \texttt{DynGFMVSMConvPLL} — same as above, with the grid-measured PLL frequency
+      (\texttt{omegaPLL}) additionally fed to the converter block for frame alignment. The reason behind this variation is to see how mirroring the grid frequency in the Converter's loop will afect performances.
+\item \texttt{DynGFMDroop} — Droop-based architecture, with no PLL in the active control chain.
 \end{itemize}
 
-\section*{Results}
-The graph in Figure \ref{comp20} shows the evolution of PFilterRefPu (reference active power in p.u. for the GFM) and PFilterPu : the active power in p.u.
-measured at the RLC Filter of the Converter block.
+\paragraph{Network and operating point}
+The converter is connected to an infinite bus through a static RL line sized for
+$SCR_{min} = 2$ (i.e. $x_{grid} = 0.5$~p.u. on the converter's own $S_{Nom}$ base,
+see base-conversion note below), with $x_{eff} = 0.27$~p.u.
+Operating point OC4: $P = 0.95$ p.u., $Q = 0$~p.u., $U = 1$~p.u.
+All system services (voltage control, frequency regulation, LFSM-U/O) are disabled,
+according to section 6, so that only the Grid-Forming voltage-source behaviour is
+characterized.
+
+\paragraph{Event and simulation}
+At $t = 10$s, a phase jump $\Delta\theta_{grid} = 26.47$° is applied to the infinite
+bus voltage. Different simulations will be carried out with diverse solveurs and timesteps. Common features include a simulation from 0 to 25 seconds, with an event at $t=10$s. The output variables out interest are the active current $I_p$ measured at the Point of Generating Unit (PGU).
+
+\paragraph{Conformity criteria}
+The I18 technical documentation enforces regulation on the active current $I_p$ mainly trough a set of conformity envelopes and a damping at least equal to 40\% for every oscillation in $I_p$ between 0.1 and 20 Hz.
+
+\subsection*{a) Dynawo simulation}
+\subsection*{Simulation setup}
+Since the test case is trivial, there is no need for a specific \textit{.iidm} file and initialisation parameters are given as parameters and calculated in a separate case with no perturbation.
+
+\subsection*{Results}
+Figure~\ref{fig:voltangstep1_oc4_dynawo} compares the active power response
+$P_{Filter}$ (measured at the converter's RLC filter) across the three architectures.
 
 \begin{figure}[H]
-  \centering
-  \begin{tikzpicture}[scale = 0.8]
-    \begin{axis}[
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=7cm,
       grid=major,
-      xmin=0,
-      xmax=25,
-      legend pos=north west,
+      xmin=9.5, xmax=13,
       xlabel={Time [s]},
-      ylabel={Active power $P_{\text{Filter}}$ [p.u.]}
+      ylabel={Active current $I_p$ [p.u.]},
+      legend pos=south east,
+      legend style={font=\small}
     ]
-      % DynGFMVSM: PFilterRefPu
-      \addplot[color=red!300]
-        table[x=time,y=GFM_GFM_Control_PFilterRefPu]
-        {../SMIB/DynGFMVSM/outputs/curves/curves.csv};
-
-      % DynGFMVSM: PFilterPu
-      \addplot[color=blue!300]
+% DynGFMVSM
+\addplot[color=blue!100]
         table[x=time,y=GFM_GFM_Control_PFilterPu]
-        {../SMIB/DynGFMVSM/reference/outputs/curves/curves.csv};
+        {../SMIB/DynGFMVSM/outputs/curves/curves.csv};
+% DynGFMVSMConvPLL
+\addplot[color=red!100]
+        table[x=time,y=GFMConvPLL_GFMConvPLL_Control_PFilterPu]
+        {../SMIB/DynGFMVSMConvPLL/outputs/curves/curves.csv};
+% DynGFMDroop
+\addplot[color=green!100]
+        table[x=time,y=GFMDroop_GFMDroop_ControlDroop_PFilterPu]
+        {../SMIB/DynGFMDroop/outputs/curves/curves.csv};
 
-      \legend{$P_{\text{FilterRef}}$,$P_{\text{Filter}}$}
-    \end{axis}
-  \end{tikzpicture}
-  \caption{Active power in p.u. at the GFM filter and its reference value}
-  \label{comp20}
+\legend{DynGFMVSM, DynGFMVSMConvPLL, DynGFMDroop}
+\end{axis}
+\end{tikzpicture}
+\caption{Active power at the GFM filter following a $26.47$ deg voltage angle step
+(S\_VolAngStep7\_OC4), for the three architectures.}
+\label{fig:voltangstep1_oc4_dynawo}
 \end{figure}
 
-Results show that the converter is able to track the changes in reference active power and to react to the sudden changes in frequency and voltage at the bus.
-As a note, the whole converter block is computed in the Real-Imaginary frame i.e. same as the grid's. A previous version of this model existed with the Converter block in the GFM rotating frame (DQ) and produced identical results.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=7cm,
+      grid=major,
+      xmin=9.5, xmax=13,
+      xlabel={Time [s]},
+      ylabel={Active current $I_p$ [p.u.]},
+    ]
+% DynGFMVSM
+\addplot[color=blue]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMVSM/outputs/curves/curves_final.csv};
+% DynGFMVSMConvPLL
+\addplot[color=red]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMVSMConvPLL/outputs/curves/curves_final.csv};
+% DynGFMDroop
+\addplot[color=green!60!black]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMDroop/outputs/curves/curves_final.csv};
+\addplot[name path=envUp, color=black, dashed, no marks]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip upper (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+\addplot[name path=envLow, color=black, dashed, no marks, forget plot]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip lower (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+
+\addplot[gray!20, forget plot] fill between [of=envUp and envLow];
+\end{axis}
+\end{tikzpicture}
+\caption{Active current at the GFM PGU following a $26.47$° voltage angle step
+(S\_VolAngStep7\_OC4), for the three architectures.}
+\label{fig:zoom_Ip_envelope_step7oc4}
+\end{figure}
+
+As expected, \texttt{DynGFMVSMConvPLL} exhibits the largest transient excursion
+immediately following the angle step, since the grid-measured $\omega_{PLL}$
+propagates the discontinuity directly into the converter's Park frame; \texttt{DynGFMVSM}
+is comparatively insulated from the step, seeing it only through the slower VSM
+virtual-angle dynamics. \emph{TODO: confirm this ranking against actual traces once available.}
+
+\section*{Test case b) --- OpenModelica / OMPython with envelope validation}
+\subsection*{Simulation setup}
+The same three models are compiled and simulated in OpenModelica (OMEdit v1.24.4),
+driven by an OMPython script (\emph{path: TODO}) that:
+\begin{enumerate}
+\item instantiates the model and sets the OC4 operating point via
+      \texttt{compute\_operating\_point()} (rigorous two-bus power flow, from
+      \texttt{GFM\_enveloppes.ipynb});
+\item applies the $6.36°$ angle step at $t_0$;
+\item extracts the resulting current trace and computes the fiche I18 conformity
+      envelope from the scenario dictionary already defined in the notebook.
+\end{enumerate}
+
+\subsection*{Results}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale = 0.8]
+\begin{axis}[
+      width=12cm, height=7cm,
+      grid=major,
+      xmin=9.5, xmax=13,
+      xlabel={Time [s]},
+      ylabel={Active current $I_p$ [p.u.]},
+    ]
+
+% --- Enveloppe RTE (a tracer en premier pour qu'elle soit en fond) ---
+\addplot[name path=envUp, color=black, dashed, no marks, forget plot]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip upper (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+\addplot[name path=envLow, color=black, dashed, no marks, forget plot]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip lower (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+\addplot[gray!20, forget plot] fill between [of=envUp and envLow];
+
+% --- Dynawo (trait plein) ---
+\addplot[color=blue, solid]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMVSM/outputs/curves/curves_final.csv};
+\addplot[color=red, solid]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMVSMConvPLL/outputs/curves/curves_final.csv};
+\addplot[color=green!60!black, solid]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMDroop/outputs/curves/curves_final.csv};
+
+% --- OMPython (pointille, meme couleur par modele) ---
+\addplot[color=blue, dashed]
+        table[col sep=comma,x=time,y=DynGFMVSM_Ip]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4_OMPython.csv};
+\addplot[color=red, dashed]
+        table[col sep=comma,x=time,y=DynGFMVSMConvPLL_Ip]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4_OMPython.csv};
+\addplot[color=green!60!black, dashed]
+        table[col sep=comma,x=time,y=DynGFMDroop_Ip]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4_OMPython.csv};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparaison Dynawo (trait plein) / OMPython (pointillé) du courant actif au PGU
+suite à un saut d'angle de tension de $26.47°$ (S\_VolAngStep7\_OC4), pour les trois architectures.}
+\label{fig:zoom_Ip_envelope_step7oc4_dynawo_ompython}
+\end{figure}
+
+\emph{TODO: repeat for the two other architectures; one figure per model or a
+3-panel subfigure.}
+
+\section*{Cross-validation}
+Comparison of the Dynawo and OpenModelica traces for a given architecture
+(\emph{TODO: overlay figure}) serves as a consistency check between the two
+simulation chains, independent of the solver-specific numerical behaviour
+(IDA/KINSOL on the Dynawo side vs. OpenModelica's default DAE solver).
 \end{document}

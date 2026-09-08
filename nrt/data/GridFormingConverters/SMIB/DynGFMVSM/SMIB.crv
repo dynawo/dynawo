@@ -14,4 +14,9 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <curve model="GFM" variable="GFM_Control_PFilterPu"/>
   <curve model="GFM" variable="GFM_Control_PFilterRefPu"/>
+  <curve model="GFM" variable="GFM_terminal_V_re"/>
+  <curve model="GFM" variable="GFM_terminal_V_im"/>
+  <curve model="GFM" variable="GFM_terminal_i_re"/>
+  <curve model="GFM" variable="GFM_terminal_i_im"/>
+
 </curvesInput>

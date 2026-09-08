@@ -12,20 +12,20 @@
     simulation tool for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="GFM with Droop - AcGrid connection with RoCoF test">
-        <solver lib="dynawo_SolverSIM" parFile="DroopRoCoF.par" parId="SimplifiedSolver"/>
-        <!--solver lib="dynawo_SolverIDA" parFile="DroopRoCoF.par" parId="IDASolver"/-->
+    <job name="GFM with Droop - SMIB Connection Voltage Phase Jump - S_VolAngStep1_0C4">
+        <solver lib="dynawo_SolverSIM" parFile="SMIB.par" parId="SimplifiedSolver"/>
+        <!--solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="IDASolver"/-->
         <modeler compileDir="outputs/compilation">
-            <dynModels dydFile="DroopRoCoF.dyd"/>
+            <dynModels dydFile="SMIB.dyd"/>
             <precompiledModels useStandardModels="true"/>
             <modelicaModels useStandardModels="true">
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="25" precision="1e-4"/>
+        <simulation startTime="0" stopTime="25" precision="1e-7"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true"/>
-            <curves inputFile="DroopRoCoF.crv" exportMode="CSV"/>
+            <curves inputFile="SMIB.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
               <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
