@@ -26,7 +26,7 @@ model ElectronicLoad "Constant power load with disconnection and reconnections d
   Real connectedShare(start = 1) "Share of the load that is currently connected";
 
 equation
-  if running and terminal.V <> Complex(0) then
+  if running and nonZeroVoltage then
     UMinPu + tFilter * der(UMinPu) = if (UPu < UMinPu and UMinPu > Ud2Pu) then UPu else UMinPu;
 
     if UPu < Ud2Pu then

@@ -14,6 +14,7 @@ load_SPu_re                                       : alias of load_PPu
  ====== CALCULATED VARIABLES VALUES ======
 load_UPu                                          : y =       1.035657
  ====== DISCRETE VARIABLES VALUES ======
+load_nonZeroVoltage                               : z =       1.000000
 load_running                                      : z =       1.000000
 load_switchOffSignal1                             : z =      -1.000000
 load_switchOffSignal2                             : z =      -1.000000
