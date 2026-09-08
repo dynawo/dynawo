@@ -16,11 +16,12 @@
     <mandatoryParameter name="H" type="DOUBLE"/>
     <mandatoryParameter name="IMaxVI" type="DOUBLE"/>
     <mandatoryParameter name="Kff" type="DOUBLE"/>
-    <mandatoryParameter name="Kic" type="DOUBLE"/>
     <mandatoryParameter name="KpVI" type="DOUBLE"/>
-    <mandatoryParameter name="Kpc" type="DOUBLE"/>
+    <mandatoryParameter name="omegaC" type="DOUBLE"/>
     <mandatoryParameter name="Kfd" type="DOUBLE"/>
     <mandatoryParameter name="Kfq" type="DOUBLE"/>
+    <mandatoryParameter name="omegaNPLL" type="DOUBLE"/>
+    <mandatoryParameter name="ZetaPLL" type="DOUBLE"/>
     <mandatoryParameter name="LFilterPu" type="DOUBLE"/>
     <mandatoryParameter name="LTransformerPu" type="DOUBLE"/>
     <mandatoryParameter name="Mq" type="DOUBLE"/>

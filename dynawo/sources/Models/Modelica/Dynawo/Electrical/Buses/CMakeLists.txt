@@ -36,6 +36,8 @@ set(MODEL_FILES
   InfiniteBusWithVariations.extvar
   InfiniteBusWithVariations.mandatoryParam
   InfiniteBusWithVariations_PhaseJump.mo
+  InfiniteBusWithVariations_PhaseJump.extvar
+  InfiniteBusWithVariations_PhaseJump.mandatoryParam
   )
 
 #

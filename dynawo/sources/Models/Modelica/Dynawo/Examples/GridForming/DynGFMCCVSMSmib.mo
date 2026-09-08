@@ -22,14 +22,12 @@ model DynGFMCCVSMSmib "Single machine infinite bus test case for Grid Forming VS
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PRefPu(k = 1) annotation(
-    Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.1, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+  Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
     Placement(transformation(origin = {44, 62}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.46, tUPhaseEvt = 10) annotation(
-    Placement(transformation(origin = {72, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, H = 3, IMaxVI = 2.0, Kff = 0.01, KpVI = 0.05, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.9633, Q0Pu = 1.0049, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.99714, UPhase0 = 0.04996, Wf = 31.4159, Wff = 60, XRratio = 2, kVSM = 155.955, OmegaSetPu = 1, tVSC = 0.0004, W_CurrentLimit = 50, Imax = 1.2, Imin = 0, KiPLL = 10, KpPLL = 100, XVI = 0, Kic = 15, Kfd = 1, Kfq = 0.8, Kpc = 2.09, DeltaIConvMaxPu = 0.15) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, H = 5, IMaxVI = 2.0, Kff = 0.01, KpVI = 0.05, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.4437564, Q0Pu = 1.2057502, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.994330427976535, UPhase0 = 0.047688343271621, Wf = 31.4159, Wff = 60, XRratio = 2, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, W_CurrentLimit = 50, Imax = 1.2, Imin = 0, XVI = 0.06, Kfd = 1, Kfq = 0.8, DeltaIConvMaxPu = 0.15, omegaNPLL = 100, ZetaPLL = 1, omegaC = 1000) annotation(
     Placement(transformation(origin = {-8, 0}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Sources.Step PRefPu(height = 1.0, offset = 0.95, startTime = 5)  annotation(
+    Placement(transformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -42,14 +40,14 @@ equation
     Line(points = {{55.5, 69}, {55.5, 0}, {54, 0}}, color = {0, 0, 255}));
   connect(DynGFMCCVSM.terminal, line.terminal1) annotation(
     Line(points = {{14, 0}, {34, 0}}, color = {0, 0, 255}));
-  connect(PRefPu.y, DynGFMCCVSM.PFilterRefPu) annotation(
-    Line(points = {{-102, 56}, {-32, 56}, {-32, 16}, {-30, 16}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, DynGFMCCVSM.omegaRefPu) annotation(
     Line(points = {{-100, 20}, {-56, 20}, {-56, 8}, {-30, 8}}, color = {0, 0, 127}));
   connect(QRefPu.y, DynGFMCCVSM.QFilterRefPu) annotation(
     Line(points = {{-100, -20}, {-52, -20}, {-52, -8}, {-30, -8}}, color = {0, 0, 127}));
   connect(URefPu.y, DynGFMCCVSM.UFilterRefPu) annotation(
     Line(points = {{-100, -60}, {-32, -60}, {-32, -16}, {-30, -16}}, color = {0, 0, 127}));
+  connect(PRefPu.y, DynGFMCCVSM.PFilterRefPu) annotation(
+    Line(points = {{-100, 52}, {-30, 52}, {-30, 16}}, color = {0, 0, 127}));
   annotation(
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),

@@ -42,8 +42,10 @@ model PlantControl "Generic plant controller"
   parameter Types.PerUnit Omega0Pu "Initial reference frequency of the grid (base omegaNom)";
   parameter Types.PerUnit UPcc0Pu "Initial value of the voltage measured at the PCC (base UNom)";
   parameter Types.PerUnit PPcc0Pu "Initial value of active power measured at the PCC (receptor convention, base SNref)";
-  final parameter Types.PerUnit PRef0Pu = PPcc0Pu "Initial reference value of active power from the plant controller (receptor convention, base SNref)";
-  final parameter Types.PerUnit QRef0Pu = QPcc0Pu "Initial reference value of reactive power from the plant controller (receptor convention, base SNref)";
+  parameter Types.PerUnit Pinj0Pu "Initial value of active power injected in the converter (receptor convention, base SNref)";
+  parameter Types.PerUnit Qinj0Pu "Initial value of reactive power injected in the converter (receptor convention, base SNref)";
+  final parameter Types.PerUnit PRef0Pu = Pinj0Pu "Initial reference value of active power from the plant controller (receptor convention, base SNref)";
+  final parameter Types.PerUnit QRef0Pu = Qinj0Pu "Initial reference value of reactive power from the plant controller (receptor convention, base SNref)";
   final parameter Types.PerUnit URef0Pu = UPcc0Pu + Lambd*QPcc0Pu;
   //Inputs
   Modelica.Blocks.Interfaces.RealInput UPccPu(start = UPcc0Pu) "Voltage at the PCC in p.u. (base UNom)" annotation(

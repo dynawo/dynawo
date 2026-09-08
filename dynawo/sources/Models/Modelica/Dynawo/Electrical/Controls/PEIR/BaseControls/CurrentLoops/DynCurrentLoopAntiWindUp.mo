@@ -12,8 +12,12 @@ model DynCurrentLoopAntiWindUp "Current loop control for grid forming and grid f
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
   */
-  parameter Types.PerUnit Kpc "Proportional gain of the current loop";
-  parameter Types.PerUnit Kic "Integral gain of the current loop";
+  parameter Types.PerUnit OmegaC "Current loop closed-loop bandwidth in rad/s";
+  //Internal PI gains, derived from OmegaC by cancelling the plant pole at s = -R/L*omegaNom
+  //with the controller zero (Ki/Kp = R/L*omegaNom), which reduces the closed loop to a
+  //first-order system I/Iref = omegaC/(s+omegaC). See Kpc = L*omegaC/omegaNom, Kic = R*omegaC.
+  final parameter Types.PerUnit Kpc = LFilter * OmegaC / SystemBase.omegaNom "Proportional gain of the current loop, derived from OmegaC";
+  final parameter Types.PerUnit Kic = RFilter * OmegaC "Integral gain of the current loop, derived from OmegaC";
   parameter Types.PerUnit YMax "Maximum output of AntiWindUp PI controller (base UNom)";
   parameter Types.PerUnit YMin "Minimum output of AntiWindUp PI controller (base UNom)";
   parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";

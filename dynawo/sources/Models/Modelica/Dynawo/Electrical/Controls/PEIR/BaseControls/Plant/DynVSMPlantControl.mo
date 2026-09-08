@@ -55,11 +55,8 @@ model DynVSMPlantControl "GFM with VSM control and a generic Plant Controller"
   parameter Real XVI "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
     Dialog(tab = "QSEM"));
   // Current loop parameters
-  parameter Types.PerUnit Kpc "Proportional gain of the current loop" annotation(
-    Dialog(tab = "Current loop"));
-  parameter Types.PerUnit Kic "Integral gain of the current loop" annotation(
-    Dialog(tab = "Current loop"));
-  parameter Types.PerUnit Kfd "Feedforward gain on the d-axis" annotation(
+parameter Types.PerUnit omegaC "Current Loop bandwidth (in rad/s)" annotation(
+    Dialog(tab = "Current loop")); parameter Types.PerUnit Kfd "Feedforward gain on the d-axis" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfq "Feedforward gain on the q-axis" annotation(
     Dialog(tab = "Current loop"));
@@ -120,7 +117,11 @@ model DynVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Dialog(tab = "Plant Control"));
   parameter Real DbdPu "Voltage error deadband half-width (pu)"annotation(
     Dialog(tab = "Plant Control"));
-
+  // PLL parameters
+    parameter Types.PerUnit omegaNPLL "PLL bandwidth (in rad/s)" annotation(
+    Dialog(tab = "PLL"));
+  parameter Types.PerUnit ZetaPLL "PLL damping ratio (dimensionless)"annotation(
+    Dialog(tab = "PLL"));
   //Inputs
   Modelica.Blocks.Interfaces.RealInput UPccPu(start = UPcc0Pu) "Voltage at the PCC in p.u. (base UNom)" annotation(
     Placement(transformation(origin = {-114, -80}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-112, -88}, extent = {{-12, -12}, {12, 12}})));
@@ -136,9 +137,9 @@ model DynVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Placement(transformation(origin = {-12, 114}, extent = {{-14, -14}, {14, 14}}, rotation = -90), iconTransformation(origin = {1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = U0Pu) annotation(
     Placement(transformation(origin = {-52, -60}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {1, -111}, extent = {{-11, -11}, {11, 11}}, rotation = 90)));
-  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(SNom = SNom, kVSM = kVSM, H = H, KpVI = KpVI, XRratio = XRratio, IMaxVI = IMaxVI, Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, XVI = XVI, Kpc = Kpc, Kic = Kic, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, tVSC = tVSC, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, OmegaSetPu = 1.0)  annotation(
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(SNom = SNom, kVSM = kVSM, H = H, KpVI = KpVI, XRratio = XRratio, IMaxVI = IMaxVI, Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, XVI = XVI, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, tVSC = tVSC, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, OmegaSetPu = 1.0, omegaC = omegaC, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL)  annotation(
     Placement(transformation(origin = {25, -3}, extent = {{-21, -21}, {21, 21}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Plant.PlantControl plantControl(SNom = SNom, Lambd = Lambd, Kdroop = Kdroop, tQFilt = tQFilt, tPFilt = tPFilt, tUFilt = tUFilt, Kpq = Kpq, Kiq = Kiq, Kpp = Kpp, Kip = Kip, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, QPcc0Pu = QPcc0Pu, Omega0Pu = 1.0, UPcc0Pu = UPcc0Pu, PPcc0Pu = PPcc0Pu)  annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Plant.PlantControl plantControl(SNom = SNom, Lambd = Lambd, Kdroop = Kdroop, tQFilt = tQFilt, tPFilt = tPFilt, tUFilt = tUFilt, Kpq = Kpq, Kiq = Kiq, Kpp = Kpp, Kip = Kip, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, QPcc0Pu = QPcc0Pu, Omega0Pu = 1.0, UPcc0Pu = UPcc0Pu, PPcc0Pu = PPcc0Pu, Pinj0Pu = -DynGFMVSM.Control.PFilter0Pu*SNom/SystemBase.SnRef, Qinj0Pu = -DynGFMVSM.Control.QFilter0Pu*SNom/SystemBase.SnRef)  annotation(
     Placement(transformation(origin = {-62, -2}, extent = {{-10, -10}, {10, 10}})));
   Connectors.ACPower terminal annotation(
     Placement(transformation(origin = {96, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {96, 0}, extent = {{-10, -10}, {10, 10}})));

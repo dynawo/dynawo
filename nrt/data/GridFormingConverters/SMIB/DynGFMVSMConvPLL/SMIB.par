@@ -14,66 +14,72 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <!-- InfiniteBus -->
   <set id="1">
-    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0"/>
-    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="1.04"/>
-    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
-    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1.0"/>
-    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.88"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="20.0"/>
-    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="23.0"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="10.0"/>
-    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="10.0001"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_UEvtPu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_UPhase" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_omega0Pu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_omegaEvtPu" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_tUEvtStart" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_tUEvtEnd" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_tOmegaEvtStart" value="0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_tOmegaEvtEnd" value="0"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_dUPhaseEvt" value="0.110"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_tUPhaseEvt" value="10"/>
+
   </set>
   <!-- line 1 -->
   <set id="2">
-    <par type="DOUBLE" name="line_RPu" value="0.000166667"/>
-    <par type="DOUBLE" name="line_XPu" value="0.005"/>
+    <par type="DOUBLE" name="line_RPu" value="0.005"/>
+    <par type="DOUBLE" name="line_XPu" value="0.05"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
   <set id="3">
     <par name="GFMConvPLL_CFilterPu" type="DOUBLE" value="1e-05"/>
-    <par name="GFMConvPLL_H" type="DOUBLE" value="3"/>
+    <par name="GFMConvPLL_H" type="DOUBLE" value="5"/>
     <par name="GFMConvPLL_IMaxVI" type="DOUBLE" value="1.2"/>
     <par name="GFMConvPLL_Kff" type="DOUBLE" value="0"/>
-    <par name="GFMConvPLL_Kic" type="DOUBLE" value="15"/>
-     <par name="GFMConvPLL_KpPLL" type="DOUBLE" value="92"/>
-    <par name="GFMConvPLL_KiPLL" type="DOUBLE" value="400"/>
     <par name="GFMConvPLL_KpVI" type="DOUBLE" value="0.6"/>
-    <par name="GFMConvPLL_Kpc" type="DOUBLE" value="0.477465"/>
-    <par name="GFMConvPLL_Kfd" type="DOUBLE" value="0"/>
+    <par name="GFMConvPLL_Kfd" type="DOUBLE" value="0.8"/>
     <par name="GFMConvPLL_Kfq" type="DOUBLE" value="0"/>
     <par name="GFMConvPLL_LFilterPu" type="DOUBLE" value="0.15"/>
     <par name="GFMConvPLL_LTransformerPu" type="DOUBLE" value="0.06"/>
     <par name="GFMConvPLL_Mq" type="DOUBLE" value="0.2"/>
     <par name="GFMConvPLL_OmegaSetPu" type="DOUBLE" value="1"/>
-    <par name="GFMConvPLL_P0Pu" type="DOUBLE" value="-7.4663"/>
-    <par name="GFMConvPLL_Q0Pu" type="DOUBLE" value="0.4119"/>
+    <par name="GFMConvPLL_P0Pu" type="DOUBLE" value="-9.440980224920759"/>
+    <par name="GFMConvPLL_Q0Pu" type="DOUBLE" value="-0.6429165775891952"/>
     <par name="GFMConvPLL_RFilterPu" type="DOUBLE" value="0.015"/>
     <par name="GFMConvPLL_RTransformerPu" type="DOUBLE" value="0.006"/>
     <par name="GFMConvPLL_SNom" type="DOUBLE" value="1000"/>
-    <par name="GFMConvPLL_U0Pu" type="DOUBLE" value="0.9984"/>
-    <par name="GFMConvPLL_UPhase0" type="DOUBLE" value="0.0374"/>
+    <par name="GFMConvPLL_U0Pu" type="DOUBLE" value="0.9541103569380914"/>
+    <par name="GFMConvPLL_UPhase0" type="DOUBLE" value="0.5136779612182729"/>
     <par name="GFMConvPLL_Wf" type="DOUBLE" value="31.4159"/>
     <par name="GFMConvPLL_Wff" type="DOUBLE" value="60"/>
     <par name="GFMConvPLL_XRratio" type="DOUBLE" value="10"/>
-    <par name="GFMConvPLL_XVI" type="DOUBLE" value="0"/>
-    <par name="GFMConvPLL_kVSM" type="DOUBLE" value="155.955"/>
+    <par name="GFMConvPLL_XVI" type="DOUBLE" value="0.06"/>
+    <par name="GFMConvPLL_kVSM" type="DOUBLE" value="650"/>
     <par name="GFMConvPLL_tVSC" type="DOUBLE" value="0.0004"/>
+    <par name="GFMConvPLL_omegaNPLL" type="DOUBLE" value="100"/>
+    <par name="GFMConvPLL_ZetaPLL" type="DOUBLE" value="1"/>
+    <par name="GFMConvPLL_omegaC" type="DOUBLE" value="1000"/>
   </set>
   <set id="IDASolver">
     <par type="INT" name="order" value="2"/>
     <par type="DOUBLE" name="initStep" value="0.00001"/>
-    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <!-- Parameters for IDA working-->
+    <par type="DOUBLE" name="minStep" value="1e-9"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-09"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="50"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
     <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+    <par type="INT" name="printflAlg" value="2"/>
+    <par type="INT" name="printflAlgJ" value="2"/>
+    <par type="INT" name="printflAlgInit" value="2"/>
   </set>
   <set id="5">
-    <par type="DOUBLE" name="step_Value0" value="0.75"/>
-    <par type="DOUBLE" name="step_Height" value="0.25"/>
-    <par type="DOUBLE" name="step_tStep" value="8"/>
+    <par type="DOUBLE" name="setPoint_Value0" value="0.95"/>
   </set>
   <set id="SimplifiedSolver">
     <par type="DOUBLE" name="hMin" value="0.000001"/>
@@ -81,5 +87,14 @@
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
     <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+  </set>
+  <set id="6">
+  <par type="DOUBLE" name="setPoint_Value0" value="0"/>
+  </set>
+  <set id="7">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <set id="8">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
 </parametersSet>

@@ -45,8 +45,6 @@ equation
   der(idPccFilterPu)*1/W_CurrentLimit + idPccFilterPu = idPcc;
   der(iqPccFilterPu)*1/W_CurrentLimit + iqPccFilterPu = iqPcc;
   CurrentModulePcc = sqrt(idPccFilterPu^2 + iqPccFilterPu^2);
-
-//Activation of the bloc current saturation is donne by reading IPcc Module and the current of reference to be sent to the current controller bloc it is done this way to act faster
   if IConvRefFilterModulePu > Imax or CurrentModulePcc > Imax then
     BlocCurrentSaturation_Enable = true;
     idConvSatRefPu = Imax*cos(IConvRefFilterAnglePu);
