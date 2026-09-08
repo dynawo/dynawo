@@ -11,7 +11,7 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-  #AggregatedIBG.xml
+  AggregatedIBG.xml
   BESSWeccCurrentSource.xml
   BESSWeccCurrentSourceNoPlantControl.xml
   BooleanTable.xml

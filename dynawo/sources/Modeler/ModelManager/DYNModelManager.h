@@ -393,6 +393,16 @@ class ModelManager : public SubModel, public ConstraintSource, private boost::no
   double getCalculatedVar(int indexCalculatedVar) const;
 
   /**
+   * @brief set a calculated variable's cached value
+   *
+   * Hides SubModel::setCalculatedVar(int, double), mirroring getCalculatedVar() above.
+   *
+   * @param indexCalculatedVar index of the calculated variable
+   * @param value value to store
+   */
+  void setCalculatedVar(int indexCalculatedVar, double value);
+
+  /**
    * @copydoc SubModel::hasDataCheckCoherence() const override
    */
   bool hasDataCheckCoherence() const override;
