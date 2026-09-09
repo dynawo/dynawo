@@ -197,6 +197,81 @@ fillParameters(std::shared_ptr<ModelLoad> load, std::string& startingPoint, bool
   load->setSubModelParameters(parametersModels);
 }
 
+// Minimal component stub: reports STATE_CHANGE from evalState so the
+// ModelVoltageLevel aggregation can be tested without graph machinery.
+class StubStateChangeComponent : public NetworkComponent {
+ public:
+  StubStateChangeComponent() : NetworkComponent("stub") { }
+  StateChange_t evalState(double /*time*/) override { return NetworkComponent::STATE_CHANGE; }
+  // every other pure virtual: empty body
+  void addBusNeighbors() override { }
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& /*variables*/) override { }
+  void defineNonGenericParameters(std::vector<ParameterModeler>& /*parameters*/) override { }
+  void defineElements(std::vector<Element>& /*elements*/, std::map<std::string, int>& /*mapElement*/) override { }
+  void evalNodeInjection() override { }
+  void evalDerivatives(const double /*cj*/) override { }
+  void evalDerivativesPrim() override { }
+  void evalF(propertyF_t /*type*/) override { }
+  void evalJt(double /*cj*/, int /*rowOffset*/, SparseMatrix& /*jt*/) override { }
+  void evalJtPrim(int /*rowOffset*/, SparseMatrix& /*jtPrim*/) override { }
+  void evalG(double /*t*/) override { }
+  StateChange_t evalZ(double /*t*/, bool /*onlyEvaluateStateChange*/) override { return NetworkComponent::NO_CHANGE; }
+  void evalCalculatedVars() override { }
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*numCalculatedVar*/, std::vector<int>& /*numVars*/) const override { }
+  void evalJCalculatedVarI(unsigned /*numCalculatedVar*/, std::vector<double>& /*res*/) const override { }
+  double evalCalculatedVarI(unsigned /*numCalculatedVar*/) const override { return 0.; }
+  void evalStaticYType() override { }
+  void evalDynamicYType() override { }
+  void evalStaticFType() override { }
+  void evalDynamicFType() override { }
+  void collectSilentZ(BitMask* /*silentZTable*/) override { }
+  void evalYMat() override { }
+  void init(int& /*yNum*/) override { }
+  void getY0() override { }
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>& /*params*/) override { }
+  void setFequations(std::map<int, std::string>& /*fEquationIndex*/) override { }
+  void setGequations(std::map<int, std::string>& /*gEquationIndex*/) override { }
+  void initSize() override { }
+};
+
+TEST(ModelsModelNetwork, ModelNetworkVoltageLevelNodeBreakerPromotionIsDowngradable) {
+  // NODE_BREAKER voltage level: a nested STATE_CHANGE is promoted to
+  // TOPO_CHANGE (ModelVoltageLevel::evalState) and the voltage level is
+  // classified downgradable, so non-switch events inside a voltage level
+  // (loads, generators, shunts) reach the same ALGEBRAIC_MODE path as
+  // switch events (covered end-to-end by
+  // testSolverSIMPatternInvariantTopologyDowngrade).
+  powsybl::iidm::Network networkNB("testNB", "testNB");
+  powsybl::iidm::Substation& sNB = networkNB.newSubstation().setId("S_NB").add();
+  powsybl::iidm::VoltageLevel& vlNBIIDM = sNB.newVoltageLevel()
+      .setId("MyNodeBreakerVoltageLevel")
+      .setNominalV(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::NODE_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vlNBItf = std::make_shared<VoltageLevelInterfaceIIDM>(vlNBIIDM);
+  std::shared_ptr<ModelVoltageLevel> vlNB = std::make_shared<ModelVoltageLevel>(vlNBItf);
+  vlNB->addComponent(std::make_shared<StubStateChangeComponent>());
+  ASSERT_EQ(vlNB->evalState(0.), NetworkComponent::TOPO_CHANGE);
+  ASSERT_TRUE(vlNB->hasPatternInvariantTopologyChange());
+
+  // BUS_BREAKER contrast: the same nested STATE_CHANGE is NOT promoted.
+  powsybl::iidm::Network networkBB("testBB", "testBB");
+  powsybl::iidm::Substation& sBB = networkBB.newSubstation().setId("S_BB").add();
+  powsybl::iidm::VoltageLevel& vlBBIIDM = sBB.newVoltageLevel()
+      .setId("MyBusBreakerVoltageLevel")
+      .setNominalV(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+  std::shared_ptr<VoltageLevelInterfaceIIDM> vlBBItf = std::make_shared<VoltageLevelInterfaceIIDM>(vlBBIIDM);
+  std::shared_ptr<ModelVoltageLevel> vlBB = std::make_shared<ModelVoltageLevel>(vlBBItf);
+  vlBB->addComponent(std::make_shared<StubStateChangeComponent>());
+  ASSERT_EQ(vlBB->evalState(0.), NetworkComponent::STATE_CHANGE);
+}
+
 TEST(ModelsModelNetwork, ModelNetworkLoadInitializationClosed) {
   powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
   auto tuple = createModelLoad(false, false, networkIIDM);
@@ -714,6 +789,19 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   ASSERT_NO_THROW(loadInit->evalJt(1., 0, smjInit));
   ASSERT_EQ(smjInit.nbElem(), 0);
   delete[] zConnected;
+}
+
+TEST(ModelsModelNetwork, ModelNetworkHasPatternInvariantTopologyChange) {
+  powsybl::iidm::Network networkIIDM("test", "test");
+  auto tuple = createModelLoad(false, false, networkIIDM);
+  std::shared_ptr<ModelLoad> load = std::get<0>(tuple);
+  std::shared_ptr<ModelVoltageLevel> vl = std::get<1>(tuple);
+
+  // Voltage levels contain switches/buses whose Jacobian pattern is invariant
+  // with superset sparsity: their topology changes are downgradable.
+  ASSERT_TRUE(vl->hasPatternInvariantTopologyChange());
+  // Every other component keeps the structural default.
+  ASSERT_FALSE(load->hasPatternInvariantTopologyChange());
 }
 
 }  // namespace DYN

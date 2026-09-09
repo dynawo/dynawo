@@ -37,7 +37,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 static std::shared_ptr<ModelSwitch>
-createModelSwitch(bool open, bool initModel) {
+createModelSwitch(bool open, bool initModel, ModelNetwork** networkOut = nullptr) {
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -88,6 +88,8 @@ createModelSwitch(bool open, bool initModel) {
   sw->setNetwork(network);
   bus1->setNetwork(network);
   bus2->setNetwork(network);
+  if (networkOut)
+    *networkOut = network;
   return sw;
 }
 
@@ -518,7 +520,9 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDefineInstantiate) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
-  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
+  ModelNetwork* network = nullptr;
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false, &network);
+  network->setPatternInvariantTopology(true);
   sw->initSize();
 
   std::shared_ptr<ModelBus> bus1 = sw->getModelBus1();
@@ -545,60 +549,194 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   bus2->setReferenceZ(&z2[0], zConnected2, 0);
   bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
 
+  // Superset sparsity: every state emits 3 entries per column in fixed order
+  // (bus1, bus2, self); only the values change with the switch state.
   SparseMatrix smj;
   int size = sw->sizeY();
   smj.init(size, size);
   sw->evalJt(1., 0, smj);
-  ASSERT_EQ(smj.nbElem(), 4);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], -1.);
+  ASSERT_EQ(smj.nbElem(), 6);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1.);    // bus1
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -1.);   // bus2
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 0.);    // self (structural zero)
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[5], 0.);
   ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 2);
-  ASSERT_EQ(smj.Ap_[2], 4);
+  ASSERT_EQ(smj.Ap_[1], 3);
+  ASSERT_EQ(smj.Ap_[2], 6);
 
   sw->inLoop(true);
   SparseMatrix smj2;
   smj2.init(size, size);
   sw->evalJt(1., 0, smj2);
-  ASSERT_EQ(smj2.nbElem(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], 1.);
+  ASSERT_EQ(smj2.nbElem(), 6);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], 0.);   // bus1 (structural zero)
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], 0.);   // bus2 (structural zero)
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[2], 1.);   // self
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[3], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[4], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[5], 1.);
   ASSERT_EQ(smj2.Ap_[0], 0);
-  ASSERT_EQ(smj2.Ap_[1], 1);
+  ASSERT_EQ(smj2.Ap_[1], 3);
+  ASSERT_EQ(smj2.Ap_[2], 6);
   sw->inLoop(false);
 
   sw->setConnectionState(OPEN);
   SparseMatrix smj3;
   smj3.init(size, size);
   sw->evalJt(1., 0, smj3);
-  ASSERT_EQ(smj3.nbElem(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[1], 1.);
+  ASSERT_EQ(smj3.nbElem(), 6);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[1], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[2], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[3], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[4], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[5], 1.);
   ASSERT_EQ(smj3.Ap_[0], 0);
-  ASSERT_EQ(smj3.Ap_[1], 1);
+  ASSERT_EQ(smj3.Ap_[1], 3);
+  ASSERT_EQ(smj3.Ap_[2], 6);
   sw->setConnectionState(CLOSED);
 
   int offset = 3;
   sw->init(offset);
   SparseMatrix smj4;
-  smj4.init(size, size);
+  // Rows must cover the yNum offset: init(int&) moves irYNum_/iiYNum_ to offset and offset+1,
+  // and the superset always emits the self entry, as a structural zero in this branch. Columns
+  // stay at size, evalJt emitting exactly sw->sizeY() of them regardless of the row offset.
+  smj4.init(size + offset, size);
   sw->evalJt(1., 0, smj4);
-  ASSERT_EQ(smj.nbElem(), 4);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[3], -1.);
-  ASSERT_EQ(smj.Ap_[0], 0);
-  ASSERT_EQ(smj.Ap_[1], 2);
-  ASSERT_EQ(smj.Ap_[2], 4);
+  ASSERT_EQ(smj4.nbElem(), 6);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj4.Ax_[0], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj4.Ax_[1], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj4.Ax_[2], 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj4.Ax_[3], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj4.Ax_[4], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj4.Ax_[5], 0.);
+  ASSERT_EQ(smj4.Ap_[0], 0);
+  ASSERT_EQ(smj4.Ap_[1], 3);
+  ASSERT_EQ(smj4.Ap_[2], 6);
 
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
   sw->evalJtPrim(0, smjPrime);
   ASSERT_EQ(smjPrime.nbElem(), 0);
+
+  // With the parameter off, entries are emitted only for the active form, so the element count
+  // follows the switch state: closed/normal 4, in-loop 2, open 2. The matrices are sized
+  // size + offset rows to hold the self entries the loop and open branches emit; the row count
+  // does not affect nbElem/Ap_/Ax_.
+  network->setPatternInvariantTopology(false);
+
+  SparseMatrix smjStockClosed;
+  smjStockClosed.init(size + offset, size);
+  sw->evalJt(1., 0, smjStockClosed);
+  ASSERT_EQ(smjStockClosed.nbElem(), 4);
+  ASSERT_EQ(smjStockClosed.Ap_[0], 0);
+  ASSERT_EQ(smjStockClosed.Ap_[1], 2);
+  ASSERT_EQ(smjStockClosed.Ap_[2], 4);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockClosed.Ax_[0], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockClosed.Ax_[1], -1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockClosed.Ax_[2], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockClosed.Ax_[3], -1.);
+
+  sw->inLoop(true);
+  SparseMatrix smjStockLoop;
+  smjStockLoop.init(size + offset, size);
+  sw->evalJt(1., 0, smjStockLoop);
+  ASSERT_EQ(smjStockLoop.nbElem(), 2);
+  ASSERT_EQ(smjStockLoop.Ap_[0], 0);
+  ASSERT_EQ(smjStockLoop.Ap_[1], 1);
+  ASSERT_EQ(smjStockLoop.Ap_[2], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockLoop.Ax_[0], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockLoop.Ax_[1], 1.);
+  sw->inLoop(false);
+
+  sw->setConnectionState(OPEN);
+  SparseMatrix smjStockOpen;
+  smjStockOpen.init(size + offset, size);
+  sw->evalJt(1., 0, smjStockOpen);
+  ASSERT_EQ(smjStockOpen.nbElem(), 2);
+  ASSERT_EQ(smjStockOpen.Ap_[0], 0);
+  ASSERT_EQ(smjStockOpen.Ap_[1], 1);
+  ASSERT_EQ(smjStockOpen.Ap_[2], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockOpen.Ax_[0], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjStockOpen.Ax_[1], 1.);
+  sw->setConnectionState(CLOSED);
+
+  delete[] zConnected1;
+  delete[] zConnected2;
+}
+
+TEST(ModelsModelNetwork, ModelNetworkSwitchJtPatternInvariance) {
+  ModelNetwork* network = nullptr;
+  std::shared_ptr<ModelSwitch> sw = createModelSwitch(false, false, &network);
+  network->setPatternInvariantTopology(true);
+  sw->initSize();
+
+  std::shared_ptr<ModelBus> bus1 = sw->getModelBus1();
+  bus1->initSize();
+  std::vector<double> y1(bus1->sizeY(), 0.);
+  std::vector<double> yp1(bus1->sizeY(), 0.);
+  std::vector<double> f1(bus1->sizeF(), 0.);
+  std::vector<double> z1(bus1->sizeZ(), 0.);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (int i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
+  bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
+
+  std::shared_ptr<ModelBus> bus2 = sw->getModelBus2();
+  bus2->initSize();
+  std::vector<double> y2(bus2->sizeY(), 0.);
+  std::vector<double> yp2(bus2->sizeY(), 0.);
+  std::vector<double> f2(bus2->sizeF(), 0.);
+  std::vector<double> z2(bus2->sizeZ(), 0.);
+  bool* zConnected2 = new bool[bus2->sizeZ()];
+  for (int i = 0; i < bus2->sizeZ(); ++i)
+    zConnected2[i] = true;
+  bus2->setReferenceZ(&z2[0], zConnected2, 0);
+  bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
+
+  const int size = sw->sizeY();
+
+  // Build the Jacobian columns in CLOSED, OPEN, inLoop-CLOSED, and CLOSED again;
+  // Ap_ and Ai_ must be identical in all states (only Ax_ may differ).
+  SparseMatrix smjClosed;
+  smjClosed.init(size, size);
+  sw->evalJt(1., 0, smjClosed);
+
+  sw->setConnectionState(OPEN);
+  SparseMatrix smjOpen;
+  smjOpen.init(size, size);
+  sw->evalJt(1., 0, smjOpen);
+
+  sw->setConnectionState(CLOSED);
+  sw->inLoop(true);
+  SparseMatrix smjLoop;
+  smjLoop.init(size, size);
+  sw->evalJt(1., 0, smjLoop);
+  sw->inLoop(false);
+
+  SparseMatrix smjClosedAgain;
+  smjClosedAgain.init(size, size);
+  sw->evalJt(1., 0, smjClosedAgain);
+
+  ASSERT_EQ(smjClosed.nbElem(), smjOpen.nbElem());
+  ASSERT_EQ(smjClosed.nbElem(), smjLoop.nbElem());
+  ASSERT_EQ(smjClosed.nbElem(), smjClosedAgain.nbElem());
+  for (int i = 0; i < 3; ++i) {
+    ASSERT_EQ(smjClosed.Ap_[i], smjOpen.Ap_[i]);
+    ASSERT_EQ(smjClosed.Ap_[i], smjLoop.Ap_[i]);
+    ASSERT_EQ(smjClosed.Ap_[i], smjClosedAgain.Ap_[i]);
+  }
+  for (int i = 0; i < smjClosed.nbElem(); ++i) {
+    ASSERT_EQ(smjClosed.Ai_[i], smjOpen.Ai_[i]);
+    ASSERT_EQ(smjClosed.Ai_[i], smjLoop.Ai_[i]);
+    ASSERT_EQ(smjClosed.Ai_[i], smjClosedAgain.Ai_[i]);
+    ASSERT_DOUBLE_EQUALS_DYNAWO(smjClosed.Ax_[i], smjClosedAgain.Ax_[i]);
+  }
   delete[] zConnected1;
   delete[] zConnected2;
 }

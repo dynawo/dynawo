@@ -274,6 +274,7 @@ class SolverCommonFixedTimeStep : public Solver::Impl {
   std::vector<int> differentialVariablesIndices_;  ///< index of each differential variables
   bool skipAlgebraicResidualsEvaluation_;  ///< flag used to skip algebraic residuals evaluation after a convergence or a mode
   bool optimizeAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals
+  bool algebraicRestorationOnInvariantTopology_;  ///< keep algebraic restoration for a topology event whose Jacobian pattern is invariant; opt-in, default false (the next step's full solve restores the algebraic state)
   bool skipNRIfInitialGuessOK_;  ///< enable the possibility to skip next iterations if the simulation is stable
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time
 };
