@@ -12,7 +12,7 @@
     simulation tool for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="GFM with omega of the Converter being measured by a PLL - SMIB Connection Voltage Phase Jump - S_VolAngStep1_0C4">
+    <job name="GFM with omega of the Converter being measured by a PLL - SMIB Connection Voltage Phase Jump - S_VolAngStep7_0C4">
         <!--solver lib="dynawo_SolverSIM" parFile="SMIB.par" parId="SimplifiedSolver"/-->
         <solver lib="dynawo_SolverIDA" parFile="SMIB.par" parId="IDASolver"/>
         <modeler compileDir="outputs/compilation">

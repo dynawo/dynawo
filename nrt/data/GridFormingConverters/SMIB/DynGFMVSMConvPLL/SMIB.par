@@ -23,7 +23,7 @@
     <par type="DOUBLE" name="infiniteBusPhaseJump_tUEvtEnd" value="0.0"/>
     <par type="DOUBLE" name="infiniteBusPhaseJump_tOmegaEvtStart" value="0"/>
     <par type="DOUBLE" name="infiniteBusPhaseJump_tOmegaEvtEnd" value="0"/>
-    <par type="DOUBLE" name="infiniteBusPhaseJump_dUPhaseEvt" value="0.110"/>
+    <par type="DOUBLE" name="infiniteBusPhaseJump_dUPhaseEvt" value="0.462"/>
     <par type="DOUBLE" name="infiniteBusPhaseJump_tUPhaseEvt" value="10"/>
 
   </set>
