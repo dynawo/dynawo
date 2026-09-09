@@ -14,7 +14,9 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 //   U > UboostHigh → overvoltage:  absorb reactive current (iq_boost < 0)
 //   UboostLow ≤ U ≤ UboostHigh → deadband: no boost
 //   The boost magnitude is proportional to the voltage deviation via gain Kqv.
-//   It is then saturated between IqBoostMin and IqBoostMax.
+//   It is then saturated between IqBoostMin and IqBoostMax, and passed through
+//   a first-order filter (time constant Tfilt) to eliminate chattering caused
+//   by the if/no-event logic used to evaluate the operating condition.
 //
 // ── Current limiting ─────────────────────────────────────────────────────────
 //   Priority is selected via PQFlag (consistent with WECC convention):
@@ -48,6 +50,8 @@ model current_limiter_reactive_boost
     "Maximum additional reactive current boost (pu)";
   parameter Real IqBoostMin = -Imax
     "Minimum additional reactive current boost (pu)";
+  parameter Real Tfilt = 0.001
+    "Time constant of the first-order filter applied to the boost signal (s)";
 
   // ── Inputs ───────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealInput id_raw
@@ -82,9 +86,10 @@ model current_limiter_reactive_boost
       iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}})));
 
 protected
-  Real iq_boost_raw "Reactive current boost before limiting (pu)";
-  Real iq_boost     "Reactive current boost after limiting (pu)";
-  Real iq_eff       "Effective reactive current reference after boost (pu)";
+  Real iq_boost_raw    "Reactive current boost before limiting (pu)";
+  Real iq_boost_unfilt  "Reactive current boost after limiting, before filtering (pu)";
+  Real iq_boost         "Filtered reactive current boost (pu)";
+  Real iq_eff           "Effective reactive current reference after boost (pu)";
 
 equation
   // ── Step 1: compute raw boost (undervoltage + overvoltage) ───
@@ -105,7 +110,12 @@ equation
   end if;
 
   // ── Step 2: limit the boost ──────────────────────────────────
-  iq_boost = max(min(iq_boost_raw, IqBoostMax), IqBoostMin);
+  iq_boost_unfilt = max(min(iq_boost_raw, IqBoostMax), IqBoostMin);
+
+  // ── Step 2b: first-order filter on the boost signal ──────────
+  // Introduced to eliminate chattering caused by the if/no-event logic
+  // used to evaluate the operating condition (see Section on outer loop).
+  Tfilt * der(iq_boost) = iq_boost_unfilt - iq_boost;
 
   // ── Step 3: effective iq reference ───────────────────────────
   iq_eff = iq_raw + iq_boost;

@@ -85,13 +85,13 @@ model simulation_weak_grid
   final parameter Real U0Pu = 1.03713742957;
   final parameter Real Uphase = 0.203890124;
   final parameter Real URef0Pu = U0Pu - gFLmodelnodyn.Lambda*gFLmodelnodyn.Q0_pcc*SystemBase.SnRef/gFLmodelnodyn.SNom;
-  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 10) annotation(
+  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 100) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
   Lines.Line line(RPu = 0, XPu = 0.3, GPu = 0, BPu = 0) annotation(
     Placement(transformation(origin = {42, -36}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.Step step1(offset = URef0Pu, startTime = 100, height = URef0Pu*0.1) annotation(
     Placement(transformation(origin = {-66, 8}, extent = {{-10, -10}, {10, 10}})));
-  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.55, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 100, tUEvtEnd = 140, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
+  Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.5, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
     Placement(transformation(origin = {42, -76}, extent = {{-22, -22}, {22, 22}})));
 equation
   line.switchOffSignal1.value = false;

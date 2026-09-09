@@ -13,7 +13,7 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
     */
   extends Icons.Example;
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.5, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 160.5, tOmegaEvtStart = 160, tUEvtEnd = 800, tUEvtStart = 400) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBus(U0Pu = 1, UEvtPu = 0.5, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1.01, tOmegaEvtEnd = 160.5, tOmegaEvtStart = 160, tUEvtEnd = 10.2, tUEvtStart = 10) annotation(
     Placement(visible = true, transformation(origin = {-82, 0}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0, XPu = 0.3) annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -29,7 +29,7 @@ model PVVoltageSource4 "WECC PV Vsource Model on infinite bus"
     Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT pVVoltageSource_INIT(P0Pu = PV.P0Pu, Q0Pu = PV.Q0Pu, RPu = PV.RPu, RSourcePu = PV.RSourcePu, SNom = PV.SNom, U0Pu = PV.U0Pu, UPhase0 = 0.203890124, XPu = PV.XPu, XSourcePu = PV.XSourcePu) annotation(
     Placement(transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 5)  annotation(
+  Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 100)  annotation(
     Placement(transformation(origin = {72, -42}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 initial algorithm
   PV.Id0Pu := pVVoltageSource_INIT.Id0Pu;
