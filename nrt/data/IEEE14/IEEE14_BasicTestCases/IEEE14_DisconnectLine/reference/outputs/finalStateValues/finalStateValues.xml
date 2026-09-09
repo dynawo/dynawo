@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <finalStateValuesOutput xmlns="http://www.rte-france.com/dynawo">
-  <finalStateValue model="NETWORK" variable="_BUS____1_TN_Upu_value" value="1.062466"/>
-  <finalStateValue model="NETWORK" variable="_BUS____2_TN_Upu_value" value="1.041603"/>
-  <finalStateValue model="NETWORK" variable="_BUS____3_TN_Upu_value" value="1.009087"/>
-  <finalStateValue model="NETWORK" variable="_BUS____4_TN_Upu_value" value="1.006541"/>
-  <finalStateValue model="NETWORK" variable="_BUS____5_TN_Upu_value" value="1.004081"/>
-  <finalStateValue model="NETWORK" variable="_BUS____6_TN_Upu_value" value="1.066872"/>
-  <finalStateValue model="NETWORK" variable="_BUS____7_TN_Upu_value" value="1.055742"/>
-  <finalStateValue model="NETWORK" variable="_BUS____8_TN_Upu_value" value="1.088257"/>
-  <finalStateValue model="NETWORK" variable="_BUS____9_TN_Upu_value" value="1.050691"/>
-  <finalStateValue model="NETWORK" variable="_BUS___10_TN_Upu_value" value="1.046227"/>
-  <finalStateValue model="NETWORK" variable="_BUS___11_TN_Upu_value" value="1.053041"/>
-  <finalStateValue model="NETWORK" variable="_BUS___12_TN_Upu_value" value="1.051890"/>
-  <finalStateValue model="NETWORK" variable="_BUS___13_TN_Upu_value" value="1.047089"/>
-  <finalStateValue model="NETWORK" variable="_BUS___14_TN_Upu_value" value="1.031258"/>
+  <finalStateValue model="NETWORK" variable="_BUS____1_TN_Upu" value="1.062466"/>
+  <finalStateValue model="NETWORK" variable="_BUS____2_TN_Upu" value="1.041603"/>
+  <finalStateValue model="NETWORK" variable="_BUS____3_TN_Upu" value="1.009087"/>
+  <finalStateValue model="NETWORK" variable="_BUS____4_TN_Upu" value="1.006541"/>
+  <finalStateValue model="NETWORK" variable="_BUS____5_TN_Upu" value="1.004081"/>
+  <finalStateValue model="NETWORK" variable="_BUS____6_TN_Upu" value="1.066872"/>
+  <finalStateValue model="NETWORK" variable="_BUS____7_TN_Upu" value="1.055742"/>
+  <finalStateValue model="NETWORK" variable="_BUS____8_TN_Upu" value="1.088257"/>
+  <finalStateValue model="NETWORK" variable="_BUS____9_TN_Upu" value="1.050691"/>
+  <finalStateValue model="NETWORK" variable="_BUS___10_TN_Upu" value="1.046227"/>
+  <finalStateValue model="NETWORK" variable="_BUS___11_TN_Upu" value="1.053041"/>
+  <finalStateValue model="NETWORK" variable="_BUS___12_TN_Upu" value="1.051890"/>
+  <finalStateValue model="NETWORK" variable="_BUS___13_TN_Upu" value="1.047089"/>
+  <finalStateValue model="NETWORK" variable="_BUS___14_TN_Upu" value="1.031258"/>
   <finalStateValue model="GEN____1_SM" variable="generator_omegaPu" value="0.999747"/>
   <finalStateValue model="GEN____1_SM" variable="generator_PGen" value="233.769597"/>
   <finalStateValue model="GEN____1_SM" variable="generator_QGen" value="-32.002835"/>

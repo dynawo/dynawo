@@ -232,32 +232,32 @@ ModelVoltageMeasurementsUtilities::evalStaticFType() {
 void
 ModelVoltageMeasurementsUtilities::defineVariables(vector<shared_ptr<Variable> >& variables) {
   // Create "output" variables
-  variables.push_back(VariableNativeFactory::createCalculated("min_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createCalculated("max_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createCalculated("average_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createCalculated("min_i_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createCalculated("max_i_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("min", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("max", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("average", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("min_i", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("max_i", DISCRETE));
 
   // Add the voltages
   stringstream name;
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
-    name << "UMonitored_" << i << "_value";
+    name << "UMonitored_" << i << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
 
   // Add the time of last update
   name.str("");
   name.clear();
-  name << "tLastUpdate_value";
+  name << "tLastUpdate";
   variables.push_back(VariableNativeFactory::createState(name.str(), DISCRETE));
 
   // Add whether a bus is running or not
   for (std::size_t i = 0; i < nbConnectedInputs_; i++) {
     name.str("");
     name.clear();
-    name << "running_" << i << "_value";
+    name << "running_" << i << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), INTEGER));
   }
 }
@@ -277,43 +277,35 @@ ModelVoltageMeasurementsUtilities::setSubModelParameters() {
 void
 ModelVoltageMeasurementsUtilities::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   addElement("min", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", "min", Element::TERMINAL, name(), modelType(), elements, mapElement);
   addElement("max", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", "max", Element::TERMINAL, name(), modelType(), elements, mapElement);
   addElement("average", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", "average", Element::TERMINAL, name(), modelType(), elements, mapElement);
   addElement("min_i", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", "min_i", Element::TERMINAL, name(), modelType(), elements, mapElement);
   addElement("max_i", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", "max_i", Element::TERMINAL, name(), modelType(), elements, mapElement);
 
   stringstream names;
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
     names.str("");
     names.clear();
-    names << "UMonitored_" << i;
+    names << "UMonitored_" << i << "_";
     addElement(names.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 
   addElement("tLastUpdate_", Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", "tLastUpdate_", Element::TERMINAL, name(), modelType(), elements, mapElement);
 
   for (size_t i = 0; i < nbConnectedInputs_; ++i) {
     names.str("");
     names.clear();
-    names << "running_" << i;
+    names << "running_" << i << "_";
     addElement(names.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", names.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 }
 
 void
 ModelVoltageMeasurementsUtilities::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "UMonitored_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "running_" << "<0-" << nbConnectedInputs_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "tLastUpdate_value" << Trace::endline;
+  Trace::info() << "  ->" << "UMonitored_" << "<0-" << nbConnectedInputs_ << ">_" << Trace::endline;
+  Trace::info() << "  ->" << "running_" << "<0-" << nbConnectedInputs_ << ">_" << Trace::endline;
+  Trace::info() << "  ->" << "tLastUpdate" << Trace::endline;
 }
 
 void

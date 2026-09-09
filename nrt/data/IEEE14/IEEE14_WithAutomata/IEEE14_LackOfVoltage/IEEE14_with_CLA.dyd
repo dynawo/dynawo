@@ -31,7 +31,7 @@
 
   <!-- ***** Events to disconnect substation 12 from lines-->
   <dyn:blackBoxModel id="DISCONNECT_SWITCH_B13_TO_B12" lib="EventConnectedStatus" parFile="IEEE14.par" parId="DISCONNECT_SWITCH_B13_TO_B12"/>
-  <dyn:connect id1="DISCONNECT_SWITCH_B13_TO_B12" var1="event_state1_value" id2="NETWORK" var2="Bus13_lineB12B13_switch_state_value"/>
+  <dyn:connect id1="DISCONNECT_SWITCH_B13_TO_B12" var1="event_state1_value" id2="NETWORK" var2="Bus13_lineB12B13_switch_state"/>
 
 <!--  **** Modelica load type: LoadPQ ******-->
   <dyn:blackBoxModel id="_LOAD__12_EC" lib="LoadPQ" parFile="IEEE14.par" parId="Load12" staticId="_LOAD__12_EC"/>
@@ -40,42 +40,42 @@
 
 <!-- *************** Lack Of Voltage Relay (LOVR) models ********************-->
   <dyn:blackBoxModel id="OpeningLOVR" lib="LackOfVoltageRelay" parFile="IEEE14.par" parId="OpeningLOVR"/>
-  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UMonitoredBusPu" id2="NETWORK" var2="Bus12_1A_Upu_value"/>
-  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredBus" id2="NETWORK" var2="Bus12_1A_phi_value"/>
-  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UMonitoredEquipmentPu" id2="NETWORK" var2="_BUS___12-BUS___13-1_AC_U1_value"/>
-  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredEquipment" id2="NETWORK" var2="Bus13_1A_phi_value"/>
-  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_switchControlSignal" id2="NETWORK" var2="Bus12_lineB12B13_switch_state_value"/>
+  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UMonitoredBusPu" id2="NETWORK" var2="Bus12_1A_Upu"/>
+  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredBus" id2="NETWORK" var2="Bus12_1A_phi"/>
+  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UMonitoredEquipmentPu" id2="NETWORK" var2="_BUS___12-BUS___13-1_AC_U1"/>
+  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredEquipment" id2="NETWORK" var2="Bus13_1A_phi"/>
+  <dyn:connect id1="OpeningLOVR" var1="lackOfVoltageRelay_switchControlSignal" id2="NETWORK" var2="Bus12_lineB12B13_switch_state"/>
 
   <dyn:blackBoxModel id="ReclosingLOVR" lib="LackOfVoltageRelay" parFile="IEEE14.par" parId="ReclosingLOVR"/>
-  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UMonitoredBusPu" id2="NETWORK" var2="Bus12_1A_Upu_value"/>
-  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredBus" id2="NETWORK" var2="Bus12_1A_phi_value"/>
-  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UMonitoredEquipmentPu" id2="NETWORK" var2="_BUS____6-BUS___12-1_AC_U2_value"/>
-  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredEquipment" id2="NETWORK" var2="_BUS____6_TN_phi_value"/>
-  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_switchControlSignal" id2="NETWORK" var2="Bus12_lineB6B12_switch_state_value"/>
+  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UMonitoredBusPu" id2="NETWORK" var2="Bus12_1A_Upu"/>
+  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredBus" id2="NETWORK" var2="Bus12_1A_phi"/>
+  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UMonitoredEquipmentPu" id2="NETWORK" var2="_BUS____6-BUS___12-1_AC_U2"/>
+  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_UPhaseMonitoredEquipment" id2="NETWORK" var2="_BUS____6_TN_phi"/>
+  <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_switchControlSignal" id2="NETWORK" var2="Bus12_lineB6B12_switch_state"/>
 
   <dyn:connect id1="ReclosingLOVR" var1="lackOfVoltageRelay_sleepMode" id2="OpeningLOVR" var2="lackOfVoltageRelay_sleepMode"/>
 
   <dyn:blackBoxModel id="CLA_2_3" lib="CurrentLimitAutomaton" parFile="IEEE14.par" parId="CLA_2_3"/>
   <dyn:blackBoxModel id="CLA_2_4" lib="CurrentLimitAutomaton" parFile="IEEE14.par" parId="CLA_2_4"/>
   <dyn:blackBoxModel id="CLA_2_5" lib="CurrentLimitAutomaton" parFile="IEEE14.par" parId="CLA_2_5"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0_value" id2="GEN____1_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0_value" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="_BUS____1_TN_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_0" id2="GEN____1_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1_value" id2="GEN____2_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1_value" id2="GEN____2_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_1" id2="GEN____2_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_1" id2="GEN____2_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_1" id2="NETWORK" var2="_BUS____2_TN_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_1" id2="GEN____2_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2_value" id2="GEN____3_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2_value" id2="GEN____3_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_2" id2="GEN____3_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_2" id2="GEN____3_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_2" id2="NETWORK" var2="_BUS____3_TN_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_2" id2="GEN____3_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_3_value" id2="GEN____6_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_3_value" id2="GEN____6_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_3" id2="GEN____6_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_3" id2="GEN____6_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_3" id2="NETWORK" var2="_BUS____6_TN_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_3" id2="GEN____6_SM" var2="generator_running"/>
-  <dyn:connect id1="OMEGA_REF" var1="omega_grp_4_value" id2="GEN____8_SM" var2="generator_omegaPu"/>
-  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_4_value" id2="GEN____8_SM" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omega_grp_4" id2="GEN____8_SM" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_4" id2="GEN____8_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_4" id2="NETWORK" var2="_BUS____8_TN_numcc"/>
   <dyn:connect id1="OMEGA_REF" var1="running_grp_4" id2="GEN____8_SM" var2="generator_running"/>
   <dyn:connect id1="_LOAD___2_EC" var1="transformerT_terminal1" id2="NETWORK" var2="_BUS____2_TN_ACPIN"/>

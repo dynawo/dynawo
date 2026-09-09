@@ -90,7 +90,7 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsDefineMethod
   std::map<std::string, int> mapElements;
   modelLoad->defineElements(elements, mapElements);
   ASSERT_EQ(elements.size(), mapElements.size());
-  ASSERT_EQ(elements.size(), 26);
+  ASSERT_EQ(elements.size(), 13);
 
   boost::shared_ptr<SubModel> modelLoad2 = initModelLoad(0.85);
   boost::shared_ptr<SubModel> modelLoad3 = initModelLoad(1.15);

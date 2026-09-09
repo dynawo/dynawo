@@ -183,6 +183,22 @@ class DydData:
                     connects.extend(root.xpath(mc_xpath, namespaces=NAMESPACE_URI))
         return connects
 
+    def _get_all_connects(self):
+        """
+        Get every connect and initConnect element in the Dyd file, including the ones defined
+        inside macroConnectors, regardless of the models they are attached to.
+        """
+        root = self._dydtree.getroot()
+        return list(root.xpath('.//dyn:connect | .//dyn:initConnect', namespaces=NAMESPACE_URI))
+
+    def _get_all_static_refs(self):
+        """
+        Get every staticRef element in the Dyd file, including the ones defined inside
+        macroStaticReferences, regardless of the models they are attached to.
+        """
+        root = self._dydtree.getroot()
+        return list(root.xpath('.//dyn:staticRef', namespaces=NAMESPACE_URI))
+
     def _remove_macro_connector(self, id):
         """
         Remove macroConnector using given id, then remove related macroConnects

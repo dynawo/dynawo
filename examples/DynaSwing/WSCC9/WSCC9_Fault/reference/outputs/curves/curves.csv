@@ -1,4 +1,4 @@
-time;NETWORK_B2_U_value;B2-G1 _generator_omegaPu;B2-G1 _generator_PGen;B2-G1 _generator_QGen;
+time;NETWORK_B2_U;B2-G1 _generator_omegaPu;B2-G1 _generator_PGen;B2-G1 _generator_QGen;
 0.000000;18.000263;1.000000;162.986437;14.438710;
 0.010000;18.000256;1.000000;162.986787;14.439398;
 0.020000;18.000248;1.000000;162.987172;14.440023;

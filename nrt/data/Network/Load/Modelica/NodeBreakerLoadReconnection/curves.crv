@@ -25,7 +25,7 @@
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_V_im"/>
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_i_re"/>
   <curve model="Load_LoadAlphaBetaRestorativeNetwork" variable="load_terminal_i_im"/>
-  <curve model="NETWORK" variable="VL2_Load0_switch_state_value"/>
+  <curve model="NETWORK" variable="VL2_Load0_switch_state"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_running"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_PPu"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_QPu"/>
@@ -36,7 +36,7 @@
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_V_im"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_i_re"/>
   <curve model="Load_LoadAlphaBetaRestorative" variable="load_terminal_i_im"/>
-  <curve model="NETWORK" variable="VL2_Load1_switch_state_value"/>
+  <curve model="NETWORK" variable="VL2_Load1_switch_state"/>
   <curve model="Load_LoadAlphaBeta" variable="load_running"/>
   <curve model="Load_LoadAlphaBeta" variable="load_PPu"/>
   <curve model="Load_LoadAlphaBeta" variable="load_QPu"/>
@@ -45,7 +45,7 @@
   <curve model="Load_LoadAlphaBeta" variable="load_terminal_V_im"/>
   <curve model="Load_LoadAlphaBeta" variable="load_terminal_i_re"/>
   <curve model="Load_LoadAlphaBeta" variable="load_terminal_i_im"/>
-  <curve model="NETWORK" variable="VL2_Load2_switch_state_value"/>
+  <curve model="NETWORK" variable="VL2_Load2_switch_state"/>
   <curve model="Load_LoadPQ" variable="load_running"/>
   <curve model="Load_LoadPQ" variable="load_PPu"/>
   <curve model="Load_LoadPQ" variable="load_QPu"/>
@@ -54,7 +54,7 @@
   <curve model="Load_LoadPQ" variable="load_terminal_V_im"/>
   <curve model="Load_LoadPQ" variable="load_terminal_i_re"/>
   <curve model="Load_LoadPQ" variable="load_terminal_i_im"/>
-  <curve model="NETWORK" variable="VL2_Load3_switch_state_value"/>
+  <curve model="NETWORK" variable="VL2_Load3_switch_state"/>
   <curve model="Load_LoadZIP" variable="load_running"/>
   <curve model="Load_LoadZIP" variable="load_PPu"/>
   <curve model="Load_LoadZIP" variable="load_QPu"/>
@@ -63,7 +63,7 @@
   <curve model="Load_LoadZIP" variable="load_terminal_V_im"/>
   <curve model="Load_LoadZIP" variable="load_terminal_i_re"/>
   <curve model="Load_LoadZIP" variable="load_terminal_i_im"/>
-  <curve model="NETWORK" variable="VL2_Load4_switch_state_value"/>
+  <curve model="NETWORK" variable="VL2_Load4_switch_state"/>
   <curve model="Load_ElectronicLoad" variable="load_running"/>
   <curve model="Load_ElectronicLoad" variable="load_PPu"/>
   <curve model="Load_ElectronicLoad" variable="load_QPu"/>
@@ -72,9 +72,9 @@
   <curve model="Load_ElectronicLoad" variable="load_terminal_V_im"/>
   <curve model="Load_ElectronicLoad" variable="load_terminal_i_re"/>
   <curve model="Load_ElectronicLoad" variable="load_terminal_i_im"/>
-  <curve model="NETWORK" variable="VL2_Load5_switch_state_value"/>
-  <curve model="NETWORK" variable="Load6_state_value"/>
-  <curve model="NETWORK" variable="Load6_P_value"/>
-  <curve model="NETWORK" variable="Load6_Q_value"/>
-  <curve model="NETWORK" variable="VL2_Load6_switch_state_value"/>
+  <curve model="NETWORK" variable="VL2_Load5_switch_state"/>
+  <curve model="NETWORK" variable="Load6_state"/>
+  <curve model="NETWORK" variable="Load6_P"/>
+  <curve model="NETWORK" variable="Load6_Q"/>
+  <curve model="NETWORK" variable="VL2_Load6_switch_state"/>
 </curvesInput>

@@ -19,16 +19,16 @@
   <finalStateValue model="Generator" variable="generator_QGenPu"/>
   <finalStateValue model="NETWORK" variable="Load_P"/>
   <finalStateValue model="NETWORK" variable="Load_Q"/>
-  <finalStateValue model="NETWORK" variable="Transformer_i1_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_i2_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_P1_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_P2_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_Q1_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_Q2_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_iS1ToS2Side1_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_iS2ToS1Side1_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_iS1ToS2Side2_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_iS2ToS1Side2_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_iSide1_value"/>
-  <finalStateValue model="NETWORK" variable="Transformer_iSide2_value"/>
+  <finalStateValue model="NETWORK" variable="Transformer_i1"/>
+  <finalStateValue model="NETWORK" variable="Transformer_i2"/>
+  <finalStateValue model="NETWORK" variable="Transformer_P1"/>
+  <finalStateValue model="NETWORK" variable="Transformer_P2"/>
+  <finalStateValue model="NETWORK" variable="Transformer_Q1"/>
+  <finalStateValue model="NETWORK" variable="Transformer_Q2"/>
+  <finalStateValue model="NETWORK" variable="Transformer_iS1ToS2Side1"/>
+  <finalStateValue model="NETWORK" variable="Transformer_iS2ToS1Side1"/>
+  <finalStateValue model="NETWORK" variable="Transformer_iS1ToS2Side2"/>
+  <finalStateValue model="NETWORK" variable="Transformer_iS2ToS1Side2"/>
+  <finalStateValue model="NETWORK" variable="Transformer_iSide1"/>
+  <finalStateValue model="NETWORK" variable="Transformer_iSide2"/>
 </finalStateValuesInput>

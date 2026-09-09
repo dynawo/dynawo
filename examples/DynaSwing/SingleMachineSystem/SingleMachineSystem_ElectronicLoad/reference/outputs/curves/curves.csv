@@ -1,4 +1,4 @@
-time;NETWORK_NGEN_Upu_value;NETWORK_NLOAD_Upu_value;GEN_generator_omegaPu;GEN_generator_PGen;GEN_generator_QGen;GEN_generator_UStatorPu;GEN_voltageRegulator_EfdPu;ElectronicLoad_load_PPu;ElectronicLoad_load_QPu;LOAD_load_PPu;LOAD_load_QPu;
+time;NETWORK_NGEN_Upu;NETWORK_NLOAD_Upu;GEN_generator_omegaPu;GEN_generator_PGen;GEN_generator_QGen;GEN_generator_UStatorPu;GEN_voltageRegulator_EfdPu;ElectronicLoad_load_PPu;ElectronicLoad_load_QPu;LOAD_load_PPu;LOAD_load_QPu;
 0.000000;1.020953;0.983973;1.000000;605.681226;225.331319;1.040009;2.438261;1.000000;0.000000;5.001247;2.000499;
 0.000001;1.020952;0.983973;1.000000;605.681202;225.331311;1.040009;2.438261;1.000000;0.000000;5.001246;2.000499;
 0.000002;1.020952;0.983973;1.000000;605.681202;225.331311;1.040009;2.438261;1.000000;0.000000;5.001246;2.000499;
