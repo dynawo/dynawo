@@ -23,7 +23,7 @@ model DynGFMVSMSmibConvPLL "Single machine infinite bus test case for Grid Formi
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSMConvPLL DynGFMVSMConvPLL(CFilterPu = 1e-05, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.440979955569425, Q0Pu = -0.642916511452948, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.954110360567147, UPhase0 = 0.513677943263305, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.06, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, omegaNPLL = 100, ZetaPLL = 1, omegaC = 1000) annotation(
-    Placement(transformation(origin = {-19, -3}, extent = {{-23, -23}, {23, 23}})));
+    Placement(transformation(origin = {-17, -3}, extent = {{-23, -23}, {23, 23}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.95) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump1(U0Pu = 1, UEvtPu = 1, UPhase = 0, dUPhaseEvt = 0.462, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 0, tOmegaEvtStart = 0, tUEvtEnd = 0, tUEvtStart = 0, tUPhaseEvt = 10) annotation(
@@ -35,15 +35,15 @@ equation
   DynGFMVSMConvPLL.switchOffSignal2 = false;
   DynGFMVSMConvPLL.switchOffSignal3 = false;
   connect(DynGFMVSMConvPLL.terminal, line.terminal1) annotation(
-    Line(points = {{6, -3}, {19, -3}, {19, -2}, {36, -2}}, color = {0, 0, 255}));
+    Line(points = {{8, -3}, {19, -3}, {19, -2}, {36, -2}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, DynGFMVSMConvPLL.omegaRefPu) annotation(
-    Line(points = {{-100, 20}, {-50, 20}, {-50, 6}, {-44, 6}}, color = {0, 0, 127}));
+    Line(points = {{-100, 20}, {-50, 20}, {-50, 6}, {-42, 6}}, color = {0, 0, 127}));
   connect(QRefPu.y, DynGFMVSMConvPLL.QFilterRefPu) annotation(
-    Line(points = {{-100, -20}, {-60, -20}, {-60, -12}, {-44, -12}}, color = {0, 0, 127}));
+    Line(points = {{-100, -20}, {-60, -20}, {-60, -12}, {-42, -12}}, color = {0, 0, 127}));
   connect(URefPu.y, DynGFMVSMConvPLL.UFilterRefPu) annotation(
-    Line(points = {{-100, -60}, {-56, -60}, {-56, -21}, {-44, -21}}, color = {0, 0, 127}));
+    Line(points = {{-100, -60}, {-56, -60}, {-56, -21}, {-42, -21}}, color = {0, 0, 127}));
   connect(PRefPu.y, DynGFMVSMConvPLL.PFilterRefPu) annotation(
-    Line(points = {{-102, 56}, {-102, 53}, {-44, 53}, {-44, 15}}, color = {0, 0, 127}));
+    Line(points = {{-102, 56}, {-102, 53}, {-42, 53}, {-42, 15}}, color = {0, 0, 127}));
   connect(line.terminal2, infiniteBusWithVariations_PhaseJump1.terminal) annotation(
     Line(points = {{56, -2}, {80, -2}, {80, -46}}, color = {0, 0, 255}));
   annotation(
