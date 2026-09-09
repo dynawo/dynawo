@@ -26,6 +26,7 @@
 #include <sstream>
 #include <fstream>
 #include <chrono>
+#include <tuple>
 #ifdef _MSC_VER
 #include <process.h>
 #endif
@@ -207,6 +208,8 @@ dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
+enableRealTimeTracking_(false),
+realTimeTrackingFile_(""),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -305,6 +308,11 @@ Simulation::configureSimulationOutputs() {
     configureFinalStateValueOutputs();
     configureFinalStateOutputs();
     configureLostEquipmentsOutputs();
+  }
+
+  enableRealTimeTracking_ = jobEntry_->getSimulationEntry()->getEnableRealTimeTracking();
+  if (enableRealTimeTracking_) {
+    realTimeTrackingFile_ = createAbsolutePath("simRT.csv", outputsDirectory_);
   }
 }
 
@@ -1027,6 +1035,12 @@ Simulation::simulate() {
     }
     int currentIterNb = 0;
     double nextTimeStep = 0;
+
+    // Initialize simulation start time for accumulated timing (excluding initialization)
+    if (enableRealTimeTracking_) {
+      simulationStartTime_ = std::chrono::steady_clock::now();
+    }
+
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       double elapsed = timer.elapsed();
       double timeout = jobEntry_->getSimulationEntry()->getTimeout();
@@ -1037,6 +1051,12 @@ Simulation::simulate() {
       }
 
       const bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
+
+      // Start timing measurement for this timestep
+      std::chrono::steady_clock::time_point stepStartTime;
+      if (enableRealTimeTracking_) {
+        stepStartTime = std::chrono::steady_clock::now();
+      }
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
@@ -1088,6 +1108,19 @@ Simulation::simulate() {
       ++currentIterNb;
 
       model_->notifyTimeStep();
+
+      // End timing measurement and store data if real-time tracking is enabled
+      if (enableRealTimeTracking_) {
+        auto stepEndTime = std::chrono::steady_clock::now();
+        auto stepDuration = std::chrono::duration_cast<std::chrono::microseconds>(stepEndTime - stepStartTime);
+        double stepTimeMs = stepDuration.count() / 1000.0;  // Convert to milliseconds
+
+        // Calculate accumulated time from simulation start (in seconds, 3 decimal precision)
+        auto accumulatedDuration = std::chrono::duration_cast<std::chrono::microseconds>(stepEndTime - simulationStartTime_);
+        double accumulatedTimeS = accumulatedDuration.count() / 1000000.0;  // Convert to seconds
+
+        timingData_.emplace_back(tCurrent_, stepTimeMs, accumulatedTimeS);
+      }
 
       if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {
         // In case it was not already done beause of check criteria and intermediate state dump will be done at least one for current
@@ -1315,6 +1348,9 @@ Simulation::terminate() {
 #endif
     data_->exportStateVariables();
   }
+
+  // Write real time tracking file if enabled
+  writeRealTimeTrackingFile();
 
   if (data_ && isLostEquipmentsExported() && !lostEquipmentsOutputFile_.empty()) {
     ofstream fileLostEquipments;
@@ -1593,6 +1629,38 @@ Simulation::printCurrentTime(const string& fileName) const {
   out << tCurrent_;
   out.close();
   fs::permissions(fileName, fs::group_read | fs::group_write | fs::owner_write | fs::others_write | fs::owner_read | fs::others_read);
+}
+
+void
+Simulation::writeRealTimeTrackingFile() const {
+  // Early return if timing disabled or no data collected
+  if (!enableRealTimeTracking_ || timingData_.empty()) {
+    return;
+  }
+
+  // Open output file stream using existing pattern
+  ofstream out(realTimeTrackingFile_.c_str());
+  if (!out.is_open()) {
+    throw DYNError(Error::SIMULATION, OpenFileFailed, realTimeTrackingFile_);
+  }
+
+  // Write CSV header
+  out << "simulation_time,computation_time_ms,accumulated_computation_time_s" << std::endl;
+
+  // Write timing data with proper precision formatting
+  out << std::fixed;
+  for (const auto& timingTriple : timingData_) {
+    double simulationTime, computationTimeMs, accumulatedTimeS;
+    std::tie(simulationTime, computationTimeMs, accumulatedTimeS) = timingTriple;
+    out << std::setprecision(6) << simulationTime << ","
+        << std::setprecision(3) << computationTimeMs << ","
+        << std::setprecision(3) << accumulatedTimeS << std::endl;
+  }
+
+  out.close();
+
+  // Set file permissions following existing pattern
+  fs::permissions(realTimeTrackingFile_, fs::group_read | fs::group_write | fs::owner_write | fs::others_write | fs::owner_read | fs::others_read);
 }
 
 Simulation::ExportStateDefinition::ExportStateDefinition(const double timestamp,
