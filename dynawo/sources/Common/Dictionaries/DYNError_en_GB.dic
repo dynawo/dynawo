@@ -198,6 +198,7 @@ CreateDirectoryFailed       =             unable to create directory %1%
 WrongDynamicCast            =             impossible dynamic cast
 FileSystemItemDoesNotExist  =             %1% does not exist
 UnknownVertex               =             vertex %1% is unknown in graph
+UnknownEdge                 =             edge %1% is unknown in graph
 AlreadyDefinedEdge          =             edge %1% already defined in graph
 UnknownAutomatonOutput      =             output %2% of automaton %1% does not exist
 AutomatonMaximumInputSizeReached  =       automaton %1% has more inputs defined (%2%) than the maximum (%3%)

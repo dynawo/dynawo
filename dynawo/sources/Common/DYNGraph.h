@@ -1,4 +1,3 @@
-//
 // Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
@@ -9,163 +8,99 @@
 //
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 // simulation tool for power systems.
-//
 
-/**
- * @file  DYNGraph.h
- *
- * @brief Graph interface : encapsulation of boost::graph
- *
- */
 #ifndef COMMON_DYNGRAPH_H_
 #define COMMON_DYNGRAPH_H_
 
-#include <utility>
+#include <vector>
+#include <string>
+#include <map>
 #include <unordered_map>
-
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/adjacency_iterator.hpp>
-#include <boost/graph/filtered_graph.hpp>
-#include <boost/graph/graph_traits.hpp>
-#include <boost/graph/connected_components.hpp>
-#include <boost/property_map/property_map.hpp>
-#include <boost/graph/iteration_macros.hpp>
-#include <boost/graph/properties.hpp>
-#include <boost/graph/connected_components.hpp>
-
-
-// definitions of typedef alias to hide boost types
-typedef boost::property<boost::edge_weight_t, float, boost::property<boost::edge_name_t, std::string> > EdgeProperty;  ///< properties associated to an edge
-typedef boost::property<boost::vertex_name_t, int> VertexProperty;  ///< property associated to a vertex
-typedef boost::adjacency_list <boost::vecS, boost::vecS, boost::undirectedS, VertexProperty, EdgeProperty> BoostGraph;  ///< graph description
-typedef boost::graph_traits < BoostGraph >::vertex_descriptor Vertex;  ///< vertex description
-typedef BoostGraph::edge_descriptor Edge;  ///< edge description
-typedef std::vector<std::string> PathDescription;  ///< path description
-typedef boost::property_map<BoostGraph, boost::edge_weight_t>::type EdgeWeightMap;  ///< property map associated to the weight of each edge
-typedef boost::graph_traits < BoostGraph >::adjacency_iterator adjacency_iterator;  ///< iterator on adjacency_list
-
-/**
- * @brief edge predicate to filter edge contained in a boost graph
- */
-template <typename EdgeWeightMap>
-struct positive_edge_weight {
-  /**
-   * @brief default constructor
-   */
-  positive_edge_weight() { }
-
-  /**
-   * @brief copy constructor
-   * @param weight weight to use for the predicate
-   */
-  explicit positive_edge_weight(EdgeWeightMap weight) : m_weight(weight) { }
-
-  /**
-   * @brief edge predicate to filter edge
-   * @param e edge to filter
-   * @return @b true if the weight of the edge is positive, @b false otherwise
-   */
-  template <typename Edge>
-  bool operator()(const Edge& e) const {
-    return 0 < get(m_weight, e);
-  }
-  EdgeWeightMap m_weight;  ///< Property map associated to the weight of each edge
-};
-typedef boost::filtered_graph <BoostGraph, positive_edge_weight<EdgeWeightMap> > FilteredBoostGraph;  ///< filtered graph description
-typedef boost::graph_traits < FilteredBoostGraph >::adjacency_iterator adjacency_iterator_filtered;  ///< iterator on adjacency_list for filtered graph
+#include <unordered_set>
 
 namespace DYN {
-
 /**
  * @class Graph
- * @brief Graph class to manipulate topology graph
+ * @brief Utility class implementing basic search functions in a graph
  */
 class Graph {
  public:
-  /**
-   * @brief default constructor
-   */
-  Graph();
+  /** @brief default constructor */
+  Graph() = default;
 
   /**
    * @brief add a vertex to the graph structure
-   *
-   * @param vertexId id of the vertex
+   * @param nodeId id of the vertex
    */
-  void addVertex(unsigned int vertexId);
+  void addVertex(int nodeId) {vertices_.insert(nodeId);}
 
   /**
-   * @brief add an edge between two vertices
-   *
-   * @param idVertex1 id of the first vertex
-   * @param idVertex2 id of the second vertex
-   * @param id id of the edge
+   * @brief add a named edge to the graph structure
+   * @param nodeId1 index of the first vertex
+   * @param nodeId2 index of the second vertex
+   * @param name the name of the edge, for further reference
    */
-  void addEdge(unsigned idVertex1, unsigned idVertex2, const std::string& id);
+  void addEdge(int nodeId1, int nodeId2, const std::string & name);
 
   /**
-   * @brief check if a vertex exists
-   *
-   * @param index id of the vertex to check
-   * @return @b true if the vertex exists, @b false otherwise
+   * @brief list all the predefined edges in the graph by their given names
+   * @return the list of edges names
    */
-  bool hasVertex(unsigned int index);
+  std::unordered_set<std::string> getAllEdges() const;
 
   /**
    * @brief check if a path exist between two vertices
-   *
-   * @param vertexOrigin index of the first vertex
-   * @param vertexExtremity index of the second vertex
-   * @param edgeWeights weights/masks of each edge to filter the graph
+   * @param nodeId1 index of the first vertex
+   * @param nodeId2 index of the second vertex
+   * @param closedEdges the list of the edges considered active (closed), by name
    * @return @b true if a path exists, @b false otherwise
    */
-  bool pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const std::unordered_map<std::string, float>& edgeWeights);
+  bool pathExist(int nodeId1, int nodeId2, const std::unordered_set<std::string> & closedEdges) const;
 
   /**
    * @brief find the shortest path between two vertices
-   *
-   * @param vertexOrigin index of the first vertex
-   * @param vertexExtremity index of the second vertex
-   * @param edgeWeights weights/masks of each edge to filter the graph
-   * @param path a list of edge's id encountered between origin and extremity of the path
+   * @param nodeIdStart index of the first vertex
+   * @param nodeIdEnd index of the second vertex
+   * @param closedEdges the list of the edges considered active (closed)
+   * @return list of edge's id encountered between origin and extremity of the path
    * this list is empty if there is no path or if the vertexOrigin and extremity are the same
    */
-  void shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
-      const std::unordered_map<std::string, float>& edgeWeights, PathDescription& path);
+  std::vector<std::string> shortestPath(int nodeIdStart, int nodeIdEnd, const std::unordered_set<std::string> & closedEdges) const;
 
   /**
-   * @brief calculate connected components of a graph
-   *
-   * @param edgeWeights weights/masks of each edge to filter the graph
-   * @return number of components and component per vertices
+   * @brief partitions the graph in indexed connex components
+   * @param closedEdges list of edges IDs considered active (closed)
+   * @param nbComponents the number of components in the resulting partition (optional result value)
+   * @return the resulting partition, with a component ID associated to each node ID
    */
-  std::pair<unsigned int, std::vector<unsigned int> > calculateComponents(const std::unordered_map<std::string, float>& edgeWeights);
+  std::map<int, int> calculateComponents(const std::unordered_set<std::string> & closedEdges, int * nbComponents = nullptr) const;
+
+ private :
+   /**
+   * @brief check if a vertex exists, throws if it does not
+   * @param nodeId id of the vertex to check
+   */
+  void checkVertex(int nodeId) const;
+
+  /**
+   * @brief builds an adjacency map from the given list of edges, which associates to each node the list of its neighbors
+   * @param edges the list of textual IDs of the edges considered active (valid) in the predefined graph
+   * @return the adjacency map, which associates to each node ID the list of its neighbors
+   */
+  std::unordered_map<int, std::unordered_set<int>> buildNeighboringMap(const std::unordered_set<std::string> & edges) const;
+
+   /**
+   * @brief builds a path from a node mapping to wrap up the shortest path algorithm
+   * @param nodeIdEnd the node ID corresponding to the end of the path
+   * @param predecessors a structure defining for each node ID the ID of its predecessor in the path
+   * @return the path, constituted from an ordered list of switch names from start to end
+   */
+  std::vector<std::string> buildStringPath(int nodeIdEnd, const std::unordered_map<int, int> & predecessors) const;
 
  private:
-  /**
-   * @brief set the weight/mask of each edge
-   *
-   * @param weights weight to associate to each edge
-   */
-  void setEdgesWeight(const std::unordered_map<std::string, float>& weights);
-
-  /**
-   * @brief find the shortest path between two vertices
-   *
-   * @param vertexOrigin index of the first vertex
-   * @param vertexExtremity index of the second vertex
-   * @param edgeWeights weights/masks of each edge to filter the graph
-   * @param path a list of edge's id encountered between origin and extremity of the path
-   * this list is empty if there is no path or if the vertexOrigin and extremity are the same
-   */
-  void dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
-      const std::unordered_map<std::string, float>& edgeWeights,
-      PathDescription& path);
-
- private:
-  BoostGraph internalGraph_;  ///< graph description
-  std::unordered_map<unsigned int, Vertex> vertices_;  ///< association between vertices and their id
-  std::unordered_map<std::string, Edge> edges_;  ///< association between edges and their id
+  std::unordered_set<int> vertices_;  ///< all node IDs already declared
+  std::unordered_map<std::string, std::pair<int, int>> edges_;  ///< all edges already defined, with edges names as keys and connected node IDs as values
+  std::unordered_map<int, std::string> edgesNames_;  ///< reverse edges mapping, with composite IDs from the 2 node IDs as keys and edges names as values
 };
 
 }  // namespace DYN
