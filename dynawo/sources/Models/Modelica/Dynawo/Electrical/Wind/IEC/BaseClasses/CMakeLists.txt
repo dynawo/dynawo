@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseW4CurrentSource_INIT.mo
   BaseWPP.mo
   BaseWT4.mo
   )
