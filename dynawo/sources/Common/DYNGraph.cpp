@@ -26,6 +26,8 @@
 using std::string;
 using std::vector;
 using std::map;
+using std::unordered_map;
+using std::unordered_set;
 using std::pair;
 using std::list;
 using boost::add_vertex;
@@ -57,6 +59,7 @@ Graph::addEdge(unsigned indexVertex1, unsigned indexVertex2, const string& id) {
   std::pair<Edge, bool> edgePair = add_edge(vertices_[indexVertex1], vertices_[indexVertex2], internalGraph_);
   put(boost::edge_name_t(), internalGraph_, edgePair.first, id);
   edges_[id] = edgePair.first;
+  edges2_[id] = pair<int, int>(indexVertex1, indexVertex2);
 }
 
 void
@@ -141,16 +144,45 @@ Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
   dijkstra(vertexOrigin, vertexExtremity, edgeWeights, path);
 }
 
-std::pair<unsigned int, vector<unsigned int> >
-Graph::calculateComponents(const std::unordered_map<string, float>& edgeWeights) {
-  setEdgesWeight(edgeWeights);
-  positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
-  FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
+int
+Graph::calculateComponents(const unordered_set<string> & closedEdges, unordered_map<int, int> & result) {
+  // build a neighboring map : for each node ID, associate the set of its neighboring nodes IDs
+  unordered_map<int, unordered_set<int>> neighbors;
+  for (const string & edgeId : closedEdges) {
+    neighbors[edges2_[edgeId].first ].insert(edges2_[edgeId].second);
+    neighbors[edges2_[edgeId].second].insert(edges2_[edgeId].first);
+  }
 
-  vector<unsigned int> component(boost::num_vertices(filteredGraph));
-  int nbComponents = boost::connected_components(filteredGraph, &component[0]);
-  return std::pair<unsigned int, vector<unsigned int> >(nbComponents, component);
+  // build the list of all node IDs to be exhausted
+  unordered_set<int> toTreatGlobal;
+  for (auto it : vertices_)
+    toTreatGlobal.insert(it.first);
+
+  // exhaustion by propagation
+  int compId = 0;
+  while (!toTreatGlobal.empty()) {
+    unordered_set<int> toTreatLocal;
+    int seedId = *toTreatGlobal.begin();
+    toTreatLocal.insert(seedId);
+    toTreatGlobal.erase(seedId);
+    while (!toTreatLocal.empty()) {
+      int nodeId = *toTreatLocal.begin();
+      toTreatLocal.erase(nodeId);
+      for (int neighborId : neighbors[nodeId]) {
+        auto it = toTreatGlobal.find(neighborId);
+        if (it == toTreatGlobal.end())
+          continue;
+        toTreatLocal.insert(*it);
+        toTreatGlobal.erase(it);
+      }
+      result[nodeId] = compId;
+    }
+    ++compId;
+  }
+
+  return compId;
 }
+
 
 bool
 Graph::hasVertex(unsigned int id) {

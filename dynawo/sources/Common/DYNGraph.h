@@ -22,6 +22,7 @@
 
 #include <utility>
 #include <unordered_map>
+#include <unordered_set>
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/adjacency_iterator.hpp>
@@ -133,13 +134,7 @@ class Graph {
   void shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
       const std::unordered_map<std::string, float>& edgeWeights, PathDescription& path);
 
-  /**
-   * @brief calculate connected components of a graph
-   *
-   * @param edgeWeights weights/masks of each edge to filter the graph
-   * @return number of components and component per vertices
-   */
-  std::pair<unsigned int, std::vector<unsigned int> > calculateComponents(const std::unordered_map<std::string, float>& edgeWeights);
+  int calculateComponents(const std::unordered_set<std::string> & closedEdges, std::unordered_map<int, int> & result);
 
  private:
   /**
@@ -166,6 +161,7 @@ class Graph {
   BoostGraph internalGraph_;  ///< graph description
   std::unordered_map<unsigned int, Vertex> vertices_;  ///< association between vertices and their id
   std::unordered_map<std::string, Edge> edges_;  ///< association between edges and their id
+  std::unordered_map<std::string, std::pair<int, int>> edges2_;  ///< association between edge string id and linked nodes ids
 };
 
 }  // namespace DYN
