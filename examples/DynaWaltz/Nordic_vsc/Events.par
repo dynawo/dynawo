@@ -15,11 +15,11 @@
   <set id="Fault">
     <par type="DOUBLE" name="fault_RPu" value="0.025"/>
     <par type="DOUBLE" name="fault_XPu" value="0.025"/>
-    <par type="DOUBLE" name="fault_tBegin" value="1000"/>
-    <par type="DOUBLE" name="fault_tEnd" value="11000"/>
+    <par type="DOUBLE" name="fault_tBegin" value="1"/>
+    <par type="DOUBLE" name="fault_tEnd" value="1.1"/>
   </set>
   <set id="DisconnectLine">
-    <par type="DOUBLE" name="event_tEvent" value="11000"/>
+    <par type="DOUBLE" name="event_tEvent" value="1.1"/>
     <par type="BOOL" name="event_disconnectOrigin" value="true"/>
     <par type="BOOL" name="event_disconnectExtremity" value="true"/>
   </set>

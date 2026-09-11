@@ -1,7 +1,6 @@
 within Dynawo.Examples.Average.SMIB;
 
 model OneConverterWeakGrid
-
   Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodelnodyn( // ── Initial conditions — PCC node ────────────────────────
   SNom = 1000, U0Pu = U0Pu, Uphase = Uphase, P0_pcc = -7, Q0_pcc = -2, Omega0Pu = 1.0,  // ── VSC Pade delay ────────────────────────────────────────
   tVSC = 1e-100,  // ── LC filter — realistic values, fr ≈ 712 Hz ─────────────
@@ -14,13 +13,12 @@ model OneConverterWeakGrid
   k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
   k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
   k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.01, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2
-  , Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
+  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2, Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
   K_p_q_plant = 0.1, K_i_q_plant = 1.0, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
   K_p_pll = 0.32, K_i_pll = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
-  OmegaMinPu = 0.5,   // ── Rate limiters and delays ──────────────────────────────
+  OmegaMinPu = 0.5,  // ── Rate limiters and delays ──────────────────────────────
   DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0, tS_idref = 1e-4, delay_time_plant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
-  voltagefeedforwardflag_d = 1,  voltagefeedforwardflag_q = 1, T_boost=1e-3) annotation(
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-3) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
     Placement(transformation(origin = {-66, -30}, extent = {{-10, -10}, {10, 10}})));
@@ -36,10 +34,9 @@ model OneConverterWeakGrid
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.5, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 10.0, tUEvtEnd = 10.2, tOmegaEvtStart = 100, tOmegaEvtEnd = 105) annotation(
     Placement(transformation(origin = {108, 12}, extent = {{-22, -22}, {22, 22}}, rotation = -90)));
 equation
-
-  gFLmodelnodyn.switchOffSignal1=false;
-  gFLmodelnodyn.switchOffSignal2=false;
-  gFLmodelnodyn.switchOffSignal3=false;
+  gFLmodelnodyn.switchOffSignal1 = false;
+  gFLmodelnodyn.switchOffSignal2 = false;
+  gFLmodelnodyn.switchOffSignal3 = false;
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   connect(omegaRef.y, gFLmodelnodyn.omegaRefPu) annotation(
@@ -54,15 +51,14 @@ equation
     Line(points = {{64, 12}, {64, 13}, {78, 13}, {78, 12}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-5, Interval = 0.0005),
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-05, Interval = 0.0005),
     Diagram,
     Icon(graphics = {Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}}), Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
-    Documentation(info = "<html>
-<p>Author: Gaia Bergamaschi</p>
+    Documentation(info = "<html><head></head><body><p>Author: Gaia Bergamaschi</p>
 <p>SMIB test — GFL converter</p>
 <p>Operating point: P = 0.6999 pu, Q = 0.1977 pu, U_pcc = 1.0372 pu, theta = 0.2049 rad</p>
 <p>Used in thesis Gaia Bergamaschi for model validation, parametrized
-from the time response of PVVoltageSource4Example. Use solver IDA</p>
+from the time response of PVVoltageSource4Example. Use solver IDA. See branch 4059_Gflaveragemodel_beforerebase to mimic same results with WECC.</p>
 
   Four scenario cases (select by adjusting startTime values):
 
@@ -84,8 +80,5 @@ from the time response of PVVoltageSource4Example. Use solver IDA</p>
   Case 4 — Frequency variation (infiniteBusWithVariations)
       Grid frequency: omegaEvtPu applied from t = 10 000 s to t = 10 001 s
       Suggested: tOmegaEvtStart = 10 s, tOmegaEvtEnd = 10.5 s, omegaEvtPu = 1.02 pu
-      [currently inactive: tOmegaEvtStart = 10 000 s]
-</pre>
-</html>"));
-
+      [currently inactive: tOmegaEvtStart = 10 000 s] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</body></html>"));
 end OneConverterWeakGrid;

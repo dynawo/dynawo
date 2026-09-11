@@ -1,11 +1,10 @@
 within Dynawo.Examples.Average.TwoVSC;
 
 model TwoConvertersDynamicLine_7Hz
-
   // ═══════════════════════════════════════════════════════════════
   // Target cutoff frequencies — modify only these
   // ═══════════════════════════════════════════════════════════════
-  parameter Real OmegaCC          = 1200 "Inner current loop bandwidth [rad/s]";
+  parameter Real OmegaCC = 1200 "Inner current loop bandwidth [rad/s]";
   parameter Real w_cc_outer = 4.5 "Outer P/Q loop bandwidth [rad/s]";
   parameter Real w_cc_plant = 1.3 "Plant (power) controller bandwidth [rad/s]";
   parameter Real OmegaPLL = 10 "PLL bandwidth [rad/s]";
@@ -14,123 +13,52 @@ model TwoConvertersDynamicLine_7Hz
   parameter Real delay_time_plant = 0.02 "Equivalent delay from plant to outer loop [s]";
   final parameter Real T_filter = 1.0/OmegaLPF "Measurement filter time constant [s]";
   // ═══════════════════════════════════════════════════════════════
-
   // ═══════════════════════════════════════════════════════════════
   // Effective impedances
   // ═══════════════════════════════════════════════════════════════
-  final parameter Real Rf1 = gFLmodel.RfPu  + gFLmodel.RPuLV;
-  final parameter Real Lf1 = gFLmodel.LfPu  + gFLmodel.LPuLV;
+  final parameter Real Rf1 = gFLmodel.RfPu + gFLmodel.RPuLV;
+  final parameter Real Lf1 = gFLmodel.LfPu + gFLmodel.LPuLV;
   final parameter Real Rf2 = gFLmodel1.RfPu + gFLmodel1.RPuLV;
   final parameter Real Lf2 = gFLmodel1.LfPu + gFLmodel1.LPuLV;
-
   // ═══════════════════════════════════════════════════════════════
   // GFL1 gains
   // ═══════════════════════════════════════════════════════════════
-  final parameter Real kp_cc_1    = Lf1 * OmegaCC / SystemBase.omegaNom;
-  final parameter Real ki_cc_1    = Rf1 * OmegaCC;
-  final parameter Real kp_outer_1 = w_cc_outer / OmegaLPF;
+  final parameter Real kp_cc_1 = Lf1*OmegaCC/SystemBase.omegaNom;
+  final parameter Real ki_cc_1 = Rf1*OmegaCC;
+  final parameter Real kp_outer_1 = w_cc_outer/OmegaLPF;
   final parameter Real ki_outer_1 = w_cc_outer;
-  final parameter Real kp_pll_1   = 2.0 * KsiPLL * OmegaPLL / SystemBase.omegaNom;
-  final parameter Real ki_pll_1   = OmegaPLL * OmegaPLL / SystemBase.omegaNom;
-  final parameter Real kp_plant_1 = w_cc_plant / w_cc_outer;
-  final parameter Real ki_plant_1 =  w_cc_plant;
-
+  final parameter Real kp_pll_1 = 2.0*KsiPLL*OmegaPLL/SystemBase.omegaNom;
+  final parameter Real ki_pll_1 = OmegaPLL*OmegaPLL/SystemBase.omegaNom;
+  final parameter Real kp_plant_1 = w_cc_plant/w_cc_outer;
+  final parameter Real ki_plant_1 = w_cc_plant;
   // ═══════════════════════════════════════════════════════════════
   // GFL2 gains
   // ═══════════════════════════════════════════════════════════════
-  final parameter Real kp_cc_2    = Lf2 * OmegaCC / SystemBase.omegaNom;
-  final parameter Real ki_cc_2    = Rf2 * OmegaCC;
-  final parameter Real kp_outer_2 = w_cc_outer / OmegaLPF;
+  final parameter Real kp_cc_2 = Lf2*OmegaCC/SystemBase.omegaNom;
+  final parameter Real ki_cc_2 = Rf2*OmegaCC;
+  final parameter Real kp_outer_2 = w_cc_outer/OmegaLPF;
   final parameter Real ki_outer_2 = w_cc_outer;
-  final parameter Real kp_pll_2   = 2.0 * KsiPLL * OmegaPLL / SystemBase.omegaNom;
-  final parameter Real ki_pll_2   = OmegaPLL * OmegaPLL / SystemBase.omegaNom;
-  final parameter Real kp_plant_2 = w_cc_plant / w_cc_outer;
-  final parameter Real ki_plant_2 =  w_cc_plant;
-
+  final parameter Real kp_pll_2 = 2.0*KsiPLL*OmegaPLL/SystemBase.omegaNom;
+  final parameter Real ki_pll_2 = OmegaPLL*OmegaPLL/SystemBase.omegaNom;
+  final parameter Real kp_plant_2 = w_cc_plant/w_cc_outer;
+  final parameter Real ki_plant_2 = w_cc_plant;
   // ═══════════════════════════════════════════════════════════════
   // GFL1
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(
-    SNom = 1000, U0Pu = 1.045333, Uphase = 0.0665,
-    P0_pcc = -5.03, Q0_pcc = -0.21, Omega0Pu = 1.0,
-    tVSC = 2e-3,
-    RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
-    omegaNom = 2 * Modelica.Constants.pi * 50,
-    RPuLV = 0.001, LPuLV = 0.025,
-    RPuHV = 0.001, LPuHV = 0.025,
-    k_filter = 1, T_filter = T_filter,
-    k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
-    k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
-    k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
-    k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
-    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
-    Imax = 20, PQFlag = false,
-    IqBoostMax = 0.5, IqBoostMin = -0.5,
-    K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
-    K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
-    Lambda = 0.417, Kdroop = 15,
-    QMaxPu = 0.3, QMinPu = -0.3,
-    PMaxPu = 2,   PMinPu = 0,
-    FEMaxPu = 999, FEMinPu = -999,
-    FDbd1Pu = 0.005, FDbd2Pu = 0.1,
-    DbdPu = 0.0001,
-    K_p_pll = kp_pll_1, K_i_pll = ki_pll_1,
-    OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
-    DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
-    DuMax_idref = 10.0,   DuMin_idref = -10.0,
-    tS_idref = 1e-4,
-    delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
-  ) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.045333, Uphase = 0.0665, P0_pcc = -5.03, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 2e-3, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, k_filter = 1, T_filter = T_filter, k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1, k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1, k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1, k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2, Imax = 20, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5, K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1, K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, K_p_pll = kp_pll_1, K_i_pll = ki_pll_1, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0, tS_idref = 1e-4, delay_time_plant = delay_time_plant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
-
   // ═══════════════════════════════════════════════════════════════
   // GFL2
   // ═══════════════════════════════════════════════════════════════
-   Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(
-    SNom = 1000, U0Pu = 1.029, Uphase = -0.06721,
-    P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0,
-    tVSC = 2e-3,
-    RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
-    omegaNom = 2 * Modelica.Constants.pi * 50,
-    RPuLV = 0.001, LPuLV = 0.025,
-    RPuHV = 0.001, LPuHV = 0.025,
-    k_filter = 1, T_filter = T_filter,
-    k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2,
-    k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,
-    k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2,
-    k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2,
-    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
-    Imax = 2, PQFlag = false,
-    IqBoostMax = 0.5, IqBoostMin = -0.5,
-    K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,
-    K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,
-    Lambda = 0.417, Kdroop = 15,
-    QMaxPu = 0.3, QMinPu = -0.3,
-    PMaxPu = 0,   PMinPu = -2,
-    FEMaxPu = 999, FEMinPu = -999,
-    FDbd1Pu = 0.005, FDbd2Pu = 0.1,
-    DbdPu = 0.0001,
-    K_p_pll = kp_pll_2, K_i_pll = ki_pll_2,
-    OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
-    DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
-    DuMax_idref = 100000.0, DuMin_idref = -10000.0,
-    tS_idref = 1e-4,
-    delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4
-  ) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.029, Uphase = -0.06721, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 2e-3, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, k_filter = 1, T_filter = T_filter, k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2, k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2, k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2, k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2, Imax = 2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5, K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2, K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 0, PMinPu = -2, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, K_p_pll = kp_pll_2, K_i_pll = ki_pll_2, OmegaMaxPu = 1.1, OmegaMinPu = 0.9, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 100000.0, DuMin_idref = -10000.0, tS_idref = 1e-4, delay_time_plant = delay_time_plant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
   // Network
   // ═══════════════════════════════════════════════════════════════
   Dynawo.Electrical.Buses.Bus bus annotation(
     Placement(transformation(origin = {-4, 20}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(
-    U0Pu = 1.100000, UPhase = -0.001082, omega0Pu = 1.0,
-    UEvtPu = 0.5, tUEvtStart = 15.1, tUEvtEnd = 15.1,
-    omegaEvtPu = 1.0, tOmegaEvtStart = 1e6, tOmegaEvtEnd = 1e6) annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1.100000, UPhase = -0.001082, omega0Pu = 1.0, UEvtPu = 0.5, tUEvtStart = 15.1, tUEvtEnd = 15.1, omegaEvtPu = 1.0, tOmegaEvtStart = 1e6, tOmegaEvtEnd = 1e6) annotation(
     Placement(transformation(origin = {-4, -74}, extent = {{-10, -10}, {10, 10}})));
-
   // ═══════════════════════════════════════════════════════════════
   // Setpoints
   // ═══════════════════════════════════════════════════════════════
@@ -146,20 +74,19 @@ model TwoConvertersDynamicLine_7Hz
     Placement(transformation(origin = {130, -56}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant UrefPu1(k = URef0Pu1) annotation(
     Placement(transformation(origin = {152, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-
-  final parameter Real URef0Pu  = gFLmodel.U0Pu  - gFLmodel.Lambda  * gFLmodel.Q0_pcc  * SystemBase.SnRef / gFLmodel.SNom;
-  final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda * gFLmodel1.Q0_pcc * SystemBase.SnRef / gFLmodel1.SNom;
-  Dynawo.Electrical.Lines.DynLine dynLine(RPu = 0.00144, LPu = 0.0144, U01Pu = gFLmodel.U0Pu, UPhase01 = gFLmodel.U0Pu, P01Pu = gFLmodel.P0_pcc, Q01Pu = gFLmodel.Q0_pcc, U02Pu = 1.036053, UPhase02 = 0, P02Pu = -0.50, Q02Pu = -0.012)  annotation(
+  final parameter Real URef0Pu = gFLmodel.U0Pu - gFLmodel.Lambda*gFLmodel.Q0_pcc*SystemBase.SnRef/gFLmodel.SNom;
+  final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda*gFLmodel1.Q0_pcc*SystemBase.SnRef/gFLmodel1.SNom;
+  Dynawo.Electrical.Lines.DynLine dynLine(RPu = 0.00144, LPu = 0.0144, U01Pu = gFLmodel.U0Pu, UPhase01 = gFLmodel.U0Pu, P01Pu = gFLmodel.P0_pcc, Q01Pu = gFLmodel.Q0_pcc, U02Pu = 1.036053, UPhase02 = 0, P02Pu = -0.50, Q02Pu = -0.012) annotation(
     Placement(transformation(origin = {-40, 20}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Lines.DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.499, Q01Pu = 0.0125, U02Pu = gFLmodel1.U0Pu, UPhase02 = gFLmodel1.Uphase, P02Pu = -gFLmodel1.P0_pcc, Q02Pu = -gFLmodel1.Q0_pcc)  annotation(
+  Dynawo.Electrical.Lines.DynLine dynLine1(RPu = 0.00144, LPu = 0.0144, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.499, Q01Pu = 0.0125, U02Pu = gFLmodel1.U0Pu, UPhase02 = gFLmodel1.Uphase, P02Pu = -gFLmodel1.P0_pcc, Q02Pu = -gFLmodel1.Q0_pcc) annotation(
     Placement(transformation(origin = {28, 20}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Lines.DynLine dynLine2(RPu = 0.04, LPu = 0.2, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.0005, Q01Pu = -0.013, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.0005, Q02Pu = 0.013)  annotation(
+  Dynawo.Electrical.Lines.DynLine dynLine2(RPu = 0.01, LPu = 0.1, U01Pu = 1.036, UPhase01 = 0, P01Pu = 0.0005, Q01Pu = -0.013, U02Pu = infiniteBusWithVariations.U0Pu, UPhase02 = infiniteBusWithVariations.UPhase, P02Pu = -0.0005, Q02Pu = 0.013) annotation(
     Placement(transformation(origin = {-4, -36}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Dynawo.Electrical.Lines.DynLine  dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = dynLine2.U02Pu, UPhase01 = dynLine2.UPhase02, P01Pu = dynLine2.P02Pu, Q01Pu = dynLine2.Q02Pu, U02Pu = dynLine2.U01Pu, UPhase02 =dynLine2.UPhase01, P02Pu = dynLine2.P01Pu, Q02Pu = dynLine2.Q01Pu)  annotation(
+  Dynawo.Electrical.Lines.DynLine dynLine3(RPu = 0.0077775, LPu = 0.077775, U01Pu = dynLine2.U02Pu, UPhase01 = dynLine2.UPhase02, P01Pu = dynLine2.P02Pu, Q01Pu = dynLine2.Q02Pu, U02Pu = dynLine2.U01Pu, UPhase02 = dynLine2.UPhase01, P02Pu = dynLine2.P01Pu, Q02Pu = dynLine2.Q01Pu) annotation(
     Placement(transformation(origin = {-52, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Dynawo.Electrical.Switches.IdealSwitch idealSwitch annotation(
     Placement(transformation(origin = {-30, -16}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanTable booleanTable(table = {0, 51.5}, startValue = true)  annotation(
+  Modelica.Blocks.Sources.BooleanTable booleanTable(table = {0, 51.5}, startValue = true) annotation(
     Placement(transformation(origin = {42, -14}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 equation
   dynLine.switchOffSignal1 = false;
@@ -213,25 +140,12 @@ equation
   connect(idealSwitch.control, booleanTable.y) annotation(
     Line(points = {{-30, -4}, {-2.5, -4}, {-2.5, -14}, {31, -14}}, color = {255, 0, 255}));
   annotation(
-    experiment(StartTime = 0, StopTime = 70, Tolerance = 1e-5, Interval = 0.0005),
+    experiment(StartTime = 0, StopTime = 70, Tolerance = 1e-05, Interval = 0.0005),
     preferredView = "diagram",
-    Documentation(info="
+    Documentation(info = "
 Author: Gaia Bergameaschi.
 7 Hz oscillation should be seen and, if run with the Julia script for parameter swap,
 the linear relationship between current loop and SSOS frequency can be observed.
 Run with dynamic lines."),
-    Icon(graphics = {
-      Ellipse(
-        lineColor = {75, 138, 73},
-        fillColor = {255, 255, 255},
-        fillPattern = FillPattern.Solid,
-        extent = {{-100, -100}, {100, 100}}),
-      Polygon(
-        lineColor = {0, 0, 255},
-        fillColor = {75, 138, 73},
-        pattern = LinePattern.None,
-        fillPattern = FillPattern.Solid,
-        points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})
-    }));
-
+    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
 end TwoConvertersDynamicLine_7Hz;
