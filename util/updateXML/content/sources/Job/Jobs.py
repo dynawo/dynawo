@@ -313,7 +313,11 @@ class Jobs:
             print("Error : Patch files between version " + '.'.join(map(str, self.__dynawo_origin)) + "+ and " + '.'.join(map(str, self.__dynawo_version)) + " not found")
             sys.exit(1)
 
-        sorted_update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: os.path.basename(update_filepath))
+        sorted_update_modules_list = sorted(unsorted_update_modules_list, key=lambda update_filepath: (
+        int(os.path.basename(update_filepath).replace("update","").split(".")[0]),
+        int(os.path.basename(update_filepath).split(".")[1]),
+        int(os.path.basename(update_filepath).split(".")[2]),
+        int(os.path.basename(update_filepath).split(".")[3])))
         return sorted_update_modules_list
 
     def __filter_update_modules(self, sorted_update_modules_filepath_list):
