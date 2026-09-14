@@ -27,6 +27,7 @@ using std::string;
 using std::vector;
 using std::map;
 using std::unordered_map;
+using std::set;
 using std::unordered_set;
 using std::pair;
 using std::list;
@@ -145,7 +146,7 @@ Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
 }
 
 int
-Graph::calculateComponents(const unordered_set<string> & closedEdges, unordered_map<int, int> & result) {
+Graph::calculateComponents(const unordered_set<string> & closedEdges, map<int, int> & result) {
   // build a neighboring map : for each node ID, associate the set of its neighboring nodes IDs
   unordered_map<int, unordered_set<int>> neighbors;
   for (const string & edgeId : closedEdges) {
@@ -154,7 +155,7 @@ Graph::calculateComponents(const unordered_set<string> & closedEdges, unordered_
   }
 
   // build the list of all node IDs to be exhausted
-  unordered_set<int> toTreatGlobal;
+  set<int> toTreatGlobal;
   for (auto it : vertices_)
     toTreatGlobal.insert(it.first);
 

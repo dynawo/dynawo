@@ -134,7 +134,7 @@ class Graph {
   void shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
       const std::unordered_map<std::string, float>& edgeWeights, PathDescription& path);
 
-  int calculateComponents(const std::unordered_set<std::string> & closedEdges, std::unordered_map<int, int> & result);
+  int calculateComponents(const std::unordered_set<std::string> & closedEdges, std::map<int, int> & result);
 
  private:
   /**

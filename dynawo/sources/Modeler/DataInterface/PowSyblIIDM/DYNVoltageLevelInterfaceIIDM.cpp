@@ -260,7 +260,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
     return;
 
   // for quick access later, memorize busbars node IDs and their string IDs
-  unordered_map<int, string> busbars;
+  map<int, string> busbars;
   for (powsybl::iidm::BusbarSection& bbsIIDM : voltageLevelIIDM_.getNodeBreakerView().getBusbarSections())
     busbars[static_cast<int>(bbsIIDM.getTerminal().getNodeBreakerView().getNode())] = bbsIIDM.getId();
 
@@ -282,8 +282,14 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   }
 
   // partition voltage level into "topology" connex components (ie, retained closed switches still separates components)
-  unordered_map<int, int> topoComponents;
+  map<int, int> topoComponents;
   int nbTopoComps = graph_.calculateComponents(topoEdges, topoComponents);
+
+  if (getID() == "L.NEUP6") {
+    std::cout << "topo components\n";
+    for (auto it : topoComponents)
+      std::cout << "node " << it.first << " in component " << it.second << "\n";
+  }
 
   // create calculated buses, one per connex component
   for (int compId=0; compId < nbTopoComps; ++compId) {
@@ -299,7 +305,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
     calculatedBus_[topoComponents[it.first]]->addBusBarSection(it.second);
 
   // partition voltage level by electrical connexity
-  unordered_map<int, int> elecComponents;
+  map<int, int> elecComponents;
   int nbElecComponents = graph_.calculateComponents(elecEdges, elecComponents);
 
   // for each elec component, register one child bbs nodeId if it exists
