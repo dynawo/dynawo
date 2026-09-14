@@ -1,4 +1,3 @@
-//
 // Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
@@ -9,157 +8,62 @@
 //
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 // simulation tool for power systems.
-//
 
-/**
- * @file  DYNGraph.cpp
- *
- * @brief Encapsulation of boost::graph.
- *
- */
-#include <iostream>
-#include <sstream>
 #include "DYNGraph.h"
-#include "DYNMacrosMessage.h"
-#include <boost/graph/dijkstra_shortest_paths.hpp>
 
 using std::string;
 using std::vector;
+using std::pair;
 using std::map;
 using std::unordered_map;
 using std::set;
 using std::unordered_set;
-using std::pair;
-using std::list;
-using boost::add_vertex;
-using boost::put;
-using boost::edge;
-using boost::add_edge;
 
 namespace DYN {
 
-Graph::Graph() {
-}
-
-void
-Graph::addVertex(unsigned vertexId) {
-  vertices_[vertexId] = add_vertex(internalGraph_);
-  put(boost::vertex_name_t(), internalGraph_, vertices_[vertexId], vertexId);
-}
-
-void
-Graph::addEdge(unsigned indexVertex1, unsigned indexVertex2, const string& id) {
-  if (!hasVertex(indexVertex1))
-    throw DYNError(DYN::Error::GENERAL, UnknownVertex, indexVertex1);
-  if (!hasVertex(indexVertex2))
-    throw DYNError(DYN::Error::GENERAL, UnknownVertex, indexVertex2);
-
-  if (edges_.find(id) != edges_.end())
-    throw DYNError(DYN::Error::GENERAL, AlreadyDefinedEdge, id);
-
-  std::pair<Edge, bool> edgePair = add_edge(vertices_[indexVertex1], vertices_[indexVertex2], internalGraph_);
-  put(boost::edge_name_t(), internalGraph_, edgePair.first, id);
-  edges_[id] = edgePair.first;
-  edges2_[id] = pair<int, int>(indexVertex1, indexVertex2);
-}
-
-void
-Graph::setEdgesWeight(const std::unordered_map<string, float>& edgeWeights) {
-  auto edgeIterators = boost::edges(internalGraph_);
-  for (auto it = edgeIterators.first, itEnd = edgeIterators.second; it != itEnd; ++it) {
-    const auto& edgeName = boost::get(boost::edge_name, internalGraph_, *it);
-    const auto& it2 = edgeWeights.find(edgeName);
-    if (it2 != edgeWeights.end())
-      put(boost::edge_weight_t(), internalGraph_, *it, it2->second);
-  }
-}
-
-void
-Graph::dijkstra(const unsigned vertexOrigin, const unsigned vertexExtremity,
-    const std::unordered_map<std::string, float>& edgeWeights,
-    PathDescription& path) {
-  if (vertexOrigin == vertexExtremity)
-    return;
-
-  setEdgesWeight(edgeWeights);
-  if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
-    positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
-    FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
-
-    std::unordered_map<unsigned int, Vertex> filteredVertices;
-    auto vs = boost::vertices(filteredGraph);
-    for (auto it = vs.first; it != vs.second; ++it) {
-      filteredVertices[boost::get(boost::vertex_name, filteredGraph, *it)] = *it;
-    }
-
-    Vertex start = filteredVertices[vertexOrigin];
-    std::vector<Vertex> predecessor(boost::num_vertices(filteredGraph));
-    std::vector<int> distance(boost::num_vertices(filteredGraph));
-    dijkstra_shortest_paths(filteredGraph, start, boost::predecessor_map(&predecessor[0]).distance_map(&distance[0]) );
-
-    Vertex node = filteredVertices[vertexExtremity];
-    if (distance[node] == std::numeric_limits<int>::max())
-      return;
-    while (node != start) {
-      Vertex prec = predecessor[node];
-      auto edgeIterators = boost::edges(filteredGraph);
-      for (auto it = edgeIterators.first, itEnd = edgeIterators.second; it != itEnd; ++it) {
-        const auto& source = boost::source(*it, filteredGraph);
-        const auto& target = boost::target(*it, filteredGraph);
-        if ((source == node && target == prec) || (source == prec && target == node)) {
-          string edgeId = boost::get(boost::edge_name, filteredGraph, *it);
-          path.insert(path.begin(), edgeId);
-          break;
-        }
-      }
-      node = prec;
-    }
-  }
-}
-
 bool
-Graph::pathExist(unsigned vertexOrigin, unsigned vertexExtremity, const std::unordered_map<string, float> & edgeWeights) {
-  if (vertexOrigin == vertexExtremity)
-    return true;
-  PathDescription path;
+Graph::pathExist(int nodeId1, int nodeId2, const unordered_map<string, pair<int, int>> & edges) {
+  checkVertex(nodeId1);
+  checkVertex(nodeId2);
 
-  setEdgesWeight(edgeWeights);
-  positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
-  FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
-  if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
-    Vertex start = vertices_[vertexOrigin];
-    std::vector<Vertex> predecessor(boost::num_vertices(filteredGraph));
-    std::vector<int> distance(boost::num_vertices(filteredGraph));
-    dijkstra_shortest_paths(filteredGraph, start, boost::predecessor_map(&predecessor[0]).distance_map(&distance[0]) );
-    return distance[vertices_[vertexExtremity]] != std::numeric_limits<int>::max();
+  if (nodeId1 == nodeId2)
+    return true;
+
+  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(edges);
+
+  unordered_set <int> toTreat, treated;
+  toTreat.insert(nodeId1);
+
+  while (!toTreat.empty()) {
+    int nodeId = *toTreat.begin();
+    toTreat.erase(nodeId);
+    treated.insert(nodeId);
+
+    for (int neighborId : neighbors[nodeId]) {
+      if (treated.find(neighborId) != treated.end())
+        continue;
+      if (neighborId == nodeId2)
+        return true;
+      toTreat.insert(neighborId);
+    }
   }
   return false;
 }
 
-void
-Graph::shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
-    const std::unordered_map<string, float> & edgeWeights, PathDescription& path) {
-  if (vertexOrigin == vertexExtremity)
-    return;
-
-  dijkstra(vertexOrigin, vertexExtremity, edgeWeights, path);
+vector<string>
+Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_map<string, pair<int, int>> & edges) {
+  // ToDo
+  return vector<string>();
 }
 
 int
-Graph::calculateComponents(const unordered_set<string> & closedEdges, map<int, int> & result) {
-  // build a neighboring map : for each node ID, associate the set of its neighboring nodes IDs
-  unordered_map<int, unordered_set<int>> neighbors;
-  for (const string & edgeId : closedEdges) {
-    neighbors[edges2_[edgeId].first ].insert(edges2_[edgeId].second);
-    neighbors[edges2_[edgeId].second].insert(edges2_[edgeId].first);
-  }
+Graph::calculateComponents(const unordered_map<string, pair<int, int>> & edges, map<int, int> & result) {
+  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(edges);
 
-  // build the list of all node IDs to be exhausted
   set<int> toTreatGlobal;
-  for (auto it : vertices_)
-    toTreatGlobal.insert(it.first);
+  for (int nodeId : vertices_)
+    toTreatGlobal.insert(nodeId);
 
-  // exhaustion by propagation
   int compId = 0;
   while (!toTreatGlobal.empty()) {
     unordered_set<int> toTreatLocal;
@@ -184,10 +88,17 @@ Graph::calculateComponents(const unordered_set<string> & closedEdges, map<int, i
   return compId;
 }
 
-
-bool
-Graph::hasVertex(unsigned int id) {
-  return (vertices_.find(id) != vertices_.end());
+unordered_map<int, unordered_set<int>>
+Graph::buildNeighboringMap(const unordered_map<string, pair<int, int>> & edges) {
+  unordered_map<int, unordered_set<int>> neighbors;
+  for (auto it : edges) {
+    int nodeId1 = it.second.first, nodeId2 = it.second.second;
+    checkVertex(nodeId1);
+    checkVertex(nodeId2);
+    neighbors[nodeId1].insert(nodeId2);
+    neighbors[nodeId2].insert(nodeId1);
+  }
+  return neighbors;
 }
 
 }  // namespace DYN

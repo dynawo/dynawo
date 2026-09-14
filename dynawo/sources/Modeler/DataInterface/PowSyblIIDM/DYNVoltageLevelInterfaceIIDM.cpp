@@ -1,4 +1,3 @@
-//
 // Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
@@ -9,13 +8,10 @@
 //
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 // simulation tool for power systems.
-//
 
 /**
  * @file  DYNVoltageLevelInterfaceIIDM.cpp
- *
  * @brief VoltageLevel data interface  : implementation file for IIDM interface
- *
  */
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNSwitchInterface.h"
@@ -61,28 +57,11 @@ VoltageLevelInterfaceIIDM::VoltageLevelInterfaceIIDM(powsybl::iidm::VoltageLevel
 voltageLevelIIDM_(voltageLevel) {
   isNodeBreakerTopology_ = (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
   if (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
-    for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
+    for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes())
       graph_.addVertex(static_cast<unsigned int>(nodeId));
-    }
 
-    // Add edges
-    for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
-      if (itSwitch.isOpen() && !itSwitch.isRetained()) {
-        // Disconnectors should never be closed
-        continue;
-      }
-      int node1 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode1(itSwitch.getId()));
-      int node2 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId()));
-      graph_.addEdge(node1, node2, itSwitch.getId());
-      weights1_[itSwitch.getId()] = 1;
-    }
-    // Additional edges for internal connections
-    for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
-      int node1 = static_cast<int>(itInternalConnection.getNode1());
-      int node2 = static_cast<int>(itInternalConnection.getNode2());
-      graph_.addEdge(node1, node2, internConnectId(itInternalConnection));
-      weights1_[internConnectId(itInternalConnection)] = 1;
-    }
+    allEdges_ = selectEdges(false, false);
+    topoEdges_ = selectEdges(true, true);
   }
 
   slackTerminalExtension_ = voltageLevelIIDM_.findExtension<powsybl::iidm::extensions::SlackTerminal>();
@@ -264,26 +243,9 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   for (powsybl::iidm::BusbarSection& bbsIIDM : voltageLevelIIDM_.getNodeBreakerView().getBusbarSections())
     busbars[static_cast<int>(bbsIIDM.getTerminal().getNodeBreakerView().getNode())] = bbsIIDM.getId();
 
-  // add edges depending on open or closed switches status
-  unordered_set<string> topoEdges, elecEdges;
-  for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
-    if (itSwitch.isOpen())
-      continue;
-    elecEdges.insert(itSwitch.getId());
-    if (!itSwitch.isRetained())
-      topoEdges.insert(itSwitch.getId());
-  }
-
-  // add edges corresponding to internal connections
-  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
-    string id = internConnectId(itInternalConnection);
-    elecEdges.insert(id);
-    topoEdges.insert(id);
-  }
-
   // partition voltage level into "topology" connex components (ie, retained closed switches still separates components)
   map<int, int> topoComponents;
-  int nbTopoComps = graph_.calculateComponents(topoEdges, topoComponents);
+  int nbTopoComps = graph_.calculateComponents(topoEdges_, topoComponents);
 
   if (getID() == "L.NEUP6") {
     std::cout << "topo components\n";
@@ -306,7 +268,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
 
   // partition voltage level by electrical connexity
   map<int, int> elecComponents;
-  int nbElecComponents = graph_.calculateComponents(elecEdges, elecComponents);
+  int nbElecComponents = graph_.calculateComponents(selectEdges(true, false), elecComponents);
 
   // for each elec component, register one child bbs nodeId if it exists
   vector<int> bbsByElecComp(nbElecComponents, -1);
@@ -379,8 +341,7 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
     if (terminal) {
       const auto& bus = terminal.get().getBusBreakerView().getBus();
       if (bus) {
-        vector<string> ret;
-        graph_.shortestPath(nodeToConnect, static_cast<unsigned int>(nodeId), weights1_, ret);
+        vector<string> ret = graph_.shortestPath(nodeToConnect, static_cast<unsigned int>(nodeId), allEdges_);
         if (shortestPath.empty()) {
           shortestPath = ret;
           nbSwitchToClose = countNumberOfSwitchesToClose(ret);
@@ -415,26 +376,15 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   // should be removed once a solution has been found to propagate switches (de)connection
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
-  // open all paths to bus bar section
-  std::unordered_map<string, float> weights;
-  for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
-    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
-      // Opened disconnectors are not in the graph
-      continue;
-    }
-    weights[itSwitch.getId()] = !itSwitch.isOpen() ? 1 : 0;
-  }
-  // Additional edges for internal connections, all closed
-  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections())
-    weights[internConnectId(itInternalConnection)] = 1;
+
+  std::unordered_map<std::string, std::pair<int, int>> closedEdges = selectEdges(true, false);
 
   for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
       if (bus) {
-        vector<string> path;
-        graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), weights, path);
+        vector<string> path = graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), closedEdges);
         bool somethingWasDisconnected = true;
 
         while (!path.empty() && somethingWasDisconnected) {
@@ -449,14 +399,14 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
                   switchState_[itSw->second] = OPEN;
                 }
                 sw.get().setOpen(true);
-                weights[switchID] = 0;
+                closedEdges.erase(switchID);
                 somethingWasDisconnected = true;
               }
               break;  // no more things to do, one breaker is open
             }
           }
           path.clear();
-          graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), weights, path);
+          path = graph_.shortestPath(nodeToDisconnect, static_cast<unsigned int>(nodeId), closedEdges);
         }
       }
     }
@@ -467,24 +417,11 @@ bool
 VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
 
-  // Change weight of edges
-  std::unordered_map<string, float> weights;
-  for (powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getNodeBreakerView().getSwitches()) {
-    if (itSwitch.isOpen() && !itSwitch.isRetained()) {
-      // Opened disconnectors are not in the graph
-      continue;
-    }
-    weights[itSwitch.getId()] = itSwitch.isOpen() ? 0 : 1;
-  }
-  // Additional edges for internal connections, all closed
-  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections())
-    weights[internConnectId(itInternalConnection)] = 1;
-
   for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
-      if (bus && graph_.pathExist(nodeToCheck, static_cast<unsigned int>(nodeId), weights)) {
+      if (bus && graph_.pathExist(nodeToCheck, static_cast<unsigned int>(nodeId), selectEdges(true, false))) {
         return true;
       }
     }
@@ -507,5 +444,31 @@ VoltageLevelInterfaceIIDM::getSlackBusId() const {
     return boost::none;
   }
 }
+
+unordered_map<string, pair<int, int>>
+VoltageLevelInterfaceIIDM::selectEdges(bool onlyClosed, bool onlyNotRetained) const {
+  unordered_map<string, pair<int, int>> toReturn;
+
+  for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
+    if (itSwitch.isOpen() && !itSwitch.isRetained())  // open and not retained, never considered
+      continue;
+    if (onlyClosed && itSwitch.isOpen())
+      continue;
+    if (onlyNotRetained && itSwitch.isRetained())
+      continue;
+    int node1 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode1(itSwitch.getId()));
+    int node2 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId()));
+    toReturn[itSwitch.getId()] = pair<int, int>(node1, node2);
+  }
+
+  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+    int node1 = static_cast<int>(itInternalConnection.getNode1());
+    int node2 = static_cast<int>(itInternalConnection.getNode2());
+    toReturn[internConnectId(itInternalConnection)] = pair<int, int>();
+  }
+
+  return toReturn;
+}
+
 
 }  // namespace DYN

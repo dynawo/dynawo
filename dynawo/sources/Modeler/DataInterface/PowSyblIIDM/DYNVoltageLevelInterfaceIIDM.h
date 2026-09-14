@@ -229,13 +229,16 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    */
   unsigned countNumberOfSwitchesToClose(const std::vector<std::string>& path) const;
 
+  std::unordered_map<std::string, std::pair<int, int>> selectEdges(bool onlyClosed, bool onlyNotRetained) const;
+
  private:
   powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
   std::unordered_map<std::shared_ptr<SwitchInterface>, double, SwitchInterfaceHash> switchState_;  ///< state to apply to switch (due to topology change)
   std::map<std::string, std::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
   Graph graph_;  ///< topology graph to find node connection
-  std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
+  std::unordered_map<std::string, std::pair<int, int>> allEdges_;
+  std::unordered_map<std::string, std::pair<int, int>> topoEdges_;
   std::vector<std::shared_ptr<BusInterface> > buses_;  ///< bus interface created
   std::vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view
   std::vector<std::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created
