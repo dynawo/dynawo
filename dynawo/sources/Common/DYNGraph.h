@@ -134,6 +134,12 @@ class Graph {
   void shortestPath(unsigned vertexOrigin, unsigned vertexExtremity,
       const std::unordered_map<std::string, float>& edgeWeights, PathDescription& path);
 
+  /**
+   * @brief partitions the graph in indexed connex components
+   * @param closedEdges list of edges IDs considered active (closed)
+   * @param result the resulting partition, with a component ID associated to each node ID
+   * @return the number of resulting partitions
+   */
   int calculateComponents(const std::unordered_set<std::string> & closedEdges, std::map<int, int> & result);
 
  private:

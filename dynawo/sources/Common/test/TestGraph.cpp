@@ -24,6 +24,9 @@
 using std::vector;
 using std::string;
 using std::list;
+using std::map;
+using std::unordered_map;
+using std::unordered_set;
 
 namespace DYN {
 
@@ -168,24 +171,31 @@ TEST(CommonTest, testshortestPathGraph) {
   ASSERT_EQ(path2.empty(), true);
 }
 
+static unordered_set<string> weightsToClosedEdges(const unordered_map<string, float> & weights) {
+  unordered_set<string> closedEdges;
+  for (auto it : weights)
+    if (it.second > 0)
+     closedEdges.insert(it.first);
+  return closedEdges;
+}
+
 TEST(CommonTest, testComponentGraph) {
   Graph graph = defineGraph();
-  // use all edge : weights equals to 1
-  std::unordered_map<string, float> weights = defineWeights();
-
-  std::pair<unsigned int, std::vector<unsigned int> > components = graph.calculateComponents(weights);
-  ASSERT_EQ(components.first, 1);
+  // use all edges : weights equals to 1
+  unordered_map<string, float> weights = defineWeights();
+  map<int, int> compMapping;
+  int nbComponents = graph.calculateComponents(weightsToClosedEdges(weights), compMapping);
+  ASSERT_EQ(nbComponents, 1);
 
   // open edge to have 2 components : 4-5, 3-5, 8-9
   weights["3-5"] = 0;
   weights["8-9"] = 0;
   weights["4-5"] = 0;
-  components = graph.calculateComponents(weights);
-  ASSERT_EQ(components.first, 2);
-  vector<unsigned int> verticesComponent = components.second;
-  ASSERT_EQ(verticesComponent[0], verticesComponent[3]);
-  ASSERT_EQ(verticesComponent[5], verticesComponent[9]);
-  ASSERT_NE(verticesComponent[0], verticesComponent[9]);
+  nbComponents = graph.calculateComponents(weightsToClosedEdges(weights), compMapping);
+  ASSERT_EQ(nbComponents, 2);
+  ASSERT_EQ(compMapping[0], compMapping[3]);
+  ASSERT_EQ(compMapping[5], compMapping[9]);
+  ASSERT_NE(compMapping[0], compMapping[9]);
 }
 
 /*
