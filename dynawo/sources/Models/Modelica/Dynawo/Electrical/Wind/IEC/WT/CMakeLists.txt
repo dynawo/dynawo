@@ -24,8 +24,6 @@ set(MODEL_FILES
   WT4BCurrentSource2020.mo
   WT4BCurrentSource2020.extvar
   WT4BCurrentSource2020.mandatoryParam
-  WT4CurrentSource_INIT.mo
-  WT4CurrentSource_INIT.mandatoryParam
   )
 
 #
