@@ -29,13 +29,16 @@
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 
+using std::unordered_map;
+using std::string;
+using std::pair;
 
 namespace DYN {
 
 ServiceManagerInterfaceIIDM::ServiceManagerInterfaceIIDM(const DataInterfaceIIDM* const dataInterface) : dataInterface_(dataInterface) {}
 
 void
-ServiceManagerInterfaceIIDM::buildGraph(Graph& graph, const std::shared_ptr<VoltageLevelInterface>& vl) {
+ServiceManagerInterfaceIIDM::buildGraph(Graph & graph, unordered_map<string, pair<int, int>> & edges, const std::shared_ptr<VoltageLevelInterface> & vl) {
   std::unordered_map<std::string, size_t> indexes;
 
   const auto& buses = vl->getBuses();
@@ -48,10 +51,12 @@ ServiceManagerInterfaceIIDM::buildGraph(Graph& graph, const std::shared_ptr<Volt
   }
 
   for (const auto& sw : vl->getSwitches()) {
-    auto busid1 = sw->getBusInterface1()->getID();
-    auto busid2 = sw->getBusInterface2()->getID();
+    if (sw->isOpen())
+      continue;
     // we are using the position of the bus in the bus array as index in the graph, because these indexes won't change during simulation
-    graph.addEdge(static_cast<unsigned int>(indexes.at(busid1)), static_cast<unsigned int>(indexes.at(busid2)), sw->getID());
+    int nodeId1 = static_cast<unsigned int>(indexes.at(sw->getBusInterface1()->getID()));
+    int nodeId2 = static_cast<unsigned int>(indexes.at(sw->getBusInterface2()->getID()));
+    edges[sw->getID()] = pair<int, int>(nodeId1, nodeId2);
   }
 }
 
@@ -72,22 +77,16 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   }
 
   Graph graph;
-  buildGraph(graph, *vlIt);
-
-  // Change weight of edges
-  std::unordered_map<std::string, float> weights;
-  for (const auto& sw : (*vlIt)->getSwitches()) {
-    weights[sw->getID()] = sw->isOpen() ? 0 : 1;
-  }
+  unordered_map<string, pair<int, int>> edges;
+  buildGraph(graph, edges, *vlIt);
 
   std::vector<std::string> ret;
-
   size_t busIndexFound = it - buses.begin();
   for (size_t busIndex = 0; busIndex < buses.size(); busIndex++) {
     if (busIndex == busIndexFound) {
       continue;
     }
-    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), weights)) {
+    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), edges)) {
       ret.push_back(buses.at(busIndex)->getID());
     }
   }
@@ -114,13 +113,8 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
     return true;
 
   Graph graph;
-  buildGraph(graph, *vlIt);
-
-  // Change weight of edges
-  std::unordered_map<std::string, float> weights;
-  for (const auto& sw : (*vlIt)->getSwitches()) {
-    weights[sw->getID()] = sw->isOpen() ? 0 : 1;
-  }
+  unordered_map<string, pair<int, int>> edges;
+  buildGraph(graph, edges, *vlIt);
 
   std::vector<std::string> ret;
 
@@ -129,7 +123,7 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
     if (busIndex == busIndexFound) {
       continue;
     }
-    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), weights) &&
+    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), edges) &&
         !buses[busIndex]->getBusBarSectionIdentifiers().empty()) {
       return true;
     }

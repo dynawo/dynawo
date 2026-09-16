@@ -66,7 +66,7 @@ class ServiceManagerInterfaceIIDM : public ServiceManagerInterface {
    * @param graph Graph to update
    * @param vl the voltage level to process
    */
-  static void buildGraph(Graph& graph, const std::shared_ptr<VoltageLevelInterface>& vl);
+  static void buildGraph(Graph& graph, std::unordered_map<std::string, std::pair<int, int>> & edges, const std::shared_ptr<VoltageLevelInterface>& vl);
 
   /**
    * @brief retrieve the regulated bus on the side of the regulated object
