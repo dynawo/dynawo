@@ -1,20 +1,23 @@
 within Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model CompRItoDQ "Computation of dq components from grid measurements in EPRI Grid Forming model"
-  /*
-  * Copyright (c) 2025, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-  */
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA" annotation(
     Dialog(tab = "General"));
+
   // Input variables
   Modelica.ComplexBlocks.Interfaces.ComplexInput iInjPu(re(start = iInj0Pu.re), im(start = iInj0Pu.im)) "Complex current in pu (base UNom, SnRef) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-270, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-120, 18}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -22,6 +25,7 @@ model CompRItoDQ "Computation of dq components from grid measurements in EPRI Gr
     Placement(visible = true, transformation(origin = {-280, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uInjPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-270, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+
   // Output variables
   Modelica.Blocks.Interfaces.RealOutput idConvPu(start = IdConv0Pu) "D-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {270, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -39,6 +43,7 @@ model CompRItoDQ "Computation of dq components from grid measurements in EPRI Gr
     Placement(visible = true, transformation(origin = {30, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ1 annotation(
     Placement(visible = true, transformation(origin = {30, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   // Initial parameters
   parameter Types.ComplexCurrentPu iInj0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (generator convention)" annotation(
     Dialog(tab = "Initial"));
@@ -54,6 +59,7 @@ model CompRItoDQ "Computation of dq components from grid measurements in EPRI Gr
     Dialog(tab = "Initial"));
   parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initial"));
+
 equation
   connect(transformRItoDQ.ud, udFilterPu) annotation(
     Line(points = {{41, 96}, {100.5, 96}, {100.5, 120}, {270, 120}}, color = {0, 0, 127}));
@@ -75,7 +81,9 @@ equation
     Line(points = {{82, -20}, {270, -20}}, color = {0, 0, 127}));
   connect(changeOfBaseD.y, idConvPu) annotation(
     Line(points = {{82, 40}, {270, 40}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {1, 3}, extent = {{-83, 65}, {83, -65}}, textString = "computation
 to
 dq")}),

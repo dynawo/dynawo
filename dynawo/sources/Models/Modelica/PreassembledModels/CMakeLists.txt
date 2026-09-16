@@ -231,7 +231,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhaseurGrid.xml
+  PhasorGrid.xml
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccCurrentSourceNoPlantControl.xml
   PhotovoltaicsWeccVoltageSource1.xml

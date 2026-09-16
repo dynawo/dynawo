@@ -1,19 +1,21 @@
 within Dynawo.Examples.GridForming;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model DynGFMCCVSMSmib "Single machine infinite bus test case for Grid Forming VSM model with dynamic filter and transformer"
-  /*
-      * Copyright (c) 2026, RTE (http://www.rte-france.com)
-      * See AUTHORS.txt
-      * All rights reserved.
-      * This Source Code Form is subject to the terms of the Mozilla Public
-      * License, v. 2.0. If a copy of the MPL was not distributed with this
-      * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-      * SPDX-License-Identifier: MPL-2.0
-      *
-      * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-      * of simulation tools for power systems.
-      */
   extends Modelica.Icons.Example;
+
   Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.000166667, XPu = 0.005) annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
@@ -28,12 +30,14 @@ model DynGFMCCVSMSmib "Single machine infinite bus test case for Grid Forming VS
     Placement(transformation(origin = {-8, 0}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Sources.Step PRefPu(height = 1.0, offset = 0.95, startTime = 5)  annotation(
     Placement(transformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   DynGFMCCVSM.switchOffSignal1 = false;
   DynGFMCCVSM.switchOffSignal2 = false;
   DynGFMCCVSM.switchOffSignal3 = false;
+
   connect(omegaRefPu.y, AcGrid.OmegaRef) annotation(
     Line(points = {{-100, 20}, {-56, 20}, {-56, 67}, {32, 67}}, color = {0, 0, 127}));
   connect(AcGrid.aCPower, line.terminal2) annotation(
@@ -48,7 +52,9 @@ equation
     Line(points = {{-100, -60}, {-32, -60}, {-32, -16}, {-30, -16}}, color = {0, 0, 127}));
   connect(PRefPu.y, DynGFMCCVSM.PFilterRefPu) annotation(
     Line(points = {{-100, 52}, {-30, 52}, {-30, 16}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),
     Documentation(info = "<html><head></head><body>This test case consists of a current-controlled grid-forming converter based on a Virtual Synchronous Machine Control (VSM), with current limitation enforced through a proportional virtual impedance (activated above IMaxVI) combined with a Quasi-Static Electrical Model to translate the resulting voltage reference into a current reference.<br><div><div><span style=\"font-size: 12px;\"><br></span></div><div>The GFM is connected to an infinite bus with the following variations :&nbsp;</div><div><span style=\"font-size: 12px;\">- At t = 7 s the reference active power PRefPu increases from 0.75 to 1.00 pu with a step.</span></div><div><span style=\"font-size: 12px;\">- At t = 10 s, a sudden increase in frequency at the bus is simulated (88% increase in p.u. over 0.0001 s)</span></div><div><span style=\"font-size: 12px;\">- At t = 20 s, an increase of 4% at the bus voltage happens. Return to the original value is made after 3 seconds.</span></div><div><span style=\"font-size: 12px;\"><br></span></div><div><span style=\"font-size: 12px;\">The graph shows the evolution of PFilterRefPu (reference active power in p.u. for the GFM) and PFilterPu : the active power in p.u measured at the RLC filter of the Converter block.&nbsp;</span></div><div><span style=\"font-size: 12px;\"><br></span></div><div><span style=\"font-size: 12px;\">As a note, the whole converter block is computed in the Real-Imaginary frame i.e. same as the grid's. A previous version of this model existed with the Converter block in the GFM rotating frame (DQ) and produced identical results.&nbsp;</span></div><div><span style=\"font-size: 12px;\"><br></span></div><div><div style=\"font-size: 12px;\"><b>Fig 1 : Reference active power in p.u measured at the RLC Filter.</b></div><div style=\"font-size: 12px;\"><b><br></b></div><div style=\"font-size: 12px;\"><img width=\"1000\" src=\"modelica://Dynawo/Examples/GridForming/Resources/Images/DynGFMVSM.png\"></div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\" <=\"\" div=\"\"></div></div></div></body></html>"),

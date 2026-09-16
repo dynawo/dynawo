@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model VirtualImpedance2 "Virtual impedance model for the current limitation of grid forming converters"
@@ -35,6 +36,7 @@ model VirtualImpedance2 "Virtual impedance model for the current limitation of g
 
   parameter Types.PerUnit IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
+
   final parameter Types.CurrentModulePu IConv0Pu = sqrt(IdConv0Pu ^ 2 + IqConv0Pu ^ 2)  "Start value of current module in the converter in pu (base UNom, SNom)";
   final parameter Types.CurrentModulePu DeltaIConv0Pu = max((IConv0Pu - IMaxVI), 0) "Start value of extra current module in the converter in pu (base UNom, SNom)";
   final parameter Types.PerUnit RVI0 = KpVI * DeltaIConv0Pu "Start value of virtual resistance in pu (base UNom, SNom)";
@@ -50,8 +52,8 @@ equation
   DeltaVVId = idConvPu * RVI - iqConvPu * XVI;
   DeltaVVIq = iqConvPu * RVI + idConvPu * XVI;
 
-  annotation(preferredView = "text",
-    Icon(coordinateSystem(grid = {1, 1})),
+  annotation(
     preferredView = "text",
+    Icon(coordinateSystem(grid = {1, 1})),
     Diagram(coordinateSystem(grid = {1, 1})));
 end VirtualImpedance2;

@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model DynQSEM "Quasi-Static Electrical Model"
@@ -45,6 +46,7 @@ model DynQSEM "Quasi-Static Electrical Model"
 equation
   [idConvRefPu; iqConvRefPu] = 1/(RFilter^2 + (LFilter*omegaPu + XVI)^2)*[RFilter, LFilter*omegaPu + XVI; -(LFilter*omegaPu + XVI), RFilter] * [udFilterRefPu-udFilteredPCCPu; uqFilterRefPu-uqFilteredPCCPu];
 
-annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Icon(coordinateSystem(grid = {1, 1})));
 end DynQSEM;

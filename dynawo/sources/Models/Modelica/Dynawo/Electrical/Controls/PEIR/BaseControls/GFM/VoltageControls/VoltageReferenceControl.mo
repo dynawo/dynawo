@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model VoltageReferenceControl "Voltage reference control block"
@@ -110,7 +111,9 @@ equation
     Line(points = {{-110, -56}, {82, -56}, {82, -44}}, color = {0, 0, 127}));
   connect(QFilterRefPu, feedback3.u1) annotation(
     Line(points = {{-110, 84}, {-66, 84}}, color = {0, 0, 127}));
-  annotation(preferredView = "diagram",
+
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(initialScale = 0.2)),
     Icon(coordinateSystem(initialScale = 0.2)));
 end VoltageReferenceControl;

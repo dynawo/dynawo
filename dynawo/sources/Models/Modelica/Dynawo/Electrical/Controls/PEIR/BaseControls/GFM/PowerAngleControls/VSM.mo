@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model VSM "Virtual Synchronous Machine control"
@@ -46,7 +47,7 @@ model VSM "Virtual Synchronous Machine control"
   Modelica.Blocks.Continuous.Integrator integrator1(k = SystemBase.omegaNom, y_start = Theta0) annotation(
     Placement(visible = true, transformation(origin = {78, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  // Initial parameter
+  // Initial parameters
   parameter Types.PerUnit PFilter0Pu "Start value of active power after the filter in pu (base SNom) (generator convention)";
   parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom) (generator convention)";
   parameter Types.Angle Theta0 "Start value of the phase shift between the converter and grid rotating frames in rad (generator convention)";
@@ -77,5 +78,5 @@ equation
   connect(add3.y, integrator.u) annotation(
     Line(points = {{-52, 0}, {-38, 0}}, color = {0, 0, 127}));
 
-annotation(preferredView = "diagram");
+  annotation(preferredView = "diagram");
 end VSM;

@@ -1,22 +1,26 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model VoltageReferenceControlCC "Voltage reference control block, with measurement filters frozen during current saturation episodes"
-  /*
-  * Copyright (c) 2026, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
+
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
   parameter Types.PerUnit Wf "Cutoff pulsation of the active and reactive filters (in rad/s)";
   parameter Types.PerUnit Wff "Cutoff pulsation of the active damping (in rad/s)";
   parameter Types.PerUnit Kff "Gain of the active damping";
   parameter Types.PerUnit WVIFreeze "Bandwidth of the DeltaVVId/DeltaVVIq near-passthrough tracking (should be fast compared to Wf/Wff so it behaves like a direct feedthrough in normal operation, e.g. a few hundred rad/s)";
+
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput iqPccPu(start = IqPcc0Pu) "q-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
@@ -33,31 +37,12 @@ model VoltageReferenceControlCC "Voltage reference control block, with measureme
     Placement(visible = true, transformation(origin = {-110, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput BlocCurrentSaturation_Enable "True when CurrentSaturation is clamping the current reference: freezes the measurement filters below" annotation(
     Placement(visible = true, transformation(origin = {-110, 108}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Modelica.Blocks.Interfaces.RealOutput udFilterRefPu(start = UdRef0Pu) "d-axis voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uqFilterRefPu(start = UqRef0Pu) "q-axis voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback5 annotation(
-    Placement(visible = true, transformation(origin = {82, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add2 annotation(
-    Placement(visible = true, transformation(origin = {22, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain3(k = Mq) annotation(
-    Placement(visible = true, transformation(origin = {-26, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback3 annotation(
-    Placement(visible = true, transformation(origin = {-58, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback4 annotation(
-    Placement(visible = true, transformation(origin = {52, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Feedback feedback7 annotation(
-    Placement(visible = true, transformation(origin = {82, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  parameter Types.PerUnit IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit UdRef0Pu "Start value of d-axis voltage reference in pu (base UNom)";
-  parameter Types.PerUnit UqRef0Pu "Start value of q-axis voltage reference in pu (base UNom)";
-  parameter Types.PerUnit DeltaVVId0 "Start value of d-axis virtual impedance output in pu (base UNom)";
-  parameter Types.PerUnit DeltaVVIq0 "Start value of q-axis virtual impedance output in pu (base UNom)";
-  parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
-  parameter Types.VoltageModulePu URef0Pu "Start value of voltage module reference in pu (base UNom)";
-  final parameter Types.ReactivePowerPu QFilterRef0Pu = QFilter0Pu + (Kff*IdPcc0Pu + DeltaVVId0)/Mq "Start value of reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
+
   // Measurement filters rewritten as explicit states, frozen (der = 0) while BlocCurrentSaturation_Enable is true.
   // Rationale: idPccPu/iqPccPu/QFilterPu remain physically correct measurements during saturation, but they no
   // longer reflect what this control's own model assumes ("commanded = actually delivered"). Letting the droop
@@ -77,6 +62,31 @@ model VoltageReferenceControlCC "Voltage reference control block, with measureme
   // rad/s) and are frozen (der=0) during saturation, exactly like the other three filters above.
   Types.PerUnit DeltaVVIdFrozenPu(start = DeltaVVId0) "Near-passthrough tracking of DeltaVVId, frozen during saturation";
   Types.PerUnit DeltaVVIqFrozenPu(start = DeltaVVIq0) "Near-passthrough tracking of DeltaVVIq, frozen during saturation";
+
+  Modelica.Blocks.Math.Feedback feedback5 annotation(
+    Placement(visible = true, transformation(origin = {82, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add2 annotation(
+    Placement(visible = true, transformation(origin = {22, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain3(k = Mq) annotation(
+    Placement(visible = true, transformation(origin = {-26, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Feedback feedback3 annotation(
+    Placement(visible = true, transformation(origin = {-58, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Feedback feedback4 annotation(
+    Placement(visible = true, transformation(origin = {52, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Feedback feedback7 annotation(
+    Placement(visible = true, transformation(origin = {82, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Types.PerUnit IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
+  parameter Types.PerUnit UdRef0Pu "Start value of d-axis voltage reference in pu (base UNom)";
+  parameter Types.PerUnit UqRef0Pu "Start value of q-axis voltage reference in pu (base UNom)";
+  parameter Types.PerUnit DeltaVVId0 "Start value of d-axis virtual impedance output in pu (base UNom)";
+  parameter Types.PerUnit DeltaVVIq0 "Start value of q-axis virtual impedance output in pu (base UNom)";
+  parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
+  parameter Types.VoltageModulePu URef0Pu "Start value of voltage module reference in pu (base UNom)";
+
+  final parameter Types.ReactivePowerPu QFilterRef0Pu = QFilter0Pu + (Kff*IdPcc0Pu + DeltaVVId0)/Mq "Start value of reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
+
 equation
   der(QFilterFiltPu) = if BlocCurrentSaturation_Enable then 0 else Wf * (QFilterPu - QFilterFiltPu);
   der(KffIdPccFiltPu) = if BlocCurrentSaturation_Enable then 0 else Wff * (Kff * idPccPu - KffIdPccFiltPu);
@@ -104,7 +114,9 @@ equation
     Line(points = {{91, -36}, {110, -36}}, color = {0, 0, 127}));
   feedback7.u2 = DeltaVVIqFrozenPu;
   connect(QFilterRefPu, feedback3.u1) annotation(
-    Line(points = {{-110, 84}, {-66, 84}}, color = {0, 0, 127}));  annotation(
+    Line(points = {{-110, 84}, {-66, 84}}, color = {0, 0, 127}));
+
+  annotation(
     preferredView = "diagram",
     Documentation(info = "<html><body>
     <p>Same voltage droop / active damping structure as <code>VoltageReferenceControl</code>, but five

@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model PLL "Phase-Locked Loop"
@@ -25,7 +26,6 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = 0) annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput omegaPLLPu(start = SystemBase.omegaRef0Pu) "Measured frequency in pu (base OmegaNom)" annotation(
@@ -66,6 +66,7 @@ equation
     Line(points = {{-150, 0}, {-60, 0}, {-60, 20}, {-12, 20}}, color = {0, 0, 127}));
   connect(limIntegrator.u, uqFilterPu) annotation(
     Line(points = {{-12, -20}, {-60, -20}, {-60, 0}, {-150, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p> The PLL calculates the frequency of the grid voltage by synchronizing the internal phase angle with measured voltage phasor. q-component of internal voltage phasor is therefore controlled to be zero. </p>

@@ -9,7 +9,8 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Auxiliaries;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model Measurements "Measurements block for PEIR models"
@@ -69,4 +70,5 @@ equation
   connect(firstOrder.y, udFilteredPccPu) annotation(
     Line(points = {{8.8, -40}, {110.8, -40}}, color = {0, 0, 127}));
 
+  annotation(preferredView = "diagram");
 end Measurements;

@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Buses;
 
 /*
-* Copyright (c) 2021, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,16 +9,12 @@ within Dynawo.Electrical.Buses;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
-model InfiniteBusWithVariations_PhaseJump "Infinite bus with configurable variations on the voltage module and on the frequency"
-
-
-extends AdditionalIcons.Bus;
-
-  Dynawo.Connectors.ACPower terminal annotation(
-    Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+model InfiniteBusWithVariationsPhaseJump "Infinite bus with configurable variations on the voltage module and on the frequency"
+  extends AdditionalIcons.Bus;
 
   // Voltage and frequency parameters
   parameter Types.PerUnit U0Pu "Infinite bus voltage module before and after event in pu (base UNom)";
@@ -39,16 +35,18 @@ extends AdditionalIcons.Bus;
   parameter Types.Angle dUPhaseEvt "Phase jump in rad (added from event time)";
   parameter Types.Time tUPhaseEvt "Time of voltage phase jump in s";
 
+  Dynawo.Connectors.ACPower terminal annotation(
+    Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   // Internal variables
-  Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
+  Types.PerUnit omegaPu "Infinite bus angular frequency in pu (base OmegaNom)";
   Types.PerUnit PPu "Infinite bus active power in pu (base SnRef) (receptor convention)";
   Types.PerUnit QPu "Infinite bus reactive power in pu (base SnRef) (receptor convention)";
-  Types.PerUnit omegaPu "Infinite bus angular frequency in pu (base OmegaNom)";
+  Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
   Types.Angle UPhaseOffs "Infinite bus voltage phase shift due to frequency variation in rad";
   Types.Angle UPhaseStep "Additional phase step applied at phase event time in rad";
 
 equation
-
   // Phase jump event: permanent step applied from tUPhaseEvtStart
   if time < tUPhaseEvt then
   UPhaseStep = 0;
@@ -89,6 +87,4 @@ equation
     Documentation(info = "<html>
 <p> Infinite bus extended with step disturbance in voltage, frequency and phase, and measurement signals as output signals. </p>
 </html>"));
-
-
-end InfiniteBusWithVariations_PhaseJump;
+end InfiniteBusWithVariationsPhaseJump;

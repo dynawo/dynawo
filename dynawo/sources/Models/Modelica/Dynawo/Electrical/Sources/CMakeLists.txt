@@ -38,9 +38,9 @@ set(MODEL_FILES
   InjectorIDQ_INIT.mandatoryParam
   InjectorURI.mo
   InjectorURI.extvar
-  PhaseurGrid.mo
-  PhaseurGrid.extvar
-  PhaseurGrid.mandatoryParam
+  PhasorGrid.mo
+  PhasorGrid.extvar
+  PhasorGrid.mandatoryParam
   )
 
 #

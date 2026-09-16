@@ -1,17 +1,19 @@
 within Dynawo.Electrical.Sources.PEIR.Converters.Average;
 
-model DynConverter "Converter physical part comprising an AVM voltage source, a dynamic RLC Filter and a dynamic RL Transformer"
-  /*
-  * Copyright (c) 2026, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
 
+model DynConverter "Converter physical part comprising an AVM voltage source, a dynamic RLC Filter and a dynamic RL Transformer"
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter in MVA";
 
@@ -26,14 +28,9 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
   // RL transformer parameters
   parameter Types.PerUnit RTransformerPu "Resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LTransformerPu "Inductance in pu (base UNom, SNom)";
+
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {105, -81}, extent = {{-5, -5}, {5, 5}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-
-  // Initial parameters
-  parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
-  parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
-  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
-  parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
 
   // Inputs
   Modelica.Blocks.Interfaces.RealInput udConvRefPu(start = transformRItoDQUConv.ud0) "d-axis modulation voltage reference in pu (base UNom)" annotation(
@@ -63,6 +60,12 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
   Modelica.Blocks.Interfaces.RealOutput iqPccPu(start = transformRItoDQIPcc.uq0) "q-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(transformation(origin = {136, -64}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {-70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
 
+  // Initial parameters
+  parameter Types.ComplexPerUnit i0Pu "Start value of the complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at terminal in pu (base UNom)";
+  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
+  parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+
   // Initialization
   BaseConverters.VSCConverter VSC(tVSC = tVSC, UdConv0Pu = transformRItoDQUConv.ud0, UqConv0Pu = transformRItoDQUConv.uq0) annotation(
     Placement(transformation(origin = {-70, 50}, extent = {{-10, -10}, {10, 10}})));
@@ -90,9 +93,18 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
     Placement(transformation(origin = {38, 50}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Utilities.TransformRItoDQGFM  transformRItoDQUConv(phi0 = Theta0, u0Pu = RLCFilter.UConv0Pu) annotation(
     Placement(transformation(origin = {-19, 77}, extent = {{9, -9}, {-9, 9}})));
-  Controls.Utilities.ChangeofBaseSNom changeofBaseSNom(SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu)  annotation(
+  Controls.Utilities.ChangeofBaseSNom changeofBaseSNom(SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(transformation(origin = {72, -86}, extent = {{-10, -10}, {10, 10}})));
+
 equation
+  RLCFilter.switchOffSignal1 = false;
+  RLCFilter.switchOffSignal2 = false;
+  RLTransformer.switchOffSignal1 = false;
+  RLTransformer.switchOffSignal2 = false;
+  injectorURI.switchOffSignal1 = false;
+  injectorURI.switchOffSignal2 = false;
+  injectorURI.switchOffSignal3 = false;
+
   connect(measurementsPcc.terminal1, RLTransformer.terminal2) annotation(
     Line(points = {{50, -48}, {48, -48}, {48, -42}}, color = {0, 0, 255}));
   connect(measurementsPcc.uPu, transformRItoDQUPcc.u) annotation(
@@ -145,13 +157,6 @@ equation
     Line(points = {{40, 62}, {40, 82}, {-10, 82}}, color = {85, 170, 255}));
   connect(theta, transformRItoDQUConv.phi) annotation(
     Line(points = {{-112, -12}, {-10, -12}, {-10, 72}}, color = {0, 0, 127}));
-  RLCFilter.switchOffSignal1 = false;
-  RLCFilter.switchOffSignal2 = false;
-  RLTransformer.switchOffSignal1 = false;
-  RLTransformer.switchOffSignal2 = false;
-  injectorURI.switchOffSignal1 = false;
-  injectorURI.switchOffSignal2 = false;
-  injectorURI.switchOffSignal3 = false;
   connect(omegaPu, RLCFilter.omegaPu) annotation(
     Line(points = {{-112, 12}, {30, 12}, {30, 28}, {40, 28}}, color = {0, 0, 127}));
   connect(omegaPu, RLTransformer.omegaPu) annotation(
@@ -168,6 +173,7 @@ equation
     Line(points = {{94, -52}, {136, -52}}, color = {0, 0, 127}));
   connect(transformRItoDQIPcc.uq, iqPccPu) annotation(
     Line(points = {{94, -64}, {136, -64}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents the physical part of a converter with an ideal voltage source, a dynamic RLC filter, a dynamic RL transformer and a reference frame rotation.<div><br></div><div>The interface variables are the current and voltages from the terminal.</div></body></html>"),

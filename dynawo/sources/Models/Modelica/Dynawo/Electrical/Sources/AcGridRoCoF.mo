@@ -1,17 +1,19 @@
 within Dynawo.Electrical.Sources;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model AcGridRoCoF "AC Grid emulating a RoCoF disturbance, without governor/turbine/inertia dynamics, and without any precompiled sub-component"
-  /*
-  * Copyright (c) 2026, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
 
   parameter Real SNom;
   parameter Real U0pu;
@@ -21,7 +23,7 @@ model AcGridRoCoF "AC Grid emulating a RoCoF disturbance, without governor/turbi
 
   parameter Real RoCoFValue "Value Rate of Change of Frequency (pu/s, base omegaNom)";
 
-  // ----- Voltage source terminal (equations written explicitly, no PhaseurGrid sub-component) -----
+  // ----- Voltage source terminal (equations written explicitly, no PhasorGrid sub-component) -----
   Dynawo.Connectors.ACPower aCPower annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {120, 74}, extent = {{-20, -20}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput PPu annotation(
@@ -68,7 +70,7 @@ model AcGridRoCoF "AC Grid emulating a RoCoF disturbance, without governor/turbi
     Placement(visible = true, transformation(origin = {80, -10}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-  // ----- Explicit voltage source equations (replaces PhaseurGrid sub-component) -----
+  // ----- Explicit voltage source equations (replaces PhasorGrid sub-component) -----
   aCPower.V.re = Upu * cos(UPhase + integrator1.y);
   aCPower.V.im = Upu * sin(UPhase + integrator1.y);
   PPu = -(aCPower.V.re * aCPower.i.re + aCPower.V.im * aCPower.i.im) * SystemBase.SnRef / SNom;

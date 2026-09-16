@@ -1,6 +1,17 @@
 within Dynawo.Electrical.Sources;
 
-
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
 
 model AcGrid "AC Grid from IEE explorer paper from Carmen C."
 
@@ -19,7 +30,6 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
   parameter Real TR = 8 "Reheat time constant, seconds";
   parameter Real Km = 0.95 "Mechanical power gain factor";
   parameter Real D = 1 "Damping Factor";
-
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = TR, k = 1 - FH) annotation(
     Placement(visible = true, transformation(origin = {-38, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -47,7 +57,7 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {300, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add4(k2 = -1)  annotation(
     Placement(visible = true, transformation(origin = {402, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.PhaseurGrid phaseurGrid(SNom = SNom, UPhase = UPhase, UPhase0 = UPhase0, UPu = Upu, U0Pu = U0pu) annotation(
+  Dynawo.Electrical.Sources.PhasorGrid phaseurGrid(SNom = SNom, UPhase = UPhase, UPhase0 = UPhase0, UPu = Upu, U0Pu = U0pu) annotation(
     Placement(transformation(origin = {538, -28}, extent = {{-30, -30}, {30, 30}})));
   Dynawo.Connectors.ACPower aCPower annotation(
     Placement(visible = true, transformation(origin = {689, -23}, extent = {{-23, -23}, {23, 23}}, rotation = 0), iconTransformation(origin = {120, 74}, extent = {{-20, -20}, {10, 10}}, rotation = 0)));
@@ -83,6 +93,7 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {332, 216}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add8 annotation(
     Placement(visible = true, transformation(origin = {378, 224}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(firstOrder.y, add.u2) annotation(
     Line(points = {{-26, 24}, {-14, 24}, {-14, 46}, {-2, 46}}, color = {0, 0, 127}));
@@ -156,8 +167,10 @@ equation
     Line(points = {{343, 252}, {354.5, 252}, {354.5, 230}, {366, 230}}, color = {0, 0, 127}));
   connect(integrator2.y, add7.u1) annotation(
     Line(points = {{450, 198}, {480, 198}, {480, 162}, {390, 162}, {390, 98}, {406, 98}}, color = {0, 0, 127}));
+
   annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-200, 300}, {720, -80}}), graphics = {Text(origin = {5, 241}, extent = {{-139, 9}, {139, -9}}, textString = "add a disturbance to omega to emulate a RoCof"), Text(origin = {82, 63}, extent = {{-14, 5}, {14, -5}}, textString = "Pm"), Text(origin = {82, 55}, extent = {{-14, 5}, {14, -5}}, textString = "Pe"), Text(origin = {145, 72}, extent = {{-21, 12}, {21, -12}}, textString = "1/(2H+s)"), Text(origin = {-150, 121}, extent = {{-14, 5}, {14, -5}}, textString = "Pref"), Text(origin = {-144, 69}, extent = {{-14, 5}, {14, -5}}, textString = "PRF"), Text(origin = {211, 57}, extent = {{-15, 9}, {15, -9}}, textString = "Wrotor-W0"), Rectangle(origin = {153, 36}, extent = {{-35, 46}, {35, -46}}), Text(origin = {309, 75}, extent = {{-25, 9}, {25, -9}}, textString = "Wrotor"), Text(origin = {-3, 160}, extent = {{-121, 66}, {121, -66}}, textString = "consider inertia of AC GRID if ACTIVATE is TRUE"), Text(origin = {72, 204}, extent = {{-72, 16}, {72, -16}}, textString = "offset StartTime")}),
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002),
-  Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Text(origin = {175, -38}, extent = {{-45, 40}, {45, -40}}, textString = "OmegaPu"), Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 8}, extent = {{-74, 50}, {74, -50}}, textString = "ACGrid")}));
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Text(origin = {175, -38}, extent = {{-45, 40}, {45, -40}}, textString = "OmegaPu"), Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {2, 8}, extent = {{-74, 50}, {74, -50}}, textString = "ACGrid")}));
 end AcGrid;

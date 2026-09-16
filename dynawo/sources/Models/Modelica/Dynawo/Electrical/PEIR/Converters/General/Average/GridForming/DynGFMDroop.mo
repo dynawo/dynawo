@@ -1,21 +1,25 @@
 within Dynawo.Electrical.PEIR.Converters.General.Average.GridForming;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to the grid"
-  /*
-          * Copyright (c) 2026, RTE (http://www.rte-france.com)
-          * See AUTHORS.txt
-          * All rights reserved.
-          * This Source Code Form is subject to the terms of the Mozilla Public
-          * License, v. 2.0. If a copy of the MPL was not distributed with this
-          * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-          * SPDX-License-Identifier: MPL-2.0
-          *
-          * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-          */
-  // Installation parameter
   extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffInjector;
+
+  // Installation parameter
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
   parameter Types.Time tUFilt = 0.01 "Filter time constant for voltage measurement in s";
+
   //Virtual Impedance parameters
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance" annotation(
     Dialog(tab = "VI"));
@@ -23,8 +27,8 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
     Dialog(tab = "VI"));
   parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "VI"));
-  // Droop & Voltage reference control parameters
 
+  // Droop & Voltage reference control parameters
   parameter Types.PerUnit Mp "Active power droop control coefficient" annotation(
     Dialog(tab = "Droop & Voltage Reference"));
   parameter Types.PerUnit Mq "Reactive power droop control coefficient" annotation(
@@ -35,9 +39,11 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
     Dialog(tab = "Droop & Voltage Reference"));
   parameter Types.PerUnit Kff "Gain of the active damping" annotation(
     Dialog(tab = "Droop & Voltage Reference"));
-    // QSEM parameter
+
+  // QSEM parameter
   parameter Real XVI "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
     Dialog(tab = "QSEM"));
+
   // Current loop parameters
   parameter Types.PerUnit omegaC "Current Loop bandwidth (in rad/s)" annotation(
     Dialog(tab = "Current loop"));
@@ -45,6 +51,7 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfq "Feedforward gain on the q-axis" annotation(
     Dialog(tab = "Current loop"));
+
   // Filter parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Filter"));
@@ -52,13 +59,15 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
     Dialog(tab = "Filter"));
   parameter Types.PerUnit CFilterPu "Filter capacitance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Filter"));
+
   // Transformer parameters
   parameter Types.PerUnit RTransformerPu "Transformer resistance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Transformer"));
   parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Transformer"));
+
   // PLL parameters
-    parameter Types.PerUnit omegaNPLL "PLL bandwidth (in rad/s)" annotation(
+  parameter Types.PerUnit omegaNPLL "PLL bandwidth (in rad/s)" annotation(
     Dialog(tab = "PLL"));
   parameter Types.PerUnit ZetaPLL "PLL damping ratio (dimensionless)"annotation(
     Dialog(tab = "PLL"));
@@ -66,8 +75,10 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
   // VSC parameter
   parameter Types.Time tVSC "VSC time response in s" annotation(
     Dialog(tab = "VSC"));
+
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {106, 42}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+
   Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = ControlDroop.PFilter0Pu) "Active power reference at the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "System frequency reference in pu (base omegaNom)" annotation(
@@ -76,8 +87,14 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
     Placement(visible = true, transformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = ControlDroop.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Electrical.Controls.PEIR.BaseControls.Auxiliaries.Measurements Measurements(IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, tUFilt = tUFilt) annotation(
     Placement(visible = true, transformation(origin = {18, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
+  Sources.PEIR.Converters.Average.DynConverter Converter(SNom = SNom, tVSC = tVSC, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, i0Pu = i0Pu, u0Pu = u0Pu, Theta0 = Theta0, Omega0Pu = SystemBase.omegaRef0Pu)  annotation(
+    Placement(transformation(origin = {59, 41}, extent = {{-21, -21}, {21, 21}})));
+  Controls.PEIR.Converters.Average.DynGridFormingControlDroop ControlDroop(IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, KpVI = KpVI, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, Mp = Mp, u0Pu = u0Pu, U0Pu = U0Pu, UPhase0 = UPhase0, omegaC = omegaC, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL) annotation(
+    Placement(transformation(origin = {-41, 41}, extent = {{-21, -21}, {21, 21}})));
+
   // Operating point
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal/PCC in rad";
@@ -88,11 +105,10 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
   final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu + XVI)*i0Pu*SystemBase.SnRef/SNom "Start value of the complex voltage at the filter in pu (base UNom)";
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
-  Sources.PEIR.Converters.Average.DynConverter Converter(SNom = SNom, tVSC = tVSC, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, i0Pu = i0Pu, u0Pu = u0Pu, Theta0 = Theta0, Omega0Pu = SystemBase.omegaRef0Pu)  annotation(
-    Placement(transformation(origin = {59, 41}, extent = {{-21, -21}, {21, 21}})));
-  Controls.PEIR.Converters.Average.DynGridFormingControlDroop ControlDroop(IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, KpVI = KpVI, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, Mp = Mp, u0Pu = u0Pu, U0Pu = U0Pu, UPhase0 = UPhase0, omegaC = omegaC, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL) annotation(
-    Placement(transformation(origin = {-41, 41}, extent = {{-21, -21}, {21, 21}})));
+
 equation
+  ControlDroop.uPccPu = terminal.V;
+
   connect(Converter.terminal, terminal) annotation(
     Line(points = {{82, 42}, {106, 42}}, color = {0, 0, 255}));
   connect(Converter.uqPccPu, Measurements.uqPccPu) annotation(
@@ -143,10 +159,9 @@ equation
     Line(points = {{70, 64}, {70, 80}, {-52, 80}, {-52, 64}}, color = {0, 0, 127}));
   connect(ControlDroop.omegaPu, Converter.omegaPu) annotation(
     Line(points = {{-30, 64}, {-30, 74}, {48, 74}, {48, 64}}, color = {0, 0, 127}));
-  ControlDroop.uPccPu = terminal.V;
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),
-    Diagram(graphics = {Text(origin = {11, 11}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "idPccPu"), Text(origin = {11, 3}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "iqPccPu"), Text(origin = {-21, -25}, textColor = {85, 170, 255}, extent = {{-15, 1}, {15, -1}}, textString = "uqFilteredPccPu"), Text(origin = {-21, -17}, textColor = {85, 170, 255}, extent = {{-15, 1}, {15, -1}}, textString = "udFilteredPccPu"), Text(origin = {51, -27}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "udPccPu"), Text(origin = {51, -37}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "uqPccPu"), Text(origin = {19, -61}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterPu"), Text(origin = {19, -71}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterPu"), Text(origin = {-21, -35}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "QFilterPu"), Text(origin = {-21, -41}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "PFilterPu"), Text(origin = {9, 53}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {19, -77}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvPu"), Text(origin = {19, -83}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvPu"), Text(origin = {9, 83}, textColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta")}),
-  experiment);
+    Diagram(graphics = {Text(origin = {11, 11}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "idPccPu"), Text(origin = {11, 3}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "iqPccPu"), Text(origin = {-21, -25}, textColor = {85, 170, 255}, extent = {{-15, 1}, {15, -1}}, textString = "uqFilteredPccPu"), Text(origin = {-21, -17}, textColor = {85, 170, 255}, extent = {{-15, 1}, {15, -1}}, textString = "udFilteredPccPu"), Text(origin = {51, -27}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "udPccPu"), Text(origin = {51, -37}, textColor = {85, 170, 255}, extent = {{-13, 1}, {13, -1}}, textString = "uqPccPu"), Text(origin = {19, -61}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterPu"), Text(origin = {19, -71}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterPu"), Text(origin = {-21, -35}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "QFilterPu"), Text(origin = {-21, -41}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "PFilterPu"), Text(origin = {9, 53}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {9, 37}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqConvRefPu", textStyle = {TextStyle.Bold}), Text(origin = {19, -77}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvPu"), Text(origin = {19, -83}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvPu"), Text(origin = {9, 83}, textColor = {0, 0, 127}, extent = {{-13, 1}, {13, -1}}, textString = "theta")}));
 end DynGFMDroop;

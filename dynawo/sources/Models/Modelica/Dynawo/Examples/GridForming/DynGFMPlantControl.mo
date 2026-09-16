@@ -1,41 +1,23 @@
 within Dynawo.Examples.GridForming;
 
-model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
-  /*
-    * Copyright (c) 2026, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-    * of simulation tools for power systems.
-    */
-  extends Modelica.Icons.Example;
-  //Operating Point
-  parameter Types.ApparentPowerModule SNom=1000 "Nominal apparent power module for the converter";
-  parameter Types.VoltageModulePu UGfm0Pu = 1.053980620785106
-    "Start value of voltage amplitude at terminal of the GFM in pu (base UNom)";
-  parameter Types.Angle UPhaseGfm0 = 0.09020617241887803
-    "Start value of voltage angle at terminal of the GFM in rad";
-  parameter Types.ActivePowerPu PGfm0Pu = -10.006748123525433
-    "Start value of active power at terminal of the GFM in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu QGfm0Pu = -5.1170948
-    "Start value of reactive power at terminal of the GFM in pu (base SnRef) (receptor convention)";
-  final parameter Types.ComplexVoltagePu uFilter0Pu =
-      u0Pu - Complex(dynVSMPlantControl.RTransformerPu, dynVSMPlantControl.LTransformerPu*SystemBase.omegaRef0Pu + dynVSMPlantControl.XVI)*i0Pu*SystemBase.SnRef/SNom;
-  final parameter Types.VoltageModulePu UFilter0Pu = sqrt(uFilter0Pu.re^2 + uFilter0Pu.im^2);
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
 
-  final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(UGfm0Pu, UPhaseGfm0) "Start value of the complex voltage at terminal/PCC in pu (base UNom)";
-  final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(PGfm0Pu, QGfm0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.Angle UPccPhase0 = atan2(uPcc0Pu.im, uPcc0Pu.re);
-  final parameter Types.ComplexImpedancePu Ztot = Complex(line.RPu+Transformer.RPu, line.XPu+Transformer.XPu);
-  final parameter Types.ComplexVoltagePu uPcc0Pu = u0Pu + Ztot*i0Pu;
-  final parameter Types.ActivePowerPu PPcc0Pu = uPcc0Pu.re*i0Pu.re + uPcc0Pu.im*i0Pu.im;
-  final parameter Types.ReactivePowerPu QPcc0Pu = uPcc0Pu.im*i0Pu.re - uPcc0Pu.re*i0Pu.im;
-  final parameter Types.VoltageModulePu UPcc0Pu = sqrt(uPcc0Pu.re^2 + uPcc0Pu.im^2);
+model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
+  extends Modelica.Icons.Example;
+
+  parameter Types.ApparentPowerModule SNom=1000 "Nominal apparent power module for the converter";
+
   Modelica.Blocks.Sources.Constant URefPu(k = UPcc0Pu + dynVSMPlantControl.Lambd*QPcc0Pu) annotation(
     Placement(transformation(origin = {-74, 6}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = PPcc0Pu) annotation(
@@ -52,11 +34,34 @@ model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
     Placement(transformation(origin = {-8, 4}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 0, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.110, tUPhaseEvt = 10)  annotation(
     Placement(transformation(origin = {128, 4}, extent = {{-10, -10}, {10, 10}})));
+
+  //Operating point
+  parameter Types.VoltageModulePu UGfm0Pu = 1.053980620785106
+    "Start value of voltage amplitude at terminal of the GFM in pu (base UNom)";
+  parameter Types.Angle UPhaseGfm0 = 0.09020617241887803
+    "Start value of voltage angle at terminal of the GFM in rad";
+  parameter Types.ActivePowerPu PGfm0Pu = -10.006748123525433
+    "Start value of active power at terminal of the GFM in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu QGfm0Pu = -5.1170948
+    "Start value of reactive power at terminal of the GFM in pu (base SnRef) (receptor convention)";
+
+  final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(dynVSMPlantControl.RTransformerPu, dynVSMPlantControl.LTransformerPu*SystemBase.omegaRef0Pu + dynVSMPlantControl.XVI)*i0Pu*SystemBase.SnRef/SNom;
+  final parameter Types.VoltageModulePu UFilter0Pu = sqrt(uFilter0Pu.re^2 + uFilter0Pu.im^2);
+  final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(UGfm0Pu, UPhaseGfm0) "Start value of the complex voltage at terminal/PCC in pu (base UNom)";
+  final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(PGfm0Pu, QGfm0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
+  final parameter Types.Angle UPccPhase0 = atan2(uPcc0Pu.im, uPcc0Pu.re);
+  final parameter Types.ComplexImpedancePu Ztot = Complex(line.RPu+Transformer.RPu, line.XPu+Transformer.XPu);
+  final parameter Types.ComplexVoltagePu uPcc0Pu = u0Pu + Ztot*i0Pu;
+  final parameter Types.ActivePowerPu PPcc0Pu = uPcc0Pu.re*i0Pu.re + uPcc0Pu.im*i0Pu.im;
+  final parameter Types.ReactivePowerPu QPcc0Pu = uPcc0Pu.im*i0Pu.re - uPcc0Pu.re*i0Pu.im;
+  final parameter Types.VoltageModulePu UPcc0Pu = sqrt(uPcc0Pu.re^2 + uPcc0Pu.im^2);
+
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   Transformer.switchOffSignal1 = false;
   Transformer.switchOffSignal2 = false;
+
   connect(line.terminal2, Transformer.terminal1) annotation(
     Line(points = {{44, 4}, {58, 4}}, color = {0, 0, 255}));
   connect(dynVSMPlantControl.terminal, line.terminal1) annotation(
@@ -77,7 +82,8 @@ equation
     Line(points = {{58, -6}, {54, -6}, {54, -44}, {-36, -44}, {-36, -2}, {-20, -2}}, color = {0, 0, 127}));
   connect(Transformer.terminal2, infiniteBusWithVariations_PhaseJump.terminal) annotation(
     Line(points = {{78, 4}, {128, 4}}, color = {0, 0, 255}));
+
   annotation(
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),
-    Diagram);
-    end DynGFMPlantControl;
+    preferredView = "diagram",
+    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379));
+end DynGFMPlantControl;

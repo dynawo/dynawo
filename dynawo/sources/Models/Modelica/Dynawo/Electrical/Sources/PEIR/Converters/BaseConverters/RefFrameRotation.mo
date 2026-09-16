@@ -9,7 +9,8 @@ within Dynawo.Electrical.Sources.PEIR.Converters.BaseConverters;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
 */
 
 model RefFrameRotation "Reference frame rotation module - (re, im) <-> (d,q)"
@@ -47,6 +48,7 @@ equation
   [udPccPu; uqPccPu] = [cos(theta), sin(theta); -sin(theta), cos(theta)] * [terminal.V.re; terminal.V.im];
   [idPccPu; iqPccPu] = -[cos(theta), sin(theta); -sin(theta), cos(theta)] * [terminal.i.re; terminal.i.im] * SystemBase.SnRef / SNom;
 
-annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {52, 58}, rotation = 90, extent = {{-141, 127}, {38, -33}}, textString = "Reference Frame Rotation")}));
 end RefFrameRotation;

@@ -1,27 +1,32 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model DynCurrentLoop "Current loop control for grid forming and grid following converters"
-  /*
-  * Copyright (c) 2015-2026, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
+
   parameter Types.PerUnit OmegaC "Current loop closed-loop bandwidth in rad/s";
+  parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";
+  parameter Types.PerUnit LFilter "Filter inductance in pu (base UNom, SNom)";
+  parameter Types.PerUnit Kfd "Feedforward gain on the d-axis";
+  parameter Types.PerUnit Kfq  "Feedforward gain on the q-axis";
+
   //Internal PI gains, derived from OmegaC by cancelling the plant pole at s = -R/L*omegaNom
   //with the controller zero (Ki/Kp = R/L*omegaNom), which reduces the closed loop to a
   //first-order system I/Iref = omegaC/(s+omegaC). See Kpc = L*omegaC/omegaNom, Kic = R*omegaC.
   final parameter Types.PerUnit Kpc = LFilter * OmegaC / SystemBase.omegaNom "Proportional gain of the current loop, derived from OmegaC";
   final parameter Types.PerUnit Kic = RFilter * OmegaC "Integral gain of the current loop, derived from OmegaC";
-  parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";
-  parameter Types.PerUnit LFilter "Filter inductance in pu (base UNom, SNom)";
-  parameter Types.PerUnit Kfd "Feedforward gain on the d-axis";
-  parameter Types.PerUnit Kfq  "Feedforward gain on the q-axis";
+
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
@@ -36,10 +41,12 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
     Placement(visible = true, transformation(origin = {-149, 130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
   Modelica.Blocks.Interfaces.RealOutput udConvRefPu(start = UdConv0Pu) "d-axis modulation voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uqConvRefPu(start = UqConv0Pu) "q-axis modulation voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -39}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Math.Gain gaind(k = Kpc) annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integratord(k = Kic, y_start = UdConv0Pu - Kfd*UdFilter0Pu + LFilter*Omega0Pu*IqConv0Pu) annotation(
@@ -76,6 +83,7 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
     Placement(transformation(origin = {24.5, 129.5}, extent = {{-9.5, -9.5}, {9.5, 9.5}})));
   Modelica.Blocks.Math.Gain feedforwardKq(k = Kfq) annotation(
     Placement(visible = true, transformation(origin = {-12, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's capacitor in pu (base UNom)";
   parameter Types.PerUnit IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
@@ -85,6 +93,7 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
   parameter Types.PerUnit IdConvRef0Pu "Start value of d-axis reference current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IqConvRef0Pu "Start value of q-axis reference current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.AngularVelocityPu Omega0Pu "Start value of converter's frequency in pu (base omegaNom)";
+
 equation
   connect(feedbackd.u1, idConvRefPu) annotation(
     Line(points = {{-128, 80}, {-150, 80}}, color = {0, 0, 127}));
@@ -146,6 +155,7 @@ equation
     Line(points = {{-149, 130}, {13, 130}}, color = {0, 0, 127}));
   connect(feedforwardKd.y, addd2.u1) annotation(
     Line(points = {{36, 130}, {70, 130}, {70, 92}, {78, 92}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Icon(coordinateSystem(grid = {1, 1}), graphics = {Rectangle(origin = {0, -0.5}, extent = {{-100, 99.5}, {100, -99.5}}), Text(origin = {-1, -2}, extent = {{-99, 99}, {99, -97}}, textString = "Current Loop")}),
