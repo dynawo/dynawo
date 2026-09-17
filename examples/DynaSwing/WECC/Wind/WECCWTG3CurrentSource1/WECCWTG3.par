@@ -175,7 +175,6 @@
     <par type="DOUBLE" name="WTG3_tOmegaRef" value="60"/>
     <!-- Aero-dynamic model -->
     <par type="DOUBLE" name="WTG3_Ka" value="0.007"/>
-    <par type="DOUBLE" name="WTG3_Pm0Pu" value="0.7"/>
     <par type="DOUBLE" name="WTG3_Theta0" value="0"/>
     <!-- Drive train control-->
     <par type="DOUBLE" name="WTG3_Dshaft" value="2.7"/>

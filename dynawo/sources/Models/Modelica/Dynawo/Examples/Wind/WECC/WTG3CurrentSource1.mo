@@ -156,7 +156,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     TeMinPu = 0,
     TFlag = true,
     Ka = 0.007,
-    Pm0Pu(fixed=false),
+    Pm0Pu(fixed = false),
     brkpt = 0.1,
     zerox = 0.05,
     Lvplsw = false,
@@ -204,7 +204,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     Placement(transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT weccPlantCurrentSource_INIT(
     BMvHvPu = WTG3.BMvHvPu,
     ConverterLVControl = WTG3.ConverterLVControl,
     GMvHvPu = WTG3.GMvHvPu,
@@ -233,32 +233,32 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
-  WTG3.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
-  WTG3.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
-  WTG3.PF0 := wTG4CurrentSource_INIT.PF0;
-  WTG3.PInj0Pu := wTG4CurrentSource_INIT.PInj0Pu;
-  WTG3.QInj0Pu := wTG4CurrentSource_INIT.QInj0Pu;
-  WTG3.UInj0Pu := wTG4CurrentSource_INIT.UInj0Pu;
-  WTG3.i0Pu.re := wTG4CurrentSource_INIT.i0Pu.re;
-  WTG3.i0Pu.im := wTG4CurrentSource_INIT.i0Pu.im;
-  WTG3.iConv0Pu.re := wTG4CurrentSource_INIT.iConv0Pu.re;
-  WTG3.iConv0Pu.im := wTG4CurrentSource_INIT.iConv0Pu.im;
-  WTG3.s0Pu.re := wTG4CurrentSource_INIT.s0Pu.re;
-  WTG3.s0Pu.im := wTG4CurrentSource_INIT.s0Pu.im;
-  WTG3.u0Pu.re := wTG4CurrentSource_INIT.u0Pu.re;
-  WTG3.u0Pu.im := wTG4CurrentSource_INIT.u0Pu.im;
-  WTG3.uInj0Pu.re := wTG4CurrentSource_INIT.uInj0Pu.re;
-  WTG3.uInj0Pu.im := wTG4CurrentSource_INIT.uInj0Pu.im;
-  WTG3.UConv0Pu := wTG4CurrentSource_INIT.UConv0Pu;
-  WTG3.uConv0Pu.re := wTG4CurrentSource_INIT.uConv0Pu.re;
-  WTG3.uConv0Pu.im := wTG4CurrentSource_INIT.uConv0Pu.im;
-  WTG3.uPcc0Pu.re := wTG4CurrentSource_INIT.uPcc0Pu.re;
-  WTG3.uPcc0Pu.im := wTG4CurrentSource_INIT.uPcc0Pu.im;
-  WTG3.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
-  WTG3.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
-  WTG3.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
-  WTG3.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
-  WTG3.Pm0Pu := wTG4CurrentSource_INIT.Pm0Pu;
+  WTG3.Id0Pu := weccPlantCurrentSource_INIT.Id0Pu;
+  WTG3.Iq0Pu := weccPlantCurrentSource_INIT.Iq0Pu;
+  WTG3.PF0 := weccPlantCurrentSource_INIT.PF0;
+  WTG3.PInj0Pu := weccPlantCurrentSource_INIT.PInj0Pu;
+  WTG3.QInj0Pu := weccPlantCurrentSource_INIT.QInj0Pu;
+  WTG3.UInj0Pu := weccPlantCurrentSource_INIT.UInj0Pu;
+  WTG3.i0Pu.re := weccPlantCurrentSource_INIT.i0Pu.re;
+  WTG3.i0Pu.im := weccPlantCurrentSource_INIT.i0Pu.im;
+  WTG3.iConv0Pu.re := weccPlantCurrentSource_INIT.iConv0Pu.re;
+  WTG3.iConv0Pu.im := weccPlantCurrentSource_INIT.iConv0Pu.im;
+  WTG3.s0Pu.re := weccPlantCurrentSource_INIT.s0Pu.re;
+  WTG3.s0Pu.im := weccPlantCurrentSource_INIT.s0Pu.im;
+  WTG3.u0Pu.re := weccPlantCurrentSource_INIT.u0Pu.re;
+  WTG3.u0Pu.im := weccPlantCurrentSource_INIT.u0Pu.im;
+  WTG3.uInj0Pu.re := weccPlantCurrentSource_INIT.uInj0Pu.re;
+  WTG3.uInj0Pu.im := weccPlantCurrentSource_INIT.uInj0Pu.im;
+  WTG3.UConv0Pu := weccPlantCurrentSource_INIT.UConv0Pu;
+  WTG3.uConv0Pu.re := weccPlantCurrentSource_INIT.uConv0Pu.re;
+  WTG3.uConv0Pu.im := weccPlantCurrentSource_INIT.uConv0Pu.im;
+  WTG3.uPcc0Pu.re := weccPlantCurrentSource_INIT.uPcc0Pu.re;
+  WTG3.uPcc0Pu.im := weccPlantCurrentSource_INIT.uPcc0Pu.im;
+  WTG3.PConv0Pu := weccPlantCurrentSource_INIT.PConv0Pu;
+  WTG3.QConv0Pu := weccPlantCurrentSource_INIT.QConv0Pu;
+  WTG3.UPhaseConv0 := weccPlantCurrentSource_INIT.UPhaseConv0;
+  WTG3.omegaRefWTGQPu0 := weccPlantCurrentSource_INIT.omegaRefWTGQPu0;
+  WTG3.Pm0Pu := weccPlantCurrentSource_INIT.Pm0Pu;
 
 equation
   line.switchOffSignal1 = false;
