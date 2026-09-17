@@ -156,7 +156,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     TeMinPu = 0,
     TFlag = true,
     Ka = 0.007,
-    Pm0Pu(fixed=false),
+    Pm0Pu(fixed = false),
     brkpt = 0.1,
     zerox = 0.05,
     Lvplsw = false,
