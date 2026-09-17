@@ -22,7 +22,7 @@ using std::unordered_set;
 namespace DYN {
 
 bool
-Graph::pathExist(int nodeId1, int nodeId2, const unordered_map<string, pair<int, int>> & edges) {
+Graph::pathExist(int nodeId1, int nodeId2, const unordered_map<pair<int, int>, string> & edges) {
   checkVertex(nodeId1);
   checkVertex(nodeId2);
 
@@ -51,13 +51,58 @@ Graph::pathExist(int nodeId1, int nodeId2, const unordered_map<string, pair<int,
 }
 
 vector<string>
-Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_map<string, pair<int, int>> & edges) {
-  // ToDo
+Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_map<pair<int, int>, string> & edges) {
+  checkVertex(nodeId1);
+  checkVertex(nodeId2);
+
+  if (nodeId1 == nodeId2)
+    return vector<string>();
+
+  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(edges);
+
+  static const int NOT_SET = std::numeric_limits<int>::min();
+  unordered_map<int, int> predecessors;
+  for (int nodeId : vertices_)
+    predecessors[nodeId] = NOT_SET;
+
+  unordered_set<int> nodesCurr;
+  unordered_set<int> nodesNextRank;
+
+  nodesNextRank.insert(nodeIdStart);
+  predecessors[nodeIdStart] = nodeIdStart;
+
+  // Dijsktra algorithm specialized for the case where all weights are 1 : progress rank by rank, tag once
+  while (!nodesNextRank.empty()) {
+    nodesCurr.swap(nodesNextRank);
+    while (!nodesCurr.empty()) {
+      int nodeId = *nodesCurr.begin();
+      nodesCurr.erase(nodeId);
+      for (int neighborId : neighbors[nodeId]) {
+        if (predecessors[neighborId] != NOT_SET)
+          continue;
+        predecessors[neighborId] = nodeId;
+        if (neighborId == nodeIdEnd)
+          return buildStringPath(nodeIdEnd, predecessors, edges);
+      }
+    }
+  }
   return vector<string>();
 }
 
+vector<string>
+Graph::buildStringPath(int nodeIdEnd, const unordered_map<int, int> & predecessors, const unordered_map<pair<int, int>, string> & edges) {
+  vector<string> toReturn;
+  int nodeId = nodeIdEnd;
+  while (predecessors[nodeId] != nodeId) {
+    toReturn.push_front((edges.find(pair<nodeId, predecessors[nodeId]) == edges.end()) ? edges[pair<int, int>(predecessors[nodeId], nodeId)]
+                                                                                       : edges[pair<int, int>(nodeId, predecessors[nodeId])]);
+    nodeId = predecessors[nodeId];
+  }
+  return toReturn;
+}
+
 int
-Graph::calculateComponents(const unordered_map<string, pair<int, int>> & edges, map<int, int> & result) {
+Graph::calculateComponents(const unordered_map<pair<int, int>, string> & edges, map<int, int> & result) {
   unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(edges);
 
   set<int> toTreatGlobal;
@@ -89,10 +134,10 @@ Graph::calculateComponents(const unordered_map<string, pair<int, int>> & edges, 
 }
 
 unordered_map<int, unordered_set<int>>
-Graph::buildNeighboringMap(const unordered_map<string, pair<int, int>> & edges) {
+Graph::buildNeighboringMap(const unordered_map<pair<int, int>, string> & edges) {
   unordered_map<int, unordered_set<int>> neighbors;
   for (auto it : edges) {
-    int nodeId1 = it.second.first, nodeId2 = it.second.second;
+    int nodeId1 = it.first.first, nodeId2 = it.first.second;
     checkVertex(nodeId1);
     checkVertex(nodeId2);
     neighbors[nodeId1].insert(nodeId2);
