@@ -156,7 +156,7 @@ model WTG3CurrentSource1 "WECC Wind Type 3 Model (including the plant controller
     TeMinPu = 0,
     TFlag = true,
     Ka = 0.007,
-    Pm0Pu(fixed=false),
+    Pm0Pu = WTG3.PControl0Pu,
     brkpt = 0.1,
     zerox = 0.05,
     Lvplsw = false,
@@ -258,7 +258,6 @@ initial algorithm
   WTG3.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   WTG3.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
   WTG3.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
-  WTG3.Pm0Pu := wTG4CurrentSource_INIT.Pm0Pu;
 
 equation
   line.switchOffSignal1 = false;
