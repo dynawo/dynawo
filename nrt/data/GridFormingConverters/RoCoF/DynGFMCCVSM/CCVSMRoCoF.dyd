@@ -17,10 +17,11 @@
   <dyn:blackBoxModel id="GFMCCVSM" lib="DynGridFormingCurrentControlledVirtualSynchronousMachine" parFile="CCVSMRoCoF.par" parId="3"/>
   <dyn:blackBoxModel id="SetPointOne" lib="SetPoint" parFile="CCVSMRoCoF.par" parId="4"/>
   <dyn:blackBoxModel id="SetPointZero" lib="SetPoint" parFile="CCVSMRoCoF.par" parId="5"/>
+  <dyn:blackBoxModel id="SetPointP" lib="SetPoint" parFile="CCVSMRoCoF.par" parId="6"/>
 
   <dyn:connect id1="Grid" var1="Grid_aCPower" id2="line" var2="line_terminal1"/>
   <dyn:connect id1="line" var1="line_terminal2" id2="GFMCCVSM" var2="GFMCC_terminal"/>
-  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_PFilterRefPu"/>
+  <dyn:connect id1="SetPointP" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_PFilterRefPu"/>
   <dyn:connect id1="SetPointZero" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_QFilterRefPu"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_UFilterRefPu"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_omegaRefPu"/>

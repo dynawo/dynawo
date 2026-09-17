@@ -18,7 +18,7 @@ model DynGridFormingControlCCVSM
   // VSM parameters
   parameter Types.PerUnit kVSM "Virtual Synchronous Machine gain";
   parameter Types.Time H "Inertia constant in s";
-
+  parameter Types.PerUnit KDampingAngle "DampingAngle constant" ;
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
   parameter Types.PerUnit Wf "Cutoff pulsation of the active and reactive filters (in rad/s)";
@@ -68,9 +68,9 @@ model DynGridFormingControlCCVSM
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, -16}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-65, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = UqFilter0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {88, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-37, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+    Placement(transformation(origin = {72, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-37, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {40, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-17, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
+    Placement(transformation(origin = {62, -108}, extent = {{-8, -8}, {8, 8}}, rotation = 90), iconTransformation(origin = {-17, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput udFilteredPccPu(start = UdPcc0Pu) "Filtered d-axis voltage at the PCC in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-108, -78}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {37, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput uqFilteredPccPu(start = UqPcc0Pu) "Filtered q-axis voltage at the PCC in pu (base UNom)" annotation(
@@ -147,84 +147,97 @@ model DynGridFormingControlCCVSM
 
   PLL.PLL_INIT pll_init(U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(transformation(origin = {-138, 14}, extent = {{-10, -10}, {10, 10}})));
-
+  Dynawo.Electrical.Controls.Converters.InnerControls.CurrentSaturation currentSaturation(Imax = Imax, Imin = Imin, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit, idConvRef0Pu = IdConv0Pu, iqConvRef0Pu = IqConv0Pu, idConvSatRef0Pu = IdConvSatRef0Pu, iqConvSatRef0Pu = IqConvSatRef0Pu, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu) annotation(
+    Placement(transformation(origin = {28, 24}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Controls.PEIR.BaseControls.VirtualImpedance2CC VICC(KpVI = KpVI, XRratio = XRratio, IMaxVI = IMaxVI, DeltaIConvMaxPu = DeltaIConvMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu)  annotation(
+    Placement(transformation(origin = {-82, -20}, extent = {{-10, -10}, {10, 10}})));
+  PLL.PLL pll(OmegaN = omegaNPLL, Zeta = ZetaPLL, u0Pu = u0Pu, OmegaMaxPu = 10, OmegaMinPu = -10)  annotation(
+    Placement(transformation(origin = {-75, 55}, extent = {{-7, -7}, {7, 7}})));
+  BaseControls.CurrentLoops.DynCurrentLoop currentLoop(OmegaC = omegaC, RFilter = RFilterPu, LFilter = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConvSatRef0Pu, IqConvRef0Pu = IqConvSatRef0Pu, Omega0Pu = Omega0Pu)  annotation(
+    Placement(transformation(origin = {74, 24}, extent = {{-10, -10}, {10, 10}})));
+  BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, UdRef0Pu = UdFilter0Pu, UqRef0Pu = UqFilter0Pu, DeltaVVId0 = VICC.DeltaVVId0, DeltaVVIq0 = VICC.DeltaVVIq0, QFilter0Pu = QFilter0Pu, URef0Pu = URef0Pu)  annotation(
+    Placement(transformation(origin = {-71, 23}, extent = {{-9, -9}, {9, 9}})));
+  BaseControls.GFM.VoltageControls.DynQSEM QSEM(RFilter = RTransformerPu, LFilter = LTransformerPu, XVI = XVI, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, UdPcc0Pu = UdPcc0Pu, UqPcc0Pu = UqPcc0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, Omega0Pu = Omega0Pu)  annotation(
+    Placement(transformation(origin = {-22, 24}, extent = {{-10, -10}, {10, 10}})));
+  BaseControls.GFM.PowerAngleControls.CC_VSM VSM(kVSM = kVSM, H = H, KDampingAngle = KDampingAngle, PFilter0Pu = PFilter0Pu, Omega0Pu = Omega0Pu, Theta0 = Theta0)  annotation(
+    Placement(transformation(origin = {-9, 79}, extent = {{-13, -13}, {13, 13}})));
 equation
-  connect(omegaRefPu, VSM.omegaRefPu) annotation(
-    Line(points = {{-108, 96}, {-28, 96}, {-28, 92}}, color = {0, 0, 127}));
-  connect(PFilterRefPu, VSM.PFilterRefPu) annotation(
-    Line(points = {{-108, 84}, {-28, 84}, {-28, 86}}, color = {0, 0, 127}));
-  connect(PFilterPu, VSM.PFilterPu) annotation(
-    Line(points = {{-108, 72}, {-28, 72}, {-28, 74}}, color = {0, 0, 127}));
- connect(PLLFilter.y, VSM.omegaSetPu) annotation(
-    Line(points = {{-46, 62}, {-28, 62}, {-28, 68}}, color = {0, 0, 127}));
-  connect(VSM.theta, theta) annotation(
-    Line(points = {{8, 86}, {106, 86}}, color = {0, 0, 127}));
-  connect(VSM.omegaPu, omegaPu) annotation(
-    Line(points = {{8, 74}, {106, 74}}, color = {0, 0, 127}));
-  connect(QFilterPu, voltageReferenceControlCC.QFilterPu) annotation(
-    Line(points = {{-108, 40}, {-74, 40}, {-74, 30}}, color = {0, 0, 127}));
-  connect(VSM.omegaPu, QSEM.omegaPu) annotation(
-    Line(points = {{8, 74}, {28, 74}, {28, 40}, {-30, 40}, {-30, 30}}, color = {0, 0, 127}));
-  connect(voltageReferenceControlCC.udFilterRefPu, QSEM.udFilterRefPu) annotation(
-    Line(points = {{-58, 22}, {-40, 22}}, color = {0, 0, 127}));
-  connect(voltageReferenceControlCC.uqFilterRefPu, QSEM.uqFilterRefPu) annotation(
-    Line(points = {{-58, 14}, {-40, 14}}, color = {0, 0, 127}));
-  connect(QSEM.idConvRefPu, currentSaturation.idConvRefPu) annotation(
-    Line(points = {{-18, 22}, {20, 22}}, color = {0, 0, 127}));
-  connect(QSEM.iqConvRefPu, currentSaturation.iqConvRefPu) annotation(
-    Line(points = {{-18, 14}, {20, 14}, {20, 18}}, color = {0, 0, 127}));
-  connect(currentSaturation.BlocCurrentSaturation_Enable, voltageReferenceControlCC.BlocCurrentSaturation_Enable) annotation(
-    Line(points = {{30, 30}, {-70, 30}}, color = {255, 0, 255}));
-  connect(URefPu, voltageReferenceControlCC.URefPu) annotation(
-    Line(points = {{-108, 22}, {-80, 22}, {-80, 18}}, color = {0, 0, 127}));
-  connect(VICC.DeltaVVId, voltageReferenceControlCC.DeltaVVId) annotation(
-    Line(points = {{-57, -15}, {-80, -15}, {-80, 8}}, color = {0, 0, 127}));
-  connect(QFilterRefPu, voltageReferenceControlCC.QFilterRefPu) annotation(
-    Line(points = {{-108, 6}, {-92, 6}, {-92, 8}, {-80, 8}}, color = {0, 0, 127}));
-  connect(VICC.DeltaVVIq, voltageReferenceControlCC.DeltaVVIq) annotation(
-    Line(points = {{-57, -25}, {-74, -25}, {-74, 8}}, color = {0, 0, 127}));
   connect(idConvPu, VICC.idConvPu) annotation(
-    Line(points = {{-108, -16}, {-108, -15}, {-79, -15}}, color = {0, 0, 127}));
+    Line(points = {{-108, -16}, {-108, -15}, {-93, -15}}, color = {0, 0, 127}));
   connect(iqConvPu, VICC.iqConvPu) annotation(
-    Line(points = {{-108, -34}, {-108, -25}, {-79, -25}}, color = {0, 0, 127}));
-  connect(udFilteredPccPu, QSEM.udFilteredPCCPu) annotation(
-    Line(points = {{-108, -78}, {-34, -78}, {-34, 8}}, color = {0, 0, 127}));
-  connect(uqFilteredPccPu, QSEM.uqFilteredPCCPu) annotation(
-    Line(points = {{-108, -92}, {-28, -92}, {-28, 8}}, color = {0, 0, 127}));
-  connect(idPccPu, currentSaturation.idPcc) annotation(
-    Line(points = {{-108, -52}, {26, -52}, {26, 8}}, color = {0, 0, 127}));
-  connect(iqPccPu, currentSaturation.iqPcc) annotation(
-    Line(points = {{-108, -64}, {36, -64}, {36, 8}}, color = {0, 0, 127}));
-  connect(idPccPu, voltageReferenceControlCC.idPccPu) annotation(
-    Line(points = {{-108, -52}, {-70, -52}, {-70, 8}}, color = {0, 0, 127}));
-  connect(iqPccPu, voltageReferenceControlCC.iqPccPu) annotation(
-    Line(points = {{-108, -64}, {-64, -64}, {-64, 8}}, color = {0, 0, 127}));
-  connect(VSM.omegaPu, currentLoop.omegaPu) annotation(
-    Line(points = {{8, 74}, {8, 76}, {70, 76}, {70, 31}}, color = {0, 0, 127}));
-  connect(currentLoop.udConvRefPu, udConvRefPu) annotation(
-    Line(points = {{81, 24}, {108, 24}, {108, 32}}, color = {0, 0, 127}));
-  connect(currentLoop.uqConvRefPu, uqConvRefPu) annotation(
-    Line(points = {{81, 16}, {94.5, 16}, {94.5, 18}, {108, 18}}, color = {0, 0, 127}));
-  connect(currentSaturation.idConvSatRefPu, currentLoop.idConvRefPu) annotation(
-    Line(points = {{42, 22}, {42, 24}, {59, 24}}, color = {0, 0, 127}));
-  connect(currentSaturation.iqConvSatRefPu, currentLoop.iqConvRefPu) annotation(
-    Line(points = {{42, 16}, {59, 16}}, color = {0, 0, 127}));
-  connect(udFilterPu, currentLoop.udFilterPu) annotation(
-    Line(points = {{40, -108}, {40, -107}, {60, -107}, {60, 9}}, color = {0, 0, 127}));
-  connect(uqFilterPu, currentLoop.uqFilterPu) annotation(
-    Line(points = {{88, -108}, {88, 9}, {65, 9}}, color = {0, 0, 127}));
-  connect(idConvPu, currentLoop.idConvPu) annotation(
-    Line(points = {{-108, -16}, {76, -16}, {76, 9}, {75, 9}}, color = {0, 0, 127}));
-  connect(iqConvPu, currentLoop.iqConvPu) annotation(
-    Line(points = {{-108, -34}, {-108, -33}, {80, -33}, {80, 9}}, color = {0, 0, 127}));
+    Line(points = {{-108, -34}, {-108, -25}, {-93, -25}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, PLLFilter.u) annotation(
-    Line(points = {{-73, 58.5}, {-73, 62}, {-60, 62}}, color = {0, 0, 127}));
+    Line(points = {{-67, 58.5}, {-67, 64}, {-59, 64}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
-    Line(points = {{-108, 96}, {-108, 51}, {-89, 51}}, color = {0, 0, 127}));
+    Line(points = {{-108, 96}, {-108, 51}, {-83, 51}}, color = {0, 0, 127}));
   connect(uPccPu, pll.uPu) annotation(
-    Line(points = {{-108, 54}, {-108, 59}, {-89, 59}}, color = {85, 170, 255}));
+    Line(points = {{-108, 54}, {-108, 59}, {-83, 59}}, color = {85, 170, 255}));
   connect(pll.omegaPLLPu, omegaPLL) annotation(
-    Line(points = {{-74, 58}, {106, 58}, {106, 62}}, color = {0, 0, 127}));
-
-  annotation(preferredView = "diagram");
+    Line(points = {{-67, 58.5}, {-67, 62}, {106, 62}}, color = {0, 0, 127}));
+  connect(VICC.DeltaVVId, voltageReferenceControl.DeltaVVId) annotation(
+    Line(points = {{-70, -14}, {-80, -14}, {-80, 14}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+  connect(VICC.DeltaVVIq, voltageReferenceControl.DeltaVVIq) annotation(
+    Line(points = {{-70, -24}, {-76, -24}, {-76, 14}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+  connect(idPccPu, voltageReferenceControl.idPccPu) annotation(
+    Line(points = {{-108, -52}, {-70, -52}, {-70, 14}}, color = {0, 0, 127}));
+  connect(iqPccPu, voltageReferenceControl.iqPccPu) annotation(
+    Line(points = {{-108, -64}, {-66, -64}, {-66, 14}}, color = {0, 0, 127}));
+  connect(omegaRefPu, VSM.omegaRefPu) annotation(
+    Line(points = {{-108, 96}, {-23, 96}, {-23, 89}}, color = {0, 0, 127}));
+  connect(PFilterRefPu, VSM.PFilterRefPu) annotation(
+    Line(points = {{-108, 84}, {-23, 84}}, color = {0, 0, 127}));
+  connect(PFilterPu, VSM.PFilterPu) annotation(
+    Line(points = {{-108, 72}, {-24, 72}, {-24, 74}}, color = {0, 0, 127}));
+  connect(PLLFilter.y, VSM.omegaSetPu) annotation(
+    Line(points = {{-46, 64}, {-24, 64}, {-24, 68}}, color = {0, 0, 127}));
+  connect(VSM.theta, theta) annotation(
+    Line(points = {{6, 84}, {106, 84}, {106, 86}}, color = {0, 0, 127}));
+  connect(VSM.omegaPu, omegaPu) annotation(
+    Line(points = {{6, 74}, {106, 74}}, color = {0, 0, 127}));
+  connect(QFilterPu, voltageReferenceControl.QFilterPu) annotation(
+    Line(points = {{-108, 40}, {-76, 40}, {-76, 32}}, color = {0, 0, 127}));
+  connect(URefPu, voltageReferenceControl.URefPu) annotation(
+    Line(points = {{-108, 22}, {-95, 22}, {-95, 24}, {-80, 24}}, color = {0, 0, 127}));
+  connect(QFilterRefPu, voltageReferenceControl.QFilterRefPu) annotation(
+    Line(points = {{-108, 6}, {-80, 6}, {-80, 14}}, color = {0, 0, 127}));
+  connect(voltageReferenceControl.udFilterRefPu, QSEM.udFilterRefPu) annotation(
+    Line(points = {{-62, 26}, {-32, 26}, {-32, 28}}, color = {0, 0, 127}));
+  connect(voltageReferenceControl.uqFilterRefPu, QSEM.uqFilterRefPu) annotation(
+    Line(points = {{-62, 20}, {-32, 20}}, color = {0, 0, 127}));
+  connect(QSEM.idConvRefPu, currentSaturation.idConvRefPu) annotation(
+    Line(points = {{-10, 28}, {18, 28}}, color = {0, 0, 127}));
+  connect(QSEM.iqConvRefPu, currentSaturation.iqConvRefPu) annotation(
+    Line(points = {{-10, 20}, {18, 20}, {18, 24}}, color = {0, 0, 127}));
+  connect(currentSaturation.idConvSatRefPu, currentLoop.idConvRefPu) annotation(
+    Line(points = {{40, 28}, {64, 28}}, color = {0, 0, 127}));
+  connect(currentSaturation.iqConvSatRefPu, currentLoop.iqConvRefPu) annotation(
+    Line(points = {{40, 22}, {64, 22}, {64, 20}}, color = {0, 0, 127}));
+  connect(VSM.omegaPu, currentLoop.omegaPu) annotation(
+    Line(points = {{6, 74}, {74, 74}, {74, 36}}, color = {0, 0, 127}));
+  connect(VSM.omegaPu, QSEM.omegaPu) annotation(
+    Line(points = {{6, 74}, {40, 74}, {40, 40}, {-22, 40}, {-22, 36}}, color = {0, 0, 127}));
+  connect(currentLoop.udConvRefPu, udConvRefPu) annotation(
+    Line(points = {{86, 28}, {108, 28}, {108, 32}}, color = {0, 0, 127}));
+  connect(currentLoop.uqConvRefPu, uqConvRefPu) annotation(
+    Line(points = {{86, 20}, {108, 20}, {108, 18}}, color = {0, 0, 127}));
+  connect(udFilterPu, currentLoop.udFilterPu) annotation(
+    Line(points = {{62, -108}, {64, -108}, {64, 14}}, color = {0, 0, 127}));
+  connect(uqFilterPu, currentLoop.uqFilterPu) annotation(
+    Line(points = {{72, -108}, {70, -108}, {70, 14}}, color = {0, 0, 127}));
+  connect(idConvPu, currentLoop.idConvPu) annotation(
+    Line(points = {{-108, -16}, {80, -16}, {80, 14}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(iqConvPu, currentLoop.iqConvPu) annotation(
+    Line(points = {{-108, -34}, {84, -34}, {84, 14}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(udFilteredPccPu, QSEM.udFilteredPCCPu) annotation(
+    Line(points = {{-108, -78}, {-26, -78}, {-26, 14}}, color = {0, 0, 127}));
+  connect(uqFilteredPccPu, QSEM.uqFilteredPCCPu) annotation(
+    Line(points = {{-108, -92}, {-20, -92}, {-20, 14}}, color = {0, 0, 127}));
+  connect(idPccPu, currentSaturation.idPcc) annotation(
+    Line(points = {{-108, -52}, {24, -52}, {24, 14}}, color = {0, 0, 127}));
+  connect(iqPccPu, currentSaturation.iqPcc) annotation(
+    Line(points = {{-108, -64}, {34, -64}, {34, 14}}, color = {0, 0, 127}));
+  annotation(
+    preferredView = "diagram",
+    Diagram,
+    Documentation);
 end DynGridFormingControlCCVSM;

@@ -20,7 +20,7 @@ set(MODEL_FILES
   DynGFMCCVSMSmib.mo
   DynGFMDroopSmib.mo
   DynGFMPlantControl.mo
-  DynGFMVSMPhaseJump.mo
+  DynGFMDroopPlantControl.mo
   )
 
 #

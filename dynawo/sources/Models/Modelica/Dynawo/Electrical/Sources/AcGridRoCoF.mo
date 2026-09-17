@@ -20,7 +20,8 @@ model AcGridRoCoF "AC Grid emulating a RoCoF disturbance, without governor/turbi
   parameter Real UPhase0;
   parameter Real Upu(start = U0pu);
   parameter Real UPhase(start = UPhase0);
-
+  parameter Real StartRoCoF "Start Time of the RoCoF event (in s)";
+  parameter Real TimeRoCoF "Time interval (in s) of the RoCoF event";
   parameter Real RoCoFValue "Value Rate of Change of Frequency (pu/s, base omegaNom)";
 
   // ----- Voltage source terminal (equations written explicitly, no PhasorGrid sub-component) -----

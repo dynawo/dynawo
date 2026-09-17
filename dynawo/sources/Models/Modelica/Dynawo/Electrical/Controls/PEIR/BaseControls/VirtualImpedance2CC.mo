@@ -17,8 +17,10 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
 
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
-  parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)";
+  parameter Types.CurrentModulePu IMaxVI "Current threshold above which the virtual impedance activates in pu (base UNom, SNom)";
   parameter Types.CurrentModulePu DeltaIConvMaxPu "Maximum extra current module used to compute RVI/XVI, in pu (base UNom, SNom): bounds the virtual impedance correction regardless of how large the measured current becomes";
+
+  parameter Types.CurrentModulePu HysteresisPu = 0.002 "Half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold";
 
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -29,6 +31,10 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
     Placement(visible = true, transformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput DeltaVVIq(start = DeltaVVIq0) "q-axis virtual impedance output in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  // CHANGE: exposed status output, consistent with the BlocCurrentSaturation_Enable pattern used
+  // elsewhere in the model. Purely informational -- not connected to, or read by, any other block.
+  Modelica.Blocks.Interfaces.BooleanOutput BlocVirtualImpedance_Enable(start = false) "True while the virtual impedance correction is active (above IMaxVI+HysteresisPu)" annotation(
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Types.CurrentModulePu IConvPu(start = IConv0Pu) "Current module in the converter in pu (base UNom, SNom)";
   Types.CurrentModulePu DeltaIConvPu(start = DeltaIConv0Pu) "Extra current module in the converter in pu (base UNom, SNom), bounded by DeltaIConvMaxPu";
@@ -47,25 +53,38 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
 
 equation
   IConvPu = sqrt(idConvPu ^ 2 + iqConvPu ^ 2);
-  // CHANGE vs VirtualImpedance2: DeltaIConvPu is now capped at DeltaIConvMaxPu.
-  // Rationale: RVI/XVI scale linearly with DeltaIConvPu, and DeltaVVId/DeltaVVIq scale as (current)*(RVI/XVI),
-  // i.e. quadratically in the current itself once IConvPu is large. Composed with QSEM's algebraic gain
-  // (~1/sqrt(R^2+X^2), typically well above 1 for a small transformer/filter impedance), the effective loop
-  // gain d(DeltaVV)/dI grows with I itself: for any KpVI>0 there exists a current I* above which the loop
-  // gain exceeds 1 and the correction becomes self-reinforcing instead of corrective (observed empirically:
-  // reducing KpVI by ~12x barely changed the runaway amplitude). Capping DeltaIConvPu bounds RVI/XVI/DeltaVV
-  // to a fixed maximum regardless of how large the measured current becomes, removing that runaway mechanism.
-  DeltaIConvPu = min(max((IConvPu - IMaxVI), 0), DeltaIConvMaxPu);
-  RVI = KpVI * DeltaIConvPu;
-  XVI = RVI * XRratio;
+
+  if IConvPu >= IMaxVI + HysteresisPu then
+    BlocVirtualImpedance_Enable = true;
+    DeltaIConvPu = min(max((IConvPu - IMaxVI), 0), DeltaIConvMaxPu);
+    RVI = KpVI * DeltaIConvPu;
+    XVI = RVI * XRratio;
+  elseif IConvPu <= IMaxVI - HysteresisPu then
+    BlocVirtualImpedance_Enable = false;
+    DeltaIConvPu = 0;
+    RVI = 0;
+    XVI = 0;
+  else
+    BlocVirtualImpedance_Enable = false;
+    DeltaIConvPu = DeltaIConvPu;
+    RVI = RVI;
+    XVI = XVI;
+  end if;
+
   DeltaVVId = idConvPu * RVI - iqConvPu * XVI;
   DeltaVVIq = iqConvPu * RVI + idConvPu * XVI;
 
   annotation(
     preferredView = "text",
     Documentation(info = "<html><body>
-    <p>Same virtual-impedance current-limitation principle as <code>VirtualImpedance2</code>, with one change:
-    the extra current module <code>DeltaIConvPu</code> feeding RVI/XVI is capped at <code>DeltaIConvMaxPu</code>.</p>
+    <p>Same virtual-impedance current-limitation principle as <code>VirtualImpedance2</code>, with two changes
+    relative to the plain continuous version:</p>
+    <ul>
+    <li>the extra current module <code>DeltaIConvPu</code> feeding RVI/XVI is capped at <code>DeltaIConvMaxPu</code>;</li>
+    <li>a +/-<code>HysteresisPu</code> dead band around <code>IMaxVI</code> holds the last computed correction
+    instead of continuously tracking a current module that oscillates right at the threshold, ported from the
+    validated reference model's hysteresis logic.</li>
+    </ul>
     </body></html>"),
     Icon(coordinateSystem(grid = {1, 1})),
     Diagram(coordinateSystem(grid = {1, 1})));

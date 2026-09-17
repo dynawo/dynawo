@@ -13,6 +13,8 @@
 -->
 <mandatoryParameters>
     <mandatoryParameter name="RoCoFValue" type="DOUBLE"/>
+    <mandatoryParameter name="StartRoCoF" type= "DOUBLE"/>
+    <mandatoryParameter name="TimeRoCoF" type= "DOUBLE"/>
     <mandatoryParameter name="SNom" type="DOUBLE"/>
     <mandatoryParameter name="U0pu" type="DOUBLE"/>
     <mandatoryParameter name="UPhase0" type="DOUBLE"/>

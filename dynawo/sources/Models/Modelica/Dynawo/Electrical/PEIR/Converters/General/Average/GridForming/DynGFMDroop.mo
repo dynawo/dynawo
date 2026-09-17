@@ -105,6 +105,12 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
   final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu + XVI)*i0Pu*SystemBase.SnRef/SNom "Start value of the complex voltage at the filter in pu (base UNom)";
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+  Sources.PEIR.Converters.Average.DynConverter Converter(SNom = SNom, tVSC = tVSC, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, i0Pu = i0Pu, u0Pu = u0Pu, Theta0 = Theta0, Omega0Pu = SystemBase.omegaRef0Pu)  annotation(
+    Placement(transformation(origin = {59, 41}, extent = {{-21, -21}, {21, 21}})));
+  Controls.PEIR.Converters.Average.DynGridFormingControlDroop ControlDroop(IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, KpVI = KpVI, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, Mp = Mp, u0Pu = u0Pu, U0Pu = U0Pu, UPhase0 = UPhase0, omegaC = omegaC, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL) annotation(
+    Placement(transformation(origin = {-41, 41}, extent = {{-21, -21}, {21, 21}})));
+  Modelica.Blocks.Interfaces.RealOutput omegaDroopPu(start = SystemBase.omegaRef0Pu) "Converter's own Droop frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(origin = {106, 74}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
   ControlDroop.uPccPu = terminal.V;
@@ -159,7 +165,9 @@ equation
     Line(points = {{70, 64}, {70, 80}, {-52, 80}, {-52, 64}}, color = {0, 0, 127}));
   connect(ControlDroop.omegaPu, Converter.omegaPu) annotation(
     Line(points = {{-30, 64}, {-30, 74}, {48, 74}, {48, 64}}, color = {0, 0, 127}));
-
+  ControlDroop.uPccPu = terminal.V;
+  connect(ControlDroop.omegaPu, omegaDroopPu) annotation(
+    Line(points = {{-30, 64}, {-30, 74}, {106, 74}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>This model represents a power-electronics interface resource, with the following elements:<div><br></div><div>- A Grid-Forming Virtual Synchronous Machine control defining voltage source references at the converter interface</div><div>- A converter part with an AVM model, a dynamic RLC filter and a dynamic RL transformer</div><div>- A measurement block to apply measurement treatment to the voltage and current</div><div><br></div><div>As of today, the model doesn't include any current saturation scheme.</div><div><br></div><div><br></div><div><br></div></body></html>"),

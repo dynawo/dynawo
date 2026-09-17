@@ -46,9 +46,8 @@
   <par type="DOUBLE" name="PlantControlVSM_Kfd" value="0.8"/>
   <par type="DOUBLE" name="PlantControlVSM_Kff" value="0"/>
   <par type="DOUBLE" name="PlantControlVSM_Kfq" value="0"/>
-  <par type="DOUBLE" name="PlantControlVSM_Kic" value="5"/>
   <par type="DOUBLE" name="PlantControlVSM_KpVI" value="0.6"/>
-  <par type="DOUBLE" name="PlantControlVSM_Kpc" value="0.477465"/>
+  <par type="DOUBLE" name="PlantControlVSM_omegaC" value="1000"/>
   <par type="DOUBLE" name="PlantControlVSM_LFilterPu" value="0.15"/>
   <par type="DOUBLE" name="PlantControlVSM_LTransformerPu" value="0.06"/>
   <par type="DOUBLE" name="PlantControlVSM_Mq" value="0.2"/>
@@ -60,6 +59,8 @@
   <par type="DOUBLE" name="PlantControlVSM_XVI" value="0"/>
   <par type="DOUBLE" name="PlantControlVSM_kVSM" value="155.955"/>
   <par type="DOUBLE" name="PlantControlVSM_tVSC" value="0.0004"/>
+  <par type="DOUBLE" name="PlantControlVSM_ZetaPLL" value="1"/>
+  <par type="DOUBLE" name="PlantControlVSM_omegaNPLL" value="100"/>
   <par type="DOUBLE" name="Line_RPu" value="0.000166667"/>
   <par type="DOUBLE" name="Line_XPu" value="0.005"/>
   <par type="DOUBLE" name="Line_GPu" value="0"/>
@@ -75,7 +76,9 @@
   <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
   <par type="DOUBLE" name="Grid_SNom" value="1000"/>
   <par type="DOUBLE" name="Grid_OmegaRef" value="1.0"/>
-  <par type="DOUBLE" name="Grid_RoCoFValue" value="0.0"/>
+  <par type="DOUBLE" name="Grid_RoCoFValue" value="0.01"/>
+  <par name="Grid_StartRoCoF" type="DOUBLE" value="5"/>
+  <par name="Grid_TimeRoCoF" type="DOUBLE" value="3"/>
 </set>
 <set id="5">
   <par type="DOUBLE" name="setPoint_Value0" value="1"/>

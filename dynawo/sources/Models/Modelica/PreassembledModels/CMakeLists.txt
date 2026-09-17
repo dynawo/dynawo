@@ -34,6 +34,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DoubleStep.xml
   DynGridFormingVirtualSynchronousMachine.xml
   DynGridFormingVirtualSynchronousMachinePlantControl.xml
+  DynGridFormingDroopPlantControl.xml
   DynGridFormingDroop.xml
   DynGridFormingCurrentControlledVirtualSynchronousMachine.xml
   DynGridFormingVirtualSynchronousMachineConvPLL.xml

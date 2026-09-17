@@ -81,9 +81,9 @@ model PlantControl "Generic plant controller"
     Placement(visible = true, transformation(origin = {30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //Q PI controller (LimPID: native anti-windup, saturation on total output)
   Modelica.Blocks.Continuous.LimPID piQ(controllerType = Modelica.Blocks.Types.SimpleController.PI,
-    k = Kpq, Ti = Kpq/Kiq, yMax = QMaxPu, yMin = QMinPu,
-    y_start = QRef0Pu,
-  initType = Modelica.Blocks.Types.InitPID.InitialOutput) annotation(
+  k = Kpq, Ti = Kpq/Kiq, yMax = QMaxPu, yMin = QMinPu,
+  initType = Modelica.Blocks.Types.InitPID.InitialState,
+  xi_start = QRef0Pu/Kpq) annotation(
     Placement(visible = true, transformation(origin = {60, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant zeroQ(k = 0) annotation(
     Placement(visible = true, transformation(origin = {60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -107,9 +107,9 @@ model PlantControl "Generic plant controller"
     Placement(transformation(origin = {18, 69}, extent = {{-6, -6}, {6, 6}})));
   //P PI controller (LimPID)
   Modelica.Blocks.Continuous.LimPID piP(controllerType = Modelica.Blocks.Types.SimpleController.PI,
-    k = Kpp, Ti = Kpp/Kip, yMax = PMaxPu, yMin = PMinPu,
-    y_start = PRef0Pu,
-  initType = Modelica.Blocks.Types.InitPID.InitialOutput) annotation(
+  k = Kpp, Ti = Kpp/Kip, yMax = PMaxPu, yMin = PMinPu,
+  initType = Modelica.Blocks.Types.InitPID.InitialState,
+  xi_start = PRef0Pu/Kpp) annotation(
     Placement(transformation(origin = {60, 69}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant zeroP(k = 0) annotation(
     Placement(transformation(origin = {60, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

@@ -18,7 +18,7 @@ model CurrentSaturation
   parameter Types.CurrentModulePu Imax "Current max threshold to limit a current's module";
   parameter Types.CurrentModulePu Imin "Current min threshold to limit a current's module";
   parameter Real W_CurrentLimit "Bandwidth of the current limitation";
-
+  parameter Types.CurrentModulePu HysteresisPu = 0.002 "Half-width of the dead band around Imax/Imin, to avoid chattering at the activation threshold";
   Modelica.Blocks.Interfaces.RealInput idConvRefPu(start = idConvRef0Pu) "value of id to be saturated" annotation(
     Placement(transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 36}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput idPcc(start = IdPcc0Pu) annotation(
@@ -38,10 +38,14 @@ model CurrentSaturation
   Types.PerUnit IConvRefFilterModulePu(start = CurrentModule0) "Module of the current in dq representation idConvRefPu,iqConvRefPu ";
   Types.PerUnit IConvRefFilterAnglePu(start = CurrentAngle0) "Phase Angle of the current in dq representation idConvRefPu,iqConvRefPu ";
   Types.PerUnit CurrentModulePcc(start = CurrentModule0) "Module of the current in dq representation idPccPu,iqPccPu ";
+  Modelica.Blocks.Interfaces.BooleanOutput BlocCurrentSaturation_Enable(start = false) annotation(
+    Placement(transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+
+  Boolean saturating(start = CurrentModule0 > Imax) "True while the current reference is being clamped";
   Types.PerUnit idConvRefFilterPu(start = idConvRef0Pu) "Value of the Current idConvRefPu after a first order filter ";
   Types.PerUnit iqConvRefFilterPu(start = iqConvRef0Pu) "Value of the Current iqConvRefPu after a first order filter ";
-  Types.PerUnit idPccFilterPu(start = IdPcc0Pu)  "Value of the Current idPccPu after a first order filter ";
-  Types.PerUnit iqPccFilterPu(start = IqPcc0Pu)"Value of the Current iqPccPu after a first order filter ";
+  Types.PerUnit idPccFilterPu(start = IdPcc0Pu) "Value of the Current idPccPu after a predictive (extrapolated) first order term ";
+  Types.PerUnit iqPccFilterPu(start = IqPcc0Pu) "Value of the Current iqPccPu after a predictive (extrapolated) first order term ";
   Types.PerUnit iConvSatRefModulePu "Value of the Current saturated given as reference to the voltage control in Pu";
 
   parameter Types.CurrentModulePu idConvRef0Pu "Start value of id to be saturated";
@@ -54,23 +58,28 @@ model CurrentSaturation
   parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
 
 equation
-//Il faut ajouter un filtre sinon la sortie est n'importe quoi
+
   der(idConvRefFilterPu)*1/W_CurrentLimit + idConvRefFilterPu = idConvRefPu;
   der(iqConvRefFilterPu)*1/W_CurrentLimit + iqConvRefFilterPu = iqConvRefPu;
   IConvRefFilterModulePu = sqrt(idConvRefFilterPu*idConvRefFilterPu + iqConvRefFilterPu*iqConvRefFilterPu);
-  // CHANGE : Compute the IConvRefFilterAnglePu on the unfiltered current
-  // IConvRefFilterAnglePu = atan2(iqConvRefFilterPu, idConvRefFilterPu);
-  IConvRefFilterAnglePu = atan2(iqConvRefPu, idConvRefPu);
-  der(idPccFilterPu)*1/W_CurrentLimit + idPccFilterPu = idPcc;
-  der(iqPccFilterPu)*1/W_CurrentLimit + iqPccFilterPu = iqPcc;
+
+
+  IConvRefFilterAnglePu = atan2(iqConvRefFilterPu, idConvRefFilterPu);
+
+  idPccFilterPu = idPcc + der(idPcc)/W_CurrentLimit;
+  iqPccFilterPu = iqPcc + der(iqPcc)/W_CurrentLimit;
   CurrentModulePcc = sqrt(idPccFilterPu^2 + iqPccFilterPu^2);
 
-  if IConvRefFilterModulePu > Imax or CurrentModulePcc > Imax then
-    BlocCurrentSaturation_Enable = true;
+  when IConvRefFilterModulePu > Imax + HysteresisPu or CurrentModulePcc > Imax + HysteresisPu then
+    saturating = true;
+  elsewhen IConvRefFilterModulePu < Imax - HysteresisPu and CurrentModulePcc < Imax - HysteresisPu then
+    saturating = false;
+  end when;
+  BlocCurrentSaturation_Enable = saturating;
+  if saturating then
     idConvSatRefPu = Imax*cos(IConvRefFilterAnglePu);
     iqConvSatRefPu = Imax*sin(IConvRefFilterAnglePu);
   else
-    BlocCurrentSaturation_Enable = false;
     if CurrentModulePcc < Imin then
       idConvSatRefPu = Imin*cos(IConvRefFilterAnglePu);
       iqConvSatRefPu = Imin*sin(IConvRefFilterAnglePu);

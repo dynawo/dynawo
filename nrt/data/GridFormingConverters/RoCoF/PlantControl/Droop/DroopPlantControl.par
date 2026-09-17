@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+
+  <set id="1">
+    <par name="PlantControlDroop_SNom" type="DOUBLE" value="1000"/>
+    <par name="PlantControlDroop_U0Pu" type="DOUBLE" value="0.993784186833338"/>
+    <par name="PlantControlDroop_UPhase0" type="DOUBLE" value="0.143988952906081"/>
+    <par name="PlantControlDroop_P0Pu" type="DOUBLE" value="-9.4400899"/>
+    <par name="PlantControlDroop_Q0Pu" type="DOUBLE" value="0.663711"/>
+    <par name="PlantControlDroop_UPcc0Pu" type="DOUBLE" value="0.9955700326451167"/>
+    <par name="PlantControlDroop_UPccPhase0" type="DOUBLE" value="0.047755625299300865"/>
+    <par name="PlantControlDroop_PPcc0Pu" type="DOUBLE" value="-9.349410299"/>
+    <par name="PlantControlDroop_QPcc0Pu" type="DOUBLE" value="1.5705070100000014"/>
+    <par name="PlantControlDroop_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <par name="PlantControlDroop_IMaxVI" type="DOUBLE" value="1.2"/>
+    <par name="PlantControlDroop_Kfd" type="DOUBLE" value="0.8"/>
+    <par name="PlantControlDroop_Kff" type="DOUBLE" value="0"/>
+    <par name="PlantControlDroop_Kfq" type="DOUBLE" value="0"/>
+    <par name="PlantControlDroop_KpVI" type="DOUBLE" value="0.1"/>
+    <par name="PlantControlDroop_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="PlantControlDroop_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <par name="PlantControlDroop_Mq" type="DOUBLE" value="0.013"/>
+    <par name="PlantControlDroop_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="PlantControlDroop_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="PlantControlDroop_Wf" type="DOUBLE" value="40"/>
+    <par name="PlantControlDroop_Wff" type="DOUBLE" value="50"/>
+    <par name="PlantControlDroop_XRratio" type="DOUBLE" value="10"/>
+    <par name="PlantControlDroop_XVI" type="DOUBLE" value="0.06"/>
+    <par name="PlantControlDroop_tVSC" type="DOUBLE" value="0.0004"/>
+    <par name="PlantControlDroop_Mp" type="DOUBLE" value="0.013"/>
+    <par name="PlantControlDroop_omegaC" type="DOUBLE" value="1000"/>
+    <par name="PlantControlDroop_omegaNPLL" type="DOUBLE" value="100"/>
+    <par name="PlantControlDroop_ZetaPLL" type="DOUBLE" value="1"/>
+    <par name="PlantControlDroop_Lambd" type="DOUBLE" value="0.01"/>
+    <par name="PlantControlDroop_Kdroop" type="DOUBLE" value="0.01"/>
+    <par name="PlantControlDroop_tQFilt" type="DOUBLE" value="0.1"/>
+    <par name="PlantControlDroop_tPFilt" type="DOUBLE" value="1"/>
+    <par name="PlantControlDroop_tUFilt" type="DOUBLE" value="0.1"/>
+    <par name="PlantControlDroop_Kpq" type="DOUBLE" value="0.1"/>
+    <par name="PlantControlDroop_Kiq" type="DOUBLE" value="1.0"/>
+    <par name="PlantControlDroop_Kpp" type="DOUBLE" value="0.3"/>
+    <par name="PlantControlDroop_Kip" type="DOUBLE" value="0.3"/>
+    <par name="PlantControlDroop_FEMaxPu" type="DOUBLE" value="999"/>
+    <par name="PlantControlDroop_FEMinPu" type="DOUBLE" value="-999"/>
+    <par name="PlantControlDroop_FDbd1Pu" type="DOUBLE" value="0.005"/>
+    <par name="PlantControlDroop_FDbd2Pu" type="DOUBLE" value="0.1"/>
+    <par name="PlantControlDroop_DbdPu" type="DOUBLE" value="0.0001"/>
+    <par name="PlantControlDroop_QMaxPu" type="DOUBLE" value="100"/>
+    <par name="PlantControlDroop_QMinPu" type="DOUBLE" value="-100"/>
+    <par name="PlantControlDroop_PMaxPu" type="DOUBLE" value="12"/>
+    <par name="PlantControlDroop_PMinPu" type="DOUBLE" value="-12"/>
+    <par type="DOUBLE" name="Line_RPu" value="0.000166667"/>
+    <par type="DOUBLE" name="Line_XPu" value="0.005"/>
+    <par type="DOUBLE" name="Line_GPu" value="0"/>
+    <par type="DOUBLE" name="Line_BPu" value="0"/>
+    <par type="DOUBLE" name="Transformer_XPu" value="0.005"/>
+    <par type="DOUBLE" name="Transformer_GPu" value="0"/>
+    <par type="DOUBLE" name="Transformer_BPu" value="0"/>
+    <par type="DOUBLE" name="Transformer_rTfoPu" value="1"/>
+    <par type="DOUBLE" name="Transformer_RPu" value="0.000166667"/>
+  </set>
+
+  <set id="4">
+    <par name="Grid_RoCoFValue" type="DOUBLE" value="0.01"/>
+    <par name="Grid_SNom" type="DOUBLE" value="1000"/>
+    <par name="Grid_StartRoCoF" type="DOUBLE" value="5"/>
+    <par name="Grid_TimeRoCoF" type="DOUBLE" value="3"/>
+    <par name="Grid_U0pu" type="DOUBLE" value="1"/>
+    <par name="Grid_UPhase0" type="DOUBLE" value="0"/>
+    <par name="Grid_Upu" type="DOUBLE" value="1"/>
+    <par name="Grid_UPhase" type="DOUBLE" value="0"/>
+  </set>
+
+  <set id="5">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="1.0112751027451168"/>
+  </set>
+
+  <set id="7">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.9980463722094073"/>
+  </set>
+
+  <set id="8">
+    <par type="DOUBLE" name="setPoint_Value0" value="-9.349410299"/>
+  </set>
+<set id="IDASolver">
+  <par type="INT" name="order" value="2"/>
+  <par type="DOUBLE" name="initStep" value="0.00001"/>
+  <par type="DOUBLE" name="minStep" value="0.000001"/>
+  <par type="DOUBLE" name="maxStep" value="10"/>
+  <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+  <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+ <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+</set>
+
+<set id="SimplifiedSolver">
+  <par type="DOUBLE" name="hMin" value="0.000001"/>
+  <par type="DOUBLE" name="hMax" value="0.0001"/>
+  <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+  <par type="INT" name="maxNewtonTry" value="10"/>
+  <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+</set>
+
+</parametersSet>

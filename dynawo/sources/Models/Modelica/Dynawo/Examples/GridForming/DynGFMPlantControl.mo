@@ -30,7 +30,7 @@ model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
     Placement(transformation(origin = {68, 4}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant URefGfmPu(k = UFilter0Pu) annotation(
     Placement(transformation(origin = {-74, -24}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Controls.PEIR.BaseControls.Plant.DynVSMPlantControl dynVSMPlantControl(SNom = SNom, U0Pu = UGfm0Pu, UPhase0 = UPhaseGfm0, P0Pu = PGfm0Pu, Q0Pu = QGfm0Pu, UPcc0Pu = UPcc0Pu, UPccPhase0 = UPccPhase0, PPcc0Pu = PPcc0Pu, QPcc0Pu = QPcc0Pu, Lambd = 0.01, Kdroop = 0, tQFilt = 0.1, tPFilt = 1, tUFilt = 0.1, Kpq = 0.1, Kiq = 1.0, Kpp = 0.3, Kip = 0.3, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 100, QMinPu = -100, PMaxPu = 100, PMinPu = -100, CFilterPu = 1e-5, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2,RFilterPu = 0.015, RTransformerPu = 0.006, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.06, kVSM = 650, tVSC = 0.0002, omegaC = 1000, omegaNPLL = 100, ZetaPLL = 1)  annotation(
+  Electrical.Controls.PEIR.BaseControls.Plant.DynVSMPlantControl dynVSMPlantControl(SNom = SNom, U0Pu = UGfm0Pu, UPhase0 = UPhaseGfm0, P0Pu = PGfm0Pu, Q0Pu = QGfm0Pu, UPcc0Pu = UPcc0Pu, UPccPhase0 = UPccPhase0, PPcc0Pu = PPcc0Pu, QPcc0Pu = QPcc0Pu, Lambd = 0.01, Kdroop = 0.1, tQFilt = 0.1, tPFilt = 1, tUFilt = 0.1, Kpq = 0.1, Kiq = 1.0, Kpp = 0.3, Kip = 0.3, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 100, QMinPu = -100, PMaxPu = 12, PMinPu = -12, CFilterPu = 1e-5, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2,RFilterPu = 0.015, RTransformerPu = 0.006, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.06, kVSM = 650, tVSC = 0.0002, omegaC = 1000, omegaNPLL = 100, ZetaPLL = 1)  annotation(
     Placement(transformation(origin = {-8, 4}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 0, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.110, tUPhaseEvt = 10)  annotation(
     Placement(transformation(origin = {128, 4}, extent = {{-10, -10}, {10, 10}})));
@@ -56,9 +56,15 @@ model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
   final parameter Types.ReactivePowerPu QPcc0Pu = uPcc0Pu.im*i0Pu.re - uPcc0Pu.re*i0Pu.im;
   final parameter Types.VoltageModulePu UPcc0Pu = sqrt(uPcc0Pu.re^2 + uPcc0Pu.im^2);
 
+  Electrical.Lines.Line line1(RPu = 0.0005, XPu = 0.005, GPu = 0, BPu = 0)  annotation(
+    Placement(transformation(origin = {98, 4}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 5, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+    Placement(transformation(origin = {82, 50}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
+  line1.switchOffSignal1 = false;
+  line1.switchOffSignal2 = false;
   Transformer.switchOffSignal1 = false;
   Transformer.switchOffSignal2 = false;
 
@@ -80,9 +86,12 @@ equation
     Line(points = {{68, -6}, {68, -50}, {-42, -50}, {-42, 12}, {-20, 12}}, color = {0, 0, 127}));
   connect(Transformer.Q2Pu, dynVSMPlantControl.QPccPu) annotation(
     Line(points = {{58, -6}, {54, -6}, {54, -44}, {-36, -44}, {-36, -2}, {-20, -2}}, color = {0, 0, 127}));
-  connect(Transformer.terminal2, infiniteBusWithVariations_PhaseJump.terminal) annotation(
-    Line(points = {{78, 4}, {128, 4}}, color = {0, 0, 255}));
-
+  connect(Transformer.terminal2, line1.terminal1) annotation(
+    Line(points = {{78, 4}, {88, 4}}, color = {0, 0, 255}));
+  connect(omegaRefPu.y, AcGrid.OmegaRef) annotation(
+    Line(points = {{-8, 72}, {70, 72}, {70, 56}}, color = {0, 0, 127}));
+  connect(AcGrid.aCPower, line1.terminal2) annotation(
+    Line(points = {{94, 56}, {108, 56}, {108, 4}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379));

@@ -25,6 +25,8 @@ model DynGFMCCVSM "PEIR model with GFM VSM control and dynamic connections to th
     Dialog(tab = "VSM"));
   parameter Types.Time H "Inertia constant in s" annotation(
     Dialog(tab = "VSM"));
+  parameter Types.PerUnit KDampingAngle "Virtual Synchronous Machine gain" annotation(
+    Dialog(tab = "VSM"));
 
   // Virtual impedance parameters
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance" annotation(
@@ -117,7 +119,10 @@ model DynGFMCCVSM "PEIR model with GFM VSM control and dynamic connections to th
   final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu+XVI)*i0Pu*SystemBase.SnRef/SNom "Start value of the complex voltage at the filter in pu (base UNom)";
   final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
-
+  Sources.PEIR.Converters.Average.DynConverter Converter(SNom = SNom, tVSC = tVSC, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, i0Pu = i0Pu, u0Pu = u0Pu, Theta0 = Theta0, Omega0Pu = SystemBase.omegaRef0Pu)  annotation(
+    Placement(transformation(origin = {59, 41}, extent = {{-21, -21}, {21, 21}})));
+ Dynawo.Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlCCVSM ControlCC(H = H, IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, KpVI = KpVI, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, U0Pu = U0Pu, UPhase0 = UPhase0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, kVSM = kVSM, u0Pu = u0Pu, W_CurrentLimit=W_CurrentLimit,Imax=Imax, Imin=Imin, IdConvSatRef0Pu=Converter.transformRItoDQConv.ud0, IqConvSatRef0Pu=Converter.transformRItoDQConv.uq0, DeltaIConvMaxPu = DeltaIConvMaxPu, omegaC = omegaC, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL, KDampingAngle = KDampingAngle) annotation(
+    Placement(transformation(origin = {-44, 42}, extent = {{-20, -20}, {20, 20}})));
 equation
   ControlCC.uPccPu = terminal.V;
 
