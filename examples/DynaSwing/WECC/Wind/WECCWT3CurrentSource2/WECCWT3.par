@@ -46,7 +46,6 @@
     <par type="DOUBLE" name="WT3_QPcc0Pu" value="-0.2"/>
     <par type="DOUBLE" name="WT3_UPcc0Pu" value="1"/>
     <par type="DOUBLE" name="WT3_UPhasePcc0" value="0.03533563863002929"/>
-    <par type="DOUBLE" name="WT3_Pm0Pu" value="0.7"/>
     <!-- Electrical Control -->
     <par type="DOUBLE" name="WT3_QMaxREECPu" value="0.4"/>
     <par type="DOUBLE" name="WT3_QMinREECPu" value="-0.4"/>
@@ -117,7 +116,7 @@
     <par type="DOUBLE" name="WT3_KpPLL" value="30"/>
     <par type="DOUBLE" name="WT3_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="WT3_OmegaMinPu" value="0.5"/>
-    <!-- BaseWT4 -->
+    <!-- LV transformer -->
     <par type="DOUBLE" name="WT3_SNom" value="200"/>
     <par type="DOUBLE" name="WT3_rTfoPu" value="0.962"/>
     <par type="DOUBLE" name="WT3_RLvTrPu" value="0.015"/>
@@ -159,7 +158,6 @@
     <par type="DOUBLE" name="WT3_Hg" value="1"/>
     <par type="DOUBLE" name="WT3_Dshaft" value="1.5"/>
     <par type="DOUBLE" name="WT3_Kshaft" value="200"/>
-    <par type="DOUBLE" name="WT3_tp" value="0.5"/>
     <!-- PCS parameters -->
     <par type="BOOL" name="WT3_PPCLocal" value="true"/>
     <par type="BOOL" name="WT3_ConverterLVControl" value="true"/>
@@ -174,7 +172,7 @@
     <par type="DOUBLE" name="lhvrt_UUnderPu" value="0.5"/>
   </set>
   <set id="PRefPu">
-    <par type="DOUBLE" name="step_Height" value="0.15"/>
+    <par type="DOUBLE" name="step_Height" value="0.02"/>
     <par type="DOUBLE" name="step_tStep" value="1"/>
     <par type="DOUBLE" name="step_Value0" value="0.35"/>
   </set>
