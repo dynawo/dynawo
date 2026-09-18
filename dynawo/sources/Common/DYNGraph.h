@@ -38,6 +38,8 @@ class Graph {
 
   void addEdge(int nodeId1, int nodeId2, const std::string & name);
 
+  std::unordered_set<std::string> getAllEdges();
+
   /**
    * @brief check if a path exist between two vertices
    * @param nodeId1 index of the first vertex

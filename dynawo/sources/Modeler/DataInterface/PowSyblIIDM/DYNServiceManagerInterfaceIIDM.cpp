@@ -38,7 +38,7 @@ namespace DYN {
 ServiceManagerInterfaceIIDM::ServiceManagerInterfaceIIDM(const DataInterfaceIIDM* const dataInterface) : dataInterface_(dataInterface) {}
 
 void
-ServiceManagerInterfaceIIDM::buildGraph(Graph & graph, unordered_set<string> & edges, const std::shared_ptr<VoltageLevelInterface> & vl) {
+ServiceManagerInterfaceIIDM::buildGraph(Graph & graph, const std::shared_ptr<VoltageLevelInterface> & vl) {
   std::unordered_map<std::string, size_t> indexes;
 
   const auto& buses = vl->getBuses();
@@ -57,7 +57,6 @@ ServiceManagerInterfaceIIDM::buildGraph(Graph & graph, unordered_set<string> & e
     int nodeId1 = static_cast<unsigned int>(indexes.at(sw->getBusInterface1()->getID()));
     int nodeId2 = static_cast<unsigned int>(indexes.at(sw->getBusInterface2()->getID()));
     graph.addEdge(nodeId1, nodeId2, sw->getID());
-    edges.insert(sw->getID());
   }
 }
 
@@ -78,8 +77,7 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   }
 
   Graph graph;
-  unordered_set<string> edges;
-  buildGraph(graph, edges, *vlIt);
+  buildGraph(graph, *vlIt);
 
   std::vector<std::string> ret;
   size_t busIndexFound = it - buses.begin();
@@ -87,7 +85,7 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
     if (busIndex == busIndexFound) {
       continue;
     }
-    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), edges)) {
+    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), graph.getAllEdges())) {
       ret.push_back(buses.at(busIndex)->getID());
     }
   }
@@ -114,8 +112,7 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
     return true;
 
   Graph graph;
-  unordered_set<string> edges;
-  buildGraph(graph, edges, *vlIt);
+  buildGraph(graph, *vlIt);
 
   std::vector<std::string> ret;
 
@@ -124,7 +121,7 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
     if (busIndex == busIndexFound) {
       continue;
     }
-    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), edges) &&
+    if (graph.pathExist(static_cast<unsigned int>(busIndexFound), static_cast<unsigned int>(busIndex), graph.getAllEdges()) &&
         !buses[busIndex]->getBusBarSectionIdentifiers().empty()) {
       return true;
     }

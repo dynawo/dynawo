@@ -92,7 +92,6 @@ ModelVoltageLevel::defineGraph() {
     int node1 = (*itSw)->getModelBus1()->getBusIndex();
     int node2 = (*itSw)->getModelBus2()->getBusIndex();
     graph_->addEdge(node1, node2, (*itSw)->id());
-    allEdges_.insert((*itSw)->id());
   }
 }
 
@@ -200,7 +199,7 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& short
   unsigned int nodeClosestBBS = std::numeric_limits<unsigned>::max();
   for (vector<std::shared_ptr<ModelBus> >::const_iterator itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
     int nodeBBS = (*itBBS)->getBusIndex();
-    vector<string> ret = graph_->shortestPath(node, nodeBBS, allEdges_);
+    vector<string> ret = graph_->shortestPath(node, nodeBBS, graph_.get().getAllEdges());
     for (unsigned int i = 0; i < ret.size(); ++i) {
       if (!ret.empty() && (ret.size() < shortestPath.size() || shortestPath.size() == 0)) {
         nodeClosestBBS = nodeBBS;

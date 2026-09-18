@@ -351,7 +351,6 @@ class ModelVoltageLevel : public NetworkComponent {
 
  private:
   boost::optional<Graph> graph_;  ///< topology graph to find node connection
-  std::unordered_set<std::string> allEdges_;
   std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > ClosestBBS_;  ///< node id -> closest bbs + shortest path
   VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
   std::vector<std::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level

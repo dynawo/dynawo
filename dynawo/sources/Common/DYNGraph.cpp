@@ -40,6 +40,14 @@ Graph::addEdge(int nodeId1, int nodeId2, const std::string & name) {
   edgesNames_.insert({dualId(nodeId1, nodeId2), name});
 }
 
+unordered_set<string>
+Graph::getAllEdges() {
+  unordered_set<string> toReturn;
+  for (auto it : edges_)
+    toReturn.insert(it.first);
+  return toReturn;
+}
+
 bool
 Graph::pathExist(int nodeId1, int nodeId2, const unordered_set<string> & closedEdges) {
   checkVertex(nodeId1);

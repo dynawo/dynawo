@@ -76,9 +76,6 @@ voltageLevelIIDM_(voltageLevel) {
     int nodeId2 = static_cast<int>(itInternalConnection.getNode2());
     graph_.addEdge(nodeId1, nodeId2, internConnectId(itInternalConnection));
   }
-
-  allEdges_ = selectEdges(false, false);
-  topoEdges_ = selectEdges(true, true);
 }
 
 string
@@ -259,7 +256,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
 
   // partition voltage level into "topology" connex components (ie, retained closed switches still separates components)
   map<int, int> topoComponents;
-  int nbTopoComps = graph_.calculateComponents(topoEdges_, topoComponents);
+  int nbTopoComps = graph_.calculateComponents(selectClosedEdges(true), topoComponents);
 
   if (getID() == "L.NEUP6") {
     std::cout << "topo components\n";
@@ -282,7 +279,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
 
   // partition voltage level by electrical connexity
   map<int, int> elecComponents;
-  int nbElecComponents = graph_.calculateComponents(selectEdges(true, false), elecComponents);
+  int nbElecComponents = graph_.calculateComponents(selectClosedEdges(false), elecComponents);
 
   // for each elec component, register one child bbs nodeId if it exists
   vector<int> bbsByElecComp(nbElecComponents, -1);
@@ -355,7 +352,7 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
     if (terminal) {
       const auto& bus = terminal.get().getBusBreakerView().getBus();
       if (bus) {
-        vector<string> ret = graph_.shortestPath(nodeToConnect, static_cast<unsigned int>(nodeId), allEdges_);
+        vector<string> ret = graph_.shortestPath(nodeToConnect, static_cast<unsigned int>(nodeId), graph_.getAllEdges());
         if (shortestPath.empty()) {
           shortestPath = ret;
           nbSwitchToClose = countNumberOfSwitchesToClose(ret);
@@ -391,7 +388,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
 
-  unordered_set<string> closedEdges = selectEdges(true, false);
+  unordered_set<string> closedEdges = selectClosedEdges(false);
 
   for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
@@ -435,7 +432,7 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
-      if (bus && graph_.pathExist(nodeToCheck, static_cast<unsigned int>(nodeId), selectEdges(true, false))) {
+      if (bus && graph_.pathExist(nodeToCheck, static_cast<unsigned int>(nodeId), selectClosedEdges(false))) {
         return true;
       }
     }
@@ -460,13 +457,11 @@ VoltageLevelInterfaceIIDM::getSlackBusId() const {
 }
 
 unordered_set<string>
-VoltageLevelInterfaceIIDM::selectEdges(bool onlyClosed, bool onlyNotRetained) const {
+VoltageLevelInterfaceIIDM::selectClosedEdges(bool onlyNotRetained) const {
   unordered_set<string> toReturn;
 
   for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
-    if (itSwitch.isOpen() && !itSwitch.isRetained())  // open and not retained, never considered
-      continue;
-    if (onlyClosed && itSwitch.isOpen())
+    if (itSwitch.isOpen())  // open and not retained, never considered
       continue;
     if (onlyNotRetained && itSwitch.isRetained())
       continue;
