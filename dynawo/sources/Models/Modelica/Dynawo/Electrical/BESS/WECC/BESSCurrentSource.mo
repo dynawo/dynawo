@@ -17,6 +17,15 @@ model BESSCurrentSource "WECC BESS with electrical control model type C, generat
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
 
+  // HVRT and LVRT parameters
+  parameter String TablesFile "Text file that contains the tables for the functions";
+  parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for overvoltage";
+  parameter String TabletUunderUfilt "Disconnection time versus over voltage lookup table for undervoltage";
+  parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
+  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
+  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -27,8 +36,16 @@ model BESSCurrentSource "WECC BESS with electrical control model type C, generat
 
   Dynawo.Electrical.Controls.WECC.REPC.REPCa repcA(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, PMaxREPCPu = PMaxREPCPu, PMinREPCPu = PMinREPCPu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, QMaxREPCPu = QMaxREPCPu, QMinREPCPu = QMinREPCPu, RcPu = RPu, RefFlag = RefFlag, SNom = SNom, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iControl0Pu = iControl0Pu, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tpREPC = tpREPC, uControl0Pu = uControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Protections.HVRT hvrt(UOverPu = UOverPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUoverUfilt = TabletUoverUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {-35, 85}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Protections.LVRT lvrt(UUnderPu = UUnderPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUunderUfilt = TabletUunderUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {-35, 71}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar annotation(
+    Placement(transformation(origin = {-35, 49}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
 
 equation
+  injector.switchOffSignal3 = hvrt.fOCB or lvrt.fOCB;
+
   connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(PRefPu, repcA.PRefPu) annotation(
@@ -53,6 +70,12 @@ equation
     Line(points = {{-20, 63}, {-123, 63}, {-123, 11}}, color = {85, 170, 255}));
   connect(i.y, repcA.iPu) annotation(
     Line(points = {{-20, 93}, {-128, 93}, {-128, 11}}, color = {85, 170, 255}));
+  connect(u.y, complexToPolar.u) annotation(
+    Line(points = {{-20, 63}, {-24, 63}, {-24, 49}, {-29, 49}}, color = {85, 170, 255}));
+  connect(complexToPolar.len, lvrt.UMonitoredPu) annotation(
+    Line(points = {{-41, 52}, {-50, 52}, {-50, 70}, {-40, 70}}, color = {0, 0, 127}));
+  connect(complexToPolar.len, hvrt.UMonitoredPu) annotation(
+    Line(points = {{-41, 52}, {-50, 52}, {-50, 84}, {-40, 84}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

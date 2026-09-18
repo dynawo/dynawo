@@ -77,6 +77,17 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     SOC0Pu = 0.5,
     SOCMaxPu = 0.8,
     SOCMinPu = 0.1,
+    TablesFile = "NoName",
+    TabletUoverUfilt = "NoName",
+    TabletUunderUfilt = "NoName",
+    hvrt.combiTable1D.table = [1.15, 0.5; 10, 0.5],
+    hvrt.combiTable1D.tableOnFile = false,
+    lvrt.combiTable1D.table = [0.7, 0.5; 10, 0.5],
+    lvrt.combiTable1D.tableOnFile = false,
+    tLagAction = 0.05,
+    tUFilt = 0.01,
+    UOverPu = 1.5,
+    UUnderPu = 0.5,
     UInj0Pu(fixed = false),
     VDLIp11 = 1.1,
     VDLIp12 = 1.1,
@@ -171,7 +182,6 @@ equation
   line.switchOffSignal2 = false;
   BESS.injector.switchOffSignal1 = false;
   BESS.injector.switchOffSignal2 = false;
-  BESS.injector.switchOffSignal3 = false;
 
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-80, 0}}, color = {0, 0, 255}));

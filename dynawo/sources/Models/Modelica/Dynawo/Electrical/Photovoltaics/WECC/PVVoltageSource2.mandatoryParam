@@ -133,4 +133,11 @@
   <mandatoryParameter name="tLag" type="DOUBLE"/>
   <mandatoryParameter name="tpREPC" type="DOUBLE"/>
   <mandatoryParameter name="VFrz" type="DOUBLE"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="TabletUoverUfilt" type="STRING"/>
+  <mandatoryParameter name="TabletUunderUfilt" type="STRING"/>
+  <mandatoryParameter name="tLagAction" type="DOUBLE"/>
+  <mandatoryParameter name="tUFilt" type="DOUBLE"/>
+  <mandatoryParameter name="UOverPu" type="DOUBLE"/>
+  <mandatoryParameter name="UUnderPu" type="DOUBLE"/>
 </mandatoryParameters>

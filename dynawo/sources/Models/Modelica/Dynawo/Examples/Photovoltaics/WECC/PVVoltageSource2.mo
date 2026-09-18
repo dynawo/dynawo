@@ -86,6 +86,17 @@ model PVVoltageSource2 "WECC PV Vsource Model on infinite bus"
     RefFlag = true,
     RrpwrPu = 10,
     SNom = 100,
+    TablesFile = "NoName",
+    TabletUoverUfilt = "NoName",
+    TabletUunderUfilt = "NoName",
+    hvrt.combiTable1D.table = [1.15, 0.5; 10, 0.5],
+    hvrt.combiTable1D.tableOnFile = false,
+    lvrt.combiTable1D.table = [0.7, 0.5; 10, 0.5],
+    lvrt.combiTable1D.tableOnFile = false,
+    tLagAction = 0.05,
+    tUFilt = 0.01,
+    UOverPu = 1.5,
+    UUnderPu = 0.5,
     U0Pu = 1.03713742957,
     VCompFlag = false,
     VDipPu = 0.9,
@@ -204,7 +215,6 @@ equation
   line.switchOffSignal2 = false;
   PV.injector.switchOffSignal1 = false;
   PV.injector.switchOffSignal2 = false;
-  PV.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
