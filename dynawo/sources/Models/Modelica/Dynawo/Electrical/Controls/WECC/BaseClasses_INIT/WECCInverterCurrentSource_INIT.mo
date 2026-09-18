@@ -20,7 +20,7 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
   parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
   // Torque control parameters
@@ -39,6 +39,12 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
   parameter Types.PerUnit P4 = 3 "4th power point for extrapolation table" annotation(
     Dialog(tab = "Torque control"));
   parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
+    Dialog(tab = "Torque control"));
+  parameter Boolean TorqueControlTableOnFile "If true, table is defined on file or in function usertab" annotation(
+    Dialog(tab = "Torque control"));
+  parameter String TorqueControlFileName = "NoName" "File where table is stored" annotation(
+    Dialog(tab = "Torque control"));
+  parameter String TorqueControlTableName = "NoName" "Name of the table in the text file for speed as a function of power" annotation(
     Dialog(tab = "Torque control"));
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -62,7 +68,7 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(fileName = TorqueControlFileName, table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4], tableName = TorqueControlTableName, tableOnFile = TorqueControlTableOnFile) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));

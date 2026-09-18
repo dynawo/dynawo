@@ -95,6 +95,7 @@
   <mandatoryParameter name="VDLIq32" type="DOUBLE"/>
   <mandatoryParameter name="VDLIq41" type="DOUBLE"/>
   <mandatoryParameter name="VDLIq42" type="DOUBLE"/>
+  <mandatoryParameter name="VDLTablesOnFile" type="BOOL"/>
   <mandatoryParameter name="IqrMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="IqrMinPu" type="DOUBLE"/>
   <mandatoryParameter name="RrpwrPu" type="DOUBLE"/>
