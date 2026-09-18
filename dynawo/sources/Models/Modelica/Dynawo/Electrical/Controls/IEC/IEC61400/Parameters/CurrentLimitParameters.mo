@@ -79,6 +79,9 @@ record CurrentLimitParameters
   parameter Real TableIqMaxUwt[:,:] = [TableIqMaxUwt11, TableIqMaxUwt12; TableIqMaxUwt21, TableIqMaxUwt22; TableIqMaxUwt31, TableIqMaxUwt32; TableIqMaxUwt41, TableIqMaxUwt42; TableIqMaxUwt51, TableIqMaxUwt52; TableIqMaxUwt61, TableIqMaxUwt62; TableIqMaxUwt71, TableIqMaxUwt72; TableIqMaxUwt81, TableIqMaxUwt82] "Voltage dependency of reactive current limits" annotation(
     Dialog(tab = "CurrentLimitTables"));
 
+  parameter Boolean CurrentLimitTablesOnFile = false "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "CurrentLimitTables"));
+
   annotation(
     preferredView = "text");
 end CurrentLimitParameters;

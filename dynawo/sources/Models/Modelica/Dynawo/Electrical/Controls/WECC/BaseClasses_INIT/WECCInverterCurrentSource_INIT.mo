@@ -40,6 +40,8 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
     Dialog(tab = "Torque control"));
   parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
     Dialog(tab = "Torque control"));
+  parameter Boolean TorqueControlTableOnFile = false "If true, table is defined on file or in function usertab" annotation(
+    Dialog(tab = "Torque control"));
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
@@ -62,7 +64,7 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4], tableOnFile = TorqueControlTableOnFile) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));

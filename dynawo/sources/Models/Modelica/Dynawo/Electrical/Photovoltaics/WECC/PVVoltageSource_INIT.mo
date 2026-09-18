@@ -58,6 +58,8 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
     Dialog(tab="Torque control"));
   parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
     Dialog(tab="Torque control"));
+  parameter Boolean TorqueControlTableOnFile = false "If true, table is defined on file or in function usertab" annotation(
+    Dialog(tab = "Torque control"));
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";

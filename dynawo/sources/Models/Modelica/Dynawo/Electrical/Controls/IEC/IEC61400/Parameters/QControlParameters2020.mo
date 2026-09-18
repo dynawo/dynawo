@@ -58,6 +58,9 @@ record QControlParameters2020
   parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
 
+  parameter Boolean QControlTablesOnFile = false "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "QControlTables"));
+
   annotation(
     preferredView = "text");
 end QControlParameters2020;

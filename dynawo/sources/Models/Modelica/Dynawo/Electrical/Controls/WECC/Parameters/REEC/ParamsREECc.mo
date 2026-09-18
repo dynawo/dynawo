@@ -56,6 +56,8 @@ record ParamsREECc "REEC type C parameters"
     Dialog(tab = "Electrical Control", group = "REECc"));
   parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
     Dialog(tab = "Electrical Control", group = "REECc"));
+  parameter Boolean VDLTablesOnFile = false "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "Electrical Control", group = "REECc"));
 
   annotation(preferredView = "text");
 end ParamsREECc;

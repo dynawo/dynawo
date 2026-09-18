@@ -43,7 +43,7 @@ model BaseWPPPControl "Base active power control module for wind power plants (I
   parameter Types.ActivePowerPu PRefMinPu "Minimum PD power reference in pu (base SNom)" annotation(
     Dialog(tab = "PControlWP"));
 
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TablePwpBiasfwpFiltCom) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TablePwpBiasfwpFiltCom, tableOnFile = PControlTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-102, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

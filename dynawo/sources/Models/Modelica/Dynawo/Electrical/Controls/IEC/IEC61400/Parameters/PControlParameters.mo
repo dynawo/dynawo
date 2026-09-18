@@ -44,6 +44,9 @@ record PControlParameters
   parameter Real TablePwpBiasfwpFiltCom[:,:] = [TablePwpBiasfwpFiltCom11, TablePwpBiasfwpFiltCom12; TablePwpBiasfwpFiltCom21, TablePwpBiasfwpFiltCom22; TablePwpBiasfwpFiltCom31, TablePwpBiasfwpFiltCom32; TablePwpBiasfwpFiltCom41, TablePwpBiasfwpFiltCom42; TablePwpBiasfwpFiltCom51, TablePwpBiasfwpFiltCom52; TablePwpBiasfwpFiltCom61, TablePwpBiasfwpFiltCom62; TablePwpBiasfwpFiltCom71, TablePwpBiasfwpFiltCom72] "Table for defining power variation versus frequency" annotation(
     Dialog(tab = "PControlTables"));
 
+  parameter Boolean PControlTablesOnFile = false "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "PControlTables"));
+
   annotation(
     preferredView = "text");
 end PControlParameters;

@@ -96,9 +96,9 @@ partial model BaseCurrentLimiter "Current limitation base module for wind turbin
     Placement(visible = true, transformation(origin = {-270, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3 annotation(
     Placement(visible = true, transformation(origin = {-210, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1(table = TableIpMaxUwt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1(table = TableIpMaxUwt, tableOnFile = CurrentLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-250, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TableIqMaxUwt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TableIqMaxUwt, tableOnFile = CurrentLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-250, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product2 annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
