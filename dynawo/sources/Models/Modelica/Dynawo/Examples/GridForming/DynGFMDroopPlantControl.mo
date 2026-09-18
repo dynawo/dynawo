@@ -2,18 +2,19 @@ within Dynawo.Examples.GridForming;
 
 model DynGFMDroopPlantControl "GFM with VSM control and a generic Plant Controller"
   /*
-      * Copyright (c) 2026, RTE (http://www.rte-france.com)
-      * See AUTHORS.txt
-      * All rights reserved.
-      * This Source Code Form is subject to the terms of the Mozilla Public
-      * License, v. 2.0. If a copy of the MPL was not distributed with this
-      * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-      * SPDX-License-Identifier: MPL-2.0
-      *
-      * This file is part of Dynawo, an hybrid C++/Modelica open source suite
-      * of simulation tools for power systems.
-      */
+  * Copyright (c) 2026, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, an hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+  */
   extends Modelica.Icons.Example;
+
   //Operating Point
   parameter Types.ApparentPowerModule SNom = 1000 "Nominal apparent power module for the converter";
   parameter Types.VoltageModulePu UGfm0Pu = 0.993784186833338
@@ -34,6 +35,7 @@ model DynGFMDroopPlantControl "GFM with VSM control and a generic Plant Controll
   final parameter Types.ActivePowerPu PPcc0Pu = uPcc0Pu.re*i0Pu.re + uPcc0Pu.im*i0Pu.im;
   final parameter Types.ReactivePowerPu QPcc0Pu = uPcc0Pu.im*i0Pu.re - uPcc0Pu.re*i0Pu.im;
   final parameter Types.VoltageModulePu UPcc0Pu = sqrt(uPcc0Pu.re^2 + uPcc0Pu.im^2);
+
   Modelica.Blocks.Sources.Constant URefPu(k = UPcc0Pu + dynDroopPlantControl.Lambd*QPcc0Pu) annotation(
     Placement(transformation(origin = {-74, 6}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = PPcc0Pu) annotation(
@@ -48,10 +50,11 @@ model DynGFMDroopPlantControl "GFM with VSM control and a generic Plant Controll
     Placement(transformation(origin = {-74, -24}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.0005, XPu = 0.005) annotation(
     Placement(transformation(origin = {98, 4}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Controls.PEIR.BaseControls.Plant.DynDroopPlantControl dynDroopPlantControl(SNom = SNom, U0Pu = UGfm0Pu, UPhase0 = UPhaseGfm0, P0Pu = PGfm0Pu, Q0Pu = QGfm0Pu, UPcc0Pu = UPcc0Pu, UPccPhase0 = UPccPhase0, PPcc0Pu = PPcc0Pu, QPcc0Pu = QPcc0Pu, CFilterPu = 1e-05, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0,  KpVI = 0.1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.013, RFilterPu = 0.015, RTransformerPu = 0.006,  Wf = 40, Wff = 50, XRratio = 10, XVI = 0.06, tVSC = 0.0004, Mp = 0.013, omegaC = 1000, omegaNPLL = 100, ZetaPLL = 1, Lambd = 0.01, Kdroop = 0.01, tQFilt = 0.1, tPFilt = 1, tUFilt = 0.1, Kpq = 0.1, Kiq = 1.0, Kpp = 0.3, Kip = 0.3, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 100, QMinPu = -100, PMaxPu = 12, PMinPu = -12)  annotation(
+  Electrical.Controls.PEIR.BaseControls.Plant.DynDroopPlantControl dynDroopPlantControl(SNom = SNom, U0Pu = UGfm0Pu, UPhase0 = UPhaseGfm0, P0Pu = PGfm0Pu, Q0Pu = QGfm0Pu, UPcc0Pu = UPcc0Pu, UPccPhase0 = UPccPhase0, PPcc0Pu = PPcc0Pu, QPcc0Pu = QPcc0Pu, CFilterPu = 1e-05, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0,  KpVI = 0.1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.013, RFilterPu = 0.015, RTransformerPu = 0.006,  Wf = 40, Wff = 50, XRratio = 10, XVI = 0.06, tVSC = 0.0004, Mp = 0.013, omegaC = 1000, omegaNPLL = 100, ZetaPLL = 1, Lambd = 0.01, Kdroop = 0.01, tQFilt = 0.1, tPFilt = 0.1, tUFilt = 0.1, Kpq = 0.1, Kiq = 1.0, Kpp = 0.3, Kip = 0.3, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 100, QMinPu = -100, PMaxPu = 12, PMinPu = -12)  annotation(
     Placement(transformation(origin = {-16, 6}, extent = {{-22, -22}, {22, 22}})));
-  Dynawo.Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0, SNom = 1000, StartRoCoF = 5, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+  Dynawo.Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 5, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
     Placement(transformation(origin = {82, 50}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -59,6 +62,7 @@ equation
   line1.switchOffSignal2 = false;
   Transformer.switchOffSignal1 = false;
   Transformer.switchOffSignal2 = false;
+
   connect(line.terminal2, Transformer.terminal1) annotation(
     Line(points = {{44, 4}, {58, 4}}, color = {0, 0, 255}));
   connect(Transformer.terminal2, line1.terminal1) annotation(
@@ -83,6 +87,7 @@ equation
     Line(points = {{-18, 72}, {70, 72}, {70, 55}}, color = {0, 0, 127}));
   connect(AcGrid.aCPower, line1.terminal2) annotation(
     Line(points = {{93.5, 57}, {116, 57}, {116, 4}, {108, 4}}, color = {0, 0, 255}));
+
   annotation(
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),
     Diagram);

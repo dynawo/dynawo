@@ -20,8 +20,9 @@
     <par type="DOUBLE" name="Grid_UPhase" value="0"/>
     <par type="DOUBLE" name="Grid_SNom" value="1000"/>
     <par type="DOUBLE" name="Grid_RoCoFValue" value="0.05"/>
-    <!-- Grid_OmegaRef retiré : AcGrid.OmegaRef est connecté par port (omegaRefPu.y)
-         dans le .mo, ce n'est pas un parametre a fixer ici. A confirmer. -->
+    <par type="DOUBLE" name="Grid_StartRoCoF" value="5"/>
+    <par type="DOUBLE" name="Grid_TimeRoCoF" value="0.5"/>
+
   </set>
 
   <set id="2">
@@ -63,7 +64,7 @@
     <par name="GFMCC_omegaNPLL" type="DOUBLE" value="100"/>
     <par name="GFMCC_ZetaPLL" type="DOUBLE" value="1"/>
     <par name="GFMCC_omegaC" type="DOUBLE" value="1000"/>
-    <par name="GFMCC_Wqsem" type="DOUBLE" value="100"/>
+    <par name="GFMCC_KDampingAngle" type="DOUBLE" value="1"/>
   </set>
 
   <!-- SetPointOne : reutilise pour URefPu, omegaRefPu et Grid_OmegaRef (tous = 1 dans le .mo) -->

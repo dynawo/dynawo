@@ -20,7 +20,7 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
   parameter Types.CurrentModulePu IMaxVI "Current threshold above which the virtual impedance activates in pu (base UNom, SNom)";
   parameter Types.CurrentModulePu DeltaIConvMaxPu "Maximum extra current module used to compute RVI/XVI, in pu (base UNom, SNom): bounds the virtual impedance correction regardless of how large the measured current becomes";
 
-  parameter Types.CurrentModulePu HysteresisPu = 0.002 "Half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold";
+  parameter Types.CurrentModulePu HysteresisPu = 0.01 "Half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold";
 
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -33,6 +33,7 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // CHANGE: exposed status output, consistent with the BlocCurrentSaturation_Enable pattern used
   // elsewhere in the model. Purely informational -- not connected to, or read by, any other block.
+  Boolean virtualImpedanceActive(start = IConv0Pu >= IMaxVI) "True while the virtual impedance correction is active (above IMaxVI+HysteresisPu)";
   Modelica.Blocks.Interfaces.BooleanOutput BlocVirtualImpedance_Enable(start = false) "True while the virtual impedance correction is active (above IMaxVI+HysteresisPu)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
@@ -54,22 +55,23 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
 equation
   IConvPu = sqrt(idConvPu ^ 2 + iqConvPu ^ 2);
 
-  if IConvPu >= IMaxVI + HysteresisPu then
-    BlocVirtualImpedance_Enable = true;
+  when IConvPu >= IMaxVI + HysteresisPu then
+    virtualImpedanceActive = true;
+  elsewhen IConvPu <= IMaxVI - HysteresisPu then
+    virtualImpedanceActive = false;
+  end when;
+
+  if virtualImpedanceActive then
     DeltaIConvPu = min(max((IConvPu - IMaxVI), 0), DeltaIConvMaxPu);
     RVI = KpVI * DeltaIConvPu;
     XVI = RVI * XRratio;
-  elseif IConvPu <= IMaxVI - HysteresisPu then
-    BlocVirtualImpedance_Enable = false;
+  else
     DeltaIConvPu = 0;
     RVI = 0;
     XVI = 0;
-  else
-    BlocVirtualImpedance_Enable = false;
-    DeltaIConvPu = DeltaIConvPu;
-    RVI = RVI;
-    XVI = XVI;
   end if;
+
+  BlocVirtualImpedance_Enable = virtualImpedanceActive;
 
   DeltaVVId = idConvPu * RVI - iqConvPu * XVI;
   DeltaVVIq = iqConvPu * RVI + idConvPu * XVI;

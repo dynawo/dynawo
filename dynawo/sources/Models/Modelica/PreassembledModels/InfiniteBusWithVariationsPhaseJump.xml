@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="InfiniteBusWithVariations_PhaseJump">
-    <dyn:unitDynamicModel id="infiniteBusPhaseJump" name="Dynawo.Electrical.Buses.InfiniteBusWithVariations_PhaseJump"/>
+  <dyn:modelicaModel id="InfiniteBusWithVariationsPhaseJump">
+    <dyn:unitDynamicModel id="infiniteBusPhaseJump" name="Dynawo.Electrical.Buses.InfiniteBusWithVariationsPhaseJump"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

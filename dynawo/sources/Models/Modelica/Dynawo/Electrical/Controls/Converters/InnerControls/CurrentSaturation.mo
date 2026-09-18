@@ -18,7 +18,7 @@ model CurrentSaturation
   parameter Types.CurrentModulePu Imax "Current max threshold to limit a current's module";
   parameter Types.CurrentModulePu Imin "Current min threshold to limit a current's module";
   parameter Real W_CurrentLimit "Bandwidth of the current limitation";
-  parameter Types.CurrentModulePu HysteresisPu = 0.002 "Half-width of the dead band around Imax/Imin, to avoid chattering at the activation threshold";
+  parameter Types.CurrentModulePu HysteresisPu = 0.01 "Half-width of the dead band around Imax/Imin, to avoid chattering at the activation threshold";
   Modelica.Blocks.Interfaces.RealInput idConvRefPu(start = idConvRef0Pu) "value of id to be saturated" annotation(
     Placement(transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 36}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput idPcc(start = IdPcc0Pu) annotation(
@@ -38,8 +38,6 @@ model CurrentSaturation
   Types.PerUnit IConvRefFilterModulePu(start = CurrentModule0) "Module of the current in dq representation idConvRefPu,iqConvRefPu ";
   Types.PerUnit IConvRefFilterAnglePu(start = CurrentAngle0) "Phase Angle of the current in dq representation idConvRefPu,iqConvRefPu ";
   Types.PerUnit CurrentModulePcc(start = CurrentModule0) "Module of the current in dq representation idPccPu,iqPccPu ";
-  Modelica.Blocks.Interfaces.BooleanOutput BlocCurrentSaturation_Enable(start = false) annotation(
-    Placement(transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Boolean saturating(start = CurrentModule0 > Imax) "True while the current reference is being clamped";
   Types.PerUnit idConvRefFilterPu(start = idConvRef0Pu) "Value of the Current idConvRefPu after a first order filter ";

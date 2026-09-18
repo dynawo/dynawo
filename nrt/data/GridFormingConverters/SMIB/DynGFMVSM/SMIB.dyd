@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="busInf" lib="InfiniteBusWithVariations_PhaseJump" parFile="SMIB.par" parId="1"/>
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBusWithVariationsPhaseJump" parFile="SMIB.par" parId="1"/>
   <dyn:blackBoxModel id="line" lib="Line" parFile="SMIB.par" parId="2"/>
   <dyn:blackBoxModel id="GFM" lib="DynGridFormingVirtualSynchronousMachine" parFile="SMIB.par" parId="3"/>
   <dyn:blackBoxModel id="PFilterRef" lib="SetPoint" parFile="SMIB.par" parId="5"/>

@@ -18,6 +18,7 @@
   <mandatoryParameter name="KpVI" type="DOUBLE"/>
   <mandatoryParameter name="XRratio" type="DOUBLE"/>
   <mandatoryParameter name="IMaxVI" type="DOUBLE"/>
+  <mandatoryParameter name="KDampingAngle" type="DOUBLE"/>
   <mandatoryParameter name="DeltaIConvMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="XVI" type="DOUBLE"/>
   <mandatoryParameter name="omegaNPLL" type="DOUBLE"/>

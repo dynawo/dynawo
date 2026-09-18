@@ -1,19 +1,18 @@
 within Dynawo.Examples.GridForming;
 
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model DynGFMVSMSmib "Single machine infinite bus test case for Grid Forming VSM model with dynamic filter and transformer"
+  /*
+  * Copyright (c) 2026, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+  */
   extends Modelica.Icons.Example;
 
   Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.005, XPu = 0.05) annotation(
@@ -28,8 +27,8 @@ model DynGFMVSMSmib "Single machine infinite bus test case for Grid Forming VSM 
     Placement(transformation(origin = {-15, 1}, extent = {{-23, -23}, {23, 23}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.95) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Buses.InfiniteBusWithVariations_PhaseJump infiniteBusWithVariations_PhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0, tUPhaseEvt = 0) annotation(
-    Placement(transformation(origin = {74, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Electrical.Buses.InfiniteBusWithVariationsPhaseJump infiniteBusWithVariationsPhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.462, tUPhaseEvt = 10)  annotation(
+    Placement(transformation(origin = {88, -22}, extent = {{-10, -10}, {10, 10}})));
 
 equation
   line.switchOffSignal1 = false;
@@ -48,8 +47,8 @@ equation
     Line(points = {{-102, 56}, {-102, 19}, {-40, 19}}, color = {0, 0, 127}));
   connect(DynGFMVSM.terminal, line.terminal1) annotation(
     Line(points = {{10, 1}, {28, 1}, {28, -6}, {46, -6}}, color = {0, 0, 255}));
-  connect(line.terminal2, infiniteBusWithVariations_PhaseJump.terminal) annotation(
-    Line(points = {{66, -6}, {66, -46}, {74, -46}}, color = {0, 0, 255}));
+  connect(line.terminal2, infiniteBusWithVariationsPhaseJump.terminal) annotation(
+    Line(points = {{66, -6}, {88, -6}, {88, -22}}, color = {0, 0, 255}));
 
   annotation(
     preferredView = "diagram",

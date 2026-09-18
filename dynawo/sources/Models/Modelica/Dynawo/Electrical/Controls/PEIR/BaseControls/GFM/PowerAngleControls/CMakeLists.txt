@@ -14,7 +14,7 @@ set(MODEL_FILES
   package.mo
   package.order
   VSM.mo
-  CC_VSM.mo
+  CCVSM.mo
   )
 
 #

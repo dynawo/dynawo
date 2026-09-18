@@ -1,6 +1,6 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls;
 
-model CC_VSM "Virtual Synchronous Machine control"
+model CCVSM "Virtual Synchronous Machine control"
   /*
   * Copyright (c) 2026, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
@@ -98,4 +98,4 @@ equation
     Line(points = {{-52, 0}, {-38, 0}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram");
-end CC_VSM;
+end CCVSM;
