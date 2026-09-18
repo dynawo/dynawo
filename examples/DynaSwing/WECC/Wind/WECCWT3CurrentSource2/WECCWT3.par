@@ -97,6 +97,7 @@
     <par type="DOUBLE" name="WT3_VDLIq32" value="1"/>
     <par type="DOUBLE" name="WT3_VDLIq41" value="1.3"/>
     <par type="DOUBLE" name="WT3_VDLIq42" value="1"/>
+    <par type="BOOL" name="WT3_VDLTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WT3_VRef1Pu" value="1"/>
     <par type="DOUBLE" name="WT3_tHoldIpMax" value="0"/>
     <par type="DOUBLE" name="WT3_tHoldIq" value="10"/>
@@ -154,6 +155,7 @@
     <par type="DOUBLE" name="WT3_TeMinPu" value="0"/>
     <par type="BOOL" name="WT3_TFlag" value="true"/>
     <par type="DOUBLE" name="WT3_tOmegaRef" value="60"/>
+    <par type="BOOL" name="WT3_TorqueControlTableOnFile" value="false"/>
     <!-- Drive train control -->
     <par type="DOUBLE" name="WT3_Ht" value="5"/>
     <par type="DOUBLE" name="WT3_Hg" value="1"/>

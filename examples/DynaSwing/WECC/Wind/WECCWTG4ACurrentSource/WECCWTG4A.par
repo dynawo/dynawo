@@ -147,6 +147,7 @@
     <par type="DOUBLE" name="WTG4A_VDLIq32" value="1"/>
     <par type="DOUBLE" name="WTG4A_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="WTG4A_VDLIq42" value="1"/>
+    <par type="BOOL" name="WTG4A_VDLTablesOnFile" value="false"/>
     <par type="BOOL" name="WTG4A_Lvplsw" value="false"/>
     <par type="DOUBLE" name="WTG4A_zerox" value="0.1"/>
     <par type="DOUBLE" name="WTG4A_brkpt" value="0.05"/>

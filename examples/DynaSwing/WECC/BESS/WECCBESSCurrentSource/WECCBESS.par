@@ -81,7 +81,7 @@
     <par type="DOUBLE" name="BESS_tpREPC" value="0.05"/>
     <par type="BOOL" name="BESS_VCompFlag" value="true"/>
     <par type="DOUBLE" name="BESS_VFrz" value="0"/>
-    <!-- RECC-C parameters -->
+    <!-- REEC-C parameters -->
     <par type="DOUBLE" name="BESS_Dbd1Pu" value="-0.05"/>
     <par type="DOUBLE" name="BESS_Dbd2Pu" value="0.05"/>
     <par type="DOUBLE" name="BESS_DPMaxPu" value="999"/>
@@ -123,6 +123,7 @@
     <par type="DOUBLE" name="BESS_VDLIq32" value="1"/>
     <par type="DOUBLE" name="BESS_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="BESS_VDLIq42" value="1"/>
+    <par type="BOOL" name="BESS_VDLTablesOnFile" value="false"/>
     <par type="BOOL" name="BESS_VFlag" value="true"/>
     <par type="DOUBLE" name="BESS_VMaxPu" value="1.1"/>
     <par type="DOUBLE" name="BESS_VMinPu" value="0.9"/>
