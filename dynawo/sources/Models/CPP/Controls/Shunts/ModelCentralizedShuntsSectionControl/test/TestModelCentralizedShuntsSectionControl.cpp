@@ -97,7 +97,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
   std::map<std::string, int> mapElements;
   modelShunt->defineElements(elements, mapElements);
   ASSERT_EQ(elements.size(), mapElements.size());
-  ASSERT_EQ(elements.size(), 8);
+  ASSERT_EQ(elements.size(), 4);
 
   boost::shared_ptr<SubModel> modelShunt_missingPar =
   SubModelFactory::createSubModelFromLib("../DYNModelCentralizedShuntsSectionControl" + std::string(sharedLibraryExtension()));

@@ -94,7 +94,7 @@ The simulated load variations make the network voltage decrease at node 3, until
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu}]
         {../IEEE14_UnderVoltageAutomaton/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{UVA_underVoltageAutomaton_UMinPu}]
@@ -167,7 +167,7 @@ The simulated load variations make the network voltage increase at node 3, until
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu}]
         {../IEEE14_OverVoltageAutomaton/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{OVA_overVoltageAutomaton_UMaxPu}]
@@ -513,7 +513,7 @@ The simulated load variation makes the network voltage drop at node 3. The load 
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu}]
         {../IEEE14_TapChanger/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -574,10 +574,10 @@ The simulated load variation makes the network voltage drop at node 5, going out
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in, yticklabel style={text width={width("$-0.6$")},align=right}]
         \addplot[color=red!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____5_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____5_TN_Upu}]
         {../IEEE14_TapChangerCpp/reference/outputs/curves/curves.csv};
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____6_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____6_TN_Upu}]
         {../IEEE14_TapChangerCpp/reference/outputs/curves/curves.csv};
         \legend{$U_{Node5}$, $U_{Node6}$}
     \end{axis}
@@ -659,10 +659,10 @@ The simulated load variations make the network voltage drop at node 2 and 3 (mon
   \begin{tikzpicture}
     \begin{axis}[height = 2.3in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu}]
         {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[color=green!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu}]
         {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \legend{$U_{Node2}$, $U_{Node3}$}
     \end{axis}
@@ -679,7 +679,7 @@ At $t=100s$,the tap-changer lock automaton monitored voltage crosses $U_{Min}$ p
   \begin{tikzpicture}
     \begin{axis}[height = 2.7in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_U_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_U}]
         {../IEEE14_TapChangerBlocking/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time, y expr=\thisrow{TAP_CHANGER_LOCK_tapChangerBlocking_UMin}]
@@ -730,10 +730,10 @@ If we try to simulate this test case without the tap-changer lock automaton we s
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____2_TN_Upu}]
         {../IEEE14_TapChangerBlocking/referenceNoTCL/outputs/curves/curves.csv};
         \addplot[color=green!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu_value}]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____3_TN_Upu}]
         {../IEEE14_TapChangerBlocking/referenceNoTCL/outputs/curves/curves.csv};
         \legend{$U_{Node2}$, $U_{Node3}$}
     \end{axis}

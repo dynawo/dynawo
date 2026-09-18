@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  4167_fix_nrt-865463cd49b
+INFO | DYNAWO REVISION :  3741_value_cpp-9564ca42e34
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -24,8 +24,8 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting curve initialization
 INFO | -----------------------------------------------------------------------
-WARN | curve not added: Id: NETWORK , name: Generator_P_value
-WARN | curve not added: Id: NETWORK , name: Generator_Q_value
+WARN | curve not added: Id: NETWORK , name: Generator_P
+WARN | curve not added: Id: NETWORK , name: Generator_Q
 INFO | end of curve initialization, added 23 curves
 INFO | -----------------------------------------------------------------------
 INFO | 

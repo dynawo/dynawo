@@ -62,6 +62,18 @@ class Dyds:
             connects.extend(dyd._get_connects_with_var_prefix_for_models(var_prefix, idx, model_ids))
         return connects
 
+    def get_all_connects(self):
+        connects = []
+        for dyd in self._dyds_collection.values():
+            connects.extend(dyd._get_all_connects())
+        return connects
+
+    def get_all_static_refs(self):
+        static_refs = []
+        for dyd in self._dyds_collection.values():
+            static_refs.extend(dyd._get_all_static_refs())
+        return static_refs
+
     def remove_macro_connector(self, id):
         for dyd in self._dyds_collection.values():
             dyd._remove_macro_connector(id)

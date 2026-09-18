@@ -643,24 +643,24 @@ ModelLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN2_i_im", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_iBranch_re", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_iBranch_im", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState("@ID@_omegaRef_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_U1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_U2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_lineState_value", CONTINUOUS));  // state as continuous variable
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState("@ID@_omegaRef", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_U1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_U2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_lineState", CONTINUOUS));  // state as continuous variable
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits", BOOLEAN));
 }
 
 void
@@ -680,26 +680,26 @@ ModelLine::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   if (dynLineModel_) {
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_re", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_im", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState(id_ + "_omegaRef_value", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_omegaRef", CONTINUOUS));
   }
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U2", CONTINUOUS));
   // state as continuous variable (need for external automaton as inputs of automaton are continuous)
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_lineState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_lineState", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits", BOOLEAN));
 }
 
 void
@@ -733,25 +733,25 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
     addElement(name, Element::STRUCTURE, elements, mapElement);
     addSubElement("re", name, Element::TERMINAL, id(), "Line", elements, mapElement);
     addSubElement("im", name, Element::TERMINAL, id(), "Line", elements, mapElement);
-    addElementWithValue(id_ + string("_omegaRef"), "Line", elements, mapElement);
+    addElement(id_ + string("_omegaRef"), Element::TERMINAL, elements, mapElement);
   }
-  addElementWithValue(id_ + string("_i1"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_i2"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_P1"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_P2"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_Q1"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_Q2"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_iS1ToS2Side1"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_iS2ToS1Side1"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_iS1ToS2Side2"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_iS2ToS1Side2"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_iSide1"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_iSide2"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_U1"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_U2"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_lineState"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_state"), "Line", elements, mapElement);
-  addElementWithValue(id_ + string("_desactivate_currentLimits"), "Line", elements, mapElement);
+  addElement(id_ + string("_i1"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_i2"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_P1"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_P2"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_Q1"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_Q2"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_iS1ToS2Side1"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_iS2ToS1Side1"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_iS1ToS2Side2"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_iS2ToS1Side2"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_iSide1"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_iSide2"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_U1"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_U2"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_lineState"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_state"), Element::TERMINAL, elements, mapElement);
+  addElement(id_ + string("_desactivate_currentLimits"), Element::TERMINAL, elements, mapElement);
 }
 
 #define CL_ACTIVE(currentLimits, gOffset) (currentLimits && \

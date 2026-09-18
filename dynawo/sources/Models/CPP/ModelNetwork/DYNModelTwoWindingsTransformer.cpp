@@ -41,6 +41,7 @@
 #include "DYNModelTapChanger.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
+#include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
@@ -1148,73 +1149,73 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
 
 void
 ModelTwoWindingsTransformer::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide2", CONTINUOUS));
   // state as continuous variable (need for external automaton as inputs of automaton are continuous)
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_twtState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_step_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_disable_internal_tapChanger_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_TAP_CHANGER_locked_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_TAP_CHANGER_deltaUTarget_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_twtState", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_step", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_disable_internal_tapChanger", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_TAP_CHANGER_locked", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_TAP_CHANGER_deltaUTarget", DISCRETE));
 }
 
 void
 ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_twtState_value", CONTINUOUS));  // state as continuous variable
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createState("@ID@_step_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_disable_internal_tapChanger_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_TAP_CHANGER_locked_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_TAP_CHANGER_deltaUTarget_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_twtState", CONTINUOUS));  // state as continuous variable
+  variables.push_back(VariableNativeFactory::createState("@ID@_state", INTEGER));
+  variables.push_back(VariableNativeFactory::createState("@ID@_step", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState("@ID@_disable_internal_tapChanger", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState("@ID@_TAP_CHANGER_locked", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState("@ID@_TAP_CHANGER_deltaUTarget", DISCRETE));
 }
 
 void
 ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   const string twtName = id();
-  addElementWithValue(twtName + string("_i1"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_i2"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_P1"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_P2"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_Q1"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_Q2"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_iS1ToS2Side1"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_iS2ToS1Side1"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_iS1ToS2Side2"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_iS2ToS1Side2"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_iSide1"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_iSide2"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_twtState"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_state"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_step"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_desactivate_currentLimits"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_disable_internal_tapChanger"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_TAP_CHANGER_locked"), modelType_, elements, mapElement);
-  addElementWithValue(twtName + string("_TAP_CHANGER_deltaUTarget"), modelType_, elements, mapElement);
+  addElement(twtName + string("_i1"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_i2"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_P1"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_P2"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_Q1"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_Q2"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_iS1ToS2Side1"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_iS2ToS1Side1"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_iS1ToS2Side2"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_iS2ToS1Side2"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_iSide1"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_iSide2"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_twtState"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_state"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_step"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_desactivate_currentLimits"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_disable_internal_tapChanger"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_TAP_CHANGER_locked"), Element::TERMINAL, elements, mapElement);
+  addElement(twtName + string("_TAP_CHANGER_deltaUTarget"), Element::TERMINAL, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

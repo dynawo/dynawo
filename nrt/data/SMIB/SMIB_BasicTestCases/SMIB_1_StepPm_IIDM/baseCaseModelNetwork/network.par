@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="Network">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>

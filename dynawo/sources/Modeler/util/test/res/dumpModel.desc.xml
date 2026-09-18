@@ -9,16 +9,16 @@
       <parameter name="weight_gen" valueType="DOUBLE" cardinality="*" readOnly="false"/>
     </parameters>
     <variables>
-      <variable name="omegaRef_0_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_1_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_2_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_3_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_4_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_5_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_6_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_7_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_8_value" valueType="DOUBLE"/>
-      <variable name="omegaRef_9_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_0_" valueType="DOUBLE"/>
+      <variable name="omegaRef_1_" valueType="DOUBLE"/>
+      <variable name="omegaRef_2_" valueType="DOUBLE"/>
+      <variable name="omegaRef_3_" valueType="DOUBLE"/>
+      <variable name="omegaRef_4_" valueType="DOUBLE"/>
+      <variable name="omegaRef_5_" valueType="DOUBLE"/>
+      <variable name="omegaRef_6_" valueType="DOUBLE"/>
+      <variable name="omegaRef_7_" valueType="DOUBLE"/>
+      <variable name="omegaRef_8_" valueType="DOUBLE"/>
+      <variable name="omegaRef_9_" valueType="DOUBLE"/>
     </variables>
   </elements>
 </model>

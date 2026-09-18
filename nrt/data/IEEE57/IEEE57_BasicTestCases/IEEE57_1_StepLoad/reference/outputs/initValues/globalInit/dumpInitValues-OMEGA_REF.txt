@@ -1,43 +1,43 @@
- ====== INIT VARIABLES VALUES ======
-omegaRef_0_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_1_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_2_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_3_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_4_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_5_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_6_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_7_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_8_value                                  : y =       1.000000 yp =       0.000000
-omegaRef_9_value                                  : y =       1.000000 yp =       0.000000
-omega_grp_0_value                                 : y =       1.000000 yp =       0.000000
-omega_grp_1_value                                 : y =       1.000000 yp =       0.000000
-omega_grp_2_value                                 : y =       1.000000 yp =       0.000000
-omega_grp_3_value                                 : y =       1.000000 yp =       0.000000
-omega_grp_4_value                                 : y =       1.000000 yp =       0.000000
-omega_grp_5_value                                 : y =       1.000000 yp =       0.000000
-omega_grp_6_value                                 : y =       1.000000 yp =       0.000000
-omegaRef_grp_0_value                              : y =       1.000000 yp =       0.000000
-omegaRef_grp_1_value                              : y =       1.000000 yp =       0.000000
-omegaRef_grp_2_value                              : y =       1.000000 yp =       0.000000
-omegaRef_grp_3_value                              : y =       1.000000 yp =       0.000000
-omegaRef_grp_4_value                              : y =       1.000000 yp =       0.000000
-omegaRef_grp_5_value                              : y =       1.000000 yp =       0.000000
-omegaRef_grp_6_value                              : y =       1.000000 yp =       0.000000
- ====== INIT DISCRETE VARIABLES VALUES ======
-numcc_node_0_value                                : z =       0.000000
-numcc_node_1_value                                : z =       0.000000
-numcc_node_2_value                                : z =       0.000000
-numcc_node_3_value                                : z =       0.000000
-numcc_node_4_value                                : z =       0.000000
-numcc_node_5_value                                : z =       0.000000
-numcc_node_6_value                                : z =       0.000000
-running_grp_0_value                               : z =       1.000000
-running_grp_1_value                               : z =       1.000000
-running_grp_2_value                               : z =       1.000000
-running_grp_3_value                               : z =       1.000000
-running_grp_4_value                               : z =       1.000000
-running_grp_5_value                               : z =       1.000000
-running_grp_6_value                               : z =       1.000000
+ ====== VARIABLES VALUES ======
+omegaRef_0_                                       : y =       1.000000 yp =       0.000000
+omegaRef_1_                                       : y =       1.000000 yp =       0.000000
+omegaRef_2_                                       : y =       1.000000 yp =       0.000000
+omegaRef_3_                                       : y =       1.000000 yp =       0.000000
+omegaRef_4_                                       : y =       1.000000 yp =       0.000000
+omegaRef_5_                                       : y =       1.000000 yp =       0.000000
+omegaRef_6_                                       : y =       1.000000 yp =       0.000000
+omegaRef_7_                                       : y =       1.000000 yp =       0.000000
+omegaRef_8_                                       : y =       1.000000 yp =       0.000000
+omegaRef_9_                                       : y =       1.000000 yp =       0.000000
+omega_grp_0_                                      : y =       1.000000 yp =       0.000000
+omega_grp_1_                                      : y =       1.000000 yp =       0.000000
+omega_grp_2_                                      : y =       1.000000 yp =       0.000000
+omega_grp_3_                                      : y =       1.000000 yp =       0.000000
+omega_grp_4_                                      : y =       1.000000 yp =       0.000000
+omega_grp_5_                                      : y =       1.000000 yp =       0.000000
+omega_grp_6_                                      : y =       1.000000 yp =       0.000000
+omegaRef_grp_0_                                   : y =       1.000000 yp =       0.000000
+omegaRef_grp_1_                                   : y =       1.000000 yp =       0.000000
+omegaRef_grp_2_                                   : y =       1.000000 yp =       0.000000
+omegaRef_grp_3_                                   : y =       1.000000 yp =       0.000000
+omegaRef_grp_4_                                   : y =       1.000000 yp =       0.000000
+omegaRef_grp_5_                                   : y =       1.000000 yp =       0.000000
+omegaRef_grp_6_                                   : y =       1.000000 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
+numcc_node_0_                                     : z =       0.000000
+numcc_node_1_                                     : z =       0.000000
+numcc_node_2_                                     : z =       0.000000
+numcc_node_3_                                     : z =       0.000000
+numcc_node_4_                                     : z =       0.000000
+numcc_node_5_                                     : z =       0.000000
+numcc_node_6_                                     : z =       0.000000
+running_grp_0_                                    : z =       1.000000
+running_grp_1_                                    : z =       1.000000
+running_grp_2_                                    : z =       1.000000
+running_grp_3_                                    : z =       1.000000
+running_grp_4_                                    : z =       1.000000
+running_grp_5_                                    : z =       1.000000
+running_grp_6_                                    : z =       1.000000
  ====== PARAMETERS VALUES ======
 nbGen                                              =       7.000000
 weight_gen_0                                       =    6048.000000
@@ -47,3 +47,4 @@ weight_gen_3                                       =    8755.200000
 weight_gen_4                                       =    6539.400000
 weight_gen_5                                       =    6539.400000
 weight_gen_6                                       =    9281.250000
+ ====== INTERNAL PARAMETERS VALUES ======

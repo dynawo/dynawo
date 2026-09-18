@@ -540,22 +540,22 @@ TEST(ModeslModelNetwork, ModelNetworkSwitchVariablesCheck) {
   shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
 
   modelNetwork->defineVariables();
-  ASSERT_EQ(true, modelNetwork->hasVariable("MySwitch_swState_value"));
-  ASSERT_EQ(true, modelNetwork->hasVariable("MySwitch_state_value"));
+  ASSERT_EQ(true, modelNetwork->hasVariable("MySwitch_swState"));
+  ASSERT_EQ(true, modelNetwork->hasVariable("MySwitch_state"));
   ASSERT_EQ(true, modelNetwork->hasVariable("MySwitch_irsw"));
   ASSERT_EQ(true, modelNetwork->hasVariable("MySwitch_iisw"));
 
   modelNetwork->defineElements();
   std::vector<Element> elt = modelNetwork->getElements("MySwitch_swState");
   ASSERT_EQ(elt.size(), 1);
-  ASSERT_EQ(elt[0].name(), "value");
-  ASSERT_EQ(elt[0].id(), "MySwitch_swState_value");
+  ASSERT_EQ(elt[0].name(), elt[0].id());
+  ASSERT_EQ(elt[0].id(), "MySwitch_swState");
   ASSERT_EQ(elt[0].getTypeElement(), Element::TERMINAL);
 
   std::vector<Element> elt1 = modelNetwork->getElements("MySwitch_state");
   ASSERT_EQ(elt1.size(), 1);
-  ASSERT_EQ(elt1[0].name(), "value");
-  ASSERT_EQ(elt1[0].id(), "MySwitch_state_value");
+  ASSERT_EQ(elt1[0].name(), elt1[0].id());
+  ASSERT_EQ(elt1[0].id(), "MySwitch_state");
   ASSERT_EQ(elt1[0].getTypeElement(), Element::TERMINAL);
 }
 

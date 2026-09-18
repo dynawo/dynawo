@@ -964,8 +964,6 @@ ModelMulti::setInitialTime(const double t0) {
 
 ModelMulti::findSubModelFromVarName_t
 ModelMulti::findSubModel(const string& modelName, const string& varName) const {
-  const string variableNameBis = varName + "_value";
-
   // Search in for the device in Composed Model...
   const shared_ptr<SubModel> subModel = findSubModelByName(modelName);
   if (subModel) {   // found model's ID in the composed models.
@@ -975,11 +973,7 @@ ModelMulti::findSubModel(const string& modelName, const string& varName) const {
       return findSubModelFromVarName_t(subModel, isNetwork, false, varName);
     } else if (subModel->hasParameterDynamic(varName)) {   // case 2: curve's variable curve is a parameter in submodel
       return findSubModelFromVarName_t(subModel, isNetwork, true, varName);
-    } else {   // BEGIN search :Some names of "variables" type are ended by "_value". This might change in the future, then this block could be neglected.
-      if (subModel->hasVariable(variableNameBis)) {   // find variableNameBis = name_value
-        return findSubModelFromVarName_t(subModel, isNetwork, false, variableNameBis);
-      }
-    }  // End search
+    }
   } else {   // to be deleted in the future, when Network model becomes a proper modelica model.
     // BEGIN SEARCH IN NETWORK
     // (for the moment, there is no Network model; so we have this temporary search block...
@@ -990,11 +984,6 @@ ModelMulti::findSubModel(const string& modelName, const string& varName) const {
       const string name = modelName + "_" + varName;
       if (modelNetwork->hasVariable(name)) {
         return findSubModelFromVarName_t(modelNetwork, isNetwork, false, name);
-      } else {
-        const string name2 = name + "_value";
-        if (modelNetwork->hasVariable(name2)) {   // find name2 = name_value
-          return findSubModelFromVarName_t(modelNetwork, isNetwork, false, name2);
-        }
       }
     }
   }
@@ -1036,7 +1025,6 @@ bool
 ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
   const string& modelName = curve->getModelName();
   const string& variable = curve->getVariable();
-  const string variableNameBis = variable + "_value";
 
   const findSubModelFromVarName_t props = findSubModel(modelName, variable);
   const shared_ptr<SubModel>& subModel = props.subModel_;
@@ -1062,11 +1050,6 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
         curve->setAvailable(true);
         curve->setFoundVariableName(variable);
         subModel->addCurve(curve);
-      } else if (props.variableNameInSubModel_ == variableNameBis) {
-        Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, variableNameBis) << Trace::endline;
-        curve->setAvailable(true);
-        curve->setFoundVariableName(variableNameBis);
-        subModel->addCurve(curve);
       }
     } else {
       // BEGIN SEARCH IN NETWORK
@@ -1077,14 +1060,6 @@ ModelMulti::initCurves(const std::shared_ptr<curves::Curve>& curve) {
         curve->setAvailable(true);
         curve->setFoundVariableName(name);
         modelNetwork->addCurve(curve);
-      } else {
-        string name2 = name + "_value";
-        if (props.variableNameInSubModel_ == name2) {   // find name2 = name_value
-          Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, name2) << Trace::endline;
-          curve->setAvailable(true);
-          curve->setFoundVariableName(name2);
-          modelNetwork->addCurve(curve);
-        }
       }
     }
     // Register curve calculated var index in subModel, to optimize variable update during simulation
