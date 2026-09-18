@@ -95,6 +95,7 @@
     <par type="DOUBLE" name="WT4A_VDLIq32" value="1"/>
     <par type="DOUBLE" name="WT4A_VDLIq41" value="1.3"/>
     <par type="DOUBLE" name="WT4A_VDLIq42" value="1"/>
+    <par type="BOOL" name="WT4A_VDLTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WT4A_VRef1Pu" value="1"/>
     <par type="DOUBLE" name="WT4A_tHoldIpMax" value="0"/>
     <par type="DOUBLE" name="WT4A_tHoldIq" value="10"/>

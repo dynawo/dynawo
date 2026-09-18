@@ -16,7 +16,7 @@
     <!-- Nominal -->
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
-    <!-- PCS-->
+    <!-- PCS -->
     <par type="BOOL" name="WPP_PPCLocal" value="false"/>
     <par type="DOUBLE" name="WPP_BMvHvPu" value="0"/>
     <par type="DOUBLE" name="WPP_GMvHvPu" value="0"/>
@@ -66,10 +66,12 @@
     <par type="DOUBLE" name="WPP_DPRefMin4APu" value="-100"/>
     <par type="DOUBLE" name="WPP_Kpaw" value="1000"/>
     <par type="BOOL" name="WPP_MpUScale" value="false"/>
+    <par type="BOOL" name="WPP_PControlTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_tPOrdP4A" value="0.1"/>
     <par type="DOUBLE" name="WPP_tPWTRef4A" value="0.01"/>
     <par type="DOUBLE" name="WPP_UpDipPu" value="0"/>
     <!-- CurrentLimiter -->
+    <par type="BOOL" name="WPP_CurrentLimitTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_IMaxDipPu" value="1.3"/>
     <par type="DOUBLE" name="WPP_IMaxPu" value="1.3"/>
     <par type="DOUBLE" name="WPP_Kpqu" value="20"/>
@@ -91,6 +93,7 @@
     <par type="DOUBLE" name="WPP_Kqv" value="2"/>
     <par type="INT" name="WPP_Mqfrt" value="1"/>
     <par type="INT" name="WPP_MqG" value="2"/>
+    <par type="BOOL" name="WPP_QControlTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_RDropPu" value="0"/>
     <par type="DOUBLE" name="WPP_tPost" value="0"/>
     <par type="DOUBLE" name="WPP_tQord" value="0.05"/>
@@ -103,11 +106,13 @@
     <par type="DOUBLE" name="WPP_XDropPu" value="0"/>
     <!-- QLimiter -->
     <par type="BOOL" name="WPP_QlConst" value="true"/>
+    <par type="BOOL" name="WPP_QLimitTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_QMaxPu" value="0.8"/>
     <par type="DOUBLE" name="WPP_QMinPu" value="-0.8"/>
     <!-- GridProtection -->
     <par type="DOUBLE" name="WPP_fOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_fUnderPu" value="0.9"/>
+    <par type="BOOL" name="WPP_GridProtectionTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_UUnderPu" value="0.9"/>
     <!-- LinearCommunication -->

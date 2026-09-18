@@ -22,13 +22,13 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
     Dialog(enable = not PPCLocal));
   parameter Types.ReactivePowerPu QPcc0Pu "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(enable = not PPCLocal));
-  parameter Types.VoltageModulePu UPcc0Pu "Start value of voltage magnitude at PPC regulated bus in pu (bae UNom)" annotation(
+  parameter Types.VoltageModulePu UPcc0Pu "Start value of voltage magnitude at PPC regulated bus in pu (base UNom)" annotation(
     Dialog(enable = not PPCLocal));
   parameter Types.Angle UPhasePcc0 = 1 "Start value of voltage phase angle at PPC regulated bus in rad" annotation(
     Dialog(enable = not PPCLocal));
   parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (bae UNom)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at converter terminal in rad";
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";

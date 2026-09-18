@@ -91,6 +91,7 @@
     <par type="DOUBLE" name="BESS_VDLIq32" value="1"/>
     <par type="DOUBLE" name="BESS_VDLIq41" value="1.3"/>
     <par type="DOUBLE" name="BESS_VDLIq42" value="1"/>
+    <par type="BOOL" name="BESS_VDLTablesOnFile" value="false"/>
     <par type="DOUBLE" name="BESS_SOC0Pu" value="0.75"/>
     <par type="DOUBLE" name="BESS_SOCMaxPu" value="0.8"/>
     <par type="DOUBLE" name="BESS_SOCMinPu" value="0.2"/>
