@@ -21,15 +21,34 @@ using std::unordered_set;
 
 namespace DYN {
 
+inline int
+Graph::dualId(int nodeId1, int nodeId2) {
+  if (nodeId1 < nodeId2)
+    return (nodeId1 << 16) + nodeId2;
+  else
+    return (nodeId2 << 16) + nodeId1;
+}
+
+void
+Graph::addEdge(int nodeId1, int nodeId2, const std::string & name) {
+  checkVertex(nodeId1);
+  checkVertex(nodeId2);
+  if (edges_.find(name) != edges_.end())
+    throw DYNError(DYN::Error::GENERAL, AlreadyDefinedEdge, name);
+
+  edges_.insert({name, {nodeId1, nodeId2}});
+  edgesNames_.insert({dualId(nodeId1, nodeId2), name});
+}
+
 bool
-Graph::pathExist(int nodeId1, int nodeId2, const unordered_map<pair<int, int>, string> & edges) {
+Graph::pathExist(int nodeId1, int nodeId2, const unordered_set<string> & closedEdges) {
   checkVertex(nodeId1);
   checkVertex(nodeId2);
 
   if (nodeId1 == nodeId2)
     return true;
 
-  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(edges);
+  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(closedEdges);
 
   unordered_set <int> toTreat, treated;
   toTreat.insert(nodeId1);
@@ -51,14 +70,14 @@ Graph::pathExist(int nodeId1, int nodeId2, const unordered_map<pair<int, int>, s
 }
 
 vector<string>
-Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_map<pair<int, int>, string> & edges) {
-  checkVertex(nodeId1);
-  checkVertex(nodeId2);
+Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_set<string> & closedEdges) {
+  checkVertex(nodeIdStart);
+  checkVertex(nodeIdEnd);
 
-  if (nodeId1 == nodeId2)
+  if (nodeIdStart == nodeIdEnd)
     return vector<string>();
 
-  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(edges);
+  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(closedEdges);
 
   static const int NOT_SET = std::numeric_limits<int>::min();
   unordered_map<int, int> predecessors;
@@ -82,7 +101,7 @@ Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_map<pair<int
           continue;
         predecessors[neighborId] = nodeId;
         if (neighborId == nodeIdEnd)
-          return buildStringPath(nodeIdEnd, predecessors, edges);
+          return buildStringPath(nodeIdEnd, predecessors);
       }
     }
   }
@@ -90,20 +109,19 @@ Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_map<pair<int
 }
 
 vector<string>
-Graph::buildStringPath(int nodeIdEnd, const unordered_map<int, int> & predecessors, const unordered_map<pair<int, int>, string> & edges) {
+Graph::buildStringPath(int nodeIdEnd, const unordered_map<int, int> & predecessors) {
   vector<string> toReturn;
   int nodeId = nodeIdEnd;
-  while (predecessors[nodeId] != nodeId) {
-    toReturn.push_front((edges.find(pair<nodeId, predecessors[nodeId]) == edges.end()) ? edges[pair<int, int>(predecessors[nodeId], nodeId)]
-                                                                                       : edges[pair<int, int>(nodeId, predecessors[nodeId])]);
-    nodeId = predecessors[nodeId];
+  while (predecessors.at(nodeId) != nodeId) {
+    toReturn.push_back(edgesNames_[dualId(nodeId, predecessors.at(nodeId))]);
+    nodeId = predecessors.at(nodeId);
   }
   return toReturn;
 }
 
 int
-Graph::calculateComponents(const unordered_map<pair<int, int>, string> & edges, map<int, int> & result) {
-  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(edges);
+Graph::calculateComponents(const unordered_set<string> & closedEdges, map<int, int> & result) {
+  unordered_map<int, unordered_set<int>> neighbors = buildNeighboringMap(closedEdges);
 
   set<int> toTreatGlobal;
   for (int nodeId : vertices_)
@@ -134,12 +152,13 @@ Graph::calculateComponents(const unordered_map<pair<int, int>, string> & edges, 
 }
 
 unordered_map<int, unordered_set<int>>
-Graph::buildNeighboringMap(const unordered_map<pair<int, int>, string> & edges) {
+Graph::buildNeighboringMap(const unordered_set<string> & closedEdges) {
   unordered_map<int, unordered_set<int>> neighbors;
-  for (auto it : edges) {
-    int nodeId1 = it.first.first, nodeId2 = it.first.second;
-    checkVertex(nodeId1);
-    checkVertex(nodeId2);
+  for (const string & edgeName : closedEdges) {
+    if (edges_.find(edgeName) == edges_.end())
+      throw DYNError(DYN::Error::GENERAL, UnknownEdge, edgeName);
+    int nodeId1 = edges_[edgeName].first;
+    int nodeId2 = edges_[edgeName].second;
     neighbors[nodeId1].insert(nodeId2);
     neighbors[nodeId2].insert(nodeId1);
   }

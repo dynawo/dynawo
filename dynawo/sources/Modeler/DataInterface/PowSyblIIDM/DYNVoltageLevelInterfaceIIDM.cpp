@@ -55,16 +55,30 @@ internConnectId(const powsybl::iidm::node_breaker_view::InternalConnection& inte
 
 VoltageLevelInterfaceIIDM::VoltageLevelInterfaceIIDM(powsybl::iidm::VoltageLevel& voltageLevel) :
 voltageLevelIIDM_(voltageLevel) {
+  slackTerminalExtension_ = voltageLevelIIDM_.findExtension<powsybl::iidm::extensions::SlackTerminal>();
   isNodeBreakerTopology_ = (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
-  if (voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER) {
-    for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes())
-      graph_.addVertex(static_cast<unsigned int>(nodeId));
+  if (!isNodeBreakerTopology_)
+    return;
 
-    allEdges_ = selectEdges(false, false);
-    topoEdges_ = selectEdges(true, true);
+  for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes())
+    graph_.addVertex(static_cast<unsigned int>(nodeId));
+
+  for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
+    if (itSwitch.isOpen() && !itSwitch.isRetained())  // open and not retained, never considered
+      continue;
+    int nodeId1 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode1(itSwitch.getId()));
+    int nodeId2 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId()));
+    graph_.addEdge(nodeId1, nodeId2, itSwitch.getId());
   }
 
-  slackTerminalExtension_ = voltageLevelIIDM_.findExtension<powsybl::iidm::extensions::SlackTerminal>();
+  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
+    int nodeId1 = static_cast<int>(itInternalConnection.getNode1());
+    int nodeId2 = static_cast<int>(itInternalConnection.getNode2());
+    graph_.addEdge(nodeId1, nodeId2, internConnectId(itInternalConnection));
+  }
+
+  allEdges_ = selectEdges(false, false);
+  topoEdges_ = selectEdges(true, true);
 }
 
 string
@@ -377,7 +391,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   // following component (de)connection (only Modelica models)
   assert(voltageLevelIIDM_.getTopologyKind() == powsybl::iidm::TopologyKind::NODE_BREAKER);
 
-  std::unordered_map<std::string, std::pair<int, int>> closedEdges = selectEdges(true, false);
+  unordered_set<string> closedEdges = selectEdges(true, false);
 
   for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
@@ -445,9 +459,9 @@ VoltageLevelInterfaceIIDM::getSlackBusId() const {
   }
 }
 
-unordered_map<string, pair<int, int>>
+unordered_set<string>
 VoltageLevelInterfaceIIDM::selectEdges(bool onlyClosed, bool onlyNotRetained) const {
-  unordered_map<string, pair<int, int>> toReturn;
+  unordered_set<string> toReturn;
 
   for (const powsybl::iidm::Switch& itSwitch : voltageLevelIIDM_.getSwitches()) {
     if (itSwitch.isOpen() && !itSwitch.isRetained())  // open and not retained, never considered
@@ -456,16 +470,11 @@ VoltageLevelInterfaceIIDM::selectEdges(bool onlyClosed, bool onlyNotRetained) co
       continue;
     if (onlyNotRetained && itSwitch.isRetained())
       continue;
-    int node1 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode1(itSwitch.getId()));
-    int node2 = static_cast<int>(voltageLevelIIDM_.getNodeBreakerView().getNode2(itSwitch.getId()));
-    toReturn[itSwitch.getId()] = pair<int, int>(node1, node2);
+    toReturn.insert(itSwitch.getId());
   }
 
-  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections()) {
-    int node1 = static_cast<int>(itInternalConnection.getNode1());
-    int node2 = static_cast<int>(itInternalConnection.getNode2());
-    toReturn[internConnectId(itInternalConnection)] = pair<int, int>();
-  }
+  for (powsybl::iidm::node_breaker_view::InternalConnection itInternalConnection : voltageLevelIIDM_.getNodeBreakerView().getInternalConnections())
+    toReturn.insert(internConnectId(itInternalConnection));
 
   return toReturn;
 }

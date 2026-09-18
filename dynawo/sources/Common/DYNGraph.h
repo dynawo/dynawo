@@ -36,6 +36,8 @@ class Graph {
    */
   void addVertex(int nodeId) {vertices_.insert(nodeId);}
 
+  void addEdge(int nodeId1, int nodeId2, const std::string & name);
+
   /**
    * @brief check if a path exist between two vertices
    * @param nodeId1 index of the first vertex
@@ -43,7 +45,7 @@ class Graph {
    * @param edgeWeights weights/masks of each edge to filter the graph
    * @return @b true if a path exists, @b false otherwise
    */
-  bool pathExist(int nodeId1, int nodeId2, const std::unordered_map<std::pair<int, int>, std::string> & edges);
+  bool pathExist(int nodeId1, int nodeId2, const std::unordered_set<std::string> & closedEdges);
 
   /**
    * @brief find the shortest path between two vertices
@@ -53,7 +55,7 @@ class Graph {
    * @param path a list of edge's id encountered between origin and extremity of the path
    * this list is empty if there is no path or if the vertexOrigin and extremity are the same
    */
-  std::vector<std::string> shortestPath(int nodeIdStart, int nodeIdEnd, const std::unordered_map<std::pair<int, int>, std::string> & edges);
+  std::vector<std::string> shortestPath(int nodeIdStart, int nodeIdEnd, const std::unordered_set<std::string> & closedEdges);
 
   /**
    * @brief partitions the graph in indexed connex components
@@ -61,7 +63,7 @@ class Graph {
    * @param result the resulting partition, with a component ID associated to each node ID
    * @return the number of resulting partitions
    */
-  int calculateComponents(const std::unordered_map<std::pair<int, int>, std::string> & edges, std::map<int, int> & result);
+  int calculateComponents(const std::unordered_set<std::string> & closedEdges, std::map<int, int> & result);
 
  private:
    /**
@@ -70,10 +72,16 @@ class Graph {
    */
   void checkVertex(int nodeId) {if (vertices_.find(nodeId) == vertices_.end()) throw DYNError(DYN::Error::GENERAL, UnknownVertex, nodeId);}
 
-  std::unordered_map<int, std::unordered_set<int>> buildNeighboringMap(const std::unordered_map<std::pair<int, int>, std::string> & edges);
+  std::unordered_map<int, std::unordered_set<int>> buildNeighboringMap(const std::unordered_set<std::string> & edges);
+
+  std::vector<std::string> buildStringPath(int nodeIdEnd, const std::unordered_map<int, int> & predecessors);
+
+  inline int dualId(int nodeId1, int nodeId2);
 
  private:
   std::set<int> vertices_;
+  std::unordered_map<std::string, std::pair<int, int>> edges_;
+  std::unordered_map<int, std::string> edgesNames_;
 };
 
 }  // namespace DYN

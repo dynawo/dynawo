@@ -29,7 +29,7 @@
 #include "DYNSwitchInterfaceIIDM.h"
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 
-using std::unordered_map;
+using std::unordered_set;
 using std::string;
 using std::pair;
 
@@ -38,7 +38,7 @@ namespace DYN {
 ServiceManagerInterfaceIIDM::ServiceManagerInterfaceIIDM(const DataInterfaceIIDM* const dataInterface) : dataInterface_(dataInterface) {}
 
 void
-ServiceManagerInterfaceIIDM::buildGraph(Graph & graph, unordered_map<string, pair<int, int>> & edges, const std::shared_ptr<VoltageLevelInterface> & vl) {
+ServiceManagerInterfaceIIDM::buildGraph(Graph & graph, unordered_set<string> & edges, const std::shared_ptr<VoltageLevelInterface> & vl) {
   std::unordered_map<std::string, size_t> indexes;
 
   const auto& buses = vl->getBuses();
@@ -56,7 +56,8 @@ ServiceManagerInterfaceIIDM::buildGraph(Graph & graph, unordered_map<string, pai
     // we are using the position of the bus in the bus array as index in the graph, because these indexes won't change during simulation
     int nodeId1 = static_cast<unsigned int>(indexes.at(sw->getBusInterface1()->getID()));
     int nodeId2 = static_cast<unsigned int>(indexes.at(sw->getBusInterface2()->getID()));
-    edges[sw->getID()] = pair<int, int>(nodeId1, nodeId2);
+    graph.addEdge(nodeId1, nodeId2, sw->getID());
+    edges.insert(sw->getID());
   }
 }
 
@@ -77,7 +78,7 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   }
 
   Graph graph;
-  unordered_map<string, pair<int, int>> edges;
+  unordered_set<string> edges;
   buildGraph(graph, edges, *vlIt);
 
   std::vector<std::string> ret;
@@ -113,7 +114,7 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
     return true;
 
   Graph graph;
-  unordered_map<string, pair<int, int>> edges;
+  unordered_set<string> edges;
   buildGraph(graph, edges, *vlIt);
 
   std::vector<std::string> ret;
