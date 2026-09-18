@@ -20,4 +20,8 @@
   <curve model="WTG4B" variable="WTG4B_injector_terminal_i_im"/>
   <curve model="WTG4B" variable="WTG4B_pll_omegaPLLPu"/>
   <curve model="WTG4B" variable="WTG4B_measurements_UPu"/>
+  <!-- <curve model="WTG4B" variable="WTG4B_hvrt_timer_y"/>
+  <curve model="WTG4B" variable="WTG4B_hvrt_timer1_y"/>
+  <curve model="WTG4B" variable="WTG4B_lvrt_timer_y"/>
+  <curve model="WTG4B" variable="WTG4B_lvrt_timer1_y"/> -->
 </curvesInput>

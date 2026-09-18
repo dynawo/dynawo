@@ -182,6 +182,14 @@
     <par type="DOUBLE" name="WTG3_Hg" value="0.5"/>
     <par type="DOUBLE" name="WTG3_Ht" value="6"/>
     <par type="DOUBLE" name="WTG3_Kshaft" value="15"/>
+    <!-- HVRT and LVRT parameters -->
+    <par type="STRING" name="WTG3_TablesFile" value="examples/DynaSwing/WECC/Wind/WECCWTG3CurrentSource1/LHVRT.txt"/>
+    <par type="STRING" name="WTG3_TabletUoverUfilt" value="hvrt"/>
+    <par type="STRING" name="WTG3_TabletUunderUfilt" value="lvrt"/>
+    <par type="DOUBLE" name="WTG3_tLagAction" value="0.05"/>
+    <par type="DOUBLE" name="WTG3_tUFilt" value="0.01"/>
+    <par type="DOUBLE" name="WTG3_UOverPu" value="1.5"/>
+    <par type="DOUBLE" name="WTG3_UUnderPu" value="0.5"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

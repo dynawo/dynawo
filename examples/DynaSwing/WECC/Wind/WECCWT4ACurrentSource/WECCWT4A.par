@@ -130,6 +130,14 @@
     <!-- PCS parameters -->
     <par type="BOOL" name="WT4A_PPCLocal" value="true"/>
     <par type="BOOL" name="WT4A_ConverterLVControl" value="true"/>
+    <!-- HVRT and LVRT parameters -->
+    <par type="STRING" name="WT4A_TablesFile" value="examples/DynaSwing/WECC/Wind/WECCWT4ACurrentSource/LHVRT.txt"/>
+    <par type="STRING" name="WT4A_TabletUoverUfilt" value="hvrt"/>
+    <par type="STRING" name="WT4A_TabletUunderUfilt" value="lvrt"/>
+    <par type="DOUBLE" name="WT4A_tLagAction" value="0.05"/>
+    <par type="DOUBLE" name="WT4A_tUFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT4A_UOverPu" value="1.5"/>
+    <par type="DOUBLE" name="WT4A_UUnderPu" value="0.5"/>
   </set>
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="0.15"/>

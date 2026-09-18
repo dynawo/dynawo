@@ -29,6 +29,15 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
+  // HVRT and LVRT parameters
+  parameter String TablesFile "Text file that contains the tables for the functions";
+  parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for overvoltage";
+  parameter String TabletUunderUfilt "Disconnection time versus over voltage lookup table for undervoltage";
+  parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
+  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
+  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-190, 58}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
@@ -241,7 +250,11 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     u20Pu = uConv0Pu) annotation(
     Placement(transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
-    Placement(transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}})));
+    Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Protections.HVRT hvrt(UOverPu = UOverPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUoverUfilt = TabletUoverUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {125, -19}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Protections.LVRT lvrt(UUnderPu = UUnderPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUunderUfilt = TabletUunderUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {125, -39}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -257,6 +270,8 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  injector.switchOffSignal1 = hvrt.fOCB or lvrt.fOCB;
+
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
@@ -339,6 +354,10 @@ equation
     Line(points = {{-69, -9}, {-60, -9}, {-60, -62}, {-38, -62}}, color = {0, 0, 127}));
   connect(wecc_wtgq.omegaRefWTGQPu, wecc_wtgp.omegaRefWTGQPu) annotation(
     Line(points = {{-70, -50}, {-38, -50}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, hvrt.UMonitoredPu) annotation(
+    Line(points = {{60, -6}, {60, -20}, {120, -20}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, lvrt.UMonitoredPu) annotation(
+    Line(points = {{60, -6}, {62, -6}, {62, -20}, {110, -20}, {110, -40}, {120, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

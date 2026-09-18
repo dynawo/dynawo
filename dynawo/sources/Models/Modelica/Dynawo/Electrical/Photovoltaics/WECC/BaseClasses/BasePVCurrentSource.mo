@@ -21,6 +21,15 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
+  // HVRT and LVRT parameters
+  parameter String TablesFile "Text file that contains the tables for the functions";
+  parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for overvoltage";
+  parameter String TabletUunderUfilt "Disconnection time versus over voltage lookup table for undervoltage";
+  parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
+  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
+  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
+
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
     Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -105,7 +114,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     u0Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
-    Placement(transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}})));
+    Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,
@@ -113,6 +122,10 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     i20Pu = iConv0Pu,
     u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Protections.HVRT hvrt(UOverPu = UOverPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUoverUfilt = TabletUoverUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {85, -15}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Protections.LVRT lvrt(UUnderPu = UUnderPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUunderUfilt = TabletUunderUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {85, -35}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -127,6 +140,8 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  injector.switchOffSignal1 = hvrt.fOCB or lvrt.fOCB;
+
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
@@ -159,6 +174,10 @@ equation
     Line(points = {{12, 8}, {24, 8}, {24, 0}, {29, 0}}, color = {0, 0, 255}));
   connect(LvTfo.terminal2, LvMeasurements.terminal1) annotation(
     Line(points = {{51, 0}, {60, 0}}, color = {0, 0, 255}));
+  connect(LvMeasurements.UPu, hvrt.UMonitoredPu) annotation(
+    Line(points = {{60, -6}, {60, -16}, {80, -16}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, lvrt.UMonitoredPu) annotation(
+    Line(points = {{60, -6}, {60, -36}, {80, -36}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

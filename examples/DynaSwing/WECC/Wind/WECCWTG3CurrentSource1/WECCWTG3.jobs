@@ -21,7 +21,7 @@
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="20"/>
+        <simulation startTime="0" stopTime="1.058"/>
         <outputs directory="outputs">
             <curves inputFile="WECCWTG3.crv" exportMode="CSV"/>
             <logs>

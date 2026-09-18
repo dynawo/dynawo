@@ -22,4 +22,8 @@
   <curve model="WTG4B" variable="WTG4B_measurements_UPu"/>
   <curve model="HVRTWecc" variable="hvrt_fOCB"/>
   <curve model="HVRTWecc" variable="hvrt_switchOffSignal"/>
+  <!-- <curve model="WTG4B" variable="WTG4B_hvrt_timer_y"/>
+  <curve model="WTG4B" variable="WTG4B_hvrt_timer1_y"/>
+  <curve model="WTG4B" variable="WTG4B_lvrt_timer_y"/>
+  <curve model="WTG4B" variable="WTG4B_lvrt_timer1_y"/> -->
 </curvesInput>
