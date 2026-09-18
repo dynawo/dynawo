@@ -58,6 +58,17 @@ record QControlParameters2020
   parameter Real TableQwpUErr[:,:] = [TableQwpUErr11, TableQwpUErr12; TableQwpUErr21, TableQwpUErr22; TableQwpUErr31, TableQwpUErr32] "Table for the UQ static mode" annotation(
     Dialog(tab = "QControlTables"));
 
+  parameter Boolean QControlTablesOnFile "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "QControlTables"));
+  parameter String QControlTablesFileName = "NoName" "File where tables are stored" annotation(
+    Dialog(tab = "QControlTables"));
+  parameter String TableQwpMaxPwpFiltComName = "NoName" "Name of the table in the text file for power-dependent reactive power maximum limit" annotation(
+    Dialog(tab = "QControlTables"));
+  parameter String TableQwpMinPwpFiltComName = "NoName" "Name of the table in the text file for power-dependent reactive power minimum limit" annotation(
+    Dialog(tab = "QControlTables"));
+  parameter String TableQwpUErrName = "NoName" "Name of the table in the text file for the UQ static mode" annotation(
+    Dialog(tab = "QControlTables"));
+
   annotation(
     preferredView = "text");
 end QControlParameters2020;

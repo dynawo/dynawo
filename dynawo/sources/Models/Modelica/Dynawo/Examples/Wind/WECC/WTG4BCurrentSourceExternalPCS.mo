@@ -148,6 +148,7 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     VDLIq32 = 1,
     VDLIq41 = 1.17,
     VDLIq42 = 1,
+    VDLTablesOnFile = false,
     VDipPu = 0.9,
     VFlag = true,
     VFrz = 0,

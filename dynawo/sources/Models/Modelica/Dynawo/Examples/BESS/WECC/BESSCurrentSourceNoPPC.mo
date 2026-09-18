@@ -94,6 +94,7 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     VDLIq32 = 1,
     VDLIq41 = 1.17,
     VDLIq42 = 1,
+    VDLTablesOnFile = false,
     VDipPu = 0.9,
     VFlag = true,
     VMaxPu = 1.1,

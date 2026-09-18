@@ -81,6 +81,7 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     VDLIq32 = 1,
     VDLIq41 = 1.17,
     VDLIq42 = 1,
+    VDLTablesOnFile = false,
     VDipPu = 0.9,
     VFlag = false,
     VMaxPu = 1.1,

@@ -32,13 +32,13 @@ partial model BaseGridProtection "Grid protection base system for wind turbines 
   Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
     Placement(visible = true, transformation(origin = {170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(table = TabletUoverUwtfilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(fileName = GridProtectionFileName, table = TabletUoverUwtfilt, tableName = TabletUoverUwtfiltName, tableOnFile = GridProtectionTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D1(table = TabletUunderUwtfilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D1(fileName = GridProtectionFileName, table = TabletUunderUwtfilt, tableName = TabletUunderUwtfiltName, tableOnFile = GridProtectionTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {10, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D2(table = Tabletfoverfwtfilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D2(fileName = GridProtectionFileName, table = Tabletfoverfwtfilt, tableName = TabletfoverfwtfiltName, tableOnFile = GridProtectionTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {10, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D3(table = Tabletfunderfwtfilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D3(fileName = GridProtectionFileName, table = Tabletfunderfwtfilt, tableName = TabletfunderfwtfiltName, tableOnFile = GridProtectionTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {10, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Greater greater annotation(
     Placement(visible = true, transformation(origin = {70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -127,6 +127,7 @@ model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controlle
     VDLIq32 = 1,
     VDLIq41 = 1.17,
     VDLIq42 = 1,
+    VDLTablesOnFile = false,
     s0Pu = Complex(-0.7, -0.2),
     u0Pu = Complex(1, 0),
     tHoldIpMax = 0,
