@@ -91,6 +91,17 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     RefFlag = true,
     RrpwrPu = 10,
     SNom = 100,
+    TablesFile = "NoName",
+    TabletUoverUfilt = "NoName",
+    TabletUunderUfilt = "NoName",
+    hvrt.combiTable1D.table = [1.15, 0.5; 10, 0.5],
+    hvrt.combiTable1D.tableOnFile = false,
+    lvrt.combiTable1D.table = [0.7, 0.5; 10, 0.5],
+    lvrt.combiTable1D.tableOnFile = false,
+    tLagAction = 0.05,
+    tUFilt = 0.01,
+    UOverPu = 1.5,
+    UUnderPu = 0.5,
     U0Pu = 1,
     VCompFlag = false,
     VDLIp11 = 1.1,
@@ -268,7 +279,6 @@ equation
   line.switchOffSignal2 = false;
   WTG3.injector.switchOffSignal1 = false;
   WTG3.injector.switchOffSignal2 = false;
-  WTG3.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, WTG3.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));

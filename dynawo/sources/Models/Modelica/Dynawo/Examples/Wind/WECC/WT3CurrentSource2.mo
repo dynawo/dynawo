@@ -87,6 +87,17 @@ model WT3CurrentSource2 "WECC Wind Type 3 Model on infinite bus"
     RLvTrPu = 0,
     RrpwrPu = 10,
     SNom = 100,
+    TablesFile = "NoName",
+    TabletUoverUfilt = "NoName",
+    TabletUunderUfilt = "NoName",
+    hvrt.combiTable1D.table = [1.15, 0.5; 10, 0.5],
+    hvrt.combiTable1D.tableOnFile = false,
+    lvrt.combiTable1D.table = [0.7, 0.5; 10, 0.5],
+    lvrt.combiTable1D.tableOnFile = false,
+    tLagAction = 0.05,
+    tUFilt = 0.01,
+    UOverPu = 1.5,
+    UUnderPu = 0.5,
     TeMaxPu = 1.5,
     TeMinPu = 0,
     TFlag = true,
@@ -204,7 +215,6 @@ equation
   line.switchOffSignal2 = false;
   WT3.injector.switchOffSignal1 = false;
   WT3.injector.switchOffSignal2 = false;
-  WT3.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, WT3.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

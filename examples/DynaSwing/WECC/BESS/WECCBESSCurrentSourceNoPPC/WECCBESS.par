@@ -116,6 +116,14 @@
     <par type="DOUBLE" name="BESS_XLvTrPu" value="0.06"/>
     <!-- PCS parameters -->
     <par type="BOOL" name="BESS_ConverterLVControl" value="true"/>
+    <!-- HVRT and LVRT parameters -->
+    <par type="STRING" name="BESS_TablesFile" value="examples/DynaSwing/WECC/BESS/WECCBESSCurrentSourceNoPPC/LHVRT.txt"/>
+    <par type="STRING" name="BESS_TabletUoverUfilt" value="hvrt"/>
+    <par type="STRING" name="BESS_TabletUunderUfilt" value="lvrt"/>
+    <par type="DOUBLE" name="BESS_tLagAction" value="0.05"/>
+    <par type="DOUBLE" name="BESS_tUFilt" value="0.01"/>
+    <par type="DOUBLE" name="BESS_UOverPu" value="1.5"/>
+    <par type="DOUBLE" name="BESS_UUnderPu" value="0.5"/>
   </set>
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="0.15"/>

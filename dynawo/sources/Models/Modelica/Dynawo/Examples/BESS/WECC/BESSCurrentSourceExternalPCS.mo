@@ -95,6 +95,17 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-A with a plan
     SOC0Pu = 0.5,
     SOCMaxPu = 0.8,
     SOCMinPu = 0.2,
+    TablesFile = "NoName",
+    TabletUoverUfilt = "NoName",
+    TabletUunderUfilt = "NoName",
+    hvrt.combiTable1D.table = [1.15, 0.5; 10, 0.5],
+    hvrt.combiTable1D.tableOnFile = false,
+    lvrt.combiTable1D.table = [0.7, 0.5; 10, 0.5],
+    lvrt.combiTable1D.tableOnFile = false,
+    tLagAction = 0.05,
+    tUFilt = 0.01,
+    UOverPu = 1.5,
+    UUnderPu = 0.5,
     U0Pu = 0.9948728673356535,
     UInj0Pu(fixed = false),
     UPcc0Pu = 1,
@@ -237,7 +248,6 @@ equation
   Zcc.switchOffSignal2 = false;
   BESS.injector.switchOffSignal1 = false;
   BESS.injector.switchOffSignal2 = false;
-  BESS.injector.switchOffSignal3 = false;
 
   connect(omegaRefPu.y, BESS.omegaRefPu) annotation(
     Line(points = {{80, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

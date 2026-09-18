@@ -159,6 +159,14 @@
     <!-- PCS parameters -->
     <par type="BOOL" name="WT3_PPCLocal" value="true"/>
     <par type="BOOL" name="WT3_ConverterLVControl" value="true"/>
+    <!-- HVRT and LVRT parameters -->
+    <par type="STRING" name="WT3_TablesFile" value="examples/DynaSwing/WECC/Wind/WECCWT3CurrentSource1/LHVRT.txt"/>
+    <par type="STRING" name="WT3_TabletUoverUfilt" value="hvrt"/>
+    <par type="STRING" name="WT3_TabletUunderUfilt" value="lvrt"/>
+    <par type="DOUBLE" name="WT3_tLagAction" value="0.05"/>
+    <par type="DOUBLE" name="WT3_tUFilt" value="0.01"/>
+    <par type="DOUBLE" name="WT3_UOverPu" value="1.5"/>
+    <par type="DOUBLE" name="WT3_UUnderPu" value="0.5"/>
   </set>
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="0.15"/>

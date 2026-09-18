@@ -65,6 +65,17 @@ model WT4BCurrentSource "WECC Wind Type 4B Model on infinite bus"
     RLvTrPu = 0,
     RrpwrPu = 10,
     SNom = 100,
+    TablesFile = "NoName",
+    TabletUoverUfilt = "NoName",
+    TabletUunderUfilt = "NoName",
+    hvrt.combiTable1D.table = [1.15, 0.5; 10, 0.5],
+    hvrt.combiTable1D.tableOnFile = false,
+    lvrt.combiTable1D.table = [0.7, 0.5; 10, 0.5],
+    lvrt.combiTable1D.tableOnFile = false,
+    tLagAction = 0.05,
+    tUFilt = 0.01,
+    UOverPu = 1.5,
+    UUnderPu = 0.5,
     VDLIp11 = 1.1,
     VDLIp12 = 1.1,
     VDLIp21 = 1.15,
@@ -166,7 +177,6 @@ equation
   line.switchOffSignal2 = false;
   WT4B.injector.switchOffSignal1 = false;
   WT4B.injector.switchOffSignal2 = false;
-  WT4B.injector.switchOffSignal3 = false;
 
   connect(PFaRef.y, WT4B.PFaRef) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

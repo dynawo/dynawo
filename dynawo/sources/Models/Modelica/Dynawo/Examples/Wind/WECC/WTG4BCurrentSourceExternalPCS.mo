@@ -127,6 +127,17 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     RefFlag = true,
     RrpwrPu = 10,
     SNom = 200,
+    TablesFile = "NoName",
+    TabletUoverUfilt = "NoName",
+    TabletUunderUfilt = "NoName",
+    hvrt.combiTable1D.table = [1.15, 0.5; 10, 0.5],
+    hvrt.combiTable1D.tableOnFile = false,
+    lvrt.combiTable1D.table = [0.7, 0.5; 10, 0.5],
+    lvrt.combiTable1D.tableOnFile = false,
+    tLagAction = 0.05,
+    tUFilt = 0.01,
+    UOverPu = 1.5,
+    UUnderPu = 0.5,
     U0Pu = 0.9948728673356535,
     UInj0Pu(fixed = false),
     UPcc0Pu = 1,
@@ -240,7 +251,6 @@ equation
   Zcc.switchOffSignal2 = false;
   WTG4B.injector.switchOffSignal1 = false;
   WTG4B.injector.switchOffSignal2 = false;
-  WTG4B.injector.switchOffSignal3 = false;
 
   connect(infiniteBus.terminal, Zcc.terminal1) annotation(
     Line(points = {{-180, 0}, {-160, 0}}, color = {0, 0, 255}));

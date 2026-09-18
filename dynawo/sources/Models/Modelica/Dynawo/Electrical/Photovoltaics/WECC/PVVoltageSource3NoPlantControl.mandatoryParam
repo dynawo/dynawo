@@ -118,4 +118,11 @@
   <mandatoryParameter name="tE" type="DOUBLE"/>
   <mandatoryParameter name="RSourcePu" type="DOUBLE"/>
   <mandatoryParameter name="XSourcePu" type="DOUBLE"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="TabletUoverUfilt" type="STRING"/>
+  <mandatoryParameter name="TabletUunderUfilt" type="STRING"/>
+  <mandatoryParameter name="tLagAction" type="DOUBLE"/>
+  <mandatoryParameter name="tUFilt" type="DOUBLE"/>
+  <mandatoryParameter name="UOverPu" type="DOUBLE"/>
+  <mandatoryParameter name="UUnderPu" type="DOUBLE"/>
 </mandatoryParameters>

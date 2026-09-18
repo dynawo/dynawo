@@ -110,4 +110,11 @@
   <mandatoryParameter name="lvpl1" type="DOUBLE"/>
   <mandatoryParameter name="Lvplsw" type="BOOL"/>
   <mandatoryParameter name="zerox" type="DOUBLE"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="TabletUoverUfilt" type="STRING"/>
+  <mandatoryParameter name="TabletUunderUfilt" type="STRING"/>
+  <mandatoryParameter name="tLagAction" type="DOUBLE"/>
+  <mandatoryParameter name="tUFilt" type="DOUBLE"/>
+  <mandatoryParameter name="UOverPu" type="DOUBLE"/>
+  <mandatoryParameter name="UUnderPu" type="DOUBLE"/>
 </mandatoryParameters>

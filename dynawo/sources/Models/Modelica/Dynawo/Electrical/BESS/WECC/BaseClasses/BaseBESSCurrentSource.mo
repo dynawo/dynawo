@@ -125,7 +125,7 @@ partial model BaseBESSCurrentSource "Partial base model for WECC BESS with elect
     s0Pu = s0Pu,
     u0Pu = uInj0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
+  Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
   Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
