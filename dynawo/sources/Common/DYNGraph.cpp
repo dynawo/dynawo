@@ -110,6 +110,7 @@ Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_set<string> 
         predecessors[neighborId] = nodeId;
         if (neighborId == nodeIdEnd)
           return buildStringPath(nodeIdEnd, predecessors);
+        nodesNextRank.insert(neighborId);
       }
     }
   }
@@ -118,12 +119,17 @@ Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_set<string> 
 
 vector<string>
 Graph::buildStringPath(int nodeIdEnd, const unordered_map<int, int> & predecessors) {
-  vector<string> toReturn;
+  vector<string> reversePath;
   int nodeId = nodeIdEnd;
   while (predecessors.at(nodeId) != nodeId) {
-    toReturn.push_back(edgesNames_[dualId(nodeId, predecessors.at(nodeId))]);
+    reversePath.push_back(edgesNames_[dualId(nodeId, predecessors.at(nodeId))]);
     nodeId = predecessors.at(nodeId);
   }
+
+  int nbSteps = reversePath.size();
+  vector<string> toReturn(nbSteps);
+  for (int i = 0; i< nbSteps; ++i)
+    toReturn[i] = reversePath[nbSteps-i-1];
   return toReturn;
 }
 

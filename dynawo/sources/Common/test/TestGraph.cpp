@@ -102,7 +102,7 @@ TEST(CommonTest, testPathExistGraph) {
   ASSERT_EQ(graph.pathExist(1, 1, edges), true);
   ASSERT_EQ(graph.pathExist(1, 5, edges), true);
   ASSERT_EQ(graph.pathExist(1, 10, edges), false);
-  ASSERT_EQ(graph.pathExist(11, 12, edges), false);  // vertices not declared for this graph
+  ASSERT_THROW_DYNAWO(graph.pathExist(11, 12, edges), DYN::Error::GENERAL, DYN::KeyError_t::UnknownVertex);  // vertices not declared for this graph
 }
 
 TEST(CommonTest, testshortestPathGraph) {
@@ -113,6 +113,7 @@ TEST(CommonTest, testshortestPathGraph) {
 
   // use all edge : weights equals to 1
   unordered_set<string> edges = graph.getAllEdges();
+  ASSERT_EQ(edges.size(), 13);
 
   // shortest path between 0 -0 : empty path
   vector<string> path0 = graph.shortestPath(0, 0, edges);
@@ -148,7 +149,7 @@ TEST(CommonTest, testshortestPathGraph) {
 TEST(CommonTest, testComponentGraph) {
   Graph graph = defineGraph();
   // use all edges : weights equals to 1
-  unordered_set<string> edges = defineAllClosedEdges();
+  unordered_set<string> edges = graph.getAllEdges();
   map<int, int> compMapping;
   int nbComponents = graph.calculateComponents(edges, compMapping);
   ASSERT_EQ(nbComponents, 1);
