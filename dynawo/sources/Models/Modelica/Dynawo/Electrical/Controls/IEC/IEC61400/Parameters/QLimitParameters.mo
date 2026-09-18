@@ -97,6 +97,9 @@ record QLimitParameters
   parameter Real TableQMinPwtcFilt[:,:] = [TableQMinPwtcFilt11, TableQMinPwtcFilt12; TableQMinPwtcFilt21, TableQMinPwtcFilt22; TableQMinPwtcFilt31, TableQMinPwtcFilt32; TableQMinPwtcFilt41, TableQMinPwtcFilt42] "Active power dependency of reactive power minimum limit" annotation(
     Dialog(tab = "QLimitTables"));
 
+  parameter Boolean QLimitTablesOnFile = false "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "QLimitTables"));
+
   annotation(
     preferredView = "text");
 end QLimitParameters;

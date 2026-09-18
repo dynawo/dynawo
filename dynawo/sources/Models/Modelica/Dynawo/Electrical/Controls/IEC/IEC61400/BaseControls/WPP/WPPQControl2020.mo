@@ -13,7 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP;
 */
 
 model WPPQControl2020 "Reactive power control module for wind power plants (IEC N°61400-27-1:2020)"
-  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr));
+  extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.BaseWPPQControl(combiTable1Ds2(table = TableQwpUErr, tableOnFile = QControlTablesOnFile));
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QControlParameters2020;
 
   //QControl parameters
@@ -44,9 +44,9 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   Modelica.Blocks.Interfaces.RealOutput xPDRefPu(start = XWT0Pu) "Reference reactive power or voltage communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {360, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{100, -10}, {120, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TableQwpMaxPwpFiltCom) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TableQwpMaxPwpFiltCom, tableOnFile = QControlTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-190, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1(table = TableQwpMinPwpFiltCom) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1(table = TableQwpMinPwpFiltCom, tableOnFile = QControlTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-190, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses.VDrop vDrop(P0Pu = P0Pu, Q0Pu = Q0Pu, RDropPu = RwpDropPu, U0Pu = U0Pu, XDropPu = XwpDropPu) annotation(
     Placement(visible = true, transformation(origin = {-220, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));

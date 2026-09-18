@@ -50,6 +50,8 @@ record ParamsREECa "REEC type A parameters"
     Dialog(tab = "Electrical Control", group = "REECa"));
   parameter Types.PerUnit VDLIqPoints[:, :] = [VDLIq11, VDLIq12; VDLIq21, VDLIq22; VDLIq31, VDLIq32; VDLIq41, VDLIq42] "Pair of points for voltage-dependent reactive current limitation piecewise linear curve [u1,y1; u2,y2;...]" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
+  parameter Boolean VDLTablesOnFile = false "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "Electrical Control", group = "REECa"));
   parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
   parameter Types.Time tHoldIq "Absolute value of tHoldIq defines seconds to hold current injection after voltage dip ended. tHoldIq > 0 for constant, 0 for no injection after voltage dip, tHoldIq < 0 for voltage-dependent injection (typical: -1 .. 1 s)"  annotation(
