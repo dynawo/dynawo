@@ -26,6 +26,12 @@
       <dyn:curves inputFile="IEEE57.crv" exportMode="CSV"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+        <dyn:appender tag="NETWORK" file="network.log" lvlFilter="INFO"/>
+        <dyn:appender tag="MODELER" file="modeler.log" lvlFilter="INFO"/>
+        <dyn:appender tag="COMPILER" file="compiler.log" lvlFilter="INFO"/>
+        <dyn:appender tag="PARAMETERS" file="parameters.log" lvlFilter="INFO"/>
+        <dyn:appender tag="VARIABLES" file="variables.log" lvlFilter="INFO"/>
+        <dyn:appender tag="EQUATIONS" file="equations.log" lvlFilter="INFO"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>

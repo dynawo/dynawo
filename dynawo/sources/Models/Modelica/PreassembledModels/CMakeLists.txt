@@ -11,6 +11,8 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  AcGrid.xml
+  AcGridRoCoF.xml
   AggregatedIBG.xml
   BESSWeccCurrentSource.xml
   BESSWeccCurrentSourceNoPlantControl.xml
@@ -30,6 +32,12 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  DynGridFormingVirtualSynchronousMachine.xml
+  DynGridFormingVirtualSynchronousMachinePlantControl.xml
+  DynGridFormingDroopPlantControl.xml
+  DynGridFormingDroop.xml
+  DynGridFormingCurrentControlledVirtualSynchronousMachine.xml
+  DynGridFormingVirtualSynchronousMachineConvPLL.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
@@ -188,6 +196,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   InfiniteBusFromTable.xml
   InfiniteBusWithImpedance.xml
   InfiniteBusWithVariations.xml
+  InfiniteBusWithVariationsPhaseJump.xml
   InjectorBG.xml
   IntegerDoubleStep.xml
   IntegerTable.xml
@@ -223,6 +232,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
+  PhasorGrid.xml
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccCurrentSourceNoPlantControl.xml
   PhotovoltaicsWeccVoltageSource1.xml
@@ -233,6 +243,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccVoltageSource3NoPlantControl.xml
   PhotovoltaicsWeccVoltageSource4.xml
   PhotovoltaicsWeccVoltageSource4NoPlantControl.xml
+  PlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml

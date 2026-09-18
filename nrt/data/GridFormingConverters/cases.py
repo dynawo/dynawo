@@ -27,3 +27,34 @@ case_description = "Grid Forming Converters - Three nodes system"
 job_file = os.path.join(os.path.dirname(__file__), "GridFormingConverters.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#           GridForming - DYNGFMVSM - Voltage Angle Step          #
+###################################################################
+
+case_name = "SMIB - DynGFMVSM - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep1_0C4 on DynGFMVSM"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMVSM", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#      GridForming - DYNGFMVSMConvPLL - Voltage Angle Step        #
+###################################################################
+
+case_name = "SMIB - DynGFMVSMConvPLL - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep1_0C4 on DynGFMVSMConvPLL"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMVSMConvPLL", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+
+###################################################################
+#           GridForming - DYNGFMDroop - Voltage Angle Step        #
+###################################################################
+
+case_name = "SMIB - DynGFMDroop - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep1_0C4 on DynGFMDroop"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMDroop", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
