@@ -24,7 +24,7 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
-    GesPu = 0.0005,
+    GLvTrPu = 0.0005,
     Hgen = 1,
     Hwtr = 5,
     IMaxDipPu = 1.3,
@@ -61,7 +61,7 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
-    ResPu = 0.001,
+    RLvTrPu = 0.001,
     SNom = 100,
     TabletUunderUwtfilt12 = 0.5,
     TabletUunderUwtfilt22 = 0.5,
@@ -82,7 +82,7 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     UqDipPu = 0.9,
     XDropPu = 0,
     XWT0Pu(fixed = false),
-    XesPu = 0.01,
+    XLvTrPu = 0.01,
     fOverPu = 1.1,
     fUnderPu = 0.9,
     i0Pu(re(fixed = false), im(fixed = false)),
@@ -124,8 +124,9 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
 
   // Initialization
   Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
-    BesPu = wT4BCurrentSource.BesPu,
-    GesPu = wT4BCurrentSource.GesPu,
+    BLvTrPu = wT4BCurrentSource.BLvTrPu,
+    ConverterLVControl = wT4BCurrentSource.ConverterLVControl,
+    GLvTrPu = wT4BCurrentSource.GLvTrPu,
     IMaxPu = wT4BCurrentSource.IMaxPu,
     Kpqu = wT4BCurrentSource.Kpqu,
     MqG = wT4BCurrentSource.MqG,
@@ -135,14 +136,14 @@ model WT4BCurrentSource2015FOCB "Wind Turbine Type 4B model from IEC 61400-27-1 
     QMinPu = wT4BCurrentSource.QMinPu,
     QlConst = wT4BCurrentSource.QlConst,
     RDropPu = wT4BCurrentSource.RDropPu,
-    ResPu = wT4BCurrentSource.ResPu,
+    RLvTrPu = wT4BCurrentSource.RLvTrPu,
     SNom = wT4BCurrentSource.SNom,
     U0Pu = wT4BCurrentSource.U0Pu,
     UPhase0 = wT4BCurrentSource.UPhase0,
     UpquMaxPu = wT4BCurrentSource.UpquMaxPu,
     URef0Pu = wT4BCurrentSource.URef0Pu,
     XDropPu = wT4BCurrentSource.XDropPu,
-    XesPu = wT4BCurrentSource.XesPu) annotation(
+    XLvTrPu = wT4BCurrentSource.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm

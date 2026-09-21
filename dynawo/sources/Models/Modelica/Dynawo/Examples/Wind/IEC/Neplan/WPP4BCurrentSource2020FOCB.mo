@@ -185,10 +185,8 @@ model WPP4BCurrentSource2020FOCB "Wind Power Plant Type 4B model from IEC 61400-
 
   // Initialization
   Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource2020_INIT wPP4CurrentSource_INIT(
-    BesPu = wPP4BCurrentSource.BesPu,
     BLvTrPu = wPP4BCurrentSource.BLvTrPu,
     ConverterLVControl = wPP4BCurrentSource.ConverterLVControl,
-    GesPu = wPP4BCurrentSource.GesPu,
     GLvTrPu = wPP4BCurrentSource.GLvTrPu,
     IMaxPu = wPP4BCurrentSource.IMaxPu,
     Kpqu = wPP4BCurrentSource.Kpqu,
@@ -202,7 +200,6 @@ model WPP4BCurrentSource2020FOCB "Wind Power Plant Type 4B model from IEC 61400-
     QMinPu = wPP4BCurrentSource.QMinPu,
     QlConst = wPP4BCurrentSource.QlConst,
     RDropPu = wPP4BCurrentSource.RDropPu,
-    ResPu = wPP4BCurrentSource.ResPu,
     RLvTrPu = wPP4BCurrentSource.RLvTrPu,
     RwpDropPu = wPP4BCurrentSource.RwpDropPu,
     SNom = wPP4BCurrentSource.SNom,
@@ -211,7 +208,6 @@ model WPP4BCurrentSource2020FOCB "Wind Power Plant Type 4B model from IEC 61400-
     UpquMaxPu = wPP4BCurrentSource.UpquMaxPu,
     URef0Pu = wPP4BCurrentSource.URef0Pu,
     XDropPu = wPP4BCurrentSource.XDropPu,
-    XesPu = wPP4BCurrentSource.XesPu,
     XLvTrPu = wPP4BCurrentSource.XLvTrPu,
     XwpDropPu = wPP4BCurrentSource.XwpDropPu) annotation(
     Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
