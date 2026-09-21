@@ -21,17 +21,27 @@ partial model BaseWT4 "Base model for Wind Turbine Type 4 from IEC 61400-27-1 st
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
 
+  //Parameters for LV transformer
+  parameter Types.PerUnit BLvTrPu "Shunt susceptance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit GLvTrPu "Shunt conductance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+
+  //Configuration parameter to define how the user wants to represent the internal network
+  parameter Boolean ConverterLVControl "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
+    Dialog(tab = "LV transformer"));
+
   //Circuit parameters
-  parameter Boolean ConverterLVControl = true "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
-    Dialog(tab="Converter control"));
-  parameter Types.PerUnit BesPu = 0 "Shunt susceptance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
-  parameter Types.PerUnit GesPu = 0 "Shunt conductance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
-  parameter Types.PerUnit ResPu = 0 "Serial resistance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
-  parameter Types.PerUnit XesPu = 0 "Serial reactance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
+  // In every case (ResPu + j*XesPu) and (GesPu + j*BesPu) are respectively the serial impedance and shunt admittance between converter's output and WT terminal
+  //Depending on the value of ConverterLVControl we are correctly defining these parameters
+  final parameter Types.PerUnit BesPu = if ConverterLVControl then 0 else BLvTrPu "Shunt susceptance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit GesPu = if ConverterLVControl then 0 else GLvTrPu "Shunt conductance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit ResPu = if ConverterLVControl then 0 else RLvTrPu "Serial resistance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit XesPu = if ConverterLVControl then 0 else XLvTrPu "Serial reactance between converter output and WT terminal in pu (base UNom, SNom)";
 
   //Control parameters
   parameter Types.PerUnit DipMaxPu "Maximum active current ramp rate in pu/s (base UNom, SNom) (generator convention)" annotation(

@@ -12,6 +12,11 @@
     simulation tool for power systems.
 -->
 <mandatoryParameters>
+  <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
   <mandatoryParameter name="DPMaxP4BPu" type="DOUBLE"/>
   <mandatoryParameter name="DPRefMax4BPu" type="DOUBLE"/>
   <mandatoryParameter name="DPRefMin4BPu" type="DOUBLE"/>

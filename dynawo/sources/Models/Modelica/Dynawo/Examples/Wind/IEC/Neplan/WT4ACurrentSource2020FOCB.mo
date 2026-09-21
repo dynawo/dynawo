@@ -28,7 +28,7 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
-    GesPu = 0.0005,
+    GLvTrPu = 0.0005,
     IMaxDipPu = 1.3,
     IMaxPu = 1.3,
     Ip0Pu(fixed = false),
@@ -63,7 +63,7 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     QMinPu = -0.8,
     QlConst = true,
     RDropPu = 0,
-    ResPu = 0.001,
+    RLvTrPu = 0.001,
     SNom = 100,
     TabletUunderUwtfilt12 = 0.5,
     TabletUunderUwtfilt22 = 0.5,
@@ -84,7 +84,7 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     UqRisePu = 1.1,
     XDropPu = 0,
     XWT0Pu(fixed = false),
-    XesPu = 0.01,
+    XLvTrPu = 0.01,
     fOverPu = 1.1,
     fUnderPu = 0.9,
     i0Pu(re(fixed = false), im(fixed = false)),
@@ -128,8 +128,9 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
 
   // Initialization
   Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT wT4CurrentSource_INIT(
-    BesPu = wT4ACurrentSource.BesPu,
-    GesPu = wT4ACurrentSource.GesPu,
+    BLvTrPu = wT4ACurrentSource.BLvTrPu,
+    ConverterLVControl = wT4BCurrentSource.ConverterLVControl,
+    GLvTrPu = wT4ACurrentSource.GLvTrPu,
     IMaxPu = wT4ACurrentSource.IMaxPu,
     Kpqu = wT4ACurrentSource.Kpqu,
     MqG = wT4ACurrentSource.MqG,
@@ -139,14 +140,14 @@ model WT4ACurrentSource2020FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
     QMinPu = wT4ACurrentSource.QMinPu,
     QlConst = wT4ACurrentSource.QlConst,
     RDropPu = wT4ACurrentSource.RDropPu,
-    ResPu = wT4ACurrentSource.ResPu,
+    RLvTrPu = wT4ACurrentSource.RLvTrPu,
     SNom = wT4ACurrentSource.SNom,
     U0Pu = wT4ACurrentSource.U0Pu,
     UPhase0 = wT4ACurrentSource.UPhase0,
     UpquMaxPu = wT4ACurrentSource.UpquMaxPu,
     URef0Pu = wT4ACurrentSource.URef0Pu,
     XDropPu = wT4ACurrentSource.XDropPu,
-    XesPu = wT4ACurrentSource.XesPu) annotation(
+    XLvTrPu = wT4ACurrentSource.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm

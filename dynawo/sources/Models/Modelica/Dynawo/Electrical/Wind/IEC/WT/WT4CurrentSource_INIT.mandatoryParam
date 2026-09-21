@@ -13,10 +13,11 @@
 -->
 <mandatoryParameters>
   <mandatoryParameter name="SNom" type="DOUBLE"/>
-  <mandatoryParameter name="BesPu" type="DOUBLE"/>
-  <mandatoryParameter name="GesPu" type="DOUBLE"/>
-  <mandatoryParameter name="ResPu" type="DOUBLE"/>
-  <mandatoryParameter name="XesPu" type="DOUBLE"/>
+  <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
   <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="Kpqu" type="DOUBLE"/>
   <mandatoryParameter name="UpquMaxPu" type="DOUBLE"/>
