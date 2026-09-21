@@ -520,6 +520,16 @@ class SubModel {
   }
 
   /**
+   * @brief determine whether the last evalMode() call on this sub model reported a topology
+   * change whose Jacobian sparsity pattern is invariant (as opposed to a plain algebraic
+   * state change)
+   * @return true if it did, false by default
+   */
+  virtual bool getPatternInvariantTopoChange() const {
+    return false;
+  }
+
+  /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    *
    * @param t : time for which to conduct the data coherence check

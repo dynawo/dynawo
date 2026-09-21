@@ -278,6 +278,34 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   }
 
   /**
+   * @brief get whether the pattern-invariant topology optimization is enabled
+   * @return whether the pattern-invariant topology optimization is enabled
+   */
+  inline bool getPatternInvariantTopology() const {
+    return patternInvariantTopology_;
+  }
+
+  /**
+   * @brief set whether the pattern-invariant topology optimization is enabled
+   *
+   * Exposed for unit tests; production code sets this via the "patternInvariantTopology" parameter.
+   *
+   * @param patternInvariantTopology whether the pattern-invariant topology optimization is enabled
+   */
+  inline void setPatternInvariantTopology(const bool patternInvariantTopology) {
+    patternInvariantTopology_ = patternInvariantTopology;
+  }
+
+  /**
+   * @brief get whether the last evalMode() call downgraded a genuine topology change to ALGEBRAIC_MODE
+   * (superset sparsity), as opposed to a plain algebraic state change
+   * @return whether the last mode change was a pattern-invariant topology change
+   */
+  inline bool getPatternInvariantTopoChange() const override {
+    return patternInvariantTopoChange_;
+  }
+
+  /**
    * @copydoc ModelCPP::initParams()
    */
   void initParams() override;
@@ -410,6 +438,8 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   bool isInitModel_;  ///< whether the current model used is the init one
   bool withNodeBreakerTopology_;  ///< whether at least one voltageLevel has node breaker topology view
   bool deactivateZeroCrossingFunctions_;  ///< whether we use root functions
+  bool patternInvariantTopology_;  ///< invariant switch sparsity + voltage-level topology-event downgrade; param "patternInvariantTopology", default false
+  bool patternInvariantTopoChange_;  ///< @b true if the last evalMode() call downgraded a genuine topology change (reset at the top of each evalMode() call)
 
   std::unique_ptr<ModelBusContainer> busContainer_;  ///< all network buses
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components

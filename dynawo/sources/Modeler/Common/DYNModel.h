@@ -219,6 +219,15 @@ class Model {
   virtual void reinitMode() = 0;
 
   /**
+   * @brief get whether the last mode change was a topology change that left the Jacobian
+   * sparsity pattern invariant, aggregated (OR) over all sub models, with the same set/reset
+   * lifecycle as getModeChangeType()/reinitMode()
+   *
+   * @return @b true if the last mode change was a pattern-invariant topology change
+   */
+  virtual bool getPatternInvariantTopoChange() const = 0;
+
+  /**
    * @brief get the type of z that were modified
    * @return type of z that were modified
    */

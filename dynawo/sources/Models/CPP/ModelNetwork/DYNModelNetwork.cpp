@@ -133,7 +133,9 @@ calculatedVarBuffer_(NULL),
 isInit_(false) ,
 isInitModel_(false),
 withNodeBreakerTopology_(false),
-deactivateZeroCrossingFunctions_(false) {
+deactivateZeroCrossingFunctions_(false),
+patternInvariantTopology_(false),
+patternInvariantTopoChange_(false) {
   busContainer_.reset(new ModelBusContainer());
 }
 
@@ -1056,14 +1058,25 @@ ModelNetwork::evalMode(const double t) {
    *     1. State or topological change on the network (given by the evalState method)
    *     2. Short-circuit on a bus (given by the evalNodeFault method)
    */
-  bool topoChange = false;
+  bool topoChangeStructural = false;
+  bool topoChangePatternInvariant = false;
   bool stateChange = false;
   modeChangeType_t modeChangeType = NO_MODE;
+
+  patternInvariantTopoChange_ = false;
 
   for (const auto& component : getComponents()) {
     switch (component->evalState(t)) {
     case NetworkComponent::TOPO_CHANGE:
-      topoChange = true;
+      // Voltage-level-internal events (switches, buses, injection connection
+      // changes) keep an invariant Jacobian pattern with superset sparsity;
+      // structural events (line/transformer trips) still need a J update.
+      if (patternInvariantTopology_ && component->hasPatternInvariantTopologyChange()) {
+        topoChangePatternInvariant = true;
+        patternInvariantTopoChange_ = true;
+      } else {
+        topoChangeStructural = true;
+      }
       break;
     case NetworkComponent::STATE_CHANGE:
       stateChange = true;
@@ -1074,9 +1087,9 @@ ModelNetwork::evalMode(const double t) {
   }
 
   // recalculate admittance matrix and reevaluate connectivity
-  if (topoChange) {
+  if (topoChangeStructural) {
     modeChangeType = ALGEBRAIC_J_UPDATE_MODE;
-  } else if (stateChange) {
+  } else if (topoChangePatternInvariant || stateChange) {
     modeChangeType = ALGEBRAIC_MODE;
   }
 
@@ -1248,6 +1261,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelHvdcLink::defineParameters(parameters);
   parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deactivate_zero_crossing_functions", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("patternInvariantTopology", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 
   for (const auto& component : getComponents()) {
     component->defineNonGenericParameters(parameters);
@@ -1318,6 +1332,10 @@ ModelNetwork::setSubModelParameters() {
   deactivateZeroCrossingFunctions_ = false;
   if (deactivateZeroCrossingFunctions.hasValue())
     deactivateZeroCrossingFunctions_ = deactivateZeroCrossingFunctions.getValue<bool>();
+  const auto& patternInvariantTopology = findParameter("patternInvariantTopology", false);
+  patternInvariantTopology_ = false;
+  if (patternInvariantTopology.hasValue())
+    patternInvariantTopology_ = patternInvariantTopology.getValue<bool>();
   for (const auto& component : getComponents())
     component->setSubModelParameters(parametersDynamic_);
 }

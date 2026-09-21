@@ -109,6 +109,19 @@ class SparseMatrix {
   void addTerm(const int row, const double val);
 
   /**
+   * @brief add a new term in the matrix even if its value is zero
+   *
+   * Used to keep a fixed (superset) sparsity pattern when a Jacobian entry
+   * is numerically zero in the current state but nonzero in another state.
+   * The caller guarantees the entry is structurally meaningful in at least
+   * one state of the model.
+   *
+   * @param row row of the term in the matrix
+   * @param val value to add in the matrix (may be zero)
+   */
+  void addTermForced(const int row, const double val);
+
+  /**
    * @brief print the Frobenius norm of the matrix
    *
    * @return value of the Frobenius norm of the matrix

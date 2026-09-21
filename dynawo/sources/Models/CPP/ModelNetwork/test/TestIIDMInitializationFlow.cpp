@@ -289,6 +289,32 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
 
+TEST(ModelsModelNetwork, ModelNetworkPatternInvariantTopologyParam) {
+  const NetworkProperty properties = {
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTap*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateReactanceShuntCompensator*/,
+      true /*instantiateSwitch*/
+  };
+  shared_ptr<DataInterface> data = createDataItfFromNetwork(createNetwork(properties));
+  shared_ptr<SubModel> modelNetwork = initializeModelNetwork(data);
+
+  modelNetwork->defineParameters();
+  const bool isInitParam = false;
+  ASSERT_EQ(modelNetwork->hasParameter("patternInvariantTopology", isInitParam), true);
+
+  // absent from the .par: must not throw (flag keeps its default false)
+  ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
+
+  // explicit value must be accepted and forwarded without throwing
+  modelNetwork->setParameterValue("patternInvariantTopology", PAR, false, isInitParam);
+  ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
+}
+
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerParam) {
   const NetworkProperty properties = {
       true /*instantiateTwoWindingTransformer*/,

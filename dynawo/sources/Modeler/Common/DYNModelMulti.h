@@ -161,6 +161,13 @@ class ModelMulti : public Model, private boost::noncopyable {
   void reinitMode() override;
 
   /**
+   * @copydoc Model::getPatternInvariantTopoChange() const
+   */
+  inline bool getPatternInvariantTopoChange() const override {
+    return patternInvariantTopoChange_;
+  }
+
+  /**
    * @copydoc Model::notifyTimeStep()
    */
   void notifyTimeStep() override;
@@ -613,6 +620,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   zChangeType_t silentZChange_;  ///< @b indicates which types of silent Z has changed
   bool modeChange_;  ///< @b true if one mode has changed
   modeChangeType_t modeChangeType_;  ///< type of mode change
+  bool patternInvariantTopoChange_;  ///< @b true if the last mode change was a pattern-invariant topology change; same lifecycle as modeChangeType_
 
   unsigned int offsetFOptional_;  ///< offset in whole F buffer for optional equations
   std::set<int> numVarsOptional_;  ///< index of optional variables
