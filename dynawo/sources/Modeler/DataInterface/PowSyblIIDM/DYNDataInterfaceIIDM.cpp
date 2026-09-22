@@ -573,6 +573,11 @@ DataInterfaceIIDM::importTwoWindingsTransformer(powsybl::iidm::TwoWindingsTransf
   if (twoWTfoIIDM.hasPhaseTapChanger()) {
     std::unique_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(twoWTfoIIDM.getPhaseTapChanger()));
     twoWTfo->setPhaseTapChanger(std::move(tapChanger));
+
+    if (twoWTfoIIDM.getTerminal1().getVoltageLevel().getId() == twoWTfoIIDM.getTerminal2().getVoltageLevel().getId()) {
+      std::shared_ptr<VoltageLevelInterface> vli = findVoltageLevelInterface(twoWTfoIIDM.getTerminal1().getVoltageLevel().getId());
+      dynamic_pointer_cast<VoltageLevelInterfaceIIDM>(vli)->sanityCheckDephasor(twoWTfoIIDM);
+    }
   }
   // add ratio tapChanger and steps if exists
   if (twoWTfoIIDM.hasRatioTapChanger()) {

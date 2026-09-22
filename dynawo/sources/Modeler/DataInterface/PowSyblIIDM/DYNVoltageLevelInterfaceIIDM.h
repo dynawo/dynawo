@@ -220,6 +220,12 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    */
   boost::optional<std::string> getSlackBusId() const;
 
+  /**
+   * @brief checks whether a transformer (supposed to be dephasing) is connected to the same electrical component on both sides, throws if that is the case
+   * @param twoWTfoIIDM the parsed powsybl description of the transformer
+   */
+  void sanityCheckDephasor(powsybl::iidm::TwoWindingsTransformer & twoWTfoIIDM) const;
+
  private:
   /**
    * @brief Count the number of switches that should be closed to connect this path
