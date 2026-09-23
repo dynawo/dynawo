@@ -52,6 +52,8 @@
 #include "DYNElement.h"
 #include "DYNDataInterface.h"
 #include "DYNExecUtils.h"
+#include "DYNError.h"
+#include "DYNErrorQueue.h"
 
 using std::string;
 using std::map;
@@ -244,13 +246,20 @@ Modeler::initConnects() {
       continue;
     }
 
-    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
+    try {
+      replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
 
-    Trace::debug(Trace::modeler()) << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
 
-    model_->connectElements(iter1->second, var1, iter2->second, var2);
+      model_->connectElements(iter1->second, var1, iter2->second, var2);
+    } catch (const Error& e) {
+      // register the error instead of failing immediately so that all incorrect connections
+      // (e.g. wrong variable names) can be reported at once instead of one by one
+      DYNErrorQueue::instance().push(e);
+    }
   }
   Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
+  DYNErrorQueue::instance().flush();
 }
 
 string
