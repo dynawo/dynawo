@@ -105,7 +105,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     u0Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-160, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
-    Placement(transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}})));
+    Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
     GPu = 0,

@@ -27,6 +27,15 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
+  // HVRT and LVRT parameters
+  parameter String TablesFile "Text file that contains the tables for the functions";
+  parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for overvoltage";
+  parameter String TabletUunderUfilt "Disconnection time versus over voltage lookup table for undervoltage";
+  parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
+  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
+  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
+  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
+
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
@@ -199,6 +208,10 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
     Placement(transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
     Placement(transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}})));
+  Dynawo.Electrical.Controls.Machines.Protections.HVRT hvrt(UOverPu = UOverPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUoverUfilt = TabletUoverUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {125, -19}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Dynawo.Electrical.Controls.Machines.Protections.LVRT lvrt(UUnderPu = UUnderPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUunderUfilt = TabletUunderUfilt, U0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {125, -39}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -214,10 +227,12 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  injector.switchOffSignal3 = hvrt.fOCB or lvrt.fOCB;
+
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_wtgt.omegaGPu, wecc_wtgq.omegaGPu) annotation(
-    Line(points = {{64, -44}, {64.4305, -44}, {64.4305, -43}, {63.861, -43}, {63.861, -40.034}, {129.092, -40.034}, {129.092, -76.034}, {-108.891, -76.034}, {-108.891, -52.034}, {-99.891, -52.034}}, color = {0, 0, 127}));
+    Line(points = {{64, -44}, {64.4305, -44}, {64.4305, -43}, {63.861, -43}, {63.861, -40.034}, {100, -40.034}, {100, -76.034}, {-108.891, -76.034}, {-108.891, -52.034}, {-99.891, -52.034}}, color = {0, 0, 127}));
   connect(wecc_regc.idRefPu, injector.idPu) annotation(
     Line(points = {{-29, -6}, {-11.5, -6}}, color = {0, 0, 127}));
   connect(wecc_regc.iqRefPu, injector.iqPu) annotation(
@@ -278,6 +293,10 @@ equation
     Line(points = {{-68, 0}, {-64, 0}, {-64, -30}, {-87, -30}, {-87, -34}}, color = {255, 0, 255}));
   connect(PConvRefPu, wecc_wtgq.PRef0Pu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-104, 6}, {-104, -40}, {-100, -40}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, hvrt.UMonitoredPu) annotation(
+    Line(points = {{60, -6}, {60, -20}, {120, -20}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, lvrt.UMonitoredPu) annotation(
+    Line(points = {{60, -6}, {62, -6}, {62, -20}, {110, -20}, {110, -40}, {120, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

@@ -21,5 +21,4 @@
   <variable type="continuous" id="QConvRefPu" optional="true"/>
   <variable type="discrete" id="injector.switchOffSignal1" defaultValue="false"/>
   <variable type="discrete" id="injector.switchOffSignal2" defaultValue="false"/>
-  <variable type="discrete" id="injector.switchOffSignal3" defaultValue="false"/>
 </external_variables>
