@@ -9,12 +9,15 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
+add_subdirectory(Mechanical M)
+
 set(MODEL_FILES
   package.mo
   package.order
   CurrentLimitParameters.mo
   GridProtectionParameters.mo
   PControlParameters.mo
+  PControlWT3Parameters.mo
   QControlParameters2015.mo
   QControlParameters2020.mo
   QLimitParameters.mo

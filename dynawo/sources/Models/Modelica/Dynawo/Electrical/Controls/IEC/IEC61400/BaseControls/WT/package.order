@@ -1,11 +1,16 @@
+Aerodynamic2D
 CurrentLimiter2015
 CurrentLimiter2020
 Mechanical
+PControl3AB2020
 PControl4A2015
 PControl4A2020
 PControl4B2015
 PControl4B2020
+PitchAngleControl
 QControl2015
 QControl2020
+QControl3B2020
 QLimiter2015
 QLimiter2020
+TorquePi

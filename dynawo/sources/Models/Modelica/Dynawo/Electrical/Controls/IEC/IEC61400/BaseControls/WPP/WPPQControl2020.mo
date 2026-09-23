@@ -59,7 +59,7 @@ model WPPQControl2020 "Reactive power control module for wind power plants (IEC 
   Modelica.Blocks.Nonlinear.Limiter limiter(homotopyType = Modelica.Blocks.Types.LimiterHomotopy.NoHomotopy, uMax = XErrMaxPu, uMin = XErrMinPu) annotation(
     Placement(visible = true, transformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  equation
+equation
   connect(xWPRefComPu, multiSwitch.u[1]) annotation(
     Line(points = {{-340, 120}, {-140, 120}, {-140, 103}, {-80, 103}}, color = {0, 0, 127}));
   connect(multiSwitch.y, variableLimiter.u) annotation(

@@ -61,13 +61,9 @@ model BaseWPPPControl "Base active power control module for wind power plants (I
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameter
-  parameter Types.ComplexCurrentPu i0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Dialog(group="Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.ActivePowerPu PPDRefCom0Pu "Initial reference active power communicated to WT in pu (base SNom) (generator convention)" annotation(
-    Dialog(group="Initialization"));
-  parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
     Dialog(group="Initialization"));
 
 equation
