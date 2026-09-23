@@ -20,6 +20,16 @@ set(MODEL_FILES
   Converter.mandatoryParam
   Converter_INIT.mo
   Converter_INIT.mandatoryParam
+  ConverterCurrentSourceIEC63406.mo
+  ConverterCurrentSourceIEC63406.extvar
+  ConverterCurrentSourceIEC63406.mandatoryParam
+  ConverterCurrentSourceIEC63406_INIT.mo
+  ConverterCurrentSourceIEC63406_INIT.mandatoryParam
+  ConverterVoltageSourceIEC63406.mo
+  ConverterVoltageSourceIEC63406.extvar
+  ConverterVoltageSourceIEC63406.mandatoryParam
+  ConverterVoltageSourceIEC63406_INIT.mo
+  ConverterVoltageSourceIEC63406_INIT.mandatoryParam
   InjectorBG.mo
   InjectorBG.extvar
   InjectorBG.mandatoryParam

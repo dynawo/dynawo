@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="TableFileName" type="STRING"/>
+  <mandatoryParameter name="BesPu" type="DOUBLE"/>
+  <mandatoryParameter name="GesPu" type="DOUBLE"/>
+  <mandatoryParameter name="ResPu" type="DOUBLE"/>
+  <mandatoryParameter name="XesPu" type="DOUBLE"/>
+  <mandatoryParameter name="QLimFlag" type="BOOL"/>
+  <mandatoryParameter name="QMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="QMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="QMaxtoPTableName" type="STRING"/>
+  <mandatoryParameter name="QMintoPTableName" type="STRING"/>
+  <mandatoryParameter name="QMaxtoUTableName" type="STRING"/>
+  <mandatoryParameter name="QMintoUTableName" type="STRING"/>
+  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
+</mandatoryParameters>
