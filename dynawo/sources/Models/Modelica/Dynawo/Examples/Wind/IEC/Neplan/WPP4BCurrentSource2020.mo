@@ -190,9 +190,11 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
   Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource2020_INIT wPP4CurrentSource_INIT(
     BesPu = wPP4BCurrentSource.BesPu,
     BLvTrPu = wPP4BCurrentSource.BLvTrPu,
+    BMvHvPu = wPP4BCurrentSource.BMvHvPu,
     ConverterLVControl = wPP4BCurrentSource.ConverterLVControl,
     GesPu = wPP4BCurrentSource.GesPu,
     GLvTrPu = wPP4BCurrentSource.GLvTrPu,
+    GMvHvPu = wPP4BCurrentSource.GMvHvPu,
     IMaxPu = wPP4BCurrentSource.IMaxPu,
     Kpqu = wPP4BCurrentSource.Kpqu,
     Kwpqu = wPP4BCurrentSource.Kwpqu,
@@ -207,6 +209,7 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     RDropPu = wPP4BCurrentSource.RDropPu,
     ResPu = wPP4BCurrentSource.ResPu,
     RLvTrPu = wPP4BCurrentSource.RLvTrPu,
+    RMvHvPu = wPP4BCurrentSource.RMvHvPu,
     RwpDropPu = wPP4BCurrentSource.RwpDropPu,
     SNom = wPP4BCurrentSource.SNom,
     U0Pu = wPP4BCurrentSource.U0Pu,
@@ -216,6 +219,7 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     XDropPu = wPP4BCurrentSource.XDropPu,
     XesPu = wPP4BCurrentSource.XesPu,
     XLvTrPu = wPP4BCurrentSource.XLvTrPu,
+    XMvHvPu = wPP4BCurrentSource.XMvHvPu,
     XwpDropPu = wPP4BCurrentSource.XwpDropPu) annotation(
     Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -234,6 +238,8 @@ initial algorithm
   wPP4BCurrentSource.XWT0Pu := wPP4CurrentSource_INIT.XWT0Pu;
   wPP4BCurrentSource.i0Pu.re := wPP4CurrentSource_INIT.i0Pu.re;
   wPP4BCurrentSource.i0Pu.im := wPP4CurrentSource_INIT.i0Pu.im;
+  wPP4BCurrentSource.iControl0Pu.re := wPP4CurrentSource_INIT.iControl0Pu.re;
+  wPP4BCurrentSource.iControl0Pu.im := wPP4CurrentSource_INIT.iControl0Pu.im;
   wPP4BCurrentSource.iGs0Pu.re := wPP4CurrentSource_INIT.iGs0Pu.re;
   wPP4BCurrentSource.iGs0Pu.im := wPP4CurrentSource_INIT.iGs0Pu.im;
   wPP4BCurrentSource.iWt0Pu.re := wPP4CurrentSource_INIT.iWt0Pu.re;
