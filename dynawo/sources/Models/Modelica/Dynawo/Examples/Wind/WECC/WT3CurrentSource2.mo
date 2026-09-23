@@ -76,7 +76,7 @@ model WT3CurrentSource2 "WECC Wind Type 3 Model on infinite bus"
     P4 = 30,
     Spd4 = 30,
     PFlag = true,
-    Pm0Pu = 0.7,
+    Pm0Pu(fixed = false),
     PMaxREECPu = 1,
     PMinREECPu = 0,
     PQFlag = false,
@@ -155,9 +155,9 @@ model WT3CurrentSource2 "WECC Wind Type 3 Model on infinite bus"
     UPhase0 = 1.4461e-06,
     omegaRefWTGQPu0(fixed = false)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant PConvRefPu(k = 0.7) annotation(
+  Modelica.Blocks.Sources.Constant PConvRefPu(k = WT3.PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant QConvRefPu(k = 0.2) annotation(
+  Modelica.Blocks.Sources.Constant QConvRefPu(k = WT3.QConv0Pu) annotation(
     Placement(transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WT3.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -190,6 +190,7 @@ initial algorithm
   WT3.uInj0Pu.re := weccInverterCurrentSource_INIT.uInj0Pu.re;
   WT3.uInj0Pu.im := weccInverterCurrentSource_INIT.uInj0Pu.im;
   WT3.omegaRefWTGQPu0 := weccInverterCurrentSource_INIT.omegaRefWTGQPu0;
+  WT3.Pm0Pu := weccInverterCurrentSource_INIT.Pm0Pu;
   WT3.iConv0Pu.re := weccInverterCurrentSource_INIT.iConv0Pu.re;
   WT3.iConv0Pu.im := weccInverterCurrentSource_INIT.iConv0Pu.im;
   WT3.UConv0Pu := weccInverterCurrentSource_INIT.UConv0Pu;

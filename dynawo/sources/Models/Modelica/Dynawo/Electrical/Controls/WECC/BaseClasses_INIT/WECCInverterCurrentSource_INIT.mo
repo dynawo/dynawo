@@ -49,6 +49,7 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
   Types.ActivePowerPu PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
   Types.PerUnit PConv0Pu "Start value of active power at converter terminal in pu (base SNom) (generator convention)";
   Types.PerUnit PF0 "Start value of power factor";
+  Types.ActivePowerPu Pm0Pu "Initial mechanical power in pu (base SNom)";
   Types.PerUnit QInj0Pu "Start value of reactive power at injector in pu (base SNom) (generator convention)";
   Types.ReactivePowerPu QConv0Pu "Start value of reactive power at converter terminal in pu (base SNom) (generator convention)";
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
@@ -92,6 +93,7 @@ equation
 
   omegaRefWTGQPu0 = combiTable1D.y[1];
   PF0 = if (not (ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/ComplexMath.'abs'(s0Pu) else 0;
+  Pm0Pu = PConv0Pu;
   Id0Pu = Modelica.Math.cos(UPhase0)*iInj0Pu.re + Modelica.Math.sin(UPhase0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhase0)*iInj0Pu.re - Modelica.Math.cos(UPhase0)*iInj0Pu.im;
 
