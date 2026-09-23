@@ -129,34 +129,8 @@
   <mandatoryParameter name="XKiwpxMinPu" type="DOUBLE"/>
   <mandatoryParameter name="XRefMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="XRefMinPu" type="DOUBLE"/>
-  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="iControl0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="iControl0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="iGs0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="iGs0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="Ip0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="IpMax0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="IqMax0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="IqMin0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="iWt0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="iWt0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="P0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="PControl0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="QControl0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="QMax0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="QMin0Pu" type="DOUBLE"/>
   <mandatoryParameter name="U0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="UPhase0" type="DOUBLE"/>
-  <mandatoryParameter name="uControl0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="uControl0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="UWt0DroppedPu" type="DOUBLE"/>
-  <mandatoryParameter name="uWt0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="uWt0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="X0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="XWT0Pu" type="DOUBLE"/>
 </mandatoryParameters>

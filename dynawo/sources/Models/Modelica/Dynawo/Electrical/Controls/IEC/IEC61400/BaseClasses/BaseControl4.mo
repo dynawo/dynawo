@@ -136,8 +136,6 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
   parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "Operating point"));
 
-equation
-
   annotation(
     preferredView = "diagram",
     Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Text(origin = {-16, 31}, extent = {{-76, -18}, {92, 28}}, textString = "IEC WT 4"), Text(origin = {-11, -34}, extent = {{-77, -16}, {100, 30}}, textString = "Generator Control")}),
