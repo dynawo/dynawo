@@ -468,5 +468,19 @@ VoltageLevelInterfaceIIDM::selectClosedEdges(bool filterRetainedSwitches) const 
   return toReturn;
 }
 
+void
+VoltageLevelInterfaceIIDM::sanityCheckDephasor(powsybl::iidm::TwoWindingsTransformer & twoWTfoIIDM) const {
+  if (isNodeBreakerTopology_) {
+    int nodeId1 = twoWTfoIIDM.getTerminal1().getNodeBreakerView().getNode();
+    int nodeId2 = twoWTfoIIDM.getTerminal2().getNodeBreakerView().getNode();
+    if (graph_.pathExist(nodeId1, nodeId2, selectClosedEdges(false)))
+        throw DYNError(DYN::Error::GENERAL, DephasingTfoLocalLoop, twoWTfoIIDM.getId());
+  } else {
+    auto bus1 = twoWTfoIIDM.getTerminal1().getBusBreakerView().getConnectableBus();
+    auto bus2 = twoWTfoIIDM.getTerminal2().getBusBreakerView().getConnectableBus();
+    if (bus1 == bus2)
+        throw DYNError(DYN::Error::GENERAL, DephasingTfoLocalLoop, twoWTfoIIDM.getId());
+  }
+}
 
 }  // namespace DYN
