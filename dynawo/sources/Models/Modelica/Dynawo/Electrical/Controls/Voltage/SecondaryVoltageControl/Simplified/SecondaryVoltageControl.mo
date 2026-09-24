@@ -61,7 +61,7 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {10, -8}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = UDeadBandPu, uMin = -UDeadBandPu)  annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.DeadZone deadZone(uMax = UDeadBandPu, uMin = -UDeadBandPu) annotation(
     Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters

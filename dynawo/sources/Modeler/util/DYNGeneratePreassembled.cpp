@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
   try {
     dydFileName = verifyModelListFile(modelList, absOutputDir);   // verify the model list file
 
-    // Initializes logs, parsers & dictionnaries for Dynawo
+    // Initializes logs, parsers & dictionaries for Dynawo
     Trace::init();
     DYN::IoDicos& dicos = DYN::IoDicos::instance();
     dicos.addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));

@@ -71,5 +71,6 @@ equation
     Line(points = {{-110, 60}, {40, 60}, {40, 17}, {59, 17}}, color = {0, 0, 127}));
 
   annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Line(origin = {-1, 0}, points = {{-99, -100}, {101, 100}}), Text(origin = {-41, 51}, extent = {{-33, 25}, {33, -25}}, textString = "dq"), Text(origin = {34, -47}, extent = {{-24, 25}, {24, -25}}, textString = "ri")}));
 end DQTrafo;

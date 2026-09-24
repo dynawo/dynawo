@@ -17,25 +17,25 @@ model LoadAlphaBetaFrequencyDependent
   extends Modelica.Icons.Example;
 
   // Load Alpha Beta with Frequency Dependence
-  Dynawo.Electrical.Loads.LoadAlphaBetaFrequencyDependent loadAlphaBetaFrequencyDependent(i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false)), KiPLL = 10, KpPLL = 1.0, OmegaMaxPu = 1.10, OmegaMinPu = 0.90, alpha = 1.5, beta = 2.0, Kpf = 2.0, Kqf = -2.0)  annotation(
+  Dynawo.Electrical.Loads.LoadAlphaBetaFrequencyDependent loadAlphaBetaFrequencyDependent(i0Pu(re(fixed = false), im(fixed = false)), s0Pu(re(fixed = false), im(fixed = false)), u0Pu(re(fixed = false), im(fixed = false)), KiPLL = 10, KpPLL = 1.0, OmegaMaxPu = 1.10, OmegaMinPu = 0.90, alpha = 1.5, beta = 2.0, Kpf = 2.0, Kqf = -2.0) annotation(
     Placement(transformation(origin = {56, 6}, extent = {{10, -10}, {-10, 10}}, rotation = -0)));
 
   // Infinite Bus with Variations == Grid
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.8, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 2, tUEvtEnd = 4, tOmegaEvtStart = 6, tOmegaEvtEnd = 8)  annotation(
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.8, omega0Pu = 1, omegaEvtPu = 1.05, UPhase = 0, tUEvtStart = 2, tUEvtEnd = 4, tOmegaEvtStart = 6, tOmegaEvtEnd = 8) annotation(
     Placement(transformation(origin = {-68, 10}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   // Line
-  Dynawo.Electrical.Lines.Line line(RPu = 0.02, XPu = 0.08, GPu = 0, BPu = 0, SwitchOffSignal30 = false)  annotation(
+  Dynawo.Electrical.Lines.Line line(RPu = 0.02, XPu = 0.08, GPu = 0, BPu = 0, SwitchOffSignal30 = false) annotation(
     Placement(transformation(origin = {-32, 10}, extent = {{-10, -10}, {10, 10}})));
 
   // Sources
-  Modelica.Blocks.Sources.Constant PRefPu(k = 1.0)  annotation(
+  Modelica.Blocks.Sources.Constant PRefPu(k = 1.0) annotation(
     Placement(transformation(origin = {80, -46}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant QRefPu(k = 1.0)  annotation(
+  Modelica.Blocks.Sources.Constant QRefPu(k = 1.0) annotation(
     Placement(transformation(origin = {6, -44}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant deltaP(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant deltaP(k = 0) annotation(
     Placement(transformation(origin = {72, 54}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant deltaQ(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant deltaQ(k = 0) annotation(
     Placement(transformation(origin = {34, 54}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1.0) annotation(
     Placement(transformation(origin = {-18, -14}, extent = {{-10, -10}, {10, 10}})));

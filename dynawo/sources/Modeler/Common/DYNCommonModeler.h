@@ -38,7 +38,7 @@ namespace DYN {
   void addElement(const std::string& name, const Element::typeElement& type, std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @brief add an sub-element to existing structure
+   * @brief add a sub-element to existing structure
    *
    * @param name : name of the sub element
    * @param elementName : name of the element

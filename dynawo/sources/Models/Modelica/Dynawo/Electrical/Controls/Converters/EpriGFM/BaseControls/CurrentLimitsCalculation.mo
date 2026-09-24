@@ -16,9 +16,9 @@ model CurrentLimitsCalculation "Current limit calculation in EPRI Grid Forming m
   extends Parameters.OmegaFlag;
 
   parameter Types.PerUnit IMaxPu "Max current in pu (base UNom, SNom), example value = 1.05" annotation(
-  Dialog(tab = "VoltageControl"));
+    Dialog(tab = "VoltageControl"));
   parameter Boolean PQFlag "Active or active power priority flag: false = P priority, true = Q priority" annotation(
-  Dialog(tab = "VoltageControl"));
+    Dialog(tab = "VoltageControl"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput idConvRefPu(start = IdConv0Pu) "d-axis command current in pu  (base UNom, SNom) (generator convention)" annotation(
@@ -53,6 +53,7 @@ equation
     idMinPu = - idMaxPu;
     iqMinPu = - iqMaxPu;
 
-annotation(
+  annotation(
+    preferredView = text,
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {4, 5}, extent = {{-76, 39}, {76, -39}}, textString = "Current Limiter")}));
 end CurrentLimitsCalculation;
