@@ -29,8 +29,7 @@ class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
    * @param baseQuadripole the quadripole network component that needs bridging to its dynamic part
    * @param stateVarPrefix the prefix to prepend to the state variables of the dynamic part, depending on actual component type
    */
-  explicit NetworkBridgeQuadripole(const std::shared_ptr<ModelQuadripole> & baseQuadripole,
-                                   const std::string & stateVarPrefix);
+  explicit NetworkBridgeQuadripole(const std::shared_ptr<ModelQuadripole> & baseQuadripole, const std::string & stateVarPrefix);
 
   void initSize() override;
   StateChange_t evalZ(double, bool) override;
@@ -38,95 +37,35 @@ class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
   void setGequations(std::map<int, std::string>&) override;
 
  private:
-   /**
-   * @brief retrieves the actual current connection state from the dynamic model
-   * @returns the connection state in the form of the CPP enum
-   */
-  State getDynamicState();
-
- private:
   std::string stateVarPrefix_;                        ///< dynamic state variable model type prefix
   bool declareTopoChange_ = false;                    ///< flag indicating that evalG detected a topology change that needs to be forwarded to evalZ
 
 
-
-  // unused pure virtual methods from NetworkComponent from here on
+// unused pure virtual methods from NetworkComponent from here on
  public :
-  /** @brief unused
-   *  @returns NO_CHANGE in all circumstances
-   */
   NetworkComponent::StateChange_t evalState(double) override {return NetworkComponent::NO_CHANGE;}
-
-  /** @brief unused */
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >&) override {}
-
-  /** @brief unused */
   void defineElements(std::vector<Element> &, std::map<std::string, int>&) override {}
-
-  /** @brief unused */
   void collectSilentZ(BitMask*) override {}
-
-  /** @brief unused */
   void evalDerivatives(double) override {}
-
-  /** @brief unused */
   void evalDerivativesPrim() override {}
-
-  /** @brief unused */
   void evalF(propertyF_t) override {}
-
-  /** @brief unused */
   void evalJt(double, int, SparseMatrix&) override {}
-
-  /** @brief unused */
   void evalJtPrim(int, SparseMatrix&) override {}
-
-  /** @brief unused */
   void evalNodeInjection() override {}
-
-  /** @brief unused */
   void defineNonGenericParameters(std::vector<ParameterModeler>&) override {}
-
-  /** @brief unused */
   void evalCalculatedVars() override {}
-
-  /** @brief unused */
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
-
-  /** @brief unused */
   void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
-
-  /** @brief unused, throws an error if called
-   * @param numCalculatedVar index of the non-existant variable being evaled
-   * @returns nothing, since it throws in all cases if called
-  */
   double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
-
-  /** @brief unused */
   void evalStaticYType() override {}
-
-  /** @brief unused */
   void evalDynamicYType() override {}
-
-  /** @brief unused */
   void evalStaticFType() override {}
-
-  /** @brief unused */
   void evalDynamicFType() override {}
-
-  /** @brief unused */
   void evalYMat() override {}
-
-  /** @brief unused */
   void init(int&) override {}
-
-  /** @brief unused */
   void getY0() override {}
-
-  /** @brief unused */
   void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override {}
-
-  /** @brief unused */
   void setFequations(std::map<int, std::string>&) override {}
 };
 

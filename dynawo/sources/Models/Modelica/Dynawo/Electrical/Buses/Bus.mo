@@ -13,6 +13,7 @@ within Dynawo.Electrical.Buses;
 */
 
 model Bus "Bus"
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffBus;
   extends AdditionalIcons.Bus;
 
   parameter Types.VoltageModule UNom = 1.0 "Nominal voltage in kV";
@@ -25,9 +26,17 @@ model Bus "Bus"
   Types.Angle UPhase "Voltage angle at terminal in rad";
 
 equation
-  terminal.i = Complex(0);
-  UPu = ComplexMath.'abs'(terminal.V);
-  UPhase = ComplexMath.arg(terminal.V);
+  if running then
+    terminal.i = Complex(0);
+    UPu = ComplexMath.'abs'(terminal.V);
+    UPhase = ComplexMath.arg(terminal.V);
+  else
+    /* will not work as of october 2026, this needs an extension in extvars handling that is slated to be introduced with symbolic jacobian computations */
+    terminal.V = Complex(0);
+    UPu = 0;
+    UPhase = 0;
+  end if;
+
   U = UPu * UNom;
 
   annotation(
