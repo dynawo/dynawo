@@ -28,6 +28,12 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   double ur() const override;
   double ui() const override;
 
+  // virtual methods from NetworkComponent, allowing state change propagation from dynamic bus model to ModelNetwork
+  void initSize() override;
+  StateChange_t evalZ(double, bool) override;
+  void evalG(double) override;
+  void setGequations(std::map<int, std::string>&) override;
+
   // reset methods from ModelBus called on all buses by BusContainer at every step, unused here
   void resetNodeInjection() override {}
   void resetCurrentUStatus() override {}
@@ -46,11 +52,8 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   boost::shared_ptr<BusDerivatives>& derivativesPrim() override   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivativesPrim()", id());}
 
   // unused pure virtual methods from NetworkComponent from here on
-  StateChange_t evalZ(double, bool) override {return NetworkComponent::NO_CHANGE;}
   NetworkComponent::StateChange_t evalState(double) override {return NetworkComponent::NO_CHANGE;}
   double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
-  void evalG(double) override {}
-  void setGequations(std::map<int, std::string>&) override {}
   void evalDerivatives(double) override {}
   void evalDerivativesPrim() override {}
   void evalF(propertyF_t) override {}
