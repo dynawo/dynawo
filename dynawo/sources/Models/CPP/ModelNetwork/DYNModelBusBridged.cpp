@@ -36,4 +36,39 @@ ModelBusBridged::ui() const {
   return getSwitchOff() ? 0. : ui0_;
 }
 
+void
+ModelBusBridged::initSize() {
+  ModelBus::initSize();
+  if (!network_->isInitModel())
+    sizeG_ += 1;  // connection event from dynamic model needs to be propagated
+}
+
+NetworkComponent::StateChange_t
+ModelBusBridged::evalZ(const double t, bool /*onlyEvaluateStateChange*/) {
+  if (topologyModified_) {
+    topologyModified_ = false;
+    return NetworkComponent::TOPO_CHANGE;
+  }
+
+  return NetworkComponent::NO_CHANGE;
+}
+
+void
+ModelBusBridged::evalG(const double t) {
+  if (dynModel_ == nullptr)
+    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
+
+  double dynConnState = dynModel_->getVariableValue("bus_state");
+  if (dynConnState != z_[connectionStateNum_]) {
+    g_[0] = (g_[0] != ROOT_UP) ? ROOT_UP : ROOT_DOWN;
+    z_[connectionStateNum_] = dynConnState;
+    refreshConnectionStateFromZ(DO_LOG_TIMELINE);
+  }
+}
+
+void
+ModelBusBridged::setGequations(std::map<int, std::string> & gEquationIndex) {
+  gEquationIndex[0] = "Connection state change propagation by : "+id();
+}
+
 }  // namespace DYN

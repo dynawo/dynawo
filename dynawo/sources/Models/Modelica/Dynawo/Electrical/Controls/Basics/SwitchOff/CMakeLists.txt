@@ -14,6 +14,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  SwitchOffBus.mo
   SwitchOffDCLine.mo
   SwitchOffGenerator.mo
   SwitchOffIdealSwitch.mo

@@ -13,6 +13,7 @@ within Dynawo.Electrical.Buses;
 */
 
 model Bus "Bus"
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffBus;
   extends AdditionalIcons.Bus;
 
   parameter Types.VoltageModule UNom = 1.0 "Nominal voltage in kV";
@@ -25,10 +26,20 @@ model Bus "Bus"
   Types.Angle UPhase "Voltage angle at terminal in rad";
 
 equation
-  terminal.i = Complex(0);
+  if running then
+    terminal.i = Complex(0);
+  else
+    terminal.V = Complex(0);
+    /* terminal.i = Complex(0); */
+  end if;
+
   UPu = ComplexMath.'abs'(terminal.V);
   UPhase = ComplexMath.arg(terminal.V);
   U = UPu * UNom;
+
+  when time > 999999.0 then
+    switchOffSignal1 = false;
+  end when;
 
   annotation(
     preferredView = "text",
