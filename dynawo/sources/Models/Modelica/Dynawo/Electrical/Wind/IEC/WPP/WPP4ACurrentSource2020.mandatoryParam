@@ -125,6 +125,11 @@
   <mandatoryParameter name="XKiwpxMinPu" type="DOUBLE"/>
   <mandatoryParameter name="XRefMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="XRefMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="CurrentLimitTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="GridProtectionTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="PControlTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="QControlTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="QLimitTablesOnFile" type="BOOL"/>
   <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="iControl0Pu.re" type="DOUBLE"/>

@@ -27,7 +27,7 @@ model PVInverterVoltageSource_INIT "Initialization model for WECC PV model with 
   parameter Types.PerUnit XSourcePu "Source reactance in pu (base SNom, UNom) (typical: 0.05..0.2)";
   parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (bae UNom)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at converter terminal in rad";
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";

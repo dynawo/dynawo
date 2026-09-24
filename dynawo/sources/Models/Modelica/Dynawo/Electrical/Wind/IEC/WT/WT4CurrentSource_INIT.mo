@@ -58,21 +58,21 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
 
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3Init annotation(
     Placement(visible = true, transformation(origin = {190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds2Init(table = TableQMaxPwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds2Init(fileName = QLimitTablesFileName, table = TableQMaxPwtcFilt, tableName = TableQMaxPwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {110, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Max2 max0Init annotation(
     Placement(visible = true, transformation(origin = {190, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1Init(table = TableQMinUwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1Init(fileName = QLimitTablesFileName, table = TableQMinUwtcFilt, tableName = TableQMinUwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1DsInit(table = TableQMaxUwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1DsInit(fileName = QLimitTablesFileName, table = TableQMaxUwtcFilt, tableName = TableQMaxUwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds3Init(table = TableQMinPwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds3Init(fileName = QLimitTablesFileName, table = TableQMinPwtcFilt, tableName = TableQMinPwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {110, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1Init(k = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const2Init(k = -P0Pu * SystemBase.SnRef / SNom) annotation(
     Placement(visible = true, transformation(origin = {50, -160}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds4Init(table = TableIpMaxUwt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds4Init(fileName = CurrentLimitFileName, table = TableIpMaxUwt, tableName = TableIpMaxUwtName, tableOnFile = CurrentLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-150, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product productInit annotation(
     Placement(visible = true, transformation(origin = {10, 140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -104,7 +104,7 @@ model WT4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 stand
     Placement(visible = true, transformation(origin = {50, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant2Init(k = IMaxPu) annotation(
     Placement(visible = true, transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds5Init(table = TableIqMaxUwt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds5Init(fileName = CurrentLimitFileName, table = TableIqMaxUwt, tableName = TableIqMaxUwtName, tableOnFile = CurrentLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const5Init(k = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

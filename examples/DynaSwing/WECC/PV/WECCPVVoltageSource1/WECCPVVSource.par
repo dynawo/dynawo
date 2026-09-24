@@ -146,6 +146,11 @@
     <par type="DOUBLE" name="photovoltaics_VDLIq32" value="1"/>
     <par type="DOUBLE" name="photovoltaics_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="photovoltaics_VDLIq42" value="1"/>
+    <par type="BOOL" name="photovoltaics_VDLTablesOnFile" value="false"/>
+    <par type="STRING" name="photovoltaics_VDLFileName" value="examples/DynaSwing/WECC/PV/WECCPVVoltageSource1/VDL.txt"/>
+    <par type="STRING" name="photovoltaics_VDLIpTableName" value="VDLIp"/>
+    <par type="STRING" name="photovoltaics_VDLIqTableName" value="VDLIq"/>
+    <par type="BOOL" name="photovoltaics_TorqueControlTableOnFile" value="false"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

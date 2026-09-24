@@ -28,7 +28,7 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
     Dialog(enable = not PPCLocal));
   parameter Types.ReactivePowerPu QPcc0Pu "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
     Dialog(enable = not PPCLocal));
-  parameter Types.VoltageModulePu UPcc0Pu "Start value of voltage magnitude at PPC regulated bus in pu (bae UNom)" annotation(
+  parameter Types.VoltageModulePu UPcc0Pu "Start value of voltage magnitude at PPC regulated bus in pu (base UNom)" annotation(
     Dialog(enable = not PPCLocal));
   parameter Types.Angle UPhasePcc0 = 1 "Start value of voltage phase angle at PPC regulated bus in rad" annotation(
     Dialog(enable = not PPCLocal));
@@ -38,7 +38,7 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
 
   parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (bae UNom)";
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at converter terminal in rad";
 
   // Torque control parameters
@@ -58,6 +58,12 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
     Dialog(tab="Torque control"));
   parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
     Dialog(tab="Torque control"));
+  parameter Boolean TorqueControlTableOnFile = false "If true, table is defined on file or in function usertab" annotation(
+    Dialog(tab = "Torque control"));
+  parameter String TorqueControlFileName = "NoName" "File where table is stored" annotation(
+    Dialog(tab = "Torque control"));
+  parameter String TorqueControlTableName = "NoName" "Name of the table in the text file for speed as a function of power" annotation(
+    Dialog(tab = "Torque control"));
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
@@ -89,13 +95,12 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
   Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
+  Modelica.Blocks.Tables.CombiTable1D combiTable1D(fileName = TorqueControlFileName, table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4], tableName = TorqueControlTableName, tableOnFile = TorqueControlTableOnFile) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));
 
 equation
-
   //Regulated bus electrical quantities
   iPcc0Pu = ComplexMath.conj(sPcc0Pu / uPcc0Pu);
   uPcc0Pu = ComplexMath.fromPolar(UPcc0Pu, UPhasePcc0);

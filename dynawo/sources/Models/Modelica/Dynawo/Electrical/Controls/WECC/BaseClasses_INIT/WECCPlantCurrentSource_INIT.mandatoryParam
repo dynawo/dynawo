@@ -25,4 +25,7 @@
   <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
+  <mandatoryParameter name="TorqueControlFileName" type="STRING"/>
+  <mandatoryParameter name="TorqueControlTableName" type="STRING"/>
+  <mandatoryParameter name="TorqueControlTableOnFile" type="BOOL"/>
 </mandatoryParameters>

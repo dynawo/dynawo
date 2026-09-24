@@ -27,6 +27,8 @@
   <mandatoryParameter name="QlConst" type="BOOL"/>
   <mandatoryParameter name="QMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="QMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="CurrentLimitTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="QLimitTablesOnFile" type="BOOL"/>
   <mandatoryParameter name="P0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
   <mandatoryParameter name="U0Pu" type="DOUBLE"/>
