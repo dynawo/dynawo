@@ -134,10 +134,17 @@
     <par type="DOUBLE" name="WT4A_VDLIq32" value="1"/>
     <par type="DOUBLE" name="WT4A_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="WT4A_VDLIq42" value="1"/>
+    <par type="STRING" name="WT4A_VDLFileName" value="NoName.txt"/>
+    <par type="STRING" name="WT4A_VDLIpTableName" value="NoTable"/>
+    <par type="STRING" name="WT4A_VDLIqTableName" value="NoTable"/>
+    <par type="BOOL" name="WT4A_VDLTablesOnFile" value="false"/>
     <par type="BOOL" name="WT4A_Lvplsw" value="false"/>
     <par type="DOUBLE" name="WT4A_zerox" value="0.1"/>
     <par type="DOUBLE" name="WT4A_brkpt" value="0.05"/>
     <par type="DOUBLE" name="WT4A_lvpl1" value="1.22"/>
+    <par type="STRING" name="WT4A_TorqueControlFileName" value="NoName.txt"/>
+    <par type="STRING" name="WT4A_TorqueControlTableName" value="NoTable"/>
+    <par type="BOOL" name="WT4A_TorqueControlTableOnFile" value="false"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

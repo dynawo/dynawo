@@ -186,6 +186,10 @@
     <par type="DOUBLE" name="WTG4A_zerox" value="0.1"/>
     <par type="DOUBLE" name="WTG4A_brkpt" value="0.05"/>
     <par type="DOUBLE" name="WTG4A_lvpl1" value="1.22"/>
+    <par type="STRING" name="WTG4A_TorqueControlFileName" value="NoName"/>
+    <par type="STRING" name="WTG4A_TorqueControlTableName" value="NoName"/>
+    <par type="BOOL" name="WTG4A_TorqueControlTableOnFile" value="false"/>
+    <par type="BOOL" name="WTG4A_VDLTablesOnFile" value="false"/>
   </set>
   <set id="OMEGAREF">
     <par type="INT" name="nbGen" value="5"/>

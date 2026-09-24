@@ -58,7 +58,7 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
     Dialog(tab="Torque control"));
   parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
     Dialog(tab="Torque control"));
-  parameter Boolean TorqueControlTableOnFile "If true, table is defined on file or in function usertab" annotation(
+  parameter Boolean TorqueControlTableOnFile = false "If true, table is defined on file or in function usertab" annotation(
     Dialog(tab = "Torque control"));
   parameter String TorqueControlFileName = "NoName" "File where table is stored" annotation(
     Dialog(tab = "Torque control"));

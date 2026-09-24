@@ -50,9 +50,9 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
     Dialog(tab = "Torque control"));
   parameter Boolean TorqueControlTableOnFile "If true, table is defined on file or in function usertab" annotation(
     Dialog(tab = "Torque control"));
-  parameter String TorqueControlFileName = "NoName" "File where table is stored" annotation(
+  parameter String TorqueControlFileName "File where table is stored" annotation(
     Dialog(tab = "Torque control"));
-  parameter String TorqueControlTableName = "NoName" "Name of the table in the text file for speed as a function of power" annotation(
+  parameter String TorqueControlTableName "Name of the table in the text file for speed as a function of power" annotation(
     Dialog(tab = "Torque control"));
 
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";

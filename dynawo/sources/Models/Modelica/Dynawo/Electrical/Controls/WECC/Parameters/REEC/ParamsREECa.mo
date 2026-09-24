@@ -52,11 +52,11 @@ record ParamsREECa "REEC type A parameters"
     Dialog(tab = "Electrical Control", group = "REECa"));
   parameter Boolean VDLTablesOnFile "If true, tables are defined on file or in function usertab" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
-  parameter String VDLFileName = "NoName" "File where tables are stored" annotation(
+  parameter String VDLFileName "File where tables are stored" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
-  parameter String VDLIpTableName = "NoName" "Name of the table in the text file for voltage-dependent active current limitation piecewise linear curve" annotation(
+  parameter String VDLIpTableName "Name of the table in the text file for voltage-dependent active current limitation piecewise linear curve" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
-  parameter String VDLIqTableName = "NoName" "Name of the table in the text file for voltage-dependent reactive current limitation piecewise linear curve" annotation(
+  parameter String VDLIqTableName "Name of the table in the text file for voltage-dependent reactive current limitation piecewise linear curve" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
   parameter Types.Time tHoldIpMax "Time delay for which the active current limit (ipMaxPu) is held after voltage dip in s" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
