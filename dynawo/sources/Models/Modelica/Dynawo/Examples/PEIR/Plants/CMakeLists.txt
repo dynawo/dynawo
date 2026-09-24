@@ -8,7 +8,6 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 
-add_subdirectory(DER D)
 add_subdirectory(Simplified S)
 
 set(MODEL_FILES
