@@ -41,9 +41,5 @@ equation
   UPhaseDeg = UPhase * 180.0 / Constants.pi;
   U = UPu * UNom;
 
-  when time > 999999.0 then
-    switchOffSignal1 = false;
-  end when;
-
   annotation(preferredView = "text");
 end BusWithInit;

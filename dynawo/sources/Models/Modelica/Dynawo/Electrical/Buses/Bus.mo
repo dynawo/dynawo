@@ -37,10 +37,6 @@ equation
   UPhase = ComplexMath.arg(terminal.V);
   U = UPu * UNom;
 
-  when time > 999999.0 then
-    switchOffSignal1 = false;
-  end when;
-
   annotation(
     preferredView = "text",
     Documentation(info = "<html><head></head><body>The bus model doesn't provide any new equation to the system. It is present into the library for convenience purpose to build network tests.</body></html>"));
