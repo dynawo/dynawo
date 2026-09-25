@@ -19,7 +19,7 @@
   <mandatoryParameter name="Hg" type="DOUBLE"/>
   <mandatoryParameter name="Dshaft" type="DOUBLE"/>
   <mandatoryParameter name="Kshaft" type="DOUBLE"/>
-  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
+  <mandatoryParameter name="omegaRefWTGQ0Pu" type="DOUBLE"/>
   <mandatoryParameter name="tpWTGTb" type="DOUBLE"/>
   <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
@@ -106,7 +106,7 @@
   <mandatoryParameter name="IqFrzPu" type="DOUBLE"/>
   <mandatoryParameter name="PFlag" type="BOOL"/>
   <mandatoryParameter name="VRef1Pu" type="DOUBLE"/>
-  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
+  <mandatoryParameter name="omegaRefWTGQ0Pu" type="DOUBLE"/>
   <mandatoryParameter name="IqrMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="IqrMinPu" type="DOUBLE"/>
   <mandatoryParameter name="RrpwrPu" type="DOUBLE"/>

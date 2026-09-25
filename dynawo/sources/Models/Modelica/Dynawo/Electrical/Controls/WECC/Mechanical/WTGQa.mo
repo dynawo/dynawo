@@ -17,7 +17,7 @@ model WTGQa "WECC Torque Controller Type A"
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
 
   //Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQPu0) "Generator frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaGPu (start = omegaRefWTGQ0Pu) "Generator frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PePu(start = PConv0Pu) "Electrical active power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-130, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -27,7 +27,7 @@ model WTGQa "WECC Torque Controller Type A"
     Placement(transformation(origin = {100, 130}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {20, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   //Output variables
-  Modelica.Blocks.Interfaces.RealOutput omegaRefWTGQPu(start = omegaRefWTGQPu0) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput omegaRefWTGQPu(start = omegaRefWTGQ0Pu) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {290, 80}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PConv0Pu) "Active power reference for the electrical controller (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {290, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}})));
@@ -46,7 +46,7 @@ model WTGQa "WECC Torque Controller Type A"
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(
     k = 1,
     T = tOmegaRef,
-    y_start = omegaRefWTGQPu0) annotation(
+    y_start = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add(
     k1 = +1,
@@ -75,7 +75,7 @@ model WTGQa "WECC Torque Controller Type A"
     K = Kip,
     YMax = TeMaxPu,
     YMin = TeMinPu,
-    Y0 = PConv0Pu/omegaRefWTGQPu0) annotation(
+    Y0 = PConv0Pu/omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}})));
 
 equation

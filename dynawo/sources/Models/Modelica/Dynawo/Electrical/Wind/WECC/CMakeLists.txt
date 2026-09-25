@@ -25,6 +25,8 @@ set(MODEL_FILES
   WT4BCurrentSource.mo
   WT4BCurrentSource.extvar
   WT4BCurrentSource.mandatoryParam
+  WTCurrentSource_INIT.mo
+  WTCurrentSource_INIT.mandatoryParam
   WTG3CurrentSource1.mo
   WTG3CurrentSource1.extvar
   WTG3CurrentSource1.mandatoryParam
@@ -37,6 +39,8 @@ set(MODEL_FILES
   WTG4BCurrentSource.mo
   WTG4BCurrentSource.extvar
   WTG4BCurrentSource.mandatoryParam
+  WTGCurrentSource_INIT.mo
+  WTGCurrentSource_INIT.mandatoryParam
   )
 
 #
