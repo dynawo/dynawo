@@ -38,7 +38,7 @@ record ParamsWTGP
   // Initial parameters
   parameter Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (generator convention) (base SNom)";
   parameter Types.AngleDegree Theta0 = 10 "Initial pitch angle in degree";
-  parameter Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu omegaRefWTGQ0Pu "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
   annotation(
   preferredView = "text");

@@ -18,7 +18,7 @@ model PVVoltageSource3 "WECC PV model with a voltage source as interface with th
   | Source |--------+---->>--------RSourcePu+jXSourcePu-----+--->>---RPu+jXPu----->>----+----RPcsPu+jXPcsPu-----<<----+--
   --------           iSourcePu                               iInjPu              iConvPu                      iConvPu
   */
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQ0Pu = 1);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceC(LvTfo(RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
@@ -125,7 +125,6 @@ model PVVoltageSource3 "WECC PV model with a voltage source as interface with th
     tPord = tPord,
     tRv = tRv,
     SNom = SNom,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0,
     PConv0Pu = PConv0Pu,
     QConv0Pu = QConv0Pu,
     s0Pu = s0Pu,
