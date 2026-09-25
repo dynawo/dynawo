@@ -128,7 +128,7 @@ model BaseUnitModel
     i0Pu(im(fixed = false), re(fixed = false)),
     iConv0Pu(im(fixed = false), re(fixed = false)),
     lvpl1 = 1.1,
-    omegaRefWTGQPu0(fixed = false),
+    omegaRefWTGQ0Pu(fixed = false),
     s0Pu(im(fixed = false), re(fixed = false)),
     tFilterGC = 0.02,
     tFilterPC = 0.005,
@@ -187,7 +187,7 @@ model BaseUnitModel
     Placement(transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Wind.WECC.WTGCurrentSource_INIT wtgCurrentSource_INIT(
     BMvHvPu = Unit.BMvHvPu,
     ConverterLVControl = Unit.ConverterLVControl,
     GMvHvPu = Unit.GMvHvPu,
@@ -216,31 +216,31 @@ model BaseUnitModel
     Placement(transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
-  Unit.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
-  Unit.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
-  Unit.PF0 := wTG4CurrentSource_INIT.PF0;
-  Unit.PInj0Pu := wTG4CurrentSource_INIT.PInj0Pu;
-  Unit.QInj0Pu := wTG4CurrentSource_INIT.QInj0Pu;
-  Unit.UInj0Pu := wTG4CurrentSource_INIT.UInj0Pu;
-  Unit.i0Pu.re := wTG4CurrentSource_INIT.i0Pu.re;
-  Unit.i0Pu.im := wTG4CurrentSource_INIT.i0Pu.im;
-  Unit.iConv0Pu.re := wTG4CurrentSource_INIT.iConv0Pu.re;
-  Unit.iConv0Pu.im := wTG4CurrentSource_INIT.iConv0Pu.im;
-  Unit.s0Pu.re := wTG4CurrentSource_INIT.s0Pu.re;
-  Unit.s0Pu.im := wTG4CurrentSource_INIT.s0Pu.im;
-  Unit.u0Pu.re := wTG4CurrentSource_INIT.u0Pu.re;
-  Unit.u0Pu.im := wTG4CurrentSource_INIT.u0Pu.im;
-  Unit.uInj0Pu.re := wTG4CurrentSource_INIT.uInj0Pu.re;
-  Unit.uInj0Pu.im := wTG4CurrentSource_INIT.uInj0Pu.im;
-  Unit.UConv0Pu := wTG4CurrentSource_INIT.UConv0Pu;
-  Unit.uConv0Pu.re := wTG4CurrentSource_INIT.uConv0Pu.re;
-  Unit.uConv0Pu.im := wTG4CurrentSource_INIT.uConv0Pu.im;
-  Unit.uPcc0Pu.re := wTG4CurrentSource_INIT.uPcc0Pu.re;
-  Unit.uPcc0Pu.im := wTG4CurrentSource_INIT.uPcc0Pu.im;
-  Unit.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
-  Unit.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
-  Unit.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
-  Unit.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
+  Unit.Id0Pu := wtgCurrentSource_INIT.Id0Pu;
+  Unit.Iq0Pu := wtgCurrentSource_INIT.Iq0Pu;
+  Unit.PF0 := wtgCurrentSource_INIT.PF0;
+  Unit.PInj0Pu := wtgCurrentSource_INIT.PInj0Pu;
+  Unit.QInj0Pu := wtgCurrentSource_INIT.QInj0Pu;
+  Unit.UInj0Pu := wtgCurrentSource_INIT.UInj0Pu;
+  Unit.i0Pu.re := wtgCurrentSource_INIT.i0Pu.re;
+  Unit.i0Pu.im := wtgCurrentSource_INIT.i0Pu.im;
+  Unit.iConv0Pu.re := wtgCurrentSource_INIT.iConv0Pu.re;
+  Unit.iConv0Pu.im := wtgCurrentSource_INIT.iConv0Pu.im;
+  Unit.s0Pu.re := wtgCurrentSource_INIT.s0Pu.re;
+  Unit.s0Pu.im := wtgCurrentSource_INIT.s0Pu.im;
+  Unit.u0Pu.re := wtgCurrentSource_INIT.u0Pu.re;
+  Unit.u0Pu.im := wtgCurrentSource_INIT.u0Pu.im;
+  Unit.uInj0Pu.re := wtgCurrentSource_INIT.uInj0Pu.re;
+  Unit.uInj0Pu.im := wtgCurrentSource_INIT.uInj0Pu.im;
+  Unit.UConv0Pu := wtgCurrentSource_INIT.UConv0Pu;
+  Unit.uConv0Pu.re := wtgCurrentSource_INIT.uConv0Pu.re;
+  Unit.uConv0Pu.im := wtgCurrentSource_INIT.uConv0Pu.im;
+  Unit.uPcc0Pu.re := wtgCurrentSource_INIT.uPcc0Pu.re;
+  Unit.uPcc0Pu.im := wtgCurrentSource_INIT.uPcc0Pu.im;
+  Unit.PConv0Pu := wtgCurrentSource_INIT.PConv0Pu;
+  Unit.QConv0Pu := wtgCurrentSource_INIT.QConv0Pu;
+  Unit.UPhaseConv0 := wtgCurrentSource_INIT.UPhaseConv0;
+  Unit.omegaRefWTGQ0Pu := wtgCurrentSource_INIT.omegaRefWTGQ0Pu;
 
 equation
   Unit.injector.switchOffSignal1 = false;
