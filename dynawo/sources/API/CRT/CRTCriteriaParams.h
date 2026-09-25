@@ -169,11 +169,49 @@ class CriteriaParams {
    */
   bool hasPMin() const;
 
+  /**
+   * @brief Setter for maximum current on side 1
+   * @param i1Max maximum current on side 1 in A
+   */
+  void setI1Max(double i1Max);
+
+  /**
+   * @brief Getter for maximum current on side 1
+   * @return maximum current on side 1in A
+   */
+  double getI1Max() const;
+
+  /**
+   * @brief return true if i1Max has been defined
+   * @return true if i1Max has been defined
+   */
+  bool hasI1Max() const;
+
+  /**
+   * @brief Setter for maximum current on side 2
+   * @param i2Max maximum current in A
+   */
+  void setI2Max(double i2Max);
+
+  /**
+   * @brief Getter for maximum current on side 2
+   * @return maximum current on side 2 in A
+   */
+  double getI2Max() const;
+
+  /**
+   * @brief return true if i2Max has been defined
+   * @return true if i2Max has been defined
+   */
+  bool hasI2Max() const;
+
  private:
   CriteriaScope_t scope_;  ///< scope of the criteria
   CriteriaType_t type_;    ///< type of the criteria
   double pMin_;            ///< minimum active power in MW
   double pMax_;            ///< maximum active power in MW
+  double i1Max_;           ///< maximum current on side 1 in A
+  double i2Max_;           ///< maximum current on side 2 in A
   std::vector<CriteriaParamsVoltageLevel> voltageLevels_;  ///< voltage levels
   std::string id_;         ///< criteria id
 };

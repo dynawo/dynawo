@@ -7,12 +7,14 @@ line_terminal1_i_im                               : y =      -0.336203 yp =     
 line_terminal1_i_re                               : y =      -7.755001 yp =       0.000000
 line_terminal2_i_im                               : y =       0.336203 yp =       0.000000
 line_terminal2_i_re                               : y =       7.755001 yp =       0.000000
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
+line_ISide1                                       : y =       7.762285
+line_ISide2                                       : y =       7.762285
 line_P1Pu                                         : y =      -6.985782
 line_P2Pu                                         : y =       6.985782
 line_Q1Pu                                         : y =       0.302855
 line_Q2Pu                                         : y =       2.221146
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
 line_running_value                                : z =       1.000000
 line_switchOffSignal1_value                       : z =      -1.000000
 line_switchOffSignal2_value                       : z =      -1.000000

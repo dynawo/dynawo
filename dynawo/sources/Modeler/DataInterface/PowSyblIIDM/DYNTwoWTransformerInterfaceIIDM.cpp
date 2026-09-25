@@ -46,14 +46,17 @@ TwoWTransformerInterfaceIIDM::TwoWTransformerInterfaceIIDM(powsybl::iidm::TwoWin
     initialConnected2_(boost::none) {
   setType(ComponentInterface::TWO_WTFO);
   if (tfo.hasRatioTapChanger() || tfo.hasPhaseTapChanger())
-    stateVariables_.resize(6);
+    stateVariables_.resize(8);
   else
-    stateVariables_.resize(5);
+    stateVariables_.resize(7);
+  bool neededForCriteriaCheck = true;
   stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1
   stateVariables_[VAR_P2] = StateVariable("p2", StateVariable::DOUBLE);  // P2
   stateVariables_[VAR_Q1] = StateVariable("q1", StateVariable::DOUBLE);  // Q1
   stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);  // Q2
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
+  stateVariables_[VAR_I1] = StateVariable("i1", StateVariable::DOUBLE, neededForCriteriaCheck);     // I1
+  stateVariables_[VAR_I2] = StateVariable("i2", StateVariable::DOUBLE, neededForCriteriaCheck);     // I2
   if (tfo.hasRatioTapChanger() || tfo.hasPhaseTapChanger())
     stateVariables_[VAR_TAPINDEX] = StateVariable("tapIndex", StateVariable::INT);
 
@@ -239,6 +242,10 @@ TwoWTransformerInterfaceIIDM::getComponentVarIndex(const string& varName) const 
     index = VAR_Q2;
   else if ( varName == "state" )
     index = VAR_STATE;
+  else if (varName == "i1")
+    index = VAR_I1;
+  else if (varName == "i2")
+    index = VAR_I2;
   else if ( varName == "tapIndex" )
     index = VAR_TAPINDEX;
   return index;
@@ -339,6 +346,16 @@ TwoWTransformerInterfaceIIDM::getQ2() {
   } else {
     return 0.;
   }
+}
+
+double
+TwoWTransformerInterfaceIIDM::getStateVarI1() const {
+  return getValue<double>(VAR_I1);
+}
+
+double
+TwoWTransformerInterfaceIIDM::getStateVarI2() const {
+  return getValue<double>(VAR_I2);
 }
 
 void
