@@ -21,9 +21,9 @@ partial model BaseWTGP "Base Pitch Controller"
     Placement(transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PConv0Pu) "Reference active power in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-80, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefWTGQPu(start = omegaRefWTGQPu0) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefWTGQPu(start = omegaRefWTGQ0Pu) "Reference angular frequency of torque control in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput omegaTPu(start = omegaRefWTGQPu0) "Turbine frequency in pu (base omegaNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaTPu(start = omegaRefWTGQ0Pu) "Turbine frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-69, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Output variable

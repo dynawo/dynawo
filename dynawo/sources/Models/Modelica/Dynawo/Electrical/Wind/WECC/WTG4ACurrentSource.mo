@@ -75,7 +75,7 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
     tpWTGTb = tpWTGTb,
     PConv0Pu = PConv0Pu,
     PePu(start = PConv0Pu),
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
 equation

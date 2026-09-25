@@ -13,7 +13,7 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="WT4BWeccCurrentSource">
-    <dyn:unitDynamicModel id="WT4B" name="Dynawo.Electrical.Wind.WECC.WT4BCurrentSource" initName="Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT"/>
+    <dyn:unitDynamicModel id="WT4B" name="Dynawo.Electrical.Wind.WECC.WT4BCurrentSource" initName="Dynawo.Electrical.Wind.WECC.WTCurrentSource_INIT"/>
     <dyn:unitDynamicModel id="lhvrt" name="Dynawo.Electrical.Controls.Machines.Protections.LHVRT" initName="Dynawo.Electrical.Controls.Machines.Protections.LHVRT_INIT"/>
     <dyn:initConnect id1="WT4B" var1="UConv0Pu" id2="lhvrt" var2="UMonitored0Pu"/>
     <dyn:connect id1="WT4B" var1="UConvPu" id2="lhvrt" var2="UMonitoredPu"/>

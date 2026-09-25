@@ -23,24 +23,6 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at regulated bus in pu (bae UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
 
-  // Torque control parameters
-  parameter Types.PerUnit P1 = 0 "1st power point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-  parameter Types.PerUnit Spd1 = 1 "1st speed point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-  parameter Types.PerUnit P2 = 1 "2nd power point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-  parameter Types.PerUnit Spd2 = 1 "2nd speed point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-  parameter Types.PerUnit P3 = 2 "3rd power point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-  parameter Types.PerUnit Spd3 = 1 "3rd speed point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-  parameter Types.PerUnit P4 = 3 "4th power point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-  parameter Types.PerUnit Spd4 = 1 "4th speed point for extrapolation table" annotation(
-    Dialog(tab = "Torque control"));
-
   Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
   Types.PerUnit Id0Pu "Start value of d-axis current at injector in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SNom) (generator convention)";
@@ -60,12 +42,6 @@ model WECCInverterCurrentSource_INIT "Initialization model for WECC models with 
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
-  Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
-
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
-    Placement(transformation(extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
-    Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));
 
 equation
   //PCC electrical quantities
@@ -90,13 +66,9 @@ equation
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
 
-  omegaRefWTGQPu0 = combiTable1D.y[1];
   PF0 = if (not (ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/ComplexMath.'abs'(s0Pu) else 0;
   Id0Pu = Modelica.Math.cos(UPhase0)*iInj0Pu.re + Modelica.Math.sin(UPhase0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhase0)*iInj0Pu.re - Modelica.Math.cos(UPhase0)*iInj0Pu.im;
-
-  connect(realExpression.y, combiTable1D.u[1]) annotation(
-    Line(points = {{-48, 0}, {-12, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "text");
 end WECCInverterCurrentSource_INIT;
