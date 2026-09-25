@@ -122,7 +122,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
     UPhase0 = 1.4461e-06,
-    omegaRefWTGQPu0(fixed = false)) annotation(
+    omegaRefWTGQ0Pu(fixed = false)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PConvRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -134,7 +134,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Placement(transformation(origin = {90, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT wt4CurrentSource_INIT(
+  Dynawo.Electrical.Wind.WECC.WTCurrentSource_INIT wtCurrentSource_INIT(
     ConverterLVControl = WT4A.ConverterLVControl,
     P0Pu = WT4A.s0Pu.re,
     Q0Pu = WT4A.s0Pu.im,
@@ -146,25 +146,25 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
-  WT4A.Id0Pu := wt4CurrentSource_INIT.Id0Pu;
-  WT4A.Iq0Pu := wt4CurrentSource_INIT.Iq0Pu;
-  WT4A.PF0 := wt4CurrentSource_INIT.PF0;
-  WT4A.PInj0Pu := wt4CurrentSource_INIT.PInj0Pu;
-  WT4A.QInj0Pu := wt4CurrentSource_INIT.QInj0Pu;
-  WT4A.UInj0Pu := wt4CurrentSource_INIT.UInj0Pu;
-  WT4A.i0Pu.re := wt4CurrentSource_INIT.i0Pu.re;
-  WT4A.i0Pu.im := wt4CurrentSource_INIT.i0Pu.im;
-  WT4A.uInj0Pu.re := wt4CurrentSource_INIT.uInj0Pu.re;
-  WT4A.uInj0Pu.im := wt4CurrentSource_INIT.uInj0Pu.im;
-  WT4A.omegaRefWTGQPu0 := wt4CurrentSource_INIT.omegaRefWTGQPu0;
-  WT4A.iConv0Pu.re := wt4CurrentSource_INIT.iConv0Pu.re;
-  WT4A.iConv0Pu.im := wt4CurrentSource_INIT.iConv0Pu.im;
-  WT4A.UConv0Pu := wt4CurrentSource_INIT.UConv0Pu;
-  WT4A.uConv0Pu.re := wt4CurrentSource_INIT.uConv0Pu.re;
-  WT4A.uConv0Pu.im := wt4CurrentSource_INIT.uConv0Pu.im;
-  WT4A.PConv0Pu := wt4CurrentSource_INIT.PConv0Pu;
-  WT4A.QConv0Pu := wt4CurrentSource_INIT.QConv0Pu;
-  WT4A.UPhaseConv0 := wt4CurrentSource_INIT.UPhaseConv0;
+  WT4A.Id0Pu := wtCurrentSource_INIT.Id0Pu;
+  WT4A.Iq0Pu := wtCurrentSource_INIT.Iq0Pu;
+  WT4A.PF0 := wtCurrentSource_INIT.PF0;
+  WT4A.PInj0Pu := wtCurrentSource_INIT.PInj0Pu;
+  WT4A.QInj0Pu := wtCurrentSource_INIT.QInj0Pu;
+  WT4A.UInj0Pu := wtCurrentSource_INIT.UInj0Pu;
+  WT4A.i0Pu.re := wtCurrentSource_INIT.i0Pu.re;
+  WT4A.i0Pu.im := wtCurrentSource_INIT.i0Pu.im;
+  WT4A.uInj0Pu.re := wtCurrentSource_INIT.uInj0Pu.re;
+  WT4A.uInj0Pu.im := wtCurrentSource_INIT.uInj0Pu.im;
+  WT4A.omegaRefWTGQ0Pu := wtCurrentSource_INIT.omegaRefWTGQ0Pu;
+  WT4A.iConv0Pu.re := wtCurrentSource_INIT.iConv0Pu.re;
+  WT4A.iConv0Pu.im := wtCurrentSource_INIT.iConv0Pu.im;
+  WT4A.UConv0Pu := wtCurrentSource_INIT.UConv0Pu;
+  WT4A.uConv0Pu.re := wtCurrentSource_INIT.uConv0Pu.re;
+  WT4A.uConv0Pu.im := wtCurrentSource_INIT.uConv0Pu.im;
+  WT4A.PConv0Pu := wtCurrentSource_INIT.PConv0Pu;
+  WT4A.QConv0Pu := wtCurrentSource_INIT.QConv0Pu;
+  WT4A.UPhaseConv0 := wtCurrentSource_INIT.UPhaseConv0;
 
 equation
   line.switchOffSignal1 = false;

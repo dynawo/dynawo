@@ -18,7 +18,7 @@ model PVVoltageSource3NoPlantControl "WECC PV model with a voltage source as int
   | Source |--------+---->>--------RSourcePu+jXSourcePu-----+--->>---RPu+jXPu----->>----+----
   --------           iSourcePu                               iInjPu              iConvPu
   */
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQPu0 = 1);
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQ0Pu = 1);
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceC(LvTfo(RPu = RPu, XPu = XPu));
 

@@ -59,7 +59,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     P4 = P4,
     Spd4 = Spd4,
     TFlag = TFlag,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0,
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu,
     PConv0Pu = PConv0Pu) annotation(
     Placement(transformation(origin = {-81, -56}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
@@ -69,7 +69,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Kshaft = Kshaft,
     Pm0Pu = Pm0Pu,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {67.307, -63.7777}, extent = {{-12.3077, -8.88892}, {12.3077, 8.88892}})));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
     IqrMaxPu = IqrMaxPu,
@@ -205,7 +205,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     u0Pu = u0Pu,
     uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Mechanical.WTGPb wecc_wtgp(
     Kiw = Kiw,
@@ -224,7 +224,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     ThetaWMin = ThetaWMin,
     Theta0 = Theta0,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-27, -56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(
     Theta0 = Theta0,

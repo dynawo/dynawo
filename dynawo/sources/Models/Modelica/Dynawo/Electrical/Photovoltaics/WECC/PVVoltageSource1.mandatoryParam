@@ -33,7 +33,6 @@
   <mandatoryParameter name="IqFrzPu" type="DOUBLE"/>
   <mandatoryParameter name="PFlag" type="BOOL"/>
   <mandatoryParameter name="VRef1Pu" type="DOUBLE"/>
-  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
   <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="FreqFlag" type="BOOL"/>
   <mandatoryParameter name="RefFlag" type="BOOL"/>
