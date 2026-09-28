@@ -1,0 +1,17 @@
+0.000000 | GEN____3_SM | PMIN : activation
+0.000000 | GEN____6_SM | PMIN : activation
+0.000000 | GEN____8_SM | PMIN : activation
+0.000000 | GEN____3_SM | PMIN : activation
+0.000000 | GEN____6_SM | PMIN : activation
+0.000000 | GEN____8_SM | PMIN : activation
+0.000000 | GEN____3_SM | PMIN : deactivation
+0.000000 | GEN____6_SM | PMIN : deactivation
+0.000000 | GEN____8_SM | PMIN : deactivation
+0.000000 | GEN____3_SM | PMIN : deactivation
+0.000000 | GEN____6_SM | PMIN : deactivation
+0.000000 | GEN____8_SM | PMIN : deactivation
+100.000000 | _BUS____1-BUS____5-1_AC | LINE : opening both sides
+110.000000 | Simulation | quadripole: _BUS____1-BUS____2-1_AC side 1 has a current 1872.55 A > 1871 A (criteria id: test_line_criteria_1)
+110.000000 | Simulation | quadripole: _BUS____4-BUS____9-1_PT side 2 has a current 675.96 A > 650 A (criteria id: test_line_criteria)
+110.000000 | Simulation | quadripole: _BUS____4-BUS____9-1_PT side 1 has a current 139.517 A > 139 A (criteria id: test_line_criteria)
+110.000000 | Simulation | Simulation stopped : one criteria is not respected

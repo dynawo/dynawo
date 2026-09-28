@@ -7,7 +7,13 @@ line_terminal1_i_im                               : y =      -0.336303 yp =     
 line_terminal1_i_re                               : y =      -7.754952 yp =       0.000000
 line_terminal2_i_im                               : y =       0.336303 yp =       0.000000
 line_terminal2_i_re                               : y =       7.754952 yp =       0.000000
+<<<<<<< HEAD:nrt/data/SMIB/SMIB_BasicTestCases/SMIB_1_StepPm_IIDM/reference/outputs/initValues/globalInit/dumpInitValues-line2.txt
  ====== INIT CALCULATED VARIABLES VALUES ======
+=======
+ ====== CALCULATED VARIABLES VALUES ======
+line_ISide1                                       : y =       7.762240
+line_ISide2                                       : y =       7.762240
+>>>>>>> c5f2d8eaa71 (#3923 creating quadripole criteria):nrt/data/SMIB/SMIB_BasicTestCases/SMIB_1_StepPm_IIDM/baseCase/reference/outputs/initValues/globalInit/dumpInitValues-line2.txt
 line_P1Pu                                         : y =      -6.985738
 line_P2Pu                                         : y =       6.985738
 line_Q1Pu                                         : y =       0.302945

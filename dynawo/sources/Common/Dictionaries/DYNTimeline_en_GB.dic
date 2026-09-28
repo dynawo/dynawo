@@ -233,6 +233,7 @@ SignalReceived            =             Simulation stopped : one interrupt signa
 //-------------  Criteria not checked  --------------------------------------
 BusUnderVoltage             =           node: %1% has a voltage %2% kV (%3% pu) < %4% kV (%5% pu) (criteria id: %6%)
 BusAboveVoltage             =           node: %1% has a voltage %2% kV (%3% pu) > %4% kV (%5% pu) (criteria id: %6%)
+QuadripoleAboveCurrent      =           quadripole: %1% side %2% has a current %3% A > %4% A (criteria id: %5%)
 SourceUnderPower            =           node: %1% has a power %2%MW < %3%MW (criteria id: %4%)
 SourceAbovePower            =           node: %1% has a power %2%MW > %3%MW (criteria id: %4%)
 SourcePowerTakenIntoAccount =           power of %1% %2% was added into the total power sum (criteria id: %3%, power=%4%, V=%5%)

@@ -31,7 +31,7 @@ class CriteriaCollection {
   /**
   * define type of components
   */
-  typedef enum { BUS, LOAD, GENERATOR } CriteriaCollectionType_t;  ///< components type
+  typedef enum { BUS, LOAD, GENERATOR, QUADRIPOLE } CriteriaCollectionType_t;  ///< components type
 
   /**
    * @class CriteriaCollectionConstIterator
@@ -142,10 +142,20 @@ class CriteriaCollection {
    */
   CriteriaCollectionConstIterator end(CriteriaCollectionType_t type) const;
 
+  /**
+  * @brief get quadripole criteria
+  *
+  * @return quadripole criteria
+  */
+  const std::vector<std::shared_ptr<Criteria> >& getQuadripoleCriteria() const {
+    return quadripoleCriteria_;
+  }
+
  private:
   std::vector<std::shared_ptr<Criteria> > busCriteria_;        ///< Vector of the bus criteria object
   std::vector<std::shared_ptr<Criteria> > loadCriteria_;       ///< Vector of the load criteria object
   std::vector<std::shared_ptr<Criteria> > generatorCriteria_;  ///< Vector of the generator criteria object
+  std::vector<std::shared_ptr<Criteria> > quadripoleCriteria_;  ///< Vector of the quadripole criteria object
 };
 
 }  // namespace criteria

@@ -41,6 +41,11 @@ set(API_TL_INCLUDE_HEADERS
 
 add_library(dynawo_API_TL SHARED ${API_TL_SOURCES})
 
+target_compile_definitions(dynawo_API_TL
+  PRIVATE
+    TL_EXPORTS
+)
+
 target_include_directories(dynawo_API_TL
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

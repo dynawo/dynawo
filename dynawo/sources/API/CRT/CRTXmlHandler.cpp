@@ -56,13 +56,16 @@ XmlHandler::XmlHandler() :
 criteriaCollection_(CriteriaCollectionFactory::newInstance()),
 busCriteriaHandler_(parser::ElementName(namespace_uri(), "busCriteria")) ,
 loadCriteriaHandler_(parser::ElementName(namespace_uri(), "loadCriteria")),
-genCriteriaHandler_(parser::ElementName(namespace_uri(), "generatorCriteria")) {
+genCriteriaHandler_(parser::ElementName(namespace_uri(), "generatorCriteria")),
+quadripoleCriteriaHandler_(parser::ElementName(namespace_uri(), "quadripoleCriteria")) {
   onElement(namespace_uri()("criteria/busCriteria"), busCriteriaHandler_);
   onElement(namespace_uri()("criteria/loadCriteria"), loadCriteriaHandler_);
   onElement(namespace_uri()("criteria/generatorCriteria"), genCriteriaHandler_);
+  onElement(namespace_uri()("criteria/quadripoleCriteria"), quadripoleCriteriaHandler_);
   busCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addBusCriteria, lambda::ref(*this)));
   loadCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addLoadCriteria, lambda::ref(*this)));
   genCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addGenCriteria, lambda::ref(*this)));
+  quadripoleCriteriaHandler_.onEnd(lambda::bind(&XmlHandler::addQuadripoleCriteria, lambda::ref(*this)));
 }
 
 XmlHandler::~XmlHandler() {}
@@ -85,6 +88,11 @@ XmlHandler::addLoadCriteria() {
 void
 XmlHandler::addGenCriteria() {
   criteriaCollection_->add(CriteriaCollection::GENERATOR, genCriteriaHandler_.get());
+}
+
+void
+XmlHandler::addQuadripoleCriteria() {
+  criteriaCollection_->add(CriteriaCollection::QUADRIPOLE, quadripoleCriteriaHandler_.get());
 }
 
 CriteriaHandler::CriteriaHandler(elementName_type const& root_element) :
@@ -156,6 +164,10 @@ void CriteriaParamsHandler::create(attributes_type const & attributes) {
     criteriaParamsRead_->setPMax(attributes["pMax"]);
   if (attributes.has("pMin"))
     criteriaParamsRead_->setPMin(attributes["pMin"]);
+  if (attributes.has("i1Max"))
+    criteriaParamsRead_->setI1Max(attributes["i1Max"]);
+  if (attributes.has("i2Max"))
+    criteriaParamsRead_->setI2Max(attributes["i2Max"]);
 }
 
 void

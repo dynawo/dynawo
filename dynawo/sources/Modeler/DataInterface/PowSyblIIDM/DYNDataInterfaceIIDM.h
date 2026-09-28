@@ -414,6 +414,13 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   void configureBusCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
+   * @brief configure the quadripole criteria
+   *
+   * @param criteria criteria to be used
+   */
+  template<typename T> void configureQuadripoleCriteria(const std::shared_ptr<criteria::CriteriaCollection>& criteria);
+
+  /**
    * @brief configure the load criteria
    *
    * @param criteria criteria to be used
@@ -485,5 +492,7 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   static std::mutex loadExtensionMutex_;  ///< Mutex to protect access to singleton for extension during build
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
+
+#include "DYNDataInterfaceIIDM.hpp"
 
 #endif  // MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDATAINTERFACEIIDM_H_

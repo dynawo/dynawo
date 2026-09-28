@@ -1084,6 +1084,8 @@ DataInterfaceIIDM::configureCriteria(const std::shared_ptr<CriteriaCollection>& 
   configureBusCriteria(criteria);
   configureLoadCriteria(criteria);
   configureGeneratorCriteria(criteria);
+  configureQuadripoleCriteria<LineInterface>(criteria);
+  configureQuadripoleCriteria<TwoWTransformerInterface>(criteria);
 }
 
 void

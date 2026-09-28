@@ -22,7 +22,9 @@ CriteriaParams::CriteriaParams() :
     scope_(UNDEFINED_SCOPE),
     type_(UNDEFINED_TYPE),
     pMin_(-std::numeric_limits<double>::max()),
-    pMax_(std::numeric_limits<double>::max()) {}
+    pMax_(std::numeric_limits<double>::max()),
+    i1Max_(std::numeric_limits<double>::max()),
+    i2Max_(std::numeric_limits<double>::max()) {}
 
 void
 CriteriaParams::setScope(CriteriaScope_t scope) {
@@ -96,6 +98,35 @@ CriteriaParams::getPMin() const {
 bool
 CriteriaParams::hasPMin() const {
   return pMin_ > -std::numeric_limits<double>::max();
+}
+
+void
+CriteriaParams::setI1Max(double i1Max) {
+  i1Max_ = i1Max;
+}
+
+double
+CriteriaParams::getI1Max() const {
+  return i1Max_;
+}
+
+bool
+CriteriaParams::hasI1Max() const {
+  return i1Max_ < std::numeric_limits<double>::max();
+}
+void
+CriteriaParams::setI2Max(double i2Max) {
+  i2Max_ = i2Max;
+}
+
+double
+CriteriaParams::getI2Max() const {
+  return i2Max_;
+}
+
+bool
+CriteriaParams::hasI2Max() const {
+  return i2Max_ < std::numeric_limits<double>::max();
 }
 
 }  // namespace criteria

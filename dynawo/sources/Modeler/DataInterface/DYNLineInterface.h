@@ -172,6 +172,24 @@ class LineInterface : public ComponentInterface {
   virtual double getQ2() = 0;
 
   /**
+   * @brief Getter for the variable "i1"
+   * @return The value of the variable i1 A
+   */
+  virtual double getStateVarI1() const = 0;
+
+  /**
+   * @brief Getter for the variable "i2"
+   * @return The value of the variable i2 A
+   */
+  virtual double getStateVarI2() const = 0;
+
+  /**
+   * @brief Getter fot the derived interface's type
+   * @return interface's type
+   */
+  static ComponentType_t derivedType() {return ComponentInterface::LINE;}
+
+  /**
    * @brief Getter for the initial connection state of the line's side 1
    * @return @b true if the line's side 1 is connected, @b false else
    */

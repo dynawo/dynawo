@@ -183,6 +183,24 @@ class TwoWTransformerInterface : public ComponentInterface {
   virtual double getQ2() = 0;
 
   /**
+   * @brief Getter for the variable "i1"
+   * @return The value of the variable i1 A
+   */
+  virtual double getStateVarI1() const = 0;
+
+  /**
+   * @brief Getter for the variable "i2"
+   * @return The value of the variable i2 A
+   */
+  virtual double getStateVarI2() const = 0;
+
+  /**
+   * @brief Getter fot the derived interface's type
+   * @return interface's type
+   */
+  static ComponentType_t derivedType() {return ComponentInterface::TWO_WTFO;}
+
+  /**
    * @brief Getter for the instance of phaseTapChanger interface
    * @return the instance of phaseTapChanger interface
    */

@@ -52,6 +52,7 @@ set(DATA_INTERFACE_IIDM_HEADERS
   DYNGeneratorActivePowerControlIIDMExtension.h
   DYNGeneratorInterfaceIIDM.h
   DYNDataInterfaceIIDM.h
+  DYNDataInterfaceIIDM.hpp
   DYNSwitchInterfaceIIDM.h
   DYNShuntCompensatorInterfaceIIDM.h
   DYNDanglingLineInterfaceIIDM.h
@@ -101,6 +102,7 @@ target_link_libraries(dynawo_DataInterfaceIIDM
     dynawo_DataInterface
     dynawo_API_CRT
     dynawo_API_LEQ
+    dynawo_API_TL
     ${CMAKE_DL_LIBS}
   PUBLIC
     IIDM::iidm
