@@ -67,6 +67,9 @@ CriteriaCollection::CriteriaCollectionConstIterator::CriteriaCollectionConstIter
   case CriteriaCollection::GENERATOR:
     current_ = (begin ? iterated->generatorCriteria_.begin() : iterated->generatorCriteria_.end());
     break;
+  case CriteriaCollection::QUADRIPOLE:
+    current_ = (begin ? iterated->quadripoleCriteria_.begin() : iterated->quadripoleCriteria_.end());
+    break;
   }
 }
 
