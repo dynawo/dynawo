@@ -16,8 +16,9 @@
     <par type="INT" name="order" value="2"/>
     <par type="DOUBLE" name="initStep" value="1e-6"/>
     <par type="DOUBLE" name="minStep" value="1e-8"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
     <par type="DOUBLE" name="maxStep" value="10"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-5"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
   </set>
   <set id="InfBusPar">
@@ -117,7 +118,7 @@
     <par type="DOUBLE" name="WT3_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="WT3_OmegaMinPu" value="0.5"/>
     <!-- LV transformer -->
-    <par type="DOUBLE" name="WT3_SNom" value="200"/>
+    <par type="DOUBLE" name="WT3_SNom" value="100"/>
     <par type="DOUBLE" name="WT3_rTfoPu" value="0.962"/>
     <par type="DOUBLE" name="WT3_RLvTrPu" value="0.015"/>
     <par type="DOUBLE" name="WT3_XLvTrPu" value="0.06"/>
@@ -154,8 +155,8 @@
     <par type="BOOL" name="WT3_TFlag" value="true"/>
     <par type="DOUBLE" name="WT3_tOmegaRef" value="60"/>
     <!-- Drive train control -->
-    <par type="DOUBLE" name="WT3_Ht" value="50"/>
-    <par type="DOUBLE" name="WT3_Hg" value="10"/>
+    <par type="DOUBLE" name="WT3_Ht" value="5"/>
+    <par type="DOUBLE" name="WT3_Hg" value="1"/>
     <par type="DOUBLE" name="WT3_Dshaft" value="1.5"/>
     <par type="DOUBLE" name="WT3_Kshaft" value="200"/>
     <par type="DOUBLE" name="WT3_tp" value="0.5"/>
@@ -174,12 +175,12 @@
   <set id="PRefPu">
     <par type="DOUBLE" name="step_Height" value="0.15"/>
     <par type="DOUBLE" name="step_tStep" value="1"/>
-    <par type="DOUBLE" name="step_Value0" value="0.35"/>
+    <par type="DOUBLE" name="step_Value0" value="0.7"/>
   </set>
   <set id="QRefPu">
-    <par type="DOUBLE" name="step_Height" value="-0.1"/>
+    <par type="DOUBLE" name="step_Height" value="-0.2"/>
     <par type="DOUBLE" name="step_tStep" value="8"/>
-    <par type="DOUBLE" name="step_Value0" value="0.1"/>
+    <par type="DOUBLE" name="step_Value0" value="0.2"/>
   </set>
   <set id="PFaRef">
     <par type="DOUBLE" name="step_Height" value="0"/>
