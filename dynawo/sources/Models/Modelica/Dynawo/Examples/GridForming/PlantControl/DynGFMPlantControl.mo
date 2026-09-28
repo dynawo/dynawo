@@ -1,4 +1,4 @@
-within Dynawo.Examples.GridForming;
+within Dynawo.Examples.GridForming.PlantControl;
 
 model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
   /*
@@ -52,6 +52,8 @@ model DynGFMPlantControl "GFM with VSM control and a generic Plant Controller"
     Placement(transformation(origin = {-8, 4}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Sources.AcGrid acGrid(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, StartRoCoF = 5, TimeRoCoF = 3, RoCoFValue = 0.01)  annotation(
     Placement(transformation(origin = {50, 70}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.0005, XPu = 0.005) annotation(
+    Placement(transformation(origin = {80, 44}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -77,11 +79,12 @@ equation
     Line(points = {{58, -6}, {54, -6}, {54, -44}, {-36, -44}, {-36, -2}, {-20, -2}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, acGrid.OmegaRef) annotation(
     Line(points = {{-8, 72}, {38, 72}, {38, 76}}, color = {0, 0, 127}));
-  connect(acGrid.aCPower, Transformer.terminal2) annotation(
-    Line(points = {{62, 76}, {78, 76}, {78, 4}}, color = {0, 0, 255}));
-
+  connect(acGrid.aCPower, line1.terminal1) annotation(
+    Line(points = {{62, 76}, {80, 76}, {80, 54}}, color = {0, 0, 255}));
+  connect(line1.terminal2, Transformer.terminal2) annotation(
+    Line(points = {{80, 34}, {80, 4}, {78, 4}}, color = {0, 0, 255}));
   annotation(
   preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),
     Diagram);
-    end DynGFMPlantControl;
+end DynGFMPlantControl;

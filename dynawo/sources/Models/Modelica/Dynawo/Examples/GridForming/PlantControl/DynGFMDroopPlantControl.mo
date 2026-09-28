@@ -1,4 +1,4 @@
-within Dynawo.Examples.GridForming;
+within Dynawo.Examples.GridForming.PlantControl;
 
 model DynGFMDroopPlantControl "GFM with VSM control and a generic Plant Controller"
   /*

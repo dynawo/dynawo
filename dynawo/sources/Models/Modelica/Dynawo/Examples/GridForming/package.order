@@ -1,8 +1,6 @@
-DynGFMVSMSmib
 EpriSmib
 GridForming
-DynGFMVSMSmibConvPLL
-DynGFMCCVSMSmib
-DynGFMDroopSmib
-DynGFMPlantControl
-DynGFMDroopPlantControl
+Droop
+PlantControl
+VSM
+Tests

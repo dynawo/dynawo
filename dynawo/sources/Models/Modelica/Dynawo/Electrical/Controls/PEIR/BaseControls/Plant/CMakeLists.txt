@@ -22,6 +22,7 @@ set(MODEL_FILES
   DynDroopPlantControl.mo
   DynDroopPlantControl.extvar
   DynDroopPlantControl.mandatoryParam
+  DynCCVSMPlantControl.mo
   )
 
 #

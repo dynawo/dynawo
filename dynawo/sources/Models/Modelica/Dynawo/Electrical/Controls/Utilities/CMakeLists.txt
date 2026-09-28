@@ -15,6 +15,9 @@ set(MODEL_FILES
   ChangeofBaseSNom.extvar
   Measurements.mo
   Measurements.extvar
+  Measurements.mandatoryParam
+  Derivative.mo
+  Derivative.extvar
   )
 
 #

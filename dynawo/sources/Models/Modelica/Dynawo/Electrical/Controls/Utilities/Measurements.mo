@@ -44,6 +44,9 @@ model Measurements "This block measures the voltage, current, active power and r
   Modelica.Blocks.Interfaces.RealOutput IqPu "Reactive current at terminal 1 in pu (base UNom, SnRef)(receptor convention)";
   Modelica.Blocks.Interfaces.RealOutput IpPuSNom "Active current at terminal 1 in pu (base UNom, SNom)(receptor convention)";
   Modelica.Blocks.Interfaces.RealOutput IqPuSNom "Reactive current at terminal 1 in pu (base UNom, SNom)(receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput PPuSNom "Active power at terminal 1 in pu (base UNom, SNom)(receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput QPuSNom "Active power at terminal 1 in pu (base UNom, SNom)(receptor convention)";
+
 equation
   terminal1.i = -terminal2.i;
   terminal1.V = terminal2.V;
@@ -59,6 +62,9 @@ equation
   IpPuSNom=IpPu * SystemBase.SnRef/SNom;
   IqPu=QPu/UPu;
   IqPuSNom=IqPu * SystemBase.SnRef/SNom;
+  PPuSNom=PPu * SystemBase.SnRef /SNom;
+  QPuSNom = QPu * SystemBase.SnRef / SNom;
+
   annotation(
     preferredView = "text");
 end Measurements;

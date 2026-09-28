@@ -27,11 +27,14 @@ set(MODELICA_PREASSEMBLED_MODELS
   DERaAggregatedLVRT.xml
   DERaGenericLVRT.xml
   DiscreteIntegrator.xml
+  Derivative.xml
   DistanceProtectionLineFourZones.xml
   DistanceProtectionLineFourZonesWithBlinder.xml
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  DynLine.xml
+  DynLineTest.xml
   DynGridFormingVirtualSynchronousMachine.xml
   DynGridFormingVirtualSynchronousMachinePlantControl.xml
   DynGridFormingDroopPlantControl.xml
