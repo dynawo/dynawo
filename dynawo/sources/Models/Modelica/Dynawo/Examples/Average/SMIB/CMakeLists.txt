@@ -14,7 +14,9 @@ set(MODEL_FILES
     package.mo
     package.order
     test_dyn.mo
+    test_dyngfl.mo
     OneConverterWeakGrid.mo
+    OneConverterWeakGrid_2.mo
     )
 
 #

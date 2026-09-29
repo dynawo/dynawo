@@ -9,6 +9,8 @@
 # This file is part of Dynawo, a hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
+add_subdirectory(GridFollowing GFL)
+
 set(MODEL_FILES
   # Plant control models
   package.mo

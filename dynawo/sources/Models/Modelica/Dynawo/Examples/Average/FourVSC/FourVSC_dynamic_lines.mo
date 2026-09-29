@@ -11,10 +11,10 @@ model FourVSC_dynamic_lines
   // ═══════════════════════════════════════════════════════════════
   // HVDC1 converter - Bus A - SNom = 1200 MVA
   // Electrically closest converter to the fault at Bus A: this is the
-  // unit expected to reach its current limiter (Imax = 1.1 pu) first
+  // unit expected to reach its current limiter (IMaxPu = 1.1 pu) first
   // and most severely during the disturbance.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_HVDC1(SNom = 1200, U0Pu = 1.016485, Uphase = 0.210724, P0_pcc = -11.445, Q0_pcc = 0.536945, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, k_p_d_outer = 0.0333, k_i_d_outer = 10, k_p_q_outer = 0.1667, k_i_q_outer = 50, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1.1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.3333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, K_p_pll = 0.31831, K_i_pll = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DuMax_idref = 0.5, DuMin_idref = -999, tS_idref = 1e-4, delay_time_plant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-3) annotation(
+  Dynawo.Electrical.PEIR.Plants.General.Average.GridFollowing.GFLmodel gFL_HVDC1(SNom = 1200, U0Pu = 1.016485, Uphase = 0.210724, PPcc0Pu = -11.445, QPcc0Pu = 0.536945, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0033, Kpc = 0.5730, Kic = 6, KpqCurrent = 0.5730, KiqCurrent = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, Kpq = 0.5, Kiq = 2.36, Kpp = 0.5, Kip = 2.36, LambdaPu= 0.3333, KDroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, Kfd = 1, Kfq = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-222, 102}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // HVDC2 converter - Bus B - SNom = 1700 MVA
@@ -23,7 +23,7 @@ model FourVSC_dynamic_lines
   // correspondingly less (or no) current-limiter engagement than
   // gFL_HVDC1.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_HVDC2(SNom = 1700, U0Pu = 1.018446, Uphase = 0.216682, P0_pcc = -13.94108, Q0_pcc = -5.04, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, k_p_d_outer = 0.1667, k_i_d_outer = 50, k_p_q_outer = 0.1667, k_i_q_outer = 50, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1.1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.3333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, K_p_pll = 0.31831, K_i_pll = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DuMax_idref = 0.5, DuMin_idref = -999, tS_idref = 1e-4, delay_time_plant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-3) annotation(
+  Dynawo.Electrical.PEIR.Plants.General.Average.GridFollowing.GFLmodel gFL_HVDC2(SNom = 1700, U0Pu = 1.018446, Uphase = 0.216682, PPcc0Pu = -13.94108, QPcc0Pu = -5.04, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0033, Kpc = 0.5730, Kic = 6, KpqCurrent = 0.5730, KiqCurrent = 6, KpdOuter = 0.1667, KidOuter = 50, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, Kpq = 0.5, Kiq = 2.36, Kpp = 0.5, Kip = 2.36, LambdaPu= 0.3333, KDroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, Kfd = 1, Kfq = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {198, 102}, extent = {{20, -20}, {-20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // WP1 converter (wind park) - Bus E - SNom = 2400 MVA
@@ -31,7 +31,7 @@ model FourVSC_dynamic_lines
   // from the faulted Bus A: sees an attenuated but still significant
   // voltage dip during the fault.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_WP1(SNom = 2400, U0Pu = 1.06870, Uphase = 0.352335, P0_pcc = -19.916, Q0_pcc = 1.594, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0333, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, k_p_d_outer = 0.0333, k_i_d_outer = 10, k_p_q_outer = 0.033, k_i_q_outer = 10, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.3333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, K_p_pll = 0.31831, K_i_pll = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DuMax_idref = 0.5, DuMin_idref = -999, tS_idref = 1e-4, delay_time_plant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-3) annotation(
+  Dynawo.Electrical.PEIR.Plants.General.Average.GridFollowing.GFLmodel gFL_WP1(SNom = 2400, U0Pu = 1.06870, Uphase = 0.352335, PPcc0Pu = -19.916, QPcc0Pu = 1.594, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0333, Kpc = 0.4584, Kic = 6, KpqCurrent = 0.4584, KiqCurrent = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, Kpq = 0.5, Kiq = 2.36, Kpp = 0.5, Kip = 2.36, LambdaPu= 0.3333, KDroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, Kfd = 1, Kfq = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-236, -154}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // WP2 converter (wind park) - Bus F - SNom = 2400 MVA
@@ -41,7 +41,7 @@ model FourVSC_dynamic_lines
   // when checking that only the current limiter (not an oscillatory
   // instability) explains the transients seen elsewhere.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_WP2(SNom = 2400, U0Pu = 1.037386, Uphase = 0.366498, P0_pcc = -19.917, Q0_pcc = 7.368258, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, k_p_d_outer = 0.0333, k_i_d_outer = 10, k_p_q_outer = 0.1667, k_i_q_outer = 50, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1.1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.3333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, K_p_pll = 0.31831, K_i_pll = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DuMax_idref = 0.5, DuMin_idref = -999, tS_idref = 1e-4, delay_time_plant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, T_boost = 1e-3) annotation(
+  Dynawo.Electrical.PEIR.Plants.General.Average.GridFollowing.GFLmodel gFL_WP2(SNom = 2400, U0Pu = 1.037386, Uphase = 0.366498, PPcc0Pu = -19.917, QPcc0Pu = 7.368258, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0033, Kpc = 0.4584, Kic = 6, KpqCurrent = 0.4584, KiqCurrent = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, Kpq = 0.5, Kiq = 2.36, Kpp = 0.5, Kip = 2.36, LambdaPu= 0.3333, KDroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, Kfd = 1, Kfq = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {230, -146}, extent = {{20, -20}, {-20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // Lines (per-unit impedances, base SnRef=100MVA)
@@ -59,15 +59,15 @@ model FourVSC_dynamic_lines
   Dynawo.Electrical.Lines.Line lineAC2(RPu = 0.00065, XPu = 0.013, BPu = 0.3136/2, GPu = 0) annotation(
     Placement(transformation(origin = {-140, -60}, extent = {{-10, -10}, {10, 10}})));
   // B-C (Line5/Line6)
-  Dynawo.Electrical.Lines.DynLine_pi lineBC1(RPu = 0.0007, XPu = 0.014, BPu = 0.336/2, GPu = 0, U01Pu = 1.01845, UPhase01 = 0.21668, P01Pu = 15.75887, Q01Pu = 2.04163, U02Pu = 1.00055, UPhase02 = 0.00000, P02Pu = -15.58796, Q02Pu = 1.03420) annotation(
+  Dynawo.Electrical.Lines.DynLineRLC lineBC1(RPu = 0.0007, XPu = 0.014, BPu = 0.336/2, GPu = 0, U01Pu = 1.01845, UPhase01 = 0.21668, P01Pu = 15.75887, Q01Pu = 2.04163, U02Pu = 1.00055, UPhase02 = 0.00000, P02Pu = -15.58796, Q02Pu = 1.03420) annotation(
     Placement(transformation(origin = {100, -30}, extent = {{10, -10}, {-10, 10}})));
-  Dynawo.Electrical.Lines.DynLine_pi lineBC2(RPu = 0.0007, XPu = 0.014, BPu = 0.336/2, GPu = 0, U01Pu = 1.01845, UPhase01 = 0.21668, P01Pu = 15.75887, Q01Pu = 2.04163, U02Pu = 1.00055, UPhase02 = 0.00000, P02Pu = -15.58796, Q02Pu = 1.03420) annotation(
+  Dynawo.Electrical.Lines.DynLineRLC lineBC2(RPu = 0.0007, XPu = 0.014, BPu = 0.336/2, GPu = 0, U01Pu = 1.01845, UPhase01 = 0.21668, P01Pu = 15.75887, Q01Pu = 2.04163, U02Pu = 1.00055, UPhase02 = 0.00000, P02Pu = -15.58796, Q02Pu = 1.03420) annotation(
     Placement(transformation(origin = {140, -60}, extent = {{10, -10}, {-10, 10}})));
   // A2-E (Line7)
-  Dynawo.Electrical.Lines.DynLine_pi lineA2E(RPu = 0.00082963, XPu = 0.0016395, BPu = 9.1125/2, GPu = 0, U01Pu = 1.05091, UPhase01 = 0.32458, P01Pu = -19.62557, Q01Pu = -6.24039, U02Pu = 1.06870, UPhase02 = 0.35234, P02Pu = 19.91600, Q02Pu = -3.42139) annotation(
+  Dynawo.Electrical.Lines.DynLineRLC lineA2E(RPu = 0.00082963, XPu = 0.0016395, BPu = 9.1125/2, GPu = 0, U01Pu = 1.05091, UPhase01 = 0.32458, P01Pu = -19.62557, Q01Pu = -6.24039, U02Pu = 1.06870, UPhase02 = 0.35234, P02Pu = 19.91600, Q02Pu = -3.42139) annotation(
     Placement(transformation(origin = {-220, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   // B2-F (Line8)
-  Dynawo.Electrical.Lines.DynLine_pi lineB2F(RPu = 0.00082963, XPu = 0.0016395, BPu = 9.1125/2, GPu = 0, U01Pu = 1.02590, UPhase01 = 0.33389, P01Pu = -19.60662, Q01Pu = -1.71674, U02Pu = 1.03739, UPhase02 = 0.36650, P02Pu = 19.91712, Q02Pu = -7.36826) annotation(
+  Dynawo.Electrical.Lines.DynLineRLC lineB2F(RPu = 0.00082963, XPu = 0.0016395, BPu = 9.1125/2, GPu = 0, U01Pu = 1.02590, UPhase01 = 0.33389, P01Pu = -19.60662, Q01Pu = -1.71674, U02Pu = 1.03739, UPhase02 = 0.36650, P02Pu = 19.91712, Q02Pu = -7.36826) annotation(
     Placement(transformation(origin = {220, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   // ═══════════════════════════════════════════════════════════════
   // Network buses
@@ -167,16 +167,19 @@ equation
   trafoA2A.switchOffSignal2 = false;
   trafoB2B.switchOffSignal1 = false;
   trafoB2B.switchOffSignal2 = false;
+
+  fault.switchOffSignal1 = false;
+  fault.switchOffSignal2 = false;
 // ═══════════════════════════════════════════════════════════════
 // Electrical connections - mirror the IIDM topology
 // ═══════════════════════════════════════════════════════════════
-  connect(gFL_HVDC1.terminalPcc, busA.terminal) annotation(
+  connect(gFL_HVDC1.terminal, busA.terminal) annotation(
     Line(points = {{-206, 105}, {-206, 109.5}, {-180, 109.5}, {-180, 60}}, color = {0, 0, 255}));
-  connect(gFL_HVDC2.terminalPcc, busB.terminal) annotation(
+  connect(gFL_HVDC2.terminal, busB.terminal) annotation(
     Line(points = {{182, 105}, {182, 60}, {180, 60}}, color = {0, 0, 255}));
-  connect(gFL_WP1.terminalPcc, busE.terminal) annotation(
+  connect(gFL_WP1.terminal, busE.terminal) annotation(
     Line(points = {{-220, -151}, {-220, -100}}, color = {0, 0, 255}));
-  connect(gFL_WP2.terminalPcc, busF.terminal) annotation(
+  connect(gFL_WP2.terminal, busF.terminal) annotation(
     Line(points = {{214, -143}, {214, -120.5}, {220, -120.5}, {220, -100}}, color = {0, 0, 255}));
   connect(busA.terminal, lineAB1.terminal1) annotation(
     Line(points = {{-180, 60}, {-140, 60}, {-140, 82}, {-10, 82}}, color = {0, 0, 255}));
@@ -232,13 +235,13 @@ equation
 // transients)
 // ═══════════════════════════════════════════════════════════════
   gFL_HVDC1.PRefPu = 0.95375;
-  gFL_HVDC1.UREfPu = 1.024319;
+  gFL_HVDC1.URefPu = 1.024319;
   gFL_HVDC2.PRefPu = 0.82006;
-  gFL_HVDC2.UREfPu = 1.072794;
+  gFL_HVDC2.URefPu = 1.072794;
   gFL_WP1.PRefPu = 0.82983;
-  gFL_WP1.UREfPu = 1.069218;
+  gFL_WP1.URefPu = 1.069218;
   gFL_WP2.PRefPu = 0.82988;
-  gFL_WP2.UREfPu = 1.010584;
+  gFL_WP2.URefPu = 1.010584;
   connect(busE.terminal, ShuntE.terminal) annotation(
     Line(points = {{-220, -100}, {-194, -100}, {-194, -114}}, color = {0, 0, 255}));
   connect(ShuntC.terminal, busC.terminal) annotation(
@@ -261,5 +264,6 @@ After the fault, oscillations at approximately 20 Hz appear, consistently
 with the oscillatory behavior observed in EMTP and reported in Gaia
 Bergamaschi's thesis. These oscillations are damped over time.
 The limit on Qinjref is reached. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Oscillations at t= 0 are due to dynamic lines and if initial equations are removed, they get worse. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; the oscillations of bus A are different when there is no plant</p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p>
-</body></html>"));
+</body></html>"),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --allowNonStandardModelica ");
 end FourVSC_dynamic_lines;

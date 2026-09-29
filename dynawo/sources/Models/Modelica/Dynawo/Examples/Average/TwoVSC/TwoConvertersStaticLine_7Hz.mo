@@ -28,15 +28,15 @@ model TwoConvertersStaticLine_7Hz
      *   - Converter 1 (gFLmodel):
      *       SNom   = 1000 MVA
      *       U0Pu   = 1.091230 pu
-     *       P0_pcc = -5.010676 pu
-     *       Q0_pcc = -0.21 pu
+     *       PPcc0Pu = -5.010676 pu
+     *       QPcc0Pu = -0.21 pu
      *       Uphase = 0.063246 rad
      *
      *   - Converter 2 (gFLmodel1):
      *       SNom   = 1000 MVA
      *       U0Pu   = 1.086638 pu
-     *       P0_pcc =  4.989324 pu
-     *       Q0_pcc = -0.21 pu
+     *       PPcc0Pu =  4.989324 pu
+     *       QPcc0Pu = -0.21 pu
      *       Uphase = -0.063421 rad
      *
      *   - Infinite bus (infiniteBusWithVariations):
@@ -67,8 +67,8 @@ model TwoConvertersStaticLine_7Hz
      *         k_p_outer_i = ω_cc_outer / Ω_LPF
      *         k_i_outer_i = ω_cc_outer
      *     - Same structure on d‑ and q‑axis:
-     *         k_p_d_outer = k_p_q_outer = k_p_outer_i
-     *         k_i_d_outer = k_i_q_outer = k_i_outer_i
+     *         KpdOuter = KpqOuter = k_p_outer_i
+     *         KidOuter = KiqOuter = k_i_outer_i
      *
      *   PLL (synchronous reference frame PLL):
      *     - Target bandwidth:
@@ -89,19 +89,19 @@ model TwoConvertersStaticLine_7Hz
      *         K_p_plant_i = ω_cc_plant / ω_cc_outer
      *         K_i_plant_i = ω_cc_plant
      *     - Voltage‑reactive power coupling and droop:
-     *         Lambda = 0.417
-     *         Kdroop = 15
+     *         LambdaPu= 0.417
+     *         KDroop = 15
      *
      * ── Filter and delay design ────────────────────────────────────
      *
      *   Voltage / measurement low‑pass filter:
      *     - Cutoff:
      *         Ω_LPF   = 300 rad/s
-     *         T_filter = 1 / Ω_LPF
+     *         tFilter = 1 / Ω_LPF
      *
      *   Control delay:
      *     - Equivalent plant→outer‑loop delay:
-     *         delay_time_plant = 0.02 s
+     *         tPlant = 0.02 s
      *
      * ── Network topology ───────────────────────────────────────────
      *
@@ -132,8 +132,8 @@ model TwoConvertersStaticLine_7Hz
   parameter Real OmegaPLL = 4.5 "PLL bandwidth [rad/s]";
   parameter Real KsiPLL = 0.5 "PLL damping ratio [-]";
   parameter Real OmegaLPF = 300 "Measurement low‑pass filter cutoff [rad/s]";
-  parameter Real delay_time_plant = 0.02 "Equivalent delay from plant to outer loop [s]";
-  final parameter Real T_filter = 1.0/OmegaLPF "Measurement filter time constant [s]";
+  parameter Real tPlant = 0.02 "Equivalent delay from plant to outer loop [s]";
+  final parameter Real tFilter = 1.0/OmegaLPF "Measurement filter time constant [s]";
   // ═══════════════════════════════════════════════════════════════
   // Effective impedances (filters + LV transformers)
   // Used for current controller design and equivalent L/R
@@ -170,51 +170,53 @@ model TwoConvertersStaticLine_7Hz
   // Converter 1: grid‑following VSC (GFL1)
   // Includes inner/outer loops, PLL, droop and plant controller
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3,  // Filter and transformer impedances (per unit)
+  Dynawo.Electrical.PEIR.Plants.General.Average.GridFollowing.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, PPcc0Pu = -5.010676, QPcc0Pu = -0.21, Omega0Pu = 1.0, tVSC = 1e-3,  // Filter and transformer impedances (per unit)
   RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,  // Measurement filter
-  k_filter = 1, T_filter = T_filter,  // Inner d‑axis current controller
-  k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,  // Inner q‑axis current controller (same as d‑axis)
-  k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,  // Outer d‑axis controller (P / voltage loop)
-  k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,  // Outer q‑axis controller (Q / voltage loop)
-  k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,  // Voltage support and reactive power behaviour
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,  // Current limits and operation mode
-  Imax = 20, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // Plant controller for Q
-  K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,  // Plant controller for P
-  K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,  // Droop and voltage‑Q coupling
-  Lambda = 0.417, Kdroop = 15,  // Reactive power limits
+  KFilter = 1, tFilter = tFilter,  // Inner d‑axis current controller
+  Kpc = kp_cc_1, Kic = ki_cc_1,  // Inner q‑axis current controller (same as d‑axis)
+  KpqCurrent = kp_cc_1, KiqCurrent = ki_cc_1,  // Outer d‑axis controller (P / voltage loop)
+  KpdOuter = kp_outer_1, KidOuter = ki_outer_1,  // Outer q‑axis controller (Q / voltage loop)
+  KpqOuter = kp_outer_1, KiqOuter = ki_outer_1,  // Voltage support and reactive power behaviour
+  UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0,  // Current limits and operation mode
+  IMaxPu = 20, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // Plant controller for Q
+  Kpq = kp_plant_1, Kiq = ki_plant_1,  // Plant controller for P
+  Kpp = kp_plant_1, Kip = ki_plant_1,  // Droop and voltage‑Q coupling
+  LambdaPu= 0.417, KDroop = 15,  // Reactive power limits
   QMaxPu = 0.3, QMinPu = -0.3,  // Active power limits
   PMaxPu = 2, PMinPu = 0,  // Frequency / angle limits
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
-  K_p_pll = kp_pll_1, K_i_pll = ki_pll_1, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0,  // Active power reference sampling time
-  tS_idref = 1e-4,  // Equivalent delay between plant and outer loop
-  delay_time_plant = delay_time_plant,  // Enable voltage feed‑forward on both d and q axis
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4) annotation(
+  KpPLL = kp_pll_1, KiPLL = ki_pll_1, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
+  //DyMaxd = 10000.0, DyMaxq = 100000.0,
+  DidMax = 10.0, DidMin = -10.0,  // Active power reference sampling time
+  tSid = 1e-4,  // Equivalent delay between plant and outer loop
+  tPlant = tPlant,  // Enable voltage feed‑forward on both d and q axis
+  Kfd = 1, Kfq = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // Converter 2: grid‑following VSC (GFL2)
   // Similar controller structure, different ratings and limits
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3,  // Filter and transformer impedances (per unit)
+  Dynawo.Electrical.PEIR.Plants.General.Average.GridFollowing.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, PPcc0Pu = 4.989324, QPcc0Pu = -0.21, Omega0Pu = 1.0, tVSC = 1e-3,  // Filter and transformer impedances (per unit)
   RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,  // Measurement filter
-  k_filter = 1, T_filter = T_filter,  // Inner d‑axis current controller
-  k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2,  // Inner q‑axis current controller
-  k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,  // Outer d‑axis controller
-  k_p_d_outer = kp_outer_2, k_i_d_outer = ki_outer_2,  // Outer q‑axis controller
-  k_p_q_outer = kp_outer_2, k_i_q_outer = ki_outer_2,  // Voltage support and reactive power behaviour
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,  // Current limits and operation mode
-  Imax = 2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // Plant controller for Q
-  K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,  // Plant controller for P
-  K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,  // Droop and voltage‑Q coupling
-  Lambda = 0.417, Kdroop = 15,  // Reactive power limits
+  KFilter = 1, tFilter = tFilter,  // Inner d‑axis current controller
+  Kpc = kp_cc_2, Kic = ki_cc_2,  // Inner q‑axis current controller
+  KpqCurrent = kp_cc_2, KiqCurrent = ki_cc_2,  // Outer d‑axis controller
+  KpdOuter = kp_outer_2, KidOuter = ki_outer_2,  // Outer q‑axis controller
+  KpqOuter = kp_outer_2, KiqOuter = ki_outer_2,  // Voltage support and reactive power behaviour
+  UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0,  // Current limits and operation mode
+  IMaxPu = 2, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // Plant controller for Q
+  Kpq = kp_plant_2, Kiq = ki_plant_2,  // Plant controller for P
+  Kpp = kp_plant_2, Kip = ki_plant_2,  // Droop and voltage‑Q coupling
+  LambdaPu= 0.417, KDroop = 15,  // Reactive power limits
   QMaxPu = 0.3, QMinPu = -0.3,  // Active power limits (note inversion of sign)
   PMaxPu = 0, PMinPu = -2,  // Frequency / angle limits
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
-  K_p_pll = kp_pll_2, K_i_pll = ki_pll_2, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 100000.0, DuMin_idref = -10000.0,  // Active power reference sampling time
-  tS_idref = 1e-4,  // Equivalent delay between plant and outer loop
-  delay_time_plant = delay_time_plant,  // Enable voltage feed‑forward on both d and q axis
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-4) annotation(
+  KpPLL = kp_pll_2, KiPLL = ki_pll_2, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
+  //DyMaxd = 10000.0, DyMaxq = 100000.0,
+  DidMax = 100000.0, DidMin = -10000.0,  // Active power reference sampling time
+  tSid = 1e-4,  // Equivalent delay between plant and outer loop
+  tPlant = tPlant,  // Enable voltage feed‑forward on both d and q axis
+  Kfd = 1, Kfq = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
   // Network elements (transmission lines and buses)
@@ -262,9 +264,9 @@ model TwoConvertersStaticLine_7Hz
   // Constant voltage reference for gFLmodel1
   Modelica.Blocks.Sources.Constant UrefPu1(k = URef0Pu1) annotation(
     Placement(transformation(origin = {152, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  // Steady‑state voltage reference values based on Lambda and Q0
-  final parameter Real URef0Pu = gFLmodel.U0Pu - gFLmodel.Lambda*gFLmodel.Q0_pcc*SystemBase.SnRef/gFLmodel.SNom;
-  final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda*gFLmodel1.Q0_pcc*SystemBase.SnRef/gFLmodel1.SNom;
+  // Steady‑state voltage reference values based on LambdaPuand Q0
+  final parameter Real URef0Pu = gFLmodel.U0Pu - gFLmodel.LambdaPu*gFLmodel.QPcc0Pu*SystemBase.SnRef/gFLmodel.SNom;
+  final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.LambdaPu*gFLmodel1.QPcc0Pu*SystemBase.SnRef/gFLmodel1.SNom;
 equation
 // ═══════════════════════════════════════════════════════════════
 // Line and converter switch logic
@@ -290,13 +292,13 @@ equation
 // ═══════════════════════════════════════════════════════════════
 // Electrical connections (network topology)
 // ═══════════════════════════════════════════════════════════════
-  connect(gFLmodel.terminalPcc, line.terminal1) annotation(
+  connect(gFLmodel.terminal, line.terminal1) annotation(
     Line(points = {{-64, 19}, {-64, 20}, {-44, 20}}, color = {0, 0, 255}));
   connect(line.terminal2, bus.terminal) annotation(
     Line(points = {{-24, 20}, {-4, 20}}, color = {0, 0, 255}));
   connect(bus.terminal, line1.terminal1) annotation(
     Line(points = {{-4, 20}, {16, 20}}, color = {0, 0, 255}));
-  connect(line1.terminal2, gFLmodel1.terminalPcc) annotation(
+  connect(line1.terminal2, gFLmodel1.terminal) annotation(
     Line(points = {{36, 20}, {64, 21}}, color = {0, 0, 255}));
   connect(bus.terminal, line2.terminal1) annotation(
     Line(points = {{-4, 20}, {-4, -18}}, color = {0, 0, 255}));
@@ -320,9 +322,9 @@ equation
   connect(step2.y, gFLmodel1.PRefPu) annotation(
     Line(points = {{141, -56}, {141, 10}, {104, 10}}, color = {0, 0, 127}));
 // Voltage references
-  connect(step1.y, gFLmodel.UREfPu) annotation(
+  connect(step1.y, gFLmodel.URefPu) annotation(
     Line(points = {{-167, 16}, {-104, 16}}, color = {0, 0, 127}));
-  connect(UrefPu1.y, gFLmodel1.UREfPu) annotation(
+  connect(UrefPu1.y, gFLmodel1.URefPu) annotation(
     Line(points = {{141, 34}, {120.5, 34}, {120.5, 24}, {104, 24}}, color = {0, 0, 127}));
 // ═══════════════════════════════════════════════════════════════
 // Simulation settings (Dynawo experiment annotation)
@@ -335,5 +337,6 @@ Author: Gaia Bergameaschi.
 7 Hz oscillation should be seen and, if run with the Julia script for parameter swap,
 the linear relationship between current loop and SSOS frequency can be observed.
 Run with dynamic lines."),
-    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}));
+    Icon(graphics = {Ellipse(lineColor = {75, 138, 73}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, -100}, {100, 100}}), Polygon(lineColor = {0, 0, 255}, fillColor = {75, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-36, 60}, {64, 0}, {-36, -60}, {-36, 60}})}),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --allowNonStandardModelica ");
 end TwoConvertersStaticLine_7Hz;

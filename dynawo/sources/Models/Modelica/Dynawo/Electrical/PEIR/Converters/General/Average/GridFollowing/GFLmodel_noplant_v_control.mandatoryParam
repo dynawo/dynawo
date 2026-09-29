@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<mandatoryParameters>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Uphase" type="DOUBLE"/>
+  <mandatoryParameter name="PPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="tVSC" type="DOUBLE"/>
+  <mandatoryParameter name="RfPu" type="DOUBLE"/>
+  <mandatoryParameter name="LfPu" type="DOUBLE"/>
+  <mandatoryParameter name="CfPu" type="DOUBLE"/>
+  <mandatoryParameter name="RPuHV" type="DOUBLE"/>
+  <mandatoryParameter name="LPuHV" type="DOUBLE"/>
+  <mandatoryParameter name="RPuLV" type="DOUBLE"/>
+  <mandatoryParameter name="LPuLV" type="DOUBLE"/>
+  <mandatoryParameter name="KFilter" type="DOUBLE"/>
+  <mandatoryParameter name="tFilter" type="DOUBLE"/>
+  <mandatoryParameter name="Kpc" type="DOUBLE"/>
+  <mandatoryParameter name="Kic" type="DOUBLE"/>
+  <mandatoryParameter name="KpqCurrent" type="DOUBLE"/>
+  <mandatoryParameter name="KiqCurrent" type="DOUBLE"/>
+  <mandatoryParameter name="KpdOuter" type="DOUBLE"/>
+  <mandatoryParameter name="KidOuter" type="DOUBLE"/>
+  <mandatoryParameter name="KpqOuter" type="DOUBLE"/>
+  <mandatoryParameter name="KiqOuter" type="DOUBLE"/>
+  <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="PQFlag" type="BOOL"/>
+  <mandatoryParameter name="UBoostHighPu" type="DOUBLE"/>
+  <mandatoryParameter name="UBoostLowPu" type="DOUBLE"/>
+  <mandatoryParameter name="Kqv" type="DOUBLE"/>
+  <mandatoryParameter name="IqBoostMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="IqBoostMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="KpPLL" type="DOUBLE"/>
+  <mandatoryParameter name="KiPLL" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="DidMax" type="DOUBLE"/>
+  <mandatoryParameter name="DidMin" type="DOUBLE"/>
+  <mandatoryParameter name="tSid" type="DOUBLE"/>
+  <mandatoryParameter name="Kfd" type="DOUBLE"/>
+  <mandatoryParameter name="Kfq" type="DOUBLE"/>
+  <mandatoryParameter name="PControlFlag" type="BOOL"/>
+  <mandatoryParameter name="tBoost" type="DOUBLE"/>
+</mandatoryParameters>

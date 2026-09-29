@@ -120,7 +120,7 @@ model TwoConvertersWECC
   Modelica.Blocks.Sources.BooleanTable booleanTable(table = {0, 51.5}, startValue = true) annotation(
     Placement(transformation(origin = {-48, -92}, extent = {{-10, -10}, {10, 10}})));
   // Ideal switch used to open/close line3 w.r.t. line2
-  Dynawo.Electrical.Switches.IdealSwitch idealSwitch annotation(
+  Dynawo.Electrical.Switches.IdealSwitch2 idealSwitch annotation(
     Placement(transformation(origin = {-18, -20}, extent = {{-10, -10}, {10, 10}})));
 initial algorithm
 // ── PV1 initialization: copy results from pvInit1 into PV1 ──────

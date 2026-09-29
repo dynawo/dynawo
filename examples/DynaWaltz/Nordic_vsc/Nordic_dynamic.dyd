@@ -295,7 +295,7 @@
 </dyn:macroConnector>
 
 <dyn:macroConnector id="MC_GFLAverageModel-NetworkBus">
-<dyn:connect var1="GFL_terminalPcc" var2="@NAME@_ACPIN"/>
+<dyn:connect var1="GFL_terminal" var2="@NAME@_ACPIN"/>
 </dyn:macroConnector>
 
 

@@ -13,6 +13,7 @@ set(MODEL_FILES
   # Converter control models
   package.mo
   package.order
+  CurrentLimiterReactiveBoost.mo
   CurrentSaturation.mo
   )
 

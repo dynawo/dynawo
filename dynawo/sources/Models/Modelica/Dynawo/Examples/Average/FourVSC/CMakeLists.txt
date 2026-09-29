@@ -16,6 +16,7 @@ set(MODEL_FILES
     FourVSC_dynamic_lines.mo
     FourVSC_noplant.mo
     FourVSC_static_lines.mo
+    FourVSC_dynamic_lines_dyngfl2.mo
     )
 
 #

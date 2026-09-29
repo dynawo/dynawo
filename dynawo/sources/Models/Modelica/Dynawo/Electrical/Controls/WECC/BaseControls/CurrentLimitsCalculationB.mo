@@ -42,7 +42,7 @@ equation
     iqMaxPu = IMaxPu;
   end if;
 
-  ipMinPu = -  ipMaxPu ;
+  ipMinPu = 0;
   iqMinPu = - iqMaxPu;
 
   annotation(preferredView = "text",

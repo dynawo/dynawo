@@ -136,29 +136,29 @@ model FullDynamicModel_vsc "Nordic test grid with buses, lines, shunts, loads, t
 Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   SNom = 200,
   U0Pu = 1.0141, Uphase = -1.203235,      // -68.95° in rad
-  P0_pcc = -1.80, Q0_pcc = -0.604,        // -180MW/-60.4MVAr su SnRef=100MVA, convenzione carico
+  PPcc0Pu = -1.80, QPcc0Pu = -0.604,        // -180MW/-60.4MVAr su SnRef=100MVA, convenzione carico
   Omega0Pu = 1.0, tVSC = 1e-4,
   RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50,
   RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5,
-  k_filter = 1, T_filter = 0.0033,
+  KFilter = 1, tFilter = 0.0033,
   // NB: guadagni presi come placeholder (stile HVDC1, SNom simile 200-1200 MVA range) — DA VALIDARE
-  k_p_d_current = 0.5730, k_i_d_current = 6,
-  k_p_q_current = 0.5730, k_i_q_current = 6,
-  k_p_d_outer = 0.0333, k_i_d_outer = 10,
-  k_p_q_outer = 0.1667, k_i_q_outer = 50,
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
-  Imax = 1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2,
-  K_p_q_plant = 0.5, K_i_q_plant = 2.36,
-  K_p_p_plant = 0.5, K_i_p_plant = 2.36,
-  Lambda = 0.333333, Kdroop = 0,
+  Kpc = 0.5730, Kic = 6,
+  KpqCurrent = 0.5730, KiqCurrent = 6,
+  KpdOuter = 0.0333, KidOuter = 10,
+  KpqOuter = 0.1667, KiqOuter = 50,
+  UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2,
+  IMaxPu = 1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2,
+  Kpq = 0.5, Kiq = 2.36,
+  Kpp = 0.5, Kip = 2.36,
+  LambdaPu= 0.333333, KDroop = 0,
   QMaxPu = 0.35, QMinPu = -0.35,
   PMaxPu = 1, PMinPu = 0,
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0,
-  K_p_pll = 0.31831, K_i_pll = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
-  DyMax_pi_d = 5, DyMax_pi_q = 5, DuMax_idref = 10, DuMin_idref = -999,
-  tS_idref = 1e-4,
-  delay_time_plant = 0.01,
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-3)
+  KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+  DyMaxd = 5, DyMaxq = 5, DidMax = 10, DidMin = -999,
+  tSid = 1e-4,
+  tPlant = 0.01,
+  Kfd = 1, Kfq = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false)
   annotation(Placement(transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
@@ -599,7 +599,7 @@ equation
     Line(points = {{-45, 71}, {-45, 65}}, color = {0, 0, 255}));
   connect(g06.terminal, bus_BG06.terminal) annotation(
     Line(points = {{35, -60}, {35, -65}}, color = {0, 0, 255}));
- connect(gFL_SG7.terminalPcc, bus_BG07.terminal) annotation(
+ connect(gFL_SG7.terminal, bus_BG07.terminal) annotation(
   Line(points = {{-53, -39}, {-53, -45}}, color = {0, 0, 255}));
   connect(g08.terminal, bus_BG08.terminal) annotation(
     Line(points = {{-77, 0}, {-77, 5}}, color = {0, 0, 255}));
@@ -628,8 +628,8 @@ equation
  gFL_SG7.switchOffSignal1 = false;
 gFL_SG7.switchOffSignal2 = false;
 gFL_SG7.switchOffSignal3 = false;
-gFL_SG7.PRefPu = 1.80;                 // convenzione generatore = -P0_pcc
-gFL_SG7.UREfPu = 1.0141;  // U0Pu + Lambda*Q0Pu(generatore) → 0.81288
+gFL_SG7.PRefPu = 1.80;                 // convenzione generatore = -PPcc0Pu
+gFL_SG7.URefPu = 1.0141;  // U0Pu + Lambda*Q0Pu(generatore) → 0.81288
  // usa il riferimento di frequenza già presente nella rete Nordic
   annotation(
     preferredView = "diagram",

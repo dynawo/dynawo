@@ -15,6 +15,7 @@ set(MODEL_FILES
   package.order
   IdealSwitch.extvar
   IdealSwitch.mo
+  IdealSwitch2.mo
   )
 
 #

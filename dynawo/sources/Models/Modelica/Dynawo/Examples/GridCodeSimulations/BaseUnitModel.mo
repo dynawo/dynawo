@@ -39,8 +39,8 @@ model BaseUnitModel
   parameter Real OmegaPLL         = 4.5  "PLL bandwidth [rad/s]";
   parameter Real KsiPLL           = 0.5   "PLL damping ratio [-]";
   parameter Real OmegaLPF         = 300   "Measurement low‑pass filter cutoff [rad/s]";
-  parameter Real delay_time_plant = 0.02  "Equivalent delay from plant to outer loop [s]";
-  final parameter Real T_filter   = 1.0 / OmegaLPF "Measurement filter time constant [s]";
+  parameter Real tPlant = 0.02  "Equivalent delay from plant to outer loop [s]";
+  final parameter Real tFilter   = 1.0 / OmegaLPF "Measurement filter time constant [s]";
 // ═══════════════════════════════════════════════════════════════
   // Impedenze effettive
   // ═══════════════════════════════════════════════════════════════
@@ -60,64 +60,64 @@ model BaseUnitModel
   final parameter Real kp_plant_1 = w_cc_plant / w_cc_outer;
   final parameter Real ki_plant_1 =  w_cc_plant;
 
-  Modelica.Blocks.Sources.Constant PRefPu(k = -Unit.P0_pcc*Electrical.SystemBase.SnRef/SNom) annotation(
+  Modelica.Blocks.Sources.Constant PRefPu(k = -Unit.PPcc0Pu*Electrical.SystemBase.SnRef/SNom) annotation(
     Placement(transformation(origin = {-70, 42}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Sources.Step URefPu(offset = Unit.URef0Pu, height = 0, startTime = 2) annotation(
     Placement(transformation(origin = {-72, 6}, extent = {{-10, 10}, {10, -10}})));
 Electrical.PEIR.Plants.Average.GFLmodel Unit (
-  SNom = SNom, U0Pu = U0Pu, Uphase = UPhase0, P0_pcc = P0Pu, Q0_pcc = Q0Pu, Omega0Pu = 1.0, // ── VSC Pade delay ────────────────────────────────────────
+  SNom = SNom, U0Pu = U0Pu, Uphase = UPhase0, PPcc0Pu = P0Pu, QPcc0Pu = Q0Pu, Omega0Pu = 1.0, // ── VSC Pade delay ────────────────────────────────────────
   tVSC = 1e-3,
     RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5,
     omegaNom = 2 * Modelica.Constants.pi * 50,
     RPuLV = 0.001, LPuLV = 0.025,
     RPuHV = 0.001, LPuHV = 0.025,
-    k_filter = 1, T_filter = T_filter,
-    k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
-    k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
-    k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
-    k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
-    UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
-    Imax = 2, PQFlag = false,
-    IqBoostMax = 0.5, IqBoostMin = -0.5,
-    K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
-    K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
-    Lambda = 0.417, Kdroop = 15,
+    KFilter = 1, tFilter = tFilter,
+    Kpc = kp_cc_1, Kic = ki_cc_1,
+    KpqCurrent = kp_cc_1, KiqCurrent = ki_cc_1,
+    KpdOuter = kp_outer_1, KidOuter = ki_outer_1,
+    KpqOuter = kp_outer_1, KiqOuter = ki_outer_1,
+    UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2,
+    IMaxPu = 2, PQFlag = false,
+    IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,
+    Kpq = kp_plant_1, Kiq = ki_plant_1,
+    Kpp = kp_plant_1, Kip = ki_plant_1,
+    LambdaPu= 0.417, KDroop = 15,
     QMaxPu = 0.3, QMinPu = -0.3,
     PMaxPu = 2,   PMinPu = 0,
     FEMaxPu = 999, FEMinPu = -999,
     FDbd1Pu = 0.005, FDbd2Pu = 0.1,
     DbdPu = 0.0001,
-    K_p_pll = kp_pll_1, K_i_pll = ki_pll_1,
+    KpPLL = kp_pll_1, KiPLL = ki_pll_1,
     OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
-    DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
-    DuMax_idref = 10.0,   DuMin_idref = -10.0,
-    tS_idref = 1e-4,
-    delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1)  annotation(
+    DyMaxd = 10000.0, DyMaxq = 100000.0,
+    DidMax = 10.0,   DidMin = -10.0,
+    tSid = 1e-4,
+    tPlant = tPlant,
+    Kfd = 1, Kfq = 1, PControlFlag = false, QControlFlag = false)  annotation(
     Placement(transformation(origin = {9, 5}, extent = {{-31, -31}, {31, 31}})));
 equation
   Unit.switchOffSignal1=false;
   Unit.switchOffSignal2=false;
   Unit.switchOffSignal3=false;
-  BusPDR_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
-  BusPDR_BUS_ActivePower = Unit.measurementBlock.P_plant;
-  BusPDR_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
-  BusPDR_BUS_ActiveCurrent = Unit.measurementBlock.P_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  BusPDR_BUS_ReactiveCurrent = Unit.measurementBlock.Q_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  Wind_Turbine_GEN_MagnitudeControlledByAVRPu = Unit.plant_controller.uLambdaQ.y;
+  BusPDR_BUS_Voltage = Unit.measurementBlock.UPccPu;
+  BusPDR_BUS_ActivePower = Unit.measurementBlock.PPccPu;
+  BusPDR_BUS_ReactivePower = Unit.measurementBlock.QPccPu;
+  BusPDR_BUS_ActiveCurrent = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
+  BusPDR_BUS_ReactiveCurrent = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
+  Wind_Turbine_GEN_MagnitudeControlledByAVRPu = Unit.plantController.uLambdaQ.y;
   Wind_Turbine_GEN_UPuInjTerminal = sqrt(Unit.lCDynFilter.uLeft_rePu^2 + Unit.lCDynFilter.uLeft_imPu^2);
-  Wind_Turbine_GEN_IpInjTerminal = Unit.measurementBlock.P_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  Wind_Turbine_GEN_IqInjTerminal = Unit.measurementBlock.Q_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  Measurements_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
-  Measurements_BUS_ActivePower = Unit.measurementBlock.P_plant;
-  Measurements_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
+  Wind_Turbine_GEN_IpInjTerminal = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
+  Wind_Turbine_GEN_IqInjTerminal = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
+  Measurements_BUS_Voltage = Unit.measurementBlock.UPccPu;
+  Measurements_BUS_ActivePower = Unit.measurementBlock.PPccPu;
+  Measurements_BUS_ReactivePower = Unit.measurementBlock.QPccPu;
   StepUp_Xfmr_XFMR_Tap = 1.0;
-  Wind_Turbine_GEN_VoltageSetpointPu = Unit.UREfPu;
-  Wind_Turbine_GEN_NetworkFrequencyPu = Unit.gFLControl.omega_pll_pu * Electrical.SystemBase.fNom;
-  NetworkFrequencyPu = Unit.gFLControl.omega_pll_pu * Electrical.SystemBase.fNom;
+  Wind_Turbine_GEN_VoltageSetpointPu = Unit.URefPu;
+  Wind_Turbine_GEN_NetworkFrequencyPu = Unit.gFLControl.omegaPLLPu * Electrical.SystemBase.fNom;
+  NetworkFrequencyPu = Unit.gFLControl.omegaPLLPu * Electrical.SystemBase.fNom;
  connect(Unit.PRefPu, PRefPu.y) annotation(
     Line(points = {{-28, 28}, {-42.5, 28}, {-42.5, 42}, {-59, 42}}, color = {0, 0, 127}));
- connect(Unit.UREfPu, URefPu.y) annotation(
+ connect(Unit.URefPu, URefPu.y) annotation(
     Line(points = {{-28, 6}, {-61, 6}}, color = {0, 0, 127}));
   annotation(
     Icon,

@@ -20,4 +20,14 @@
   <curve model="GFLAverageModel" variable="GFL_PGenPu"/>
   <curve model="GFLAverageModel" variable="GFL_running"/>
   <curve model="GFLAverageModel" variable="GFL_omegaRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_idConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_iqConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_udConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_uqConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_urConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_uiConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_dynConverter1_iConvPu_re"/>
+  <curve model="GFLAverageModel" variable="GFL_dynConverter1_iConvPu_im"/>
+  <curve model="GFLAverageModel" variable="GFL_dynConverter1_uFilt_re"/>
+  <curve model="GFLAverageModel" variable="GFL_dynConverter1_uFilt_im"/>
 </curvesInput>
