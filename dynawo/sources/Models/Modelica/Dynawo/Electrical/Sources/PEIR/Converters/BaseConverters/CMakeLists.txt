@@ -14,10 +14,13 @@ set(MODEL_FILES
   package.order
   DynRLCFilter.mo
   DynRLCFilterRI.mo
+  DynRLCFilterRI2.mo
   DynRLTransformer.mo
   DynRLTransformerRI.mo
+  DynRLTransformerRI2.mo
   RefFrameRotation.mo
   VSCConverter.mo
+  VSCConverterRI.mo
   )
 
 #

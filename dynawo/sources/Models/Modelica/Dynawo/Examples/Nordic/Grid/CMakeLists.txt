@@ -16,7 +16,6 @@ set(MODEL_FILES
     package.order
     FullDynamicModel.mo
     FullStaticModel.mo
-    FullDynamicModel_vsc.mo
     )
 
 #

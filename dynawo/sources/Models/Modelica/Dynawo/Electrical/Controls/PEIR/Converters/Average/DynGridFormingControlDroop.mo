@@ -97,7 +97,7 @@ model DynGridFormingControlDroop
     Placement(transformation(origin = {-23, 77}, extent = {{-15, -15}, {15, 15}})));
   PLL.PLL pll(Kp = Kp, Ki = Ki, u0Pu = u0Pu, OmegaMaxPu = OmegaMaxPLLPu, OmegaMinPu = OmegaMinPLLPu, omegaPLLPu(start = Omega0Pu), omegaRefPu(start = OmegaRef0Pu), limIntegrator(y_start = Omega0Pu - OmegaRef0Pu)) annotation(
     Placement(transformation(origin = {-80, 50}, extent = {{-10, -10}, {10, 10}})));
-  BaseControls.CurrentLoops.DynCurrentLoop currentLoop(Kpc=Kpc, Kic=Kic, RFilterPu = RFilterPu, LFilterPu = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu, Omega0Pu = Omega0Pu) annotation(
+  BaseControls.CurrentLoops.DynCurrentLoop currentLoop(Kpc=Kpc, Kic=Kic, LFilterPu = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {72, 20}, extent = {{-10, -10}, {10, 10}})));
 
   //Operating point

@@ -1,6 +1,7 @@
-DynVSMPlantControl
-DynDroopPlantControl
+GridFollowing
 DynCCVSMPlantControl
-DynVSMPlantControlFull
-DynDroopPlantControlFull
 DynCCVSMPlantControlFull
+DynDroopPlantControl
+DynDroopPlantControlFull
+DynVSMPlantControl
+DynVSMPlantControlFull

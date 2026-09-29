@@ -14,7 +14,6 @@ set(MODEL_FILES
     package.order
     LoadFlow.mo
     TestCase.mo
-    TestCase_VSC.mo
     )
 
 #
