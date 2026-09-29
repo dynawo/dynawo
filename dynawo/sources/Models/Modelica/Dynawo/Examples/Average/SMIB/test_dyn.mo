@@ -44,10 +44,10 @@ model test_dyn
 
     // ── Outer loop ────────────────────────────────────────────
     // omega_out = 30 rad/s (10x below current loop)
-    k_p_d_outer = 0.3,
-    k_i_d_outer = 1.0,
-    k_p_q_outer = 0.3,
-    k_i_q_outer = 1.0,
+    KpdOuter = 0.3,
+    KidOuter = 1.0,
+    KpqOuter = 0.3,
+    KiqOuter = 1.0,
 
     // ── Current limiter ───────────────────────────────────────
     UboostHigh = 1.1,
@@ -79,21 +79,21 @@ model test_dyn
 
     // ── PLL ───────────────────────────────────────────────────
     // omega_pll = 10 rad/s (3x below outer loop)
-    K_p_pll    = 10.0,
-    K_i_pll    = 25.0,
+    KpPLL    = 10.0,
+    KiPLL    = 25.0,
     OmegaMaxPu = 1.05,
     OmegaMinPu = 0.95,
 
     // ── Rate limiters and delays ──────────────────────────────
     DyMax_pi_d       = 10000.0,
     DyMax_pi_q       = 100000.0,
-    DuMax_idref      = 10.0,
-    DuMin_idref      = -10.0,
-    tS_idref         = 1e-4,
-    delay_time_plant = 1e-3,
+    DidMax      = 10.0,
+    DidMin      = -10.0,
+    tSid         = 1e-4,
+    tPlant = 1e-3,
 
     // ── Voltage feedforward ───────────────────────────────────
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost=1e-5) annotation(
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost=1e-5, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
 
   Modelica.Blocks.Sources.Constant URef(k = 1.0047) annotation(
@@ -156,6 +156,7 @@ Tuning strategy (bandwidth separation):
 <p>Model used to assess the presence of initialization issues and to
 verify whether the model was able to operate. Not included in the
 results of Gaia Bergamaschi's thesis.</p>
-</html>"));
+</html>"),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --allowNonStandardModelica ");
 
 end test_dyn;

@@ -45,16 +45,16 @@
     <par type="DOUBLE" name="GFL_k_i_d_current" value="200000"/>
     <par type="DOUBLE" name="GFL_k_p_q_current" value="100"/>
     <par type="DOUBLE" name="GFL_k_i_q_current" value="200000"/>
-    <par type="DOUBLE" name="GFL_k_p_d_outer" value="0.1"/>
-    <par type="DOUBLE" name="GFL_k_i_d_outer" value="20"/>
-    <par type="DOUBLE" name="GFL_k_p_q_outer" value="0.01"/>
-    <par type="DOUBLE" name="GFL_k_i_q_outer" value="20"/>
+    <par type="DOUBLE" name="GFL_KpdOuter" value="0.1"/>
+    <par type="DOUBLE" name="GFL_KidOuter" value="20"/>
+    <par type="DOUBLE" name="GFL_KpqOuter" value="0.01"/>
+    <par type="DOUBLE" name="GFL_KiqOuter" value="20"/>
     <par type="DOUBLE" name="GFL_K_p_p_plant" value="0.1"/>
     <par type="DOUBLE" name="GFL_K_i_p_plant" value="1"/>
     <par type="DOUBLE" name="GFL_K_p_q_plant" value="0.8"/>
     <par type="DOUBLE" name="GFL_K_i_q_plant" value="5"/>
-    <par type="DOUBLE" name="GFL_K_p_pll" value="0.32"/>
-    <par type="DOUBLE" name="GFL_K_i_pll" value="8"/>
+    <par type="DOUBLE" name="GFL_KpPLL" value="0.32"/>
+    <par type="DOUBLE" name="GFL_KiPLL" value="8"/>
     <par type="DOUBLE" name="GFL_Imax" value="1.2"/>
     <par type="BOOL" name="GFL_PQFlag" value="false"/>
     <par type="DOUBLE" name="GFL_UboostHigh" value="1.1"/>
@@ -77,13 +77,13 @@
     <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
     <par type="DOUBLE" name="GFL_DyMax_pi_d" value="10000"/>
     <par type="DOUBLE" name="GFL_DyMax_pi_q" value="100000"/>
-    <par type="DOUBLE" name="GFL_DuMax_idref" value="10"/>
-    <par type="DOUBLE" name="GFL_DuMin_idref" value="-10"/>
-    <par type="DOUBLE" name="GFL_tS_idref" value="1e-4"/>
-    <par type="DOUBLE" name="GFL_delay_time_plant" value="1e-3"/>
+    <par type="DOUBLE" name="GFL_DidMax" value="10"/>
+    <par type="DOUBLE" name="GFL_DidMin" value="-10"/>
+    <par type="DOUBLE" name="GFL_tSid" value="1e-4"/>
+    <par type="DOUBLE" name="GFL_tPlant" value="1e-3"/>
     <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
     <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="1"/>
-    <par type="DOUBLE" name="GFL_T_boost" value="1e-4"/>
+    <par type="DOUBLE" name="GFL_tBoost" value="1e-4"/>
   </set>
   <!-- OmegaRef -->
   <set id="8">

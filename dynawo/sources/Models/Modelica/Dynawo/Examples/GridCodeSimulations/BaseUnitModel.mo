@@ -39,7 +39,7 @@ model BaseUnitModel
   parameter Real OmegaPLL         = 4.5  "PLL bandwidth [rad/s]";
   parameter Real KsiPLL           = 0.5   "PLL damping ratio [-]";
   parameter Real OmegaLPF         = 300   "Measurement low‑pass filter cutoff [rad/s]";
-  parameter Real delay_time_plant = 0.02  "Equivalent delay from plant to outer loop [s]";
+  parameter Real tPlant = 0.02  "Equivalent delay from plant to outer loop [s]";
   final parameter Real T_filter   = 1.0 / OmegaLPF "Measurement filter time constant [s]";
 // ═══════════════════════════════════════════════════════════════
   // Impedenze effettive
@@ -74,8 +74,8 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     k_filter = 1, T_filter = T_filter,
     k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
     k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
-    k_p_d_outer = kp_outer_1, k_i_d_outer = ki_outer_1,
-    k_p_q_outer = kp_outer_1, k_i_q_outer = ki_outer_1,
+    KpdOuter = kp_outer_1, KidOuter = ki_outer_1,
+    KpqOuter = kp_outer_1, KiqOuter = ki_outer_1,
     UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
     Imax = 2, PQFlag = false,
     IqBoostMax = 0.5, IqBoostMin = -0.5,
@@ -87,13 +87,13 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     FEMaxPu = 999, FEMinPu = -999,
     FDbd1Pu = 0.005, FDbd2Pu = 0.1,
     DbdPu = 0.0001,
-    K_p_pll = kp_pll_1, K_i_pll = ki_pll_1,
+    KpPLL = kp_pll_1, KiPLL = ki_pll_1,
     OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
     DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
-    DuMax_idref = 10.0,   DuMin_idref = -10.0,
-    tS_idref = 1e-4,
-    delay_time_plant = delay_time_plant,
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1)  annotation(
+    DidMax = 10.0,   DidMin = -10.0,
+    tSid = 1e-4,
+    tPlant = tPlant,
+    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, PControlFlag = false, QControlFlag = false)  annotation(
     Placement(transformation(origin = {9, 5}, extent = {{-31, -31}, {31, 31}})));
 equation
   Unit.switchOffSignal1=false;

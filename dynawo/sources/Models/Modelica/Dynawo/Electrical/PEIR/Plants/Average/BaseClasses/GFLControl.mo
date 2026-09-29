@@ -25,14 +25,13 @@ model GFLControl
   parameter Real DyMax_pi_q  "Max rate of change of q-axis PI output (pu/s)";
 
   // Outer loop — ramp limiter on i_d_ref
-  parameter Real DuMax_idref "Max rate of change of i_d_ref (pu/s)";
-  parameter Real DuMin_idref "Min rate of change of i_d_ref (pu/s)";
-  parameter Real tS_idref    "Sample time of i_d_ref ramp limiter (s)";
+  parameter Real DidMax "Max rate of change of i_d_ref (pu/s)";
+  parameter Real DidMin "Min rate of change of i_d_ref (pu/s)";
+  parameter Real tSid    "Sample time of i_d_ref ramp limiter (s)";
 
   // Delay between plant controller ed outer loop
-  parameter Real delay_time_plant "Delay time between Plant controller and outer loop (s)";
- parameter Real T_boost
-    "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
+  parameter Real tPlant "Delay time between Plant controller and outer loop (s)";
+  parameter Real tBoost "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
 
     parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
     parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
@@ -61,12 +60,14 @@ model GFLControl
 
 
   // Outer loop — PI gains
-  parameter Real k_p_d_outer "Outer loop Proportional gain PI d axis";
-  parameter Real k_i_d_outer "Outer loop intgl gain PI d axis";
-  parameter Real k_p_q_outer "Outer loop Proportional gain PI q axis";
-  parameter Real k_i_q_outer "Outer loop intgl gain PI  q axis";
+  parameter Real KpdOuter "Outer loop Proportional gain PI d axis";
+  parameter Real KidOuter "Outer loop intgl gain PI d axis";
+  parameter Real KpqOuter "Outer loop Proportional gain PI q axis";
+  parameter Real KiqOuter "Outer loop intgl gain PI  q axis";
   parameter Real Imax "Maximum current (pu)";
   parameter Real U_LV0  "Initial LV node voltage magnitude (pu)";
+  parameter Boolean PControlFlag "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = Q_ref/V_meas | false: use PI regulator (default)";
 
 
   // Outer loop — current limiter
@@ -80,9 +81,9 @@ model GFLControl
 
 
   // ───────────────── PLL parameters ─────────────────────────────
-  parameter Real K_p_pll
+  parameter Real KpPLL
     "PLL proportional gain";
-  parameter Real K_i_pll
+  parameter Real KiPLL
     "PLL integral gain";
 
   parameter Real OmegaMaxPu
@@ -108,30 +109,44 @@ model GFLControl
  id_ref_0 = id_ref_0, id_meas_0 = id_conv_0, iq_ref_0 = iq_ref_0, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0,  voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
-  Electrical.Controls.PEIR.BaseControls.Average.outer_loop outer_loop_GFL(
-    k_p_d           = k_p_d_outer,
-    k_i_d           = k_i_d_outer,
-    k_p_q           = k_p_q_outer,
-    k_i_q           = k_i_q_outer,
-    Imax            = Imax,
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.outer_loop outer_loop_GFL(
+    PControlFlag = PControlFlag,
+    QControlFlag = QControlFlag,
+    Kpd = KpdOuter,
+    Kid = KidOuter,
+    Kpq = KpqOuter,
+    Kiq = KiqOuter,
+    Imax = Imax,
     y_start_outer_d = id_ref_0,
     y_start_outer_q = iq_ref_0,
-    PQFlag          = PQFlag,
-    UboostHigh    = UboostHigh,
-    UboostLow    = UboostLow,
-    Kqv             = Kqv,
-    IqBoostMax      = IqBoostMax,
-    IqBoostMin      = IqBoostMin,
-
-     PInjPu0 = PInj0Pu, QInjPu0 = QInj0Pu, U_filter0 = U_LV0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, T_boost = T_boost) annotation(
+    PQFlag = PQFlag,
+    UboostHigh = UboostHigh,
+    UboostLow = UboostLow,
+    Kqv = Kqv,
+    IqBoostMax = IqBoostMax,
+    IqBoostMin = IqBoostMin,
+    PInjPu0 = PInj0Pu,
+    QInjPu0 = QInj0Pu,
+    U_filter0 = U_LV0,
+    i_d_ref_0 = id_ref_0,
+    i_q_ref_0 = iq_ref_0,
+    DyMaxd = DyMax_pi_d,
+    DyMaxq = DyMax_pi_q,
+    DidMax = DidMax,
+    DidMin = DidMin,
+    tSid = tSid,
+    tPlant = tPlant,
+    tBoost = tBoost) annotation(
     Placement(transformation(origin = {-200, 56}, extent = {{-36, -36}, {36, 36}})));
 
- Electrical.Controls.PEIR.BaseControls.Average.pll PLL(
-    Ki         = K_i_pll,
-    Kp         = K_p_pll,
+ Dynawo.Electrical.Controls.PEIR.BaseControls.Average.pll PLL(
+    Ki         = KiPLL,
+    Kp         = KpPLL,
     OmegaMaxPu = OmegaMaxPu,
     OmegaMinPu = OmegaMinPu,
-    Theta0     = Theta0, Omega0Pu = Omega0Pu, uqgrid0PU = Uq0Pu) annotation(
+    Theta0     = Theta0,
+    Omega0Pu = Omega0Pu,
+    uqgrid0PU = Uq0Pu) annotation(
     Placement(transformation(origin = {15, -69}, extent = {{-23, -23}, {23, 23}})));
 
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
@@ -171,6 +186,7 @@ model GFLControl
     Placement(transformation(origin = {-270, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput V_q_grid annotation(
     Placement(transformation(origin = {-270, -78}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
+
   // ── External outputs ─────────────────────────────────────────
 
   Modelica.Blocks.Interfaces.RealOutput vm_re (start=vm0.re) annotation(
@@ -197,6 +213,7 @@ model GFLControl
  //for graphical clarity at upper level model
   Modelica.Blocks.Interfaces.RealOutput omega_pll_pu_2 annotation(
     Placement(transformation(origin = {110, -60}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+
 equation
 // ── PLL ──────────────────────────────────────────────────────
 // ── Transform DQ→RI ──────────────────────────────────────────
@@ -237,21 +254,21 @@ equation
     Line(points = {{-217, 95}, {-217, 100.5}, {-259, 100.5}, {-259, 102}}, color = {0, 0, 127}));
   connect(omegaRefPU, PLL.omegaRefPu) annotation(
     Line(points = {{-270, -60}, {-10, -60}}, color = {0, 0, 127}));
-
- connect(outer_loop_GFL.Q_meas, Q_meas) annotation(
+  connect(outer_loop_GFL.Q_meas, Q_meas) annotation(
     Line(points = {{-240, 28}, {-270, 28}}, color = {0, 0, 127}));
- connect(outer_loop_GFL.Q_ref, Q_ref) annotation(
+  connect(outer_loop_GFL.Q_ref, Q_ref) annotation(
     Line(points = {{-238, 46}, {-270, 46}}, color = {0, 0, 127}));
- connect(P_ref, outer_loop_GFL.P_ref) annotation(
+  connect(P_ref, outer_loop_GFL.P_ref) annotation(
     Line(points = {{-270, 66}, {-238, 66}}, color = {0, 0, 127}));
- connect(P_meas, outer_loop_GFL.P_meas) annotation(
+  connect(P_meas, outer_loop_GFL.P_meas) annotation(
     Line(points = {{-270, 84}, {-238, 84}}, color = {0, 0, 127}));
- connect(V_q_grid, PLL.uqgridPu) annotation(
+  connect(V_q_grid, PLL.uqgridPu) annotation(
     Line(points = {{-270, -78}, {-10, -78}}, color = {0, 0, 127}));
- connect(current_loop_GFL.v_d, V_d_meas) annotation(
+  connect(current_loop_GFL.v_d, V_d_meas) annotation(
     Line(points = {{80, 78}, {80, 128}, {81, 128}, {81, 131}}, color = {0, 0, 127}));
- connect(omega_pll_pu_2, PLL.omegaPLLPu) annotation(
+  connect(omega_pll_pu_2, PLL.omegaPLLPu) annotation(
     Line(points = {{110, -60}, {40, -60}}, color = {0, 0, 127}));
+
   annotation(
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Documentation(info = "<html>
@@ -268,6 +285,4 @@ equation
            textString = "")},
       coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     Diagram(coordinateSystem(extent = {{-260, -120}, {240, 120}}), graphics = {Text(extent = {{-40, 60}, {-40, 60}}, textString = "text")}));
-
-
 end GFLControl;

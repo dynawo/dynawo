@@ -20,16 +20,16 @@ model GFLControl_noplant
   parameter Real iq_ref_0     "Initial q-axis current reference (pu)";
   parameter Real iq_conv_0    "Initial q-axis measured current (pu)";
     // Outer loop — PI output slew-rate limits
-  parameter Real DyMax_pi_d  "Max rate of change of d-axis PI output (pu/s)";
-  parameter Real DyMax_pi_q  "Max rate of change of q-axis PI output (pu/s)";
+  parameter Real DyMaxd  "Max rate of change of d-axis PI output (pu/s)";
+  parameter Real DyMaxq  "Max rate of change of q-axis PI output (pu/s)";
 
   // Outer loop — ramp limiter on i_d_ref
-  parameter Real DuMax_idref "Max rate of change of i_d_ref (pu/s)";
-  parameter Real DuMin_idref "Min rate of change of i_d_ref (pu/s)";
-  parameter Real tS_idref    "Sample time of i_d_ref ramp limiter (s)";
+  parameter Real DidMax "Max rate of change of i_d_ref (pu/s)";
+  parameter Real DidMin "Min rate of change of i_d_ref (pu/s)";
+  parameter Real tSid    "Sample time of i_d_ref ramp limiter (s)";
 
   // Delay between plant controller ed outer loop
- parameter Real T_boost
+ parameter Real tBoost
     "Time constant of first-order filter on iq_boost (s). Set 0 to disable";
 
     parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
@@ -59,10 +59,10 @@ model GFLControl_noplant
 
 
   // Outer loop — PI gains
-  parameter Real k_p_d_outer "Outer loop Proportional gain PI d axis";
-  parameter Real k_i_d_outer "Outer loop intgl gain PI d axis";
-  parameter Real k_p_q_outer "Outer loop Proportional gain PI q axis";
-  parameter Real k_i_q_outer "Outer loop intgl gain PI  q axis";
+  parameter Real KpdOuter "Outer loop Proportional gain PI d axis";
+  parameter Real KidOuter "Outer loop intgl gain PI d axis";
+  parameter Real KpqOuter "Outer loop Proportional gain PI q axis";
+  parameter Real KiqOuter "Outer loop intgl gain PI  q axis";
   parameter Real Imax "Maximum current (pu)";
   parameter Real U_LV0  "Initial LV node voltage magnitude (pu)";
 
@@ -74,13 +74,14 @@ model GFLControl_noplant
   parameter Real Kqv            "Iq boost gain (pu/pu), 0 to disable";
   parameter Real IqBoostMax     "Max Iq boost (pu)";
   parameter Real IqBoostMin     "Min Iq boost (pu)";
-
+  parameter Boolean PControlFlag "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = U_ref/V_meas | false: use PI regulator (default)";
 
 
   // ───────────────── PLL parameters ─────────────────────────────
-  parameter Real K_p_pll
+  parameter Real KpPLL
     "PLL proportional gain";
-  parameter Real K_i_pll
+  parameter Real KiPLL
     "PLL integral gain";
 
   parameter Real OmegaMaxPu
@@ -107,10 +108,10 @@ model GFLControl_noplant
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
   Electrical.Controls.PEIR.BaseControls.Average.outer_loop_no_plant outer_loop_GFL(
-    k_p_d           = k_p_d_outer,
-    k_i_d           = k_i_d_outer,
-    k_p_q           = k_p_q_outer,
-    k_i_q           = k_i_q_outer,
+    Kpd           = KpdOuter,
+    Kid           = KidOuter,
+    Kpq           = KpqOuter,
+    Kiq           = KiqOuter,
     Imax            = Imax,
     y_start_outer_d = id_ref_0,
     y_start_outer_q = iq_ref_0,
@@ -121,12 +122,12 @@ model GFLControl_noplant
     IqBoostMax      = IqBoostMax,
     IqBoostMin      = IqBoostMin,
 
-     PInjPu0 = PInj0Pu, QInjPu0 = QInj0Pu, U_filter0 = U_LV0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, T_boost = T_boost) annotation(
+     PInjPu0 = PInj0Pu, QInjPu0 = QInj0Pu, U_filter0 = U_LV0, i_d_ref_0 = id_ref_0, i_q_ref_0 = iq_ref_0, DyMaxd = DyMaxd, DyMaxq = DyMaxq, DidMax = DidMax, DidMin = DidMin, tSid = tSid, tBoost = tBoost, PControlFlag = PControlFlag, QControlFlag = QControlFlag) annotation(
     Placement(transformation(origin = {-200, 56}, extent = {{-36, -36}, {36, 36}})));
 
  Electrical.Controls.PEIR.BaseControls.Average.pll PLL(
-    Ki         = K_i_pll,
-    Kp         = K_p_pll,
+    Ki         = KiPLL,
+    Kp         = KpPLL,
     OmegaMaxPu = OmegaMaxPu,
     OmegaMinPu = OmegaMinPu,
     Theta0     = Theta0, Omega0Pu = Omega0Pu, uqgrid0PU = Uq0Pu) annotation(

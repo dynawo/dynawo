@@ -144,8 +144,8 @@ Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   // NB: guadagni presi come placeholder (stile HVDC1, SNom simile 200-1200 MVA range) — DA VALIDARE
   k_p_d_current = 0.5730, k_i_d_current = 6,
   k_p_q_current = 0.5730, k_i_q_current = 6,
-  k_p_d_outer = 0.0333, k_i_d_outer = 10,
-  k_p_q_outer = 0.1667, k_i_q_outer = 50,
+  KpdOuter = 0.0333, KidOuter = 10,
+  KpqOuter = 0.1667, KiqOuter = 50,
   UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2,
   Imax = 1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2,
   K_p_q_plant = 0.5, K_i_q_plant = 2.36,
@@ -154,11 +154,11 @@ Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   QMaxPu = 0.35, QMinPu = -0.35,
   PMaxPu = 1, PMinPu = 0,
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0,
-  K_p_pll = 0.31831, K_i_pll = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
-  DyMax_pi_d = 5, DyMax_pi_q = 5, DuMax_idref = 10, DuMin_idref = -999,
-  tS_idref = 1e-4,
-  delay_time_plant = 0.01,
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-3)
+  KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
+  DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 10, DidMin = -999,
+  tSid = 1e-4,
+  tPlant = 0.01,
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false)
   annotation(Placement(transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));

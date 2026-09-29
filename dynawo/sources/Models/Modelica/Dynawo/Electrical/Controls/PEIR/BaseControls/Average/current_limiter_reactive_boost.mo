@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 //   The boost magnitude is proportional to the voltage deviation via gain Kqv.
 //   It is then saturated between IqBoostMin and IqBoostMax.
 //   The boost signal is filtered by a first-order low-pass with time constant
-//   T_boost to avoid discontinuous jumps in the current reference.
+//   tBoost to avoid discontinuous jumps in the current reference.
 //
 // ── Current limiting ─────────────────────────────────────────────────────────
 //   Priority is selected via PQFlag (consistent with WECC convention):
@@ -50,7 +50,7 @@ model current_limiter_reactive_boost
     "Maximum additional reactive current boost (pu)";
   parameter Real IqBoostMin = -Imax
     "Minimum additional reactive current boost (pu)";
-  parameter Real T_boost
+  parameter Real tBoost
     "Time constant of first-order filter on iq_boost (s) to delay the reactive boost response. Set 0 to disable";
   parameter Real U0Pu
     "Initial voltage magnitude at PCC (pu), used to initialise iq_boost";
@@ -107,8 +107,8 @@ equation
   iq_boost_unfiltered = max(min(iq_boost_raw, IqBoostMax), IqBoostMin);
 
   // ── Step 2b: first-order filter on boost ─────────────────────
-  if noEvent(T_boost > 0) then
-    T_boost * der(iq_boost) = iq_boost_unfiltered - iq_boost;
+  if noEvent(tBoost > 0) then
+    tBoost * der(iq_boost) = iq_boost_unfiltered - iq_boost;
   else
     iq_boost = iq_boost_unfiltered;
   end if;
@@ -143,7 +143,7 @@ equation
 
 initial equation
   // ── Initialise filter state at steady-state boost value ──────
-  if T_boost > 0 then
+  if tBoost > 0 then
     iq_boost = max(
                  min(
                    if U0Pu < UboostLow then Kqv * (1 - U0Pu)
@@ -166,7 +166,7 @@ initial equation
         Text(origin = {0, -20}, extent = {{-80, 20}, {80, -20}},
              textString = "IqBoost ±"),
         Text(origin = {0, -60}, extent = {{-80, 20}, {80, -20}},
-             textString = "T_boost filter")}),
+             textString = "tBoost filter")}),
     Diagram);
 
 end current_limiter_reactive_boost;

@@ -61,10 +61,10 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // Outer P/Q loop control loops (converter control)
   // ────────────────────────────────────────────────────────────
-  parameter Real k_p_d_outer "Outer loop PI: proportional gain on d-axis (active power)";
-  parameter Real k_i_d_outer "Outer loop PI: integral gain on d-axis (active power)";
-  parameter Real k_p_q_outer "Outer loop PI: proportional gain on q-axis (reactive/voltage)";
-  parameter Real k_i_q_outer "Outer loop PI: integral gain on q-axis (reactive/voltage)";
+  parameter Real KpdOuter "Outer loop PI: proportional gain on d-axis (active power)";
+  parameter Real KidOuter "Outer loop PI: integral gain on d-axis (active power)";
+  parameter Real KpqOuter "Outer loop PI: proportional gain on q-axis (reactive/voltage)";
+  parameter Real KiqOuter "Outer loop PI: integral gain on q-axis (reactive/voltage)";
   parameter Real Imax "Maximum converter current magnitude (pu)";
   parameter Boolean PQFlag "Priority flag: false = Q-priority, true = P-priority";
   // Reactive power boost around voltage thresholds
@@ -73,6 +73,8 @@ model GFLmodel
   parameter Real Kqv "Reactive boost gain dIq/dU (pu/pu), 0 to disable";
   parameter Real IqBoostMax "Maximum additional Iq boost (pu)";
   parameter Real IqBoostMin "Minimum additional Iq boost (pu)";
+  parameter Boolean PControlFlag "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = Q_ref/V_meas | false: use PI regulator (default)";
   // ────────────────────────────────────────────────────────────
   // Plant controller (P–f and Q–U droop and PI loops)
   // ────────────────────────────────────────────────────────────
@@ -94,8 +96,8 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // PLL parameters
   // ────────────────────────────────────────────────────────────
-  parameter Real K_p_pll "PLL PI: proportional gain";
-  parameter Real K_i_pll "PLL PI: integral gain";
+  parameter Real KpPLL "PLL PI: proportional gain";
+  parameter Real KiPLL "PLL PI: integral gain";
   parameter Real OmegaMaxPu "Maximum PLL frequency (pu)";
   parameter Real OmegaMinPu "Minimum PLL frequency (pu)";
   final parameter Real Theta0 = Modelica.Math.atan2(ucaP0Pu_init.im, ucaP0Pu_init.re) "Initial PLL angle (rad)";
@@ -104,10 +106,10 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   parameter Real DyMax_pi_d "Maximum rate of change of d-axis outer PI output (pu/s)";
   parameter Real DyMax_pi_q "Maximum rate of change of q-axis outer PI output (pu/s)";
-  parameter Real DuMax_idref "Maximum rate of change of i_d_ref (pu/s)";
-  parameter Real DuMin_idref "Minimum rate of change of i_d_ref (pu/s)";
-  parameter Real tS_idref "Sample/update time of i_d_ref ramp limiter (s)";
-  parameter Real delay_time_plant "Time delay between plant controller output and outer loop (s)";
+  parameter Real DidMax "Maximum rate of change of i_d_ref (pu/s)";
+  parameter Real DidMin "Minimum rate of change of i_d_ref (pu/s)";
+  parameter Real tSid "Sample/update time of i_d_ref ramp limiter (s)";
+  parameter Real tPlant "Time delay between plant controller output and outer loop (s)";
   parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
   parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
   // ─────────────────────────────────────────────────────────────────────────
@@ -163,7 +165,7 @@ model GFLmodel
   final parameter Complex uLV0Pu_init = u0Pu_init + i0Pu_init*Z_HV;
   final parameter Real Ud_LV0Pu = uLV0Pu_init.re*cos(Theta0) + uLV0Pu_init.im*sin(Theta0);
   final parameter Real Uq_LV0Pu = -uLV0Pu_init.re*sin(Theta0) + uLV0Pu_init.im*cos(Theta0);
-   parameter Real T_boost
+   parameter Real tBoost
     "Time constant of first-order filter on iq_boost (s) to delay the current boost response. Set 0 to disable";
 
   // ──────────────────────────────────────────────────────────────────────────
@@ -176,8 +178,56 @@ model GFLmodel
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
   // limitation with P/Q priority, and reactive-power boost logic.
-  BaseClasses.GFLControl gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, id_ref_0 = Id_conv_0, id_conv_0 = Id_conv_0, iq_ref_0 = Iq_conv_0, iq_conv_0 = Iq_conv_0, DyMax_pi_d = DyMax_pi_d, DyMax_pi_q = DyMax_pi_q, DuMax_idref = DuMax_idref, DuMin_idref = DuMin_idref, tS_idref = tS_idref, delay_time_plant = delay_time_plant, k_p_d_current = k_p_d_current, k_i_d_current = k_i_d_current, k_p_q_current = k_p_q_current, k_i_q_current = k_i_q_current, L_g = L_g, R_g = R_g, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, k_p_d_outer = k_p_d_outer, k_i_d_outer = k_i_d_outer, k_p_q_outer = k_p_q_outer, k_i_q_outer = k_i_q_outer, Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, K_p_pll = K_p_pll, K_i_pll = K_i_pll, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q, T_boost = T_boost) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.BaseClasses.GFLControl gFLControl(
+    Omega0Pu = Omega0Pu,
+    QInj0Pu = QInj0Pu,
+    PInj0Pu = PInj0Pu,
+    id_ref_0 = Id_conv_0,
+    id_conv_0 = Id_conv_0,
+    iq_ref_0 = Iq_conv_0,
+    iq_conv_0 = Iq_conv_0,
+    DyMax_pi_d = DyMax_pi_d,
+    DyMax_pi_q = DyMax_pi_q,
+    DidMax = DidMax,
+    DidMin = DidMin,
+    tSid = tSid,
+    tPlant = tPlant,
+    k_p_d_current = k_p_d_current,
+    k_i_d_current = k_i_d_current,
+    k_p_q_current = k_p_q_current,
+    k_i_q_current = k_i_q_current,
+    L_g = L_g,
+    R_g = R_g,
+    vd_0 = Ud0Pu,
+    vq_0 = Uq0Pu,
+    vmd_0 = Ud0Pu,
+    vmq_0 = Uq0Pu,
+    KpdOuter = KpdOuter,
+    KidOuter = KidOuter,
+    KpqOuter = KpqOuter,
+    KiqOuter = KiqOuter,
+    Imax = Imax,
+    PQFlag = PQFlag,
+    UboostHigh = UboostHigh,
+    UboostLow = UboostLow,
+    Kqv = Kqv,
+    IqBoostMax = IqBoostMax,
+    IqBoostMin = IqBoostMin,
+    KpPLL = KpPLL,
+    KiPLL = KiPLL,
+    OmegaMaxPu = OmegaMaxPu,
+    OmegaMinPu = OmegaMinPu,
+    Theta0 = Theta0,
+    vm0 = uconv0Pu_init,
+    U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2),
+    Uq0Pu = V_q_g_0,
+    voltagefeedforwardflag_d = voltagefeedforwardflag_d,
+    voltagefeedforwardflag_q = voltagefeedforwardflag_q,
+    tBoost = tBoost,
+    PControlFlag = PControlFlag,
+    QControlFlag = QControlFlag) annotation(
     Placement(transformation(origin = {-95, 47}, extent = {{-17, -17}, {17, 17}})));
+
   // Plant-level controller block.
   // Implements: P–f droop, Q–U droop, frequency and voltage deadbands,
   // PI loops for active and reactive power, and output limiter

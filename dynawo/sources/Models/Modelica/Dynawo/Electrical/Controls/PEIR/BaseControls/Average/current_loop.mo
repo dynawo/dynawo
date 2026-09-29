@@ -62,7 +62,7 @@ model current_loop
   // ── D-axis: error node + PI + output sum ──────────────────────
   Modelica.Blocks.Math.Feedback sum_node_id annotation(
     Placement(transformation(origin = {-48, 88}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller pi_controller_d(k_p = k_p_d, k_i = k_i_d, y_start = y_start_current_d) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PI pi_controller_d(Kp = k_p_d, Ki = k_i_d, Y0 = y_start_current_d) annotation(
     Placement(transformation(origin = {-14, 88}, extent = {{-10, -10}, {10, 10}})));
   // vm_d = ff·v_d + PI_d − ω·Lg·iq_meas  (k1=ff, k2=PI, k3=-decoupling)
   Modelica.Blocks.Math.Add3 add_d(k3 = -1, k1 = voltagefeedforwardflag_d) annotation(
@@ -70,7 +70,7 @@ model current_loop
   // ── Q-axis: error node + PI + output sum ──────────────────────
   Modelica.Blocks.Math.Feedback sum_node_iq annotation(
     Placement(transformation(origin = {-58, -60}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller pi_controller_iq(k_p = k_p_q, k_i = k_i_q, y_start = y_start_current_q) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PI pi_controller_iq(Kp = k_p_q, Ki = k_i_q, Y0 = y_start_current_q) annotation(
     Placement(transformation(origin = {-26, -60}, extent = {{-10, -10}, {10, 10}})));
   // vm_q = decoupling + PI_q + ff·v_q  (k1=+1, k2=PI, k3=ff)
   Modelica.Blocks.Math.Add3 add_q(k1 = 1, k2 = +1, k3 = voltagefeedforwardflag_q) annotation(
@@ -115,7 +115,7 @@ equation
 // ── Connections
   connect(i_d_ref, sum_node_id.u1) annotation(
     Line(points = {{-211, 99}, {-55, 99}, {-55, 88}, {-56, 88}}, color = {0, 0, 127}));
-  connect(sum_node_id.y, pi_controller_d.e) annotation(
+  connect(sum_node_id.y, pi_controller_d.u) annotation(
     Line(points = {{-39, 88}, {-25, 88}}, color = {0, 0, 127}));
   connect(add_d.u2, pi_controller_d.y) annotation(
     Line(points = {{60, 56}, {15, 56}, {15, 88}, {-3, 88}}, color = {0, 0, 127}));
@@ -123,7 +123,7 @@ equation
     Line(points = {{-207, -61}, {-203, -61}, {-203, -60}, {-66, -60}}, color = {0, 0, 127}));
   connect(i_q_meas, sum_node_iq.u2) annotation(
     Line(points = {{-206, -80}, {-58, -80}, {-58, -68}}, color = {0, 0, 127}));
-  connect(sum_node_iq.y, pi_controller_iq.e) annotation(
+  connect(sum_node_iq.y, pi_controller_iq.u) annotation(
     Line(points = {{-49, -60}, {-37, -60}}, color = {0, 0, 127}));
   connect(pi_controller_iq.y, add_q.u2) annotation(
     Line(points = {{-15, -60}, {6, -60}}, color = {0, 0, 127}));

@@ -12,13 +12,13 @@ model OneConverterWeakGrid
   RPuHV = 0.0002, LPuHV = 0.005,  // ── Measurement filter ────────────────────────────────────
   k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
   k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
-  k_p_d_outer = 0.1, k_i_d_outer = 20.0, k_p_q_outer = 0.01, k_i_q_outer = 20.0,  // ── Current limiter ───────────────────────────────────────
+  KpdOuter = 0.1, KidOuter = 20.0, KpqOuter = 0.01, KiqOuter = 20.0,  // ── Current limiter ───────────────────────────────────────
   UboostHigh = 1.1, UboostLow = 0.9, Kqv = 2, Imax = 1.2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
   K_p_q_plant = 0.1, K_i_q_plant = 1.0, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
-  K_p_pll = 0.32, K_i_pll = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
+  KpPLL = 0.32, KiPLL = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
   OmegaMinPu = 0.5,  // ── Rate limiters and delays ──────────────────────────────
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DuMax_idref = 10.0, DuMin_idref = -10.0, tS_idref = 1e-4, delay_time_plant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, T_boost = 1e-3) annotation(
+  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
+  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
     Placement(transformation(origin = {-66, -30}, extent = {{-10, -10}, {10, 10}})));
@@ -80,5 +80,7 @@ from the time response of PVVoltageSource4Example. Use solver IDA. See branch 40
   Case 4 — Frequency variation (infiniteBusWithVariations)
       Grid frequency: omegaEvtPu applied from t = 10 000 s to t = 10 001 s
       Suggested: tOmegaEvtStart = 10 s, tOmegaEvtEnd = 10.5 s, omegaEvtPu = 1.02 pu
-      [currently inactive: tOmegaEvtStart = 10 000 s] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</body></html>"));
+      [currently inactive: tOmegaEvtStart = 10 000 s] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</body></html>"),
+  __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --allowNonStandardModelica --daeMode");
 end OneConverterWeakGrid;

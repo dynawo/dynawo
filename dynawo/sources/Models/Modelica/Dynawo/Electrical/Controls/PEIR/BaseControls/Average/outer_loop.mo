@@ -15,78 +15,20 @@ model outer_loop
   // k_direct_control_p = false  →  bypass P PI, use i_d_ref = P_ref / V_meas
   // k_direct_control_q = false  →  bypass Q PI, use i_q_ref = Q_ref / V_meas
   // =============================================================================
-  // ── Inputs ───────────────────────────────────────────────────
-  Modelica.Blocks.Interfaces.RealInput P_ref(start = PInjPu0) annotation(
-    Placement(transformation(origin = {-220, 82}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-214, 58}, extent = {{-14, -14}, {14, 14}})));
-  Modelica.Blocks.Interfaces.RealInput P_meas(start = PInjPu0) annotation(
-    Placement(transformation(origin = {-220, 52}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-216, 158}, extent = {{-14, -14}, {14, 14}})));
-  Modelica.Blocks.Interfaces.RealInput Q_ref(start = QInjPu0) annotation(
-    Placement(transformation(origin = {-220, 18}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-215, -59}, extent = {{-15, -15}, {15, 15}})));
-  Modelica.Blocks.Interfaces.RealInput Q_meas(start = QInjPu0) annotation(
-    Placement(transformation(origin = {-220, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-217, -161}, extent = {{-15, -15}, {15, 15}})));
-  Modelica.Blocks.Interfaces.RealInput V_meas(start = U_filter0) annotation(
-    Placement(transformation(origin = {-220, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-93, 219}, extent = {{-13, -13}, {13, 13}}, rotation = -90)));
-  // ── Plant communication delay ─────────────────────────────────
-  // Models the delay between the plant-level controller and this outer loop.
-  // A first-order filter with time constant delay_time_plant is used.
-  // ── Sum nodes (P_ref - P_meas, Q_ref - Q_meas) ───────────────
-  Modelica.Blocks.Math.Feedback sum_node_p annotation(
-    Placement(transformation(origin = {-88, 82}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Feedback sum_node_q annotation(
-    Placement(transformation(origin = {-74, 20}, extent = {{-10, -10}, {10, 10}})));
-  // ── PI controllers (green path, default) ─────────────────────
-  // Anti-windup PI regulators. Active when k_direct_control_* = false.
-  // Note: interaction between PI bandwidth and PLL is a known cause
-  // of low-frequency SSO (Cheng et al. 2023, third mechanism).
-  Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller_antiwind pi_controller_antiwind(k_p = k_p_d, tI = 1/k_i_d, y_start = y_start_outer_d, DyMax = DyMax_pi_d, YMax = Imax) annotation(
-    Placement(transformation(origin = {-28, 82}, extent = {{-20, -20}, {20, 20}})));
-  Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller_antiwind pi_controller_antiwind1(k_p = k_p_q, tI = 1/(k_i_q), y_start = -y_start_outer_q, DyMax = DyMax_pi_q, YMax = Imax) annotation(
-    Placement(transformation(origin = {-24, 20}, extent = {{-20, -20}, {20, 20}})));
-  // ── Direct path (orange path) ─────────────────────────────────
-  // Stateless feedforward: i_d_ref = P_ref / V_meas
-  //                        i_q_ref = Q_ref / V_meas
-  // Active when k_direct_control_* = true.
-  // Useful for diagnostics when PI parameters are unknown or mistuned.
-  Modelica.Blocks.Math.Division division1 annotation(
-    Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Division division annotation(
-    Placement(transformation(origin = {-50, -36}, extent = {{-10, -10}, {10, 10}})));
-  // ── Mode switches ─────────────────────────────────────────────
-  // Modelica Switch: output = u1 if u2 is TRUE, else u3.
-  // u3 = direct path (orange), u1 = PI path (green).
-  // So: k_direct_control_* = false  → direct, true → PI.
-  Modelica.Blocks.Logical.Switch switch1 annotation(
-    Placement(transformation(origin = {34, 74}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.Switch switch2 annotation(
-    Placement(transformation(origin = {46, 18}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = k_direct_control_p) annotation(
-    Placement(transformation(origin = {6, 70}, extent = {{-6, -6}, {6, 6}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = k_direct_control_q) annotation(
-    Placement(transformation(origin = {13, 11}, extent = {{-5, -5}, {5, 5}})));
-  // ── Current limiter with reactive boost ──────────────────────
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, U0Pu = U_filter0, T_boost = T_boost) annotation(
-    Placement(transformation(origin = {129, 47}, extent = {{-39, -39}, {39, 39}})));
-  // ── Output ramp limiter on i_d_ref ────────────────────────────
-  NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DuMax_idref, DuMin = DuMin_idref, tS = tS_idref, Y0 = i_d_ref_0, y(start = i_d_ref_0)) annotation(
-    Placement(transformation(origin = {192, 62}, extent = {{-10, -10}, {10, 10}})));
-  // ── Outputs ──────────────────────────────────────────────────
-  Modelica.Blocks.Interfaces.RealOutput i_d_ref(start = i_d_ref_0) annotation(
-    Placement(transformation(origin = {224, 62}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {225, 59}, extent = {{-15, -15}, {15, 15}})));
-  Modelica.Blocks.Interfaces.RealOutput i_q_ref(start = -i_q_ref_0) annotation(
-    Placement(transformation(origin = {210, 32}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {225, -23}, extent = {{-15, -15}, {15, 15}})));
-  // ── Parameters ───────────────────────────────────────────────
+
+  // Parameters
   // Control mode selection
-  parameter Boolean k_direct_control_p = false "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
-  parameter Boolean k_direct_control_q = false "true: bypass Q PI, use i_q_ref = Q_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean PControlFlag "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = Q_ref/V_meas | false: use PI regulator (default)";
   // PI tuning — d axis (active power)
-  parameter Real k_p_d "Proportional gain of d-axis PI (pu)";
-  parameter Real k_i_d "Integral gain of d-axis PI (pu/s)";
-  parameter Real DyMax_pi_d "Max rate of change of d-axis PI output (pu/s)";
+  parameter Real Kpd "Proportional gain of d-axis PI (pu)";
+  parameter Real Kid "Integral gain of d-axis PI (pu/s)";
+  parameter Real DyMaxd "Max rate of change of d-axis PI output (pu/s)";
   parameter Real y_start_outer_d "Initial output of d-axis PI (pu)";
   // PI tuning — q axis (reactive power)
-  parameter Real k_p_q "Proportional gain of q-axis PI (pu)";
-  parameter Real k_i_q "Integral gain of q-axis PI (pu/s)";
-  parameter Real DyMax_pi_q "Max rate of change of q-axis PI output (pu/s)";
+  parameter Real Kpq "Proportional gain of q-axis PI (pu)";
+  parameter Real Kiq "Integral gain of q-axis PI (pu/s)";
+  parameter Real DyMaxq "Max rate of change of q-axis PI output (pu/s)";
   parameter Real y_start_outer_q "Initial output of q-axis PI (pu)";
   // Current limiter
   parameter Real Imax "Maximum total current magnitude (pu)";
@@ -97,33 +39,103 @@ model outer_loop
   parameter Real IqBoostMax "Maximum reactive current boost (pu)";
   parameter Real IqBoostMin "Minimum reactive current boost (pu)";
   // Output ramp limiter on i_d_ref
-  parameter Real DuMax_idref "Max rate of change of i_d_ref (pu/s)";
-  parameter Real DuMin_idref "Min rate of change of i_d_ref (pu/s)";
-  parameter Real tS_idref "Sample time of i_d_ref ramp limiter (s)";
+  parameter Real DidMax "Max rate of change of i_d_ref (pu/s)";
+  parameter Real DidMin "Min rate of change of i_d_ref (pu/s)";
+  parameter Real tSid "Sample time of i_d_ref ramp limiter (s)";
   // Plant communication delay
-  parameter Real delay_time_plant "Time constant of plant-to-outer-loop delay (s)";
+  parameter Real tPlant "Time constant of plant-to-outer-loop delay (s)";
+  parameter Real tBoost "Time constant of first-order filter on iq_boost (s) to delay the reactive boost response. Set 0 to disable";
+
+  // Inputs
+  Modelica.Blocks.Interfaces.RealInput P_ref(start = PInjPu0) annotation(
+    Placement(transformation(origin = {-220, 82}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-214, 58}, extent = {{-14, -14}, {14, 14}})));
+  Modelica.Blocks.Interfaces.RealInput P_meas(start = PInjPu0) annotation(
+    Placement(transformation(origin = {-220, 52}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-216, 158}, extent = {{-14, -14}, {14, 14}})));
+  Modelica.Blocks.Interfaces.RealInput Q_ref(start = QInjPu0) annotation(
+    Placement(transformation(origin = {-220, 18}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-215, -59}, extent = {{-15, -15}, {15, 15}})));
+  Modelica.Blocks.Interfaces.RealInput Q_meas(start = QInjPu0) annotation(
+    Placement(transformation(origin = {-220, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-217, -161}, extent = {{-15, -15}, {15, 15}})));
+  Modelica.Blocks.Interfaces.RealInput V_meas(start = U_filter0) annotation(
+    Placement(transformation(origin = {-220, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-93, 219}, extent = {{-13, -13}, {13, 13}}, rotation = -90)));
+
+  // Outputs
+  Modelica.Blocks.Interfaces.RealOutput i_d_ref(start = i_d_ref_0) annotation(
+    Placement(transformation(origin = {224, 62}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {225, 59}, extent = {{-15, -15}, {15, 15}})));
+  Modelica.Blocks.Interfaces.RealOutput i_q_ref(start = -i_q_ref_0) annotation(
+    Placement(transformation(origin = {210, 32}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {225, -23}, extent = {{-15, -15}, {15, 15}})));
+
+  // ── Plant communication delay ─────────────────────────────────
+  // Models the delay between the plant-level controller and this outer loop.
+  // A first-order filter with time constant tPlant is used.
+  // ── Sum nodes (P_ref - P_meas, Q_ref - Q_meas) ───────────────
+  Modelica.Blocks.Math.Feedback sum_node_p annotation(
+    Placement(transformation(origin = {-88, 82}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Feedback sum_node_q annotation(
+    Placement(transformation(origin = {-74, 20}, extent = {{-10, -10}, {10, 10}})));
+
+  // ── PI controllers (green path, default) ─────────────────────
+  // Anti-windup PI regulators. Active when k_direct_control_* = false.
+  // Note: interaction between PI bandwidth and PLL is a known cause
+  // of low-frequency SSO (Cheng et al. 2023, third mechanism).
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupIntegral pi_controller_antiwind(Kp = Kpd, tI = 1/Kid, Y0 = y_start_outer_d, DyMax = DyMaxd, YMax = Imax) annotation(
+    Placement(transformation(origin = {-28, 82}, extent = {{-20, -20}, {20, 20}})));
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupIntegral pi_controller_antiwind1(Kp = Kpq, tI = 1/(Kiq), Y0 = -y_start_outer_q, DyMax = DyMaxq, YMax = Imax) annotation(
+    Placement(transformation(origin = {-24, 20}, extent = {{-20, -20}, {20, 20}})));
+
+  // ── Direct path (orange path) ─────────────────────────────────
+  // Stateless feedforward: i_d_ref = P_ref / V_meas
+  //                        i_q_ref = Q_ref / V_meas
+  // Active when k_direct_control_* = true.
+  // Useful for diagnostics when PI parameters are unknown or mistuned.
+  Modelica.Blocks.Math.Division division1 annotation(
+    Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Division division annotation(
+    Placement(transformation(origin = {-50, -36}, extent = {{-10, -10}, {10, 10}})));
+
+  // ── Mode switches ─────────────────────────────────────────────
+  // Modelica Switch: output = u1 if u2 is TRUE, else u3.
+  // u3 = direct path (orange), u1 = PI path (green).
+  // So: k_direct_control_* = false  → direct, true → PI.
+  Modelica.Blocks.Logical.Switch switch1 annotation(
+    Placement(transformation(origin = {34, 74}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.Switch switch2 annotation(
+    Placement(transformation(origin = {46, 18}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = PControlFlag) annotation(
+    Placement(transformation(origin = {6, 70}, extent = {{-6, -6}, {6, 6}})));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k = QControlFlag) annotation(
+    Placement(transformation(origin = {13, 11}, extent = {{-5, -5}, {5, 5}})));
+
+  // ── Current limiter with reactive boost ──────────────────────
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, U0Pu = U_filter0, tBoost = tBoost) annotation(
+    Placement(transformation(origin = {129, 47}, extent = {{-39, -39}, {39, 39}})));
+
+  // ── Output ramp limiter on i_d_ref ────────────────────────────
+  NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DidMax, DuMin = DidMin, tS = tSid, Y0 = i_d_ref_0, y(start = i_d_ref_0)) annotation(
+    Placement(transformation(origin = {192, 62}, extent = {{-10, -10}, {10, 10}})));
+
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tPlant, y_start = PInjPu0, y(start = PInjPu0)) annotation(
+    Placement(transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = tPlant) annotation(
+    Placement(transformation(origin = {-148, 20}, extent = {{-10, -10}, {10, 10}})));
+
+
   // Initial conditions
   parameter Real PInjPu0 "Initial injected active power (pu)";
   parameter Real QInjPu0 "Initial injected reactive power (pu)";
   parameter Real U_filter0 "Initial filter voltage magnitude (pu)";
   parameter Real i_d_ref_0 "Initial d-axis current reference (pu)";
   parameter Real i_q_ref_0 "Initial q-axis current reference (pu)";
-    parameter Real T_boost
-    "Time constant of first-order filter on iq_boost (s) to delay the reactive boost response. Set 0 to disable";
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T = delay_time_plant, y_start = PInjPu0, y(start = PInjPu0)) annotation(
-    Placement(transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = delay_time_plant) annotation(
-    Placement(transformation(origin = {-148, 20}, extent = {{-10, -10}, {10, 10}})));
+
 equation
 // ── P path ───────────────────────────────────────────────────
   connect(P_meas, sum_node_p.u2) annotation(
     Line(points = {{-220, 52}, {-88, 52}, {-88, 74}}, color = {46, 194, 126}, thickness = 0.75));
-  connect(sum_node_p.y, pi_controller_antiwind.e) annotation(
+  connect(sum_node_p.y, pi_controller_antiwind.u) annotation(
     Line(points = {{-79, 82}, {-50, 82}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Q path ───────────────────────────────────────────────────
   connect(Q_meas, sum_node_q.u2) annotation(
     Line(points = {{-220, -20}, {-74, -20}, {-74, 10}, {-72, 10}, {-72, 12}, {-74, 12}}, color = {46, 194, 126}, thickness = 0.75));
-  connect(sum_node_q.y, pi_controller_antiwind1.e) annotation(
+  connect(sum_node_q.y, pi_controller_antiwind1.u) annotation(
     Line(points = {{-65, 20}, {-46, 20}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Direct path: P_ref/V (orange) ────────────────────────────
   connect(division1.u2, V_meas) annotation(
@@ -173,6 +185,7 @@ equation
     Line(points = {{-136, 20}, {-82, 20}}, color = {0, 0, 127}));
   connect(division.u1, firstOrder1.y) annotation(
     Line(points = {{-62, -30}, {-136, -30}, {-136, 20}}, color = {0, 0, 127}));
+
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-200, -200}, {200, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "PI / Direct switchable")}),

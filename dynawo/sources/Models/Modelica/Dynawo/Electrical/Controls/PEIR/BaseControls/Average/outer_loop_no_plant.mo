@@ -26,7 +26,7 @@ model outer_loop_no_plant
     Placement(transformation(origin = {-220, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-93, 219}, extent = {{-13, -13}, {13, 13}}, rotation = -90)));
   // ── Plant communication delay ─────────────────────────────────
   // Models the delay between the plant-level controller and this outer loop.
-  // A first-order filter with time constant delay_time_plant is used.
+  // A first-order filter with time constant tPlant is used.
   // ── Sum nodes (P_ref - P_meas, U_ref - Q_meas) ───────────────
   Modelica.Blocks.Math.Feedback sum_node_p annotation(
     Placement(transformation(origin = {-88, 82}, extent = {{-10, -10}, {10, 10}})));
@@ -36,9 +36,9 @@ model outer_loop_no_plant
   // Anti-windup PI regulators. Active when k_direct_control_* = false.
   // Note: interaction between PI bandwidth and PLL is a known cause
   // of low-frequency SSO (Cheng et al. 2023, third mechanism).
-  Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller_antiwind pi_controller_antiwind(k_p = k_p_d, tI = 1/k_i_d, y_start = y_start_outer_d, DyMax = DyMax_pi_d, YMax = Imax) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupIntegral pi_controller_antiwind(Kp = Kpd, tI = 1/Kid, Y0 = y_start_outer_d, DyMax = DyMaxd, YMax = Imax) annotation(
     Placement(transformation(origin = {-28, 82}, extent = {{-20, -20}, {20, 20}})));
-  Controls.PEIR.BaseControls.Average.BaseClasses.pi_controller_antiwind pi_controller_antiwind1(k_p = k_p_q, tI = 1/(k_i_q), y_start = -y_start_outer_q, DyMax = DyMax_pi_q, YMax = Imax) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindupIntegral pi_controller_antiwind1(Kp = Kpq, tI = 1/(Kiq), Y0 = -y_start_outer_q, DyMax = DyMaxq, YMax = Imax) annotation(
     Placement(transformation(origin = {-24, 20}, extent = {{-20, -20}, {20, 20}})));
   // ── Direct path (orange path) ─────────────────────────────────
   // Stateless feedforward: i_d_ref = P_ref / V_meas
@@ -53,13 +53,13 @@ model outer_loop_no_plant
   // So: k_direct_control_* = false  → direct, true → PI.
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(transformation(origin = {34, 74}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = k_direct_control_p) annotation(
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = PControlFlag) annotation(
     Placement(transformation(origin = {6, 70}, extent = {{-6, -6}, {6, 6}})));
   // ── Current limiter with reactive boost ──────────────────────
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, U0Pu = U_filter0, T_boost = T_boost) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.current_limiter_reactive_boost current_limiter_outer_loop(Imax = Imax, PQFlag = PQFlag, UboostHigh = UboostHigh, UboostLow = UboostLow, Kqv = Kqv, IqBoostMax = IqBoostMax, IqBoostMin = IqBoostMin, U0Pu = U_filter0, tBoost = tBoost) annotation(
     Placement(transformation(origin = {129, 47}, extent = {{-39, -39}, {39, 39}})));
   // ── Output ramp limiter on i_d_ref ────────────────────────────
-  NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DuMax_idref, DuMin = DuMin_idref, tS = tS_idref, Y0 = i_d_ref_0, y(start = i_d_ref_0)) annotation(
+  NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DidMax, DuMin = DidMin, tS = tSid, Y0 = i_d_ref_0, y(start = i_d_ref_0)) annotation(
     Placement(transformation(origin = {192, 62}, extent = {{-10, -10}, {10, 10}})));
   // ── Outputs ──────────────────────────────────────────────────
   Modelica.Blocks.Interfaces.RealOutput i_d_ref(start = i_d_ref_0) annotation(
@@ -68,17 +68,17 @@ model outer_loop_no_plant
     Placement(transformation(origin = {210, 32}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {225, -23}, extent = {{-15, -15}, {15, 15}})));
   // ── Parameters ───────────────────────────────────────────────
   // Control mode selection
-  parameter Boolean k_direct_control_p = false "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
-  parameter Boolean k_direct_control_q = false "true: bypass Q PI, use i_q_ref = U_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean PControlFlag "true: bypass P PI, use i_d_ref = P_ref/V_meas | false: use PI regulator (default)";
+  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = U_ref/V_meas | false: use PI regulator (default)";
   // PI tuning — d axis (active power)
-  parameter Real k_p_d "Proportional gain of d-axis PI (pu)";
-  parameter Real k_i_d "Integral gain of d-axis PI (pu/s)";
-  parameter Real DyMax_pi_d "Max rate of change of d-axis PI output (pu/s)";
+  parameter Real Kpd "Proportional gain of d-axis PI (pu)";
+  parameter Real Kid "Integral gain of d-axis PI (pu/s)";
+  parameter Real DyMaxd "Max rate of change of d-axis PI output (pu/s)";
   parameter Real y_start_outer_d "Initial output of d-axis PI (pu)";
   // PI tuning — q axis (reactive power)
-  parameter Real k_p_q "Proportional gain of q-axis PI (pu)";
-  parameter Real k_i_q "Integral gain of q-axis PI (pu/s)";
-  parameter Real DyMax_pi_q "Max rate of change of q-axis PI output (pu/s)";
+  parameter Real Kpq "Proportional gain of q-axis PI (pu)";
+  parameter Real Kiq "Integral gain of q-axis PI (pu/s)";
+  parameter Real DyMaxq "Max rate of change of q-axis PI output (pu/s)";
   parameter Real y_start_outer_q "Initial output of q-axis PI (pu)";
   // Current limiter
   parameter Real Imax "Maximum total current magnitude (pu)";
@@ -89,25 +89,25 @@ model outer_loop_no_plant
   parameter Real IqBoostMax "Maximum reactive current boost (pu)";
   parameter Real IqBoostMin "Minimum reactive current boost (pu)";
   // Output ramp limiter on i_d_ref
-  parameter Real DuMax_idref "Max rate of change of i_d_ref (pu/s)";
-  parameter Real DuMin_idref "Min rate of change of i_d_ref (pu/s)";
-  parameter Real tS_idref "Sample time of i_d_ref ramp limiter (s)";
+  parameter Real DidMax "Max rate of change of i_d_ref (pu/s)";
+  parameter Real DidMin "Min rate of change of i_d_ref (pu/s)";
+  parameter Real tSid "Sample time of i_d_ref ramp limiter (s)";
   // Initial conditions
   parameter Real PInjPu0 "Initial injected active power (pu)";
   parameter Real QInjPu0 "Initial injected reactive power (pu)";
   parameter Real U_filter0 "Initial filter voltage magnitude (pu)";
   parameter Real i_d_ref_0 "Initial d-axis current reference (pu)";
   parameter Real i_q_ref_0 "Initial q-axis current reference (pu)";
-    parameter Real T_boost
+    parameter Real tBoost
     "Time constant of first-order filter on iq_boost (s) to delay the reactive boost response. Set 0 to disable";
 equation
 // ── P path ───────────────────────────────────────────────────
   connect(P_meas, sum_node_p.u2) annotation(
     Line(points = {{-220, 52}, {-88, 52}, {-88, 74}}, color = {46, 194, 126}, thickness = 0.75));
-  connect(sum_node_p.y, pi_controller_antiwind.e) annotation(
+  connect(sum_node_p.y, pi_controller_antiwind.u) annotation(
     Line(points = {{-79, 82}, {-50, 82}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Q path ───────────────────────────────────────────────────
-  connect(sum_node_q.y, pi_controller_antiwind1.e) annotation(
+  connect(sum_node_q.y, pi_controller_antiwind1.u) annotation(
     Line(points = {{-65, 20}, {-46, 20}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Direct path: P_ref/V (orange) ────────────────────────────
   connect(division1.u2, V_meas) annotation(
