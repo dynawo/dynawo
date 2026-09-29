@@ -15,7 +15,6 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops;
 
 model DynCurrentLoop "Current loop control for grid forming and grid following converters"
 
-  parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LFilterPu "Filter inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit Kfd "Feedforward gain on the d-axis";
   parameter Types.PerUnit Kfq  "Feedforward gain on the q-axis";

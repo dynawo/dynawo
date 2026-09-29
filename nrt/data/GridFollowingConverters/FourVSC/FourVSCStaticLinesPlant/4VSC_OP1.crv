@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!--Curves for scenario-->
+  <curve model="NETWORK" variable="_BUS__A_TN_Upu"/>
+  <curve model="NETWORK" variable="_BUS__B_TN_Upu"/>
+  <curve model="NETWORK" variable="_BUS__A2_TN_Upu"/>
+  <curve model="NETWORK" variable="_BUS__B2_TN_Upu"/>
+  <curve model="NETWORK" variable="_BUS__C_TN_Upu"/>
+  <curve model="NETWORK" variable="_BUS__E_TN_Upu"/>
+  <curve model="NETWORK" variable="_BUS__F_TN_Upu"/>
+  <curve model="GFLVSC_WP1" variable="GFL_plantController_PInjRefPu"/>
+  <curve model="GFLVSC_WP1" variable="GFL_plantController_QInjRefPu"/>
+  <curve model="GFLVSC_WP2" variable="GFL_plantController_PInjRefPu"/>
+  <curve model="GFLVSC_WP2" variable="GFL_plantController_QInjRefPu"/>
+  <curve model="GFLVSC_HVDC1" variable="GFL_plantController_PInjRefPu"/>
+  <curve model="GFLVSC_HVDC1" variable="GFL_plantController_QInjRefPu"/>
+  <curve model="GFLVSC_HVDC2" variable="GFL_plantController_PInjRefPu"/>
+  <curve model="GFLVSC_HVDC2" variable="GFL_plantController_QInjRefPu"/>
+  <curve model="GFLVSC_WP1" variable="GFL_plantController_PRefPu"/>
+  <curve model="GFLVSC_WP1" variable="GFL_plantController_PRegFilteredPu"/>
+  <curve model="GFLVSC_WP1" variable="GFL_plantController_URefPu"/>
+  <curve model="GFLVSC_WP1" variable="GFL_plantController_QRegFilteredPu"/>
+  <curve model="GFLVSC_WP1" variable="GFL_plantController_URegFilteredPu"/>
+  <curve model="GFLVSC_WP2" variable="GFL_plantController_PRefPu"/>
+  <curve model="GFLVSC_WP2" variable="GFL_plantController_PRegFilteredPu"/>
+  <curve model="GFLVSC_WP2" variable="GFL_plantController_URefPu"/>
+  <curve model="GFLVSC_WP2" variable="GFL_plantController_QRegFilteredPu"/>
+  <curve model="GFLVSC_WP2" variable="GFL_plantController_URegFilteredPu"/>
+  <curve model="GFLVSC_HVDC1" variable="GFL_plantController_PRefPu"/>
+  <curve model="GFLVSC_HVDC1" variable="GFL_plantController_PRegFilteredPu"/>
+  <curve model="GFLVSC_HVDC1" variable="GFL_plantController_URefPu"/>
+  <curve model="GFLVSC_HVDC1" variable="GFL_plantController_QRegFilteredPu"/>
+  <curve model="GFLVSC_HVDC1" variable="GFL_plantController_URegFilteredPu"/>
+  <curve model="GFLVSC_HVDC2" variable="GFL_plantController_PRefPu"/>
+  <curve model="GFLVSC_HVDC2" variable="GFL_plantController_PRegFilteredPu"/>
+  <curve model="GFLVSC_HVDC2" variable="GFL_plantController_URefPu"/>
+  <curve model="GFLVSC_HVDC2" variable="GFL_plantController_QRegFilteredPu"/>
+  <curve model="GFLVSC_HVDC2" variable="GFL_plantController_URegFilteredPu"/>
+  <curve model="InfBus" variable="infiniteBus_UBus0Pu"/>
+  <curve model="InfBus" variable="infiniteBus_UPhaseBus0"/>
+</curvesInput>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!-- Terminal voltages (PCC of each converter) and infinite bus -->
+  <curve model="WP1" variable="GFL_terminal_V_re"/>
+  <curve model="WP1" variable="GFL_terminal_V_im"/>
+  <curve model="WP2" variable="GFL_terminal_V_re"/>
+  <curve model="WP2" variable="GFL_terminal_V_im"/>
+  <curve model="INF_GEN" variable="infiniteBus_terminal_V_re"/>
+  <curve model="INF_GEN" variable="infiniteBus_terminal_V_im"/>
+  <curve model="INF_GEN" variable="infiniteBus_terminal_i_re"/>
+  <curve model="INF_GEN" variable="infiniteBus_terminal_i_im"/>
+  <!-- Converter 1 -->
+  <curve model="WP1" variable="GFL_measurementBlock_PPccFilteredPu"/>
+  <curve model="WP1" variable="GFL_measurementBlock_QPccFilteredPu"/>
+  <curve model="WP1" variable="GFL_measurementBlock_UPccFilteredPu"/>
+  <curve model="WP1" variable="GFL_measurementBlock_PLVFilteredPu"/>
+  <curve model="WP1" variable="GFL_measurementBlock_QLVFilteredPu"/>
+  <curve model="WP1" variable="GFL_plantController_PInjRefPu"/>
+  <curve model="WP1" variable="GFL_plantController_QInjRefPu"/>
+  <curve model="WP1" variable="GFL_gFLControl_omegaPLLPu"/>
+  <curve model="WP1" variable="GFL_gFLControl_OuterLoop_GFL_idConvRefPu"/>
+  <curve model="WP1" variable="GFL_gFLControl_OuterLoop_GFL_iqConvRefPu"/>
+  <curve model="WP1" variable="GFL_measurementBlock_idConvPu"/>
+  <curve model="WP1" variable="GFL_measurementBlock_iqConvPu"/>
+  <!-- Converter 2 -->
+  <curve model="WP2" variable="GFL_measurementBlock_PPccFilteredPu"/>
+  <curve model="WP2" variable="GFL_measurementBlock_QPccFilteredPu"/>
+  <curve model="WP2" variable="GFL_measurementBlock_UPccFilteredPu"/>
+  <curve model="WP2" variable="GFL_measurementBlock_PLVFilteredPu"/>
+  <curve model="WP2" variable="GFL_measurementBlock_QLVFilteredPu"/>
+  <curve model="WP2" variable="GFL_plantController_PInjRefPu"/>
+  <curve model="WP2" variable="GFL_plantController_QInjRefPu"/>
+  <curve model="WP2" variable="GFL_gFLControl_omegaPLLPu"/>
+  <curve model="WP2" variable="GFL_gFLControl_OuterLoop_GFL_idConvRefPu"/>
+  <curve model="WP2" variable="GFL_gFLControl_OuterLoop_GFL_iqConvRefPu"/>
+  <curve model="WP2" variable="GFL_measurementBlock_idConvPu"/>
+  <curve model="WP2" variable="GFL_measurementBlock_iqConvPu"/>
+</curvesInput>
