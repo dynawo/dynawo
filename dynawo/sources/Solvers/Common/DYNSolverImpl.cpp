@@ -19,6 +19,7 @@
  */
 #include <iostream>
 #include <iomanip>
+#include <limits>
 #include <nvector/nvector_serial.h>
 
 #include "DYNSolverImpl.h"
@@ -92,7 +93,9 @@ printReinitResiduals_(false),
 printResiduals_(false),
 multipleStrategiesForAlgebraicRestoration_(false),
 tSolve_(0.),
-startFromDump_(false) {
+startFromDump_(false),
+withLinearization_(false),
+tLinearization_(std::numeric_limits<double>::lowest()) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverContextCreationError);
 }
@@ -605,6 +608,12 @@ Solver::Impl::printEnd() const {
   Trace::info() << DYNLog(SolverNbAlgebraicJacEval, stats_.njeAlgebraic_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicPrimResEval, stats_.nreAlgebraicPrim_) << Trace::endline;
   Trace::info() << DYNLog(SolverNbAlgebraicPrimJacEval, stats_.njeAlgebraicPrim_) << Trace::endline;
+}
+
+void
+Solver::Impl::setLinearizationTime(double tLinearization) {
+  withLinearization_ = true;
+  tLinearization_ = tLinearization;
 }
 
 }  // end namespace DYN

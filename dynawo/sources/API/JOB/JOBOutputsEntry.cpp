@@ -46,6 +46,7 @@ OutputsEntry::copy(const OutputsEntry& other) {
   lostEquipmentsEntry_ = DYN::clone(other.lostEquipmentsEntry_);
   logsEntry_ = DYN::clone(other.logsEntry_);
   finalStateValuesEntry_ = DYN::clone(other.finalStateValuesEntry_);
+  linearizationEntry_ = DYN::clone(other.linearizationEntry_);
 
   finalStateEntries_.reserve(other.finalStateEntries_.size());
   for (const auto& finalStateEntry : other.finalStateEntries_)
@@ -135,6 +136,16 @@ OutputsEntry::setFinalStateValuesEntry(const std::shared_ptr<FinalStateValuesEnt
 std::shared_ptr<FinalStateValuesEntry>
 OutputsEntry::getFinalStateValuesEntry() const {
   return finalStateValuesEntry_;
+}
+
+void
+OutputsEntry::setLinearizationEntry(const std::shared_ptr<LinearizationEntry>& linearizationEntry) {
+  linearizationEntry_ = linearizationEntry;
+}
+
+std::shared_ptr<LinearizationEntry>
+OutputsEntry::getLinearizationEntry() const {
+  return linearizationEntry_;
 }
 
 void

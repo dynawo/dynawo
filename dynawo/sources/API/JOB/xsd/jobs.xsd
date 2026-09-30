@@ -117,6 +117,7 @@
       <xs:element name="finalState" type="dyn:FinalStateEntry" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="curves" type="dyn:CurvesEntry" minOccurs="0"/>
       <xs:element name="finalStateValues" type="dyn:FinalStateValuesEntry" minOccurs="0"/>
+      <xs:element name="linearization" type="dyn:LinearizationEntry" minOccurs="0"/>
       <xs:element name="lostEquipments" type="dyn:LostEquipmentsEntry" minOccurs="0"/>
       <xs:element name="logs" type="dyn:LogsEntry" minOccurs="0"/>
     </xs:sequence>
@@ -188,6 +189,10 @@
   <xs:complexType name="FinalStateValuesEntry">
     <xs:attribute name="inputFile" use="required" type="xs:string"/>
     <xs:attribute name="exportMode" use="optional" type="dyn:FinalStateValuesExportMode" default="CSV"/>
+  </xs:complexType>
+
+  <xs:complexType name="LinearizationEntry">
+    <xs:attribute name="time" use="required" type="xs:double"/>
   </xs:complexType>
 
   <xs:complexType name="LostEquipmentsEntry"/>

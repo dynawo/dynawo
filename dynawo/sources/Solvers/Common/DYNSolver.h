@@ -318,6 +318,12 @@ class Solver {
   */
   virtual bool startFromDump() const = 0;
 
+  /**
+   * @brief inform the solver that a linearization is requested
+   * @param tLinearization time of the linearization
+   */
+  virtual void setLinearizationTime(double tLinearization) = 0;
+
   class Impl;
 };
 

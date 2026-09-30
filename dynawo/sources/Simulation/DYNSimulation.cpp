@@ -100,6 +100,7 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
+#include "JOBLinearizationEntry.h"
 
 #include "DYNCompiler.h"
 #include "DYNDynamicData.h"
@@ -207,6 +208,7 @@ dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
+tLinearization_(boost::none),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -305,7 +307,14 @@ Simulation::configureSimulationOutputs() {
     configureFinalStateValueOutputs();
     configureFinalStateOutputs();
     configureLostEquipmentsOutputs();
+    configureLinearizationOutputs();
   }
+}
+
+void
+Simulation::configureLinearizationOutputs() {
+  if (jobEntry_->getOutputsEntry()->getLinearizationEntry())
+    setLinearizationTime(jobEntry_->getOutputsEntry()->getLinearizationEntry()->getTime());
 }
 
 void
@@ -860,6 +869,9 @@ Simulation::init() {
 #endif
 
   tCurrent_ = tStart_;
+  // must be done before the solver initialization as the solver uses it to stop at the linearization time
+  if (tLinearization_)
+    solver_->setLinearizationTime(*tLinearization_);
 
   model_->initSilentZ(solver_->silentZEnabled());
 
@@ -1088,6 +1100,11 @@ Simulation::simulate() {
       ++currentIterNb;
 
       model_->notifyTimeStep();
+
+      if (tLinearization_ && doubleEquals(tCurrent_, *tLinearization_)) {
+        Trace::info() << DYNLog(Linearization, tCurrent_) << Trace::endline;
+        model_->evalLinearization(tCurrent_, outputsDirectory_);
+      }
 
       if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {
         // In case it was not already done beause of check criteria and intermediate state dump will be done at least one for current

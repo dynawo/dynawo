@@ -145,6 +145,23 @@ class SparseMatrix {
   void printToFile(bool sparse = false) const;
 
   /**
+   * @brief print all the values stored in the matrix in a file
+   *
+   * @param sparse @b true if the matrix should be printed with a sparse pattern
+   * @param directory directory where the file is created
+   * @param fileName name of the file
+   */
+  void printToFile(bool sparse, const std::string& directory, const std::string& fileName) const;
+
+  /**
+   * @brief print the compressed column storage arrays (Ap, Ai, Ax) of the matrix, one file per array
+   *
+   * @param directory directory where the files are created
+   * @param prefix prefix of the files names, files are named prefix_Ap.txt, prefix_Ai.txt and prefix_Ax.txt
+   */
+  void printToFileApAiAx(const std::string& directory, const std::string& prefix) const;
+
+  /**
    * @brief erase some rows and columns in the matrix and returns a new matrix
    *
    * @param rows rows to erase

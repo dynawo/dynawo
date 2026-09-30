@@ -328,6 +328,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   }
 
   /**
+   * @copydoc Solver::setLinearizationTime
+   */
+  void setLinearizationTime(double tLinearization) override;
+
+  /**
   * @brief printResiduals getter
   *
   * @return printResiduals value
@@ -408,6 +413,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   BitMask state_;  ///< current state value of the solver
 
   bool startFromDump_;  ///< is solver starting from dump
+
+  bool withLinearization_;  ///< whether a linearization is requested
+  double tLinearization_;  ///< time of the linearization
 };
 
 }  // end of namespace DYN
