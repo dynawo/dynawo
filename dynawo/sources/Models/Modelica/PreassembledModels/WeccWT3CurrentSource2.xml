@@ -14,5 +14,9 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="WeccWT3CurrentSource2">
     <dyn:unitDynamicModel id="WT3" name="Dynawo.Electrical.Wind.WECC.WT3CurrentSource2" initName="Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT"/>
+    <dyn:unitDynamicModel id="lhvrt" name="Dynawo.Electrical.Controls.Machines.Protections.LHVRT" initName="Dynawo.Electrical.Controls.Machines.Protections.LHVRT_INIT"/>
+    <dyn:initConnect id1="WT3" var1="UConv0Pu" id2="lhvrt" var2="UMonitored0Pu"/>
+    <dyn:connect id1="WT3" var1="UConvPu" id2="lhvrt" var2="UMonitoredPu"/>
+    <dyn:connect id1="lhvrt" var1="fOCB" id2="WT3" var2="injector.switchOffSignal3"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

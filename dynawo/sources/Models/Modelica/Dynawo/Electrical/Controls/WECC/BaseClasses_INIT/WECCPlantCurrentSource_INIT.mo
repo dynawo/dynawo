@@ -67,6 +67,7 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
   Types.ComplexPerUnit sPcc0Pu "Start value of complex apparent power at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
     Dialog(enable = not PPCLocal));
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
+  Types.VoltageModulePu UControl0Pu "Initial voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)";
   Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
   Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
@@ -114,6 +115,7 @@ equation
   Iq0Pu = Modelica.Math.sin(UPhaseConv0)*iInj0Pu.re - Modelica.Math.cos(UPhaseConv0)*iInj0Pu.im;
   omegaRefWTGQPu0 = combiTable1D.y[1];
   Pm0Pu = PConv0Pu;
+  UControl0Pu = ComplexMath.'abs'(if PPCLocal then u0Pu else uPcc0Pu);
 
   connect(realExpression.y, combiTable1D.u[1]) annotation(
     Line(points = {{-48, 0}, {-12, 0}}, color = {0, 0, 127}));

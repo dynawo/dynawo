@@ -178,6 +178,7 @@
   <mandatoryParameter name="U0Pu" type="DOUBLE"/>
   <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UControl0Pu" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="SNom" type="DOUBLE"/>
@@ -186,6 +187,7 @@
   <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
   <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="TablesOnFile" type="BOOL"/>
   <mandatoryParameter name="TabletUoverUfilt" type="STRING"/>
   <mandatoryParameter name="TabletUunderUfilt" type="STRING"/>
   <mandatoryParameter name="tLagAction" type="DOUBLE"/>

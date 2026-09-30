@@ -12,6 +12,6 @@ within Dynawo.Examples.BESS;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-package WECC "Examples with WECC models for battery energy storage systems "
+package WECC "Examples with WECC models for battery energy storage systems"
   extends Icons.Package;
 end WECC;
