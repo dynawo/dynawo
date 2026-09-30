@@ -13,21 +13,16 @@
 
 from content.Ticket import ticket
 
-# WECC models : adding the HVRT and LVRT parameters
+# WECC models : adding the LHVRT parameters
 @ticket(4202)
 def update(jobs):
     weccs = jobs.dyds.get_bbms(lambda bbm: "Wecc" in bbm.get_lib_name())
     for wecc in weccs:
-        if "Photovoltaics" in wecc:
-            instance = "photovoltaics"
-        elif "WT3" in wecc:
-            instance = "WT3"
-        else:
-            instance = str(wecc.split("Wecc")[0])
-        wecc.parset.add_param("STRING", instance + "_TablesFile", "LHVRT.txt")
-        wecc.parset.add_param("STRING", instance + "_TabletUoverUfilt", "hvrt")
-        wecc.parset.add_param("STRING", instance + "_TabletUunderUfilt", "lvrt")
-        wecc.parset.add_param("DOUBLE", instance + "_tLagAction", 0.05)
-        wecc.parset.add_param("DOUBLE", instance + "_tUFilt", 0.01)
-        wecc.parset.add_param("DOUBLE", instance + "_UOverPu", 1.5)
-        wecc.parset.add_param("DOUBLE", instance + "_UUnderPu", 0.5)
+        wecc.parset.add_param("STRING", "lhvrt_TablesFile", "LHVRT.txt")
+        wecc.parset.add_param("BOOL", "lhvrt_TablesOnFile", true)
+        wecc.parset.add_param("STRING", "lhvrt_TabletUoverUfilt", "hvrt")
+        wecc.parset.add_param("STRING", "lhvrt_TabletUunderUfilt", "lvrt")
+        wecc.parset.add_param("DOUBLE", "lhvrt_tLagAction", 0.05)
+        wecc.parset.add_param("DOUBLE", "lhvrt_tUFilt", 0.01)
+        wecc.parset.add_param("DOUBLE", "lhvrt_UOverPu", 1.5)
+        wecc.parset.add_param("DOUBLE", "lhvrt_UUnderPu", 0.5)

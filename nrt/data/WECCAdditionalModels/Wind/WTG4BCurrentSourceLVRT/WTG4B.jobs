@@ -12,10 +12,10 @@
     of simulation tools for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="WECCWTG4B">
-        <solver lib="dynawo_SolverIDA" parFile="WECCWTG4B.par" parId="Solver"/>
+    <job name="WTG4B">
+        <solver lib="dynawo_SolverIDA" parFile="WTG4B.par" parId="Solver"/>
         <modeler compileDir="outputs/compilation">
-            <dynModels dydFile="WECCWTG4B.dyd"/>
+            <dynModels dydFile="WTG4B.dyd"/>
             <precompiledModels useStandardModels="true"/>
             <modelicaModels useStandardModels="true">
               <directory path="." recursive="false"/>
@@ -24,7 +24,7 @@
         <simulation startTime="0" stopTime="20"/>
         <outputs directory="outputs">
             <timeline exportMode="XML"/>
-            <curves inputFile="WECCWTG4B.crv" exportMode="CSV"/>
+            <curves inputFile="WTG4B.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
               </logs>
