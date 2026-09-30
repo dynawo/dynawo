@@ -246,6 +246,9 @@ model TestCase "Nordic test system case with variable reference frequency"
   Dynawo.Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
 
 equation
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
+
   check_UPu_bus_1041 = ComplexMath.'abs'(bus_1041.terminal.V);
   check_UPu_bus_1042 = ComplexMath.'abs'(bus_1042.terminal.V);
   check_UPu_bus_4012 = ComplexMath.'abs'(bus_4012.terminal.V);

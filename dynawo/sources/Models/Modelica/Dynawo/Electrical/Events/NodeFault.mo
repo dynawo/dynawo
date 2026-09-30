@@ -18,6 +18,7 @@ model NodeFault "Node fault which lasts from tBegin to tEnd"
   */
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffLine;
 
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {2, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -40,7 +41,7 @@ equation
     nodeFault = true;
   end when;
 
-  if nodeFault then
+  if nodeFault and running then
     terminal.V = ZPu * terminal.i;
   else
     terminal.i = Complex(0);

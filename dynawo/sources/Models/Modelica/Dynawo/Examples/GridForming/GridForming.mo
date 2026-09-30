@@ -517,6 +517,9 @@ equation
   Load.deltaP = 0;
   Load.deltaQ = 0;
 
+  Fault.switchOffSignal1 = false;
+  Fault.switchOffSignal2 = false;
+
   connect(Droop.theta, Conv250.theta) annotation(
     Line(points = {{-91.25, 88.5}, {-78.25, 88.5}}, color = {0, 0, 127}));
   connect(Droop.udConvRefPu, Conv250.udConvRefPu) annotation(

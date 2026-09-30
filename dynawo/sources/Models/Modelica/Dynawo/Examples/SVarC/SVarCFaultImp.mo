@@ -30,6 +30,9 @@ model SVarCFaultImp
     Placement(visible = true, transformation(origin = {0, 42}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
 equation
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
+
   connect(URef.y, sVarCStandard.URef) annotation(
     Line(points = {{-99, 60}, {-80, 60}, {-80, 40}, {-56, 40}}, color = {0, 0, 127}));
   connect(selectMode.y, sVarCStandard.selectModeAuto) annotation(
