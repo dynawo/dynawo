@@ -182,6 +182,7 @@
   <mandatoryParameter name="U0Pu" type="DOUBLE"/>
   <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="UControl0Pu" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="SNom" type="DOUBLE"/>

@@ -29,20 +29,11 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  // HVRT and LVRT parameters
-  parameter String TablesFile "Text file that contains the tables for the functions";
-  parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for overvoltage";
-  parameter String TabletUunderUfilt "Disconnection time versus over voltage lookup table for undervoltage";
-  parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
-  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
-  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
-
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-190, 58}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
-    Placement(visible = true, transformation(origin = {-79, 120}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {-190, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power at optimal pitch angle in pu (base SNom)" annotation(
     Placement(transformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
@@ -251,12 +242,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Protections.HVRT hvrt(UOverPu = UOverPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUoverUfilt = TabletUoverUfilt, U0Pu = UConv0Pu) annotation(
-    Placement(transformation(origin = {-35, 85}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Protections.LVRT lvrt(UUnderPu = UUnderPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUunderUfilt = TabletUunderUfilt, U0Pu = UConv0Pu) annotation(
-    Placement(transformation(origin = {-35, 71}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar annotation(
-    Placement(transformation(origin = {-35, 49}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -272,8 +257,6 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
-  injector.switchOffSignal3 = hvrt.fOCB or lvrt.fOCB;
-
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
@@ -325,7 +308,7 @@ equation
   connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-79, 120}, {-79, 11}}, color = {0, 0, 127}));
+    Line(points = {{-190, 100}, {-79, 100}, {-79, 11}}, color = {0, 0, 127}));
   connect(wecc_repc.iPu, i.y) annotation(
     Line(points = {{-129, 11}, {-129, 93}, {-20, 93}}, color = {85, 170, 255}));
   connect(wecc_repc.uPu, u.y) annotation(
@@ -356,12 +339,6 @@ equation
     Line(points = {{-69, -9}, {-60, -9}, {-60, -62}, {-38, -62}}, color = {0, 0, 127}));
   connect(wecc_wtgq.omegaRefWTGQPu, wecc_wtgp.omegaRefWTGQPu) annotation(
     Line(points = {{-70, -50}, {-38, -50}}, color = {0, 0, 127}));
-  connect(u.y, complexToPolar.u) annotation(
-    Line(points = {{-20, 63}, {-24, 63}, {-24, 49}, {-29, 49}}, color = {85, 170, 255}));
-  connect(complexToPolar.len, lvrt.UMonitoredPu) annotation(
-    Line(points = {{-41, 52}, {-50, 52}, {-50, 70}, {-40, 70}}, color = {0, 0, 127}));
-  connect(complexToPolar.len, hvrt.UMonitoredPu) annotation(
-    Line(points = {{-41, 52}, {-50, 52}, {-50, 84}, {-40, 84}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
@@ -371,5 +348,5 @@ equation
     </figure>
     &nbsp;</span></div> </body></html>"),
     Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 110}})));
+    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 120}})));
 end WTG3CurrentSource2;

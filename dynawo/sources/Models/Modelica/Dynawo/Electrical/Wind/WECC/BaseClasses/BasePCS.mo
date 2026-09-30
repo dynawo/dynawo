@@ -28,6 +28,10 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(im(start = uPcc0Pu.im), re(start = uPcc0Pu.re)) "Complex voltage at PPC regulated bus in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {140, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(extent = {{120, 60}, {100, 80}}, rotation = 0)));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UControlPu(start = UControl0Pu) "Voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)" annotation(
+    Placement(transformation(origin = {-37, 130}, extent = {{10, -10}, {-10, 10}}, rotation = -90), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {25, 70}, extent = {{5, -5}, {-5, 5}}, rotation = 0)));
   Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal annotation(
@@ -68,23 +72,26 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Sources.ComplexExpression complexExpr(y = ComplexMath.conj(Complex(PPccPu, QPccPu)/uPccPu)) annotation(
     Placement(transformation(origin = {134, 84}, extent = {{10, -10}, {-10, 10}})));
+  Dynawo.NonElectrical.Blocks.Complex.ComplexToPolar complexToPolar annotation(
+    Placement(transformation(origin = {-40, 80}, extent = {{5, -5}, {-5, 5}}, rotation = -90)));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.ComplexCurrentPu iControl0Pu = if PPCLocal then i0Pu else iPcc0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
-  final parameter Types.ComplexCurrentPu iPcc0Pu = ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu)/uPcc0Pu) "Start value of complex current at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)";
-  parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (receptor convention) (base SnRef)";
-  final parameter Types.ActivePowerPu PControl0Pu = if PPCLocal then -P0Pu*SystemBase.SnRef/SNom else -PPcc0Pu*SystemBase.SnRef/SNom "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convetion)";
-  parameter Types.ActivePowerPu PPcc0Pu = 0 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  final parameter Types.ComplexCurrentPu iControl0Pu = if PPCLocal then i0Pu else iPcc0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal in pu (base UNom, SnRef) (receptor convention)";
+  final parameter Types.ComplexCurrentPu iPcc0Pu = ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu)/uPcc0Pu) "Start value of complex current at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) in pu (base UNom, SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power at converter terminal in pu (base SnRef) (receptor convention)";
+  final parameter Types.ActivePowerPu PControl0Pu = if PPCLocal then -P0Pu*SystemBase.SnRef/SNom else -PPcc0Pu*SystemBase.SnRef/SNom "Initial active power at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base SNom) (generator convention)";
+  parameter Types.ActivePowerPu PPcc0Pu = 0 "Initial active power at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
-  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (receptor convention) (base SnRef)";
-  final parameter Types.ReactivePowerPu QControl0Pu = if PPCLocal then -Q0Pu*SystemBase.SnRef/SNom else -QPcc0Pu*SystemBase.SnRef/SNom "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) (base SNom, generator convention)";
-  parameter Types.ReactivePowerPu QPcc0Pu = 0 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false) (receptor convention, base UNom, SnRef) (only if the PCS is defined outside of the model)" annotation(
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at converter terminal in pu (base SnRef) (receptor convention)";
+  final parameter Types.ReactivePowerPu QControl0Pu = if PPCLocal then -Q0Pu*SystemBase.SnRef/SNom else -QPcc0Pu*SystemBase.SnRef/SNom "Initial reactive power at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu QPcc0Pu = 0 "Initial reactive power at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
-  final parameter Types.ComplexVoltagePu uControl0Pu = if PPCLocal then u0Pu else uPcc0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
-  parameter Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)" annotation(
+  parameter Types.VoltageModulePu UControl0Pu "Initial voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)";
+  final parameter Types.ComplexVoltagePu uControl0Pu = if PPCLocal then u0Pu else uPcc0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal in pu (base UNom)";
+  parameter Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) in pu (base UNom)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.VoltageModulePu UPcc0Pu = 1 "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
@@ -149,6 +156,10 @@ equation
     Line(points = {{100, 0}, {110, 0}}, color = {0, 0, 255}));
   connect(complexExpr.y, complexToReal1.u) annotation(
     Line(points = {{123, 84}, {106, 84}}, color = {85, 170, 255}));
+  connect(u.y, complexToPolar.u) annotation(
+    Line(points = {{-20, 63}, {-40, 63}, {-40, 74}, {-40, 74}}, color = {85, 170, 255}));
+  connect(complexToPolar.len, UControlPu) annotation(
+    Line(points = {{-37, 86}, {-37, 130}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram");
 end BasePCS;

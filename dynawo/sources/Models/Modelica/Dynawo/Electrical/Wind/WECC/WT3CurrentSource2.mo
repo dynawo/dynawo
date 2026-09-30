@@ -28,15 +28,6 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  // HVRT and LVRT parameters
-  parameter String TablesFile "Text file that contains the tables for the functions";
-  parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for overvoltage";
-  parameter String TabletUunderUfilt "Disconnection time versus over voltage lookup table for undervoltage";
-  parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
-  parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
-  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
-  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
-
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
@@ -51,6 +42,10 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
     Placement(transformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
 
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(
     Kip = Kip,
@@ -213,10 +208,6 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
     Placement(transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
     Placement(transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}})));
-  Dynawo.Electrical.Controls.Machines.Protections.HVRT hvrt(UOverPu = UOverPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUoverUfilt = TabletUoverUfilt, U0Pu = UConv0Pu) annotation(
-    Placement(transformation(origin = {125, -19}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Machines.Protections.LVRT lvrt(UUnderPu = UUnderPu, tLagAction = tLagAction, tUFilt = tUFilt, TablesFile = TablesFile, TabletUunderUfilt = TabletUunderUfilt, U0Pu = UConv0Pu) annotation(
-    Placement(transformation(origin = {125, -39}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -232,8 +223,6 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
-  injector.switchOffSignal3 = hvrt.fOCB or lvrt.fOCB;
-
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_wtgt.omegaGPu, wecc_wtgq.omegaGPu) annotation(
@@ -298,14 +287,12 @@ equation
     Line(points = {{-68, 0}, {-64, 0}, {-64, -40}, {-79, -40}, {-79, -44}}, color = {255, 0, 255}));
   connect(PConvRefPu, wecc_wtgq.PRef0Pu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-100, 6}, {-100, -50}, {-92, -50}}, color = {0, 0, 127}));
-  connect(LvMeasurements.UPu, hvrt.UMonitoredPu) annotation(
-    Line(points = {{60, -6}, {60, -20}, {120, -20}}, color = {0, 0, 127}));
-  connect(LvMeasurements.UPu, lvrt.UMonitoredPu) annotation(
-    Line(points = {{60, -6}, {62, -6}, {62, -20}, {110, -20}, {110, -40}, {120, -40}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -20}, {110, -20}, {110, -40}, {120, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WT model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model WT3CurrentSource1 is the change of the pitch controller model, this one offers more flexibility with the limits of the integrators.</font></div></body></html>"),
     Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WT 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 110}})));
+    Diagram(coordinateSystem(extent = {{-180, -100}, {120, 110}})));
 end WT3CurrentSource2;
