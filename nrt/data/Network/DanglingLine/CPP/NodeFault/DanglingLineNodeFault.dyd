@@ -17,4 +17,5 @@
   <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="NETWORK" var2="@InfiniteBus@@NODE@_ACPIN"/>
   <!-- fault on the network bus where the dangling line is connected -->
   <dyn:connect id1="NodeFault" var1="fault_terminal" id2="NETWORK" var2="VL2_BUS1_ACPIN"/>
+  <dyn:connect id1="NodeFault" var1="fault_switchOffSignal1" id2="NETWORK" var2="VL2_BUS1_switchOff"/>
 </dyn:dynamicModelsArchitecture>
