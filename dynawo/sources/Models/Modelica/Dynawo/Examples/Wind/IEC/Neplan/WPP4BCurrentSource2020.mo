@@ -251,6 +251,10 @@ equation
   wPP4BCurrentSource.switchOffSignal1 = false;
   wPP4BCurrentSource.switchOffSignal2 = false;
   wPP4BCurrentSource.switchOffSignal3 = false;
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
+  nodeFault1.switchOffSignal1 = false;
+  nodeFault1.switchOffSignal2 = false;
 
   connect(wPP4BCurrentSource.terminal, transformer.terminal1) annotation(
     Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));

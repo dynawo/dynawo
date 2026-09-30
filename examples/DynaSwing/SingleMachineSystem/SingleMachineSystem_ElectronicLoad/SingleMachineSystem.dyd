@@ -25,6 +25,7 @@
   <dyn:connect id1="LOAD" var1="load_switchOffSignal1" id2="NETWORK" var2="NLOAD_switchOff"/>
   <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="SingleMachineSystem.par" parId="Fault"/>
   <dyn:connect id1="Fault" var1="fault_terminal" id2="NETWORK" var2="NHV2_ACPIN"/>
+  <dyn:connect id1="Fault" var1="fault_switchOffSignal1" id2="NETWORK" var2="NHV2_switchOff"/>
   <dyn:blackBoxModel id="ElectronicLoad" lib="ElectronicLoad" parFile="SingleMachineSystem.par" parId="ElectronicLoad" staticId="ElectronicLoad"/>
   <dyn:connect id1="ElectronicLoad" var1="load_terminal" id2="NETWORK" var2="NLOAD_ACPIN"/>
   <dyn:connect id1="ElectronicLoad" var1="load_switchOffSignal1" id2="NETWORK" var2="NLOAD_switchOff"/>

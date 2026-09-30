@@ -185,6 +185,8 @@ equation
   HVDC.switchOffSignal21 = false;
   HVDC.switchOffSignal22 = false;
   HVDC.switchOffSignal23 = false;
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
 
   connect(HVDC.terminal2, line2.terminal1) annotation(
     Line(points = {{30, -40}, {42, -40}}, color = {0, 0, 255}));

@@ -59,6 +59,7 @@
   <!-- Events -->
   <blackBoxModel id="FAULT" lib="NodeFault" parFile="fic.PAR" parId="FAULT"/>
   <connect id1="NETWORK" var1="DDDDDP71_ACPIN" id2="FAULT" var2="fault_terminal"/>
+  <connect id1="FAULT" var1="fault_switchOffSignal1" id2="NETWORK" var2="DDDDDP71_switchOff"/>
   <!-- Macro-connectors-->
   <macroConnector id="GFMToNode">
     <connect var1="converter_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
