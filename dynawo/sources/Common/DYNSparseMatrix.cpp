@@ -158,18 +158,20 @@ SparseMatrix::free() {
 }
 
 void SparseMatrix::printToFile(bool sparse) const {
-  static fs::path folder = "tmpMat";
-  static fs::path base = folder / "mat-";
   static int nbPrint = 0;
   stringstream fileName;
-  fileName << base.string() << nbPrint << ".txt";
+  fileName << "mat-" << nbPrint << ".txt";
+  printToFile(sparse, "tmpMat", fileName.str());
+  ++nbPrint;
+}
 
-  if (!exists(folder.string())) {
-    createDirectory(folder.string());
+void SparseMatrix::printToFile(bool sparse, const std::string& directory, const std::string& fileName) const {
+  if (!exists(directory)) {
+    createDirectory(directory);
   }
 
   std::ofstream file;
-  file.open(fileName.str().c_str(), std::ofstream::out);
+  file.open((fs::path(directory) / fileName).string(), std::ofstream::out);
 
   if (!sparse) {
     std::vector< std::vector<double> > matrix;
@@ -209,8 +211,28 @@ void SparseMatrix::printToFile(bool sparse) const {
     }
   }
 
-  ++nbPrint;
   file.close();
+}
+
+void SparseMatrix::printToFileApAiAx(const std::string& directory, const std::string& prefix) const {
+  if (!exists(directory)) {
+    createDirectory(directory);
+  }
+  const fs::path folder(directory);
+
+  std::ofstream fileAp((folder / (prefix + "_Ap.txt")).string(), std::ofstream::out);
+  for (const auto value : Ap_)
+    fileAp << value << "\n";
+
+  // Ai and Ax are allocated by blocks, only the first nbTerm_ values are meaningful
+  std::ofstream fileAi((folder / (prefix + "_Ai.txt")).string(), std::ofstream::out);
+  for (int i = 0; i < nbTerm_; ++i)
+    fileAi << Ai_[i] << "\n";
+
+  std::ofstream fileAx((folder / (prefix + "_Ax.txt")).string(), std::ofstream::out);
+  fileAx << std::setprecision(16);
+  for (int i = 0; i < nbTerm_; ++i)
+    fileAx << Ax_[i] << "\n";
 }
 
 void SparseMatrix::print() const {

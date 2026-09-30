@@ -158,6 +158,14 @@ class Model {
   virtual void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) = 0;
 
   /**
+   * @brief export the linearized system (@F/@x and @F/@x') and the variables and equations description in files
+   *
+   * @param t time to use for the evaluation
+   * @param outputsDirectory outputs directory of the simulation, files are created in its linearization subdirectory
+   */
+  virtual void evalLinearization(double t, const std::string& outputsDirectory) = 0;
+
+  /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)
    *
    * @param t time to use for the evaluation

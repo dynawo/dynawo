@@ -411,6 +411,9 @@ void SolverCommonFixedTimeStep::updateTimeStep(double& tNxt) {
   hNew_ = min(hNew_, tEnd_ - (tSolve_ + hNew_));
   // tNxt is the initial time step value (corresponding to the current time step done)
   tNxt = tSolve_ + h_;
+  // make sure the next time step ends exactly on the linearization time
+  if (withLinearization_ && tNxt < tLinearization_ && tNxt + hNew_ > tLinearization_ && !doubleEquals(tNxt, tLinearization_))
+    hNew_ = tLinearization_ - tNxt;
 
   if (std::abs(tSolve_ - tNxt) < minimalAcceptableStep_) {
     ++nbLastTimeSimulated_;
