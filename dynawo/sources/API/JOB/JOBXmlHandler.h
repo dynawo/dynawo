@@ -32,6 +32,7 @@
 #include "JOBFinalValuesEntry.h"
 #include "JOBJobEntry.h"
 #include "JOBJobsCollection.h"
+#include "JOBLinearizationEntry.h"
 #include "JOBLogsEntry.h"
 #include "JOBLostEquipmentsEntry.h"
 #include "JOBModelerEntry.h"
@@ -540,6 +541,40 @@ class FinalStateValuesHandler : public xml::sax::parser::ComposableElementHandle
 };
 
 /**
+ * @class LinearizationHandler
+ * @brief Handler used to parse linearization element
+ */
+class LinearizationHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit LinearizationHandler(elementName_type const& root_element);
+
+  /**
+   * @brief Destructor
+   */
+  ~LinearizationHandler() override;
+
+  /**
+   * @brief return the linearization entry read in xml file
+   * @return linearization entry object build thanks to infos read in xml file
+   */
+  std::shared_ptr<LinearizationEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::shared_ptr<LinearizationEntry> linearization_;  ///< current linearization entry object
+};
+
+/**
  * @class LostEquipmentsHandler
  * @brief Handler used to parse lostEquipments element
  */
@@ -677,6 +712,11 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   void addFinalStateValues();
 
   /**
+   * @brief add a linearization object to the current job
+   */
+  void addLinearization();
+
+  /**
    * @brief add a lostEquipments object to the current job
    */
   void addLostEquipments();
@@ -703,6 +743,7 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   FinalStateHandler finalStateHandler_;              ///< handler used to read finalState element
   CurvesHandler curvesHandler_;                      ///< handler used to read curves element
   FinalStateValuesHandler finalStateValuesHandler_;  ///< handler used to read finalStateValues element
+  LinearizationHandler linearizationHandler_;        ///< handler used to read linearization element
   LostEquipmentsHandler lostEquipmentsHandler_;      ///< handler used to read curves element
   LogsHandler logsHandler_;                          ///< handler used to read logs element
 };

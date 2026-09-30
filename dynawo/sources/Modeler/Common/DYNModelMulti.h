@@ -110,6 +110,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) override;
 
   /**
+   * @copydoc Model::evalLinearization(double t, const std::string& outputsDirectory)
+   */
+  void evalLinearization(double t, const std::string& outputsDirectory) override;
+
+  /**
    * @copydoc Model::checkDataCoherence(const double t)
    */
   void checkDataCoherence(double t) override;

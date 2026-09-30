@@ -289,6 +289,7 @@ class SolverIDA : public Solver::Impl {
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
   algebraicRestorationReinitMode_t algebraicRestorationReinitMode_;  ///< when IDAReInit is called after a mode change
+  double tEnd_;  ///< simulation end time
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

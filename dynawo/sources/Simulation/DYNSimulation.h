@@ -441,6 +441,22 @@ class Simulation {
   }
 
   /**
+   * @brief setter of the time of the linearization
+   * @param time time at which the linearization is done
+   */
+  inline void setLinearizationTime(const double time) {
+    tLinearization_ = time;
+  }
+
+  /**
+   * @brief getter of the time of the linearization
+   * @return the time at which the linearization is done, none if no linearization is requested
+   */
+  inline const boost::optional<double>& getLinearizationTime() const {
+    return tLinearization_;
+  }
+
+  /**
    * @brief indicates if the simulation has reached the stop time
    * @return @b true if current time >= stop time, @b false otherwise
    */
@@ -755,6 +771,7 @@ class Simulation {
   bool dumpInitModelValues_;  ///< whether to export the results from the initialisation model
   bool dumpFinalValues_;  ///< whether to export the values of the models's variables and parameters at the end of the simulation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+  boost::optional<double> tLinearization_;  ///< time of the linearization, none if no linearization is requested
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 
@@ -793,6 +810,11 @@ class Simulation {
    * @brief configure the lost equipments outputs
    */
   void configureLostEquipmentsOutputs();
+
+  /**
+   * @brief configure the linearization outputs
+   */
+  void configureLinearizationOutputs();
 };
 
 }  // end of namespace DYN
