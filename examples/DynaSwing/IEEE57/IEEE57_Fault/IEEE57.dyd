@@ -190,4 +190,5 @@
   <dyn:connect id1="_LOAD___41_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_TAZE__41_TN_switchOff_value"/>
   <dyn:connect id1="_LOAD____2_EC" var1="load_switchOffSignal1" id2="NETWORK" var2="_TURN___2_TN_switchOff_value"/>
   <dyn:connect id1="NodeFault" var1="fault_terminal" id2="NETWORK" var2="_GLEN__12_TN_ACPIN"/>
+  <dyn:connect id1="NodeFault" var1="fault_switchOffSignal1" id2="NETWORK" var2="_GLEN__12_TN_switchOff_value"/>
 </dyn:dynamicModelsArchitecture>

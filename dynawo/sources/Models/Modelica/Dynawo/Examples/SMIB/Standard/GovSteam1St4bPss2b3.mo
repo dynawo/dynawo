@@ -206,6 +206,8 @@ equation
   generatorSynchronous.switchOffSignal1 = false;
   generatorSynchronous.switchOffSignal2 = false;
   generatorSynchronous.switchOffSignal3 = false;
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
 
   connect(avr.running, generatorSynchronous.running);
   connect(Omega0Pu.y, generatorSynchronous.omegaRefPu);
