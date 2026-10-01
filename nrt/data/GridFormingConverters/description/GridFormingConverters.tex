@@ -9,6 +9,9 @@
 %% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 \documentclass[a4paper, 12pt]{report}
 \input{../../../documentation/latex_setup.tex}
+\usepgfplotslibrary{fillbetween}
+\usepackage{circuitikz}
+\pgfplotsset{compat=1.18}
 \begin{document}
 \chapter*{Three-converter system with three different types of Grid Forming Converters}
 \section*{Test case description}
@@ -37,7 +40,7 @@ Three events are simulated:
 The currents in the three converters during the whole simulation are presented in Fig.~\ref{comp1}.
 \begin{figure}[H]
 \begin{center}
-  \begin{tikzpicture}[scale = 0.8]
+  \begin{tikzpicture}
     \begin{axis}[grid=major, xmin=0.47, xmax=2.1]
         \addplot[color=blue!50]
         table[x=time,y=Converter250_converter_IConvPu]
@@ -75,4 +78,167 @@ All the three controls are stable for this simulation and manage to bring back t
     \end{center}
   \caption{Frequency of the three converters with static lines\label{comp10}}
 \end{figure}
+\newpage
+
+\chapter*{Voltage Angle Step Test on Grid Forming Converters}
+\section*{Test case description}
+This test case implements a scenario from the I18 technical documentation of the French Grid (DTR Chapter 8, Article 8.3.3). The chose test case is named \texttt{S\_VolAngStep7\_OC4} and applied identically to three Grid-Forming
+converter architectures:
+\begin{itemize}
+\item \texttt{DynGFMVSM} — Virtual Synchronous Machine control with a PLL feeding the
+      Control block frequency reference; the Converter's Park frame remains
+      slaved to the internal virtual angle produced by the swing equation.
+\item \texttt{DynGFMVSMConvPLL} — same as above, with the grid-measured PLL frequency
+      (\texttt{omegaPLL}) additionally fed to the converter block for frame alignment. The reason behind this variation is to see how mirroring the grid frequency in the Converter's loop will afect performances.
+\item \texttt{DynGFMDroop} — Droop-based architecture, with no PLL in the active control chain.
+\end{itemize}
+
+\paragraph{Network and operating point}
+The converter is connected to an infinite bus (named Grid) through a static RL line sized for
+$SCR_{min} = 2$ (i.e. $x_{grid} = 0.5$~p.u. on the converter's own $S_{Nom}$ base,
+see base-conversion note below), with $x_{eff} = 0.27$~p.u.
+Operating point OC4: $P_{ref} = 0.95$ p.u., $Q_{ref} = 0$~p.u., $U_{ref}= 1$~p.u.
+All system services (voltage control, frequency regulation, LFSM-U/O) are disabled,
+according to section 6, so that only the Grid-Forming voltage-source behaviour is
+characterized. A reference circuit is shown in Figure \ref{fig:reference_network}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\fontsize{9.1pt}{11.8pt}\selectfont]
+\draw (12.625,20.5) to[sacdc] (15.375,20.5);
+\draw (15.375,20.5) to (15.375,19.5) node[ground, rotate=0]{};
+\draw (12.625,20.5) to[european resistor] (10.875,20.5);
+\draw (8.5,20.5) to[sinusoidal voltage source, sources/symbol/rotate=auto] (11.125,20.5);
+\draw (8.5,20.5) to (8.5,19.625) node[ground, rotate=0]{};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.75,19.75) {$\Delta\theta_{grid}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.75,19.875) {$x_{grid}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.875,19.625) {$x_{eff}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.75,21.375) {Grid};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.75,21.375) {Line};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (14,21.5) {GFM};
+\begin{scope}[transparency group, opacity=1]
+\node at (12.875,20.5) [circ, color={rgb,255:red,0; green,0; blue,0}] {};
+\end{scope}
+\node [font=\fontsize{9.1pt}{11.8pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (12.75,20.125) {$PGU$};
+\end{circuitikz}
+}%
+\caption{Reference Network for the I18 test}
+\label{fig:reference_network}
+\end{figure}
+
+\paragraph{Event and simulation}
+At $t = 10$s, a phase jump $\Delta\theta_{grid} = 26.47$ deg is applied to the infinite
+bus voltage representing the grid. Different simulations will be carried out with diverse solveurs and timesteps. Common features include a simulation from 0 to 25 seconds, with an event at $t=10$s. The output variables out interest are the active current $I_p$ measured at the Point of Generating Unit (PGU).
+
+\paragraph{Conformity criteria}
+The I18 technical documentation enforces regulation on the active current $I_p$ mainly trough a set of conformity envelopes and a damping at least equal to 40\% for every oscillation in $I_p$ between 0.1 and 20 Hz.
+\subsection*{Simulation setup}
+The simulation is carried out on dynawo using the IDA Solver.
+Since the test case is trivial, there is no need for a specific \textit{.iidm} file, corresponding \textit{.par, .dyd and .jobs} files can be found in the \texttt{/SMIB} directory. Initial variables of active/reactive power and module and phase of voltage are given
+as parameters. They are calculated in a separate case identical to the reference network but with no perturbation ($\Delta\theta_{grid}=0$).
+
+\subsection*{Results}
+
+Figure~\ref{fig:voltangstep1_oc4_dynawo} compares the active power response
+$P_{Filter}$ (measured at the converter's RLC filter) across the three architectures.
+Figure~\ref{fig:zoom_Ip_envelope_step7oc4} compares the active current response $I_p$ at the PGU of the GFM with corresponding conformity envelopes in dotted black. The conformity zone is shaded in gray.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=7cm,
+      grid=major,
+      xmin=9.5, xmax=13,
+      xlabel={Time [s]},
+      ylabel={Active current $P_{filter}$ [p.u.]},
+      legend pos=south east,
+      legend style={font=\small}
+    ]
+% DynGFMVSM
+\addplot[color=blue!100]
+        table[x=time,y=GFM_GFM_Control_PFilterPu]
+        {../SMIB/DynGFMVSM/outputs/curves/curves.csv};
+% DynGFMVSMConvPLL
+\addplot[color=red!100]
+        table[x=time,y=GFMConvPLL_GFMConvPLL_Control_PFilterPu]
+        {../SMIB/DynGFMVSMConvPLL/outputs/curves/curves.csv};
+% DynGFMDroop
+\addplot[color=green!100]
+        table[x=time,y=GFMDroop_GFMDroop_ControlDroop_PFilterPu]
+        {../SMIB/DynGFMDroop/outputs/curves/curves.csv};
+
+\legend{DynGFMVSM, DynGFMVSMConvPLL, DynGFMDroop}
+\end{axis}
+\end{tikzpicture}
+\caption{Active power at the GFM filter following a $26.47$ deg voltage angle step
+(S\_VolAngStep7\_OC4), for the three architectures.}
+\label{fig:voltangstep1_oc4_dynawo}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=7cm,
+      grid=major,
+      xmin=9.5, xmax=13,
+      xlabel={Time [s]},
+      ylabel={Active current $I_p$ [p.u.]},
+      legend pos=south east,
+      legend style={font=\small}
+    ]
+% DynGFMVSM
+\addplot[color=blue]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMVSM/outputs/curves/curves_final.csv};
+% DynGFMVSMConvPLL
+\addplot[color=red]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMVSMConvPLL/outputs/curves/curves_final.csv};
+% DynGFMDroop
+\addplot[color=green!60!black]
+        table[x=time,y=Ip]
+        {../SMIB/DynGFMDroop/outputs/curves/curves_final.csv};
+\addplot[name path=envUp, color=black, dashed, no marks]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip upper (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+\addplot[name path=envLow, color=black, dashed, no marks, forget plot]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip lower (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+
+\addplot[gray!20, forget plot] fill between [of=envUp and envLow];
+\legend{DynGFMVSM, DynGFMVSMConvPLL, DynGFMDroop}
+\end{axis}
+\end{tikzpicture}
+\caption{Active current at the GFM PGU following a $26.47$ deg voltage angle step
+(S\_VolAngStep7\_OC4), for the three architectures.}
+\label{fig:zoom_Ip_envelope_step7oc4}
+\end{figure}
+
+Another mandatory conformity criteria states that all detected frequency modes between 0.1 and 20 Hz must have a damping factor greater than 40\% (cf. I18 tests). Modes are evaluated through the \textit{matrix\_pencil} methodology, resulting in
+the following table.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+Model & Detected mode & Damping ratio & Verdict \\
+\hline
+\texttt{DynGFMVSM}         & 14.76~Hz & 53.3\% & PASS \\
+\texttt{DynGFMVSMConvPLL}  & 15.78~Hz & 54.3\% & PASS \\
+\texttt{DynGFMDroop}       & no mode detected  & --- & PASS \\
+\hline
+\end{tabular}
+\caption{Damping analysis (matrix pencil method, 0.1--20~Hz, common output time step
+of 0.001~s for the three models) on \texttt{S\_VolAngStep7\_OC4}.}
+\label{tab:matrix_pencil_step7oc4}
+\end{table}
+As a small note, the \textit{matrix\_pencil} workflow is done with curves from OM which are identical in resolution to those obtained with Dynawo.
+\texttt{DynGFMVSM} and \texttt{DynGFMVSMConvPLL} exhibit a similar oscillatory mode,
+both in frequency ($\sim$15~Hz) and in damping ratio ($\sim$54\%), consistent with the
+close transient behaviour observed earlier. \texttt{DynGFMDroop} shows no identifiable
+mode in this range since its response in active current does not exhibit any overshoot.
 \end{document}

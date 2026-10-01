@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<jobs xmlns="http://www.rte-france.com/dynawo">
+    <job name="VSM with Plant Control - AcGrid connection with RoCoF test">
+        <solver lib="dynawo_SolverSIM" parFile="VSMPlantControl.par" parId="SimplifiedSolver"/>
+        <!--solver lib="dynawo_SolverIDA" parFile="VSMPlantControl.par" parId="IDASolver"/-->
+        <modeler compileDir="outputs/compilation">
+            <dynModels dydFile="VSMPlantControl.dyd"/>
+            <precompiledModels useStandardModels="true"/>
+            <modelicaModels useStandardModels="true">
+              <directory path="." recursive="false"/>
+            </modelicaModels>
+        </modeler>
+        <simulation startTime="0" stopTime="25" precision="1e-4"/>
+        <outputs directory="outputs">
+            <dumpInitValues local="true" global="true" init="true"/>
+            <curves inputFile="VSMPlantControl.crv" exportMode="CSV"/>
+            <logs>
+              <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+              <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
+              <appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
+              <appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
+              <appender tag="VARIABLES" file="variables.log" lvlFilter="DEBUG"/>
+              <appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
+              </logs>
+        </outputs>
+    </job>
+</jobs>

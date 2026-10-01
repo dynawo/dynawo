@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- AcGrid -->
+  <set id="1">
+    <par type="DOUBLE" name="Grid_U0pu" value="1.0"/>
+    <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
+    <par type="DOUBLE" name="Grid_Upu" value="1"/>
+    <par type="DOUBLE" name="Grid_UPhase" value="0"/>
+    <par type="DOUBLE" name="Grid_SNom" value="1000"/>
+    <par type="DOUBLE" name="Grid_RoCoFValue" value="0.05"/>
+    <par type="DOUBLE" name="Grid_StartRoCoF" value="5"/>
+    <par type="DOUBLE" name="Grid_TimeRoCoF" value="0.5"/>
+
+  </set>
+
+  <set id="2">
+    <par type="DOUBLE" name="line_RPu" value="0.000166667"/>
+    <par type="DOUBLE" name="line_XPu" value="0.005"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+
+  <set id="3">
+    <par name="GFMCC_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <par name="GFMCC_DeltaIConvMaxPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMCC_H" type="DOUBLE" value="5"/>
+    <par name="GFMCC_IMaxVI" type="DOUBLE" value="2.0"/>
+    <par name="GFMCC_Imax" type="DOUBLE" value="1.2"/>
+    <par name="GFMCC_Imin" type="DOUBLE" value="0"/>
+    <par name="GFMCC_Kfd" type="DOUBLE" value="1"/>
+    <par name="GFMCC_Kff" type="DOUBLE" value="0.01"/>
+    <par name="GFMCC_Kfq" type="DOUBLE" value="0.8"/>
+    <par name="GFMCC_KpVI" type="DOUBLE" value="0.05"/>
+    <par name="GFMCC_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMCC_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <par name="GFMCC_Mq" type="DOUBLE" value="0.2"/>
+    <par name="GFMCC_OmegaSetPu" type="DOUBLE" value="1"/>
+    <par name="GFMCC_P0Pu" type="DOUBLE" value="-9.4437564"/>
+    <par name="GFMCC_Q0Pu" type="DOUBLE" value="1.2057502"/>
+    <par name="GFMCC_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFMCC_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="GFMCC_SNom" type="DOUBLE" value="1000"/>
+    <par name="GFMCC_U0Pu" type="DOUBLE" value="0.994330427976535"/>
+    <par name="GFMCC_UPhase0" type="DOUBLE" value="0.047688343271621"/>
+    <par name="GFMCC_W_CurrentLimit" type="DOUBLE" value="50"/>
+    <par name="GFMCC_Wf" type="DOUBLE" value="31.4159"/>
+    <par name="GFMCC_Wff" type="DOUBLE" value="60"/>
+    <par name="GFMCC_XRratio" type="DOUBLE" value="2"/>
+    <par name="GFMCC_XVI" type="DOUBLE" value="0.06"/>
+    <par name="GFMCC_kVSM" type="DOUBLE" value="650"/>
+    <par name="GFMCC_tVSC" type="DOUBLE" value="0.0004"/>
+    <par name="GFMCC_omegaNPLL" type="DOUBLE" value="100"/>
+    <par name="GFMCC_ZetaPLL" type="DOUBLE" value="1"/>
+    <par name="GFMCC_omegaC" type="DOUBLE" value="1000"/>
+    <par name="GFMCC_KDampingAngle" type="DOUBLE" value="1"/>
+  </set>
+
+  <!-- SetPointOne : reutilise pour URefPu, omegaRefPu et Grid_OmegaRef (tous = 1 dans le .mo) -->
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <!-- SetPointZero : QRefPu = 0 -->
+  <set id="5">
+    <par type="DOUBLE" name="setPoint_Value0" value="0"/>
+  </set>
+  <!-- SetPointP (NOUVEAU, necessite l'ajout du blackBoxModel correspondant dans le .dyd) :
+       PRefPu est un Step(height=0, offset=0.95) dans le .mo, donc effectivement
+       une constante a 0.95 - ne peut PAS reutiliser SetPointOne (=1). -->
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.95"/>
+  </set>
+
+  <set id="IDASolver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.00001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+  </set>
+
+  <set id="SimplifiedSolver">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="0.001"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+  </set>
+</parametersSet>

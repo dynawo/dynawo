@@ -184,7 +184,7 @@ equation
     Line(points = {{-18, 80}, {110, 80}, {110, 70}, {130, 70}}, color = {0, 0, 127}));
 
   annotation(
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -150}, {120, 150}})),
     preferredView = "diagram",
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -150}, {120, 150}})),
     Icon(coordinateSystem(grid = {1, 1})));
 end GridFormingControlDroopControl;

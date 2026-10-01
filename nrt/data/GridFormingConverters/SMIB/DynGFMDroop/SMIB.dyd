@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+   <dyn:blackBoxModel id="busInf" lib="InfiniteBusWithVariationsPhaseJump" parFile="SMIB.par" parId="1"/>
+  <dyn:blackBoxModel id="line" lib="Line" parFile="SMIB.par" parId="2"/>
+  <dyn:blackBoxModel id="GFMDroop" lib="DynGridFormingDroop" parFile="SMIB.par" parId="3"/>
+  <dyn:blackBoxModel id="PFilterRef" lib="SetPoint" parFile="SMIB.par" parId="5"/>
+  <dyn:blackBoxModel id="QFilterRef" lib="SetPoint" parFile="SMIB.par" parId="6"/>
+  <dyn:blackBoxModel id="UFilterRef" lib="SetPoint" parFile="SMIB.par" parId="7"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="8"/>
+  <dyn:connect id1="busInf" var1="infiniteBusPhaseJump_terminal" id2="line" var2="line_terminal1"/>
+  <dyn:connect id1="line" var1="line_terminal2" id2="GFMDroop" var2="GFMDroop_terminal"/>
+  <dyn:connect id1="PFilterRef" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_PFilterRefPu"/>
+  <dyn:connect id1="QFilterRef" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_QFilterRefPu"/>
+  <dyn:connect id1="UFilterRef" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_UFilterRefPu"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="GFMDroop" var2="GFMDroop_omegaRefPu"/>
+</dyn:dynamicModelsArchitecture>
