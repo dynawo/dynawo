@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="NETWORK" variable="B2_U_value"/>
+  <curve model="NETWORK" variable="B2_U"/>
   <curve model="B2-G1 " variable="generator_omegaPu"/>
   <curve model="B2-G1 " variable="generator_PGen"/>
   <curve model="B2-G1 " variable="generator_QGen"/>

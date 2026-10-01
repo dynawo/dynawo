@@ -21,14 +21,14 @@
   <curve model="NETWORK" variable="Load_Q"/>
   <curve model="NETWORK" variable="Load_Pc"/>
   <curve model="NETWORK" variable="Load_Qc"/>
-  <curve model="NETWORK" variable="Load_PRefPu_value"/>
-  <curve model="NETWORK" variable="Load_QRefPu_value"/>
+  <curve model="NETWORK" variable="Load_PRefPu"/>
+  <curve model="NETWORK" variable="Load_QRefPu"/>
   <curve model="NETWORK" variable="Load_state"/>
   <curve model="NETWORK" variable="Load2_P"/>
   <curve model="NETWORK" variable="Load2_Q"/>
   <curve model="NETWORK" variable="Load2_Pc"/>
   <curve model="NETWORK" variable="Load2_Qc"/>
-  <curve model="NETWORK" variable="Load2_PRefPu_value"/>
-  <curve model="NETWORK" variable="Load2_QRefPu_value"/>
+  <curve model="NETWORK" variable="Load2_PRefPu"/>
+  <curve model="NETWORK" variable="Load2_QRefPu"/>
   <curve model="NETWORK" variable="Load2_state"/>
 </curvesInput>

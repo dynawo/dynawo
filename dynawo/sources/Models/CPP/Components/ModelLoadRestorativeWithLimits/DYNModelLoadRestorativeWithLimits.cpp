@@ -122,19 +122,19 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back(VariableNativeFactory::createState("UfPu_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("Ur_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("Ui_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("Ir_value", FLOW));
-    variables.push_back(VariableNativeFactory::createState("Ii_value", FLOW));
-    variables.push_back(VariableNativeFactory::createCalculated("PPu_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createCalculated("P_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createCalculated("QPu_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createCalculated("state_value", INTEGER));
-    variables.push_back(VariableNativeFactory::createCalculated("loadState_value", CONTINUOUS));
-    variables.push_back(VariableNativeFactory::createState("switchOff1_value", BOOLEAN));
-    variables.push_back(VariableNativeFactory::createState("switchOff2_value", BOOLEAN));
-    variables.push_back(VariableNativeFactory::createState("running_value", BOOLEAN));
+    variables.push_back(VariableNativeFactory::createState("UfPu", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("Ur", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("Ui", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("Ir", FLOW));
+    variables.push_back(VariableNativeFactory::createState("Ii", FLOW));
+    variables.push_back(VariableNativeFactory::createCalculated("PPu", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createCalculated("P", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createCalculated("QPu", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createCalculated("state", INTEGER));
+    variables.push_back(VariableNativeFactory::createCalculated("loadState", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState("switchOff1", BOOLEAN));
+    variables.push_back(VariableNativeFactory::createState("switchOff2", BOOLEAN));
+    variables.push_back(VariableNativeFactory::createState("running", BOOLEAN));
   }
 
   void
@@ -506,31 +506,18 @@ namespace DYN {
 
   void
   ModelLoadRestorativeWithLimits::defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement) {
-    addElement("UfPu", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "UfPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("Ur", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "Ur", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("Ui", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "Ui", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("Ir", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "Ir", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("Ii", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "Ii", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("PPu", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "PPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("P", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "P", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("QPu", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "QPu", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("state", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "state", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("loadState", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "loadState", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("switchOff1", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "switchOff1", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("switchOff2", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "switchOff2", Element::TERMINAL, name(), modelType(), elements, mapElement);
-    addElement("running", Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", "running", Element::TERMINAL, name(), modelType(), elements, mapElement);
+    addElement("UfPu", Element::TERMINAL, elements, mapElement);
+    addElement("Ur", Element::TERMINAL, elements, mapElement);
+    addElement("Ui", Element::TERMINAL, elements, mapElement);
+    addElement("Ir", Element::TERMINAL, elements, mapElement);
+    addElement("Ii", Element::TERMINAL, elements, mapElement);
+    addElement("PPu", Element::TERMINAL, elements, mapElement);
+    addElement("P", Element::TERMINAL, elements, mapElement);
+    addElement("QPu", Element::TERMINAL, elements, mapElement);
+    addElement("state", Element::TERMINAL, elements, mapElement);
+    addElement("loadState", Element::TERMINAL, elements, mapElement);
+    addElement("switchOff1", Element::TERMINAL, elements, mapElement);
+    addElement("switchOff2", Element::TERMINAL, elements, mapElement);
+    addElement("running", Element::TERMINAL, elements, mapElement);
   }
 }  // namespace DYN

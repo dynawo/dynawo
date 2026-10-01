@@ -20,7 +20,7 @@
   <curve model="PhaseShifterBis" variable="phaseShifter_tap"/>
   <curve model="PhaseShifterBis" variable="phaseShifter_PTarget"/>
   <curve model="PhaseShifterBis" variable="phaseShifter_increaseTapToIncreaseValue"/>
-  <curve model="NETWORK" variable="Line_P1_value"/>
+  <curve model="NETWORK" variable="Line_P1"/>
   <curve model="Load" variable="load_PPu"/>
   <curve model="Generator" variable="generator_PGenPu"/>
 </curvesInput>

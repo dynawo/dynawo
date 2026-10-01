@@ -28,5 +28,5 @@
   <curve model="Self" variable="shunt_running"/>
   <curve model="ShuntRegulation" variable="UMonitoredPu"/>
   <curve model="ShuntRegulation" variable="URefPu"/>
-  <curve model="ShuntRegulation" variable="DeadbandsUPu__0"/>
+  <curve model="ShuntRegulation" variable="DeadbandsUPu__0_"/>
 </curvesInput>
