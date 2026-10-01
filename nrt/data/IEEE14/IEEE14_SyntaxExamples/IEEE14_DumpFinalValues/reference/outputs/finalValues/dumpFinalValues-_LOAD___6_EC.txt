@@ -11,9 +11,10 @@ load_terminal_i_im                                : y =      -0.093631 yp =     
 load_terminal_i_re                                : y =       0.084219 yp =      -0.000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
- ====== INIT CALCULATED VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
 load_UPu                                          : y =       1.070233
- ====== INIT DISCRETE VARIABLES VALUES ======
+ ====== DISCRETE VARIABLES VALUES ======
+load_nonZeroVoltage                               : z =       1.000000
 load_running                                      : z =       1.000000
 load_switchOffSignal1                             : z =      -1.000000
 load_switchOffSignal2                             : z =      -1.000000

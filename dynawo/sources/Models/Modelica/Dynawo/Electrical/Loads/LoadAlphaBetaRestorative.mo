@@ -28,7 +28,7 @@ protected
 
 equation
   if running then
-    if (terminal.V == Complex(0)) then
+    if not(nonZeroVoltage) then
       tFilter * der(UFilteredRawPu) = -UFilteredRawPu;
       terminal.i = Complex(0);
     elseif UFilteredPu == 0 then
@@ -46,6 +46,7 @@ equation
     terminal.i = Complex(0);
   end if;
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>  After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical Alpha-Beta load.<div>This load restoration emulates the behaviour of a tap changer transformer that connects the load to the system and regulates the voltage at its terminal.</div></body></html>"));
 end LoadAlphaBetaRestorative;
