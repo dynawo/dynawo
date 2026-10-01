@@ -31,4 +31,16 @@
   <curve model="WT3" variable="WT3_wecc_reec_iqCmdPu"/>
   <curve model="WT3" variable="WT3_LvTfo_RPu"/>
   <curve model="WT3" variable="WT3_LvTfo_XPu"/>
+  <!-- <curve model="WT3" variable="WT3_PInj0Pu"/>
+  <curve model="WT3" variable="WT3_PConv0Pu"/>
+  <curve model="WT3" variable="WT3_Pm0Pu"/>
+  <curve model="WT3" variable="WT3_wecc_wtga_PmPu"/>
+  <curve model="WT3" variable="WT3_wecc_wtgq_PePu"/>
+  <curve model="WT3" variable="WT3_wecc_wtgq_PRef0Pu"/>
+  <curve model="WT3" variable="WT3_wecc_wtgp_theta"/>
+  <curve model="WT3" variable="WT3_wecc_wtgt_omegaRefWTGQPu0"/>
+  <curve model="WT3" variable="WT3_wecc_wtgt_dTorqueE_y"/>
+  <curve model="WT3" variable="WT3_wecc_wtgt_dTorqueM_y"/>
+  <curve model="WT3" variable="WT3_wecc_wtgt_dPhi_y_start"/>
+  <curve model="WT3" variable="WT3_PF0"/> -->
 </curvesInput>
