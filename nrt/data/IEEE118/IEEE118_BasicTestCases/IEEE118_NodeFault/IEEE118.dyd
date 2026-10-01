@@ -690,4 +690,5 @@
   <dyn:connect id1="B117-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B117_switchOff_value"/>
   <dyn:connect id1="B118-L1" var1="load_switchOffSignal1" id2="NETWORK" var2="B118_switchOff_value"/>
   <dyn:connect id1="FAULT_GEN_19" var1="fault_terminal" id2="NETWORK" var2="B19_ACPIN"/>
+  <dyn:connect id1="FAULT_GEN_19" var1="fault_switchOffSignal1" id2="NETWORK" var2="B19_switchOff_value"/>
 </dyn:dynamicModelsArchitecture>
