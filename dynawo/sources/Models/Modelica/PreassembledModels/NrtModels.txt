@@ -150,4 +150,6 @@ WT4BWeccCurrentSource
 WTG3WeccCurrentSource1
 WTG3WeccCurrentSource2
 WTG4AWeccCurrentSource
+WTG4AWeccCurrentSourceLVRTIBG
+WTG4AWeccCurrentSourceLVRTIBGa
 WTG4BWeccCurrentSource

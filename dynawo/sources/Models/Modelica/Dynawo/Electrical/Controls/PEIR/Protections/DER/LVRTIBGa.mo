@@ -145,5 +145,5 @@ equation
 
   annotation(
     preferredView = "text",
-    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">LVRT for aggregated IBG model that takes into account partial tripping (See figure 4.3 in G. Chaspierre thesis 'Reduced-order modelling of active distribution networks for large-disturbance simulations')</span></body></html>"));
+    Documentation(info = "<html><head></head><body><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">LVRT for aggregated IBG model that takes into account partial tripping. See figure 4.3 in G. Chaspierre thesis 'Reduced-order modelling of active distribution networks for large-disturbance simulations' and figure 17 in <a href=\"https://orbi.uliege.be/bitstream/2268/212146/1/Full_paper.pdf\">https://orbi.uliege.be/bitstream/2268/212146/1/Full_paper.pdf</span></body></html>"));
 end LVRTIBGa;

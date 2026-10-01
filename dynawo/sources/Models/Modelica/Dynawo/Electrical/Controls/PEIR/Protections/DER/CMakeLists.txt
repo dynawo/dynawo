@@ -16,7 +16,9 @@ set(MODEL_FILES
   FRTDERa.mo
   LVRTDERa.mo
   LVRTIBG.mo
+  LVRTIBG.mandatoryParam
   LVRTIBGa.mo
+  LVRTIBGa.mandatoryParam
   OVRTDERa.mo
   )
 
