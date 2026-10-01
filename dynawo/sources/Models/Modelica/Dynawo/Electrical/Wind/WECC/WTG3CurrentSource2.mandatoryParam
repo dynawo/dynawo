@@ -97,7 +97,7 @@
   <mandatoryParameter name="IqFrzPu" type="DOUBLE"/>
   <mandatoryParameter name="PFlag" type="BOOL"/>
   <mandatoryParameter name="VRef1Pu" type="DOUBLE"/>
-  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
+  <mandatoryParameter name="omegaRefWTGQ0Pu" type="DOUBLE"/>
   <mandatoryParameter name="IqrMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="IqrMinPu" type="DOUBLE"/>
   <mandatoryParameter name="RrpwrPu" type="DOUBLE"/>
@@ -146,7 +146,7 @@
   <mandatoryParameter name="ThetaRMax" type="DOUBLE"/>
   <mandatoryParameter name="ThetaRMin" type="DOUBLE"/>
   <mandatoryParameter name="PConv0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
+  <mandatoryParameter name="omegaRefWTGQ0Pu" type="DOUBLE"/>
   <mandatoryParameter name="ThetaWMax" type="DOUBLE"/>
   <mandatoryParameter name="ThetaWMin" type="DOUBLE"/>
   <mandatoryParameter name="ThetaCMax" type="DOUBLE"/>
@@ -169,12 +169,12 @@
   <mandatoryParameter name="tpWTGQa" type="DOUBLE"/>
   <mandatoryParameter name="tOmegaRef" type="DOUBLE"/>
   <mandatoryParameter name="PConv0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
+  <mandatoryParameter name="omegaRefWTGQ0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Ht" type="DOUBLE"/>
   <mandatoryParameter name="Hg" type="DOUBLE"/>
   <mandatoryParameter name="Dshaft" type="DOUBLE"/>
   <mandatoryParameter name="Kshaft" type="DOUBLE"/>
-  <mandatoryParameter name="omegaRefWTGQPu0" type="DOUBLE"/>
+  <mandatoryParameter name="omegaRefWTGQ0Pu" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="P0Pu" type="DOUBLE"/>
