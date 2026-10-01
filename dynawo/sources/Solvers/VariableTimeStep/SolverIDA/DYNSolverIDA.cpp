@@ -93,7 +93,6 @@ minStep_(0.),
 maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
-algebraicRestorationReinitMode_(ALWAYS),
 uround_(false),
 uroundPrecision_(std::numeric_limits<double>::min()),
 countForceReinit_(0),
@@ -187,16 +186,6 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& activateForceReinit = findParameter("activateForceReinit");
   if (activateForceReinit.hasValue())
     activateForceReinit_ = activateForceReinit.getValue<bool>();
-  const ParameterSolver& algebraicRestorationReinitMode = findParameter("AlgebraicRestorationReinitMode");
-  if (algebraicRestorationReinitMode.hasValue()) {
-    const std::string& value = algebraicRestorationReinitMode.getValue<std::string>();
-    if (value == "ALWAYS")
-      algebraicRestorationReinitMode_ = ALWAYS;
-    else if (value == "ONLY_ON_ALGEBRAIC_RESTORATION")
-      algebraicRestorationReinitMode_ = ONLY_ON_ALGEBRAIC_RESTORATION;
-    else
-      Trace::warn() << DYNLog(IncoherentParamAlgebraicRestorationReinitMode, value) << Trace::endline;
-  }
 }
 
 const std::string&

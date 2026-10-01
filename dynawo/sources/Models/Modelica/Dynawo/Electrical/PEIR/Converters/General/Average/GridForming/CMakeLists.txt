@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.order
   DynGFMVSM.mo
   DynGFMVSM.extvar
+  DynGFMVSM.mandatoryParam
   )
 
 #

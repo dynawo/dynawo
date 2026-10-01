@@ -14,6 +14,7 @@ set(MODEL_FILES
   package.order
   DynGFL.mo
   DynGFL.extvar
+  DynGFL.mandatoryParam
   )
 
 #

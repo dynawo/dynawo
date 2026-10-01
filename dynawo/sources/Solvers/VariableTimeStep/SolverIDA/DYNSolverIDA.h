@@ -296,7 +296,6 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
-  algebraicRestorationReinitMode_t algebraicRestorationReinitMode_;  ///< when IDAReInit is called after a mode change
   bool uround_;  ///< to activate change on uround
   double uroundPrecision_;  ///< the uround precision to use
   int countForceReinit_;  ///< number of reinit after a failure, only one reinit can be done and if no time step is validated after the simulation ends

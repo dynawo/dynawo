@@ -853,9 +853,9 @@ ModelHvdcLink::setSubModelParameters(const std::unordered_map<std::string, Param
 void ModelHvdcLink::addBusNeighbors() {
   if (network_->keepHvdcForeignNodes()) {
     if (isConnected1() && isConnected2()) {
-      if (modelBus2_->hasInitialConditions())
+      if (dcLine_.lock()->getConverter2()->getBusInterface()->hasInitialConditions())
         modelBus1_->addNeighbor(modelBus2_);
-      if (modelBus1_->hasInitialConditions())
+      if (dcLine_.lock()->getConverter1()->getBusInterface()->hasInitialConditions())
         modelBus2_->addNeighbor(modelBus1_);
     }
   }

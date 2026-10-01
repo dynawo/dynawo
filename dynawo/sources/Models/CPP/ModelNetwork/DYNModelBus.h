@@ -237,14 +237,6 @@ class ModelBus : public NetworkComponent {
   explicit ModelBus(const std::shared_ptr<BusInterface> & bus, bool isNodeBreaker);
 
   /**
-   * @brief test if bus is energized at start of simulation
-   *
-   * @return true if the bus is energized
-   */
-  bool hasInitialConditions() const;
-
- private:
-  /**
    * @brief define elements of the bus model using id as prefix (to deal with alias)
    * @param id id to use as prefix
    * @param elements vector of elements to fill with new elements defined
