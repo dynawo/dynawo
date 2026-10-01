@@ -44,7 +44,7 @@ test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeT
 
 case_name = "WECC WTG4B HVRT"
 case_description = "WECC WTG4B with HVRT test on a SMIB network"
-job_file = os.path.join(os.path.dirname(__file__),  "Wind", "LHVRT", "WECCWTG4BCurrentSourceHVRT", "WECCWTG4B.jobs")
+job_file = os.path.join(os.path.dirname(__file__),  "Wind", "WTG4BCurrentSourceHVRT", "WTG4B.jobs")
 
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
 
@@ -54,6 +54,6 @@ test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeT
 
 case_name = "WECC WTG4B LVRT"
 case_description = "WECC WTG4B with LVRT test on a SMIB network"
-job_file = os.path.join(os.path.dirname(__file__),  "Wind", "LHVRT", "WECCWTG4BCurrentSourceLVRT", "WECCWTG4B.jobs")
+job_file = os.path.join(os.path.dirname(__file__),  "Wind", "WTG4BCurrentSourceLVRT", "WTG4B.jobs")
 
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))

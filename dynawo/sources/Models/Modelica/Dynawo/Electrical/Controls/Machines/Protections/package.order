@@ -1,5 +1,7 @@
 BaseClasses
 HVRT
+LHVRT
+LHVRT_INIT
 LossOfSynchronismProtection
 LVRT
 LVRT4Points
