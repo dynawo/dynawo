@@ -14,6 +14,7 @@ within Dynawo.Electrical.Buses;
 */
 
 model BusWithInit "Bus with init"
+  extends Dynawo.Electrical.Controls.Basics.SwitchOff.SwitchOffBus;
   extends AdditionalIcons.Bus;
   import Modelica.Constants;
 
@@ -29,9 +30,16 @@ model BusWithInit "Bus with init"
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal (base UNom)";
 
 equation
-  terminal.i = Complex(0);
-  UPu = ComplexMath.'abs'(terminal.V);
-  UPhase = ComplexMath.arg(terminal.V);
+  if running then
+    terminal.i = Complex(0);
+    UPu = ComplexMath.'abs'(terminal.V);
+    UPhase = ComplexMath.arg(terminal.V);
+  else
+    terminal.V = Complex(0);
+    UPu = 0;
+    UPhase = 0;
+  end if;
+
   UPhaseDeg = UPhase * 180.0 / Constants.pi;
   U = UPu * UNom;
 

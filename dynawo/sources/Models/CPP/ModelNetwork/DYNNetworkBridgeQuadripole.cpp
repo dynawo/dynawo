@@ -46,8 +46,15 @@ NetworkBridgeQuadripole::evalZ(const double /*t*/, bool /*onlyEvaluateStateChang
 
 void
 NetworkBridgeQuadripole::evalG(const double /*t*/) {
+  if (dynModel_ == nullptr)
+    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
+
   State prevConnectionState = connectionState_;
-  connectionState_ = getDynamicState();
+
+  // since variable "state" is compiled with SILENT_Z flag, reading it is hazardous as evalG() may not be called
+  // after it changed, so use running instead, that is flipped earlier
+  connectionState_ = dynModel_->getVariableValue(stateVarPrefix_+"_running") > 0.5 ? CLOSED : OPEN;
+
   if ((connectionState_ != prevConnectionState) && ((connectionState_ == CLOSED) || (prevConnectionState == CLOSED))) {
     g_[0] = (g_[0] != ROOT_UP) ? ROOT_UP : ROOT_DOWN;
     declareTopoChange_ = true;
@@ -57,15 +64,6 @@ NetworkBridgeQuadripole::evalG(const double /*t*/) {
 void
 NetworkBridgeQuadripole::setGequations(std::map<int, std::string> & gEquationIndex) {
   gEquationIndex[0] = "Connection state change propagation by : "+id();
-}
-
-State
-NetworkBridgeQuadripole::getDynamicState() {
-  if (dynModel_ == nullptr)
-    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
-
-  // Modelica and CPP enums match and are liable to break much more than this if they change
-  return static_cast<State>(dynModel_->getVariableValue(stateVarPrefix_+"_state"));
 }
 
 }  // namespace DYN
