@@ -190,6 +190,8 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
       simulation->getCriteriaFiles().end(), "myCriteriaFile2.crt") != simulation->getCriteriaFiles().end());
   ASSERT_EQ(simulation->getCriteriaStep(), 5);
+  // no enableRealTimeTracking attribute in the jobs file: must default to false (backward compatibility)
+  ASSERT_EQ(simulation->getEnableRealTimeTracking(), false);
 
   // ===== OutputsEntry =====
   ASSERT_NE(job1->getOutputsEntry(), std::shared_ptr<OutputsEntry>());

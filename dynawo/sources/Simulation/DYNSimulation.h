@@ -24,6 +24,8 @@
 #include <deque>
 #include <unordered_map>
 #include <memory>
+#include <chrono>
+#include <tuple>
 #include <libzip/ZipFile.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/optional.hpp>
@@ -669,6 +671,11 @@ class Simulation {
   void printCurrentTime(const std::string& fileName) const;
 
   /**
+   * @brief write real time tracking file with timestep timing data
+   */
+  void writeRealTimeTrackingFile() const;
+
+  /**
    * @brief add an event to the timeline
    * @param messageTimeline message to add in the timeline
    */
@@ -755,6 +762,10 @@ class Simulation {
   bool dumpInitModelValues_;  ///< whether to export the results from the initialisation model
   bool dumpFinalValues_;  ///< whether to export the values of the models's variables and parameters at the end of the simulation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
+  bool enableRealTimeTracking_;  ///< enable real time tracking for timestep timing
+  std::string realTimeTrackingFile_;  ///< CSV file path for real time tracking output
+  std::vector<std::tuple<double, double, double>> timingData_;  ///< timing data triples (simulation_time, computation_time_ms, accumulated_computation_time_s)
+  std::chrono::steady_clock::time_point simulationStartTime_;  ///< start time of the main simulation loop
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 

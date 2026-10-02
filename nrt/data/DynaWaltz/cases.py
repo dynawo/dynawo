@@ -47,6 +47,16 @@ job_file = os.path.join(os.path.dirname(__file__), "Nordic_DumpLoad/Nordic_seq.j
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #################################################
+#     NORDIC with real time tracking enabled     #
+#################################################
+
+case_name = "DynaWaltz - Nordic Test System - real time tracking"
+case_description = "Nordic Test System with a fault, the tripping of a line and a voltage collapse, with enableRealTimeTracking activated on the simulation element."
+job_file = os.path.join(os.path.dirname(__file__), "Nordic_RealTimeTracking", "Nordic.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#################################################
 #     IEEE14 - Generator disconnections         #
 #################################################
 case_name = "DynaWaltz - IEEE14 - Generator disconnections"
