@@ -52,11 +52,11 @@ model IdealTransformerVariableTapControlled
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Ideal transformer
-  Dynawo.Electrical.Transformers.TransformersVariableTap.IdealTransformerVariableTap idealTransformerVariableTap(NbTap = NbTap, P10Pu = P10Pu, Q10Pu = Q10Pu, Tap0 = Tap0, U10Pu = U10Pu, U20Pu = U20Pu, i10Pu = i10Pu, i20Pu = i20Pu, rTfo0Pu = rTfo0Pu, rTfoMaxPu = rTfoMaxPu, rTfoMinPu = rTfoMinPu, u10Pu = u10Pu, u20Pu = u20Pu)  annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.IdealTransformerVariableTap idealTransformerVariableTap(NbTap = NbTap, P10Pu = P10Pu, Q10Pu = Q10Pu, Tap0 = Tap0, U10Pu = U10Pu, U20Pu = U20Pu, i10Pu = i10Pu, i20Pu = i20Pu, rTfo0Pu = rTfo0Pu, rTfoMaxPu = rTfoMaxPu, rTfoMinPu = rTfoMinPu, u10Pu = u10Pu, u20Pu = u20Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Tap Changer
-  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(U0 = U0, UDeadBand = UDeadBand, UTarget = UTarget, increaseTapToIncreaseValue = increaseTapToIncreaseValue, regulating0 = regulating0, state0 = state0, t1st = t1st, tNext = tNext, tap0 = Tap0, tapMax = tapMax, tapMin = tapMin, UNom = UNom)  annotation(
+  Dynawo.Electrical.Controls.Transformers.TapChanger tapChanger(U0 = U0, UDeadBand = UDeadBand, UTarget = UTarget, increaseTapToIncreaseValue = increaseTapToIncreaseValue, regulating0 = regulating0, state0 = state0, t1st = t1st, tNext = tNext, tap0 = Tap0, tapMax = tapMax, tapMin = tapMin, UNom = UNom) annotation(
     Placement(visible = true, transformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Boolean locked(start = tapChanger.locked0) "Whether the tap-changer is locked";
@@ -93,4 +93,5 @@ equation
   connect(idealTransformerVariableTap.terminal2, terminal2) annotation(
     Line(points = {{10, 0}, {100, 0}}, color = {0, 0, 255}));
 
+  annotation(preferredView = "diagram");
 end IdealTransformerVariableTapControlled;

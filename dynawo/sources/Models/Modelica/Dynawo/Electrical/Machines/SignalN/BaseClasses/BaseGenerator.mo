@@ -31,7 +31,7 @@ partial model BaseGenerator "Base dynamic model for generators based on SignalN 
   type QStatus = enumeration(Standard, AbsorptionMax, GenerationMax);
 
   input Types.PerUnit N "Signal to change the active power reference setpoint of the generators participating in the primary frequency regulation in pu (base SnRef)";
-  input Types.ActivePowerPu PRefPu(start = PRef0Pu) "Active power set point in pu (base Snref) (receptor convention)";
+  input Types.ActivePowerPu PRefPu(start = PRef0Pu) "Active power set point in pu (base SnRef) (receptor convention)";
 
   Modelica.Blocks.Interfaces.BooleanOutput limUQDown(start = limUQDown0) "Whether the minimum reactive power limits are reached or not (from generator voltage regulator)";
   Modelica.Blocks.Interfaces.BooleanOutput limUQUp(start = limUQUp0) "Whether the maximum reactive power limits are reached or not (from generator voltage regulator)";
