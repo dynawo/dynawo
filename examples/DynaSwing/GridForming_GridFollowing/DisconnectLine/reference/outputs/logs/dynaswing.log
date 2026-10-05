@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  4116_Remove_WECCA41-c0d4f9a6652
+INFO | DYNAWO REVISION :    master-3eede8816a7
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -12,6 +12,10 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting local initialization
 INFO | -----------------------------------------------------------------------
+INFO | ... loading "hvrt" from "examples/DynaSwing/GridForming_GridFollowing/DisconnectLine/LHVRT.txt"
+INFO | ... loading "lvrt" from "examples/DynaSwing/GridForming_GridFollowing/DisconnectLine/LHVRT.txt"
+INFO | ... loading "hvrt" from "examples/DynaSwing/GridForming_GridFollowing/DisconnectLine/LHVRT.txt"
+INFO | ... loading "lvrt" from "examples/DynaSwing/GridForming_GridFollowing/DisconnectLine/LHVRT.txt"
 INFO | end of local initialization
 INFO | -----------------------------------------------------------------------
 INFO | 
@@ -33,9 +37,9 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 695
-INFO | number of discrete variables : 302
-INFO | number of root functions : 226
+INFO | number of continuous variables : 713
+INFO | number of discrete variables : 338
+INFO | number of root functions : 255
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -374,8 +378,8 @@ INFO |        0.990 ¦      330              270          1              0.003
 INFO |        0.993 ¦      331              270          1              0.003 
 INFO |        0.996 ¦      332              270          1              0.003 
 INFO |        0.999 ¦      333              270          1              0.003 
-INFO | state of Line AAAAAL72BBBBB change from 2 to 1
 INFO | state of Switch BBBBBP7_Disj AAAAAL72BBBBB change from 2 to 1
+INFO | state of Line AAAAAL72BBBBB change from 2 to 1
 INFO | state of Switch BBBBBP7_Disj AAAAAL72BBBBB change from 2 to 1
 INFO | switch Off bus : calculatedBus_BBBBBP7_2
 INFO | Algebraic mode (with J recalculation) change at t = 1.002

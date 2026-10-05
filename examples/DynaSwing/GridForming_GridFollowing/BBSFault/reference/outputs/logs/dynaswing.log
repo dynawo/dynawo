@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  4116_Remove_WECCA41-c0d4f9a6652
+INFO | DYNAWO REVISION :    master-3eede8816a7
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -12,6 +12,10 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting local initialization
 INFO | -----------------------------------------------------------------------
+INFO | ... loading "hvrt" from "examples/DynaSwing/GridForming_GridFollowing/BBSFault/LHVRT.txt"
+INFO | ... loading "lvrt" from "examples/DynaSwing/GridForming_GridFollowing/BBSFault/LHVRT.txt"
+INFO | ... loading "hvrt" from "examples/DynaSwing/GridForming_GridFollowing/BBSFault/LHVRT.txt"
+INFO | ... loading "lvrt" from "examples/DynaSwing/GridForming_GridFollowing/BBSFault/LHVRT.txt"
 INFO | end of local initialization
 INFO | -----------------------------------------------------------------------
 INFO | 
@@ -33,9 +37,9 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 713
-INFO | number of discrete variables : 314
-INFO | number of root functions : 233
+INFO | number of continuous variables : 731
+INFO | number of discrete variables : 350
+INFO | number of root functions : 262
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------
