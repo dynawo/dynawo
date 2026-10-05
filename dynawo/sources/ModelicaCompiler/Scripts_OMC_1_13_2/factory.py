@@ -1479,6 +1479,21 @@ class Factory:
                         continue
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
 
+        for calc_var, f in self.reader.list_complex_calculated_vars.items():
+            raw_text = transform_rawbody_to_string(f.get_body())
+            for var in self.list_name_discrete_vars + self.list_name_integer_vars:
+                if not re.search(r'\b' + re.escape(var) + r'\b', raw_text):
+                    continue
+                boolean = False
+                for var_bool in self.list_vars_bool:
+                    if var_bool.name == var:
+                        boolean = True
+                if (var not in self.modes.modes_discretes):
+                    self.modes.modes_discretes[var] = ModeDiscrete(ALGEBRAIC, boolean)
+                else:
+                    self.modes.modes_discretes[var].set_type(ALGEBRAIC)
+                self.modes.modes_discretes[var].add_eq(f.get_name())
+
         for eq in self.list_int_equations:
             relations_found = re.findall(r'relationhysteresis\(tmp[0-9]+, .*?, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_body()))
             for _ in relations_found:
@@ -4321,7 +4336,6 @@ class Factory:
 
         for index, line in enumerate(self.list_for_evalcalculatedvari):
             self.list_for_evalcalculatedvari[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
-
 
     ##
     # return the list of lines that constitues the body of evalCalculatedVars
