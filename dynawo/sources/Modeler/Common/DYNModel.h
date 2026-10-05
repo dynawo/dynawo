@@ -158,7 +158,7 @@ class Model {
   virtual void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) = 0;
 
   /**
-   * @brief export the linearized system (@F/@x and @F/@x') and the variables and equations description in files
+   * @brief export the linearized system (\f$ @F/@x \f$ and \f$ @F/@x' \f$) and the variables and equations description in files
    *
    * @param t time to use for the evaluation
    * @param outputsDirectory outputs directory of the simulation, files are created in its linearization subdirectory
