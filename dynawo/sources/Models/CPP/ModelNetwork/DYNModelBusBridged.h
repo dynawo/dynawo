@@ -24,7 +24,8 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   /** @copydoc ModelBus::ModelBus() */
   explicit ModelBusBridged(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) : ModelBus(bus, isNodeBreaker) {}
 
-  // pure virtual methods from ModelBus that should only be called at init, throws otherwise
+  // virtual methods from ModelBus
+  void defineElementsById(const std::string& id, std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
   double ur() const override;
   double ui() const override;
 

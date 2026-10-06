@@ -14,8 +14,27 @@
 #include "DYNModelBusBridged.h"
 #include "DYNBusInterface.h"
 #include "DYNModelNetwork.h"
+#include "DYNCommonModeler.h"
 
 namespace DYN {
+using std::string;
+
+void
+ModelBusBridged::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
+  ModelBus::defineElementsById(id, elements, mapElement);
+  addElement(id + "_state",      Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_ACPIN",      Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_ACPIN_V",    Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_ACPIN_V_re", Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_ACPIN_V_im", Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_ACPIN_i",    Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_ACPIN_i_re", Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_ACPIN_i_im", Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_U",          Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_Upu",        Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_phi",        Element::OVERRIDEN, elements, mapElement);
+  addElement(id + "_phipu",      Element::OVERRIDEN, elements, mapElement);
+}
 
 double
 ModelBusBridged::ur() const {

@@ -38,7 +38,8 @@ class Element {
    */
   typedef enum {
     STRUCTURE = 1,
-    TERMINAL = 2
+    TERMINAL = 2,
+    OVERRIDEN = 3,
   } typeElement;
 
  public:
