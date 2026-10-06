@@ -228,6 +228,18 @@ class Jobs:
             solvers.append(job.solver)
         return solvers
 
+    def get_all_curves(self):
+        curves = list()
+        for curves_tree in self.__curves_collection.values():
+            curves.extend(curves_tree.xpath('//dyn:curve', namespaces=NAMESPACE_URI))
+        return curves
+
+    def get_all_final_state_values(self):
+        final_state_values = list()
+        for final_state_values_tree in self.__final_state_values_collection.values():
+            final_state_values.extend(final_state_values_tree.xpath('//dyn:finalStateValue', namespaces=NAMESPACE_URI))
+        return final_state_values
+
     # ---------------------------------------------------------------
     #   UTILITY METHODS
     # ---------------------------------------------------------------
@@ -293,7 +305,7 @@ class Jobs:
                 all_update_filenames_in_all_scripts_dirs.add(update_file)
                 update_module = os.path.splitext(update_file)[0]
                 module_version = update_module.split(main_update_filename_without_extension)[1]
-                if not re.match(r'^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$', module_version):
+                if not re.match(r'^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(\.[0-9])?[0-9]*$', module_version):
                     invalid_update_files.append(update_file)
                     continue
                 min_limit_version = (self.__dynawo_origin[0], self.__dynawo_origin[1], self.__dynawo_origin[2]+1)
@@ -307,7 +319,7 @@ class Jobs:
             sys.exit(1)
         if len(invalid_update_files) != 0:
             for invalid_update_file in invalid_update_files:
-                print("Error : Invalid update file : " + invalid_update_file + "\nVersion should be in this format 'myUpdateFileMAJOR.MINOR.PATCH.NUMMODIF.py'")
+                print("Error : Invalid update file : " + invalid_update_file + "\nVersion should be in this format 'myUpdateFileMAJOR.MINOR.PATCH.NUMMODIF.NUMMODIFOPTIONAL.py'")
             sys.exit(1)
         if len(unsorted_update_modules_list) == 0:
             print("Error : Patch files between version " + '.'.join(map(str, self.__dynawo_origin)) + "+ and " + '.'.join(map(str, self.__dynawo_version)) + " not found")
@@ -317,7 +329,9 @@ class Jobs:
         int(os.path.basename(update_filepath).replace("update","").split(".")[0]),
         int(os.path.basename(update_filepath).split(".")[1]),
         int(os.path.basename(update_filepath).split(".")[2]),
-        int(os.path.basename(update_filepath).split(".")[3])))
+        int(os.path.basename(update_filepath).split(".")[3]),
+        int(os.path.basename(update_filepath).count(".")),
+        int(os.path.basename(update_filepath).split(".")[-2])))
         return sorted_update_modules_list
 
     def __filter_update_modules(self, sorted_update_modules_filepath_list):

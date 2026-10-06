@@ -13,9 +13,9 @@
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <!--Curves for scenario-->
-  <curve model="_Load__10" variable="PPu_value"/>
-  <curve model="_Load__10" variable="QPu_value"/>
-  <curve model="NETWORK" variable="_BUS___10_TN_Upu_value"/>
-  <curve model="_Load__10" variable="UfRawPu_value"/>
-  <curve model="_Load__10" variable="UfPu_value"/>
+  <curve model="_Load__10" variable="PPu"/>
+  <curve model="_Load__10" variable="QPu"/>
+  <curve model="NETWORK" variable="_BUS___10_TN_Upu"/>
+  <curve model="_Load__10" variable="UfRawPu"/>
+  <curve model="_Load__10" variable="UfPu"/>
 </curvesInput>

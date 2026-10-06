@@ -151,7 +151,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__SALT___9_TN_Upu_value}*69]
+        table[x=time, y expr=\thisrow{NETWORK__SALT___9_TN_Upu}*69]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -357,10 +357,10 @@ This is also visible when superposing the active power going onto the lines 6-7 
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BEAV___6-BUS____7-1_AC_P2_value}*100]
+        table[x=time, y expr=\thisrow{NETWORK__BEAV___6-BUS____7-1_AC_P2}*100]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
-        table[x=time, y expr=\thisrow{NETWORK__BEAV___6-BUS____7-1_AC_P2_value}*100]
+        table[x=time, y expr=\thisrow{NETWORK__BEAV___6-BUS____7-1_AC_P2}*100]
         {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
         \legend{IDA Solver, Simplified Solver}
     \end{axis}
@@ -371,10 +371,10 @@ This is also visible when superposing the active power going onto the lines 6-7 
   \begin{tikzpicture}
     \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____7-CLIN___8-1_AC_P1_value}*100]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____7-CLIN___8-1_AC_P1}*100]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
-        table[x=time, y expr=\thisrow{NETWORK__BUS____7-CLIN___8-1_AC_P1_value}*100]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____7-CLIN___8-1_AC_P1}*100]
         {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
         \legend{IDA Solver, Simplified Solver}
     \end{axis}
