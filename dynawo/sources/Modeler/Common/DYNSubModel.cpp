@@ -266,6 +266,8 @@ SubModel::getElements(const string& nameElement) const {
     if (element.getTypeElement() == Element::STRUCTURE) {
       vector<Element> subElements = getSubElements(element);
       elements.insert(elements.begin(), subElements.begin(), subElements.end());
+    } else if (element.getTypeElement() == Element::OVERRIDEN) {
+      throw DYNError(Error::MODELER, SubModelOverridenElement, nameElement, name());
     } else {
       elements.push_back(element);
     }
