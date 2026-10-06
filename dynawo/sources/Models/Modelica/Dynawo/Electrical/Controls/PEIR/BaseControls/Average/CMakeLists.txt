@@ -13,11 +13,11 @@
 set(MODEL_FILES
   package.mo
   package.order
-  current_limiter_reactive_boost.mo
+  CurrentLimiterReactiveBoost.mo
   pll.mo
-  current_loop.mo
-  outer_loop.mo
-  outer_loop_no_plant.mo
+  CurrentLoop.mo
+  OuterLoop.mo
+  OuterLoop_no_plant.mo
   )
 
 #

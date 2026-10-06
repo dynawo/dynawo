@@ -27,7 +27,7 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 //   so that omegaPLLPu stays within [OmegaMinPu, OmegaMaxPu].
 // =============================================================================
 
-model pll "Phase-Locked Loop"
+model PLL "Phase-Locked Loop"
 
   // ── Parameters ───────────────────────────────────────────────
   parameter Types.PerUnit Kp
@@ -124,5 +124,4 @@ equation
     Icon(graphics = {
       Rectangle(extent = {{-100, 100}, {100, -100}}),
       Text(origin = {-31, 8}, extent = {{-49, 72}, {111, -88}}, textString = "PLL")}));
-
-end pll;
+end PLL;

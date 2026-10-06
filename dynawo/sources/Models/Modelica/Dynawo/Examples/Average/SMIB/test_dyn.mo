@@ -50,13 +50,13 @@ model test_dyn
     KiqOuter = 1.0,
 
     // ── Current limiter ───────────────────────────────────────
-    UboostHigh = 1.1,
-    UboostLow  = 0.9,
+    UBoostHighPu = 1.1,
+    UBoostLowPu  = 0.9,
     Kqv        = 0.3,
-    Imax       = 8,
+    IMaxPu       = 8,
     PQFlag     = false,
-    IqBoostMax = 0.5,
-    IqBoostMin = -0.5,
+    IqBoostMaxPu = 0.5,
+    IqBoostMinPu = -0.5,
 
     // ── Plant controller ──────────────────────────────────────
     // omega_plt ~ 2 rad/s (very slow, well below outer loop)

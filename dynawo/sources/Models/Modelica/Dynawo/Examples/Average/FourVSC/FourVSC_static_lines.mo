@@ -16,7 +16,7 @@ model FourVSC_static_lines
        * During the fault, the terminal voltage at Bus A collapses, driving
        * the converters (especially gFL_HVDC1, which is electrically
        * closest to the fault) into current limitation: the GFL current
-       * limiter (Imax) saturates the d/q current references so that the
+       * limiter (IMaxPu) saturates the d/q current references so that the
        * converter current magnitude stays within its rated envelope. This
        * is expected, intended behavior for a large disturbance and is NOT
        * the sub-synchronous oscillation phenomenon characterized elsewhere
@@ -31,10 +31,10 @@ model FourVSC_static_lines
   // ═══════════════════════════════════════════════════════════════
   // HVDC1 converter - Bus A - SNom = 1200 MVA
   // Electrically closest converter to the fault at Bus A: this is the
-  // unit expected to reach its current limiter (Imax = 1.1 pu) first
+  // unit expected to reach its current limiter (IMaxPu = 1.1 pu) first
   // and most severely during the disturbance.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_HVDC1(SNom = 1200, U0Pu = 1.016485, Uphase = 0.210724, P0_pcc = -11.445, Q0_pcc = 0.536945, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1.1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_HVDC1(SNom = 1200, U0Pu = 1.016485, Uphase = 0.210724, P0_pcc = -11.445, Q0_pcc = 0.536945, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-222, 102}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // HVDC2 converter - Bus B - SNom = 1700 MVA
@@ -43,7 +43,7 @@ model FourVSC_static_lines
   // correspondingly less (or no) current-limiter engagement than
   // gFL_HVDC1.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_HVDC2(SNom = 1700, U0Pu = 1.018446, Uphase = 0.216682, P0_pcc = -13.94108, Q0_pcc = -5.04, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.1667, KidOuter = 50, KpqOuter = 0.1667, KiqOuter = 50, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1.1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_HVDC2(SNom = 1700, U0Pu = 1.018446, Uphase = 0.216682, P0_pcc = -13.94108, Q0_pcc = -5.04, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.1667, KidOuter = 50, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {198, 102}, extent = {{20, -20}, {-20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // WP1 converter (wind park) - Bus E - SNom = 2400 MVA
@@ -51,7 +51,7 @@ model FourVSC_static_lines
   // from the faulted Bus A: sees an attenuated but still significant
   // voltage dip during the fault.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_WP1(SNom = 2400, U0Pu = 1.06870, Uphase = 0.352335, P0_pcc = -19.916, Q0_pcc = 1.594, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0333, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_WP1(SNom = 2400, U0Pu = 1.06870, Uphase = 0.352335, P0_pcc = -19.916, Q0_pcc = 1.594, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0333, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-236, -154}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // WP2 converter (wind park) - Bus F - SNom = 2400 MVA
@@ -61,7 +61,7 @@ model FourVSC_static_lines
   // when checking that only the current limiter (not an oscillatory
   // instability) explains the transients seen elsewhere.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_WP2(SNom = 2400, U0Pu = 1.037386, Uphase = 0.366498, P0_pcc = -19.917, Q0_pcc = 7.368258, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0, Imax = 1.1, PQFlag = false, IqBoostMax = 2, IqBoostMin = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_WP2(SNom = 2400, U0Pu = 1.037386, Uphase = 0.366498, P0_pcc = -19.917, Q0_pcc = 7.368258, Omega0Pu = 1.0, tVSC = 1e-4, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, K_p_q_plant = 0.5, K_i_q_plant = 2.36, K_p_p_plant = 0.5, K_i_p_plant = 2.36, Lambda = 0.333333, Kdroop = 0, QMaxPu = 0.35, QMinPu = -0.35, PMaxPu = 1, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, tPlant = 0.01, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {230, -146}, extent = {{20, -20}, {-20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // Lines (per-unit impedances, base SnRef=100MVA)
@@ -127,7 +127,7 @@ model FourVSC_static_lines
   // 0.0001 pu, i.e. essentially zero impedance) applied for 100 ms.
   // It is this event — not any small-signal instability — that pushes
   // gFL_HVDC1 (and, to a lesser extent, the other converters) into
-  // current-limiter saturation (Imax). No sustained oscillation is
+  // current-limiter saturation (IMaxPu). No sustained oscillation is
   // expected post-fault; the transient should settle back to the
   // pre-fault operating point once the fault clears at t = 5.1 s,
   // consistent with the large-perturbation results discussed in
@@ -174,7 +174,7 @@ equation
   lineInfBus.switchOffSignal2 = false;
 // Converters always connected — none of the four GFL units disconnects
 // during the fault; they instead ride through it by saturating their
-// current references at Imax, which is the intended large-disturbance
+// current references at IMaxPu, which is the intended large-disturbance
 // behavior being validated here.
   gFL_HVDC1.switchOffSignal1 = false;
   gFL_HVDC1.switchOffSignal2 = false;
@@ -306,7 +306,7 @@ later (see the \"fault\" component below).
 During the fault, the terminal voltage at Bus A collapses, driving
 the converters (especially gFL_HVDC1, which is electrically
 closest to the fault) into current limitation: the GFL current
-limiter (Imax) saturates the d/q current references so that the
+limiter (IMaxPu) saturates the d/q current references so that the
 converter current magnitude stays within its rated envelope. This
 is expected, intended behavior for a large disturbance and is NOT
 the sub-synchronous oscillation phenomenon characterized elsewhere

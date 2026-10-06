@@ -177,8 +177,8 @@ model TwoConvertersStaticLine_7Hz
   k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,  // Outer d‑axis controller (P / voltage loop)
   KpdOuter = kp_outer_1, KidOuter = ki_outer_1,  // Outer q‑axis controller (Q / voltage loop)
   KpqOuter = kp_outer_1, KiqOuter = ki_outer_1,  // Voltage support and reactive power behaviour
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,  // Current limits and operation mode
-  Imax = 20, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // Plant controller for Q
+  UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0,  // Current limits and operation mode
+  IMaxPu = 20, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // Plant controller for Q
   K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,  // Plant controller for P
   K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,  // Droop and voltage‑Q coupling
   Lambda = 0.417, Kdroop = 15,  // Reactive power limits
@@ -202,8 +202,8 @@ model TwoConvertersStaticLine_7Hz
   k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,  // Outer d‑axis controller
   KpdOuter = kp_outer_2, KidOuter = ki_outer_2,  // Outer q‑axis controller
   KpqOuter = kp_outer_2, KiqOuter = ki_outer_2,  // Voltage support and reactive power behaviour
-  UboostHigh = 1.1, UboostLow = 0.9, Kqv = 0,  // Current limits and operation mode
-  Imax = 2, PQFlag = false, IqBoostMax = 0.5, IqBoostMin = -0.5,  // Plant controller for Q
+  UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0,  // Current limits and operation mode
+  IMaxPu = 2, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // Plant controller for Q
   K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,  // Plant controller for P
   K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,  // Droop and voltage‑Q coupling
   Lambda = 0.417, Kdroop = 15,  // Reactive power limits

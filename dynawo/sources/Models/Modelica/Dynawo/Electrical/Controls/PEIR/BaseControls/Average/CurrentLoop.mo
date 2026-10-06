@@ -1,6 +1,6 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 
-model current_loop
+model CurrentLoop
   // =============================================================================
   // Author  : Gaia Bergamaschi
   //
@@ -40,11 +40,11 @@ model current_loop
   //     y_start_q = vmq_0 − ω0·Lg·id_meas_0 − ff·vq_0
   // =============================================================================
   // ── Inputs ───────────────────────────────────────────────────
-  Modelica.Blocks.Interfaces.RealInput i_d_ref(start = id_ref_0) "D-axis current reference from outer loop (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealInput idRefPu(start = idRef0Pu) "D-axis current reference from outer loop (pu)" annotation(
     Placement(transformation(origin = {-211, 99}, extent = {{-11, -11}, {11, 11}}), iconTransformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput i_d_meas(start = id_meas_0) "D-axis measured current (pu)" annotation(
     Placement(transformation(origin = {-211, 79}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-110, 72}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput i_q_ref(start = -iq_ref_0) "Q-axis current reference from outer loop (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealInput i_q_ref(start = -iqRef0Pu) "Q-axis current reference from outer loop (pu)" annotation(
     Placement(transformation(origin = {-207, -61}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput i_q_meas(start = iq_meas_0) "Q-axis measured current (pu)" annotation(
     Placement(transformation(origin = {-206, -80}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-110, -58}, extent = {{-10, -10}, {10, 10}})));
@@ -98,9 +98,9 @@ model current_loop
   parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
   parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
   // Initial conditions
-  parameter Real id_ref_0 "Initial d-axis current reference (pu)";
+  parameter Real idRef0Pu "Initial d-axis current reference (pu)";
   parameter Real id_meas_0 "Initial d-axis measured current (pu)";
-  parameter Real iq_ref_0 "Initial q-axis current reference (pu)";
+  parameter Real iqRef0Pu "Initial q-axis current reference (pu)";
   parameter Real iq_meas_0 "Initial q-axis measured current (pu)";
   parameter Real vd_0 "Initial d-axis grid voltage (pu)";
   parameter Real vq_0 "Initial q-axis grid voltage (pu)";
@@ -113,7 +113,7 @@ model current_loop
   final parameter Real y_start_current_q = vmq_0 - Omega0Pu*L_g*id_meas_0 - voltagefeedforwardflag_q*vq_0;
 equation
 // ── Connections
-  connect(i_d_ref, sum_node_id.u1) annotation(
+  connect(idRefPu, sum_node_id.u1) annotation(
     Line(points = {{-211, 99}, {-55, 99}, {-55, 88}, {-56, 88}}, color = {0, 0, 127}));
   connect(sum_node_id.y, pi_controller_d.u) annotation(
     Line(points = {{-39, 88}, {-25, 88}}, color = {0, 0, 127}));
@@ -164,4 +164,4 @@ equation
     </html>"),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid), Text(origin = {0, 0}, extent = {{-80, 20}, {80, -20}}, textString = "current loop")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}})));
-end current_loop;
+end CurrentLoop;
