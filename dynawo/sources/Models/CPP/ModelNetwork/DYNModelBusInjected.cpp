@@ -428,6 +428,7 @@ ModelBusInjected::defineElementsById(const std::string& id, std::vector<Element>
   addElement(id + string("_phi"), Element::TERMINAL, elements, mapElement);
 
   ModelBus::defineElementsById(id, elements, mapElement);
+  addElement(id + std::string("_state"), Element::TERMINAL, elements, mapElement);
 }
 
 static const bool U_SUP = true;
