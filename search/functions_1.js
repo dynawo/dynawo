@@ -50,7 +50,6 @@ var searchData=
   ['adddynmodelsentry',['addDynModelsEntry',['../de/d4e/a02289.html#ae4b3c7b96e4e878011d7170ec5ed604b',1,'job::ModelerEntry']]],
   ['addedge',['addEdge',['../da/dd2/a02701.html#a3e0cf592681bfe49b6eaafafa65247fc',1,'DYN::Graph']]],
   ['addelement',['addElement',['../d5/d8a/a00599.html#a1cf23a0b4d2b7cdcd0e6d5b75b304de3',1,'DYN']]],
-  ['addelementwithvalue',['addElementWithValue',['../d7/dc5/a03449.html#a1d3f32a1b5c8be6f5dc397931592385a',1,'DYN::NetworkComponent']]],
   ['addevent',['addEvent',['../d2/d80/a02645.html#a4ba09205221d48eafd5ef55c3d4b1225',1,'timeline::Timeline::addEvent()'],['../d7/d13/a02873.html#aa53743a51dd235ef0386b75d3bd0cfdc',1,'DYN::SubModel::addEvent()'],['../d6/dd5/a03541.html#a2372bfa2abb35ea07db739ca12c42066',1,'DYN::Simulation::addEvent()']]],
   ['addfinalstate',['addFinalState',['../de/d76/a02417.html#ab7d3a13316cc03597073ba1177294281',1,'job::OutputsHandler']]],
   ['addfinalstateentry',['addFinalStateEntry',['../d4/d16/a02313.html#a5959e807193aaf47a8feab1b885e49f3',1,'job::OutputsEntry']]],
