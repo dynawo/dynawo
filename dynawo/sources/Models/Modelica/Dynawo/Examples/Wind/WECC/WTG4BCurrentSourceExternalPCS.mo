@@ -177,6 +177,7 @@ model WTG4BCurrentSourceExternalPCS "WECC Wind Type 4B Model (including a plant 
     tPord = 0.01,
     tRv = 0.01,
     u0Pu(im(fixed = false), re(fixed = false)),
+    UControl0Pu(fixed = false),
     UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
@@ -232,6 +233,7 @@ initial algorithm
   WTG4B.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   WTG4B.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
   WTG4B.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
+  WTG4B.UControl0Pu := wTG4CurrentSource_INIT.UControl0Pu;
 
 equation
   ZPcs.switchOffSignal1 = false;
@@ -240,6 +242,7 @@ equation
   Zcc.switchOffSignal2 = false;
   WTG4B.injector.switchOffSignal1 = false;
   WTG4B.injector.switchOffSignal2 = false;
+  WTG4B.injector.switchOffSignal3 = false;
 
   connect(infiniteBus.terminal, Zcc.terminal1) annotation(
     Line(points = {{-180, 0}, {-160, 0}}, color = {0, 0, 255}));

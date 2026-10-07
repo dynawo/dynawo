@@ -130,6 +130,7 @@ model PVVoltageSource2 "WECC PV Vsource Model on infinite bus"
     UdInj0Pu(fixed = false),
     UqInj0Pu(fixed = false),
     uPcc0Pu(im(fixed = false), re(fixed = false)),
+    UControl0Pu(fixed = false),
     RLvTrPu = 0,
     XLvTrPu = 0,
     XMvHvPu = 0.15) annotation(
@@ -198,12 +199,14 @@ initial algorithm
   PV.Iq0Pu := pvVoltageSource_INIT.Iq0Pu;
   PV.uSource0Pu.re := pvVoltageSource_INIT.uSource0Pu.re;
   PV.uSource0Pu.im := pvVoltageSource_INIT.uSource0Pu.im;
+  PV.UControl0Pu := pvVoltageSource_INIT.UControl0Pu;
 
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   PV.injector.switchOffSignal1 = false;
   PV.injector.switchOffSignal2 = false;
+  PV.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

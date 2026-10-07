@@ -171,6 +171,7 @@ equation
   line.switchOffSignal2 = false;
   BESS.injector.switchOffSignal1 = false;
   BESS.injector.switchOffSignal2 = false;
+  BESS.injector.switchOffSignal3 = false;
 
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-80, 0}}, color = {0, 0, 255}));

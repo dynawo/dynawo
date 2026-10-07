@@ -180,6 +180,7 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     iConv0Pu(im(fixed = false), re(fixed = false)),
     s0Pu(im(fixed = false), re(fixed = false)),
     u0Pu(im(fixed = false), re(fixed = false)),
+    UControl0Pu(fixed = false),
     UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
@@ -262,12 +263,14 @@ initial algorithm
   WTG3.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   WTG3.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
   WTG3.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
+  WTG3.UControl0Pu := wTG4CurrentSource_INIT.UControl0Pu;
 
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   WTG3.injector.switchOffSignal1 = false;
   WTG3.injector.switchOffSignal2 = false;
+  WTG3.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, WTG3.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));

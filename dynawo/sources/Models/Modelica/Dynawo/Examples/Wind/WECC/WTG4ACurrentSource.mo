@@ -151,6 +151,7 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
     uPcc0Pu(im(fixed = false), re(fixed = false)),
+    UControl0Pu(fixed = false),
     RMvHvPu = 0,
     XMvHvPu = 0.15,
     RLvTrPu = 0,
@@ -220,12 +221,14 @@ initial algorithm
   WTG4A.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   WTG4A.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
   WTG4A.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
+  WTG4A.UControl0Pu := wTG4CurrentSource_INIT.UControl0Pu;
 
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   WTG4A.injector.switchOffSignal1 = false;
   WTG4A.injector.switchOffSignal2 = false;
+  WTG4A.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, WTG4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}}, color = {0, 0, 255}));
