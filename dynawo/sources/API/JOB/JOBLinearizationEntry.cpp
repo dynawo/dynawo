@@ -22,7 +22,8 @@
 namespace job {
 
 LinearizationEntry::LinearizationEntry() :
-time_(0.) {
+time_(0.),
+exportMode_("TXT") {
 }
 
 void
@@ -33,6 +34,16 @@ LinearizationEntry::setTime(double time) {
 double
 LinearizationEntry::getTime() const {
   return time_;
+}
+
+const std::string&
+LinearizationEntry::getExportMode() const {
+  return exportMode_;
+}
+
+void
+LinearizationEntry::setExportMode(const std::string& exportMode) {
+  exportMode_ = exportMode;
 }
 
 }  // namespace job

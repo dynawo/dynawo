@@ -75,6 +75,8 @@
 
 #include "LEQLostEquipmentsCollectionFactory.h"
 #include "LEQXmlExporter.h"
+#include "MATLinearizedSystem.h"
+#include "MATTxtExporter.h"
 
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
@@ -209,6 +211,7 @@ dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
 tLinearization_(boost::none),
+linearizationExporter_(std::make_shared<matrix::TxtExporter>()),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -313,8 +316,16 @@ Simulation::configureSimulationOutputs() {
 
 void
 Simulation::configureLinearizationOutputs() {
-  if (jobEntry_->getOutputsEntry()->getLinearizationEntry())
-    setLinearizationTime(jobEntry_->getOutputsEntry()->getLinearizationEntry()->getTime());
+  const auto linearizationEntry = jobEntry_->getOutputsEntry()->getLinearizationEntry();
+  if (!linearizationEntry)
+    return;
+
+  setLinearizationTime(linearizationEntry->getTime());
+  const std::string& exportMode = linearizationEntry->getExportMode();
+  if (exportMode == "TXT")
+    linearizationExporter_ = std::make_shared<matrix::TxtExporter>();
+  else
+    throw DYNError(Error::MODELER, UnknownLinearizationExport, exportMode);
 }
 
 void
@@ -1103,7 +1114,10 @@ Simulation::simulate() {
 
       if (tLinearization_ && doubleEquals(tCurrent_, *tLinearization_)) {
         Trace::info() << DYNLog(Linearization, tCurrent_) << Trace::endline;
-        model_->evalLinearization(tCurrent_, outputsDirectory_);
+        const string linearizationDir = createAbsolutePath("linearization", outputsDirectory_);
+        if (!isDirectory(linearizationDir))
+          createDirectory(linearizationDir);
+        linearizationExporter_->exportLinearizedSystem(model_->evalLinearization(tCurrent_), linearizationDir);
       }
 
       if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {
