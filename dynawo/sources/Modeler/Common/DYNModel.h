@@ -40,6 +40,10 @@ class Curve;
 class CurvesCollection;
 }  // namespace curves
 
+namespace matrix {
+class LinearizedSystem;
+}  // namespace matrix
+
 namespace DYN {
 class SparseMatrix;
 
@@ -158,12 +162,12 @@ class Model {
   virtual void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) = 0;
 
   /**
-   * @brief export the linearized system (\f$ @F/@x \f$ and \f$ @F/@x' \f$) and the variables and equations description in files
+   * @brief compute the linearized system: jacobians \f$ @F/@x \f$ and \f$ @F/@x' \f$, and description of the variables and equations
    *
    * @param t time to use for the evaluation
-   * @param outputsDirectory outputs directory of the simulation, files are created in its linearization subdirectory
+   * @return the linearized system
    */
-  virtual void evalLinearization(double t, const std::string& outputsDirectory) = 0;
+  virtual matrix::LinearizedSystem evalLinearization(double t) = 0;
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)

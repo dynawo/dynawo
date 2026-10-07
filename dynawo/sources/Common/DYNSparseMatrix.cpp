@@ -19,29 +19,20 @@
  */
 #include <map>
 #include <set>
-#include <sstream>
 #include <iomanip>
 #include <vector>
 #include <iostream>
-#include <fstream>
 #include <cassert>
 #include <cmath>
 
-#include <boost/filesystem.hpp>
-
 #include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
-#include "DYNFileSystemUtils.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTrace.h"
-#include "DYNFileSystemUtils.h"
 
 using std::map;
 using std::set;
 using std::vector;
-using std::stringstream;
-
-namespace fs = boost::filesystem;
 
 namespace DYN {
 
@@ -155,84 +146,6 @@ SparseMatrix::free() {
   iAx_ = 0;
   nbTerm_ = 0;
   currentMaxTerm_ = 0;
-}
-
-void SparseMatrix::printToFile(bool sparse) const {
-  static int nbPrint = 0;
-  stringstream fileName;
-  fileName << "mat-" << nbPrint << ".txt";
-  printToFile(sparse, "tmpMat", fileName.str());
-  ++nbPrint;
-}
-
-void SparseMatrix::printToFile(bool sparse, const std::string& directory, const std::string& fileName) const {
-  if (!exists(directory)) {
-    createDirectory(directory);
-  }
-
-  std::ofstream file;
-  file.open((fs::path(directory) / fileName).string(), std::ofstream::out);
-
-  if (!sparse) {
-    std::vector< std::vector<double> > matrix;
-    for (int i = 0; i < nbCol_; ++i) {
-      std::vector<double> row(nbCol_, 0);
-      matrix.push_back(row);
-    }
-
-    for (int iCol = 0; iCol < nbCol_; ++iCol) {
-      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
-        double val = Ax_[ind];
-        matrix[iRow][iCol] = val;
-      }
-    }
-
-    stringstream val;
-    for (const auto& row : matrix) {
-      for (const auto value : row) {
-        val.str("");
-        val.clear();
-        val << std::setprecision(5) << value;
-        file << val.str() << ";";
-      }
-      file << "\n";
-    }
-  } else {
-    stringstream val;
-    for (int iCol = 0; iCol < nbCol_; ++iCol) {
-      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
-        val.str("");
-        val.clear();
-        val << std::setprecision(16) << Ax_[ind];
-        file << iRow << ";" << iCol << ";" << val.str() << "\n";
-      }
-    }
-  }
-
-  file.close();
-}
-
-void SparseMatrix::printToFileApAiAx(const std::string& directory, const std::string& prefix) const {
-  if (!exists(directory)) {
-    createDirectory(directory);
-  }
-  const fs::path folder(directory);
-
-  std::ofstream fileAp((folder / (prefix + "_Ap.txt")).string(), std::ofstream::out);
-  for (const auto value : Ap_)
-    fileAp << value << "\n";
-
-  // Ai and Ax are allocated by blocks, only the first nbTerm_ values are meaningful
-  std::ofstream fileAi((folder / (prefix + "_Ai.txt")).string(), std::ofstream::out);
-  for (int i = 0; i < nbTerm_; ++i)
-    fileAi << Ai_[i] << "\n";
-
-  std::ofstream fileAx((folder / (prefix + "_Ax.txt")).string(), std::ofstream::out);
-  fileAx << std::setprecision(16);
-  for (int i = 0; i < nbTerm_; ++i)
-    fileAx << Ax_[i] << "\n";
 }
 
 void SparseMatrix::print() const {

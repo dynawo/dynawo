@@ -60,6 +60,10 @@ namespace criteria {
 class CriteriaCollection;
 }
 
+namespace matrix {
+class Exporter;
+}
+
 namespace DYN {
 class Message;
 class MessageTimeline;
@@ -772,6 +776,7 @@ class Simulation {
   bool dumpFinalValues_;  ///< whether to export the values of the models's variables and parameters at the end of the simulation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
   boost::optional<double> tLinearization_;  ///< time of the linearization, none if no linearization is requested
+  std::shared_ptr<matrix::Exporter> linearizationExporter_;  ///< exporter of the linearization
 
   bool wasLoggingEnabled_;  ///< true if logging was enabled by an upper project
 

@@ -23,7 +23,6 @@
 #include <map>
 #include <fstream>
 #include <algorithm>
-#include <sstream>
 
 #include "TLTimeline.h"
 #include "CRVCurve.h"
@@ -41,8 +40,9 @@
 #include "DYNConnectorCalculatedDiscreteVariable.h"
 #include "DYNConnectorCalculatedVariable.h"
 #include "DYNCommon.h"
-#include "DYNFileSystemUtils.h"
 #include "DYNVariableAlias.h"
+#include "MATLinearizedSystem.h"
+#include "MATSparseMatrixConversion.h"
 
 using std::min;
 using std::max;
@@ -1353,48 +1353,34 @@ void ModelMulti::registerAction(const string& actionString) {
   actionBuffer_->addAction(subModel, parameterValueSet);
 }
 
-void
-ModelMulti::evalLinearization(const double t, const std::string& outputsDirectory) {
-  const std::string linearizationDir = createAbsolutePath("linearization", outputsDirectory);
-  if (!isDirectory(linearizationDir))
-    createDirectory(linearizationDir);
+matrix::LinearizedSystem
+ModelMulti::evalLinearization(const double t) {
+  matrix::LinearizedSystem linearizedSystem(t);
 
-  std::stringstream suffix;
-  suffix << t;
-
-  // @F/@x
   SparseMatrix jt;
   jt.init(sizeY(), sizeY());
   evalJt(t, 0., jt);
-  jt.printToFile(true, linearizationDir, "linearization_" + suffix.str() + ".txt");
-  jt.printToFileApAiAx(linearizationDir, "linearization_" + suffix.str());
+  // the transposed jacobian is stored by columns (one column per equation): the jacobian is the same storage by rows
+  linearizedSystem.setJacobian(matrix::fromSparseMatrix(jt).transposed());
 
-  // @F/@x'
   SparseMatrix jtPrim;
   jtPrim.init(sizeY(), sizeY());
   evalJtPrim(t, 1., jtPrim);
-  jtPrim.printToFile(true, linearizationDir, "linearization_prim_" + suffix.str() + ".txt");
-  jtPrim.printToFileApAiAx(linearizationDir, "linearization_prim_" + suffix.str());
+  linearizedSystem.setJacobianPrim(matrix::fromSparseMatrix(jtPrim).transposed());
 
-  std::ofstream fileVariablesType(createAbsolutePath("linearization_variables_type_" + suffix.str() + ".txt", linearizationDir));
   const auto& modelYType = getYType();
-  for (unsigned int j = 0; j < modelYType.size(); ++j)
-    fileVariablesType << j << ";" << propertyVar2Str(modelYType[j]) << "\n";
-
-  std::ofstream fileVariablesName(createAbsolutePath("linearization_variables_name_" + suffix.str() + ".txt", linearizationDir));
-  unsigned int nVar = 0;
+  unsigned int numVar = 0;
   for (const auto& subModel : subModels_) {
-    const std::string& subModelName = subModel->name();
     for (const auto& xName : subModel->xNames()) {
-      fileVariablesName << nVar << ";" << subModelName << "_" << xName << ";" << subModelName << "\n";
-      ++nVar;
+      linearizedSystem.addVariable(xName, subModel->name(), propertyVar2Str(modelYType[numVar]));
+      ++numVar;
     }
   }
 
-  std::ofstream fileEquationsType(createAbsolutePath("linearization_equations_type_" + suffix.str() + ".txt", linearizationDir));
-  const auto& modelFType = getFType();
-  for (unsigned int j = 0; j < modelFType.size(); ++j)
-    fileEquationsType << j << ";" << propertyEquation2Str(modelFType[j]) << "\n";
+  for (const auto fType : getFType())
+    linearizedSystem.addEquation(propertyEquation2Str(fType));
+
+  return linearizedSystem;
 }
 
 }  // namespace DYN

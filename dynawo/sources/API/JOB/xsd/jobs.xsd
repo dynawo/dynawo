@@ -193,7 +193,14 @@
 
   <xs:complexType name="LinearizationEntry">
     <xs:attribute name="time" use="required" type="xs:double"/>
+    <xs:attribute name="exportMode" use="optional" type="dyn:LinearizationExportMode" default="TXT"/>
   </xs:complexType>
+
+  <xs:simpleType name="LinearizationExportMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TXT"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <xs:complexType name="LostEquipmentsEntry"/>
 

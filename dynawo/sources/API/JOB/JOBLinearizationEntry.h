@@ -20,6 +20,8 @@
 #ifndef API_JOB_JOBLINEARIZATIONENTRY_H_
 #define API_JOB_JOBLINEARIZATIONENTRY_H_
 
+#include <string>
+
 namespace job {
 
 /**
@@ -45,8 +47,21 @@ class LinearizationEntry {
    */
   void setTime(double time);
 
+  /**
+   * @brief export mode getter
+   * @return export mode of the linearization
+   */
+  const std::string& getExportMode() const;
+
+  /**
+   * @brief export mode setter
+   * @param exportMode export mode of the linearization
+   */
+  void setExportMode(const std::string& exportMode);
+
  private:
   double time_;  ///< time at which the linearization is done
+  std::string exportMode_;  ///< export mode of the linearization
 };
 
 }  // namespace job
