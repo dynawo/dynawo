@@ -13,15 +13,21 @@
 
 from content.Ticket import ticket
 
-# add ISide1 and ISide2 in staticRef of Line and TransformerFixedRatio
-@ticket(3923)
+# IEC WT models : adding the ConverterLVControl and LvTrPu parameters
+@ticket(4207)
 def update(jobs):
-    for linexml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "Line"):
-        if (linexml.static_refs.get_number_of_static_ref() > 0 or linexml.static_refs.get_number_of_macro_static_ref() > 0):
-            linexml.static_refs.add_static_ref("line_ISide1", "i1")
-            linexml.static_refs.add_static_ref("line_ISide2", "i2")
-
-    for tfoxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "TransformerFixedRatio"):
-        if (tfoxml.static_refs.get_number_of_static_ref() > 0 or tfoxml.static_refs.get_number_of_macro_static_ref() > 0):
-            tfoxml.static_refs.add_static_ref("transformer_ISide1", "i1")
-            tfoxml.static_refs.add_static_ref("transformer_ISide2", "i2")
+    iecs = jobs.dyds.get_bbms(lambda bbm: "IECWT" in bbm.get_lib_name())
+    for iec in iecs:
+        iec.parset.add_param("DOUBLE", "WT_ConverterLVControl", False)
+        B = iec.parset.get_param_value("WT_BesPu")
+        G = iec.parset.get_param_value("WT_GesPu")
+        R = iec.parset.get_param_value("WT_ResPu")
+        X = iec.parset.get_param_value("WT_XesPu")
+        parset.remove_param_or_ref("WT_BesPu")
+        parset.remove_param_or_ref("WT_GesPu")
+        parset.remove_param_or_ref("WT_ResPu")
+        parset.remove_param_or_ref("WT_XesPu")
+        iec.parset.add_param("DOUBLE", "WT_BLvTrPu", B)
+        iec.parset.add_param("DOUBLE", "WT_GLvTrPu", G)
+        iec.parset.add_param("DOUBLE", "WT_RLvTrPu", R)
+        iec.parset.add_param("DOUBLE", "WT_XLvTrPu", X)

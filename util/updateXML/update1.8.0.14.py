@@ -13,33 +13,15 @@
 
 from content.Ticket import ticket
 
-# add or remove the "_value" suffix in the connect statements for given models and member variables
-@ticket(3748)
+# add ISide1 and ISide2 in staticRef of Line and TransformerFixedRatio
+@ticket(3923)
 def update(jobs):
-    all_bbm_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda _: True)}
+    for linexml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "Line"):
+        if (linexml.static_refs.get_number_of_static_ref() > 0 or linexml.static_refs.get_number_of_macro_static_ref() > 0):
+            linexml.static_refs.add_static_ref("line_ISide1", "i1")
+            linexml.static_refs.add_static_ref("line_ISide2", "i2")
 
-    add_value_suffix(jobs.dyds, all_bbm_ids, "phaseShifter_tap")
-    add_value_suffix(jobs.dyds, all_bbm_ids, "tapChanger_tap")
-    add_value_suffix(jobs.dyds, all_bbm_ids, "shunt_section")
-
-    event_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "EventSetPointReal" or bbm.get_lib_name() == "EventSetPointDoubleReal")}
-    remove_value_suffix(jobs.dyds, event_ids, "event_state1_value")
-
-    tfo_ids = {bbm.get_id() for bbm in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "TransformerPhaseTapChanger" or bbm.get_lib_name() == "LoadOneTransformer" or bbm.get_lib_name() == "TransformerRatioTapChanger")}
-    remove_value_suffix(jobs.dyds, tfo_ids, "transformer_tap_value")
-
-def add_value_suffix(dyds, bbm_ids, var):
-    if not bbm_ids:
-        return
-    for idx in ["1", "2"]:
-        opp_idx = str(3 - int(idx))
-        for connect in dyds.get_connects_with_var_for_models(var, idx, bbm_ids):
-            if not connect.attrib['var' + opp_idx].endswith("_value"):
-                connect.attrib['var' + opp_idx] += "_value"              # no suffix on opposite side : add suffix on opposite side
-
-def remove_value_suffix(dyds, bbm_ids, var):
-    if not bbm_ids:
-        return
-    for idx in ["1", "2"]:
-        for connect in dyds.get_connects_with_var_for_models(var, idx, bbm_ids):
-            connect.attrib['var' + idx] = connect.attrib['var' + idx].replace("_value", "")
+    for tfoxml in jobs.dyds.get_bbms(lambda bbm: bbm.get_lib_name() == "TransformerFixedRatio"):
+        if (tfoxml.static_refs.get_number_of_static_ref() > 0 or tfoxml.static_refs.get_number_of_macro_static_ref() > 0):
+            tfoxml.static_refs.add_static_ref("transformer_ISide1", "i1")
+            tfoxml.static_refs.add_static_ref("transformer_ISide2", "i2")
