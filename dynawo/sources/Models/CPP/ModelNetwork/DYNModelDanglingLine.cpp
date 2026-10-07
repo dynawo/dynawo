@@ -28,6 +28,7 @@
 #include <DYNTimer.h>
 
 #include "DYNModelConstants.h"
+#include "DYNNumericalUtils.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
 #include "DYNCommonModeler.h"
@@ -71,6 +72,9 @@ modelType_("DanglingLine")  {
   }
   P0_ = line->getP0() / SNREF;
   Q0_ = line->getQ0() / SNREF;
+  // constant power load by default
+  alpha_ = 0.;
+  beta_ = 0.;
 
   // R, X, G, B in SI units in IIDM
   const double coeff = vNom * vNom / SNREF;
@@ -140,6 +144,10 @@ modelType_("DanglingLine")  {
 
   urFict0_ = ur0 - (rpu * iLine_r - xpu * iLine_i);
   uiFict0_ = ui0 - (xpu * iLine_r + rpu * iLine_i);
+  u0_ = sqrt(urFict0_ * urFict0_ + uiFict0_ * uiFict0_);
+  // avoid a division by zero in the voltage dependency of the load (e.g. disconnected bus)
+  if (doubleIsZero(u0_))
+    u0_ = 1.;
   ir1_dUiFict_ = 0.;
   ir1_dUrFict_ = 0.;
   ir2_dUiFict_ = 0.;
@@ -302,16 +310,32 @@ ModelDanglingLine::i1() const {
 }
 
 double
+ModelDanglingLine::PLoad(const double U) const {
+  if (doubleIsZero(alpha_))
+    return P0_;
+  return P0_ * pow_dynawo(U / u0_, alpha_);
+}
+
+double
+ModelDanglingLine::QLoad(const double U) const {
+  if (doubleIsZero(beta_))
+    return Q0_;
+  return Q0_ * pow_dynawo(U / u0_, beta_);
+}
+
+double
 ModelDanglingLine::ir_Load(const double ur, const double ui) const {
   const double u2 = ur * ur + ui * ui;
-  const double ir = (P0_ * ur + Q0_ * ui) / u2;
+  const double U = sqrt(u2);
+  const double ir = (PLoad(U) * ur + QLoad(U) * ui) / u2;
   return ir;
 }
 
 double
 ModelDanglingLine::ii_Load(const double ur, const double ui) const {
   const double u2 = ur * ur + ui * ui;
-  const double ii = (P0_ * ui - Q0_ * ur) / u2;
+  const double U = sqrt(u2);
+  const double ii = (PLoad(U) * ui - QLoad(U) * ur) / u2;
   return ii;
 }
 
@@ -496,12 +520,20 @@ ModelDanglingLine::ii2_dUiFict() const {
   return ii2_dUiFict;
 }
 
+// with P = P0 * (U/U0)^alpha and Q = Q0 * (U/U0)^beta:
+// dP/dUr = alpha * P * ur / U2, dP/dUi = alpha * P * ui / U2 (same for Q with beta)
 double
 ModelDanglingLine::irLoad_dUr(const double ur, const double ui) const {
   double ir_dUr = 0.;
   const double U2 = ur * ur + ui * ui;
-  if (!doubleIsZero(U2))
-    ir_dUr = (P0_ - 2 * ur * (P0_ * ur + Q0_ * ui) / U2) / U2;
+  if (!doubleIsZero(U2)) {
+    const double U = sqrt(U2);
+    const double P = PLoad(U);
+    const double Q = QLoad(U);
+    const double PdUr = alpha_ * P * ur / U2;
+    const double QdUr = beta_ * Q * ur / U2;
+    ir_dUr = (P + PdUr * ur + QdUr * ui - 2. * ur * (P * ur + Q * ui) / U2) / U2;
+  }
 
   return ir_dUr;
 }
@@ -510,8 +542,14 @@ double
 ModelDanglingLine::irLoad_dUi(const double ur, const double ui) const {
   double ir_dUi = 0.;
   const double U2 = ur * ur + ui * ui;
-  if (!doubleIsZero(U2))
-    ir_dUi = (Q0_ - 2 * ui * (P0_ * ur + Q0_ * ui) / U2) / U2;
+  if (!doubleIsZero(U2)) {
+    const double U = sqrt(U2);
+    const double P = PLoad(U);
+    const double Q = QLoad(U);
+    const double PdUi = alpha_ * P * ui / U2;
+    const double QdUi = beta_ * Q * ui / U2;
+    ir_dUi = (Q + PdUi * ur + QdUi * ui - 2. * ui * (P * ur + Q * ui) / U2) / U2;
+  }
 
   return ir_dUi;
 }
@@ -520,18 +558,30 @@ double
 ModelDanglingLine::iiLoad_dUr(const double ur, const double ui) const {
   double ii_dUr = 0.;
   const double U2 = ur * ur + ui * ui;
-  if (!doubleIsZero(U2))
-    ii_dUr = (-Q0_ - 2. * ur * (P0_ * ui - Q0_ * ur) / U2) / U2;
+  if (!doubleIsZero(U2)) {
+    const double U = sqrt(U2);
+    const double P = PLoad(U);
+    const double Q = QLoad(U);
+    const double PdUr = alpha_ * P * ur / U2;
+    const double QdUr = beta_ * Q * ur / U2;
+    ii_dUr = (-Q + PdUr * ui - QdUr * ur - 2. * ur * (P * ui - Q * ur) / U2) / U2;
+  }
 
   return ii_dUr;
 }
 
 double
 ModelDanglingLine::iiLoad_dUi(const double ur, const double ui) const {
-  double ii_dUi = 0;
+  double ii_dUi = 0.;
   const double U2 = ur * ur + ui * ui;
-  if (!doubleIsZero(U2))
-    ii_dUi = (P0_ - 2 * ui * (P0_ * ui - Q0_ * ur) / U2) / U2;
+  if (!doubleIsZero(U2)) {
+    const double U = sqrt(U2);
+    const double P = PLoad(U);
+    const double Q = QLoad(U);
+    const double PdUi = alpha_ * P * ui / U2;
+    const double QdUi = beta_ * Q * ui / U2;
+    ii_dUi = (P + PdUi * ui - QdUi * ur - 2. * ui * (P * ui - Q * ur) / U2) / U2;
+  }
 
   return ii_dUi;
 }
@@ -888,6 +938,7 @@ ModelDanglingLine::dumpInternalVariables(boost::archive::binary_oarchive& stream
   streamVariables << Q0_;
   streamVariables << ir0_;
   streamVariables << ii0_;
+  streamVariables << u0_;
 }
 
 void
@@ -896,6 +947,7 @@ ModelDanglingLine::loadInternalVariables(boost::archive::binary_iarchive& stream
   streamVariables >> Q0_;
   streamVariables >> ir0_;
   streamVariables >> ii0_;
+  streamVariables >> u0_;
 }
 
 NetworkComponent::StateChange_t
@@ -914,16 +966,34 @@ ModelDanglingLine::setSubModelParameters(const std::unordered_map<std::string, P
   const double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "dangling_line_currentLimit_maxTimeOperation", success);
   if (success && currentLimits_)
     currentLimits_->setMaxTimeOperation(maxTimeOperation);
+
+  // Optional parameters: non generic parameters have a higher priority than generic ones
+  // if not defined, the load at the fictitious node is a constant power load (alpha = beta = 0)
+  vector<string> ids;
+  ids.push_back(id_);
+  ids.push_back("dangling_line");
+  bool alphaFound = false;
+  const double alpha = getParameterDynamicNoThrow<double>(params, "alpha", alphaFound, ids);
+  if (alphaFound)
+    alpha_ = alpha;
+  bool betaFound = false;
+  const double beta = getParameterDynamicNoThrow<double>(params, "beta", betaFound, ids);
+  if (betaFound)
+    beta_ = beta;
 }
 
 void
 ModelDanglingLine::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("dangling_line_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("dangling_line_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("dangling_line_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
+// The load exponents can be defined specifically for one dangling line
 void
-ModelDanglingLine::defineNonGenericParameters(vector<ParameterModeler>& /*parameters*/) {
-  // not needed
+ModelDanglingLine::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
+  parameters.push_back(ParameterModeler(id_ + "_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 }  // namespace DYN
