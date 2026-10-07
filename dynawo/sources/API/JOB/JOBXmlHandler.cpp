@@ -582,6 +582,8 @@ void
 LinearizationHandler::create(attributes_type const& attributes) {
   linearization_ = std::make_shared<LinearizationEntry>();
   linearization_->setTime(attributes["time"]);
+  if (attributes.has("exportMode"))
+    linearization_->setExportMode(attributes["exportMode"]);
 }
 
 shared_ptr<LinearizationEntry>
