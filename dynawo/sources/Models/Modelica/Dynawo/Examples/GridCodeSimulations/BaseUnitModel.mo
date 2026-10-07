@@ -109,6 +109,7 @@ model BaseUnitModel
     ThetaRMax = 8,
     ThetaRMin = -8,
     U0Pu = U0Pu,
+    UControl0Pu(fixed = false),
     UConv0Pu(fixed = false),
     UInj0Pu(fixed = false),
     UPhase0 = UPhase0,
@@ -241,6 +242,7 @@ initial algorithm
   Unit.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   Unit.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
   Unit.omegaRefWTGQPu0 := wTG4CurrentSource_INIT.omegaRefWTGQPu0;
+  Unit.UControl0Pu := wTG4CurrentSource_INIT.UControl0Pu;
 
 equation
   Unit.injector.switchOffSignal1 = false;

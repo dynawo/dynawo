@@ -122,6 +122,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     iConv0Pu(im(fixed = false), re(fixed = false)),
     s0Pu(im(fixed = false), re(fixed = false)),
     u0Pu(im(fixed = false), re(fixed = false)),
+    UControl0Pu(fixed = false),
     UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
@@ -192,12 +193,14 @@ initial algorithm
   PV.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
   PV.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   PV.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
+  PV.UControl0Pu := wTG4CurrentSource_INIT.UControl0Pu;
 
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   PV.injector.switchOffSignal1 = false;
   PV.injector.switchOffSignal2 = false;
+  PV.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, PV.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

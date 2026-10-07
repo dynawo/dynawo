@@ -204,6 +204,7 @@ equation
   line.switchOffSignal2 = false;
   WT3.injector.switchOffSignal1 = false;
   WT3.injector.switchOffSignal2 = false;
+  WT3.injector.switchOffSignal3 = false;
 
   connect(line.terminal2, WT3.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));
