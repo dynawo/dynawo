@@ -351,6 +351,20 @@ class ModelDanglingLine : public NetworkComponent {
   double ui_Fict() const;
 
   /**
+   * @brief get the active power consumed by the load at the fictitious node: P = P0 * (U/U0)^alpha
+   * @param U voltage module at the fictitious node
+   * @return active power
+   */
+  double PLoad(double U) const;
+
+  /**
+   * @brief get the reactive power consumed by the load at the fictitious node: Q = Q0 * (U/U0)^beta
+   * @param U voltage module at the fictitious node
+   * @return reactive power
+   */
+  double QLoad(double U) const;
+
+  /**
    * @brief get ir_Load value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
@@ -551,8 +565,11 @@ class ModelDanglingLine : public NetworkComponent {
   double conduct1_;  ///< conductance  1
   double suscept2_;  ///< susceptance 2
   double conduct2_;  ///< conductance 2
-  double P0_;  ///< q0
-  double Q0_;  ///< p0
+  double P0_;  ///< p0
+  double Q0_;  ///< q0
+  double alpha_;  ///< active power exponent of the load at the fictitious node (0 = constant active power)
+  double beta_;  ///< reactive power exponent of the load at the fictitious node (0 = constant reactive power)
+  double u0_;  ///< initial voltage module at the fictitious node
   double ir0_;  ///< ir0
   double ii0_;  ///< ii0
   // Injections

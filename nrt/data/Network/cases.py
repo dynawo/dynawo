@@ -267,3 +267,13 @@ case_description = "Test the basic behavior of the Alpha beta voltage dependant 
 job_file = os.path.join(os.path.dirname(__file__), "Generator", "CPP", "Test.jobs")
 
 test_cases.append((case_name, case_description, job_file, 3, standardReturnCodeType, standardReturnCode))
+
+############################################
+#           DanglingLine NodeFault         #
+############################################
+
+case_name = "Network dangling line with alpha beta load and node fault"
+case_description = "Test the alpha beta voltage dependant load of the network dangling line during a node fault close to the dangling line"
+job_file = os.path.join(os.path.dirname(__file__), "DanglingLine", "CPP", "NodeFault", "DanglingLineNodeFault.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
