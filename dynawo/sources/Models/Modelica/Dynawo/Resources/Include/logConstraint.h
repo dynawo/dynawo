@@ -11,6 +11,7 @@
 // of simulation tools for power systems.
 //
 
+#include <stdbool.h>
 #include "ModelicaUtilities.h"
 
 extern void logConstraintFromModelica(int key, bool begin){};

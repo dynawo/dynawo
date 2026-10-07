@@ -44,8 +44,10 @@ model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators
   Real IB1B5, IB1B2, IB2B5;
 
   Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B2(IMax = 1.55, OrderToEmit = 4, Running = true, tLagBeforeActing = 30);
-  Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB2B5(IMax = 0.49, OrderToEmit = 4, Running = true, tLagBeforeActing = 20);
-  Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B5(IMax = 2, OrderToEmit = 4, Running = true, tLagBeforeActing = 50);
+
+  /* Temporarly disactivated since two or more CLA are not simulating together*/
+  //Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB2B5(IMax = 0.49, OrderToEmit = 4, Running = true, tLagBeforeActing = 20);
+  //Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B5(IMax = 2, OrderToEmit = 4, Running = true, tLagBeforeActing = 50);
 
 equation
   IB1B5 = sqrt(LineB1B5.terminal1.i.re * LineB1B5.terminal1.i.re + LineB1B5.terminal1.i.im * LineB1B5.terminal1.i.im);
@@ -59,6 +61,7 @@ equation
     LineB1B2.switchOffSignal2 = false;
   end when;
 
+/*
   CLAB2B5.IMonitored = IB2B5;
   when CLAB2B5.order > 3 then
     LineB2B5.switchOffSignal2 = true;
@@ -72,6 +75,10 @@ equation
   elsewhen CLAB1B5.order <= 3 then
     LineB1B5.switchOffSignal2 = false;
   end when;
+*/
+
+  LineB2B5.switchOffSignal2 = false;
+  LineB1B5.switchOffSignal2 = false;
 
   // Loads references
   Load2.PRefPu = P0Pu_Load2;
