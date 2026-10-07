@@ -12,30 +12,11 @@ within Dynawo.Electrical.PEIR.Plants.Simplified;
 * This file is part of Dynawo, a hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GridFollowingPlantPropInt "Simplified grid following model with plant control"
-
-  // Nominal parameters
-  parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
-
-  // Plant controller parameters
-  parameter Types.PerUnit AlphaPuPNom = 0 "Frequency sensitivity in pu (base PNom, OmegaNom)";
-  parameter Types.PerUnit DbdPu = 0.05 "Reactive power deadband in pu (base SNom)";
-  parameter Types.PerUnit EMaxPu = 99 "Maximum VAR error in pu (base SNom)";
-  parameter Types.PerUnit EMinPu = -99 "Minimum VAR error in pu (base SNom)";
-  parameter Types.PerUnit Ki "VAR regulator integral gain";
-  parameter Types.PerUnit Kp "VAR regulator proportional gain";
-  parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
-  parameter Types.ActivePower PMin = 0 "Minimum active power in MW";
-  parameter Types.ActivePower PMax "Maximum active power in MW";
-  parameter Types.ActivePower PNom "Nominal active power in MW";
-  parameter Types.Time tFilter = 0.05 "Time constant representing the delay caused by the other controls in s";
-  parameter Types.ReactivePowerPu QMaxPu "Maximum plant level reactive power command in pu (base SNom)";
-  parameter Types.ReactivePowerPu QMaxRegPu "Maximum reacive power in pu (base SNom)";
-  parameter Types.ReactivePowerPu QMinPu "Minimum plant level reactive power command in pu (base SNom)";
-  parameter Types.ReactivePowerPu QMinRegPu "Minimum reactive power in pu (base SNom)";
-  parameter Boolean VRegFlag "If true U + lambda Q regulation, if false Q is constant";
-
-  final parameter Types.PerUnit LambdaPu = LambdaPuSNom*SystemBase.SnRef/SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
+model GFLPlantPropIntWECC "Simplified grid following model with plant control"
+extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
+parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+parameter Types.PerUnit RPu "Serial resistance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
+  parameter Types.PerUnit XPu "Serial reactance between injector output and LvTfo in pu (base UNom, SNom). Including source resistance for voltage source.";
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput deltaPmRefPu(start = 0) "Additional active power reference in pu (base PNom)" annotation(
@@ -48,34 +29,20 @@ model GridFollowingPlantPropInt "Simplified grid following model with plant cont
     Placement(transformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)" annotation(
     Placement(transformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-
   // Output variables
-  Dynawo.Connectors.ACPower terminal(V(im(start = u0Pu.im), re(start = u0Pu.re)), i(im(start = i0Pu.im), re(start = i0Pu.re))) annotation(
+  Connectors.ACPower terminal(V(im(start = u0Pu.im), re(start = u0Pu.re)), i(im(start = i0Pu.im), re(start = i0Pu.re))) annotation(
     Placement(transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {100, 2}, extent = {{-10, -10}, {10, 10}})));
-
   Types.ActivePowerPu PGenPu(start = -P0Pu) "Active power at terminal in pu (base SnRef) (generator convention)";
   Types.ReactivePowerPu QGenPu(start = -Q0Pu) "Reactive power at terminal in pu (base SnRef) (generator convention)";
-
-  Dynawo.Electrical.PEIR.Plants.Simplified.BaseControls.PlantControllerPropInt plantControllerPropInt(DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, Ki = Ki, Kp = Kp, PMin = PMin, PMax = PMax, PNom = PNom, AlphaPuPNom = AlphaPuPNom, LambdaPuSNom = LambdaPuSNom, QMaxRegPu = QMaxRegPu, QMinRegPu = QMinRegPu, SNom = SNom, UReg0Pu = UReg0Pu, QMaxPu = QMaxPu, QMinPu = QMinPu, PInj0Pu = -P0Pu*SystemBase.SnRef/SNom, QInj0Pu = -Q0Pu*SystemBase.SnRef/SNom, QReg0Pu = QReg0Pu, VRegFlag = VRegFlag, tFilter = tFilter) annotation(
+  Dynawo.Electrical.Controls.WECC.REPC.REPCa plantControllerPropInt(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, PMaxREPCPu = PMaxREPCPu, PMinREPCPu = PMinREPCPu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, QMaxREPCPu = QMaxREPCPu, QMinREPCPu = QMinREPCPu, RcPu = RPu, RefFlag = RefFlag, SNom = SNom, VCompFlag = VCompFlag, VFrz = VFrz, XcPu = XPu, iControl0Pu = iControl0Pu, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tpREPC = tpREPC, uControl0Pu = uControl0Pu) annotation(
     Placement(transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.BaseControls.InjectorInterface injector(SNom = SNom, i0Pu = i0Pu, U0Pu = U0Pu, u0Pu = u0Pu, PInj0Pu = -P0Pu*SystemBase.SnRef/SNom, QInj0Pu = -Q0Pu*SystemBase.SnRef/SNom) annotation(
+  Electrical.PEIR.Plants.Simplified.BaseControls.InjectorInterface injector(SNom = SNom, i0Pu = i0Pu, U0Pu = U0Pu, u0Pu = u0Pu, PInj0Pu = -P0Pu*SystemBase.SnRef/SNom, QInj0Pu = -Q0Pu*SystemBase.SnRef/SNom) annotation(
     Placement(transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}})));
 
-  // Initial parameters
-  parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.PerUnit QReg0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
-  parameter Types.PerUnit U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Start value of voltage angle at terminal in rad";
-  parameter Types.PerUnit UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
-
-  final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Start value of complex voltage at terminal in pu (base UNom)";
-  final parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPu*QReg0Pu "Start value of voltage setpoint for plant level control in pu (base UNom)";
+ parameter Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal (receptor convention, base UNom, SnRef)";
 
 equation
-  Complex(PGenPu, QGenPu) = -terminal.V*ComplexMath.conj(terminal.i);
-
+  Complex(PGenPu, QGenPu) = -terminal.V*Modelica.ComplexMath.conj(terminal.i);
   connect(URefPu, plantControllerPropInt.URefPu) annotation(
     Line(points = {{-110, -40}, {-110, -39.5}, {10, -39.5}, {10, -11}}, color = {0, 0, 127}));
   connect(plantControllerPropInt.PInjPu, injector.PInjPu) annotation(
@@ -92,8 +59,7 @@ equation
     Line(points = {{-110, 20}, {-40, 20}, {-40, 3}, {-1, 3}}, color = {0, 0, 127}));
   connect(omegaRefPu, plantControllerPropInt.omegaRefPu) annotation(
     Line(points = {{-110, -20}, {-20, -20}, {-20, -2}, {0, -2}}, color = {0, 0, 127}));
-
   annotation(
     Diagram,
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-1, 2}, extent = {{-83, 38}, {83, -38}}, textString = "Grid Following Plant PI Controller")}));
-end GridFollowingPlantPropInt;
+end GFLPlantPropIntWECC;

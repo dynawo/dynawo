@@ -12,30 +12,30 @@
     simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-  <set id="gridFollowing">
-    <par type="DOUBLE" name="gridFollowing_P0Pu" value="-0.2"/>
-    <par type="DOUBLE" name="gridFollowing_Q0Pu" value="0.0439939"/>
-    <par type="DOUBLE" name="gridFollowing_U0Pu" value="1.06437"/>
-    <par type="DOUBLE" name="gridFollowing_UPhase0" value="0.00808331"/>
-    <par type="DOUBLE" name="gridFollowing_QReg0Pu" value="0.0458447"/>
-    <par type="DOUBLE" name="gridFollowing_UReg0Pu" value="1.06648"/>
-    <par type="DOUBLE" name="gridFollowing_SNom" value="15"/>
-    <par type="DOUBLE" name="gridFollowing_LambdaPuSNom" value="0.21"/>
-    <par type="DOUBLE" name="gridFollowing_AlphaPuPNom" value="0"/>
-    <par type="DOUBLE" name="gridFollowing_QMinRegPu" value="-0.6667"/>
-    <par type="DOUBLE" name="gridFollowing_QMaxRegPu" value="0.6667"/>
-    <par type="DOUBLE" name="gridFollowing_QMinPu" value="-99"/>
-    <par type="DOUBLE" name="gridFollowing_QMaxPu" value="99"/>
-    <par type="DOUBLE" name="gridFollowing_PMax" value="20"/>
-    <par type="DOUBLE" name="gridFollowing_PNom" value="15"/>
-    <par type="DOUBLE" name="gridFollowing_Ki" value="10"/>
-    <par type="DOUBLE" name="gridFollowing_Kp" value="5"/>
-    <par type="DOUBLE" name="gridFollowing_KiPLL" value="10"/>
-    <par type="DOUBLE" name="gridFollowing_KpPLL" value="3"/>
-    <par type="DOUBLE" name="gridFollowing_OmegaMaxPu" value="1.5"/>
-    <par type="DOUBLE" name="gridFollowing_OmegaMinPu" value="0.5"/>
-    <par type="DOUBLE" name="gridFollowing_tFilter" value="1"/>
-    <par type="BOOL" name="gridFollowing_VRegFlag" value="true"/>
+  <set id="gfl">
+    <par type="DOUBLE" name="gfl_P0Pu" value="-0.2"/>
+    <par type="DOUBLE" name="gfl_Q0Pu" value="0.0439939"/>
+    <par type="DOUBLE" name="gfl_U0Pu" value="1.06437"/>
+    <par type="DOUBLE" name="gfl_UPhase0" value="0.00808331"/>
+    <par type="DOUBLE" name="gfl_QReg0Pu" value="0.0458447"/>
+    <par type="DOUBLE" name="gfl_UReg0Pu" value="1.06648"/>
+    <par type="DOUBLE" name="gfl_SNom" value="15"/>
+    <par type="DOUBLE" name="gfl_LambdaPuSNom" value="0.21"/>
+    <par type="DOUBLE" name="gfl_AlphaPuPNom" value="0"/>
+    <par type="DOUBLE" name="gfl_QMinRegPu" value="-0.6667"/>
+    <par type="DOUBLE" name="gfl_QMaxRegPu" value="0.6667"/>
+    <par type="DOUBLE" name="gfl_QMinPu" value="-99"/>
+    <par type="DOUBLE" name="gfl_QMaxPu" value="99"/>
+    <par type="DOUBLE" name="gfl_PMax" value="20"/>
+    <par type="DOUBLE" name="gfl_PNom" value="15"/>
+    <par type="DOUBLE" name="gfl_Ki" value="10"/>
+    <par type="DOUBLE" name="gfl_Kp" value="5"/>
+    <par type="DOUBLE" name="gfl_KiPLL" value="10"/>
+    <par type="DOUBLE" name="gfl_KpPLL" value="3"/>
+    <par type="DOUBLE" name="gfl_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="gfl_OmegaMinPu" value="0.5"/>
+    <par type="DOUBLE" name="gfl_tFilter" value="1"/>
+    <par type="BOOL" name="gfl_VRegFlag" value="true"/>
   </set>
   <set id="omegaRef">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
@@ -92,6 +92,10 @@
     <par type="DOUBLE" name="transformer_XPu" value="0.05"/>
     <par type="DOUBLE" name="transformer_GPu" value="0"/>
     <par type="DOUBLE" name="transformer_BPu" value="0"/>
+    <!--<par type="DOUBLE" name="transformer_P10Pu" value="0"/>
+    <par type="DOUBLE" name="transformer_Q10Pu" value="0"/>
+    <par type="DOUBLE" name="transformer_U10Pu" value="1.06476"/>
+    <par type="DOUBLE" name="transformer_UPhase10" value="-0.00563"/>-->
   </set>
   <set id="Tfo1">
     <par type="DOUBLE" name="transformer_rTfoPu" value="1"/>

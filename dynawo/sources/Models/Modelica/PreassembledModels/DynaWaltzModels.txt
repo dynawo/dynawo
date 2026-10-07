@@ -28,8 +28,8 @@ GeneratorSynchronousThreeWindingsHyGovScrx
 GeneratorSynchronousThreeWindingsIEEEG2BbSex1
 GeneratorSynchronousThreeWindingsProportionalRegulations
 GenericAutomaton
-GridFollowingPlantPropInt
-GridFollowingPlantPropIntTfo
+GFLPlantPropInt
+GFLPlantPropIntTfo
 HvdcPV
 HvdcPVDangling
 HvdcPVEmulation

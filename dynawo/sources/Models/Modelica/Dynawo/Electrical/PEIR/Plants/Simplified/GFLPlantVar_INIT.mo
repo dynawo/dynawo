@@ -12,7 +12,7 @@ within Dynawo.Electrical.PEIR.Plants.Simplified;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model GridFollowingPlantVar_INIT "Grid following plant external variable initilization model"
+model GFLPlantVar_INIT "Grid following plant external variable initilization model"
   extends AdditionalIcons.Init;
 
   // Initial variables coming from load flow
@@ -27,4 +27,4 @@ model GridFollowingPlantVar_INIT "Grid following plant external variable initili
 
   annotation(
     preferredView = "text");
-end GridFollowingPlantVar_INIT;
+end GFLPlantVar_INIT;

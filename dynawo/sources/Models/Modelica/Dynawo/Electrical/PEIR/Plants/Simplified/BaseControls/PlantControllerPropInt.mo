@@ -32,7 +32,6 @@ model PlantControllerPropInt "Simplified plant model with PI controller"
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ActivePower PMax "Maximum active power in MW";
   parameter Types.ActivePower PMin "Minimum active power in MW";
-  parameter Types.Time tFilter "Time constant representing the delay caused by the other controls in s";
   parameter Types.ReactivePowerPu QMaxPu "Maximum plant level reactive power command in pu (base SNom)";
   parameter Types.ReactivePower QMaxRegPu "Maximum reactive power at regulated bus in pu (base SNom)";
   parameter Types.ReactivePowerPu QMinPu "Minimum plant level reactive power command in pu (base SNom)";

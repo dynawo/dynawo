@@ -13,10 +13,10 @@ add_subdirectory(BaseControls B)
 set(MODEL_FILES
   package.mo
   package.order
-  GridFollowingPlantPropInt.mo
-  GridFollowingPlantPropInt.extvar
-  GridFollowingPlantPropInt.mandatoryParam
-  GridFollowingPlantVar_INIT.mo
+  GFLPlantPropInt.mo
+  GFLPlantPropInt.extvar
+  GFLPlantPropInt.mandatoryParam
+  GFLPlantVar_INIT.mo
   )
 
 #

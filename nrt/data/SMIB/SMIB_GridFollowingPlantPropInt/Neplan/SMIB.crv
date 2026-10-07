@@ -12,11 +12,11 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="gridFollowing" variable="gridFollowing_PGenPu"/>
-  <curve model="gridFollowing" variable="gridFollowing_QGenPu"/>
-  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_PInjPu"/>
-  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_QInjPu"/>
-  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_URefPu"/>
-  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_URegPu"/>
-  <curve model="gridFollowing" variable="gridFollowing_plantControllerPropInt_QRegPu"/>
+  <curve model="gfl" variable="gfl_PGenPu"/>
+  <curve model="gfl" variable="gfl_QGenPu"/>
+  <curve model="gfl" variable="gfl_plantControllerPropInt_PInjPu"/>
+  <curve model="gfl" variable="gfl_plantControllerPropInt_QInjPu"/>
+  <curve model="gfl" variable="gfl_plantControllerPropInt_URefPu"/>
+  <curve model="gfl" variable="gfl_plantControllerPropInt_URegPu"/>
+  <curve model="gfl" variable="gfl_plantControllerPropInt_QRegPu"/>
 </curvesInput>
