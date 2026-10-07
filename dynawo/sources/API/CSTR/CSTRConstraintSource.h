@@ -38,6 +38,9 @@ class ConstraintSource {
                               double & valueFinal,
                               boost::optional<double> & valueMin,
                               boost::optional<double> & valueMax) const = 0;
+
+  /** @brief useless destructor, needed for clang */
+  virtual ~ConstraintSource() = default;
 };
 
 }  // end of namespace constraints

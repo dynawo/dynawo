@@ -71,8 +71,8 @@ ConstraintsCollection::filter(DYN::ConstraintValueType_t filterType) {
       const string & descr = constraint->getDescription();
       Type_t type = constraint->getType();
 
-      if ((constraintsByDescr.find(descr) == constraintsByDescr.end())) {  // new constraint
-        if ((type == CONSTRAINT_BEGIN)) {
+      if (constraintsByDescr.find(descr) == constraintsByDescr.end()) {  // new constraint
+        if (type == CONSTRAINT_BEGIN) {
           constraintsByDescr[descr].push_back(constraint);
           if ((filterType == DYN::CONSTRAINTS_DYNAFLOW) && constraint->getData() && (constraint->getData()->source != nullptr)) {
             ConstraintData data = constraint->getData().get();
