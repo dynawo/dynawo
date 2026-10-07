@@ -19,7 +19,7 @@ function logConstraint "Create a constraint"
   input Integer key;
   input Boolean begin;
 
-  external "C" logConstraintFromModelica(key, begin);
+  external "C" logConstraintFromModelica(key, begin) annotation(Include = "#include \"logConstraint.h\"");
 
   annotation(preferredView = "text");
 end logConstraint;

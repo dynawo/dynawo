@@ -23,7 +23,7 @@ function logConstraintWithData "Create a constraint with data"
   input Real value;
   input String param;
 
-  external "C" logConstraintFromModelicaWithData(key, begin, kind, limit, value, param);
+  external "C" logConstraintFromModelicaWithData(key, begin, kind, limit, value, param) annotation(Include = "#include \"logConstraint.h\"");
 
   annotation(preferredView = "text");
 end logConstraintWithData;
