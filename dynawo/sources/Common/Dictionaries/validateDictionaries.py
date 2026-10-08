@@ -8,7 +8,7 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+# This file is part of Dynawo, a hybrid C++/Modelica open source time domain
 # simulation tool for power systems.
 
 ##
@@ -237,8 +237,8 @@ class Dictionary:
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
-// for power systems.
+// This file is part of Dynawo, a hybrid C++/Modelica open source suite
+// of simulation tools for power systems.
 //
 ''')
             header_file.write("#ifndef " + tag + "\n")
@@ -296,8 +296,8 @@ class Dictionary:
 // file, you can obtain one at http://mozilla.org/MPL/2.0/.
 // SPDX-License-Identifier: MPL-2.0
 //
-// This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools
-// for power systems.
+// This file is part of Dynawo, a hybrid C++/Modelica open source suite
+// of simulation tools for power systems.
 //
 ''')
             cpp_file.write('#include "' + self.name + '_keys.h"\n')
@@ -336,7 +336,7 @@ class Dictionary:
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 ''')
