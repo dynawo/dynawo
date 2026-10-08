@@ -59,4 +59,3 @@ void GeneratorPQ_INIT_function_savePreSynchronous(DATA *data, threadData_t *thre
 #if defined(__cplusplus)
 }
 #endif
-

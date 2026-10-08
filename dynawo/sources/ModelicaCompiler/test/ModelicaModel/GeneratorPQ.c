@@ -24,7 +24,7 @@ int GeneratorPQ_input_function(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
 
-  
+
   TRACE_POP
   return 0;
 }
@@ -33,7 +33,7 @@ int GeneratorPQ_input_function_init(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
 
-  
+
   TRACE_POP
   return 0;
 }
@@ -42,7 +42,7 @@ int GeneratorPQ_input_function_updateStartValues(DATA *data, threadData_t *threa
 {
   TRACE_PUSH
 
-  
+
   TRACE_POP
   return 0;
 }
@@ -50,7 +50,7 @@ int GeneratorPQ_input_function_updateStartValues(DATA *data, threadData_t *threa
 int GeneratorPQ_inputNames(DATA *data, char ** names){
   TRACE_PUSH
 
-  
+
   TRACE_POP
   return 0;
 }
@@ -84,7 +84,7 @@ int GeneratorPQ_output_function(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
 
-  
+
   TRACE_POP
   return 0;
 }
@@ -121,7 +121,7 @@ int GeneratorPQ_functionDAE(DATA *data, threadData_t *threadData)
   data->simulationInfo->discreteCall = 1;
   GeneratorPQ_functionLocalKnownVars(data, threadData);
   data->simulationInfo->discreteCall = 0;
-  
+
 #if !defined(OMC_MINIMAL_RUNTIME)
   if (measure_time_flag) rt_accumulate(SIM_TIMER_DAE);
 #endif
@@ -134,7 +134,7 @@ int GeneratorPQ_functionLocalKnownVars(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
 
-  
+
   TRACE_POP
   return 0;
 }
@@ -147,9 +147,9 @@ int GeneratorPQ_functionODE(DATA *data, threadData_t *threadData)
   if (measure_time_flag) rt_tick(SIM_TIMER_FUNCTION_ODE);
 #endif
 
-  
+
   data->simulationInfo->callStatistics.functionODE++;
-  
+
   GeneratorPQ_functionLocalKnownVars(data, threadData);
   /* no ODE systems */
 
@@ -257,12 +257,12 @@ static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_0_name,7,_OMC_LIT_RESOURCE_0_nam
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_0_dir,63,_OMC_LIT_RESOURCE_0_dir_data);
 
 #define _OMC_LIT_RESOURCE_1_name_data "Dynawo"
-#define _OMC_LIT_RESOURCE_1_dir_data "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo"
+#define _OMC_LIT_RESOURCE_1_dir_data "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo"
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_1_name,6,_OMC_LIT_RESOURCE_1_name_data);
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_1_dir,103,_OMC_LIT_RESOURCE_1_dir_data);
 
 #define _OMC_LIT_RESOURCE_2_name_data "GeneratorPQ"
-#define _OMC_LIT_RESOURCE_2_dir_data "/home/rosiereflo/Projects/dynawo_bis/dynawo/build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ"
+#define _OMC_LIT_RESOURCE_2_dir_data "/home/rosiereflo/Projects/dynawo_ter/dynawo/build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ"
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_2_name,11,_OMC_LIT_RESOURCE_2_name_data);
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_2_dir,108,_OMC_LIT_RESOURCE_2_dir_data);
 
@@ -286,8 +286,8 @@ void GeneratorPQ_setupDataStruc(DATA *data, threadData_t *threadData)
   data->modelData->modelName = "GeneratorPQ";
   data->modelData->modelFilePrefix = "GeneratorPQ";
   data->modelData->resultFileName = NULL;
-  data->modelData->modelDir = "/home/rosiereflo/Projects/dynawo_bis/dynawo/build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ";
-  data->modelData->modelGUID = "{0b9dbdd7-dc9d-41ad-ab74-da608aebc768}";
+  data->modelData->modelDir = "/home/rosiereflo/Projects/dynawo_ter/dynawo/build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ";
+  data->modelData->modelGUID = "{8c4e810f-3df3-4a00-8276-176fa3c9f9e0}";
   #if defined(OPENMODELICA_XML_FROM_FILE_AT_RUNTIME)
   data->modelData->initXMLData = NULL;
   data->modelData->modelDataXml.infoXMLData = NULL;
@@ -440,15 +440,15 @@ int OMC_MAIN(int argc, OMC_CHAR** argv)
   omc_alloc_interface.init();
   {
     MMC_TRY_TOP()
-  
+
     MMC_TRY_STACK()
-  
+
     GeneratorPQ_setupDataStruc(&data, threadData);
     res = _main_initRuntimeAndSimulation(argc, newargv, &data, threadData);
     if(res == 0) {
       res = _main_SimulationRuntime(argc, newargv, &data, threadData);
     }
-    
+
     MMC_ELSE()
     rml_execution_failed();
     fprintf(stderr, "Stack overflow detected and was not caught.\nSend us a bug report at https://trac.openmodelica.org/OpenModelica/newticket\n    Include the following trace:\n");
@@ -456,7 +456,7 @@ int OMC_MAIN(int argc, OMC_CHAR** argv)
     fflush(NULL);
     return 1;
     MMC_CATCH_STACK()
-    
+
     MMC_CATCH_TOP(return rml_execution_failed());
   }
 

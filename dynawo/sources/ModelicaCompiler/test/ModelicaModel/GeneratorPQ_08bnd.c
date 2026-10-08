@@ -9,60 +9,60 @@ extern "C" {
 /*
 equation index: 49
 type: SIMPLE_ASSIGN
-$START.generator.switchOffSignal1.value = generator.SwitchOffSignal10
+$START.generator.switchOffSignal1 = generator.SwitchOffSignal10
 */
 static void GeneratorPQ_eqFunction_49(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,49};
-  (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[1] /* generator.SwitchOffSignal10 PARAM */);
-    (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */) = (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[10].info /* generator.switchOffSignal1.value */.name, (modelica_boolean) (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */));
+  (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1 DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[1] /* generator.SwitchOffSignal10 PARAM */);
+    (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */) = (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1 DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[10].info /* generator.switchOffSignal1 */.name, (modelica_boolean) (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */));
   TRACE_POP
 }
 
 /*
 equation index: 50
 type: SIMPLE_ASSIGN
-$START.generator.switchOffSignal2.value = generator.SwitchOffSignal20
+$START.generator.switchOffSignal2 = generator.SwitchOffSignal20
 */
 static void GeneratorPQ_eqFunction_50(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,50};
-  (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[2] /* generator.SwitchOffSignal20 PARAM */);
-    (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */) = (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[11].info /* generator.switchOffSignal2.value */.name, (modelica_boolean) (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */));
+  (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2 DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[2] /* generator.SwitchOffSignal20 PARAM */);
+    (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */) = (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2 DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[11].info /* generator.switchOffSignal2 */.name, (modelica_boolean) (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */));
   TRACE_POP
 }
 
 /*
 equation index: 51
 type: SIMPLE_ASSIGN
-$START.generator.switchOffSignal3.value = generator.SwitchOffSignal30
+$START.generator.switchOffSignal3 = generator.SwitchOffSignal30
 */
 static void GeneratorPQ_eqFunction_51(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,51};
-  (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[3] /* generator.SwitchOffSignal30 PARAM */);
-    (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */) = (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[12].info /* generator.switchOffSignal3.value */.name, (modelica_boolean) (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */));
+  (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3 DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[3] /* generator.SwitchOffSignal30 PARAM */);
+    (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */) = (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3 DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[12].info /* generator.switchOffSignal3 */.name, (modelica_boolean) (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */));
   TRACE_POP
 }
 
 /*
 equation index: 52
 type: SIMPLE_ASSIGN
-$START.generator.running.value = generator.Running0
+$START.generator.running = generator.Running0
 */
 static void GeneratorPQ_eqFunction_52(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,52};
-  (data->modelData->booleanVarsData[9] /* generator.running.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[0] /* generator.Running0 PARAM */);
-    (data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */) = (data->modelData->booleanVarsData[9] /* generator.running.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[9].info /* generator.running.value */.name, (modelica_boolean) (data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */));
+  (data->modelData->booleanVarsData[9] /* generator.running DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[0] /* generator.Running0 PARAM */);
+    (data->localData[0]->booleanVars[9] /* generator.running DISCRETE */) = (data->modelData->booleanVarsData[9] /* generator.running DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->booleanVarsData[9].info /* generator.running */.name, (modelica_boolean) (data->localData[0]->booleanVars[9] /* generator.running DISCRETE */));
   TRACE_POP
 }
 
@@ -204,60 +204,60 @@ static void GeneratorPQ_eqFunction_61(DATA *data, threadData_t *threadData)
 /*
 equation index: 62
 type: SIMPLE_ASSIGN
-$START.$PRE.generator.running.value = generator.Running0
+$START.$PRE.generator.running = generator.Running0
 */
 static void GeneratorPQ_eqFunction_62(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,62};
-  (data->modelData->booleanVarsData[9] /* generator.running.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[0] /* generator.Running0 PARAM */);
-    (data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */) = (data->modelData->booleanVarsData[9] /* generator.running.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.running.value */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */));
+  (data->modelData->booleanVarsData[9] /* generator.running DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[0] /* generator.Running0 PARAM */);
+    (data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */) = (data->modelData->booleanVarsData[9] /* generator.running DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.running */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */));
   TRACE_POP
 }
 
 /*
 equation index: 63
 type: SIMPLE_ASSIGN
-$START.$PRE.generator.switchOffSignal3.value = generator.SwitchOffSignal30
+$START.$PRE.generator.switchOffSignal3 = generator.SwitchOffSignal30
 */
 static void GeneratorPQ_eqFunction_63(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,63};
-  (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[3] /* generator.SwitchOffSignal30 PARAM */);
-    (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3.value DISCRETE */) = (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.switchOffSignal3.value */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3.value DISCRETE */));
+  (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3 DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[3] /* generator.SwitchOffSignal30 PARAM */);
+    (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3 DISCRETE */) = (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3 DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.switchOffSignal3 */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3 DISCRETE */));
   TRACE_POP
 }
 
 /*
 equation index: 64
 type: SIMPLE_ASSIGN
-$START.$PRE.generator.switchOffSignal2.value = generator.SwitchOffSignal20
+$START.$PRE.generator.switchOffSignal2 = generator.SwitchOffSignal20
 */
 static void GeneratorPQ_eqFunction_64(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,64};
-  (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[2] /* generator.SwitchOffSignal20 PARAM */);
-    (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2.value DISCRETE */) = (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.switchOffSignal2.value */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2.value DISCRETE */));
+  (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2 DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[2] /* generator.SwitchOffSignal20 PARAM */);
+    (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2 DISCRETE */) = (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2 DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.switchOffSignal2 */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2 DISCRETE */));
   TRACE_POP
 }
 
 /*
 equation index: 65
 type: SIMPLE_ASSIGN
-$START.$PRE.generator.switchOffSignal1.value = generator.SwitchOffSignal10
+$START.$PRE.generator.switchOffSignal1 = generator.SwitchOffSignal10
 */
 static void GeneratorPQ_eqFunction_65(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,65};
-  (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1.value DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[1] /* generator.SwitchOffSignal10 PARAM */);
-    (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1.value DISCRETE */) = (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1.value DISCRETE */).attribute .start;
-    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.switchOffSignal1.value */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1.value DISCRETE */));
+  (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1 DISCRETE */).attribute .start = (data->simulationInfo->booleanParameter[1] /* generator.SwitchOffSignal10 PARAM */);
+    (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1 DISCRETE */) = (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1 DISCRETE */).attribute .start;
+    infoStreamPrint(LOG_INIT_V, 0, "updated start value: %s(start=%d)", data->modelData->realVarsData[-2].info /* ERROR_cref2simvar_failed $PRE.generator.switchOffSignal1 */.name, (modelica_boolean) (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1 DISCRETE */));
   TRACE_POP
 }
 
@@ -488,10 +488,10 @@ static void GeneratorPQ_eqFunction_71(DATA *data, threadData_t *threadData)
       {
         const char* assert_cond = "(generator.NbSwitchOffSignals >= 1 and generator.NbSwitchOffSignals <= 3)";
         if (data->simulationInfo->noThrowAsserts) {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
+          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
           infoStreamPrintWithEquationIndexes(LOG_ASSERT, info, 0, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta4));
         } else {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
+          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
           omc_assert_warning_withEquationIndexes(info, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta4));
         }
       }
@@ -529,10 +529,10 @@ static void GeneratorPQ_eqFunction_72(DATA *data, threadData_t *threadData)
       {
         const char* assert_cond = "(generator.State0 >= Dynawo.Electrical.Constants.state.Open and generator.State0 <= Dynawo.Electrical.Constants.state.Undefined)";
         if (data->simulationInfo->noThrowAsserts) {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
+          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
           infoStreamPrintWithEquationIndexes(LOG_ASSERT, info, 0, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta10));
         } else {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
+          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
           omc_assert_warning_withEquationIndexes(info, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta10));
         }
       }

@@ -26,14 +26,15 @@
 <name>generator</name>
 <subnodes>
 <terminal>
-<name>omegaRefPu.value</name>
+<name>omegaRefPu</name>
 <kind>continuous</kind>
 <number>3</number>
-<id>generator.omegaRefPu.value</id>
+<id>generator.omegaRefPu</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
 <connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Network angular reference frequency in pu (base OmegaNom)</comment>
 </terminal>
 </subnodes>
 </struct>
@@ -41,14 +42,15 @@
 <name>generator</name>
 <subnodes>
 <terminal>
-<name>deltaPmRefPu.value</name>
+<name>deltaPmRefPu</name>
 <kind>continuous</kind>
 <number>4</number>
-<id>generator.deltaPmRefPu.value</id>
+<id>generator.deltaPmRefPu</id>
 <type>Real</type>
 <direction>none</direction>
 <fixed>false</fixed>
 <connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Additional active power reference in pu (base PNom)</comment>
 </terminal>
 </subnodes>
 </struct>
@@ -244,14 +246,15 @@
 <name>generator</name>
 <subnodes>
 <terminal>
-<name>running.value</name>
+<name>running</name>
 <kind>discrete</kind>
 <number>19</number>
-<id>generator.running.value</id>
+<id>generator.running</id>
 <type>Boolean</type>
 <direction>none</direction>
 <fixed>false</fixed>
 <connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Indicates if the component is running or not</comment>
 </terminal>
 </subnodes>
 </struct>
@@ -259,14 +262,15 @@
 <name>generator</name>
 <subnodes>
 <terminal>
-<name>switchOffSignal3.value</name>
+<name>switchOffSignal3</name>
 <kind>discrete</kind>
 <number>20</number>
-<id>generator.switchOffSignal3.value</id>
+<id>generator.switchOffSignal3</id>
 <type>Boolean</type>
 <direction>none</direction>
 <fixed>false</fixed>
 <connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Switch-off signal 3</comment>
 </terminal>
 </subnodes>
 </struct>
@@ -274,14 +278,15 @@
 <name>generator</name>
 <subnodes>
 <terminal>
-<name>switchOffSignal2.value</name>
+<name>switchOffSignal2</name>
 <kind>discrete</kind>
 <number>21</number>
-<id>generator.switchOffSignal2.value</id>
+<id>generator.switchOffSignal2</id>
 <type>Boolean</type>
 <direction>none</direction>
 <fixed>false</fixed>
 <connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Switch-off signal 2</comment>
 </terminal>
 </subnodes>
 </struct>
@@ -289,14 +294,15 @@
 <name>generator</name>
 <subnodes>
 <terminal>
-<name>switchOffSignal1.value</name>
+<name>switchOffSignal1</name>
 <kind>discrete</kind>
 <number>22</number>
-<id>generator.switchOffSignal1.value</id>
+<id>generator.switchOffSignal1</id>
 <type>Boolean</type>
 <direction>none</direction>
 <fixed>false</fixed>
 <connector name="DynawoElectricalMachinesOmegaRefGeneratorPQ" type="Potential" />
+<comment>Switch-off signal 1</comment>
 </terminal>
 </subnodes>
 </struct>

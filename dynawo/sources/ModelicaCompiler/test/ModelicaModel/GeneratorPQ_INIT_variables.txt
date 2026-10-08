@@ -8,8 +8,9 @@ type: algVars (4) index:3: generator.u0Pu.re (no alias) valueType: real initial:
 //----------------------
 type: aliasVars index:0: generator.PGen0Pu (negated alias: generator.P0Pu) valueType: real initial: 	no arrCref index:(11) []
 type: aliasVars index:1: generator.QGen0Pu (negated alias: generator.Q0Pu) valueType: real initial: 	no arrCref index:(12) []
-type: aliasVars index:2: generator.s0Pu.im (alias: generator.Q0Pu) valueType: real initial: 	no arrCref index:(13) []
-type: aliasVars index:3: generator.s0Pu.re (alias: generator.P0Pu) valueType: real initial: 	no arrCref index:(14) []
+type: aliasVars index:2: generator.U0PuVar (alias: generator.U0Pu) valueType: real initial: 	no arrCref index:(13) []
+type: aliasVars index:3: generator.s0Pu.im (alias: generator.Q0Pu) valueType: real initial: 	no arrCref index:(14) []
+type: aliasVars index:4: generator.s0Pu.re (alias: generator.P0Pu) valueType: real initial: 	no arrCref index:(15) []
 //paramVars
 //----------------------
 type: paramVars index:0: generator.P0Pu (no alias) valueType: real initial: 0.0	no arrCref index:(5) []
