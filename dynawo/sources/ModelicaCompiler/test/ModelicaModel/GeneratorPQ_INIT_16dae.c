@@ -77,23 +77,23 @@ int GeneratorPQ_INIT_initializeDAEmodeData(DATA* data, DAEMODE_DATA* daeModeData
   const int rowIndex[4] = {0,1,0,1};
   const int algIndexes[2] = {0,1};
   int i = 0;
-  
+
   daeModeData->nResidualVars = 2;
   daeModeData->nAlgebraicDAEVars = 2;
   daeModeData->nAuxiliaryVars = 0;
-  
+
   daeModeData->residualVars = (double*) malloc(sizeof(double)*2);
   daeModeData->auxiliaryVars = (double*) malloc(sizeof(double)*0);
-  
+
   /* set the function pointer */
   daeModeData->evaluateDAEResiduals = GeneratorPQ_INIT_evaluateDAEResiduals;
-  
+
   /* prepare algebraic indexes */
   daeModeData->algIndexes = (int*) malloc(sizeof(int)*2);
   memcpy(daeModeData->algIndexes, algIndexes, 2*sizeof(int));
   /* intialize sparse pattern */
   daeModeData->sparsePattern = allocSparsePattern(2, 4, 2);
-  
+
   /* write lead index of compressed sparse column */
   memcpy(daeModeData->sparsePattern->leadindex, colPtrIndex, (1+2)*sizeof(int));
   /* makek CRS compatible */
@@ -101,7 +101,7 @@ int GeneratorPQ_INIT_initializeDAEmodeData(DATA* data, DAEMODE_DATA* daeModeData
     daeModeData->sparsePattern->leadindex[i] += daeModeData->sparsePattern->leadindex[i-1];
   /* call sparse index */
   memcpy(daeModeData->sparsePattern->index, rowIndex, 4*sizeof(int));
-  
+
   /* write color array */
   /* color 1 with 1 columns */
   const int indices_1[1] = {0};

@@ -45,57 +45,57 @@ void Complex_1_2_construct_p(threadData_t *threadData, void* v_ths , modelica_re
 
 #define alloc_Complex_1_2_array(dst,ndims,...) generic_array_create(NULL, dst, Complex_1_2_construct_p, ndims, sizeof(Complex), __VA_ARGS__)
 
-typedef Complex Dynawo_Connectors_ComplexCurrentPuConnector;
-extern struct record_description Dynawo_Connectors_ComplexCurrentPuConnector__desc;
+typedef Complex Dynawo_Connectors_ComplexCurrentPuOutput;
+extern struct record_description Dynawo_Connectors_ComplexCurrentPuOutput__desc;
 
-void Dynawo_Connectors_ComplexCurrentPuConnector_construct_p(threadData_t *threadData, void* v_ths );
-#define Dynawo_Connectors_ComplexCurrentPuConnector_construct(td, ths ) Dynawo_Connectors_ComplexCurrentPuConnector_construct_p(td, &ths )
-void Dynawo_Connectors_ComplexCurrentPuConnector_copy_p(void* v_src, void* v_dst);
-#define Dynawo_Connectors_ComplexCurrentPuConnector_copy(src,dst) Dynawo_Connectors_ComplexCurrentPuConnector_copy_p(&src, &dst)
-
-
-void Dynawo_Connectors_ComplexCurrentPuConnector_wrap_vars_p(threadData_t *threadData , void* v_dst , modelica_real in_re, modelica_real in_im);
-#define Dynawo_Connectors_ComplexCurrentPuConnector_wrap_vars(td, dst , in_re, in_im) Dynawo_Connectors_ComplexCurrentPuConnector_wrap_vars_p(td, &dst , in_re, in_im)
-
-// This function is not needed anymore. If you want to know how a record
-// is 'assigned to' in simulation context see assignRhsExpToRecordCrefSimContext and
-// splitRecordAssignmentToMemberAssignments (simCode). Basically the record is
-// split up assignments generated for each member individually.
-// void Dynawo_Connectors_ComplexCurrentPuConnector_copy_to_vars_p(void* v_src , modelica_real* in_re, modelica_real* in_im);
-// #define Dynawo_Connectors_ComplexCurrentPuConnector_copy_to_vars(src,...) Dynawo_Connectors_ComplexCurrentPuConnector_copy_to_vars_p(&src, __VA_ARGS__)
-
-typedef base_array_t Dynawo_Connectors_ComplexCurrentPuConnector_array;
-#define alloc_Dynawo_Connectors_ComplexCurrentPuConnector_array(dst,ndims,...) generic_array_create(NULL, dst, Dynawo_Connectors_ComplexCurrentPuConnector_construct_p, ndims, sizeof(Dynawo_Connectors_ComplexCurrentPuConnector), __VA_ARGS__)
-#define Dynawo_Connectors_ComplexCurrentPuConnector_array_copy_data(src,dst)   generic_array_copy_data(src, &dst, Dynawo_Connectors_ComplexCurrentPuConnector_copy_p, sizeof(Dynawo_Connectors_ComplexCurrentPuConnector))
-#define Dynawo_Connectors_ComplexCurrentPuConnector_array_alloc_copy(src,dst)  generic_array_alloc_copy(src, &dst, Dynawo_Connectors_ComplexCurrentPuConnector_copy_p, sizeof(Dynawo_Connectors_ComplexCurrentPuConnector))
-#define Dynawo_Connectors_ComplexCurrentPuConnector_array_get(src,ndims,...)   (*(Dynawo_Connectors_ComplexCurrentPuConnector*)(generic_array_get(&src, sizeof(Dynawo_Connectors_ComplexCurrentPuConnector), __VA_ARGS__)))
-#define Dynawo_Connectors_ComplexCurrentPuConnector_set(dst,val,...)           generic_array_set(&dst, &val, Dynawo_Connectors_ComplexCurrentPuConnector_copy_p, sizeof(Dynawo_Connectors_ComplexCurrentPuConnector), __VA_ARGS__)
-
-typedef Complex Dynawo_Connectors_ComplexVoltagePuConnector;
-extern struct record_description Dynawo_Connectors_ComplexVoltagePuConnector__desc;
-
-void Dynawo_Connectors_ComplexVoltagePuConnector_construct_p(threadData_t *threadData, void* v_ths );
-#define Dynawo_Connectors_ComplexVoltagePuConnector_construct(td, ths ) Dynawo_Connectors_ComplexVoltagePuConnector_construct_p(td, &ths )
-void Dynawo_Connectors_ComplexVoltagePuConnector_copy_p(void* v_src, void* v_dst);
-#define Dynawo_Connectors_ComplexVoltagePuConnector_copy(src,dst) Dynawo_Connectors_ComplexVoltagePuConnector_copy_p(&src, &dst)
+void Dynawo_Connectors_ComplexCurrentPuOutput_construct_p(threadData_t *threadData, void* v_ths );
+#define Dynawo_Connectors_ComplexCurrentPuOutput_construct(td, ths ) Dynawo_Connectors_ComplexCurrentPuOutput_construct_p(td, &ths )
+void Dynawo_Connectors_ComplexCurrentPuOutput_copy_p(void* v_src, void* v_dst);
+#define Dynawo_Connectors_ComplexCurrentPuOutput_copy(src,dst) Dynawo_Connectors_ComplexCurrentPuOutput_copy_p(&src, &dst)
 
 
-void Dynawo_Connectors_ComplexVoltagePuConnector_wrap_vars_p(threadData_t *threadData , void* v_dst , modelica_real in_re, modelica_real in_im);
-#define Dynawo_Connectors_ComplexVoltagePuConnector_wrap_vars(td, dst , in_re, in_im) Dynawo_Connectors_ComplexVoltagePuConnector_wrap_vars_p(td, &dst , in_re, in_im)
+void Dynawo_Connectors_ComplexCurrentPuOutput_wrap_vars_p(threadData_t *threadData , void* v_dst , modelica_real in_re, modelica_real in_im);
+#define Dynawo_Connectors_ComplexCurrentPuOutput_wrap_vars(td, dst , in_re, in_im) Dynawo_Connectors_ComplexCurrentPuOutput_wrap_vars_p(td, &dst , in_re, in_im)
 
 // This function is not needed anymore. If you want to know how a record
 // is 'assigned to' in simulation context see assignRhsExpToRecordCrefSimContext and
 // splitRecordAssignmentToMemberAssignments (simCode). Basically the record is
 // split up assignments generated for each member individually.
-// void Dynawo_Connectors_ComplexVoltagePuConnector_copy_to_vars_p(void* v_src , modelica_real* in_re, modelica_real* in_im);
-// #define Dynawo_Connectors_ComplexVoltagePuConnector_copy_to_vars(src,...) Dynawo_Connectors_ComplexVoltagePuConnector_copy_to_vars_p(&src, __VA_ARGS__)
+// void Dynawo_Connectors_ComplexCurrentPuOutput_copy_to_vars_p(void* v_src , modelica_real* in_re, modelica_real* in_im);
+// #define Dynawo_Connectors_ComplexCurrentPuOutput_copy_to_vars(src,...) Dynawo_Connectors_ComplexCurrentPuOutput_copy_to_vars_p(&src, __VA_ARGS__)
 
-typedef base_array_t Dynawo_Connectors_ComplexVoltagePuConnector_array;
-#define alloc_Dynawo_Connectors_ComplexVoltagePuConnector_array(dst,ndims,...) generic_array_create(NULL, dst, Dynawo_Connectors_ComplexVoltagePuConnector_construct_p, ndims, sizeof(Dynawo_Connectors_ComplexVoltagePuConnector), __VA_ARGS__)
-#define Dynawo_Connectors_ComplexVoltagePuConnector_array_copy_data(src,dst)   generic_array_copy_data(src, &dst, Dynawo_Connectors_ComplexVoltagePuConnector_copy_p, sizeof(Dynawo_Connectors_ComplexVoltagePuConnector))
-#define Dynawo_Connectors_ComplexVoltagePuConnector_array_alloc_copy(src,dst)  generic_array_alloc_copy(src, &dst, Dynawo_Connectors_ComplexVoltagePuConnector_copy_p, sizeof(Dynawo_Connectors_ComplexVoltagePuConnector))
-#define Dynawo_Connectors_ComplexVoltagePuConnector_array_get(src,ndims,...)   (*(Dynawo_Connectors_ComplexVoltagePuConnector*)(generic_array_get(&src, sizeof(Dynawo_Connectors_ComplexVoltagePuConnector), __VA_ARGS__)))
-#define Dynawo_Connectors_ComplexVoltagePuConnector_set(dst,val,...)           generic_array_set(&dst, &val, Dynawo_Connectors_ComplexVoltagePuConnector_copy_p, sizeof(Dynawo_Connectors_ComplexVoltagePuConnector), __VA_ARGS__)
+typedef base_array_t Dynawo_Connectors_ComplexCurrentPuOutput_array;
+#define alloc_Dynawo_Connectors_ComplexCurrentPuOutput_array(dst,ndims,...) generic_array_create(NULL, dst, Dynawo_Connectors_ComplexCurrentPuOutput_construct_p, ndims, sizeof(Dynawo_Connectors_ComplexCurrentPuOutput), __VA_ARGS__)
+#define Dynawo_Connectors_ComplexCurrentPuOutput_array_copy_data(src,dst)   generic_array_copy_data(src, &dst, Dynawo_Connectors_ComplexCurrentPuOutput_copy_p, sizeof(Dynawo_Connectors_ComplexCurrentPuOutput))
+#define Dynawo_Connectors_ComplexCurrentPuOutput_array_alloc_copy(src,dst)  generic_array_alloc_copy(src, &dst, Dynawo_Connectors_ComplexCurrentPuOutput_copy_p, sizeof(Dynawo_Connectors_ComplexCurrentPuOutput))
+#define Dynawo_Connectors_ComplexCurrentPuOutput_array_get(src,ndims,...)   (*(Dynawo_Connectors_ComplexCurrentPuOutput*)(generic_array_get(&src, sizeof(Dynawo_Connectors_ComplexCurrentPuOutput), __VA_ARGS__)))
+#define Dynawo_Connectors_ComplexCurrentPuOutput_set(dst,val,...)           generic_array_set(&dst, &val, Dynawo_Connectors_ComplexCurrentPuOutput_copy_p, sizeof(Dynawo_Connectors_ComplexCurrentPuOutput), __VA_ARGS__)
+
+typedef Complex Dynawo_Connectors_ComplexVoltagePuOutput;
+extern struct record_description Dynawo_Connectors_ComplexVoltagePuOutput__desc;
+
+void Dynawo_Connectors_ComplexVoltagePuOutput_construct_p(threadData_t *threadData, void* v_ths );
+#define Dynawo_Connectors_ComplexVoltagePuOutput_construct(td, ths ) Dynawo_Connectors_ComplexVoltagePuOutput_construct_p(td, &ths )
+void Dynawo_Connectors_ComplexVoltagePuOutput_copy_p(void* v_src, void* v_dst);
+#define Dynawo_Connectors_ComplexVoltagePuOutput_copy(src,dst) Dynawo_Connectors_ComplexVoltagePuOutput_copy_p(&src, &dst)
+
+
+void Dynawo_Connectors_ComplexVoltagePuOutput_wrap_vars_p(threadData_t *threadData , void* v_dst , modelica_real in_re, modelica_real in_im);
+#define Dynawo_Connectors_ComplexVoltagePuOutput_wrap_vars(td, dst , in_re, in_im) Dynawo_Connectors_ComplexVoltagePuOutput_wrap_vars_p(td, &dst , in_re, in_im)
+
+// This function is not needed anymore. If you want to know how a record
+// is 'assigned to' in simulation context see assignRhsExpToRecordCrefSimContext and
+// splitRecordAssignmentToMemberAssignments (simCode). Basically the record is
+// split up assignments generated for each member individually.
+// void Dynawo_Connectors_ComplexVoltagePuOutput_copy_to_vars_p(void* v_src , modelica_real* in_re, modelica_real* in_im);
+// #define Dynawo_Connectors_ComplexVoltagePuOutput_copy_to_vars(src,...) Dynawo_Connectors_ComplexVoltagePuOutput_copy_to_vars_p(&src, __VA_ARGS__)
+
+typedef base_array_t Dynawo_Connectors_ComplexVoltagePuOutput_array;
+#define alloc_Dynawo_Connectors_ComplexVoltagePuOutput_array(dst,ndims,...) generic_array_create(NULL, dst, Dynawo_Connectors_ComplexVoltagePuOutput_construct_p, ndims, sizeof(Dynawo_Connectors_ComplexVoltagePuOutput), __VA_ARGS__)
+#define Dynawo_Connectors_ComplexVoltagePuOutput_array_copy_data(src,dst)   generic_array_copy_data(src, &dst, Dynawo_Connectors_ComplexVoltagePuOutput_copy_p, sizeof(Dynawo_Connectors_ComplexVoltagePuOutput))
+#define Dynawo_Connectors_ComplexVoltagePuOutput_array_alloc_copy(src,dst)  generic_array_alloc_copy(src, &dst, Dynawo_Connectors_ComplexVoltagePuOutput_copy_p, sizeof(Dynawo_Connectors_ComplexVoltagePuOutput))
+#define Dynawo_Connectors_ComplexVoltagePuOutput_array_get(src,ndims,...)   (*(Dynawo_Connectors_ComplexVoltagePuOutput*)(generic_array_get(&src, sizeof(Dynawo_Connectors_ComplexVoltagePuOutput), __VA_ARGS__)))
+#define Dynawo_Connectors_ComplexVoltagePuOutput_set(dst,val,...)           generic_array_set(&dst, &val, Dynawo_Connectors_ComplexVoltagePuOutput_copy_p, sizeof(Dynawo_Connectors_ComplexVoltagePuOutput), __VA_ARGS__)
 
 typedef Complex Dynawo_Types_ComplexApparentPowerPu;
 extern struct record_description Dynawo_Types_ComplexApparentPowerPu__desc;
@@ -141,29 +141,29 @@ static const MMC_DEFSTRUCTLIT(boxvar_lit_Complex__omcQ_27constructor_27_fromReal
 
 
 DLLDirection
-Dynawo_Connectors_ComplexCurrentPuConnector omc_Dynawo_Connectors_ComplexCurrentPuConnector (threadData_t *threadData, modelica_real omc_re, modelica_real omc_im);
+Dynawo_Connectors_ComplexCurrentPuOutput omc_Dynawo_Connectors_ComplexCurrentPuOutput (threadData_t *threadData, modelica_real omc_re, modelica_real omc_im);
 
 DLLDirection
-modelica_metatype boxptr_Dynawo_Connectors_ComplexCurrentPuConnector(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im);
-static const MMC_DEFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexCurrentPuConnector,2,0) {(void*) boxptr_Dynawo_Connectors_ComplexCurrentPuConnector,0}};
-#define boxvar_Dynawo_Connectors_ComplexCurrentPuConnector MMC_REFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexCurrentPuConnector)
-
-
-DLLDirection
-Dynawo_Connectors_ComplexVoltagePuConnector omc_Dynawo_Connectors_ComplexVoltagePuConnector (threadData_t *threadData, modelica_real omc_re, modelica_real omc_im);
-
-DLLDirection
-modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuConnector(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im);
-static const MMC_DEFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuConnector,2,0) {(void*) boxptr_Dynawo_Connectors_ComplexVoltagePuConnector,0}};
-#define boxvar_Dynawo_Connectors_ComplexVoltagePuConnector MMC_REFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuConnector)
+modelica_metatype boxptr_Dynawo_Connectors_ComplexCurrentPuOutput(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im);
+static const MMC_DEFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexCurrentPuOutput,2,0) {(void*) boxptr_Dynawo_Connectors_ComplexCurrentPuOutput,0}};
+#define boxvar_Dynawo_Connectors_ComplexCurrentPuOutput MMC_REFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexCurrentPuOutput)
 
 
 DLLDirection
-Complex omc_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply(threadData_t *threadData, Complex _c1, Complex _c2);
+Dynawo_Connectors_ComplexVoltagePuOutput omc_Dynawo_Connectors_ComplexVoltagePuOutput (threadData_t *threadData, modelica_real omc_re, modelica_real omc_im);
+
 DLLDirection
-modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply(threadData_t *threadData, modelica_metatype _c1, modelica_metatype _c2);
-static const MMC_DEFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply,2,0) {(void*) boxptr_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply,0}};
-#define boxvar_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply MMC_REFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply)
+modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuOutput(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im);
+static const MMC_DEFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuOutput,2,0) {(void*) boxptr_Dynawo_Connectors_ComplexVoltagePuOutput,0}};
+#define boxvar_Dynawo_Connectors_ComplexVoltagePuOutput MMC_REFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuOutput)
+
+
+DLLDirection
+Complex omc_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply(threadData_t *threadData, Complex _c1, Complex _c2);
+DLLDirection
+modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply(threadData_t *threadData, modelica_metatype _c1, modelica_metatype _c2);
+static const MMC_DEFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply,2,0) {(void*) boxptr_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply,0}};
+#define boxvar_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply MMC_REFSTRUCTLIT(boxvar_lit_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply)
 
 
 DLLDirection

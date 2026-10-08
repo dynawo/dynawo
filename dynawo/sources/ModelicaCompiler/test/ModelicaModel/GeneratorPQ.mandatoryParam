@@ -12,14 +12,10 @@
     simulation tool for power systems.
 -->
 <mandatoryParameters>
-  <mandatoryParameter name="generator.PMinPu" type="DOUBLE"/>
-  <mandatoryParameter name="generator.PMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="generator.QMinPu" type="DOUBLE"/>
-  <mandatoryParameter name="generator.QMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="generator.UMinPu" type="DOUBLE"/>
-  <mandatoryParameter name="generator.UMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.PMin" type="DOUBLE"/>
+  <mandatoryParameter name="generator.PMax" type="DOUBLE"/>
   <mandatoryParameter name="generator.PNom" type="DOUBLE"/>
-  <mandatoryParameter name="generator.AlphaPu" type="DOUBLE"/>
+  <mandatoryParameter name="generator.AlphaPuPNom" type="DOUBLE"/>
   <mandatoryParameter name="generator.PGen0Pu" type="DOUBLE"/>
   <mandatoryParameter name="generator.QGen0Pu" type="DOUBLE"/>
   <mandatoryParameter name="generator.U0Pu" type="DOUBLE"/>

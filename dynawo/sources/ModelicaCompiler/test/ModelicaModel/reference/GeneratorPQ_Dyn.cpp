@@ -69,11 +69,11 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->modelData->ndataReconVars = 0;
   data->modelData->nSetbVars = 0;
   data->modelData->nRelatedBoundaryConditions = 0;
-  data->simulationInfo->daeModeData->nResidualVars = 5;
+  data->simulationInfo->daeModeData->nResidualVars = 4;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
   data->nbVars =9;
-  data->nbF = 6;
+  data->nbF = 5;
   data->nbModes = 2;
   data->nbZ = 4;
   data->nbCalculatedVars = 3;
@@ -224,16 +224,16 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   if (type != DIFFERENTIAL_EQ) {
   {
   // ----- GeneratorPQ_eqFunction_74 -----
-  (data->simulationInfo->daeModeData->residualVars[3]) /* $DAEres6 DAE_RESIDUAL_VAR */ = ((data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */)) * ((data->localData[0]->realVars[7] /* generator.terminal.i.im variable */)) + ((-(data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */))) * ((data->localData[0]->realVars[8] /* generator.terminal.i.re variable */)) - (data->localData[0]->realVars[6] /* generator.SGenPu.im variable */);
-    f[0] = data->simulationInfo->daeModeData->residualVars[3] /* $DAEres6 DAE_RESIDUAL_VAR */;
+  (data->simulationInfo->daeModeData->residualVars[2]) /* $DAEres6 DAE_RESIDUAL_VAR */ = ((data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */)) * ((data->localData[0]->realVars[7] /* generator.terminal.i.im variable */)) + ((-(data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */))) * ((data->localData[0]->realVars[8] /* generator.terminal.i.re variable */)) - (data->localData[0]->realVars[6] /* generator.SGenPu.im variable */);
+    f[0] = data->simulationInfo->daeModeData->residualVars[2] /* $DAEres6 DAE_RESIDUAL_VAR */;
 
   }
 
 
   {
   // ----- GeneratorPQ_eqFunction_75 -----
-  (data->simulationInfo->daeModeData->residualVars[1]) /* $DAEres4 DAE_RESIDUAL_VAR */ = ((-(data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */))) * ((data->localData[0]->realVars[8] /* generator.terminal.i.re variable */)) - (data->localData[0]->realVars[4] /* generator.PGenPu variable */) - (((data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */)) * ((data->localData[0]->realVars[7] /* generator.terminal.i.im variable */)));
-    f[1] = data->simulationInfo->daeModeData->residualVars[1] /* $DAEres4 DAE_RESIDUAL_VAR */;
+  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres4 DAE_RESIDUAL_VAR */ = ((-(data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */))) * ((data->localData[0]->realVars[8] /* generator.terminal.i.re variable */)) - (data->localData[0]->realVars[4] /* generator.PGenPu variable */) - (((data->localData[0]->realVars[2] /* generator.terminal.V.im STATE(1) */)) * ((data->localData[0]->realVars[7] /* generator.terminal.i.im variable */)));
+    f[1] = data->simulationInfo->daeModeData->residualVars[0] /* $DAEres4 DAE_RESIDUAL_VAR */;
 
   }
 
@@ -242,16 +242,16 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   // ----- GeneratorPQ_eqFunction_89 -----
   modelica_boolean tmp8;
   modelica_real tmp9;
-  tmp8 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  tmp8 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
   if(tmp8)
   {
-    tmp9 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * (((data->localData[0]->realVars[0] /* generator.deltaPmRefPu.value STATE(1) */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * ((data->localData[0]->realVars[1] /* generator.omegaRefPu.value STATE(1) */) - 1.0));
+    tmp9 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * (((data->localData[0]->realVars[0] /* generator.deltaPmRefPu STATE(1) */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * ((data->localData[0]->realVars[1] /* generator.omegaRefPu STATE(1) */) - 1.0));
   }
   else
   {
     tmp9 = 0.0;
   }
-  f[3] = data->localData[0]->realVars[5] /*  generator.PGenRawPu variable  */ - ( tmp9 );
+  f[2] = data->localData[0]->realVars[5] /*  generator.PGenRawPu variable  */ - ( tmp9 );
 
   }
 
@@ -260,7 +260,7 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   // ----- GeneratorPQ_eqFunction_104 -----
   modelica_boolean tmp22;
   modelica_real tmp23;
-  tmp22 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  tmp22 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
   if(tmp22)
   {
     tmp23 = (data->localData[0]->realVars[6] /* generator.SGenPu.im variable */) - (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
@@ -269,8 +269,8 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   {
     tmp23 = (data->localData[0]->realVars[7] /* generator.terminal.i.im variable */);
   }
-  (data->simulationInfo->daeModeData->residualVars[2]) /* $DAEres5 DAE_RESIDUAL_VAR */ = tmp23;
-    f[4] = data->simulationInfo->daeModeData->residualVars[2] /* $DAEres5 DAE_RESIDUAL_VAR */;
+  (data->simulationInfo->daeModeData->residualVars[1]) /* $DAEres5 DAE_RESIDUAL_VAR */ = tmp23;
+    f[3] = data->simulationInfo->daeModeData->residualVars[1] /* $DAEres5 DAE_RESIDUAL_VAR */;
 
   }
 
@@ -283,7 +283,7 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   modelica_real tmp27;
   modelica_boolean tmp28;
   modelica_real tmp29;
-  tmp28 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  tmp28 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
   if(tmp28)
   {
     tmp26 = (modelica_boolean)((data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) == 3);
@@ -310,18 +310,8 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
   {
     tmp29 = (data->localData[0]->realVars[8] /* generator.terminal.i.re variable */);
   }
-  (data->simulationInfo->daeModeData->residualVars[4]) /* $DAEres7 DAE_RESIDUAL_VAR */ = tmp29;
-    f[5] = data->simulationInfo->daeModeData->residualVars[4] /* $DAEres7 DAE_RESIDUAL_VAR */;
-
-  }
-
-
-  }
-  if (type != ALGEBRAIC_EQ) {
-  {
-  // ----- GeneratorPQ_eqFunction_76 -----
-  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres3 DAE_RESIDUAL_VAR */ = (data->localData[0]->derivativesVars[0] /* der(generator.deltaPmRefPu.value) STATE_DER */);
-    f[2] = data->simulationInfo->daeModeData->residualVars[0] /* $DAEres3 DAE_RESIDUAL_VAR */;
+  (data->simulationInfo->daeModeData->residualVars[3]) /* $DAEres7 DAE_RESIDUAL_VAR */ = tmp29;
+    f[4] = data->simulationInfo->daeModeData->residualVars[3] /* $DAEres7 DAE_RESIDUAL_VAR */;
 
   }
 
@@ -343,7 +333,7 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double t) const
   // ----- Mode for GeneratorPQ_eqFunction_89 --------- 
   // ----- Mode for GeneratorPQ_eqFunction_104 --------- 
   // ----- Mode for GeneratorPQ_eqFunction_105 --------- 
-  // generator.running.value != pre(generator.running.value)
+  // generator.running != pre(generator.running)
   if (doubleNotEquals(data->localData[0]->discreteVars[0], data->simulationInfo->discreteVarsPre[0])) {
     return ALGEBRAIC_J_UPDATE_MODE;
   }
@@ -395,14 +385,14 @@ void ModelGeneratorPQ_Dyn::setZomc()
   (data->localData[0]->booleanVars[3] /* $whenCondition4 DISCRETE */) = (tmp10 && ((data->simulationInfo->integerDoubleVarsPre[1] /* generator.pStatus DISCRETE */) != 3));
  
 
-  // -------------------- generator.running.value ---------------------
+  // -------------------- generator.running ---------------------
   if(((data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[7] /* $whenCondition8 DISCRETE */) /* edge */))
   {
-    (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */) = fromNativeBool ( 0 /* false */);
+    (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */) = fromNativeBool ( 0 /* false */);
   }
   else if(((data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[6] /* $whenCondition7 DISCRETE */) /* edge */))
   {
-    (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */) = fromNativeBool ( 1 /* true */);
+    (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */) = fromNativeBool ( 1 /* true */);
   }
 
   // -------------------- generator.converter.u ---------------------
@@ -475,25 +465,25 @@ void ModelGeneratorPQ_Dyn::collectSilentZ(BitMask* silentZTable)
 {
   silentZTable[4].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations) /*generator.converter.u */;
   silentZTable[6].setFlags(NotUsedInContinuousEquations) /*generator.state */;
-  silentZTable[1].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal1.value */;
-  silentZTable[2].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal2.value */;
-  silentZTable[3].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal3.value */;
+  silentZTable[1].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal1 */;
+  silentZTable[2].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal2 */;
+  silentZTable[3].setFlags(NotUsedInContinuousEquations) /*generator.switchOffSignal3 */;
 }
 
 void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
 {
   data->simulationInfo->discreteCall = 1;
   // ------------- $whenCondition5 ------------
-  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = (((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))));
+  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = (((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running DISCRETE */)))));
  
   // ------------- $whenCondition6 ------------
-  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))));
+  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */))));
  
   // ------------- $whenCondition7 ------------
-  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)))) && (!((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))))) && (!((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))));
+  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1 DISCRETE */)))) && (!((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2 DISCRETE */))))) && (!((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3 DISCRETE */))))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running DISCRETE */)))));
  
   // ------------- $whenCondition8 ------------
-  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = ((((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */)))) || (((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))) && ((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))));
+  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = ((((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1 DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2 DISCRETE */)))) || (((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3 DISCRETE */))) && ((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running DISCRETE */)))));
  
 
   modelica_boolean tmp_zc12;
@@ -546,18 +536,18 @@ void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
 
 void ModelGeneratorPQ_Dyn::setY0omc()
 {
-  data->localData[0]->realVars[0] /* generator.deltaPmRefPu.value */ = 0.0;
-  data->localData[0]->realVars[1] /* generator.omegaRefPu.value */ = 0.0;
+  data->localData[0]->realVars[0] /* generator.deltaPmRefPu */ = 0.0;
+  data->localData[0]->realVars[1] /* generator.omegaRefPu */ = 0.0;
   data->localData[0]->realVars[2] /* generator.terminal.V.im */ = (data->simulationInfo->realParameter[12] /* generator.u0Pu.im PARAM */);
   data->localData[0]->realVars[3] /* generator.terminal.V.re */ = (data->simulationInfo->realParameter[13] /* generator.u0Pu.re PARAM */);
   data->localData[0]->realVars[4] /* generator.PGenPu */ = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */);
   data->localData[0]->realVars[6] /* generator.SGenPu.im */ = (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
   data->localData[0]->realVars[7] /* generator.terminal.i.im */ = (data->simulationInfo->realParameter[10] /* generator.i0Pu.im PARAM */);
   data->localData[0]->realVars[8] /* generator.terminal.i.re */ = (data->simulationInfo->realParameter[11] /* generator.i0Pu.re PARAM */);
-  data->localData[0]->discreteVars[0] /* generator.running.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[14] /* generator.Running0 PARAM */))));
-  data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[15] /* generator.SwitchOffSignal10 PARAM */))));
-  data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[16] /* generator.SwitchOffSignal20 PARAM */))));
-  data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[17] /* generator.SwitchOffSignal30 PARAM */))));
+  data->localData[0]->discreteVars[0] /* generator.running */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[14] /* generator.Running0 PARAM */))));
+  data->localData[0]->discreteVars[1] /* generator.switchOffSignal1 */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[15] /* generator.SwitchOffSignal10 PARAM */))));
+  data->localData[0]->discreteVars[2] /* generator.switchOffSignal2 */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[16] /* generator.SwitchOffSignal20 PARAM */))));
+  data->localData[0]->discreteVars[3] /* generator.switchOffSignal3 */ = fromNativeBool ( ((toNativeBool (data->simulationInfo->realParameter[17] /* generator.SwitchOffSignal30 PARAM */))));
   data->localData[0]->integerDoubleVars[1] /* generator.pStatus */ = 1;
   data->localData[0]->integerDoubleVars[2] /* generator.state */ = (data->simulationInfo->integerParameter[1] /* generator.State0 PARAM */);
   {
@@ -572,8 +562,8 @@ void ModelGeneratorPQ_Dyn::callCustomParametersConstructors()
 
 void ModelGeneratorPQ_Dyn::evalStaticYType_omc(propertyContinuousVar_t* yType)
 {
-   yType[ 0 ] = DIFFERENTIAL;   /* generator_deltaPmRefPu_value (rSta)  */
-   yType[ 1 ] = EXTERNAL;   /* generator_omegaRefPu_value (rSta) - external variables */
+   yType[ 0 ] = OPTIONAL_EXTERNAL;   /* generator_deltaPmRefPu (rSta) - optional external variables */
+   yType[ 1 ] = EXTERNAL;   /* generator_omegaRefPu (rSta) - external variables */
    yType[ 2 ] = EXTERNAL;   /* generator_terminal_V_im (rSta) - external variables */
    yType[ 3 ] = EXTERNAL;   /* generator_terminal_V_re (rSta) - external variables */
    yType[ 4 ] = ALGEBRAIC;   /* generator_PGenPu (rAlg)  */
@@ -591,10 +581,9 @@ void ModelGeneratorPQ_Dyn::evalStaticFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = ALGEBRAIC_EQ;
    fType[ 1 ] = ALGEBRAIC_EQ;
-   fType[ 2 ] = DIFFERENTIAL_EQ;
+   fType[ 2 ] = ALGEBRAIC_EQ;
    fType[ 3 ] = ALGEBRAIC_EQ;
    fType[ 4 ] = ALGEBRAIC_EQ;
-   fType[ 5 ] = ALGEBRAIC_EQ;
 }
 
 void ModelGeneratorPQ_Dyn::evalDynamicFType_omc(propertyF_t* fType)
@@ -608,45 +597,12 @@ std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParame
 
    // This value may be updated later on through *.par/*.iidm data 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
-  double generator_AlphaPuPNom_internal;
-  double generator_PGen0Pu_internal;
-  double generator_PMax_internal;
-  double generator_PMin_internal;
-  double generator_PNom_internal;
-  double generator_QGen0Pu_internal;
-  double generator_U0Pu_internal;
-  double generator_i0Pu_im_internal;
-  double generator_i0Pu_re_internal;
-  double generator_u0Pu_im_internal;
-  double generator_u0Pu_re_internal;
   bool generator_SwitchOffSignal10_internal;
   bool generator_SwitchOffSignal20_internal;
   bool generator_SwitchOffSignal30_internal;
   int generator_NbSwitchOffSignals_internal;
   int generator_State0_internal;
 
-  generator_AlphaPuPNom_internal = 0.0; 
-  parametersSet->createParameter("generator_AlphaPuPNom", generator_AlphaPuPNom_internal);
-  generator_PGen0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_PGen0Pu", generator_PGen0Pu_internal);
-  generator_PMax_internal = 0.0; 
-  parametersSet->createParameter("generator_PMax", generator_PMax_internal);
-  generator_PMin_internal = 0.0; 
-  parametersSet->createParameter("generator_PMin", generator_PMin_internal);
-  generator_PNom_internal = 0.0; 
-  parametersSet->createParameter("generator_PNom", generator_PNom_internal);
-  generator_QGen0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_QGen0Pu", generator_QGen0Pu_internal);
-  generator_U0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_U0Pu", generator_U0Pu_internal);
-  generator_i0Pu_im_internal = 0.0; 
-  parametersSet->createParameter("generator_i0Pu_im", generator_i0Pu_im_internal);
-  generator_i0Pu_re_internal = 0.0; 
-  parametersSet->createParameter("generator_i0Pu_re", generator_i0Pu_re_internal);
-  generator_u0Pu_im_internal = 0.0; 
-  parametersSet->createParameter("generator_u0Pu_im", generator_u0Pu_im_internal);
-  generator_u0Pu_re_internal = 0.0; 
-  parametersSet->createParameter("generator_u0Pu_re", generator_u0Pu_re_internal);
   generator_SwitchOffSignal10_internal = false; 
   parametersSet->createParameter("generator_SwitchOffSignal10", generator_SwitchOffSignal10_internal);
   generator_SwitchOffSignal20_internal = false; 
@@ -682,8 +638,8 @@ void ModelGeneratorPQ_Dyn::setParameters( std::shared_ptr<parameters::Parameters
 
 void ModelGeneratorPQ_Dyn::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
 {
-  variables.push_back (VariableNativeFactory::createState ("generator_deltaPmRefPu_value", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_omegaRefPu_value", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createState ("generator_deltaPmRefPu", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createState ("generator_omegaRefPu", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_terminal_V_im", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_terminal_V_re", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("generator_PGenPu", CONTINUOUS, false));
@@ -697,10 +653,10 @@ void ModelGeneratorPQ_Dyn::defineVariables(std::vector<boost::shared_ptr<Variabl
   variables.push_back (VariableNativeFactory::createState ("generator_converter_u", INTEGER, false));
   variables.push_back (VariableNativeFactory::createState ("generator_pStatus", INTEGER, false));
   variables.push_back (VariableNativeFactory::createState ("generator_state", INTEGER, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_running_value", BOOLEAN, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal1_value", BOOLEAN, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal2_value", BOOLEAN, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal3_value", BOOLEAN, false));
+  variables.push_back (VariableNativeFactory::createState ("generator_running", BOOLEAN, false));
+  variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal1", BOOLEAN, false));
+  variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal2", BOOLEAN, false));
+  variables.push_back (VariableNativeFactory::createState ("generator_switchOffSignal3", BOOLEAN, false));
   variables.push_back (VariableNativeFactory::createCalculated ("generator_PGen", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createCalculated ("generator_UPu", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createCalculated ("generator_genState", CONTINUOUS, false));
@@ -711,19 +667,19 @@ void ModelGeneratorPQ_Dyn::defineParameters(std::vector<ParameterModeler>& param
   using ParameterModelerTuple = std::tuple<std::string, DYN::typeVarC_t, DYN::parameterScope_t>;
   std::array<ParameterModelerTuple, 20> parameterModelerArray = {
     std::make_tuple("generator_AlphaPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
-    std::make_tuple("generator_AlphaPuPNom", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_PGen0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_PMax", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
+    std::make_tuple("generator_AlphaPuPNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_PMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_PMaxPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
-    std::make_tuple("generator_PMin", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
+    std::make_tuple("generator_PMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_PMinPu", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER),
-    std::make_tuple("generator_PNom", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_QGen0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_U0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_i0Pu_im", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_i0Pu_re", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_u0Pu_im", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
-    std::make_tuple("generator_u0Pu_re", VAR_TYPE_DOUBLE, SHARED_PARAMETER),
+    std::make_tuple("generator_PNom", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_QGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_i0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_i0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_u0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
+    std::make_tuple("generator_u0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER),
     std::make_tuple("generator_Running0", VAR_TYPE_BOOL, INTERNAL_PARAMETER),
     std::make_tuple("generator_SwitchOffSignal10", VAR_TYPE_BOOL, SHARED_PARAMETER),
     std::make_tuple("generator_SwitchOffSignal20", VAR_TYPE_BOOL, SHARED_PARAMETER),
@@ -740,12 +696,10 @@ void ModelGeneratorPQ_Dyn::defineParameters(std::vector<ParameterModeler>& param
 void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)
 {
   using ElementTuple = std::tuple<std::string, std::string, DYN::Element::typeElement>;
-  std::array<ElementTuple, 34> elementArray1 = {
+  std::array<ElementTuple, 28> elementArray1 = {
     std::make_tuple("generator", "generator", Element::STRUCTURE),
-    std::make_tuple("omegaRefPu", "generator_omegaRefPu", Element::STRUCTURE),
-    std::make_tuple("value", "generator_omegaRefPu_value", Element::TERMINAL),
-    std::make_tuple("deltaPmRefPu", "generator_deltaPmRefPu", Element::STRUCTURE),
-    std::make_tuple("value", "generator_deltaPmRefPu_value", Element::TERMINAL),
+    std::make_tuple("omegaRefPu", "generator_omegaRefPu", Element::TERMINAL),
+    std::make_tuple("deltaPmRefPu", "generator_deltaPmRefPu", Element::TERMINAL),
     std::make_tuple("UPu", "generator_UPu", Element::TERMINAL),
     std::make_tuple("QGenPu", "generator_QGenPu", Element::TERMINAL),
     std::make_tuple("terminal", "generator_terminal", Element::STRUCTURE),
@@ -758,14 +712,10 @@ void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::m
     std::make_tuple("converter", "generator_converter", Element::STRUCTURE),
     std::make_tuple("y", "generator_converter_y", Element::TERMINAL),
     std::make_tuple("u", "generator_converter_u", Element::TERMINAL),
-    std::make_tuple("running", "generator_running", Element::STRUCTURE),
-    std::make_tuple("value", "generator_running_value", Element::TERMINAL),
-    std::make_tuple("switchOffSignal3", "generator_switchOffSignal3", Element::STRUCTURE),
-    std::make_tuple("value", "generator_switchOffSignal3_value", Element::TERMINAL),
-    std::make_tuple("switchOffSignal2", "generator_switchOffSignal2", Element::STRUCTURE),
-    std::make_tuple("value", "generator_switchOffSignal2_value", Element::TERMINAL),
-    std::make_tuple("switchOffSignal1", "generator_switchOffSignal1", Element::STRUCTURE),
-    std::make_tuple("value", "generator_switchOffSignal1_value", Element::TERMINAL),
+    std::make_tuple("running", "generator_running", Element::TERMINAL),
+    std::make_tuple("switchOffSignal3", "generator_switchOffSignal3", Element::TERMINAL),
+    std::make_tuple("switchOffSignal2", "generator_switchOffSignal2", Element::TERMINAL),
+    std::make_tuple("switchOffSignal1", "generator_switchOffSignal1", Element::TERMINAL),
     std::make_tuple("pStatus", "generator_pStatus", Element::TERMINAL),
     std::make_tuple("PGenRawPu", "generator_PGenRawPu", Element::TERMINAL),
     std::make_tuple("SGenPu", "generator_SGenPu", Element::STRUCTURE),
@@ -782,74 +732,62 @@ void ModelGeneratorPQ_Dyn::defineElements(std::vector<Element>& elements, std::m
   }
 
   elements[0].subElementsNum().push_back(1);
+  elements[0].subElementsNum().push_back(2);
   elements[0].subElementsNum().push_back(3);
+  elements[0].subElementsNum().push_back(4);
   elements[0].subElementsNum().push_back(5);
-  elements[0].subElementsNum().push_back(6);
-  elements[0].subElementsNum().push_back(7);
-  elements[0].subElementsNum().push_back(14);
+  elements[0].subElementsNum().push_back(12);
+  elements[0].subElementsNum().push_back(15);
+  elements[0].subElementsNum().push_back(16);
   elements[0].subElementsNum().push_back(17);
+  elements[0].subElementsNum().push_back(18);
   elements[0].subElementsNum().push_back(19);
+  elements[0].subElementsNum().push_back(20);
   elements[0].subElementsNum().push_back(21);
-  elements[0].subElementsNum().push_back(23);
+  elements[0].subElementsNum().push_back(24);
   elements[0].subElementsNum().push_back(25);
   elements[0].subElementsNum().push_back(26);
   elements[0].subElementsNum().push_back(27);
-  elements[0].subElementsNum().push_back(30);
-  elements[0].subElementsNum().push_back(31);
-  elements[0].subElementsNum().push_back(32);
-  elements[0].subElementsNum().push_back(33);
-  elements[1].subElementsNum().push_back(2);
-  elements[3].subElementsNum().push_back(4);
-  elements[7].subElementsNum().push_back(8);
-  elements[7].subElementsNum().push_back(11);
-  elements[8].subElementsNum().push_back(9);
-  elements[8].subElementsNum().push_back(10);
-  elements[11].subElementsNum().push_back(12);
-  elements[11].subElementsNum().push_back(13);
-  elements[14].subElementsNum().push_back(15);
-  elements[14].subElementsNum().push_back(16);
-  elements[17].subElementsNum().push_back(18);
-  elements[19].subElementsNum().push_back(20);
+  elements[5].subElementsNum().push_back(6);
+  elements[5].subElementsNum().push_back(9);
+  elements[6].subElementsNum().push_back(7);
+  elements[6].subElementsNum().push_back(8);
+  elements[9].subElementsNum().push_back(10);
+  elements[9].subElementsNum().push_back(11);
+  elements[12].subElementsNum().push_back(13);
+  elements[12].subElementsNum().push_back(14);
   elements[21].subElementsNum().push_back(22);
-  elements[23].subElementsNum().push_back(24);
-  elements[27].subElementsNum().push_back(28);
-  elements[27].subElementsNum().push_back(29);
+  elements[21].subElementsNum().push_back(23);
 
-  std::array<std::pair<std::string, int>, 34> mapElementArray = {
+  std::array<std::pair<std::string, int>, 28> mapElementArray = {
     std::make_pair("generator", 0),
     std::make_pair("generator_omegaRefPu", 1),
-    std::make_pair("generator_omegaRefPu_value", 2),
-    std::make_pair("generator_deltaPmRefPu", 3),
-    std::make_pair("generator_deltaPmRefPu_value", 4),
-    std::make_pair("generator_UPu", 5),
-    std::make_pair("generator_QGenPu", 6),
-    std::make_pair("generator_terminal", 7),
-    std::make_pair("generator_terminal_i", 8),
-    std::make_pair("generator_terminal_i_im", 9),
-    std::make_pair("generator_terminal_i_re", 10),
-    std::make_pair("generator_terminal_V", 11),
-    std::make_pair("generator_terminal_V_im", 12),
-    std::make_pair("generator_terminal_V_re", 13),
-    std::make_pair("generator_converter", 14),
-    std::make_pair("generator_converter_y", 15),
-    std::make_pair("generator_converter_u", 16),
-    std::make_pair("generator_running", 17),
-    std::make_pair("generator_running_value", 18),
-    std::make_pair("generator_switchOffSignal3", 19),
-    std::make_pair("generator_switchOffSignal3_value", 20),
-    std::make_pair("generator_switchOffSignal2", 21),
-    std::make_pair("generator_switchOffSignal2_value", 22),
-    std::make_pair("generator_switchOffSignal1", 23),
-    std::make_pair("generator_switchOffSignal1_value", 24),
-    std::make_pair("generator_pStatus", 25),
-    std::make_pair("generator_PGenRawPu", 26),
-    std::make_pair("generator_SGenPu", 27),
-    std::make_pair("generator_SGenPu_im", 28),
-    std::make_pair("generator_SGenPu_re", 29),
-    std::make_pair("generator_PGenPu", 30),
-    std::make_pair("generator_PGen", 31),
-    std::make_pair("generator_genState", 32),
-    std::make_pair("generator_state", 33),
+    std::make_pair("generator_deltaPmRefPu", 2),
+    std::make_pair("generator_UPu", 3),
+    std::make_pair("generator_QGenPu", 4),
+    std::make_pair("generator_terminal", 5),
+    std::make_pair("generator_terminal_i", 6),
+    std::make_pair("generator_terminal_i_im", 7),
+    std::make_pair("generator_terminal_i_re", 8),
+    std::make_pair("generator_terminal_V", 9),
+    std::make_pair("generator_terminal_V_im", 10),
+    std::make_pair("generator_terminal_V_re", 11),
+    std::make_pair("generator_converter", 12),
+    std::make_pair("generator_converter_y", 13),
+    std::make_pair("generator_converter_u", 14),
+    std::make_pair("generator_running", 15),
+    std::make_pair("generator_switchOffSignal3", 16),
+    std::make_pair("generator_switchOffSignal2", 17),
+    std::make_pair("generator_switchOffSignal1", 18),
+    std::make_pair("generator_pStatus", 19),
+    std::make_pair("generator_PGenRawPu", 20),
+    std::make_pair("generator_SGenPu", 21),
+    std::make_pair("generator_SGenPu_im", 22),
+    std::make_pair("generator_SGenPu_re", 23),
+    std::make_pair("generator_PGenPu", 24),
+    std::make_pair("generator_PGen", 25),
+    std::make_pair("generator_genState", 26),
+    std::make_pair("generator_state", 27),
   };
   for (size_t mapElementIndex = 0; mapElementIndex < mapElementArray.size(); ++mapElementIndex)
   {
@@ -863,8 +801,8 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               std::vector<adept::adouble> & res)
 {
   /*
-    generator_deltaPmRefPu_value : x[0]
-    generator_omegaRefPu_value : x[1]
+    generator_deltaPmRefPu : x[0]
+    generator_omegaRefPu : x[1]
     generator_terminal_V_im : x[2]
     generator_terminal_V_re : x[3]
     generator_PGenPu : x[4]
@@ -872,13 +810,12 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
     generator_SGenPu_im : x[6]
     generator_terminal_i_im : x[7]
     generator_terminal_i_re : x[8]
-    der(generator_deltaPmRefPu_value) : xd[0]
-    der(generator_omegaRefPu_value) : xd[1]
+    der(generator_deltaPmRefPu) : xd[0]
+    der(generator_omegaRefPu) : xd[1]
     der(generator_terminal_V_im) : xd[2]
     der(generator_terminal_V_re) : xd[3]
 
   */
-  adept::adouble $DAEres3;
   adept::adouble $DAEres4;
   adept::adouble $DAEres5;
   adept::adouble $DAEres6;
@@ -897,18 +834,11 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   }
 
 
-  // ----- GeneratorPQ_eqFunction_76 -----
-  {
-    res[2] = xd[0];
-
-  }
-
-
   // ----- GeneratorPQ_eqFunction_89 -----
   {
   modelica_boolean tmp8;
   adept::adouble tmp9;
-  tmp8 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  tmp8 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
   if(tmp8)
   {
     tmp9 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * ((x[0]) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * (x[1] - 1.0));
@@ -917,7 +847,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   {
     tmp9 = 0.0;
   }
-  res[3] = x[5] - ( tmp9 );
+  res[2] = x[5] - ( tmp9 );
 
   }
 
@@ -926,7 +856,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   {
   modelica_boolean tmp22;
   adept::adouble tmp23;
-  tmp22 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  tmp22 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
   if(tmp22)
   {
     tmp23 = x[6] - (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
@@ -935,7 +865,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   {
     tmp23 = x[7];
   }
-    res[4] = tmp23;
+    res[3] = tmp23;
 
   }
 
@@ -948,7 +878,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   adept::adouble tmp27;
   modelica_boolean tmp28;
   adept::adouble tmp29;
-  tmp28 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+  tmp28 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
   if(tmp28)
   {
     tmp26 = (modelica_boolean)((data->localData[0]->integerDoubleVars[1] /* generator.pStatus DISCRETE */) == 3);
@@ -975,7 +905,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   {
     tmp29 = x[8];
   }
-    res[5] = tmp29;
+    res[4] = tmp29;
 
   }
 
@@ -1010,7 +940,7 @@ void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
         if (data->simulationInfo->noThrowAsserts) {
           throwStreamPrint(, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta4));
         } else {
-          omc_assert_warning_withEquationIndexes( equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta4));
+          omc_assert_warning_withEquationIndexes( equationIndexes, "The following assertion has been violated %sat time %f: (%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta4));
         }
       }
       tmp5 = 1;
@@ -1041,7 +971,7 @@ void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
         if (data->simulationInfo->noThrowAsserts) {
           throwStreamPrint(, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta10));
         } else {
-          omc_assert_warning_withEquationIndexes( equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta10));
+          omc_assert_warning_withEquationIndexes( equationIndexes, "The following assertion has been violated %sat time %f: (%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, (tmpMeta10));
         }
       }
       tmp11 = 1;
@@ -1058,10 +988,9 @@ void ModelGeneratorPQ_Dyn::setFequations(std::map<int,std::string>& fEquationInd
   //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.
   fEquationIndex[0] = "$DAEres6 = generator.terminal.V.re * generator.terminal.i.im + (-generator.terminal.V.im) * generator.terminal.i.re - generator.SGenPu.im";//equation_index_omc:74
   fEquationIndex[1] = "$DAEres4 = (-generator.terminal.V.re) * generator.terminal.i.re - generator.PGenPu - generator.terminal.V.im * generator.terminal.i.im";//equation_index_omc:75
-  fEquationIndex[2] = "$DAEres3 = der(generator.deltaPmRefPu.value)";//equation_index_omc:76
-  fEquationIndex[3] = "generator.PGenRawPu = if generator.running.value then generator.PGen0Pu - (-0.01) * generator.deltaPmRefPu.value * generator.PNom - generator.AlphaPu * (generator.omegaRefPu.value - 1.0) else 0.0";//equation_index_omc:89
-  fEquationIndex[4] = "$DAEres5 = if generator.running.value then generator.SGenPu.im - generator.QGen0Pu else generator.terminal.i.im";//equation_index_omc:104
-  fEquationIndex[5] = "$DAEres7 = if generator.running.value then generator.PGenPu - (if generator.pStatus == generator.PStatus.LimitPMax then generator.PMaxPu else if generator.pStatus == generator.PStatus.LimitPMin then generator.PMinPu else generator.PGenRawPu) else generator.terminal.i.re";//equation_index_omc:105
+  fEquationIndex[2] = "generator.PGenRawPu = if generator.running then generator.PGen0Pu - (-0.01) * generator.deltaPmRefPu * generator.PNom - generator.AlphaPu * (generator.omegaRefPu - 1.0) else 0.0";//equation_index_omc:89
+  fEquationIndex[3] = "$DAEres5 = if generator.running then generator.SGenPu.im - generator.QGen0Pu else generator.terminal.i.im";//equation_index_omc:104
+  fEquationIndex[4] = "$DAEres7 = if generator.running then generator.PGenPu - (if generator.pStatus == generator.PStatus.LimitPMax then generator.PMaxPu else if generator.pStatus == generator.PStatus.LimitPMin then generator.PMinPu else generator.PGenRawPu) else generator.terminal.i.re";//equation_index_omc:105
 }
 
 void ModelGeneratorPQ_Dyn::setGequations(std::map<int,std::string>& gEquationIndex)
@@ -1078,16 +1007,16 @@ void ModelGeneratorPQ_Dyn::setGequations(std::map<int,std::string>& gEquationInd
   gEquationIndex[3] =  res[3]  ;
 // -----------------------------
   // ------------- $whenCondition5 ------------
-  gEquationIndex[4] = " $whenCondition5:  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = (((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))))); " ;
+  gEquationIndex[4] = " $whenCondition5:  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = (((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running DISCRETE */))))); " ;
  
   // ------------- $whenCondition6 ------------
-  gEquationIndex[5] = " $whenCondition6:  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)))); " ;
+  gEquationIndex[5] = " $whenCondition6:  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)))); " ;
  
   // ------------- $whenCondition7 ------------
-  gEquationIndex[6] = " $whenCondition7:  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)))) && (!((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))))) && (!((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))))); " ;
+  gEquationIndex[6] = " $whenCondition7:  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1 DISCRETE */)))) && (!((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2 DISCRETE */))))) && (!((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3 DISCRETE */))))) && (!((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running DISCRETE */))))); " ;
  
   // ------------- $whenCondition8 ------------
-  gEquationIndex[7] = " $whenCondition8:  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = ((((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */)))) || (((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */))) && ((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))))); " ;
+  gEquationIndex[7] = " $whenCondition8:  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = ((((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1 DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2 DISCRETE */)))) || (((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3 DISCRETE */))) && ((toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running DISCRETE */))))); " ;
  
 }
 
@@ -1102,7 +1031,7 @@ void ModelGeneratorPQ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVar
     modelica_real tmp5;
     modelica_boolean tmp6;
     modelica_real tmp7;
-    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
     if(tmp6)
     {
       tmp3 = (data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */);
@@ -1133,7 +1062,7 @@ double ModelGeneratorPQ_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
     modelica_real tmp5;
     modelica_boolean tmp6;
     modelica_real tmp7;
-    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
     if(tmp6)
     {
       tmp3 = (data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */);
@@ -1169,7 +1098,7 @@ adept::adouble ModelGeneratorPQ_Dyn::evalCalculatedVarIAdept(unsigned iCalculate
     adept::adouble tmp5;
     modelica_boolean tmp6;
     adept::adouble tmp7;
-    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
+    tmp6 = (modelica_boolean)((toNativeBool (data->localData[0]->discreteVars[0] /* generator.running DISCRETE */)));
     if(tmp6)
     {
       tmp3 = x[indexOffset +1];
