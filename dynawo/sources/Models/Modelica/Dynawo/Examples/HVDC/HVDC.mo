@@ -179,12 +179,12 @@ equation
   line1.switchOffSignal2 = false;
   line2.switchOffSignal1 = false;
   line2.switchOffSignal2 = false;
-  HVDC.Conv1.switchOffSignal1 = false;
-  HVDC.Conv1.switchOffSignal2 = false;
-  HVDC.Conv1.switchOffSignal3 = false;
-  HVDC.Conv2.switchOffSignal1 = false;
-  HVDC.Conv2.switchOffSignal2 = false;
-  HVDC.Conv2.switchOffSignal3 = false;
+  HVDC.switchOffSignal11 = false;
+  HVDC.switchOffSignal12 = false;
+  HVDC.switchOffSignal13 = false;
+  HVDC.switchOffSignal21 = false;
+  HVDC.switchOffSignal22 = false;
+  HVDC.switchOffSignal23 = false;
 
   connect(HVDC.terminal2, line2.terminal1) annotation(
     Line(points = {{30, -40}, {42, -40}}, color = {0, 0, 255}));

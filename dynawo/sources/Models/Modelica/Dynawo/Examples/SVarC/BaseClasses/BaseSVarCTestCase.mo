@@ -54,9 +54,9 @@ model BaseSVarCTestCase "Base model for SVarC test cases"
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
-  sVarCStandard.injector.switchOffSignal1 = false;
-  sVarCStandard.injector.switchOffSignal2 = false;
-  sVarCStandard.injector.switchOffSignal3 = false;
+  sVarCStandard.switchOffSignal1 = false;
+  sVarCStandard.switchOffSignal2 = false;
+  sVarCStandard.switchOffSignal3 = false;
 
   connect(line.terminal2, infiniteBus.terminal) annotation(
     Line(points = {{72, 20}, {102, 20}}, color = {0, 0, 255}));

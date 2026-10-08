@@ -42,6 +42,12 @@ model HvdcVsc "HVDC VSC model"
     Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu * (SystemBase.SnRef / SNom)) "Reactive power reference for the side 2 of the HVDC link in pu (base SNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal11(start = false) "Switch-off signal 1 for the injector 1";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal12(start = false) "Switch-off signal 2 for the injector 1";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal13(start = false) "Switch-off signal 3 for the injector 1";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal21(start = false) "Switch-off signal 1 for the injector 2";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal22(start = false) "Switch-off signal 2 for the injector 2";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal23(start = false) "Switch-off signal 3 for the injector 2";
   Modelica.Blocks.Interfaces.RealInput UDcRefPu(start = UDcRef0Pu) "DC voltage reference of the HVDC link in pu (base UDcNom)" annotation(
     Placement(visible = true, transformation(origin = {60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - LambdaPu * Q10Pu * (SystemBase.SnRef / SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
@@ -103,6 +109,12 @@ equation
   Theta1 = pll1.phi;
   Theta2 = pll2.phi;
 
+  connect(switchOffSignal11, Conv1.switchOffSignal1);
+  connect(switchOffSignal12, Conv1.switchOffSignal2);
+  connect(switchOffSignal13, Conv1.switchOffSignal3);
+  connect(switchOffSignal21, Conv2.switchOffSignal1);
+  connect(switchOffSignal22, Conv2.switchOffSignal2);
+  connect(switchOffSignal23, Conv2.switchOffSignal3);
   connect(modeU1, PPuSide.modeU) annotation(
     Line(points = {{-30, 77}, {-30, 17}}, color = {255, 0, 255}));
   connect(modeU2, UDcPuSide.modeU) annotation(

@@ -32,6 +32,11 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the generator";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the generator";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the generator";
+
   //Generator
   Dynawo.Examples.BaseClasses.GeneratorSynchronousThreeWindingsInterfaces generatorSynchronous(
     DPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.DPu],
@@ -140,6 +145,10 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
   parameter Types.Angle UPhase0 "Initial voltage angle at generator terminal in rad";
 
 equation
+  connect(omegaRefPu, generatorSynchronous.omegaRefPu);
+  connect(switchOffSignal1, generatorSynchronous.switchOffSignal1);
+  connect(switchOffSignal2, generatorSynchronous.switchOffSignal2);
+  connect(switchOffSignal3, generatorSynchronous.switchOffSignal3);
   connect(PmRefPu.y, hygov.PmRefPu) annotation(
     Line(points = {{179, 20}, {160, 20}, {160, 12}, {144, 12}}, color = {0, 0, 127}));
   connect(maxex2.UOelPu, scrx.UOelPu) annotation(

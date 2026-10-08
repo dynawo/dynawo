@@ -37,9 +37,9 @@ equation
   // Switches
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
-  inertialGrid1.injectorURI.switchOffSignal1 = false;
-  inertialGrid1.injectorURI.switchOffSignal2 = false;
-  inertialGrid1.injectorURI.switchOffSignal3 = false;
+  inertialGrid1.switchOffSignal1 = false;
+  inertialGrid1.switchOffSignal2 = false;
+  inertialGrid1.switchOffSignal3 = false;
   loadAlphaBeta.switchOffSignal1 = false;
   loadAlphaBeta.switchOffSignal2 = false;
 

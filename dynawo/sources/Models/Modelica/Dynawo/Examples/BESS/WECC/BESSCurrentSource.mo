@@ -220,9 +220,9 @@ initial algorithm
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
-  BESS.injector.switchOffSignal1 = false;
-  BESS.injector.switchOffSignal2 = false;
-  BESS.injector.switchOffSignal3 = false;
+  BESS.switchOffSignal1 = false;
+  BESS.switchOffSignal2 = false;
+  BESS.switchOffSignal3 = false;
 
   connect(QRefPu.y, BESS.QRefPu) annotation(
     Line(points = {{80, 0}, {42, 0}}, color = {0, 0, 127}));
