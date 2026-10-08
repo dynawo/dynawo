@@ -15,9 +15,6 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries;
 model Measurements "Measurement module for wind turbine controls (IEC N°61400-27-1)"
   extends Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.MeasurementsPQ;
 
-  //Nominal parameters
-  parameter Types.Time tS "Integration time step in s";
-
   //Measurement parameters
   parameter Types.AngularVelocityPu DfMaxPu "Maximum frequency ramp rate in pu/s (base omegaNom)" annotation(
     Dialog(tab = "Measurement"));
@@ -28,6 +25,8 @@ model Measurements "Measurement module for wind turbine controls (IEC N°61400-2
   parameter Types.Time tPFilt "Filter time constant for active power measurement in s" annotation(
     Dialog(tab = "Measurement"));
   parameter Types.Time tQFilt "Filter time constant for reactive power measurement in s" annotation(
+    Dialog(tab = "Measurement"));
+  parameter Types.Time tS "Integration time step in s" annotation(
     Dialog(tab = "Measurement"));
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s" annotation(
     Dialog(tab = "Measurement"));
