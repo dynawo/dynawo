@@ -36,4 +36,41 @@ ModelBusBridged::ui() const {
   return getSwitchOff() ? 0. : ui0_;
 }
 
+void
+ModelBusBridged::initSize() {
+  ModelBus::initSize();
+  if (!network_->isInitModel())
+    sizeG_ += 1;  // connection event from dynamic model needs to be propagated
+}
+
+NetworkComponent::StateChange_t
+ModelBusBridged::evalZ(const double /*t*/, bool /*onlyEvaluateStateChange*/) {
+  if (topologyModified_) {
+    topologyModified_ = false;
+    return NetworkComponent::TOPO_CHANGE;
+  }
+
+  return NetworkComponent::NO_CHANGE;
+}
+
+void
+ModelBusBridged::evalG(const double /*t*/) {
+  if (dynModel_ == nullptr)
+    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
+
+  // since variable "state" is compiled with SILENT_Z flag, reading it is hazardous as evalG() may not be called
+  // after it changed, so use running instead, that is flipped earlier
+  State dynConnState = dynModel_->getVariableValue("bus_running") > 0.5 ? CLOSED : OPEN;
+  if (doubleNotEquals(static_cast<double>(dynConnState), z_[connectionStateNum_])) {
+    g_[0] = (g_[0] != ROOT_UP) ? ROOT_UP : ROOT_DOWN;
+    z_[connectionStateNum_] = static_cast<double>(dynConnState);
+    refreshConnectionStateFromZ(DO_NOT_LOG_TIMELINE);
+  }
+}
+
+void
+ModelBusBridged::setGequations(std::map<int, std::string> & gEquationIndex) {
+  gEquationIndex[0] = "Connection state change propagation by : "+id();
+}
+
 }  // namespace DYN
