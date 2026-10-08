@@ -26,6 +26,9 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
     Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-190, 38}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
 
   Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
     DPMaxPu = DPMaxPu,
@@ -149,6 +152,9 @@ partial model BaseWT4 "Partial base model for the WECC Wind Turbine models inclu
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  connect(switchOffSignal1, injector.switchOffSignal1);
+  connect(switchOffSignal2, injector.switchOffSignal2);
+  connect(switchOffSignal3, injector.switchOffSignal3);
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(PFaRef, wecc_reec.PFaRef) annotation(

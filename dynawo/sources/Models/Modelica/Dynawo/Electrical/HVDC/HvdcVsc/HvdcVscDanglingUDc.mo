@@ -33,6 +33,9 @@ model HvdcVscDanglingUDc "HVDC VSC model with terminal2 connected to a switched-
     Placement(visible = true, transformation(origin = {-30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef / SNom)) "Reactive power reference for the side 1 of the HVDC link in pu (base SNom) (DC to AC)" annotation(
     Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal11(start = false) "Switch-off signal 1 for the injector 1";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal12(start = false) "Switch-off signal 2 for the injector 1";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal13(start = false) "Switch-off signal 3 for the injector 1";
   Modelica.Blocks.Interfaces.RealInput UDcRefPu(start = UDcRef0Pu) "DC voltage reference of the HVDC link in pu (base UDcNom)" annotation(
     Placement(visible = true, transformation(origin = {-60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - LambdaPu * Q10Pu * (SystemBase.SnRef / SNom)) "Voltage reference for the side 1 of the HVDC link in pu (base UNom)" annotation(
@@ -81,6 +84,9 @@ equation
   terminal2.i = Complex(0, 0);
   Conv2_state = Conv1.state;
 
+  connect(switchOffSignal11, Conv1.switchOffSignal1);
+  connect(switchOffSignal12, Conv1.switchOffSignal2);
+  connect(switchOffSignal13, Conv1.switchOffSignal3);
   connect(PQDanglingTerminal.y, Conv2_PInjPu) annotation(
     Line(points = {{91, 40}, {100, 40}, {100, 50}, {130, 50}, {130, 50}}, color = {0, 0, 127}));
   connect(PQDanglingTerminal.y, Conv2_QInjPu) annotation(

@@ -39,6 +39,9 @@ model EpriGFM "EPRI Grid Forming model"
     Placement(visible = true, transformation(origin = {-460, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = - Q0Pu * SystemBase.SnRef / SNom) "Reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-460, 180}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-40, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
   Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu) "Voltage reference at the converter's terminal in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-460, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 
@@ -107,9 +110,11 @@ model EpriGFM "EPRI Grid Forming model"
   Dialog(tab = "Initial"));
 
 equation
-  line.switchOffSignal1 = injectorURI.switchOffSignal1;
-  line.switchOffSignal2 = injectorURI.switchOffSignal2;
-
+  connect(switchOffSignal1, injectorURI.switchOffSignal1);
+  connect(switchOffSignal2, injectorURI.switchOffSignal2);
+  connect(switchOffSignal3, injectorURI.switchOffSignal3);
+  connect(line.switchOffSignal1, injectorURI.switchOffSignal1);
+  connect(line.switchOffSignal2, injectorURI.switchOffSignal2);
   connect(measurements.terminal2, terminal) annotation(
     Line(points = {{459, 110}, {502, 110}}, color = {0, 0, 255}));
   connect(line.terminal2, measurements.terminal1) annotation(

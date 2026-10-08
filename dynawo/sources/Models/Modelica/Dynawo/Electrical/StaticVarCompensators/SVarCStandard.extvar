@@ -17,7 +17,7 @@
   <variable type="discrete" id="setModeManual"/>
   <variable type="discrete" id="selectModeAuto" defaultValue="true"/>
   <variable type="continuous" id="URef" optional="true"/>
-  <variable type="discrete" id="injector.switchOffSignal1" defaultValue="false"/>
-  <variable type="discrete" id="injector.switchOffSignal2" defaultValue="false"/>
-  <variable type="discrete" id="injector.switchOffSignal3" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal3" defaultValue="false"/>
 </external_variables>

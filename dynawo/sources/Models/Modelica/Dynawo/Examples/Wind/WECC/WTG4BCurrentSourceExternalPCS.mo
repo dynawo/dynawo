@@ -240,9 +240,9 @@ equation
   ZPcs.switchOffSignal2 = false;
   Zcc.switchOffSignal1 = false;
   Zcc.switchOffSignal2 = false;
-  WTG4B.injector.switchOffSignal1 = false;
-  WTG4B.injector.switchOffSignal2 = false;
-  WTG4B.injector.switchOffSignal3 = false;
+  WTG4B.switchOffSignal1 = false;
+  WTG4B.switchOffSignal2 = false;
+  WTG4B.switchOffSignal3 = false;
 
   connect(infiniteBus.terminal, Zcc.terminal1) annotation(
     Line(points = {{-180, 0}, {-160, 0}}, color = {0, 0, 255}));

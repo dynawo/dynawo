@@ -39,6 +39,9 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
     Placement(transformation(origin = {-190, 25}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-190, 8}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
   Modelica.Blocks.Interfaces.RealInput URefPu(start = wecc_repc.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
@@ -252,6 +255,9 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation
+  connect(switchOffSignal1, injector.switchOffSignal1);
+  connect(switchOffSignal2, injector.switchOffSignal2);
+  connect(switchOffSignal3, injector.switchOffSignal3);
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);

@@ -57,9 +57,9 @@ equation
   line.switchOffSignal2 = false;
   line1.switchOffSignal1 = false;
   line1.switchOffSignal2 = false;
-  epriGfm.injectorURI.switchOffSignal1 = false;
-  epriGfm.injectorURI.switchOffSignal2 = false;
-  epriGfm.injectorURI.switchOffSignal3 = false;
+  epriGfm.switchOffSignal1 = false;
+  epriGfm.switchOffSignal2 = false;
+  epriGfm.switchOffSignal3 = false;
 
   connect(epriGfm.terminal, line.terminal2) annotation(
     Line(points = {{60, 0}, {40, 0}}, color = {0, 0, 255}));

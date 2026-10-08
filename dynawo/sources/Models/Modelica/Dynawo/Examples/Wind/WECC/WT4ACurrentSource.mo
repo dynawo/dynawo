@@ -169,9 +169,9 @@ initial algorithm
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
-  WT4A.injector.switchOffSignal1 = false;
-  WT4A.injector.switchOffSignal2 = false;
-  WT4A.injector.switchOffSignal3 = false;
+  WT4A.switchOffSignal1 = false;
+  WT4A.switchOffSignal2 = false;
+  WT4A.switchOffSignal3 = false;
 
   connect(line.terminal2, WT4A.terminal) annotation(
     Line(points = {{-20, 0}, {0, 0}, {0, 0}, {0, 0}}, color = {0, 0, 255}));

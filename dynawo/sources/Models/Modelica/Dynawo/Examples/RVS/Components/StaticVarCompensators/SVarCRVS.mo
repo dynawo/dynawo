@@ -24,7 +24,9 @@ model SVarCRVS "Model of a regulated static var compensator with built-in initia
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  //Input variable
+  //Input variables
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the static VAR compensator";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the static VAR compensator";
   Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0), iconTransformation(origin = {120, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
 
@@ -75,6 +77,8 @@ initial algorithm
   csscst.BVar0Pu := sVarCPV_INIT.B0Pu;
 
 equation
+  connect(switchOffSignal1, sVarCPVInterfaces.switchOffSignal1);
+  connect(switchOffSignal2, sVarCPVInterfaces.switchOffSignal2);
   connect(terminal, sVarCPVInterfaces.terminal) annotation(
     Line(points = {{0, 100}, {0, 0}}));
   connect(sVarCPVInterfaces.UPu_out, csscst.UPu) annotation(
@@ -94,7 +98,8 @@ equation
   connect(booleanConstant.y, switch.u2) annotation(
     Line(points = {{-98, 0}, {-62, 0}}, color = {255, 0, 255}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Icon(graphics = {Rectangle(origin = {-20, -18}, fillPattern = FillPattern.Solid, extent = {{-20, 2}, {60, -2}}), Line(origin = {49.6216, 39.4941}, points = {{0, -10}, {0, 10}}, thickness = 1), Line(origin = {-0.0916367, -80.3386}, points = {{-40, 0}, {40, 0}}), Line(origin = {0, -21}, points = {{0, 81}, {0, -59}}), Line(origin = {39.2032, 49.0758}, points = {{-10, 0}, {10, 0}}, thickness = 1), Text(origin = {-1, -120}, lineColor = {0, 0, 255}, extent = {{-81, 10}, {81, -10}}, textString = "%name"), Line(origin = {-2.83665, -2.96415}, points = {{-44, -44}, {52, 52}}, thickness = 1), Rectangle(origin = {0, 18}, fillPattern = FillPattern.Solid, extent = {{-40, 2}, {40, -2}})}),
     Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})));
 end SVarCRVS;

@@ -35,6 +35,9 @@ model SVarCStandard "Standard static var compensator model"
     Placement(visible = true, transformation(origin = {-260, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.IntegerInput setModeManual(start = SetModeManual0) "Mode selected when in manual configuration" annotation(
     Placement(visible = true, transformation(origin = {-260, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, -80}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
   Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
     Placement(visible = true, transformation(origin = {-260, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 80}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
@@ -71,6 +74,9 @@ model SVarCStandard "Standard static var compensator model"
   final parameter Integer SetModeManual0 = Integer(Mode0) "Start value of the mode when in manual configuration";
 
 equation
+  connect(switchOffSignal1, injector.switchOffSignal1);
+  connect(switchOffSignal2, injector.switchOffSignal2);
+  connect(switchOffSignal3, injector.switchOffSignal3);
   connect(modeHandling.mode, calculationBG.mode) annotation(
     Line(points = {{-98, 80}, {74, 80}, {74, 2}}, color = {0, 0, 127}));
   connect(calculationBG.GPu, injector.GPu) annotation(
