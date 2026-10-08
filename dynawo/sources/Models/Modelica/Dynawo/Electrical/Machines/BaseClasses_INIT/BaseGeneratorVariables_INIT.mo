@@ -16,8 +16,8 @@ within Dynawo.Electrical.Machines.BaseClasses_INIT;
 partial model BaseGeneratorVariables_INIT "Base initialization model for simplified generator models"
   parameter Types.ComplexCurrentPu iStart0Pu = Complex(0, 0) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
-  Dynawo.Connectors.ActivePowerPuInput P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
-  Dynawo.Connectors.ReactivePowerPuInput Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
+  Dynawo.Connectors.ActivePowerPuOutput P0Pu "Start value of active power at terminal in pu (base SnRef) (receptor convention)";
+  Dynawo.Connectors.ReactivePowerPuOutput Q0Pu "Start value of reactive power at terminal in pu (base SnRef) (receptor convention)";
   Dynawo.Connectors.VoltageModulePuInput U0Pu "Start value of voltage amplitude at terminal in pu (base UNom)";
   Dynawo.Connectors.AngleInput UPhase0 "Start value of voltage angle at terminal in rad";
 
@@ -26,7 +26,7 @@ partial model BaseGeneratorVariables_INIT "Base initialization model for simplif
 
   Dynawo.Connectors.ComplexVoltagePuOutput u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
-  Dynawo.Connectors.ComplexCurrentPuOutput i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
+  flow Dynawo.Connectors.ComplexCurrentPuInput i0Pu(re(start = iStart0Pu.re)) "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
