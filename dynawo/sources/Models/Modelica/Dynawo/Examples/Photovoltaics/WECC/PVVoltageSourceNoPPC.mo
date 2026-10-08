@@ -180,9 +180,9 @@ initial algorithm
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
-  PV.injector.switchOffSignal1 = false;
-  PV.injector.switchOffSignal2 = false;
-  PV.injector.switchOffSignal3 = false;
+  PV.switchOffSignal1 = false;
+  PV.switchOffSignal2 = false;
+  PV.switchOffSignal3 = false;
 
   connect(line.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-60, 0}, {-80, 0}}, color = {0, 0, 255}));

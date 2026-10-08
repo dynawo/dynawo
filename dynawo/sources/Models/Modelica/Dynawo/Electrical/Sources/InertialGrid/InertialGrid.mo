@@ -17,9 +17,14 @@ model InertialGrid
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  // Input and Output
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference speed in pu (base OmegaNom)" annotation(
     Placement(transformation(origin = {-72, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
+
+  // Output variable
   Modelica.Blocks.Interfaces.RealOutput omegaPu(start = SystemBase.omegaRef0Pu) "Speed in pu (base OmegaNom)" annotation(
     Placement(transformation(origin = {-150, 80}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {150, 80}, extent = {{-10, -10}, {10, 10}})));
 
@@ -64,6 +69,9 @@ model InertialGrid
   final parameter Types.ComplexCurrentPu i0Pu = ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu);
 
 equation
+  connect(switchOffSignal1, injectorURI.switchOffSignal1);
+  connect(switchOffSignal2, injectorURI.switchOffSignal2);
+  connect(switchOffSignal3, injectorURI.switchOffSignal3);
   connect(integrator.y, add.u1) annotation(
     Line(points = {{2.8, 0}, {16.8, 0}}, color = {0, 0, 127}));
   connect(add.u2, initialPhase.y) annotation(

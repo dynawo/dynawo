@@ -17,6 +17,6 @@
     <dyn:unitDynamicModel id="lhvrt" name="Dynawo.Electrical.Controls.Machines.Protections.LHVRT" initName="Dynawo.Electrical.Controls.Machines.Protections.LHVRT_INIT"/>
     <dyn:initConnect id1="photovoltaics" var1="UConv0Pu" id2="lhvrt" var2="UMonitored0Pu"/>
     <dyn:connect id1="photovoltaics" var1="UConvPu" id2="lhvrt" var2="UMonitoredPu"/>
-    <dyn:connect id1="lhvrt" var1="fOCB" id2="photovoltaics" var2="injector.switchOffSignal3"/>
+    <dyn:connect id1="lhvrt" var1="fOCB" id2="photovoltaics" var2="switchOffSignal3"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
