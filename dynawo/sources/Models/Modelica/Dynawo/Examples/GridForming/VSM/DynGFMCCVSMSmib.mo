@@ -25,12 +25,14 @@ model DynGFMCCVSMSmib "Single machine infinite bus test case for Grid Forming VS
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Electrical.Sources.AcGrid AcGrid(RoCoFValue = -0.01, SNom = 1000, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1, StartRoCoF = 5, TimeRoCoF = 3) annotation(
     Placement(transformation(origin = {46, 62}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, H = 5, IMaxVI = 2.0, Kff = 0.01, KpVI = 0.05, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = 4.98488710832432, Q0Pu = -0.0110946151405571, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.992493005247463, UPhase0 = -0.253902907445225, Wf = 31.4159, Wff = 60, XRratio = 2, kVSM = 525, OmegaSetPu = 1, tVSC = 0.0004, W_CurrentLimit = 2000, Imax = 1.2, Imin = 0, XVI = 0.06, Kfd = 1, Kfq = 0.8, DeltaIConvMaxPu = 0.15, omegaNPLL = 100, ZetaPLL = 1, omegaC = 1000, KDampingAngle = 1) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, H = 5, IMaxVIPu = 1.0, Kff = 0.01, KpVI = 0.05, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = 9.568869896699173, Q0Pu = -2.2884973450334383, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9183319408549561, UPhase0 = -0.5626764971268436, Omegaf = 31.4159, Omegaff = 60, XRratio = 2, kVSM = 150, OmegaSetPu = 1, tVSC = 0.0004, ImaxPu = 1.2, IminPu = 0, XVIPu = 0.06, Kfd = 1, Kfq = 0.8, DeltaIConvMaxPu = 0.15, OmegaPLL = 100, KsiPLL = 1, Omegac = 1000, KDampingAngle = 0.00318) annotation(
     Placement(transformation(origin = {-8, 0}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = -0.5, startTime = 0)  annotation(
+  Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = -0.95, startTime = 0)  annotation(
     Placement(transformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {24, 0}, extent = {{-6, -6}, {6, 6}})));
+  Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(dUPhaseEvt = 0.22, tUPhaseEvt = 10)  annotation(
+    Placement(transformation(origin = {88, 0}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -40,8 +42,6 @@ equation
 
   connect(omegaRefPu.y, AcGrid.OmegaRef) annotation(
     Line(points = {{-100, 20}, {-56, 20}, {-56, 67}, {34, 67}}, color = {0, 0, 127}));
-  connect(AcGrid.aCPower, line.terminal2) annotation(
-    Line(points = {{57.5, 69}, {57.5, 0}, {54, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, DynGFMCCVSM.omegaRefPu) annotation(
     Line(points = {{-100, 20}, {-56, 20}, {-56, 8}, {-30, 8}}, color = {0, 0, 127}));
   connect(QRefPu.y, DynGFMCCVSM.QFilterRefPu) annotation(
@@ -54,10 +54,12 @@ equation
     Line(points = {{14, 0}, {18, 0}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{30, 0}, {34, 0}}, color = {0, 0, 255}));
+  connect(line.terminal2, infiniteBusWithVariations.terminal) annotation(
+    Line(points = {{54, 0}, {88, 0}}, color = {0, 0, 255}));
   annotation(
    preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),
+    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.001),
     Documentation(info = "<html><head></head><body>This test case consists of a current-controlled grid-forming converter based on a Virtual Synchronous Machine Control (VSM), with current limitation enforced through a proportional virtual impedance (activated above IMaxVI) combined with a Quasi-Static Electrical Model to translate the resulting voltage reference into a current reference.<br><div><div><span style=\"font-size: 12px;\"><br></span></div><div>The GFM is connected to an infinite bus with the following variations :&nbsp;</div><div><span style=\"font-size: 12px;\">- At t = 7 s the reference active power PRefPu increases from 0.75 to 1.00 pu with a step.</span></div><div><span style=\"font-size: 12px;\">- At t = 10 s, a sudden increase in frequency at the bus is simulated (88% increase in p.u. over 0.0001 s)</span></div><div><span style=\"font-size: 12px;\">- At t = 20 s, an increase of 4% at the bus voltage happens. Return to the original value is made after 3 seconds.</span></div><div><span style=\"font-size: 12px;\"><br></span></div><div><span style=\"font-size: 12px;\">The graph shows the evolution of PFilterRefPu (reference active power in p.u. for the GFM) and PFilterPu : the active power in p.u measured at the RLC filter of the Converter block.&nbsp;</span></div><div><span style=\"font-size: 12px;\"><br></span></div><div><span style=\"font-size: 12px;\">As a note, the whole converter block is computed in the Real-Imaginary frame i.e. same as the grid's. A previous version of this model existed with the Converter block in the GFM rotating frame (DQ) and produced identical results.&nbsp;</span></div><div><span style=\"font-size: 12px;\"><br></span></div><div><div style=\"font-size: 12px;\"><b>Fig 1 : Reference active power in p.u measured at the RLC Filter.</b></div><div style=\"font-size: 12px;\"><b><br></b></div><div style=\"font-size: 12px;\"><img width=\"1000\" src=\"modelica://Dynawo/Examples/GridForming/Resources/Images/DynGFMVSM.png\"></div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\"><br></div><div style=\"font-size: 12px;\" <=\"\" div=\"\"></div></div></div></body></html>"),
     Diagram);
 end DynGFMCCVSMSmib;

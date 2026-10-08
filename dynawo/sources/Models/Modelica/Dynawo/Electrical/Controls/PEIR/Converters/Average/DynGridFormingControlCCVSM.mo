@@ -16,22 +16,23 @@ model DynGridFormingControlCCVSM
   // VSM parameters
   parameter Types.PerUnit kVSM "Virtual Synchronous Machine gain";
   parameter Types.Time H "Inertia constant in s";
-  parameter Types.PerUnit KDampingAngle "DampingAngle constant";
+  parameter Types.PerUnit KDampingAngle "Proportional gain of the PI action on theta (angle-damping term) in s";
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
-  parameter Types.PerUnit Wf "Cutoff pulsation of the active and reactive filters (in rad/s)";
-  parameter Types.PerUnit Wff "Cutoff pulsation of the active damping (in rad/s)";
+  parameter Types.PerUnit Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)";
+  parameter Types.PerUnit Omegaff "Cutoff pulsation of the active damping (in rad/s)";
   parameter Types.PerUnit Kff "Gain of the active damping";
   // QSEM parameter
-  parameter Real XVI "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control";
+  parameter Real XVIPu "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control";
   // Current loop parameters
-  parameter Types.PerUnit omegaC "Current Loop bandwidth (in rad/s)";
+  parameter Types.PerUnit Kpc "Proportional gain of the current loop";
+  parameter Types.PerUnit Kic "Integral gain of the current loop";
   parameter Types.PerUnit Kfd "Feedforward gain on the d-axis";
   parameter Types.PerUnit Kfq "Feedforward gain on the q-axis";
   // Virtual impedance parameters
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
-  parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)";
+  parameter Types.CurrentModulePu IMaxVIPu "Maximum current before activating the virtual impedance in pu (base UNom, SNom)";
   parameter Types.CurrentModulePu DeltaIConvMaxPu "Maximum extra current module used to compute RVI/XVI, in pu (base UNom, SNom): bounds the virtual impedance correction regardless of how large the measured current becomes";
   // Filter parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)";
@@ -40,12 +41,11 @@ model DynGridFormingControlCCVSM
   parameter Types.PerUnit RTransformerPu "Transformer resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit LTransformerPu "Transformer inductance in pu (base UNom, SNom)";
   //PLL parameters
-  parameter Types.PerUnit omegaNPLL "PLL bandwidth (in rad/s)";
-  parameter Types.PerUnit ZetaPLL "PLL damping ratio (dimensionless)";
+  parameter Types.PerUnit Ki "PLL integrator gain";
+  parameter Types.PerUnit Kp "PLL proportional gain";
   //Current Saturation parameters
-  parameter Real W_CurrentLimit "Bandwidth of the current limitation";
-  parameter Types.CurrentModulePu Imax "Current max threshold to limit a current's module";
-  parameter Types.CurrentModulePu Imin "Current min threshold to limit a current's module";
+  parameter Types.CurrentModulePu ImaxPu "Current max threshold to limit a current's module";
+  parameter Types.CurrentModulePu IminPu "Current min threshold to limit a current's module";
   Modelica.Blocks.Interfaces.RealInput PFilterPu(start = PFilter0Pu) "Active power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, 72}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, -73}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
@@ -91,21 +91,21 @@ model DynGridFormingControlCCVSM
   Modelica.Blocks.Continuous.FirstOrder PLLFilter(T = 0.01, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Omega0Pu) annotation(
     Placement(transformation(origin = {-52, 62}, extent = {{-6, -6}, {6, 6}})));
 
-  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, DeltaVVId0 = VICC.DeltaVVId0, DeltaVVIq0 = VICC.DeltaVVIq0, QFilter0Pu = QFilter0Pu, URef0Pu = URef0Pu, UdRef0Pu = UdFilter0Pu, UqRef0Pu = UqFilter0Pu) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(Mq = Mq, Omegaf = Omegaf, Omegaff = Omegaff, Kff = Kff, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, DeltaVVId0 = VICC.DeltaVVId0, DeltaVVIq0 = VICC.DeltaVVIq0, QFilter0Pu = QFilter0Pu, QFilterRef0Pu = QFilter0Pu, URef0Pu = URef0Pu) annotation(
     Placement(transformation(origin = {-72, 18}, extent = {{-10, -10}, {10, 10}})));
 
-  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilter = LTransformerPu, Omega0Pu = Omega0Pu, RFilter = RTransformerPu, UdFilter0Pu = UdFilter0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilter0Pu, UqPcc0Pu = UqPcc0Pu, XVI = XVI) annotation(
-    Placement(transformation(origin = {-20, 12}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilterPu = LTransformerPu, Omega0Pu = Omega0Pu, RFilterPu = RTransformerPu, UdFilter0Pu = UdFilterRef0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilterRef0Pu, UqPcc0Pu = UqPcc0Pu, XVIPu = XVIPu) annotation(
+    Placement(transformation(origin = {-20, 16}, extent = {{-10, -10}, {10, 10}})));
 
-  Dynawo.Electrical.Controls.Converters.InnerControls.CurrentSaturation currentSaturation(Imax = Imax, Imin = Imin, CurrentModule0 = CurrentModule0, CurrentAngle0 = CurrentAngle0, W_CurrentLimit = W_CurrentLimit, idConvRef0Pu = IdConv0Pu, iqConvRef0Pu = IqConv0Pu, idConvSatRef0Pu = IdConvSatRef0Pu, iqConvSatRef0Pu = IqConvSatRef0Pu, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu) annotation(
-    Placement(transformation(origin = {30, 20}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Controls.PEIR.BaseControls.InnerControls.CurrentSaturation currentSaturation(ImaxPu = ImaxPu, IminPu = IminPu, CurrentAngle0 = CurrentAngle0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu, IdConvSatRef0Pu = IdConv0Pu, IqConvSatRef0Pu = IqConv0Pu, IPcc0Pu = IPcc0Pu) annotation(
+    Placement(transformation(origin = {26, 14}, extent = {{-10, -10}, {10, 10}})));
 
-  Dynawo.Electrical.Controls.PEIR.BaseControls.VirtualImpedance2CC VICC(KpVI = KpVI, XRratio = XRratio, IMaxVI = IMaxVI, DeltaIConvMaxPu = DeltaIConvMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.VirtualImpedance2CC VICC(KpVI = KpVI, XRratio = XRratio, IMaxVIPu = IMaxVIPu, DeltaIConvMaxPu = DeltaIConvMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu) annotation(
     Placement(transformation(origin = {-86, -22}, extent = {{-10, -10}, {10, 10}})));
 
-  BaseControls.CurrentLoops.DynCurrentLoop currentLoop(OmegaC = omegaC, RFilter = RFilterPu, LFilter = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConvSatRef0Pu, IqConvRef0Pu = IqConvSatRef0Pu, Omega0Pu = Omega0Pu) annotation(
-    Placement(transformation(origin = {72, 20}, extent = {{-10, -10}, {10, 10}})));
-  PLL.PLL pll(OmegaN = omegaNPLL, Zeta = ZetaPLL, u0Pu = u0Pu, OmegaMaxPu = 10, OmegaMinPu = -10) annotation(
+  BaseControls.CurrentLoops.DynCurrentLoop currentLoop(Kpc = Kpc, Kic = Kic, RFilterPu = RFilterPu, LFilterPu = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConvSatRef0Pu, IqConvRef0Pu = IqConvSatRef0Pu, Omega0Pu = Omega0Pu) annotation(
+    Placement(transformation(origin = {70, 20}, extent = {{-10, -10}, {10, 10}})));
+  PLL.PLL pll(Kp = Kp, Ki = Ki, u0Pu = u0Pu, OmegaMaxPu = 10, OmegaMinPu = -10) annotation(
     Placement(transformation(origin = {-81, 55}, extent = {{-7, -7}, {7, 7}})));
   //Operating point
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
@@ -128,9 +128,11 @@ model DynGridFormingControlCCVSM
   parameter Types.AngularVelocityPu Omega0Pu "Start value of converter's frequency in pu (base omegaNom)";
   parameter Types.ActivePowerPu PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
-  final parameter Types.VoltageModulePu URef0Pu = sqrt(UdFilter0Pu*UdFilter0Pu + UqFilter0Pu*UqFilter0Pu) "Start value of voltage module reference in pu (base UNom)";
-  final parameter Types.CurrentModulePu CurrentModule0 = sqrt(IdConv0Pu*IdConv0Pu + IqConv0Pu*IqConv0Pu) "Start value of the module of the current in dq representation IdConv0Pu,IqConv0Pu";
+  parameter Types.VoltageModulePu URef0Pu "Start value of voltage module reference in pu (base UNom): module of the internal EMF, consistent with QFilterRefPu = QFilter0Pu";
+  final parameter Types.CurrentModulePu IPcc0Pu = sqrt(IdConv0Pu*IdConv0Pu + IqConv0Pu*IqConv0Pu) "Start value of the module of the current in dq representation IdConv0Pu,IqConv0Pu";
   final parameter Types.CurrentModulePu CurrentAngle0 = atan2(IqConv0Pu, IdConv0Pu) "Start value of the phase angle of the current in dq representation IdConv0Pu,IqConv0Pu";
+  final parameter Types.PerUnit UdFilterRef0Pu = UdPcc0Pu + RTransformerPu*IdConv0Pu - (LTransformerPu*Omega0Pu + XVIPu)*IqConv0Pu "Start value of d-axis voltage reference at the filter (QSEM-consistent) in pu (base UNom)";
+  final parameter Types.PerUnit UqFilterRef0Pu = UqPcc0Pu + RTransformerPu*IqConv0Pu + (LTransformerPu*Omega0Pu + XVIPu)*IdConv0Pu "Start value of q-axis voltage reference at the filter (QSEM-consistent) in pu (base UNom)";
   PLL.PLL_INIT pll_init(U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(transformation(origin = {-138, 14}, extent = {{-10, -10}, {10, 10}})));
 equation
@@ -173,41 +175,41 @@ equation
   connect(QFilterRefPu, voltageReferenceControl.QFilterRefPu) annotation(
     Line(points = {{-108, 6}, {-95.5, 6}, {-95.5, 8}, {-83, 8}}, color = {0, 0, 127}));
   connect(voltageReferenceControl.udFilterRefPu, QSEM.udFilterRefPu) annotation(
-    Line(points = {{-61, 22}, {-46, 22}, {-46, 16}, {-31, 16}}, color = {0, 0, 127}));
+    Line(points = {{-61, 22}, {-46, 22}, {-46, 20}, {-31, 20}}, color = {0, 0, 127}));
   connect(voltageReferenceControl.uqFilterRefPu, QSEM.uqFilterRefPu) annotation(
-    Line(points = {{-61, 14}, {-46, 14}, {-46, 8}, {-31, 8}}, color = {0, 0, 127}));
+    Line(points = {{-61, 14}, {-46, 14}, {-46, 12}, {-31, 12}}, color = {0, 0, 127}));
   connect(QSEM.idConvRefPu, currentSaturation.idConvRefPu) annotation(
-    Line(points = {{-9, 16}, {4, 16}, {4, 24}, {19, 24}}, color = {0, 0, 127}));
+    Line(points = {{-9, 20}, {3, 20}, {3, 18}, {15, 18}}, color = {0, 0, 127}));
   connect(QSEM.iqConvRefPu, currentSaturation.iqConvRefPu) annotation(
-    Line(points = {{-9, 8}, {-9, 20}, {19, 20}}, color = {0, 0, 127}));
+    Line(points = {{-9, 12}, {3, 12}, {3, 14}, {15, 14}}, color = {0, 0, 127}));
   connect(currentSaturation.idConvSatRefPu, currentLoop.idConvRefPu) annotation(
-    Line(points = {{41, 24}, {61, 24}}, color = {0, 0, 127}));
+    Line(points = {{37, 18}, {51, 18}, {51, 24}, {59, 24}}, color = {0, 0, 127}));
   connect(currentSaturation.iqConvSatRefPu, currentLoop.iqConvRefPu) annotation(
-    Line(points = {{41, 18}, {51, 18}, {51, 16}, {61, 16}}, color = {0, 0, 127}));
+    Line(points = {{37, 12}, {50, 12}, {50, 16}, {59, 16}}, color = {0, 0, 127}));
   connect(VSM.omegaPu, currentLoop.omegaPu) annotation(
-    Line(points = {{12, 72}, {12, 31}, {72, 31}}, color = {0, 0, 127}));
+    Line(points = {{12, 72}, {12, 31}, {70, 31}}, color = {0, 0, 127}));
   connect(VSM.omegaPu, QSEM.omegaPu) annotation(
-    Line(points = {{12, 72}, {40, 72}, {40, 23}, {-20, 23}}, color = {0, 0, 127}));
+    Line(points = {{12, 72}, {40, 72}, {40, 27}, {-20, 27}}, color = {0, 0, 127}));
   connect(currentLoop.udConvRefPu, udConvRefPu) annotation(
-    Line(points = {{83, 24}, {83, 32}, {108, 32}}, color = {0, 0, 127}));
+    Line(points = {{81, 24}, {81, 32}, {108, 32}}, color = {0, 0, 127}));
   connect(currentLoop.uqConvRefPu, uqConvRefPu) annotation(
-    Line(points = {{83, 16}, {95.5, 16}, {95.5, 18}, {108, 18}}, color = {0, 0, 127}));
+    Line(points = {{81, 16}, {95.5, 16}, {95.5, 18}, {108, 18}}, color = {0, 0, 127}));
   connect(udFilterPu, currentLoop.udFilterPu) annotation(
-    Line(points = {{62, -108}, {62, 9}}, color = {0, 0, 127}));
+    Line(points = {{62, -108}, {62, -50.5}, {60, -50.5}, {60, 9}}, color = {0, 0, 127}));
   connect(uqFilterPu, currentLoop.uqFilterPu) annotation(
-    Line(points = {{72, -108}, {72, 9}, {67, 9}}, color = {0, 0, 127}));
+    Line(points = {{72, -108}, {72, 9}, {65, 9}}, color = {0, 0, 127}));
   connect(idConvPu, currentLoop.idConvPu) annotation(
-    Line(points = {{-108, -16}, {-108, 9}, {77, 9}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-108, -16}, {-108, 9}, {75, 9}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(iqConvPu, currentLoop.iqConvPu) annotation(
-    Line(points = {{-108, -34}, {-108, 9}, {82, 9}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+    Line(points = {{-108, -34}, {-108, 9}, {80, 9}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(udFilteredPccPu, QSEM.udFilteredPCCPu) annotation(
-    Line(points = {{-108, -78}, {-108, 1}, {-23, 1}}, color = {0, 0, 127}));
+    Line(points = {{-108, -78}, {-108, 5}, {-23, 5}}, color = {0, 0, 127}));
   connect(uqFilteredPccPu, QSEM.uqFilteredPCCPu) annotation(
-    Line(points = {{-108, -92}, {-108, 1}, {-17, 1}}, color = {0, 0, 127}));
-  connect(idPccPu, currentSaturation.idPcc) annotation(
-    Line(points = {{-108, -52}, {-108, 9}, {27, 9}}, color = {0, 0, 127}));
-  connect(iqPccPu, currentSaturation.iqPcc) annotation(
-    Line(points = {{-108, -64}, {-108, 9}, {36, 9}}, color = {0, 0, 127}));
+    Line(points = {{-108, -92}, {-108, 5}, {-17, 5}}, color = {0, 0, 127}));
+  connect(idPccPu, currentSaturation.idPccPu) annotation(
+    Line(points = {{-108, -52}, {-108, 3}, {23, 3}}, color = {0, 0, 127}));
+  connect(iqPccPu, currentSaturation.iqPccPu) annotation(
+    Line(points = {{-108, -64}, {-108, 3}, {32, 3}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Diagram,

@@ -37,6 +37,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DynLineTest.xml
   DynGridFormingVirtualSynchronousMachine.xml
   DynGridFormingVirtualSynchronousMachinePlantControl.xml
+  DynGridFormingCurrentControlledVirtualSynchronousMachinePlantControl.xml
   DynGridFormingDroopPlantControl.xml
   DynGridFormingDroop.xml
   DynGridFormingCurrentControlledVirtualSynchronousMachine.xml

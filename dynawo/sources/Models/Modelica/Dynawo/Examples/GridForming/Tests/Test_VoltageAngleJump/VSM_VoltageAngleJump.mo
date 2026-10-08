@@ -22,14 +22,14 @@ model VSM_VoltageAngleJump "Single machine infinite bus test case for Grid Formi
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -4.98488710832432, Q0Pu = 0.0110946151405571, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.992493005247463, UPhase0 = 0.253902907445225, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.06, kVSM = 200, OmegaSetPu = 1, tVSC = 0.0004, omegaNPLL = 100, ZetaPLL = 1, omegaC = 1000) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 5, IMaxVIPu = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -4.98488710832432, Q0Pu = 0.0110946151405571, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.992493005247463, UPhase0 = 0.253902907445225, Omegaf = 31.4159, Omegaff = 60, XRratio = 10, XVIPu = 0.06, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, OmegaPLL = 100, KsiPLL = 1, Omegac = 1000, tUFilt = 0.05) annotation(
     Placement(transformation(origin = {-15, 1}, extent = {{-23, -23}, {23, 23}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.5) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Buses.InfiniteBusWithVariationsPhaseJump infiniteBusWithVariationsPhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.462, tUPhaseEvt = 10) annotation(
-    Placement(transformation(origin = {88, -22}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {28, 2}, extent = {{-10, -10}, {10, 10}})));
+ Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(dUPhaseEvt = 0.416, tUPhaseEvt = 10)  annotation(
+    Placement(transformation(origin = {88, 4}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -48,8 +48,8 @@ equation
     Line(points = {{10, 2}, {18, 2}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{38, 2}, {46, 2}}, color = {0, 0, 255}));
- connect(line.terminal2, infiniteBusWithVariationsPhaseJump.terminal) annotation(
-    Line(points = {{66, 2}, {88, 2}, {88, -22}}, color = {0, 0, 255}));
+ connect(line.terminal2, infiniteBusWithVariations.terminal) annotation(
+    Line(points = {{66, 2}, {88, 2}, {88, 4}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),

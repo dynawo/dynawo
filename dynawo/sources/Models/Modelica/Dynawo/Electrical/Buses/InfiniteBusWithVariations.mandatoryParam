@@ -12,13 +12,4 @@
     simulation tool for power systems.
 -->
 <mandatoryParameters>
-  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="UEvtPu" type="DOUBLE"/>
-  <mandatoryParameter name="omega0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="omegaEvtPu" type="DOUBLE"/>
-  <mandatoryParameter name="UPhase" type="DOUBLE"/>
-  <mandatoryParameter name="tUEvtStart" type="DOUBLE"/>
-  <mandatoryParameter name="tUEvtEnd" type="DOUBLE"/>
-  <mandatoryParameter name="tOmegaEvtStart" type="DOUBLE"/>
-  <mandatoryParameter name="tOmegaEvtEnd" type="DOUBLE"/>
 </mandatoryParameters>

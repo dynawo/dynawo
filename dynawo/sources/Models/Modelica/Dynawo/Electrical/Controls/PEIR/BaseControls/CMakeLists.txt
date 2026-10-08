@@ -14,6 +14,7 @@ add_subdirectory(Auxiliaries A)
 add_subdirectory(CurrentLoops C)
 add_subdirectory(GFM GFM)
 add_subdirectory(Plant P)
+add_subdirectory(InnerControls I)
 
 set(MODEL_FILES
   # Converter control elements models

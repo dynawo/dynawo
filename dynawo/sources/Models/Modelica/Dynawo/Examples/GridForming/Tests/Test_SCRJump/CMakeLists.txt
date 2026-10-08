@@ -13,8 +13,8 @@ set(MODEL_FILES
   package.order
   VSM_VoltageSCRJumpUp.mo
   VSM_VoltageSCRJumpDown.mo
-  Droop_SCRJumpUp.mo
-  Droop_SCRJumpDown.mo
+  Droop_VoltageSCRJumpUp.mo
+  Droop_VoltageSCRJumpDown.mo
   )
 
 #

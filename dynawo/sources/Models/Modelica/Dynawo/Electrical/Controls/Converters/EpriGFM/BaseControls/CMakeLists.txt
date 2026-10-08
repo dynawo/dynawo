@@ -11,7 +11,6 @@
 set(MODEL_FILES
   package.mo
   package.order
-  CompRItoDQ.mo
   Comptodq.mo
   CurrentLimitsCalculation.mo
   DQTrafo.mo

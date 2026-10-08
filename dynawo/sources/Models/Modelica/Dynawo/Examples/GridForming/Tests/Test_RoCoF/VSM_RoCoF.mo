@@ -14,7 +14,7 @@ model VSM_RoCoF "Single machine infinite bus test case for Grid Forming VSM mode
  * of simulation tools for power systems.
  */
   extends Modelica.Icons.Example;
-  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.005, XPu = 0.05) annotation(
+  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.001, XPu = 0.01) annotation(
     Placement(transformation(origin = {56, 2}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-112, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -22,14 +22,14 @@ model VSM_RoCoF "Single machine infinite bus test case for Grid Forming VSM mode
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -4.98488710832432, Q0Pu = 0.0110946151405571, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.992493005247463, UPhase0 = 0.253902907445225, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.06, kVSM = 200, OmegaSetPu = 1, tVSC = 0.0004, omegaNPLL = 100, ZetaPLL = 1, omegaC = 1000) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 5, IMaxVIPu = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -4.98488710832432, Q0Pu = 0.0110946151405571, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.992493005247463, UPhase0 = 0.253902907445225, Omegaf = 31.4159, Omegaff = 60, XRratio = 10, XVIPu = 0.06, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, OmegaPLL = 1000, KsiPLL = 1, Omegac = 1000) annotation(
     Placement(transformation(origin = {-15, 1}, extent = {{-23, -23}, {23, 23}})));
-  Modelica.Blocks.Sources.Constant PRefPu(k = 0.5) annotation(
+  Modelica.Blocks.Sources.Constant PRefPu(k = 0.95) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Sources.AcGrid acGrid(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, StartRoCoF = 5, TimeRoCoF = 0.5, RoCoFValue = 0.04)  annotation(
-    Placement(transformation(origin = {58, 64}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {28, 2}, extent = {{-10, -10}, {10, 10}})));
+ Electrical.Sources.AcGridRoCoF acGridRoCoF(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, StartRoCoF = 10, TimeRoCoF = 3, RoCoFValue = 0.01, StartingFrequency = -0.01)  annotation(
+    Placement(transformation(origin = {20, 62}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -44,14 +44,14 @@ equation
     Line(points = {{-100, -60}, {-56, -60}, {-56, -17}, {-40, -17}}, color = {0, 0, 127}));
   connect(PRefPu.y, DynGFMVSM.PFilterRefPu) annotation(
     Line(points = {{-102, 56}, {-102, 19}, {-40, 19}}, color = {0, 0, 127}));
-  connect(omegaRefPu.y, acGrid.OmegaRef) annotation(
-    Line(points = {{-100, 20}, {-60, 20}, {-60, 70}, {46, 70}}, color = {0, 0, 127}));
-  connect(acGrid.aCPower, line.terminal2) annotation(
-    Line(points = {{70, 70}, {80, 70}, {80, 2}, {66, 2}}, color = {0, 0, 255}));
   connect(DynGFMVSM.terminal, measurements.terminal1) annotation(
     Line(points = {{10, 2}, {18, 2}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{38, 2}, {46, 2}}, color = {0, 0, 255}));
+ connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+    Line(points = {{-100, 20}, {-52, 20}, {-52, 68}, {8, 68}}, color = {0, 0, 127}));
+ connect(acGridRoCoF.aCPower, line.terminal2) annotation(
+    Line(points = {{32, 68}, {66, 68}, {66, 2}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),

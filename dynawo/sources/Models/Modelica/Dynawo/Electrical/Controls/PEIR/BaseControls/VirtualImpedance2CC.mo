@@ -17,10 +17,10 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
 
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance";
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance";
-  parameter Types.CurrentModulePu IMaxVI "Current threshold above which the virtual impedance activates in pu (base UNom, SNom)";
+  parameter Types.CurrentModulePu IMaxVIPu "Current threshold above which the virtual impedance activates in pu (base UNom, SNom)";
   parameter Types.CurrentModulePu DeltaIConvMaxPu "Maximum extra current module used to compute RVI/XVI, in pu (base UNom, SNom): bounds the virtual impedance correction regardless of how large the measured current becomes";
 
-  parameter Types.CurrentModulePu HysteresisPu = 0.01 "Half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold";
+  parameter Types.CurrentModulePu HysteresisPu = 0.02 "Half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold";
 
   Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -33,7 +33,7 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // CHANGE: exposed status output, consistent with the BlocCurrentSaturation_Enable pattern used
   // elsewhere in the model. Purely informational -- not connected to, or read by, any other block.
-  Boolean virtualImpedanceActive(start = IConv0Pu >= IMaxVI) "True while the virtual impedance correction is active (above IMaxVI+HysteresisPu)";
+  Boolean virtualImpedanceActive(start = IConv0Pu >= IMaxVIPu) "True while the virtual impedance correction is active (above IMaxVI+HysteresisPu)";
   Modelica.Blocks.Interfaces.BooleanOutput BlocVirtualImpedance_Enable(start = false) "True while the virtual impedance correction is active (above IMaxVI+HysteresisPu)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
@@ -46,7 +46,7 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
   parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
 
   final parameter Types.CurrentModulePu IConv0Pu = sqrt(IdConv0Pu ^ 2 + IqConv0Pu ^ 2)  "Start value of current module in the converter in pu (base UNom, SNom)";
-  final parameter Types.CurrentModulePu DeltaIConv0Pu = min(max((IConv0Pu - IMaxVI), 0), DeltaIConvMaxPu) "Start value of extra current module in the converter in pu (base UNom, SNom)";
+  final parameter Types.CurrentModulePu DeltaIConv0Pu = min(max((IConv0Pu - IMaxVIPu), 0), DeltaIConvMaxPu) "Start value of extra current module in the converter in pu (base UNom, SNom)";
   final parameter Types.PerUnit RVI0 = KpVI * DeltaIConv0Pu "Start value of virtual resistance in pu (base UNom, SNom)";
   final parameter Types.PerUnit XVI0 = RVI0 * XRratio "Start value of virtual reactance in pu (base UNom, SNom)";
   final parameter Types.PerUnit DeltaVVId0 = IdConv0Pu * RVI0 - IqConv0Pu * XVI0 "Start value of d-axis virtual impedance output in pu (base UNom)";
@@ -55,14 +55,14 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
 equation
   IConvPu = sqrt(idConvPu ^ 2 + iqConvPu ^ 2);
 
-  when IConvPu >= IMaxVI + HysteresisPu then
+  when IConvPu >= IMaxVIPu + HysteresisPu then
     virtualImpedanceActive = true;
-  elsewhen IConvPu <= IMaxVI - HysteresisPu then
+  elsewhen IConvPu <= IMaxVIPu - HysteresisPu then
     virtualImpedanceActive = false;
   end when;
 
   if virtualImpedanceActive then
-    DeltaIConvPu = min(max((IConvPu - IMaxVI), 0), DeltaIConvMaxPu);
+    DeltaIConvPu = min(max((IConvPu - IMaxVIPu), 0), DeltaIConvMaxPu);
     RVI = KpVI * DeltaIConvPu;
     XVI = RVI * XRratio;
   else

@@ -27,12 +27,7 @@
             <dumpInitValues local="true" global="true"/>
             <curves inputFile="SMIB.crv" exportMode="CSV"/>
             <logs>
-              <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-              <appender tag="MODELER" file="modeler.log" lvlFilter="DEBUG"/>
-              <appender tag="COMPILE" file="compile.log" lvlFilter="DEBUG"/>
-              <appender tag="PARAMETERS" file="param.log" lvlFilter="DEBUG"/>
-              <appender tag="VARIABLES" file="variables.log" lvlFilter="DEBUG"/>
-              <appender tag="EQUATIONS" file="equations.log" lvlFilter="DEBUG"/>
+              <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
               </logs>
         </outputs>
     </job>

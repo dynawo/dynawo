@@ -3026,6 +3026,14 @@ class Factory:
                             elif diff_var in self.reader.fictive_continuous_vars or diff_var in self.reader.fictive_optional_continuous_vars:
                                 external_diff_var.append(diff_var)
         for v in self.list_vars_syst:
+            # --- TEMPORARY DEBUG (dummy-derivative investigation) ---
+            print("DEBUG_YTYPE ind=%s name=%r in_dummy_der_vars=%s in_aux_counted=%s in_calculated=%s in_mixed=%s" % (
+                ind, v.get_name(),
+                v.get_name() in self.reader.dummy_der_variables,
+                v.get_name() in self.reader.auxiliary_vars_counted_as_variables,
+                v in self.reader.list_calculated_vars,
+                v.get_name() in mixed_var))
+            # --- end temporary debug ---
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v in self.reader.list_calculated_vars : continue
             if v.get_name() not in mixed_var:
@@ -3156,6 +3164,12 @@ class Factory:
         assign_ftype_line = "   fType[ %s ] = %s;\n"
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
+            # --- TEMPORARY DEBUG (dummy-derivative investigation) ---
+            print("DEBUG_FTYPE ind=%s var_name=%r type=%s in_fictive_der=%s is_aux=%s" % (
+                ind, var_name, eq.get_type(),
+                var_name in self.reader.fictive_continuous_vars_der,
+                self.reader.is_auxiliary_vars(var_name)))
+            # --- end temporary debug ---
             # BUGFIX (dummy-derivative F/Y index desync): this whole block used to be a single
             # "if var_name not in fictive_continuous_vars_der and not is_auxiliary_vars(var_name):"
             # guard, with "ind += 1" nested INSIDE it. That meant dummy-derivative equations got

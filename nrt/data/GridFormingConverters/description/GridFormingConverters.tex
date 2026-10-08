@@ -82,7 +82,7 @@ All the three controls are stable for this simulation and manage to bring back t
 
 \chapter*{Voltage Angle Step Test on Grid Forming Converters}
 \section*{Test case description}
-This test case implements a scenario from the I18 technical documentation of the French Grid (DTR Chapter 8, Article 8.3.3). The chose test case is named \texttt{S\_VolAngStep7\_OC4} and applied identically to three Grid-Forming
+This test case implements a scenario from the I18 technical documentation of the French Grid (DTR Chapter 8, Article 8.3.3). The chosen test case is named \texttt{S\_VolAngStep7\_OC4} and applied identically to three Grid-Forming
 converter architectures:
 \begin{itemize}
 \item \texttt{DynGFMVSM} — Virtual Synchronous Machine control with a PLL feeding the
@@ -95,8 +95,7 @@ converter architectures:
 
 \paragraph{Network and operating point}
 The converter is connected to an infinite bus (named Grid) through a static RL line sized for
-$SCR_{min} = 2$ (i.e. $x_{grid} = 0.5$~p.u. on the converter's own $S_{Nom}$ base,
-see base-conversion note below), with $x_{eff} = 0.27$~p.u.
+$SCR_{min} = 2$ (i.e. $x_{grid} = 0.5$~p.u. on the converter's own $S_{Nom}$ base, with $x_{eff} = 0.27$~p.u.
 Operating point OC4: $P_{ref} = 0.95$ p.u., $Q_{ref} = 0$~p.u., $U_{ref}= 1$~p.u.
 All system services (voltage control, frequency regulation, LFSM-U/O) are disabled,
 according to section 6, so that only the Grid-Forming voltage-source behaviour is
@@ -129,8 +128,8 @@ characterized. A reference circuit is shown in Figure \ref{fig:reference_network
 \end{figure}
 
 \paragraph{Event and simulation}
-At $t = 10$s, a phase jump $\Delta\theta_{grid} = 26.47$ deg is applied to the infinite
-bus voltage representing the grid. Different simulations will be carried out with diverse solveurs and timesteps. Common features include a simulation from 0 to 25 seconds, with an event at $t=10$s. The output variables out interest are the active current $I_p$ measured at the Point of Generating Unit (PGU).
+At $t = 10$s, a phase jump $\Delta\theta_{grid} = 26.47 °$ is applied to the infinite
+bus voltage representing the grid. Different simulations will be carried out with diverse solvers and timesteps. Common features include a simulation from 0 to 25 seconds, with an event at $t=10$s. The output variables out interest are the active current $I_p$ measured at the Point of Generating Unit (PGU).
 
 \paragraph{Conformity criteria}
 The I18 technical documentation enforces regulation on the active current $I_p$ mainly trough a set of conformity envelopes and a damping at least equal to 40\% for every oscillation in $I_p$ between 0.1 and 20 Hz.
@@ -153,7 +152,7 @@ Figure~\ref{fig:zoom_Ip_envelope_step7oc4} compares the active current response 
       grid=major,
       xmin=9.5, xmax=13,
       xlabel={Time [s]},
-      ylabel={Active current $P_{filter}$ [p.u.]},
+      ylabel={Active power $P_{filter}$ [p.u.]},
       legend pos=south east,
       legend style={font=\small}
     ]
@@ -173,7 +172,7 @@ Figure~\ref{fig:zoom_Ip_envelope_step7oc4} compares the active current response 
 \legend{DynGFMVSM, DynGFMVSMConvPLL, DynGFMDroop}
 \end{axis}
 \end{tikzpicture}
-\caption{Active power at the GFM filter following a $26.47$ deg voltage angle step
+\caption{Active power at the GFM filter following a $26.47°$ voltage angle step
 (S\_VolAngStep7\_OC4), for the three architectures.}
 \label{fig:voltangstep1_oc4_dynawo}
 \end{figure}

@@ -15,17 +15,12 @@ within Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops;
 
 model DynCurrentLoop "Current loop control for grid forming and grid following converters"
 
-  parameter Types.PerUnit OmegaC "Current loop closed-loop bandwidth in rad/s";
-  parameter Types.PerUnit RFilter "Filter resistance in pu (base UNom, SNom)";
-  parameter Types.PerUnit LFilter "Filter inductance in pu (base UNom, SNom)";
+  parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)";
+  parameter Types.PerUnit LFilterPu "Filter inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit Kfd "Feedforward gain on the d-axis";
   parameter Types.PerUnit Kfq  "Feedforward gain on the q-axis";
-
-  //Internal PI gains, derived from OmegaC by cancelling the plant pole at s = -R/L*omegaNom
-  //with the controller zero (Ki/Kp = R/L*omegaNom), which reduces the closed loop to a
-  //first-order system I/Iref = omegaC/(s+omegaC). See Kpc = L*omegaC/omegaNom, Kic = R*omegaC.
-  final parameter Types.PerUnit Kpc = LFilter * OmegaC / SystemBase.omegaNom "Proportional gain of the current loop, derived from OmegaC";
-  final parameter Types.PerUnit Kic = RFilter * OmegaC "Integral gain of the current loop, derived from OmegaC";
+  parameter Types.PerUnit Kpc  "Proportional gain of the current loop";
+  parameter Types.PerUnit Kic "Integral gain of the current loop";
 
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -49,7 +44,7 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
 
   Modelica.Blocks.Math.Gain gaind(k = Kpc) annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratord(k = Kic, y_start = UdConv0Pu - Kfd*UdFilter0Pu + LFilter*Omega0Pu*IqConv0Pu) annotation(
+  Modelica.Blocks.Continuous.Integrator integratord(k = Kic, y_start = UdConv0Pu - Kfd*UdFilter0Pu + LFilterPu*Omega0Pu*IqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackd annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,15 +52,15 @@ model DynCurrentLoop "Current loop control for grid forming and grid following c
     Placement(visible = true, transformation(origin = {-120, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainq(k = Kpc) annotation(
     Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorq(k = Kic, y_start = UqConv0Pu - Kfq*UqFilter0Pu - LFilter*Omega0Pu*IdConv0Pu) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorq(k = Kic, y_start = UqConv0Pu - Kfq*UqFilter0Pu - LFilterPu*Omega0Pu*IdConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-90, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product1 annotation(
     Placement(visible = true, transformation(origin = {-90, -25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain GainLfd(k = LFilter) annotation(
+  Modelica.Blocks.Math.Gain GainLfd(k = LFilterPu) annotation(
     Placement(visible = true, transformation(origin = {-10, 25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain GainLfq(k = LFilter) annotation(
+  Modelica.Blocks.Math.Gain GainLfq(k = LFilterPu) annotation(
     Placement(visible = true, transformation(origin = {-10, -25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add addd1 annotation(
     Placement(visible = true, transformation(origin = {-20, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -14,8 +14,4 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <curve model="GFMConvPLL" variable="GFMConvPLL_Control_PFilterPu"/>
   <curve model="GFMConvPLL" variable="GFMConvPLL_Control_PFilterRefPu"/>
-  <curve model="GFMConvPLL" variable="GFMConvPLL_terminal_V_re"/>
-  <curve model="GFMConvPLL" variable="GFMConvPLL_terminal_V_im"/>
-  <curve model="GFMConvPLL" variable="GFMConvPLL_terminal_i_re"/>
-  <curve model="GFMConvPLL" variable="GFMConvPLL_terminal_i_im"/>
 </curvesInput>

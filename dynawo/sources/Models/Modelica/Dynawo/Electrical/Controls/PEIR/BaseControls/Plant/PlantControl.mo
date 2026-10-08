@@ -29,9 +29,9 @@ model PlantControl "Generic plant controller"
 
   //Parameters -- PI gains
   parameter Types.PerUnit Kpq "PI proportional gain - voltage/Q loop";
-  parameter Types.PerUnit Kiq "PI integral gain - voltage/Q loop";
+  parameter Real Kiq(unit = "1/s") "PI integral gain - voltage/Q loop";
   parameter Types.PerUnit Kpp "PI proportional gain - active power loop";
-  parameter Types.PerUnit Kip "PI integral gain - active power loop";
+  parameter Real Kip(unit = "1/s") "PI integral gain - active power loop";
 
   //Parameters -- output limits (base SnRef, receptor convention, i.e. same base as PI internal signals before final conversion)
   parameter Real QMaxPu "Maximum reactive power reference before base/sign conversion (pu, base SNref)";

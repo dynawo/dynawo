@@ -58,3 +58,14 @@ case_description = "SMIB  -- S_VolAngStep1_0C4 on DynGFMDroop"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMDroop", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+
+###################################################################
+#           GridForming - DynGFMCurrentSaturatedVSM - RoCoF       #
+###################################################################
+## CONTINUE CHANGING --> change INfBus in tests and make them like DTR FIche I18
+case_name = "GridForming - DynGFMCurrentSaturatedVSM - RoCoF"
+case_description = "SMIB  -- S_VolAngStep1_0C4 on DynGFMDroop"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMDroop", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))

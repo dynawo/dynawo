@@ -25,20 +25,16 @@ model DynGFMDroopSmib "Single machine infinite bus test case for Grid Forming VS
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.95) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMDroop DynGFMDroop(CFilterPu = 1e-05,IMaxVI = 1.2,Kfd = 1,Kff = 0, Kfq = 0, KpVI = 0.1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.013, P0Pu = -9.44303759416221, Q0Pu = -0.9381894853914545, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9739263489847085, UPhase0 = 0.5006269558583454, Wf = 40, Wff = 50, XRratio = 10, XVI = 0.06, tVSC = 0.0004, Mp = 0.013, omegaC = 1000, omegaNPLL = 100, ZetaPLL = 1) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMDroop DynGFMDroop(CFilterPu = 1e-05,Kfd = 1,Kff = 0, Kfq = 0, KpVI = 0.1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.013, P0Pu = -9.44303759416221, Q0Pu = -0.9381894853914545, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9739263489847085, UPhase0 = 0.5006269558583454, Omegaf = 40, Omegaff = 50, XRratio = 10, XVIPu = 0.06, tVSC = 0.0004, Mp = 0.013, Omegac = 1000, OmegaPLL = 100, KsiPLL = 1, IMaxVIPu = 1.2) annotation(
     Placement(transformation(origin = {-27, 3}, extent = {{-23, -23}, {23, 23}})));
-  Electrical.Buses.InfiniteBusWithVariationsPhaseJump infiniteBusWithVariationsPhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.462, tUPhaseEvt = 10)  annotation(
+  Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0)  annotation(
     Placement(transformation(origin = {84, 0}, extent = {{-10, -10}, {10, 10}})));
-
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   DynGFMDroop.switchOffSignal1 = false;
   DynGFMDroop.switchOffSignal2 = false;
   DynGFMDroop.switchOffSignal3 = false;
-
-  connect(line.terminal2, infiniteBusWithVariationsPhaseJump.terminal) annotation(
-    Line(points = {{54, 0}, {84, 0}}, color = {0, 0, 255}));
   connect(DynGFMDroop.terminal, line.terminal1) annotation(
     Line(points = {{-2, 3}, {13.5, 3}, {13.5, 0}, {34, 0}}, color = {0, 0, 255}));
   connect(PRefPu.y, DynGFMDroop.PFilterRefPu) annotation(
@@ -49,7 +45,8 @@ equation
     Line(points = {{-100, -20}, {-66, -20}, {-66, -6}, {-52, -6}}, color = {0, 0, 127}));
   connect(URefPu.y, DynGFMDroop.UFilterRefPu) annotation(
     Line(points = {{-100, -60}, {-100, -57}, {-52, -57}, {-52, -15}}, color = {0, 0, 127}));
-
+  connect(line.terminal2, infiniteBusWithVariations.terminal) annotation(
+    Line(points = {{54, 0}, {84, 0}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),

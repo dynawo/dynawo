@@ -445,9 +445,9 @@ SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyMo
   if (numF_ == 0)
     return KIN_SUCCESS;
 
-  return KIN_SUCCESS;
-
-
+// return KIN_SUCCESS;
+//
+//
   if (multipleStrategiesForAlgebraicRestoration)
     saveState();
 

@@ -20,13 +20,13 @@ model EpriGFM "EPRI Grid Forming model"
   extends Parameters.PLL;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA" annotation(
-    Dialog(tab = "General"));
+  Dialog(tab = "General"));
 
   // Line parameters
   parameter Types.PerUnit RSourcePu "Resistance in pu (base SNom, UNom), example value = 0.0015" annotation(
-    Dialog(tab = "Circuit"));
+  Dialog(tab = "Circuit"));
   parameter Types.PerUnit XSourcePu "Reactance in pu (base SNom, UNom), example value = 0.15" annotation(
-    Dialog(tab = "Circuit"));
+  Dialog(tab = "Circuit"));
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput deltaOmegaPu(start = 0) "Frequency deviation in pu (base omegaNom)" annotation(
@@ -80,31 +80,31 @@ model EpriGFM "EPRI Grid Forming model"
 
   // Initial parameters given by the user
   parameter Types.ActivePowerPu P0Pu "Start value of the active power at the converter's terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.ReactivePowerPu Q0Pu "Start value of the reactive power at the converter's terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.VoltageModulePu U0Pu "Start value of voltage at the converter's terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
 
   // Initial parameters calculated by the initialization algorithm
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at converter's terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.PerUnit IdConv0Pu "Start value of d-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.PerUnit IqConv0Pu "Start value of q-axis current of the converter in pu (base UNom, SNom) (generator convention)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at converter's terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.PerUnit UdConv0Pu "Start value of d-axis modulation voltage in pu (base UNom)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.PerUnit UdFilter0Pu "Start value of d-axis voltage at the converter's terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.PerUnit UqConv0Pu "Start value of q-axis modulation voltage in pu (base UNom)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
   parameter Types.PerUnit UqFilter0Pu "Start value of q-axis voltage at the converter's terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Initial"));
+  Dialog(tab = "Initial"));
 
 equation
   line.switchOffSignal1 = injectorURI.switchOffSignal1;

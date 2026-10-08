@@ -1,27 +1,25 @@
 within Dynawo.Electrical.Sources;
 
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model AcGrid "AC Grid from IEE explorer paper from Carmen C."
-
-//  final parameter Real K_FH = 1 + FH;
+  /*
+    * Copyright (c) 2026, RTE (http://www.rte-france.com)
+    * See AUTHORS.txt
+    * All rights reserved.
+    * This Source Code Form is subject to the terms of the Mozilla Public
+    * License, v. 2.0. If a copy of the MPL was not distributed with this
+    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    * SPDX-License-Identifier: MPL-2.0
+    *
+    * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    * of simulation tools for power systems.
+    */
+  //  final parameter Real K_FH = 1 + FH;
   parameter Real SNom;
   parameter Real U0pu;
   parameter Real UPhase0;
-  parameter Real Upu(start=U0pu)  ;
-  parameter Real UPhase(start=UPhase0) ;
-  parameter Real omegaRefPu=SystemBase.omegaRef0Pu;
+  parameter Real Upu(start = U0pu);
+  parameter Real UPhase(start = UPhase0);
+  parameter Real omegaRefPu = SystemBase.omegaRef0Pu;
   parameter Real StartRoCoF "Start Time of the RoCoF event (in s)";
   parameter Real TimeRoCoF "Time interval (in s) of the RoCoF event";
   parameter Real RoCoFValue "Value Rate of Change of Frequency (pu/s, base omegaNom)";
@@ -31,7 +29,6 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
   parameter Real TR = 8 "Reheat time constant, seconds";
   parameter Real Km = 0.95 "Mechanical power gain factor";
   parameter Real D = 1 "Damping Factor";
-
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = TR, k = 1 - FH) annotation(
     Placement(visible = true, transformation(origin = {-38, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain FH_(k = FH) annotation(
@@ -40,9 +37,9 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {10, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-104, 68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = 1 / R) annotation(
+  Modelica.Blocks.Math.Gain gain(k = 1/R) annotation(
     Placement(visible = true, transformation(origin = {-27, -35}, extent = {{15, -15}, {-15, 15}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integrator(k = 1 / (2 * H)) annotation(
+  Modelica.Blocks.Continuous.Integrator integrator(k = 1/(2*H)) annotation(
     Placement(visible = true, transformation(origin = {162, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Km) annotation(
     Placement(visible = true, transformation(origin = {52, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -52,11 +49,11 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {106, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator1(k = SystemBase.omegaNom, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {458, -42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step Psetpoint(height = 0, offset = 1)  annotation(
+  Modelica.Blocks.Sources.Step Psetpoint(height = 0, offset = 1) annotation(
     Placement(visible = true, transformation(origin = {-176, 114}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
     Placement(visible = true, transformation(origin = {300, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add4(k2 = -1)  annotation(
+  Modelica.Blocks.Math.Add add4(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {402, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Sources.PhasorGrid phaseurGrid(SNom = SNom, UPhase = UPhase, UPhase0 = UPhase0, UPu = Upu, U0Pu = U0pu) annotation(
     Placement(transformation(origin = {538, -28}, extent = {{-30, -30}, {30, 30}})));
@@ -74,9 +71,9 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {366, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {238, 104}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant Wrotor_t0(k = 0)  annotation(
+  Modelica.Blocks.Sources.Constant Wrotor_t0(k = 0) annotation(
     Placement(visible = true, transformation(origin = {161, 131}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanStep ActivateOmegaConstante(startTime = -1, startValue = false)  annotation(
+  Modelica.Blocks.Sources.BooleanStep ActivateOmegaConstante(startTime = -1, startValue = false) annotation(
     Placement(visible = true, transformation(origin = {107, 103}, extent = {{-13, -13}, {13, 13}}, rotation = 0)));
   Modelica.Blocks.Math.Add add6 annotation(
     Placement(visible = true, transformation(origin = {226, 254}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -88,13 +85,12 @@ model AcGrid "AC Grid from IEE explorer paper from Carmen C."
     Placement(visible = true, transformation(origin = {418, 92}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator2(k = 1, y_start = 0) annotation(
     Placement(visible = true, transformation(origin = {438, 198}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step step1(height = -RoCoFValue, offset = 0, startTime = StartRoCoF + 10) annotation(
+  Modelica.Blocks.Sources.Step step1(height = -RoCoFValue, offset = 0, startTime = StartRoCoF + TimeRoCoF) annotation(
     Placement(visible = true, transformation(origin = {332, 252}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step step2(height = RoCoFValue, offset = 0, startTime = StartRoCoF + 10 + TimeRoCoF) annotation(
+  Modelica.Blocks.Sources.Step step2(height = RoCoFValue, offset = 0, startTime = StartRoCoF + 2*TimeRoCoF) annotation(
     Placement(visible = true, transformation(origin = {332, 216}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add8 annotation(
     Placement(visible = true, transformation(origin = {378, 224}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 equation
   connect(firstOrder.y, add.u2) annotation(
     Line(points = {{-26, 24}, {-14, 24}, {-14, 46}, {-2, 46}}, color = {0, 0, 127}));
@@ -168,7 +164,6 @@ equation
     Line(points = {{343, 252}, {354.5, 252}, {354.5, 230}, {366, 230}}, color = {0, 0, 127}));
   connect(integrator2.y, add7.u1) annotation(
     Line(points = {{450, 198}, {480, 198}, {480, 162}, {390, 162}, {390, 98}, {406, 98}}, color = {0, 0, 127}));
-
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-200, 300}, {720, -80}}), graphics = {Text(origin = {5, 241}, extent = {{-139, 9}, {139, -9}}, textString = "add a disturbance to omega to emulate a RoCof"), Text(origin = {82, 63}, extent = {{-14, 5}, {14, -5}}, textString = "Pm"), Text(origin = {82, 55}, extent = {{-14, 5}, {14, -5}}, textString = "Pe"), Text(origin = {145, 72}, extent = {{-21, 12}, {21, -12}}, textString = "1/(2H+s)"), Text(origin = {-150, 121}, extent = {{-14, 5}, {14, -5}}, textString = "Pref"), Text(origin = {-144, 69}, extent = {{-14, 5}, {14, -5}}, textString = "PRF"), Text(origin = {211, 57}, extent = {{-15, 9}, {15, -9}}, textString = "Wrotor-W0"), Rectangle(origin = {153, 36}, extent = {{-35, 46}, {35, -46}}), Text(origin = {309, 75}, extent = {{-25, 9}, {25, -9}}, textString = "Wrotor"), Text(origin = {-3, 160}, extent = {{-121, 66}, {121, -66}}, textString = "consider inertia of AC GRID if ACTIVATE is TRUE"), Text(origin = {72, 204}, extent = {{-72, 16}, {72, -16}}, textString = "offset StartTime")}),

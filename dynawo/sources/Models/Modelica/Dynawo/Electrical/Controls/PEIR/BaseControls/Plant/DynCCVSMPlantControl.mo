@@ -19,14 +19,14 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Dialog(tab = "VSM"));
   parameter Types.Time H "Inertia constant in s" annotation(
     Dialog(tab = "VSM"));
-  parameter Types.PerUnit KDampingAngle "Virtual Synchronous Machine gain" annotation(
+  parameter Types.PerUnit KDampingAngle "Proportional gain of the PI action on theta (angle-damping term) in s" annotation(
     Dialog(tab = "VSM"));
   // Virtual impedance parameters
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance" annotation(
     Dialog(tab = "VI"));
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance" annotation(
     Dialog(tab = "VI"));
-  parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)" annotation(
+  parameter Types.CurrentModulePu IMaxVIPu "Maximum current before activating the virtual impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "VI"));
   parameter Types.CurrentModulePu DeltaIConvMaxPu "Maximum extra current module used to compute RVI/XVI, in pu (base UNom, SNom): bounds the virtual impedance correction regardless of how large the measured current becomes" annotation(
     Dialog(tab = "VI"));
@@ -34,28 +34,26 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.PerUnit Wf "Cutoff pulsation of the active and reactive filters (in rad/s)" annotation(
+  parameter Types.PerUnit Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.PerUnit Wff "Cutoff pulsation of the active damping (in rad/s)" annotation(
+  parameter Types.PerUnit Omegaff "Cutoff pulsation of the active damping (in rad/s)" annotation(
     Dialog(tab = "Voltage Reference"));
   parameter Types.PerUnit Kff "Gain of the active damping" annotation(
     Dialog(tab = "Voltage Reference"));
   // QSEM parameter
-  parameter Real XVI "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
+  parameter Real XVIPu "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
     Dialog(tab = "QSEM"));
   // Current loop parameters
-  parameter Types.PerUnit omegaC "Current Loop bandwidth (in rad/s)" annotation(
+  parameter Types.PerUnit Omegac "Current Loop bandwidth (in rad/s)" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfd "Feedforward gain on the d-axis" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfq "Feedforward gain on the q-axis" annotation(
     Dialog(tab = "Current loop"));
   //Current Saturation parameters
-  parameter Real W_CurrentLimit "Bandwidth of the current limitation" annotation(
+  parameter Types.CurrentModulePu ImaxPu "Current max threshold to limit a current's module" annotation(
     Dialog(tab = "Current Saturation"));
-  parameter Types.CurrentModulePu Imax "Current max threshold to limit a current's module" annotation(
-    Dialog(tab = "Current Saturation"));
-  parameter Types.CurrentModulePu Imin "Current min threshold to limit a current's module" annotation(
+  parameter Types.CurrentModulePu IminPu "Current min threshold to limit a current's module" annotation(
     Dialog(tab = "Current Saturation"));
   // Filter parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)" annotation(
@@ -88,11 +86,11 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
   //Parameters -- PI gains
   parameter Types.PerUnit Kpq "PI proportional gain - voltage/Q loop" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit Kiq "PI integral gain - voltage/Q loop" annotation(
+  parameter Real Kiq(unit = "1/s") "PI integral gain - voltage/Q loop" annotation(
     Dialog(tab = "Plant Control"));
   parameter Types.PerUnit Kpp "PI proportional gain - active power loop" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit Kip "PI integral gain - active power loop" annotation(
+  parameter Real Kip(unit = "1/s") "PI integral gain - active power loop" annotation(
     Dialog(tab = "Plant Control"));
   //Parameters -- output limits (base SNref, receptor convention, i.e. same base as PI internal signals before final conversion)
   parameter Real QMaxPu "Maximum reactive power reference before base/sign conversion (pu, base SNref)" annotation(
@@ -115,9 +113,9 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
   parameter Real DbdPu "Voltage error deadband half-width (pu)" annotation(
     Dialog(tab = "Plant Control"));
   // PLL parameters
-  parameter Types.PerUnit omegaNPLL "PLL bandwidth (in rad/s)" annotation(
+  parameter Types.PerUnit OmegaPLL "PLL bandwidth (in rad/s)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.PerUnit ZetaPLL "PLL damping ratio (dimensionless)" annotation(
+  parameter Types.PerUnit KsiPLL "PLL damping ratio (dimensionless)" annotation(
     Dialog(tab = "PLL"));
 
   //Inputs
@@ -133,14 +131,14 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Placement(transformation(origin = {-114, 50}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, 49}, extent = {{-11, -11}, {11, 11}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = 1.0) annotation(
     Placement(transformation(origin = {-12, 114}, extent = {{-14, -14}, {14, 14}}, rotation = -90), iconTransformation(origin = {1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = U0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = DynGFMCCVSM.ControlCC.URef0Pu) annotation(
     Placement(transformation(origin = {-52, -60}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {1, -111}, extent = {{-11, -11}, {11, 11}}, rotation = 90)));
 
   Connectors.ACPower terminal annotation(
     Placement(transformation(origin = {96, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {96, 0}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.PEIR.BaseControls.Plant.PlantControl plantControl(SNom = SNom, Lambd = Lambd, Kdroop = Kdroop, tQFilt = tQFilt, tPFilt = tPFilt, tUFilt = tUFilt, Kpq = Kpq, Kiq = Kiq, Kpp = Kpp, Kip = Kip, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, QPcc0Pu = QPcc0Pu, Omega0Pu = 1.0, UPcc0Pu = UPcc0Pu, PPcc0Pu = PPcc0Pu, Pinj0Pu = -DynGFMCCVSM.ControlCC.PFilter0Pu*SNom/SystemBase.SnRef, Qinj0Pu = -DynGFMCCVSM.ControlCC.QFilter0Pu*SNom/SystemBase.SnRef) annotation(
     Placement(transformation(origin = {-62, -2}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, OmegaSetPu = 1, kVSM = kVSM, H = H, KDampingAngle = KDampingAngle, KpVI = KpVI, XRratio = XRratio, IMaxVI = IMaxVI, DeltaIConvMaxPu = DeltaIConvMaxPu, XVI = XVI, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL, Mq = Mq, Wf = Wf, Wff = Wff, Kff = Kff, omegaC = omegaC, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, tVSC = tVSC, W_CurrentLimit = W_CurrentLimit, Imax = Imax, Imin = Imin)  annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, OmegaSetPu = 1, kVSM = kVSM, H = H, KDampingAngle = KDampingAngle, KpVI = KpVI, XRratio = XRratio, IMaxVIPu = IMaxVIPu, DeltaIConvMaxPu = DeltaIConvMaxPu, XVIPu = XVIPu, OmegaPLL = OmegaPLL, KsiPLL = KsiPLL, Mq = Mq, Omegaf = Omegaf, Omegaff = Omegaff, Kff = Kff, Omegac = Omegac, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, tVSC = tVSC, ImaxPu = ImaxPu, IminPu = IminPu)  annotation(
     Placement(transformation(origin = {13, -1}, extent = {{-17, -17}, {17, 17}})));
 
   // Operating Point - GFM
@@ -183,8 +181,8 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Line(points = {{-50, -8}, {-6, -8}}, color = {0, 0, 127}));
   connect(UFilterRefPu, DynGFMCCVSM.UFilterRefPu) annotation(
     Line(points = {{-52, -60}, {-52, -61}, {-6, -61}, {-6, -15}}, color = {0, 0, 127}));
-  connect(omegaRefPu, plantControl.omegaPu) annotation(
-    Line(points = {{-12, 114}, {-88, 114}, {-88, 0}, {-74, 0}}, color = {0, 0, 127}));
+  connect(DynGFMCCVSM.omegaVSMPu, plantControl.omegaPu) annotation(
+    Line(points = {{23, 18}, {23, 22}, {-88, 22}, {-88, 0}, {-74, 0}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379));

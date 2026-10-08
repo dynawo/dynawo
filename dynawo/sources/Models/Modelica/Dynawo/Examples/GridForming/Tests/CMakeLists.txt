@@ -12,6 +12,7 @@ add_subdirectory(Test_RoCoF R)
 add_subdirectory(Test_SCRJump S)
 add_subdirectory(Test_VoltageAngleJump A)
 add_subdirectory(Test_VoltageMagnitudeJump M)
+add_subdirectory(Test_NodeFault N)
 
 set(MODEL_FILES
   package.mo

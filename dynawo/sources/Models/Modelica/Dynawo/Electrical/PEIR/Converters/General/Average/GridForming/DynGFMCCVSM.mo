@@ -22,41 +22,45 @@ model DynGFMCCVSM "PEIR model with GFM VSM control and dynamic connections to th
     Dialog(tab = "VSM"));
   parameter Types.Time H "Inertia constant in s" annotation(
     Dialog(tab = "VSM"));
-  parameter Types.PerUnit KDampingAngle "Virtual Synchronous Machine gain" annotation(
+  parameter Types.PerUnit KDampingAngle "Proportional gain of the PI action on theta (angle-damping term) in s" annotation(
     Dialog(tab = "VSM"));
   // Virtual impedance parameters
   parameter Types.PerUnit KpVI "Proportional gain of the virtual impedance" annotation(
     Dialog(tab = "VI"));
   parameter Types.PerUnit XRratio "X/R ratio of the virtual impedance" annotation(
     Dialog(tab = "VI"));
-  parameter Types.CurrentModulePu IMaxVI "Maximum current before activating the virtual impedance in pu (base UNom, SNom)" annotation(
+  parameter Types.CurrentModulePu IMaxVIPu "Maximum current before activating the virtual impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "VI"));
   parameter Types.CurrentModulePu DeltaIConvMaxPu "Maximum extra current module used to compute RVI/XVI, in pu (base UNom, SNom): bounds the virtual impedance correction regardless of how large the measured current becomes" annotation(
     Dialog(tab = "VI"));
   // QSEM parameter
-  parameter Real XVI "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
+  parameter Real XVIPu "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
     Dialog(tab = "QSEM"));
   // PLL parameters
-  parameter Types.PerUnit omegaNPLL "PLL bandwidth (in rad/s)" annotation(
+  parameter Types.PerUnit OmegaPLL "PLL bandwidth (in rad/s)" annotation(
     Dialog(tab = "PLL"));
-  parameter Types.PerUnit ZetaPLL "PLL damping ratio (dimensionless)" annotation(
+  parameter Types.PerUnit KsiPLL "PLL damping ratio (dimensionless)" annotation(
     Dialog(tab = "PLL"));
+  final parameter Types.PerUnit Ki = OmegaPLL * OmegaPLL / SystemBase.omegaNom "PLL integrator gain";
+  final parameter Types.PerUnit Kp = 2 * KsiPLL * OmegaPLL / SystemBase.omegaNom "PLL proportional gain";
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.PerUnit Wf "Cutoff pulsation of the active and reactive filters (in rad/s)" annotation(
+  parameter Types.PerUnit Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.PerUnit Wff "Cutoff pulsation of the active damping (in rad/s)" annotation(
+  parameter Types.PerUnit Omegaff "Cutoff pulsation of the active damping (in rad/s)" annotation(
     Dialog(tab = "Voltage Reference"));
   parameter Types.PerUnit Kff "Gain of the active damping" annotation(
     Dialog(tab = "Voltage Reference"));
   // Current loop parameters
-  parameter Types.PerUnit omegaC "Current Loop bandwidth (in rad/s)" annotation(
+  parameter Types.PerUnit Omegac "Current Loop bandwidth (in rad/s)" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfd "Feedforward gain on the d-axis" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfq "Feedforward gain on the q-axis" annotation(
     Dialog(tab = "Current loop"));
+  final parameter Types.PerUnit Kic = RFilterPu * Omegac "Integrator Gain of the current loop, derived from the bandwidth";
+  final parameter Types.PerUnit Kpc = LFilterPu * Omegac / SystemBase.omegaNom "Integrator gain of the current loop, to cancel one pole of the transfer function";
   // Filter parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Filter"));
@@ -73,11 +77,9 @@ model DynGFMCCVSM "PEIR model with GFM VSM control and dynamic connections to th
   parameter Types.Time tVSC "VSC time response in s" annotation(
     Dialog(tab = "VSC"));
   //Current Saturation parameters
-  parameter Real W_CurrentLimit "Bandwidth of the current limitation" annotation(
+  parameter Types.CurrentModulePu ImaxPu "Current max threshold to limit a current's module" annotation(
     Dialog(tab = "Current Saturation"));
-  parameter Types.CurrentModulePu Imax "Current max threshold to limit a current's module" annotation(
-    Dialog(tab = "Current Saturation"));
-  parameter Types.CurrentModulePu Imin "Current min threshold to limit a current's module" annotation(
+  parameter Types.CurrentModulePu IminPu "Current min threshold to limit a current's module" annotation(
     Dialog(tab = "Current Saturation"));
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {106, 42}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -87,13 +89,15 @@ model DynGFMCCVSM "PEIR model with GFM VSM control and dynamic connections to th
     Placement(visible = true, transformation(origin = {-110, 48}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = ControlCC.URef0Pu) "Voltage reference at the filter in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = ControlCC.QFilter0Pu) "Reactive power reference at the filter in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = ControlCC.voltageReferenceControl.QFilterRef0Pu) "Reactive power reference at the filter in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput omegaVSMPu(start = SystemBase.omegaRef0Pu) "Converter's own VSM frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(origin = {106, 80}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Electrical.Controls.PEIR.BaseControls.Auxiliaries.Measurements Measurements(IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, tUFilt = tUFilt) annotation(
     Placement(visible = true, transformation(origin = {18, -32}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Sources.PEIR.Converters.Average.DynConverter Converter(SNom = SNom, tVSC = tVSC, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, i0Pu = i0Pu, u0Pu = u0Pu, Theta0 = Theta0, Omega0Pu = SystemBase.omegaRef0Pu) annotation(
     Placement(transformation(origin = {59, 41}, extent = {{-21, -21}, {21, 21}})));
-  Dynawo.Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlCCVSM ControlCC(H = H, IMaxVI = IMaxVI, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, KpVI = KpVI, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, U0Pu = U0Pu, UPhase0 = UPhase0, UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Wf = Wf, Wff = Wff, XRratio = XRratio, XVI = XVI, kVSM = kVSM, u0Pu = u0Pu, W_CurrentLimit = W_CurrentLimit, Imax = Imax, Imin = Imin, IdConvSatRef0Pu = Converter.transformRItoDQConv.ud0, IqConvSatRef0Pu = Converter.transformRItoDQConv.uq0, DeltaIConvMaxPu = DeltaIConvMaxPu, omegaC = omegaC, omegaNPLL = omegaNPLL, ZetaPLL = ZetaPLL, KDampingAngle = KDampingAngle) annotation(
+  Dynawo.Electrical.Controls.PEIR.Converters.Average.DynGridFormingControlCCVSM ControlCC(H = H, IMaxVIPu = IMaxVIPu, IdConv0Pu = Converter.transformRItoDQConv.ud0, IdPcc0Pu = Converter.transformRItoDQIPcc.ud0, IqConv0Pu = Converter.transformRItoDQConv.uq0, IqPcc0Pu = Converter.transformRItoDQIPcc.uq0, Kfd = Kfd, Kff = Kff, Kfq = Kfq, KpVI = KpVI, LFilterPu = LFilterPu, LTransformerPu = LTransformerPu, Mq = Mq, Omega0Pu = SystemBase.omegaRef0Pu, PFilter0Pu = Measurements.PFilter0Pu, QFilter0Pu = Measurements.QFilter0Pu, RFilterPu = RFilterPu, RTransformerPu = RTransformerPu, Theta0 = Converter.Theta0, U0Pu = U0Pu, UPhase0 = UPhase0, URef0Pu = Modelica.ComplexMath.'abs'(uEmf0Pu), UdConv0Pu = Converter.transformRItoDQUConv.ud0, UdFilter0Pu = Converter.transformRItoDQFilter.ud0, UdPcc0Pu = Converter.transformRItoDQUPcc.ud0, UqConv0Pu = Converter.transformRItoDQUConv.uq0, UqFilter0Pu = Converter.transformRItoDQFilter.uq0, UqPcc0Pu = Converter.transformRItoDQUPcc.uq0, Omegaf = Omegaf, Omegaff = Omegaff, XRratio = XRratio, XVIPu = XVIPu, kVSM = kVSM, u0Pu = u0Pu, ImaxPu = ImaxPu, IminPu = IminPu, IdConvSatRef0Pu = Converter.transformRItoDQConv.ud0, IqConvSatRef0Pu = Converter.transformRItoDQConv.uq0, DeltaIConvMaxPu = DeltaIConvMaxPu, Kic = Kic, Kpc = Kpc, Kp = Kp, Ki = Ki, KDampingAngle = KDampingAngle) annotation(
     Placement(transformation(origin = {-44, 42}, extent = {{-20, -20}, {20, 20}})));
   // Operating point
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
@@ -103,8 +107,14 @@ model DynGFMCCVSM "PEIR model with GFM VSM control and dynamic connections to th
   parameter Types.AngularVelocityPu OmegaSetPu "Defaut angular velocity reference for the converter in pu (base omegaNom)";
   final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Start value of the complex voltage at terminal/PCC in pu (base UNom)";
   final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at terminal/PCC in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.ComplexVoltagePu uFilter0Pu = u0Pu - Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu + XVI)*i0Pu*SystemBase.SnRef/SNom "Start value of the complex voltage at the filter in pu (base UNom)";
-  final parameter Types.Angle Theta0 = atan2(uFilter0Pu.im, uFilter0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+  final parameter Types.ComplexCurrentPu iPcc0GenPu = -i0Pu*SystemBase.SnRef/SNom "Start value of the complex current at terminal/PCC in pu (base UNom, SNom) (generator convention)";
+  final parameter Types.ComplexVoltagePu uFilterPhys0Pu = u0Pu + Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu)*iPcc0GenPu "Start value of the physical complex voltage at the filter capacitor in pu (base UNom)";
+  final parameter Types.ComplexCurrentPu iConv0Pu = iPcc0GenPu + Complex(0, SystemBase.omegaRef0Pu*CFilterPu)*uFilterPhys0Pu "Start value of the complex converter current in pu (base UNom, SNom) (generator convention)";
+  final parameter Types.CurrentModulePu IConv0Pu = Modelica.ComplexMath.'abs'(iConv0Pu) "Start value of the converter current module in pu (base UNom, SNom)";
+  final parameter Types.PerUnit RVirt0Pu = KpVI*min(max(IConv0Pu - IMaxVIPu, 0), DeltaIConvMaxPu) "Start value of the current-limiting virtual resistance in pu (base UNom, SNom)";
+  final parameter Types.PerUnit XVirt0Pu = RVirt0Pu*XRratio "Start value of the current-limiting virtual reactance in pu (base UNom, SNom)";
+  final parameter Types.ComplexVoltagePu uEmf0Pu = u0Pu + Complex(RTransformerPu, LTransformerPu*SystemBase.omegaRef0Pu + XVIPu)*iConv0Pu + Complex(Kff, 0)*iPcc0GenPu + Complex(RVirt0Pu, XVirt0Pu)*iConv0Pu "Start value of the internal EMF seen by the control (QSEM drop with IConv, plus the Kff term and the virtual impedance drop of the voltage reference control) in pu (base UNom)";
+  final parameter Types.Angle Theta0 = atan2(uEmf0Pu.im, uEmf0Pu.re) "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad (d-axis aligned with the internal EMF)";
 equation
   ControlCC.uPccPu = terminal.V;
   connect(Converter.terminal, terminal) annotation(
@@ -127,6 +137,8 @@ equation
     Line(points = {{-22, 34}, {6, 34}, {6, 32}, {36, 32}}, color = {0, 0, 127}));
   connect(ControlCC.omegaPu, Converter.omegaPu) annotation(
     Line(points = {{-34, 64}, {-34, 70}, {48, 70}, {48, 64}}, color = {0, 0, 127}));
+  connect(ControlCC.omegaPu, omegaVSMPu) annotation(
+    Line(points = {{-34, 64}, {-34, 70}, {92, 70}, {92, 80}, {106, 80}}, color = {0, 0, 127}));
   connect(ControlCC.theta, Converter.theta) annotation(
     Line(points = {{-54, 64}, {-54, 74}, {70, 74}, {70, 64}}, color = {0, 0, 127}));
   connect(PFilterRefPu, ControlCC.PFilterRefPu) annotation(

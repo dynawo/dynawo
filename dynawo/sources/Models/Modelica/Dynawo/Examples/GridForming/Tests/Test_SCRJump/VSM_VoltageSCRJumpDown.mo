@@ -47,21 +47,19 @@ model VSM_VoltageSCRJumpDown "Single machine infinite bus test case for Grid For
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.5) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
 
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -4.98488710832432, Q0Pu = 0.0110946151405571, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.992493005247463, UPhase0 = 0.253902907445225, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.06, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, omegaNPLL = 100, ZetaPLL = 1, omegaC = 1000) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSM DynGFMVSM(CFilterPu = 1e-05, H = 5, IMaxVIPu = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -4.98488710832432, Q0Pu = 0.0110946151405571, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.992493005247463, UPhase0 = 0.253902907445225, Omegaf = 31.4159, Omegaff = 60, XRratio = 10, XVIPu = 0.06, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, OmegaPLL = 1000, KsiPLL = 1, Omegac = 1000) annotation(
     Placement(transformation(origin = {-15, 1}, extent = {{-23, -23}, {23, 23}})));
-  Electrical.Buses.InfiniteBusWithVariationsPhaseJump infiniteBusWithVariationsPhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0, tUPhaseEvt = 0) annotation(
-    Placement(transformation(origin = {104, -16}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Sources.AcGrid acGrid(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, StartRoCoF = 5, TimeRoCoF = 0.5, RoCoFValue = 0.04)  annotation(
     Placement(transformation(origin = {58, 64}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {28, 2}, extent = {{-10, -10}, {10, 10}})));
-
- equation
+ Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations annotation(
+    Placement(transformation(origin = {98, 2}, extent = {{-10, -10}, {10, 10}})));
+equation
   Z1_Line.switchOffSignal1 = false;
   Z1_Line.switchOffSignal2 = false;
   Z2_Line.switchOffSignal1 = if SCRini < SCRfinal then time < tEvt else time >= tEvt;
   Z2_Line.switchOffSignal2 = Z2_Line.switchOffSignal1;
-
   DynGFMVSM.switchOffSignal1 = false;
   DynGFMVSM.switchOffSignal2 = false;
   DynGFMVSM.switchOffSignal3 = false;
@@ -79,12 +77,12 @@ model VSM_VoltageSCRJumpDown "Single machine infinite bus test case for Grid For
     Line(points = {{10, 2}, {18, 2}}, color = {0, 0, 255}));
   connect(measurements.terminal2, Z1_Line.terminal1) annotation(
     Line(points = {{38, 2}, {62, 2}}, color = {0, 0, 255}));
- connect(Z1_Line.terminal1, Z2_Line.terminal1) annotation(
+  connect(Z1_Line.terminal1, Z2_Line.terminal1) annotation(
     Line(points = {{62, 2}, {62, -16}}, color = {0, 0, 255}));
- connect(Z1_Line.terminal2, Z2_Line.terminal2) annotation(
+  connect(Z1_Line.terminal2, Z2_Line.terminal2) annotation(
     Line(points = {{82, 2}, {82, -16}}, color = {0, 0, 255}));
- connect(Z2_Line.terminal2, infiniteBusWithVariationsPhaseJump.terminal) annotation(
-    Line(points = {{82, -16}, {104, -16}}, color = {0, 0, 255}));
+ connect(Z1_Line.terminal2, infiniteBusWithVariations.terminal) annotation(
+    Line(points = {{82, 2}, {98, 2}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),

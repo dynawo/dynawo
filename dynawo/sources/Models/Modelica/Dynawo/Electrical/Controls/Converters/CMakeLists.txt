@@ -10,8 +10,6 @@
 
 add_subdirectory(BaseControls B)
 add_subdirectory(EpriGFM E)
-add_subdirectory(InnerControls I)
-add_subdirectory(OuterControls O)
 
 set(MODEL_FILES
   # Converter control models

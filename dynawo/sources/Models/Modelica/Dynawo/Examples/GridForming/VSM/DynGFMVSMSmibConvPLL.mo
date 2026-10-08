@@ -23,20 +23,18 @@ model DynGFMVSMSmibConvPLL "Single machine infinite bus test case for Grid Formi
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSMConvPLL DynGFMVSMConvPLL(CFilterPu = 1e-05, H = 5, IMaxVI = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.440979955569425, Q0Pu = -0.642916511452948, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.954110360567147, UPhase0 = 0.513677943263305, Wf = 31.4159, Wff = 60, XRratio = 10, XVI = 0.06, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, omegaNPLL = 100, ZetaPLL = 1, omegaC = 1000) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMVSMConvPLL DynGFMVSMConvPLL(CFilterPu = 1e-05, H = 5, IMaxVIPu = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.6, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.440979955569425, Q0Pu = -0.642916511452948, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.954110360567147, UPhase0 = 0.513677943263305, Omegaf = 31.4159, Omegaff = 60, XRratio = 10, XVIPu = 0.06, kVSM = 650, OmegaSetPu = 1, tVSC = 0.0004, OmegaPLL = 100, KsiPLL = 1, Omegac = 1000) annotation(
     Placement(transformation(origin = {-17, -3}, extent = {{-23, -23}, {23, 23}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.95) annotation(
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Buses.InfiniteBusWithVariationsPhaseJump infiniteBusWithVariationsPhaseJump(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0, dUPhaseEvt = 0.462, tUPhaseEvt = 10)  annotation(
-    Placement(transformation(origin = {76, -30}, extent = {{-10, -10}, {10, 10}})));
-
+  Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations annotation(
+    Placement(transformation(origin = {80, -2}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   DynGFMVSMConvPLL.switchOffSignal1 = false;
   DynGFMVSMConvPLL.switchOffSignal2 = false;
   DynGFMVSMConvPLL.switchOffSignal3 = false;
-
   connect(DynGFMVSMConvPLL.terminal, line.terminal1) annotation(
     Line(points = {{8, -3}, {19, -3}, {19, -2}, {36, -2}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, DynGFMVSMConvPLL.omegaRefPu) annotation(
@@ -47,9 +45,8 @@ equation
     Line(points = {{-100, -60}, {-56, -60}, {-56, -21}, {-42, -21}}, color = {0, 0, 127}));
   connect(PRefPu.y, DynGFMVSMConvPLL.PFilterRefPu) annotation(
     Line(points = {{-102, 56}, {-102, 53}, {-42, 53}, {-42, 15}}, color = {0, 0, 127}));
-  connect(line.terminal2, infiniteBusWithVariationsPhaseJump.terminal) annotation(
-    Line(points = {{56, -2}, {76, -2}, {76, -30}}, color = {0, 0, 255}));
-
+  connect(line.terminal2, infiniteBusWithVariations.terminal) annotation(
+    Line(points = {{56, -2}, {80, -2}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
