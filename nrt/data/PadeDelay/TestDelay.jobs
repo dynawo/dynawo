@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2025, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:job name="Test Delay IDA">
+    <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+    <dyn:modeler compileDir="outputsIDA/compilation">
+      <dyn:dynModels dydFile="TestDelay.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true">
+        <dyn:directory path="." recursive="false"/>
+      </dyn:modelicaModels>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="100" precision="1.0E-12"/>
+    <dyn:outputs directory="outputsIDA">
+      <dyn:dumpInitValues local="true" global="false"/>
+      <dyn:timeline exportMode="TXT"/>
+      <dyn:finalState exportIIDMFile="true" exportDumpFile="true"/>
+      <dyn:curves inputFile="TestDelay.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+  <dyn:job name="Test Delay SIM">
+    <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
+    <dyn:modeler compileDir="outputsSIM/compilation">
+      <dyn:dynModels dydFile="TestDelay.dyd"/>
+      <dyn:precompiledModels useStandardModels="true"/>
+      <dyn:modelicaModels useStandardModels="true">
+        <dyn:directory path="." recursive="false"/>
+      </dyn:modelicaModels>
+    </dyn:modeler>
+    <dyn:simulation startTime="0" stopTime="100"/>
+    <dyn:outputs directory="outputsSIM">
+      <dyn:dumpInitValues local="true" global="false"/>
+      <dyn:timeline exportMode="TXT"/>
+      <dyn:curves inputFile="TestDelay.crv" exportMode="CSV"/>
+      <dyn:logs>
+        <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+      </dyn:logs>
+    </dyn:outputs>
+  </dyn:job>
+</dyn:jobs>
