@@ -44,7 +44,7 @@ void ModelGeneratorPQ_Init::setupDataStruc()
   data->modelData->nParametersString = 0;
   data->modelData->nInputVars = 0;
   data->modelData->nOutputVars = 0;
-  data->modelData->nAliasReal = 4 - 4 /* Remove const aliases */;
+  data->modelData->nAliasReal = 5 - 5 /* Remove const aliases */;
   data->modelData->nAliasInteger = 0 - 0 /* Remove const aliases */;
   data->modelData->nAliasBoolean = 0 - 0 /* Remove const aliases */;
   data->modelData->nAliasString = 0;
@@ -74,9 +74,9 @@ void ModelGeneratorPQ_Init::setupDataStruc()
 
   data->nbVars =2;
   data->nbF = 2;
-  data->nbModes = 2;
+  data->nbModes = 3;
   data->nbZ = 0;
-  data->nbCalculatedVars = 6;
+  data->nbCalculatedVars = 7;
   data->nbDelays = 0;
   data->constCalcVars.resize(2, 0.);
 }
@@ -266,21 +266,9 @@ std::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Init::setSharedParam
 
    // This value may be updated later on through *.par/*.iidm data 
   std::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newParametersSet("SharedModelicaParameters");
-  double generator_P0Pu_internal;
-  double generator_Q0Pu_internal;
-  double generator_U0Pu_internal;
-  double generator_UPhase0_internal;
   double generator_iStart0Pu_im_internal;
   double generator_iStart0Pu_re_internal;
 
-  generator_P0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_P0Pu", generator_P0Pu_internal);
-  generator_Q0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_Q0Pu", generator_Q0Pu_internal);
-  generator_U0Pu_internal = 0.0; 
-  parametersSet->createParameter("generator_U0Pu", generator_U0Pu_internal);
-  generator_UPhase0_internal = 0.0; 
-  parametersSet->createParameter("generator_UPhase0", generator_UPhase0_internal);
   generator_iStart0Pu_im_internal = 0.0; 
   parametersSet->createParameter("generator_iStart0Pu_im", generator_iStart0Pu_im_internal);
   generator_iStart0Pu_re_internal = 0.0; 
@@ -312,16 +300,17 @@ void ModelGeneratorPQ_Init::defineVariables(std::vector<boost::shared_ptr<Variab
   variables.push_back (VariableNativeFactory::createCalculated ("generator_u0Pu_re", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createCalculated ("generator_PGen0Pu", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createCalculated ("generator_QGen0Pu", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createCalculated ("generator_U0PuVar", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createCalculated ("generator_s0Pu_im", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createCalculated ("generator_s0Pu_re", CONTINUOUS, false));
 }
 
 void ModelGeneratorPQ_Init::defineParameters(std::vector<ParameterModeler>& parameters)
 {
-  parameters.push_back(ParameterModeler("generator_P0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_Q0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_U0Pu", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("generator_UPhase0", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_P0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("generator_UPhase0", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("generator_iStart0Pu_im", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
   parameters.push_back(ParameterModeler("generator_iStart0Pu_re", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
 }
@@ -402,8 +391,9 @@ void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVa
   calculatedVars[1] /* generator.u0Pu.re*/ = data->constCalcVars[1];
   calculatedVars[2] /* generator.PGen0Pu*/ = -data->simulationInfo->realParameter[0] /* generator.P0Pu*/;
   calculatedVars[3] /* generator.QGen0Pu*/ = -data->simulationInfo->realParameter[1] /* generator.Q0Pu*/;
-  calculatedVars[4] /* generator.s0Pu.im*/ = data->simulationInfo->realParameter[1] /* generator.Q0Pu*/;
-  calculatedVars[5] /* generator.s0Pu.re*/ = data->simulationInfo->realParameter[0] /* generator.P0Pu*/;
+  calculatedVars[4] /* generator.U0PuVar*/ = data->simulationInfo->realParameter[2] /* generator.U0Pu*/;
+  calculatedVars[5] /* generator.s0Pu.im*/ = data->simulationInfo->realParameter[1] /* generator.Q0Pu*/;
+  calculatedVars[6] /* generator.s0Pu.re*/ = data->simulationInfo->realParameter[0] /* generator.P0Pu*/;
 }
 
 double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar) const
@@ -416,9 +406,11 @@ double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar) const
     return -data->simulationInfo->realParameter[0] /* generator.P0Pu*/;
   if (iCalculatedVar == 3)  /* generator.QGen0Pu */
     return -data->simulationInfo->realParameter[1] /* generator.Q0Pu*/;
-  if (iCalculatedVar == 4)  /* generator.s0Pu.im */
+  if (iCalculatedVar == 4)  /* generator.U0PuVar */
+    return data->simulationInfo->realParameter[2] /* generator.U0Pu*/;
+  if (iCalculatedVar == 5)  /* generator.s0Pu.im */
     return data->simulationInfo->realParameter[1] /* generator.Q0Pu*/;
-  if (iCalculatedVar == 5)  /* generator.s0Pu.re */
+  if (iCalculatedVar == 6)  /* generator.s0Pu.re */
     return data->simulationInfo->realParameter[0] /* generator.P0Pu*/;
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
@@ -438,10 +430,13 @@ adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculat
   if (iCalculatedVar == 3)  /* generator.QGen0Pu */
      return -data->simulationInfo->realParameter[1] /* generator.Q0Pu*/;
 
-  if (iCalculatedVar == 4)  /* generator.s0Pu.im */
+  if (iCalculatedVar == 4)  /* generator.U0PuVar */
+     return data->simulationInfo->realParameter[2] /* generator.U0Pu*/;
+
+  if (iCalculatedVar == 5)  /* generator.s0Pu.im */
      return data->simulationInfo->realParameter[1] /* generator.Q0Pu*/;
 
-  if (iCalculatedVar == 5)  /* generator.s0Pu.re */
+  if (iCalculatedVar == 6)  /* generator.s0Pu.re */
      return data->simulationInfo->realParameter[0] /* generator.P0Pu*/;
 
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);

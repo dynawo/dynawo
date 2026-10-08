@@ -40,7 +40,7 @@ void GeneratorPQ_eqFunction_38(DATA *data, threadData_t *threadData, ANALYTIC_JA
 /*
 equation index: 39
 type: SIMPLE_ASSIGN
-$res_LSJac0_1.$pDERLSJac0.dummyVarLSJac0 = if generator.running.value then generator.SGenPu.im.$pDERLSJac0.dummyVarLSJac0 else generator.terminal.i.im.SeedLSJac0
+$res_LSJac0_1.$pDERLSJac0.dummyVarLSJac0 = if generator.running then generator.SGenPu.im.$pDERLSJac0.dummyVarLSJac0 else generator.terminal.i.im.SeedLSJac0
 */
 void GeneratorPQ_eqFunction_39(DATA *data, threadData_t *threadData, ANALYTIC_JACOBIAN *jacobian, ANALYTIC_JACOBIAN *parentJacobian)
 {
@@ -50,7 +50,7 @@ void GeneratorPQ_eqFunction_39(DATA *data, threadData_t *threadData, ANALYTIC_JA
   const int equationIndexes[2] = {1,39};
   modelica_boolean tmp30;
   modelica_real tmp31;
-  tmp30 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp30 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp30)
   {
     tmp31 = jacobian->tmpVars[1] /* generator.SGenPu.im.$pDERLSJac0.dummyVarLSJac0 JACOBIAN_TMP_VAR */;
@@ -66,7 +66,7 @@ void GeneratorPQ_eqFunction_39(DATA *data, threadData_t *threadData, ANALYTIC_JA
 /*
 equation index: 40
 type: SIMPLE_ASSIGN
-$res_LSJac0_2.$pDERLSJac0.dummyVarLSJac0 = if generator.running.value then generator.PGenPu.$pDERLSJac0.dummyVarLSJac0 else generator.terminal.i.re.SeedLSJac0
+$res_LSJac0_2.$pDERLSJac0.dummyVarLSJac0 = if generator.running then generator.PGenPu.$pDERLSJac0.dummyVarLSJac0 else generator.terminal.i.re.SeedLSJac0
 */
 void GeneratorPQ_eqFunction_40(DATA *data, threadData_t *threadData, ANALYTIC_JACOBIAN *jacobian, ANALYTIC_JACOBIAN *parentJacobian)
 {
@@ -76,7 +76,7 @@ void GeneratorPQ_eqFunction_40(DATA *data, threadData_t *threadData, ANALYTIC_JA
   const int equationIndexes[2] = {1,40};
   modelica_boolean tmp32;
   modelica_real tmp33;
-  tmp32 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp32 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp32)
   {
     tmp33 = jacobian->tmpVars[0] /* generator.PGenPu.$pDERLSJac0.dummyVarLSJac0 JACOBIAN_TMP_VAR */;

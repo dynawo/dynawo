@@ -7,13 +7,13 @@
   modelName                           = "GeneratorPQ_INIT"
   modelIdentifier                     = "GeneratorPQ_INIT"
 
-  OPENMODELICAHOME                    = "/home/rosiereflo/Projects/dynawo_bis/dynawo/OpenModelica/Install/bin/.."
+  OPENMODELICAHOME                    = "/home/rosiereflo/Projects/dynawo_ter/dynawo/OpenModelica/Install/bin/.."
 
-  guid                                = "{0a0d580b-d281-4b54-8618-73a9d800387e}"
+  guid                                = "{8c4e810f-3df3-4a00-8276-176fa3c9f9e0}"
 
   description                         = ""
-  generationTool                      = "OpenModelica Compiler OMCompiler v1.24.4"
-  generationDateAndTime               = "2025-06-26T13:10:10Z"
+  generationTool                      = "OpenModelica Compiler OMCompiler v1.24.5"
+  generationDateAndTime               = "2026-10-06T09:34:36Z"
 
   variableNamingConvention            = "structured"
 
@@ -28,7 +28,7 @@
 
   numberOfContinuousStates            = "0"  cmt_numberOfContinuousStates            = "NX:       number of states,                                   FMI"
   numberOfRealAlgebraicVariables      = "4"  cmt_numberOfRealAlgebraicVariables      = "NY:       number of real variables,                           OMC"
-  numberOfRealAlgebraicAliasVariables = "4"  cmt_numberOfRealAlgebraicAliasVariables = "NA:       number of alias variables,                          OMC"
+  numberOfRealAlgebraicAliasVariables = "5"  cmt_numberOfRealAlgebraicAliasVariables = "NA:       number of alias variables,                          OMC"
   numberOfRealParameters              = "6"  cmt_numberOfRealParameters              = "NP:       number of parameters,                               OMC"
 
   numberOfIntegerAlgebraicVariables   = "0"  cmt_numberOfIntegerAlgebraicVariables   = "NYINT:    number of alg. int variables,                       OMC"
@@ -66,7 +66,7 @@
     alias = "noAlias"
     classIndex = "0" classType = "rAlg"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitConnector.mo" startLine = "17" startColumn = "42" endLine = "17" endColumn = "114" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitOutput.mo" startLine = "17" startColumn = "46" endLine = "17" endColumn = "118" fileWritable = "true">
     <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -78,7 +78,7 @@
     alias = "noAlias"
     classIndex = "1" classType = "rAlg"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitConnector.mo" startLine = "16" startColumn = "45" endLine = "16" endColumn = "112" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitOutput.mo" startLine = "16" startColumn = "46" endLine = "16" endColumn = "113" fileWritable = "true">
     <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -90,7 +90,7 @@
     alias = "noAlias"
     classIndex = "2" classType = "rAlg"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitConnector.mo" startLine = "17" startColumn = "42" endLine = "17" endColumn = "114" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitOutput.mo" startLine = "17" startColumn = "46" endLine = "17" endColumn = "118" fileWritable = "true">
     <Real fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -102,7 +102,7 @@
     alias = "noAlias"
     classIndex = "3" classType = "rAlg"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitConnector.mo" startLine = "16" startColumn = "45" endLine = "16" endColumn = "112" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Connectors/ComplexPerUnitOutput.mo" startLine = "16" startColumn = "46" endLine = "16" endColumn = "113" fileWritable = "true">
     <Real fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -114,7 +114,7 @@
     alias = "noAlias"
     classIndex = "0" classType = "rPar"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "18" startColumn = "3" endLine = "18" endColumn = "120" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "18" startColumn = "3" endLine = "18" endColumn = "120" fileWritable = "true">
     <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -126,7 +126,7 @@
     alias = "noAlias"
     classIndex = "1" classType = "rPar"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "19" startColumn = "3" endLine = "19" endColumn = "124" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "19" startColumn = "3" endLine = "19" endColumn = "124" fileWritable = "true">
     <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -138,7 +138,7 @@
     alias = "noAlias"
     classIndex = "2" classType = "rPar"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "20" startColumn = "3" endLine = "20" endColumn = "125" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "20" startColumn = "3" endLine = "20" endColumn = "104" fileWritable = "true">
     <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -150,7 +150,7 @@
     alias = "noAlias"
     classIndex = "3" classType = "rPar"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "21" startColumn = "3" endLine = "21" endColumn = "82" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "21" startColumn = "3" endLine = "21" endColumn = "82" fileWritable = "true">
     <Real start="0.0" fixed="true" useNominal="false" unit="rad" />
   </ScalarVariable>
   <ScalarVariable
@@ -162,7 +162,7 @@
     alias = "noAlias"
     classIndex = "4" classType = "rPar"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "54" startColumn = "35" endLine = "54" endColumn = "101" fileWritable = "true">
     <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -174,7 +174,7 @@
     alias = "noAlias"
     classIndex = "5" classType = "rPar"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "53" startColumn = "35" endLine = "53" endColumn = "96" fileWritable = "true">
     <Real start="0.0" fixed="true" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -186,7 +186,7 @@
     alias = "negatedAlias" aliasVariable="generator.P0Pu" aliasVariableId="10"
     classIndex = "0" classType = "rAli"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "23" startColumn = "3" endLine = "23" endColumn = "135" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "23" startColumn = "3" endLine = "23" endColumn = "132" fileWritable = "true">
     <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
@@ -198,31 +198,43 @@
     alias = "negatedAlias" aliasVariable="generator.Q0Pu" aliasVariableId="11"
     classIndex = "1" classType = "rAli"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "24" startColumn = "3" endLine = "24" endColumn = "139" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "24" startColumn = "3" endLine = "24" endColumn = "136" fileWritable = "true">
+    <Real fixed="false" useNominal="false" unit="1" />
+  </ScalarVariable>
+  <ScalarVariable
+    name = "generator.U0PuVar"
+    valueReference = "1012"
+    description = "Start value of voltage amplitude at terminal in pu (base UNom)"
+    variability = "continuous" isDiscrete = "false"
+    causality = "local" isValueChangeable = "false"
+    alias = "alias" aliasVariable="generator.U0Pu" aliasVariableId="6"
+    classIndex = "2" classType = "rAli"
+    isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Machines/BaseClasses_INIT/BaseGeneratorParameters_INIT.mo" startLine = "25" startColumn = "3" endLine = "25" endColumn = "115" fileWritable = "true">
     <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.s0Pu.im"
-    valueReference = "1012"
+    valueReference = "1013"
     description = "Imaginary part of complex number"
     variability = "continuous" isDiscrete = "false"
     causality = "local" isValueChangeable = "false"
     alias = "alias" aliasVariable="generator.Q0Pu" aliasVariableId="5"
-    classIndex = "2" classType = "rAli"
+    classIndex = "3" classType = "rAli"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "50" startColumn = "35" endLine = "50" endColumn = "101" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "54" startColumn = "35" endLine = "54" endColumn = "101" fileWritable = "true">
     <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
   <ScalarVariable
     name = "generator.s0Pu.re"
-    valueReference = "1013"
+    valueReference = "1014"
     description = "Real part of complex number"
     variability = "continuous" isDiscrete = "false"
     causality = "local" isValueChangeable = "false"
     alias = "alias" aliasVariable="generator.P0Pu" aliasVariableId="4"
-    classIndex = "3" classType = "rAli"
+    classIndex = "4" classType = "rAli"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "/home/rosiereflo/Projects/dynawo_bis/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "49" startColumn = "35" endLine = "49" endColumn = "96" fileWritable = "true">
+    fileName = "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Types.mo" startLine = "53" startColumn = "35" endLine = "53" endColumn = "96" fileWritable = "true">
     <Real fixed="false" useNominal="false" unit="1" />
   </ScalarVariable>
 

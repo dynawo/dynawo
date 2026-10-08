@@ -12,13 +12,13 @@ void GeneratorPQ_functionInitialEquations_0(DATA *data, threadData_t *threadData
 /*
 equation index: 1
 type: SIMPLE_ASSIGN
-$DER.generator.deltaPmRefPu.value = 0.0
+$DER.generator.deltaPmRefPu = 0.0
 */
 void GeneratorPQ_eqFunction_1(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,1};
-  (data->localData[0]->realVars[4] /* der(generator.deltaPmRefPu.value) STATE_DER */) = 0.0;
+  (data->localData[0]->realVars[4] /* der(generator.deltaPmRefPu) STATE_DER */) = 0.0;
   TRACE_POP
 }
 
@@ -51,13 +51,13 @@ void GeneratorPQ_eqFunction_3(DATA *data, threadData_t *threadData)
 /*
 equation index: 4
 type: SIMPLE_ASSIGN
-$DER.generator.omegaRefPu.value = 0.0
+$DER.generator.omegaRefPu = 0.0
 */
 void GeneratorPQ_eqFunction_4(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,4};
-  (data->localData[0]->realVars[5] /* der(generator.omegaRefPu.value) STATE_DER */) = 0.0;
+  (data->localData[0]->realVars[5] /* der(generator.omegaRefPu) STATE_DER */) = 0.0;
   TRACE_POP
 }
 
@@ -116,156 +116,156 @@ void GeneratorPQ_eqFunction_8(DATA *data, threadData_t *threadData)
 /*
 equation index: 9
 type: SIMPLE_ASSIGN
-$PRE.generator.switchOffSignal1.value = $START.generator.switchOffSignal1.value
+$PRE.generator.switchOffSignal1 = $START.generator.switchOffSignal1
 */
 void GeneratorPQ_eqFunction_9(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,9};
-  (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1.value DISCRETE */) = (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1.value DISCRETE */).attribute .start;
+  (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1 DISCRETE */) = (data->modelData->booleanVarsData[10] /* generator.switchOffSignal1 DISCRETE */).attribute .start;
   TRACE_POP
 }
 
 /*
 equation index: 10
 type: SIMPLE_ASSIGN
-generator.switchOffSignal1.value = $PRE.generator.switchOffSignal1.value
+generator.switchOffSignal1 = $PRE.generator.switchOffSignal1
 */
 void GeneratorPQ_eqFunction_10(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,10};
-  (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */) = (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1.value DISCRETE */);
+  (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */) = (data->simulationInfo->booleanVarsPre[10] /* generator.switchOffSignal1 DISCRETE */);
   TRACE_POP
 }
 
 /*
 equation index: 11
 type: SIMPLE_ASSIGN
-$PRE.generator.switchOffSignal2.value = $START.generator.switchOffSignal2.value
+$PRE.generator.switchOffSignal2 = $START.generator.switchOffSignal2
 */
 void GeneratorPQ_eqFunction_11(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,11};
-  (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2.value DISCRETE */) = (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2.value DISCRETE */).attribute .start;
+  (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2 DISCRETE */) = (data->modelData->booleanVarsData[11] /* generator.switchOffSignal2 DISCRETE */).attribute .start;
   TRACE_POP
 }
 
 /*
 equation index: 12
 type: SIMPLE_ASSIGN
-generator.switchOffSignal2.value = $PRE.generator.switchOffSignal2.value
+generator.switchOffSignal2 = $PRE.generator.switchOffSignal2
 */
 void GeneratorPQ_eqFunction_12(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,12};
-  (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */) = (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2.value DISCRETE */);
+  (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */) = (data->simulationInfo->booleanVarsPre[11] /* generator.switchOffSignal2 DISCRETE */);
   TRACE_POP
 }
 
 /*
 equation index: 13
 type: SIMPLE_ASSIGN
-$PRE.generator.switchOffSignal3.value = $START.generator.switchOffSignal3.value
+$PRE.generator.switchOffSignal3 = $START.generator.switchOffSignal3
 */
 void GeneratorPQ_eqFunction_13(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,13};
-  (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3.value DISCRETE */) = (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3.value DISCRETE */).attribute .start;
+  (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3 DISCRETE */) = (data->modelData->booleanVarsData[12] /* generator.switchOffSignal3 DISCRETE */).attribute .start;
   TRACE_POP
 }
 
 /*
 equation index: 14
 type: SIMPLE_ASSIGN
-generator.switchOffSignal3.value = $PRE.generator.switchOffSignal3.value
+generator.switchOffSignal3 = $PRE.generator.switchOffSignal3
 */
 void GeneratorPQ_eqFunction_14(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,14};
-  (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */) = (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3.value DISCRETE */);
+  (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */) = (data->simulationInfo->booleanVarsPre[12] /* generator.switchOffSignal3 DISCRETE */);
   TRACE_POP
 }
 
 /*
 equation index: 15
 type: SIMPLE_ASSIGN
-$PRE.generator.running.value = $START.generator.running.value
+$PRE.generator.running = $START.generator.running
 */
 void GeneratorPQ_eqFunction_15(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,15};
-  (data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */) = (data->modelData->booleanVarsData[9] /* generator.running.value DISCRETE */).attribute .start;
+  (data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */) = (data->modelData->booleanVarsData[9] /* generator.running DISCRETE */).attribute .start;
   TRACE_POP
 }
 
 /*
 equation index: 16
 type: SIMPLE_ASSIGN
-generator.running.value = $PRE.generator.running.value
+generator.running = $PRE.generator.running
 */
 void GeneratorPQ_eqFunction_16(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,16};
-  (data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */) = (data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */);
+  (data->localData[0]->booleanVars[9] /* generator.running DISCRETE */) = (data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */);
   TRACE_POP
 }
 
 /*
 equation index: 17
 type: SIMPLE_ASSIGN
-$whenCondition6 = not generator.running.value
+$whenCondition6 = not generator.running
 */
 void GeneratorPQ_eqFunction_17(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,17};
-  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */));
+  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */));
   TRACE_POP
 }
 
 /*
 equation index: 18
 type: SIMPLE_ASSIGN
-$whenCondition7 = not generator.switchOffSignal1.value and not generator.switchOffSignal2.value and not generator.switchOffSignal3.value and not $PRE.generator.running.value
+$whenCondition7 = not generator.switchOffSignal1 and not generator.switchOffSignal2 and not generator.switchOffSignal3 and not $PRE.generator.running
 */
 void GeneratorPQ_eqFunction_18(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,18};
-  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!(data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */)) && (!(data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */))) && (!(data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */))) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */)));
+  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!(data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */)) && (!(data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */))) && (!(data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */))) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */)));
   TRACE_POP
 }
 
 /*
 equation index: 19
 type: SIMPLE_ASSIGN
-$whenCondition8 = generator.switchOffSignal1.value or generator.switchOffSignal2.value or generator.switchOffSignal3.value and $PRE.generator.running.value
+$whenCondition8 = generator.switchOffSignal1 or generator.switchOffSignal2 or generator.switchOffSignal3 and $PRE.generator.running
 */
 void GeneratorPQ_eqFunction_19(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,19};
-  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = (((data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */) || (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */)) || ((data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */) && (data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */)));
+  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = (((data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */) || (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */)) || ((data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */) && (data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */)));
   TRACE_POP
 }
 
 /*
 equation index: 20
 type: SIMPLE_ASSIGN
-$whenCondition5 = generator.running.value and not $PRE.generator.running.value
+$whenCondition5 = generator.running and not $PRE.generator.running
 */
 void GeneratorPQ_eqFunction_20(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,20};
-  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = ((data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */)));
+  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = ((data->localData[0]->booleanVars[9] /* generator.running DISCRETE */) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */)));
   TRACE_POP
 }
 
@@ -298,7 +298,7 @@ void GeneratorPQ_eqFunction_22(DATA *data, threadData_t *threadData)
 /*
 equation index: 23
 type: SIMPLE_ASSIGN
-generator.UPu = if generator.running.value then (generator.terminal.V.re ^ 2.0 + generator.terminal.V.im ^ 2.0) ^ 0.5 else 0.0
+generator.UPu = if generator.running then (generator.terminal.V.re ^ 2.0 + generator.terminal.V.im ^ 2.0) ^ 0.5 else 0.0
 */
 void GeneratorPQ_eqFunction_23(DATA *data, threadData_t *threadData)
 {
@@ -309,7 +309,7 @@ void GeneratorPQ_eqFunction_23(DATA *data, threadData_t *threadData)
   modelica_real tmp2;
   modelica_boolean tmp3;
   modelica_real tmp4;
-  tmp3 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp3 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp3)
   {
     tmp0 = (data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */);
@@ -327,13 +327,13 @@ void GeneratorPQ_eqFunction_23(DATA *data, threadData_t *threadData)
 /*
 equation index: 24
 type: SIMPLE_ASSIGN
-generator.deltaPmRefPu.value = $START.generator.deltaPmRefPu.value
+generator.deltaPmRefPu = $START.generator.deltaPmRefPu
 */
 void GeneratorPQ_eqFunction_24(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,24};
-  (data->localData[0]->realVars[0] /* generator.deltaPmRefPu.value STATE(1) */) = (data->modelData->realVarsData[0] /* generator.deltaPmRefPu.value STATE(1) */).attribute .start;
+  (data->localData[0]->realVars[0] /* generator.deltaPmRefPu STATE(1) */) = (data->modelData->realVarsData[0] /* generator.deltaPmRefPu STATE(1) */).attribute .start;
   TRACE_POP
 }
 
@@ -366,20 +366,20 @@ void GeneratorPQ_eqFunction_26(DATA *data, threadData_t *threadData)
 /*
 equation index: 27
 type: SIMPLE_ASSIGN
-generator.omegaRefPu.value = $START.generator.omegaRefPu.value
+generator.omegaRefPu = $START.generator.omegaRefPu
 */
 void GeneratorPQ_eqFunction_27(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,27};
-  (data->localData[0]->realVars[1] /* generator.omegaRefPu.value STATE(1) */) = (data->modelData->realVarsData[1] /* generator.omegaRefPu.value STATE(1) */).attribute .start;
+  (data->localData[0]->realVars[1] /* generator.omegaRefPu STATE(1) */) = (data->modelData->realVarsData[1] /* generator.omegaRefPu STATE(1) */).attribute .start;
   TRACE_POP
 }
 
 /*
 equation index: 28
 type: SIMPLE_ASSIGN
-generator.PGenRawPu = if generator.running.value then generator.PGen0Pu - (-0.01) * generator.deltaPmRefPu.value * generator.PNom - generator.AlphaPu * (generator.omegaRefPu.value - 1.0) else 0.0
+generator.PGenRawPu = if generator.running then generator.PGen0Pu - (-0.01) * generator.deltaPmRefPu * generator.PNom - generator.AlphaPu * (generator.omegaRefPu - 1.0) else 0.0
 */
 void GeneratorPQ_eqFunction_28(DATA *data, threadData_t *threadData)
 {
@@ -387,10 +387,10 @@ void GeneratorPQ_eqFunction_28(DATA *data, threadData_t *threadData)
   const int equationIndexes[2] = {1,28};
   modelica_boolean tmp5;
   modelica_real tmp6;
-  tmp5 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp5 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp5)
   {
-    tmp6 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * (((data->localData[0]->realVars[0] /* generator.deltaPmRefPu.value STATE(1) */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * ((data->localData[0]->realVars[1] /* generator.omegaRefPu.value STATE(1) */) - 1.0));
+    tmp6 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * (((data->localData[0]->realVars[0] /* generator.deltaPmRefPu STATE(1) */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * ((data->localData[0]->realVars[1] /* generator.omegaRefPu STATE(1) */) - 1.0));
   }
   else
   {
@@ -576,7 +576,7 @@ int GeneratorPQ_functionInitialEquations(DATA *data, threadData_t *threadData)
   data->simulationInfo->discreteCall = 1;
   GeneratorPQ_functionInitialEquations_0(data, threadData);
   data->simulationInfo->discreteCall = 0;
-  
+
   TRACE_POP
   return 0;
 }

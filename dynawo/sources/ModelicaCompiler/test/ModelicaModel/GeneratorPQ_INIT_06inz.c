@@ -72,7 +72,7 @@ void GeneratorPQ_INIT_eqFunction_3(DATA *data, threadData_t *threadData)
   }
 
   retValue = solve_linear_system(data, threadData, 0, &aux_x[0]);
-  
+
   /* check if solution process was successful */
   if (retValue > 0){
     const int indexes[2] = {1,3};
@@ -101,7 +101,7 @@ int GeneratorPQ_INIT_functionInitialEquations(DATA *data, threadData_t *threadDa
   data->simulationInfo->discreteCall = 1;
   GeneratorPQ_INIT_functionInitialEquations_0(data, threadData);
   data->simulationInfo->discreteCall = 0;
-  
+
   TRACE_POP
   return 0;
 }
@@ -123,4 +123,3 @@ int GeneratorPQ_INIT_functionRemovedInitialEquations(DATA *data, threadData_t *t
 #if defined(__cplusplus)
 }
 #endif
-
