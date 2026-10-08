@@ -44,12 +44,13 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Modelica.Blocks.Interfaces.RealOutput Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
 
   Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
-  Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
+  Modelica.Blocks.Interfaces.RealOutput U2Pu "Voltage on side 2 in pu (base U2Nom)";
 
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu;
 
 equation
- uPu = terminal2.V;
+ uPu.re = terminal2.V.re;
+ uPu.im = terminal2.V.im;
   if running then
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
