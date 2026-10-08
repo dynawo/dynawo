@@ -46,34 +46,34 @@ modelica_metatype boxptr_Complex__omcQ_27constructor_27_fromReal(threadData_t *t
   return out_result;
 }
 
-Dynawo_Connectors_ComplexCurrentPuConnector omc_Dynawo_Connectors_ComplexCurrentPuConnector(threadData_t *threadData, modelica_real omc_re, modelica_real omc_im)
+Dynawo_Connectors_ComplexCurrentPuOutput omc_Dynawo_Connectors_ComplexCurrentPuOutput(threadData_t *threadData, modelica_real omc_re, modelica_real omc_im)
 {
-  Dynawo_Connectors_ComplexCurrentPuConnector tmp1;
+  Dynawo_Connectors_ComplexCurrentPuOutput tmp1;
   tmp1._re = omc_re;
   tmp1._im = omc_im;
   return tmp1;
 }
 
-modelica_metatype boxptr_Dynawo_Connectors_ComplexCurrentPuConnector(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im)
+modelica_metatype boxptr_Dynawo_Connectors_ComplexCurrentPuOutput(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im)
 {
-  return mmc_mk_box3(3, &Dynawo_Connectors_ComplexCurrentPuConnector__desc, _re, _im);
+  return mmc_mk_box3(3, &Dynawo_Connectors_ComplexCurrentPuOutput__desc, _re, _im);
 }
 
-Dynawo_Connectors_ComplexVoltagePuConnector omc_Dynawo_Connectors_ComplexVoltagePuConnector(threadData_t *threadData, modelica_real omc_re, modelica_real omc_im)
+Dynawo_Connectors_ComplexVoltagePuOutput omc_Dynawo_Connectors_ComplexVoltagePuOutput(threadData_t *threadData, modelica_real omc_re, modelica_real omc_im)
 {
-  Dynawo_Connectors_ComplexVoltagePuConnector tmp1;
+  Dynawo_Connectors_ComplexVoltagePuOutput tmp1;
   tmp1._re = omc_re;
   tmp1._im = omc_im;
   return tmp1;
 }
 
-modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuConnector(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im)
+modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuOutput(threadData_t *threadData, modelica_metatype _re, modelica_metatype _im)
 {
-  return mmc_mk_box3(3, &Dynawo_Connectors_ComplexVoltagePuConnector__desc, _re, _im);
+  return mmc_mk_box3(3, &Dynawo_Connectors_ComplexVoltagePuOutput__desc, _re, _im);
 }
 
 DLLDirection
-Complex omc_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply(threadData_t *threadData, Complex _c1, Complex _c2)
+Complex omc_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply(threadData_t *threadData, Complex _c1, Complex _c2)
 {
   Complex _c3;
   Complex tmp1;
@@ -84,7 +84,7 @@ Complex omc_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply(
   _return: OMC_LABEL_UNUSED
   return _c3;
 }
-modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply(threadData_t *threadData, modelica_metatype _c1, modelica_metatype _c2)
+modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply(threadData_t *threadData, modelica_metatype _c1, modelica_metatype _c2)
 {
   Complex tmp1;
   modelica_metatype tmpMeta2;
@@ -111,7 +111,7 @@ modelica_metatype boxptr_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A
   tmpMeta9 = (MMC_FETCH(MMC_OFFSET(MMC_UNTAGPTR(_c2), 3)));
   tmp10 = mmc_unbox_real(tmpMeta9);
   tmp6._im = tmp10;
-  _c3 = omc_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply(threadData, tmp1, tmp6);
+  _c3 = omc_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply(threadData, tmp1, tmp6);
   tmpMeta11 = mmc_mk_rcon(_c3._re);
   tmpMeta12 = mmc_mk_rcon(_c3._im);
   out_c3 = mmc_mk_box3(3, &Complex__desc, tmpMeta11, tmpMeta12);

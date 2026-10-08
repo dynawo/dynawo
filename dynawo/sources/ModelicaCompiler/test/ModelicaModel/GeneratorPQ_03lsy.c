@@ -55,7 +55,7 @@ void residualFunc41(RESIDUAL_USERDATA* userData, const double* xloc, double* res
 
   /* local constraints */
   GeneratorPQ_eqFunction_34(data, threadData);
-  tmp0 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp0 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp0)
   {
     tmp1 = (data->localData[0]->realVars[11] /* generator.SGenPu.im variable */) - (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
@@ -66,7 +66,7 @@ void residualFunc41(RESIDUAL_USERDATA* userData, const double* xloc, double* res
   }
   res[0] = tmp1;
 
-  tmp6 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp6 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp6)
   {
     tmp4 = (modelica_boolean)((data->localData[0]->integerVars[1] /* generator.pStatus DISCRETE */) == 3);

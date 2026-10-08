@@ -178,9 +178,13 @@ EXTERNAL_PARAMETER, SHARED_PARAMETER, INTERNAL_PARAMETER = range(3)
 # @return the parameter scope
 def param_scope(par):
     if is_param_with_private_equation (par):
+        if par.is_mandatory():
+            print ("[ERROR] " + par.get_name() + " found in mandatoryParam file but has a private equation (INTERNAL_PARAMETER)")
         assert(not par.is_mandatory())
         return INTERNAL_PARAMETER
     elif is_param_internal(par):
+        if par.is_mandatory():
+            print ("[ERROR] " + par.get_name() + " found in mandatoryParam file but is internal (SHARED_PARAMETER)")
         assert(not par.is_mandatory())
         return SHARED_PARAMETER
     else:
@@ -1687,8 +1691,6 @@ class Equation(EquationBase):
                 text_to_return.append( line )
             else:
                 line = replace_var_names(line)
-                print ("BUBU? " + line)
-                print ("BUBU2? " + self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line))
                 text_to_return.append( self.ptrn_evaluated_var.sub(r'f[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % index, line) )
                 if self.complex_eq:
                     index += 1

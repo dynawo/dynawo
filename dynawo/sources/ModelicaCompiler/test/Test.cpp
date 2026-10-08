@@ -49,14 +49,15 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
       "    [INFO]: Adding fixed flag to variable generator.u0Pu.re"
       "    [INFO]: variable generator.PGen0Pu is considered as fixed (alias of fixed variable generator.P0Pu)."
       "    [INFO]: variable generator.QGen0Pu is considered as fixed (alias of fixed variable generator.Q0Pu)."
+      "    [INFO]: variable generator.U0PuVar is considered as fixed (alias of fixed variable generator.U0Pu)."
       "    [INFO]: variable generator.s0Pu.im is considered as fixed (alias of fixed variable generator.Q0Pu)."
       "    [INFO]: variable generator.s0Pu.re is considered as fixed (alias of fixed variable generator.P0Pu)."
-      "    [INFO]: Starting dynamic model generation    [INFO]: Removing fixed flag from variable generator.switchOffSignal1.value"
-      "    [INFO]: Removing fixed flag from variable generator.switchOffSignal2.value"
-      "    [INFO]: Removing fixed flag from variable generator.switchOffSignal3.value"
+      "    [INFO]: Starting dynamic model generation    [INFO]: Removing fixed flag from variable generator.switchOffSignal1"
+      "    [INFO]: Removing fixed flag from variable generator.switchOffSignal2"
+      "    [INFO]: Removing fixed flag from variable generator.switchOffSignal3"
       "    [INFO]: Removing fixed flag from variable $whenCondition8"
       "    [INFO]: Removing fixed flag from variable $whenCondition7"
-      "    [INFO]: Removing fixed flag from variable generator.running.value"
+      "    [INFO]: Removing fixed flag from variable generator.running"
       "    [INFO]: Removing fixed flag from variable $whenCondition4"
       "    [INFO]: Removing fixed flag from variable $whenCondition3"
       "    [INFO]: Removing fixed flag from variable $whenCondition2"
@@ -71,9 +72,9 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
       "    [INFO]: Discrete variable generator.converter.u is defined as silent (not used in discrete equations)."
       "    [INFO]: Discrete variable generator.converter.u is defined as silent (not used in continuous equations)."
       "    [INFO]: Discrete variable generator.state is defined as silent (not used in continuous equations)."
-      "    [INFO]: Discrete variable generator.switchOffSignal1.value is defined as silent (not used in continuous equations)."
-      "    [INFO]: Discrete variable generator.switchOffSignal2.value is defined as silent (not used in continuous equations)."
-      "    [INFO]: Discrete variable generator.switchOffSignal3.value is defined as silent (not used in continuous equations).";
+      "    [INFO]: Discrete variable generator.switchOffSignal1 is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal2 is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal3 is defined as silent (not used in continuous equations).";
   std::cout << result << std::endl;
   std::cout << res << std::endl;
   if (result != res)

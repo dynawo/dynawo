@@ -23,23 +23,23 @@ ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Complex__omcQ_27constr
   return _result;
 }
 
-ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexCurrentPuConnector( modelica_real omc_re, modelica_real omc_im)
+ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuOutput ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexCurrentPuOutput( modelica_real omc_re, modelica_real omc_im)
 {
-  Dynawo_Connectors_ComplexCurrentPuConnector tmp1;
+  Dynawo_Connectors_ComplexCurrentPuOutput tmp1;
   tmp1._re = omc_re;
   tmp1._im = omc_im;
   return tmp1;
 }
 
-ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexVoltagePuConnector( modelica_real omc_re, modelica_real omc_im)
+ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuOutput ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexVoltagePuOutput( modelica_real omc_re, modelica_real omc_im)
 {
-  Dynawo_Connectors_ComplexVoltagePuConnector tmp1;
+  Dynawo_Connectors_ComplexVoltagePuOutput tmp1;
   tmp1._re = omc_re;
   tmp1._im = omc_im;
   return tmp1;
 }
 
-ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexVoltagePuConnector__omcQ_27_2A_27_multiply( Complex _c1, Complex _c2)
+ModelGeneratorPQ_Init::Complex ModelGeneratorPQ_Init::omc_Dynawo_Connectors_ComplexVoltagePuOutput__omcQ_27_2A_27_multiply( Complex _c1, Complex _c2)
 {
   Complex _c3;
   Complex tmp1;
@@ -108,40 +108,40 @@ void ModelGeneratorPQ_Init::Complex_1_2_construct_p( void* v_ths , modelica_real
   ths->_im = in_im;
 }
 
-void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector_construct_p( void* v_ths ) {
-  Dynawo_Connectors_ComplexCurrentPuConnector* ths = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_ths);
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuOutput_construct_p( void* v_ths ) {
+  Dynawo_Connectors_ComplexCurrentPuOutput* ths = (Dynawo_Connectors_ComplexCurrentPuOutput*)(v_ths);
   // ths->_re has no default value.
   // ths->_im has no default value.
 }
 
-void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) {
-  Dynawo_Connectors_ComplexCurrentPuConnector* dst = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_dst);
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuOutput_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) {
+  Dynawo_Connectors_ComplexCurrentPuOutput* dst = (Dynawo_Connectors_ComplexCurrentPuOutput*)(v_dst);
   dst->_re = in_re;
   dst->_im = in_im;
 }
 
-void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuConnector_copy_p(void* v_src, void* v_dst) {
-  Dynawo_Connectors_ComplexCurrentPuConnector* src = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_src);
-  Dynawo_Connectors_ComplexCurrentPuConnector* dst = (Dynawo_Connectors_ComplexCurrentPuConnector*)(v_dst);
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexCurrentPuOutput_copy_p(void* v_src, void* v_dst) {
+  Dynawo_Connectors_ComplexCurrentPuOutput* src = (Dynawo_Connectors_ComplexCurrentPuOutput*)(v_src);
+  Dynawo_Connectors_ComplexCurrentPuOutput* dst = (Dynawo_Connectors_ComplexCurrentPuOutput*)(v_dst);
   dst->_re = src->_re;
   dst->_im = src->_im;
 }
 
-void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector_construct_p( void* v_ths ) {
-  Dynawo_Connectors_ComplexVoltagePuConnector* ths = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_ths);
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuOutput_construct_p( void* v_ths ) {
+  Dynawo_Connectors_ComplexVoltagePuOutput* ths = (Dynawo_Connectors_ComplexVoltagePuOutput*)(v_ths);
   // ths->_re has no default value.
   // ths->_im has no default value.
 }
 
-void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) {
-  Dynawo_Connectors_ComplexVoltagePuConnector* dst = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_dst);
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuOutput_wrap_vars_p( void* v_dst , modelica_real in_re, modelica_real in_im) {
+  Dynawo_Connectors_ComplexVoltagePuOutput* dst = (Dynawo_Connectors_ComplexVoltagePuOutput*)(v_dst);
   dst->_re = in_re;
   dst->_im = in_im;
 }
 
-void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuConnector_copy_p(void* v_src, void* v_dst) {
-  Dynawo_Connectors_ComplexVoltagePuConnector* src = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_src);
-  Dynawo_Connectors_ComplexVoltagePuConnector* dst = (Dynawo_Connectors_ComplexVoltagePuConnector*)(v_dst);
+void ModelGeneratorPQ_Init::Dynawo_Connectors_ComplexVoltagePuOutput_copy_p(void* v_src, void* v_dst) {
+  Dynawo_Connectors_ComplexVoltagePuOutput* src = (Dynawo_Connectors_ComplexVoltagePuOutput*)(v_src);
+  Dynawo_Connectors_ComplexVoltagePuOutput* dst = (Dynawo_Connectors_ComplexVoltagePuOutput*)(v_dst);
   dst->_re = src->_re;
   dst->_im = src->_im;
 }

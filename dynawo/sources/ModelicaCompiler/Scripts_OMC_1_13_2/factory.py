@@ -453,10 +453,14 @@ class Factory:
         for par in all_params:
             is_mandatory = par.get_name() in mandatory_params
             par.set_mandatory(is_mandatory)
+            # A mandatory parameter has no default value: ignore the default start value (0) added by OMC >= 1.24
+            if is_mandatory:
+                par.set_use_start("false")
             if is_mandatory and par.get_alias_name():
                 alias = name_to_param.get(par.get_alias_name())
                 if alias is not None:
                     alias.set_mandatory(True)
+                    alias.set_use_start("false")
 
         ## Removing of WhenVar bool variables, we only keep "real" boolean variables
         tmp_var = []
@@ -1445,7 +1449,6 @@ class Factory:
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
             if var.get_use_start() and (var.get_init_by_param_in_06inz() and var.should_use_default_start(self.reader.list_omc_functions)):
-                 print ("BUBU0 " + var.get_name())
                  init_val = var.get_start_text()[0]
                  if init_val == "":
                      init_val = "0.0"
@@ -1454,7 +1457,6 @@ class Factory:
                  line = replace_var_names(line)
                  self.list_for_sety0.append(line)
             elif var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
-                print ("BUBU1 " + var.get_name())
                 var.clean_start_text () # Clean up initialization text before printing
 
                 # Lines for reading comfort at the impression
@@ -1479,7 +1481,6 @@ class Factory:
                 if len(var.get_start_text()) > 1 : self.list_for_sety0.append("\n") # reading comfort
 
             elif var.get_init_by_param_in_06inz():
-                print ("BUBU2 " + var.get_name())
                 var.clean_start_text_06inz()
                 # Lines for reading comfort at the impression
                 if len(var.get_start_text_06inz()) > 1 :
@@ -1502,7 +1503,6 @@ class Factory:
 
                 if len(var.get_start_text_06inz()) > 1 : self.list_for_sety0.append("\n") # reading comfort
             elif is_const_var(var) and var.is_alias():
-                print ("BUBU3 " + var.get_name())
                 test_param_address(var.get_name())
                 alias_name = var.get_alias_name()
                 test_param_address(alias_name)
@@ -1511,7 +1511,6 @@ class Factory:
                 line = replace_var_names(line)
                 self.list_for_sety0.append(line)
             else:
-                print ("BUBU4 " + var.get_name())
                 init_val = var.get_start_text()[0]
                 if init_val == "":
                     init_val = "0.0"

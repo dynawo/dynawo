@@ -51,14 +51,14 @@ void GeneratorPQ_eqFunction_75(DATA *data, threadData_t *threadData)
 /*
 equation index: 76
 type: SIMPLE_ASSIGN
-$DAEres3 = der(generator.deltaPmRefPu.value)
+$DAEres3 = der(generator.deltaPmRefPu)
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_76(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,76};
-  (data->simulationInfo->daeModeData->residualVars[3]) /* $DAEres3 DAE_RESIDUAL_VAR */ = (data->localData[0]->realVars[4] /* der(generator.deltaPmRefPu.value) STATE_DER */);
+  (data->simulationInfo->daeModeData->residualVars[3]) /* $DAEres3 DAE_RESIDUAL_VAR */ = (data->localData[0]->realVars[4] /* der(generator.deltaPmRefPu) STATE_DER */);
   TRACE_POP
 }
 /*
@@ -90,14 +90,14 @@ void GeneratorPQ_eqFunction_78(DATA *data, threadData_t *threadData)
 /*
 equation index: 79
 type: SIMPLE_ASSIGN
-$DAEres0 = der(generator.omegaRefPu.value)
+$DAEres0 = der(generator.omegaRefPu)
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_79(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,79};
-  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres0 DAE_RESIDUAL_VAR */ = (data->localData[0]->realVars[5] /* der(generator.omegaRefPu.value) STATE_DER */);
+  (data->simulationInfo->daeModeData->residualVars[0]) /* $DAEres0 DAE_RESIDUAL_VAR */ = (data->localData[0]->realVars[5] /* der(generator.omegaRefPu) STATE_DER */);
   TRACE_POP
 }
 /*
@@ -124,7 +124,7 @@ equation index: 81
 type: WHEN
 
 when {$whenCondition9} then
-  generator.switchOffSignal1.value = false;
+  generator.switchOffSignal1 = false;
 end when;
 */
 OMC_DISABLE_OPT
@@ -134,7 +134,7 @@ void GeneratorPQ_eqFunction_81(DATA *data, threadData_t *threadData)
   const int equationIndexes[2] = {1,81};
   if(((data->localData[0]->booleanVars[8] /* $whenCondition9 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[8] /* $whenCondition9 DISCRETE */) /* edge */))
   {
-    (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */) = 0 /* false */;
+    (data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */) = 0 /* false */;
   }
   TRACE_POP
 }
@@ -143,7 +143,7 @@ equation index: 82
 type: WHEN
 
 when {$whenCondition9} then
-  generator.switchOffSignal2.value = false;
+  generator.switchOffSignal2 = false;
 end when;
 */
 OMC_DISABLE_OPT
@@ -153,7 +153,7 @@ void GeneratorPQ_eqFunction_82(DATA *data, threadData_t *threadData)
   const int equationIndexes[2] = {1,82};
   if(((data->localData[0]->booleanVars[8] /* $whenCondition9 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[8] /* $whenCondition9 DISCRETE */) /* edge */))
   {
-    (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */) = 0 /* false */;
+    (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */) = 0 /* false */;
   }
   TRACE_POP
 }
@@ -162,7 +162,7 @@ equation index: 83
 type: WHEN
 
 when {$whenCondition9} then
-  generator.switchOffSignal3.value = false;
+  generator.switchOffSignal3 = false;
 end when;
 */
 OMC_DISABLE_OPT
@@ -172,34 +172,34 @@ void GeneratorPQ_eqFunction_83(DATA *data, threadData_t *threadData)
   const int equationIndexes[2] = {1,83};
   if(((data->localData[0]->booleanVars[8] /* $whenCondition9 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[8] /* $whenCondition9 DISCRETE */) /* edge */))
   {
-    (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */) = 0 /* false */;
+    (data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */) = 0 /* false */;
   }
   TRACE_POP
 }
 /*
 equation index: 84
 type: SIMPLE_ASSIGN
-$whenCondition8 = generator.switchOffSignal1.value or generator.switchOffSignal2.value or generator.switchOffSignal3.value and pre(generator.running.value)
+$whenCondition8 = generator.switchOffSignal1 or generator.switchOffSignal2 or generator.switchOffSignal3 and pre(generator.running)
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_84(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,84};
-  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = (((data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */) || (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */)) || ((data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */) && (data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */)));
+  (data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) = (((data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */) || (data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */)) || ((data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */) && (data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */)));
   TRACE_POP
 }
 /*
 equation index: 85
 type: SIMPLE_ASSIGN
-$whenCondition7 = not generator.switchOffSignal1.value and not generator.switchOffSignal2.value and not generator.switchOffSignal3.value and not pre(generator.running.value)
+$whenCondition7 = not generator.switchOffSignal1 and not generator.switchOffSignal2 and not generator.switchOffSignal3 and not pre(generator.running)
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_85(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,85};
-  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!(data->localData[0]->booleanVars[10] /* generator.switchOffSignal1.value DISCRETE */)) && (!(data->localData[0]->booleanVars[11] /* generator.switchOffSignal2.value DISCRETE */))) && (!(data->localData[0]->booleanVars[12] /* generator.switchOffSignal3.value DISCRETE */))) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */)));
+  (data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) = ((((!(data->localData[0]->booleanVars[10] /* generator.switchOffSignal1 DISCRETE */)) && (!(data->localData[0]->booleanVars[11] /* generator.switchOffSignal2 DISCRETE */))) && (!(data->localData[0]->booleanVars[12] /* generator.switchOffSignal3 DISCRETE */))) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */)));
   TRACE_POP
 }
 /*
@@ -207,7 +207,7 @@ equation index: 86
 type: WHEN
 
 when {$whenCondition8} then
-  generator.running.value = false;
+  generator.running = false;
 end when;
 */
 OMC_DISABLE_OPT
@@ -217,18 +217,18 @@ void GeneratorPQ_eqFunction_86(DATA *data, threadData_t *threadData)
   const int equationIndexes[2] = {1,86};
   if(((data->localData[0]->booleanVars[7] /* $whenCondition8 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[7] /* $whenCondition8 DISCRETE */) /* edge */))
   {
-    (data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */) = 0 /* false */;
+    (data->localData[0]->booleanVars[9] /* generator.running DISCRETE */) = 0 /* false */;
   }
   else if(((data->localData[0]->booleanVars[6] /* $whenCondition7 DISCRETE */) && !(data->simulationInfo->booleanVarsPre[6] /* $whenCondition7 DISCRETE */) /* edge */))
   {
-    (data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */) = 1 /* true */;
+    (data->localData[0]->booleanVars[9] /* generator.running DISCRETE */) = 1 /* true */;
   }
   TRACE_POP
 }
 /*
 equation index: 88
 type: SIMPLE_ASSIGN
-generator.UPu = if generator.running.value then (generator.terminal.V.re ^ 2.0 + generator.terminal.V.im ^ 2.0) ^ 0.5 else 0.0
+generator.UPu = if generator.running then (generator.terminal.V.re ^ 2.0 + generator.terminal.V.im ^ 2.0) ^ 0.5 else 0.0
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_88(DATA *data, threadData_t *threadData)
@@ -240,7 +240,7 @@ void GeneratorPQ_eqFunction_88(DATA *data, threadData_t *threadData)
   modelica_real tmp5;
   modelica_boolean tmp6;
   modelica_real tmp7;
-  tmp6 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp6 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp6)
   {
     tmp3 = (data->localData[0]->realVars[3] /* generator.terminal.V.re STATE(1) */);
@@ -257,7 +257,7 @@ void GeneratorPQ_eqFunction_88(DATA *data, threadData_t *threadData)
 /*
 equation index: 89
 type: SIMPLE_ASSIGN
-generator.PGenRawPu = if generator.running.value then generator.PGen0Pu - (-0.01) * generator.deltaPmRefPu.value * generator.PNom - generator.AlphaPu * (generator.omegaRefPu.value - 1.0) else 0.0
+generator.PGenRawPu = if generator.running then generator.PGen0Pu - (-0.01) * generator.deltaPmRefPu * generator.PNom - generator.AlphaPu * (generator.omegaRefPu - 1.0) else 0.0
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_89(DATA *data, threadData_t *threadData)
@@ -266,10 +266,10 @@ void GeneratorPQ_eqFunction_89(DATA *data, threadData_t *threadData)
   const int equationIndexes[2] = {1,89};
   modelica_boolean tmp8;
   modelica_real tmp9;
-  tmp8 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp8 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp8)
   {
-    tmp9 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * (((data->localData[0]->realVars[0] /* generator.deltaPmRefPu.value STATE(1) */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * ((data->localData[0]->realVars[1] /* generator.omegaRefPu.value STATE(1) */) - 1.0));
+    tmp9 = (data->simulationInfo->realParameter[2] /* generator.PGen0Pu PARAM */) - ((-0.01) * (((data->localData[0]->realVars[0] /* generator.deltaPmRefPu STATE(1) */)) * ((data->simulationInfo->realParameter[7] /* generator.PNom PARAM */)))) - (((data->simulationInfo->realParameter[0] /* generator.AlphaPu PARAM */)) * ((data->localData[0]->realVars[1] /* generator.omegaRefPu STATE(1) */) - 1.0));
   }
   else
   {
@@ -388,27 +388,27 @@ void GeneratorPQ_eqFunction_94(DATA *data, threadData_t *threadData)
 /*
 equation index: 98
 type: SIMPLE_ASSIGN
-$whenCondition6 = not generator.running.value
+$whenCondition6 = not generator.running
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_98(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,98};
-  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */));
+  (data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */) = (!(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */));
   TRACE_POP
 }
 /*
 equation index: 99
 type: SIMPLE_ASSIGN
-$whenCondition5 = generator.running.value and not pre(generator.running.value)
+$whenCondition5 = generator.running and not pre(generator.running)
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_99(DATA *data, threadData_t *threadData)
 {
   TRACE_PUSH
   const int equationIndexes[2] = {1,99};
-  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = ((data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running.value DISCRETE */)));
+  (data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */) = ((data->localData[0]->booleanVars[9] /* generator.running DISCRETE */) && (!(data->simulationInfo->booleanVarsPre[9] /* generator.running DISCRETE */)));
   TRACE_POP
 }
 /*
@@ -463,7 +463,7 @@ void GeneratorPQ_eqFunction_103(DATA *data, threadData_t *threadData)
 /*
 equation index: 104
 type: SIMPLE_ASSIGN
-$DAEres5 = if generator.running.value then generator.SGenPu.im - generator.QGen0Pu else generator.terminal.i.im
+$DAEres5 = if generator.running then generator.SGenPu.im - generator.QGen0Pu else generator.terminal.i.im
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_104(DATA *data, threadData_t *threadData)
@@ -472,7 +472,7 @@ void GeneratorPQ_eqFunction_104(DATA *data, threadData_t *threadData)
   const int equationIndexes[2] = {1,104};
   modelica_boolean tmp22;
   modelica_real tmp23;
-  tmp22 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp22 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp22)
   {
     tmp23 = (data->localData[0]->realVars[11] /* generator.SGenPu.im variable */) - (data->simulationInfo->realParameter[8] /* generator.QGen0Pu PARAM */);
@@ -487,7 +487,7 @@ void GeneratorPQ_eqFunction_104(DATA *data, threadData_t *threadData)
 /*
 equation index: 105
 type: SIMPLE_ASSIGN
-$DAEres7 = if generator.running.value then generator.PGenPu - (if generator.pStatus == generator.PStatus.LimitPMax then generator.PMaxPu else if generator.pStatus == generator.PStatus.LimitPMin then generator.PMinPu else generator.PGenRawPu) else generator.terminal.i.re
+$DAEres7 = if generator.running then generator.PGenPu - (if generator.pStatus == generator.PStatus.LimitPMax then generator.PMaxPu else if generator.pStatus == generator.PStatus.LimitPMin then generator.PMinPu else generator.PGenRawPu) else generator.terminal.i.re
 */
 OMC_DISABLE_OPT
 void GeneratorPQ_eqFunction_105(DATA *data, threadData_t *threadData)
@@ -500,7 +500,7 @@ void GeneratorPQ_eqFunction_105(DATA *data, threadData_t *threadData)
   modelica_real tmp27;
   modelica_boolean tmp28;
   modelica_real tmp29;
-  tmp28 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running.value DISCRETE */);
+  tmp28 = (modelica_boolean)(data->localData[0]->booleanVars[9] /* generator.running DISCRETE */);
   if(tmp28)
   {
     tmp26 = (modelica_boolean)((data->localData[0]->integerVars[1] /* generator.pStatus DISCRETE */) == 3);
@@ -766,23 +766,23 @@ int GeneratorPQ_initializeDAEmodeData(DATA* data, DAEMODE_DATA* daeModeData)
   const int rowIndex[20] = {3,7,0,7,1,4,6,2,4,6,4,7,5,6,4,5,6,4,6,7};
   const int algIndexes[4] = {9,11,14,15};
   int i = 0;
-  
+
   daeModeData->nResidualVars = 8;
   daeModeData->nAlgebraicDAEVars = 4;
   daeModeData->nAuxiliaryVars = 0;
-  
+
   daeModeData->residualVars = (double*) malloc(sizeof(double)*8);
   daeModeData->auxiliaryVars = (double*) malloc(sizeof(double)*0);
-  
+
   /* set the function pointer */
   daeModeData->evaluateDAEResiduals = GeneratorPQ_evaluateDAEResiduals;
-  
+
   /* prepare algebraic indexes */
   daeModeData->algIndexes = (int*) malloc(sizeof(int)*4);
   memcpy(daeModeData->algIndexes, algIndexes, 4*sizeof(int));
   /* intialize sparse pattern */
   daeModeData->sparsePattern = allocSparsePattern(8, 20, 5);
-  
+
   /* write lead index of compressed sparse column */
   memcpy(daeModeData->sparsePattern->leadindex, colPtrIndex, (1+8)*sizeof(int));
   /* makek CRS compatible */
@@ -790,7 +790,7 @@ int GeneratorPQ_initializeDAEmodeData(DATA* data, DAEMODE_DATA* daeModeData)
     daeModeData->sparsePattern->leadindex[i] += daeModeData->sparsePattern->leadindex[i-1];
   /* call sparse index */
   memcpy(daeModeData->sparsePattern->index, rowIndex, 20*sizeof(int));
-  
+
   /* write color array */
   /* color 1 with 1 columns */
   const int indices_1[1] = {6};

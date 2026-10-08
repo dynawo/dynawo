@@ -1086,9 +1086,7 @@ class ReaderOMC:
                         #Sometime a complex init ends up in 06...
                         #data->modelData->realVarsData[...].attribute.start = data->simulationInfo->realParameter[..];
                         #data->localData[0]->realVars[...]  = data->modelData->realVarsData[...].attribute.start;
-                        print ("BUBU TEST " + line)
                         if ptrn_assign_var_complex.search(line) is not None:
-                            print ("BUBU INIT? " + line)
                             match = re.search(ptrn_assign_var_complex, line)
                             var_name = str(match.group('varName'))
                             self.var_init_val[ var_name ] = list_body
@@ -1251,7 +1249,7 @@ class ReaderOMC:
         global stop_at_next_call
         # Regular expression to recognize a line of type $Pvar = $Prhs
         ptrn_assign_var = re.compile(r'^[ ]*\(data->modelData->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.\[\]]+ \*\/\)\.attribute[ ]*.start[ ]*=[^;]*;')
-        ptrn_param = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=[^;]*;')
+        ptrn_param = re.compile(r'\(data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/\)[ ]*=(?!=)[^;]*;')
         ptrn_tmp_assign = re.compile(r'\s*tmp[0-9]+\s*=[^;]*==[^;]*;')
         ptrn_param_bool_assignment = re.compile(r'\(data->simulationInfo->booleanParameter\[(?P<var>\S*)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_assign_auxiliary_var = re.compile(r'^[ ]*\(data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/\)[ ]*=[^;]*;')
