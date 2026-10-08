@@ -1,0 +1,148 @@
+%% Copyright (c) 2024, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, a hybrid C++/Modelica open source suite
+%% of simulation tools for power systems.
+
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../../../documentation/latex_setup.tex}
+
+\begin{document}
+
+\chapter{Three-phase fault}
+
+\begin{figure}[H]
+\subfigure[Stator voltage (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_UPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Excitation voltage (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_efdPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Mechanical power (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_PmPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Active power (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_PGenPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_QGenPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Omega (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_omegaPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Theta (rad)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_theta]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Rotor current (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_IRotorPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Stator current (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_generator_IStatorPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[H]
+\subfigure[Underexcitation limiter output (pu)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 3.1in]
+        \addplot[color=red!50]
+        table[x=time, y=SM_voltageRegulator_UUelPu]
+        {../reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\end{figure}
+
+\end{document}
