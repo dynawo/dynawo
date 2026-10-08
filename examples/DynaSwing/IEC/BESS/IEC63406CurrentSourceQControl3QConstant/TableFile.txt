@@ -1,0 +1,24 @@
+#1
+double InertialTable(2,2)
+-1 -1
+1  1
+
+double FFRTable(2,2)
+-1 -1
+1  1
+
+double QMaxtoPTable(2,2)
+-1 -1
+1  1
+
+double QMintoPTable(2,2)
+-1 -1
+1  1
+
+double QMaxtoUTable(2,2)
+-1 -1
+1  1
+
+double QMintoUTable(2,2)
+-1 -1
+1  1

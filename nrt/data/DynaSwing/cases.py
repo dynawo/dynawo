@@ -108,6 +108,66 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+###############################################
+# IEC BESS Current Source QControl3 QConstant #
+###############################################
+
+case_name = "DynaSwing - IEC - BESS - Current source - QControl3 - QConstant"
+case_description = "IEC - BESS - Current source - PRef, QRef and faults"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "BESS", "IEC63406CurrentSourceQControl3QConstant", "IEC63406CurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#################################################
+# IEC BESS Current Source QControl4 PowerFactor #
+#################################################
+
+case_name = "DynaSwing - IEC - BESS - Current source - QControl4 - PowerFactor"
+case_description = "IEC - BESS - Current source - PRef, QRef and faults"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "BESS", "IEC63406CurrentSourceQControl4PowerFactor", "IEC63406CurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#############################################
+# IEC BESS Voltage Source QControl10 UDroop #
+#############################################
+
+case_name = "DynaSwing - IEC - BESS - Voltage source - QControl10 - UDroop"
+case_description = "IEC - BESS - Voltage source - PRef, QRef and faults"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "BESS", "IEC63406VoltageSourceQControl10UDroop", "IEC63406VoltageSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#######################################################################
+# IEC Converter Based Generation Unit Current Source QControl2 UDroop #
+#######################################################################
+
+case_name = "DynaSwing - IEC - Converter Based Generation Unit - Current source - QControl2 - UDroop"
+case_description = "IEC - Converter Based Generation Unit - Current source - PRef, QRef and faults"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Converter", "IEC63406CurrentSourceQControl2UDroop", "IEC63406CurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##########################################################################
+# IEC Converter Based Generation Unit Current Source QControl5 UConstant #
+##########################################################################
+
+case_name = "DynaSwing - IEC - Converter Based Generation Unit - Current source - QControl5 - UConstant"
+case_description = "IEC - Converter Based Generation Unit - Current source - PRef, QRef and faults"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Converter", "IEC63406CurrentSourceQControl5UConstant", "IEC63406CurrentSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+#######################################################################
+# IEC Converter Based Generation Unit Voltage Source QControl6 UDroop #
+#######################################################################
+
+case_name = "DynaSwing - IEC - Converter Based Generation Unit - Voltage source - QControl6 - UDroop "
+case_description = "IEC - Converter Based Generation Unit - Voltage source - PRef, QRef and faults"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Converter", "IEC63406VoltageSourceQControl6UDroop", "IEC63406VoltageSource.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
 ######################################################
 #     IEC Wind Turbine Type 4A 2015 Current Source Q      #
 ######################################################
