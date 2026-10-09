@@ -39,6 +39,26 @@ job_file = os.path.join(os.path.dirname(__file__),  "Wind", "WT4BCurrentSource",
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
 
 ################################################
+#      WECC WTG4A test case with LVRTIBG       #
+################################################
+
+case_name = "WECC WTG4A LVRTIBG"
+case_description = "WECC WTG4B with LVRTIBG test on a SMIB network"
+job_file = os.path.join(os.path.dirname(__file__),  "Wind", "WTG4ACurrentSourceLVRTIBG", "WTG4A.jobs")
+
+test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
+
+################################################
+#      WECC WTG4A test case with LVRTIBGa      #
+################################################
+
+case_name = "WECC WTG4A LVRTIBGa"
+case_description = "WECC WTG4B with LVRTIBG test on a SMIB network"
+job_file = os.path.join(os.path.dirname(__file__),  "Wind", "WTG4ACurrentSourceLVRTIBGa", "WTG4A.jobs")
+
+test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
+
+################################################
 #           WECC WTG4B test case with HVRT     #
 ################################################
 
