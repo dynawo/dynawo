@@ -234,6 +234,16 @@ class ModelVoltageLevel : public NetworkComponent {
   StateChange_t evalState(double time) override;
 
   /**
+   * @copydoc NetworkComponent::hasPatternInvariantTopologyChange()
+   *
+   * Voltage-level topology events are switch/bus/injection connection
+   * changes; with superset switch sparsity they are downgradable.
+   */
+  bool hasPatternInvariantTopologyChange() const override {
+    return true;
+  }
+
+  /**
    * @copydoc NetworkComponent::evalNodeInjection()
    */
   void evalNodeInjection()  override;

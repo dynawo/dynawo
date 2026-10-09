@@ -80,6 +80,7 @@ printfl_(0),
 skipNextNR_(false),
 skipAlgebraicResidualsEvaluation_(false),
 optimizeAlgebraicResidualsEvaluations_(true),
+algebraicRestorationOnInvariantTopology_(false),
 skipNRIfInitialGuessOK_(true),
 nbLastTimeSimulated_(0) {
   minimalAcceptableStep_ = 0.1;
@@ -104,6 +105,8 @@ SolverCommonFixedTimeStep::defineSpecificParametersCommon() {
   parameters_.insert(make_pair("mxiter", ParameterSolver("mxiter", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT, optional)));
   parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("algebraicRestorationOnInvariantTopology",
+      ParameterSolver("algebraicRestorationOnInvariantTopology", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL, optional)));
 }
 
@@ -138,6 +141,9 @@ SolverCommonFixedTimeStep::setSolverSpecificParametersCommon() {
   const ParameterSolver& optimizeAlgebraicResidualsEvaluations = findParameter("optimizeAlgebraicResidualsEvaluations");
   if (optimizeAlgebraicResidualsEvaluations.hasValue())
     optimizeAlgebraicResidualsEvaluations_ = optimizeAlgebraicResidualsEvaluations.getValue<bool>();
+  const ParameterSolver& algebraicRestorationOnInvariantTopology = findParameter("algebraicRestorationOnInvariantTopology");
+  if (algebraicRestorationOnInvariantTopology.hasValue())
+    algebraicRestorationOnInvariantTopology_ = algebraicRestorationOnInvariantTopology.getValue<bool>();
   const ParameterSolver& skipNRIfInitialGuessOK = findParameter("skipNRIfInitialGuessOK");
   if (skipNRIfInitialGuessOK.hasValue())
     skipNRIfInitialGuessOK_ = skipNRIfInitialGuessOK.getValue<bool>();
@@ -401,7 +407,12 @@ void SolverCommonFixedTimeStep::handleRoot(bool& redoStep) {
   if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE) {
     factorizationForced_ = true;
   } else {
-    factorizationForced_ = false;
+    // A topology event reported as ALGEBRAIC_MODE has moved the operating point while leaving
+    // the sparsity pattern fixed, so the next step must not start on the pre-event Jacobian.
+    // The factorization it forces is numeric only: the symbolic analysis is kept, because the
+    // pattern comparison in SolverCommon::propagateMatrixStructureChangeToKINSOL finds no
+    // change. getPatternInvariantTopoChange() is false for a plain algebraic event.
+    factorizationForced_ = model_->getPatternInvariantTopoChange();
     increaseStep();
   }
   redoStep = false;
@@ -430,7 +441,11 @@ bool SolverCommonFixedTimeStep::setupNewAlgRestoration(modeChangeType_t modeChan
     if (hasPrediction())
       getSolverKINYPrim().setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 
-    return false;  // no J factorization
+    // A pattern-invariant topology event reaches this branch as ALGEBRAIC_MODE, and the
+    // restoration solve needs a fresh factorization: the switch state moved the Jacobian's
+    // values, only its pattern is fixed. The factorization is numeric only, the symbolic
+    // analysis being retained because the pattern comparison finds no change.
+    return model_->getPatternInvariantTopoChange();
   } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
     solverKINAlgRestoration_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                            printflAlgJ_);
@@ -454,8 +469,24 @@ SolverCommonFixedTimeStep::reinit() {
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
 
-  if (modeChangeType < minimumModeChangeTypeForAlgebraicRestoration_)
+  // A pattern-invariant topology event is decided here rather than by
+  // minimumModeChangeTypeForAlgebraicRestoration, which compares severity only.
+  //
+  // By default such an event skips algebraic restoration: this solver re-solves F(y) = 0 over
+  // every variable on the next step, algebraic ones included, so the algebraic state is restored
+  // there instead, at the cost of the trajectory lagging by one step at the event instant. Set
+  // algebraicRestorationOnInvariantTopology to keep the restoration.
+  //
+  // The skip requires every event on the step to be pattern-invariant. A step also carrying a
+  // structural event reports ALGEBRAIC_J_UPDATE_MODE, and keeps its restoration.
+  const bool patternInvariantTopoEvent =
+      model_->getPatternInvariantTopoChange() && modeChangeType < ALGEBRAIC_J_UPDATE_MODE;
+  if (patternInvariantTopoEvent) {
+    if (!algebraicRestorationOnInvariantTopology_)
+      return;
+  } else if (modeChangeType < minimumModeChangeTypeForAlgebraicRestoration_) {
     return;
+  }
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   skipAlgebraicResidualsEvaluation_ = false;
