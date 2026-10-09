@@ -324,6 +324,11 @@ class ModelVoltageLevel : public NetworkComponent {
   void setReferenceG(state_g* g, int offsetG) override;
 
   /**
+   * @copydoc NetworkComponent::deactivateZeroCrossingFunctions()
+   */
+  void deactivateZeroCrossingFunctions() override;
+
+  /**
    * @brief export the variables values of the sub model for dump
    *
    * @param streamVariables : map associating the file where values should be dumped with the stream of values
