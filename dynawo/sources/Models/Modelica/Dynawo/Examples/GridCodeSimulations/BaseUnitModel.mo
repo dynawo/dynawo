@@ -245,9 +245,9 @@ initial algorithm
   Unit.UControl0Pu := wtgCurrentSource_INIT.UControl0Pu;
 
 equation
-  Unit.injector.switchOffSignal1 = false;
-  Unit.injector.switchOffSignal2 = false;
-  Unit.injector.switchOffSignal3 = false;
+  Unit.switchOffSignal1 = false;
+  Unit.switchOffSignal2 = false;
+  Unit.switchOffSignal3 = false;
 
   connect(QRefPu.y, Unit.QRefPu) annotation(
     Line(points = {{79, 40}, {60, 40}, {60, 12}, {42, 12}}, color = {0, 0, 127}));

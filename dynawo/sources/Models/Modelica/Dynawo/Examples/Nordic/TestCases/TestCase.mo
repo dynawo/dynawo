@@ -308,31 +308,32 @@ equation
               g19.generatorSynchronous.SNom * g19.generatorSynchronous.H +
               g20.generatorSynchronous.SNom * g20.generatorSynchronous.H);
 
-  g01.generatorSynchronous.omegaRefPu = omegaCOI;
-  g02.generatorSynchronous.omegaRefPu = omegaCOI;
-  g03.generatorSynchronous.omegaRefPu = omegaCOI;
-  g04.generatorSynchronous.omegaRefPu = omegaCOI;
-  g05.generatorSynchronous.omegaRefPu = omegaCOI;
-  g06.generatorSynchronous.omegaRefPu = omegaCOI;
-  g07.generatorSynchronous.omegaRefPu = omegaCOI;
-  g08.generatorSynchronous.omegaRefPu = omegaCOI;
-  g09.generatorSynchronous.omegaRefPu = omegaCOI;
-  g10.generatorSynchronous.omegaRefPu = omegaCOI;
-  g11.generatorSynchronous.omegaRefPu = omegaCOI;
-  g12.generatorSynchronous.omegaRefPu = omegaCOI;
-  g13.generatorSynchronous.omegaRefPu = omegaCOI;
-  g14.generatorSynchronous.omegaRefPu = omegaCOI;
-  g15.generatorSynchronous.omegaRefPu = omegaCOI;
-  g16.generatorSynchronous.omegaRefPu = omegaCOI;
-  g17.generatorSynchronous.omegaRefPu = omegaCOI;
-  g18.generatorSynchronous.omegaRefPu = omegaCOI;
-  g19.generatorSynchronous.omegaRefPu = omegaCOI;
-  g20.generatorSynchronous.omegaRefPu = omegaCOI;
+  g01.omegaRefPu = omegaCOI;
+  g02.omegaRefPu = omegaCOI;
+  g03.omegaRefPu = omegaCOI;
+  g04.omegaRefPu = omegaCOI;
+  g05.omegaRefPu = omegaCOI;
+  g06.omegaRefPu = omegaCOI;
+  g07.omegaRefPu = omegaCOI;
+  g08.omegaRefPu = omegaCOI;
+  g09.omegaRefPu = omegaCOI;
+  g10.omegaRefPu = omegaCOI;
+  g11.omegaRefPu = omegaCOI;
+  g12.omegaRefPu = omegaCOI;
+  g13.omegaRefPu = omegaCOI;
+  g14.omegaRefPu = omegaCOI;
+  g15.omegaRefPu = omegaCOI;
+  g16.omegaRefPu = omegaCOI;
+  g17.omegaRefPu = omegaCOI;
+  g18.omegaRefPu = omegaCOI;
+  g19.omegaRefPu = omegaCOI;
+  g20.omegaRefPu = omegaCOI;
 
   connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 169.8, Tolerance = 0.005, Interval = 0.01),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection --maxSizeLinearTearing=1040 --maxSizeNonlinearTearing=1040 --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "euler", lssMaxDensity = "0.1"),

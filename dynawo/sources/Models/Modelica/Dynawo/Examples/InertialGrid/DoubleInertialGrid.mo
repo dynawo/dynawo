@@ -116,12 +116,12 @@ equation
   line2.switchOffSignal2 = false;
   line3.switchOffSignal1 = false;
   line3.switchOffSignal2 = false;
-  inertialGrid1.injectorURI.switchOffSignal1 = false;
-  inertialGrid1.injectorURI.switchOffSignal2 = false;
-  inertialGrid1.injectorURI.switchOffSignal3 = false;
-  inertialGrid2.injectorURI.switchOffSignal1 = false;
-  inertialGrid2.injectorURI.switchOffSignal2 = false;
-  inertialGrid2.injectorURI.switchOffSignal3 = false;
+  inertialGrid1.switchOffSignal1 = false;
+  inertialGrid1.switchOffSignal2 = false;
+  inertialGrid1.switchOffSignal3 = false;
+  inertialGrid2.switchOffSignal1 = false;
+  inertialGrid2.switchOffSignal2 = false;
+  inertialGrid2.switchOffSignal3 = false;
 
 // No variations in PspPu for the inertial grids
   der(inertialGrid1.reducedOrderSFR.PspPu) = 0;
