@@ -6,20 +6,21 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
-
-add_subdirectory(BaseControls B)
-add_subdirectory(Converters C)
-add_subdirectory(Plants P)
+# This file is part of Dynawo, a hybrid C++/Modelica open source suite
+# of simulation tools for power systems.
 
 set(MODEL_FILES
-  package.mo
-  package.order
-  )
+    package.mo
+    package.order
+    GenericInverter.mo
+    GenericInverter.extvar
+    GenericInverter.mandatoryParam
+    GenericInverter_INIT.mo
+    )
 
 #
 # Modelica models install
 #
 foreach( MODEL_FILE ${MODEL_FILES} )
-    install_model_file(${MODEL_FILE})
+    INSTALL_MODEL_file(${MODEL_FILE})
 endforeach( MODEL_FILE )
