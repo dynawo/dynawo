@@ -8,8 +8,8 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <mandatoryParameters>
   <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
@@ -46,7 +46,6 @@
   <mandatoryParameter name="PQFlag" type="BOOL"/>
   <mandatoryParameter name="QFlag" type="BOOL"/>
   <mandatoryParameter name="VFlag" type="BOOL"/>
-  <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="Dbd1Pu" type="DOUBLE"/>
   <mandatoryParameter name="Dbd2Pu" type="DOUBLE"/>
   <mandatoryParameter name="DPMaxPu" type="DOUBLE"/>
@@ -75,16 +74,10 @@
   <mandatoryParameter name="Id0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
   <mandatoryParameter name="PF0" type="DOUBLE"/>
-  <mandatoryParameter name="PConv0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="QConv0Pu" type="DOUBLE"/>
   <mandatoryParameter name="UInj0Pu" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="UConv0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="uConv0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="uConv0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp11" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp12" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp21" type="DOUBLE"/>
