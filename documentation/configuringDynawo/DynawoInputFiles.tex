@@ -347,6 +347,29 @@ time if a criterion is not respected.
 </job>
 \end{lstlisting}
 
+\subsubsection{Track the real time performance of the simulation}
+
+The user can ask \Dynawo to record the wall-clock duration of each simulation step by setting the ``enableRealTimeTracking'' attribute of the ``simulation'' item to ``true''. This attribute is optional and disabled by default: when it is not set (or set to ``false''), no timing data is collected and no additional file is written.
+
+\begin{lstlisting}[language=XML, morekeywords={enableRealTimeTracking}]
+<job name="MyJOB">
+  ...
+  <simulation startTime="0" stopTime="100" precision="1e-6" enableRealTimeTracking="true">
+    <criteria criteriaFile="criteria.crt"/>
+  </simulation>
+  ...
+</job>
+\end{lstlisting}
+
+When enabled, \Dynawo writes the file \path{simRT.csv} in the outputs directory at the end of the simulation. Each row corresponds to one simulation step and contains three columns:
+\begin{itemize}
+  \item \texttt{simulation\_time} — the simulation time, in seconds, reached at the end of the step;
+  \item \texttt{computation\_time\_ms} — the wall-clock duration of that step alone, in milliseconds;
+  \item \texttt{accumulated\_computation\_time\_s} — the wall-clock time, in seconds, elapsed since the start of the simulation loop, up to and including that step.
+\end{itemize}
+
+The third column is measured independently from the second: it is the elapsed wall-clock time since the simulation loop began, not the running sum of \texttt{computation\_time\_ms}. The two are expected to diverge whenever work happens between steps outside of what is being timed as the step itself, for instance intermediate state dumps; comparing them is a way to see how much of the total run time such inter-step work accounts for.
+
 \subsubsection{Specify what kind of models to use}
 
 Dynamic models used by \Dynawo are either precompiled models or Modelica models. The user should specify which kind of models he wants to use (he can use both). These items may have an additional ``directory'' attribute with the path to case-specific models.

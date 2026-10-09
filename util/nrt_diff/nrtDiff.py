@@ -1066,6 +1066,16 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 message += str(nb_differences) + " different output values\n" + msg
             else:
                 return_value = IDENTICAL
+        elif file_name == "simRT" and file_extension == ".csv":
+            (nb_differences, msg) = SimRTCloseEnough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message += str(nb_differences) + " structural difference(s): " + "; ".join(msg)
+            else:
+                return_value = IDENTICAL
         else:
             message = "<font color=\"red\">Problem with " + os.path.basename(path_left) + "</font>"
             return_value = DIFFERENT
@@ -1516,6 +1526,84 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
                 if nb_differences > 5: break
 
     return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
+
+SIMRT_EXPECTED_HEADER = "simulation_time,computation_time_ms,accumulated_computation_time_s"
+
+##
+# Check whether two simRT.csv real-time-tracking files are close enough.
+# The 2nd (computation_time_ms) and 3rd (accumulated_computation_time_s) columns are wall-clock
+# measurements: they are expected to differ between the reference run and this run, and even more
+# so between machines, so they are never compared by value. Instead they are checked structurally
+# (well-formed, non-negative, and the accumulated column is non-decreasing). The 1st column
+# (simulation_time) follows the fixed solver time step, so it is deterministic: it is compared for
+# exact equality, which also pins down the row count, i.e. the number of steps.
+# @param path_left : the absolute path to the left-side (this run's) file
+# @param path_right : the absolute path to the right-side (reference) file
+def SimRTCloseEnough (path_left, path_right):
+    def readRows(path):
+        with open(path, "rt") as f:
+            return [line.strip() for line in f if line.strip() != ""]
+
+    rows_left = readRows(path_left)
+    rows_right = readRows(path_right)
+
+    nb_differences = 0
+    messages = []
+
+    if len(rows_left) == 0 or len(rows_right) == 0:
+        return (1, ["simRT.csv is empty"])
+
+    if rows_left[0] != SIMRT_EXPECTED_HEADER:
+        nb_differences += 1
+        messages.append("unexpected header: " + rows_left[0])
+    if rows_right[0] != SIMRT_EXPECTED_HEADER:
+        nb_differences += 1
+        messages.append("unexpected reference header: " + rows_right[0])
+
+    data_left = rows_left[1:]
+    data_right = rows_right[1:]
+
+    if len(data_left) != len(data_right):
+        nb_differences += 1
+        messages.append("row count differs: " + str(len(data_left)) + " (this run) vs " + str(len(data_right)) + " (reference)")
+
+    previous_accumulated = None
+    for index, line in enumerate(data_left):
+        fields = line.split(",")
+        if len(fields) != 3:
+            nb_differences += 1
+            messages.append("row " + str(index) + ": expected 3 columns, got " + str(len(fields)))
+            continue
+        try:
+            simulation_time = float(fields[0])
+            computation_time_ms = float(fields[1])
+            accumulated_time_s = float(fields[2])
+        except ValueError:
+            nb_differences += 1
+            messages.append("row " + str(index) + ": non-numeric value")
+            continue
+
+        if computation_time_ms < 0:
+            nb_differences += 1
+            messages.append("row " + str(index) + ": negative computation_time_ms")
+
+        if previous_accumulated is not None and accumulated_time_s < previous_accumulated:
+            nb_differences += 1
+            messages.append("row " + str(index) + ": accumulated_computation_time_s is not monotonic")
+        previous_accumulated = accumulated_time_s
+
+        if index < len(data_right):
+            ref_fields = data_right[index].split(",")
+            if len(ref_fields) == 3:
+                try:
+                    ref_simulation_time = float(ref_fields[0])
+                    if abs(simulation_time - ref_simulation_time) > 1e-9:
+                        nb_differences += 1
+                        messages.append("row " + str(index) + ": simulation_time " + fields[0] + " differs from reference " + ref_fields[0])
+                except ValueError:
+                    pass
+
+    return (nb_differences, messages)
 
 ##
 # Make an html report to display diff results
