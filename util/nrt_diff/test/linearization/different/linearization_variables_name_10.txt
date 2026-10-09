@@ -1,0 +1,2 @@
+0;GEN_omega;GEN
+1;LOAD_Q;LOAD
