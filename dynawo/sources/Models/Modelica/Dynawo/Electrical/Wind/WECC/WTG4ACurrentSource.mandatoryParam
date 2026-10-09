@@ -8,8 +8,8 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <mandatoryParameters>
   <mandatoryParameter name="KiPLL" type="DOUBLE"/>
@@ -50,7 +50,6 @@
   <mandatoryParameter name="Kshaft" type="DOUBLE"/>
   <mandatoryParameter name="omegaRefWTGQ0Pu" type="DOUBLE"/>
   <mandatoryParameter name="tpWTGTb" type="DOUBLE"/>
-  <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="iConv0Pu.re" type="DOUBLE"/>
@@ -67,15 +66,10 @@
   <mandatoryParameter name="uInj0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="UPhase0" type="DOUBLE"/>
   <mandatoryParameter name="UPhaseConv0" type="DOUBLE"/>
-  <mandatoryParameter name="KiPLL" type="DOUBLE"/>
-  <mandatoryParameter name="KpPLL" type="DOUBLE"/>
-  <mandatoryParameter name="OmegaMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="OmegaMinPu" type="DOUBLE"/>
   <mandatoryParameter name="PfFlag" type="BOOL"/>
   <mandatoryParameter name="PQFlag" type="BOOL"/>
   <mandatoryParameter name="QFlag" type="BOOL"/>
   <mandatoryParameter name="VFlag" type="BOOL"/>
-  <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="Dbd1Pu" type="DOUBLE"/>
   <mandatoryParameter name="Dbd2Pu" type="DOUBLE"/>
   <mandatoryParameter name="DPMaxPu" type="DOUBLE"/>
@@ -104,16 +98,10 @@
   <mandatoryParameter name="Id0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
   <mandatoryParameter name="PF0" type="DOUBLE"/>
-  <mandatoryParameter name="PConv0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="QConv0Pu" type="DOUBLE"/>
   <mandatoryParameter name="UInj0Pu" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="UConv0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="uConv0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="uConv0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp11" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp12" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp21" type="DOUBLE"/>
@@ -144,26 +132,14 @@
   <mandatoryParameter name="lvpl1" type="DOUBLE"/>
   <mandatoryParameter name="Lvplsw" type="BOOL"/>
   <mandatoryParameter name="zerox" type="DOUBLE"/>
-  <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="P0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
   <mandatoryParameter name="U0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="u0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="UControl0Pu" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="PPCLocal" type="BOOL"/>
   <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
-  <mandatoryParameter name="TablesFile" type="STRING"/>
-  <mandatoryParameter name="TabletUoverUfilt" type="STRING"/>
-  <mandatoryParameter name="TabletUunderUfilt" type="STRING"/>
-  <mandatoryParameter name="tLagAction" type="DOUBLE"/>
-  <mandatoryParameter name="tUFilt" type="DOUBLE"/>
-  <mandatoryParameter name="UOverPu" type="DOUBLE"/>
-  <mandatoryParameter name="UUnderPu" type="DOUBLE"/>
 </mandatoryParameters>
