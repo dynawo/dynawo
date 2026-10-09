@@ -123,6 +123,12 @@ NetworkComponent::setReferenceG(state_g* g, const int offsetG) {
 }
 
 void
+NetworkComponent::deactivateZeroCrossingFunctions() {
+  sizeG_ = 0;
+  g_ = NULL;
+}
+
+void
 NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, const int offsetCalculatedVars) {
   if (sizeCalculatedVar() != 0)
     calculatedVars_ = &(calculatedVars[offsetCalculatedVars]);
