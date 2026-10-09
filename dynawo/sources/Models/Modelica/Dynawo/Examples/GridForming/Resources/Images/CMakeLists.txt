@@ -10,7 +10,10 @@
 
 set(MODEL_FILES
   current.png
+  DynGFMComparison.png
   frequency.png
+  epri_omega.png
+  epri_pq.png
   )
 
 #

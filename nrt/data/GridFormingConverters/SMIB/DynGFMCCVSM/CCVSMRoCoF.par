@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- AcGrid -->
+  <set id="1">
+    <par type="DOUBLE" name="Grid_U0pu" value="1.0"/>
+    <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
+    <par type="DOUBLE" name="Grid_Upu" value="1"/>
+    <par type="DOUBLE" name="Grid_UPhase" value="0"/>
+    <par type="DOUBLE" name="Grid_SNom" value="1000"/>
+    <par type="DOUBLE" name="Grid_RoCoFValue" value="0.01"/>
+    <par type="DOUBLE" name="Grid_StartRoCoF" value="10"/>
+    <par type="DOUBLE" name="Grid_TimeRoCoF" value="3"/>
+    <par type="DOUBLE" name="Grid_StartingFrequency" value="-0.01"/>
+
+  </set>
+
+  <set id="2">
+    <par type="DOUBLE" name="line_RPu" value="0.0005"/>
+    <par type="DOUBLE" name="line_XPu" value="0.005"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+
+  <set id="3">
+    <!-- Installation parameter -->
+    <par name="GFMCC_SNom" type="DOUBLE" value="1000"/>
+    <!-- VSM parameters -->
+    <par name="GFMCC_kVSM" type="DOUBLE" value="600"/>
+    <par name="GFMCC_H" type="DOUBLE" value="5"/>
+    <par name="GFMCC_KDampingAngle" type="DOUBLE" value="0.00318"/>
+    <!-- Virtual impedance parameters -->
+    <par name="GFMCC_KpVI" type="DOUBLE" value="0.6"/>
+    <par name="GFMCC_XRratio" type="DOUBLE" value="10"/>
+    <par name="GFMCC_IMaxVIPu" type="DOUBLE" value="2.0"/>
+    <par name="GFMCC_DeltaIConvMaxPu" type="DOUBLE" value="0.15"/>
+    <!-- QSEM parameter -->
+    <par name="GFMCC_XVIPu" type="DOUBLE" value="0.06"/>
+    <!-- PLL parameters -->
+    <par name="GFMCC_OmegaPLL" type="DOUBLE" value="100"/>
+    <par name="GFMCC_KsiPLL" type="DOUBLE" value="1"/>
+    <!-- Voltage reference control parameters -->
+    <par name="GFMCC_Mq" type="DOUBLE" value="0.2"/>
+    <par name="GFMCC_Omegaf" type="DOUBLE" value="31.4159"/>
+    <par name="GFMCC_Omegaff" type="DOUBLE" value="60"/>
+    <par name="GFMCC_Kff" type="DOUBLE" value="0.01"/>
+    <!-- Current loop parameters -->
+    <par name="GFMCC_Omegac" type="DOUBLE" value="1000"/>
+    <par name="GFMCC_Kfd" type="DOUBLE" value="1"/>
+    <par name="GFMCC_Kfq" type="DOUBLE" value="0.8"/>
+    <!-- Filter parameters -->
+    <par name="GFMCC_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFMCC_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMCC_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <!-- Transformer parameters -->
+    <par name="GFMCC_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="GFMCC_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <!-- VSC parameter -->
+    <par name="GFMCC_tVSC" type="DOUBLE" value="0.0004"/>
+    <!-- Current saturation parameters -->
+    <par name="GFMCC_ImaxPu" type="DOUBLE" value="1.2"/>
+    <par name="GFMCC_IminPu" type="DOUBLE" value="0"/>
+    <!-- Operating point -->
+    <par name="GFMCC_U0Pu" type="DOUBLE" value="0.9471150860399032"/>
+    <par name="GFMCC_UPhase0" type="DOUBLE" value="0.5184089415769031"/>
+    <par name="GFMCC_P0Pu" type="DOUBLE" value="-9.440194309522948"/>
+    <par name="GFMCC_Q0Pu" type="DOUBLE" value="-0.5430732386655421"/>
+    <par name="GFMCC_OmegaSetPu" type="DOUBLE" value="1"/>
+  </set>
+
+  <!-- SetPointOne : reutilise pour URefPu, omegaRefPu et Grid_OmegaRef (tous = 1 dans le .mo) -->
+  <set id="4">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <!-- SetPointZero : QRefPu = 0 -->
+  <set id="5">
+    <par type="DOUBLE" name="setPoint_Value0" value="0"/>
+  </set>
+  <!-- SetPointP : PRefPu = -0.95 (Step with height = 0 in the .mo, i.e. constant) -->
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.95"/>
+  </set>
+  <!-- Measurements -->
+  <set id="7">
+    <par type="DOUBLE" name="measurements_SNom" value="1000"/>
+  </set>
+  <set id="IDASolver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="0.00001"/>
+    <par type="DOUBLE" name="minStep" value="0.000001"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+  </set>
+
+  <set id="SimplifiedSolver">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="0.001"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-8"/>
+  </set>
+</parametersSet>

@@ -225,10 +225,13 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    *
    * @throw exceptions if jacobian is incorrect
    *
-   * @param smj the jacobian to check
+   * @param smj the jacobian to check (reduced/erased matrix)
    * @param model the model currelty used
+   * @param indexY mapping from reduced row index to original variable index
+   * @param indexF mapping from reduced column index to original equation index
    */
-  static void checkJacobian(const SparseMatrix& smj, Model& model);
+  static void checkJacobian(const SparseMatrix& smj, Model& model,
+                             const std::vector<int>& indexY, const std::vector<int>& indexF);
 #endif
 
   /**

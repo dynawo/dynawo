@@ -292,7 +292,22 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 
 #if _DEBUG_
 void
-SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
+SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model,
+                                        const std::vector<int>& indexY, const std::vector<int>& indexF) {
+  // --- TEMPORARY DEBUG: dump full reduced matrix with real variable/equation names ---
+  Trace::debug() << "DEBUG_JAC_DUMP: reduced matrix nbCol=" << smj.nbCol() << " nbElem=" << smj.nbElem() << Trace::endline;
+  for (int col = 0; col < smj.nbCol(); ++col) {
+    const int origF = (col < static_cast<int>(indexF.size())) ? indexF[col] : -1;
+    for (unsigned ind = smj.Ap_[col]; ind < smj.Ap_[col + 1]; ++ind) {
+      const int row = static_cast<int>(smj.Ai_[ind]);
+      const std::string rowName = (row < static_cast<int>(indexY.size())) ? model.getVariableName(indexY[row]) : "?";
+      Trace::debug() << "DEBUG_JAC_DUMP: row=" << row << " (" << rowName << ")"
+                     << " col=" << col << " (orig eq idx " << origF << ")"
+                     << " value=" << smj.Ax_[ind] << Trace::endline;
+    }
+  }
+  // --- end temporary debug ---
+
   SparseMatrix::CheckError error = smj.check();
   string sub_model_name;
   string equation;
@@ -300,7 +315,8 @@ SolverKINAlgRestoration::checkJacobian(const SparseMatrix& smj, Model& model) {
   int local_index;
   switch (error.code) {
   case SparseMatrix::CHECK_ZERO_ROW:
-    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info, model.getVariableName(error.info));
+    throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulRow, error.info,
+                    model.getVariableName(error.info < indexY.size() ? indexY[error.info] : static_cast<int>(error.info)));
   case SparseMatrix::CHECK_ZERO_COLUMN:
     model.getFInfos(error.info, sub_model_name, local_index, equation);
     throw DYNError(DYN::Error::SOLVER_ALGO, SolverJacobianWithNulColumn, error.info, equation);
@@ -329,7 +345,7 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
 #if _DEBUG_
   if (solver->checkJacobian_) {
-    checkJacobian(smjKin, model);
+    checkJacobian(smjKin, model, solver->indexY_, solver->indexF_);
   }
 #endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
@@ -354,6 +370,19 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
   const int size = static_cast<int>(solver->indexY_.size());
   smjKin.reserve(size);
   smj.erase(solver->ignoreY_, solver->ignoreF_, smjKin);
+#if _DEBUG_
+  if (solver->checkJacobian_) {
+    // --- TRACE TEMPORAIRE ---
+    std::vector<double> zValues;
+    model.getCurrentZ(zValues);
+    Trace::debug() << "DEBUG_Z_DUMP: sizeZ=" << model.sizeZ() << " zValues.size()=" << zValues.size() << Trace::endline;
+    for (size_t i = 0; i < zValues.size(); ++i) {
+      Trace::debug() << "DEBUG_Z_DUMP: Z[" << i << "] = " << zValues[i] << Trace::endline;
+    }
+    // --- fin trace temporaire ---
+    checkJacobian(smjKin, model, solver->indexY_, solver->indexF_);
+  }
+#endif
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, &solver->lastRowVals_, solver->linearSolver_, true);
 
   return 0;
@@ -416,6 +445,9 @@ SolverKINAlgRestoration::solve(const bool noInitSetup, const bool evaluateOnlyMo
   if (numF_ == 0)
     return KIN_SUCCESS;
 
+// return KIN_SUCCESS;
+//
+//
   if (multipleStrategiesForAlgebraicRestoration)
     saveState();
 

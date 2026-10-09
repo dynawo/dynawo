@@ -3026,6 +3026,14 @@ class Factory:
                             elif diff_var in self.reader.fictive_continuous_vars or diff_var in self.reader.fictive_optional_continuous_vars:
                                 external_diff_var.append(diff_var)
         for v in self.list_vars_syst:
+            # --- TEMPORARY DEBUG (dummy-derivative investigation) ---
+            print("DEBUG_YTYPE ind=%s name=%r in_dummy_der_vars=%s in_aux_counted=%s in_calculated=%s in_mixed=%s" % (
+                ind, v.get_name(),
+                v.get_name() in self.reader.dummy_der_variables,
+                v.get_name() in self.reader.auxiliary_vars_counted_as_variables,
+                v in self.reader.list_calculated_vars,
+                v.get_name() in mixed_var))
+            # --- end temporary debug ---
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             if v in self.reader.list_calculated_vars : continue
             if v.get_name() not in mixed_var:
@@ -3123,7 +3131,12 @@ class Factory:
                     line = "     fType[ %s ] = type;\n" % (str(ind))
                     self.list_for_evaldynamicftype.append(line)
                     self.list_for_evaldynamicftype.append("  }\n")
-                ind += 1
+            # BUGFIX (dummy-derivative F/Y index desync): the line below used to be indented
+            # one level deeper, INSIDE the "if var_name not in fictive_continuous_vars_der..."
+            # guard above -- meaning ind never advanced for dummy-derivative equations, silently
+            # desynchronizing fType[]'s indexing against yType[]'s (which always advances).
+            # ind += 1
+            ind += 1
 
         for eq in self.list_additional_equations_from_call_for_setf:
             var_name = eq.get_evaluated_var()
@@ -3138,7 +3151,10 @@ class Factory:
                     line = "     fType[ %s ] = type;\n" % (str(ind))
                     self.list_for_evaldynamicftype.append(line)
                     self.list_for_evaldynamicftype.append("  }\n")
-                ind += 1
+            # BUGFIX (dummy-derivative F/Y index desync): same fix as above, ind now
+            # advances unconditionally instead of only inside the guard.
+            # ind += 1
+            ind += 1
     ##
     # prepare the lines that constitues the body of evalStaticFType
     # @param self : object pointer
@@ -3148,7 +3164,37 @@ class Factory:
         assign_ftype_line = "   fType[ %s ] = %s;\n"
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
-            if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
+            # --- TEMPORARY DEBUG (dummy-derivative investigation) ---
+            print("DEBUG_FTYPE ind=%s var_name=%r type=%s in_fictive_der=%s is_aux=%s" % (
+                ind, var_name, eq.get_type(),
+                var_name in self.reader.fictive_continuous_vars_der,
+                self.reader.is_auxiliary_vars(var_name)))
+            # --- end temporary debug ---
+            # BUGFIX (dummy-derivative F/Y index desync): this whole block used to be a single
+            # "if var_name not in fictive_continuous_vars_der and not is_auxiliary_vars(var_name):"
+            # guard, with "ind += 1" nested INSIDE it. That meant dummy-derivative equations got
+            # neither a fType[] tag NOR an ind advance -- silently dropping their tag (left at the
+            # C++ default UNDEFINED_EQ=0) and desynchronizing every following equation's index
+            # relative to yType[] (which always advances, see prepare_for_evalstaticytype).
+            # Old code (commented out):
+            # if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
+            #     if eq.get_type() == DIFFERENTIAL:
+            #         spin = "DIFFERENTIAL_EQ"
+            #         line = assign_ftype_line % (str(ind), spin)
+            #         self.list_for_evalstaticftype.append(line)
+            #     elif eq.get_type() == ALGEBRAIC:
+            #         spin = "ALGEBRAIC_EQ" # no derivatives in the equation
+            #         line = assign_ftype_line % (str(ind), spin)
+            #         self.list_for_evalstaticftype.append(line)
+            #     ind += 1
+            #
+            # New code: dummy-derivative equations ARE differential by construction (they define
+            # der(x) for a dummy state x), so tag them explicitly instead of skipping them; and
+            # "ind += 1" now fires unconditionally, once per equation, matching the Y-side loop.
+            if var_name in self.reader.fictive_continuous_vars_der:
+                line = assign_ftype_line % (str(ind), "DIFFERENTIAL_EQ")
+                self.list_for_evalstaticftype.append(line)
+            elif not self.reader.is_auxiliary_vars(var_name):
                 if eq.get_type() == DIFFERENTIAL:
                     spin = "DIFFERENTIAL_EQ"
                     line = assign_ftype_line % (str(ind), spin)
@@ -3157,11 +3203,26 @@ class Factory:
                     spin = "ALGEBRAIC_EQ" # no derivatives in the equation
                     line = assign_ftype_line % (str(ind), spin)
                     self.list_for_evalstaticftype.append(line)
-                ind += 1
+            ind += 1
 
         for eq in self.list_additional_equations_from_call_for_setf:
             var_name = eq.get_evaluated_var()
-            if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
+            # BUGFIX (dummy-derivative F/Y index desync): same fix as the loop above.
+            # Old code (commented out):
+            # if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
+            #     if eq.get_type() == DIFFERENTIAL:
+            #         spin = "DIFFERENTIAL_EQ"
+            #         line = assign_ftype_line % (str(ind), spin)
+            #         self.list_for_evalstaticftype.append(line)
+            #     elif eq.get_type() == ALGEBRAIC:
+            #         spin = "ALGEBRAIC_EQ" # no derivatives in the equation
+            #         line = assign_ftype_line % (str(ind), spin)
+            #         self.list_for_evalstaticftype.append(line)
+            #     ind += 1
+            if var_name in self.reader.fictive_continuous_vars_der:
+                line = assign_ftype_line % (str(ind), "DIFFERENTIAL_EQ")
+                self.list_for_evalstaticftype.append(line)
+            elif not self.reader.is_auxiliary_vars(var_name):
                 if eq.get_type() == DIFFERENTIAL:
                     spin = "DIFFERENTIAL_EQ"
                     line = assign_ftype_line % (str(ind), spin)
@@ -3170,7 +3231,7 @@ class Factory:
                     spin = "ALGEBRAIC_EQ" # no derivatives in the equation
                     line = assign_ftype_line % (str(ind), spin)
                     self.list_for_evalstaticftype.append(line)
-                ind += 1
+            ind += 1
     ##
     # returns the lines that constitues the body of evalStaticFType
     # @param self : object pointer

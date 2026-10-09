@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+<!-- Same values as Dynawo.Examples.GridForming.PlantControl.DynGFMCCPlantControl.
+     Network: Grid (1 /_ 0) -> Line1 -> Measurements -> plant transformer (PCC) -> plant line -> GFM -->
+<set id="1">
+  <!-- Operating point at the GFM terminal (base SnRef, receptor convention) -->
+  <par type="DOUBLE" name="PlantControlCCVSM_SNom" value="1000"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_U0Pu" value="1.076457118987823"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_UPhase0" value="0.132698675427976"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_P0Pu" value="-10.006748123525433"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Q0Pu" value="-5.1170948"/>
+  <!-- Operating point at the PCC = plant transformer terminal 2 (base SnRef, receptor convention) -->
+  <par type="DOUBLE" name="PlantControlCCVSM_UPcc0Pu" value="1.02343286532015"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_UPccPhase0" value="0.0464048380960457"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_PPcc0Pu" value="-9.89773532110073"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_QPcc0Pu" value="-4.02696677575302"/>
+  <!-- Plant controller -->
+  <par type="DOUBLE" name="PlantControlCCVSM_Lambd" value="0.01"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kdroop" value="0"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_tQFilt" value="0.1"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_tPFilt" value="1"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_tUFilt" value="0.1"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kpq" value="0.1"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kiq" value="1.0"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kpp" value="0.3"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kip" value="0.3"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_QMaxPu" value="100"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_QMinPu" value="-100"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_PMaxPu" value="100"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_PMinPu" value="-100"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_FEMaxPu" value="999"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_FEMinPu" value="-999"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_FDbd1Pu" value="0.005"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_FDbd2Pu" value="0.1"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_DbdPu" value="0.0001"/>
+  <!-- GFM: measurement -->
+  <par type="DOUBLE" name="PlantControlCCVSM_tUFiltGFM" value="0.01"/>
+  <!-- GFM: VSM -->
+  <par type="DOUBLE" name="PlantControlCCVSM_kVSM" value="650"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_H" value="5"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_KDampingAngle" value="0.00318"/>
+  <!-- GFM: virtual impedance -->
+  <par type="DOUBLE" name="PlantControlCCVSM_KpVI" value="0.6"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_XRratio" value="10"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_IMaxVIPu" value="1.2"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_DeltaIConvMaxPu" value="0.1"/>
+  <!-- GFM: voltage reference control -->
+  <par type="DOUBLE" name="PlantControlCCVSM_Mq" value="0.2"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Omegaf" value="31.4159"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Omegaff" value="60"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kff" value="0"/>
+  <!-- GFM: QSEM -->
+  <par type="DOUBLE" name="PlantControlCCVSM_XVIPu" value="0.06"/>
+  <!-- GFM: current loop -->
+  <par type="DOUBLE" name="PlantControlCCVSM_Omegac" value="1000"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kfd" value="0.8"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_Kfq" value="0"/>
+  <!-- GFM: current saturation -->
+  <par type="DOUBLE" name="PlantControlCCVSM_ImaxPu" value="1.2"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_IminPu" value="0"/>
+  <!-- GFM: PLL -->
+  <par type="DOUBLE" name="PlantControlCCVSM_OmegaPLL" value="100"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_KsiPLL" value="1"/>
+  <!-- GFM: RLC filter, transformer, VSC -->
+  <par type="DOUBLE" name="PlantControlCCVSM_RFilterPu" value="0.015"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_LFilterPu" value="0.15"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_CFilterPu" value="1e-05"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_RTransformerPu" value="0.006"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_LTransformerPu" value="0.06"/>
+  <par type="DOUBLE" name="PlantControlCCVSM_tVSC" value="0.0002"/>
+  <!-- Plant line between GFM and transformer -->
+  <par type="DOUBLE" name="Line_RPu" value="0.0005"/>
+  <par type="DOUBLE" name="Line_XPu" value="0.005"/>
+  <par type="DOUBLE" name="Line_GPu" value="0"/>
+  <par type="DOUBLE" name="Line_BPu" value="0"/>
+  <!-- Plant transformer -->
+  <par type="DOUBLE" name="Transformer_RPu" value="0.0005"/>
+  <par type="DOUBLE" name="Transformer_XPu" value="0.005"/>
+  <par type="DOUBLE" name="Transformer_GPu" value="0"/>
+  <par type="DOUBLE" name="Transformer_BPu" value="0"/>
+  <par type="DOUBLE" name="Transformer_rTfoPu" value="1"/>
+</set>
+<!-- <set id="4">
+  <par type="DOUBLE" name="Grid_U0pu" value="1.0"/>
+  <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
+  <par type="DOUBLE" name="Grid_SNom" value="1000"/>
+  <par type="DOUBLE" name="Grid_RoCoFValue" value="0.01"/>
+  <par type="DOUBLE" name="Grid_StartRoCoF" value="5"/>
+  <par type="DOUBLE" name="Grid_TimeRoCoF" value="3"/>
+</set> -->
+
+<set id="4">
+  <!-- Infinite bus with variations -->
+  <par type="DOUBLE" name="infiniteBus_UPu" value="1.0"/>
+  <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+</set>
+<set id="5">
+  <!-- OmegaRefSrc -->
+  <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+</set>
+<set id="6">
+  <!-- URefSrc = UPcc0Pu + Lambd*QPcc0Pu -->
+  <par type="DOUBLE" name="setPoint_Value0" value="0.983163197562618"/>
+</set>
+<set id="7">
+  <!-- URefGfmSrc = GFM internal EMF |uEmf0Pu| (= ControlCC.URef0Pu) -->
+  <par type="DOUBLE" name="setPoint_Value0" value="1.14425187242416"/>
+</set>
+<set id="8">
+  <!-- PRefSrc = PPcc0Pu -->
+  <par type="DOUBLE" name="setPoint_Value0" value="-9.89773532110073"/>
+</set>
+<set id="9">
+  <par type="DOUBLE" name="infiniteBus_UPu" value="1.0"/>
+  <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+</set>
+<set id="10">
+  <!-- Line1: between the grid and the measurements -->
+  <par type="DOUBLE" name="line_RPu" value="0.0005"/>
+  <par type="DOUBLE" name="line_XPu" value="0.005"/>
+  <par type="DOUBLE" name="line_GPu" value="0"/>
+  <par type="DOUBLE" name="line_BPu" value="0"/>
+</set>
+<set id="11">
+  <!-- Measurements: between Line1 and the plant transformer -->
+  <par type="DOUBLE" name="measurements_SNom" value="1000"/>
+</set>
+<set id="IDASolver">
+  <par type="INT" name="order" value="2"/>
+  <par type="DOUBLE" name="initStep" value="0.00001"/>
+  <par type="DOUBLE" name="minStep" value="0.000001"/>
+  <par type="DOUBLE" name="maxStep" value="10"/>
+  <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+  <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+  <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+</set>
+<set id="SimplifiedSolver">
+  <par type="DOUBLE" name="hMin" value="0.000001"/>
+  <par type="DOUBLE" name="hMax" value="0.0001"/>
+  <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+  <par type="INT" name="maxNewtonTry" value="10"/>
+  <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
+</set>
+</parametersSet>
