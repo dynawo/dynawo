@@ -984,7 +984,8 @@ ModelNetwork::evalF(double /*t*/, const propertyF_t type) {
   Timer timer("ModelNetwork::evalF");
 #endif
 
-  if (type != DIFFERENTIAL_EQ) {
+  // the nodal current injections are also needed by the differential equations of the buses with differential voltages
+  if (type != DIFFERENTIAL_EQ || busContainer_->hasDifferentialVoltages()) {
     // compute nodal current injections (convention: > 0 if the current goes out of the node)
     busContainer_->resetInjections();
 

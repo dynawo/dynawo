@@ -52,8 +52,7 @@ ModelLine::ModelLine(const std::shared_ptr<LineInterface>& line) :
 ModelQuadripole(line->getID()),
 dynBus1_(line->hasConnectionSide1()),
 dynBus2_(line->hasConnectionSide2()),
-omegaNom_(OMEGA_NOM),
-omegaRef_(1.) {
+omegaNom_(OMEGA_NOM) {
   const double r = line->getR();
   const double x = line->getX();
   const double b1 = line->getB1();
@@ -294,8 +293,10 @@ ModelLine::getY0() {
     y_[ii2YNum_] = ii02_;
   }
   if (dynLineModel_) {
-    y_[irbYNum_] = ir01_;
-    y_[iibYNum_] = ii01_;
+    const double ur01 = modelBus1_->ur();
+    const double ui01 = modelBus1_->ui();
+    y_[irbYNum_] = ir01_ - (conduct1_ * ur01 - suscept1_ * ui01);
+    y_[iibYNum_] = ii01_ - (conduct1_ * ui01 + suscept1_ * ur01);
     y_[omegaRefNum_] = 1;
     yp_[irbYNum_] = 0;
     yp_[iibYNum_] = 0;
@@ -400,8 +401,9 @@ ModelLine::evalF(const propertyF_t type) {
     return;
   }
 
-  f_[eqFNum]   = -reactance_*yp_[irbYNum_] - omegaNom_*(resistance_*y_[irbYNum_]-reactance_*omegaRef_* y_[iibYNum_]) + omegaNom_*ur1() - omegaNom_*ur2();
-  f_[eqFNum+1] = -reactance_*yp_[iibYNum_] - omegaNom_*(resistance_*y_[iibYNum_]+reactance_*omegaRef_* y_[irbYNum_]) + omegaNom_*ui1() - omegaNom_*ui2();
+  const double omegaRefVal = omegaRef();
+  f_[eqFNum]   = -reactance_*yp_[irbYNum_] - omegaNom_*(resistance_*y_[irbYNum_]-reactance_*omegaRefVal* y_[iibYNum_]) + omegaNom_*ur1() - omegaNom_*ur2();
+  f_[eqFNum+1] = -reactance_*yp_[iibYNum_] - omegaNom_*(resistance_*y_[iibYNum_]+reactance_*omegaRefVal* y_[irbYNum_]) + omegaNom_*ui1() - omegaNom_*ui2();
 }
 
 void
@@ -462,19 +464,24 @@ ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
     return;
   }
 
+  const int omegaRefYNumGlobal = globalYIndex(omegaRefNum_);
+  const double omegaRefVal = omegaRef();
+
   // column for equation IBranch_re
   jt.changeCol();
   jt.addTerm(irbYNumGlobal + rowOffset, - omegaNom_ * resistance_ - cj * reactance_);
-  jt.addTerm(iibYNumGlobal + rowOffset, omegaNom_ * reactance_ * omegaRef_);
+  jt.addTerm(iibYNumGlobal + rowOffset, omegaNom_ * reactance_ * omegaRefVal);
   jt.addTerm(ur1YNumGlobal() + rowOffset, omegaNom_);
   jt.addTerm(ur2YNumGlobal() + rowOffset, -omegaNom_);
+  jt.addTerm(omegaRefYNumGlobal + rowOffset, omegaNom_ * reactance_ * y_[iibYNum_]);
 
   // column for equation IBranch_im
   jt.changeCol();
-  jt.addTerm(irbYNumGlobal + rowOffset, - omegaNom_ * reactance_ * omegaRef_);
+  jt.addTerm(irbYNumGlobal + rowOffset, - omegaNom_ * reactance_ * omegaRefVal);
   jt.addTerm(iibYNumGlobal + rowOffset, -omegaNom_ * resistance_ - cj * reactance_);
   jt.addTerm(ui1YNumGlobal() + rowOffset, omegaNom_);
   jt.addTerm(ui2YNumGlobal() + rowOffset, -omegaNom_);
+  jt.addTerm(omegaRefYNumGlobal + rowOffset, - omegaNom_ * reactance_ * y_[irbYNum_]);
 }
 
 void
@@ -492,11 +499,14 @@ ModelLine::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
     jtPrim.changeCol();
   }
 
-  if (dynLineModel_ && (getConnectionState() == CLOSED)) {
+  if (dynLineModel_) {
+    const bool closedLine = getConnectionState() == CLOSED;
     jtPrim.changeCol();
-    jtPrim.addTerm(globalYIndex(irbYNum_) + rowOffset, - reactance_);  // column for equation IBranch_re
+    if (closedLine)
+      jtPrim.addTerm(globalYIndex(irbYNum_) + rowOffset, - reactance_);  // column for equation IBranch_re
     jtPrim.changeCol();
-    jtPrim.addTerm(globalYIndex(iibYNum_) + rowOffset, - reactance_);  // column for equation IBranch_im
+    if (closedLine)
+      jtPrim.addTerm(globalYIndex(iibYNum_) + rowOffset, - reactance_);  // column for equation IBranch_im
   }
 }
 
@@ -519,21 +529,22 @@ ModelLine::evalNodeInjection() {
   const double ur2Val = ur2();
   const double ui2Val = ui2();
 
-  if (!dynBus1_) {
+  if (!dynBus1_ && !dynLineModel_) {
     modelBus1_->irAdd(ir1(ur1Val, ui1Val, ur2Val, ui2Val));
     modelBus1_->iiAdd(ii1(ur1Val, ui1Val, ur2Val, ui2Val));
   }
-  if (!dynBus2_) {
+  if (!dynBus2_ && !dynLineModel_) {
     modelBus2_->irAdd(ir2(ur1Val, ui1Val, ur2Val, ui2Val));
     modelBus2_->iiAdd(ii2(ur1Val, ui1Val, ur2Val, ui2Val));
   }
   if (dynLineModel_) {
     if (getConnectionState() != CLOSED)
       return;
-    modelBus1_->irAdd(conduct1_ * ur1Val + suscept1_ * urp1() / omegaNom_ - suscept1_ * omegaRef_ * ui1Val + y_[irbYNum_]);
-    modelBus1_->iiAdd(conduct1_ * ui1Val + suscept1_ * uip1() / omegaNom_ + suscept1_ * omegaRef_ * ur1Val + y_[iibYNum_]);
-    modelBus2_->irAdd(conduct2_ * ur2Val + suscept2_ * urp2() / omegaNom_ - suscept2_ * omegaRef_ * ui2Val - y_[irbYNum_]);
-    modelBus2_->iiAdd(conduct2_ * ui2Val + suscept2_ * uip2() / omegaNom_ + suscept2_ * omegaRef_ * ur2Val - y_[iibYNum_]);
+    const double omegaRefVal = omegaRef();
+    modelBus1_->irAdd(conduct1_ * ur1Val + suscept1_ * urp1() / omegaNom_ - suscept1_ * omegaRefVal * ui1Val + y_[irbYNum_]);
+    modelBus1_->iiAdd(conduct1_ * ui1Val + suscept1_ * uip1() / omegaNom_ + suscept1_ * omegaRefVal * ur1Val + y_[iibYNum_]);
+    modelBus2_->irAdd(conduct2_ * ur2Val + suscept2_ * urp2() / omegaNom_ - suscept2_ * omegaRefVal * ui2Val - y_[irbYNum_]);
+    modelBus2_->iiAdd(conduct2_ * ui2Val + suscept2_ * uip2() / omegaNom_ + suscept2_ * omegaRefVal * ur2Val - y_[iibYNum_]);
   }
 }
 
@@ -546,17 +557,21 @@ ModelLine::evalDerivatives(const double cj) {
     if (getConnectionState() != CLOSED)
       return;
 
+    // ir_k = G_k * ur_k + B_k / omegaNom * d(ur_k)/dt - omegaRef * B_k * ui_k +/- Re(Ib)
+    // ii_k = G_k * ui_k + B_k / omegaNom * d(ui_k)/dt + omegaRef * B_k * ur_k +/- Im(Ib)
+    const double omegaRefVal = omegaRef();
+    const int omegaRefYNumGlobal = globalYIndex(omegaRefNum_);
     const double ir1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
-    const double ir1_dUi1 = - omegaRef_ * suscept1_;
+    const double ir1_dUi1 = - omegaRefVal * suscept1_;
     constexpr double ir1_dIbr = 1.;
-    const double ii1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
-    const double ii1_dUi1 = omegaRef_ * suscept1_;
+    const double ii1_dUr1 = omegaRefVal * suscept1_;
+    const double ii1_dUi1 = conduct1_ + cj * suscept1_ / omegaNom_;
     constexpr double ii1_dIbi = 1.;
     const double ir2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
-    const double ir2_dUi2 = - omegaRef_ * suscept2_;
+    const double ir2_dUi2 = - omegaRefVal * suscept2_;
     constexpr double ir2_dIbr = -1.;
-    const double ii2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
-    const double ii2_dUi2 = omegaRef_ * suscept2_;
+    const double ii2_dUr2 = omegaRefVal * suscept2_;
+    const double ii2_dUi2 = conduct2_ + cj * suscept2_ / omegaNom_;
     constexpr double ii2_dIbi = -1.;
 
     auto& modelBus1 = *modelBus1_;
@@ -577,11 +592,21 @@ ModelLine::evalDerivatives(const double cj) {
     iiDerivatives1.addValue(globalYIndex(iibYNum_), ii1_dIbi);
 
     irDerivatives2.addValue(ur2YNumGlobal(),        ir2_dUr2);
-    irDerivatives2.addValue(ur2YNumGlobal(),        ir2_dUi2);
+    irDerivatives2.addValue(ui2YNumGlobal(),        ir2_dUi2);
     irDerivatives2.addValue(globalYIndex(irbYNum_), ir2_dIbr);
-    iiDerivatives2.addValue(ui2YNumGlobal(),        ii2_dUr2);
+    iiDerivatives2.addValue(ur2YNumGlobal(),        ii2_dUr2);
     iiDerivatives2.addValue(ui2YNumGlobal(),        ii2_dUi2);
     iiDerivatives2.addValue(globalYIndex(iibYNum_), ii2_dIbi);
+
+    // derivatives with respect to omegaRef, only through the shunt susceptances
+    if (!doubleIsZero(suscept1_)) {
+      irDerivatives1.addValue(omegaRefYNumGlobal, - suscept1_ * ui1());
+      iiDerivatives1.addValue(omegaRefYNumGlobal, suscept1_ * ur1());
+    }
+    if (!doubleIsZero(suscept2_)) {
+      irDerivatives2.addValue(omegaRefYNumGlobal, - suscept2_ * ui2());
+      iiDerivatives2.addValue(omegaRefYNumGlobal, suscept2_ * ur2());
+    }
     return;
   }
 
@@ -622,13 +647,18 @@ ModelLine::evalDerivativesPrim() {
   if (getConnectionState() != CLOSED)
     return;
 
-  auto& derivativesPrim1 = modelBus1_->derivativesPrim();
-  derivativesPrim1->addDerivative(IR_DERIVATIVE, ur1YNumGlobal(), suscept1_ / omegaNom_);
-  derivativesPrim1->addDerivative(II_DERIVATIVE, ui1YNumGlobal(), suscept1_ / omegaNom_);
+  // the derivatives of the bus voltages only appear through the shunt susceptances
+  if (!doubleIsZero(suscept1_)) {
+    auto& derivativesPrim1 = modelBus1_->derivativesPrim();
+    derivativesPrim1->addDerivative(IR_DERIVATIVE, ur1YNumGlobal(), suscept1_ / omegaNom_);
+    derivativesPrim1->addDerivative(II_DERIVATIVE, ui1YNumGlobal(), suscept1_ / omegaNom_);
+  }
 
-  auto& derivativesPrim2 = modelBus2_->derivativesPrim();
-  derivativesPrim2->addDerivative(IR_DERIVATIVE, ur2YNumGlobal(), suscept2_ / omegaNom_);
-  derivativesPrim2->addDerivative(II_DERIVATIVE, ui2YNumGlobal(), suscept2_ / omegaNom_);
+  if (!doubleIsZero(suscept2_)) {
+    auto& derivativesPrim2 = modelBus2_->derivativesPrim();
+    derivativesPrim2->addDerivative(IR_DERIVATIVE, ur2YNumGlobal(), suscept2_ / omegaNom_);
+    derivativesPrim2->addDerivative(II_DERIVATIVE, ui2YNumGlobal(), suscept2_ / omegaNom_);
+  }
 }
 
 void
@@ -1157,8 +1187,11 @@ ModelLine::setSubModelParameters(const std::unordered_map<std::string, Parameter
     if (dynBus1_ || dynBus2_)
       throw DYNError(Error::MODELER, DynamicLineStatusNotSupported2, id_);
 
-    modelBus1_->setHasDifferentialVoltages(true);
-    modelBus2_->setHasDifferentialVoltages(true);
+    // differential voltages only with a shunt susceptance, never reset to false (independent of the lines order)
+    if (!doubleIsZero(suscept1_))
+      modelBus1_->setHasDifferentialVoltages(true);
+    if (!doubleIsZero(suscept2_))
+      modelBus2_->setHasDifferentialVoltages(true);
   }
 }
 
@@ -1186,6 +1219,13 @@ ModelLine::printInternalParameters(std::ofstream& fstream) const {
   fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << resistance_ << std::endl;
   paramName = id() + "_" + "reactance";
   fstream << std::setw(50) << std::left << paramName << std::right << " =" << std::setw(15) << reactance_ << std::endl;
+}
+
+double
+ModelLine::omegaRef() const {
+  if (network_->isInitModel() || omegaRefNum_ < 0)
+    return 1.;
+  return y_[omegaRefNum_];
 }
 
 double
