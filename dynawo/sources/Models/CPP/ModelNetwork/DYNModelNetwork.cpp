@@ -841,12 +841,13 @@ ModelNetwork::getSize() {
   unsigned int index = 0;
   for (const auto& component : getComponents()) {
     component->initSize();
+    if (deactivateZeroCrossingFunctions_)
+      component->deactivateZeroCrossingFunctions();
     sizeY_ += component->sizeY();
     sizeZ_ += component->sizeZ();
     sizeMode_ += component->sizeMode();
     sizeF_ += component->sizeF();
-    if (!deactivateZeroCrossingFunctions_)
-      sizeG_ += component->sizeG();
+    sizeG_ += component->sizeG();
     component->setOffsetCalculatedVar(sizeCalculatedVar_);
     sizeCalculatedVar_ += component->sizeCalculatedVar();
     componentIndexByCalculatedVar_.resize(sizeCalculatedVar_, index);

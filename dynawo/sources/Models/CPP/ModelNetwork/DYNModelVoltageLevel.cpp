@@ -663,6 +663,13 @@ ModelVoltageLevel::setReferenceG(state_g* g, const int offsetG) {
 }
 
 void
+ModelVoltageLevel::deactivateZeroCrossingFunctions() {
+  NetworkComponent::deactivateZeroCrossingFunctions();
+  for (const auto& component : components_)
+    component->deactivateZeroCrossingFunctions();
+}
+
+void
 ModelVoltageLevel::setReferenceCalculatedVar(double* calculatedVars, const int offsetCalculatedVars) {
   int offsetCalculatedVarComponent = offsetCalculatedVars;
   for (const auto& component : components_) {
