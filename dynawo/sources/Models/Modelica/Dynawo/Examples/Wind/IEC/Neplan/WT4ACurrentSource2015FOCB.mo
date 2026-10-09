@@ -17,6 +17,7 @@ model WT4ACurrentSource2015FOCB "Wind Turbine Type 4A model from IEC 61400-27-1:
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
   Dynawo.Electrical.Wind.IEC.WT.WT4ACurrentSource2015 wT4ACurrentSource(
+    BLvTrPu = 0,
     ConverterLVControl = false,
     DPMaxP4APu = 1,
     DfMaxPu = 1,
