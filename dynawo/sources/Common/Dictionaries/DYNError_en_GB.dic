@@ -93,6 +93,7 @@ UndefJCalculatedVarI        =             getDefJCalculatedVarI is not defined f
 UndefCalculatedVarI         =             evalCalculatedVarI is not defined for this variable %1%
 NetworkUndefCalculatedVar   =             calculated Variable definition does not exist for variable num %1%
 SubModelUnknownElement      =             element %1% not found in subModel %2% (type %3%)
+SubModelOverridenElement    =             element %1% in subModel %2% is overriden by another model and should not be accessed
 MacroNotResolved            =             could not resolve macro %1% (reason: %2%)
 SubModelUnknownVariable     =             subModel %1% (type %2%) has not variable %3%
 SubModelBadVariableTypeForVariableIndex = failed to compute global variable index for %1% - %3% (of type %2%)
