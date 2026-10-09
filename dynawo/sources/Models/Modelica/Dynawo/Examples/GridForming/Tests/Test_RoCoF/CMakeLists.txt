@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   VSM_RoCoF.mo
   Droop_RoCoF.mo
+  CCVSM_RoCoF.mo
   )
 
 #

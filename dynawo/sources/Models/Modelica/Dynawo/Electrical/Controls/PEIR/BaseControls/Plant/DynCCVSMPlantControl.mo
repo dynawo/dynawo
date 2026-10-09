@@ -34,9 +34,9 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.PerUnit Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)" annotation(
+  parameter Types.AngularVelocity Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.PerUnit Omegaff "Cutoff pulsation of the active damping (in rad/s)" annotation(
+  parameter Types.AngularVelocity Omegaff "Cutoff pulsation of the active damping (in rad/s)" annotation(
     Dialog(tab = "Voltage Reference"));
   parameter Types.PerUnit Kff "Gain of the active damping" annotation(
     Dialog(tab = "Voltage Reference"));

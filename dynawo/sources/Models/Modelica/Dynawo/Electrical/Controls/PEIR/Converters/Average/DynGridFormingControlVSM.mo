@@ -1,25 +1,25 @@
 within Dynawo.Electrical.Controls.PEIR.Converters.Average;
 
-model DynGridFormingControlVSM
+model DynGridFormingControlVSM "Control block of a Virtual Synchronous Machine (VSM)"
   /*
-    * Copyright (c) 2026, RTE (http://www.rte-france.com)
-    * See AUTHORS.txt
-    * All rights reserved.
-    * This Source Code Form is subject to the terms of the Mozilla Public
-    * License, v. 2.0. If a copy of the MPL was not distributed with this
-    * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-    * SPDX-License-Identifier: MPL-2.0
-    *
-    * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-    * of simulation tools for power systems.
-    */
+   * Copyright (c) 2026, RTE (http://www.rte-france.com)
+   * See AUTHORS.txt
+   * All rights reserved.
+   * This Source Code Form is subject to the terms of the Mozilla Public
+   * License, v. 2.0. If a copy of the MPL was not distributed with this
+   * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+   * SPDX-License-Identifier: MPL-2.0
+   *
+   * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+   * of simulation tools for power systems.
+   */
   // VSM parameters
   parameter Types.PerUnit kVSM "Virtual Synchronous Machine gain";
   parameter Types.Time H "Inertia constant in s";
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
-  parameter Types.PerUnit Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)";
-  parameter Types.PerUnit Omegaff "Cutoff pulsation of the active damping (in rad/s)";
+  parameter Types.AngularVelocity Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)";
+  parameter Types.AngularVelocity Omegaff "Cutoff pulsation of the active damping (in rad/s)";
   parameter Types.PerUnit Kff "Gain of the active damping";
   // QSEM parameter
   parameter Real XVIPu "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control";
@@ -120,6 +120,7 @@ model DynGridFormingControlVSM
   final parameter Types.PerUnit UqFilterRef0Pu = UqPcc0Pu + RTransformerPu*IqConv0Pu + (LTransformerPu*Omega0Pu + XVIPu)*IdConv0Pu "Start value of q-axis voltage reference at the filter (QSEM-consistent) in pu (base UNom)";
   PLL.PLL_INIT pll_init(U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
     Placement(transformation(origin = {-138, 14}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   connect(VSM.omegaPu, QSEM.omegaPu) annotation(
     Line(points = {{8, 74}, {18, 74}, {18, 40}, {-14, 40}}, color = {0, 0, 127}));
@@ -186,8 +187,9 @@ equation
     Line(points = {{40, -108}, {60, -108}, {60, 10}}, color = {0, 0, 127}));
   connect(uqFilterPu, currentLoop.uqFilterPu) annotation(
     Line(points = {{88, -108}, {66, -108}, {66, 10}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(graphics = {Text(origin = {45, 35}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "idConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {45, 25}, textColor = {245, 121, 0}, extent = {{-13, 1}, {13, -1}}, textString = "iqConvRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 35}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "udFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold}), Text(origin = {-11, 23}, textColor = {85, 170, 0}, extent = {{-13, 1}, {13, -1}}, textString = "uqFilterRefPu", fontSize = 5, textStyle = {TextStyle.Bold})}),
-    Documentation);
+    Documentation(info = "<html><head></head><body>The model showcases the control loops of a current-controlled Virtual Synchronous Machine, ranked by decreasing time characterisitcs :&nbsp;<div>- Current loop : outputs voltage references for the Converter block based on current references</div><div>- Voltage Reference Loop : produces voltage references for the Q-U regulation</div><div>- VSM : Virtual Synchronous Machine with emulates the swing equation and produces P-&amp;omega regulation</div><div><br></div><div>Other additonal blocks are implemented, namely :&nbsp;</div><div>- a Quasi-Static Eletric Model (QSEM) : an algebraic block to compensate the voltage drop in the converter due to the transformer</div><div>- a Virtual Impedance : adresses current limitation.&nbsp;</div><div><br></div><div><br></div></body></html>"));
 end DynGridFormingControlVSM;

@@ -55,5 +55,32 @@ equation
   annotation(
     preferredView = "text",
     Icon(coordinateSystem(grid = {1, 1})),
-    Diagram(coordinateSystem(grid = {1, 1})));
+    Diagram(coordinateSystem(grid = {1, 1})),
+    Documentation(info = "<html><head></head><body>
+<p>This model computes a <b>virtual impedance</b> used to limit the current of a grid-forming converter during overcurrents (faults, heavy load connections, line trippings).</p>
+<p>As a grid-forming converter behaves as a voltage source, its current increases up to unacceptable values when the grid voltage drops. Since adding a physical impedance is not possible, a virtual impedance is emulated by the control: its voltage drop (DeltaVVId, DeltaVVIq) is subtracted from the voltage reference (cf. VoltageReferenceControl or DroopControl), which reduces the internal voltage of the converter, hence its current.</p>
+
+<h4>Equations</h4>
+<p>The virtual impedance Z<sub>VI</sub> = R<sub>VI</sub> + jX<sub>VI</sub> is only activated when the converter current module exceeds the threshold I<sub>MaxVI</sub> (IMaxVIPu), and increases proportionally to the overcurrent:</p>
+<p>I<sub>Conv</sub> = &radic;(i<sub>dConv</sub><sup>2</sup> + i<sub>qConv</sub><sup>2</sup>)</p>
+<p>&Delta;I<sub>Conv</sub> = max(I<sub>Conv</sub> &minus; I<sub>MaxVI</sub>, 0)</p>
+<p>R<sub>VI</sub> = K<sub>pVI</sub> &middot; &Delta;I<sub>Conv</sub>, X<sub>VI</sub> = &sigma;<sub>X/R</sub> &middot; R<sub>VI</sub></p>
+<p>where K<sub>pVI</sub> (KpVI) is the proportional gain of the virtual impedance and &sigma;<sub>X/R</sub> (XRratio) its constant X/R ratio. The output is the voltage drop &Delta;<b>V</b><sub>VI</sub> = Z<sub>VI</sub> &middot; <b>I</b><sub>Conv</sub> in the dq frame:</p>
+<p>&Delta;V<sub>VId</sub> = R<sub>VI</sub> &middot; i<sub>dConv</sub> &minus; X<sub>VI</sub> &middot; i<sub>qConv</sub></p>
+<p>&Delta;V<sub>VIq</sub> = R<sub>VI</sub> &middot; i<sub>qConv</sub> + X<sub>VI</sub> &middot; i<sub>dConv</sub></p>
+<p>Below the threshold, Z<sub>VI</sub> = 0 and the block has no effect on the control.</p>
+
+<h4>Current limitation and tuning</h4>
+<p>As R<sub>VI</sub> depends on the overcurrent itself, the current is not strictly limited to I<sub>MaxVI</sub>: I<sub>MaxVI</sub> is the activation threshold, and the current settles to a value I<sub>Lim</sub> &gt; I<sub>MaxVI</sub> determined by K<sub>pVI</sub>. For a bolted fault close to the converter (grid voltage close to zero), neglecting resistances and assuming fast inner loops, the internal voltage E is entirely consumed by the physical reactance X (between the converter and the fault) and the virtual impedance, so that approximately:</p>
+<p>E &asymp; (X + K<sub>pVI</sub> &middot; (I<sub>Lim</sub> &minus; I<sub>MaxVI</sub>) &middot; &radic;(1 + &sigma;<sub>X/R</sub><sup>2</sup>)) &middot; I<sub>Lim</sub></p>
+<p>which gives K<sub>pVI</sub> for a desired current limit I<sub>Lim</sub>. For example, with the parameters of the MIGRATE report (E = 1 pu, X = 0.15 pu, I<sub>MaxVI</sub> = 1 pu, K<sub>pVI</sub> = 0.67 pu, &sigma;<sub>X/R</sub> = 5), I<sub>Lim</sub> &asymp; 1.2 pu.</p>
+<p>A high X/R ratio keeps a mainly inductive output impedance, consistent with the decoupling between active power / angle and reactive power / voltage on which the outer controls (VSM, droop) rely.</p>
+
+<h4>Limitations</h4>
+<ul>
+<li>The model is purely algebraic: the virtual impedance acts instantaneously on the voltage reference, but the actual current limitation depends on the dynamics of the downstream voltage/current control. In the MIGRATE report, the virtual impedance alone is too slow to limit the first current peak, which is why it is combined with a current saturation (hybrid current limitation control, section III.3).</li>
+<li>There is no hysteresis around the threshold and no bound on the virtual impedance: see VirtualImpedance2CC for a variant with a capped overcurrent (DeltaIConvMaxPu) and a hysteresis band, used with the current saturation in DynGridFormingControlCCVSM.</li>
+</ul>
+<p>This block is used in DynGridFormingControlVSM and DynGridFormingControlDroop. Its start values are computed from the initial converter current (IdConv0Pu, IqConv0Pu), the virtual impedance being normally inactive at initialization.</p>
+</body></html>"));
 end VirtualImpedance2;

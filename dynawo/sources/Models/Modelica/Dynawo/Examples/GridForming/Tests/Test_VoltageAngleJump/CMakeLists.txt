@@ -11,6 +11,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  CCVSM_VoltageAngleJump.mo
   VSM_VoltageAngleJump.mo
   Droop_VoltageAngleJump.mo
   )

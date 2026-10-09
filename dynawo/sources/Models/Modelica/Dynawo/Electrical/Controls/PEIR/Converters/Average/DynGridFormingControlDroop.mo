@@ -16,8 +16,8 @@ model DynGridFormingControlDroop
   // Droop & Voltage reference control parameters
   parameter Types.PerUnit Mp "Active power droop control coefficient";
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
-  parameter Types.PerUnit Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)";
-  parameter Types.PerUnit Omegaff "Cutoff pulsation of the active damping (in rad/s)";
+  parameter Types.AngularVelocity Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)";
+  parameter Types.AngularVelocity Omegaff "Cutoff pulsation of the active damping (in rad/s)";
   parameter Types.PerUnit Kff "Gain of the active damping";
   // QSEM parameter
   parameter Real XVIPu "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control";

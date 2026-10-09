@@ -12,47 +12,88 @@
     of simulation tools for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-  <!-- InfiniteBus -->
+  <!-- Infinite bus -->
   <set id="1">
     <par type="DOUBLE" name="infiniteBus_dUPhaseEvt" value="0.462"/>
     <par type="DOUBLE" name="infiniteBus_tUPhaseEvt" value="10"/>
   </set>
-  <!-- line 1 -->
+
+  <!-- Line -->
   <set id="2">
     <par type="DOUBLE" name="line_RPu" value="0.005"/>
     <par type="DOUBLE" name="line_XPu" value="0.05"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
+
+  <!-- Grid forming converter (VSM with PLL on the converter voltage) -->
   <set id="3">
-    <par name="GFMConvPLL_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <!-- Installation parameter -->
+    <par name="GFMConvPLL_SNom" type="DOUBLE" value="1000"/>
+    <!-- VSM parameters -->
+    <par name="GFMConvPLL_kVSM" type="DOUBLE" value="650"/>
     <par name="GFMConvPLL_H" type="DOUBLE" value="5"/>
-    <par name="GFMConvPLL_IMaxVI" type="DOUBLE" value="1.2"/>
-    <par name="GFMConvPLL_Kff" type="DOUBLE" value="0"/>
+    <!-- Virtual impedance parameters -->
     <par name="GFMConvPLL_KpVI" type="DOUBLE" value="0.6"/>
+    <par name="GFMConvPLL_XRratio" type="DOUBLE" value="10"/>
+    <par name="GFMConvPLL_IMaxVIPu" type="DOUBLE" value="1.2"/>
+    <!-- Voltage reference control parameters -->
+    <par name="GFMConvPLL_Mq" type="DOUBLE" value="0.2"/>
+    <par name="GFMConvPLL_Omegaf" type="DOUBLE" value="31.4159"/>
+    <par name="GFMConvPLL_Omegaff" type="DOUBLE" value="60"/>
+    <par name="GFMConvPLL_Kff" type="DOUBLE" value="0"/>
+    <!-- PLL parameters -->
+    <par name="GFMConvPLL_OmegaPLL" type="DOUBLE" value="100"/>
+    <par name="GFMConvPLL_KsiPLL" type="DOUBLE" value="1"/>
+    <!-- QSEM parameter -->
+    <par name="GFMConvPLL_XVIPu" type="DOUBLE" value="0.06"/>
+    <!-- Current loop parameters -->
+    <par name="GFMConvPLL_Omegac" type="DOUBLE" value="1000"/>
     <par name="GFMConvPLL_Kfd" type="DOUBLE" value="0.8"/>
     <par name="GFMConvPLL_Kfq" type="DOUBLE" value="0"/>
-    <par name="GFMConvPLL_LFilterPu" type="DOUBLE" value="0.15"/>
-    <par name="GFMConvPLL_LTransformerPu" type="DOUBLE" value="0.06"/>
-    <par name="GFMConvPLL_Mq" type="DOUBLE" value="0.2"/>
-    <par name="GFMConvPLL_OmegaSetPu" type="DOUBLE" value="1"/>
-    <par name="GFMConvPLL_P0Pu" type="DOUBLE" value="-9.440980224920759"/>
-    <par name="GFMConvPLL_Q0Pu" type="DOUBLE" value="-0.6429165775891952"/>
+    <!-- Filter parameters -->
     <par name="GFMConvPLL_RFilterPu" type="DOUBLE" value="0.015"/>
+    <par name="GFMConvPLL_LFilterPu" type="DOUBLE" value="0.15"/>
+    <par name="GFMConvPLL_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <!-- Transformer parameters -->
     <par name="GFMConvPLL_RTransformerPu" type="DOUBLE" value="0.006"/>
-    <par name="GFMConvPLL_SNom" type="DOUBLE" value="1000"/>
-    <par name="GFMConvPLL_U0Pu" type="DOUBLE" value="0.9541103569380914"/>
-    <par name="GFMConvPLL_UPhase0" type="DOUBLE" value="0.5136779612182729"/>
-    <par name="GFMConvPLL_Wf" type="DOUBLE" value="31.4159"/>
-    <par name="GFMConvPLL_Wff" type="DOUBLE" value="60"/>
-    <par name="GFMConvPLL_XRratio" type="DOUBLE" value="10"/>
-    <par name="GFMConvPLL_XVI" type="DOUBLE" value="0.06"/>
-    <par name="GFMConvPLL_kVSM" type="DOUBLE" value="650"/>
+    <par name="GFMConvPLL_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <!-- VSC parameter -->
     <par name="GFMConvPLL_tVSC" type="DOUBLE" value="0.0004"/>
-    <par name="GFMConvPLL_omegaNPLL" type="DOUBLE" value="100"/>
-    <par name="GFMConvPLL_ZetaPLL" type="DOUBLE" value="1"/>
-    <par name="GFMConvPLL_omegaC" type="DOUBLE" value="1000"/>
+    <!-- Operating point -->
+    <par name="GFMConvPLL_U0Pu" type="DOUBLE" value="0.954110360567147"/>
+    <par name="GFMConvPLL_UPhase0" type="DOUBLE" value="0.513677943263305"/>
+    <par name="GFMConvPLL_P0Pu" type="DOUBLE" value="-9.440979955569425"/>
+    <par name="GFMConvPLL_Q0Pu" type="DOUBLE" value="-0.642916511452948"/>
+    <par name="GFMConvPLL_OmegaSetPu" type="DOUBLE" value="1"/>
   </set>
+
+  <!-- PFilterRef set point -->
+  <set id="5">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.95"/>
+  </set>
+
+  <!-- QFilterRef set point -->
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="0"/>
+  </set>
+
+  <!-- UFilterRef set point -->
+  <set id="7">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+
+  <!-- OmegaRef set point -->
+  <set id="8">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+
+  <!-- Measurements-->
+  <set id="9">
+    <par type="DOUBLE" name="measurements_SNom" value="1000"/>
+  </set>
+
+  <!-- Solvers -->
   <set id="IDASolver">
     <par type="INT" name="order" value="2"/>
     <par type="DOUBLE" name="initStep" value="0.00001"/>
@@ -68,23 +109,12 @@
     <par type="INT" name="printflAlgJ" value="2"/>
     <par type="INT" name="printflAlgInit" value="2"/>
   </set>
-  <set id="5">
-    <par type="DOUBLE" name="setPoint_Value0" value="0.95"/>
-  </set>
+
   <set id="SimplifiedSolver">
     <par type="DOUBLE" name="hMin" value="0.000001"/>
     <par type="DOUBLE" name="hMax" value="0.001"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="maxNewtonTry" value="10"/>
     <par type="DOUBLE" name="minimalAcceptableStep" value="1e-7"/>
-  </set>
-  <set id="6">
-  <par type="DOUBLE" name="setPoint_Value0" value="0"/>
-  </set>
-  <set id="7">
-    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
-  </set>
-  <set id="8">
-    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
 </parametersSet>

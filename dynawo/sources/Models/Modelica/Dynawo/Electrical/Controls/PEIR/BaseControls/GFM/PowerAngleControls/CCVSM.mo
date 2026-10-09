@@ -101,7 +101,7 @@ equation
 <ul>
 <li>The proportional term is not integrated: it vanishes in steady state (ω = ω<sub>Ref</sub>), so it does not change the operating point nor the steady-state active power / frequency behaviour set by H and k<sub>VSM</sub>.</li>
 <li>It acts instantaneously on θ, hence on the active power exchanged with the grid, and therefore brings an additional damping of the electromechanical oscillations.</li>
-<li>This block is meant to be used together with a current saturation (CurrentSaturation block), see below.</li>
+<li>This block is meant to be used together with a current saturation (CurrentSaturation block), see below (such changes have not been implemented yet).</li>
 </ul>
 
 <h4>Behaviour under current saturation</h4>

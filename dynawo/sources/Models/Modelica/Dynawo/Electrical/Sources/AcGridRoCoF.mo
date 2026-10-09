@@ -13,7 +13,7 @@ within Dynawo.Electrical.Sources;
 * of simulation tools for power systems.
 */
 
-model AcGridRoCoF "AC Grid emulating a single, PERMANENT RoCoF disturbance, without governor/turbine/inertia dynamics, and without any precompiled sub-component"
+model AcGridRoCoF "AC Grid emulating a single permanent RoCoF disturbance"
 
   parameter Real SNom;
   parameter Real U0pu;
@@ -23,7 +23,7 @@ model AcGridRoCoF "AC Grid emulating a single, PERMANENT RoCoF disturbance, with
   parameter Real StartRoCoF "Start Time of the RoCoF event (in s)";
   parameter Real TimeRoCoF "Time interval (in s) of the RoCoF event";
   parameter Real RoCoFValue "Value Rate of Change of Frequency (pu/s, base omegaNom)";
-  parameter Real StartingFrequency "ECART (delta) de frequence avant l'evenement par rapport au nominal porte par OmegaRef, en pu (base omegaNom) -- PAS une valeur absolue : omegaPu = OmegaRef + StartingFrequency + rampe. Cf. 'valeur initiale' des 4 profils DTR I18 Test 4 : 49.5Hz -> -0.01 pu, 50.5Hz -> +0.01 pu (pas 0.99/1.01)";
+  parameter Real StartingFrequency "Starting frequency compared to the nominal value of 1 p.u. : e.g. for a starting frequency of 49.5 Hz --> -0.01 p.u";
 
   // ----- Voltage source terminal -----
   Dynawo.Connectors.ACPower aCPower annotation(

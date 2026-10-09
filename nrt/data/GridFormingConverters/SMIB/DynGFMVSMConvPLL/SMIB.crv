@@ -12,6 +12,6 @@
     of simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="GFMConvPLL" variable="GFMConvPLL_Control_PFilterPu"/>
-  <curve model="GFMConvPLL" variable="GFMConvPLL_Control_PFilterRefPu"/>
+  <curve model="Meas" variable="measurements_IpPuSNom"/>
+  <curve model="Meas" variable="measurements_IqPuSNom"/>
 </curvesInput>

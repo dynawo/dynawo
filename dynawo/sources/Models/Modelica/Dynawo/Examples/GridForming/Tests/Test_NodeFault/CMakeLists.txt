@@ -11,6 +11,7 @@
 set(MODEL_FILES
   Droop_NodeFault.mo
   VSM_NodeFault.mo
+  CCVSM_NodeFault.mo
   package.mo
   package.order
   )

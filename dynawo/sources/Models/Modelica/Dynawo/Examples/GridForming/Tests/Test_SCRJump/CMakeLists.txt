@@ -11,6 +11,8 @@
 set(MODEL_FILES
   package.mo
   package.order
+  CCVSM_VoltageSCRJumpUp.mo
+  CCVSM_VoltageSCRJumpDown.mo
   VSM_VoltageSCRJumpUp.mo
   VSM_VoltageSCRJumpDown.mo
   Droop_VoltageSCRJumpUp.mo
