@@ -430,7 +430,9 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDefineInstantiate) {
 
   std::vector<ParameterModeler> parameters;
   dl->defineNonGenericParameters(parameters);
-  ASSERT_TRUE(parameters.empty());
+  ASSERT_EQ(parameters.size(), 2);
+  ASSERT_EQ(parameters[0].getName(), dl->id() + "_alpha");
+  ASSERT_EQ(parameters[1].getName(), dl->id() + "_beta");
   std::unordered_map<std::string, ParameterModeler> parametersModels;
   const std::string paramName = "dangling_line_currentLimit_maxTimeOperation";
   ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
@@ -496,5 +498,60 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   delete[] zConnected;
 }
 
+static void
+addDoubleParameter(std::unordered_map<std::string, ParameterModeler>& params, const std::string& name, double value) {
+  ParameterModeler param = ParameterModeler(name, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+  param.setValue<double>(value, PAR);
+  params.insert(std::make_pair(name, param));
+}
+
+TEST(ModelsModelNetwork, ModelNetworkDanglingLineAlphaBetaJt) {
+  std::pair<std::unique_ptr<ModelDanglingLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelDanglingLine(false, false);
+  const std::unique_ptr<ModelDanglingLine>& dl = p.first;
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  addDoubleParameter(parametersModels, "dangling_line_alpha", 1.5);
+  addDoubleParameter(parametersModels, "dangling_line_beta", 1.);
+  // non generic parameter has a higher priority
+  addDoubleParameter(parametersModels, dl->id() + "_beta", 2.5);
+  ASSERT_NO_THROW(dl->setSubModelParameters(parametersModels));
+
+  dl->initSize();
+  std::vector<double> y(dl->sizeY(), 0.);
+  std::vector<double> yp(dl->sizeY(), 0.);
+  std::vector<double> f(dl->sizeF(), 0.);
+  std::vector<double> z(dl->sizeZ(), 0.);
+  bool* zConnected = new bool[dl->sizeZ()];
+  for (int i = 0; i < dl->sizeZ(); ++i)
+    zConnected[i] = true;
+  dl->setReferenceZ(&z[0], zConnected, 0);
+  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->evalYMat();
+  y[ModelDanglingLine::urFictNum_] = 4.;
+  y[ModelDanglingLine::uiFictNum_] = 1.5;
+  SparseMatrix smj;
+  int size = dl->sizeY();
+  smj.init(size, size);
+  dl->evalJt(1., 0, smj);
+  ASSERT_EQ(smj.nbElem(), 8);
+  // the load is no longer a constant power load (see ModelNetworkDanglingLineJt)
+  ASSERT_GT(std::abs(smj.Ax_[2] - (-0.034107399762306888)), 1e-6);
+
+  // compare the derivatives with respect to the fictitious node voltage with finite differences
+  const double h = 1e-6;
+  const int fictNums[2] = {ModelDanglingLine::urFictNum_, ModelDanglingLine::uiFictNum_};
+  for (int iVar = 0; iVar < 2; ++iVar) {
+    const double yRef = y[fictNums[iVar]];
+    y[fictNums[iVar]] = yRef + h;
+    dl->evalF(UNDEFINED_EQ);
+    const std::vector<double> fPlus = f;
+    y[fictNums[iVar]] = yRef - h;
+    dl->evalF(UNDEFINED_EQ);
+    const std::vector<double> fMinus = f;
+    y[fictNums[iVar]] = yRef;
+    ASSERT_NEAR(smj.Ax_[2 + iVar], (fPlus[0] - fMinus[0]) / (2. * h), 1e-6);  // d(f[0])/d(yFict)
+    ASSERT_NEAR(smj.Ax_[6 + iVar], (fPlus[1] - fMinus[1]) / (2. * h), 1e-6);  // d(f[1])/d(yFict)
+  }
+  delete[] zConnected;
+}
 
 }  // namespace DYN
