@@ -279,6 +279,12 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void setReferenceG(state_g *g, int offsetG);
 
   /**
+   * @brief deactivate the zero crossing functions of the component (size of G set to 0)
+   * must be called after initSize()
+   */
+  virtual void deactivateZeroCrossingFunctions();
+
+  /**
    * @brief get the initial values for discrete/continuous variables
    */
   virtual void getY0() = 0;
