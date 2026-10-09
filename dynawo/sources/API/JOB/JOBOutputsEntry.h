@@ -26,6 +26,7 @@
 #include "JOBFinalStateValuesEntry.h"
 #include "JOBFinalValuesEntry.h"
 #include "JOBInitValuesEntry.h"
+#include "JOBLinearizationEntry.h"
 #include "JOBLogsEntry.h"
 #include "JOBLostEquipmentsEntry.h"
 #include "JOBTimelineEntry.h"
@@ -171,6 +172,18 @@ class OutputsEntry {
   std::shared_ptr<FinalStateValuesEntry> getFinalStateValuesEntry() const;
 
   /**
+   * @brief Linearization entry setter
+   * @param linearizationEntry : linearization entry container for the job
+   */
+  void setLinearizationEntry(const std::shared_ptr<LinearizationEntry>& linearizationEntry);
+
+  /**
+   * @brief Linearization entry getter
+   * @return the linearization entry container
+   */
+  std::shared_ptr<LinearizationEntry> getLinearizationEntry() const;
+
+  /**
    * @brief lostEquipments entry setter
    * @param lostEquipmentsEntry : lostEquipments for the job
    */
@@ -211,6 +224,7 @@ class OutputsEntry {
   std::vector<std::shared_ptr<FinalStateEntry> > finalStateEntries_;  ///< Final State entries container
   std::shared_ptr<CurvesEntry> curvesEntry_;                          ///< Curves entries container
   std::shared_ptr<FinalStateValuesEntry> finalStateValuesEntry_;      ///< Final State values entries container
+  std::shared_ptr<LinearizationEntry> linearizationEntry_;            ///< Linearization entries container
   std::shared_ptr<LostEquipmentsEntry> lostEquipmentsEntry_;          ///< Lost equipments entries container
   std::shared_ptr<LogsEntry> logsEntry_;                              ///< Logs entries containe
 };

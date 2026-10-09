@@ -94,6 +94,7 @@ maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
 algebraicRestorationReinitMode_(ALWAYS),
+tEnd_(0.),
 flagInit_(false),
 nbLastTimeSimulated_(0),
 lastRowVals_(NULL) {
@@ -218,8 +219,11 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetUserdata");
 
-  // the solver is given the simulation end time
-  flag = IDASetStopTime(IDAMem_, tEnd);
+  // the solver is given the simulation end time, or the linearization time first if it is inside the simulation
+  // (IDA then ends a step exactly on it and the stop time is set back to the simulation end time in solveStep)
+  tEnd_ = tEnd;
+  const bool stopAtLinearization = withLinearization_ && tLinearization_ > t0 && tLinearization_ < tEnd;
+  flag = IDASetStopTime(IDAMem_, stopAtLinearization ? tLinearization_ : tEnd);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStopTime");
 
@@ -705,6 +709,12 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
+      // the linearization time is reached, IDA has disabled the stop time: the simulation end time is set back
+      if (withLinearization_ && doubleEquals(tNxt, tLinearization_) && tLinearization_ < tEnd_) {
+        const int flagStop = IDASetStopTime(IDAMem_, tEnd_);
+        if (flagStop < 0)
+          throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStopTime");
+      }
       break;
     default:
       analyseFlag(flag);

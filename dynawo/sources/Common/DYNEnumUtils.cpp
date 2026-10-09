@@ -83,6 +83,21 @@ typeVar2Str(const typeVar_t type) {
   return "";
 }
 
+string
+propertyEquation2Str(const propertyF_t property) {
+  switch (property) {
+    case DIFFERENTIAL_EQ:
+      return "DIFFERENTIAL";
+    case ALGEBRAIC_EQ:
+      return "ALGEBRAIC";
+    case UNDEFINED_EQ:
+      return "UNDEFINED";
+    default:
+      assert(0 && "Property should be one of the enum values");
+  }
+  return "";
+}
+
 typeVarC_t toCTypeVar(const typeVar_t type) {
   switch (type) {
     case DISCRETE:

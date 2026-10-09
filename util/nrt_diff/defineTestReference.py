@@ -61,6 +61,14 @@ def findOutputFile(testcase):
                 elif(curves.get("exportMode") == "XML"):
                     files.append(os.path.join(output_dir, "curves", "curves.xml" ))
 
+            # linearization: all the files of the linearization directory
+            for linearization in XMLUtils.FindAll(outputs, prefix, "linearization", ns):
+                linearization_dir = os.path.join(output_dir, "linearization")
+                case_linearization_dir = os.path.join(os.path.dirname(testcase.jobs_file_), linearization_dir)
+                if os.path.isdir(case_linearization_dir):
+                    for file_name in sorted(os.listdir(case_linearization_dir)):
+                        files.append(os.path.join(linearization_dir, file_name))
+
             # logs
             for appender in XMLUtils.FindAll(outputs, prefix, "appender", ns):
                 if (not "file" in appender.attrib):

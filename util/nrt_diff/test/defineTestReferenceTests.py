@@ -37,6 +37,17 @@ class TestDefineReference(unittest.TestCase):
         self.assertEqual(list, ['outputs/timeLine/timeline.log',
                           'outputs/curves/curves.csv', 'outputs/logs/dynawo.log'])
 
+    def test_find_output_linearization(self):
+        test_case = nrtDiff.TestCase("test")
+        test_case.directory_ = os.path.dirname(__file__)
+        test_case.jobs_file_ = os.path.join(os.path.dirname(
+            __file__), "defineTestReference", "linearization", "IEEE14.jobs")
+        list = defineTestReference.findOutputFile(test_case)
+        self.assertEqual(list, ['outputs/curves/curves.csv',
+                          'outputs/linearization/linearization_10.txt',
+                          'outputs/linearization/linearization_variables_name_10.txt',
+                          'outputs/logs/dynawo.log'])
+
 
 # the main function
 if __name__ == "__main__":

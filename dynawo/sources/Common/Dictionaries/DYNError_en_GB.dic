@@ -106,6 +106,7 @@ UnknownFinalStateExport     =             unknown final state export mode : %1%
 UnknownCurvesExport         =             unknown curves export mode : %1%
 UnknownFinalStateValuesExport  =          unknown final state values export mode: %1%
 UnknownConstraintsExport    =             unknown constraints export mode : %1%
+UnknownLinearizationExport  =             unknown linearization export mode : %1%
 UnknownDydFile              =             missing DYD file : %1%
 UnknownIidmFile             =             missing IIDM file : %1%
 UnknownModelFile            =             modelica file(s) %1% not found neither in standard library nor user defined path. Use "useStandardModels="true"" or add a directory in the corresponding modelicaModels in the jobs file.

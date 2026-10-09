@@ -75,6 +75,8 @@
 
 #include "LEQLostEquipmentsCollectionFactory.h"
 #include "LEQXmlExporter.h"
+#include "MATLinearizedSystem.h"
+#include "MATTxtExporter.h"
 
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
@@ -100,6 +102,7 @@
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
+#include "JOBLinearizationEntry.h"
 
 #include "DYNCompiler.h"
 #include "DYNDynamicData.h"
@@ -207,6 +210,8 @@ dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 dumpInitModelValues_(false),
 dumpFinalValues_(false),
+tLinearization_(boost::none),
+linearizationExporter_(std::make_shared<matrix::TxtExporter>()),
 wasLoggingEnabled_(false) {
   SignalHandler::setSignalHandlers();
 
@@ -305,7 +310,22 @@ Simulation::configureSimulationOutputs() {
     configureFinalStateValueOutputs();
     configureFinalStateOutputs();
     configureLostEquipmentsOutputs();
+    configureLinearizationOutputs();
   }
+}
+
+void
+Simulation::configureLinearizationOutputs() {
+  const auto linearizationEntry = jobEntry_->getOutputsEntry()->getLinearizationEntry();
+  if (!linearizationEntry)
+    return;
+
+  setLinearizationTime(linearizationEntry->getTime());
+  const std::string& exportMode = linearizationEntry->getExportMode();
+  if (exportMode == "TXT")
+    linearizationExporter_ = std::make_shared<matrix::TxtExporter>();
+  else
+    throw DYNError(Error::MODELER, UnknownLinearizationExport, exportMode);
 }
 
 void
@@ -860,6 +880,9 @@ Simulation::init() {
 #endif
 
   tCurrent_ = tStart_;
+  // must be done before the solver initialization as the solver uses it to stop at the linearization time
+  if (tLinearization_)
+    solver_->setLinearizationTime(*tLinearization_);
 
   model_->initSilentZ(solver_->silentZEnabled());
 
@@ -1088,6 +1111,14 @@ Simulation::simulate() {
       ++currentIterNb;
 
       model_->notifyTimeStep();
+
+      if (tLinearization_ && doubleEquals(tCurrent_, *tLinearization_)) {
+        Trace::info() << DYNLog(Linearization, tCurrent_) << Trace::endline;
+        const string linearizationDir = createAbsolutePath("linearization", outputsDirectory_);
+        if (!isDirectory(linearizationDir))
+          createDirectory(linearizationDir);
+        linearizationExporter_->exportLinearizedSystem(model_->evalLinearization(tCurrent_), linearizationDir);
+      }
 
       if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {
         // In case it was not already done beause of check criteria and intermediate state dump will be done at least one for current

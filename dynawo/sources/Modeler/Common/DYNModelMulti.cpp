@@ -41,6 +41,8 @@
 #include "DYNConnectorCalculatedVariable.h"
 #include "DYNCommon.h"
 #include "DYNVariableAlias.h"
+#include "MATLinearizedSystem.h"
+#include "MATSparseMatrixConversion.h"
 
 using std::min;
 using std::max;
@@ -1324,6 +1326,36 @@ void ModelMulti::registerAction(const string& actionString) {
   }
   // --- Add to buffer
   actionBuffer_->addAction(subModel, parameterValueSet);
+}
+
+matrix::LinearizedSystem
+ModelMulti::evalLinearization(const double t) {
+  matrix::LinearizedSystem linearizedSystem(t);
+
+  SparseMatrix jt;
+  jt.init(sizeY(), sizeY());
+  evalJt(t, 0., jt);
+  // the transposed jacobian is stored by columns (one column per equation): the jacobian is the same storage by rows
+  linearizedSystem.setJacobian(matrix::fromSparseMatrix(jt).transposed());
+
+  SparseMatrix jtPrim;
+  jtPrim.init(sizeY(), sizeY());
+  evalJtPrim(t, 1., jtPrim);
+  linearizedSystem.setJacobianPrim(matrix::fromSparseMatrix(jtPrim).transposed());
+
+  const auto& modelYType = getYType();
+  unsigned int numVar = 0;
+  for (const auto& subModel : subModels_) {
+    for (const auto& xName : subModel->xNames()) {
+      linearizedSystem.addVariable(xName, subModel->name(), propertyVar2Str(modelYType[numVar]));
+      ++numVar;
+    }
+  }
+
+  for (const auto fType : getFType())
+    linearizedSystem.addEquation(propertyEquation2Str(fType));
+
+  return linearizedSystem;
 }
 
 }  // namespace DYN
