@@ -110,6 +110,12 @@ class ModelBusContainer {
    */
   void resetInjections();
 
+  /**
+   * @brief whether at least one bus has differential voltages
+   * @return @b true if at least one bus has differential voltages
+   */
+  bool hasDifferentialVoltages() const;
+
 
  private:
   std::vector<std::shared_ptr<ModelBus> > models_;  ///< model bus

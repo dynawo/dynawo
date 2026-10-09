@@ -251,6 +251,12 @@ class ModelLine : public ModelQuadripole {
   double ii2_dUi2() const;
 
   /**
+   * @brief get the reference angular frequency of the dynamic line model (connected variable)
+   * @return reference angular frequency in pu, 1 in the initialization model
+   */
+  double omegaRef() const;
+
+  /**
    * @brief get the real part of the voltage at side 1
    * @return real part of the voltage at side 1
    */
@@ -401,7 +407,6 @@ class ModelLine : public ModelQuadripole {
   int offsetGCl2_ = 0;  ///< start of embedded current limit 2 variables in G vector of line
 
   double omegaNom_;  ///< nominal angular frequency
-  double omegaRef_;  ///< reference angular frequency in pu
 };
 }  // namespace DYN
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_

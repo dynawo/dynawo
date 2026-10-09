@@ -51,6 +51,15 @@ ModelBusContainer::resetInjections() {
   }
 }
 
+bool
+ModelBusContainer::hasDifferentialVoltages() const {
+  for (const auto& bus : models_) {
+    if (bus->hasDifferentialVoltages())
+      return true;
+  }
+  return false;
+}
+
 void
 ModelBusContainer::resetDerivatives() {
   for (const auto& busModel : models_)

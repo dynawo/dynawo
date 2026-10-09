@@ -138,6 +138,12 @@ class ModelBus : public NetworkComponent {
   inline void setHasDifferentialVoltages(const bool hasDifferentialVoltages) {hasDifferentialVoltages_ = hasDifferentialVoltages;}
 
   /**
+   * @brief whether the bus voltage variables are differential
+   * @return @b true if the bus voltages are differential
+  **/
+  inline bool hasDifferentialVoltages() const {return hasDifferentialVoltages_;}
+
+  /**
    * @brief get the current requested value of U
    * @param currentURequested type of U requested
    * @return the current requested value of U
