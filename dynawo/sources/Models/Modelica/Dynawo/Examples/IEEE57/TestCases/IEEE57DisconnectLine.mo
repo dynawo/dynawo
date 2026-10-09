@@ -384,7 +384,7 @@ equation
   LineB27B28.switchOffSignal1 = false;
   LineB27B28.switchOffSignal2 = false;
   LineB28B29.switchOffSignal1 = false;
-  LineB28B29.switchOffSignal2 = if time < 100 then false else true; // Disconnecting line B28B29
+  LineB28B29.switchOffSignal2 = if time < 20 then false else true; // Disconnecting line B28B29
   LineB29B52.switchOffSignal1 = false;
   LineB29B52.switchOffSignal2 = false;
   LineB30B31.switchOffSignal1 = false;
@@ -483,7 +483,7 @@ equation
   Shunt53.switchOffSignal2 = false;
 
   annotation(preferredView = "text",
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-6, Interval = 10),
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-6, Interval = 1),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
   Documentation(info = "<html><head></head><body>At t = 100 s, LineB28B29 is disconnected.</body></html>"));

@@ -483,7 +483,7 @@ equation
   Shunt53.switchOffSignal2 = false;
 
   annotation(preferredView = "text",
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-6, Interval = 10),
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-6, Interval = 1),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"));
 end IEEE57NoEvent;
