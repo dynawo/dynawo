@@ -17,6 +17,7 @@ model WT4ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1 stan
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
   Dynawo.Electrical.Wind.IEC.WT.WT4ACurrentSource2020 wT4ACurrentSource(
+    BLvTrPu = 0.001,
     ConverterLVControl = false,
     DPMaxP4APu = 1,
     DPRefMax4APu = 100,
