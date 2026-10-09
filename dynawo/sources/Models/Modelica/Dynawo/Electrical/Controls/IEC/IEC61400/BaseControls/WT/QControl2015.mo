@@ -73,7 +73,7 @@ equation
     Line(points = {{-259, -82}, {-100, -82}, {-100, -34}, {-22, -34}}, color = {0, 0, 127}));
   connect(PWTPu, firstOrder1.u) annotation(
     Line(points = {{-320, -52}, {-286, -52}, {-286, -46}}, color = {0, 0, 127}));
-  connect(firstOrder1.y, abs.u) annotation(
+  connect(firstOrder1.y, abs1.u) annotation(
     Line(points = {{-286, -23}, {-286, 6}}, color = {0, 0, 127}));
   connect(gain7.y, multiSwitch2.u[1]) annotation(
     Line(points = {{-58, -180}, {80, -180}}, color = {0, 0, 127}));
