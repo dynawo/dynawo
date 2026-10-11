@@ -23,7 +23,13 @@
 
 namespace job {
 
-SimulationEntry::SimulationEntry() : startTime_(0), stopTime_(0), criteriaStep_(10), precision_(1e-6), timeout_(std::numeric_limits<double>::max()) {}
+SimulationEntry::SimulationEntry()
+    : startTime_(0),
+      stopTime_(0),
+      criteriaStep_(10),
+      precision_(1e-6),
+      timeout_(std::numeric_limits<double>::max()),
+      enableRealTimeTracking_(false) {}
 
 void
 SimulationEntry::setStartTime(double startTime) {
@@ -79,6 +85,16 @@ SimulationEntry::setPrecision(double precision) {
 double
 SimulationEntry::getPrecision() const {
   return precision_;
+}
+
+bool
+SimulationEntry::getEnableRealTimeTracking() const {
+  return enableRealTimeTracking_;
+}
+
+void
+SimulationEntry::setEnableRealTimeTracking(bool enable) {
+  enableRealTimeTracking_ = enable;
 }
 
 }  // namespace job
