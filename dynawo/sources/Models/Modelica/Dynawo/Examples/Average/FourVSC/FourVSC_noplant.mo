@@ -14,7 +14,7 @@ model FourVSC_noplant
   // unit expected to reach its current limiter (IMaxPu = 1.1 pu) first
   // and most severely during the disturbance.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_HVDC1(SNom = 1200, U0Pu = 1.016485, Uphase = 0.210724, P0_pcc = -11.445, Q0_pcc = 0.536945, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_HVDC1(SNom = 1200, U0Pu = 1.016485, Uphase = 0.210724, P0_pcc = -11.445, Q0_pcc = 0.536945, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-222, 102}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // HVDC2 converter - Bus B - SNom = 1700 MVA
@@ -23,7 +23,7 @@ model FourVSC_noplant
   // correspondingly less (or no) current-limiter engagement than
   // gFL_HVDC1.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_HVDC2(SNom = 1700, U0Pu = 1.018446, Uphase = 0.216682, P0_pcc = -13.94108, Q0_pcc = -5.04, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.1667, KidOuter = 50, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_HVDC2(SNom = 1700, U0Pu = 1.018446, Uphase = 0.216682, P0_pcc = -13.94108, Q0_pcc = -5.04, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0033, k_p_d_current = 0.5730, k_i_d_current = 6, k_p_q_current = 0.5730, k_i_q_current = 6, KpdOuter = 0.1667, KidOuter = 50, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {198, 102}, extent = {{20, -20}, {-20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // WP1 converter (wind park) - Bus E - SNom = 2400 MVA
@@ -31,7 +31,7 @@ model FourVSC_noplant
   // from the faulted Bus A: sees an attenuated but still significant
   // voltage dip during the fault.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_WP1(SNom = 2400, U0Pu = 1.06870, Uphase = 0.352335, P0_pcc = -19.916, Q0_pcc = 1.594, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0333, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_WP1(SNom = 2400, U0Pu = 1.06870, Uphase = 0.352335, P0_pcc = -19.916, Q0_pcc = 1.594, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0333, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-236, -154}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // WP2 converter (wind park) - Bus F - SNom = 2400 MVA
@@ -41,7 +41,7 @@ model FourVSC_noplant
   // when checking that only the current limiter (not an oscillatory
   // instability) explains the transients seen elsewhere.
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_WP2(SNom = 2400, U0Pu = 1.037386, Uphase = 0.366498, P0_pcc = -19.917, Q0_pcc = 7.368258, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, k_filter = 1, T_filter = 0.0033, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Converters.Average.GFLmodel_noplant_v_control gFL_WP2(SNom = 2400, U0Pu = 1.037386, Uphase = 0.366498, P0_pcc = -19.917, Q0_pcc = 7.368258, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.005, LfPu = 0.12, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5, KFilter = 1, tFilter = 0.0033, k_p_d_current = 0.4584, k_i_d_current = 6, k_p_q_current = 0.4584, k_i_q_current = 6, KpdOuter = 0.0333, KidOuter = 10, KpqOuter = 0.1667, KiqOuter = 50, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 1.1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2, KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMaxd = 5, DyMaxq = 5, DidMax = 0.5, DidMin = -999, tSid = 1e-4, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {230, -146}, extent = {{20, -20}, {-20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // Lines (per-unit impedances, base SnRef=100MVA)
@@ -170,13 +170,13 @@ equation
 // ═══════════════════════════════════════════════════════════════
 // Electrical connections - mirror the IIDM topology
 // ═══════════════════════════════════════════════════════════════
-  connect(gFL_HVDC1.terminalPcc, busA.terminal) annotation(
+  connect(gFL_HVDC1.terminal, busA.terminal) annotation(
     Line(points = {{-206, 105}, {-206, 109.5}, {-180, 109.5}, {-180, 60}}, color = {0, 0, 255}));
-  connect(gFL_HVDC2.terminalPcc, busB.terminal) annotation(
+  connect(gFL_HVDC2.terminal, busB.terminal) annotation(
     Line(points = {{182, 105}, {182, 60}, {180, 60}}, color = {0, 0, 255}));
-  connect(gFL_WP1.terminalPcc, busE.terminal) annotation(
+  connect(gFL_WP1.terminal, busE.terminal) annotation(
     Line(points = {{-220, -151}, {-220, -100}}, color = {0, 0, 255}));
-  connect(gFL_WP2.terminalPcc, busF.terminal) annotation(
+  connect(gFL_WP2.terminal, busF.terminal) annotation(
     Line(points = {{214, -143}, {214, -120.5}, {220, -120.5}, {220, -100}}, color = {0, 0, 255}));
   connect(busA.terminal, lineAB1.terminal1) annotation(
     Line(points = {{-180, 60}, {-140, 60}, {-140, 82}, {-10, 82}}, color = {0, 0, 255}));

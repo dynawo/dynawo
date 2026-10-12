@@ -51,8 +51,8 @@ model GFLmodel_noplant_v_control
   // ────────────────────────────────────────────────────────────
   // Measurement block filter variables
   // ────────────────────────────────────────────────────────────
-  parameter Real k_filter "Measurement filter gain";
-  parameter Real T_filter "Measurement filter time constant (s)";
+  parameter Real KFilter "Measurement filter gain";
+  parameter Real tFilter "Measurement filter time constant (s)";
   // ────────────────────────────────────────────────────────────
   // Inner  current controllers (converter control)
   // ────────────────────────────────────────────────────────────
@@ -157,7 +157,7 @@ model GFLmodel_noplant_v_control
   // ─────────────────────────────────────────────────────────────────────────
   // PCC terminal – AC connector to the external network.
   // Voltage and current are initialised at the computed steady-state values.
-  Dynawo.Connectors.ACPower terminalPcc(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu * SNom / SystemBase.SnRef), im(start = -IiPcc0Pu * SNom / SystemBase.SnRef))) annotation(
+  Dynawo.Connectors.ACPower terminal(V(re(start = UrPcc0Pu), im(start = UiPcc0Pu)), i(re(start = -IrPcc0Pu * SNom / SystemBase.SnRef), im(start = -IiPcc0Pu * SNom / SystemBase.SnRef))) annotation(
     Placement(transformation(origin = {104, 54}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {80, 16}, extent = {{-20, -20}, {20, 20}})));
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
@@ -184,7 +184,7 @@ model GFLmodel_noplant_v_control
   // Measurement and filtering block.
   // Computes filtered signals for P, Q, U, I fom the PLL angle θ, the
   // instantaneous terminal voltages and currents at the PCC and LV node
-  Controls.Utilities.Average.MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, k_filter = k_filter, T_filter = T_filter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, I_conv_d_0 = Id_conv_0, I_conv_q_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, V_LV_d_0 = Ud_LV0Pu, V_LV_q_0 = Uq_LV0Pu) annotation(
+  Controls.Utilities.Average.MeasurementBlock measurementBlock(UrPcc0Pu = UrPcc0Pu, UiPcc0Pu = UiPcc0Pu, IrPcc0Pu = IrPcc0Pu, IiPcc0Pu = IiPcc0Pu, Theta0 = Theta0, U0_pcc = U0Pu, KFilter = KFilter, tFilter = tFilter, P0_pcc = P0Pu, Q0_pcc = Q0Pu, U_pcc_q_0 = V_q_g_0, idConvPu_0 = Id_conv_0, iqConvPu_0 = Iq_conv_0, I_conv_re_0 = IrConv0Pu, I_conv_im_0 = IiConv0Pu, u_LV_re_0 = uLV0Pu_init.re, u_LV_im_0 = uLV0Pu_init.im, P0_LV = PInj0Pu, Q0_LV = QInj0Pu, udLVPu_0 = Ud_LV0Pu, uqLVPu_0 = Uq_LV0Pu) annotation(
     Placement(transformation(origin = {-90, -106}, extent = {{-26, -26}, {26, 26}}, rotation = 90)));
   // LC dynamic filter block
    Plants.Average.BaseClasses.LCDynFilter lCDynFilter(uLeft_rePu0 = uconv0Pu_init.re, uLeft_imPu0 = uconv0Pu_init.im, iRight_rePu0 = IrPcc0Pu*SNom/SystemBase.SnRef, iRight_imPu0 = IiPcc0Pu* SNom / SystemBase.SnRef, omegaPu0 = Omega0Pu, iLeft_rePu0 = IrConv0Pu, iLeft_imPu0 = IiConv0Pu, uRight_rePu0 = ucaP0Pu_init.re, uRight_imPu0 = ucaP0Pu_init.im, RfPu = RfPu, LfPu = LfPu, CfPu = CfPu, omegaNom = omegaNom, SNom = SNom) annotation(
@@ -229,22 +229,22 @@ equation
   connect(measurementBlock.thetaPLL, gFLControl.thetaPLL) annotation(
     Line(points = {{-72, -77}, {-72, 35}, {-76, 35}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // PLL angle θ → used to transform signals between αβ and dq frames
-  connect(measurementBlock.U_filter_q, gFLControl.V_q_grid) annotation(
+  connect(measurementBlock.uqFilterPu, gFLControl.V_q_grid) annotation(
     Line(points = {{-118, -85}, {-118, -23.25}, {-114, -23.25}, {-114, 38.5}}, color = {220, 138, 221}, thickness = 0.75));
 // q-axis PCC voltage → PLL error signal input
-  connect(measurementBlock.P_LV, gFLControl.PMeasPu) annotation(
+  connect(measurementBlock.PLVPu, gFLControl.PMeasPu) annotation(
     Line(points = {{-111, -77}, {-111, -24.5}, {-109, -24.5}, {-109, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // Filtered active power at LV node → outer loop feedback
-  connect(measurementBlock.I_conv_q, gFLControl.i_q_meas) annotation(
+  connect(measurementBlock.iqConvPu, gFLControl.i_q_meas) annotation(
     Line(points = {{-98, -77}, {-98, 29}, {-96, 29}, {-96, 28}}, color = {38, 162, 105}, thickness = 0.75));
 // q-axis converter current → inner current loop feedback
-  connect(measurementBlock.I_conv_d, gFLControl.i_d_meas) annotation(
+  connect(measurementBlock.idConvPu, gFLControl.i_d_meas) annotation(
     Line(points = {{-92, -77}, {-92, -78}, {-91, -78}, {-91, 27}, {-92, 27}, {-92, 28}}, color = {38, 162, 105}, thickness = 0.75));
 // d-axis converter current → inner current loop feedback
-  connect(measurementBlock.V_LV_d, gFLControl.V_d_meas) annotation(
+  connect(measurementBlock.udLVPu, gFLControl.V_d_meas) annotation(
     Line(points = {{-85, -77}, {-85, 29.875}, {-88, 29.875}, {-88, 28}, {-87, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // d-axis LV node voltage → feed-forward / outer loop
-  connect(measurementBlock.V_LV_q, gFLControl.V_q_meas) annotation(
+  connect(measurementBlock.uqLVPu, gFLControl.V_q_meas) annotation(
     Line(points = {{-79, -77}, {-79, 28}, {-83, 28}}, color = {255, 120, 0}, thickness = 0.75));
 // q-axis LV node voltage → feed-forward / outer loop
 // ── 13.5  Measurement block → plant controller ────────────────────────────
@@ -281,24 +281,24 @@ equation
 // Internal LV bus voltage (junction between the LV and HV transformer stages).
 // Recovered algebraically from the single branch current and the HV-leg
 // impedance alone (no dynamic state at the junction, see Trafo declaration).
-  measurementBlock.u_LV_re = terminalPcc.V.re + Trafo.iRe*SystemBase.SnRef/SNom*RPuHV - Trafo.iIm*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV;
+  measurementBlock.u_LV_re = terminal.V.re + Trafo.iRe*SystemBase.SnRef/SNom*RPuHV - Trafo.iIm*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV;
 // real part of LV node voltage
-  measurementBlock.u_LV_im = terminalPcc.V.im + Trafo.iRe*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV + Trafo.iIm*SystemBase.SnRef/SNom*RPuHV;
+  measurementBlock.u_LV_im = terminal.V.im + Trafo.iRe*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV + Trafo.iIm*SystemBase.SnRef/SNom*RPuHV;
 
 // imaginary part of LV node voltage
 // PCC voltage (from the external network connector)
-  measurementBlock.V_pcc_re = terminalPcc.V.re;
+  measurementBlock.UPCCrePu = terminal.V.re;
 // real part of PCC voltage
-  measurementBlock.V_pcc_im = terminalPcc.V.im;
+  measurementBlock.UPCCimPu = terminal.V.im;
   measurementBlock.v_filt_re=lCDynFilter.terminalRight.V.re;
    measurementBlock.v_filt_im=lCDynFilter.terminalRight.V.im;
 
 // imaginary part of PCC voltage
-// PCC current with sign reversal: terminalPcc uses load convention (i > 0 into network),
+// PCC current with sign reversal: terminal uses load convention (i > 0 into network),
 // while the measurement block uses generator convention (i > 0 out of converter).
-  measurementBlock.I_pcc_re = -terminalPcc.i.re * SystemBase.SnRef / SNom;
-  measurementBlock.I_pcc_im = -terminalPcc.i.im * SystemBase.SnRef / SNom;
-  connect(Trafo.right, terminalPcc) annotation(
+  measurementBlock.IPCCrePu = -terminal.i.re * SystemBase.SnRef / SNom;
+  measurementBlock.IPCCimPu = -terminal.i.im * SystemBase.SnRef / SNom;
+  connect(Trafo.right, terminal) annotation(
     Line(points = {{68, 54}, {104, 54}}, color = {0, 0, 255}));
   connect(PRefPu, gFLControl.PRefPu) annotation(
     Line(points = {{-208, 62}, {-114, 62}, {-114, 58}}, color = {0, 0, 127}));

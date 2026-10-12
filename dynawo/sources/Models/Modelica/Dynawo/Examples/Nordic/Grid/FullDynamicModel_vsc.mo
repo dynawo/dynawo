@@ -140,7 +140,7 @@ Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   Omega0Pu = 1.0, tVSC = 1e-4,
   RfPu = 0.005, LfPu = 0.15, CfPu = 1e-9, omegaNom = 2*Modelica.Constants.pi*50,
   RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5,
-  k_filter = 1, T_filter = 0.0033,
+  KFilter = 1, tFilter = 0.0033,
   // NB: guadagni presi come placeholder (stile HVDC1, SNom simile 200-1200 MVA range) — DA VALIDARE
   k_p_d_current = 0.5730, k_i_d_current = 6,
   k_p_q_current = 0.5730, k_i_q_current = 6,
@@ -599,7 +599,7 @@ equation
     Line(points = {{-45, 71}, {-45, 65}}, color = {0, 0, 255}));
   connect(g06.terminal, bus_BG06.terminal) annotation(
     Line(points = {{35, -60}, {35, -65}}, color = {0, 0, 255}));
- connect(gFL_SG7.terminalPcc, bus_BG07.terminal) annotation(
+ connect(gFL_SG7.terminal, bus_BG07.terminal) annotation(
   Line(points = {{-53, -39}, {-53, -45}}, color = {0, 0, 255}));
   connect(g08.terminal, bus_BG08.terminal) annotation(
     Line(points = {{-77, 0}, {-77, 5}}, color = {0, 0, 255}));

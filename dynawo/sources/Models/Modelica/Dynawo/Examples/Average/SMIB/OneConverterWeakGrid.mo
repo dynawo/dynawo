@@ -10,7 +10,7 @@ model OneConverterWeakGrid
   omegaNom = 2*Modelica.Constants.pi*50,  // ── LV transformer (filter → LV node) ────────────────────
   RPuLV = 0.0005, LPuLV = 0.008,  // ── HV transformer (LV node → PCC) ───────────────────────
   RPuHV = 0.0002, LPuHV = 0.005,  // ── Measurement filter ────────────────────────────────────
-  k_filter = 1, T_filter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
+  KFilter = 1, tFilter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
   k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
   KpdOuter = 0.1, KidOuter = 20.0, KpqOuter = 0.01, KiqOuter = 20.0,  // ── Current limiter ───────────────────────────────────────
   UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2, IMaxPu = 1.2, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
@@ -47,7 +47,7 @@ equation
     Line(points = {{-55, 8}, {8, 8}}, color = {0, 0, 127}));
   connect(infiniteBusWithVariations.terminal, line.terminal2) annotation(
     Line(points = {{108, 12}, {108, 11}, {98, 11}, {98, 12}}, color = {0, 0, 255}));
-  connect(gFLmodelnodyn.terminalPcc, line.terminal1) annotation(
+  connect(gFLmodelnodyn.terminal, line.terminal1) annotation(
     Line(points = {{64, 12}, {64, 13}, {78, 13}, {78, 12}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",

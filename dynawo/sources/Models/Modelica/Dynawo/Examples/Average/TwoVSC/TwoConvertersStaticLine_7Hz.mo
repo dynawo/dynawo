@@ -97,7 +97,7 @@ model TwoConvertersStaticLine_7Hz
      *   Voltage / measurement low‑pass filter:
      *     - Cutoff:
      *         Ω_LPF   = 300 rad/s
-     *         T_filter = 1 / Ω_LPF
+     *         tFilter = 1 / Ω_LPF
      *
      *   Control delay:
      *     - Equivalent plant→outer‑loop delay:
@@ -133,7 +133,7 @@ model TwoConvertersStaticLine_7Hz
   parameter Real KsiPLL = 0.5 "PLL damping ratio [-]";
   parameter Real OmegaLPF = 300 "Measurement low‑pass filter cutoff [rad/s]";
   parameter Real tPlant = 0.02 "Equivalent delay from plant to outer loop [s]";
-  final parameter Real T_filter = 1.0/OmegaLPF "Measurement filter time constant [s]";
+  final parameter Real tFilter = 1.0/OmegaLPF "Measurement filter time constant [s]";
   // ═══════════════════════════════════════════════════════════════
   // Effective impedances (filters + LV transformers)
   // Used for current controller design and equivalent L/R
@@ -172,7 +172,7 @@ model TwoConvertersStaticLine_7Hz
   // ═══════════════════════════════════════════════════════════════
   Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3,  // Filter and transformer impedances (per unit)
   RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,  // Measurement filter
-  k_filter = 1, T_filter = T_filter,  // Inner d‑axis current controller
+  KFilter = 1, tFilter = tFilter,  // Inner d‑axis current controller
   k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,  // Inner q‑axis current controller (same as d‑axis)
   k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,  // Outer d‑axis controller (P / voltage loop)
   KpdOuter = kp_outer_1, KidOuter = ki_outer_1,  // Outer q‑axis controller (Q / voltage loop)
@@ -197,7 +197,7 @@ model TwoConvertersStaticLine_7Hz
   // ═══════════════════════════════════════════════════════════════
   Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3,  // Filter and transformer impedances (per unit)
   RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025,  // Measurement filter
-  k_filter = 1, T_filter = T_filter,  // Inner d‑axis current controller
+  KFilter = 1, tFilter = tFilter,  // Inner d‑axis current controller
   k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2,  // Inner q‑axis current controller
   k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2,  // Outer d‑axis controller
   KpdOuter = kp_outer_2, KidOuter = ki_outer_2,  // Outer q‑axis controller
@@ -290,13 +290,13 @@ equation
 // ═══════════════════════════════════════════════════════════════
 // Electrical connections (network topology)
 // ═══════════════════════════════════════════════════════════════
-  connect(gFLmodel.terminalPcc, line.terminal1) annotation(
+  connect(gFLmodel.terminal, line.terminal1) annotation(
     Line(points = {{-64, 19}, {-64, 20}, {-44, 20}}, color = {0, 0, 255}));
   connect(line.terminal2, bus.terminal) annotation(
     Line(points = {{-24, 20}, {-4, 20}}, color = {0, 0, 255}));
   connect(bus.terminal, line1.terminal1) annotation(
     Line(points = {{-4, 20}, {16, 20}}, color = {0, 0, 255}));
-  connect(line1.terminal2, gFLmodel1.terminalPcc) annotation(
+  connect(line1.terminal2, gFLmodel1.terminal) annotation(
     Line(points = {{36, 20}, {64, 21}}, color = {0, 0, 255}));
   connect(bus.terminal, line2.terminal1) annotation(
     Line(points = {{-4, 20}, {-4, -18}}, color = {0, 0, 255}));

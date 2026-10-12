@@ -22,7 +22,7 @@ model TwoConvertersDynamicLine
   // measurement filter  [rad/s]
   parameter Real tPlant = 0.02;
   // delay plant→outer [s]
-  final parameter Real T_filter = 1.0/OmegaLPF;
+  final parameter Real tFilter = 1.0/OmegaLPF;
   // ═══════════════════════════════════════════════════════════════
   // Effective impedances
   // ═══════════════════════════════════════════════════════════════
@@ -58,12 +58,12 @@ model TwoConvertersDynamicLine
   //   k_p_q_current 3.6 -> 0.3819 ; k_i_q_current 0.3819 -> 3.60
   //   (q-axis aligned with d-axis, as in file 1 where Kpc/Kic are unique)
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -4.99, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, k_filter = 1, T_filter = T_filter, k_i_d_current = 3.60, k_p_d_current = 0.3819, k_p_q_current = 0.3819, k_i_q_current = 3.60, KpdOuter = 0.033, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 1/300, IMaxPu = 10, PQFlag = true, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_1, Kiq = ki_plant_1, Kpp = kp_plant_1, Kip = ki_plant_1, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = 0.318, KiPLL = 7.95, OmegaMaxPu = 10, OmegaMinPu = 0, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -4.99, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, KFilter = 1, tFilter = tFilter, k_i_d_current = 3.60, k_p_d_current = 0.3819, k_p_q_current = 0.3819, k_i_q_current = 3.60, KpdOuter = 0.033, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 1/300, IMaxPu = 10, PQFlag = true, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_1, Kiq = ki_plant_1, Kpp = kp_plant_1, Kip = ki_plant_1, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = 0.318, KiPLL = 7.95, OmegaMaxPu = 10, OmegaMinPu = 0, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
   // ═══════════════════════════════════════════════════════════════
   // GFL2
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, k_filter = 1, T_filter = T_filter, k_i_d_current = 3.60, k_p_d_current = 0.3819, k_p_q_current = 0.3819, k_i_q_current = 3.60, KpdOuter = 0.033, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 1/300, IMaxPu = 10, PQFlag = true, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_1, Kiq = ki_plant_1, Kpp = kp_plant_1, Kip = ki_plant_1, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 0, PMinPu = -2, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = 0.318, KiPLL = 7.95, OmegaMaxPu = 10, OmegaMinPu = 0, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 1e-3, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, KFilter = 1, tFilter = tFilter, k_i_d_current = 3.60, k_p_d_current = 0.3819, k_p_q_current = 0.3819, k_i_q_current = 3.60, KpdOuter = 0.033, KidOuter = 10, KpqOuter = 0.033, KiqOuter = 10, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 1/300, IMaxPu = 10, PQFlag = true, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_1, Kiq = ki_plant_1, Kpp = kp_plant_1, Kip = ki_plant_1, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 0, PMinPu = -2, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = 0.318, KiPLL = 7.95, OmegaMaxPu = 10, OmegaMinPu = 0, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
   // Network
@@ -157,13 +157,13 @@ equation
     Line(points = {{141, 34}, {120.5, 34}, {120.5, 24}, {104, 24}}, color = {0, 0, 127}));
   connect(step2.y, gFLmodel1.PRefPu) annotation(
     Line(points = {{141, -56}, {141, 10}, {104, 10}}, color = {0, 0, 127}));
-  connect(gFLmodel.terminalPcc, dynLine.terminal1) annotation(
+  connect(gFLmodel.terminal, dynLine.terminal1) annotation(
     Line(points = {{-64, 20}, {-50, 20}}, color = {0, 0, 255}));
   connect(dynLine.terminal2, bus.terminal) annotation(
     Line(points = {{-30, 20}, {-4, 20}}, color = {0, 0, 255}));
   connect(bus.terminal, dynLine1.terminal1) annotation(
     Line(points = {{-4, 20}, {18, 20}}, color = {0, 0, 255}));
-  connect(dynLine1.terminal2, gFLmodel1.terminalPcc) annotation(
+  connect(dynLine1.terminal2, gFLmodel1.terminal) annotation(
     Line(points = {{38, 20}, {64, 20}}, color = {0, 0, 255}));
   connect(dynLine2.terminal1, bus.terminal) annotation(
     Line(points = {{-4, -22}, {-4, 20}}, color = {0, 0, 255}));

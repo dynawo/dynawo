@@ -39,8 +39,8 @@
     <par type="DOUBLE" name="GFL_LPuHV" value="0.005"/>
     <par type="DOUBLE" name="GFL_RPuLV" value="0.0005"/>
     <par type="DOUBLE" name="GFL_LPuLV" value="0.008"/>
-    <par type="DOUBLE" name="GFL_k_filter" value="1"/>
-    <par type="DOUBLE" name="GFL_T_filter" value="1e-2"/>
+    <par type="DOUBLE" name="GFL_KFilter" value="1"/>
+    <par type="DOUBLE" name="GFL_tFilter" value="1e-2"/>
     <par type="DOUBLE" name="GFL_k_p_d_current" value="100"/>
     <par type="DOUBLE" name="GFL_k_i_d_current" value="200000"/>
     <par type="DOUBLE" name="GFL_k_p_q_current" value="100"/>

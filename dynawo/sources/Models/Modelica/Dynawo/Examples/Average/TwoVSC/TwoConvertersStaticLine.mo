@@ -11,7 +11,7 @@ model TwoConvertersStaticLine
   parameter Real KsiPLL = 1 "PLL damping ratio [-]";
   parameter Real OmegaLPF = 300 "Measurement low‑pass filter cutoff [rad/s]";
   parameter Real tPlant = 0.02 "Equivalent delay from plant to outer loop [s]";
-  final parameter Real T_filter = 1.0/OmegaLPF "Measurement filter time constant [s]";
+  final parameter Real tFilter = 1.0/OmegaLPF "Measurement filter time constant [s]";
   // ═══════════════════════════════════════════════════════════════
   // Effective impedances (filters + LV transformers)
   // Used for current controller design and equivalent L/R
@@ -48,9 +48,9 @@ model TwoConvertersStaticLine
   // Converter 1: grid‑following VSC (GFL1)
   // Includes inner/outer loops, PLL, droop and plant controller
   // ═══════════════════════════════════════════════════════════════
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, k_filter = 1, T_filter = T_filter, k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1, k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1, KpdOuter = kp_outer_1, KidOuter = ki_outer_1, KpqOuter = kp_outer_1, KiqOuter = ki_outer_1, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 10, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_1, Kiq = ki_plant_1, Kpp = kp_plant_1, Kip = ki_plant_1, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = kp_pll_1, KiPLL = ki_pll_1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel(SNom = 1000, U0Pu = 1.091230, Uphase = 0.063246, P0_pcc = -5.010676, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, KFilter = 1, tFilter = tFilter, k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1, k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1, KpdOuter = kp_outer_1, KidOuter = ki_outer_1, KpqOuter = kp_outer_1, KiqOuter = ki_outer_1, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 10, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_1, Kiq = ki_plant_1, Kpp = kp_plant_1, Kip = ki_plant_1, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = kp_pll_1, KiPLL = ki_pll_1, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {-80, 16}, extent = {{-20, -20}, {20, 20}})));
-  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, k_filter = 1, T_filter = T_filter, k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2, k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2, KpdOuter = kp_outer_2, KidOuter = ki_outer_2, KpqOuter = kp_outer_2, KiqOuter = ki_outer_2, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 10, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_2, Kiq = ki_plant_2, Kpp = kp_plant_2, Kip = ki_plant_2, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 0, PMinPu = -2, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = kp_pll_2, KiPLL = ki_pll_2, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 100000.0, DidMin = -10000.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
+  Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFLmodel1(SNom = 1000, U0Pu = 1.086638, Uphase = -0.063421, P0_pcc = 4.989324, Q0_pcc = -0.21, Omega0Pu = 1.0, tVSC = 0.00001, RfPu = 0.003, LfPu = 0.1, CfPu = 1e-5, omegaNom = 2*Modelica.Constants.pi*50, RPuLV = 0.001, LPuLV = 0.025, RPuHV = 0.001, LPuHV = 0.025, KFilter = 1, tFilter = tFilter, k_p_d_current = kp_cc_2, k_i_d_current = ki_cc_2, k_p_q_current = kp_cc_2, k_i_q_current = ki_cc_2, KpdOuter = kp_outer_2, KidOuter = ki_outer_2, KpqOuter = kp_outer_2, KiqOuter = ki_outer_2, UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0, IMaxPu = 10, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5, Kpq = kp_plant_2, Kiq = ki_plant_2, Kpp = kp_plant_2, Kip = ki_plant_2, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.3, QMinPu = -0.3, PMaxPu = 0, PMinPu = -2, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, KpPLL = kp_pll_2, KiPLL = ki_pll_2, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 100000.0, DidMin = -10000.0, tSid = 1e-4, tPlant = tPlant, voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 0, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {80, 24}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   // ═══════════════════════════════════════════════════════════════
   // Network elements (transmission lines and buses)
@@ -126,13 +126,13 @@ equation
 // ═══════════════════════════════════════════════════════════════
 // Electrical connections (network topology)
 // ═══════════════════════════════════════════════════════════════
-  connect(gFLmodel.terminalPcc, line.terminal1) annotation(
+  connect(gFLmodel.terminal, line.terminal1) annotation(
     Line(points = {{-64, 19}, {-64, 20}, {-44, 20}}, color = {0, 0, 255}));
   connect(line.terminal2, bus.terminal) annotation(
     Line(points = {{-24, 20}, {-4, 20}}, color = {0, 0, 255}));
   connect(bus.terminal, line1.terminal1) annotation(
     Line(points = {{-4, 20}, {16, 20}}, color = {0, 0, 255}));
-  connect(line1.terminal2, gFLmodel1.terminalPcc) annotation(
+  connect(line1.terminal2, gFLmodel1.terminal) annotation(
     Line(points = {{36, 20}, {64, 21}}, color = {0, 0, 255}));
   connect(bus.terminal, line2.terminal1) annotation(
     Line(points = {{-4, 20}, {-4, -18}}, color = {0, 0, 255}));

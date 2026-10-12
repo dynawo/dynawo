@@ -40,7 +40,7 @@ model BaseUnitModel
   parameter Real KsiPLL           = 0.5   "PLL damping ratio [-]";
   parameter Real OmegaLPF         = 300   "Measurement low‑pass filter cutoff [rad/s]";
   parameter Real tPlant = 0.02  "Equivalent delay from plant to outer loop [s]";
-  final parameter Real T_filter   = 1.0 / OmegaLPF "Measurement filter time constant [s]";
+  final parameter Real tFilter   = 1.0 / OmegaLPF "Measurement filter time constant [s]";
 // ═══════════════════════════════════════════════════════════════
   // Impedenze effettive
   // ═══════════════════════════════════════════════════════════════
@@ -71,7 +71,7 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     omegaNom = 2 * Modelica.Constants.pi * 50,
     RPuLV = 0.001, LPuLV = 0.025,
     RPuHV = 0.001, LPuHV = 0.025,
-    k_filter = 1, T_filter = T_filter,
+    KFilter = 1, tFilter = tFilter,
     k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
     k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
     KpdOuter = kp_outer_1, KidOuter = ki_outer_1,
@@ -99,18 +99,18 @@ equation
   Unit.switchOffSignal1=false;
   Unit.switchOffSignal2=false;
   Unit.switchOffSignal3=false;
-  BusPDR_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
-  BusPDR_BUS_ActivePower = Unit.measurementBlock.P_plant;
-  BusPDR_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
-  BusPDR_BUS_ActiveCurrent = Unit.measurementBlock.P_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  BusPDR_BUS_ReactiveCurrent = Unit.measurementBlock.Q_plant/Unit.measurementBlock.U_pcc_pu_abs;
+  BusPDR_BUS_Voltage = Unit.measurementBlock.UPccPu;
+  BusPDR_BUS_ActivePower = Unit.measurementBlock.PPccPu;
+  BusPDR_BUS_ReactivePower = Unit.measurementBlock.QPccPu;
+  BusPDR_BUS_ActiveCurrent = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
+  BusPDR_BUS_ReactiveCurrent = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
   Wind_Turbine_GEN_MagnitudeControlledByAVRPu = Unit.plantController.uLambdaQ.y;
   Wind_Turbine_GEN_UPuInjTerminal = sqrt(Unit.lCDynFilter.uLeft_rePu^2 + Unit.lCDynFilter.uLeft_imPu^2);
-  Wind_Turbine_GEN_IpInjTerminal = Unit.measurementBlock.P_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  Wind_Turbine_GEN_IqInjTerminal = Unit.measurementBlock.Q_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  Measurements_BUS_Voltage = Unit.measurementBlock.U_pcc_pu_abs;
-  Measurements_BUS_ActivePower = Unit.measurementBlock.P_plant;
-  Measurements_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
+  Wind_Turbine_GEN_IpInjTerminal = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
+  Wind_Turbine_GEN_IqInjTerminal = Unit.measurementBlock./Unit.measurementBlock.UPccPu;
+  Measurements_BUS_Voltage = Unit.measurementBlock.UPccPu;
+  Measurements_BUS_ActivePower = Unit.measurementBlock.PPccPu;
+  Measurements_BUS_ReactivePower = Unit.measurementBlock.QPccPu;
   StepUp_Xfmr_XFMR_Tap = 1.0;
   Wind_Turbine_GEN_VoltageSetpointPu = Unit.URefPu;
   Wind_Turbine_GEN_NetworkFrequencyPu = Unit.gFLControl.omegaPLLPu * Electrical.SystemBase.fNom;

@@ -29,8 +29,8 @@ model test_dyn
     LPuHV = 0.00005,
 
     // ── Measurement filter ────────────────────────────────────
-    k_filter = 1,
-    T_filter = 1e-4,
+    KFilter = 1,
+    tFilter = 1e-4,
 
     // ── Inner current loop ────────────────────────────────────
     // L_g = LfPu + LPuLV = 0.009 pu
@@ -119,7 +119,7 @@ equation
   gFLmodelnodyn.switchOffSignal3=false;
 
   connect(omegaRef.y,  gFLmodelnodyn.omegaRefPu) annotation(Line(points = {{-47, -36},{-35, -36},{-35, -9}, {8, -9}},  color = {0, 0, 127}));
-  connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(Line(points = {{42, -14}, {42, -62}}, color = {0, 0, 255}));
+  connect(gFLmodelnodyn.terminal, infiniteBus.terminal) annotation(Line(points = {{42, -14}, {42, -62}}, color = {0, 0, 255}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(
     Line(points = {{8, 28}, {-54, 28}, {-54, 42}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.URefPu, URef.y) annotation(

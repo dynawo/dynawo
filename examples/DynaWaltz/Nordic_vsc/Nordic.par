@@ -1058,8 +1058,8 @@
     <par type="DOUBLE" name="GFL_RPuLV" value="1e-5"/>
     <par type="DOUBLE" name="GFL_LPuLV" value="1e-5"/>
 
-    <par type="DOUBLE" name="GFL_k_filter" value="1"/>
-    <par type="DOUBLE" name="GFL_T_filter" value="0.0033"/>
+    <par type="DOUBLE" name="GFL_KFilter" value="1"/>
+    <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
     <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
     <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
@@ -1132,8 +1132,8 @@
     <par type="DOUBLE" name="GFL_RPuLV" value="1e-5"/>
     <par type="DOUBLE" name="GFL_LPuLV" value="1e-5"/>
 
-    <par type="DOUBLE" name="GFL_k_filter" value="1"/>
-    <par type="DOUBLE" name="GFL_T_filter" value="0.0033"/>
+    <par type="DOUBLE" name="GFL_KFilter" value="1"/>
+    <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
     <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
     <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
@@ -1206,8 +1206,8 @@
     <par type="DOUBLE" name="GFL_RPuLV" value="1e-5"/>
     <par type="DOUBLE" name="GFL_LPuLV" value="1e-5"/>
 
-    <par type="DOUBLE" name="GFL_k_filter" value="1"/>
-    <par type="DOUBLE" name="GFL_T_filter" value="0.0033"/>
+    <par type="DOUBLE" name="GFL_KFilter" value="1"/>
+    <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
     <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
     <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
@@ -1279,8 +1279,8 @@
     <par type="DOUBLE" name="GFL_RPuLV" value="1e-5"/>
     <par type="DOUBLE" name="GFL_LPuLV" value="1e-5"/>
 
-    <par type="DOUBLE" name="GFL_k_filter" value="1"/>
-    <par type="DOUBLE" name="GFL_T_filter" value="0.0033"/>
+    <par type="DOUBLE" name="GFL_KFilter" value="1"/>
+    <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
     <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
     <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
@@ -1353,8 +1353,8 @@
     <par type="DOUBLE" name="GFL_RPuLV" value="1e-5"/>
     <par type="DOUBLE" name="GFL_LPuLV" value="1e-5"/>
 
-    <par type="DOUBLE" name="GFL_k_filter" value="1"/>
-    <par type="DOUBLE" name="GFL_T_filter" value="0.0033"/>
+    <par type="DOUBLE" name="GFL_KFilter" value="1"/>
+    <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
     <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
     <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
