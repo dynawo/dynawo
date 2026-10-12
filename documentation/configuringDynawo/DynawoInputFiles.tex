@@ -83,6 +83,7 @@ After a simulation that went well, \Dynawo generates the following output files:
 \item A file providing the value of the desired variables at each time step in order to visualize their evolution through time (curves.crv);
 \item A file providing the value of the desired variables at the final time step (finalStateValues.fsv);
 \item A file providing the static ids of the nodes that were disconnected during the simulation (lostEquipments.leq);
+\item Files providing the linearized system at a given time: jacobians with respect to the variables and to their derivatives, and description of the variables and equations (linearization directory);
 \item A file providing information about how the simulation went (dynawo.log). This log file contains error messages if the simulation crashed;
 \item Files providing the variables values after initialization for each model. The values can be printed after local (or individual model) initialization or global (or system) initialization.
 \end{itemize}
@@ -113,7 +114,9 @@ At the end of the simulation, the user will have the possibility to plot the dif
 The chronology of events that happened during the simulation will also be
 available in a text file in \path{outputs/timeline} directory. Also, every 10
 iterations the current time of the simulation will be dumped in a
-temporary file in \path{outputs/} directory to offer the possibility to follow the advancement of Dynawo during the simulation.
+temporary file in \path{outputs/} directory to offer the possibility to follow the advancement of Dynawo during the simulation. \\
+
+At 10 seconds, the linearized system will be exported in \path{outputs/linearization} directory (see paragraph \ref{sec:Configure the jobs outputs}).
 
 Absolute and relative paths can be used and mixed in a single jobs file. Relative paths refer to the directory where the jobs file is located.
 
@@ -488,6 +491,21 @@ python -m pip install -r $DYNAWO_CURVES_VISU_APP_DIR/requirements.txt
 \begin{lstlisting}[language=XML, morekeywords={finalStateValues},numbers=none]
 <finalStateValues inputFile="MyFinalStateValues.fsv"/>
 \end{lstlisting}
+
+\item \textbf{Linearization}: the user can have access to the linearized system at a given time (in seconds), for example to perform a modal analysis, by adding the item ``linearization'' in the jobs file and by specifying the linearization time. This time should be strictly between the start and the stop times of the simulation.
+
+\begin{lstlisting}[language=XML, morekeywords={linearization},numbers=none]
+<linearization time="10" exportMode="TXT"/>
+\end{lstlisting}
+Only the TXT export mode is available (default). The files are written in the \path{linearization} directory of the outputs directory, \textit{t} being the linearization time:
+\begin{itemize}
+  \item \path{linearization_t.txt} — jacobian of the system with respect to the variables ($\partial F / \partial x$), one line per non-zero value: row (equation);column (variable);value;
+  \item \path{linearization_prim_t.txt} — the same for the jacobian with respect to the derivatives of the variables ($\partial F / \partial x'$);
+  \item \path{linearization_t_X.txt}, \textit{X} being Ap, Ai or Ax — the jacobian in compressed sparse row format: row pointers (Ap), column indexes (Ai) and values (Ax) (the same with prim for the other jacobian);
+  \item \path{linearization_variables_name_t.txt} — index, name and model of each variable;
+  \item \path{linearization_variables_type_t.txt} — index and type (differential, algebraic...) of each variable;
+  \item \path{linearization_equations_type_t.txt} — index and type of each equation.
+\end{itemize}
 
 \item \textbf{Lost equipments}:  the user can have access to the list of nodes that were initially connected and that are disconnected at the end of the simulation by adding the item ``lostEquipments'' in the jobs file.
 
