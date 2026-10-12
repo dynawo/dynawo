@@ -1117,7 +1117,8 @@ Simulation::simulate() {
         const string linearizationDir = createAbsolutePath("linearization", outputsDirectory_);
         if (!isDirectory(linearizationDir))
           createDirectory(linearizationDir);
-        linearizationExporter_->exportLinearizedSystem(model_->evalLinearization(tCurrent_), linearizationDir);
+        linearizationExporter_->exportLinearizedSystem(model_->evalLinearization(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP()),
+                                                       linearizationDir);
       }
 
       if (hasIntermediateStateToDump() && !isCheckCriteriaIter) {

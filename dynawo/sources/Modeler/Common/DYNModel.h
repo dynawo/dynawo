@@ -165,9 +165,11 @@ class Model {
    * @brief compute the linearized system: jacobians \f$ @F/@x \f$ and \f$ @F/@x' \f$, and description of the variables and equations
    *
    * @param t time to use for the evaluation
+   * @param y values of the continuous variables to use for the evaluation
+   * @param yp values of the derivatives of the continuous variables to use for the evaluation
    * @return the linearized system
    */
-  virtual matrix::LinearizedSystem evalLinearization(double t) = 0;
+  virtual matrix::LinearizedSystem evalLinearization(double t, const std::vector<double>& y, const std::vector<double>& yp) = 0;
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)
