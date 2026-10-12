@@ -293,10 +293,15 @@ ModelLine::getY0() {
     y_[ii2YNum_] = ii02_;
   }
   if (dynLineModel_) {
-    const double ur01 = modelBus1_->ur();
-    const double ui01 = modelBus1_->ui();
-    y_[irbYNum_] = ir01_ - (conduct1_ * ur01 - suscept1_ * ui01);
-    y_[iibYNum_] = ii01_ - (conduct1_ * ui01 + suscept1_ * ur01);
+    y_[irbYNum_] = ir01_;
+    y_[iibYNum_] = ii01_;
+    if (getConnectionState() == CLOSED) {
+      // branch current = current side 1 - current of the shunt admittance side 1
+      const double ur01 = modelBus1_->ur();
+      const double ui01 = modelBus1_->ui();
+      y_[irbYNum_] -= conduct1_ * ur01 - suscept1_ * ui01;
+      y_[iibYNum_] -= conduct1_ * ui01 + suscept1_ * ur01;
+    }
     y_[omegaRefNum_] = 1;
     yp_[irbYNum_] = 0;
     yp_[iibYNum_] = 0;

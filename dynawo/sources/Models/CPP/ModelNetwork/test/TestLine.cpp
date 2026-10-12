@@ -28,6 +28,7 @@
 #include "DYNModelLine.h"
 #include "DYNModelVoltageLevel.h"
 #include "DYNModelBusInjected.h"
+#include "DYNDerivative.h"
 #include "DYNModelNetwork.h"
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
@@ -41,7 +42,7 @@ using boost::shared_ptr;
 
 namespace DYN {
 static std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
-createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = true) {
+createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = true, double b1 = 3., double b2 = 1.5) {
   powsybl::iidm::Network networkIIDM("test", "test");
 
   powsybl::iidm::Substation& s = networkIIDM.newSubstation()
@@ -81,9 +82,9 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
        .setR(3.)
        .setX(3.)
        .setG1(3.)
-       .setB1(3.)
+       .setB1(b1)
        .setG2(6.0)
-       .setB2(1.5)
+       .setB2(b2)
        .add();
   lIIDM.getTerminal1().setP(105.);
   lIIDM.getTerminal1().setQ(90.);
@@ -1228,9 +1229,15 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   dl->evalJt(1., 0, smj);
   smj.changeCol();
   smj.changeCol();
+  // column IBranch_re: irb, iib, ur1, ur2, omegaRef
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -smj.Ax_[3]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[6], -smj.Ax_[7]);
-  ASSERT_EQ(smj.nbElem(), 8);
+  ASSERT_EQ(smj.Ai_[4], 2u);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[4], smj.Ax_[1] * y[1]);  // omegaNom * X * iib, with omegaRef = y[2] = 1
+  // column IBranch_im: irb, iib, ui1, ui2, omegaRef
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[7], -smj.Ax_[8]);
+  ASSERT_EQ(smj.Ai_[9], 2u);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[9], smj.Ax_[5] * y[0]);  // - omegaNom * X * irb, with omegaRef = y[2] = 1
+  ASSERT_EQ(smj.nbElem(), 10);
 
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
@@ -1301,6 +1308,15 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1);
   ASSERT_EQ(smj3.nbElem(), 2);
 
+  // test evalJtPrim: one empty column per equation, the term of the next column must be in the third column
+  SparseMatrix smjPrime3;
+  smjPrime3.init(size3, size3 + 1);
+  dl3->evalJtPrim(0, smjPrime3);
+  smjPrime3.changeCol();
+  smjPrime3.addTerm(0, 1.);
+  ASSERT_EQ(smjPrime3.nbElem(), 1);
+  ASSERT_EQ(smjPrime3.Ap_[2], 0u);
+
   // Close side2 then only side1 then both sides
   unsigned nbG = 9;
   std::vector<state_g> g3(nbG, NO_ROOT);
@@ -1313,6 +1329,81 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_NO_THROW(dl3->evalZ(0, onlyEvaluateStateChange));
   delete[] zConnected;
   delete[] zConnected3;
+}
+
+static void
+checkDynamicLineBusDerivatives(const std::shared_ptr<ModelBus>& bus, const int irbYNum, const int iibYNum, const int omegaRefYNum, const double sign) {
+  // ir = G * ur + B / omegaNom * d(ur)/dt - omegaRef * B * ui + sign * irb
+  // ii = G * ui + B / omegaNom * d(ui)/dt + omegaRef * B * ur + sign * iib
+  std::map<int, double> ir;
+  std::map<int, double> ii;
+  const BusDerivatives& derivatives = *bus->derivatives();
+  for (unsigned int i = 0; i < derivatives.getIndices(IR_DERIVATIVE).size(); ++i)
+    ir[derivatives.getIndices(IR_DERIVATIVE)[i]] = derivatives.getValues(IR_DERIVATIVE)[i];
+  for (unsigned int i = 0; i < derivatives.getIndices(II_DERIVATIVE).size(); ++i)
+    ii[derivatives.getIndices(II_DERIVATIVE)[i]] = derivatives.getValues(II_DERIVATIVE)[i];
+
+  ASSERT_EQ(ir.size(), 4u);
+  ASSERT_EQ(ii.size(), 4u);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(ir.at(bus->urYNum()), ii.at(bus->uiYNum()));  // G + cj * B / omegaNom
+  ASSERT_DOUBLE_EQUALS_DYNAWO(ir.at(bus->uiYNum()), -ii.at(bus->urYNum()));  // -omegaRef * B
+  ASSERT_DOUBLE_EQUALS_DYNAWO(ir.at(irbYNum), sign);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(ii.at(iibYNum), sign);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(ir.at(omegaRefYNum), ir.at(bus->uiYNum()) * bus->ui());  // -B * ui, with omegaRef = 1
+  ASSERT_DOUBLE_EQUALS_DYNAWO(ii.at(omegaRefYNum), ii.at(bus->urYNum()) * bus->ur());  // B * ur, with omegaRef = 1
+}
+
+TEST(ModelsModelNetwork, ModelNetworkDynamicLineDerivatives) {
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  const std::unique_ptr<ModelLine>& dl = p.first;
+
+  std::vector<ParameterModeler> parameters;
+  dl->defineParameters(parameters);
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  parameters[1].setValue<bool>(true, PAR);
+  parametersModels.insert(std::make_pair(parameters[1].getName(), parameters[1]));
+  dl->setSubModelParameters(parametersModels);
+
+  // shunt susceptances on both sides: both buses have differential voltages
+  ASSERT_TRUE(dl->getModelBus1()->hasDifferentialVoltages());
+  ASSERT_TRUE(dl->getModelBus2()->hasDifferentialVoltages());
+
+  dl->initSize();
+  std::vector<double> y(dl->sizeY(), 0.);
+  std::vector<double> yp(dl->sizeY(), 0.);
+  std::vector<double> f(dl->sizeF(), 0.);
+  std::vector<double> z(dl->sizeZ(), 0.);
+  bool* zConnected = new bool[dl->sizeZ()];
+  for (int i = 0; i < dl->sizeZ(); ++i)
+    zConnected[i] = true;
+  dl->setReferenceZ(&z[0], zConnected, 0);
+  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->evalYMat();
+  // global indices of the line variables after the ones of the buses (0 to 3), so that they are not mixed in the bus derivatives
+  int yNum = 4;
+  dl->init(yNum);
+  dl->getY0();
+
+  dl->getModelBus1()->derivatives()->reset();
+  dl->getModelBus2()->derivatives()->reset();
+  dl->evalDerivatives(2.);
+  checkDynamicLineBusDerivatives(dl->getModelBus1(), 4, 5, 6, 1.);
+  checkDynamicLineBusDerivatives(dl->getModelBus2(), 4, 5, 6, -1.);
+
+  // derivatives of the bus voltages through the shunt susceptances
+  dl->getModelBus1()->derivativesPrim()->reset();
+  dl->getModelBus2()->derivativesPrim()->reset();
+  dl->evalDerivativesPrim();
+  ASSERT_FALSE(dl->getModelBus1()->derivativesPrim()->empty());
+  ASSERT_FALSE(dl->getModelBus2()->derivativesPrim()->empty());
+  delete[] zConnected;
+
+  // no shunt susceptance side 1: only the bus side 2 has differential voltages, without any derivative of the voltage side 1
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p2 = createModelLine(false, false, true, true, 0., 1.5);
+  const std::unique_ptr<ModelLine>& dl2 = p2.first;
+  dl2->setSubModelParameters(parametersModels);
+  ASSERT_FALSE(dl2->getModelBus1()->hasDifferentialVoltages());
+  ASSERT_TRUE(dl2->getModelBus2()->hasDifferentialVoltages());
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {

@@ -647,6 +647,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
 
   // evalStaticYType, evalStaticFType, evalDynamicYType, evalDynamicFType
   bus->setHasDifferentialVoltages(true);
+  ASSERT_TRUE(bus->hasDifferentialVoltages());
   bus->evalStaticYType();
   ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
   ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
@@ -941,6 +942,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   container.add(bus1);
   container.add(bus2);
   container.add(bus3);
+  ASSERT_FALSE(container.hasDifferentialVoltages());
+  bus2->setHasDifferentialVoltages(true);
+  ASSERT_TRUE(container.hasDifferentialVoltages());
+  bus2->setHasDifferentialVoltages(false);
   int offSet = 0;
   bus1->init(offSet);
   bus1->evalDerivatives(1);
