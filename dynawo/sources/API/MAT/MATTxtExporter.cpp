@@ -31,35 +31,21 @@
 namespace matrix {
 
 static const char TXTEXPORTER_SEPARATOR = ';';  ///< separator to use in txt files
-static const int TXTEXPORTER_PRECISION = 16;  ///< number of significant digits of the exported values
+static const int TXTEXPORTER_SPARSE_PRECISION = 16;  ///< number of significant digits of the values exported in the sparse format
 static const int TXTEXPORTER_DENSE_PRECISION = 5;  ///< number of significant digits of the values exported in the dense format
 
-/**
- * @brief open a file to write in
- *
- * @param directory directory of the file
- * @param fileName name of the file
- * @param file stream to open
- */
-static void
-openFile(const std::string& directory, const std::string& fileName, std::ofstream& file) {
+void
+TxtExporter::openFile(const std::string& directory, const std::string& fileName, std::ofstream& file) const {
   const std::string filePath = createAbsolutePath(fileName, directory);
   file.open(filePath.c_str(), std::ofstream::out);
   if (!file.is_open())
     throw DYNError(DYN::Error::API, FileGenerationFailed, filePath);
-  file << std::setprecision(TXTEXPORTER_PRECISION);
+  file << std::setprecision((matrixFormat_ == MatrixFormat::SPARSE) ? TXTEXPORTER_SPARSE_PRECISION : TXTEXPORTER_DENSE_PRECISION);
 }
 
-/**
- * @brief export a vector in a file, one line per element
- *
- * @param vector vector to export
- * @param directory directory of the file
- * @param fileName name of the file
- */
 template<typename T>
-static void
-exportVector(const std::vector<T>& vector, const std::string& directory, const std::string& fileName) {
+void
+TxtExporter::exportVector(const std::vector<T>& vector, const std::string& directory, const std::string& fileName) const {
   std::ofstream file;
   openFile(directory, fileName, file);
   for (const auto& element : vector)
@@ -117,7 +103,6 @@ TxtExporter::exportDenseMatrix(const Matrix& matrix, const std::string& director
 
   std::ofstream file;
   openFile(directory, name + ".txt", file);
-  file << std::setprecision(TXTEXPORTER_DENSE_PRECISION);
   for (const auto& row : denseMatrix) {
     for (const auto value : row)
       file << value << TXTEXPORTER_SEPARATOR;

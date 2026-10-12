@@ -23,6 +23,10 @@
 
 #include "MATExporter.h"
 
+#include <fstream>
+#include <string>
+#include <vector>
+
 namespace matrix {
 
 /**
@@ -77,6 +81,25 @@ class TxtExporter : public Exporter {
    * @param name name of the matrix, used to name the file
    */
   void exportDenseMatrix(const Matrix& matrix, const std::string& directory, const std::string& name) const;
+
+  /**
+   * @brief open a file to write in, with the precision of the format of the exported matrices
+   *
+   * @param directory directory of the file
+   * @param fileName name of the file
+   * @param file stream to open
+   */
+  void openFile(const std::string& directory, const std::string& fileName, std::ofstream& file) const;
+
+  /**
+   * @brief export a vector in a file, one line per element
+   *
+   * @param vector vector to export
+   * @param directory directory of the file
+   * @param fileName name of the file
+   */
+  template<typename T>
+  void exportVector(const std::vector<T>& vector, const std::string& directory, const std::string& fileName) const;
 
   MatrixFormat matrixFormat_;  ///< format of the exported matrices
 };

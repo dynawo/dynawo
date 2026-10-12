@@ -1329,7 +1329,10 @@ void ModelMulti::registerAction(const string& actionString) {
 }
 
 matrix::LinearizedSystem
-ModelMulti::evalLinearization(const double t) {
+ModelMulti::evalLinearization(const double t, const vector<double>& y, const vector<double>& yp) {
+  yLocal_.assign(y.begin(), y.end());
+  ypLocal_.assign(yp.begin(), yp.end());
+
   matrix::LinearizedSystem linearizedSystem(t);
 
   SparseMatrix jt;
