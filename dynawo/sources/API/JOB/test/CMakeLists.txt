@@ -26,6 +26,7 @@ set(MODULE_SOURCES
   TestInteractiveSettingsEntry.cpp
   TestJobCollection.cpp
   TestJobEntry.cpp
+  TestLinearizationEntry.cpp
   TestLocalInitEntry.cpp
   TestLogsEntry.cpp
   TestLostEquipmentsEntry.cpp
