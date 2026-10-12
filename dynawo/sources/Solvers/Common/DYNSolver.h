@@ -201,6 +201,12 @@ class Solver {
   virtual void reinit() = 0;
 
   /**
+   * @brief re-pull the model's current state into the solver's own canonical state vectors
+   */
+
+  virtual void overwriteYSlice(const int offset, const double* y, const double* yp, const int n) = 0;
+
+  /**
   * @brief compute time scheme related derivatives
   * @param yy current values of continuous variables
   */

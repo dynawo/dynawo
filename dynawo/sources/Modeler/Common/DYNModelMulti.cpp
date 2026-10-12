@@ -131,6 +131,15 @@ ModelMulti::addSubModel(const shared_ptr<SubModel>& sub, const string& libName) 
 }
 
 void
+ModelMulti::getSubModelsWithModeChange(std::vector<boost::shared_ptr<SubModel>>& subModels) const {
+  subModels.clear();
+  for (const auto& subModel : subModels_) {
+    if (subModel->modeChange())
+      subModels.push_back(subModel);
+  }
+}
+
+void
 ModelMulti::initBuffers() {
   // (1) Get size of each sub models
   // -------------------------------

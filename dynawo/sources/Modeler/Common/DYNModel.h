@@ -42,6 +42,7 @@ class CurvesCollection;
 
 namespace DYN {
 class SparseMatrix;
+class SubModel;
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -87,6 +88,11 @@ class Model {
    * @param f values of the residual functions
    */
   virtual void evalFMode(double t, const double* y, const double* yp, double* f) = 0;
+
+  /**
+   * @brief returns submodels that changed during a mode change
+   */
+  virtual void getSubModelsWithModeChange(std::vector<boost::shared_ptr<SubModel>>& subModels) const = 0;
 
   /**
    * @brief get the current value of the continuous variables

@@ -194,6 +194,22 @@ SubModel::initSub(const double t0, const std::shared_ptr<parameters::ParametersS
 }
 
 void
+SubModel::clearParameterOrigin(const parameterOrigin_t origin, const bool isInitParam) {
+  auto& params = isInitParam ? parametersInit_ : parametersDynamic_;
+  for (auto& p : params)
+    if (p.second.hasOrigin(origin))
+      p.second.clearOrigin(origin);
+}
+
+void
+SubModel::setYLocalStartValue(const std::string& varName, const double value) {
+  const auto var = getVariable(varName);
+  const int localIdx = getVariableIndexGlobal(var) - yDeb();
+  yLocal_[localIdx] = value;
+  ypLocal_[localIdx] = 0.;
+}
+
+void
 SubModel::setPARParameters(const std::shared_ptr<parameters::ParametersSet>& params) {
   readPARParameters_ = params;
 }

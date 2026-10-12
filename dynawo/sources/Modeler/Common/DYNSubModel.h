@@ -679,6 +679,33 @@ class SubModel {
   bool hasVariableInit(const std::string& nameVariable) const;
 
   /**
+   * @brief get the local initialization solver parameters set currently held by this subModel
+   *
+   * Used to re-invoke initSub() correctly (with the same localInitParameters it already had)
+   * when re-triggering local initialization mid-simulation for a single subModel (reconnection).
+   *
+   * @return local initialization solver parameters set (may be null if none was ever set)
+   */
+  inline const std::shared_ptr<parameters::ParametersSet>& getLocalInitParameters() const {
+    return localInitParameters_;
+  }
+
+  inline const double* getYLocal() const {
+    return yLocal_;
+  }
+
+  inline const double* getYpLocal() const {
+    return ypLocal_;
+  }
+
+  /**
+   * @brief clear parameter origins
+   */
+  void clearParameterOrigin(const parameterOrigin_t origin, const bool isInitParam);
+
+  void setYLocalStartValue(const std::string& varName, double value);
+
+  /**
    * @brief retrieve a given sub-model variable
    *
    * @param variableName name of the variable

@@ -65,6 +65,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalFMode(double t, const double* y, const double* yp, double* f) override;
 
   /**
+   * @brief returns submodels that changed during a mode change
+   */
+  void getSubModelsWithModeChange(std::vector<boost::shared_ptr<SubModel>>& subModels) const override;
+
+  /**
    * @copydoc Model::copyContinuousVariables(const double* y, const double* yp)
    */
   void copyContinuousVariables(const double* y, const double* yp) override;

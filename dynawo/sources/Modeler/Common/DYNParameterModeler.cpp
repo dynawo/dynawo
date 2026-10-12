@@ -81,6 +81,15 @@ ParameterModeler::getCardinalityInformator() const {
   return cardinalityInformator_;
 }
 
+void
+ParameterModeler::clearOrigin(const parameterOrigin_t origin) {
+  values_.erase(origin);
+  if (values_.empty())
+    origin_ = boost::none;
+  else
+    origin_ = values_.rbegin()->first;  // std::map is ordered -> highest remaining origin
+}
+
 double
 ParameterModeler::getDoubleValue() const {
   if (getValueType() == VAR_TYPE_DOUBLE)

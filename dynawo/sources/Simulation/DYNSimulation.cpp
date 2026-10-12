@@ -104,6 +104,7 @@
 #include "DYNCompiler.h"
 #include "DYNDynamicData.h"
 #include "DYNModel.h"
+#include "DYNModelConstants.h"
 #include "DYNSimulation.h"
 #include "DYNSimulationContext.h"
 #include "DYNTrace.h"
@@ -988,6 +989,116 @@ Simulation::calculateIC() {
 }
 
 void
+Simulation::calculateICForSubModel(const boost::shared_ptr<SubModel>& subModel) {
+  const std::shared_ptr<ModelMulti> modelMulti = std::dynamic_pointer_cast<ModelMulti>(model_);
+  const boost::shared_ptr<SubModel> networkSubModel = modelMulti->findSubModelByName("NETWORK");
+  static const std::string kBusStaticID = data_->getBusName(subModel->staticId(), "");  //  "_BUS____2_TN";
+  const boost::shared_ptr<SubModel> omegaRefModel = modelMulti->findSubModelByName("OMEGA_REF");
+
+  // Read
+  const int sysRefIdx = omegaRefModel->getVariableIndexGlobal(omegaRefModel->getVariable("omegaRef_0_value"));
+  const int vReIdx = networkSubModel->getVariableIndexGlobal(networkSubModel->getVariable(kBusStaticID + "_ACPIN_V_re"));
+  const int vImIdx = networkSubModel->getVariableIndexGlobal(networkSubModel->getVariable(kBusStaticID + "_ACPIN_V_im"));
+  const double omegaRefNow = solver_->getCurrentY()[sysRefIdx];
+  // const double busUPu = networkSubModel->getVariableValue(kBusStaticID + "_Upu_value");
+  // const double busPhi = networkSubModel->getVariableValue(kBusStaticID + "_phi_value") * DEG_TO_RAD;
+
+  constexpr int kMaxIter = 12;
+  constexpr double kTol = 1e-9;
+  double urPrev = 0.;
+  double uiPrev = 0.;
+
+  for (int iter = 0; iter < kMaxIter; ++iter) {
+    const std::vector<double>& y = solver_->getCurrentY();
+    const double ur = y[vReIdx];
+    const double ui = y[vImIdx];
+    if (iter > 0 && std::abs(ur - urPrev) < kTol && std::abs(ui - uiPrev) < kTol)
+      break;
+    urPrev = ur;
+    uiPrev = ui;
+
+    const double uPu = std::hypot(ur, ui);
+    const double phi = std::atan2(ui, ur);
+
+    // Set parameters for synchronization
+    subModel->clearParameterOrigin(FINAL, true);
+    subModel->setParameterValue<double>("generator_U0Pu", IIDM,
+      uPu
+      /*busUPu*/
+       / omegaRefNow,
+      /*isInitParam=*/true);
+    subModel->setParameterValue<double>("generator_UPhase0", IIDM,
+      phi
+      /*busPhi*/
+      , /*isInitParam=*/true);
+    subModel->setParameterValue<double>("generator_P0Pu", IIDM, 0.0, /*isInitParam=*/true);
+    subModel->setParameterValue<double>("generator_Q0Pu", IIDM, 0.0, /*isInitParam=*/true);
+    // subModel->setParameterValue<double>("governor_PMin", IIDM, 0.1, /*isInitParam=*/false);
+
+
+    const double U0Pu = subModel->findParameterInit("generator_UPhase0").getValue<double>();
+    Trace::info() << "Init UPhase0 of Gen2: " << U0Pu << Trace::endline;
+
+    // Calculate dynamic states for submodel
+    const string localInitDir = createAbsolutePath("initValues/initModel", outputsDirectory_);
+    if (!exists(localInitDir))
+      createDirectory(localInitDir);
+
+    subModel->printInitModelValues(localInitDir, "dumpInitValuesBefore");
+    subModel->clearParameterOrigin(FINAL, /*isInitParam=*/false);
+    model_->setIsInitProcess(true);
+    subModel->initSub(tCurrent_, subModel->getLocalInitParameters());
+    model_->setIsInitProcess(false);
+    subModel->printInitModelValues(localInitDir, "dumpInitValuesAfter");
+
+
+    Trace::info() << "Init Call Ended: " << Trace::endline;
+
+    // Synchronize init model variables with actual model
+    const string localModelDir = createAbsolutePath("modelValues", outputsDirectory_);
+    if (!exists(localModelDir))
+      createDirectory(localModelDir);
+
+    subModel->evalCalculatedVariablesSub(tCurrent_);
+    Trace::info() << "pre-getY0 PGen = " << subModel->getVariableValue(subModel->getVariable("generator_PGen")) << Trace::endline;
+
+    const ParameterModeler& p = subModel->findParameterDynamic("generator_u0Pu_re");
+    Trace::info() << "origin=" << origin2Str(p.getOrigin())
+                  << " hasFINAL=" << p.hasOrigin(FINAL)
+                  << " hasLOCAL_INIT=" << p.hasOrigin(LOCAL_INIT) << Trace::endline;
+
+    subModel->printModelValues(localModelDir, "dumpValuesBefore");
+    subModel->getY0();
+    subModel->printModelValues(localModelDir, "dumpValuesAfterReinit");
+
+    subModel->setYLocalStartValue("generator_omegaPu", omegaRefNow);
+    subModel->setYLocalStartValue("generator_omegaRefPu", omegaRefNow);
+    // const double usInit = subModel->findParameterDynamic("generator_UStator0Pu").getDoubleValue();
+    // const double gain = subModel->findParameterDynamic("voltageRegulator_Gain").getDoubleValue();
+    // const double efd0 = subModel->findParameterDynamic("voltageRegulator_Efd0Pu").getDoubleValue();
+    // // use ustator because this includes the impedances of the generator/transformer
+    // const double usForRef = usInit * omegaRefNow;
+    // subModel->setYLocalStartValue("voltageRegulator_UsRefPu", usForRef + efd0 / gain);
+
+    subModel->evalCalculatedVariablesSub(tCurrent_);
+    Trace::info() << "pre-resync PGen = " << subModel->getVariableValue(subModel->getVariable("generator_PGen")) << Trace::endline;
+
+    // Update solver local copy of model states
+    // const boost::shared_ptr<Variable> var = subModel->getVariable("generator_PGen");
+    // const int globalIndex = subModel->getVariableIndexGlobal(var);
+    // Trace::info() << "pre-resync solver vectorY[" << globalIndex << "] = "
+    //               << solver_->getCurrentY()[globalIndex] << Trace::endline;
+    solver_->overwriteYSlice(subModel->yDeb(), subModel->getYLocal(), subModel->getYpLocal(), static_cast<int>(subModel->sizeY()));
+    // Trace::info() << "post-resync solver vectorY[" << globalIndex << "] = "
+    //               << solver_->getCurrentY()[globalIndex] << Trace::endline;
+
+    model_->setModeChangeType(ALGEBRAIC_J_UPDATE_MODE);
+    solver_->reinit();
+  }
+  model_->getCurrentZ(zCurrent_);
+}
+
+void
 Simulation::simulate() {
   Timer timer("Simulation::simulate()");
   printSolverHeader();
@@ -1049,7 +1160,44 @@ Simulation::simulate() {
         updateCurves(true);
         model_->notifyTimeStep();
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
+        // ----- Synchronization for Reconnection
+        const std::shared_ptr<ModelMulti> modelMulti = std::dynamic_pointer_cast<ModelMulti>(model_);
+        const boost::shared_ptr<SubModel> subModel = modelMulti->findSubModelByName("GEN____2_SM");
+
+        std::vector<double> zNew(model_->sizeZ());
+        model_->getCurrentZ(zNew);
+
+        std::vector<boost::shared_ptr<SubModel> > changedSubModels;
+        modelMulti->getSubModelsWithModeChange(changedSubModels);
+        for (const auto& sub : changedSubModels) {
+          Trace::info() << "Model Changed: " << sub->name() << Trace::endline;
+          if (!sub->hasVariable("generator_running"))
+            continue;
+          Trace::info() << "Has generator_running: " << sub->name() << Trace::endline;  // TODO(slohr): find prefix(es) of model
+          const int idx = sub->getVariableIndexGlobal(sub->getVariable("generator_running"));
+          if (zCurrent_[idx] <= 0.5 && zNew[idx] > 0.5)
+            calculateICForSubModel(sub);
+        }
+
+        // for (const auto& pair : submodel->getVariableByName()) {
+        //   const auto& name = pair.first;
+        //   Trace::info() << name << ": " << submodel->getVariableValue(submodel->getVariable(name)) << Trace::endline;
+        // }
+        // ---------------------------------------
+        // if ((tCurrent_ - 199) > 0.001 && (201 - tCurrent_) > 0.001) {
+        //   calculateICForSubModel(subModel);
+        //   Trace::info() << "Mode Change Type: " << model_->getModeChangeType() << Trace::endline;
+        // }
+
         solver_->reinit();
+
+
+        if ((tCurrent_ - 59) > 0.001 && (61 - tCurrent_) > 0.001) {
+          const string localModelDir = createAbsolutePath("modelValues", outputsDirectory_);
+          subModel->printModelValues(localModelDir, "dumpValuesAfterReinit");
+          subModel->evalCalculatedVariablesSub(tCurrent_);
+          Trace::info() << "post-reinit fresh PGen = " << subModel->getVariableValue(subModel->getVariable("generator_PGen")) << Trace::endline;
+        }
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
         printHighestDerivativesValues();

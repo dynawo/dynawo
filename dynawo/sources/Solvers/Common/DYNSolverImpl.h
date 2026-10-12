@@ -196,6 +196,12 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   void reinit() override = 0;
 
   /**
+   * @brief re-pull the model's current state into the solver's own canonical state vectors
+   */
+
+  void overwriteYSlice(const int offset, const double* y, const double* yp, const int n) override;
+
+  /**
   * @brief compute time scheme related derivatives
   */
   void computeYP(const double* /*yy*/) override { /* not needed */ }

@@ -150,6 +150,12 @@ Solver::Impl::init(const double t0, const std::shared_ptr<Model>& model) {
 }
 
 void
+Solver::Impl::overwriteYSlice(const int offset, const double* y, const double* yp, const int n) {
+  std::copy_n(y, n, vectorY_.begin() + offset);
+  std::copy_n(yp, n, vectorYp_.begin() + offset);
+}
+
+void
 Solver::Impl::printHeader() const {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   Trace::info() << DYNLog(SolverNbYVar, model_->sizeY()) << Trace::endline;

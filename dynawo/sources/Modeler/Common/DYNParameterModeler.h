@@ -84,6 +84,11 @@ class ParameterModeler : public ParameterCommon {
   template<typename T> void setValue(const T& value, parameterOrigin_t origin);
 
   /**
+   * @brief clear origins
+   */
+  void clearOrigin(parameterOrigin_t origin);
+
+  /**
    * @brief Setter for parameter's cardinality
    * @param cardinality parameter's cardinality
    */

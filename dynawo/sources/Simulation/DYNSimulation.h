@@ -179,6 +179,12 @@ class Simulation {
   void calculateIC();
 
   /**
+   * @brief recompute local initial conditions for a single subModel
+   *
+   * @param subModelName name of the subModel to reinitialize (as declared in the DYD file) */
+  void calculateICForSubModel(const boost::shared_ptr<SubModel>& subModel);
+
+  /**
    * @brief initialize the buffers uses by the model
    */
   void initStructure() const;
