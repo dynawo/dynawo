@@ -89,8 +89,8 @@ model TwoConvertersStaticLine_7Hz
      *         K_p_plant_i = ω_cc_plant / ω_cc_outer
      *         K_i_plant_i = ω_cc_plant
      *     - Voltage‑reactive power coupling and droop:
-     *         Lambda = 0.417
-     *         Kdroop = 15
+     *         LambdaPu= 0.417
+     *         KDroop = 15
      *
      * ── Filter and delay design ────────────────────────────────────
      *
@@ -179,9 +179,9 @@ model TwoConvertersStaticLine_7Hz
   KpqOuter = kp_outer_1, KiqOuter = ki_outer_1,  // Voltage support and reactive power behaviour
   UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0,  // Current limits and operation mode
   IMaxPu = 20, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // Plant controller for Q
-  K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,  // Plant controller for P
-  K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,  // Droop and voltage‑Q coupling
-  Lambda = 0.417, Kdroop = 15,  // Reactive power limits
+  Kpq = kp_plant_1, Kiq = ki_plant_1,  // Plant controller for P
+  Kpp = kp_plant_1, Kip = ki_plant_1,  // Droop and voltage‑Q coupling
+  LambdaPu= 0.417, KDroop = 15,  // Reactive power limits
   QMaxPu = 0.3, QMinPu = -0.3,  // Active power limits
   PMaxPu = 2, PMinPu = 0,  // Frequency / angle limits
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
@@ -204,9 +204,9 @@ model TwoConvertersStaticLine_7Hz
   KpqOuter = kp_outer_2, KiqOuter = ki_outer_2,  // Voltage support and reactive power behaviour
   UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 0,  // Current limits and operation mode
   IMaxPu = 2, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // Plant controller for Q
-  K_p_q_plant = kp_plant_2, K_i_q_plant = ki_plant_2,  // Plant controller for P
-  K_p_p_plant = kp_plant_2, K_i_p_plant = ki_plant_2,  // Droop and voltage‑Q coupling
-  Lambda = 0.417, Kdroop = 15,  // Reactive power limits
+  Kpq = kp_plant_2, Kiq = ki_plant_2,  // Plant controller for P
+  Kpp = kp_plant_2, Kip = ki_plant_2,  // Droop and voltage‑Q coupling
+  LambdaPu= 0.417, KDroop = 15,  // Reactive power limits
   QMaxPu = 0.3, QMinPu = -0.3,  // Active power limits (note inversion of sign)
   PMaxPu = 0, PMinPu = -2,  // Frequency / angle limits
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
@@ -262,7 +262,7 @@ model TwoConvertersStaticLine_7Hz
   // Constant voltage reference for gFLmodel1
   Modelica.Blocks.Sources.Constant UrefPu1(k = URef0Pu1) annotation(
     Placement(transformation(origin = {152, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  // Steady‑state voltage reference values based on Lambda and Q0
+  // Steady‑state voltage reference values based on LambdaPuand Q0
   final parameter Real URef0Pu = gFLmodel.U0Pu - gFLmodel.Lambda*gFLmodel.Q0_pcc*SystemBase.SnRef/gFLmodel.SNom;
   final parameter Real URef0Pu1 = gFLmodel1.U0Pu - gFLmodel1.Lambda*gFLmodel1.Q0_pcc*SystemBase.SnRef/gFLmodel1.SNom;
 equation
@@ -320,9 +320,9 @@ equation
   connect(step2.y, gFLmodel1.PRefPu) annotation(
     Line(points = {{141, -56}, {141, 10}, {104, 10}}, color = {0, 0, 127}));
 // Voltage references
-  connect(step1.y, gFLmodel.UREfPu) annotation(
+  connect(step1.y, gFLmodel.URefPu) annotation(
     Line(points = {{-167, 16}, {-104, 16}}, color = {0, 0, 127}));
-  connect(UrefPu1.y, gFLmodel1.UREfPu) annotation(
+  connect(UrefPu1.y, gFLmodel1.URefPu) annotation(
     Line(points = {{141, 34}, {120.5, 34}, {120.5, 24}, {104, 24}}, color = {0, 0, 127}));
 // ═══════════════════════════════════════════════════════════════
 // Simulation settings (Dynawo experiment annotation)

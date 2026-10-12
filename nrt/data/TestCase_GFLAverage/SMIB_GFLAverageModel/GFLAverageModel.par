@@ -49,10 +49,10 @@
     <par type="DOUBLE" name="GFL_KidOuter" value="20"/>
     <par type="DOUBLE" name="GFL_KpqOuter" value="0.01"/>
     <par type="DOUBLE" name="GFL_KiqOuter" value="20"/>
-    <par type="DOUBLE" name="GFL_K_p_p_plant" value="0.1"/>
-    <par type="DOUBLE" name="GFL_K_i_p_plant" value="1"/>
-    <par type="DOUBLE" name="GFL_K_p_q_plant" value="0.8"/>
-    <par type="DOUBLE" name="GFL_K_i_q_plant" value="5"/>
+    <par type="DOUBLE" name="GFL_Kpp" value="0.1"/>
+    <par type="DOUBLE" name="GFL_Kip" value="1"/>
+    <par type="DOUBLE" name="GFL_Kpq" value="0.8"/>
+    <par type="DOUBLE" name="GFL_Kiq" value="5"/>
     <par type="DOUBLE" name="GFL_KpPLL" value="0.32"/>
     <par type="DOUBLE" name="GFL_KiPLL" value="8"/>
     <par type="DOUBLE" name="GFL_IMaxPu" value="1.2"/>
@@ -63,7 +63,7 @@
     <par type="DOUBLE" name="GFL_IqBoostMaxPu" value="0.5"/>
     <par type="DOUBLE" name="GFL_IqBoostMinPu" value="-0.5"/>
     <par type="DOUBLE" name="GFL_Lambda" value="0.417"/>
-    <par type="DOUBLE" name="GFL_Kdroop" value="15"/>
+    <par type="DOUBLE" name="GFL_KDroop" value="15"/>
     <par type="DOUBLE" name="GFL_QMaxPu" value="0.5"/>
     <par type="DOUBLE" name="GFL_QMinPu" value="-0.5"/>
     <par type="DOUBLE" name="GFL_PMaxPu" value="2"/>

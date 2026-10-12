@@ -148,9 +148,9 @@ Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   KpqOuter = 0.1667, KiqOuter = 50,
   UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2,
   IMaxPu = 1, PQFlag = false, IqBoostMaxPu = 2, IqBoostMinPu = -2,
-  K_p_q_plant = 0.5, K_i_q_plant = 2.36,
-  K_p_p_plant = 0.5, K_i_p_plant = 2.36,
-  Lambda = 0.333333, Kdroop = 0,
+  Kpq = 0.5, Kiq = 2.36,
+  Kpp = 0.5, Kip = 2.36,
+  LambdaPu= 0.333333, KDroop = 0,
   QMaxPu = 0.35, QMinPu = -0.35,
   PMaxPu = 1, PMinPu = 0,
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0,
@@ -629,7 +629,7 @@ equation
 gFL_SG7.switchOffSignal2 = false;
 gFL_SG7.switchOffSignal3 = false;
 gFL_SG7.PRefPu = 1.80;                 // convenzione generatore = -P0_pcc
-gFL_SG7.UREfPu = 1.0141;  // U0Pu + Lambda*Q0Pu(generatore) → 0.81288
+gFL_SG7.URefPu = 1.0141;  // U0Pu + Lambda*Q0Pu(generatore) → 0.81288
  // usa il riferimento di frequenza già presente nella rete Nordic
   annotation(
     preferredView = "diagram",

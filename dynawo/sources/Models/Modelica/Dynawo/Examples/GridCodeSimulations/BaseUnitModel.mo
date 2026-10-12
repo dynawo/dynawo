@@ -79,9 +79,9 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2,
     IMaxPu = 2, PQFlag = false,
     IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,
-    K_p_q_plant = kp_plant_1, K_i_q_plant = ki_plant_1,
-    K_p_p_plant = kp_plant_1, K_i_p_plant = ki_plant_1,
-    Lambda = 0.417, Kdroop = 15,
+    Kpq = kp_plant_1, Kiq = ki_plant_1,
+    Kpp = kp_plant_1, Kip = ki_plant_1,
+    LambdaPu= 0.417, KDroop = 15,
     QMaxPu = 0.3, QMinPu = -0.3,
     PMaxPu = 2,   PMinPu = 0,
     FEMaxPu = 999, FEMinPu = -999,
@@ -104,7 +104,7 @@ equation
   BusPDR_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
   BusPDR_BUS_ActiveCurrent = Unit.measurementBlock.P_plant/Unit.measurementBlock.U_pcc_pu_abs;
   BusPDR_BUS_ReactiveCurrent = Unit.measurementBlock.Q_plant/Unit.measurementBlock.U_pcc_pu_abs;
-  Wind_Turbine_GEN_MagnitudeControlledByAVRPu = Unit.plant_controller.uLambdaQ.y;
+  Wind_Turbine_GEN_MagnitudeControlledByAVRPu = Unit.plantController.uLambdaQ.y;
   Wind_Turbine_GEN_UPuInjTerminal = sqrt(Unit.lCDynFilter.uLeft_rePu^2 + Unit.lCDynFilter.uLeft_imPu^2);
   Wind_Turbine_GEN_IpInjTerminal = Unit.measurementBlock.P_plant/Unit.measurementBlock.U_pcc_pu_abs;
   Wind_Turbine_GEN_IqInjTerminal = Unit.measurementBlock.Q_plant/Unit.measurementBlock.U_pcc_pu_abs;
@@ -112,12 +112,12 @@ equation
   Measurements_BUS_ActivePower = Unit.measurementBlock.P_plant;
   Measurements_BUS_ReactivePower = Unit.measurementBlock.Q_plant;
   StepUp_Xfmr_XFMR_Tap = 1.0;
-  Wind_Turbine_GEN_VoltageSetpointPu = Unit.UREfPu;
-  Wind_Turbine_GEN_NetworkFrequencyPu = Unit.gFLControl.omega_pll_pu * Electrical.SystemBase.fNom;
-  NetworkFrequencyPu = Unit.gFLControl.omega_pll_pu * Electrical.SystemBase.fNom;
+  Wind_Turbine_GEN_VoltageSetpointPu = Unit.URefPu;
+  Wind_Turbine_GEN_NetworkFrequencyPu = Unit.gFLControl.omegaPLLPu * Electrical.SystemBase.fNom;
+  NetworkFrequencyPu = Unit.gFLControl.omegaPLLPu * Electrical.SystemBase.fNom;
  connect(Unit.PRefPu, PRefPu.y) annotation(
     Line(points = {{-28, 28}, {-42.5, 28}, {-42.5, 42}, {-59, 42}}, color = {0, 0, 127}));
- connect(Unit.UREfPu, URefPu.y) annotation(
+ connect(Unit.URefPu, URefPu.y) annotation(
     Line(points = {{-28, 6}, {-61, 6}}, color = {0, 0, 127}));
   annotation(
     Icon,

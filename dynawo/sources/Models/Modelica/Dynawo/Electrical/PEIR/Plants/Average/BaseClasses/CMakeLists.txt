@@ -15,7 +15,7 @@ set(MODEL_FILES
   LCDynFilter.mo
   RLDynTrafo.mo
   GFLControl.mo
-  Plant_controller.mo
+  PlantController.mo
   )
 
 #

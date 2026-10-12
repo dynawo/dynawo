@@ -122,7 +122,7 @@ equation
     Line(points = {{-6, 82}, {22, 82}, {22, 66}}, color = {46, 194, 126}, thickness = 0.75));
 // ── Switch q: u1=direct(true), u3=PI(false) ──────────────────
 // ── Switch outputs → current limiter ─────────────────────────
-  connect(switch1.y, current_limiter_OuterLoop.id_raw) annotation(
+  connect(switch1.y, current_limiter_OuterLoop.idRawPu) annotation(
     Line(points = {{46, 74}, {46, 62}, {86, 62}}, color = {0, 0, 127}));
 // ── UMeasPu → current limiter ──────────────────────────────────
   connect(UMeasPu, current_limiter_OuterLoop.UMeasPu) annotation(
@@ -139,7 +139,7 @@ equation
     Line(points = {{-220, 82}, {-96, 82}}, color = {0, 0, 127}));
   connect(division1.u1, PRefPu) annotation(
     Line(points = {{-78, 48}, {-178, 48}, {-178, 82}, {-220, 82}}, color = {0, 0, 127}));
-  connect(pi_controller_antiwind1.y, current_limiter_OuterLoop.iq_raw) annotation(
+  connect(pi_controller_antiwind1.y, current_limiter_OuterLoop.iqRawPu) annotation(
     Line(points = {{-2, 20}, {42, 20}, {42, 44}, {86, 44}, {86, 44}}, color = {0, 0, 127}));
   connect(U_ref, sum_node_q.u1) annotation(
     Line(points = {{-220, 18}, {-84, 18}, {-84, 20}, {-82, 20}}, color = {0, 0, 127}));

@@ -89,7 +89,7 @@ model MeasurementBlock
   Modelica.Blocks.Interfaces.RealInput I_pcc_im(start = IiPcc0Pu) "Imaginary part of PCC current in αβ frame (pu, generator convention)" annotation(
     Placement(transformation(origin = {-110, 12}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-44, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   // PLL angle (shared by all αβ → dq transformers in this block)
-  Modelica.Blocks.Interfaces.RealInput theta_pll(start = Theta0) "PLL angle θ_PLL used for αβ → dq frame transformation (rad)" annotation(
+  Modelica.Blocks.Interfaces.RealInput thetaPLL(start = Theta0) "PLL angle θ_PLL used for αβ → dq frame transformation (rad)" annotation(
     Placement(transformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   // Internal LV bus voltage components in αβ frame
   Modelica.Blocks.Interfaces.RealInput u_LV_re(start = u_LV_re_0) "Real part of internal LV node voltage in αβ frame (pu)" annotation(
@@ -214,16 +214,16 @@ equation
 // The same θ_PLL is broadcast to all four αβ → dq transformers so that
 // every measurement uses the identical rotating reference frame.
 // ──────────────────────────────────────────────────────────────────────────
-  connect(transformRItoDQ.phi, theta_pll) annotation(
+  connect(transformRItoDQ.phi, thetaPLL) annotation(
     Line(points = {{-33, 68}, {-88.5, 68}, {-88.5, 52}, {-112, 52}}, color = {0, 0, 127}));
 // PLL angle → PCC voltage transformer
-  connect(transformRItoDQ1.phi, theta_pll) annotation(
+  connect(transformRItoDQ1.phi, thetaPLL) annotation(
     Line(points = {{-20, 24}, {-88, 24}, {-88, 52}, {-112, 52}}, color = {0, 0, 127}));
 // PLL angle → PCC current transformer
-  connect(transformRItoDQ2.phi, theta_pll) annotation(
+  connect(transformRItoDQ2.phi, thetaPLL) annotation(
     Line(points = {{-31, -14}, {-88, -14}, {-88, 52}, {-112, 52}}, color = {0, 0, 127}));
 // PLL angle → LV node voltage transformer
-  connect(transformRItoDQ3.phi, theta_pll) annotation(
+  connect(transformRItoDQ3.phi, thetaPLL) annotation(
     Line(points = {{-35, -68}, {-88, -68}, {-88, 52}, {-112, 52}}, color = {0, 0, 127}));
 // PLL angle → converter current transformer
 // ──────────────────────────────────────────────────────────────────────────
@@ -287,7 +287,7 @@ equation
     Line(points = {{41, -84}, {58, -84}}, color = {0, 0, 127}));
   connect(rateLimFirstOrderFreeze4.y, Q_LV) annotation(
     Line(points = {{81, -84}, {110, -84}}, color = {0, 0, 127}));
-  connect(transformRItoDQ4.phi, theta_pll) annotation(
+  connect(transformRItoDQ4.phi, thetaPLL) annotation(
     Line(points = {{-32, -112}, {-88, -112}, {-88, 51}, {-112, 51}, {-112, 52}}, color = {0, 0, 127}));
   connect(transformRItoDQ4.uq, U_filter_q) annotation(
     Line(points = {{-10, -112}, {110, -112}}, color = {0, 0, 127}));

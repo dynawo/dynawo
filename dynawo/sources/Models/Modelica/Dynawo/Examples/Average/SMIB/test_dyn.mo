@@ -60,13 +60,13 @@ model test_dyn
 
     // ── Plant controller ──────────────────────────────────────
     // omega_plt ~ 2 rad/s (very slow, well below outer loop)
-    K_p_q_plant = 0.05,
-    K_i_q_plant = 0.5,
-    K_p_p_plant = 0.05,
-    K_i_p_plant = 0.5,
+    Kpq = 0.05,
+    Kiq = 0.5,
+    Kpp = 0.05,
+    Kip = 0.5,
 
-    Lambda      = 0.28,
-    Kdroop      = 0.03,
+    LambdaPu     = 0.28,
+    KDroop      = 0.03,
     QMaxPu      = 0.5,
     QMinPu      = -0.5,
     PMaxPu      = 23,
@@ -122,7 +122,7 @@ equation
   connect(gFLmodelnodyn.terminalPcc, infiniteBus.terminal) annotation(Line(points = {{42, -14}, {42, -62}}, color = {0, 0, 255}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(
     Line(points = {{8, 28}, {-54, 28}, {-54, 42}}, color = {0, 0, 127}));
-  connect(gFLmodelnodyn.UREfPu, URef.y) annotation(
+  connect(gFLmodelnodyn.URefPu, URef.y) annotation(
     Line(points = {{8, 8}, {-44, 8}, {-44, 0}}, color = {0, 0, 127}));
 
   annotation(

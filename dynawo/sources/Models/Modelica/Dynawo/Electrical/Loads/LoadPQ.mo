@@ -24,5 +24,6 @@ equation
     terminal.i = Complex(0);
   end if;
 
-  annotation(preferredView = "text");
+  annotation(preferredView = "text",
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,nonewInst --allowNonStandardModelica ");
 end LoadPQ;

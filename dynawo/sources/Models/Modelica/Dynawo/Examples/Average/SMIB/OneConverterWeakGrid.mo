@@ -14,7 +14,7 @@ model OneConverterWeakGrid
   k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
   KpdOuter = 0.1, KidOuter = 20.0, KpqOuter = 0.01, KiqOuter = 20.0,  // ── Current limiter ───────────────────────────────────────
   UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2, IMaxPu = 1.2, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
-  K_p_q_plant = 0.1, K_i_q_plant = 1.0, K_p_p_plant = 0.8, K_i_p_plant = 5.0, Lambda = 0.417, Kdroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
+  Kpq = 0.1, Kiq = 1.0, Kpp = 0.8, Kip = 5.0, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
   KpPLL = 0.32, KiPLL = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
   OmegaMinPu = 0.5,  // ── Rate limiters and delays ──────────────────────────────
   DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
@@ -43,7 +43,7 @@ equation
     Line(points = {{-55, -30}, {-35, -30}, {-35, -9}, {8, -9}}, color = {0, 0, 127}));
   connect(gFLmodelnodyn.PRefPu, step.y) annotation(
     Line(points = {{8, 28}, {-10.5, 28}, {-10.5, 42}, {-55, 42}}, color = {0, 0, 127}));
-  connect(step1.y, gFLmodelnodyn.UREfPu) annotation(
+  connect(step1.y, gFLmodelnodyn.URefPu) annotation(
     Line(points = {{-55, 8}, {8, 8}}, color = {0, 0, 127}));
   connect(infiniteBusWithVariations.terminal, line.terminal2) annotation(
     Line(points = {{108, 12}, {108, 11}, {98, 11}, {98, 12}}, color = {0, 0, 255}));

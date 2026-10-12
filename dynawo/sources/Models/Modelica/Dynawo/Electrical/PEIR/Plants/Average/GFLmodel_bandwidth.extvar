@@ -15,7 +15,7 @@
   <variable type="continuous" id="terminalPcc.V.re"/>
   <variable type="continuous" id="terminalPcc.V.im"/>
   <variable type="continuous" id="PRefPu"/>
-  <variable type="continuous" id="UREfPu"/>
+  <variable type="continuous" id="URefPu"/>
   <variable type="continuous" id="omegaRefPu"/>
   <variable type="discrete" id="switchOffSignal1" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2" defaultValue="false"/>

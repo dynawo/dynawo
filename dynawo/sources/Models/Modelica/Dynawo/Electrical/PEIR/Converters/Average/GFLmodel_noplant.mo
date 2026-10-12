@@ -219,7 +219,7 @@ equation
     Line(points = {{-76, 48}, {-55.5, 48}, {-55.5, 56}, {-51, 56}}, color = {38, 162, 105}, thickness = 0.75));
 // Imaginary part of the modulation voltage reference → VSC delay input
 // ── 13.4  Measurement block → GFL converter controller ───────────────────
-  connect(measurementBlock.theta_pll, gFLControl.theta_pll) annotation(
+  connect(measurementBlock.thetaPLL, gFLControl.thetaPLL) annotation(
     Line(points = {{-72, -77}, {-72, 35}, {-76, 35}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // PLL angle θ → used to transform signals between αβ and dq frames
   connect(measurementBlock.U_filter_q, gFLControl.V_q_grid) annotation(
@@ -253,10 +253,10 @@ equation
     Line(points = {{-29, 56}, {-10, 56}}, color = {38, 162, 105}, thickness = 0.75));
 // Delayed imaginary part of converter voltage → LC filter left port
 // ── 13.7  PLL frequency shared across all dynamic electrical elements ──────
-  connect(lCDynFilter.omegaPu, gFLControl.omega_pll_pu) annotation(
+  connect(lCDynFilter.omegaPu, gFLControl.omegaPLLPu) annotation(
     Line(points = {{-4, 42}, {-76, 42}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // LC filter feeds back PLL frequency to the GFL controller
-  connect(Trafo.omegaPu, gFLControl.omega_pll_pu) annotation(
+  connect(Trafo.omegaPu, gFLControl.omegaPLLPu) annotation(
     Line(points = {{58, 42}, {-76, 42}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // Trafo receives PLL frequency for dq-frame inductance voltage terms
 // ── 13.8  Electrical power path: converter → filter → transformer → PCC ──
@@ -298,7 +298,7 @@ equation
     Line(points = {{-208, 62}, {-114, 62}, {-114, 58}}, color = {0, 0, 127}));
   connect(QRefPu, gFLControl.QRefPu) annotation(
     Line(points = {{-208, 46}, {-114, 46}, {-114, 48}}, color = {0, 0, 127}));
-  connect(omegaRefPu, gFLControl.omegaRefPU) annotation(
+  connect(omegaRefPu, gFLControl.omegaRefPu) annotation(
     Line(points = {{-82, 110}, {-82, 66}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
