@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['u0_5f',['u0_',['../d1/d3a/a03353.html#a26a599d7de68640d6269d0593e6c4018',1,'DYN::ModelBusInjected::u0_()'],['../d7/d13/a03365.html#a0700c5c3fe4ffc06f0b6cd792c4baeb2',1,'DYN::ModelGenerator::u0_()'],['../dd/d8e/a03377.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()'],['../d0/d75/a03105.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../d9/d5f/a03109.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../dc/ddf/a03129.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()']]],
-  ['u0pu_5f',['u0Pu_',['../d3/da0/a03273.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits::u0Pu_()'],['../d0/d9d/a03289.html#a5781d900bbe83f0577ec4161ab4a0624',1,'DYN::ModelSecondaryVoltageControlSimplified::U0Pu_()']]],
+  ['u0_5f',['U0_',['../d0/d75/a03105.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../d9/d5f/a03109.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../dc/ddf/a03129.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()'],['../d1/d3a/a03353.html#a26a599d7de68640d6269d0593e6c4018',1,'DYN::ModelBusInjected::u0_()'],['../d7/d13/a03365.html#a0700c5c3fe4ffc06f0b6cd792c4baeb2',1,'DYN::ModelGenerator::u0_()'],['../dd/d8e/a03377.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()']]],
+  ['u0pu_5f',['U0Pu_',['../d0/d9d/a03289.html#a5781d900bbe83f0577ec4161ab4a0624',1,'DYN::ModelSecondaryVoltageControlSimplified::U0Pu_()'],['../d3/da0/a03273.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits::u0Pu_()']]],
   ['u0pu_5fsquare_5f',['U0Pu_square_',['../d7/d13/a03365.html#a7952ad2f7bd17256e9e01c92e7c550c1',1,'DYN::ModelGenerator']]],
   ['u2pu_5f',['U2Pu_',['../d1/d3a/a03353.html#a1315a831364864f6f2ac2229f5953db1',1,'DYN::ModelBusInjected']]],
   ['u_5f',['U_',['../d1/d3a/a03353.html#a3b7037c8eb099771670acb73bc3c6cef',1,'DYN::ModelBusInjected']]],
@@ -46,7 +46,7 @@ var searchData=
   ['uref0pu_5f',['URef0Pu_',['../d0/d84/a03281.html#a5c6199c9271ad98ce87ec10bc88ccaff',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['urfict0_5f',['urFict0_',['../df/d67/a03361.html#aa45afc615de557418e8a286bb7e5e782',1,'DYN::ModelDanglingLine']]],
   ['urfictynum_5f',['urFictYNum_',['../df/d67/a03361.html#a3dbe3ac380c9c5f85f42f5cbecf0475d',1,'DYN::ModelDanglingLine']]],
-  ['urynum_5f',['UrYNum_',['../d3/da0/a03273.html#aee1ce70a32f764002658ab39b977e0e0',1,'DYN::ModelLoadRestorativeWithLimits::UrYNum_()'],['../d1/d3a/a03353.html#a88ba2fa36ab814739279a0e57c1b46ba',1,'DYN::ModelBusInjected::urYNum_()']]],
+  ['urynum_5f',['urYNum_',['../d1/d3a/a03353.html#a88ba2fa36ab814739279a0e57c1b46ba',1,'DYN::ModelBusInjected::urYNum_()'],['../d3/da0/a03273.html#aee1ce70a32f764002658ab39b977e0e0',1,'DYN::ModelLoadRestorativeWithLimits::UrYNum_()']]],
   ['usealiasing_5f',['useAliasing_',['../dc/d67/a01989.html#a0fd05cfcffc72060e237b3f7513543fd',1,'dynamicdata::ModelicaModel::useAliasing_()'],['../d0/d2b/a01997.html#ae2553bdeb12ecf8bd9904e5bf6c663e3',1,'dynamicdata::ModelTemplate::useAliasing_()']]],
   ['used_5f',['used_',['../d0/df5/a02549.html#adb49178093310452e847814fce74dce8',1,'parameters::Parameter']]],
   ['usefulmodeltemplates_5f',['usefulModelTemplates_',['../d0/d2b/a02833.html#a49391497d8cccb85a0fa1714e246feda',1,'DYN::DynamicData']]],

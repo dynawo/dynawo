@@ -4,6 +4,7 @@ var searchData=
   ['danglinglineinterfaceiidm',['DanglingLineInterfaceIIDM',['../d5/dcb/a03121.html#a1d5ccea9550cd8272b1b2437bfa8d4b0',1,'DYN::DanglingLineInterfaceIIDM']]],
   ['data',['data',['../d2/daf/a03245.html#a6260e34e67b221ff567a3b73ccd5b3bd',1,'DYN::ModelManager']]],
   ['datainterfaceiidm',['DataInterfaceIIDM',['../dc/d0a/a03125.html#a50fa5d1ee23212569bb9ccbf49405f67',1,'DYN::DataInterfaceIIDM::DataInterfaceIIDM(const boost::shared_ptr&lt; powsybl::iidm::Network &gt; &amp;networkIIDM)'],['../dc/d0a/a03125.html#a745d54f52e368c4601988c23e01f8a8c',1,'DYN::DataInterfaceIIDM::DataInterfaceIIDM(const DataInterfaceIIDM &amp;other)']]],
+  ['deactivatezerocrossingfunctions',['deactivateZeroCrossingFunctions',['../d5/d56/a03437.html#abd1f1a30d71ee1fe8f35d78e7b5f2394',1,'DYN::ModelVoltageLevel::deactivateZeroCrossingFunctions()'],['../d7/dc5/a03449.html#a85b7d50190478704396ec049276e4915',1,'DYN::NetworkComponent::deactivateZeroCrossingFunctions()']]],
   ['debug',['debug',['../da/d73/a02765.html#ac2b286a8d73821c19afa910857de6fc0',1,'DYN::Trace']]],
   ['decreasestep',['decreaseStep',['../d9/d0f/a03605.html#a1e706db978248021a4040923ea619508',1,'DYN::SolverCommonFixedTimeStep']]],
   ['definecommonparameters',['defineCommonParameters',['../da/df8/a03577.html#a7dc14107b7bc69e6ca7b69a68bd6b8e3',1,'DYN::Solver::defineCommonParameters()'],['../d6/d8c/a03601.html#ac88bc194838c35d655d60940c380a8d3',1,'DYN::Solver::Impl::defineCommonParameters()']]],

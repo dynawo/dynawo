@@ -27,6 +27,7 @@ var searchData=
   ['deactivatecurrentlimits',['DeactivateCurrentLimits',['../df/d50/a02725.html#a963225344a251150ba0ad6d5264f567fa6b0c6a71e88568537f2991c29297379c',1,'DYN::KeyLog_t']]],
   ['deactivatepmax',['DeactivatePMAX',['../d9/d93/a02753.html#a9294fd85b78754e1a11fec544395ad51a9d013be961b3e64fcee133aa2ef569e5',1,'DYN::KeyTimeline_t']]],
   ['deactivatepmin',['DeactivatePMIN',['../d9/d93/a02753.html#a9294fd85b78754e1a11fec544395ad51a65ceb795544a09aadbff2e8e4e78ad29',1,'DYN::KeyTimeline_t']]],
+  ['deactivatezerocrossingfunctions',['deactivateZeroCrossingFunctions',['../d5/d56/a03437.html#abd1f1a30d71ee1fe8f35d78e7b5f2394',1,'DYN::ModelVoltageLevel::deactivateZeroCrossingFunctions()'],['../d7/dc5/a03449.html#a85b7d50190478704396ec049276e4915',1,'DYN::NetworkComponent::deactivateZeroCrossingFunctions()']]],
   ['deactivatezerocrossingfunctions_5f',['deactivateZeroCrossingFunctions_',['../d9/d35/a03385.html#ad4829dea9af1be2a364f851b9ea68062',1,'DYN::ModelNetwork']]],
   ['deadbandsupu_5f',['deadBandsUPu_',['../d0/d84/a03281.html#a975818c5bccf4e82fc783583db4fc25b',1,'DYN::ModelCentralizedShuntsSectionControl']]],
   ['debug',['debug',['../da/d73/a02765.html#ac2b286a8d73821c19afa910857de6fc0',1,'DYN::Trace::debug()'],['../d8/dc8/a00581.html#a7f30ec83caa9180e23f0f9079c7f4794aba17c0778dd43b6f34851dc72bb01bc0',1,'DYN::DEBUG()']]],

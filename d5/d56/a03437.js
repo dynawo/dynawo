@@ -12,6 +12,7 @@ var a03437 =
     [ "collectSilentZ", "d5/d56/a03437.html#af39a36473000bb7142f0fa83e20f372a", null ],
     [ "computeLoops", "d5/d56/a03437.html#a82128427a83c94a642835781d9fe1480", null ],
     [ "connectNode", "d5/d56/a03437.html#ad4b74a3d89182e4fd42d2276539bdcef", null ],
+    [ "deactivateZeroCrossingFunctions", "d5/d56/a03437.html#abd1f1a30d71ee1fe8f35d78e7b5f2394", null ],
     [ "defineElements", "d5/d56/a03437.html#a8d786f98571df31d9f7c43db9b8dd85e", null ],
     [ "defineGraph", "d5/d56/a03437.html#afc374986746ddb6f6c93210e98018a09", null ],
     [ "defineNonGenericParameters", "d5/d56/a03437.html#a4d8ecaa09f95c5e8bda389170d40615d", null ],

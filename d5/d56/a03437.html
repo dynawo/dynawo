@@ -278,6 +278,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:ae8513a786710f5c1a3e7e1d0834e389a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d56/a03437.html#ae8513a786710f5c1a3e7e1d0834e389a">setReferenceG</a> (<a class="el" href="../../d4/dfb/a00512.html#ae79ff761d6fdde3e15728e07781775a8">state_g</a> *g, int offsetG) override</td></tr>
 <tr class="memdesc:ae8513a786710f5c1a3e7e1d0834e389a"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the local buffer for root values  <a href="#ae8513a786710f5c1a3e7e1d0834e389a">More...</a><br /></td></tr>
 <tr class="separator:ae8513a786710f5c1a3e7e1d0834e389a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd1f1a30d71ee1fe8f35d78e7b5f2394"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d56/a03437.html#abd1f1a30d71ee1fe8f35d78e7b5f2394">deactivateZeroCrossingFunctions</a> () override</td></tr>
+<tr class="memdesc:abd1f1a30d71ee1fe8f35d78e7b5f2394"><td class="mdescLeft">&#160;</td><td class="mdescRight">deactivate the zero crossing functions of the component (size of G set to 0) must be called after <a class="el" href="../../d5/d56/a03437.html#a64fe6e65bafc239d875fa0aee984f035" title="init size ">initSize()</a>  <a href="#abd1f1a30d71ee1fe8f35d78e7b5f2394">More...</a><br /></td></tr>
+<tr class="separator:abd1f1a30d71ee1fe8f35d78e7b5f2394"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4030d38d306556eb0dbae2419c18cfde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d56/a03437.html#a4030d38d306556eb0dbae2419c18cfde">dumpVariables</a> (boost::archive::binary_oarchive &amp;streamVariables) const override</td></tr>
 <tr class="memdesc:a4030d38d306556eb0dbae2419c18cfde"><td class="mdescLeft">&#160;</td><td class="mdescRight">export the variables values of the sub model for dump  <a href="#a4030d38d306556eb0dbae2419c18cfde">More...</a><br /></td></tr>
 <tr class="separator:a4030d38d306556eb0dbae2419c18cfde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -756,6 +759,35 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="abd1f1a30d71ee1fe8f35d78e7b5f2394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd1f1a30d71ee1fe8f35d78e7b5f2394">&#9670;&nbsp;</a></span>deactivateZeroCrossingFunctions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelVoltageLevel::deactivateZeroCrossingFunctions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>deactivate the zero crossing functions of the component (size of G set to 0) must be called after <a class="el" href="../../d5/d56/a03437.html#a64fe6e65bafc239d875fa0aee984f035" title="init size ">initSize()</a> </p>
+
+<p>Reimplemented from <a class="el" href="../../d7/dc5/a03449.html#a85b7d50190478704396ec049276e4915">DYN::NetworkComponent</a>.</p>
 
 </div>
 </div>
@@ -2344,7 +2376,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d5/d56/a03437.html">ModelVoltageLevel</a></li>
-    <li class="footer">Generated on Tue Oct 13 2026 07:51:00 for Dynawo by
+    <li class="footer">Generated on Tue Oct 13 2026 10:07:02 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

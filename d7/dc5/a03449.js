@@ -15,6 +15,7 @@ var a03449 =
     [ "NetworkComponent", "d7/dc5/a03449.html#a28a00d19605289c5232ef6dcc9a8ec2f", null ],
     [ "addBusNeighbors", "d7/dc5/a03449.html#ac5bf947e61cea51dfac8be218a5fd8c0", null ],
     [ "collectSilentZ", "d7/dc5/a03449.html#a648530dc39c05c9cddb6b4aa0bc51927", null ],
+    [ "deactivateZeroCrossingFunctions", "d7/dc5/a03449.html#a85b7d50190478704396ec049276e4915", null ],
     [ "defineElements", "d7/dc5/a03449.html#a6e31a53612d02d6e7ace216c674d02a2", null ],
     [ "defineNonGenericParameters", "d7/dc5/a03449.html#a1e610320940236db32ca1512554a8051", null ],
     [ "dumpInternalVariables", "d7/dc5/a03449.html#a33e8b4a00718e68d774db325888afa93", null ],
