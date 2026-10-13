@@ -4,6 +4,7 @@ var searchData=
   ['q_5fdui',['Q_dUi',['../dd/d8e/a03377.html#a38305fcf620b60083a4ec0c357c56ce0',1,'DYN::ModelLoad']]],
   ['q_5fdur',['Q_dUr',['../dd/d8e/a03377.html#a8bed976523ecab268fe9d950ab704eb7',1,'DYN::ModelLoad']]],
   ['qcpu',['QcPu',['../d7/d13/a03365.html#a5b2c83bd3456d95dcdb6c784ecd56bc2',1,'DYN::ModelGenerator']]],
+  ['qload',['QLoad',['../df/d67/a03361.html#a8ded7b046934f62154fbe684d4201e34',1,'DYN::ModelDanglingLine']]],
   ['qrefpu',['QRefPu',['../dd/d8e/a03377.html#abf0bc28a3786f7e48f4881c5b0a1ff4f',1,'DYN::ModelLoad']]],
   ['quadripolecriteria',['QuadripoleCriteria',['../d4/d39/a02965.html#a129e37d95522c1e07122d4a8a7cb934b',1,'DYN::QuadripoleCriteria']]],
   ['quadripolefailingcriteria',['QuadripoleFailingCriteria',['../db/d6c/a02969.html#a101423db629028527c5de96ad5ed01f9',1,'DYN::QuadripoleCriteria::QuadripoleFailingCriteria']]]

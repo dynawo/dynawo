@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['p',['p',['../d1/df6/a03045.html#a20f407b6507edd1290187c09f5f3535a',1,'DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint::p()'],['../dd/d8e/a03377.html#abdf762ab369f303b4cbec66a38c85213',1,'DYN::ModelLoad::P()'],['../dd/d0e/a03405.html#a90d2dac9fdf1c14f8f9557d95bc085b3',1,'DYN::ModelStaticVarCompensator::P()']]],
+  ['p',['P',['../dd/d8e/a03377.html#abdf762ab369f303b4cbec66a38c85213',1,'DYN::ModelLoad::P()'],['../dd/d0e/a03405.html#a90d2dac9fdf1c14f8f9557d95bc085b3',1,'DYN::ModelStaticVarCompensator::P()'],['../d1/df6/a03045.html#a20f407b6507edd1290187c09f5f3535a',1,'DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint::p()']]],
   ['p01_5f',['P01_',['../d2/d7f/a03369.html#aacd9ef2f01430a20fbe1a9fd9e3d47cb',1,'DYN::ModelHvdcLink']]],
   ['p02_5f',['P02_',['../d2/d7f/a03369.html#a9116a5eb5547bc305986acc2d8823222',1,'DYN::ModelHvdcLink']]],
   ['p0_5f',['P0_',['../df/d67/a03361.html#a6d0f58e6ab931d02d4b23c0c4f46814f',1,'DYN::ModelDanglingLine::P0_()'],['../d7/d13/a03365.html#a48e9925786e79d31d48c7c82b946d4c6',1,'DYN::ModelGenerator::P0_()']]],
@@ -128,6 +128,7 @@ var searchData=
   ['phasetapchangerinterface',['PhaseTapChangerInterface',['../d6/def/a03033.html',1,'DYN']]],
   ['phasetapchangerinterfaceiidm',['PhaseTapChangerInterfaceIIDM',['../dd/d61/a03197.html',1,'DYN::PhaseTapChangerInterfaceIIDM'],['../dd/d61/a03197.html#a80523865801ca4a0b1255db8a6309c41',1,'DYN::PhaseTapChangerInterfaceIIDM::PhaseTapChangerInterfaceIIDM()']]],
   ['pid_5f',['pid_',['../d6/dd5/a03541.html#a2ac0cd6f754607ac09ed4d0e9e61151e',1,'DYN::Simulation']]],
+  ['pload',['PLoad',['../df/d67/a03361.html#a92cdd10fb8b550bd47a650f00f78c112',1,'DYN::ModelDanglingLine']]],
   ['pmax_5f',['pMax_',['../df/d7b/a01765.html#a5d3b3458763d1906a1306c9d3d9e322c',1,'criteria::CriteriaParams']]],
   ['pmin_5f',['pMin_',['../df/d7b/a01765.html#a8569f13100372ec0c67e446089236799',1,'criteria::CriteriaParams']]],
   ['point',['Point',['../d2/d5b/a01841.html',1,'curves::Point'],['../d2/d5b/a01841.html#a8eae1c5b8d73838346e196ac3eb886f3',1,'curves::Point::Point()']]],

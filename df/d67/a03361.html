@@ -403,6 +403,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ad090b06f7b18198940f2b6c9d69a0ceb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#ad090b06f7b18198940f2b6c9d69a0ceb">ui_Fict</a> () const</td></tr>
 <tr class="memdesc:ad090b06f7b18198940f2b6c9d69a0ceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">get value  <a href="#ad090b06f7b18198940f2b6c9d69a0ceb">More...</a><br /></td></tr>
 <tr class="separator:ad090b06f7b18198940f2b6c9d69a0ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92cdd10fb8b550bd47a650f00f78c112"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#a92cdd10fb8b550bd47a650f00f78c112">PLoad</a> (double U) const</td></tr>
+<tr class="memdesc:a92cdd10fb8b550bd47a650f00f78c112"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the active power consumed by the load at the fictitious node: P = P0 * (U/U0)^alpha  <a href="#a92cdd10fb8b550bd47a650f00f78c112">More...</a><br /></td></tr>
+<tr class="separator:a92cdd10fb8b550bd47a650f00f78c112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ded7b046934f62154fbe684d4201e34"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#a8ded7b046934f62154fbe684d4201e34">QLoad</a> (double U) const</td></tr>
+<tr class="memdesc:a8ded7b046934f62154fbe684d4201e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the reactive power consumed by the load at the fictitious node: Q = Q0 * (U/U0)^beta  <a href="#a8ded7b046934f62154fbe684d4201e34">More...</a><br /></td></tr>
+<tr class="separator:a8ded7b046934f62154fbe684d4201e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad96c2d59efb7f47bbc445aacf8cef52f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#ad96c2d59efb7f47bbc445aacf8cef52f">ir_Load</a> (double ur, double ui) const</td></tr>
 <tr class="memdesc:ad96c2d59efb7f47bbc445aacf8cef52f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get ir_Load value  <a href="#ad96c2d59efb7f47bbc445aacf8cef52f">More...</a><br /></td></tr>
 <tr class="separator:ad96c2d59efb7f47bbc445aacf8cef52f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -533,12 +539,24 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <tr class="separator:ace29947343aa48f3586c43ff6f1f54ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d0f58e6ab931d02d4b23c0c4f46814f"><td class="memItemLeft" align="right" valign="top"><a id="a6d0f58e6ab931d02d4b23c0c4f46814f"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#a6d0f58e6ab931d02d4b23c0c4f46814f">P0_</a></td></tr>
-<tr class="memdesc:a6d0f58e6ab931d02d4b23c0c4f46814f"><td class="mdescLeft">&#160;</td><td class="mdescRight">q0 <br /></td></tr>
+<tr class="memdesc:a6d0f58e6ab931d02d4b23c0c4f46814f"><td class="mdescLeft">&#160;</td><td class="mdescRight">p0 <br /></td></tr>
 <tr class="separator:a6d0f58e6ab931d02d4b23c0c4f46814f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a674a373cfd690a8e369505ebae945774"><td class="memItemLeft" align="right" valign="top"><a id="a674a373cfd690a8e369505ebae945774"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#a674a373cfd690a8e369505ebae945774">Q0_</a></td></tr>
-<tr class="memdesc:a674a373cfd690a8e369505ebae945774"><td class="mdescLeft">&#160;</td><td class="mdescRight">p0 <br /></td></tr>
+<tr class="memdesc:a674a373cfd690a8e369505ebae945774"><td class="mdescLeft">&#160;</td><td class="mdescRight">q0 <br /></td></tr>
 <tr class="separator:a674a373cfd690a8e369505ebae945774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a140335bf268eaa04a3618c596eea8030"><td class="memItemLeft" align="right" valign="top"><a id="a140335bf268eaa04a3618c596eea8030"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#a140335bf268eaa04a3618c596eea8030">alpha_</a></td></tr>
+<tr class="memdesc:a140335bf268eaa04a3618c596eea8030"><td class="mdescLeft">&#160;</td><td class="mdescRight">active power exponent of the load at the fictitious node (0 = constant active power) <br /></td></tr>
+<tr class="separator:a140335bf268eaa04a3618c596eea8030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae888adb0ef93076d2e08c0f911427972"><td class="memItemLeft" align="right" valign="top"><a id="ae888adb0ef93076d2e08c0f911427972"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#ae888adb0ef93076d2e08c0f911427972">beta_</a></td></tr>
+<tr class="memdesc:ae888adb0ef93076d2e08c0f911427972"><td class="mdescLeft">&#160;</td><td class="mdescRight">reactive power exponent of the load at the fictitious node (0 = constant reactive power) <br /></td></tr>
+<tr class="separator:ae888adb0ef93076d2e08c0f911427972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2f0cf0d1c0250260337d35bbd572818"><td class="memItemLeft" align="right" valign="top"><a id="ab2f0cf0d1c0250260337d35bbd572818"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#ab2f0cf0d1c0250260337d35bbd572818">u0_</a></td></tr>
+<tr class="memdesc:ab2f0cf0d1c0250260337d35bbd572818"><td class="mdescLeft">&#160;</td><td class="mdescRight">initial voltage module at the fictitious node <br /></td></tr>
+<tr class="separator:ab2f0cf0d1c0250260337d35bbd572818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a055e8831803fe077cbcdb86c8b7a1130"><td class="memItemLeft" align="right" valign="top"><a id="a055e8831803fe077cbcdb86c8b7a1130"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d67/a03361.html#a055e8831803fe077cbcdb86c8b7a1130">ir0_</a></td></tr>
 <tr class="memdesc:a055e8831803fe077cbcdb86c8b7a1130"><td class="mdescLeft">&#160;</td><td class="mdescRight">ir0 <br /></td></tr>
@@ -2887,6 +2905,76 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 </div>
 </div>
+<a id="a92cdd10fb8b550bd47a650f00f78c112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92cdd10fb8b550bd47a650f00f78c112">&#9670;&nbsp;</a></span>PLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DYN::ModelDanglingLine::PLoad </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>U</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the active power consumed by the load at the fictitious node: P = P0 * (U/U0)^alpha </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">U</td><td>voltage module at the fictitious node </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>active power </dd></dl>
+
+</div>
+</div>
+<a id="a8ded7b046934f62154fbe684d4201e34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ded7b046934f62154fbe684d4201e34">&#9670;&nbsp;</a></span>QLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DYN::ModelDanglingLine::QLoad </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>U</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the reactive power consumed by the load at the fictitious node: Q = Q0 * (U/U0)^beta </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">U</td><td>voltage module at the fictitious node </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reactive power </dd></dl>
+
+</div>
+</div>
 <a id="a82c2be5ff26975926a1ab6f8faa1c22e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82c2be5ff26975926a1ab6f8faa1c22e">&#9670;&nbsp;</a></span>setConnectionState()</h2>
 
@@ -3173,7 +3261,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d67/a03361.html">ModelDanglingLine</a></li>
-    <li class="footer">Generated on Tue Oct 13 2026 11:47:15 for Dynawo by
+    <li class="footer">Generated on Tue Oct 13 2026 15:30:34 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

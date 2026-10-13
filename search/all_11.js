@@ -10,6 +10,7 @@ var searchData=
   ['q_5fdur',['Q_dUr',['../dd/d8e/a03377.html#a8bed976523ecab268fe9d950ab704eb7',1,'DYN::ModelLoad']]],
   ['qc_5f',['Qc_',['../d7/d13/a03365.html#ad5dcc4ab33d916959224fdd935006fa9',1,'DYN::ModelGenerator']]],
   ['qcpu',['QcPu',['../d7/d13/a03365.html#a5b2c83bd3456d95dcdb6c784ecd56bc2',1,'DYN::ModelGenerator']]],
+  ['qload',['QLoad',['../df/d67/a03361.html#a8ded7b046934f62154fbe684d4201e34',1,'DYN::ModelDanglingLine']]],
   ['qmax',['qmax',['../d1/df6/a03045.html#a4bef98056ed5f62e8abe245c9783165c',1,'DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint']]],
   ['qmin',['qmin',['../d1/df6/a03045.html#a94f884e2a6e3388efb134030635176d6',1,'DYN::ReactiveCurvePointsInterface::ReactiveCurvePoint']]],
   ['qr_5f',['Qr_',['../d0/d9d/a03289.html#a38ce0eaf48ce950ebeef1f67a280ef78',1,'DYN::ModelSecondaryVoltageControlSimplified']]],

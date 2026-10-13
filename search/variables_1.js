@@ -4,7 +4,7 @@ var searchData=
   ['batteryiidm_5f',['batteryIIDM_',['../d5/d43/a03101.html#af20b996ba73810c90d8499ffb9079c0f',1,'DYN::BatteryInterfaceIIDM']]],
   ['bbs_5f',['bbs_',['../d9/d5f/a03109.html#a5f7b2ad39ea3e42808632df665a563eb',1,'DYN::CalculatedBusInterfaceIIDM']]],
   ['bbsidentifiers_5f',['bbsIdentifiers_',['../d9/d5f/a03109.html#a3a99c7e27abf6280a24442ad9ab45daf',1,'DYN::CalculatedBusInterfaceIIDM']]],
-  ['beta_5f',['beta_',['../d3/da0/a03273.html#ad02ce99ea30edf3354e063d28d5b4f46',1,'DYN::ModelLoadRestorativeWithLimits::beta_()'],['../d7/d13/a03365.html#aab28e34271f1e0bedaf404c537327eda',1,'DYN::ModelGenerator::beta_()'],['../dd/d8e/a03377.html#afca0ba64d394eb200de937a5a65c2863',1,'DYN::ModelLoad::beta_()'],['../d0/d9d/a03289.html#af5111a3433f9356f4379d5fad0c3d851',1,'DYN::ModelSecondaryVoltageControlSimplified::Beta_()']]],
+  ['beta_5f',['beta_',['../d3/da0/a03273.html#ad02ce99ea30edf3354e063d28d5b4f46',1,'DYN::ModelLoadRestorativeWithLimits::beta_()'],['../df/d67/a03361.html#ae888adb0ef93076d2e08c0f911427972',1,'DYN::ModelDanglingLine::beta_()'],['../d7/d13/a03365.html#aab28e34271f1e0bedaf404c537327eda',1,'DYN::ModelGenerator::beta_()'],['../dd/d8e/a03377.html#afca0ba64d394eb200de937a5a65c2863',1,'DYN::ModelLoad::beta_()'],['../d0/d9d/a03289.html#af5111a3433f9356f4379d5fad0c3d851',1,'DYN::ModelSecondaryVoltageControlSimplified::Beta_()']]],
   ['betalong_5f',['betaLong_',['../dd/d8e/a03377.html#a887123019924a244b2dc86f4148322df',1,'DYN::ModelLoad']]],
   ['bitmask_5f',['bitmask_',['../d8/d69/a02661.html#ad0d5ae8818a95060b9dd77678bbc0d15',1,'DYN::BitMask']]],
   ['blackboxmodel_5f',['blackBoxModel_',['../d2/dde/a02085.html#a0e9bcd896a4b27f18f20b2e3ad0a9e4b',1,'dynamicdata::BlackBoxModelHandler']]],
