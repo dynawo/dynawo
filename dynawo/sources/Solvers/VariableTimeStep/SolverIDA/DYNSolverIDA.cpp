@@ -751,7 +751,11 @@ bool SolverIDA::setupNewAlgRestoration(modeChangeType_t modeChangeType) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
     setDifferentialVariablesIndices();
     solverKINYPrim_->setupNewAlgebraicRestoration(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-    return false;  // no J factorization
+    // A pattern-invariant topology event reaches this branch as ALGEBRAIC_MODE, and the
+    // restoration solve needs a fresh factorization: the switch state moved the Jacobian's
+    // values, only its pattern is fixed. The factorization is numeric only, the symbolic
+    // analysis being retained because the pattern comparison finds no change.
+    return model_->getPatternInvariantTopoChange();
   } else if (modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
     solverKINNormal_->setupNewAlgebraicRestoration(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_,
                                                    printflAlgJ_);
@@ -793,7 +797,11 @@ SolverIDA::reinit() {
   if (modeChangeType == NO_MODE) return;
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
-  if (modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_) {
+  // A pattern-invariant topology event is exempt from the severity threshold. IDA integrates
+  // from consistent initial conditions and has no per-step solve of the whole system to restore
+  // them, so its restoration is never skipped and no parameter offers to skip it.
+  const bool patternInvariantTopoEvent = model_->getPatternInvariantTopoChange();
+  if (patternInvariantTopoEvent || modeChangeType >= minimumModeChangeTypeForAlgebraicRestoration_) {
     do {
       model_->rotateBuffers();
       state_.reset();
