@@ -9,8 +9,8 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-# simulation tool for power systems.
+# This file is part of Dynawo, a hybrid C++/Modelica open source suite
+# of simulation tools for power systems.
 """
 dynawo_check_params.py
 ----------------------
@@ -781,13 +781,16 @@ def _build_xml(results, known_enums=None):
       </mandatoryParameters>
     """
     root = ET.Element('mandatoryParameters')
+    base_names = []
 
     for r in results:
         origin = r['origin']
         base_name = r['param']
         full_name = (origin + '.' + base_name
                      if origin and origin != 'direct' else base_name)
-        if _is_complex_type(r['type']):
+        if base_name in base_names:
+            continue
+        elif _is_complex_type(r['type']):
             for suffix in ('.re', '.im'):
                 p = ET.SubElement(root, 'mandatoryParameter')
                 p.set('name', full_name + suffix)
@@ -796,6 +799,7 @@ def _build_xml(results, known_enums=None):
             p = ET.SubElement(root, 'mandatoryParameter')
             p.set('name', full_name)
             p.set('type', _map_type(r['type'], known_enums))
+        base_names.append(base_name)
 
     return root
 
@@ -810,8 +814,8 @@ _LICENSE_COMMENT = """\
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 """
 
 
