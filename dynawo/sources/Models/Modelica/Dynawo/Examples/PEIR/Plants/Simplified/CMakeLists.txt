@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.order
   GFLPlantPropInt.mo
   GFLPlantPropIntWECC.mo
+  test_control.mo
   )
 
 #

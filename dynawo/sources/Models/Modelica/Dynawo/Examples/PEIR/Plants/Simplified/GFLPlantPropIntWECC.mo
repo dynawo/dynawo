@@ -11,58 +11,30 @@ within Dynawo.Examples.PEIR.Plants.Simplified;
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
-
 model GFLPlantPropIntWECC
   extends Modelica.Icons.Example;
   extends Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan(infiniteBusWithVariations(UEvtPu = 1, tUEvtStart = 2, tUEvtEnd = 4, tOmegaEvtStart = 30, tOmegaEvtEnd = 31));
-
   // Inputs
   Modelica.Blocks.Sources.Constant PRefPu(k = PV.PControl0Pu) annotation(
     Placement(transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step URefStep(offset = PV.wecc_repc.URef0Pu, height = -0.5, startTime = 100) annotation(
+  Modelica.Blocks.Sources.Step URefStep(offset = PV.wecc_repc.URef0Pu, height = 0.05, startTime = 10) annotation(
     Placement(transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(PV.PF0)) annotation(
     Placement(transformation(origin = {-138, 72}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Sources.Constant QRefPu(k = PV.QControl0Pu) annotation(
     Placement(transformation(origin = {-150, 0}, extent = {{-10, 10}, {10, -10}})));
 
-  /*Electrical.PEIR.Plants.Simplified.GFLPlantPropInt gflPlantPropInt(SNom = 15, Ki = 10, Kp = 5, LambdaPuSNom = 0.21, PMax = 20, PNom = 15, QMaxPu = 99, QMaxRegPu = 0.6667, QMinPu = -99, QMinRegPu = -0.6667, P0Pu = -0.2, Q0Pu = 0.0439939, U0Pu = 1.06437, UPhase0 = 0.00808331, QReg0Pu = 0.0458447, UReg0Pu = 1.06648, VRegFlag = true, AlphaPuPNom = 0.5) annotation(
-    Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-*/
-Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource PV(ConverterLVControl = false, DDn = 20, DPMaxPu = 999, DPMinPu = -999, DUp = 0.001, Dbd1Pu = -0, Dbd2Pu = 0, DbdPu = 0.001, EMaxPu = 999, EMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = false, IMaxPu = 2, Iqh1Pu = 2, Iql1Pu = -2, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0.21, Ki = 10, KiPLL = 20, Kig = 2.36, Kp = 5, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 0, Kvi = 1, Kvp = 1, Lvplsw = false, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,  PMaxREECPu = 99, PMaxREPCPu = 1, PMinREECPu = 0, PMinREPCPu = 0, PPCLocal = false, PQFlag = false, PfFlag = false,  QFlag = false, QMaxREECPu = 99, QMaxREPCPu = 99, QMinREECPu = -99, QMinREPCPu = -99, RefFlag = true, RrpwrPu = 10, SNom = 15,  VCompFlag = false, VDipPu = 0.5, VFlag = true, VFrz = 0, VMaxPu = 1.5, VMinPu = 0.5, VRef0Pu = 1, VRef1Pu = 0, VUpPu = 1.5, brkpt = 0.1, lvpl1 = 1.22, tFilterGC = 0.02, tFilterPC = 1e-10, tFt = 1e-10, tFv = 1e-10, tG = 0.02, tIq = 0.02, tLag = 0.1, tpREEC = 0.04, tpREPC = 0.04, tPord = 0.02, tRv = 0.02, zerox = 0.05, Id0Pu(fixed = false), Iq0Pu(fixed = false), PConv0Pu(fixed = false), UPhaseConv0(fixed = false), UControl0Pu(fixed = false), PF0(fixed = false), PInj0Pu(fixed = false), QConv0Pu(fixed = false), QInj0Pu(fixed = false), UInj0Pu(fixed = false), i0Pu(im(fixed = false), re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)), s0Pu(im(fixed = false), re(fixed = false)), u0Pu(im(fixed = false), re(fixed = false)), UConv0Pu(fixed = false), uConv0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), uPcc0Pu(im(fixed = false), re(fixed = false)), RLvTrPu = 0, XLvTrPu = 0, PPcc0Pu = -0.2,
-    QPcc0Pu = 0.04458447,
-//U0Pu = 1.06624,
-//P0Pu = -0.15,
-//Q0Pu = 0.035,
-//UPcc0Pu = 1.0679)
-P0Pu = -0.2, Q0Pu = 0.0439939, U0Pu = 1.06437, UPcc0Pu = 1.06648)
-annotation(
+  Dynawo.Electrical.Photovoltaics.WECC.PVCurrentSource PV(ConverterLVControl = false, DDn = 20, DPMaxPu = 999, DPMinPu = -999, DUp = 0.001, Dbd1Pu = -0, Dbd2Pu = 0, DbdPu = 0.05, EMaxPu = 999, EMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, FEMaxPu = 999, FEMinPu = -999, FreqFlag = false, IMaxPu = 2, Iqh1Pu = 2, Iql1Pu = -2, IqrMaxPu = 20, IqrMinPu = -20, Kc = 0.21, Ki = 10, KiPLL = 20, Kig = 2.36, Kp = 5, KpPLL = 3, Kpg = 0.05, Kqi = 0.5, Kqp = 1, Kqv = 0, Kvi = 1, Kvp = 1, Lvplsw = false, OmegaMaxPu = 1.5, OmegaMinPu = 0.5, PMaxREECPu = 99, PMaxREPCPu = 1, PMinREECPu = 0, PMinREPCPu = 0, PPCLocal = false, PQFlag = false, PfFlag = false, QFlag = false, QMaxREECPu = 99, QMaxREPCPu = 99, QMinREECPu = -99, QMinREPCPu = -99, RefFlag = true, RrpwrPu = 10, SNom = 15, VCompFlag = false, VDipPu = 0.5, VFlag = true, VFrz = 0, VMaxPu = 1.5, VMinPu = 0.5, VRef0Pu = 1, VRef1Pu = 0, VUpPu = 1.5, brkpt = 0.1, lvpl1 = 1.22, tFilterGC = 1e-6, tFilterPC = 1e-10, tFt = 1e-10, tFv = 1e-10, tG = 1e-4, tIq = 1e-6, tLag = 0.1, tpREEC = 0.04, tpREPC = 0.04, tPord = 1e-4, tRv = 0.0001, zerox = 0.05, Id0Pu(fixed = false), Iq0Pu(fixed = false), PConv0Pu(fixed = false), UPhaseConv0(fixed = false), UControl0Pu(fixed = false), PF0(fixed = false), PInj0Pu(fixed = false), QConv0Pu(fixed = false), QInj0Pu(fixed = false), UInj0Pu(fixed = false), i0Pu(im(fixed = false), re(fixed = false)), iConv0Pu(im(fixed = false), re(fixed = false)), s0Pu(im(fixed = false), re(fixed = false)), u0Pu(im(fixed = false), re(fixed = false)), UConv0Pu(fixed = false), uConv0Pu(im(fixed = false), re(fixed = false)), uInj0Pu(im(fixed = false), re(fixed = false)), uPcc0Pu(im(fixed = false), re(fixed = false)), RLvTrPu = 0, XLvTrPu = 0, PPcc0Pu = -0.2, QPcc0Pu = 0.04458447,  //U0Pu = 1.06624,
+ //P0Pu = -0.15,
+ //Q0Pu = 0.035,
+ //UPcc0Pu = 1.0679)
+  P0Pu = -0.2, Q0Pu = 0.0439939, U0Pu = 1.06437, UPcc0Pu = 1.06648) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
 
-// Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(
-    BMvHvPu = PV.BMvHvPu,
-    ConverterLVControl = PV.ConverterLVControl,
-    GMvHvPu = PV.GMvHvPu,
-    P0Pu = PV.P0Pu,
-    PPCLocal = PV.PPCLocal,
-    PPcc0Pu = PV.PPcc0Pu,
-    Q0Pu = PV.Q0Pu,
-    QPcc0Pu = PV.QPcc0Pu,
-    RLvTrPu = PV.RLvTrPu,
-    RMvHvPu = PV.RMvHvPu,
-    SNom = PV.SNom,
-    U0Pu = PV.U0Pu,
-    UPcc0Pu = PV.UPcc0Pu,
-    UPhase0 = 0.00808331,
-    XLvTrPu = PV.XLvTrPu,
-    XMvHvPu = PV.XMvHvPu,
-    rTfoPu = PV.rTfoPu,
-    UPhasePcc0 = -7.3e-4
-    //UPhasePcc0 = -0.0106
-    ) annotation(
+  // Initialization
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(ConverterLVControl = PV.ConverterLVControl, P0Pu = PV.P0Pu, PPCLocal = false, PPcc0Pu = PV.PPcc0Pu, Q0Pu = PV.Q0Pu, QPcc0Pu = PV.QPcc0Pu, RLvTrPu = 0, SNom = PV.SNom, U0Pu = PV.U0Pu, UPcc0Pu = PV.UPcc0Pu, UPhase0 = 0.00808331, XLvTrPu = 0, UPhasePcc0 = -0.00072649, BMvHvPu = 0, GMvHvPu = 0, RMvHvPu = 0, XMvHvPu = 0) annotation(
     Placement(transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
@@ -96,13 +68,12 @@ equation
   PV.injector.switchOffSignal1 = false;
   PV.injector.switchOffSignal2 = false;
   PV.injector.switchOffSignal3 = false;
+
   connect(PV.uPccPu, transformer.uPu);
   connect(PV.QPccPu, transformer.Q2Pu);
   connect(PV.PPccPu, transformer.P2Pu);
   connect(PRefPu.y, PV.PRefPu) annotation(
     Line(points = {{-139, 40}, {-126, 40}, {-126, 6}, {-120, 6}}, color = {0, 0, 127}));
-  connect(URefStep.y, PV.URefPu) annotation(
-    Line(points = {{-139, -80}, {-110, -80}, {-110, -10}}, color = {0, 0, 127}));
   connect(PV.omegaRefPu, omegaRefPu.y) annotation(
     Line(points = {{-120, -6}, {-130, -6}, {-130, -40}, {-138, -40}}, color = {0, 0, 127}));
   connect(PFaRef.y, PV.PFaRef) annotation(
@@ -111,6 +82,9 @@ equation
     Line(points = {{-138, 0}, {-120, 0}}, color = {0, 0, 127}));
   connect(PV.terminal, transformer.terminal1) annotation(
     Line(points = {{-98, 0}, {-80, 0}}, color = {0, 0, 255}));
+  connect(URefStep.y, PV.URefPu) annotation(
+    Line(points = {{-138, -80}, {-110, -80}, {-110, -10}}, color = {0, 0, 127}));
+
   annotation(
     Diagram(coordinateSystem(extent = {{-140, -100}, {160, 60}})),
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.001));

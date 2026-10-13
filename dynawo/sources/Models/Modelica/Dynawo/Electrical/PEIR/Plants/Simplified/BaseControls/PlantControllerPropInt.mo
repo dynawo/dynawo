@@ -39,7 +39,7 @@ model PlantControllerPropInt "Simplified plant model with PI controller"
   parameter Boolean VRegFlag "If true U + lambda Q regulation, if false Q is constant";
 
   final parameter Types.PerUnit AlphaPu = AlphaPuPNom*PNom/SNom "Frequency sensitivity in pu (base SNom, OmegaNom)";
-  final parameter Types.PerUnit LambdaPu = LambdaPuSNom*SystemBase.SnRef/SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
+  //final parameter Types.PerUnit LambdaPu = LambdaPuSNom*SystemBase.SnRef/SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
   final parameter Types.ActivePowerPu PMinPu = PMin/SNom "Minimum active power in pu (base SNom)";
   final parameter Types.ActivePowerPu PMaxPu = PMax/SNom "Maximum active power in pu (base SNom)";
 
@@ -63,7 +63,7 @@ model PlantControllerPropInt "Simplified plant model with PI controller"
 
   Modelica.Blocks.Math.Add UCtrlErr(k2 = -1) annotation(
     Placement(transformation(origin = {-150, 80}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Add QVCtrlErr(k1 = -1) annotation(
+  Modelica.Blocks.Math.Add QVCtrlErr(k1 = -LambdaPuSNom, k2 = +LambdaPuSNom) annotation(
     Placement(transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain(k = 1/LambdaPuSNom) annotation(
     Placement(transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}})));
@@ -104,7 +104,7 @@ model PlantControllerPropInt "Simplified plant model with PI controller"
   parameter Types.PerUnit QReg0Pu "Start value of reactive power at regulated bus in pu (receptor convention) (base SnRef)";
   parameter Types.PerUnit UReg0Pu "Start value of voltage magnitude at regulated bus in pu (base UNom)";
 
-  final parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPu * QReg0Pu "Start value of voltage setpoint for plant level control in pu (base UNom)";
+  final parameter Types.PerUnit URef0Pu = UReg0Pu - LambdaPuSNom * QReg0Pu *SystemBase.SnRef / SNom "Start value of voltage setpoint for plant level control in pu (base UNom)";
 
 //protected
   PStatus pStatus(start = PStatus.Standard) "Status of the power / frequency regulation function";
