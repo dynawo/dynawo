@@ -193,6 +193,7 @@ var a02681 =
       [ "StaticRefUndefined", "d4/d9d/a02681.html#acfce33066451c48351076e31bd5b4ecea247d391c0b4be331e8294bfed451e8df", null ],
       [ "SubModelBadVariableTypeForVariableIndex", "d4/d9d/a02681.html#acfce33066451c48351076e31bd5b4ecea8352828ed26b099deda3e941b0de4b0c", null ],
       [ "SubModelIncorrectSize", "d4/d9d/a02681.html#acfce33066451c48351076e31bd5b4eceabc8fb05ba53699128d286252039572ec", null ],
+      [ "SubModelOverridenElement", "d4/d9d/a02681.html#acfce33066451c48351076e31bd5b4ecead4d174e39c9b6552a33c4fa71200ed9d", null ],
       [ "SubModelUnknownElement", "d4/d9d/a02681.html#acfce33066451c48351076e31bd5b4eceaedc8e7ca0170d9c18f44fce07d0ad8c6", null ],
       [ "SubModelUnknownVariable", "d4/d9d/a02681.html#acfce33066451c48351076e31bd5b4eceaa704b063d5602aab1ddc2251b691780d", null ],
       [ "SwitchMissingBus1", "d4/d9d/a02681.html#acfce33066451c48351076e31bd5b4ecead6dc81d426f223cc6df2805e9d2ad8c3", null ],

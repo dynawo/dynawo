@@ -2,6 +2,7 @@ var a03345 =
 [
     [ "ModelBusBridged", "d6/d55/a03345.html#aeeffb5856047db42482548fe2c30087e", null ],
     [ "collectSilentZ", "d6/d55/a03345.html#adf833a90114bc4a6f9b7eee316497ba2", null ],
+    [ "defineElementsById", "d6/d55/a03345.html#aa5ec81a779b7f24695b21001b372f422", null ],
     [ "defineNonGenericParameters", "d6/d55/a03345.html#a023d795e6221643ee4479715a72a08e0", null ],
     [ "derivatives", "d6/d55/a03345.html#a50ca5870e05c8472016a28f4a712cd47", null ],
     [ "derivativesPrim", "d6/d55/a03345.html#a56682afcb5ffcefb575f4e4cfe6e041c", null ],

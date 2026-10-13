@@ -2,7 +2,8 @@ var a02837 =
 [
     [ "typeElement", "dc/dfd/a02837.html#aafec22d7d8eeb5bbc49fd4686f2a36f5", [
       [ "STRUCTURE", "dc/dfd/a02837.html#aafec22d7d8eeb5bbc49fd4686f2a36f5a4062f56a2572112b9eb1f6a53bea64ec", null ],
-      [ "TERMINAL", "dc/dfd/a02837.html#aafec22d7d8eeb5bbc49fd4686f2a36f5a1cea1f1587a146ef6728d44d0f44f345", null ]
+      [ "TERMINAL", "dc/dfd/a02837.html#aafec22d7d8eeb5bbc49fd4686f2a36f5a1cea1f1587a146ef6728d44d0f44f345", null ],
+      [ "OVERRIDEN", "dc/dfd/a02837.html#aafec22d7d8eeb5bbc49fd4686f2a36f5a2987d3b41335d9151f497daaa0db8180", null ]
     ] ],
     [ "Element", "dc/dfd/a02837.html#a5180af421d02786107129cfa2221284d", null ],
     [ "Element", "dc/dfd/a02837.html#aa1a935240025f61d5d4c52290523bc14", null ],

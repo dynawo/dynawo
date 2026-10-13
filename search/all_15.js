@@ -1,7 +1,7 @@
 var searchData=
 [
   ['u0_5f',['u0_',['../d1/d3a/a03353.html#a26a599d7de68640d6269d0593e6c4018',1,'DYN::ModelBusInjected::u0_()'],['../d7/d13/a03365.html#a0700c5c3fe4ffc06f0b6cd792c4baeb2',1,'DYN::ModelGenerator::u0_()'],['../dd/d8e/a03377.html#a836199b67260f86f36b2890ee1a3acf6',1,'DYN::ModelLoad::u0_()'],['../d0/d75/a03105.html#a9dc6fdbc7acf30ec9061ee0257264647',1,'DYN::BusInterfaceIIDM::U0_()'],['../d9/d5f/a03109.html#a29a1d0f9b69647d55d07d62bdf3c5373',1,'DYN::CalculatedBusInterfaceIIDM::U0_()'],['../dc/ddf/a03129.html#a9464870df0900416d1e3f453105ad8a1',1,'DYN::FictBusInterfaceIIDM::U0_()']]],
-  ['u0pu_5f',['U0Pu_',['../d0/d9d/a03289.html#a5781d900bbe83f0577ec4161ab4a0624',1,'DYN::ModelSecondaryVoltageControlSimplified::U0Pu_()'],['../d3/da0/a03273.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits::u0Pu_()']]],
+  ['u0pu_5f',['u0Pu_',['../d3/da0/a03273.html#a902eee839d51a1747cc5f409391b298c',1,'DYN::ModelLoadRestorativeWithLimits::u0Pu_()'],['../d0/d9d/a03289.html#a5781d900bbe83f0577ec4161ab4a0624',1,'DYN::ModelSecondaryVoltageControlSimplified::U0Pu_()']]],
   ['u0pu_5fsquare_5f',['U0Pu_square_',['../d7/d13/a03365.html#a7952ad2f7bd17256e9e01c92e7c550c1',1,'DYN::ModelGenerator']]],
   ['u2pu_5f',['U2Pu_',['../d1/d3a/a03353.html#a1315a831364864f6f2ac2229f5953db1',1,'DYN::ModelBusInjected']]],
   ['u_5f',['U_',['../d1/d3a/a03353.html#a3b7037c8eb099771670acb73bc3c6cef',1,'DYN::ModelBusInjected']]],

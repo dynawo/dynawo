@@ -121,6 +121,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aeeffb5856047db42482548fe2c30087e"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor from static data, for inheriting classes <br />
   <a href="#aeeffb5856047db42482548fe2c30087e">More...</a><br /></td></tr>
 <tr class="separator:aeeffb5856047db42482548fe2c30087e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5ec81a779b7f24695b21001b372f422"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d55/a03345.html#aa5ec81a779b7f24695b21001b372f422">defineElementsById</a> (const std::string &amp;<a class="el" href="../../d7/dc5/a03449.html#afa00ad4d95d23ba3ba0901cff3eac806">id</a>, std::vector&lt; <a class="el" href="../../dc/dfd/a02837.html">Element</a> &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement) override</td></tr>
+<tr class="memdesc:aa5ec81a779b7f24695b21001b372f422"><td class="mdescLeft">&#160;</td><td class="mdescRight">define elements of the bus model using id as prefix (to deal with alias)  <a href="#aa5ec81a779b7f24695b21001b372f422">More...</a><br /></td></tr>
+<tr class="separator:aa5ec81a779b7f24695b21001b372f422"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3105b4997f9f731153083927a4b269ac"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d55/a03345.html#a3105b4997f9f731153083927a4b269ac">ur</a> () const override</td></tr>
 <tr class="memdesc:a3105b4997f9f731153083927a4b269ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the real part of the voltage  <a href="#a3105b4997f9f731153083927a4b269ac">More...</a><br /></td></tr>
 <tr class="separator:a3105b4997f9f731153083927a4b269ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -478,9 +481,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 <tr class="memitem:ad1032239d29d57aa6688b8c443a760f8 inherit pro_methods_a03341"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html#ad1032239d29d57aa6688b8c443a760f8">ModelBus</a> (const std::shared_ptr&lt; <a class="el" href="../../d8/de8/a02925.html">BusInterface</a> &gt; &amp;bus, bool isNodeBreaker)</td></tr>
 <tr class="memdesc:ad1032239d29d57aa6688b8c443a760f8 inherit pro_methods_a03341"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor from static data, for inheriting classes  <a href="../../d3/d55/a03341.html#ad1032239d29d57aa6688b8c443a760f8">More...</a><br /></td></tr>
 <tr class="separator:ad1032239d29d57aa6688b8c443a760f8 inherit pro_methods_a03341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a289021c8739f6743cd2cbd67b583b501 inherit pro_methods_a03341"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html#a289021c8739f6743cd2cbd67b583b501">defineElementsById</a> (const std::string &amp;<a class="el" href="../../d7/dc5/a03449.html#afa00ad4d95d23ba3ba0901cff3eac806">id</a>, std::vector&lt; <a class="el" href="../../dc/dfd/a02837.html">Element</a> &gt; &amp;elements, std::map&lt; std::string, int &gt; &amp;mapElement)</td></tr>
-<tr class="memdesc:a289021c8739f6743cd2cbd67b583b501 inherit pro_methods_a03341"><td class="mdescLeft">&#160;</td><td class="mdescRight">define elements of the bus model using id as prefix (to deal with alias)  <a href="../../d3/d55/a03341.html#a289021c8739f6743cd2cbd67b583b501">More...</a><br /></td></tr>
-<tr class="separator:a289021c8739f6743cd2cbd67b583b501 inherit pro_methods_a03341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ac1695ddcb016c2b8eb1dd9ec0072ae inherit pro_methods_a03341"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d55/a03341.html#a7ac1695ddcb016c2b8eb1dd9ec0072ae">refreshConnectionStateFromZ</a> (bool logTimeline)</td></tr>
 <tr class="memdesc:a7ac1695ddcb016c2b8eb1dd9ec0072ae inherit pro_methods_a03341"><td class="mdescLeft">&#160;</td><td class="mdescRight">read connection state flag inside z vector and update connectionState member if necessary  <a href="../../d3/d55/a03341.html#a7ac1695ddcb016c2b8eb1dd9ec0072ae">More...</a><br /></td></tr>
 <tr class="separator:a7ac1695ddcb016c2b8eb1dd9ec0072ae inherit pro_methods_a03341"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -721,6 +721,60 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 </dl>
 
 <p>Implements <a class="el" href="../../d7/dc5/a03449.html#a648530dc39c05c9cddb6b4aa0bc51927">DYN::NetworkComponent</a>.</p>
+
+</div>
+</div>
+<a id="aa5ec81a779b7f24695b21001b372f422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5ec81a779b7f24695b21001b372f422">&#9670;&nbsp;</a></span>defineElementsById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::ModelBusBridged::defineElementsById </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../dc/dfd/a02837.html">Element</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>elements</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>mapElement</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>define elements of the bus model using id as prefix (to deal with alias) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>id to use as prefix </td></tr>
+    <tr><td class="paramname">elements</td><td>vector of elements to fill with new elements defined </td></tr>
+    <tr><td class="paramname">mapElement</td><td>map of elements to fill with new elements </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="../../d3/d55/a03341.html#a289021c8739f6743cd2cbd67b583b501">DYN::ModelBus</a>.</p>
 
 </div>
 </div>
@@ -1728,7 +1782,7 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d6/d55/a03345.html">ModelBusBridged</a></li>
-    <li class="footer">Generated on Mon Oct 12 2026 11:13:54 for Dynawo by
+    <li class="footer">Generated on Tue Oct 13 2026 07:51:00 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
