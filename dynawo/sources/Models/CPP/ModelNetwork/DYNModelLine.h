@@ -88,6 +88,7 @@ class ModelLine : public ModelQuadripole {
   void evalDynamicYType() override;
   void evalStaticFType() override;
   void evalDynamicFType() override;
+  void flagDifferentialBuses() override;
   void collectSilentZ(BitMask* silentZTable) override;
   void evalYMat() override;
   void init(int & yNum) override;

@@ -1270,6 +1270,7 @@ ModelNetwork::evalStaticYType() {
 
 void
 ModelNetwork::evalDynamicYType() {
+  flagDifferentialBuses();
   for (const auto& component : getComponents()) {
     if (component->sizeY() != 0) {
       component->evalDynamicYType();
@@ -1302,10 +1303,19 @@ ModelNetwork::collectSilentZ(BitMask* silentZTable) {
 
 void
 ModelNetwork::evalDynamicFType() {
+  flagDifferentialBuses();
   for (const auto& component : getComponents()) {
     if (component->sizeF() != 0)
       component->evalDynamicFType();
   }
+}
+
+void
+ModelNetwork::flagDifferentialBuses() {
+  // the buses are evaluated before the lines: their differential state is set beforehand
+  busContainer_->resetDifferentialVoltages();
+  for (const auto& component : getComponents())
+    component->flagDifferentialBuses();
 }
 
 void

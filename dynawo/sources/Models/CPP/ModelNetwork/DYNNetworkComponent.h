@@ -218,6 +218,11 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void evalDynamicFType() = 0;
 
   /**
+   * @brief flag the buses whose voltages are differential because of this component (called before the dynamic types evaluation)
+   */
+  virtual void flagDifferentialBuses() { /* not needed by default */ }
+
+  /**
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */

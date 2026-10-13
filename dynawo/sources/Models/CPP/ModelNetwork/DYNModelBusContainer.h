@@ -116,6 +116,11 @@ class ModelBusContainer {
    */
   bool hasDifferentialVoltages() const;
 
+  /**
+   * @brief set the voltages of every bus as algebraic, before the branches flag the differential ones
+   */
+  void resetDifferentialVoltages();
+
 
  private:
   std::vector<std::shared_ptr<ModelBus> > models_;  ///< model bus

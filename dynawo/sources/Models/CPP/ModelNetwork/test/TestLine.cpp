@@ -1365,6 +1365,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLineDerivatives) {
   dl->setSubModelParameters(parametersModels);
 
   // shunt susceptances on both sides: both buses have differential voltages
+  dl->flagDifferentialBuses();
   ASSERT_TRUE(dl->getModelBus1()->hasDifferentialVoltages());
   ASSERT_TRUE(dl->getModelBus2()->hasDifferentialVoltages());
 
@@ -1402,8 +1403,50 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLineDerivatives) {
   std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p2 = createModelLine(false, false, true, true, 0., 1.5);
   const std::unique_ptr<ModelLine>& dl2 = p2.first;
   dl2->setSubModelParameters(parametersModels);
+  dl2->flagDifferentialBuses();
   ASSERT_FALSE(dl2->getModelBus1()->hasDifferentialVoltages());
   ASSERT_TRUE(dl2->getModelBus2()->hasDifferentialVoltages());
+}
+
+TEST(ModelsModelNetwork, ModelNetworkDynamicLineCapacitiveBranches) {
+  std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  const std::unique_ptr<ModelLine>& dl = p.first;
+  const std::shared_ptr<ModelBus>& bus = dl->getModelBus1();
+
+  // static line: the bus voltages are not differential
+  dl->flagDifferentialBuses();
+  ASSERT_FALSE(bus->hasDifferentialVoltages());
+
+  std::vector<ParameterModeler> parameters;
+  dl->defineParameters(parameters);
+  std::unordered_map<std::string, ParameterModeler> parametersModels;
+  parameters[1].setValue<bool>(true, PAR);
+  parametersModels.insert(std::make_pair(parameters[1].getName(), parameters[1]));
+  dl->setSubModelParameters(parametersModels);
+
+  // bus side 1 with the dynamic line (shunt susceptance) and another closed capacitive branch (flagged before the line)
+  // each step mimics the network: reset of the buses, then flag by each branch
+  bus->setHasDifferentialVoltages(false);
+  bus->setHasDifferentialVoltages(true);
+  dl->flagDifferentialBuses();
+  ASSERT_TRUE(bus->hasDifferentialVoltages());
+
+  // loss of the other branch: the dynamic line is still closed, the bus voltages are still differential
+  bus->setHasDifferentialVoltages(false);
+  dl->flagDifferentialBuses();
+  ASSERT_TRUE(bus->hasDifferentialVoltages());
+
+  // loss of the dynamic line: no closed branch with a shunt susceptance anymore, the bus voltages are algebraic
+  dl->setConnectionState(OPEN);
+  bus->setHasDifferentialVoltages(false);
+  dl->flagDifferentialBuses();
+  ASSERT_FALSE(bus->hasDifferentialVoltages());
+
+  // the dynamic line is closed again
+  dl->setConnectionState(CLOSED);
+  bus->setHasDifferentialVoltages(false);
+  dl->flagDifferentialBuses();
+  ASSERT_TRUE(bus->hasDifferentialVoltages());
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {

@@ -1191,13 +1191,18 @@ ModelLine::setSubModelParameters(const std::unordered_map<std::string, Parameter
 
     if (dynBus1_ || dynBus2_)
       throw DYNError(Error::MODELER, DynamicLineStatusNotSupported2, id_);
-
-    // differential voltages only with a shunt susceptance, never reset to false (independent of the lines order)
-    if (!doubleIsZero(suscept1_))
-      modelBus1_->setHasDifferentialVoltages(true);
-    if (!doubleIsZero(suscept2_))
-      modelBus2_->setHasDifferentialVoltages(true);
   }
+}
+
+void
+ModelLine::flagDifferentialBuses() {
+  // the bus voltages are differential while at least one dynamic line with a shunt susceptance on the bus side is closed
+  if (!dynLineModel_ || getConnectionState() != CLOSED)
+    return;
+  if (!doubleIsZero(suscept1_))
+    modelBus1_->setHasDifferentialVoltages(true);
+  if (!doubleIsZero(suscept2_))
+    modelBus2_->setHasDifferentialVoltages(true);
 }
 
 void

@@ -367,6 +367,11 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   void computeSwitchesCurrent();
 
   /**
+   * @brief reset the differential state of the buses and let each component flag its differential buses
+   */
+  void flagDifferentialBuses();
+
+  /**
    * @brief get the network components depending on the model used (init or not)
    * @return the vector of network component modeled
    */

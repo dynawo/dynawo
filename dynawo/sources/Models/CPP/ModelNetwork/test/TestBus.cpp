@@ -645,9 +645,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   ASSERT_NO_THROW(bus->setFequations(fEquationIndex));
   ASSERT_EQ(fEquationIndex.size(), nbF);
 
-  // evalStaticYType, evalStaticFType, evalDynamicYType, evalDynamicFType
+  // evalStaticYType, evalStaticFType, evalDynamicYType, evalDynamicFType, with differential voltages on a switched off bus
   bus->setHasDifferentialVoltages(true);
-  ASSERT_TRUE(bus->hasDifferentialVoltages());
   bus->evalStaticYType();
   ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
   ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
@@ -655,6 +654,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   ASSERT_EQ(fTypes[ModelBusInjected::urNum_], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], ALGEBRAIC_EQ);
   bus->evalDynamicYType();
+  ASSERT_TRUE(bus->hasDifferentialVoltages());
   ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
   ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
   bus->evalDynamicFType();
@@ -675,6 +675,16 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   bus->evalDynamicFType();
   ASSERT_EQ(fTypes[ModelBusInjected::urNum_], DIFFERENTIAL_EQ);
   ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], DIFFERENTIAL_EQ);
+
+  // no more differential voltages: the bus voltages are algebraic again
+  bus->setHasDifferentialVoltages(false);
+  bus->evalDynamicYType();
+  ASSERT_FALSE(bus->hasDifferentialVoltages());
+  ASSERT_EQ(yTypes[ModelBusInjected::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBusInjected::uiNum_], ALGEBRAIC);
+  bus->evalDynamicFType();
+  ASSERT_EQ(fTypes[ModelBusInjected::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBusInjected::uiNum_], ALGEBRAIC_EQ);
   delete[] zConnected;
 }
 
@@ -945,7 +955,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   ASSERT_FALSE(container.hasDifferentialVoltages());
   bus2->setHasDifferentialVoltages(true);
   ASSERT_TRUE(container.hasDifferentialVoltages());
-  bus2->setHasDifferentialVoltages(false);
+  container.resetDifferentialVoltages();
+  ASSERT_FALSE(container.hasDifferentialVoltages());
   int offSet = 0;
   bus1->init(offSet);
   bus1->evalDerivatives(1);

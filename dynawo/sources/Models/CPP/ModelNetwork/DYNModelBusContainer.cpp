@@ -61,6 +61,12 @@ ModelBusContainer::hasDifferentialVoltages() const {
 }
 
 void
+ModelBusContainer::resetDifferentialVoltages() {
+  for (const auto& bus : models_)
+    bus->setHasDifferentialVoltages(false);
+}
+
+void
 ModelBusContainer::resetDerivatives() {
   for (const auto& busModel : models_)
     busModel->resetDerivatives();
