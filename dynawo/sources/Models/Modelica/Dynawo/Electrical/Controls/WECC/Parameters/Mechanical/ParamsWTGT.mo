@@ -24,7 +24,7 @@ record ParamsWTGT
   Dialog(tab="Drive train control"));
 
   // Initial parameter
-  parameter Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)" annotation(
+  parameter Types.AngularVelocityPu omegaRefWTGQ0Pu "Start value of reference angular frequency of torque control in pu (base omegaNom)" annotation(
   Dialog(group="Initialization"));
   annotation(
   preferredView = "text");

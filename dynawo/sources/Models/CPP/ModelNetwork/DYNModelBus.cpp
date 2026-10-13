@@ -120,7 +120,6 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   // Discrete variables addition
   addElement(id + std::string("_numcc"), Element::TERMINAL, elements, mapElement);
   addElement(id + std::string("_switchOff"), Element::TERMINAL, elements, mapElement);
-  addElement(id + std::string("_state"), Element::TERMINAL, elements, mapElement);
 }
 
 void

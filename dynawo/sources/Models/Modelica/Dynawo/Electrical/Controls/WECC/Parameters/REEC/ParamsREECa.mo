@@ -62,7 +62,7 @@ record ParamsREECa "REEC type A parameters"
     Dialog(tab = "Electrical Control", group = "REECa"));
 
   // Initial parameters
-  parameter Types.AngularVelocityPu omegaRefWTGQPu0 "Start value of reference angular frequency of torque control in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu omegaRefWTGQ0Pu "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
   annotation(preferredView = "text");
 end ParamsREECa;
