@@ -42,6 +42,10 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGPa wecc_wtgp(
     Kiw = Kiw,
     Kpw = Kpw,
@@ -55,7 +59,7 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
     ThetaRMin = ThetaRMin,
     Theta0 = Theta0,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-39, -46}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(
     Theta0 = Theta0,
@@ -79,7 +83,7 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
     Spd4 = Spd4,
     TFlag = TFlag,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-89, -46}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
     Ht = Ht,
@@ -88,7 +92,7 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
     Kshaft = Kshaft,
     Pm0Pu = Pm0Pu,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {60.692, -50.4443}, extent = {{-7.69229, -5.55557}, {7.69229, 5.55557}})));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
     IqrMaxPu = IqrMaxPu,
@@ -186,7 +190,7 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
     u0Pu = u0Pu,
     uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Sources.IEC.BaseConverters.ElecSystem LvTfo(
     BPu = 0,
@@ -217,7 +221,7 @@ equation
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(wecc_wtgt.omegaGPu, wecc_wtgq.omegaGPu) annotation(
-    Line(points = {{64, -44}, {64.4305, -44}, {64.4305, -43}, {63.861, -43}, {63.861, -40.034}, {129.092, -40.034}, {129.092, -76.034}, {-108.891, -76.034}, {-108.891, -52.034}, {-99.891, -52.034}}, color = {0, 0, 127}));
+    Line(points = {{64, -44}, {64.4305, -44}, {64.4305, -43}, {63.861, -43}, {63.861, -40.034}, {100, -40.034}, {100, -76.034}, {-108.891, -76.034}, {-108.891, -52.034}, {-99.891, -52.034}}, color = {0, 0, 127}));
   connect(wecc_regc.idRefPu, injector.idPu) annotation(
     Line(points = {{-29, -6}, {-11.5, -6}}, color = {0, 0, 127}));
   connect(wecc_regc.iqRefPu, injector.iqPu) annotation(
@@ -245,7 +249,7 @@ equation
   connect(LvTfo.terminal2, LvMeasurements.terminal1) annotation(
     Line(points = {{51, 0}, {60, 0}}, color = {0, 0, 255}));
   connect(LvMeasurements.UPu, wecc_reec.UPu) annotation(
-    Line(points = {{60, -5.5}, {60, -18}, {-74, -18}, {-74, -11}}, color = {0, 0, 127}));
+    Line(points = {{60, -5}, {60, -20}, {-74, -20}, {-74, -11}}, color = {0, 0, 127}));
   connect(LvMeasurements.PPu, wecc_reec.PConvPu) annotation(
     Line(points = {{62, -5.5}, {62, -22}, {-80, -22}, {-80, -11}}, color = {0, 0, 127}));
   connect(LvMeasurements.QPu, wecc_reec.QConvPu) annotation(
@@ -255,7 +259,7 @@ equation
   connect(LvMeasurements.PPu, wecc_wtgq.PePu) annotation(
     Line(points = {{62, -5}, {62, -22}, {85, -22}, {85, -68}, {-105, -68}, {-105, -46}, {-100, -46}}, color = {0, 0, 127}));
   connect(LvMeasurements.UPu, wecc_regc.UPu) annotation(
-    Line(points = {{60, -5}, {60, -18}, {-46, -18}, {-46, -11}}, color = {0, 0, 127}));
+    Line(points = {{60, -5}, {60, -20}, {-46, -20}, {-46, -11}}, color = {0, 0, 127}));
   connect(LvMeasurements.uPu, pll.uPu) annotation(
     Line(points = {{66, -5}, {66, -93}, {-174, -93}, {-174, 70}, {-171, 70}}, color = {85, 170, 255}));
   connect(pll.phi, injector.UPhase) annotation(
@@ -278,10 +282,12 @@ equation
     Line(points = {{-68, 0}, {-64, 0}, {-64, -30}, {-87, -30}, {-87, -34}}, color = {255, 0, 255}));
   connect(PConvRefPu, wecc_wtgq.PRef0Pu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-104, 6}, {-104, -40}, {-100, -40}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -20}, {110, -20}, {110, -40}, {120, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">This block contains the generic WECC WT model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\">The overall model is structured as follows:</p><ul style=\"font-family: 'MS Shell Dlg 2'; font-size: 12px;\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul></body></html>"),
     Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WT 3 1"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 110}})));
+    Diagram(coordinateSystem(extent = {{-180, -100}, {120, 110}})));
 end WT3CurrentSource1;

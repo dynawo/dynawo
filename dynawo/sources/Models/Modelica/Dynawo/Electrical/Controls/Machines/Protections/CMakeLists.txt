@@ -18,6 +18,10 @@ set(MODEL_FILES
   HVRT.mo
   HVRT.extvar
   HVRT.mandatoryParam
+  LHVRT.mo
+  LHVRT.extvar
+  LHVRT.mandatoryParam
+  LHVRT_INIT.mo
   LVRT.mo
   LVRT.extvar
   LVRT.mandatoryParam

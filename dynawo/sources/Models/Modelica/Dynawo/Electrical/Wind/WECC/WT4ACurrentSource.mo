@@ -25,6 +25,10 @@ model WT4ACurrentSource "WECC Wind Turbine model with a simplified drive train m
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
 equation
   connect(PConvRefPu, wecc_reec.PConvRefPu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
@@ -32,6 +36,8 @@ equation
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(LvMeasurements.terminal2, terminal) annotation(
     Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -20}, {110, -20}, {110, -40}, {120, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

@@ -22,6 +22,10 @@ model PVCurrentSourceNoPlantControl "WECC PV model with a current source as inte
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at injector terminal in pu (generator convention) (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
@@ -32,6 +36,8 @@ equation
     Line(points = {{-190, 20}, {-100, 20}, {-100, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(LvMeasurements.terminal2, terminal) annotation(
     Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -40}, {130, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

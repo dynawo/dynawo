@@ -149,7 +149,7 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
     UPhase0 = 1.4461e-06,
-    omegaRefWTGQPu0(fixed = false)) annotation(
+    omegaRefWTGQ0Pu(fixed = false)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PConvRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -163,7 +163,7 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     Placement(transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = -180)));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT weccInverterCurrentSource_INIT(
+  Dynawo.Electrical.Wind.WECC.WTCurrentSource_INIT wtCurrentSource_INIT(
     ConverterLVControl = WT3.ConverterLVControl,
     P0Pu = WT3.s0Pu.re,
     Q0Pu = WT3.s0Pu.im,
@@ -175,25 +175,25 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
-  WT3.Id0Pu := weccInverterCurrentSource_INIT.Id0Pu;
-  WT3.Iq0Pu := weccInverterCurrentSource_INIT.Iq0Pu;
-  WT3.PF0 := weccInverterCurrentSource_INIT.PF0;
-  WT3.PInj0Pu := weccInverterCurrentSource_INIT.PInj0Pu;
-  WT3.QInj0Pu := weccInverterCurrentSource_INIT.QInj0Pu;
-  WT3.UInj0Pu := weccInverterCurrentSource_INIT.UInj0Pu;
-  WT3.i0Pu.re := weccInverterCurrentSource_INIT.i0Pu.re;
-  WT3.i0Pu.im := weccInverterCurrentSource_INIT.i0Pu.im;
-  WT3.uInj0Pu.re := weccInverterCurrentSource_INIT.uInj0Pu.re;
-  WT3.uInj0Pu.im := weccInverterCurrentSource_INIT.uInj0Pu.im;
-  WT3.omegaRefWTGQPu0 := weccInverterCurrentSource_INIT.omegaRefWTGQPu0;
-  WT3.iConv0Pu.re := weccInverterCurrentSource_INIT.iConv0Pu.re;
-  WT3.iConv0Pu.im := weccInverterCurrentSource_INIT.iConv0Pu.im;
-  WT3.UConv0Pu := weccInverterCurrentSource_INIT.UConv0Pu;
-  WT3.uConv0Pu.re := weccInverterCurrentSource_INIT.uConv0Pu.re;
-  WT3.uConv0Pu.im := weccInverterCurrentSource_INIT.uConv0Pu.im;
-  WT3.PConv0Pu := weccInverterCurrentSource_INIT.PConv0Pu;
-  WT3.QConv0Pu := weccInverterCurrentSource_INIT.QConv0Pu;
-  WT3.UPhaseConv0 := weccInverterCurrentSource_INIT.UPhaseConv0;
+  WT3.Id0Pu := wtCurrentSource_INIT.Id0Pu;
+  WT3.Iq0Pu := wtCurrentSource_INIT.Iq0Pu;
+  WT3.PF0 := wtCurrentSource_INIT.PF0;
+  WT3.PInj0Pu := wtCurrentSource_INIT.PInj0Pu;
+  WT3.QInj0Pu := wtCurrentSource_INIT.QInj0Pu;
+  WT3.UInj0Pu := wtCurrentSource_INIT.UInj0Pu;
+  WT3.i0Pu.re := wtCurrentSource_INIT.i0Pu.re;
+  WT3.i0Pu.im := wtCurrentSource_INIT.i0Pu.im;
+  WT3.uInj0Pu.re := wtCurrentSource_INIT.uInj0Pu.re;
+  WT3.uInj0Pu.im := wtCurrentSource_INIT.uInj0Pu.im;
+  WT3.omegaRefWTGQ0Pu := wtCurrentSource_INIT.omegaRefWTGQ0Pu;
+  WT3.iConv0Pu.re := wtCurrentSource_INIT.iConv0Pu.re;
+  WT3.iConv0Pu.im := wtCurrentSource_INIT.iConv0Pu.im;
+  WT3.UConv0Pu := wtCurrentSource_INIT.UConv0Pu;
+  WT3.uConv0Pu.re := wtCurrentSource_INIT.uConv0Pu.re;
+  WT3.uConv0Pu.im := wtCurrentSource_INIT.uConv0Pu.im;
+  WT3.PConv0Pu := wtCurrentSource_INIT.PConv0Pu;
+  WT3.QConv0Pu := wtCurrentSource_INIT.QConv0Pu;
+  WT3.UPhaseConv0 := wtCurrentSource_INIT.UPhaseConv0;
 
 equation
   line.switchOffSignal1 = false;

@@ -52,6 +52,13 @@
             <iidm:load id="_LOAD__14_EC" name="LOAD  14" loadType="UNDEFINED" p0="14.9" q0="5.0" bus="_BUS___14_TN" connectableBus="_BUS___14_TN" p="14.9" q="5.0"/>
         </iidm:voltageLevel>
     </iidm:substation>
+    <iidm:substation id="_BUS___15_SS" name="BUS   15_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___15_VL" name="BUS   15_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___15_TN" v="14.306159" angle="-16.0336"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
     <iidm:substation id="_BUS____1_SS" name="BUS    1_SS" country="AF" geographicalTags="_SGR_01">
         <iidm:voltageLevel id="_BUS____1_VL" name="BUS    1_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
             <iidm:busBreakerTopology>

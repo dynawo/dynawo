@@ -14,11 +14,7 @@ within Dynawo.Electrical.Wind.IEC.WPP;
 */
 
 model WPP4CurrentSource_INIT "Wind Power Plant Type 4 model from IEC 61400-27-1 standard : initialization model"
-  extends Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT(
-    BesPu = if ConverterLVControl then 0 else BLvTrPu,
-    GesPu = if ConverterLVControl then 0 else GLvTrPu,
-    ResPu = if ConverterLVControl then 0 else RLvTrPu,
-    XesPu = if ConverterLVControl then 0 else XLvTrPu);
+  extends Dynawo.Electrical.Wind.IEC.WT.WT4CurrentSource_INIT;
 
   //Electrical parameters for internal MV network + MV/HV transformer
   parameter Types.PerUnit BMvHvPu = 0 "Shunt susceptance of internal MV network + MV/HV transformer in pu (base UNom, SNom)" annotation(

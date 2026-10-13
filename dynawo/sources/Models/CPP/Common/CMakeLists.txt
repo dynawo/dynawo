@@ -15,7 +15,6 @@ set(COMMON_CPP_MODELS_SOURCES
 
 set(COMMON_CPP_MODELS_HEADERS
     DYNModelCPP.h
-    DYNModelCPP.hpp
     DYNModelUpdatable.h
     )
 

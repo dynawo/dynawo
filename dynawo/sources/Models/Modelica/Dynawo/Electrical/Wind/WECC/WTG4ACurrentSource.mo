@@ -75,7 +75,7 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
     tpWTGTb = tpWTGTb,
     PConv0Pu = PConv0Pu,
     PePu(start = PConv0Pu),
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -5}, {10, 5}}, rotation = 0)));
 
 equation
@@ -126,5 +126,5 @@ equation
     </figure>
     &nbsp;</span></div> </p></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 4A")}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 110}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 120}})));
 end WTG4ACurrentSource;

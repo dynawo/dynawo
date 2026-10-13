@@ -499,6 +499,28 @@ def mmc_strings_len1(line):
     return line_to_return
 
 ##
+# Replace the value of a constraint variable by its index
+# @param line : line where expression should be replaced
+# @returns new line expression
+def reference_constraint_var(line) :
+    if "omc_Dynawo_NonElectrical_Logs_Constraint_logConstraintWithData" not in line :
+        return line
+
+    searchedStr = "data->localData[0]->realVars["
+    indexFirst = line.find(searchedStr)
+    if indexFirst < 0 :
+        error_exit("Error call to logConstraintWithData() must contain a z var in value field, and nowhere else (found none)")
+    indexSecond = line.find(searchedStr, indexFirst+1)
+    if indexSecond >= 0 :
+        error_exit("Error call to logConstraintWithData() must contain a z var in value field, and nowhere else (found more than one)")
+    indexClosing = line.find(']', indexFirst + len(searchedStr))
+    if indexClosing<0 or indexClosing > indexFirst + len(searchedStr)+ 4 :
+        error_exit("Could not find realVars[n] pattern with n < 10000")
+    line_to_return = line.replace(searchedStr,'')
+    indexClosing -= len(searchedStr)
+    return line_to_return[:indexClosing] + line_to_return[indexClosing + 1:]
+
+##
 # Replace some expressions by other expressions
 # @param txt_list : whole text to analyse
 # @returns: new text

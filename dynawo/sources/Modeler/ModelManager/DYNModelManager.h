@@ -1,5 +1,4 @@
-//
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2026, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -29,6 +28,7 @@
 #include "DYNSubModel.h"
 #include "DYNModelManagerCommon.h"
 #include "DYNVariableAlias.h"
+#include "CSTRConstraintSource.h"
 
 #ifdef _ADEPT_
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -41,6 +41,8 @@ class ParametersSet;
 }  // namespace parameters
 
 namespace DYN {
+using constraints::ConstraintSource;
+using constraints::ConstraintData;
 class SparseMatrix;
 class DataInterface;
 class ModelModelica;
@@ -48,7 +50,7 @@ class ModelModelica;
 /**
  * class ModelManager
  */
-class ModelManager : public SubModel, private boost::noncopyable {
+class ModelManager : public SubModel, public ConstraintSource, private boost::noncopyable {
  public:
   /**
    * @brief default constructor
@@ -369,6 +371,22 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   bool hasDataCheckCoherence() const override;
 
+  /**
+   * @brief Add new constraint, overload including source in constraint data
+   * @param message message to be logged for constraint
+   * @param begin @b true if the constraint is appearing, @b false if disappearing
+   * @param kind textual equivalent of the constraint kind enum
+   * @param limit the threshold that is being crossed
+   * @param varIndex index of the variable crossing the threshold in the local z vector
+   */
+  void addConstraintWithSource(const Message & message, bool begin, const std::string & kind, double limit, int varIndex);
+
+  void getFinalValues(ConstraintData::kind_t kind,
+                    int varIndex,
+                    double & valueFinal,
+                    boost::optional<double> & valueMin,
+                    boost::optional<double> & valueMax) const override;
+
  private:
 #ifdef _ADEPT_
 
@@ -628,6 +646,8 @@ class ModelManager : public SubModel, private boost::noncopyable {
 
  private:
   bool modelInitUsed_;  ///< whether init model is used
+  std::unordered_map<int, double> cstrMins_;  ///< minimum values for all variables causing constraints, by index
+  std::unordered_map<int, double> cstrMaxs_;  ///< maximum values for all variables causing constraints, by index
 };
 
 }  // namespace DYN

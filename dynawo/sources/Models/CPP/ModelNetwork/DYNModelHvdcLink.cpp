@@ -24,6 +24,7 @@
 #include "DYNModelHvdcLink.h"
 
 #include "DYNModelBus.h"
+#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNVariableForModel.h"
@@ -233,34 +234,25 @@ ModelHvdcLink::getY0() {
 
 void
 ModelHvdcLink::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, P01_);
-  ModelCPP::dumpInStream(streamVariables, Q01_);
-  ModelCPP::dumpInStream(streamVariables, P02_);
-  ModelCPP::dumpInStream(streamVariables, Q02_);
-  ModelCPP::dumpInStream(streamVariables, ir01_);
-  ModelCPP::dumpInStream(streamVariables, ii01_);
-  ModelCPP::dumpInStream(streamVariables, ir02_);
-  ModelCPP::dumpInStream(streamVariables, ii02_);
+  streamVariables << P01_;
+  streamVariables << Q01_;
+  streamVariables << P02_;
+  streamVariables << Q02_;
+  streamVariables << ir01_;
+  streamVariables << ii01_;
+  streamVariables << ir02_;
+  streamVariables << ii02_;
 }
 
 void
 ModelHvdcLink::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
   streamVariables >> P01_;
-  streamVariables >> c;
   streamVariables >> Q01_;
-  streamVariables >> c;
   streamVariables >> P02_;
-  streamVariables >> c;
   streamVariables >> Q02_;
-  streamVariables >> c;
   streamVariables >> ir01_;
-  streamVariables >> c;
   streamVariables >> ii01_;
-  streamVariables >> c;
   streamVariables >> ir02_;
-  streamVariables >> c;
   streamVariables >> ii02_;
 }
 
@@ -586,25 +578,25 @@ ModelHvdcLink::evalState(const double /*time*/) {
 void
 ModelHvdcLink::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   // at point of common coupling 1
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state1_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state1", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1", CONTINUOUS));
   // at point of common coupling 2
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state2_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state2", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2", CONTINUOUS));
 }
 
 void
 ModelHvdcLink::defineVariables(vector<shared_ptr<Variable> >& variables) {
   // at point of common coupling 1
-  variables.push_back(VariableNativeFactory::createState("@ID@_state1_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state1", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1", CONTINUOUS));
   // at point of common coupling 2
-  variables.push_back(VariableNativeFactory::createState("@ID@_state2_value", INTEGER));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state2", INTEGER));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2", CONTINUOUS));
 }
 
 void
@@ -612,21 +604,21 @@ ModelHvdcLink::defineElements(std::vector<Element> &elements, std::map<std::stri
   const string hvdcName = id_;
   // ========  CONNECTION STATE ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_state1"), "HvdcLink", elements, mapElement);
+  addElement(hvdcName + string("_state1"), Element::TERMINAL, elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_state2"), "HvdcLink", elements, mapElement);
+  addElement(hvdcName + string("_state2"), Element::TERMINAL, elements, mapElement);
 
   // ========  P VALUE  ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_P1"), "HvdcLink", elements, mapElement);
+  addElement(hvdcName + string("_P1"), Element::TERMINAL, elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_P2"), "HvdcLink", elements, mapElement);
+  addElement(hvdcName + string("_P2"), Element::TERMINAL, elements, mapElement);
 
   // ========  Q VALUE  ======
   // at point of common coupling 1
-  addElementWithValue(hvdcName + string("_Q1"), "HvdcLink", elements, mapElement);
+  addElement(hvdcName + string("_Q1"), Element::TERMINAL, elements, mapElement);
   // at point of common coupling 2
-  addElementWithValue(hvdcName + string("_Q2"), "HvdcLink", elements, mapElement);
+  addElement(hvdcName + string("_Q2"), Element::TERMINAL, elements, mapElement);
 }
 
 void

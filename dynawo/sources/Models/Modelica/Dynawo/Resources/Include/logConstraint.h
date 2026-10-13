@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025, RTE (http://www.rte-france.com)
+// Copyright (c) 2026, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,9 +11,8 @@
 // of simulation tools for power systems.
 //
 
+#include <stdbool.h>
 #include "ModelicaUtilities.h"
 
-extern void addLogConstraintBegin(int key){};
-extern void addLogConstraintBeginData(int key, const char * kind, float limit, float value, const char * param){};
-extern void addLogConstraintEnd(int key){};
-extern void addLogConstraintEndData(int key, const char * kind, float limit, float value, const char * param){};
+extern void logConstraintFromModelica(int key, bool begin){};
+extern void logConstraintFromModelicaWithData(int key, bool begin, const char * kind, float limit, int varIndex, const char * param){};

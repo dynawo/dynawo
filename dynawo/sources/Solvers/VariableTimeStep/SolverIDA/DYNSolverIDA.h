@@ -70,6 +70,14 @@ class SolverIDA : public Solver::Impl {
   ~SolverIDA() override;
 
   /**
+   * @brief define when IDAReInit is called after a mode change
+   */
+  typedef enum {
+    ALWAYS,  ///< IDAReInit is called after every mode change
+    ONLY_ON_ALGEBRAIC_RESTORATION  ///< IDAReInit is only called when the mode change requires an algebraic restoration
+  } algebraicRestorationReinitMode_t;
+
+  /**
    * @copydoc Solver::Impl::defineSpecificParameters()
    */
   void defineSpecificParameters() override;
@@ -280,6 +288,7 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+  algebraicRestorationReinitMode_t algebraicRestorationReinitMode_;  ///< when IDAReInit is called after a mode change
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

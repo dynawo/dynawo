@@ -17,13 +17,13 @@ model HVRT "High-voltage ride-through protection"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  parameter Types.VoltageModulePu UOverPu "Over voltage protection activation threshold in pu (base UNom)";
-  parameter Types.Time tLagAction "Time-lag due to the actual tripping action in s";
+  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
+  parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
 
-  // Tables parameter
-  parameter String TablesFile "Disconnection time versus over voltage lookup table for under-voltage";
-  parameter String TabletUoverUfilt "Disconnection time versus over voltage lookup table for under-voltage";
+  // Table parameters
+  parameter String TablesFile "Text file that contains the tables for the functions";
+  parameter String TabletUoverUfilt "Name of the lookup table of disconnection time versus voltage for overvoltage";
 
   // Input variable
   Modelica.Blocks.Interfaces.RealInput UMonitoredPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
@@ -46,7 +46,7 @@ model HVRT "High-voltage ride-through protection"
     Placement(transformation(origin = {30, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = U0Pu) annotation(
     Placement(transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.MathBoolean.Or or1(nu = 2)  annotation(
+  Modelica.Blocks.MathBoolean.Or or1(nu = 2) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Pre pre1 annotation(
     Placement(transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}})));

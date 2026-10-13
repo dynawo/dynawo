@@ -25,6 +25,10 @@ model BESSCurrentSourceNoPlantControl "WECC BESS with REEC-C and REGC-A with no 
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
 equation
   connect(PConvRefPu, reecC.PConvRefPu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-91, 6}}, color = {0, 0, 127}));
@@ -32,9 +36,11 @@ equation
     Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(LvMeasurements.terminal2, terminal) annotation(
     Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -40}, {130, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(initialScale = 0.1)),
-    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 120}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {120, 120}})));
 end BESSCurrentSourceNoPlantControl;

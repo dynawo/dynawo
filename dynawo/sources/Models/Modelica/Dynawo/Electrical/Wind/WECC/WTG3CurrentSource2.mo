@@ -33,7 +33,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-190, 58}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput PFaRef(start = acos(PF0)) "Power factor angle reference in rad" annotation(
-    Placement(visible = true, transformation(origin = {-79, 120}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {-190, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power at optimal pitch angle in pu (base SNom)" annotation(
     Placement(transformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
@@ -59,7 +59,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     P4 = P4,
     Spd4 = Spd4,
     TFlag = TFlag,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0,
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu,
     PConv0Pu = PConv0Pu) annotation(
     Placement(transformation(origin = {-81, -56}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
@@ -69,7 +69,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     Kshaft = Kshaft,
     Pm0Pu = Pm0Pu,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {67.307, -63.7777}, extent = {{-12.3077, -8.88892}, {12.3077, 8.88892}})));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
     IqrMaxPu = IqrMaxPu,
@@ -205,7 +205,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     u0Pu = u0Pu,
     uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Mechanical.WTGPb wecc_wtgp(
     Kiw = Kiw,
@@ -224,7 +224,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     ThetaWMin = ThetaWMin,
     Theta0 = Theta0,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-27, -56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(
     Theta0 = Theta0,
@@ -241,7 +241,7 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
     u20Pu = uConv0Pu) annotation(
     Placement(transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Utilities.Measurements LvMeasurements(SNom = SNom) annotation(
-    Placement(transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}})));
+    Placement(visible = true, transformation(origin = {65, 0}, extent = {{-5, 5}, {5, -5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -308,7 +308,7 @@ equation
   connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-79, 120}, {-79, 11}}, color = {0, 0, 127}));
+    Line(points = {{-190, 100}, {-79, 100}, {-79, 11}}, color = {0, 0, 127}));
   connect(wecc_repc.iPu, i.y) annotation(
     Line(points = {{-129, 11}, {-129, 93}, {-20, 93}}, color = {85, 170, 255}));
   connect(wecc_repc.uPu, u.y) annotation(
@@ -348,5 +348,5 @@ equation
     </figure>
     &nbsp;</span></div> </body></html>"),
     Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 110}})));
+    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 120}})));
 end WTG3CurrentSource2;

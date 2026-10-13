@@ -108,5 +108,5 @@ equation
     </figure>
     &nbsp;</span></div> <p></p></body></html>"),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-24, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WTG 4B")}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 110}})));
+    Diagram(coordinateSystem(extent = {{-180, -60}, {130, 120}})));
 end WTG4BCurrentSource;

@@ -56,5 +56,5 @@ equation
 
   annotation(
     preferredView = "text",
-    Documentation(info = "<html><head></head><body>The IBG unit can disconnect if the voltage is found below the LVRT capability curve. (See figure 2.8 in G. Chaspierre thesis 'Reduced-order modelling of active distribution networks for large-disturbance simulations')</body></html>"));
+    Documentation(info = "<html><head></head><body>The IBG unit can disconnect if the voltage is found below the LVRT capability curve. See figure 2.8 in G. Chaspierre thesis 'Reduced-order modelling of active distribution networks for large-disturbance simulations' and figure 7b in <a href=\"https://orbi.uliege.be/bitstream/2268/212146/1/Full_paper.pdf\">https://orbi.uliege.be/bitstream/2268/212146/1/Full_paper.pdf</body></html>"));
 end LVRTIBG;

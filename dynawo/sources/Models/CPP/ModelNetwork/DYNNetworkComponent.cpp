@@ -123,6 +123,12 @@ NetworkComponent::setReferenceG(state_g* g, const int offsetG) {
 }
 
 void
+NetworkComponent::deactivateZeroCrossingFunctions() {
+  sizeG_ = 0;
+  g_ = NULL;
+}
+
+void
 NetworkComponent::setReferenceCalculatedVar(double* calculatedVars, const int offsetCalculatedVars) {
   if (sizeCalculatedVar() != 0)
     calculatedVars_ = &(calculatedVars[offsetCalculatedVars]);
@@ -177,13 +183,6 @@ std::string NetworkComponent::getParameterDynamicNoThrow(const std::unordered_ma
   std::string value = "";
   findParameterDynamicNoThrow<std::string>(params, id, foundParam, ids, value);
   return value;
-}
-
-void
-NetworkComponent::addElementWithValue(const string& elementName, const std::string& parentType,
-    vector<Element>& elements, std::map<string, int>& mapElement) const {
-  addElement(elementName, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", elementName, Element::TERMINAL, id(), parentType, elements, mapElement);
 }
 
 NetworkComponent::startingPointMode_t
@@ -253,20 +252,6 @@ NetworkComponent::loadVariables(boost::archive::binary_iarchive& streamVariables
       zValues.size() != static_cast<size_t>(sizeZ()) || gValues.size() != static_cast<size_t>(sizeG()) ||
       readNbInternalVariables != getNbInternalVariables()) {
     Trace::debug() << DYNLog(WrongParameterNum, id_) << Trace::endline;
-    double dummyValueD;
-    bool dummyValueB;
-    int dummyValueI;
-    char type;
-    for (unsigned j = 0; j < readNbInternalVariables; ++j) {
-      streamVariables >> type;
-      if (type == 'B')
-        streamVariables >> dummyValueB;
-      else if (type == 'D')
-        streamVariables >> dummyValueD;
-      else if (type == 'I')
-        streamVariables >> dummyValueI;
-    }
-    // Fall back on default initialization for this component
     getY0();
     return false;
   }

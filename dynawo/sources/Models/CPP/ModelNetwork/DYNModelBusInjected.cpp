@@ -333,34 +333,28 @@ ModelBusInjected::evalCalculatedVars() {
 
 void
 ModelBusInjected::dumpInternalVariables(boost::archive::binary_oarchive& streamVariables) const {
-  ModelCPP::dumpInStream(streamVariables, angle0_);
-  ModelCPP::dumpInStream(streamVariables, u0_);
-  ModelCPP::dumpInStream(streamVariables, U_);
-  ModelCPP::dumpInStream(streamVariables, U2Pu_);
-  ModelCPP::dumpInStream(streamVariables, UPu_);
+  streamVariables << angle0_;
+  streamVariables << u0_;
+  streamVariables << U_;
+  streamVariables << U2Pu_;
+  streamVariables << UPu_;
 }
 
 void
 ModelBusInjected::loadInternalVariables(boost::archive::binary_iarchive& streamVariables) {
-  char c;
-  streamVariables >> c;
   streamVariables >> angle0_;
-  streamVariables >> c;
   streamVariables >> u0_;
-  streamVariables >> c;
   streamVariables >> U_;
-  streamVariables >> c;
   streamVariables >> U2Pu_;
-  streamVariables >> c;
   streamVariables >> UPu_;
 }
 
 void
 ModelBusInjected::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Upu_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_phipu_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_phi_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Upu", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_phipu", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_U", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_phi", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_V_re", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_ACPIN_V_im", CONTINUOUS));
   if (hasConnection_ || hasShortCircuitCapabilities_) {
@@ -371,10 +365,10 @@ ModelBusInjected::instantiateVariables(vector<shared_ptr<Variable> >& variables)
 
   for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i) {
     std::string busBarSectionId = busBarSectionIdentifiers_[i];
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_Upu_value", id_ + "_Upu_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phipu_value", id_ + "_phipu_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_U_value", id_ + "_U_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phi_value", id_ + "_phi_value"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_Upu", id_ + "_Upu"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phipu", id_ + "_phipu"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_U", id_ + "_U"));
+    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_phi", id_ + "_phi"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_re", id_ + "_ACPIN_V_re"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_ACPIN_V_im", id_ + "_ACPIN_V_im"));
     if (hasConnection_ || hasShortCircuitCapabilities_) {
@@ -401,10 +395,10 @@ ModelBusInjected::defineNonGenericParameters(vector<ParameterModeler>& parameter
 
 void
 ModelBusInjected::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Upu_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_phipu_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_U_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_phi_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Upu", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_phipu", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_U", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_phi", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_V_re", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_V_im", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_ACPIN_i_re", FLOW));
@@ -428,12 +422,13 @@ ModelBusInjected::defineElementsById(const std::string& id, std::vector<Element>
   }
 
   // Calculated variables addition
-  addElementWithValue(id + string("_Upu"), modelType_, elements, mapElement);
-  addElementWithValue(id + string("_phipu"), modelType_, elements, mapElement);
-  addElementWithValue(id + string("_U"), modelType_, elements, mapElement);
-  addElementWithValue(id + string("_phi"), modelType_, elements, mapElement);
+  addElement(id + string("_Upu"), Element::TERMINAL, elements, mapElement);
+  addElement(id + string("_phipu"), Element::TERMINAL, elements, mapElement);
+  addElement(id + string("_U"), Element::TERMINAL, elements, mapElement);
+  addElement(id + string("_phi"), Element::TERMINAL, elements, mapElement);
 
   ModelBus::defineElementsById(id, elements, mapElement);
+  addElement(id + std::string("_state"), Element::TERMINAL, elements, mapElement);
 }
 
 static const bool U_SUP = true;
@@ -445,7 +440,7 @@ void
 ModelBusInjected::logConstraint(bool sup, bool begin) {
   using constraints::ConstraintData;
   Message msg(Message::CONSTRAINT_KEY, KeyConstraint_t::names(sup ? KeyConstraint_t::USupUmax : KeyConstraint_t::UInfUmin));
-  ConstraintData data(sup ? ConstraintData::USupUmax : ConstraintData::UInfUmin, (sup ? uMax_: uMin_)*unom_, getCurrentU(ModelBus::UType_));
+  ConstraintData data(sup ? ConstraintData::USupUmax : ConstraintData::UInfUmin, (sup ? uMax_: uMin_)*unom_, getCurrentU(ModelBus::UType_), this);
   network_->addConstraint(constraintId_, begin, msg, modelType_, data);
 }
 
@@ -484,6 +479,9 @@ ModelBusInjected::evalG(const double /*t*/) {
   const double upu = getCurrentU(ModelBusInjected::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
   g_[1] = (uMin_ - upu > 0 && !getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U < Umin
+
+  UpuMin_ = std::min(UpuMin_, upu);
+  UpuMax_ = std::max(UpuMax_, upu);
 }
 
 void
@@ -741,6 +739,19 @@ ModelBusInjected::calculateU2Pu() const {
   const double urPu = ur();
   const double uiPu = ui();
   return urPu * urPu + uiPu * uiPu;
+}
+
+void
+ModelBusInjected::getFinalValues(ConstraintData::kind_t kind,
+                                   int /*varIndex*/,
+                                   double & valueFinal,
+                                   boost::optional<double> & valueMin,
+                                   boost::optional<double> & valueMax) const {
+  if      (kind == ConstraintData::USupUmax)  valueMax = UpuMax_ * unom_;
+  else if (kind == ConstraintData::UInfUmin)  valueMin = UpuMin_ * unom_;
+  else                                        throw DYNError(Error::API, UnhandledConstraintKind, kind, id_);
+
+  valueFinal = evalCalculatedVarI(uNum_);
 }
 
 }  // namespace DYN

@@ -12,8 +12,8 @@
     simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="NETWORK" variable="NGEN_Upu_value"/>
-  <curve model="NETWORK" variable="NLOAD_Upu_value"/>
+  <curve model="NETWORK" variable="NGEN_Upu"/>
+  <curve model="NETWORK" variable="NLOAD_Upu"/>
   <curve model="GEN" variable="generator_omegaPu"/>
   <curve model="GEN" variable="generator_PGen"/>
   <curve model="GEN" variable="generator_QGen"/>

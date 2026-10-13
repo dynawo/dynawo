@@ -500,6 +500,12 @@ In order to simulate the necessary time between two actions on the same shunt, a
 
 A dangling line represents a line that is connected to the network at one end only. Current maximum limits can be applied: if the dangling line is overloaded for longer than the allowed time, it will be tripped. \\
 
+The load at the fictitious end of the dangling line follows the same voltage dependency as the alpha-beta load model, $U$ being the voltage at the fictitious node and $U_0$ its initial value:
+\begin{equation}
+P = P_0 \left(\frac{U}{U_0}\right)^{\alpha} \qquad Q = Q_0 \left(\frac{U}{U_0}\right)^{\beta}
+\end{equation}
+By default, $\alpha = \beta = 0$, i.e. the load is a constant power load. The exponents can also be defined for one specific dangling line with the parameters \texttt{<id>\_alpha} and \texttt{<id>\_beta}, which have a higher priority than the generic ones. \\
+
 \begin{table}[H]
 \center
 \begin{tabular}{ p{4cm} | c | p{6cm} | c }
@@ -508,6 +514,10 @@ A dangling line represents a line that is connected to the network at one end on
 \midrule
 \rowcolor{white}
 \pname{dangling\_line\_currentLimit\_maxTimeOperation} & \small{DOUBLE} & \small{Maximum overload duration (s) before the dangling line is tripped} & \small{90} \\
+\rowcolor{gray!10}
+\pname{dangling\_line\_alpha} & \small{DOUBLE} & \small{Voltage exponent for the active power of the load at the fictitious node ($P \propto (U/U_0)^\alpha$)} & \small{0} \\
+\rowcolor{white}
+\pname{dangling\_line\_beta} & \small{DOUBLE} & \small{Voltage exponent for the reactive power of the load at the fictitious node ($Q \propto (U/U_0)^\beta$)} & \small{0} \\
 \bottomrule
 \end{tabular}
 \caption{Dangling line parameters}

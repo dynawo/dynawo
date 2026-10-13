@@ -215,7 +215,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
     case ConstraintsStreamFormat::JSON: {
       std::stringstream stream;
       constraints::JsonExporter exporter;
-      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime);
+      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime, true);
       std::string strConstraints = stream.str();
       for (auto &publisher : constraintsPublishersPair.second)
         publisher->sendMessage(strConstraints, "constraints");
@@ -224,7 +224,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
     case ConstraintsStreamFormat::TXT: {
       std::stringstream stream;
       constraints::TxtExporter exporter;
-      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime);
+      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime, true);
       std::string strConstraints = stream.str();
       for (auto &publisher : constraintsPublishersPair.second)
         publisher->sendMessage(strConstraints, "constraints");
@@ -233,7 +233,7 @@ OutputDispatcher::publishConstraints(std::shared_ptr<constraints::ConstraintsCol
     case ConstraintsStreamFormat::XML: {
       std::stringstream stream;
       constraints::XmlExporter exporter;
-      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime);
+      exporter.exportToStream(constraintsCollection, stream, constraintsMinTime, true);
       std::string strConstraints = stream.str();
       for (auto &publisher : constraintsPublishersPair.second)
         publisher->sendMessage(strConstraints, "constraints");

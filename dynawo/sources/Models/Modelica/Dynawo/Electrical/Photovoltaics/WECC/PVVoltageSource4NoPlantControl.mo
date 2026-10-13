@@ -31,6 +31,10 @@ model PVVoltageSource4NoPlantControl "WECC PV model with a voltage source as int
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
@@ -112,6 +116,8 @@ equation
     Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
   connect(SourceMeasurements.uPu, wecc_regc.uInjPu) annotation(
     Line(points = {{31, -5}, {31, -13}, {-42, -13}, {-42, -11}}, color = {85, 170, 255}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -40}, {130, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

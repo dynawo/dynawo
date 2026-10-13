@@ -18,7 +18,7 @@ model PVVoltageSource3 "WECC PV model with a voltage source as interface with th
   | Source |--------+---->>--------RSourcePu+jXSourcePu-----+--->>---RPu+jXPu----->>----+----RPcsPu+jXPcsPu-----<<----+--
   --------           iSourcePu                               iInjPu              iConvPu                      iConvPu
   */
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQ0Pu = 1);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceC(LvTfo(RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
@@ -125,7 +125,6 @@ model PVVoltageSource3 "WECC PV model with a voltage source as interface with th
     tPord = tPord,
     tRv = tRv,
     SNom = SNom,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0,
     PConv0Pu = PConv0Pu,
     QConv0Pu = QConv0Pu,
     s0Pu = s0Pu,
@@ -160,7 +159,7 @@ equation
   connect(LvMeasurements.QPu, wecc_reec.QConvPu) annotation(
     Line(points = {{64, -6}, {64, -24}, {-89, -24}, {-89, -11}}, color = {0, 0, 127}));
   connect(u.y, wecc_repc.uPu) annotation(
-    Line(points = {{-20, 63}, {-30, 63}, {-30, 50}, {-123, 50}, {-123, 11}}, color = {85, 170, 255}));
+    Line(points = {{-20, 63}, {-123, 63}, {-123, 11}}, color = {85, 170, 255}));
   connect(switch5.y, wecc_repc.QRegPu) annotation(
     Line(points = {{20, 39}, {-117, 39}, {-117, 11}}, color = {0, 0, 127}));
   connect(switch.y, wecc_repc.PRegPu) annotation(

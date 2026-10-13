@@ -14,5 +14,9 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="PhotovoltaicsWeccVoltageSource4">
     <dyn:unitDynamicModel id="photovoltaics" name="Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource4" initName="Dynawo.Electrical.Photovoltaics.WECC.PVVoltageSource_INIT"/>
+    <dyn:unitDynamicModel id="lhvrt" name="Dynawo.Electrical.Controls.Machines.Protections.LHVRT" initName="Dynawo.Electrical.Controls.Machines.Protections.LHVRT_INIT"/>
+    <dyn:initConnect id1="photovoltaics" var1="UControl0Pu" id2="lhvrt" var2="UMonitored0Pu"/>
+    <dyn:connect id1="photovoltaics" var1="UControlPu" id2="lhvrt" var2="UMonitoredPu"/>
+    <dyn:connect id1="lhvrt" var1="fOCB" id2="photovoltaics" var2="injector.switchOffSignal3"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

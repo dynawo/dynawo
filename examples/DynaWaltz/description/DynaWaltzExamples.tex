@@ -369,7 +369,7 @@ In the same time, following the disconnections and the voltage decrease, the vol
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK__BUS____1_TN_U_value]
+            table[x=time,y=NETWORK__BUS____1_TN_U]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -379,7 +379,7 @@ In the same time, following the disconnections and the voltage decrease, the vol
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK__BUS____5_TN_U_value]
+            table[x=time,y=NETWORK__BUS____5_TN_U]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -389,7 +389,7 @@ In the same time, following the disconnections and the voltage decrease, the vol
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK__BUS____6_TN_U_value]
+            table[x=time,y=NETWORK__BUS____6_TN_U]
         {../IEEE14/IEEE14_GeneratorDisconnections/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -644,7 +644,7 @@ Following the generator disconnection, the voltage decreases on the whole networ
   \begin{tikzpicture}
     \begin{axis}[height = 2 in, xmax = 300]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK__KANA___1_TN_U_value]
+            table[x=time,y=NETWORK__KANA___1_TN_U]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -654,7 +654,7 @@ Following the generator disconnection, the voltage decreases on the whole networ
   \begin{tikzpicture}
     \begin{axis}[height = 2 in, xmax = 300]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK__SALT___9_TN_U_value]
+            table[x=time,y=NETWORK__SALT___9_TN_U]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -664,7 +664,7 @@ Following the generator disconnection, the voltage decreases on the whole networ
   \begin{tikzpicture}
     \begin{axis}[height = 2 in, xmax = 300]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK__GLEN__12_TN_U_value]
+            table[x=time,y=NETWORK__GLEN__12_TN_U]
         {../IEEE57/IEEE57_GeneratorDisconnection/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -715,10 +715,10 @@ The chain of events resulting in a voltage collapse runs as follows: a solid thr
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK_1041_131_Upu_value]
+            table[x=time,y=NETWORK_1041_131_Upu]
         {../Nordic/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=NETWORK_1042_131_Upu_value]
+        table[x=time,y=NETWORK_1042_131_Upu]
         {../Nordic/reference/outputs/curves/curves.csv};
     \legend{$Bus 1041$, $Bus 1042$}
     \end{axis}
@@ -732,10 +732,10 @@ When adding a Tap Changer Blocking Automaton, that blocks the LTCs when the volt
   \begin{tikzpicture}
     \begin{axis}[height = 2 in]
         \addplot[color=blue!50]
-            table[x=time,y=NETWORK_1041_131_Upu_value]
+            table[x=time,y=NETWORK_1041_131_Upu]
         {../NordicTCB/reference/outputs/curves/curves.csv};
         \addplot[dashed, color=red!50]
-        table[x=time,y=NETWORK_1042_131_Upu_value]
+        table[x=time,y=NETWORK_1042_131_Upu]
         {../NordicTCB/reference/outputs/curves/curves.csv};
     \legend{$Bus 1041$, $Bus 1042$}
     \end{axis}

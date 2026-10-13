@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<timeline xmlns="http://www.rte-france.com/dynawo">
-  <event time="1.011708" modelName="HVRTWecc" message="HVRT automaton for generator arming"/>
-  <event time="1.161709" modelName="HVRTWecc" message="HVRT generator tripped"/>
-  <event time="1.161709" modelName="WTG4B" message="COMPONENT : disconnecting"/>
-</timeline>

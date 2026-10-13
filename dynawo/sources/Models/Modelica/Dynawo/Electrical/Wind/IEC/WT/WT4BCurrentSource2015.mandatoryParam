@@ -8,10 +8,15 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <mandatoryParameters>
+  <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
   <mandatoryParameter name="DfMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="Mzc" type="BOOL"/>
   <mandatoryParameter name="tfFilt" type="DOUBLE"/>
@@ -45,7 +50,6 @@
   <mandatoryParameter name="tPll" type="DOUBLE"/>
   <mandatoryParameter name="UPll1Pu" type="DOUBLE"/>
   <mandatoryParameter name="UPll2Pu" type="DOUBLE"/>
-  <mandatoryParameter name="Kpaw" type="DOUBLE"/>
   <mandatoryParameter name="IMaxDipPu" type="DOUBLE"/>
   <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="Kpqu" type="DOUBLE"/>

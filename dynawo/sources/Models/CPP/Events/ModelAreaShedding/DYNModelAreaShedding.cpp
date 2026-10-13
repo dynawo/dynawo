@@ -266,12 +266,12 @@ ModelAreaShedding::defineVariables(vector<shared_ptr<Variable> >& variables) {
   for (int i = 0; i < nbLoads_; ++i) {
     name.str("");
     name.clear();
-    name << "deltaP_load_" << i << "_value";
+    name << "deltaP_load_" << i << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
 
     name.str("");
     name.clear();
-    name << "deltaQ_load_" << i << "_value";
+    name << "deltaQ_load_" << i << "_";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   variables.push_back(VariableNativeFactory::createState("state", DISCRETE));
@@ -332,22 +332,20 @@ ModelAreaShedding::defineElements(std::vector<Element> &elements, std::map<std::
   for (int i = 0; i < nbLoads_; ++i) {
     namess.str("");
     namess.clear();
-    namess << "deltaP_load_" << i;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess << "deltaP_load_" << i << "_";
+    addElement(namess.str(), Element::TERMINAL, elements, mapElement);
 
     namess.str("");
     namess.clear();
-    namess << "deltaQ_load_" << i;
-    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
+    namess << "deltaQ_load_" << i << "_";
+    addElement(namess.str(), Element::TERMINAL, elements, mapElement);
   }
 }
 
 void
 ModelAreaShedding::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
   Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
-  Trace::info() << "  ->" << "deltaP_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
-  Trace::info() << "  ->" << "deltaQ_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "deltaP_load_" << "<0-" << nbLoads_ << ">_" << Trace::endline;
+  Trace::info() << "  ->" << "deltaQ_load_" << "<0-" << nbLoads_ << ">_" << Trace::endline;
 }
 }  // namespace DYN

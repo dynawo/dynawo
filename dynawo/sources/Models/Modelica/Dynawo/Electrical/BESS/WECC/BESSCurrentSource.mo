@@ -12,7 +12,7 @@ within Dynawo.Electrical.BESS.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model BESSCurrentSource "WECC BESS with electrical control model type C, generator/converter model type A and plant control type A "
+model BESSCurrentSource "WECC BESS with electrical control model type C, generator/converter model type A and plant control type A"
   extends Dynawo.Electrical.BESS.WECC.BaseClasses.BaseBESSCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;

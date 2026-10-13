@@ -18,7 +18,7 @@ model PVVoltageSource3NoPlantControl "WECC PV model with a voltage source as int
   | Source |--------+---->>--------RSourcePu+jXSourcePu-----+--->>---RPu+jXPu----->>----+----
   --------           iSourcePu                               iInjPu              iConvPu
   */
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQPu0 = 1);
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQ0Pu = 1);
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceC(LvTfo(RPu = RPu, XPu = XPu));
 
@@ -30,6 +30,10 @@ model PVVoltageSource3NoPlantControl "WECC PV model with a voltage source as int
     Placement(transformation(origin = {-130, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
 
   Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
     DPMaxPu = DPMaxPu,
@@ -136,6 +140,8 @@ equation
     Line(points = {{68, -6}, {68, -35}, {-50, -35}, {-50, -11}}, color = {85, 170, 255}));
   connect(omegaGPu.y, wecc_reec.omegaGPu) annotation(
     Line(points = {{-99, -40}, {-85, -40}, {-85, -11}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -40}, {130, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

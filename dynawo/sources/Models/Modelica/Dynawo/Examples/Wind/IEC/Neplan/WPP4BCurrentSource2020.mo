@@ -188,10 +188,8 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
 
   // Initialization
   Dynawo.Electrical.Wind.IEC.WPP.WPP4CurrentSource2020_INIT wPP4CurrentSource_INIT(
-    BesPu = wPP4BCurrentSource.BesPu,
     BLvTrPu = wPP4BCurrentSource.BLvTrPu,
     ConverterLVControl = wPP4BCurrentSource.ConverterLVControl,
-    GesPu = wPP4BCurrentSource.GesPu,
     GLvTrPu = wPP4BCurrentSource.GLvTrPu,
     IMaxPu = wPP4BCurrentSource.IMaxPu,
     Kpqu = wPP4BCurrentSource.Kpqu,
@@ -205,7 +203,6 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     QMinPu = wPP4BCurrentSource.QMinPu,
     QlConst = wPP4BCurrentSource.QlConst,
     RDropPu = wPP4BCurrentSource.RDropPu,
-    ResPu = wPP4BCurrentSource.ResPu,
     RLvTrPu = wPP4BCurrentSource.RLvTrPu,
     RwpDropPu = wPP4BCurrentSource.RwpDropPu,
     SNom = wPP4BCurrentSource.SNom,
@@ -214,7 +211,6 @@ model WPP4BCurrentSource2020 "Wind Power Plant Type 4B model from IEC 61400-27-1
     UpquMaxPu = wPP4BCurrentSource.UpquMaxPu,
     URef0Pu = wPP4BCurrentSource.URef0Pu,
     XDropPu = wPP4BCurrentSource.XDropPu,
-    XesPu = wPP4BCurrentSource.XesPu,
     XLvTrPu = wPP4BCurrentSource.XLvTrPu,
     XwpDropPu = wPP4BCurrentSource.XwpDropPu) annotation(
     Placement(visible = true, transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -273,7 +269,7 @@ equation
 
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.001),
+    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-6, Interval = 0.0001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode");

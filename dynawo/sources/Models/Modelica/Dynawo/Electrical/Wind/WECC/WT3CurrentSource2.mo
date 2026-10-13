@@ -43,6 +43,10 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
   Modelica.Blocks.Interfaces.RealInput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
     Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UConvPu(start = UConv0Pu) "Voltage amplitude at converter terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {130, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(
     Kip = Kip,
     Kpp = Kpp,
@@ -59,7 +63,7 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
     P4 = P4,
     Spd4 = Spd4,
     TFlag = TFlag,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0,
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu,
     PConv0Pu = PConv0Pu) annotation(
     Placement(transformation(origin = {-81, -56}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGTa wecc_wtgt(
@@ -69,7 +73,7 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
     Kshaft = Kshaft,
     Pm0Pu = Pm0Pu,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {67.307, -63.7777}, extent = {{-12.3077, -8.88892}, {12.3077, 8.88892}})));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
     IqrMaxPu = IqrMaxPu,
@@ -167,7 +171,7 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
     u0Pu = u0Pu,
     uConv0Pu = uConv0Pu,
     UConv0Pu = UConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGPb wecc_wtgp(
     Kiw = Kiw,
@@ -186,7 +190,7 @@ model WT3CurrentSource2 "WECC Wind Turbine model without plant controller and wi
     ThetaWMin = ThetaWMin,
     Theta0 = Theta0,
     PConv0Pu = PConv0Pu,
-    omegaRefWTGQPu0 = omegaRefWTGQPu0) annotation(
+    omegaRefWTGQ0Pu = omegaRefWTGQ0Pu) annotation(
     Placement(transformation(origin = {-27, -56}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGAa wecc_wtga(
     Theta0 = Theta0,
@@ -283,10 +287,12 @@ equation
     Line(points = {{-68, 0}, {-64, 0}, {-64, -40}, {-79, -40}, {-79, -44}}, color = {255, 0, 255}));
   connect(PConvRefPu, wecc_wtgq.PRef0Pu) annotation(
     Line(points = {{-190, 20}, {-160, 20}, {-160, 6}, {-100, 6}, {-100, -50}, {-92, -50}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, UConvPu) annotation(
+    Line(points = {{60, -6}, {60, -20}, {110, -20}, {110, -40}, {120, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">This block contains the generic WECC WT model according to (in case page cannot be found, copy link in browser):&nbsp;<br><a href=\"https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf\">https://www.wecc.org/Reliability/WECC-Second-Generation-Wind-Turbine-Models-012314.pdf</a></p><p style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\">The overall model is structured as follows:</p><ul style=\"font-size: 12px; font-family: 'MS Shell Dlg 2';\"><li>Main model: WECC_Wind with terminal connection and measurement inputs for P/Q/U/I.&nbsp;</li><li>Electrical inverter control.</li><li>Generator control.&nbsp;</li><li>Injector (id,iq).</li><li>Torque control.</li><li>Pitch angle control.</li><li>Aero-Dynamic model.</li><li>Drive-train.</li></ul><div><font face=\"MS Shell Dlg 2\">The only difference with the model WT3CurrentSource1 is the change of the pitch controller model, this one offers more flexibility with the limits of the integrators.</font></div></body></html>"),
     Icon(graphics = {Text(origin = {-26, 11}, extent = {{-48, 27}, {98, -53}}, textString = "WECC WT 3 2"), Rectangle(extent = {{-100, 100}, {100, -100}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-180, -100}, {130, 110}})));
+    Diagram(coordinateSystem(extent = {{-180, -100}, {120, 110}})));
 end WT3CurrentSource2;

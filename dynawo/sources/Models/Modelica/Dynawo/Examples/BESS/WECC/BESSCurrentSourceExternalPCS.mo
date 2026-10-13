@@ -142,6 +142,7 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-A with a plan
     tPord = 0.017,
     tRv = 0.01,
     u0Pu(im(fixed = false), re(fixed = false)),
+    UControl0Pu(fixed = false),
     UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
@@ -229,6 +230,7 @@ initial algorithm
   BESS.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
   BESS.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
   BESS.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
+  BESS.UControl0Pu := wTG4CurrentSource_INIT.UControl0Pu;
 
 equation
   ZPcs.switchOffSignal1 = false;
