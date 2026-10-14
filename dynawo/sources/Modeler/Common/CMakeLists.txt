@@ -111,6 +111,7 @@ target_link_libraries(dynawo_ModelerCommon
     dynawo_API_CSTR
     dynawo_API_EXTVAR
     dynawo_API_MANDATORYPARAM
+    dynawo_API_MAT
     ${CMAKE_DL_LIBS}
   )
 

@@ -24,6 +24,7 @@
 #include "JOBTimelineEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
+#include "JOBLinearizationEntry.h"
 #include "JOBLostEquipmentsEntry.h"
 #include "JOBLogsEntry.h"
 
@@ -41,6 +42,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getTimelineEntry(), std::shared_ptr<TimelineEntry>());
   ASSERT_EQ(outputs->getFinalStateEntries().empty(), true);
   ASSERT_EQ(outputs->getCurvesEntry(), std::shared_ptr<CurvesEntry>());
+  ASSERT_EQ(outputs->getLinearizationEntry(), std::shared_ptr<LinearizationEntry>());
   ASSERT_EQ(outputs->getLostEquipmentsEntry(), std::shared_ptr<LostEquipmentsEntry>());
   ASSERT_EQ(outputs->getLogsEntry(), std::shared_ptr<LogsEntry>());
 
@@ -64,6 +66,9 @@ TEST(APIJOBTest, testOutputsEntry) {
   std::shared_ptr<CurvesEntry> curves = std::make_shared<CurvesEntry>();
   outputs->setCurvesEntry(curves);
 
+  std::shared_ptr<LinearizationEntry> linearization = std::make_shared<LinearizationEntry>();
+  outputs->setLinearizationEntry(linearization);
+
   std::shared_ptr<LostEquipmentsEntry> lostEquipments = std::make_shared<LostEquipmentsEntry>();
   outputs->setLostEquipmentsEntry(lostEquipments);
 
@@ -79,6 +84,7 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs->getFinalStateEntries().size(), 1);
   ASSERT_EQ(outputs->getFinalStateEntries().front(), finalState);
   ASSERT_EQ(outputs->getCurvesEntry(), curves);
+  ASSERT_EQ(outputs->getLinearizationEntry(), linearization);
   ASSERT_EQ(outputs->getLostEquipmentsEntry(), lostEquipments);
   ASSERT_EQ(outputs->getLogsEntry(), logs);
 
@@ -91,6 +97,8 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs_bis->getFinalStateEntries().size(), 1);
   ASSERT_NE(outputs_bis->getFinalStateEntries().front(), finalState);
   ASSERT_NE(outputs_bis->getCurvesEntry(), curves);
+  ASSERT_NE(outputs_bis->getLinearizationEntry(), std::shared_ptr<LinearizationEntry>());
+  ASSERT_NE(outputs_bis->getLinearizationEntry(), linearization);
   ASSERT_NE(outputs_bis->getLostEquipmentsEntry(), lostEquipments);
   ASSERT_NE(outputs_bis->getLogsEntry(), logs);
 
@@ -103,6 +111,8 @@ TEST(APIJOBTest, testOutputsEntry) {
   ASSERT_EQ(outputs_bis2.getFinalStateEntries().size(), 1);
   ASSERT_NE(outputs_bis2.getFinalStateEntries().front(), finalState);
   ASSERT_NE(outputs_bis2.getCurvesEntry(), curves);
+  ASSERT_NE(outputs_bis2.getLinearizationEntry(), std::shared_ptr<LinearizationEntry>());
+  ASSERT_NE(outputs_bis2.getLinearizationEntry(), linearization);
   ASSERT_NE(outputs_bis2.getLostEquipmentsEntry(), lostEquipments);
   ASSERT_NE(outputs_bis2.getLogsEntry(), logs);
 }

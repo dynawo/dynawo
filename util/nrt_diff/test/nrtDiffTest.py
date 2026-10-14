@@ -215,6 +215,39 @@ has another value on right side (value: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
 [ERROR] object modelNotThere_variable is in right path but not in left one\n\
 [ERROR] values of object modelDifferentValue_variable are different (delta = 3.0) \n")
 
+    def test_linearization_within_tolerance(self):
+        dir_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "linearization")
+        for file_name in ["linearization_10.txt", "linearization_10_Ax.txt", "linearization_10_Ai.txt", "linearization_variables_name_10.txt",
+                          "linearization_equations_type_10.txt"]:
+            (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "reference", file_name), '|',
+                                                              os.path.join(dir_path, "withinTolerance", file_name), '|')
+            self.assertEqual(return_value, nrtDiff.IDENTICAL, file_name)
+
+    def test_linearization_different(self):
+        dir_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "linearization")
+
+        def compare(file_name):
+            (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "reference", file_name), '|',
+                                                              os.path.join(dir_path, "different", file_name), '|')
+            self.assertEqual(return_value, nrtDiff.DIFFERENT, file_name)
+            return message.replace("<font color=\"red\">", "").replace("</font>", "")
+
+        # value out of tolerance and different column index
+        self.assertEqual(compare("linearization_10.txt"), "linearization/reference/linearization_10.txt: 2 different output values\n\
+[ERROR] line 2 is different in the two files: 0;3;2.25 / 0;2;2.25\n\
+[ERROR] values of line 1 are different (delta = 0.25) \n")
+        self.assertEqual(compare("linearization_10_Ax.txt"), "linearization/reference/linearization_10_Ax.txt: 1 different output values\n\
+[ERROR] values of line 2 are different (delta = 0.25) \n")
+        # indexes are compared without tolerance
+        self.assertEqual(compare("linearization_10_Ai.txt"), "linearization/reference/linearization_10_Ai.txt: 1 different output values\n\
+[ERROR] line 2 is different in the two files: 3 / 2\n")
+        self.assertEqual(compare("linearization_variables_name_10.txt"), "linearization/reference/linearization_variables_name_10.txt: \
+1 different output values\n\
+[ERROR] line 2 is different in the two files: 1;LOAD_P;LOAD / 1;LOAD_Q;LOAD\n")
+        self.assertEqual(compare("linearization_equations_type_10.txt"), "linearization/reference/linearization_equations_type_10.txt: \
+1 different output values\n\
+[ERROR] different number of lines (2 in left path, 3 in right one)\n")
+
 class TestnrtDiffDirectoryDiff(unittest.TestCase):
     def test_directory_diff(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))

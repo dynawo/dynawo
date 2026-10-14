@@ -138,13 +138,6 @@ class SparseMatrix {
   void print() const;
 
   /**
-   * @brief print all the values stored in the matrix in a file
-   *
-   * @param sparse @b true if the matrix should be printed with a sparse pattern
-   */
-  void printToFile(bool sparse = false) const;
-
-  /**
    * @brief erase some rows and columns in the matrix and returns a new matrix
    *
    * @param rows rows to erase
@@ -197,6 +190,14 @@ class SparseMatrix {
    */
   inline int nbCol() const {
     return nbCol_;
+  }
+
+  /**
+   * @brief getter of the number of rows of the matrix
+   * @return number of rows of the matrix
+   */
+  inline int nbRow() const {
+    return nbRow_;
   }
 
   /**

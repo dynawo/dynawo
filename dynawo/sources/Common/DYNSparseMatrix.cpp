@@ -19,29 +19,20 @@
  */
 #include <map>
 #include <set>
-#include <sstream>
 #include <iomanip>
 #include <vector>
 #include <iostream>
-#include <fstream>
 #include <cassert>
 #include <cmath>
 
-#include <boost/filesystem.hpp>
-
 #include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
-#include "DYNFileSystemUtils.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTrace.h"
-#include "DYNFileSystemUtils.h"
 
 using std::map;
 using std::set;
 using std::vector;
-using std::stringstream;
-
-namespace fs = boost::filesystem;
 
 namespace DYN {
 
@@ -155,62 +146,6 @@ SparseMatrix::free() {
   iAx_ = 0;
   nbTerm_ = 0;
   currentMaxTerm_ = 0;
-}
-
-void SparseMatrix::printToFile(bool sparse) const {
-  static fs::path folder = "tmpMat";
-  static fs::path base = folder / "mat-";
-  static int nbPrint = 0;
-  stringstream fileName;
-  fileName << base.string() << nbPrint << ".txt";
-
-  if (!exists(folder.string())) {
-    createDirectory(folder.string());
-  }
-
-  std::ofstream file;
-  file.open(fileName.str().c_str(), std::ofstream::out);
-
-  if (!sparse) {
-    std::vector< std::vector<double> > matrix;
-    for (int i = 0; i < nbCol_; ++i) {
-      std::vector<double> row(nbCol_, 0);
-      matrix.push_back(row);
-    }
-
-    for (int iCol = 0; iCol < nbCol_; ++iCol) {
-      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
-        double val = Ax_[ind];
-        matrix[iRow][iCol] = val;
-      }
-    }
-
-    stringstream val;
-    for (const auto& row : matrix) {
-      for (const auto value : row) {
-        val.str("");
-        val.clear();
-        val << std::setprecision(5) << value;
-        file << val.str() << ";";
-      }
-      file << "\n";
-    }
-  } else {
-    stringstream val;
-    for (int iCol = 0; iCol < nbCol_; ++iCol) {
-      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
-        int iRow = Ai_[ind];
-        val.str("");
-        val.clear();
-        val << std::setprecision(16) << Ax_[ind];
-        file << iRow << ";" << iCol << ";" << val.str() << "\n";
-      }
-    }
-  }
-
-  ++nbPrint;
-  file.close();
 }
 
 void SparseMatrix::print() const {

@@ -40,6 +40,10 @@ class Curve;
 class CurvesCollection;
 }  // namespace curves
 
+namespace matrix {
+class LinearizedSystem;
+}  // namespace matrix
+
 namespace DYN {
 class SparseMatrix;
 
@@ -156,6 +160,16 @@ class Model {
    * @param jtPrim jacobian matrix to fullfill
    */
   virtual void evalJtPrim(double t, double cj, SparseMatrix& jtPrim) = 0;
+
+  /**
+   * @brief compute the linearized system: jacobians \f$ @F/@x \f$ and \f$ @F/@x' \f$, and description of the variables and equations
+   *
+   * @param t time to use for the evaluation
+   * @param y values of the continuous variables to use for the evaluation
+   * @param yp values of the derivatives of the continuous variables to use for the evaluation
+   * @return the linearized system
+   */
+  virtual matrix::LinearizedSystem evalLinearization(double t, const std::vector<double>& y, const std::vector<double>& yp) = 0;
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)
