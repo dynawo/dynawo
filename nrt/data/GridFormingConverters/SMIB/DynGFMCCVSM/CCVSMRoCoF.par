@@ -22,7 +22,7 @@
     <par type="DOUBLE" name="Grid_RoCoFValue" value="0.01"/>
     <par type="DOUBLE" name="Grid_StartRoCoF" value="10"/>
     <par type="DOUBLE" name="Grid_TimeRoCoF" value="3"/>
-    <par type="DOUBLE" name="Grid_StartingFrequency" value="-0.01"/>
+    <par type="DOUBLE" name="Grid_StartingFrequency" value="-0"/>
 
   </set>
 
@@ -72,14 +72,14 @@
     <par name="GFMCC_ImaxPu" type="DOUBLE" value="1.2"/>
     <par name="GFMCC_IminPu" type="DOUBLE" value="0"/>
     <!-- Operating point -->
-    <par name="GFMCC_U0Pu" type="DOUBLE" value="0.9471150860399032"/>
-    <par name="GFMCC_UPhase0" type="DOUBLE" value="0.5184089415769031"/>
-    <par name="GFMCC_P0Pu" type="DOUBLE" value="-9.440194309522948"/>
-    <par name="GFMCC_Q0Pu" type="DOUBLE" value="-0.5430732386655421"/>
+    <par name="GFMCC_U0Pu" type="DOUBLE" value="0.998698101572113"/>
+    <par name="GFMCC_UPhase0" type="DOUBLE" value="0.0477974169987044"/>
+    <par name="GFMCC_P0Pu" type="DOUBLE" value="-9.44575339620078"/>
+    <par name="GFMCC_Q0Pu" type="DOUBLE" value="0.97649759571123"/>
     <par name="GFMCC_OmegaSetPu" type="DOUBLE" value="1"/>
   </set>
 
-  <!-- SetPointOne : reutilise pour URefPu, omegaRefPu et Grid_OmegaRef (tous = 1 dans le .mo) -->
+  <!-- SetPointOne  -->
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
@@ -87,7 +87,7 @@
   <set id="5">
     <par type="DOUBLE" name="setPoint_Value0" value="0"/>
   </set>
-  <!-- SetPointP : PRefPu = -0.95 (Step with height = 0 in the .mo, i.e. constant) -->
+  <!-- SetPointP : PRefPu = 0.95 -->
   <set id="6">
     <par type="DOUBLE" name="setPoint_Value0" value="0.95"/>
   </set>
@@ -95,15 +95,18 @@
   <set id="7">
     <par type="DOUBLE" name="measurements_SNom" value="1000"/>
   </set>
-  <set id="IDASolver">
-    <par type="INT" name="order" value="2"/>
-    <par type="DOUBLE" name="initStep" value="0.00001"/>
-    <par type="DOUBLE" name="minStep" value="0.000001"/>
-    <par type="DOUBLE" name="maxStep" value="10"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
-    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
-    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
-  </set>
+
+<set id="IDASolver">
+  <par type="INT"    name="order" value="2"/>
+  <par type="DOUBLE" name="initStep" value="1e-5"/>
+  <par type="DOUBLE" name="minStep" value="1e-9"/>
+  <par type="DOUBLE" name="minimalAcceptableStep" value="1e-09"/>
+  <par type="INT" name="maximumNumberSlowStepIncrease" value="50"/>
+  <par type="DOUBLE" name="maxStep" value="10"/>
+  <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+  <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+  <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+</set>
 
   <set id="SimplifiedSolver">
     <par type="DOUBLE" name="hMin" value="0.000001"/>

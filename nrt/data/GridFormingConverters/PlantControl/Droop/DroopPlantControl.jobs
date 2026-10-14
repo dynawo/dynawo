@@ -12,7 +12,7 @@
     simulation tool for power systems.
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="Droopwith Plant Control - AcGrid connection with RoCoF test">
+    <job name="Droop with Plant Control - AcGrid connection with RoCoF test">
         <!-- <solver lib="dynawo_SolverSIM" parFile="DroopPlantControl.par" parId="SimplifiedSolver"/> -->
         <solver lib="dynawo_SolverIDA" parFile="DroopPlantControl.par" parId="IDASolver"/>
         <modeler compileDir="outputs/compilation">

@@ -14,7 +14,7 @@
 <jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="GFM with current control- RoCoF test S_RoCoF9_OC4">
         <!-- <solver lib="dynawo_SolverSIM" parFile="CCVSMRoCoF.par" parId="SimplifiedSolver"/> -->
-        <solver lib="dynawo_SolverIDA" parFile="DroopRoCoF.par" parId="IDASolver"/>
+        <solver lib="dynawo_SolverIDA" parFile="CCVSMRoCoF.par" parId="IDASolver"/>
         <modeler compileDir="outputs/compilation">
             <dynModels dydFile="CCVSMRoCoF.dyd"/>
             <precompiledModels useStandardModels="true"/>

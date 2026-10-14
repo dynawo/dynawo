@@ -26,12 +26,12 @@ model DynGFMVSMSmib "Single machine infinite bus test case for Grid Forming VSM 
     Placement(transformation(origin = {-15, 3}, extent = {{-23, -23}, {23, 23}})));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.95) annotation(
     Placement(transformation(origin = {-112, 54}, extent = {{-10, -10}, {10, 10}})));
- Electrical.Sources.AcGrid acGrid(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, StartRoCoF = 5, TimeRoCoF = 0.5, RoCoFValue = 0.04) annotation(
-    Placement(transformation(origin = {58, 64}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {28, 2}, extent = {{-10, -10}, {10, 10}})));
  Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations annotation(
     Placement(transformation(origin = {90, 2}, extent = {{-10, -10}, {10, 10}})));
+ Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(ReturnRoCoF = true, RoCoFValue = -0.05, SNom = 1000, StartRoCoF = 5, StartingFrequency = 0, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+    Placement(transformation(origin = {20, 62}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -50,10 +50,10 @@ equation
     Line(points = {{10, 3}, {14, 3}, {14, 2}, {18, 2}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{38, 2}, {46, 2}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, acGrid.OmegaRef) annotation(
-    Line(points = {{-100, 20}, {-58, 20}, {-58, 70}, {46, 70}}, color = {0, 0, 127}));
- connect(line.terminal2, infiniteBusWithVariations.terminal) annotation(
-    Line(points = {{66, 2}, {90, 2}}, color = {0, 0, 255}));
+ connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+    Line(points = {{-100, 20}, {-60, 20}, {-60, 68}, {8, 68}}, color = {0, 0, 127}));
+ connect(acGridRoCoF.aCPower, line.terminal2) annotation(
+    Line(points = {{32, 68}, {66, 68}, {66, 2}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),

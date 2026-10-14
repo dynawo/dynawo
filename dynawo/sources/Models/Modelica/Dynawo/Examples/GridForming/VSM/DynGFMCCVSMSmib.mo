@@ -15,7 +15,7 @@ model DynGFMCCVSMSmib "Single machine infinite bus test case for Grid Forming VS
   */
   extends Modelica.Icons.Example;
 
-  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.005, XPu = 0.05) annotation(
+  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.0005, XPu = 0.005) annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-112, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -23,9 +23,9 @@ model DynGFMCCVSMSmib "Single machine infinite bus test case for Grid Forming VS
     Placement(visible = true, transformation(origin = {-112, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {-112, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, H = 5, IMaxVIPu = 2.0, Kff = 0.01, KpVI = 0.05, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = 9.568869896699173, Q0Pu = -2.2884973450334383, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9183319408549561, UPhase0 = -0.5626764971268436, Omegaf = 31.4159, Omegaff = 60, XRratio = 2, kVSM = 150, OmegaSetPu = 1, tVSC = 0.0004, ImaxPu = 1.2, IminPu = 0, XVIPu = 0.06, Kfd = 1, Kfq = 0.8, DeltaIConvMaxPu = 0.15, OmegaPLL = 100, KsiPLL = 1, Omegac = 1000, KDampingAngle = 0.00318) annotation(
+  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, H = 5, IMaxVIPu = 2.0, Kff = 0.01, KpVI = 0.05, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, P0Pu = -9.44575339620078, Q0Pu = 0.97649759571123, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.998698101572113, UPhase0 = 0.0477974169987044, Omegaf = 31.4159, Omegaff = 60, XRratio = 2, kVSM = 150, OmegaSetPu = 1, tVSC = 0.0004, ImaxPu = 1.2, IminPu = 0, XVIPu = 0.06, Kfd = 1, Kfq = 0.8, DeltaIConvMaxPu = 0.15, OmegaPLL = 100, KsiPLL = 1, Omegac = 1000, KDampingAngle = 0.00318) annotation(
     Placement(transformation(origin = {-8, 0}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = -0.95, startTime = 0)  annotation(
+  Modelica.Blocks.Sources.Step PRefPu(height = 0, offset = 0.95, startTime = 0)  annotation(
     Placement(transformation(origin = {-112, 52}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {24, 0}, extent = {{-6, -6}, {6, 6}})));
