@@ -1,10 +1,14 @@
-\form#0:$( J = @F/@x' ) $
-\form#1:$ J = @F/@x + cj * @F/@x' $
-\form#2:$ J'= @F/@x' $
-\form#3:$( J = @F/@x' )$
-\form#4:$ Jt=@F/@y + cj*@F/@y' $
-\form#5:$ Jt=@F/@y' $
-\form#6:$( J = @F/@x + cj * @F/@x')$
-\form#7:$( J = @F/@x')$
-\form#8:$( J=@F/@u)$
-\form#9:$(J=@F/@y + cj @F/@yp)$
+\form#0:$ \partial F / \partial x $
+\form#1:$ \partial F / \partial x' $
+\form#2:$( J = @F/@x' ) $
+\form#3:$ J = @F/@x + cj * @F/@x' $
+\form#4:$ J'= @F/@x' $
+\form#5:$ @F/@x $
+\form#6:$ @F/@x' $
+\form#7:$( J = @F/@x' )$
+\form#8:$ Jt=@F/@y + cj*@F/@y' $
+\form#9:$ Jt=@F/@y' $
+\form#10:$( J = @F/@x + cj * @F/@x')$
+\form#11:$( J = @F/@x')$
+\form#12:$( J=@F/@u)$
+\form#13:$(J=@F/@y + cj @F/@yp)$

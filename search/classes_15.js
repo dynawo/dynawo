@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['variable',['Variable',['../dd/d44/a02893.html',1,'DYN::Variable'],['../d7/d16/a02109.html',1,'externalVariables::Variable']]],
-  ['variablealias',['VariableAlias',['../d2/d4c/a02897.html',1,'DYN']]],
-  ['variablealiasfactory',['VariableAliasFactory',['../d1/dfc/a02901.html',1,'DYN']]],
-  ['variablefactory',['VariableFactory',['../d8/dc6/a02113.html',1,'externalVariables']]],
-  ['variablehandler',['VariableHandler',['../db/d26/a02129.html',1,'externalVariables']]],
-  ['variablemultiple',['VariableMultiple',['../d5/d2e/a02905.html',1,'DYN']]],
-  ['variablemultiplefactory',['VariableMultipleFactory',['../dc/d86/a02909.html',1,'DYN']]],
-  ['variablenative',['VariableNative',['../d8/dea/a02913.html',1,'DYN']]],
-  ['variablenativefactory',['VariableNativeFactory',['../db/d8d/a02917.html',1,'DYN']]],
-  ['variablescollection',['VariablesCollection',['../d0/d79/a02117.html',1,'externalVariables']]],
-  ['variablescollectionfactory',['VariablesCollectionFactory',['../d6/d3b/a02121.html',1,'externalVariables']]],
-  ['voltagelevelinterface',['VoltageLevelInterface',['../d7/d54/a03089.html',1,'DYN']]],
-  ['voltagelevelinterfaceiidm',['VoltageLevelInterfaceIIDM',['../da/d34/a03237.html',1,'DYN']]],
-  ['vscconverterinterface',['VscConverterInterface',['../d8/d4b/a03093.html',1,'DYN']]],
-  ['vscconverterinterfaceiidm',['VscConverterInterfaceIIDM',['../dc/dc7/a03241.html',1,'DYN']]]
+  ['variable',['Variable',['../dc/d81/a02568.html',1,'matrix::LinearizedSystem::Variable'],['../d3/d8d/a02944.html',1,'DYN::Variable'],['../d1/d60/a02128.html',1,'externalVariables::Variable']]],
+  ['variablealias',['VariableAlias',['../d2/d9c/a02948.html',1,'DYN']]],
+  ['variablealiasfactory',['VariableAliasFactory',['../d6/d8e/a02952.html',1,'DYN']]],
+  ['variablefactory',['VariableFactory',['../dd/d07/a02132.html',1,'externalVariables']]],
+  ['variablehandler',['VariableHandler',['../d2/d08/a02148.html',1,'externalVariables']]],
+  ['variablemultiple',['VariableMultiple',['../d5/d6c/a02956.html',1,'DYN']]],
+  ['variablemultiplefactory',['VariableMultipleFactory',['../db/d1b/a02960.html',1,'DYN']]],
+  ['variablenative',['VariableNative',['../db/db9/a02964.html',1,'DYN']]],
+  ['variablenativefactory',['VariableNativeFactory',['../d0/d7b/a02968.html',1,'DYN']]],
+  ['variablescollection',['VariablesCollection',['../db/ddd/a02136.html',1,'externalVariables']]],
+  ['variablescollectionfactory',['VariablesCollectionFactory',['../de/d81/a02140.html',1,'externalVariables']]],
+  ['voltagelevelinterface',['VoltageLevelInterface',['../da/d72/a03140.html',1,'DYN']]],
+  ['voltagelevelinterfaceiidm',['VoltageLevelInterfaceIIDM',['../db/de4/a03288.html',1,'DYN']]],
+  ['vscconverterinterface',['VscConverterInterface',['../d2/d19/a03144.html',1,'DYN']]],
+  ['vscconverterinterfaceiidm',['VscConverterInterfaceIIDM',['../d7/d52/a03292.html',1,'DYN']]]
 ];

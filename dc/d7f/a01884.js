@@ -1,0 +1,24 @@
+var a01884 =
+[
+    [ "kind_t", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387", [
+      [ "PATL", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387ad7a44d70192b5da0fd6a2841325fe947", null ],
+      [ "OverloadUp", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387a58c9426efd85a5ec386bec9a9e0d3c3f", null ],
+      [ "OverloadOpen", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387a98487d154c5e826ee2c16270a8228c95", null ],
+      [ "UInfUmin", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387adbfe6b82c380f2ea4a6f55399d1b8898", null ],
+      [ "USupUmax", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387aa9c8e96fcea66fe521615caae6cd8a96", null ],
+      [ "FictLim", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387a90ecd721ff87504c0236318227609599", null ],
+      [ "Undefined", "dc/d7f/a01884.html#a6207b5c13ad5fa57b92d6477f533d387ac71af17b01f087e7bc901d81384d02d9", null ]
+    ] ],
+    [ "ConstraintData", "dc/d7f/a01884.html#ad7e5c31f46e09ff2a1d35496d58e4554", null ],
+    [ "str2Kind", "dc/d7f/a01884.html#abc95299213056e24e48d450bf111b540", null ],
+    [ "acceptableDuration", "dc/d7f/a01884.html#afdc20571e4715ac0dffecf09727d300d", null ],
+    [ "kind", "dc/d7f/a01884.html#ad02b1b78371283242dcb02205e187d9e", null ],
+    [ "limit", "dc/d7f/a01884.html#a3c047d86f037e06ac6b305b1a81ab00e", null ],
+    [ "limitName", "dc/d7f/a01884.html#a28749aec60b550307055ced12ace0f39", null ],
+    [ "side", "dc/d7f/a01884.html#a412dc19579f78f093f9812b5adfb123d", null ],
+    [ "source", "dc/d7f/a01884.html#a3504724d1c6bdadbcf53a93530d5aec0", null ],
+    [ "value", "dc/d7f/a01884.html#a5eb384459248d6048b1d539249a34e15", null ],
+    [ "valueMax", "dc/d7f/a01884.html#a2d7eb49f2413e2ccff83842cef93afab", null ],
+    [ "valueMin", "dc/d7f/a01884.html#ac777b2fb2124243257ab99861cb20490", null ],
+    [ "varIndex", "dc/d7f/a01884.html#a1a7f3c66aa44f13989c0d33b66bf91ff", null ]
+];

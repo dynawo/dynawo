@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: DYN::CurrentLimitInterface Class Reference</title>
+<title>Dynawo: Member List</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('df/d45/a02973.html','../../');});
+$(document).ready(function(){initNavTree('d3/dff/a02976.html','../../');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -94,174 +94,71 @@ $(document).ready(function(){initNavTree('df/d45/a02973.html','../../');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="../../dd/d8f/a02970.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DYN::CurrentLimitInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">DYN::BusInterface Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Current limit interface class for current limit interface.  
- <a href="../../df/d45/a02973.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d2/d94/a00716_source.html">DYNCurrentLimitInterface.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for DYN::CurrentLimitInterface:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="../../df/d45/a02973.png" usemap="#DYN::CurrentLimitInterface_map" alt=""/>
-  <map id="DYN::CurrentLimitInterface_map" name="DYN::CurrentLimitInterface_map">
-<area href="../../d0/dcd/a03113.html" title="class for Current limit interface " alt="DYN::CurrentLimitInterfaceIIDM" shape="rect" coords="0,56,189,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a2649ad67e2cdcbe0ca67333b56d26d8a"><td class="memItemLeft" align="right" valign="top"><a id="a2649ad67e2cdcbe0ca67333b56d26d8a"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#a2649ad67e2cdcbe0ca67333b56d26d8a">~CurrentLimitInterface</a> ()=default</td></tr>
-<tr class="memdesc:a2649ad67e2cdcbe0ca67333b56d26d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a2649ad67e2cdcbe0ca67333b56d26d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7031713913c28ceec6fe491d76ca96f0"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#a7031713913c28ceec6fe491d76ca96f0">getLimit</a> () const =0</td></tr>
-<tr class="memdesc:a7031713913c28ceec6fe491d76ca96f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for current limit value.  <a href="#a7031713913c28ceec6fe491d76ca96f0">More...</a><br /></td></tr>
-<tr class="separator:a7031713913c28ceec6fe491d76ca96f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf10c2fa3a5f97d0d75dde1412aab4b1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#abf10c2fa3a5f97d0d75dde1412aab4b1">getAcceptableDuration</a> () const =0</td></tr>
-<tr class="memdesc:abf10c2fa3a5f97d0d75dde1412aab4b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the acceptable duration of the current limit.  <a href="#abf10c2fa3a5f97d0d75dde1412aab4b1">More...</a><br /></td></tr>
-<tr class="separator:abf10c2fa3a5f97d0d75dde1412aab4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa441de5dc2d3cff9e1408071cc03edea"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#aa441de5dc2d3cff9e1408071cc03edea">isFictitious</a> () const =0</td></tr>
-<tr class="memdesc:aa441de5dc2d3cff9e1408071cc03edea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the fictitious status of the current limit.  <a href="#aa441de5dc2d3cff9e1408071cc03edea">More...</a><br /></td></tr>
-<tr class="separator:aa441de5dc2d3cff9e1408071cc03edea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac108725ac3a8dd54307d975da9377216"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d45/a02973.html#ac108725ac3a8dd54307d975da9377216">getName</a> () const =0</td></tr>
-<tr class="memdesc:ac108725ac3a8dd54307d975da9377216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the name of the current limit.  <a href="#ac108725ac3a8dd54307d975da9377216">More...</a><br /></td></tr>
-<tr class="separator:ac108725ac3a8dd54307d975da9377216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Current limit interface class for current limit interface. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="abf10c2fa3a5f97d0d75dde1412aab4b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf10c2fa3a5f97d0d75dde1412aab4b1">&#9670;&nbsp;</a></span>getAcceptableDuration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int DYN::CurrentLimitInterface::getAcceptableDuration </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the acceptable duration of the current limit. </p>
-<dl class="section return"><dt>Returns</dt><dd>The acceptable duration in s </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a0698ee5ef269ca870e6ea28eb6fc3b4d">DYN::CurrentLimitInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="a7031713913c28ceec6fe491d76ca96f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7031713913c28ceec6fe491d76ca96f0">&#9670;&nbsp;</a></span>getLimit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double DYN::CurrentLimitInterface::getLimit </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for current limit value. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current limit value in kA </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a335776af8122d389c92b95816dbba168">DYN::CurrentLimitInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="ac108725ac3a8dd54307d975da9377216"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac108725ac3a8dd54307d975da9377216">&#9670;&nbsp;</a></span>getName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::string&amp; DYN::CurrentLimitInterface::getName </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the name of the current limit. </p>
-<dl class="section return"><dt>Returns</dt><dd>The name </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a91b5ee7f156208bf49ec535006e4f718">DYN::CurrentLimitInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<a id="aa441de5dc2d3cff9e1408071cc03edea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa441de5dc2d3cff9e1408071cc03edea">&#9670;&nbsp;</a></span>isFictitious()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DYN::CurrentLimitInterface::isFictitious </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Getter for the fictitious status of the current limit. </p>
-<dl class="section return"><dt>Returns</dt><dd>whether the current limit is fictitious </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/dcd/a03113.html#a4a5d08d7eec2ca0d371278d6977c57cc">DYN::CurrentLimitInterfaceIIDM</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="../../d2/d94/a00716_source.html">DYNCurrentLimitInterface.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a58910706220db3aa26ef83cc7e8a26c4">BUS</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#a496b1cf709d17989bd5e8a64882dbff5">BusInterface</a>(bool hasInitialConditions=true)</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a251f9d96ef4272321e49c7b71a5ea5d7">CALCULATED_BUS</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872acb80dacf920e9406c93c024896b877f9">COMPONENT_TYPE_COUNT</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a54a4adcbcd28a26428cafa45a848e172">ComponentInterface</a>(bool hasInitialConditions=true)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872">ComponentType_t</a> enum name</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a2ae1528a39c004efa24e63c1d4b0d8de">createComponentVarIndex</a>(const std::string &amp;varName)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a3d56662d9c11ef2905785aacc0c01d6a">DANGLING_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a0b2709afa47d455b8bc9512348d93f30">exportStateVariables</a>()</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#ad786b170ee93ca0ee9ff72e07e3773bf">exportStateVariablesUnitComponent</a>() override=0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a1de090a3916e39dc06f8a211e9b89f6c">GENERATOR</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#a63dfdd48ac5cb8863c5a8027f75b4c5e">getAngle0</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#a51ecbf88288ebed91dad69b4a49c7f23">getBusBarSectionIdentifiers</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#a121c0d8892ad82f8d25e0aa3e6d80182">getBusIndex</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a6d167dccb153a1ffcee78ad0f2e3a72e">getComponentVarIndex</a>(const std::string &amp;varName) const =0</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#ad01631f447ec9a500fbc9902434068e7">getID</a>() const override=0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#ac53c3d4ec936ead027840ecb45f9e37d">getStateVarAngle</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#aa68ff5ea43ce54304c3062f1614213dc">getStateVariableReference</a>()</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#aa3a32b56f9b1760748b83c73d5d97883">getStateVarV</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a22a01ec1b67b1e98e2277d2f1ddcdc4a">getStaticParameterValue</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a157a82e17608a36a7965614cde1c6234">getType</a>() const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a13bc31f9a55abf04ac162196ad6a3ace">getTypeAsString</a>() const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#a929c447c1c2c3499db103450e406265d">getV0</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#ac256bc3546483d0c4ccffb61dfa58a3a">getValue</a>(const int index) const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#aa7bde7df54ad1483067cea5cc9ba6c8b">getVMax</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#a877bd3d9a937607dfc11b8580ba86c28">getVMin</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#ac8382aaf37b7fb8484c6d502e0c9d3d6">getVNom</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#a971af09967c45693929a5b2685fd5d77">hasConnection</a>(bool hasConnection)=0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#abac7b1069b0ac6d6464024c8aabb0a70">hasConnection</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#ae2a3edef5ec14f6635bcaa11a5def0c2">hasDynamicModel</a>(bool hasDynamicModel)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a22ebe68dfef59fe4b694885643908c31">hasDynamicModel</a>() const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a9be4aae7894693081ca3436f3d8aa328">hasInitialConditions</a>() const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a360fb8d74db3b5e8d1acb4f636c9647d">hasInitialConditions</a>(bool hasInitialConditions)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a896de4a61821dd8aecb455b1a7bec2ef">HVDC_LINE</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#ac24fd6f4706d72ca980eb5c338f1b642">importStaticParameters</a>()=0</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a22639f8b88b1d70984852928d87676ec">isConnected</a>() const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d3/dff/a02976.html#aefdf4b4245508773fb4b73fa584c6ca3">isFictitious</a>() const =0</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#ac298501e2706de0701bcf0405d69780c">isPartiallyConnected</a>() const</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a53adb0161b3d082e47d4e0766d2e872f">LCC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872acd809ebf05c1a6cc4037fd7e429e560c">LINE</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a1a0f12a58102bd2afd073be90e01af8f">LOAD</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#ad4a2e77952f4983e5705c0feb2ffefd3">setModelDyn</a>(const boost::shared_ptr&lt; SubModel &gt; &amp;model)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#aa4d21f5feedc23bfd0c89f2b32e71746">setReference</a>(const std::string &amp;componentVar, const std::string &amp;modelId, const std::string &amp;modelVar)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#ad2b7a24d4bb3aed941d24831988b3da5">setType</a>(const ComponentType_t &amp;type)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872aff22939164641c88ddca4f3b8f75b7de">SHUNT</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a4e9a1ad375b2c22292b200713cb94bac">stateVariables_</a></td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#afba20d4e78f70ec9e147378934d10b33">staticParameters_</a></td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a4fb7066ad44a2613c8bb0c5219d2466f">SVC</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a69d91e244e6054c7779d6ec9cf08238e">SWITCH</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a5d97e6161158480daa64e4094ae21083">THREE_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872aeb32fa0ff31d9b817d2a8299a3f9b153">TWO_WTFO</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a3b7f69e17315c6cb35ffb9231dcb5e6a">type_</a></td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a07df56823341ff6a8659eedcaa5ab994">UNKNOWN</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d6/db9/a02980.html#ab673e4fea551130c3776e4a0fda6fea6">updateFromModel</a>(bool filterForCriteriaCheck)</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#a8089dfd2e85bdc3fc21030715c846872a1d29386c8ebadaaf3b9f3342e131fa68">VSC_CONVERTER</a> enum value</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="../../d3/dff/a02976.html#af4d4505d1048127897bd1dc3098fcaef">~BusInterface</a>() override=default</td><td class="entry"><a class="el" href="../../d3/dff/a02976.html">DYN::BusInterface</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="../../d6/db9/a02980.html#aaeea1b605a906a6b2772ff8b092dc17b">~ComponentInterface</a>()=default</td><td class="entry"><a class="el" href="../../d6/db9/a02980.html">DYN::ComponentInterface</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -277,8 +174,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=".
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d45/a02973.html">CurrentLimitInterface</a></li>
-    <li class="footer">Generated on Tue Oct 13 2026 15:30:34 for Dynawo by
+    <li class="footer">Generated on Wed Oct 14 2026 10:49:59 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

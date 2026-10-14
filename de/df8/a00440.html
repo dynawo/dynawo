@@ -14,7 +14,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Dynawo: PARParameter.h File Reference</title>
+<title>Dynawo: MATSparseMatrixConversion.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -95,36 +95,56 @@ $(document).ready(function(){initNavTree('de/df8/a00440.html','../../');});
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">PARParameter.h File Reference</div>  </div>
+<div class="title">MATSparseMatrixConversion.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dynawo parameters : interface file.  
+<p>Conversion of the dynawo sparse matrices into matrices to export : interface file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;boost/any.hpp&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/da8/a00437_source.html">MATMatrix.h</a>&quot;</code><br />
 </div>
 <p><a href="../../de/df8/a00440_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/df5/a02549.html">parameters::Parameter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/df5/a02549.html" title="Parameter interface class. ">Parameter</a> interface class.  <a href="../../d0/df5/a02549.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:af896976fabfd06ff6c4a7dc3c71e9ea9"><td class="memItemLeft" align="right" valign="top"><a id="af896976fabfd06ff6c4a7dc3c71e9ea9"></a>
-static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df8/a00440.html#af896976fabfd06ff6c4a7dc3c71e9ea9">parameters::ParameterTypeNames</a> [Parameter::SIZE_OF_ENUM] = {&quot;boolean&quot;, &quot;integer&quot;, &quot;double&quot;, &quot;string&quot;}</td></tr>
-<tr class="memdesc:af896976fabfd06ff6c4a7dc3c71e9ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">string conversion of enum values <br /></td></tr>
-<tr class="separator:af896976fabfd06ff6c4a7dc3c71e9ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a92aea6740b0f7c3d05c796ff700f065b"><td class="memItemLeft" align="right" valign="top">Matrix&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df8/a00440.html#a92aea6740b0f7c3d05c796ff700f065b">matrix::fromSparseMatrix</a> (const <a class="el" href="../../de/db6/a02792.html">DYN::SparseMatrix</a> &amp;sparseMatrix)</td></tr>
+<tr class="memdesc:a92aea6740b0f7c3d05c796ff700f065b"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert a dynawo sparse matrix into a matrix to export  <a href="../../de/df8/a00440.html#a92aea6740b0f7c3d05c796ff700f065b">More...</a><br /></td></tr>
+<tr class="separator:a92aea6740b0f7c3d05c796ff700f065b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynawo parameters : interface file. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Conversion of the dynawo sparse matrices into matrices to export : interface file. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="file_a92aea6740b0f7c3d05c796ff700f065b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a92aea6740b0f7c3d05c796ff700f065b">&#9670;&nbsp;</a></span>fromSparseMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix matrix::fromSparseMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/db6/a02792.html">DYN::SparseMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>sparseMatrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>convert a dynawo sparse matrix into a matrix to export </p>
+<p>The dynawo sparse matrix is stored by columns: so is the converted matrix. The sparse matrix must be complete, i.e. all its columns must have been filled.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sparseMatrix</td><td>sparse matrix to convert </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the matrix to export, with the same values as the sparse matrix </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -140,8 +160,8 @@ static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_3ca465b5eed564a5034afd193fcfe73a.html">PAR</a></li><li class="navelem"><a class="el" href="../../de/df8/a00440.html">PARParameter.h</a></li>
-    <li class="footer">Generated on Tue Oct 13 2026 15:30:33 for Dynawo by
+    <li class="navelem"><a class="el" href="../../dir_1784a59e55c9933a90efd2d239600c8f.html">dynawo</a></li><li class="navelem"><a class="el" href="../../dir_22a316840cfeae933077e8f7330b01fd.html">sources</a></li><li class="navelem"><a class="el" href="../../dir_c965f59f27f05d30848bbf32c1d38876.html">API</a></li><li class="navelem"><a class="el" href="../../dir_fa6eac274deac8460a2e5bb730060f57.html">MAT</a></li><li class="navelem"><a class="el" href="../../de/df8/a00440.html">MATSparseMatrixConversion.h</a></li>
+    <li class="footer">Generated on Wed Oct 14 2026 10:49:59 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
