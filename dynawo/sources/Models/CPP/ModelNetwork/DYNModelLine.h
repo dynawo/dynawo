@@ -258,6 +258,13 @@ class ModelLine : public ModelQuadripole {
   double omegaRef() const;
 
   /**
+   * @brief whether the branch current of the dynamic line is differential: closed line between two buses with differential voltages
+   * otherwise the branch current is algebraic (quasi-static series branch)
+   * @return @b true if the branch current is differential
+   */
+  bool isSeriesDifferential() const;
+
+  /**
    * @brief get the real part of the voltage at side 1
    * @return real part of the voltage at side 1
    */

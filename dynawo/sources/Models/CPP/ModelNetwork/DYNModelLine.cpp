@@ -336,9 +336,9 @@ ModelLine::evalDynamicYType() {
     return;
 
   if (dynLineModel_) {
-    bool closedLine = getConnectionState() == CLOSED;
-    yType_[irbYNum_] = closedLine ? DIFFERENTIAL : ALGEBRAIC;
-    yType_[iibYNum_] = closedLine ? DIFFERENTIAL : ALGEBRAIC;
+    const bool seriesDifferential = isSeriesDifferential();
+    yType_[irbYNum_] = seriesDifferential ? DIFFERENTIAL : ALGEBRAIC;
+    yType_[iibYNum_] = seriesDifferential ? DIFFERENTIAL : ALGEBRAIC;
   }
 }
 
@@ -357,9 +357,9 @@ ModelLine::evalDynamicFType() {
     return;
 
   if (dynLineModel_) {
-    bool closedLine = getConnectionState() == CLOSED;
-    fType_[0] = closedLine ? DIFFERENTIAL_EQ : ALGEBRAIC_EQ;
-    fType_[1] = closedLine ? DIFFERENTIAL_EQ : ALGEBRAIC_EQ;
+    const bool seriesDifferential = isSeriesDifferential();
+    fType_[0] = seriesDifferential ? DIFFERENTIAL_EQ : ALGEBRAIC_EQ;
+    fType_[1] = seriesDifferential ? DIFFERENTIAL_EQ : ALGEBRAIC_EQ;
   }
 }
 
@@ -375,8 +375,9 @@ ModelLine::setFequations(std::map<int, std::string>& fEquationIndex) {
     fEquationIndex[eqYNum++] = id() + " - imaginary part of the current side 2: Im(i2) = c4.1 * Re(U1) + c4.2 * Im(U1) + c4.3 * Re(U2) + c4.4 * Im(U2)";
   }
   if (dynLineModel_) {
-    fEquationIndex[eqYNum++] = id() + " - branch re current: 0 = omegaNom * (Re(U1) - Re(U2) + L * omegaRef * Im(Ib) - R * Re(Ib)) - L * d(Re(Ib))/dt";
-    fEquationIndex[eqYNum++] = id() + " - branch im current: 0 = omegaNom * (Im(U1) - Im(U2) - L * omegaRef * Re(Ib) - R * Im(Ib)) - L * d(Im(Ib))/dt";
+    // the derivative term is only present when the branch current is differential
+    fEquationIndex[eqYNum++] = id() + " - branch re current: 0 = omegaNom * (Re(U1) - Re(U2) + L * omegaRef * Im(Ib) - R * Re(Ib)) [- L * d(Re(Ib))/dt]";
+    fEquationIndex[eqYNum++] = id() + " - branch im current: 0 = omegaNom * (Im(U1) - Im(U2) - L * omegaRef * Re(Ib) - R * Im(Ib)) [- L * d(Im(Ib))/dt]";
   }
 }
 
@@ -406,9 +407,16 @@ ModelLine::evalF(const propertyF_t type) {
     return;
   }
 
+  // quasi-static series branch (algebraic branch current) if one of the buses has no capacitance
+  const bool seriesDifferential = isSeriesDifferential();
+  if (!seriesDifferential && type == DIFFERENTIAL_EQ)
+    return;
+
   const double omegaRefVal = omegaRef();
-  f_[eqFNum]   = -reactance_*yp_[irbYNum_] - omegaNom_*(resistance_*y_[irbYNum_]-reactance_*omegaRefVal* y_[iibYNum_]) + omegaNom_*ur1() - omegaNom_*ur2();
-  f_[eqFNum+1] = -reactance_*yp_[iibYNum_] - omegaNom_*(resistance_*y_[iibYNum_]+reactance_*omegaRefVal* y_[irbYNum_]) + omegaNom_*ui1() - omegaNom_*ui2();
+  const double ibrp = seriesDifferential ? yp_[irbYNum_] : 0.;
+  const double ibip = seriesDifferential ? yp_[iibYNum_] : 0.;
+  f_[eqFNum]   = -reactance_*ibrp - omegaNom_*(resistance_*y_[irbYNum_]-reactance_*omegaRefVal* y_[iibYNum_]) + omegaNom_*ur1() - omegaNom_*ur2();
+  f_[eqFNum+1] = -reactance_*ibip - omegaNom_*(resistance_*y_[iibYNum_]+reactance_*omegaRefVal* y_[irbYNum_]) + omegaNom_*ui1() - omegaNom_*ui2();
 }
 
 void
@@ -471,10 +479,11 @@ ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
 
   const int omegaRefYNumGlobal = globalYIndex(omegaRefNum_);
   const double omegaRefVal = omegaRef();
+  const double cjReactance = isSeriesDifferential() ? cj * reactance_ : 0.;
 
   // column for equation IBranch_re
   jt.changeCol();
-  jt.addTerm(irbYNumGlobal + rowOffset, - omegaNom_ * resistance_ - cj * reactance_);
+  jt.addTerm(irbYNumGlobal + rowOffset, - omegaNom_ * resistance_ - cjReactance);
   jt.addTerm(iibYNumGlobal + rowOffset, omegaNom_ * reactance_ * omegaRefVal);
   jt.addTerm(ur1YNumGlobal() + rowOffset, omegaNom_);
   jt.addTerm(ur2YNumGlobal() + rowOffset, -omegaNom_);
@@ -483,7 +492,7 @@ ModelLine::evalJt(const double cj, const int rowOffset, SparseMatrix& jt) {
   // column for equation IBranch_im
   jt.changeCol();
   jt.addTerm(irbYNumGlobal + rowOffset, - omegaNom_ * reactance_ * omegaRefVal);
-  jt.addTerm(iibYNumGlobal + rowOffset, -omegaNom_ * resistance_ - cj * reactance_);
+  jt.addTerm(iibYNumGlobal + rowOffset, -omegaNom_ * resistance_ - cjReactance);
   jt.addTerm(ui1YNumGlobal() + rowOffset, omegaNom_);
   jt.addTerm(ui2YNumGlobal() + rowOffset, -omegaNom_);
   jt.addTerm(omegaRefYNumGlobal + rowOffset, - omegaNom_ * reactance_ * y_[irbYNum_]);
@@ -505,12 +514,12 @@ ModelLine::evalJtPrim(const int rowOffset, SparseMatrix& jtPrim) {
   }
 
   if (dynLineModel_) {
-    const bool closedLine = getConnectionState() == CLOSED;
+    const bool seriesDifferential = isSeriesDifferential();
     jtPrim.changeCol();
-    if (closedLine)
+    if (seriesDifferential)
       jtPrim.addTerm(globalYIndex(irbYNum_) + rowOffset, - reactance_);  // column for equation IBranch_re
     jtPrim.changeCol();
-    if (closedLine)
+    if (seriesDifferential)
       jtPrim.addTerm(globalYIndex(iibYNum_) + rowOffset, - reactance_);  // column for equation IBranch_im
   }
 }
@@ -1236,6 +1245,14 @@ ModelLine::omegaRef() const {
   if (network_->isInitModel() || omegaRefNum_ < 0)
     return 1.;
   return y_[omegaRefNum_];
+}
+
+bool
+ModelLine::isSeriesDifferential() const {
+  // without capacitance on a bus, a differential branch current would be frozen at the bus (or index 2 if only such branches)
+  return getConnectionState() == CLOSED
+      && modelBus1_->hasDifferentialVoltages() && !modelBus1_->getSwitchOff()
+      && modelBus2_->hasDifferentialVoltages() && !modelBus2_->getSwitchOff();
 }
 
 double

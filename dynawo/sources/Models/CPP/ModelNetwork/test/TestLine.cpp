@@ -1182,6 +1182,8 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   dl->setBufferFType(&fTypes[0], 0);
   int yOffset = 0;
   dl->init(yOffset);
+  // shunt susceptances on both sides: both buses have differential voltages, the branch current is differential
+  dl->flagDifferentialBuses();
 
   // test evalStaticYType
   ASSERT_EQ(dl->getConnectionState(), CLOSED);
@@ -1249,6 +1251,58 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
 
   ASSERT_NO_THROW(dl->evalDerivatives(1));
   ASSERT_NO_THROW(dl->evalDerivativesPrim());
+
+  // quasi-static series branch: same residual and Jacobian as the dynamic one without the derivative terms
+  std::fill(yp.begin(), yp.end(), 0.);
+  dl->evalF(UNDEFINED_EQ);
+  const std::vector<double> fSteadyState = f;
+  SparseMatrix smjSteadyState;
+  smjSteadyState.init(size, size);
+  dl->evalJt(0., 0, smjSteadyState);
+
+  // bus side 1 without capacitance: the branch current is algebraic
+  dl->getModelBus1()->setHasDifferentialVoltages(false);
+  dl->evalDynamicYType();
+  dl->evalDynamicFType();
+  ASSERT_EQ(yTypes[0], ALGEBRAIC);
+  ASSERT_EQ(yTypes[1], ALGEBRAIC);
+  ASSERT_EQ(yTypes[2], EXTERNAL);
+  ASSERT_EQ(fTypes[0], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[1], ALGEBRAIC_EQ);
+
+  yp[0] = 5.;
+  yp[1] = -3.;
+  f.assign(nbF, 42.);
+  dl->evalF(DIFFERENTIAL_EQ);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 42.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 42.);
+  dl->evalF(ALGEBRAIC_EQ);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], fSteadyState[0]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], fSteadyState[1]);
+
+  SparseMatrix smjQuasiStatic;
+  smjQuasiStatic.init(size, size);
+  dl->evalJt(1., 0, smjQuasiStatic);
+  ASSERT_EQ(smjQuasiStatic.nbElem(), smjSteadyState.nbElem());
+  for (int i = 0; i < smjQuasiStatic.nbElem(); ++i) {
+    ASSERT_EQ(smjQuasiStatic.Ai_[i], smjSteadyState.Ai_[i]);
+    ASSERT_DOUBLE_EQUALS_DYNAWO(smjQuasiStatic.Ax_[i], smjSteadyState.Ax_[i]);
+  }
+
+  SparseMatrix smjPrimeQuasiStatic;
+  smjPrimeQuasiStatic.init(size, size);
+  dl->evalJtPrim(0, smjPrimeQuasiStatic);
+  ASSERT_EQ(smjPrimeQuasiStatic.nbElem(), 0);
+
+  // the bus side 1 has a capacitance again: the branch current is differential again
+  dl->flagDifferentialBuses();
+  dl->evalDynamicYType();
+  dl->evalDynamicFType();
+  ASSERT_EQ(yTypes[0], DIFFERENTIAL);
+  ASSERT_EQ(fTypes[0], DIFFERENTIAL_EQ);
+  dl->evalF(ALGEBRAIC_EQ);
+  ASSERT_FALSE(doubleEquals(f[0], fSteadyState[0]));
+  std::fill(yp.begin(), yp.end(), 0.);
 
   // Closed_1 line
   std::pair<std::unique_ptr<ModelLine>, std::shared_ptr<ModelVoltageLevel> > p2 = createModelLine(false, false, true, false);
