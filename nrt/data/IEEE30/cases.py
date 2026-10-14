@@ -37,6 +37,16 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE30_BasicTestCases", "IEE
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+#########################################################
+#       IEEE30 - DisconnectGroup with dynamic lines     #
+#########################################################
+
+case_name = "IEEE30 - DisconnectGroup with dynamic lines"
+case_description = "IEEE30 - Disconnection of generator G1 at node B2 with dynamic lines"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE30_BasicTestCases", "IEEE30_DisconnectGroup_withDynamicLines", "IEEE30.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #######################################
 #       IEEE30 - DisconnectLine       #
 #######################################

@@ -1,0 +1,415 @@
+INFO |  ============================================================ 
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :  4256_fix_dynamic_line_cpp_model-5bccf4ea574
+INFO |  ============================================================ 
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | building model from input files
+INFO | -----------------------------------------------------------------------
+INFO | model was built successfully
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting local initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of local initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | 25 dynamic line(s) with a quasi-static series branch (no shunt susceptance at one of their buses)
+INFO | -----------------------------------------------------------------------
+INFO | starting global initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of global initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting curve initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of curve initialization, added 3 curves
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting simulation with solver SimplifiedSolver
+INFO | -----------------------------------------------------------------------
+INFO | -----------------------------------------------------------------------
+INFO | number of continuous variables : 892
+INFO | number of discrete variables : 914
+INFO | number of root functions : 1219
+INFO | -----------------------------------------------------------------------
+INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
+INFO | -----------------------------------------------------------------------
+INFO |        0.000 ¦        0                0          0              1.000 
+INFO | Algebraic mode change at t = 1
+INFO |        1.000 ¦        1                3          1              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |        1.000 ¦        1                4          1              1.000 
+INFO |        2.000 ¦        2                7          1              1.000 
+INFO | Algebraic mode change at t = 3
+INFO |        3.000 ¦        3               10          1              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |        3.000 ¦        3               11          1              1.000 
+INFO |        4.000 ¦        4               13          1              1.000 
+INFO |        5.000 ¦        5               14          1              1.000 
+INFO |        6.000 ¦        6               15          1              1.000 
+INFO |        7.000 ¦        7               16          1              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |        8.000 ¦        8               16          1              1.000 
+INFO |        9.000 ¦        9               16          1              1.000 
+INFO |       10.000 ¦       10               16          1              1.000 
+INFO |       11.000 ¦       11               16          1              1.000 
+INFO |       12.000 ¦       12               16          1              1.000 
+INFO |       13.000 ¦       13               16          1              1.000 
+INFO |       14.000 ¦       14               16          1              1.000 
+INFO |       15.000 ¦       15               16          1              1.000 
+INFO |       16.000 ¦       16               16          1              1.000 
+INFO |       17.000 ¦       17               16          1              1.000 
+INFO |       18.000 ¦       18               16          1              1.000 
+INFO |       19.000 ¦       19               16          1              1.000 
+INFO |       20.000 ¦       20               16          1              1.000 
+INFO |       21.000 ¦       21               16          1              1.000 
+INFO |       22.000 ¦       22               16          1              1.000 
+INFO |       23.000 ¦       23               16          1              1.000 
+INFO |       24.000 ¦       24               16          1              1.000 
+INFO |       25.000 ¦       25               16          1              1.000 
+INFO |       26.000 ¦       26               16          1              1.000 
+INFO |       27.000 ¦       27               16          1              1.000 
+INFO |       28.000 ¦       28               16          1              1.000 
+INFO |       29.000 ¦       29               16          1              1.000 
+INFO |       30.000 ¦       30               16          1              1.000 
+INFO |       31.000 ¦       31               16          1              1.000 
+INFO |       32.000 ¦       32               16          1              1.000 
+INFO |       33.000 ¦       33               16          1              1.000 
+INFO |       34.000 ¦       34               16          1              1.000 
+INFO |       35.000 ¦       35               16          1              1.000 
+INFO |       36.000 ¦       36               16          1              1.000 
+INFO |       37.000 ¦       37               16          1              1.000 
+INFO |       38.000 ¦       38               16          1              1.000 
+INFO |       39.000 ¦       39               16          1              1.000 
+INFO |       40.000 ¦       40               16          1              1.000 
+INFO |       41.000 ¦       41               16          1              1.000 
+INFO |       42.000 ¦       42               16          1              1.000 
+INFO |       43.000 ¦       43               16          1              1.000 
+INFO |       44.000 ¦       44               16          1              1.000 
+INFO |       45.000 ¦       45               16          1              1.000 
+INFO |       46.000 ¦       46               16          1              1.000 
+INFO |       47.000 ¦       47               16          1              1.000 
+INFO |       48.000 ¦       48               16          1              1.000 
+INFO |       49.000 ¦       49               16          1              1.000 
+INFO | Algebraic mode (with J recalculation) change at t = 50
+INFO |       50.000 ¦       50               16          1              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO | Algebraic mode change at t = 50
+INFO |       50.000 ¦       50               18          2              1.000 
+INFO |       51.000 ¦       51               20          3              1.000 
+INFO |       52.000 ¦       52               22          3              1.000 
+INFO |       53.000 ¦       53               24          3              1.000 
+INFO |       54.000 ¦       54               26          3              1.000 
+INFO |       55.000 ¦       55               28          3              1.000 
+INFO |       56.000 ¦       56               30          3              1.000 
+INFO |       57.000 ¦       57               32          3              1.000 
+INFO |       58.000 ¦       58               34          3              1.000 
+INFO |       59.000 ¦       59               36          3              1.000 
+INFO | Algebraic mode change at t = 60
+INFO |       60.000 ¦       60               37          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       60.000 ¦       60               39          3              1.000 
+INFO |       61.000 ¦       61               41          3              1.000 
+INFO |       62.000 ¦       62               43          3              1.000 
+INFO |       63.000 ¦       63               45          3              1.000 
+INFO |       64.000 ¦       64               46          3              1.000 
+INFO |       65.000 ¦       65               47          3              1.000 
+INFO |       66.000 ¦       66               48          3              1.000 
+INFO |       67.000 ¦       67               49          3              1.000 
+INFO |       68.000 ¦       68               50          3              1.000 
+INFO |       69.000 ¦       69               51          3              1.000 
+INFO | Algebraic mode change at t = 70
+INFO |       70.000 ¦       70               52          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       70.000 ¦       70               54          3              1.000 
+INFO |       71.000 ¦       71               56          3              1.000 
+INFO |       72.000 ¦       72               57          3              1.000 
+INFO |       73.000 ¦       73               58          3              1.000 
+INFO |       74.000 ¦       74               59          3              1.000 
+INFO |       75.000 ¦       75               60          3              1.000 
+INFO |       76.000 ¦       76               61          3              1.000 
+INFO |       77.000 ¦       77               62          3              1.000 
+INFO |       78.000 ¦       78               63          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |       79.000 ¦       79               63          3              1.000 
+INFO | Algebraic mode change at t = 80
+INFO |       80.000 ¦       80               63          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       80.000 ¦       80               65          3              1.000 
+INFO | Algebraic mode change at t = 81
+INFO |       81.000 ¦       81               66          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       81.000 ¦       81               68          3              1.000 
+INFO |       82.000 ¦       82               69          3              1.000 
+INFO |       83.000 ¦       83               70          3              1.000 
+INFO |       84.000 ¦       84               71          3              1.000 
+INFO |       85.000 ¦       85               72          3              1.000 
+INFO |       86.000 ¦       86               73          3              1.000 
+INFO |       87.000 ¦       87               74          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |       88.000 ¦       88               74          3              1.000 
+INFO |       89.000 ¦       89               74          3              1.000 
+INFO |       90.000 ¦       90               74          3              1.000 
+INFO | Algebraic mode change at t = 91
+INFO |       91.000 ¦       91               74          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |       91.000 ¦       91               76          3              1.000 
+INFO |       92.000 ¦       92               77          3              1.000 
+INFO |       93.000 ¦       93               78          3              1.000 
+INFO |       94.000 ¦       94               79          3              1.000 
+INFO |       95.000 ¦       95               80          3              1.000 
+INFO |       96.000 ¦       96               81          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |       97.000 ¦       97               81          3              1.000 
+INFO |       98.000 ¦       98               81          3              1.000 
+INFO |       99.000 ¦       99               81          3              1.000 
+INFO | Algebraic mode change at t = 100
+INFO |      100.000 ¦      100               81          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      100.000 ¦      100               83          3              1.000 
+INFO |      101.000 ¦      101               84          3              1.000 
+INFO |      102.000 ¦      102               85          3              1.000 
+INFO |      103.000 ¦      103               86          3              1.000 
+INFO |      104.000 ¦      104               87          3              1.000 
+INFO |      105.000 ¦      105               88          3              1.000 
+INFO |      106.000 ¦      106               89          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |      107.000 ¦      107               89          3              1.000 
+INFO |      108.000 ¦      108               89          3              1.000 
+INFO |      109.000 ¦      109               89          3              1.000 
+INFO |      110.000 ¦      110               89          3              1.000 
+INFO | Algebraic mode change at t = 111
+INFO |      111.000 ¦      111               89          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      111.000 ¦      111               90          3              1.000 
+INFO |      112.000 ¦      112               91          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |      113.000 ¦      113               91          3              1.000 
+INFO |      114.000 ¦      114               91          3              1.000 
+INFO |      115.000 ¦      115               91          3              1.000 
+INFO |      116.000 ¦      116               91          3              1.000 
+INFO |      117.000 ¦      117               91          3              1.000 
+INFO |      118.000 ¦      118               91          3              1.000 
+INFO |      119.000 ¦      119               91          3              1.000 
+INFO |      120.000 ¦      120               91          3              1.000 
+INFO | Algebraic mode change at t = 121
+INFO |      121.000 ¦      121               91          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      121.000 ¦      121               93          3              1.000 
+INFO |      122.000 ¦      122               94          3              1.000 
+INFO |      123.000 ¦      123               95          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |      124.000 ¦      124               95          3              1.000 
+INFO |      125.000 ¦      125               95          3              1.000 
+INFO |      126.000 ¦      126               95          3              1.000 
+INFO |      127.000 ¦      127               95          3              1.000 
+INFO |      128.000 ¦      128               95          3              1.000 
+INFO |      129.000 ¦      129               95          3              1.000 
+INFO |      130.000 ¦      130               95          3              1.000 
+INFO |      131.000 ¦      131               95          3              1.000 
+INFO |      132.000 ¦      132               95          3              1.000 
+INFO |      133.000 ¦      133               95          3              1.000 
+INFO |      134.000 ¦      134               95          3              1.000 
+INFO |      135.000 ¦      135               95          3              1.000 
+INFO |      136.000 ¦      136               95          3              1.000 
+INFO |      137.000 ¦      137               95          3              1.000 
+INFO |      138.000 ¦      138               95          3              1.000 
+INFO |      139.000 ¦      139               95          3              1.000 
+INFO |      140.000 ¦      140               95          3              1.000 
+INFO | Algebraic mode change at t = 141
+INFO |      141.000 ¦      141               95          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      141.000 ¦      141               97          3              1.000 
+INFO |      142.000 ¦      142               98          3              1.000 
+INFO |      143.000 ¦      143               99          3              1.000 
+INFO |      144.000 ¦      144              100          3              1.000 
+INFO |      145.000 ¦      145              101          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |      146.000 ¦      146              101          3              1.000 
+INFO |      147.000 ¦      147              101          3              1.000 
+INFO |      148.000 ¦      148              101          3              1.000 
+INFO |      149.000 ¦      149              101          3              1.000 
+INFO |      150.000 ¦      150              101          3              1.000 
+INFO | Algebraic mode change at t = 151
+INFO |      151.000 ¦      151              101          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      151.000 ¦      151              103          3              1.000 
+INFO |      152.000 ¦      152              104          3              1.000 
+INFO |      153.000 ¦      153              105          3              1.000 
+INFO |      154.000 ¦      154              106          3              1.000 
+INFO |      155.000 ¦      155              107          3              1.000 
+INFO |      156.000 ¦      156              108          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |      157.000 ¦      157              108          3              1.000 
+INFO |      158.000 ¦      158              108          3              1.000 
+INFO |      159.000 ¦      159              108          3              1.000 
+INFO | Algebraic mode change at t = 160
+INFO |      160.000 ¦      160              108          3              1.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      160.000 ¦      160              110          3              1.000 
+INFO |      161.000 ¦      161              111          3              1.000 
+INFO |      162.000 ¦      162              112          3              1.000 
+INFO |      163.000 ¦      163              113          3              1.000 
+INFO |      164.000 ¦      164              114          3              1.000 
+INFO |      165.000 ¦      165              115          3              1.000 
+INFO |      166.000 ¦      166              116          3              1.000 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |      167.000 ¦      167              116          3              1.000 
+INFO |      168.000 ¦      168              116          3              1.000 
+INFO |      169.000 ¦      169              116          3              1.000 
+INFO |      170.000 ¦      170              116          3              1.000 
+INFO |      171.000 ¦      171              116          3              1.000 
+INFO |      172.000 ¦      172              116          3              1.000 
+INFO |      173.000 ¦      173              116          3              1.000 
+INFO |      174.000 ¦      174              116          3              1.000 
+INFO |      175.000 ¦      175              116          3              1.000 
+INFO |      176.000 ¦      176              116          3              1.000 
+INFO |      177.000 ¦      177              116          3              1.000 
+INFO |      178.000 ¦      178              116          3              1.000 
+INFO |      179.000 ¦      179              116          3              1.000 
+INFO |      180.000 ¦      180              116          3              1.000 
+INFO |      181.000 ¦      181              116          3              1.000 
+INFO |      182.000 ¦      182              116          3              1.000 
+INFO |      183.000 ¦      183              116          3              1.000 
+INFO |      184.000 ¦      184              116          3              1.000 
+INFO |      185.000 ¦      185              116          3              1.000 
+INFO |      186.000 ¦      186              116          3              1.000 
+INFO |      187.000 ¦      187              116          3              1.000 
+INFO |      188.000 ¦      188              116          3              1.000 
+INFO |      189.000 ¦      189              116          3              1.000 
+INFO |      190.000 ¦      190              116          3              1.000 
+INFO |      191.000 ¦      191              116          3              1.000 
+INFO |      192.000 ¦      192              116          3              1.000 
+INFO |      193.000 ¦      193              116          3              1.000 
+INFO |      194.000 ¦      194              116          3              1.000 
+INFO |      195.000 ¦      195              116          3              1.000 
+INFO |      196.000 ¦      196              116          3              1.000 
+INFO |      197.000 ¦      197              116          3              1.000 
+INFO |      198.000 ¦      198              116          3              1.000 
+INFO |      199.000 ¦      199              116          3              1.000 
+INFO |      200.000 ¦      200              116          3              1.000 
+INFO |      201.000 ¦      201              116          3              1.000 
+INFO |      202.000 ¦      202              116          3              1.000 
+INFO |      203.000 ¦      203              116          3              1.000 
+INFO |      204.000 ¦      204              116          3              1.000 
+INFO |      205.000 ¦      205              116          3              1.000 
+INFO |      206.000 ¦      206              116          3              1.000 
+INFO |      207.000 ¦      207              116          3              1.000 
+INFO |      208.000 ¦      208              116          3              1.000 
+INFO |      209.000 ¦      209              116          3              1.000 
+INFO |      210.000 ¦      210              116          3              1.000 
+INFO |      211.000 ¦      211              116          3              1.000 
+INFO |      212.000 ¦      212              116          3              1.000 
+INFO |      213.000 ¦      213              116          3              1.000 
+INFO |      214.000 ¦      214              116          3              1.000 
+INFO |      215.000 ¦      215              116          3              1.000 
+INFO |      216.000 ¦      216              116          3              1.000 
+INFO |      217.000 ¦      217              116          3              1.000 
+INFO |      218.000 ¦      218              116          3              1.000 
+INFO |      219.000 ¦      219              116          3              1.000 
+INFO |      220.000 ¦      220              116          3              1.000 
+INFO |      221.000 ¦      221              116          3              1.000 
+INFO |      222.000 ¦      222              116          3              1.000 
+INFO |      223.000 ¦      223              116          3              1.000 
+INFO |      224.000 ¦      224              116          3              1.000 
+INFO |      225.000 ¦      225              116          3              1.000 
+INFO |      226.000 ¦      226              116          3              1.000 
+INFO |      227.000 ¦      227              116          3              1.000 
+INFO |      228.000 ¦      228              116          3              1.000 
+INFO |      229.000 ¦      229              116          3              1.000 
+INFO |      230.000 ¦      230              116          3              1.000 
+INFO |      231.000 ¦      231              116          3              1.000 
+INFO |      232.000 ¦      232              116          3              1.000 
+INFO |      233.000 ¦      233              116          3              1.000 
+INFO |      234.000 ¦      234              116          3              1.000 
+INFO |      235.000 ¦      235              116          3              1.000 
+INFO |      236.000 ¦      236              116          3              1.000 
+INFO |      237.000 ¦      237              116          3              1.000 
+INFO |      238.000 ¦      238              116          3              1.000 
+INFO |      239.000 ¦      239              116          3              1.000 
+INFO |      240.000 ¦      240              116          3              1.000 
+INFO |      241.000 ¦      241              116          3              1.000 
+INFO |      242.000 ¦      242              116          3              1.000 
+INFO |      243.000 ¦      243              116          3              1.000 
+INFO |      244.000 ¦      244              116          3              1.000 
+INFO |      245.000 ¦      245              116          3              1.000 
+INFO |      246.000 ¦      246              116          3              1.000 
+INFO |      247.000 ¦      247              116          3              1.000 
+INFO |      248.000 ¦      248              116          3              1.000 
+INFO |      249.000 ¦      249              116          3              1.000 
+INFO |      250.000 ¦      250              116          3              1.000 
+INFO |      251.000 ¦      251              116          3              1.000 
+INFO |      252.000 ¦      252              116          3              1.000 
+INFO |      253.000 ¦      253              116          3              1.000 
+INFO |      254.000 ¦      254              116          3              1.000 
+INFO |      255.000 ¦      255              116          3              1.000 
+INFO |      256.000 ¦      256              116          3              1.000 
+INFO |      257.000 ¦      257              116          3              1.000 
+INFO |      258.000 ¦      258              116          3              1.000 
+INFO |      259.000 ¦      259              116          3              1.000 
+INFO |      260.000 ¦      260              116          3              1.000 
+INFO |      261.000 ¦      261              116          3              1.000 
+INFO |      262.000 ¦      262              116          3              1.000 
+INFO |      263.000 ¦      263              116          3              1.000 
+INFO |      264.000 ¦      264              116          3              1.000 
+INFO |      265.000 ¦      265              116          3              1.000 
+INFO |      266.000 ¦      266              116          3              1.000 
+INFO |      267.000 ¦      267              116          3              1.000 
+INFO |      268.000 ¦      268              116          3              1.000 
+INFO |      269.000 ¦      269              116          3              1.000 
+INFO |      270.000 ¦      270              116          3              1.000 
+INFO |      271.000 ¦      271              116          3              1.000 
+INFO |      272.000 ¦      272              116          3              1.000 
+INFO |      273.000 ¦      273              116          3              1.000 
+INFO |      274.000 ¦      274              116          3              1.000 
+INFO |      275.000 ¦      275              116          3              1.000 
+INFO |      276.000 ¦      276              116          3              1.000 
+INFO |      277.000 ¦      277              116          3              1.000 
+INFO |      278.000 ¦      278              116          3              1.000 
+INFO |      279.000 ¦      279              116          3              1.000 
+INFO |      280.000 ¦      280              116          3              1.000 
+INFO |      281.000 ¦      281              116          3              1.000 
+INFO |      282.000 ¦      282              116          3              1.000 
+INFO |      283.000 ¦      283              116          3              1.000 
+INFO |      284.000 ¦      284              116          3              1.000 
+INFO |      285.000 ¦      285              116          3              1.000 
+INFO |      286.000 ¦      286              116          3              1.000 
+INFO |      287.000 ¦      287              116          3              1.000 
+INFO |      288.000 ¦      288              116          3              1.000 
+INFO |      289.000 ¦      289              116          3              1.000 
+INFO |      290.000 ¦      290              116          3              1.000 
+INFO |      291.000 ¦      291              116          3              1.000 
+INFO |      292.000 ¦      292              116          3              1.000 
+INFO |      293.000 ¦      293              116          3              1.000 
+INFO |      294.000 ¦      294              116          3              1.000 
+INFO |      295.000 ¦      295              116          3              1.000 
+INFO |      296.000 ¦      296              116          3              1.000 
+INFO |      297.000 ¦      297              116          3              1.000 
+INFO |      298.000 ¦      298              116          3              1.000 
+INFO |      299.000 ¦      299              116          3              1.000 
+INFO |      300.000 ¦      300              116          3              1.000 
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 300
+INFO | number of residual evaluations                             = 173
+INFO | number of Jacobian evaluations                             = 2
+INFO | number of nonlinear iterations                             = 91
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 381
+INFO | number of discrete variables evaluations                   = 110
+INFO | number of mode evaluations                                 = 44
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 40
+INFO | number of algebraic restoration Jacobian evaluations       = 1
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+INFO | end of job 'IEEE30 - Disconnection of generator G1 at node B2 with dynamic lines'
