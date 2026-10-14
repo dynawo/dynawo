@@ -45,7 +45,7 @@ model EpriGFM "EPRI Grid Forming model"
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {502, 110}, extent = {{22, -22}, {-22, 22}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.Comptodq comptodq(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu,KIPll = KIPll, KPPll = KPPll, OmegaFlag = OmegaFlag, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, SNom = SNom, Theta0 = Theta0, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, iInj0Pu = -i0Pu, u0Pu = u0Pu) annotation(
+  Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.Comptodq comptodq(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, KIPll = KIPll, KPPll = KPPll, OmegaFlag = OmegaFlag, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, SNom = SNom, Theta0 = Theta0, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, iInj0Pu = -i0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, -10}, extent = {{-29, -29}, {29, 29}}, rotation = 180)));
   Dynawo.Electrical.Controls.Converters.EpriGFM.BaseControls.DQTrafo dQTrafo(OmegaFlag = OmegaFlag, Theta0 = Theta0, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {170, 110}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
@@ -207,9 +207,10 @@ equation
   connect(OmegaRefPu.y, gfm.omegaRefPu) annotation(
     Line(points = {{358, -140}, {-322, -140}, {-322, 82}, {-306, 82}}, color = {0, 0, 127}));
 
-  annotation(preferredView = "diagram",
+  annotation(
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-440, -300}, {480, 300}})),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-2, 3}, extent = {{-88, 59}, {88, -59}}, textString = "EPRI
 GFM")}),
-  Documentation(info = "<html><head></head><body><div>The Generic EPRI GFM model is implemented following the documentation on&nbsp;<span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">EPRI</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">&nbsp;website:&nbsp;https://www.epri.com/research/products/000000003002021403.</span></div><div>It offers four control modes:</div><div>1 - Droop based, OmegaFlag = 1</div><div>2 - Virtual Synchronous Machine (VSM), OmegaFlag = 2</div><div>3 - Dispatchable Virtual Oscillator (dVOC) based GFM, OmegaFlag = 3</div><div>4- Phase Locked Loop (Grid following mode), OmegaFlag = 0</div><div><br></div><div>For more detail about the implementation see&nbsp;</div><div>https://colib.net/pages/models/generations/Sources/epri_gfm/</div></body></html>"));
+    Documentation(info = "<html><head></head><body><div>The Generic EPRI GFM model is implemented following the documentation on&nbsp;<span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">EPRI</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">&nbsp;website:&nbsp;https://www.epri.com/research/products/000000003002021403.</span></div><div>It offers four control modes:</div><div>1 - Droop based, OmegaFlag = 1</div><div>2 - Virtual Synchronous Machine (VSM), OmegaFlag = 2</div><div>3 - Dispatchable Virtual Oscillator (dVOC) based GFM, OmegaFlag = 3</div><div>4- Phase Locked Loop (Grid following mode), OmegaFlag = 0</div><div><br></div><div>For more detail about the implementation see&nbsp;</div><div>https://colib.net/pages/models/generations/Sources/epri_gfm/</div></body></html>"));
 end EpriGFM;
