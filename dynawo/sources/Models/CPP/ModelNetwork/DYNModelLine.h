@@ -364,6 +364,7 @@ class ModelLine : public ModelQuadripole {
   bool updateYMat_ = true;  ///< true if the YMat need to be updated(= topologyModified)
   double currentLimitsDesactivate_ = 0;  ///< current limit desactivate
   bool dynLineModel_ = false;  ///< when true, extend model with differential equations to mirror DynLine.mo
+  bool quasiStaticSeriesBranch_ = false;  ///< whether the series branch was quasi-static at the last type evaluation (for the logs)
   bool dynBus1_ = false;   ///< whether the bus on side 1 has a dynamic model from DLL or is implemented by ModelNetwork
   bool dynBus2_ = false;   ///< whether the bus on side 2 has a dynamic model from DLL or is implemented by ModelNetwork
 

@@ -339,6 +339,18 @@ ModelLine::evalDynamicYType() {
     const bool seriesDifferential = isSeriesDifferential();
     yType_[irbYNum_] = seriesDifferential ? DIFFERENTIAL : ALGEBRAIC;
     yType_[iibYNum_] = seriesDifferential ? DIFFERENTIAL : ALGEBRAIC;
+
+    // closed line whose branch current is algebraic: quasi-static series branch
+    const bool quasiStatic = (getConnectionState() == CLOSED) && !seriesDifferential;
+    if (quasiStatic)
+      network_->addQuasiStaticLine();
+    if (quasiStatic != quasiStaticSeriesBranch_) {
+      if (quasiStatic)
+        Trace::debug(Trace::network()) << DYNLog(LineSeriesBranchQuasiStatic, id_) << Trace::endline;
+      else
+        Trace::debug(Trace::network()) << DYNLog(LineSeriesBranchDynamic, id_) << Trace::endline;
+      quasiStaticSeriesBranch_ = quasiStatic;
+    }
   }
 }
 

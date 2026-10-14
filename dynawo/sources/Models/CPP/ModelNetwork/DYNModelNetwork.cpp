@@ -1271,10 +1271,15 @@ ModelNetwork::evalStaticYType() {
 void
 ModelNetwork::evalDynamicYType() {
   flagDifferentialBuses();
+  nbQuasiStaticLines_ = 0;
   for (const auto& component : getComponents()) {
     if (component->sizeY() != 0) {
       component->evalDynamicYType();
     }
+  }
+  if (nbQuasiStaticLines_ != nbQuasiStaticLinesLogged_) {
+    Trace::info() << DYNLog(NbQuasiStaticLines, nbQuasiStaticLines_) << Trace::endline;
+    nbQuasiStaticLinesLogged_ = nbQuasiStaticLines_;
   }
 }
 

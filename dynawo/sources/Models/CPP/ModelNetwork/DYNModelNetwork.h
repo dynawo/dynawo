@@ -278,6 +278,13 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   }
 
   /**
+   * @brief count one more dynamic line with a quasi-static series branch (called during the type evaluation)
+   */
+  inline void addQuasiStaticLine() {
+    ++nbQuasiStaticLines_;
+  }
+
+  /**
    * @copydoc ModelCPP::initParams()
    */
   void initParams() override;
@@ -415,6 +422,8 @@ class ModelNetwork : public ModelCPP, private boost::noncopyable {
   bool isInitModel_;  ///< whether the current model used is the init one
   bool withNodeBreakerTopology_;  ///< whether at least one voltageLevel has node breaker topology view
   bool deactivateZeroCrossingFunctions_;  ///< whether we use root functions
+  int nbQuasiStaticLines_ = 0;  ///< number of dynamic lines with a quasi-static series branch, counted during the type evaluation
+  int nbQuasiStaticLinesLogged_ = 0;  ///< number of dynamic lines with a quasi-static series branch at the last log
 
   std::unique_ptr<ModelBusContainer> busContainer_;  ///< all network buses
   std::vector<std::shared_ptr<ModelVoltageLevel> > vLevelComponents_;  ///< all voltage level components
