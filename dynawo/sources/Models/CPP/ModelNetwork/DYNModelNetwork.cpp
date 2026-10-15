@@ -178,6 +178,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       componentsById[id] = bus;
       std::shared_ptr<ModelBus> modelBus;
       if (bus->hasDynamicModel()) {
+        // as of october 2026, will work only if all components connected to the bus are lines
+        // cpp code of other types of NetworkComponent must be adapted to provide a proper terminal for them to be compatible
         std::shared_ptr<ModelBusBridged> modelBusBridged(new ModelBusBridged(bus, voltageLevel->isNodeBreakerTopology()));
         unmappedBridges_[id] = modelBusBridged;
         modelBus = modelBusBridged;

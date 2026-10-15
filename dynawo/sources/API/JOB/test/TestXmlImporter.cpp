@@ -39,6 +39,7 @@
 #include "JOBAppenderEntry.h"
 #include "JOBModelsDirEntry.h"
 #include "JOBFinalStateValuesEntry.h"
+#include "JOBLinearizationEntry.h"
 
 INIT_XML_DYNAWO;
 
@@ -256,6 +257,13 @@ TEST(APIJOBTest, testXmlImporter) {
   std::shared_ptr<FinalStateValuesEntry> finalStateValues = outputs->getFinalStateValuesEntry();
   ASSERT_EQ(finalStateValues->getInputFile(), "finalStateValues.fsv");
   ASSERT_EQ(finalStateValues->getExportMode(), "CSV");
+
+  // ===== LinearizationEntry =====
+  ASSERT_NE(outputs->getLinearizationEntry(), std::shared_ptr<LinearizationEntry>());
+  std::shared_ptr<LinearizationEntry> linearization = outputs->getLinearizationEntry();
+  ASSERT_EQ(linearization->getTime(), 10.5);
+  ASSERT_EQ(linearization->getExportMode(), "TXT");
+  ASSERT_EQ(job2->getOutputsEntry()->getLinearizationEntry(), std::shared_ptr<LinearizationEntry>());
 
   // ===== LostEquipmentsEntry =====
   ASSERT_NE(outputs->getLostEquipmentsEntry(), std::shared_ptr<LostEquipmentsEntry>());

@@ -42,6 +42,7 @@
       <dyn:finalState exportDumpFile="true" exportIIDMFile="true" timestamp="10"/>
       <dyn:curves inputFile="curves.crv" exportMode="CSV" iterationStep="5"/>
       <dyn:finalStateValues inputFile="finalStateValues.fsv"/>
+      <dyn:linearization time="10.5" exportMode="TXT"/>
       <dyn:lostEquipments/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG" separator="-" showLevelTag="false" timeStampFormat="%H:%M:%S"/>

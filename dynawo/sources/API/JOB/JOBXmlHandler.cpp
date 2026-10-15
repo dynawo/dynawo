@@ -288,6 +288,7 @@ timetableHandler_(parser::ElementName(namespace_uri(), "timetable")),
 finalStateHandler_(parser::ElementName(namespace_uri(), "finalState")),
 curvesHandler_(parser::ElementName(namespace_uri(), "curves")),
 finalStateValuesHandler_(parser::ElementName(namespace_uri(), "finalStateValues")),
+linearizationHandler_(parser::ElementName(namespace_uri(), "linearization")),
 lostEquipmentsHandler_(parser::ElementName(namespace_uri(), "lostEquipments")),
 logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   onStartElement(root_element, lambda::bind(&OutputsHandler::create, lambda::ref(*this), lambda_args::arg2));
@@ -300,6 +301,7 @@ logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   onElement(root_element + namespace_uri()("finalState"), finalStateHandler_);
   onElement(root_element + namespace_uri()("curves"), curvesHandler_);
   onElement(root_element + namespace_uri()("finalStateValues"), finalStateValuesHandler_);
+  onElement(root_element + namespace_uri()("linearization"), linearizationHandler_);
   onElement(root_element + namespace_uri()("lostEquipments"), lostEquipmentsHandler_);
   onElement(root_element + namespace_uri()("logs"), logsHandler_);
 
@@ -311,6 +313,7 @@ logsHandler_(parser::ElementName(namespace_uri(), "logs")) {
   finalStateHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalState, lambda::ref(*this)));
   curvesHandler_.onEnd(lambda::bind(&OutputsHandler::addCurves, lambda::ref(*this)));
   finalStateValuesHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalStateValues, lambda::ref(*this)));
+  linearizationHandler_.onEnd(lambda::bind(&OutputsHandler::addLinearization, lambda::ref(*this)));
   lostEquipmentsHandler_.onEnd(lambda::bind(&OutputsHandler::addLostEquipments, lambda::ref(*this)));
   logsHandler_.onEnd(lambda::bind(&OutputsHandler::addLog, lambda::ref(*this)));
 }
@@ -355,6 +358,11 @@ OutputsHandler::addCurves() {
 void
 OutputsHandler::addFinalStateValues() {
   outputs_->setFinalStateValuesEntry(finalStateValuesHandler_.get());
+}
+
+void
+OutputsHandler::addLinearization() {
+  outputs_->setLinearizationEntry(linearizationHandler_.get());
 }
 
 void
@@ -563,6 +571,25 @@ void FinalStateValuesHandler::create(attributes_type const& attributes) {
 }
 
 shared_ptr<FinalStateValuesEntry> FinalStateValuesHandler::get() const { return finalStateValues_; }
+
+LinearizationHandler::LinearizationHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&LinearizationHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+LinearizationHandler::~LinearizationHandler() {}
+
+void
+LinearizationHandler::create(attributes_type const& attributes) {
+  linearization_ = std::make_shared<LinearizationEntry>();
+  linearization_->setTime(attributes["time"]);
+  if (attributes.has("exportMode"))
+    linearization_->setExportMode(attributes["exportMode"]);
+}
+
+shared_ptr<LinearizationEntry>
+LinearizationHandler::get() const {
+  return linearization_;
+}
 
 LostEquipmentsHandler::LostEquipmentsHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&LostEquipmentsHandler::create, lambda::ref(*this), lambda_args::arg2));

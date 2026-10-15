@@ -12,9 +12,10 @@
       <dyn:criteria criteriaFile="criteria.crt"/>
     </dyn:simulation>
     <dyn:outputs directory="outputs">
-      <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:timeline exportMode="TXT"/>
       <dyn:timetable step="10"/>
+      <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
+      <dyn:linearization time="10" exportMode="TXT"/>
       <dyn:logs>
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
       </dyn:logs>

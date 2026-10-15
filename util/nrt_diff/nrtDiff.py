@@ -28,6 +28,7 @@ from optparse import OptionParser
 import iidmDiff
 import constraintsDiff
 import finalStateValuesDiff
+import linearizationDiff
 import settings
 import XMLUtils
 
@@ -1058,6 +1059,16 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 return_value = IDENTICAL
         elif "finalStateValues" in file_name and file_extension == ".csv":
             (nb_differences, msg) = finalStateValuesDiff.output_csv_fsv_close_enough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message += str(nb_differences) + " different output values\n" + msg
+            else:
+                return_value = IDENTICAL
+        elif file_name.startswith("linearization_") and file_extension == ".txt":
+            (nb_differences, msg) = linearizationDiff.output_linearization_close_enough (path_left, path_right)
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
             message = "<font color=\"red\">" + os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ":</font> "
