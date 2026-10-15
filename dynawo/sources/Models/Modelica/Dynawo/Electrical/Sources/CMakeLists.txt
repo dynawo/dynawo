@@ -10,11 +10,15 @@
 
 add_subdirectory(IEC I)
 add_subdirectory(InertialGrid IG)
+add_subdirectory(PEIR PE)
 
 set(MODEL_FILES
   # Sources models
   package.mo
   package.order
+  AcGridRoCoF.mo
+  AcGridRoCoF.extvar
+  AcGridRoCoF.mandatoryParam
   Converter.mo
   Converter.extvar
   Converter.mandatoryParam
@@ -31,6 +35,9 @@ set(MODEL_FILES
   InjectorIDQ_INIT.mandatoryParam
   InjectorURI.mo
   InjectorURI.extvar
+  PhasorGrid.mo
+  PhasorGrid.extvar
+  PhasorGrid.mandatoryParam
   )
 
 #
