@@ -62,6 +62,8 @@ model BaseIBG "Generic model of inverter-based generation (IBG)"
     Placement(transformation(origin = {-420, -180}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference angular frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-420, 160}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {390, -80}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {100, 8.88178e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -128,6 +130,8 @@ model BaseIBG "Generic model of inverter-based generation (IBG)"
   parameter Types.Angle UPhase0 "Start value of voltage phase angle at terminal in rad";
 
 equation
+  connect(switchOffSignal1, injector.switchOffSignal1);
+  connect(switchOffSignal2, injector.switchOffSignal2);
   connect(injector.terminal, terminal) annotation(
     Line(points = {{363, -76}, {389.375, -76}, {389.375, -80}, {390, -80}}, color = {0, 0, 255}));
   connect(injector.UPu, UFilter.u) annotation(

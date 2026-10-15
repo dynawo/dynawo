@@ -227,6 +227,9 @@ model BaseWPP "Base model for Wind Power Plants from IEC 61400-27-1 standard"
     Placement(transformation(origin = {-140, 80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QPccPu(start = QPcc0Pu) "Reactive power measurement coming from the external PCC (base SnRef, receptor convention) (used only when PPCLocal = false)" annotation(
     Placement(transformation(origin = {220, -30}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
   Modelica.Blocks.Interfaces.RealInput tanPhi(start = Q0Pu / P0Pu) "Tangent phi (can be figured as QPu / PPu)" annotation(
     Placement(visible = true, transformation(origin = {-20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(re(start = Modelica.ComplexMath.real(Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0))), im(start = Modelica.ComplexMath.imag(Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0)))) annotation(
