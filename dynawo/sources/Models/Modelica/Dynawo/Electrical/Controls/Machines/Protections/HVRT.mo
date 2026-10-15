@@ -17,86 +17,89 @@ model HVRT "High-voltage ride-through protection"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
   parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
+  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
 
   // Table parameters
   parameter String TablesFile "Text file that contains the tables for the functions";
+  parameter Boolean TablesOnFile "If true, tables are defined on file or in function usertab";
   parameter String TabletUoverUfilt "Name of the lookup table of disconnection time versus voltage for overvoltage";
 
   // Input variable
-  Modelica.Blocks.Interfaces.RealInput UMonitoredPu(start = U0Pu) "Voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Placement(transformation(origin = {-160, -20}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-108, -20}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealInput UMonitoredPu(start = UMonitored0Pu) "Monitored voltage amplitude in pu (base UNom)" annotation(
+    Placement(transformation(origin = {-220, 0}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
 
-  // Output variables
+  // Output variable
   Modelica.Blocks.Interfaces.BooleanOutput fOCB(start = false) "Open Circuit Breaker flag" annotation(
-    Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the machine";
+    Placement(transformation(origin = {210, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
 
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(tableOnFile = true, tableName = TabletUoverUfilt, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
-    Placement(transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(tableName = TabletUoverUfilt, tableOnFile = TablesOnFile, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
+    Placement(transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.Greater greater annotation(
+    Placement(transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer annotation(
-    Placement(transformation(origin = {-30, 20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.Timer timer1 annotation(
-    Placement(transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.Greater greater1 annotation(
-    Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant const1(k = tLagAction) annotation(
-    Placement(transformation(origin = {30, -40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = U0Pu) annotation(
-    Placement(transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqual(threshold = UOverPu) annotation(
+    Placement(transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.MathBoolean.Or or1(nu = 2) annotation(
-    Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.FirstOrder filter(T = tUFilt, y_start = UMonitored0Pu) annotation(
+    Placement(transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Pre pre1 annotation(
-    Placement(transformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}})));
+    Placement(transformation(origin = {150, -40}, extent = {{10, -10}, {-10, 10}})));
+  Modelica.Blocks.Logical.Timer timer2 annotation(
+    Placement(transformation(origin = {30, 40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.GreaterThreshold greater2(threshold = tLagAction) annotation(
+    Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameter
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)";
+  parameter Types.VoltageModulePu UMonitored0Pu "Initial monitored voltage amplitude in pu (base UNom)";
 
 protected
-  Types.Time tThresholdReached(start = Modelica.Constants.inf) "Time when the threshold is reached in s";
+  Types.Time tThresholdReachedHvrt(start = Modelica.Constants.inf) "Time when the HVRT threshold is reached in s";
 
 equation
-  when filter.y >= UOverPu and not (pre(switchOffSignal)) then
+  when greaterEqual.y and not(pre1.y) then
     Timeline.logEvent1(TimelineKeys.HVRTArming);
-    tThresholdReached = time;
-  elsewhen (not (filter.y >= UOverPu)) and pre(tThresholdReached) <> Modelica.Constants.inf and not (pre(switchOffSignal)) and (not timer1.u) then
+    tThresholdReachedHvrt = time;
+    timer.u = true;
+  elsewhen not(greaterEqual.y) and pre(tThresholdReachedHvrt) <> Modelica.Constants.inf and not(pre1.y) and not(timer2.u) then
     Timeline.logEvent1(TimelineKeys.HVRTDisarming);
-    tThresholdReached = Modelica.Constants.inf;
+    tThresholdReachedHvrt = Modelica.Constants.inf;
+    timer.u = false;
   end when;
 
-  when fOCB then
-    switchOffSignal = true;
+  when greater.y then
+    timer2.u = true;
+  end when;
+
+  when greater2.y and not(pre(fOCB)) then
     Timeline.logEvent1(TimelineKeys.HVRTTripped);
   end when;
 
-  when filter.y >= UOverPu then
-    timer.u = true;
-  end when;
-
-  when combiTable1D.y[1] < timer.y then
-    timer1.u = true;
-  end when;
-
-  connect(timer1.y, greater1.u1) annotation(
-    Line(points = {{41, 0}, {57, 0}}, color = {0, 0, 127}));
-  connect(const1.y, greater1.u2) annotation(
-    Line(points = {{41, -40}, {49, -40}, {49, -8}, {57, -8}}, color = {0, 0, 127}));
-  connect(UMonitoredPu, filter.u) annotation(
-    Line(points = {{-160, -20}, {-122, -20}}, color = {0, 0, 127}));
-  connect(filter.y, combiTable1D.u) annotation(
-    Line(points = {{-98, -20}, {-42, -20}}, color = {0, 0, 127}));
-  connect(or1.y, pre1.u) annotation(
-    Line(points = {{122, 0}, {132, 0}, {132, -40}, {122, -40}}, color = {255, 0, 255}));
-  connect(greater1.y, or1.u[1]) annotation(
-    Line(points = {{82, 0}, {100, 0}}, color = {255, 0, 255}));
+  connect(timer.y, greater.u1) annotation(
+    Line(points = {{-59, 60}, {-40, 60}, {-40, 40}, {-22, 40}}, color = {0, 0, 127}));
+  connect(combiTable1D.y[1], greater.u2) annotation(
+    Line(points = {{-59, 20}, {-40, 20}, {-40, 32}, {-22, 32}}, color = {0, 0, 127}));
   connect(or1.y, fOCB) annotation(
-    Line(points = {{122, 0}, {150, 0}}, color = {255, 0, 255}));
+    Line(points = {{161.5, 0}, {210, 0}}, color = {255, 0, 255}));
+  connect(filter.y, greaterEqual.u) annotation(
+    Line(points = {{-159, 0}, {-140, 0}, {-140, 60}, {-122, 60}}, color = {0, 0, 127}));
+  connect(filter.y, combiTable1D.u) annotation(
+    Line(points = {{-159, 0}, {-140, 0}, {-140, 20}, {-82, 20}}, color = {0, 0, 127}));
+  connect(UMonitoredPu, filter.u) annotation(
+    Line(points = {{-220, 0}, {-182, 0}}, color = {0, 0, 127}));
+  connect(or1.y, pre1.u) annotation(
+    Line(points = {{161, 0}, {180, 0}, {180, -40}, {161, -40}}, color = {255, 0, 255}));
   connect(pre1.y, or1.u[2]) annotation(
-    Line(points = {{100, -40}, {90, -40}, {90, 0}, {100, 0}}, color = {255, 0, 255}));
+    Line(points = {{139, -40}, {120, -40}, {120, 0}, {139, 0}}, color = {255, 0, 255}));
+  connect(timer2.y, greater2.u) annotation(
+    Line(points = {{41, 40}, {58, 40}}, color = {0, 0, 127}));
+  connect(greater2.y, or1.u[1]) annotation(
+    Line(points = {{81, 40}, {100, 40}, {100, 0}, {140, 0}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
-    Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}})));
+    Diagram(coordinateSystem(extent = {{-200, -100}, {200, 100}})));
 end HVRT;
