@@ -36,13 +36,11 @@ model DynGFMDroopPlantControlv2 "GFM with Droop control and a generic Plant Cont
     Placement(transformation(origin = {49, 5}, extent = {{-5, -5}, {5, 5}})));
   Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.0005, XPu = 0.005) annotation(
     Placement(transformation(origin = {76, 4}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 5, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
-    Placement(transformation(origin = {82, 50}, extent = {{-10, -10}, {10, 10}})));
-
+  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 10, StartingFrequency = -0.01, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+    Placement(transformation(origin = {56, 60}, extent = {{-10, -10}, {10, 10}})));
 equation
   line1.switchOffSignal1 = false;
   line1.switchOffSignal2 = false;
-
   connect(URefGfmPu.y, dynDroopPlantControlFull.UFilterRefPu) annotation(
     Line(points = {{-62, -24}, {-16, -24}, {-16, -18}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, dynDroopPlantControlFull.omegaRefPu) annotation(
@@ -51,15 +49,14 @@ equation
     Line(points = {{-58, 36}, {-52, 36}, {-52, 19}, {-40, 19}}, color = {0, 0, 127}));
   connect(URefPu.y, dynDroopPlantControlFull.URefPu) annotation(
     Line(points = {{-62, 6}, {-50, 6}, {-50, -7}, {-40, -7}}, color = {0, 0, 127}));
-  connect(omegaRefPu.y, AcGrid.OmegaRef) annotation(
-    Line(points = {{-16, 72}, {70, 72}, {70, 55}}, color = {0, 0, 127}));
   connect(dynDroopPlantControlFull.terminal, measurements.terminal1) annotation(
     Line(points = {{5, 6}, {44, 6}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line1.terminal1) annotation(
     Line(points = {{54, 6}, {66, 6}, {66, 4}}, color = {0, 0, 255}));
-  connect(AcGrid.aCPower, line1.terminal2) annotation(
-    Line(points = {{93.5, 57}, {100, 57}, {100, 4}, {86, 4}}, color = {0, 0, 255}));
-
+  connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+    Line(points = {{-16, 72}, {44, 72}, {44, 66}}, color = {0, 0, 127}));
+  connect(acGridRoCoF.aCPower, line1.terminal2) annotation(
+    Line(points = {{68, 66}, {86, 66}, {86, 4}}, color = {0, 0, 255}));
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),

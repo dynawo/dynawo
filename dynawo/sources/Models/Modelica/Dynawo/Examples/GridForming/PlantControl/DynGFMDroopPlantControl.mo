@@ -50,10 +50,10 @@ model DynGFMDroopPlantControl "GFM with VSM control and a generic Plant Controll
     Placement(transformation(origin = {110, 4}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.PEIR.BaseControls.Plant.DynDroopPlantControl dynDroopPlantControl(SNom = SNom, U0Pu = UGfm0Pu, UPhase0 = UPhaseGfm0, P0Pu = PGfm0Pu, Q0Pu = QGfm0Pu, UPcc0Pu = UPcc0Pu, UPccPhase0 = UPccPhase0, PPcc0Pu = PPcc0Pu, QPcc0Pu = QPcc0Pu, CFilterPu = 1e-05, IMaxVIPu = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0,  KpVI = 0.1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.013, RFilterPu = 0.015, RTransformerPu = 0.006,  Omegaf = 40, Omegaff = 50, XRratio = 10, XVIPu = 0.06, tVSC = 0.0004, Mp = 0.013, Omegac = 1000, OmegaPLL = 100, KsiPLL = 1, Lambd = 0.01, Kdroop = 0.01, tQFilt = 0.1, tPFilt = 0.1, tUFilt = 0.1, Kpq = 0.1, Kiq = 1.0, Kpp = 0.3, Kip = 0.3, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 100, QMinPu = -100, PMaxPu = 12, PMinPu = -12)  annotation(
     Placement(transformation(origin = {-16, 6}, extent = {{-22, -22}, {22, 22}})));
-  Dynawo.Electrical.Sources.AcGrid AcGrid(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 5, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
-    Placement(transformation(origin = {82, 50}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.Utilities.Measurements measurements(SNom = SNom) annotation(
     Placement(transformation(origin = {89, 5}, extent = {{-5, -5}, {5, 5}})));
+  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 10, StartingFrequency = -0.01, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+    Placement(transformation(origin = {48, 68}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
@@ -61,7 +61,6 @@ equation
   line1.switchOffSignal2 = false;
   Transformer.switchOffSignal1 = false;
   Transformer.switchOffSignal2 = false;
-
   connect(line.terminal2, Transformer.terminal1) annotation(
     Line(points = {{44, 4}, {58, 4}}, color = {0, 0, 255}));
   connect(URefGfmPu.y, dynDroopPlantControl.UFilterRefPu) annotation(
@@ -80,14 +79,14 @@ equation
     Line(points = {{68, -6}, {68, -44}, {-54, -44}, {-54, -6}, {-40, -6}}, color = {0, 0, 127}));
   connect(Transformer.Q2Pu, dynDroopPlantControl.QPccPu) annotation(
     Line(points = {{58, -6}, {50, -6}, {50, 34}, {-48, 34}, {-48, 24}, {-40, 24}}, color = {0, 0, 127}));
-  connect(omegaRefPu.y, AcGrid.OmegaRef) annotation(
-    Line(points = {{-18, 72}, {70, 72}, {70, 55}}, color = {0, 0, 127}));
-  connect(AcGrid.aCPower, line1.terminal2) annotation(
-    Line(points = {{93.5, 57}, {120, 57}, {120, 4}}, color = {0, 0, 255}));
   connect(Transformer.terminal2, measurements.terminal1) annotation(
     Line(points = {{78, 4}, {81, 4}, {81, 6}, {84, 6}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line1.terminal1) annotation(
     Line(points = {{94, 6}, {100, 6}, {100, 4}}, color = {0, 0, 255}));
+  connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+    Line(points = {{-18, 72}, {34, 72}, {34, 74}, {36, 74}}, color = {0, 0, 127}));
+  connect(acGridRoCoF.aCPower, line1.terminal2) annotation(
+    Line(points = {{60, 74}, {120, 74}, {120, 4}}, color = {0, 0, 255}));
   annotation(
     experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379),
     Diagram);
