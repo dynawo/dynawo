@@ -155,8 +155,8 @@
     <par type="STRING" name="lhvrt_TabletUunderUfilt" value="lvrt"/>
     <par type="DOUBLE" name="lhvrt_tLagAction" value="0.05"/>
     <par type="DOUBLE" name="lhvrt_tUFilt" value="0.01"/>
-    <par type="DOUBLE" name="lhvrt_UOverPu" value="1.5"/>
-    <par type="DOUBLE" name="lhvrt_UUnderPu" value="0.5"/>
+    <par type="DOUBLE" name="lhvrt_UOverPu" value="1.1"/>
+    <par type="DOUBLE" name="lhvrt_UUnderPu" value="0.9"/>
   </set>
   <set id="4">
     <par type="DOUBLE" name="setPoint_Value0" value="1"/>

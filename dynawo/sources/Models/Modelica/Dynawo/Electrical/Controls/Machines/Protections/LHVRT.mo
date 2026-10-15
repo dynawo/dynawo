@@ -13,14 +13,14 @@ within Dynawo.Electrical.Controls.Machines.Protections;
 * of simulation tools for power systems.
 */
 
-model LHVRT "High and low voltage ride-through"
+model LHVRT "High and low voltage ride-through protection"
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
-  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
   parameter Types.Time tLagAction "Time lag due to the actual tripping action in s";
   parameter Types.Time tUFilt "Filter time constant for voltage measurement in s";
+  parameter Types.VoltageModulePu UOverPu "Overvoltage protection activation threshold in pu (base UNom)";
+  parameter Types.VoltageModulePu UUnderPu "Undervoltage protection activation threshold in pu (base UNom)";
 
   // Table parameters
   parameter String TablesFile "Text file that contains the tables for the functions";
@@ -42,18 +42,14 @@ model LHVRT "High and low voltage ride-through"
     Placement(transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.GreaterEqual greaterEqual annotation(
-    Placement(transformation(origin = {-110, 60}, extent = {{-10, 10}, {10, -10}})));
-  Modelica.Blocks.Sources.Constant const(k = UOverPu) annotation(
-    Placement(transformation(origin = {-170, 80}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqual(threshold = UOverPu) annotation(
+    Placement(transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D1(tableName = TabletUunderUfilt, tableOnFile = TablesOnFile, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Less less annotation(
     Placement(transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.LessEqual lessEqual annotation(
+  Modelica.Blocks.Logical.LessEqualThreshold lessEqual(threshold = UUnderPu) annotation(
     Placement(transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant const1(k = UUnderPu) annotation(
-    Placement(transformation(origin = {-170, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer1 annotation(
     Placement(transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.MathBoolean.Or or1(nu = 3) annotation(
@@ -66,12 +62,10 @@ model LHVRT "High and low voltage ride-through"
     Placement(transformation(origin = {30, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer3 annotation(
     Placement(transformation(origin = {30, -40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.Greater greater2 annotation(
-    Placement(transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.Greater greater3 annotation(
-    Placement(transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}})));
-  Modelica.Blocks.Sources.Constant const2(k = tLagAction) annotation(
-    Placement(transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.GreaterThreshold greater2(threshold = tLagAction) annotation(
+    Placement(transformation(origin = {70, 40}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Logical.GreaterThreshold greater3(threshold = tLagAction) annotation(
+    Placement(transformation(origin = {70, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -0)));
 
   // Initial parameter
   parameter Types.VoltageModulePu UMonitored0Pu "Initial monitored voltage amplitude in pu (base UNom)";
@@ -84,25 +78,21 @@ equation
   when greaterEqual.y and not(pre1.y) then
     Timeline.logEvent1(TimelineKeys.HVRTArming);
     tThresholdReachedHvrt = time;
+    timer.u = true;
   elsewhen not(greaterEqual.y) and pre(tThresholdReachedHvrt) <> Modelica.Constants.inf and not(pre1.y) and not(timer2.u) then
     Timeline.logEvent1(TimelineKeys.HVRTDisarming);
     tThresholdReachedHvrt = Modelica.Constants.inf;
+    timer.u = false;
   end when;
 
   when lessEqual.y and not(pre1.y) then
     Timeline.logEvent1(TimelineKeys.LVRTArming);
     tThresholdReachedLvrt = time;
+    timer1.u = true;
   elsewhen not(lessEqual.y) and pre(tThresholdReachedLvrt) <> Modelica.Constants.inf and not(pre1.y) and not(timer3.u) then
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
     tThresholdReachedLvrt = Modelica.Constants.inf;
-  end when;
-
-  when greaterEqual.y then
-    timer.u = true;
-  end when;
-
-  when lessEqual.y then
-    timer1.u = true;
+    timer1.u = false;
   end when;
 
   when greater.y then
@@ -121,10 +111,6 @@ equation
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
   end when;
 
-  connect(const.y, greaterEqual.u2) annotation(
-    Line(points = {{-159, 80}, {-140, 80}, {-140, 68}, {-122, 68}}, color = {0, 0, 127}));
-  connect(const1.y, lessEqual.u2) annotation(
-    Line(points = {{-159, -80}, {-140, -80}, {-140, -68}, {-122, -68}}, color = {0, 0, 127}));
   connect(timer.y, greater.u1) annotation(
     Line(points = {{-59, 60}, {-40, 60}, {-40, 40}, {-22, 40}}, color = {0, 0, 127}));
   connect(combiTable1D.y[1], greater.u2) annotation(
@@ -135,32 +121,28 @@ equation
     Line(points = {{-59, -60}, {-40, -60}, {-40, -48}, {-22, -48}}, color = {0, 0, 127}));
   connect(or1.y, fOCB) annotation(
     Line(points = {{161.5, 0}, {210, 0}}, color = {255, 0, 255}));
-  connect(filter.y, greaterEqual.u1) annotation(
+  connect(filter.y, greaterEqual.u) annotation(
     Line(points = {{-159, 0}, {-140, 0}, {-140, 60}, {-122, 60}}, color = {0, 0, 127}));
   connect(filter.y, combiTable1D.u) annotation(
     Line(points = {{-159, 0}, {-140, 0}, {-140, 20}, {-82, 20}}, color = {0, 0, 127}));
   connect(filter.y, combiTable1D1.u) annotation(
     Line(points = {{-159, 0}, {-140, 0}, {-140, -20}, {-82, -20}}, color = {0, 0, 127}));
-  connect(filter.y, lessEqual.u1) annotation(
+  connect(filter.y, lessEqual.u) annotation(
     Line(points = {{-159, 0}, {-140, 0}, {-140, -60}, {-122, -60}}, color = {0, 0, 127}));
   connect(UMonitoredPu, filter.u) annotation(
     Line(points = {{-220, 0}, {-182, 0}}, color = {0, 0, 127}));
   connect(or1.y, pre1.u) annotation(
-    Line(points = {{161.5, 0}, {179.5, 0}, {179.5, -40}, {161.5, -40}}, color = {255, 0, 255}));
+    Line(points = {{161, 0}, {180, 0}, {180, -40}, {161, -40}}, color = {255, 0, 255}));
   connect(pre1.y, or1.u[3]) annotation(
-    Line(points = {{139, -40}, {130, -40}, {130, 0}, {139, 0}}, color = {255, 0, 255}));
-  connect(timer2.y, greater2.u1) annotation(
-    Line(points = {{41, 40}, {77, 40}}, color = {0, 0, 127}));
-  connect(const2.y, greater2.u2) annotation(
-    Line(points = {{41, 0}, {60, 0}, {60, 32}, {77, 32}}, color = {0, 0, 127}));
-  connect(timer3.y, greater3.u1) annotation(
-    Line(points = {{41, -40}, {77, -40}}, color = {0, 0, 127}));
-  connect(const2.y, greater3.u2) annotation(
-    Line(points = {{41, 0}, {60, 0}, {60, -32}, {77, -32}}, color = {0, 0, 127}));
+    Line(points = {{139, -40}, {120, -40}, {120, 0}, {139, 0}}, color = {255, 0, 255}));
+  connect(timer2.y, greater2.u) annotation(
+    Line(points = {{41, 40}, {58, 40}}, color = {0, 0, 127}));
+  connect(timer3.y, greater3.u) annotation(
+    Line(points = {{41, -40}, {58, -40}}, color = {0, 0, 127}));
   connect(greater2.y, or1.u[1]) annotation(
-    Line(points = {{102, 40}, {120, 40}, {120, 0}, {140, 0}}, color = {255, 0, 255}));
+    Line(points = {{81, 40}, {100, 40}, {100, 0}, {140, 0}}, color = {255, 0, 255}));
   connect(greater3.y, or1.u[2]) annotation(
-    Line(points = {{102, -40}, {120, -40}, {120, 0}, {140, 0}}, color = {255, 0, 255}));
+    Line(points = {{81, -40}, {100, -40}, {100, 0}, {140, 0}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
