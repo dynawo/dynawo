@@ -28,6 +28,7 @@ var a03396 =
     [ "getVNom", "d3/dc2/a03396.html#a55493e271c7690cd600bf3dd402baf78", null ],
     [ "iiAdd", "d3/dc2/a03396.html#a53b04089e093a9a7586c4f347e671a21", null ],
     [ "init", "d3/dc2/a03396.html#ade4c17b5a879697b36dc09020823c00c", null ],
+    [ "initSize", "d3/dc2/a03396.html#a1d18226011bb26330b11e2b61e2a2519", null ],
     [ "irAdd", "d3/dc2/a03396.html#a1bf6b249132cc301ad1b8771e0bf8878", null ],
     [ "resetCurrentUStatus", "d3/dc2/a03396.html#a0cb4826aa9d858ac96ebb1ed6e013902", null ],
     [ "resetDerivatives", "d3/dc2/a03396.html#a42bcc501e135c4eae9e510720dc36beb", null ],

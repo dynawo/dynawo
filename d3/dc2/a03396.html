@@ -130,6 +130,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a877c79bd6f1d31ec79367a4e23fb696a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a877c79bd6f1d31ec79367a4e23fb696a">ui</a> () const override</td></tr>
 <tr class="memdesc:a877c79bd6f1d31ec79367a4e23fb696a"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve the imaginary part of the voltage  <a href="#a877c79bd6f1d31ec79367a4e23fb696a">More...</a><br /></td></tr>
 <tr class="separator:a877c79bd6f1d31ec79367a4e23fb696a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d18226011bb26330b11e2b61e2a2519"><td class="memItemLeft" align="right" valign="top"><a id="a1d18226011bb26330b11e2b61e2a2519"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a1d18226011bb26330b11e2b61e2a2519">initSize</a> () override</td></tr>
+<tr class="memdesc:a1d18226011bb26330b11e2b61e2a2519"><td class="mdescLeft">&#160;</td><td class="mdescRight">init size <br /></td></tr>
+<tr class="separator:a1d18226011bb26330b11e2b61e2a2519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6d38569d7d4f6192f9f8a70235d6a08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d63/a03500.html#ab067ace2562da72e4017d1c2cca12867">StateChange_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#ae6d38569d7d4f6192f9f8a70235d6a08">evalZ</a> (double, bool) override</td></tr>
+<tr class="memdesc:ae6d38569d7d4f6192f9f8a70235d6a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation Z  <a href="#ae6d38569d7d4f6192f9f8a70235d6a08">More...</a><br /></td></tr>
+<tr class="separator:ae6d38569d7d4f6192f9f8a70235d6a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a766bb64914033baf19ad1be9a24cdf36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a766bb64914033baf19ad1be9a24cdf36">evalG</a> (double) override</td></tr>
+<tr class="memdesc:a766bb64914033baf19ad1be9a24cdf36"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation G  <a href="#a766bb64914033baf19ad1be9a24cdf36">More...</a><br /></td></tr>
+<tr class="separator:a766bb64914033baf19ad1be9a24cdf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7760fb25f7bc76684cb6e970d5553cc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a7760fb25f7bc76684cb6e970d5553cc9">setGequations</a> (std::map&lt; int, std::string &gt; &amp;) override</td></tr>
+<tr class="memdesc:a7760fb25f7bc76684cb6e970d5553cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set root equation's formula  <a href="#a7760fb25f7bc76684cb6e970d5553cc9">More...</a><br /></td></tr>
+<tr class="separator:a7760fb25f7bc76684cb6e970d5553cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15f66585602ba7a0fc6063fc5f5f3cfe"><td class="memItemLeft" align="right" valign="top"><a id="a15f66585602ba7a0fc6063fc5f5f3cfe"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a15f66585602ba7a0fc6063fc5f5f3cfe">resetNodeInjection</a> () override</td></tr>
 <tr class="memdesc:a15f66585602ba7a0fc6063fc5f5f3cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset node injection <br /></td></tr>
@@ -172,21 +185,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a56682afcb5ffcefb575f4e4cfe6e041c"><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="../../d6/d8d/a03388.html">BusDerivatives</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a56682afcb5ffcefb575f4e4cfe6e041c">derivativesPrim</a> () override</td></tr>
 <tr class="memdesc:a56682afcb5ffcefb575f4e4cfe6e041c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the differiential bus derivatives (resulting of node injections)  <a href="#a56682afcb5ffcefb575f4e4cfe6e041c">More...</a><br /></td></tr>
 <tr class="separator:a56682afcb5ffcefb575f4e4cfe6e041c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6d38569d7d4f6192f9f8a70235d6a08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d63/a03500.html#ab067ace2562da72e4017d1c2cca12867">StateChange_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#ae6d38569d7d4f6192f9f8a70235d6a08">evalZ</a> (double, bool) override</td></tr>
-<tr class="memdesc:ae6d38569d7d4f6192f9f8a70235d6a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation Z  <a href="#ae6d38569d7d4f6192f9f8a70235d6a08">More...</a><br /></td></tr>
-<tr class="separator:ae6d38569d7d4f6192f9f8a70235d6a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9992984b0734dd5e71581e4fab90475a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d63/a03500.html#ab067ace2562da72e4017d1c2cca12867">NetworkComponent::StateChange_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a9992984b0734dd5e71581e4fab90475a">evalState</a> (double) override</td></tr>
 <tr class="memdesc:a9992984b0734dd5e71581e4fab90475a"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate state  <a href="#a9992984b0734dd5e71581e4fab90475a">More...</a><br /></td></tr>
 <tr class="separator:a9992984b0734dd5e71581e4fab90475a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb592c1e238e5930fb292db103872a40"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#abb592c1e238e5930fb292db103872a40">evalCalculatedVarI</a> (unsigned numCalculatedVar) const override</td></tr>
 <tr class="memdesc:abb592c1e238e5930fb292db103872a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate the value of a calculated variable  <a href="#abb592c1e238e5930fb292db103872a40">More...</a><br /></td></tr>
 <tr class="separator:abb592c1e238e5930fb292db103872a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a766bb64914033baf19ad1be9a24cdf36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a766bb64914033baf19ad1be9a24cdf36">evalG</a> (double) override</td></tr>
-<tr class="memdesc:a766bb64914033baf19ad1be9a24cdf36"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluation G  <a href="#a766bb64914033baf19ad1be9a24cdf36">More...</a><br /></td></tr>
-<tr class="separator:a766bb64914033baf19ad1be9a24cdf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7760fb25f7bc76684cb6e970d5553cc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a7760fb25f7bc76684cb6e970d5553cc9">setGequations</a> (std::map&lt; int, std::string &gt; &amp;) override</td></tr>
-<tr class="memdesc:a7760fb25f7bc76684cb6e970d5553cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set root equation's formula  <a href="#a7760fb25f7bc76684cb6e970d5553cc9">More...</a><br /></td></tr>
-<tr class="separator:a7760fb25f7bc76684cb6e970d5553cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e16b594b5242eae840f908d42bc2f6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc2/a03396.html#a3e16b594b5242eae840f908d42bc2f6e">evalDerivatives</a> (double) override</td></tr>
 <tr class="memdesc:a3e16b594b5242eae840f908d42bc2f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluate derivatives  <a href="#a3e16b594b5242eae840f908d42bc2f6e">More...</a><br /></td></tr>
 <tr class="separator:a3e16b594b5242eae840f908d42bc2f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,10 +257,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memdesc:adf833a90114bc4a6f9b7eee316497ba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the silent flag for discrete variables  <a href="#adf833a90114bc4a6f9b7eee316497ba2">More...</a><br /></td></tr>
 <tr class="separator:adf833a90114bc4a6f9b7eee316497ba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_a03392"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_a03392')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/d21/a03392.html">DYN::ModelBus</a></td></tr>
-<tr class="memitem:a3eb922305208f68f37270743ec6672d4 inherit pub_methods_a03392"><td class="memItemLeft" align="right" valign="top"><a id="a3eb922305208f68f37270743ec6672d4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d21/a03392.html#a3eb922305208f68f37270743ec6672d4">initSize</a> () override</td></tr>
-<tr class="memdesc:a3eb922305208f68f37270743ec6672d4 inherit pub_methods_a03392"><td class="mdescLeft">&#160;</td><td class="mdescRight">init size <br /></td></tr>
-<tr class="separator:a3eb922305208f68f37270743ec6672d4 inherit pub_methods_a03392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dfac4b9ddafe17122f9124d718bcbcc inherit pub_methods_a03392"><td class="memItemLeft" align="right" valign="top"><a id="a9dfac4b9ddafe17122f9124d718bcbcc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d21/a03392.html#a9dfac4b9ddafe17122f9124d718bcbcc">getY0</a> () override</td></tr>
 <tr class="memdesc:a9dfac4b9ddafe17122f9124d718bcbcc inherit pub_methods_a03392"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the initial values for discrete/continuous variables <br /></td></tr>
@@ -1006,7 +1006,7 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1237,7 +1237,7 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1533,7 +1533,7 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="e
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1786,7 +1786,7 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../d3/dc2/a03396.html">ModelBusBridged</a></li>
-    <li class="footer">Generated on Wed Oct 14 2026 10:49:59 for Dynawo by
+    <li class="footer">Generated on Thu Oct 15 2026 09:25:24 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

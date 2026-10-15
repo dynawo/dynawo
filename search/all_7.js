@@ -175,7 +175,6 @@ var searchData=
   ['getdynamicfilename',['getDynamicFileName',['../d4/ddd/a02040.html#a6102ae344efcb3459230d3784c7c103c',1,'dynamicdata::UnitDynamicModel']]],
   ['getdynamicmodelname',['getDynamicModelName',['../d4/ddd/a02040.html#a3709cb121d4018f3a11fdc20864ee7fa',1,'dynamicdata::UnitDynamicModel']]],
   ['getdynamicmodelscollection',['getDynamicModelsCollection',['../d8/d84/a02112.html#a3aa8ee1bcd9b900ce21dfcaa27175b45',1,'dynamicdata::XmlHandler::getDynamicModelsCollection()'],['../d8/d93/a02884.html#a3cf3e54930c887db26c9bef3a96e766b',1,'DYN::DynamicData::getDynamicModelsCollection()']]],
-  ['getdynamicstate',['getDynamicState',['../d4/d5b/a03496.html#a87ad420aff59f8a6dcd998cc471ba93a',1,'DYN::NetworkBridgeQuadripole']]],
   ['getdynmodelsentries',['getDynModelsEntries',['../df/d73/a02312.html#af187f5c11c13b348df6c62d08682b555',1,'job::ModelerEntry']]],
   ['getelements',['getElements',['../d9/dc5/a02924.html#a6b29a20466472e45e348133b1b548bfe',1,'DYN::SubModel']]],
   ['getendpoint',['getEndpoint',['../d6/dd1/a02212.html#a6e46829764256513ef4db32bbc68b47b',1,'job::ChannelEntry']]],
