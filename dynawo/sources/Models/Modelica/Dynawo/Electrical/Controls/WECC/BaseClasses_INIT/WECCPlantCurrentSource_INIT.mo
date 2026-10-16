@@ -36,8 +36,7 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
   Types.ComplexPerUnit iConv0Pu "Start value of complex current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.ComplexPerUnit iInj0Pu "Start value of complex current at injector in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit Iq0Pu "Start value of q-axis current at injector in pu (base UNom, SNom) (generator convention)";
-  Types.ComplexPerUnit iPcc0Pu "Start value of complex current at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
-    Dialog(enable = not PPCLocal));
+  Types.ComplexPerUnit iPcc0Pu "Start value of complex current at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)";
   Types.PerUnit PInj0Pu "Start value of active power at injector in pu (base SNom) (generator convention)";
   Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (base SNom) (generator convention)";
   Types.PerUnit PF0 "Start value of power factor";
@@ -46,8 +45,7 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
   Types.ComplexPerUnit s0Pu "Start value of complex apparent power at terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexPerUnit sConv0Pu "Start value of complex apparent power at converter in pu (base SNom) (generator convention)";
   Types.ComplexPerUnit sInj0Pu "Start value of complex apparent power at injector in pu (base SNom) (generator convention)";
-  Types.ComplexPerUnit sPcc0Pu "Start value of complex apparent power at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
-    Dialog(enable = not PPCLocal));
+  Types.ComplexPerUnit sPcc0Pu "Start value of complex apparent power at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)";
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   Types.VoltageModulePu UControl0Pu "Initial voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)";
   Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
@@ -55,8 +53,7 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
   Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
-  Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)" annotation(
-    Dialog(enable = not PPCLocal));
+  Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)";
   Types.PerUnit Pm0Pu "Initial mechanical power in pu (base SNom)";
 
 equation
