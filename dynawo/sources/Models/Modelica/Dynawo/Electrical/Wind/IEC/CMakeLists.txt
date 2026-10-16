@@ -10,6 +10,7 @@
 # of simulation tools for power systems.
 
 add_subdirectory(BaseClasses B)
+add_subdirectory(BaseClasses_INIT BI)
 add_subdirectory(WPP W)
 add_subdirectory(WT T)
 
