@@ -31,7 +31,7 @@ partial model BaseWTGT "Drive Train Control Base Model"
     Placement(visible = true, transformation(origin = {170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {60, 140}, extent = {{20, -20}, {-20, 20}}, rotation = -90)));
 
   Modelica.Blocks.Math.Add OmegaGenerator annotation(
-    Placement(visible = true, transformation(origin = {74, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {70, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add OmegaTurbine annotation(
     Placement(visible = true, transformation(origin = {70, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division TorqueE annotation(
@@ -110,13 +110,13 @@ equation
   connect(OmegaTurbine.y, TorqueM.u2) annotation(
     Line(points = {{81, 66}, {100, 66}, {100, 120}, {-180, 120}, {-180, 66}, {-162, 66}}, color = {0, 0, 127}));
   connect(OmegaGenerator.y, TorqueE.u2) annotation(
-    Line(points = {{86, -66}, {100, -66}, {100, -120}, {-180, -120}, {-180, -66}, {-162, -66}}, color = {0, 0, 127}));
+    Line(points = {{81, -66}, {100, -66}, {100, -120}, {-180, -120}, {-180, -66}, {-162, -66}}, color = {0, 0, 127}));
   connect(OmegaGenerator.y, omegaGPu) annotation(
-    Line(points = {{86, -66}, {100, -66}, {100, -120}, {170, -120}}, color = {0, 0, 127}));
+    Line(points = {{81, -66}, {100, -66}, {100, -120}, {170, -120}}, color = {0, 0, 127}));
   connect(OmegaTurbine.y, omegaTPu) annotation(
     Line(points = {{81, 66}, {100, 66}, {100, 120}, {170, 120}}, color = {0, 0, 127}));
   connect(omegaRefPu1.y, OmegaGenerator.u2) annotation(
-    Line(points = {{22, -100}, {40, -100}, {40, -72}, {62, -72}}, color = {0, 0, 127}));
+    Line(points = {{22, -100}, {40, -100}, {40, -72}, {58, -72}}, color = {0, 0, 127}));
   connect(dOmegaTurbine.y, OmegaTurbine.u2) annotation(
     Line(points = {{-18, 60}, {58, 60}}, color = {0, 0, 127}));
   connect(omegaRefPu2.y, OmegaTurbine.u1) annotation(
