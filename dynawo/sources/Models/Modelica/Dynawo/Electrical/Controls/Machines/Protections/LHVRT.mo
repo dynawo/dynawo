@@ -97,22 +97,6 @@ equation
     tThresholdReachedLvrt = Modelica.Constants.inf;
   end when;
 
-  when greaterEqual.y then
-    timer.u = true;
-  end when;
-
-  when lessEqual.y then
-    timer1.u = true;
-  end when;
-
-  when greater.y then
-    timer2.u = true;
-  end when;
-
-  when less.y then
-    timer3.u = true;
-  end when;
-
   when greater2.y and not(pre(fOCB)) then
     Timeline.logEvent1(TimelineKeys.HVRTTripped);
   end when;
@@ -146,7 +130,7 @@ equation
   connect(UMonitoredPu, filter.u) annotation(
     Line(points = {{-220, 0}, {-182, 0}}, color = {0, 0, 127}));
   connect(or1.y, pre1.u) annotation(
-    Line(points = {{161.5, 0}, {179.5, 0}, {179.5, -40}, {161.5, -40}}, color = {255, 0, 255}));
+    Line(points = {{161, 0}, {180, 0}, {180, -40}, {161, -40}}, color = {255, 0, 255}));
   connect(pre1.y, or1.u[3]) annotation(
     Line(points = {{139, -40}, {130, -40}, {130, 0}, {139, 0}}, color = {255, 0, 255}));
   connect(timer2.y, greater2.u1) annotation(
@@ -161,6 +145,14 @@ equation
     Line(points = {{102, 40}, {120, 40}, {120, 0}, {140, 0}}, color = {255, 0, 255}));
   connect(greater3.y, or1.u[2]) annotation(
     Line(points = {{102, -40}, {120, -40}, {120, 0}, {140, 0}}, color = {255, 0, 255}));
+  connect(greaterEqual.y, timer.u) annotation(
+    Line(points = {{-98, 60}, {-82, 60}}, color = {255, 0, 255}));
+  connect(lessEqual.y, timer1.u) annotation(
+    Line(points = {{-98, -60}, {-82, -60}}, color = {255, 0, 255}));
+  connect(greater.y, timer2.u) annotation(
+    Line(points = {{2, 40}, {18, 40}}, color = {255, 0, 255}));
+  connect(less.y, timer3.u) annotation(
+    Line(points = {{2, -40}, {18, -40}}, color = {255, 0, 255}));
 
   annotation(
     preferredView = "diagram",
