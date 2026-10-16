@@ -175,13 +175,13 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
   bool* zConnected = new bool[capa->sizeZ()];
   for (int i = 0; i < capa->sizeZ(); ++i)
     zConnected[i] = true;
-  capa->setReferenceZ(&z[0], zConnected, 0);
-  capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  capa->setReferenceZ(z.data(), zConnected, 0);
+  capa->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   capa->evalYMat();
   ASSERT_EQ(capa->sizeCalculatedVar(), ModelShuntCompensator::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelShuntCompensator::nbCalculatedVariables_, 0.);
-  capa->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  capa->setReferenceCalculatedVar(calculatedVars.data(), 0);
   capa->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelShuntCompensator::qNum_], -32.5);
   ASSERT_DOUBLE_EQUALS_DYNAWO(capa->evalCalculatedVarI(ModelShuntCompensator::qNum_), calculatedVars[ModelShuntCompensator::qNum_]);
@@ -234,13 +234,13 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariablesFlat) {
   bool* zConnected = new bool[capa->sizeZ()];
   for (int i = 0; i < capa->sizeZ(); ++i)
     zConnected[i] = true;
-  capa->setReferenceZ(&z[0], zConnected, 0);
-  capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  capa->setReferenceZ(z.data(), zConnected, 0);
+  capa->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   capa->evalYMat();
   ASSERT_EQ(capa->sizeCalculatedVar(), ModelShuntCompensator::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelShuntCompensator::nbCalculatedVariables_, 0.);
-  capa->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  capa->setReferenceCalculatedVar(calculatedVars.data(), 0);
   capa->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelShuntCompensator::qNum_], -32.5);
   ASSERT_DOUBLE_EQUALS_DYNAWO(capa->evalCalculatedVarI(ModelShuntCompensator::qNum_), calculatedVars[ModelShuntCompensator::qNum_]);
@@ -274,12 +274,12 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   std::vector<double> f(capa->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
-  capa->setReferenceG(&g[0], 0);
+  capa->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[nbZ];
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
-  capa->setReferenceZ(&z[0], zConnected, 0);
-  capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  capa->setReferenceZ(z.data(), zConnected, 0);
+  capa->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
 
   capa->getY0();
   ASSERT_EQ(capa->getConnected(), CLOSED);
@@ -376,12 +376,12 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariablesOnlyEvalua
   std::vector<double> f(capa->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
-  capa->setReferenceG(&g[0], 0);
+  capa->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[nbZ];
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
-  capa->setReferenceZ(&z[0], zConnected, 0);
-  capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  capa->setReferenceZ(z.data(), zConnected, 0);
+  capa->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
 
   capa->getY0();
   ASSERT_EQ(capa->getConnected(), CLOSED);

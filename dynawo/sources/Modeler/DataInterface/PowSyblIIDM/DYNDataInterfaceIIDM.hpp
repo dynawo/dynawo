@@ -20,6 +20,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDATAINTERFACEIIDM_HPP_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDATAINTERFACEIIDM_HPP_
 
+#include <memory>
+
 #include "make_unique.hpp"
 
 #include <boost/pointer_cast.hpp>

@@ -43,17 +43,17 @@ class ModelUpdatableIntegerFactory : public SubModelFactory {
   * @brief default destructor
   *
   */
-  virtual ~ModelUpdatableIntegerFactory() = default;
+  ~ModelUpdatableIntegerFactory() override = default;
   /**
   * @brief ModelUpdatableInteger getter
   *
   * @return A pointer to a new instance of ModelUpdatableInteger
   */
-  SubModel* create() const;
+  SubModel* create() const override;
   /**
   * @brief ModelUpdatableInteger destroy
   */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**

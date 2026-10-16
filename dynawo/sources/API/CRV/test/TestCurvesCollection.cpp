@@ -53,7 +53,7 @@ TEST(APICRVTest, CurvesCollectionIterator) {
   curve1->setAsParameterCurve(true);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
   curvesCollection1->add(curve1);
 
   std::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
@@ -64,7 +64,7 @@ TEST(APICRVTest, CurvesCollectionIterator) {
   curve2->setAsParameterCurve(false);
   std::vector<double> variables2;
   variables2.assign(3, 4);
-  curve2->setBuffer(&variables2[0]);
+  curve2->setBuffer(variables2.data());
   curvesCollection1->add(curve2);
 
   int nbPoints = 0;

@@ -20,6 +20,8 @@
 #ifndef API_PAR_PARPARAMETERSSETCOLLECTIONFACTORY_H_
 #define API_PAR_PARPARAMETERSSETCOLLECTIONFACTORY_H_
 
+#include <memory>
+
 #include "PARParametersSetCollection.h"
 
 

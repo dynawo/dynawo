@@ -95,8 +95,8 @@ TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerTypeMethods) {
   unsigned nbF = 0;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
-  modelUpdatableInteger->setBufferYType(&yTypes[0], 0);
-  modelUpdatableInteger->setBufferFType(&fTypes[0], 0);
+  modelUpdatableInteger->setBufferYType(yTypes.data(), 0);
+  modelUpdatableInteger->setBufferFType(fTypes.data(), 0);
 
   ASSERT_EQ(modelUpdatableInteger->sizeY(), nbY);
   ASSERT_EQ(modelUpdatableInteger->sizeF(), nbF);
@@ -110,7 +110,7 @@ TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerTypeMethods) {
 TEST(ModelsModelUpdatableInteger, ModelUpdatableIntegerUpdate) {
   boost::shared_ptr<SubModel> modelUpdatableInteger = initModelUpdatableInteger();
   std::vector<state_g> g(modelUpdatableInteger->sizeG(), ROOT_DOWN);
-  modelUpdatableInteger->setBufferG(&g[0], 0);
+  modelUpdatableInteger->setBufferG(g.data(), 0);
   modelUpdatableInteger->evalG(0);
   modeChangeType_t mode = modelUpdatableInteger->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);

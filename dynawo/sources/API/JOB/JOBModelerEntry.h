@@ -26,6 +26,7 @@
 #include "JOBModelsDirEntry.h"
 #include "JOBNetworkEntry.h"
 
+#include <memory>
 #include <string>
 #include <vector>
 

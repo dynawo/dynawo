@@ -155,8 +155,8 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingTypeMethods) {
   unsigned nbF = 4;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
-  ModelAreaShedding->setBufferYType(&yTypes[0], 0);
-  ModelAreaShedding->setBufferFType(&fTypes[0], 0);
+  ModelAreaShedding->setBufferYType(yTypes.data(), 0);
+  ModelAreaShedding->setBufferFType(fTypes.data(), 0);
 
   ASSERT_EQ(ModelAreaShedding->sizeY(), nbY);
   ASSERT_EQ(ModelAreaShedding->sizeF(), nbF);
@@ -182,12 +182,12 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingInit) {
   boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding();
   std::vector<double> y(ModelAreaShedding->sizeY(), 0);
   std::vector<double> yp(ModelAreaShedding->sizeY(), 0);
-  ModelAreaShedding->setBufferY(&y[0], &yp[0], 0.);
+  ModelAreaShedding->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(ModelAreaShedding->sizeZ(), 0);
   bool* zConnected = new bool[ModelAreaShedding->sizeZ()];
   for (size_t i = 0; i < ModelAreaShedding->sizeZ(); ++i)
     zConnected[i] = true;
-  ModelAreaShedding->setBufferZ(&z[0], zConnected, 0);
+  ModelAreaShedding->setBufferZ(z.data(), zConnected, 0);
   ModelAreaShedding->init(0);
   ModelAreaShedding->getY0();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
@@ -208,17 +208,17 @@ TEST(ModelsModelAreaShedding, ModelAreaSheddingContinuousAndDiscreteMethods) {
   boost::shared_ptr<SubModel> ModelAreaShedding = initModelAreaShedding();
   std::vector<double> y(ModelAreaShedding->sizeY(), 0);
   std::vector<double> yp(ModelAreaShedding->sizeY(), 0);
-  ModelAreaShedding->setBufferY(&y[0], &yp[0], 0.);
+  ModelAreaShedding->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(ModelAreaShedding->sizeZ(), 0);
   bool* zConnected = new bool[ModelAreaShedding->sizeZ()];
   for (size_t i = 0; i < ModelAreaShedding->sizeZ(); ++i)
     zConnected[i] = true;
-  ModelAreaShedding->setBufferZ(&z[0], zConnected, 0);
+  ModelAreaShedding->setBufferZ(z.data(), zConnected, 0);
   BitMask* silentZ = new BitMask[ModelAreaShedding->sizeZ()];
   std::vector<state_g> g(ModelAreaShedding->sizeG(), ROOT_DOWN);
-  ModelAreaShedding->setBufferG(&g[0], 0);
+  ModelAreaShedding->setBufferG(g.data(), 0);
   std::vector<double> f(ModelAreaShedding->sizeF(), 0);
-  ModelAreaShedding->setBufferF(&f[0], 0);
+  ModelAreaShedding->setBufferF(f.data(), 0);
   ModelAreaShedding->init(0);
   ModelAreaShedding->getY0();
   ASSERT_NO_THROW(ModelAreaShedding->setFequations());

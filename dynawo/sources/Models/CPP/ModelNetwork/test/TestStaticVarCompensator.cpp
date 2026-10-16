@@ -148,13 +148,13 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   bool* zConnected = new bool[svc->sizeZ()];
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
-  svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceZ(z.data(), zConnected, 0);
+  svc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   svc->evalYMat();
   ASSERT_EQ(svc->sizeCalculatedVar(), ModelStaticVarCompensator::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelStaticVarCompensator::nbCalculatedVariables_, 0.);
-  svc->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  svc->setReferenceCalculatedVar(calculatedVars.data(), 0);
   svc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::pNum_], -12.1875);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], -20.3125);
@@ -206,13 +206,13 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariablesFlat
   bool* zConnected = new bool[svc->sizeZ()];
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
-  svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceZ(z.data(), zConnected, 0);
+  svc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   svc->evalYMat();
   ASSERT_EQ(svc->sizeCalculatedVar(), ModelStaticVarCompensator::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelStaticVarCompensator::nbCalculatedVariables_, 0.);
-  svc->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  svc->setReferenceCalculatedVar(calculatedVars.data(), 0);
   svc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::pNum_], -0.4875);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], -0.13);
@@ -265,12 +265,12 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   std::vector<double> f(svc->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
-  svc->setReferenceG(&g[0], 0);
+  svc->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[svc->sizeZ()];
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
-  svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceZ(z.data(), zConnected, 0);
+  svc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
 
   svc->getY0();
   ASSERT_EQ(svc->getConnected(), CLOSED);
@@ -310,14 +310,14 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   svc->evalYMat();
-  svc->setBufferYType(&yTypes[0], 0);
-  svc->setBufferFType(&fTypes[0], 0);
-  svc->setReferenceG(&g[0], 0);
+  svc->setBufferYType(yTypes.data(), 0);
+  svc->setBufferFType(fTypes.data(), 0);
+  svc->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[svc->sizeZ()];
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
-  svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceZ(z.data(), zConnected, 0);
+  svc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   ASSERT_EQ(svc->sizeY(), nbY);
   ASSERT_EQ(svc->sizeF(), nbF);
 
@@ -384,14 +384,14 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   std::vector<propertyContinuousVar_t> yTypes(svc->sizeY(), UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(svc->sizeF(), UNDEFINED_EQ);
   svc->evalYMat();
-  svc->setBufferYType(&yTypes[0], 0);
-  svc->setBufferFType(&fTypes[0], 0);
-  svc->setReferenceG(&g[0], 0);
+  svc->setBufferYType(yTypes.data(), 0);
+  svc->setBufferFType(fTypes.data(), 0);
+  svc->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[svc->sizeZ()];
   for (int i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
-  svc->setReferenceZ(&z[0], zConnected, 0);
-  svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  svc->setReferenceZ(z.data(), zConnected, 0);
+  svc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   svc->evalYMat();
   SparseMatrix smj;
   int size = svc->sizeY();

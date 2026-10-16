@@ -28,6 +28,7 @@
 #include "JOBLocalInitEntry.h"
 #include "JOBInteractiveSettingsEntry.h"
 
+#include <memory>
 #include <string>
 
 namespace job {

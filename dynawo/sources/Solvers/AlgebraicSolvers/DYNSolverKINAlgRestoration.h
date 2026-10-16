@@ -21,6 +21,7 @@
 #define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINALGRESTORATION_H_
 
 #include <boost/core/noncopyable.hpp>
+#include <memory>
 #include <unordered_set>
 #include <string>
 #include <vector>

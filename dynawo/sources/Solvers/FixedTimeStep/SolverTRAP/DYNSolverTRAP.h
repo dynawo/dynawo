@@ -21,6 +21,7 @@
 #ifndef SOLVERS_FIXEDTIMESTEP_SOLVERTRAP_DYNSOLVERTRAP_H_
 #define SOLVERS_FIXEDTIMESTEP_SOLVERTRAP_DYNSOLVERTRAP_H_
 
+#include <memory>
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include <sundials/sundials_nvector.h>

@@ -121,9 +121,9 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsTypeMethods)
   bool* zConnected = new bool[modelLoad->sizeZ()];
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
     zConnected[i] = true;
-  modelLoad->setBufferYType(&yTypes[0], 0);
-  modelLoad->setBufferFType(&fTypes[0], 0);
-  modelLoad->setBufferZ(&z[0], zConnected, 0);
+  modelLoad->setBufferYType(yTypes.data(), 0);
+  modelLoad->setBufferFType(fTypes.data(), 0);
+  modelLoad->setBufferZ(z.data(), zConnected, 0);
 
   ASSERT_EQ(modelLoad->sizeY(), nbY);
   ASSERT_EQ(modelLoad->sizeF(), nbF);
@@ -145,12 +145,12 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsInit) {
   boost::shared_ptr<SubModel> modelLoad = initModelLoad(1.0);
   std::vector<double> y(modelLoad->sizeY(), 0);
   std::vector<double> yp(modelLoad->sizeY(), 0);
-  modelLoad->setBufferY(&y[0], &yp[0], 0.);
+  modelLoad->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(modelLoad->sizeZ(), 0);
   bool* zConnected = new bool[modelLoad->sizeZ()];
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
     zConnected[i] = true;
-  modelLoad->setBufferZ(&z[0], zConnected, 0);
+  modelLoad->setBufferZ(z.data(), zConnected, 0);
   modelLoad->init(0);
   modelLoad->getY0();
 
@@ -182,25 +182,25 @@ TEST(ModelsLoadRestorativeWithLimits, ModelLoadRestorativeWithLimitsContinuousAn
   std::vector<propertyF_t> fType(modelLoad->sizeY(), ALGEBRAIC_EQ);
   fType[0] = DIFFERENTIAL_EQ;
   std::vector<double> yp(modelLoad->sizeY(), 0);
-  modelLoad->setBufferY(&y[0], &yp[0], 0.);
-  modelLoad->setBufferYType(&yType[0], 0);
-  modelLoad->setBufferFType(&fType[0], 0);
+  modelLoad->setBufferY(y.data(), yp.data(), 0.);
+  modelLoad->setBufferYType(yType.data(), 0);
+  modelLoad->setBufferFType(fType.data(), 0);
   std::vector<double> z(modelLoad->sizeZ(), 0);
   bool* zConnected = new bool[modelLoad->sizeZ()];
   for (size_t i = 0; i < modelLoad->sizeZ(); ++i)
     zConnected[i] = true;
-  modelLoad->setBufferZ(&z[0], zConnected, 0);
+  modelLoad->setBufferZ(z.data(), zConnected, 0);
   BitMask* silentZ = new BitMask[modelLoad->sizeZ()];
   z[0] = -1;
   z[1] = -1;
   z[2] = 1;
   std::vector<double> f(modelLoad->sizeF(), 0);
-  modelLoad->setBufferF(&f[0], 0);
+  modelLoad->setBufferF(f.data(), 0);
   modelLoad->init(0);
   modelLoad->getY0();
   ASSERT_NO_THROW(modelLoad->setFequations());
   std::vector<state_g> g(modelLoad->sizeG(), ROOT_DOWN);
-  modelLoad->setBufferG(&g[0], 0);
+  modelLoad->setBufferG(g.data(), 0);
   ASSERT_NO_THROW(modelLoad->evalG(0.));
   ASSERT_NO_THROW(modelLoad->setGequations());
   ASSERT_NO_THROW(modelLoad->evalMode(0.));

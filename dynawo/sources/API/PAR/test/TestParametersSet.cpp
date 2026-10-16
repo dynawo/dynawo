@@ -16,6 +16,7 @@
  * @brief Unit tests for API_PAR
  */
 
+#include <array>
 #include <vector>
 #include <map>
 

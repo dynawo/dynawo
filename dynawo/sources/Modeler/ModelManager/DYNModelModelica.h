@@ -21,6 +21,7 @@
 #ifndef MODELER_MODELMANAGER_DYNMODELMODELICA_H_
 #define MODELER_MODELMANAGER_DYNMODELMODELICA_H_
 
+#include <memory>
 #include <string>
 #include <map>
 #include <vector>

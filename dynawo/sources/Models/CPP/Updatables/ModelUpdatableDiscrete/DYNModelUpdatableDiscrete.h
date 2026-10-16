@@ -43,17 +43,17 @@ class ModelUpdatableDiscreteFactory : public SubModelFactory {
   * @brief default destructor
   *
   */
-  virtual ~ModelUpdatableDiscreteFactory() = default;
+  ~ModelUpdatableDiscreteFactory() override = default;
   /**
   * @brief ModelUpdatableDiscrete getter
   *
   * @return A pointer to a new instance of ModelUpdatableDiscrete
   */
-  SubModel* create() const;
+  SubModel* create() const override;
   /**
   * @brief ModelUpdatableDiscrete destroy
   */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**

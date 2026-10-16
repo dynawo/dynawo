@@ -94,8 +94,8 @@ TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanTypeMethods) {
   unsigned nbF = 0;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
-  modelUpdatableBoolean->setBufferYType(&yTypes[0], 0);
-  modelUpdatableBoolean->setBufferFType(&fTypes[0], 0);
+  modelUpdatableBoolean->setBufferYType(yTypes.data(), 0);
+  modelUpdatableBoolean->setBufferFType(fTypes.data(), 0);
 
   ASSERT_EQ(modelUpdatableBoolean->sizeY(), nbY);
   ASSERT_EQ(modelUpdatableBoolean->sizeF(), nbF);
@@ -109,7 +109,7 @@ TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanTypeMethods) {
 TEST(ModelsModelUpdatableBoolean, ModelUpdatableBooleanUpdate) {
   boost::shared_ptr<SubModel> modelUpdatableBoolean = initModelUpdatableBoolean();
   std::vector<state_g> g(modelUpdatableBoolean->sizeG(), ROOT_DOWN);
-  modelUpdatableBoolean->setBufferG(&g[0], 0);
+  modelUpdatableBoolean->setBufferG(g.data(), 0);
   modelUpdatableBoolean->evalG(0);
   modeChangeType_t mode = modelUpdatableBoolean->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);

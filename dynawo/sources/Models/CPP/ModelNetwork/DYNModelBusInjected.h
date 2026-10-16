@@ -14,6 +14,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELBUSINJECTED_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELBUSINJECTED_H_
 
+#include <memory>
+
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/archive/binary_iarchive.hpp>
@@ -82,7 +84,7 @@ class ModelBusInjected : public ModelBus, public ConstraintSource {  ///< Generi
 
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables) override;
   void defineNonGenericParameters(std::vector<ParameterModeler>& parameters) override;
-  void resetNodeInjection();
+  void resetNodeInjection() override;
   void collectSilentZ(BitMask* silentZTable) override;
   void evalDerivatives(double cj) override;
   void evalF(propertyF_t type) override;

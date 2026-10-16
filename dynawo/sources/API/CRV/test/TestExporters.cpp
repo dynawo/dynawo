@@ -43,7 +43,7 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   curve1->setAsParameterCurve(true);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
   curvesCollection1->add(curve1);
 
   curve1->setFixedValue(5);
@@ -60,7 +60,7 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   curve2->setAsParameterCurve(false);
   std::vector<double> variables2;
   variables2.assign(3, 7);
-  curve2->setBuffer(&variables2[0]);
+  curve2->setBuffer(variables2.data());
   curvesCollection1->add(curve2);
   ASSERT_NO_THROW(curve2->update(0));
   ASSERT_NO_THROW(curve2->update(1));
@@ -83,7 +83,7 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   curve1->setAsParameterCurve(true);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
   curvesCollection1->add(curve1);
 
   curve1->setFixedValue(5);
@@ -101,7 +101,7 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   curve2->setExportType(curves::Curve::EXPORT_AS_BOTH);
   std::vector<double> variables2;
   variables2.assign(3, 7);
-  curve2->setBuffer(&variables2[0]);
+  curve2->setBuffer(variables2.data());
   curvesCollection1->add(curve2);
   ASSERT_NO_THROW(curve2->update(0));
   ASSERT_NO_THROW(curve2->update(1));
@@ -150,7 +150,7 @@ TEST(APICRVTest, TestFSVonlyDataAreNotPrintedInOutput) {
   curve1->setAsParameterCurve(true);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
   curvesCollection->add(curve1);
   curve1->update(0);
   curve1->update(1);
@@ -164,7 +164,7 @@ TEST(APICRVTest, TestFSVonlyDataAreNotPrintedInOutput) {
   curve2->setAsParameterCurve(true);
   std::vector<double> variables2;
   variables2.assign(3, 4);
-  curve2->setBuffer(&variables[0]);
+  curve2->setBuffer(variables.data());
   curve2->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
   curvesCollection->add(curve2);
   curve2->update(0);
@@ -190,7 +190,7 @@ TEST(APICRVTest, CurvesCollectionDontExportUnmarked) {
   curve1->setExportType(curves::Curve::EXPORT_AS_FINAL_STATE_VALUE);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
   curvesCollection1->add(curve1);
 
   curve1->setFixedValue(5);

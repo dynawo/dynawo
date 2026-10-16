@@ -20,6 +20,8 @@
 #ifndef API_EXTVAR_EXTVARXMLEXPORTER_H_
 #define API_EXTVAR_EXTVARXMLEXPORTER_H_
 
+#include <memory>
+
 #include "EXTVARExporter.h"
 #include "EXTVARVariable.h"
 

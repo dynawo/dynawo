@@ -20,6 +20,8 @@
 #ifndef API_FSV_FSVFINALSTATEVALUESCOLLECTIONFACTORY_H_
 #define API_FSV_FSVFINALSTATEVALUESCOLLECTIONFACTORY_H_
 
+#include <memory>
+
 #include "FSVFinalStateValuesCollection.h"
 
 

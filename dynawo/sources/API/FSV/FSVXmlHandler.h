@@ -23,6 +23,8 @@
 #ifndef API_FSV_FSVXMLHANDLER_H_
 #define API_FSV_FSVXMLHANDLER_H_
 
+#include <memory>
+
 #include "FSVFinalStateValue.h"
 #include "FSVFinalStateValuesCollection.h"
 

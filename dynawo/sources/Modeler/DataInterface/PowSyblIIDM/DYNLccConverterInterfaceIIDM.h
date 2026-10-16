@@ -28,6 +28,7 @@
 
 #include <powsybl/iidm/LccConverterStation.hpp>
 
+#include <memory>
 #include <string>
 
 
