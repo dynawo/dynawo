@@ -23,11 +23,12 @@ env:
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci:latest
+    container: dynawo/dynawo-ci-ol8:latest
     env:
       DYNAWO_BUILD_TYPE: ${{ github.event_name == 'workflow_dispatch' && inputs.perform-nrt && 'Release' || 'Debug' }}
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_PYTHON_COMMAND: python3
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
       DYNAWO_NB_PROCESSORS_USED: 2
@@ -110,10 +111,11 @@ jobs:
   coverage:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci:latest
+    container: dynawo/dynawo-ci-ol8:latest
     env:
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_PYTHON_COMMAND: python3
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
       DYNAWO_NB_PROCESSORS_USED: 2

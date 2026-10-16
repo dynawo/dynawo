@@ -15,6 +15,10 @@ on:
         description: Build Linux gcc11 release
         type: boolean
         default: true
+      perform-documentation:
+        description: Build documentation
+        type: boolean
+        default: true
       perform-windows:
         description: Build Windows release
         type: boolean
@@ -62,27 +66,27 @@ jobs:
             const release = require('.github/release.js')
             await release({github, context, core, glob})
 
-  fedora:
+  ol8:
     if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux)
-    name: Linux Fedora (Release, GCC, cxx11)
+    name: Linux OL8 (Release, GCC)
     runs-on: ubuntu-latest
     needs: nightly
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build, Build doc, Build distributions
+      - name: Build, Build distributions
         uses: addnab/docker-run-action@v3
         with:
-          image: dynawo/dynawo-distribution-cxx11:latest
-          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_FORCE_CXX11_ABI -e DYNAWO_NB_PROCESSORS_USED
+          image: dynawo/dynawo-distribution-ol8:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
+            dnf install -y zip
             cd /dynawo
+            git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
-            export DYNAWO_ACTIVATE_HDF5_EXPORT=false
             util/envDynawo.sh build-user
-            util/envDynawo.sh build-doc
             util/envDynawo.sh distrib
             util/envDynawo.sh distrib-omc
             util/envDynawo.sh distrib-headers
@@ -91,8 +95,8 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
           DYNAWO_RESULTS_SHOW: "false"
           DYNAWO_BUILD_TYPE: Release
-          DYNAWO_FORCE_CXX11_ABI: "true"
           DYNAWO_NB_PROCESSORS_USED: 2
+          DYNAWO_PYTHON_COMMAND: python3
 
       - name: INFO. Files created in distributions folder
         run: du -hs distributions/*
@@ -105,7 +109,6 @@ jobs:
           prerelease: true
           files: |
             distributions/*.zip
-            documentation/dynawoDocumentation/DynawoDocumentation.pdf
         with:
           retries: 3
           script: |
@@ -120,6 +123,39 @@ jobs:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
           script: |
             await github.rest.repos.createDispatchEvent({ owner: context.repo.owner, repo: "dynawo-algorithms", event_type: "nightly-linux" });
+
+  documentation:
+    if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-documentation)
+    name: Documentation
+    runs-on: ubuntu-latest
+    needs: nightly
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends texlive-latex-extra texlive-pictures texlive-science texlive-fonts-recommended lmodern
+
+      - name: Build documentation
+        run: |
+          cd documentation
+          bash dynawo_documentation.sh
+
+      - name: Upload assets for release
+        uses: actions/github-script@v7
+        env:
+          tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
+          files: |
+            documentation/dynawoDocumentation/DynawoDocumentation.pdf
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
 
   distribution-gcc11:
     if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux-gcc11)
