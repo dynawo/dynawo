@@ -20,6 +20,8 @@
 #ifndef MODELER_DATAINTERFACE_DYNTHREEWTRANSFORMERINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNTHREEWTRANSFORMERINTERFACE_H_
 
+#include <memory>
+
 #include "DYNComponentInterface.hpp"
 
 #include "DYNCurrentLimitInterface.h"

@@ -148,8 +148,8 @@ TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
   unsigned nbF = 4;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
-  modelVariationArea->setBufferYType(&yTypes[0], 0);
-  modelVariationArea->setBufferFType(&fTypes[0], 0);
+  modelVariationArea->setBufferYType(yTypes.data(), 0);
+  modelVariationArea->setBufferFType(fTypes.data(), 0);
 
   ASSERT_EQ(modelVariationArea->sizeY(), nbY);
   ASSERT_EQ(modelVariationArea->sizeF(), nbF);
@@ -175,12 +175,12 @@ TEST(ModelsModelVariationArea, ModelVariationAreaInit) {
   boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea(.1, .01);
   std::vector<double> y(modelVariationArea->sizeY(), 0);
   std::vector<double> yp(modelVariationArea->sizeY(), 0);
-  modelVariationArea->setBufferY(&y[0], &yp[0], 0.);
+  modelVariationArea->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(modelVariationArea->sizeZ(), 0);
   bool* zConnected = new bool[modelVariationArea->sizeZ()];
   for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i)
     zConnected[i] = true;
-  modelVariationArea->setBufferZ(&z[0], zConnected, 0);
+  modelVariationArea->setBufferZ(z.data(), zConnected, 0);
   modelVariationArea->init(0);
   modelVariationArea->getY0();
   for (size_t i = 0; i < modelVariationArea->sizeY(); ++i) {
@@ -198,17 +198,17 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea(.1, .01);
   std::vector<double> y(modelVariationArea->sizeY(), 0);
   std::vector<double> yp(modelVariationArea->sizeY(), 0);
-  modelVariationArea->setBufferY(&y[0], &yp[0], 0.);
+  modelVariationArea->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(modelVariationArea->sizeZ(), 0);
   bool* zConnected = new bool[modelVariationArea->sizeZ()];
   for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i)
     zConnected[i] = true;
-  modelVariationArea->setBufferZ(&z[0], zConnected, 0);
+  modelVariationArea->setBufferZ(z.data(), zConnected, 0);
   BitMask* silentZ = new BitMask[modelVariationArea->sizeZ()];
   std::vector<state_g> g(modelVariationArea->sizeG(), ROOT_DOWN);
-  modelVariationArea->setBufferG(&g[0], 0);
+  modelVariationArea->setBufferG(g.data(), 0);
   std::vector<double> f(modelVariationArea->sizeF(), 0);
-  modelVariationArea->setBufferF(&f[0], 0);
+  modelVariationArea->setBufferF(f.data(), 0);
   modelVariationArea->init(0);
   modelVariationArea->getY0();
   ASSERT_NO_THROW(modelVariationArea->setFequations());

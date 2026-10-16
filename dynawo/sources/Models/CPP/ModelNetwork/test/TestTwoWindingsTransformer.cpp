@@ -329,13 +329,13 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   bool* zConnected = new bool[t2w->sizeZ()];
   for (int i = 0; i < t2w->sizeZ(); ++i)
     zConnected[i] = true;
-  t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceZ(z.data(), zConnected, 0);
+  t2w->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   t2w->evalYMat();
   ASSERT_EQ(t2w->sizeCalculatedVar(), ModelTwoWindingsTransformer::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelTwoWindingsTransformer::nbCalculatedVariables_, 0.);
-  t2w->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  t2w->setReferenceCalculatedVar(calculatedVars.data(), 0);
   t2w->evalCalculatedVars();
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i1Num_], 24.757516580070948);
@@ -549,13 +549,13 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOp
   bool* zConnected = new bool[t2w->sizeZ()];
   for (int i = 0; i < t2w->sizeZ(); ++i)
     zConnected[i] = true;
-  t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceZ(z.data(), zConnected, 0);
+  t2w->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   t2w->evalYMat();
   ASSERT_EQ(t2w->sizeCalculatedVar(), ModelTwoWindingsTransformer::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelTwoWindingsTransformer::nbCalculatedVariables_, 0.);
-  t2w->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  t2w->setReferenceCalculatedVar(calculatedVars.data(), 0);
   t2w->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i1Num_], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::i2Num_], 0);
@@ -753,12 +753,12 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   std::vector<double> f(t2w->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, ROOT_DOWN);
-  t2w->setReferenceG(&g[0], 0);
+  t2w->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[nbZ];
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
-  t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceZ(z.data(), zConnected, 0);
+  t2w->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   t2w->evalYMat();
 
   t2w->getY0();
@@ -839,9 +839,9 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
   std::vector<state_g> g(nbG, ROOT_DOWN);
-  t2w->setReferenceG(&g[0], 0);
-  t2w->setReferenceZ(&z[0], zConnected, 0);
-  t2w->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  t2w->setReferenceG(g.data(), 0);
+  t2w->setReferenceZ(z.data(), zConnected, 0);
+  t2w->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   t2w->evalYMat();
 
   t2w->getY0();

@@ -22,6 +22,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNDANGLINGLINEINTERFACEIIDM_H_
 
+#include <memory>
+
 #include "DYNDanglingLineInterface.h"
 #include "DYNInjectorInterfaceIIDM.h"
 #include "DYNCurrentLimitInterface.h"

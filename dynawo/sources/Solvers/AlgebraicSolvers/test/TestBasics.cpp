@@ -218,7 +218,7 @@ TEST(AlgebraicSolvers, testModifySettings) {
   ASSERT_EQ(vectorY[1], -2.);
 
   // Initialize properly the model, if not some if (x <= 0) is not well handled
-  model->copyContinuousVariables(&vectorY[0], &vectorYp[0]);
+  model->copyContinuousVariables(vectorY.data(), vectorYp.data());
   std::vector<state_g> g0;
   g0.assign(model->sizeG(), NO_ROOT);
   model->evalG(0., g0);

@@ -228,12 +228,12 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   bool* zConnected = new bool[gen->sizeZ()];
   for (int i = 0; i < gen->sizeZ(); ++i)
     zConnected[i] = true;
-  gen->setReferenceZ(&z[0], zConnected, 0);
-  gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  gen->setReferenceZ(z.data(), zConnected, 0);
+  gen->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   ASSERT_EQ(gen->sizeCalculatedVar(), ModelGenerator::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelGenerator::nbCalculatedVariables_, 0.);
-  gen->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  gen->setReferenceCalculatedVar(calculatedVars.data(), 0);
   gen->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::pNum_], -8.0000000000000002);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::qNum_], -4.0000000000000008);
@@ -325,9 +325,9 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   for (size_t i = 0; i < nbZ; ++i)
     zConnected[i] = true;
   std::vector<state_g> g(nbG, NO_ROOT);
-  gen->setReferenceG(&g[0], 0);
-  gen->setReferenceZ(&z[0], zConnected, 0);
-  gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  gen->setReferenceG(g.data(), 0);
+  gen->setReferenceZ(z.data(), zConnected, 0);
+  gen->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
 
   gen->getY0();
   ASSERT_EQ(gen->getConnected(), CLOSED);

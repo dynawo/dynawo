@@ -22,6 +22,7 @@
 #include "TLTimeline.h"
 
 #include <map>
+#include <memory>
 #include <unordered_set>
 
 namespace DYN {

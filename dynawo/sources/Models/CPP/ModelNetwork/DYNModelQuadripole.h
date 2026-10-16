@@ -17,6 +17,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELQUADRIPOLE_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELQUADRIPOLE_H_
 
+#include <memory>
+
 #include "DYNNetworkComponent.h"
 
 namespace DYN {

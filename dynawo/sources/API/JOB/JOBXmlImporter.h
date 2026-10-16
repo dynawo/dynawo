@@ -21,6 +21,8 @@
 #ifndef API_JOB_JOBXMLIMPORTER_H_
 #define API_JOB_JOBXMLIMPORTER_H_
 
+#include <memory>
+
 #include "JOBImporter.h"
 
 namespace job {

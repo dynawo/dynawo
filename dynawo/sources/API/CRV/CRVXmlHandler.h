@@ -23,6 +23,8 @@
 #ifndef API_CRV_CRVXMLHANDLER_H_
 #define API_CRV_CRVXMLHANDLER_H_
 
+#include <memory>
+
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 

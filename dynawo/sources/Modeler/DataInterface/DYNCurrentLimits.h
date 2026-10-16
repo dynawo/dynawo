@@ -20,6 +20,7 @@
 #define MODELER_DATAINTERFACE_DYNCURRENTLIMITS_H_
 
 #include <boost/shared_ptr.hpp>
+#include <memory>
 #include <unordered_map>
 #include <vector>
 

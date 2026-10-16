@@ -39,17 +39,17 @@ class ModelSecondaryVoltageControlSimplifiedFactory : public SubModelFactory {
    * @brief default destructor
    *
    */
-  virtual ~ModelSecondaryVoltageControlSimplifiedFactory() = default;
+  ~ModelSecondaryVoltageControlSimplifiedFactory() override = default;
   /**
    * @brief ModelSecondaryVoltageControlSimplified getter
    *
    * @return A pointer to a new instance of ModelSecondaryVoltageControlSimplified
    */
-  SubModel *create() const;
+  SubModel *create() const override;
   /**
    * @brief ModelSecondaryVoltageControlSimplified destroy
    */
-  void destroy(SubModel *) const;
+  void destroy(SubModel *) const override;
 };
 
 /**

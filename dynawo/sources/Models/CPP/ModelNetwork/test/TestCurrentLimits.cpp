@@ -56,7 +56,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   network.setConstraints(constraints);
   network.setTimeline(timeline::TimelineFactory::newInstance("Test"));
 
-  mcl.evalG(t, current, desactivate, &states[0]);
+  mcl.evalG(t, current, desactivate, states.data());
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 3 || i ==5)
       ASSERT_EQ(states[i], NO_ROOT);
@@ -64,7 +64,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
   current = 9.;
-  mcl.evalG(t, current, desactivate, &states[0]);
+  mcl.evalG(t, current, desactivate, states.data());
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0|| i == 4)
       ASSERT_EQ(states[i], ROOT_UP);
@@ -73,10 +73,10 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
-  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
+  mcl.evalZ("MY COMP", t, states.data(), desactivate, modelType, &network);
 
   current = 11.;
-  mcl.evalG(t, current, desactivate, &states[0]);
+  mcl.evalG(t, current, desactivate, states.data());
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 2) {
       ASSERT_EQ(states[i], ROOT_UP);
@@ -84,7 +84,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], NO_ROOT);
     }
   }
-  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
+  mcl.evalZ("MY COMP", t, states.data(), desactivate, modelType, &network);
 
   constraints->filter(DYN::CONSTRAINTS_KEEP_FIRST);  // filter constraint collection by removing cleared constraints
   unsigned n = 0;
@@ -116,7 +116,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(n, 3);
   current = 4.;
   t = 5.1;
-  mcl.evalG(t, current, desactivate, &states[0]);
+  mcl.evalG(t, current, desactivate, states.data());
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 2 || i == 4)
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -126,7 +126,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_UP);
   }
   network.setCurrentTime(5.1);
-  mcl.evalZ("MY COMP", t, &states[0], desactivate, modelType, &network);
+  mcl.evalZ("MY COMP", t, states.data(), desactivate, modelType, &network);
 
   constraints->filter(DYN::CONSTRAINTS_KEEP_FIRST);  // filter constraint collection by removing cleared constraints
   n = 0;

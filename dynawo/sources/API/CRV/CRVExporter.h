@@ -20,6 +20,7 @@
 #ifndef API_CRV_CRVEXPORTER_H_
 #define API_CRV_CRVEXPORTER_H_
 
+#include <memory>
 #include <string>
 
 #include "CRVCurvesCollection.h"

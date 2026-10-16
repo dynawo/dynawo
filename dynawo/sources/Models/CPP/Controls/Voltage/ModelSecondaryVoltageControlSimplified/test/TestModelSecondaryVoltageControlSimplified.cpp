@@ -119,8 +119,8 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   boost::shared_ptr<SubModel> svc = createModelSecondaryVoltageControlSimplified(2);
   std::vector<propertyContinuousVar_t> yTypes(svc->sizeY(), UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(svc->sizeF(), UNDEFINED_EQ);
-  svc->setBufferYType(&yTypes[0], 0);
-  svc->setBufferFType(&fTypes[0], 0);
+  svc->setBufferYType(yTypes.data(), 0);
+  svc->setBufferFType(fTypes.data(), 0);
 
   svc->evalStaticYType();
   svc->evalDynamicYType();
@@ -143,14 +143,14 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   boost::shared_ptr<SubModel> svc = createModelSecondaryVoltageControlSimplified(2);
   std::vector<double> y(svc->sizeY(), 0);
   std::vector<double> yp(svc->sizeY(), 0);
-  svc->setBufferY(&y[0], &yp[0], 0.);
+  svc->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(svc->sizeZ(), 0);
   bool* zConnected = new bool[svc->sizeZ()];
   for (size_t i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
-  svc->setBufferZ(&z[0], zConnected, 0);
+  svc->setBufferZ(z.data(), zConnected, 0);
   std::vector<state_g> g(svc->sizeG(), NO_ROOT);
-  svc->setBufferG(&g[0], 0);
+  svc->setBufferG(g.data(), 0);
   svc->init(0);
   svc->getY0();
 
@@ -169,7 +169,7 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   boost::shared_ptr<SubModel> svc = createModelSecondaryVoltageControlSimplified(2);
   std::vector<double> y(svc->sizeY(), 0);
   std::vector<double> yp(svc->sizeY(), 0);
-  svc->setBufferY(&y[0], &yp[0], 0.);
+  svc->setBufferY(y.data(), yp.data(), 0.);
   y[ModelSecondaryVoltageControlSimplified::UpPuNum_] = 0.95;
   y[1] = -100.;
   y[2] = -100.;
@@ -178,9 +178,9 @@ TEST(ModelSecondaryVoltageControlSimplified, ModelSecondaryVoltageControlSimplif
   BitMask* silentZ = new BitMask[svc->sizeZ()];
   for (size_t i = 0; i < svc->sizeZ(); ++i)
     zConnected[i] = true;
-  svc->setBufferZ(&z[0], zConnected, 0);
+  svc->setBufferZ(z.data(), zConnected, 0);
   std::vector<state_g> g(svc->sizeG(), NO_ROOT);
-  svc->setBufferG(&g[0], 0);
+  svc->setBufferG(g.data(), 0);
   svc->init(0);
   svc->getY0();
   ASSERT_NO_THROW(svc->setFequations());

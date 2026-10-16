@@ -329,12 +329,12 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariablesFlat) {
   bool* zConnected = new bool[hvdc->sizeZ()];
   for (int i = 0; i < hvdc->sizeZ(); ++i)
     zConnected[i] = true;
-  hvdc->setReferenceZ(&z[0], zConnected, 0);
-  hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  hvdc->setReferenceZ(z.data(), zConnected, 0);
+  hvdc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   ASSERT_EQ(hvdc->sizeCalculatedVar(), ModelHvdcLink::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelHvdcLink::nbCalculatedVariables_, 0.);
-  hvdc->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  hvdc->setReferenceCalculatedVar(calculatedVars.data(), 0);
   hvdc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelHvdcLink::p1Num_], -1.111);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelHvdcLink::q1Num_], -0.015);
@@ -358,12 +358,12 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   bool* zConnected = new bool[hvdc->sizeZ()];
   for (int i = 0; i < hvdc->sizeZ(); ++i)
     zConnected[i] = true;
-  hvdc->setReferenceZ(&z[0], zConnected, 0);
-  hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  hvdc->setReferenceZ(z.data(), zConnected, 0);
+  hvdc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   ASSERT_EQ(hvdc->sizeCalculatedVar(), ModelHvdcLink::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelHvdcLink::nbCalculatedVariables_, 0.);
-  hvdc->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  hvdc->setReferenceCalculatedVar(calculatedVars.data(), 0);
   hvdc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelHvdcLink::p1Num_], -0.02);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelHvdcLink::q1Num_], -0.029999999999999999);
@@ -523,12 +523,12 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   std::vector<double> f(hvdc->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
-  hvdc->setReferenceG(&g[0], 0);
+  hvdc->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[hvdc->sizeZ()];
   for (int i = 0; i < hvdc->sizeZ(); ++i)
     zConnected[i] = true;
-  hvdc->setReferenceZ(&z[0], zConnected, 0);
-  hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  hvdc->setReferenceZ(z.data(), zConnected, 0);
+  hvdc->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
 
   hvdc->getY0();
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], CLOSED);

@@ -132,8 +132,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   unsigned nbF = 12;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
-  modelOmegaRef->setBufferYType(&yTypes[0], 0);
-  modelOmegaRef->setBufferFType(&fTypes[0], 0);
+  modelOmegaRef->setBufferYType(yTypes.data(), 0);
+  modelOmegaRef->setBufferFType(fTypes.data(), 0);
 
   ASSERT_EQ(modelOmegaRef->sizeY(), nbY);
   ASSERT_EQ(modelOmegaRef->sizeF(), nbF);
@@ -194,7 +194,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   modelOmegaRef2->getSize();
   std::vector<double> y(modelOmegaRef2->sizeY(), 0);
   std::vector<double> yp(modelOmegaRef2->sizeY(), 0);
-  modelOmegaRef2->setBufferY(&y[0], &yp[0], 0.);
+  modelOmegaRef2->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(modelOmegaRef2->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef2->sizeZ()];
   for (size_t i = 0; i < modelOmegaRef2->sizeZ(); ++i)
@@ -203,7 +203,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
     z[i] = static_cast<double>(i);
   for (size_t i = 11; i < modelOmegaRef2->sizeZ(); ++i)
     z[i] = 1.;
-  modelOmegaRef2->setBufferZ(&z[0], zConnected, 0);
+  modelOmegaRef2->setBufferZ(z.data(), zConnected, 0);
   modelOmegaRef2->evalZ(0.);
 
   ASSERT_THROW_DYNAWO(modelOmegaRef2->getY0(), Error::MODELER, KeyError_t::TooMuchSubNetwork);
@@ -213,12 +213,12 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefInit) {
   boost::shared_ptr<SubModel> modelOmegaRef = initModelOmegaRef(-1);
   std::vector<double> y(modelOmegaRef->sizeY(), 0);
   std::vector<double> yp(modelOmegaRef->sizeY(), 0);
-  modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
+  modelOmegaRef->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef->sizeZ()];
   for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
     zConnected[i] = true;
-  modelOmegaRef->setBufferZ(&z[0], zConnected, 0);
+  modelOmegaRef->setBufferZ(z.data(), zConnected, 0);
   modelOmegaRef->init(0);
   modelOmegaRef->getY0();
 
@@ -240,17 +240,17 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   boost::shared_ptr<SubModel> modelOmegaRef = initModelOmegaRef(1);
   std::vector<double> y(modelOmegaRef->sizeY(), 0);
   std::vector<double> yp(modelOmegaRef->sizeY(), 0);
-  modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
+  modelOmegaRef->setBufferY(y.data(), yp.data(), 0.);
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef->sizeZ()];
   BitMask* silentZ = new BitMask[modelOmegaRef->sizeZ()];
   for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
     zConnected[i] = true;
-  modelOmegaRef->setBufferZ(&z[0], zConnected, 0);
+  modelOmegaRef->setBufferZ(z.data(), zConnected, 0);
   z[2] = 1;
   z[3] = 1;
   std::vector<double> f(modelOmegaRef->sizeF(), 0);
-  modelOmegaRef->setBufferF(&f[0], 0);
+  modelOmegaRef->setBufferF(f.data(), 0);
   modelOmegaRef->init(0);
   modelOmegaRef->getY0();
   ASSERT_NO_THROW(modelOmegaRef->setFequations());

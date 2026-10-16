@@ -43,17 +43,17 @@ class ModelUpdatableBooleanFactory : public SubModelFactory {
   * @brief default destructor
   *
   */
-  virtual ~ModelUpdatableBooleanFactory() = default;
+  ~ModelUpdatableBooleanFactory() override = default;
   /**
   * @brief ModelUpdatableBoolean getter
   *
   * @return A pointer to a new instance of ModelUpdatableBoolean
   */
-  SubModel* create() const;
+  SubModel* create() const override;
   /**
   * @brief ModelUpdatableBoolean destroy
   */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**

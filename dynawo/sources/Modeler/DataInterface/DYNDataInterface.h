@@ -20,6 +20,7 @@
 #ifndef MODELER_DATAINTERFACE_DYNDATAINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNDATAINTERFACE_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>

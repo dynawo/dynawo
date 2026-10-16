@@ -23,6 +23,7 @@
 
 #include "CSTRConstraintsCollection.h"
 
+#include <memory>
 #include <string>
 
 namespace constraints {

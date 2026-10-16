@@ -19,6 +19,7 @@
  */
 #ifndef MODELER_COMMON_DYNMODELMULTI_H_
 #define MODELER_COMMON_DYNMODELMULTI_H_
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>

@@ -150,7 +150,7 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeInit) {
   bool* zConnected = new bool[modelVoltageSetPointChange->sizeZ()];
   for (size_t i = 0; i < modelVoltageSetPointChange->sizeZ(); ++i)
     zConnected[i] = true;
-  modelVoltageSetPointChange->setBufferZ(&z[0], zConnected, 0);
+  modelVoltageSetPointChange->setBufferZ(z.data(), zConnected, 0);
   modelVoltageSetPointChange->init(0);
   modelVoltageSetPointChange->getY0();
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0.);
@@ -168,10 +168,10 @@ TEST(ModelsModelVoltageSetPointChange, ModelVoltageSetPointChangeContinuousAndDi
   bool* zConnected = new bool[modelVoltageSetPointChange->sizeZ()];
   for (size_t i = 0; i < modelVoltageSetPointChange->sizeZ(); ++i)
     zConnected[i] = true;
-  modelVoltageSetPointChange->setBufferZ(&z[0], zConnected, 0);
+  modelVoltageSetPointChange->setBufferZ(z.data(), zConnected, 0);
   BitMask* silentZ = new BitMask[modelVoltageSetPointChange->sizeZ()];
   std::vector<state_g> g(modelVoltageSetPointChange->sizeG(), ROOT_DOWN);
-  modelVoltageSetPointChange->setBufferG(&g[0], 0);
+  modelVoltageSetPointChange->setBufferG(g.data(), 0);
   modelVoltageSetPointChange->init(0);
   modelVoltageSetPointChange->getY0();
   ASSERT_NO_THROW(modelVoltageSetPointChange->setFequations());

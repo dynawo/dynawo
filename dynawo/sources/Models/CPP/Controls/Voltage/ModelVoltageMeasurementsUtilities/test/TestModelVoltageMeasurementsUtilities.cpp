@@ -132,7 +132,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesSimpleIn
 
     unsigned int nbY = nbVoltages;
     std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
-    voltmu->setBufferYType(&yTypes[0], 0);
+    voltmu->setBufferYType(yTypes.data(), 0);
     ASSERT_NO_THROW(voltmu->evalStaticYType());
     ASSERT_EQ(voltmu->sizeY(), nbY);
 
@@ -150,8 +150,8 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesSimpleIn
     for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
         zConnected[i] = true;
     }
-    ASSERT_NO_THROW(voltmu->setBufferZ(&z[0], zConnected, 0));
-    ASSERT_NO_THROW(voltmu->setBufferY(&voltages[0], nullptr, 0));
+    ASSERT_NO_THROW(voltmu->setBufferZ(z.data(), zConnected, 0));
+    ASSERT_NO_THROW(voltmu->setBufferY(voltages.data(), nullptr, 0));
     ASSERT_NO_THROW(voltmu->initializeStaticData());
     ASSERT_NO_THROW(voltmu->evalDynamicFType());
     ASSERT_NO_THROW(voltmu->evalDynamicYType());
@@ -172,7 +172,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesSimpleIn
     ASSERT_THROW_DYNAWO(voltmu->evalCalculatedVarI(nbCalcVars), Error::MODELER, KeyError_t::UndefCalculatedVarI);
     // We're still missing the G buffer. Let's deal with it now.
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
-    ASSERT_NO_THROW(voltmu->setBufferG(&g[0], 0));
+    ASSERT_NO_THROW(voltmu->setBufferG(g.data(), 0));
 }
 
 TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesTimeToUpdate) {
@@ -193,7 +193,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesTimeToUp
     }
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
 
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    setBuffersVMU(voltmu, yTypes.data(), voltages.data(), z.data(), &zConnected[0], g.data());
 
     voltmu->evalG(0.0);
     // Nothing happens as the update has just happened through the getY0
@@ -209,7 +209,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesTimeToUp
     double maxDecreasesBy = 3.0;
     voltages[0] += minIncreasesBy;
     voltages[nbVoltages-1] -=  maxDecreasesBy;
-    voltmu->setBufferY(&voltages[0], nullptr, 0);
+    voltmu->setBufferY(voltages.data(), nullptr, 0);
     ASSERT_NO_THROW(voltmu->evalZ(next_ts));
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::minValIdx_), 2.0);
     ASSERT_EQ(voltmu->evalCalculatedVarI(ModelVoltageMeasurementsUtilities::maxValIdx_), nbVoltages-1);
@@ -236,7 +236,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesConnecti
     }
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
 
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    setBuffersVMU(voltmu, yTypes.data(), voltages.data(), z.data(), &zConnected[0], g.data());
     // Make sure things are as you expect them to be
     voltmu->evalG(0.0);
     ASSERT_EQ(g[ModelVoltageMeasurementsUtilities::timeToUpdate_], ROOT_DOWN);
@@ -305,7 +305,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesO
     }
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
 
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    setBuffersVMU(voltmu, yTypes.data(), voltages.data(), z.data(), &zConnected[0], g.data());
 
     // Check the indexes needed for computing the min
     std::vector<int> minIndexes;
@@ -348,7 +348,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesIndexesO
     }
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
 
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    setBuffersVMU(voltmu, yTypes.data(), voltages.data(), z.data(), &zConnected[0], g.data());
 
     // Check the indexes needed for computing the min
     std::vector<int> minIndexes;
@@ -395,7 +395,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
     }
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
 
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    setBuffersVMU(voltmu, yTypes.data(), voltages.data(), z.data(), &zConnected[0], g.data());
     // Make sure things are as you expect them to be
     // To do this, we need to make sure the connections have been handled through an evalZ.
     double t0 = step+1.;
@@ -446,7 +446,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalJCal
     }
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
 
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    setBuffersVMU(voltmu, yTypes.data(), voltages.data(), z.data(), &zConnected[0], g.data());
     // Make sure things are as you expect them to be
     double t0 = step + 1.0;
     voltmu->evalG(t0);
@@ -520,7 +520,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalGNoI
     boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages);
 
     std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
-    voltmu->setBufferYType(&yTypes[0], 0);
+    voltmu->setBufferYType(yTypes.data(), 0);
     voltmu->evalStaticYType();
     ASSERT_EQ(voltmu->sizeY(), nbVoltages);
 
@@ -537,10 +537,10 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalGNoI
     for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
         zConnected[i] = true;
     }
-    voltmu->setBufferZ(&z[0], zConnected, 0);
-    voltmu->setBufferY(&voltages[0], nullptr, 0);
+    voltmu->setBufferZ(z.data(), zConnected, 0);
+    voltmu->setBufferY(voltages.data(), nullptr, 0);
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
-    voltmu->setBufferG(&g[0], 0);
+    voltmu->setBufferG(g.data(), 0);
     voltmu->initializeStaticData();
     voltmu->evalDynamicFType();
     voltmu->evalDynamicYType();
@@ -557,7 +557,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalZNoI
     boost::shared_ptr<SubModel> voltmu = createModelVoltageMeasurementsUtilities(nbVoltages);
 
     std::vector<propertyContinuousVar_t> yTypes(nbVoltages, UNDEFINED_PROPERTY);
-    voltmu->setBufferYType(&yTypes[0], 0);
+    voltmu->setBufferYType(yTypes.data(), 0);
     voltmu->evalStaticYType();
     ASSERT_EQ(voltmu->sizeY(), nbVoltages);
 
@@ -574,10 +574,10 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesEvalZNoI
     for (std::size_t i=0; i < voltmu->sizeZ(); ++i) {
         zConnected[i] = true;
     }
-    voltmu->setBufferZ(&z[0], zConnected, 0);
-    voltmu->setBufferY(&voltages[0], nullptr, 0);
+    voltmu->setBufferZ(z.data(), zConnected, 0);
+    voltmu->setBufferY(voltages.data(), nullptr, 0);
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
-    voltmu->setBufferG(&g[0], 0);
+    voltmu->setBufferG(g.data(), 0);
     voltmu->initializeStaticData();
     voltmu->evalDynamicFType();
     voltmu->evalDynamicYType();
@@ -607,7 +607,7 @@ TEST(ModelsVoltageMeasurementUtilities, ModelVoltageMeasurementUtilitiesUselessF
     }
     std::vector<state_g> g(voltmu->sizeG(), NO_ROOT);
 
-    setBuffersVMU(voltmu, &yTypes[0], &voltages[0], &z[0], &zConnected[0], &g[0]);
+    setBuffersVMU(voltmu, yTypes.data(), voltages.data(), z.data(), &zConnected[0], g.data());
 
     double t0 = 0.0;
     ASSERT_NO_THROW(voltmu->checkDataCoherence(t0));

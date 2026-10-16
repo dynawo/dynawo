@@ -14,6 +14,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELBUS_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELBUS_H_
 
+#include <memory>
+
 #include "DYNNetworkComponent.h"
 
 namespace DYN {

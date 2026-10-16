@@ -26,6 +26,7 @@
 #include "DYDUnitDynamicModel.h"
 
 #include <map>
+#include <memory>
 
 
 namespace dynamicdata {

@@ -96,8 +96,8 @@ TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousTypeMethods) {
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   std::vector<state_g> g(modelUpdatableContinuous->sizeG(), ROOT_DOWN);
-  modelUpdatableContinuous->setBufferYType(&yTypes[0], 0);
-  modelUpdatableContinuous->setBufferFType(&fTypes[0], 0);
+  modelUpdatableContinuous->setBufferYType(yTypes.data(), 0);
+  modelUpdatableContinuous->setBufferFType(fTypes.data(), 0);
   ASSERT_EQ(modelUpdatableContinuous->sizeY(), nbY);
   ASSERT_EQ(modelUpdatableContinuous->sizeF(), nbF);
   ASSERT_EQ(modelUpdatableContinuous->sizeZ(), 0);
@@ -110,7 +110,7 @@ TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousTypeMethods) {
 TEST(ModelsModelUpdatableContinuous, ModelUpdatableContinuousUpdate) {
   boost::shared_ptr<SubModel> modelUpdatableContinuous = initModelUpdatableContinuous();
   std::vector<state_g> g(modelUpdatableContinuous->sizeG(), ROOT_DOWN);
-  modelUpdatableContinuous->setBufferG(&g[0], 0);
+  modelUpdatableContinuous->setBufferG(g.data(), 0);
   modelUpdatableContinuous->evalG(0);
   modeChangeType_t mode = modelUpdatableContinuous->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);

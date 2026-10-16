@@ -95,8 +95,8 @@ TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteTypeMethods) {
   unsigned nbF = 0;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
-  modelUpdatableDiscrete->setBufferYType(&yTypes[0], 0);
-  modelUpdatableDiscrete->setBufferFType(&fTypes[0], 0);
+  modelUpdatableDiscrete->setBufferYType(yTypes.data(), 0);
+  modelUpdatableDiscrete->setBufferFType(fTypes.data(), 0);
 
   ASSERT_EQ(modelUpdatableDiscrete->sizeY(), nbY);
   ASSERT_EQ(modelUpdatableDiscrete->sizeF(), nbF);
@@ -110,7 +110,7 @@ TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteTypeMethods) {
 TEST(ModelsModelUpdatableDiscrete, ModelUpdatableDiscreteUpdate) {
   boost::shared_ptr<SubModel> modelUpdatableDiscrete = initModelUpdatableDiscrete();
   std::vector<state_g> g(modelUpdatableDiscrete->sizeG(), ROOT_DOWN);
-  modelUpdatableDiscrete->setBufferG(&g[0], 0);
+  modelUpdatableDiscrete->setBufferG(g.data(), 0);
   modelUpdatableDiscrete->evalG(0);
   modeChangeType_t mode = modelUpdatableDiscrete->evalMode(0);
   ASSERT_EQ(mode, NO_MODE);
