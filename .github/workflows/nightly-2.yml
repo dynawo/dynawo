@@ -27,6 +27,38 @@ jobs:
           shell: bash
           run: |
             cd /dynawo
+            git config --global --add safe.directory /dynawo
+            export DYNAWO_HOME=$(pwd)
+            util/envDynawo.sh build-user
+            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U" : 15, "WT4BCurrentSource2020U" : 15, "PmConstAc7cPss2c" : 5, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+            branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
+            util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
+        env:
+          DYNAWO_INSTALL_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Install
+          DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
+
+  resolute:
+    name: Linux Resolute
+    runs-on: ubuntu-latest
+    env:
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_PYTHON_COMMAND: python3
+      DYNAWO_NB_PROCESSORS_USED: 1
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Build and nrt
+        uses: addnab/docker-run-action@v3
+        with:
+          image: dynawo/dynawo-ci-nightly-resolute:latest
+          options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
+          shell: bash
+          run: |
+            cd /dynawo
+            git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
             util/envDynawo.sh build-user
             sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U" : 15, "WT4BCurrentSource2020U" : 15, "PmConstAc7cPss2c" : 5, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
@@ -90,6 +122,7 @@ jobs:
           shell: bash
           run: |
             cd /dynawo
+            git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
             sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U": 15, "PmConstAc7cPss2c" : 3, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
             util/envDynawo.sh build-user

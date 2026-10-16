@@ -6,11 +6,11 @@ on:
     - cron:  '0 0 * * 2-6'
 
 jobs:
-  fedora:
-    name: Linux Fedora (${{ matrix.build-type }}, ${{ matrix.compiler }})
+  ol8:
+    name: Linux OL8 (${{ matrix.build-type }}, ${{ matrix.compiler }})
     runs-on: ubuntu-latest
     timeout-minutes: 500
-    container: dynawo/dynawo-ci-nightly-fedora:latest
+    container: dynawo/dynawo-distribution-ol8:latest
     strategy:
       matrix:
         build-type: [Release, Debug]
@@ -23,6 +23,7 @@ jobs:
       DYNAWO_BUILD_TYPE: ${{ matrix.build-type }}
       DYNAWO_COMPILER: ${{ matrix.compiler }}
       DYNAWO_NB_PROCESSORS_USED: 1
+      DYNAWO_PYTHON_COMMAND: python3
 
     steps:
       - name: Checkout sources
@@ -51,13 +52,14 @@ jobs:
   omc:
     name: Linux OMC Build (${{ matrix.compiler }})
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-nightly-fedora:latest
+    container: dynawo/dynawo-distribution-ol8:latest
     strategy:
       matrix:
         compiler: [GCC, CLANG]
     env:
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_COMPILER: ${{ matrix.compiler }}
+      DYNAWO_PYTHON_COMMAND: python3
 
     steps:
       - name: Checkout sources
