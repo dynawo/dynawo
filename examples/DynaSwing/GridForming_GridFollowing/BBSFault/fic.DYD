@@ -62,6 +62,7 @@
     <connect var1="fault_terminal" var2="@NAME@_ACPIN"/>
   </macroConnector>
   <macroConnect connector="FaultToNode" id1="FAULT" id2="NETWORK" name2="DDDDDP7_1.1"/>
+  <connect id1="FAULT" var1="fault_switchOffSignal1" id2="NETWORK" var2="DDDDDP7_1.1_switchOff"/>
   <!-- Macro-connectors-->
   <macroConnector id="GFMToNode">
     <connect var1="converter_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
