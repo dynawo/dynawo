@@ -111,8 +111,12 @@
     <par type="DOUBLE" name="WPP_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_UUnderPu" value="0.9"/>
     <!-- LinearCommunication -->
-    <par type="DOUBLE" name="WPP_tLag" value="0.01"/>
-    <par type="DOUBLE" name="WPP_tLead" value="0.01"/>
+    <par type="DOUBLE" name="WPP_tLagM" value="0.01"/>
+    <par type="DOUBLE" name="WPP_tLagPD" value="0.01"/>
+    <par type="DOUBLE" name="WPP_tLagRef" value="0.01"/>
+    <par type="DOUBLE" name="WPP_tLeadM" value="0.01"/>
+    <par type="DOUBLE" name="WPP_tLeadPD" value="0.01"/>
+    <par type="DOUBLE" name="WPP_tLeadRef" value="0.01"/>
     <!-- PControlWP -->
     <par type="DOUBLE" name="WPP_DPRefMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_DPRefMinPu" value="-1"/>
