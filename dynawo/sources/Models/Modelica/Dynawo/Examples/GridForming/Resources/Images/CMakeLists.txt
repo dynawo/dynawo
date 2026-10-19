@@ -10,7 +10,10 @@
 
 set(MODEL_FILES
   current.png
+  S_VoltAngleStep7_OC4.png
   frequency.png
+  epri_omega.png
+  epri_pq.png
   )
 
 #
