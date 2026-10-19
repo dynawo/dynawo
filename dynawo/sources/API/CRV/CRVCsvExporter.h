@@ -20,6 +20,8 @@
 #ifndef API_CRV_CRVCSVEXPORTER_H_
 #define API_CRV_CRVCSVEXPORTER_H_
 
+#include <memory>
+
 #include "CRVExporter.h"
 
 namespace curves {

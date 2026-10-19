@@ -23,6 +23,7 @@
 #include "DYNComponentInterface.hpp"
 #include "DYNReactiveCurvePointsInterface.h"
 
+#include <memory>
 #include <vector>
 #include <boost/optional.hpp>
 

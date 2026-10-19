@@ -20,6 +20,7 @@
 #ifndef API_EXTVAR_EXTVARIMPORTER_H_
 #define API_EXTVAR_EXTVARIMPORTER_H_
 
+#include <memory>
 #include <string>
 
 #include "EXTVARVariablesCollection.h"

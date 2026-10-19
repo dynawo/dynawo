@@ -22,6 +22,7 @@
 #define COMMON_DYNIODICO_H_
 
 #include <map>
+#include <memory>
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>

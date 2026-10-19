@@ -57,6 +57,7 @@ jobs:
           options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
+            apt-get remove -y $(dpkg-query -W -f='${Package}\n' 'libboost*-dev')
             cd /dynawo
             git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)

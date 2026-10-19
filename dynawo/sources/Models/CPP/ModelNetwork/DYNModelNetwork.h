@@ -23,6 +23,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELNETWORK_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELNETWORK_H_
 
+#include <memory>
+
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
 

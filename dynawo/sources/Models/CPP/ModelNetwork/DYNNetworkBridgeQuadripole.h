@@ -17,6 +17,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNNETWORKBRIDGEQUADRIPOLE_H_
 #define MODELS_CPP_MODELNETWORK_DYNNETWORKBRIDGEQUADRIPOLE_H_
 
+#include <memory>
+
 #include "DYNModelQuadripole.h"
 #include "DYNNetworkBridge.hpp"
 

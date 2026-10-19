@@ -19,6 +19,7 @@
 #ifndef MODELER_MODELMANAGER_DYNMODELMANAGER_H_
 #define MODELER_MODELMANAGER_DYNMODELMANAGER_H_
 
+#include <memory>
 #include <vector>
 #include <set>
 #include <map>

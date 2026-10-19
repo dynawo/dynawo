@@ -20,6 +20,7 @@
 #ifndef SOLVERS_COMMON_DYNSOLVER_H_
 #define SOLVERS_COMMON_DYNSOLVER_H_
 
+#include <memory>
 #include <vector>
 #include <map>
 #include <string>

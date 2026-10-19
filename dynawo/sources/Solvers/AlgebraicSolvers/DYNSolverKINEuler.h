@@ -23,6 +23,7 @@
 #define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINEULER_H_
 
 #include <boost/core/noncopyable.hpp>
+#include <memory>
 #include <string>
 
 #include <sundials/sundials_nvector.h>

@@ -20,6 +20,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTWOWTRANSFORMERINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTWOWTRANSFORMERINTERFACEIIDM_H_
 
+#include <memory>
+
 #include "DYNTwoWTransformerInterface.h"
 #include "DYNCurrentLimitInterface.h"
 #include "DYNActiveSeasonIIDMExtension.h"

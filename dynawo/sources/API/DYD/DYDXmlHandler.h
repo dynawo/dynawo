@@ -23,6 +23,8 @@
 #ifndef API_DYD_DYDXMLHANDLER_H_
 #define API_DYD_DYDXMLHANDLER_H_
 
+#include <memory>
+
 #include "DYDBlackBoxModel.h"
 #include "DYDDynamicModelsCollection.h"
 #include "DYDModelTemplate.h"

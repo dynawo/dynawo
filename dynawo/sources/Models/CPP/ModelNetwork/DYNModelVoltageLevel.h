@@ -24,6 +24,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELVOLTAGELEVEL_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELVOLTAGELEVEL_H_
 
+#include <memory>
+
 #include <boost/shared_ptr.hpp>
 
 #include "DYNNetworkComponent.h"

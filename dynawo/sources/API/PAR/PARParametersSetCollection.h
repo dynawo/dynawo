@@ -24,6 +24,7 @@
 #include "PARMacroParameterSet.h"
 
 #include <map>
+#include <memory>
 #include <string>
 
 namespace parameters {

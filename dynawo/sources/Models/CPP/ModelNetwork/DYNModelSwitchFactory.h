@@ -20,6 +20,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELSWITCHFACTORY_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELSWITCHFACTORY_H_
 
+#include <memory>
+
 #include "DYNModelSwitch.h"
 
 namespace DYN {

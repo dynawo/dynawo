@@ -20,6 +20,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNLINEINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNLINEINTERFACEIIDM_H_
 
+#include <memory>
+
 #include <powsybl/iidm/Line.hpp>
 
 #include "DYNLineInterface.h"

@@ -20,6 +20,8 @@
 #ifndef API_TL_TLTIMELINEFACTORY_H_
 #define API_TL_TLTIMELINEFACTORY_H_
 
+#include <memory>
+
 #include "TLTimeline.h"
 
 

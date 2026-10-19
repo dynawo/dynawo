@@ -14,6 +14,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELBUSBRIDGED_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELBUSBRIDGED_H_
 
+#include <memory>
+
 #include "DYNModelBus.h"
 #include "DYNNetworkBridge.hpp"
 

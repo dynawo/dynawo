@@ -20,6 +20,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELGENERATOR_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELGENERATOR_H_
 
+#include <memory>
+
 #include <boost/shared_ptr.hpp>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>

@@ -25,6 +25,7 @@
 
 #include <powsybl/iidm/PhaseTapChanger.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace DYN {

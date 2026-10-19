@@ -51,6 +51,7 @@
 #include "JOBStreamsEntry.h"
 #include "JOBStreamEntry.h"
 
+#include <memory>
 #include <string>
 #include <vector>
 #include <xml/sax/parser/ComposableDocumentHandler.h>

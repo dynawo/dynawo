@@ -27,6 +27,7 @@
 #include <boost/dll.hpp>
 #include <boost/filesystem.hpp>
 #include <functional>
+#include <memory>
 #include <mutex>
 #include <string>
 #include <tuple>

@@ -20,6 +20,8 @@
 #ifndef API_EXTVAR_EXTVARXMLHANDLER_H_
 #define API_EXTVAR_EXTVARXMLHANDLER_H_
 
+#include <memory>
+
 #include <xml/sax/parser/ComposableDocumentHandler.h>
 #include <xml/sax/parser/ComposableElementHandler.h>
 

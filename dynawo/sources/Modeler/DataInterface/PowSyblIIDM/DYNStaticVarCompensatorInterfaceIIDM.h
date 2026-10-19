@@ -22,6 +22,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSTATICVARCOMPENSATORINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSTATICVARCOMPENSATORINTERFACEIIDM_H_
 
+#include <memory>
+
 #include <powsybl/iidm/StaticVarCompensator.hpp>
 #include <powsybl/iidm/extensions/iidm/VoltagePerReactivePowerControl.hpp>
 

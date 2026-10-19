@@ -22,6 +22,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNGENERATORINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNGENERATORINTERFACEIIDM_H_
 
+#include <memory>
+
 #include <boost/noncopyable.hpp>
 
 #include "DYNGeneratorInterface.h"

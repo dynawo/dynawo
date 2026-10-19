@@ -20,6 +20,8 @@
 #ifndef MODELER_DATAINTERFACE_DYNLOADINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNLOADINTERFACE_H_
 
+#include <memory>
+
 #include "DYNComponentInterface.hpp"
 
 namespace DYN {

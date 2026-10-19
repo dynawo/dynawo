@@ -20,6 +20,8 @@
 #ifndef SIMULATION_DYNSIMULATIONRT_H_
 #define SIMULATION_DYNSIMULATIONRT_H_
 
+#include <memory>
+
 #include "DYNSimulation.h"
 #include "DYNClock.h"
 #include "DYNDumpManager.h"

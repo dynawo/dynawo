@@ -14,6 +14,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELBUSINJECTED_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELBUSINJECTED_H_
 
+#include <memory>
+
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/archive/binary_iarchive.hpp>

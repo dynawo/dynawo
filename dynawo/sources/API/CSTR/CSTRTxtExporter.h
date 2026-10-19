@@ -21,6 +21,8 @@
 #ifndef API_CSTR_CSTRTXTEXPORTER_H_
 #define API_CSTR_CSTRTXTEXPORTER_H_
 
+#include <memory>
+
 #include "CSTRExporter.h"
 
 namespace constraints {

@@ -18,6 +18,7 @@
 #ifndef MODELER_COMMON_DYNMODELDESCRIPTION_H_
 #define MODELER_COMMON_DYNMODELDESCRIPTION_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
