@@ -117,7 +117,7 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
-  parameter Types.ComplexCurrentPu iWt0Pu "Initial complex current at grid terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
+  parameter Types.ComplexCurrentPu iWt0Pu "Initial complex current at WT terminal in pu (base UNom, SnRef) (receptor convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
     Dialog(tab = "Operating point"));
@@ -131,12 +131,10 @@ partial model BaseControl4 "Whole generator base control module for type 4 wind 
     Dialog(tab = "Operating point"));
   parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
     Dialog(tab = "Operating point"));
-  parameter Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at grid terminal in pu (base UNom)" annotation(
+  parameter Types.ComplexVoltagePu uWt0Pu "Initial complex voltage at WT terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit XWT0Pu "Initial reactive power or voltage reference communicated to WT in pu (base SNom or UNom) (generator convention)" annotation(
     Dialog(tab = "Operating point"));
-
-equation
 
   annotation(
     preferredView = "diagram",

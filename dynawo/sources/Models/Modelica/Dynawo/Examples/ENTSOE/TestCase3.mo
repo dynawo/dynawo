@@ -152,6 +152,8 @@ equation
   generatorSynchronous.switchOffSignal1 = false;
   generatorSynchronous.switchOffSignal2 = false;
   generatorSynchronous.switchOffSignal3 = false;
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
 
   connect(Omega0Pu.y, pss.omegaRefPu);
   connect(Omega0Pu.y, governor.omegaRefPu);

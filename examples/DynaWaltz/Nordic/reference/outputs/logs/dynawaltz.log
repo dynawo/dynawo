@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
-INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  3624_Max_Min_generating_events-8d57f1bb1a6
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :  4223_add_running_nodefault-c4645a596d7
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -33,8 +33,8 @@ INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
 INFO | number of continuous variables : 1740
-INFO | number of discrete variables : 950
-INFO | number of root functions : 778
+INFO | number of discrete variables : 954
+INFO | number of root functions : 822
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -336,13 +336,21 @@ INFO |      175.000 ¦       94              313         38              0.125
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 94
-INFO | number of residual evaluations             = 421
-INFO | number of Jacobian evaluations             = 38
-INFO | number of nonlinear iterations             = 313
-INFO | number of error test failures              = 0
-INFO | number of nonlinear convergence failures   = 6
-INFO | number of root functions evaluations       = 103
-INFO | number of discrete variables evaluations   = 86
-INFO | number of mode evaluations                 = 85
+INFO | number of time iterations                                  = 94
+INFO | number of residual evaluations                             = 410
+INFO | number of Jacobian evaluations                             = 29
+INFO | number of nonlinear iterations                             = 309
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 6
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 103
+INFO | number of discrete variables evaluations                   = 86
+INFO | number of mode evaluations                                 = 85
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 17
+INFO | number of algebraic restoration Jacobian evaluations       = 9
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
 INFO | end of job 'Nordic Test System with a fault, the tripping of a line and a voltage collapse'
