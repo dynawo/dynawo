@@ -9,6 +9,10 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 add_subdirectory(Resources R)
+add_subdirectory(VSM V)
+add_subdirectory(Droop D)
+add_subdirectory(PlantControl P)
+add_subdirectory(Tests T)
 
 set(MODEL_FILES
   package.mo

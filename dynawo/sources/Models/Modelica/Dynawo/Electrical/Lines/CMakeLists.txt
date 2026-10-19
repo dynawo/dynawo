@@ -15,6 +15,9 @@ set(MODEL_FILES
   Line.mo
   Line.extvar
   Line.mandatoryParam
+  DynLine.mo
+  DynLine.extvar
+  DynLine.mandatoryParam
   )
 
 #
