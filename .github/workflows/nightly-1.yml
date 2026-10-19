@@ -29,6 +29,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
+      - name: Install psutil
+        run: pip3 install psutil
+
       - name: Build
         run: |
           export DYNAWO_ACTIVATE_HDF5_EXPORT=false

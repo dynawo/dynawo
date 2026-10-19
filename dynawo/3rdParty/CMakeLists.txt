@@ -88,6 +88,12 @@ if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
     set(boost_md5          4036cd27ef7548b8d29c30ea10956196)
   endif()
 endif()
+if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16)
+    set(boost_version "1.83.0")
+    set(boost_md5          e9d8ddf56ec35aa926b3fae04d22b8ad)
+  endif()
+endif()
 if(MSVC)
   if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 19.44)
     set(boost_version "1.78.0")
@@ -668,6 +674,15 @@ if(NOT OMCompiler)
               COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/lib/gcc <INSTALL_DIR>/tools/msys/mingw64/lib/gcc
     )
   else()
+    # Recent compilers turn implicit declarations and other legacy C constructs into errors
+    set(openmodelica_cflags "")
+    if(('${CMAKE_C_COMPILER_ID}' STREQUAL 'GNU' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 14) OR
+       ('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 16))
+      set(openmodelica_cflags "CFLAGS=-O2 -g -std=gnu17 -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types")
+      if('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang')
+        string(APPEND openmodelica_cflags " -Wno-error=incompatible-function-pointer-types")
+      endif()
+    endif()
     ExternalProject_Add(openmodelica
       INSTALL_DIR         ${OPENMODELICA_INSTALL}
       DOWNLOAD_DIR        ${DOWNLOAD_DIR}
@@ -685,13 +700,14 @@ if(NOT OMCompiler)
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
                           "CXXFLAGS=-std=c++11"
+                          ${openmodelica_cflags}
                           --prefix=<INSTALL_DIR>
                           --disable-modelica3d
                           --disable-omnotebook
                           --disable-omshell-terminal
                           --with-qwt=NO
                           --with-omc=no
-      BUILD_COMMAND       make -j ${CPU_COUNT} omc
+      BUILD_COMMAND       ${CMAKE_COMMAND} -E env ${openmodelica_cflags} make -j ${CPU_COUNT} omc
       INSTALL_COMMAND     make install
               COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
     )
