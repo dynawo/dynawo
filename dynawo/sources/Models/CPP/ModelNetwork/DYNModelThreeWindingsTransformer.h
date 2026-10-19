@@ -20,6 +20,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELTHREEWINDINGSTRANSFORMER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELTHREEWINDINGSTRANSFORMER_H_
 
+#include <memory>
+
 #include <boost/shared_ptr.hpp>
 #include "DYNNetworkComponent.h"
 
@@ -157,7 +159,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    * @param numCalculatedVar : index of the calculated variable
    * @param numVars : index of variables used to define the jacobian associated to the calculated variable
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
+  [[noreturn]] void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
@@ -165,7 +167,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
+  [[noreturn]] void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -174,7 +176,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override;
+  [[noreturn]] double evalCalculatedVarI(unsigned numCalculatedVar) const override;
 
   /**
    * @copydoc NetworkComponent::evalStaticYType()

@@ -16,6 +16,7 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELSUBNETWORK_HPP_
 #define MODELS_CPP_MODELNETWORK_DYNMODELSUBNETWORK_HPP_
 
+#include <memory>
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include "DYNTrace.h"

@@ -117,6 +117,16 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-deprecated-declarations")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-reserved-identifier")
   endif()
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16)
+    # error: unsafe buffer access [-Werror,-Wunsafe-buffer-usage]
+    # => raised on every raw array indexing and pointer arithmetic
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unsafe-buffer-usage")
+  endif()
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 18)
+    # error: 'switch' missing 'default' label [-Werror,-Wswitch-default]
+    # => some enum switches cover all cases without default
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-switch-default")
+  endif()
 endif()
 
 if(DEFINED DYNAWO_THIRD_PARTY_DIR)

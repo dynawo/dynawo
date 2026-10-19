@@ -21,6 +21,8 @@
 #define MODELER_DATAINTERFACE_DYNSWITCHINTERFACE_H_
 
 
+#include <memory>
+
 #include "DYNComponentInterface.hpp"
 
 namespace DYN {

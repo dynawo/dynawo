@@ -21,6 +21,8 @@
 #ifndef API_CRV_CRVXMLIMPORTER_H_
 #define API_CRV_CRVXMLIMPORTER_H_
 
+#include <memory>
+
 #include "CRVImporter.h"
 
 namespace curves {

@@ -83,9 +83,19 @@ set(zlib_md5             1C9F62F0778697A09D36121EAD88E08E)
 set(boost_version        1.70.0)
 set(boost_md5            fea771fe8176828fabf9c09242ee8c26)
 if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 11)
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 14)
+    set(boost_version "1.81.0")
+    set(boost_md5          4bf02e84afb56dfdccd1e6aec9911f4b)
+  elseif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 11)
     set(boost_version "1.73.0")
     set(boost_md5          4036cd27ef7548b8d29c30ea10956196)
+  endif()
+endif()
+# Clang >= 16 rejects out of range enum values built by mpl::integral_c in Boost.NumericConversion (fixed in Boost 1.81)
+if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16)
+    set(boost_version "1.81.0")
+    set(boost_md5          4bf02e84afb56dfdccd1e6aec9911f4b)
   endif()
 endif()
 if(MSVC)
@@ -428,6 +438,12 @@ else()
 
   else()
     set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams")
+    # Boost.Math >= 1.80 emits a #warning when compiled in C++11, which breaks -Werror builds
+    if(boost_version VERSION_GREATER_EQUAL 1.80)
+      set(boost_patch_math sed -i "/minimum language standard to use Boost.Math/d" <SOURCE_DIR>/boost/math/tools/config.hpp)
+    else()
+      set(boost_patch_math ${CMAKE_COMMAND} -E echo No Boost.Math patch.)
+    endif()
 
     ExternalProject_Add(boost
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
@@ -437,6 +453,7 @@ else()
       SOURCE_DIR          ${DOWNLOAD_DIR}/boost
       URL                 ${boost_url}
       URL_MD5             ${boost_md5}
+      PATCH_COMMAND       ${boost_patch_math}
       BUILD_IN_SOURCE     1
 
       CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.sh
@@ -668,6 +685,22 @@ if(NOT OMCompiler)
               COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/lib/gcc <INSTALL_DIR>/tools/msys/mingw64/lib/gcc
     )
   else()
+    # Recent compilers turn implicit declarations and other legacy C constructs into errors
+    set(openmodelica_cflags "")
+    set(openmodelica_cxxflags "CXXFLAGS=-std=c++11")
+    if(('${CMAKE_C_COMPILER_ID}' STREQUAL 'GNU' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 14) OR
+       ('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 16))
+      set(openmodelica_cflags "CFLAGS=-O2 -g -fPIC -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types")
+      # OMC configure only appends CFLAGS (and thus -fPIC) to CXXFLAGS if they are valid for C++, which these C-only flags are not
+      set(openmodelica_cxxflags "CXXFLAGS=-std=c++11 -O2 -g -fPIC")
+      if('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang')
+        # -fno-vectorize: clang 21 crashes in the loop vectorizer on OMC runtime sources (newtonIteration.c)
+        string(APPEND openmodelica_cflags " -Wno-error=incompatible-function-pointer-types -fno-vectorize")
+      else()
+        # gcc >= 15 defaults to C23 (bool, true and false become keywords); clang rejects -std=gnu17 as some C++ files are built with CFLAGS
+        string(APPEND openmodelica_cflags " -std=gnu17")
+      endif()
+    endif()
     ExternalProject_Add(openmodelica
       INSTALL_DIR         ${OPENMODELICA_INSTALL}
       DOWNLOAD_DIR        ${DOWNLOAD_DIR}
@@ -684,14 +717,15 @@ if(NOT OMCompiler)
                 COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=-std=c++11"
+                          ${openmodelica_cxxflags}
+                          ${openmodelica_cflags}
                           --prefix=<INSTALL_DIR>
                           --disable-modelica3d
                           --disable-omnotebook
                           --disable-omshell-terminal
                           --with-qwt=NO
                           --with-omc=no
-      BUILD_COMMAND       make -j ${CPU_COUNT} omc
+      BUILD_COMMAND       ${CMAKE_COMMAND} -E env ${openmodelica_cflags} make -j ${CPU_COUNT} omc
       INSTALL_COMMAND     make install
               COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
     )

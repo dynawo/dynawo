@@ -80,7 +80,7 @@ class VariableMultiple : public VariableNative {
   /**
    * @copydoc VariableNative::getIndex()
    */
-  int getIndex() const override;
+  [[noreturn]] int getIndex() const override;
 
   /**
    * @brief Setter for variable's cardinality value : the number of unit variables to create

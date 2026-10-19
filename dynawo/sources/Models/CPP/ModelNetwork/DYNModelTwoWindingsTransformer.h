@@ -29,6 +29,7 @@
  */
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELTWOWINDINGSTRANSFORMER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELTWOWINDINGSTRANSFORMER_H_
+#include <memory>
 #include <sstream>
 
 #include <boost/shared_ptr.hpp>

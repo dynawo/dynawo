@@ -15,6 +15,8 @@
 #define API_CRT_CRTCRITERIACOLLECTIONFACTORY_H_
 
 
+#include <memory>
+
 #include "CRTCriteriaCollection.h"
 
 

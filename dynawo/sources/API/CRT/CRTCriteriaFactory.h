@@ -15,6 +15,8 @@
 #define API_CRT_CRTCRITERIAFACTORY_H_
 
 
+#include <memory>
+
 #include "CRTCriteria.h"
 
 namespace criteria {

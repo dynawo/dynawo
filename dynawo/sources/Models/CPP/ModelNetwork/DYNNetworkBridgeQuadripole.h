@@ -17,6 +17,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNNETWORKBRIDGEQUADRIPOLE_H_
 #define MODELS_CPP_MODELNETWORK_DYNNETWORKBRIDGEQUADRIPOLE_H_
 
+#include <memory>
+
 #include "DYNModelQuadripole.h"
 #include "DYNNetworkBridge.hpp"
 
@@ -57,7 +59,7 @@ class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
   void evalCalculatedVars() override {}
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
   void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
+  [[noreturn]] double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
   void evalStaticYType() override {}
   void evalDynamicYType() override {}
   void evalStaticFType() override {}

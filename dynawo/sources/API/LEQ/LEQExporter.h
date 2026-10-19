@@ -23,6 +23,7 @@
 
 #include "LEQLostEquipmentsCollection.h"
 
+#include <memory>
 #include <string>
 #include <iostream>
 

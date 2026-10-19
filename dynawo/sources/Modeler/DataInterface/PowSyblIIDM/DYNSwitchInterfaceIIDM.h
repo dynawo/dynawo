@@ -20,6 +20,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSWITCHINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNSWITCHINTERFACEIIDM_H_
 
+#include <memory>
+
 #include <powsybl/iidm/Switch.hpp>
 
 #include "DYNSwitchInterface.h"

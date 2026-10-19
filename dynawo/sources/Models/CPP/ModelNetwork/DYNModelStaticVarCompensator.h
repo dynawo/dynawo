@@ -22,6 +22,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELSTATICVARCOMPENSATOR_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELSTATICVARCOMPENSATOR_H_
 
+#include <memory>
+
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 #include <boost/archive/binary_iarchive.hpp>

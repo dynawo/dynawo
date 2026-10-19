@@ -22,6 +22,7 @@
 #define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINSUBMODEL_H_
 
 #include <boost/core/noncopyable.hpp>
+#include <memory>
 #include <vector>
 
 #ifdef __clang__

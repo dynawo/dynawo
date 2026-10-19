@@ -17,6 +17,7 @@
 #include "CRTCriteriaParams.h"
 
 #include <boost/shared_ptr.hpp>
+#include <memory>
 #include <unordered_set>
 #include <string>
 #include <vector>

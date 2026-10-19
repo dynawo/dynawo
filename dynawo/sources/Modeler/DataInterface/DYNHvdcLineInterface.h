@@ -22,6 +22,8 @@
 #ifndef MODELER_DATAINTERFACE_DYNHVDCLINEINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNHVDCLINEINTERFACE_H_
 
+#include <memory>
+
 #include "DYNComponentInterface.hpp"
 #include <boost/optional.hpp>
 

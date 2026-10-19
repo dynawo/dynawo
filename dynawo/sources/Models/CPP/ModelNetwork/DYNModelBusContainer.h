@@ -16,6 +16,7 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELBUSCONTAINER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELBUSCONTAINER_H_
 
+#include <memory>
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"

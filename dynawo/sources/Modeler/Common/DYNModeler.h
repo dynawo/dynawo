@@ -22,6 +22,7 @@
 #define MODELER_COMMON_DYNMODELER_H_
 
 #include <map>
+#include <memory>
 
 #include <boost/shared_ptr.hpp>
 #include "DYDModelicaModel.h"
