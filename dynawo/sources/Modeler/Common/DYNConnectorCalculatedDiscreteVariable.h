@@ -115,7 +115,7 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
    * @param indexes vector to fill with the indexes
    *
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override;
+  [[noreturn]] void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const override;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
@@ -123,7 +123,7 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
+  [[noreturn]] void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const override;
 
   /**
    * @brief evaluate the value of a calculated variable
@@ -131,7 +131,7 @@ class ConnectorCalculatedDiscreteVariable : public SubModel {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable based on the current values of continuous variables
    */
-  double evalCalculatedVarI(unsigned iCalculatedVar) const override;
+  [[noreturn]] double evalCalculatedVarI(unsigned iCalculatedVar) const override;
 
   /**
    * @copydoc SubModel::getY0()

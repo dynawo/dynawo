@@ -43,20 +43,20 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void resetDerivatives() override {}
 
   // unused pure virtual methods from ModelBus that do not make sense for bridge buses (without node injection), throw if called
-  double getCurrentU(UType_t) override                            {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getCurrentU()", id());}
-  double getVNom() const override                                 {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getVNom()", id());}
-  double urp() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urp()", id());}
-  double uip() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uip()", id());}
-  int urYNum() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urYNum()", id());}
-  int uiYNum() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uiYNum()", id());}
-  void irAdd(double) override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "irAdd()", id());}
-  void iiAdd(double) override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "iiAdd()", id());}
-  boost::shared_ptr<BusDerivatives>& derivatives() override       {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivatives()", id());}
-  boost::shared_ptr<BusDerivatives>& derivativesPrim() override   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivativesPrim()", id());}
+  [[noreturn]] double getCurrentU(UType_t) override                            {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getCurrentU()", id());}
+  [[noreturn]] double getVNom() const override                                 {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getVNom()", id());}
+  [[noreturn]] double urp() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urp()", id());}
+  [[noreturn]] double uip() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uip()", id());}
+  [[noreturn]] int urYNum() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urYNum()", id());}
+  [[noreturn]] int uiYNum() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uiYNum()", id());}
+  [[noreturn]] void irAdd(double) override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "irAdd()", id());}
+  [[noreturn]] void iiAdd(double) override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "iiAdd()", id());}
+  [[noreturn]] boost::shared_ptr<BusDerivatives>& derivatives() override       {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivatives()", id());}
+  [[noreturn]] boost::shared_ptr<BusDerivatives>& derivativesPrim() override   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivativesPrim()", id());}
 
   // unused pure virtual methods from NetworkComponent from here on
   NetworkComponent::StateChange_t evalState(double) override {return NetworkComponent::NO_CHANGE;}
-  double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
+  [[noreturn]] double evalCalculatedVarI(unsigned numCalculatedVar) const override {throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);}
   void evalDerivatives(double) override {}
   void evalDerivativesPrim() override {}
   void evalF(propertyF_t) override {}
