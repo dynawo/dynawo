@@ -88,10 +88,11 @@ if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
     set(boost_md5          4036cd27ef7548b8d29c30ea10956196)
   endif()
 endif()
+# Clang >= 16 rejects out of range enum values built by mpl::integral_c in Boost.NumericConversion (fixed in Boost 1.81)
 if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
   if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16)
-    set(boost_version "1.83.0")
-    set(boost_md5          e9d8ddf56ec35aa926b3fae04d22b8ad)
+    set(boost_version "1.81.0")
+    set(boost_md5          4bf02e84afb56dfdccd1e6aec9911f4b)
   endif()
 endif()
 if(MSVC)
@@ -434,6 +435,12 @@ else()
 
   else()
     set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams")
+    # Boost.Math >= 1.80 emits a #warning when compiled in C++11, which breaks -Werror builds
+    if(boost_version VERSION_GREATER_EQUAL 1.80)
+      set(boost_patch_math sed -i "/minimum language standard to use Boost.Math/d" <SOURCE_DIR>/boost/math/tools/config.hpp)
+    else()
+      set(boost_patch_math ${CMAKE_COMMAND} -E echo No Boost.Math patch.)
+    endif()
 
     ExternalProject_Add(boost
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
@@ -443,6 +450,7 @@ else()
       SOURCE_DIR          ${DOWNLOAD_DIR}/boost
       URL                 ${boost_url}
       URL_MD5             ${boost_md5}
+      PATCH_COMMAND       ${boost_patch_math}
       BUILD_IN_SOURCE     1
 
       CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.sh
@@ -678,9 +686,10 @@ if(NOT OMCompiler)
     set(openmodelica_cflags "")
     if(('${CMAKE_C_COMPILER_ID}' STREQUAL 'GNU' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 14) OR
        ('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 16))
-      set(openmodelica_cflags "CFLAGS=-O2 -g -std=gnu17 -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types")
+      set(openmodelica_cflags "CFLAGS=-O2 -g -fPIC -std=gnu17 -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types")
       if('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang')
-        string(APPEND openmodelica_cflags " -Wno-error=incompatible-function-pointer-types")
+        # -fno-vectorize: clang 21 crashes in the loop vectorizer on OMC runtime sources (newtonIteration.c)
+        string(APPEND openmodelica_cflags " -Wno-error=incompatible-function-pointer-types -fno-vectorize")
       endif()
     endif()
     ExternalProject_Add(openmodelica
