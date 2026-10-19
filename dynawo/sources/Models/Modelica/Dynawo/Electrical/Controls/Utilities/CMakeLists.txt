@@ -11,8 +11,11 @@
 set(MODEL_FILES
   package.mo
   package.order
+  ChangeofBaseSNom.mo
+  TransformRItoDQ.mo
   Measurements.mo
   Measurements.extvar
+  Measurements.mandatoryParam
   )
 
 #

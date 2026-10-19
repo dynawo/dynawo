@@ -9,6 +9,9 @@
 %% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 \documentclass[a4paper, 12pt]{report}
 \input{../../../documentation/latex_setup.tex}
+\usepgfplotslibrary{fillbetween}
+\usepackage{circuitikz}
+\pgfplotsset{compat=1.18}
 \begin{document}
 \chapter*{Three-converter system with three different types of Grid Forming Converters}
 \section*{Test case description}
@@ -37,7 +40,7 @@ Three events are simulated:
 The currents in the three converters during the whole simulation are presented in Fig.~\ref{comp1}.
 \begin{figure}[H]
 \begin{center}
-  \begin{tikzpicture}[scale = 0.8]
+  \begin{tikzpicture}
     \begin{axis}[grid=major, xmin=0.47, xmax=2.1]
         \addplot[color=blue!50]
         table[x=time,y=Converter250_converter_IConvPu]
@@ -75,4 +78,329 @@ All the three controls are stable for this simulation and manage to bring back t
     \end{center}
   \caption{Frequency of the three converters with static lines\label{comp10}}
 \end{figure}
+\newpage
+
+\chapter*{Voltage Angle Step Test on Grid Forming Converters}
+\section*{Test case description}
+This test case implements a scenario from the I18 technical documentation of the French Grid (DTR Chapter 8, Article 8.3.3). The chosen test case is named \texttt{S\_VolAngStep7\_OC4} and applied identically to three Grid-Forming
+converter architectures:
+\begin{itemize}
+\item \texttt{DynGFMVSM} — Virtual Synchronous Machine control with a PLL feeding the
+      Control block frequency reference; the Converter's Park frame remains
+      slaved to the internal virtual angle produced by the swing equation.
+\item \texttt{DynGFMVSMConvPLL} — same as above, with the grid-measured PLL frequency
+      (\texttt{omegaPLL}) additionally fed to the converter block for frame alignment. The reason behind this variation is to see how mirroring the grid frequency in the Converter's loop will affect performance.
+\item \texttt{DynGFMDroop} — Droop-based architecture, with no PLL in the active control chain.
+\end{itemize}
+
+\paragraph{Network and operating point}
+The converter is connected to an infinite bus (named Grid) through a static RL line sized for
+$SCR_{min} = 2$ (i.e. $x_{grid} = 0.5$~p.u. on the converter's own $S_{Nom}$ base, with $x_{eff} = 0.27$~p.u.).
+Operating point OC4: $P_{ref} = 0.95$ p.u., $Q_{ref} = 0$~p.u., $U_{ref}= 1$~p.u.
+All system services (voltage control, frequency regulation, LFSM-U/O) are disabled,
+according to section 6, so that only the Grid-Forming voltage-source behaviour is
+characterized. A reference circuit is shown in Figure \ref{fig:reference_network}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\fontsize{9.1pt}{11.8pt}\selectfont]
+\draw (12.625,20.5) to[sacdc] (15.375,20.5);
+\draw (15.375,20.5) to (15.375,19.5) node[ground, rotate=0]{};
+\draw (12.625,20.5) to[european resistor] (10.875,20.5);
+\draw (8.5,20.5) to[sinusoidal voltage source, sources/symbol/rotate=auto] (11.125,20.5);
+\draw (8.5,20.5) to (8.5,19.625) node[ground, rotate=0]{};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.75,19.75) {$\Delta\theta_{grid}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.75,19.875) {$x_{grid}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.875,19.625) {$x_{eff}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.75,21.375) {Grid};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.75,21.375) {Line};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (14,21.5) {GFM};
+\begin{scope}[transparency group, opacity=1]
+\node at (12.875,20.5) [circ, color={rgb,255:red,0; green,0; blue,0}] {};
+\end{scope}
+\node [font=\fontsize{9.1pt}{11.8pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (12.75,20.125) {$PGU$};
+\end{circuitikz}
+}%
+\caption{Reference Network for the I18 test}
+\label{fig:reference_network}
+\end{figure}
+
+\paragraph{Event and simulation}
+At $t = 10$s, a phase jump $\Delta\theta_{grid} = 26.47 °$ is applied to the infinite
+bus voltage representing the grid. Different simulations will be carried out with diverse solvers and timesteps. Common features include a simulation from 0 to 25 seconds, with an event at $t=10$s. The output variable of interest is the active current $I_p$ measured at the Point of Generating Unit (PGU).
+
+\paragraph{Conformity criteria}
+The I18 technical documentation enforces regulation on the active current $I_p$ mainly through a set of conformity envelopes and a damping at least equal to 40\% for every oscillation in $I_p$ between 0.1 and 20 Hz. This latter criterion is not covered in the
+following results.
+\subsection*{Simulation setup}
+The simulation is carried out on Dynawo using the IDA Solver.
+Since the test case is trivial, there is no need for a specific \textit{.iidm} file, corresponding \textit{.par, .dyd and .jobs} files can be found in the \texttt{/SMIB} directory. Initial variables of active/reactive power and module and phase of voltage are given
+as parameters. They are calculated in a separate case identical to the reference network but with no perturbation ($\Delta\theta_{grid}=0$).
+
+\subsection*{Results}
+
+Figure~\ref{fig:zoom_Ip_envelope_step7oc4} compares the active current response $I_p$ at the PGU of the three architectures (output \texttt{measurements\_IpPuSNom} of the \texttt{Measurements} block, in p.u. on the converter's $S_{Nom}$ base) with the corresponding conformity envelopes in dashed black. The conformity zone is shaded in gray.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=7cm,
+      grid=major,
+      xmin=9.5, xmax=13,
+      xlabel={Time [s]},
+      ylabel={Active current $I_p$ [p.u.]},
+      legend pos=south east,
+      legend style={font=\small}
+    ]
+% DynGFMVSM
+\addplot[color=blue, no marks]
+        table[col sep=semicolon, x=time, y=Meas_measurements_IpPuSNom]
+        {../SMIB/DynGFMVSM/outputs/curves/curves.csv};
+% DynGFMVSMConvPLL
+\addplot[color=red, dashed, no marks]
+        table[col sep=semicolon, x=time, y=Meas_measurements_IpPuSNom]
+        {../SMIB/DynGFMVSMConvPLL/outputs/curves/curves.csv};
+% DynGFMDroop
+\addplot[color=green!60!black, no marks]
+        table[col sep=semicolon, x=time, y=Meas_measurements_IpPuSNom]
+        {../SMIB/DynGFMDroop/outputs/curves/curves.csv};
+% Conformity envelope (the event at t = 0 s in the envelope file corresponds to t = 10 s in the simulation)
+\addplot[name path=envUp, color=black, dashed, no marks]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip upper (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+\addplot[name path=envLow, color=black, dashed, no marks, forget plot]
+        table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip lower (pu)}]
+        {PCS_RTE-IGFM1.S_VolAngStep7.OC4.csv};
+
+\addplot[gray!20, forget plot] fill between [of=envUp and envLow];
+\legend{DynGFMVSM, DynGFMVSMConvPLL, DynGFMDroop, Conformity envelope}
+\end{axis}
+\end{tikzpicture}
+\caption{Active current at the GFM PGU following a $26.47$ deg voltage angle step
+(S\_VolAngStep7\_OC4), for the three architectures.}
+\label{fig:zoom_Ip_envelope_step7oc4}
+\end{figure}
+
+One can note that the \texttt{DynGFMVSM} and \texttt{DynGFMVSMConvPLL} architectures are similar, with a barely visible difference during the current drop (maximum difference of
+$0.025$~p.u., reached during the first 50 ms). The \texttt{DynGFMDroop} architecture shows a slightly different behaviour mainly due to its high value of droop gain, which makes it behave like an overdamped second-order system (no overshoot). The three architectures are well within the conformity envelope, except for minor offset deviations due to a different initialization than in the I18 test cases.
+\newpage
+
+\chapter*{Loss of synchronism of a current-limited VSM during a frequency excursion}
+\section*{Test case description}
+This test case, located in the \texttt{/SMIB/DynGFMCCVSMWindUp} directory, illustrates a known limitation of a Virtual Synchronous Machine whose current is limited by a current saturation: when the current saturates, the VSM loop winds up and the converter can lose synchronism with the grid (pole slipping). It reproduces in Dynawo the Modelica example \texttt{Dynawo.\allowbreak Examples.\allowbreak GridForming.\allowbreak VSM.\allowbreak DynGFMCCVSMSmib}.
+
+\paragraph{Converter and control}
+The converter is the current-controlled Grid-Forming converter \texttt{DynGFMCCVSM} (preassembled model \texttt{DynGridFormingCurrent\allowbreak ControlledVirtualSynchronousMachine}, $S_{Nom} = 1000$~MW). Its outer loop is a VSM with an additional angle-damping term:
+\begin{align*}
+2H \frac{d\omega}{dt} &= P_{FilterRef} - P_{Filter} - k_{VSM}\,(\omega - \omega_{PLL}) \\
+\theta &= \omega_{Nom} \left[ \int (\omega - \omega_{Ref})\,dt + K_{DampingAngle}\,(\omega - \omega_{Ref}) \right]
+\end{align*}
+with $H = 5$~s, $k_{VSM} = 150$ and $K_{DampingAngle} = 0.00318$~s. The angle $\theta$ is thus obtained through a PI action on the frequency error: the proportional term $K_{DampingAngle}$ vanishes in steady state but adds damping to the electromechanical oscillations.
+
+The voltage reference produced by the VSM is converted into a current reference, which goes through a \textbf{current saturation} block before the current loop:
+\begin{itemize}
+\item the saturation is activated as soon as the module of the current reference or of the current measured at the PCC exceeds $I_{Max} + 0.01$~p.u., with $I_{Max} = 1.2$~p.u., and deactivated when the module of the reference goes back below $I_{Max} - 0.01$~p.u. (hysteresis);
+\item when active, the module of the current reference is limited to $I_{Max}$ while its angle in the $dq$ frame is kept, i.e. the ratio between active and reactive currents (P/Q ratio) is preserved.
+\end{itemize}
+The virtual impedance of the converter is not active in this test ($I_{MaxVI} = 2$~p.u. $> I_{Max}$): the current limitation only relies on the current saturation, and no anti-windup acts on the VSM loop.
+
+\paragraph{Network and operating point}
+The converter is connected to a grid voltage source (\texttt{AcGridRoCoF}) through a static RL line ($R = 0.005$~p.u., $X = 0.05$~p.u. on the $S_{Ref} = 100$~MVA base, i.e. $x_{grid} = 0.5$~p.u. on the converter's $S_{Nom}$ base, $SCR = 2$). Operating point: $P_{FilterRef} = -0.95$~p.u. (generator convention: the converter absorbs 950~MW), $Q_{FilterRef} = 0$~p.u., $U_{FilterRef} = 1$~p.u.
+
+\paragraph{Event and simulation}
+The grid frequency follows a V-shaped profile (\texttt{AcGridRoCoF} with \texttt{ReturnRoCoF = true}), shown in Figure~\ref{fig:windup_omega}: it decreases with a rate of $-0.05$~p.u./s between $t = 5$~s and $t = 8$~s (down to 0.85~p.u.), then returns to 1~p.u. with a rate of $+0.05$~p.u./s between $t = 8$~s and $t = 11$~s, and is held at 1~p.u. afterwards. The simulation runs from 0 to 25~s with the simplified solver.
+
+\subsection*{Results}
+Figure~\ref{fig:windup_omega} compares the grid frequency with the frequency of the VSM. Figure~\ref{fig:windup_theta} shows the angle between the converter and the grid, $\Delta\theta = \theta - \theta_0 - \theta_{grid}$, where $\theta$ is the VSM angle (\texttt{ControlCC\_theta}, phase shift between the converter frame and the frame rotating at $\omega_{Ref} = 1$~p.u.), $\theta_0$ its initial value and $\theta_{grid}$ the phase of the grid voltage source in the same frame.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=6.5cm,
+      grid=major,
+      xmin=0, xmax=25,
+      xlabel={Time [s]},
+      ylabel={Frequency [p.u.]},
+      legend pos=south east,
+      legend style={font=\small}
+    ]
+\addplot[color=black, dashed, no marks, each nth point=10]
+        table[col sep=semicolon, x=time, y=Grid_Grid_omegaPu]
+        {../SMIB/DynGFMCCVSMWindUp/outputs/curves/curves.csv};
+\addplot[color=blue, no marks, each nth point=10]
+        table[col sep=semicolon, x=time, y=GFMCCVSM_GFMCC_omegaVSMPu]
+        {../SMIB/DynGFMCCVSMWindUp/outputs/curves/curves.csv};
+\legend{Grid frequency, VSM frequency $\omega$}
+\end{axis}
+\end{tikzpicture}
+\caption{Grid frequency (V-shaped profile) and VSM frequency of the current-limited converter.}
+\label{fig:windup_omega}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=6.5cm,
+      grid=major,
+      xmin=0, xmax=25,
+      ymin=-22, ymax=2,
+      ytick={-18.85,-12.57,-6.28,0},
+      yticklabels={$-6\pi$,$-4\pi$,$-2\pi$,$0$},
+      xlabel={Time [s]},
+      ylabel={$\Delta\theta$ [rad]},
+    ]
+\addplot[color=red, no marks, each nth point=10]
+        table[col sep=semicolon, x=time, y expr=\thisrow{GFMCCVSM_GFMCC_ControlCC_theta}-\thisrow{Grid_Grid_integrator1_y}+0.7003048]
+        {../SMIB/DynGFMCCVSMWindUp/outputs/curves/curves.csv};
+\end{axis}
+\end{tikzpicture}
+\caption{Angle between the converter and the grid $\Delta\theta$: after the frequency excursion, it keeps decreasing by steps of $2\pi$ (pole slipping).}
+\label{fig:windup_theta}
+\end{figure}
+
+The response can be split into three phases:
+\begin{itemize}
+\item \textbf{Frequency decrease} ($5 < t < 8$~s): the VSM follows the grid frequency, the angle $\Delta\theta$ remains small (below 0.65~rad) and the current stays below its limit.
+\item \textbf{Frequency increase} ($8 < t < 11$~s): because of its virtual inertia, the converter lags behind the grid (at $t = 10.5$~s, $\omega = 0.958$~p.u. while the grid is at 0.975~p.u.). $\Delta\theta$ becomes strongly negative and the current reaches its limit $I_{Max} = 1.2$~p.u. Once the current is saturated, the active power no longer increases with the angle, so nothing pulls the converter back towards the grid: $\Delta\theta$ crosses $-\pi$ at $t \approx 10.1$~s (first pole slip).
+\item \textbf{Grid back at 1~p.u.} ($t > 11$~s): the converter never resynchronizes. $\omega$ remains below 1~p.u. (between 0.975 and 0.9998~p.u., i.e. an average deficit of about 0.003~p.u.) and $\Delta\theta$ keeps decreasing, down to $-20.4$~rad at $t = 25$~s. It crosses $-3\pi$ and $-5\pi$ at $t \approx 13.4$~s and $t \approx 19.9$~s: the converter slips one pole about every 6.6~s. At each slip, the active power swings between $-1.05$~p.u. and $+1.13$~p.u., and the current is pinned at 1.2~p.u. most of the time.
+\end{itemize}
+
+This behaviour is a wind-up of the VSM loop: while the current is saturated, the measured power $P_{Filter}$ is limited, so the swing equation integrates a permanent power error and the integral part of $\theta$ drifts without bound. The angle-damping term $K_{DampingAngle}$ adds damping around an equilibrium but cannot prevent this drift. This test case is therefore meant as a reference to assess anti-windup strategies on the VSM loop (e.g. back-calculation of the power lost in the saturation), which are not implemented yet.
+\newpage
+
+\chapter*{Grid Forming Converters with a Plant Controller}
+\section*{Test case description}
+These test cases, located in the \texttt{/PlantControl} directory, check the behaviour of a Grid-Forming power plant, i.e. a Grid-Forming converter driven by a generic plant controller, when the grid frequency varies.
+They feature two different architectures for the Grid-Forming converter:
+\begin{itemize}
+\item \texttt{VSM} — Virtual Synchronous Machine converter (preassembled model \texttt{DynGridFormingVSM\allowbreak PlantControlFull});
+\item \texttt{Droop} — Droop-based converter (preassembled model \texttt{DynGridFormingDroop\allowbreak PlantControlFull}).
+\end{itemize}
+
+\paragraph{Network and operating point}
+The plant is connected to a grid voltage source (\texttt{AcGridRoCoF}, $1\angle 0$~p.u.) through a static RL line (\texttt{Line1}, $R = 0.0005$~p.u., $X = 0.005$~p.u. on the $S_{Ref} = 100$~MVA base). The measurements are taken at the Point of Common Coupling (PCC), between this line and the plant. Inside the preassembled model, the plant consists of a plant transformer and a plant line between the PCC and the tested Grid-Forming converter. The tested network is shown in Figure~\ref{fig:plant_control_network}.
+
+\begin{figure}[H]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\fontsize{10.8pt}{14.1pt}\selectfont]
+\draw (12.625,12.125) to[sacdc] (15.375,12.125);
+\draw (15.375,12.125) to (15.375,11.125) node[ground, rotate=0]{};
+\draw (13,12.125) to[european resistor] (11.25,12.125);
+\draw (5.5,12.125) to (5.5,11.25) node[ground, rotate=0]{};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8.125,11.5) {$x_{grid}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.875,11.25) {$x_{eff}$};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.25,12.75) {Grid};
+\node [font=\fontsize{14.8pt}{19.2pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (14,13.125) {GFM};
+\begin{scope}[transparency group, opacity=1]
+\node at (9.25,12.125) [circ, color={rgb,255:red,0; green,0; blue,0}] {};
+\end{scope}
+\node [font=\fontsize{9.1pt}{11.8pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.25,11.75) {$PCC$};
+\draw (9.25,12.125) to[oosourcetrans] (11.25,12.125);
+\draw (7,12.125) to[european resistor] (9.375,12.125);
+\draw (5.5,12.125) to[sinusoidal voltage source, sources/symbol/rotate=auto] (7.125,12.125);
+\draw [ dotted] (9.25,13.75) rectangle  (15.875,10.25);
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.25,12.625) {Transformer};
+\node [font=\fontsize{10.8pt}{14.1pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (12.625,9.875) {Plant Controller};
+\node [font=\fontsize{10.8pt}{14.1pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.375,11.5) {$\dot{\omega}$};
+\end{circuitikz}
+}%
+\caption{Tested network for the plant controller test cases: grid with a frequency ramp $\dot{\omega}$, line \texttt{Line1} ($x_{grid}$), and the Grid-Forming power plant (dotted box: plant transformer, plant line and converter, driven by the plant controller) connected at the PCC.}
+\label{fig:plant_control_network}
+\end{figure}
+
+The plant controller compares the active power and the voltage/reactive power measured at the PCC to their references and sends the active and reactive power references $P_{FilterRef}$ and $Q_{FilterRef}$ to the converter, through:
+\begin{itemize}
+\item an active power loop: a PI controller ($K_{pp} = 0.3$, $K_{ip} = 0.3$~s$^{-1}$) on the filtered PCC active power, with an optional frequency droop of gain $K_{droop}$ (with a frequency deadband) and limits $P_{Min}$/$P_{Max}$ on the output reference;
+\item a voltage/reactive power loop: a PI controller ($K_{pq} = 0.1$, $K_{iq} = 1$~s$^{-1}$) on the voltage error with a $U + \lambda Q$ regulation with $\lambda = 0.01$, the voltage reference being $U_{Ref} = U_{PCC,0} + \lambda \, Q_{PCC,0}$.
+\end{itemize}
+
+The two cases differ by the following settings:
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|c|c|}
+\hline
+ & \texttt{VSM} & \texttt{Droop} \\
+\hline
+Initial active power injected at the PCC & 990~MW & 935~MW \\
+Initial reactive power at the PCC & 403~Mvar injected & 157~Mvar absorbed \\
+PCC voltage $U_{PCC,0}$ & 1.023~p.u. & 0.996~p.u. \\
+Plant frequency droop $K_{droop}$ & 0 & 0.01 \\
+Active power filter time constant $t_{PFilt}$ & 1~s & 0.1~s \\
+Active power limits $P_{Min}/P_{Max}$ & $\pm 100$~p.u. ($S_{Ref}$) & $\pm 12$~p.u. ($S_{Ref}$) \\
+Converter frequency control & VSM, $H = 5$~s, $k_{VSM} = 650$ & Droop, $m_p = 0.013$ \\
+\hline
+\end{tabular}}
+\caption{Main differences between the two plant control test cases.}
+\label{tab:plant_control_settings}
+\end{table}
+
+\paragraph{Event and simulation}
+The grid frequency starts at 1~p.u. and increases with a rate of change of frequency of $0.01$~p.u./s (0.5~Hz/s) between $t = 5$~s and $t = 8$~s. It is then held at 1.03~p.u. (51.5~Hz) until the end of the simulation. The simulations run from 0 to 25~s with the IDA solver.
+The evolution of the grid frequency is shown in Figure~\ref{fig:plant_control_freq}.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=7cm,
+      grid=major,
+      xmin=4, xmax=25,
+      xlabel={Time [s]},
+      ylabel={Grid frequency [p.u.] (base $\omega_{Nom}$)},
+      legend pos=north east,
+      legend style={font=\small}
+    ]
+% measurements_PPu is in receptor convention on the S_Ref = 100 MVA base: injected power on the S_Nom = 1000 MW base = -PPu/10
+\addplot[color=blue, no marks, each nth point=10]
+        table[col sep=semicolon, x=time, y=Grid_Grid_omegaPu]
+        {../PlantControl/VSM/outputs/curves/curves.csv};
+\legend{$\omega_{Pu}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Grid frequency during a $+0.01$~p.u./s frequency ramp from $t = 5$~s to $t = 8$~s.}
+\label{fig:plant_control_freq}
+\end{figure}
+
+\subsection*{Results}
+Figure~\ref{fig:plant_control_P} shows the response for both architectures, in p.u. on the converter's $S_{Nom} = 1000$~MW base.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+      width=12cm, height=7cm,
+      grid=major,
+      xmin=4, xmax=25,
+      xlabel={Time [s]},
+      ylabel={Active power injected at the PCC [p.u.] (generator convention, base $S_{Nom}$)},
+      legend pos=north east,
+      legend style={font=\small}
+    ]
+% measurements_PPu is in receptor convention on the S_Ref = 100 MVA base: injected power on the S_Nom = 1000 MW base = -PPu/10
+\addplot[color=blue, no marks, each nth point=10]
+        table[col sep=semicolon, x=time, y expr=-\thisrow{Measurements_measurements_PPu}/10]
+        {../PlantControl/VSM/outputs/curves/curves.csv};
+\addplot[color=green!60!black, no marks, each nth point=10]
+        table[col sep=semicolon, x=time, y expr=-\thisrow{Measurements_measurements_PPu}/10]
+        {../PlantControl/Droop/outputs/curves/curves.csv};
+\legend{VSM, Droop}
+\end{axis}
+\end{tikzpicture}
+\caption{Active power injected at the PCC during a $+0.01$~p.u./s frequency ramp from $t = 5$~s to $t = 8$~s.}
+\label{fig:plant_control_P}
+\end{figure}
+
+The two architectures behave very differently:
+\begin{itemize}
+\item \texttt{VSM}: during the frequency ramp, the virtual inertia of the converter reduces the injected power (down to 0.84~p.u.), which counteracts the frequency rise. When the ramp stops at $t = 8$~s, the power swings above its initial value (up to 1.08~p.u.), then the active power loop of the plant controller slowly brings it back to its reference: at $t = 25$~s, the injected power is 0.990~p.u., for an initial value of 0.990~p.u. Since the plant frequency droop is disabled ($K_{droop} = 0$) and the VSM has no permanent frequency droop, the frequency change has no lasting effect on the injected power.
+\item \texttt{Droop}: the injected power decreases almost linearly with the frequency during the ramp, following the converter droop characteristic ($\Delta P = \Delta\omega / m_p \approx 0.03 / 0.013 \approx 2.3$~p.u.), and the plant ends up absorbing 1.13~p.u. from $t \approx 8$~s onwards.
+The plant controller cannot restore the initial injection: compensating the converter droop would require a power reference of about 3.2~p.u., well above the limit $P_{Max} = 1.2$~p.u.  on the $S_{Nom}$ base. The final power is consistent with this saturated reference: $1.2 - 2.3 \approx -1.1$~p.u.
+\end{itemize}
 \end{document}

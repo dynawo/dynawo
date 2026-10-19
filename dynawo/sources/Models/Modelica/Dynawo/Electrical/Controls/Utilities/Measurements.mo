@@ -22,6 +22,8 @@ model Measurements "This block measures the voltage, current, active power and r
 
 */
 
+  parameter Types.ApparentPowerModule SNom  = SystemBase.SnRef "Nominal apparent power module for the converter";
+
   Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2 annotation(
@@ -38,11 +40,17 @@ model Measurements "This block measures the voltage, current, active power and r
   Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput UPhase "Voltage angle at terminal 1 in rad" annotation(
-    Placement(visible = true, transformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {-78, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput UPu "Voltage module at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealOutput IpPu "Active current at terminal 1 in pu (base UNom, SnRef)(receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput IqPu "Reactive current at terminal 1 in pu (base UNom, SnRef)(receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput IpPuSNom "Active current at terminal 1 in pu (base UNom, SNom)(receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput IqPuSNom "Reactive current at terminal 1 in pu (base UNom, SNom)(receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput PPuSNom "Active power at terminal 1 in pu (base UNom, SNom)(receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput QPuSNom "Active power at terminal 1 in pu (base UNom, SNom)(receptor convention)";
 
 equation
   terminal1.i = -terminal2.i;
@@ -55,6 +63,12 @@ equation
   QPu = ComplexMath.imag(uPu * ComplexMath.conj(iPu));
   UPhase = ComplexMath.arg(uPu);
   UPu = ComplexMath.'abs'(uPu);
+  IpPu=PPu/UPu;
+  IpPuSNom=IpPu * SystemBase.SnRef/SNom;
+  IqPu=QPu/UPu;
+  IqPuSNom=IqPu * SystemBase.SnRef/SNom;
+  PPuSNom=PPu * SystemBase.SnRef /SNom;
+  QPuSNom = QPu * SystemBase.SnRef / SNom;
 
   annotation(
     preferredView = "text");
