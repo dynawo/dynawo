@@ -14,15 +14,15 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseClasses;
 
 block VDrop "Calculates the voltage in the serial impedance distance r+jx from the grid terminal"
 
-/*
-  Equivalent circuit and conventions:
+  /*
+    Equivalent circuit and conventions:
 
-      i                                PPu
-    --<--------RDropPu+jXDropPu--------<--
-          |                        |   QPu
-          |                        |
-       UDropPu                    UPu
-*/
+        i                                PPu
+      --<--------RDropPu+jXDropPu--------<--
+            |                        |   QPu
+            |                        |
+         UDropPu                    UPu
+  */
 
   //VDrop parameters
   parameter Types.PerUnit RDropPu "Resistive component of voltage drop impedance in pu (base SNom, UNom)" annotation(

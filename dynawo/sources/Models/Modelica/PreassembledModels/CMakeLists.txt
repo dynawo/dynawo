@@ -175,6 +175,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscDanglingUDc.xml
   HvdcVscEmulation.xml
   HVRT.xml
+  IEC63406ConverterCurrentSource.xml
+  IEC63406ConverterVoltageSource.xml
   IECWPP4ACurrentSource2015.xml
   IECWPP4ACurrentSource2020.xml
   IECWPP4BCurrentSource2015.xml
