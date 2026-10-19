@@ -684,12 +684,18 @@ if(NOT OMCompiler)
   else()
     # Recent compilers turn implicit declarations and other legacy C constructs into errors
     set(openmodelica_cflags "")
+    set(openmodelica_cxxflags "CXXFLAGS=-std=c++11")
     if(('${CMAKE_C_COMPILER_ID}' STREQUAL 'GNU' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 14) OR
        ('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang' AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 16))
-      set(openmodelica_cflags "CFLAGS=-O2 -g -fPIC -std=gnu17 -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types")
+      set(openmodelica_cflags "CFLAGS=-O2 -g -fPIC -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion -Wno-error=incompatible-pointer-types")
+      # OMC configure only appends CFLAGS (and thus -fPIC) to CXXFLAGS if they are valid for C++, which these C-only flags are not
+      set(openmodelica_cxxflags "CXXFLAGS=-std=c++11 -O2 -g -fPIC")
       if('${CMAKE_C_COMPILER_ID}' STREQUAL 'Clang')
         # -fno-vectorize: clang 21 crashes in the loop vectorizer on OMC runtime sources (newtonIteration.c)
         string(APPEND openmodelica_cflags " -Wno-error=incompatible-function-pointer-types -fno-vectorize")
+      else()
+        # gcc >= 15 defaults to C23 (bool, true and false become keywords); clang rejects -std=gnu17 as some C++ files are built with CFLAGS
+        string(APPEND openmodelica_cflags " -std=gnu17")
       endif()
     endif()
     ExternalProject_Add(openmodelica
@@ -708,7 +714,7 @@ if(NOT OMCompiler)
                 COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=-std=c++11"
+                          ${openmodelica_cxxflags}
                           ${openmodelica_cflags}
                           --prefix=<INSTALL_DIR>
                           --disable-modelica3d
