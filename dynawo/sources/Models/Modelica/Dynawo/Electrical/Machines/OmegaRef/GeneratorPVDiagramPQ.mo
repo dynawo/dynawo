@@ -43,6 +43,10 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
   parameter Real tableQMinPPu21 "Maximum active power for the P/QMin diagram in pu (base SnRef)";
   parameter Real tableQMinPPu22 "Minimum reactive power at PMax in pu (base SnRef)";
   parameter Real tableQMinPPu[:,:] = [tableQMinPPu11,tableQMinPPu12;tableQMinPPu21,tableQMinPPu22] "PQ diagram for Q<0";
+  parameter Boolean PQDiagramTablesOnFile "If true, tables are defined on file or in function usertab";
+  parameter String PQDiagramTablesFileName = "NoName" "File where tables are stored";
+  parameter String TableQMaxPPuName = "NoName" "Name of the table in the text file for PQ diagram for Q>0";
+  parameter String TableQMinPPuName = "NoName" "Name of the table in the text file for PQ diagram for Q<0";
 
   final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SystemBase.SnRef / SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
   final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference, in s";
@@ -51,8 +55,8 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
   Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";
   Types.ReactivePowerPu QMinPu(start = QMin0Pu) "Minimum reactive power in pu (base SnRef)";
 
-  Modelica.Blocks.Tables.CombiTable1D QMaxPPu(table = tableQMaxPPu);
-  Modelica.Blocks.Tables.CombiTable1D QMinPPu(table = tableQMinPPu);
+  Modelica.Blocks.Tables.CombiTable1D QMaxPPu(fileName = PQDiagramTablesFileName, table = tableQMaxPPu, tableName = TableQMaxPPuName, tableOnFile = PQDiagramTablesOnFile);
+  Modelica.Blocks.Tables.CombiTable1D QMinPPu(fileName = PQDiagramTablesFileName, table = tableQMinPPu, tableName = TableQMinPPuName, tableOnFile = PQDiagramTablesOnFile);
 
   parameter Types.ReactivePowerPu QMax0Pu "Initial value of maximum reactive power in pu (base SnRef)";
   parameter Types.ReactivePowerPu QMin0Pu "Initial value of minimum reactive power in pu (base SnRef)";

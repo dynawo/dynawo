@@ -44,6 +44,7 @@
     <par type="DOUBLE" name="WPP_Kpaw" value="1000"/>
     <par type="DOUBLE" name="WPP_tPOrdP4A" value="0.1"/>
     <par type="DOUBLE" name="WPP_tUFiltP4A" value="0.01"/>
+    <par type="BOOL" name="WPP_PControlTablesOnFile" value="false"/>
     <!-- CurrentLimiter -->
     <par type="DOUBLE" name="WPP_IMaxDipPu" value="1.3"/>
     <par type="DOUBLE" name="WPP_IMaxPu" value="1.3"/>
@@ -52,6 +53,7 @@
     <par type="BOOL" name="WPP_Mqpri" value="true"/>
     <par type="DOUBLE" name="WPP_UpquMaxPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_tUFiltcl" value="0.01"/>
+    <par type="BOOL" name="WPP_CurrentLimitTablesOnFile" value="false"/>
     <!-- QControl -->
     <par type="DOUBLE" name="WPP_tUFiltQ" value="0.01"/>
     <par type="DOUBLE" name="WPP_tPFiltQ" value="0.01"/>
@@ -76,17 +78,20 @@
     <par type="DOUBLE" name="WPP_UqDipPu" value="0.9"/>
     <par type="DOUBLE" name="WPP_URef0Pu" value="0"/>
     <par type="DOUBLE" name="WPP_XDropPu" value="0"/>
+    <par type="BOOL" name="WPP_QControlTablesOnFile" value="false"/>
     <!-- QLimiter -->
     <par type="BOOL" name="WPP_QlConst" value="true"/>
     <par type="DOUBLE" name="WPP_QMaxPu" value="0.8"/>
     <par type="DOUBLE" name="WPP_QMinPu" value="-0.8"/>
     <par type="DOUBLE" name="WPP_tPFiltql" value="0.01"/>
     <par type="DOUBLE" name="WPP_tUFiltql" value="0.01"/>
+    <par type="BOOL" name="WPP_QLimitTablesOnFile" value="false"/>
     <!-- GridProtection -->
     <par type="DOUBLE" name="WPP_fOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_fUnderPu" value="0.9"/>
     <par type="DOUBLE" name="WPP_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_UUnderPu" value="0.9"/>
+    <par type="BOOL" name="WPP_GridProtectionTablesOnFile" value="false"/>
     <!-- UfMeasurement -->
     <par type="DOUBLE" name="WPP_tphiFilt" value="0.02"/>
     <par type="BOOL" name="WPP_Mzc" value="false"/>

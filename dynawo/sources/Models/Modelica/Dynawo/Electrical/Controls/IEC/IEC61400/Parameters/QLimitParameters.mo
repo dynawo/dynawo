@@ -97,6 +97,19 @@ record QLimitParameters
   parameter Real TableQMinPwtcFilt[:,:] = [TableQMinPwtcFilt11, TableQMinPwtcFilt12; TableQMinPwtcFilt21, TableQMinPwtcFilt22; TableQMinPwtcFilt31, TableQMinPwtcFilt32; TableQMinPwtcFilt41, TableQMinPwtcFilt42] "Active power dependency of reactive power minimum limit" annotation(
     Dialog(tab = "QLimitTables"));
 
+  parameter Boolean QLimitTablesOnFile "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter String QLimitTablesFileName = "NoName" "File where tables are stored" annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter String TableQMaxUwtcFiltName = "NoName" "Name of the table in the text file for voltage dependency of reactive power maximum limit" annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter String TableQMinUwtcFiltName = "NoName" "Name of the table in the text file for voltage dependency of reactive power minimum limit" annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter String TableQMaxPwtcFiltName = "NoName" "Name of the table in the text file for active power dependency of reactive power maximum limit" annotation(
+    Dialog(tab = "QLimitTables"));
+  parameter String TableQMinPwtcFiltName = "NoName" "Name of the table in the text file for active power dependency of reactive power minimum limit" annotation(
+    Dialog(tab = "QLimitTables"));
+
   annotation(
     preferredView = "text");
 end QLimitParameters;

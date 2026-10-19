@@ -85,6 +85,7 @@
   <mandatoryParameter name="VDLIq32" type="DOUBLE"/>
   <mandatoryParameter name="VDLIq41" type="DOUBLE"/>
   <mandatoryParameter name="VDLIq42" type="DOUBLE"/>
+  <mandatoryParameter name="VDLTablesOnFile" type="BOOL"/>
   <mandatoryParameter name="tHoldIpMax" type="DOUBLE"/>
   <mandatoryParameter name="tHoldIq" type="DOUBLE"/>
   <mandatoryParameter name="IqFrzPu" type="DOUBLE"/>
@@ -156,6 +157,7 @@
   <mandatoryParameter name="TeMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="TeMinPu" type="DOUBLE"/>
   <mandatoryParameter name="TFlag" type="BOOL"/>
+  <mandatoryParameter name="TorqueControlTableOnFile" type="BOOL"/>
   <mandatoryParameter name="tpWTGQa" type="DOUBLE"/>
   <mandatoryParameter name="tOmegaRef" type="DOUBLE"/>
   <mandatoryParameter name="Ht" type="DOUBLE"/>

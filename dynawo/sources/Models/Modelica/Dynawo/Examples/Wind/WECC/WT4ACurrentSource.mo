@@ -85,6 +85,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     VDLIq32 = 1,
     VDLIq41 = 1.17,
     VDLIq42 = 1,
+    VDLTablesOnFile = false,
     VDipPu = 0.9,
     VFlag = true,
     VMaxPu = 1.1,

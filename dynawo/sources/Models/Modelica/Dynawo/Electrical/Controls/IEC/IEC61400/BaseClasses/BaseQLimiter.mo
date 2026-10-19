@@ -39,13 +39,13 @@ partial model BaseQLimiter "Reactive power limitation base module for wind turbi
     Placement(visible = true, transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = QMaxPu) annotation(
     Placement(visible = true, transformation(origin = {50, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(table = TableQMaxUwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(fileName = QLimitTablesFileName, table = TableQMaxUwtcFilt, tableName = TableQMaxUwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-30, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1(table = TableQMinUwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds1(fileName = QLimitTablesFileName, table = TableQMinUwtcFilt, tableName = TableQMinUwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-30, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds2(table = TableQMaxPwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds2(fileName = QLimitTablesFileName, table = TableQMaxPwtcFilt, tableName = TableQMaxPwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-30, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds3(table = TableQMinPwtcFilt) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds3(fileName = QLimitTablesFileName, table = TableQMinPwtcFilt, tableName = TableQMinPwtcFiltName, tableOnFile = QLimitTablesOnFile) annotation(
     Placement(visible = true, transformation(origin = {-30, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.Max2 max1 annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

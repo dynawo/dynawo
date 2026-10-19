@@ -107,6 +107,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     VDLIq32 = 0.75,
     VDLIq41 = 1,
     VDLIq42 = 0.75,
+    VDLTablesOnFile = false,
     VDipPu = -99,
     VFlag = true,
     VFrz = 0,
