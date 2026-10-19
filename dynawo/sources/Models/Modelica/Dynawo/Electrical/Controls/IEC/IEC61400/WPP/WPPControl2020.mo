@@ -35,9 +35,17 @@ model WPPControl2020 "Control model for IEC N°61400-27-1:2020 standard WPP"
     Dialog(tab = "QControlWP"));
 
   //Linear communication parameters
-  parameter Types.Time tLag "Communication lag time constant in s" annotation(
+  parameter Types.Time tLagM "Communication lag time constant for PPC measurements, in s" annotation(
     Dialog(tab = "LinearCommunication"));
-  parameter Types.Time tLead "Communication lead time constant in s" annotation(
+  parameter Types.Time tLagPD "Communication lag time constant for PPC setpoints, in s" annotation(
+    Dialog(tab = "LinearCommunication"));
+  parameter Types.Time tLagRef "Communication lag time constant for PPC references, in s" annotation(
+    Dialog(tab = "LinearCommunication"));
+  parameter Types.Time tLeadM "Communication lead time constant for PPC measurements, in s" annotation(
+    Dialog(tab = "LinearCommunication"));
+  parameter Types.Time tLeadPD "Communication lead time constant for PPC setpoints, in s" annotation(
+    Dialog(tab = "LinearCommunication"));
+  parameter Types.Time tLeadRef "Communication lead time constant for PPC references, in s" annotation(
     Dialog(tab = "LinearCommunication"));
 
   //Measurement parameters
@@ -70,11 +78,11 @@ model WPPControl2020 "Control model for IEC N°61400-27-1:2020 standard WPP"
     Placement(visible = true, transformation(origin = {40, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.Auxiliaries.Measurements measurements(DfMaxPu = DfMaxPu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, i0Pu = i0Pu, tIFilt = tIFilt, tPFilt = tPFilt, tQFilt = tQFilt, tS = tS, tUFilt = tUFilt, tfFilt = tfFilt, u0Pu = u0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationWPRef(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), X0Pu}, nu = 2, tLag = tLag, tLead = tLead) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationWPRef(X0Pu = {-P0Pu * (SystemBase.SnRef / SNom), X0Pu}, nu = 2, tLag = tLagRef, tLead = tLeadRef) annotation(
     Placement(visible = true, transformation(origin = {-80, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationWPM(X0Pu = {-P0Pu * SystemBase.SnRef / SNom, -Q0Pu * SystemBase.SnRef / SNom, U0Pu, SystemBase.omegaRef0Pu}, nu = 4, tLag = tLag, tLead = tLead) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationWPM(X0Pu = {-P0Pu * SystemBase.SnRef / SNom, -Q0Pu * SystemBase.SnRef / SNom, U0Pu, SystemBase.omegaRef0Pu}, nu = 4, tLag = tLagM, tLead = tLeadM) annotation(
     Placement(visible = true, transformation(origin = {-40, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationPD(X0Pu = {PPDRefCom0Pu, XWT0Pu}, nu = 2, tLag = tLag, tLead = tLead) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WPP.LinearCommunication linearCommunicationPD(X0Pu = {PPDRefCom0Pu, XWT0Pu}, nu = 2, tLag = tLagPD, tLead = tLeadPD) annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-10, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
