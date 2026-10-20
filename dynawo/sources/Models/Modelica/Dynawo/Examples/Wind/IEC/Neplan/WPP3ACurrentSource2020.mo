@@ -15,6 +15,7 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 
 model WPP3ACurrentSource2020 "Wind Power Plant model with Turbine Type 3A model from IEC 61400-27-1 standard with infinite bus - voltage drop test."
   extends Icons.Example;
+  extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
 
   Dynawo.Electrical.Wind.IEC.WPP.WPP3ACurrentSource2020 wpp(
     BLvTrPu = 0,
@@ -327,25 +328,31 @@ model WPP3ACurrentSource2020 "Wind Power Plant model with Turbine Type 3A model 
     uGs0Pu(re(fixed = false), im(fixed = false)),
     uControl0Pu(re(fixed = false), im(fixed = false)),
     uWt0Pu(re(fixed = false), im(fixed = false))) annotation(
-    Placement(transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.2, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 999, tOmegaEvtStart = 999, tUEvtEnd = 1.1, tUEvtStart = 1) annotation(
-    Placement(transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = 0, startTime = 999) annotation(
-    Placement(transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step xRefPu(height = 0.2, offset = 0.1, startTime = 999) annotation(
-    Placement(transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 999) annotation(
-    Placement(transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step PRefPu(height = -0.7, offset = wpp.PWTRef0Pu, startTime = 1 * 99999) annotation(
-    Placement(transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Constant const(k = wpp.PPcc0Pu) annotation(
-    Placement(transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const1(k = wpp.QPcc0Pu) annotation(
-    Placement(transformation(origin = {-10, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Modelica.ComplexMath.fromPolar(wpp.UPcc0Pu, wpp.UPccPhase0))  annotation(
-    Placement(transformation(origin = {30, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+//  Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = 0, startTime = 999) annotation(
+//    Placement(transformation(origin = {-210, 60}, extent = {{-10, -10}, {10, 10}})));
+//  Modelica.Blocks.Sources.Step xRefPu(height = 0.2, offset = 0.1, startTime = 999) annotation(
+//    Placement(transformation(origin = {-210, -20}, extent = {{-10, -10}, {10, 10}})));
+//  Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 999) annotation(
+//    Placement(transformation(origin = {-210, -60}, extent = {{-10, -10}, {10, 10}})));
+//  Modelica.Blocks.Sources.Step PRefPu(height = -0.7, offset = wpp.PWTRef0Pu, startTime = 1 * 99999) annotation(
+//    Placement(transformation(origin = {-210, 20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant const(k = 0) annotation(
+    Placement(transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
+    Placement(transformation(origin = {-104, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
 
-  //Initialization
+  // Reference inputs
+  Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 20) annotation(
+    Placement(transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Step PRefPu(height = -0.5, offset = 1, startTime = 2) annotation(
+    Placement(transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Step xRefPu(height = 0.41, offset = -0.21, startTime = 4) annotation(
+    Placement(transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
+    Placement(transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initialization
   Dynawo.Electrical.Wind.IEC.WPP.WPP3CurrentSource_INIT init(
     BLvTrPu = wpp.BLvTrPu,
     BMvHvPu = wpp.BMvHvPu,
@@ -379,7 +386,7 @@ model WPP3ACurrentSource2020 "Wind Power Plant model with Turbine Type 3A model 
     XDropPu = wpp.XDropPu,
     XLvTrPu = wpp.XLvTrPu,
     XMvHvPu = wpp.XMvHvPu) annotation(
-    Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {130, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
   wpp.Ip0Pu := init.Ip0Pu;
@@ -416,28 +423,29 @@ equation
   wpp.switchOffSignal2 = false;
   wpp.switchOffSignal3 = false;
 
-  connect(tanPhi.y, wpp.tanPhi) annotation(
-    Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));
-  connect(PRefPu.y, wpp.PWPRefPu) annotation(
-    Line(points = {{-79, 20}, {-60, 20}, {-60, 2}, {-1, 2}}, color = {0, 0, 127}));
-  connect(xRefPu.y, wpp.xWPRefPu) annotation(
-    Line(points = {{-79, -20}, {-60, -20}, {-60, -2}, {-1, -2}}, color = {0, 0, 127}));
+  connect(wpp.terminal, transformer.terminal1) annotation(
+    Line(points = {{-99, 0}, {-80, 0}}, color = {0, 0, 255}));
   connect(omegaRefPu.y, wpp.omegaRefPu) annotation(
-    Line(points = {{-79, -60}, {-40, -60}, {-40, -6}, {-1, -6}}, color = {0, 0, 127}));
-  connect(wpp.terminal, infiniteBusWithVariations.terminal) annotation(
-    Line(points = {{21, 0}, {80, 0}}, color = {0, 0, 255}));
+    Line(points = {{-138, -60}, {-124, -60}, {-124, -6}, {-120, -6}}, color = {0, 0, 127}));
+  connect(PRefPu.y, wpp.PWPRefPu) annotation(
+    Line(points = {{-138, 20}, {-126, 20}, {-126, 2}, {-120, 2}}, color = {0, 0, 127}));
+  connect(xRefPu.y, wpp.xWPRefPu) annotation(
+    Line(points = {{-138, -20}, {-126, -20}, {-126, -2}, {-120, -2}}, color = {0, 0, 127}));
+  connect(tanPhi.y, wpp.tanPhi) annotation(
+    Line(points = {{-138, 60}, {-124, 60}, {-124, 6}, {-120, 6}}, color = {0, 0, 127}));
   connect(const.y, wpp.PPccPu) annotation(
-    Line(points = {{2, -40}, {4, -40}, {4, -10}}, color = {0, 0, 127}));
-  connect(const1.y, wpp.QPccPu) annotation(
-    Line(points = {{2, -80}, {10, -80}, {10, -10}}, color = {0, 0, 127}));
+    Line(points = {{-110, -78}, {-110, -24}, {-116, -24}, {-116, -10}}, color = {0, 0, 127}));
+  connect(const.y, wpp.QPccPu) annotation(
+    Line(points = {{-110, -78}, {-110, -10}}, color = {0, 0, 127}));
   connect(complexConst.y, wpp.uPccPu) annotation(
-    Line(points = {{20, -40}, {16, -40}, {16, -10}}, color = {85, 170, 255}));
+    Line(points = {{-104, -36}, {-104, -10}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-05, Interval = 0.001),
     __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls = "kinsol", s = "ida", nlsLS = "klu", maxIntegrationOrder = "2", maxStepSize = "10", emit_protected = "()"),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
+    Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
     Documentation(info = "<html><head></head><body><div>This test case implements the IEC 61400-27-1
 <b>Type 3 A</b> wind <b>power plant</b> model
 (explicit inner current loop,
