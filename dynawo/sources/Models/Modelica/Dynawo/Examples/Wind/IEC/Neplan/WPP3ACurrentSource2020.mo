@@ -332,7 +332,7 @@ model WPP3ACurrentSource2020 "Wind Power Plant model with Turbine Type 3A model 
     Placement(transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = 0, startTime = 999) annotation(
     Placement(transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Step xRefPu(height = 0.2, offset = wpp.XWT0Pu, startTime = 999) annotation(
+  Modelica.Blocks.Sources.Step xRefPu(height = 0.2, offset = 0.1, startTime = 999) annotation(
     Placement(transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 999) annotation(
     Placement(transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}})));
