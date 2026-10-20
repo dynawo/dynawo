@@ -12,14 +12,6 @@
     of simulation tools for power systems.
 -->
 <mandatoryParameters>
-  <mandatoryParameter name="SNom" type="DOUBLE"/>
-  <mandatoryParameter name="tS" type="DOUBLE"/>
-  <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
-  <mandatoryParameter name="PPCLocal" type="BOOL"/>
   <mandatoryParameter name="RwpDropPu" type="DOUBLE"/>
   <mandatoryParameter name="UwpqRisePu" type="DOUBLE"/>
   <mandatoryParameter name="XErrMaxPu" type="DOUBLE"/>
@@ -33,8 +25,12 @@
   <mandatoryParameter name="tPFilt" type="DOUBLE"/>
   <mandatoryParameter name="tQFilt" type="DOUBLE"/>
   <mandatoryParameter name="tUFilt" type="DOUBLE"/>
-  <mandatoryParameter name="tLag" type="DOUBLE"/>
-  <mandatoryParameter name="tLead" type="DOUBLE"/>
+  <mandatoryParameter name="tLagM" type="DOUBLE"/>
+  <mandatoryParameter name="tLagPD" type="DOUBLE"/>
+  <mandatoryParameter name="tLagRef" type="DOUBLE"/>
+  <mandatoryParameter name="tLeadM" type="DOUBLE"/>
+  <mandatoryParameter name="tLeadPD" type="DOUBLE"/>
+  <mandatoryParameter name="tLeadRef" type="DOUBLE"/>
   <mandatoryParameter name="DfcMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="tfcFilt" type="DOUBLE"/>
   <mandatoryParameter name="tIcFilt" type="DOUBLE"/>
@@ -53,16 +49,23 @@
   <mandatoryParameter name="Mqfrt" type="INT"/>
   <mandatoryParameter name="tUss" type="DOUBLE"/>
   <mandatoryParameter name="UqRisePu" type="DOUBLE"/>
-  <mandatoryParameter name="CdrtPu" type="DOUBLE"/>
-  <mandatoryParameter name="Hgen" type="DOUBLE"/>
-  <mandatoryParameter name="Hwtr" type="DOUBLE"/>
-  <mandatoryParameter name="KdrtPu" type="DOUBLE"/>
   <mandatoryParameter name="DipMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="DiqMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="DiqMinPu" type="DOUBLE"/>
   <mandatoryParameter name="KPc" type="DOUBLE"/>
   <mandatoryParameter name="tIc" type="DOUBLE"/>
   <mandatoryParameter name="XEqv" type="DOUBLE"/>
+  <mandatoryParameter name="PWTRef0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="uGs0Pu.re" type="DOUBLE"/>
+  <mandatoryParameter name="uGs0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="tS" type="DOUBLE"/>
+  <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
+  <mandatoryParameter name="PPCLocal" type="BOOL"/>
+  <mandatoryParameter name="DiqMinPu" type="DOUBLE"/>
   <mandatoryParameter name="Kipaw" type="DOUBLE"/>
   <mandatoryParameter name="Kiqaw" type="DOUBLE"/>
   <mandatoryParameter name="tG" type="DOUBLE"/>
@@ -101,25 +104,6 @@
   <mandatoryParameter name="fUnderPu" type="DOUBLE"/>
   <mandatoryParameter name="UOverPu" type="DOUBLE"/>
   <mandatoryParameter name="UUnderPu" type="DOUBLE"/>
-  <mandatoryParameter name="DPMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="DPRefMax4abPu" type="DOUBLE"/>
-  <mandatoryParameter name="DPRefMin4abPu" type="DOUBLE"/>
-  <mandatoryParameter name="KDtd" type="DOUBLE"/>
-  <mandatoryParameter name="MOmegaTMax" type="BOOL"/>
-  <mandatoryParameter name="MOmegaTqpi" type="BOOL"/>
-  <mandatoryParameter name="MpUScale" type="BOOL"/>
-  <mandatoryParameter name="OmegaDtdPu" type="DOUBLE"/>
-  <mandatoryParameter name="OmegaOffsetPu" type="DOUBLE"/>
-  <mandatoryParameter name="PDtdMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="tOmegafiltp3" type="DOUBLE"/>
-  <mandatoryParameter name="tOmegaRef" type="DOUBLE"/>
-  <mandatoryParameter name="tPord" type="DOUBLE"/>
-  <mandatoryParameter name="Zeta" type="DOUBLE"/>
-  <mandatoryParameter name="DPOmegaThetaPu" type="DOUBLE"/>
-  <mandatoryParameter name="DPOmega0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="DPThetaPu" type="DOUBLE"/>
-  <mandatoryParameter name="PAvailPu" type="DOUBLE"/>
-  <mandatoryParameter name="Theta0" type="DOUBLE"/>
   <mandatoryParameter name="DPRefMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="DPRefMinPu" type="DOUBLE"/>
   <mandatoryParameter name="DPwpRefMaxPu" type="DOUBLE"/>
@@ -144,37 +128,6 @@
   <mandatoryParameter name="XKiwpxMinPu" type="DOUBLE"/>
   <mandatoryParameter name="XRefMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="XRefMinPu" type="DOUBLE"/>
-  <mandatoryParameter name="DTauMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="DTauUvrtMaxPu" type="DOUBLE"/>
-  <mandatoryParameter name="KIp" type="DOUBLE"/>
-  <mandatoryParameter name="KPp" type="DOUBLE"/>
-  <mandatoryParameter name="MPUvrt" type="BOOL"/>
-  <mandatoryParameter name="TauEMinPu" type="DOUBLE"/>
-  <mandatoryParameter name="TauUscalePu" type="DOUBLE"/>
-  <mandatoryParameter name="tDvs" type="DOUBLE"/>
-  <mandatoryParameter name="UDvsPu" type="DOUBLE"/>
-  <mandatoryParameter name="UpDipPu" type="DOUBLE"/>
-  <mandatoryParameter name="DThetaCMax" type="DOUBLE"/>
-  <mandatoryParameter name="DThetaCMin" type="DOUBLE"/>
-  <mandatoryParameter name="DThetaMax" type="DOUBLE"/>
-  <mandatoryParameter name="DThetaMin" type="DOUBLE"/>
-  <mandatoryParameter name="DThetaOmegaMax" type="DOUBLE"/>
-  <mandatoryParameter name="DThetaOmegaMin" type="DOUBLE"/>
-  <mandatoryParameter name="KIcPu" type="DOUBLE"/>
-  <mandatoryParameter name="KIomegaPu" type="DOUBLE"/>
-  <mandatoryParameter name="KPcPu" type="DOUBLE"/>
-  <mandatoryParameter name="KPomegaPu" type="DOUBLE"/>
-  <mandatoryParameter name="KPXPu" type="DOUBLE"/>
-  <mandatoryParameter name="ThetaCMax" type="DOUBLE"/>
-  <mandatoryParameter name="ThetaCMin" type="DOUBLE"/>
-  <mandatoryParameter name="ThetaMax" type="DOUBLE"/>
-  <mandatoryParameter name="ThetaMin" type="DOUBLE"/>
-  <mandatoryParameter name="ThetaOmegaMax" type="DOUBLE"/>
-  <mandatoryParameter name="ThetaOmegaMin" type="DOUBLE"/>
-  <mandatoryParameter name="TTheta" type="DOUBLE"/>
-  <mandatoryParameter name="PWTRef0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="uGs0Pu.re" type="DOUBLE"/>
-  <mandatoryParameter name="uGs0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="iControl0Pu.re" type="DOUBLE"/>
@@ -205,4 +158,55 @@
   <mandatoryParameter name="uWt0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="X0Pu" type="DOUBLE"/>
   <mandatoryParameter name="XWT0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="CdrtPu" type="DOUBLE"/>
+  <mandatoryParameter name="Hgen" type="DOUBLE"/>
+  <mandatoryParameter name="Hwtr" type="DOUBLE"/>
+  <mandatoryParameter name="KdrtPu" type="DOUBLE"/>
+  <mandatoryParameter name="DPOmegaThetaPu" type="DOUBLE"/>
+  <mandatoryParameter name="DPOmega0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="DPThetaPu" type="DOUBLE"/>
+  <mandatoryParameter name="PAvailPu" type="DOUBLE"/>
+  <mandatoryParameter name="Theta0" type="DOUBLE"/>
+  <mandatoryParameter name="DThetaCMax" type="DOUBLE"/>
+  <mandatoryParameter name="DThetaCMin" type="DOUBLE"/>
+  <mandatoryParameter name="DThetaMax" type="DOUBLE"/>
+  <mandatoryParameter name="DThetaMin" type="DOUBLE"/>
+  <mandatoryParameter name="DThetaOmegaMax" type="DOUBLE"/>
+  <mandatoryParameter name="DThetaOmegaMin" type="DOUBLE"/>
+  <mandatoryParameter name="KIcPu" type="DOUBLE"/>
+  <mandatoryParameter name="KIomegaPu" type="DOUBLE"/>
+  <mandatoryParameter name="KPcPu" type="DOUBLE"/>
+  <mandatoryParameter name="KPomegaPu" type="DOUBLE"/>
+  <mandatoryParameter name="KPXPu" type="DOUBLE"/>
+  <mandatoryParameter name="ThetaCMax" type="DOUBLE"/>
+  <mandatoryParameter name="ThetaCMin" type="DOUBLE"/>
+  <mandatoryParameter name="ThetaMax" type="DOUBLE"/>
+  <mandatoryParameter name="ThetaMin" type="DOUBLE"/>
+  <mandatoryParameter name="ThetaOmegaMax" type="DOUBLE"/>
+  <mandatoryParameter name="ThetaOmegaMin" type="DOUBLE"/>
+  <mandatoryParameter name="TTheta" type="DOUBLE"/>
+  <mandatoryParameter name="DPMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="DPRefMax4abPu" type="DOUBLE"/>
+  <mandatoryParameter name="DPRefMin4abPu" type="DOUBLE"/>
+  <mandatoryParameter name="KDtd" type="DOUBLE"/>
+  <mandatoryParameter name="MOmegaTMax" type="BOOL"/>
+  <mandatoryParameter name="MOmegaTqpi" type="BOOL"/>
+  <mandatoryParameter name="MpUScale" type="BOOL"/>
+  <mandatoryParameter name="OmegaDtdPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaOffsetPu" type="DOUBLE"/>
+  <mandatoryParameter name="PDtdMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="tOmegafiltp3" type="DOUBLE"/>
+  <mandatoryParameter name="tOmegaRef" type="DOUBLE"/>
+  <mandatoryParameter name="tPord" type="DOUBLE"/>
+  <mandatoryParameter name="Zeta" type="DOUBLE"/>
+  <mandatoryParameter name="DTauMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="DTauUvrtMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="KIp" type="DOUBLE"/>
+  <mandatoryParameter name="KPp" type="DOUBLE"/>
+  <mandatoryParameter name="MPUvrt" type="BOOL"/>
+  <mandatoryParameter name="TauEMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="TauUscalePu" type="DOUBLE"/>
+  <mandatoryParameter name="tDvs" type="DOUBLE"/>
+  <mandatoryParameter name="UDvsPu" type="DOUBLE"/>
+  <mandatoryParameter name="UpDipPu" type="DOUBLE"/>
 </mandatoryParameters>

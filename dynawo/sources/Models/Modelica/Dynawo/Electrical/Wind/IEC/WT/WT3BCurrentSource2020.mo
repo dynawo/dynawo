@@ -14,7 +14,7 @@ within Dynawo.Electrical.Wind.IEC.WT;
 */
 
 model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020 standard"
-  extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWT3(pll.tS = tS, pll.tPll = tPll);
+  extends Dynawo.Electrical.Wind.IEC.BaseClasses.BaseWT3;
 
   //WT PControl parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3Parameters;
