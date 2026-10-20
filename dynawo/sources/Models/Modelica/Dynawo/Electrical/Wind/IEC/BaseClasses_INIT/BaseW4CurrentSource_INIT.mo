@@ -66,10 +66,10 @@ model BaseW4CurrentSource_INIT "Wind Turbine Type 4 model from IEC 61400-27-1 st
   Types.PerUnit Iq0Pu "Initial reactive current component at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit IqMax0Pu "Initial maximum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
   Types.PerUnit IqMin0Pu "Initial minimum reactive current at converter terminal in pu (base UNom, SNom) (generator convention)";
-  Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)";
-  Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)";
   Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom)";
   Types.ReactivePowerPu QMin0Pu "Initial minimum reactive power at grid terminal in pu (base SNom)";
+  Types.ComplexVoltagePu u0Pu "Initial complex voltage at grid terminal in pu (base UNom)";
+  Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)";
   Types.PerUnit XWT0Pu "Initial reactive power or voltage reference at grid terminal in pu (base SNom or UNom) (generator convention)";
 
   Dynawo.NonElectrical.Blocks.NonLinear.Min2 min3Init annotation(
@@ -202,6 +202,6 @@ equation
     Line(points = {{62, 60}, {70, 60}, {70, 26}, {78, 26}}, color = {0, 0, 127}));
 
   annotation(
-    preferredView = "text",
+    preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-200, -200}, {200, 200}})));
 end BaseW4CurrentSource_INIT;

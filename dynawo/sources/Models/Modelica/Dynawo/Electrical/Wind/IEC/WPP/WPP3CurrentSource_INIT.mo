@@ -19,11 +19,7 @@ model WPP3CurrentSource_INIT "Wind Power Plant Type 3 model from IEC 61400-27-1 
     const1Init.y = UWt0Pu,
     const2Init.y = -PWt0Pu * SystemBase.SnRef / SNom,
     const3Init.y = -PWt0Pu * SystemBase.SnRef / (SNom * UWt0Pu),
-    const5Init.y = UWt0Pu,
-    BesPu = if ConverterLVControl then 0 else BLvTrPu,
-    GesPu = if ConverterLVControl then 0 else GLvTrPu,
-    ResPu = if ConverterLVControl then 0 else RLvTrPu,
-    XesPu = if ConverterLVControl then 0 else XLvTrPu);
+    const5Init.y = UWt0Pu);
 
   //QControl parameter
   parameter Integer MwpqMode "Control mode (0 : reactive power reference, 1 : power factor reference, 2 : UQ static, 3 : voltage control)";

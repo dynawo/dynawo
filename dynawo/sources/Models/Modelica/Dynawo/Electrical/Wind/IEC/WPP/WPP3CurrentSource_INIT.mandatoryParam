@@ -12,7 +12,6 @@
     of simulation tools for power systems.
 -->
 <mandatoryParameters>
-  <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="MwpqMode" type="INT"/>
   <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
@@ -20,6 +19,7 @@
   <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
   <mandatoryParameter name="PPCLocal" type="BOOL"/>
+  <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="Kpqu" type="DOUBLE"/>
   <mandatoryParameter name="UpquMaxPu" type="DOUBLE"/>

@@ -295,8 +295,12 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     tIFilt = 0.005,
     tIcFilt = 0.005,
     tIpFilt = 0.005,
-    tLag = 0.005,
-    tLead = 0.005,
+    tLagM = 0.005,
+    tLagPD = 0.0051,
+    tLagRef = 0.005,
+    tLeadM = 0.005,
+    tLeadPD = 0.005,
+    tLeadRef = 0.005,
     tOmegaRef = 0.005,
     tOmegafiltp3 = 0.005,
     tPFilt = 0.005,
@@ -343,11 +347,9 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
 
   //Initialization
   Dynawo.Electrical.Wind.IEC.WPP.WPP3CurrentSource_INIT init(
-    BesPu = wpp.BesPu,
     BLvTrPu = wpp.BLvTrPu,
     BMvHvPu = wpp.BMvHvPu,
     ConverterLVControl = wpp.ConverterLVControl,
-    GesPu = wpp.GesPu,
     GLvTrPu = wpp.GLvTrPu,
     GMvHvPu = wpp.GMvHvPu,
     IMaxPu = wpp.IMaxPu,
@@ -361,7 +363,6 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     QMinPu = wpp.QMinPu,
     QlConst = wpp.QlConst,
     RDropPu = wpp.RDropPu,
-    ResPu = wpp.ResPu,
     RLvTrPu = wpp.RLvTrPu,
     RMvHvPu = wpp.RMvHvPu,
     SNom = wpp.SNom,
@@ -376,7 +377,6 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     UpquMaxPu = wpp.UpquMaxPu,
     URef0Pu = wpp.URef0Pu,
     XDropPu = wpp.XDropPu,
-    XesPu = wpp.XesPu,
     XLvTrPu = wpp.XLvTrPu,
     XMvHvPu = wpp.XMvHvPu) annotation(
     Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
@@ -412,9 +412,9 @@ initial algorithm
   wpp.uWt0Pu.im := init.uWt0Pu.im;
 
 equation
-  wpp.wT3BCurrentSource.injector.switchOffSignal1 = false;
-  wpp.wT3BCurrentSource.injector.switchOffSignal2 = false;
-  wpp.wT3BCurrentSource.injector.switchOffSignal3 = false;
+  wpp.switchOffSignal1 = false;
+  wpp.switchOffSignal2 = false;
+  wpp.switchOffSignal3 = false;
 
   connect(tanPhi.y, wpp.tanPhi) annotation(
     Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));

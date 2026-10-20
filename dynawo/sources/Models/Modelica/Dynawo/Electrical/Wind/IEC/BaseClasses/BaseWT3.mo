@@ -22,17 +22,27 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
 
+  //Parameters for LV transformer
+  parameter Types.PerUnit BLvTrPu "Shunt susceptance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit GLvTrPu "Shunt conductance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit RLvTrPu "Serial resistance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+  parameter Types.PerUnit XLvTrPu "Serial reactance of LV transformer in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "LV transformer"));
+
+  //Configuration parameter to define how the user wants to represent the internal network
+  parameter Boolean ConverterLVControl "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
+    Dialog(tab = "LV transformer"));
+
   //Circuit parameters
-  parameter Boolean ConverterLVControl = true "If true, the converter is controlling at its output (LV side of its transformer), if false, after its transformer (MV side)" annotation(
-    Dialog(tab="Converter control"));
-  parameter Types.PerUnit BesPu = 0 "Shunt susceptance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
-  parameter Types.PerUnit GesPu = 0 "Shunt conductance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
-  parameter Types.PerUnit ResPu = 0 "Serial resistance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
-  parameter Types.PerUnit XesPu = 0 "Serial reactance between converter output and converter point of control in pu (base UNom, SNom)" annotation(
-    Dialog(tab="Converter control", enable = not ConverterLVControl));
+  // In every case (ResPu + j*XesPu) and (GesPu + j*BesPu) are respectively the serial impedance and shunt admittance between converter's output and WT terminal
+  //Depending on the value of ConverterLVControl we are correctly defining these parameters
+  final parameter Types.PerUnit BesPu = if ConverterLVControl then 0 else BLvTrPu "Shunt susceptance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit GesPu = if ConverterLVControl then 0 else GLvTrPu "Shunt conductance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit ResPu = if ConverterLVControl then 0 else RLvTrPu "Serial resistance between converter output and WT terminal in pu (base UNom, SNom)";
+  final parameter Types.PerUnit XesPu = if ConverterLVControl then 0 else XLvTrPu "Serial reactance between converter output and WT terminal in pu (base UNom, SNom)";
 
   //PLL parameters
   parameter Types.Time tPll "PLL first order filter time constant in s" annotation(
@@ -55,24 +65,6 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
     Dialog(tab = "CurrentLimiter"));
   parameter Types.VoltageModulePu UpquMaxPu "WT voltage in the operation point where zero reactive power can be delivered, in pu (base UNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
-
-  //QLimiter parameters
-  parameter Boolean QlConst "True if limits are constant" annotation(
-    Dialog(tab = "QLimiter"));
-  parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "QLimiter"));
-  parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "QLimiter"));
-
-  //Grid protection parameters
-  parameter Types.PerUnit fOverPu "WT over frequency protection activation threshold in pu (base fNom)" annotation(
-    Dialog(tab = "GridProtection"));
-  parameter Types.PerUnit fUnderPu "WT under frequency protection activation threshold in pu (base fNom)" annotation(
-    Dialog(tab = "GridProtection"));
-  parameter Types.VoltageModulePu UOverPu "WT over voltage protection activation threshold in pu (base UNom)" annotation(
-    Dialog(tab = "GridProtection"));
-  parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(
-    Dialog(tab = "GridProtection"));
 
   //Measurement parameters for control
   parameter Types.PerUnit DfcMaxPu "Maximum frequency control ramp rate in pu/s (base fNom)" annotation(
@@ -152,6 +144,24 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
   parameter Types.PerUnit XDropPu "Inductive component of voltage drop impedance in pu (base UNom, SNom)" annotation(
     Dialog(tab = "QControl"));
 
+  //QLimiter parameters
+  parameter Boolean QlConst "True if limits are constant" annotation(
+    Dialog(tab = "QLimiter"));
+  parameter Types.ReactivePowerPu QMaxPu "Constant maximum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(tab = "QLimiter"));
+  parameter Types.ReactivePowerPu QMinPu "Constant minimum reactive power at WT terminal in pu (base SNom) (generator convention)" annotation(
+    Dialog(tab = "QLimiter"));
+
+  //Grid protection parameters
+  parameter Types.PerUnit fOverPu "WT over frequency protection activation threshold in pu (base fNom)" annotation(
+    Dialog(tab = "GridProtection"));
+  parameter Types.PerUnit fUnderPu "WT under frequency protection activation threshold in pu (base fNom)" annotation(
+    Dialog(tab = "GridProtection"));
+  parameter Types.VoltageModulePu UOverPu "WT over voltage protection activation threshold in pu (base UNom)" annotation(
+    Dialog(tab = "GridProtection"));
+  parameter Types.VoltageModulePu UUnderPu "WT under voltage protection activation threshold in pu (base UNom)" annotation(
+    Dialog(tab = "GridProtection"));
+
   //Interface
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "WT terminal, complex voltage and current in pu (base UNom, SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -159,7 +169,7 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frame for grid angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {0, 130}, extent = {{10, -10}, {-10, 10}}, rotation = 90), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = Ip0Pu * U0Pu) "Active power reference at grid terminal in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = Ip0Pu * U0Pu) "Active power reference at WT terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";

@@ -17,6 +17,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
   extends Icons.Example;
 
   Dynawo.Electrical.Wind.IEC.WT.WT3ACurrentSource2020 wt(
+    BLvTrPu = 0,
     CdrtPu = 2.344,
     ConverterLVControl = false,
     DPMaxPu = 999,
@@ -39,6 +40,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
     DfpMaxPu = 5,
     DipMaxPu = 9999,
     DiqMaxPu = 9999,
+    GLvTrPu = 0,
     Hgen = 3.395,
     Hwtr = 0.962,
     IMaxDipPu = 1.3,
@@ -90,6 +92,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
     QMinPu = -0.8,
     QlConst = false,
     RDropPu = 0,
+    RLvTrPu = 0,
     SNom = 100,
     tIc = 0.02,
     TTheta = 0.25,
@@ -236,7 +239,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
     UqRisePu = 1.1,
     XDropPu = 0,
     XEqv = 0.4,
-    XesPu = 0.1,
+    XLvTrPu = 0.1,
     XWT0Pu(fixed = false),
     Zeta = 0.5,
     fOverPu = 1.02,
@@ -278,8 +281,9 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
 
   //Initialization
   Dynawo.Electrical.Wind.IEC.WT.WT3CurrentSource_INIT init(
-    BesPu = wt.BesPu,
-    GesPu = wt.GesPu,
+    BLvTrPu = wt.BLvTrPu,
+    ConverterLVControl = wt.ConverterLVControl,
+    GLvTrPu = wt.GLvTrPu,
     IMaxPu = wt.IMaxPu,
     Kpqu = wt.Kpqu,
     MqG = wt.MqG,
@@ -289,7 +293,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
     QMinPu = wt.QMinPu,
     QlConst = wt.QlConst,
     RDropPu = wt.RDropPu,
-    ResPu = wt.ResPu,
+    RLvTrPu = wt.RLvTrPu,
     SNom = wt.SNom,
     TableIpMaxUwt = wt.TableIpMaxUwt,
     TableIqMaxUwt = wt.TableIqMaxUwt,
@@ -302,7 +306,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
     UpquMaxPu = wt.UpquMaxPu,
     URef0Pu = wt.URef0Pu,
     XDropPu = wt.XDropPu,
-    XesPu = wt.XesPu) annotation(
+    XLvTrPu = wt.XLvTrPu) annotation(
     Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
 
 initial algorithm
@@ -324,9 +328,9 @@ initial algorithm
   wt.uGs0Pu.im := init.uGs0Pu.im;
 
 equation
-  wt.injector.switchOffSignal1 = false;
-  wt.injector.switchOffSignal2 = false;
-  wt.injector.switchOffSignal3 = false;
+  wt.switchOffSignal1 = false;
+  wt.switchOffSignal2 = false;
+  wt.switchOffSignal3 = false;
 
   connect(tanPhi.y, wt.tanPhi) annotation(
     Line(points = {{-79, 60}, {-40, 60}, {-40, 6}, {-1, 6}}, color = {0, 0, 127}));
