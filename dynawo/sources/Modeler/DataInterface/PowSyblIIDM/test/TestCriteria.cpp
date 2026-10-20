@@ -1049,9 +1049,15 @@ TEST(DataInterfaceIIDMTest, Timeline) {
     }
     double quaripolePreviousCurrentDistance = std::numeric_limits<double>::max();
     ASSERT_EQ(timeline->getSizeEvents(), maxNumberOfEvents * 3 + 3);
-    int firstTimelineQudripoleEvent = maxNumberOfEvents * 3;
-    for (int i = firstTimelineQudripoleEvent; i < timeline->getSizeEvents(); ++i) {
-      const std::string timelineLog = timeline->getEvents()[i]->getMessage();
+    timeline::Timeline::event_const_iterator firstTimelineQudripoleEvent = timeline->cbeginEvent();
+    // increment the iterator to place it on the first quadripole timeline event
+    for (int i = 0; i < maxNumberOfEvents * 3; ++i) {
+      ++firstTimelineQudripoleEvent;
+    }
+    for (timeline::Timeline::event_const_iterator timelineIt = firstTimelineQudripoleEvent;
+          timelineIt != timeline->cendEvent();
+          ++timelineIt) {
+      const std::string timelineLog = (*timelineIt)->getMessage();
       std::vector<std::string> splitTimelineLog;
       boost::algorithm::split(splitTimelineLog, timelineLog, boost::is_any_of(" "));
       const std::string quadripoleErrorLogName = splitTimelineLog[0];
