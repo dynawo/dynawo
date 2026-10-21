@@ -14,7 +14,7 @@ set(MODEL_FILES
   package.mo
   package.order
   CurrentLimiterReactiveBoost.mo
-  pll.mo
+  PLL.mo
   CurrentLoop.mo
   OuterLoop.mo
   OuterLoop_no_plant.mo
