@@ -1,0 +1,22 @@
+within Dynawo.Electrical.PEIR.Plants.Simplified;
+
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model GenericInverter_INIT "Injector model with regulation, used in the modified Nordic32 test system"
+  extends Dynawo.AdditionalIcons.Machine;
+
+  Dynawo.Connectors.VoltageModulePuInput VReg0Pu "Initial voltage amplitude at the PCC in pu (base UNom)";
+
+  annotation(preferredView = "text");
+end GenericInverter_INIT;
