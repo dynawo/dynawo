@@ -121,5 +121,5 @@
   <mandatoryParameter name="tFv" type="DOUBLE"/>
   <mandatoryParameter name="tLag" type="DOUBLE"/>
   <mandatoryParameter name="tpREPC" type="DOUBLE"/>
-  <mandatoryParameter name="VFrz" type="DOUBLE"/>
+  <mandatoryParameter name="VFrzPu" type="DOUBLE"/>
 </mandatoryParameters>

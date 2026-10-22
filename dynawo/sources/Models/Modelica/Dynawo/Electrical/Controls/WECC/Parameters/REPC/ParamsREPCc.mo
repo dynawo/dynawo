@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.Parameters.REPC;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,7 @@ within Dynawo.Electrical.Controls.WECC.Parameters.REPC;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
 * of simulation tools for power systems.
 */
 
@@ -18,13 +18,13 @@ record ParamsREPCc
     Dialog(tab = "Plant Control"));
   parameter Types.AngularVelocityPu DfMinPu "Minimum limit on frequency deviation in pu (base omegaNom)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DPrMax "Maximum rate of increase of plant Pref in pu/s (base SNom)" annotation(
+  parameter Types.PerUnit DPrMaxPu "Maximum rate of increase of plant Pref in pu/s (base SNom)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DPrMin "Maximum rate of decrease of plant Pref in pu/s (base SNom)" annotation(
+  parameter Types.PerUnit DPrMinPu "Maximum rate of decrease of plant Pref in pu/s (base SNom)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DQRefMax "Maximum rate of increase of Q reference in pu/s (base SNom)" annotation(
+  parameter Types.PerUnit DQRefMaxPu "Maximum rate of increase of Q reference in pu/s (base SNom)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit DQRefMin "Maximum rate of decrease of Q reference in pu/s (base SNom)" annotation(
+  parameter Types.PerUnit DQRefMinPu "Maximum rate of decrease of Q reference in pu/s (base SNom)" annotation(
     Dialog(tab = "Plant Control"));
   parameter Boolean FfwrdFlag "Enable or disable feedforward path" annotation(
     Dialog(tab = "Plant Control"));
@@ -48,9 +48,9 @@ record ParamsREPCc
     Dialog(tab = "Plant Control"));
   parameter Boolean QVFlag "Disable volt/var control completely, or  enable volt/var control" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit QvrMax "Maximum rate of increase of Qext in pu/s (base SNom)" annotation(
+  parameter Types.PerUnit QvrMaxPu "Maximum rate of increase of Qext in pu/s (base SNom)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit QvrMin "Maximum rate of decrease of Qext in pu/s (base SNom)" annotation(
+  parameter Types.PerUnit QvrMinPu "Maximum rate of decrease of Qext in pu/s (base SNom)" annotation(
     Dialog(tab = "Plant Control"));
   parameter Types.Time tC "Time constant associated with reactive power measurement/filtering for the reactive droop function, in s" annotation(
     Dialog(tab = "Plant Control"));
@@ -65,4 +65,5 @@ record ParamsREPCc
   parameter Types.VoltageModulePu URefMinPu "Minimum limit on Uref in pu (base UNom)" annotation(
     Dialog(tab = "Plant Control"));
 
+  annotation(preferredView = "text");
 end ParamsREPCc;

@@ -135,7 +135,7 @@
     <par type="DOUBLE" name="WTG4A_VDipPu" value="0.9"/>
     <par type="BOOL" name="WTG4A_VFlag" value="true"/>
     <par type="BOOL" name="WTG4A_VCompFlag" value="false"/>
-    <par type="DOUBLE" name="WTG4A_VFrz" value="0"/>
+    <par type="DOUBLE" name="WTG4A_VFrzPu" value="0"/>
     <par type="DOUBLE" name="WTG4A_VMaxPu" value="1.1"/>
     <par type="DOUBLE" name="WTG4A_VMinPu" value="0.9"/>
     <par type="DOUBLE" name="WTG4A_VRef0Pu" value="0"/>

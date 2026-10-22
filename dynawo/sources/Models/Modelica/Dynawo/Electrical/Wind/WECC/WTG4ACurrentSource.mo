@@ -50,7 +50,7 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
     tLag = tLag,
     tpREPC = 0.05,
     VCompFlag = VCompFlag,
-    VFrz = VFrz,
+    VFrzPu = VFrzPu,
     XcPu = XPu,
     DbdPu = DbdPu,
     EMaxPu = EMaxPu,
@@ -107,6 +107,8 @@ equation
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
+  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
+    Line(points = {{-190, 38}, {-177, 38}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

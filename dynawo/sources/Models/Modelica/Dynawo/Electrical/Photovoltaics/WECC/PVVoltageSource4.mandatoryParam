@@ -40,7 +40,7 @@
   <mandatoryParameter name="tFv" type="DOUBLE"/>
   <mandatoryParameter name="tLag" type="DOUBLE"/>
   <mandatoryParameter name="tpREPC" type="DOUBLE"/>
-  <mandatoryParameter name="VFrz" type="DOUBLE"/>
+  <mandatoryParameter name="VFrzPu" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="i0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="iConv0Pu.re" type="DOUBLE"/>
