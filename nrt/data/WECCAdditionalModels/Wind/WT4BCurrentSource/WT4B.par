@@ -90,7 +90,7 @@
     <par type="DOUBLE" name="WT4B_VDipPu" value="0.9"/>
     <par type="BOOL" name="WT4B_VFlag" value="true"/>
     <par type="BOOL" name="WT4B_VCompFlag" value="false"/>
-    <par type="DOUBLE" name="WT4B_VFrz" value="0"/>
+    <par type="DOUBLE" name="WT4B_VFrzPu" value="0"/>
     <par type="DOUBLE" name="WT4B_VMaxPu" value="1.1"/>
     <par type="DOUBLE" name="WT4B_VMinPu" value="0.9"/>
     <par type="DOUBLE" name="WT4B_VRef0Pu" value="0"/>

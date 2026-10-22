@@ -102,7 +102,7 @@
     <par type="DOUBLE" name="photovoltaics_VDipPu" value="0.9"/>
     <par type="BOOL" name="photovoltaics_VFlag" value="true"/>
     <par type="BOOL" name="photovoltaics_VCompFlag" value="false"/>
-    <par type="DOUBLE" name="photovoltaics_VFrz" value="0"/>
+    <par type="DOUBLE" name="photovoltaics_VFrzPu" value="0"/>
     <par type="DOUBLE" name="photovoltaics_VMaxPu" value="1.1"/>
     <par type="DOUBLE" name="photovoltaics_VMinPu" value="0.9"/>
     <par type="DOUBLE" name="photovoltaics_VRef0Pu" value="1"/>

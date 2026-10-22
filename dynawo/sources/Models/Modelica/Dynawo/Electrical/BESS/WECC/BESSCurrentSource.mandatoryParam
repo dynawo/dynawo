@@ -123,7 +123,7 @@
   <mandatoryParameter name="tFv" type="DOUBLE"/>
   <mandatoryParameter name="tLag" type="DOUBLE"/>
   <mandatoryParameter name="tpREPC" type="DOUBLE"/>
-  <mandatoryParameter name="VFrz" type="DOUBLE"/>
+  <mandatoryParameter name="VFrzPu" type="DOUBLE"/>
   <mandatoryParameter name="UControl0Pu" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.im" type="DOUBLE"/>

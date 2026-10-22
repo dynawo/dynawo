@@ -80,7 +80,7 @@
     <par type="DOUBLE" name="BESS_tFv" value="0.05"/>
     <par type="DOUBLE" name="BESS_tpREPC" value="0.05"/>
     <par type="BOOL" name="BESS_VCompFlag" value="true"/>
-    <par type="DOUBLE" name="BESS_VFrz" value="0"/>
+    <par type="DOUBLE" name="BESS_VFrzPu" value="0"/>
     <!-- RECC-C parameters -->
     <par type="DOUBLE" name="BESS_Dbd1Pu" value="-0.05"/>
     <par type="DOUBLE" name="BESS_Dbd2Pu" value="0.05"/>
