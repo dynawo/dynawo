@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Controls.WECC.REPC;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,7 +15,7 @@ within Dynawo.Electrical.Controls.WECC.REPC;
 
 model REPCc "WECC Plant Control type C"
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPCc;
-  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3(k2 = 1), firstOrder(UseFreeze = true, UseRateLim = true), limPID(Xi0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then (PInj0Pu - PGen0Pu) / Kpg else PInj0Pu / Kpg, Y0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PInj0Pu - PGen0Pu else PInj0Pu, YMax = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMaxPu else PMaxPu, YMin = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMinPu else PMinPu), RefFlag0(k = if RefFlag == 2 and abs(PInj0Pu / (sqrt(PInj0Pu ^ 2 + QInj0Pu ^ 2))) < 0.01 then 0 else RefFlag), multiSwitch(nu = 3));
+  extends Dynawo.Electrical.Controls.WECC.REPC.BaseClasses.BaseREPC(add3(k2 = 1), firstOrder(UseFreeze = true, UseRateLim = true), limPID(Xi0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then (PConv0Pu - PControl0Pu) / Kpg else PConv0Pu / Kpg, Y0 = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PConv0Pu - PControl0Pu else PConv0Pu, YMax = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMaxPu else PMaxREPCPu, YMin = if FfwrdFlag == true and PefdFlag == true and Kig > 0 then PiMinPu else PMinREPCPu), RefFlag0(k = if RefFlag == 2 and abs(PConv0Pu / (sqrt(PConv0Pu ^ 2 + QConv0Pu ^ 2))) < 0.01 then 0 else RefFlag), multiSwitch(nu = 3));
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput PAuxPu(start = 0) "Auxiliary power in pu (base SNom) (generator convention)" annotation(
@@ -23,14 +23,12 @@ model REPCc "WECC Plant Control type C"
   Modelica.Blocks.Interfaces.RealInput UAuxPu(start = 0) "Auxiliary voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-82, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  Modelica.Blocks.Sources.Constant PfPu(k = PGen0Pu / (sqrt(PGen0Pu ^ 2 + QGen0Pu ^ 2))) annotation(
+  Modelica.Blocks.Sources.Constant PfPu(k = PControl0Pu / (sqrt(PControl0Pu ^ 2 + QControl0Pu ^ 2))) annotation(
     Placement(visible = true, transformation(origin = {-210, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression PrMax0(y = PrMaxPu) annotation(
     Placement(visible = true, transformation(origin = {450, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression PrMin0(y = PrMinPu) annotation(
     Placement(visible = true, transformation(origin = {450, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.BooleanExpression freeze1(y = freeze) annotation(
-    Placement(visible = true, transformation(origin = {170, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant FfwrdFlag0(k = if PefdFlag == true and Kig > 0 then FfwrdFlag else false) annotation(
     Placement(visible = true, transformation(origin = {-10, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant PefdFlag0(k = PefdFlag) annotation(
@@ -49,17 +47,17 @@ model REPCc "WECC Plant Control type C"
     Placement(visible = true, transformation(origin = {-510, -200}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = tFrq, y_start = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-410, -240}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tFilterPC, y_start = UInj0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder4(T = tFilterPC, y_start = ComplexMath.'abs'(uControl0Pu + iControl0Pu * Complex(RcPu, XcPu))) annotation(
     Placement(visible = true, transformation(origin = {-350, 220}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder5(T = tFilterPC, y_start = U0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder5(T = tFilterPC, y_start = ComplexMath.'abs'(uControl0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-470, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder6(T = tC, y_start = Kc * QGen0Pu) annotation(
+  Modelica.Blocks.Continuous.FirstOrder firstOrder6(T = tC, y_start = Kc * QControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-350, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.FixedDelay fixedDelay(delayTime = 1e-4)  annotation(
     Placement(visible = true, transformation(origin = {450, 180}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter3(uMax = DfMaxPu, uMin = DfMinPu) annotation(
     Placement(visible = true, transformation(origin = {-270, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter5(uMax = PMaxPu, uMin = PMinPu) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter5(uMax = PMaxREPCPu, uMin = PMinREPCPu) annotation(
     Placement(visible = true, transformation(origin = {450, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter6(uMax = URefMaxPu, uMin = URefMinPu) annotation(
     Placement(visible = true, transformation(origin = {-350, 260}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
@@ -75,11 +73,11 @@ model REPCc "WECC Plant Control type C"
     Placement(visible = true, transformation(origin = {190, 280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPrMax, DuMin = DPrMin, tS = 0.01, Y0 = PInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter(DuMax = DPrMax, DuMin = DPrMin, tS = 0.01, Y0 = PConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-510, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter1(DuMax = DQRefMax, DuMin = DQRefMin, tS = 0.01, Y0 = QGen0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter1(DuMax = DQRefMax, DuMin = DQRefMin, tS = 0.01, Y0 = QControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {-510, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter2(DuMax = QvrMax, DuMin = QvrMin, tS = 0.01, Y0 = QInj0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.NonLinear.RampLimiter rampLimiter2(DuMax = QvrMax, DuMin = QvrMin, tS = 0.01, Y0 = QConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {510, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch3 annotation(
     Placement(visible = true, transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -122,10 +120,10 @@ equation
     Line(points = {{-199, -100}, {60, -100}, {60, -106}, {78, -106}}, color = {0, 0, 127}));
   connect(PefdFlag0.y, switch3.u2) annotation(
     Line(points = {{-259, -100}, {-222, -100}}, color = {255, 0, 255}));
-  connect(freeze1.y, limPID.freeze) annotation(
-    Line(points = {{181, -140}, {194, -140}, {194, -72}}, color = {255, 0, 255}));
-  connect(freeze1.y, firstOrder.freeze) annotation(
-    Line(points = {{181, -140}, {420, -140}, {420, -60}, {504, -60}, {504, -52}}, color = {255, 0, 255}));
+  connect(not2.y, limPID.freeze) annotation(
+    Line(points = {{242, 280}, {320, 280}, {320, -80}, {194, -80}, {194, -72}}, color = {255, 0, 255}));
+  connect(not2.y, firstOrder.freeze) annotation(
+    Line(points = {{242, 280}, {320, 280}, {320, -80}, {420, -80}, {420, -60}, {504, -60}, {504, -52}}, color = {255, 0, 255}));
   connect(PrMax0.y, firstOrder.dyMax) annotation(
     Line(points = {{461, 0}, {480, 0}, {480, -34}, {498, -34}}, color = {0, 0, 127}));
   connect(PrMin0.y, firstOrder.dyMin) annotation(
@@ -136,8 +134,6 @@ equation
     Line(points = {{462, -40}, {498, -40}}, color = {0, 0, 127}));
   connect(add5.y, limiter5.u) annotation(
     Line(points = {{421, -40}, {438, -40}}, color = {0, 0, 127}));
-  connect(firstOrder.y, switch.u1) annotation(
-    Line(points = {{522, -40}, {540, -40}, {540, -72}, {558, -72}}, color = {0, 0, 127}));
   connect(add3.y, switch4.u1) annotation(
     Line(points = {{2, -60}, {20, -60}, {20, -192}, {38, -192}}, color = {0, 0, 127}));
   connect(Zero4.y, switch4.u3) annotation(
@@ -182,10 +178,6 @@ equation
     Line(points = {{-19, -20}, {0, -20}, {0, 54}, {18, 54}}, color = {0, 0, 127}));
   connect(firstOrder2.y, add6.u1) annotation(
     Line(points = {{-338, 40}, {-240, 40}, {-240, 80}, {0, 80}, {0, 66}, {18, 66}}, color = {0, 0, 127}));
-  connect(QCtrlErr.y, multiSwitch.u[1]) annotation(
-    Line(points = {{-258, 0}, {-240, 0}, {-240, 20}, {180, 20}, {180, 60}, {190, 60}}, color = {0, 0, 127}));
-  connect(UCtrlErr.y, multiSwitch.u[2]) annotation(
-    Line(points = {{-38, 140}, {180, 140}, {180, 60}, {190, 60}}, color = {0, 0, 127}));
   connect(add6.y, multiSwitch.u[3]) annotation(
     Line(points = {{41, 60}, {190, 60}}, color = {0, 0, 127}));
   connect(rampLimiter2.y, switch5.u1) annotation(
@@ -194,14 +186,14 @@ equation
     Line(points = {{522, 20}, {540, 20}, {540, 52}, {558, 52}}, color = {0, 0, 127}));
   connect(QVFlag0.y, switch5.u2) annotation(
     Line(points = {{521, 60}, {558, 60}}, color = {255, 0, 255}));
-  connect(switch5.y, QInjRefPu) annotation(
+  connect(switch5.y, QConvRefPu) annotation(
     Line(points = {{581, 60}, {610, 60}}, color = {0, 0, 127}));
   connect(rampLimiter.y, add3.u1) annotation(
     Line(points = {{-498, -40}, {-40, -40}, {-40, -52}, {-22, -52}}, color = {0, 0, 127}));
   connect(PAuxPu, add3.u2) annotation(
     Line(points = {{-70, -60}, {-22, -60}}, color = {0, 0, 127}));
   connect(firstOrder1.y, product.u2) annotation(
-    Line(points = {{-558, -80}, {-240, -80}, {-240, -26}, {-42, -26}}, color = {0, 0, 127}));
+    Line(points = {{-398, -80}, {-240, -80}, {-240, -26}, {-42, -26}}, color = {0, 0, 127}));
   connect(firstOrder1.y, switch3.u1) annotation(
     Line(points = {{-398, -80}, {-240, -80}, {-240, -92}, {-222, -92}}, color = {0, 0, 127}));
   connect(PfPu.y, limiter4.u) annotation(
@@ -215,7 +207,7 @@ equation
   connect(not2.y, freeze) annotation(
     Line(points = {{241, 280}, {610, 280}}, color = {255, 0, 255}));
   connect(not2.y, limPIDFreeze.freeze) annotation(
-    Line(points = {{241, 280}, {334, 280}, {334, 72}}, color = {255, 0, 255}));
+    Line(points = {{242, 280}, {320, 280}, {320, 80}, {334, 80}, {334, 72}}, color = {255, 0, 255}));
   connect(Zero3.y, switch3.u3) annotation(
     Line(points = {{-259, -140}, {-240, -140}, {-240, -108}, {-222, -108}}, color = {0, 0, 127}));
   connect(firstOrder5.y, voltageCheck.UPu) annotation(
@@ -248,7 +240,8 @@ equation
     Icon(graphics = {Text(origin = {-45, -130}, extent = {{-23, 10}, {21, -10}}, textString = "PAuxPu"), Text(origin = {-93, -130}, extent = {{-23, 10}, {21, -10}}, textString = "UAuxPu"), Text(origin = {-29, 11}, extent = {{-41, 19}, {97, -41}}, textString = "REPC C")}),
     Diagram(coordinateSystem(extent = {{-600, -300}, {600, 300}})),
     Documentation(info = "<html>
-<p> This block contains the generic WECC PV plant level control model according to (in case page cannot be found, copy link in browser): <a href='https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf/'>https://www.wecc.biz/Reliability/WECC%20Solar%20Plant%20Dynamic%20Modeling%20Guidelines.pdf </a> </p>
+<p> This block contains the generic WECC PV plant level control model according to Model User Guide for Generic Renewable Energy System Models: EPRI, Palo Alto, CA:
+2023. 3002027129. </p>
 <p>Plant level active and reactive power/voltage control. Reactive power(0), voltage control(1) or power factor(2) dependent on RefFlag. Frequency dependent active power control is enabled or disabled with FreqFlag. With voltage control (RefFlag = 1), voltage at remote bus can be controlled when VcompFlag == true. Therefore, RcPu and XcPu shall be defined as per real impedance between inverter terminal and regulated bus. If measurements from the regulated bus are available, VcompFlag should be set to false and the measurements from regulated bus shall be connected with the input measurement signals (PRegPu, QRegPu, uPu, iPu).PefdFlag allows to ignore the electrical power feedback. FfwrdFlag creates a feedforward path for the active current.  </p>
 </html>"));
 end REPCc;
