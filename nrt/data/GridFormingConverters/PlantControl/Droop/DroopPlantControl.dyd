@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Same network as Dynawo.Examples.GridForming.PlantControl.DynGFMDroopPlantControlv2:
+       Grid (1 /_ 0) -> Line1 -> Measurements -> plant terminal (PCC) [plant transformer -> plant line -> GFM Droop] -->
+  <dyn:blackBoxModel id="PlantControlDroop" lib="DynGridFormingDroopPlantControlFull" parFile="DroopPlantControl.par" parId="1"/>
+  <dyn:blackBoxModel id="Grid" lib="AcGridRoCoF" parFile="DroopPlantControl.par" parId="4"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="DroopPlantControl.par" parId="10"/>
+  <dyn:blackBoxModel id="Measurements" lib="Measurements" parFile="DroopPlantControl.par" parId="11"/>
+  <dyn:blackBoxModel id="OmegaRefSrc" lib="SetPoint" parFile="DroopPlantControl.par" parId="5"/>
+  <dyn:blackBoxModel id="URefSrc" lib="SetPoint" parFile="DroopPlantControl.par" parId="6"/>
+  <dyn:blackBoxModel id="PRefSrc" lib="SetPoint" parFile="DroopPlantControl.par" parId="8"/>
+  <!-- Electrical network -->
+  <dyn:connect id1="Grid" var1="Grid_aCPower" id2="Line1" var2="line_terminal1"/>
+  <dyn:connect id1="Line1" var1="line_terminal2" id2="Measurements" var2="measurements_terminal1"/>
+  <dyn:connect id1="Measurements" var1="measurements_terminal2" id2="PlantControlDroop" var2="DroopPlantControl_terminal"/>
+  <!-- Setpoints -->
+  <dyn:connect id1="OmegaRefSrc" var1="setPoint_setPoint" id2="Grid" var2="Grid_OmegaRef"/>
+  <dyn:connect id1="OmegaRefSrc" var1="setPoint_setPoint" id2="PlantControlDroop" var2="DroopPlantControl_omegaRefPu"/>
+  <dyn:connect id1="PRefSrc" var1="setPoint_setPoint" id2="PlantControlDroop" var2="DroopPlantControl_PRefPu"/>
+  <dyn:connect id1="URefSrc" var1="setPoint_setPoint" id2="PlantControlDroop" var2="DroopPlantControl_URefPu"/>
+  <!-- DroopPlantControl_UFilterRefPu is left unconnected: it keeps its start value, the GFM URef0Pu (= URefGfmPu in the Modelica example) -->
+</dyn:dynamicModelsArchitecture>

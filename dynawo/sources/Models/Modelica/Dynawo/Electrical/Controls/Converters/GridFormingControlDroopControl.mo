@@ -81,7 +81,7 @@ model GridFormingControlDroopControl "Grid forming control with droop control"
     Placement(visible = true, transformation(origin = {20, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.VirtualImpedance virtualImpedance(DeltaIConvSquare0Pu = DeltaIConvSquare0Pu, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, IConvSquare0Pu = IConvSquare0Pu, IMaxVI = IMaxVI, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, KpVI = KpVI, RVI0 = RVI0, XRratio = XRratio, XVI0 = XVI0) annotation(
     Placement(visible = true, transformation(origin = {-90, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Converters.BaseControls.DroopControl droopControl(DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mp = Mp, Mq = Mq, PFilter0Pu = PFilter0Pu, PRef0Pu = PRef0Pu, QFilter0Pu = QFilter0Pu, QRef0Pu = QRef0Pu, Theta0 = Theta0, UFilterRef0Pu = UFilterRef0Pu, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, Wf = Wf, Wff = Wff) annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.DroopControl droopControl(DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mp = Mp, Mq = Mq, PFilter0Pu = PFilter0Pu, PRef0Pu = PRef0Pu, QFilter0Pu = QFilter0Pu, QRef0Pu = QRef0Pu, Theta0 = Theta0, UFilterRef0Pu = UFilterRef0Pu, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, Omegaf = Wf, Omegaff = Wff) annotation(
     Placement(visible = true, transformation(origin = {-40, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.DCVoltageControl dCVoltageControl(IdcSource0Pu = IdcSource0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu, Kpdc = Kpdc, UdcSource0Pu = UdcSource0Pu, UdcSourceRef0Pu = UdcSourceRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -184,7 +184,7 @@ equation
     Line(points = {{-18, 80}, {110, 80}, {110, 70}, {130, 70}}, color = {0, 0, 127}));
 
   annotation(
-    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -150}, {120, 150}})),
     preferredView = "diagram",
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -150}, {120, 150}})),
     Icon(coordinateSystem(grid = {1, 1})));
 end GridFormingControlDroopControl;
