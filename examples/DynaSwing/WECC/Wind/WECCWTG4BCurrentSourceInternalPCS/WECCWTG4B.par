@@ -121,7 +121,7 @@
     <par type="DOUBLE" name="WTG4B_PMinREPCPu" value="0"/>
     <par type="DOUBLE" name="WTG4B_tpREPC" value="0.03"/>
     <par type="DOUBLE" name="WTG4B_tpREEC" value="0.03"/>
-    <par type="BOOL" name="WTG4B_RefFlag" value="true"/>
+    <par type="INT" name="WTG4B_RefFlag" value="1"/>
     <par type="BOOL" name="WTG4B_VCompFlag" value="false"/>
     <par type="BOOL" name="WTG4B_FreqFlag" value="true"/>
     <par type="DOUBLE" name="WTG4B_Kc" value="0.2"/>

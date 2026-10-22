@@ -53,6 +53,8 @@ equation
     Line(points = {{-20, 63}, {-123, 63}, {-123, 11}}, color = {85, 170, 255}));
   connect(i.y, repcA.iPu) annotation(
     Line(points = {{-20, 93}, {-128, 93}, {-128, 11}}, color = {85, 170, 255}));
+  connect(omegaRefPu, repcA.omegaRefPu) annotation(
+    Line(points = {{-190, 38}, {-177, 38}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

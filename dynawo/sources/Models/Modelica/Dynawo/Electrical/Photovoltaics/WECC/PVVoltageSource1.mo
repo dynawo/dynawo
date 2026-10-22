@@ -25,11 +25,11 @@ model PVVoltageSource1 "WECC PV model with a voltage source as interface with th
 
   // Input variables
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
-    Placement(transformation(origin = {-160, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true, transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
-    Placement(transformation(origin = {-160, -20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(visible = true, transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = wecc_repc.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
-    Placement(transformation(origin = {-160, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
     DDn = DDn,
@@ -139,15 +139,15 @@ equation
   connect(HvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(HvTfo.switchOffSignal2, injector.switchOffSignal2);
   connect(PRefPu, wecc_repc.PRefPu) annotation(
-    Line(points = {{-160, 0}, {-139, 0}, {-139, -2}, {-131, -2}}, color = {0, 0, 127}));
+    Line(points = {{-190, 0}, {-160, 0}, {-160, -2}, {-131, -2}}, color = {0, 0, 127}));
   connect(wecc_repc.PConvRefPu, wecc_reec.PConvRefPu) annotation(
     Line(points = {{-109, 6}, {-91, 6}}, color = {0, 0, 127}));
   connect(wecc_repc.QConvRefPu, wecc_reec.QConvRefPu) annotation(
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(QRefPu, wecc_repc.QRefPu) annotation(
-    Line(points = {{-160, -20}, {-140, -20}, {-140, -6}, {-131, -6}}, color = {0, 0, 127}));
+    Line(points = {{-190, -20}, {-160, -20}, {-160, -6}, {-131, -6}}, color = {0, 0, 127}));
   connect(URefPu, wecc_repc.URefPu) annotation(
-    Line(points = {{-160, -40}, {-120, -40}, {-120, -11}}, color = {0, 0, 127}));
+    Line(points = {{-190, -40}, {-120, -40}, {-120, -11}}, color = {0, 0, 127}));
   connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
     Line(points = {{-69, -6}, {-61, -6}}, color = {0, 0, 127}));
   connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
@@ -182,6 +182,8 @@ equation
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(SourceMeasurements.uPu, wecc_regc.uInjPu) annotation(
     Line(points = {{26, -5}, {26, -13}, {-46, -13}, {-46, -11}}, color = {85, 170, 255}));
+  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
+    Line(points = {{-190, 38}, {-177, 38}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
