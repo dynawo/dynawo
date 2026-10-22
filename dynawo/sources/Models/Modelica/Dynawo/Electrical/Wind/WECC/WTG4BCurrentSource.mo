@@ -90,6 +90,8 @@ equation
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
     Line(points = {{-148, 50}, {-140, 50}, {-140, 8}, {-132, 8}}, color = {0, 0, 127}));
+  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
+    Line(points = {{-190, 38}, {-177, 38}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

@@ -112,6 +112,7 @@ PhaseShifterBlockingI
 PhaseShifterI
 PhaseShifterP
 PhotovoltaicsWeccCurrentSource
+PhotovoltaicsWeccCurrentSource2
 PhotovoltaicsWeccVoltageSource1
 PhotovoltaicsWeccVoltageSource2
 PhotovoltaicsWeccVoltageSource3
