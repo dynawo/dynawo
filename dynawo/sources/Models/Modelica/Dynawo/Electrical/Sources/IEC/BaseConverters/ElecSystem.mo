@@ -48,8 +48,14 @@ model ElecSystem "RLC filter for WT (IEC N°61400-27-1)"
   //Output variables
   Types.ComplexCurrentPu i1Pu(re(start = i10Pu.re), im(start = i10Pu.im)) "Complex current at terminal 1 in pu (base UNom, SNom) (receptor convention)";
   Types.ComplexCurrentPu i2Pu(re(start = i20Pu.re), im(start = i20Pu.im)) "Complex current at terminal 2 in pu (base UNom, SNom) (generator convention)";
+  Types.ActivePowerPu P1PuSnRef(start = Modelica.ComplexMath.real(u10Pu * Modelica.ComplexMath.conj(Complex(i10Pu.re*SNom/SystemBase.SnRef, i10Pu.im*SNom/SystemBase.SnRef)))) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu P2PuSnRef(start = Modelica.ComplexMath.real(u20Pu * Modelica.ComplexMath.conj(Complex(i20Pu.re*SNom/SystemBase.SnRef, i20Pu.im*SNom/SystemBase.SnRef)))) "Active power at terminal 2 in pu (base SnRef) (generator convention)";
+  Types.ActivePowerPu Q1PuSnRef(start = Modelica.ComplexMath.imag(u10Pu * Modelica.ComplexMath.conj(Complex(i10Pu.re*SNom/SystemBase.SnRef, i10Pu.im*SNom/SystemBase.SnRef)))) "Reactive power at terminal 1 in pu (base SnRef) (receptor convention)";
+  Types.ActivePowerPu Q2PuSnRef(start = Modelica.ComplexMath.imag(u20Pu * Modelica.ComplexMath.conj(Complex(i20Pu.re*SNom/SystemBase.SnRef, i20Pu.im*SNom/SystemBase.SnRef)))) "Reactive power at terminal 2 in pu (base SnRef) (generator convention)";
   Types.ComplexVoltagePu u1Pu(re(start = u10Pu.re), im(start = u10Pu.im)) "Complex voltage at terminal 1 in pu (base UNom)";
   Types.ComplexVoltagePu u2Pu(re(start = u20Pu.re), im(start = u20Pu.im)) "Complex voltage at terminal 2 in pu (base UNom)";
+  Types.VoltageModulePu U1Pu(start = ComplexMath.'abs'(u10Pu)) "Voltage module at terminal 1 in pu (base UNom)";
+  Types.VoltageModulePu U2Pu(start = ComplexMath.'abs'(u20Pu)) "Voltage module at terminal 2 in pu (base UNom)";
 
   Modelica.Blocks.Interfaces.RealOutput i1ImPu(start = i10Pu.im) "Imaginary component of the current at terminal 1 in pu (base UNom, SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {20, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90), iconTransformation(origin = {90, -110}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
@@ -95,6 +101,12 @@ equation
   i2Pu = Complex(i2RePu, i2ImPu);
   u1Pu = Complex(u1RePu, u1ImPu);
   u2Pu = Complex(u2RePu, u2ImPu);
+  U1Pu = ComplexMath.'abs'(u1Pu);
+  U2Pu = ComplexMath.'abs'(u2Pu);
+  P1PuSnRef = Modelica.ComplexMath.real(u1Pu * Modelica.ComplexMath.conj(terminal1.i));
+  P2PuSnRef = Modelica.ComplexMath.real(u2Pu * Modelica.ComplexMath.conj(-terminal2.i));
+  Q1PuSnRef = Modelica.ComplexMath.imag(u1Pu * Modelica.ComplexMath.conj(terminal1.i));
+  Q2PuSnRef = Modelica.ComplexMath.imag(u2Pu * Modelica.ComplexMath.conj(-terminal2.i));
 
   annotation(
     preferredView = "text",
