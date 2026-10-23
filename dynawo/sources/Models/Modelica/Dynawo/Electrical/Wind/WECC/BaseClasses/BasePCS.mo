@@ -89,7 +89,7 @@ model BasePCS "Base model of the Power Collection System to be extended in the W
     Dialog(tab = "Operating point", enable = not PPCLocal));
   parameter Types.VoltageModulePu U0Pu "Start value of voltage magnitude at converter terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
-  parameter Types.VoltageModulePu UControl0Pu "Initial voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)";
+  parameter Dynawo.Connectors.VoltageModulePuOutput UControl0Pu "Initial voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)";
   final parameter Types.ComplexVoltagePu uControl0Pu = if PPCLocal then u0Pu else uPcc0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal in pu (base UNom)";
   parameter Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) in pu (base UNom)" annotation(
     Dialog(tab = "Operating point", enable = not PPCLocal));

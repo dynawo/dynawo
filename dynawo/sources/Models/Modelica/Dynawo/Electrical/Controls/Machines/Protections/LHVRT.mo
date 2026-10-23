@@ -74,7 +74,7 @@ model LHVRT "High and low voltage ride-through"
     Placement(transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameter
-  parameter Types.VoltageModulePu UMonitored0Pu "Initial monitored voltage amplitude in pu (base UNom)";
+  parameter Dynawo.Connectors.VoltageModulePuInput UMonitored0Pu "Initial monitored voltage amplitude in pu (base UNom)";
 
 protected
   Types.Time tThresholdReachedHvrt(start = Modelica.Constants.inf) "Time when the HVRT threshold is reached in s";
