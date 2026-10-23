@@ -67,7 +67,7 @@ model PVVoltageSource_INIT "Initialization model for WECC PV model with a voltag
   Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
   Types.ComplexVoltagePu uPcc0Pu "Initial voltage module at the external bus controlled by the PPC (used when PPCLocal = false, meaning the PCS is defined outside of the model) (base UNom)" annotation(
     Dialog(enable = not PPCLocal));
-  Types.Angle UInjPhase0 "Start value of voltage phase angle at injector in rad";
+  Types.Angle UPhaseInj0 "Start value of voltage phase angle at injector in rad";
   Types.PerUnit UqInj0Pu "Start value of q-axis voltage at injector in pu (base UNom)";
   Types.ComplexPerUnit uSource0Pu "Start value of complex voltage at source in pu (base UNom)";
 
@@ -98,14 +98,14 @@ equation
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
-  UInjPhase0 = ComplexMath.arg(uInj0Pu);
+  UPhaseInj0 = ComplexMath.arg(uInj0Pu);
 
   iSource0Pu = - iInj0Pu * SystemBase.SnRef / SNom;
   uSource0Pu = uInj0Pu + Complex(RSourcePu * SystemBase.SnRef / SNom, XSourcePu * SystemBase.SnRef / SNom) * iInj0Pu;
 
   PF0 = if (not(ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu / ComplexMath.'abs'(s0Pu) else 0;
-  UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
-  UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
+  UdInj0Pu = cos(UPhaseInj0) * uInj0Pu.re + sin(UPhaseInj0) * uInj0Pu.im;
+  UqInj0Pu = - sin(UPhaseInj0) * uInj0Pu.re + cos(UPhaseInj0) * uInj0Pu.im;
   Id0Pu = Modelica.Math.cos(UPhaseConv0) * iInj0Pu.re + Modelica.Math.sin(UPhaseConv0) * iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseConv0) * iInj0Pu.re - Modelica.Math.cos(UPhaseConv0) * iInj0Pu.im;
   UControl0Pu = ComplexMath.'abs'(if PPCLocal then u0Pu else uPcc0Pu);

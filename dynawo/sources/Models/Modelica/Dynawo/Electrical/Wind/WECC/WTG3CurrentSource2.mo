@@ -37,14 +37,14 @@ model WTG3CurrentSource2 "WECC Wind Turbine model with a current source as inter
   Modelica.Blocks.Interfaces.RealInput PmRefPu(start = Pm0Pu) "Reference mechanical power at optimal pitch angle in pu (base SNom)" annotation(
     Placement(transformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power reference in pu (generator convention) (base SNom)" annotation(
-    Placement(transformation(origin = {-188, 11}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-190, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = QControl0Pu) "Reactive power reference in pu (generator convention) (base SNom)" annotation(
-    Placement(transformation(origin = {-188, -6}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
   Modelica.Blocks.Interfaces.RealInput URefPu(start = wecc_repc.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
-    Placement(transformation(origin = {-188, -22}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {-190, -60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Dynawo.Electrical.Controls.WECC.Mechanical.WTGQa wecc_wtgq(
     Kip = Kip,
@@ -273,12 +273,12 @@ equation
     Line(points = {{-16, -56}, {2, -56}}, color = {0, 0, 127}));
   connect(wecc_wtgq.PRefPu, wecc_wtgp.PRefPu) annotation(
     Line(points = {{-70, -62}, {-65, -62}, {-65, -72}, {-33, -72}, {-33, -67}}, color = {0, 0, 127}));
-  connect(URefPu, wecc_repc.URefPu) annotation(
-    Line(points = {{-188, -22}, {-121, -22}, {-121, -11}}, color = {0, 0, 127}));
-  connect(QRefPu, wecc_repc.QRefPu) annotation(
-    Line(points = {{-188, -6}, {-132, -6}}, color = {0, 0, 127}));
   connect(PRefPu, wecc_repc.PRefPu) annotation(
-    Line(points = {{-188, 11}, {-170, 11}, {-170, -2}, {-132, -2}}, color = {0, 0, 127}));
+    Line(points = {{-190, -2}, {-132, -2}}, color = {0, 0, 127}));
+  connect(QRefPu, wecc_repc.QRefPu) annotation(
+    Line(points = {{-190, -40}, {-160, -40}, {-160, -6}, {-132, -6}}, color = {0, 0, 127}));
+  connect(URefPu, wecc_repc.URefPu) annotation(
+    Line(points = {{-190, -60}, {-121, -60}, {-121, -11}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, wecc_repc.omegaPu) annotation(
     Line(points = {{-149, 69}, {-140, 69}, {-140, 8}, {-132, 8}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
@@ -345,6 +345,8 @@ equation
     Line(points = {{-69, -9}, {-60, -9}, {-60, -62}, {-38, -62}}, color = {0, 0, 127}));
   connect(wecc_wtgq.omegaRefWTGQPu, wecc_wtgp.omegaRefWTGQPu) annotation(
     Line(points = {{-70, -50}, {-38, -50}}, color = {0, 0, 127}));
+  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
+    Line(points = {{-190, 58}, {-177, 58}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
