@@ -16,7 +16,7 @@ within Dynawo.Electrical.Controls.Machines.Protections;
 model LHVRT_INIT "High and low voltage ride-through initialization model"
   extends AdditionalIcons.Init;
 
-  Types.VoltageModulePu UMonitored0Pu "Initial monitored voltage amplitude in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuInput UMonitored0Pu "Initial monitored voltage amplitude in pu (base UNom)";
 
   annotation(preferredView = "text");
 end LHVRT_INIT;

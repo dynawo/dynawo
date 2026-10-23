@@ -49,7 +49,7 @@ model WECCPlantCurrentSource_INIT "Initialization model for WECC BESS, PV and WT
   Types.ComplexPerUnit sPcc0Pu "Start value of complex apparent power at external PCC in pu (used when PPCLocal = false, meaning the PCS is defined outside of the model) (receptor convention) (base UNom, SnRef)" annotation(
     Dialog(enable = not PPCLocal));
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
-  Types.VoltageModulePu UControl0Pu "Initial voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuOutput UControl0Pu "Initial voltage amplitude at the point controlled by the PPC (either model's output terminal or external PCC) in pu (base UNom)";
   Types.VoltageModulePu UConv0Pu "Start value of voltage module at converter terminal in pu (base UNom)";
   Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   Types.VoltageModulePu UInj0Pu "Start value of voltage module at injector in pu (base UNom)";
