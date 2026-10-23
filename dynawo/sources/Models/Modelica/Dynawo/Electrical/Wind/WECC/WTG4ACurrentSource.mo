@@ -29,6 +29,10 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
   Modelica.Blocks.Interfaces.RealInput URefPu(start = wecc_repc.URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
+  // Output variable
+  Modelica.Blocks.Interfaces.RealOutput UInjPu(start = UInj0Pu) "Voltage amplitude at the injector terminal in pu (base UNom)" annotation(
+    Placement(transformation(origin = {140, -40}, extent = {{10, 10}, {-10, -10}}, rotation = -180), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+
   Dynawo.Electrical.Controls.WECC.REPC.REPCa wecc_repc(
     DDn = DDn,
     DUp = DUp,
@@ -107,6 +111,8 @@ equation
     Line(points = {{-109, -6}, {-91, -6}}, color = {0, 0, 127}));
   connect(LvMeasurements.terminal2, HvTfo.terminal2) annotation(
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
+  connect(injector.UPu, UInjPu) annotation(
+    Line(points = {{12, -8}, {16, -8}, {16, -16}, {80, -16}, {80, -40}, {140, -40}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
