@@ -25,4 +25,5 @@
   <variable type="continuous" id="omegaRefPu"/>
   <variable type="discrete" id="switchOffSignal1" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal3" defaultValue="false"/>
 </external_variables>
