@@ -16,6 +16,7 @@ set(MODEL_FILES
   DynGridFormingControlVSM.mo
   DynGridFormingControlCCVSM.mo
   DynGridFormingControlDroop.mo
+  DynGridFormingControlVSM_CSA_Pvirt.mo
   )
 
 #

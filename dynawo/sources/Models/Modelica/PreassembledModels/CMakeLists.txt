@@ -41,6 +41,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DynGridFormingCCVSMPlantControlFull.xml
   DynGridFormingVSMPlantControlFull.xml
   DynGridFormingDroopPlantControlFull.xml
+  DynGridFormingVirtualSynchronousMachineVirtualPower.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
