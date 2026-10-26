@@ -40,6 +40,7 @@ set(MODEL_SOURCES
   DYNModelHvdcLink.cpp
   DYNModelVoltageLevel.cpp
   DYNModelQuadripole.cpp
+  DYNNetworkBridge.cpp
   DYNNetworkBridgeQuadripole.cpp
   )
 

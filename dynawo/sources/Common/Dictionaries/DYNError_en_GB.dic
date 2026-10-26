@@ -165,6 +165,7 @@ AttemptToPropagateBeforeMerge        =    discrete variables connectors should b
 ZValueIsNaN                 =             discrete variable with index %1% has a NaN value
 UnmappedNetworkBridge       =             network component %1% topology-forwarding-bridge missing its dynamic part
 UnhandledBridgedBusCall     =             unhandled call to %1% on bridged bus %2%
+BridgeRunningAliasNotFound  =             running alias %1% variable not found in bridged component %2%
 //---Parameter---------------
 ParameterDeclaredTwice      =             model (%1%): parameter %2% is declared twice: once in par file and once in init model
 ParameterWrongTypeReference =             wrong type for reference parameter: %1%
