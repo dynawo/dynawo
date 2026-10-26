@@ -18,7 +18,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNNETWORKBRIDGEQUADRIPOLE_H_
 
 #include "DYNModelQuadripole.h"
-#include "DYNNetworkBridge.hpp"
+#include "DYNNetworkBridge.h"
 
 namespace DYN {
 /** @brief enables connection state changes propagation from dynamic quadripole models to their ModelNetwork equivalent */
@@ -32,12 +32,14 @@ class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
   explicit NetworkBridgeQuadripole(const std::shared_ptr<ModelQuadripole> & baseQuadripole, const std::string & stateVarPrefix);
 
   void initSize() override;
-  StateChange_t evalZ(double, bool) override;
-  void evalG(double) override;
   void setGequations(std::map<int, std::string>&) override;
+  void evalG(double) override;
+  StateChange_t evalZ(double, bool) override {return NetworkBridge::evalZ(declareTopoChange_);}
+  void defineNonGenericParameters(std::vector<ParameterModeler>&) override;
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override;
+  std::string getLoggingId() override {return id();}
 
  private:
-  std::string stateVarPrefix_;                        ///< dynamic state variable model type prefix
   bool declareTopoChange_ = false;                    ///< flag indicating that evalG detected a topology change that needs to be forwarded to evalZ
 
 
@@ -53,7 +55,6 @@ class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
   void evalJt(double, int, SparseMatrix&) override {}
   void evalJtPrim(int, SparseMatrix&) override {}
   void evalNodeInjection() override {}
-  void defineNonGenericParameters(std::vector<ParameterModeler>&) override {}
   void evalCalculatedVars() override {}
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
   void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
@@ -65,7 +66,6 @@ class NetworkBridgeQuadripole : public ModelQuadripole, public NetworkBridge {
   void evalYMat() override {}
   void init(int&) override {}
   void getY0() override {}
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override {}
   void setFequations(std::map<int, std::string>&) override {}
 };
 
