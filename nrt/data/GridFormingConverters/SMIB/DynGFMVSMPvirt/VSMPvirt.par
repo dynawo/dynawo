@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- AcGridRoCoF: voltage consistent with the operating point at the PCC (uGrid0 = u0 + (RLine + j XLine) i0) -->
+  <set id="1">
+    <par type="DOUBLE" name="Grid_SNom" value="100"/>
+    <par type="DOUBLE" name="Grid_U0pu" value="1.0643689444924609"/>
+    <par type="DOUBLE" name="Grid_Upu" value="1.0643689444924609"/>
+    <par type="DOUBLE" name="Grid_UPhase0" value="-0.46259718921907295"/>
+    <par type="DOUBLE" name="Grid_UPhase" value="-0.46259718921907295"/>
+    <par type="DOUBLE" name="Grid_RoCoFValue" value="0.04"/>
+    <par type="DOUBLE" name="Grid_StartRoCoF" value="15"/>
+    <par type="DOUBLE" name="Grid_TimeRoCoF" value="0.5"/>
+    <par type="DOUBLE" name="Grid_StartingFrequency" value="0"/>
+    <par type="BOOL" name="Grid_ReturnRoCoF" value="false"/>
+  </set>
+
+  <!-- Lines: four identical parallel lines, equivalent to SCR = 2 (XLine = 0.5 pu, RLine = 0.05 pu, base SnRef) -->
+  <set id="2">
+    <par type="DOUBLE" name="line_RPu" value="0.2"/>
+    <par type="DOUBLE" name="line_XPu" value="2.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+
+  <!-- Bolted fault at the PCC -->
+  <set id="3">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0"/>
+    <par type="DOUBLE" name="fault_tBegin" value="10"/>
+    <par type="DOUBLE" name="fault_tEnd" value="10.25"/>
+  </set>
+
+  <!-- Grid-forming VSM with current saturation and virtual power -->
+  <set id="4">
+    <!-- Installation parameters -->
+    <par name="GFMPvirt_SNom" type="DOUBLE" value="100"/>
+    <par name="GFMPvirt_tUFilt" type="DOUBLE" value="0.01"/>
+    <!-- VSM parameters (kVSM = 2*0.7*sqrt(2*H*omegaNom/0.47)) -->
+    <par name="GFMPvirt_H" type="DOUBLE" value="5"/>
+    <par name="GFMPvirt_kVSM" type="DOUBLE" value="114.46007945759204"/>
+    <!-- Voltage reference control parameters -->
+    <par name="GFMPvirt_Mq" type="DOUBLE" value="0.05"/>
+    <par name="GFMPvirt_Omegaf" type="DOUBLE" value="31.41592653589793"/>
+    <par name="GFMPvirt_Omegaff" type="DOUBLE" value="60"/>
+    <par name="GFMPvirt_Kff" type="DOUBLE" value="0.09"/>
+    <!-- QSEM parameter -->
+    <par name="GFMPvirt_XVIPu" type="DOUBLE" value="0.21"/>
+    <!-- Current loop parameters -->
+    <par name="GFMPvirt_Omegac" type="DOUBLE" value="1000"/>
+    <par name="GFMPvirt_Kfd" type="DOUBLE" value="1"/>
+    <par name="GFMPvirt_Kfq" type="DOUBLE" value="1"/>
+    <par name="GFMPvirt_Ts" type="DOUBLE" value="5e-5"/>
+    <!-- Current saturation parameters -->
+    <par name="GFMPvirt_ImaxPu" type="DOUBLE" value="1.2"/>
+    <par name="GFMPvirt_IminPu" type="DOUBLE" value="0"/>
+    <par name="GFMPvirt_EpsUpPu" type="DOUBLE" value="0.01"/>
+    <par name="GFMPvirt_EpsDownPu" type="DOUBLE" value="0.01"/>
+    <par name="GFMPvirt_tSat" type="DOUBLE" value="1e-4"/>
+    <!-- Filter parameters -->
+    <par name="GFMPvirt_RFilterPu" type="DOUBLE" value="0.003"/>
+    <par name="GFMPvirt_LFilterPu" type="DOUBLE" value="0.1"/>
+    <par name="GFMPvirt_CFilterPu" type="DOUBLE" value="1e-05"/>
+    <!-- Transformer parameters -->
+    <par name="GFMPvirt_RTransformerPu" type="DOUBLE" value="0.006"/>
+    <par name="GFMPvirt_LTransformerPu" type="DOUBLE" value="0.06"/>
+    <!-- VSC parameter -->
+    <par name="GFMPvirt_tVSC" type="DOUBLE" value="4e-4"/>
+    <!-- PLL parameters (equivalent to Ki = 10, Kp = 2) -->
+    <par name="GFMPvirt_OmegaPLL" type="DOUBLE" value="56.049912163979286"/>
+    <par name="GFMPvirt_KsiPLL" type="DOUBLE" value="5.604991216397929"/>
+    <par name="GFMPvirt_tPLL" type="DOUBLE" value="0.01"/>
+    <!-- Operating point at the PCC -->
+    <par name="GFMPvirt_U0Pu" type="DOUBLE" value="0.9502027101293471"/>
+    <par name="GFMPvirt_UPhase0" type="DOUBLE" value="0.027098087127168706"/>
+    <par name="GFMPvirt_P0Pu" type="DOUBLE" value="-0.9440416785411966"/>
+    <par name="GFMPvirt_Q0Pu" type="DOUBLE" value="0.07364714495383004"/>
+  </set>
+
+  <!-- Measurements -->
+  <set id="5">
+    <par type="DOUBLE" name="measurements_SNom" value="100"/>
+  </set>
+
+  <!-- SetPointOne: URefPu = 1, omegaRefPu = 1 -->
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
+  </set>
+  <!-- SetPointZero: QRefPu = 0 -->
+  <set id="7">
+    <par type="DOUBLE" name="setPoint_Value0" value="0"/>
+  </set>
+  <!-- SetPointP: PRefPu = 0.95 -->
+  <set id="8">
+    <par type="DOUBLE" name="setPoint_Value0" value="0.95"/>
+  </set>
+
+  <!-- Line tripping -->
+  <set id="9">
+    <par type="DOUBLE" name="event_tEvent" value="10.25"/>
+    <par type="BOOL" name="event_stateEvent1" value="true"/>
+  </set>
+  <!-- Line reclosing -->
+  <set id="10">
+    <par type="DOUBLE" name="event_tEvent" value="11.25"/>
+    <par type="BOOL" name="event_stateEvent1" value="false"/>
+  </set>
+
+  <!-- Solvers -->
+  <set id="IDASolver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-5"/>
+    <par type="DOUBLE" name="minStep" value="1e-9"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-09"/>
+    <par type="INT" name="maximumNumberSlowStepIncrease" value="50"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-6"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-6"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+  </set>
+
+  <set id="SimplifiedSolver">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="0.001"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="1e-8"/>
+  </set>
+</parametersSet>

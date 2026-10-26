@@ -15,6 +15,7 @@ set(MODEL_FILES
   package.order
   VSM.mo
   CCVSM.mo
+  VirtualPower.mo
   )
 
 #

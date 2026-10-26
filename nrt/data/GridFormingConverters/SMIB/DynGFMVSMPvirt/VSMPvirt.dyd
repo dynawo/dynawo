@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Grid and connection (four identical parallel lines) -->
+  <dyn:blackBoxModel id="Grid" lib="AcGridRoCoF" parFile="VSMPvirt.par" parId="1"/>
+  <dyn:blackBoxModel id="line" lib="Line" parFile="VSMPvirt.par" parId="2"/>
+  <dyn:blackBoxModel id="line2" lib="Line" parFile="VSMPvirt.par" parId="2"/>
+  <dyn:blackBoxModel id="line3" lib="Line" parFile="VSMPvirt.par" parId="2"/>
+  <dyn:blackBoxModel id="line4" lib="Line" parFile="VSMPvirt.par" parId="2"/>
+  <dyn:blackBoxModel id="nodeFault" lib="NodeFault" parFile="VSMPvirt.par" parId="3"/>
+  <!-- Converter and measurements -->
+  <dyn:blackBoxModel id="GFMPvirt" lib="DynGridFormingVirtualSynchronousMachineVirtualPower" parFile="VSMPvirt.par" parId="4"/>
+  <dyn:blackBoxModel id="Meas" lib="Measurements" parFile="VSMPvirt.par" parId="5"/>
+  <!-- References -->
+  <dyn:blackBoxModel id="SetPointOne" lib="SetPoint" parFile="VSMPvirt.par" parId="6"/>
+  <dyn:blackBoxModel id="SetPointZero" lib="SetPoint" parFile="VSMPvirt.par" parId="7"/>
+  <dyn:blackBoxModel id="SetPointP" lib="SetPoint" parFile="VSMPvirt.par" parId="8"/>
+  <!-- Tripping and reclosing of the first line -->
+  <dyn:blackBoxModel id="LineTrip" lib="EventSetPointBoolean" parFile="VSMPvirt.par" parId="9"/>
+  <dyn:blackBoxModel id="LineReclose" lib="EventSetPointBoolean" parFile="VSMPvirt.par" parId="10"/>
+
+  <dyn:connect id1="Grid" var1="Grid_aCPower" id2="line" var2="line_terminal1"/>
+  <dyn:connect id1="Grid" var1="Grid_aCPower" id2="line2" var2="line_terminal1"/>
+  <dyn:connect id1="Grid" var1="Grid_aCPower" id2="line3" var2="line_terminal1"/>
+  <dyn:connect id1="Grid" var1="Grid_aCPower" id2="line4" var2="line_terminal1"/>
+  <dyn:connect id1="line" var1="line_terminal2" id2="Meas" var2="measurements_terminal2"/>
+  <dyn:connect id1="line2" var1="line_terminal2" id2="Meas" var2="measurements_terminal2"/>
+  <dyn:connect id1="line3" var1="line_terminal2" id2="Meas" var2="measurements_terminal2"/>
+  <dyn:connect id1="line4" var1="line_terminal2" id2="Meas" var2="measurements_terminal2"/>
+  <dyn:connect id1="nodeFault" var1="fault_terminal" id2="Meas" var2="measurements_terminal2"/>
+  <dyn:connect id1="Meas" var1="measurements_terminal1" id2="GFMPvirt" var2="GFMPvirt_terminal"/>
+  <!-- References -->
+  <dyn:connect id1="SetPointP" var1="setPoint_setPoint" id2="GFMPvirt" var2="GFMPvirt_PFilterRefPu"/>
+  <dyn:connect id1="SetPointZero" var1="setPoint_setPoint" id2="GFMPvirt" var2="GFMPvirt_QFilterRefPu"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMPvirt" var2="GFMPvirt_UFilterRefPu"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMPvirt" var2="GFMPvirt_omegaRefPu"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="Grid" var2="Grid_OmegaRef"/>
+  <!-- Line tripping (switchOffSignal2 = true) and reclosing (switchOffSignal2 = false) -->
+  <dyn:connect id1="LineTrip" var1="event_state1" id2="line" var2="line_switchOffSignal2"/>
+  <dyn:connect id1="LineReclose" var1="event_state1" id2="line" var2="line_switchOffSignal2"/>
+</dyn:dynamicModelsArchitecture>

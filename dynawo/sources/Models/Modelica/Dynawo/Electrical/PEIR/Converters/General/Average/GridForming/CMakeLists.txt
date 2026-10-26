@@ -24,6 +24,9 @@ set(MODEL_FILES
   DynGFMDroop.mo
   DynGFMDroop.extvar
   DynGFMDroop.mandatoryParam
+  DynGFMVSM_A_Pvirt.mo
+  DynGFMVSM_A_Pvirt.extvar
+  DynGFMVSM_A_Pvirt.mandatoryParam
   )
 
 #

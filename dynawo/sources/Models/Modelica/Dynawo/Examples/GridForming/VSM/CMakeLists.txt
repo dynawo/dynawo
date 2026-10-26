@@ -15,6 +15,7 @@ set(MODEL_FILES
   DynGFMCCVSMSmib.mo
   DynGFMVSMSmib.mo
   DynGFMVSMSmibConvPLL.mo
+  VSM_CurrentLimiting_CSA_Pvirt.mo
   )
 
 #
