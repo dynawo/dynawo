@@ -16,8 +16,29 @@ within Dynawo.Electrical.PEIR.Plants.Simplified;
 model GenericInverter "Injector model with regulation, used in the modified Nordic32 test system"
   extends Dynawo.AdditionalIcons.Machine;
 
+  // Plant control parameters
+  parameter Real Ki "Integrator gain of plant control";
+  parameter Real Kp "Proportional gain of plant control";
+  parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power in pu (base SNom)";
+  parameter Types.ReactivePowerPu QMinPu "Minimum reactive power in pu (base SNom)";
+  parameter Types.Time t1 "Filter time constant for the voltage at the PCC, in s";
+  parameter Types.Time t2 "Lead time constant of plant control in s";
+  parameter Types.Time t3 "Lag time constant of plant control in s";
+  parameter Types.VoltageModulePu VRegDbPu "Half-width of dead band for voltage at the PCC in pu (base UNom)";
+
+  // Electrical control parameters
   parameter Types.CurrentModulePu IMaxPu "Maximum current module in pu (base SNom, UNom)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+  parameter Types.Time t4 "Filter time constant for the voltage, in s";
+  parameter Types.Time t5 "Reactive current filter time constant in s";
+  parameter Types.Time t6 "Active power filter time constant in s";
+  parameter Types.VoltageModulePu VtDbPu "Half-width of dead band for voltage at the terminal in pu (base UNom)";
+
+  // Phase-locked loop parameters
+  parameter Types.PerUnit KiPLL "PLL integrator gain";
+  parameter Types.PerUnit KpPLL "PLL proportional gain";
+  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit of PLL in pu (base omegaNom)";
+  parameter Types.PerUnit OmegaMinPu "Lower frequency limit of PLL in pu (base omegaNom)";
 
   //Terminal
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the generator to the grid" annotation(
@@ -27,6 +48,9 @@ model GenericInverter "Injector model with regulation, used in the modified Nord
     Placement(transformation(origin = {140, 56}, extent = {{20, -20}, {-20, 20}}), iconTransformation(origin = {120, 40}, extent = {{20, -20}, {-20, 20}}, rotation = -0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Reference active power in pu (base SNom)" annotation(
     Placement(transformation(origin = {-140, -80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
   Modelica.Blocks.Interfaces.RealInput VRefPu(start = VReg0Pu) "Reference voltage amplitude at the PCC in pu (base UNom)" annotation(
     Placement(transformation(origin = {-140, 80}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput VRegPu(start = VReg0Pu) "Voltage amplitude at the PCC in pu (base UNom)" annotation(
@@ -36,13 +60,49 @@ model GenericInverter "Injector model with regulation, used in the modified Nord
 
   Types.VoltageModulePu VtPu(start = U0Pu) "Voltage amplitude at the terminal in pu (base UNom)";
 
-  Electrical.Sources.InjectorIDQ injectorIDQ(SwitchOffSignal20 = false, SNom = SNom, i0Pu = i0Pu, Id0Pu = Id0Pu, Iq0Pu = Iq0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, s0Pu = s0Pu, U0Pu = U0Pu, u0Pu = u0Pu, UPhase0 = UPhase0) annotation(
+  Electrical.Sources.InjectorIDQ injectorIDQ(
+    SNom = SNom,
+    i0Pu = i0Pu,
+    Id0Pu = Id0Pu,
+    Iq0Pu = Iq0Pu,
+    P0Pu = P0Pu,
+    Q0Pu = Q0Pu,
+    s0Pu = s0Pu,
+    U0Pu = U0Pu,
+    u0Pu = u0Pu,
+    UPhase0 = UPhase0) annotation(
     Placement(transformation(origin = {60, 0}, extent = {{-20, -20}, {20, 20}})));
-  Dynawo.Electrical.PEIR.BaseControls.Simplified.ElectricalControlNordic electricalControlNordic(t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, Kp = 5, Ki = 0.1, Id0Pu = Id0Pu, IMaxPu = IMaxPu, Iq0Pu = Iq0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, U0Pu = U0Pu, VReg0Pu = VReg0Pu) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Simplified.ElectricalControlNordic electricalControlNordic(
+    Id0Pu = Id0Pu,
+    IMaxPu = IMaxPu,
+    Iq0Pu = Iq0Pu,
+    Kp = Kp,
+    Ki = Ki,
+    P0Pu = P0Pu,
+    Q0Pu = Q0Pu,
+    QExt0Pu = -Q0Pu * SystemBase.SnRef / SNom,
+    QMaxPu = QMaxPu,
+    QMinPu = QMinPu,
+    SNom = SNom,
+    t1 = t1,
+    t2 = t2,
+    t3 = t3,
+    t4 = t4,
+    t5 = t5,
+    t6 = t6,
+    U0Pu = U0Pu,
+    VReg0Pu = VReg0Pu,
+    VRegDbPu = VRegDbPu,
+    VtDbPu = VtDbPu) annotation(
     Placement(transformation(origin = {-20, 0}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = VtPu) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Controls.PLL.PLL pll(Ki = 1, Kp = 1, u0Pu = u0Pu, OmegaMaxPu = 60, OmegaMinPu = 40) annotation(
+  Electrical.Controls.PLL.PLL pll(
+    Ki = KiPLL,
+    Kp = KpPLL,
+    u0Pu = u0Pu,
+    OmegaMaxPu = OmegaMaxPu,
+    OmegaMinPu = OmegaMinPu) annotation(
     Placement(transformation(origin = {60, 68}, extent = {{20, -20}, {-20, 20}})));
 
   parameter Types.ActivePowerPu P0Pu "Initial active power in pu (base SnRef) (receptor convention)";
@@ -60,6 +120,9 @@ model GenericInverter "Injector model with regulation, used in the modified Nord
 equation
   VtPu = Modelica.ComplexMath.'abs'(terminal.V);
 
+  connect(switchOffSignal1, injectorIDQ.switchOffSignal1);
+  connect(switchOffSignal2, injectorIDQ.switchOffSignal2);
+  connect(switchOffSignal3, injectorIDQ.switchOffSignal3);
   connect(electricalControlNordic.IdRefPu, injectorIDQ.idPu) annotation(
     Line(points = {{2, 12}, {37, 12}}, color = {0, 0, 127}));
   connect(electricalControlNordic.IqRefPu, injectorIDQ.iqPu) annotation(

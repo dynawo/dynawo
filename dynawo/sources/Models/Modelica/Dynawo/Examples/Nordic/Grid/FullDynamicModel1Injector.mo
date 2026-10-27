@@ -136,7 +136,7 @@ model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loa
     Placement(visible = true, transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, IMaxPu = 1, SNom = 1000, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj09(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, IMaxPu = 1, SNom = 1000, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g10(P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g10) annotation(
     Placement(visible = true, transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
@@ -167,114 +167,133 @@ model FullDynamicModel1Injector "Nordic test grid with buses, lines, shunts, loa
   parameter Types.ReactivePowerPu Q0Pu_g01;
   parameter Types.VoltageModulePu U0Pu_g01;
   parameter Types.Angle UPhase0_g01;
+
   // g02 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g02;
   parameter Types.ReactivePowerPu Q0Pu_g02;
   parameter Types.VoltageModulePu U0Pu_g02;
   parameter Types.Angle UPhase0_g02;
+
   // g03 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g03;
   parameter Types.ReactivePowerPu Q0Pu_g03;
   parameter Types.VoltageModulePu U0Pu_g03;
   parameter Types.Angle UPhase0_g03;
+
   // g04 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g04;
   parameter Types.ReactivePowerPu Q0Pu_g04;
   parameter Types.VoltageModulePu U0Pu_g04;
   parameter Types.Angle UPhase0_g04;
+
   // g05 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g05;
   parameter Types.ReactivePowerPu Q0Pu_g05;
   parameter Types.VoltageModulePu U0Pu_g05;
   parameter Types.Angle UPhase0_g05;
+
   // g06 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g06;
   parameter Types.ReactivePowerPu Q0Pu_g06;
   parameter Types.VoltageModulePu U0Pu_g06;
   parameter Types.Angle UPhase0_g06;
+
   // g07 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g07;
   parameter Types.ReactivePowerPu Q0Pu_g07;
   parameter Types.VoltageModulePu U0Pu_g07;
   parameter Types.Angle UPhase0_g07;
+
   // g08 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g08;
   parameter Types.ReactivePowerPu Q0Pu_g08;
   parameter Types.VoltageModulePu U0Pu_g08;
   parameter Types.Angle UPhase0_g08;
+
   // g09 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g09;
   parameter Types.ReactivePowerPu Q0Pu_g09;
   parameter Types.VoltageModulePu U0Pu_g09;
   parameter Types.Angle UPhase0_g09;
+
   // g10 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g10;
   parameter Types.ReactivePowerPu Q0Pu_g10;
   parameter Types.VoltageModulePu U0Pu_g10;
   parameter Types.Angle UPhase0_g10;
+
   // g11 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g11;
   parameter Types.ReactivePowerPu Q0Pu_g11;
   parameter Types.VoltageModulePu U0Pu_g11;
   parameter Types.Angle UPhase0_g11;
+
   // g12 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g12;
   parameter Types.ReactivePowerPu Q0Pu_g12;
   parameter Types.VoltageModulePu U0Pu_g12;
   parameter Types.Angle UPhase0_g12;
+
   // g13 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g13;
   parameter Types.ReactivePowerPu Q0Pu_g13;
   parameter Types.VoltageModulePu U0Pu_g13;
   parameter Types.Angle UPhase0_g13;
+
   // g14 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g14;
   parameter Types.ReactivePowerPu Q0Pu_g14;
   parameter Types.VoltageModulePu U0Pu_g14;
   parameter Types.Angle UPhase0_g14;
+
   // g15 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g15;
   parameter Types.ReactivePowerPu Q0Pu_g15;
   parameter Types.VoltageModulePu U0Pu_g15;
   parameter Types.Angle UPhase0_g15;
+
   // g16 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g16;
   parameter Types.ReactivePowerPu Q0Pu_g16;
   parameter Types.VoltageModulePu U0Pu_g16;
   parameter Types.Angle UPhase0_g16;
+
   // g17 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g17;
   parameter Types.ReactivePowerPu Q0Pu_g17;
   parameter Types.VoltageModulePu U0Pu_g17;
   parameter Types.Angle UPhase0_g17;
+
   // g18 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g18;
   parameter Types.ReactivePowerPu Q0Pu_g18;
   parameter Types.VoltageModulePu U0Pu_g18;
   parameter Types.Angle UPhase0_g18;
+
   // g19 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g19;
   parameter Types.ReactivePowerPu Q0Pu_g19;
   parameter Types.VoltageModulePu U0Pu_g19;
   parameter Types.Angle UPhase0_g19;
+
   // g20 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g20;
@@ -305,9 +324,9 @@ equation
   Inj09.VRegPu = bus_4011.UPu;
   Inj09.VtRefPu = Inj09.U0Pu;
 
-  Inj09.injectorIDQ.switchOffSignal1 = false;
-  Inj09.injectorIDQ.switchOffSignal2 = false;
-  Inj09.injectorIDQ.switchOffSignal3 = false;
+  Inj09.switchOffSignal1 = false;
+  Inj09.switchOffSignal2 = false;
+  Inj09.switchOffSignal3 = false;
 
   connect(trafo_1_1041.terminal20, load_01_INIT.terminal0);
   connect(trafo_2_1042.terminal20, load_02_INIT.terminal0);

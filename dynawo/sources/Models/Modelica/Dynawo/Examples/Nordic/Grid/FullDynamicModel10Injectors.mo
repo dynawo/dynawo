@@ -120,29 +120,29 @@ model FullDynamicModel10Injectors "Nordic test grid with buses, lines, shunts, l
     Placement(visible = true, transformation(origin = {-75, 137}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Electrical.Transformers.TransformersFixedTap.TransformerFixedRatio trafo_g20_4072(BPu = 0, GPu = 0, RPu = 0, XPu = 0.15*1.05^2*(100/4500.0), rTfoPu = 1.05) annotation(
     Placement(visible = true, transformation(origin = {-75, 73}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj01(P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, IMaxPu = 1, SNom = 800, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj01(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g01, Q0Pu = Q0Pu_g01, U0Pu = U0Pu_g01, UPhase0 = UPhase0_g01, IMaxPu = 1, SNom = 800, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {25, 79}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj02(P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = U0Pu_g02, UPhase0 = UPhase0_g02, IMaxPu = 1, SNom = 600, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj02(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g02, Q0Pu = Q0Pu_g02, U0Pu = U0Pu_g02, UPhase0 = UPhase0_g02, IMaxPu = 1, SNom = 600, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {75, 151}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj03(P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = U0Pu_g03, UPhase0 = UPhase0_g03, IMaxPu = 1, SNom = 700, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj03(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g03, Q0Pu = Q0Pu_g03, U0Pu = U0Pu_g03, UPhase0 = UPhase0_g03, IMaxPu = 1, SNom = 700, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {85, 79}, extent = {{-3, -3}, {3, 3}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g04(P0Pu = P0Pu_g04, Q0Pu = Q0Pu_g04, U0Pu = U0Pu_g04, UPhase0 = UPhase0_g04, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g04) annotation(
     Placement(visible = true, transformation(origin = {-85, 30}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj05(P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, U0Pu = U0Pu_g05, UPhase0 = UPhase0_g05, IMaxPu = 1, SNom = 250, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj05(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g05, Q0Pu = Q0Pu_g05, U0Pu = U0Pu_g05, UPhase0 = UPhase0_g05, IMaxPu = 1, SNom = 250, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {-45, 71}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj06(P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, IMaxPu = 1, SNom = 400, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj06(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g06, Q0Pu = Q0Pu_g06, U0Pu = U0Pu_g06, UPhase0 = UPhase0_g06, IMaxPu = 1, SNom = 400, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {35, -59}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj07(P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = U0Pu_g07, UPhase0 = UPhase0_g07, IMaxPu = 1, SNom = 200, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj07(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g07, Q0Pu = Q0Pu_g07, U0Pu = U0Pu_g07, UPhase0 = UPhase0_g07, IMaxPu = 1, SNom = 200, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {-53, -37}, extent = {{-3, -3}, {3, 3}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj09(P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, IMaxPu = 1, SNom = 1000, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj09(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g09, Q0Pu = Q0Pu_g09, U0Pu = U0Pu_g09, UPhase0 = UPhase0_g09, IMaxPu = 1, SNom = 1000, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {-25, 156}, extent = {{-4, -4}, {4, 4}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj10(P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, IMaxPu = 1, SNom = 800, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj10(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g10, Q0Pu = Q0Pu_g10, U0Pu = U0Pu_g10, UPhase0 = UPhase0_g10, IMaxPu = 1, SNom = 800, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {-35, 79}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj11(P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, IMaxPu = 1, SNom = 300, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj11(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g11, Q0Pu = Q0Pu_g11, U0Pu = U0Pu_g11, UPhase0 = UPhase0_g11, IMaxPu = 1, SNom = 300, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {35, 72}, extent = {{-3, -3}, {3, 3}})));
-  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj12(P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, IMaxPu = 1, SNom = 350, VReg0Pu(fixed = false)) annotation(
+  Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter Inj12(OmegaMaxPu = 60, OmegaMinPu = 40, Ki = 0.1, KiPLL = 1, Kp = 5, KpPLL = 1, QMaxPu = 2, QMinPu = -2, t1 = 1, t2 = 1, t3 = 1, t4 = 1, t5 = 1, t6 = 1, VRegDbPu = 0.01, VtDbPu = 0.01, P0Pu = P0Pu_g12, Q0Pu = Q0Pu_g12, U0Pu = U0Pu_g12, UPhase0 = UPhase0_g12, IMaxPu = 1, SNom = 350, VReg0Pu(fixed = false)) annotation(
     Placement(transformation(origin = {-4, 41}, extent = {{-3, -3}, {3, 3}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g13(P0Pu = P0Pu_g13, Q0Pu = Q0Pu_g13, U0Pu = U0Pu_g13, UPhase0 = UPhase0_g13, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g13) annotation(
     Placement(transformation(origin = {-70, -31}, extent = {{-3, -3}, {3, 3}})));
@@ -167,114 +167,133 @@ model FullDynamicModel10Injectors "Nordic test grid with buses, lines, shunts, l
   parameter Types.ReactivePowerPu Q0Pu_g01;
   parameter Types.VoltageModulePu U0Pu_g01;
   parameter Types.Angle UPhase0_g01;
+
   // g02 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g02;
   parameter Types.ReactivePowerPu Q0Pu_g02;
   parameter Types.VoltageModulePu U0Pu_g02;
   parameter Types.Angle UPhase0_g02;
+
   // g03 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g03;
   parameter Types.ReactivePowerPu Q0Pu_g03;
   parameter Types.VoltageModulePu U0Pu_g03;
   parameter Types.Angle UPhase0_g03;
+
   // g04 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g04;
   parameter Types.ReactivePowerPu Q0Pu_g04;
   parameter Types.VoltageModulePu U0Pu_g04;
   parameter Types.Angle UPhase0_g04;
+
   // g05 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g05;
   parameter Types.ReactivePowerPu Q0Pu_g05;
   parameter Types.VoltageModulePu U0Pu_g05;
   parameter Types.Angle UPhase0_g05;
+
   // g06 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g06;
   parameter Types.ReactivePowerPu Q0Pu_g06;
   parameter Types.VoltageModulePu U0Pu_g06;
   parameter Types.Angle UPhase0_g06;
+
   // g07 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g07;
   parameter Types.ReactivePowerPu Q0Pu_g07;
   parameter Types.VoltageModulePu U0Pu_g07;
   parameter Types.Angle UPhase0_g07;
+
   // g08 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g08;
   parameter Types.ReactivePowerPu Q0Pu_g08;
   parameter Types.VoltageModulePu U0Pu_g08;
   parameter Types.Angle UPhase0_g08;
+
   // g09 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g09;
   parameter Types.ReactivePowerPu Q0Pu_g09;
   parameter Types.VoltageModulePu U0Pu_g09;
   parameter Types.Angle UPhase0_g09;
+
   // g10 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g10;
   parameter Types.ReactivePowerPu Q0Pu_g10;
   parameter Types.VoltageModulePu U0Pu_g10;
   parameter Types.Angle UPhase0_g10;
+
   // g11 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g11;
   parameter Types.ReactivePowerPu Q0Pu_g11;
   parameter Types.VoltageModulePu U0Pu_g11;
   parameter Types.Angle UPhase0_g11;
+
   // g12 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g12;
   parameter Types.ReactivePowerPu Q0Pu_g12;
   parameter Types.VoltageModulePu U0Pu_g12;
   parameter Types.Angle UPhase0_g12;
+
   // g13 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g13;
   parameter Types.ReactivePowerPu Q0Pu_g13;
   parameter Types.VoltageModulePu U0Pu_g13;
   parameter Types.Angle UPhase0_g13;
+
   // g14 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g14;
   parameter Types.ReactivePowerPu Q0Pu_g14;
   parameter Types.VoltageModulePu U0Pu_g14;
   parameter Types.Angle UPhase0_g14;
+
   // g15 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g15;
   parameter Types.ReactivePowerPu Q0Pu_g15;
   parameter Types.VoltageModulePu U0Pu_g15;
   parameter Types.Angle UPhase0_g15;
+
   // g16 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g16;
   parameter Types.ReactivePowerPu Q0Pu_g16;
   parameter Types.VoltageModulePu U0Pu_g16;
   parameter Types.Angle UPhase0_g16;
+
   // g17 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g17;
   parameter Types.ReactivePowerPu Q0Pu_g17;
   parameter Types.VoltageModulePu U0Pu_g17;
   parameter Types.Angle UPhase0_g17;
+
   // g18 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g18;
   parameter Types.ReactivePowerPu Q0Pu_g18;
   parameter Types.VoltageModulePu U0Pu_g18;
   parameter Types.Angle UPhase0_g18;
+
   // g19 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g19;
   parameter Types.ReactivePowerPu Q0Pu_g19;
   parameter Types.VoltageModulePu U0Pu_g19;
   parameter Types.Angle UPhase0_g19;
+
   // g20 init values:
   // P0Pu, Q0Pu in SnRef, receptor convention
   parameter Types.ActivePowerPu P0Pu_g20;
@@ -458,36 +477,36 @@ equation
   Inj12.VRegPu = bus_4031.UPu;
   Inj12.VtRefPu = Inj12.U0Pu;
 
-  Inj01.injectorIDQ.switchOffSignal1 = false;
-  Inj01.injectorIDQ.switchOffSignal2 = false;
-  Inj01.injectorIDQ.switchOffSignal3 = false;
-  Inj02.injectorIDQ.switchOffSignal1 = false;
-  Inj02.injectorIDQ.switchOffSignal2 = false;
-  Inj02.injectorIDQ.switchOffSignal3 = false;
-  Inj03.injectorIDQ.switchOffSignal1 = false;
-  Inj03.injectorIDQ.switchOffSignal2 = false;
-  Inj03.injectorIDQ.switchOffSignal3 = false;
-  Inj05.injectorIDQ.switchOffSignal1 = false;
-  Inj05.injectorIDQ.switchOffSignal2 = false;
-  Inj05.injectorIDQ.switchOffSignal3 = false;
-  Inj06.injectorIDQ.switchOffSignal1 = false;
-  Inj06.injectorIDQ.switchOffSignal2 = false;
-  Inj06.injectorIDQ.switchOffSignal3 = false;
-  Inj07.injectorIDQ.switchOffSignal1 = false;
-  Inj07.injectorIDQ.switchOffSignal2 = false;
-  Inj07.injectorIDQ.switchOffSignal3 = false;
-  Inj09.injectorIDQ.switchOffSignal1 = false;
-  Inj09.injectorIDQ.switchOffSignal2 = false;
-  Inj09.injectorIDQ.switchOffSignal3 = false;
-  Inj10.injectorIDQ.switchOffSignal1 = false;
-  Inj10.injectorIDQ.switchOffSignal2 = false;
-  Inj10.injectorIDQ.switchOffSignal3 = false;
-  Inj11.injectorIDQ.switchOffSignal1 = false;
-  Inj11.injectorIDQ.switchOffSignal2 = false;
-  Inj11.injectorIDQ.switchOffSignal3 = false;
-  Inj12.injectorIDQ.switchOffSignal1 = false;
-  Inj12.injectorIDQ.switchOffSignal2 = false;
-  Inj12.injectorIDQ.switchOffSignal3 = false;
+  Inj01.switchOffSignal1 = false;
+  Inj01.switchOffSignal2 = false;
+  Inj01.switchOffSignal3 = false;
+  Inj02.switchOffSignal1 = false;
+  Inj02.switchOffSignal2 = false;
+  Inj02.switchOffSignal3 = false;
+  Inj03.switchOffSignal1 = false;
+  Inj03.switchOffSignal2 = false;
+  Inj03.switchOffSignal3 = false;
+  Inj05.switchOffSignal1 = false;
+  Inj05.switchOffSignal2 = false;
+  Inj05.switchOffSignal3 = false;
+  Inj06.switchOffSignal1 = false;
+  Inj06.switchOffSignal2 = false;
+  Inj06.switchOffSignal3 = false;
+  Inj07.switchOffSignal1 = false;
+  Inj07.switchOffSignal2 = false;
+  Inj07.switchOffSignal3 = false;
+  Inj09.switchOffSignal1 = false;
+  Inj09.switchOffSignal2 = false;
+  Inj09.switchOffSignal3 = false;
+  Inj10.switchOffSignal1 = false;
+  Inj10.switchOffSignal2 = false;
+  Inj10.switchOffSignal3 = false;
+  Inj11.switchOffSignal1 = false;
+  Inj11.switchOffSignal2 = false;
+  Inj11.switchOffSignal3 = false;
+  Inj12.switchOffSignal1 = false;
+  Inj12.switchOffSignal2 = false;
+  Inj12.switchOffSignal3 = false;
 
   connect(trafo_1_1041.terminal20, load_01_INIT.terminal0);
   connect(trafo_2_1042.terminal20, load_02_INIT.terminal0);

@@ -12,8 +12,24 @@
     of simulation tools for power systems.
 -->
 <mandatoryParameters>
+  <mandatoryParameter name="Ki" type="DOUBLE"/>
+  <mandatoryParameter name="Kp" type="DOUBLE"/>
+  <mandatoryParameter name="QMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="QMinPu" type="DOUBLE"/>
+  <mandatoryParameter name="t1" type="DOUBLE"/>
+  <mandatoryParameter name="t2" type="DOUBLE"/>
+  <mandatoryParameter name="t3" type="DOUBLE"/>
+  <mandatoryParameter name="VRegDbPu" type="DOUBLE"/>
   <mandatoryParameter name="IMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="SNom" type="DOUBLE"/>
+  <mandatoryParameter name="t4" type="DOUBLE"/>
+  <mandatoryParameter name="t5" type="DOUBLE"/>
+  <mandatoryParameter name="t6" type="DOUBLE"/>
+  <mandatoryParameter name="VtDbPu" type="DOUBLE"/>
+  <mandatoryParameter name="KiPLL" type="DOUBLE"/>
+  <mandatoryParameter name="KpPLL" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPu" type="DOUBLE"/>
   <mandatoryParameter name="P0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
   <mandatoryParameter name="U0Pu" type="DOUBLE"/>

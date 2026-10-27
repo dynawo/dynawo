@@ -16,9 +16,13 @@
   <dyn:modelicaModel id="GenericInverterTfo">
     <dyn:unitDynamicModel id="injector" name="Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter" initName="Dynawo.Electrical.PEIR.Plants.Simplified.GenericInverter_INIT"/>
     <dyn:unitDynamicModel id="transformer" name="Dynawo.Electrical.Transformers.TransformersFixedTap.GeneratorTransformer" initName="Dynawo.Electrical.Transformers.TransformersFixedTap.GeneratorTransformer_INIT"/>
+    <dyn:initConnect id1="injector" var1="P0Pu" id2="transformer" var2="P20Pu"/>
+    <dyn:initConnect id1="injector" var1="Q0Pu" id2="transformer" var2="Q20Pu"/>
+    <dyn:initConnect id1="injector" var1="U0Pu" id2="transformer" var2="U20Pu"/>
+    <dyn:initConnect id1="injector" var1="UPhase0" id2="transformer" var2="U2Phase0"/>
     <dyn:initConnect id1="injector" var1="VReg0Pu" id2="transformer" var2="U10Pu"/>
     <dyn:connect id1="injector" var1="VRegPu" id2="transformer" var2="U1Pu"/>
     <dyn:connect id1="injector" var1="terminal" id2="transformer" var2="terminal2"/>
-    <dyn:connect id1="injector" var1="injectorIDQ.switchOffSignal1" id2="transformer" var2="switchOffSignal1"/>
+    <dyn:connect id1="injector" var1="switchOffSignal1" id2="transformer" var2="switchOffSignal1"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

@@ -1,4 +1,4 @@
-within Dynawo.Electrical.PEIR.BaseControls;
+within Dynawo.Electrical.Controls.PEIR.BaseControls;
 
 /*
 * Copyright (c) 2026, RTE (http://www.rte-france.com)

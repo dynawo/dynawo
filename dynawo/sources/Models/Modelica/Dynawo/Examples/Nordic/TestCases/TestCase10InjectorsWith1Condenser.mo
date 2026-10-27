@@ -236,6 +236,9 @@ model TestCase10InjectorsWith1Condenser "Nordic test system case with variable r
   Electrical.Events.Event.SingleBooleanEvent disconnection(stateEvent1 = true, tEvent = 1.1);
 
 equation
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
+
   check_UPu_bus_1041 = Modelica.ComplexMath.'abs'(bus_1041.terminal.V);
   check_UPu_bus_1042 = Modelica.ComplexMath.'abs'(bus_1042.terminal.V);
   check_UPu_bus_4012 = Modelica.ComplexMath.'abs'(bus_4012.terminal.V);
@@ -246,17 +249,19 @@ equation
   check_IrPu_g16 = g16.vrNordic.IrPu;
   check_IrPu_g18 = g18.vrNordic.IrPu;
   check_f_g17 = g17.generatorSynchronous.omegaPu;
+
   omegaCOI = (g04.generatorSynchronous.omegaPu*g04.generatorSynchronous.H*g04.generatorSynchronous.SNom + g08.generatorSynchronous.omegaPu*g08.generatorSynchronous.H*g08.generatorSynchronous.SNom + g13.generatorSynchronous.omegaPu*g13.generatorSynchronous.H*g13.generatorSynchronous.SNom + g14.generatorSynchronous.omegaPu*g14.generatorSynchronous.H*g14.generatorSynchronous.SNom + g15.generatorSynchronous.omegaPu*g15.generatorSynchronous.H*g15.generatorSynchronous.SNom + g16.generatorSynchronous.omegaPu*g16.generatorSynchronous.H*g16.generatorSynchronous.SNom + g17.generatorSynchronous.omegaPu*g17.generatorSynchronous.H*g17.generatorSynchronous.SNom + g18.generatorSynchronous.omegaPu*g18.generatorSynchronous.H*g18.generatorSynchronous.SNom + g19.generatorSynchronous.omegaPu*g19.generatorSynchronous.H*g19.generatorSynchronous.SNom + g20.generatorSynchronous.omegaPu*g20.generatorSynchronous.H*g20.generatorSynchronous.SNom + SC1042.generatorSynchronous.omegaPu*SC1042.generatorSynchronous.H*SC1042.generatorSynchronous.SNom)/(g04.generatorSynchronous.SNom*g04.generatorSynchronous.H +  g08.generatorSynchronous.SNom*g08.generatorSynchronous.H + g13.generatorSynchronous.SNom*g13.generatorSynchronous.H + g14.generatorSynchronous.SNom*g14.generatorSynchronous.H + g15.generatorSynchronous.SNom*g15.generatorSynchronous.H + g16.generatorSynchronous.SNom*g16.generatorSynchronous.H + g17.generatorSynchronous.SNom*g17.generatorSynchronous.H + g18.generatorSynchronous.SNom*g18.generatorSynchronous.H + g19.generatorSynchronous.SNom*g19.generatorSynchronous.H + g20.generatorSynchronous.SNom*g20.generatorSynchronous.H + SC1042.generatorSynchronous.H*SC1042.generatorSynchronous.SNom);
-  g04.generatorSynchronous.omegaRefPu = omegaCOI;
-  g08.generatorSynchronous.omegaRefPu = omegaCOI;
-  g13.generatorSynchronous.omegaRefPu = omegaCOI;
-  g14.generatorSynchronous.omegaRefPu = omegaCOI;
-  g15.generatorSynchronous.omegaRefPu = omegaCOI;
-  g16.generatorSynchronous.omegaRefPu = omegaCOI;
-  g17.generatorSynchronous.omegaRefPu = omegaCOI;
-  g18.generatorSynchronous.omegaRefPu = omegaCOI;
-  g19.generatorSynchronous.omegaRefPu = omegaCOI;
-  g20.generatorSynchronous.omegaRefPu = omegaCOI;
+
+  g04.omegaRefPu = omegaCOI;
+  g08.omegaRefPu = omegaCOI;
+  g13.omegaRefPu = omegaCOI;
+  g14.omegaRefPu = omegaCOI;
+  g15.omegaRefPu = omegaCOI;
+  g16.omegaRefPu = omegaCOI;
+  g17.omegaRefPu = omegaCOI;
+  g18.omegaRefPu = omegaCOI;
+  g19.omegaRefPu = omegaCOI;
+  g20.omegaRefPu = omegaCOI;
   Inj01.omegaRefPu = omegaCOI;
   Inj02.omegaRefPu = omegaCOI;
   Inj03.omegaRefPu = omegaCOI;
@@ -267,7 +272,7 @@ equation
   Inj10.omegaRefPu = omegaCOI;
   Inj11.omegaRefPu = omegaCOI;
   Inj12.omegaRefPu = omegaCOI;
-  SC1042.generatorSynchronous.omegaRefPu = omegaCOI;
+  SC1042.omegaRefPu = omegaCOI;
 
   connect(nodeFault.terminal, bus_4032.terminal);
   connect(disconnection.state1, line_4032_4044.switchOffSignal1);

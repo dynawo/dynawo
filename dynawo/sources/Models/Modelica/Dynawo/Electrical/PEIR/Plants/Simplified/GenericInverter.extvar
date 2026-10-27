@@ -19,7 +19,7 @@
   <variable type="continuous" id="VRefPu"/>
   <variable type="continuous" id="VRegPu"/>
   <variable type="continuous" id="VtRefPu" optional="true"/>
-  <variable type="discrete" id="injectorIDQ.switchOffSignal1" defaultValue="false"/>
-  <variable type="discrete" id="injectorIDQ.switchOffSignal2" defaultValue="false"/>
-  <variable type="discrete" id="injectorIDQ.switchOffSignal3" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal1" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal3" defaultValue="false"/>
 </external_variables>

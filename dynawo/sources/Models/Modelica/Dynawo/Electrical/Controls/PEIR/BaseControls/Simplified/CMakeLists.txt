@@ -9,11 +9,12 @@
 # This file is part of Dynawo, a hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-add_subdirectory(Simplified S)
-
 set(MODEL_FILES
   package.mo
   package.order
+  ElectricalController.mo
+  PlantController.mo
+  ElectricalControlNordic.mo
   )
 
 #
