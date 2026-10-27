@@ -85,8 +85,8 @@ model test_dyn
     OmegaMinPu = 0.95,
 
     // ── Rate limiters and delays ──────────────────────────────
-    DyMax_pi_d       = 10000.0,
-    DyMax_pi_q       = 100000.0,
+    DyMaxd       = 10000.0,
+    DyMaxq       = 100000.0,
     DidMax      = 10.0,
     DidMin      = -10.0,
     tSid         = 1e-4,

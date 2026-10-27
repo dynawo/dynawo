@@ -271,33 +271,44 @@ equation
 // LC filter right port → transformer input
 // Transformer output → PCC terminal (connection to external network)
 // ── 13.9  Converter current feedback to the LC filter ─────────────────────
-  connect(measurementBlock.I_conv_re, lCDynFilter.iLeft_rePu) annotation(
+  /*connect(measurementBlock.I_conv_re, lCDynFilter.iLeft_rePu) annotation(
     Line(points = {{-66, -83}, {-66, -82.625}, {-27, -82.625}, {-27, 51.75}, {-10, 51.75}, {-10, 51}}, color = {38, 162, 105}, thickness = 0.75));
 // Real part of converter current (from measurement block) → LC filter state
   connect(measurementBlock.I_conv_im, lCDynFilter.iLeft_imPu) annotation(
-    Line(points = {{-66, -88}, {-12, -88}, {-12, 46}, {-10, 46}}, color = {38, 162, 105}, thickness = 0.75));
+    Line(points = {{-66, -88}, {-12, -88}, {-12, 46}, {-10, 46}}, color = {38, 162, 105}, thickness = 0.75));*/
 // Imaginary part of converter current → LC filter state
+connect(measurementBlock.iConvPu, lCDynFilter.iLeftPu) annotation(
+    Line(points = {{-66, -83}, {-66, -82.625}, {-27, -82.625}, {-27, 51.75}, {-10, 51.75}, {-10, 51}}, color = {38, 162, 105}, thickness = 0.75));
+
+
 // ── 13.10  Algebraic assignments: terminal quantities → measurement block ──
 // Internal LV bus voltage (junction between the LV and HV transformer stages).
 // Recovered algebraically from the single branch current and the HV-leg
 // impedance alone (no dynamic state at the junction, see Trafo declaration).
-  measurementBlock.u_LV_re = terminal.V.re + Trafo.iRe*SystemBase.SnRef/SNom*RPuHV - Trafo.iIm*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV;
+  measurementBlock.uLVPu.re = terminal.V.re + Trafo.iRe*SystemBase.SnRef/SNom*RPuHV - Trafo.iIm*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV;
 // real part of LV node voltage
-  measurementBlock.u_LV_im = terminal.V.im + Trafo.iRe*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV + Trafo.iIm*SystemBase.SnRef/SNom*RPuHV;
+  measurementBlock.uLVPu.im = terminal.V.im + Trafo.iRe*SystemBase.SnRef/SNom*Trafo.omegaPu*LPuHV + Trafo.iIm*SystemBase.SnRef/SNom*RPuHV;
 
 // imaginary part of LV node voltage
 // PCC voltage (from the external network connector)
-  measurementBlock.UPCCrePu = terminal.V.re;
+  //measurementBlock.UPCCrePu = terminal.V.re;
+
 // real part of PCC voltage
-  measurementBlock.UPCCimPu = terminal.V.im;
-  measurementBlock.v_filt_re=lCDynFilter.terminalRight.V.re;
-   measurementBlock.v_filt_im=lCDynFilter.terminalRight.V.im;
+  //measurementBlock.UPCCimPu = terminal.V.im;
+    measurementBlock.uPccPu = terminal.V;
+
+
+  /*measurementBlock.v_filt_re=lCDynFilter.terminalRight.V.re;
+   measurementBlock.v_filt_im=lCDynFilter.terminalRight.V.im;*/
+   measurementBlock.uFiltPu=lCDynFilter.terminalRight.V;
 
 // imaginary part of PCC voltage
 // PCC current with sign reversal: terminal uses load convention (i > 0 into network),
 // while the measurement block uses generator convention (i > 0 out of converter).
-  measurementBlock.IPCCrePu = -terminal.i.re * SystemBase.SnRef / SNom;
-  measurementBlock.IPCCimPu = -terminal.i.im * SystemBase.SnRef / SNom;
+  /*measurementBlock.IPCCrePu = -terminal.i.re * SystemBase.SnRef / SNom;
+  measurementBlock.IPCCimPu = -terminal.i.im * SystemBase.SnRef / SNom;*/
+  measurementBlock.iPccPu = -terminal.i * SystemBase.SnRef / SNom;
+
   connect(Trafo.right, terminal) annotation(
     Line(points = {{68, 54}, {104, 54}}, color = {0, 0, 255}));
   connect(PRefPu, gFLControl.PRefPu) annotation(

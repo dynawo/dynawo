@@ -104,8 +104,8 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // Outer-loop PI slew-rate limits & idRefPu ramp limiter
   // ────────────────────────────────────────────────────────────
-  parameter Real DyMax_pi_d "Maximum rate of change of d-axis outer PI output (pu/s)";
-  parameter Real DyMax_pi_q "Maximum rate of change of q-axis outer PI output (pu/s)";
+  parameter Real DyMaxd "Maximum rate of change of d-axis outer PI output (pu/s)";
+  parameter Real DyMaxq "Maximum rate of change of q-axis outer PI output (pu/s)";
   parameter Real DidMax "Maximum rate of change of idRefPu (pu/s)";
   parameter Real DidMin "Minimum rate of change of idRefPu (pu/s)";
   parameter Real tSid "Sample/update time of idRefPu ramp limiter (s)";
@@ -186,8 +186,8 @@ model GFLmodel
     id_conv_0 = Id_conv_0,
     iqRef0Pu = Iq_conv_0,
     iq_conv_0 = Iq_conv_0,
-    DyMax_pi_d = DyMax_pi_d,
-    DyMax_pi_q = DyMax_pi_q,
+    DyMaxd = DyMaxd,
+    DyMaxq = DyMaxq,
     DidMax = DidMax,
     DidMin = DidMin,
     tSid = tSid,
@@ -301,35 +301,35 @@ equation
   connect(measurementBlock.thetaPLL, gFLControl.thetaPLL) annotation(
     Line(points = {{-86, -118}, {-86, -65.5}, {-78, -65.5}, {-78, -14}}, color = {153, 193, 241}, pattern = LinePattern.Dash, thickness = 0.75));
 // PLL angle θ → used to transform signals between αβ and dq frames
-  connect(measurementBlock.uqFilterPu, gFLControl.V_q_grid) annotation(
+  connect(measurementBlock.uqFilterPu, gFLControl.uqFilterPu) annotation(
     Line(points = {{-122, -124}, {-122, -10}}, color = {220, 138, 221}, thickness = 0.75));
 // q-axis PCC voltage → PLL error signal input
-  connect(measurementBlock.PLVPu, gFLControl.PMeasPu) annotation(
+  connect(measurementBlock.PLVPu, gFLControl.PLVPu) annotation(
     Line(points = {{-116, -118}, {-116, -70}, {-117, -70}, {-117, -22}}, color = {255, 120, 0}, thickness = 0.75));
 // Filtered active power at LV node → outer loop feedback
-  connect(measurementBlock.QLVPu, gFLControl.QMeasPu) annotation(
+  connect(measurementBlock.QLVPu, gFLControl.QLVPu) annotation(
     Line(points = {{-111, -118}, {-111, -70}, {-110, -70}, {-110, -22}}, color = {255, 120, 0}, thickness = 0.75));
 // Filtered reactive power at LV node → outer loop feedback
-  connect(measurementBlock.iqConvPu, gFLControl.i_q_meas) annotation(
+  connect(measurementBlock.iqConvPu, gFLControl.iqConvPu) annotation(
     Line(points = {{-106, -118}, {-106, -72}, {-102, -72}, {-102, -22}}, color = {38, 162, 105}, thickness = 0.75));
 // q-axis converter current → inner current loop feedback
-  connect(measurementBlock.idConvPu, gFLControl.i_d_meas) annotation(
+  connect(measurementBlock.idConvPu, gFLControl.idConvPu) annotation(
     Line(points = {{-101, -118}, {-101, -128.4}, {-90.8909, -128.4}, {-90.8909, -23.4}, {-96, -23.4}, {-96, -22}}, color = {38, 162, 105}, thickness = 0.75));
 // d-axis converter current → inner current loop feedback
-  connect(measurementBlock.udLVPu, gFLControl.V_d_meas) annotation(
+  connect(measurementBlock.udLVPu, gFLControl.udLVPu) annotation(
     Line(points = {{-96, -118}, {-96, -20.525}, {-88.2727, -20.525}, {-88.2727, -22}, {-91, -22}}, color = {255, 120, 0}, thickness = 0.75));
 // d-axis LV node voltage → feed-forward / outer loop
-  connect(measurementBlock.uqLVPu, gFLControl.V_q_meas) annotation(
+  connect(measurementBlock.uqLVPu, gFLControl.uqLVPu) annotation(
     Line(points = {{-91, -118}, {-91, -70}, {-86, -70}, {-86, -22}}, color = {255, 120, 0}, thickness = 0.75));
 // q-axis LV node voltage → feed-forward / outer loop
 // ── 13.5  Measurement block → plant controller ────────────────────────────
   connect(measurementBlock.UPccPu, plantController.UFiltPu) annotation(
     Line(points = {{-122, -131}, {-122, -144.06}, {-142.364, -144.06}, {-142.364, -22}, {-149, -22}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered PCC voltage magnitude → Q–U droop and PI in plant controller
-  connect(measurementBlock.QPccPu, plantController.QFiltPu) annotation(
+  connect(measurementBlock.QFilteredPccPu, plantController.QFiltPu) annotation(
     Line(points = {{-122, -137}, {-122, -149.84}, {-158, -149.84}, {-158, -22}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level reactive power → Q–U PI in plant controller
-  connect(measurementBlock.PPccPu, plantController.PFiltPu) annotation(
+  connect(measurementBlock.PFilteredPccPu, plantController.PFiltPu) annotation(
     Line(points = {{-122, -142}, {-122, -157.6}, {-168, -157.6}, {-168, -22}}, color = {220, 138, 221}, thickness = 0.75));
 // Filtered plant-level active power → P–f PI in plant controller
 // ── 13.6  VSC delay → LC filter ───────────────────────────────────────────
@@ -382,6 +382,8 @@ equation
     Line(points = {{-137, -10}, {-130.5, -10}, {-130.5, 2}, {-122, 2}}, color = {0, 0, 127}));
   connect(plantController.PInjRefPu, gFLControl.PRefPu) annotation(
     Line(points = {{-137, 8}, {-131.5, 8}, {-131.5, 14}, {-122, 14}}, color = {0, 0, 127}));
+  connect(measurementBlock.ULVPu, gFLControl.ULVPu) annotation(
+    Line(points = {{-122, -150}, {-132, -150}, {-132, -16}, {-122, -16}}, color = {0, 0, 127}));
   annotation(
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 16},extent = {{-80, 20}, {80, -20}}, textString = "GFL")}),
     Diagram(coordinateSystem(extent = {{-200, -200}, {100, 100}}), graphics = {Ellipse(extent = {{-100, 52}, {-100, 52}})}));

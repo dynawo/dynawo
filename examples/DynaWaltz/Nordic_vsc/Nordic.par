@@ -1101,8 +1101,8 @@
     <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
 
-    <par type="DOUBLE" name="GFL_DyMax_pi_d" value="5"/>
-    <par type="DOUBLE" name="GFL_DyMax_pi_q" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxd" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxq" value="5"/>
     <par type="DOUBLE" name="GFL_DidMax" value="10"/>
     <par type="DOUBLE" name="GFL_DidMin" value="-999"/>
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
@@ -1175,8 +1175,8 @@
     <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
 
-    <par type="DOUBLE" name="GFL_DyMax_pi_d" value="5"/>
-    <par type="DOUBLE" name="GFL_DyMax_pi_q" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxd" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxq" value="5"/>
     <par type="DOUBLE" name="GFL_DidMax" value="10"/>
     <par type="DOUBLE" name="GFL_DidMin" value="-999"/>
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
@@ -1249,8 +1249,8 @@
     <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
 
-    <par type="DOUBLE" name="GFL_DyMax_pi_d" value="5"/>
-    <par type="DOUBLE" name="GFL_DyMax_pi_q" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxd" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxq" value="5"/>
     <par type="DOUBLE" name="GFL_DidMax" value="10"/>
     <par type="DOUBLE" name="GFL_DidMin" value="-999"/>
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
@@ -1322,8 +1322,8 @@
     <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
 
-    <par type="DOUBLE" name="GFL_DyMax_pi_d" value="5"/>
-    <par type="DOUBLE" name="GFL_DyMax_pi_q" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxd" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxq" value="5"/>
     <par type="DOUBLE" name="GFL_DidMax" value="10"/>
     <par type="DOUBLE" name="GFL_DidMin" value="-999"/>
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
@@ -1396,8 +1396,8 @@
     <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
 
-    <par type="DOUBLE" name="GFL_DyMax_pi_d" value="5"/>
-    <par type="DOUBLE" name="GFL_DyMax_pi_q" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxd" value="5"/>
+    <par type="DOUBLE" name="GFL_DyMaxq" value="5"/>
     <par type="DOUBLE" name="GFL_DidMax" value="10"/>
     <par type="DOUBLE" name="GFL_DidMin" value="-999"/>
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>

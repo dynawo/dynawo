@@ -118,15 +118,16 @@ model MeasurementBlock
   Modelica.Blocks.Interfaces.RealOutput uqLVPu(start = uqLVPu_0) "q-axis voltage at internal LV node (pu)" annotation(
     Placement(transformation(origin = {110, -14}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, -58}, extent = {{-10, -10}, {10, 10}})));
   // Plant-level powers at PCC (filtered) – fed to plant controller
-  Modelica.Blocks.Interfaces.RealOutput PPccPu(start = P0_pcc) "Filtered active power at PCC, generator convention (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PFilteredPccPu(start = P0_pcc) "Filtered active power at PCC, generator convention (pu)" annotation(
     Placement(transformation(origin = {109, 79}, extent = {{-9, -9}, {9, 9}}), iconTransformation(origin = {-10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput QPccPu(start = Q0_pcc) "Filtered reactive power at PCC, generator convention (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QFilteredPccPu(start = Q0_pcc) "Filtered reactive power at PCC, generator convention (pu)" annotation(
     Placement(transformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {16, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   // LV node powers (filtered) – fed to GFL converter outer loop
   Modelica.Blocks.Interfaces.RealOutput PLVPu(start = P0_LV) "Filtered active power at internal LV node, generator convention (pu)" annotation(
     Placement(transformation(origin = {110, -34}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput QLVPu(start = Q0_LV) "Filtered reactive power at internal LV node, generator convention (pu)" annotation(
     Placement(transformation(origin = {110, -84}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
+
   // ──────────────────────────────────────────────────────────────────────────
   // SECTION 4 – αβ → dq transformers
   // Each TransformRItoDQ block rotates a phasor (re, im) from the static
@@ -200,9 +201,12 @@ model MeasurementBlock
     Placement(transformation(origin = {70, -84}, extent = {{-10, -10}, {10, 10}})));
   Controls.WECC.Utilities.TransformRItoDQ transformRItoDQ4 annotation(
     Placement(transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}})));
-
+  Modelica.Blocks.Interfaces.RealOutput ULVPu annotation(
+    Placement(transformation(origin = {108, 100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
+ULVPu = sqrt(udLVPu ^ 2 + uqLVPu ^ 2);
+
 // ──────────────────────────────────────────────────────────────────────────
 // SECTION 7 – PLL angle distribution
 // The same θ_PLL is broadcast to all four αβ → dq transformers so that
@@ -247,12 +251,12 @@ equation
 // Active power at PCC: expression → filter → output
   connect(PPccPu_expre.y, rateLimFirstOrderFreeze1.u) annotation(
     Line(points = {{41, 80}, {58, 80}}, color = {0, 0, 127}));
-  connect(PPccPu, rateLimFirstOrderFreeze1.y) annotation(
+  connect(PFilteredPccPu, rateLimFirstOrderFreeze1.y) annotation(
     Line(points = {{109, 79}, {100.5, 79}, {100.5, 80}, {81, 80}}, color = {0, 0, 127}));
 // Reactive power at PCC: expression → filter → output
   connect(rateLimFirstOrderFreeze2.u, QPccPu_expre.y) annotation(
     Line(points = {{58, 50}, {41, 50}}, color = {0, 0, 127}));
-  connect(QPccPu, rateLimFirstOrderFreeze2.y) annotation(
+  connect(QFilteredPccPu, rateLimFirstOrderFreeze2.y) annotation(
     Line(points = {{110, 50}, {81, 50}}, color = {0, 0, 127}));
 // Active power at LV node: expression → filter → output
   connect(PLVPu_expre.y, rateLimFirstOrderFreeze3.u) annotation(

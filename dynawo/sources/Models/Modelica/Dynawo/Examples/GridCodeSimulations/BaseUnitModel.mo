@@ -89,7 +89,7 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     DbdPu = 0.0001,
     KpPLL = kp_pll_1, KiPLL = ki_pll_1,
     OmegaMaxPu = 1.1, OmegaMinPu = 0.9,
-    DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0,
+    DyMaxd = 10000.0, DyMaxq = 100000.0,
     DidMax = 10.0,   DidMin = -10.0,
     tSid = 1e-4,
     tPlant = tPlant,

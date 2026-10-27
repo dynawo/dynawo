@@ -52,7 +52,7 @@ model CurrentLimiterReactiveBoost
     Placement(
       transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}),
       iconTransformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput UMeasPu "Measured voltage magnitude at PCC/filter (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealInput ULVPu "Measured voltage magnitude at PCC/filter (pu)" annotation(
     Placement(
       transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}),
       iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
@@ -90,10 +90,10 @@ initial equation
 
 equation
   // ── Step 1: compute raw boost (undervoltage + overvoltage) ───
-  if noEvent(UMeasPu < UBoostLowPu) then
-    iqBoostRawPu = Kqv * (UBoostLowPu- UMeasPu);
-  elseif noEvent(UMeasPu > UBoostHighPu) then
-    iqBoostRawPu = Kqv * (UBoostHighPu - UMeasPu);
+  if noEvent(ULVPu < UBoostLowPu) then
+    iqBoostRawPu = Kqv * (UBoostLowPu- ULVPu);
+  elseif noEvent(ULVPu > UBoostHighPu) then
+    iqBoostRawPu = Kqv * (UBoostHighPu - ULVPu);
   else
     iqBoostRawPu = 0;
   end if;

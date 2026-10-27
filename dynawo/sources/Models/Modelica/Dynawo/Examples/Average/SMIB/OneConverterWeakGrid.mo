@@ -17,14 +17,14 @@ model OneConverterWeakGrid
   Kpq = 0.1, Kiq = 1.0, Kpp = 0.8, Kip = 5.0, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
   KpPLL = 0.32, KiPLL = 8, OmegaMaxPu = 1.5,  // tight clamp — prevents runaway
   OmegaMinPu = 0.5,  // ── Rate limiters and delays ──────────────────────────────
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
+  DyMaxd = 10000.0, DyMaxq = 100000.0, DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
   voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
     Placement(transformation(origin = {-66, -30}, extent = {{-10, -10}, {10, 10}})));
   final parameter Real U0Pu = 1.03713742957;
   final parameter Real Uphase = 0.203890124;
-  final parameter Real URef0Pu = U0Pu - gFLmodelnodyn.Lambda*gFLmodelnodyn.Q0_pcc*SystemBase.SnRef/gFLmodelnodyn.SNom;
+  final parameter Real URef0Pu = U0Pu - gFLmodelnodyn.LambdaPu*gFLmodelnodyn.Q0_pcc*SystemBase.SnRef/gFLmodelnodyn.SNom;
   Modelica.Blocks.Sources.Step step(height = 0.1, offset = 0.7, startTime = 100) annotation(
     Placement(transformation(origin = {-66, 42}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Lines.Line line(RPu = 0, XPu = 0.03, GPu = 0, BPu = 0) annotation(

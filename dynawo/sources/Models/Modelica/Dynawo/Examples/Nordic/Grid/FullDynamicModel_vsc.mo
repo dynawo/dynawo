@@ -155,7 +155,7 @@ Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   PMaxPu = 1, PMinPu = 0,
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.004, FDbd2Pu = 1, DbdPu = 0,
   KpPLL = 0.31831, KiPLL = 7.95775, OmegaMaxPu = 1.5, OmegaMinPu = 0.5,
-  DyMax_pi_d = 5, DyMax_pi_q = 5, DidMax = 10, DidMin = -999,
+  DyMaxd = 5, DyMaxq = 5, DidMax = 10, DidMin = -999,
   tSid = 1e-4,
   tPlant = 0.01,
   voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false)

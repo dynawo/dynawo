@@ -10,6 +10,7 @@
 # of simulation tools for power systems.
 
 add_subdirectory(Average A)
+add_subdirectory(CurrentLoops C)
 add_subdirectory(DER D)
 
 set(MODEL_FILES

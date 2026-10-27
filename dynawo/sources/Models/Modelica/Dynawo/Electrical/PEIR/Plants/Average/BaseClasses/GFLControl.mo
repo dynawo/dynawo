@@ -1,45 +1,28 @@
 within Dynawo.Electrical.PEIR.Plants.Average.BaseClasses;
 
+model GFLControl "Top-level GFL converter control block. Assembles outer loop, inner current loop, and PLL."
 
-
-model GFLControl
-
-// =============================================================================
-// Author : Gaia Bergamaschi
-//
-// Top-level GFL converter control block.
-// Assembles outer loop, inner current loop, and PLL.
-// =============================================================================
-
-  parameter Types.ComplexVoltagePu vm0
-    "Initial complex voltage at VSC in pu (base UNom)";
-  parameter Real Omega0Pu "Initial frequency (pu)";
-  parameter Real QInj0Pu "Initial reactive power at converter (pu, generator convention)";
-  parameter Real PInj0Pu "Initial active power at converter (pu, generator convention)";
-  parameter Real idRef0Pu     "Initial d-axis current reference (pu)";
-  parameter Real id_conv_0    "Initial d-axis measured current (pu)";
-  parameter Real iqRef0Pu     "Initial q-axis current reference (pu)";
-  parameter Real iq_conv_0    "Initial q-axis measured current (pu)";
-    // Outer loop — PI output slew-rate limits
-  parameter Real DyMax_pi_d  "Max rate of change of d-axis PI output (pu/s)";
-  parameter Real DyMax_pi_q  "Max rate of change of q-axis PI output (pu/s)";
-
-  // Outer loop — ramp limiter on idRefPu
-  parameter Real DidMax "Max rate of change of idRefPu (pu/s)";
-  parameter Real DidMin "Min rate of change of idRefPu (pu/s)";
-  parameter Real tSid    "Sample time of idRefPu ramp limiter (s)";
-
-  // Delay between plant controller ed outer loop
-  parameter Real tPlant "Delay time between Plant controller and outer loop (s)";
-  parameter Real tBoost "Time constant of first-order filter on iqBoostPu (s). Set 0 to disable";
-
-    parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
-    parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
-
-
-  // ────────────────────────────────────────────────────────────
-  // Design parameters
-  // ────────────────────────────────────────────────────────────
+  // Outer loop
+  parameter Real DidMax "Max rate of change of idRefPu in pu/s";
+  parameter Real DidMin "Min rate of change of idRefPu in pu/s";
+  parameter Real DyMaxd "Max rate of change of d-axis PI output in pu/s";
+  parameter Real DyMaxq "Max rate of change of q-axis PI output in pu/s";
+  parameter Real IqBoostMaxPu "Max reactive current boost in pu";
+  parameter Real IqBoostMinPu "Min reactive current boost in pu";
+  parameter Real IMaxPu "Maximum total current magnitude in pu";
+  parameter Real KidOuter "Outer loop intgl gain PI d axis";
+  parameter Real KpdOuter "Outer loop Proportional gain PI d axis";
+  parameter Real KiqOuter "Outer loop intgl gain PI  q axis";
+  parameter Real KpqOuter "Outer loop Proportional gain PI q axis";
+  parameter Real Kqv "Reactive boost boost gain  in pu/pu, 0 to disable";
+  parameter Boolean PQFlag "Priority flag: true = P priority, false = Q priority";
+  parameter Boolean PControlFlag "true: bypass P PI, use idRefPu = PRefPu/ULVPu | false: use PI regulator (default)";
+  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = QRefPu/ULVPu | false: use PI regulator (default)";
+  parameter Real UBoostHighPu "High voltage limit for reactiv power boost in pu";
+  parameter Real UBoostLowPu "Low voltage limit for reactiv power boost in pu";
+  parameter Real tBoost "Time constant of first-order filter on iqBoostPu in s to delay the reactive boost response. Set 0 to disable";
+  parameter Real tPlant "Time constant of plant-to-outer-loop delay in s";
+  parameter Real tSid "Sample time of idRefPu ramp limiter in s";
 
   // Current loop
   parameter Real k_p_d_current "Current Loop Proportional gain PI d axis";
@@ -48,66 +31,34 @@ model GFLControl
   parameter Real k_i_q_current "Current Loop integral gain PI q axis";
   parameter Real L_g "Grid equivaent inductance (pu)";
   parameter Real R_g "Grid equivaent resistance (pu)";
+  parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
 
+  // PLL parameters
+  parameter Real KpPLL "PLL proportional gain";
+  parameter Real KiPLL "PLL integral gain";
+  parameter Real OmegaMaxPu "Maximum PLL frequency (pu)";
+  parameter Real OmegaMinPu "Minimum PLL frequency (pu)";
+  parameter Real Theta0 "Initial PLL angle (rad)";
+  parameter Real Uq0Pu "Initial q-axis voltage at PCC in control dq frame (pu)";
 
-  parameter Real vd_0         "Initial d-axis converter voltage (pu)";
-  parameter Real vq_0         "Initial q-axis converter voltage (pu)";
-
-
-  parameter Real vmd_0        "Initial modulation voltage reference (pu)";
-  parameter Real vmq_0        "Initial modulation voltage reference (pu)";
-
-
-
-  // Outer loop — PI gains
-  parameter Real KpdOuter "Outer loop Proportional gain PI d axis";
-  parameter Real KidOuter "Outer loop intgl gain PI d axis";
-  parameter Real KpqOuter "Outer loop Proportional gain PI q axis";
-  parameter Real KiqOuter "Outer loop intgl gain PI  q axis";
-  parameter Real IMaxPu "Maximum current (pu)";
-  parameter Real U_LV0  "Initial LV node voltage magnitude (pu)";
-  parameter Boolean PControlFlag "true: bypass P PI, use idRefPu = PRefPu/UMeasPu | false: use PI regulator (default)";
-  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = QRefPu/UMeasPu | false: use PI regulator (default)";
-
-
-  // Outer loop — current limiter
-  parameter Boolean PQFlag      "Q(false) or P(true) priority";
-  parameter Real UBoostHighPu "HIgh voltage limit for reactiv power boost (pu)";
-  parameter Real UBoostLowPu "Low voltage limit for reactiv power boost (pu)";
-  parameter Real Kqv            "Iq boost gain (pu/pu), 0 to disable";
-  parameter Real IqBoostMaxPu     "Max Iq boost (pu)";
-  parameter Real IqBoostMinPu     "Min Iq boost (pu)";
-
-
-
-  // ───────────────── PLL parameters ─────────────────────────────
-  parameter Real KpPLL
-    "PLL proportional gain";
-  parameter Real KiPLL
-    "PLL integral gain";
-
-  parameter Real OmegaMaxPu
-    "Maximum PLL frequency (pu)";
-  parameter Real OmegaMinPu
-    "Minimum PLL frequency (pu)";
-
-  parameter Real Theta0
-    "Initial PLL angle (rad)";
-
-  parameter Real Uq0Pu
-    "Initial q-axis voltage at PCC in control dq frame (pu)";
-  // ────────────────────────────────────────────────────────────
-  // Sub-blocks
-  // ────────────────────────────────────────────────────────────
-
- Electrical.Controls.PEIR.BaseControls.Average.CurrentLoop CurrentLoop_GFL(
-    k_p_d             = k_p_d_current,
-    k_i_d             = k_i_d_current,
-    k_p_q             = k_p_q_current,
-    k_i_q             = k_i_q_current,
-    L_g               = L_g,
- idRef0Pu = idRef0Pu, id_meas_0 = id_conv_0, iqRef0Pu = iqRef0Pu, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0,  voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q) annotation(
-    Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
+  Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops.DynCurrentLoop currentLoop(
+    Kfd = voltagefeedforwardflag_d,
+    Kfq = voltagefeedforwardflag_q,
+    Kpc = k_p_d_current,
+    Kic = k_i_d_current,
+    LFilterPu = L_g,
+    UdFilter0Pu = vd_0,
+    UqFilter0Pu = vq_0,
+    IdConv0Pu = id_conv_0,
+    IqConv0Pu = iq_conv_0,
+    UdConv0Pu = vmd_0,
+    UqConv0Pu = vmq_0,
+    IdConvRef0Pu = idRef0Pu,
+    IqConvRef0Pu = iqRef0Pu,
+    Omega0Pu = Omega0Pu)
+    annotation(
+      Placement(transformation(origin = {20, 20}, extent = {{-20, -20}, {20, 20}})));
 
   Dynawo.Electrical.Controls.PEIR.BaseControls.Average.OuterLoop OuterLoop_GFL(
     PControlFlag = PControlFlag,
@@ -130,139 +81,134 @@ model GFLControl
     UFilter0Pu = U_LV0,
     idRef0Pu = idRef0Pu,
     iqRef0Pu = iqRef0Pu,
-    DyMaxd = DyMax_pi_d,
-    DyMaxq = DyMax_pi_q,
+    DyMaxd = DyMaxd,
+    DyMaxq = DyMaxq,
     DidMax = DidMax,
     DidMin = DidMin,
     tSid = tSid,
     tPlant = tPlant,
-    tBoost = tBoost) annotation(
-    Placement(transformation(origin = {-200, 56}, extent = {{-36, -36}, {36, 36}})));
+    tBoost = tBoost)
+    annotation(
+    Placement(transformation(origin = {-80, 20}, extent = {{-20, -20}, {20, 20}})));
 
- Dynawo.Electrical.Controls.PEIR.BaseControls.Average.PLL PLL(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.PLL PLL(
     Ki         = KiPLL,
     Kp         = KpPLL,
     OmegaMaxPu = OmegaMaxPu,
     OmegaMinPu = OmegaMinPu,
     Theta0     = Theta0,
     Omega0Pu = Omega0Pu,
-    uqgrid0PU = Uq0Pu) annotation(
-    Placement(transformation(origin = {15, -69}, extent = {{-23, -23}, {23, 23}})));
+    uqgrid0PU = Uq0Pu)
+    annotation(
+    Placement(transformation(origin = {-140, 100}, extent = {{-20, -20}, {20, 20}})));
 
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
-    Placement(transformation(origin = {162, 42}, extent = {{-18, -18}, {18, 18}})));
+    Placement(transformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}})));
 
-// ── External inputs ──────────────────────────────────────────
+  // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu (start=Omega0Pu) annotation(
-    Placement(transformation(origin = {-270, -60}, extent = {{-10, -10}, {10, 10}}),
+    Placement(transformation(origin = {-190, 108}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {72, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-
-  Modelica.Blocks.Interfaces.RealInput PMeasPu (start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-270, 84}, extent = {{-10, -10}, {10, 10}}),
+  Modelica.Blocks.Interfaces.RealInput PLVPu (start=PInj0Pu) annotation(
+    Placement(transformation(origin = {-190, 40}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {-84, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-  Modelica.Blocks.Interfaces.RealInput QMeasPu (start=QInj0Pu) annotation(
-    Placement(transformation(origin = {-270, 28}, extent = {{-10, -10}, {10, 10}}),
+  Modelica.Blocks.Interfaces.RealInput QLVPu (start=QInj0Pu) annotation(
+    Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {-48, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-  Modelica.Blocks.Interfaces.RealInput V_d_meas (start=vd_0) annotation(
-    Placement(transformation(origin = {81, 131}, extent = {{-9, -9}, {9, 9}}, rotation = -90),
+  Modelica.Blocks.Interfaces.RealInput udLVPu (start=vd_0) annotation(
+    Placement(transformation(origin = {-20, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
     iconTransformation(origin = {46, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-  Modelica.Blocks.Interfaces.RealInput V_q_meas (start=vq_0) annotation(
-    Placement(transformation(origin = {59, 129}, extent = {{-9, -9}, {9, 9}}, rotation = -90),
+  Modelica.Blocks.Interfaces.RealInput uqLVPu (start=vq_0) annotation(
+    Placement(transformation(origin = {0, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
     iconTransformation(origin = {72, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-  Modelica.Blocks.Interfaces.RealInput i_d_meas (start=id_conv_0) annotation(
-    Placement(transformation(origin = {14, 72}, extent = {{-10, -10}, {10, 10}}),
+  Modelica.Blocks.Interfaces.RealInput idConvPu (start=id_conv_0) annotation(
+    Placement(transformation(origin = {40, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
     iconTransformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-
-  Modelica.Blocks.Interfaces.RealInput i_q_meas (start=iq_conv_0) annotation(
-    Placement(transformation(origin = {12, 30}, extent = {{-10, -10}, {10, 10}}),
+  Modelica.Blocks.Interfaces.RealInput iqConvPu (start=iq_conv_0) annotation(
+    Placement(transformation(origin = {60, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
     iconTransformation(origin = {-8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu (start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-271, 65}, extent = {{-11, -11}, {11, 11}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput QRefPu (start=QInj0Pu) annotation(
-    Placement(transformation(origin = {-270, 46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput V_q_grid annotation(
-    Placement(transformation(origin = {-270, -78}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput uqFilterPu annotation(
+    Placement(transformation(origin = {-190, 92}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput ULVPu annotation(
+    Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}})));
 
-  // ── External outputs ─────────────────────────────────────────
-
+  // Output variables
   Modelica.Blocks.Interfaces.RealOutput vm_re (start=vm0.re) annotation(
-    Placement(transformation(origin = {206, 50}, extent = {{-10, -10}, {10, 10}}),
+    Placement(transformation(origin = {190, 32}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
-
   Modelica.Blocks.Interfaces.RealOutput vm_im (start=vm0.im) annotation(
-    Placement(transformation(origin = {208, 30}, extent = {{-10, -10}, {10, 10}}),
+    Placement(transformation(origin = {190, 8}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, 8}, extent = {{-10, -10}, {10, 10}})));
-
   Modelica.Blocks.Interfaces.RealOutput thetaPLL (start=Theta0) annotation(
-    Placement(transformation(origin = {90, -78}, extent = {{-10, -10}, {10, 10}}),
+    Placement(transformation(origin = {190, 92}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}})));
-
   Modelica.Blocks.Interfaces.RealOutput omegaPLLPu (start=Omega0Pu) annotation(
-    Placement(transformation(origin = {90, -60}, extent = {{-10, -10}, {10, 10}}),
+    Placement(transformation(origin = {190, 108}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}})));
 
-// Voltage magnitude for outer loop
-  Modelica.Blocks.Sources.RealExpression UMeasPu(
-    y = sqrt(V_d_meas^2 + V_q_meas^2)) annotation(
-    Placement(transformation(origin = {-270, 102}, extent = {{-10, -10}, {10, 10}})));
+  // Initial parameters
+  parameter Real Omega0Pu "Initial frequency (pu)";
+  parameter Real QInj0Pu "Initial reactive power at converter (pu, generator convention)";
+  parameter Real PInj0Pu "Initial active power at converter (pu, generator convention)";
+  parameter Real idRef0Pu "Initial d-axis current reference (pu)";
+  parameter Real id_conv_0 "Initial d-axis measured current (pu)";
+  parameter Real iqRef0Pu "Initial q-axis current reference (pu)";
+  parameter Real iq_conv_0 "Initial q-axis measured current (pu)";
+  parameter Real U_LV0 "Initial LV node voltage magnitude (pu)";
+  parameter Real vd_0 "Initial d-axis converter voltage (pu)";
+  parameter Real vq_0 "Initial q-axis converter voltage (pu)";
+  parameter Types.ComplexVoltagePu vm0 "Initial complex voltage at VSC in pu (base UNom)";
+  parameter Real vmd_0 "Initial modulation voltage reference (pu)";
+  parameter Real vmq_0 "Initial modulation voltage reference (pu)";
 
-//for graphical clarity at upper level model
 equation
-// ── PLL ──────────────────────────────────────────────────────
-// ── Transform DQ→RI ──────────────────────────────────────────
-// ── Current loop ─────────────────────────────────────────────
-// ── Outer loop → current loop ─────────────────────────────────
-// ── Outer loop inputs ────────────────────────────────────────
-// ── Plant controller → outer loop ────────────────────────────
-// ── Plant controller inputs ───────────────────────────────────
-// omegaRef to plant controller (external reference,)
-// omegaPLL to plant controller (measured frequency for droop)
   connect(transformDQtoRI.ur, vm_re) annotation(
-    Line(points = {{182, 53}, {200, 53}, {200, 50}, {206, 50}}, color = {0, 0, 127}));
+    Line(points = {{142, 32}, {190, 32}}, color = {0, 0, 127}));
   connect(transformDQtoRI.ui, vm_im) annotation(
-    Line(points = {{182, 31}, {200, 31}, {200, 30}, {208, 30}}, color = {0, 0, 127}));
+    Line(points = {{142, 8}, {190, 8}}, color = {0, 0, 127}));
   connect(PLL.theta, thetaPLL) annotation(
-    Line(points = {{40, -78}, {90, -78}}, color = {0, 0, 127}));
-  connect(transformDQtoRI.phi, PLL.theta) annotation(
-    Line(points = {{142, 31}, {133.5, 31}, {133.5, -97}, {40, -97}, {40, -78}}, color = {0, 0, 127}));
+    Line(points = {{-118, 92}, {190, 92}}, color = {0, 0, 127}));
   connect(PLL.omegaPLLPu, omegaPLLPu) annotation(
-    Line(points = {{40, -60}, {90, -60}}, color = {0, 0, 127}));
-  connect(CurrentLoop_GFL.vm_d, transformDQtoRI.ud) annotation(
-    Line(points = {{90, 62}, {142, 62}, {142, 55}}, color = {0, 0, 127}));
-  connect(CurrentLoop_GFL.vm_q, transformDQtoRI.uq) annotation(
-    Line(points = {{90, 46}, {142, 46}, {142, 47}}, color = {0, 0, 127}));
-  connect(CurrentLoop_GFL.v_q, V_q_meas) annotation(
-    Line(points = {{60, 78}, {60, 80}, {59, 80}, {59, 129}}, color = {0, 0, 127}));
-  connect(CurrentLoop_GFL.omega_pll, PLL.omegaPLLPu) annotation(
-    Line(points = {{72, 34}, {72, -46.25}, {40, -46.25}, {40, -60}}, color = {0, 0, 127}));
-  connect(i_q_meas, CurrentLoop_GFL.i_q_meas) annotation(
-    Line(points = {{12, 30}, {12, 28}, {46, 28}, {46, 44}}, color = {0, 0, 127}));
-  connect(i_d_meas, CurrentLoop_GFL.i_d_meas) annotation(
-    Line(points = {{14, 72}, {14, 70}, {46, 70}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.idRefPu, CurrentLoop_GFL.idRefPu) annotation(
-    Line(points = {{-159.5, 67}, {-159.5, 62}, {46, 62}, {46, 63}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.iqRefPu, CurrentLoop_GFL.i_q_ref) annotation(
-    Line(points = {{-159.5, 52}, {46, 52}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.UMeasPu, UMeasPu.y) annotation(
-    Line(points = {{-217, 95}, {-217, 100.5}, {-259, 100.5}, {-259, 102}}, color = {0, 0, 127}));
+    Line(points = {{-118, 108}, {190, 108}}, color = {0, 0, 127}));
   connect(omegaRefPu, PLL.omegaRefPu) annotation(
-    Line(points = {{-270, -60}, {-10, -60}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.QMeasPu, QMeasPu) annotation(
-    Line(points = {{-240, 28}, {-270, 28}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.QRefPu, QRefPu) annotation(
-    Line(points = {{-238, 46}, {-270, 46}}, color = {0, 0, 127}));
+    Line(points = {{-190, 108}, {-162, 108}}, color = {0, 0, 127}));
+  connect(uqFilterPu, PLL.uqgridPu) annotation(
+    Line(points = {{-190, 92}, {-162, 92}}, color = {0, 0, 127}));
+  connect(currentLoop.udConvRefPu, transformDQtoRI.ud) annotation(
+    Line(points = {{42, 28}, {60, 28}, {60, 34}, {98, 34}}, color = {0, 0, 127}));
+  connect(currentLoop.uqConvRefPu, transformDQtoRI.uq) annotation(
+    Line(points = {{42, 12}, {80, 12}, {80, 26}, {98, 26}}, color = {0, 0, 127}));
+  connect(currentLoop.omegaPu, PLL.omegaPLLPu) annotation(
+    Line(points = {{20, 42}, {20, 108}, {-118, 108}}, color = {0, 0, 127}));
+  connect(PLL.theta, transformDQtoRI.phi) annotation(
+    Line(points = {{-118, 92}, {68, 92}, {68, 8}, {98, 8}}, color = {0, 0, 127}));
+  connect(iqConvPu, currentLoop.iqConvPu) annotation(
+    Line(points = {{60, -130}, {60, -40}, {40, -40}, {40, -2}}, color = {0, 0, 127}));
+  connect(idConvPu, currentLoop.idConvPu) annotation(
+    Line(points = {{40, -130}, {40, -60}, {30, -60}, {30, -2}}, color = {0, 0, 127}));
+  connect(uqLVPu, currentLoop.uqFilterPu) annotation(
+    Line(points = {{0, -130}, {0, -60}, {10, -60}, {10, -2}}, color = {0, 0, 127}));
+  connect(udLVPu, currentLoop.udFilterPu) annotation(
+    Line(points = {{-20, -130}, {-20, -40}, {0, -40}, {0, -2}}, color = {0, 0, 127}));
+  connect(PLVPu, OuterLoop_GFL.PLVPu) annotation(
+    Line(points = {{-190, 40}, {-120, 40}, {-120, 36}, {-102, 36}}, color = {0, 0, 127}));
   connect(PRefPu, OuterLoop_GFL.PRefPu) annotation(
-    Line(points = {{-270, 66}, {-238, 66}}, color = {0, 0, 127}));
-  connect(PMeasPu, OuterLoop_GFL.PMeasPu) annotation(
-    Line(points = {{-270, 84}, {-238, 84}}, color = {0, 0, 127}));
-  connect(V_q_grid, PLL.uqgridPu) annotation(
-    Line(points = {{-270, -78}, {-10, -78}}, color = {0, 0, 127}));
-  connect(CurrentLoop_GFL.v_d, V_d_meas) annotation(
-    Line(points = {{80, 78}, {80, 128}, {81, 128}, {81, 131}}, color = {0, 0, 127}));
+    Line(points = {{-190, 20}, {-120, 20}, {-120, 26}, {-102, 26}}, color = {0, 0, 127}));
+  connect(QRefPu, OuterLoop_GFL.QRefPu) annotation(
+    Line(points = {{-190, 0}, {-120, 0}, {-120, 14}, {-102, 14}}, color = {0, 0, 127}));
+  connect(QLVPu, OuterLoop_GFL.QLVPu) annotation(
+    Line(points = {{-190, -20}, {-112, -20}, {-112, 4}, {-102, 4}}, color = {0, 0, 127}));
+  connect(OuterLoop_GFL.idRefPu, currentLoop.idConvRefPu) annotation(
+    Line(points = {{-58, 28}, {-2, 28}}, color = {0, 0, 127}));
+  connect(OuterLoop_GFL.iqRefPu, currentLoop.iqConvRefPu) annotation(
+    Line(points = {{-58, 12}, {-2, 12}}, color = {0, 0, 127}));
+  connect(ULVPu, OuterLoop_GFL.ULVPu) annotation(
+    Line(points = {{-190, 60}, {-90, 60}, {-90, 42}}, color = {0, 0, 127}));
+
   annotation(
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Documentation(info = "<html>
@@ -278,5 +224,5 @@ equation
       Text(origin = {14, -8}, extent = {{-90, 15}, {90, -15}},
            textString = "")},
       coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    Diagram(coordinateSystem(extent = {{-260, -120}, {240, 120}}), graphics = {Text(extent = {{-40, 60}, {-40, 60}}, textString = "text")}));
+    Diagram(coordinateSystem(extent = {{-180, -120}, {180, 120}}), graphics = {Text(extent = {{-40, 60}, {-40, 60}}, textString = "text")}));
 end GFLControl;

@@ -186,7 +186,7 @@ model TwoConvertersStaticLine_7Hz
   PMaxPu = 2, PMinPu = 0,  // Frequency / angle limits
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
   KpPLL = kp_pll_1, KiPLL = ki_pll_1, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 10.0, DidMin = -10.0,  // Active power reference sampling time
+  DyMaxd = 10000.0, DyMaxq = 100000.0, DidMax = 10.0, DidMin = -10.0,  // Active power reference sampling time
   tSid = 1e-4,  // Equivalent delay between plant and outer loop
   tPlant = tPlant,  // Enable voltage feed‑forward on both d and q axis
   voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(
@@ -211,7 +211,7 @@ model TwoConvertersStaticLine_7Hz
   PMaxPu = 0, PMinPu = -2,  // Frequency / angle limits
   FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // PLL gains and limits
   KpPLL = kp_pll_2, KiPLL = ki_pll_2, OmegaMaxPu = 1.1, OmegaMinPu = 0.9,  // Anti‑windup / rate limiting
-  DyMax_pi_d = 10000.0, DyMax_pi_q = 100000.0, DidMax = 100000.0, DidMin = -10000.0,  // Active power reference sampling time
+  DyMaxd = 10000.0, DyMaxq = 100000.0, DidMax = 100000.0, DidMin = -10000.0,  // Active power reference sampling time
   tSid = 1e-4,  // Equivalent delay between plant and outer loop
   tPlant = tPlant,  // Enable voltage feed‑forward on both d and q axis
   voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-4, PControlFlag = false, QControlFlag = false) annotation(

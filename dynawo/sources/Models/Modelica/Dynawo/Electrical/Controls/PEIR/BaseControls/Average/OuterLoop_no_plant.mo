@@ -125,7 +125,7 @@ equation
   connect(switch1.y, current_limiter_OuterLoop.idRawPu) annotation(
     Line(points = {{46, 74}, {46, 62}, {86, 62}}, color = {0, 0, 127}));
 // ── UMeasPu → current limiter ──────────────────────────────────
-  connect(UMeasPu, current_limiter_OuterLoop.UMeasPu) annotation(
+  connect(UMeasPu, current_limiter_OuterLoop.ULVPu) annotation(
     Line(points = {{-220, -60}, {86, -60}, {86, 27.5}}, color = {0, 0, 127}));
 // ── Current limiter → ramp limiter → idRefPu ─────────────────
   connect(current_limiter_OuterLoop.idLimPu, rampLimiter.u) annotation(

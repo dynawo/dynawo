@@ -75,8 +75,8 @@
     <par type="DOUBLE" name="GFL_DbdPu" value="0.0001"/>
     <par type="DOUBLE" name="GFL_OmegaMaxPu" value="1.5"/>
     <par type="DOUBLE" name="GFL_OmegaMinPu" value="0.5"/>
-    <par type="DOUBLE" name="GFL_DyMax_pi_d" value="10000"/>
-    <par type="DOUBLE" name="GFL_DyMax_pi_q" value="100000"/>
+    <par type="DOUBLE" name="GFL_DyMaxd" value="10000"/>
+    <par type="DOUBLE" name="GFL_DyMaxq" value="100000"/>
     <par type="DOUBLE" name="GFL_DidMax" value="10"/>
     <par type="DOUBLE" name="GFL_DidMin" value="-10"/>
     <par type="DOUBLE" name="GFL_tSid" value="1e-4"/>
