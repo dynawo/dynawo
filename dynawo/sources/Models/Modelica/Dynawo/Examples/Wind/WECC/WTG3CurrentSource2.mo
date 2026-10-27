@@ -156,7 +156,7 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     TeMinPu = 0,
     TFlag = true,
     Ka = 0.007,
-    Pm0Pu = 0.7,
+    Pm0Pu(fixed = false),
     brkpt = 0.1,
     zerox = 0.05,
     Lvplsw = false,
@@ -191,9 +191,9 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     XLvTrPu = 0,
     UPhase0 = 0) annotation(
     Placement(transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
+  Modelica.Blocks.Sources.Constant PRefPu(k = WTG3.PControl0Pu) annotation(
     Placement(transformation(origin = {90, 0}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant QRefPu(k = 0.2) annotation(
+  Modelica.Blocks.Sources.Constant QRefPu(k = WTG3.QControl0Pu) annotation(
     Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -201,7 +201,7 @@ model WTG3CurrentSource2 "WECC Wind Type 3 Model (including the plant controller
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PFaRef(k = acos(WTG3.PF0)) annotation(
     Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-  Modelica.Blocks.Sources.Constant PmRefPu(k = 0.7) annotation(
+  Modelica.Blocks.Sources.Constant PmRefPu(k = WTG3.PControl0Pu) annotation(
     Placement(transformation(origin = {-30, 80}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}})));
@@ -263,6 +263,7 @@ initial algorithm
   WTG3.QConv0Pu := wtgCurrentSource_INIT.QConv0Pu;
   WTG3.UPhaseConv0 := wtgCurrentSource_INIT.UPhaseConv0;
   WTG3.omegaRefWTGQ0Pu := wtgCurrentSource_INIT.omegaRefWTGQ0Pu;
+  WTG3.Pm0Pu := wtgCurrentSource_INIT.Pm0Pu;
   WTG3.UControl0Pu := wtgCurrentSource_INIT.UControl0Pu;
 
 equation
