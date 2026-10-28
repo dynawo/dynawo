@@ -14,6 +14,9 @@ set(MODEL_FILES
     package.order
     LoadFlow.mo
     TestCase.mo
+    TestCase1Injector.mo
+    TestCase10Injectors.mo
+    TestCase10InjectorsWith1Condenser.mo
     )
 
 #
