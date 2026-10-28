@@ -12,32 +12,48 @@ within Dynawo.Electrical.Buses;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model InfiniteBusWithVariations "Infinite bus with configurable variations on the voltage module and on the frequency"
-  extends AdditionalIcons.Bus;
+model InfiniteBusWithVariations "Infinite bus with configurable variations on the voltage module, on the frequency and the voltage phase"
+ extends AdditionalIcons.Bus;
+
+  // Voltage and frequency parameters
+  parameter Types.PerUnit U0Pu = 1 "Infinite bus voltage module before and after event in pu (base UNom)";
+  parameter Types.PerUnit UEvtPu = 1 "Infinite bus voltage module during event in pu (base UNom)";
+  parameter Types.PerUnit omega0Pu = 1 "Infinite bus angular frequency before and after event in pu (base OmegaNom)";
+  parameter Types.PerUnit omegaEvtPu = 1 "Infinite bus angular frequency during event in pu (base OmegaNom)";
+  parameter Types.Angle UPhase = 0 "Infinite bus voltage angle before event in rad";
+
+  // Voltage magnitude event timing
+  parameter Types.Time tUEvtStart = 0 "Start time of voltage event in s";
+  parameter Types.Time tUEvtEnd = 0 "Ending time of voltage event in s";
+
+  // Frequency event timing
+  parameter Types.Time tOmegaEvtStart = 0 "Start time of frequency event in s";
+  parameter Types.Time tOmegaEvtEnd = 0 "Ending time of frequency event in s";
+
+  // Phase jump parameters
+  parameter Types.Angle dUPhaseEvt = 0 "Phase jump in rad (added from event time)";
+  parameter Types.Time tUPhaseEvt = 0 "Time of voltage phase jump in s";
 
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit U0Pu "Infinite bus voltage module before and after event in pu (base UNom)";
-  parameter Types.PerUnit UEvtPu "Infinite bus voltage module during event in pu (base UNom)";
-  parameter Types.PerUnit omega0Pu "Infinite bus angular frequency before and after event in pu (base OmegaNom)";
-  parameter Types.PerUnit omegaEvtPu "Infinite bus angular frequency during event in pu (base OmegaNom)";
-  parameter Types.Angle UPhase "Infinite bus voltage angle before event in rad";
-  parameter Types.Time tUEvtStart "Start time of voltage event in s";
-  parameter Types.Time tUEvtEnd "Ending time of voltage event in s";
-  parameter Types.Time tOmegaEvtStart "Start time of frequency event in s";
-  parameter Types.Time tOmegaEvtEnd "Ending time of frequency event in s";
-
-  Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
+  // Internal variables
+  Types.PerUnit omegaPu "Infinite bus angular frequency in pu (base OmegaNom)";
   Types.PerUnit PPu "Infinite bus active power in pu (base SnRef) (receptor convention)";
   Types.PerUnit QPu "Infinite bus reactive power in pu (base SnRef) (receptor convention)";
-  Types.PerUnit omegaPu "Infinite bus angular frequency in pu (base OmegaNom)";
-  Types.Angle UPhaseOffs "Infinite bus voltage phase shift in rad";
+  Types.PerUnit UPu "Infinite bus voltage module in pu (base UNom)";
+  Types.Angle UPhaseOffs "Infinite bus voltage phase shift due to frequency variation in rad";
+  Types.Angle UPhaseStep "Additional phase step applied at phase event time in rad";
 
 equation
-
-  // Infinite bus equation
-  terminal.V = UPu * ComplexMath.exp(ComplexMath.j * (UPhase - UPhaseOffs));
+  // Phase jump event: permanent step applied from tUPhaseEvtStart
+  if time < tUPhaseEvt then
+  UPhaseStep = 0;
+  else
+    UPhaseStep = dUPhaseEvt;
+  end if;
+  // Infinite bus equation (voltage)
+  terminal.V = UPu * ComplexMath.exp(ComplexMath.j * (UPhase + UPhaseStep - UPhaseOffs));
 
   // Voltage amplitude variation
   if time < tUEvtStart or time >= tUEvtEnd then
@@ -46,7 +62,7 @@ equation
     UPu = UEvtPu;
   end if;
 
-  // Frequency variation
+  // Frequency variation and corresponding phase offset
   if time < tOmegaEvtStart then
     omegaPu = omega0Pu;
     UPhaseOffs = 0;
@@ -58,12 +74,12 @@ equation
     UPhaseOffs = (omega0Pu - omegaPu) * (time - tOmegaEvtStart) * SystemBase.omegaNom;
   end if;
 
-  // Outputs signals
+  // Output signals
   PPu = ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
   QPu = ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
 
   annotation(preferredView = "text",
 Documentation(info="<html>
-<p> Infinite bus extended with step disturbance in voltage and frequency and measurement signals as output signals </p>
+<p> Infinite bus extended with step disturbance in voltage, frequency and voltage phase and measurement signals as output signals </p>
 </html>"));
 end InfiniteBusWithVariations;
