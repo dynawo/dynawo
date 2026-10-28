@@ -274,6 +274,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   TapChangerBlockingAutomaton3.xml
   TapChangerBlockingAutomaton4.xml
   TapChangerBlockingAutomaton5.xml
+  TestIndex.xml
   TransformerFixedRatio.xml
   TransformerFixedRatioAndPhase.xml
   TransformerPhaseTapChanger.xml
