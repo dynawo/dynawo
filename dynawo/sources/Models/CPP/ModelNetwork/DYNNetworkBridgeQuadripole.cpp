@@ -15,15 +15,16 @@
  */
 
 #include "DYNNetworkBridgeQuadripole.h"
-#include "DYNSubModel.h"
 #include "DYNModelNetwork.h"
 
 namespace DYN {
+using std::string;
+using std::vector;
 
 NetworkBridgeQuadripole::NetworkBridgeQuadripole(const std::shared_ptr<ModelQuadripole> & baseQuadripole,
                                                  const std::string & stateVarPrefix) :
-  ModelQuadripole("NetworkBridge_" + baseQuadripole->id()),
-  stateVarPrefix_(stateVarPrefix) {
+  ModelQuadripole(baseQuadripole->id()),
+  NetworkBridge(stateVarPrefix) {
   setModelBus1(baseQuadripole->getModelBus1());
   setModelBus2(baseQuadripole->getModelBus2());
   connectionState_ = baseQuadripole->getConnectionState();
@@ -35,25 +36,15 @@ NetworkBridgeQuadripole::initSize() {
     sizeG_ = 1;  // connection event from dynamic model needs to be propagated
 }
 
-NetworkComponent::StateChange_t
-NetworkBridgeQuadripole::evalZ(const double /*t*/, bool /*onlyEvaluateStateChange*/) {
-  if (declareTopoChange_) {
-    declareTopoChange_ = false;
-    return NetworkComponent::TOPO_CHANGE;
-  }
-  return NetworkComponent::NO_CHANGE;
+void
+NetworkBridgeQuadripole::setGequations(std::map<int, std::string> & gEquationIndex) {
+  gEquationIndex[0] = "Connection state change propagation by : "+id();
 }
 
 void
 NetworkBridgeQuadripole::evalG(const double /*t*/) {
-  if (dynModel_ == nullptr)
-    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
-
   State prevConnectionState = connectionState_;
-
-  // since variable "state" is compiled with SILENT_Z flag, reading it is hazardous as evalG() may not be called
-  // after it changed, so use running instead, that is flipped earlier
-  connectionState_ = dynModel_->getVariableValue(stateVarPrefix_+"_running") > 0.5 ? CLOSED : OPEN;
+  connectionState_ = getDynConnState();
 
   if ((connectionState_ != prevConnectionState) && ((connectionState_ == CLOSED) || (prevConnectionState == CLOSED))) {
     g_[0] = (g_[0] != ROOT_UP) ? ROOT_UP : ROOT_DOWN;
@@ -62,8 +53,14 @@ NetworkBridgeQuadripole::evalG(const double /*t*/) {
 }
 
 void
-NetworkBridgeQuadripole::setGequations(std::map<int, std::string> & gEquationIndex) {
-  gEquationIndex[0] = "Connection state change propagation by : "+id();
+NetworkBridgeQuadripole::defineNonGenericParameters(vector<ParameterModeler> & params) {
+  params.push_back(ParameterModeler(id() + "_running_alias", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
+}
+
+void
+NetworkBridgeQuadripole::setSubModelParameters(const std::unordered_map<string, ParameterModeler> & params) {
+  bool unused;
+  runningAlias_ = getParameterDynamicNoThrow<string>(params, id() + "_running_alias", unused);
 }
 
 }  // namespace DYN
