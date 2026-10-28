@@ -22,7 +22,7 @@
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="25" precision="1e-10"/>
+        <simulation startTime="0" stopTime="1" precision="1e-10"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true"/>
             <curves inputFile="DynamicLine.crv" exportMode="CSV"/>

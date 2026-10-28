@@ -31,15 +31,15 @@
   </set>
 
   <set id="IDASolver">
-    <par type="INT" name="order" value="2"/>
+    <par type="INT" name="order" value="5"/>
     <par type="DOUBLE" name="initStep" value="0.00001"/>
     <!-- Parameters for IDA working-->
     <par type="DOUBLE" name="minStep" value="1e-9"/>
     <par type="DOUBLE" name="minimalAcceptableStep" value="1e-09"/>
     <par type="INT" name="maximumNumberSlowStepIncrease" value="50"/>
-    <par type="DOUBLE" name="maxStep" value="10"/>
-    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
-    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="maxStep" value="0.002"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-10"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-8"/>
     <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
   </set>
 

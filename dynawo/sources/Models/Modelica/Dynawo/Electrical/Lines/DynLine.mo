@@ -35,8 +35,8 @@ model DynLine "AC dynamic power line model"
 
 equation
   if running then
-    LPu * der(terminal1.i.re) + RPu * terminal1.i.re = terminal1.V.re - terminal2.V.re;
-    LPu * der(terminal1.i.im) + RPu * terminal1.i.im = terminal1.V.im - terminal2.V.im;
+    LPu * der(terminal1.i.re) - LPu * SystemBase.omegaNom * terminal1.i.im + RPu * terminal1.i.re = terminal1.V.re - terminal2.V.re;
+    LPu * der(terminal1.i.im) + LPu * SystemBase.omegaNom * terminal1.i.re + RPu * terminal1.i.im = terminal1.V.im - terminal2.V.im;
     terminal2.i = - terminal1.i;
   else
     terminal1.i = Complex(0);
