@@ -15,7 +15,7 @@ within Dynawo.Electrical.Photovoltaics.WECC.BaseClasses;
 partial model BasePVCurrentSource "Base for WECC PV with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQ0Pu = 1);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
 
@@ -30,7 +30,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
 
-  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
+  Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
     DPMaxPu = DPMaxPu,
     DPMinPu = DPMinPu,
     Dbd1Pu = Dbd1Pu,
@@ -38,6 +38,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     IMaxPu = IMaxPu,
     Id0Pu = Id0Pu,
     Iq0Pu = Iq0Pu,
+    IqFrzPu = IqFrzPu,
     Iqh1Pu = Iqh1Pu,
     Iql1Pu = Iql1Pu,
     Kqi = Kqi,
@@ -46,6 +47,7 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     Kvi = Kvi,
     Kvp = Kvp,
     PF0 = PF0,
+    PFlag = PFlag,
     PMaxREECPu = PMaxREECPu,
     PMinREECPu = PMinREECPu,
     PQFlag = PQFlag,
@@ -54,6 +56,22 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     QMaxREECPu = QMaxREECPu,
     QMinREECPu = QMinREECPu,
     UInj0Pu = UInj0Pu,
+    VDLIp11 = VDLIp11,
+    VDLIp12 = VDLIp12,
+    VDLIp21 = VDLIp21,
+    VDLIp22 = VDLIp22,
+    VDLIp31 = VDLIp31,
+    VDLIp32 = VDLIp32,
+    VDLIp41 = VDLIp41,
+    VDLIp42 = VDLIp42,
+    VDLIq11 = VDLIq11,
+    VDLIq12 = VDLIq12,
+    VDLIq21 = VDLIq21,
+    VDLIq22 = VDLIq22,
+    VDLIq31 = VDLIq31,
+    VDLIq32 = VDLIq32,
+    VDLIq41 = VDLIq41,
+    VDLIq42 = VDLIq42,
     VDipPu = VDipPu,
     VFlag = VFlag,
     VMaxPu = VMaxPu,
@@ -61,6 +79,8 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     VRef0Pu = VRef0Pu,
     VRef1Pu = VRef1Pu,
     VUpPu = VUpPu,
+    tHoldIpMax = tHoldIpMax,
+    tHoldIq = tHoldIq,
     tIq = tIq,
     tpREEC = tpREEC,
     tPord = tPord,
@@ -116,6 +136,8 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
     i20Pu = iConv0Pu,
     u20Pu = uConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant omegaGPu(k = 1) annotation(
+    Placement(transformation(origin = {-105, -40}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   // Initial parameters
   parameter Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -165,6 +187,8 @@ equation
     Line(points = {{12, 8}, {24, 8}, {24, 0}, {29, 0}}, color = {0, 0, 255}));
   connect(LvTfo.terminal2, LvMeasurements.terminal1) annotation(
     Line(points = {{51, 0}, {60, 0}}, color = {0, 0, 255}));
+  connect(omegaGPu.y, wecc_reec.omegaGPu) annotation(
+    Line(points = {{-100, -40}, {-85, -40}, {-85, -11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
