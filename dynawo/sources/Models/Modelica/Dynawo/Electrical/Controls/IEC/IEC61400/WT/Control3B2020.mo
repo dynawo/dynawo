@@ -17,14 +17,14 @@ model Control3B2020 "Whole generator control module for type 3A and 3B wind turb
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
-  parameter Boolean WT3Type "if true : type a, if false type b";
+  parameter Boolean WT3Type "If true, type A, if false, type B";
 
   //Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
   parameter Types.PerUnit XEqv "Transient reactance (should be calculated from the transient inductance as defined in 'New Generic Model of DFG-Based Wind Turbines for RMS-Type Simulation', Fortmann et al., 2014) in pu (base SNom, UNom), example value = 0.4 (Type 3A) or = 10 (Type 3B)" annotation(Dialog(tab = "genSystem"));
 
-  //Current limiter Parameters
+  //Current limiter parameters
   parameter Types.CurrentModulePu IMaxPu "Maximum current module at converter terminal in pu (base UNom, SNom)" annotation(
     Dialog(tab = "CurrentLimiter"));
   parameter Types.CurrentModulePu IMaxDipPu "Maximum current module during voltage dip at converter terminal in pu (base UNom, SNom)" annotation(
@@ -105,7 +105,7 @@ model Control3B2020 "Whole generator control module for type 3A and 3B wind turb
     Placement(visible = true, transformation(origin = {-180, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaWTRPu(start = SystemBase.omega0Pu) "Angular velocity of Wind Turbine Rotor (WTR) in pu (base OmegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-180, 70}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu * SystemBase.SnRef / SNom) "Wind Turbine (WT) active power reference in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = PWTRef0Pu) "Wind Turbine (WT) active power reference in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, 140}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 85}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PWTCFiltPu(start = -P0Pu * SystemBase.SnRef / SNom) "Filtered active power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-180, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

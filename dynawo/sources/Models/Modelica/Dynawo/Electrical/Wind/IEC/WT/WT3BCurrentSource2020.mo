@@ -62,7 +62,7 @@ model WT3BCurrentSource2020 "Wind Turbine Type 3B model from IEC 61400-27-1:2020
   final parameter Types.PerUnit POrd0Pu = ((iGs0Pu.re + uGs0Pu.im / XEqv) * cos(UPhase0) + (iGs0Pu.im - uGs0Pu.re / XEqv) * sin(UPhase0)) * U0Pu "Initial active power order in pu (base SNom) (generator convention)";
 
 protected
-  parameter Boolean WT3Type = false "If true : type a, if false type b";
+  parameter Boolean WT3Type = false "If true, type A, if false, type B";
 
 equation
   connect(switchOffSignal1, injector.switchOffSignal1);

@@ -58,7 +58,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 4A model from IEC 61400-27-1:2020
   final parameter Types.PerUnit POrd0Pu = -P0Pu*SystemBase.SnRef/SNom "Initial active power order in pu (base SNom) (generator convention)";
 
 protected
-  parameter Boolean WT3Type = true "If true : type a, if false type b";
+  parameter Boolean WT3Type = true "If true, type A, if false, type B";
 
 equation
   connect(switchOffSignal1, injector.switchOffSignal1);

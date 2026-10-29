@@ -35,7 +35,7 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(visible = true, transformation(origin = {-320, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PWTCFiltPu(start = -P0Pu*SystemBase.SnRef/SNom) "Measured (=filtered) active power for Wind Turbine Control (WTC) in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-320, -160}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-320, -160}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = -P0Pu*SystemBase.SnRef/SNom) "Wind Turbine (WT) active power reference in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PWTRefPu(start = PWTRef0Pu) "Wind Turbine (WT) active power reference in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-320, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-320, -60}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput UTCHookPu(start = 0) "Optional voltage input (TC = turbine control) in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-320, -280}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-320, -270}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -96,7 +96,7 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {130, -170}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product productPuScale annotation(
     Placement(transformation(origin = {-210, -100}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, y_start = -P0Pu*SystemBase.SnRef/SNom, y(start = -P0Pu*SystemBase.SnRef/SNom)) annotation(
+  Modelica.Blocks.Nonlinear.SlewRateLimiter ratelimPWtRef(Falling = DPRefMin4abPu, Rising = DPRefMax4abPu, y_start = PWTRef0Pu, y(start = PWTRef0Pu)) annotation(
     Placement(transformation(origin = {-250, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switchMOmegaTMax annotation(
     Placement(transformation(origin = {-110, 40}, extent = {{-10, 10}, {10, -10}})));

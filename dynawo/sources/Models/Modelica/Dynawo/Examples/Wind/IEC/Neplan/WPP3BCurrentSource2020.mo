@@ -2,11 +2,14 @@ within Dynawo.Examples.Wind.IEC.Neplan;
 
 model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model from IEC 61400-27-1 standard with infinite bus - voltage drop test."
   extends Icons.Example;
-  extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan;
+  extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan(
+    infiniteBusWithVariations.tUEvtStart = 1,
+    infiniteBusWithVariations.tUEvtEnd = 1.1,
+    infiniteBusWithVariations.UEvtPu = 0.2);
 
   Dynawo.Electrical.Wind.IEC.WPP.WPP3BCurrentSource2020 wpp(
-    BLvTrPu = 0,
-    BMvHvPu = 0,
+    BLvTrPu = 0.001,
+    BMvHvPu = 0.001,
     CdrtPu = 2.344,
     ConverterLVControl = false,
     DPMaxPu = 999,
@@ -37,8 +40,8 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     DipMaxPu = 1,
     DiqMaxPu = 100,
     DiqMinPu = -100,
-    GLvTrPu = 0,
-    GMvHvPu = 0,
+    GLvTrPu = 0.0005,
+    GMvHvPu = 0.0005,
     Hgen = 3.395,
     Hwtr = 0.962,
     IMaxDipPu = 1.3,
@@ -90,8 +93,8 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     MwpqMode = 0,
     OmegaDtdPu = 11.3,
     OmegaOffsetPu = 0,
-    P0Pu = -0.6,
-    PAvailPu = 0.6,
+    P0Pu = -PRefPu.offset * wpp.SNom / SystemBase.SnRef,
+    PAvailPu = 1.1,
     PControl0Pu(fixed = false),
     PDtdMaxPu = 0.15,
     PErrMaxPu = 1,
@@ -102,7 +105,7 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     PRefMaxPu = 1,
     PRefMinPu = 0,
     PWTRef0Pu = 1.1,
-    Q0Pu = -0.1,
+    Q0Pu = -xRefPu.offset * wpp.SNom / SystemBase.SnRef,
     QControl0Pu(fixed = false),
     QMax0Pu(fixed = false),
     QMaxPu = 0.8,
@@ -110,8 +113,8 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     QMinPu = -0.8,
     QlConst = false,
     RDropPu = 0,
-    RLvTrPu = 0,
-    RMvHvPu = 0,
+    RLvTrPu = 0.001,
+    RMvHvPu = 0.001,
     RwpDropPu = 0,
     SNom = 100,
     TTheta = 0.25,
@@ -241,12 +244,12 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     ThetaMin = 0,
     ThetaOmegaMax = 35,
     ThetaOmegaMin = 0,
-    U0Pu = 1,
+    U0Pu = 1.00018,
     UDvsPu = 0.15,
     UMaxPu = 2,
     UMinPu = 0,
     UOverPu = 1.2,
-    UPhase0 = 0,
+    UPhase0 = 0.219441,
     UPll1Pu = 9,
     UPll2Pu = 0.13,
     URef0Pu = 0,
@@ -265,8 +268,8 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     XErrMinPu = -1,
     XKiwpxMaxPu = 1,
     XKiwpxMinPu = -1,
-    XLvTrPu = 0,
-    XMvHvPu = 0.1,
+    XLvTrPu = 0.01,
+    XMvHvPu = 0.01,
     XRefMaxPu = 1,
     XRefMinPu = -1,
     XWT0Pu(fixed = false),
@@ -316,27 +319,19 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     uControl0Pu(re(fixed = false), im(fixed = false)),
     uWt0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
-//  Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = 0, startTime = 999) annotation(
-//    Placement(transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}})));
-//  Modelica.Blocks.Sources.Step xRefPu(height = 0.2, offset = wpp.XWT0Pu, startTime = 999) annotation(
-//    Placement(transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}})));
-//  Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 999) annotation(
-//    Placement(transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}})));
-//  Modelica.Blocks.Sources.Step PRefPu(height = -0.7, offset = wpp.PWTRef0Pu, startTime = 1 * 99999) annotation(
-//    Placement(transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Sources.ComplexConstant complexConst(k = Complex(1, 0)) annotation(
     Placement(transformation(origin = {-104, -40}, extent = {{-4, -4}, {4, 4}}, rotation = 90)));
 
   // Reference inputs
-  Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 20) annotation(
+  Modelica.Blocks.Sources.Pulse omegaRefPu(amplitude = -0.01, nperiod = 1, offset = 1, period = 2, startTime = 999) annotation(
     Placement(transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step PRefPu(height = -0.5, offset = 1, startTime = 2) annotation(
+  Modelica.Blocks.Sources.Step PRefPu(height = -0.5, offset = 1, startTime = 999) annotation(
     Placement(transformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step xRefPu(height = 0.41, offset = -0.21, startTime = 4) annotation(
+  Modelica.Blocks.Sources.Step xRefPu(height = 0.41, offset = -0.21, startTime = 999) annotation(
     Placement(transformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 0) annotation(
+  Modelica.Blocks.Sources.Step tanPhi(height = 0, offset = -0.21, startTime = 999) annotation(
     Placement(transformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
