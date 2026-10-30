@@ -315,7 +315,7 @@
     <par type="DOUBLE" name="WPP_PErrMinPu" value="-1"/>
     <par type="DOUBLE" name="WPP_PKiwppMaxPu" value="1"/>
     <par type="DOUBLE" name="WPP_PKiwppMinPu" value="-1"/>
-    <par type="DOUBLE" name="WPP_PRefMaxPu" value="1"/>
+    <par type="DOUBLE" name="WPP_PRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="WPP_PRefMinPu" value="0"/>
     <!-- QControlWP -->
     <par type="DOUBLE" name="WPP_DXRefMaxPu" value="10"/>
@@ -347,7 +347,7 @@
   <set id="2">
     <par type="DOUBLE" name="step_Height" value="-0.7"/>
     <par type="DOUBLE" name="step_tStep" value="99"/>
-    <par type="DOUBLE" name="step_Value0" value="1.1"/>
+    <par type="DOUBLE" name="step_Value0" value="0.6"/>
   </set>
   <!-- Set Point -->
   <set id="4">

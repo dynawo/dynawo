@@ -1,5 +1,18 @@
 within Dynawo.Examples.Wind.IEC.Neplan;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model from IEC 61400-27-1 standard with infinite bus - voltage drop test."
   extends Icons.Example;
   extends Dynawo.Examples.Wind.IEC.Neplan.BaseClasses.BaseWindNeplan(
@@ -94,7 +107,7 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     OmegaDtdPu = 11.3,
     OmegaOffsetPu = 0,
     P0Pu = -PRefPu.offset * wpp.SNom / SystemBase.SnRef,
-    PAvailPu = 1.1,
+    PAvailPu = PRefPu.offset * wpp.SNom / SystemBase.SnRef,
     PControl0Pu(fixed = false),
     PDtdMaxPu = 0.15,
     PErrMaxPu = 1,
@@ -315,8 +328,8 @@ model WPP3BCurrentSource2020 "Wind Power Plant model with Turbine Type 3B model 
     tfcFilt = 0.005,
     tfpFilt = 0.005,
     u0Pu(re(fixed = false), im(fixed = false)),
-    uGs0Pu(re(fixed = false), im(fixed = false)),
     uControl0Pu(re(fixed = false), im(fixed = false)),
+    uGs0Pu(re(fixed = false), im(fixed = false)),
     uWt0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
