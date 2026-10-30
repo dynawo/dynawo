@@ -17,8 +17,6 @@ model Control3A2020 "Whole generator control module for type 3A and 3B wind turb
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.CurrentLimitParameters;
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.QLimitParameters;
 
-  parameter Boolean WT3Type "If true, type A, if false, type B";
-
   // Nominal parameters
   parameter Types.ApparentPowerModule SNom "Nominal converter apparent power in MVA";
   parameter Types.Time tS "Integration time step in s";
@@ -145,12 +143,10 @@ model Control3A2020 "Whole generator control module for type 3A and 3B wind turb
     Placement(visible = true, transformation(origin = {20, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.CurrentLimiter2020 currentLimiter(IMaxDipPu = IMaxDipPu, IMaxPu = IMaxPu, Ip0Pu = Ip0Pu, IpMax0Pu = IpMax0Pu, Iq0Pu = Iq0Pu, IqMax0Pu = IqMax0Pu, IqMin0Pu = IqMin0Pu, Kpqu = Kpqu, MdfsLim = MdfsLim, Mqpri = Mqpri, P0Pu = P0Pu, Q0Pu = Q0Pu, SNom = SNom, TableIpMaxUwt = TableIpMaxUwt, TableIpMaxUwt11 = TableIpMaxUwt11, TableIpMaxUwt12 = TableIpMaxUwt12, TableIpMaxUwt21 = TableIpMaxUwt21, TableIpMaxUwt22 = TableIpMaxUwt22, TableIpMaxUwt31 = TableIpMaxUwt31, TableIpMaxUwt32 = TableIpMaxUwt32, TableIpMaxUwt41 = TableIpMaxUwt41, TableIpMaxUwt42 = TableIpMaxUwt42, TableIpMaxUwt51 = TableIpMaxUwt51, TableIpMaxUwt52 = TableIpMaxUwt52, TableIpMaxUwt61 = TableIpMaxUwt61, TableIpMaxUwt62 = TableIpMaxUwt62, TableIpMaxUwt71 = TableIpMaxUwt71, TableIpMaxUwt72 = TableIpMaxUwt72, TableIqMaxUwt = TableIqMaxUwt, TableIqMaxUwt11 = TableIqMaxUwt11, TableIqMaxUwt12 = TableIqMaxUwt12, TableIqMaxUwt21 = TableIqMaxUwt21, TableIqMaxUwt22 = TableIqMaxUwt22, TableIqMaxUwt31 = TableIqMaxUwt31, TableIqMaxUwt32 = TableIqMaxUwt32, TableIqMaxUwt41 = TableIqMaxUwt41, TableIqMaxUwt42 = TableIqMaxUwt42, TableIqMaxUwt51 = TableIqMaxUwt51, TableIqMaxUwt52 = TableIqMaxUwt52, TableIqMaxUwt61 = TableIqMaxUwt61, TableIqMaxUwt62 = TableIqMaxUwt62, TableIqMaxUwt71 = TableIqMaxUwt71, TableIqMaxUwt72 = TableIqMaxUwt72, TableIqMaxUwt81 = TableIqMaxUwt81, TableIqMaxUwt82 = TableIqMaxUwt82, U0Pu = U0Pu, UPhase0 = UPhase0, UpquMaxPu = UpquMaxPu) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  BaseControls.WT.PControl3AB2020 pControl3AB2020(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, iGs0Pu = iGs0Pu, IpMax0Pu = IpMax0Pu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUvrt = MPUvrt, MpUScale = MpUScale, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, P0Pu = P0Pu, PDtdMaxPu = PDtdMaxPu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, uGs0Pu = uGs0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS, WT3Type = WT3Type, POrd0Pu = POrd0Pu, OmegaRef0Pu = OmegaRef0Pu) annotation(
+  BaseControls.WT.PControl3A2020 pControl3A2020(DPMaxPu = DPMaxPu, DPRefMax4abPu = DPRefMax4abPu, DPRefMin4abPu = DPRefMin4abPu, DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, IpMax0Pu = IpMax0Pu, KDtd = KDtd, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MOmegaTqpi = MOmegaTqpi, MPUvrt = MPUvrt, MpUScale = MpUScale, OmegaDtdPu = OmegaDtdPu, OmegaOffsetPu = OmegaOffsetPu, P0Pu = P0Pu, PDtdMaxPu = PDtdMaxPu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, Zeta = Zeta, tDvs = tDvs, tOmegaRef = tOmegaRef, tOmegafiltp3 = tOmegafiltp3, tPord = tPord, tS = tS, POrd0Pu = POrd0Pu, OmegaRef0Pu = OmegaRef0Pu) annotation(
     Placement(transformation(origin = {10, 110}, extent = {{-30, -30}, {30, 30}})));
 
   //Initial parameters
-  parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
   parameter Types.CurrentModulePu Ip0Pu "Initial active current component at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Dialog(group = "Initialization"));
   parameter Types.PerUnit IpMax0Pu "Initial maximum active current at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
@@ -166,8 +162,6 @@ model Control3A2020 "Whole generator control module for type 3A and 3B wind turb
   parameter Types.ActivePowerPu PAg0Pu "Initial generator (air gap) power in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
   parameter Types.PerUnit POrd0Pu "Initial active power order in pu (base SNom) (generator convention)" annotation(
-    Dialog(tab = "Initialization"));
-  parameter Types.ComplexVoltagePu uGs0Pu "Initial complex voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initialization"));
   parameter Types.ReactivePowerPu QMax0Pu "Initial maximum reactive power at grid terminal in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Initialization"));
@@ -225,31 +219,31 @@ equation
     Line(points = {{122, 0}, {170, 0}}, color = {0, 0, 127}));
   connect(currentLimiter.iqMinPu, iqMinPu) annotation(
     Line(points = {{122, -12}, {140, -12}, {140, -20}, {170, -20}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.UWTCFiltPu, UWTCFiltPu) annotation(
+  connect(pControl3A2020.UWTCFiltPu, UWTCFiltPu) annotation(
     Line(points = {{-22, 136}, {-146, 136}, {-146, -30}, {-180, -30}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.UWTCPu, UWTCPu) annotation(
+  connect(pControl3A2020.UWTCPu, UWTCPu) annotation(
     Line(points = {{-22, 131}, {-144, 131}, {-144, 0}, {-180, 0}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.ipMaxPu, currentLimiter.ipMaxPu) annotation(
+  connect(pControl3A2020.ipMaxPu, currentLimiter.ipMaxPu) annotation(
     Line(points = {{-22, 126}, {-44, 126}, {-44, 66}, {128, 66}, {128, 12}, {122, 12}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.omegaWTRPu, omegaWTRPu) annotation(
+  connect(pControl3A2020.omegaWTRPu, omegaWTRPu) annotation(
     Line(points = {{-22, 114}, {-136, 114}, {-136, 70}, {-180, 70}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.PWTRefPu, PWTRefPu) annotation(
+  connect(pControl3A2020.PWTRefPu, PWTRefPu) annotation(
     Line(points = {{-22, 104}, {-128, 104}, {-128, 140}, {-180, 140}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.PWTCFiltPu, PWTCFiltPu) annotation(
+  connect(pControl3A2020.PWTCFiltPu, PWTCFiltPu) annotation(
     Line(points = {{-22, 94}, {-120, 94}, {-120, 40}, {-180, 40}}, color = {0, 0, 127}));
-  connect(const.y, pControl3AB2020.UTCHookPu) annotation(
+  connect(const.y, pControl3A2020.UTCHookPu) annotation(
     Line(points = {{2, 40}, {8, 40}, {8, 72}, {-38, 72}, {-38, 83}, {-22, 83}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.ipCmdPu, currentLimiter.ipCmdPu) annotation(
+  connect(pControl3A2020.ipCmdPu, currentLimiter.ipCmdPu) annotation(
     Line(points = {{41, 134}, {64, 134}, {64, 16}, {78, 16}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.ipCmdPu, ipCmdPu) annotation(
+  connect(pControl3A2020.ipCmdPu, ipCmdPu) annotation(
     Line(points = {{41, 134}, {64, 134}, {64, 70}, {170, 70}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.POrdPu, POrdPu) annotation(
+  connect(pControl3A2020.POrdPu, POrdPu) annotation(
     Line(points = {{41, 110}, {48, 110}, {48, 120}, {170, 120}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.omegaRefPu, omegaRefPu) annotation(
+  connect(pControl3A2020.omegaRefPu, omegaRefPu) annotation(
     Line(points = {{41, 86}, {48, 86}, {48, 100}, {170, 100}}, color = {0, 0, 127}));
   connect(currentLimiter.UWTCFiltPu, UWTCFiltPu) annotation(
     Line(points = {{78, 8}, {-130, 8}, {-130, -30}, {-180, -30}}, color = {0, 0, 127}));
-  connect(pControl3AB2020.omegaGenPu, omegaGenPu) annotation(
+  connect(pControl3A2020.omegaGenPu, omegaGenPu) annotation(
     Line(points = {{-22, 121}, {-66, 121}, {-66, 82}, {-154, 82}, {-154, 100}, {-180, 100}}, color = {0, 0, 127}));
   connect(currentLimiter.omegaGenPu, omegaGenPu) annotation(
     Line(points = {{78, 0}, {-66, 0}, {-66, 82}, {-154, 82}, {-154, 100}, {-180, 100}}, color = {0, 0, 127}));

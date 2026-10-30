@@ -215,6 +215,8 @@ partial model BaseWT3 "Base for Wind Turbine Types 3 model from IEC 61400-27-1:2
     Dialog(tab = "Operating point"));
   parameter Types.ComplexVoltagePu u0Pu "Initial complex voltage at WT terminal in pu (base UNom)" annotation(
     Dialog(group = "Initialization"));
+  parameter Types.ComplexVoltagePu uGs0Pu "Initial complex voltage at converter terminal in pu (base UNom)" annotation(
+    Dialog(group = "Initialization"));
   parameter Types.Angle UPhase0 "Initial voltage angle at WT terminal in rad" annotation(
     Dialog(tab = "Operating point"));
   parameter Types.VoltageModulePu UWt0DroppedPu "Initial voltage magnitude controlled by the WT in pu (base UNom)" annotation(

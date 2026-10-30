@@ -265,8 +265,7 @@ model WT3ACurrentSource2020 "Wind Turbine Type 3A model from IEC 61400-27-1 stan
     tUss = 30,
     tfcFilt = 0.005,
     tfpFilt = 0.005,
-    u0Pu(re(fixed = false), im(fixed = false)),
-    uGs0Pu(re(fixed = false), im(fixed = false))) annotation(
+    u0Pu(re(fixed = false), im(fixed = false))) annotation(
     Placement(transformation(origin = {10, 0}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 0.2, UPhase = 0, omega0Pu = 1, omegaEvtPu = 1, tOmegaEvtEnd = 999, tOmegaEvtStart = 999, tUEvtEnd = 1.1*9999, tUEvtStart = 1*9999) annotation(
     Placement(transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -324,8 +323,6 @@ initial algorithm
   wt.iGs0Pu.im := init.iGs0Pu.im;
   wt.u0Pu.re := init.u0Pu.re;
   wt.u0Pu.im := init.u0Pu.im;
-  wt.uGs0Pu.re := init.uGs0Pu.re;
-  wt.uGs0Pu.im := init.uGs0Pu.im;
 
 equation
   wt.switchOffSignal1 = false;

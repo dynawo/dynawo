@@ -13,9 +13,7 @@ within Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT;
 * of simulation tools for power systems.
 */
 
-model PControl3AB2020 "Active power control module of type 3 wind turbine model from IEC 61400-27-1:2020 standard"
-
-  parameter Boolean WT3Type "if true : type a, if false type b";
+model PControl3B2020 "Active power control module of type 3 wind turbine model from IEC 61400-27-1:2020 standard"
 
   //PControl parameters
   extends Dynawo.Electrical.Controls.IEC.IEC61400.Parameters.PControlWT3Parameters;
@@ -106,8 +104,16 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
     Placement(transformation(origin = {-150, -60}, extent = {{-10, 10}, {10, -10}})));
   Dynawo.NonElectrical.Blocks.Continuous.TransferFunction tfDtd(a = {1, 2*Zeta*OmegaDtdPu, OmegaDtdPu*OmegaDtdPu}, b = {0, 2*Zeta*OmegaDtdPu*KDtd, 0}, u_start = SystemBase.omega0Pu, initType = Modelica.Blocks.Types.Init.SteadyState) annotation(
     Placement(transformation(origin = {50, -260}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, iGs0Pu = iGs0Pu, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MPUvrt = MPUvrt, P0Pu = P0Pu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, U0Pu = U0Pu, UDvsPu = UDvsPu, uGs0Pu = uGs0Pu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, tDvs = tDvs, tOmegafiltp3 = tOmegafiltp3, tS = tS, WT3Type = WT3Type, OmegaRef0Pu = OmegaRef0Pu) annotation(
+  Dynawo.Electrical.Controls.IEC.IEC61400.BaseControls.WT.TorquePi torquePi(DTauMaxPu = DTauMaxPu, DTauUvrtMaxPu = DTauUvrtMaxPu, KIp = KIp, KPp = KPp, MOmegaTMax = MOmegaTMax, MPUvrt = MPUvrt, P0Pu = P0Pu, PWTRef0Pu = PWTRef0Pu, SNom = SNom, TableOmegaPPu = TableOmegaPPu, TauEMinPu = TauEMinPu, TauUscalePu = TauUscalePu, Torque0Pu = Torque0Pu, U0Pu = U0Pu, UDvsPu = UDvsPu, UPhase0 = UPhase0, UpDipPu = UpDipPu, XEqv = XEqv, tDvs = tDvs, tOmegafiltp3 = tOmegafiltp3, tS = tS, OmegaRef0Pu = OmegaRef0Pu) annotation(
     Placement(transformation(origin = {39.2409, -169.192}, extent = {{-60.4935, -37.8084}, {31.7591, 30.2467}})));
+
+  //Operating point
+  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
+    Dialog(tab = "Operating point"));
+  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
+    Dialog(tab = "Operating point"));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu iGs0Pu "Complex current at converter output in pu (base SNom) (generator convention)" annotation(
@@ -123,13 +129,7 @@ model PControl3AB2020 "Active power control module of type 3 wind turbine model 
   parameter Types.ComplexVoltagePu uGs0Pu "Initial complex voltage at converter terminal in pu (base UNom)" annotation(
     Dialog(tab = "Initialization"));
 
-  //Operating point
-  parameter Types.ActivePowerPu P0Pu "Initial active power at grid terminal in pu (base SnRef) (receptor convention)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.VoltageModulePu U0Pu "Initial voltage amplitude at grid terminal in pu (base UNom)" annotation(
-    Dialog(tab = "Operating point"));
-  parameter Types.Angle UPhase0 "Initial voltage angle at grid terminal in rad" annotation(
-    Dialog(tab = "Operating point"));
+  final parameter Types.PerUnit Torque0Pu = ((iGs0Pu.re + uGs0Pu.im / XEqv) * cos(UPhase0) + (iGs0Pu.im - uGs0Pu.re / XEqv) * sin(UPhase0)) * U0Pu / SystemBase.omega0Pu "Initial value of torque PI controller output in pu (base SNom, omegaNom)";
 
 equation
   connect(limitLargerZero.y, divisionIPcmd.u2) annotation(
@@ -229,4 +229,4 @@ equation
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-300, -300}, {300, 300}})),
     Icon(coordinateSystem(extent = {{-300, -300}, {300, 300}}), graphics = {Rectangle(extent = {{-298, 298}, {298, -298}}), Text(origin = {-11, 0}, extent = {{-243, 206}, {243, -206}}, textString = "IEC WT 3 AB 2020 P Control")}));
-end PControl3AB2020;
+end PControl3B2020;
