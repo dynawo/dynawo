@@ -3,26 +3,24 @@ within Dynawo.Electrical.PEIR.Plants.Average.BaseClasses;
 model GFLControl "Top-level GFL converter control block. Assembles outer loop, inner current loop, and PLL."
 
   // Outer loop
-  parameter Real DidMax "Max rate of change of idRefPu in pu/s";
-  parameter Real DidMin "Min rate of change of idRefPu in pu/s";
-  parameter Real DyMaxd "Max rate of change of d-axis PI output in pu/s";
-  parameter Real DyMaxq "Max rate of change of q-axis PI output in pu/s";
-  parameter Real IqBoostMaxPu "Max reactive current boost in pu";
-  parameter Real IqBoostMinPu "Min reactive current boost in pu";
-  parameter Real IMaxPu "Maximum total current magnitude in pu";
-  parameter Real KidOuter "Outer loop intgl gain PI d axis";
-  parameter Real KpdOuter "Outer loop Proportional gain PI d axis";
-  parameter Real KiqOuter "Outer loop intgl gain PI  q axis";
-  parameter Real KpqOuter "Outer loop Proportional gain PI q axis";
-  parameter Real Kqv "Reactive boost boost gain  in pu/pu, 0 to disable";
+  parameter Types.PerUnit DidMax "Max rate of change of idRefPu in pu/s";
+  parameter Types.PerUnit DidMin "Min rate of change of idRefPu in pu/s";
+  parameter Types.PerUnit IqBoostMaxPu "Max reactive current boost in pu";
+  parameter Types.PerUnit IqBoostMinPu "Min reactive current boost in pu";
+  parameter Types.CurrentModulePu IMaxPu  "Maximum total current magnitude in pu";
+  parameter Types.PerUnit KidOuter "Outer loop intgl gain PI d axis";
+  parameter Types.PerUnit KpdOuter "Outer loop Proportional gain PI d axis";
+  parameter Types.PerUnit KiqOuter "Outer loop intgl gain PI  q axis";
+  parameter Types.PerUnit KpqOuter "Outer loop Proportional gain PI q axis";
+  parameter Types.PerUnit Kqv "Reactive boost boost gain  in pu/pu, 0 to disable";
   parameter Boolean PQFlag "Priority flag: true = P priority, false = Q priority";
   parameter Boolean PControlFlag "true: bypass P PI, use idRefPu = PRefPu/ULVPu | false: use PI regulator (default)";
   parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = QRefPu/ULVPu | false: use PI regulator (default)";
-  parameter Real UBoostHighPu "High voltage limit for reactiv power boost in pu";
-  parameter Real UBoostLowPu "Low voltage limit for reactiv power boost in pu";
-  parameter Real tBoost "Time constant of first-order filter on iqBoostPu in s to delay the reactive boost response. Set 0 to disable";
-  parameter Real tPlant "Time constant of plant-to-outer-loop delay in s";
-  parameter Real tSid "Sample time of idRefPu ramp limiter in s";
+  parameter Types.VoltageModulePu UBoostHighPu "High voltage limit for reactiv power boost in pu";
+  parameter Types.VoltageModulePu UBoostLowPu "Low voltage limit for reactiv power boost in pu";
+  parameter Types.Time tBoost "Time constant of first-order filter on iqBoostPu in s to delay the reactive boost response. Set 0 to disable";
+  parameter Types.Time tPlant "Time constant of plant-to-outer-loop delay in s";
+  parameter Types.Time tSid "Sample time of idRefPu ramp limiter in s";
 
   // Current loop
   parameter Real k_p_d_current "Current Loop Proportional gain PI d axis";
@@ -68,8 +66,6 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
     Kpq = KpqOuter,
     Kiq = KiqOuter,
     IMaxPu = IMaxPu,
-    y_start_outer_d = idRef0Pu,
-    y_start_outer_q = iqRef0Pu,
     PQFlag = PQFlag,
     UBoostHighPu = UBoostHighPu,
     UBoostLowPu = UBoostLowPu,
@@ -79,10 +75,8 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
     PInj0Pu = PInj0Pu,
     QInj0Pu = QInj0Pu,
     UFilter0Pu = U_LV0,
-    idRef0Pu = idRef0Pu,
-    iqRef0Pu = iqRef0Pu,
-    DyMaxd = DyMaxd,
-    DyMaxq = DyMaxq,
+    Id0Pu = idRef0Pu,
+    Iq0Pu = iqRef0Pu,
     DidMax = DidMax,
     DidMin = DidMin,
     tSid = tSid,
@@ -202,13 +196,13 @@ equation
     Line(points = {{-190, 0}, {-120, 0}, {-120, 14}, {-102, 14}}, color = {0, 0, 127}));
   connect(QLVPu, OuterLoop_GFL.QLVPu) annotation(
     Line(points = {{-190, -20}, {-112, -20}, {-112, 4}, {-102, 4}}, color = {0, 0, 127}));
+
   connect(OuterLoop_GFL.idRefPu, currentLoop.idConvRefPu) annotation(
     Line(points = {{-58, 28}, {-2, 28}}, color = {0, 0, 127}));
   connect(OuterLoop_GFL.iqRefPu, currentLoop.iqConvRefPu) annotation(
     Line(points = {{-58, 12}, {-2, 12}}, color = {0, 0, 127}));
   connect(ULVPu, OuterLoop_GFL.ULVPu) annotation(
     Line(points = {{-190, 60}, {-90, 60}, {-90, 42}}, color = {0, 0, 127}));
-
   annotation(
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Documentation(info = "<html>

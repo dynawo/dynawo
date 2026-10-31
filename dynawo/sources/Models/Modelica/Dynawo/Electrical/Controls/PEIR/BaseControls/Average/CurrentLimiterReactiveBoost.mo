@@ -1,37 +1,6 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 
-// =============================================================================
-// Author  : Gaia Bergamaschi
-//
-// Current limiter with reactive boost for a GFL converter outer loop.
-//
-// This block enforces the current amplitude constraint sqrt(id² + iq²) ≤ IMaxPu
-// and applies a voltage-dependent reactive current boost (Iq boost) to support
-// grid voltage during under- and overvoltage events.
-//
-// ── Reactive boost logic ─────────────────────────────────────────────────────
-//   U < UBoostLowPu  → undervoltage: inject reactive current (iqBoostPu > 0)
-//   U > UBoostHighPu → overvoltage:  absorb reactive current (iqBoostPu < 0)
-//   UBoostLowPu ≤ U ≤ UBoostHighPu → deadband: no boost
-//   The boost magnitude is proportional to the voltage deviation via gain Kqv.
-//   It is then saturated between IqBoostMinPu and IqBoostMaxPu.
-//   The boost signal is filtered by a first-order low-pass with time constant
-//   tBoost to avoid discontinuous jumps in the current reference.
-//
-// ── Current limiting ─────────────────────────────────────────────────────────
-//   Priority is selected via PQFlag (consistent with WECC convention):
-//   PQFlag = true  → P priority: idRawPu respected first, iq clipped to circle
-//   PQFlag = false → Q priority: iqEffPu respected first, id clipped to circle
-//   In both cases the total current never exceeds IMaxPu.
-//
-// ── Sign convention ──────────────────────────────────────────────────────────
-//   Inputs idRawPu and iqRawPu follow generator convention (injection positive).
-//   iqLimPu is output with a sign flip (−iqEffPu) to match the inner loop
-//   current reference convention used downstream.
-// =============================================================================
-
-model CurrentLimiterReactiveBoost
-  "Limit sqrt(id^2 + iq^2) to IMaxPu with P/Q priority and bidirectional Iq boost (undervoltage + overvoltage)"
+model CurrentLimiterReactiveBoost "Limit sqrt(id^2 + iq^2) to IMaxPu with P/Q priority and bidirectional Iq boost (undervoltage + overvoltage)"
 
   // Parameters
   parameter Types.CurrentModulePu IMaxPu "Maximum current amplitude in pu (base SNom, UNom) (generator convention)";
@@ -51,18 +20,18 @@ model CurrentLimiterReactiveBoost
   Modelica.Blocks.Interfaces.RealInput iqRawPu "q-axis (Q-like) raw current reference in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(
       transformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}})));
+      iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealInput ULVPu "Measured voltage magnitude at PCC/filter (pu)" annotation(
     Placement(
       transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}),
-      iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
+      iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
 
   // Outputs
-  Modelica.Blocks.Interfaces.RealOutput idLimPu "d-axis limited current reference (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput idLimPu "d-axis limited current reference in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(
       transformation(origin = {120, 32}, extent = {{-20, -20}, {20, 20}}),
       iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput iqLimPu "q-axis limited current reference (pu)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqLimPu "q-axis limited current reference in pu (base SNom, UNom) (generator convention)" annotation(
     Placement(
       transformation(origin = {120, -30}, extent = {{-20, -20}, {20, 20}}),
       iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}})));
@@ -150,5 +119,31 @@ equation
              textString = "IqBoost ±"),
         Text(origin = {0, -60}, extent = {{-80, 20}, {80, -20}},
              textString = "tBoost filter")}),
-    Diagram);
+    Diagram,
+  Documentation(info = "<html><head></head><body>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><!--StartFragment--><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> Current limiter with reactive boost </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">for</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> a GFL converter </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">outer</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">loop</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">.</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><br></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> This </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">block</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> enforces the current amplitude constraint </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#0000ff;\">sqrt</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">(id² + iq²) ≤ IMaxPu</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">and</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> applies a voltage-dependent reactive current boost (Iq boost) to support</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> grid voltage during under- </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">and</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> overvoltage events.</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><br></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">── Reactive boost logic ─────────────────────────────────────────────────────</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   U &lt; UBoostLowPu  → undervoltage: inject reactive current (iqBoostPu &gt; </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b008b;\">0</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">)</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   U &gt; UBoostHighPu → overvoltage:  absorb reactive current (iqBoostPu &lt; </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b008b;\">0</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">)</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   UBoostLowPu ≤ U ≤ UBoostHighPu → deadband: no boost</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   The boost magnitude is proportional to the voltage deviation via gain Kqv.</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   It is </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">then</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> saturated between IqBoostMinPu </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">and</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> IqBoostMaxPu.</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   The boost signal is filtered by a first-order low-pass with time </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">constant</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   tBoost to avoid discontinuous jumps </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">in</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> the current reference.</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><br></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> ── Current limiting ─────────────────────────────────────────────────────────</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   Priority is selected via PQFlag (consistent with WECC convention):</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   PQFlag = </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">true</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">  → P priority: idRawPu respected first, iq clipped to circle</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   PQFlag = </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">false</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> → Q priority: iqEffPu respected first, id clipped to circle</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   In both cases the total current never exceeds IMaxPu.</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><br></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> ── Sign convention ──────────────────────────────────────────────────────────</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   Inputs idRawPu </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">and</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> iqRawPu follow generator convention (injection positive).</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   iqLimPu is </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">output</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> with a sign flip (−iqEffPu) to match the </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">inner</span><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\"> </span><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#8b0000;\">loop</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'DejaVu Sans Mono'; font-size: 11pt;\">   current reference convention used downstream.</span><!--EndFragment--></pre></body></html>"));
 end CurrentLimiterReactiveBoost;

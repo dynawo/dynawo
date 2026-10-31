@@ -104,8 +104,6 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // Outer-loop PI slew-rate limits & idRefPu ramp limiter
   // ────────────────────────────────────────────────────────────
-  parameter Real DyMaxd "Maximum rate of change of d-axis outer PI output (pu/s)";
-  parameter Real DyMaxq "Maximum rate of change of q-axis outer PI output (pu/s)";
   parameter Real DidMax "Maximum rate of change of idRefPu (pu/s)";
   parameter Real DidMin "Minimum rate of change of idRefPu (pu/s)";
   parameter Real tSid "Sample/update time of idRefPu ramp limiter (s)";
@@ -186,8 +184,6 @@ model GFLmodel
     id_conv_0 = Id_conv_0,
     iqRef0Pu = Iq_conv_0,
     iq_conv_0 = Iq_conv_0,
-    DyMaxd = DyMaxd,
-    DyMaxq = DyMaxq,
     DidMax = DidMax,
     DidMin = DidMin,
     tSid = tSid,
