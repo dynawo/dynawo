@@ -12,13 +12,13 @@
     of simulation tools for power systems.
 -->
 <mandatoryParameters>
-  <mandatoryParameter name="TablesFile" type="STRING"/>
-  <mandatoryParameter name="TablesOnFile" type="BOOL"/>
-  <mandatoryParameter name="TabletUoverUfilt" type="STRING"/>
-  <mandatoryParameter name="TabletUunderUfilt" type="STRING"/>
   <mandatoryParameter name="tLagAction" type="DOUBLE"/>
   <mandatoryParameter name="tUFilt" type="DOUBLE"/>
   <mandatoryParameter name="UOverPu" type="DOUBLE"/>
   <mandatoryParameter name="UUnderPu" type="DOUBLE"/>
+  <mandatoryParameter name="TablesFile" type="STRING"/>
+  <mandatoryParameter name="TablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="TabletUoverUfilt" type="STRING"/>
+  <mandatoryParameter name="TabletUunderUfilt" type="STRING"/>
   <mandatoryParameter name="UMonitored0Pu" type="DOUBLE"/>
 </mandatoryParameters>

@@ -36,6 +36,8 @@ equation
   line21.switchOffSignal2 = if time < 2.1501 then false else true;
   line22.switchOffSignal1 = if time < 2.1501 then false else true;
   line22.switchOffSignal2 = if time < 2.1501 then false else true;
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
 
   // If the fault test doesn't run, try changing the switches equations with those below
   //  line21.switchOffSignal1 = false;
