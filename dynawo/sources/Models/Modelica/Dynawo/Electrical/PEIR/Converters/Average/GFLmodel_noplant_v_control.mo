@@ -87,15 +87,12 @@ model GFLmodel_noplant_v_control
   // ────────────────────────────────────────────────────────────
   // Outer-loop PI slew-rate limits & idRefPu ramp limiter
   // ────────────────────────────────────────────────────────────
-  parameter Real DyMaxd "Maximum rate of change of d-axis outer PI output (pu/s)";
-  parameter Real DyMaxq "Maximum rate of change of q-axis outer PI output (pu/s)";
   parameter Real DidMax "Maximum rate of change of idRefPu (pu/s)";
   parameter Real DidMin "Minimum rate of change of idRefPu (pu/s)";
   parameter Real tSid "Sample/update time of idRefPu ramp limiter (s)";
   parameter Real Kfd "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
   parameter Real Kfq "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
   parameter Boolean PControlFlag "true: bypass P PI, use idRefPu = PRefPu/UMeasPu | false: use PI regulator (default)";
-  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = U_ref/UMeasPu | false: use PI regulator (default)";
   // ─────────────────────────────────────────────────────────────────────────
   // Derived initial conditions (computed from the parameters above)
   // ─────────────────────────────────────────────────────────────────────────
@@ -162,7 +159,7 @@ model GFLmodel_noplant_v_control
   // GFL converter controller block.
   // Implements: PLL, inner current PI loops, outer P/Q PI loops, current
   // limitation with P/Q priority, and reactive-power boost logic.
-   Converters.Average.BaseClasses.GFLControl_noplant gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, idRef0Pu = Id_conv_0, IdConv0Pu = Id_conv_0, iqRef0Pu = Iq_conv_0, IqConv0Pu = Iq_conv_0, DyMaxd = DyMaxd, DyMaxq = DyMaxq, DidMax = DidMax, DidMin = DidMin, tSid = tSid, KpdCurrent = KpdCurrent, KidCurrent = KidCurrent, KpqCurrent = KpqCurrent, KiqCurrent = KiqCurrent, Lg = Lg, Rg = Rg, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, KpdOuter = KpdOuter, KidOuter = KidOuter, KpqOuter = KpqOuter, KiqOuter = KiqOuter, IMaxPu = IMaxPu, PQFlag = PQFlag, UBoostHighPu = UBoostHighPu, UBoostLowPu = UBoostLowPu, Kqv = Kqv, IqBoostMaxPu = IqBoostMaxPu, IqBoostMinPu = IqBoostMinPu, KpPLL = KpPLL, KiPLL = KiPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, Kfd = Kfd, Kfq = Kfq, tBoost = tBoost, PControlFlag = PControlFlag, QControlFlag = QControlFlag) annotation(
+   Converters.Average.BaseClasses.GFLControl_noplant gFLControl(Omega0Pu = Omega0Pu, QInj0Pu = QInj0Pu, PInj0Pu = PInj0Pu, idRef0Pu = Id_conv_0, IdConv0Pu = Id_conv_0, iqRef0Pu = Iq_conv_0, IqConv0Pu = Iq_conv_0, DidMax = DidMax, DidMin = DidMin, tSid = tSid, KpdCurrent = KpdCurrent, KidCurrent = KidCurrent, KpqCurrent = KpqCurrent, KiqCurrent = KiqCurrent, Lg = Lg, Rg = Rg, vd_0 = Ud0Pu, vq_0 = Uq0Pu, vmd_0 = Ud0Pu, vmq_0 = Uq0Pu, KpdOuter = KpdOuter, KidOuter = KidOuter, KpqOuter = KpqOuter, KiqOuter = KiqOuter, IMaxPu = IMaxPu, PQFlag = PQFlag, UBoostHighPu = UBoostHighPu, UBoostLowPu = UBoostLowPu, Kqv = Kqv, IqBoostMaxPu = IqBoostMaxPu, IqBoostMinPu = IqBoostMinPu, KpPLL = KpPLL, KiPLL = KiPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, Theta0 = Theta0, vm0 = uconv0Pu_init, U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2), Uq0Pu = V_q_g_0, Kfd = Kfd, Kfq = Kfq, tBoost = tBoost, PControlFlag = PControlFlag) annotation(
     Placement(transformation(origin = {-95, 47}, extent = {{-17, -17}, {17, 17}})));
   // Plant-level controller block.
   // Implements: P–f droop, Q–U droop, frequency and voltage deadbands,

@@ -58,7 +58,7 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
     annotation(
       Placement(transformation(origin = {20, 20}, extent = {{-20, -20}, {20, 20}})));
 
-  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.OuterLoop OuterLoop_GFL(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.OuterLoopQControl OuterLoop_GFL(
     PControlFlag = PControlFlag,
     QControlFlag = QControlFlag,
     Kpd = KpdOuter,

@@ -19,10 +19,6 @@ model GFLControl_noplant
   parameter Real IdConv0Pu    "Initial d-axis measured current (pu)";
   parameter Real iqRef0Pu     "Initial q-axis current reference (pu)";
   parameter Real IqConv0Pu    "Initial q-axis measured current (pu)";
-    // Outer loop — PI output slew-rate limits
-  parameter Real DyMaxd  "Max rate of change of d-axis PI output (pu/s)";
-  parameter Real DyMaxq  "Max rate of change of q-axis PI output (pu/s)";
-
   // Outer loop — ramp limiter on idRefPu
   parameter Real DidMax "Max rate of change of idRefPu (pu/s)";
   parameter Real DidMin "Min rate of change of idRefPu (pu/s)";
@@ -75,7 +71,6 @@ model GFLControl_noplant
   parameter Real IqBoostMaxPu     "Max Iq boost (pu)";
   parameter Real IqBoostMinPu     "Min Iq boost (pu)";
   parameter Boolean PControlFlag "true: bypass P PI, use idRefPu = PRefPu/UMeasPu | false: use PI regulator (default)";
-  parameter Boolean QControlFlag "true: bypass Q PI, use i_q_ref = U_ref/UMeasPu | false: use PI regulator (default)";
 
 
   // ───────────────── PLL parameters ─────────────────────────────
@@ -107,14 +102,12 @@ model GFLControl_noplant
  idRef0Pu = idRef0Pu, id_meas_0 = IdConv0Pu, iqRef0Pu = iqRef0Pu, iq_meas_0 = IqConv0Pu, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0,  Kfd = Kfd, Kfq = Kfq) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
-  Electrical.Controls.PEIR.BaseControls.Average.OuterLoop_no_plant OuterLoop_GFL(
+  Electrical.Controls.PEIR.BaseControls.Average.OuterLoopUControl OuterLoop_GFL(
     Kpd           = KpdOuter,
     Kid           = KidOuter,
     Kpq           = KpqOuter,
     Kiq           = KiqOuter,
     IMaxPu            = IMaxPu,
-    y_start_outer_d = idRef0Pu,
-    y_start_outer_q = iqRef0Pu,
     PQFlag          = PQFlag,
     UBoostHighPu    = UBoostHighPu,
     UBoostLowPu    = UBoostLowPu,
@@ -122,7 +115,7 @@ model GFLControl_noplant
     IqBoostMaxPu      = IqBoostMaxPu,
     IqBoostMinPu      = IqBoostMinPu,
 
-     PInj0Pu = PInj0Pu, QInj0Pu = QInj0Pu, UFilter0Pu = U_LV0, idRef0Pu = idRef0Pu, iqRef0Pu = iqRef0Pu, DyMaxd = DyMaxd, DyMaxq = DyMaxq, DidMax = DidMax, DidMin = DidMin, tSid = tSid, tBoost = tBoost, PControlFlag = PControlFlag, QControlFlag = QControlFlag) annotation(
+     PInj0Pu = PInj0Pu, QInj0Pu = QInj0Pu, UFilter0Pu = U_LV0, Id0Pu = idRef0Pu, Iq0Pu = iqRef0Pu,  DidMax = DidMax, DidMin = DidMin, tSid = tSid, tBoost = tBoost, PControlFlag = PControlFlag) annotation(
     Placement(transformation(origin = {-200, 56}, extent = {{-36, -36}, {36, 36}})));
 
  Dynawo.Electrical.Controls.PEIR.BaseControls.Average.PLL PLL(
@@ -226,17 +219,17 @@ equation
     Line(points = {{14, 72}, {14, 70}, {46, 70}}, color = {0, 0, 127}));
   connect(OuterLoop_GFL.idRefPu, CurrentLoop_GFL.idRefPu) annotation(
     Line(points = {{-159.5, 67}, {-159.5, 62}, {46, 62}, {46, 63}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.i_q_ref, CurrentLoop_GFL.i_q_ref) annotation(
+  connect(OuterLoop_GFL.iqRefPu, CurrentLoop_GFL.i_q_ref) annotation(
     Line(points = {{-159.5, 52}, {46, 52}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.UMeasPu, UMeasPu.y) annotation(
+  connect(OuterLoop_GFL.ULVPu, UMeasPu.y) annotation(
     Line(points = {{-217, 95}, {-217, 100.5}, {-259, 100.5}, {-259, 102}}, color = {0, 0, 127}));
   connect(omegaRefPu, PLL.omegaRefPu) annotation(
     Line(points = {{-270, -60}, {-10, -60}}, color = {0, 0, 127}));
-  connect(OuterLoop_GFL.U_ref, U_ref) annotation(
+  connect(OuterLoop_GFL.URefPu, U_ref) annotation(
     Line(points = {{-238, 46}, {-270, 46}}, color = {0, 0, 127}));
   connect(PRefPu, OuterLoop_GFL.PRefPu) annotation(
     Line(points = {{-270, 66}, {-238, 66}}, color = {0, 0, 127}));
-  connect(PMeasPu, OuterLoop_GFL.PMeasPu) annotation(
+  connect(PMeasPu, OuterLoop_GFL.PLVPu) annotation(
     Line(points = {{-270, 84}, {-238, 84}}, color = {0, 0, 127}));
   connect(V_q_grid, PLL.uqgridPu) annotation(
     Line(points = {{-270, -78}, {-10, -78}}, color = {0, 0, 127}));
@@ -244,7 +237,7 @@ equation
     Line(points = {{80, 78}, {80, 128}, {81, 128}, {81, 131}}, color = {0, 0, 127}));
   connect(omegaPLLPu_2, PLL.omegaPLLPu) annotation(
     Line(points = {{110, -60}, {40, -60}}, color = {0, 0, 127}));
- connect(U_ref, OuterLoop_GFL.U_ref) annotation(
+ connect(U_ref, OuterLoop_GFL.URefPu) annotation(
     Line(points = {{-270, 46}, {-238, 46}}, color = {0, 0, 127}));
   annotation(
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),

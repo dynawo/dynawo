@@ -1,6 +1,6 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.Average;
 
-model OuterLoop "Outer loop controller for a Grid-Following (GFL) converter"
+model OuterLoopQControl "Outer loop controller for a Grid-Following (GFL) converter"
 
   // Parameters
   parameter Types.PerUnit DidMax "Max rate of change of idRefPu in pu/s";
@@ -60,7 +60,7 @@ model OuterLoop "Outer loop controller for a Grid-Following (GFL) converter"
   Modelica.Blocks.Math.Division division annotation(
     Placement(transformation(origin = {-70, -100}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch1 annotation(
-    Placement(transformation(origin = {32, 60}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {30, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(transformation(origin = {30, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = PControlFlag) annotation(
@@ -93,15 +93,15 @@ equation
   connect(division.u2, ULVPu) annotation(
     Line(points = {{-82, -106}, {-120, -106}, {-120, 0}, {-240, 0}}, color = {230, 97, 0}, thickness = 0.75));
   connect(booleanConstant.y, switch1.u2) annotation(
-    Line(points = {{1, 60}, {20, 60}}, color = {255, 0, 255}));
+    Line(points = {{1, 60}, {18, 60}}, color = {255, 0, 255}));
   connect(division1.y, switch1.u1) annotation(
-    Line(points = {{-59, 40}, {8.5, 40}, {8.5, 68}, {20, 68}}, color = {230, 97, 0}, thickness = 0.75));
+    Line(points = {{-59, 40}, {8.5, 40}, {8.5, 68}, {18, 68}}, color = {230, 97, 0}, thickness = 0.75));
   connect(booleanConstant1.y, switch2.u2) annotation(
     Line(points = {{1, -60}, {18, -60}}, color = {255, 0, 255}));
   connect(division.y, switch2.u1) annotation(
     Line(points = {{-59, -100}, {11, -100}, {11, -52}, {17, -52}}, color = {230, 97, 0}, thickness = 0.75));
   connect(switch1.y, current_limiter_outer_loop.idRawPu) annotation(
-    Line(points = {{43, 60}, {60.5, 60}, {60.5, 16}, {76, 16}}, color = {0, 0, 127}));
+    Line(points = {{41, 60}, {60.5, 60}, {60.5, 16}, {76, 16}}, color = {0, 0, 127}));
   connect(current_limiter_outer_loop.idLimPu, rampLimiter.u) annotation(
     Line(points = {{164, 16}, {178, 16}}, color = {0, 0, 127}));
   connect(rampLimiter.y, idRefPu) annotation(
@@ -127,11 +127,12 @@ equation
   connect(sum_node_p.y, pIAntiWindupVariableLimitsd.u) annotation(
     Line(points = {{-89, 80}, {-62, 80}}, color = {46, 194, 126}, thickness = 0.75));
   connect(pIAntiWindupVariableLimitsd.y, switch1.u3) annotation(
-    Line(points = {{-38, 80}, {12, 80}, {12, 52}, {20, 52}}, color = {46, 194, 126}, thickness = 0.75));
+    Line(points = {{-38, 80}, {12, 80}, {12, 52}, {18, 52}}, color = {46, 194, 126}, thickness = 0.75));
   connect(switch2.y, current_limiter_outer_loop.iqRawPu) annotation(
     Line(points = {{42, -60}, {60, -60}, {60, -16}, {76, -16}}, color = {0, 0, 127}));
   connect(ULVPu, current_limiter_outer_loop.ULVPu) annotation(
     Line(points = {{-240, 0}, {76, 0}}, color = {0, 0, 127}));
+
   annotation(
     uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-220, -200}, {220, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "PI / Direct switchable")}),
@@ -170,4 +171,4 @@ equation
 
 <pre style=\"margin-top: 0px; margin-bottom: 0px;\"><!--StartFragment--><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#009600;\">// ── Output ramp limiter on idRefPu ────────────────────────────</span><!--EndFragment--></pre><pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#009600;\"><br></span></pre><pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#009600;\"><br></span></pre><pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#009600;\"><br></span></pre></pre></pre><pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#009600;\"><br></span></pre><pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#009600;\"><br></span></pre><pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\" font-family:'DejaVu Sans Mono'; font-size:11pt; color:#009600;\"><br></span></pre></pre>
     </body></html>"));
-end OuterLoop;
+end OuterLoopQControl;

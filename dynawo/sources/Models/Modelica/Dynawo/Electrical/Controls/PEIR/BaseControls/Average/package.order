@@ -1,5 +1,5 @@
-OuterLoop_no_plant
-OuterLoop
 CurrentLimiterReactiveBoost
 CurrentLoop
 PLL
+OuterLoopUControl
+OuterLoopQControl
