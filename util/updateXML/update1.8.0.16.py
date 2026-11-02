@@ -19,7 +19,7 @@ def update(jobs):
     weccs = jobs.dyds.get_bbms(lambda bbm: "Wecc" in bbm.get_lib_name())
     for wecc in weccs:
         wecc.parset.add_param("STRING", "lhvrt_TablesFile", "LHVRT.txt")
-        wecc.parset.add_param("BOOL", "lhvrt_TablesOnFile", true)
+        wecc.parset.add_param("BOOL", "lhvrt_TablesOnFile", True)
         wecc.parset.add_param("STRING", "lhvrt_TabletUoverUfilt", "hvrt")
         wecc.parset.add_param("STRING", "lhvrt_TabletUunderUfilt", "lvrt")
         wecc.parset.add_param("DOUBLE", "lhvrt_tLagAction", 0.05)

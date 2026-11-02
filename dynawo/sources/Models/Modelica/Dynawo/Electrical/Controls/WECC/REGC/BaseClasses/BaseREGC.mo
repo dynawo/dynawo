@@ -99,6 +99,7 @@ equation
     Line(points = {{-169, 40}, {-140, 40}, {-140, 60}, {-120, 60}}, color = {255, 0, 255}));
   connect(offDelay.y, and1.u[2]) annotation(
     Line(points = {{-168, 80}, {-140, 80}, {-140, 140}, {-120, 140}}, color = {255, 0, 255}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html>
