@@ -1842,7 +1842,7 @@ class Factory:
         nb_zero_crossing = 0;
         for line in filtered_func :
             self.list_for_setgequations.append(line)
-            if "  static const char *res[] = {" != line and "  };" != line.rstrip():
+            if "static const char *res[] = {" != line.strip() and "};" != line.strip():
                 nb_zero_crossing +=1
         for i in range(nb_zero_crossing):
             value = "res[" + str(i) + "]"
