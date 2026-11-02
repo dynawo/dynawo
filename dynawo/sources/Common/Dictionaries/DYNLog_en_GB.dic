@@ -168,7 +168,8 @@ NotInstancedModel             =             one of the two models has not been i
 ModeChange                    =             %1% for model %2% at t = %3%
 ModeChangeGeneric             =             %1% at t = %2%
 SubModelExtVar                =             subModel : %1%  Var -%2%- is external and not connected
-KeepSubNetwork                =             keep SubNetworks num : %1%
+KeepSubNetworkLargest         =             keep largest SubNetwork, num : %1%
+KeepSubNetworkRequested       =             keep SubNetwork containing bus %1%, num : %2%
 CurveInit                     =             starting curve initialization
 CurveInitEnd                  =             end of curve initialization, added %1% curves
 AddingCurve                   =             adding curve : Id: %1%; curve: %2% found. (exact name)
