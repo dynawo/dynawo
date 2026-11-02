@@ -16,9 +16,9 @@ model GFLControl_noplant
   parameter Real QInj0Pu "Initial reactive power at converter (pu, generator convention)";
   parameter Real PInj0Pu "Initial active power at converter (pu, generator convention)";
   parameter Real idRef0Pu     "Initial d-axis current reference (pu)";
-  parameter Real id_conv_0    "Initial d-axis measured current (pu)";
+  parameter Real IdConv0Pu    "Initial d-axis measured current (pu)";
   parameter Real iqRef0Pu     "Initial q-axis current reference (pu)";
-  parameter Real iq_conv_0    "Initial q-axis measured current (pu)";
+  parameter Real IqConv0Pu    "Initial q-axis measured current (pu)";
     // Outer loop — PI output slew-rate limits
   parameter Real DyMaxd  "Max rate of change of d-axis PI output (pu/s)";
   parameter Real DyMaxq  "Max rate of change of q-axis PI output (pu/s)";
@@ -32,8 +32,8 @@ model GFLControl_noplant
  parameter Real tBoost
     "Time constant of first-order filter on iqBoostPu (s). Set 0 to disable";
 
-    parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
-    parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
+    parameter Real Kfd "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
+    parameter Real Kfq "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
 
 
   // ────────────────────────────────────────────────────────────
@@ -41,12 +41,12 @@ model GFLControl_noplant
   // ────────────────────────────────────────────────────────────
 
   // Current loop
-  parameter Real k_p_d_current "Current Loop Proportional gain PI d axis";
-  parameter Real k_i_d_current "Current Loop integral gain PI d axis";
-  parameter Real k_p_q_current "Current Loop Proportional gain PI q axis";
-  parameter Real k_i_q_current "Current Loop integral gain PI q axis";
-  parameter Real L_g "Grid equivaent inductance (pu)";
-  parameter Real R_g "Grid equivaent resistance (pu)";
+  parameter Real KpdCurrent "Current Loop Proportional gain PI d axis";
+  parameter Real KidCurrent "Current Loop integral gain PI d axis";
+  parameter Real KpqCurrent "Current Loop Proportional gain PI q axis";
+  parameter Real KiqCurrent "Current Loop integral gain PI q axis";
+  parameter Real Lg "Grid equivaent inductance (pu)";
+  parameter Real Rg "Grid equivaent resistance (pu)";
 
 
   parameter Real vd_0         "Initial d-axis converter voltage (pu)";
@@ -99,12 +99,12 @@ model GFLControl_noplant
   // ────────────────────────────────────────────────────────────
 
  Electrical.Controls.PEIR.BaseControls.Average.CurrentLoop CurrentLoop_GFL(
-    k_p_d             = k_p_d_current,
-    k_i_d             = k_i_d_current,
-    k_p_q             = k_p_q_current,
-    k_i_q             = k_i_q_current,
-    L_g               = L_g,
- idRef0Pu = idRef0Pu, id_meas_0 = id_conv_0, iqRef0Pu = iqRef0Pu, iq_meas_0 = iq_conv_0, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0,  voltagefeedforwardflag_d = voltagefeedforwardflag_d, voltagefeedforwardflag_q = voltagefeedforwardflag_q) annotation(
+    k_p_d             = KpdCurrent,
+    k_i_d             = KidCurrent,
+    k_p_q             = KpqCurrent,
+    k_i_q             = KiqCurrent,
+    Lg               = Lg,
+ idRef0Pu = idRef0Pu, id_meas_0 = IdConv0Pu, iqRef0Pu = iqRef0Pu, iq_meas_0 = IqConv0Pu, vd_0 = vd_0, vq_0 = vq_0, Omega0Pu = Omega0Pu, vmd_0 = vmd_0, vmq_0 = vmq_0,  Kfd = Kfd, Kfq = Kfq) annotation(
     Placement(transformation(origin = {68, 56}, extent = {{-20, -20}, {20, 20}})));
 
   Electrical.Controls.PEIR.BaseControls.Average.OuterLoop_no_plant OuterLoop_GFL(
@@ -153,11 +153,11 @@ model GFLControl_noplant
     Placement(transformation(origin = {59, 129}, extent = {{-9, -9}, {9, 9}}, rotation = -90),
     iconTransformation(origin = {72, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  Modelica.Blocks.Interfaces.RealInput i_d_meas (start=id_conv_0) annotation(
+  Modelica.Blocks.Interfaces.RealInput i_d_meas (start=IdConv0Pu) annotation(
     Placement(transformation(origin = {14, 72}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  Modelica.Blocks.Interfaces.RealInput i_q_meas (start=iq_conv_0) annotation(
+  Modelica.Blocks.Interfaces.RealInput i_q_meas (start=IqConv0Pu) annotation(
     Placement(transformation(origin = {12, 30}, extent = {{-10, -10}, {10, 10}}),
     iconTransformation(origin = {-8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu (start=PInj0Pu) annotation(

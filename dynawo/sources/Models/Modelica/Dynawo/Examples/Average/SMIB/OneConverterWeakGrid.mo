@@ -11,7 +11,7 @@ model OneConverterWeakGrid
   RPuLV = 0.0005, LPuLV = 0.008,  // ── HV transformer (LV node → PCC) ───────────────────────
   RPuHV = 0.0002, LPuHV = 0.005,  // ── Measurement filter ────────────────────────────────────
   KFilter = 1, tFilter = 1e-2,  // ── Inner current loop — ω_c = 2000 rad/s ────────────────
-  k_p_d_current = 100.0, k_i_d_current = 200000.0, k_p_q_current = 100.0, k_i_q_current = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
+  KpdCurrent = 100.0, KidCurrent = 200000.0, KpqCurrent = 100.0, KiqCurrent = 200000.0,  // ── Outer loop — ω_c = 200 rad/s ─────────────────────────
   KpdOuter = 0.1, KidOuter = 20.0, KpqOuter = 0.01, KiqOuter = 20.0,  // ── Current limiter ───────────────────────────────────────
   UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2, IMaxPu = 1.2, PQFlag = false, IqBoostMaxPu = 0.5, IqBoostMinPu = -0.5,  // ── Plant controller — ω_c = 2 rad/s ─────────────────────
   Kpq = 0.1, Kiq = 1.0, Kpp = 0.8, Kip = 5.0, LambdaPu= 0.417, KDroop = 15, QMaxPu = 0.5, QMinPu = -0.5, PMaxPu = 2, PMinPu = 0, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001,  // ── PLL — ω_c = 20 rad/s (weak-grid tuning) ──────────────
@@ -19,7 +19,7 @@ model OneConverterWeakGrid
   OmegaMinPu = 0.5,  // ── Rate limiters and delays ──────────────────────────────
   //DyMaxd = 10000.0, DyMaxq = 100000.0,
   DidMax = 10.0, DidMin = -10.0, tSid = 1e-4, tPlant = 1e-3,  // ── Voltage feedforward ───────────────────────────────────
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
+  Kfd = 1, Kfq = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
   Modelica.Blocks.Sources.Constant omegaRef(k = 1.0) annotation(
     Placement(transformation(origin = {-66, -30}, extent = {{-10, -10}, {10, 10}})));

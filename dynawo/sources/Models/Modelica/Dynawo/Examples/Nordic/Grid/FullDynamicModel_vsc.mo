@@ -142,8 +142,8 @@ Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   RPuLV = 1e-5, LPuLV = 1e-5, RPuHV = 1e-5, LPuHV = 1e-5,
   KFilter = 1, tFilter = 0.0033,
   // NB: guadagni presi come placeholder (stile HVDC1, SNom simile 200-1200 MVA range) — DA VALIDARE
-  k_p_d_current = 0.5730, k_i_d_current = 6,
-  k_p_q_current = 0.5730, k_i_q_current = 6,
+  KpdCurrent = 0.5730, KidCurrent = 6,
+  KpqCurrent = 0.5730, KiqCurrent = 6,
   KpdOuter = 0.0333, KidOuter = 10,
   KpqOuter = 0.1667, KiqOuter = 50,
   UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2,
@@ -158,7 +158,7 @@ Dynawo.Electrical.PEIR.Plants.Average.GFLmodel gFL_SG7(
   DyMaxd = 5, DyMaxq = 5, DidMax = 10, DidMin = -999,
   tSid = 1e-4,
   tPlant = 0.01,
-  voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false)
+  Kfd = 1, Kfq = 1, tBoost = 1e-3, PControlFlag = false, QControlFlag = false)
   annotation(Placement(transformation(origin = {-53, -39}, extent = {{-3, -3}, {3, 3}})));
   GeneratorWithControl.GeneratorSynchronousThreeWindingsWithControl g08(P0Pu = P0Pu_g08, Q0Pu = Q0Pu_g08, U0Pu = U0Pu_g08, UPhase0 = UPhase0_g08, gen = GeneratorWithControl.GeneratorParameters.genFramePreset.g08) annotation(
     Placement(visible = true, transformation(origin = {-77, 0}, extent = {{-3, -3}, {3, 3}}, rotation = 0)));

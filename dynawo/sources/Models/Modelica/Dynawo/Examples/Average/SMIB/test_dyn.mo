@@ -33,14 +33,14 @@ model test_dyn
     tFilter = 1e-4,
 
     // ── Inner current loop ────────────────────────────────────
-    // L_g = LfPu + LPuLV = 0.009 pu
+    // Lg = LfPu + LPuLV = 0.009 pu
     // omega_cc = 300 rad/s
-    // k_p = omega_cc * L_g = 2.7
+    // k_p = omega_cc * Lg = 2.7
     // k_i = (omega_cc/10) * k_p = 81
-    k_p_d_current = 2.7,
-    k_i_d_current = 81.0,
-    k_p_q_current = 2.7,
-    k_i_q_current = 81.0,
+    KpdCurrent = 2.7,
+    KidCurrent = 81.0,
+    KpqCurrent = 2.7,
+    KiqCurrent = 81.0,
 
     // ── Outer loop ────────────────────────────────────────────
     // omega_out = 30 rad/s (10x below current loop)
@@ -93,7 +93,7 @@ model test_dyn
     tPlant = 1e-3,
 
     // ── Voltage feedforward ───────────────────────────────────
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, tBoost=1e-5, PControlFlag = false, QControlFlag = false) annotation(
+    Kfd = 1, Kfq = 1, tBoost=1e-5, PControlFlag = false, QControlFlag = false) annotation(
     Placement(transformation(origin = {42, 8}, extent = {{-28, -28}, {28, 28}})));
 
   Modelica.Blocks.Sources.Constant URef(k = 1.0047) annotation(
@@ -140,7 +140,7 @@ equation
 <pre>
 Tuning strategy (bandwidth separation):
   - Inner current loop : omega_cc  = 300 rad/s  (~48 Hz)
-      k_p = omega_cc * L_g = 300 * 0.009 = 2.7
+      k_p = omega_cc * Lg = 300 * 0.009 = 2.7
       k_i = (omega_cc/10) * k_p = 30 * 2.7 = 81
 
   - Outer loop         : omega_out =  30 rad/s  (~5 Hz)

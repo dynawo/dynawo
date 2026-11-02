@@ -54,10 +54,10 @@ model GFLmodel
   // ────────────────────────────────────────────────────────────
   // Inner  current controllers (converter control)
   // ────────────────────────────────────────────────────────────
-  parameter Real k_p_d_current "Inner current loop PI: proportional gain on d-axis";
-  parameter Real k_i_d_current "Inner current loop PI: integral gain on d-axis";
-  parameter Real k_p_q_current "Inner current loop PI: proportional gain on q-axis";
-  parameter Real k_i_q_current "Inner current loop PI: integral gain on q-axis";
+  parameter Real KpdCurrent "Inner current loop PI: proportional gain on d-axis";
+  parameter Real KidCurrent "Inner current loop PI: integral gain on d-axis";
+  parameter Real KpqCurrent "Inner current loop PI: proportional gain on q-axis";
+  parameter Real KiqCurrent "Inner current loop PI: integral gain on q-axis";
   // ────────────────────────────────────────────────────────────
   // Outer P/Q loop control loops (converter control)
   // ────────────────────────────────────────────────────────────
@@ -108,8 +108,8 @@ model GFLmodel
   parameter Real DidMin "Minimum rate of change of idRefPu (pu/s)";
   parameter Real tSid "Sample/update time of idRefPu ramp limiter (s)";
   parameter Real tPlant "Time delay between plant controller output and outer loop (s)";
-  parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
-  parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real Kfd "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real Kfq "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
   // ─────────────────────────────────────────────────────────────────────────
   // Derived initial conditions (computed from the parameters above)
   // ─────────────────────────────────────────────────────────────────────────
@@ -140,12 +140,12 @@ model GFLmodel
   final parameter Real QInj0Pu = Q0Pu + LPuHV*(IrPcc0Pu^2 + IiPcc0Pu^2) "Intial reactive power in pu in gnerator convenction";
   final parameter Real PInj0Pu = P0Pu + RPuHV*(IrPcc0Pu^2 + IiPcc0Pu^2) "Intial reactive power in pu in gnerator convenction";
   // Equivalent grid impedance seen from the LV node
-  final parameter Real L_g = LfPu + LPuLV "grid inductance (pu)";
-  final parameter Real R_g = RfPu + RPuLV "grid resistance (pu)";
+  final parameter Real Lg = LfPu + LPuLV "grid inductance (pu)";
+  final parameter Real Rg = RfPu + RPuLV "grid resistance (pu)";
   // Impedance of the full series path: LV + HV transformer stages combine
   final parameter Complex Z_f = Complex(RPuHV + RPuLV, Omega0Pu*(LPuHV + LPuLV));
   // Total grid impedance seen from the converter AC terminals
-  final parameter Complex Z_g = Complex(R_g + RPuHV, Omega0Pu*(L_g + LPuHV));
+  final parameter Complex Z_g = Complex(Rg + RPuHV, Omega0Pu*(Lg + LPuHV));
   // HV transformer impedance alone (used to locate the internal LV bus)
   final parameter Complex Z_HV = Complex(RPuHV, Omega0Pu*LPuHV);
   // Converter terminal voltage phasor
@@ -181,19 +181,19 @@ model GFLmodel
     QInj0Pu = QInj0Pu,
     PInj0Pu = PInj0Pu,
     idRef0Pu = Id_conv_0,
-    id_conv_0 = Id_conv_0,
+    IdConv0Pu = Id_conv_0,
     iqRef0Pu = Iq_conv_0,
-    iq_conv_0 = Iq_conv_0,
+    IqConv0Pu = Iq_conv_0,
     DidMax = DidMax,
     DidMin = DidMin,
     tSid = tSid,
     tPlant = tPlant,
-    k_p_d_current = k_p_d_current,
-    k_i_d_current = k_i_d_current,
-    k_p_q_current = k_p_q_current,
-    k_i_q_current = k_i_q_current,
-    L_g = L_g,
-    R_g = R_g,
+    KpdCurrent = KpdCurrent,
+    KidCurrent = KidCurrent,
+    KpqCurrent = KpqCurrent,
+    KiqCurrent = KiqCurrent,
+    Lg = Lg,
+    Rg = Rg,
     vd_0 = Ud0Pu,
     vq_0 = Uq0Pu,
     vmd_0 = Ud0Pu,
@@ -217,8 +217,8 @@ model GFLmodel
     vm0 = uconv0Pu_init,
     U_LV0 = sqrt(uLV0Pu_init.re^2 + uLV0Pu_init.im^2),
     Uq0Pu = V_q_g_0,
-    voltagefeedforwardflag_d = voltagefeedforwardflag_d,
-    voltagefeedforwardflag_q = voltagefeedforwardflag_q,
+    Kfd = Kfd,
+    Kfq = Kfq,
     tBoost = tBoost,
     PControlFlag = PControlFlag,
     QControlFlag = QControlFlag) annotation(

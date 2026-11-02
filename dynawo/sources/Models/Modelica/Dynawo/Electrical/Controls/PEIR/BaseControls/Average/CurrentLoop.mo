@@ -65,7 +65,7 @@ model CurrentLoop
   Dynawo.NonElectrical.Blocks.Continuous.PI pi_controller_d(Kp = k_p_d, Ki = k_i_d, Y0 = y_start_current_d) annotation(
     Placement(transformation(origin = {-14, 88}, extent = {{-10, -10}, {10, 10}})));
   // vm_d = ff·v_d + PI_d − ω·Lg·iq_meas  (k1=ff, k2=PI, k3=-decoupling)
-  Modelica.Blocks.Math.Add3 add_d(k3 = -1, k1 = voltagefeedforwardflag_d) annotation(
+  Modelica.Blocks.Math.Add3 add_d(k3 = -1, k1 = Kfd) annotation(
     Placement(transformation(origin = {72, 56}, extent = {{-10, -10}, {10, 10}})));
   // ── Q-axis: error node + PI + output sum ──────────────────────
   Modelica.Blocks.Math.Feedback sum_node_iq annotation(
@@ -73,11 +73,11 @@ model CurrentLoop
   Dynawo.NonElectrical.Blocks.Continuous.PI pi_controller_iq(Kp = k_p_q, Ki = k_i_q, Y0 = y_start_current_q) annotation(
     Placement(transformation(origin = {-26, -60}, extent = {{-10, -10}, {10, 10}})));
   // vm_q = decoupling + PI_q + ff·v_q  (k1=+1, k2=PI, k3=ff)
-  Modelica.Blocks.Math.Add3 add_q(k1 = 1, k2 = +1, k3 = voltagefeedforwardflag_q) annotation(
+  Modelica.Blocks.Math.Add3 add_q(k1 = 1, k2 = +1, k3 = Kfq) annotation(
     Placement(transformation(origin = {18, -60}, extent = {{-10, -10}, {10, 10}})));
   // ── Cross-coupling decoupling ─────────────────────────────────
   // ω·Lg computed once, split to both product blocks
-  Modelica.Blocks.Math.Gain L(k = L_g) annotation(
+  Modelica.Blocks.Math.Gain L(k = Lg) annotation(
     Placement(transformation(origin = {-52, 0}, extent = {{-10, -10}, {10, 10}})));
   // d-axis: ω·Lg × iq_meas → subtracted from vm_d (dashed yellow in diagram)
   Modelica.Blocks.Math.Product product_d annotation(
@@ -93,10 +93,10 @@ model CurrentLoop
   parameter Real k_p_q "Proportional gain of q-axis current PI (pu)";
   parameter Real k_i_q "Integral gain of q-axis current PI (pu/s)";
   // Grid inductance for cross-coupling decoupling
-  parameter Real L_g "Grid inductance seen by the converter (pu)";
+  parameter Real Lg "Grid inductance seen by the converter (pu)";
   // Voltage feed-forward
-  parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
-  parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real Kfd "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real Kfq "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
   // Initial conditions
   parameter Real idRef0Pu "Initial d-axis current reference (pu)";
   parameter Real id_meas_0 "Initial d-axis measured current (pu)";
@@ -109,8 +109,8 @@ model CurrentLoop
   parameter Real vmq_0 "Initial q-axis modulation voltage reference (pu)";
   // ── PI initial outputs (bumpless start) ──────────────────────
   // Derived analytically from steady-state voltage equations
-  final parameter Real y_start_current_d = vmd_0 - voltagefeedforwardflag_d*vd_0 + Omega0Pu*L_g*iq_meas_0;
-  final parameter Real y_start_current_q = vmq_0 - Omega0Pu*L_g*id_meas_0 - voltagefeedforwardflag_q*vq_0;
+  final parameter Real y_start_current_d = vmd_0 - Kfd*vd_0 + Omega0Pu*Lg*iq_meas_0;
+  final parameter Real y_start_current_q = vmq_0 - Omega0Pu*Lg*id_meas_0 - Kfq*vq_0;
 equation
 // ── Connections
   connect(idRefPu, sum_node_id.u1) annotation(

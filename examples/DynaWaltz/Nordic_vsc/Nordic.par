@@ -1061,10 +1061,10 @@
     <par type="DOUBLE" name="GFL_KFilter" value="1"/>
     <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
-    <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
-    <par type="DOUBLE" name="GFL_k_p_q_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_q_current" value="6"/>
+    <par type="DOUBLE" name="GFL_KpdCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KidCurrent" value="6"/>
+    <par type="DOUBLE" name="GFL_KpqCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KiqCurrent" value="6"/>
 
     <par type="DOUBLE" name="GFL_KpdOuter" value="0.0333"/>
     <par type="DOUBLE" name="GFL_KidOuter" value="10"/>
@@ -1108,8 +1108,8 @@
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
 
     <par type="DOUBLE" name="GFL_tPlant"         value="0.01"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="0"/>
+    <par type="DOUBLE" name="GFL_Kfd" value="1"/>
+    <par type="DOUBLE" name="GFL_Kfq" value="0"/>
 
     <par type="DOUBLE" name="GFL_tBoost" value="1e-3"/>
   </set>
@@ -1135,10 +1135,10 @@
     <par type="DOUBLE" name="GFL_KFilter" value="1"/>
     <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
-    <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
-    <par type="DOUBLE" name="GFL_k_p_q_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_q_current" value="6"/>
+    <par type="DOUBLE" name="GFL_KpdCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KidCurrent" value="6"/>
+    <par type="DOUBLE" name="GFL_KpqCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KiqCurrent" value="6"/>
 
     <par type="DOUBLE" name="GFL_KpdOuter" value="0.0333"/>
     <par type="DOUBLE" name="GFL_KidOuter" value="10"/>
@@ -1182,8 +1182,8 @@
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
 
     <par type="DOUBLE" name="GFL_tPlant"         value="0.01"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="0"/>
+    <par type="DOUBLE" name="GFL_Kfd" value="1"/>
+    <par type="DOUBLE" name="GFL_Kfq" value="0"/>
 
     <par type="DOUBLE" name="GFL_tBoost" value="1e-3"/>
   </set>
@@ -1209,10 +1209,10 @@
     <par type="DOUBLE" name="GFL_KFilter" value="1"/>
     <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
-    <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
-    <par type="DOUBLE" name="GFL_k_p_q_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_q_current" value="6"/>
+    <par type="DOUBLE" name="GFL_KpdCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KidCurrent" value="6"/>
+    <par type="DOUBLE" name="GFL_KpqCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KiqCurrent" value="6"/>
 
     <par type="DOUBLE" name="GFL_KpdOuter" value="0.0333"/>
     <par type="DOUBLE" name="GFL_KidOuter" value="10"/>
@@ -1256,8 +1256,8 @@
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
 
     <par type="DOUBLE" name="GFL_tPlant"         value="0.01"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="0"/>
+    <par type="DOUBLE" name="GFL_Kfd" value="1"/>
+    <par type="DOUBLE" name="GFL_Kfq" value="0"/>
 
     <par type="DOUBLE" name="GFL_tBoost" value="1e-3"/>
   </set>
@@ -1282,10 +1282,10 @@
     <par type="DOUBLE" name="GFL_KFilter" value="1"/>
     <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
-    <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
-    <par type="DOUBLE" name="GFL_k_p_q_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_q_current" value="6"/>
+    <par type="DOUBLE" name="GFL_KpdCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KidCurrent" value="6"/>
+    <par type="DOUBLE" name="GFL_KpqCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KiqCurrent" value="6"/>
 
     <par type="DOUBLE" name="GFL_KpdOuter" value="0.0333"/>
     <par type="DOUBLE" name="GFL_KidOuter" value="10"/>
@@ -1329,8 +1329,8 @@
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
 
     <par type="DOUBLE" name="GFL_tPlant"         value="0.01"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="0"/>
+    <par type="DOUBLE" name="GFL_Kfd" value="1"/>
+    <par type="DOUBLE" name="GFL_Kfq" value="0"/>
 
     <par type="DOUBLE" name="GFL_tBoost" value="1e-3"/>
   </set>
@@ -1356,10 +1356,10 @@
     <par type="DOUBLE" name="GFL_KFilter" value="1"/>
     <par type="DOUBLE" name="GFL_tFilter" value="0.0033"/>
 
-    <par type="DOUBLE" name="GFL_k_p_d_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_d_current" value="6"/>
-    <par type="DOUBLE" name="GFL_k_p_q_current" value="0.5730"/>
-    <par type="DOUBLE" name="GFL_k_i_q_current" value="6"/>
+    <par type="DOUBLE" name="GFL_KpdCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KidCurrent" value="6"/>
+    <par type="DOUBLE" name="GFL_KpqCurrent" value="0.5730"/>
+    <par type="DOUBLE" name="GFL_KiqCurrent" value="6"/>
 
     <par type="DOUBLE" name="GFL_KpdOuter" value="0.0333"/>
     <par type="DOUBLE" name="GFL_KidOuter" value="10"/>
@@ -1403,8 +1403,8 @@
     <par type="DOUBLE" name="GFL_tSid"    value="1e-4"/>
 
     <par type="DOUBLE" name="GFL_tPlant"         value="0.01"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_d" value="1"/>
-    <par type="DOUBLE" name="GFL_voltagefeedforwardflag_q" value="0"/>
+    <par type="DOUBLE" name="GFL_Kfd" value="1"/>
+    <par type="DOUBLE" name="GFL_Kfq" value="0"/>
 
     <par type="DOUBLE" name="GFL_tBoost" value="1e-3"/>
   </set>

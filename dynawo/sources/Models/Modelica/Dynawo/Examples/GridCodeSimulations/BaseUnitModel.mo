@@ -72,8 +72,8 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     RPuLV = 0.001, LPuLV = 0.025,
     RPuHV = 0.001, LPuHV = 0.025,
     KFilter = 1, tFilter = tFilter,
-    k_p_d_current = kp_cc_1, k_i_d_current = ki_cc_1,
-    k_p_q_current = kp_cc_1, k_i_q_current = ki_cc_1,
+    KpdCurrent = kp_cc_1, KidCurrent = ki_cc_1,
+    KpqCurrent = kp_cc_1, KiqCurrent = ki_cc_1,
     KpdOuter = kp_outer_1, KidOuter = ki_outer_1,
     KpqOuter = kp_outer_1, KiqOuter = ki_outer_1,
     UBoostHighPu = 1.1, UBoostLowPu = 0.9, Kqv = 2,
@@ -93,7 +93,7 @@ Electrical.PEIR.Plants.Average.GFLmodel Unit (
     DidMax = 10.0,   DidMin = -10.0,
     tSid = 1e-4,
     tPlant = tPlant,
-    voltagefeedforwardflag_d = 1, voltagefeedforwardflag_q = 1, PControlFlag = false, QControlFlag = false)  annotation(
+    Kfd = 1, Kfq = 1, PControlFlag = false, QControlFlag = false)  annotation(
     Placement(transformation(origin = {9, 5}, extent = {{-31, -31}, {31, 31}})));
 equation
   Unit.switchOffSignal1=false;

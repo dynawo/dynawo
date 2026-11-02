@@ -23,14 +23,14 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
   parameter Types.Time tSid "Sample time of idRefPu ramp limiter in s";
 
   // Current loop
-  parameter Real k_p_d_current "Current Loop Proportional gain PI d axis";
-  parameter Real k_i_d_current "Current Loop integral gain PI d axis";
-  parameter Real k_p_q_current "Current Loop Proportional gain PI q axis";
-  parameter Real k_i_q_current "Current Loop integral gain PI q axis";
-  parameter Real L_g "Grid equivaent inductance (pu)";
-  parameter Real R_g "Grid equivaent resistance (pu)";
-  parameter Real voltagefeedforwardflag_d "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
-  parameter Real voltagefeedforwardflag_q "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real Kfd "1: apply v_d feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real Kfq "1: apply v_q feed-forward for faster disturbance rejection | 0: PI only";
+  parameter Real KpdCurrent "Current Loop Proportional gain PI d axis";
+  parameter Real KidCurrent "Current Loop integral gain PI d axis";
+  parameter Real KpqCurrent "Current Loop Proportional gain PI q axis";
+  parameter Real KiqCurrent "Current Loop integral gain PI q axis";
+  parameter Real Lg "Grid equivaent inductance (pu)";
+  parameter Real Rg "Grid equivaent resistance (pu)";
 
   // PLL parameters
   parameter Real KpPLL "PLL proportional gain";
@@ -41,15 +41,15 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
   parameter Real Uq0Pu "Initial q-axis voltage at PCC in control dq frame (pu)";
 
   Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops.DynCurrentLoop currentLoop(
-    Kfd = voltagefeedforwardflag_d,
-    Kfq = voltagefeedforwardflag_q,
-    Kpc = k_p_d_current,
-    Kic = k_i_d_current,
-    LFilterPu = L_g,
+    Kfd = Kfd,
+    Kfq = Kfq,
+    Kpc = KpdCurrent,
+    Kic = KidCurrent,
+    LFilterPu = Lg,
     UdFilter0Pu = vd_0,
     UqFilter0Pu = vq_0,
-    IdConv0Pu = id_conv_0,
-    IqConv0Pu = iq_conv_0,
+    IdConv0Pu = IdConv0Pu,
+    IqConv0Pu = IqConv0Pu,
     UdConv0Pu = vmd_0,
     UqConv0Pu = vmq_0,
     IdConvRef0Pu = idRef0Pu,
@@ -115,10 +115,10 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
   Modelica.Blocks.Interfaces.RealInput uqLVPu (start=vq_0) annotation(
     Placement(transformation(origin = {0, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
     iconTransformation(origin = {72, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput idConvPu (start=id_conv_0) annotation(
+  Modelica.Blocks.Interfaces.RealInput idConvPu (start=IdConv0Pu) annotation(
     Placement(transformation(origin = {40, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
     iconTransformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iqConvPu (start=iq_conv_0) annotation(
+  Modelica.Blocks.Interfaces.RealInput iqConvPu (start=IqConv0Pu) annotation(
     Placement(transformation(origin = {60, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
     iconTransformation(origin = {-8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput PRefPu (start=PInj0Pu) annotation(
@@ -149,9 +149,9 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
   parameter Real QInj0Pu "Initial reactive power at converter (pu, generator convention)";
   parameter Real PInj0Pu "Initial active power at converter (pu, generator convention)";
   parameter Real idRef0Pu "Initial d-axis current reference (pu)";
-  parameter Real id_conv_0 "Initial d-axis measured current (pu)";
+  parameter Real IdConv0Pu "Initial d-axis measured current (pu)";
   parameter Real iqRef0Pu "Initial q-axis current reference (pu)";
-  parameter Real iq_conv_0 "Initial q-axis measured current (pu)";
+  parameter Real IqConv0Pu "Initial q-axis measured current (pu)";
   parameter Real U_LV0 "Initial LV node voltage magnitude (pu)";
   parameter Real vd_0 "Initial d-axis converter voltage (pu)";
   parameter Real vq_0 "Initial q-axis converter voltage (pu)";
