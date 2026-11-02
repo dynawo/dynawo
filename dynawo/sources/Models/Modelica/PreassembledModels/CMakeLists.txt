@@ -26,13 +26,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   DERaAggregatedLVRT.xml
   DERaGenericLVRT.xml
   DiscreteIntegrator.xml
-  Derivative.xml
   DistanceProtectionLineFourZones.xml
   DistanceProtectionLineFourZonesWithBlinder.xml
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
-  DynLine.xml
   DynLineTest.xml
   DynGridFormingVirtualSynchronousMachine.xml
   DynGridFormingDroop.xml
@@ -234,7 +232,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhaseShifterBlockingI.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
-  PhasorGrid.xml
   PhotovoltaicsWeccCurrentSource.xml
   PhotovoltaicsWeccCurrentSourceNoPlantControl.xml
   PhotovoltaicsWeccVoltageSource1.xml
@@ -245,7 +242,6 @@ set(MODELICA_PREASSEMBLED_MODELS
   PhotovoltaicsWeccVoltageSource3NoPlantControl.xml
   PhotovoltaicsWeccVoltageSource4.xml
   PhotovoltaicsWeccVoltageSource4NoPlantControl.xml
-  PlantControl.xml
   PowerTransferHVDCEmulation.xml
   PIAntiWindUpTable.xml
   Ramp.xml

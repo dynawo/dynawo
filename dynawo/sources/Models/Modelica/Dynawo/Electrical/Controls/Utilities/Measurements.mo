@@ -1,8 +1,7 @@
 within Dynawo.Electrical.Controls.Utilities;
 
-model Measurements "This block measures the voltage, current, active power and reactive power in pu (base UNom, SnRef)"
   /*
-  * Copyright (c) 2022, RTE (http://www.rte-france.com)
+  * Copyright (c) 2026, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
   * All rights reserved.
   * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +11,9 @@ model Measurements "This block measures the voltage, current, active power and r
   *
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
+
+model Measurements "This block measures the voltage, current, active power and reactive power in pu (base UNom, SnRef)"
+
   /*
     Equivalent circuit and conventions:
 
@@ -19,6 +21,7 @@ model Measurements "This block measures the voltage, current, active power and r
      (terminal1) -->---------MEASUREMENTS------------ (terminal2)
 
   */
+
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
   Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

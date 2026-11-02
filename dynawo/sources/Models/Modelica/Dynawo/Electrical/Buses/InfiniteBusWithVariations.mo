@@ -16,23 +16,23 @@ model InfiniteBusWithVariations "Infinite bus with configurable variations on th
  extends AdditionalIcons.Bus;
 
   // Voltage and frequency parameters
-  parameter Types.PerUnit U0Pu = 1 "Infinite bus voltage module before and after event in pu (base UNom)";
-  parameter Types.PerUnit UEvtPu = 1 "Infinite bus voltage module during event in pu (base UNom)";
-  parameter Types.PerUnit omega0Pu = 1 "Infinite bus angular frequency before and after event in pu (base OmegaNom)";
-  parameter Types.PerUnit omegaEvtPu = 1 "Infinite bus angular frequency during event in pu (base OmegaNom)";
-  parameter Types.Angle UPhase = 0 "Infinite bus voltage angle before event in rad";
+  parameter Types.PerUnit U0Pu  "Infinite bus voltage module before and after event in pu (base UNom)";
+  parameter Types.PerUnit UEvtPu  "Infinite bus voltage module during event in pu (base UNom)";
+  parameter Types.PerUnit omega0Pu  "Infinite bus angular frequency before and after event in pu (base OmegaNom)";
+  parameter Types.PerUnit omegaEvtPu  "Infinite bus angular frequency during event in pu (base OmegaNom)";
+  parameter Types.Angle UPhase  "Infinite bus voltage angle before event in rad";
 
   // Voltage magnitude event timing
-  parameter Types.Time tUEvtStart = 0 "Start time of voltage event in s";
-  parameter Types.Time tUEvtEnd = 0 "Ending time of voltage event in s";
+  parameter Types.Time tUEvtStart "Start time of voltage event in s";
+  parameter Types.Time tUEvtEnd "Ending time of voltage event in s";
 
   // Frequency event timing
-  parameter Types.Time tOmegaEvtStart = 0 "Start time of frequency event in s";
-  parameter Types.Time tOmegaEvtEnd = 0 "Ending time of frequency event in s";
+  parameter Types.Time tOmegaEvtStart "Start time of frequency event in s";
+  parameter Types.Time tOmegaEvtEnd "Ending time of frequency event in s";
 
   // Phase jump parameters
   parameter Types.Angle dUPhaseEvt = 0 "Phase jump in rad (added from event time)";
-  parameter Types.Time tUPhaseEvt = 0 "Time of voltage phase jump in s";
+  parameter Types.Time tUPhaseEvt  = 0"Time of voltage phase jump in s";
 
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

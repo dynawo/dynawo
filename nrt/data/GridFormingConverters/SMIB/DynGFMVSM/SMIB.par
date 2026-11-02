@@ -14,6 +14,15 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <!-- Infinite bus -->
   <set id="1">
+    <par name="U0Pu" value="1.0"/>
+    <par name="UEvtPu" value="1.0"/>
+    <par name="omega0Pu" value="1.0"/>
+    <par name="omegaEvtPu" value="1.0"/>
+    <par name="UPhase" value="0.0"/>
+    <par name="tUEvtStart" value="0.0"/>
+    <par name="tUEvtEnd" value="1.0"/>
+    <par name="tOmegaEvtStart" value="0.0"/>
+    <par name="tOmegaEvtEnd" value="1.0"/>
     <par type="DOUBLE" name="infiniteBus_dUPhaseEvt" value="0.462"/>
     <par type="DOUBLE" name="infiniteBus_tUPhaseEvt" value="10"/>
   </set>
@@ -61,6 +70,8 @@
     <par name="GFM_tVSC" type="DOUBLE" value="0.0004"/>
     <!-- PLL parameters -->
     <par name="GFM_OmegaPLL" type="DOUBLE" value="100"/>
+    <par name="GFM_OmegaMaxPLLPu" type="DOUBLE" value="10"/>
+    <par name="GFM_OmegaMinPLLPu" type="DOUBLE" value="-10"/>
     <par name="GFM_KsiPLL" type="DOUBLE" value="1"/>
     <!-- Operating point -->
     <par name="GFM_U0Pu" type="DOUBLE" value="0.954110360567147"/>

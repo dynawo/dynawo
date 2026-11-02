@@ -68,6 +68,6 @@ the current references react instantaneously to any change of the PCC voltage (v
 </ul>
 
 <h4>Initialization</h4>
-<p>The start values of the voltage reference (UdFilter0Pu, UqFilter0Pu) must be consistent with the QSEM equation, i.e. E<sub>0</sub> = V<sub>0</sub> + Z<sub>0</sub> &middot; I<sub>Conv0</sub> with Z<sub>0</sub> = R + j(L &middot; &Omega;<sub>0</sub> + X<sub>VI</sub>). This is done in the parent controls (UdFilterRef0Pu, UqFilterRef0Pu).</p>
+<p>The start values of the voltage reference (UdFilter0Pu, UqFilter0Pu) must be consistent with the QSEM equation, i.e. E<sub>0</sub> = V<sub>0</sub> + Z<sub>0</sub> &middot; I<sub>Conv0</sub> with Z<sub>0</sub> = R + j(L &middot; &Omega;<sub>0</sub> + X<sub>VI</sub>). In the controls using VoltageReferenceControl, these start values are taken from the start values of its outputs (UdRef0Pu, UqRef0Pu), which are consistent with the QSEM equation as long as the initial angle and voltage magnitude reference are computed from the internal EMF (see the GFM converter models).</p>
 </body></html>"));
 end DynQSEM;

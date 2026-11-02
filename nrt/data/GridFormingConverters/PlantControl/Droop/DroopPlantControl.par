@@ -20,20 +20,20 @@
   <par type="DOUBLE" name="DroopPlantControl_UPccPhase0" value="0.0477619859090303"/>
   <par type="DOUBLE" name="DroopPlantControl_PPcc0Pu" value="-9.35033980050001"/>
   <par type="DOUBLE" name="DroopPlantControl_QPcc0Pu" value="1.570601995"/>
-  <!-- Plant controller -->
-  <par type="DOUBLE" name="DroopPlantControl_Lambd" value="0.01"/>
-  <par type="DOUBLE" name="DroopPlantControl_Kdroop" value="0.01"/>
+  <!-- Plant controller (gains, limits and setpoints in SNom base, generator convention) -->
+  <par type="DOUBLE" name="DroopPlantControl_LambdaPu" value="0.1"/>
+  <par type="DOUBLE" name="DroopPlantControl_Kdroop" value="0.001"/>
   <par type="DOUBLE" name="DroopPlantControl_tQFilt" value="0.1"/>
   <par type="DOUBLE" name="DroopPlantControl_tPFilt" value="0.1"/>
   <par type="DOUBLE" name="DroopPlantControl_tUFilt" value="0.1"/>
-  <par type="DOUBLE" name="DroopPlantControl_Kpq" value="0.1"/>
-  <par type="DOUBLE" name="DroopPlantControl_Kiq" value="1.0"/>
+  <par type="DOUBLE" name="DroopPlantControl_Kpq" value="0.01"/>
+  <par type="DOUBLE" name="DroopPlantControl_Kiq" value="0.1"/>
   <par type="DOUBLE" name="DroopPlantControl_Kpp" value="0.3"/>
   <par type="DOUBLE" name="DroopPlantControl_Kip" value="0.3"/>
-  <par type="DOUBLE" name="DroopPlantControl_QMaxPu" value="100"/>
-  <par type="DOUBLE" name="DroopPlantControl_QMinPu" value="-100"/>
-  <par type="DOUBLE" name="DroopPlantControl_PMaxPu" value="12"/>
-  <par type="DOUBLE" name="DroopPlantControl_PMinPu" value="-12"/>
+  <par type="DOUBLE" name="DroopPlantControl_QMaxPu" value="10"/>
+  <par type="DOUBLE" name="DroopPlantControl_QMinPu" value="-10"/>
+  <par type="DOUBLE" name="DroopPlantControl_PMaxPu" value="1.2"/>
+  <par type="DOUBLE" name="DroopPlantControl_PMinPu" value="-1.2"/>
   <par type="DOUBLE" name="DroopPlantControl_FEMaxPu" value="999"/>
   <par type="DOUBLE" name="DroopPlantControl_FEMinPu" value="-999"/>
   <par type="DOUBLE" name="DroopPlantControl_FDbd1Pu" value="0.005"/>
@@ -59,6 +59,8 @@
   <par type="DOUBLE" name="DroopPlantControl_Kfq" value="0"/>
   <!-- GFM: PLL -->
   <par type="DOUBLE" name="DroopPlantControl_OmegaPLL" value="100"/>
+  <par type="DOUBLE" name="DroopPlantControl_OmegaMaxPLLPu" value="10"/>
+  <par type="DOUBLE" name="DroopPlantControl_OmegaMinPLLPu" value="-10"/>
   <par type="DOUBLE" name="DroopPlantControl_KsiPLL" value="1"/>
   <!-- GFM: RLC filter, transformer, VSC -->
   <par type="DOUBLE" name="DroopPlantControl_RFilterPu" value="0.015"/>
@@ -94,12 +96,12 @@
   <par type="DOUBLE" name="setPoint_Value0" value="1"/>
 </set>
 <set id="6">
-  <!-- URefSrc = UPcc0Pu + Lambd*QPcc0Pu -->
-  <par type="DOUBLE" name="setPoint_Value0" value="1.01137396656938"/>
+  <!-- URefSrc = UPcc0Pu + LambdaPu*QPccGen0Pu, with QPccGen0Pu = -QPcc0Pu*SnRef/SNom (base SNom, generator convention) -->
+  <par type="DOUBLE" name="setPoint_Value0" value="0.979961926669379"/>
 </set>
 <set id="8">
-  <!-- PRefSrc = PPcc0Pu -->
-  <par type="DOUBLE" name="setPoint_Value0" value="-9.35033980050001"/>
+  <!-- PRefSrc = -PPcc0Pu*SnRef/SNom (base SNom, generator convention) -->
+  <par type="DOUBLE" name="setPoint_Value0" value="0.935033980050001"/>
 </set>
 <set id="10">
   <!-- Line1: between the Grid and the Measurements -->

@@ -16,10 +16,10 @@ model PLL "Phase-Locked Loop"
 
   //Parameters
 
-  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)";
-  parameter Types.PerUnit OmegaMinPu "Lower frequency limit in pu (base OmegaNom)";
   parameter Types.PerUnit Ki "PLL integrator gain";
   parameter Types.PerUnit Kp "PLL proportional gain";
+  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)";
+  parameter Types.PerUnit OmegaMinPu "Lower frequency limit in pu (base OmegaNom)";
 
   //Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system in pu (base OmegaNom)" annotation(

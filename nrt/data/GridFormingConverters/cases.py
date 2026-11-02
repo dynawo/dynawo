@@ -24,7 +24,7 @@ forbiddenReturnCodeType = "FORBIDDEN"
 
 case_name = "Grid Forming Converters"
 case_description = "Grid Forming Converters - Three nodes system"
-job_file = os.path.join(os.path.dirname(__file__), "GridFormingConverters.jobs")
+job_file = os.path.join(os.path.dirname(__file__),"ThreeConvISGT", "GridFormingConverters.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 

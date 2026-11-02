@@ -44,6 +44,8 @@ model DynGridFormingControlVSM "Control block of a Virtual Synchronous Machine (
   //PLL parameters
   parameter Types.PerUnit Ki "PLL integrator gain";
   parameter Types.PerUnit Kp "PLL proportional gain";
+  parameter Types.AngularVelocityPu OmegaMaxPLLPu "Upper frequency limit of the PLL in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu OmegaMinPLLPu "Lower frequency limit of the PLL in pu (base omegaNom)";
   Modelica.Blocks.Interfaces.RealInput PFilterPu(start = PFilter0Pu) "Active power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, 72}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, -73}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
@@ -64,13 +66,13 @@ model DynGridFormingControlVSM "Control block of a Virtual Synchronous Machine (
     Placement(visible = true, transformation(origin = {-108, -64}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {67, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, -52}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {87, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilter0Pu) "Active power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilterRef0Pu) "Active power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, 84}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 77}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-108, 96}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {-109, 33}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage module reference in pu (base UNom)" annotation(
     Placement(transformation(origin = {-108, 22}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-109, 3}, extent = {{-9, -9}, {9, 9}})));
-  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = voltageReferenceControl.QFilterRef0Pu) "Reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = QFilterRef0Pu) "Reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-108, 6}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-109, -19}, extent = {{-9, -9}, {9, 9}})));
   Modelica.ComplexBlocks.Interfaces.ComplexInput uPccPu(re(start = u0Pu.re), im(start = u0Pu.im)) annotation(
     Placement(transformation(origin = {-108, 54}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-109, 55}, extent = {{-9, -9}, {9, 9}})));
@@ -84,16 +86,16 @@ model DynGridFormingControlVSM "Control block of a Virtual Synchronous Machine (
     Placement(transformation(origin = {106, 74}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput omegaPLL(start = Omega0Pu) "Measured frequency from the grid (base omegaNom)" annotation(
     Placement(transformation(origin = {106, 62}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(DeltaVVId0 = VI.DeltaVVId0, DeltaVVIq0 = VI.DeltaVVIq0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mq = Mq, QFilter0Pu = QFilter0Pu, QFilterRef0Pu = QFilter0Pu, URef0Pu = URef0Pu, Omegaf = Omegaf, Omegaff = Omegaff) annotation(
+  Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(DeltaVVId0Pu = VI.DeltaVVId0Pu, DeltaVVIq0Pu = VI.DeltaVVIq0Pu, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, Kff = Kff, Mq = Mq, QFilter0Pu = QFilter0Pu, QFilterRef0Pu = QFilterRef0Pu, URef0Pu = URef0Pu, Omegaf = Omegaf, Omegaff = Omegaff) annotation(
     Placement(transformation(origin = {-66, 22}, extent = {{-16, -16}, {16, 16}})));
-  Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilterPu = LTransformerPu, RFilterPu = RTransformerPu, UdFilter0Pu = UdFilterRef0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = UqFilterRef0Pu, UqPcc0Pu = UqPcc0Pu, XVIPu = XVIPu, Omega0Pu = Omega0Pu) annotation(
+  Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.DynQSEM QSEM(IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, LFilterPu = LTransformerPu, RFilterPu = RTransformerPu, UdFilter0Pu = voltageReferenceControl.UdRef0Pu, UdPcc0Pu = UdPcc0Pu, UqFilter0Pu = voltageReferenceControl.UqRef0Pu, UqPcc0Pu = UqPcc0Pu, XVIPu = XVIPu, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {-14, 22}, extent = {{-16, -16}, {16, 16}})));
-  Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0) annotation(
+  Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, PFilterRef0Pu = PFilterRef0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0) annotation(
     Placement(transformation(origin = {-10, 80}, extent = {{-16, -16}, {16, 16}})));
-  Electrical.Controls.PEIR.BaseControls.VirtualImpedance2 VI(IMaxVIPu = IMaxVIPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, KpVI = KpVI, XRratio = XRratio, EpsVIUpPu = EpsVIUpPu, EpsVIDownPu = EpsVIDownPu) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VirtualImpedance2 VI(IMaxVIPu = IMaxVIPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, KpVI = KpVI, XRratio = XRratio, EpsVIUpPu = EpsVIUpPu, EpsVIDownPu = EpsVIDownPu) annotation(
     Placement(transformation(origin = {-69, -21}, extent = {{-17, -17}, {17, 17}})));
   // Current Saturation
-  PLL.PLL pll(Kp = Kp, Ki = Ki, u0Pu = u0Pu, OmegaMaxPu = 10, OmegaMinPu = -10, omegaPLLPu(start = Omega0Pu), limIntegrator(y_start = Omega0Pu - OmegaRef0Pu)) annotation(
+  PLL.PLL pll(Kp = Kp, Ki = Ki, u0Pu = u0Pu, OmegaMaxPu = OmegaMaxPLLPu, OmegaMinPu = OmegaMinPLLPu, omegaPLLPu(start = Omega0Pu), omegaRefPu(start = OmegaRef0Pu), limIntegrator(y_start = Omega0Pu - OmegaRef0Pu)) annotation(
     Placement(transformation(origin = {-78, 50}, extent = {{-6, -6}, {6, 6}})));
   BaseControls.CurrentLoops.DynCurrentLoop currentLoop(Kpc = Kpc, Kic = Kic, RFilterPu = RFilterPu, LFilterPu = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {72, 24}, extent = {{-12, -12}, {12, 12}})));
@@ -118,19 +120,19 @@ model DynGridFormingControlVSM "Control block of a Virtual Synchronous Machine (
   parameter Types.AngularVelocityPu Omega0Pu "Start value of converter's frequency in pu (base omegaNom)";
   parameter Types.AngularVelocityPu OmegaRef0Pu = SystemBase.omegaRef0Pu "Start value of the rotation speed of the RI reference frame (omegaRefPu input) in pu (base omegaNom)";
   parameter Types.ActivePowerPu PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
+  parameter Types.ActivePowerPu PFilterRef0Pu "Start value of active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
+  parameter Types.ReactivePowerPu QFilterRef0Pu "Start value of reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.VoltageModulePu URef0Pu "Start value of voltage module reference in pu (base UNom): module of the internal EMF, consistent with QFilterRefPu = QFilter0Pu";
-  final parameter Types.PerUnit UdFilterRef0Pu = UdPcc0Pu + RTransformerPu*IdConv0Pu - (LTransformerPu*Omega0Pu + XVIPu)*IqConv0Pu "Start value of d-axis voltage reference at the filter (QSEM-consistent) in pu (base UNom)";
-  final parameter Types.PerUnit UqFilterRef0Pu = UqPcc0Pu + RTransformerPu*IqConv0Pu + (LTransformerPu*Omega0Pu + XVIPu)*IdConv0Pu "Start value of q-axis voltage reference at the filter (QSEM-consistent) in pu (base UNom)";
 
 equation
   connect(VSM.omegaPu, QSEM.omegaPu) annotation(
     Line(points = {{8, 74}, {18, 74}, {18, 40}, {-14, 40}}, color = {0, 0, 127}));
   connect(VSM.omegaPu, omegaPu) annotation(
     Line(points = {{8, 74}, {106, 74}}, color = {0, 0, 127}));
-  connect(VI.DeltaVVId, voltageReferenceControl.DeltaVVId) annotation(
+  connect(VI.DeltaVVIdPu, voltageReferenceControl.DeltaVVIdPu) annotation(
     Line(points = {{-50, -12.5}, {-79.7, -12.5}, {-79.7, 4}, {-82, 4}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(VI.DeltaVVIq, voltageReferenceControl.DeltaVVIq) annotation(
+  connect(VI.DeltaVVIqPu, voltageReferenceControl.DeltaVVIqPu) annotation(
     Line(points = {{-50, -29.5}, {-71.7, -29.5}, {-71.7, 4}, {-74, 4}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(iqConvPu, VI.iqConvPu) annotation(
     Line(points = {{-108, -34}, {-101, -34}, {-101, -29.5}, {-88, -29.5}}, color = {0, 0, 127}));

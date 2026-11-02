@@ -51,6 +51,8 @@
     <par name="GFMCC_XVIPu" type="DOUBLE" value="0.06"/>
     <!-- PLL parameters -->
     <par name="GFMCC_OmegaPLL" type="DOUBLE" value="100"/>
+    <par name="GFMCC_OmegaMaxPLLPu" type="DOUBLE" value="10"/>
+    <par name="GFMCC_OmegaMinPLLPu" type="DOUBLE" value="-10"/>
     <par name="GFMCC_KsiPLL" type="DOUBLE" value="1"/>
     <!-- Voltage reference control parameters -->
     <par name="GFMCC_Mq" type="DOUBLE" value="0.2"/>

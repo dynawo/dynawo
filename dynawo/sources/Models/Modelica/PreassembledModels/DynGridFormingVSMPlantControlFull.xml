@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="DynGridFormingVSMPlantControlFull">
-    <dyn:unitDynamicModel id="VSMPlantControl" name="Dynawo.Electrical.Controls.PEIR.BaseControls.Plant.DynVSMPlantControlFull"/>
+    <dyn:unitDynamicModel id="VSMPlantControl" name="Dynawo.Electrical.PEIR.Plants.General.Average.DynVSMPlantControlFull"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

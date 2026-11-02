@@ -1,42 +1,53 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model VoltageReferenceControl "Voltage reference control block"
-  /*
-   * Copyright (c) 2026, RTE (http://www.rte-france.com)
-   * See AUTHORS.txt
-   * All rights reserved.
-   * This Source Code Form is subject to the terms of the Mozilla Public
-   * License, v. 2.0. If a copy of the MPL was not distributed with this
-   * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-   * SPDX-License-Identifier: MPL-2.0
-   *
-   * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-   * of simulation tools for power systems.
-   */
+
   parameter Types.PerUnit Mq "Reactive power droop control coefficient";
   parameter Types.AngularVelocity Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)";
   parameter Types.AngularVelocity Omegaff "Cutoff pulsation of the high-pass filter of the active damping (in rad/s)";
   parameter Types.PerUnit Kff "Gain of the active damping";
+
+  //Inputs
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput iqPccPu(start = IqPcc0Pu) "q-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage module reference at the filter in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, 24}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput DeltaVVId(start = DeltaVVId0) "d-axis virtual impedance output in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput DeltaVVIdPu(start = DeltaVVId0Pu) "d-axis virtual impedance output in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput QFilterPu(start = QFilter0Pu) "Reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput DeltaVVIq(start = DeltaVVIq0) "q-axis virtual impedance output in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput DeltaVVIqPu(start = DeltaVVIq0Pu) "q-axis virtual impedance output in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -56}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput QFilterRefPu(start = QFilterRef0Pu) "Reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-110, 84}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Outputs
   Modelica.Blocks.Interfaces.RealOutput udFilterRefPu(start = UdRef0Pu) "d-axis voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uqFilterRefPu(start = UqRef0Pu) "q-axis voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 1/Omegaff, y_start = -Kff*IqPcc0Pu) annotation(
     Placement(transformation(origin = {-4, -36}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Feedback feedback annotation(
+    Placement(transformation(origin = {34, 4}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Feedback feedback1 annotation(
+    Placement(transformation(origin = {38, -36}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Feedback feedback5 annotation(
     Placement(visible = true, transformation(origin = {82, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add2 annotation(
@@ -57,20 +68,19 @@ model VoltageReferenceControl "Voltage reference control block"
     Placement(visible = true, transformation(origin = {52, 78}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback7 annotation(
     Placement(visible = true, transformation(origin = {82, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  // Initial parameters
   parameter Types.PerUnit IdPcc0Pu "Start value of d-axis current in the grid in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IqPcc0Pu "Start value of q-axis current in the grid in pu (base UNom, SNom) (generator convention)";
-  parameter Types.PerUnit DeltaVVId0 "Start value of d-axis virtual impedance output in pu (base UNom)";
-  parameter Types.PerUnit DeltaVVIq0 "Start value of q-axis virtual impedance output in pu (base UNom)";
+  parameter Types.PerUnit DeltaVVId0Pu "Start value of d-axis virtual impedance output in pu (base UNom)";
+  parameter Types.PerUnit DeltaVVIq0Pu "Start value of q-axis virtual impedance output in pu (base UNom)";
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.VoltageModulePu URef0Pu "Start value of voltage module reference in pu (base UNom)";
   parameter Types.ReactivePowerPu QFilterRef0Pu = QFilter0Pu "Start value of reactive power reference at the converter's capacitor in pu (base SNom) (generator convention)";
-  final parameter Types.PerUnit UdRef0Pu = URef0Pu + Mq*(QFilterRef0Pu - QFilter0Pu) - DeltaVVId0 "Start value of d-axis voltage reference in pu (base UNom)";
-  final parameter Types.PerUnit UqRef0Pu = -DeltaVVIq0 "Start value of q-axis voltage reference in pu (base UNom)";
-  Modelica.Blocks.Math.Feedback feedback annotation(
-    Placement(transformation(origin = {34, 4}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Math.Feedback feedback1 annotation(
-    Placement(transformation(origin = {38, -36}, extent = {{-10, -10}, {10, 10}})));
-equation
+  final parameter Types.PerUnit UdRef0Pu = URef0Pu + Mq*(QFilterRef0Pu - QFilter0Pu) - DeltaVVId0Pu "Start value of d-axis voltage reference in pu (base UNom)";
+  final parameter Types.PerUnit UqRef0Pu = -DeltaVVIq0Pu "Start value of q-axis voltage reference in pu (base UNom)";
+
+  equation
   connect(feedback5.y, udFilterRefPu) annotation(
     Line(points = {{91, 78}, {110, 78}}, color = {0, 0, 127}));
   connect(gain1.u, idPccPu) annotation(
@@ -85,7 +95,7 @@ equation
     Line(points = {{-60, -36}, {-110, -36}}, color = {0, 0, 127}));
   connect(firstOrder1.y, feedback3.u2) annotation(
     Line(points = {{-65, 54}, {-58, 54}, {-58, 76}}, color = {0, 0, 127}));
-  connect(DeltaVVId, feedback5.u2) annotation(
+  connect(DeltaVVIdPu, feedback5.u2) annotation(
     Line(points = {{-110, -16}, {82, -16}, {82, 70}}, color = {0, 0, 127}));
   connect(gain2.y, firstOrder3.u) annotation(
     Line(points = {{-37, -36}, {-16, -36}}, color = {0, 0, 127}));
@@ -99,7 +109,7 @@ equation
     Line(points = {{33, 78}, {44, 78}}, color = {0, 0, 127}));
   connect(feedback7.y, uqFilterRefPu) annotation(
     Line(points = {{91, -36}, {110, -36}}, color = {0, 0, 127}));
-  connect(DeltaVVIq, feedback7.u2) annotation(
+  connect(DeltaVVIqPu, feedback7.u2) annotation(
     Line(points = {{-110, -56}, {82, -56}, {82, -44}}, color = {0, 0, 127}));
   connect(QFilterRefPu, feedback3.u1) annotation(
     Line(points = {{-110, 84}, {-66, 84}}, color = {0, 0, 127}));
@@ -115,6 +125,7 @@ equation
     Line(points = {{8, -36}, {30, -36}}, color = {0, 0, 127}));
   connect(feedback1.y, feedback7.u1) annotation(
     Line(points = {{48, -36}, {74, -36}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(initialScale = 0.2)),
@@ -146,7 +157,7 @@ equation
 </ul>
 
 <h4>Virtual impedance</h4>
-<p>The voltage drop of the virtual impedance (DeltaVVId, DeltaVVIq), computed by a dedicated block (e.g. VirtualImpedance2CC), is directly subtracted from the voltage reference. This virtual impedance is typically activated only above a current threshold, to limit the converter current during faults.</p>
+<p>The voltage drop of the virtual impedance (DeltaVVIdPu, DeltaVVIqPu), computed by a dedicated block (e.g. VirtualImpedance2CC), is directly subtracted from the voltage reference. This virtual impedance is typically activated only above a current threshold, to limit the converter current during faults.</p>
 
 <h4>Initialization</h4>
 <p>The start values of the outputs are consistent with the equations above in steady state, where the output of the high-pass filter of the active damping is zero:</p>

@@ -26,11 +26,11 @@ model CCVSM_NodeFault "Single machine infinite bus test case for Grid Forming VS
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {28, 2}, extent = {{-10, -10}, {10, 10}})));
- Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations annotation(
+ Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0) annotation(
     Placement(transformation(origin = {98, 2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
  Electrical.Events.NodeFault nodeFault(RPu = 1e-6, XPu = 1e-5, tBegin = 5, tEnd = 5.150)  annotation(
     Placement(transformation(origin = {66, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
- Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, DeltaIConvMaxPu = 0.15, H = 5, IMaxVIPu = 1.1, ImaxPu = 1.2, IminPu = 0, KDampingAngle = 0.00318, Kfd = 1, Kff = 0.01, Kfq = 0.8, KpVI = 0.6, KsiPLL = 1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, OmegaPLL = 100, Omegac = 1000, Omegaf = 31.4159, Omegaff = 60, P0Pu = -9.440193302496278, Q0Pu = -0.5430730020626036, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.947115101091565, UPhase0 = 0.5184088727446441, XRratio = 10, XVIPu = 0.06, kVSM = 600, tUFilt = 0.02, tVSC = 0.0004, EpsVIUpPu = 0.01, EpsVIDownPu = 0.01, EpsUpPu = 0.01, EpsDownPu = 0.01, tSat = 0.01) annotation(
+ Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, DeltaIConvMaxPu = 0.15, H = 5, IMaxVIPu = 2.0, ImaxPu = 1.2, IminPu = 0, KDampingAngle = 0.00318, Kfd = 1, Kff = 0.01, Kfq = 0.8, KpVI = 0.6, KsiPLL = 1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, OmegaPLL = 100, OmegaMaxPLLPu = 10, OmegaMinPLLPu = -10, Omegac = 1000, Omegaf = 31.4159, Omegaff = 60, P0Pu = -9.440193302496278, Q0Pu = -0.5430730020626036, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.947115101091565, UPhase0 = 0.5184088727446441, XRratio = 10, XVIPu = 0.06, kVSM = 600, tUFilt = 0.02, tVSC = 0.0004, EpsVIUpPu = 0.01, EpsVIDownPu = 0.01, EpsUpPu = 0.01, EpsDownPu = 0.01, tSat = 0.01) annotation(
     Placement(transformation(origin = {-26, 2}, extent = {{-20, -20}, {20, 20}})));
 equation
   line.switchOffSignal1 = false;

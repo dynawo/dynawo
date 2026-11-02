@@ -13,6 +13,8 @@ set(MODEL_FILES
   package.mo
   package.order
   DynQSEM.mo
+  VirtualImpedance2.mo
+  VirtualImpedance2CC.mo
   VoltageReferenceControl.mo
   )
 

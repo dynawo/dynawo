@@ -12,12 +12,10 @@ set(MODEL_FILES
   package.mo
   package.order
   ChangeofBaseSNom.mo
-  ChangeofBaseSNom.extvar
+  TransformRItoDQ.mo
   Measurements.mo
   Measurements.extvar
   Measurements.mandatoryParam
-  Derivative.mo
-  Derivative.extvar
   )
 
 #

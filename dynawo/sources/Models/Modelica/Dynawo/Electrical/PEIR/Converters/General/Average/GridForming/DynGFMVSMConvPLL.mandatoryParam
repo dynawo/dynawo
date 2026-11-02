@@ -26,6 +26,8 @@
   <mandatoryParameter name="Kff" type="DOUBLE"/>
   <mandatoryParameter name="OmegaPLL" type="DOUBLE"/>
   <mandatoryParameter name="KsiPLL" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPLLPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPLLPu" type="DOUBLE"/>
   <mandatoryParameter name="XVIPu" type="DOUBLE"/>
   <mandatoryParameter name="Omegac" type="DOUBLE"/>
   <mandatoryParameter name="Kfd" type="DOUBLE"/>

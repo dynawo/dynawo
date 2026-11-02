@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2026, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,7 +11,6 @@
 add_subdirectory(BaseClasses B)
 add_subdirectory(SMIB S)
 add_subdirectory(BESS BS)
-add_subdirectory(DynamicLine D)
 add_subdirectory(ENTSOE E)
 add_subdirectory(GridForming G)
 add_subdirectory(IEEE14 I14)

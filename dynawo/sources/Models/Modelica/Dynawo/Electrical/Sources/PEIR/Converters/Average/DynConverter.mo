@@ -1,18 +1,20 @@
 within Dynawo.Electrical.Sources.PEIR.Converters.Average;
 
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model DynConverter "Converter physical part comprising an AVM voltage source, a dynamic RLC Filter and a dynamic RL Transformer"
-  /*
-  * Copyright (c) 2026, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
+
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter in MVA";
   // VSC parameter
   parameter Types.Time tVSC "VSC time response in s";
@@ -57,32 +59,33 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
   parameter Types.AngularVelocityPu Omega0Pu "Start value of the physical frequency of the grid and converter in pu (base omegaNom), used to compute the steady-state phasors of the filter and transformer";
   parameter Types.AngularVelocityPu OmegaRef0Pu = SystemBase.omegaRef0Pu "Start value of the omegaPu input in pu (base omegaNom)";
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
+
   // Initialization
   BaseConverters.VSCConverter VSC(tVSC = tVSC, UdConv0Pu = transformRItoDQUConv.ud0, UqConv0Pu = transformRItoDQUConv.uq0) annotation(
     Placement(transformation(origin = {-70, 50}, extent = {{-10, -10}, {10, 10}})));
-  InjectorURI injectorURI(u0Pu = RLCFilter.UConv0Pu, i0Pu = -RLCFilter.IConv0Pu) annotation(
+  InjectorURI injectorURI(u0Pu = RLCFilter.uConv0Pu, i0Pu = -RLCFilter.iConv0Pu) annotation(
     Placement(transformation(origin = {10, 50}, extent = {{-10, -10}, {10, 10}})));
-  Controls.WECC.Utilities.TransformRItoDQGFM transformRItoDQConv(phi0 = Theta0, u0Pu = RLCFilter.IConv0Pu) annotation(
+  Controls.Utilities.TransformRItoDQ transformRItoDQConv(phi0 = Theta0, u0Pu = RLCFilter.iConv0Pu) annotation(
     Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
-  Controls.WECC.Utilities.TransformRItoDQGFM transformRItoDQFilter(phi0 = Theta0, u0Pu = RLTransformer.UFilter0Pu) annotation(
+  Controls.Utilities.TransformRItoDQ transformRItoDQFilter(phi0 = Theta0, u0Pu = RLTransformer.uFilter0Pu) annotation(
     Placement(transformation(origin = {80, -6}, extent = {{-10, -10}, {10, 10}})));
-  Controls.WECC.Utilities.TransformRItoDQGFM transformRItoDQUPcc(phi0 = Theta0, u0Pu = changeofBaseSNom.UPcc0Pu) annotation(
+  Controls.Utilities.TransformRItoDQ transformRItoDQUPcc(phi0 = Theta0, u0Pu = changeofBaseSNom.uPcc0Pu) annotation(
     Placement(transformation(origin = {80, -36}, extent = {{-10, -10}, {10, 10}})));
-  Controls.WECC.Utilities.TransformRItoDQGFM transformRItoDQIPcc(phi0 = Theta0, u0Pu = -changeofBaseSNom.IPcc0Pu) annotation(
+  Controls.Utilities.TransformRItoDQ transformRItoDQIPcc(phi0 = Theta0, u0Pu = -changeofBaseSNom.iPcc0Pu) annotation(
     Placement(transformation(origin = {82, -58}, extent = {{-10, -10}, {10, 10}})));
-  BaseConverters.DynRLCFilterRI RLCFilter(RPu = RFilterPu, LPu = LFilterPu, CPu = CFilterPu, UFilter0Pu = RLTransformer.UFilter0Pu, IPcc0Pu = RLTransformer.IPcc0Pu, Omega0Pu = Omega0Pu, omegaPu(start = OmegaRef0Pu)) annotation(
+  BaseConverters.DynRLCFilterRI RLCFilter(RPu = RFilterPu, LPu = LFilterPu, CPu = CFilterPu, uFilter0Pu = RLTransformer.uFilter0Pu, iPcc0Pu = RLTransformer.iPcc0Pu, Omega0Pu = Omega0Pu, omegaPu(start = OmegaRef0Pu)) annotation(
     Placement(transformation(origin = {48, 24}, extent = {{-9, -9}, {9, 9}}, rotation = -90)));
-  BaseConverters.DynRLTransformerRI RLTransformer(RPu = RTransformerPu, LPu = LTransformerPu, Omega0Pu = Omega0Pu, IPcc0Pu = changeofBaseSNom.IPcc0Pu, UPcc0Pu = changeofBaseSNom.UPcc0Pu, omegaPu(start = OmegaRef0Pu)) annotation(
+  BaseConverters.DynRLTransformerRI RLTransformer(RPu = RTransformerPu, LPu = LTransformerPu, Omega0Pu = Omega0Pu, iPcc0Pu = changeofBaseSNom.iPcc0Pu, uPcc0Pu = changeofBaseSNom.uPcc0Pu, omegaPu(start = OmegaRef0Pu)) annotation(
     Placement(transformation(origin = {49, -31}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Controls.WECC.Utilities.Measurements measurementsPcc(SNom = SNom) annotation(
+  Controls.WECC.Utilities.MeasurementsConverter measurementsPcc(SNom = SNom) annotation(
     Placement(transformation(origin = {50, -58}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Controls.WECC.Utilities.Measurements measurementsFilter(SNom = SNom) annotation(
+  Controls.WECC.Utilities.MeasurementsConverter measurementsFilter(SNom = SNom) annotation(
     Placement(transformation(origin = {50, -2}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(transformation(origin = {-32, 50}, extent = {{-10, -10}, {10, 10}})));
-  Controls.WECC.Utilities.Measurements measurementsConv(SNom = SNom) annotation(
+  Controls.WECC.Utilities.MeasurementsConverter measurementsConv(SNom = SNom) annotation(
     Placement(transformation(origin = {38, 50}, extent = {{-10, -10}, {10, 10}})));
-  Controls.WECC.Utilities.TransformRItoDQGFM transformRItoDQUConv(phi0 = Theta0, u0Pu = RLCFilter.UConv0Pu) annotation(
+  Controls.Utilities.TransformRItoDQ transformRItoDQUConv(phi0 = Theta0, u0Pu = RLCFilter.uConv0Pu) annotation(
     Placement(transformation(origin = {-19, 77}, extent = {{9, -9}, {-9, 9}})));
   Controls.Utilities.ChangeofBaseSNom changeofBaseSNom(SNom = SNom, i0Pu = i0Pu, u0Pu = u0Pu) annotation(
     Placement(transformation(origin = {72, -86}, extent = {{-10, -10}, {10, 10}})));
@@ -152,7 +155,7 @@ equation
     Line(points = {{-112, 12}, {18, 12}, {18, -30}, {38, -30}}, color = {0, 0, 127}));
   connect(changeofBaseSNom.terminalSNom, measurementsPcc.terminal2) annotation(
     Line(points = {{62, -86}, {50, -86}, {50, -68}}, color = {0, 0, 255}));
-  connect(changeofBaseSNom.terminalSNref, terminal) annotation(
+  connect(changeofBaseSNom.terminalSnRef, terminal) annotation(
     Line(points = {{82, -86}, {106, -86}, {106, -80}}, color = {0, 0, 255}));
   connect(transformRItoDQConv.ud, idConvPu) annotation(
     Line(points = {{82, 76}, {114, 76}}, color = {0, 0, 127}));
@@ -164,6 +167,6 @@ equation
     Line(points = {{94, -64}, {136, -64}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
-    Documentation(info = "<html><head></head><body>This model represents the physical part of a converter with an ideal voltage source, a dynamic RLC filter, a dynamic RL transformer and a reference frame rotation.<div><br></div><div>The interface variables are the current and voltages from the terminal.</div><div><br></div><div><b>Frequencies:</b> two distinct frequencies are involved, which coincide only when the RI reference frame rotates at the grid frequency.</div><ul><li><b>omegaPu</b> (input, start value OmegaRef0Pu) is the angular frequency used in the cross-coupling terms (ω·L·i, ω·C·u) of the RI-frame filter and transformer equations. For an exact representation of the inductances and capacitors, it should be the rotation speed of the RI frame (omegaRefPu): the actual grid frequency is then accounted for through the derivative terms.</li><li><b>Omega0Pu</b> (parameter) is the physical frequency of the grid and converter at t = 0. It is used to compute the steady-state phasors of the filter and transformer (reactances ω<sub>0</sub>·L and susceptances ω<sub>0</sub>·C), consistently with the initialization of the control (Theta0, URef0Pu).</li></ul><div>When Omega0Pu differs from the RI frame speed, the RI phasors rotate from t = 0 onwards: the start values remain the physical steady-state values, but the derivatives are not zero at initialization.</div></body></html>"),
+    Documentation(info = "<html><head></head><body>This model represents the physical part of a converter with an ideal voltage source, a dynamic RLC filter, a dynamic RL transformer and a reference frame rotation.<div><br></div><div>The interface variables are the current and voltages from the terminal.</div><div><br></div><div><b>Frequencies:</b> two distinct frequencies are involved, which coincide only when the RI reference frame rotates at the grid frequency.</div><ul><li><b>omegaPu</b> (input, start value OmegaRef0Pu) is the angular frequency used in the cross-coupling terms (ω·L·i, ω·C·u) of the RI-frame filter and transformer equations. For an exact representation of the inductances and capacitors, it should be the rotation speed of the RI frame (omegaRefPu): the actual grid frequency is then accounted for through the derivative terms.</li><li><b>Omega0Pu</b> (parameter) is the physical frequency of the grid and converter at t = 0. It is used to compute the steady-state phasors of the filter and transformer (reactances ω<sub>0</sub>·L and susceptances ω<sub>0</sub>·C), consistently with the initialization of the control (Theta0, URef0Pu).</li></ul><div>When Omega0Pu differs from the RI frame speed, the RI phasors rotate from t = 0 onwards: the start values remain the physical steady-state values, but the derivatives are not zero at initialization.</div><div><br></div><div><b>Per-unit bases:</b></div><ul><li>The terminal (connector <i>terminal</i>, <i>i0Pu</i> and <i>u0Pu</i>) is expressed in the system base (UNom, SnRef).</li><li>Everything inside the converter (injector, filter, transformer, measurements) is expressed in the converter base (UNom, SNom).</li><li>The only SnRef &harr; SNom change is done in <i>changeofBaseSNom</i> (i<sub>SNom</sub> = i<sub>SnRef</sub> &middot; SnRef / SNom), for the connector and for the start values. Voltages are unchanged.</li><li>Hence <i>injectorURI.i0Pu = -RLCFilter.iConv0Pu</i> is given in SNom (and in generator convention), although the injector's own documentation mentions SnRef: the injector applies no base change, its terminal current is the one of the internal SNom network.</li></ul></body></html>"),
     Diagram);
 end DynConverter;

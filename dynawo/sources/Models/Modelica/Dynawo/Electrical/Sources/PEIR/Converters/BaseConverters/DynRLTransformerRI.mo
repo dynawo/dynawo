@@ -28,23 +28,23 @@ model DynRLTransformerRI "Dynamic RL Transformer in (RI) frame"
   parameter Types.PerUnit LPu "Inductance in pu (base UNom, SNom)";
 
   // Terminals
-  Dynawo.Connectors.ACPower terminal1(V(re(start = UFilter0Pu.re), im(start = UFilter0Pu.im)), i(re(start = IFilter0Pu.re), im(start = IFilter0Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal1(V(re(start = uFilter0Pu.re), im(start = uFilter0Pu.im)), i(re(start = iFilter0Pu.re), im(start = iFilter0Pu.im))) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-115, -3}, extent = {{-15, -15}, {15, 15}})));
-  Dynawo.Connectors.ACPower terminal2(V(re(start = UPcc0Pu.re), im(start = UPcc0Pu.im)), i(re(start = IPcc0Pu.re), im(start = IPcc0Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal2(V(re(start = uPcc0Pu.re), im(start = uPcc0Pu.im)), i(re(start = iPcc0Pu.re), im(start = iPcc0Pu.im))) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114,-2}, extent = {{-15, -15}, {15, 15}})));
 
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = Omega0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {0, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
 
   // Initial parameters
-  parameter Types.ComplexCurrentPu IPcc0Pu "Complex start value of  current in the grid in pu (base UNom, SNom) (receptor convention)";
-  parameter Types.ComplexVoltagePu UPcc0Pu "Complex start value of voltage at the PCC in pu (base UNom)";
+  parameter Types.ComplexCurrentPu iPcc0Pu "Complex start value of  current in the grid in pu (base UNom, SNom) (receptor convention)";
+  parameter Types.ComplexVoltagePu uPcc0Pu "Complex start value of voltage at the PCC in pu (base UNom)";
   parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
 
   // Final parameters
-  final parameter Types.ComplexVoltagePu UFilter0Pu = Complex(- RPu * IPcc0Pu.re + Omega0Pu * LPu * IPcc0Pu.im + UPcc0Pu.re,
-                                                              - RPu * IPcc0Pu.im - Omega0Pu * LPu * IPcc0Pu.re + UPcc0Pu.im) "Complex start value of voltage at the filter in pu (base UNom)";
-  final parameter Types.ComplexCurrentPu IFilter0Pu = - IPcc0Pu "Complex start value of the current at the filter in pu (base UNom, SNom)";
+  final parameter Types.ComplexVoltagePu uFilter0Pu = Complex(- RPu * iPcc0Pu.re + Omega0Pu * LPu * iPcc0Pu.im + uPcc0Pu.re,
+                                                              - RPu * iPcc0Pu.im - Omega0Pu * LPu * iPcc0Pu.re + uPcc0Pu.im) "Complex start value of voltage at the filter in pu (base UNom)";
+  final parameter Types.ComplexCurrentPu iFilter0Pu = - iPcc0Pu "Complex start value of the current at the filter in pu (base UNom, SNom)";
 
 equation
   if running then

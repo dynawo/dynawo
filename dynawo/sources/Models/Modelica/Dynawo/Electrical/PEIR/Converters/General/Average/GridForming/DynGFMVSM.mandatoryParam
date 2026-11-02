@@ -36,6 +36,8 @@
   <mandatoryParameter name="tVSC" type="DOUBLE"/>
   <mandatoryParameter name="OmegaPLL" type="DOUBLE"/>
   <mandatoryParameter name="KsiPLL" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMaxPLLPu" type="DOUBLE"/>
+  <mandatoryParameter name="OmegaMinPLLPu" type="DOUBLE"/>
   <mandatoryParameter name="U0Pu" type="DOUBLE"/>
   <mandatoryParameter name="UPhase0" type="DOUBLE"/>
   <mandatoryParameter name="P0Pu" type="DOUBLE"/>
