@@ -13,7 +13,7 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- Same network as Dynawo.Examples.GridForming.PlantControl.DynGFMCCPlantControlv2:
-       Grid (1 /_ 0) -> Line1 -> Measurements -> plant terminal (PCC) [plant transformer -> plant line -> GFM CCVSM] -->
+       Grid (1 /_ 0) -> Line1 -> Measurements -> plant terminal (regulated bus) [plant transformer -> plant line -> GFM CCVSM] -->
   <dyn:blackBoxModel id="PlantControlCCVSM" lib="DynGridFormingCCVSMPlantControlFull" parFile="CCVSMPlantControl.par" parId="1"/>
   <dyn:blackBoxModel id="Grid" lib="AcGridRoCoF" parFile="CCVSMPlantControl.par" parId="4"/>
   <dyn:blackBoxModel id="Line1" lib="Line" parFile="CCVSMPlantControl.par" parId="10"/>
@@ -26,9 +26,8 @@
   <dyn:connect id1="Line1" var1="line_terminal2" id2="Measurements" var2="measurements_terminal1"/>
   <dyn:connect id1="Measurements" var1="measurements_terminal2" id2="PlantControlCCVSM" var2="CCVSMPlantControl_terminal"/>
   <!-- Setpoints -->
-  <dyn:connect id1="OmegaRefSrc" var1="setPoint_setPoint" id2="Grid" var2="Grid_OmegaRef"/>
+  <dyn:connect id1="OmegaRefSrc" var1="setPoint_setPoint" id2="Grid" var2="Grid_omegaRefPu"/>
   <dyn:connect id1="OmegaRefSrc" var1="setPoint_setPoint" id2="PlantControlCCVSM" var2="CCVSMPlantControl_omegaRefPu"/>
   <dyn:connect id1="PRefSrc" var1="setPoint_setPoint" id2="PlantControlCCVSM" var2="CCVSMPlantControl_PRefPu"/>
   <dyn:connect id1="URefSrc" var1="setPoint_setPoint" id2="PlantControlCCVSM" var2="CCVSMPlantControl_URefPu"/>
-  <!-- CCVSMPlantControl_UFilterRefPu is left unconnected: it keeps its start value, the GFM URef0Pu (= URefGfmPu in the Modelica example) -->
 </dyn:dynamicModelsArchitecture>

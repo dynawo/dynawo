@@ -14,7 +14,7 @@ model CCVSM_RoCoF "Single machine infinite bus test case for Grid Forming VSM mo
  * of simulation tools for power systems.
  */
   extends Modelica.Icons.Example;
-  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.0005, XPu = 0.005) annotation(
+  Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.005, XPu = 0.05) annotation(
     Placement(transformation(origin = {56, 2}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-112, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -26,9 +26,9 @@ model CCVSM_RoCoF "Single machine infinite bus test case for Grid Forming VSM mo
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {28, 2}, extent = {{-10, -10}, {10, 10}})));
- Electrical.Sources.AcGridRoCoF acGridRoCoF(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, StartRoCoF = 10, TimeRoCoF = 3, RoCoFValue = 0.01, StartingFrequency = -0.01)  annotation(
+ Electrical.Sources.AcGridRoCoF acGridRoCoF(U0Pu = 1, UPhase0 = 0, tRoCoFStart = 10, tRoCoFDuration = 0.5, RoCoFPu = -0.04, deltaOmega0Pu = 0.01)  annotation(
     Placement(transformation(origin = {20, 62}, extent = {{-10, -10}, {10, 10}})));
- Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, DeltaIConvMaxPu = 0.15, H = 5, IMaxVIPu = 2.0, ImaxPu = 1.2, IminPu = 0, KDampingAngle = 0.00318, Kfd = 1, Kff = 0.01, Kfq = 0.8, KpVI = 0.6, KsiPLL = 1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, OmegaPLL = 100, OmegaMaxPLLPu = 10, OmegaMinPLLPu = -10, Omegac = 1000, Omegaf = 31.4159, Omegaff = 60, P0Pu = -9.445753362248142, Q0Pu = 0.9764975898106589, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9986981015929792, UPhase0 = -0.048106413026117796, XRratio = 10, XVIPu = 0.06, kVSM = 600, tUFilt = 0.02, tVSC = 0.0004, EpsVIUpPu = 0.01, EpsVIDownPu = 0.01, EpsUpPu = 0.01, EpsDownPu = 0.01, tSat = 0.01) annotation(
+ Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, DeltaIConvMaxPu = 0.15, H = 5, IMaxVIPu = 2.0, ImaxPu = 1.2, IminPu = 0, KDampingAngle = 0.00318, Kfd = 1, Kff = 0.01, Kfq = 0.8, KpVI = 0.6, KsiPLL = 1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, OmegaPLL = 100, OmegaMaxPLLPu = 10, OmegaMinPLLPu = -10, Omegac = 1000, Omegaf = 31.4159, Omegaff = 60, P0Pu = -9.445753362248142, Q0Pu = 0.9764975898106589, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.9986981015929792, UPhase0 = -0.048106413026117796, XRratio = 10, XVIPu = 0.06, kVSM = 600, tUFilt = 0.01, tVSC = 0.0004, EpsVIUpPu = 0.01, EpsVIDownPu = 0.01, EpsUpPu = 0.01, EpsDownPu = 0, tSat = 0.001) annotation(
     Placement(transformation(origin = {-26, 2}, extent = {{-20, -20}, {20, 20}})));
 equation
   line.switchOffSignal1 = false;
@@ -38,7 +38,7 @@ equation
   DynGFMCCVSM.switchOffSignal3 = false;
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{38, 2}, {46, 2}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+  connect(omegaRefPu.y, acGridRoCoF.omegaRefPu) annotation(
     Line(points = {{-100, 20}, {-52, 20}, {-52, 68}, {8, 68}}, color = {0, 0, 127}));
   connect(acGridRoCoF.aCPower, line.terminal2) annotation(
     Line(points = {{32, 68}, {66, 68}, {66, 2}}, color = {0, 0, 255}));

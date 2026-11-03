@@ -28,7 +28,7 @@ model DynRLTransformerRI "Dynamic RL Transformer in (RI) frame"
   parameter Types.PerUnit LPu "Inductance in pu (base UNom, SNom)";
 
   // Terminals
-  Dynawo.Connectors.ACPower terminal1(V(re(start = uFilter0Pu.re), im(start = uFilter0Pu.im)), i(re(start = iFilter0Pu.re), im(start = iFilter0Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal1(V(re(start = uFilter0Pu.re), im(start = uFilter0Pu.im)), i(re(start = -iFilter0Pu.re), im(start = -iFilter0Pu.im))) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-115, -3}, extent = {{-15, -15}, {15, 15}})));
   Dynawo.Connectors.ACPower terminal2(V(re(start = uPcc0Pu.re), im(start = uPcc0Pu.im)), i(re(start = iPcc0Pu.re), im(start = iPcc0Pu.im))) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114,-2}, extent = {{-15, -15}, {15, 15}})));
@@ -44,7 +44,7 @@ model DynRLTransformerRI "Dynamic RL Transformer in (RI) frame"
   // Final parameters
   final parameter Types.ComplexVoltagePu uFilter0Pu = Complex(- RPu * iPcc0Pu.re + Omega0Pu * LPu * iPcc0Pu.im + uPcc0Pu.re,
                                                               - RPu * iPcc0Pu.im - Omega0Pu * LPu * iPcc0Pu.re + uPcc0Pu.im) "Complex start value of voltage at the filter in pu (base UNom)";
-  final parameter Types.ComplexCurrentPu iFilter0Pu = - iPcc0Pu "Complex start value of the current at the filter in pu (base UNom, SNom)";
+  final parameter Types.ComplexCurrentPu iFilter0Pu = - iPcc0Pu "Complex start value of the current at the filter in pu (base UNom, SNom) (generator convention)";
 
 equation
   if running then

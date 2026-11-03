@@ -17,12 +17,12 @@ model DynGFMDroopPlantControl "GFM with Droop control and a generic Plant Contro
 
   extends Modelica.Icons.Example;
 
-  // Operating point at the PCC (plant terminal), consistent with AcGrid at 1 /_ 0 behind line1
+  // Operating point at the regulated bus (plant terminal), consistent with AcGrid at 1 /_ 0 behind line1
   parameter Types.ApparentPowerModule SNom = 1000 "Nominal apparent power module for the converter";
-  parameter Types.VoltageModulePu UPcc0Pu = 0.995667946619379 "Start value of voltage amplitude at the PCC in pu (base UNom)";
-  parameter Types.Angle UPccPhase0 = 0.0477619859090303 "Start value of voltage angle at the PCC in rad";
-  parameter Types.ActivePowerPu PPcc0Pu = -9.35033980050001 "Start value of active power at the PCC in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu QPcc0Pu = 1.570601995 "Start value of reactive power at the PCC in pu (base SnRef) (receptor convention)";
+  parameter Types.VoltageModulePu UReg0Pu = 0.995667946619379 "Start value of voltage amplitude at the regulated bus in pu (base UNom)";
+  parameter Types.Angle URegPhase0 = 0.0477619859090303 "Start value of voltage angle at the regulated bus in rad";
+  parameter Types.ActivePowerPu PReg0Pu = -9.35033980050001 "Start value of active power at the regulated bus in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu QReg0Pu = 1.570601995 "Start value of reactive power at the regulated bus in pu (base SnRef) (receptor convention)";
 
   Modelica.Blocks.Sources.Constant URefPu(k = dynDroopPlantControlFull.dynDroopPlantControl.plantControl.URef0Pu) annotation(
     Placement(transformation(origin = {-74, 6}, extent = {{-10, -10}, {10, 10}})));
@@ -30,23 +30,19 @@ model DynGFMDroopPlantControl "GFM with Droop control and a generic Plant Contro
     Placement(transformation(origin = {-70, 36}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
     Placement(transformation(origin = {-16, 82}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant URefGfmPu(k = dynDroopPlantControlFull.dynDroopPlantControl.dynGFMDroop.ControlDroop.URef0Pu) annotation(
-    Placement(transformation(origin = {-74, -24}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.PEIR.Plants.General.Average.DynDroopPlantControlFull dynDroopPlantControlFull(EpsVIUpPu = 0.01, EpsVIDownPu = 0.01, Omega0Pu = 0.99, OmegaRef0Pu = 1, SNom = SNom, UPcc0Pu = UPcc0Pu, UPccPhase0 = UPccPhase0, PPcc0Pu = PPcc0Pu, QPcc0Pu = QPcc0Pu, CFilterPu = 1e-05, IMaxVIPu = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.013, RFilterPu = 0.015, RTransformerPu = 0.006, Omegaf = 40, Omegaff = 50, XRratio = 10, XVIPu = 0.06, tVSC = 0.0004, Mp = 0.013, Omegac = 1000, OmegaPLL = 100, OmegaMaxPLLPu = 10, OmegaMinPLLPu = -10, KsiPLL = 1, LambdaPu = 0.1, Kdroop = 0.001, tQFilt = 0.1, tPFilt = 0.1, tUFilt = 0.1, Kpq = 0.01, Kiq = 0.1, Kpp = 0.3, Kip = 0.3, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 10, QMinPu = -10, PMaxPu = 1.2, PMinPu = -1.2, RPu = 0.0005, XPu = 0.005, GPu = 0, BPu = 0, RTfoPu = 0.0005, XTfoPu = 0.005, GTfoPu = 0, BTfoPu = 0, rTfoPu = 1) annotation(
+  Dynawo.Electrical.PEIR.Plants.General.Average.DynDroopPlantControlFull dynDroopPlantControlFull(EpsVIUpPu = 0.01, EpsVIDownPu = 0.01, Omega0Pu = 0.99, OmegaRef0Pu = 1, SNom = SNom, UReg0Pu = UReg0Pu, URegPhase0 = URegPhase0, PReg0Pu = PReg0Pu, QReg0Pu = QReg0Pu, CFilterPu = 1e-05, IMaxVIPu = 1.2, Kfd = 0.8, Kff = 0, Kfq = 0, KpVI = 0.1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.013, RFilterPu = 0.015, RTransformerPu = 0.006, Omegaf = 40, Omegaff = 50, XRratio = 10, XVIPu = 0.06, tVSC = 0.0004, Mp = 0.013, Omegac = 1000, OmegaPLL = 100, OmegaMaxPLLPu = 10, OmegaMinPLLPu = -10, KsiPLL = 1, LambdaPu = 0.1, Kdroop = 0.001, tQFilt = 0.1, tPFilt = 0.1, tUFilt = 0.1, Kpq = 0.01, Kiq = 0.1, Kpp = 0.3, Kip = 0.3, FEMaxPu = 999, FEMinPu = -999, FDbd1Pu = 0.005, FDbd2Pu = 0.1, DbdPu = 0.0001, QMaxPu = 10, QMinPu = -10, PMaxPu = 1.2, PMinPu = -1.2, RPu = 0.0005, XPu = 0.005, GPu = 0, BPu = 0, RTfoPu = 0.0005, XTfoPu = 0.005, GTfoPu = 0, BTfoPu = 0, rTfoPu = 1) annotation(
     Placement(transformation(origin = {-16, 6}, extent = {{-22, -22}, {22, 22}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = SNom) annotation(
     Placement(transformation(origin = {49, 5}, extent = {{-5, -5}, {5, 5}})));
   Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.0005, XPu = 0.005) annotation(
     Placement(transformation(origin = {76, 4}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 10, StartingFrequency = -0.01, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFPu = 0.01, tRoCoFStart = 10, deltaOmega0Pu = -0.01, tRoCoFDuration = 3, U0Pu = 1, UPhase0 = 0) annotation(
     Placement(transformation(origin = {56, 60}, extent = {{-10, -10}, {10, 10}})));
 
 equation
   line1.switchOffSignal1 = false;
   line1.switchOffSignal2 = false;
 
-  connect(URefGfmPu.y, dynDroopPlantControlFull.UFilterRefPu) annotation(
-    Line(points = {{-62, -24}, {-16, -24}, {-16, -18}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, dynDroopPlantControlFull.omegaRefPu) annotation(
     Line(points = {{-16, 72}, {-16, 30}}, color = {0, 0, 127}));
   connect(PRefPu.y, dynDroopPlantControlFull.PRefPu) annotation(
@@ -57,7 +53,7 @@ equation
     Line(points = {{5, 6}, {44, 6}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line1.terminal1) annotation(
     Line(points = {{54, 6}, {66, 6}, {66, 4}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+  connect(omegaRefPu.y, acGridRoCoF.omegaRefPu) annotation(
     Line(points = {{-16, 72}, {44, 72}, {44, 66}}, color = {0, 0, 127}));
   connect(acGridRoCoF.aCPower, line1.terminal2) annotation(
     Line(points = {{68, 66}, {86, 66}, {86, 4}}, color = {0, 0, 255}));

@@ -35,6 +35,11 @@
   <mandatoryParameter name="RTransformerPu" type="DOUBLE"/>
   <mandatoryParameter name="LTransformerPu" type="DOUBLE"/>
   <mandatoryParameter name="tVSC" type="DOUBLE"/>
+  <mandatoryParameter name="EpsVIUpPu" type="DOUBLE"/>
+  <mandatoryParameter name="EpsVIDownPu" type="DOUBLE"/>
+  <mandatoryParameter name="EpsUpPu" type="DOUBLE"/>
+  <mandatoryParameter name="EpsDownPu" type="DOUBLE"/>
+  <mandatoryParameter name="tSat" type="DOUBLE"/>
   <mandatoryParameter name="LambdaPu" type="DOUBLE"/>
   <mandatoryParameter name="Kdroop" type="DOUBLE"/>
   <mandatoryParameter name="tQFilt" type="DOUBLE"/>
@@ -62,8 +67,8 @@
   <mandatoryParameter name="UPhase0" type="DOUBLE"/>
   <mandatoryParameter name="P0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="UPcc0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="UPccPhase0" type="DOUBLE"/>
-  <mandatoryParameter name="PPcc0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="QPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UReg0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="URegPhase0" type="DOUBLE"/>
+  <mandatoryParameter name="PReg0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QReg0Pu" type="DOUBLE"/>
 </mandatoryParameters>

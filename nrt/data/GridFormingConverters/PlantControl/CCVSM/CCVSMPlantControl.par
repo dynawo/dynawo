@@ -14,12 +14,12 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
 <!-- Same values as Dynawo.Examples.GridForming.PlantControl.DynGFMCCPlantControlv2 -->
 <set id="1">
-  <!-- Operating point at the PCC (plant terminal), consistent with the Grid at 1 /_ 0 behind Line1 -->
+  <!-- Operating point at the regulated bus (plant terminal), consistent with the Grid at 1 /_ 0 behind Line1 -->
   <par type="DOUBLE" name="CCVSMPlantControl_SNom" value="1000"/>
-  <par type="DOUBLE" name="CCVSMPlantControl_UPcc0Pu" value="1.02343286532015"/>
-  <par type="DOUBLE" name="CCVSMPlantControl_UPccPhase0" value="0.0464048380960457"/>
-  <par type="DOUBLE" name="CCVSMPlantControl_PPcc0Pu" value="-9.89773532110073"/>
-  <par type="DOUBLE" name="CCVSMPlantControl_QPcc0Pu" value="-4.02696677575302"/>
+  <par type="DOUBLE" name="CCVSMPlantControl_UReg0Pu" value="1.02343286532015"/>
+  <par type="DOUBLE" name="CCVSMPlantControl_URegPhase0" value="0.0464048380960457"/>
+  <par type="DOUBLE" name="CCVSMPlantControl_PReg0Pu" value="-9.89773532110073"/>
+  <par type="DOUBLE" name="CCVSMPlantControl_QReg0Pu" value="-4.02696677575302"/>
   <!-- Plant controller (gains, limits and setpoints in SNom base, generator convention) -->
   <par type="DOUBLE" name="CCVSMPlantControl_LambdaPu" value="0.1"/>
   <par type="DOUBLE" name="CCVSMPlantControl_Kdroop" value="0"/>
@@ -93,24 +93,23 @@
 </set>
 <set id="4">
   <!-- AcGridRoCoF: 1 /_ 0, RoCoF of 0.01 pu/s from t = 5 s during 3 s -->
-  <par type="DOUBLE" name="Grid_SNom" value="1000"/>
-  <par type="DOUBLE" name="Grid_U0pu" value="1.0"/>
+  <par type="DOUBLE" name="Grid_U0Pu" value="1.0"/>
   <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
-  <par type="DOUBLE" name="Grid_StartingFrequency" value="0"/>
-  <par type="DOUBLE" name="Grid_RoCoFValue" value="0.01"/>
-  <par type="DOUBLE" name="Grid_StartRoCoF" value="5"/>
-  <par type="DOUBLE" name="Grid_TimeRoCoF" value="3"/>
+  <par type="DOUBLE" name="Grid_deltaOmega0Pu" value="0"/>
+  <par type="DOUBLE" name="Grid_RoCoFPu" value="0.01"/>
+  <par type="DOUBLE" name="Grid_tRoCoFStart" value="5"/>
+  <par type="DOUBLE" name="Grid_tRoCoFDuration" value="3"/>
 </set>
 <set id="5">
   <!-- OmegaRefSrc -->
   <par type="DOUBLE" name="setPoint_Value0" value="1"/>
 </set>
 <set id="6">
-  <!-- URefSrc = UPcc0Pu + LambdaPu*QPccGen0Pu, with QPccGen0Pu = -QPcc0Pu*SnRef/SNom (base SNom, generator convention) -->
+  <!-- URefSrc = UReg0Pu + LambdaPu*QRegGen0Pu, with QRegGen0Pu = -QReg0Pu*SnRef/SNom (base SNom, generator convention) -->
   <par type="DOUBLE" name="setPoint_Value0" value="1.06370253307768"/>
 </set>
 <set id="8">
-  <!-- PRefSrc = -PPcc0Pu*SnRef/SNom (base SNom, generator convention) -->
+  <!-- PRefSrc = -PReg0Pu*SnRef/SNom (base SNom, generator convention) -->
   <par type="DOUBLE" name="setPoint_Value0" value="0.989773532110073"/>
 </set>
 <set id="10">

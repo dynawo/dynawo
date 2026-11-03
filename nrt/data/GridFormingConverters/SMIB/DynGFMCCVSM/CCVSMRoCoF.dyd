@@ -26,6 +26,6 @@
   <dyn:connect id1="SetPointZero" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_QFilterRefPu"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_UFilterRefPu"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMCCVSM" var2="GFMCC_omegaRefPu"/>
-  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="Grid" var2="Grid_OmegaRef"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="Grid" var2="Grid_omegaRefPu"/>
   <dyn:connect id1="Meas" var1="measurements_terminal1" id2="GFMCCVSM" var2="GFMCC_terminal"/>
 </dyn:dynamicModelsArchitecture>

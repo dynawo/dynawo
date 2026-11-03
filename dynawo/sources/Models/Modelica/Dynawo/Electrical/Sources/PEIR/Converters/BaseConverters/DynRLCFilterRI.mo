@@ -31,7 +31,7 @@ model DynRLCFilterRI "Dynamic RLC Filter in (RI) frame"
   parameter Types.PerUnit CPu "Capacitance in pu (base UNom, SNom)";
 
   // Terminals
-  Dynawo.Connectors.ACPower terminal1(V(re(start = uConv0Pu.re), im(start = uConv0Pu.im)), i(re(start = iConv0Pu.re), im(start = iConv0Pu.im))) annotation(
+  Dynawo.Connectors.ACPower terminal1(V(re(start = uConv0Pu.re), im(start = uConv0Pu.im)), i(re(start = -iConv0Pu.re), im(start = -iConv0Pu.im))) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-115, -3}, extent = {{-15, -15}, {15, 15}})));
   Dynawo.Connectors.ACPower terminal2(V(re(start = uFilter0Pu.re), im(start = uFilter0Pu.im)), i(re(start = iPcc0Pu.re), im(start = iPcc0Pu.im))) annotation(
     Placement(transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {114,-2}, extent = {{-15, -15}, {15, 15}})));

@@ -31,7 +31,7 @@ model DynGFMCCVSMSmib "Single machine infinite bus test case for Grid Forming hy
     Placement(transformation(origin = {24, 0}, extent = {{-6, -6}, {6, 6}})));
   Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(dUPhaseEvt = 0.416, tUPhaseEvt = 10)  annotation(
     Placement(transformation(origin = {88, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFValue = -0.05, SNom = 1000, StartRoCoF = 5, StartingFrequency = 0, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1, ReturnRoCoF = true) annotation(
+  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFPu = -0.05, tRoCoFStart = 5, deltaOmega0Pu = 0, tRoCoFDuration = 3, U0Pu = 1, UPhase0 = 0, ReturnRoCoF = true) annotation(
     Placement(transformation(origin = {20, 62}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
@@ -51,7 +51,7 @@ equation
     Line(points = {{14, 0}, {18, 0}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{30, 0}, {34, 0}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+  connect(omegaRefPu.y, acGridRoCoF.omegaRefPu) annotation(
     Line(points = {{-100, 20}, {-56, 20}, {-56, 68}, {8, 68}}, color = {0, 0, 127}));
   connect(line.terminal2, infiniteBusWithVariations.terminal) annotation(
     Line(points = {{54, 0}, {88, 0}}, color = {0, 0, 255}));

@@ -1,19 +1,21 @@
 within Dynawo.Electrical.PEIR.Plants.General.Average;
 
-model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
-  /*
-  * Copyright (c) 2026, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-  * of simulation tools for power systems.
-  */
-  parameter Types.Time tUFiltGFM = 0.01 "Filter time constant for voltage measurement in s";
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model DynCCVSMPlantControl "GFM with current-controlled VSM control and a generic Plant Controller"
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter in MVA";
+  parameter Types.Time tUFiltGFM = 0.01 "Filter time constant for voltage measurement in the converter in s";
   // VSM parameters
   parameter Types.PerUnit kVSM "Virtual Synchronous Machine gain" annotation(
     Dialog(tab = "VSM"));
@@ -30,30 +32,39 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Dialog(tab = "VI"));
   parameter Types.CurrentModulePu DeltaIConvMaxPu "Maximum extra current module used to compute RVIPu/XVIPu, in pu (base UNom, SNom): bounds the virtual impedance correction regardless of how large the measured current becomes" annotation(
     Dialog(tab = "VI"));
-
+  parameter Types.CurrentModulePu EpsVIUpPu "Upper half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold, in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "VI"));
+  parameter Types.CurrentModulePu EpsVIDownPu "Lower half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold, in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "VI"));
   // Voltage reference control parameters
   parameter Types.PerUnit Mq "Reactive power droop control coefficient" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.AngularVelocity Omegaf "Cutoff pulsation of the active and reactive filters (in rad/s)" annotation(
+  parameter Types.AngularVelocity Omegaf "Cutoff pulsation of the active and reactive filters in rad/s" annotation(
     Dialog(tab = "Voltage Reference"));
-  parameter Types.AngularVelocity Omegaff "Cutoff pulsation of the active damping (in rad/s)" annotation(
+  parameter Types.AngularVelocity Omegaff "Cutoff pulsation of the active damping in rad/s" annotation(
     Dialog(tab = "Voltage Reference"));
   parameter Types.PerUnit Kff "Gain of the active damping" annotation(
     Dialog(tab = "Voltage Reference"));
   // QSEM parameter
-  parameter Real XVIPu "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
+  parameter Types.PerUnit XVIPu "Virtual impedance in pu (base UNom, SNom), directly included into the QSEM control" annotation(
     Dialog(tab = "QSEM"));
   // Current loop parameters
-  parameter Types.PerUnit Omegac "Current Loop bandwidth (in rad/s)" annotation(
+  parameter Types.AngularVelocity Omegac "Current loop bandwidth in rad/s" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfd "Feedforward gain on the d-axis" annotation(
     Dialog(tab = "Current loop"));
   parameter Types.PerUnit Kfq "Feedforward gain on the q-axis" annotation(
     Dialog(tab = "Current loop"));
-  //Current Saturation parameters
-  parameter Types.CurrentModulePu ImaxPu "Current max threshold to limit a current's module" annotation(
+  // Current saturation parameters
+  parameter Types.CurrentModulePu ImaxPu "Current max threshold to limit a current's module in pu (base UNom, SNom)" annotation(
     Dialog(tab = "Current Saturation"));
-  parameter Types.CurrentModulePu IminPu "Current min threshold to limit a current's module" annotation(
+  parameter Types.CurrentModulePu IminPu "Current min threshold to limit a current's module in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "Current Saturation"));
+  parameter Types.CurrentModulePu EpsUpPu "Upper half-width of the dead band around Imax/Imin, to avoid chattering at the activation threshold, in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "Current Saturation"));
+  parameter Types.CurrentModulePu EpsDownPu "Lower half-width of the dead band around Imax/Imin, to avoid chattering at the activation threshold, in pu (base UNom, SNom)" annotation(
+    Dialog(tab = "Current Saturation"));
+  parameter Types.Time tSat "Time constant of the first-order filter on the dq reference currents in s" annotation(
     Dialog(tab = "Current Saturation"));
   // Filter parameters
   parameter Types.PerUnit RFilterPu "Filter resistance in pu (base UNom, SNom)" annotation(
@@ -70,33 +81,28 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
   // VSC parameter
   parameter Types.Time tVSC "VSC time response in s" annotation(
     Dialog(tab = "VSC"));
-  parameter Types.CurrentModulePu EpsVIUpPu "Upper half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold" annotation(
-    Dialog(tab = "VI"));
-  parameter Types.CurrentModulePu EpsVIDownPu "Lower half-width of the dead band around IMaxVI, to avoid chattering at the activation threshold" annotation(
-    Dialog(tab = "VI"));
-  parameter Types.CurrentModulePu EpsUpPu "Upper half-width of the dead band around Imax/Imin, to avoid chattering at the activation threshold" annotation(
-    Dialog(tab = "Current Saturation"));
-  parameter Types.CurrentModulePu EpsDownPu "Lower half-width of the dead band around Imax/Imin, to avoid chattering at the activation threshold" annotation(
-    Dialog(tab = "Current Saturation"));
-  parameter Types.Time tSat "Time constant of the first-order filter on the dq reference currents (in s)" annotation(
-    Dialog(tab = "Current Saturation"));
-  parameter Types.AngularVelocityPu Omega0Pu = SystemBase.omegaRef0Pu "Start value of the physical frequency of the grid and converter in pu (base omegaNom)";
-  parameter Types.AngularVelocityPu OmegaRef0Pu = SystemBase.omegaRef0Pu "Start value of the rotation speed of the RI reference frame (omegaRefPu input) in pu (base omegaNom)";
-
-  // PlantControl parameters
-  //Parameters -- gains
+  // PLL parameters
+  parameter Types.AngularVelocity OmegaPLL "PLL bandwidth in rad/s" annotation(
+    Dialog(tab = "PLL"));
+  parameter Types.PerUnit KsiPLL "PLL damping ratio (dimensionless)" annotation(
+    Dialog(tab = "PLL"));
+  parameter Types.AngularVelocityPu OmegaMaxPLLPu "Upper frequency limit of the PLL in pu (base omegaNom)" annotation(
+    Dialog(tab = "PLL"));
+  parameter Types.AngularVelocityPu OmegaMinPLLPu "Lower frequency limit of the PLL in pu (base omegaNom)" annotation(
+    Dialog(tab = "PLL"));
+  // Plant control parameters -- gains
   parameter Types.PerUnit LambdaPu "Reactive power compensation gain, URegPu + LambdaPu*QReg is controlled (in pu (base UNom) per pu (base SNom), generator convention)" annotation(
     Dialog(tab = "Plant Control"));
   parameter Types.PerUnit Kdroop "Frequency droop gain (in pu (base SNom) per pu (base omegaNom), generator convention)" annotation(
     Dialog(tab = "Plant Control"));
-  //Parameters -- time constants
-  parameter Real tQFilt "Time constant for the reactive power filter (in s)" annotation(
+  // Plant control parameters -- time constants
+  parameter Types.Time tQFilt "Time constant for the reactive power filter in s" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Real tPFilt "Time constant for the active power filter (in s)" annotation(
+  parameter Types.Time tPFilt "Time constant for the active power filter in s" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Real tUFilt "Time constant for the voltage filter (in s)" annotation(
+  parameter Types.Time tUFilt "Time constant for the voltage filter in s" annotation(
     Dialog(tab = "Plant Control"));
-  //Parameters -- PI gains
+  // Plant control parameters -- PI gains
   parameter Types.PerUnit Kpq "PI proportional gain - voltage/Q loop" annotation(
     Dialog(tab = "Plant Control"));
   parameter Real Kiq(unit = "1/s") "PI integral gain - voltage/Q loop" annotation(
@@ -105,7 +111,7 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Dialog(tab = "Plant Control"));
   parameter Real Kip(unit = "1/s") "PI integral gain - active power loop" annotation(
     Dialog(tab = "Plant Control"));
-  //Parameters -- output limits (base SNom, generator convention)
+  // Plant control parameters -- output limits
   parameter Types.ReactivePowerPu QMaxPu "Maximum reactive power reference sent to the converter in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Plant Control"));
   parameter Types.ReactivePowerPu QMinPu "Minimum reactive power reference sent to the converter in pu (base SNom) (generator convention)" annotation(
@@ -114,80 +120,74 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Dialog(tab = "Plant Control"));
   parameter Types.ActivePowerPu PMinPu "Minimum active power reference sent to the converter in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Plant Control"));
-  //Parameters -- deadbands and frequency droop limiter
-  parameter Real FEMaxPu "Maximum frequency error after droop limiter (pu)" annotation(
+  // Plant control parameters -- deadbands and frequency droop limiter
+  parameter Types.ActivePowerPu FEMaxPu "Maximum active power contribution of the frequency droop in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Real FEMinPu "Minimum frequency error after droop limiter (pu)" annotation(
+  parameter Types.ActivePowerPu FEMinPu "Minimum active power contribution of the frequency droop in pu (base SNom) (generator convention)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Real FDbd1Pu "Frequency deadband lower threshold (pu, positive value)" annotation(
+  parameter Types.PerUnit FDbd1Pu "Frequency deadband on the over-frequency side in pu (base omegaNom) (positive value)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Real FDbd2Pu "Frequency deadband upper threshold (pu, positive value)" annotation(
+  parameter Types.PerUnit FDbd2Pu "Frequency deadband on the under-frequency side in pu (base omegaNom) (positive value)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Real DbdPu "Voltage error deadband half-width (pu)" annotation(
+  parameter Types.PerUnit DbdPu "Voltage error deadband half-width in pu (base UNom)" annotation(
     Dialog(tab = "Plant Control"));
-  // PLL parameters
-  parameter Types.PerUnit OmegaPLL "PLL bandwidth (in rad/s)" annotation(
-    Dialog(tab = "PLL"));
-  parameter Types.PerUnit KsiPLL "PLL damping ratio (dimensionless)" annotation(
-    Dialog(tab = "PLL"));
-  parameter Types.AngularVelocityPu OmegaMaxPLLPu "Upper frequency limit of the PLL in pu (base omegaNom)" annotation(
-    Dialog(tab = "PLL"));
-  parameter Types.AngularVelocityPu OmegaMinPLLPu "Lower frequency limit of the PLL in pu (base omegaNom)" annotation(
-    Dialog(tab = "PLL"));
 
-  //Inputs
-  Modelica.Blocks.Interfaces.RealInput UPccPu(start = UPcc0Pu) "Voltage at the PCC in p.u. (base UNom)" annotation(
-    Placement(transformation(origin = {-114, -80}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-112, -88}, extent = {{-12, -12}, {12, 12}})));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = plantControl.URef0Pu) "Reference voltage at the PCC in p.u. (base UNom)" annotation(
-    Placement(transformation(origin = {-114, -20}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, -21}, extent = {{-11, -11}, {11, 11}})));
-  Modelica.Blocks.Interfaces.RealInput QPccPu(start = QPcc0Pu) "Reactive power at the PCC in p.u. (receptor convention, base SNref)" annotation(
-    Placement(transformation(origin = {-114, -50}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, -53}, extent = {{-11, -11}, {11, 11}})));
-  Modelica.Blocks.Interfaces.RealInput PPccPu(start = PPcc0Pu) "Active power at the PCC in p.u. (receptor convention, base SNref)" annotation(
+  // Inputs
+  Modelica.Blocks.Interfaces.RealInput PRegPu(start = PReg0Pu) "Active power at the regulated bus in pu (base SnRef) (receptor convention)" annotation(
     Placement(transformation(origin = {-114, 80}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, 79}, extent = {{-11, -11}, {11, 11}})));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = plantControl.PRegGen0Pu) "Active power setpoint at the PCC in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = plantControl.PRegGen0Pu) "Active power setpoint at the regulated bus in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-114, 50}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, 49}, extent = {{-11, -11}, {11, 11}})));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = plantControl.URef0Pu) "Voltage reference at the regulated bus in pu (base UNom)" annotation(
+    Placement(transformation(origin = {-114, -20}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, -21}, extent = {{-11, -11}, {11, 11}})));
+  Modelica.Blocks.Interfaces.RealInput QRegPu(start = QReg0Pu) "Reactive power at the regulated bus in pu (base SnRef) (receptor convention)" annotation(
+    Placement(transformation(origin = {-114, -50}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, -53}, extent = {{-11, -11}, {11, 11}})));
+  Modelica.Blocks.Interfaces.RealInput URegPu(start = UReg0Pu) "Voltage module at the regulated bus in pu (base UNom)" annotation(
+    Placement(transformation(origin = {-114, -80}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-112, -88}, extent = {{-12, -12}, {12, 12}})));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) "System frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-12, 114}, extent = {{-14, -14}, {14, 14}}, rotation = -90), iconTransformation(origin = {1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UFilterRefPu(start = DynGFMCCVSM.ControlCC.URef0Pu) annotation(
-    Placement(transformation(origin = {-52, -60}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {1, -111}, extent = {{-11, -11}, {11, 11}}, rotation = 90)));
 
-  Connectors.ACPower terminal annotation(
+  // Terminal
+  Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the converter to the grid" annotation(
     Placement(transformation(origin = {96, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {96, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.PlantController.PlantControl plantControl(SNom = SNom, LambdaPu = LambdaPu, Kdroop = Kdroop, tQFilt = tQFilt, tPFilt = tPFilt, tUFilt = tUFilt, Kpq = Kpq, Kiq = Kiq, Kpp = Kpp, Kip = Kip, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, QReg0Pu = QPcc0Pu, Omega0Pu = Omega0Pu, UReg0Pu = UPcc0Pu, PReg0Pu = PPcc0Pu, Pinj0Pu = DynGFMCCVSM.ControlCC.PFilter0Pu, Qinj0Pu = DynGFMCCVSM.ControlCC.QFilter0Pu) annotation(
+
+  Dynawo.Electrical.Controls.PEIR.BaseControls.PlantController.PlantControl plantControl(SNom = SNom, LambdaPu = LambdaPu, Kdroop = Kdroop, tQFilt = tQFilt, tPFilt = tPFilt, tUFilt = tUFilt, Kpq = Kpq, Kiq = Kiq, Kpp = Kpp, Kip = Kip, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, QReg0Pu = QReg0Pu, Omega0Pu = Omega0Pu, UReg0Pu = UReg0Pu, PReg0Pu = PReg0Pu, Pinj0Pu = DynGFMCCVSM.ControlCC.PFilter0Pu, Qinj0Pu = DynGFMCCVSM.ControlCC.QFilter0Pu) annotation(
     Placement(transformation(origin = {-62, -2}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(EpsVIUpPu = EpsVIUpPu, EpsVIDownPu = EpsVIDownPu, EpsUpPu = EpsUpPu, EpsDownPu = EpsDownPu, tSat = tSat, Omega0Pu = Omega0Pu, OmegaRef0Pu = OmegaRef0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, kVSM = kVSM, H = H, KDampingAngle = KDampingAngle, KpVI = KpVI, XRratio = XRratio, IMaxVIPu = IMaxVIPu, DeltaIConvMaxPu = DeltaIConvMaxPu, XVIPu = XVIPu, OmegaPLL = OmegaPLL, KsiPLL = KsiPLL, OmegaMaxPLLPu = OmegaMaxPLLPu, OmegaMinPLLPu = OmegaMinPLLPu, Mq = Mq, Omegaf = Omegaf, Omegaff = Omegaff, Kff = Kff, Omegac = Omegac, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, tVSC = tVSC, ImaxPu = ImaxPu, IminPu = IminPu)  annotation(
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(tUFilt = tUFiltGFM, EpsVIUpPu = EpsVIUpPu, EpsVIDownPu = EpsVIDownPu, EpsUpPu = EpsUpPu, EpsDownPu = EpsDownPu, tSat = tSat, Omega0Pu = Omega0Pu, OmegaRef0Pu = OmegaRef0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, kVSM = kVSM, H = H, KDampingAngle = KDampingAngle, KpVI = KpVI, XRratio = XRratio, IMaxVIPu = IMaxVIPu, DeltaIConvMaxPu = DeltaIConvMaxPu, XVIPu = XVIPu, OmegaPLL = OmegaPLL, KsiPLL = KsiPLL, OmegaMaxPLLPu = OmegaMaxPLLPu, OmegaMinPLLPu = OmegaMinPLLPu, Mq = Mq, Omegaf = Omegaf, Omegaff = Omegaff, Kff = Kff, Omegac = Omegac, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, tVSC = tVSC, ImaxPu = ImaxPu, IminPu = IminPu) annotation(
     Placement(transformation(origin = {13, -1}, extent = {{-17, -17}, {17, 17}})));
 
-  // Operating Point - GFM
-  parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
-  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at GFM terminal in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Start value of voltage angle at GFM terminal in rad";
-  parameter Types.ActivePowerPu P0Pu "Start value of active power at GFM terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at GFM terminal in pu (base SnRef) (receptor convention)";
-  final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Start value of the complex voltage at terminalof the GFM in pu (base UNom)";
-  final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at terminalof the GFM in pu (base UNom, SnRef) (receptor convention)";
-  // Operating Point - PCC
-  parameter Types.VoltageModulePu UPcc0Pu "Start value of voltage amplitude at PCC terminal in pu (base UNom)";
-  parameter Types.Angle UPccPhase0 "Start value of voltage angle at PCC terminal in rad";
-  parameter Types.ActivePowerPu PPcc0Pu "Start value of active power at PCC terminal in pu (base SnRef) (receptor convention)";
-  parameter Types.ReactivePowerPu QPcc0Pu "Start value of reactive power at PCC terminal in pu (base SnRef) (receptor convention)";
-  final parameter Types.ComplexVoltagePu uPcc0Pu = Modelica.ComplexMath.fromPolar(UPcc0Pu, UPccPhase0) "Start value of the complex voltage at terminalof the PCC in pu (base UNom)";
-  final parameter Types.ComplexCurrentPu iPcc0Pu = Modelica.ComplexMath.conj(Complex(PPcc0Pu, QPcc0Pu)/uPcc0Pu) "Start value of the complex current at terminalof the PCC in pu (base UNom, SnRef) (receptor convention)";
-   equation
+  // Initial parameters - frequency
+  parameter Types.AngularVelocityPu Omega0Pu = SystemBase.omegaRef0Pu "Start value of the physical frequency of the grid and converter in pu (base omegaNom)";
+  parameter Types.AngularVelocityPu OmegaRef0Pu = SystemBase.omegaRef0Pu "Start value of the rotation speed of the RI reference frame (omegaRefPu input) in pu (base omegaNom)";
+  // Initial parameters - converter terminal
+  parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at the converter terminal in pu (base UNom)";
+  parameter Types.Angle UPhase0 "Start value of voltage angle at the converter terminal in rad";
+  parameter Types.ActivePowerPu P0Pu "Start value of active power at the converter terminal in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at the converter terminal in pu (base SnRef) (receptor convention)";
+  final parameter Types.ComplexVoltagePu u0Pu = Modelica.ComplexMath.fromPolar(U0Pu, UPhase0) "Start value of the complex voltage at the converter terminal in pu (base UNom)";
+  final parameter Types.ComplexCurrentPu i0Pu = Modelica.ComplexMath.conj(Complex(P0Pu, Q0Pu)/u0Pu) "Start value of the complex current at the converter terminal in pu (base UNom, SnRef) (receptor convention)";
+  // Initial parameters - regulated bus
+  parameter Types.VoltageModulePu UReg0Pu "Start value of voltage amplitude at the regulated bus in pu (base UNom)";
+  parameter Types.Angle URegPhase0 "Start value of voltage angle at the regulated bus in rad";
+  parameter Types.ActivePowerPu PReg0Pu "Start value of active power at the regulated bus in pu (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu QReg0Pu "Start value of reactive power at the regulated bus in pu (base SnRef) (receptor convention)";
+
+equation
   DynGFMCCVSM.switchOffSignal1 = false;
   DynGFMCCVSM.switchOffSignal2 = false;
   DynGFMCCVSM.switchOffSignal3 = false;
+  // The plant controller acts on the converter through QFilterRefPu only: the converter voltage reference is kept at its initial value
+  DynGFMCCVSM.UFilterRefPu = DynGFMCCVSM.ControlCC.URef0Pu;
+
   connect(URefPu, plantControl.URefPu) annotation(
     Line(points = {{-114, -20}, {-90, -20}, {-90, -4}, {-74, -4}}, color = {0, 0, 127}));
-  connect(QPccPu, plantControl.QRegPu) annotation(
+  connect(QRegPu, plantControl.QRegPu) annotation(
     Line(points = {{-114, -50}, {-84, -50}, {-84, -8}, {-74, -8}}, color = {0, 0, 127}));
-  connect(UPccPu, plantControl.URegPu) annotation(
+  connect(URegPu, plantControl.URegPu) annotation(
     Line(points = {{-114, -80}, {-76, -80}, {-76, -10}, {-74, -10}}, color = {0, 0, 127}));
   connect(PRefPu, plantControl.PRefPu) annotation(
     Line(points = {{-114, 50}, {-78, 50}, {-78, 2}, {-74, 2}}, color = {0, 0, 127}));
-  connect(PPccPu, plantControl.PRegPu) annotation(
+  connect(PRegPu, plantControl.PRegPu) annotation(
     Line(points = {{-114, 80}, {-74, 80}, {-74, 6}}, color = {0, 0, 127}));
-
   connect(DynGFMCCVSM.terminal, terminal) annotation(
     Line(points = {{32, -1}, {64, -1}, {64, -2}, {96, -2}}, color = {0, 0, 255}));
   connect(omegaRefPu, DynGFMCCVSM.omegaRefPu) annotation(
@@ -196,11 +196,10 @@ model DynCCVSMPlantControl "GFM with VSM control and a generic Plant Controller"
     Line(points = {{-50, 4}, {-10, 4}, {-10, 13}, {-6, 13}}, color = {0, 0, 127}));
   connect(plantControl.QInjRefPu, DynGFMCCVSM.QFilterRefPu) annotation(
     Line(points = {{-50, -8}, {-6, -8}}, color = {0, 0, 127}));
-  connect(UFilterRefPu, DynGFMCCVSM.UFilterRefPu) annotation(
-    Line(points = {{-52, -60}, {-52, -61}, {-6, -61}, {-6, -15}}, color = {0, 0, 127}));
   connect(DynGFMCCVSM.omegaVSMPu, plantControl.omegaPu) annotation(
     Line(points = {{23, 18}, {23, 22}, {-88, 22}, {-88, 0}, {-74, 0}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
-    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.0244379));
+    Documentation(info = "<html><head></head><body>Grid-forming converter with a current-controlled Virtual Synchronous Machine control (DynGFMCCVSM), driven by a generic plant controller (PlantControl).<br><br>The plant controller regulates the active power (with a frequency droop) and the voltage (with reactive power compensation) measured at the regulated bus, and sends active and reactive power references to the converter filter. The voltage reference of the converter (UFilterRefPu) is kept at its initial value: the plant controller acts on the voltage through the reactive power reference only, the converter Q-U droop (Mq) translating it into an internal voltage reference. The regulated bus measurements (URegPu, PRegPu, QRegPu) are inputs of this model: the network between the converter terminal and the regulated bus is modelled outside (see DynCCVSMPlantControlFull, which adds the plant line and transformer).<br><br>Conventions: regulated bus measurements and start values are in pu (base SnRef) in receptor convention, plant control setpoints and limits are in pu (base SNom) in generator convention.</body></html>"));
 end DynCCVSMPlantControl;

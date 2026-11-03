@@ -28,7 +28,7 @@ model VSM_RoCoF "Single machine infinite bus test case for Grid Forming VSM mode
     Placement(transformation(origin = {-114, 56}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
     Placement(transformation(origin = {28, 2}, extent = {{-10, -10}, {10, 10}})));
- Electrical.Sources.AcGridRoCoF acGridRoCoF(SNom = 1000, U0pu = 1, UPhase0 = 0, Upu = 1, UPhase = 0, StartRoCoF = 10, TimeRoCoF = 3, RoCoFValue = 0.01, StartingFrequency = -0.01)  annotation(
+ Electrical.Sources.AcGridRoCoF acGridRoCoF(U0Pu = 1, UPhase0 = 0, tRoCoFStart = 10, tRoCoFDuration = 3, RoCoFPu = 0.01, deltaOmega0Pu = -0.01)  annotation(
     Placement(transformation(origin = {20, 62}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
@@ -48,7 +48,7 @@ equation
     Line(points = {{10, 2}, {18, 2}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{38, 2}, {46, 2}}, color = {0, 0, 255}));
- connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+ connect(omegaRefPu.y, acGridRoCoF.omegaRefPu) annotation(
     Line(points = {{-100, 20}, {-52, 20}, {-52, 68}, {8, 68}}, color = {0, 0, 127}));
  connect(acGridRoCoF.aCPower, line.terminal2) annotation(
     Line(points = {{32, 68}, {66, 68}, {66, 2}}, color = {0, 0, 255}));

@@ -72,8 +72,8 @@
   <mandatoryParameter name="BTfoPu" type="DOUBLE"/>
   <mandatoryParameter name="rTfoPu" type="DOUBLE"/>
   <mandatoryParameter name="SNom" type="DOUBLE"/>
-  <mandatoryParameter name="UPcc0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="UPccPhase0" type="DOUBLE"/>
-  <mandatoryParameter name="PPcc0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="QPcc0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UReg0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="URegPhase0" type="DOUBLE"/>
+  <mandatoryParameter name="PReg0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="QReg0Pu" type="DOUBLE"/>
 </mandatoryParameters>

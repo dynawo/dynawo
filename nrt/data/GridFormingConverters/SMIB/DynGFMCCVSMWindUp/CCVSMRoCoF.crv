@@ -17,7 +17,6 @@
   <curve model="Meas" variable="measurements_PPuSNom"/>
   <curve model="Meas" variable="measurements_QPuSNom"/>
   <curve model="Grid" variable="Grid_omegaPu"/>
-  <curve model="Grid" variable="Grid_PPu"/>
   <!-- Grid voltage phase (rad), used to compute the angle between the converter and the grid -->
   <curve model="Grid" variable="Grid_integrator1_y"/>
   <curve model="GFMCCVSM" variable="GFMCC_omegaVSMPu"/>

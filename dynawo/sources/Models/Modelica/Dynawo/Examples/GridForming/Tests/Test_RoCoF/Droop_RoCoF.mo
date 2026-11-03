@@ -29,7 +29,7 @@ model Droop_RoCoF "Single machine infinite bus test case for Grid Forming VSM mo
     Placement(transformation(origin = {-27, 3}, extent = {{-23, -23}, {23, 23}})));
   Dynawo.Electrical.Controls.Utilities.Measurements measurements(SNom = 1000) annotation(
     Placement(transformation(origin = {18, 0}, extent = {{-10, -10}, {10, 10}})));
-  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFValue = 0.01, SNom = 1000, StartRoCoF = 10, StartingFrequency = -0.01, TimeRoCoF = 3, U0pu = 1, UPhase = 0, UPhase0 = 0, Upu = 1) annotation(
+  Dynawo.Electrical.Sources.AcGridRoCoF acGridRoCoF(RoCoFPu = 0.01, tRoCoFStart = 10, deltaOmega0Pu = -0.01, tRoCoFDuration = 3, U0Pu = 1, UPhase0 = 0) annotation(
     Placement(transformation(origin = {20, 62}, extent = {{-10, -10}, {10, 10}})));
 equation
   line.switchOffSignal1 = false;
@@ -49,7 +49,7 @@ equation
     Line(points = {{-2, 4}, {8, 4}, {8, 0}}, color = {0, 0, 255}));
   connect(measurements.terminal2, line.terminal1) annotation(
     Line(points = {{28, 0}, {34, 0}}, color = {0, 0, 255}));
-  connect(omegaRefPu.y, acGridRoCoF.OmegaRef) annotation(
+  connect(omegaRefPu.y, acGridRoCoF.omegaRefPu) annotation(
     Line(points = {{-100, 20}, {-60, 20}, {-60, 68}, {8, 68}}, color = {0, 0, 127}));
   connect(acGridRoCoF.aCPower, line.terminal2) annotation(
     Line(points = {{32, 68}, {54, 68}, {54, 0}}, color = {0, 0, 255}));
