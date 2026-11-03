@@ -40,6 +40,51 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
   parameter Real Theta0 "Initial PLL angle (rad)";
   parameter Real Uq0Pu "Initial q-axis voltage at PCC in control dq frame (pu)";
 
+   // Input variables
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu (start=Omega0Pu) annotation(
+    Placement(transformation(origin = {-190, 108}, extent = {{-10, -10}, {10, 10}}),
+    iconTransformation(origin = {72, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput PLVPu (start=PInj0Pu) annotation(
+    Placement(transformation(origin = {-190, 40}, extent = {{-10, -10}, {10, 10}}),
+    iconTransformation(origin = {-84, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput QLVPu (start=QInj0Pu) annotation(
+    Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}),
+    iconTransformation(origin = {-48, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput udLVPu (start=vd_0) annotation(
+    Placement(transformation(origin = {-20, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
+    iconTransformation(origin = {46, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput uqLVPu (start=vq_0) annotation(
+    Placement(transformation(origin = {0, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
+    iconTransformation(origin = {72, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput idConvPu (start=IdConv0Pu) annotation(
+    Placement(transformation(origin = {40, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
+    iconTransformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput iqConvPu (start=IqConv0Pu) annotation(
+    Placement(transformation(origin = {60, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
+    iconTransformation(origin = {-8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput PRefPu (start=PInj0Pu) annotation(
+    Placement(transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput QRefPu (start=QInj0Pu) annotation(
+    Placement(transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput uqFilterPu annotation(
+    Placement(transformation(origin = {-190, 92}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealInput ULVPu annotation(
+    Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}})));
+
+  // Output variables
+  Modelica.Blocks.Interfaces.RealOutput vm_re (start=vm0.re) annotation(
+    Placement(transformation(origin = {190, 32}, extent = {{-10, -10}, {10, 10}}),
+    iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealOutput vm_im (start=vm0.im) annotation(
+    Placement(transformation(origin = {190, 8}, extent = {{-10, -10}, {10, 10}}),
+    iconTransformation(origin = {110, 8}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealOutput thetaPLL (start=Theta0) annotation(
+    Placement(transformation(origin = {190, 92}, extent = {{-10, -10}, {10, 10}}),
+    iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.RealOutput omegaPLLPu (start=Omega0Pu) annotation(
+    Placement(transformation(origin = {190, 108}, extent = {{-10, -10}, {10, 10}}),
+    iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}})));
+
   Dynawo.Electrical.Controls.PEIR.BaseControls.CurrentLoops.DynCurrentLoop currentLoop(
     Kfd = Kfd,
     Kfq = Kfq,
@@ -99,51 +144,6 @@ model GFLControl "Top-level GFL converter control block. Assembles outer loop, i
   Dynawo.Electrical.Controls.WECC.Utilities.TransformDQtoRI transformDQtoRI annotation(
     Placement(transformation(origin = {120, 20}, extent = {{-20, -20}, {20, 20}})));
 
-  // Input variables
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu (start=Omega0Pu) annotation(
-    Placement(transformation(origin = {-190, 108}, extent = {{-10, -10}, {10, 10}}),
-    iconTransformation(origin = {72, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PLVPu (start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-190, 40}, extent = {{-10, -10}, {10, 10}}),
-    iconTransformation(origin = {-84, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput QLVPu (start=QInj0Pu) annotation(
-    Placement(transformation(origin = {-190, -20}, extent = {{-10, -10}, {10, 10}}),
-    iconTransformation(origin = {-48, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput udLVPu (start=vd_0) annotation(
-    Placement(transformation(origin = {-20, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
-    iconTransformation(origin = {46, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput uqLVPu (start=vq_0) annotation(
-    Placement(transformation(origin = {0, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
-    iconTransformation(origin = {72, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput idConvPu (start=IdConv0Pu) annotation(
-    Placement(transformation(origin = {40, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
-    iconTransformation(origin = {18, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iqConvPu (start=IqConv0Pu) annotation(
-    Placement(transformation(origin = {60, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 90),
-    iconTransformation(origin = {-8, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu (start=PInj0Pu) annotation(
-    Placement(transformation(origin = {-190, 20}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput QRefPu (start=QInj0Pu) annotation(
-    Placement(transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput uqFilterPu annotation(
-    Placement(transformation(origin = {-190, 92}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealInput ULVPu annotation(
-    Placement(transformation(origin = {-190, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}})));
-
-  // Output variables
-  Modelica.Blocks.Interfaces.RealOutput vm_re (start=vm0.re) annotation(
-    Placement(transformation(origin = {190, 32}, extent = {{-10, -10}, {10, 10}}),
-    iconTransformation(origin = {110, 50}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput vm_im (start=vm0.im) annotation(
-    Placement(transformation(origin = {190, 8}, extent = {{-10, -10}, {10, 10}}),
-    iconTransformation(origin = {110, 8}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput thetaPLL (start=Theta0) annotation(
-    Placement(transformation(origin = {190, 92}, extent = {{-10, -10}, {10, 10}}),
-    iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Interfaces.RealOutput omegaPLLPu (start=Omega0Pu) annotation(
-    Placement(transformation(origin = {190, 108}, extent = {{-10, -10}, {10, 10}}),
-    iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}})));
-
   // Initial parameters
   parameter Real Omega0Pu "Initial frequency (pu)";
   parameter Real QInj0Pu "Initial reactive power at converter (pu, generator convention)";
@@ -196,13 +196,13 @@ equation
     Line(points = {{-190, 0}, {-120, 0}, {-120, 14}, {-102, 14}}, color = {0, 0, 127}));
   connect(QLVPu, OuterLoop_GFL.QLVPu) annotation(
     Line(points = {{-190, -20}, {-112, -20}, {-112, 4}, {-102, 4}}, color = {0, 0, 127}));
-
   connect(OuterLoop_GFL.idRefPu, currentLoop.idConvRefPu) annotation(
     Line(points = {{-58, 28}, {-2, 28}}, color = {0, 0, 127}));
   connect(OuterLoop_GFL.iqRefPu, currentLoop.iqConvRefPu) annotation(
     Line(points = {{-58, 12}, {-2, 12}}, color = {0, 0, 127}));
   connect(ULVPu, OuterLoop_GFL.ULVPu) annotation(
     Line(points = {{-190, 60}, {-90, 60}, {-90, 42}}, color = {0, 0, 127}));
+
   annotation(
     uses(Dynawo(version = "1.8.0"), Modelica(version = "3.2.3")),
     Documentation(info = "<html>
