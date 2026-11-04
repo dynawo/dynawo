@@ -75,12 +75,14 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     Spd3 = 20,
     P4 = 30,
     Spd4 = 30,
+    P0Pu = -0.7,
     PFlag = true,
     Pm0Pu = 0.7,
     PMaxREECPu = 1,
     PMinREECPu = 0,
     PQFlag = false,
     PfFlag = false,
+    Q0Pu = -0.2,
     QFlag = true,
     QMaxREECPu = 0.4,
     QMinREECPu = -0.4,
@@ -94,6 +96,8 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     ThetaMin = -5,
     ThetaRMax = 10,
     ThetaRMin = -10,
+    U0Pu = 1,
+    UPhase0 = 1.4461e-06,
     VDLIp11 = 1.1,
     VDLIp12 = 1.1,
     VDLIp21 = 1.15,
@@ -120,7 +124,7 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     XLvTrPu = 0.15,
     brkpt = 0.1,
     lvpl1 = 1.22,
-    s0Pu = Complex(-0.7, -0.2),
+    s0Pu(im(fixed = false), re(fixed = false)),
     tFilterGC = 0.02,
     tG = 0.02,
     tHoldIpMax = 0,
@@ -132,7 +136,7 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     tPord = 0.01,
     tRv = 0.01,
     tTheta = 0.3,
-    u0Pu = Complex(1, 0),
+    u0Pu(im(fixed = false), re(fixed = false)),
     zerox = 0.05,
     UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
@@ -148,7 +152,6 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
     PF0(fixed = false),
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
-    UPhase0 = 1.4461e-06,
     omegaRefWTGQ0Pu(fixed = false)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PConvRefPu(k = 0.7) annotation(
@@ -165,11 +168,11 @@ model WT3CurrentSource1 "WECC Wind Type 3 Model on infinite bus"
   // Initialization
   Dynawo.Electrical.Wind.WECC.WTCurrentSource_INIT wtCurrentSource_INIT(
     ConverterLVControl = WT3.ConverterLVControl,
-    P0Pu = WT3.s0Pu.re,
-    Q0Pu = WT3.s0Pu.im,
+    P0Pu = WT3.P0Pu,
+    Q0Pu = WT3.Q0Pu,
     RLvTrPu = WT3.RLvTrPu,
     SNom = WT3.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(WT3.u0Pu),
+    U0Pu = WT3.U0Pu,
     UPhase0 = WT3.UPhase0,
     XLvTrPu = WT3.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -194,6 +197,10 @@ initial algorithm
   WT3.PConv0Pu := wtCurrentSource_INIT.PConv0Pu;
   WT3.QConv0Pu := wtCurrentSource_INIT.QConv0Pu;
   WT3.UPhaseConv0 := wtCurrentSource_INIT.UPhaseConv0;
+  WT3.s0Pu.re := wtCurrentSource_INIT.s0Pu.re;
+  WT3.s0Pu.im := wtCurrentSource_INIT.s0Pu.im;
+  WT3.u0Pu.re := wtCurrentSource_INIT.u0Pu.re;
+  WT3.u0Pu.im := wtCurrentSource_INIT.u0Pu.im;
 
 equation
   line.switchOffSignal1 = false;
