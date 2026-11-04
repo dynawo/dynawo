@@ -330,14 +330,32 @@ void ModelGeneratorPQ_Init::defineElements(std::vector<Element>& elements, std::
 
 void ModelGeneratorPQ_Init::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
 {
-  variables.push_back (VariableNativeFactory::createState ("generator_i0Pu_im", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_i0Pu_re", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_s0Pu_im", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_s0Pu_re", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_u0Pu_im", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("generator_u0Pu_re", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createCalculated ("generator_PGen0Pu", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createCalculated ("generator_QGen0Pu", CONTINUOUS, false));
+  struct VariableData {
+    const char* name;
+    const char* aliasName;
+    typeVar_t type;
+    bool negated;
+    bool isCalculated;
+  };
+  static const VariableData variableArray[] = {
+    {"generator_i0Pu_im", nullptr, CONTINUOUS, false, false},
+    {"generator_i0Pu_re", nullptr, CONTINUOUS, false, false},
+    {"generator_s0Pu_im", nullptr, CONTINUOUS, false, false},
+    {"generator_s0Pu_re", nullptr, CONTINUOUS, false, false},
+    {"generator_u0Pu_im", nullptr, CONTINUOUS, false, false},
+    {"generator_u0Pu_re", nullptr, CONTINUOUS, false, false},
+    {"generator_PGen0Pu", nullptr, CONTINUOUS, false, true},
+    {"generator_QGen0Pu", nullptr, CONTINUOUS, false, true},
+  };
+  variables.reserve(variables.size() + 8);
+  for (const VariableData& variableData : variableArray) {
+    if (variableData.aliasName != nullptr)
+      variables.push_back(VariableAliasFactory::create(variableData.name, variableData.aliasName, variableData.type, variableData.negated));
+    else if (variableData.isCalculated)
+      variables.push_back(VariableNativeFactory::createCalculated(variableData.name, variableData.type, variableData.negated));
+    else
+      variables.push_back(VariableNativeFactory::createState(variableData.name, variableData.type, variableData.negated));
+  }
 }
 
 void ModelGeneratorPQ_Init::defineParameters(std::vector<ParameterModeler>& parameters)
