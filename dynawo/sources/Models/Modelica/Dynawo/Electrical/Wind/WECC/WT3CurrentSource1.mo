@@ -24,6 +24,7 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGQa;
   extends Dynawo.Electrical.Controls.WECC.Parameters.Mechanical.ParamsWTGT;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsOperatingPoint;
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
@@ -217,7 +218,6 @@ model WT3CurrentSource1 "WECC Wind Turbine model without plant controller and wi
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation

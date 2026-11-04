@@ -20,6 +20,7 @@ model PVVoltageSource1NoPlantControl "WECC PV model with a voltage source as int
   */
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQ0Pu = 1);
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsOperatingPoint;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVVoltageSourceB(LvTfo(RPu = RPu, XPu = XPu));
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(

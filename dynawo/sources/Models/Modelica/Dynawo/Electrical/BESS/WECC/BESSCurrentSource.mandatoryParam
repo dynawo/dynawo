@@ -65,10 +65,10 @@
   <mandatoryParameter name="Id0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
   <mandatoryParameter name="PF0" type="DOUBLE"/>
-  <mandatoryParameter name="UInj0Pu" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="UConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UInj0Pu" type="DOUBLE"/>
   <mandatoryParameter name="SOCMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="SOCMinPu" type="DOUBLE"/>
   <mandatoryParameter name="tBattery" type="DOUBLE"/>
@@ -124,12 +124,13 @@
   <mandatoryParameter name="tLag" type="DOUBLE"/>
   <mandatoryParameter name="tpREPC" type="DOUBLE"/>
   <mandatoryParameter name="VFrz" type="DOUBLE"/>
-  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
-  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
   <mandatoryParameter name="UControl0Pu" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="uPcc0Pu.im" type="DOUBLE"/>
+  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
   <mandatoryParameter name="PPCLocal" type="BOOL"/>
   <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>

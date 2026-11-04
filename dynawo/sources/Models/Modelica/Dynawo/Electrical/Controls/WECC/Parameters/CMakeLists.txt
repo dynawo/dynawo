@@ -20,6 +20,7 @@ set(MODEL_FILES
   package.mo
   package.order
   ParamsLvTfo.mo
+  ParamsOperatingPoint.mo
   ParamsPCS.mo
   ParamsVSourceRef.mo
   )

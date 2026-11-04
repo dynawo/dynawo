@@ -45,7 +45,7 @@ record ParamsWTGQa
   parameter Types.Time tOmegaRef "Speed reference time constant ins s" annotation(
   Dialog(tab="Torque control"));
 
-  // Initial parameter
+  // Initial parameters
   parameter Types.ActivePowerPu PConv0Pu "Start value of active power at converter terminal in pu (generator convention) (base SNom)" annotation(
   Dialog(group="Initialization"));
   parameter Types.AngularVelocityPu omegaRefWTGQ0Pu "Start value of reference angular frequency of torque control in pu (base omegaNom)" annotation(
