@@ -138,7 +138,7 @@ var searchData=
   ['seti1max',['setI1Max',['../d6/d3d/a01784.html#a3c0b098abe965486b6d99ff4eda16f1c',1,'criteria::CriteriaParams']]],
   ['seti2max',['setI2Max',['../d6/d3d/a01784.html#a8ea166e807a7e0ec77e3f98660480cb1',1,'criteria::CriteriaParams']]],
   ['setid',['setId',['../d6/d3d/a01784.html#a977198abdd15f99231be452acc9231d9',1,'criteria::CriteriaParams::setId()'],['../d1/d60/a02128.html#a46dc388a36b59f602de9cffab975404d',1,'externalVariables::Variable::setId()'],['../d6/dd1/a02212.html#a01c3f15a8b3fb03203e69e226aa6bdb0',1,'job::ChannelEntry::setId()'],['../d9/de2/a02508.html#a04833780908429a5f2952e24cd498b1f',1,'lostEquipments::LostEquipment::setId()']]],
-  ['setiidmfile',['setIidmFile',['../db/d83/a02328.html#ab79e42e0da8db65e497ec33ba1608441',1,'job::NetworkEntry::setIidmFile()'],['../d8/d1b/a03592.html#a258a9d846f40fcb5bd141d6a3a2adde5',1,'DYN::Simulation::setIIDMFile()']]],
+  ['setiidmfile',['setIIDMFile',['../d8/d1b/a03592.html#a258a9d846f40fcb5bd141d6a3a2adde5',1,'DYN::Simulation::setIIDMFile()'],['../db/d83/a02328.html#ab79e42e0da8db65e497ec33ba1608441',1,'job::NetworkEntry::setIidmFile()']]],
   ['setindex',['setIndex',['../dd/dbf/a02788.html#adf0b5802f174c55e6038f4102e742345',1,'DYN::ParameterCommon::setIndex()'],['../db/db9/a02964.html#a3af12f0a92f29388cff898615c907e9c',1,'DYN::VariableNative::setIndex()']]],
   ['setindex1',['setIndex1',['../d6/d90/a01964.html#a79bdc99cc74ba8cd80b7099cb122e2ea',1,'dynamicdata::MacroConnect']]],
   ['setindex2',['setIndex2',['../d6/d90/a01964.html#a823eb6898afdc195906bc686586d6631',1,'dynamicdata::MacroConnect']]],

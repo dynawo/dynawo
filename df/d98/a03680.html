@@ -334,6 +334,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:af1a1301153511e8133862f4f06eabdca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#af1a1301153511e8133862f4f06eabdca">analyseFlag</a> (const int &amp;flag)</td></tr>
 <tr class="memdesc:af1a1301153511e8133862f4f06eabdca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse a flag return by the IDA solver.  <a href="#af1a1301153511e8133862f4f06eabdca">More...</a><br /></td></tr>
 <tr class="separator:af1a1301153511e8133862f4f06eabdca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a00ef145d25b1d1a80dd4fb2a8213e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#ab0a00ef145d25b1d1a80dd4fb2a8213e">forceReinitOnDivergence</a> (<a class="el" href="../../da/d7e/a00530.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a> modeChangeType)</td></tr>
+<tr class="memdesc:ab0a00ef145d25b1d1a80dd4fb2a8213e"><td class="mdescLeft">&#160;</td><td class="mdescRight">force a reinit with an aggressive algebraic restoration Jacobian recalculation, used as the first alternative strategy when IDA diverges  <a href="#ab0a00ef145d25b1d1a80dd4fb2a8213e">More...</a><br /></td></tr>
+<tr class="separator:ab0a00ef145d25b1d1a80dd4fb2a8213e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9675460785252583b7d931ef801c60d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a9675460785252583b7d931ef801c60d9">reduceStepAndPrecisionOnDivergence</a> (double tNxt)</td></tr>
+<tr class="memdesc:a9675460785252583b7d931ef801c60d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">reduce the minimum time step and the time-scaled URound reference precision by a factor 100, used as the second alternative strategy when IDA still diverges after a forced reinit  <a href="#a9675460785252583b7d931ef801c60d9">More...</a><br /></td></tr>
+<tr class="separator:a9675460785252583b7d931ef801c60d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1789facce8a493d611d209bfb0e6a35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#ae1789facce8a493d611d209bfb0e6a35">restoreNominalStrategyIfStable</a> (double tNxt)</td></tr>
+<tr class="memdesc:ae1789facce8a493d611d209bfb0e6a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">progressively restore the nominal minimum time step and time-scaled URound reference precision once the simulation has been stable long enough since the last alternative strategy was used  <a href="#ae1789facce8a493d611d209bfb0e6a35">More...</a><br /></td></tr>
+<tr class="separator:ae1789facce8a493d611d209bfb0e6a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15adabea4a254ca7d6ad6ea2bf3b392c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a15adabea4a254ca7d6ad6ea2bf3b392c">getTimeStep</a> () const override</td></tr>
 <tr class="memdesc:a15adabea4a254ca7d6ad6ea2bf3b392c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get time step  <a href="#a15adabea4a254ca7d6ad6ea2bf3b392c">More...</a><br /></td></tr>
 <tr class="separator:a15adabea4a254ca7d6ad6ea2bf3b392c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -415,6 +424,58 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a31580f34c1bfbb56dab1dfb807bec34d">tEnd_</a></td></tr>
 <tr class="memdesc:a31580f34c1bfbb56dab1dfb807bec34d"><td class="mdescLeft">&#160;</td><td class="mdescRight">simulation end time <br /></td></tr>
 <tr class="separator:a31580f34c1bfbb56dab1dfb807bec34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c0eb59b7c5b0375e00a941ebe4e8d22"><td class="memItemLeft" align="right" valign="top"><a id="a8c0eb59b7c5b0375e00a941ebe4e8d22"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a8c0eb59b7c5b0375e00a941ebe4e8d22">uround_</a></td></tr>
+<tr class="memdesc:a8c0eb59b7c5b0375e00a941ebe4e8d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">to activate change on uround <br /></td></tr>
+<tr class="separator:a8c0eb59b7c5b0375e00a941ebe4e8d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa81f3aec58c19ef8b28f69be0f3b2f1a"><td class="memItemLeft" align="right" valign="top"><a id="aa81f3aec58c19ef8b28f69be0f3b2f1a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#aa81f3aec58c19ef8b28f69be0f3b2f1a">activateTimeScaledURound_</a></td></tr>
+<tr class="memdesc:aa81f3aec58c19ef8b28f69be0f3b2f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">to activate the time-scaled recomputation of IDA's unit roundoff <br /></td></tr>
+<tr class="separator:aa81f3aec58c19ef8b28f69be0f3b2f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b0343c4d29b3132b83d95ecb7b0f042"><td class="memItemLeft" align="right" valign="top"><a id="a3b0343c4d29b3132b83d95ecb7b0f042"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a3b0343c4d29b3132b83d95ecb7b0f042">timeScaledURoundPrecision_</a></td></tr>
+<tr class="memdesc:a3b0343c4d29b3132b83d95ecb7b0f042"><td class="mdescLeft">&#160;</td><td class="mdescRight">the reference precision used to derive the time-scaled unit roundoff <br /></td></tr>
+<tr class="separator:a3b0343c4d29b3132b83d95ecb7b0f042"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfb7f20a643eb5e9c2374b9be37e7668"><td class="memItemLeft" align="right" valign="top"><a id="acfb7f20a643eb5e9c2374b9be37e7668"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#acfb7f20a643eb5e9c2374b9be37e7668">alternativeStrategiesOnDivergenceStage_</a></td></tr>
+<tr class="memdesc:acfb7f20a643eb5e9c2374b9be37e7668"><td class="mdescLeft">&#160;</td><td class="mdescRight">escalation stage of the alternative strategies on divergence <br /></td></tr>
+<tr class="separator:acfb7f20a643eb5e9c2374b9be37e7668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8998eb77ecffe8ac98deecd58db0d417"><td class="memItemLeft" align="right" valign="top"><a id="a8998eb77ecffe8ac98deecd58db0d417"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a8998eb77ecffe8ac98deecd58db0d417">activateAlternativeStrategiesOnDivergence_</a></td></tr>
+<tr class="memdesc:a8998eb77ecffe8ac98deecd58db0d417"><td class="mdescLeft">&#160;</td><td class="mdescRight">to activate the progressive relaunch strategies (reinit, then reduced step/precision) when IDA diverges <br /></td></tr>
+<tr class="separator:a8998eb77ecffe8ac98deecd58db0d417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa37b2e9a2f8f1e21356cec2d514753ca"><td class="memItemLeft" align="right" valign="top"><a id="aa37b2e9a2f8f1e21356cec2d514753ca"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#aa37b2e9a2f8f1e21356cec2d514753ca">minStepSave_</a></td></tr>
+<tr class="memdesc:aa37b2e9a2f8f1e21356cec2d514753ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimal step size saved in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:aa37b2e9a2f8f1e21356cec2d514753ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31070f867721c098a557dbf56281dc7f"><td class="memItemLeft" align="right" valign="top"><a id="a31070f867721c098a557dbf56281dc7f"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a31070f867721c098a557dbf56281dc7f">timeScaledURoundPrecisionSave_</a></td></tr>
+<tr class="memdesc:a31070f867721c098a557dbf56281dc7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">save reference precision for time-scaled unit roundoff in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:a31070f867721c098a557dbf56281dc7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba86a7c5cb5406fa664c0a85dabfab60"><td class="memItemLeft" align="right" valign="top"><a id="aba86a7c5cb5406fa664c0a85dabfab60"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#aba86a7c5cb5406fa664c0a85dabfab60">precisionSave_</a></td></tr>
+<tr class="memdesc:aba86a7c5cb5406fa664c0a85dabfab60"><td class="mdescLeft">&#160;</td><td class="mdescRight">save precision in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:aba86a7c5cb5406fa664c0a85dabfab60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a040f041eb6b9c94791da226056d2396f"><td class="memItemLeft" align="right" valign="top"><a id="a040f041eb6b9c94791da226056d2396f"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a040f041eb6b9c94791da226056d2396f">minimalAcceptableStepSave_</a></td></tr>
+<tr class="memdesc:a040f041eb6b9c94791da226056d2396f"><td class="mdescLeft">&#160;</td><td class="mdescRight">save minimal acceptable step in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:a040f041eb6b9c94791da226056d2396f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a877d3050aaa8f165bf2b840370b345c8"><td class="memItemLeft" align="right" valign="top"><a id="a877d3050aaa8f165bf2b840370b345c8"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a877d3050aaa8f165bf2b840370b345c8">minStepInit_</a></td></tr>
+<tr class="memdesc:a877d3050aaa8f165bf2b840370b345c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimal step size saved in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:a877d3050aaa8f165bf2b840370b345c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acad1d2f90e6ecadee703aad92069b515"><td class="memItemLeft" align="right" valign="top"><a id="acad1d2f90e6ecadee703aad92069b515"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#acad1d2f90e6ecadee703aad92069b515">timeScaledURoundPrecisionInit_</a></td></tr>
+<tr class="memdesc:acad1d2f90e6ecadee703aad92069b515"><td class="mdescLeft">&#160;</td><td class="mdescRight">save reference precision for time-scaled unit roundoff in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:acad1d2f90e6ecadee703aad92069b515"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3646a6021bdfb919aeb5b2326962c14e"><td class="memItemLeft" align="right" valign="top"><a id="a3646a6021bdfb919aeb5b2326962c14e"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#a3646a6021bdfb919aeb5b2326962c14e">precisionInit_</a></td></tr>
+<tr class="memdesc:a3646a6021bdfb919aeb5b2326962c14e"><td class="mdescLeft">&#160;</td><td class="mdescRight">save precision in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:a3646a6021bdfb919aeb5b2326962c14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada4b57700d0985c4f3b069a4a33fcae1"><td class="memItemLeft" align="right" valign="top"><a id="ada4b57700d0985c4f3b069a4a33fcae1"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#ada4b57700d0985c4f3b069a4a33fcae1">minimalAcceptableStepInit_</a></td></tr>
+<tr class="memdesc:ada4b57700d0985c4f3b069a4a33fcae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">save minimal acceptable step in case of alternative strategy on divergence <br /></td></tr>
+<tr class="separator:ada4b57700d0985c4f3b069a4a33fcae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe5aace5ab79f9c0a874974a109813fc"><td class="memItemLeft" align="right" valign="top"><a id="abe5aace5ab79f9c0a874974a109813fc"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d98/a03680.html#abe5aace5ab79f9c0a874974a109813fc">flagInit_</a></td></tr>
 <tr class="memdesc:abe5aace5ab79f9c0a874974a109813fc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>true</b> if the solver is in initialization mode <br /></td></tr>
@@ -1073,6 +1134,40 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 
 </div>
 </div>
+<a id="ab0a00ef145d25b1d1a80dd4fb2a8213e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a00ef145d25b1d1a80dd4fb2a8213e">&#9670;&nbsp;</a></span>forceReinitOnDivergence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::SolverIDA::forceReinitOnDivergence </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d7e/a00530.html#aed4b32a47e0828630b9719fb4a720183">modeChangeType_t</a>&#160;</td>
+          <td class="paramname"><em>modeChangeType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>force a reinit with an aggressive algebraic restoration Jacobian recalculation, used as the first alternative strategy when IDA diverges </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modeChangeType</td><td>minimum mode change type to force for this reinit (ALGEBRAIC_MODE for a convergence failure, ALGEBRAIC_J_UPDATE_MODE for an error test failure) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="afbebceb075587bdd6a6bc0185cc7a32d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afbebceb075587bdd6a6bc0185cc7a32d">&#9670;&nbsp;</a></span>getLastConf()</h2>
 
@@ -1339,6 +1434,40 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 
 </div>
 </div>
+<a id="a9675460785252583b7d931ef801c60d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9675460785252583b7d931ef801c60d9">&#9670;&nbsp;</a></span>reduceStepAndPrecisionOnDivergence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::SolverIDA::reduceStepAndPrecisionOnDivergence </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tNxt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>reduce the minimum time step and the time-scaled URound reference precision by a factor 100, used as the second alternative strategy when IDA still diverges after a forced reinit </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tNxt</td><td>time reached by the last (failed) step attempt </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="afb941b0d3be3cfe767b36ffd95640b78"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afb941b0d3be3cfe767b36ffd95640b78">&#9670;&nbsp;</a></span>reinit()</h2>
 
@@ -1365,6 +1494,40 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <p>Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point) </p>
 
 <p>Implements <a class="el" href="../../d6/da5/a03652.html#ad2f4e54770d38cb4ca9938721b9457c2">DYN::Solver::Impl</a>.</p>
+
+</div>
+</div>
+<a id="ae1789facce8a493d611d209bfb0e6a35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1789facce8a493d611d209bfb0e6a35">&#9670;&nbsp;</a></span>restoreNominalStrategyIfStable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DYN::SolverIDA::restoreNominalStrategyIfStable </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tNxt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>progressively restore the nominal minimum time step and time-scaled URound reference precision once the simulation has been stable long enough since the last alternative strategy was used </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tNxt</td><td>time reached by the last successful step </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1567,7 +1730,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="..
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>DYN</b></li><li class="navelem"><a class="el" href="../../df/d98/a03680.html">SolverIDA</a></li>
-    <li class="footer">Generated on Tue Nov 3 2026 14:54:59 for Dynawo by
+    <li class="footer">Generated on Wed Nov 4 2026 14:56:13 for Dynawo by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
