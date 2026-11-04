@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+# Copyright (c) 2026, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,13 +6,14 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+# This file is part of Dynawo, a hybrid C++/Modelica open source suite
+# of simulation tools for power systems.
 
-add_subdirectory(Test_RoCoF R)
-add_subdirectory(Test_SCRJump S)
-add_subdirectory(Test_VoltageAngleJump A)
-add_subdirectory(Test_VoltageMagnitudeJump M)
-add_subdirectory(Test_NodeFault N)
+add_subdirectory(RoCoF R)
+add_subdirectory(SCRJump S)
+add_subdirectory(VoltageAngleJump A)
+add_subdirectory(VoltageMagnitudeJump M)
+add_subdirectory(NodeFault N)
 
 set(MODEL_FILES
   package.mo

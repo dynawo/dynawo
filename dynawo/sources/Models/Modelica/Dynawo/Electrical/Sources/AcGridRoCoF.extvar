@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable type="continuous" id="aCPower.V.re"/>
-  <variable type="continuous" id="aCPower.V.im"/>
+  <variable type="continuous" id="aCPower.i.re"/>
+  <variable type="continuous" id="aCPower.i.im"/>
   <variable type="continuous" id="omegaRefPu" optional="true"/>
 </external_variables>

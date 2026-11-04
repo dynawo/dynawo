@@ -25,7 +25,7 @@
         <simulation startTime="0" stopTime="25" precision="1e-7"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true"/>
-            <curves inputFile="SMIB.crv" exportMode="CSV"/>
+            <curves inputFile="SMIB.crv" exportMode="CSV" timeStep="0.01"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
               </logs>

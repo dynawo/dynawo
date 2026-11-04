@@ -32,8 +32,8 @@
   <par type="DOUBLE" name="DroopPlantControl_Kip" value="0.3"/>
   <par type="DOUBLE" name="DroopPlantControl_QMaxPu" value="10"/>
   <par type="DOUBLE" name="DroopPlantControl_QMinPu" value="-10"/>
-  <par type="DOUBLE" name="DroopPlantControl_PMaxPu" value="1.2"/>
-  <par type="DOUBLE" name="DroopPlantControl_PMinPu" value="-1.2"/>
+  <par type="DOUBLE" name="DroopPlantControl_PMaxPu" value="2.0"/>
+  <par type="DOUBLE" name="DroopPlantControl_PMinPu" value="-2.0"/>
   <par type="DOUBLE" name="DroopPlantControl_FEMaxPu" value="999"/>
   <par type="DOUBLE" name="DroopPlantControl_FEMinPu" value="-999"/>
   <par type="DOUBLE" name="DroopPlantControl_FDbd1Pu" value="0.005"/>
@@ -46,11 +46,11 @@
   <par  type="DOUBLE" name="DroopPlantControl_EpsVIUpPu" value="0.01"/>
   <par name="DroopPlantControl_EpsVIDownPu" type="DOUBLE" value="0.01"/>
   <!-- GFM: droop & voltage reference control -->
-  <par type="DOUBLE" name="DroopPlantControl_Mp" value="0.013"/>
-  <par type="DOUBLE" name="DroopPlantControl_Mq" value="0.013"/>
+  <par type="DOUBLE" name="DroopPlantControl_Mp" value="0.05"/>
+  <par type="DOUBLE" name="DroopPlantControl_Mq" value="0.05"/>
   <par type="DOUBLE" name="DroopPlantControl_Omegaf" value="40"/>
-  <par type="DOUBLE" name="DroopPlantControl_Omegaff" value="50"/>
-  <par type="DOUBLE" name="DroopPlantControl_Kff" value="0"/>
+  <par type="DOUBLE" name="DroopPlantControl_Omegaff" value="60"/>
+  <par type="DOUBLE" name="DroopPlantControl_Kff" value="0.01"/>
   <!-- GFM: QSEM -->
   <par type="DOUBLE" name="DroopPlantControl_XVIPu" value="0.06"/>
   <!-- GFM: current loop -->
@@ -80,15 +80,18 @@
   <par type="DOUBLE" name="DroopPlantControl_GTfoPu" value="0"/>
   <par type="DOUBLE" name="DroopPlantControl_BTfoPu" value="0"/>
   <par type="DOUBLE" name="DroopPlantControl_rTfoPu" value="1"/>
+  <par type="DOUBLE" name="DroopPlantControl_Omega0Pu" value="0.99"/>
+  <par type="DOUBLE" name="DroopPlantControl_OmegaRef0Pu" value="1"/>
 </set>
 <set id="4">
-  <!-- AcGridRoCoF: 1 /_ 0, RoCoF of 0.01 pu/s from t = 5 s during 3 s -->
+  <!-- AcGridRoCoF: 1 /_ 0, starting frequency 0.99 pu (49.5 Hz), RoCoF of 0.01 pu/s from t = 10 s during 3 s, then return to the starting frequency -->
   <par type="DOUBLE" name="Grid_U0Pu" value="1.0"/>
   <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
-  <par type="DOUBLE" name="Grid_deltaOmega0Pu" value="0"/>
+  <par type="DOUBLE" name="Grid_deltaOmega0Pu" value="-0.01"/>
   <par type="DOUBLE" name="Grid_RoCoFPu" value="0.01"/>
-  <par type="DOUBLE" name="Grid_tRoCoFStart" value="5"/>
+  <par type="DOUBLE" name="Grid_tRoCoFStart" value="10"/>
   <par type="DOUBLE" name="Grid_tRoCoFDuration" value="3"/>
+  <par type="BOOL" name="Grid_ReturnRoCoF" value="true"/>
 </set>
 <set id="5">
   <!-- OmegaRefSrc -->

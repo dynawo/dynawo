@@ -78,7 +78,7 @@ model PlantControl "Generic plant controller"
   Modelica.Blocks.Nonlinear.DeadZone voltDeadband(uMax = DbdPu, uMin = -DbdPu) annotation(
     Placement(visible = true, transformation(origin = {30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   // Q PI controller (LimPID: native anti-windup, saturation on total output)
-  Modelica.Blocks.Continuous.LimPID piQ(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpq, Ti = Kpq/Kiq, yMax = QMaxPu, yMin = QMinPu, initType = Modelica.Blocks.Types.InitPID.InitialOutput, y_start = QRef0Pu) annotation(
+  Modelica.Blocks.Continuous.LimPID piQ(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpq, Ti = Kpq/Kiq, yMax = QMaxPu, yMin = QMinPu, initType = Modelica.Blocks.Types.InitPID.InitialState, xi_start = QRef0Pu/Kpq, y_start = QRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {60, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant zeroQ(k = 0) annotation(
     Placement(visible = true, transformation(origin = {60, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -100,7 +100,7 @@ model PlantControl "Generic plant controller"
   Modelica.Blocks.Math.Add activePowerErr(k1 = -1, k2 = +1) annotation(
     Placement(transformation(origin = {18, 69}, extent = {{-6, -6}, {6, 6}})));
   // P PI controller (LimPID: native anti-windup, saturation on total output)
-  Modelica.Blocks.Continuous.LimPID piP(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpp, Ti = Kpp/Kip, yMax = PMaxPu, yMin = PMinPu, initType = Modelica.Blocks.Types.InitPID.InitialOutput, y_start = PRef0Pu) annotation(
+  Modelica.Blocks.Continuous.LimPID piP(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = Kpp, Ti = Kpp/Kip, yMax = PMaxPu, yMin = PMinPu, initType = Modelica.Blocks.Types.InitPID.InitialState, xi_start = PRef0Pu/Kpp, y_start = PRef0Pu) annotation(
     Placement(transformation(origin = {60, 69}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant zeroP(k = 0) annotation(
     Placement(transformation(origin = {60, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));

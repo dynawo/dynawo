@@ -22,10 +22,10 @@
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="25" precision="1e-4"/>
+        <simulation startTime="0" stopTime="25" precision="1e-9"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true" init="true"/>
-            <curves inputFile="DroopPlantControl.crv" exportMode="CSV"/>
+            <curves inputFile="DroopPlantControl.crv" exportMode="CSV" timeStep="0.01"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
               </logs>

@@ -90,15 +90,18 @@
   <par type="DOUBLE" name="CCVSMPlantControl_GTfoPu" value="0"/>
   <par type="DOUBLE" name="CCVSMPlantControl_BTfoPu" value="0"/>
   <par type="DOUBLE" name="CCVSMPlantControl_rTfoPu" value="1"/>
+  <par type="DOUBLE" name="CCVSMPlantControl_Omega0Pu" value="0.99"/>
+  <par type="DOUBLE" name="CCVSMPlantControl_OmegaRef0Pu" value="1"/>
 </set>
 <set id="4">
-  <!-- AcGridRoCoF: 1 /_ 0, RoCoF of 0.01 pu/s from t = 5 s during 3 s -->
+  <!-- AcGridRoCoF: 1 /_ 0, starting frequency 0.99 pu (49.5 Hz), RoCoF of 0.01 pu/s from t = 10 s during 3 s, then return to the starting frequency -->
   <par type="DOUBLE" name="Grid_U0Pu" value="1.0"/>
   <par type="DOUBLE" name="Grid_UPhase0" value="0"/>
-  <par type="DOUBLE" name="Grid_deltaOmega0Pu" value="0"/>
+  <par type="DOUBLE" name="Grid_deltaOmega0Pu" value="-0.01"/>
   <par type="DOUBLE" name="Grid_RoCoFPu" value="0.01"/>
-  <par type="DOUBLE" name="Grid_tRoCoFStart" value="5"/>
+  <par type="DOUBLE" name="Grid_tRoCoFStart" value="10"/>
   <par type="DOUBLE" name="Grid_tRoCoFDuration" value="3"/>
+  <par type="BOOL" name="Grid_ReturnRoCoF" value="true"/>
 </set>
 <set id="5">
   <!-- OmegaRefSrc -->

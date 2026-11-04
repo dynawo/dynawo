@@ -25,7 +25,7 @@
         <simulation startTime="0" stopTime="25" precision="1e-8"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true" init="true"/>
-            <curves inputFile="VSMPlantControl.crv" exportMode="CSV"/>
+            <curves inputFile="VSMPlantControl.crv" exportMode="CSV" timeStep="0.01"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="INFO"/>
               </logs>

@@ -6,14 +6,21 @@
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
 #
-# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+# This file is part of Dynawo, a hybrid C++/Modelica open source suite
+# of simulation tools for power systems.
 
 set(MODEL_FILES
   current.png
-  S_VoltAngleStep7_OC4.png
   frequency.png
   epri_omega.png
   epri_pq.png
+  droop_smib.png
+  vsm_smib.png
+  ccvsm_smib.png
+  convpll_smib.png
+  ppc_VSM.png
+  ppc_droop.png
+  ppc_ccvsm.png
   )
 
 #

@@ -14,16 +14,16 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <!-- InfiniteBus -->
   <set id="1">
-    <par name="U0Pu" value="1.0"/>
-    <par name="UEvtPu" value="1.0"/>
-    <par name="omega0Pu" value="1.0"/>
-    <par name="omegaEvtPu" value="1.0"/>
-    <par name="UPhase" value="0.0"/>
-    <par name="tUEvtStart" value="0.0"/>
-    <par name="tUEvtEnd" value="1.0"/>
-    <par name="tOmegaEvtStart" value="0.0"/>
-    <par name="tOmegaEvtEnd" value="1.0"/>
-    <par type="DOUBLE" name="infiniteBus_dUPhaseEvt" value="0.462"/>
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1.0"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="0.0"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_dUPhaseEvt" value="0.416"/>
     <par type="DOUBLE" name="infiniteBus_tUPhaseEvt" value="10"/>
   </set>
   <set id="2">
@@ -37,7 +37,7 @@
     <par name="GFMDroop_IMaxVIPu" type="DOUBLE" value="1.2"/>
     <par name="GFMDroop_Kff" type="DOUBLE" value="0"/>
     <par name="GFMDroop_KpVI" type="DOUBLE" value="0.1"/>
-    <par name="GFMDroop_Kfd" type="DOUBLE" value="0.8"/>
+    <par name="GFMDroop_Kfd" type="DOUBLE" value="1"/>
     <par name="GFMDroop_Kfq" type="DOUBLE" value="0"/>
     <par name="GFMDroop_LFilterPu" type="DOUBLE" value="0.15"/>
     <par name="GFMDroop_LTransformerPu" type="DOUBLE" value="0.06"/>

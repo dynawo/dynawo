@@ -61,12 +61,12 @@ test_cases.append((case_name, case_description, job_file, 10, standardReturnCode
 
 
 ###################################################################
-#           GridForming - DynGFMCurrentSaturatedVSM - RoCoF       #
+#          GridForming - DYNGFMCCVSM - Voltage Angle Step         #
 ###################################################################
 
-case_name = "GridForming - DynGFMCurrentSaturatedVSM - RoCoF"
-case_description = "SMIB  -- S_RoCoF9_0C4 on DynGFMCCVSM"
-job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMCCVSM", "CCVSMRoCoF.jobs")
+case_name = "SMIB - DynGFMCCVSM - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep7_0C4 on DynGFMCCVSM"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMCCVSM", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
 

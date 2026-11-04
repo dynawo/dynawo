@@ -1,19 +1,18 @@
 within Dynawo.Electrical.PEIR.Plants.General.Average;
 
-/*
-* Copyright (c) 2026, RTE (http://www.rte-france.com)
-* See AUTHORS.txt
-* All rights reserved.
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, you can obtain one at http://mozilla.org/MPL/2.0/.
-* SPDX-License-Identifier: MPL-2.0
-*
-* This file is part of Dynawo, a hybrid C++/Modelica open source suite
-* of simulation tools for power systems.
-*/
-
 model DynCCVSMPlantControl "GFM with current-controlled VSM control and a generic Plant Controller"
+  /*
+  * Copyright (c) 2026, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+  */
   parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter in MVA";
   parameter Types.Time tUFiltGFM = 0.01 "Filter time constant for voltage measurement in the converter in s";
   // VSM parameters
@@ -131,7 +130,6 @@ model DynCCVSMPlantControl "GFM with current-controlled VSM control and a generi
     Dialog(tab = "Plant Control"));
   parameter Types.PerUnit DbdPu "Voltage error deadband half-width in pu (base UNom)" annotation(
     Dialog(tab = "Plant Control"));
-
   // Inputs
   Modelica.Blocks.Interfaces.RealInput PRegPu(start = PReg0Pu) "Active power at the regulated bus in pu (base SnRef) (receptor convention)" annotation(
     Placement(transformation(origin = {-114, 80}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-111, 79}, extent = {{-11, -11}, {11, 11}})));
@@ -145,16 +143,13 @@ model DynCCVSMPlantControl "GFM with current-controlled VSM control and a generi
     Placement(transformation(origin = {-114, -80}, extent = {{-14, -14}, {14, 14}}), iconTransformation(origin = {-112, -88}, extent = {{-12, -12}, {12, 12}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) "System frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-12, 114}, extent = {{-14, -14}, {14, 14}}, rotation = -90), iconTransformation(origin = {1, 111}, extent = {{-11, -11}, {11, 11}}, rotation = -90)));
-
   // Terminal
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the converter to the grid" annotation(
     Placement(transformation(origin = {96, -2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {96, 0}, extent = {{-10, -10}, {10, 10}})));
-
   Dynawo.Electrical.Controls.PEIR.BaseControls.PlantController.PlantControl plantControl(SNom = SNom, LambdaPu = LambdaPu, Kdroop = Kdroop, tQFilt = tQFilt, tPFilt = tPFilt, tUFilt = tUFilt, Kpq = Kpq, Kiq = Kiq, Kpp = Kpp, Kip = Kip, QMaxPu = QMaxPu, QMinPu = QMinPu, PMaxPu = PMaxPu, PMinPu = PMinPu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, DbdPu = DbdPu, QReg0Pu = QReg0Pu, Omega0Pu = Omega0Pu, UReg0Pu = UReg0Pu, PReg0Pu = PReg0Pu, Pinj0Pu = DynGFMCCVSM.ControlCC.PFilter0Pu, Qinj0Pu = DynGFMCCVSM.ControlCC.QFilter0Pu) annotation(
-    Placement(transformation(origin = {-62, -2}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-60, -2}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(tUFilt = tUFiltGFM, EpsVIUpPu = EpsVIUpPu, EpsVIDownPu = EpsVIDownPu, EpsUpPu = EpsUpPu, EpsDownPu = EpsDownPu, tSat = tSat, Omega0Pu = Omega0Pu, OmegaRef0Pu = OmegaRef0Pu, SNom = SNom, U0Pu = U0Pu, UPhase0 = UPhase0, P0Pu = P0Pu, Q0Pu = Q0Pu, kVSM = kVSM, H = H, KDampingAngle = KDampingAngle, KpVI = KpVI, XRratio = XRratio, IMaxVIPu = IMaxVIPu, DeltaIConvMaxPu = DeltaIConvMaxPu, XVIPu = XVIPu, OmegaPLL = OmegaPLL, KsiPLL = KsiPLL, OmegaMaxPLLPu = OmegaMaxPLLPu, OmegaMinPLLPu = OmegaMinPLLPu, Mq = Mq, Omegaf = Omegaf, Omegaff = Omegaff, Kff = Kff, Omegac = Omegac, Kfd = Kfd, Kfq = Kfq, RFilterPu = RFilterPu, LFilterPu = LFilterPu, CFilterPu = CFilterPu, RTransformerPu = RTransformerPu, LTransformerPu = LTransformerPu, tVSC = tVSC, ImaxPu = ImaxPu, IminPu = IminPu) annotation(
     Placement(transformation(origin = {13, -1}, extent = {{-17, -17}, {17, 17}})));
-
   // Initial parameters - frequency
   parameter Types.AngularVelocityPu Omega0Pu = SystemBase.omegaRef0Pu "Start value of the physical frequency of the grid and converter in pu (base omegaNom)";
   parameter Types.AngularVelocityPu OmegaRef0Pu = SystemBase.omegaRef0Pu "Start value of the rotation speed of the RI reference frame (omegaRefPu input) in pu (base omegaNom)";
@@ -170,35 +165,32 @@ model DynCCVSMPlantControl "GFM with current-controlled VSM control and a generi
   parameter Types.Angle URegPhase0 "Start value of voltage angle at the regulated bus in rad";
   parameter Types.ActivePowerPu PReg0Pu "Start value of active power at the regulated bus in pu (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu QReg0Pu "Start value of reactive power at the regulated bus in pu (base SnRef) (receptor convention)";
-
 equation
   DynGFMCCVSM.switchOffSignal1 = false;
   DynGFMCCVSM.switchOffSignal2 = false;
   DynGFMCCVSM.switchOffSignal3 = false;
-  // The plant controller acts on the converter through QFilterRefPu only: the converter voltage reference is kept at its initial value
+// The plant controller acts on the converter through QFilterRefPu only: the converter voltage reference is kept at its initial value
   DynGFMCCVSM.UFilterRefPu = DynGFMCCVSM.ControlCC.URef0Pu;
-
   connect(URefPu, plantControl.URefPu) annotation(
-    Line(points = {{-114, -20}, {-90, -20}, {-90, -4}, {-74, -4}}, color = {0, 0, 127}));
+    Line(points = {{-114, -20}, {-90, -20}, {-90, -4}, {-71, -4}}, color = {0, 0, 127}));
   connect(QRegPu, plantControl.QRegPu) annotation(
-    Line(points = {{-114, -50}, {-84, -50}, {-84, -8}, {-74, -8}}, color = {0, 0, 127}));
+    Line(points = {{-114, -50}, {-84, -50}, {-84, -7}, {-71, -7}}, color = {0, 0, 127}));
   connect(URegPu, plantControl.URegPu) annotation(
-    Line(points = {{-114, -80}, {-76, -80}, {-76, -10}, {-74, -10}}, color = {0, 0, 127}));
+    Line(points = {{-114, -80}, {-76, -80}, {-76, -11}, {-71, -11}}, color = {0, 0, 127}));
   connect(PRefPu, plantControl.PRefPu) annotation(
-    Line(points = {{-114, 50}, {-78, 50}, {-78, 2}, {-74, 2}}, color = {0, 0, 127}));
+    Line(points = {{-114, 50}, {-78, 50}, {-78, 3}, {-71, 3}}, color = {0, 0, 127}));
   connect(PRegPu, plantControl.PRegPu) annotation(
-    Line(points = {{-114, 80}, {-74, 80}, {-74, 6}}, color = {0, 0, 127}));
+    Line(points = {{-114, 80}, {-74, 80}, {-74, 6}, {-71, 6}}, color = {0, 0, 127}));
   connect(DynGFMCCVSM.terminal, terminal) annotation(
     Line(points = {{32, -1}, {64, -1}, {64, -2}, {96, -2}}, color = {0, 0, 255}));
   connect(omegaRefPu, DynGFMCCVSM.omegaRefPu) annotation(
     Line(points = {{-12, 114}, {-12, 6}, {-6, 6}}, color = {0, 0, 127}));
   connect(plantControl.PInjRefPu, DynGFMCCVSM.PFilterRefPu) annotation(
-    Line(points = {{-50, 4}, {-10, 4}, {-10, 13}, {-6, 13}}, color = {0, 0, 127}));
+    Line(points = {{-49, 4}, {-10, 4}, {-10, 13}, {-6, 13}}, color = {0, 0, 127}));
   connect(plantControl.QInjRefPu, DynGFMCCVSM.QFilterRefPu) annotation(
-    Line(points = {{-50, -8}, {-6, -8}}, color = {0, 0, 127}));
+    Line(points = {{-49, -8}, {-6, -8}}, color = {0, 0, 127}));
   connect(DynGFMCCVSM.omegaVSMPu, plantControl.omegaPu) annotation(
-    Line(points = {{23, 18}, {23, 22}, {-88, 22}, {-88, 0}, {-74, 0}}, color = {0, 0, 127}));
-
+    Line(points = {{23, 18}, {23, 22}, {-88, 22}, {-88, 0}, {-71, 0}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>Grid-forming converter with a current-controlled Virtual Synchronous Machine control (DynGFMCCVSM), driven by a generic plant controller (PlantControl).<br><br>The plant controller regulates the active power (with a frequency droop) and the voltage (with reactive power compensation) measured at the regulated bus, and sends active and reactive power references to the converter filter. The voltage reference of the converter (UFilterRefPu) is kept at its initial value: the plant controller acts on the voltage through the reactive power reference only, the converter Q-U droop (Mq) translating it into an internal voltage reference. The regulated bus measurements (URegPu, PRegPu, QRegPu) are inputs of this model: the network between the converter terminal and the regulated bus is modelled outside (see DynCCVSMPlantControlFull, which adds the plant line and transformer).<br><br>Conventions: regulated bus measurements and start values are in pu (base SnRef) in receptor convention, plant control setpoints and limits are in pu (base SNom) in generator convention.</body></html>"));

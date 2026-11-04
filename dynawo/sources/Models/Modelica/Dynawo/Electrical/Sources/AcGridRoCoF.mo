@@ -1,18 +1,20 @@
 within Dynawo.Electrical.Sources;
 
+/*
+  * Copyright (c) 2026, RTE (http://www.rte-france.com)
+  * See AUTHORS.txt
+  * All rights reserved.
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+  * SPDX-License-Identifier: MPL-2.0
+  *
+  * This file is part of Dynawo, a hybrid C++/Modelica open source suite
+  * of simulation tools for power systems.
+*/
+
 model AcGridRoCoF "AC Grid emulating a single permanent RoCoF disturbance"
-  /*
-      * Copyright (c) 2026, RTE (http://www.rte-france.com)
-      * See AUTHORS.txt
-      * All rights reserved.
-      * This Source Code Form is subject to the terms of the Mozilla Public
-      * License, v. 2.0. If a copy of the MPL was not distributed with this
-      * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-      * SPDX-License-Identifier: MPL-2.0
-      *
-      * This file is part of Dynawo, a hybrid C++/Modelica open source suite
-      * of simulation tools for power systems.
-      */
+
   parameter Types.VoltageModulePu U0Pu "Voltage amplitude at terminal in pu (base UNom)";
   parameter Types.Angle UPhase0 "Voltage phase angle at terminal in rad";
   parameter Types.Time tRoCoFStart "Start time of the RoCoF event in s";
@@ -54,9 +56,11 @@ model AcGridRoCoF "AC Grid emulating a single permanent RoCoF disturbance"
     Placement(transformation(origin = {38, -2}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add add annotation(
     Placement(transformation(origin = {70, 12}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   aCPower.V.re = U0Pu*cos(UPhase0 + integrator1.y);
   aCPower.V.im = U0Pu*sin(UPhase0 + integrator1.y);
+
   connect(RoCof.y, add6.u1) annotation(
     Line(points = {{-69, 80}, {-52, 80}, {-52, 68}}, color = {0, 0, 127}));
   connect(step.y, add6.u2) annotation(
@@ -87,6 +91,7 @@ equation
     Line(points = {{50, -2}, {58, -2}, {58, 6}}, color = {0, 0, 127}));
   connect(add.y, omegaPu) annotation(
     Line(points = {{82, 12}, {84, 12}, {84, 60}, {110, 60}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Documentation(info = "<html><head></head><body>AC Grid model imposing a SINGLE, PERMANENT RoCoF disturbance on the frequency seen at the connected terminal (DTR I18 Test 4 : the simulation runs until steady state is reached at the NEW frequency level, there is no return to the original reference), with no synchronous machine dynamics (no governor, turbine, or inertia), and no precompiled sub-component (voltage source equations written explicitly to avoid any nested-precompiled-model issue). The frequency starts at omegaRefPu + deltaOmega0Pu (pu, base omegaNom -- e.g. the initial value 49.5/50.5 Hz of the DTR's 4 profiles), then ramps by RoCoFPu (pu/s) between t=tRoCoFStart and t=tRoCoFStart+tRoCoFDuration, and is held at that new level permanently afterwards.<br><br>Optionally, with ReturnRoCoF = true (default false), the frequency then ramps back to its starting value with the opposite rate (-RoCoFPu) between t=tRoCoFStart+tRoCoFDuration and t=tRoCoFStart+2*tRoCoFDuration, and is held at its starting value afterwards (V-shaped frequency profile).</body></html>"),
