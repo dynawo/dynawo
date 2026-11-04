@@ -22,6 +22,7 @@ PIAntiWindup
 PIAntiWindupVariableLimits
 PIFreeze
 Power
+PowerExp
 RampTrackingFilter
 RateLimFirstOrderFreeze
 SecondOrder
