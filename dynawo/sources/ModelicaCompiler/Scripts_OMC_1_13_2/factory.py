@@ -3208,7 +3208,11 @@ class Factory:
         line_ptrn_native_state = '  variables.push_back (VariableNativeFactory::createState ("%s", %s, %s));\n'
         line_ptrn_native_calculated = '  variables.push_back (VariableNativeFactory::createCalculated ("%s", %s, %s));\n'
         line_ptrn_alias =  '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s, %s));\n'
+        # Static POD table: avoids generating one std::string construction and one factory call per variable (huge functions, costly to compile)
+        line_ptrn_table = '    {"%s", %s, %s, %s, %s},\n'
 
+        # tuples (name, alias name or None, type, negated, is calculated)
+        variables_data = []
         # System vars
         for v in self.list_all_vars:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
@@ -3217,21 +3221,53 @@ class Factory:
             name = to_compile_name(self.replace_table_name(v.get_name()))
 
             negated = "true" if v.get_alias_negated() else "false"
-            line = ""
             if is_real_const_var(v):
-                line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), "false") # never negated as the value given in Y0 is already the good one
+                variables_data.append((name, None, v.get_dyn_type(), "false", True)) # never negated as the value given in Y0 is already the good one
             elif is_const_var(v):
-                line = line_ptrn_native_state % ( name, v.get_dyn_type(), "false")
+                variables_data.append((name, None, v.get_dyn_type(), "false", False))
             elif v.is_alias():
                 alias_name = to_compile_name(self.replace_table_name(v.get_alias_name()))
-                line = line_ptrn_alias % ( name, alias_name, v.get_dyn_type(), negated)
+                variables_data.append((name, alias_name, v.get_dyn_type(), negated, False))
             else:
-                line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
-            self.list_for_setvariables.append(line)
+                variables_data.append((name, None, v.get_dyn_type(), negated, False))
         for v in self.reader.list_calculated_vars:
             name = to_compile_name(self.replace_table_name(v.get_name()))
-            line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), "false")
-            self.list_for_setvariables.append(line)
+            variables_data.append((name, None, v.get_dyn_type(), "false", True))
+
+        push_back_threshold = 8
+        if len(variables_data) < push_back_threshold:
+            for (name, alias_name, dyn_type, negated, is_calculated) in variables_data:
+                if alias_name is not None:
+                    line = line_ptrn_alias % (name, alias_name, dyn_type, negated)
+                elif is_calculated:
+                    line = line_ptrn_native_calculated % (name, dyn_type, negated)
+                else:
+                    line = line_ptrn_native_state % (name, dyn_type, negated)
+                self.list_for_setvariables.append(line)
+            return
+
+        self.list_for_setvariables.append("  struct VariableData {\n")
+        self.list_for_setvariables.append("    const char* name;\n")
+        self.list_for_setvariables.append("    const char* aliasName;\n")
+        self.list_for_setvariables.append("    typeVar_t type;\n")
+        self.list_for_setvariables.append("    bool negated;\n")
+        self.list_for_setvariables.append("    bool isCalculated;\n")
+        self.list_for_setvariables.append("  };\n")
+        self.list_for_setvariables.append("  static const VariableData variableArray[] = {\n")
+        for (name, alias_name, dyn_type, negated, is_calculated) in variables_data:
+            alias = "\"" + alias_name + "\"" if alias_name is not None else "nullptr"
+            calculated = "true" if is_calculated else "false"
+            self.list_for_setvariables.append(line_ptrn_table % (name, alias, dyn_type, negated, calculated))
+        self.list_for_setvariables.append("  };\n")
+        self.list_for_setvariables.append("  variables.reserve(variables.size() + " + str(len(variables_data)) + ");\n")
+        self.list_for_setvariables.append("  for (const VariableData& variableData : variableArray) {\n")
+        self.list_for_setvariables.append("    if (variableData.aliasName != nullptr)\n")
+        self.list_for_setvariables.append("      variables.push_back(VariableAliasFactory::create(variableData.name, variableData.aliasName, variableData.type, variableData.negated));\n")
+        self.list_for_setvariables.append("    else if (variableData.isCalculated)\n")
+        self.list_for_setvariables.append("      variables.push_back(VariableNativeFactory::createCalculated(variableData.name, variableData.type, variableData.negated));\n")
+        self.list_for_setvariables.append("    else\n")
+        self.list_for_setvariables.append("      variables.push_back(VariableNativeFactory::createState(variableData.name, variableData.type, variableData.negated));\n")
+        self.list_for_setvariables.append("  }\n")
 
     ##
     # returns the lines that constitues the body of setVariables
@@ -3250,9 +3286,14 @@ class Factory:
 
         push_back_threshold = 8
         if len(all_parameters) >= push_back_threshold:
-            self.list_for_defineparameters.append("  using ParameterModelerTuple = std::tuple<std::string, DYN::typeVarC_t, DYN::parameterScope_t>;\n")
-            self.list_for_defineparameters.append("  std::array<ParameterModelerTuple, " + str(len(all_parameters)) + "> parameterModelerArray = {\n")
-            line_ptrn = "    std::make_tuple(\"%s\", %s, %s),\n"
+            # Static POD table: avoids generating one std::string construction per parameter (costly to compile)
+            self.list_for_defineparameters.append("  struct ParameterModelerData {\n")
+            self.list_for_defineparameters.append("    const char* name;\n")
+            self.list_for_defineparameters.append("    typeVarC_t valueType;\n")
+            self.list_for_defineparameters.append("    parameterScope_t scope;\n")
+            self.list_for_defineparameters.append("  };\n")
+            self.list_for_defineparameters.append("  static const ParameterModelerData parameterModelerArray[] = {\n")
+            line_ptrn = "    {\"%s\", %s, %s},\n"
         else:
             line_ptrn = "  parameters.push_back(ParameterModeler(\"%s\", %s, %s));\n"
 
@@ -3267,9 +3308,10 @@ class Factory:
         if len(all_parameters) >= push_back_threshold:
             self.list_for_defineparameters.append("  };\n")
 
-            self.list_for_defineparameters.append("  for (size_t parameterModelerIndex = 0; parameterModelerIndex < parameterModelerArray.size(); ++parameterModelerIndex)\n")
+            self.list_for_defineparameters.append("  parameters.reserve(parameters.size() + " + str(len(all_parameters)) + ");\n")
+            self.list_for_defineparameters.append("  for (const ParameterModelerData& parameterModelerData : parameterModelerArray)\n")
             self.list_for_defineparameters.append("  {\n")
-            self.list_for_defineparameters.append("    parameters.push_back(ParameterModeler(std::get<0>(parameterModelerArray[parameterModelerIndex]), std::get<1>(parameterModelerArray[parameterModelerIndex]), std::get<2>(parameterModelerArray[parameterModelerIndex])));\n")
+            self.list_for_defineparameters.append("    parameters.push_back(ParameterModeler(parameterModelerData.name, parameterModelerData.valueType, parameterModelerData.scope));\n")
             self.list_for_defineparameters.append("  }\n")
 
     ##
@@ -3287,9 +3329,14 @@ class Factory:
 
         push_back_threshold = 8
         if len(self.list_elements) >= push_back_threshold:
-            self.list_for_defelem.append("  using ElementTuple = std::tuple<std::string, std::string, DYN::Element::typeElement>;\n")
-            self.list_for_defelem.append("  std::array<ElementTuple, " + str(len(self.list_elements)) + "> elementArray1 = {\n")
-            motif1 = "    std::make_tuple(\"%s\", \"%s\", Element::%s),\n"
+            # Static POD table: avoids generating one std::string construction per element (costly to compile)
+            self.list_for_defelem.append("  struct ElementData {\n")
+            self.list_for_defelem.append("    const char* name;\n")
+            self.list_for_defelem.append("    const char* id;\n")
+            self.list_for_defelem.append("    Element::typeElement type;\n")
+            self.list_for_defelem.append("  };\n")
+            self.list_for_defelem.append("  static const ElementData elementArray1[] = {\n")
+            motif1 = "    {\"%s\", \"%s\", Element::%s},\n"
         else:
             motif1 = "  elements.push_back(Element(\"%s\",\"%s\",Element::%s));\n"
 
@@ -3307,22 +3354,39 @@ class Factory:
         if len(self.list_elements) >= push_back_threshold:
             self.list_for_defelem.append("  };\n")
 
-            self.list_for_defelem.append("  for (size_t elementsIndex1 = 0; elementsIndex1 < elementArray1.size(); ++elementsIndex1)\n")
+            self.list_for_defelem.append("  elements.reserve(elements.size() + " + str(len(self.list_elements)) + ");\n")
+            self.list_for_defelem.append("  for (const ElementData& elementData : elementArray1)\n")
             self.list_for_defelem.append("  {\n")
-            self.list_for_defelem.append("    elements.push_back(Element(std::get<0>(elementArray1[elementsIndex1]), std::get<1>(elementArray1[elementsIndex1]), std::get<2>(elementArray1[elementsIndex1])));\n")
+            self.list_for_defelem.append("    elements.push_back(Element(elementData.name, elementData.id, elementData.type));\n")
             self.list_for_defelem.append("  }\n")
 
         self.list_for_defelem.append("\n") # Empty line
 
         # Second part of defineElements (...)
-        for elt in self.list_elements :
-            elt.print_link(self.list_for_defelem)
+        nb_links = sum(len(elt.list_elements) for elt in self.list_elements)
+        if nb_links >= push_back_threshold:
+            self.list_for_defelem.append("  static const int subElementArray[][2] = {\n")
+            for elt in self.list_elements :
+                for sub_elt in elt.list_elements :
+                    self.list_for_defelem.append("    {%s, %s},\n" % (elt.get_element_num(), sub_elt.get_element_num()))
+            self.list_for_defelem.append("  };\n")
+            self.list_for_defelem.append("  for (const auto& subElement : subElementArray)\n")
+            self.list_for_defelem.append("  {\n")
+            self.list_for_defelem.append("    elements[subElement[0]].subElementsNum().push_back(subElement[1]);\n")
+            self.list_for_defelem.append("  }\n")
+        else:
+            for elt in self.list_elements :
+                elt.print_link(self.list_for_defelem)
 
         self.list_for_defelem.append("\n") # Empty line
 
         if len(self.list_elements) >= push_back_threshold:
-            self.list_for_defelem.append("  std::array<std::pair<std::string, int>, " + str(len(self.list_elements)) + "> mapElementArray = {\n")
-            motif2 = "    std::make_pair(\"%s\", %s),\n"
+            self.list_for_defelem.append("  struct MapElementData {\n")
+            self.list_for_defelem.append("    const char* id;\n")
+            self.list_for_defelem.append("    int num;\n")
+            self.list_for_defelem.append("  };\n")
+            self.list_for_defelem.append("  static const MapElementData mapElementArray[] = {\n")
+            motif2 = "    {\"%s\", %s},\n"
         else:
             motif2 = "  mapElement[\"%s\"] = %d;\n"
 
@@ -3337,9 +3401,9 @@ class Factory:
         if len(self.list_elements) >= push_back_threshold:
             self.list_for_defelem.append("  };\n")
 
-            self.list_for_defelem.append("  for (size_t mapElementIndex = 0; mapElementIndex < mapElementArray.size(); ++mapElementIndex)\n")
+            self.list_for_defelem.append("  for (const MapElementData& mapElementData : mapElementArray)\n")
             self.list_for_defelem.append("  {\n")
-            self.list_for_defelem.append("    mapElement[mapElementArray[mapElementIndex].first] = mapElementArray[mapElementIndex].second;\n")
+            self.list_for_defelem.append("    mapElement[mapElementData.id] = mapElementData.num;\n")
             self.list_for_defelem.append("  }\n")
 
 
