@@ -15,14 +15,14 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELBUSBRIDGED_H_
 
 #include "DYNModelBus.h"
-#include "DYNNetworkBridge.hpp"
+#include "DYNNetworkBridge.h"
 
 namespace DYN {
 /** a class of bus described in static network that is modeled by a dynamic DLL model */
 class ModelBusBridged : public ModelBus, public NetworkBridge {
  public:
   /** @copydoc ModelBus::ModelBus() */
-  explicit ModelBusBridged(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) : ModelBus(bus, isNodeBreaker) {}
+  explicit ModelBusBridged(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) : ModelBus(bus, isNodeBreaker), NetworkBridge("bus") {}
 
   // virtual methods from ModelBus
   void defineElementsById(const std::string& id, std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
@@ -31,16 +31,21 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
 
   // virtual methods from NetworkComponent, allowing state change propagation from dynamic bus model to ModelNetwork
   void initSize() override;
-  StateChange_t evalZ(double, bool) override;
-  void evalG(double) override;
   void setGequations(std::map<int, std::string>&) override;
+  void evalG(double) override;
+  StateChange_t evalZ(double, bool) override {return NetworkBridge::evalZ(topologyModified_);}
+  void defineNonGenericParameters(std::vector<ParameterModeler>&) override;
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override;
+
+  // trivial virtual method from NetworkBridge
+  std::string getLoggingId() override {return id();}
 
   // reset methods from ModelBus called on all buses by BusContainer at every step, unused here
   void resetNodeInjection() override {}
   void resetCurrentUStatus() override {}
   void resetDerivatives() override {}
 
-  // unused pure virtual methods from ModelBus that do not make sense for bridge buses (without node injection), throw if called
+  // unused pure virtual methods from ModelBus that do not make sense for bridged buses (without node injection), throw if called
   double getCurrentU(UType_t) override                            {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getCurrentU()", id());}
   double getVNom() const override                                 {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getVNom()", id());}
   double urp() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urp()", id());}
@@ -61,7 +66,6 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void evalJt(double, int, SparseMatrix&) override {}
   void evalJtPrim(int, SparseMatrix&) override {}
   void evalNodeInjection() override {}
-  void defineNonGenericParameters(std::vector<ParameterModeler>&) override {};
   void evalCalculatedVars() override {}
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
   void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
@@ -71,7 +75,6 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void evalDynamicFType() override {}
   void evalYMat() override {}
   void init(int&) override {}
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override {}
   void setFequations(std::map<int, std::string>&) override {}
   void collectSilentZ(BitMask*) override {}
 };

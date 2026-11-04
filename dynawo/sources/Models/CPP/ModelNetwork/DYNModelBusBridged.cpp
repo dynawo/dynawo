@@ -18,6 +18,7 @@
 
 namespace DYN {
 using std::string;
+using std::vector;
 
 void
 ModelBusBridged::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
@@ -62,24 +63,14 @@ ModelBusBridged::initSize() {
     sizeG_ += 1;  // connection event from dynamic model needs to be propagated
 }
 
-NetworkComponent::StateChange_t
-ModelBusBridged::evalZ(const double /*t*/, bool /*onlyEvaluateStateChange*/) {
-  if (topologyModified_) {
-    topologyModified_ = false;
-    return NetworkComponent::TOPO_CHANGE;
-  }
-
-  return NetworkComponent::NO_CHANGE;
+void
+ModelBusBridged::setGequations(std::map<int, std::string> & gEquationIndex) {
+  gEquationIndex[0] = "Connection state change propagation by : "+id();
 }
 
 void
 ModelBusBridged::evalG(const double /*t*/) {
-  if (dynModel_ == nullptr)
-    throw DYNError(Error::MODELER, UnmappedNetworkBridge, id());
-
-  // since variable "state" is compiled with SILENT_Z flag, reading it is hazardous as evalG() may not be called
-  // after it changed, so use running instead, that is flipped earlier
-  State dynConnState = dynModel_->getVariableValue("bus_running") > 0.5 ? CLOSED : OPEN;
+  State dynConnState = getDynConnState();
   if (doubleNotEquals(static_cast<double>(dynConnState), z_[connectionStateNum_])) {
     g_[0] = (g_[0] != ROOT_UP) ? ROOT_UP : ROOT_DOWN;
     z_[connectionStateNum_] = static_cast<double>(dynConnState);
@@ -88,8 +79,15 @@ ModelBusBridged::evalG(const double /*t*/) {
 }
 
 void
-ModelBusBridged::setGequations(std::map<int, std::string> & gEquationIndex) {
-  gEquationIndex[0] = "Connection state change propagation by : "+id();
+ModelBusBridged::defineNonGenericParameters(vector<ParameterModeler> & params) {
+  params.push_back(ParameterModeler(id() + "_running_alias", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
 }
+
+void
+ModelBusBridged::setSubModelParameters(const std::unordered_map<string, ParameterModeler> & params) {
+  bool unused;
+  runningAlias_ = getParameterDynamicNoThrow<string>(params, id() + "_running_alias", unused);
+}
+
 
 }  // namespace DYN
