@@ -1,6 +1,7 @@
 BESSWeccCurrentSource
 BESSWeccCurrentSourceNoPlantControl
 PhotovoltaicsWeccCurrentSource
+PhotovoltaicsWeccCurrentSource2
 PhotovoltaicsWeccVoltageSource1
 PhotovoltaicsWeccVoltageSource2
 PhotovoltaicsWeccVoltageSource3

@@ -12,7 +12,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model PVCurrentSource "WECC PV model with a current source as interface with the grid (REPC-A REEC-B REGC-A)"
+model PVCurrentSource "WECC PV model with a current source as interface with the grid (REPC-A REEC-A REGC-A)"
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
@@ -53,6 +53,8 @@ equation
     Line(points = {{20, 39}, {-117, 39}, {-117, 11}}, color = {0, 0, 127}));
   connect(switch.y, wecc_repc.PRegPu) annotation(
     Line(points = {{20, 23}, {-112, 23}, {-112, 11}}, color = {0, 0, 127}));
+  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
+    Line(points = {{-190, 38}, {-177, 38}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

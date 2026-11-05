@@ -82,7 +82,9 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     QMaxREPCPu = 0.4,
     QMinREECPu = -0.4,
     QMinREPCPu = -0.4,
-    RefFlag = true,
+    RLvTrPu = 0,
+    RMvHvPu = 0,
+    RefFlag = 1,
     RrpwrPu = 10,
     SNom = 100,
     U0Pu = 1,
@@ -95,6 +97,8 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     VRef0Pu = 1,
     VRef1Pu = 0,
     VUpPu = 1.1,
+    XLvTrPu = 0,
+    XMvHvPu = 0.15,
     brkpt = 0.1,
     lvpl1 = 1.22,
     tFilterGC = 0.02,
@@ -109,28 +113,44 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     tPord = 0.02,
     tRv = 0.02,
     zerox = 0.05,
+    VDLIp11 = 1.1,
+    VDLIp12 = 1.1,
+    VDLIp21 = 1.15,
+    VDLIp22 = 1,
+    VDLIp31 = 1.16,
+    VDLIp32 = 1,
+    VDLIp41 = 1.17,
+    VDLIp42 = 1,
+    VDLIq11 = 1.1,
+    VDLIq12 = 1.1,
+    VDLIq21 = 1.15,
+    VDLIq22 = 1,
+    VDLIq31 = 1.16,
+    VDLIq32 = 1,
+    VDLIq41 = 1.17,
+    VDLIq42 = 1,
+    IqFrzPu = 0,
+    PFlag = true,
+    tHoldIpMax = 0.1,
+    tHoldIq = 0,
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
     PConv0Pu(fixed = false),
-    UPhaseConv0(fixed = false),
     PF0(fixed = false),
     PInj0Pu(fixed = false),
     QConv0Pu(fixed = false),
     QInj0Pu(fixed = false),
+    UControl0Pu(fixed = false),
+    UConv0Pu(fixed = false),
     UInj0Pu(fixed = false),
+    UPhaseConv0(fixed = false),
     i0Pu(im(fixed = false), re(fixed = false)),
     iConv0Pu(im(fixed = false), re(fixed = false)),
     s0Pu(im(fixed = false), re(fixed = false)),
     u0Pu(im(fixed = false), re(fixed = false)),
-    UControl0Pu(fixed = false),
-    UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
-    uPcc0Pu(im(fixed = false), re(fixed = false)),
-    RMvHvPu = 0,
-    XMvHvPu = 0.15,
-    RLvTrPu = 0,
-    XLvTrPu = 0) annotation(
+    uPcc0Pu(im(fixed = false), re(fixed = false))) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PRefPu(k = 0.7) annotation(
     Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
@@ -148,7 +168,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Initialization
-  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT wTG4CurrentSource_INIT(
+  Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCPlantCurrentSource_INIT weccPlantCurrentSource_INIT(
     BMvHvPu = PV.BMvHvPu,
     ConverterLVControl = PV.ConverterLVControl,
     GMvHvPu = PV.GMvHvPu,
@@ -169,31 +189,31 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     Placement(transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 initial algorithm
-  PV.Id0Pu := wTG4CurrentSource_INIT.Id0Pu;
-  PV.Iq0Pu := wTG4CurrentSource_INIT.Iq0Pu;
-  PV.PF0 := wTG4CurrentSource_INIT.PF0;
-  PV.PInj0Pu := wTG4CurrentSource_INIT.PInj0Pu;
-  PV.QInj0Pu := wTG4CurrentSource_INIT.QInj0Pu;
-  PV.UInj0Pu := wTG4CurrentSource_INIT.UInj0Pu;
-  PV.i0Pu.re := wTG4CurrentSource_INIT.i0Pu.re;
-  PV.i0Pu.im := wTG4CurrentSource_INIT.i0Pu.im;
-  PV.iConv0Pu.re := wTG4CurrentSource_INIT.iConv0Pu.re;
-  PV.iConv0Pu.im := wTG4CurrentSource_INIT.iConv0Pu.im;
-  PV.s0Pu.re := wTG4CurrentSource_INIT.s0Pu.re;
-  PV.s0Pu.im := wTG4CurrentSource_INIT.s0Pu.im;
-  PV.u0Pu.re := wTG4CurrentSource_INIT.u0Pu.re;
-  PV.u0Pu.im := wTG4CurrentSource_INIT.u0Pu.im;
-  PV.uInj0Pu.re := wTG4CurrentSource_INIT.uInj0Pu.re;
-  PV.uInj0Pu.im := wTG4CurrentSource_INIT.uInj0Pu.im;
-  PV.UConv0Pu := wTG4CurrentSource_INIT.UConv0Pu;
-  PV.uConv0Pu.re := wTG4CurrentSource_INIT.uConv0Pu.re;
-  PV.uConv0Pu.im := wTG4CurrentSource_INIT.uConv0Pu.im;
-  PV.uPcc0Pu.re := wTG4CurrentSource_INIT.uPcc0Pu.re;
-  PV.uPcc0Pu.im := wTG4CurrentSource_INIT.uPcc0Pu.im;
-  PV.PConv0Pu := wTG4CurrentSource_INIT.PConv0Pu;
-  PV.QConv0Pu := wTG4CurrentSource_INIT.QConv0Pu;
-  PV.UPhaseConv0 := wTG4CurrentSource_INIT.UPhaseConv0;
-  PV.UControl0Pu := wTG4CurrentSource_INIT.UControl0Pu;
+  PV.Id0Pu := weccPlantCurrentSource_INIT.Id0Pu;
+  PV.Iq0Pu := weccPlantCurrentSource_INIT.Iq0Pu;
+  PV.PF0 := weccPlantCurrentSource_INIT.PF0;
+  PV.PInj0Pu := weccPlantCurrentSource_INIT.PInj0Pu;
+  PV.QInj0Pu := weccPlantCurrentSource_INIT.QInj0Pu;
+  PV.UInj0Pu := weccPlantCurrentSource_INIT.UInj0Pu;
+  PV.i0Pu.re := weccPlantCurrentSource_INIT.i0Pu.re;
+  PV.i0Pu.im := weccPlantCurrentSource_INIT.i0Pu.im;
+  PV.iConv0Pu.re := weccPlantCurrentSource_INIT.iConv0Pu.re;
+  PV.iConv0Pu.im := weccPlantCurrentSource_INIT.iConv0Pu.im;
+  PV.s0Pu.re := weccPlantCurrentSource_INIT.s0Pu.re;
+  PV.s0Pu.im := weccPlantCurrentSource_INIT.s0Pu.im;
+  PV.u0Pu.re := weccPlantCurrentSource_INIT.u0Pu.re;
+  PV.u0Pu.im := weccPlantCurrentSource_INIT.u0Pu.im;
+  PV.uInj0Pu.re := weccPlantCurrentSource_INIT.uInj0Pu.re;
+  PV.uInj0Pu.im := weccPlantCurrentSource_INIT.uInj0Pu.im;
+  PV.UConv0Pu := weccPlantCurrentSource_INIT.UConv0Pu;
+  PV.uConv0Pu.re := weccPlantCurrentSource_INIT.uConv0Pu.re;
+  PV.uConv0Pu.im := weccPlantCurrentSource_INIT.uConv0Pu.im;
+  PV.uPcc0Pu.re := weccPlantCurrentSource_INIT.uPcc0Pu.re;
+  PV.uPcc0Pu.im := weccPlantCurrentSource_INIT.uPcc0Pu.im;
+  PV.PConv0Pu := weccPlantCurrentSource_INIT.PConv0Pu;
+  PV.QConv0Pu := weccPlantCurrentSource_INIT.QConv0Pu;
+  PV.UPhaseConv0 := weccPlantCurrentSource_INIT.UPhaseConv0;
+  PV.UControl0Pu := weccPlantCurrentSource_INIT.UControl0Pu;
 
 equation
   line.switchOffSignal1 = false;
