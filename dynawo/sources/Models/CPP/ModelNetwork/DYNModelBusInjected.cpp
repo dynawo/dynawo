@@ -751,7 +751,13 @@ ModelBusInjected::getFinalValues(ConstraintData::kind_t kind,
   else if (kind == ConstraintData::UInfUmin)  valueMin = UpuMin_ * unom_;
   else                                        throw DYNError(Error::API, UnhandledConstraintKind, kind, id_);
 
-  valueFinal = evalCalculatedVarI(uNum_);
+  if (getSwitchOff() || voltageIsZero()) {
+    valueFinal = 0.0;
+  } else {
+    const double ur = y_[urNum_];
+    const double ui = y_[uiNum_];
+    valueFinal = sqrt(ur * ur + ui * ui) * unom_;  // Voltage module in kV
+  }
 }
 
 }  // namespace DYN
