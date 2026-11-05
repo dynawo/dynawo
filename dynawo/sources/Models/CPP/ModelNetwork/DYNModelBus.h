@@ -15,6 +15,7 @@
 #define MODELS_CPP_MODELNETWORK_DYNMODELBUS_H_
 
 #include "DYNNetworkComponent.h"
+#include <unordered_set>
 
 namespace DYN {
 class SubNetwork;
@@ -224,6 +225,12 @@ class ModelBus : public NetworkComponent {
    * @param variables variables
    */
   static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+
+  /**
+   * @brief insert bus name and optionally busbar sections identifiers into the given set
+   * @param set the set to enrich
+   */
+  void addIdentifiersTo(std::unordered_set<std::string> & set);
 
  public :
   int refIslands = 0;  ///< island reference (used to compute switch loops)

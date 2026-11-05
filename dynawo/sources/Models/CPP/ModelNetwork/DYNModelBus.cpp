@@ -20,8 +20,13 @@
 #include "DYNCommonModeler.h"
 
 namespace DYN {
+using std::string;
+using std::vector;
+using std::map;
+using std::unordered_set;
+using std::shared_ptr;
 
-ModelBus::ModelBus(const std::shared_ptr<BusInterface> & bus, bool isNodeBreaker) :
+ModelBus::ModelBus(const shared_ptr<BusInterface> & bus, bool isNodeBreaker) :
 NetworkComponent(bus->getID()),
 busIndex_(bus->getBusIndex()),
 modelType_(isNodeBreaker? "Bus" : "Node"),
@@ -88,20 +93,20 @@ ModelBus::refreshConnectionStateFromZ(bool logTimeline) {
 }
 
 void
-ModelBus::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
+ModelBus::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc",     DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_switchOff", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState("@ID@_state",     INTEGER));
 }
 
 void
-ModelBus::instantiateVariables(std::vector<boost::shared_ptr<Variable> > & variables) {
+ModelBus::instantiateVariables(vector<boost::shared_ptr<Variable> > & variables) {
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc",     DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state",     INTEGER));
 
   for (unsigned int i = 0; i < busBarSectionIdentifiers_.size(); ++i) {
-    std::string busBarSectionId = busBarSectionIdentifiers_[i];
+    string busBarSectionId = busBarSectionIdentifiers_[i];
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_numcc",     id_ + "_numcc"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_switchOff", id_ + "_switchOff"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_state",     id_ + "_state"));
@@ -109,17 +114,17 @@ ModelBus::instantiateVariables(std::vector<boost::shared_ptr<Variable> > & varia
 }
 
 void
-ModelBus::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
+ModelBus::defineElements(vector<Element>& elements, map<string, int>& mapElement) {
   defineElementsById(id_, elements, mapElement);
   for (const auto& busBarSectionIdentifier : busBarSectionIdentifiers_)
     defineElementsById(busBarSectionIdentifier, elements, mapElement);
 }
 
 void
-ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
+ModelBus::defineElementsById(const string& id, vector<Element>& elements, map<string, int>& mapElement) {
   // Discrete variables addition
-  addElement(id + std::string("_numcc"), Element::TERMINAL, elements, mapElement);
-  addElement(id + std::string("_switchOff"), Element::TERMINAL, elements, mapElement);
+  addElement(id + string("_numcc"), Element::TERMINAL, elements, mapElement);
+  addElement(id + string("_switchOff"), Element::TERMINAL, elements, mapElement);
 }
 
 void
@@ -141,7 +146,7 @@ ModelBus::getSwitchOff() const {
 }
 
 void
-ModelBus::addNeighbor(const std::shared_ptr<ModelBus>& bus) {
+ModelBus::addNeighbor(const shared_ptr<ModelBus>& bus) {
   neighbors_.push_back(bus);
 }
 
@@ -153,7 +158,7 @@ ModelBus::clearNeighbors() {
 void
 ModelBus::exploreNeighbors(const int numSubNetwork, const boost::shared_ptr<SubNetwork>& subNetwork) {
   for (const auto& neighbor : neighbors_) {
-    std::shared_ptr<ModelBus> bus = neighbor.lock();
+    shared_ptr<ModelBus> bus = neighbor.lock();
     if (!bus->isNumSubNetworkSet()) {  // Bus not yet treated
       bus->setNumSubNetwork(numSubNetwork);
       subNetwork->addBus(bus);
@@ -162,5 +167,11 @@ ModelBus::exploreNeighbors(const int numSubNetwork, const boost::shared_ptr<SubN
   }
 }
 
+void
+ModelBus::addIdentifiersTo(unordered_set<string> & set) {
+  set.insert(id());
+  for (const string & bbsId : busBarSectionIdentifiers_)
+    set.insert(bbsId);
+}
 
 }  // namespace DYN

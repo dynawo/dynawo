@@ -197,7 +197,7 @@ VoltageLevelGraphUndefined  =             VOLTAGE LEVEL %1% : graph is undefined
 FrequencyCollapse           =             frequency collapse (%1% Hz < %2% Hz)
 FrequencyIncrease           =             high frequency (%1% Hz > %2% Hz)
 CalculatedBusNoSwitchStateChange =        calculated bus %1% cannot change state as there is no retained switch in the node
-BusSubnetworkMultiplicityError =          requested bus %1% should be found in exactly 1 subnetwork, found in %2% instead
+BusSubnetworkMultiplicityError =          requested bus or busbar section %1% should be found in exactly 1 subnetwork, found in %2% instead
 //--------------- GENERAL -----------------------------------------
 GZReadErrorOnFile           =             unexpected error while reading compressed file %1%
 HDF5NotEnabled              =             HDF5 curves export was requested but Dynawo was not compiled with HDF5 support (install libhdf5-dev and rebuild, or use CSV/XML export)

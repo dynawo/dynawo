@@ -41,7 +41,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
   inline void addBus(const std::shared_ptr<ModelBus>& bus) {
     assert(bus && "Undefined bus");
     bus_.push_back(bus);
-    busNames_.insert(bus->id());
+    bus->addIdentifiersTo(busNames_);
   }
 
   /**
