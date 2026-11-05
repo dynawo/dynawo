@@ -10,6 +10,7 @@
 # of simulation tools for power systems.
 
 add_subdirectory(DER D)
+add_subdirectory(Simplified S)
 
 set(MODEL_FILES
   package.mo
