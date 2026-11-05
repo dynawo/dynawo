@@ -72,8 +72,8 @@ connected to a load through a line, as depicted in Fig.~\ref{schema}. The load i
 \subsection*{Events}
 Two events are simulated (see Fig.~\ref{events}):
 \begin{itemize}
-\item From $t = 2s$ to $t = 4s$, a decrease in the voltage of the infinite bus from 1.0 p.u. to 0.8 p.u.
-\item From $t = 6s$ to $t = 8s$, an increase in the frequency of the infinite bus from 1.0 p.u. to 1.05 p.u.
+\item From $t = 2s$ to $t = 4s$, a decrease in the voltage of the infinite bus from 1.0 pu to 0.8 pu.
+\item From $t = 6s$ to $t = 8s$, an increase in the frequency of the infinite bus from 1.0 pu to 1.05 pu.
 \end{itemize}
 \begin{figure}[H]
 \begin{center}
@@ -93,13 +93,13 @@ Two events are simulated (see Fig.~\ref{events}):
 \end{figure}
 \subsection*{Parameters}
 \begin{itemize}
-  \item Initial load parameters are set as $P_0 = 1.0$ p.u., $Q_0 = 0.5$ p.u., $f_0 = 1.0$ p.u. The initial voltage $V_0$ and current $i_0$ are calculated after a linear loadflow in Pypowsybl as the inifinte bus sets $U_{bus0} = 1.0$ p.u. and $\theta_{bus0} = 1.0$ p.u.
+  \item Initial load parameters are set as $P_0 = 1.0$ pu, $Q_0 = 0.5$ pu, $f_0 = 1.0$ pu The initial voltage $V_0$ and current $i_0$ are calculated after a linear loadflow in Pypowsybl as the inifinte bus sets $U_{bus0} = 1.0$ pu and $\theta_{bus0} = 1.0$ pu.
   \item Alpha Beta : $\alpha = 1.5$, $\beta = 2.0$, $K_{P_f} = 2.0$, $K_{Q_f} = -2.0$.
   \item ZIP : $Z_{p} = 0.6$, $I_{p} = 0.2$, $P_{p} = 0.2$, $Z_{q} = 0.2$, $I_{q} = 0.2$, $P_{q} = 0.6$, $K_{P_f} = 2.0$, $K_{Q_f} = -2.0$.
 \end{itemize}
 \newpage
 \section*{Results}
-The active and reactive powers $(P_{\alpha \beta},Q_{\alpha \beta})$ in p.u. for the Alpha Beta Load model are presented in Fig.~\ref{comp1}.
+The active and reactive powers $(P_{\alpha \beta},Q_{\alpha \beta})$ in pu for the Alpha Beta Load model are presented in Fig.~\ref{comp1}.
 \begin{figure}[H]
 \begin{center}
   \begin{tikzpicture}[scale = 0.8]
@@ -116,7 +116,7 @@ The active and reactive powers $(P_{\alpha \beta},Q_{\alpha \beta})$ in p.u. for
   \end{center}
   \caption{Active and reactive powers for the Alpha Beta Load model\label{comp1}}
 \end{figure}
-The active and reactive powers $(P_{ZIP},Q_{ZIP})$ in p.u. for the ZIP Load model are presented in Fig.~\ref{comp10}.
+The active and reactive powers $(P_{ZIP},Q_{ZIP})$ in pu for the ZIP Load model are presented in Fig.~\ref{comp10}.
 \begin{figure}[H]
 \begin{center}
   \begin{tikzpicture}[scale = 0.8]
