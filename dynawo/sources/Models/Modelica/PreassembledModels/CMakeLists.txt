@@ -19,10 +19,8 @@ set(MODELICA_PREASSEMBLED_MODELS
   BusWithInit.xml
   CombiTimeTable.xml
   ConditionalForward.xml
-  #Should be fixed on next rebase
-  #CurrentLimitAutomaton.xml
-  #Should be fixed on next rebase
-  #CurrentLimitAutomatonTwoLevels.xml
+  CurrentLimitAutomaton.xml
+  CurrentLimitAutomatonTwoLevels.xml
   DERa.xml
   DERaAggregatedLVRT.xml
   DERaGenericLVRT.xml
