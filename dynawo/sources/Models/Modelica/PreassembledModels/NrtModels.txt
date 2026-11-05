@@ -1,3 +1,4 @@
+AcGridRoCoF
 BESSWeccCurrentSource
 BooleanTable
 Bus
@@ -7,6 +8,13 @@ CurrentLimitAutomaton
 CurrentLimitAutomatonTwoLevels
 DistanceProtectionLineTwoZones
 DoubleStep
+DynGridFormingCCVSMPlantControlFull
+DynGridFormingCurrentControlledVirtualSynchronousMachine
+DynGridFormingDroop
+DynGridFormingDroopPlantControlFull
+DynGridFormingVirtualSynchronousMachine
+DynGridFormingVirtualSynchronousMachineConvPLL
+DynGridFormingVSMPlantControlFull
 ElectronicLoad
 EventConnectedStatus
 EventQuadripoleDisconnection

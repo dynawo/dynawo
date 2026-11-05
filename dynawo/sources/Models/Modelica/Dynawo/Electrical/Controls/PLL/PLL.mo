@@ -15,6 +15,7 @@ within Dynawo.Electrical.Controls.PLL;
 model PLL "Phase-Locked Loop"
 
   //Parameters
+
   parameter Types.PerUnit Ki "PLL integrator gain";
   parameter Types.PerUnit Kp "PLL proportional gain";
   parameter Types.PerUnit OmegaMaxPu "Upper frequency limit in pu (base OmegaNom)";

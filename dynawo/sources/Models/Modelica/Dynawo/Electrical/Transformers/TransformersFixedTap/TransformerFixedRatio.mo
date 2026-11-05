@@ -38,12 +38,15 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Types.CurrentModule ISide1 "Current on side 1 in A (receptor convention)";
   Types.CurrentModule ISide2 "Current on side 2 in A (receptor convention)";
 
-  Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";
-  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)";
+  Modelica.Blocks.Interfaces.RealOutput P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)" annotation(
+    Placement(transformation(origin = {0, -108}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealOutput Q1Pu "Reactive power on side 1 in pu (base SnRef) (receptor convention)" annotation(
+    Placement(transformation(origin = {-100, -108}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-98, -98}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Types.ActivePowerPu P2Pu "Active power on side 2 in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in pu (base SnRef) (receptor convention)";
 
-  Types.VoltageModulePu U1Pu "Voltage on side 1 in pu (base U1Nom)";
+  Modelica.Blocks.Interfaces.RealOutput U1Pu "Voltage on side 1 in pu (base U1Nom)" annotation(
+    Placement(transformation(origin = {100, -108}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {96, -100}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Types.VoltageModulePu U2Pu "Voltage on side 2 in pu (base U2Nom)";
 
 equation
