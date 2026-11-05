@@ -12,5 +12,4 @@
     simulation tool for power systems.
 -->
 <mandatoryParameters>
-  <mandatoryParameter name="SNom" type="DOUBLE"/>
 </mandatoryParameters>

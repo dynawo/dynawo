@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.WECC.Utilities;
   * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
   */
 
-model MeasurementsConverter "This block measures the voltage, current, active power and reactive power in pu (base UNom, SNom or SnRef)"
+model MeasurementsConverter "This block measures the voltage, current, active power and reactive power at terminal1 in pu (base UNom, SNom and SnRef) (receptor convention)"
 
   /*
     Equivalent circuit and conventions:
@@ -20,25 +20,27 @@ model MeasurementsConverter "This block measures the voltage, current, active po
                  iPu, uPu
      (terminal1) -->---------MEASUREMENTS------------ (terminal2)
 
+    iPu, PPu and QPu are measured at terminal1 in receptor convention (entering the block).
+    The currents of the connected network are in pu (base UNom, SNom).
   */
   Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  Modelica.Blocks.Interfaces.RealOutput PPu "Active power on side 1 in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PPu "Active power at terminal1 in pu (base SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power on side 1 in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QPu "Reactive power at terminal1 in pu (base SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu "Complex voltage in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.ComplexBlocks.Interfaces.ComplexOutput iPu "Complex current in pu (base UNom, SnRef)" annotation(
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput iPu "Complex current at terminal1 in pu (base UNom, SNom) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput UPu "Voltage module at terminal 1 in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput PPuSnRef "Active power on side 1 in pu (base SnRef) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PPuSnRef "Active power at terminal1 in pu (base SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-60, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealOutput QPuSnRef "Reactive power on side 1 in pu (base SnRef) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QPuSnRef "Reactive power at terminal1 in pu (base SnRef) (receptor convention)" annotation(
     Placement(visible = true, transformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-20, -110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
 equation
   terminal1.i = -terminal2.i;

@@ -44,7 +44,7 @@ model DynRLTransformerRI "Dynamic RL Transformer in (RI) frame"
   // Final parameters
   final parameter Types.ComplexVoltagePu uFilter0Pu = Complex(- RPu * iPcc0Pu.re + Omega0Pu * LPu * iPcc0Pu.im + uPcc0Pu.re,
                                                               - RPu * iPcc0Pu.im - Omega0Pu * LPu * iPcc0Pu.re + uPcc0Pu.im) "Complex start value of voltage at the filter in pu (base UNom)";
-  final parameter Types.ComplexCurrentPu iFilter0Pu = - iPcc0Pu "Complex start value of the current at the filter in pu (base UNom, SNom) (generator convention for the converter, i.e. entering terminal1 of this block)";
+  final parameter Types.ComplexCurrentPu iFilter0Pu = - iPcc0Pu "Complex start value of the current at the filter in pu (base UNom, SNom) in receptor convention";
 
 equation
   if running then

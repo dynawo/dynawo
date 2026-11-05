@@ -46,7 +46,7 @@ model DynRLCFilterRI "Dynamic RLC Filter in (RI) frame"
 
   // Final parameters
   final parameter Types.ComplexCurrentPu iConv0Pu =  Complex(- iPcc0Pu.re - Omega0Pu * CPu * uFilter0Pu.im,
-                                                             - iPcc0Pu.im + Omega0Pu * CPu * uFilter0Pu.re) "Start value of complex current at the converter in pu (base UNom, SNom) in generator convention for the converter (i.e. entering terminal1 of this block";
+                                                             - iPcc0Pu.im + Omega0Pu * CPu * uFilter0Pu.re) "Start value of complex current at the converter in pu (base UNom, SNom) in receptor convention";
   final parameter Types.ComplexVoltagePu uConv0Pu = Complex(RPu * iConv0Pu.re - Omega0Pu * LPu * iConv0Pu.im  + uFilter0Pu.re,
                                                             RPu * iConv0Pu.im + Omega0Pu * LPu * iConv0Pu.re  + uFilter0Pu.im) "Start value of complex voltage at the converter in pu (base UNom)";
 

@@ -19,7 +19,7 @@ model ChangeofBaseSNom "Change of base from SnRef to SNom"
 
   Connectors.ACPower terminalSnRef(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {98, 4}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {100, -2}, extent = {{-10, -10}, {10, 10}})));
-  Connectors.ACPower terminalSNom(V(re(start = uPcc0Pu.re), im(start = uPcc0Pu.im)), i(re(start = iPcc0Pu.re), im(start = iPcc0Pu.im))) annotation(
+  Connectors.ACPower terminalSNom(V(re(start = uPcc0Pu.re), im(start = uPcc0Pu.im)), i(re(start = -iPcc0Pu.re), im(start = -iPcc0Pu.im))) annotation(
     Placement(transformation(origin = {-102, 2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-104, 2}, extent = {{-10, -10}, {10, 10}})));
 
   // Initial parameters

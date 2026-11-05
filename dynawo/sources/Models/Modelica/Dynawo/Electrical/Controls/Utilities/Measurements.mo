@@ -22,7 +22,7 @@ model Measurements "This block measures the voltage, current, active power and r
 
   */
 
-  parameter Types.ApparentPowerModule SNom "Nominal apparent power module for the converter";
+  parameter Types.ApparentPowerModule SNom  = SystemBase.SnRef "Nominal apparent power module for the converter";
   Dynawo.Connectors.ACPower terminal1 annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2 annotation(
