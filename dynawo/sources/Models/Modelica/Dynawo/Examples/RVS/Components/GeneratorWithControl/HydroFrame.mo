@@ -173,14 +173,14 @@ equation
     Line(points = {{-6, 18}, {-6, 60}, {-200, 60}, {-200, -20}, {-150, -20}, {-150, -8}, {-144, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(generatorSynchronous.terminal, terminal) annotation(
     Line(points = {{0, 0}, {0, 100}}, color = {0, 0, 255}));
-  connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{39, 40}, {30, 40}, {30, 0}, {16, 0}}, color = {0, 0, 127}));
+  connect(switch1.y, generatorSynchronous.PmPu) annotation(
+    Line(points = {{40, 40}, {30, 40}, {30, -40}, {12, -40}, {12, -22}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
     Line(points = {{-79, 80}, {-70, 80}, {-70, 45}, {-61, 45}}, color = {0, 0, 127}));
   connect(scrx.EfdPu, switch.u1) annotation(
     Line(points = {{-98, 0}, {-70, 0}, {-70, 35}, {-61, 35}}, color = {0, 0, 127}));
-  connect(switch.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{-47, 40}, {-40, 40}, {-40, 0}, {-16, 0}}, color = {0, 0, 127}));
+  connect(switch.y, generatorSynchronous.efdPu) annotation(
+    Line(points = {{-48, 40}, {-30, 40}, {-30, -40}, {-12, -40}, {-12, -22}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
     Line(points = {{-79.4, 40}, {-61.4, 40}}, color = {255, 0, 255}));
   connect(booleanConstant1.y, switch1.u2) annotation(

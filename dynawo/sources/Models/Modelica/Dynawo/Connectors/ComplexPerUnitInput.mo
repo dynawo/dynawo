@@ -14,4 +14,23 @@ within Dynawo.Connectors;
 */
 
 record ComplexPerUnitInput = input Complex(redeclare Types.PerUnit re "Real part of complex per unit quantity",
-                                           redeclare Types.PerUnit im "Imaginary part of complex per unit quantity") "Complex per unit";
+                                           redeclare Types.PerUnit im "Imaginary part of complex per unit quantity") "Complex per unit" annotation(
+  Icon(coordinateSystem(
+      extent={{-100,-100},{100,100}},
+      preserveAspectRatio=true,
+      initialScale=0.2), graphics={Polygon(
+        points={{-100,100},{100,0},{-100,-100},{-100,100}},
+        lineColor={85,170,255},
+        fillColor={85,170,255},
+        fillPattern=FillPattern.Solid)}),
+  Diagram(coordinateSystem(
+      preserveAspectRatio=true,
+      initialScale=0.2,
+      extent={{-100,-100},{100,100}}), graphics={Polygon(
+        points={{0,50},{100,0},{0,-50},{0,50}},
+        lineColor={85,170,255},
+        fillColor={85,170,255},
+        fillPattern=FillPattern.Solid), Text(
+        extent={{-10,85},{-10,60}},
+        lineColor={0,0,127},
+        textString="%name")}));

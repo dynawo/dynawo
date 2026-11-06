@@ -238,14 +238,14 @@ equation
     Line(points = {{0, -18}, {0, -80}, {180, -80}, {180, 0}, {144, 0}}, color = {0, 0, 127}));
   connect(PmRefPu.y, ieeeg1.PmRefPu) annotation(
     Line(points = {{180, 20}, {160, 20}, {160, 12}, {144, 12}}, color = {0, 0, 127}));
-  connect(switch.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{-48, 40}, {-40, 40}, {-40, 0}, {-16, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+  connect(switch.y, generatorSynchronous.efdPu) annotation(
+    Line(points = {{-48, 40}, {-40, 40}, {-40, -30}, {-12, -30}, {-12, -22}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
   connect(generatorSynchronous.IRotorPu_out, exac1.IrPu) annotation(
     Line(points = {{-18, -10}, {-30, -10}, {-30, -16}, {-96, -16}}, color = {0, 0, 127}));
   connect(ieeeg1.Pm1Pu, switch1.u1) annotation(
     Line(points = {{98, 12}, {60, 12}, {60, 35}, {54, 35}}, color = {0, 0, 127}));
-  connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{39, 40}, {30, 40}, {30, 0}, {16, 0}}, color = {0, 0, 127}));
+  connect(switch1.y, generatorSynchronous.PmPu) annotation(
+    Line(points = {{40, 40}, {30, 40}, {30, -40}, {12, -40}, {12, -22}}, color = {0, 0, 127}));
   connect(UUelPu.y, exac1.UUelPu) annotation(
     Line(points = {{-168, 20}, {-160, 20}, {-160, 8}, {-144, 8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(const1.y, ieeeg1.omegaRefPu) annotation(
