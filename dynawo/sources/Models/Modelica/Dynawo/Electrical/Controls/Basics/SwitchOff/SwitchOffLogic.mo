@@ -17,9 +17,12 @@ partial model SwitchOffLogic "Manage switch-off logic"
 
   parameter Integer NbSwitchOffSignals(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = SwitchOffSignal10) "Switch-off signal 1";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = SwitchOffSignal20) if NbSwitchOffSignals >= 2 "Switch-off signal 2";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = SwitchOffSignal30) if NbSwitchOffSignals >= 3 "Switch-off signal 3";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = SwitchOffSignal10) "Switch-off signal 1" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = SwitchOffSignal20) if NbSwitchOffSignals >= 2 "Switch-off signal 2" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = SwitchOffSignal30) if NbSwitchOffSignals >= 3 "Switch-off signal 3" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.BooleanOutput running(start = Running0) "Indicates if the component is running or not";
 

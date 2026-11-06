@@ -25,13 +25,13 @@ model SVarCRVS "Model of a regulated static var compensator with built-in initia
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Input variables
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the static VAR compensator";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the static VAR compensator";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the static VAR compensator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the static VAR compensator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu) annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0), iconTransformation(origin = {120, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
 
-  Dynawo.Electrical.StaticVarCompensators.SVarCPV_INIT sVarCPV_INIT(P0Pu = 0, Q0Pu = Q0Pu, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
-    Placement(visible = true, transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Examples.RVS.Components.StaticVarCompensators.BaseClasses.SVarCPVInterfaces sVarCPVInterfaces(
     B0Pu(fixed = false),
     BShuntPu = ParametersSVC.svcParamValues[svcPreset, ParametersSVC.svcParamNames.BShuntPu],
@@ -62,6 +62,9 @@ model SVarCRVS "Model of a regulated static var compensator with built-in initia
     Placement(visible = true, transformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant(k = ControlInService) annotation(
     Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Dynawo.Electrical.StaticVarCompensators.SVarCPV_INIT sVarCPV_INIT(P0Pu = 0, Q0Pu = Q0Pu, U0Pu = U0Pu, UPhase0 = UPhase0) annotation(
+    Placement(visible = true, transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power in pu (base SnRef) (receptor convention)";
