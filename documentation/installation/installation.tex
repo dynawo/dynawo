@@ -27,9 +27,9 @@ If you are on \textbf{MacOS} you can use a \hyperref[sec:docker]{Docker} solutio
 To start testing \Dynawo you can use binary releases on Github:
 \begin{itemize}
 \item
-  \href{https://github.com/dynawo/dynawo/releases/download/v1.7.0/Dynawo_Linux_v1.7.0.zip}{Linux}
+  \href{https://github.com/dynawo/dynawo/releases/download/v1.8.0/Dynawo_Linux_v1.8.0.zip}{Linux}
 \item
-  \href{https://github.com/dynawo/dynawo/releases/download/v1.7.0/Dynawo_Windows_v1.7.0.zip}{Windows}
+  \href{https://github.com/dynawo/dynawo/releases/download/v1.8.0/Dynawo_Windows_v1.8.0.zip}{Windows}
 \end{itemize}
 
 To use those distributions you need some requirements if you want to be able to fully use \Dynawo and add new models to the already available library of models.
@@ -37,6 +37,7 @@ To use those distributions you need some requirements if you want to be able to 
 \subsection{Linux Requirements for Distribution}
 
 \begin{itemize}
+\item glibc 2.28 or newer (the Linux distribution is built on Oracle Linux 8)
 \item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++11 compatible for C++ standard
 \item Python2 or Python3
 \item Binary utilities: \href{curl}{https://curl.haxx.se} and unzip
@@ -93,7 +94,7 @@ You can set up the curves to open in your preferred browser with\newline\textbf{
 
 \subsection{Linux}
 
-\Dynawo has been tested on Linux platforms (Centos, Debian and Ubuntu based) and provided that you can install system packages there should be no problem on other Linux distribution.
+\Dynawo has been tested on Linux platforms (Oracle Linux 8, Debian and Ubuntu based) and provided that you can install system packages there should be no problem on other Linux distribution.
 
 In the following we give a list of requirements needed to build \Dynawo and its dependencies.
 
@@ -184,7 +185,7 @@ In the following we give a list of requirements needed to build \Dynawo and its 
 
 \begin{itemize}
 \item
-  \href{https://visualstudio.microsoft.com}{Visual Studio 2022}, Visual Studio 2015 and 2017 were also tested
+  \href{https://visualstudio.microsoft.com}{Visual Studio 2022}
 \item
   \href{https://cmake.org}{CMake}
 \item
