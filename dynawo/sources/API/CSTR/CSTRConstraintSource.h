@@ -19,6 +19,11 @@
 
 namespace constraints {
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wweak-vtables"
+#endif  // __clang__
+
 /**
  * @class ConstraintSource
  * @brief interface to retrieve final and extremal values of a constraint from its producer
@@ -42,6 +47,10 @@ class ConstraintSource {
   /** @brief useless destructor, needed for clang */
   virtual ~ConstraintSource() = default;
 };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 }  // end of namespace constraints
 

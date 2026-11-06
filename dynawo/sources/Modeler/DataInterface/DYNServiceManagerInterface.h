@@ -20,6 +20,7 @@
 #ifndef MODELER_DATAINTERFACE_DYNSERVICEMANAGERINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNSERVICEMANAGERINTERFACE_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 #include "DYNBusInterface.h"

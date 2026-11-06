@@ -122,7 +122,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     unsigned nbG = 4;
     unsigned nbMode = 0;
     std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
-    modelShunt->setBufferYType(&yTypes[0], 0);
+    modelShunt->setBufferYType(yTypes.data(), 0);
     ASSERT_EQ(modelShunt->sizeY(), nbY);
     ASSERT_EQ(modelShunt->sizeF(), nbF);
     ASSERT_EQ(modelShunt->sizeZ(), nbZ);
@@ -142,10 +142,10 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     boost::shared_ptr<SubModel> modelShunt = initModelShunt(nbShunts);
     std::vector<double> y(modelShunt->sizeY(), 0);
     std::vector<double> yp(modelShunt->sizeY(), 0);
-    modelShunt->setBufferY(&y[0], &yp[0], 0.);
+    modelShunt->setBufferY(y.data(), yp.data(), 0.);
     std::vector<double> z(modelShunt->sizeZ(), 0);
     bool* zConnected = new bool[modelShunt->sizeZ()];
-    modelShunt->setBufferZ(&z[0], zConnected, 0);
+    modelShunt->setBufferZ(z.data(), zConnected, 0);
     ASSERT_NO_THROW(modelShunt->init(0));
     ASSERT_NO_THROW(modelShunt->getY0());
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0.95);
@@ -159,12 +159,12 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     boost::shared_ptr<SubModel> modelShuntCond = initModelShunt(nbShunts, 1);
     std::vector<double> y(modelShuntCond->sizeY(), 0);
     std::vector<double> yp(modelShuntCond->sizeY(), 0);
-    modelShuntCond->setBufferY(&y[0], &yp[0], 0.);
+    modelShuntCond->setBufferY(y.data(), yp.data(), 0.);
     std::vector<double> z(modelShuntCond->sizeZ(), 0);
     bool* zConnected = new bool[modelShuntCond->sizeZ()];
     for (size_t i = 0; i < modelShuntCond->sizeZ(); ++i)
       zConnected[i] = true;
-    modelShuntCond->setBufferZ(&z[0], zConnected, 0);
+    modelShuntCond->setBufferZ(z.data(), zConnected, 0);
     BitMask* silentZ = new BitMask[modelShuntCond->sizeZ()];
     ASSERT_NO_THROW(modelShuntCond->init(0));
     ASSERT_NO_THROW(modelShuntCond->getY0());
@@ -182,7 +182,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_NO_THROW(modelShuntCond->evalJCalculatedVarI(0, res));
     ASSERT_NO_THROW(modelShuntCond->evalCalculatedVars());
     std::vector<state_g> g(modelShuntCond->sizeG(), ROOT_DOWN);
-    modelShuntCond->setBufferG(&g[0], 0);
+    modelShuntCond->setBufferG(g.data(), 0);
     ASSERT_NO_THROW(modelShuntCond->setGequations());
     // UMonitored < URef
     y[0] = 0.8;
@@ -253,15 +253,15 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     boost::shared_ptr<SubModel> modelShuntSelf = initModelShunt(1, 1, true);
     std::vector<double> ySelf(modelShuntSelf->sizeY(), 0);
     std::vector<double> ypSelf(modelShuntSelf->sizeY(), 0);
-    modelShuntSelf->setBufferY(&ySelf[0], &ypSelf[0], 0.);
+    modelShuntSelf->setBufferY(ySelf.data(), ypSelf.data(), 0.);
     std::vector<double> zSelf(modelShuntSelf->sizeZ(), 0);
     bool* zConnectedSelf = new bool[modelShuntSelf->sizeZ()];
     for (size_t i = 0; i < modelShuntSelf->sizeZ(); ++i)
       zConnectedSelf[i] = true;
-    modelShuntSelf->setBufferZ(&zSelf[0], zConnectedSelf, 0);
+    modelShuntSelf->setBufferZ(zSelf.data(), zConnectedSelf, 0);
     ASSERT_NO_THROW(modelShuntSelf->getY0());
     std::vector<state_g> gSelf(modelShuntSelf->sizeG(), ROOT_DOWN);
-    modelShuntSelf->setBufferG(&gSelf[0], 0);
+    modelShuntSelf->setBufferG(gSelf.data(), 0);
     ASSERT_NO_THROW(modelShuntSelf->setGequations());
     // UMonitored < URef
     ySelf[0] = 0.8;
@@ -335,12 +335,12 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     boost::shared_ptr<SubModel> modelShuntCond = initModelShunt(nbShunts, 1);
     std::vector<double> y(modelShuntCond->sizeY(), 0);
     std::vector<double> yp(modelShuntCond->sizeY(), 0);
-    modelShuntCond->setBufferY(&y[0], &yp[0], 0.);
+    modelShuntCond->setBufferY(y.data(), yp.data(), 0.);
     std::vector<double> z(modelShuntCond->sizeZ(), 0);
     bool* zConnected = new bool[modelShuntCond->sizeZ()];
     for (size_t i = 0; i < modelShuntCond->sizeZ(); ++i)
       zConnected[i] = true;
-    modelShuntCond->setBufferZ(&z[0], zConnected, 0);
+    modelShuntCond->setBufferZ(z.data(), zConnected, 0);
     BitMask* silentZ = new BitMask[modelShuntCond->sizeZ()];
     ASSERT_NO_THROW(modelShuntCond->init(0));
     ASSERT_NO_THROW(modelShuntCond->getY0());
@@ -358,7 +358,7 @@ TEST(ModelsCentralizedShuntsSectionControl, ModelCentralizedShuntsSectionControl
     ASSERT_NO_THROW(modelShuntCond->evalJCalculatedVarI(0, res));
     ASSERT_NO_THROW(modelShuntCond->evalCalculatedVars());
     std::vector<state_g> g(modelShuntCond->sizeG(), ROOT_DOWN);
-    modelShuntCond->setBufferG(&g[0], 0);
+    modelShuntCond->setBufferG(g.data(), 0);
     ASSERT_NO_THROW(modelShuntCond->setGequations());
 
     // Disable a shunt

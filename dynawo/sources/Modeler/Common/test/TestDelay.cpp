@@ -267,32 +267,32 @@ TEST(CommonTest, testDelayManagerClassTrigger) {
   ASSERT_ANY_THROW(manager.triggerDelay(id_none));
 
   time = 2.;  // time between the two max delays
-  manager.setGomc(&states[0], 1, time - 0.6);
+  manager.setGomc(states.data(), 1, time - 0.6);
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
-  manager.setGomc(&states[0], 1, time + 0.1);
+  manager.setGomc(states.data(), 1, time + 0.1);
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
-  manager.setGomc(&states[0], 1, time);
+  manager.setGomc(states.data(), 1, time);
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
   DYN::modeChangeType_t delay_mode = manager.evalMode(time, "TEST");
   ASSERT_EQ(delay_mode, DYN::ALGEBRAIC_J_UPDATE_MODE);
 
-  manager.setGomc(&states[0], 1, time);  // always called before checking trigger
+  manager.setGomc(states.data(), 1, time);  // always called before checking trigger
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
 
-  manager.setGomc(&states[0], 1, time + 0.1);  // always called before checking trigger
+  manager.setGomc(states.data(), 1, time + 0.1);  // always called before checking trigger
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(2, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));
   delay_mode = manager.evalMode(time + 0.1, "TEST");
   ASSERT_EQ(delay_mode, DYN::NO_MODE);
 
   time = 3.1;  // time after the two delays
-  manager.setGomc(&states[0], 1, time);
+  manager.setGomc(states.data(), 1, time);
   ASSERT_EQ(DYN::NO_ROOT, states[0]);
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_UP));
   ASSERT_EQ(1, std::count(states.begin(), states.end(), DYN::ROOT_DOWN));

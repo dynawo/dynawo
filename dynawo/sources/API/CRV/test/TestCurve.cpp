@@ -50,7 +50,7 @@ TEST(APICRVTest, Curve) {
   curve1->setCurveType(Curve::DISCRETE_VARIABLE);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
   curve1->setFactor(2.0);
 
   // test setted attributes
@@ -60,7 +60,7 @@ TEST(APICRVTest, Curve) {
   ASSERT_EQ(curve1->getAvailable(), true);
   ASSERT_EQ(curve1->getNegated(), false);
   ASSERT_EQ(curve1->isParameterCurve(), true);
-  ASSERT_EQ(curve1->getBuffer(), &variables[0]);
+  ASSERT_EQ(curve1->getBuffer(), variables.data());
   ASSERT_EQ(curve1->getCurveType(), Curve::DISCRETE_VARIABLE);
   ASSERT_DOUBLE_EQ(curve1->getFactor(), 2.0);
 }
@@ -73,7 +73,7 @@ TEST(APICRVTest, CurveUpdate) {
   curve1->setNegated(false);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
 
   // test update method (enter update methode several times to test all conditions)
   ASSERT_NO_THROW(curve1->update(0));  // the curve is available and is a parameter curve
@@ -108,7 +108,7 @@ TEST(APICRVTest, CurveUpdateParameterCurveValue) {
   curve1->setAsParameterCurve(true);
   std::vector<double> variables;
   variables.assign(2, 1);
-  curve1->setBuffer(&variables[0]);
+  curve1->setBuffer(variables.data());
 
   // set the fixed value to 5 and record 3 time steps
   curve1->setFixedValue(5);
@@ -139,7 +139,7 @@ TEST(APICRVTest, CurveUpdateParameterCurveValue) {
   curve2->setAsParameterCurve(true);
   std::vector<double> variables2;
   variables2.assign(1, 2);
-  curve1->setBuffer(&variables2[0]);
+  curve1->setBuffer(variables2.data());
 
   boost::shared_ptr<Curve> curve3 = CurveFactory::newCurve();
   double val3 = 3;

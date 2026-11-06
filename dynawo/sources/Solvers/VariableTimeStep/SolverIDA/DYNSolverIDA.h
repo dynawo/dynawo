@@ -21,6 +21,7 @@
 #define SOLVERS_VARIABLETIMESTEP_SOLVERIDA_DYNSOLVERIDA_H_
 
 #include <boost/shared_ptr.hpp>
+#include <memory>
 #include <vector>
 #include <sundials/sundials_linearsolver.h>
 #include <sundials/sundials_matrix.h>

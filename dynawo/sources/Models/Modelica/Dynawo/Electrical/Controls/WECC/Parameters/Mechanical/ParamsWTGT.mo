@@ -26,6 +26,7 @@ record ParamsWTGT
   // Initial parameter
   parameter Types.AngularVelocityPu omegaRefWTGQ0Pu "Start value of reference angular frequency of torque control in pu (base omegaNom)" annotation(
   Dialog(group="Initialization"));
+
   annotation(
   preferredView = "text");
 end ParamsWTGT;

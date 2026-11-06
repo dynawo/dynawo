@@ -65,10 +65,12 @@ model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controlle
     Kvp = 1,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
+    P0Pu = -0.7,
     PMaxREECPu = 1,
     PMinREECPu = 0,
     PQFlag = false,
     PfFlag = false,
+    Q0Pu = -0.2,
     QFlag = true,
     QMaxREECPu = 0.4,
     QMinREECPu = -0.4,
@@ -76,6 +78,8 @@ model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controlle
     RateFlag = false,
     RrpwrPu = 10,
     SNom = 100,
+    U0Pu = 1,
+    UPhase0 = 0,
     VDipPu = 0.9,
     VFlag = true,
     VMaxPu = 1.1,
@@ -127,8 +131,8 @@ model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controlle
     VDLIq32 = 1,
     VDLIq41 = 1.17,
     VDLIq42 = 1,
-    s0Pu = Complex(-0.7, -0.2),
-    u0Pu = Complex(1, 0),
+    s0Pu(im(fixed = false), re(fixed = false)),
+    u0Pu(im(fixed = false), re(fixed = false)),
     tHoldIpMax = 0,
     tHoldIq = 0,
     IqFrzPu = 0,
@@ -140,12 +144,12 @@ model PVVoltageSourceNoPPC "WECC PV voltage source model with no plant controlle
   // Initialization
   Dynawo.Electrical.Photovoltaics.WECC.PVInverterVoltageSource_INIT pVVoltageSourceNoPlantControl_INIT(
     ConverterLVControl = PV.ConverterLVControl,
-    P0Pu = PV.s0Pu.re,
-    Q0Pu = PV.s0Pu.im,
+    P0Pu = PV.P0Pu,
+    Q0Pu = PV.Q0Pu,
     RLvTrPu = PV.RLvTrPu,
     SNom = PV.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(PV.u0Pu),
-    UPhase0 = 0,
+    U0Pu = PV.U0Pu,
+    UPhase0 = PV.UPhase0,
     XLvTrPu = PV.XLvTrPu,
     RSourcePu = PV.RSourcePu,
     XSourcePu = PV.XSourcePu) annotation(
@@ -176,6 +180,10 @@ initial algorithm
   PV.uSource0Pu.im := pVVoltageSourceNoPlantControl_INIT.uSource0Pu.im;
   PV.iSource0Pu.re := pVVoltageSourceNoPlantControl_INIT.iSource0Pu.re;
   PV.iSource0Pu.im := pVVoltageSourceNoPlantControl_INIT.iSource0Pu.im;
+  PV.s0Pu.re := pVVoltageSourceNoPlantControl_INIT.s0Pu.re;
+  PV.s0Pu.im := pVVoltageSourceNoPlantControl_INIT.s0Pu.im;
+  PV.u0Pu.re := pVVoltageSourceNoPlantControl_INIT.u0Pu.re;
+  PV.u0Pu.im := pVVoltageSourceNoPlantControl_INIT.u0Pu.im;
 
 equation
   line.switchOffSignal1 = false;

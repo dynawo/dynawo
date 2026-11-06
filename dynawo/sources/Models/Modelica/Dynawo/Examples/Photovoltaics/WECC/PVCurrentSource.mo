@@ -86,6 +86,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     RrpwrPu = 10,
     SNom = 100,
     U0Pu = 1,
+    UPhase0 = 0,
     VCompFlag = false,
     VDipPu = 0.9,
     VFlag = true,
@@ -162,7 +163,7 @@ model PVCurrentSource "WECC PV Model on infinite bus"
     SNom = PV.SNom,
     U0Pu = PV.U0Pu,
     UPcc0Pu = PV.UPcc0Pu,
-    UPhase0 = 0,
+    UPhase0 = PV.UPhase0,
     XLvTrPu = PV.XLvTrPu,
     XMvHvPu = PV.XMvHvPu,
     rTfoPu = PV.rTfoPu) annotation(

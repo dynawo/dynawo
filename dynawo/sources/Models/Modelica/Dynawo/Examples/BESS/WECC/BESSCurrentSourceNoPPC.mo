@@ -58,14 +58,15 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     Lvplsw = false,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
+    P0Pu = -0.7,
     PConv0Pu(fixed = false),
-    UPhaseConv0(fixed = false),
     PF0(fixed = false),
     PInj0Pu(fixed = false),
     PMaxREECPu = 1,
     PMinREECPu = 0,
     PQFlag = false,
     PfFlag = false,
+    Q0Pu = -0.2,
     QConv0Pu(fixed = false),
     QFlag = true,
     QInj0Pu(fixed = false),
@@ -77,7 +78,10 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     SOC0Pu = 0.5,
     SOCMaxPu = 0.8,
     SOCMinPu = 0.1,
+    U0Pu = 1,
     UInj0Pu(fixed = false),
+    UPhase0 = 0,
+    UPhaseConv0(fixed = false),
     VDLIp11 = 1.1,
     VDLIp12 = 1.1,
     VDLIp21 = 1.15,
@@ -105,7 +109,7 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     i0Pu(im(fixed = false), re(fixed = false)),
     iConv0Pu(im(fixed = false), re(fixed = false)),
     lvpl1 = 1.22,
-    s0Pu = Complex(-0.7, -0.2),
+    s0Pu(im(fixed = false), re(fixed = false)),
     tBattery = 999,
     tFilterGC = 0.02,
     tG = 0.02,
@@ -113,7 +117,7 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
     tpREEC = 0.05,
     tPord = 0.01,
     tRv = 0.01,
-    u0Pu = Complex(1, 0),
+    u0Pu(im(fixed = false), re(fixed = false)),
     UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
     uInj0Pu(im(fixed = false), re(fixed = false)),
@@ -137,12 +141,12 @@ model BESSCurrentSourceNoPPC "WECC BESS with REEC-C and REGC-A with no plant con
   // Initialization
   Dynawo.Electrical.Controls.WECC.BaseClasses_INIT.WECCInverterCurrentSource_INIT wt4CurrentSource_INIT(
     ConverterLVControl = BESS.ConverterLVControl,
-    P0Pu = BESS.s0Pu.re,
-    Q0Pu = BESS.s0Pu.im,
+    P0Pu = BESS.P0Pu,
+    Q0Pu = BESS.Q0Pu,
     RLvTrPu = BESS.RLvTrPu,
     SNom = BESS.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(BESS.u0Pu),
-    UPhase0 = 0,
+    U0Pu = BESS.U0Pu,
+    UPhase0 = BESS.UPhase0,
     XLvTrPu = BESS.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
@@ -165,6 +169,10 @@ initial algorithm
   BESS.PConv0Pu := wt4CurrentSource_INIT.PConv0Pu;
   BESS.QConv0Pu := wt4CurrentSource_INIT.QConv0Pu;
   BESS.UPhaseConv0 := wt4CurrentSource_INIT.UPhaseConv0;
+  BESS.s0Pu.re := wt4CurrentSource_INIT.s0Pu.re;
+  BESS.s0Pu.im := wt4CurrentSource_INIT.s0Pu.im;
+  BESS.u0Pu.re := wt4CurrentSource_INIT.u0Pu.re;
+  BESS.u0Pu.im := wt4CurrentSource_INIT.u0Pu.im;
 
 equation
   line.switchOffSignal1 = false;

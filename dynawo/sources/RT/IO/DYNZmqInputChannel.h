@@ -23,6 +23,7 @@
 #include "DYNInputChannel.h"
 #include "DYNRTInputCommon.h"
 
+#include <memory>
 #include <string>
 #include <condition_variable>
 #include <zmq.hpp>

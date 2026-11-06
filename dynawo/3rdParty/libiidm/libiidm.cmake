@@ -39,6 +39,13 @@ else()
   endif()
   set(package_url  "${package_prefix_url}/v${package_RequiredVersionName}.tar.gz")
 
+  # libstdc++ >= 15 no longer includes <cmath> transitively, which libiidm sources rely on
+  set(package_cxx_flags "$<$<CONFIG:Debug>:-O0>")
+  if(('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU' AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 15) OR
+     '${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang')
+    string(APPEND package_cxx_flags " -include cmath")
+  endif()
+
   include(ExternalProject)
   ExternalProject_Add(
                       "${package_name}"
@@ -56,7 +63,7 @@ else()
     SOURCE_DIR        "${DOWNLOAD_DIR}/${package_name}"
 
     CMAKE_CACHE_ARGS  -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
-                      -DCMAKE_CXX_FLAGS_INIT:STRING=$<$<CONFIG:Debug>:-O0>
+                      "-DCMAKE_CXX_FLAGS_INIT:STRING=${package_cxx_flags}"
 
     CMAKE_ARGS        "-DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>"
                       "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}"
@@ -74,6 +81,7 @@ else()
 
 endif(${package_name}_FOUND)
 
+unset(package_cxx_flags)
 unset(package_RequiredVersion)
 unset(package_upper_name)
 unset(package_install_dir)

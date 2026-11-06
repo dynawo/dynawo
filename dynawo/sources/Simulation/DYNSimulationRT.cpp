@@ -396,7 +396,7 @@ SimulationRT::updateStepStart() {
 
 void
 SimulationRT::updateStepComputationTime() {
-  stepComputationTime_ = (1./1000)*duration_cast<microseconds>(steady_clock::now() - stepStart_).count();
+  stepComputationTime_ = (1./1000)*static_cast<double>(duration_cast<microseconds>(steady_clock::now() - stepStart_).count());
 }
 
 void

@@ -963,45 +963,45 @@ TEST(ModelerCommonTest, testModeHandling) {
 
   std::vector<double> y, yp, z;
   double time = 0;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), false);
   ASSERT_EQ(modelMulti->getModeChangeType(), NO_MODE);
 
   modelMulti->reinitMode();
   time = 1;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
   // Emulating the behavior in the evalZMode method (calling the method several times without reinitializing the modes)
   time = 2;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
   time = 5;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), false);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
   ASSERT_EQ(subModel->evalModeSub(time), NO_MODE);
   ASSERT_EQ(subModel->modeChange(), false);
   time = 1;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), false);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
   ASSERT_EQ(subModel->evalModeSub(time), DIFFERENTIAL_MODE);
   ASSERT_EQ(subModel->modeChange(), false);
   time = 4;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
@@ -1011,16 +1011,16 @@ TEST(ModelerCommonTest, testModeHandling) {
 
   modelMulti->reinitMode();
   time = 2;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
 
   modelMulti->reinitMode();
   time = 3;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
@@ -1029,8 +1029,8 @@ TEST(ModelerCommonTest, testModeHandling) {
 
   modelMulti->reinitMode();
   time = 4;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
-  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
+  modelMulti->copyDiscreteVariables(z.data());
   modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
@@ -1137,19 +1137,19 @@ TEST(ModelerCommonTest, ConnectionCalculatedVars) {
   modelMulti->addSubModel(subModel2_, "subModelMock");
 
   std::vector<double> y, yp;
-  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyContinuousVariables(y.data(), yp.data());
   modelMulti->connectElements(modelMulti->findSubModelByName("subModel1"), "MyDiscreteVarCalculated_value",
                               modelMulti->findSubModelByName("subModel2"), "MyDiscreteVar_value");
   std::string name = subModel1_->name() + "_MyDiscreteVarCalculated_value";
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name));
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->getSize());
   std::vector<state_g> g(modelMulti->findSubModelByName(name)->sizeG(), ROOT_DOWN);
-  modelMulti->findSubModelByName(name)->setBufferG(&g[0], 0);
+  modelMulti->findSubModelByName(name)->setBufferG(g.data(), 0);
   std::vector<double> z(modelMulti->findSubModelByName(name)->sizeZ(), 0);
   bool* zConnected = new bool[modelMulti->findSubModelByName(name)->sizeZ()];
   for (size_t i = 0; i < modelMulti->findSubModelByName(name)->sizeZ(); ++i)
     zConnected[i] = true;
-  modelMulti->findSubModelByName(name)->setBufferZ(&z[0], zConnected, 0);
+  modelMulti->findSubModelByName(name)->setBufferZ(z.data(), zConnected, 0);
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->init(0));
   ASSERT_EQ(modelMulti->findSubModelByName(name)->modelType(), "ConnectorCalculatedDiscreteVariable");
   ASSERT_NO_THROW(modelMulti->findSubModelByName(name)->evalCalculatedVars());

@@ -24,6 +24,7 @@
 
 #include <powsybl/iidm/Network.hpp>
 
+#include <memory>
 #include <vector>
 
 

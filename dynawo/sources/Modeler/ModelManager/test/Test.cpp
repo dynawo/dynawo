@@ -557,12 +557,12 @@ TEST(TestModelManager, TestModelManagerBasics) {
   std::vector<state_g> g(mm->sizeG(), NO_ROOT);
   std::vector<propertyContinuousVar_t> yTypes(mm->sizeY(), UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(mm->sizeF(), UNDEFINED_EQ);
-  mm->setBufferG(&g[0], 0);
-  mm->setBufferZ(&z[0], zConnected, 0);
-  mm->setBufferY(&y[0], &yp[0], 0);
-  mm->setBufferF(&f[0], 0);
-  mm->setBufferYType(&yTypes[0], 0);
-  mm->setBufferFType(&fTypes[0], 0);
+  mm->setBufferG(g.data(), 0);
+  mm->setBufferZ(z.data(), zConnected, 0);
+  mm->setBufferY(y.data(), yp.data(), 0);
+  mm->setBufferF(f.data(), 0);
+  mm->setBufferYType(yTypes.data(), 0);
+  mm->setBufferFType(fTypes.data(), 0);
   mm->initSubBuffers();
 
   mm->checkDataCoherence(0.);

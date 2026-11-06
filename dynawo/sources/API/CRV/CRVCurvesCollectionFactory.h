@@ -20,6 +20,8 @@
 #ifndef API_CRV_CRVCURVESCOLLECTIONFACTORY_H_
 #define API_CRV_CRVCURVESCOLLECTIONFACTORY_H_
 
+#include <memory>
+
 #include "CRVCurvesCollection.h"
 
 namespace curves {

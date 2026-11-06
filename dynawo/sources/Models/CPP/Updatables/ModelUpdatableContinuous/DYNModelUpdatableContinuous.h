@@ -44,17 +44,17 @@ class ModelUpdatableContinuousFactory : public SubModelFactory {
   * @brief default destructor
   *
   */
-  virtual ~ModelUpdatableContinuousFactory() = default;
+  ~ModelUpdatableContinuousFactory() override = default;
   /**
   * @brief ModelUpdatableContinuous getter
   *
   * @return A pointer to a new instance of ModelUpdatableContinuous
   */
-  SubModel* create() const;
+  SubModel* create() const override;
   /**
   * @brief ModelUpdatableContinuous destroy
   */
-  void destroy(SubModel*) const;
+  void destroy(SubModel*) const override;
 };
 
 /**

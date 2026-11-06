@@ -28,6 +28,7 @@
 #include <powsybl/iidm/VoltageLevel.hpp>
 #include <powsybl/iidm/extensions/SlackTerminal.hpp>
 
+#include <memory>
 #include <unordered_map>
 #include <boost/optional.hpp>
 

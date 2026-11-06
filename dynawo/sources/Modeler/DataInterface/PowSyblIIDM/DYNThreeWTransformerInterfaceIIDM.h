@@ -21,6 +21,8 @@
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNTHREEWTRANSFORMERINTERFACEIIDM_H_
 
 
+#include <memory>
+
 #include "DYNThreeWTransformerInterface.h"
 #include "DYNVoltageLevelInterface.h"
 #include "DYNActiveSeasonIIDMExtension.h"

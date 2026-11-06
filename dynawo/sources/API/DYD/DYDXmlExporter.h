@@ -20,6 +20,8 @@
 #ifndef API_DYD_DYDXMLEXPORTER_H_
 #define API_DYD_DYDXMLEXPORTER_H_
 
+#include <memory>
+
 #include "DYDBlackBoxModel.h"
 #include "DYDDynamicModelsCollection.h"
 #include "DYDExporter.h"

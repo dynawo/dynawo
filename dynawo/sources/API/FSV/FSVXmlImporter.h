@@ -21,6 +21,8 @@
 #ifndef API_FSV_FSVXMLIMPORTER_H_
 #define API_FSV_FSVXMLIMPORTER_H_
 
+#include <memory>
+
 #include "FSVFinalStateValuesCollection.h"
 
 namespace finalStateValues {

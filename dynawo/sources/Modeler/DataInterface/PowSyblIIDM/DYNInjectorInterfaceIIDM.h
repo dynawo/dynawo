@@ -23,6 +23,8 @@
 #ifndef MODELER_DATAINTERFACE_POWSYBLIIDM_DYNINJECTORINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_POWSYBLIIDM_DYNINJECTORINTERFACEIIDM_H_
 
+#include <memory>
+
 #include "DYNBusInterface.h"
 #include "DYNModelConstants.h"
 #include "DYNTrace.h"

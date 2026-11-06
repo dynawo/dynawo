@@ -20,6 +20,7 @@
 #ifndef MODELER_COMMON_DYNMODEL_H_
 #define MODELER_COMMON_DYNMODEL_H_
 
+#include <memory>
 #include <vector>
 #include <map>
 #include <string>

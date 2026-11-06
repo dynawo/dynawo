@@ -223,8 +223,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadStartingPointFlat) {
   bool* zConnected = new bool[load->sizeZ()];
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
-  load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceZ(z.data(), zConnected, 0);
+  load->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;
   const size_t zPIdx = 2;
@@ -236,7 +236,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadStartingPointFlat) {
   load->evalYMat();
   ASSERT_EQ(load->sizeCalculatedVar(), ModelLoad::nbCalculatedVariables_);
   std::vector<double> calculatedVars(ModelLoad::nbCalculatedVariables_, 0.);
-  load->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  load->setReferenceCalculatedVar(calculatedVars.data(), 0);
   load->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLoad::pNum_], 2.015564437);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLoad::qNum_], 0.8031068546);
@@ -270,8 +270,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   bool* zConnected = new bool[load->sizeZ()];
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
-  load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceZ(z.data(), zConnected, 0);
+  load->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;
   const size_t zPIdx = 2;
@@ -284,7 +284,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   ASSERT_EQ(load->sizeCalculatedVar(), ModelLoad::nbCalculatedVariables_);
 
   std::vector<double> calculatedVars(ModelLoad::nbCalculatedVariables_, 0.);
-  load->setReferenceCalculatedVar(&calculatedVars[0], 0);
+  load->setReferenceCalculatedVar(calculatedVars.data(), 0);
   load->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLoad::pNum_], 457.13001432852769);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLoad::qNum_], 252.8488540193365);
@@ -391,12 +391,12 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   std::vector<double> f(load->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
-  load->setReferenceG(&g[0], 0);
+  load->setReferenceG(g.data(), 0);
   bool* zConnected = new bool[load->sizeZ()];
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
-  load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceZ(z.data(), zConnected, 0);
+  load->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
 
   load->getY0();
   ASSERT_EQ(load->getConnected(), CLOSED);
@@ -460,8 +460,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   bool* zConnected = new bool[load->sizeZ()];
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
-  load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceZ(z.data(), zConnected, 0);
+  load->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   load->evalYMat();
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;
@@ -471,8 +471,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   y[DeltaQcIdx] = 7;
   y[zPIdx] = 9;
   y[zQIdx] = 11;
-  load->setBufferYType(&yTypes[0], 0);
-  load->setBufferFType(&fTypes[0], 0);
+  load->setBufferYType(yTypes.data(), 0);
+  load->setBufferFType(fTypes.data(), 0);
 
   // test evalYType
   load->evalStaticYType();
@@ -656,8 +656,8 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   bool* zConnected = new bool[load->sizeZ()];
   for (int i = 0; i < load->sizeZ(); ++i)
     zConnected[i] = true;
-  load->setReferenceZ(&z[0], zConnected, 0);
-  load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  load->setReferenceZ(z.data(), zConnected, 0);
+  load->setReferenceY(y.data(), yp.data(), f.data(), 0, 0);
   load->evalYMat();
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;

@@ -90,6 +90,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     SOCMaxPu = 0.8,
     SOCMinPu = 0.2,
     U0Pu = 1,
+    UPhase0 = 0,
     VCompFlag = true,
     VDLIp11 = 0.2,
     VDLIp12 = 1.11,
@@ -184,7 +185,7 @@ model BESSCurrentSource "WECC BESS with REEC-C and REGC-B with a plant controlle
     SNom = BESS.SNom,
     U0Pu = BESS.U0Pu,
     UPcc0Pu = BESS.UPcc0Pu,
-    UPhase0 = 0,
+    UPhase0 = BESS.UPhase0,
     XLvTrPu = BESS.XLvTrPu,
     XMvHvPu = BESS.XMvHvPu,
     rTfoPu = BESS.rTfoPu) annotation(
