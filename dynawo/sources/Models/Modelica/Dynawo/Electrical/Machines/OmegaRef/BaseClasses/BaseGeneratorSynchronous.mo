@@ -21,12 +21,15 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input variables
-  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu";
-  Dynawo.Connectors.ActivePowerPuInput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)";
-  Dynawo.Connectors.VoltageModulePuInput efdPu(start = Efd0Pu) "Input voltage of exciter winding in pu (user-selected base voltage)";
+  Dynawo.Connectors.VoltageModulePuInput efdPu(start = Efd0Pu) "Input voltage of exciter winding in pu (user-selected base voltage)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-20, 0}, extent = {{-120, 50}, {-100, 30}}, rotation = 90)));
+  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {0, -20}, extent = {{-120, 50}, {-100, 70}})));
+  Dynawo.Connectors.ActivePowerPuInput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {140, 0}, extent = {{-120, 90}, {-100, 70}}, rotation = 90)));
 
   // Output variable
-  Dynawo.Connectors.AngularVelocityPuOutput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu";
+  Dynawo.Connectors.AngularVelocityPuOutput omegaPu(start = SystemBase.omega0Pu) "Angular frequency in pu (base omegaNom)";
 
   // Internal parameters of the synchronous machine in pu (base UNom, SNom)
   // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)

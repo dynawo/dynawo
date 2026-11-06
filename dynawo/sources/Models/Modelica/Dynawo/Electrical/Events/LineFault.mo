@@ -44,7 +44,8 @@ model LineFault "AC power line with fault - PI models"
   //Fault connectors
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(extent = {{0, 0}, {0, 0}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput lineFault(start = false) "True when the fault is ongoing, false otherwise";
+  Modelica.Blocks.Interfaces.BooleanInput lineFault(start = false) "True when the fault is ongoing, false otherwise" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   // Output variables
   Types.ActivePowerPu P1Pu "Active power on side 1 in pu (base SnRef) (receptor convention)";

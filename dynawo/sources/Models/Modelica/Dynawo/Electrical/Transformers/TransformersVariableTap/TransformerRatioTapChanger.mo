@@ -40,7 +40,8 @@ model TransformerRatioTapChanger "Two winding transformer with a fixed phase and
   Types.PerUnit ratioTfoPu(start = RatioTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
 
   // Input connector
-  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)";
+  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -70}, {-100, -50}})));
 
   // Initial parameters
   parameter Integer Tap0 "Start value of transformer tap";

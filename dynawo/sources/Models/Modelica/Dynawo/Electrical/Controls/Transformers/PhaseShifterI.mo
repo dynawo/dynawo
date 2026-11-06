@@ -21,7 +21,8 @@ model PhaseShifterI "Phase-shifter monitoring the current so that it remains und
 
   final parameter Real factorValue = if UNom <> 0 then 1000 * SystemBase.SnRef/(sqrt(3) * UNom) else 1 "Multiplying factor for log messages of valueToMonitor (Pu to unit)";
 
-  Modelica.Blocks.Interfaces.RealInput iMonitored(start = I0) "Monitored current";
+  Modelica.Blocks.Interfaces.RealInput iMonitored(start = I0) "Monitored current" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -40}, {-100, -20}})));
 
   parameter Types.CurrentModule I0 "Initial current module";
 

@@ -20,9 +20,12 @@ model InertialGrid
   // Input variables
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference speed in pu (base OmegaNom)" annotation(
     Placement(transformation(origin = {-72, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}})));
 
   // Output variable
   Modelica.Blocks.Interfaces.RealOutput omegaPu(start = SystemBase.omegaRef0Pu) "Speed in pu (base OmegaNom)" annotation(

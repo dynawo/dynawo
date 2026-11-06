@@ -16,12 +16,6 @@ within Dynawo.Examples.BaseClasses;
 model GeneratorSynchronousThreeWindingsInterfaces "Synchronous generator with real interfaces (inputs, outputs)"
   extends Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronousThreeWindings;
 
-  //Input variables
-  Modelica.Blocks.Interfaces.RealInput efdPu_in annotation(
-    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PmPu_in annotation(
-    Placement(visible = true, transformation(origin = {100, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0), iconTransformation(origin = {80, 0}, extent = {{20, -20}, {-20, 20}}, rotation = 0)));
-
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput omegaPu_out annotation(
     Placement(visible = true, transformation(origin = {-10, -90}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {0, -90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -41,8 +35,6 @@ model GeneratorSynchronousThreeWindingsInterfaces "Synchronous generator with re
     Placement(visible = true, transformation(origin = {-32, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-30, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
 equation
-  PmPu = PmPu_in;
-  efdPu = efdPu_in;
   omegaPu_out = omegaPu;
   PGenPu_out = PGenPu;
   omegaRefPu_out = omegaRefPu;

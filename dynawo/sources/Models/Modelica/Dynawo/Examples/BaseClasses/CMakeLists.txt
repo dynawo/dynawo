@@ -13,6 +13,7 @@ set(MODEL_FILES
   package.mo
   package.order
   GeneratorSynchronousInterfaces.mo
+  GeneratorSynchronousFourWindingsInterfaces.mo
   GeneratorSynchronousThreeWindingsInterfaces.mo
   InitializedGeneratorSynchronousFourWindings.mo
   InitializedGeneratorSynchronousThreeWindings.mo

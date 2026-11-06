@@ -34,10 +34,14 @@ model SteamSCRXFrame "Model of a steam generator with a governor, a voltage regu
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the generator";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the generator";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the generator";
+  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Generator
   Dynawo.Examples.BaseClasses.GeneratorSynchronousThreeWindingsInterfaces generatorSynchronous(
@@ -226,14 +230,14 @@ equation
     Line(points = {{180, 20}, {160, 20}, {160, 12}, {144, 12}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UPu_out, scrx.UtPu) annotation(
     Line(points = {{-18, 14}, {-96, 14}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(switch.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{-48, 40}, {-40, 40}, {-40, 0}, {-16, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+  connect(switch.y, generatorSynchronous.efdPu) annotation(
+    Line(points = {{-48, 40}, {-40, 40}, {-40, -30}, {-12, -30}, {-12, -22}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
   connect(generatorSynchronous.IRotorPu_out, scrx.IRotorPu) annotation(
     Line(points = {{-18, -10}, {-30, -10}, {-30, -16}, {-96, -16}}, color = {0, 0, 127}));
   connect(ieeeg1.Pm1Pu, switch1.u1) annotation(
     Line(points = {{98, 12}, {60, 12}, {60, 35}, {54, 35}}, color = {0, 0, 127}));
-  connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{39, 40}, {30, 40}, {30, 0}, {16, 0}}, color = {0, 0, 127}));
+  connect(switch1.y, generatorSynchronous.PmPu) annotation(
+    Line(points = {{40, 40}, {30, 40}, {30, -40}, {12, -40}, {12, -22}}, color = {0, 0, 127}));
   connect(UUelPu.y, scrx.UUelPu) annotation(
     Line(points = {{-167, 20}, {-160, 20}, {-160, 8}, {-144, 8}}, color = {0, 0, 127}));
   connect(const1.y, ieeeg1.omegaRefPu) annotation(

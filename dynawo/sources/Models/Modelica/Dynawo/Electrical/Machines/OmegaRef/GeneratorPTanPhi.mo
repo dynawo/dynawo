@@ -35,9 +35,12 @@ model GeneratorPTanPhi "Generator PV when linked to reactive power control loop"
   parameter Real TanPhiRef = if PGen0Pu <> 0 then QGen0Pu / PGen0Pu else 0 "Start value of tan(Phi) regulation set point at terminal";
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
 
-  Modelica.Blocks.Interfaces.RealInput PVariation(start = 0) "Percentage variation of active power reference";
-  Modelica.Blocks.Interfaces.RealInput deltaPRefPu(start = 0) "Additional active power reference in pu (base PNom)";
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base OmegaNom)";
+  Modelica.Blocks.Interfaces.RealInput deltaPRefPu(start = 0) "Additional active power reference in pu (base PNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 30}, {-100, 50}})));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Network angular reference frequency in pu (base OmegaNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
+  Modelica.Blocks.Interfaces.RealInput PVariation(start = 0) "Percentage variation of active power reference" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -50}, {-100, -30}})));
 
   final parameter Types.ReactivePowerPu QMaxPu = QMax / SystemBase.SnRef "Maximum reactive power in pu (base SnRef)";
   final parameter Types.ReactivePowerPu QMinPu = QMin / SystemBase.SnRef "Minimum reactive power in pu (base SnRef)";

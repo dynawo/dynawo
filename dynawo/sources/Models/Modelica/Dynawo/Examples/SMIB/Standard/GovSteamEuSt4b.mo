@@ -179,15 +179,15 @@ equation
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {100, 18}, {100, 58}, {118, 58}}, color = {0, 0, 127}));
   connect(generatorSynchronous.uPu_out, avr.utPu) annotation(
-    Line(points = {{4, 18}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
+    Line(points = {{4, 20}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
   connect(generatorSynchronous.iStatorPu_out, avr.itPu) annotation(
-    Line(points = {{12, 18}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
+    Line(points = {{12, 20}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
   connect(generatorSynchronous.IRotorPu_out, avr.IrPu) annotation(
-    Line(points = {{28, 18}, {28, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
+    Line(points = {{20, 20}, {20, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
   connect(const1.y, avr.UOelPu) annotation(
     Line(points = {{88, 66}, {118, 66}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 60}, {160, 60}, {160, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
+  connect(avr.EfdPu, generatorSynchronous.efdPu) annotation(
+    Line(points = {{141, 60}, {160, 60}, {160, -80}, {8, -80}, {8, -20}}, color = {0, 0, 127}));
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(QRefPu.y, load.QRefPu) annotation(
@@ -206,8 +206,8 @@ equation
     Line(points = {{104, -46}, {44, -46}, {44, -6}, {38, -6}}, color = {0, 0, 127}));
   connect(generatorSynchronous.PGenPu_out, governor.PGenPu) annotation(
     Line(points = {{38, 10}, {72, 10}, {72, -30}, {104, -30}}, color = {0, 0, 127}));
-  connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{150, -46}, {154, -46}, {154, -72}, {32, -72}, {32, -16}}, color = {0, 0, 127}));
+  connect(governor.PmPu, generatorSynchronous.PmPu) annotation(
+    Line(points = {{150, -46}, {154, -46}, {154, -72}, {32, -72}, {32, -20}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

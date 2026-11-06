@@ -22,7 +22,8 @@ model NodeFault "Node fault which lasts from tBegin to tEnd"
 
   Dynawo.Connectors.ACPower terminal annotation(
     Placement(visible = true, transformation(origin = {2, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput nodeFault(start = false) "True when the fault is ongoing, false otherwise";
+  Modelica.Blocks.Interfaces.BooleanInput nodeFault(start = false) "True when the fault is ongoing, false otherwise" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   parameter Types.PerUnit RPu "Fault resistance in pu (base SnRef)";
   parameter Types.PerUnit XPu "Fault reactance in pu (base SnRef)";

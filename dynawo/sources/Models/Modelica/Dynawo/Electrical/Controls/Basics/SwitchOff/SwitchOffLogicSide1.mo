@@ -17,9 +17,12 @@ partial model SwitchOffLogicSide1 "Manage switch-off logic for side 1 of a quadr
 
   parameter Integer NbSwitchOffSignalsSide1(min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
 
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1Side1(start = SwitchOffSignal1Side10) "Switch-off signal 1 for side 1 of the quadripole";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2Side1(start = SwitchOffSignal2Side10) if NbSwitchOffSignalsSide1 >= 2 "Switch-off signal 2 for side 1 of the quadripole";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3Side1(start = SwitchOffSignal3Side10) if NbSwitchOffSignalsSide1 >= 3 "Switch-off signal 3 for side 1 of the quadripole";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1Side1(start = SwitchOffSignal1Side10) "Switch-off signal 1 for side 1 of the quadripole" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2Side1(start = SwitchOffSignal2Side10) if NbSwitchOffSignalsSide1 >= 2 "Switch-off signal 2 for side 1 of the quadripole" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3Side1(start = SwitchOffSignal3Side10) if NbSwitchOffSignalsSide1 >= 3 "Switch-off signal 3 for side 1 of the quadripole" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.BooleanOutput runningSide1(start = RunningSide10) "Indicates if the component is running on side 1 or not";
 

@@ -131,10 +131,10 @@ equation
     Line(points = {{-18, -70}, {-4, -70}, {-4, -48}}, color = {0, 0, 127}));
   connect(QRefPu.y, load.QRefPu) annotation(
     Line(points = {{20, -70}, {4, -70}, {4, -48}}, color = {0, 0, 127}));
-  connect(EfdPu.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{62, -40}, {70, -40}, {70, -16}}, color = {0, 0, 127}));
-  connect(PmPu.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{82, -70}, {94, -70}, {94, -16}}, color = {0, 0, 127}));
+  connect(EfdPu.y, generatorSynchronous.efdPu) annotation(
+    Line(points = {{62, -40}, {70, -40}, {70, -20}}, color = {0, 0, 127}));
+  connect(PmPu.y, generatorSynchronous.PmPu) annotation(
+    Line(points = {{82, -70}, {94, -70}, {94, -20}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

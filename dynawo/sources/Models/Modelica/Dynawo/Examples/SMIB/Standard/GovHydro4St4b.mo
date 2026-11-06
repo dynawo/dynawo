@@ -170,20 +170,20 @@ equation
     Line(points = {{61, -20}, {70, -20}, {70, -28}, {77, -28}}, color = {0, 0, 127}));
   connect(omegaRef0.y, governor.omegaRefPu) annotation(
     Line(points = {{61, -40}, {77, -40}}, color = {0, 0, 127}));
-  connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{124, -40}, {140, -40}, {140, -80}, {32, -80}, {32, -16}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{142, 60}, {160, 60}, {160, -100}, {8, -100}, {8, -16}}, color = {0, 0, 127}));
+  connect(governor.PmPu, generatorSynchronous.PmPu) annotation(
+    Line(points = {{124, -40}, {140, -40}, {140, -80}, {32, -80}, {32, -20}}, color = {0, 0, 127}));
+  connect(avr.EfdPu, generatorSynchronous.efdPu) annotation(
+    Line(points = {{142, 60}, {160, 60}, {160, -100}, {8, -100}, {8, -20}}, color = {0, 0, 127}));
   connect(generatorSynchronous.IRotorPu_out, avr.IrPu) annotation(
-    Line(points = {{28, 18}, {28, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
+    Line(points = {{20, 20}, {20, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
   connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
     Line(points = {{38, 18}, {100, 18}, {100, 58}, {118, 58}}, color = {0, 0, 127}));
   connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
     Line(points = {{38, -6}, {46, -6}, {46, -52}, {76, -52}}, color = {0, 0, 127}));
   connect(generatorSynchronous.uPu_out, avr.utPu) annotation(
-    Line(points = {{4, 18}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
+    Line(points = {{4, 20}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
   connect(generatorSynchronous.iStatorPu_out, avr.itPu) annotation(
-    Line(points = {{12, 18}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
+    Line(points = {{12, 20}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
 
   annotation(
     preferredView = "diagram",

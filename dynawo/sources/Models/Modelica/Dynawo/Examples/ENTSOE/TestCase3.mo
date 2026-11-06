@@ -181,10 +181,10 @@ equation
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
   connect(const.y, avr.UsRefPu) annotation(
     Line(points = {{81, 60}, {100, 60}, {100, 24}, {118, 24}}, color = {0, 0, 127}));
-  connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{101, -30}, {110, -30}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
+  connect(governor.PmPu, generatorSynchronous.PmPu) annotation(
+    Line(points = {{101, -30}, {110, -30}, {110, -60}, {32, -60}, {32, -20}}, color = {0, 0, 127}));
+  connect(avr.EfdPu, generatorSynchronous.efdPu) annotation(
+    Line(points = {{141, 18}, {150, 18}, {150, -80}, {8, -80}, {8, -20}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

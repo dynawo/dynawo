@@ -57,17 +57,11 @@ model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces
     u0Pu(re(fixed = false), im(fixed = false)),
     uStator0Pu(re(fixed = false), im(fixed = false)));
 
-  //Input variables
-  Modelica.Blocks.Interfaces.RealInput efdPu_in annotation(
-    Placement(visible = true, transformation(origin = {-60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput PmPu_in annotation(
-    Placement(visible = true, transformation(origin = {60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-
   //Output variables
   Modelica.Blocks.Interfaces.RealOutput IRotorPu_out annotation(
-    Placement(visible = true, transformation(origin = {40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {40, 90},extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement( transformation(origin = {40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput iStatorPu_out annotation(
-    Placement(visible = true, transformation(origin = {-40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement( transformation(origin = {-40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput omegaPu_out annotation(
     Placement(visible = true, transformation(origin = {90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, -40}, {100, -20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput PGenPu_out annotation(
@@ -75,7 +69,7 @@ model GeneratorSynchronousInterfaces "Synchronous generator with real interfaces
   Modelica.Blocks.Interfaces.RealOutput QGenPu_out annotation(
     Placement(visible = true, transformation(origin = {90, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, 0}, {100, 20}}, rotation = 0)));
   Modelica.ComplexBlocks.Interfaces.ComplexOutput uPu_out annotation(
-    Placement(visible = true, transformation(origin = {-80, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-80, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement( transformation(origin = {-80, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {-80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput UsPu_out annotation(
     Placement(visible = true, transformation(origin = {90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{80, 80}, {100, 100}}, rotation = 0)));
 
@@ -170,8 +164,6 @@ initial algorithm
   uStator0Pu.im := generatorSynchronousInt_INIT.uStator0Pu.im;
 
 equation
-  PmPu = PmPu_in;
-  efdPu = efdPu_in;
   UsPu_out = UStatorPu;
   omegaPu_out = omegaPu;
   PGenPu_out = PGenPu;

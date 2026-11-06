@@ -14,10 +14,13 @@ within Dynawo.Electrical.Machines.SignalN.BaseClasses;
 */
 
 partial model BaseTfo "Base dynamic model for generator transformer"
+  parameter Types.ReactivePowerPu QDeadBandPu(min = 0) "Reactive power deadband around the target in pu (base SnRef)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power of the generator in MVA";
+  parameter Types.VoltageModulePu UDeadBandPu(min = 0) "Voltage deadband around the target in pu (base UNom)";
   parameter Types.PerUnit XTfoPu "Reactance of the generator transformer in pu (base UNom, SNom)";
 
-  Dynawo.Connectors.VoltageModulePuInput UStatorRefPu(start = UStatorRef0Pu) "Voltage regulation set point at stator in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuInput UStatorRefPu(start = UStatorRef0Pu) "Voltage regulation set point at stator in pu (base UNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -50}, {-100, -30}})));
 
   Types.ComplexCurrentPu iStatorPu(re(start = iStator0Pu.re), im(start = iStator0Pu.im)) "Complex current at stator in pu (base UNom, SNom) (generator convention)";
   Types.ComplexApparentPowerPu sStatorPu(re(start = sStator0Pu.re), im(start = sStator0Pu.im)) "Complex apparent power at stator in pu (base UNom, SNom) (generator convention)";
@@ -30,8 +33,6 @@ partial model BaseTfo "Base dynamic model for generator transformer"
   parameter Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator in pu (base UNom)";
   parameter Types.VoltageModulePu UStator0Pu "Start value of voltage module at stator in pu (base UNom)";
   parameter Types.VoltageModulePu UStatorRef0Pu "Start value of voltage regulation set point at stator in pu (base UNom)";
-  parameter Types.VoltageModulePu UDeadBandPu(min = 0) "Voltage deadband around the target in pu (base UNom)";
-  parameter Types.ReactivePowerPu QDeadBandPu(min = 0) "Reactive power deadband around the target in pu (base SnRef)";
 
   annotation(preferredView = "text");
 end BaseTfo;

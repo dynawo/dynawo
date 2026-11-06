@@ -35,9 +35,12 @@ model SVarCStandard "Standard static var compensator model"
     Placement(visible = true, transformation(origin = {-260, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.IntegerInput setModeManual(start = SetModeManual0) "Mode selected when in manual configuration" annotation(
     Placement(visible = true, transformation(origin = {-260, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, -80}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the static VAR compensator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the static VAR compensator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the static VAR compensator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
     Placement(visible = true, transformation(origin = {-260, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 80}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
