@@ -40,7 +40,8 @@ model TransformerPhaseTapChanger "Two winding transformer with a fixed ratio and
   Types.Angle alphaTfo(start = AlphaTfo0) "Transformation phase shift in rad";
 
   // Input connector
-  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)";
+  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -70}, {-100, -50}})));
 
   // Initial parameters
   parameter Integer Tap0 "Start value of transformer tap";

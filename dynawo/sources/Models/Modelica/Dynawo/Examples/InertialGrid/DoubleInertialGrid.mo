@@ -29,6 +29,7 @@ model DoubleInertialGrid
   parameter Real L1 = 120 "Branch 1 length (in km)";
   parameter Real L2 = 120 "Branch 2 length (in km)";
   parameter Real L3 = 100 "Branch 3 length (in km)";
+
   Dynawo.Electrical.Sources.InertialGrid.InertialGrid inertialGrid1(
     DPu = 2,
     Fh = 0,
@@ -101,11 +102,10 @@ model DoubleInertialGrid
     Placement(transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}})));Dynawo.Types.Frequency deltaFrequency "Frequency difference between both inertial grids";
 
 equation
-
-// deltaFrequency calculation
+  // deltaFrequency calculation
   deltaFrequency = inertialGrid1.reducedOrderSFR.frequency - inertialGrid2.reducedOrderSFR.frequency;
 
-//Switch-off equations inhibitions
+  //Switch-off equations inhibitions
   load.switchOffSignal1 = false;
   load.switchOffSignal2 = false;
   loadPQ.switchOffSignal1 = false;
@@ -123,29 +123,30 @@ equation
   inertialGrid2.switchOffSignal2 = false;
   inertialGrid2.switchOffSignal3 = false;
 
-// No variations in PspPu for the inertial grids
+  // No variations in PspPu for the inertial grids
   der(inertialGrid1.reducedOrderSFR.PspPu) = 0;
   der(inertialGrid2.reducedOrderSFR.PspPu) = 0;
 
-// No variations in the ZIP Load
+  // No variations in the ZIP Load
   der(load.PRefPu) = 0;
   der(load.QRefPu) = 0;
   load.deltaP = 0;
   load.deltaQ = 0;
 
-// Variation in P in loadPQ (5% in base SNom for inertialGrid1)
+  // Variation in P in loadPQ (5% in base SNom for inertialGrid1)
   der(loadPQ.QRefPu) = 0;
   loadPQ.deltaQ = 0;
   when time > 10 then
     loadPQ.deltaP = deltaPPu*SNom/Dynawo.Electrical.SystemBase.SnRef;
     loadPQ.PRefPu = 1;
   end when;
+
   connect(busIG1.terminal, loadPQ.terminal) annotation(
     Line(points = {{-2, 40}, {-20, 40}, {-20, 18}}, color = {0, 0, 255}));
   connect(inertialGrid1.terminal, busIG1.terminal) annotation(
     Line(points = {{-38, 40}, {-2, 40}}, color = {0, 0, 255}));
   connect(inertialGrid2.terminal, busIG2.terminal) annotation(
-    Line(points = {{-26, -40}, {-2, -40}}, color = {0, 0, 255}));
+    Line(points = {{-38, -40}, {-2, -40}}, color = {0, 0, 255}));
   connect(load.terminal, busL.terminal) annotation(
     Line(points = {{84, 0}, {72, 0}}, color = {0, 0, 255}));
   connect(bus.terminal, line1.terminal2) annotation(

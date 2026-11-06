@@ -16,7 +16,7 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
   extends Icons.Example;
 
   // Generator
-  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronous generatorSynchronous(
     DPu = 0,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 3.5,
@@ -98,10 +98,10 @@ equation
     Line(points = {{-52, 20}, {-60, 20}, {-60, 0}, {-92, 0}}, color = {0, 0, 255}));
   connect(line2.terminal1, infiniteBus.terminal) annotation(
     Line(points = {{-52, -20}, {-60, -20}, {-60, 0}, {-92, 0}}, color = {0, 0, 255}));
-  connect(EfdPu.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{62, -40}, {70, -40}, {70, -16}}, color = {0, 0, 127}));
-  connect(PmPu.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{82, -70}, {94, -70}, {94, -16}}, color = {0, 0, 127}));
+  connect(EfdPu.y, generatorSynchronous.efdPu) annotation(
+    Line(points = {{62, -40}, {70, -40}, {70, -20}}, color = {0, 0, 127}));
+  connect(PmPu.y, generatorSynchronous.PmPu) annotation(
+    Line(points = {{82, -70}, {94, -70}, {94, -20}}, color = {0, 0, 127}));
 
   line1.switchOffSignal1 = false;
   line1.switchOffSignal2 = false;

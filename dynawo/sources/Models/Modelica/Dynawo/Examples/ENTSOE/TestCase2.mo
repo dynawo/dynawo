@@ -16,7 +16,7 @@ model TestCase2 "Active power variation on the load"
   extends Icons.Example;
 
   // Generator and regulations
-  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronous generatorSynchronous(
     DPu = 0,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
@@ -117,18 +117,18 @@ equation
   connect(PmRefPu.y, governor.PmRefPu);
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
-  connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
+  connect(generatorSynchronous.omegaPu, governor.omegaPu) annotation(
     Line(points = {{38, -6}, {60, -6}, {60, -34}, {78, -34}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
+  connect(generatorSynchronous.UStatorPu, avr.UsPu) annotation(
     Line(points = {{38, 18}, {118, 18}}, color = {0, 0, 127}));
-  connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{101, -30}, {110, -30}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
+  connect(governor.PmPu, generatorSynchronous.PmPu) annotation(
+    Line(points = {{101, -30}, {110, -30}, {110, -60}, {32, -60}, {32, -20}}, color = {0, 0, 127}));
   connect(const.y, avr.UpssPu) annotation(
     Line(points = {{102, 0}, {110, 0}, {110, 12}, {118, 12}, {118, 12}}, color = {0, 0, 127}));
   connect(const1.y, avr.UsRefPu) annotation(
     Line(points = {{81, 60}, {100, 60}, {100, 24}, {118, 24}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 18}, {152, 18}, {152, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
+  connect(avr.EfdPu, generatorSynchronous.efdPu) annotation(
+    Line(points = {{141, 18}, {152, 18}, {152, -80}, {8, -80}, {8, -20}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
