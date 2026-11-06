@@ -17,7 +17,7 @@ model GovSteam1St4bPss2b1 "Voltage reference step on the synchronous machine (an
   extends Icons.Example;
 
   // Generator and regulations
-  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronous generatorSynchronous(
     DPu = 0,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
@@ -183,28 +183,28 @@ equation
     Line(points = {{61, 50}, {94, 50}, {94, 62}, {118, 62}}, color = {0, 0, 127}));
   connect(PmRefPu.y, governor.PmRefPu) annotation(
     Line(points = {{119, -20}, {90, -20}, {90, -30}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
+  connect(generatorSynchronous.UStatorPu, avr.UsPu) annotation(
     Line(points = {{38, 18}, {100, 18}, {100, 58}, {118, 58}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.PGenPu_out, pss.PGenPu) annotation(
+  connect(generatorSynchronous.PGenPu, pss.PGenPu) annotation(
     Line(points = {{38, 10}, {60, 10}, {60, 6}, {78, 6}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaPu_out, pss.omegaPu) annotation(
+  connect(generatorSynchronous.omegaPu, pss.omegaPu) annotation(
     Line(points = {{38, -6}, {78, -6}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
+  connect(generatorSynchronous.omegaPu, governor.omegaPu) annotation(
     Line(points = {{38, -6}, {60, -6}, {60, -40}, {80, -40}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.uPu_out, avr.utPu) annotation(
-    Line(points = {{4, 18}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
+  connect(generatorSynchronous.uPu, avr.utPu) annotation(
+    Line(points = {{4, 20}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
   connect(const2.y, pss.omegaRefPu) annotation(
     Line(points = {{60, 0}, {78, 0}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.iStatorPu_out, avr.itPu) annotation(
-    Line(points = {{12, 18}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
-  connect(generatorSynchronous.IRotorPu_out, avr.IrPu) annotation(
-    Line(points = {{28, 18}, {28, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.iStatorPu, avr.itPu) annotation(
+    Line(points = {{12, 20}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
+  connect(generatorSynchronous.IRotorPu, avr.IrPu) annotation(
+    Line(points = {{20, 20}, {20, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
   connect(const1.y, avr.UOelPu) annotation(
     Line(points = {{88, 66}, {118, 66}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 60}, {160, 60}, {160, -80}, {8, -80}, {8, -16}}, color = {0, 0, 127}));
-  connect(governor.Pm1Pu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{100, -36}, {110, -36}, {110, -60}, {32, -60}, {32, -16}}, color = {0, 0, 127}));
+  connect(avr.EfdPu, generatorSynchronous.efdPu) annotation(
+    Line(points = {{141, 60}, {160, 60}, {160, -80}, {8, -80}, {8, -20}}, color = {0, 0, 127}));
+  connect(governor.Pm1Pu, generatorSynchronous.PmPu) annotation(
+    Line(points = {{100, -36}, {110, -36}, {110, -60}, {32, -60}, {32, -20}}, color = {0, 0, 127}));
   connect(currentBus.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-120, 0}, {20, 0}}, color = {0, 0, 255}));
 

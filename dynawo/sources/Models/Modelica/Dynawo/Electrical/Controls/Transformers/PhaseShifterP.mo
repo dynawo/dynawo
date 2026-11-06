@@ -21,7 +21,8 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
   parameter Types.ActivePower PTarget "Target active power";
   parameter Types.ActivePower PDeadBand(min = 0) "Active-power dead-band around the target";
 
-  Modelica.Blocks.Interfaces.RealInput PMonitored(start = P0) "Monitored active power";
+  Modelica.Blocks.Interfaces.RealInput PMonitored(start = P0) "Monitored active power" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 20}, {-100, 40}})));
 
   parameter Types.ActivePower P0 "Initial active power";
 

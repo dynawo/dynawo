@@ -30,15 +30,19 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
   parameter Types.VoltageModule UNom = 18;
 
   Dynawo.Connectors.ACPower terminal annotation(
-    Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}})));
 
-  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the generator";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the generator";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the generator";
+  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Generator
-  Dynawo.Examples.BaseClasses.GeneratorSynchronousThreeWindingsInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronousThreeWindings generatorSynchronous(
     DPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.DPu],
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.H],
@@ -146,6 +150,7 @@ model HydroFrame "Model of a hydraulic generator with a governor, a voltage regu
 
 equation
   connect(omegaRefPu, generatorSynchronous.omegaRefPu);
+  connect(omegaRefPu, hygov.omegaRefPu);
   connect(switchOffSignal1, generatorSynchronous.switchOffSignal1);
   connect(switchOffSignal2, generatorSynchronous.switchOffSignal2);
   connect(switchOffSignal3, generatorSynchronous.switchOffSignal3);
@@ -155,28 +160,26 @@ equation
     Line(points = {{-121, -60}, {-190, -60}, {-190, 40}, {-150, 40}, {-150, 16}, {-144, 16}}, color = {0, 0, 127}));
   connect(constant2.y, switch1.u3) annotation(
     Line(points = {{79, 80}, {60, 80}, {60, 45}, {53, 45}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.IRotorPu_out, maxex2.IfdPu) annotation(
-    Line(points = {{-18, -10}, {-40, -10}, {-40, -60}, {-98, -60}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UPu_out, scrx.UtPu) annotation(
+  connect(generatorSynchronous.IRotorPu, maxex2.IfdPu) annotation(
+    Line(points = {{0, 22}, {0, 50}, {-40, 50}, {-40, -60}, {-98, -60}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.UPu, scrx.UtPu) annotation(
     Line(points = {{-18, 14}, {-96, 14}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(generatorSynchronous.IRotorPu_out, scrx.IRotorPu) annotation(
-    Line(points = {{-18, -10}, {-40, -10}, {-40, -16}, {-96, -16}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaRefPu_out, hygov.omegaRefPu) annotation(
-    Line(points = {{10, -18}, {10, -60}, {160, -60}, {160, -12}, {144, -12}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaPu_out, hygov.omegaPu) annotation(
-    Line(points = {{0, -18}, {0, -80}, {180, -80}, {180, 0}, {144, 0}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UStatorPu_out, scrx.UStatorPu) annotation(
-    Line(points = {{-6, 18}, {-6, 60}, {-200, 60}, {-200, -20}, {-150, -20}, {-150, -8}, {-144, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(generatorSynchronous.IRotorPu, scrx.IRotorPu) annotation(
+    Line(points = {{0, 22}, {0, 50}, {-40, 50}, {-40, -16}, {-96, -16}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.omegaPu, hygov.omegaPu) annotation(
+    Line(points = {{18, -6}, {40, -6}, {40, -40}, {160, -40}, {160, 0}, {144, 0}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.UStatorPu, scrx.UStatorPu) annotation(
+    Line(points = {{18, 18}, {24, 18}, {24, 60}, {-200, 60}, {-200, -20}, {-164, -20}, {-164, -8}, {-144, -8}}, color = {0, 0, 127}));
   connect(generatorSynchronous.terminal, terminal) annotation(
-    Line(points = {{0, 0}, {0, 100}}, color = {0, 0, 255}));
-  connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{39, 40}, {30, 40}, {30, 0}, {16, 0}}, color = {0, 0, 127}));
+    Line(points = {{0, 0}, {0, -100}}, color = {0, 0, 255}));
+  connect(switch1.y, generatorSynchronous.PmPu) annotation(
+    Line(points = {{40, 40}, {30, 40}, {30, -40}, {12, -40}, {12, -22}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
     Line(points = {{-79, 80}, {-70, 80}, {-70, 45}, {-61, 45}}, color = {0, 0, 127}));
   connect(scrx.EfdPu, switch.u1) annotation(
     Line(points = {{-98, 0}, {-70, 0}, {-70, 35}, {-61, 35}}, color = {0, 0, 127}));
-  connect(switch.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{-47, 40}, {-40, 40}, {-40, 0}, {-16, 0}}, color = {0, 0, 127}));
+  connect(switch.y, generatorSynchronous.efdPu) annotation(
+    Line(points = {{-48, 40}, {-30, 40}, {-30, -40}, {-12, -40}, {-12, -22}}, color = {0, 0, 127}));
   connect(booleanConstant.y, switch.u2) annotation(
     Line(points = {{-79.4, 40}, {-61.4, 40}}, color = {255, 0, 255}));
   connect(booleanConstant1.y, switch1.u2) annotation(

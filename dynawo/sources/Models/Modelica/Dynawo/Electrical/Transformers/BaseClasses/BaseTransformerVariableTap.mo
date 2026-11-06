@@ -27,7 +27,8 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input connector
-  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)";
+  discrete Modelica.Blocks.Interfaces.RealInput tap(start = Tap0) "Current transformer tap (between 0 and NbTap - 1)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -70}, {-100, -50}})));
 
   // Output connectors
   Modelica.Blocks.Interfaces.RealOutput P1Pu(start = P10Pu) "Active power on side 1";
