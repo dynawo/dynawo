@@ -58,17 +58,21 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     Lvplsw = false,
     OmegaMaxPu = 1.5,
     OmegaMinPu = 0.5,
+    P0Pu = -0.7,
     PFlag = true,
     PMaxREECPu = 1,
     PMinREECPu = 0,
     PQFlag = false,
     PfFlag = false,
+    Q0Pu = -0.2,
     QFlag = true,
     QMaxREECPu = 0.4,
     QMinREECPu = -0.4,
     RLvTrPu = 0,
     RrpwrPu = 10,
     SNom = 100,
+    U0Pu = 1,
+    UPhase0 = 1.4461e-06,
     VDLIp11 = 1.1,
     VDLIp12 = 1.1,
     VDLIp21 = 1.15,
@@ -95,7 +99,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     XLvTrPu = 0.15,
     brkpt = 0.1,
     lvpl1 = 1.22,
-    s0Pu = Complex(-0.7, -0.2),
+    s0Pu(im(fixed = false), re(fixed = false)),
     tFilterGC = 0.02,
     tG = 0.02,
     tHoldIpMax = 0,
@@ -105,7 +109,7 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     tpREEC = 0.05,
     tPord = 0.01,
     tRv = 0.01,
-    u0Pu = Complex(1, 0),
+    u0Pu(im(fixed = false), re(fixed = false)),
     zerox = 0.05,
     UConv0Pu(fixed = false),
     uConv0Pu(im(fixed = false), re(fixed = false)),
@@ -121,7 +125,6 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
     PF0(fixed = false),
     Id0Pu(fixed = false),
     Iq0Pu(fixed = false),
-    UPhase0 = 1.4461e-06,
     omegaRefWTGQ0Pu(fixed = false)) annotation(
     Placement(visible = true, transformation(origin = {20, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 180)));
   Modelica.Blocks.Sources.Constant PConvRefPu(k = 0.7) annotation(
@@ -136,11 +139,11 @@ model WT4ACurrentSource "WECC Wind Type 4A Model on infinite bus"
   // Initialization
   Dynawo.Electrical.Wind.WECC.WTCurrentSource_INIT wtCurrentSource_INIT(
     ConverterLVControl = WT4A.ConverterLVControl,
-    P0Pu = WT4A.s0Pu.re,
-    Q0Pu = WT4A.s0Pu.im,
+    P0Pu = WT4A.P0Pu,
+    Q0Pu = WT4A.Q0Pu,
     RLvTrPu = WT4A.RLvTrPu,
     SNom = WT4A.SNom,
-    U0Pu = Modelica.ComplexMath.'abs'(WT4A.u0Pu),
+    U0Pu = WT4A.U0Pu,
     UPhase0 = WT4A.UPhase0,
     XLvTrPu = WT4A.XLvTrPu) annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -165,6 +168,10 @@ initial algorithm
   WT4A.PConv0Pu := wtCurrentSource_INIT.PConv0Pu;
   WT4A.QConv0Pu := wtCurrentSource_INIT.QConv0Pu;
   WT4A.UPhaseConv0 := wtCurrentSource_INIT.UPhaseConv0;
+  WT4A.s0Pu.re := wtCurrentSource_INIT.s0Pu.re;
+  WT4A.s0Pu.im := wtCurrentSource_INIT.s0Pu.im;
+  WT4A.u0Pu.re := wtCurrentSource_INIT.u0Pu.re;
+  WT4A.u0Pu.im := wtCurrentSource_INIT.u0Pu.im;
 
 equation
   line.switchOffSignal1 = false;

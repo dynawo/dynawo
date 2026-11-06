@@ -14,6 +14,7 @@ within Dynawo.Electrical.Wind.WECC;
 
 model WT4ACurrentSource "WECC Wind Turbine model with a simplified drive train model (dual-mass model), without the plant controller and with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsOperatingPoint;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BaseWT4A(LvTfo(RPu = RPu, XPu = XPu));
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(

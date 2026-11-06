@@ -251,7 +251,8 @@ model WTG3CurrentSource1 "WECC Wind Turbine model with a current source as inter
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uConv0Pu "Start value of complex voltage at converter terminal in pu (base UNom)";
   parameter Types.ComplexPerUnit uInj0Pu "Start value of complex voltage at injector in pu (base UNom)";
-  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad";
+  parameter Types.Angle UPhase0 "Start value of voltage phase angle at regulated bus in rad" annotation(
+    Dialog(tab = "Operating point"));
   parameter Types.Angle UPhaseConv0 "Value of voltage phase angle at converter terminal in rad";
 
 equation

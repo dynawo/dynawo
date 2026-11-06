@@ -27,7 +27,6 @@
   <mandatoryParameter name="uConv0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="uInj0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="uInj0Pu.im" type="DOUBLE"/>
-  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
   <mandatoryParameter name="UPhaseConv0" type="DOUBLE"/>
   <mandatoryParameter name="KiPLL" type="DOUBLE"/>
   <mandatoryParameter name="KpPLL" type="DOUBLE"/>
@@ -65,10 +64,10 @@
   <mandatoryParameter name="Id0Pu" type="DOUBLE"/>
   <mandatoryParameter name="Iq0Pu" type="DOUBLE"/>
   <mandatoryParameter name="PF0" type="DOUBLE"/>
-  <mandatoryParameter name="UInj0Pu" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.re" type="DOUBLE"/>
   <mandatoryParameter name="s0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="UConv0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UInj0Pu" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp11" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp12" type="DOUBLE"/>
   <mandatoryParameter name="VDLIp21" type="DOUBLE"/>
@@ -134,4 +133,8 @@
   <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
   <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
+  <mandatoryParameter name="P0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="Q0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="U0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="UPhase0" type="DOUBLE"/>
 </mandatoryParameters>

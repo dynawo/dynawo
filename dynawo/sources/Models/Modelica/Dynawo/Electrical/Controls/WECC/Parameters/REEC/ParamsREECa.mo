@@ -61,7 +61,7 @@ record ParamsREECa "REEC type A parameters"
   parameter Types.VoltageModulePu VRef1Pu "User-defined reference/bias on the inner-loop voltage control in pu (base UNom) (typical: 0 pu)" annotation(
     Dialog(tab = "Electrical Control", group = "REECa"));
 
-  // Initial parameters
+  // Initial parameter
   parameter Types.AngularVelocityPu omegaRefWTGQ0Pu "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
   annotation(preferredView = "text");

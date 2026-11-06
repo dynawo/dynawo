@@ -28,10 +28,10 @@ model LoadZIPFrequencyDependent "ZIP Load with frequency dependence (see Kundur 
   parameter Real Pq "Power coefficient for reactive power";
   parameter Real Kpf "Active load sensitivity to frequency";
   parameter Real Kqf "Reactive load sensitivity to frequency";
-  parameter Real omegaRef0Pu = 1.0 "Reference frequency in p.u.";
+  parameter Real omegaRef0Pu = 1.0 "Reference frequency in pu (base omegaNom)";
 
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system in pu (base OmegaNom)" annotation(
-    Placement(transformation(origin = {-104, -4}, extent = {{-4, -4}, {4, 4}}), iconTransformation(origin = {-105, -39}, extent = {{-5, -5}, {5, 5}})));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system in pu (base omegaNom)" annotation(
+    Placement(transformation(origin = {-104, -4}, extent = {{-4, -4}, {4, 4}}), iconTransformation(origin = {-116, 0}, extent = {{-16, -16}, {16, 16}})));
 
   Dynawo.Electrical.Controls.PLL.PLL PLL(Ki = KiPLL, Kp = KpPLL, OmegaMaxPu = OmegaMaxPu, OmegaMinPu = OmegaMinPu, u0Pu = u0Pu) annotation(
     Placement(transformation(origin = {-30, 6}, extent = {{-16, -16}, {16, 16}})));
@@ -39,12 +39,14 @@ model LoadZIPFrequencyDependent "ZIP Load with frequency dependence (see Kundur 
 equation
   PLL.uPu.re = terminal.V.re;
   PLL.uPu.im = terminal.V.im;
+
   if (running) then
     PPu = PRefPu*(1 + deltaP)*(Zp*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu))^2 + Ip*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu)) + Pp)*(1 + Kpf*(PLL.omegaPLLPu - omegaRef0Pu));
     QPu = QRefPu*(1 + deltaQ)*(Zq*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu))^2 + Iq*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu)) + Pq)*(1 + Kqf*(PLL.omegaPLLPu - omegaRef0Pu));
   else
     terminal.i = Complex(0);
   end if;
+
   connect(omegaRefPu, PLL.omegaRefPu) annotation(
     Line(points = {{-104, -4}, {-48, -4}}, color = {0, 0, 127}));
 
