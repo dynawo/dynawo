@@ -18,7 +18,6 @@ model LackOfVoltageRelay
   import Dynawo.Electrical.Constants;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
-  import Dynawo.Types;
 
   type OpeningEnabledState = enumeration(Disable, Enable);
   type ReclosingEnabledState = enumeration(Disable, Enable);
@@ -38,10 +37,14 @@ model LackOfVoltageRelay
   parameter OpeningEnabledState OpeningEnabled = OpeningEnabledState.Enable "Current opening enable/disable state";
   parameter ReclosingEnabledState ReclosingEnabled = ReclosingEnabledState.Enable "Current reclosing enable/disable state";
 
-  Interfaces.RealInput UMonitoredBusPu "Monitored bus voltage in pu (base UNom)";
-  Interfaces.RealInput UPhaseMonitoredBus "Phase angle of the monitored bus";
-  Interfaces.RealInput UMonitoredEquipmentPu "Monitored equipment voltage in pu (base UNom)";
-  Interfaces.RealInput UPhaseMonitoredEquipment "Phase angle of the monitored equipment";
+  Interfaces.RealInput UMonitoredBusPu "Monitored bus voltage in pu (base UNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
+  Interfaces.RealInput UPhaseMonitoredBus "Phase angle of the monitored bus in rad" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 30}, {-100, 50}})));
+  Interfaces.RealInput UMonitoredEquipmentPu "Monitored equipment voltage in pu (base UNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -50}, {-100, -30}})));
+  Interfaces.RealInput UPhaseMonitoredEquipment "Phase angle of the monitored equipment in rad" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -90}, {-100, -70}})));
 
   Interfaces.IntegerOutput switchControlSignal(start = SwitchControlSignal0) "Signal that controls the switches state (open = 1, closed = 2)";
 

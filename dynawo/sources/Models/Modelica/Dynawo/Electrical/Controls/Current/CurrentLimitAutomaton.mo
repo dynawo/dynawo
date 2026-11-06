@@ -25,8 +25,10 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA) monitoring one compon
   parameter Types.Time tLagBeforeActing "Time lag before taking action in s";
 
   //Inputs
-  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton natively present in C++ object";
-  Modelica.Blocks.Interfaces.RealInput IMonitored "Monitored current (unit depending on IMax unit)";
+  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton natively present in C++ object" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 50}, {-100, 70}})));
+  Modelica.Blocks.Interfaces.RealInput IMonitored "Monitored current (unit depending on IMax unit)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -10}, {-100, 10}})));
 
   //Output
   Modelica.Blocks.Interfaces.IntegerOutput order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";

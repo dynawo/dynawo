@@ -23,9 +23,12 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
 
   parameter Real valueMax "Threshold above which the tap-changer/phase-shifter will take action (unit depending on the monitored variable unit)";
 
-  Modelica.Blocks.Interfaces.RealInput valueToMonitor(start = valueToMonitor0) "Monitored value (unit depending on the monitored variable unit)";
-  discrete Modelica.Blocks.Interfaces.RealInput tap(start = tap0) "Current tap";
-  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton";
+  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 50}, {-100, 70}})));
+  discrete Modelica.Blocks.Interfaces.RealInput tap(start = tap0) "Current tap" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -70}, {-100, -50}})));
+  Modelica.Blocks.Interfaces.RealInput valueToMonitor(start = valueToMonitor0) "Monitored value (unit depending on the monitored variable unit)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -10}, {-100, 10}})));
 
   Boolean locked(start = locked0) "Whether the tap-changer/phase-shifter is locked";
   State state(start = state0) "State of the tap-changer/phase-shifter";

@@ -21,7 +21,8 @@ model TapChangerBlocking1 "Tap Changer Blocking 1 (TCB1)"
 
   parameter Types.VoltageModule UMin "Minimum voltage threshold before tap-changer blocking";
 
-  Modelica.Blocks.Interfaces.RealInput UMonitored "Monitored voltage";
+  Modelica.Blocks.Interfaces.RealInput UMonitored "Monitored voltage" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -10}, {-100, 10}})));
 
 equation
   // Check when the monitored voltage goes below UMin

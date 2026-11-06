@@ -28,9 +28,6 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
                              AbsorptionMax "Reactive power is fixed to its absorption limit",
                              GenerationMax "Reactive power is fixed to its generation limit");
 
-  Modelica.Blocks.Interfaces.RealInput deltaURefPu(start = 0) "Additional voltage reference in pu (base UNom)";
-  Dynawo.Connectors.VoltageModulePuInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
-
   parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SNom)";
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
   parameter Real tableQMaxPPu11 "Minimum active power for the P/QMax diagram in pu (base SnRef)";
@@ -46,6 +43,11 @@ model GeneratorPVDiagramPQ "Generator with active power / frequency regulation a
 
   final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SystemBase.SnRef / SNom "Reactive power sensitivity of the voltage regulation in pu (base UNom, SnRef)";
   final parameter Types.Time T = 1 "Time constant used to filter the reactive power reference, in s";
+
+  Modelica.Blocks.Interfaces.RealInput deltaURefPu(start = 0) "Additional voltage reference in pu (base UNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -50}, {-100, -30}})));
+  Dynawo.Connectors.VoltageModulePuInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -90}, {-100, -70}})));
 
   Types.ReactivePowerPu QGenRefPu(start = QGen0Pu) "Reactive power set point in pu (base SnRef)";
   Types.ReactivePowerPu QMaxPu(start = QMax0Pu) "Maximum reactive power in pu (base SnRef)";

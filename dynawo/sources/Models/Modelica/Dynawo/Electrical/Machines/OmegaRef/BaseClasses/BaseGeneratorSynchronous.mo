@@ -21,7 +21,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Placement(visible = true, transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input variables
-  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu";
+  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)";
   Dynawo.Connectors.ActivePowerPuInput PmPu(start = Pm0Pu) "Mechanical power in pu (base PNomTurb)";
   Dynawo.Connectors.VoltageModulePuInput efdPu(start = Efd0Pu) "Input voltage of exciter winding in pu (user-selected base voltage)";
 
