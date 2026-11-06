@@ -35,6 +35,7 @@ set(MODEL_FILES
   LimPIDFreeze.mo
   PI.mo
   PIAntiWindup.mo
+  PIAntiWindupIntegral.mo
   PIAntiWindupVariableLimits.mo
   PIFreeze.mo
   Power.mo

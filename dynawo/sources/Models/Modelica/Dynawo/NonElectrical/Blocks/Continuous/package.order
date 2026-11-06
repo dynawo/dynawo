@@ -19,6 +19,7 @@ LimitedPI
 LimPIDFreeze
 PI
 PIAntiWindup
+PIAntiWindupIntegral
 PIAntiWindupVariableLimits
 PIFreeze
 Power
