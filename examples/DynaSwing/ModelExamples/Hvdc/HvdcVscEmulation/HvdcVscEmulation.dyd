@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<!-- Derived from nrt/data/HVDC: the HVDC link uses HvdcVscEmulation instead of HvdcVsc.
+     The active power reference is now given by the AC emulation, so the PRef time table of the original case is removed. -->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="InfBus1" lib="InfiniteBus" parFile="HvdcVscEmulation.par" parId="InfBus1"/>
+  <dyn:blackBoxModel id="InfBus2" lib="InfiniteBus" parFile="HvdcVscEmulation.par" parId="InfBus2"/>
+  <dyn:blackBoxModel id="Line1" lib="Line" parFile="HvdcVscEmulation.par" parId="Line1"/>
+  <dyn:blackBoxModel id="Line2" lib="Line" parFile="HvdcVscEmulation.par" parId="Line2"/>
+  <dyn:blackBoxModel id="HVDC" lib="HvdcVscEmulation" parFile="HvdcVscEmulation.par" parId="Hvdc"/>
+  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="HvdcVscEmulation.par" parId="Fault"/>
+  <dyn:blackBoxModel id="UDcRef" lib="CombiTimeTable" parFile="HvdcVscEmulation.par" parId="UDcRef"/>
+  <dyn:blackBoxModel id="URef1" lib="CombiTimeTable" parFile="HvdcVscEmulation.par" parId="URef1"/>
+  <dyn:blackBoxModel id="URef2" lib="DoubleStep" parFile="HvdcVscEmulation.par" parId="URef2"/>
+  <dyn:connect id1="UDcRef" var1="combiTimeTable_source" id2="HVDC" var2="hvdc_UDcRefPu"/>
+  <dyn:connect id1="URef1" var1="combiTimeTable_source" id2="HVDC" var2="hvdc_URef1Pu"/>
+  <dyn:connect id1="URef2" var1="doubleStep_step" id2="HVDC" var2="hvdc_URef2Pu"/>
+  <dyn:connect id1="Fault" var1="fault_terminal" id2="Line2" var2="line_terminal2"/>
+  <dyn:connect id1="InfBus1" var1="infiniteBus_terminal" id2="Line1" var2="line_terminal1"/>
+  <dyn:connect id1="InfBus2" var1="infiniteBus_terminal" id2="Line2" var2="line_terminal1"/>
+  <dyn:connect id1="Line1" var1="line_terminal2" id2="HVDC" var2="hvdc_terminal1"/>
+  <dyn:connect id1="Line2" var1="line_terminal2" id2="HVDC" var2="hvdc_terminal2"/>
+</dyn:dynamicModelsArchitecture>

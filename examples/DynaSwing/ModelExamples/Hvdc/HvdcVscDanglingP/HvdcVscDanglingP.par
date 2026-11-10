@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<!-- Values taken from nrt/data/DynaFlow/HvdcDangling (HvdcDangling.par, Network.par, solver.par), except the VSC link
+     parameters flagged "BORROWED" or "DERIVED", which must be reviewed. -->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <!-- Variable time step solver (set 8 of nrt/data/HVDC/HVDC.par): the detailed VSC model has time constants of a few
+       milliseconds that the fixed time step solver of the nrt case (hMin = 1 s) cannot follow -->
+  <set id="Solver">
+    <par type="INT" name="order" value="2"/>
+    <par type="DOUBLE" name="initStep" value="1e-6"/>
+    <par type="DOUBLE" name="minStep" value="1e-6"/>
+    <par type="DOUBLE" name="maxStep" value="10"/>
+    <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
+    <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="STRING" name="minimumModeChangeTypeForAlgebraicRestoration" value="ALGEBRAIC_J_UPDATE"/>
+  </set>
+  <set id="Network">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="0"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="0"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
+  </set>
+  <set id="Generator">
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+    <par name="generator_PMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_PMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <par name="generator_QMax" type="DOUBLE" value="1.7976931348623157e+308"/>
+    <par name="generator_QMin" type="DOUBLE" value="-1.7976931348623157e+308"/>
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <par type="DOUBLE" name="generator_QDeadBandPu" value="0.0001"/>
+    <par type="DOUBLE" name="generator_UDeadBandPu" value="0.0001"/>
+  </set>
+  <!-- LCC link (HvdcPTanPhiDangling, parameters of set "HVDC" of the nrt case) -->
+  <set id="HvdcLcc">
+    <par type="DOUBLE" name="hvdc_Q1Nom" value="400"/>
+    <par type="DOUBLE" name="hvdc_Lambda1Pu" value="0"/>
+    <reference type="DOUBLE" name="hvdc_P10Pu" origData="IIDM" origName="p1_pu"/>
+    <reference type="DOUBLE" name="hvdc_P1RefSetPu" origData="IIDM" origName="p1_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q10Pu" origData="IIDM" origName="q1_pu"/>
+    <reference type="DOUBLE" name="hvdc_U10Pu" origData="IIDM" origName="v1_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase10" origData="IIDM" origName="angle1_pu"/>
+    <reference type="DOUBLE" name="hvdc_P20Pu" origData="IIDM" origName="p2_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q20Pu" origData="IIDM" origName="q2_pu"/>
+    <reference type="DOUBLE" name="hvdc_U20Pu" origData="IIDM" origName="v2_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase20" origData="IIDM" origName="angle2_pu"/>
+    <par type="DOUBLE" name="hvdc_Q1MinPu" value="-1.7976931348623157e+308"/>
+    <par type="DOUBLE" name="hvdc_Q1MaxPu" value="1.7976931348623157e+308"/>
+    <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="DOUBLE" name="hvdc_PMaxPu" value="10000"/>
+    <par type="BOOL" name="hvdc_modeU10" value="true"/>
+    <reference name="hvdc_CosPhi1Ref0" origData="IIDM" origName="powerFactor" type="DOUBLE" componentId="LCCStation1"/>
+    <reference name="hvdc_CosPhi2Ref0" origData="IIDM" origName="powerFactor" type="DOUBLE" componentId="LCCStation1"/>
+    <reference name="hvdc_U2Ref0Pu" origData="IIDM" origName="v2_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q1Ref0Pu" origData="IIDM" origName="q1_pu" type="DOUBLE"/>
+    <reference name="hvdc_Q2Ref0Pu" origData="IIDM" origName="q2_pu" type="DOUBLE"/>
+  </set>
+  <!-- VSC link: model under test. Initial values from the IIDM file; controller parameters BORROWED from
+       nrt/data/HVDC/HVDC.par (set 5, HvdcVsc, SNom = 1000 MVA) -->
+  <set id="HvdcVsc">
+    <reference type="DOUBLE" name="hvdc_P10Pu" origData="IIDM" origName="p1_pu"/>
+    <reference type="DOUBLE" name="hvdc_Q10Pu" origData="IIDM" origName="q1_pu"/>
+    <reference type="DOUBLE" name="hvdc_U10Pu" origData="IIDM" origName="v1_pu"/>
+    <reference type="DOUBLE" name="hvdc_UPhase10" origData="IIDM" origName="angle1_pu"/>
+    <!-- Common -->
+    <par type="DOUBLE" name="hvdc_InPu" value="1.081"/>
+    <par type="DOUBLE" name="hvdc_IpMaxPu" value="2"/>
+    <par type="BOOL" name="hvdc_ModeU1Set" value="true"/>
+    <par type="DOUBLE" name="hvdc_SNom" value="1000"/>
+    <!-- AC voltage control -->
+    <par type="STRING" name="hvdc_IqModTableName" value="IqMod"/>
+    <par type="DOUBLE" name="hvdc_KiAc" value="33.5"/>
+    <par type="DOUBLE" name="hvdc_KpAc" value="0"/>
+    <par type="DOUBLE" name="hvdc_LambdaPu" value="0.1316"/>
+    <par type="DOUBLE" name="hvdc_QOpMaxPu" value="0.4"/>
+    <par type="DOUBLE" name="hvdc_QOpMinPu" value="-0.4"/>
+    <par type="STRING" name="hvdc_QPMaxTableName" value="QPMax"/>
+    <par type="STRING" name="hvdc_QPMinTableName" value="QPMin"/>
+    <par type="STRING" name="hvdc_QUMaxTableName" value="QUMax"/>
+    <par type="STRING" name="hvdc_QUMinTableName" value="QUMin"/>
+    <par type="DOUBLE" name="hvdc_SlopeQRefPu" value="100"/>
+    <par type="DOUBLE" name="hvdc_SlopeURefPu" value="100"/>
+    <par type="STRING" name="hvdc_TablesFile" value="examples/DynaSwing/ModelExamples/Hvdc/HvdcVscDanglingP/AcVoltageControl.txt"/>
+    <par type="DOUBLE" name="hvdc_tMeasure" value="0.01"/>
+    <par type="DOUBLE" name="hvdc_tQ" value="0.01"/>
+    <!-- Active power control -->
+    <par type="DOUBLE" name="hvdc_KiP" value="100"/>
+    <par type="DOUBLE" name="hvdc_KpP" value="0.4"/>
+    <par type="DOUBLE" name="hvdc_POpMaxPu" value="1.05"/>
+    <par type="DOUBLE" name="hvdc_POpMinPu" value="-1.05"/>
+    <par type="DOUBLE" name="hvdc_SlopePRefPu" value="0.083333"/>
+    <par type="DOUBLE" name="hvdc_SlopeRPFault" value="6.7"/>
+    <par type="DOUBLE" name="hvdc_tMeasureP" value="1e-4"/>
+    <!-- Blocking -->
+    <par type="DOUBLE" name="hvdc_tBlock" value="0.1"/>
+    <par type="DOUBLE" name="hvdc_tBlockUnderV" value="0.01"/>
+    <par type="DOUBLE" name="hvdc_tMeasureUBlock" value="1e-4"/>
+    <par type="DOUBLE" name="hvdc_tUnblock" value="0.02"/>
+    <par type="DOUBLE" name="hvdc_UBlockUnderVPu" value="-1"/>
+    <par type="DOUBLE" name="hvdc_UMaxDbPu" value="1.2"/>
+    <par type="DOUBLE" name="hvdc_UMinDbPu" value="0.8"/>
+    <!-- Phase-locked loop -->
+    <par type="DOUBLE" name="hvdc_KiPLL" value="1"/>
+    <par type="DOUBLE" name="hvdc_KpPLL" value="2"/>
+    <par type="DOUBLE" name="hvdc_OmegaMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="hvdc_OmegaMinPu" value="0.5"/>
+  </set>
+  <!-- Scenario added to the nrt case. DERIVED: PRef0Pu = - p1 * SnRef / SNom = 0.1 pu (base SNom, DC to AC);
+       PRef goes to 0.15 pu at t = 10 s -->
+  <set id="PRefStep">
+    <par type="DOUBLE" name="step_Value0" value="0.1"/>
+    <par type="DOUBLE" name="step_Height" value="0.05"/>
+    <par type="DOUBLE" name="step_tStep" value="10"/>
+  </set>
+</parametersSet>
