@@ -41,5 +41,5 @@
   <dyn:connect id1="SetPointZero" var1="setPoint_setPoint" id2="GFMPvirt" var2="GFMPvirt_QFilterRefPu"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMPvirt" var2="GFMPvirt_UFilterRefPu"/>
   <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="GFMPvirt" var2="GFMPvirt_omegaRefPu"/>
-  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="Grid" var2="Grid_OmegaRef"/>
+  <dyn:connect id1="SetPointOne" var1="setPoint_setPoint" id2="Grid" var2="Grid_omegaRefPu"/>
 </dyn:dynamicModelsArchitecture>

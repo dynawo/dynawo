@@ -17,10 +17,9 @@
   <curve model="Meas" variable="measurements_QPu"/>
   <curve model="Meas" variable="measurements_UPu"/>
   <curve model="Meas" variable="measurements_UPhase"/>
-  <!-- Angles for DeltaAngle = GFMPvirt_Control_Pvirt_theta - (Grid_UPhase + Grid_theta), with Grid_UPhase = -0.46259718921907295 rad (see VSMPvirtRoCoF.par) -->
+  <!-- Angles for DeltaAngle = GFMPvirt_Control_Pvirt_theta - (Grid_UPhase0 + Grid_theta), with Grid_UPhase0 = -0.46259718921907295 rad (see VSMPvirtRoCoF.par) -->
   <curve model="GFMPvirt" variable="GFMPvirt_Control_Pvirt_theta"/>
   <curve model="Grid" variable="Grid_theta"/>
-  <curve model="Grid" variable="Grid_UPhase"/>
   <curve model="GFMPvirt" variable="GFMPvirt_Control_Pvirt_omegaPu"/>
   <curve model="Grid" variable="Grid_omegaPu"/>
 </curvesInput>

@@ -59,6 +59,7 @@ model DynGridFormingControlVSM_CSA_Pvirt "Grid Forming Control for VSM with Curr
   parameter Types.AngularVelocityPu Omega0Pu "Start value of converter's frequency in pu (base omegaNom)";
   parameter Types.ActivePowerPu PFilter0Pu "Start value of active power generated at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QFilter0Pu "Start value of reactive power generated at the converter's capacitor in pu (base SNom) (generator convention)";
+  parameter Types.ActivePowerPu PFilterRef0Pu "Start value of active power reference at the converter's capacitor in pu (base SNom) (generator convention)";
   parameter Types.PerUnit DeltaVVId0 = 0 "d-axis delta voltage virtual impedance (base UNom, SNom)";
   parameter Types.PerUnit DeltaVVIq0 = 0 "q-axis delta voltage virtual impedance (base UNom, SNom)";
   parameter Types.ComplexPerUnit u0Pu "Start value of the complex voltage at the PCC in pu (base UNom)";
@@ -89,7 +90,7 @@ model DynGridFormingControlVSM_CSA_Pvirt "Grid Forming Control for VSM with Curr
     Placement(visible = true, transformation(origin = {-108, -64}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {67, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current in the grid in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-108, -52}, extent = {{-8, -8}, {8, 8}}, rotation = 0), iconTransformation(origin = {87, -109}, extent = {{-9, -9}, {9, 9}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilter0Pu) "Active power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealInput PFilterRefPu(start = PFilterRef0Pu) "Active power reference at the converter's capacitor in pu (base SNom) (generator convention)" annotation(
     Placement(transformation(origin = {-108, 84}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-109, 77}, extent = {{-9, -9}, {9, 9}})));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = OmegaRef0Pu) "Frequency reference in pu (base omegaNom)" annotation(
     Placement(transformation(origin = {-108, 96}, extent = {{-8, -8}, {8, 8}}), iconTransformation(origin = {-109, 33}, extent = {{-9, -9}, {9, 9}})));
@@ -113,11 +114,11 @@ model DynGridFormingControlVSM_CSA_Pvirt "Grid Forming Control for VSM with Curr
     Placement(transformation(origin = {-81, 55}, extent = {{-7, -7}, {7, 7}})));
   Modelica.Blocks.Continuous.FirstOrder PLLFilter(T = tPLL, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Omega0Pu) annotation(
     Placement(transformation(origin = {-68, 55}, extent = {{-4, -4}, {4, 4}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VSM VSM(H = H, PFilter0Pu = PFilter0Pu, PFilterRef0Pu = PFilterRef0Pu, kVSM = kVSM, Omega0Pu = Omega0Pu, Theta0 = Theta0) annotation(
     Placement(visible = true, transformation(origin = {-46, 78}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
   Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls.VirtualPower virtualPower annotation(
     Placement(transformation(origin = {-111, 73}, extent = {{-5, -5}, {5, 5}})));
-  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(Mq = Mq, Omegaf = Omegaf, Omegaff = Omegaff, Kff = Kff, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, DeltaVVId0 = DeltaVVId0, DeltaVVIq0 = DeltaVVIq0, QFilter0Pu = QFilter0Pu, QFilterRef0Pu = QFilter0Pu, URef0Pu = URef0Pu) annotation(
+  Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.VoltageControls.VoltageReferenceControl voltageReferenceControl(Mq = Mq, Omegaf = Omegaf, Omegaff = Omegaff, Kff = Kff, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, DeltaVVId0Pu = DeltaVVId0, DeltaVVIq0Pu = DeltaVVIq0, QFilter0Pu = QFilter0Pu, QFilterRef0Pu = QFilter0Pu, URef0Pu = URef0Pu) annotation(
     Placement(transformation(origin = {-85, 27}, extent = {{-11, -11}, {11, 11}})));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(
     Placement(transformation(origin = {-113, 3}, extent = {{-5, -5}, {5, 5}})));
@@ -226,9 +227,9 @@ equation
     Line(points = {{-73, 58}, {-70, 58}, {-70, 60}, {106, 60}}, color = {0, 0, 127}));
   connect(virtualPower.PvirtPu, VSM.PFilterPu) annotation(
     Line(points = {{-105.5, 77}, {-98, 77}, {-98, 72}, {-64, 72}}, color = {0, 0, 127}));
-  connect(const.y, voltageReferenceControl.DeltaVVId) annotation(
+  connect(const.y, voltageReferenceControl.DeltaVVIdPu) annotation(
     Line(points = {{-108, 4}, {-96, 4}, {-96, 14}}, color = {0, 0, 127}));
-  connect(const.y, voltageReferenceControl.DeltaVVIq) annotation(
+  connect(const.y, voltageReferenceControl.DeltaVVIqPu) annotation(
     Line(points = {{-108, 4}, {-90, 4}, {-90, 14}}, color = {0, 0, 127}));
   annotation(
     preferredView = "diagram",

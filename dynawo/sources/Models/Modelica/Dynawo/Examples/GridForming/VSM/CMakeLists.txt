@@ -16,6 +16,7 @@ set(MODEL_FILES
   DynGFMVSMSmib.mo
   DynGFMVSMSmibConvPLL.mo
   VSM_CurrentLimiting_CSA_Pvirt.mo
+  VSM_CurrentLimiting_CSA_Pvirt_RoCoF.mo
   )
 
 #

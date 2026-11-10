@@ -36,10 +36,10 @@ model VSM_CurrentLimiting_CSA_Pvirt "Grid-forming VSM converter with current sat
   final parameter Types.ComplexVoltagePu uGrid0Pu = u0Pu + Complex(RLinePu, XLinePu)*i0Pu "Grid voltage consistent with the operating point at the PCC in pu (base UNom)";
 
   // Post processing variables
-  Types.Angle DeltaAngle = dynGFMVSM_A.Control_Pvirt.VSM.theta - (Grid.UPhase + Grid.theta) "Angle between the internal EMF of the converter and the grid voltage in rad";
+  Types.Angle DeltaAngle = dynGFMVSM_A.Control_Pvirt.VSM.theta - (Grid.UPhase0 + Grid.theta) "Angle between the internal EMF of the converter and the grid voltage in rad";
 
   // Grid
-  Electrical.Sources.AcGridRoCoF Grid(SNom = SNom, U0pu = Modelica.ComplexMath.'abs'(uGrid0Pu), Upu = Modelica.ComplexMath.'abs'(uGrid0Pu), UPhase0 = Modelica.ComplexMath.arg(uGrid0Pu), UPhase = Modelica.ComplexMath.arg(uGrid0Pu), StartRoCoF = tRoCoF, TimeRoCoF = 0.5, RoCoFValue = RoCoFValue, StartingFrequency = 0.01, ReturnRoCoF = false) annotation(
+  Electrical.Sources.AcGridRoCoF Grid(U0Pu = Modelica.ComplexMath.'abs'(uGrid0Pu), UPhase0 = Modelica.ComplexMath.arg(uGrid0Pu), tRoCoFStart = tRoCoF, tRoCoFDuration = 0.5, RoCoFPu = RoCoFValue, deltaOmega0Pu = 0.01, ReturnRoCoF = false) annotation(
     Placement(transformation(origin = {26, -60}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 4*RLinePu, XPu = 4*XLinePu) annotation(
     Placement(transformation(origin = {98, -36}, extent = {{-10, -10}, {10, 10}})));
@@ -102,7 +102,7 @@ equation
     Line(points = {{-124, 76}, {-26, 76}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, dynGFMVSM_A.omegaRefPu) annotation(
     Line(points = {{-124, 48}, {-26, 48}, {-26, 60}}, color = {0, 0, 127}));
-  connect(omegaRefPu.y, Grid.OmegaRef) annotation(
+  connect(omegaRefPu.y, Grid.omegaRefPu) annotation(
     Line(points = {{-124, 48}, {-110, 48}, {-110, -55}, {14, -55}}, color = {0, 0, 127}));
   connect(QRefPu.y, dynGFMVSM_A.QFilterRefPu) annotation(
     Line(points = {{-124, 18}, {-48, 18}, {-48, 30}, {-26, 30}}, color = {0, 0, 127}));
