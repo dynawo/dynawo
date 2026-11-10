@@ -550,6 +550,8 @@ ModelManager::setSharedParametersDefaultValues(const bool isInit, const paramete
 
 void
 ModelManager::initParams() {
+  // calculatedVarsUpToDate_ is shared by calculatedVarsInit_ and calculatedVars_: reset it whenever the active buffer changes
+  invalidateCalculatedVarsBuffer();
   if (!hasInit()) {
     modelInitUsed_ = false;
     return;  // no init model => nothing to do
@@ -593,6 +595,7 @@ ModelManager::initParams() {
   }
 
   modelInitUsed_ = false;
+  invalidateCalculatedVarsBuffer();
 }
 
 void
@@ -973,6 +976,9 @@ ModelManager::solveParameters() {
     g1Safe = &g1[0];
   setBufferG(g0Safe, 0);
 
+  // the init model is solved here without going through ModelMulti::copyContinuousVariables (the only other place
+  // that invalidates the calculated-variable cache), so invalidate it each time y changes before evalG
+  invalidateCalculatedVarsBuffer();
   evalG(t0);
 
   // computation of Z values
@@ -996,6 +1002,7 @@ ModelManager::solveParameters() {
       evalMode(t0);
 
     setBufferG(g0Safe, 0);
+    invalidateCalculatedVarsBuffer();
     evalG(t0);
     rotateBuffers();
 
@@ -1016,6 +1023,7 @@ ModelManager::solveParameters() {
     setBufferG(g1Safe, 0);
     // Root evaluation after reinitialization
     // ---------------------------------------------
+    invalidateCalculatedVarsBuffer();
     evalG(t0);
 
     // Detection of potential root crossing
