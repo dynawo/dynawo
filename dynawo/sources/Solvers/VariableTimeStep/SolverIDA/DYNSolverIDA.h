@@ -278,6 +278,25 @@ class SolverIDA : public Solver::Impl {
    */
   void printWeightedErrors() const;
 
+  /**
+   * @brief check if a root returned by IDA is spurious
+   *
+   * The state returned by IDA at a root is interpolated: algebraic variables may be inconsistent with the algebraic
+   * equations (e.g. steep algebraic function), and the root may only exist on this inconsistent state.
+   * The algebraic variables are restored at the root time with discrete variables and modes frozen (the event is not
+   * processed), then the root functions are evaluated again:
+   * - if the restoration significantly corrected the state and no root function changed anymore, the root is spurious:
+   *   the solver is reinitialized on the restored state;
+   * - if a root function still changed on the restored state, the root is real: the restored state is kept so that the
+   *   event is processed on a consistent state (and the outputs written before the event processing are consistent);
+   * - otherwise (root disappearing within the integration tolerances), the state returned by IDA is put back and the
+   *   root is processed as usual.
+   *
+   * @param tRoot time of the root returned by IDA
+   * @return @b true if the root is spurious (and the solver has been reinitialized), @b false otherwise
+   */
+  bool isSpuriousRoot(double tRoot);
+
  protected:
   /**
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
@@ -315,8 +334,8 @@ class SolverIDA : public Solver::Impl {
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
   algebraicRestorationReinitMode_t algebraicRestorationReinitMode_;  ///< when IDAReInit is called after a mode change
+  bool checkSpuriousRoots_;  ///< @b true if roots returned by IDA are checked on a consistent state before being processed
   double tEnd_;  ///< simulation end time
-  bool uround_;  ///< to activate change on uround
   bool activateTimeScaledURound_;  ///< to activate the time-scaled recomputation of IDA's unit roundoff
   double timeScaledURoundPrecision_;  ///< the reference precision used to derive the time-scaled unit roundoff
   int alternativeStrategiesOnDivergenceStage_;  ///< escalation stage of the alternative strategies on divergence

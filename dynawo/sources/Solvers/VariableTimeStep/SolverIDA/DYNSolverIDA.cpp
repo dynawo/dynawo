@@ -17,6 +17,7 @@
  * @brief Solver implementation based on sundials/IDA solver
  */
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <iomanip>
@@ -94,6 +95,7 @@ maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
 algebraicRestorationReinitMode_(ALWAYS),
+checkSpuriousRoots_(false),
 tEnd_(0.),
 activateTimeScaledURound_(false),
 timeScaledURoundPrecision_(std::numeric_limits<double>::min()),
@@ -157,6 +159,7 @@ SolverIDA::defineSpecificParameters() {
     ParameterSolver("activateAlternativeStrategiesOnDivergence", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("activateTimeScaledURound", ParameterSolver("activateTimeScaledURound", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("timeScaledURoundPrecision", ParameterSolver("timeScaledURoundPrecision", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("checkSpuriousRoots", ParameterSolver("checkSpuriousRoots", VAR_TYPE_BOOL, optional)));
 }
 
 void
@@ -193,6 +196,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& activateAlternativeStrategiesOnDivergence = findParameter("activateAlternativeStrategiesOnDivergence");
   if (activateAlternativeStrategiesOnDivergence.hasValue())
     activateAlternativeStrategiesOnDivergence_ = activateAlternativeStrategiesOnDivergence.getValue<bool>();
+  const ParameterSolver& checkSpuriousRoots = findParameter("checkSpuriousRoots");
+  if (checkSpuriousRoots.hasValue())
+    checkSpuriousRoots_ = checkSpuriousRoots.getValue<bool>();
 }
 
 const std::string&
@@ -735,6 +741,89 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   return 0;
 }
 
+bool
+SolverIDA::isSpuriousRoot(const double tRoot) {
+  // state returned by IDA at the root time (interpolated)
+  const vector<double> yInterp(vectorY_);
+  const vector<double> ypInterp(vectorYp_);
+  const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
+
+  // put back the state returned by IDA (vectorY_ and vectorYp_ are shared with IDA: no reallocation)
+  auto restoreInterpolatedState = [&]() {
+    std::copy(yInterp.begin(), yInterp.end(), vectorY_.begin());
+    std::copy(ypInterp.begin(), ypInterp.end(), vectorYp_.begin());
+    model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+  };
+
+  // algebraic restoration at the root time, discrete variables and modes being frozen (the event is not processed)
+  // a new Jacobian is used: the inconsistency usually comes from a steep algebraic function
+  try {
+    const bool noInitSetup = !setupNewAlgRestoration(ALGEBRAIC_J_UPDATE_MODE);
+    for (unsigned int i = 0; i < modelYType.size(); ++i)
+      if (modelYType[i] != DYN::DIFFERENTIAL)
+        vectorYp_[i] = 0;
+    solverKINNormal_->setInitialValues(tRoot, vectorY_, vectorYp_);
+    solverKINNormal_->solve(noInitSetup, false, multipleStrategiesForAlgebraicRestoration_);
+    solverKINNormal_->getValues(vectorY_, vectorYp_);
+  } catch (const Error&) {
+    // the restoration failed: no conclusion, the root is processed as usual
+    restoreInterpolatedState();
+    return false;
+  }
+
+  // largest correction of the algebraic variables, weighted by the integration tolerances
+  double maxWeightedCorrection = 0.;
+  for (unsigned int i = 0; i < modelYType.size(); ++i) {
+    if (modelYType[i] == DYN::DIFFERENTIAL)
+      continue;
+    const double weight = relAccuracy_ * std::fabs(yInterp[i]) + absAccuracy_;
+    maxWeightedCorrection = std::max(maxWeightedCorrection, std::fabs(vectorY_[i] - yInterp[i]) / weight);
+  }
+
+  // root functions on the restored state, compared to the ones before the step
+  model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+  vector<state_g> gRestored(g0_.size());
+  model_->evalG(tRoot, gRestored);
+  ++stats_.ngeInternal_;
+
+  const bool rootStillFound = !std::equal(g0_.begin(), g0_.end(), gRestored.begin());
+  if (!rootStillFound && maxWeightedCorrection <= 1.) {
+    // the root disappears although the restoration did not significantly correct the state (within the integration
+    // tolerances): it may be a real root located very close to its threshold, the state returned by IDA is put back so
+    // that the event is not lost
+    restoreInterpolatedState();
+    return false;
+  }
+
+  // derivatives restoration on the restored state
+  try {
+    solverKINYPrim_->setInitialValues(tRoot, vectorY_, vectorYp_);
+    solverKINYPrim_->solve(true, false, multipleStrategiesForAlgebraicRestoration_);
+    solverKINYPrim_->getValues(vectorY_, vectorYp_);
+  } catch (const Error&) {
+    restoreInterpolatedState();
+    return false;
+  }
+  model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+  updateAlgebraicRestorationStatistics();
+
+  if (rootStillFound) {
+    // real root still found on the restored state: the event is processed on this consistent state
+    // (and the outputs written before the event processing are consistent too)
+    return false;
+  }
+
+  // the root is spurious: solver reinitialization on the restored state
+  // (IDA internal history is not reliable since it led to an inconsistent state)
+  updateStatistics();
+  const int flag = IDAReInit(IDAMem_, tRoot, sundialsVectorY_, sundialsVectorYp_);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
+
+  Trace::debug() << DYNLog(SolverIDASpuriousRoot, tRoot, maxWeightedCorrection) << Trace::endline;
+  return true;
+}
+
 void
 SolverIDA::forceReinitOnDivergence(const modeChangeType_t modeChangeType) {
   int& msbset = (modeChangeType == ALGEBRAIC_MODE) ? msbsetAlg_ : msbsetAlgJ_;
@@ -807,6 +896,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
   }
 
   string msg;
+  bool spuriousRoot = false;
   switch (flag) {
     case IDA_SUCCESS:
       msg = "IDA_SUCCESS";
@@ -817,6 +907,12 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
     case IDA_ROOT_RETURN:
       msg = "IDA_ROOT_RETURN";
       model_->copyContinuousVariables(&vectorY_[0], &vectorYp_[0]);
+      if (checkSpuriousRoots_ && isSpuriousRoot(tNxt)) {
+        // the root does not exist on a consistent state: the event is not processed
+        spuriousRoot = true;
+        msg = "IDA_ROOT_RETURN (spurious root ignored)";
+        break;
+      }
       model_->evalG(tNxt, g1_);
       ++stats_.ngeInternal_;
       evalZMode(g0_, g1_, tNxt);
@@ -888,7 +984,7 @@ SolverIDA::solveStep(double tAim, double& tNxt) {
 
   if (printUnstableRoot_) {
       // A root has been found at tNxt
-    if (flag == IDA_ROOT_RETURN) {
+    if (flag == IDA_ROOT_RETURN && !spuriousRoot) {
       vector<state_g> rootsFound = getRootsFound();
       int numRoots = 0;
       for (const auto root : rootsFound) {

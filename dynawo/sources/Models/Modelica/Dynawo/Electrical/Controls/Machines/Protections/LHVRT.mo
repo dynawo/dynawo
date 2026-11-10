@@ -38,16 +38,12 @@ model LHVRT "High and low voltage ride-through protection"
 
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D(tableName = TabletUoverUfilt, tableOnFile = TablesOnFile, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.Greater greater annotation(
-    Placement(transformation(origin = {-10, 40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer annotation(
     Placement(transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqual(threshold = UOverPu) annotation(
     Placement(transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Tables.CombiTable1Ds combiTable1D1(tableName = TabletUunderUfilt, tableOnFile = TablesOnFile, fileName = TablesFile, extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint) annotation(
     Placement(transformation(origin = {-70, -20}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Logical.Less less annotation(
-    Placement(transformation(origin = {-10, -40}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.LessEqualThreshold lessEqual(threshold = UUnderPu) annotation(
     Placement(transformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Logical.Timer timer1 annotation(
@@ -71,6 +67,16 @@ model LHVRT "High and low voltage ride-through protection"
   parameter Types.VoltageModulePu UMonitored0Pu "Initial monitored voltage amplitude in pu (base UNom)";
 
 protected
+  // Table objects used in the tripping conditions (same data as combiTable1D and combiTable1D1, whose table objects are protected)
+  parameter Modelica.Blocks.Types.ExternalCombiTable1D tableIDHvrt = Modelica.Blocks.Types.ExternalCombiTable1D(
+    if combiTable1D.tableOnFile then combiTable1D.tableName else "NoName",
+    if combiTable1D.tableOnFile and combiTable1D.fileName <> "NoName" and not Modelica.Utilities.Strings.isEmpty(combiTable1D.fileName) then combiTable1D.fileName else "NoName",
+    combiTable1D.table, combiTable1D.columns, combiTable1D.smoothness, combiTable1D.extrapolation, false) "External table object for HVRT";
+  parameter Modelica.Blocks.Types.ExternalCombiTable1D tableIDLvrt = Modelica.Blocks.Types.ExternalCombiTable1D(
+    if combiTable1D1.tableOnFile then combiTable1D1.tableName else "NoName",
+    if combiTable1D1.tableOnFile and combiTable1D1.fileName <> "NoName" and not Modelica.Utilities.Strings.isEmpty(combiTable1D1.fileName) then combiTable1D1.fileName else "NoName",
+    combiTable1D1.table, combiTable1D1.columns, combiTable1D1.smoothness, combiTable1D1.extrapolation, false) "External table object for LVRT";
+
   Types.Time tThresholdReachedHvrt(start = Modelica.Constants.inf) "Time when the HVRT threshold is reached in s";
   Types.Time tThresholdReachedLvrt(start = Modelica.Constants.inf) "Time when the LVRT threshold is reached in s";
 
@@ -95,11 +101,13 @@ equation
     timer1.u = false;
   end when;
 
-  when greater.y then
+  // The tables are evaluated directly on the filtered voltage (state variable) in the conditions:
+  // the tables outputs are steep algebraic variables, that may be inconsistent at a root returned by the solver
+  when Modelica.Blocks.Tables.Internal.getTable1DValue(tableIDHvrt, 1, filter.y) < timer.y then
     timer2.u = true;
   end when;
 
-  when less.y then
+  when Modelica.Blocks.Tables.Internal.getTable1DValue(tableIDLvrt, 1, filter.y) < timer1.y then
     timer3.u = true;
   end when;
 
@@ -111,14 +119,6 @@ equation
     Timeline.logEvent1(TimelineKeys.LVRTTripped);
   end when;
 
-  connect(timer.y, greater.u1) annotation(
-    Line(points = {{-59, 60}, {-40, 60}, {-40, 40}, {-22, 40}}, color = {0, 0, 127}));
-  connect(combiTable1D.y[1], greater.u2) annotation(
-    Line(points = {{-59, 20}, {-40, 20}, {-40, 32}, {-22, 32}}, color = {0, 0, 127}));
-  connect(combiTable1D1.y[1], less.u1) annotation(
-    Line(points = {{-59, -20}, {-40, -20}, {-40, -40}, {-22, -40}}, color = {0, 0, 127}));
-  connect(timer1.y, less.u2) annotation(
-    Line(points = {{-59, -60}, {-40, -60}, {-40, -48}, {-22, -48}}, color = {0, 0, 127}));
   connect(or1.y, fOCB) annotation(
     Line(points = {{161.5, 0}, {210, 0}}, color = {255, 0, 255}));
   connect(filter.y, greaterEqual.u) annotation(
