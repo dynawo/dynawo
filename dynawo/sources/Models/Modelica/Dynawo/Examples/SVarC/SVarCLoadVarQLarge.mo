@@ -59,9 +59,9 @@ equation
   connect(manualMode.y, sVarCStandard.setModeManual) annotation(
     Line(points = {{-99, -20}, {-80, -20}, {-80, 0}, {-60, 0}}, color = {255, 127, 0}));
   connect(PRefPu.y, loadPQ.PRefPu) annotation(
-    Line(points = {{-39, -80}, {-12, -80}, {-12, -37}}, color = {0, 0, 127}));
+    Line(points = {{-39, -80}, {-8, -80}, {-8, -37}}, color = {0, 0, 127}));
   connect(QRefPu.y, loadPQ.QRefPu) annotation(
-    Line(points = {{39, -80}, {12, -80}, {12, -37}}, color = {0, 0, 127}));
+    Line(points = {{39, -80}, {8, -80}, {8, -37}}, color = {0, 0, 127}));
   connect(loadPQ.terminal, sVarCStandard.terminal) annotation(
     Line(points = {{0, -20}, {0, -20}, {0, 20}}, color = {0, 0, 255}));
 
