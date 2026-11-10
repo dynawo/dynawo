@@ -38,6 +38,46 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+###############################################
+#  Model examples - dangling HVDC links       #
+###############################################
+
+case_name = "DynaFlow - ModelExamples - HvdcPQPropDangling"
+case_description = "HvdcPQPropDangling model example: step on the active power reference of a dangling HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPQPropDangling", "HvdcPQPropDangling.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPQPropDanglingDiagramPQ"
+case_description = "HvdcPQPropDanglingDiagramPQ model example: step on the active power reference of a dangling HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPQPropDanglingDiagramPQ", "HvdcPQPropDanglingDiagramPQ.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPVDanglingDiagramPQ"
+case_description = "HvdcPVDanglingDiagramPQ model example: step on the active power reference of a dangling HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVDanglingDiagramPQ", "HvdcPVDanglingDiagramPQ.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPVDanglingRpcl2Side1"
+case_description = "HvdcPVDanglingRpcl2Side1 model example: step on the active power reference of a dangling HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVDanglingRpcl2Side1", "HvdcPVDanglingRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPVDanglingDiagramPQRpcl2Side1"
+case_description = "HvdcPVDanglingDiagramPQRpcl2Side1 model example: step on the active power reference of a dangling HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVDanglingDiagramPQRpcl2Side1", "HvdcPVDanglingDiagramPQRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPTanPhiDanglingDiagramPQ"
+case_description = "HvdcPTanPhiDanglingDiagramPQ model example: step on the active power reference of a dangling HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPTanPhiDanglingDiagramPQ", "HvdcPTanPhiDanglingDiagramPQ.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ##############################################
 #  Small System with an HVDC link and a CLA  #
 ##############################################
