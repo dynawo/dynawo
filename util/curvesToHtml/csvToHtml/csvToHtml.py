@@ -13,6 +13,7 @@
 
 import os
 import csv
+import re
 import shutil
 from optparse import OptionParser
 
@@ -24,7 +25,8 @@ htmlFileIn=csvToHtml_resources_dir+"/curves.html.in"
 def cleanIdForJS(id):
     if id[0].isdigit():
         id = "c"+id
-    return id.replace(".","_").replace(" ","_").replace("-","_").replace('#',"_").replace('+',"_")
+    # any character not allowed in a JS identifier (e.g. '/' in a model id) would make the whole curves.js invalid
+    return re.sub(r'[^0-9A-Za-z_$]', "_", id)
 
 ### CSV READER and DUMP into jsFile
 class Data:
