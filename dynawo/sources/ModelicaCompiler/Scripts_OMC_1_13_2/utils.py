@@ -295,6 +295,24 @@ def replace_var_names(line):
     for pattern_to_replace in map_to_replace:
         line = line.replace(pattern_to_replace, map_to_replace[pattern_to_replace])
     return line
+
+##
+# Dynawo stores some DISCRETE variables (e.g. a MultiSwitch's firstActiveIndex) in its
+# own double-backed "integerDoubleVars"/"discreteVars" arrays rather than a true integer
+# array, even though their Modelica type is Integer -- fine for arithmetic/comparisons
+# (double == int, double - int, ... all compile), but a raw C array subscript requires an
+# integral type, so "arr[integerDoubleVars[N] - 1]" (as emitted by the dynamic-index
+# jacobian codegen, see #3874 bug1 upstream fix) fails to compile. Wrap such a subscript's
+# content in an explicit (modelica_integer) cast.
+# @param line: line to analyse
+# @return line to use
+ptrn_double_backed_index_subscript = re.compile(
+    r'\[(?P<content>\(data->localData\[[0-9]+\]->(?:integerDoubleVars|discreteVars)\[[0-9]+\]'
+    r'\s*/\*.*?\*/\)(?:\s*[-+]\s*(?:\(\(modelica_integer\)\s*[0-9]+\)|[0-9]+))*)\]')
+
+def cast_double_backed_index_for_array_subscript(line):
+    return ptrn_double_backed_index_subscript.sub(r'[(modelica_integer)(\g<content>)]', line)
+
 ##
 # Replace all relation indexes by their dynawo index
 # @param line: line to analyse

@@ -2106,6 +2106,7 @@ class Factory:
             if "pow(" in line:
                 line = replace_pow(line)
             line = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
+            line = cast_double_backed_index_for_array_subscript(line)
             self.list_for_evaljt [index] = line
 
     ##
@@ -2345,15 +2346,6 @@ class Factory:
         for line in self.list_for_setz:
             self.list_for_setz[index] = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
             index+=1
-
-        new_list_for_setz = []
-        for line in self.list_for_setz:
-            new_list_for_setz.append(line)
-            bvar_match = re.search(r'getCalculatedVar\(\(this\)->getModelManager\(\), (?P<idx>[0-9]+)\) /\* [\w\.\[\]]*\.BVarRawPu variable', line)
-            if bvar_match is not None:
-                new_list_for_setz.append("  std::cout << \"BUBU BVarRawPu t=\" << data->localData[0]->timeValue << \" val=\" << evalCalculatedVarI(" \
-                             + bvar_match.group('idx') + ") << std::endl;\n")
-        self.list_for_setz = new_list_for_setz
 
     ##
     # returns the lines that constitues the body of setF
