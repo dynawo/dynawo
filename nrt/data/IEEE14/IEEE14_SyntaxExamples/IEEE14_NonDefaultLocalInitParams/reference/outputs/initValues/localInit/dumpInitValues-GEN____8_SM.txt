@@ -4,18 +4,9 @@ generator_lambdaQ1Pu                              : y =      -0.000013 yp =     
 generator_lambdaQ2Pu                              : y =      -0.000013 yp =       0.000000
 generator_lambdafPu                               : y =       1.299381 yp =       0.000000
 generator_omegaPu                                 : y =       1.000000 yp =       0.000000
-generator_omegaRefPu                              : y =       1.000000 yp =       0.000000
-generator_terminal_V_im                           : y =      -0.251831 yp =       0.000000
-generator_terminal_V_re                           : y =       1.060361 yp =       0.000000
 generator_theta                                   : y =      -0.233399 yp =       0.000000
-governor_PmRefPu                                  : y =       0.000018 yp =       0.000000
-governor_deltaPmRefPu                             : y =       0.000000 yp =       0.000000
-voltageRegulator_UsRefPu                          : y =       1.156085 yp =       0.000000
-voltageRegulator_deltaUsRefPu                     : y =       0.000000 yp =       0.000000
 generator_MdSatPPu                                : y =       1.420000 yp =       0.000000
 generator_MqSatPPu                                : y =       0.880000 yp =       0.000000
-generator_cePu                                    : y =       0.000017 yp =       0.000000
-generator_cmPu                                    : y =       0.000018 yp =       0.000000
 generator_cos2Eta                                 : y =       1.000000 yp =       0.000000
 generator_iDPu                                    : y =       0.000000 yp =       0.000000
 generator_iQ1Pu                                   : y =       0.000000 yp =       0.000000
@@ -31,46 +22,25 @@ generator_lambdaqPu                               : y =      -0.000016 yp =     
 generator_mdsPu                                   : y =       1.420000 yp =       0.000000
 generator_miPu                                    : y =       1.420000 yp =       0.000000
 generator_mqsPu                                   : y =       0.880000 yp =       0.000000
+generator_omegaRefPu                              : y =       1.000000 yp =       0.000000
 generator_sin2Eta                                 : y =       0.000000 yp =       0.000000
+generator_terminal_V_im                           : y =      -0.251831 yp =       0.000000
+generator_terminal_V_re                           : y =       1.060361 yp =       0.000000
 generator_terminal_i_im                           : y =       0.157298 yp =       0.000000
 generator_terminal_i_re                           : y =       0.037358 yp =       0.000000
-generator_uStatorPu_im                            : y =      -0.253326 yp =       0.000000
-generator_uStatorPu_re                            : y =       1.066653 yp =       0.000000
 generator_udPu                                    : y =      -0.000243 yp =       0.000000
-generator_ufPu                                    : y =       0.000527 yp =       0.000000
 generator_uqPu                                    : y =       1.089855 yp =       0.000000
-governor_PmPu                                     : y =       0.000018 yp =       0.000000
-governor_feedback_y                               : y =       0.000000 yp =       0.000000
-governor_gain_y                                   : y =       0.000000 yp =       0.000000
-governor_limiter_u                                : y =       0.000018 yp =       0.000000
-governor_limiter_y                                : y =       0.000018 yp =       0.000000
-voltageRegulator_EfdPu                            : y =       1.195266 yp =       0.000000
-voltageRegulator_UsPu                             : y =       1.096322 yp =       0.000000
-voltageRegulator_UsRefTotal_y                     : y =       1.156085 yp =       0.000000
-voltageRegulator_gain_u                           : y =       0.059763 yp =       0.000000
-voltageRegulator_gain_y                           : y =       1.195266 yp =       0.000000
-voltageRegulator_limUsRef_y                       : y =       1.156085 yp =       0.000000
-generator_PmPu                                    : alias of governor_PmPu
-generator_UStatorPu                               : alias of voltageRegulator_UsPu
-generator_efdPu                                   : alias of voltageRegulator_EfdPu
-governor_PmRawPu_u1                               : alias of governor_gain_y
+governor_PmRefPu                                  : y =       0.000018 yp =       0.000000
+governor_deltaPmRefPu                             : y =       0.000000 yp =       0.000000
+voltageRegulator_UsRefPu                          : y =       1.156085 yp =       0.000000
+voltageRegulator_deltaUsRefPu                     : y =       0.000000 yp =       0.000000
 governor_PmRawPu_u2                               : alias of governor_deltaPmRefPu
 governor_PmRawPu_u3                               : alias of governor_PmRefPu
-governor_PmRawPu_y                                : alias of governor_limiter_u
 governor_feedback_u2                              : alias of generator_omegaPu
-governor_gain_u                                   : alias of governor_feedback_y
 governor_omegaPu                                  : alias of generator_omegaPu
-governor_switch_u1                                : alias of governor_limiter_y
 governor_switch_u3                                : alias of governor_PmRefPu
-governor_switch_y                                 : alias of governor_PmPu
 voltageRegulator_UsRefTotal_u1                    : alias of voltageRegulator_deltaUsRefPu
 voltageRegulator_UsRefTotal_u2                    : alias of voltageRegulator_UsRefPu
-voltageRegulator_feedback_u1                      : alias of voltageRegulator_limUsRef_y
-voltageRegulator_feedback_u2                      : alias of voltageRegulator_UsPu
-voltageRegulator_feedback_y                       : alias of voltageRegulator_gain_u
-voltageRegulator_limUsRef_u                       : alias of voltageRegulator_UsRefTotal_y
-voltageRegulator_limiterWithLag_u                 : alias of voltageRegulator_gain_y
-voltageRegulator_limiterWithLag_y                 : alias of voltageRegulator_EfdPu
  ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu                                : y =       1.195266
 generator_IStatorPu                               : y =       0.161673
@@ -82,6 +52,8 @@ generator_QGenPu                                  : y =       0.176200
 generator_QStatorPu                               : y =       0.177246
 generator_QStatorPuQNom                           : y =       0.172842
 generator_UPu                                     : y =       1.089855
+generator_cePu                                    : y =       0.000017
+generator_cmPu                                    : y =       0.000018
 generator_genState                                : y =       2.000000
 generator_iStatorPu_im                            : y =       0.157298
 generator_iStatorPu_re                            : y =       0.037358
@@ -90,8 +62,22 @@ generator_sStatorPu_re                            : y =      -0.000000
 generator_thetaInternal                           : y =      -0.000223
 generator_uPu_im                                  : y =      -0.251831
 generator_uPu_re                                  : y =       1.060361
+generator_uStatorPu_im                            : y =      -0.253326
+generator_uStatorPu_re                            : y =       1.066653
+generator_ufPu                                    : y =       0.000527
+governor_PmPu                                     : y =       0.000018
+governor_feedback_y                               : y =       0.000000
+governor_gain_y                                   : y =       0.000000
 governor_limiter_simplifiedExpr                   : y =       0.000000
+governor_limiter_u                                : y =       0.000018
+governor_limiter_y                                : y =       0.000018
+voltageRegulator_EfdPu                            : y =       1.195266
+voltageRegulator_UsPu                             : y =       1.096322
+voltageRegulator_UsRefTotal_y                     : y =       1.156085
+voltageRegulator_gain_u                           : y =       0.059763
+voltageRegulator_gain_y                           : y =       1.195266
 voltageRegulator_limUsRef_simplifiedExpr          : y =       0.000000
+voltageRegulator_limUsRef_y                       : y =       1.156085
 governor_feedback_u1                              : y =       1.000000
 governor_omegaRefPu_y                             : y =       1.000000
  ====== DISCRETE VARIABLES VALUES ======

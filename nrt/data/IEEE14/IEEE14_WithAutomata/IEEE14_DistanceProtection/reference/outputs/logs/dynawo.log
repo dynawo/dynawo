@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     2.0.0
-INFO | DYNAWO REVISION :  4223_add_running_nodefault-c4645a596d7
+INFO | DYNAWO REVISION :  3874_symb_jac_new-014a887bc4a
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -28,8 +28,8 @@ INFO | number of nonlinear iterations                             = 0
 INFO | number of error test failures                              = 0
 INFO | number of nonlinear convergence failures                   = 0
 INFO | number of solver root functions evaluations                = 0
-INFO | number of internal root functions evaluations              = 3
-INFO | number of discrete variables evaluations                   = 3
+INFO | number of internal root functions evaluations              = 2
+INFO | number of discrete variables evaluations                   = 2
 INFO | number of mode evaluations                                 = 2
 INFO | number of differential mode                                = 0
 INFO | number of algebraic mode                                   = 0
@@ -51,7 +51,7 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver IDASolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 449
+INFO | number of continuous variables : 369
 INFO | number of discrete variables : 253
 INFO | number of root functions : 278
 INFO | -----------------------------------------------------------------------
@@ -73,164 +73,68 @@ INFO |        0.002 ¦       12           2              0.001
 INFO |        0.004 ¦       13           2              0.002 
 INFO |        0.008 ¦       14           2              0.004 
 INFO |        0.016 ¦       15           2              0.008 
-INFO | Algebraic mode change at t = 0.0270473
 INFO |        0.027 ¦       16           2              0.016 
+INFO |        0.027 ¦       16           2              0.016 
+INFO |        0.033 ¦       16           2              0.016 
+INFO | Algebraic mode change at t = 0.0462675
+INFO |        0.046 ¦       17           2              0.033 
 INFO | calculation of the new starting point of the simulation.
-INFO |        0.027 ¦        0           0              0.000 
-INFO |        0.027 ¦        1           1              0.000 
-INFO |        0.027 ¦        2           1              0.000 
-INFO |        0.027 ¦        3           2              0.000 
-INFO |        0.027 ¦        4           2              0.000 
-INFO |        0.027 ¦        5           2              0.000 
-INFO |        0.027 ¦        6           2              0.000 
-INFO |        0.027 ¦        7           2              0.000 
-INFO |        0.027 ¦        8           2              0.000 
-INFO |        0.027 ¦        9           2              0.000 
-INFO |        0.028 ¦       10           2              0.000 
-INFO |        0.028 ¦       11           2              0.001 
-INFO |        0.029 ¦       12           2              0.001 
-INFO |        0.031 ¦       13           2              0.002 
-INFO |        0.031 ¦       13           2              0.002 
-INFO |        0.031 ¦       13           2              0.002 
-INFO |        0.035 ¦       14           2              0.004 
-INFO |        0.043 ¦       15           2              0.008 
-INFO | Algebraic mode change at t = 0.0528381
-INFO |        0.053 ¦       16           2              0.016 
+INFO |        0.046 ¦        0           0              0.000 
+INFO |        0.046 ¦        1           1              0.000 
+INFO |        0.046 ¦        2           1              0.000 
+INFO |        0.046 ¦        3           2              0.000 
+INFO |        0.046 ¦        4           2              0.000 
+INFO |        0.046 ¦        5           2              0.000 
+INFO |        0.046 ¦        6           2              0.000 
+INFO |        0.046 ¦        7           2              0.000 
+INFO |        0.046 ¦        8           2              0.000 
+INFO |        0.047 ¦        9           2              0.000 
+INFO |        0.047 ¦       10           2              0.000 
+INFO |        0.047 ¦       11           2              0.001 
+INFO |        0.048 ¦       12           2              0.001 
+INFO |        0.050 ¦       13           2              0.002 
+INFO |        0.054 ¦       14           2              0.004 
+INFO |        0.063 ¦       15           2              0.008 
+INFO |        0.079 ¦       16           2              0.016 
+INFO |        0.112 ¦       17           2              0.033 
+INFO |        0.177 ¦       18           2              0.066 
+INFO |        0.308 ¦       19           2              0.131 
+INFO |        0.571 ¦       20           2              0.262 
+INFO | Algebraic mode change at t = 1.02519
+INFO |        1.025 ¦       21           1              0.524 
 INFO | calculation of the new starting point of the simulation.
-INFO |        0.053 ¦        0           0              0.000 
-INFO |        0.053 ¦        1           1              0.000 
-INFO |        0.053 ¦        2           1              0.000 
-INFO |        0.053 ¦        3           2              0.000 
-INFO |        0.053 ¦        4           2              0.000 
-INFO |        0.053 ¦        5           2              0.000 
-INFO |        0.053 ¦        6           2              0.000 
-INFO |        0.053 ¦        7           2              0.000 
-INFO |        0.053 ¦        8           2              0.000 
-INFO |        0.053 ¦        9           2              0.000 
-INFO |        0.053 ¦       10           2              0.000 
-INFO |        0.054 ¦       11           2              0.001 
-INFO |        0.055 ¦       12           2              0.001 
-INFO |        0.057 ¦       13           2              0.002 
-INFO |        0.061 ¦       14           2              0.004 
-INFO |        0.069 ¦       15           2              0.008 
-INFO |        0.086 ¦       16           2              0.016 
-INFO |        0.118 ¦       17           2              0.033 
-INFO |        0.184 ¦       18           2              0.066 
-INFO | Algebraic mode change at t = 0.294684
-INFO |        0.295 ¦       19           2              0.131 
-INFO | calculation of the new starting point of the simulation.
-INFO |        0.295 ¦        0           0              0.000 
-INFO |        0.295 ¦        1           1              0.000 
-INFO |        0.295 ¦        2           1              0.000 
-INFO |        0.295 ¦        3           2              0.000 
-INFO |        0.295 ¦        4           2              0.000 
-INFO |        0.295 ¦        5           2              0.000 
-INFO |        0.295 ¦        6           2              0.000 
-INFO |        0.295 ¦        7           2              0.000 
-INFO |        0.295 ¦        8           2              0.000 
-INFO |        0.295 ¦        9           2              0.000 
-INFO |        0.295 ¦       10           2              0.000 
-INFO |        0.296 ¦       11           2              0.001 
-INFO |        0.297 ¦       12           2              0.001 
-INFO |        0.299 ¦       13           2              0.002 
-INFO |        0.303 ¦       14           2              0.004 
-INFO |        0.311 ¦       15           2              0.008 
-INFO |        0.327 ¦       16           2              0.016 
-INFO |        0.348 ¦       17           2              0.033 
-INFO |        0.348 ¦       17           2              0.033 
-INFO |        0.360 ¦       17           2              0.033 
-INFO |        0.426 ¦       18           2              0.066 
-INFO |        0.557 ¦       19           2              0.131 
-INFO | Algebraic mode change at t = 0.793986
-INFO |        0.794 ¦       20           2              0.262 
-INFO | calculation of the new starting point of the simulation.
-INFO |        0.794 ¦        0           0              0.000 
-INFO |        0.794 ¦        1           1              0.000 
-INFO |        0.794 ¦        2           1              0.000 
-INFO |        0.794 ¦        3           2              0.000 
-INFO |        0.794 ¦        4           2              0.000 
-INFO |        0.794 ¦        5           2              0.000 
-INFO |        0.794 ¦        6           2              0.000 
-INFO |        0.794 ¦        7           2              0.000 
-INFO |        0.794 ¦        8           2              0.000 
-INFO |        0.794 ¦        9           2              0.000 
-INFO |        0.794 ¦       10           2              0.000 
-INFO |        0.795 ¦       11           2              0.001 
-INFO |        0.796 ¦       12           2              0.001 
-INFO |        0.798 ¦       13           2              0.002 
-INFO |        0.802 ¦       14           2              0.004 
-INFO |        0.810 ¦       15           2              0.008 
-INFO |        0.827 ¦       16           2              0.016 
-INFO |        0.829 ¦       17           2              0.033 
-INFO |        0.829 ¦       17           2              0.033 
-INFO |        0.835 ¦       17           2              0.033 
-INFO |        0.835 ¦       17           2              0.033 
-INFO |        0.860 ¦       17           2              0.033 
-INFO | Algebraic mode change at t = 0.882339
-INFO |        0.882 ¦       18           2              0.066 
-INFO | calculation of the new starting point of the simulation.
-INFO |        0.882 ¦        0           0              0.000 
-INFO |        0.882 ¦        1           1              0.000 
-INFO |        0.882 ¦        2           1              0.000 
-INFO |        0.882 ¦        3           2              0.000 
-INFO |        0.882 ¦        4           2              0.000 
-INFO |        0.882 ¦        5           2              0.000 
-INFO |        0.882 ¦        6           2              0.000 
-INFO |        0.882 ¦        7           2              0.000 
-INFO |        0.882 ¦        8           2              0.000 
-INFO |        0.883 ¦        9           2              0.000 
-INFO |        0.883 ¦       10           2              0.000 
-INFO |        0.883 ¦       11           2              0.001 
-INFO |        0.884 ¦       12           2              0.001 
-INFO |        0.886 ¦       13           2              0.002 
-INFO |        0.891 ¦       14           2              0.004 
-INFO |        0.899 ¦       15           2              0.008 
-INFO |        0.915 ¦       16           2              0.016 
-INFO |        0.948 ¦       17           2              0.033 
-INFO |        1.013 ¦       18           2              0.066 
-INFO |        1.144 ¦       19           2              0.131 
-INFO |        1.407 ¦       20           2              0.262 
-INFO | Algebraic mode change at t = 1.77349
-INFO |        1.773 ¦       21           1              0.524 
-INFO | calculation of the new starting point of the simulation.
-INFO |        1.773 ¦        0           0              0.000 
-INFO |        1.773 ¦        1           1              0.000 
-INFO |        1.773 ¦        2           1              0.000 
-INFO |        1.773 ¦        3           2              0.000 
-INFO |        1.773 ¦        4           2              0.000 
-INFO |        1.774 ¦        5           2              0.000 
-INFO |        1.774 ¦        6           2              0.000 
-INFO |        1.774 ¦        7           2              0.000 
-INFO |        1.774 ¦        8           2              0.000 
-INFO |        1.774 ¦        9           2              0.000 
-INFO |        1.774 ¦       10           2              0.000 
-INFO |        1.775 ¦       11           2              0.001 
-INFO |        1.776 ¦       12           2              0.001 
-INFO |        1.778 ¦       13           2              0.002 
-INFO |        1.782 ¦       14           2              0.004 
-INFO |        1.790 ¦       15           2              0.008 
-INFO |        1.806 ¦       16           2              0.016 
-INFO |        1.839 ¦       17           2              0.033 
-INFO |        1.905 ¦       18           2              0.066 
-INFO |        1.906 ¦       19           2              0.131 
-INFO |        1.906 ¦       19           2              0.131 
-INFO |        2.036 ¦       19           2              0.131 
-INFO |        2.184 ¦       20           2              0.262 
-INFO |        2.184 ¦       20           2              0.262 
-INFO |        2.298 ¦       20           2              0.262 
-INFO |        2.338 ¦       21           2              0.524 
-INFO |        2.338 ¦       21           2              0.524 
-INFO |        2.758 ¦       21           2              0.524 
-INFO |        2.758 ¦       21           2              0.524 
-INFO |        2.822 ¦       21           2              0.524 
-INFO |        3.871 ¦       22           1              1.049 
+INFO |        1.025 ¦        0           0              0.000 
+INFO |        1.025 ¦        1           1              0.000 
+INFO |        1.025 ¦        2           1              0.000 
+INFO |        1.025 ¦        3           2              0.000 
+INFO |        1.025 ¦        4           2              0.000 
+INFO |        1.025 ¦        5           2              0.000 
+INFO |        1.025 ¦        6           2              0.000 
+INFO |        1.025 ¦        7           2              0.000 
+INFO |        1.025 ¦        8           2              0.000 
+INFO |        1.025 ¦        9           2              0.000 
+INFO |        1.026 ¦       10           2              0.000 
+INFO |        1.026 ¦       11           2              0.001 
+INFO |        1.027 ¦       12           2              0.001 
+INFO |        1.029 ¦       13           2              0.002 
+INFO |        1.033 ¦       14           2              0.004 
+INFO |        1.042 ¦       15           2              0.008 
+INFO |        1.058 ¦       16           2              0.016 
+INFO |        1.085 ¦       17           2              0.033 
+INFO |        1.085 ¦       17           2              0.033 
+INFO |        1.091 ¦       17           2              0.033 
+INFO |        1.156 ¦       18           2              0.066 
+INFO |        1.287 ¦       19           2              0.131 
+INFO |        1.549 ¦       20           2              0.262 
+INFO |        2.074 ¦       21           2              0.524 
+INFO |        2.835 ¦       22           1              1.049 
+INFO |        2.835 ¦       22           1              1.049 
+INFO |        3.122 ¦       22           1              1.049 
 INFO | Algebraic mode (with J recalculation) change at t = 5
 INFO |        5.000 ¦       23           1              2.097 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 5
 INFO |        5.000 ¦        0           0              0.000 
-INFO |        5.000 ¦        1           1              0.000 
-INFO |        5.000 ¦        1           1              0.000 
 INFO |        5.000 ¦        1           1              0.000 
 INFO |        5.000 ¦        2           1              0.000 
 INFO |        5.000 ¦        3           2              0.000 
@@ -238,6 +142,8 @@ INFO |        5.000 ¦        4           2              0.000
 INFO |        5.000 ¦        5           2              0.000 
 INFO |        5.000 ¦        6           2              0.000 
 INFO |        5.000 ¦        7           2              0.000 
+INFO |        5.000 ¦        8           2              0.000 
+INFO |        5.000 ¦        8           2              0.000 
 INFO |        5.000 ¦        8           2              0.000 
 INFO |        5.000 ¦        9           2              0.000 
 INFO |        5.001 ¦       10           2              0.000 
@@ -258,63 +164,51 @@ INFO |        5.131 ¦       24           2              0.016
 INFO |        5.147 ¦       25           2              0.016 
 INFO |        5.164 ¦       26           2              0.016 
 INFO |        5.180 ¦       27           2              0.016 
-INFO |        5.213 ¦       28           2              0.033 
-INFO |        5.219 ¦       29           2              0.033 
-INFO |        5.219 ¦       29           2              0.033 
-INFO | Algebraic mode change at t = 5.2193
-INFO |        5.219 ¦       29           2              0.033 
+INFO |        5.197 ¦       28           2              0.016 
+INFO |        5.218 ¦       29           2              0.033 
+INFO |        5.218 ¦       29           2              0.033 
+INFO | Algebraic mode change at t = 5.21841
+INFO |        5.218 ¦       29           2              0.033 
 INFO | calculation of the new starting point of the simulation.
-INFO |        5.219 ¦        0           0              0.000 
-INFO | Algebraic mode change at t = 5.2193
-INFO |        5.219 ¦        1           1              0.000 
-INFO | calculation of the new starting point of the simulation.
-INFO |        5.219 ¦        0           0              0.000 
-INFO | Algebraic mode change at t = 5.2193
-INFO |        5.219 ¦        1           1              0.000 
-INFO | calculation of the new starting point of the simulation.
-INFO |        5.219 ¦        0           0              0.000 
-INFO | Algebraic mode change at t = 5.2193
-INFO |        5.219 ¦        1           1              0.000 
-INFO | calculation of the new starting point of the simulation.
-INFO |        5.219 ¦        0           0              0.000 
-INFO |        5.219 ¦        1           1              0.000 
-INFO |        5.219 ¦        2           1              0.000 
-INFO |        5.219 ¦        3           2              0.000 
-INFO |        5.219 ¦        4           2              0.000 
-INFO |        5.219 ¦        5           2              0.000 
-INFO |        5.219 ¦        6           2              0.000 
-INFO |        5.219 ¦        7           2              0.000 
+INFO |        5.218 ¦        0           0              0.000 
+INFO |        5.218 ¦        1           1              0.000 
+INFO |        5.218 ¦        2           1              0.000 
+INFO |        5.218 ¦        3           2              0.000 
+INFO |        5.218 ¦        4           2              0.000 
+INFO |        5.218 ¦        5           2              0.000 
+INFO |        5.218 ¦        6           2              0.000 
+INFO |        5.218 ¦        7           2              0.000 
 INFO |        5.219 ¦        8           2              0.000 
-INFO |        5.220 ¦        9           2              0.000 
-INFO |        5.220 ¦       10           2              0.000 
-INFO |        5.220 ¦       11           2              0.001 
-INFO |        5.221 ¦       12           2              0.001 
+INFO |        5.219 ¦        9           2              0.000 
+INFO |        5.219 ¦       10           2              0.000 
+INFO |        5.219 ¦       11           2              0.001 
+INFO |        5.220 ¦       12           2              0.001 
 INFO |        5.223 ¦       13           2              0.002 
 INFO |        5.227 ¦       14           2              0.004 
-INFO |        5.236 ¦       15           2              0.008 
-INFO |        5.252 ¦       16           2              0.016 
-INFO |        5.285 ¦       17           2              0.033 
-INFO |        5.318 ¦       18           2              0.033 
-INFO |        5.350 ¦       19           2              0.033 
-INFO |        5.368 ¦       20           2              0.033 
-INFO |        5.368 ¦       20           2              0.033 
-INFO | Algebraic mode change at t = 5.36758
-INFO |        5.368 ¦       20           2              0.033 
+INFO |        5.235 ¦       15           2              0.008 
+INFO |        5.251 ¦       16           2              0.016 
+INFO |        5.284 ¦       17           2              0.033 
+INFO |        5.317 ¦       18           2              0.033 
+INFO |        5.349 ¦       19           2              0.033 
+INFO |        5.367 ¦       20           2              0.033 
+INFO |        5.367 ¦       20           2              0.033 
+INFO | Algebraic mode change at t = 5.36736
+INFO |        5.367 ¦       20           2              0.033 
 INFO | calculation of the new starting point of the simulation.
-INFO |        5.368 ¦        0           0              0.000 
-INFO |        5.368 ¦        1           1              0.000 
-INFO |        5.368 ¦        2           1              0.000 
-INFO |        5.368 ¦        3           2              0.000 
-INFO |        5.368 ¦        4           2              0.000 
-INFO |        5.368 ¦        5           2              0.000 
-INFO |        5.368 ¦        6           2              0.000 
-INFO |        5.368 ¦        7           2              0.000 
-INFO |        5.368 ¦        8           2              0.000 
+INFO |        5.367 ¦        0           0              0.000 
+INFO |        5.367 ¦        1           1              0.000 
+INFO |        5.367 ¦        2           1              0.000 
+INFO |        5.367 ¦        3           2              0.000 
+INFO |        5.367 ¦        4           2              0.000 
+INFO |        5.367 ¦        5           2              0.000 
+INFO |        5.367 ¦        6           2              0.000 
+INFO |        5.367 ¦        7           2              0.000 
+INFO |        5.367 ¦        8           2              0.000 
 INFO |        5.368 ¦        9           2              0.000 
 INFO |        5.368 ¦       10           2              0.000 
-INFO |        5.369 ¦       11           2              0.001 
-INFO |        5.370 ¦       12           2              0.001 
-INFO |        5.372 ¦       13           2              0.002 
+INFO |        5.368 ¦       11           2              0.001 
+INFO |        5.369 ¦       12           2              0.001 
+INFO |        5.371 ¦       13           2              0.002 
 INFO |        5.376 ¦       14           2              0.004 
 INFO | state of Line _BUS____7-BUS____8-1_AC change from 2 to 4
 INFO | switch Off bus : _BUS____8_TN
@@ -371,256 +265,296 @@ INFO |        5.631 ¦       19           2              0.033
 INFO |        5.664 ¦       20           2              0.033 
 INFO |        5.697 ¦       21           2              0.033 
 INFO |        5.729 ¦       22           2              0.033 
-INFO | Algebraic mode change at t = 5.75222
-INFO |        5.752 ¦       23           2              0.066 
+INFO | Algebraic mode change at t = 5.75107
+INFO |        5.751 ¦       23           2              0.033 
 INFO | calculation of the new starting point of the simulation.
-INFO |        5.752 ¦        0           0              0.000 
-INFO |        5.752 ¦        1           1              0.000 
-INFO |        5.752 ¦        2           1              0.000 
-INFO |        5.752 ¦        3           2              0.000 
-INFO |        5.752 ¦        4           2              0.000 
-INFO |        5.752 ¦        5           2              0.000 
-INFO |        5.752 ¦        5           2              0.000 
-INFO |        5.752 ¦        5           2              0.000 
-INFO |        5.752 ¦        6           2              0.000 
-INFO |        5.752 ¦        7           2              0.000 
-INFO |        5.752 ¦        8           2              0.000 
-INFO |        5.752 ¦        9           2              0.000 
-INFO |        5.753 ¦       10           2              0.000 
-INFO |        5.753 ¦       11           2              0.001 
-INFO |        5.754 ¦       12           2              0.001 
-INFO |        5.756 ¦       13           2              0.002 
-INFO |        5.760 ¦       14           2              0.004 
-INFO |        5.769 ¦       15           2              0.008 
-INFO |        5.785 ¦       16           2              0.016 
-INFO |        5.818 ¦       17           2              0.033 
-INFO |        5.851 ¦       18           2              0.033 
-INFO |        5.883 ¦       19           2              0.033 
-INFO |        5.916 ¦       20           2              0.033 
-INFO |        5.949 ¦       21           2              0.033 
-INFO |        5.982 ¦       22           2              0.033 
-INFO |        6.014 ¦       23           2              0.033 
-INFO |        6.047 ¦       24           2              0.033 
-INFO |        6.080 ¦       25           2              0.033 
-INFO |        6.088 ¦       26           2              0.066 
-INFO |        6.088 ¦       26           2              0.066 
-INFO | Algebraic mode change at t = 6.0881
-INFO |        6.088 ¦       26           2              0.066 
+INFO |        5.751 ¦        0           0              0.000 
+INFO |        5.751 ¦        1           1              0.000 
+INFO |        5.751 ¦        2           1              0.000 
+INFO |        5.751 ¦        3           2              0.000 
+INFO |        5.751 ¦        4           2              0.000 
+INFO |        5.751 ¦        5           2              0.000 
+INFO |        5.751 ¦        5           2              0.000 
+INFO |        5.751 ¦        5           2              0.000 
+INFO |        5.751 ¦        6           2              0.000 
+INFO |        5.751 ¦        7           2              0.000 
+INFO |        5.751 ¦        8           2              0.000 
+INFO |        5.751 ¦        9           2              0.000 
+INFO |        5.752 ¦       10           2              0.000 
+INFO |        5.752 ¦       11           2              0.001 
+INFO |        5.753 ¦       12           2              0.001 
+INFO |        5.755 ¦       13           2              0.002 
+INFO |        5.759 ¦       14           2              0.004 
+INFO |        5.767 ¦       15           2              0.008 
+INFO |        5.784 ¦       16           2              0.016 
+INFO |        5.817 ¦       17           2              0.033 
+INFO |        5.849 ¦       18           2              0.033 
+INFO |        5.882 ¦       19           2              0.033 
+INFO |        5.915 ¦       20           2              0.033 
+INFO |        5.948 ¦       21           2              0.033 
+INFO |        5.980 ¦       22           2              0.033 
+INFO |        6.013 ¦       23           2              0.033 
+INFO |        6.046 ¦       24           2              0.033 
+INFO |        6.079 ¦       25           2              0.033 
+INFO |        6.087 ¦       26           2              0.066 
+INFO |        6.087 ¦       26           2              0.066 
+INFO | Algebraic mode change at t = 6.08682
+INFO |        6.087 ¦       26           2              0.066 
 INFO | calculation of the new starting point of the simulation.
-INFO |        6.088 ¦        0           0              0.000 
-INFO |        6.088 ¦        1           1              0.000 
-INFO |        6.088 ¦        2           1              0.000 
-INFO |        6.088 ¦        3           2              0.000 
-INFO |        6.088 ¦        4           2              0.000 
-INFO |        6.088 ¦        5           2              0.000 
-INFO |        6.088 ¦        6           2              0.000 
-INFO |        6.088 ¦        7           2              0.000 
-INFO |        6.088 ¦        8           2              0.000 
-INFO |        6.088 ¦        9           2              0.000 
-INFO |        6.089 ¦       10           2              0.000 
-INFO |        6.089 ¦       11           2              0.001 
-INFO |        6.090 ¦       12           2              0.001 
-INFO |        6.092 ¦       13           2              0.002 
-INFO |        6.096 ¦       14           2              0.004 
-INFO |        6.104 ¦       15           2              0.008 
-INFO |        6.121 ¦       16           2              0.016 
-INFO |        6.154 ¦       17           2              0.033 
-INFO |        6.219 ¦       18           2              0.066 
-INFO |        6.278 ¦       19           2              0.059 
-INFO |        6.337 ¦       20           2              0.059 
-INFO |        6.396 ¦       21           1              0.059 
-INFO |        6.438 ¦       22           1              0.042 
-INFO |        6.476 ¦       23           1              0.038 
-INFO |        6.514 ¦       24           1              0.038 
-INFO | Algebraic mode change at t = 6.5208
-INFO |        6.521 ¦       25           1              0.038 
+INFO |        6.087 ¦        0           0              0.000 
+INFO |        6.087 ¦        1           1              0.000 
+INFO |        6.087 ¦        2           1              0.000 
+INFO |        6.087 ¦        3           2              0.000 
+INFO |        6.087 ¦        4           2              0.000 
+INFO |        6.087 ¦        5           2              0.000 
+INFO |        6.087 ¦        6           2              0.000 
+INFO |        6.087 ¦        7           2              0.000 
+INFO |        6.087 ¦        8           2              0.000 
+INFO |        6.087 ¦        9           2              0.000 
+INFO |        6.087 ¦       10           2              0.000 
+INFO |        6.088 ¦       11           2              0.001 
+INFO |        6.089 ¦       12           2              0.001 
+INFO |        6.091 ¦       13           2              0.002 
+INFO |        6.095 ¦       14           2              0.004 
+INFO |        6.103 ¦       15           2              0.008 
+INFO |        6.120 ¦       16           2              0.016 
+INFO |        6.152 ¦       17           2              0.033 
+INFO |        6.218 ¦       18           2              0.066 
+INFO |        6.277 ¦       19           2              0.059 
+INFO |        6.336 ¦       20           2              0.059 
+INFO |        6.372 ¦       21           1              0.036 
+INFO |        6.408 ¦       22           1              0.036 
+INFO |        6.444 ¦       23           1              0.036 
+INFO | Algebraic mode change at t = 6.51065
+INFO |        6.511 ¦       24           2              0.072 
 INFO | calculation of the new starting point of the simulation.
-INFO |        6.521 ¦        0           0              0.000 
-INFO |        6.521 ¦        1           1              0.000 
-INFO |        6.521 ¦        2           1              0.000 
-INFO |        6.521 ¦        3           2              0.000 
-INFO |        6.521 ¦        4           2              0.000 
-INFO |        6.521 ¦        5           2              0.000 
-INFO |        6.521 ¦        6           2              0.000 
-INFO |        6.521 ¦        6           2              0.000 
-INFO |        6.521 ¦        6           2              0.000 
-INFO |        6.521 ¦        7           2              0.000 
-INFO |        6.521 ¦        8           2              0.000 
-INFO |        6.521 ¦        9           2              0.000 
-INFO |        6.521 ¦       10           2              0.000 
-INFO |        6.522 ¦       11           2              0.001 
-INFO |        6.523 ¦       12           2              0.001 
-INFO |        6.525 ¦       13           2              0.002 
-INFO |        6.529 ¦       14           2              0.004 
-INFO |        6.537 ¦       15           2              0.008 
-INFO |        6.554 ¦       16           2              0.016 
-INFO |        6.586 ¦       17           2              0.033 
-INFO |        6.652 ¦       18           2              0.066 
-INFO |        6.717 ¦       19           2              0.066 
-INFO |        6.783 ¦       20           1              0.066 
-INFO |        6.824 ¦       21           1              0.055 
-INFO |        6.824 ¦       21           1              0.055 
-INFO | Algebraic mode change at t = 6.82448
-INFO |        6.824 ¦       21           1              0.055 
+INFO |        6.511 ¦        0           0              0.000 
+INFO |        6.511 ¦        1           1              0.000 
+INFO |        6.511 ¦        2           1              0.000 
+INFO |        6.511 ¦        3           2              0.000 
+INFO |        6.511 ¦        4           2              0.000 
+INFO |        6.511 ¦        5           2              0.000 
+INFO |        6.511 ¦        5           2              0.000 
+INFO |        6.511 ¦        5           2              0.000 
+INFO |        6.511 ¦        6           2              0.000 
+INFO |        6.511 ¦        7           2              0.000 
+INFO |        6.511 ¦        8           2              0.000 
+INFO |        6.511 ¦        9           2              0.000 
+INFO |        6.511 ¦       10           2              0.000 
+INFO |        6.512 ¦       11           2              0.001 
+INFO |        6.513 ¦       12           2              0.001 
+INFO |        6.515 ¦       13           2              0.002 
+INFO |        6.519 ¦       14           2              0.004 
+INFO |        6.527 ¦       15           2              0.008 
+INFO |        6.543 ¦       16           2              0.016 
+INFO | Algebraic mode change at t = 6.57376
+INFO |        6.574 ¦       17           2              0.033 
 INFO | calculation of the new starting point of the simulation.
-INFO |        6.824 ¦        0           0              0.000 
-INFO |        6.824 ¦        1           1              0.000 
-INFO |        6.824 ¦        2           1              0.000 
-INFO |        6.824 ¦        3           2              0.000 
-INFO |        6.824 ¦        4           2              0.000 
-INFO |        6.825 ¦        5           2              0.000 
-INFO |        6.825 ¦        6           2              0.000 
-INFO |        6.825 ¦        7           2              0.000 
-INFO |        6.825 ¦        8           2              0.000 
-INFO |        6.825 ¦        9           2              0.000 
-INFO |        6.825 ¦       10           2              0.000 
-INFO |        6.826 ¦       11           2              0.001 
-INFO |        6.827 ¦       12           2              0.001 
-INFO |        6.829 ¦       13           2              0.002 
-INFO |        6.833 ¦       14           2              0.004 
-INFO |        6.841 ¦       15           2              0.008 
-INFO |        6.857 ¦       16           2              0.016 
-INFO |        6.890 ¦       17           2              0.033 
-INFO |        6.956 ¦       18           2              0.066 
-INFO |        7.021 ¦       19           2              0.066 
-INFO |        7.087 ¦       20           2              0.066 
-INFO |        7.152 ¦       21           2              0.066 
-INFO |        7.218 ¦       22           2              0.066 
-INFO |        7.283 ¦       23           2              0.066 
-INFO | Algebraic mode change at t = 7.29993
-INFO |        7.300 ¦       24           2              0.066 
+INFO |        6.574 ¦        0           0              0.000 
+INFO |        6.574 ¦        1           1              0.000 
+INFO |        6.574 ¦        2           1              0.000 
+INFO |        6.574 ¦        3           2              0.000 
+INFO |        6.574 ¦        4           2              0.000 
+INFO |        6.574 ¦        5           2              0.000 
+INFO |        6.574 ¦        6           2              0.000 
+INFO |        6.574 ¦        7           2              0.000 
+INFO |        6.574 ¦        8           2              0.000 
+INFO |        6.574 ¦        9           2              0.000 
+INFO |        6.574 ¦       10           2              0.000 
+INFO |        6.574 ¦       11           2              0.001 
+INFO |        6.574 ¦       11           2              0.001 
+INFO |        6.575 ¦       11           2              0.001 
+INFO |        6.576 ¦       12           2              0.001 
+INFO |        6.578 ¦       13           2              0.002 
+INFO |        6.582 ¦       14           2              0.004 
+INFO |        6.590 ¦       15           2              0.008 
+INFO |        6.607 ¦       16           2              0.016 
+INFO |        6.639 ¦       17           2              0.033 
+INFO |        6.672 ¦       18           2              0.033 
+INFO |        6.690 ¦       19           2              0.066 
+INFO |        6.690 ¦       19           2              0.066 
+INFO | Algebraic mode change at t = 6.69069
+INFO |        6.691 ¦       19           2              0.066 
 INFO | calculation of the new starting point of the simulation.
-INFO |        7.300 ¦        0           0              0.000 
-INFO |        7.300 ¦        1           1              0.000 
-INFO |        7.300 ¦        2           1              0.000 
-INFO |        7.300 ¦        3           2              0.000 
-INFO |        7.300 ¦        4           2              0.000 
-INFO |        7.300 ¦        5           2              0.000 
-INFO |        7.300 ¦        6           2              0.000 
-INFO |        7.300 ¦        7           2              0.000 
-INFO |        7.300 ¦        7           2              0.000 
-INFO |        7.300 ¦        7           2              0.000 
-INFO |        7.300 ¦        8           2              0.000 
-INFO |        7.300 ¦        9           2              0.000 
-INFO |        7.300 ¦       10           2              0.000 
-INFO |        7.301 ¦       11           2              0.001 
-INFO |        7.302 ¦       12           2              0.001 
-INFO |        7.304 ¦       13           2              0.002 
-INFO |        7.308 ¦       14           2              0.004 
-INFO |        7.316 ¦       15           2              0.008 
-INFO |        7.333 ¦       16           2              0.016 
-INFO |        7.365 ¦       17           2              0.033 
-INFO |        7.431 ¦       18           2              0.066 
-INFO |        7.497 ¦       19           2              0.066 
-INFO |        7.552 ¦       20           1              0.056 
-INFO |        7.587 ¦       21           1              0.056 
-INFO |        7.587 ¦       21           1              0.056 
-INFO | Algebraic mode change at t = 7.58704
-INFO |        7.587 ¦       21           1              0.056 
+INFO |        6.691 ¦        0           0              0.000 
+INFO |        6.691 ¦        1           1              0.000 
+INFO |        6.691 ¦        2           1              0.000 
+INFO |        6.691 ¦        3           2              0.000 
+INFO |        6.691 ¦        4           2              0.000 
+INFO |        6.691 ¦        5           2              0.000 
+INFO |        6.691 ¦        6           2              0.000 
+INFO |        6.691 ¦        7           2              0.000 
+INFO |        6.691 ¦        8           2              0.000 
+INFO |        6.691 ¦        9           2              0.000 
+INFO |        6.691 ¦       10           2              0.000 
+INFO |        6.692 ¦       11           2              0.001 
+INFO |        6.693 ¦       12           2              0.001 
+INFO |        6.695 ¦       13           2              0.002 
+INFO |        6.699 ¦       14           2              0.004 
+INFO |        6.707 ¦       15           2              0.008 
+INFO |        6.723 ¦       16           2              0.016 
+INFO |        6.756 ¦       17           2              0.033 
+INFO |        6.789 ¦       18           2              0.033 
+INFO |        6.817 ¦       19           2              0.066 
+INFO |        6.817 ¦       19           2              0.066 
+INFO | Algebraic mode change at t = 6.81683
+INFO |        6.817 ¦       19           2              0.066 
 INFO | calculation of the new starting point of the simulation.
-INFO |        7.587 ¦        0           0              0.000 
-INFO |        7.587 ¦        1           1              0.000 
-INFO |        7.587 ¦        2           1              0.000 
-INFO |        7.587 ¦        3           2              0.000 
-INFO |        7.587 ¦        4           2              0.000 
-INFO |        7.587 ¦        5           2              0.000 
-INFO |        7.587 ¦        6           2              0.000 
-INFO |        7.587 ¦        7           2              0.000 
-INFO |        7.587 ¦        8           2              0.000 
-INFO |        7.587 ¦        9           2              0.000 
-INFO |        7.588 ¦       10           2              0.000 
-INFO |        7.588 ¦       11           2              0.001 
-INFO |        7.589 ¦       12           2              0.001 
-INFO |        7.591 ¦       13           2              0.002 
-INFO |        7.595 ¦       14           2              0.004 
-INFO |        7.603 ¦       15           2              0.008 
-INFO |        7.620 ¦       16           2              0.016 
-INFO |        7.653 ¦       17           2              0.033 
-INFO |        7.718 ¦       18           2              0.066 
-INFO |        7.784 ¦       19           2              0.066 
-INFO |        7.849 ¦       20           2              0.066 
-INFO |        7.915 ¦       21           2              0.066 
-INFO |        7.980 ¦       22           2              0.066 
-INFO |        8.046 ¦       23           2              0.066 
-INFO |        8.111 ¦       24           2              0.066 
-INFO | Algebraic mode change at t = 8.17459
-INFO |        8.175 ¦       25           2              0.131 
+INFO |        6.817 ¦        0           0              0.000 
+INFO |        6.817 ¦        1           1              0.000 
+INFO |        6.817 ¦        2           1              0.000 
+INFO |        6.817 ¦        3           2              0.000 
+INFO |        6.817 ¦        4           2              0.000 
+INFO |        6.817 ¦        5           2              0.000 
+INFO |        6.817 ¦        6           2              0.000 
+INFO |        6.817 ¦        7           2              0.000 
+INFO |        6.817 ¦        8           2              0.000 
+INFO |        6.817 ¦        9           2              0.000 
+INFO |        6.817 ¦       10           2              0.000 
+INFO |        6.818 ¦       11           2              0.001 
+INFO |        6.819 ¦       12           2              0.001 
+INFO |        6.821 ¦       13           2              0.002 
+INFO |        6.825 ¦       14           2              0.004 
+INFO |        6.833 ¦       15           2              0.008 
+INFO |        6.850 ¦       16           2              0.016 
+INFO |        6.882 ¦       17           2              0.033 
+INFO |        6.948 ¦       18           2              0.066 
+INFO |        7.013 ¦       19           2              0.066 
+INFO |        7.079 ¦       20           2              0.066 
+INFO |        7.145 ¦       21           2              0.066 
+INFO |        7.210 ¦       22           2              0.066 
+INFO | Algebraic mode change at t = 7.26476
+INFO |        7.265 ¦       23           2              0.066 
 INFO | calculation of the new starting point of the simulation.
-INFO |        8.175 ¦        0           0              0.000 
-INFO |        8.175 ¦        1           1              0.000 
-INFO |        8.175 ¦        2           1              0.000 
-INFO |        8.175 ¦        3           2              0.000 
-INFO |        8.175 ¦        4           2              0.000 
-INFO |        8.175 ¦        5           2              0.000 
-INFO |        8.175 ¦        6           2              0.000 
-INFO |        8.175 ¦        7           2              0.000 
-INFO |        8.175 ¦        8           2              0.000 
-INFO |        8.175 ¦        8           2              0.000 
-INFO |        8.175 ¦        8           2              0.000 
-INFO |        8.175 ¦        9           2              0.000 
-INFO |        8.175 ¦       10           2              0.000 
-INFO |        8.176 ¦       11           2              0.001 
-INFO |        8.177 ¦       12           2              0.001 
-INFO |        8.179 ¦       13           2              0.002 
-INFO |        8.183 ¦       14           2              0.004 
-INFO |        8.191 ¦       15           2              0.008 
-INFO |        8.207 ¦       16           2              0.016 
-INFO |        8.240 ¦       17           2              0.033 
-INFO |        8.303 ¦       18           2              0.066 
-INFO |        8.303 ¦       18           2              0.066 
-INFO | Algebraic mode change at t = 8.30343
-INFO |        8.303 ¦       18           2              0.066 
+INFO |        7.265 ¦        0           0              0.000 
+INFO |        7.265 ¦        1           1              0.000 
+INFO |        7.265 ¦        2           1              0.000 
+INFO |        7.265 ¦        3           2              0.000 
+INFO |        7.265 ¦        4           2              0.000 
+INFO |        7.265 ¦        5           2              0.000 
+INFO |        7.265 ¦        6           2              0.000 
+INFO |        7.265 ¦        6           2              0.000 
+INFO |        7.265 ¦        6           2              0.000 
+INFO |        7.265 ¦        7           2              0.000 
+INFO |        7.265 ¦        8           2              0.000 
+INFO |        7.265 ¦        9           2              0.000 
+INFO |        7.265 ¦       10           2              0.000 
+INFO |        7.266 ¦       11           2              0.001 
+INFO |        7.267 ¦       12           2              0.001 
+INFO |        7.269 ¦       13           2              0.002 
+INFO |        7.273 ¦       14           2              0.004 
+INFO |        7.281 ¦       15           2              0.008 
+INFO |        7.298 ¦       16           2              0.016 
+INFO |        7.330 ¦       17           2              0.033 
+INFO |        7.396 ¦       18           2              0.066 
+INFO |        7.461 ¦       19           2              0.066 
+INFO |        7.527 ¦       20           1              0.066 
+INFO |        7.582 ¦       21           1              0.059 
+INFO |        7.582 ¦       21           1              0.059 
+INFO | Algebraic mode change at t = 7.58248
+INFO |        7.582 ¦       21           1              0.059 
 INFO | calculation of the new starting point of the simulation.
-INFO |        8.303 ¦        0           0              0.000 
-INFO |        8.303 ¦        1           1              0.000 
-INFO |        8.303 ¦        2           1              0.000 
-INFO |        8.303 ¦        3           2              0.000 
-INFO |        8.303 ¦        4           2              0.000 
-INFO |        8.303 ¦        5           2              0.000 
-INFO |        8.303 ¦        6           2              0.000 
-INFO |        8.303 ¦        7           2              0.000 
-INFO |        8.304 ¦        8           2              0.000 
-INFO |        8.304 ¦        9           2              0.000 
-INFO |        8.304 ¦       10           2              0.000 
-INFO |        8.304 ¦       11           2              0.001 
-INFO |        8.305 ¦       12           2              0.001 
-INFO |        8.308 ¦       13           2              0.002 
-INFO |        8.312 ¦       14           2              0.004 
-INFO |        8.320 ¦       15           2              0.008 
-INFO |        8.336 ¦       16           2              0.016 
-INFO |        8.369 ¦       17           2              0.033 
-INFO |        8.435 ¦       18           2              0.066 
-INFO |        8.566 ¦       19           2              0.131 
-INFO |        8.697 ¦       20           2              0.131 
-INFO |        8.828 ¦       21           2              0.131 
-INFO |        8.946 ¦       22           2              0.118 
-INFO |        9.064 ¦       23           2              0.118 
-INFO |        9.182 ¦       24           2              0.118 
-INFO |        9.300 ¦       25           1              0.118 
-INFO |        9.418 ¦       26           1              0.118 
-INFO |        9.536 ¦       27           1              0.118 
-INFO |        9.653 ¦       28           1              0.118 
-INFO |        9.771 ¦       29           1              0.118 
-INFO |        9.889 ¦       30           1              0.118 
-INFO |       10.000 ¦       31           1              0.111 
+INFO |        7.582 ¦        0           0              0.000 
+INFO |        7.582 ¦        1           1              0.000 
+INFO |        7.582 ¦        2           1              0.000 
+INFO |        7.582 ¦        3           2              0.000 
+INFO |        7.582 ¦        4           2              0.000 
+INFO |        7.582 ¦        5           2              0.000 
+INFO |        7.583 ¦        6           2              0.000 
+INFO |        7.583 ¦        7           2              0.000 
+INFO |        7.583 ¦        8           2              0.000 
+INFO |        7.583 ¦        9           2              0.000 
+INFO |        7.583 ¦       10           2              0.000 
+INFO |        7.584 ¦       11           2              0.001 
+INFO |        7.585 ¦       12           2              0.001 
+INFO |        7.587 ¦       13           2              0.002 
+INFO |        7.591 ¦       14           2              0.004 
+INFO |        7.599 ¦       15           2              0.008 
+INFO |        7.615 ¦       16           2              0.016 
+INFO |        7.648 ¦       17           2              0.033 
+INFO |        7.714 ¦       18           2              0.066 
+INFO |        7.779 ¦       19           2              0.066 
+INFO |        7.845 ¦       20           2              0.066 
+INFO |        7.910 ¦       21           2              0.066 
+INFO |        7.976 ¦       22           2              0.066 
+INFO |        8.041 ¦       23           2              0.066 
+INFO | Algebraic mode change at t = 8.10119
+INFO |        8.101 ¦       24           2              0.066 
+INFO | calculation of the new starting point of the simulation.
+INFO |        8.101 ¦        0           0              0.000 
+INFO |        8.101 ¦        1           1              0.000 
+INFO |        8.101 ¦        2           1              0.000 
+INFO |        8.101 ¦        3           2              0.000 
+INFO |        8.101 ¦        4           2              0.000 
+INFO |        8.101 ¦        5           2              0.000 
+INFO |        8.101 ¦        6           2              0.000 
+INFO |        8.101 ¦        7           2              0.000 
+INFO |        8.101 ¦        7           2              0.000 
+INFO |        8.101 ¦        7           2              0.000 
+INFO |        8.101 ¦        8           2              0.000 
+INFO |        8.101 ¦        9           2              0.000 
+INFO |        8.102 ¦       10           2              0.000 
+INFO |        8.102 ¦       11           2              0.001 
+INFO |        8.103 ¦       12           2              0.001 
+INFO |        8.105 ¦       13           2              0.002 
+INFO |        8.109 ¦       14           2              0.004 
+INFO |        8.118 ¦       15           2              0.008 
+INFO |        8.134 ¦       16           2              0.016 
+INFO |        8.167 ¦       17           2              0.033 
+INFO |        8.232 ¦       18           2              0.066 
+INFO |        8.297 ¦       19           1              0.065 
+INFO |        8.297 ¦       19           1              0.065 
+INFO | Algebraic mode change at t = 8.29718
+INFO |        8.297 ¦       19           1              0.065 
+INFO | calculation of the new starting point of the simulation.
+INFO |        8.297 ¦        0           0              0.000 
+INFO |        8.297 ¦        1           1              0.000 
+INFO |        8.297 ¦        2           1              0.000 
+INFO |        8.297 ¦        3           2              0.000 
+INFO |        8.297 ¦        4           2              0.000 
+INFO |        8.297 ¦        5           2              0.000 
+INFO |        8.297 ¦        6           2              0.000 
+INFO |        8.297 ¦        7           2              0.000 
+INFO |        8.297 ¦        8           2              0.000 
+INFO |        8.297 ¦        9           2              0.000 
+INFO |        8.298 ¦       10           2              0.000 
+INFO |        8.298 ¦       11           2              0.001 
+INFO |        8.299 ¦       12           2              0.001 
+INFO |        8.301 ¦       13           2              0.002 
+INFO |        8.305 ¦       14           2              0.004 
+INFO |        8.314 ¦       15           2              0.008 
+INFO |        8.330 ¦       16           2              0.016 
+INFO |        8.363 ¦       17           2              0.033 
+INFO |        8.428 ¦       18           2              0.066 
+INFO |        8.559 ¦       19           2              0.131 
+INFO |        8.674 ¦       20           2              0.115 
+INFO |        8.789 ¦       21           2              0.115 
+INFO |        8.892 ¦       22           2              0.103 
+INFO |        8.995 ¦       23           2              0.103 
+INFO |        9.181 ¦       24           1              0.186 
+INFO |        9.366 ¦       25           1              0.186 
+INFO |        9.508 ¦       26           1              0.142 
+INFO |        9.650 ¦       27           1              0.142 
+INFO |        9.792 ¦       28           1              0.142 
+INFO |       10.000 ¦       29           1              0.208 
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                                  = 437
-INFO | number of residual evaluations                             = 517
-INFO | number of Jacobian evaluations                             = 327
-INFO | number of nonlinear iterations                             = 517
-INFO | number of error test failures                              = 1
+INFO | number of time iterations                                  = 392
+INFO | number of residual evaluations                             = 480
+INFO | number of Jacobian evaluations                             = 290
+INFO | number of nonlinear iterations                             = 480
+INFO | number of error test failures                              = 3
 INFO | number of nonlinear convergence failures                   = 0
-INFO | number of solver root functions evaluations                = 2278
-INFO | number of internal root functions evaluations              = 110
-INFO | number of discrete variables evaluations                   = 105
-INFO | number of mode evaluations                                 = 79
+INFO | number of solver root functions evaluations                = 1920
+INFO | number of internal root functions evaluations              = 91
+INFO | number of discrete variables evaluations                   = 89
+INFO | number of mode evaluations                                 = 66
 INFO | number of differential mode                                = 0
 INFO | number of algebraic mode                                   = 0
 INFO | number of algebraic J update mode                          = 0
-INFO | number of algebraic restoration residual evaluations       = 43
-INFO | number of algebraic restoration Jacobian evaluations       = 13
+INFO | number of algebraic restoration residual evaluations       = 31
+INFO | number of algebraic restoration Jacobian evaluations       = 9
 INFO | number of algebraic prim restoration residual evaluations  = 43
-INFO | number of algebraic prim restoration Jacobian evaluations  = 7
+INFO | number of algebraic prim restoration Jacobian evaluations  = 6
 INFO | end of job 'IEEE14 - Distance protection'

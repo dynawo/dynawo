@@ -1,0 +1,5 @@
+ ====== VARIABLES VALUES ======
+connector_LOADVAR_LOAD3_Q_step_step               : y =       0.064395 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
+ ====== INTERNAL PARAMETERS VALUES ======

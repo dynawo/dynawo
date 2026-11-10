@@ -1,10 +1,10 @@
  ====== VARIABLES VALUES ======
 transformer_terminal1_V_im                        : y =  -0.0338061000 yp =   0.0000000000
 transformer_terminal1_V_re                        : y =   0.9848308295 yp =   0.0000000000
-transformer_terminal2_V_im                        : y =  -0.0002462152 yp =   0.0000000000
-transformer_terminal2_V_re                        : y =   1.0007594225 yp =   0.0000000000
 transformer_terminal1_i_im                        : y =   0.0177337719 yp =   0.0000000000
 transformer_terminal1_i_re                        : y =  -0.0706544356 yp =   0.0000000000
+transformer_terminal2_V_im                        : y =  -0.0002462152 yp =   0.0000000000
+transformer_terminal2_V_re                        : y =   1.0007594225 yp =   0.0000000000
 transformer_terminal2_i_im                        : y =  -0.0177242616 yp =   0.0000000000
 transformer_terminal2_i_re                        : y =   0.0706646220 yp =   0.0000000000
  ====== CALCULATED VARIABLES VALUES ======

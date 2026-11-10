@@ -1,0 +1,8 @@
+ ====== VARIABLES VALUES ======
+ ====== CALCULATED VARIABLES VALUES ======
+step_step                                         : y =       0.903000
+ ====== DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
+step_Height                                        =       0.020000
+step_Value0                                        =       0.903000
+step_tStep                                         =       1.000000

@@ -1,14 +1,14 @@
  ====== VARIABLES VALUES ======
+load_zPRaw                                        : y =       0.893241 yp =      -0.000075
+load_zQRaw                                        : y =       0.795193 yp =      -0.000113
+load_PPu                                          : y =       0.528642 yp =       0.000000
 load_PRefPu                                       : y =       0.525088 yp =       0.000000
+load_QPu                                          : y =       0.167119 yp =       0.000000
 load_QRefPu                                       : y =       0.165436 yp =       0.000000
 load_deltaP                                       : y =       0.000000 yp =       0.000000
 load_deltaQ                                       : y =       0.000000 yp =       0.000000
 load_terminal_V_im                                : y =       0.360138 yp =       0.000000
 load_terminal_V_re                                : y =       1.495162 yp =       0.000000
-load_zPRaw                                        : y =       0.893241 yp =      -0.000075
-load_zQRaw                                        : y =       0.795193 yp =      -0.000113
-load_PPu                                          : y =       0.528642 yp =       0.000000
-load_QPu                                          : y =       0.167119 yp =       0.000000
 load_terminal_i_im                                : y =      -0.025148 yp =       0.000000
 load_terminal_i_re                                : y =       0.359628 yp =       0.000000
 load_zP                                           : y =       0.893241 yp =       0.000000

@@ -1,0 +1,5 @@
+ ====== VARIABLES VALUES ======
+connector_PLoad_step_step                         : y =       0.300000 yp =       0.000000
+ ====== DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
+ ====== INTERNAL PARAMETERS VALUES ======

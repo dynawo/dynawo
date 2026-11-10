@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
-INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  3763_ida_refactor_1-63edcefdb0e
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :  3874_symb_jac_new-014a887bc4a
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -18,7 +18,26 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting global initialization
 INFO | -----------------------------------------------------------------------
-INFO | Algebraic mode change at t = 0
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 0
+INFO | number of residual evaluations                             = 3
+INFO | number of Jacobian evaluations                             = 2
+INFO | number of nonlinear iterations                             = 1
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 2
+INFO | number of discrete variables evaluations                   = 2
+INFO | number of mode evaluations                                 = 2
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 2
+INFO | number of algebraic restoration Jacobian evaluations       = 1
+INFO | number of algebraic prim restoration residual evaluations  = 2
+INFO | number of algebraic prim restoration Jacobian evaluations  = 1
 INFO | end of global initialization
 INFO | -----------------------------------------------------------------------
 INFO | 
@@ -32,9 +51,9 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver IDASolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 371
+INFO | number of continuous variables : 356
 INFO | number of discrete variables : 186
-INFO | number of root functions : 192
+INFO | number of root functions : 163
 INFO | -----------------------------------------------------------------------
 INFO |         time ¦ iter num   order (k)      time step (h)
 INFO | -----------------------------------------------------------------------
@@ -102,62 +121,70 @@ INFO |       24.620 ¦       31           1              1.049
 INFO |       25.669 ¦       32           1              1.049 
 INFO |       27.766 ¦       33           2              2.097 
 INFO |       29.863 ¦       34           2              2.097 
-INFO |       33.122 ¦       35           2              4.194 
+INFO |       33.111 ¦       35           2              4.194 
 INFO |       34.057 ¦       35           2              4.194 
 INFO |       37.832 ¦       36           2              3.775 
-INFO | Algebraic mode (with J recalculation) change at t = 38.1224
-INFO |       38.122 ¦       37           2              3.775 
+INFO | Algebraic mode (with J recalculation) change at t = 38.111
+INFO |       38.111 ¦       37           2              3.775 
 INFO | calculation of the new starting point of the simulation.
-INFO |       38.122 ¦        0           0              0.000 
-INFO |       38.122 ¦        1           1              0.000 
-INFO |       38.122 ¦        2           1              0.000 
-INFO |       38.122 ¦        3           2              0.000 
-INFO |       38.122 ¦        4           2              0.000 
-INFO |       38.122 ¦        5           2              0.000 
-INFO |       38.122 ¦        6           2              0.000 
-INFO |       38.122 ¦        7           2              0.000 
-INFO |       38.123 ¦        8           2              0.000 
-INFO |       38.123 ¦        9           2              0.000 
-INFO |       38.123 ¦       10           2              0.000 
-INFO |       38.123 ¦       11           2              0.001 
-INFO |       38.124 ¦       12           2              0.001 
-INFO |       38.126 ¦       13           2              0.002 
-INFO |       38.131 ¦       14           2              0.004 
-INFO |       38.139 ¦       15           2              0.008 
-INFO |       38.155 ¦       16           2              0.016 
-INFO |       38.188 ¦       17           2              0.033 
-INFO |       38.221 ¦       18           2              0.033 
-INFO |       38.286 ¦       19           2              0.066 
-INFO |       38.417 ¦       20           1              0.131 
-INFO |       38.548 ¦       21           1              0.131 
-INFO |       38.679 ¦       22           1              0.131 
-INFO |       38.811 ¦       23           1              0.131 
-INFO |       39.073 ¦       24           1              0.262 
-INFO |       39.335 ¦       25           1              0.262 
-INFO |       39.859 ¦       26           1              0.524 
-INFO |       40.383 ¦       27           1              0.524 
-INFO |       41.432 ¦       28           1              1.049 
-INFO |       42.481 ¦       29           1              1.049 
-INFO |       43.529 ¦       30           1              1.049 
-INFO |       45.626 ¦       31           1              2.097 
-INFO |       47.723 ¦       32           1              2.097 
-INFO |       51.918 ¦       33           1              4.194 
-INFO |       56.112 ¦       34           1              4.194 
-INFO |       64.501 ¦       35           1              8.389 
-INFO |       72.889 ¦       36           1              8.389 
-INFO |       82.889 ¦       37           1             10.000 
-INFO |       92.889 ¦       38           1             10.000 
-INFO |      100.000 ¦       39           1              7.111 
+INFO |       38.111 ¦        0           0              0.000 
+INFO |       38.111 ¦        1           1              0.000 
+INFO |       38.111 ¦        2           1              0.000 
+INFO |       38.111 ¦        3           2              0.000 
+INFO |       38.111 ¦        4           2              0.000 
+INFO |       38.111 ¦        5           2              0.000 
+INFO |       38.111 ¦        6           2              0.000 
+INFO |       38.111 ¦        7           2              0.000 
+INFO |       38.111 ¦        8           2              0.000 
+INFO |       38.111 ¦        9           2              0.000 
+INFO |       38.112 ¦       10           2              0.000 
+INFO |       38.112 ¦       11           2              0.001 
+INFO |       38.113 ¦       12           2              0.001 
+INFO |       38.115 ¦       13           2              0.002 
+INFO |       38.119 ¦       14           2              0.004 
+INFO |       38.127 ¦       15           2              0.008 
+INFO |       38.144 ¦       16           2              0.016 
+INFO |       38.177 ¦       17           2              0.033 
+INFO |       38.209 ¦       18           2              0.033 
+INFO |       38.275 ¦       19           2              0.066 
+INFO |       38.406 ¦       20           1              0.131 
+INFO |       38.537 ¦       21           1              0.131 
+INFO |       38.668 ¦       22           1              0.131 
+INFO |       38.799 ¦       23           1              0.131 
+INFO |       39.061 ¦       24           1              0.262 
+INFO |       39.323 ¦       25           1              0.262 
+INFO |       39.848 ¦       26           1              0.524 
+INFO |       40.372 ¦       27           1              0.524 
+INFO |       40.896 ¦       28           1              0.524 
+INFO |       41.945 ¦       29           2              1.049 
+INFO |       42.993 ¦       30           2              1.049 
+INFO |       45.091 ¦       31           2              2.097 
+INFO |       47.188 ¦       32           1              2.097 
+INFO |       49.285 ¦       33           1              2.097 
+INFO |       53.479 ¦       34           1              4.194 
+INFO |       61.868 ¦       35           1              8.389 
+INFO |       70.256 ¦       36           1              8.389 
+INFO |       80.256 ¦       37           1             10.000 
+INFO |       90.256 ¦       38           1             10.000 
+INFO |      100.000 ¦       39           1              9.744 
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 102
-INFO | number of residual evaluations             = 150
-INFO | number of Jacobian evaluations             = 73
-INFO | number of nonlinear iterations             = 144
-INFO | number of error test failures              = 0
-INFO | number of nonlinear convergence failures   = 0
-INFO | number of root functions evaluations       = 251
-INFO | number of discrete variables evaluations   = 10
-INFO | number of mode evaluations                 = 6
+INFO | number of time iterations                                  = 102
+INFO | number of residual evaluations                             = 139
+INFO | number of Jacobian evaluations                             = 66
+INFO | number of nonlinear iterations                             = 139
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 242
+INFO | number of internal root functions evaluations              = 9
+INFO | number of discrete variables evaluations                   = 8
+INFO | number of mode evaluations                                 = 4
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 7
+INFO | number of algebraic restoration Jacobian evaluations       = 2
+INFO | number of algebraic prim restoration residual evaluations  = 4
+INFO | number of algebraic prim restoration Jacobian evaluations  = 1
 INFO | end of job 'IEEE14 - OverVoltageAutomaton'

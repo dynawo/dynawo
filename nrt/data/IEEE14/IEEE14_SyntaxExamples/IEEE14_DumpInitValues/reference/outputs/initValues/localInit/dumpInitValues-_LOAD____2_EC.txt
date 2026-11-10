@@ -1,12 +1,12 @@
  ====== VARIABLES VALUES ======
+load_PPu                                          : y =       0.217000 yp =       0.000000
 load_PRefPu                                       : y =       0.217000 yp =       0.000000
+load_QPu                                          : y =       0.127000 yp =       0.000000
 load_QRefPu                                       : y =       0.127000 yp =       0.000000
 load_deltaP                                       : y =       0.000000 yp =       0.000000
 load_deltaQ                                       : y =       0.000000 yp =       0.000000
 load_terminal_V_im                                : y =      -0.090721 yp =       0.000000
 load_terminal_V_re                                : y =       1.041127 yp =       0.000000
-load_PPu                                          : y =       0.217000 yp =       0.000000
-load_QPu                                          : y =       0.127000 yp =       0.000000
 load_terminal_i_im                                : y =      -0.139089 yp =       0.000000
 load_terminal_i_re                                : y =       0.196308 yp =       0.000000
 load_SPu_im                                       : alias of load_QPu

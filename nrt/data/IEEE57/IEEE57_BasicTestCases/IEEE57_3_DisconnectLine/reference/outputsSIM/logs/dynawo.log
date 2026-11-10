@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
-INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  4167_fix_nrt-865463cd49b
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :  3874_symb_jac_new-014a887bc4a
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -31,7 +31,7 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 509
+INFO | number of continuous variables : 397
 INFO | number of discrete variables : 594
 INFO | number of root functions : 515
 INFO | -----------------------------------------------------------------------
@@ -44,58 +44,58 @@ INFO |        1.000 ¦        1                1          1              1.000
 INFO | calculation of the new starting point of the simulation.
 INFO |        1.000 ¦        1                2          2              1.000 
 INFO | Algebraic mode change at t = 2
+INFO |        2.000 ¦        2                4          3              1.000 
+INFO | calculation of the new starting point of the simulation.
 INFO |        2.000 ¦        2                5          3              1.000 
-INFO | calculation of the new starting point of the simulation.
-INFO |        2.000 ¦        2                6          3              1.000 
 INFO | Algebraic mode change at t = 3
-INFO |        3.000 ¦        3                8          3              1.000 
+INFO |        3.000 ¦        3                7          3              1.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |        3.000 ¦        3                9          3              1.000 
-INFO |        4.000 ¦        4               11          3              1.000 
-INFO |        5.000 ¦        5               12          3              1.000 
-INFO |        6.000 ¦        6               13          3              1.000 
-INFO |        7.000 ¦        7               14          3              1.000 
-INFO |        8.000 ¦        8               15          3              1.000 
-INFO |        9.000 ¦        9               16          3              1.000 
-INFO |       10.000 ¦       10               17          3              1.000 
-INFO |       11.000 ¦       11               18          3              1.000 
-INFO |       12.000 ¦       12               19          3              1.000 
+INFO |        3.000 ¦        3                7          3              1.000 
+INFO |        4.000 ¦        4                8          3              1.000 
+INFO |        5.000 ¦        5                9          3              1.000 
+INFO |        6.000 ¦        6               10          3              1.000 
+INFO |        7.000 ¦        7               11          3              1.000 
+INFO |        8.000 ¦        8               12          3              1.000 
+INFO |        9.000 ¦        9               13          3              1.000 
+INFO |       10.000 ¦       10               14          3              1.000 
+INFO |       11.000 ¦       11               15          3              1.000 
+INFO |       12.000 ¦       12               16          3              1.000 
 INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
-INFO |       13.000 ¦       13               19          3              1.000 
-INFO |       14.000 ¦       14               19          3              1.000 
-INFO |       15.000 ¦       15               19          3              1.000 
-INFO |       16.000 ¦       16               19          3              1.000 
-INFO |       17.000 ¦       17               19          3              1.000 
-INFO |       18.000 ¦       18               19          3              1.000 
-INFO |       19.000 ¦       19               19          3              1.000 
-INFO |       20.000 ¦       20               19          3              1.000 
-INFO |       21.000 ¦       21               19          3              1.000 
-INFO |       22.000 ¦       22               19          3              1.000 
-INFO |       23.000 ¦       23               19          3              1.000 
-INFO |       24.000 ¦       24               19          3              1.000 
-INFO |       25.000 ¦       25               19          3              1.000 
-INFO |       26.000 ¦       26               19          3              1.000 
-INFO |       27.000 ¦       27               19          3              1.000 
-INFO |       28.000 ¦       28               19          3              1.000 
-INFO |       29.000 ¦       29               19          3              1.000 
-INFO |       30.000 ¦       30               19          3              1.000 
+INFO |       13.000 ¦       13               16          3              1.000 
+INFO |       14.000 ¦       14               16          3              1.000 
+INFO |       15.000 ¦       15               16          3              1.000 
+INFO |       16.000 ¦       16               16          3              1.000 
+INFO |       17.000 ¦       17               16          3              1.000 
+INFO |       18.000 ¦       18               16          3              1.000 
+INFO |       19.000 ¦       19               16          3              1.000 
+INFO |       20.000 ¦       20               16          3              1.000 
+INFO |       21.000 ¦       21               16          3              1.000 
+INFO |       22.000 ¦       22               16          3              1.000 
+INFO |       23.000 ¦       23               16          3              1.000 
+INFO |       24.000 ¦       24               16          3              1.000 
+INFO |       25.000 ¦       25               16          3              1.000 
+INFO |       26.000 ¦       26               16          3              1.000 
+INFO |       27.000 ¦       27               16          3              1.000 
+INFO |       28.000 ¦       28               16          3              1.000 
+INFO |       29.000 ¦       29               16          3              1.000 
+INFO |       30.000 ¦       30               16          3              1.000 
 INFO | 
 INFO | execution statistics :
 INFO | 
 INFO | number of time iterations                                  = 30
-INFO | number of residual evaluations                             = 30
+INFO | number of residual evaluations                             = 28
 INFO | number of Jacobian evaluations                             = 2
-INFO | number of nonlinear iterations                             = 16
+INFO | number of nonlinear iterations                             = 14
 INFO | number of error test failures                              = 0
 INFO | number of nonlinear convergence failures                   = 0
 INFO | number of solver root functions evaluations                = 0
-INFO | number of internal root functions evaluations              = 37
+INFO | number of internal root functions evaluations              = 36
 INFO | number of discrete variables evaluations                   = 12
 INFO | number of mode evaluations                                 = 8
 INFO | number of differential mode                                = 0
 INFO | number of algebraic mode                                   = 0
 INFO | number of algebraic J update mode                          = 0
-INFO | number of algebraic restoration residual evaluations       = 6
+INFO | number of algebraic restoration residual evaluations       = 5
 INFO | number of algebraic restoration Jacobian evaluations       = 1
 INFO | number of algebraic prim restoration residual evaluations  = 0
 INFO | number of algebraic prim restoration Jacobian evaluations  = 0
