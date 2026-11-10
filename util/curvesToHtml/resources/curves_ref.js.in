@@ -134,6 +134,14 @@ function plotData()
 {
   var  placeholder = $("#placeholder");
   plot = $.plot(placeholder, dataToPlot, oldOptions);
+  // Firefox sometimes leaves the canvas blank unless setupGrid/draw runs
+  // again in a later tick (the same fix as panning/zooming, but doing it
+  // synchronously right after $.plot() does not work: it has to happen
+  // after the browser has had a chance to paint).
+  setTimeout(function () {
+    plot.setupGrid();
+    plot.draw();
+  }, 100);
 }
 
 
@@ -164,6 +172,10 @@ function resetGraph()
   var  placeholder = $("#placeholder");
   dataToPlot = [];
   plot =  $.plot(placeholder, dataToPlot, oldOptions);
+  setTimeout(function () {
+    plot.setupGrid();
+    plot.draw();
+  }, 100);
   dataId= [];
   colorUsed =[false,false,false,false,false,false];
   var el = document.getElementById('checkbox');
