@@ -107,11 +107,11 @@ model DynGridFormingControlCCVSM
   Dynawo.Electrical.Controls.PEIR.BaseControls.InnerControls.CurrentSaturation currentSaturation(ImaxPu = ImaxPu, IminPu = IminPu, CurrentAngle0 = CurrentAngle0, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu, IdConvSatRef0Pu = IdConv0Pu, IqConvSatRef0Pu = IqConv0Pu, IPcc0Pu = IPcc0Pu, EpsUpPu = EpsUpPu, EpsDownPu = EpsDownPu, tSat = tSat) annotation(
     Placement(transformation(origin = {26, 14}, extent = {{-10, -10}, {10, 10}})));
   Dynawo.Electrical.Controls.PEIR.BaseControls.VirtualImpedance2CC VICC(KpVI = KpVI, XRratio = XRratio, IMaxVIPu = IMaxVIPu, DeltaIConvMaxPu = DeltaIConvMaxPu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, EpsVIUpPu = EpsVIUpPu, EpsVIDownPu = EpsVIDownPu) annotation(
-    Placement(transformation(origin = {-86, -22}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-62, -30}, extent = {{-10, -10}, {10, 10}})));
   BaseControls.CurrentLoops.DynCurrentLoop currentLoop(Kpc = Kpc, Kic = Kic, RFilterPu = RFilterPu, LFilterPu = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConvSatRef0Pu, IqConvRef0Pu = IqConvSatRef0Pu, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {70, 20}, extent = {{-10, -10}, {10, 10}})));
   PLL.PLL pll(Kp = Kp, Ki = Ki, u0Pu = u0Pu, OmegaMaxPu = 10, OmegaMinPu = -10, omegaPLLPu(start = Omega0Pu), limIntegrator(y_start = Omega0Pu - OmegaRef0Pu)) annotation(
-    Placement(transformation(origin = {-81, 55}, extent = {{-7, -7}, {7, 7}})));
+    Placement(transformation(origin = {-81, 53}, extent = {{-7, -7}, {7, 7}})));
   //Operating point
   parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal/PCC in pu (base UNom)";
   parameter Types.Angle UPhase0 "Start value of voltage angle at terminal/PCC in rad";
@@ -141,21 +141,21 @@ model DynGridFormingControlCCVSM
   final parameter Types.PerUnit UqFilterRef0Pu = UqPcc0Pu + RTransformerPu*IqConv0Pu + (LTransformerPu*Omega0Pu + XVIPu)*IdConv0Pu "Start value of q-axis voltage reference at the filter (QSEM-consistent) in pu (base UNom)";
 equation
   connect(idConvPu, VICC.idConvPu) annotation(
-    Line(points = {{-108, -16}, {-108, -17}, {-97, -17}}, color = {0, 0, 127}));
+    Line(points = {{-108, -16}, {-108, -25}, {-73, -25}}, color = {0, 0, 127}));
   connect(iqConvPu, VICC.iqConvPu) annotation(
-    Line(points = {{-108, -34}, {-108, -27}, {-97, -27}}, color = {0, 0, 127}));
+    Line(points = {{-108, -34}, {-108, -35}, {-73, -35}}, color = {0, 0, 127}));
   connect(pll.omegaPLLPu, PLLFilter.u) annotation(
-    Line(points = {{-67, 58.5}, {-67, 64}, {-59, 64}}, color = {0, 0, 127}));
+    Line(points = {{-73, 56.5}, {-73, 64}, {-59, 64}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
-    Line(points = {{-108, 96}, {-108, 51}, {-83, 51}}, color = {0, 0, 127}));
+    Line(points = {{-108, 96}, {-108, 49}, {-89, 49}}, color = {0, 0, 127}));
   connect(uPccPu, pll.uPu) annotation(
-    Line(points = {{-108, 54}, {-108, 59}, {-83, 59}}, color = {85, 170, 255}));
+    Line(points = {{-108, 54}, {-108, 57}, {-89, 57}}, color = {85, 170, 255}));
   connect(pll.omegaPLLPu, omegaPLL) annotation(
-    Line(points = {{-67, 58.5}, {-67, 62}, {106, 62}}, color = {0, 0, 127}));
+    Line(points = {{-73, 56.5}, {-73, 62}, {106, 62}}, color = {0, 0, 127}));
   connect(VICC.DeltaVVId, voltageReferenceControl.DeltaVVId) annotation(
-    Line(points = {{-75, -17}, {-75, 7}, {-82, 7}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+    Line(points = {{-51, -25}, {-51, 7}, {-82, 7}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
   connect(VICC.DeltaVVIq, voltageReferenceControl.DeltaVVIq) annotation(
-    Line(points = {{-75, -27}, {-75, -10}, {-77, -10}, {-77, 7}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+    Line(points = {{-51, -35}, {-51, -10}, {-77, -10}, {-77, 7}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
   connect(idPccPu, voltageReferenceControl.idPccPu) annotation(
     Line(points = {{-108, -52}, {-108, 7}, {-72, 7}}, color = {0, 0, 127}));
   connect(iqPccPu, voltageReferenceControl.iqPccPu) annotation(

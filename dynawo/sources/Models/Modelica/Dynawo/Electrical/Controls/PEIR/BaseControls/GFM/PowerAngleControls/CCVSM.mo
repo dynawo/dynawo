@@ -1,24 +1,23 @@
 within Dynawo.Electrical.Controls.PEIR.BaseControls.GFM.PowerAngleControls;
-  /*
-  * Copyright (c) 2026, RTE (http://www.rte-france.com)
-  * See AUTHORS.txt
-  * All rights reserved.
-  * This Source Code Form is subject to the terms of the Mozilla Public
-  * License, v. 2.0. If a copy of the MPL was not distributed with this
-  * file, you can obtain one at http://mozilla.org/MPL/2.0/.
-  * SPDX-License-Identifier: MPL-2.0
-  *
-  * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-  */
+
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
 model CCVSM "Virtual Synchronous Machine control with PI control on Theta"
 
   parameter Types.PerUnit kVSM "Virtual Synchronous Machine gain";
   parameter Types.Time H "Inertia constant in s";
   parameter Types.PerUnit KDampingAngle "Proportional gain of the PI action on theta (angle-damping term) in s";
-  // Initial parameters
-  parameter Types.PerUnit PFilter0Pu "Start value of active power after the filter in pu (base SNom) (generator convention)";
-  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom) (generator convention)";
-  parameter Types.Angle Theta0 "Start value of the phase shift between the converter and grid rotating frames in rad (generator convention)";
 
   // Inputs
   Modelica.Blocks.Interfaces.RealInput PFilterPu(start = PFilter0Pu) "Active power after the filter in pu (base SNom) (generator convention)" annotation(
@@ -29,8 +28,9 @@ model CCVSM "Virtual Synchronous Machine control with PI control on Theta"
     Placement(visible = true, transformation(origin = {30, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaSetPu(start = Omega0Pu) "Fix angular frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-22, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   // Outputs
-  Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Phase shift between the converter and grid rotating frames in rad" annotation(
+  Modelica.Blocks.Interfaces.RealOutput theta(start = Theta0) "Phase shift between the converter and grid rotating frames (rad)" annotation(
     Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput omegaPu(start = Omega0Pu) "Converter's frequency in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -53,6 +53,10 @@ model CCVSM "Virtual Synchronous Machine control with PI control on Theta"
   Modelica.Blocks.Math.Add addTheta(k1 = 1, k2 = 1) annotation(
     Placement(transformation(origin = {90, 58}, extent = {{-8, -8}, {8, 8}})));
 
+  // Initial parameters
+  parameter Types.PerUnit PFilter0Pu "Start value of active power after the filter in pu (base SNom) (generator convention)";
+  parameter Types.AngularVelocityPu Omega0Pu "Start value of the converter's frequency in pu (base omegaNom)";
+  parameter Types.Angle Theta0 "Start value of the phase shift between the converter and grid rotating frames (rad)";
 
 equation
   connect(PFilterRefPu, add3.u1) annotation(

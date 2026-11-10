@@ -247,6 +247,120 @@ dérivées d'état, après la réduction d'index faite par OMC.
 - **Sélection statique, pas de dummy pivoting.** L'article montre (exemple du pendule) que le choix
   des dummy derivatives peut devoir changer en cours de simulation. Ici OMC fait un choix unique à
   la compilation, et le typage Dynawo est figé de la même façon. Un modèle qui exigerait un
-  changement de dummy derivative en cours de trajectoire n'est pas couvert.
+  changement de dummy derivative en cours de trajectoire n'est pas couvert (voir section 5).
 - **Portée volontairement limitée** aux modèles qui contiennent des dummy derivatives. Il reste à
   vérifier sur un échantillon plus large de modèles de ce type (tests de non-régression).
+
+---
+
+## 5. État des lieux : dummy pivoting, modèles C++ et couplage entre modèles
+
+En résumé :
+
+- Le dummy pivoting n'est pas pris en charge, et rien dans la bibliothèque actuelle ne l'utilise.
+- Les modèles C++ n'ont pas de réduction d'index : c'est le développeur qui écrit à la main une
+  DAE d'index 1 et ses types.
+- Le système couplé (plusieurs modèles reliés par le `.dyd`) n'est jamais réduit.
+
+### 5.1 Dummy pivoting (section 4 de l'article)
+
+**Rappel.** Dans un modèle non linéaire, la matrice M choisie pour les dummy derivatives peut
+devenir singulière en cours de trajectoire. Il faut alors changer de dummy derivatives, et donc
+d'états, pendant la simulation.
+
+**Côté OMC.** C'est la *dynamic state selection* : des « state sets », avec des variables
+`$STATESET`, une matrice de sélection et un pivotage numérique à l'exécution.
+
+- C'est la méthode par défaut d'OMC, et les options de compilation de Dynawo ne la désactivent pas
+  ([DYNCompileModelicaModel.cpp:334-335](dynawo/sources/ModelicaCompiler/DYNCompileModelicaModel.cpp#L334-L335)).
+- OMC ne crée un state set que s'il ne peut pas trancher statiquement, typiquement pour le pendule
+  en coordonnées cartésiennes. Pour `TestIndex` et `Example1`, il a fait un choix statique.
+
+**Côté Dynawo, rien n'est en place :**
+
+| Où | Constat |
+|---|---|
+| Générateur | [readerOMC.py:76-146](dynawo/sources/ModelicaCompiler/Scripts_OMC_1_13_2/readerOMC.py#L76-L146) liste les fichiers OMC lus, et `_04set.c` (celui des state sets) n'y figure pas. Aucun script ne mentionne `stateSet`. |
+| Bibliothèque | Dans un build complet des modèles préassemblés, les 493 fichiers `_04set.c` générés contiennent tous `nStateSets = 0`. Le cas ne s'est jamais présenté. |
+| Solveur | Les types ne changent qu'avec les modes : `evalDynamicFType` et `evalDynamicYType` sont appelés dans [DYNSolverKINAlgRestoration.cpp:90-91](dynawo/sources/Solvers/AlgebraicSolvers/DYNSolverKINAlgRestoration.cpp#L90-L91). Aucun critère numérique de conditionnement de M n'intervient. |
+
+**Lors d'une restauration algébrique**
+([DYNSolverIDA.cpp:802-857](dynawo/sources/Solvers/VariableTimeStep/SolverIDA/DYNSolverIDA.cpp#L802-L857)) :
+
+- Le solveur résout d'abord en mode KIN_ALGEBRAIC, avec les états figés, puis en mode
+  KIN_DERIVATIVES. Le choix des dummy derivatives n'est jamais remis en cause. Si M devient
+  singulière au nouveau point, KINSOL échoue.
+- Avec `factory_new.py`, les dummy derivatives sont ALGEBRAIC. Elles sont donc recalculées en
+  KIN_ALGEBRAIC, ce qui est conforme à l'article.
+- Avec le `factory.py` original, elles sont DIFFERENTIAL. Elles ne sont pas recalculées en
+  KIN_ALGEBRAIC, et en KIN_DERIVATIVES on cherche leur dérivée y', qui n'a pas de sens. C'est la
+  ligne nulle de `TestIndex` (section 2).
+
+**Ce qui s'en rapproche le plus : les variables mixtes.** Leur type change selon le mode. Le code
+généré contient par exemple `if (yType[18] != DIFFERENTIAL) yType[18] = ALGEBRAIC` dans
+`GridFormingConverterDroopControl`. C'est une bascule discrète décidée par le modélisateur, pas un
+pivot numérique.
+
+**Remarque sur l'assert.** Le contrôle de comptage de `initVarAndEqTypes` porte sur le système
+global (`ModelMulti`), pas sur chaque modèle. Un déséquilibre dans un modèle peut donc être masqué
+par un autre ; la matrice sera alors singulière sans que l'assert ne se déclenche.
+
+### 5.2 Modèles C++
+
+Il n'y a ni OMC, ni Pantelides, ni dummy derivatives. Le développeur écrit à la main :
+
+- `evalF` ;
+- `evalJt` et `evalJtPrim` ;
+- les types statiques et dynamiques des variables et des équations.
+
+C'est donc à lui de garantir l'index 1 :
+
+- la jacobienne dF/dy' restreinte aux équations et variables DIFFERENTIAL doit être inversible ;
+- la jacobienne dF/dy restreinte aux équations et variables ALGEBRAIC doit l'être aussi.
+
+**Le cas d'école : la ligne dynamique C++** (paramètre `line_isDynamic`).
+
+- **Les courants de branche** `irb` et `iib` sont DIFFERENTIAL quand la ligne est fermée et
+  ALGEBRAIC quand elle est ouverte
+  ([DYNModelLine.cpp:328-357](dynawo/sources/Models/CPP/ModelNetwork/DYNModelLine.cpp#L328-L357)).
+- **Les deux bus passent en « tensions différentielles »**
+  ([DYNModelLine.cpp:1160-1161](dynawo/sources/Models/CPP/ModelNetwork/DYNModelLine.cpp#L1160-L1161)) :
+  la loi des nœuds devient DIFFERENTIAL_EQ
+  ([DYNModelBusInjected.cpp:299-317](dynawo/sources/Models/CPP/ModelNetwork/DYNModelBusInjected.cpp#L299-L317)).
+- **Ce typage est légitime, contrairement au forçage de `factory.py`.** Le modèle en π ajoute le
+  terme capacitif `B/ω·u'` dans l'injection au nœud
+  ([DYNModelLine.cpp:533-536](dynawo/sources/Models/CPP/ModelNetwork/DYNModelLine.cpp#L533-L536)).
+  La loi des nœuds contient donc vraiment `u'`.
+- **Les capacités aux nœuds rendent l'index 1 par construction.** Elles évitent la configuration
+  d'inductances en série qui aurait donné un index 2. C'est une réduction d'index faite par la
+  modélisation, et non par l'algorithme.
+- **Limites, non testées.**
+  - Aucune garde contre `B = 0` n'a été trouvée. Dans ce cas, `u'` disparaît de la loi des nœuds,
+    et on retomberait sur une ligne nulle en KIN_DERIVATIVES, comme pour `TestIndex`.
+  - Les états CLOSED_1 et CLOSED_2, ainsi que les bus dynamiques, sont explicitement refusés
+    ([DYNModelLine.cpp:1153-1158](dynawo/sources/Models/CPP/ModelNetwork/DYNModelLine.cpp#L1153-L1158)).
+
+### 5.3 Le trou commun : le couplage entre modèles
+
+OMC réduit l'index **modèle par modèle**, c'est-à-dire pour chaque `.so` compilé. Les connexions du
+`.dyd` ajoutent des égalités et des lois des nœuds au moment de l'exécution, et **ce système couplé
+n'est jamais réduit**. Par exemple, une inductance Modelica raccordée à un nœud C++ sans capacité,
+sur lequel une source impose aussi le courant, donne un système global d'index 2. Rien dans Dynawo
+ne le détecte ni ne le corrige ; le symptôme serait le même : jacobienne singulière ou ligne nulle
+en restauration.
+
+### 5.4 Synthèse
+
+| | Modelica (OMC + générateur) | C++ |
+|---|---|---|
+| Réduction d'index | OMC, statique, par modèle | à la main, dans la modélisation |
+| Dummy derivatives | oui ; typage corrigé par `factory_new.py` | sans objet |
+| Dummy pivoting / state sets | non pris en charge, jamais rencontré | non |
+| Changement de type en cours de simulation | par mode (variables mixtes) | par mode (`evalDynamic*Type`) |
+| Couplage inter-modèles | jamais réduit | jamais réduit |
+
+**Tests possibles pour confirmer ces points :**
+
+- un pendule cartésien en Modelica, pour forcer OMC à créer un state set et voir comment le
+  générateur réagit ;
+- une ligne C++ dynamique avec `B = 0`, pour vérifier la ligne nulle prédite.

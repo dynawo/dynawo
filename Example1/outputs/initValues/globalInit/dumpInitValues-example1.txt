@@ -1,0 +1,15 @@
+ ====== VARIABLES VALUES ======
+example1_v2                                       : y =         0.0000 yp =         0.0000
+example1_x2                                       : y =         0.0000 yp =         0.0000
+example1_v1                                       : y =        -1.0000 yp =         0.0000
+example1_v3                                       : y =         1.0000 yp =         0.0000
+example1_x1                                       : y =        -0.0000 yp =         0.0000
+example1_x3                                       : y =        -1.0000 yp =         0.0000
+example1_x4                                       : y =        -1.0000 yp =         0.0000
+example1_v1_dummy_der                             : y =         0.0000 yp =         0.0000
+example1_v3_dummy_der                             : y =         1.0000 yp =         0.0000
+example1_x1_dummy_der                             : y =        -1.0000 yp =         0.0000
+example1_x3_dummy_der                             : y =         1.0000 yp =         0.0000
+example1_x4_dummy_der                             : y =        -2.0000 yp =         0.0000
+ ====== DISCRETE VARIABLES VALUES ======
+ ====== PARAMETERS VALUES ======
