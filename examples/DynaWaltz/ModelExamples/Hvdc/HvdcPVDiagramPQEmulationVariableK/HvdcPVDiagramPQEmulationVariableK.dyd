@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<!-- Derived from nrt/data/DynaFlow/HvdcPowerTransfer: the two HVDC links use HvdcPVDiagramPQEmulationVariableK
+     instead of HvdcPVEmulationVariableK (reactive power limits given by a PQ diagram). -->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="Generator___1" lib="GeneratorPVSignalN" parFile="HvdcPVDiagramPQEmulationVariableK.par" parId="Generator" staticId="_Generator___1">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="Signal_N" lib="SignalN"/>
+  <dyn:blackBoxModel id="Load__10" lib="LoadPQ" parFile="HvdcPVDiagramPQEmulationVariableK.par" parId="Load" staticId="_Load__10">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="Load__11" lib="LoadPQ" parFile="HvdcPVDiagramPQEmulationVariableK.par" parId="Load" staticId="_Load__11">
+    <dyn:staticRef var="load_PPu" staticVar="p"/>
+    <dyn:staticRef var="load_QPu" staticVar="q"/>
+    <dyn:staticRef var="load_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="Hvdc1" lib="HvdcPVDiagramPQEmulationVariableK" parFile="HvdcPVDiagramPQEmulationVariableK.par" parId="Hvdc1" staticId="HVDC1">
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="Hvdc2" lib="HvdcPVDiagramPQEmulationVariableK" parFile="HvdcPVDiagramPQEmulationVariableK.par" parId="Hvdc2" staticId="HVDC2">
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="PowerTransfer" lib="PowerTransferHVDCEmulation" parFile="HvdcPVDiagramPQEmulationVariableK.par" parId="PowerTransfer"/>
+  <dyn:blackBoxModel id="Disconnect_Hvdc1" lib="EventSetPointBoolean" parFile="HvdcPVDiagramPQEmulationVariableK.par" parId="DisconnectHvdc1"/>
+  <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
+  <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
+  <dyn:connect id1="Generator___1" var1="generator_N" id2="Signal_N" var2="signalN_N"/>
+  <dyn:connect id1="Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="@_Generator___1@@NODE@_phi"/>
+  <dyn:connect id1="Load__10" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
+  <dyn:connect id1="Load__11" var1="load_terminal" id2="NETWORK" var2="_BUS____8_TN_ACPIN"/>
+  <dyn:connect id1="NETWORK" var1="_BUS____8_TN_ACPIN" id2="Hvdc1" var2="hvdc_terminal1"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="Hvdc1" var2="hvdc_terminal2"/>
+  <dyn:connect id1="NETWORK" var1="_BUS____8_TN_ACPIN" id2="Hvdc2" var2="hvdc_terminal1"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="Hvdc2" var2="hvdc_terminal2"/>
+  <dyn:connect id1="Hvdc1" var1="acemulation_PRefSetPu" id2="PowerTransfer" var2="powertransferhvdcemulation_PRefSet1Pu"/>
+  <dyn:connect id1="Hvdc2" var1="acemulation_PRefSetPu" id2="PowerTransfer" var2="powertransferhvdcemulation_PRefSet2Pu"/>
+  <dyn:connect id1="Hvdc1" var1="acemulation_KACEmulation" id2="PowerTransfer" var2="powertransferhvdcemulation_KACEmulation1"/>
+  <dyn:connect id1="Hvdc2" var1="acemulation_KACEmulation" id2="PowerTransfer" var2="powertransferhvdcemulation_KACEmulation2"/>
+  <dyn:connect id1="Hvdc1" var1="hvdc_running" id2="PowerTransfer" var2="powertransferhvdcemulation_running1"/>
+  <dyn:connect id1="Hvdc2" var1="hvdc_running" id2="PowerTransfer" var2="powertransferhvdcemulation_running2"/>
+  <dyn:connect id1="Disconnect_Hvdc1" var1="event_state1" id2="Hvdc1" var2="hvdc_switchOffSignal2Side1"/>
+  <dyn:connect id1="Disconnect_Hvdc1" var1="event_state1" id2="Hvdc1" var2="hvdc_switchOffSignal2Side2"/>
+</dyn:dynamicModelsArchitecture>
