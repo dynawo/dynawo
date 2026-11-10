@@ -19,14 +19,13 @@
     <par type="DOUBLE" name="Grid_Upu" value="1.0643689444924609"/>
     <par type="DOUBLE" name="Grid_UPhase0" value="-0.46259718921907295"/>
     <par type="DOUBLE" name="Grid_UPhase" value="-0.46259718921907295"/>
-    <par type="DOUBLE" name="Grid_RoCoFValue" value="0.04"/>
+    <par type="DOUBLE" name="Grid_RoCoFValue" value="-0.04"/>
     <par type="DOUBLE" name="Grid_StartRoCoF" value="10"/>
     <par type="DOUBLE" name="Grid_TimeRoCoF" value="0.5"/>
-    <par type="DOUBLE" name="Grid_StartingFrequency" value="0"/>
+    <par type="DOUBLE" name="Grid_StartingFrequency" value="0.01"/>
     <par type="BOOL" name="Grid_ReturnRoCoF" value="false"/>
   </set>
 
-  <!-- Lines: four identical parallel lines, equivalent to SCR = 2 (XLine = 0.5 pu, RLine = 0.05 pu, base SnRef) -->
   <set id="2">
     <par type="DOUBLE" name="line_RPu" value="0.2"/>
     <par type="DOUBLE" name="line_XPu" value="2.0"/>
@@ -74,10 +73,11 @@
     <par name="GFMPvirt_KsiPLL" type="DOUBLE" value="5.604991216397929"/>
     <par name="GFMPvirt_tPLL" type="DOUBLE" value="0.01"/>
     <!-- Operating point at the PCC -->
-    <par name="GFMPvirt_U0Pu" type="DOUBLE" value="0.9502027101293471"/>
-    <par name="GFMPvirt_UPhase0" type="DOUBLE" value="0.027098087127168706"/>
-    <par name="GFMPvirt_P0Pu" type="DOUBLE" value="-0.9440416785411966"/>
-    <par name="GFMPvirt_Q0Pu" type="DOUBLE" value="0.07364714495383004"/>
+    <par name="GFMPvirt_U0Pu"    type="DOUBLE" value="0.9498297736290858"/>
+    <par name="GFMPvirt_UPhase0" type="DOUBLE" value="0.02733208046720972"/>
+    <par name="GFMPvirt_P0Pu"    type="DOUBLE" value="-0.9440364120600772"/>
+    <par name="GFMPvirt_Q0Pu"    type="DOUBLE" value="0.0741406331953099"/>
+    <par name="GFMPvirt_Omega0Pu" type="DOUBLE" value="1.01"/>
   </set>
 
   <!-- Measurements -->

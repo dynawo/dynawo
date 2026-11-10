@@ -13,7 +13,8 @@
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="GFM VSM with current saturation and virtual power - grid RoCoF">
-        <solver lib="dynawo_SolverIDA" parFile="VSMPvirtRoCoF.par" parId="IDASolver"/>
+        <!-- <solver lib="dynawo_SolverIDA" parFile="VSMPvirtRoCoF.par" parId="IDASolver"/> -->
+        <solver lib="dynawo_SolverSIM" parFile="VSMPvirtRoCoF.par" parId="SimplifiedSolver"/>
         <modeler compileDir="outputs/compilation">
             <dynModels dydFile="VSMPvirtRoCoF.dyd"/>
             <precompiledModels useStandardModels="true"/>

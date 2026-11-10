@@ -20,12 +20,12 @@ model VSM_CurrentLimiting_CSA_Pvirt "Grid-forming VSM converter with current sat
   final parameter Types.PerUnit XLinePu = SystemBase.SnRef/(SCR*SNom) "Equivalent reactance of the four parallel lines in pu (base UNom, SnRef)";
   final parameter Types.PerUnit RLinePu = XLinePu/10 "Equivalent resistance of the four parallel lines in pu (base UNom, SnRef)";
   // Scenario
-  parameter Types.Time tFaultBegin = 10 "Time when the bolted fault at the PCC begins in s";
-  parameter Types.Time tFaultEnd = 10.25 "Time when the bolted fault at the PCC is cleared in s";
-  parameter Types.Time tLineTrip = 10.25 "Time when the first line is tripped in s";
-  parameter Types.Time tLineReclose = 11.25 "Time when the first line is reclosed in s";
-  parameter Types.PerUnit RoCoFValue = 0.04 "Rate of change of frequency of the grid in pu/s (base omegaNom)";
-  parameter Types.Time tRoCoF = 15 "Start time of the RoCoF event in s";
+  parameter Types.Time tFaultBegin = 50 "Time when the bolted fault at the PCC begins in s";
+  parameter Types.Time tFaultEnd = 50"Time when the bolted fault at the PCC is cleared in s";
+  parameter Types.Time tLineTrip = 50"Time when the first line is tripped in s";
+  parameter Types.Time tLineReclose = 50 "Time when the first line is reclosed in s";
+  parameter Types.PerUnit RoCoFValue = -0.04 "Rate of change of frequency of the grid in pu/s (base omegaNom)";
+  parameter Types.Time tRoCoF = 10 "Start time of the RoCoF event in s";
   // Operating point at the PCC
   parameter Types.VoltageModulePu U0Pu = 0.9502027101293471 "Start value of voltage module at the PCC in pu (base UNom)";
   parameter Types.Angle UPhase0 = 0.027098087127168706 "Start value of voltage angle at the PCC in rad";
@@ -39,7 +39,7 @@ model VSM_CurrentLimiting_CSA_Pvirt "Grid-forming VSM converter with current sat
   Types.Angle DeltaAngle = dynGFMVSM_A.Control_Pvirt.VSM.theta - (Grid.UPhase + Grid.theta) "Angle between the internal EMF of the converter and the grid voltage in rad";
 
   // Grid
-  Electrical.Sources.AcGridRoCoF Grid(SNom = SNom, U0pu = Modelica.ComplexMath.'abs'(uGrid0Pu), Upu = Modelica.ComplexMath.'abs'(uGrid0Pu), UPhase0 = Modelica.ComplexMath.arg(uGrid0Pu), UPhase = Modelica.ComplexMath.arg(uGrid0Pu), StartRoCoF = tRoCoF, TimeRoCoF = 0.5, RoCoFValue = RoCoFValue, StartingFrequency = 0, ReturnRoCoF = false) annotation(
+  Electrical.Sources.AcGridRoCoF Grid(SNom = SNom, U0pu = Modelica.ComplexMath.'abs'(uGrid0Pu), Upu = Modelica.ComplexMath.'abs'(uGrid0Pu), UPhase0 = Modelica.ComplexMath.arg(uGrid0Pu), UPhase = Modelica.ComplexMath.arg(uGrid0Pu), StartRoCoF = tRoCoF, TimeRoCoF = 0.5, RoCoFValue = RoCoFValue, StartingFrequency = 0.01, ReturnRoCoF = false) annotation(
     Placement(transformation(origin = {26, -60}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 4*RLinePu, XPu = 4*XLinePu) annotation(
     Placement(transformation(origin = {98, -36}, extent = {{-10, -10}, {10, 10}})));
@@ -49,7 +49,7 @@ model VSM_CurrentLimiting_CSA_Pvirt "Grid-forming VSM converter with current sat
     Placement(transformation(origin = {98, -54}, extent = {{-10, -10}, {10, 10}})));
   Electrical.Lines.Line line4(BPu = 0, GPu = 0, RPu = 4*RLinePu, XPu = 4*XLinePu) annotation(
     Placement(transformation(origin = {98, -66}, extent = {{-10, -10}, {10, 10}})));
-  Electrical.Events.NodeFault nodeFault(RPu = 0, XPu = 0, tBegin = tFaultBegin, tEnd = tFaultEnd) annotation(
+  Electrical.Events.NodeFault nodeFault(RPu = 1e-4, XPu = 1e-3, tBegin = tFaultBegin, tEnd = tFaultEnd) annotation(
     Placement(visible = true, transformation(origin = {98, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Converter (tuning of the original test case)
@@ -59,7 +59,7 @@ model VSM_CurrentLimiting_CSA_Pvirt "Grid-forming VSM converter with current sat
     Omegac = 1000, Kfd = 1, Kfq = 1,
     ImaxPu = 1.2, IminPu = 0, EpsUpPu = 0.01, EpsDownPu = 0.01, tSat = 1e-4,
     RFilterPu = 0.003, LFilterPu = 0.1, CFilterPu = 1e-5, RTransformerPu = 0.006, LTransformerPu = 0.06, tVSC = 4e-4,
-    OmegaPLL = sqrt(10*SystemBase.omegaNom), KsiPLL = SystemBase.omegaNom/sqrt(10*SystemBase.omegaNom), tPLL = 0.01) annotation(
+    OmegaPLL = sqrt(10*SystemBase.omegaNom), KsiPLL = SystemBase.omegaNom/sqrt(10*SystemBase.omegaNom), tPLL = 0.01, Omega0Pu = 1.01) annotation(
     Placement(transformation(origin = {17, 45}, extent = {{-39, -39}, {39, 39}})));
 
   // References equal to the initial values of the control: the simulation starts in steady state
