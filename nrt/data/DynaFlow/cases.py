@@ -426,3 +426,43 @@ case_description = "SVarCPVRemoteModeHandling test case with a step on the refer
 job_file = os.path.join(os.path.dirname(__file__),  "StaticVarCompensators", "SVarC_StepURef", "SVarCPVRemoteModeHandling", "SVarC.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+#################################################################
+#  Model examples - HVDC links with AC emulation (PRefSet set)  #
+#################################################################
+
+case_name = "DynaFlow - ModelExamples - HvdcPVEmulationSet"
+case_description = "HvdcPVEmulationSet model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVEmulationSet", "HvdcPVEmulationSet.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPVDiagramPQEmulationSet"
+case_description = "HvdcPVDiagramPQEmulationSet model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVDiagramPQEmulationSet", "HvdcPVDiagramPQEmulationSet.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPVEmulationSetRpcl2Side1"
+case_description = "HvdcPVEmulationSetRpcl2Side1 model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVEmulationSetRpcl2Side1", "HvdcPVEmulationSetRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPVDiagramPQEmulationSetRpcl2Side1"
+case_description = "HvdcPVDiagramPQEmulationSetRpcl2Side1 model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVDiagramPQEmulationSetRpcl2Side1", "HvdcPVDiagramPQEmulationSetRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPQPropEmulationSet"
+case_description = "HvdcPQPropEmulationSet model example: disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPQPropEmulationSet", "HvdcPQPropEmulationSet.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPQPropDiagramPQEmulationSet"
+case_description = "HvdcPQPropDiagramPQEmulationSet model example: disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPQPropDiagramPQEmulationSet", "HvdcPQPropDiagramPQEmulationSet.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
