@@ -12,6 +12,11 @@ on:
         type: boolean
         default: true
   push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 
 defaults:
   run:
@@ -109,7 +114,6 @@ jobs:
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
   coverage:
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-ol8:latest
     env:
@@ -149,7 +153,7 @@ jobs:
         env:
           CONTAINER_WORKSPACE: ${{ runner.workspace }}
           DYNAWO_THIRD_PARTY_INSTALL_DIR: /opt/dynawo/3rParty
-        if: github.ref != 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref != 'refs/heads/master'
         run: |
           export DYNAWO_HOME=$(pwd)
           $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
@@ -176,7 +180,6 @@ jobs:
           $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
 
   build-windows:
-    if: github.event_name == 'push'
     runs-on: windows-2022
     steps:
       - name: Checkout sources
