@@ -75,6 +75,16 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+####################################################################
+#     Model examples - HVDC link with AC emulation                 #
+####################################################################
+
+case_name = "DynaWaltz - ModelExamples - HvdcPQPropEmulation"
+case_description = "HvdcPQPropEmulation model example: disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPQPropEmulation", "HvdcPQPropEmulation.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ###############################
 #     CLA with two levels     #
 ###############################

@@ -155,6 +155,28 @@ job_file = os.path.join(os.path.dirname(__file__), "HvdcDangling", "HvdcDangling
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+#####################################################################
+#  Model examples - HVDC links with fixed limits or P/tan(Phi)      #
+#####################################################################
+
+case_name = "DynaFlow - ModelExamples - HvdcPQProp"
+case_description = "HvdcPQProp model example: disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPQProp", "HvdcPQProp.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPTanPhi"
+case_description = "HvdcPTanPhi model example: disconnection of one of two parallel HVDC links and step on the active power reference"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPTanPhi", "HvdcPTanPhi.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPTanPhiDiagramPQ"
+case_description = "HvdcPTanPhiDiagramPQ model example: disconnection of one of two parallel HVDC links and step on the active power reference"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPTanPhiDiagramPQ", "HvdcPTanPhiDiagramPQ.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #######################################################################################
 #  Small System with generators with tfo and a secondary voltage control              #
 #######################################################################################
