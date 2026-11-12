@@ -342,10 +342,15 @@ SimulationRT::simulate() {
         updateCurves(true);
 
         outputDispatcher_->publishCurves(curvesCollection_);
-        outputDispatcher_->publishTimeline(timeline_);
-        timeline_->clear();
-        outputDispatcher_->publishConstraints(constraintsCollection_, constraintsMinTime);
-        constraintsCollection_->filter(CONSTRAINTS_KEEP_FIRST);
+        // The timeline and the constraints exist only when the job exports or streams them
+        if (timeline_) {
+          outputDispatcher_->publishTimeline(timeline_);
+          timeline_->clear();
+        }
+        if (constraintsCollection_) {
+          outputDispatcher_->publishConstraints(constraintsCollection_, constraintsMinTime);
+          constraintsCollection_->filter(CONSTRAINTS_KEEP_FIRST);
+        }
         constraintsMinTime = tCurrent_;
 
         // dump before wait time to have the correct tCurrent_ value
