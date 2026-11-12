@@ -108,6 +108,28 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+#############################################
+#     Model examples - VSC HVDC links       #
+#############################################
+
+case_name = "DynaSwing - ModelExamples - HvdcVscEmulation"
+case_description = "HvdcVscEmulation model example: reference changes and fault on a VSC HVDC link with AC emulation"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "ModelExamples", "Hvdc", "HvdcVscEmulation", "HvdcVscEmulation.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaSwing - ModelExamples - HvdcVscDanglingP"
+case_description = "HvdcVscDanglingP model example: step on the active power reference of a dangling VSC HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "ModelExamples", "Hvdc", "HvdcVscDanglingP", "HvdcVscDanglingP.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaSwing - ModelExamples - HvdcVscDanglingUDc"
+case_description = "HvdcVscDanglingUDc model example: step on the DC voltage reference of a dangling VSC HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "ModelExamples", "Hvdc", "HvdcVscDanglingUDc", "HvdcVscDanglingUDc.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 ######################################################
 #     IEC Wind Turbine Type 4A 2015 Current Source Q      #
 ######################################################
