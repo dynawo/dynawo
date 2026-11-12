@@ -55,7 +55,7 @@ class Graph {
    * @param closedEdges the list of the edges considered active (closed). All edges are considered active if empty.
    * @return @b true if a path exists, @b false otherwise
    */
-  bool pathExist(int nodeId1, int nodeId2, const std::unordered_set<std::string> & closedEdges = std::unordered_set<std::string>()) const;
+  bool pathExist(int nodeId1, int nodeId2, const std::unordered_set<std::string> & closedEdges = std::unordered_set<std::string>());
 
   /**
    * @brief find the shortest path between two vertices
@@ -66,21 +66,31 @@ class Graph {
    * this list is empty if there is no path or if the vertexOrigin and extremity are the same
    */
   std::vector<std::string>
-  shortestPath(int nodeIdStart, int nodeIdEnd, const std::unordered_set<std::string> & closedEdges = std::unordered_set<std::string>()) const;
+  shortestPath(int nodeIdStart, int nodeIdEnd, const std::unordered_set<std::string> & closedEdges = std::unordered_set<std::string>());
 
   /**
    * @brief partitions the graph in indexed connex components
    * @param closedEdges list of edges IDs considered active (closed)
    * @return the resulting partition, with a component ID corresponding to each valid node index, and the number of components in last element
    */
-  std::vector<int> calculateComponents(const std::unordered_set<std::string> & closedEdges) const;
+  std::vector<int> calculateComponents(const std::unordered_set<std::string> & closedEdges);
 
  private :
-   /**
+  /**
    * @brief check if a vertex exists, throws if it does not
    * @param nodeId id of the vertex to check
    */
-  void checkVertex(int nodeId) const;
+  inline void checkVertex(int nodeId) const;
+
+  /** @brief check if neighbors_ has been initialized, do it if that is not the case */
+  inline void checkNeighbors();
+
+  /**
+   * @brief check that both nodeIds are valid, and that neighbors_ has been initialized
+   * @param nodeId1 first id of the vertex to check
+   * @param nodeId2 second id of the vertex to check
+   */
+  inline void checkNodes(int nodeId1, int nodeId2);
 
    /**
    * @brief builds a path from a node mapping to wrap up the shortest path algorithm

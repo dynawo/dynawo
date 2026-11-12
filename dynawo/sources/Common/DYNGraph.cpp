@@ -44,27 +44,19 @@ Graph::addVertex(int nodeId) {
 
 void
 Graph::addEdge(int nodeId1, int nodeId2, const string & name) {
-  checkVertex(nodeId1);
-  checkVertex(nodeId2);
+  checkNodes(nodeId1, nodeId2);
   if (edgesNames_.find(name) != edgesNames_.end())
     throw DYNError(DYN::Error::GENERAL, AlreadyDefinedEdge, name);
 
   edgesNames_.insert(name);
   edgesByNodes_.insert({dualId(nodeId1, nodeId2), name});
-  if (neighbors_.empty()) {
-    neighbors_.resize(nodeIdMax_+1);
-    for (int i=0; i < nodeIdMax_; ++i)
-      if (vertices_.find(i) == vertices_.end())
-        missingNodes_.insert(i);
-  }
   neighbors_[nodeId1].push_back(nodeId2);
   neighbors_[nodeId2].push_back(nodeId1);
 }
 
 bool
-Graph::pathExist(int nodeId1, int nodeId2, const unordered_set<string> & closedEdges) const {
-  checkVertex(nodeId1);
-  checkVertex(nodeId2);
+Graph::pathExist(int nodeId1, int nodeId2, const unordered_set<string> & closedEdges) {
+  checkNodes(nodeId1, nodeId2);
 
   if (nodeId1 == nodeId2)
     return true;
@@ -95,9 +87,8 @@ Graph::pathExist(int nodeId1, int nodeId2, const unordered_set<string> & closedE
 }
 
 vector<string>
-Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_set<string> & closedEdges) const {
-  checkVertex(nodeIdStart);
-  checkVertex(nodeIdEnd);
+Graph::shortestPath(int nodeIdStart, int nodeIdEnd, const unordered_set<string> & closedEdges) {
+  checkNodes(nodeIdStart, nodeIdEnd);
 
   if (nodeIdStart == nodeIdEnd)
     return vector<string>();
@@ -152,7 +143,9 @@ Graph::buildStringPath(int nodeIdEnd, const vector<int> & predecessors) const {
 }
 
 vector<int>
-Graph::calculateComponents(const unordered_set<string> & closedEdges) const {
+Graph::calculateComponents(const unordered_set<string> & closedEdges) {
+  checkNeighbors();
+
   vector<int> mapping(nodeIdMax_+1, NOT_SET);
   for (int nodeId : missingNodes_)
     mapping[nodeId] = INVALID;
@@ -189,6 +182,25 @@ void
 Graph::checkVertex(int nodeId) const {
   if (vertices_.find(nodeId) == vertices_.end())
     throw DYNError(DYN::Error::GENERAL, UnknownVertex, nodeId);
+}
+
+void
+Graph::checkNeighbors() {
+  if (!neighbors_.empty())
+    return;
+
+  neighbors_.resize(nodeIdMax_+1);
+
+  for (int i=0; i < nodeIdMax_; ++i)
+    if (vertices_.find(i) == vertices_.end())
+      missingNodes_.insert(i);
+}
+
+void
+Graph::checkNodes(int nodeId1, int nodeId2) {
+  checkVertex(nodeId1);
+  checkVertex(nodeId2);
+  checkNeighbors();
 }
 
 }  // namespace DYN
