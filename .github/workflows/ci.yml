@@ -12,6 +12,11 @@ on:
         type: boolean
         default: true
   push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 defaults:
   run:
