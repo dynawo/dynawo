@@ -339,24 +339,18 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
   unsigned nbSwitchToClose = 0;
   for (const auto& nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes()) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
-    if (terminal) {
-      const auto& bus = terminal.get().getBusBreakerView().getBus();
-      if (bus) {
-        vector<string> ret = graph_.shortestPath(nodeToConnect, static_cast<unsigned int>(nodeId));
-        if (shortestPath.empty()) {
-          shortestPath = ret;
-          nbSwitchToClose = countNumberOfSwitchesToClose(ret);
-        } else if (!ret.empty() && ret.size() < shortestPath.size()) {
-          shortestPath = ret;
-          nbSwitchToClose = countNumberOfSwitchesToClose(ret);
-        } else if (!ret.empty() && shortestPath.size() == ret.size()) {  // Tie-breaker
-          unsigned currentNbSwitchToClose = countNumberOfSwitchesToClose(ret);
-          if (currentNbSwitchToClose < nbSwitchToClose) {
-            shortestPath = ret;
-            nbSwitchToClose = currentNbSwitchToClose;
-          }
-        }
-      }
+    if ((!terminal) || (!terminal.get().getBusBreakerView().getBus()))
+      continue;
+
+    vector<string> ret = graph_.shortestPath(nodeToConnect, static_cast<unsigned int>(nodeId));
+    if (ret.empty() || (!shortestPath.empty() && (ret.size() > shortestPath.size())))
+      continue;
+
+    // tie-breaker : in case of same path length, minimal number of switches to close
+    int candidateNbSwitchToClose = countNumberOfSwitchesToClose(ret);
+    if (shortestPath.empty() || (ret.size() < shortestPath.size()) || (candidateNbSwitchToClose < nbSwitchToClose)) {
+      shortestPath = ret;
+      nbSwitchToClose = candidateNbSwitchToClose;
     }
   }
 
