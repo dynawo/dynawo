@@ -47,5 +47,5 @@
     <curve model="11_1_QRefPu" variable="input_variable"/>
     <curve model="NETWORK" variable="12_1_P"/>
     <curve model="NETWORK" variable="12_1_DeltaPc"/>
-    <curve model="OmegaRef" variable="omegaRef_0"/>
+    <curve model="OmegaRef" variable="omegaRef_0_"/>
 </curvesInput>
