@@ -27,6 +27,7 @@ env:
 
 jobs:
   build-linux:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-ol8:latest
     env:
@@ -114,6 +115,7 @@ jobs:
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
   coverage:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-ol8:latest
     env:
@@ -180,6 +182,7 @@ jobs:
           $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
 
   build-windows:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: windows-2022
     steps:
       - name: Checkout sources
