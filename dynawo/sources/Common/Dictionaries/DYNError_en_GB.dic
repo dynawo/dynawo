@@ -220,6 +220,7 @@ UnknownBus                  =             bus id '%1%' does not exist in the iid
 UnknownCalculatedBus        =             calculated bus associated to '%1%' node '%2%' does not exist in the iidm import
 UnknownComponent            =             component '%1%' does not exist in the network's model
 UnknownVoltageLevel         =             voltageLevel id '%1%' does not exist in the iidm import
+NodeIndexOnBusBreakerVoltageLevel =       node index '%2%' cannot be used on voltageLevel '%1%': its topology is BUS_BREAKER (node indexes only exist in NODE_BREAKER topology)
 VoltageLevelTopoError       =             topology of voltage level with id '%1%' is missing or wrong
 UnknownStaticComponent      =             static id  '%1%' does not exist in the iidm import
 WrongReferenceId            =             static's id of the model '%1%' is unset

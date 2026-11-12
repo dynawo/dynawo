@@ -237,6 +237,26 @@ TEST(ModelerNodeMacroTest, FindNodeConnectorName_NodeBreakerPattern_InvalidIndex
                       Error::MODELER, KeyError_t::MacroNotResolved);
 }
 
+TEST(ModelerNodeMacroTest, FindNodeConnectorName_NodeBreakerPattern_StrictIndexParsing) {
+  // std::stoi would accept these silently: they must be rejected
+  auto data = make_shared<DataInterfaceMock>();
+  data->busFromNodes[{"VL1", 5}] = "CALC_BUS_5";
+  ModelerTester m = makeModeler(data);
+
+  ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@VL1@@NODE@@5abc@_ACPIN", "@NODE@"),
+                      Error::MODELER, KeyError_t::MacroNotResolved);
+  ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@VL1@@NODE@@ 5@_ACPIN", "@NODE@"),
+                      Error::MODELER, KeyError_t::MacroNotResolved);
+  ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@VL1@@NODE@@+5@_ACPIN", "@NODE@"),
+                      Error::MODELER, KeyError_t::MacroNotResolved);
+  ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@VL1@@NODE@@-1@_ACPIN", "@NODE@"),
+                      Error::MODELER, KeyError_t::MacroNotResolved);
+  ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@VL1@@NODE@@@_ACPIN", "@NODE@"),
+                      Error::MODELER, KeyError_t::MacroNotResolved);
+  // leading zeros are still valid decimal digits
+  ASSERT_EQ(m.testFindNodeConnectorName("@VL1@@NODE@@05@_ACPIN", "@NODE@"), "CALC_BUS_5_ACPIN");
+}
+
 TEST(ModelerNodeMacroTest, FindNodeConnectorName_NodeBreakerPattern_IndexOutOfRange) {
   auto data = make_shared<DataInterfaceMock>();
   ModelerTester m = makeModeler(data);

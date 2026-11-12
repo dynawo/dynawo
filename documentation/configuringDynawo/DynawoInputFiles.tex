@@ -818,8 +818,10 @@ For networks described with a node-breaker topology, an alternative macro allows
 \begin{itemize}
   \item \verb|@VOLTAGE_LEVEL@| is replaced by the voltage level identifier of the static component on the other side of the connection (\verb|Load1| in the example above). It can also be replaced by a literal voltage level identifier written directly in the variable name (e.g.\ \verb|@MyVL@@NODE@@3@_ACPIN|).
   \item \verb|@NODE@| is a mandatory anchor used to delimit the voltage level part from the node index part.
-  \item \verb|@|\textit{N}\verb|@| is a non-negative integer node index within the voltage level. The calculated bus that contains this node is used as the resolved bus name.
+  \item \verb|@|\textit{N}\verb|@| is a non-negative integer node index within the voltage level, written with decimal digits only. The calculated bus that contains this node is used as the resolved bus name.
 \end{itemize}
+
+The simulation stops with an error if the node index is not a valid non-negative integer, if the voltage level does not exist, if the voltage level is described with a bus-breaker topology (node indexes only exist in node-breaker topology), or if the node does not exist in the voltage level.
 
 This macro is especially useful when the voltage level identifier or the node index is known but no static component identifier is available, or to make connections independent of the static component naming.
 

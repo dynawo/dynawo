@@ -202,13 +202,9 @@ class DataInterface {
   /**
    * @brief get the name of the calculated bus at a given node index in a NODE_BREAKER voltage level
    *
-   * The first argument may be either:
-   *  - a voltage level id: the bus is looked up directly in that voltage level, or
-   *  - a static component id: the component's voltage level is resolved first.
-   *
-   * This corresponds to the macro \@VOLTAGE_LEVEL_ID\@\@NODE_INDEX\@\@ used in DYD connections,
-   * where NODE_INDEX is a decimal integer identifying the node within the voltage level,
-   * and VOLTAGE_LEVEL_ID is either a literal voltage level id or the result of \@VOLTAGE_LEVEL\@ substitution.
+   * This corresponds to the macro \@VL_ID\@\@NODE\@\@N\@ used in DYD connections,
+   * where N is a non-negative decimal integer identifying the node within the voltage level,
+   * and VL_ID is either a literal voltage level id or the result of \@VOLTAGE_LEVEL\@ substitution.
    *
    * @param voltageLevelId id of the voltage level (after substitution)
    * @param nodeIndex node index within the voltage level

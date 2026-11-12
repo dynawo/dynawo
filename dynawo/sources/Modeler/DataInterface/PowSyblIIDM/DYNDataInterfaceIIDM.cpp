@@ -916,6 +916,12 @@ DataInterfaceIIDM::getVoltageLevelId(const std::string& staticId) {
 
 std::string
 DataInterfaceIIDM::getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex) {
+  const auto itVL = voltageLevels_.find(voltageLevelId);
+  if (itVL == voltageLevels_.end())
+    throw DYNError(Error::MODELER, UnknownVoltageLevel, voltageLevelId);
+  if (!itVL->second->isNodeBreakerTopology())
+    throw DYNError(Error::MODELER, NodeIndexOnBusBreakerVoltageLevel, voltageLevelId, nodeIndex);
+
   const auto vlIter = calculatedBusComponents_.find(voltageLevelId);
   if (vlIter != calculatedBusComponents_.end()) {
     for (const auto& bus : vlIter->second) {
@@ -923,7 +929,7 @@ DataInterfaceIIDM::getBusNameFromNode(const std::string& voltageLevelId, int nod
         return bus->getID();
     }
   }
-  return "";
+  throw DYNError(Error::MODELER, UnknownCalculatedBus, voltageLevelId, nodeIndex);
 }
 
 std::shared_ptr<VoltageLevelInterface>

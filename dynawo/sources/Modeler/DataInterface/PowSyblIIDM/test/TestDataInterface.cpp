@@ -810,6 +810,46 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDM) {
   ASSERT_TRUE(vl->isNodeConnected(0));
 }
 
+TEST(DataInterfaceIIDMTest, testGetBusNameFromNodeNodeBreaker) {
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createNodeBreakerNetworkIIDM());
+
+  // nodes 0 and 8 are linked by an internal connection: same calculated bus
+  const std::string busNode0 = data->getBusNameFromNode("MyVoltageLevel", 0);
+  ASSERT_FALSE(busNode0.empty());
+  ASSERT_EQ(data->getBusNameFromNode("MyVoltageLevel", 8), busNode0);
+  std::shared_ptr<CalculatedBusInterfaceIIDM> bus =
+      std::dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(data->findComponent(busNode0));
+  ASSERT_TRUE(bus->hasNode(0));
+
+  ASSERT_THROW_DYNAWO(data->getBusNameFromNode("MyVoltageLevel", 999), Error::MODELER, KeyError_t::UnknownCalculatedBus);
+  ASSERT_THROW_DYNAWO(data->getBusNameFromNode("UnknownVL", 0), Error::MODELER, KeyError_t::UnknownVoltageLevel);
+}
+
+TEST(DataInterfaceIIDMTest, testGetBusNameFromNodeBusBreaker) {
+  const BusBreakerNetworkProperty properties = {
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      false /*instantiateGeneratorWithExtensions*/,
+      false /*instantiateLccConverterWithConnectedHvdc*/,
+      false /*instantiateLccConverterWithDisconnectedHvdc*/,
+      false /*instantiateLine*/,
+      false /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverterWithConnectedHvdc*/,
+      false /*instantiateVscConverterWithDisconnectedHvdc*/,
+      false /*instantiateThreeWindingTransformer*/,
+      false /*instantiateBattery*/
+  };
+  shared_ptr<DataInterfaceIIDM> data = createDataItfFromNetwork(createBusBreakerNetwork(properties));
+
+  ASSERT_THROW_DYNAWO(data->getBusNameFromNode("VL1", 0), Error::MODELER, KeyError_t::NodeIndexOnBusBreakerVoltageLevel);
+}
+
 TEST(DataInterfaceIIDMTest, testBusIIDM) {
   const BusBreakerNetworkProperty properties = {
       false /*instantiateCapacitorShuntCompensator*/,

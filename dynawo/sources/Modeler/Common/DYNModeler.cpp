@@ -302,12 +302,17 @@ Modeler::findNodeConnectorName(const string& id, const string& labelNode) const 
     const size_t endContent = id.find('@', startContent);
     if (endContent != string::npos) {
       const string nodeContent = id.substr(startContent, endContent - startContent);
+      // strict parsing: only a non-empty sequence of decimal digits is accepted
+      // (std::stoi alone would silently accept "5abc", " 5" or "-1")
+      if (nodeContent.empty() || !boost::algorithm::all(nodeContent, boost::algorithm::is_digit()))
+        throw DYNError(Error::MODELER, MacroNotResolved, id,
+            "node index '" + nodeContent + "' is not a valid non-negative integer in " + labelNode);
       int nodeIndex = 0;
       try {
         nodeIndex = std::stoi(nodeContent);
-      } catch (const std::exception&) {
+      } catch (const std::out_of_range&) {
         throw DYNError(Error::MODELER, MacroNotResolved, id,
-            "node index '" + nodeContent + "' is not a valid integer in " + labelNode);
+            "node index '" + nodeContent + "' is out of range in " + labelNode);
       }
       const string labelNodeIndex = "@" + nodeContent + "@";
       const string busName = data_->getBusNameFromNode(idPart, nodeIndex);
