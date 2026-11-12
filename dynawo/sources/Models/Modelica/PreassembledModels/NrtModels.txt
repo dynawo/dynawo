@@ -1,3 +1,5 @@
+AcGridRoCoF
+AggregatedIBG
 BESSWeccCurrentSource
 BooleanTable
 Bus
@@ -5,8 +7,16 @@ BusWithInit
 CombiTimeTable
 CurrentLimitAutomaton
 CurrentLimitAutomatonTwoLevels
+DERa
 DistanceProtectionLineTwoZones
 DoubleStep
+DynGridFormingCCVSMPlantControlFull
+DynGridFormingCurrentControlledVirtualSynchronousMachine
+DynGridFormingDroop
+DynGridFormingDroopPlantControlFull
+DynGridFormingVirtualSynchronousMachine
+DynGridFormingVirtualSynchronousMachineConvPLL
+DynGridFormingVSMPlantControlFull
 ElectronicLoad
 EventConnectedStatus
 EventQuadripoleDisconnection
@@ -19,6 +29,7 @@ GeneratorPTanPhi
 GeneratorPVDiagramPQRpcl2SignalN
 GeneratorPVDiagramPQRpclSignalN
 GeneratorPVDiagramPQSignalN
+GeneratorPVFixed
 GeneratorPVRpcl2SignalN
 GeneratorPVRpclSignalN
 GeneratorPVSignalN
