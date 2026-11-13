@@ -11,6 +11,7 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
+  AcGridRoCoF.xml
   AggregatedIBG.xml
   BESSWeccCurrentSource.xml
   BESSWeccCurrentSourceNoPlantControl.xml
@@ -30,6 +31,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  DynGridFormingVirtualSynchronousMachine.xml
+  DynGridFormingDroop.xml
+  DynGridFormingCurrentControlledVirtualSynchronousMachine.xml
+  DynGridFormingVirtualSynchronousMachineConvPLL.xml
+  DynGridFormingCCVSMPlantControlFull.xml
+  DynGridFormingVSMPlantControlFull.xml
+  DynGridFormingDroopPlantControlFull.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml
