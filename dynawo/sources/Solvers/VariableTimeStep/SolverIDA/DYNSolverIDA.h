@@ -269,6 +269,21 @@ class SolverIDA : public Solver::Impl {
   void updateAlgebraicRestorationStatistics();
 
   /**
+  * @brief compute the infinity norm of the residuals of the algebraic equations at the current point
+  * @return infinity norm of the algebraic residuals
+  */
+  double algebraicResidualNorm();
+
+  /**
+  * @brief repeat the algebraic and derivative restorations until the algebraic equations are satisfied
+  *
+  * The algebraic restoration is solved with the derivatives of the previous point. When algebraic equations
+  * also contain derivatives (dummy derivatives after index reduction), a single pass leaves them unsatisfied.
+  * @param evaluateOnlyMode whether only the residuals of the models in mode are evaluated at the first iteration
+  */
+  void solveCoupledRestorations(bool evaluateOnlyMode);
+
+  /**
   * @brief set the index of each differential variables
   */
   void setDifferentialVariablesIndices();

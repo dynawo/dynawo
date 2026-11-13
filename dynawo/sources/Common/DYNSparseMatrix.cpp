@@ -62,23 +62,27 @@ SparseMatrix::changeCol() {
 
 void
 SparseMatrix::addTerm(const int row, const double val) {
-  if (!doubleIsZero(val)) {
-    assert(row < nbRow_);
-    // To deal with exploding matrix sizes
-    if (nbTerm_ >= currentMaxTerm_) increaseReserve();
-    ++Ap_[iAp_];
-    Ai_[iAi_] = row;
-    Ax_[iAx_] = val;
-    ++iAi_;
-    ++iAx_;
-    ++nbTerm_;
-    if (std::isnan(val)) {   // right way to check is the value is a NaN value
-      withoutNan_ = false;
-    }
+  if (!doubleIsZero(val))
+    addStructuralTerm(row, val);
+}
 
-    if (std::isinf(val)) {  // if val is INFINITY
-      withoutInf_ = false;
-    }
+void
+SparseMatrix::addStructuralTerm(const int row, const double val) {
+  assert(row < nbRow_);
+  // To deal with exploding matrix sizes
+  if (nbTerm_ >= currentMaxTerm_) increaseReserve();
+  ++Ap_[iAp_];
+  Ai_[iAi_] = row;
+  Ax_[iAx_] = val;
+  ++iAi_;
+  ++iAx_;
+  ++nbTerm_;
+  if (std::isnan(val)) {   // right way to check is the value is a NaN value
+    withoutNan_ = false;
+  }
+
+  if (std::isinf(val)) {  // if val is INFINITY
+    withoutInf_ = false;
   }
 }
 
@@ -195,8 +199,8 @@ SparseMatrix::erase(const std::unordered_set<int>& rows, const std::unordered_se
         if (itL == rows.end()) {
           // New line number
           const int rowNum = correspondance[iRow];
-          // Copy of the value
-          M.addTerm(rowNum, Ax_[ind]);
+          // Copy of the value as stored: the terms were already filtered when the matrix was filled
+          M.addStructuralTerm(rowNum, Ax_[ind]);
         }
       }
     }

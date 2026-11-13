@@ -17,6 +17,7 @@
  * @brief Solver implementation based on sundials/IDA solver
  */
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <iomanip>
@@ -793,6 +794,50 @@ void SolverIDA::updateAlgebraicRestorationStatistics() {
   stats_.njeTotal_ += nje;
 }
 
+double
+SolverIDA::algebraicResidualNorm() {
+  std::vector<double> f(model_->sizeF(), 0.);
+  model_->evalF(tSolve_, &vectorY_[0], &vectorYp_[0], &f[0]);
+  const std::vector<propertyF_t>& modelFType = model_->getFType();
+  double norm = 0.;
+  for (unsigned int i = 0; i < f.size(); ++i) {
+    if (modelFType[i] == ALGEBRAIC_EQ)
+      norm = std::max(norm, std::abs(f[i]));
+  }
+  return norm;
+}
+
+void
+SolverIDA::solveCoupledRestorations(const bool evaluateOnlyMode) {
+  constexpr int maxNumberRestorationPasses = 20;
+  const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
+  int nbPasses = 1;
+  double residual = algebraicResidualNorm();
+  while (residual > fnormtolAlg_ && nbPasses < maxNumberRestorationPasses) {
+    // the Jacobians of both restorations were set up by the first pass
+    constexpr bool noInitSetup = true;
+    for (unsigned int i = 0; i < modelYType.size(); i++)
+      if (modelYType[i] != DYN::DIFFERENTIAL)
+        vectorYp_[i] = 0;
+    solverKINNormal_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+    solverKINNormal_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
+    solverKINNormal_->getValues(vectorY_, vectorYp_);
+
+    for (unsigned int i = 0; i < modelYType.size(); i++)
+      if (modelYType[i] != DYN::DIFFERENTIAL)
+        vectorYp_[i] = 0;
+    solverKINYPrim_->setInitialValues(tSolve_, vectorY_, vectorYp_);
+    solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
+    solverKINYPrim_->getValues(vectorY_, vectorYp_);
+
+    updateAlgebraicRestorationStatistics();
+    ++nbPasses;
+    residual = algebraicResidualNorm();
+  }
+  if (residual > fnormtolAlg_)
+    Trace::warn() << DYNLog(SolverIDACoupledRestorationNotConverged, nbPasses, residual, fnormtolAlg_) << Trace::endline;
+}
+
 /*
  * This routine deals with the possible actions due to a mode change.
  * In IDA, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or just
@@ -833,10 +878,13 @@ SolverIDA::reinit() {
       solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode, multipleStrategiesForAlgebraicRestoration_);
       solverKINYPrim_->getValues(vectorY_, vectorYp_);
 
-      model_->reinitMode();
-
       // Update statistics
       updateAlgebraicRestorationStatistics();
+
+      // POC #3152: the algebraic restoration used the derivatives of the previous point, repeat both if needed
+      solveCoupledRestorations(evaluateOnlyMode);
+
+      model_->reinitMode();
 
       // Root stabilization
       model_->evalG(tSolve_, g1_);

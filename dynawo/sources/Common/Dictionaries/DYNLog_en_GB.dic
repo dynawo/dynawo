@@ -241,6 +241,7 @@ IdaLinesearchFail             =             IDA_LINESEARCH_FAIL : The linesearch
 IdaConvFail                   =             IDA_CONV_FAIL : IDACalcIC failed to get convergence of the Newton iterations.
 SolverIDAUnknownError         =             unknown error during IDA Solve
 SolverIDARestorAlgebraicEqu   =             restoration of the algebraic equations
+SolverIDACoupledRestorationNotConverged =   algebraic restoration not consistent after %1% passes: residual of the algebraic equations %2% > %3%
 SolverIDADebugResidual        =             DEBUG RESIDUAL
 SolverIDALargestErrors        =             largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first %1%
 SolverIDAErrorValue           =             error > %1% : variable %2% %3%, error %4%
