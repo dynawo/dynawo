@@ -23,6 +23,7 @@
 #include <map>
 #include <fstream>
 #include <algorithm>
+#include <stdexcept>
 
 #include "TLTimeline.h"
 #include "CRVCurve.h"
@@ -1295,28 +1296,47 @@ void ModelMulti::registerAction(const string& actionString) {
     if (subModel->hasParameterDynamic(paramName)) {
       const ParameterModeler& parameter = subModel->findParameterDynamic(paramName);
       boost::any castedValue;
-      switch (parameter.getValueType()) {
-        case VAR_TYPE_DOUBLE: {
-          castedValue = std::stod(value);
-          break;
+      // a value that is not wholly of the parameter's type drops the action, as an incomplete one does: the
+      // conversions' exceptions would otherwise leave the simulation
+      std::size_t parsed = value.size();
+      try {
+        switch (parameter.getValueType()) {
+          case VAR_TYPE_DOUBLE: {
+            castedValue = std::stod(value, &parsed);
+            break;
+          }
+          case VAR_TYPE_INT: {
+            castedValue = std::stoi(value, &parsed);
+            break;
+          }
+          case VAR_TYPE_BOOL: {
+            // as in the parameters' files, or as an integer (0 is false)
+            if (value == "true" || value == "false") {
+              castedValue = (value == "true");
+            } else {
+              const bool bval = std::stoi(value, &parsed) != 0;
+              castedValue = bval;
+            }
+            break;
+          }
+          case VAR_TYPE_STRING: {
+            castedValue = value;
+            break;
+          }
+          default:
+          {
+            throw DYNError(Error::MODELER, ParameterBadType, parameter.getName());
+          }
         }
-        case VAR_TYPE_INT: {
-          castedValue = std::stoi(value);
-          break;
-        }
-        case VAR_TYPE_BOOL: {
-          bool bval = std::stoi(value);
-          castedValue = bval;
-          break;
-        }
-        case VAR_TYPE_STRING: {
-          castedValue = value;
-          break;
-        }
-        default:
-        {
-          throw DYNError(Error::MODELER, ParameterBadType, parameter.getName());
-        }
+      } catch (const std::invalid_argument&) {
+        parsed = std::string::npos;
+      } catch (const std::out_of_range&) {
+        parsed = std::string::npos;
+      }
+      if (parsed != value.size()) {
+        string shortAction = (actionString.size() > 40) ? actionString.substr(0, 40) + "..." : actionString;
+        Trace::warn() << DYNLog(ActionUnparsable, shortAction) << Trace::endline;
+        return;
       }
       parameterValueSet.push_back(std::make_tuple(paramName, castedValue, parameter.getValueType()));
     } else {
