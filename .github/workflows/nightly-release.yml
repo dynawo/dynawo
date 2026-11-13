@@ -15,6 +15,10 @@ on:
         description: Build Linux gcc11 release
         type: boolean
         default: true
+      perform-linux-dynastream:
+        description: Build Linux DynaStream release (interactive mode, with ZMQ)
+        type: boolean
+        default: true
       perform-documentation:
         description: Build documentation
         type: boolean
@@ -190,6 +194,60 @@ jobs:
           for file in distributions/Dynawo_v*.zip ; do mv $file ${file//_/_gcc11_} ; done
           for file in distributions/Dynawo_headers_v*.zip ; do mv $file ${file//_headers_/_headers_gcc11_} ; done
           for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_omc_gcc11_} ; done
+
+      - name: INFO. Files created in distributions folder
+        run: du -hs distributions/*
+
+      - name: Upload assets for release
+        uses: actions/github-script@v7
+        env:
+          tag_name: ${{ env.DYNAWO_TAG }}
+          draft: false
+          prerelease: true
+          files: |
+            distributions/*.zip
+        with:
+          retries: 3
+          script: |
+            const release = require('.github/release.js')
+            await release({github, context, core, glob})
+
+  distribution-dynastream:
+    if: always() && !cancelled() && !failure() && (github.event_name != 'workflow_dispatch' || inputs.perform-linux-dynastream)
+    name: Linux DynaStream (Release, GCC11, ZMQ)
+    runs-on: ubuntu-latest
+    container: dynawo/dynawo-distribution-gcc11:latest
+    needs: nightly
+    env:
+      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
+      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
+      DYNAWO_RESULTS_SHOW: "false"
+      DYNAWO_BUILD_TYPE: Release
+      DYNAWO_FORCE_CXX11_ABI: "true"
+      DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_PYTHON_COMMAND: python3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install ZeroMQ
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends libzmq3-dev
+          # cppzmq (zmq.hpp alone) is not packaged in Ubuntu 22.04
+          curl -sSL -o /usr/local/include/zmq.hpp https://raw.githubusercontent.com/zeromq/cppzmq/v4.10.0/zmq.hpp
+
+      - name: Build
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh build-user
+
+      - name: Prepare files for distribution
+        shell: bash
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh distrib-omc
+          for file in distributions/Dynawo_omc_v*.zip ; do mv $file ${file//_omc_/_omc_DynaStream_} ; done
 
       - name: INFO. Files created in distributions folder
         run: du -hs distributions/*
