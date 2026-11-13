@@ -18,6 +18,7 @@
  */
 #include <fstream>
 
+#include <boost/filesystem.hpp>
 #include <xml/sax/parser/ParserFactory.h>
 #include <xml/sax/parser/ParserException.h>
 
@@ -40,14 +41,22 @@ XmlImporter::importFromFile(const string& fileName) const {
     throw DYNError(DYN::Error::API, FileSystemItemDoesNotExist, fileName);
 
   try {
-    return importFromStream(stream);
+    string parDir = boost::filesystem::absolute(fileName).parent_path().string();
+    return importFromStream(stream, parDir);
   } catch (const DYN::Error& exp) {
     throw DYNError(DYN::Error::API, XmlFileParsingError, fileName, exp.what());
   }
 }
 
-std::shared_ptr<ParametersSetCollection> XmlImporter::importFromStream(std::istream& stream) const {
+std::shared_ptr<ParametersSetCollection>
+XmlImporter::importFromStream(std::istream& stream) const {
+  return importFromStream(stream, "");
+}
+
+std::shared_ptr<ParametersSetCollection>
+XmlImporter::importFromStream(std::istream& stream, const string& filePath) const {
   XmlHandler parHandler;
+  parHandler.setFilePath(filePath);
   xml::sax::parser::ParserFactory parser_factory;
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
 

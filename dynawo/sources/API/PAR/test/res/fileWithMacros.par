@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="STRING" name="installPath" value="@DYNAWO_INSTALL_DIR@/lib"/>
+    <par type="STRING" name="parPath" value="@PAR_PATH@/data.csv"/>
+    <par type="STRING" name="combined" value="@DYNAWO_INSTALL_DIR@/share/@PAR_PATH@/file.txt"/>
+    <par type="DOUBLE" name="tb" value="30."/>
+    <par type="INT" name="int" value="1"/>
+    <par type="BOOL" name="boolean" value="true"/>
+    <parTable type="STRING" name="paths">
+      <par row="1" column="1" value="@DYNAWO_INSTALL_DIR@/bin"/>
+      <par row="1" column="2" value="@PAR_PATH@/tables"/>
+    </parTable>
+  </set>
+</parametersSet>
