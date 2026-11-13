@@ -115,17 +115,29 @@ find_package(libXML 0.2.4 REQUIRED PATHS $ENV{DYNAWO_LIBXML_HOME})
 
 find_package(Dynawo CONFIG REQUIRED PATHS $ENV{DYNAWO_INSTALL_DIR} PATH_SUFFIXES share)
 
-set(MODEL_SOURCES
+# Unity build: model sources are gathered in as few translation units as possible so that the (heavy) headers are parsed only once.
+# _Dyn and _Init sources define the same literals, so they have to stay in two separate translation units.
+function(write_unity_source UNITY_FILE)
+  set(UNITY_CONTENT "")
+  foreach(SOURCE ${ARGN})
+    string(APPEND UNITY_CONTENT "#include \"${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}\"\n")
+  endforeach()
+  file(WRITE ${UNITY_FILE} "${UNITY_CONTENT}")
+endfunction()
+
+write_unity_source(${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}_Dyn_unity.cpp
   ${MODEL_NAME}.cpp
   ${MODEL_NAME}_Dyn.cpp
   ${MODEL_NAME}_Dyn_external.cpp
   )
+set(MODEL_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}_Dyn_unity.cpp)
 
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${MODEL_NAME}_Init.cpp)
-  list(APPEND MODEL_SOURCES
+  write_unity_source(${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}_Init_unity.cpp
     ${MODEL_NAME}_Init.cpp
     ${MODEL_NAME}_Init_external.cpp
     )
+  list(APPEND MODEL_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}_Init_unity.cpp)
 endif()
 
 add_library(lib SHARED ${MODEL_SOURCES})
