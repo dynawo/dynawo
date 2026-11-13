@@ -18,11 +18,15 @@ model LoadAlphaBeta "Load with voltage-dependent active and reactive power (alph
 
   parameter Real alpha "Active load sensitivity to voltage";
   parameter Real beta "Reactive load sensitivity to voltage";
+  parameter Types.VoltageModulePu UMinPu = 0 "Voltage below which the load is the constant admittance that takes at UMinPu the power of the alpha-beta law, in pu (base UNom); 0: never";
 
 equation
-  if running and terminal.V <> Complex(0) then
+  if running and terminal.V <> Complex(0) and ComplexMath.'abs'(terminal.V) >= UMinPu then
     PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ alpha);
     QPu = QRefPu * (1 + deltaQ) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ beta);
+  elseif running and UMinPu > 0 then
+    // the current is then defined at any voltage, zero included, where the power law leaves it undetermined
+    terminal.i = ComplexMath.conj(Complex(PRefPu * (1 + deltaP) * ((UMinPu / ComplexMath.'abs'(u0Pu)) ^ alpha), QRefPu * (1 + deltaQ) * ((UMinPu / ComplexMath.'abs'(u0Pu)) ^ beta))) * terminal.V / UMinPu ^ 2;
   else
     terminal.i = Complex(0);
   end if;
