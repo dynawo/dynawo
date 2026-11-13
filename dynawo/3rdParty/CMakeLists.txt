@@ -758,6 +758,35 @@ else()
   add_custom_target(openmodelica)
 endif()
 
+# External C sources of the Modelica Standard Library (ModelicaStandardTables, ModelicaStrings...)
+# Built as a static library, embedded by Dynawo into Modelica_externalC
+# together with its own implementation of ModelicaUtilities.h (DYNModelicaUtilities.cpp)
+GetPatchCommand(modelicaexternalc)
+ExternalProject_Add(modelicaexternalc
+  INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/modelicaexternalc
+  DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/modelicalib
+  TMP_DIR             ${TMP_DIR}
+  STAMP_DIR           ${DOWNLOAD_DIR}/modelicaexternalc-stamp
+  SOURCE_DIR          ${DOWNLOAD_DIR}/modelicaexternalc
+  BINARY_DIR          ${DOWNLOAD_DIR}/modelicaexternalc-build
+  SOURCE_SUBDIR       Modelica/Resources/C-Sources
+  DOWNLOAD_NAME       ${modelicalib_name}
+  URL                 ${modelicalib_url}
+  URL_MD5             ${modelicalib_md5}
+  PATCH_COMMAND       ${modelicaexternalc_patch_common}
+  COMMAND             ${modelicaexternalc_patch_compiler}
+  COMMAND             ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/modelicaexternalc/CMakeLists.txt <SOURCE_DIR>/Modelica/Resources/C-Sources/CMakeLists.txt
+
+  CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
+
+  CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+                      -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+)
+if(TARGET modelicalib)
+  # Both projects download the same archive in the same directory: avoid concurrent downloads
+  add_dependencies(modelicaexternalc modelicalib)
+endif()
+
 set(LIBZIP_HOME ${CMAKE_INSTALL_PREFIX}/libzip)
 find_package(libZIP 1.3.0 QUIET)
 unset(LIBZIP_HOME)

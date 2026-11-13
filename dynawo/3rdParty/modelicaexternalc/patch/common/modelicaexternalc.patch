@@ -1,0 +1,138 @@
+--- a/Modelica/Resources/C-Sources/ModelicaStandardTables.c
++++ b/Modelica/Resources/C-Sources/ModelicaStandardTables.c
+@@ -541,10 +541,10 @@
+
+ void* ModelicaStandardTables_CombiTimeTable_init(_In_z_ const char* tableName,
+                                                  _In_z_ const char* fileName,
+-                                                 _In_ double* table, size_t nRow,
++                                                 _In_ const double* table, size_t nRow,
+                                                  size_t nColumn,
+                                                  double startTime,
+-                                                 _In_ int* cols,
++                                                 _In_ const int* cols,
+                                                  size_t nCols, int smoothness,
+                                                  int extrapolation) {
+     return ModelicaStandardTables_CombiTimeTable_init2(fileName,
+@@ -554,10 +554,10 @@
+
+ void* ModelicaStandardTables_CombiTimeTable_init2(_In_z_ const char* fileName,
+                                                   _In_z_ const char* tableName,
+-                                                  _In_ double* table, size_t nRow,
++                                                  _In_ const double* table, size_t nRow,
+                                                   size_t nColumn,
+                                                   double startTime,
+-                                                  _In_ int* cols,
++                                                  _In_ const int* cols,
+                                                   size_t nCols, int smoothness,
+                                                   int extrapolation,
+                                                   double shiftTime,
+@@ -1712,9 +1712,9 @@
+
+ void* ModelicaStandardTables_CombiTable1D_init(_In_z_ const char* tableName,
+                                                _In_z_ const char* fileName,
+-                                               _In_ double* table, size_t nRow,
++                                               _In_ const double* table, size_t nRow,
+                                                size_t nColumn,
+-                                               _In_ int* cols,
++                                               _In_ const int* cols,
+                                                size_t nCols, int smoothness) {
+     return ModelicaStandardTables_CombiTable1D_init2(fileName, tableName,
+         table, nRow, nColumn, cols, nCols, smoothness, LAST_TWO_POINTS,
+@@ -1723,9 +1723,9 @@
+
+ void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
+                                                 _In_z_ const char* tableName,
+-                                                _In_ double* table, size_t nRow,
++                                                _In_ const double* table, size_t nRow,
+                                                 size_t nColumn,
+-                                                _In_ int* cols,
++                                                _In_ const int* cols,
+                                                 size_t nCols, int smoothness,
+                                                 int extrapolation,
+                                                 int verbose) {
+@@ -2350,7 +2350,7 @@
+
+ void* ModelicaStandardTables_CombiTable2D_init(_In_z_ const char* tableName,
+                                                _In_z_ const char* fileName,
+-                                               _In_ double* table, size_t nRow,
++                                               _In_ const double* table, size_t nRow,
+                                                size_t nColumn, int smoothness) {
+     return ModelicaStandardTables_CombiTable2D_init2(fileName, tableName,
+         table, nRow, nColumn, smoothness, LAST_TWO_POINTS, 1 /* verbose */);
+@@ -2358,7 +2358,7 @@
+
+ void* ModelicaStandardTables_CombiTable2D_init2(_In_z_ const char* fileName,
+                                                 _In_z_ const char* tableName,
+-                                                _In_ double* table, size_t nRow,
++                                                _In_ const double* table, size_t nRow,
+                                                 size_t nColumn, int smoothness,
+                                                 int extrapolation,
+                                                 int verbose) {
+--- a/Modelica/Resources/C-Sources/ModelicaStandardTables.h
++++ b/Modelica/Resources/C-Sources/ModelicaStandardTables.h
+@@ -122,10 +122,10 @@
+
+ MODELICA_EXPORT void* ModelicaStandardTables_CombiTimeTable_init(_In_z_ const char* tableName,
+                                                  _In_z_ const char* fileName,
+-                                                 _In_ double* table, size_t nRow,
++                                                 _In_ const double* table, size_t nRow,
+                                                  size_t nColumn,
+                                                  double startTime,
+-                                                 _In_ int* columns,
++                                                 _In_ const int* columns,
+                                                  size_t nCols, int smoothness,
+                                                  int extrapolation) MODELICA_NONNULLATTR;
+   /* Same as ModelicaStandardTables_CombiTimeTable_init2, but without shiftTime, timeEvents and
+@@ -134,10 +134,10 @@
+
+ MODELICA_EXPORT void* ModelicaStandardTables_CombiTimeTable_init2(_In_z_ const char* fileName,
+                                                   _In_z_ const char* tableName,
+-                                                  _In_ double* table, size_t nRow,
++                                                  _In_ const double* table, size_t nRow,
+                                                   size_t nColumn,
+                                                   double startTime,
+-                                                  _In_ int* columns,
++                                                  _In_ const int* columns,
+                                                   size_t nCols, int smoothness,
+                                                   int extrapolation,
+                                                   double shiftTime,
+@@ -232,9 +232,9 @@
+
+ MODELICA_EXPORT void* ModelicaStandardTables_CombiTable1D_init(_In_z_ const char* tableName,
+                                                _In_z_ const char* fileName,
+-                                               _In_ double* table, size_t nRow,
++                                               _In_ const double* table, size_t nRow,
+                                                size_t nColumn,
+-                                               _In_ int* columns,
++                                               _In_ const int* columns,
+                                                size_t nCols, int smoothness) MODELICA_NONNULLATTR;
+   /* Same as ModelicaStandardTables_CombiTable1D_init2, but without extrapolation and
+      verbose arguments
+@@ -242,9 +242,9 @@
+
+ MODELICA_EXPORT void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
+                                                 _In_z_ const char* tableName,
+-                                                _In_ double* table, size_t nRow,
++                                                _In_ const double* table, size_t nRow,
+                                                 size_t nColumn,
+-                                                _In_ int* columns,
++                                                _In_ const int* columns,
+                                                 size_t nCols, int smoothness,
+                                                 int extrapolation,
+                                                 int verbose) MODELICA_NONNULLATTR;
+@@ -314,13 +314,13 @@
+
+ MODELICA_EXPORT void* ModelicaStandardTables_CombiTable2D_init(_In_z_ const char* tableName,
+                                                _In_z_ const char* fileName,
+-                                               _In_ double* table, size_t nRow,
++                                               _In_ const double* table, size_t nRow,
+                                                size_t nColumn, int smoothness) MODELICA_NONNULLATTR;
+   /* Same as ModelicaStandardTables_CombiTable2D_init2, but without verbose argument */
+
+ MODELICA_EXPORT void* ModelicaStandardTables_CombiTable2D_init2(_In_z_ const char* fileName,
+                                                 _In_z_ const char* tableName,
+-                                                _In_ double* table, size_t nRow,
++                                                _In_ const double* table, size_t nRow,
+                                                 size_t nColumn, int smoothness,
+                                                 int extrapolation,
+                                                 int verbose) MODELICA_NONNULLATTR;
