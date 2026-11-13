@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<!-- Derived from nrt/data/DynaFlow/HvdcDangling (terminal 2 of both HVDC links on the switched-off bus _BUS___11_TN):
+     the VSC link uses HvdcPQPropDanglingDiagramPQ with a remote voltage regulation of bus 10, and a step is applied on
+     its active power reference. The LCC link keeps the HvdcPTanPhiDangling model of the nrt case. -->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN"/>
+  <dyn:blackBoxModel id="_Generator___1" staticId="_Generator___1" lib="GeneratorPVSignalN" parFile="HvdcPQPropDanglingDiagramPQ.par" parId="Generator">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="HVDCLCC" lib="HvdcPTanPhiDangling" parFile="HvdcPQPropDanglingDiagramPQ.par" parId="HvdcLcc" staticId="HVDCLCCLine">
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="HVDCVSC" lib="HvdcPQPropDanglingDiagramPQ" parFile="HvdcPQPropDanglingDiagramPQ.par" parId="HvdcVsc" staticId="HVDCVSCLine">
+    <dyn:staticRef var="hvdc_PInj1Pu" staticVar="p1"/>
+    <dyn:staticRef var="hvdc_QInj1Pu" staticVar="q1"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state1"/>
+    <dyn:staticRef var="hvdc_PInj2Pu" staticVar="p2"/>
+    <dyn:staticRef var="hvdc_QInj2Pu" staticVar="q2"/>
+    <dyn:staticRef var="hvdc_state" staticVar="state2"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="HvdcVoltageRegulation" lib="VRRemote" parFile="HvdcPQPropDanglingDiagramPQ.par" parId="VRRemote"/>
+  <dyn:blackBoxModel id="PRefStep" lib="Step" parFile="HvdcPQPropDanglingDiagramPQ.par" parId="PRefStep"/>
+  <dyn:connect id1="_Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
+  <dyn:connect id1="_Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
+  <dyn:connect id1="_Generator___1" var1="generator_N" id2="Model_Signal_N" var2="signalN_N"/>
+  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="_BUS____5_TN_phi"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDCLCC" var2="hvdc_terminal1"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___11_TN_ACPIN" id2="HVDCLCC" var2="hvdc_terminal2"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___10_TN_ACPIN" id2="HVDCVSC" var2="hvdc_terminal1"/>
+  <dyn:connect id1="NETWORK" var1="_BUS___11_TN_ACPIN" id2="HVDCVSC" var2="hvdc_terminal2"/>
+  <dyn:connect id1="HVDCVSC" var1="hvdc_NQ1" id2="HvdcVoltageRegulation" var2="vrremote_NQ"/>
+  <dyn:connect id1="HvdcVoltageRegulation" var1="vrremote_URegulatedPu" id2="NETWORK" var2="_BUS___10_TN_Upu"/>
+  <dyn:connect id1="PRefStep" var1="step_step" id2="HVDCVSC" var2="hvdc_P1RefPu"/>
+</dyn:dynamicModelsArchitecture>
