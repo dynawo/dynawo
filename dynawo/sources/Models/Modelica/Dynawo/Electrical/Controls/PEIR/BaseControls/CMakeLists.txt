@@ -9,12 +9,13 @@
 # This file is part of Dynawo, a hybrid C++/Modelica open source suite
 # of simulation tools for power systems.
 
-add_subdirectory(DER D)
 add_subdirectory(Auxiliaries A)
 add_subdirectory(CurrentLoops C)
+add_subdirectory(DER D)
 add_subdirectory(GFM GFM)
-add_subdirectory(PlantController P)
 add_subdirectory(InnerControls I)
+add_subdirectory(OuterLoops O)
+add_subdirectory(PlantController P)
 
 set(MODEL_FILES
   # Converter control elements models

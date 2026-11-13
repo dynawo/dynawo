@@ -31,6 +31,11 @@ set(MODELICA_PREASSEMBLED_MODELS
   DistanceProtectionLineTwoZones.xml
   DistanceProtectionLineTwoZonesWithBlinder.xml
   DoubleStep.xml
+  DynGridFollowingConverterQ.xml
+  DynGridFollowingConverterQBandWidth.xml
+  DynGridFollowingConverterU.xml
+  DynGridFollowingPlantQ.xml
+  DynGridFollowingPlantQBandWidth.xml
   DynGridFormingVirtualSynchronousMachine.xml
   DynGridFormingDroop.xml
   DynGridFormingCurrentControlledVirtualSynchronousMachine.xml
@@ -38,6 +43,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   DynGridFormingCCVSMPlantControlFull.xml
   DynGridFormingVSMPlantControlFull.xml
   DynGridFormingDroopPlantControlFull.xml
+  DynLineRL.xml
   ElectronicLoad.xml
   EventConnectedStatus.xml
   EventQuadripoleConnection.xml

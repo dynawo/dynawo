@@ -4,6 +4,7 @@ Gilles AOUIZERATE
 Dimitri BARON
 Thierry BARRÈS
 François BEAUDE
+Gaia BERGAMASCHI
 Mathilde BONGRAIN
 Jean-Luc BOUCHOT
 Gautier BUREAU
@@ -17,6 +18,7 @@ Joy EL FEGHALI
 Lluc FIGUERAS
 Martin FRANKE
 Louis GARBAY
+Pietro GOTTARDO
 Erwan GUICHARD
 Adrien GUIRONNET
 Mehdi KARMANI

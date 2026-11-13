@@ -97,7 +97,7 @@ model DynGridFormingControlVSM "Control block of a Virtual Synchronous Machine (
   // Current Saturation
   PLL.PLL pll(Kp = Kp, Ki = Ki, u0Pu = u0Pu, OmegaMaxPu = OmegaMaxPLLPu, OmegaMinPu = OmegaMinPLLPu, omegaPLLPu(start = Omega0Pu), omegaRefPu(start = OmegaRef0Pu), limIntegrator(y_start = Omega0Pu - OmegaRef0Pu)) annotation(
     Placement(transformation(origin = {-78, 50}, extent = {{-6, -6}, {6, 6}})));
-  BaseControls.CurrentLoops.DynCurrentLoop currentLoop(Kpc = Kpc, Kic = Kic, RFilterPu = RFilterPu, LFilterPu = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu, Omega0Pu = Omega0Pu) annotation(
+  BaseControls.CurrentLoops.DynCurrentLoop currentLoop(Kpc = Kpc, Kic = Kic, LFilterPu = LFilterPu, Kfd = Kfd, Kfq = Kfq, UdFilter0Pu = UdFilter0Pu, UqFilter0Pu = UqFilter0Pu, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, IdConvRef0Pu = IdConv0Pu, IqConvRef0Pu = IqConv0Pu, Omega0Pu = Omega0Pu) annotation(
     Placement(transformation(origin = {72, 24}, extent = {{-12, -12}, {12, 12}})));
   Modelica.Blocks.Continuous.FirstOrder PLLFilter(T = 0.01, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = Omega0Pu) annotation(
     Placement(transformation(origin = {-52, 62}, extent = {{-6, -6}, {6, 6}})));

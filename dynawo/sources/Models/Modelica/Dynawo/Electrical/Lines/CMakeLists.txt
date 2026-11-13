@@ -13,6 +13,10 @@ set(MODEL_FILES
   package.mo
   package.order
   Line.mo
+  DynLineRL.mo
+  DynLineRL.extvar
+  DynLineRL.mandatoryParam
+  DynLineRLC.mo
   Line.extvar
   Line.mandatoryParam
   )
