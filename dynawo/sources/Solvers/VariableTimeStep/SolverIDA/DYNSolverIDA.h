@@ -316,7 +316,6 @@ class SolverIDA : public Solver::Impl {
   double relAccuracy_;  ///< absolute error tolerance
   algebraicRestorationReinitMode_t algebraicRestorationReinitMode_;  ///< when IDAReInit is called after a mode change
   double tEnd_;  ///< simulation end time
-  bool uround_;  ///< to activate change on uround
   bool activateTimeScaledURound_;  ///< to activate the time-scaled recomputation of IDA's unit roundoff
   double timeScaledURoundPrecision_;  ///< the reference precision used to derive the time-scaled unit roundoff
   int alternativeStrategiesOnDivergenceStage_;  ///< escalation stage of the alternative strategies on divergence
