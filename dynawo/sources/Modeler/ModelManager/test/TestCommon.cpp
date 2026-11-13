@@ -165,4 +165,30 @@ TEST(TestModelManager, TestModelManagerCommonAutomaton) {
   delete[] intOutputsName;
 }
 
+TEST(TestModelManager, TestModelManagerCommonMixedComparisons) {
+  // a real (a discrete Integer stored as a double) against an integer, in both orders
+  const modelica_real two = 2.;
+  const modelica_real one = 1.;
+  const modelica_integer n = 2;
+  ASSERT_TRUE(GreaterEq(two, n));
+  ASSERT_TRUE(GreaterEq(n, two));
+  ASSERT_FALSE(GreaterEq(one, n));
+  ASSERT_TRUE(GreaterEq(n, one));
+  ASSERT_FALSE(Greater(two, n));
+  ASSERT_FALSE(Greater(n, two));
+  ASSERT_FALSE(Greater(one, n));
+  ASSERT_TRUE(Greater(n, one));
+  ASSERT_TRUE(LessEq(two, n));
+  ASSERT_TRUE(LessEq(n, two));
+  ASSERT_TRUE(LessEq(one, n));
+  ASSERT_FALSE(LessEq(n, one));
+  ASSERT_FALSE(Less(two, n));
+  ASSERT_FALSE(Less(n, two));
+  ASSERT_TRUE(Less(one, n));
+  ASSERT_FALSE(Less(n, one));
+  // compared as reals, with the precision of the double specializations
+  ASSERT_TRUE(GreaterEq(2. - 1e-12, n));
+  ASSERT_FALSE(Less(2. - 1e-12, n));
+}
+
 }  // namespace DYN
