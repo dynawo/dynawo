@@ -128,9 +128,9 @@ equation
   connect(load.terminal, gridImpedance.terminal2) annotation(
     Line(points = {{0, -40}, {0, 0}, {-12, 0}}, color = {0, 0, 255}));
   connect(PRefPu.y, load.PRefPu) annotation(
-    Line(points = {{-18, -70}, {-6, -70}, {-6, -48}}, color = {0, 0, 127}));
+    Line(points = {{-18, -70}, {-4, -70}, {-4, -48}}, color = {0, 0, 127}));
   connect(QRefPu.y, load.QRefPu) annotation(
-    Line(points = {{20, -70}, {6, -70}, {6, -48}}, color = {0, 0, 127}));
+    Line(points = {{20, -70}, {4, -70}, {4, -48}}, color = {0, 0, 127}));
   connect(EfdPu.y, generatorSynchronous.efdPu_in) annotation(
     Line(points = {{62, -40}, {70, -40}, {70, -16}}, color = {0, 0, 127}));
   connect(PmPu.y, generatorSynchronous.PmPu_in) annotation(

@@ -190,9 +190,9 @@ equation
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(QRefPu.y, load.QRefPu) annotation(
-    Line(points = {{-20, -50}, {-34, -50}, {-34, -28}}, color = {0, 0, 127}));
+    Line(points = {{-20, -50}, {-36, -50}, {-36, -28}}, color = {0, 0, 127}));
   connect(PRefPu.y, load.PRefPu) annotation(
-    Line(points = {{-58, -50}, {-46, -50}, {-46, -28}}, color = {0, 0, 127}));
+    Line(points = {{-58, -50}, {-44, -50}, {-44, -28}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

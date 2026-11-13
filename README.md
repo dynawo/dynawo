@@ -86,13 +86,13 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 ## Getting started!
 
 To get started with Dyna&omega;o you have different possibilities, depending on your background and what you want to do:
-- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.7.0/Dynawo_Modelica_library_v1.7.0.zip) in OpenModelica for example.
+- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.8.0/Dynawo_Modelica_library_v1.8.0.zip) in OpenModelica for example.
 - If you want to launch simulations and examples with Dyna&omega;o and observe the performances, you can use the [pre-built distribution](#distribution) and the examples directory.
 - If you want to checkout the repository and build it yourself to be able to modify the tool, please follow the build instructions available [here](#build)
 
-**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.7.0/Dynawo_Modelica_library_v1.7.0.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
+**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.8.0/Dynawo_Modelica_library_v1.8.0.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
 
-**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.7.0/DynawoDocumentation.zip).**
+**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/latest/download/DynawoDocumentation.zip).**
 
 <a name="installation"></a>
 ## Installation
@@ -100,13 +100,14 @@ To get started with Dyna&omega;o you have different possibilities, depending on 
 ### Dyna&omega;o Distribution
 
 You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux** and **Windows**:
-- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.7.0/Dynawo_Linux_v1.7.0.zip)
-- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.7.0/Dynawo_Windows_v1.7.0.zip)
+- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.8.0/Dynawo_Linux_v1.8.0.zip)
+- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.8.0/Dynawo_Windows_v1.8.0.zip)
 
 If you are on **MacOS** you can use [Docker](#docker).
 
 #### Linux Requirements for Distribution
 
+- glibc 2.28 or newer (the Linux distribution is built on Oracle Linux 8)
 - Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++11 compatible for C++ standard
 - Python2 or Python3
 - Binary utilities: [curl](https://curl.haxx.se/) and unzip
@@ -160,7 +161,7 @@ You can set up the curves to open in your preferred browser with `set DYNAWO_BRO
 <a name="requirements"></a>
 ### Building requirements
 
-You can build Dyna&omega;o from sources. Dyna&omega;o is available on two platforms **Linux** and **Windows**. **Linux** has been tested on Centos and Debian based distributions, for other distributions don't hesitate to contact us if you run in problems. Only **Windows 10** has been tested for Windows. If you are on **MacOS** we recommend you to use a [Docker solution](#docker). <br>
+You can build Dyna&omega;o from sources. Dyna&omega;o is available on two platforms **Linux** and **Windows**. **Linux** has been tested on Oracle Linux 8 and Debian based distributions, for other distributions don't hesitate to contact us if you run in problems. **Windows** is built and tested on Windows Server 2022 with Visual Studio 2022. If you are on **MacOS** we recommend you to use a [Docker solution](#docker). <br>
 If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-dynawo@rte-france.com) with your errors and we will try to answer you back quickly.
 
 In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
@@ -195,7 +196,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 <a name="requirements_windows"></a>
 #### Windows
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/), Visual Studio 2019 was also tested
+- [Visual Studio 2022](https://visualstudio.microsoft.com/)
 - [CMake](https://cmake.org/)
 - Java ([openjdk](https://openjdk.java.net/) for example) to build OpenModelica Compiler
 - [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
@@ -385,7 +386,7 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 ## Dyna&omega;o Documentation
 You can download Dyna&omega;o documentation here :
 - [Nightly version](https://github.com/dynawo/dynawo/releases/download/nightly/DynawoDocumentation.pdf)
-- [Release version](https://github.com/dynawo/dynawo/releases/download/v1.7.0/DynawoDocumentation.zip)
+- [Release version](https://github.com/dynawo/dynawo/releases/latest/download/DynawoDocumentation.zip)
 
 <a name="doxygen"></a>
 ### Doxygen

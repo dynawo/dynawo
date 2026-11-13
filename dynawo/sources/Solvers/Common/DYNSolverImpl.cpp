@@ -306,6 +306,19 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, const double t
   if (model_->modeChange()) {
     change = true;
     state_.setFlags(ModeChange);
+    switch (model_->getModeChangeType()) {
+      case DIFFERENTIAL_MODE:
+        ++stats_.nmeDiff_;
+        break;
+      case ALGEBRAIC_MODE:
+        ++stats_.nmeAlg_;
+        break;
+      case ALGEBRAIC_J_UPDATE_MODE:
+        ++stats_.nmeAlgJ_;
+        break;
+      case NO_MODE:
+        break;
+    }
   }
 
   return change;

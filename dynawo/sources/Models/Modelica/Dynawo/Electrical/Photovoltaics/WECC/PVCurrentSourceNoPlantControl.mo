@@ -14,6 +14,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 
 model PVCurrentSourceNoPlantControl "WECC PV model with a current source as interface with the grid (REEC-B REGC-A)"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsOperatingPoint;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
 
   // Input variables
