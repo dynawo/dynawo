@@ -149,6 +149,15 @@ job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEE
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+##############################################
+#      IEEE14 - Split Network                #
+##############################################
+
+case_name = "IEEE14 - Split Network"
+case_description = "IEEE14 - Network split into a larger connex component (nodes 6 to 14) and a smaller one (nodes 1 to 5) by removing transformers, to test manual component selection"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_SplitNetwork", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 #########################################
 #      IEEE14 - Disconnect line         #

@@ -18,6 +18,7 @@
 
 #include <memory>
 #include <vector>
+#include <unordered_set>
 #include <boost/shared_ptr.hpp>
 #include "DYNTrace.h"
 
@@ -41,6 +42,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
   inline void addBus(const std::shared_ptr<ModelBus>& bus) {
     assert(bus && "Undefined bus");
     bus_.push_back(bus);
+    bus->addIdentifiersTo(busNames_);
   }
 
   /**
@@ -60,6 +62,14 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
     assert(num >= 0 && static_cast<size_t>(num) < bus_.size() && "Bus index unknown");
     return bus_[num];
   }
+
+  /**
+   * @brief avg O(1) search for busName in members
+   * @param busName the name of the bus to search
+   * @return \b true if found, \b false otherwise
+   */
+  bool contains(const std::string & busName) const {return busNames_.find(busName) != busNames_.end();}
+
   /**
    * @brief  switch off all buses within the sub-network
    */
@@ -86,6 +96,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
 
  private:
   std::vector<std::shared_ptr<ModelBus> > bus_;  ///< vector of ModelBus located within the sub-network
+  std::unordered_set<std::string> busNames_;  ///< quick lookup list of names of contained buses
 };
 
 }  // namespace DYN
