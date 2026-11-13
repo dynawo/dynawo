@@ -362,7 +362,10 @@ ModelManager::evalJtAdept(const double t, double* y, double* yp, const double cj
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
         }
 #endif
-        Jt.addTerm(j + rowOffset, term);
+        // Adept returns exact zeros for the variables the equation does not depend on: only those are left out,
+        // a small coefficient is a dependency of the equation and is kept whatever the simulation precision
+        if (term != 0.)
+          Jt.addStructuralTerm(j + rowOffset, term);
       }
     }
 

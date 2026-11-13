@@ -109,6 +109,17 @@ class SparseMatrix {
   void addTerm(const int row, const double val);
 
   /**
+   * @brief add a structural dependency in the matrix, written even when its value is small or zero
+   *
+   * Unlike addTerm, the value is not compared with the simulation precision: the term is a
+   * structural dependency of the equation and must be kept, whatever its magnitude.
+   *
+   * @param row row of the term in the matrix
+   * @param val new value to add in the matrix
+   */
+  void addStructuralTerm(const int row, const double val);
+
+  /**
    * @brief print the Frobenius norm of the matrix
    *
    * @return value of the Frobenius norm of the matrix
