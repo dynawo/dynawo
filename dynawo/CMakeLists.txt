@@ -134,6 +134,7 @@ if(DEFINED DYNAWO_THIRD_PARTY_DIR)
   set(ADEPT_HOME ${DYNAWO_THIRD_PARTY_DIR}/adept CACHE PATH "Path where an Adept installation already exists")
   set(SUITESPARSE_HOME ${DYNAWO_THIRD_PARTY_DIR}/suitesparse CACHE PATH "Path where an SuiteSparse installation already exists")
   set(SUNDIALS_HOME ${DYNAWO_THIRD_PARTY_DIR}/sundials CACHE PATH "Path where an Sundials installation already exists")
+  set(MODELICAEXTERNALC_HOME ${DYNAWO_THIRD_PARTY_DIR}/modelicaexternalc CACHE PATH "Path where the Modelica external C sources are installed")
   set(LIBZIP_HOME ${DYNAWO_THIRD_PARTY_DIR}/libzip CACHE PATH "Path where an libzip installation already exists")
   set(LIBXML_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml CACHE PATH "Path where an libxml installation already exists")
   set(LIBIIDM_HOME ${DYNAWO_THIRD_PARTY_DIR}/libiidm CACHE PATH "Path where an libiidm installation already exists")
@@ -272,6 +273,9 @@ find_package(SuiteSparse REQUIRED)
 
 # Sundials
 find_package(Sundials REQUIRED)
+
+# Modelica external C sources (Modelica Standard Library)
+find_package(ModelicaExternalC REQUIRED)
 
 #libZIP
 find_package(libZIP 1.3.0 REQUIRED)

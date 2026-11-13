@@ -8,47 +8,27 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+# Modelica_externalC embeds the static external C library of the Modelica Standard Library (built in 3rdParty/modelicaexternalc)
+# and implements the functions declared in ModelicaUtilities.h (DYNModelicaUtilities.cpp)
 set(MODELICA_SOURCES
     DYNModelicaUtilities.cpp
-    ModelicaFFT.c
-    ModelicaInternal.c
-    ModelicaRandom.c
-    ModelicaStrings.c
-    ModelicaIO.c
-    ModelicaMatIO.c
-    snprintf.c
-    ModelicaStandardTables.c
-    ModelicaStandardTablesUsertab.c
     )
 
 set(MODELICA_INCLUDE_HEADERS
-    ModelicaFFT.h
-    ModelicaInternal.h
-    ModelicaRandom.h
-    ModelicaStrings.h
-    ModelicaIO.h
-    ModelicaMatIO.h
-    ModelicaStandardTables.h
+    ${MODELICAEXTERNALC_INCLUDE_DIR}/ModelicaFFT.h
+    ${MODELICAEXTERNALC_INCLUDE_DIR}/ModelicaInternal.h
+    ${MODELICAEXTERNALC_INCLUDE_DIR}/ModelicaRandom.h
+    ${MODELICAEXTERNALC_INCLUDE_DIR}/ModelicaStrings.h
+    ${MODELICAEXTERNALC_INCLUDE_DIR}/ModelicaIO.h
+    ${MODELICAEXTERNALC_INCLUDE_DIR}/ModelicaMatIO.h
+    ${MODELICAEXTERNALC_INCLUDE_DIR}/ModelicaStandardTables.h
     )
-
-# these remaining five files are for internal used only :
-#ModelicaUtilities.h
-#gconstructor.h
-#uthash.h
-#win32_dirent.c
-#win32_dirent.h
-
-#set_source_files_properties(${MODELICA_SOURCES} PROPERTIES LANGUAGE CXX)
 
 add_library(Modelica_externalC SHARED ${MODELICA_SOURCES})
 
-target_compile_options(Modelica_externalC PRIVATE -w)
-
-target_compile_definitions(Modelica_externalC PRIVATE #[[TABLE_SHARE]] DUMMY_FUNCTION_USERTAB)
-
 target_include_directories(Modelica_externalC
-  INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  PUBLIC
+    $<BUILD_INTERFACE:${MODELICAEXTERNALC_INCLUDE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
@@ -57,6 +37,13 @@ target_include_directories(Modelica_externalC SYSTEM
     $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
     )
 
+# The whole static library is embedded so that all its functions are available to the Modelica models
+if(MSVC)
+  set_property(TARGET Modelica_externalC APPEND_STRING PROPERTY LINK_FLAGS " /WHOLEARCHIVE:${MODELICAEXTERNALC_LIBRARY}")
+  target_link_libraries(Modelica_externalC PRIVATE ${MODELICAEXTERNALC_LIBRARY})
+else()
+  target_link_libraries(Modelica_externalC PRIVATE -Wl,--whole-archive ${MODELICAEXTERNALC_LIBRARY} -Wl,--no-whole-archive)
+endif()
 
 target_link_libraries(Modelica_externalC
   PRIVATE
