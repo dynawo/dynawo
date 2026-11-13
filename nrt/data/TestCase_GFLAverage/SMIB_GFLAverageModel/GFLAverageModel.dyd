@@ -12,11 +12,15 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="InfiniteBus" lib="InfiniteBus" parFile="GFLAverageModel.par" parId="1"/>
+  <dyn:blackBoxModel id="InfiniteBus" lib="InfiniteBusWithVariations" parFile="GFLAverageModel.par" parId="1"/>
   <dyn:blackBoxModel id="Line" lib="Line" parFile="GFLAverageModel.par" parId="2"/>
-  <dyn:blackBoxModel id="GFLAverageModel" lib="DynGridFollowingPlant" parFile="GFLAverageModel.par" parId="6"/>
+  <dyn:blackBoxModel id="GFLAverageModel" lib="DynGridFollowingPlantQ" parFile="GFLAverageModel.par" parId="6"/>
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="GFLAverageModel.par" parId="8"/>
-  <dyn:connect id1="InfiniteBus" var1="infiniteBus_terminal" id2="Line" var2="line_terminal1"/>
-  <dyn:connect id1="Line" var1="line_terminal2" id2="GFLAverageModel" var2="GFL_terminal"/>
+  <dyn:blackBoxModel id="PRef" lib="Step" parFile="GFLAverageModel.par" parId="9"/>
+  <dyn:blackBoxModel id="URef" lib="Step" parFile="GFLAverageModel.par" parId="10"/>
+  <dyn:connect id1="GFLAverageModel" var1="GFL_terminal" id2="Line" var2="line_terminal1"/>
+  <dyn:connect id1="Line" var1="line_terminal2" id2="InfiniteBus" var2="infiniteBus_terminal"/>
   <dyn:connect id1="GFLAverageModel" var1="GFL_omegaRefPu" id2="OmegaRef" var2="setPoint_setPoint"/>
+  <dyn:connect id1="GFLAverageModel" var1="GFL_PRefPu" id2="PRef" var2="step_step"/>
+  <dyn:connect id1="GFLAverageModel" var1="GFL_URefPu" id2="URef" var2="step_step"/>
 </dyn:dynamicModelsArchitecture>

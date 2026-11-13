@@ -18,6 +18,10 @@ set(MODEL_FILES
     TwoConvertersStaticLine_7Hz.mo
     TwoConvertersStaticLine.mo
     TwoConvertersWECC.mo
+    TwoConvertersStaticLine_7Hz_dyngfl.mo
+    TwoConvertersDynamicLine_7Hz_dyngfl.mo
+    TwoConvertersDynamicLine_dyngfl.mo
+    TwoConvertersStaticLine_dyngfl.mo
     )
 
 #

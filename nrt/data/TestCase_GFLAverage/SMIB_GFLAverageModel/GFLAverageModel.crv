@@ -12,22 +12,43 @@
     of simulation tools for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!-- References -->
+  <curve model="GFLAverageModel" variable="GFL_PRefPu"/>
   <curve model="GFLAverageModel" variable="GFL_URefPu"/>
-  <curve model="GFLAverageModel" variable="GFL_UPu"/>
-  <curve model="GFLAverageModel" variable="GFL_QGenPu"/>
-  <curve model="GFLAverageModel" variable="GFL_QMaxPu"/>
-  <curve model="GFLAverageModel" variable="GFL_QMinPu"/>
-  <curve model="GFLAverageModel" variable="GFL_PGenPu"/>
-  <curve model="GFLAverageModel" variable="GFL_running"/>
   <curve model="GFLAverageModel" variable="GFL_omegaRefPu"/>
-  <curve model="GFLAverageModel" variable="GFL_gFLControl_idConvRefPu"/>
-  <curve model="GFLAverageModel" variable="GFL_gFLControl_iqConvRefPu"/>
-  <curve model="GFLAverageModel" variable="GFL_gFLControl_udConvRefPu"/>
-  <curve model="GFLAverageModel" variable="GFL_gFLControl_uqConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_running"/>
+  <!-- PCC: terminal (receptor convention, base SnRef) and filtered measurements (generator convention, base SNom) -->
+  <curve model="GFLAverageModel" variable="GFL_terminal_V_re"/>
+  <curve model="GFLAverageModel" variable="GFL_terminal_V_im"/>
+  <curve model="GFLAverageModel" variable="GFL_terminal_i_re"/>
+  <curve model="GFLAverageModel" variable="GFL_terminal_i_im"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_UPccFilteredPu"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_PPccFilteredPu"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_QPccFilteredPu"/>
+  <!-- LV bus -->
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_ULVPu"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_PLVFilteredPu"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_QLVFilteredPu"/>
+  <!-- Plant controller outputs -->
+  <curve model="GFLAverageModel" variable="GFL_plantController_PInjRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_plantController_QInjRefPu"/>
+  <!-- PLL -->
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_omegaPLLPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_thetaPLL"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_uqFilterPu"/>
+  <!-- Current references and measured currents (dq, PLL frame) -->
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_OuterLoop_GFL_idConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_OuterLoop_GFL_iqConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_idConvPu"/>
+  <curve model="GFLAverageModel" variable="GFL_measurementBlock_iqConvPu"/>
+  <!-- Converter voltage references -->
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_currentLoop_udConvRefPu"/>
+  <curve model="GFLAverageModel" variable="GFL_gFLControl_currentLoop_uqConvRefPu"/>
   <curve model="GFLAverageModel" variable="GFL_gFLControl_urConvRefPu"/>
   <curve model="GFLAverageModel" variable="GFL_gFLControl_uiConvRefPu"/>
+  <!-- Converter current and filter voltage (RI frame) -->
   <curve model="GFLAverageModel" variable="GFL_dynConverter1_iConvPu_re"/>
   <curve model="GFLAverageModel" variable="GFL_dynConverter1_iConvPu_im"/>
-  <curve model="GFLAverageModel" variable="GFL_dynConverter1_uFilt_re"/>
-  <curve model="GFLAverageModel" variable="GFL_dynConverter1_uFilt_im"/>
+  <curve model="GFLAverageModel" variable="GFL_dynConverter1_uFiltPu_re"/>
+  <curve model="GFLAverageModel" variable="GFL_dynConverter1_uFiltPu_im"/>
 </curvesInput>
