@@ -44,13 +44,13 @@ The currents in the three converters during the whole simulation are presented i
     \begin{axis}[grid=major, xmin=0.47, xmax=2.1]
         \addplot[color=blue!50]
         table[x=time,y=Converter250_converter_IConvPu]
-        {../reference/outputs/curves/curves.csv};
+        {../ThreeConvISGT/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time,y=Converter500_converter_IConvPu]
-        {../reference/outputs/curves/curves.csv};
+        {../ThreeConvISGT/reference/outputs/curves/curves.csv};
         \addplot[color=green!50]
         table[x=time,y=Converter1000_converter_IConvPu]
-        {../reference/outputs/curves/curves.csv};
+        {../ThreeConvISGT/reference/outputs/curves/curves.csv};
         \legend{$i_{c_{Converter250}}$,$i_{c_{Converter500}}$,$i_{c_{Converter1000}}$}
     \end{axis}
   \end{tikzpicture}
@@ -65,13 +65,13 @@ All the three controls are stable for this simulation and manage to bring back t
     \begin{axis}[grid=major, xmin=0.47, xmax=2.1]
         \addplot[color=blue!50]
         table[x=time,y=Converter250_control_omegaPu]
-        {../reference/outputs/curves/curves.csv};
+        {../ThreeConvISGT/reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
         table[x=time,y=Converter500_control_omegaPu]
-        {../reference/outputs/curves/curves.csv};
+        {../ThreeConvISGT/reference/outputs/curves/curves.csv};
         \addplot[color=green!50]
         table[x=time,y=Converter1000_control_omegaPu]
-        {../reference/outputs/curves/curves.csv};
+        {../ThreeConvISGT/reference/outputs/curves/curves.csv};
         \legend{$\omega_{Converter250}$,$\omega_{Converter500}$,$\omega_{Converter1000}$}
     \end{axis}
   \end{tikzpicture}
@@ -85,12 +85,12 @@ All the three controls are stable for this simulation and manage to bring back t
 This test case implements a scenario from the I18 technical documentation of the French Grid (DTR Chapter 8, Article 8.3.3). The chosen test case is named \texttt{S\_VolAngStep7\_OC4} and applied identically to three Grid-Forming
 converter architectures:
 \begin{itemize}
-\item \texttt{DynGFMVSM} — Virtual Synchronous Machine control with a PLL feeding the
+\item \texttt{DynGFMVSM} --- Virtual Synchronous Machine control with a PLL feeding the
       Control block frequency reference; the Converter's Park frame remains
       slaved to the internal virtual angle produced by the swing equation.
-\item \texttt{DynGFMVSMConvPLL} — same as above, with the grid-measured PLL frequency
+\item \texttt{DynGFMVSMConvPLL} --- same as above, with the grid-measured PLL frequency
       (\texttt{omegaPLL}) additionally fed to the converter block for frame alignment. The reason behind this variation is to see how mirroring the grid frequency in the Converter's loop will affect performance.
-\item \texttt{DynGFMDroop} — Droop-based architecture, with no PLL in the active control chain.
+\item \texttt{DynGFMDroop} --- Droop-based architecture, with no PLL in the active control chain.
 \end{itemize}
 
 \paragraph{Network and operating point}
@@ -128,7 +128,7 @@ characterized. A reference circuit is shown in Figure \ref{fig:reference_network
 \end{figure}
 
 \paragraph{Event and simulation}
-At $t = 10$s, a phase jump $\Delta\theta_{grid} = 26.47 °$ is applied to the infinite
+At $t = 10$s, a phase jump $\Delta\theta_{grid} = 26.47^\circ$ is applied to the infinite
 bus voltage representing the grid. Different simulations will be carried out with diverse solvers and timesteps. Common features include a simulation from 0 to 25 seconds, with an event at $t=10$s. The output variable of interest is the active current $I_p$ measured at the Point of Generating Unit (PGU).
 
 \paragraph{Conformity criteria}
@@ -158,15 +158,15 @@ Figure~\ref{fig:zoom_Ip_envelope_step7oc4} compares the active current response 
 % DynGFMVSM
 \addplot[color=blue, no marks]
         table[col sep=semicolon, x=time, y=Meas_measurements_IpPuSNom]
-        {../SMIB/DynGFMVSM/outputs/curves/curves.csv};
+        {../SMIB/DynGFMVSM/reference/outputs/curves/curves.csv};
 % DynGFMVSMConvPLL
 \addplot[color=red, dashed, no marks]
         table[col sep=semicolon, x=time, y=Meas_measurements_IpPuSNom]
-        {../SMIB/DynGFMVSMConvPLL/outputs/curves/curves.csv};
+        {../SMIB/DynGFMVSMConvPLL/reference/outputs/curves/curves.csv};
 % DynGFMDroop
 \addplot[color=green!60!black, no marks]
         table[col sep=semicolon, x=time, y=Meas_measurements_IpPuSNom]
-        {../SMIB/DynGFMDroop/outputs/curves/curves.csv};
+        {../SMIB/DynGFMDroop/reference/outputs/curves/curves.csv};
 % Conformity envelope (the event at t = 0 s in the envelope file corresponds to t = 10 s in the simulation)
 \addplot[name path=envUp, color=black, dashed, no marks]
         table[col sep=comma, x expr=\thisrow{Time (s)}+10, y={Ip upper (pu)}]
@@ -228,12 +228,12 @@ Figure~\ref{fig:windup_omega} compares the grid frequency with the frequency of 
       legend pos=south east,
       legend style={font=\small}
     ]
-\addplot[color=black, dashed, no marks, each nth point=10]
+\addplot[color=black, dashed, no marks]
         table[col sep=semicolon, x=time, y=Grid_Grid_omegaPu]
-        {../SMIB/DynGFMCCVSMWindUp/outputs/curves/curves.csv};
-\addplot[color=blue, no marks, each nth point=10]
+        {../SMIB/DynGFMCCVSMWindUp/reference/outputs/curves/curves.csv};
+\addplot[color=blue, no marks]
         table[col sep=semicolon, x=time, y=GFMCCVSM_GFMCC_omegaVSMPu]
-        {../SMIB/DynGFMCCVSMWindUp/outputs/curves/curves.csv};
+        {../SMIB/DynGFMCCVSMWindUp/reference/outputs/curves/curves.csv};
 \legend{Grid frequency, VSM frequency $\omega$}
 \end{axis}
 \end{tikzpicture}
@@ -254,9 +254,9 @@ Figure~\ref{fig:windup_omega} compares the grid frequency with the frequency of 
       xlabel={Time [s]},
       ylabel={$\Delta\theta$ [rad]},
     ]
-\addplot[color=red, no marks, each nth point=10]
-        table[col sep=semicolon, x=time, y expr=\thisrow{GFMCCVSM_GFMCC_ControlCC_theta}-\thisrow{Grid_Grid_integrator1_y}+0.7003048]
-        {../SMIB/DynGFMCCVSMWindUp/outputs/curves/curves.csv};
+\addplot[color=red, no marks]
+        table[col sep=semicolon, x=time, y expr=\thisrow{GFMCCVSM_GFMCC_ControlCC_theta}-\thisrow{Grid_Grid_integrator1_y}+0.6962035]
+        {../SMIB/DynGFMCCVSMWindUp/reference/outputs/curves/curves.csv};
 \end{axis}
 \end{tikzpicture}
 \caption{Angle between the converter and the grid $\Delta\theta$: after the frequency excursion, it keeps decreasing by steps of $2\pi$ (pole slipping).}
@@ -265,9 +265,9 @@ Figure~\ref{fig:windup_omega} compares the grid frequency with the frequency of 
 
 The response can be split into three phases:
 \begin{itemize}
-\item \textbf{Frequency decrease} ($5 < t < 8$~s): the VSM follows the grid frequency, the angle $\Delta\theta$ remains small (below 0.65~rad) and the current stays below its limit.
-\item \textbf{Frequency increase} ($8 < t < 11$~s): because of its virtual inertia, the converter lags behind the grid (at $t = 10.5$~s, $\omega = 0.958$~p.u. while the grid is at 0.975~p.u.). $\Delta\theta$ becomes strongly negative and the current reaches its limit $I_{Max} = 1.2$~p.u. Once the current is saturated, the active power no longer increases with the angle, so nothing pulls the converter back towards the grid: $\Delta\theta$ crosses $-\pi$ at $t \approx 10.1$~s (first pole slip).
-\item \textbf{Grid back at 1~p.u.} ($t > 11$~s): the converter never resynchronizes. $\omega$ remains below 1~p.u. (between 0.975 and 0.9998~p.u., i.e. an average deficit of about 0.003~p.u.) and $\Delta\theta$ keeps decreasing, down to $-20.4$~rad at $t = 25$~s. It crosses $-3\pi$ and $-5\pi$ at $t \approx 13.4$~s and $t \approx 19.9$~s: the converter slips one pole about every 6.6~s. At each slip, the active power swings between $-1.05$~p.u. and $+1.13$~p.u., and the current is pinned at 1.2~p.u. most of the time.
+\item \textbf{Frequency decrease} ($5 < t < 8$~s): the VSM follows the grid frequency, the angle $\Delta\theta$ remains small (below 0.66~rad) and the current stays below its limit.
+\item \textbf{Frequency increase} ($8 < t < 11$~s): because of its virtual inertia, the converter lags behind the grid (at $t = 10.5$~s, $\omega = 0.957$~p.u. while the grid is at 0.975~p.u.). $\Delta\theta$ becomes strongly negative and the current reaches its limit $I_{Max} = 1.2$~p.u. Once the current is saturated, the active power no longer increases with the angle, so nothing pulls the converter back towards the grid: $\Delta\theta$ crosses $-\pi$ at $t \approx 10.1$~s (first pole slip).
+\item \textbf{Grid back at 1~p.u.} ($t > 11$~s): the converter never resynchronizes. $\omega$ remains below 1~p.u. (between 0.976 and 0.9997~p.u., i.e. an average deficit of about 0.003~p.u.) and $\Delta\theta$ keeps decreasing, down to $-21.1$~rad at $t = 25$~s. It crosses $-3\pi$ and $-5\pi$ at $t \approx 13.2$~s and $t \approx 19.4$~s: the converter slips one pole about every 6.2~s. At each slip, the active power swings between $-1.04$~p.u. and $+1.14$~p.u., and the current is pinned at 1.2~p.u. most of the time.
 \end{itemize}
 
 This behaviour is a wind-up of the VSM loop: while the current is saturated, the measured power $P_{Filter}$ is limited, so the swing equation integrates a permanent power error and the integral part of $\theta$ drifts without bound. The angle-damping term $K_{DampingAngle}$ adds damping around an equilibrium but cannot prevent this drift. This test case is therefore meant as a reference to assess anti-windup strategies on the VSM loop (e.g. back-calculation of the power lost in the saturation), which are not implemented yet.
@@ -278,8 +278,8 @@ This behaviour is a wind-up of the VSM loop: while the current is saturated, the
 These test cases, located in the \texttt{/PlantControl} directory, check the behaviour of a Grid-Forming power plant, i.e. a Grid-Forming converter driven by a generic plant controller, when the grid frequency varies.
 They feature two different architectures for the Grid-Forming converter:
 \begin{itemize}
-\item \texttt{VSM} — Virtual Synchronous Machine converter (preassembled model \texttt{DynGridFormingVSM\allowbreak PlantControlFull});
-\item \texttt{Droop} — Droop-based converter (preassembled model \texttt{DynGridFormingDroop\allowbreak PlantControlFull}).
+\item \texttt{VSM} --- Virtual Synchronous Machine converter (preassembled model \texttt{DynGridFormingVSM\allowbreak PlantControlFull});
+\item \texttt{Droop} --- Droop-based converter (preassembled model \texttt{DynGridFormingDroop\allowbreak PlantControlFull}).
 \end{itemize}
 
 \paragraph{Network and operating point}
@@ -360,7 +360,7 @@ The evolution of the grid frequency is shown in Figure~\ref{fig:plant_control_fr
 % measurements_PPu is in receptor convention on the S_Ref = 100 MVA base: injected power on the S_Nom = 1000 MW base = -PPu/10
 \addplot[color=blue, no marks, each nth point=10]
         table[col sep=semicolon, x=time, y=Grid_Grid_omegaPu]
-        {../PlantControl/VSM/outputs/curves/curves.csv};
+        {../PlantControl/VSM/reference/outputs/curves/curves.csv};
 \legend{$\omega_{Pu}$}
 \end{axis}
 \end{tikzpicture}
@@ -386,10 +386,10 @@ Figure~\ref{fig:plant_control_P} shows the response for both architectures, in p
 % measurements_PPu is in receptor convention on the S_Ref = 100 MVA base: injected power on the S_Nom = 1000 MW base = -PPu/10
 \addplot[color=blue, no marks, each nth point=10]
         table[col sep=semicolon, x=time, y expr=-\thisrow{Measurements_measurements_PPu}/10]
-        {../PlantControl/VSM/outputs/curves/curves.csv};
+        {../PlantControl/VSM/reference/outputs/curves/curves.csv};
 \addplot[color=green!60!black, no marks, each nth point=10]
         table[col sep=semicolon, x=time, y expr=-\thisrow{Measurements_measurements_PPu}/10]
-        {../PlantControl/Droop/outputs/curves/curves.csv};
+        {../PlantControl/Droop/reference/outputs/curves/curves.csv};
 \legend{VSM, Droop}
 \end{axis}
 \end{tikzpicture}

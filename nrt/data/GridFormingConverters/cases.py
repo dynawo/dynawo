@@ -70,6 +70,18 @@ job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMCCVSM", "SMIB.
 
 test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
 
+
+###################################################################
+#          GridForming - DYNGFMCCVSM - Pole slipping              #
+###################################################################
+
+case_name = "SMIB - DynGFMCCVSM - Pole slipping"
+case_description = "GFM with current control- RoCoF test with VSM Wind-Up"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMCCVSMWindUp", "CCVSMRoCoF.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+
 ###################################################################
 #           GridForming - PlantControl with VSM - RoCoF           #
 ###################################################################
