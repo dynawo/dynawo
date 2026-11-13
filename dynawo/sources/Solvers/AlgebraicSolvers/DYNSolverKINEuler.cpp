@@ -20,6 +20,7 @@
  * kinsol solver.
  */
 
+#include <algorithm>
 #include <cmath>
 #include <cstring>
 #include <vector>
@@ -164,9 +165,21 @@ SolverKINEuler::solve(const bool noInitSetup, const bool skipAlgebraicResidualsE
   const vector<double>& currentYp = timeSchemeSolver_->getCurrentYP();
   timeSchemeSolver_->computeYP(&currentY[0]);
   firstIteration_ = true;
-  if (skipAlgebraicResidualsEvaluation)
+  bool evaluateAll = !skipAlgebraicResidualsEvaluation;
+  if (skipAlgebraicResidualsEvaluation) {
     model_->evalFDiff(t0_ + timeSchemeSolver_->getTimeStep(), &currentY[0], &currentYp[0], &vectorF_[0]);
-  else
+    // The algebraic residuals kept are those of the previous step. If the differential ones alone would make KINSOL
+    // accept the initial guess (KIN_INITIAL_GUESS_OK, residuals scaled as below), the algebraic ones are evaluated
+    // too: an algebraic equation depending on time explicitly would otherwise never be solved again.
+    evaluateAll = true;
+    for (unsigned int i = 0; i < numF_; ++i) {
+      if (std::min(std::abs(vectorF_[i]), RCONST(1.)) > initialaddtol_ * fnormtol_) {
+        evaluateAll = false;
+        break;
+      }
+    }
+  }
+  if (evaluateAll)
     model_->evalF(t0_ + timeSchemeSolver_->getTimeStep() , &currentY[0], &currentYp[0], &vectorF_[0]);
 
   vectorFScale_.assign(numF_, 1.);
