@@ -54,7 +54,7 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   discrete Types.PerUnit rTfoPu(start = rTfo0Pu) "Transformation ratio in pu: U2/U1 in no load conditions";
 
 equation
-  when (tap <> pre(tap)) then
+  when (not Modelica.Math.isEqual(tap, pre(tap))) then
     // Transformer ratio calculation
     if (NbTap == 1) then
       rTfoPu = rTfoMinPu;

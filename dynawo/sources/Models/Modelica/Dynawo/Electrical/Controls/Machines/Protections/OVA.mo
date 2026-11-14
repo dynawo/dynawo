@@ -35,13 +35,13 @@ equation
   // Voltage comparison with the maximum accepted value
   when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal)) then
     tThresholdReached = time;
-  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal)) then
+  elsewhen UMonitoredPu < UMaxPu and (not Modelica.Math.isEqual(pre(tThresholdReached), Constants.inf)) and not(pre(switchOffSignal)) then
     tThresholdReached = Constants.inf;
   end when;
 
   when UMonitoredPu >= UMaxPu and not(pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.OVAArming);
-  elsewhen UMonitoredPu < UMaxPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal)) and tLagAction > 0 then
+  elsewhen UMonitoredPu < UMaxPu and (not Modelica.Math.isEqual(pre(tThresholdReached), Constants.inf)) and not(pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.OVADisarming);
   end when;
 

@@ -47,7 +47,7 @@ equation
     when (UMonitoredPu^2 / (PMonitoredPu^2 + QMonitoredPu^2) * PMonitoredPu <= RPu[i] and
         UMonitoredPu^2 / (PMonitoredPu^2 + QMonitoredPu^2) * QMonitoredPu <= XPu[i] and
         UMonitoredPu^2 / (PMonitoredPu^2 + QMonitoredPu^2) * PMonitoredPu > -UMonitoredPu^2 / (PMonitoredPu^2 + QMonitoredPu^2) * QMonitoredPu) and
-        not Blinded and pre(tThresholdReached[i]) == Constants.inf then
+        not Blinded and Modelica.Math.isEqual(pre(tThresholdReached[i]), Constants.inf) then
       tThresholdReached[i] = time;
       if i == 1 then
         Timeline.logEvent1(TimelineKeys.Zone1Arming);
@@ -62,7 +62,7 @@ equation
         UMonitoredPu^2/(PMonitoredPu^2 + QMonitoredPu^2)*QMonitoredPu <= XPu[i] and
         UMonitoredPu^2/(PMonitoredPu^2 + QMonitoredPu^2)*PMonitoredPu > -UMonitoredPu^2/(PMonitoredPu^2 + QMonitoredPu^2)*QMonitoredPu and
         not Blinded) and
-        pre(tThresholdReached[i]) <> Constants.inf and time - pre(tThresholdReached[i]) < tZone[i] then
+        (not Modelica.Math.isEqual(pre(tThresholdReached[i]), Constants.inf)) and time - pre(tThresholdReached[i]) < tZone[i] then
       tThresholdReached[i] = Constants.inf;
       if i == 1 then
         Timeline.logEvent1(TimelineKeys.Zone1Disarming);

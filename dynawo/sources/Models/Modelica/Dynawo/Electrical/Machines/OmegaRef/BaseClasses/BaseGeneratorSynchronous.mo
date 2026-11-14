@@ -134,7 +134,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   parameter Types.PerUnit Mi0Pu "Start value of intermediate axis saturated mutual inductance in pu";
 
 equation
-  assert(SNom <> PNomAlt, "The alternator nominal active power should be different from the nominal apparent power");
+  assert((not Modelica.Math.isEqual(SNom,PNomAlt)), "The alternator nominal active power should be different from the nominal apparent power");
 
   if running then
     // Park's transformations

@@ -111,7 +111,7 @@ equation
     der(omegaRPu) = 0;
   end if;
 
-  if ((V.re == 0) and (V.im == 0)) then
+  if (Modelica.Math.isEqual(V.re, 0) and Modelica.Math.isEqual(V.im, 0)) then
     UPu = 0.;
   else
     UPu = ComplexMath.'abs'(V);
@@ -120,12 +120,12 @@ equation
   // Trip block 1
   when UPu <= Utrip1Pu and pre(connected1) and running then
     tTripThresholdReached1 = time;
-  elsewhen UPu > Utrip1Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected1) and running then
+  elsewhen UPu > Utrip1Pu and (not Modelica.Math.isEqual(pre(tTripThresholdReached1), Constants.inf)) and pre(connected1) and running then
     tTripThresholdReached1 = Constants.inf;
   end when;
   when UPu >= Ureconnect1Pu and not(pre(connected1)) and running then
     tReconnectThresholdReached1 = time;
-  elsewhen UPu < Ureconnect1Pu and pre(tReconnectThresholdReached1) <> Constants.inf and not(pre(connected1)) and running then
+  elsewhen UPu < Ureconnect1Pu and (not Modelica.Math.isEqual(pre(tReconnectThresholdReached1), Constants.inf)) and not(pre(connected1)) and running then
     tReconnectThresholdReached1 = Constants.inf;
   end when;
   when time - tTripThresholdReached1 >= tTrip1Pu and running then
@@ -137,12 +137,12 @@ equation
   // Trip block 2
   when UPu <= Utrip2Pu and pre(connected2) and running then
     tTripThresholdReached2 = time;
-  elsewhen UPu > Utrip2Pu and pre(tTripThresholdReached1) <> Constants.inf and pre(connected2) and running then
+  elsewhen UPu > Utrip2Pu and (not Modelica.Math.isEqual(pre(tTripThresholdReached1), Constants.inf)) and pre(connected2) and running then
     tTripThresholdReached2 = Constants.inf;
   end when;
   when UPu >= Ureconnect2Pu and not(pre(connected2)) and running then
     tReconnectThresholdReached2 = time;
-  elsewhen UPu < Ureconnect2Pu and pre(tReconnectThresholdReached2) <> Constants.inf and not(pre(connected2)) and running then
+  elsewhen UPu < Ureconnect2Pu and (not Modelica.Math.isEqual(pre(tReconnectThresholdReached2), Constants.inf)) and not(pre(connected2)) and running then
     tReconnectThresholdReached2 = Constants.inf;
   end when;
   when time - tTripThresholdReached2 >= tTrip2Pu and running then

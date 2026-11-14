@@ -42,9 +42,9 @@ model OelActivation "IBias calculation for OEL2C"
   parameter Types.Time tErr0 "Initial OEL timer error in s";
 
 equation
-  if tErr <= 0 or timer.y >= tEn or tEn == 0 then
+  if tErr <= 0 or timer.y >= tEn or Modelica.Math.isEqual(tEn, 0) then
     IBiasPu = 0;
-  elseif IRefPu == IInstPu and timer1.y > tOff then
+  elseif Modelica.Math.isEqual(IRefPu, IInstPu) and timer1.y > tOff then
     IBiasPu = IResetPu;
   else
     IBiasPu = 0;

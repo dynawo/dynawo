@@ -42,7 +42,7 @@ equation
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);
 
-  if running and terminal.V <> Complex(0) then
+  if running and (not (Modelica.Math.isEqual(terminal.V.re,0) and Modelica.Math.isEqual(terminal.V.im,0))) then
     UPu = ComplexMath.'abs'(terminal.V);
   else
     UPu = 0;

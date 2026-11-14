@@ -45,7 +45,7 @@ equation
     else
       der(KqMlt) = Kq * (QRefPu - QPu) / QRefPu;
     end if;
-    if terminal.V == Complex(0) then
+    if Modelica.Math.isEqual(terminal.V.re,0) and Modelica.Math.isEqual(terminal.V.im,0) then
       terminal.i = Complex(0);
     else
       PPu = PRefPu * (1 + deltaP) * ((ComplexMath.'abs'(terminal.V) / ComplexMath.'abs'(u0Pu)) ^ Alpha) * KpMlt;

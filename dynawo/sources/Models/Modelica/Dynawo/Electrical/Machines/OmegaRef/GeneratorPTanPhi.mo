@@ -32,7 +32,7 @@ model GeneratorPTanPhi "Generator PV when linked to reactive power control loop"
   parameter Types.ActivePower PNom "Nominal active power in MW";
   parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
   parameter Types.ReactivePower QMin "Minimum reactive power in Mvar";
-  parameter Real TanPhiRef = if PGen0Pu <> 0 then QGen0Pu / PGen0Pu else 0 "Start value of tan(Phi) regulation set point at terminal";
+  parameter Real TanPhiRef = if (not Modelica.Math.isEqual(PGen0Pu, 0)) then QGen0Pu / PGen0Pu else 0 "Start value of tan(Phi) regulation set point at terminal";
   parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
 
   Modelica.Blocks.Interfaces.RealInput deltaPRefPu(start = 0) "Additional active power reference in pu (base PNom)" annotation(

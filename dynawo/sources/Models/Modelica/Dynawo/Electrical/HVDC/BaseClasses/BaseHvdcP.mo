@@ -36,14 +36,14 @@ partial model BaseHvdcP "Base dynamic model for HVDC links with a regulation of 
   parameter Types.Angle UPhase20 "Start value of voltage angle and filtered voltage angle at terminal 2 in rad";
 
 equation
-  if ((terminal1.V.re == 0) and (terminal1.V.im == 0)) then
+  if (Modelica.Math.isEqual(terminal1.V.re,0) and Modelica.Math.isEqual(terminal1.V.im, 0)) then
     U1Pu = 0;
     Theta1 = 0;
   else
     U1Pu = ComplexMath.'abs'(terminal1.V);
     Theta1 = Modelica.Math.atan2(terminal1.V.im, terminal1.V.re);
   end if;
-  if ((terminal2.V.re == 0) and (terminal2.V.im == 0)) then
+  if (Modelica.Math.isEqual(terminal2.V.re, 0) and Modelica.Math.isEqual(terminal2.V.im, 0)) then
     U2Pu = 0;
     Theta2 = 0;
   else

@@ -64,7 +64,7 @@ equation
     Timeline.logEvent1(TimelineKeys.LVRTArming);
     tThresholdReachedLvrt = time;
     timer1.u = true;
-  elsewhen not(lessEqual.y) and pre(tThresholdReachedLvrt) <> Modelica.Constants.inf and not(pre1.y) and not(timer3.u) then
+  elsewhen not(lessEqual.y) and (not Modelica.Math.isEqual(pre(tThresholdReachedLvrt), Modelica.Constants.inf)) and not(pre1.y) and not(timer3.u) then
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
     tThresholdReachedLvrt = Modelica.Constants.inf;
     timer1.u = false;

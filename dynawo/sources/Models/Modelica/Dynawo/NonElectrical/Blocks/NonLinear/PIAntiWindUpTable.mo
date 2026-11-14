@@ -42,7 +42,7 @@ model PIAntiWindUpTable "Proportional Integrator with anti-windup and table-base
   parameter Real Y0 "Start value of output";
 
 equation
-  when time >= 0 and combiTable1D.y[1]<>pre(y) then
+  when time >= 0 and (not Modelica.Math.isEqual(combiTable1D.y[1], pre(y))) then
     y = combiTable1D.y[1];
   end when;
 

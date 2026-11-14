@@ -40,9 +40,9 @@ block SecondOrder "Second order filter block, allowing for zero coefficients"
   parameter Real Yd0 = 0 "Initial value of derivative of output signal";
 
 equation
-  if A2 <> 0 then
+  if not Modelica.Math.isEqual(A2, 0) then
     y = secondOrder.y;
-  elseif A1 <> 0 then
+  elseif not Modelica.Math.isEqual(A1, 0) then
     y = firstOrder.y;
   else
     y = gain.y;

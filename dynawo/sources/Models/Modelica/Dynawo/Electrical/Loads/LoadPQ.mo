@@ -17,7 +17,7 @@ model LoadPQ "Load with constant reactive/active power"
   extends AdditionalIcons.Load;
 
 equation
-  if running and terminal.V <> Complex(0) then
+  if running and (not (Modelica.Math.isEqual(terminal.V.re,0) and Modelica.Math.isEqual(terminal.V.im,0))) then
     PPu = PRefPu * (1 + deltaP);
     QPu = QRefPu * (1 + deltaQ);
   else

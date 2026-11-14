@@ -101,7 +101,7 @@ equation
     levelDiscrete = level;
    end when;
 
-  when (pre(levelDiscrete) <> levelDiscrete) and String(levelDiscrete, significantDigits = 2) <> String(pre(levelDiscrete), significantDigits = 2) then
+  when (not Modelica.Math.isEqual(pre(levelDiscrete), levelDiscrete)) and String(levelDiscrete, significantDigits = 2) <> String(pre(levelDiscrete), significantDigits = 2) then
     Timeline.logEvent2(TimelineKeys.SVRLevelNew, String(levelDiscrete, significantDigits = 2));
   end when;
 
