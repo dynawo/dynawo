@@ -31,7 +31,7 @@ equation
     if (terminal.V == Complex(0)) then
       tFilter * der(UFilteredRawPu) = -UFilteredRawPu;
       terminal.i = Complex(0);
-    elseif UFilteredPu == 0 then
+    elseif Modelica.Math.isEqual(UFilteredPu, 0) then
       tFilter * der(UFilteredRawPu) = ComplexMath.'abs'(terminal.V) - UFilteredRawPu;
       terminal.i = Complex(0);
     else

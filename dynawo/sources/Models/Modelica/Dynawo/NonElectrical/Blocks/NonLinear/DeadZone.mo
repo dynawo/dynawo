@@ -22,7 +22,7 @@ block DeadZone "Dead zone, bypassed if the limits are equal"
 equation
   assert(uMax >= uMin, "DeadZone: limits must be consistent. However, uMax (=" + String(uMax) + ") < uMin (=" + String(uMin) + ")");
 
-  if uMax == uMin then
+  if Modelica.Math.isEqual(uMax, uMin) then
     y = u;
   else
     y = homotopy(actual = smooth(0, if u > uMax then u - uMax else if u < uMin then u - uMin else 0), simplified = u);

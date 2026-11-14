@@ -44,10 +44,8 @@ model IEEE14CLA "IEEE 14-bus system benchmark formed with 14 buses, 5 generators
   Real IB1B5, IB1B2, IB2B5;
 
   Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B2(IMax = 1.55, OrderToEmit = 4, Running = true, tLagBeforeActing = 30);
-
-  /* Temporarly disactivated since two or more CLA are not simulating together*/
-  //Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB2B5(IMax = 0.49, OrderToEmit = 4, Running = true, tLagBeforeActing = 20);
-  //Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B5(IMax = 2, OrderToEmit = 4, Running = true, tLagBeforeActing = 50);
+  Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB2B5(IMax = 0.49, OrderToEmit = 4, Running = true, tLagBeforeActing = 20);
+  Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton CLAB1B5(IMax = 2, OrderToEmit = 4, Running = true, tLagBeforeActing = 50);
 
 equation
   IB1B5 = sqrt(LineB1B5.terminal1.i.re * LineB1B5.terminal1.i.re + LineB1B5.terminal1.i.im * LineB1B5.terminal1.i.im);
@@ -61,7 +59,6 @@ equation
     LineB1B2.switchOffSignal2 = false;
   end when;
 
-/*
   CLAB2B5.IMonitored = IB2B5;
   when CLAB2B5.order > 3 then
     LineB2B5.switchOffSignal2 = true;
@@ -75,10 +72,6 @@ equation
   elsewhen CLAB1B5.order <= 3 then
     LineB1B5.switchOffSignal2 = false;
   end when;
-*/
-
-  LineB2B5.switchOffSignal2 = false;
-  LineB1B5.switchOffSignal2 = false;
 
   // Loads references
   Load2.PRefPu = P0Pu_Load2;
@@ -220,6 +213,6 @@ equation
     preferredView = "diagram",
     experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-06, Interval = 10),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst --daeMode",
-    __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
+    __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "ida"),
     Documentation(info = "<html><head></head><body><div>The purpose of the current limit automatons is to disconnect the monitored component when the current is<span style=\"font-family: 'DejaVu Sans Mono'; font-size: 12px;\">&nbsp;higher than a predefined threshold during a certain amount of time.</span></div>At t =50s, the active power consumption of load 5 increases by 0.3 pu. Thus, the current on the lines increases.&nbsp;<div>For LineB1B2 and LineB2B5, the current is now higher than IMax. The controller CLAB2B5 will react after tLagBeforeActing = 20 s to disconnect the LineB2B5 before any reaction from the controller CLAB1B2 that has a tLagBeforeActing = 30 s.</div><div>The disconnection of Lineb2B5 decreases the current on LineB1B2 which is now below IMax = 1.55 pu. The current of LineB1B5 stays below IMax = 2 pu.</div><div>The final steady state is reached after the restoration of the loads.</div><div><br></div><div>Another scenario will occur if we change tLagBeforeActing for CLAB1B2 to 20 s and tLagBeforeActing for CLAB2B5 to 30 s.</div><div>After the increase of Load5.PRefPu, the current will increase on all the lines. However, here CLAB1B2 will react after 20 s before CLAB2B5 to disconnect LineB1B2.</div><div>The current of LineB2B5 is now below IMax but the current of LineB1B5 increases and it is now higher than IMax = 2 pu.&nbsp;</div><div>CLAB1B5 will react after 50s, at t = 120 s to disconnect LineB1B5. This event disconnects generator 1 and all the generated power now comes from generator 2. The simulation fails and stops at t = 120s.</div><div><br></div><div>These two scenarios show that a time-domain approach for steady-state calculation gives results closer to system's behavior that can not be described with a static load flow. It is important to consider the dynamics of the system that can influence the final steady-state result.</div><div><br></div><div><br></div><div><br></div></body></html>"));
 end IEEE14CLA;

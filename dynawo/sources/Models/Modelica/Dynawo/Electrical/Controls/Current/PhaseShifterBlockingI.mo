@@ -31,7 +31,7 @@ equation
   when IMonitored > IMax and not(pre(locked)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIArming);
-  elsewhen IMonitored <= IMax and pre(tThresholdReached) <> Constants.inf and not(pre(locked)) then
+  elsewhen IMonitored <= IMax and (not Modelica.Math.isEqual(pre(tThresholdReached), Constants.inf)) and not(pre(locked)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBlockingIDisarming);
   end when;

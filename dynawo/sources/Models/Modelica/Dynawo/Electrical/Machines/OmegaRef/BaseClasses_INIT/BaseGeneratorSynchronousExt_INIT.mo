@@ -69,7 +69,7 @@ equation
   if ExcitationPu == ExcitationPuType.Kundur then
     Kuf = 1;
   elseif ExcitationPu == ExcitationPuType.UserBase then
-    assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
+    assert((not Modelica.Math.isEqual(MdPuEfd, 0)), "Direct axis mutual inductance should be different from 0");
     Kuf = RfPPu / MdPPuEfd;
   elseif ExcitationPu == ExcitationPuType.NoLoad then
     Kuf = RfPPu / MdPPu;

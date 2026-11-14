@@ -33,11 +33,11 @@ equation
     limUQDown = false;
     limUQUp = true;
   // If the two following branches are not here we fail to adjust QGenPu if QMaxPu was modified but we were in Standard Mode.
-  elsewhen QGenPu + QDeadBandPu <= QMinPu and UStatorPu == UStatorRefPu then
+  elsewhen QGenPu + QDeadBandPu <= QMinPu and Modelica.Math.isEqual(UStatorPu, UStatorRefPu) then
     qStatus = QStatus.AbsorptionMax;
     limUQDown = true;
     limUQUp = false;
-  elsewhen QGenPu - QDeadBandPu >= QMaxPu and UStatorPu == UStatorRefPu then
+  elsewhen QGenPu - QDeadBandPu >= QMaxPu and Modelica.Math.isEqual(UStatorPu, UStatorRefPu) then
     qStatus = QStatus.GenerationMax;
     limUQDown = false;
     limUQUp = true;
@@ -55,7 +55,7 @@ equation
     else
       UStatorPu = UStatorRefPu;
     end if;
-    if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
+    if (Modelica.Math.isEqual(uStatorPu.re, 0) and Modelica.Math.isEqual(uStatorPu.im, 0)) then
       UStatorPu = 0.;
     else
       UStatorPu = ComplexMath.'abs'(uStatorPu);

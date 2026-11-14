@@ -25,7 +25,7 @@ model GenericAutomaton "Generic control automaton, call an external model"
   parameter String OutputsName[GenericAutomatonConstants.outputsMaxSize] = {"EMPTY" for i in 1:GenericAutomatonConstants.outputsMaxSize} "Names of required discrete real outputs data from the automaton";
   parameter String IntOutputsName[GenericAutomatonConstants.outputsMaxSize] = {"EMPTY" for i in 1:GenericAutomatonConstants.outputsMaxSize} "Names of required integer outputs data from the automaton";
   parameter Types.Time t0Start = 0 "Start time of the automaton";
-  final parameter Boolean initializeStart = if t0Start == 0 then true else false "Indicates if the automaton should be called at initialization";
+  final parameter Boolean initializeStart = if Modelica.Math.isEqual(t0Start, 0) then true else false "Indicates if the automaton should be called at initialization";
 
   Types.Time t0(start = t0Start) "First time when the automaton will act";
   Boolean initialize(start = initializeStart) "Indicates if the automaton should be called at initialization";

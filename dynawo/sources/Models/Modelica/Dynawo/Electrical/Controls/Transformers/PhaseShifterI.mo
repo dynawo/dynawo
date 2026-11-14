@@ -19,7 +19,7 @@ model PhaseShifterI "Phase-shifter monitoring the current so that it remains und
   parameter Types.CurrentModule iStop "Current below which the phase-shifter will stop action";
   parameter Types.VoltageModule UNom = 0 "Nominal voltage in kV";
 
-  final parameter Real factorValue = if UNom <> 0 then 1000 * SystemBase.SnRef/(sqrt(3) * UNom) else 1 "Multiplying factor for log messages of valueToMonitor (Pu to unit)";
+  final parameter Real factorValue = if (not Modelica.Math.isEqual(UNom, 0)) then 1000 * SystemBase.SnRef/(sqrt(3) * UNom) else 1 "Multiplying factor for log messages of valueToMonitor (Pu to unit)";
 
   Modelica.Blocks.Interfaces.RealInput iMonitored(start = I0) "Monitored current" annotation(
     Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -40}, {-100, -20}})));

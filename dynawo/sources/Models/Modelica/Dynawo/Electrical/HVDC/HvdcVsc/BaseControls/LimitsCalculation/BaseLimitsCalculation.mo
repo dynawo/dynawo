@@ -34,7 +34,7 @@ model BaseLimitsCalculation "Reactive and active currents limits calculation bas
   parameter Types.PerUnit Iq0Pu "Start value of reactive current in pu (base SNom, UNom) (DC to AC)";
 
 equation
-  if iqModPu == 0 then
+  if Modelica.Math.isEqual(iqModPu, 0) then
     iqMaxPu = max(0.001, sqrt(InPu ^ 2 - min(InPu ^ 2, ipRefPu ^ 2)));
   else
     iqMaxPu = InPu;

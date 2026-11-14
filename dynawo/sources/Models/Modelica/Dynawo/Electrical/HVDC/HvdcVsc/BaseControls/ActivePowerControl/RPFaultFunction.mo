@@ -37,7 +37,7 @@ equation
   end when;
 
   rpfaultRaw = SlopeRPFault * (if time > timer then time - timer else 0);
-  rpfault = if timer == 0 then 1 elseif rpfaultRaw < 1 then rpfaultRaw else 1;
+  rpfault = if Modelica.Math.isEqual(timer, 0) then 1 elseif rpfaultRaw < 1 then rpfaultRaw else 1;
 
   annotation(
     preferredView = "text",
