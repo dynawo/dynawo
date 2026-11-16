@@ -92,6 +92,11 @@ QuadripoleCriteria<T>::addQuadripole(const std::shared_ptr<T>& quadripole) {
   quadripoles_.push_back(quadripole);
 }
 
+template<typename T> void
+QuadripoleCriteria<T>::getComponentsToUpdate(std::vector<std::shared_ptr<ComponentInterface> >& components) const {
+  components.insert(components.end(), quadripoles_.begin(), quadripoles_.end());
+}
+
 template<typename T>
 QuadripoleCriteria<T>::QuadripoleFailingCriteria::QuadripoleFailingCriteria(Side side,
                                                     std::string quadripoleId,
