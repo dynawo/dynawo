@@ -117,13 +117,14 @@ class Modeler {
    *
    * @param id : id of the node connector
    * @param labelNode : \@NODE\@ or \@NODE1\@ or \@NODE2\@
+   * @param pos : position of labelNode in id (the caller guarantees that labelNode is present)
    * if the id contains \@static_id\@\@NODE\@, find the connection point of static id,
    * and replace \@NODE\@ by the name of the connection point.
    * If the id contains \@vl_id\@\@NODE\@\@N\@, find the calculated bus of the voltage level
    * at node index N and replace \@vl_id\@\@NODE\@\@N\@ by the bus name (NODE_BREAKER topology).
    * @return the id of the connector with the node macro replaced by the bus name
    */
-  std::string findNodeConnectorName(const std::string& id, const std::string& labelNode) const;
+  std::string findNodeConnectorName(const std::string& id, const std::string& labelNode, size_t pos) const;
 
   /**
    * @brief replace \@STATIC_ID\@, \@VOLTAGE_LEVEL\@, \@NODE\@, \@NODE1\@, \@NODE2\@ macros
@@ -167,6 +168,13 @@ class Modeler {
   void replaceNodeWithBus(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
       const boost::shared_ptr<SubModel>& subModel2, std::string& var2, const std::string& labelNode) const;
 
+  /**
+   * @brief replace \@STATIC_ID\@ and \@VOLTAGE_LEVEL\@ macros in a connected variable
+   * @param var connected variable in which the macros are replaced
+   * @param connectedModel model on the other side of the connection, whose static id
+   * and voltage level id are used to resolve the macros
+   */
+  void replaceModelMacros(std::string& var, const boost::shared_ptr<SubModel>& connectedModel) const;
 
  private:
   boost::shared_ptr<DataInterface> data_;  ///< data used to build the model multi

@@ -158,7 +158,7 @@ class SubModelMockSimple : public SubModel {
 class ModelerTester : public Modeler {
  public:
   std::string testFindNodeConnectorName(const std::string& id, const std::string& label) {
-    return findNodeConnectorName(id, label);
+    return findNodeConnectorName(id, label, id.find(label));
   }
 
   void testReplaceStaticAndNodeMacro(const boost::shared_ptr<SubModel>& sm1, std::string& v1,
@@ -182,19 +182,22 @@ static shared_ptr<SubModel> makeSubModel(const std::string& modelName, const std
 
 // ── findNodeConnectorName ─────────────────────────────────────────────────────
 
-TEST(ModelerNodeMacroTest, FindNodeConnectorName_NoPattern) {
-  auto data = make_shared<DataInterfaceMock>();
-  ModelerTester m = makeModeler(data);
-
-  ASSERT_EQ(m.testFindNodeConnectorName("terminal_V", "@NODE@"), "terminal_V");
-}
-
 TEST(ModelerNodeMacroTest, FindNodeConnectorName_StaticIdPattern) {
   auto data = make_shared<DataInterfaceMock>();
   data->busNames[{"GEN1", "@NODE@"}] = "BUS1";
   ModelerTester m = makeModeler(data);
 
   ASSERT_EQ(m.testFindNodeConnectorName("@GEN1@@NODE@_ACPIN", "@NODE@"), "BUS1_ACPIN");
+}
+
+TEST(ModelerNodeMacroTest, FindNodeConnectorName_MissingVariableName) {
+  // nothing after @NODE@: the variable name is malformed
+  auto data = make_shared<DataInterfaceMock>();
+  data->busNames[{"GEN1", "@NODE@"}] = "BUS1";
+  ModelerTester m = makeModeler(data);
+
+  ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@GEN1@@NODE@", "@NODE@"),
+                      Error::MODELER, KeyError_t::MacroNotResolved);
 }
 
 TEST(ModelerNodeMacroTest, FindNodeConnectorName_StaticIdPattern_BusNotFound) {
@@ -226,6 +229,17 @@ TEST(ModelerNodeMacroTest, FindNodeConnectorName_NodeBreakerPattern_BusNotFound)
   ModelerTester m = makeModeler(data);
 
   ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@VL1@@NODE@@5@_ACPIN", "@NODE@"),
+                      Error::MODELER, KeyError_t::MacroNotResolved);
+}
+
+TEST(ModelerNodeMacroTest, FindNodeConnectorName_NodeBreakerPattern_MissingClosingAt) {
+  // node index not closed by @: must not fall back on the @<staticId>@@NODE@ pattern
+  auto data = make_shared<DataInterfaceMock>();
+  data->busFromNodes[{"VL1", 5}] = "CALC_BUS_5";
+  data->busNames[{"VL1", "@NODE@"}] = "BUS_VL1";
+  ModelerTester m = makeModeler(data);
+
+  ASSERT_THROW_DYNAWO(m.testFindNodeConnectorName("@VL1@@NODE@@5_ACPIN", "@NODE@"),
                       Error::MODELER, KeyError_t::MacroNotResolved);
 }
 
@@ -316,7 +330,7 @@ TEST(ModelerNodeMacroTest, ReplaceStaticAndNode_VoltageLevelNotFound) {
 }
 
 TEST(ModelerNodeMacroTest, ReplaceStaticAndNode_BothSidesNodeBreaker) {
-  // Both var1 and var2 use @VOLTAGE_LEVEL@@NODE@@N@; both must be resolved independently.
+  // Both var1 and var2 use @VOLTAGE_LEVEL@@NODE@@N@: connecting two network nodes is forbidden.
   auto data = make_shared<DataInterfaceMock>();
   data->voltageLevelIds["LOAD1"] = "VL_A";
   data->voltageLevelIds["GEN1"] = "VL_B";
@@ -327,13 +341,10 @@ TEST(ModelerNodeMacroTest, ReplaceStaticAndNode_BothSidesNodeBreaker) {
   auto sm1 = makeSubModel("model1", "GEN1");
   auto sm2 = makeSubModel("model2", "LOAD1");
 
-  // var1 uses VL of sm2 (LOAD1 → VL_A), var2 uses VL of sm1 (GEN1 → VL_B)
   std::string var1 = "@VOLTAGE_LEVEL@@NODE@@3@_terminal";
   std::string var2 = "@VOLTAGE_LEVEL@@NODE@@7@_terminal";
-  m.testReplaceStaticAndNodeMacro(sm1, var1, sm2, var2);
-
-  ASSERT_EQ(var1, "BUS_A3_terminal");
-  ASSERT_EQ(var2, "BUS_B7_terminal");
+  ASSERT_THROW_DYNAWO(m.testReplaceStaticAndNodeMacro(sm1, var1, sm2, var2),
+                      Error::MODELER, KeyError_t::WrongConnectTwoUnknownNodes);
 }
 
 }  // namespace DYN
