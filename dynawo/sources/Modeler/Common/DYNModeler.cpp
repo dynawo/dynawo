@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <cstring>
 #include <map>
 
 #include <boost/algorithm/string.hpp>
@@ -67,6 +68,12 @@ using parameters::ParametersSet;
 using parameters::Reference;
 
 namespace DYN {
+
+static const char LABEL_NODE[] = "@NODE@";  ///< macro referencing the bus a component is connected to
+static const char LABEL_NODE1[] = "@NODE1@";  ///< macro referencing the bus of side 1 of a component
+static const char LABEL_NODE2[] = "@NODE2@";  ///< macro referencing the bus of side 2 of a component
+static const char LABEL_STATIC_ID[] = "@STATIC_ID@";  ///< macro referencing the static id of the connected model
+static const char LABEL_VOLTAGE_LEVEL[] = "@VOLTAGE_LEVEL@";  ///< macro referencing the voltage level of the connected model
 
 void
 Modeler::initSystem() {
@@ -193,55 +200,50 @@ Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& sub
 
   // convention : if node inside a connector, the staticId of the component is placed before
   // so the name of the var is as follow : @STATIC_ID@@@NODE@_var or @STATIC_ID@@@NODE1@_var or @STATIC_ID@@@NODE2@_var
-  const string labelNode = "@NODE@";
-  const string labelNode1 = "@NODE1@";
-  const string labelNode2 = "@NODE2@";
-  const string labelStaticId = "@STATIC_ID@";
-  const string labelVoltageLevel = "@VOLTAGE_LEVEL@";
-
-  // replace @STATIC_ID@ with the static id of the model where the connection should be made
-  const bool foundStaticIdInVar1 = var1.find(labelStaticId) != string::npos;
-  const bool foundStaticIdInVar2 = var2.find(labelStaticId) != string::npos;
-  if (foundStaticIdInVar1)
-    var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + subModel2->staticId() + "@");
-  if (foundStaticIdInVar2)
-    var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + subModel1->staticId() + "@");
-
-  // replace @VOLTAGE_LEVEL@ with the voltage level id of the connected model
-  const bool foundVLInVar1 = var1.find(labelVoltageLevel) != string::npos;
-  const bool foundVLInVar2 = var2.find(labelVoltageLevel) != string::npos;
-  if (foundVLInVar1) {
-    const string vlId = data_->getVoltageLevelId(subModel2->staticId());
-    if (vlId.empty())
-      throw DYNError(Error::MODELER, MacroNotResolved, var1, "voltage level not found for model " + subModel2->name());
-    var1.replace(var1.find(labelVoltageLevel), labelVoltageLevel.size(), "@" + vlId + "@");
-  }
-  if (foundVLInVar2) {
-    const string vlId = data_->getVoltageLevelId(subModel1->staticId());
-    if (vlId.empty())
-      throw DYNError(Error::MODELER, MacroNotResolved, var2, "voltage level not found for model " + subModel1->name());
-    var2.replace(var2.find(labelVoltageLevel), labelVoltageLevel.size(), "@" + vlId + "@");
-  }
+  // replace @STATIC_ID@ and @VOLTAGE_LEVEL@ with the ids of the model on the other side of the connection
+  replaceModelMacros(var1, subModel2);
+  replaceModelMacros(var2, subModel1);
 
   // replace @NODE@, @NODE1@, @NODE2@ with the bus id.
   // When a numeric node index @<N>@ follows @NODE@, the new NODE_BREAKER resolution
   // @<vlId>@@@NODE@@<N>@ is used instead of the classic static-id-based lookup.
-  replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode);
-  replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode1);
-  replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode2);
+  replaceNodeWithBus(subModel1, var1, subModel2, var2, LABEL_NODE);
+  replaceNodeWithBus(subModel1, var1, subModel2, var2, LABEL_NODE1);
+  replaceNodeWithBus(subModel1, var1, subModel2, var2, LABEL_NODE2);
+}
+
+void
+Modeler::replaceModelMacros(string& var, const shared_ptr<SubModel>& connectedModel) const {
+  // replace @STATIC_ID@ with the static id of the connected model
+  const size_t posStaticId = var.find(LABEL_STATIC_ID);
+  if (posStaticId != string::npos)
+    var.replace(posStaticId, strlen(LABEL_STATIC_ID), "@" + connectedModel->staticId() + "@");
+
+  // replace @VOLTAGE_LEVEL@ with the voltage level id of the connected model
+  // (looked up only when the macro is present)
+  const size_t posVoltageLevel = var.find(LABEL_VOLTAGE_LEVEL);
+  if (posVoltageLevel != string::npos) {
+    const string vlId = data_->getVoltageLevelId(connectedModel->staticId());
+    if (vlId.empty())
+      throw DYNError(Error::MODELER, MacroNotResolved, var, "voltage level not found for model " + connectedModel->name());
+    var.replace(posVoltageLevel, strlen(LABEL_VOLTAGE_LEVEL), "@" + vlId + "@");
+  }
 }
 
 void
 Modeler::replaceNodeWithBus(const shared_ptr<SubModel>& subModel1, string& var1,
     const shared_ptr<SubModel>& subModel2, string& var2, const string& labelNode) const {
-  const bool foundNodeInVar1 = var1.find(labelNode) != string::npos;
-  const bool foundNodeInVar2 = var2.find(labelNode) != string::npos;
-  if (foundNodeInVar1)
-    var1 = findNodeConnectorName(var1, labelNode);
-  if (foundNodeInVar2)
-    var2 = findNodeConnectorName(var2, labelNode);
-  if (var1.find(labelNode) != string::npos || var2.find(labelNode) != string::npos)
+  const size_t posNodeInVar1 = var1.find(labelNode);
+  const size_t posNodeInVar2 = var2.find(labelNode);
+  const bool foundNodeInVar1 = posNodeInVar1 != string::npos;
+  const bool foundNodeInVar2 = posNodeInVar2 != string::npos;
+  // two network nodes cannot be connected together: the macro may only appear on one side
+  if (foundNodeInVar1 && foundNodeInVar2)
     throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, subModel1->name(), var1, subModel2->name(), var2);
+  if (foundNodeInVar1)
+    var1 = findNodeConnectorName(var1, labelNode, posNodeInVar1);
+  else if (foundNodeInVar2)
+    var2 = findNodeConnectorName(var2, labelNode, posNodeInVar2);
 }
 
 void
@@ -281,15 +283,12 @@ Modeler::initConnects() {
 }
 
 string
-Modeler::findNodeConnectorName(const string& id, const string& labelNode) const {
+Modeler::findNodeConnectorName(const string& id, const string& labelNode, const size_t pos) const {
   // Handles two patterns (both use two @ at each seam, following the DYD convention):
   //   @<staticId>@@NODE@_var          → existing: bus looked up from component static id
   //   @<vlId>@@NODE@@<N>@_var         → new NODE_BREAKER: bus looked up from voltage level + node index
   // The patterns are distinguished by checking whether a decimal @<N>@ immediately follows @NODE@.
   string tmpId = id;
-  const size_t pos = id.find(labelNode);
-  if (pos == string::npos)
-    return tmpId;
 
   // id.substr(1, pos-2) extracts the identifier between the outer @ delimiters.
   // With two @ at the seam (@<id>@@NODE@), pos-2 gives exactly the id without surrounding @.
@@ -297,33 +296,35 @@ Modeler::findNodeConnectorName(const string& id, const string& labelNode) const 
 
   // Check for NODE_BREAKER macro: @<vlId>@@NODE@@<index>@ where index is a decimal integer
   const size_t afterNode = pos + labelNode.size();
-  if (afterNode < id.size() && id[afterNode] == '@') {
+  if (afterNode >= id.size())
+    throw DYNError(Error::MODELER, MacroNotResolved, id, "missing variable name after " + labelNode);
+  if (id[afterNode] == '@') {
     const size_t startContent = afterNode + 1;
     const size_t endContent = id.find('@', startContent);
-    if (endContent != string::npos) {
-      const string nodeContent = id.substr(startContent, endContent - startContent);
-      // strict parsing: only a non-empty sequence of decimal digits is accepted
-      // (std::stoi alone would silently accept "5abc", " 5" or "-1")
-      if (nodeContent.empty() || !boost::algorithm::all(nodeContent, boost::algorithm::is_digit()))
-        throw DYNError(Error::MODELER, MacroNotResolved, id,
-            "node index '" + nodeContent + "' is not a valid non-negative integer in " + labelNode);
-      int nodeIndex = 0;
-      try {
-        nodeIndex = std::stoi(nodeContent);
-      } catch (const std::out_of_range&) {
-        throw DYNError(Error::MODELER, MacroNotResolved, id,
-            "node index '" + nodeContent + "' is out of range in " + labelNode);
-      }
-      const string labelNodeIndex = "@" + nodeContent + "@";
-      const string busName = data_->getBusNameFromNode(idPart, nodeIndex);
-      if (busName.empty()) {
-        throw DYNError(Error::MODELER, MacroNotResolved, id,
-            "bus not found for voltage level '" + idPart + "' at node " + nodeContent);
-      }
-      tmpId.replace(tmpId.find("@" + idPart + "@"), idPart.size() + 2, "");
-      tmpId.replace(tmpId.find(labelNode + labelNodeIndex), labelNode.size() + labelNodeIndex.size(), busName);
-      return tmpId;
+    if (endContent == string::npos)
+      throw DYNError(Error::MODELER, MacroNotResolved, id, "missing closing @ after node index in " + labelNode);
+    const string nodeContent = id.substr(startContent, endContent - startContent);
+    // strict parsing: only a non-empty sequence of decimal digits is accepted
+    // (std::stoi alone would silently accept "5abc", " 5" or "-1")
+    if (nodeContent.empty() || !boost::algorithm::all(nodeContent, boost::algorithm::is_digit()))
+      throw DYNError(Error::MODELER, MacroNotResolved, id,
+          "node index '" + nodeContent + "' is not a valid non-negative integer in " + labelNode);
+    int nodeIndex = 0;
+    try {
+      nodeIndex = std::stoi(nodeContent);
+    } catch (const std::out_of_range&) {
+      throw DYNError(Error::MODELER, MacroNotResolved, id,
+          "node index '" + nodeContent + "' is out of range in " + labelNode);
     }
+    const string labelNodeIndex = "@" + nodeContent + "@";
+    const string busName = data_->getBusNameFromNode(idPart, nodeIndex);
+    if (busName.empty()) {
+      throw DYNError(Error::MODELER, MacroNotResolved, id,
+          "bus not found for voltage level '" + idPart + "' at node " + nodeContent);
+    }
+    tmpId.replace(tmpId.find("@" + idPart + "@"), idPart.size() + 2, "");
+    tmpId.replace(tmpId.find(labelNode + labelNodeIndex), labelNode.size() + labelNodeIndex.size(), busName);
+    return tmpId;
   }
 
   // @<staticId>@@NODE@
