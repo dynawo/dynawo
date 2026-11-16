@@ -167,7 +167,7 @@ set(sundials_url         ${sundials_prefix_url}/v${sundials_version}/${sundials_
 set(sundials_md5         6be7057c88990021de5b08109eb2f133)
 
 set(omdev_git            https://openmodelica.org/git/OMDev.git)
-set(omdev_tag            origin/OM113maintenance)
+set(omdev_tag            e1bb0576bfb1ebb4c63fbbcc6e37fb825da16ac9) # OMDev master: no maintenance branch for OpenModelica 1.24
 
 set(openmodelica_version 1.24.5)
 if(DEFINED ENV{DYNAWO_OPENMODELICA_GIT_URL})
@@ -645,7 +645,6 @@ if(NOT OMCompiler)
         STAMP_DIR           ${DOWNLOAD_DIR}/omdev-stamp
         GIT_REPOSITORY      ${omdev_git}
         GIT_TAG             ${omdev_tag}
-        GIT_SHALLOW         1
         UPDATE_DISCONNECTED 1
         BUILD_IN_SOURCE     1
         CONFIGURE_COMMAND   ""
