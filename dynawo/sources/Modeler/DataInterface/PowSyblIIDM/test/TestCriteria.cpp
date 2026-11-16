@@ -62,7 +62,7 @@ using criteria::CriteriaCollectionFactory;
 
 namespace DYN {
 
-class LineInterfaceStub {
+class LineInterfaceStub : public ComponentInterface {
  public:
   /**
   * @param id   Component id returned by getID()
@@ -81,7 +81,16 @@ class LineInterfaceStub {
   double getStateVarI2() const { return i2_; }
 
   /** Used by QuadripoleFailingCriteria to build the timeline / log message. */
-  const std::string& getID() const { return id_; }
+  std::string getID() const override { return id_; }
+
+  /** Not used by criteria. */
+  void importStaticParameters() override {}
+
+  /** Not used by criteria. */
+  void exportStateVariablesUnitComponent() override {}
+
+  /** Not used by criteria. */
+  int getComponentVarIndex(const std::string& /*varName*/) const override { return -1; }
 
  private:
   std::string id_;

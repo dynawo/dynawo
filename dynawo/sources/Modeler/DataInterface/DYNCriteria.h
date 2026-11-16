@@ -53,6 +53,12 @@ class Criteria {
   virtual bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr) = 0;
 
   /**
+   * @brief add to the list the components whose state variables are read by this criteria
+   * @param components list completed with the components to update before checking this criteria (may contain duplicates)
+   */
+  virtual void getComponentsToUpdate(std::vector<std::shared_ptr<ComponentInterface> >& components) const = 0;
+
+  /**
    * @brief returns the list of failing criteria
    *
    * @return list of failing criteria
@@ -156,6 +162,11 @@ class BusCriteria : public Criteria {
   bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
 
   /**
+   * @copydoc Criteria::getComponentsToUpdate
+   */
+  void getComponentsToUpdate(std::vector<std::shared_ptr<ComponentInterface> >& components) const;
+
+  /**
    * @brief add a bus to the criteria
    * @param bus bus to add
    */
@@ -252,6 +263,12 @@ class LoadCriteria : public Criteria {
   bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
 
   /**
+   * @copydoc Criteria::getComponentsToUpdate
+   * @details loads and their buses (bus voltage is used by the voltage levels filters and in logs)
+   */
+  void getComponentsToUpdate(std::vector<std::shared_ptr<ComponentInterface> >& components) const;
+
+  /**
    * @brief add a load to the criteria
    * @param load load to add
    */
@@ -310,27 +327,14 @@ class LoadCriteria : public Criteria {
 
  private:
   /**
-   * @brief check criteria in type LOCAL_VALUE or SUM
-   *
-   * @param load load to check
-   * @param loadActivePower active power of the load to check
-   * @param loadToSourcesAddedIntoSumMap map associating active power to the related load
-   * @param distanceToLoadFailingCriteriaMap map associating the distance between active power and the crossed bound, and the related load
-   * @param alreadyChecked set containing the loads already checked to not check them several times
-   * @param isCriteriaOk true if criteria is ok, false otherwise
-   * @param sum sum of network loads active powers
-   * @param atLeastOneEligibleLoadWasFound true if there is at least one load to calculate the sum of network loads active powers
+   * @brief build the list of eligible loads with their active power, sorted by increasing active power
+   * @details only called when a SUM criteria fails, to print the loads taken into account
+   * @return eligible loads sorted by increasing active power (stable sort)
    */
-  void checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN::LoadInterface>& load,
-                                          double loadActivePower,
-                                          std::multimap<double, std::shared_ptr<LoadInterface> >& loadToSourcesAddedIntoSumMap,
-                                          std::multimap<double, std::unique_ptr<FailingCriteria> >& distanceToLoadFailingCriteriaMap,
-                                          std::unordered_set<std::string>& alreadyChecked,
-                                          bool& isCriteriaOk,
-                                          double& sum,
-                                          bool& atLeastOneEligibleLoadWasFound);
+  std::vector<std::pair<double, LoadInterface*> > getSortedEligibleLoads() const;
 
-  std::vector<std::shared_ptr<LoadInterface> > loads_;  ///< loads of this criteria
+  std::vector<std::shared_ptr<LoadInterface> > loads_;  ///< loads of this criteria (without duplicates)
+  std::unordered_set<const LoadInterface*> addedLoads_;  ///< loads already added, to avoid duplicates in loads_
 };
 
 
@@ -363,6 +367,12 @@ class GeneratorCriteria : public Criteria {
   bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr);
 
   /**
+   * @copydoc Criteria::getComponentsToUpdate
+   * @details generators and their buses (bus voltage is used by the voltage levels filters and in logs)
+   */
+  void getComponentsToUpdate(std::vector<std::shared_ptr<ComponentInterface> >& components) const;
+
+  /**
    * @brief add a generator to the criteria
    * @param generator generator to add
    */
@@ -376,27 +386,14 @@ class GeneratorCriteria : public Criteria {
 
  private:
   /**
-   * @brief check criteria in type LOCAL_VALUE or SUM
-   *
-   * @param generator generator to check
-   * @param generatorActivePower active power of the generator to check
-   * @param generatorToSourcesAddedIntoSumMap map associating active power to the related generator
-   * @param distanceToGeneratorFailingCriteriaMap map associating the distance between active power and the crossed bound, and the related generator
-   * @param alreadyChecked set containing the generators already checked to not check them several times
-   * @param isCriteriaOk true if criteria is ok, false otherwise
-   * @param sum sum of network generators active powers
-   * @param atLeastOneEligibleGeneratorWasFound true if there is at least one generator to calculate the sum of network generators active powers
+   * @brief build the list of eligible generators with their active power, sorted by increasing active power
+   * @details only called when a SUM criteria fails, to print the generators taken into account
+   * @return eligible generators sorted by increasing active power (stable sort)
    */
-  void checkCriteriaInLocalValueOrSumType(const std::shared_ptr<DYN::GeneratorInterface>& generator,
-                                          double generatorActivePower,
-                                          std::multimap<double, std::shared_ptr<GeneratorInterface> >& generatorToSourcesAddedIntoSumMap,
-                                          std::multimap<double, std::unique_ptr<FailingCriteria> >& distanceToGeneratorFailingCriteriaMap,
-                                          std::unordered_set<std::string>& alreadyChecked,
-                                          bool& isCriteriaOk,
-                                          double& sum,
-                                          bool& atLeastOneEligibleGeneratorWasFound);
+  std::vector<std::pair<double, GeneratorInterface*> > getSortedEligibleGenerators() const;
 
-  std::vector<std::shared_ptr<GeneratorInterface> > generators_;  ///< generators of this criteria
+  std::vector<std::shared_ptr<GeneratorInterface> > generators_;  ///< generators of this criteria (without duplicates)
+  std::unordered_set<const GeneratorInterface*> addedGenerators_;  ///< generators already added, to avoid duplicates in generators_
 };
 
 /**
@@ -436,6 +433,11 @@ class QuadripoleCriteria : public Criteria {
    * @return true if the criteria is respected, false otherwise
    */
   bool checkCriteria(double t, bool finalStep, const boost::shared_ptr<timeline::Timeline>& timeline = nullptr) override;
+
+  /**
+   * @copydoc Criteria::getComponentsToUpdate
+   */
+  void getComponentsToUpdate(std::vector<std::shared_ptr<ComponentInterface> >& components) const override;
 
   /**
    * @brief add a quadripole to the criteria
