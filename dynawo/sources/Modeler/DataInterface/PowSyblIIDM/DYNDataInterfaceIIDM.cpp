@@ -1006,6 +1006,12 @@ DataInterfaceIIDM::getStateVariableReference() {
 
 void
 DataInterfaceIIDM::updateFromModel(bool filterForCriteriaCheck) {
+  if (filterForCriteriaCheck) {
+    // only the components read by the criteria need to be updated
+    for (const auto& component : criteriaComponents_)
+      component->updateFromModel(filterForCriteriaCheck);
+    return;
+  }
   for (const auto& componentPair : components_)
     componentPair.second->updateFromModel(filterForCriteriaCheck);
 }
@@ -1083,6 +1089,17 @@ DataInterfaceIIDM::configureCriteria(const std::shared_ptr<CriteriaCollection>& 
   configureGeneratorCriteria(criteria);
   configureQuadripoleCriteria<LineInterface>(criteria);
   configureQuadripoleCriteria<TwoWTransformerInterface>(criteria);
+
+  // components to update before each criteria check: only those read by at least one criteria
+  std::vector<std::shared_ptr<ComponentInterface> > components;
+  for (const auto& dynCriteria : criteria_)
+    dynCriteria->getComponentsToUpdate(components);
+  criteriaComponents_.clear();
+  std::unordered_set<const ComponentInterface*> alreadyAdded;
+  for (const auto& component : components) {
+    if (alreadyAdded.insert(component.get()).second)
+      criteriaComponents_.push_back(component);
+  }
 }
 
 void
