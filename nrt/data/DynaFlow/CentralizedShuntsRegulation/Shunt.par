@@ -42,7 +42,7 @@
   <set id="Condenser">
     <par type="DOUBLE" name="shunt_Section0" value="0"/>
     <par type="STRING" name="shunt_TableBPuName" value="tableBPu"/>
-    <par type="STRING" name="shunt_TableBPuFile" value="nrt/data/DynaFlow/CentralizedShuntsRegulation/ShuntSectionCondenser.txt"/>
+    <par type="STRING" name="shunt_TableBPuFile" value="@PAR_PATH@/ShuntSectionCondenser.txt"/>
     <par type="DOUBLE" name="shunt_Q0Pu" value="0"/>
     <reference type="DOUBLE" name="shunt_U0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
     <reference type="DOUBLE" name="shunt_UPhase0" origData="IIDM" origName="angle_pu" componentId="_Load__10"/>
@@ -50,7 +50,7 @@
   <set id="Self">
     <par type="DOUBLE" name="shunt_Section0" value="1"/>
     <par type="STRING" name="shunt_TableBPuName" value="tableBPu"/>
-    <par type="STRING" name="shunt_TableBPuFile" value="nrt/data/DynaFlow/CentralizedShuntsRegulation/ShuntSectionSelf.txt"/>
+    <par type="STRING" name="shunt_TableBPuFile" value="@PAR_PATH@/ShuntSectionSelf.txt"/>
     <par type="DOUBLE" name="shunt_Q0Pu" value="0"/>
     <reference type="DOUBLE" name="shunt_U0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
     <reference type="DOUBLE" name="shunt_UPhase0" origData="IIDM" origName="angle_pu" componentId="_Load__10"/>
