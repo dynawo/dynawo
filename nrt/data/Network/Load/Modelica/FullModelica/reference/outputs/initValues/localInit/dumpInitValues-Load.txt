@@ -2,9 +2,9 @@
 load_zPRaw                                        : y =       1.000000 yp =       0.000000
 load_zQRaw                                        : y =       1.000000 yp =       0.000000
 load_PPu                                          : y =       0.500000 yp =       0.000000
-load_PRefPu                                       : y =       0.300000 yp =       0.000000
+load_PRefPu                                       : y =       0.500000 yp =       0.000000
 load_QPu                                          : y =       0.250000 yp =       0.000000
-load_QRefPu                                       : y =       0.400000 yp =       0.000000
+load_QRefPu                                       : y =       0.250000 yp =       0.000000
 load_deltaP                                       : y =       0.000000 yp =       0.000000
 load_deltaQ                                       : y =       0.000000 yp =       0.000000
 load_terminal_V_im                                : y =       0.009963 yp =       0.000000

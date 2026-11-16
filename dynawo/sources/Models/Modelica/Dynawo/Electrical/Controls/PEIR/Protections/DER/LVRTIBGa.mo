@@ -69,15 +69,15 @@ equation
     der(UMinIntPu) = 0;
     der(UMinMaxPu) = 0;
   elseif time - tThresholdReached < tLVRTMin then
-    UMin1Pu + tFilter * der(UMin1Pu) = if UMonitoredPu < UMin1Pu then UMonitoredPu else UMin1Pu;  // Relaxed version of UMin1Pu = min(UMin1Pu, UMonitoredPu)
+    UMin1Pu + tFilter * der(UMin1Pu) = if noEvent(UMonitoredPu < UMin1Pu) then UMonitoredPu else UMin1Pu;  // Relaxed version of UMin1Pu = min(UMin1Pu, UMonitoredPu)
     der(UMinIntPu) = 0;
     der(UMinMaxPu) = 0;
   elseif time - tThresholdReached < tLVRTInt then
-    UMinIntPu + tFilter * der(UMinIntPu) = if UMonitoredPu < UMinIntPu then UMonitoredPu else UMinIntPu;
+    UMinIntPu + tFilter * der(UMinIntPu) = if noEvent(UMonitoredPu < UMinIntPu) then UMonitoredPu else UMinIntPu;
     der(UMin1Pu) = 0;
     der(UMinMaxPu) = 0;
   elseif time - tThresholdReached > tLVRTMax then
-    UMinMaxPu + tFilter * der(UMinMaxPu) = if UMonitoredPu < UMinMaxPu then UMonitoredPu else UMinMaxPu;
+    UMinMaxPu + tFilter * der(UMinMaxPu) = if noEvent(UMonitoredPu < UMinMaxPu) then UMonitoredPu else UMinMaxPu;
     der(UMin1Pu) = 0;
     der(UMinIntPu) = 0;
   else
@@ -90,7 +90,7 @@ equation
   if switchOffSignal == true or tThresholdReached == Constants.inf then  // Not armed or tripped
     der(tMaxRecovery) = 0;
   else
-    tMaxRecovery + tFilter * der(tMaxRecovery) = if (time - tThresholdReached) > tMaxRecovery then (time - tThresholdReached) else tMaxRecovery;
+    tMaxRecovery + tFilter * der(tMaxRecovery) = if noEvent((time - tThresholdReached) > tMaxRecovery) then (time - tThresholdReached) else tMaxRecovery;
   end if;
 
   // Partial trips
@@ -122,7 +122,7 @@ equation
   // Modified model
   if time - tThresholdReached < tLVRTMax and time - tThresholdReached > tLVRTInt and switchOffSignal == false and tThresholdReached <> Constants.inf then
     aux3 = g * (UMonitoredPu - (f*ULVRTIntPu + (h*ULVRTArmingPu - f*ULVRTIntPu) * (time - tThresholdReached - tLVRTInt) / (tLVRTMax - tLVRTInt)));
-    f3 + der(f3) * tFilter = if aux3 < f3 then aux3 else f3;
+    f3 + der(f3) * tFilter = if noEvent(aux3 < f3) then aux3 else f3;
   else
     aux3 = 1;
     der(f3) = 0;

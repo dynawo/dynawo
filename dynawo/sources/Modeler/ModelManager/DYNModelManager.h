@@ -682,7 +682,24 @@ class ModelManager : public SubModel, public ConstraintSource, private boost::no
   void setInitialCalculatedParameters();
 
  private:
+  /**
+   * @brief whether calculated variables may form a cycle through a delay that must be iterated (model with delays, at t0)
+   * @return true if the evaluation of the calculated variables must be iterated up to a fixed point
+   */
+  bool calculatedVarsCycleThroughDelayAtT0() const;
+
+  /**
+   * @brief whether two successive evaluations of the calculated variables are equal
+   * @param previous previous evaluation
+   * @param current current evaluation
+   * @return true if the evaluations are equal up to a relative tolerance
+   */
+  static bool calculatedVarsConverged(const std::vector<double>& previous, const std::vector<double>& current);
+
+  static constexpr int maxIterationsCalculatedVarsFixedPoint = 1000;  ///< maximum number of iterations of the fixed point at t0
+
   bool modelInitUsed_;  ///< whether init model is used
+  bool relationsPreInitialized_ = false;  ///< whether relationsPre of the dynamic model has been set by a first rotateBuffers
   std::unordered_map<int, double> cstrMins_;  ///< minimum values for all variables causing constraints, by index
   std::unordered_map<int, double> cstrMaxs_;  ///< maximum values for all variables causing constraints, by index
 };

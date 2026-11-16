@@ -65,10 +65,13 @@ ConnectorCalculatedVariable::checkParametersCoherence() const {
 }
 
 void
-ConnectorCalculatedVariable::evalF(const double /*t*/, const propertyF_t type) {
+ConnectorCalculatedVariable::evalF(const double t, const propertyF_t type) {
   if (type == DIFFERENTIAL_EQ)
     return;
 
+  // the calculated variable may depend on time: evaluate it at the current time, the model may have no residual
+  // (sizeF = 0) and therefore not have been updated to t
+  model_->setCurrentTime(t);
   // only one equation 0 = calculated var - yLocal
   fLocal_[0] = model_->evalCalculatedVarI(indexCalculatedVariable_) - yLocal_[0];
 }
@@ -83,8 +86,9 @@ ConnectorCalculatedVariable::evalG(const double /*t*/) {
 }
 
 void
-ConnectorCalculatedVariable::evalJt(const double /*t*/, const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
+ConnectorCalculatedVariable::evalJt(const double t, const double /*cj*/, const int rowOffset, SparseMatrix& jt) {
   // only one equation : 0 = calculatedVariable -y
+  model_->setCurrentTime(t);
 
   constexpr double dMOne(-1.);
 
@@ -154,7 +158,9 @@ ConnectorCalculatedVariable::evalCalculatedVarI(unsigned /*iCalculatedVar*/) {
 void
 ConnectorCalculatedVariable::getY0() {
   model_->getY0Sub();
-  yLocal_[0] = model_->evalCalculatedVarI(indexCalculatedVariable_);  // value computed at t=0
+  // value computed by the model's getY0 at t=0 (relations evaluated with initial semantics): a new evaluation here
+  // would use relationsPre, not yet initialized
+  yLocal_[0] = model_->getCalculatedVar(indexCalculatedVariable_);
   ypLocal_[0] = 0.;
 }
 

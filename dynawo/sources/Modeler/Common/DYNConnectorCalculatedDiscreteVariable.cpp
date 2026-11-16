@@ -68,7 +68,8 @@ ConnectorCalculatedDiscreteVariable::setGequations() {
   gEquationIndex_[0] = std::string("pre(DiscreteCalcVar) !=  model_->evalCalculatedVarI(indexCalculatedVariable_)");
 }
 void
-ConnectorCalculatedDiscreteVariable::evalG(const double /*t*/) {
+ConnectorCalculatedDiscreteVariable::evalG(const double t) {
+  model_->setCurrentTime(t);
   gLocal_[0] = doubleNotEquals(prevZValue_, model_->evalCalculatedVarI(indexCalculatedVariable_)) ? ROOT_UP : ROOT_DOWN;
 }
 
@@ -83,8 +84,9 @@ ConnectorCalculatedDiscreteVariable::evalJtPrim(const double /*t*/, const double
 }
 
 void
-ConnectorCalculatedDiscreteVariable::evalZ(const double /*t*/) {
+ConnectorCalculatedDiscreteVariable::evalZ(const double t) {
   if (gLocal_[0] == ROOT_UP) {
+    model_->setCurrentTime(t);
     zLocal_[0] = model_->evalCalculatedVarI(indexCalculatedVariable_);
     prevZValue_ = zLocal_[0];
   }

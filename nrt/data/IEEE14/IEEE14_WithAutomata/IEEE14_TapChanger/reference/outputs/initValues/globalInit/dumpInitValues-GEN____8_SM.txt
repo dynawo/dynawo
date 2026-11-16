@@ -26,7 +26,7 @@ generator_omegaRefPu                              : y =       1.000000 yp =     
 generator_sin2Eta                                 : y =      -0.000000 yp =       0.000000
 generator_terminal_V_im                           : y =      -0.251835 yp =       0.000000
 generator_terminal_V_re                           : y =       1.060437 yp =       0.000000
-generator_terminal_i_im                           : y =       0.156801 yp =       0.000000
+generator_terminal_i_im                           : y =       0.156800 yp =       0.000000
 generator_terminal_i_re                           : y =       0.037296 yp =       0.000000
 generator_udPu                                    : y =      -0.000257 yp =       0.000000
 generator_uqPu                                    : y =       1.089930 yp =       0.000000
@@ -44,10 +44,10 @@ voltageRegulator_UsRefTotal_u2                    : alias of voltageRegulator_Us
  ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu                                : y =       1.195065
 generator_IStatorPu                               : y =       0.161175
-generator_PGen                                    : y =      -0.006184
+generator_PGen                                    : y =      -0.006183
 generator_PGenPu                                  : y =      -0.000062
 generator_PePu                                    : y =      -0.000008
-generator_QGen                                    : y =      17.566938
+generator_QGen                                    : y =      17.566936
 generator_QGenPu                                  : y =       0.175669
 generator_QStatorPu                               : y =       0.176708
 generator_QStatorPuQNom                           : y =       0.172319
@@ -55,7 +55,7 @@ generator_UPu                                     : y =       1.089930
 generator_cePu                                    : y =      -0.000008
 generator_cmPu                                    : y =       0.000018
 generator_genState                                : y =       2.000000
-generator_iStatorPu_im                            : y =       0.156801
+generator_iStatorPu_im                            : y =       0.156800
 generator_iStatorPu_re                            : y =       0.037296
 generator_sStatorPu_im                            : y =      -0.176708
 generator_sStatorPu_re                            : y =       0.000062

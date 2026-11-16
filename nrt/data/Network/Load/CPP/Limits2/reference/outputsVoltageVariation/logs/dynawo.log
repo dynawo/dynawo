@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
-INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  1272_preassembled-25f51016b35
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :  3874_symb_jac_new-00a43e2ae95
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -37,27 +37,27 @@ INFO | -----------------------------------------------------------------------
 INFO | starting curve initialization
 INFO | -----------------------------------------------------------------------
 DEBUG | adding curve : Id: Generator; curve: generator_UPu found. (exact name)
-DEBUG | adding curve : Id: Generator; output: generator_running found.( generator_running )
+DEBUG | adding curve : Id: Generator; curve: generator_running found. (exact name)
 DEBUG | adding curve : Id: Generator; curve: generator_QGenPu found. (exact name)
 DEBUG | adding curve : Id: Generator; curve: generator_PGenPu found. (exact name)
-DEBUG | adding curve : Id: Generator; output: generator_omegaRefPu found.( generator_omegaRefPu_value )
-DEBUG | adding curve : Id: NETWORK; output: Load_P found.( Load_P_value )
-DEBUG | adding curve : Id: NETWORK; output: Load_Q found.( Load_Q_value )
-DEBUG | adding curve : Id: NETWORK; output: Load2_P found.( Load2_P_value )
-DEBUG | adding curve : Id: NETWORK; output: Load2_Q found.( Load2_Q_value )
-DEBUG | adding curve : Id: NETWORK; output: Load2_zP found.( Load2_zP_value )
-DEBUG | adding curve : Id: NETWORK; output: Load2_zQ found.( Load2_zQ_value )
-DEBUG | adding curve : Id: NETWORK; output: line1_P1 found.( line1_P1_value )
-DEBUG | adding curve : Id: NETWORK; output: line1_Q1 found.( line1_Q1_value )
-DEBUG | adding curve : Id: NETWORK; output: line1_P2 found.( line1_P2_value )
-DEBUG | adding curve : Id: NETWORK; output: line1_Q2 found.( line1_Q2_value )
-DEBUG | adding curve : Id: NETWORK; output: VL1_BUS1_U found.( VL1_BUS1_U_value )
-DEBUG | adding curve : Id: NETWORK; output: VL1_BUS1_phi found.( VL1_BUS1_phi_value )
-DEBUG | adding curve : Id: NETWORK; output: VL2_BUS1_U found.( VL2_BUS1_U_value )
-DEBUG | adding curve : Id: NETWORK; output: VL2_BUS1_phi found.( VL2_BUS1_phi_value )
-DEBUG | adding curve : Id: NETWORK; output: Load3_P found.( Load3_P_value )
-DEBUG | adding curve : Id: NETWORK; output: Load3_Q found.( Load3_Q_value )
-DEBUG | adding curve : Id: NETWORK; output: Load3_state found.( Load3_state_value )
+DEBUG | adding curve : Id: Generator; curve: generator_omegaRefPu found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load_P found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load_Q found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load2_P found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load2_Q found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load2_zP found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load2_zQ found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: line1_P1 found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: line1_Q1 found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: line1_P2 found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: line1_Q2 found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: VL1_BUS1_U found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: VL1_BUS1_phi found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: VL2_BUS1_U found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: VL2_BUS1_phi found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load3_P found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load3_Q found. (exact name)
+DEBUG | adding curve : Id: NETWORK; curve: Load3_state found. (exact name)
 WARN | curve not added: Id: Load , name: load_PPu
 WARN | curve not added: Id: Load , name: load_QPu
 DEBUG | adding curve : Id: Generator; curve: generator_PGen found. (exact name)
@@ -69,7 +69,7 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 24
+INFO | number of continuous variables : 23
 INFO | number of discrete variables : 21
 INFO | number of root functions : 15
 INFO | -----------------------------------------------------------------------
@@ -78,16 +78,16 @@ INFO | -----------------------------------------------------------------------
 INFO |        0.000 ¦        0                0          0              1.000 
 INFO |        1.000 ¦        1                0          0              1.000 
 DEBUG | largest derivative values (truncated to the first 10) at the current iteration
-DEBUG | YP[12]=0 (variable=Generator_generator_terminal_V_im)
-DEBUG | YP[23]=0 (variable=InfiniteBus_infiniteBus_terminal_V_re_connector_InfiniteBus_infiniteBus_terminal_V_re)
-DEBUG | YP[22]=0 (variable=InfiniteBus_infiniteBus_terminal_V_im_connector_InfiniteBus_infiniteBus_terminal_V_im)
-DEBUG | YP[21]=0 (variable=OmegaRef_setPoint_setPoint_connector_OmegaRef_setPoint_setPoint)
-DEBUG | YP[20]=0 (variable=InfiniteBus_infiniteBus_terminal_i_re)
-DEBUG | YP[19]=0 (variable=InfiniteBus_infiniteBus_terminal_i_im)
-DEBUG | YP[18]=0 (variable=Generator_generator_terminal_i_re)
-DEBUG | YP[17]=0 (variable=Generator_generator_terminal_i_im)
-DEBUG | YP[16]=0 (variable=Generator_generator_QGenPu)
-DEBUG | YP[15]=0 (variable=Generator_generator_PGenRawPu)
+DEBUG | YP[11]=0 (variable=Generator_generator_SGenPu_im)
+DEBUG | YP[22]=0 (variable=InfiniteBus_infiniteBus_terminal_V_re_connector_InfiniteBus_infiniteBus_terminal_V_re)
+DEBUG | YP[21]=0 (variable=InfiniteBus_infiniteBus_terminal_V_im_connector_InfiniteBus_infiniteBus_terminal_V_im)
+DEBUG | YP[20]=0 (variable=OmegaRef_setPoint_setPoint_connector_OmegaRef_setPoint_setPoint)
+DEBUG | YP[19]=0 (variable=InfiniteBus_infiniteBus_terminal_i_re)
+DEBUG | YP[18]=0 (variable=InfiniteBus_infiniteBus_terminal_i_im)
+DEBUG | YP[17]=0 (variable=Generator_generator_terminal_i_re)
+DEBUG | YP[16]=0 (variable=Generator_generator_terminal_i_im)
+DEBUG | YP[15]=0 (variable=Generator_generator_terminal_V_re)
+DEBUG | YP[14]=0 (variable=Generator_generator_terminal_V_im)
 INFO |        2.000 ¦        2                0          0              1.000 
 INFO |        3.000 ¦        3                0          0              1.000 
 INFO |        4.000 ¦        4                0          0              1.000 
@@ -103,16 +103,16 @@ INFO |       10.000 ¦       10                0          0              1.000
 INFO | calculation of the new starting point of the simulation.
 INFO |       10.000 ¦       10                2          2              1.000 
 DEBUG | largest derivative values (truncated to the first 10) at the current iteration
-DEBUG | YP[12]=0 (variable=Generator_generator_terminal_V_im)
-DEBUG | YP[23]=0 (variable=InfiniteBus_infiniteBus_terminal_V_re_connector_InfiniteBus_infiniteBus_terminal_V_re)
-DEBUG | YP[22]=0 (variable=InfiniteBus_infiniteBus_terminal_V_im_connector_InfiniteBus_infiniteBus_terminal_V_im)
-DEBUG | YP[21]=0 (variable=OmegaRef_setPoint_setPoint_connector_OmegaRef_setPoint_setPoint)
-DEBUG | YP[20]=0 (variable=InfiniteBus_infiniteBus_terminal_i_re)
-DEBUG | YP[19]=0 (variable=InfiniteBus_infiniteBus_terminal_i_im)
-DEBUG | YP[18]=0 (variable=Generator_generator_terminal_i_re)
-DEBUG | YP[17]=0 (variable=Generator_generator_terminal_i_im)
-DEBUG | YP[16]=0 (variable=Generator_generator_QGenPu)
-DEBUG | YP[15]=0 (variable=Generator_generator_PGenRawPu)
+DEBUG | YP[11]=0 (variable=Generator_generator_SGenPu_im)
+DEBUG | YP[22]=0 (variable=InfiniteBus_infiniteBus_terminal_V_re_connector_InfiniteBus_infiniteBus_terminal_V_re)
+DEBUG | YP[21]=0 (variable=InfiniteBus_infiniteBus_terminal_V_im_connector_InfiniteBus_infiniteBus_terminal_V_im)
+DEBUG | YP[20]=0 (variable=OmegaRef_setPoint_setPoint_connector_OmegaRef_setPoint_setPoint)
+DEBUG | YP[19]=0 (variable=InfiniteBus_infiniteBus_terminal_i_re)
+DEBUG | YP[18]=0 (variable=InfiniteBus_infiniteBus_terminal_i_im)
+DEBUG | YP[17]=0 (variable=Generator_generator_terminal_i_re)
+DEBUG | YP[16]=0 (variable=Generator_generator_terminal_i_im)
+DEBUG | YP[15]=0 (variable=Generator_generator_terminal_V_re)
+DEBUG | YP[14]=0 (variable=Generator_generator_terminal_V_im)
 DEBUG | call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
 INFO |       11.000 ¦       11                3          3              1.000 
 INFO |       12.000 ¦       12                4          3              1.000 
@@ -1110,16 +1110,16 @@ INFO |     1000.000 ¦     1000              992          3              1.000
 INFO | calculation of the new starting point of the simulation.
 INFO |     1000.000 ¦     1000              999         10              1.000 
 DEBUG | largest derivative values (truncated to the first 10) at the current iteration
-DEBUG | YP[9]=2.03448e-07 (variable=NETWORK_Load2_zQ_value)
-DEBUG | YP[8]=9.37343e-08 (variable=NETWORK_Load2_zP_value)
-DEBUG | YP[12]=0 (variable=Generator_generator_terminal_V_im)
-DEBUG | YP[23]=0 (variable=InfiniteBus_infiniteBus_terminal_V_re_connector_InfiniteBus_infiniteBus_terminal_V_re)
-DEBUG | YP[22]=0 (variable=InfiniteBus_infiniteBus_terminal_V_im_connector_InfiniteBus_infiniteBus_terminal_V_im)
-DEBUG | YP[21]=0 (variable=OmegaRef_setPoint_setPoint_connector_OmegaRef_setPoint_setPoint)
-DEBUG | YP[20]=0 (variable=InfiniteBus_infiniteBus_terminal_i_re)
-DEBUG | YP[19]=0 (variable=InfiniteBus_infiniteBus_terminal_i_im)
-DEBUG | YP[18]=0 (variable=Generator_generator_terminal_i_re)
-DEBUG | YP[17]=0 (variable=Generator_generator_terminal_i_im)
+DEBUG | YP[9]=2.03448e-07 (variable=NETWORK_Load2_zQ)
+DEBUG | YP[8]=9.37343e-08 (variable=NETWORK_Load2_zP)
+DEBUG | YP[11]=0 (variable=Generator_generator_SGenPu_im)
+DEBUG | YP[22]=0 (variable=InfiniteBus_infiniteBus_terminal_V_re_connector_InfiniteBus_infiniteBus_terminal_V_re)
+DEBUG | YP[21]=0 (variable=InfiniteBus_infiniteBus_terminal_V_im_connector_InfiniteBus_infiniteBus_terminal_V_im)
+DEBUG | YP[20]=0 (variable=OmegaRef_setPoint_setPoint_connector_OmegaRef_setPoint_setPoint)
+DEBUG | YP[19]=0 (variable=InfiniteBus_infiniteBus_terminal_i_re)
+DEBUG | YP[18]=0 (variable=InfiniteBus_infiniteBus_terminal_i_im)
+DEBUG | YP[17]=0 (variable=Generator_generator_terminal_i_re)
+DEBUG | YP[16]=0 (variable=Generator_generator_terminal_i_im)
 WARN | the maximum number of nonlinear iterations has been reached
 INFO |     1000.500 ¦     1001             1015         12              0.500 
 INFO |     1001.500 ¦     1002             1021         13              1.000 
@@ -2125,13 +2125,21 @@ INFO |     2000.000 ¦     2001             2609         14              0.500
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                  = 2001
-INFO | number of residual evaluations             = 4613
-INFO | number of Jacobian evaluations             = 14
-INFO | number of nonlinear iterations             = 2609
-INFO | number of error test failures              = 0
-INFO | number of nonlinear convergence failures   = 1
-INFO | number of root functions evaluations       = 2006
-INFO | number of discrete variables evaluations   = 6
-INFO | number of mode evaluations                 = 3
+INFO | number of time iterations                                  = 2001
+INFO | number of residual evaluations                             = 4605
+INFO | number of Jacobian evaluations                             = 6
+INFO | number of nonlinear iterations                             = 2602
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 1
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 2006
+INFO | number of discrete variables evaluations                   = 6
+INFO | number of mode evaluations                                 = 3
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 11
+INFO | number of algebraic restoration Jacobian evaluations       = 9
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
 INFO | end of job 'Disconnect load test with voltage variation'

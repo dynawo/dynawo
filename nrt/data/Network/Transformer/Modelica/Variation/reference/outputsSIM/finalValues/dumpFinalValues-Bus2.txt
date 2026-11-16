@@ -1,11 +1,11 @@
  ====== VARIABLES VALUES ======
-bus_terminal_V_im                                 : y =  -0.4086756916 yp =   0.0000000000
-bus_terminal_V_re                                 : y =  -0.9127163134 yp =   0.0000000000
+bus_terminal_V_im                                 : y =   0.9814422198 yp =   0.0000000000
+bus_terminal_V_re                                 : y =  -0.1920691853 yp =   0.0000000000
  ====== CALCULATED VARIABLES VALUES ======
-bus_U                                             : y =   1.0000334443
-bus_UPhase                                        : y =  -2.7206050498
-bus_UPhaseDeg                                     : y =-155.8791870741
-bus_UPu                                           : y =   1.0000334443
+bus_U                                             : y =   1.0000596995
+bus_UPhase                                        : y =   1.7640547983
+bus_UPhaseDeg                                     : y = 101.0728947723
+bus_UPu                                           : y =   1.0000596995
 bus_terminal_i_im                                 : y =   0.0000000000
 bus_terminal_i_re                                 : y =   0.0000000000
  ====== DISCRETE VARIABLES VALUES ======

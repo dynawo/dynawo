@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
-INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  3741_value_cpp-7c2478ccd8f
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :  3874_symb_jac_new-00a43e2ae95
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -18,7 +18,6 @@ INFO |
 INFO | -----------------------------------------------------------------------
 INFO | starting global initialization
 INFO | -----------------------------------------------------------------------
-INFO | Algebraic mode change at t = 0
 INFO | end of global initialization
 INFO | -----------------------------------------------------------------------
 INFO | 

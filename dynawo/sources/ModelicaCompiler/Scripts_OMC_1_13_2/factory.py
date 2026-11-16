@@ -3193,6 +3193,11 @@ class Factory:
                         line = self.transform_in_relation(line, index_relations[index_relation])
                         index_relation+=1
 
+                    # Remap the relation indexes while each relationhysteresis call still fits on one line:
+                    # the calculated-variable lambda inserted below spans several lines, and the final
+                    # replace_relation_indexes pass cannot parse a call broken across lines any more.
+                    line = replace_relation_indexes(line, self.omc_relation_index_2_dynawo_relations_index)
+
                     match = ptrn_calc_var.findall(line)
                     for name in match:
                         calc_var_index = str(calc_var_2_index[name])
@@ -4152,6 +4157,11 @@ class Factory:
             name_func_to_search[func.get_name()] = func
 
         ptrn_evaluated_var = re.compile(r'\(data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/\)[ ]* = [ ]*(?P<rhs>[^;]+);')
+        var_name_to_src_fct_name = {}
+        for eq in self.get_list_eq_syst():
+            var_name_to_src_fct_name[eq.get_evaluated_var()] = eq.get_src_fct_name()
+        for calc_var, f in self.reader.list_complex_calculated_vars.items():
+            var_name_to_src_fct_name[calc_var.get_name()] = f.get_name()
         for var in self.reader.list_calculated_vars:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
             if type(expr)==list:
@@ -4200,6 +4210,28 @@ class Factory:
                     if function_found :
                         body.append("    calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = " + dic_var_name_to_temporary_name[var.get_name()] +";\n")
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
+                # Same substitution of the created relations as in evalCalculatedVarI (prepare_for_evalcalculatedvari):
+                # without it, evalCalculatedVars used the raw comparison (current state) while evalCalculatedVarI
+                # used relationsPre, so the cache mixed both semantics (e.g. a dead zone output computed as
+                # "outside" next to its downstream gain computed as "inside").
+                var_name = var.get_name()
+                if self.create_additional_relations() and var_name in var_name_to_src_fct_name:
+                    no_event_nodes = []
+                    if var_name in self.reader.var_name_to_mixed_residual_vars_types:
+                        no_event_nodes = self.reader.var_name_to_mixed_residual_vars_types[var_name].get_no_event()
+                    index_if = 0
+                    index_relation = 0
+                    index_relations = self.modes.find_index_relation(var_name_to_src_fct_name[var_name])
+                    for i, line in enumerate(body):
+                        is_no_event_node = index_if < len(no_event_nodes) and no_event_nodes[index_if]
+                        if (("Greater" in line or "Less" in line) and "relationhysteresis" not in line and not is_no_event_node):
+                            if index_relation < len(index_relations):
+                                body[i] = self.transform_in_relation(line, index_relations[index_relation])
+                                index_relation += 1
+                        if "else" in line:
+                            index_if += 1
+                        if "fmin" in line:
+                            index_if += 1
                 self.list_for_evalcalculatedvars.extend(body)
             else:
                 expr = transform_line(expr)
@@ -4644,20 +4676,33 @@ class Factory:
                     if self.calc_var_ref_kind(var.get_name(), name) != 'cache':
                         offset += recursive_calc_vars_num_deps.get(name, 0)
             body = []
+            # Only x[n] outside of /* ... */ comments are variables: a variable name in a comment may
+            # itself contain "x[n]" (e.g. "leadLag[1].x[1]"), which must neither be counted as a
+            # dependency (it would shift the position of every following one) nor be rewritten.
+            ptrn_comment = re.compile(r'/\*.*?\*/')
+            def code_parts(text):
+                return ptrn_comment.sub(' ', text)
+            def remap_x_outside_comments(text, position):
+                parts = []
+                last = 0
+                for comment in ptrn_comment.finditer(text):
+                    parts.append(ptrn_vars.sub(lambda m: "x[indexOffset +" + str(position[int(m.group('varId'))]) + "]", text[last:comment.start()]))
+                    parts.append(comment.group(0))
+                    last = comment.end()
+                parts.append(ptrn_vars.sub(lambda m: "x[indexOffset +" + str(position[int(m.group('varId'))]) + "]", text[last:]))
+                return "".join(parts)
             sorted_indexes = []
             for line in body_translated:
-                match_global = ptrn_vars.findall(line)
+                match_global = ptrn_vars.findall(code_parts(line))
                 for val in match_global:
                     if int(val) not in sorted_indexes:
                         sorted_indexes.append(int(val))
                 assert("xd[" not in line)
             sorted_indexes.sort()
+            position_of_index = {val: pos for pos, val in enumerate(sorted_indexes)}
             ptrn_adept_relation_condition = re.compile(r'(Greater|Less|GreaterEq|LessEq)<adept::adouble>\(')
             for line in body_translated:
-                index_var = 0
-                for val in sorted_indexes:
-                    line = line.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
-                    index_var += 1
+                line = remap_x_outside_comments(line, position_of_index)
                 is_relation_condition_line = ptrn_adept_relation_condition.search(line) is not None and "x[indexOffset" not in line
                 if is_relation_condition_line:
                     line = ptrn_adept_relation_condition.sub(r'\1(', line)
@@ -4673,13 +4718,8 @@ class Factory:
                         offset = 0
                         if name in calc_var_to_offset:
                             offset = calc_var_to_offset[name]
+                        # names inside comments are no longer rewritten (see remap_x_outside_comments)
                         name_to_use = name
-                        index_var = 0
-                        for val in sorted_indexes:
-                            if "x["+str(val)+"]" in name_to_use:
-                                # there is an x[..] in the name of the variable itself!
-                                name_to_use = name_to_use.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
-                                index_var += 1
                         if self.calc_var_ref_kind(var.get_name(), name) == 'cache':
                             # this reference is the back-edge that was cut to break a calculated-
                             # variable dependency cycle: the target isn't computed yet at this point

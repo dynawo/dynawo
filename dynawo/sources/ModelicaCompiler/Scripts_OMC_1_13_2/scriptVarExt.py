@@ -102,25 +102,25 @@ def extend_with_vi_pairs(var_names):
     return extended
 
 ##
-# Build, for each continuous external variable, an opaque "dummy" function taking every
-# continuous external variable as input (so none of them can be simplified away in isolation
-# by OMC), plus their V/i complex counterparts (see extend_with_vi_pairs), and the corresponding
-# "der(var) = dummyN(...)" equation, instead of a plain der(var) = 0. The der(...) on the left
-# keeps the variable classified as a genuine differential state (with its own derivative slot,
-# needed by any other equation that references der(var) directly), while the opaque right-hand
-# side keeps OMC from treating that derivative as trivially constant/removable. The dummy calls
-# themselves carry no meaning and are filtered out of the generated dynamic model afterwards
-# (see factory.py).
+# Build, for each continuous external variable, an opaque "dummy" function and the corresponding
+# "0 = dummyN(...)" equation, instead of a plain der(var) = 0. Each dummy takes the external
+# variable itself plus, for a voltage/current component, its V/i complex counterparts (see
+# extend_with_vi_pairs), so that OMC cannot simplify the terminal current away. The other
+# external variables are deliberately NOT passed: coupling all of them (and the terminal current)
+# in every dummy merged them into one algebraic loop with the whole control chain, whose
+# variables then had no explicit initial value in setY0omc (IECWPP4ACurrentSource2020).
+# The dummy calls themselves carry no meaning and are filtered out of the generated dynamic
+# model afterwards (see factory.py).
 # @param liste_var_ext : list of (variable name, default value) tuples for every continuous
 #                         external variable (mandatory and optional combined)
 # @return (list of function definition lines, list of equation lines)
 def build_dummy_equations(liste_var_ext):
     var_names = [var for var, _ in liste_var_ext]
-    arg_names = extend_with_vi_pairs(var_names)
-    nb_args = len(arg_names)
     functions_lines = []
     equations_lines = []
     for i in range(1, len(var_names) + 1):
+        arg_names = extend_with_vi_pairs([var_names[i - 1]])
+        nb_args = len(arg_names)
         functions_lines.append("function dummy" + str(i) + "\n")
         for j in range(1, nb_args + 1):
             functions_lines.append("  input Real u" + str(j) + ";\n")

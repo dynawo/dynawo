@@ -1,5 +1,0 @@
- ====== VARIABLES VALUES ======
-connector_GEN____2_SM_generator_terminal_i_re     : y =      -0.339976 yp =       0.000000
- ====== DISCRETE VARIABLES VALUES ======
- ====== PARAMETERS VALUES ======
- ====== INTERNAL PARAMETERS VALUES ======

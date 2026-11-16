@@ -1,5 +1,5 @@
  ====== VARIABLES VALUES ======
-connector_LoadStepQ_step_step                     : y =       0.005000 yp =       0.000000
+connector_LoadStepQ_step_step                     : y =       0.002500 yp =       0.000000
  ====== DISCRETE VARIABLES VALUES ======
  ====== PARAMETERS VALUES ======
  ====== INTERNAL PARAMETERS VALUES ======

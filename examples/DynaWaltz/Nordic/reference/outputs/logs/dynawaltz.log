@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
 INFO | DYNAWO VERSION  :     2.0.0
-INFO | DYNAWO REVISION :  4223_add_running_nodefault-c4645a596d7
+INFO | DYNAWO REVISION :  3874_symb_jac_new-00a43e2ae95
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -32,7 +32,7 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver SimplifiedSolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 1740
+INFO | number of continuous variables : 1040
 INFO | number of discrete variables : 954
 INFO | number of root functions : 822
 INFO | -----------------------------------------------------------------------
@@ -45,301 +45,304 @@ INFO |        2.000 ¦        1                1          1              2.000
 INFO | calculation of the new starting point of the simulation.
 INFO |        2.000 ¦        1                3          3              2.000 
 INFO | Algebraic mode change at t = 4
-INFO |        4.000 ¦        2                6          4              2.000 
+INFO |        4.000 ¦        2                8          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |        4.000 ¦        2                6          4              2.000 
+INFO |        4.000 ¦        2                8          5              2.000 
 INFO | Differential mode change at t = 6
-INFO |        6.000 ¦        3                9          4              2.000 
+INFO |        6.000 ¦        3               10          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |        6.000 ¦        3                9          4              2.000 
-INFO |        8.000 ¦        4               13          4              2.000 
+INFO |        6.000 ¦        3               10          5              2.000 
+INFO |        8.000 ¦        4               12          5              2.000 
 INFO | Algebraic mode change at t = 10
-INFO |       10.000 ¦        5               17          5              2.000 
+INFO |       10.000 ¦        5               14          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       10.000 ¦        5               17          5              2.000 
-INFO |       12.000 ¦        6               18          5              2.000 
-INFO |       14.000 ¦        7               19          5              2.000 
+INFO |       10.000 ¦        5               14          5              2.000 
+INFO |       12.000 ¦        6               16          5              2.000 
+INFO |       14.000 ¦        7               18          5              2.000 
 INFO |       16.000 ¦        8               20          5              2.000 
 INFO | Algebraic mode change at t = 18
-INFO |       18.000 ¦        9               21          5              2.000 
+INFO |       18.000 ¦        9               22          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       18.000 ¦        9               21          5              2.000 
+INFO |       18.000 ¦        9               22          5              2.000 
 INFO | Differential mode change at t = 20
-INFO |       20.000 ¦       10               22          5              2.000 
+INFO |       20.000 ¦       10               24          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       20.000 ¦       10               22          5              2.000 
-INFO |       22.000 ¦       11               23          5              2.000 
-INFO |       24.000 ¦       12               24          5              2.000 
-INFO |       26.000 ¦       13               25          5              2.000 
-INFO |       28.000 ¦       14               26          5              2.000 
-INFO |       30.000 ¦       15               27          5              2.000 
+INFO |       20.000 ¦       10               24          5              2.000 
+INFO |       22.000 ¦       11               26          5              2.000 
+INFO |       24.000 ¦       12               28          5              2.000 
+INFO |       26.000 ¦       13               30          5              2.000 
+INFO |       28.000 ¦       14               32          5              2.000 
+INFO |       30.000 ¦       15               34          5              2.000 
 INFO | Algebraic mode change at t = 32
-INFO |       32.000 ¦       16               28          5              2.000 
+INFO |       32.000 ¦       16               36          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       32.000 ¦       16               28          5              2.000 
+INFO |       32.000 ¦       16               36          5              2.000 
 INFO | Algebraic mode change at t = 34
-INFO |       34.000 ¦       17               31          5              2.000 
+INFO |       34.000 ¦       17               39          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       34.000 ¦       17               31          5              2.000 
+INFO |       34.000 ¦       17               39          5              2.000 
 INFO | Differential mode change at t = 36
-INFO |       36.000 ¦       18               33          5              2.000 
+INFO |       36.000 ¦       18               41          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       36.000 ¦       18               33          5              2.000 
+INFO |       36.000 ¦       18               41          5              2.000 
 INFO | Algebraic mode change at t = 38
-INFO |       38.000 ¦       19               34          5              2.000 
+INFO |       38.000 ¦       19               43          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       38.000 ¦       19               34          5              2.000 
-INFO |       40.000 ¦       20               35          5              2.000 
+INFO |       38.000 ¦       19               43          5              2.000 
+INFO |       40.000 ¦       20               45          5              2.000 
 INFO | Algebraic mode change at t = 42
-INFO |       42.000 ¦       21               36          5              2.000 
+INFO |       42.000 ¦       21               47          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       42.000 ¦       21               36          5              2.000 
+INFO |       42.000 ¦       21               47          5              2.000 
 INFO | Algebraic mode change at t = 44
-INFO |       44.000 ¦       22               39          5              2.000 
+INFO |       44.000 ¦       22               50          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       44.000 ¦       22               39          5              2.000 
+INFO |       44.000 ¦       22               50          5              2.000 
 INFO | Differential mode change at t = 46
-INFO |       46.000 ¦       23               41          5              2.000 
+INFO |       46.000 ¦       23               52          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       46.000 ¦       23               41          5              2.000 
-INFO |       48.000 ¦       24               43          5              2.000 
+INFO |       46.000 ¦       23               52          5              2.000 
+INFO |       48.000 ¦       24               54          5              2.000 
 INFO | Algebraic mode change at t = 50
-INFO |       50.000 ¦       25               44          5              2.000 
+INFO |       50.000 ¦       25               56          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       50.000 ¦       25               44          5              2.000 
+INFO |       50.000 ¦       25               56          5              2.000 
 INFO | Algebraic mode change at t = 52
-INFO |       52.000 ¦       26               46          5              2.000 
+INFO |       52.000 ¦       26               59          5              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       52.000 ¦       26               46          5              2.000 
+INFO |       52.000 ¦       26               59          5              2.000 
 INFO | Algebraic mode change at t = 54
-INFO |       54.000 ¦       27               50          5              2.000 
+INFO |       54.000 ¦       27               64          6              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       54.000 ¦       27               50          5              2.000 
+INFO |       54.000 ¦       27               64          6              2.000 
 INFO | Algebraic mode (with J recalculation) change at t = 56
-INFO |       56.000 ¦       28               52          5              2.000 
+INFO |       56.000 ¦       28               66          6              2.000 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 56
-INFO |       56.000 ¦       28               53          6              2.000 
+INFO |       56.000 ¦       28               66          8              2.000 
 INFO | Algebraic mode change at t = 58
-INFO |       58.000 ¦       29               55          7              2.000 
+INFO |       58.000 ¦       29               68          9              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       58.000 ¦       29               55          7              2.000 
+INFO |       58.000 ¦       29               68          9              2.000 
 INFO | Algebraic mode change at t = 60
-INFO |       60.000 ¦       30               57          7              2.000 
+INFO |       60.000 ¦       30               70          9              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       60.000 ¦       30               57          7              2.000 
+INFO |       60.000 ¦       30               70          9              2.000 
 INFO | Algebraic mode change at t = 62
-INFO |       62.000 ¦       31               59          7              2.000 
+INFO |       62.000 ¦       31               72          9              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       62.000 ¦       31               59          7              2.000 
+INFO |       62.000 ¦       31               72          9              2.000 
 INFO | Algebraic mode change at t = 64
-INFO |       64.000 ¦       32               62          7              2.000 
+INFO |       64.000 ¦       32               75          9              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       64.000 ¦       32               62          7              2.000 
+INFO |       64.000 ¦       32               75          9              2.000 
 INFO | Algebraic mode change at t = 66
-INFO |       66.000 ¦       33               64          7              2.000 
+INFO |       66.000 ¦       33               77          9              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       66.000 ¦       33               64          7              2.000 
-INFO |       68.000 ¦       34               66          7              2.000 
-INFO |       70.000 ¦       35               68          7              2.000 
+INFO |       66.000 ¦       33               77          9              2.000 
+INFO |       68.000 ¦       34               79          9              2.000 
+INFO |       70.000 ¦       35               81          9              2.000 
 INFO | Algebraic mode (with J recalculation) change at t = 72
-INFO |       72.000 ¦       36               70          7              2.000 
+INFO |       72.000 ¦       36               83          9              2.000 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 72
-INFO |       72.000 ¦       36               71          8              2.000 
+INFO |       72.000 ¦       36               84         10              2.000 
 INFO | Algebraic mode change at t = 74
-INFO |       74.000 ¦       37               76          9              2.000 
+INFO |       74.000 ¦       37               88         11              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       74.000 ¦       37               76          9              2.000 
+INFO |       74.000 ¦       37               88         11              2.000 
 INFO | Algebraic mode (with J recalculation) change at t = 76
-INFO |       76.000 ¦       38               80          9              2.000 
+INFO |       76.000 ¦       38               91         11              2.000 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 76
-INFO |       76.000 ¦       38               81         10              2.000 
+INFO |       76.000 ¦       38               92         12              2.000 
 INFO | Algebraic mode change at t = 78
-INFO |       78.000 ¦       39               84         11              2.000 
+INFO |       78.000 ¦       39               95         13              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       78.000 ¦       39               84         11              2.000 
-INFO |       80.000 ¦       40               86         11              2.000 
+INFO |       78.000 ¦       39               95         13              2.000 
+INFO |       80.000 ¦       40               97         13              2.000 
 INFO | Algebraic mode change at t = 82
-INFO |       82.000 ¦       41               88         11              2.000 
+INFO |       82.000 ¦       41               99         13              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       82.000 ¦       41               88         11              2.000 
+INFO |       82.000 ¦       41               99         13              2.000 
 INFO | Algebraic mode change at t = 84
-INFO |       84.000 ¦       42               90         11              2.000 
+INFO |       84.000 ¦       42              101         13              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       84.000 ¦       42               90         11              2.000 
+INFO |       84.000 ¦       42              101         13              2.000 
 INFO | Algebraic mode (with J recalculation) change at t = 86
-INFO |       86.000 ¦       43               92         11              2.000 
+INFO |       86.000 ¦       43              103         13              2.000 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 86
-INFO |       86.000 ¦       43               93         12              2.000 
+INFO |       86.000 ¦       43              103         14              2.000 
 INFO | Algebraic mode change at t = 88
-INFO |       88.000 ¦       44               95         13              2.000 
+INFO |       88.000 ¦       44              105         15              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       88.000 ¦       44               95         13              2.000 
-INFO |       90.000 ¦       45               96         13              2.000 
+INFO |       88.000 ¦       44              105         15              2.000 
+INFO |       90.000 ¦       45              106         15              2.000 
 INFO | Algebraic mode change at t = 92
-INFO |       92.000 ¦       46               97         13              2.000 
+INFO |       92.000 ¦       46              107         15              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       92.000 ¦       46               97         13              2.000 
+INFO |       92.000 ¦       46              107         15              2.000 
 INFO | Algebraic mode change at t = 94
-INFO |       94.000 ¦       47              100         13              2.000 
+INFO |       94.000 ¦       47              110         16              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |       94.000 ¦       47              100         13              2.000 
-INFO |       96.000 ¦       48              102         13              2.000 
-INFO |       98.000 ¦       49              103         13              2.000 
-INFO |      100.000 ¦       50              104         13              2.000 
+INFO |       94.000 ¦       47              110         16              2.000 
+INFO |       96.000 ¦       48              112         16              2.000 
+INFO |       98.000 ¦       49              113         16              2.000 
+INFO |      100.000 ¦       50              114         16              2.000 
 INFO | Algebraic mode change at t = 102
-INFO |      102.000 ¦       51              105         13              2.000 
+INFO |      102.000 ¦       51              115         16              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      102.000 ¦       51              105         13              2.000 
+INFO |      102.000 ¦       51              115         16              2.000 
 INFO | Algebraic mode change at t = 104
-INFO |      104.000 ¦       52              108         13              2.000 
+INFO |      104.000 ¦       52              118         16              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      104.000 ¦       52              108         13              2.000 
+INFO |      104.000 ¦       52              118         16              2.000 
 INFO | Algebraic mode change at t = 106
-INFO |      106.000 ¦       53              111         13              2.000 
+INFO |      106.000 ¦       53              121         16              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      106.000 ¦       53              111         13              2.000 
-INFO |      108.000 ¦       54              113         13              2.000 
-INFO |      110.000 ¦       55              114         13              2.000 
+INFO |      106.000 ¦       53              121         16              2.000 
+INFO |      108.000 ¦       54              123         16              2.000 
+INFO |      110.000 ¦       55              125         16              2.000 
 INFO | Algebraic mode change at t = 112
-INFO |      112.000 ¦       56              115         13              2.000 
+INFO |      112.000 ¦       56              127         16              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      112.000 ¦       56              115         13              2.000 
+INFO |      112.000 ¦       56              127         16              2.000 
 INFO | Algebraic mode change at t = 114
-INFO |      114.000 ¦       57              119         14              2.000 
+INFO |      114.000 ¦       57              130         16              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      114.000 ¦       57              119         14              2.000 
+INFO |      114.000 ¦       57              130         16              2.000 
 INFO | Algebraic mode change at t = 116
-INFO |      116.000 ¦       58              121         14              2.000 
+INFO |      116.000 ¦       58              133         16              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      116.000 ¦       58              121         14              2.000 
-INFO |      118.000 ¦       59              123         14              2.000 
-INFO |      120.000 ¦       60              124         14              2.000 
+INFO |      116.000 ¦       58              133         16              2.000 
+INFO |      118.000 ¦       59              136         17              2.000 
+INFO |      120.000 ¦       60              137         17              2.000 
 INFO | Algebraic mode change at t = 122
-INFO |      122.000 ¦       61              125         14              2.000 
+INFO |      122.000 ¦       61              138         17              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      122.000 ¦       61              125         14              2.000 
+INFO |      122.000 ¦       61              138         17              2.000 
 INFO | Algebraic mode change at t = 124
-INFO |      124.000 ¦       62              128         14              2.000 
+INFO |      124.000 ¦       62              141         17              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      124.000 ¦       62              128         14              2.000 
+INFO |      124.000 ¦       62              141         17              2.000 
 INFO | Algebraic mode (with J recalculation) change at t = 126
-INFO |      126.000 ¦       63              131         14              2.000 
+INFO |      126.000 ¦       63              144         17              2.000 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 126
-INFO |      126.000 ¦       63              132         15              2.000 
+INFO |      126.000 ¦       63              145         18              2.000 
 INFO | Algebraic mode change at t = 128
-INFO |      128.000 ¦       64              135         16              2.000 
+INFO |      128.000 ¦       64              147         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      128.000 ¦       64              135         16              2.000 
-INFO | Differential mode change at t = 130
-INFO |      130.000 ¦       65              137         16              2.000 
+INFO |      128.000 ¦       64              147         19              2.000 
+INFO | Algebraic mode change at t = 130
+INFO |      130.000 ¦       65              149         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      130.000 ¦       65              137         16              2.000 
+INFO |      130.000 ¦       65              149         19              2.000 
 INFO | Algebraic mode change at t = 132
-INFO |      132.000 ¦       66              138         16              2.000 
+INFO |      132.000 ¦       66              151         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      132.000 ¦       66              138         16              2.000 
+INFO |      132.000 ¦       66              151         19              2.000 
 INFO | Algebraic mode change at t = 134
-INFO |      134.000 ¦       67              141         16              2.000 
+INFO |      134.000 ¦       67              154         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      134.000 ¦       67              141         16              2.000 
+INFO |      134.000 ¦       67              154         19              2.000 
 INFO | Algebraic mode change at t = 136
-INFO |      136.000 ¦       68              143         16              2.000 
+INFO |      136.000 ¦       68              157         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      136.000 ¦       68              143         16              2.000 
+INFO |      136.000 ¦       68              157         19              2.000 
 INFO | Algebraic mode change at t = 138
-INFO |      138.000 ¦       69              145         16              2.000 
+INFO |      138.000 ¦       69              159         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      138.000 ¦       69              145         16              2.000 
-INFO |      140.000 ¦       70              147         16              2.000 
+INFO |      138.000 ¦       69              159         19              2.000 
+INFO | Algebraic mode change at t = 140
+INFO |      140.000 ¦       70              162         19              2.000 
+INFO | calculation of the new starting point of the simulation.
+INFO |      140.000 ¦       70              162         19              2.000 
 INFO | Algebraic mode change at t = 142
-INFO |      142.000 ¦       71              148         16              2.000 
+INFO |      142.000 ¦       71              164         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      142.000 ¦       71              148         16              2.000 
+INFO |      142.000 ¦       71              164         19              2.000 
 INFO | Algebraic mode change at t = 144
-INFO |      144.000 ¦       72              151         16              2.000 
+INFO |      144.000 ¦       72              167         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      144.000 ¦       72              151         16              2.000 
+INFO |      144.000 ¦       72              167         19              2.000 
 INFO | Algebraic mode change at t = 146
-INFO |      146.000 ¦       73              154         16              2.000 
+INFO |      146.000 ¦       73              170         19              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      146.000 ¦       73              154         16              2.000 
+INFO |      146.000 ¦       73              170         19              2.000 
 INFO | Algebraic mode (with J recalculation) change at t = 148
-INFO |      148.000 ¦       74              157         16              2.000 
+INFO |      148.000 ¦       74              173         19              2.000 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 148
-INFO |      148.000 ¦       74              158         17              2.000 
+INFO |      148.000 ¦       74              173         20              2.000 
 INFO | Algebraic mode change at t = 150
-INFO |      150.000 ¦       75              165         19              2.000 
+INFO |      150.000 ¦       75              180         22              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      150.000 ¦       75              165         19              2.000 
+INFO |      150.000 ¦       75              180         22              2.000 
 INFO | Algebraic mode change at t = 152
-INFO |      152.000 ¦       76              168         19              2.000 
+INFO |      152.000 ¦       76              183         22              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      152.000 ¦       76              168         19              2.000 
+INFO |      152.000 ¦       76              183         22              2.000 
 INFO | Algebraic mode change at t = 154
-INFO |      154.000 ¦       77              171         19              2.000 
+INFO |      154.000 ¦       77              187         23              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      154.000 ¦       77              171         19              2.000 
+INFO |      154.000 ¦       77              187         23              2.000 
 INFO | Algebraic mode (with J recalculation) change at t = 156
-INFO |      156.000 ¦       78              175         19              2.000 
+INFO |      156.000 ¦       78              190         23              2.000 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 156
-INFO |      156.000 ¦       78              176         20              2.000 
+INFO |      156.000 ¦       78              191         24              2.000 
 INFO | Algebraic mode change at t = 158
-INFO |      158.000 ¦       79              182         21              2.000 
+INFO |      158.000 ¦       79              197         25              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      158.000 ¦       79              182         21              2.000 
+INFO |      158.000 ¦       79              197         25              2.000 
 INFO | Algebraic mode change at t = 160
-INFO |      160.000 ¦       80              188         22              2.000 
+INFO |      160.000 ¦       80              203         26              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      160.000 ¦       80              188         22              2.000 
+INFO |      160.000 ¦       80              203         26              2.000 
 INFO | Algebraic mode change at t = 162
-INFO |      162.000 ¦       81              191         22              2.000 
+INFO |      162.000 ¦       81              205         26              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      162.000 ¦       81              191         22              2.000 
+INFO |      162.000 ¦       81              205         26              2.000 
 INFO | Algebraic mode change at t = 164
-INFO |      164.000 ¦       82              194         22              2.000 
+INFO |      164.000 ¦       82              208         26              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      164.000 ¦       82              194         22              2.000 
-INFO |      166.000 ¦       83              197         22              2.000 
-INFO |      168.000 ¦       84              201         22              2.000 
-INFO |      170.000 ¦       85              206         22              2.000 
+INFO |      164.000 ¦       82              208         26              2.000 
+INFO |      166.000 ¦       83              212         26              2.000 
+INFO |      168.000 ¦       84              217         26              2.000 
+INFO |      170.000 ¦       85              223         27              2.000 
 INFO | Algebraic mode change at t = 172
-INFO |      172.000 ¦       86              212         23              2.000 
+INFO |      172.000 ¦       86              225         27              2.000 
 INFO | calculation of the new starting point of the simulation.
-INFO |      172.000 ¦       86              212         23              2.000 
+INFO |      172.000 ¦       86              225         27              2.000 
+WARN | the system function failed in an unrecoverable manner
+INFO |      173.000 ¦       87              241         30              1.000 
 WARN | the maximum number of nonlinear iterations has been reached
-INFO |      173.000 ¦       87              230         26              1.000 
-WARN | the maximum number of nonlinear iterations has been reached
-INFO |      173.500 ¦       88              247         29              0.500 
+INFO |      173.500 ¦       88              258         33              0.500 
 WARN | the maximum number of nonlinear iterations has been reached
 INFO | Algebraic mode change at t = 174
-INFO |      174.000 ¦       89              265         32              0.500 
+INFO |      174.000 ¦       89              276         36              0.500 
 INFO | calculation of the new starting point of the simulation.
-INFO |      174.000 ¦       89              265         32              0.500 
+INFO |      174.000 ¦       89              276         36              0.500 
 WARN | the system function failed in an unrecoverable manner
-INFO |      174.250 ¦       90              278         34              0.250 
+INFO |      174.250 ¦       90              293         39              0.250 
 WARN | the system function failed in an unrecoverable manner
-INFO |      174.500 ¦       91              291         36              0.250 
+INFO |      174.500 ¦       91              306         41              0.250 
 INFO | Algebraic mode change at t = 174.75
-INFO |      174.750 ¦       92              295         36              0.250 
+INFO |      174.750 ¦       92              310         41              0.250 
 INFO | calculation of the new starting point of the simulation.
-INFO |      174.750 ¦       92              295         36              0.250 
+INFO |      174.750 ¦       92              310         41              0.250 
 WARN | the system function failed in an unrecoverable manner
-INFO |      174.875 ¦       93              308         38              0.125 
-INFO |      175.000 ¦       94              313         38              0.125 
+INFO |      174.875 ¦       93              321         43              0.125 
+INFO |      175.000 ¦       94              325         43              0.125 
 INFO | 
 INFO | execution statistics :
 INFO | 
 INFO | number of time iterations                                  = 94
-INFO | number of residual evaluations                             = 410
-INFO | number of Jacobian evaluations                             = 29
-INFO | number of nonlinear iterations                             = 309
+INFO | number of residual evaluations                             = 424
+INFO | number of Jacobian evaluations                             = 33
+INFO | number of nonlinear iterations                             = 323
 INFO | number of error test failures                              = 0
 INFO | number of nonlinear convergence failures                   = 6
 INFO | number of solver root functions evaluations                = 0
@@ -349,8 +352,8 @@ INFO | number of mode evaluations                                 = 85
 INFO | number of differential mode                                = 0
 INFO | number of algebraic mode                                   = 0
 INFO | number of algebraic J update mode                          = 0
-INFO | number of algebraic restoration residual evaluations       = 17
-INFO | number of algebraic restoration Jacobian evaluations       = 9
+INFO | number of algebraic restoration residual evaluations       = 14
+INFO | number of algebraic restoration Jacobian evaluations       = 10
 INFO | number of algebraic prim restoration residual evaluations  = 0
 INFO | number of algebraic prim restoration Jacobian evaluations  = 0
 INFO | end of job 'Nordic Test System with a fault, the tripping of a line and a voltage collapse'

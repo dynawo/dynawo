@@ -254,7 +254,7 @@ void ModelicaFormatError(const char *string, ...) {
 }
 // End of copied from ModelicaExternalC library
 
-adept::adouble ModelicaStandardTables_CombiTable1D_getDerValue_adept(void* _tableID, int iCol,
+static adept::adouble CombiTable1D_getDerivativeOnly_adept(void* _tableID, int iCol,
                                                        adept::adouble der_u) {
     adept::adouble der_y = 0.;
     double u = der_u.value();
@@ -388,7 +388,7 @@ adept::adouble ModelicaStandardTables_CombiTable1D_getDerValue_adept(void* _tabl
     return der_y;
 }
 
-adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tableID, adept::adouble der_u1,
+static adept::adouble CombiTable2D_getDerivativeOnly_adept(void* _tableID, adept::adouble der_u1,
                                                        adept::adouble der_u2) {
     adept::adouble der_y = 0;
     double u1 = der_u1.value();
@@ -1204,7 +1204,7 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
     return der_y;
 }
 
-adept::adouble ModelicaStandardTables_CombiTimeTable_getDerValue_adept(void* _tableID, int iCol,
+static adept::adouble CombiTimeTable_getDerivativeOnly_adept(void* _tableID, int iCol,
                                                          adept::adouble der_t,
                                                          double nextTimeEvent,
                                                          double preNextTimeEvent) {
@@ -1445,6 +1445,37 @@ adept::adouble ModelicaStandardTables_CombiTimeTable_getDerValue_adept(void* _ta
         }
     }
     return der_y;
+}
+
+/* Exact interpolation from the MSL (Modelica_externalC) */
+extern "C" double ModelicaStandardTables_CombiTable1D_getValue(void* tableID, int icol, double u);
+extern "C" double ModelicaStandardTables_CombiTable2D_getValue(void* tableID, double u1, double u2);
+extern "C" double ModelicaStandardTables_CombiTimeTable_getValue(void* tableID, int icol, double t,
+                                                                 double nextTimeEvent, double preNextTimeEvent);
+
+/* The *_getDerivativeOnly_adept functions above only carry the right derivative: their value is
+   slope * input, not the table value. That is enough when the table call is a stand-alone term of a
+   residual (x - table(u)), but not when its result is reused in a product, e.g. through a calculated
+   variable (VariableImpedantFault: ZvPu * i = V). Shift the value to the exact interpolated one while
+   keeping the gradient. */
+static adept::adouble withValue(const adept::adouble& derivativeOnly, double value) {
+    return derivativeOnly - derivativeOnly.value() + value;
+}
+
+adept::adouble ModelicaStandardTables_CombiTable1D_getDerValue_adept(void* tableID, int iCol, adept::adouble der_u) {
+    return withValue(CombiTable1D_getDerivativeOnly_adept(tableID, iCol, der_u),
+                     ModelicaStandardTables_CombiTable1D_getValue(tableID, iCol, der_u.value()));
+}
+
+adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* tableID, adept::adouble der_u1, adept::adouble der_u2) {
+    return withValue(CombiTable2D_getDerivativeOnly_adept(tableID, der_u1, der_u2),
+                     ModelicaStandardTables_CombiTable2D_getValue(tableID, der_u1.value(), der_u2.value()));
+}
+
+adept::adouble ModelicaStandardTables_CombiTimeTable_getDerValue_adept(void* tableID, int iCol, adept::adouble der_t,
+                                                                       double nextTimeEvent, double preNextTimeEvent) {
+    return withValue(CombiTimeTable_getDerivativeOnly_adept(tableID, iCol, der_t, nextTimeEvent, preNextTimeEvent),
+                     ModelicaStandardTables_CombiTimeTable_getValue(tableID, iCol, der_t.value(), nextTimeEvent, preNextTimeEvent));
 }
 
 #ifdef __clang__

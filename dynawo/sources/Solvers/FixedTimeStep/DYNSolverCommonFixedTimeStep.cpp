@@ -484,14 +484,14 @@ SolverCommonFixedTimeStep::reinit() {
     stats_.nreAlgebraic_ += nre;
     stats_.njeAlgebraic_ += nje;
 
-    // If the initial guess is fine, nor the variables neither the time would have changed so we can return here and skip following treatments
-    if (flag == KIN_INITIAL_GUESS_OK) {
-      model_->reinitMode();
-      return;
-    }
-    solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
+    // If the initial guess is fine, neither the variables nor the time have changed: skip the values update.
+    // The root stabilization below must still be done: calculated variables (limiters, dead zones...) depend on the
+    // relations and discrete variables that have just been rotated, so other roots may have changed without any
+    // residual (hence any variable) being affected.
+    if (flag != KIN_INITIAL_GUESS_OK)
+      solverKINAlgRestoration_->getValues(vectorY_, vectorYp_);
 
-    if (hasPrediction()) {
+    if (flag != KIN_INITIAL_GUESS_OK && hasPrediction()) {
       // Recomputation of differential variables' values
       std::fill(vectorYp_.begin(), vectorYp_.end(), 0.);
 

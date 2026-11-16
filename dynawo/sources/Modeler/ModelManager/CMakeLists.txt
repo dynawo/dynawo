@@ -51,6 +51,7 @@ target_link_libraries(dynawo_ModelManager
     dynawo_API_PAR
     dynawo_ModelerCommon
     dynawo_SolverKINSubModel
+    Modelica_externalC
     Boost::serialization
     Boost::system
   )

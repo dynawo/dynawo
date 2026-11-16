@@ -1,6 +1,6 @@
 INFO |  ============================================================ 
-INFO | DYNAWO VERSION  :     1.8.0
-INFO | DYNAWO REVISION :  4167_fix_nrt-865463cd49b
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :  3874_symb_jac_new-00a43e2ae95
 INFO |  ============================================================ 
 INFO | 
 INFO | -----------------------------------------------------------------------
@@ -28,8 +28,8 @@ INFO | number of nonlinear iterations                             = 0
 INFO | number of error test failures                              = 0
 INFO | number of nonlinear convergence failures                   = 0
 INFO | number of solver root functions evaluations                = 0
-INFO | number of internal root functions evaluations              = 3
-INFO | number of discrete variables evaluations                   = 3
+INFO | number of internal root functions evaluations              = 2
+INFO | number of discrete variables evaluations                   = 2
 INFO | number of mode evaluations                                 = 2
 INFO | number of differential mode                                = 0
 INFO | number of algebraic mode                                   = 0
@@ -51,7 +51,7 @@ INFO | -----------------------------------------------------------------------
 INFO | starting simulation with solver IDASolver
 INFO | -----------------------------------------------------------------------
 INFO | -----------------------------------------------------------------------
-INFO | number of continuous variables : 442
+INFO | number of continuous variables : 361
 INFO | number of discrete variables : 273
 INFO | number of root functions : 285
 INFO | -----------------------------------------------------------------------
@@ -73,168 +73,74 @@ INFO |        0.002 ¦       12           2              0.001
 INFO |        0.004 ¦       13           2              0.002 
 INFO |        0.008 ¦       14           2              0.004 
 INFO |        0.016 ¦       15           2              0.008 
-INFO | Algebraic mode change at t = 0.0270473
 INFO |        0.027 ¦       16           2              0.016 
+INFO |        0.027 ¦       16           2              0.016 
+INFO |        0.033 ¦       16           2              0.016 
+INFO | Algebraic mode change at t = 0.0462675
+INFO |        0.046 ¦       17           2              0.033 
 INFO | calculation of the new starting point of the simulation.
-INFO |        0.027 ¦        0           0              0.000 
-INFO |        0.027 ¦        1           1              0.000 
-INFO |        0.027 ¦        2           1              0.000 
-INFO |        0.027 ¦        3           2              0.000 
-INFO |        0.027 ¦        4           2              0.000 
-INFO |        0.027 ¦        5           2              0.000 
-INFO |        0.027 ¦        6           2              0.000 
-INFO |        0.027 ¦        7           2              0.000 
-INFO |        0.027 ¦        8           2              0.000 
-INFO |        0.027 ¦        9           2              0.000 
-INFO |        0.028 ¦       10           2              0.000 
-INFO |        0.028 ¦       11           2              0.001 
-INFO |        0.029 ¦       12           2              0.001 
-INFO |        0.031 ¦       13           2              0.002 
-INFO |        0.031 ¦       13           2              0.002 
-INFO |        0.031 ¦       13           2              0.002 
-INFO |        0.035 ¦       14           2              0.004 
-INFO |        0.043 ¦       15           2              0.008 
-INFO | Algebraic mode change at t = 0.0528381
-INFO |        0.053 ¦       16           2              0.016 
+INFO |        0.046 ¦        0           0              0.000 
+INFO |        0.046 ¦        1           1              0.000 
+INFO |        0.046 ¦        2           1              0.000 
+INFO |        0.046 ¦        3           2              0.000 
+INFO |        0.046 ¦        4           2              0.000 
+INFO |        0.046 ¦        5           2              0.000 
+INFO |        0.046 ¦        6           2              0.000 
+INFO |        0.046 ¦        7           2              0.000 
+INFO |        0.046 ¦        8           2              0.000 
+INFO |        0.047 ¦        9           2              0.000 
+INFO |        0.047 ¦       10           2              0.000 
+INFO |        0.047 ¦       11           2              0.001 
+INFO |        0.048 ¦       12           2              0.001 
+INFO |        0.050 ¦       13           2              0.002 
+INFO |        0.054 ¦       14           2              0.004 
+INFO |        0.063 ¦       15           2              0.008 
+INFO |        0.079 ¦       16           2              0.016 
+INFO |        0.112 ¦       17           2              0.033 
+INFO |        0.177 ¦       18           2              0.066 
+INFO |        0.308 ¦       19           2              0.131 
+INFO |        0.571 ¦       20           2              0.262 
+INFO | Algebraic mode change at t = 1.02519
+INFO |        1.025 ¦       21           1              0.524 
 INFO | calculation of the new starting point of the simulation.
-INFO |        0.053 ¦        0           0              0.000 
-INFO |        0.053 ¦        1           1              0.000 
-INFO |        0.053 ¦        2           1              0.000 
-INFO |        0.053 ¦        3           2              0.000 
-INFO |        0.053 ¦        4           2              0.000 
-INFO |        0.053 ¦        5           2              0.000 
-INFO |        0.053 ¦        6           2              0.000 
-INFO |        0.053 ¦        7           2              0.000 
-INFO |        0.053 ¦        8           2              0.000 
-INFO |        0.053 ¦        9           2              0.000 
-INFO |        0.053 ¦       10           2              0.000 
-INFO |        0.054 ¦       11           2              0.001 
-INFO |        0.055 ¦       12           2              0.001 
-INFO |        0.057 ¦       13           2              0.002 
-INFO |        0.061 ¦       14           2              0.004 
-INFO |        0.069 ¦       15           2              0.008 
-INFO |        0.086 ¦       16           2              0.016 
-INFO |        0.118 ¦       17           2              0.033 
-INFO |        0.184 ¦       18           2              0.066 
-INFO | Algebraic mode change at t = 0.294684
-INFO |        0.295 ¦       19           2              0.131 
-INFO | calculation of the new starting point of the simulation.
-INFO |        0.295 ¦        0           0              0.000 
-INFO |        0.295 ¦        1           1              0.000 
-INFO |        0.295 ¦        2           1              0.000 
-INFO |        0.295 ¦        3           2              0.000 
-INFO |        0.295 ¦        4           2              0.000 
-INFO |        0.295 ¦        5           2              0.000 
-INFO |        0.295 ¦        6           2              0.000 
-INFO |        0.295 ¦        7           2              0.000 
-INFO |        0.295 ¦        8           2              0.000 
-INFO |        0.295 ¦        9           2              0.000 
-INFO |        0.295 ¦       10           2              0.000 
-INFO |        0.296 ¦       11           2              0.001 
-INFO |        0.297 ¦       12           2              0.001 
-INFO |        0.299 ¦       13           2              0.002 
-INFO |        0.303 ¦       14           2              0.004 
-INFO |        0.311 ¦       15           2              0.008 
-INFO |        0.327 ¦       16           2              0.016 
-INFO |        0.348 ¦       17           2              0.033 
-INFO |        0.348 ¦       17           2              0.033 
-INFO |        0.360 ¦       17           2              0.033 
-INFO |        0.426 ¦       18           2              0.066 
-INFO |        0.557 ¦       19           2              0.131 
-INFO | Algebraic mode change at t = 0.793986
-INFO |        0.794 ¦       20           2              0.262 
-INFO | calculation of the new starting point of the simulation.
-INFO |        0.794 ¦        0           0              0.000 
-INFO |        0.794 ¦        1           1              0.000 
-INFO |        0.794 ¦        2           1              0.000 
-INFO |        0.794 ¦        3           2              0.000 
-INFO |        0.794 ¦        4           2              0.000 
-INFO |        0.794 ¦        5           2              0.000 
-INFO |        0.794 ¦        6           2              0.000 
-INFO |        0.794 ¦        7           2              0.000 
-INFO |        0.794 ¦        8           2              0.000 
-INFO |        0.794 ¦        9           2              0.000 
-INFO |        0.794 ¦       10           2              0.000 
-INFO |        0.795 ¦       11           2              0.001 
-INFO |        0.796 ¦       12           2              0.001 
-INFO |        0.798 ¦       13           2              0.002 
-INFO |        0.802 ¦       14           2              0.004 
-INFO |        0.810 ¦       15           2              0.008 
-INFO |        0.827 ¦       16           2              0.016 
-INFO |        0.829 ¦       17           2              0.033 
-INFO |        0.829 ¦       17           2              0.033 
-INFO |        0.835 ¦       17           2              0.033 
-INFO |        0.835 ¦       17           2              0.033 
-INFO |        0.860 ¦       17           2              0.033 
-INFO | Algebraic mode change at t = 0.882339
-INFO |        0.882 ¦       18           2              0.066 
-INFO | calculation of the new starting point of the simulation.
-INFO |        0.882 ¦        0           0              0.000 
-INFO |        0.882 ¦        1           1              0.000 
-INFO |        0.882 ¦        2           1              0.000 
-INFO |        0.882 ¦        3           2              0.000 
-INFO |        0.882 ¦        4           2              0.000 
-INFO |        0.882 ¦        5           2              0.000 
-INFO |        0.882 ¦        6           2              0.000 
-INFO |        0.882 ¦        7           2              0.000 
-INFO |        0.882 ¦        8           2              0.000 
-INFO |        0.883 ¦        9           2              0.000 
-INFO |        0.883 ¦       10           2              0.000 
-INFO |        0.883 ¦       11           2              0.001 
-INFO |        0.884 ¦       12           2              0.001 
-INFO |        0.886 ¦       13           2              0.002 
-INFO |        0.891 ¦       14           2              0.004 
-INFO |        0.899 ¦       15           2              0.008 
-INFO |        0.915 ¦       16           2              0.016 
-INFO |        0.948 ¦       17           2              0.033 
-INFO |        1.013 ¦       18           2              0.066 
-INFO |        1.144 ¦       19           2              0.131 
-INFO |        1.407 ¦       20           2              0.262 
-INFO | Algebraic mode change at t = 1.77349
-INFO |        1.773 ¦       21           1              0.524 
-INFO | calculation of the new starting point of the simulation.
-INFO |        1.773 ¦        0           0              0.000 
-INFO |        1.773 ¦        1           1              0.000 
-INFO |        1.773 ¦        2           1              0.000 
-INFO |        1.773 ¦        3           2              0.000 
-INFO |        1.773 ¦        4           2              0.000 
-INFO |        1.774 ¦        5           2              0.000 
-INFO |        1.774 ¦        6           2              0.000 
-INFO |        1.774 ¦        7           2              0.000 
-INFO |        1.774 ¦        8           2              0.000 
-INFO |        1.774 ¦        9           2              0.000 
-INFO |        1.774 ¦       10           2              0.000 
-INFO |        1.775 ¦       11           2              0.001 
-INFO |        1.776 ¦       12           2              0.001 
-INFO |        1.778 ¦       13           2              0.002 
-INFO |        1.782 ¦       14           2              0.004 
-INFO |        1.790 ¦       15           2              0.008 
-INFO |        1.806 ¦       16           2              0.016 
-INFO |        1.839 ¦       17           2              0.033 
-INFO |        1.905 ¦       18           2              0.066 
-INFO |        1.906 ¦       19           2              0.131 
-INFO |        1.906 ¦       19           2              0.131 
-INFO |        2.036 ¦       19           2              0.131 
-INFO |        2.184 ¦       20           2              0.262 
-INFO |        2.184 ¦       20           2              0.262 
-INFO |        2.298 ¦       20           2              0.262 
-INFO |        2.338 ¦       21           2              0.524 
-INFO |        2.338 ¦       21           2              0.524 
-INFO |        2.758 ¦       21           2              0.524 
-INFO |        2.758 ¦       21           2              0.524 
-INFO |        2.822 ¦       21           2              0.524 
-INFO |        3.871 ¦       22           1              1.049 
+INFO |        1.025 ¦        0           0              0.000 
+INFO |        1.025 ¦        1           1              0.000 
+INFO |        1.025 ¦        2           1              0.000 
+INFO |        1.025 ¦        3           2              0.000 
+INFO |        1.025 ¦        4           2              0.000 
+INFO |        1.025 ¦        5           2              0.000 
+INFO |        1.025 ¦        6           2              0.000 
+INFO |        1.025 ¦        7           2              0.000 
+INFO |        1.025 ¦        8           2              0.000 
+INFO |        1.025 ¦        9           2              0.000 
+INFO |        1.026 ¦       10           2              0.000 
+INFO |        1.026 ¦       11           2              0.001 
+INFO |        1.027 ¦       12           2              0.001 
+INFO |        1.029 ¦       13           2              0.002 
+INFO |        1.033 ¦       14           2              0.004 
+INFO |        1.042 ¦       15           2              0.008 
+INFO |        1.058 ¦       16           2              0.016 
+INFO |        1.085 ¦       17           2              0.033 
+INFO |        1.085 ¦       17           2              0.033 
+INFO |        1.091 ¦       17           2              0.033 
+INFO |        1.156 ¦       18           2              0.066 
+INFO |        1.287 ¦       19           2              0.131 
+INFO |        1.549 ¦       20           2              0.262 
+INFO |        2.074 ¦       21           2              0.524 
+INFO |        2.835 ¦       22           1              1.049 
+INFO |        2.835 ¦       22           1              1.049 
+INFO |        3.122 ¦       22           1              1.049 
 INFO | Algebraic mode (with J recalculation) change at t = 5
 INFO |        5.000 ¦       23           1              2.097 
 INFO | calculation of the new starting point of the simulation.
 INFO | Algebraic mode change at t = 5
 INFO |        5.000 ¦        0           0              0.000 
 INFO |        5.000 ¦        1           1              0.000 
-INFO |        5.000 ¦        1           1              0.000 
-INFO |        5.000 ¦        1           1              0.000 
 INFO |        5.000 ¦        2           1              0.000 
 INFO |        5.000 ¦        3           2              0.000 
 INFO |        5.000 ¦        4           2              0.000 
+INFO |        5.000 ¦        5           2              0.000 
+INFO |        5.000 ¦        5           2              0.000 
 INFO |        5.000 ¦        5           2              0.000 
 INFO |        5.000 ¦        6           2              0.000 
 INFO |        5.000 ¦        7           2              0.000 
@@ -249,141 +155,128 @@ INFO |        5.016 ¦       15           2              0.008
 INFO |        5.025 ¦       16           2              0.008 
 INFO |        5.033 ¦       17           2              0.008 
 INFO |        5.041 ¦       18           2              0.008 
-INFO |        5.057 ¦       19           2              0.016 
-INFO |        5.074 ¦       20           2              0.016 
-INFO |        5.090 ¦       21           2              0.016 
-INFO |        5.106 ¦       22           2              0.016 
-INFO |        5.139 ¦       23           2              0.033 
-INFO |        5.172 ¦       24           2              0.033 
-INFO |        5.205 ¦       25           2              0.033 
-INFO |        5.238 ¦       26           2              0.033 
-INFO |        5.270 ¦       27           2              0.033 
-INFO |        5.303 ¦       28           2              0.033 
-INFO |        5.336 ¦       29           2              0.033 
-INFO |        5.369 ¦       30           2              0.033 
-INFO |        5.401 ¦       31           2              0.033 
-INFO |        5.467 ¦       32           2              0.066 
-INFO |        5.532 ¦       33           2              0.066 
-INFO |        5.598 ¦       34           2              0.066 
-INFO |        5.664 ¦       35           2              0.066 
-INFO |        5.729 ¦       36           2              0.066 
-INFO |        5.795 ¦       37           2              0.066 
-INFO |        5.860 ¦       38           2              0.066 
-INFO |        5.926 ¦       39           2              0.066 
-INFO |        5.991 ¦       40           2              0.066 
-INFO |        6.057 ¦       41           2              0.066 
-INFO |        6.122 ¦       42           2              0.066 
-INFO |        6.188 ¦       43           2              0.066 
-INFO |        6.253 ¦       44           2              0.066 
-INFO |        6.319 ¦       45           2              0.066 
-INFO |        6.384 ¦       46           2              0.066 
-INFO |        6.450 ¦       47           2              0.066 
-INFO |        6.516 ¦       48           2              0.066 
-INFO |        6.581 ¦       49           2              0.066 
-INFO |        6.647 ¦       50           2              0.066 
-INFO |        6.712 ¦       51           2              0.066 
-INFO |        6.778 ¦       52           2              0.066 
-INFO |        6.843 ¦       53           2              0.066 
-INFO |        6.909 ¦       54           2              0.066 
-INFO |        6.974 ¦       55           2              0.066 
-INFO |        7.040 ¦       56           2              0.066 
-INFO |        7.105 ¦       57           2              0.066 
-INFO |        7.171 ¦       58           2              0.066 
-INFO |        7.236 ¦       59           2              0.066 
-INFO |        7.302 ¦       60           2              0.066 
-INFO |        7.367 ¦       61           2              0.066 
-INFO |        7.433 ¦       62           2              0.066 
-INFO |        7.433 ¦       62           2              0.066 
-INFO |        7.499 ¦       63           2              0.066 
-INFO | Algebraic mode change at t = 7.5328
-INFO |        7.533 ¦       64           2              0.066 
-INFO | calculation of the new starting point of the simulation.
-INFO |        7.533 ¦        0           0              0.000 
-INFO |        7.533 ¦        1           1              0.000 
-INFO |        7.533 ¦        2           1              0.000 
-INFO |        7.533 ¦        3           2              0.000 
-INFO |        7.533 ¦        4           2              0.000 
-INFO |        7.533 ¦        5           2              0.000 
-INFO |        7.533 ¦        6           2              0.000 
-INFO |        7.533 ¦        7           2              0.000 
-INFO |        7.533 ¦        8           2              0.000 
-INFO |        7.533 ¦        9           2              0.000 
-INFO |        7.533 ¦       10           2              0.000 
-INFO |        7.534 ¦       11           2              0.001 
-INFO |        7.535 ¦       12           2              0.001 
-INFO |        7.537 ¦       13           2              0.002 
-INFO |        7.539 ¦       14           2              0.002 
-INFO |        7.541 ¦       15           2              0.002 
-INFO |        7.543 ¦       16           2              0.002 
-INFO |        7.545 ¦       17           2              0.002 
-INFO |        7.549 ¦       18           2              0.004 
-INFO |        7.553 ¦       19           2              0.004 
-INFO |        7.557 ¦       20           2              0.004 
-INFO |        7.561 ¦       21           2              0.004 
-INFO |        7.566 ¦       22           2              0.004 
-INFO |        7.570 ¦       23           2              0.004 
-INFO |        7.578 ¦       24           2              0.008 
-INFO |        7.586 ¦       25           2              0.008 
-INFO |        7.594 ¦       26           2              0.008 
-INFO |        7.602 ¦       27           2              0.008 
-INFO |        7.619 ¦       28           2              0.016 
-INFO |        7.635 ¦       29           2              0.016 
-INFO |        7.668 ¦       30           2              0.033 
-INFO |        7.701 ¦       31           2              0.033 
-INFO |        7.766 ¦       32           2              0.066 
-INFO |        7.832 ¦       33           2              0.066 
-INFO |        7.897 ¦       34           2              0.066 
-INFO |        7.963 ¦       35           2              0.066 
-INFO |        8.028 ¦       36           2              0.066 
-INFO |        8.094 ¦       37           2              0.066 
-INFO |        8.159 ¦       38           2              0.066 
-INFO |        8.225 ¦       39           2              0.066 
-INFO |        8.291 ¦       40           2              0.066 
-INFO |        8.356 ¦       41           2              0.066 
-INFO |        8.422 ¦       42           2              0.066 
-INFO |        8.487 ¦       43           2              0.066 
-INFO |        8.553 ¦       44           2              0.066 
-INFO |        8.618 ¦       45           2              0.066 
-INFO |        8.684 ¦       46           2              0.066 
-INFO |        8.749 ¦       47           2              0.066 
-INFO |        8.815 ¦       48           2              0.066 
-INFO |        8.946 ¦       49           2              0.131 
-INFO |        9.064 ¦       50           1              0.118 
-INFO |        9.182 ¦       51           1              0.118 
-INFO |        9.288 ¦       52           1              0.106 
-INFO |        9.394 ¦       53           1              0.106 
-INFO |        9.500 ¦       54           1              0.106 
-INFO |        9.607 ¦       55           1              0.106 
-INFO |        9.713 ¦       56           1              0.106 
-INFO |        9.925 ¦       57           1              0.212 
-INFO |       10.137 ¦       58           1              0.212 
-INFO |       10.350 ¦       59           1              0.212 
-INFO |       10.774 ¦       60           1              0.425 
-INFO |       11.199 ¦       61           1              0.425 
-INFO |       12.048 ¦       62           1              0.849 
-INFO |       12.898 ¦       63           1              0.849 
-INFO |       14.596 ¦       64           1              1.699 
-INFO |       16.295 ¦       65           1              1.699 
-INFO |       19.693 ¦       66           1              3.397 
-INFO |       20.000 ¦       67           1              0.307 
+INFO |        5.049 ¦       19           2              0.008 
+INFO |        5.066 ¦       20           2              0.016 
+INFO |        5.082 ¦       21           2              0.016 
+INFO |        5.098 ¦       22           2              0.016 
+INFO |        5.115 ¦       23           2              0.016 
+INFO |        5.147 ¦       24           2              0.033 
+INFO |        5.180 ¦       25           2              0.033 
+INFO |        5.213 ¦       26           2              0.033 
+INFO |        5.246 ¦       27           2              0.033 
+INFO |        5.279 ¦       28           2              0.033 
+INFO |        5.311 ¦       29           2              0.033 
+INFO |        5.344 ¦       30           2              0.033 
+INFO |        5.377 ¦       31           2              0.033 
+INFO |        5.410 ¦       32           2              0.033 
+INFO |        5.475 ¦       33           2              0.066 
+INFO |        5.541 ¦       34           2              0.066 
+INFO |        5.606 ¦       35           2              0.066 
+INFO |        5.672 ¦       36           2              0.066 
+INFO |        5.737 ¦       37           2              0.066 
+INFO |        5.803 ¦       38           2              0.066 
+INFO |        5.868 ¦       39           2              0.066 
+INFO |        5.934 ¦       40           2              0.066 
+INFO |        5.999 ¦       41           2              0.066 
+INFO |        6.065 ¦       42           2              0.066 
+INFO |        6.130 ¦       43           2              0.066 
+INFO |        6.196 ¦       44           2              0.066 
+INFO |        6.262 ¦       45           2              0.066 
+INFO |        6.327 ¦       46           2              0.066 
+INFO |        6.393 ¦       47           2              0.066 
+INFO |        6.458 ¦       48           2              0.066 
+INFO |        6.524 ¦       49           2              0.066 
+INFO |        6.589 ¦       50           2              0.066 
+INFO |        6.655 ¦       51           2              0.066 
+INFO |        6.720 ¦       52           2              0.066 
+INFO |        6.786 ¦       53           2              0.066 
+INFO |        6.851 ¦       54           2              0.066 
+INFO |        6.917 ¦       55           2              0.066 
+INFO |        6.982 ¦       56           2              0.066 
+INFO |        7.048 ¦       57           2              0.066 
+INFO |        7.114 ¦       58           2              0.066 
+INFO |        7.179 ¦       59           2              0.066 
+INFO |        7.245 ¦       60           2              0.066 
+INFO |        7.310 ¦       61           2              0.066 
+INFO |        7.376 ¦       62           2              0.066 
+INFO |        7.433 ¦       63           2              0.066 
+INFO |        7.441 ¦       63           2              0.066 
+INFO |        7.507 ¦       64           2              0.066 
+INFO |        7.533 ¦       65           2              0.066 
+INFO |        7.533 ¦       65           2              0.066 
+INFO |        7.572 ¦       65           2              0.066 
+INFO |        7.573 ¦       66           1              0.001 
+INFO |        7.575 ¦       67           1              0.001 
+INFO |        7.576 ¦       68           1              0.001 
+INFO |        7.577 ¦       69           1              0.001 
+INFO |        7.580 ¦       70           2              0.003 
+INFO |        7.582 ¦       71           2              0.003 
+INFO |        7.588 ¦       72           2              0.005 
+INFO |        7.592 ¦       73           2              0.004 
+INFO |        7.596 ¦       74           2              0.004 
+INFO |        7.601 ¦       75           2              0.004 
+INFO |        7.605 ¦       76           2              0.004 
+INFO |        7.610 ¦       77           2              0.004 
+INFO |        7.614 ¦       78           2              0.004 
+INFO |        7.623 ¦       79           2              0.009 
+INFO |        7.632 ¦       80           2              0.009 
+INFO |        7.641 ¦       81           2              0.009 
+INFO |        7.659 ¦       82           2              0.018 
+INFO |        7.677 ¦       83           2              0.018 
+INFO |        7.713 ¦       84           2              0.036 
+INFO |        7.749 ¦       85           2              0.036 
+INFO |        7.821 ¦       86           2              0.072 
+INFO |        7.892 ¦       87           1              0.072 
+INFO |        7.953 ¦       88           1              0.060 
+INFO |        8.007 ¦       89           1              0.054 
+INFO |        8.061 ¦       90           1              0.054 
+INFO |        8.115 ¦       91           1              0.054 
+INFO |        8.170 ¦       92           2              0.054 
+INFO |        8.224 ¦       93           2              0.054 
+INFO |        8.332 ¦       94           2              0.109 
+INFO |        8.430 ¦       95           2              0.098 
+INFO |        8.528 ¦       96           2              0.098 
+INFO |        8.625 ¦       97           2              0.098 
+INFO |        8.723 ¦       98           2              0.098 
+INFO |        8.821 ¦       99           2              0.098 
+INFO |        8.918 ¦      100           2              0.098 
+INFO |        9.016 ¦      101           2              0.098 
+INFO |        9.114 ¦      102           2              0.098 
+INFO |        9.211 ¦      103           2              0.098 
+INFO |        9.309 ¦      104           2              0.098 
+INFO |        9.457 ¦      105           1              0.148 
+INFO |        9.589 ¦      106           1              0.133 
+INFO |        9.722 ¦      107           1              0.133 
+INFO |        9.855 ¦      108           1              0.133 
+INFO |        9.988 ¦      109           1              0.133 
+INFO |       10.121 ¦      110           1              0.133 
+INFO |       10.387 ¦      111           1              0.266 
+INFO |       10.653 ¦      112           1              0.266 
+INFO |       11.184 ¦      113           1              0.532 
+INFO |       11.716 ¦      114           1              0.532 
+INFO |       12.779 ¦      115           1              1.063 
+INFO |       13.842 ¦      116           1              1.063 
+INFO |       15.968 ¦      117           1              2.126 
+INFO |       18.095 ¦      118           1              2.126 
+INFO |       20.000 ¦      119           1              1.905 
 INFO | 
 INFO | execution statistics :
 INFO | 
-INFO | number of time iterations                                  = 264
-INFO | number of residual evaluations                             = 301
-INFO | number of Jacobian evaluations                             = 158
-INFO | number of nonlinear iterations                             = 301
-INFO | number of error test failures                              = 0
+INFO | number of time iterations                                  = 180
+INFO | number of residual evaluations                             = 232
+INFO | number of Jacobian evaluations                             = 86
+INFO | number of nonlinear iterations                             = 232
+INFO | number of error test failures                              = 5
 INFO | number of nonlinear convergence failures                   = 0
-INFO | number of solver root functions evaluations                = 1186
-INFO | number of internal root functions evaluations              = 52
-INFO | number of discrete variables evaluations                   = 51
-INFO | number of mode evaluations                                 = 35
+INFO | number of solver root functions evaluations                = 645
+INFO | number of internal root functions evaluations              = 29
+INFO | number of discrete variables evaluations                   = 28
+INFO | number of mode evaluations                                 = 17
 INFO | number of differential mode                                = 0
 INFO | number of algebraic mode                                   = 0
 INFO | number of algebraic J update mode                          = 0
-INFO | number of algebraic restoration residual evaluations       = 13
-INFO | number of algebraic restoration Jacobian evaluations       = 8
-INFO | number of algebraic prim restoration residual evaluations  = 14
-INFO | number of algebraic prim restoration Jacobian evaluations  = 5
+INFO | number of algebraic restoration residual evaluations       = 6
+INFO | number of algebraic restoration Jacobian evaluations       = 6
+INFO | number of algebraic prim restoration residual evaluations  = 6
+INFO | number of algebraic prim restoration Jacobian evaluations  = 3
 INFO | end of job 'IEEE14 - Under-frequency load shedding'

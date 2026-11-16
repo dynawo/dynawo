@@ -1,6 +1,6 @@
 model;variable;value;
-Generator;generator_UPu;0.9999998829;
-Generator;generator_PGen;7.0597352802;
-Generator;generator_QGen;1.5936925287;
-Generator;generator_PGenPu;0.0705973528;
-Generator;generator_QGenPu;0.0159369253;
+Generator;generator_UPu;0.9999998819;
+Generator;generator_PGen;7.0597156846;
+Generator;generator_QGen;1.5936947672;
+Generator;generator_PGenPu;0.0705971568;
+Generator;generator_QGenPu;0.0159369477;

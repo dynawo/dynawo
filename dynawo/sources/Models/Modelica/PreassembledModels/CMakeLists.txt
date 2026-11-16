@@ -184,17 +184,13 @@ set(MODELICA_PREASSEMBLED_MODELS
   HvdcVscEmulation.xml
   HVRT.xml
   IECWPP4ACurrentSource2015.xml
-  # excluded: OMC internal error, stack overflow in DAEMode.getEqSystemDAEmode (#3874)
-  #IECWPP4ACurrentSource2020.xml
+  IECWPP4ACurrentSource2020.xml
   IECWPP4BCurrentSource2015.xml
-  # excluded: OMC internal error, stack overflow in DAEMode.getEqSystemDAEmode (#3874)
-  #IECWPP4BCurrentSource2020.xml
+  IECWPP4BCurrentSource2020.xml
   IECWT4ACurrentSource2015.xml
-  # excluded: OMC internal error, stack overflow in DAEMode.getEqSystemDAEmode (#3874)
-  #IECWT4ACurrentSource2020.xml
+  IECWT4ACurrentSource2020.xml
   IECWT4BCurrentSource2015.xml
-  # excluded: OMC internal error, stack overflow in DAEMode.getEqSystemDAEmode (#3874)
-  #IECWT4BCurrentSource2020.xml
+  IECWT4BCurrentSource2020.xml
   InertialGrid.xml
   InfiniteBus.xml
   InfiniteBusFromTable.xml

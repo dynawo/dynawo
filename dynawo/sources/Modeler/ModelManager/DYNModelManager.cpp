@@ -15,6 +15,7 @@
  *
  */
 
+#include <algorithm>
 #include <cmath>
 #include <fstream>
 #include <iomanip>
@@ -455,6 +456,13 @@ ModelManager::evalZ(const double t) {
   if (sizeZ() > 0) {
     setManagerTime(t);
 
+    // setZomc reads the calculated variables through the cache (getCalculatedVar).
+    // The cache is not invalidated after setZomc: like algebraic variables, calculated variables keep
+    // their values during the discrete iterations at a given time and are only recomputed once y changes
+    if (!calculatedVarsUpToDate_) {
+      evalCalculatedVars();
+      calculatedVarsUpToDate_ = true;
+    }
     modelModelica()->setZomc();
   }
 }
@@ -462,6 +470,12 @@ ModelManager::evalZ(const double t) {
 modeChangeType_t
 ModelManager::evalMode(const double t) {
   modeChangeType_t delay_mode = delayManager_.evalMode(t, name());
+
+  // the generated evalMode reads the calculated variables through the cache (getCalculatedVar)
+  if (!calculatedVarsUpToDate_) {
+    evalCalculatedVars();
+    calculatedVarsUpToDate_ = true;
+  }
 
   return std::max(delay_mode, modelModelica()->evalMode(t));
 }
@@ -1396,6 +1410,12 @@ ModelManager::rotateBuffers() {
 
   if (modelData()->nRelations > 0)
     memcpy(simulationInfo()->relationsPre, simulationInfo()->relations, sizeof (simulationInfo()->relations[0]) * modelData()->nRelations);
+  if (!modelInitUsed_)
+    relationsPreInitialized_ = true;
+
+  // calculated variables also depend on relationsPre and on the discrete variables (limiters, dead zones...):
+  // their cached values are no longer valid once the pre values change
+  invalidateCalculatedVarsBuffer();
 }
 
 void
@@ -1439,13 +1459,46 @@ void ModelManager::notifyTimeStep() {
 
 void
 ModelManager::evalCalculatedVars() {
-  if (modelInitUsed_) {
-    if (calculatedVarsInit_.empty())
-      calculatedVarsInit_.assign(dataInit_->nbCalculatedVars, 0);
-    modelModelica()->evalCalculatedVars(calculatedVarsInit_);
-  } else {
-    modelModelica()->evalCalculatedVars(calculatedVars_);
+  if (modelInitUsed_ && calculatedVarsInit_.empty())
+    calculatedVarsInit_.assign(dataInit_->nbCalculatedVars, 0);
+  std::vector<double>& buffer = modelInitUsed_ ? calculatedVarsInit_ : calculatedVars_;
+
+  // relationsPre is not set before the first rotateBuffers: evaluate the relations as at initialization, as for
+  // the initial value of an algebraic variable
+  const bool initialSemantics = !modelInitUsed_ && !relationsPreInitialized_;
+  const bool initialSave = simulationInfo()->initial;
+  if (initialSemantics)
+    simulationInfo()->initial = true;
+
+  modelModelica()->evalCalculatedVars(buffer);
+  if (calculatedVarsCycleThroughDelayAtT0()) {
+    // at t0 delay(x) returns the current value of x: calculated variables in a cycle through a delay (y = f(delay(y)))
+    // read their own previous value in the cache. Iterate up to the fixed point.
+    std::vector<double> previous;
+    for (int iter = 0; iter < maxIterationsCalculatedVarsFixedPoint; ++iter) {
+      previous = buffer;
+      modelModelica()->evalCalculatedVars(buffer);
+      if (calculatedVarsConverged(previous, buffer))
+        break;
+    }
   }
+
+  if (initialSemantics)
+    simulationInfo()->initial = initialSave;
+}
+
+bool
+ModelManager::calculatedVarsCycleThroughDelayAtT0() const {
+  return data()->nbDelays > 0 && doubleIsZero(data()->localData[0]->timeValue);
+}
+
+bool
+ModelManager::calculatedVarsConverged(const std::vector<double>& previous, const std::vector<double>& current) {
+  for (std::size_t i = 0, iEnd = current.size(); i < iEnd; ++i) {
+    if (std::fabs(current[i] - previous[i]) > 1e-12 * std::max(1., std::fabs(current[i])))
+      return false;
+  }
+  return true;
 }
 
 double
@@ -1463,12 +1516,24 @@ ModelManager::setCalculatedVar(const int indexCalculatedVar, const double value)
 
 double
 ModelManager::evalCalculatedVarI(unsigned iCalculatedVar) {
-  return modelModelica()->evalCalculatedVarI(iCalculatedVar);
+  setManagerTime(getCurrentTime());
+  double value = modelModelica()->evalCalculatedVarI(iCalculatedVar);
+  if (calculatedVarsCycleThroughDelayAtT0()) {
+    // see evalCalculatedVars: iterate up to the fixed point of the cycles through a delay at t0
+    for (int iter = 0; iter < maxIterationsCalculatedVarsFixedPoint; ++iter) {
+      const double previous = value;
+      value = modelModelica()->evalCalculatedVarI(iCalculatedVar);
+      if (std::fabs(value - previous) <= 1e-12 * std::max(1., std::fabs(value)))
+        break;
+    }
+  }
+  return value;
 }
 
 void
 ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) {
 #ifdef _ADEPT_
+  setManagerTime(getCurrentTime());
   try {
     std::vector<int> indexes;
     getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);

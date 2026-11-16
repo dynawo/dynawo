@@ -44,10 +44,10 @@ voltageRegulator_UsRefTotal_u2                    : alias of voltageRegulator_Us
  ====== CALCULATED VARIABLES VALUES ======
 generator_IRotorPu                                : y =       1.055825
 generator_IStatorPu                               : y =       0.009223
-generator_PGen                                    : y =       0.086879
+generator_PGen                                    : y =       0.086903
 generator_PGenPu                                  : y =       0.000869
 generator_PePu                                    : y =       0.000078
-generator_QGen                                    : y =       0.899655
+generator_QGen                                    : y =       0.899661
 generator_QGenPu                                  : y =       0.008997
 generator_QStatorPu                               : y =       0.008997
 generator_QStatorPuQNom                           : y =       0.001843

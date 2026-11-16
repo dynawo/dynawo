@@ -1,51 +1,51 @@
  ====== VARIABLES VALUES ======
-VL1_BUS1_ACPIN_V_re                               : y =  -0.5184614555 yp = -55.8995306734
-VL1_BUS1_ACPIN_V_im                               : y =   0.8471001511 yp = -27.5707246636
-VL2_BUS1_ACPIN_V_re                               : y =  -0.5388479811 yp = -55.7222497191
-VL2_BUS1_ACPIN_V_im                               : y =   0.8424028662 yp = -28.8716373995
-VL2_BUS1_ACPIN_i_re                               : y =  -0.0246156244 yp =  -4.3939550686
-VL2_BUS1_ACPIN_i_im                               : y =   0.0680587780 yp =  -1.1502032062
+VL1_BUS1_ACPIN_V_re                               : y =  -0.5297109050 yp = -58.8882688456
+VL1_BUS1_ACPIN_V_im                               : y =   0.8401115630 yp = -18.4894535387
+VL2_BUS1_ACPIN_V_re                               : y =  -0.5500329805 yp = -58.9123723759
+VL2_BUS1_ACPIN_V_im                               : y =   0.8351428489 yp = -19.7893944756
+VL2_BUS1_ACPIN_i_re                               : y =  -0.0255209719 yp =  -4.4744224853
+VL2_BUS1_ACPIN_i_im                               : y =   0.0677244824 yp =  -0.4581831519
  ====== CALCULATED VARIABLES VALUES ======
-VL1_BUS1_Upu                                      : y =   0.9931672985
-VL1_BUS1_phipu                                    : y =   2.1200237215
-VL1_BUS1_U                                        : y =   0.9931672985
-VL1_BUS1_phi                                      : y = 121.4684117121
+VL1_BUS1_Upu                                      : y =   0.9931644255
+VL1_BUS1_phipu                                    : y =   2.1333584407
+VL1_BUS1_U                                        : y =   0.9931644255
+VL1_BUS1_phi                                      : y = 122.2324348382
 Load1_P                                           : y =   0.0000000000
 Load1_Q                                           : y =   0.0000000000
 Load1_Pc                                          : y =   0.0000000000
 Load1_Qc                                          : y =   0.0000000000
 Load1_loadState                                   : y =   1.0000000000
-Load2_P                                           : y =   0.0404187997
-Load2_Q                                           : y =   0.0051052480
+Load2_P                                           : y =   0.0404186828
+Load2_Q                                           : y =   0.0051052185
 Load2_Pc                                          : y =   0.0406968693
 Load2_Qc                                          : y =   0.0051757349
 Load2_loadState                                   : y =   2.0000000000
-VL2_BUS1_Upu                                      : y =   1.0000000174
-VL2_BUS1_phipu                                    : y =   2.1398653827
-VL2_BUS1_U                                        : y =   1.0000000174
-VL2_BUS1_phi                                      : y = 122.6052551564
-Load3_P                                           : y =   0.0200000003
-Load3_Q                                           : y =   0.0050000002
+VL2_BUS1_Upu                                      : y =   0.9999974516
+VL2_BUS1_phipu                                    : y =   2.1532001019
+VL2_BUS1_U                                        : y =   0.9999974516
+VL2_BUS1_phi                                      : y = 123.3692782843
+Load3_P                                           : y =   0.0199999490
+Load3_Q                                           : y =   0.0049999745
 Load3_Pc                                          : y =   0.0200000000
 Load3_Qc                                          : y =   0.0050000000
 Load3_loadState                                   : y =   2.0000000000
-Load4_P                                           : y =   0.0100000002
-Load4_Q                                           : y =   0.0050000002
+Load4_P                                           : y =   0.0099999745
+Load4_Q                                           : y =   0.0049999745
 Load4_Pc                                          : y =   0.0100000000
 Load4_Qc                                          : y =   0.0050000000
 Load4_loadState                                   : y =   2.0000000000
-Transformer_i1                                    : y =   0.0410202215
-Transformer_i2                                    : y =   0.0410288318
-Transformer_P1                                    : y =  -0.0404187929
-Transformer_P2                                    : y =   0.0405969932
-Transformer_Q1                                    : y =  -0.0051052464
-Transformer_Q2                                    : y =   0.0059370651
-Transformer_iS1ToS2Side1                          : y =-2368.3035943619
-Transformer_iS2ToS1Side1                          : y =2368.3035943619
-Transformer_iS1ToS2Side2                          : y =-2368.8007111374
-Transformer_iS2ToS1Side2                          : y =2368.8007111374
-Transformer_iSide1                                : y =2368.3035943619
-Transformer_iSide2                                : y =-2368.8007111374
+Transformer_i1                                    : y =   0.0410202197
+Transformer_i2                                    : y =   0.0410288300
+Transformer_P1                                    : y =  -0.0404187955
+Transformer_P2                                    : y =   0.0405969958
+Transformer_Q1                                    : y =  -0.0051052337
+Transformer_Q2                                    : y =   0.0059370523
+Transformer_iS1ToS2Side1                          : y =-2368.3034903104
+Transformer_iS2ToS1Side1                          : y =2368.3034903104
+Transformer_iS1ToS2Side2                          : y =-2368.8006073238
+Transformer_iS2ToS1Side2                          : y =2368.8006073238
+Transformer_iSide1                                : y =2368.3034903104
+Transformer_iSide2                                : y =-2368.8006073238
 Transformer_twtState                              : y =   2.0000000000
  ====== DISCRETE VARIABLES VALUES ======
 VL1_BUS1_numcc                                    : z =   0.0000000000
