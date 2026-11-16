@@ -78,6 +78,28 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
+##########################################
+#  Model examples - HVDC links           #
+##########################################
+
+case_name = "DynaFlow - ModelExamples - HvdcPV"
+case_description = "HvdcPV model example: disconnection of an AC line in parallel with the HVDC link"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPV", "HvdcPV.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPVDiagramPQ"
+case_description = "HvdcPVDiagramPQ model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPVDiagramPQ", "HvdcPVDiagramPQ.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaFlow - ModelExamples - HvdcPQPropDiagramPQ"
+case_description = "HvdcPQPropDiagramPQ model example: disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "ModelExamples", "Hvdc", "HvdcPQPropDiagramPQ", "HvdcPQPropDiagramPQ.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
 #############################################
 #  Small System with a Shunt with sections  #
 #############################################

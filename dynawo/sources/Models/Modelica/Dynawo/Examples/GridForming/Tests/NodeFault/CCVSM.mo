@@ -1,0 +1,70 @@
+within Dynawo.Examples.GridForming.Tests.NodeFault;
+
+/*
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, a hybrid C++/Modelica open source suite
+* of simulation tools for power systems.
+*/
+
+model CCVSM "Current-controlled VSM grid-forming converter (DynGFMCCVSM) connected to an infinite bus through a line: short-circuit at the converter side of the line"
+  extends Modelica.Icons.Example;
+
+  Dynawo.Electrical.Lines.Line line(BPu = 0, GPu = 0, RPu = 0.001, XPu = 0.01) annotation(
+    Placement(transformation(origin = {70, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant QRefPu(k = 0) annotation(
+    Placement(transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant URefPu(k = 1) annotation(
+    Placement(transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant omegaRefPu(k = 1) annotation(
+    Placement(transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Constant PRefPu(k = 0.5) annotation(
+    Placement(transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Controls.Utilities.Measurements measurements(SNom = 1000)  annotation(
+    Placement(transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}})));
+  Dynawo.Electrical.Buses.InfiniteBusWithVariations infiniteBusWithVariations(U0Pu = 1, UEvtPu = 1, omega0Pu = 1, omegaEvtPu = 1, UPhase = 0, tUEvtStart = 0, tUEvtEnd = 0, tOmegaEvtStart = 0, tOmegaEvtEnd = 0) annotation(
+    Placement(transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 1e-6, XPu = 1e-5, tBegin = 5, tEnd = 5.150)  annotation(
+    Placement(transformation(origin = {60, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  Dynawo.Electrical.PEIR.Converters.General.Average.GridForming.DynGFMCCVSM DynGFMCCVSM(CFilterPu = 1e-05, DeltaIConvMaxPu = 0.15, H = 5, IMaxVIPu = 2.0, ImaxPu = 1.2, IminPu = 0, KDampingAngle = 0.00318, Kfd = 1, Kff = 0.01, Kfq = 0.8, KpVI = 0.6, KsiPLL = 1, LFilterPu = 0.15, LTransformerPu = 0.06, Mq = 0.2, OmegaPLL = 100, OmegaMaxPLLPu = 10, OmegaMinPLLPu = -10, Omegac = 1000, Omegaf = 31.4159, Omegaff = 60, P0Pu = -9.440193302496278, Q0Pu = -0.5430730020626036, RFilterPu = 0.015, RTransformerPu = 0.006, SNom = 1000, U0Pu = 0.947115101091565, UPhase0 = 0.5184088727446441, XRratio = 10, XVIPu = 0.06, kVSM = 600, tUFilt = 0.02, tVSC = 0.0004, EpsVIUpPu = 0.01, EpsVIDownPu = 0.01, EpsUpPu = 0.01, EpsDownPu = 0.01, tSat = 0.01) annotation(
+    Placement(transformation(origin = {-20, 0}, extent = {{-20, -20}, {20, 20}})));
+
+equation
+  line.switchOffSignal1 = false;
+  line.switchOffSignal2 = false;
+  nodeFault.switchOffSignal1 = false;
+  nodeFault.switchOffSignal2 = false;
+  DynGFMCCVSM.switchOffSignal1 = false;
+  DynGFMCCVSM.switchOffSignal2 = false;
+  DynGFMCCVSM.switchOffSignal3 = false;
+
+  connect(measurements.terminal2, line.terminal1) annotation(
+    Line(points = {{40, 0}, {60, 0}}, color = {0, 0, 255}));
+  connect(line.terminal2, infiniteBusWithVariations.terminal) annotation(
+    Line(points = {{80, 0}, {100, 0}}, color = {0, 0, 255}));
+  connect(nodeFault.terminal, line.terminal1) annotation(
+    Line(points = {{60, -20}, {60, 0}}, color = {0, 0, 255}));
+  connect(DynGFMCCVSM.terminal, measurements.terminal1) annotation(
+    Line(points = {{2, 0}, {20, 0}}, color = {0, 0, 255}));
+  connect(PRefPu.y, DynGFMCCVSM.PFilterRefPu) annotation(
+    Line(points = {{-79, 60}, {-51.5, 60}, {-51.5, 16}, {-42, 16}}, color = {0, 0, 127}));
+  connect(omegaRefPu.y, DynGFMCCVSM.omegaRefPu) annotation(
+    Line(points = {{-79, 20}, {-60, 20}, {-60, 8}, {-42, 8}}, color = {0, 0, 127}));
+  connect(QRefPu.y, DynGFMCCVSM.QFilterRefPu) annotation(
+    Line(points = {{-79, -20}, {-60, -20}, {-60, -8}, {-42, -8}}, color = {0, 0, 127}));
+  connect(URefPu.y, DynGFMCCVSM.UFilterRefPu) annotation(
+    Line(points = {{-79, -60}, {-47, -60}, {-47, -16}, {-42, -16}}, color = {0, 0, 127}));
+
+  annotation(
+    preferredView = "diagram",
+    __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"),
+    experiment(StartTime = 0, StopTime = 25, Tolerance = 1e-06, Interval = 0.001),
+    Documentation,
+    Diagram);
+end CCVSM;

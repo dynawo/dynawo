@@ -658,7 +658,7 @@ def main():
                 if case_dir in dir_list: continue
                 dir_list.append(case_dir)
                 thread = threading.Thread (target = nrtDiff.DirectoryDiffReferenceDataJobMultiThread, name = case_dir, args = (case, index, len(NRT.test_cases_)+1, semaphore, pool))
-                thread.setDaemon(True)
+                thread.daemon = True
                 threads_list.append(thread)
                 thread.start()
                 index+=1

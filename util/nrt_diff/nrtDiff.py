@@ -399,7 +399,7 @@ def main():
 # @param pool : the pool used for multi-thread
 def DirectoryDiffJobMultiThread (first_dir, second_dir, semaphore, pool, display_missing_directory=True):
     with semaphore:
-        name = threading.currentThread().getName()
+        name = threading.current_thread().name
         pool.makeActive(name)
         DirectoryDiffJob (first_dir, second_dir, display_missing_directory)
         pool.makeInactive(name)
@@ -713,7 +713,7 @@ def DirectoryDiffReferenceDataJobMultiThread (case, index, nbCases, semaphore, p
     has_colours = has_colours(sys.stdout)
     with semaphore:
 #        start_time = time.time()
-        name = threading.currentThread().getName()
+        name = threading.current_thread().name
 
         toPrint = '[{0:>3}/{1:<3}]'.format(index, nbCases-1)
         toPrint = str(toPrint)
@@ -1291,7 +1291,7 @@ def XMLCloseEnough (path_left, path_right):
         for t in sorted(times_right):
             right.append(float (right_curve[curve][t]))
         if max_dtw is not None:
-           distance = DTWDistance(left, right)
+           distance = DTWDistance(left, right, max_dtw)
            if distance > max_dtw:
                 nb_differences += 1
                 nb_differences_absolute += 1
@@ -1304,24 +1304,34 @@ def XMLCloseEnough (path_left, path_right):
 # Comparison of 2 curves based on the Dynamic Time Warping distance
 # @param left : list of left values
 # @param right : list of right values
-# @return distance between left and right curves
-def DTWDistance(left, right) :
+# @param max_dtw : tolerance used by the caller; when given, the computation can stop as soon as
+#                  the curves are known to be within this tolerance
+# @return distance between left and right curves (an upper bound of it, lower than or equal to
+#         max_dtw, when the curves are within the tolerance)
+def DTWDistance(left, right, max_dtw=None) :
     n = len(left)
     m = len(right)
     if left == right:
         return 0.
-    DTW = [[0 if (j == 0 and i == 0) else 999999 for j in range(m+1)] for i in range(n+1)]
 
+    # The diagonal path (point k paired with point k) is one of the paths considered by the DTW,
+    # so the DTW distance is lower than or equal to its cost: if this cost is within the tolerance,
+    # the DTW distance is too, and the full computation is not needed.
+    if max_dtw is not None and n == m:
+        diagonal = sum(abs(l - r) for l, r in zip(left, right))
+        if diagonal <= max_dtw:
+            return diagonal
+
+    # DTW[i][j] only depends on rows i-1 and i: keep only two rows instead of the full (n+1) x (m+1) table
+    previousRow = [0] + [999999] * m
     for i in range(1, n+1):
         leftValue = left[i-1]
-        previousRow = DTW[i-1]
-        thisRow = DTW[i]
+        thisRow = [999999] * (m+1)
         for j in range (1, m+1):
-            minValue = [previousRow[j],thisRow[j-1],previousRow[j-1]]
-            minValue.sort()
-            DTW[i][j] = abs(leftValue - right[j-1]) + minValue[0]
+            thisRow[j] = abs(leftValue - right[j-1]) + min(previousRow[j], thisRow[j-1], previousRow[j-1])
+        previousRow = thisRow
 
-    return DTW[n][m]
+    return previousRow[m]
 
 
 # Check whether two initial values files are close enough
@@ -1519,7 +1529,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
         for t in sorted(times_right.keys()):
             right.append(float (data_right [times_right[t]] .strip()))
         if max_dtw is not None:
-            distance = DTWDistance(left, right)
+            distance = DTWDistance(left, right, max_dtw)
             if distance > max_dtw:
                 nb_differences += 1
                 nb_differences_absolute += 1

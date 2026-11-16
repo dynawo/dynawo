@@ -24,6 +24,90 @@ forbiddenReturnCodeType = "FORBIDDEN"
 
 case_name = "Grid Forming Converters"
 case_description = "Grid Forming Converters - Three nodes system"
-job_file = os.path.join(os.path.dirname(__file__), "GridFormingConverters.jobs")
+job_file = os.path.join(os.path.dirname(__file__),"ThreeConvISGT", "GridFormingConverters.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#           GridForming - DYNGFMVSM - Voltage Angle Step          #
+###################################################################
+
+case_name = "SMIB - DynGFMVSM - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep7_0C4 on DynGFMVSM"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMVSM", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#      GridForming - DYNGFMVSMConvPLL - Voltage Angle Step        #
+###################################################################
+
+case_name = "SMIB - DynGFMVSMConvPLL - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep7_0C4 on DynGFMVSMConvPLL"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMVSMConvPLL", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+
+###################################################################
+#           GridForming - DYNGFMDroop - Voltage Angle Step        #
+###################################################################
+
+case_name = "SMIB - DynGFMDroop - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep7_0C4 on DynGFMDroop"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMDroop", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+
+###################################################################
+#          GridForming - DYNGFMCCVSM - Voltage Angle Step         #
+###################################################################
+
+case_name = "SMIB - DynGFMCCVSM - Voltage Angle Step"
+case_description = "SMIB  -- S_VolAngStep7_0C4 on DynGFMCCVSM"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMCCVSM", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+
+###################################################################
+#          GridForming - DYNGFMCCVSM - Pole slipping              #
+###################################################################
+
+case_name = "SMIB - DynGFMCCVSM - Pole slipping"
+case_description = "GFM with current control- RoCoF test with VSM Wind-Up"
+job_file = os.path.join(os.path.dirname(__file__), "SMIB", "DynGFMCCVSMWindUp", "CCVSMRoCoF.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+
+###################################################################
+#           GridForming - PlantControl with VSM - RoCoF           #
+###################################################################
+
+case_name = "GridForming - PlantControl with VSM - RoCoF"
+case_description = "PlantControl -- VSM "
+job_file = os.path.join(os.path.dirname(__file__), "PlantControl", "VSM", "VSMPlantControl.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#           GridForming - PlantControl with CCVSM - RoCoF           #
+###################################################################
+
+case_name = "GridForming - PlantControl with CCVSM - RoCoF"
+case_description = "PlantControl -- CCVSM "
+job_file = os.path.join(os.path.dirname(__file__), "PlantControl", "CCVSM", "CCVSMPlantControl.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#           GridForming - PlantControl with VSM - RoCoF           #
+###################################################################
+
+case_name = "GridForming - PlantControl with Droop - RoCoF"
+case_description = "PlantControl -- Droop "
+job_file = os.path.join(os.path.dirname(__file__), "PlantControl", "Droop", "DroopPlantControl.jobs")
+
+test_cases.append((case_name, case_description, job_file, 10, standardReturnCodeType, standardReturnCode))

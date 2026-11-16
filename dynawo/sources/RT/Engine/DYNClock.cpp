@@ -29,7 +29,6 @@
 #include "DYNClock.h"
 
 using std::chrono::steady_clock;
-using std::chrono::microseconds;
 using std::chrono::duration_cast;
 
 namespace DYN {
@@ -83,7 +82,8 @@ void
 Clock::wait(double simulationTime) {
   if (!useStepTrigger_) {
     if (running_ && speedup_ > 0)
-      std::this_thread::sleep_until(referenceClockTime_ + microseconds(static_cast<int>(1000000*(simulationTime-referenceSimuTime_)/speedup_)));
+      std::this_thread::sleep_until(referenceClockTime_ +
+        duration_cast<steady_clock::duration>(std::chrono::duration<double>((simulationTime - referenceSimuTime_) / speedup_)));
   } else {
     while (running_ && !SignalHandler::gotExitSignal()) {
       std::unique_lock<std::mutex> lock(mutex_);

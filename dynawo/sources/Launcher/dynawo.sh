@@ -102,9 +102,6 @@ set_environment() {
   export_var_env DYNAWO_PYTHON_COMMAND=python
   if ! test_python_command; then
     export_var_env_force DYNAWO_PYTHON_COMMAND=python3
-    if ! test_python_command; then
-      error_exit "Your python interpreter \"${DYNAWO_PYTHON_COMMAND}\" does not work. Use export DYNAWO_PYTHON_COMMAND=<Python Interpreter> in your environment."
-    fi
   fi
 
   export PATH="$DYNAWO_INSTALL_OPENMODELICA/bin:$PATH"
