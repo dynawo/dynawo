@@ -29,6 +29,31 @@
 using std::string;
 
 namespace DYN {
+
+namespace {
+
+/**
+ * @brief assign a value to a state variable storage
+ * @details the value is written in place when the storage already holds a value of the same type,
+ * which avoids a memory allocation at each update (state variables are updated at each criteria check)
+ * @param storage storage of the state variable value
+ * @param newValue value to assign
+ */
+template<typename T>
+void
+assignValue(boost::optional<boost::any>& storage, const T& newValue) {
+  if (storage) {
+    T* currentValue = boost::any_cast<T>(&storage.get());
+    if (currentValue) {
+      *currentValue = newValue;
+      return;
+    }
+  }
+  storage = boost::any(newValue);
+}
+
+}  // namespace
+
 StateVariable::StateVariable() :
 type_(StateVariable::DOUBLE),  // most used type
 valueAffected_(false),
@@ -144,10 +169,10 @@ StateVariable::setValue(const double& value) {
     if (!doubleEquals(value, 0.) && !doubleEquals(value, 1.) && !doubleEquals(value, -1.))
       throw DYNError(Error::MODELER, StateVariableWrongType, name_, typeAsString(type_), "bool");
 #endif
-    value_ = (value > 0);
+    assignValue(value_, value > 0);
     break;
   case DOUBLE :
-    value_ = value;
+    assignValue(value_, value);
     break;
   case INT :
 #ifdef _DEBUG_
@@ -155,7 +180,7 @@ StateVariable::setValue(const double& value) {
       throw DYNError(Error::MODELER, StateVariableWrongType, name_, typeAsString(type_), "double");
     }
 #endif
-    value_ = static_cast<int> (value);
+    assignValue(value_, static_cast<int>(value));
     break;
   }
   valueAffected_ = true;
