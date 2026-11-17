@@ -264,7 +264,7 @@ Each component is described with more details in the next parts. \\
 
 Each component type accepts a set of \textit{generic} parameters (e.g. \texttt{bus\_uMax}), applied to all components of that type, and \textit{component-specific} parameters whose name is prefixed by the component identifier (e.g. \texttt{BUS1\_uMax}). When both are provided, the component-specific value takes precedence. Parameters are provided in a \textit{.par} file associated to the network model in the \textit{.dyd} file. \\
 
-The following two parameters apply to the network model as a whole:
+The following three parameters apply to the network model as a whole:
 \begin{table}[H]
 \center
 \begin{tabular}{ p{4cm} | c | p{6cm} | c }
@@ -275,6 +275,8 @@ The following two parameters apply to the network model as a whole:
 \pname{startingPointMode} & \small{STRING} & \small{Starting point mode: \texttt{"flat"} (flat start) or \texttt{"warm"} (warm start)} & \small{warm} \\
 \rowcolor{gray!10}
 \pname{deactivate\_zero\_crossing\_functions} & \small{BOOL} & \small{If true, deactivates zero-crossing detection in the network model} & \small{false} \\
+\rowcolor{white}
+\pname{simulated\_subnetwork\_must\_include} & \small{STRING} & \small{In case of a network with more than one connex component, only the one containing the bus or busbar section named as this value will be simulated. If not set, the largest connex component will be simulated instead.} & \small{none} \\
 \bottomrule
 \end{tabular}
 \caption{Global network parameters}
