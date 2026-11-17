@@ -20,10 +20,12 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
 
   parameter Types.VoltageModule UTarget "Voltage set-point";
   parameter Types.VoltageModule UDeadBand(min = 0) "Voltage dead-band";
-  parameter Types.VoltageModule U0 "Initial voltage";
   parameter Types.VoltageModule UNom = 1 "Nominal voltage in kV";
 
-  Modelica.Blocks.Interfaces.RealInput UMonitored(start = U0) "Monitored voltage";
+  Modelica.Blocks.Interfaces.RealInput UMonitored(start = U0) "Monitored voltage" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 20}, {-100, 40}})));
+
+  parameter Types.VoltageModule U0 "Initial voltage";
 
 equation
   when (valueToMonitor < valueMin) and not(locked) then

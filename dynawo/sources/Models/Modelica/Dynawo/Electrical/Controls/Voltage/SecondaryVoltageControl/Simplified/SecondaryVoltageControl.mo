@@ -26,10 +26,12 @@ model SecondaryVoltageControl "Model for simplified secondary voltage control"
   parameter Types.VoltageModulePu UDeadBandPu "Deadband width on difference bewteen UpPu and UpRefPu, in pu (base UNom)";
 
   //Input variables
-  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQDown(start = limUQDown0) "If true, the reactive power lower limits are reached (for each generator participating in the secondary voltage control)";
-  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQUp(start = limUQUp0) "If true, the reactive power upper limits are reached (for each generator participating in the secondary voltage control)";
+  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQDown(start = limUQDown0) "If true, the reactive power lower limits are reached (for each generator participating in the secondary voltage control)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-140, 20}, {-100, 60}})));
+  Modelica.Blocks.Interfaces.BooleanInput[NbMaxGen] limUQUp(start = limUQUp0) "If true, the reactive power upper limits are reached (for each generator participating in the secondary voltage control)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-140, 60}, {-100, 100}})));
   Modelica.Blocks.Interfaces.RealInput UpPu(start = Up0Pu) "Voltage of pilot point in pu (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-280, -58}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-280, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UpRefPu(start = UpRef0Pu) "Reference voltage of pilot point in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-280, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
@@ -85,12 +87,13 @@ equation
   blockedUp = Modelica.Math.BooleanVectors.allTrue(limUQUp);
   blockedDown = Modelica.Math.BooleanVectors.allTrue(limUQDown);
   frozen = FreezingActivated and ((blockedUp and (UpRefPu - UpPu) > 0) or (blockedDown and (UpRefPu - UpPu) < 0));
+  switch1.u2 = frozen;
+
   when frozen and not(pre(frozen)) then
     Timeline.logEvent1 (TimelineKeys.VRFrozen);
   elsewhen not(frozen) and pre(frozen) then
     Timeline.logEvent1 (TimelineKeys.VRUnfrozen);
   end when;
-  switch1.u2 = frozen;
 
   //level is sampled every tSample seconds to calculate levelDiscrete
    when (time > pre(tUpdate) + tSample) then
@@ -111,7 +114,7 @@ equation
   connect(add.y, limiter.u) annotation(
     Line(points = {{121, 0}, {158, 0}}, color = {0, 0, 127}));
   connect(UpPu, feedback1.u2) annotation(
-    Line(points = {{-280, -58}, {-220, -58}, {-220, -8}}, color = {0, 0, 127}));
+    Line(points = {{-280, -60}, {-220, -60}, {-220, -8}}, color = {0, 0, 127}));
   connect(gain1.y, add.u1) annotation(
     Line(points = {{-79, 40}, {80, 40}, {80, 6}, {98, 6}}, color = {0, 0, 127}));
   connect(add.y, feedback.u2) annotation(
@@ -136,6 +139,7 @@ equation
     Line(points = {{-180, 0}, {-160, 0}, {-160, 6}, {-142, 6}}, color = {0, 0, 127}));
   connect(deadZone.y, gain1.u) annotation(
     Line(points = {{-180, 0}, {-160, 0}, {-160, 40}, {-102, 40}}, color = {0, 0, 127}));
+
   annotation(
     preferredView = "diagram",
     Diagram(coordinateSystem(extent = {{-260, -100}, {220, 100}})));

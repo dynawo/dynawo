@@ -32,15 +32,19 @@ model SteamEXACFrame "Model of a steam generator with a governor, a voltage regu
   parameter Types.VoltageModule UNom = 18;
 
   Dynawo.Connectors.ACPower terminal annotation(
-    Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(extent = {{-10, -10}, {10, 10}})));
 
-  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the generator";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the generator";
-  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the generator";
+  Dynawo.Connectors.AngularVelocityPuInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency in pu (base omegaNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
   //Generator
-  Dynawo.Examples.BaseClasses.GeneratorSynchronousThreeWindingsInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronousThreeWindings generatorSynchronous(
     DPu = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.DPu],
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = ParametersGenerators.genParamValues[gen, ParametersGenerators.genParamNames.H],
@@ -188,8 +192,6 @@ model SteamEXACFrame "Model of a steam generator with a governor, a voltage regu
     Placement(visible = true, transformation(origin = {-174, 0}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant UUelPu(k = 0) annotation(
     Placement(visible = true, transformation(origin = {-174, 20}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const1(k = SystemBase.omegaRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   //Initial parameters
   parameter Types.ActivePowerPu P0Pu "Initial active power at generator terminal in pu (base SnRef) (receptor convention)";
@@ -199,21 +201,21 @@ model SteamEXACFrame "Model of a steam generator with a governor, a voltage regu
 
 equation
   connect(omegaRefPu, generatorSynchronous.omegaRefPu);
+  connect(omegaRefPu, pssIEEE2B.omegaRefPu);
+  connect(omegaRefPu, ieeeg1.omegaRefPu);
   connect(switchOffSignal1, generatorSynchronous.switchOffSignal1);
   connect(switchOffSignal2, generatorSynchronous.switchOffSignal2);
   connect(switchOffSignal3, generatorSynchronous.switchOffSignal3);
-  connect(generatorSynchronous.PGenPu_out, pssIEEE2B.PGenPu) annotation(
-    Line(points = {{-10, -18}, {-10, -48}, {-36, -48}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.PGenPu, pssIEEE2B.PGenPu) annotation(
+    Line(points = {{18, 10}, {50, 10}, {50, -72}, {-36, -72}}, color = {0, 0, 127}));
   connect(generatorSynchronous.terminal, terminal) annotation(
-    Line(points = {{0, 0}, {0, 100}}, color = {0, 0, 255}));
-  connect(generatorSynchronous.IRotorPu_out, maxex2.IfdPu) annotation(
-    Line(points = {{-18, -10}, {-30, -10}, {-30, 90}, {-118, 90}}, color = {0, 0, 127}));
+    Line(points = {{0, 0}, {0, -100}}, color = {0, 0, 255}));
+  connect(generatorSynchronous.IRotorPu, maxex2.IfdPu) annotation(
+    Line(points = {{0, 22}, {0, 90}, {-118, 90}}, color = {0, 0, 127}));
   connect(constant2.y, switch1.u3) annotation(
     Line(points = {{79, 80}, {60, 80}, {60, 45}, {53, 45}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaPu_out, pssIEEE2B.omegaPu) annotation(
-    Line(points = {{0, -18}, {0, -72}, {-36, -72}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaRefPu_out, pssIEEE2B.omegaRefPu) annotation(
-    Line(points = {{10, -18}, {10, -60}, {-36, -60}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(generatorSynchronous.omegaPu, pssIEEE2B.omegaPu) annotation(
+    Line(points = {{18, -6}, {40, -6}, {40, -60}, {-36, -60}}, color = {0, 0, 127}));
   connect(maxex2.UOelPu, exac1.UOelPu) annotation(
     Line(points = {{-141, 90}, {-150, 90}, {-150, 16}, {-144, 16}}, color = {0, 0, 127}));
   connect(constant1.y, switch.u3) annotation(
@@ -226,26 +228,24 @@ equation
     Line(points = {{79.4, 40}, {53.4, 40}}, color = {255, 0, 255}));
   connect(URefPu.y, exac1.UsRefPu) annotation(
     Line(points = {{-167, 0}, {-144, 0}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UStatorPu_out, exac1.UsPu) annotation(
-    Line(points = {{-6, 18}, {-6, 60}, {-200, 60}, {-200, -20}, {-160, -20}, {-160, -8}, {-144, -8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
+  connect(generatorSynchronous.UStatorPu, exac1.UsPu) annotation(
+    Line(points = {{18, 18}, {24, 18}, {24, 60}, {-200, 60}, {-200, -20}, {-160, -20}, {-160, -8}, {-144, -8}}, color = {0, 0, 127}));
   connect(pssIEEE2B.VPssPu, exac1.UPssPu) annotation(
     Line(points = {{-82, -60}, {-150, -60}, {-150, -16}, {-144, -16}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaPu_out, ieeeg1.omegaPu) annotation(
-    Line(points = {{0, -18}, {0, -80}, {180, -80}, {180, 0}, {144, 0}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.omegaPu, ieeeg1.omegaPu) annotation(
+    Line(points = {{18, -6}, {40, -6}, {40, -60}, {180, -60}, {180, 0}, {144, 0}}, color = {0, 0, 127}));
   connect(PmRefPu.y, ieeeg1.PmRefPu) annotation(
     Line(points = {{180, 20}, {160, 20}, {160, 12}, {144, 12}}, color = {0, 0, 127}));
-  connect(switch.y, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{-48, 40}, {-40, 40}, {-40, 0}, {-16, 0}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
-  connect(generatorSynchronous.IRotorPu_out, exac1.IrPu) annotation(
-    Line(points = {{-18, -10}, {-30, -10}, {-30, -16}, {-96, -16}}, color = {0, 0, 127}));
+  connect(switch.y, generatorSynchronous.efdPu) annotation(
+    Line(points = {{-48, 40}, {-40, 40}, {-40, -30}, {-12, -30}, {-12, -22}}, color = {0, 0, 127}, pattern = LinePattern.Dot));
+  connect(generatorSynchronous.IRotorPu, exac1.IrPu) annotation(
+    Line(points = {{0, 22}, {0, 40}, {-30, 40}, {-30, -16}, {-96, -16}}, color = {0, 0, 127}));
   connect(ieeeg1.Pm1Pu, switch1.u1) annotation(
     Line(points = {{98, 12}, {60, 12}, {60, 35}, {54, 35}}, color = {0, 0, 127}));
-  connect(switch1.y, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{39, 40}, {30, 40}, {30, 0}, {16, 0}}, color = {0, 0, 127}));
+  connect(switch1.y, generatorSynchronous.PmPu) annotation(
+    Line(points = {{40, 40}, {30, 40}, {30, -40}, {12, -40}, {12, -22}}, color = {0, 0, 127}));
   connect(UUelPu.y, exac1.UUelPu) annotation(
     Line(points = {{-168, 20}, {-160, 20}, {-160, 8}, {-144, 8}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
-  connect(const1.y, ieeeg1.omegaRefPu) annotation(
-    Line(points = {{142, -40}, {160, -40}, {160, -12}, {144, -12}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

@@ -23,8 +23,10 @@ model UVA "Under-Voltage Automaton"
   parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in pu (base UNom)";
   parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
 
-  Dynawo.Connectors.VoltageModulePuInput UMonitoredPu "Monitored voltage in pu (base UNom)";
-  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the generator";
+  Dynawo.Connectors.VoltageModulePuInput UMonitoredPu "Monitored voltage in pu (base UNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -10}, {-100, 10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput switchOffSignal(start = false) "Switch off message for the generator" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{100, -10}, {120, 10}})));
 
 protected
   Types.Time tThresholdReached(start = Constants.inf) "Time when the threshold was reached";
