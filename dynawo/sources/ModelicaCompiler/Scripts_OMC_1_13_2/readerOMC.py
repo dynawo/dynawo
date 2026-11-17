@@ -2078,11 +2078,9 @@ class ReaderOMC:
                 if is_integer_var(var): continue
                 if is_bool_var(var): continue
                 if var.is_alias(): continue
-                # TODO(#3874): temporary fix keeping external variables out of the calculated-var
-                # mechanism (needed for solver convergence, see #3874). OMC still causalizes their
-                # equation as a simple "assign" and does not generate a symbolic Jacobian term for
-                # it, so this variable's contribution is missing from evalJtTerm/the symbolic
-                # Jacobian comparison. Revisit once the symbolic Jacobian is meant to replace Adept.
+                # an external variable has no defining equation in its model (its value is imposed by the
+                # connected model, its only equation is the fictitious one added by scriptVarExt): it can
+                # never be a calculated variable
                 if name in self.fictive_continuous_vars or name in self.fictive_optional_continuous_vars: continue
 
                 if name in self.list_flow_vars:
