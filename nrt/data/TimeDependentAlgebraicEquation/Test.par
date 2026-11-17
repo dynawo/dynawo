@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="InfA">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="100"/>
+  </set>
+  <set id="InfB">
+    <par type="DOUBLE" name="infiniteBus_U0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_UEvtPu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omega0Pu" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_omegaEvtPu" value="0.999"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtStart" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tUEvtEnd" value="100"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtStart" value="1"/>
+    <par type="DOUBLE" name="infiniteBus_tOmegaEvtEnd" value="100"/>
+  </set>
+  <set id="Line">
+    <par type="DOUBLE" name="line_RPu" value="0"/>
+    <par type="DOUBLE" name="line_XPu" value="0.1"/>
+    <par type="DOUBLE" name="line_GPu" value="0"/>
+    <par type="DOUBLE" name="line_BPu" value="0"/>
+  </set>
+  <set id="Load">
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_P0Pu" value="0.1"/>
+    <par type="DOUBLE" name="load_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="load_U0Pu" value="0.9999874996093545"/>
+    <par type="DOUBLE" name="load_UPhase0" value="-0.005000083337083558"/>
+  </set>
+  <!-- optimizeAlgebraicResidualsEvaluations is left at its default (true) -->
+  <set id="TRAP">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="0.1"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="0.000001"/>
+  </set>
+  <set id="SIM">
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
+    <par type="DOUBLE" name="hMax" value="0.1"/>
+    <par type="DOUBLE" name="kReduceStep" value="0.5"/>
+    <par type="INT" name="maxNewtonTry" value="10"/>
+    <par type="DOUBLE" name="minimalAcceptableStep" value="0.000001"/>
+  </set>
+</parametersSet>
