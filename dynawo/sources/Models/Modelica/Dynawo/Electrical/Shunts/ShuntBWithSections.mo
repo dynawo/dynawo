@@ -20,7 +20,9 @@ model ShuntBWithSections "Shunt element with voltage-dependent reactive power an
   parameter String TableBPuFile "File containing the table to calculate BPu from the section of the shunt";
 
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
-  discrete Modelica.Blocks.Interfaces.RealInput section(start = section0) "Section position of the shunt";
+
+  discrete Modelica.Blocks.Interfaces.RealInput section(start = section0) "Section position of the shunt" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
 
   Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in pu (base SnRef, UNom)";
   Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in pu (base SnRef, receptor convention)";

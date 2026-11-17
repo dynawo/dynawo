@@ -17,7 +17,8 @@ partial model BasePV "Base dynamic model for a voltage regulation"
   parameter Types.VoltageModulePu UDeadBandPu(min = 0) "Voltage deadband around the target in pu (base UNom)";
   parameter Types.ReactivePowerPu QDeadBandPu(min = 0) "Reactive power deadband around the target in pu (base SnRef)";
 
-  Dynawo.Connectors.VoltageModulePuInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)";
+  Dynawo.Connectors.VoltageModulePuInput URefPu(start = URef0Pu) "Voltage regulation set point in pu (base UNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -50}, {-100, -30}})));
 
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in pu (base UNom)";
 

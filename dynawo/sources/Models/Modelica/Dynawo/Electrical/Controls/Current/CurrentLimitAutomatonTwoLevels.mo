@@ -30,9 +30,12 @@ model CurrentLimitAutomatonTwoLevels "Current Limit Automaton (CLA) monitoring t
   parameter Integer OrderToEmit2 "Order to emit by CLA 2 (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
   //Inputs
-  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton natively present in C++ object";
-  Modelica.Blocks.Interfaces.RealInput IMonitored1 "Monitored current on element 1 (unit depending on IMax1 unit)";
-  Modelica.Blocks.Interfaces.RealInput IMonitored2 "Monitored current on element 2 (unit depending on IMax2 unit)";
+  Modelica.Blocks.Interfaces.BooleanInput AutomatonExists = true "Pin to indicate to deactivate internal automaton natively present in C++ object" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 50}, {-100, 70}})));
+  Modelica.Blocks.Interfaces.RealInput IMonitored1 "Monitored current on element 1 (unit depending on IMax1 unit)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 10}, {-100, 30}})));
+  Modelica.Blocks.Interfaces.RealInput IMonitored2 "Monitored current on element 2 (unit depending on IMax2 unit)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -10}, {-100, -30}})));
 
   //Output
   Modelica.Blocks.Interfaces.IntegerOutput order "Order emitted by the CLA (it should be a value corresponding to a state: [1:OPEN, 2:CLOSED, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
@@ -55,6 +58,7 @@ equation
   connect(IMonitored1, currentLimitAutomaton1.IMonitored);
   connect(IMonitored2, currentLimitAutomaton2.IMonitored);
 
-  annotation(preferredView = "text",
+  annotation(
+    preferredView = "text",
     Documentation(info = "<html><head></head><body>The automaton will open one component when the current stays higher than a predefined threshold during a certain amount of time on two monitored components (line, transformer, etc.) (one threshold and one time constant per element).</body></html>"));
 end CurrentLimitAutomatonTwoLevels;

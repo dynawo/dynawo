@@ -28,8 +28,11 @@ partial model BaseTapChangerBlocking "Base model for Tap Changer Blocking (TCB)"
   parameter Types.Time tLagTransBlockedT "Time to wait before sending block event to high voltage transformers";
   parameter Types.Time tLagTransBlockedD "Time to wait before sending block event to low voltage transformers";
 
-  Modelica.Blocks.Interfaces.BooleanInput blockOrder(start = blocked0) "TCB manual block order";
-  Modelica.Blocks.Interfaces.BooleanInput unblockOrder(start = blocked0) "TCB manual unblock order";
+  Modelica.Blocks.Interfaces.BooleanInput blockOrder(start = blocked0) "TCB manual block order" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 30}, {-100, 50}})));
+  Modelica.Blocks.Interfaces.BooleanInput unblockOrder(start = blocked0) "TCB manual unblock order" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -50}, {-100, -30}})));
+
   Boolean blockedT(start = blocked0) "High voltage transformers blocked ?";
   Boolean blockedD(start = blocked0) "Low voltage transformers blocked ?";
 
