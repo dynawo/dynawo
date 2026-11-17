@@ -18,8 +18,11 @@
 
 #include "gtest_dynawo.h"
 
+#include <boost/filesystem.hpp>
+
 #include "PARXmlImporter.h"
 #include "PARParametersSetCollection.h"
+#include "PARParametersSet.h"
 
 
 INIT_XML_DYNAWO;
@@ -97,6 +100,57 @@ TEST(APIPARTest, testXmlStreamImporter) {
     "</parametersSet>");
   std::istream goodStream(goodInputStream.rdbuf());
   ASSERT_NO_THROW(importer.importFromStream(goodStream));
+}
+
+TEST(APIPARTest, XmlImporterMacroSubstitutionFromFile) {
+  setenv("DYNAWO_INSTALL_DIR", "/dynawo/install", 1);
+
+  XmlImporter importer;
+  std::shared_ptr<ParametersSetCollection> collection;
+  ASSERT_NO_THROW(collection = importer.importFromFile("res/fileWithMacros.par"));
+
+  auto set = collection->getParametersSet("1");
+  ASSERT_TRUE(set != nullptr);
+
+  std::string expectedParPath = boost::filesystem::absolute("res/fileWithMacros.par").parent_path().string();
+
+  // @DYNAWO_INSTALL_DIR@ substituted
+  ASSERT_EQ(set->getParameter("installPath")->getString(), "/dynawo/install/lib");
+  // @PAR_PATH@ substituted with the directory of the par file
+  ASSERT_EQ(set->getParameter("parPath")->getString(), expectedParPath + "/data.csv");
+  // both macros substituted in the same value
+  ASSERT_EQ(set->getParameter("combined")->getString(), "/dynawo/install/share/" + expectedParPath + "/file.txt");
+
+  // parTable STRING values also substituted (table parameter names get a trailing underscore)
+  ASSERT_EQ(set->getParameter("paths_1_1_")->getString(), "/dynawo/install/bin");
+  ASSERT_EQ(set->getParameter("paths_1_2_")->getString(), expectedParPath + "/tables");
+
+  unsetenv("DYNAWO_INSTALL_DIR");
+}
+
+TEST(APIPARTest, XmlImporterMacroSubstitutionFromStream) {
+  setenv("DYNAWO_INSTALL_DIR", "/dynawo/install", 1);
+
+  XmlImporter importer;
+  std::istringstream goodInputStream(
+    "<?xml version='1.0' encoding='UTF-8'?>"
+    "<parametersSet xmlns=\"http://www.rte-france.com/dynawo\">"
+    "<set id=\"1\">"
+    "<par type=\"STRING\" name=\"installPath\" value=\"@DYNAWO_INSTALL_DIR@/lib\"/>"
+    "<par type=\"STRING\" name=\"parPath\" value=\"@PAR_PATH@/data.csv\"/>"
+    "</set>"
+    "</parametersSet>");
+  std::istream goodStream(goodInputStream.rdbuf());
+  std::shared_ptr<ParametersSetCollection> collection;
+  ASSERT_NO_THROW(collection = importer.importFromStream(goodStream));
+
+  auto set = collection->getParametersSet("1");
+  // @DYNAWO_INSTALL_DIR@ substituted even from stream
+  ASSERT_EQ(set->getParameter("installPath")->getString(), "/dynawo/install/lib");
+  // @PAR_PATH@ NOT substituted from stream (no file path available)
+  ASSERT_EQ(set->getParameter("parPath")->getString(), "@PAR_PATH@/data.csv");
+
+  unsetenv("DYNAWO_INSTALL_DIR");
 }
 
 }  // namespace parameters
