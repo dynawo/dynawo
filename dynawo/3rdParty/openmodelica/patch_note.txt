@@ -21,6 +21,8 @@ dump of variables file (file generated for Dynawo)
 ### CodegenCFunctions-tpl.patch ###
 
 redefine the way to generate some operations (sqrt, pow, ternary operator, max, min) to be compatible with adept doubles
+backport from master of jacCrefs (OpenModelica PR #15755 and #16250): subscripted crefs in the symbolic Jacobian
+(seed/tmp/result variables accessed with a dynamic index) are generated with the right index
 
 ### LoadCompilerSources-mos.patch ###
 
@@ -37,3 +39,8 @@ Force compilation in cpp11
 ### RemoveSimpleEquations-mo.patch ###
 
 Bug fix report from master to avoid simplifying variables into parameters
+
+### Differentiate-mo.patch and BackendVariable-mo.patch ###
+
+Backport of OpenModelica PR #17963 (issue #17950): differentiation of crefs with variable indexes,
+avoids a stack overflow in DAEMode.getEqSystemDAEmode when computing the symbolic Jacobian

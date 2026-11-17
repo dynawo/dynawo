@@ -11,6 +11,208 @@ index 1a766f96c1..2d80cad373 100644
  	cp -p "@OMBUILDDIR@"/share/doc/omc/testmodels/* ${INSTALL_DOCDIR}/omc/testmodels/
  	# man pages
  	# cp -p "@OMBUILDDIR@"/share/man/man1/*.gz ${INSTALL_MANDIR}/man1/
+diff --git a/OMCompiler/Compiler/BackEnd/BackendVariable.mo b/OMCompiler/Compiler/BackEnd/BackendVariable.mo
+index 37040a6b06..d31e9ad614 100644
+--- a/OMCompiler/Compiler/BackEnd/BackendVariable.mo
++++ b/OMCompiler/Compiler/BackEnd/BackendVariable.mo
+@@ -3365,31 +3365,31 @@ algorithm
+ 
+     case ({}, _) then (inSubscript,iPerformed);
+     case (DAE.WHOLEDIM()::rest, _)
+-      equation
+-        (_,b) = replaceVarWithWholeDimSubs(rest,iPerformed);
+-      then (DAE.WHOLEDIM()::rest, b);
++      algorithm
++        (res,b) := replaceVarWithWholeDimSubs(rest,iPerformed);
++      then (DAE.WHOLEDIM()::res, b);
+ 
+     case ((sub as DAE.SLICE(exp = sub_exp))::rest, _)
+-      equation
+-        (res,b) = replaceVarWithWholeDimSubs(rest,iPerformed);
+-        const = Expression.isConst(sub_exp);
+-        res = if const then sub::rest else (DAE.WHOLEDIM()::rest);
++      algorithm
++        (res,b) := replaceVarWithWholeDimSubs(rest,iPerformed);
++        const := Expression.isConst(sub_exp);
++        res := if const then sub::res else (DAE.WHOLEDIM()::res);
+       then
+         (res, b or not const);
+ 
+     case ((sub as DAE.INDEX(exp = sub_exp))::rest, _)
+-      equation
+-        (sub_exp_,calcRange) = computeRangeExps(sub_exp); // the fact that if it can be calculated, we can take the wholedim is a bit weird, anyway, the whole function is weird
+-        (res,b) = replaceVarWithWholeDimSubs(rest,iPerformed);
+-        const = Expression.isConst(sub_exp_);
+-        res = (if const then if referenceEq(sub_exp,sub_exp_) then sub else DAE.INDEX(sub_exp_) else DAE.WHOLEDIM())::rest;
++      algorithm
++        (sub_exp_,calcRange) := computeRangeExps(sub_exp); // the fact that if it can be calculated, we can take the wholedim is a bit weird, anyway, the whole function is weird
++        (res,b) := replaceVarWithWholeDimSubs(rest,iPerformed);
++        const := Expression.isConst(sub_exp_);
++        res := (if const then if referenceEq(sub_exp,sub_exp_) then sub else DAE.INDEX(sub_exp_) else DAE.WHOLEDIM())::res;
+       then
+         (res, b or not const or calcRange);
+     case ((sub as DAE.WHOLE_NONEXP(exp = sub_exp))::rest, _)
+-      equation
+-        (res,b) = replaceVarWithWholeDimSubs(rest,iPerformed);
+-        const = Expression.isConst(sub_exp);
+-        res = if const then sub::rest else (DAE.WHOLEDIM()::rest);
++      algorithm
++        (res,b) := replaceVarWithWholeDimSubs(rest,iPerformed);
++        const := Expression.isConst(sub_exp);
++        res := if const then sub::res else (DAE.WHOLEDIM()::res);
+       then
+         (res, b or not const);
+   end match;
+diff --git a/OMCompiler/Compiler/BackEnd/Differentiate.mo b/OMCompiler/Compiler/BackEnd/Differentiate.mo
+index 4f0b2866c3..e5ecb9647a 100644
+--- a/OMCompiler/Compiler/BackEnd/Differentiate.mo
++++ b/OMCompiler/Compiler/BackEnd/Differentiate.mo
+@@ -806,12 +806,7 @@ algorithm
+         (derivedLHS, functions) = differentiateExp(lhs, inDiffwrtCref, inInputData, inDiffType, inFunctionTree, maxIter);
+         (derivedRHS, functions) = differentiateExp(rhs, inDiffwrtCref, inInputData, inDiffType, functions, maxIter);
+         (derivedRHS,_) = ExpressionSimplify.simplify(derivedRHS);
+-        /* if assigment is empty remove derived assignment */
+-        if (Expression.isZero(derivedLHS)) then
+-          derivedStatements1 = {currStatement};
+-        else
+-          derivedStatements1 = {DAE.STMT_ASSIGN(type_, derivedLHS, derivedRHS, source), currStatement};
+-        end if;
++        derivedStatements1 = listAppend(makeDerivedAssignment(type_, derivedLHS, derivedRHS, source), {currStatement});
+         derivedStatements2 = listAppend(derivedStatements1, inStmtsAccum);
+         (derivedStatements2, functions) = differentiateStatements(restStatements, inDiffwrtCref, inInputData, inDiffType, derivedStatements2, functions, maxIter);
+       then (derivedStatements2, functions);
+@@ -979,6 +974,34 @@ algorithm
+ end isDiscreteAssignStatment;
+ 
+ 
++protected function makeDerivedAssignment
++  "An assignment to the derivative of a cref with a variable index, which is an
++   if-expression, becomes an if-statement. The index has a known value in each
++   branch, which simplifies the right-hand side. Assignments to zero are removed."
++  input DAE.Type ty;
++  input DAE.Exp lhs;
++  input DAE.Exp rhs;
++  input DAE.ElementSource source;
++  output list<DAE.Statement> stmts;
++protected
++  DAE.Exp then_rhs, else_rhs;
++algorithm
++  stmts := match lhs
++    local
++      DAE.Exp cond, index, value;
++    case DAE.IFEXP(expCond = cond as DAE.RELATION(exp1 = index, operator = DAE.EQUAL(), exp2 = value))
++      algorithm
++        (then_rhs, _) := Expression.replaceExp(rhs, index, value);
++        (then_rhs, _) := ExpressionSimplify.simplify(then_rhs);
++        (else_rhs, _) := Expression.replaceExp(rhs, cond, DAE.BCONST(false));
++        (else_rhs, _) := ExpressionSimplify.simplify(else_rhs);
++      then {DAE.STMT_IF(cond, makeDerivedAssignment(ty, lhs.expThen, then_rhs, source),
++                        DAE.ELSE(makeDerivedAssignment(ty, lhs.expElse, else_rhs, source)), source)};
++    case _ guard Expression.isZero(lhs) then {};
++    else {DAE.STMT_ASSIGN(ty, lhs, rhs, source)};
++  end match;
++end makeDerivedAssignment;
++
+ protected function makeAssignmentfromTuple
+ "Help function for differentiateStatements"
+   input tuple<DAE.Exp, DAE.Exp> inTpl;
+@@ -1205,6 +1228,26 @@ algorithm
+       then
+         (res, inFunctionTree);
+ 
++    // d(u[k])/d(x) => if k == 1 then d(u[1])/d(x) elseif ... else d(u[n])/d(x)
++    case (DAE.CREF(componentRef = cr, ty = tp), _, _, BackendDAE.GENERIC_GRADIENT(), _)
++      guard hasVariableIndex(cr)
++      algorithm
++        (e, expl, scalarCrefs) := expandFirstVariableIndex(cr);
++        outFunctionTree := inFunctionTree;
++        diffed_exps := {};
++        for cref in scalarCrefs loop
++          (res1, outFunctionTree) := differentiateCrefs(Expression.makeCrefExp(cref, tp), inDiffwrtCref, inInputData, inDiffType, outFunctionTree, maxIter);
++          diffed_exps := res1 :: diffed_exps;
++        end for;
++        res :: diffed_exps := diffed_exps;
++        _ :: expl := listReverse(expl);
++        for i in expl loop
++          res1 :: diffed_exps := diffed_exps;
++          res := DAE.IFEXP(DAE.RELATION(e, DAE.EQUAL(Expression.typeof(e)), i, -1, NONE()), res1, res);
++        end for;
++      then
++        (res, outFunctionTree);
++
+     // d(x)/d(x) => generate seed variables
+     case ((DAE.CREF(componentRef = cr,ty = tp)), _, BackendDAE.DIFFINPUTDATA(independenentVars=SOME(timevars),matrixName=SOME(matrixName)), BackendDAE.GENERIC_GRADIENT(), _)
+       algorithm
+@@ -1324,6 +1367,69 @@ algorithm
+   if debug then print("outCref: " + ComponentReference.printComponentRefStr(outCref) +"\n"); end if;
+ end createSeedCrefName;
+ 
++protected function isVariableIndex
++  input DAE.Subscript sub;
++  output Boolean b;
++algorithm
++  b := match sub
++    case DAE.INDEX() then not Expression.subscriptConstants({sub});
++    else false;
++  end match;
++end isVariableIndex;
++
++protected function hasVariableIndex
++  input DAE.ComponentRef cr;
++  output Boolean b;
++algorithm
++  b := match cr
++    case DAE.CREF_IDENT() then List.any(cr.subscriptLst, isVariableIndex);
++    case DAE.CREF_QUAL() then List.any(cr.subscriptLst, isVariableIndex) or hasVariableIndex(cr.componentRef);
++    else false;
++  end match;
++end hasVariableIndex;
++
++protected function expandFirstVariableIndex
++  "Returns the first index of the cref that is not a literal, the values of its
++   dimension, and the cref with the index replaced by each of the values."
++  input DAE.ComponentRef inCref;
++  output DAE.Exp index;
++  output list<DAE.Exp> values;
++  output list<DAE.ComponentRef> crefs;
++protected
++  list<list<DAE.Subscript>> subsl;
++algorithm
++  (index, values, crefs) := match inCref
++    case DAE.CREF_IDENT() guard List.any(inCref.subscriptLst, isVariableIndex)
++      algorithm
++        (index, values, subsl) := expandFirstVariableIndexSubs(inCref.subscriptLst, inCref.identType);
++      then (index, values, list(DAE.CREF_IDENT(inCref.ident, inCref.identType, s) for s in subsl));
++    case DAE.CREF_QUAL() guard List.any(inCref.subscriptLst, isVariableIndex)
++      algorithm
++        (index, values, subsl) := expandFirstVariableIndexSubs(inCref.subscriptLst, inCref.identType);
++      then (index, values, list(DAE.CREF_QUAL(inCref.ident, inCref.identType, s, inCref.componentRef) for s in subsl));
++    case DAE.CREF_QUAL()
++      algorithm
++        (index, values, crefs) := expandFirstVariableIndex(inCref.componentRef);
++      then (index, values, list(DAE.CREF_QUAL(inCref.ident, inCref.identType, inCref.subscriptLst, cr) for cr in crefs));
++  end match;
++end expandFirstVariableIndex;
++
++protected function expandFirstVariableIndexSubs
++  input list<DAE.Subscript> inSubs;
++  input DAE.Type inType;
++  output DAE.Exp index;
++  output list<DAE.Exp> values;
++  output list<list<DAE.Subscript>> outSubs;
++protected
++  Integer pos;
++algorithm
++  pos := List.positionOnTrue(inSubs, isVariableIndex);
++  DAE.INDEX(exp = index) := listGet(inSubs, pos);
++  values := list(Expression.getSubscriptExp(s) for s in Expression.expandDimension(listGet(Types.getDimensions(inType), pos)));
++  false := listEmpty(values);
++  outSubs := list(List.replaceAt(DAE.INDEX(v), pos, inSubs) for v in values);
++end expandFirstVariableIndexSubs;
++
+ public function isSeedCref
+ "Returns true if the last cref part is prefixed with 'Seed', i.e. x.y.z.SeedLSJac0"
+   input DAE.ComponentRef cr;
 diff --git a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
 index 7b30c5adfd..eeb71099f7 100644
 --- a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
@@ -2583,7 +2785,7 @@ index 2bf62ff1a1..ef9e4cad0f 100644
  end dumpSimCodeDebug;
  
 diff --git a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl b/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
-index 40b648ba04..11cefdc8db 100644
+index 40b648ba04..e3b8dc5ffa 100644
 --- a/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
 +++ b/OMCompiler/Compiler/Template/CodegenCFunctions.tpl
 @@ -428,6 +428,7 @@ template recordDeclaration(RecordDeclaration recDecl)
@@ -2594,7 +2796,62 @@ index 40b648ba04..11cefdc8db 100644
      <%recordCreateFromVarsDef(r.name, r.variables)%>
  
      <%recordCopyDef(r.name, r.variables)%>
-@@ -5731,17 +5732,7 @@ case BINARY(__) then
+@@ -4632,7 +4633,7 @@ template contextCref(ComponentRef cr, Context context, Text &preExp, Text &varDe
+     then (match Config.simCodeTarget()
+           case "omsic" then crefOMSI(cr, context)
+            /*deactivated case "omsicpp" then crefOMSI(cr, context)*/
+-          else jacCrefs(cr, context, 0))
++          else jacCrefs(cr, context, 0, &sub))
+ 
+   case OMSI_CONTEXT(__) then crefOMSI(cr, context)
+   else cref(cr, &sub)
+@@ -4741,20 +4742,39 @@ template contextCrefOld(ComponentRef cr, Context context, Text &auxFunction, Int
+       >>
+     else "_" + System.unquoteIdentifier(crefStr(cr))
+     )
+-  case JACOBIAN_CONTEXT(jacHT=SOME(_)) then jacCrefs(cr, context, ix)
++  case JACOBIAN_CONTEXT(jacHT=SOME(_)) then
++    let &sub = buffer ""
++    jacCrefs(cr, context, ix, &sub)
+   else crefOld(cr, ix)
+ end contextCrefOld;
+ 
+-template jacCrefs(ComponentRef cr, Context context, Integer ix)
++template jacCrefs(ComponentRef cr, Context context, Integer ix, Text &sub)
+   "Generates code for jacobian variables."
+ ::=
+  match context
+    case JACOBIAN_CONTEXT(jacHT=SOME(jacHT)) then
+      match simVarFromHT(cr, jacHT)
+-     case v as SIMVAR(varKind=BackendDAE.JAC_VAR()) then 'jacobian->resultVars[<%index%>]<%crefCCommentWithVariability(v)%>'
+-     case v as SIMVAR(varKind=BackendDAE.JAC_TMP_VAR()) then 'jacobian->tmpVars[<%index%>]<%crefCCommentWithVariability(v)%>'
+-     case v as SIMVAR(varKind=BackendDAE.SEED_VAR()) then 'jacobian->seedVars[<%index%>]<%crefCCommentWithVariability(v)%>'
+-     case SIMVAR(index=-2) then crefOld(cr, ix)
++     case v as SIMVAR(varKind=BackendDAE.JAC_VAR()) then
++       if stringEq(sub, "") then 'jacobian->resultVars[<%index%>]<%crefCCommentWithVariability(v)%>'
++       else '(&(jacobian->resultVars[<%index%>]))<%&sub%><%crefCCommentWithVariability(v)%>'
++     case v as SIMVAR(varKind=BackendDAE.JAC_TMP_VAR()) then
++       if stringEq(sub, "") then 'jacobian->tmpVars[<%index%>]<%crefCCommentWithVariability(v)%>'
++       else '(&(jacobian->tmpVars[<%index%>]))<%&sub%><%crefCCommentWithVariability(v)%>'
++     case v as SIMVAR(varKind=BackendDAE.SEED_VAR()) then
++       if stringEq(sub, "") then 'jacobian->seedVars[<%index%>]<%crefCCommentWithVariability(v)%>'
++       else '(&(jacobian->seedVars[<%index%>]))<%&sub%><%crefCCommentWithVariability(v)%>'
++     case SIMVAR(index=-2) then
++       // Subscripted seed cref not in jac_map (e.g. a cross-Jacobian seed
++       // reference, or a whole-array seed accessed with a dynamic subscript).
++       // Retry with the subscripts stripped: if the base cref resolves to a
++       // SEED_VAR, use ITS index (not the original -2) so the subscript
++       // (still carried separately in &sub) addresses the right seed array.
++       // Otherwise fall through to crefOld for actual values / loop iterators.
++       match simVarFromHT(crefStripSubs(cr), jacHT)
++       case v as SIMVAR(varKind=BackendDAE.SEED_VAR()) then
++         if stringEq(sub, "") then 'jacobian->seedVars[<%v.index%>]<%crefCCommentWithVariability(v)%>'
++         else '(&(jacobian->seedVars[<%v.index%>]))<%&sub%><%crefCCommentWithVariability(v)%>'
++       else crefOld(cr, ix)
+ end jacCrefs;
+ 
+ template contextCrefIsPre(ComponentRef cr, Context context, Text &auxFunction, Boolean isPre)
+@@ -5731,17 +5751,7 @@ case BINARY(__) then
    case POW(__) then
      if isHalf(exp2) then
        let tmp = tempDecl(expTypeFromExpModelica(exp1),&varDecls)
@@ -2613,7 +2870,7 @@ index 40b648ba04..11cefdc8db 100644
      else match realExpIntLit(exp2)
        case SOME(2) then
          let tmp = tempDecl("modelica_real", &varDecls)
-@@ -5760,72 +5751,7 @@ case BINARY(__) then
+@@ -5760,72 +5770,7 @@ case BINARY(__) then
            >>
          '(<%tmp%> * <%tmp%>)'
        case SOME(i) then 'real_int_pow(threadData, <%e1%>, <%i%>)'
@@ -2687,7 +2944,7 @@ index 40b648ba04..11cefdc8db 100644
  
    case UMINUS(__) then daeExpUnary(exp, context, &preExp, &varDecls, &auxFunction)
    case ADD_ARR(__) then
-@@ -6185,7 +6111,7 @@ case IFEXP(__) then
+@@ -6185,7 +6130,7 @@ case IFEXP(__) then
    let eThen = daeExp(expThen, context, &preExpThen, &varDecls, &auxFunction)
    let &preExpElse = buffer ""
    let eElse = daeExp(expElse, context, &preExpElse, &varDecls, &auxFunction)
