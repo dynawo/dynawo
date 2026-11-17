@@ -412,6 +412,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
   BitMask state_;  ///< current state value of the solver
+  bool curvesCalculatedVarsSavedThisStep_ = false;  ///< whether the curves calculated variables were saved before the first event of the current step
 
   bool startFromDump_;  ///< is solver starting from dump
 

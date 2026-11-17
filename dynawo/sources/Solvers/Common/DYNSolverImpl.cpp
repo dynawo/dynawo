@@ -253,6 +253,7 @@ Solver::Impl::solve(const double tAim, double& tNxt) {
   state_.reset();
   model_->reinitMode();
   model_->rotateBuffers();
+  curvesCalculatedVarsSavedThisStep_ = false;
   solveStep(tAim, tNxt);
 
   // Updating values
@@ -265,6 +266,13 @@ Solver::Impl::evalZMode(vector<state_g>& G0, vector<state_g>& G1, const double t
   Timer timer("SolverIMPL::evalZMode");
 #endif
   bool change = false;
+
+  // the curve point written before the event must use the calculated variables computed with the discrete state
+  // before the event, as for algebraic variables: save them before the first discrete update of the step
+  if (!curvesCalculatedVarsSavedThisStep_) {
+    model_->saveCalculatedVarForCurvesBeforeEvent();
+    curvesCalculatedVarsSavedThisStep_ = true;
+  }
 
   // evalZ part
   bool nonSilentZChange;

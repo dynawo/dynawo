@@ -333,6 +333,16 @@ class ModelMulti : public Model, private boost::noncopyable {
   void updateCalculatedVarForCurves() const override;
 
   /**
+   * @copydoc Model::saveCalculatedVarForCurvesBeforeEvent()
+   */
+  void saveCalculatedVarForCurvesBeforeEvent() override;
+
+  /**
+   * @copydoc Model::restoreCalculatedVarForCurvesBeforeEvent()
+   */
+  bool restoreCalculatedVarForCurvesBeforeEvent() override;
+
+  /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
    */
   void dumpParameters(std::map< std::string, std::string>& mapParameters) override;
@@ -637,6 +647,8 @@ class ModelMulti : public Model, private boost::noncopyable {
 
   std::shared_ptr<parameters::ParametersSet> localInitParameters_;  ///< local initialization solver parameters set
   std::vector<std::pair<boost::shared_ptr<SubModel>, unsigned>> curvesCalculatedVarIndexes_;  ///< curves calculated var locations in subModel
+  std::vector<double> curvesCalculatedVarsBeforeEvent_;  ///< values of the curves calculated variables before the last event
+  bool curvesCalculatedVarsBeforeEventSaved_ = false;  ///< whether curvesCalculatedVarsBeforeEvent_ holds values not restored yet
 
   bool updatablesInitialized_;                  ///< true if updatable models have been initialized
   std::shared_ptr<ActionBuffer> actionBuffer_;  ///< action manager for interactive mode

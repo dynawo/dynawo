@@ -1067,12 +1067,12 @@ Simulation::simulate() {
         printHighestDerivativesValues();
 
       BitMask solverState = solver_->getState();
-      bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
         std::vector<double> zNew;
         model_->getCurrentZ(zNew);
         model_->setCurrentZ(zCurrent_);
-        updateCurves(true);
+        // curve point before the event: calculated variables saved by the solver before the discrete update
+        updateCurves(!model_->restoreCalculatedVarForCurvesBeforeEvent());
         model_->setCurrentZ(zNew);
         model_->notifyTimeStep();
         solver_->reinit();
@@ -1085,10 +1085,9 @@ Simulation::simulate() {
         std::vector<double> zNew;
         model_->getCurrentZ(zNew);
         model_->setCurrentZ(zCurrent_);
-        updateCurves(true);
+        updateCurves(!model_->restoreCalculatedVarForCurvesBeforeEvent());
         model_->setCurrentZ(zNew);
         model_->getCurrentZ(zCurrent_);
-        modifZ = true;
       }
 
       if (isCheckCriteriaIter)
@@ -1096,15 +1095,15 @@ Simulation::simulate() {
 
       if (iterationStep) {
         if (currentIterNb % *iterationStep == 0) {
-          updateCurves(!isCheckCriteriaIter && !modifZ);
+          updateCurves(!isCheckCriteriaIter);
         }
       } else if (timeStep) {
         if (tCurrent_ >= nextTimeStep) {
           nextTimeStep = tCurrent_ + *timeStep;
-          updateCurves(!isCheckCriteriaIter && !modifZ);
+          updateCurves(!isCheckCriteriaIter);
         }
       } else {
-        updateCurves(!isCheckCriteriaIter && !modifZ);
+        updateCurves(!isCheckCriteriaIter);
       }
 
       model_->checkDataCoherence(tCurrent_);

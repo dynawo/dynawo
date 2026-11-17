@@ -412,6 +412,18 @@ class Model {
   virtual void updateCalculatedVarForCurves() const = 0;
 
   /**
+   * @brief save the values of the calculated variables needed for curves before the discrete variables are updated by an event
+   */
+  virtual void saveCalculatedVarForCurvesBeforeEvent() = 0;
+
+  /**
+   * @brief set back the calculated variables needed for curves to the values saved before the last event
+   *
+   * @return false if no value was saved since the last call
+   */
+  virtual bool restoreCalculatedVarForCurvesBeforeEvent() = 0;
+
+  /**
    * @brief export the parameters of the model for dump
    *
    * @param mapParameters map associating the file where parameters should be dumped with the stream of parameters

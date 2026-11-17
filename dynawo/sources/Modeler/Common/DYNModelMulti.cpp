@@ -1092,6 +1092,34 @@ ModelMulti::updateCalculatedVarForCurves() const {
   }
 }
 
+void
+ModelMulti::saveCalculatedVarForCurvesBeforeEvent() {
+  curvesCalculatedVarsBeforeEvent_.resize(curvesCalculatedVarIndexes_.size());
+  for (std::size_t i = 0, iEnd = curvesCalculatedVarIndexes_.size(); i < iEnd; ++i) {
+    const boost::shared_ptr<SubModel>& subModel = curvesCalculatedVarIndexes_[i].first;
+    const unsigned varNum = curvesCalculatedVarIndexes_[i].second;
+    if (!subModel || varNum >= subModel->sizeCalculatedVar()) continue;
+    curvesCalculatedVarsBeforeEvent_[i] = subModel->evalCalculatedVarI(varNum);
+  }
+  curvesCalculatedVarsBeforeEventSaved_ = true;
+}
+
+bool
+ModelMulti::restoreCalculatedVarForCurvesBeforeEvent() {
+  if (!curvesCalculatedVarsBeforeEventSaved_)
+    return false;
+  for (std::size_t i = 0, iEnd = curvesCalculatedVarIndexes_.size(); i < iEnd; ++i) {
+    const boost::shared_ptr<SubModel>& subModel = curvesCalculatedVarIndexes_[i].first;
+    const unsigned varNum = curvesCalculatedVarIndexes_[i].second;
+    if (!subModel || varNum >= subModel->sizeCalculatedVar()) continue;
+    subModel->setCalculatedVar(static_cast<int>(varNum), curvesCalculatedVarsBeforeEvent_[i]);
+    // these values only hold for the curve point before the event: the cache must not be read as up to date afterwards
+    subModel->invalidateCalculatedVarsBuffer();
+  }
+  curvesCalculatedVarsBeforeEventSaved_ = false;
+  return true;
+}
+
 void ModelMulti::printVariableNames(const bool withVariableType) {
   Trace::clearLogFile(Trace::variables(), DEBUG);
   Trace::printDynawoLogHeader(Trace::variables());
