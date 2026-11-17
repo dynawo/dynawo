@@ -12,7 +12,7 @@
     of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="SolverTestPrediction">
+  <dyn:modelicaModel id="SolverTestPrediction" generateCalculatedVariables="false">
     <dyn:unitDynamicModel id="solverTestPrediction" name="DYNSolverTestPrediction" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

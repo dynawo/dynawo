@@ -12,13 +12,13 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="lineDisconnection">
+  <dyn:modelicaModel id="lineDisconnection" generateCalculatedVariables="false">
     <dyn:unitDynamicModel id="event" name="DYNDisconnection" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
   <dyn:modelicaModel id="infiniteBus" staticId="GEN">
     <dyn:unitDynamicModel id="InfiniteBus" name="DYNInfiniteBus" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
-  <dyn:modelicaModel id="derivative">
+  <dyn:modelicaModel id="derivative" generateCalculatedVariables="false">
     <dyn:unitDynamicModel id="Derivative" name="DYNDerivative" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
   <dyn:connect id1="lineDisconnection" var1="event_switchOff" id2="NETWORK" var2="_BUS___1__BUS___2_2_state"/>

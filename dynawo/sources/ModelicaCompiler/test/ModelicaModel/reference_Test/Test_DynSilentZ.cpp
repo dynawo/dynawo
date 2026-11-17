@@ -72,9 +72,11 @@ void ModelTestSilentZ_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
+  jacobian = (SYMBOLICJACOBIAN *)calloc(1,sizeof(SYMBOLICJACOBIAN));
+
   data->nbVars =1;
   data->nbF = 1;
-  data->nbModes = 2;
+  data->nbModes = 3;
   data->nbZ = 1;
   data->nbCalculatedVars = 1;
   data->nbDelays = 0;
@@ -92,6 +94,8 @@ void ModelTestSilentZ_Dyn::initializeDataStruc()
   int nb;
   nb = (data->modelData->nVariablesReal > 0) ? data->modelData->nVariablesReal : 0;
   data->simulationInfo->realVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
+  jacobian->seedVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
+  jacobian->tmpVars = (modelica_real*) calloc(nb > 0 ? nb : 0, sizeof(modelica_real));
 
   nb = (data->modelData->nStates > 0) ? data->modelData->nStates  : 0;
   data->simulationInfo->derivativesVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
@@ -209,6 +213,12 @@ modeChangeType_t ModelTestSilentZ_Dyn::evalMode(const double t)
 {
   modeChangeType_t modeChangeType = NO_MODE;
  
+
+  // ----- Mode for TestSilentZ.TestSilentZ_eqFunction_10 ---------
+  // b != pre(b)
+  if (doubleNotEquals(data->localData[0]->discreteVars[0], data->simulationInfo->discreteVarsPre[0])) {
+    return ALGEBRAIC_J_UPDATE_MODE;
+  }
 
   // z2 != pre(z2)
   if (doubleNotEquals(data->localData[0]->integerDoubleVars[0], data->simulationInfo->integerDoubleVarsPre[0])) {
@@ -390,6 +400,27 @@ void ModelTestSilentZ_Dyn::defineVariables(std::vector<boost::shared_ptr<Variabl
 
 void ModelTestSilentZ_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 {
+}
+
+double ModelTestSilentZ_Dyn::evalJtTerm(int fIndex, int varIndex, const double cj, bool complete)
+{
+  if (!complete)
+    return evalJtTerm(fIndex, varIndex, cj, true) - evalJtTerm(fIndex, varIndex, 0., true);
+
+  jacobian->dae_cj = cj;
+
+  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);
+  jacobian->seedVars[varIndex] = 1.;
+
+
+  {
+  // ----- TestSilentZ.TestSilentZ_eqFunction_11 -----
+  if (fIndex == 0) {
+  return ((-jacobian->dae_cj)) * (jacobian->seedVars[0] /* u.SeedA SEED_VAR */);
+  }
+  }
+
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, 0);
 }
 
 void ModelTestSilentZ_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)

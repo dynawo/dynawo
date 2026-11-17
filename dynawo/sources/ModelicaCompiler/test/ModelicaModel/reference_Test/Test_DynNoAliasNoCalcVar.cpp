@@ -72,6 +72,8 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
+  jacobian = (SYMBOLICJACOBIAN *)calloc(1,sizeof(SYMBOLICJACOBIAN));
+
   data->nbVars =4;
   data->nbF = 4;
   data->nbModes = 0;
@@ -92,6 +94,8 @@ void ModelTest_Dyn::initializeDataStruc()
   int nb;
   nb = (data->modelData->nVariablesReal > 0) ? data->modelData->nVariablesReal : 0;
   data->simulationInfo->realVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
+  jacobian->seedVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
+  jacobian->tmpVars = (modelica_real*) calloc(nb > 0 ? nb : 0, sizeof(modelica_real));
 
   nb = (data->modelData->nStates > 0) ? data->modelData->nStates  : 0;
   data->simulationInfo->derivativesVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
@@ -335,6 +339,39 @@ void ModelTest_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 {
   parameters.push_back(ParameterModeler("a", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
   parameters.push_back(ParameterModeler("b", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
+}
+
+double ModelTest_Dyn::evalJtTerm(int fIndex, int varIndex, const double cj, bool complete)
+{
+  if (!complete)
+    return evalJtTerm(fIndex, varIndex, cj, true) - evalJtTerm(fIndex, varIndex, 0., true);
+
+  jacobian->dae_cj = cj;
+
+  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);
+  jacobian->seedVars[varIndex] = 1.;
+
+
+  {
+  // ----- Test.Test_eqFunction_6 -----
+  if (fIndex == 0) {
+  return ((-(data->simulationInfo->realParameter[1] /* b PARAM */))) * (jacobian->seedVars[0] /* u.SeedA SEED_VAR */) - (((data->simulationInfo->realParameter[0] /* a PARAM */)) * ((jacobian->dae_cj) * (jacobian->seedVars[0] /* u.SeedA SEED_VAR */)));
+  }
+  }
+
+  {
+  // ----- Test.Test_eqFunction_7 -----
+  }
+
+  {
+  // ----- Test.Test_eqFunction_8 -----
+  }
+
+  {
+  // ----- Test.Test_eqFunction_9 -----
+  }
+
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, 0);
 }
 
 void ModelTest_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)

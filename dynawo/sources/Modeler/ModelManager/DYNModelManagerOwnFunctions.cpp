@@ -1450,6 +1450,24 @@ modelica_real real_int_pow(modelica_real base, modelica_integer n) {
 }
 
 #ifdef _ADEPT_
+adept::adouble real_int_pow(adept::adouble base, modelica_integer n) {
+  adept::adouble result = 1.0;
+  const bool negativeExponent = n < 0;
+  if (negativeExponent)
+    n = -n;
+  while (n != 0) {
+    if ((n % 2) != 0) {
+      result *= base;
+      n--;
+    }
+    base *= base;
+    n /= 2;
+  }
+  return negativeExponent ? (1 / result) : result;
+}
+#endif
+
+#ifdef _ADEPT_
 void array_alloc_scalar_real_array_adept(real_array_t_adept* dest, int n, adept::adouble first, ...) {
   va_list ap;
   dest->ndims = 1;

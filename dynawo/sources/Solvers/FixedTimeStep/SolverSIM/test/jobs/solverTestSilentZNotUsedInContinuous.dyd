@@ -12,7 +12,7 @@
     for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="SolverTestSilentZNotUsedInContinuous">
+  <dyn:modelicaModel id="SolverTestSilentZNotUsedInContinuous" generateCalculatedVariables="false">
     <dyn:unitDynamicModel id="solverTestSilentZ" name="DYNSolverTestSilentZNotUsedInContinuous" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

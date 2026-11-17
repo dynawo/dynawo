@@ -521,6 +521,17 @@ inline void create_index_spec(index_spec_t* dest, int nridx, ...) {
  */
 modelica_real real_int_pow(modelica_real base, modelica_integer n);
 
+#ifdef _ADEPT_
+/**
+ * @brief real_int_pow for adept doubles (used in the generated evalFAdept and evalCalculatedVarIAdept)
+ *
+ * @param base base of the power
+ * @param n integer exponent
+ * @return base^n
+ */
+adept::adouble real_int_pow(adept::adouble base, modelica_integer n);
+#endif
+
 
 
 

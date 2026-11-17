@@ -374,6 +374,13 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   "jobs/solverTestDelta.iidm", "jobs/solverTestDelta.par", tStart, tStop);
   const SolverFactory::SolverPtr& solver = p.first;
   std::shared_ptr<Model> model = p.second;
+  // index of the differential variable of the derivative model (der(Derivative_y) = x = voltage of bus F21)
+  int iDerivativeY = -1;
+  for (int i = 0; i < model->sizeY(); ++i) {
+    if (model->getVariableName(i) == "derivative_Derivative_y")
+      iDerivativeY = i;
+  }
+  ASSERT_NE(iDerivativeY, -1);
 
   solver->calculateIC(tStop);
 
@@ -398,7 +405,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.95214618832553821193);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[iDerivativeY], 0.95214618832553821193);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
   for (size_t i = 0; i < z.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
@@ -419,7 +426,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
   ASSERT_EQ(model->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.95214618832553821193);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[iDerivativeY], 0.95214618832553821193);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.0000002);
   for (size_t i = 0; i < z.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
@@ -443,7 +450,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
   ASSERT_EQ(model->getModeChangeType(), NO_MODE);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.93468597466729808065);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[iDerivativeY], 0.93468597466729808065);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.0000002);
   for (size_t i = 0; i < z.size(); ++i) {
     if (i == 12 || i == 16) {
@@ -461,7 +468,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482837234209295);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.93468597860101021446);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[iDerivativeY], 0.93468597860101021446);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2.);
   for (size_t i = 0; i < z.size(); ++i) {
     if (i == 12 || i == 16) {

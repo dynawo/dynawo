@@ -307,9 +307,13 @@ class MyModelica: public ModelModelica {
     return 10.;
   }
 
+  double evalJtTerm(int /*fIndex*/, int /*varIndex*/, const double /*cj*/, bool /*complete*/) override {
+    return 0.;
+  }
+
 #ifdef _ADEPT_
   adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, unsigned /*indexOffset*/,
-      const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const override {
+      const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) override {
     return 2*y[0];
   }
 #endif
@@ -586,7 +590,9 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->testNbCallY0(1);
   ASSERT_EQ(mm->evalMode(0.), DIFFERENTIAL_MODE);
   mm->evalCalculatedVars();
-  mm->testNbCallCalcVars(1);
+  // evalG fills the calculated variables cache (1), getY0 evaluates the calculated variables (2), explicit call (3);
+  // evalZ and evalMode reuse the up-to-date cache
+  mm->testNbCallCalcVars(3);
   ASSERT_DOUBLE_EQUALS_DYNAWO(mm->evalCalculatedVarI(0), 10.);
   std::vector<int> res;
   mm->getIndexesOfVariablesUsedForCalculatedVarI(0, res);

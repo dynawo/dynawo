@@ -72,6 +72,8 @@ void ModelGeneratorPQ_Init::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 2;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
+  jacobian = (SYMBOLICJACOBIAN *)calloc(1,sizeof(SYMBOLICJACOBIAN));
+
   data->nbVars =2;
   data->nbF = 2;
   data->nbModes = 3;
@@ -92,6 +94,8 @@ void ModelGeneratorPQ_Init::initializeDataStruc()
   int nb;
   nb = (data->modelData->nVariablesReal > 0) ? data->modelData->nVariablesReal : 0;
   data->simulationInfo->realVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
+  jacobian->seedVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
+  jacobian->tmpVars = (modelica_real*) calloc(nb > 0 ? nb : 0, sizeof(modelica_real));
 
   nb = (data->modelData->nStates > 0) ? data->modelData->nStates  : 0;
   data->simulationInfo->derivativesVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
@@ -219,7 +223,7 @@ void ModelGeneratorPQ_Init::setFomc(double * f, propertyF_t type)
   }
 }
 
-modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double t) 
+modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double t)
 {
   modeChangeType_t modeChangeType = NO_MODE;
  
@@ -331,6 +335,28 @@ void ModelGeneratorPQ_Init::defineParameters(std::vector<ParameterModeler>& para
   parameters.push_back(ParameterModeler("generator_UPhase0", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("generator_iStart0Pu_im", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
   parameters.push_back(ParameterModeler("generator_iStart0Pu_re", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
+}
+
+double ModelGeneratorPQ_Init::evalJtTerm(int fIndex, int varIndex, const double cj, bool complete)
+{
+  if (!complete)
+    return evalJtTerm(fIndex, varIndex, cj, true) - evalJtTerm(fIndex, varIndex, 0., true);
+
+  jacobian->dae_cj = cj;
+
+  std::fill(jacobian->seedVars, jacobian->seedVars + data->nbVars, 0);
+  jacobian->seedVars[varIndex] = 1.;
+
+
+  {
+  // ----- GeneratorPQ_INIT_eqFunction_7 -----
+  }
+
+  {
+  // ----- GeneratorPQ_INIT_eqFunction_8 -----
+  }
+
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, 0);
 }
 
 #ifdef _ADEPT_

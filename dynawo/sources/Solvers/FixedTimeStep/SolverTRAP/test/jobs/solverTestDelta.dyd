@@ -12,7 +12,7 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="lineDisconnection">
+  <dyn:modelicaModel id="lineDisconnection" generateCalculatedVariables="false">
     <dyn:unitDynamicModel id="event" name="DYNDisconnection" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
   <dyn:modelicaModel id="infiniteBus" staticId="GEN">
