@@ -657,6 +657,12 @@ if(NOT OMCompiler)
       add_custom_target(omdev)
     endif()
 
+    # omc links libcurl, whose dlls are not copied to bin by Makefile.omdev.mingw
+    set(openmodelica_omdev_extra_dlls "")
+    foreach(dll libcurl-4 libbrotlidec libbrotlicommon libcrypto-1_1-x64 libssl-1_1-x64 libidn2-0 libpsl-5 libssh2-1 libzstd)
+      list(APPEND openmodelica_omdev_extra_dlls ${OMDEV_HOME}/tools/msys/mingw64/bin/${dll}.dll)
+    endforeach()
+
     ExternalProject_Add(openmodelica
       DEPENDS             omdev
       INSTALL_DIR         ${OPENMODELICA_INSTALL}
@@ -678,12 +684,13 @@ if(NOT OMCompiler)
 
       BUILD_COMMAND       ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" "OPENMODELICAHOME=<SOURCE_DIR>" "MSYS2_PATH_TYPE=inherit" "MSYSTEM=MINGW64"
                                                   ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe
-                                                  --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j$CPU_COUNT omc"
+                                                  --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j${CPU_COUNT} omc"
 
       INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/build <INSTALL_DIR>
               COMMAND     ${CMAKE_COMMAND} -E copy_if_different <INSTALL_DIR>/bin/omc.exe <INSTALL_DIR>/bin/omcDynawo.exe
               COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/bin <INSTALL_DIR>/tools/msys/mingw64/bin
               COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/lib/gcc <INSTALL_DIR>/tools/msys/mingw64/lib/gcc
+              COMMAND     ${CMAKE_COMMAND} -E copy_if_different ${openmodelica_omdev_extra_dlls} <INSTALL_DIR>/bin
     )
   else()
     # Recent compilers turn implicit declarations and other legacy C constructs into errors
@@ -749,9 +756,11 @@ if(NOT OMCompiler)
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ""
 
-    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica <INSTALL_DIR>/Modelica
-            COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices <INSTALL_DIR>/ModelicaServices
-            COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo <INSTALL_DIR>/Complex.mo
+    # omc reads the library version from the directory name: it is needed to satisfy the uses annotations
+    # (otherwise omc >= 1.2x tries to download the library with its package manager)
+    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica "<INSTALL_DIR>/Modelica ${modelicalib_version}"
+            COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices "<INSTALL_DIR>/ModelicaServices ${modelicalib_version}"
+            COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo "<INSTALL_DIR>/Complex ${modelicalib_version}.mo"
   )
   ExternalProject_Add_StepDependencies(openmodelica install modelicalib)
 else()

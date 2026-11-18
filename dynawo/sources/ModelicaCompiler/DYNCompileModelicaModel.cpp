@@ -293,6 +293,9 @@ void mosAddHeader(const string& mosFilePath, ofstream& mosFile) {
 void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& filesToImport, ofstream& mosFile) {
   if (importModelicaPackage) {
     mosFile << "// .. Load Modelica package" << std::endl;
+    // omc >= 1.2x only looks in ~/.openmodelica/libraries by default: use the library installed with OpenModelica
+    const string omLibrary = boost::replace_all_copy(getMandatoryEnvVar("OPENMODELICAHOME"), "\\", "/") + "/lib/omlibrary";
+    mosFile << "setModelicaPath(\"" << omLibrary << "\"); getErrorString();" << std::endl;
     mosFile << "loadModel(Modelica); getErrorString();" << std::endl;
     mosFile << std::endl;
   }
