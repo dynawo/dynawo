@@ -700,6 +700,8 @@ class ModelManager : public SubModel, public ConstraintSource, private boost::no
 
   bool modelInitUsed_;  ///< whether init model is used
   bool relationsPreInitialized_ = false;  ///< whether relationsPre of the dynamic model has been set by a first rotateBuffers
+  std::set<std::pair<unsigned int, unsigned int> > symbolicJtMismatchesReported_;  ///< (equation, variable) pairs whose symbolic
+                                                                                    ///< Jacobian mismatch was already reported
   std::unordered_map<int, double> cstrMins_;  ///< minimum values for all variables causing constraints, by index
   std::unordered_map<int, double> cstrMaxs_;  ///< maximum values for all variables causing constraints, by index
 };

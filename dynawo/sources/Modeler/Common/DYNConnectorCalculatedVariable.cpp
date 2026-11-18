@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 
 #include "PARParametersSet.h"
 
@@ -98,8 +99,24 @@ ConnectorCalculatedVariable::evalJt(const double t, const double /*cj*/, const i
   vector<double> jModel(varExtIndexes_.size());
   model_->evalJCalculatedVarI(indexCalculatedVariable_, jModel);
 
-  for (std::size_t i = 0, iEnd = varExtIndexes_.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
-    jt.addTerm(model_->yDeb() + varExtIndexes_[i], jModel[i]);
+  // the same variable can appear several times in varExtIndexes_ (e.g. shared by chained calculated variables):
+  // its derivative is the sum of the corresponding terms, and only one term per row can be added to the column
+  vector<int> uniqueIndexes;
+  vector<double> uniqueValues;
+  uniqueIndexes.reserve(varExtIndexes_.size());
+  uniqueValues.reserve(varExtIndexes_.size());
+  for (std::size_t i = 0, iEnd = varExtIndexes_.size(); i < iEnd; ++i) {
+    const auto it = std::find(uniqueIndexes.begin(), uniqueIndexes.end(), varExtIndexes_[i]);
+    if (it == uniqueIndexes.end()) {
+      uniqueIndexes.push_back(varExtIndexes_[i]);
+      uniqueValues.push_back(jModel[i]);
+    } else {
+      uniqueValues[it - uniqueIndexes.begin()] += jModel[i];
+    }
+  }
+
+  for (std::size_t i = 0, iEnd = uniqueIndexes.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
+    jt.addTerm(model_->yDeb() + uniqueIndexes[i], uniqueValues[i]);
   }
 }
 

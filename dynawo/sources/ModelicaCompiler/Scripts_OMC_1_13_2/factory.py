@@ -19,6 +19,13 @@ from utils import *
 
 ADEPT_SUFFIX= "_adept "
 ADEPT_DOUBLE= "adept::adouble"
+# Complex types whose adept version is defined once in DYNModelManagerOwnFunctions.h (namespace DYN)
+GLOBAL_ADEPT_COMPLEX_TYPES = ["Complex",
+                              "Modelica_ComplexBlocks_Interfaces_ComplexInput", "Modelica_ComplexBlocks_Interfaces_ComplexOutput",
+                              "Dynawo_Connectors_ComplexPerUnitInput", "Dynawo_Connectors_ComplexPerUnitOutput",
+                              "Dynawo_Connectors_ComplexVoltagePuInput", "Dynawo_Connectors_ComplexVoltagePuOutput",
+                              "Dynawo_Connectors_ComplexCurrentPuInput", "Dynawo_Connectors_ComplexCurrentPuOutput",
+                              "Dynawo_Types_ComplexCurrentPu", "Dynawo_Types_ComplexVoltagePu"]
 
 
 def cmp_to_key_dynawo(mycmp):
@@ -2735,7 +2742,7 @@ class Factory:
             else:
                 func_header = func.get_return_type() + ADEPT_SUFFIX + get_adept_function_name(func) + "("
                 return_type = func.get_return_type()
-                if not return_type.startswith("Complex"):
+                if not return_type.startswith("Complex") and return_type not in GLOBAL_ADEPT_COMPLEX_TYPES:
                     return_type = MODEL_NAME_NAMESPACE + func.get_return_type()
                 func_header_cpp = return_type + ADEPT_SUFFIX + get_adept_function_name(func) + "("
             for param in func.get_params():
@@ -3453,6 +3460,7 @@ class Factory:
         ptrn_struct_end = re.compile(r'\s*}\s*(?P<name>.*)\s*;')
         ptrn_typedef = re.compile(r'\s*typedef (?P<name1>.*) (?P<name2>.*);')
         adept_reading_struct = False
+        adept_struct_start = 0
         for line in tmp_list:
             if 'threadData_t *threadData,' in line:
                 line = line.replace("threadData_t *threadData,","")
@@ -3461,15 +3469,15 @@ class Factory:
             if "Modelica_ComplexBlocks_Interfaces_Complex" in line or "Complex_" in line:
                 line = line.replace(");",") const;")
             self.list_for_externalcalls_header.append(line)
-            if "} Complex;" in line:
-                 self.list_for_evalfadept_external_call_headers.pop()
-                 self.list_for_evalfadept_external_call_headers.pop()
-                 self.list_for_evalfadept_external_call_headers.pop()
-                 self.list_adept_structs.append('Complex')
-                 adept_reading_struct = False
-                 continue
+            match_end = ptrn_struct_end.search(line)
+            if adept_reading_struct and match_end is not None and match_end.group('name').strip() in GLOBAL_ADEPT_COMPLEX_TYPES:
+                del self.list_for_evalfadept_external_call_headers[adept_struct_start:]
+                self.list_adept_structs.append(match_end.group('name').strip())
+                adept_reading_struct = False
+                continue
             match = ptrn_struct.search(line)
             if match is not None:
+                adept_struct_start = len(self.list_for_evalfadept_external_call_headers)
                 self.list_for_evalfadept_external_call_headers.append(line)
                 adept_reading_struct = True
             elif adept_reading_struct:
@@ -3492,7 +3500,7 @@ class Factory:
                     base_name =  match_typedef.group('name1')
                     new_name = match_typedef.group('name2')
                     if base_name in self.list_adept_structs:
-                        if "typedef Complex" not in line:
+                        if "typedef Complex" not in line and new_name not in GLOBAL_ADEPT_COMPLEX_TYPES:
                             self.list_for_evalfadept_external_call_headers.append("typedef " + base_name +ADEPT_SUFFIX + new_name + ADEPT_SUFFIX +";\n")
                         self.list_adept_structs.append(new_name)
 

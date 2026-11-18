@@ -2078,10 +2078,6 @@ class ReaderOMC:
                 if is_integer_var(var): continue
                 if is_bool_var(var): continue
                 if var.is_alias(): continue
-                # an external variable has no defining equation in its model (its value is imposed by the
-                # connected model, its only equation is the fictitious one added by scriptVarExt): it can
-                # never be a calculated variable
-                if name in self.fictive_continuous_vars or name in self.fictive_optional_continuous_vars: continue
 
                 if name in self.list_flow_vars:
                     print_warning("Flow variable " + name + " is being set as a calculated variable: "
