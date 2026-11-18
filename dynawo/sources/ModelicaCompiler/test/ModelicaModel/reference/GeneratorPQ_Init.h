@@ -43,6 +43,7 @@ namespace DYN {
     void setParameters(std::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
+    double evalJtTerm(int fIndex, int varIndex, const double cj, bool complete = true);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(unsigned iCalculatedVar);
@@ -60,11 +61,12 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("eec3189cd52007cbb2377eb7edd5f5a1"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("6597b882f2254fccb6728306e0dce201"); }
     inline bool isDataStructInitialized() const { return dataStructInitialized_; }
 
     private:
     DYNDATA * data;
+    SYMBOLICJACOBIAN* jacobian;
     ModelManager * modelManager_;
     bool dataStructInitialized_;
     std::string modelType_;
@@ -78,6 +80,7 @@ namespace DYN {
 
     private:
    //External Calls
+     #pragma GCC diagnostic ignored "-Wunused-parameter"
      #define Complex_construct( ths ) Complex_construct_p( &ths )
      #define Complex_copy(src,dst) Complex_copy_p(&src, &dst)
      #define Complex_wrap_vars( dst , in_re, in_im) Complex_wrap_vars_p( &dst , in_re, in_im)
