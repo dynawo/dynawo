@@ -110,7 +110,7 @@ If you are on **MacOS** you can use [Docker](#docker).
 
 - glibc 2.28 or newer (the Linux distribution is built on Oracle Linux 8)
 - Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++11 compatible for C++ standard
-- Python2 or Python3
+- Python3
 - Binary utilities: [curl](https://curl.haxx.se/) and unzip
 - [CMake](https://cmake.org/)
 
@@ -119,8 +119,8 @@ If you are on **MacOS** you can use [Docker](#docker).
 You can install the dependencies for Ubuntu or Fedora with:
 
 ``` bash
-$> apt install -y g++ unzip curl python
-$> dnf install -y gcc-c++ unzip curl python
+$> apt install -y g++ unzip curl python3
+$> dnf install -y gcc-c++ unzip curl python3
 ```
 
 ### Windows Requirements for Distribution
@@ -129,7 +129,7 @@ On Windows you can either run Dyna&omega;o with distribution models and in this 
 
 - [Visual Studio 2022](https://visualstudio.microsoft.com)
 - [CMake](https://cmake.org/)
-- [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
+- [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
 
 **Note** For Python you need to have the `python` command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with `set DYNAWO_PYTHON_COMMAND=python3`.
 
@@ -178,12 +178,12 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 - Build systems: [autoconf](https://www.gnu.org/software/autoconf/), [automake](https://www.gnu.org/software/autoconf/), [libtool](https://www.gnu.org/software/libtool/), [pkgconf](http://pkgconf.org/), make, [CMake](https://cmake.org/)
 - Binary utilities: [xz](https://tukaani.org/xz/), patch, [GNU sed](https://www.gnu.org/software/sed/), msgfmt from [gettext](https://www.gnu.org/software/gettext/), [rsync](https://rsync.samba.org/)
 - Java ([openjdk](https://openjdk.java.net/) for example)
-- Libraries: [expat](https://libexpat.github.io/), [BLAS](http://www.netlib.org/blas/index.html), [LAPACK](http://www.netlib.org/lapack/index.html)
+- Libraries: [expat](https://libexpat.github.io/), [BLAS](http://www.netlib.org/blas/index.html), [LAPACK](http://www.netlib.org/lapack/index.html), [SQLite](https://www.sqlite.org/), [libcurl](https://curl.se/libcurl/), [zlib](https://zlib.net/) and [Boost](https://www.boost.org/) headers (development packages, for example `zlib-devel` and `boost-devel` on Fedora/Oracle Linux, `zlib1g-dev` and `libboost-dev` on Ubuntu)
 - [lpsolve55](http://lpsolve.sourceforge.net/) or [bison](https://www.gnu.org/software/bison/) and [flex](https://www.gnu.org/software/flex/) (to let OpenModelica compiles lpsolve itself)
 
 ##### Dyna&omega;o user
 - [CMake](https://cmake.org/): minimum version 3.9.6
-- Python2 or Python3
+- Python3
 - Python packages: [lxml](https://lxml.de/)
 - Binary utilities: [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/), [xmllint](http://xmlsoft.org/xmllint.html)
 
@@ -200,7 +200,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 - [Visual Studio 2022](https://visualstudio.microsoft.com/)
 - [CMake](https://cmake.org/)
 - Java ([openjdk](https://openjdk.java.net/) for example) to build OpenModelica Compiler
-- [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
+- [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
 
 **Note** For Python you need to have the `python` command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with `set DYNAWO_PYTHON_COMMAND=python3`.
 
@@ -210,25 +210,15 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 <a name="build_linux"></a>
 #### Linux
 
-You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu until 19.04 included:
+You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu 22.04 and later:
 
 ``` bash
-$> apt-get install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt4-qmake qt4-dev-tools lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync bash-completion
-```
-
-For Ubuntu 20.04 use:
-``` bash
-$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt5-default lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev
-```
-
-For Ubuntu 22.04 use:
-``` bash
-$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev  lsb-release libxml2-utils python3-lxml python3-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev lsb-release libxml2-utils python3-lxml python3-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev
 ```
 
 And for Fedora:
 ``` bash
-$> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel libarchive-devel zlib-devel doxygen doxygen-latex qt-devel gettext patch wget python-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python-pip python-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python-lxml graphviz libcurl-devel bash-completion
+$> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel libarchive-devel zlib-devel doxygen doxygen-latex gettext patch wget python3-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python3-pip python3-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python3-lxml graphviz libcurl-devel bash-completion
 ```
 
 To build Dyna&omega;o you need to clone this repository and launch the following commands in the source code directory, it will create a `myEnvDynawo.sh` file that will be your personal entrypoint to launch Dyna&omega;o and parametrise some options.
@@ -407,7 +397,7 @@ A. Guironnet, M. Saugier, S. Petitrenaud, F. Xavier, and P. Panciatici, “Towar
 Dyna&omega;o is licensed under the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, you can obtain one at http://mozilla.org/MPL/2.0. You can also see the [LICENSE](LICENSE.txt) file for more information.
 
 Dyna&omega;o is using some external libraries to run simulations:
-* [OpenModelica](https://www.openmodelica.org/), a Modelica environment developed and maintained by the Open Source Modelica Consortium distributed under a GPL V3.0 or OSMC Public License V1.2. The current version used is V1.13.2.
+* [OpenModelica](https://www.openmodelica.org/), a Modelica environment developed and maintained by the Open Source Modelica Consortium distributed under a GPL V3.0 or OSMC Public License V1.2. The current version used is V1.24.5.
 * [SUNDIALS](https://computation.llnl.gov/projects/sundials), a suite of solvers developed and maintained by the Lawrence Livermore National Lab and distributed under a BSD-3-Clause license. The 6.3.0 version is currently used.
 * [SuiteSparse](http://faculty.cse.tamu.edu/davis/suitesparse.html), and in particular KLU, a LU decomposition library that is part of the suite sparse project, developed and maintained by T. A. Davis et al. at the University of Florida distributed under a LGPL-2.1+. The version 5.10.1 of suite sparse is the one used by Dyna&omega;o.
 * [Adept](http://www.met.reading.ac.uk/clouds/adept/), an automatic differentiation library that has been developed and maintained at the University of Reading by R.J. Hogan distributed under Apache-2.0. It is the version 2.1.1 that is integrated into Dyna&omega;o.
