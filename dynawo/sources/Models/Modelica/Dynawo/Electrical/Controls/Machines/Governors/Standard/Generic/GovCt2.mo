@@ -214,7 +214,7 @@ model GovCt2 "Governor type GovCT2"
     Placement(visible = true, transformation(origin = {-50, -128}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.RateLimFirstOrderFreeze firstOrdertActuatorRatelim(T = tActuator, UseRateLim = true, Y0 = initValvePu, y(fixed = true)) annotation(
     Placement(visible = true, transformation(origin = {214, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power expOmegaToTheDm(N = initDmExponent, NInteger = false) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation expOmegaToTheDm(N = initDmExponent, NInteger = false) annotation(
     Placement(visible = true, transformation(origin = {204, 152}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrdertFLoad(T = tFLoad, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = initTexPu) annotation(
     Placement(visible = true, transformation(origin = {34, 114}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

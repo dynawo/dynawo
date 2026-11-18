@@ -76,9 +76,9 @@ model Uel2c "IEEE (2016) overexcitation limiter type UEL2C model"
     Placement(visible = true, transformation(origin = {-290, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold(threshold = VBiasPu) annotation(
     Placement(visible = true, transformation(origin = {-290, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power(N = K2, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power(N = K2, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-150, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power1(N = K1, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power1(N = K1, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
