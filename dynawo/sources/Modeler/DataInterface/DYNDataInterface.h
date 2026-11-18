@@ -189,6 +189,30 @@ class DataInterface {
   virtual std::string getBusName(const std::string& staticID, const std::string& labelNode) = 0;
 
   /**
+   * @brief get the id of the voltage level a static component belongs to
+   *
+   * Used to resolve the \@VOLTAGE_LEVEL\@ macro in DYD connections.
+   * If staticId is itself a voltage level id, it is returned as-is.
+   *
+   * @param staticId static id of the component (or voltage level id)
+   * @return id of the voltage level, empty string if not found
+   */
+  virtual std::string getVoltageLevelId(const std::string& staticId) = 0;
+
+  /**
+   * @brief get the name of the calculated bus at a given node index in a NODE_BREAKER voltage level
+   *
+   * This corresponds to the macro \@VL_ID\@\@NODE\@\@N\@ used in DYD connections,
+   * where N is a non-negative decimal integer identifying the node within the voltage level,
+   * and VL_ID is either a literal voltage level id or the result of \@VOLTAGE_LEVEL\@ substitution.
+   *
+   * @param voltageLevelId id of the voltage level (after substitution)
+   * @param nodeIndex node index within the voltage level
+   * @return name of the calculated bus that contains the given node, empty string if not found
+   */
+  virtual std::string getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex) = 0;
+
+  /**
    * @brief dump the network to a file with the proper format
    * @param filepath file to create
    */

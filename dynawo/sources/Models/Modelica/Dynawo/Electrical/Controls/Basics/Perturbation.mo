@@ -17,7 +17,8 @@ model Perturbation "Parameterizable perturbation model : adds a constant signal 
   parameter Real Height "Amplitude of the perturbation to be added";
   parameter Types.Time tStep "Time instant when the perturbation occurs in s";
 
-  Modelica.Blocks.Interfaces.RealInput signal(start = Value0);
+  Modelica.Blocks.Interfaces.RealInput signal(start = Value0) annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, -10}, {-100, 10}})));
   Modelica.Blocks.Interfaces.RealOutput perturbatedSignal(start = Value0);
 
   parameter Real Value0 "Start value of the output";

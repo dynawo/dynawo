@@ -17,7 +17,7 @@ model GovCt2St4b "Active power variation on the load with governor GovCT2"
   extends Icons.Example;
 
   // Generator and regulations
-  Dynawo.Examples.BaseClasses.GeneratorSynchronousInterfaces generatorSynchronous(
+  Dynawo.Examples.BaseClasses.InitializedGeneratorSynchronous generatorSynchronous(
     DPu = 0,
     ExcitationPu = Dynawo.Electrical.Machines.OmegaRef.BaseClasses.GeneratorSynchronousParameters.ExcitationPuType.NoLoad,
     H = 4,
@@ -205,18 +205,18 @@ equation
     Line(points = {{119, 0}, {110, 0}, {110, 50}, {118, 50}}, color = {0, 0, 127}));
   connect(UsRefPu.y, avr.UsRefPu) annotation(
     Line(points = {{61, 50}, {94, 50}, {94, 62}, {118, 62}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.UsPu_out, avr.UsPu) annotation(
+  connect(generatorSynchronous.UStatorPu, avr.UsPu) annotation(
     Line(points = {{38, 18}, {100, 18}, {100, 58}, {118, 58}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.uPu_out, avr.utPu) annotation(
-    Line(points = {{4, 18}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
-  connect(generatorSynchronous.iStatorPu_out, avr.itPu) annotation(
-    Line(points = {{12, 18}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
-  connect(generatorSynchronous.IRotorPu_out, avr.IrPu) annotation(
-    Line(points = {{28, 18}, {28, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
+  connect(generatorSynchronous.uPu, avr.utPu) annotation(
+    Line(points = {{4, 20}, {4, 30}, {152, 30}, {152, 53}, {142, 53}, {142, 52}}, color = {85, 170, 255}));
+  connect(generatorSynchronous.iStatorPu, avr.itPu) annotation(
+    Line(points = {{12, 20}, {12, 26}, {156, 26}, {156, 56}, {142, 56}}, color = {85, 170, 255}));
+  connect(generatorSynchronous.IRotorPu, avr.IrPu) annotation(
+    Line(points = {{20, 20}, {20, 80}, {100, 80}, {100, 70}, {118, 70}}, color = {0, 0, 127}));
   connect(const1.y, avr.UOelPu) annotation(
     Line(points = {{88, 66}, {118, 66}}, color = {0, 0, 127}));
-  connect(avr.EfdPu, generatorSynchronous.efdPu_in) annotation(
-    Line(points = {{141, 60}, {160, 60}, {160, -100}, {8, -100}, {8, -16}}, color = {0, 0, 127}));
+  connect(avr.EfdPu, generatorSynchronous.efdPu) annotation(
+    Line(points = {{141, 60}, {160, 60}, {160, -100}, {8, -100}, {8, -20}}, color = {0, 0, 127}));
   connect(load.terminal, generatorSynchronous.terminal) annotation(
     Line(points = {{-40, -20}, {-40, 0}, {20, 0}}, color = {0, 0, 255}));
   connect(QRefPu.y, load.QRefPu) annotation(
@@ -225,16 +225,16 @@ equation
     Line(points = {{-58, -50}, {-44, -50}, {-44, -28}}, color = {0, 0, 127}));
   connect(governor.omegaRefPu, OmegaRef.y) annotation(
     Line(points = {{99, -24}, {80, -24}, {80, -20}, {73, -20}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.omegaPu_out, governor.omegaPu) annotation(
+  connect(generatorSynchronous.omegaPu, governor.omegaPu) annotation(
     Line(points = {{38, -6}, {90, -6}, {90, -32}, {99, -32}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
   connect(PGovernorRefPu.y, governor.PRefPu) annotation(
     Line(points = {{73, -40}, {99, -40}}, color = {0, 0, 127}));
   connect(constant1.y, governor.PMwSetPu) annotation(
     Line(points = {{73, -60}, {80, -60}, {80, -48}, {99, -48}}, color = {0, 0, 127}));
-  connect(generatorSynchronous.PGenPu_out, governor.PGenPu) annotation(
+  connect(generatorSynchronous.PGenPu, governor.PGenPu) annotation(
     Line(points = {{38, 10}, {50, 10}, {50, -80}, {90, -80}, {90, -56}, {99, -56}}, color = {0, 0, 127}));
-  connect(governor.PmPu, generatorSynchronous.PmPu_in) annotation(
-    Line(points = {{142, -40}, {150, -40}, {150, -90}, {32, -90}, {32, -16}}, color = {0, 0, 127}));
+  connect(governor.PmPu, generatorSynchronous.PmPu) annotation(
+    Line(points = {{142, -40}, {150, -40}, {150, -90}, {32, -90}, {32, -20}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",
