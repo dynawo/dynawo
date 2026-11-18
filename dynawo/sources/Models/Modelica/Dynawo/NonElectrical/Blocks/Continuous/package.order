@@ -7,6 +7,7 @@ AbsLimRateLimFirstOrderFreezeLimDetection
 AntiWindupIntegrator
 DecreaseDetection
 DiscreteIntegrator
+Exponentiation
 IncreaseDetection
 IntegratorWithReset
 IntegratorSetFreeze
@@ -22,7 +23,6 @@ PIAntiWindup
 PIAntiWindupVariableLimits
 PIFreeze
 Power
-PowerExp
 RampTrackingFilter
 RateLimFirstOrderFreeze
 SecondOrder

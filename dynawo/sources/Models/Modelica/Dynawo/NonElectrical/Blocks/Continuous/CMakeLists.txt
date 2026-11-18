@@ -23,6 +23,7 @@ set(MODEL_FILES
   DiscreteIntegrator.mo
   DiscreteIntegrator.extvar
   DiscreteIntegrator.mandatoryParam
+  Exponentiation.mo
   IncreaseDetection.mo
   IntegratorWithReset.mo
   IntegratorSetFreeze.mo
@@ -38,7 +39,6 @@ set(MODEL_FILES
   PIAntiWindupVariableLimits.mo
   PIFreeze.mo
   Power.mo
-  PowerExp.mo
   RampTrackingFilter.mo
   RateLimFirstOrderFreeze.mo
   SecondOrder.mo
