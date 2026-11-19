@@ -873,16 +873,27 @@ ModelMulti::createCalculatedVariableConnection(const shared_ptr<SubModel>& subMo
   string name = subModel1->name() + "_" + calculatedVarName1;
   bool isUpdatable = subModel1->getIsUpdatable();
 
-  if (variable1->isAlias())
+  // the connection can be made through an alias of the calculated variable, with its own local type (FLOW alias of a
+  // CONTINUOUS variable) and sign: the connector carries the value of the connected variable
+  typeVar_t localType1 = variable1->getType();
+  const bool negated1 = variable1->getNegated();
+  if (variable1->isAlias()) {
+    localType1 = dynamic_pointer_cast<VariableAlias>(variable1)->getLocalType();
     name = subModel1->name() + "_" + subModel1->getCalculatedVarName(variable1->getIndex());
+  }
+  if (negated1)
+    name += "_negated";
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
-    subModelConnector = (variable1->getType() == DISCRETE || variable1->getType() == INTEGER || variable1->getType() == BOOLEAN)?
-                    setConnector(shared_ptr<ConnectorCalculatedDiscreteVariable>(new ConnectorCalculatedDiscreteVariable()),
-                    name, subModel1, variable1, isUpdatable) :
-                    setConnector(shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable()),
-                    name, subModel1, variable1, isUpdatable);
+    if (variable1->getType() == DISCRETE || variable1->getType() == INTEGER || variable1->getType() == BOOLEAN) {
+      subModelConnector = setConnector(shared_ptr<ConnectorCalculatedDiscreteVariable>(new ConnectorCalculatedDiscreteVariable()),
+                                       name, subModel1, variable1, isUpdatable);
+    } else {
+      shared_ptr<ConnectorCalculatedVariable> connector(new ConnectorCalculatedVariable());
+      connector->setConnectedVariableProperties(localType1, negated1);
+      subModelConnector = setConnector(connector, name, subModel1, variable1, isUpdatable);
+    }
     addSubModel(subModelConnector, "");  // no library for connectors
     subModelIdxToConnectorCalcVarsIdx_[subModelByName_[subModel1->name()]].push_back(subModels_.size() - 1);
   }

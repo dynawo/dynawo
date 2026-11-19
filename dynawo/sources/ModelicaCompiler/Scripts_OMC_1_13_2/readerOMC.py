@@ -2048,6 +2048,9 @@ class ReaderOMC:
 
         function_to_remove = []
         for f in self.list_func_16dae_c:
+            # a Modelica reinit modifies a variable defined elsewhere: it is never the definition of a calculated variable
+            if is_modelica_reinit_body(f.get_body()):
+                continue
             f_num_omc = f.get_num_omc()
             name_var_eval = []
             if f_num_omc in map_num_eq_vars_defined.keys():

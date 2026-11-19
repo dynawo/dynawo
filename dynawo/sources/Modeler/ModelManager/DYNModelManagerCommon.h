@@ -301,6 +301,56 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
   return DYN::doubleEquals(a, b) || a > b;
 }
 
+#ifdef _ADEPT_
+/**
+ * specialization of less operator for adept::adouble: same tolerance as for double,
+ * so that adept differentiates the branch actually evaluated by the residual
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+template<>
+inline modelica_boolean Less<adept::adouble>(adept::adouble a, adept::adouble b) {
+  return Less<double>(a.value(), b.value());
+}
+
+/**
+ * specialization of greater operator for adept::adouble: same tolerance as for double,
+ * so that adept differentiates the branch actually evaluated by the residual
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b false otherwise
+ */
+template<>
+inline modelica_boolean Greater<adept::adouble>(adept::adouble a, adept::adouble b) {
+  return Greater<double>(a.value(), b.value());
+}
+
+/**
+ * specialization of less-equal operator for adept::adouble: same tolerance as for double,
+ * so that adept differentiates the branch actually evaluated by the residual
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+template<>
+inline modelica_boolean LessEq<adept::adouble>(adept::adouble a, adept::adouble b) {
+  return LessEq<double>(a.value(), b.value());
+}
+
+/**
+ * specialization of greater-equal operator for adept::adouble: same tolerance as for double,
+ * so that adept differentiates the branch actually evaluated by the residual
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+template<>
+inline modelica_boolean GreaterEq<adept::adouble>(adept::adouble a, adept::adouble b) {
+  return GreaterEq<double>(a.value(), b.value());
+}
+#endif
+
 
 /**
  * generic less operator

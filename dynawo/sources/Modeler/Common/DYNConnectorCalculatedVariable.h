@@ -289,10 +289,32 @@ class ConnectorCalculatedVariable : public SubModel {
     variableName_ = variableName;
   }
 
+  /**
+   * @brief set the properties of the connected variable, which can be an alias of the calculated variable
+   *
+   * @param type local type of the connected variable (an alias can be FLOW while its reference is CONTINUOUS)
+   * @param negated @b true if the connected variable is the opposite of the calculated variable
+   */
+  void setConnectedVariableProperties(const typeVar_t type, const bool negated) {
+    connectedVariableType_ = type;
+    negated_ = negated;
+  }
+
+ private:
+  /**
+   * @brief sign to apply to the calculated variable to get the connected variable
+   * @return -1 if the connected variable is negated, 1 otherwise
+   */
+  inline double sign() const {
+    return negated_ ? -1. : 1.;
+  }
+
  private:
   // !!! We assume that the model variables starts at yLocal_[1] and ypLocal_[1]
   boost::shared_ptr<SubModel> model_;  ///< Model where the calculated variable is located.
   std::string variableName_;  ///< Name of the calculated variable from the model
+  typeVar_t connectedVariableType_ = UNDEFINED_TYPE;  ///< local type of the connected variable (UNDEFINED_TYPE: type of the calculated variable)
+  bool negated_ = false;  ///< whether the connected variable is the opposite of the calculated variable
   int indexCalculatedVariable_;  ///< Index of the calculated variable inside the list calculated variables in the model
   std::vector<int> varExtIndexes_;  ///< Indexes of variables on which depends the calculated variable
 };

@@ -74,7 +74,7 @@ ConnectorCalculatedVariable::evalF(const double t, const propertyF_t type) {
   // (sizeF = 0) and therefore not have been updated to t
   model_->setCurrentTime(t);
   // only one equation 0 = calculated var - yLocal
-  fLocal_[0] = model_->evalCalculatedVarI(indexCalculatedVariable_) - yLocal_[0];
+  fLocal_[0] = sign() * model_->evalCalculatedVarI(indexCalculatedVariable_) - yLocal_[0];
 }
 
 void
@@ -116,7 +116,7 @@ ConnectorCalculatedVariable::evalJt(const double t, const double /*cj*/, const i
   }
 
   for (std::size_t i = 0, iEnd = uniqueIndexes.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
-    jt.addTerm(model_->yDeb() + uniqueIndexes[i], uniqueValues[i]);
+    jt.addTerm(model_->yDeb() + uniqueIndexes[i], sign() * uniqueValues[i]);
   }
 }
 
@@ -177,7 +177,7 @@ ConnectorCalculatedVariable::getY0() {
   model_->getY0Sub();
   // value computed by the model's getY0 at t=0 (relations evaluated with initial semantics): a new evaluation here
   // would use relationsPre, not yet initialized
-  yLocal_[0] = model_->getCalculatedVar(indexCalculatedVariable_);
+  yLocal_[0] = sign() * model_->getCalculatedVar(indexCalculatedVariable_);
   ypLocal_[0] = 0.;
 }
 
@@ -193,7 +193,8 @@ ConnectorCalculatedVariable::evalStaticFType() {
 
 void
 ConnectorCalculatedVariable::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
-  const typeVar_t type = model_->getVariable(variableName_)->getType();
+  // the connection can be made through an alias whose local type differs from the calculated variable's (FLOW alias of a CONTINUOUS variable)
+  const typeVar_t type = (connectedVariableType_ != UNDEFINED_TYPE) ? connectedVariableType_ : model_->getVariable(variableName_)->getType();
   assert(type == CONTINUOUS || type == FLOW);
   variables.emplace_back(VariableNativeFactory::createState("connector_" + name(), type));
 }

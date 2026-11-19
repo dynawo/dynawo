@@ -4709,9 +4709,15 @@ class Factory:
             sorted_indexes.sort()
             position_of_index = {val: pos for pos, val in enumerate(sorted_indexes)}
             ptrn_adept_relation_condition = re.compile(r'(Greater|Less|GreaterEq|LessEq)<adept::adouble>\(')
+            # tmps declared as adept::adouble are adept operands too: a comparison using them must keep the
+            # explicit adept template (an adept expression compared to a double cannot be deduced)
+            adept_tmps = set(re.findall(r'\badept::adouble\s+(tmp[0-9]+)\s*;', "".join(body_translated)))
+            ptrn_tmp = re.compile(r'\b(tmp[0-9]+)\b')
             for line in body_translated:
                 line = remap_x_outside_comments(line, position_of_index)
-                is_relation_condition_line = ptrn_adept_relation_condition.search(line) is not None and "x[indexOffset" not in line
+                uses_adept_operand = "x[indexOffset" in line or "evalCalculatedVarIAdept(" in line \
+                    or any(tmp in adept_tmps for tmp in ptrn_tmp.findall(line.split("=", 1)[-1]))
+                is_relation_condition_line = ptrn_adept_relation_condition.search(line) is not None and not uses_adept_operand
                 if is_relation_condition_line:
                     line = ptrn_adept_relation_condition.sub(r'\1(', line)
                 # Same classification used everywhere else in this function (is_adept_func):
@@ -4746,6 +4752,8 @@ class Factory:
                         else:
                             line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name_to_use, \
                                 "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
+                # an adept value cannot be cast to a double (same treatment as "(modelica_real)x" in Transpose.translate)
+                line = line.replace("(modelica_real)(evalCalculatedVarIAdept(", "(evalCalculatedVarIAdept(")
                 body.append(line)
 
             if var.get_name() in self.reader.calc_var_cycle_membership:
