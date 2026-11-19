@@ -32,6 +32,9 @@ jobs:
       - name: Install psutil
         run: pip3 install psutil
 
+      - name: Install OpenModelica build dependencies
+        run: dnf install -y boost-devel zlib-devel
+
       - name: Build
         run: |
           export DYNAWO_ACTIVATE_HDF5_EXPORT=false
@@ -67,6 +70,9 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
+
+      - name: Install OpenModelica build dependencies
+        run: dnf install -y boost-devel zlib-devel
 
       - name: Build
         env:
