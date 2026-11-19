@@ -1123,11 +1123,13 @@ build_tests() {
   fi
   echo "Running nrtUtilsTests.py"
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/nrtUtilsTests.py
+  RETURN_CODE=$?
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
   echo "Running defineTestReferenceTests.py"
   ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/defineTestReferenceTests.py
+  RETURN_CODE=$?
   if [ ${RETURN_CODE} -ne 0 ]; then
     return ${RETURN_CODE}
   fi
