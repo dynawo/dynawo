@@ -42,7 +42,7 @@ jobs:
 
   build-linux:
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-ol8:latest
+    container: dynawo/dynawo-ci-ol8:om1.24
     env:
       DYNAWO_BUILD_TYPE: ${{ github.event_name == 'workflow_dispatch' && inputs.perform-nrt && 'Release' || 'Debug' }}
       DYNAWO_COMPILER: GCC
@@ -130,7 +130,7 @@ jobs:
   coverage:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-ol8:latest
+    container: dynawo/dynawo-ci-ol8:om1.24
     env:
       DYNAWO_COMPILER: GCC
       DYNAWO_RESULTS_SHOW: "false"
