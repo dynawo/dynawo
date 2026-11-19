@@ -63,7 +63,7 @@ equation
   // Computing references for saturation
   IConvRefPu = sqrt(idFilteredConvRefPu*idFilteredConvRefPu + iqFilteredConvRefPu*iqFilteredConvRefPu);
   IConvRefAngle = atan2(iqFilteredConvRefPu, idFilteredConvRefPu);
-  IPccPu = sqrt(idFilteredPccPu^2 + iqFilteredPccPu^2);
+  IPccPu = sqrt(idFilteredPccPu^2 + iqFilteredPccPu^2 + 1e-8);
 
   when IConvRefPu > ImaxPu + EpsUpPu or IPccPu > ImaxPu + EpsUpPu then
     saturating = true;

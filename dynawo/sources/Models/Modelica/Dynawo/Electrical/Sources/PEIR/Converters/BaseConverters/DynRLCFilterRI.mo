@@ -57,8 +57,8 @@ equation
     CPu / SystemBase.omegaNom * der(terminal2.V.re) = terminal1.i.re + terminal2.i.re + omegaPu*CPu*terminal2.V.im;
     CPu / SystemBase.omegaNom * der(terminal2.V.im) = terminal1.i.im + terminal2.i.im - omegaPu*CPu*terminal2.V.re;
   else
-    terminal1.i = Complex(0);
-    terminal2.i = Complex(0);
+    terminal1.i = Complex(0,0);
+    terminal2.V = Complex(0,0);
     end if;
 
   annotation(
