@@ -3704,9 +3704,6 @@ class Factory:
             elif 'static _index_t' in var and 'dims' in var:
                 self.list_for_literalconstants.append(var)
 
-            elif 'static _index_t' in var and 'dims' in var:
-                self.list_for_literalconstants.append(var)
-
             elif 'static base_array_t const' in var:
                 var = var.replace ("static ", "")
                 self.list_for_literalconstants.append(var)

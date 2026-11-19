@@ -2805,7 +2805,7 @@ index 7ffe391d02..8cc33645d0 100644
  fi
  
 -for dir_target in OMCompiler-omc OMPlot-omplot OMEdit-omedit OMNotebook-omnotebook OMShell-omshell OMSens_Qt-omsens_qt $CORBA_TARGETS; do
-+for dir_target in OMCompiler-omc OMEdit-omedit OMNotebook-omnotebook OMShell-omshell OMSens_Qt-omsens_qt $CORBA_TARGETS; do
++for dir_target in OMCompiler-omc $CORBA_TARGETS; do
    dir=`echo $dir_target | cut -d- -f1`
    if test ! -f "$dir/configure.ac"; then
      AC_MSG_NOTICE("Subproject $dir does not exist")
@@ -2814,7 +2814,31 @@ index 7ffe391d02..8cc33645d0 100644
  
  
 -AC_CONFIG_SUBDIRS([OMCompiler OMPlot OMEdit OMNotebook OMShell OMSens_Qt])
-+AC_CONFIG_SUBDIRS([OMCompiler OMEdit OMNotebook OMShell OMSens_Qt])
++AC_CONFIG_SUBDIRS([OMCompiler])
  if test ! -z "$USE_CORBA"; then
    AC_CONFIG_SUBDIRS([OMOptim])
  fi
+diff --git a/OMCompiler/3rdParty/tbb/include/tbb/task.h b/OMCompiler/3rdParty/tbb/include/tbb/task.h
+--- a/OMCompiler/3rdParty/tbb/include/tbb/task.h
++++ b/OMCompiler/3rdParty/tbb/include/tbb/task.h
+@@ -374,7 +374,7 @@
+     };
+ 
+ public:
+-    enum kind_type {
++    enum kind_type : int {
+         isolated,
+         bound
+     };
+diff --git a/OMCompiler/Makefile.common b/OMCompiler/Makefile.common
+--- a/OMCompiler/Makefile.common
++++ b/OMCompiler/Makefile.common
+@@ -691,7 +691,7 @@
+ LIBFFI=3rdParty/libffi
+ libffi: $(LIBFFI)
+ 	(cd "$(LIBFFI)" && (test -f Makefile || ./autogen.sh))
+-	(cd "$(LIBFFI)" && (test -f Makefile || (./configure --prefix="`pwd`/install" "--host=$(host)" --enable-shared=no --disable-docs CC="$(CC)" CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)" LDFLAGS="$(LDFLAGS)" && $(MAKE) clean)))
++	(cd "$(LIBFFI)" && (test -f Makefile || (./configure --prefix="`pwd`/install" "--host=$(host)" --enable-shared=no --disable-docs --disable-builddir CC="$(CC)" CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)" LDFLAGS="$(LDFLAGS)" && $(MAKE) clean)))
+ 	$(MAKE) -C "$(LIBFFI)"
+ 	$(MAKE) -C "$(LIBFFI)" install
+ 
