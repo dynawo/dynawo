@@ -632,6 +632,18 @@ unset(OMDevPackage CACHE)
 
 find_program(OMCompiler omcDynawo${CMAKE_EXECUTABLE_SUFFIX} PATHS ${OPENMODELICA_INSTALL}/bin NO_DEFAULT_PATH)
 
+# An existing omcDynawo is reused as is: make sure it is the expected version
+if(OMCompiler)
+  execute_process(COMMAND ${OMCompiler} --version
+                  OUTPUT_VARIABLE omc_version_output
+                  OUTPUT_STRIP_TRAILING_WHITESPACE)
+  string(REGEX MATCH "v([0-9]+\\.[0-9]+\\.[0-9]+)" omc_version_match "${omc_version_output}")
+  if(NOT "${CMAKE_MATCH_1}" VERSION_EQUAL "${openmodelica_version}")
+    message(FATAL_ERROR "${OMCompiler} is '${omc_version_output}' but OpenModelica ${openmodelica_version} is required: "
+                        "remove this installation or set OPENMODELICA_INSTALL to another directory.")
+  endif()
+endif()
+
 if(NOT OMCompiler)
   GetPatchCommand(openmodelica)
 
