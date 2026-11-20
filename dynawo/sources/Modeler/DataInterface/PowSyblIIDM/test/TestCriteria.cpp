@@ -81,7 +81,7 @@ class LineInterfaceStub : public ComponentInterface {
   double getStateVarI2() const { return i2_; }
 
   /** Used by QuadripoleFailingCriteria to build the timeline / log message. */
-  const std::string& getID() const override { return id_; }
+  const std::string& getID() const override;
 
   /** Not used by criteria. */
   void importStaticParameters() override {}
@@ -97,6 +97,12 @@ class LineInterfaceStub : public ComponentInterface {
   double      i1_;
   double      i2_;
 };
+
+// defined out of line so that the vtable is emitted only once (-Wweak-vtables)
+const std::string&
+LineInterfaceStub::getID() const {
+  return id_;
+}
 
 static std::shared_ptr<LineInterfaceStub>
 createLine(const std::string& id, double i1, double i2) {

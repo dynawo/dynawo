@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 
 # Generic Python
+import bisect
 import csv
 import datetime
 import filecmp
@@ -806,7 +807,7 @@ def keepPathForComparison (root_nrt_directory, relative_file_path, is_reference_
 ##
 # Check whether all settings have been set
 def CheckAllSettings():
-    requiredSettings = ["directories_included", "directories_excluded", "max_DTW", "files_included", "files_excluded", "logs_destination", "maximum_threads_nb"]
+    requiredSettings = ["directories_included", "directories_excluded", "max_DTW", "max_time_aligned_error", "files_included", "files_excluded", "logs_destination", "maximum_threads_nb"]
     optionalSettings = ["logs_file_path"]
     for singleSetting in requiredSettings:
         if (not hasattr(settings, singleSetting)):
@@ -925,9 +926,9 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                     message += str(nb_err_absolute) + " absolute errors"
 
                 if (nb_err_relative > 0):
-                    if (message != ""):
+                    if (nb_err_absolute > 0):
                         message += " and "
-                    message += str(nb_err_relative) + " relative errors"
+                    message += str(nb_err_relative) + " time-aligned errors"
 
 
                 if (len (curves_different) <= maximum_curves_names_displayed):
@@ -978,9 +979,9 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                     message += str(nb_err_absolute) + " absolute errors"
 
                 if (nb_err_relative > 0):
-                    if (message != ""):
+                    if (nb_err_absolute > 0):
                         message += " and "
-                    message += str(nb_err_relative) + " relative errors"
+                    message += str(nb_err_relative) + " time-aligned errors"
 
 
                 if (len (curves_different) <= maximum_curves_names_displayed):
@@ -1277,11 +1278,8 @@ def XMLCloseEnough (path_left, path_right):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
-    max_dtw = settings.max_DTW
-    for exception in settings.dtw_exceptions:
-        if exception in path_left or exception in path_right:
-            max_dtw = settings.dtw_exceptions[exception]
-            break
+    max_dtw = GetTolerance(settings.max_DTW, settings.dtw_exceptions, path_left, path_right)
+    max_time_error = GetTolerance(settings.max_time_aligned_error, settings.time_aligned_error_exceptions, path_left, path_right)
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         left = []
@@ -1290,16 +1288,129 @@ def XMLCloseEnough (path_left, path_right):
             left.append(float (left_curve[curve][t]))
         for t in sorted(times_right):
             right.append(float (right_curve[curve][t]))
-        if max_dtw is not None:
-           distance = DTWDistance(left, right, max_dtw)
-           if distance > max_dtw:
-                nb_differences += 1
-                nb_differences_absolute += 1
-                curves_different.add (curve)
-                if nb_differences > 5: break
+        # the time-aligned comparison needs the points sorted by numerical time (times are stored as strings)
+        left_points = sorted((float(t), float(v)) for t, v in left_curve[curve].items())
+        right_points = sorted((float(t), float(v)) for t, v in right_curve[curve].items())
+        (dtw_ko, time_ko, time_error) = CompareCurves(left, right, max_dtw, \
+            [t for t, _ in left_points], [v for _, v in left_points], [t for t, _ in right_points], [v for _, v in right_points], max_time_error)
+        if dtw_ko or time_ko:
+            nb_differences += 1
+            curves_different.add (CurveLabel(curve, time_ko, time_error))
+        if dtw_ko:
+            nb_differences_absolute += 1
+        if time_ko:
+            nb_differences_relative += 1
+        if nb_differences > 5: break
 
     return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
 
+
+# Get the tolerance to use for a pair of files
+# @param default_tolerance : tolerance used when no exception matches
+# @param exceptions : dictionary {path pattern: tolerance}
+# @param path_left : the absolute path to the left-side file
+# @param path_right : the absolute path to the right-side file
+# @return the tolerance (None to avoid checking)
+def GetTolerance(default_tolerance, exceptions, path_left, path_right):
+    for exception in exceptions:
+        if exception in path_left or exception in path_right:
+            return exceptions[exception]
+    return default_tolerance
+
+# Label of a different curve, displayed in the diff report
+# @param curve : name of the curve
+# @param time_ko : whether the curve exceeds the time-aligned error tolerance
+# @param time_error : time-aligned error of the curve
+# @return the label
+def CurveLabel(curve, time_ko, time_error):
+    if time_ko:
+        return curve + " (time-aligned error " + "{:.2e}".format(time_error) + ")"
+    return curve
+
+# Compare two curves with the DTW distance and the time-aligned error
+# @param left : list of left values, ordered as for the DTW distance
+# @param right : list of right values, ordered as for the DTW distance
+# @param max_dtw : tolerance on the DTW distance (None to avoid checking)
+# @param times_left : sorted list of left times (a time appears twice at a discontinuity)
+# @param values_left : left values at times_left
+# @param times_right : sorted list of right times (a time appears twice at a discontinuity)
+# @param values_right : right values at times_right
+# @param max_time_error : tolerance on the time-aligned error (None to avoid checking)
+# @return (whether the DTW distance exceeds its tolerance, whether the time-aligned error exceeds its tolerance, time-aligned error)
+def CompareCurves(left, right, max_dtw, times_left, values_left, times_right, values_right, max_time_error):
+    dtw_ko = False
+    if max_dtw is not None:
+        dtw_ko = DTWDistance(left, right, max_dtw) > max_dtw
+    time_ko = False
+    time_error = 0.
+    if max_time_error is not None:
+        time_error = TimeAlignedError(times_left, values_left, times_right, values_right)
+        time_ko = time_error > max_time_error
+    return (dtw_ko, time_ko, time_error)
+
+# Limit of a curve at a given time, the curve being linearly interpolated between its points
+# A time can appear twice (value before and after a discontinuity): the right limit uses the last point
+# at this time, the left limit the first one.
+# @param times : sorted list of times
+# @param values : values at times
+# @param t : time, between times[0] and times[-1]
+# @param from_right : whether the right limit (True) or the left limit (False) is computed
+# @return the interpolated value
+def InterpolateValue(times, values, t, from_right):
+    if from_right:
+        i = bisect.bisect_right(times, t) - 1
+        if i >= len(times) - 1:
+            return values[-1]
+        return values[i] + (values[i+1] - values[i]) * (t - times[i]) / (times[i+1] - times[i])
+    i = bisect.bisect_left(times, t)
+    if i == 0:
+        return values[0]
+    return values[i-1] + (values[i] - values[i-1]) * (t - times[i-1]) / (times[i] - times[i-1])
+
+# Extract the points of a curve from csv rows, keeping the times appearing twice (discontinuities)
+# @param time_row : row of the times (first cell is the header)
+# @param data_row : row of the values (first cell is the curve name)
+# @return (sorted list of times, values at these times)
+def ExtractCurvePoints(time_row, data_row):
+    times = []
+    values = []
+    for index in range(1, len(time_row)):
+        if time_row[index].strip() == "":
+            continue
+        t = float(time_row[index])
+        if len(times) > 0 and t < times[-1]:
+            continue
+        times.append(t)
+        values.append(float(data_row[index].strip()))
+    return (times, values)
+
+# Comparison of 2 curves taking the time into account, contrary to the DTW distance which can align points
+# freely and therefore does not see curves shifted in time (e.g. a disconnection occurring later)
+# The error is the mean over the common time range of |left(t) - right(t)|, both curves being linearly
+# interpolated, divided by max(1, max |value|) so that large-valued curves are compared relatively.
+# A shift dt of a step of height h gives an error of about h * dt / (time range): small shifts of
+# discrete events (solver noise) remain negligible.
+# @param times_left : sorted list of left times (a time appears twice at a discontinuity)
+# @param values_left : left values at times_left
+# @param times_right : sorted list of right times (a time appears twice at a discontinuity)
+# @param values_right : right values at times_right
+# @return the time-aligned error
+def TimeAlignedError(times_left, values_left, times_right, values_right):
+    if len(times_left) == 0 or len(times_right) == 0:
+        return 0.
+    t_start = max(times_left[0], times_right[0])
+    t_end = min(times_left[-1], times_right[-1])
+    if t_end <= t_start:
+        return 0.
+    grid = sorted(set([t for t in times_left if t_start <= t <= t_end] + [t for t in times_right if t_start <= t <= t_end]))
+    integral = 0.
+    for i in range(len(grid) - 1):
+        # on ]grid[i], grid[i+1][ both curves are continuous: use the right limits at grid[i] and the left limits at grid[i+1]
+        error_begin = abs(InterpolateValue(times_left, values_left, grid[i], True) - InterpolateValue(times_right, values_right, grid[i], True))
+        error_end = abs(InterpolateValue(times_left, values_left, grid[i+1], False) - InterpolateValue(times_right, values_right, grid[i+1], False))
+        integral += (error_begin + error_end) / 2. * (grid[i+1] - grid[i])
+    scale = max(1., max(abs(v) for v in values_left), max(abs(v) for v in values_right))
+    return integral / ((t_end - t_start) * scale)
 
 # Comparison of 2 curves based on the Dynamic Time Warping distance
 # @param left : list of left values
@@ -1513,11 +1624,8 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
-    max_dtw = settings.max_DTW
-    for exception in settings.dtw_exceptions:
-        if exception in path_left or exception in path_right:
-            max_dtw = settings.dtw_exceptions[exception]
-            break
+    max_dtw = GetTolerance(settings.max_DTW, settings.dtw_exceptions, path_left, path_right)
+    max_time_error = GetTolerance(settings.max_time_aligned_error, settings.time_aligned_error_exceptions, path_left, path_right)
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         data_left = reader_left [curve_left]
@@ -1528,13 +1636,17 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             left.append(float (data_left [times_left[t]] .strip()))
         for t in sorted(times_right.keys()):
             right.append(float (data_right [times_right[t]] .strip()))
-        if max_dtw is not None:
-            distance = DTWDistance(left, right, max_dtw)
-            if distance > max_dtw:
-                nb_differences += 1
-                nb_differences_absolute += 1
-                curves_different.add (curve)
-                if nb_differences > 5: break
+        (points_times_left, points_values_left) = ExtractCurvePoints(reader_left [0], data_left)
+        (points_times_right, points_values_right) = ExtractCurvePoints(reader_right [0], data_right)
+        (dtw_ko, time_ko, time_error) = CompareCurves(left, right, max_dtw, points_times_left, points_values_left, points_times_right, points_values_right, max_time_error)
+        if dtw_ko or time_ko:
+            nb_differences += 1
+            curves_different.add (CurveLabel(curve, time_ko, time_error))
+        if dtw_ko:
+            nb_differences_absolute += 1
+        if time_ko:
+            nb_differences_relative += 1
+        if nb_differences > 5: break
 
     return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
 

@@ -12,7 +12,9 @@
 # simulation tool for power systems.
 
 import os
+import shutil
 import sys
+import tempfile
 import unittest
 
 
@@ -21,7 +23,51 @@ sys.path.append(nrtDiff_dir)
 import nrtDiff
 import settings
 
-class TestnrtDiffCompareTwoFiles(unittest.TestCase):
+# The tests below check the DTW distance messages: the time-aligned error is checked in TestnrtDiffTimeAlignedError
+class DTWOnlyTestCase(unittest.TestCase):
+    def setUp(self):
+        self.max_time_aligned_error = settings.max_time_aligned_error
+        settings.max_time_aligned_error = None
+
+    def tearDown(self):
+        settings.max_time_aligned_error = self.max_time_aligned_error
+
+class TestnrtDiffTimeAlignedError(unittest.TestCase):
+    def test_step(self):
+        times = [0., 1., 2., 2., 3., 10.]
+        values = [0., 0., 0., 1., 1., 1.]
+        self.assertEqual(nrtDiff.TimeAlignedError(times, values, times, values), 0.)
+        # same curve with other intermediate points: no error
+        self.assertAlmostEqual(nrtDiff.TimeAlignedError(times, values, [0., 0.3, 1.7, 2., 2., 2.4, 10.], [0., 0., 0., 0., 1., 1., 1.]), 0.)
+        # step shifted by 0.5 s on a 10 s time range
+        self.assertAlmostEqual(nrtDiff.TimeAlignedError(times, values, [0., 1., 2.5, 2.5, 3., 10.], values), 0.05)
+        # step shifted by 1e-5 s: negligible
+        self.assertLess(nrtDiff.TimeAlignedError(times, values, [0., 1., 2.00001, 2.00001, 3., 10.], values), 1e-5)
+        # large values are compared relatively
+        self.assertAlmostEqual(nrtDiff.TimeAlignedError(times, [100. * v for v in values], [0., 1., 2.5, 2.5, 3., 10.], [100. * v for v in values]), 0.05)
+
+    def test_shifted_curves_csv(self):
+        # a step shifted in time is within the DTW tolerance but not within the time-aligned error tolerance
+        tmp_dir = tempfile.mkdtemp()
+        try:
+            path_left = os.path.join(tmp_dir, "curves.csv")
+            path_right = os.path.join(tmp_dir, "curves_shifted.csv")
+            with open(path_left, "w") as f:
+                f.write("time;MODEL_running;\n0;1;\n1;1;\n2;1;\n2;-1;\n3;-1;\n10;-1;\n")
+            with open(path_right, "w") as f:
+                f.write("time;MODEL_running;\n0;1;\n1;1;\n2;1;\n3;1;\n3;-1;\n10;-1;\n")
+            max_time_aligned_error = settings.max_time_aligned_error
+            settings.max_time_aligned_error = None
+            (return_value, message) = nrtDiff.CompareTwoFiles(path_left, '|', path_right, '|')
+            self.assertNotEqual(return_value, nrtDiff.DIFFERENT)
+            settings.max_time_aligned_error = max_time_aligned_error
+            (return_value, message) = nrtDiff.CompareTwoFiles(path_left, '|', path_right, '|')
+            self.assertEqual(return_value, nrtDiff.DIFFERENT)
+            self.assertTrue("1 time-aligned errors , MODEL_running (time-aligned error 2.00e-01)" in message)
+        finally:
+            shutil.rmtree(tmp_dir)
+
+class TestnrtDiffCompareTwoFiles(DTWOnlyTestCase):
     def test_log(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "dynawo.log"), '|', os.path.join(dir_path, "dynawo2.log"), '|')
@@ -248,7 +294,7 @@ has another value on right side (value: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
 1 different output values\n\
 [ERROR] different number of lines (2 in left path, 3 in right one)\n")
 
-class TestnrtDiffDirectoryDiff(unittest.TestCase):
+class TestnrtDiffDirectoryDiff(DTWOnlyTestCase):
     def test_directory_diff(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (diff_statuses, return_message_str, file_names, left_paths, right_paths, diff_messages) = nrtDiff.DirectoryDiff (os.path.join(dir_path, "initValues"), os.path.join(dir_path, "initValues2"), True)

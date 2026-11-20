@@ -23,6 +23,9 @@ files_excluded = []
 logs_default_separator = "|"
 logs_pattern_to_avoid = ['| DYNAWO VERSION  :     ', '| DYNAWO REVISION :', '=====================================', 'REVISION DYNAWO :'] # logs file patterns to avoid
 max_DTW = 0.1 # None to avoid checking
+# mean over time of |left(t) - right(t)| on the common time range, divided by max(1, max |value|):
+# unlike the DTW distance, it detects curves shifted in time (e.g. an event occurring later)
+max_time_aligned_error = 1e-3 # None to avoid checking
 max_iidm_cmp_tol=1e-6
 max_nb_iidm_outputs=10
 
@@ -34,4 +37,5 @@ logs_destination = "text file" # "console" or "text file"
 logs_file_path = os.path.join(os.path.dirname(__file__), "nrtDiff.txt")
 
 dtw_exceptions = {}
+time_aligned_error_exceptions = {}
 iidm_exceptions = {}
