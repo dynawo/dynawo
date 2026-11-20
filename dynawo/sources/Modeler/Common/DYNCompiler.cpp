@@ -345,14 +345,15 @@ Compiler::compileModelicaModelDescription(const std::shared_ptr<ModelDescription
   // Compilation and post-treatment on concatenated files
   string installDir = getMandatoryEnvVar("DYNAWO_INSTALL_DIR");
   string compileDirPath = createAbsolutePath(thisCompiledId, modelDirPath_);
-  string compileCommand = prettyPath(installDir + "/sbin")
-    + "/compileModelicaModel --model " + thisCompiledId + " --model-dir " + modelDirPath_ + " --compilation-dir " + compileDirPath + " --lib " + libName +
-    " --useAliasing " + (useAliasing?"true":"false") + " --generateCalculatedVariables " + (genCalculatedVariables?"true":"false");
+  // paths are quoted to support paths containing spaces
+  string compileCommand = quoteShellArgument(prettyPath(installDir + "/sbin") + "/compileModelicaModel")
+    + " --model " + thisCompiledId + " --model-dir " + quoteShellArgument(modelDirPath_) + " --compilation-dir " + quoteShellArgument(compileDirPath)
+    + " --lib " + libName + " --useAliasing " + (useAliasing?"true":"false") + " --generateCalculatedVariables " + (genCalculatedVariables?"true":"false");
 
   if (!moFilesCompilation_.empty()) {
     string moFilesList = "";
     for (std::map<string, string>::const_iterator itFile = moFilesCompilation_.begin(); itFile != moFilesCompilation_.end(); ++itFile) {
-      moFilesList += " " + (itFile->second);
+      moFilesList += " " + quoteShellArgument(itFile->second);
     }
 
     compileCommand += " --moFiles" + moFilesList + " --initFiles" + moFilesList;
@@ -361,7 +362,7 @@ Compiler::compileModelicaModelDescription(const std::shared_ptr<ModelDescription
   if (!additionalHeaderFiles_.empty()) {
     string additionalHeaderList = "";
     for (const auto& additionalHeaderFile : additionalHeaderFiles_) {
-      additionalHeaderList += " " + additionalHeaderFile;
+      additionalHeaderList += " " + quoteShellArgument(additionalHeaderFile);
     }
 
     compileCommand += " --additionalHeaderList" + additionalHeaderList;

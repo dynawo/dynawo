@@ -40,11 +40,11 @@ export_var_env_force() {
 }
 
 export_var_env() {
-  var=$@
-  name=${var%%=*}
-  value=${var#*=}
+  local var="$@"
+  local name=${var%%=*}
+  local value="${var#*=}"
 
-  if eval "[ \$$name ]"; then
+  if eval "[ \"\$$name\" ]"; then
     eval "value=\${$name}"
     return
   fi
@@ -82,7 +82,7 @@ set_environment() {
   else
     export_var_env DYNAWO_OPENMODELICA_VERSION=NOT-FOUND
   fi
-  export_var_env OPENMODELICAHOME=$DYNAWO_INSTALL_OPENMODELICA
+  export_var_env OPENMODELICAHOME="$DYNAWO_INSTALL_OPENMODELICA"
 
   export_var_env DYNAWO_ADEPT_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
   export_var_env DYNAWO_SUITESPARSE_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
@@ -125,7 +125,9 @@ verify_browser() {
 
 curves_visu() {
   verify_browser
-  $DYNAWO_PYTHON_COMMAND "$DYNAWO_INSTALL_DIR"/sbin/curvesToHtml/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
+  local jobs_absolute
+  jobs_absolute=$("$DYNAWO_PYTHON_COMMAND" -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$1")
+  "$DYNAWO_PYTHON_COMMAND" "$DYNAWO_INSTALL_DIR"/sbin/curvesToHtml/curvesToHtml.py --jobsFile="$jobs_absolute" --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
 jobs_with_curves() {
@@ -149,7 +151,8 @@ curves() {
 }
 
 update_xml() {
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/sbin/updateXML/update.py $@
+  set_environment
+  "$DYNAWO_PYTHON_COMMAND" "$DYNAWO_INSTALL_DIR"/sbin/updateXML/update.py "$@"
 }
 
 if [ $# -eq 0 ]; then

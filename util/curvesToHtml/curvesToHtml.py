@@ -14,7 +14,9 @@
 import os
 import sys
 import csv
+import shlex
 import shutil
+import subprocess
 try:
     from lxml import etree
 except ImportError:
@@ -165,13 +167,12 @@ def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser, plotRef)
                     print("Fail to generate curves visualization : " + str(exc))
                     sys.exit(1)
 
-    allCurves = ""
-    for ht in htmlFileList:
-        allCurves+=""+ht+" "
-    if(platform.system()== 'Windows'):
-        os.system(htmlBrowser + " " + allCurves +" 2> null &")
+    if platform.system() == 'Windows':
+        os.system(htmlBrowser + " " + " ".join('"' + ht + '"' for ht in htmlFileList) + " 2> null &")
     else:
-        os.system(htmlBrowser + " " + allCurves +" 2> /dev/null &")
+        # list of arguments (no shell) so that paths containing spaces are passed unchanged to the browser
+        with open(os.devnull, 'w') as devnull:
+            subprocess.Popen(shlex.split(htmlBrowser) + htmlFileList, stderr=devnull)
 
 
 def main():
