@@ -16,6 +16,7 @@ set(MODEL_FILES
   package.order
   ParamsREPC.mo
   ParamsREPCc.mo
+  ParamsREPCd.mo
   )
 
 #

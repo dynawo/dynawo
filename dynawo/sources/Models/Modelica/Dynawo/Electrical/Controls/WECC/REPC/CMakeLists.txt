@@ -16,6 +16,7 @@ set(MODEL_FILES
   package.order
   REPCa.mo
   REPCc.mo
+  REPCd.mo
   )
 
 #

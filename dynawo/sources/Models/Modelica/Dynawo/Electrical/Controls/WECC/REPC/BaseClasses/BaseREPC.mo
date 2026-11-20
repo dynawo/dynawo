@@ -42,9 +42,9 @@ model BaseREPC "WECC Plant Control REPC common"
   // Output variables
   Modelica.Blocks.Interfaces.BooleanOutput freeze(start = false) "Boolean to freeze the regulation" annotation(
     Placement(visible = true,transformation(origin = {610, 280}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput PConvRefPu(start = PConv0Pu) "Active power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput PConvRefPu(start = PConv0Pu) "Active power setpoint at converter terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {610, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (generator convention) (base SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput QConvRefPu(start = QConv0Pu) "Reactive power setpoint at converter terminal in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {610, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Logical.Switch switch annotation(
