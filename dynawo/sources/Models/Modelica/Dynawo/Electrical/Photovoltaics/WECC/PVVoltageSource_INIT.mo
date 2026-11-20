@@ -83,7 +83,7 @@ equation
   s0Pu = Complex(P0Pu, Q0Pu);
 
   //Converter terminal electrical quantities
-  UConv0Pu = ComplexMath.'abs'(uConv0Pu);
+  UConv0Pu = ComplexMath.abs(uConv0Pu);
   iConv0Pu =  (- i0Pu * SystemBase.SnRef / SNom) / rTfoPu + Complex(GPcsPu, BPcsPu) * uConv0Pu;
   uConv0Pu = rTfoPu * u0Pu - Complex(RPcsPu, XPcsPu) * (i0Pu * SystemBase.SnRef / SNom) / rTfoPu;
   sConv0Pu = uConv0Pu * ComplexMath.conj(iConv0Pu);
@@ -97,18 +97,18 @@ equation
   sInj0Pu = uInj0Pu * ComplexMath.conj(iInj0Pu);
   PInj0Pu = ComplexMath.real(sInj0Pu);
   QInj0Pu = ComplexMath.imag(sInj0Pu);
-  UInj0Pu = ComplexMath.'abs'(uInj0Pu);
+  UInj0Pu = ComplexMath.abs(uInj0Pu);
   UInjPhase0 = ComplexMath.arg(uInj0Pu);
 
   iSource0Pu = - iInj0Pu * SystemBase.SnRef / SNom;
   uSource0Pu = uInj0Pu + Complex(RSourcePu * SystemBase.SnRef / SNom, XSourcePu * SystemBase.SnRef / SNom) * iInj0Pu;
 
-  PF0 = if (not(ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu / ComplexMath.'abs'(s0Pu) else 0;
+  PF0 = if (not(ComplexMath.abs(s0Pu) == 0)) then -P0Pu / ComplexMath.abs(s0Pu) else 0;
   UdInj0Pu = cos(UInjPhase0) * uInj0Pu.re + sin(UInjPhase0) * uInj0Pu.im;
   UqInj0Pu = - sin(UInjPhase0) * uInj0Pu.re + cos(UInjPhase0) * uInj0Pu.im;
   Id0Pu = Modelica.Math.cos(UPhaseConv0) * iInj0Pu.re + Modelica.Math.sin(UPhaseConv0) * iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseConv0) * iInj0Pu.re - Modelica.Math.cos(UPhaseConv0) * iInj0Pu.im;
-  UControl0Pu = ComplexMath.'abs'(if PPCLocal then u0Pu else uPcc0Pu);
+  UControl0Pu = ComplexMath.abs(if PPCLocal then u0Pu else uPcc0Pu);
 
   annotation(
     preferredView = "text");

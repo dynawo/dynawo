@@ -153,7 +153,6 @@ equation
     Line(points = {{-190, 60}, {-88, 60}, {-88, 42}}, color = {85, 170, 0}, thickness = 0.5));
 
   annotation(
-    uses(Dynawo(version = "2.0.0"), Modelica(version = "3.2.3")),
     Documentation(info = "<html><head></head><body><h4>Grid-following converter control – GFL plant</h4>
 
 <p>Control of the grid-following converter. It turns the active and reactive power references at the LV bus into the

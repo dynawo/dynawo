@@ -51,7 +51,7 @@ equation
   terminal1.V = terminal2.V;
   terminal1.i = iPu;
   terminal1.V = uPu;
-  UPu = Modelica.ComplexMath.'abs'(uPu);
+  UPu = Modelica.ComplexMath.abs(uPu);
   PPu = Modelica.ComplexMath.real(terminal1.V*Modelica.ComplexMath.conj(iPu));
   QPu = Modelica.ComplexMath.imag(terminal1.V*Modelica.ComplexMath.conj(iPu));
   PPuSnRef = (SNom/SystemBase.SnRef)*PPu;

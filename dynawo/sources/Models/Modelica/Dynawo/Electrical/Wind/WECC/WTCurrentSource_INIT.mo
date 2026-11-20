@@ -36,7 +36,7 @@ model WTCurrentSource_INIT "Initialization model for WECC WT models with a curre
 
   Types.AngularVelocityPu omegaRefWTGQ0Pu "Start value of reference angular frequency of torque control in pu (base omegaNom)";
 
-  Modelica.Blocks.Tables.CombiTable1D combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
+  Modelica.Blocks.Tables.CombiTable1Dv combiTable1D(table = [P1, Spd1; P2, Spd2; P3, Spd3; P4, Spd4]) annotation(
     Placement(transformation(extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = PInj0Pu) annotation(
     Placement(transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}})));

@@ -58,16 +58,16 @@ equation
     terminal2.i = Complex(0);
   end if;
 
-  ISide1 = ComplexMath.'abs'(terminal1.i);
-  ISide2 = ComplexMath.'abs'(terminal2.i);
+  ISide1 = ComplexMath.abs(terminal1.i);
+  ISide2 = ComplexMath.abs(terminal2.i);
   P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
   Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
   P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
   Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
 
   if running then
-    U1Pu = ComplexMath.'abs'(terminal1.V);
-    U2Pu = ComplexMath.'abs'(terminal2.V);
+    U1Pu = ComplexMath.abs(terminal1.V);
+    U2Pu = ComplexMath.abs(terminal2.V);
   else
     U1Pu = 0;
     U2Pu = 0;

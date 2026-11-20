@@ -62,4 +62,3 @@ equation
 
   annotation(preferredView = "text");
 end BaseLoadMotorFifthOrder_INIT;
-
