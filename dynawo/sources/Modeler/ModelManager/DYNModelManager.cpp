@@ -20,19 +20,6 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
-#include <cstdlib>
-#include <string>
-
-// BUBU TEMP(#3874): dump y of small models (DYN_CHECK_REL=<substring of the model id>, t in [0.99, 1.01])
-#define bubuDumpValues(where, t) { \
-  static const char* bubuDumpRel = std::getenv("DYN_CHECK_REL"); \
-  if (bubuDumpRel != nullptr && name().find(bubuDumpRel) != std::string::npos && (t) >= 0.99 && (t) <= 1.01 && !modelInitUsed_ \
-      && sizeY() <= 10) { \
-    for (unsigned bubuI = 0; bubuI < sizeY(); ++bubuI) \
-      std::cerr << "BUBUVAL " << (where) << " " << name() << " t=" << std::setprecision(12) << (t) << " y[" << bubuI << "] " \
-                << (bubuI < xNames().size() ? xNames()[bubuI] : std::string("?")) << " = " << yLocal_[bubuI] << std::endl; \
-  } \
-}
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
@@ -256,7 +243,6 @@ ModelManager::evalF(double t, propertyF_t type) {
   setManagerTime(t);
 
   modelModelica()->setFomc(fLocal_, type);
-  bubuDumpValues("evalF", t);
 }
 
 bool
@@ -451,24 +437,7 @@ modeChangeType_t
 ModelManager::evalMode(const double t) {
   modeChangeType_t delay_mode = delayManager_.evalMode(t, name());
 
-  // BUBU TEMP(#3874): relations and discrete variables that changed, with the returned mode
-  const modeChangeType_t bubuMode = modelModelica()->evalMode(t);
-  static const char* bubuCheckRel = std::getenv("DYN_CHECK_REL");
-  if (bubuCheckRel != nullptr && name().find(bubuCheckRel) != std::string::npos && t >= 0.99 && t <= 1.01 && !modelInitUsed_) {
-    std::cerr << "BUBUMODE " << name() << " t=" << std::setprecision(10) << t << " mode=" << static_cast<int>(bubuMode)
-              << " delayMode=" << static_cast<int>(delay_mode) << std::endl;
-    for (long i = 0; i < static_cast<long>(modelData()->nRelations); ++i)
-      if (simulationInfo()->relations[i] != simulationInfo()->relationsPre[i])
-        std::cerr << "BUBUREL " << name() << " t=" << t << " relation " << i << " : " << static_cast<int>(simulationInfo()->relationsPre[i])
-                  << " -> " << static_cast<int>(simulationInfo()->relations[i]) << std::endl;
-    for (int i = 0; i < data()->nbZ; ++i)
-      if (doubleNotEquals(data()->localData[0]->discreteVars[i], simulationInfo()->discreteVarsPre[i]))
-        std::cerr << "BUBUZ " << name() << " t=" << t << " z[" << i << "] "
-                  << (static_cast<unsigned>(i) < zNames().size() ? zNames()[i] : std::string("?"))
-                  << " : " << simulationInfo()->discreteVarsPre[i] << " -> " << data()->localData[0]->discreteVars[i] << std::endl;
-  }
-  bubuDumpValues("evalMode", t);
-  return std::max(delay_mode, bubuMode);
+  return std::max(delay_mode, modelModelica()->evalMode(t));
 }
 
 void
