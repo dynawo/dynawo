@@ -1,0 +1,48 @@
+%% Copyright (c) 2026, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+
+\documentclass[a4paper, 12pt]{report}
+\input{../../../nrt/documentation/latex_setup.tex}
+\begin{document}
+\title{DynaStream use examples}
+\date\today
+\maketitle
+\tableofcontents
+
+\chapter{Nordic test system}
+\section{Test case description}
+This example uses the Nordic network and its dynamic models to demonstrate an interactive simulation. The SIM solver runs from 0 to 3000 seconds with a coupling time step of one second. The scheduled line disconnection in \texttt{Events.par} is set to 10000000 seconds, outside this simulation; the example is intended for interactive changes instead.
+
+\section{Models and inputs}
+\texttt{Nordic.xiidm}, \texttt{Nordic.dyd} and their parameter files describe the network and dynamic models. \texttt{Events.dyd} adds updatable models for the status of line L4032-4042, load changes at 12\_1, and active and reactive power references at 11\_1. It also connects a set point to the active and reactive load changes at 61\_1, 62\_1 and 63\_1. \texttt{Nordic.crv} selects the curves to export.
+
+\section{Running the simulation}
+Use a Dynawo build with ZeroMQ support. From the Dynawo installation, run one of the following commands, replacing the example path as needed:
+\begin{verbatim}
+./dynawo.sh jobs /path/to/examples/DynaStream/Nordic/Nordic_internal_clock.jobs --interactive
+./dynawo.sh jobs /path/to/examples/DynaStream/Nordic/Nordic_external_clock.jobs --interactive
+\end{verbatim}
+The internal clock advances at real-time speed by default. The external clock waits for a \texttt{step} control for each coupling step; without a client it does not progress. Both jobs bind the control channel on TCP port 5555 and the output channel on port 5556, so do not run them simultaneously without changing the endpoints.
+
+\section{Interaction and results}
+Install the Python dependencies from \texttt{rt-testing-tools/requirements.txt}. Start the subscriber in another terminal:
+\begin{verbatim}
+python rt-testing-tools/rt-testing-tools/main_zmq_subscriber.py
+\end{verbatim}
+Run this command from \texttt{examples/DynaStream}. It subscribes to all topics by default; \texttt{--topic} filters topics and \texttt{--dump\_dir} selects an existing directory for received dumps. The jobs stream curves, timeline and constraints as JSON; the external-clock job also enables dump streaming. Normal output files, including curves, timeline, constraints and final state, are written under \texttt{Nordic/outputs}.
+
+The control helper can be used from a Python session in the tools directory:
+\begin{verbatim}
+from main_zmq_client import ControlSender
+sender = ControlSender()
+sender.send_step_trigger()  # repeat to advance the external clock
+sender.send_dump_trigger()  # external-clock job streams dumps
+sender.send_stop()
+\end{verbatim}
+The helper also exposes \texttt{send\_action} and \texttt{send\_load\_file}. Each request waits for an acknowledgement; start the simulation before sending requests. The supplied server is a separate control-channel test tool and cannot bind port 5555 while the simulation uses it.
+\end{document}

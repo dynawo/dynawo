@@ -40,6 +40,7 @@
 #include "JOBModelsDirEntry.h"
 #include "JOBFinalStateValuesEntry.h"
 #include "JOBLinearizationEntry.h"
+#include "JOBClockEntry.h"
 
 INIT_XML_DYNAWO;
 
@@ -101,10 +102,18 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "<dyn:appender tag=\"MODELER\" file=\"dynawoModeler.log\" lvlFilter=\"ERROR\"/>"
     "</dyn:logs>"
     "</dyn:outputs>"
+    "<dyn:interactiveSettings couplingTimeStep=\"1\">"
+    "<dyn:channels/><dyn:streams/><dyn:clock type=\"INTERNAL\" speedUp=\"100\"/>"
+    "</dyn:interactiveSettings>"
     "</dyn:job>"
     "</dyn:jobs>");
   std::istream goodStream(goodInputStream.rdbuf());
-  ASSERT_NO_THROW(importer.importFromStream(goodStream));
+  std::shared_ptr<JobsCollection> jobs;
+  ASSERT_NO_THROW(jobs = importer.importFromStream(goodStream));
+  ASSERT_EQ(jobs->getJobs().size(), 1u);
+  const auto clock = jobs->getJobs()[0]->getInteractiveSettingsEntry()->getClockEntry();
+  ASSERT_TRUE(clock->getSpeedup());
+  ASSERT_DOUBLE_EQ(clock->getSpeedup().get(), 100.);
 }
 
 TEST(APIJOBTest, testXmlImporter) {

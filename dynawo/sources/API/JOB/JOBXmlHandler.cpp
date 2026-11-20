@@ -825,8 +825,8 @@ void
 ClockHandler::create(attributes_type const& attributes) {
   clock_ = std::make_shared<ClockEntry>();
   clock_->setType(attributes["type"]);
-  if (attributes.has("speedup"))
-    clock_->setSpeedup(attributes["speedup"]);
+  if (attributes.has("speedUp"))
+    clock_->setSpeedup(attributes["speedUp"]);
   if (attributes.has("triggerChannel"))
     clock_->setTriggerChannel(attributes["triggerChannel"]);
 }

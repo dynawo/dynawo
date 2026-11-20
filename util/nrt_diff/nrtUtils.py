@@ -15,6 +15,7 @@ import sys
 import time
 import subprocess
 import signal
+import tempfile
 from XMLUtils import FindAll, ImportXMLFileExtended
 import nrtDiff
 
@@ -64,6 +65,7 @@ class TestCase:
         self.name_ = case_name
         self.description_ = case_description
         self.jobs_ = []
+        self.interactive_ = False
         self.return_code_type_ = return_code_type # ALLOWED or FORBIDDEN
         self.process_return_codes_ = expected_return_codes
         self.diff_ = None
@@ -88,6 +90,8 @@ class TestCase:
         job_num = 0
         for job in FindAll(jobs_root, prefix, "job", ns):
 
+            if FindAll(job, prefix, "interactiveSettings", ns):
+                self.interactive_ = True
             current_job = Job()
             # Create ID
             current_job.job_ = "job_" + str(job_num)
@@ -236,28 +240,21 @@ class TestCase:
             sys.exit(1)
         env_dynawo = os.environ["DYNAWO_ENV_DYNAWO"]
         command = [env_dynawo, "jobs", self.jobs_file_]
+        if self.interactive_:
+            command.append("--interactive")
 
         commandStr = " ".join(command) # for traces
         self.command_= commandStr
         print (self.name_)
 
-        if(timeout > 0):
-            signal.signal(signal.SIGALRM, alarm_handler)
-            signal.alarm(int(timeout)*60) # in seconds
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        dynastream_job = os.path.join(root, "examples", "DynaStream", "Nordic", "Nordic_nrt.jobs")
+        if os.path.realpath(self.jobs_file_) == os.path.realpath(dynastream_job):
+            code, output, errors = self.launch_dynastream(command, root, timeout)
+        else:
+            code, output, errors = self.launch_command(commandStr, timeout)
 
-        code = 0
-        output = ''
-        errors = ''
         errorTooLong = -150
-        p = subprocess.Popen(commandStr, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        try:
-            output, errors = p.communicate()
-            signal.alarm(0)
-            code = p.wait()
-        except Alarm:
-            kill_subprocess(p.pid)
-            code = errorTooLong
-
         self.code_ = code
         self.outputs_ = output
         self.errors_ = errors
@@ -288,6 +285,51 @@ class TestCase:
             except:
                 job.hasCurves_ = False
                 pass
+
+    def launch_dynastream(self, command, root, timeout):
+        driver = os.path.join(root, "nrt", "data", "DynaStream", "driver.py")
+        limit = min(timeout * 60, 75) if timeout > 0 else 75
+        deadline = time.monotonic() + limit
+        with tempfile.TemporaryFile() as output, tempfile.TemporaryFile() as errors:
+            sim = subprocess.Popen(command, stdout=output, stderr=errors, start_new_session=True)
+            code = 1
+            try:
+                result = subprocess.run([sys.executable, driver], stdout=output, stderr=errors,
+                                        timeout=max(0.01, deadline - time.monotonic()))
+                if result.returncode == 0:
+                    code = sim.wait(timeout=max(0.01, deadline - time.monotonic()))
+                else:
+                    code = result.returncode
+            except subprocess.TimeoutExpired:
+                code = -150
+            finally:
+                if sim.poll() is None:
+                    os.killpg(sim.pid, signal.SIGKILL)
+                    sim.wait()
+            output.seek(0)
+            errors.seek(0)
+            return code, output.read(), errors.read()
+
+    def launch_command(self, commandStr, timeout):
+
+        if(timeout > 0):
+            signal.signal(signal.SIGALRM, alarm_handler)
+            signal.alarm(int(timeout)*60) # in seconds
+
+        code = 0
+        output = ''
+        errors = ''
+        errorTooLong = -150
+        p = subprocess.Popen(commandStr, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        try:
+            output, errors = p.communicate()
+            signal.alarm(0)
+            code = p.wait()
+        except Alarm:
+            kill_subprocess(p.pid)
+            code = errorTooLong
+
+        return code, output, errors
 
     ##
     # Check whether a test case led to satisfactory results

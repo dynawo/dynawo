@@ -25,6 +25,15 @@ except:
 
 
 class TestBasicNrtUtils(unittest.TestCase):
+    def test_interactive_job_detection(self):
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+        interactive_job = os.path.join(root, "examples", "DynaStream", "Nordic", "Nordic_nrt.jobs")
+        regular_job = os.path.join(os.path.dirname(__file__), "cases", "IEEE14.jobs")
+        interactive = nrtUtils.TestCase("0", "interactive", "", interactive_job, 1, "ALLOWED", [0])
+        regular = nrtUtils.TestCase("1", "regular", "", regular_job, 1, "ALLOWED", [0])
+        self.assertTrue(interactive.interactive_)
+        self.assertFalse(regular.interactive_)
+
     def test_launch(self):
         case_path = os.path.join(os.path.dirname(__file__), "cases")
         test = nrtUtils.TestCase("case_0", "cases", "Test case", os.path.join(
