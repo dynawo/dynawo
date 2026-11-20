@@ -44,7 +44,6 @@
 #define MMC_HDRSTRINGSLOTS(hdr)   ((hdr) >> (3+MMC_LOG2_SIZE_INT))
 #define MMC_HDRSLOTS(hdr)         ((MMC_HDRISSTRING(hdr)) ? (MMC_HDRSTRINGSLOTS(hdr)) : ((hdr) >> 10))
 #define MMC_TAGPTR(p)             (reinterpret_cast<void*>(reinterpret_cast<char*>(p) + 0))
-#define MMC_UNTAGPTR(x)           (reinterpret_cast<void*>(reinterpret_cast<char*>(x) - 0))
 #define MMC_REFSTRINGLIT(NAME) MMC_TAGPTR(&(NAME).header)
 #define MMC_DEFSTRINGLIT(NAME, LEN, VAL)  \
     struct {        \
@@ -852,7 +851,7 @@ static size_t check_copy_sanity(const base_array_t* src, base_array_t* dst, size
           dst->dim_size[i] = src->dim_size[i];
         }
         // let GC collect the old data.
-        dst->data = generic_alloc(nr_of_elements, sze);
+        dst->data = generic_alloc(static_cast<int>(nr_of_elements), sze);
 
         return nr_of_elements;
     }
@@ -943,7 +942,7 @@ void base_array_create(base_array_t *dest, void *data, int ndims, va_list ap) {
 }
 
 void alloc_integer_array_data(integer_array_t* a) {
-    a->data = integer_alloc(base_array_nr_of_elements(*a));
+    a->data = integer_alloc(static_cast<int>(base_array_nr_of_elements(*a)));
 }
 
 /* Returns a modelica_integer array that can be treated as an int array. If the
@@ -1432,20 +1431,6 @@ int index_spec_fit_base_array(const index_spec_t *s, const base_array_t *a) {
 }
 
 #ifdef _ADEPT_
-void array_alloc_scalar_real_array_adept(real_array_t_adept* dest, int n, adept::adouble first, ...) {
-  va_list ap;
-  dest->ndims = 1;
-  dest->dim_size = new _index_t[1]();
-  dest->dim_size[0] = n;
-  dest->data = new adept::adouble[n];
-  va_start(ap, first);
-  dest->data[0] = first;
-  for (int i = 1; i < n; ++i) {
-    dest->data[i] = va_arg(ap, adept::adouble);
-  }
-  va_end(ap);
-}
-
 adept::adouble min_real_array_adept(const real_array_t_adept a) {
     size_t nr_of_elements;
     adept::adouble min_element = a.data[0];
