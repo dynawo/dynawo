@@ -913,7 +913,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
         return_value = IDENTICAL
     else:
         if file_name == "curves" and file_extension == ".xml":
-            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = XMLCloseEnough (path_left, path_right)
+            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different, curves_dtw, max_dtw, stopped) = XMLCloseEnough (path_left, path_right)
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
@@ -933,8 +933,11 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 if (len (curves_different) <= maximum_curves_names_displayed):
                     for curve in curves_different:
                         message += " , " + curve
+                        if curve in curves_dtw:
+                            message += " (DTW " + "%g" % curves_dtw[curve] + ")"
                 else:
                     message += " coming from more than " + str(maximum_curves_names_displayed) + " curves"
+                message += DTWMessage(curves_dtw, max_dtw, stopped)
 
             elif (nb_differences > 0):
                 return_value = WITHIN_TOLERANCE
@@ -966,7 +969,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                     message += "s"
 
         elif (file_name == "curves" and file_extension == ".csv"):
-            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = CSVCloseEnough (path_left, path_right, True)
+            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different, curves_dtw, max_dtw, stopped) = CSVCloseEnough (path_left, path_right, True)
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
@@ -986,8 +989,11 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 if (len (curves_different) <= maximum_curves_names_displayed):
                     for curve in curves_different:
                         message += " , " + curve
+                        if curve in curves_dtw:
+                            message += " (DTW " + "%g" % curves_dtw[curve] + ")"
                 else:
                     message += " coming from more than " + str(maximum_curves_names_displayed) + " curves"
+                message += DTWMessage(curves_dtw, max_dtw, stopped)
 
             elif (nb_curves_only_in_left_file + nb_curves_only_in_right_file > 0):
                 if (nb_curves_only_in_left_file > 0) and (nb_curves_only_in_right_file > 0):
@@ -1277,6 +1283,8 @@ def XMLCloseEnough (path_left, path_right):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
+    curves_dtw = {}
+    stopped = False
     max_dtw = settings.max_DTW
     for exception in settings.dtw_exceptions:
         if exception in path_left or exception in path_right:
@@ -1296,9 +1304,12 @@ def XMLCloseEnough (path_left, path_right):
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)
-                if nb_differences > 5: break
+                curves_dtw[curve] = distance
+                if nb_differences > 5:
+                    stopped = True
+                    break
 
-    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
+    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different, curves_dtw, max_dtw, stopped)
 
 
 # Comparison of 2 curves based on the Dynamic Time Warping distance
@@ -1332,6 +1343,21 @@ def DTWDistance(left, right, max_dtw=None) :
         previousRow = thisRow
 
     return previousRow[m]
+
+
+# Build the message giving the maximum DTW distance of the curves out of tolerance,
+# useful to define an exception in settings.dtw_exceptions without reproducing the case
+# @param curves_dtw : DTW distance of each curve out of tolerance
+# @param max_dtw : tolerance used for the comparison
+# @param stopped : whether the comparison was stopped before checking all the curves
+# @return the message, empty when no curve is out of tolerance
+def DTWMessage(curves_dtw, max_dtw, stopped):
+    if len(curves_dtw) == 0:
+        return ""
+    message = " , max DTW " + "%g" % max(curves_dtw.values()) + " (tolerance " + "%g" % max_dtw + ")"
+    if stopped:
+        message += ", comparison stopped after " + str(len(curves_dtw)) + " curves out of tolerance: other curves may need a higher tolerance"
+    return message
 
 
 # Check whether two initial values files are close enough
@@ -1513,6 +1539,8 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
     nb_differences = 0
     nb_differences_absolute = 0
     nb_differences_relative = 0
+    curves_dtw = {}
+    stopped = False
     max_dtw = settings.max_DTW
     for exception in settings.dtw_exceptions:
         if exception in path_left or exception in path_right:
@@ -1534,9 +1562,12 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
                 nb_differences += 1
                 nb_differences_absolute += 1
                 curves_different.add (curve)
-                if nb_differences > 5: break
+                curves_dtw[curve] = distance
+                if nb_differences > 5:
+                    stopped = True
+                    break
 
-    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
+    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different, curves_dtw, max_dtw, stopped)
 
 ##
 # Make an html report to display diff results
