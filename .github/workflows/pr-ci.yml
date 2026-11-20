@@ -14,6 +14,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  linux-image:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.resolve.outputs.image }}
+    steps:
+      - name: Resolve Linux image
+        id: resolve
+        run: |
+          docker pull --platform linux/amd64 dynawo/dynawo-ci-ol8:latest
+          image=$(docker image inspect dynawo/dynawo-ci-ol8:latest --format '{{index .RepoDigests 0}}')
+          [[ "$image" =~ ^dynawo/dynawo-ci-ol8@sha256:[0-9a-f]{64}$ ]]
+          echo "image=$image" >> "$GITHUB_OUTPUT"
+
   coordinate:
     name: Find matching push builds
     runs-on: ubuntu-latest
@@ -76,8 +89,9 @@ jobs:
 
   linux:
     name: Linux Release build and full NRT
+    needs: linux-image
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-ol8:latest
+    container: ${{ needs.linux-image.outputs.image }}
     env:
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_COMPILER: GCC
@@ -86,16 +100,96 @@ jobs:
       DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
       DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
       DYNAWO_NB_PROCESSORS_USED: 2
+      DYNAWO_BUILD_DIR: ${{ github.workspace }}/build/ci/shared/dynawo
+      DYNAWO_INSTALL_DIR: ${{ github.workspace }}/install/ci/shared/dynawo
     steps:
       - uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
-      - name: Build
+      - name: Find Linux build artifact
+        id: linux-lookup
+        uses: actions/github-script@v7
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        with:
+          script: |
+            if (process.env.HEAD_REPO !== `${context.repo.owner}/${context.repo.repo}`) return;
+            const repo = context.repo;
+            try {
+              const file = async ref => (await github.rest.repos.getContent({
+                ...repo, path: '.github/workflows/ci.yml', ref
+              })).data;
+              const [base, head] = await Promise.all([file(process.env.BASE_SHA), file(process.env.HEAD_SHA)]);
+              if (!base.sha || base.sha !== head.sha) return;
+              const deadline = Date.now() + 90 * 60 * 1000;
+              while (Date.now() < deadline) {
+                const runs = await github.paginate(github.rest.actions.listWorkflowRuns, {
+                  ...repo, workflow_id: 'ci.yml', event: 'push', branch: process.env.HEAD_BRANCH, per_page: 100
+                });
+                const run = runs.filter(r => r.head_sha === process.env.HEAD_SHA &&
+                  r.head_repository?.full_name === process.env.HEAD_REPO).sort((a, b) => b.id - a.id)[0];
+                if (run) {
+                  const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRunAttempt, {
+                    ...repo, run_id: run.id, attempt_number: run.run_attempt, per_page: 100
+                  });
+                  const build = jobs.find(j => j.name === 'build linux');
+                  if (build?.status === 'completed' && build.conclusion !== 'success') return;
+                  const name = `linux-build-${run.run_attempt}`;
+                  const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
+                    ...repo, run_id: run.id, per_page: 100
+                  });
+                  if (build && artifacts.some(a => a.name === name && !a.expired)) {
+                    core.setOutput('run-id', String(run.id));
+                    core.setOutput('name', name);
+                    return;
+                  }
+                  if (run.status === 'completed') return;
+                }
+                await new Promise(resolve => setTimeout(resolve, 15000));
+              }
+              core.notice('Linux artifact lookup timed out; rebuilding.');
+            } catch (error) {
+              core.warning(`Linux artifact lookup failed; rebuilding: ${error.message}`);
+            }
+      - name: Download Linux build
+        id: linux-download
+        if: steps.linux-lookup.outputs.run-id != ''
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.linux-lookup.outputs.name }}
+          run-id: ${{ steps.linux-lookup.outputs.run-id }}
+          github-token: ${{ github.token }}
+          path: linux-artifact
+      - name: Restore Linux build and build NRT models
+        id: linux-restore
+        if: steps.linux-download.outcome == 'success'
+        continue-on-error: true
+        env:
+          LINUX_IMAGE: ${{ needs.linux-image.outputs.image }}
         run: |
+          test ! -e build && test ! -e install
+          test "$(tar -xOf linux-artifact/linux-build.tar linux-build-workspace.txt)" = "$(pwd)"
+          test "$(tar -xOf linux-artifact/linux-build.tar linux-build-image.txt)" = "$LINUX_IMAGE"
+          touch linux-restore-started
+          tar -xf linux-artifact/linux-build.tar
+          export DYNAWO_HOME=$(pwd)
+          util/envDynawo.sh version
+          util/envDynawo.sh build-nrt-models
+      - name: Build
+        if: steps.linux-restore.outcome != 'success'
+        run: |
+          if [ -f linux-restore-started ]; then
+            rm -rf build install
+          fi
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
+          util/envDynawo.sh build-nrt-models
       - name: Full Linux NRT
         run: |
           export DYNAWO_HOME=$(pwd)

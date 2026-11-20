@@ -24,12 +24,26 @@ env:
   DYNAWO_TAG: vMaster
 
 jobs:
+  linux-image:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.resolve.outputs.image }}
+    steps:
+      - name: Resolve Linux image
+        id: resolve
+        run: |
+          docker pull --platform linux/amd64 dynawo/dynawo-ci-ol8:latest
+          image=$(docker image inspect dynawo/dynawo-ci-ol8:latest --format '{{index .RepoDigests 0}}')
+          [[ "$image" =~ ^dynawo/dynawo-ci-ol8@sha256:[0-9a-f]{64}$ ]]
+          echo "image=$image" >> "$GITHUB_OUTPUT"
+
   build-linux:
     name: build linux
+    needs: linux-image
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-ol8:latest
+    container: ${{ needs.linux-image.outputs.image }}
     env:
       DYNAWO_BUILD_TYPE: Release
       DYNAWO_COMPILER: GCC
@@ -43,12 +57,36 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build all
+        env:
+          DYNAWO_BUILD_DIR: ${{ github.workspace }}/build/ci/shared/dynawo
+          DYNAWO_INSTALL_DIR: ${{ github.workspace }}/install/ci/shared/dynawo
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
+      - name: Package Linux build
+        if: github.event_name == 'push'
+        env:
+          LINUX_IMAGE: ${{ needs.linux-image.outputs.image }}
+        run: |
+          pwd > linux-build-workspace.txt
+          printf '%s\n' "$LINUX_IMAGE" > linux-build-image.txt
+          tar -cf linux-build.tar build install linux-build-workspace.txt linux-build-image.txt
+
+      - name: Upload Linux build
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build-${{ github.run_attempt }}
+          path: linux-build.tar
+          retention-days: 1
+          if-no-files-found: error
+
       - name: NRT
         if: github.event_name == 'workflow_dispatch' && inputs.perform-nrt
+        env:
+          DYNAWO_BUILD_DIR: ${{ github.workspace }}/build/ci/shared/dynawo
+          DYNAWO_INSTALL_DIR: ${{ github.workspace }}/install/ci/shared/dynawo
         run: |
           export DYNAWO_HOME=$(pwd)
           export DYNAWO_NB_PROCESSORS_USED=1
