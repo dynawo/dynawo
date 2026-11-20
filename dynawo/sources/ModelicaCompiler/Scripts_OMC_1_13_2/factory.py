@@ -2027,21 +2027,12 @@ class Factory:
 
         # print all gout at the end of the function
         nb_zero_crossing = 0;
-        double_equality_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
-        double_equality_parameter_prtn = re.compile(r'\(data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/ == data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/\)')
         for line in filtered_func:
             if "gout" in line:
                 if "tmp" in line:
                     line = line.replace("tmp", "tmp_zc")
                 line = line.replace("1 : -1;", "ROOT_UP : ROOT_DOWN;")
-                found = re.search(double_equality_prtn, line)
-                if found is not None:
-                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
-                    line = line.replace(found.group(0), test)
-                found = re.search(double_equality_parameter_prtn, line)
-                if found is not None:
-                    test = "DYN::doubleEquals" + found.group(0).replace (" == ", ",")
-                    line = line.replace(found.group(0), test)
+                line = replace_double_equality(line)
                 self.list_for_setg.append(line)
                 nb_zero_crossing +=1
 

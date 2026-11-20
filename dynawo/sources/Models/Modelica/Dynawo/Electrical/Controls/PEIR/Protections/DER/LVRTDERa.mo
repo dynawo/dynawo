@@ -37,7 +37,7 @@ equation
   // Vl0 comparison
   when UMonitoredPu <= Ul0Pu and not(pre(Ul0Reached)) then
     tUl0Reached = time;
-  elsewhen UMonitoredPu > Ul0Pu and pre(tUl0Reached) <> Constants.inf and not(pre(Ul0Reached)) then
+  elsewhen UMonitoredPu > Ul0Pu and (not Modelica.Math.isEqual(pre(tUl0Reached), Constants.inf)) and not(pre(Ul0Reached)) then
     tUl0Reached = Constants.inf;
   end when;
 
@@ -48,7 +48,7 @@ equation
   // Vl1 comparison
   when UMonitoredPu <= Ul1Pu and not(pre(Ul1Reached)) then
     tUl1Reached = time;
-  elsewhen UMonitoredPu > Ul1Pu and pre(tUl1Reached) <> Constants.inf and not(pre(Ul1Reached)) then
+  elsewhen UMonitoredPu > Ul1Pu and (not Modelica.Math.isEqual(pre(tUl1Reached), Constants.inf)) and not(pre(Ul1Reached)) then
     tUl1Reached = Constants.inf;
   end when;
 

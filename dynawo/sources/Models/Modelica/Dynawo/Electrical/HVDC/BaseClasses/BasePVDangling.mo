@@ -18,7 +18,7 @@ partial model BasePVDangling "Base dynamic model for PV control at terminal 1"
   parameter Types.PerUnit Lambda1Pu "Parameter Lambda of the voltage regulation law U1RefPu = U1Pu + Lambda1Pu * QInj1Pu, in pu (base UNom, SnRef) at terminal 1";
   parameter Types.ReactivePower Q1Nom "Nominal reactive power in Mvar at terminal 1";
 
-  final parameter Boolean UseLambda1 = not(Lambda1Pu == 0) "If true, the voltage regulation follows the law U1RefPu = U1Pu + Lambda1Pu * QInj1Pu at terminal 1";
+  final parameter Boolean UseLambda1 = (not Modelica.Math.isEqual(Lambda1Pu, 0)) "If true, the voltage regulation follows the law U1RefPu = U1Pu + Lambda1Pu * QInj1Pu at terminal 1";
 
   Dynawo.Connectors.ReactivePowerPuInput QInj1PuQNom "Reactive power at terminal 1 in pu (base Q1Nom) (generator convention)" annotation(
     Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 30}, {-100, 50}})));

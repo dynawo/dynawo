@@ -34,26 +34,26 @@ equation
   // Frequency comparison with the minimum accepted value
   when omegaMonitoredPu <= OmegaMinPu and not(pre(switchOffSignal)) then
     tThresholdReachedMin = time;
-  elsewhen omegaMonitoredPu > OmegaMinPu and pre(tThresholdReachedMin) <> Constants.inf and not(pre(switchOffSignal)) then
+  elsewhen omegaMonitoredPu > OmegaMinPu and (not Modelica.Math.isEqual(pre(tThresholdReachedMin), Constants.inf)) and not(pre(switchOffSignal)) then
     tThresholdReachedMin = Constants.inf;
   end when;
 
   when omegaMonitoredPu <= OmegaMinPu and not(pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.UnderspeedArming);
-  elsewhen omegaMonitoredPu > OmegaMinPu and pre(tThresholdReachedMin) <> Constants.inf and not(pre(switchOffSignal)) and tLagAction > 0 then
+  elsewhen omegaMonitoredPu > OmegaMinPu and (not Modelica.Math.isEqual(pre(tThresholdReachedMin), Constants.inf)) and not(pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.UnderspeedDisarming);
   end when;
 
   // Frequency comparison with the maximum accepted value
   when omegaMonitoredPu >= OmegaMaxPu and not(pre(switchOffSignal)) then
     tThresholdReachedMax = time;
-  elsewhen omegaMonitoredPu < OmegaMaxPu and pre(tThresholdReachedMax) <> Constants.inf and not(pre(switchOffSignal)) then
+  elsewhen omegaMonitoredPu < OmegaMaxPu and (not Modelica.Math.isEqual(pre(tThresholdReachedMax), Constants.inf)) and not(pre(switchOffSignal)) then
     tThresholdReachedMax = Constants.inf;
   end when;
 
   when omegaMonitoredPu >= OmegaMaxPu and not(pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.OverspeedArming);
-  elsewhen omegaMonitoredPu < OmegaMaxPu and pre(tThresholdReachedMax) <> Constants.inf and not(pre(switchOffSignal)) and tLagAction > 0 then
+  elsewhen omegaMonitoredPu < OmegaMaxPu and (not Modelica.Math.isEqual(pre(tThresholdReachedMax), Constants.inf)) and not(pre(switchOffSignal)) and tLagAction > 0 then
     Timeline.logEvent1(TimelineKeys.OverspeedDisarming);
   end when;
 

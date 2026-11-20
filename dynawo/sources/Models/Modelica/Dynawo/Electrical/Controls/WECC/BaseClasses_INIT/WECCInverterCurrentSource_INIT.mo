@@ -66,7 +66,7 @@ equation
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
 
-  PF0 = if (not (ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/ComplexMath.'abs'(s0Pu) else 0;
+  PF0 = if (not Modelica.Math.isEqual(ComplexMath.'abs'(s0Pu),0)) then -P0Pu/ComplexMath.'abs'(s0Pu) else 0;
   Id0Pu = Modelica.Math.cos(UPhase0)*iInj0Pu.re + Modelica.Math.sin(UPhase0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhase0)*iInj0Pu.re - Modelica.Math.cos(UPhase0)*iInj0Pu.im;
 

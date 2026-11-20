@@ -33,8 +33,8 @@ block BaseLimiterWithLag "Base block of limiter that enforces saturations only a
   discrete Types.Time tUMaxReached(start = tUMaxReached0) "Last time when u went above UMax";
   discrete Types.Time tUMinReached(start = tUMinReached0) "Last time when u went below UMin";
 
-  Boolean initSaturatedMax(start = (tUMaxReached0 == -Constants.inf)) "If true, simulation starts in max saturated mode";
-  Boolean initSaturatedMin(start = (tUMinReached0 == -Constants.inf)) "If true, simulation starts in min saturated mode";
+  Boolean initSaturatedMax(start = Modelica.Math.isEqual(tUMaxReached0, -Constants.inf)) "If true, simulation starts in max saturated mode";
+  Boolean initSaturatedMin(start = Modelica.Math.isEqual(tUMinReached0, -Constants.inf)) "If true, simulation starts in min saturated mode";
 
   parameter Types.Time tUMaxReached0 "Initial time when u went above UMax";
   parameter Types.Time tUMinReached0 "Initial time when u went below UMin";

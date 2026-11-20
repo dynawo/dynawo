@@ -88,8 +88,6 @@ equation
     Line(points = {{3, -52}, {107, -52}}, color = {0, 0, 127}));
   connect(URefPu, aCVoltageControl.URefPu) annotation(
     Line(points = {{-107, -52}, {-63, -52}}, color = {0, 0, 127}));
-  connect(URefPu, aCVoltageControl.URefPu) annotation(
-    Line(points = {{-107, -52}, {-73, -52}, {-73, -52}, {-73, -52}}, color = {0, 0, 127}));
   connect(QRefPu, aCVoltageControl.QRefPu) annotation(
     Line(points = {{-107, -64}, {-63, -64}}, color = {0, 0, 127}));
   connect(UPu, aCVoltageControl.UPu) annotation(

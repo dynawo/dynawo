@@ -33,14 +33,14 @@ equation
   // Low frequency
   when fMonitoredPu <= FlPu and pre(connectedShare) > 0 then
     tflReached = time;
-  elsewhen fMonitoredPu > FlPu and pre(tflReached) <> Constants.inf and pre(connectedShare) > 0 then
+  elsewhen fMonitoredPu > FlPu and (not Modelica.Math.isEqual(pre(tflReached), Constants.inf)) and pre(connectedShare) > 0 then
     tflReached = Constants.inf;
   end when;
 
   // High frequency
   when fMonitoredPu >= FhPu and pre(connectedShare) > 0 then
     tfhReached = time;
-  elsewhen fMonitoredPu < FhPu and pre(tfhReached) <> Constants.inf and pre(connectedShare) > 0 then
+  elsewhen fMonitoredPu < FhPu and (not Modelica.Math.isEqual(pre(tfhReached), Constants.inf)) and pre(connectedShare) > 0 then
     tfhReached = Constants.inf;
   end when;
 
