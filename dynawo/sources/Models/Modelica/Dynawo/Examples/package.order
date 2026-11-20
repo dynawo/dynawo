@@ -3,6 +3,7 @@ BaseClasses
 BESS
 ENTSOE
 GridCodeSimulations
+GridFollowing
 GridForming
 HVDC
 IEEE14

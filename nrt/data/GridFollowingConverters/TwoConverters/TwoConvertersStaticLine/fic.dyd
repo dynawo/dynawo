@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<dynamicModelsArchitecture xmlns="http://www.rte-france.com/dynawo">
+  <!-- Converters -->
+  <blackBoxModel id="WP1" lib="DynGridFollowingPlantQ" parFile="fic.par" parId="GFL1"/>
+  <blackBoxModel id="WP2" lib="DynGridFollowingPlantQ" parFile="fic.par" parId="GFL2"/>
+  <!-- Network: WP1 - Line - Bus - Line1 - WP2, Bus - (Line2 // Line3) - infinite bus -->
+  <blackBoxModel id="Line" lib="Line" parFile="fic.par" parId="Line"/>
+  <blackBoxModel id="Line1" lib="Line" parFile="fic.par" parId="Line"/>
+  <blackBoxModel id="Line2" lib="Line" parFile="fic.par" parId="Line2"/>
+  <blackBoxModel id="Line3" lib="Line" parFile="fic.par" parId="Line3"/>
+  <blackBoxModel id="Bus" lib="Bus"/>
+  <blackBoxModel id="INF_GEN" lib="InfiniteBusWithVariations" parFile="fic.par" parId="INF"/>
+  <!-- Line3 opened on side 1 (bus side) at t = 51.5 s -->
+  <blackBoxModel id="DISCONNECT_LINE3" lib="EventSetPointBoolean" parFile="fic.par" parId="DisconnectLine3"/>
+  <!-- Frequency references -->
+  <blackBoxModel id="OmegaRef" lib="SetPoint" parFile="fic.par" parId="OmegaRef"/>
+  <!-- Active power references: steps at t = 50 s -->
+  <blackBoxModel id="PRef1" lib="Step" parFile="fic.par" parId="PRef1"/>
+  <blackBoxModel id="PRef2" lib="Step" parFile="fic.par" parId="PRef2"/>
+  <!-- Voltage references: step at t = 480 s for WP1, constant for WP2 -->
+  <blackBoxModel id="URef1" lib="Step" parFile="fic.par" parId="URef1"/>
+  <blackBoxModel id="URef2" lib="SetPoint" parFile="fic.par" parId="URef2"/>
+  <connect id1="WP1" var1="GFL_terminal" id2="Line" var2="line_terminal1"/>
+  <connect id1="Line" var1="line_terminal2" id2="Bus" var2="bus_terminal"/>
+  <connect id1="Bus" var1="bus_terminal" id2="Line1" var2="line_terminal1"/>
+  <connect id1="Line1" var1="line_terminal2" id2="WP2" var2="GFL_terminal"/>
+  <connect id1="Bus" var1="bus_terminal" id2="Line2" var2="line_terminal1"/>
+  <connect id1="Line2" var1="line_terminal2" id2="INF_GEN" var2="infiniteBus_terminal"/>
+  <connect id1="Bus" var1="bus_terminal" id2="Line3" var2="line_terminal1"/>
+  <connect id1="Line3" var1="line_terminal2" id2="INF_GEN" var2="infiniteBus_terminal"/>
+  <connect id1="DISCONNECT_LINE3" var1="event_state1" id2="Line3" var2="line_switchOffSignal1"/>
+  <connect id1="OmegaRef" var1="setPoint_setPoint" id2="WP1" var2="GFL_omegaRefPu"/>
+  <connect id1="OmegaRef" var1="setPoint_setPoint" id2="WP2" var2="GFL_omegaRefPu"/>
+  <connect id1="PRef1" var1="step_step" id2="WP1" var2="GFL_PRefPu"/>
+  <connect id1="PRef2" var1="step_step" id2="WP2" var2="GFL_PRefPu"/>
+  <connect id1="URef1" var1="step_step" id2="WP1" var2="GFL_URefPu"/>
+  <connect id1="URef2" var1="setPoint_setPoint" id2="WP2" var2="GFL_URefPu"/>
+</dynamicModelsArchitecture>
