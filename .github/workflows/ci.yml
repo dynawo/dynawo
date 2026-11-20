@@ -25,7 +25,9 @@ env:
 
 jobs:
   build-linux:
-    name: Linux Release build (v1)
+    name: build linux
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-ol8:latest
     env:
@@ -54,24 +56,6 @@ jobs:
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
-  publish-master:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    container: dynawo/dynawo-ci-ol8:latest
-    env:
-      DYNAWO_BUILD_TYPE: Debug
-      DYNAWO_COMPILER: GCC
-      DYNAWO_RESULTS_SHOW: "false"
-      DYNAWO_PYTHON_COMMAND: python3
-      DYNAWO_INSTALL_OPENMODELICA: /opt/OpenModelica/Install
-      DYNAWO_SRC_OPENMODELICA: /opt/OpenModelica/Source
-      DYNAWO_NB_PROCESSORS_USED: 2
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
       - name: Create master tag and release if necessary
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: actions/github-script@v7
@@ -93,6 +77,8 @@ jobs:
 
       - name: Build for master distrib
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          DYNAWO_BUILD_TYPE: Debug
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-3rd-party
@@ -118,13 +104,18 @@ jobs:
             const release = require('.github/release.js')
             await release({github, context, core, glob})
 
-      - name: Build all
+      - name: Build all for documentation
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          DYNAWO_BUILD_TYPE: Debug
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-user
 
       - name: Doxygen build
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          DYNAWO_BUILD_TYPE: Debug
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-doxygen-doc || { cat install/gcc8/master/Debug/shared/dynawo/doxygen/warnings_filtered.txt && exit 1; }
@@ -136,7 +127,7 @@ jobs:
           folder: ./install/gcc8/master/Debug/shared/dynawo/doxygen/html
 
   coverage:
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-ol8:latest
     env:
@@ -171,6 +162,15 @@ jobs:
           curl -LO https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
           tar xzf openjdk-17.0.2_linux-x64_bin.tar.gz
 
+      - name: Build branch
+        env:
+          CONTAINER_WORKSPACE: ${{ github.workspace }}
+          DYNAWO_THIRD_PARTY_INSTALL_DIR: /opt/dynawo/3rParty
+        if: github.ref != 'refs/heads/master'
+        run: |
+          export DYNAWO_HOME=$(pwd)
+          $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
+
       - name: Build master
         env:
           CONTAINER_WORKSPACE: ${{ github.workspace }}
@@ -193,7 +193,7 @@ jobs:
           $CONTAINER_WORKSPACE/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.cfamily.threads=2
 
   build-windows:
-    name: Windows Release build (v1)
+    name: build windows
     runs-on: windows-2022
     steps:
       - name: Checkout sources
