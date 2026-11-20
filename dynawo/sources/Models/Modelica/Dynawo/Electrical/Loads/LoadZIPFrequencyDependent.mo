@@ -41,8 +41,8 @@ equation
   PLL.uPu.im = terminal.V.im;
 
   if (running) then
-    PPu = PRefPu*(1 + deltaP)*(Zp*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu))^2 + Ip*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu)) + Pp)*(1 + Kpf*(PLL.omegaPLLPu - omegaRef0Pu));
-    QPu = QRefPu*(1 + deltaQ)*(Zq*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu))^2 + Iq*(ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu)) + Pq)*(1 + Kqf*(PLL.omegaPLLPu - omegaRef0Pu));
+    PPu = PRefPu*(1 + deltaP)*(Zp*(ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu))^2 + Ip*(ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu)) + Pp)*(1 + Kpf*(PLL.omegaPLLPu - omegaRef0Pu));
+    QPu = QRefPu*(1 + deltaQ)*(Zq*(ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu))^2 + Iq*(ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu)) + Pq)*(1 + Kqf*(PLL.omegaPLLPu - omegaRef0Pu));
   else
     terminal.i = Complex(0);
   end if;

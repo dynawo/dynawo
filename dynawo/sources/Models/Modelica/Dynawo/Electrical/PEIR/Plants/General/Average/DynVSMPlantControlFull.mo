@@ -186,7 +186,7 @@ model DynVSMPlantControlFull "GFM with VSM control, generic Plant Controller, li
   final parameter Types.ComplexVoltagePu uGfm0Pu = uTfo20Pu - ZLinePu*(iLine20Pu - YLinePu*uTfo20Pu) "Start value of the complex voltage at the converter terminal in pu (base UNom)";
   final parameter Types.ComplexCurrentPu iLine10Pu = (uGfm0Pu - uTfo20Pu)/ZLinePu + YLinePu*uGfm0Pu "Start value of the complex current at line terminal 1 in pu (base UNom, SnRef) (receptor convention)";
   final parameter Types.ComplexCurrentPu iGfm0Pu = -iLine10Pu "Start value of the complex current at the converter terminal in pu (base UNom, SnRef) (receptor convention)";
-  final parameter Types.VoltageModulePu UGfm0Pu = Modelica.ComplexMath.'abs'(uGfm0Pu) "Start value of voltage amplitude at the converter terminal in pu (base UNom)";
+  final parameter Types.VoltageModulePu UGfm0Pu = Modelica.ComplexMath.abs(uGfm0Pu) "Start value of voltage amplitude at the converter terminal in pu (base UNom)";
   final parameter Types.Angle UPhaseGfm0 = Modelica.ComplexMath.arg(uGfm0Pu) "Start value of voltage angle at the converter terminal in rad";
   final parameter Types.ActivePowerPu PGfm0Pu = Modelica.ComplexMath.real(uGfm0Pu*Modelica.ComplexMath.conj(iGfm0Pu)) "Start value of active power at the converter terminal in pu (base SnRef) (receptor convention)";
   final parameter Types.ReactivePowerPu QGfm0Pu = Modelica.ComplexMath.imag(uGfm0Pu*Modelica.ComplexMath.conj(iGfm0Pu)) "Start value of reactive power at the converter terminal in pu (base SnRef) (receptor convention)";
