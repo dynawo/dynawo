@@ -244,7 +244,8 @@ modelicaCompile(const string& modelName, const string& compilationDir,
 
   // We pass the scriptVarExt.py on the .mo compilation
   std::cout << " Creation of " << moFile << " file with external variables" << std::endl;
-  string varExtCommand = pythonCmd + " " + scriptsDir1 + "/scriptVarExt.py --fileVarExt=" + extVarFile + " --file=" + moFile + " --pre";
+  string varExtCommand = pythonCmd + " " + quoteShellArgument(scriptsDir1 + "/scriptVarExt.py") + " --fileVarExt=" + quoteShellArgument(extVarFile)
+    + " --file=" + quoteShellArgument(moFile) + " --pre";
 
   bool doPrintLogs = true;
   string result = executeCommand(varExtCommand, doPrintLogs);
@@ -396,7 +397,8 @@ generateModelFile(const string& modelName, const string& compilationDir, bool& w
   string pythonCmd = "python";
   if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
     pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
-  string varExtCommand = pythonCmd + " " + scriptsDir1 + "/writeModel.py -m " + packageName + modelName + " -i " + compilationDir + " -o " + compilationDir;
+  string varExtCommand = pythonCmd + " " + quoteShellArgument(scriptsDir1 + "/writeModel.py") + " -m " + packageName + modelName
+    + " -i " + quoteShellArgument(compilationDir) + " -o " + quoteShellArgument(compilationDir);
   if (!genCalcVars)
     varExtCommand+=" -c";
   if (!additionalHeaderList.empty())
@@ -432,16 +434,18 @@ compileLib(const string& modelName, const string& compilationDir) {
 
   cmakeFile << "cmake_minimum_required(VERSION 3.9.6)" << std::endl;
   cmakeFile << "PROJECT(model CXX)" << std::endl;
-  cmakeFile << "include(" << boost::replace_all_copy(absolute("compileCppModelicaModelInDynamicLib.cmake", scriptsDir), "\\", "/") << ")" << std::endl;
+  cmakeFile << "include(\"" << boost::replace_all_copy(absolute("compileCppModelicaModelInDynamicLib.cmake", scriptsDir), "\\", "/") << "\")" << std::endl;
 
   cmakeFile.close();
 
-  string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
+  const string quotedCompilationDir = quoteShellArgument(compilationDir);
+  string compileLibCommand = "cmake -B" + quotedCompilationDir + " -H" + quotedCompilationDir
+                           + " -C" + quoteShellArgument(absolute("PreloadCache.cmake", scriptsDir))
 #if __linux__
-                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + compilationDir + " || cmake --build "
-                            + compilationDir + " > /dev/null; }";
+                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && { cmake --build " + quotedCompilationDir + " || cmake --build "
+                            + quotedCompilationDir + " > /dev/null; }";
 #else
-                           + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
+                           + " -DMODEL_NAME=" + modelName + " && cmake --build " + quotedCompilationDir;
 #endif
   bool doPrintLogs = true;
   string result = executeCommand(compileLibCommand, doPrintLogs);
@@ -462,7 +466,7 @@ bool verifySharedObject(const string& library) {
 
   // verify links.
 #ifdef __linux__
-  const string command = "ldd -r " + library;
+  const string command = "ldd -r " + quoteShellArgument(library);
   const bool doPrintLogs = true;
   const string result = executeCommand(command, doPrintLogs);
   bool valid = result.find("undefined symbol") == string::npos;

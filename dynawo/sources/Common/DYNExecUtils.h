@@ -44,6 +44,18 @@ std::string prettyPath(const std::string& path);
 int executeCommand(const std::string& command, std::stringstream& ss, const std::string& startDir = "");
 
 /**
+ * @brief quote an argument so that it is received as a single argument by the shell used in executeCommand
+ *
+ * Arguments containing spaces (paths for instance) are otherwise split by the shell.
+ * The argument is returned unchanged on Windows.
+ *
+ * @param arg argument to quote
+ *
+ * @return the quoted argument
+ */
+std::string quoteShellArgument(const std::string& arg);
+
+/**
  * @brief retrieve a given environment variable
  *
  * @param key key of the environment variable

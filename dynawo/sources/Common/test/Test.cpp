@@ -30,6 +30,7 @@
 #include "DYNSparseMatrix.h"
 #include "DYNEnumUtils.h"
 #include "DYNTimer.h"
+#include "DYNExecUtils.h"
 
 namespace DYN {
 
@@ -496,5 +497,22 @@ TEST(CommonTest, testLevensteinDistance) {
 TEST(CommonTest, testdouble2String) {
   ASSERT_EQ(double2String(123456789.123456789), "1.2345679e+08");
   ASSERT_EQ(double2String(1234.1234), "1234.1234000");
+}
+
+TEST(CommonTest, testQuoteShellArgument) {
+#ifdef _WIN32
+  ASSERT_EQ(quoteShellArgument("C:/my dir/my file.mo"), "C:/my dir/my file.mo");
+#else
+  ASSERT_EQ(quoteShellArgument("/my dir/my file.mo"), "'/my dir/my file.mo'");
+  ASSERT_EQ(quoteShellArgument("/it's/$HOME/`ls`"), "'/it'\\''s/$HOME/`ls`'");
+  ASSERT_EQ(quoteShellArgument(""), "''");
+
+  // the quoted argument must be received unchanged, as a single argument, by the shell used in executeCommand
+  // ($, ` and " are not tested: executeCommand goes through two shells and the outer one still interprets them)
+  const std::string arg = "/my  dir/it's a path";
+  std::stringstream ss;
+  ASSERT_EQ(executeCommand("printf '[%s]\\n' " + quoteShellArgument(arg), ss), 0);
+  ASSERT_NE(ss.str().find("\n[" + arg + "]\n"), std::string::npos);
+#endif
 }
 }  // namespace DYN
