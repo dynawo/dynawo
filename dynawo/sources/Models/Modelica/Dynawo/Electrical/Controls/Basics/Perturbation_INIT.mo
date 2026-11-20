@@ -17,7 +17,7 @@ model Perturbation_INIT "Initialization for the perturbation model"
 
   parameter Real ValueIn = 0 "Start value of the output given as a parameter";
 
-  Real Value0(start = ValueIn) "Start value of the output of the initialization process";
+  Modelica.Blocks.Interfaces.RealInput Value0(start = ValueIn) "Start value of the output of the initialization process";
 
   annotation(preferredView = "text");
 end Perturbation_INIT;
