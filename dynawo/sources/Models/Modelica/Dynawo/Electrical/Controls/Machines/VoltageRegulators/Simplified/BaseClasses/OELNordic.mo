@@ -39,7 +39,6 @@ equation
   end if;
 
   annotation(preferredView = "text",
-    uses(Modelica(version = "3.2.3")),
     Icon(graphics = {Rectangle(origin = {-44, 40}, extent = {{-56, 60}, {144, -140}}), Text(origin = {-77, 45}, extent = {{-13, 11}, {167, -99}}, textString = "OverExcitationLimitation")}, coordinateSystem(initialScale = 0.1)),
     Diagram(graphics = {Rectangle(origin = {-72, 82}, extent = {{-28, 18}, {172, -182}})}, coordinateSystem(initialScale = 0.1)));
 end OELNordic;

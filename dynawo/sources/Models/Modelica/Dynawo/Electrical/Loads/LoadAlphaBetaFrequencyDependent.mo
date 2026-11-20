@@ -33,8 +33,8 @@ equation
   PLL.uPu.im = terminal.V.im;
 
   if (running) then
-    PPu = PRefPu*(1 + deltaP)*((ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu))^alpha)*(1 + Kpf*(PLL.omegaPLLPu - omegaRef0Pu));
-    QPu = QRefPu*(1 + deltaQ)*((ComplexMath.'abs'(terminal.V)/ComplexMath.'abs'(u0Pu))^beta)*(1 + Kqf*(PLL.omegaPLLPu - omegaRef0Pu));
+    PPu = PRefPu*(1 + deltaP)*((ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu))^alpha)*(1 + Kpf*(PLL.omegaPLLPu - omegaRef0Pu));
+    QPu = QRefPu*(1 + deltaQ)*((ComplexMath.abs(terminal.V)/ComplexMath.abs(u0Pu))^beta)*(1 + Kqf*(PLL.omegaPLLPu - omegaRef0Pu));
   else
     terminal.i = Complex(0);
   end if;
