@@ -22,6 +22,8 @@
 #include <iomanip>
 #include <vector>
 #include <cstring>
+#include <cstdlib>
+#include <algorithm>
 
 #include <ida/ida.h>
 #include <nvector/nvector_serial.h>
@@ -631,6 +633,35 @@ SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
     solver->printWeightedErrors();
   }
 #endif
+  // BUBU TEMP(#3874): largest weighted local errors around t=1 (DYN_CHECK_REL defined)
+  static const char* bubuCheckRel = std::getenv("DYN_CHECK_REL");
+  if (bubuCheckRel != nullptr && !solver->flagInit() && tres >= 1. && tres <= 1.01) {
+    const int nbY = model.sizeY();
+    N_Vector nvWeights = N_VNew_Serial(nbY, solver->sundialsContext_);
+    N_Vector nvErrors = N_VNew_Serial(nbY, solver->sundialsContext_);
+    if (IDAGetErrWeights(solver->IDAMem_, nvWeights) >= 0 && IDAGetEstLocalErrors(solver->IDAMem_, nvErrors) >= 0) {
+      const double* weights = NV_DATA_S(nvWeights);
+      const double* errors = NV_DATA_S(nvErrors);
+      const propertyContinuousVar_t* yTypes = &model.getYType()[0];
+      std::vector<std::pair<double, int> > bubuErr;
+      for (int i = 0; i < nbY; ++i) {
+        const double we = std::fabs(weights[i] * errors[i]);
+        if (std::isnan(we)) {
+          std::cerr << "BUBUERR NaN t=" << std::setprecision(12) << tres << " y[" << i << "] " << model.getVariableName(i) << std::endl;
+          continue;
+        }
+        if (yTypes[i] == DIFFERENTIAL)
+          bubuErr.push_back(std::make_pair(we, i));
+      }
+      std::sort(bubuErr.begin(), bubuErr.end(), [](const std::pair<double, int>& a, const std::pair<double, int>& b) { return a.first > b.first; });
+      for (int k = 0; k < 5 && k < static_cast<int>(bubuErr.size()); ++k)
+        std::cerr << "BUBUERR t=" << std::setprecision(12) << tres << " y[" << bubuErr[k].second << "] " << model.getVariableName(bubuErr[k].second)
+                  << " type=" << propertyVar2Str(yTypes[bubuErr[k].second]) << " weightedErr=" << bubuErr[k].first
+                  << " y=" << iyy[bubuErr[k].second] << " yp=" << iyp[bubuErr[k].second] << std::endl;
+    }
+    N_VDestroy_Serial(nvWeights);
+    N_VDestroy_Serial(nvErrors);
+  }
 return 0;
 }
 
@@ -798,6 +829,38 @@ SolverIDA::restoreNominalStrategyIfStable(const double tNxt) {
 void
 SolverIDA::solveStep(double tAim, double& tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, sundialsVectorY_, sundialsVectorYp_, IDA_ONE_STEP);
+  // BUBU TEMP(#3874): what IDA did on this call (DYN_CHECK_REL defined, t in [0.99, 1.01])
+  {
+    static const char* bubuCheckRel = std::getenv("DYN_CHECK_REL");
+    double tcur = 0.;
+    IDAGetCurrentTime(IDAMem_, &tcur);
+    if (bubuCheckRel != nullptr && tcur >= 0.99 && tcur <= 1.01) {
+      long int nst = 0, netf = 0, ncfn = 0, nni = 0, nre = 0;
+      double hlast = 0., hcur = 0.;
+      int klast = 0;
+      IDAGetNumSteps(IDAMem_, &nst);
+      IDAGetNumErrTestFails(IDAMem_, &netf);
+      IDAGetNumNonlinSolvConvFails(IDAMem_, &ncfn);
+      IDAGetNumNonlinSolvIters(IDAMem_, &nni);
+      IDAGetNumResEvals(IDAMem_, &nre);
+      IDAGetLastStep(IDAMem_, &hlast);
+      IDAGetCurrentStep(IDAMem_, &hcur);
+      IDAGetLastOrder(IDAMem_, &klast);
+      std::cerr << "BUBUSOLVE flag=" << flag << " tNxt=" << std::setprecision(12) << tNxt << " tcur=" << tcur
+                << " hlast=" << hlast << " hcur=" << hcur << " klast=" << klast << " nst=" << nst << " netf=" << netf
+                << " ncfn=" << ncfn << " nni=" << nni << " nre=" << nre << std::endl;
+      if (flag == IDA_ROOT_RETURN) {
+        std::vector<int> rootsFound(model_->sizeG());
+        if (!rootsFound.empty() && IDAGetRootInfo(IDAMem_, &rootsFound[0]) >= 0) {
+          for (std::size_t i = 0; i < rootsFound.size(); ++i) {
+            if (rootsFound[i] != 0) {
+              std::cerr << "BUBUSOLVE root g[" << i << "] dir=" << rootsFound[i] << std::endl;
+            }
+          }
+        }
+      }
+    }
+  }
   if (activateTimeScaledURound_) {
     // formula from https://sundials.readthedocs.io/en/latest/ida/Mathematics_link.html#rootfinding
     double currentTimeScaledURoundPrecision = timeScaledURoundPrecision_ / (100. * (getTimeStep() + tNxt));
@@ -1015,6 +1078,20 @@ SolverIDA::reinit() {
     if (algebraicRestorationReinitMode_ == ONLY_ON_ALGEBRAIC_RESTORATION) {
       updateStatistics();
 
+      // BUBU TEMP(#3874): y, y' and type of the limited integrators at restart
+      {
+        static const char* bubuCheckRel = std::getenv("DYN_CHECK_REL");
+        if (bubuCheckRel != nullptr && tSolve_ >= 0.99 && tSolve_ <= 1.01) {
+          const std::vector<propertyContinuousVar_t>& bubuYType = model_->getYType();
+          const double* bubuId = NV_DATA_S(sundialsVectorYType_);
+          for (int i = 0; i < model_->sizeY(); ++i) {
+            const std::string bubuName = model_->getVariableName(i);
+            if (bubuName.find("limitedIntegrator") != std::string::npos)
+              std::cerr << "BUBUREINIT t=" << std::setprecision(12) << tSolve_ << " y[" << i << "] " << bubuName << " type=" << propertyVar2Str(bubuYType[i])
+                        << " idaId=" << bubuId[i] << " y=" << vectorY_[i] << " yp=" << vectorYp_[i] << std::endl;
+          }
+        }
+      }
       int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
       if (flag0 < 0)
         throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
@@ -1024,7 +1101,21 @@ SolverIDA::reinit() {
   if (algebraicRestorationReinitMode_ == ALWAYS) {
     updateStatistics();
 
-    int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
+    // BUBU TEMP(#3874): y, y' and type of the limited integrators at restart
+      {
+        static const char* bubuCheckRel = std::getenv("DYN_CHECK_REL");
+        if (bubuCheckRel != nullptr && tSolve_ >= 0.99 && tSolve_ <= 1.01) {
+          const std::vector<propertyContinuousVar_t>& bubuYType = model_->getYType();
+          const double* bubuId = NV_DATA_S(sundialsVectorYType_);
+          for (int i = 0; i < model_->sizeY(); ++i) {
+            const std::string bubuName = model_->getVariableName(i);
+            if (bubuName.find("limitedIntegrator") != std::string::npos)
+              std::cerr << "BUBUREINIT t=" << std::setprecision(12) << tSolve_ << " y[" << i << "] " << bubuName << " type=" << propertyVar2Str(bubuYType[i])
+                        << " idaId=" << bubuId[i] << " y=" << vectorY_[i] << " yp=" << vectorYp_[i] << std::endl;
+          }
+        }
+      }
+      int flag0 = IDAReInit(IDAMem_, tSolve_, sundialsVectorY_, sundialsVectorYp_);  // required to relaunch the simulation
     if (flag0 < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
   }

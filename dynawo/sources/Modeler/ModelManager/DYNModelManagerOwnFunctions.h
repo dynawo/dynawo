@@ -528,7 +528,27 @@ struct real_array_t_adept {
 
 typedef real_array_t_adept real_array_adept;
 
-void array_alloc_scalar_real_array_adept(real_array_t_adept* dest, int n, adept::adouble first, ...);
+/**
+ * @brief allocate a one-dimension adept array and fill it with the given values
+ * A variadic template is used instead of a C variadic function (...) as adept::adouble is not trivially copyable
+ *
+ * @param dest array to allocate
+ * @param n number of values
+ * @param first first value
+ * @param rest other values (adept::adouble or values convertible to adept::adouble)
+ */
+template <typename... Values>
+void array_alloc_scalar_real_array_adept(real_array_t_adept* dest, int n, adept::adouble first, Values... rest) {
+  const adept::adouble values[] = {first, adept::adouble(rest)...};
+  dest->ndims = 1;
+  dest->dim_size = new _index_t[1]();
+  dest->dim_size[0] = n;
+  dest->data = new adept::adouble[n];
+  for (int i = 0; i < n; ++i) {
+    dest->data[i] = values[i];
+  }
+}
+
 adept::adouble min_real_array_adept(const real_array_t_adept a);
 adept::adouble max_real_array_adept(const real_array_t_adept a);
 
