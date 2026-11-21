@@ -1,0 +1,127 @@
+INFO |  ============================================================ 
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :          -
+INFO |  ============================================================ 
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | building model from input files
+INFO | -----------------------------------------------------------------------
+INFO | model was built successfully
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting local initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of local initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting global initialization
+INFO | -----------------------------------------------------------------------
+INFO | Algebraic mode change at t = 0
+INFO | end of global initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting curve initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of curve initialization, added 5 curves
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting simulation with solver SimplifiedSolver
+INFO | -----------------------------------------------------------------------
+INFO | -----------------------------------------------------------------------
+INFO | number of continuous variables : 42
+INFO | number of discrete variables : 12
+INFO | number of root functions : 20
+INFO | -----------------------------------------------------------------------
+INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
+INFO | -----------------------------------------------------------------------
+INFO |        0.000 ¦        0                0          0              0.100 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |        0.100 ¦        1                0          0              0.100 
+INFO |        0.200 ¦        2                0          0              0.100 
+INFO |        0.300 ¦        3                0          0              0.100 
+INFO |        0.400 ¦        4                0          0              0.100 
+INFO |        0.500 ¦        5                0          0              0.100 
+INFO |        0.600 ¦        6                0          0              0.100 
+INFO |        0.700 ¦        7                0          0              0.100 
+INFO |        0.800 ¦        8                0          0              0.100 
+INFO |        0.900 ¦        9                0          0              0.100 
+INFO | Algebraic mode change at t = 1
+INFO |        1.000 ¦       10                0          0              0.100 
+INFO |        1.000 ¦       10                1          0              0.100 
+INFO |        1.100 ¦       11                3          1              0.100 
+INFO |        1.200 ¦       12                5          1              0.100 
+INFO |        1.300 ¦       13                7          1              0.100 
+INFO |        1.400 ¦       14                9          1              0.100 
+INFO |        1.500 ¦       15               11          1              0.100 
+INFO |        1.600 ¦       16               13          1              0.100 
+INFO |        1.700 ¦       17               16          2              0.100 
+INFO |        1.800 ¦       18               18          2              0.100 
+INFO |        1.900 ¦       19               20          2              0.100 
+INFO |        2.000 ¦       20               22          2              0.100 
+INFO |        2.100 ¦       21               24          2              0.100 
+INFO |        2.200 ¦       22               26          2              0.100 
+INFO |        2.300 ¦       23               29          3              0.100 
+INFO |        2.400 ¦       24               31          3              0.100 
+INFO |        2.500 ¦       25               33          3              0.100 
+INFO |        2.600 ¦       26               35          3              0.100 
+INFO |        2.700 ¦       27               37          3              0.100 
+INFO |        2.800 ¦       28               39          3              0.100 
+INFO |        2.900 ¦       29               42          4              0.100 
+INFO |        3.000 ¦       30               44          4              0.100 
+INFO |        3.100 ¦       31               46          4              0.100 
+INFO |        3.200 ¦       32               48          4              0.100 
+INFO |        3.300 ¦       33               50          4              0.100 
+INFO |        3.400 ¦       34               52          4              0.100 
+INFO |        3.500 ¦       35               55          5              0.100 
+INFO |        3.600 ¦       36               57          5              0.100 
+INFO |        3.700 ¦       37               59          5              0.100 
+INFO |        3.800 ¦       38               61          5              0.100 
+INFO |        3.900 ¦       39               63          5              0.100 
+INFO |        4.000 ¦       40               65          5              0.100 
+INFO |        4.100 ¦       41               68          6              0.100 
+INFO |        4.200 ¦       42               70          6              0.100 
+INFO |        4.300 ¦       43               72          6              0.100 
+INFO |        4.400 ¦       44               74          6              0.100 
+INFO |        4.500 ¦       45               76          6              0.100 
+INFO |        4.600 ¦       46               78          6              0.100 
+INFO |        4.700 ¦       47               81          7              0.100 
+INFO |        4.800 ¦       48               83          7              0.100 
+INFO |        4.900 ¦       49               85          7              0.100 
+INFO |        5.000 ¦       50               87          7              0.100 
+INFO |        5.100 ¦       51               89          7              0.100 
+INFO |        5.200 ¦       52               91          7              0.100 
+INFO |        5.300 ¦       53               94          8              0.100 
+INFO |        5.400 ¦       54               96          8              0.100 
+INFO |        5.500 ¦       55               98          8              0.100 
+INFO |        5.600 ¦       56              100          8              0.100 
+INFO |        5.700 ¦       57              102          8              0.100 
+INFO |        5.800 ¦       58              105          9              0.100 
+INFO |        5.900 ¦       59              107          9              0.100 
+INFO |        6.000 ¦       60              109          9              0.100 
+INFO | initial guess of the algebraic solver is accurate, following SimplifiedSolver iterations will be skipped until the next mode change
+INFO |        6.000 ¦       61              109          9              0.000 
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 61
+INFO | number of residual evaluations                             = 161
+INFO | number of Jacobian evaluations                             = 9
+INFO | number of nonlinear iterations                             = 108
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 62
+INFO | number of discrete variables evaluations                   = 3
+INFO | number of mode evaluations                                 = 3
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 2
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 2
+INFO | number of algebraic restoration Jacobian evaluations       = 0
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+INFO | end of job 'TestSIM'

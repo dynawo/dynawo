@@ -44,6 +44,8 @@ lastRowVals_(NULL),
 numF_(0),
 t0_(0.),
 firstIteration_(false),
+fnormtol_(0.),
+initialaddtol_(0.),
 sundialsVectorFScale_(NULL),
 sundialsVectorYScale_(NULL) {
   if (SUNContext_Create(NULL, &sundialsContext_) != 0)
@@ -90,6 +92,8 @@ void
 SolverKINCommon::initCommon(const double fnormtol, const double initialaddtol, const double scsteptol, const double mxnewtstep,
   const int msbset, const int mxiter, const int printfl, const KINSysFn evalF, const KINLsJacFn evalJ, const N_Vector sundialsVectorY) {
   sundialsVectorY_ = sundialsVectorY;
+  fnormtol_ = fnormtol;
+  initialaddtol_ = initialaddtol;
 
   // (1) Problem size
   // ----------------
