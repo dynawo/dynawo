@@ -228,11 +228,11 @@ equation
   connect(feedback1.y, antiWindupIntegrator1.u) annotation(
     Line(points = {{70, 240}, {80, 240}, {80, 260}, {138, 260}}, color = {0, 0, 127}));
   connect(gain3.y, switch4.u[1]) annotation(
-    Line(points = {{250, 238}, {250, 106}, {260, 106}}, color = {0, 0, 127}));
+    Line(points = {{250, 138}, {250, 106}, {260, 106}}, color = {0, 0, 127}));
   connect(gain3.y, switch4.u[2]) annotation(
-    Line(points = {{250, 238}, {250, 103}, {260, 103}}, color = {0, 0, 127}));
+    Line(points = {{250, 138}, {250, 103}, {260, 103}}, color = {0, 0, 127}));
   connect(gain3.y, switch4.u[4]) annotation(
-    Line(points = {{250, 238}, {250, 97}, {260, 97}}, color = {0, 0, 127}));
+    Line(points = {{250, 138}, {250, 97}, {260, 97}}, color = {0, 0, 127}));
   connect(max1.y, division2.u2) annotation(
     Line(points = {{2, -40}, {20, -40}, {20, 94}, {38, 94}}, color = {0, 0, 127}));
   connect(absLimRateLimFirstOrderFreeze.y, division2.u1) annotation(

@@ -12,6 +12,7 @@
 set(MODEL_FILES
   package.mo
   package.order
+  BaseW3CurrentSource_INIT.mo
   BaseW4CurrentSource_INIT.mo
   )
 

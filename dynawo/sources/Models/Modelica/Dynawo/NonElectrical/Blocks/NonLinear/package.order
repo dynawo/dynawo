@@ -4,10 +4,12 @@ ConditionalForward
 DeadBand
 DeadZone
 DelayFlag
+FirstOrderVariableLimitsAntiWindup
 FixedBooleanDelay
 FlipFlopR
 FlipFlopS
 IntegratorOrFirstOrder
+IntegratorVariableLimitsContinuousSetFreeze
 LimitedDivision
 LimitedFirstOrder
 LimitedIntegrator

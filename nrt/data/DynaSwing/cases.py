@@ -108,6 +108,67 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
 
+############################################################################
+#      IEC Wind Power Plant Type 3A 2020 Current Source (voltage drop)     #
+############################################################################
+
+case_name = "DynaSwing - IEC - Wind Power Plant Type 3A 2020 - Current source - Voltage drop"
+case_description = "IEC - Wind Power Plant Type 3A 2020 - Current source - Voltage drop"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "Type3", "WPP3ACurrentSource2020UDrop", "WPP3ACurrentSource2020.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+############################################################################
+#      IEC Wind Power Plant Type 3B 2020 Current Source (voltage drop)     #
+############################################################################
+
+case_name = "DynaSwing - IEC - Wind Power Plant Type 3B 2020 - Current source - Voltage drop"
+case_description = "IEC - Wind Power Plant Type 3B 2020 - Current source - Voltage drop"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "Type3", "WPP3BCurrentSource2020UDrop", "WPP3BCurrentSource2020.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+########################################################################
+#      IEC Wind Turbine Type 3A 2020 Current Source (voltage drop)     #
+########################################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 3A 2020 - Current source - Voltage drop"
+case_description = "IEC - Wind Turbine Type 3A 2020 - Current source - Voltage drop"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "Type3", "WT3ACurrentSource2020UDrop", "WT3ACurrentSource2020.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##################################################################################
+#      IEC Wind Turbine Type 3A 2020 Current Source (active power variation)     #
+##################################################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 3A 2020 - Current source - Active power variation"
+case_description = "IEC - Wind Turbine Type 3A 2020 - Current source - Active power variation"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "Type3", "WT3ACurrentSource2020PRef", "WT3ACurrentSource2020.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+########################################################################
+#      IEC Wind Turbine Type 3B 2020 Current Source (voltage drop)     #
+########################################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 3B 2020 - Current source - Voltage drop"
+case_description = "IEC - Wind Turbine Type 3B 2020 - Current source - Voltage drop"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "Type3", "WT3BCurrentSource2020UDrop", "WT3BCurrentSource2020.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+##################################################################################
+#      IEC Wind Turbine Type 3B 2020 Current Source (active power variation)     #
+##################################################################################
+
+case_name = "DynaSwing - IEC - Wind Turbine Type 3B 2020 - Current source - Active power variation"
+case_description = "IEC - Wind Turbine Type 3B 2020 - Current source - Active power variation"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "IEC", "Wind", "Neplan", "Type3", "WT3BCurrentSource2020PRef", "WT3BCurrentSource2020.jobs")
+
+test_cases.append((case_name, case_description, job_file, 5, standardReturnCodeType, standardReturnCode))
+
+
 ######################################################
 #     IEC Wind Turbine Type 4A 2015 Current Source Q      #
 ######################################################
