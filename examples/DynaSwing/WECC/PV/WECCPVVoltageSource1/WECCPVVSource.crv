@@ -25,4 +25,6 @@
   <curve model="WECCPVVSource" variable="photovoltaics_injector_terminal_V_im"/>
   <curve model="WECCPVVSource" variable="photovoltaics_injector_terminal_i_im"/>
   <curve model="WECCPVVSource" variable="photovoltaics_pll_omegaPLLPu"/>
+  <curve model="WECCPVVSource" variable="photovoltaics_wecc_reec_IpmaxFromUPu_y_0_"/>
+  <curve model="WECCPVVSource" variable="photovoltaics_wecc_reec_IqmaxFromUPu_y_0_"/>
 </curvesInput>

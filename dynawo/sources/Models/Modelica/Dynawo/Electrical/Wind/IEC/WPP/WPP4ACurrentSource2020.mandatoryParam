@@ -159,4 +159,9 @@
   <mandatoryParameter name="uWt0Pu.im" type="DOUBLE"/>
   <mandatoryParameter name="X0Pu" type="DOUBLE"/>
   <mandatoryParameter name="XWT0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="CurrentLimitTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="GridProtectionTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="PControlTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="QLimitTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="QControlTablesOnFile" type="BOOL"/>
 </mandatoryParameters>

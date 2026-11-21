@@ -109,6 +109,7 @@ model WTG4ACurrentSource "WECC Wind Type 4A Model (including the plant controlle
     VDLIq32 = 1,
     VDLIq41 = 1.17,
     VDLIq42 = 1,
+    VDLTablesOnFile = false,
     VDipPu = 0.9,
     VFlag = true,
     VFrz = 0,

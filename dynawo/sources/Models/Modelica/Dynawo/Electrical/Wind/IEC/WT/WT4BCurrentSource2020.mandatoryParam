@@ -8,15 +8,10 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, a hybrid C++/Modelica open source time domain
-    simulation tool for power systems.
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
 -->
 <mandatoryParameters>
-  <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
-  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
   <mandatoryParameter name="DPMaxP4BPu" type="DOUBLE"/>
   <mandatoryParameter name="DPRefMax4BPu" type="DOUBLE"/>
   <mandatoryParameter name="DPRefMin4BPu" type="DOUBLE"/>
@@ -48,6 +43,11 @@
   <mandatoryParameter name="tUpFilt" type="DOUBLE"/>
   <mandatoryParameter name="SNom" type="DOUBLE"/>
   <mandatoryParameter name="tS" type="DOUBLE"/>
+  <mandatoryParameter name="BLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="GLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="RLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="XLvTrPu" type="DOUBLE"/>
+  <mandatoryParameter name="ConverterLVControl" type="BOOL"/>
   <mandatoryParameter name="DipMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="DiqMaxPu" type="DOUBLE"/>
   <mandatoryParameter name="DiqMinPu" type="DOUBLE"/>
@@ -108,4 +108,7 @@
   <mandatoryParameter name="UPhase0" type="DOUBLE"/>
   <mandatoryParameter name="UWt0DroppedPu" type="DOUBLE"/>
   <mandatoryParameter name="XWT0Pu" type="DOUBLE"/>
+  <mandatoryParameter name="CurrentLimitTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="GridProtectionTablesOnFile" type="BOOL"/>
+  <mandatoryParameter name="QLimitTablesOnFile" type="BOOL"/>
 </mandatoryParameters>
