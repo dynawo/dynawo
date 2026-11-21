@@ -15,6 +15,7 @@ add_subdirectory(Standard S)
 set(MODEL_FILES
   package.mo
   package.order
+  SMIBGovHydro4Dc1c.mo
   SMIBStepEfdPm.mo
   SMIBStepPm.mo
   )
