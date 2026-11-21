@@ -32,6 +32,7 @@ equation
   LVPL = if UPu < zerox then 0 else if UPu > brkpt then 9999 else mlvpl*(UPu - zerox);
   mlvpl = lvpl1/(brkpt-zerox);
 
-annotation(
+  annotation(
+    preferredView = "text",
     Icon(graphics = {Text(origin = {4, 4}, extent = {{-54, 40}, {54, -40}}, textString = "LVPL"), Rectangle(extent = {{-100, 100}, {100, -100}})}));
 end LowVoltagePowerLogic;

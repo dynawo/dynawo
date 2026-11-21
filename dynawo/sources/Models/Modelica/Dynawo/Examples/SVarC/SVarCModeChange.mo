@@ -55,6 +55,6 @@ equation
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=BFSBExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
     Diagram(coordinateSystem(extent = {{-160, -100}, {160, 100}})),
-    Documentation(info = "<html><head></head><body>This test case simulates variations of modes.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230kV is realised at t = 1 s.&nbsp;</div><div>The SVarC is then turned in manual mode from t = 0.5 s to t = 5 s, switched off from t = 3 s to t = 4 s and switched back on from t = 4 s.&nbsp;
+    Documentation(info = "<html><head></head><body>This test case simulates variations of modes.&nbsp;<div><br></div><div>The SVarC is initially running.&nbsp;</div><div>A step on URef from 225 kV to 230 kV is realised at t = 1 s.&nbsp;</div><div>The SVarC is then turned in manual mode from t = 0.5 s to t = 5 s, switched off from t = 3 s to t = 4 s and switched back on from t = 4 s.&nbsp;
 </div><div>The user variables enabling to simulate this scenario are selectModeAuto and setMode.</div></body></html>"));
 end SVarCModeChange;

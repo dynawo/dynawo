@@ -44,7 +44,7 @@ model QControl2020 "Reactive power control module for wind turbines (IEC N°6140
   //Output variables
   Modelica.Blocks.Interfaces.IntegerOutput fFrt(start = 0) "Fault status (0: Normal operation, 1: During fault, 2: Post-fault)" annotation(
     Placement(visible = true, transformation(origin = {310, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput iqBaseHookPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current commmand in normal operation at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput iqBaseHookPu(start = Q0Pu * SystemBase.SnRef / (SNom * U0Pu)) "Reactive current command in normal operation at converter terminal in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {310, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqvHookPu(start = 0) "Output of the fault current injection function in pu (base UNom, SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {310, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

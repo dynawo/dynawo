@@ -28,11 +28,11 @@ model IdealTransformerVariableTapIControlled_INIT
   parameter Boolean regulating0 "Whether the phase-shifter is initially regulating";
 
   // Ideal transformer initialization model
-  Dynawo.Electrical.Transformers.TransformersVariableTap.IdealTransformerVariableTapI_INIT idealTransformerVariableTapI_INIT(NbTap = NbTap, Uc20Pu = Uc20Pu, rTfoMaxPu = rTfoMaxPu, rTfoMinPu = rTfoMinPu)  annotation(
+  Dynawo.Electrical.Transformers.TransformersVariableTap.IdealTransformerVariableTapI_INIT idealTransformerVariableTapI_INIT(NbTap = NbTap, Uc20Pu = Uc20Pu, rTfoMaxPu = rTfoMaxPu, rTfoMinPu = rTfoMinPu) annotation(
     Placement(visible = true, transformation(origin = {-30, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Tap Changer with transformer initialization model
-  Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT tapChangerWithTransformer_INIT(UDeadBand = UDeadBand, UTarget = UTarget, regulating0 = regulating0)  annotation(
+  Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT tapChangerWithTransformer_INIT(UDeadBand = UDeadBand, UTarget = UTarget, regulating0 = regulating0) annotation(
     Placement(visible = true, transformation(origin = {30, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Terminals for init connections

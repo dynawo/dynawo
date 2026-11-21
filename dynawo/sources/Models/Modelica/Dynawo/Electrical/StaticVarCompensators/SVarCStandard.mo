@@ -81,7 +81,7 @@ equation
   connect(switchOffSignal2, injector.switchOffSignal2);
   connect(switchOffSignal3, injector.switchOffSignal3);
   connect(modeHandling.mode, calculationBG.mode) annotation(
-    Line(points = {{-98, 80}, {74, 80}, {74, 2}}, color = {0, 0, 127}));
+    Line(points = {{-98, 80}, {74, 80}, {74, 2}}, color = {255, 127, 0}));
   connect(calculationBG.GPu, injector.GPu) annotation(
     Line(points = {{81, -32}, {100, -32}, {100, -28}, {117, -28}}, color = {0, 0, 127}));
   connect(injector.terminal, terminal) annotation(
