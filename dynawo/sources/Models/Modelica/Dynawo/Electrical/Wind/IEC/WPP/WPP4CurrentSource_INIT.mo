@@ -87,7 +87,7 @@ equation
   iWt0Pu = i0Pu - Complex(GPcsPu, BPcsPu) * (u0Pu * SNom / SystemBase.SnRef - Complex(RPcsPu, XPcsPu) * i0Pu);
   uWt0Pu = u0Pu - Complex(RPcsPu, XPcsPu) * i0Pu * SystemBase.SnRef / SNom;
   Complex(PWt0Pu, QWt0Pu) = uWt0Pu * Modelica.ComplexMath.conj(iWt0Pu);
-  UWt0Pu = Modelica.ComplexMath.'abs'(uWt0Pu);
+  UWt0Pu = Modelica.ComplexMath.abs(uWt0Pu);
   UPhaseWt0 = Modelica.ComplexMath.arg(uWt0Pu);
 
   if PPCLocal then

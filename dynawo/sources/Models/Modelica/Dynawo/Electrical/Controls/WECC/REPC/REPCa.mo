@@ -167,7 +167,7 @@ model REPCa "WECC Plant Control type A"
   parameter Types.ReactivePowerPu QConv0Pu "Start value of reactive power at converter terminal in pu (generator convention) (base SNom)";
   parameter Types.ComplexVoltagePu uControl0Pu "Initial complex voltage to be controlled by the PPC coming either from the external bus or from the model's output terminal (base UNom)";
 
-  final parameter Types.VoltageModulePu URef0Pu = ComplexMath.'abs'(uControl0Pu) + (if VCompFlag then 0 else Kc * QControl0Pu) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
+  final parameter Types.VoltageModulePu URef0Pu = ComplexMath.abs(uControl0Pu) + (if VCompFlag then 0 else Kc * QControl0Pu) "Start value of voltage setpoint for plant level control, calculated depending on VCompFlag, in pu (base UNom)";
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(

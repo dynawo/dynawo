@@ -177,7 +177,7 @@ model DynGFLConverterQCtrl "Grid-following average converter model without plant
   final parameter Types.ComplexVoltagePu uLV0Pu = u0Pu + iPcc0Pu*ZHVPu "Start value of complex voltage at LV bus in pu (base UNom)";
   final parameter Types.PerUnit UdLV0Pu = uLV0Pu.re*cos(Theta0) + uLV0Pu.im*sin(Theta0) "Start value of d-axis voltage at LV bus in the PLL frame in pu (base UNom)";
   final parameter Types.PerUnit UqLV0Pu = -uLV0Pu.re*sin(Theta0) + uLV0Pu.im*cos(Theta0) "Start value of q-axis voltage at LV bus in the PLL frame in pu (base UNom)";
-  final parameter Types.VoltageModulePu ULV0Pu = Modelica.ComplexMath.'abs'(uLV0Pu) "Start value of voltage magnitude at LV bus in pu (base UNom)";
+  final parameter Types.VoltageModulePu ULV0Pu = Modelica.ComplexMath.abs(uLV0Pu) "Start value of voltage magnitude at LV bus in pu (base UNom)";
 
 equation
   // LV bus voltage reconstructed from the PCC voltage and the drop across the HV stage (steady-state impedance)

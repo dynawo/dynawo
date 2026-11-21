@@ -139,7 +139,6 @@ equation
     Line(points = {{-240, 0}, {76, 0}}, color = {0, 0, 127}));
 
   annotation(
-    uses(Modelica(version = "3.2.3")),
     Icon(coordinateSystem(extent = {{-220, -200}, {220, 200}}), graphics = {Rectangle(extent = {{-200, 200}, {200, -200}}), Text(origin = {0, 70}, extent = {{-80, 20}, {80, -20}}, textString = "Outer Loop"), Text(origin = {0, 10}, extent = {{-80, 15}, {80, -15}}, textString = "P/Q/V control"), Text(origin = {0, -50}, extent = {{-80, 15}, {80, -15}}, textString = "PI / Direct switchable")}),
     Diagram(coordinateSystem(extent = {{-220, -200}, {220, 200}})),
         Documentation(info = "<html><head></head><body><h4>Outer loop: P/Q control – GFL control</h4>

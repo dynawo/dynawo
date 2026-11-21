@@ -3,8 +3,8 @@ model IdealSwitch2 "ideal switch inspired by MSL idealOpeningSwitch"
   import Modelica.ComplexMath.real;
   import Modelica.ComplexMath.conj;
 
-  parameter Modelica.SIunits.Resistance Ron(final min=0) = 1e-5 "Closed switch resistance";
-  parameter Modelica.SIunits.Conductance Goff(final min=0) = 1e-5 "Opened switch conductance";
+  parameter Modelica.Units.SI.Resistance Ron(final min=0) = 1e-5 "Closed switch resistance";
+  parameter Modelica.Units.SI.Conductance Goff(final min=0) = 1e-5 "Opened switch conductance";
   Modelica.Blocks.Interfaces.BooleanInput control(start = false) "true => switch open, false => p--n connected"
                                                    annotation (Placement(
         transformation(
@@ -16,14 +16,14 @@ model IdealSwitch2 "ideal switch inspired by MSL idealOpeningSwitch"
   Connectors.ACPower terminal2 annotation(
     Placement(transformation(origin = {102, 2}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {104, 30}, extent = {{-10, -10}, {10, 10}})));
 
-  Modelica.SIunits.ComplexVoltage v "Complex voltage";
-  Modelica.SIunits.ComplexCurrent i "Complex current";
+  Modelica.Units.SI.ComplexVoltage v "Complex voltage";
+  Modelica.Units.SI.ComplexCurrent i "Complex current";
 
 protected
   Complex s(re(final unit="1"),im(final unit="1")) "Auxiliary variable";
-  constant Modelica.SIunits.ComplexVoltage unitVoltage=Complex(1, 0)
+  constant Modelica.Units.SI.ComplexVoltage unitVoltage=Complex(1, 0)
     annotation (HideResult=true);
-  constant Modelica.SIunits.ComplexCurrent unitCurrent=Complex(1, 0)
+  constant Modelica.Units.SI.ComplexCurrent unitCurrent=Complex(1, 0)
     annotation (HideResult=true);
 
 equation

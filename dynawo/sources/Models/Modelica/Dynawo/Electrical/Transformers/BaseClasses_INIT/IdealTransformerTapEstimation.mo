@@ -41,13 +41,13 @@ algorithm
   end if;
 
   // Handling zero voltage case
-  if (ComplexMath. 'abs'(u10Pu) == 0) then
+  if (ComplexMath.abs(u10Pu) == 0) then
     Tap0 := 0;
     return;
   end if;
 
   // Initial ratio calculation
-  rcTfo0Pu := Uc20Pu / ComplexMath. 'abs'(u10Pu);
+  rcTfo0Pu := Uc20Pu / ComplexMath.abs(u10Pu);
 
   // Finding the tap position closest to the ratio calculated (rounded to an integer)
   tapEstimation := ((rcTfo0Pu - rTfoMinPu) / (rTfoMaxPu - rTfoMinPu)) * (NbTap - 1);

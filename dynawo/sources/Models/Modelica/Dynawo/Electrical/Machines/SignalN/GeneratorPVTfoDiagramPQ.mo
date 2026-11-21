@@ -58,7 +58,7 @@ equation
     if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
       UStatorPu = 0.;
     else
-      UStatorPu = ComplexMath.'abs'(uStatorPu);
+      UStatorPu = ComplexMath.abs(uStatorPu);
     end if;
   else
     terminal.i.im = 0;

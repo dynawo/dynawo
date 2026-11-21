@@ -146,7 +146,6 @@ equation
     Line(points = {{-190, 60}, {-88, 60}, {-88, 42}}, color = {85, 170, 0}, thickness = 0.5));
 
   annotation(
-    uses(Dynawo(version = "2.0.0"), Modelica(version = "3.2.3")),
     Documentation(info = "<html>
 <h4>Grid-following converter control (P/U outer loop) &ndash; GFL</h4>
 
