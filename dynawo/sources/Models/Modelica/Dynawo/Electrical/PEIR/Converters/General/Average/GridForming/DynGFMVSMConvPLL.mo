@@ -125,6 +125,10 @@ model DynGFMVSMConvPLL "PEIR model with GFM VSM control and dynamic connections 
 
 equation
   Control.uPccPu = terminal.V;
+  //Switchoffs
+  connect(switchOffSignal1, Converter.switchOffSignal1);
+  connect(switchOffSignal2, Converter.switchOffSignal2);
+  connect(switchOffSignal3, Converter.switchOffSignal3);
 
   connect(Measurements.QFilterPu, Control.QFilterPu) annotation(
     Line(points = {{-2, -37}, {-84, -37}, {-84, 21}, {-62, 21}}, color = {85, 170, 0}, pattern = LinePattern.Dash));
