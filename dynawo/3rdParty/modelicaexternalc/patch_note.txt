@@ -1,0 +1,10 @@
+The external C sources of the Modelica Standard Library 3.2.3 (Modelica/Resources/C-Sources) are patched as follows:
+
+1. const qualifiers in ModelicaStandardTables
+The table and columns arguments of ModelicaStandardTables_CombiTimeTable_init, ModelicaStandardTables_CombiTimeTable_init2,
+ModelicaStandardTables_CombiTable1D_init, ModelicaStandardTables_CombiTable1D_init2, ModelicaStandardTables_CombiTable2D_init
+and ModelicaStandardTables_CombiTable2D_init2 are declared const (const double* table, const int* columns).
+The code generated for Dynawo models is compiled in C++ and calls these functions with const arrays.
+
+Warning: DYNModelicaOverridenFunctions.cpp copies the internal structures CombiTimeTable, CombiTable1D and CombiTable2D of
+ModelicaStandardTables.c. They have to be checked if the version of the Modelica Standard Library is changed.
