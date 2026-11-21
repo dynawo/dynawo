@@ -78,11 +78,11 @@ model SclReferenceCurrent "IRef calculation for SCL2C"
     Placement(visible = true, transformation(origin = {250, -60}, extent = {{-10, -10}, {30, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const3(k = tScl) annotation(
     Placement(visible = true, transformation(origin = {30, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power(N = C2, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power(N = C2, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-270, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {-10, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power1(N = C1, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power1(N = C1, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-270, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = FixedRu) annotation(
     Placement(visible = true, transformation(origin = {-190, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -23,6 +23,7 @@ set(MODEL_FILES
   DiscreteIntegrator.mo
   DiscreteIntegrator.extvar
   DiscreteIntegrator.mandatoryParam
+  Exponentiation.mo
   IncreaseDetection.mo
   IntegratorWithReset.mo
   IntegratorSetFreeze.mo

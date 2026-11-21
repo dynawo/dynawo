@@ -38,9 +38,9 @@ model Oel3c "IEEE (2016) overexcitation limiter type OEL3C model"
 
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tF, k = KScale, y_start = KScale * Input0Pu) annotation(
     Placement(visible = true, transformation(origin = {-170, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power1(N = K1, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power1(N = K1, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power(N = K1, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power(N = K1, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = ITfPu) annotation(
     Placement(visible = true, transformation(origin = {-170, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -55,7 +55,7 @@ model Scl1c "IEEE (2016) stator current limiter type SCL1C model"
     Placement(visible = true, transformation(origin = {-170, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = tQScl, y_start = QGen0Pu / Modelica.ComplexMath.'abs'(ut0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-130, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power(N = K, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power(N = K, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-90, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(k2 = -1) annotation(
     Placement(visible = true, transformation(origin = {-10, 94}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -67,7 +67,7 @@ model Scl1c "IEEE (2016) stator current limiter type SCL1C model"
     Placement(visible = true, transformation(origin = {-170, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder2(T = tInv, y_start = Modelica.ComplexMath.'abs'(it0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-170, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power1(N = K, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power1(N = K, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = ISclLimPu) annotation(
     Placement(visible = true, transformation(origin = {-130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
