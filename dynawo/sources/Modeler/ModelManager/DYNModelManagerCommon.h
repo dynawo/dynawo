@@ -296,6 +296,94 @@ inline modelica_boolean GreaterEq<double>(double a, double b) {
   return DYN::doubleEquals(a, b) || a > b;
 }
 
+/**
+ * less operator between a real and an integer, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+inline modelica_boolean Less(double a, modelica_integer b) {
+  return Less<double>(a, static_cast<double>(b));
+}
+
+/**
+ * less operator between an integer and a real, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+inline modelica_boolean Less(modelica_integer a, double b) {
+  return Less<double>(static_cast<double>(a), b);
+}
+
+/**
+ * greater operator between a real and an integer, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b false otherwise
+ */
+inline modelica_boolean Greater(double a, modelica_integer b) {
+  return Greater<double>(a, static_cast<double>(b));
+}
+
+/**
+ * greater operator between an integer and a real, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b false otherwise
+ */
+inline modelica_boolean Greater(modelica_integer a, double b) {
+  return Greater<double>(static_cast<double>(a), b);
+}
+
+/**
+ * less-equal operator between a real and an integer, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+inline modelica_boolean LessEq(double a, modelica_integer b) {
+  return LessEq<double>(a, static_cast<double>(b));
+}
+
+/**
+ * less-equal operator between an integer and a real, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+inline modelica_boolean LessEq(modelica_integer a, double b) {
+  return LessEq<double>(static_cast<double>(a), b);
+}
+
+/**
+ * greater-equal operator between a real and an integer, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+inline modelica_boolean GreaterEq(double a, modelica_integer b) {
+  return GreaterEq<double>(a, static_cast<double>(b));
+}
+
+/**
+ * greater-equal operator between an integer and a real, compared as doubles
+ * (the generated code stores discrete Integers as doubles)
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+inline modelica_boolean GreaterEq(modelica_integer a, double b) {
+  return GreaterEq<double>(static_cast<double>(a), b);
+}
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #define  LessZC(a, b, direction) Less(a, b)
 #define  LessEqZC(a, b, direction) LessEq(a, b)
