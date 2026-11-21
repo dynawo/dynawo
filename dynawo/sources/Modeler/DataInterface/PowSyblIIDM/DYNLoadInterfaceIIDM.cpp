@@ -63,17 +63,11 @@ void
 LoadInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
 
-  double P = getValue<double>(VAR_P);
-  double Q = getValue<double>(VAR_Q);
-  if (!doubleIsZero(P))
-    loadIIDM_.getTerminal().setP(P * SNREF);
-  else
-    loadIIDM_.getTerminal().setP(0.);
+  double P = doubleRounded(getValue<double>(VAR_P));
+  loadIIDM_.getTerminal().setP(P * SNREF);
 
-  if (!doubleIsZero(Q))
-    loadIIDM_.getTerminal().setQ(Q * SNREF);
-  else
-    loadIIDM_.getTerminal().setQ(0.);
+  double Q = doubleRounded(getValue<double>(VAR_Q));
+  loadIIDM_.getTerminal().setQ(Q * SNREF);
 
   if (getVoltageLevelInterfaceInjector()->isNodeBreakerTopology()) {
     // should be removed once a solution has been found to propagate switches (de)connection
