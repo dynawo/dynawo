@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2024, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite
+    of simulation tools for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="infBus" lib="InfiniteBus" parFile="SMIB.par" parId="1"/>
+  <dyn:blackBoxModel id="line1" lib="Line" parFile="SMIB.par" parId="2"/>
+  <dyn:blackBoxModel id="line2" lib="Line" parFile="SMIB.par" parId="3"/>
+  <dyn:blackBoxModel id="tfo" lib="TransformerFixedRatio" parFile="SMIB.par" parId="4"/>
+  <dyn:blackBoxModel id="SM" lib="GeneratorSynchronousFourWindingsPmConstSt6cPss6cOel2c" parFile="SMIB.par" parId="5"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="6"/>
+  <dyn:blackBoxModel id="fault1" lib="NodeFault" parFile="SMIB.par" parId="7"/>
+  <dyn:connect id1="infBus" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
+  <dyn:connect id1="infBus" var1="infiniteBus_terminal" id2="line2" var2="line_terminal1"/>
+  <dyn:connect id1="line1" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="line2" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="tfo" var1="transformer_terminal1" id2="fault1" var2="fault_terminal"/>
+  <dyn:connect id1="tfo" var1="transformer_terminal2" id2="SM" var2="generator_terminal"/>
+  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>
+</dyn:dynamicModelsArchitecture>
