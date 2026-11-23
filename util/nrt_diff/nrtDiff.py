@@ -548,7 +548,7 @@ def DirectoryDiff (directory_left, directory_right, is_reference_check, display_
 
             elif (diff_status == DIFFERENT):
                 return_message_str += str(file_name + " DIFFERENT" + message_added + "\n")
-                message_added = message_added.strip(" ()")
+                message_added = message
                 identical_dir = False
                 close_enough_dir = False
 
