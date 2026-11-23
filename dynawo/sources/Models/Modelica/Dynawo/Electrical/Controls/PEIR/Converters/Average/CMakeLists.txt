@@ -13,6 +13,8 @@ set(MODEL_FILES
   # Average converters control models
   package.mo
   package.order
+  DynGridFollowingControlQ.mo
+  DynGridFollowingControlU.mo
   DynGridFormingControlVSM.mo
   DynGridFormingControlCCVSM.mo
   DynGridFormingControlDroop.mo

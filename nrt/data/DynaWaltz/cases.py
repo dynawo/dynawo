@@ -84,3 +84,55 @@ case_description = "Simple case to test the CLA with two levels"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "nrt", "data", "DynaWaltz", "CLATwoLevels", "CLATwoLevels.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+##################################################
+#  Model examples - HVDC links with AC emulation  #
+##################################################
+
+case_name = "DynaWaltz - ModelExamples - HvdcPQPropEmulationVariableK"
+case_description = "HvdcPQPropEmulationVariableK model example: power transfer after the disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPQPropEmulationVariableK", "HvdcPQPropEmulationVariableK.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaWaltz - ModelExamples - HvdcPQPropDiagramPQEmulationVariableK"
+case_description = "HvdcPQPropDiagramPQEmulationVariableK model example: power transfer after the disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPQPropDiagramPQEmulationVariableK", "HvdcPQPropDiagramPQEmulationVariableK.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaWaltz - ModelExamples - HvdcPVDiagramPQEmulationVariableK"
+case_description = "HvdcPVDiagramPQEmulationVariableK model example: power transfer after the disconnection of one of two parallel HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPVDiagramPQEmulationVariableK", "HvdcPVDiagramPQEmulationVariableK.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaWaltz - ModelExamples - HvdcPVDiagramPQEmulation"
+case_description = "HvdcPVDiagramPQEmulation model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPVDiagramPQEmulation", "HvdcPVDiagramPQEmulation.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaWaltz - ModelExamples - HvdcPVEmulationRpcl2Side1"
+case_description = "HvdcPVEmulationRpcl2Side1 model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPVEmulationRpcl2Side1", "HvdcPVEmulationRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaWaltz - ModelExamples - HvdcPVDiagramPQEmulationRpcl2Side1"
+case_description = "HvdcPVDiagramPQEmulationRpcl2Side1 model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPVDiagramPQEmulationRpcl2Side1", "HvdcPVDiagramPQEmulationRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaWaltz - ModelExamples - HvdcPVEmulationVariableKRpcl2Side1"
+case_description = "HvdcPVEmulationVariableKRpcl2Side1 model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPVEmulationVariableKRpcl2Side1", "HvdcPVEmulationVariableKRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+case_name = "DynaWaltz - ModelExamples - HvdcPVDiagramPQEmulationVariableKRpcl2Side1"
+case_description = "HvdcPVDiagramPQEmulationVariableKRpcl2Side1 model example: disconnection of an AC line in parallel with two HVDC links"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaWaltz", "ModelExamples", "Hvdc", "HvdcPVDiagramPQEmulationVariableKRpcl2Side1", "HvdcPVDiagramPQEmulationVariableKRpcl2Side1.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

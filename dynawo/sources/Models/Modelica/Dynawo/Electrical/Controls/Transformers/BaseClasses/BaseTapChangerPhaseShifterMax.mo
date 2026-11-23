@@ -23,7 +23,8 @@ partial model BaseTapChangerPhaseShifterMax "Base model for tap-changers and pha
   parameter Real valueStop(max = valueMax) "Value below which the phase-shifter will stop (unit depending on the monitored variable unit)";
   parameter Integer increasePhase "Whether the phase shifting is increased when the tap is increased";
 
-  Modelica.Blocks.Interfaces.RealInput P(start = P0) "Active power (unit depending on the monitored active power unit)";
+  Modelica.Blocks.Interfaces.RealInput P(start = P0) "Active power (unit depending on the monitored active power unit)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 20}, {-100, 40}})));
 
   Integer sign = if P < 0 then 1 else -1 "Sign of the active power flowing through the phase-shifter transformer";
   Boolean increaseTapToIncreaseValue = sign * increasePhase < 0 "Whether increasing the tap will increase the monitored value";

@@ -33,12 +33,13 @@ partial model BaseHvdc "Base dynamic model for HVDC links"
 
   type PStatus = enumeration(Standard, LimitPMax);
 
-  Dynawo.Connectors.ActivePowerPuInput P1RefPu(start = P1Ref0Pu) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)";
-
   Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Connectors.ACPower terminal2 annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Dynawo.Connectors.ActivePowerPuInput P1RefPu(start = P1Ref0Pu) "Active power regulation set point in pu (base SnRef) at terminal 1 (receptor convention)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 50}, {-100, 70}})));
 
   Types.ActivePowerPu P1Pu(start = s10Pu.re) "Active power at terminal 1 in pu (base SnRef) (receptor convention)";
   Types.ActivePowerPu P2Pu(start = 0) "Active power at terminal 2 in pu (base SnRef) (receptor convention)";

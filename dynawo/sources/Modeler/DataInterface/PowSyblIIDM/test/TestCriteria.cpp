@@ -62,7 +62,7 @@ using criteria::CriteriaCollectionFactory;
 
 namespace DYN {
 
-class LineInterfaceStub {
+class LineInterfaceStub : public ComponentInterface {
  public:
   /**
   * @param id   Component id returned by getID()
@@ -81,13 +81,28 @@ class LineInterfaceStub {
   double getStateVarI2() const { return i2_; }
 
   /** Used by QuadripoleFailingCriteria to build the timeline / log message. */
-  const std::string& getID() const { return id_; }
+  const std::string& getID() const override;
+
+  /** Not used by criteria. */
+  void importStaticParameters() override {}
+
+  /** Not used by criteria. */
+  void exportStateVariablesUnitComponent() override {}
+
+  /** Not used by criteria. */
+  int getComponentVarIndex(const std::string& /*varName*/) const override { return -1; }
 
  private:
   std::string id_;
   double      i1_;
   double      i2_;
 };
+
+// defined out of line so that the vtable is emitted only once (-Wweak-vtables)
+const std::string&
+LineInterfaceStub::getID() const {
+  return id_;
+}
 
 static std::shared_ptr<LineInterfaceStub>
 createLine(const std::string& id, double i1, double i2) {

@@ -214,6 +214,16 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   std::string getBusName(const std::string& staticID, const std::string& labelNode) override;
 
   /**
+   * @copydoc DataInterface::getVoltageLevelId(const std::string& staticId)
+   */
+  std::string getVoltageLevelId(const std::string& staticId) override;
+
+  /**
+   * @copydoc DataInterface::getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex)
+   */
+  std::string getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex) override;
+
+  /**
    * @brief find a component thanks to its id
    * @param id : id of the component to find
    *
@@ -483,7 +493,8 @@ class DataInterfaceIIDM : public DataInterfaceImpl {
   std::unordered_map<std::string, std::shared_ptr<BusInterface> > busComponents_;              ///< map of bus by name
   std::unordered_map<std::string, std::shared_ptr<LoadInterfaceIIDM> > loadComponents_;        ///< map of loads by name
   std::vector<std::unique_ptr<Criteria> > criteria_;                                             ///< table of criteria to check
-  boost::shared_ptr<timeline::Timeline> timeline_;                                                 ///< instance of the timeline where events are stored
+  std::vector<std::shared_ptr<ComponentInterface> > criteriaComponents_;  ///< components read by criteria (without duplicates), updated before each check
+  boost::shared_ptr<timeline::Timeline> timeline_;                                                ///< instance of the timeline where events are stored
   std::unordered_map<std::string, std::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   std::unordered_map<std::string, std::vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager

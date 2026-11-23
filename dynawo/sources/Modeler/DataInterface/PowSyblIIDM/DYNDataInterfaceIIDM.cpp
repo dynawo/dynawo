@@ -58,6 +58,7 @@
 #include <powsybl/iidm/converter/ExportOptions.hpp>
 #include <powsybl/iidm/converter/ImportOptions.hpp>
 #include <powsybl/iidm/converter/FakeAnonymizer.hpp>
+#include <powsybl/iidm/Connectable.hpp>
 #include <powsybl/iidm/Substation.hpp>
 
 #include <powsybl/iidm/ExtensionProviders.hpp>
@@ -897,6 +898,40 @@ DataInterfaceIIDM::findNodeBreakerBusInterface(const powsybl::iidm::VoltageLevel
   throw DYNError(Error::MODELER, UnknownCalculatedBus, vl.getId(), node);
 }
 
+std::string
+DataInterfaceIIDM::getVoltageLevelId(const std::string& staticId) {
+  if (voltageLevels_.find(staticId) != voltageLevels_.end())
+    return staticId;
+
+  const stdcxx::Reference<powsybl::iidm::Connectable> connectable =
+      networkIIDM_->find<powsybl::iidm::Connectable>(staticId);
+  if (connectable) {
+    const auto& terminals = connectable.get().getTerminals();
+    if (!terminals.empty())
+      return terminals[0].get().getVoltageLevel().getId();
+  }
+
+  return "";
+}
+
+std::string
+DataInterfaceIIDM::getBusNameFromNode(const std::string& voltageLevelId, int nodeIndex) {
+  const auto itVL = voltageLevels_.find(voltageLevelId);
+  if (itVL == voltageLevels_.end())
+    throw DYNError(Error::MODELER, UnknownVoltageLevel, voltageLevelId);
+  if (!itVL->second->isNodeBreakerTopology())
+    throw DYNError(Error::MODELER, NodeIndexOnBusBreakerVoltageLevel, voltageLevelId, nodeIndex);
+
+  const auto vlIter = calculatedBusComponents_.find(voltageLevelId);
+  if (vlIter != calculatedBusComponents_.end()) {
+    for (const auto& bus : vlIter->second) {
+      if (bus->hasNode(nodeIndex))
+        return bus->getID();
+    }
+  }
+  throw DYNError(Error::MODELER, UnknownCalculatedBus, voltageLevelId, nodeIndex);
+}
+
 std::shared_ptr<VoltageLevelInterface>
 DataInterfaceIIDM::findVoltageLevelInterface(const string& id) const {
   const auto iter = voltageLevels_.find(id);
@@ -1006,6 +1041,12 @@ DataInterfaceIIDM::getStateVariableReference() {
 
 void
 DataInterfaceIIDM::updateFromModel(bool filterForCriteriaCheck) {
+  if (filterForCriteriaCheck) {
+    // only the components read by the criteria need to be updated
+    for (const auto& component : criteriaComponents_)
+      component->updateFromModel(filterForCriteriaCheck);
+    return;
+  }
   for (const auto& componentPair : components_)
     componentPair.second->updateFromModel(filterForCriteriaCheck);
 }
@@ -1083,6 +1124,17 @@ DataInterfaceIIDM::configureCriteria(const std::shared_ptr<CriteriaCollection>& 
   configureGeneratorCriteria(criteria);
   configureQuadripoleCriteria<LineInterface>(criteria);
   configureQuadripoleCriteria<TwoWTransformerInterface>(criteria);
+
+  // components to update before each criteria check: only those read by at least one criteria
+  std::vector<std::shared_ptr<ComponentInterface> > components;
+  for (const auto& dynCriteria : criteria_)
+    dynCriteria->getComponentsToUpdate(components);
+  criteriaComponents_.clear();
+  std::unordered_set<const ComponentInterface*> alreadyAdded;
+  for (const auto& component : components) {
+    if (alreadyAdded.insert(component.get()).second)
+      criteriaComponents_.push_back(component);
+  }
 }
 
 void

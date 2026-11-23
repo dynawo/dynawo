@@ -1548,6 +1548,8 @@ class Factory:
 
             if len(var.get_start_text()) > 1 : self.list_for_callcustomparametersconstructors.append("\n") # reading comfort
 
+        convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_callcustomparametersconstructors)
+
     ##
     # return the list of lines that constitutes the body of callCustomParametersConstructors
     # @param self : object pointer
@@ -1695,6 +1697,8 @@ class Factory:
                 self.list_for_warnings.extend(warn.get_body_for_setf())
                 self.list_for_warnings.append("\n\n")
                 self.list_for_warnings.append("}\n")
+        convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_parameters_warnings)
+        convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_warnings)
 
     ##
     # dump the lines of the warning in the body of setF

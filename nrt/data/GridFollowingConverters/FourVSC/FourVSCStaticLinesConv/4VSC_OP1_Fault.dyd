@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+<!-- Components -->
+<dyn:blackBoxModel id="OmegaRefPu" lib="SetPoint" parFile="4VSC_OP1.par" parId="OmegaRef"/>
+<dyn:blackBoxModel id="InfBus" lib="InfiniteBusWithImpedance" parFile="4VSC_OP1.par" parId="InfBusWithImpedance" staticId="_LOAD__1"/>
+<dyn:blackBoxModel id="GFLVSC_WP1" lib="DynGridFollowingConverterU" parFile="4VSC_OP1.par" parId="WP1" staticId="_GEN__4_WP1"/>
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="GFLVSC_WP1" var2="GFL_omegaRefPu"/>
+<dyn:blackBoxModel id="GFLVSC_WP2" lib="DynGridFollowingConverterU" parFile="4VSC_OP1.par" parId="WP2" staticId="_GEN__5_WP2"/>
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="GFLVSC_WP2" var2="GFL_omegaRefPu"/>
+<dyn:blackBoxModel id="GFLVSC_HVDC1" lib="DynGridFollowingConverterU" parFile="4VSC_OP1.par" parId="HVDC1" staticId="_GEN__1_HVDC"/>
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="GFLVSC_HVDC1" var2="GFL_omegaRefPu"/>
+<dyn:blackBoxModel id="GFLVSC_HVDC2" lib="DynGridFollowingConverterU" parFile="4VSC_OP1.par" parId="HVDC2" staticId="_GEN__2_HVDC"/>
+<dyn:connect id1="OmegaRefPu" var1="setPoint_setPoint" id2="GFLVSC_HVDC2" var2="GFL_omegaRefPu"/>
+<!-- Network -->
+<dyn:macroConnector id="GFLToNetwork">
+    <dyn:connect var1="GFL_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+</dyn:macroConnector>
+<dyn:macroConnector id="INFToNetwork">
+    <dyn:connect var1="infiniteBus_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+</dyn:macroConnector>
+<dyn:macroConnect connector="INFToNetwork" id1="InfBus" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_WP1" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_WP2" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_HVDC1" id2="NETWORK"/>
+<dyn:macroConnect connector="GFLToNetwork" id1="GFLVSC_HVDC2" id2="NETWORK"/>
+<!-- Event -->
+<dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="4VSC_OP1.par" parId="Fault"/>
+<dyn:connect id1="NETWORK" var1="_BUS__A_TN_ACPIN" id2="Fault" var2="fault_terminal"/>
+</dyn:dynamicModelsArchitecture>

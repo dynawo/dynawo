@@ -21,8 +21,10 @@ partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active
 
   type PStatus = enumeration(Standard "Active power is modulated by the frequency deviation", LimitPMin "Active power is fixed to its minimum value", LimitPMax "Active power is fixed to its maximum value");
 
-  Modelica.Blocks.Interfaces.RealInput deltaPmRefPu(start = 0) "Additional active power reference in pu (base PNom)";
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu "Network angular reference frequency in pu (base OmegaNom)";
+  Modelica.Blocks.Interfaces.RealInput deltaPmRefPu(start = 0) "Additional active power reference in pu (base PNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 30}, {-100, 50}})));
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu "Network angular reference frequency in pu (base OmegaNom)" annotation(
+    Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
 
   parameter Types.ActivePower PMin "Minimum active power in MW";
   parameter Types.ActivePower PMax "Maximum active power in MW";

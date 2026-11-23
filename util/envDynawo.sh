@@ -2028,6 +2028,30 @@ deploy_dynawo() {
     cp -n -r $DYNAWO_HDF5_INSTALL_DIR/include/* include/
   fi
 
+  # ZMQ, only when Dynawo was built with it (interactive mode)
+  zmq_library=$(grep "^ZMQ_LIBRARY:FILEPATH=" $DYNAWO_BUILD_DIR/CMakeCache.txt | cut -d '=' -f 2)
+  if [ -f "$zmq_library" ]; then
+    echo "deploying ZMQ"
+    zmq_system_folder=$(dirname $zmq_library)
+    cp -P $zmq_system_folder/libzmq.$LIBRARY_SUFFIX* lib/
+    if [ "`uname`" = "Linux" ]; then
+      for lib in {sodium,pgm,norm,unwind,krb5,k5crypto,com_err,keyutils}; do
+        if [ ! -z "$(ldd $zmq_library | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
+          cp $(ldd $zmq_library | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
+        fi
+      done
+    fi
+    zmq_system_folder_include=$(find_include_system_path ZMQ_INCLUDE_DIR) || error_exit "Path for zmq include could not be found for deploy."
+    for header in zmq.h zmq.hpp zmq_addon.hpp; do
+      for folder in $zmq_system_folder_include /usr/include; do
+        if [ -f "$folder/$header" ]; then
+          cp -n $folder/$header include/
+          break
+        fi
+      done
+    done
+  fi
+
   # DYNAWO
   echo "deploying Dynawo"
   cp $DYNAWO_INSTALL_DIR/dynawo.sh .
