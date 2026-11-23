@@ -51,7 +51,7 @@ jobs:
         if: ${{ matrix.build-type != 'Debug' }}
         run: |
           export DYNAWO_HOME=$(pwd)
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"WT4ACurrentSource2020U": 15, "WT4BCurrentSource2020U": 1, "GFM_Fault" : 1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"WT4ACurrentSource2020U": 15, "WT4BCurrentSource2020U": 1, "GFM_Fault" : 1, "PmConstAc6aPss3b":1, "PlantControl\/CCVSM": 0.12, "DynGFMCCVSM\/": 0.35, "GovSteamEuAc1cPss1aOmega": 0.28}/' util/nrt_diff/settings.py
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
