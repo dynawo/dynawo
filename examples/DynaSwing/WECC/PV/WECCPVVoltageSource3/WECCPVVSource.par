@@ -148,6 +148,7 @@
     <par type="DOUBLE" name="photovoltaics_VDLIq32" value="1"/>
     <par type="DOUBLE" name="photovoltaics_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="photovoltaics_VDLIq42" value="1"/>
+    <par type="BOOL" name="photovoltaics_VDLTablesOnFile" value="false"/>
     <!-- LHVRT parameters -->
     <par type="STRING" name="lhvrt_TablesFile" value="examples/DynaSwing/WECC/PV/WECCPVVoltageSource3/LHVRT.txt"/>
     <par type="BOOL" name="lhvrt_TablesOnFile" value="true"/>

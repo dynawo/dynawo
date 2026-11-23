@@ -125,6 +125,19 @@ record GridProtectionParameters
   parameter Real Tabletfunderfwtfilt[:,:] = [Tabletfunderfwtfilt11, Tabletfunderfwtfilt12; Tabletfunderfwtfilt21, Tabletfunderfwtfilt22; Tabletfunderfwtfilt31, Tabletfunderfwtfilt32; Tabletfunderfwtfilt41, Tabletfunderfwtfilt42; Tabletfunderfwtfilt51, Tabletfunderfwtfilt52; Tabletfunderfwtfilt61, Tabletfunderfwtfilt62] "Disconnection time versus under frequency lookup table" annotation(
     Dialog(tab = "GridProtectionTables"));
 
+  parameter Boolean GridProtectionTablesOnFile "If true, tables are defined on file or in function usertab" annotation(
+    Dialog(tab = "GridProtectionTables"));
+  parameter String GridProtectionFileName = "NoName" "File where tables are stored" annotation(
+    Dialog(tab = "GridProtectionTables"));
+  parameter String TabletUoverUwtfiltName = "NoName" "Name of the table in the text file for disconnection time versus overvoltage" annotation(
+    Dialog(tab = "GridProtectionTables"));
+  parameter String TabletUunderUwtfiltName = "NoName" "Name of the table in the text file for disconnection time versus undervoltage" annotation(
+    Dialog(tab = "GridProtectionTables"));
+  parameter String TabletfoverfwtfiltName = "NoName" "Name of the table in the text file for disconnection time versus overfrequency" annotation(
+    Dialog(tab = "GridProtectionTables"));
+  parameter String TabletfunderfwtfiltName = "NoName" "Name of the table in the text file for disconnection time versus underfrequency" annotation(
+    Dialog(tab = "GridProtectionTables"));
+
   annotation(
     preferredView = "text");
 end GridProtectionParameters;

@@ -130,10 +130,12 @@
     <par type="DOUBLE" name="WT4B_VDLIq32" value="1"/>
     <par type="DOUBLE" name="WT4B_VDLIq41" value="1.17"/>
     <par type="DOUBLE" name="WT4B_VDLIq42" value="1"/>
+    <par type="BOOL" name="WT4B_VDLTablesOnFile" value="false"/>
     <par type="BOOL" name="WT4B_Lvplsw" value="false"/>
     <par type="DOUBLE" name="WT4B_zerox" value="0.1"/>
     <par type="DOUBLE" name="WT4B_brkpt" value="0.05"/>
     <par type="DOUBLE" name="WT4B_lvpl1" value="1.22"/>
+    <par type="BOOL" name="WT4A_TorqueControlTableOnFile" value="false"/>
     <!-- LHVRT parameters -->
     <par type="STRING" name="lhvrt_TablesFile" value="nrt/data/WECCAdditionalModels/Wind/WT4BCurrentSource/LHVRT.txt"/>
     <par type="BOOL" name="lhvrt_TablesOnFile" value="true"/>

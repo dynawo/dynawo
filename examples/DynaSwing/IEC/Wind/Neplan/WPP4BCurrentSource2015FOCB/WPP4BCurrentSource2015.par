@@ -16,7 +16,7 @@
     <!-- Nominal -->
     <par type="DOUBLE" name="WPP_SNom" value="100"/>
     <par type="DOUBLE" name="WPP_tS" value="0.001"/>
-    <!-- PCS-->
+    <!-- PCS -->
     <par type="BOOL" name="WPP_PPCLocal" value="true"/>
     <par type="DOUBLE" name="WPP_BMvHvPu" value="0"/>
     <par type="DOUBLE" name="WPP_GMvHvPu" value="0"/>
@@ -42,16 +42,18 @@
     <!-- PControl -->
     <par type="DOUBLE" name="WPP_DPMaxP4BPu" value="1"/>
     <par type="DOUBLE" name="WPP_Kpaw" value="1000"/>
+    <par type="BOOL" name="WPP_PControlTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_tPAero" value="0.1"/>
     <par type="DOUBLE" name="WPP_tPOrdP4B" value="0.05"/>
     <par type="DOUBLE" name="WPP_tUFiltP4B" value="0.01"/>
     <!-- CurrentLimiter -->
-    <par type="DOUBLE" name="WPP_tUFiltcl" value="0.01"/>
+    <par type="BOOL" name="WPP_CurrentLimitTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_IMaxDipPu" value="1.3"/>
     <par type="DOUBLE" name="WPP_IMaxPu" value="1.3"/>
     <par type="DOUBLE" name="WPP_Kpqu" value="20"/>
     <par type="BOOL" name="WPP_MdfsLim" value="false"/>
     <par type="BOOL" name="WPP_Mqpri" value="true"/>
+    <par type="DOUBLE" name="WPP_tUFiltcl" value="0.01"/>
     <par type="DOUBLE" name="WPP_UpquMaxPu" value="1.1"/>
     <!-- QControl -->
     <par type="DOUBLE" name="WPP_tPFiltQ" value="0.01"/>
@@ -69,6 +71,7 @@
     <par type="DOUBLE" name="WPP_Kqv" value="2"/>
     <par type="INT" name="WPP_MqUvrt" value="1"/>
     <par type="INT" name="WPP_MqG" value="2"/>
+    <par type="BOOL" name="WPP_QControlTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_RDropPu" value="0"/>
     <par type="DOUBLE" name="WPP_tPost" value="0"/>
     <par type="DOUBLE" name="WPP_tQord" value="0.05"/>
@@ -81,11 +84,13 @@
     <par type="DOUBLE" name="WPP_tPFiltql" value="0.01"/>
     <par type="DOUBLE" name="WPP_tUFiltql" value="0.01"/>
     <par type="BOOL" name="WPP_QlConst" value="true"/>
+    <par type="BOOL" name="WPP_QLimitTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_QMaxPu" value="0.8"/>
     <par type="DOUBLE" name="WPP_QMinPu" value="-0.8"/>
     <!-- GridProtection -->
     <par type="DOUBLE" name="WPP_fOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_fUnderPu" value="0.9"/>
+    <par type="BOOL" name="WPP_GridProtectionTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WPP_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WPP_UUnderPu" value="0.9"/>
     <!-- UfMeasurement -->

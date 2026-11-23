@@ -57,6 +57,7 @@
     <par type="DOUBLE" name="WT_tPOrdP4B" value="0.05"/>
     <par type="DOUBLE" name="WT_UpDipPu" value="0"/>
     <!-- CurrentLimiter -->
+    <par type="BOOL" name="WT_CurrentLimitTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WT_IMaxDipPu" value="1.3"/>
     <par type="DOUBLE" name="WT_IMaxPu" value="1.3"/>
     <par type="DOUBLE" name="WT_Kpqu" value="20"/>
@@ -90,11 +91,13 @@
     <par type="DOUBLE" name="WT_XDropPu" value="0"/>
     <!-- QLimiter -->
     <par type="BOOL" name="WT_QlConst" value="true"/>
+    <par type="BOOL" name="WT_QLimitTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WT_QMaxPu" value="0.8"/>
     <par type="DOUBLE" name="WT_QMinPu" value="-0.8"/>
     <!-- GridProtection -->
     <par type="DOUBLE" name="WT_fOverPu" value="1.1"/>
     <par type="DOUBLE" name="WT_fUnderPu" value="0.9"/>
+    <par type="BOOL" name="WT_GridProtectionTablesOnFile" value="false"/>
     <par type="DOUBLE" name="WT_UOverPu" value="1.1"/>
     <par type="DOUBLE" name="WT_UUnderPu" value="0.9"/>
     <!-- Mechanical -->

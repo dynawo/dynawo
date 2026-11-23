@@ -24,7 +24,7 @@ model WPP4CurrentSource2015_INIT "Wind Power Plant Type 4 model from IEC 61400-2
   Types.VoltageModulePu UWpp0DroppedPu "Initial voltage module at the output of the voltage drop block (which is controlled in WPPQControl) in pu (base UNom)";
   Types.PerUnit X0Pu;
 
-  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds6Init(table = TableQwpUErr) annotation(
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds6Init(fileName = QControlTablesFileName, table = TableQwpUErr, tableName = TableQwpUErrName, tableOnFile = QControlTablesOnFile) annotation(
     Placement(transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpressionInit(y = QControl0Pu) annotation(
     Placement(transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
