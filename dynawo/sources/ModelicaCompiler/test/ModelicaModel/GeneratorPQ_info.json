@@ -180,7 +180,7 @@
 "Dynawo.Types.ComplexCurrentPu",
 "Dynawo.Types.ComplexVoltagePu",
 "Dynawo.Types.ComplexVoltagePu.'*'.multiply",
-"Modelica.ComplexMath.'abs'",
+"Modelica.ComplexMath.abs",
 "Modelica.ComplexMath.conj"
 ]
 }
