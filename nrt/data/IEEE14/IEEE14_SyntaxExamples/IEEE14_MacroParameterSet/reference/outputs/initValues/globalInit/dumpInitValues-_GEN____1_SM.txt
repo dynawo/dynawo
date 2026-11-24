@@ -6,13 +6,13 @@ generator_terminal_V_im                           : y =       0.189755 yp =     
 generator_terminal_V_re                           : y =       1.042877 yp =       0.000000
 generator_PGenPu                                  : y =       2.323680 yp =       0.000000
 generator_PGenRawPu                               : y =       2.323680 yp =       0.000000
-generator_QGenPu                                  : y =      -0.165441 yp =       0.000000
 generator_QMaxPu                                  : y =       9.990000 yp =       0.000000
 generator_QMinPu                                  : y =      -9.990000 yp =       0.000000
+generator_SGenPu_im                               : y =      -0.165441 yp =       0.000000
 generator_UPu                                     : y =       1.060000 yp =       0.000000
 generator_terminal_i_im                           : y =      -0.545981 yp =       0.000000
 generator_terminal_i_re                           : y =      -2.128800 yp =       0.000000
-generator_SGenPu_im                               : alias of generator_QGenPu
+generator_QGenPu                                  : alias of generator_SGenPu_im
 generator_SGenPu_re                               : alias of generator_PGenPu
 generator_tableQMax_u_0_                          : alias of generator_PGenPu
 generator_tableQMax_y_0_                          : alias of generator_QMaxPu

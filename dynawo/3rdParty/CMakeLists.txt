@@ -167,9 +167,9 @@ set(sundials_url         ${sundials_prefix_url}/v${sundials_version}/${sundials_
 set(sundials_md5         6be7057c88990021de5b08109eb2f133)
 
 set(omdev_git            https://openmodelica.org/git/OMDev.git)
-set(omdev_tag            origin/OM113maintenance)
+set(omdev_tag            e1bb0576bfb1ebb4c63fbbcc6e37fb825da16ac9) # OMDev master: no maintenance branch for OpenModelica 1.24
 
-set(openmodelica_version 1.13.2)
+set(openmodelica_version 1.24.5)
 if(DEFINED ENV{DYNAWO_OPENMODELICA_GIT_URL})
   set(openmodelica_prefix_url $ENV{DYNAWO_OPENMODELICA_GIT_URL})
 else()
@@ -632,6 +632,18 @@ unset(OMDevPackage CACHE)
 
 find_program(OMCompiler omcDynawo${CMAKE_EXECUTABLE_SUFFIX} PATHS ${OPENMODELICA_INSTALL}/bin NO_DEFAULT_PATH)
 
+# An existing omcDynawo is reused as is: make sure it is the expected version
+if(OMCompiler)
+  execute_process(COMMAND ${OMCompiler} --version
+                  OUTPUT_VARIABLE omc_version_output
+                  OUTPUT_STRIP_TRAILING_WHITESPACE)
+  string(REGEX MATCH "v([0-9]+\\.[0-9]+\\.[0-9]+)" omc_version_match "${omc_version_output}")
+  if(NOT "${CMAKE_MATCH_1}" VERSION_EQUAL "${openmodelica_version}")
+    message(FATAL_ERROR "${OMCompiler} is '${omc_version_output}' but OpenModelica ${openmodelica_version} is required: "
+                        "remove this installation or set OPENMODELICA_INSTALL to another directory.")
+  endif()
+endif()
+
 if(NOT OMCompiler)
   GetPatchCommand(openmodelica)
 
@@ -645,7 +657,6 @@ if(NOT OMCompiler)
         STAMP_DIR           ${DOWNLOAD_DIR}/omdev-stamp
         GIT_REPOSITORY      ${omdev_git}
         GIT_TAG             ${omdev_tag}
-        GIT_SHALLOW         1
         UPDATE_DISCONNECTED 1
         BUILD_IN_SOURCE     1
         CONFIGURE_COMMAND   ""
@@ -657,6 +668,12 @@ if(NOT OMCompiler)
     else()
       add_custom_target(omdev)
     endif()
+
+    # omc links libcurl, whose dlls are not copied to bin by Makefile.omdev.mingw
+    set(openmodelica_omdev_extra_dlls "")
+    foreach(dll libcurl-4 libbrotlidec libbrotlicommon libcrypto-1_1-x64 libssl-1_1-x64 libidn2-0 libpsl-5 libssh2-1 libzstd)
+      list(APPEND openmodelica_omdev_extra_dlls ${OMDEV_HOME}/tools/msys/mingw64/bin/${dll}.dll)
+    endforeach()
 
     ExternalProject_Add(openmodelica
       DEPENDS             omdev
@@ -679,12 +696,13 @@ if(NOT OMCompiler)
 
       BUILD_COMMAND       ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" "OPENMODELICAHOME=<SOURCE_DIR>" "MSYS2_PATH_TYPE=inherit" "MSYSTEM=MINGW64"
                                                   ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe
-                                                  --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j$CPU_COUNT omc"
+                                                  --login -c "cd $OPENMODELICAHOME && make -f Makefile.omdev.mingw -j${CPU_COUNT} omc"
 
       INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/build <INSTALL_DIR>
               COMMAND     ${CMAKE_COMMAND} -E copy_if_different <INSTALL_DIR>/bin/omc.exe <INSTALL_DIR>/bin/omcDynawo.exe
               COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/bin <INSTALL_DIR>/tools/msys/mingw64/bin
               COMMAND     ${CMAKE_COMMAND} -E copy_directory ${OMDEV_HOME}/tools/msys/mingw64/lib/gcc <INSTALL_DIR>/tools/msys/mingw64/lib/gcc
+              COMMAND     ${CMAKE_COMMAND} -E copy_if_different ${openmodelica_omdev_extra_dlls} <INSTALL_DIR>/bin
     )
   else()
     # Recent compilers turn implicit declarations and other legacy C constructs into errors
@@ -712,9 +730,8 @@ if(NOT OMCompiler)
       DOWNLOAD_COMMAND    ${CMAKE_CURRENT_SOURCE_DIR}/openmodelica/checkoutOpenModelica.sh --openmodelica-version=${openmodelica_version} --openmodelica-dir=${OPENMODELICA_SRC}
       UPDATE_DISCONNECTED 1
       PATCH_COMMAND       ${openmodelica_patch_common}
-      COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
-      CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "Fisrt checkout, no clean needed."
+      CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "First checkout, no clean needed."
                 COMMAND   autoreconf || autoupdate && autoreconf --install
                 COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
@@ -725,6 +742,8 @@ if(NOT OMCompiler)
                           --disable-modelica3d
                           --disable-omnotebook
                           --disable-omshell-terminal
+                          --disable-omplot
+                          --disable-omshell
                           --with-qwt=NO
                           --with-omc=no
       BUILD_COMMAND       ${CMAKE_COMMAND} -E env ${openmodelica_cflags} make -j ${CPU_COUNT} omc
@@ -749,9 +768,11 @@ if(NOT OMCompiler)
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND       ""
 
-    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica <INSTALL_DIR>/Modelica
-            COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices <INSTALL_DIR>/ModelicaServices
-            COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo <INSTALL_DIR>/Complex.mo
+    # omc reads the library version from the directory name: it is needed to satisfy the uses annotations
+    # (otherwise omc >= 1.2x tries to download the library with its package manager)
+    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica "<INSTALL_DIR>/Modelica ${modelicalib_version}"
+            COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices "<INSTALL_DIR>/ModelicaServices ${modelicalib_version}"
+            COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo "<INSTALL_DIR>/Complex ${modelicalib_version}.mo"
   )
   ExternalProject_Add_StepDependencies(openmodelica install modelicalib)
 else()
