@@ -28,7 +28,7 @@ equation
   //Connected side
   if runningSide1 then
     P1Pu = if P1RefPu > PMaxPu then PMaxPu elseif P1RefPu < -PMaxPu then -PMaxPu else P1RefPu;
-    U1Pu = ComplexMath.'abs'(terminal1.V);
+    U1Pu = ComplexMath.abs(terminal1.V);
   else
     P1Pu = 0;
     U1Pu = 0;

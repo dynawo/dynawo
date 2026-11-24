@@ -22,7 +22,7 @@ model ElectronicLoad "Constant power load with disconnection and reconnections d
   parameter Real recoveringShare "Share of the load that recovers from low voltage trip";
   parameter Types.Time tFilter = 1e-2 "Time constant for estimation of UMinPu in s";
 
-  Types.VoltageModulePu UMinPu(start = ComplexMath.'abs'(u0Pu)) "Minimum voltage during the simulation (with lower bound at Ud2Pu) in pu (base UNom)";
+  Types.VoltageModulePu UMinPu(start = ComplexMath.abs(u0Pu)) "Minimum voltage during the simulation (with lower bound at Ud2Pu) in pu (base UNom)";
   Real connectedShare(start = 1) "Share of the load that is currently connected";
 
 equation

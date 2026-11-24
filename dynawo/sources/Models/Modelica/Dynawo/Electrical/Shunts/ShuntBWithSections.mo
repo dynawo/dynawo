@@ -24,13 +24,13 @@ model ShuntBWithSections "Shunt element with voltage-dependent reactive power an
   discrete Modelica.Blocks.Interfaces.RealInput section(start = section0) "Section position of the shunt" annotation(
     Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(extent = {{-120, 70}, {-100, 90}})));
 
-  Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in pu (base SnRef, UNom)";
+  Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.abs(u0Pu)^2) "Variable susceptance of the shunt in pu (base SnRef, UNom)";
   Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in pu (base SnRef, receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at shunt terminal in pu (base SnRef, receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = 0), im(start = s0Pu.im)) "Apparent power at shunt terminal in pu (base SnRef, receptor convention)";
-  Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at shunt terminal in pu (base UNom)";
+  Types.VoltageModulePu UPu(start = ComplexMath.abs(u0Pu)) "Voltage amplitude at shunt terminal in pu (base UNom)";
 
-  Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = TableBPuName, fileName = TableBPuFile) "Table to get BPu from the section of the shunt";
+  Modelica.Blocks.Tables.CombiTable1Dv tableBPu(tableOnFile = true, tableName = TableBPuName, fileName = TableBPuFile) "Table to get BPu from the section of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage at shunt terminal in pu (base UNom)";
@@ -46,7 +46,7 @@ equation
   if running then
     QPu = -BPu * UPu ^ 2;
     PPu = 0;
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu = ComplexMath.abs(terminal.V);
   else
     terminal.i = Complex(0);
     UPu = 0;

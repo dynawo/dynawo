@@ -48,7 +48,7 @@ equation
   end if;
 
   // Voltage at terminal 2
-  U20Pu = ComplexMath.'abs'(u20Pu);
+  U20Pu = ComplexMath.abs(u20Pu);
   u20Pu = terminal20.V;
   i20Pu = terminal20.i;
 

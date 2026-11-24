@@ -44,18 +44,17 @@ imPu goes downwards through jXm
   Real s(start = s0) "Slip of the motor";
   Types.AngularVelocityPu omegaRPu(start = omegaR0Pu) "Angular velocity of the motor in pu (base omegaNom)";
 
-protected
-  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu, XsPu) "Stator impedance in pu (base UNom, SNom)";
-  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu, XrPu) "Rotor impedance in pu (base UNom, SNom)";
-  final parameter Types.ComplexImpedancePu ZmPu = Complex(0, XmPu) "Magnetising impedance in pu (base UNom, SNom)";
-
-public
   parameter Types.ComplexCurrentPu is0Pu "Start value of the stator current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu im0Pu "Start value of the magnetising current in pu (base SNom, UNom)";
   parameter Types.ComplexCurrentPu ir0Pu "Start value of the rotor current in pu (base SNom, UNom)";
   parameter Types.PerUnit ce0Pu "Start value of the electrical torque in pu (base SNom)";
   parameter Real s0 "Start value of the slip of the motor";
   parameter Types.AngularVelocityPu omegaR0Pu "Start value of the angular velocity of the motor in pu (base omegaNom)";
+
+protected
+  final parameter Types.ComplexImpedancePu ZsPu = Complex(RsPu, XsPu) "Stator impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZrPu = Complex(RrPu, XrPu) "Rotor impedance in pu (base UNom, SNom)";
+  final parameter Types.ComplexImpedancePu ZmPu = Complex(0, XmPu) "Magnetising impedance in pu (base UNom, SNom)";
 
 equation
   if running then
@@ -65,7 +64,7 @@ equation
     SPu = V * ComplexMath.conj(isPu) * (SNom / SystemBase.SnRef);
 
     s = (omegaRefPu - omegaRPu) / omegaRefPu;
-    cePu = RrPu * ComplexMath.'abs'(irPu ^ 2) / (omegaRefPu * s);
+    cePu = RrPu * ComplexMath.abs(irPu ^ 2) / (omegaRefPu * s);
     clPu = ce0Pu * (omegaRPu / omegaR0Pu) ^ torqueExponent;
     2 * H * der(omegaRPu) = cePu - clPu;
   else

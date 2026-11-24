@@ -53,7 +53,7 @@ equation
   PPuSnRef = (SNom / SystemBase.SnRef) * PPu;
   QPuSnRef = (SNom / SystemBase.SnRef) * QPu;
   UPhase = Modelica.ComplexMath.arg(uPu);
-  UPu = Modelica.ComplexMath.'abs'(uPu);
+  UPu = Modelica.ComplexMath.abs(uPu);
 
   annotation(
     preferredView = "text",

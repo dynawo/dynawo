@@ -129,8 +129,8 @@ equation
   PPccPu = transformRItoDQUPcc.ud*transformRItoDQIPcc.ud + transformRItoDQUPcc.uq*transformRItoDQIPcc.uq;
   QPccPu = transformRItoDQUPcc.uq*transformRItoDQIPcc.ud - transformRItoDQUPcc.ud*transformRItoDQIPcc.uq;
   // Voltage magnitudes
-  ULVPu = Modelica.ComplexMath.'abs'(uLVPu);
-  UPccPu = Modelica.ComplexMath.'abs'(uPccPu);
+  ULVPu = Modelica.ComplexMath.abs(uLVPu);
+  UPccPu = Modelica.ComplexMath.abs(uPccPu);
 
   connect(transformRItoDQUPcc.phi, thetaPLL) annotation(
     Line(points = {{-41, 64}, {-88.5, 64}, {-88.5, 52}, {-110, 52}}, color = {0, 0, 127}));
@@ -185,7 +185,6 @@ equation
 
   annotation(
     Icon(graphics = {Rectangle(origin = {0, -10}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 110}, {100, -110}}), Text(extent = {{-90, 20}, {90, -20}}, textString = "measurement filters")}, coordinateSystem(extent = {{-100, -120}, {100, 100}})),
-    uses(Modelica(version = "3.2.3"), Dynawo(version = "2.0.0")),
     Diagram(coordinateSystem(extent = {{-100, -120}, {100, 100}})),
     Documentation(info = "<html><head></head><body><h4>Measurement block – GFL plant</h4>
 
