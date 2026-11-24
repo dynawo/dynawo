@@ -118,6 +118,7 @@ where [option] can be:"
         nrt-clean                             clean non-regression tests
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
+        nrt-viewer ([args])                   browse non-regression tests results (failing cases, diffs, curves) in a local web viewer
         nrt-xsl ([args])                      update automatically the xml input files from the nrt by applying xsl files
         nrt-update ([args])                   update automatically the xml input files from the nrt by running python scripts
         version-validation                    clean all built items, then build them all and run non-regression tests
@@ -1575,6 +1576,9 @@ nrt() {
       verify_browser
       $DYNAWO_BROWSER $DYNAWO_NRT_DIR/output/$DYNAWO_BRANCH_NAME/report.html &
     fi
+    if [ -f "$DYNAWO_NRT_DIR/output/$DYNAWO_BRANCH_NAME/results.json" ]; then
+      echo "Browse the results (failing cases, diffs, curves) with: $(basename $0) nrt-viewer"
+    fi
   fi
 
   if [ ${FAILED_CASES_NUM} -ne 0 ]; then
@@ -1735,6 +1739,14 @@ nrt_diff() {
 
 nrt_ref() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_NRT_DIFF_DIR/defineTestReference.py $@
+}
+
+nrt_viewer() {
+  if [ "$DYNAWO_RESULTS_SHOW" = true ] && [ -x "$(command -v $DYNAWO_BROWSER)" ]; then
+    $DYNAWO_PYTHON_COMMAND $DYNAWO_NRT_DIR/viewer/nrtViewer.py --browser "$DYNAWO_BROWSER" "$@"
+  else
+    $DYNAWO_PYTHON_COMMAND $DYNAWO_NRT_DIR/viewer/nrtViewer.py "$@"
+  fi
 }
 
 nrt_xsl() {
@@ -2088,6 +2100,9 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIFF_DIR/*.py sbin/nrt/nrt_diff
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
+  mkdir -p sbin/nrt/viewer/static
+  cp $DYNAWO_NRT_DIR/viewer/nrtViewer.py sbin/nrt/viewer/.
+  cp $DYNAWO_NRT_DIR/viewer/static/* sbin/nrt/viewer/static/.
   cp -r $DYNAWO_HOME/util/updateXML sbin/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.
   cp -r $DYNAWO_MANDATORY_PARAM_DIR sbin/.
@@ -2719,6 +2734,10 @@ case $MODE in
 
   nrt-ref)
     nrt_ref ${ARGS} || error_exit "Error during Dynawo's NRT ref execution"
+    ;;
+
+  nrt-viewer)
+    nrt_viewer ${ARGS} || error_exit "Error during Dynawo's NRT viewer execution"
     ;;
 
   nrt-update)

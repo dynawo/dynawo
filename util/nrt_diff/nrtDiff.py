@@ -663,11 +663,37 @@ def findOutputDirFromJob(jobs_file):
 
 
 ##
+# Convert a diff status into a coarse category used by the NRT viewer
+# @param status : the diff status (as one of the values in the range above)
+# @param is_reference_check : whether the function is called from a reference data check, or a standard diff check
+# @return one of "OK", "Warn", "KO", "NoReference", "Unable"
+def statusCategory (status, is_reference_check):
+    if (status == UNABLE_TO_CHECK) or (status is None):
+        return "Unable"
+    if (status == NO_FILES_TO_COMPARE):
+        return "NoReference"
+    if (status in diff_error_statuses (is_reference_check)):
+        return "KO"
+    if (status in diff_warn_statuses ()):
+        return "Warn"
+    return "OK"
+
+##
 # conduct a directory diff looking for reference data, and return only the most critical diff status
 # @param jobs_file : the path to the jobs file
 def DirectoryDiffReferenceDataJob (jobs_file):
+    (final_status, messages, _) = DirectoryDiffReferenceDataJobDetailed (jobs_file)
+    return (final_status, messages)
+
+##
+# conduct a directory diff looking for reference data, and return the most critical diff status with per-file details
+# @param jobs_file : the path to the jobs file
+# @return (final_status, messages, compared_files) where compared_files is a list of dict
+#         {"path", "status", "message", "output", "reference"} with paths relative to the jobs file directory
+def DirectoryDiffReferenceDataJobDetailed (jobs_file):
     output_dirs = findOutputDirFromJob(jobs_file)
     messages = []
+    compared_files = []
     final_status = IDENTICAL
     for output_dir in output_dirs:
         # caution: output_dir has to be relative !
@@ -682,6 +708,13 @@ def DirectoryDiffReferenceDataJob (jobs_file):
             diff_messages = ["No files to compare."]
         else:
             (diff_statuses, return_message, file_names, left_paths, right_paths, diff_messages) = DirectoryDiff (nrt_directory, reference_data_directory, True)
+            for index, file_name in enumerate(file_names):
+                compared_files.append({
+                    "path": os.path.normpath(os.path.join(output_dir, file_name)),
+                    "status": statusCategory(diff_statuses[index], True),
+                    "message": diff_messages[index],
+                    "output": os.path.normpath(os.path.join(nrt_directory, file_name)),
+                    "reference": os.path.normpath(os.path.join(reference_data_directory, file_name))})
         for status in status_priority:
             if status in diff_statuses:
                 if status_priority.index(status) < status_priority.index(MISSING_DATA_RIGHT):
@@ -689,7 +722,7 @@ def DirectoryDiffReferenceDataJob (jobs_file):
                     messages.extend([ diff_messages[index] for index in indices ])
                 if status_priority.index(status) < status_priority.index(final_status):
                     final_status = status
-    return (final_status, messages)
+    return (final_status, messages, compared_files)
 
 ##
 # conduct a directory diff looking for reference data, and return only the most critical diff status in a multithreading environment
@@ -726,9 +759,10 @@ def DirectoryDiffReferenceDataJobMultiThread (case, index, nbCases, semaphore, p
         sys.stdout.write(" " +  case.name_ + "\n")
 
         pool.makeActive(name)
-        (status, messages) = DirectoryDiffReferenceDataJob (case.jobs_file_)
+        (status, messages, compared_files) = DirectoryDiffReferenceDataJobDetailed (case.jobs_file_)
         case.diff_ = status
         case.diff_messages_ = messages
+        case.diff_files_ = compared_files
         pool.makeInactive(name)
 #        end_time = time.time()
 #        sys.stdout.write(case.name_ + " Finished in " + str(end_time-start_time) +"s\n")
@@ -1256,7 +1290,7 @@ def XMLCloseEnough (path_left, path_right):
 
 
     times = []
-    for t in sorted(times_left):
+    for t in sorted(times_left, key=float):
         if (t in times_right):
             times.append(t)
 
@@ -1289,9 +1323,10 @@ def XMLCloseEnough (path_left, path_right):
         (curve_left, curve_right) = curves [curve]
         left = []
         right = []
-        for t in sorted(times_left):
+        # times are stored as strings: sort them numerically (lexicographic order puts "10" before "2")
+        for t in sorted(times_left, key=float):
             left.append(float (left_curve[curve][t]))
-        for t in sorted(times_right):
+        for t in sorted(times_right, key=float):
             right.append(float (right_curve[curve][t]))
         # the time-aligned comparison needs the points sorted by numerical time (times are stored as strings)
         left_points = sorted((float(t), float(v)) for t, v in left_curve[curve].items())

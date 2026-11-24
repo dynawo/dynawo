@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 
 import datetime
+import json
 import sys
 import multiprocessing as mp
 from optparse import OptionParser
@@ -78,6 +79,9 @@ jenkins_mode = os.getenv("DYNAWO_JENKINS_MODE","NO")
 if jenkins_mode == "YES" :
     output_dir = output_dir_all_nrt
 html_output = os.path.join(output_dir, "report.html")
+json_output = os.path.join(output_dir, "results.json")
+JSON_FORMAT_VERSION = 1
+CONSOLE_ERRORS_MAX_LINES = 50
 
 # Load custom python modules
 csvToHtml_dir = os.path.join(os.environ["DYNAWO_CURVES_TO_HTML_DIR"], "csvToHtml")
@@ -413,6 +417,95 @@ class NonRegressionTest:
         file.write('<ul></ul>')
         file.write("<aside><h1>case command:</h1><ul>"+test_case.command_+"</ul></aside>\n")
         file.write('<ul><a href="#resume">Back to resume</a></ul>')
+    ##
+    # Export the results in a structured json file (used by the NRT viewer)
+    # Has to be called after exportHTML as it relies on the job outputs copied in output_dir
+    # @param json_output : the path to the json file to write
+    def exportJSON(self, json_output):
+        results = {
+            "version": JSON_FORMAT_VERSION,
+            "branch": branch_name,
+            "date": datetime.datetime.now().isoformat(timespec='seconds'),
+            "data_dir": os.path.realpath(data_dir),
+            "output_dir": os.path.realpath(output_dir),
+            "real_time": self.real_time_,
+            "total_time": self.total_time_,
+            "nb_processors": self.nb_processors_used_,
+            "cases": [self.caseToDict(test_case) for test_case in self.test_cases_]
+        }
+        tmp_output = json_output + ".tmp"
+        with open(tmp_output, 'w', encoding='utf-8') as file:
+            json.dump(results, file, indent=1, ensure_ascii=False)
+        os.replace(tmp_output, json_output)
+
+    ##
+    # Convert a test case into a json-serializable dictionary
+    # @param test_case : the test case to convert
+    def caseToDict(self, test_case):
+        if test_case.ok_:
+            simulation_status = "OK"
+        elif test_case.code_ == -150:
+            simulation_status = "TOO_LONG"
+        else:
+            simulation_status = "KO"
+
+        # cases may live outside data_dir (e.g. examples): use a path relative to the project root instead
+        jobs_dir = os.path.realpath(os.path.dirname(test_case.jobs_file_))
+        relative_dir = os.path.relpath(jobs_dir, os.path.realpath(data_dir))
+        if relative_dir.startswith(os.pardir):
+            relative_dir = os.path.relpath(jobs_dir, os.path.realpath(os.path.join(os.environ["DYNAWO_NRT_DIR"], os.pardir)))
+
+        def normalizedPath(path):
+            return os.path.realpath(path) if path else path
+
+        compared_files = []
+        for compared_file in test_case.diff_files_:
+            compared_file = dict(compared_file)
+            compared_file["message"] = cleanHtml(compared_file["message"])
+            compared_files.append(compared_file)
+
+        console_errors = test_case.errors_ if hasattr(test_case, "errors_") else ""
+        if isinstance(console_errors, bytes):
+            console_errors = console_errors.decode("utf-8", errors="replace")
+        console_errors = "\n".join(console_errors.splitlines()[-CONSOLE_ERRORS_MAX_LINES:])
+
+        jobs = []
+        for job in test_case.jobs_:
+            job_snapshot_dir = os.path.join(output_dir, test_case.case_, job.job_)
+            jobs.append({
+                "job": job.job_,
+                "name": job.name_,
+                "description": job.description_,
+                "solver": job.solver_,
+                "output_dir": normalizedPath(job.output_dir_),
+                "snapshot_dir": normalizedPath(job_snapshot_dir),
+                "timeline": normalizedPath(job.timeline_),
+                "constraints": normalizedPath(job.constraints_),
+                "curves": normalizedPath(job.curves_),
+                "logs": [normalizedPath(log) for log in job.appenders_]
+            })
+
+        return {
+            "case": test_case.case_,
+            "name": test_case.name_,
+            "description": test_case.description_,
+            "directory": relative_dir,
+            "family": relative_dir.split(os.sep)[0],
+            "jobs_dir": jobs_dir,
+            "jobs_file": os.path.realpath(test_case.jobs_file_),
+            "command": test_case.command_,
+            "time": test_case.time_,
+            "return_code": test_case.code_,
+            "simulation_status": simulation_status,
+            "diff_status": nrtDiff.statusCategory(test_case.diff_, True),
+            "diff_label": nrtDiff.toString(test_case.diff_, True),
+            "satisfactory": test_case.gives_satisfactory_results(),
+            "diff_messages": [cleanHtml(message) for message in (test_case.diff_messages_ or [])],
+            "console_errors": console_errors,
+            "compared_files": compared_files,
+            "jobs": jobs
+        }
+
     def writeFooter(self,file):
         file.write("""
       </div>
@@ -675,15 +768,21 @@ def main():
         for case in NRT.test_cases_:
             case_dir = os.path.dirname (case.jobs_file_)
             if case_dir in dir_list and case.diff_messages_ != None :
-                results_per_dir[case_dir]=[case.diff_, case.diff_messages_]
+                results_per_dir[case_dir]=[case.diff_, case.diff_messages_, case.diff_files_]
         for case in NRT.test_cases_:
             case_dir = os.path.dirname (case.jobs_file_)
             if case.diff_messages_ == None and case_dir in results_per_dir:
                 case.diff_ = results_per_dir[case_dir][0]
                 case.diff_messages_ = results_per_dir[case_dir][1]
+                case.diff_files_ = results_per_dir[case_dir][2]
 
         # Export results as html
         NRT.exportHTML(html_output)
+        # Export results as json (used by the NRT viewer)
+        try:
+            NRT.exportJSON(json_output)
+        except Exception as exc:
+            print("Failed to export NRT results as json: " + str(exc))
         if( NRT.number_of_nok_cases_ > 0):
             logFile = open(NRT_RESULT_FILE, "w")
             logFile.write("NRT NOK\n")

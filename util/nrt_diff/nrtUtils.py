@@ -68,6 +68,7 @@ class TestCase:
         self.process_return_codes_ = expected_return_codes
         self.diff_ = None
         self.diff_messages_ = None
+        self.diff_files_ = [] # per-file comparison details with the reference (see nrtDiff.DirectoryDiffReferenceDataJobDetailed)
         if (os.path.isfile (self.jobs_file_)):
             self.parseJobsFile()
 
