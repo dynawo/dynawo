@@ -467,7 +467,7 @@ set_environment() {
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
 
   # OpenModelica config
-  export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_13_2
+  export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_24_5
   export_var_env_force DYNAWO_MODELICA_LIB=3.2.3
   export_var_env DYNAWO_SRC_OPENMODELICA=UNDEFINED
   export_var_env DYNAWO_INSTALL_OPENMODELICA=UNDEFINED
