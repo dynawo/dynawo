@@ -548,7 +548,7 @@ def DirectoryDiff (directory_left, directory_right, is_reference_check, display_
 
             elif (diff_status == DIFFERENT):
                 return_message_str += str(file_name + " DIFFERENT" + message_added + "\n")
-                message_added = message_added.strip(" ()")
+                message_added = message
                 identical_dir = False
                 close_enough_dir = False
 
@@ -914,7 +914,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
         return_value = IDENTICAL
     else:
         if file_name == "curves" and file_extension == ".xml":
-            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = XMLCloseEnough (path_left, path_right)
+            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different, tolerance_message) = XMLCloseEnough (path_left, path_right)
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
@@ -936,6 +936,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                         message += " , " + curve
                 else:
                     message += " coming from more than " + str(maximum_curves_names_displayed) + " curves"
+                message += tolerance_message
 
             elif (nb_differences > 0):
                 return_value = WITHIN_TOLERANCE
@@ -967,7 +968,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                     message += "s"
 
         elif (file_name == "curves" and file_extension == ".csv"):
-            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = CSVCloseEnough (path_left, path_right, True)
+            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different, tolerance_message) = CSVCloseEnough (path_left, path_right, True)
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
@@ -989,6 +990,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                         message += " , " + curve
                 else:
                     message += " coming from more than " + str(maximum_curves_names_displayed) + " curves"
+                message += tolerance_message
 
             elif (nb_curves_only_in_left_file + nb_curves_only_in_right_file > 0):
                 if (nb_curves_only_in_left_file > 0) and (nb_curves_only_in_right_file > 0):
@@ -1280,6 +1282,9 @@ def XMLCloseEnough (path_left, path_right):
     nb_differences_relative = 0
     max_dtw = GetTolerance(settings.max_DTW, settings.dtw_exceptions, path_left, path_right)
     max_time_error = GetTolerance(settings.max_time_aligned_error, settings.time_aligned_error_exceptions, path_left, path_right)
+    max_dtw_found = None
+    max_time_error_found = None
+    stopped = False
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         left = []
@@ -1291,18 +1296,22 @@ def XMLCloseEnough (path_left, path_right):
         # the time-aligned comparison needs the points sorted by numerical time (times are stored as strings)
         left_points = sorted((float(t), float(v)) for t, v in left_curve[curve].items())
         right_points = sorted((float(t), float(v)) for t, v in right_curve[curve].items())
-        (dtw_ko, time_ko, time_error) = CompareCurves(left, right, max_dtw, \
+        (dtw_ko, time_ko, time_error, distance) = CompareCurves(left, right, max_dtw, \
             [t for t, _ in left_points], [v for _, v in left_points], [t for t, _ in right_points], [v for _, v in right_points], max_time_error)
         if dtw_ko or time_ko:
             nb_differences += 1
-            curves_different.add (CurveLabel(curve, time_ko, time_error))
+            curves_different.add (CurveLabel(curve, dtw_ko, distance, time_ko, time_error))
         if dtw_ko:
             nb_differences_absolute += 1
+            max_dtw_found = distance if max_dtw_found is None else max(max_dtw_found, distance)
         if time_ko:
             nb_differences_relative += 1
-        if nb_differences > 5: break
+            max_time_error_found = time_error if max_time_error_found is None else max(max_time_error_found, time_error)
+        if nb_differences > 5:
+            stopped = True
+            break
 
-    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
+    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different, ToleranceMessage(max_dtw_found, max_dtw, max_time_error_found, max_time_error, stopped))
 
 
 # Get the tolerance to use for a pair of files
@@ -1319,12 +1328,19 @@ def GetTolerance(default_tolerance, exceptions, path_left, path_right):
 
 # Label of a different curve, displayed in the diff report
 # @param curve : name of the curve
+# @param dtw_ko : whether the curve exceeds the DTW distance tolerance
+# @param distance : DTW distance of the curve
 # @param time_ko : whether the curve exceeds the time-aligned error tolerance
 # @param time_error : time-aligned error of the curve
 # @return the label
-def CurveLabel(curve, time_ko, time_error):
+def CurveLabel(curve, dtw_ko, distance, time_ko, time_error):
+    details = []
+    if dtw_ko:
+        details.append("DTW " + "%g" % distance)
     if time_ko:
-        return curve + " (time-aligned error " + "{:.2e}".format(time_error) + ")"
+        details.append("time-aligned error " + "{:.2e}".format(time_error))
+    if len(details) > 0:
+        return curve + " (" + ", ".join(details) + ")"
     return curve
 
 # Compare two curves with the DTW distance and the time-aligned error
@@ -1336,17 +1352,19 @@ def CurveLabel(curve, time_ko, time_error):
 # @param times_right : sorted list of right times (a time appears twice at a discontinuity)
 # @param values_right : right values at times_right
 # @param max_time_error : tolerance on the time-aligned error (None to avoid checking)
-# @return (whether the DTW distance exceeds its tolerance, whether the time-aligned error exceeds its tolerance, time-aligned error)
+# @return (whether the DTW distance exceeds its tolerance, whether the time-aligned error exceeds its tolerance, time-aligned error, DTW distance)
 def CompareCurves(left, right, max_dtw, times_left, values_left, times_right, values_right, max_time_error):
     dtw_ko = False
+    distance = 0.
     if max_dtw is not None:
-        dtw_ko = DTWDistance(left, right, max_dtw) > max_dtw
+        distance = DTWDistance(left, right, max_dtw)
+        dtw_ko = distance > max_dtw
     time_ko = False
     time_error = 0.
     if max_time_error is not None:
         time_error = TimeAlignedError(times_left, values_left, times_right, values_right)
         time_ko = time_error > max_time_error
-    return (dtw_ko, time_ko, time_error)
+    return (dtw_ko, time_ko, time_error, distance)
 
 # Limit of a curve at a given time, the curve being linearly interpolated between its points
 # A time can appear twice (value before and after a discontinuity): the right limit uses the last point
@@ -1443,6 +1461,25 @@ def DTWDistance(left, right, max_dtw=None) :
         previousRow = thisRow
 
     return previousRow[m]
+
+
+# Build the message giving the maximum DTW distance and time-aligned error of the curves out of tolerance,
+# useful to define an exception in settings.dtw_exceptions or settings.time_aligned_error_exceptions without reproducing the case
+# @param max_dtw_found : maximum DTW distance of the curves out of the DTW tolerance (None if there is none)
+# @param max_dtw : DTW tolerance used for the comparison
+# @param max_time_error_found : maximum time-aligned error of the curves out of the time-aligned tolerance (None if there is none)
+# @param max_time_error : time-aligned error tolerance used for the comparison
+# @param stopped : whether the comparison was stopped before checking all the curves
+# @return the message, empty when no curve is out of tolerance
+def ToleranceMessage(max_dtw_found, max_dtw, max_time_error_found, max_time_error, stopped):
+    message = ""
+    if max_dtw_found is not None:
+        message += " , max DTW " + "%g" % max_dtw_found + " (tolerance " + "%g" % max_dtw + ")"
+    if max_time_error_found is not None:
+        message += " , max time-aligned error " + "{:.2e}".format(max_time_error_found) + " (tolerance " + "{:.2e}".format(max_time_error) + ")"
+    if stopped and message != "":
+        message += ", comparison stopped after 6 curves out of tolerance: other curves may need a higher tolerance"
+    return message
 
 
 # Check whether two initial values files are close enough
@@ -1626,6 +1663,9 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
     nb_differences_relative = 0
     max_dtw = GetTolerance(settings.max_DTW, settings.dtw_exceptions, path_left, path_right)
     max_time_error = GetTolerance(settings.max_time_aligned_error, settings.time_aligned_error_exceptions, path_left, path_right)
+    max_dtw_found = None
+    max_time_error_found = None
+    stopped = False
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
         data_left = reader_left [curve_left]
@@ -1638,17 +1678,21 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             right.append(float (data_right [times_right[t]] .strip()))
         (points_times_left, points_values_left) = ExtractCurvePoints(reader_left [0], data_left)
         (points_times_right, points_values_right) = ExtractCurvePoints(reader_right [0], data_right)
-        (dtw_ko, time_ko, time_error) = CompareCurves(left, right, max_dtw, points_times_left, points_values_left, points_times_right, points_values_right, max_time_error)
+        (dtw_ko, time_ko, time_error, distance) = CompareCurves(left, right, max_dtw, points_times_left, points_values_left, points_times_right, points_values_right, max_time_error)
         if dtw_ko or time_ko:
             nb_differences += 1
-            curves_different.add (CurveLabel(curve, time_ko, time_error))
+            curves_different.add (CurveLabel(curve, dtw_ko, distance, time_ko, time_error))
         if dtw_ko:
             nb_differences_absolute += 1
+            max_dtw_found = distance if max_dtw_found is None else max(max_dtw_found, distance)
         if time_ko:
             nb_differences_relative += 1
-        if nb_differences > 5: break
+            max_time_error_found = time_error if max_time_error_found is None else max(max_time_error_found, time_error)
+        if nb_differences > 5:
+            stopped = True
+            break
 
-    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
+    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different, ToleranceMessage(max_dtw_found, max_dtw, max_time_error_found, max_time_error, stopped))
 
 ##
 # Make an html report to display diff results

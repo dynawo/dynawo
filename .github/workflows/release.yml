@@ -52,7 +52,7 @@ jobs:
           options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
-            dnf install -y zip
+            dnf install -y zip boost-devel zlib-devel
             cd /dynawo
             git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
@@ -200,7 +200,7 @@ jobs:
     name: Distribution Windows
     runs-on: windows-2022
     env:
-      DYNAWO_VERSION: 1.4.1   # latest release with OpenModelica
+      OPENMODELICA_VERSION: 1.24.5   # OpenModelica built with OMDev, see release openmodelica-<version>
     steps:
       - name: No LF to CRLF conversion
         shell: cmd
@@ -216,15 +216,15 @@ jobs:
           move dynawo \
           md dynawo
 
-      - name: Fetch previous release of Dynawo
+      - name: Fetch OpenModelica
         shell: bash
-        run: curl -LOs https://github.com/${{ github.repository_owner }}/dynawo/releases/download/v$DYNAWO_VERSION/Dynawo_Windows_v$DYNAWO_VERSION.zip
+        run: curl -LOs https://github.com/${{ github.repository_owner }}/dynawo/releases/download/openmodelica-$OPENMODELICA_VERSION/OpenModelica-$OPENMODELICA_VERSION-windows.zip
 
-      - name: Unzip and retrieve OpenModelica
+      - name: Unzip OpenModelica
         shell: cmd
         run: |
-          7z x Dynawo_Windows_v%DYNAWO_VERSION%.zip dynawo\OpenModelica\ -r -o\OpenModelica
-          del Dynawo_Windows_v%DYNAWO_VERSION%.zip
+          7z x OpenModelica-%OPENMODELICA_VERSION%-windows.zip -o\OpenModelica\dynawo
+          del OpenModelica-%OPENMODELICA_VERSION%-windows.zip
 
       # We are forced to change the path to avoid too long commands when compiling
       - name: Build Dynawo Third Parties

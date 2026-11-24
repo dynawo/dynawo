@@ -23,10 +23,11 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="40"/>
       <dyn:outputs directory="outputs">
+      <dyn:dumpInitValues global="true" local="true"/>
         <dyn:timeline exportMode="XML" filter="true"/>
         <dyn:curves inputFile="SVarC.crv" exportMode="CSV"/>
         <dyn:logs>
-          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>

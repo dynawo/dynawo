@@ -39,6 +39,7 @@ set SUITESPARSE_HOME=%thirdPartyInstallPath%\suitesparse
 set SUNDIALS_HOME=%thirdPartyInstallPath%\sundials
 set XERCESC_HOME=%thirdPartyInstallPath%\xerces-c
 set LIBXML2_HOME=%thirdPartyInstallPath%\libxml2
+set HDF5_HOME=%thirdPartyInstallPath%\hdf5
 
 set OPENMODELICA_HOME=@INSTALL_OPENMODELICA@
 
@@ -72,7 +73,7 @@ if not defined DYNAWO_BROWSER (
 set oldpath=%path%
 
 PATH=%OPENMODELICA_HOME%\bin;%DYNAWO_INSTALL_DIR%ddb;%DYNAWO_INSTALL_DIR%bin;%LIBXML_HOME%\bin;%PATH%
-PATH=%BOOST_PATH%\bin;%LIBARCHIVE_HOME%\bin;%ZLIB_ROOT%\bin;%LIBIIDM_HOME%\bin;%LIBZIP_HOME%\bin;%ADEPT_HOME%\bin;%SUITESPARSE_HOME%\bin;%SUNDIALS_HOME%\bin;%XERCESC_HOME%\bin;%LIBXML2_HOME%\bin;%PATH%
+PATH=%BOOST_PATH%\bin;%LIBARCHIVE_HOME%\bin;%ZLIB_ROOT%\bin;%LIBIIDM_HOME%\bin;%LIBZIP_HOME%\bin;%ADEPT_HOME%\bin;%SUITESPARSE_HOME%\bin;%SUNDIALS_HOME%\bin;%XERCESC_HOME%\bin;%LIBXML2_HOME%\bin;%HDF5_HOME%\bin;%PATH%
 
 :: To compile Modelica models
 set DYNAWO_ADEPT_INSTALL_DIR=%thirdPartyInstallPath%\adept

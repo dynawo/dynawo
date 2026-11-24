@@ -53,7 +53,7 @@ class DataInterfaceMock : public DataInterface {
   std::map<std::string, std::string> voltageLevelIds;
   std::map<std::pair<std::string, int>, std::string> busFromNodes;
 
-  bool canUseVariant() const override { return false; }
+  bool canUseVariant() const override;
   void selectVariant(const std::string&) override {}
   boost::shared_ptr<NetworkInterface> getNetwork() const override { return nullptr; }
   void hasDynamicModel(const std::string&) override {}
@@ -99,13 +99,19 @@ class DataInterfaceMock : public DataInterface {
   }
 };
 
+// defined out of line so that the vtable is emitted only once (-Wweak-vtables)
+bool
+DataInterfaceMock::canUseVariant() const {
+  return false;
+}
+
 // ── Minimal SubModel mock ─────────────────────────────────────────────────────
 
 class SubModelMockSimple : public SubModel {
  public:
   SubModelMockSimple() { sizeY_ = 1; sizeZ_ = 1; calculatedVars_.resize(1); }
 
-  void init(const double) override {}
+  void init(const double) override;
   const std::string& modelType() const override { static std::string t; return t; }
   void dumpParameters(std::map<std::string, std::string>&) override {}
   void getSubModelParameterValue(const std::string&, std::string&, bool&) override {}
@@ -152,6 +158,10 @@ class SubModelMockSimple : public SubModel {
   void initParams() override {}
   void notifyTimeStep() override {}
 };
+
+// defined out of line so that the vtable is emitted only once (-Wweak-vtables)
+void
+SubModelMockSimple::init(const double) {}
 
 // ── Test wrapper exposing protected methods ───────────────────────────────────
 
