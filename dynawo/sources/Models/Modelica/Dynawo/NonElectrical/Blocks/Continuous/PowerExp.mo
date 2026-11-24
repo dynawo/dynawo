@@ -1,7 +1,7 @@
 within Dynawo.NonElectrical.Blocks.Continuous;
 
 /*
-* Copyright (c) 2025, RTE (http://www.rte-france.com)
+* Copyright (c) 2026, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,10 +15,13 @@ within Dynawo.NonElectrical.Blocks.Continuous;
 
 block PowerExp "Output the power to a base of the input with no Evaluate annotation"
   extends Modelica.Blocks.Interfaces.SISO;
+
   parameter Real base = Modelica.Constants.e "Base of power";
   parameter Boolean useExp = true "Use exp function in implementation";
+
 equation
   y = if useExp then Modelica.Math.exp(u*Modelica.Math.log(base)) else base ^ u;
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={

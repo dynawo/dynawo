@@ -63,16 +63,16 @@ voltageLevelIIDM_(voltageLevel) {
 
   const auto & topo = voltageLevel.getNodeBreakerView();
 
-  for (int nodeId : topo.getNodes())
-    graph_.addVertex(nodeId);
+  for (const auto nodeId : topo.getNodes())
+    graph_.addVertex(static_cast<int>(nodeId));
 
   // keep retained switches, and non-retained closed ones
   for (const auto & sw : voltageLevel.getSwitches())
     if (sw.isRetained() || !sw.isOpen())
-      graph_.addEdge(topo.getNode1(sw.getId()), topo.getNode2(sw.getId()), sw.getId());
+      graph_.addEdge(static_cast<int>(topo.getNode1(sw.getId())), static_cast<int>(topo.getNode2(sw.getId())), sw.getId());
 
-  for (const auto & ic : topo.getInternalConnections())
-    graph_.addEdge(ic.getNode1(), ic.getNode2(), internConnectId(ic));
+  for (const powsybl::iidm::node_breaker_view::InternalConnection ic : topo.getInternalConnections())
+    graph_.addEdge(static_cast<int>(ic.getNode1()), static_cast<int>(ic.getNode2()), internConnectId(ic));
 }
 
 const std::string&
@@ -261,7 +261,7 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   }
   // fill each calculated bus with its nodes
   for (const auto & nodeId : voltageLevelIIDM_.getNodeBreakerView().getNodes())
-    calculatedBus_[topoComponents[nodeId]]->addNode(nodeId);
+    calculatedBus_[topoComponents[nodeId]]->addNode(static_cast<int>(nodeId));
 
   // fill each calculated bus with its busbars
   for (auto it : busbars)
@@ -339,7 +339,7 @@ VoltageLevelInterfaceIIDM::connectNode(unsigned int nodeToConnect) {
     if ((!terminal) || (!terminal.get().getBusBreakerView().getBus()))
       continue;
 
-    vector<string> ret = graph_.shortestPath(nodeToConnect, nodeId, graph_.getAllEdges());
+    vector<string> ret = graph_.shortestPath(nodeToConnect, static_cast<int>(nodeId), graph_.getAllEdges());
     if (ret.empty() || (!shortestPath.empty() && (ret.size() > shortestPath.size())))
       continue;
 
@@ -376,7 +376,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(unsigned int nodeToDisconnect) {
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
       if (bus) {
-        vector<string> path = graph_.shortestPath(nodeToDisconnect, nodeId, closedEdges);
+        vector<string> path = graph_.shortestPath(nodeToDisconnect, static_cast<int>(nodeId), closedEdges);
         bool somethingWasDisconnected = true;
 
         while (!path.empty() && somethingWasDisconnected) {
@@ -396,7 +396,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(unsigned int nodeToDisconnect) {
               break;  // no more things to do, one breaker is open
             }
           }
-          path = graph_.shortestPath(nodeToDisconnect, nodeId, closedEdges);
+          path = graph_.shortestPath(nodeToDisconnect, static_cast<int>(nodeId), closedEdges);
         }
       }
     }
@@ -411,7 +411,7 @@ VoltageLevelInterfaceIIDM::isNodeConnected(unsigned int nodeToCheck) {
     const auto& terminal = voltageLevelIIDM_.getNodeBreakerView().getTerminal(nodeId);
     if (terminal) {
       const auto& bus = terminal.get().getBusView().getBus();
-      if (bus && graph_.pathExist(nodeToCheck, nodeId, selectClosedEdges(INCLUDE_RETAINED_SWITCHES))) {
+      if (bus && graph_.pathExist(nodeToCheck, static_cast<int>(nodeId), selectClosedEdges(INCLUDE_RETAINED_SWITCHES))) {
         return true;
       }
     }

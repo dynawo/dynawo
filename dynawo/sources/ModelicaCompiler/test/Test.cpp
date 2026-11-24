@@ -33,7 +33,7 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   std::string pythonCmd = "python";
   if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
     pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
-  std::string varExtCommand = pythonCmd + " Scripts_OMC_1_13_2/writeModel.py -m GeneratorPQ  -i ModelicaModel/ -o res/ --init";
+  std::string varExtCommand = pythonCmd + " Scripts_OMC_1_24_5/writeModel.py -m GeneratorPQ  -i ModelicaModel/ -o res/ --init";
 
   removeAllInDirectory("res");
   boost::filesystem::path fspath("res");
