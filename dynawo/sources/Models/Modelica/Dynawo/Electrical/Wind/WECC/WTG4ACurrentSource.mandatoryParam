@@ -43,7 +43,7 @@
   <mandatoryParameter name="tFv" type="DOUBLE"/>
   <mandatoryParameter name="tLag" type="DOUBLE"/>
   <mandatoryParameter name="tpREPC" type="DOUBLE"/>
-  <mandatoryParameter name="VFrz" type="DOUBLE"/>
+  <mandatoryParameter name="VFrzPu" type="DOUBLE"/>
   <mandatoryParameter name="Ht" type="DOUBLE"/>
   <mandatoryParameter name="Hg" type="DOUBLE"/>
   <mandatoryParameter name="Dshaft" type="DOUBLE"/>

@@ -126,7 +126,7 @@
   <mandatoryParameter name="tFv" type="DOUBLE"/>
   <mandatoryParameter name="tLag" type="DOUBLE"/>
   <mandatoryParameter name="tpREPC" type="DOUBLE"/>
-  <mandatoryParameter name="VFrz" type="DOUBLE"/>
+  <mandatoryParameter name="VFrzPu" type="DOUBLE"/>
   <mandatoryParameter name="Kiw" type="DOUBLE"/>
   <mandatoryParameter name="Kpw" type="DOUBLE"/>
   <mandatoryParameter name="Kic" type="DOUBLE"/>
