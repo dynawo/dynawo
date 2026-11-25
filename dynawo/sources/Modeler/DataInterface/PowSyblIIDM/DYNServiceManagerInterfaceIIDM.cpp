@@ -73,7 +73,7 @@ ServiceManagerInterfaceIIDM::getBusesConnectedBySwitch(const std::string& busId,
   for (size_t busIndex = 0; busIndex < buses.size(); busIndex++) {
     if (busIndex == busIndexFound)
       continue;
-    if (graph.pathExist(busIndexFound, busIndex, graph.getAllEdges()))
+    if (graph.pathExist(static_cast<int>(busIndexFound), static_cast<int>(busIndex), graph.getAllEdges()))
       ret.push_back(buses.at(busIndex)->getID());
   }
 
@@ -107,7 +107,7 @@ ServiceManagerInterfaceIIDM::isBusConnected(const std::string& busId, const std:
   for (size_t busIndex = 0; busIndex < buses.size(); busIndex++) {
     if (busIndex == busIndexFound)
       continue;
-    if (graph.pathExist(busIndexFound, busIndex, graph.getAllEdges()) && !buses[busIndex]->getBusBarSectionIdentifiers().empty())
+    if (graph.pathExist(static_cast<int>(busIndexFound), static_cast<int>(busIndex), graph.getAllEdges()) &&!buses[busIndex]->getBusBarSectionIdentifiers().empty())
       return true;
   }
   return false;

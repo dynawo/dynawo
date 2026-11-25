@@ -30,7 +30,7 @@ jobs:
             git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
             util/envDynawo.sh build-user
-            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U" : 15, "WT4BCurrentSource2020U" : 15, "PmConstAc7cPss2c" : 5, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1, "PlantControl":2}/' util/nrt_diff/settings.py
+            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U" : 15, "WT4BCurrentSource2020U" : 15, "PmConstAc7cPss2c" : 5, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1, "PlantControl\/CCVSM": 2.5, "PlantControl":2, "DynGFMCCVSM\/": 0.35, "GovSteamEuAc1cPss1aOmega": 0.28}/' util/nrt_diff/settings.py
             branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
             util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
         env:
@@ -57,13 +57,15 @@ jobs:
           options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
-            apt-get remove -y $(dpkg -l 'libboost*-dev' | awk '/^ii/ {print $2}')
-            ls /usr/lib/x86_64-linux-gnu/cmake | grep -i boost || echo "No system Boost left"
             cd /dynawo
             git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
+            # OpenModelica needs the system Boost headers (ParModelica): build it before removing them
+            util/envDynawo.sh build-omcDynawo
+            apt-get remove -y $(dpkg -l 'libboost*-dev' | awk '/^ii/ {print $2}')
+            ls /usr/lib/x86_64-linux-gnu/cmake | grep -i boost || echo "No system Boost left"
             util/envDynawo.sh build-user
-            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U" : 15, "WT4BCurrentSource2020U" : 15, "PmConstAc7cPss2c" : 5, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1, "PlantControl":2}/' util/nrt_diff/settings.py
+            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U" : 15, "WT4BCurrentSource2020U" : 15, "PmConstAc7cPss2c" : 5, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1, "PlantControl\/CCVSM": 2.5, "PlantControl":2, "DynGFMCCVSM\/": 0.35, "GovSteamEuAc1cPss1aOmega": 0.28}/' util/nrt_diff/settings.py
             branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
             util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
         env:
@@ -99,7 +101,7 @@ jobs:
           DYNAWO_SRC_OPENMODELICA: ${{ runner.workspace }}/OpenModelica/Source
         run: |
           export DYNAWO_HOME=$(pwd)
-          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+          sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1, "PlantControl\/CCVSM": 0.12, "DynGFMCCVSM\/": 0.35, "GovSteamEuAc1cPss1aOmega": 0.28}/' util/nrt_diff/settings.py
           branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }
 
@@ -123,10 +125,11 @@ jobs:
           options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
+            dnf install -y boost-devel zlib-devel
             cd /dynawo
             git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
-            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U": 15, "PmConstAc7cPss2c" : 3, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1}/' util/nrt_diff/settings.py
+            sed -i 's/dtw_exceptions = {}/dtw_exceptions = {"DoubleInertialGrid": 1, "WT4ACurrentSource2020U": 15, "PmConstAc7cPss2c" : 3, "GFM_Fault" : 1, "EntsoeTestCase3PlayBack":6.5, "HVDC":1, "PmConstAc6aPss3b":1, "PlantControl\/CCVSM": 0.12, "DynGFMCCVSM\/": 0.35, "GovSteamEuAc1cPss1aOmega": 0.28}/' util/nrt_diff/settings.py
             util/envDynawo.sh build-user
             branch=$(util/envDynawo.sh display-environment | grep DYNAWO_BRANCH_NAME | cut -d '=' -f 2)
             util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; }

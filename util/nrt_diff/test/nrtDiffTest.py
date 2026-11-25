@@ -64,6 +64,7 @@ class TestnrtDiffTimeAlignedError(unittest.TestCase):
             (return_value, message) = nrtDiff.CompareTwoFiles(path_left, '|', path_right, '|')
             self.assertEqual(return_value, nrtDiff.DIFFERENT)
             self.assertTrue("1 time-aligned errors , MODEL_running (time-aligned error 2.00e-01)" in message)
+            self.assertTrue(" , max time-aligned error 2.00e-01 (tolerance " in message)
         finally:
             shutil.rmtree(tmp_dir)
 
@@ -83,7 +84,7 @@ class TestnrtDiffCompareTwoFiles(DTWOnlyTestCase):
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves", "max DTW 72.8 (tolerance 0.1), comparison stopped after 6 curves out of tolerance: other curves may need a higher tolerance"})
 
     def test_curves_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -91,7 +92,7 @@ class TestnrtDiffCompareTwoFiles(DTWOnlyTestCase):
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
+        self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value (DTW 49.499) , max DTW 49.499 (tolerance 0.1)")
 
     def test_curves_max_dtw(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -109,12 +110,12 @@ class TestnrtDiffCompareTwoFiles(DTWOnlyTestCase):
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves"})
+        self.assertEqual(set(message.split(' , ')), {"nrt_diff/test/curves.csv: 6 absolute errors coming from more than 5 curves", "max DTW 72.8 (tolerance 0.1), comparison stopped after 6 curves out of tolerance: other curves may need a higher tolerance"})
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
         message = message.replace("<font color=\"red\">", "")
         message = message.replace("</font>", "")
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value")
+        self.assertEqual(message, "nrt_diff/test/curves.xml: 1 absolute errors , NETWORK_BELLAP41_U_value (DTW 49.499) , max DTW 49.499 (tolerance 0.1)")
 
 
     def test_timeline_log(self):

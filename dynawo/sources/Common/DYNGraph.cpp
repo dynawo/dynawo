@@ -145,12 +145,7 @@ Graph::buildStringPath(int nodeIdEnd, const vector<int> & predecessors) const {
     prevId = predecessors.at(nodeId);
   }
 
-  int nbSteps = reversePath.size();
-  vector<string> toReturn(nbSteps);
-  for (int i = 0; i< nbSteps; ++i)
-    toReturn[i] = reversePath[nbSteps-i-1];
-
-  return toReturn;
+  return vector<string>(reversePath.rbegin(), reversePath.rend());
 }
 
 vector<int>
