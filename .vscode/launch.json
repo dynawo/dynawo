@@ -29,7 +29,7 @@
                 { "name": "DYNAWO_XERCESC_INSTALL_DIR", "value" : "${workspaceFolder}/build-code/install/3rdParty/Debug/xerces-c" },
                 { "name": "DYNAWO_LIBXML_HOME", "value" : "${workspaceFolder}/build-code/install/3rdParty/Debug/libxml" },
                 { "name": "DYNAWO_INSTALL_OPENMODELICA", "value" : "${workspaceFolder}/OpenModelica/Install" },
-                { "name": "DYNAWO_OPENMODELICA_VERSION", "value" : "1_13_2" },
+                { "name": "DYNAWO_OPENMODELICA_VERSION", "value" : "1_24_5" },
                 { "name": "DYNAWO_LIBIIDM_EXTENSIONS", "value" : "${workspaceFolder}/build-code/install/3rdParty/Debug/libiidm/lib" },
                 { "name": "LD_LIBRARY_PATH", "value" : "${env:LD_LIBRARY_PATH}:${workspaceFolder}/build-code/install/dynawo/Debug/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/adept/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libiidm/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libxml/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/libzip/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/nicslu/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/suitesparse/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/sundials/lib:${workspaceFolder}/build-code/install/3rdParty/Debug/xerces-c/lib" }
             ],

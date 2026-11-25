@@ -294,6 +294,9 @@ void mosAddHeader(const string& mosFilePath, ofstream& mosFile) {
 void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& filesToImport, ofstream& mosFile) {
   if (importModelicaPackage) {
     mosFile << "// .. Load Modelica package" << std::endl;
+    // omc >= 1.2x only looks in ~/.openmodelica/libraries by default: use the library installed with OpenModelica
+    const string omLibrary = boost::replace_all_copy(getMandatoryEnvVar("OPENMODELICAHOME"), "\\", "/") + "/lib/omlibrary";
+    mosFile << "setModelicaPath(\"" << omLibrary << "\"); getErrorString();" << std::endl;
     mosFile << "loadModel(Modelica); getErrorString();" << std::endl;
     mosFile << std::endl;
   }
@@ -333,7 +336,8 @@ string
 runOptions(const bool useAliasing) {
   return string("simCodeTarget=C +showErrorMessages -g=Modelica "
       "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
-      + (useAliasing ? string() : string(" --preOptModules-=comSubExp,removeSimpleEquations")) + string(" +numProcs=1 +daeMode ");
+      + (useAliasing ? string(" --preOptModules-=resolveLoops") : string(" --preOptModules-=comSubExp,removeSimpleEquations,resolveLoops")) +
+      string(" +numProcs=1 +daeMode --allowNonStandardModelica=implicitParameterStartAttribute");
 }
 
 string

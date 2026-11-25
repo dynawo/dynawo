@@ -39,7 +39,7 @@ To use those distributions you need some requirements if you want to be able to 
 \begin{itemize}
 \item glibc 2.28 or newer (the Linux distribution is built on Oracle Linux 8)
 \item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++11 compatible for C++ standard
-\item Python2 or Python3
+\item Python3
 \item Binary utilities: \href{curl}{https://curl.haxx.se} and unzip
 \item \href{https://cmake.org/}{CMake}: minimum version 3.9.6
 \end{itemize}
@@ -48,8 +48,8 @@ To use those distributions you need some requirements if you want to be able to 
 
 You can install the dependencies for Ubuntu or Fedora with:
 \begin{lstlisting}[language=bash]
-$> apt install -y g++ unzip curl python
-$> dnf install -y gcc-c++ unzip curl python
+$> apt install -y g++ unzip curl python3
+$> dnf install -y gcc-c++ unzip curl python3
 \end{lstlisting}
 
 \subsection{Windows Requirements for Distribution}
@@ -59,7 +59,7 @@ On Windows you can either run \Dynawo with the distribution models and in this c
 \begin{itemize}
 \item \href{https://visualstudio.microsoft.com}{Visual Studio 2022}
 \item \href{https://cmake.org/}{CMake}: minimum version 3.9.6
-\item \href{https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi}{Python2} or \href{https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe}{Python3}
+\item \href{https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe}{Python3}
 \end{itemize}
 
 \textbf{Note:} For Python you need to have the \lstinline[language=bash]{python} command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with \lstinline[language=command.com]{set DYNAWO_PYTHON_COMMAND=python3}.
@@ -126,7 +126,13 @@ In the following we give a list of requirements needed to build \Dynawo and its 
 \item
   Libraries: \href{https://libexpat.github.io/}{expat},
   \href{http://www.netlib.org/blas/index.html}{BLAS},
-  \href{http://www.netlib.org/lapack/index.html}{LAPACK}
+  \href{http://www.netlib.org/lapack/index.html}{LAPACK},
+  \href{https://www.sqlite.org/}{SQLite},
+  \href{https://curl.se/libcurl/}{libcurl},
+  \href{https://zlib.net/}{zlib} and
+  \href{https://www.boost.org/}{Boost} headers (development packages,
+  for example zlib-devel and boost-devel on Fedora/Oracle Linux,
+  zlib1g-dev and libboost-dev on Ubuntu)
 \item
   \href{http://lpsolve.sourceforge.net/}{lpsolve55} or
   \href{https://www.gnu.org/software/bison/}{bison} and
@@ -151,7 +157,7 @@ In the following we give a list of requirements needed to build \Dynawo and its 
   \end{itemize}
 
 \item
-  Python2 or Python3
+  Python3
 \item
   Python packages: \href{https://lxml.de/}{lxml}
 \item
@@ -191,7 +197,7 @@ In the following we give a list of requirements needed to build \Dynawo and its 
 \item
   Java (\href{https://openjdk.java.net/}{openjdk} for example) to build OpenModelica Compiler
 \item
-  \href{https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi}{Python2} or \href{https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe}{Python3}
+  \href{https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe}{Python3}
 \end{itemize}
 
 \textbf{Note:} For Python you need to have the \lstinline[language=bash]{python} command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with \lstinline[language=command.com]{set DYNAWO_PYTHON_COMMAND=python3}.
@@ -200,24 +206,18 @@ In the following we give a list of requirements needed to build \Dynawo and its 
 \label{Dynawo_Installation_Documentation_Building_Dynawo}
 \subsection{Linux}
 
-You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu: \\
+You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu 22.04 and later: \\
 
-Command for Ubuntu 19.04:
-
-\begin{lstlisting}[language=bash]
-$> apt-get install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt4-qmake qt4-dev-tools lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync bash-completion
-\end{lstlisting}
-
-Command for Ubuntu 20.04:
+Command for Ubuntu:
 
 \begin{lstlisting}[language=bash]
-$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt5-default lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev
+$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev lsb-release libxml2-utils python3-lxml python3-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev
 \end{lstlisting}
 
 Command for Fedora:
 
 \begin{lstlisting}[language=bash]
-$> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel libarchive-devel zlib-devel doxygen doxygen-latex qt-devel gettext patch wget python-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python-pip python-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python-lxml graphviz libcurl-devel bash-completion
+$> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel libarchive-devel zlib-devel doxygen doxygen-latex gettext patch wget python3-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python3-pip python3-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python3-lxml graphviz libcurl-devel bash-completion
 \end{lstlisting}
 
 To build \Dynawo you need to clone its repository and launch the following commands in the source code directory:
@@ -352,7 +352,7 @@ You can have more information on how to use Docker to build and try \Dynawo \hre
 
 To run a simulation, \Dynawo uses several external libraries that are downloaded and compiled during the building process:
 \begin{itemize}
-\item \href{https://www.openmodelica.org/} {\underline{OpenModelica}} \cite{openmodelica}, a Modelica \cite{modelica} environment developed and maintained by the Open Source Modelica Consortium distributed under a GPL V3.0 or OSMC Public License V1.2. \Dynawo is currently using the version 1.13.2 of the OpenModelica compiler to compile Modelica models either at run-time or beforehand during the compilation process. OpenModelica compiler source code is modified to match specific needs from \Dynawo ; these modifications are available in \path|dynawo/3rdParty/omcUpdate_1_13_2|.
+\item \href{https://www.openmodelica.org/} {\underline{OpenModelica}} \cite{openmodelica}, a Modelica \cite{modelica} environment developed and maintained by the Open Source Modelica Consortium distributed under a GPL V3.0 or OSMC Public License V1.2. \Dynawo is currently using the version 1.24.5 of the OpenModelica compiler to compile Modelica models either at run-time or beforehand during the compilation process. OpenModelica compiler source code is modified to match specific needs from \Dynawo ; these modifications are available in \path|dynawo/3rdParty/openmodelica/patch|.
 
 \item \href{https://computation.llnl.gov/projects/sundials}{\underline{SUNDIALS}} \cite{hindmarsh2005sundials}, a suite of solvers developed and maintained by the Lawrence Livermore National Lab distributed under a BSD-3-Clause license. \newline \Dynawo is currently using the version 6.3.0 from SUNDIALS. Small modifications on the library are applied to fit \Dynawo's needs and are available in \path|dynawo/3rdParty/sundials|. In particular, KINSOL and IDA from the SUNDIALS library are called to solve the Algebraic Equations and Differential Algebraic Equations systems arising during the simulation.
 

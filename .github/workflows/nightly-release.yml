@@ -39,7 +39,8 @@ on:
     - cron:  "0 22 * * 1-5"
 
 env:
-  DYNAWO_TAG: nightly
+  # on a branch other than master (manual run), the distributions are published in a separate pre-release to test them
+  DYNAWO_TAG: ${{ github.ref_name == 'master' && 'nightly' || format('nightly-{0}', github.ref_name) }}
 
 jobs:
   nightly:
@@ -61,9 +62,9 @@ jobs:
             **Don't use it for production**
           draft: false
           prerelease: true
-          release_name: Nightly
+          release_name: ${{ github.ref_name == 'master' && 'Nightly' || env.DYNAWO_TAG }}
           tag_name: ${{ env.DYNAWO_TAG }}
-          target_commitish: heads/master
+          target_commitish: heads/${{ github.ref_name }}
         with:
           retries: 3
           script: |
@@ -86,7 +87,7 @@ jobs:
           options: -v ${{ github.workspace }}:/dynawo -e DYNAWO_INSTALL_OPENMODELICA -e DYNAWO_SRC_OPENMODELICA -e DYNAWO_RESULTS_SHOW -e DYNAWO_BUILD_TYPE -e DYNAWO_NB_PROCESSORS_USED -e DYNAWO_PYTHON_COMMAND
           shell: bash
           run: |
-            dnf install -y zip
+            dnf install -y zip boost-devel zlib-devel
             cd /dynawo
             git config --global --add safe.directory /dynawo
             export DYNAWO_HOME=$(pwd)
@@ -121,7 +122,7 @@ jobs:
 
       # The secrets.DISPATCH_TOKEN should contain a fine-grained PAT with access to dynawo/dynawo-algorithms with Repository permissions 'Contents: Read and write'
       - name: Tell dynawo-algorithms the nightly release is ready
-        if: github.event_name != 'workflow_dispatch' || inputs.perform-dispatch
+        if: github.ref_name == 'master' && (github.event_name != 'workflow_dispatch' || inputs.perform-dispatch)
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
@@ -272,7 +273,7 @@ jobs:
     runs-on: windows-2022
     needs: nightly
     env:
-      DYNAWO_VERSION: 1.4.1   # latest release with OpenModelica
+      OPENMODELICA_VERSION: 1.24.5   # OpenModelica built with OMDev, see release openmodelica-<version>
     steps:
       - name: No LF to CRLF conversion
         shell: cmd
@@ -288,17 +289,15 @@ jobs:
           move dynawo \
           md dynawo
 
-      - name: Fetch previous release of Dynawo
+      - name: Fetch OpenModelica
         shell: bash
-        run: curl -LOs https://github.com/${{ github.repository_owner }}/dynawo/releases/download/v$DYNAWO_VERSION/Dynawo_Windows_v$DYNAWO_VERSION.zip
+        run: curl -LOs https://github.com/${{ github.repository_owner }}/dynawo/releases/download/openmodelica-$OPENMODELICA_VERSION/OpenModelica-$OPENMODELICA_VERSION-windows.zip
 
-      - name: Unzip and retrieve OpenModelica
+      - name: Unzip OpenModelica
         shell: cmd
         run: |
-          7z x Dynawo_Windows_v%DYNAWO_VERSION%.zip dynawo\OpenModelica\ -r -o\OpenModelica
-          del Dynawo_Windows_v%DYNAWO_VERSION%.zip
-          cd \OpenModelica\dynawo
-          7z a ${{ github.workspace }}\OpenModelica-windows.zip -r OpenModelica\*
+          7z x OpenModelica-%OPENMODELICA_VERSION%-windows.zip -o\OpenModelica\dynawo
+          move OpenModelica-%OPENMODELICA_VERSION%-windows.zip ${{ github.workspace }}\OpenModelica-windows.zip
 
       # We are forced to change the path to avoid too long commands when compiling
       - name: Build Dynawo Third Parties
@@ -362,7 +361,7 @@ jobs:
             await release({github, context, core, glob})
 
       - name: Tell dynawo-algorithms the nightly release is ready
-        if: github.event_name != 'workflow_dispatch' || inputs.perform-dispatch
+        if: github.ref_name == 'master' && (github.event_name != 'workflow_dispatch' || inputs.perform-dispatch)
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}

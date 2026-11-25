@@ -32,9 +32,10 @@
 #include "CSTRConstraintSource.h"
 
 #ifdef _ADEPT_
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "adept.h"
-#pragma GCC diagnostic error "-Wunused-parameter"
+#pragma GCC diagnostic pop
 #endif
 
 namespace parameters {
