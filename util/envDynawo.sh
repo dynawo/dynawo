@@ -103,9 +103,9 @@ where [option] can be:"
         jobs-valgrind-dhat ([args])           launch Dynawo simulation in valgrind with dhat tool (dynamic heap analysis tool)
         jobs-valgrind-massif ([args])         launch Dynawo simulation in valgrind with massif tool (a heap profiler)
         unittest-gdb [arg]                    call unittest in gdb
-        curves [arg]                          plot curves of job
-        curves-reference [arg]                plot curves of job's reference
-        curves-reference-same-graph [arg]     plot curves of job and job's reference on the same graph
+        curves [arg]                          plot curves of job in the NRT viewer
+        curves-reference [arg]                plot curves of job compared with job's reference in the NRT viewer
+        curves-reference-same-graph [arg]     same as curves-reference
 
         =========== Distribution
         distrib                               create distribution of Dynawo
@@ -443,7 +443,6 @@ set_environment() {
   export_var_env_force DYNAWO_EXAMPLES_DIR=$DYNAWO_HOME/examples
   export_var_env DYNAWO_RESULTS_SHOW=true
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
-  export_var_env_force DYNAWO_CURVES_VISU_APP_DIR=$DYNAWO_HOME/util/CurvesVisualisationApp
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force DYNAWO_UPDATE_XML_DIR=$DYNAWO_HOME/util/updateXML
@@ -1400,105 +1399,32 @@ compile_cpp_modelica_model_in_dynamic_lib() {
   return ${RETURN_CODE}
 }
 
-install_jquery() {
-  JQUERY_VERSION=1.3.2
-  JQUERY_ARCHIVE=$JQUERY_VERSION.tar.gz
-
-  FLOT_VERSION=0.6.0
-  FLOT_ARCHIVE=v$FLOT_VERSION.tar.gz
-
-  if [ ! -x "$(command -v tar)" ]; then
-    error_exit "You need to install tar command line utility."
-  fi
-
-  JQUERY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/jquery
-  mkdir -p $JQUERY_BUILD_DIR
-
-  if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/jquery.js" ]; then
-    if [ ! -f "$JQUERY_BUILD_DIR/${JQUERY_ARCHIVE}" ]; then
-      if [ -x "$(command -v wget)" ]; then
-        wget --timeout 10 --tries 3 ${DYNAWO_JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Jquery."
-      elif [ -x "$(command -v curl)" ]; then
-        curl -L --connect-timeout 10 --retry 2 ${DYNAWO_JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -o $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} || error_exit "Error while downloading Jquery."
-      else
-        error_exit "You need to install either wget or curl."
-      fi
-    fi
-    if [ -f "$JQUERY_BUILD_DIR/${JQUERY_ARCHIVE}" ]; then
-      if [ ! -d "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION" ]; then
-        tar xzf $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} -C $JQUERY_BUILD_DIR || error_exit "Error while tar Jquery."
-      fi
-      if [ -d "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION" ]; then
-        cp "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION/jquery.js" "$DYNAWO_HOME/util/curvesToHtml/resources/jquery.js"
-      fi
-    fi
-  fi
-
-  flot_files=(jquery.flot.crosshair.js jquery.flot.js jquery.flot.navigate.js jquery.flot.selection.js arrow-down.gif arrow-left.gif arrow-right.gif arrow-up.gif)
-  for file in ${flot_files[*]}; do
-    if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/$file" ]; then
-      if [ ! -f "$JQUERY_BUILD_DIR/${FLOT_ARCHIVE}" ]; then
-        if [ -x "$(command -v wget)" ]; then
-          wget --timeout 10 --tries 3 ${DYNAWO_FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Flot."
-        elif [ -x "$(command -v curl)" ]; then
-          curl -L --connect-timeout 10 --retry 2 ${DYNAWO_FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} --output $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} || error_exit "Error while downloading Flot."
-        else
-          error_exit "You need to install either wget or curl."
-        fi
-      fi
-      if [ -f "$JQUERY_BUILD_DIR/${FLOT_ARCHIVE}" ]; then
-        if [ ! -d "flot-$FLOT_VERSION" ]; then
-          tar xzf $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} -C $JQUERY_BUILD_DIR || error_exit "Error while tar Flot."
-        fi
-        if [ -d "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION" ]; then
-          if `expr $file : "arrow-.*" > /dev/null`; then
-            cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/examples/$file" "$DYNAWO_HOME/util/curvesToHtml/resources/$file"
-          else
-            cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/$file" "$DYNAWO_HOME/util/curvesToHtml/resources/$file"
-          fi
-        fi
-      fi
-    fi
-  done
-}
-
 jobs_with_curves() {
-  install_jquery
   launch_jobs $@ || error_exit "Dynawo job failed."
-  echo "Generating curves visualization pages"
-  curves_visu $@ || error_exit "Error during curves visualisation page generation"
-  echo "End of generating curves visualization pages"
+  curves_visu $@ || error_exit "Error during curves visualisation"
 }
 
+# Display the outputs of a jobs file in the NRT viewer (every curves format, HDF5 needing h5py)
+# @param $1 : the jobs file, then options of the viewer
+curves_viewer() {
+  jobs_file="$1"
+  shift
+  verify_browser
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_NRT_DIR/viewer/nrtViewer.py --browser "$DYNAWO_BROWSER" --exit-on-close "$@" --jobs "$jobs_file"
+}
+
+# curves of a job (several curves can be plotted together)
 curves_visu() {
-  if grep -qE 'curves[^>]*exportMode="HDF5"' "$1" 2>/dev/null; then
-    if ! "$DYNAWO_PYTHON_COMMAND" -c "import h5py, streamlit, plotly" 2>/dev/null; then
-      echo "Missing Python dependencies for HDF5 curves viewer."
-      echo "Install them with: $DYNAWO_PYTHON_COMMAND -m pip install -r $DYNAWO_CURVES_VISU_APP_DIR/requirements.txt"
-      return 1
-    fi
-    echo "Curves are in HDF5 format, launching Streamlit viewer..."
-    jobs_absolute=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
-    "$DYNAWO_PYTHON_COMMAND" -m streamlit run "$DYNAWO_CURVES_VISU_APP_DIR/app.py" -- --jobsFile="$jobs_absolute" > /dev/null 2>&1 &
-    disown $!
-    return 0
-  fi
-  verify_browser
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
+  curves_viewer "$1" --no-reference
 }
 
+# curves of a job compared with its reference (reference directory next to the jobs file)
 curves_visu_reference_same_graph() {
-  verify_browser
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" --plotRef || return 1
+  curves_viewer "$1"
 }
 
 curves_visu_reference() {
-  jobs=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
-  sed -i 's/<dyn:outputs directory="/<dyn:outputs directory="reference\//' $jobs
-  sed -i 's/<outputs directory="/<outputs directory="reference\//' $jobs
-  curves_visu $jobs
-  sed -i 's/<dyn:outputs directory="reference\//<dyn:outputs directory="/' $jobs
-  sed -i 's/<outputs directory="reference\//<outputs directory="/' $jobs
+  curves_viewer "$1"
 }
 
 dump_model() {

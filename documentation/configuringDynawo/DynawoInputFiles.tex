@@ -490,14 +490,14 @@ The file contains three datasets:
 HDF5 export requires \Dynawo to have been compiled with HDF5 support (CMake option \texttt{DYNAWO\_ACTIVATE\_HDF5\_EXPORT}, enabled by default).
 If HDF5 support is not available and \texttt{exportMode="HDF5"} is requested, \Dynawo will raise an error at runtime.
 
-To visualise HDF5 curves, the \texttt{curves-visu} command of \path{envDynawo.sh} automatically detects HDF5 export mode and launches an interactive Streamlit viewer:
+Curves of every export mode, HDF5 included, are displayed in the NRT viewer by the \texttt{curves} command of \path{envDynawo.sh}
+(\texttt{curves-reference} compares them with the reference directory next to the jobs file):
 \begin{lstlisting}[language=bash,numbers=none]
-./envDynawo.sh curves-visu path/to/simulation.jobs
+./envDynawo.sh curves path/to/simulation.jobs
 \end{lstlisting}
-The viewer requires the Python packages \texttt{h5py}, \texttt{streamlit} and \texttt{plotly}.
-They can be installed with:
+Reading HDF5 curves requires the Python package \texttt{h5py}:
 \begin{lstlisting}[language=bash,numbers=none]
-python -m pip install -r $DYNAWO_CURVES_VISU_APP_DIR/requirements.txt
+python -m pip install h5py
 \end{lstlisting}
 
 \item \textbf{Final state values}: the user can observe final state values at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be observed.

@@ -12,9 +12,11 @@
  */
 
 /*
- * Minimal dependency-free SVG chart comparing an output curve with its reference:
- * - main plot: output (solid) and reference (dashed)
- * - error plot: output - reference (reference interpolated on the output time grid)
+ * Minimal dependency-free SVG charts:
+ * - ComparisonChart: an output curve with its reference
+ *   . main plot: reference (wide band) and output (thin line)
+ *   . error plot: output - reference (reference interpolated on the output time grid)
+ * - MultiChart: several output curves on the same plot (exploration without reference)
  * Drag to zoom on time, double-click to reset, hover for values.
  */
 (function () {
@@ -314,58 +316,170 @@
         top = y1 + MARGIN.bottom + GAP;
       });
 
-      // interaction layer
-      const cursor = svgElement("line", { class: "cursor", y1: 0, y2: totalHeight, visibility: "hidden" }, svg);
-      const zoomRect = svgElement("rect", { class: "zoom-rect", y: 0, height: totalHeight, visibility: "hidden" }, svg);
-      const overlay = svgElement("rect", { x: MARGIN.left, y: 0, width: plotWidth, height: totalHeight, fill: "transparent", style: "cursor: crosshair" }, svg);
-      let dragStart = null;
-      const localX = event => {
-        const box = svg.getBoundingClientRect();
-        return Math.min(MARGIN.left + plotWidth, Math.max(MARGIN.left, (event.clientX - box.left) * width / box.width));
-      };
-      overlay.addEventListener("pointerdown", event => {
-        dragStart = localX(event);
-        overlay.setPointerCapture(event.pointerId);
-      });
-      overlay.addEventListener("pointermove", event => {
-        const px = localX(event);
-        cursor.setAttribute("x1", px);
-        cursor.setAttribute("x2", px);
-        cursor.setAttribute("visibility", "visible");
-        if (dragStart !== null) {
-          zoomRect.setAttribute("x", Math.min(dragStart, px));
-          zoomRect.setAttribute("width", Math.abs(px - dragStart));
-          zoomRect.setAttribute("visibility", "visible");
-        }
-        const x = xInverse(px);
+      bindInteraction(this, svg, width, plotWidth, totalHeight, xInverse, x => {
         const out = interpolate(this.out, x);
         const ref = interpolate(this.ref, x);
         let html = "t = " + formatNumber(x);
         if (this.out) html += "<br><span style='color:var(--series-out)'>output</span>    " + formatNumber(out);
         if (this.ref) html += "<br><span style='color:var(--series-ref)'>reference</span> " + formatNumber(ref);
         if (this.out && this.ref && this.showError) html += "<br><span style='color:var(--series-err)'>diff</span>      " + formatNumber(out - ref);
-        this.tip.innerHTML = html;
-        this.tip.style.display = "block";
-        const tipWidth = this.tip.offsetWidth;
-        const left = event.clientX + 14 + tipWidth > window.innerWidth ? event.clientX - 14 - tipWidth : event.clientX + 14;
-        this.tip.style.left = left + "px";
-        this.tip.style.top = (event.clientY + 14) + "px";
+        return html;
       });
-      overlay.addEventListener("pointerleave", () => {
-        cursor.setAttribute("visibility", "hidden");
-        this.tip.style.display = "none";
-      });
-      overlay.addEventListener("pointerup", event => {
-        if (dragStart === null) return;
-        const px = localX(event);
-        const start = dragStart;
-        dragStart = null;
-        zoomRect.setAttribute("visibility", "hidden");
-        if (Math.abs(px - start) > 4) this.setDomain(xInverse(Math.min(start, px)), xInverse(Math.max(start, px)));
-      });
-      overlay.addEventListener("dblclick", () => this.resetZoom());
     }
   }
 
-  window.NrtChart = { ComparisonChart, formatNumber, DIVERGENCE_RELATIVE_THRESHOLD };
+  // Hover cursor with tooltip, drag to zoom on time and double-click to reset, shared by the charts
+  // @param chart : object with a tip element, setDomain(x0, x1) and resetZoom()
+  // @param tooltipHtml : function returning the tooltip content at time x
+  function bindInteraction(chart, svg, width, plotWidth, totalHeight, xInverse, tooltipHtml) {
+    const cursor = svgElement("line", { class: "cursor", y1: 0, y2: totalHeight, visibility: "hidden" }, svg);
+    const zoomRect = svgElement("rect", { class: "zoom-rect", y: 0, height: totalHeight, visibility: "hidden" }, svg);
+    const overlay = svgElement("rect", { x: MARGIN.left, y: 0, width: plotWidth, height: totalHeight, fill: "transparent", style: "cursor: crosshair" }, svg);
+    let dragStart = null;
+    const localX = event => {
+      const box = svg.getBoundingClientRect();
+      return Math.min(MARGIN.left + plotWidth, Math.max(MARGIN.left, (event.clientX - box.left) * width / box.width));
+    };
+    overlay.addEventListener("pointerdown", event => {
+      dragStart = localX(event);
+      overlay.setPointerCapture(event.pointerId);
+    });
+    overlay.addEventListener("pointermove", event => {
+      const px = localX(event);
+      cursor.setAttribute("x1", px);
+      cursor.setAttribute("x2", px);
+      cursor.setAttribute("visibility", "visible");
+      if (dragStart !== null) {
+        zoomRect.setAttribute("x", Math.min(dragStart, px));
+        zoomRect.setAttribute("width", Math.abs(px - dragStart));
+        zoomRect.setAttribute("visibility", "visible");
+      }
+      chart.tip.innerHTML = tooltipHtml(xInverse(px));
+      chart.tip.style.display = "block";
+      const tipWidth = chart.tip.offsetWidth;
+      const left = event.clientX + 14 + tipWidth > window.innerWidth ? event.clientX - 14 - tipWidth : event.clientX + 14;
+      chart.tip.style.left = left + "px";
+      chart.tip.style.top = (event.clientY + 14) + "px";
+    });
+    overlay.addEventListener("pointerleave", () => {
+      cursor.setAttribute("visibility", "hidden");
+      chart.tip.style.display = "none";
+    });
+    overlay.addEventListener("pointerup", event => {
+      if (dragStart === null) return;
+      const px = localX(event);
+      const start = dragStart;
+      dragStart = null;
+      zoomRect.setAttribute("visibility", "hidden");
+      if (Math.abs(px - start) > 4) chart.setDomain(xInverse(Math.min(start, px)), xInverse(Math.max(start, px)));
+    });
+    overlay.addEventListener("dblclick", () => chart.resetZoom());
+  }
+
+  // categorical colors (--cat-0 … --cat-9 in app.css), then dash patterns when there are more curves than colors
+  const NB_COLORS = 10;
+  const DASHES = ["", "7 4", "2 3"];
+
+  function seriesStyle(index) {
+    return {
+      color: "var(--cat-" + (index % NB_COLORS) + ")",
+      dash: DASHES[Math.floor(index / NB_COLORS) % DASHES.length]
+    };
+  }
+
+  // Several curves sharing the same time grid on one plot
+  // @param data : { t: times, series: [{ name, v }] }
+  class MultiChart {
+    constructor(container, data) {
+      this.container = container;
+      this.series = data.series.map(s => ({ name: s.name, t: data.t, v: s.v }));
+      const t = data.t;
+      this.fullDomain = t.length ? [t[0], t[t.length - 1]] : [0, 1];
+      if (!(this.fullDomain[1] > this.fullDomain[0])) this.fullDomain = [this.fullDomain[0] - 1, this.fullDomain[0] + 1];
+      this.domain = this.fullDomain.slice();
+      this.tip = document.createElement("div");
+      this.tip.className = "chart-tip";
+      document.body.appendChild(this.tip);
+      this.resizeObserver = new ResizeObserver(() => this.draw());
+      this.resizeObserver.observe(container);
+      this.draw();
+    }
+
+    destroy() {
+      this.resizeObserver.disconnect();
+      this.tip.remove();
+      this.container.innerHTML = "";
+    }
+
+    setDomain(x0, x1) {
+      this.domain = [Math.max(this.fullDomain[0], x0), Math.min(this.fullDomain[1], x1)];
+      if (!(this.domain[1] > this.domain[0])) this.domain = this.fullDomain.slice();
+      this.draw();
+    }
+
+    resetZoom() { this.setDomain(this.fullDomain[0], this.fullDomain[1]); }
+
+    draw() {
+      const width = this.container.clientWidth;
+      if (width <= 0) return;
+      const plotWidth = width - MARGIN.left - MARGIN.right;
+      const height = MAIN_HEIGHT + 60;
+      const totalHeight = height + MARGIN.top + MARGIN.bottom;
+      this.container.innerHTML = "";
+      const svg = svgElement("svg", { class: "chart", viewBox: "0 0 " + width + " " + totalHeight, height: totalHeight, role: "img" }, this.container);
+      const [x0, x1] = this.domain;
+      const xScale = x => MARGIN.left + (x - x0) / (x1 - x0) * plotWidth;
+      const xInverse = px => x0 + (px - MARGIN.left) / plotWidth * (x1 - x0);
+      const y0 = MARGIN.top;
+      const y1 = y0 + height;
+      const [vMin, vMax] = valueRange(this.series, x0, x1);
+      const yScale = v => y1 - (v - vMin) / (vMax - vMin) * height;
+      const clipId = "clip-" + Math.random().toString(36).slice(2);
+      svgElement("clipPath", { id: clipId }, svg).appendChild(svgElement("rect", { x: MARGIN.left, y: y0, width: plotWidth, height: height }));
+
+      for (const tick of niceTicks(vMin, vMax, 7)) {
+        const y = yScale(tick);
+        svgElement("line", { class: "grid", x1: MARGIN.left, x2: MARGIN.left + plotWidth, y1: y, y2: y }, svg);
+        svgElement("text", { class: "axis-label", x: MARGIN.left - 6, y: y + 3.5, "text-anchor": "end" }, svg).textContent = formatNumber(tick);
+      }
+      for (const tick of niceTicks(x0, x1, Math.max(2, Math.floor(plotWidth / 90)))) {
+        const x = xScale(tick);
+        svgElement("line", { class: "grid", x1: x, x2: x, y1: y0, y2: y1 }, svg);
+        svgElement("text", { class: "axis-label", x: x, y: y1 + 14, "text-anchor": "middle" }, svg).textContent = formatNumber(tick);
+      }
+      this.series.forEach((series, index) => {
+        const style = seriesStyle(index);
+        let path = "";
+        let pen = false;
+        for (const i of decimate(series, x0, x1, plotWidth)) {
+          const value = series.v[i];
+          if (value === null || Number.isNaN(value)) { pen = false; continue; }
+          path += (pen ? "L" : "M") + xScale(series.t[i]).toFixed(1) + " " + yScale(value).toFixed(1);
+          pen = true;
+        }
+        const attributes = { class: "s-multi", d: path, style: "stroke:" + style.color, "clip-path": "url(#" + clipId + ")" };
+        if (style.dash) attributes["stroke-dasharray"] = style.dash;
+        svgElement("path", attributes, svg);
+      });
+
+      bindInteraction(this, svg, width, plotWidth, totalHeight, xInverse, x => {
+        // values at the cursor, largest first, limited to keep the tooltip readable
+        const values = this.series.map((series, index) => ({ name: series.name, index: index, value: interpolate(series, x) }))
+          .filter(item => !Number.isNaN(item.value))
+          .sort((a, b) => b.value - a.value);
+        const shown = values.slice(0, MAX_TOOLTIP_SERIES);
+        return "t = " + formatNumber(x) + shown.map(item =>
+          "<br><span style='color:" + seriesStyle(item.index).color + "'>■</span> " + escapeText(item.name) + "  " + formatNumber(item.value)).join("") +
+          (values.length > shown.length ? "<br>… " + (values.length - shown.length) + " more" : "");
+      });
+    }
+  }
+
+  const MAX_TOOLTIP_SERIES = 12;
+
+  function escapeText(text) {
+    return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  window.NrtChart = { ComparisonChart, MultiChart, seriesStyle, formatNumber, DIVERGENCE_RELATIVE_THRESHOLD };
 })();

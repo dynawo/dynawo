@@ -29,7 +29,12 @@
     chart: null,
     showError: readPreference("showError", true),
     curvesKoOnly: readPreference("curvesKoOnly", false),
-    filesKoOnly: readPreference("filesKoOnly", true)
+    filesKoOnly: readPreference("filesKoOnly", true),
+    // comparison with the references (false: only the outputs are browsed); initialized from the server (--no-reference)
+    compare: null,
+    // exploration without reference: curves plotted together per file, and the values already received
+    exploreSelection: {},
+    seriesCache: null
   };
 
   // per-viewer display preferences (storage may be unavailable: fall back to defaults)
@@ -106,12 +111,15 @@
     diffko:  { label: "Comparison KO", badge: "DIFF KO", cls: "ko",   rank: 2, failing: true },
     warn:    { label: "Within tolerance", badge: "WARN", cls: "warn", rank: 3, failing: false },
     noref:   { label: "No reference",  badge: "NO REF",  cls: "",     rank: 4, failing: false },
-    ok:      { label: "OK",            badge: "OK",      cls: "ok",   rank: 5, failing: false }
+    ok:      { label: "OK",            badge: "OK",      cls: "ok",   rank: 5, failing: false },
+    // without comparison: the simulation did not fail (or its status is unknown for jobs files run outside of the NRT)
+    done:    { label: "Simulated",     badge: "DONE",    cls: "",     rank: 5, failing: false }
   };
 
   function category(testCase) {
     if (testCase.simulation_status === "TOO_LONG") return "toolong";
     if (testCase.simulation_status === "KO") return "simko";
+    if (!state.compare) return "done";
     if (testCase.diff_status === "KO") return "diffko";
     if (testCase.diff_status === "Warn") return "warn";
     if (testCase.diff_status === "NoReference" || testCase.diff_status === "Unable") return "noref";
@@ -174,6 +182,7 @@
       return { msg: "Simulation failed (return code " + testCase.return_code + ")", sub: lines.slice(-3).join("\n") };
     }
     if (cat === "toolong") return { msg: "Simulation exceeded the timeout", sub: "" };
+    if (!state.compare) return { msg: "", sub: "" };
     if (cat === "diffko") {
       const ko = files.filter(f => f.status === "KO");
       if (ko.length) return { msg: fileListSummary(ko, "different"), sub: "" };
@@ -186,6 +195,7 @@
   }
 
   function tags(testCase) {
+    if (!state.compare) return [];
     const kinds = new Set(failingFiles(testCase).map(f => fileKind(f.path)));
     return Array.from(kinds);
   }
@@ -195,12 +205,33 @@
   function renderRunInfo() {
     const results = state.results;
     const parts = [];
-    parts.push("<span>Branch <b>" + escapeHtml(results.branch) + "</b></span>");
-    parts.push("<span>" + escapeHtml((results.date || "").replace("T", " ")) + "</span>");
-    parts.push("<span>" + results.cases.length + " cases · " + formatDuration(results.real_time) + " on " + results.nb_processors + " proc.</span>");
+    if (results.mode === "jobs") {
+      parts.push("<span>" + results.cases.length + " jobs file" + (results.cases.length === 1 ? "" : "s") + "</span>");
+    } else {
+      parts.push("<span>Branch <b>" + escapeHtml(results.branch) + "</b></span>");
+      parts.push("<span>" + escapeHtml((results.date || "").replace("T", " ")) + "</span>");
+      parts.push("<span>" + results.cases.length + " cases · " + formatDuration(results.real_time) + " on " + results.nb_processors + " proc.</span>");
+    }
     if (results.read_only) parts.push("<span class='badge info'>read-only</span>");
     parts.push("<span class='path' title='" + escapeHtml(results.results_file) + "'>" + escapeHtml(results.results_file) + "</span>");
     document.getElementById("run-info").innerHTML = parts.join("");
+    document.getElementById("compare-toggle").checked = state.compare;
+  }
+
+  // Switch between the comparison with the references and the exploration of the outputs
+  function setCompare(compare) {
+    state.compare = compare;
+    // the case filters only make sense with the comparison
+    state.filter.category = compare ? (state.results.mode === "jobs" ? "all" : "failing") : "all";
+    state.currentCase = null;
+    destroyChart();
+    renderRunInfo();
+    route();
+  }
+
+  // Jobs files run outside of the NRT have no case list to come back to when there is only one
+  function isSingleJobsCase() {
+    return state.results.mode === "jobs" && state.results.cases.length === 1;
   }
 
   // ---------------------------------------------------------------- list view
@@ -222,16 +253,20 @@
       "<button class='stat " + cls + (state.filter.category === key ? " active" : "") + "' data-category='" + key + "'>" +
       "<div class='value'>" + counts[key] + "</div><div class='label'>" + label + "</div></button>";
 
-    app.innerHTML =
-      "<div class='stats'>" +
-        stat("failing", "Failing cases", counts.failing ? "ko" : "ok") +
+    const stats = state.compare
+      ? stat("failing", "Failing cases", counts.failing ? "ko" : "ok") +
         stat("simko", "Simulation KO", counts.simko ? "ko" : "") +
         stat("toolong", "Too long", counts.toolong ? "ko" : "") +
         stat("diffko", "Comparison KO", counts.diffko ? "ko" : "") +
         stat("warn", "Within tolerance", counts.warn ? "warn" : "") +
         stat("noref", "No reference", "") +
-        stat("all", "All cases", "") +
-      "</div>" +
+        stat("all", "All cases", "")
+      : stat("simko", "Simulation KO", counts.simko ? "ko" : "") +
+        stat("toolong", "Too long", counts.toolong ? "ko" : "") +
+        stat("all", "All cases", "");
+
+    app.innerHTML =
+      "<div class='stats'>" + stats + "</div>" +
       "<div class='toolbar'>" +
         "<input type='search' id='search' placeholder='Filter by name, directory or reason…' value='" + escapeHtml(state.filter.search) + "'>" +
         "<select id='family'><option value=''>All families</option>" +
@@ -349,35 +384,42 @@
     const nbFailingFiles = failingFiles(testCase).length;
     const acceptLabel = "Update reference" + (nbFailingFiles ? " (" + nbFailingFiles + " file" + (nbFailingFiles === 1 ? "" : "s") + " to review)" : "") + "…";
 
+    const compare = state.compare;
+    // jobs files run outside of the NRT: no simulation status nor command
+    const simulation = testCase.simulation_status === null || testCase.simulation_status === undefined
+      ? "not known (outputs of a jobs file)"
+      : escapeHtml(testCase.simulation_status) + " · code " + escapeHtml(testCase.return_code) + " · " + formatDuration(testCase.time);
+
     app.innerHTML =
-      "<div class='crumbs'><a href='#/'>← All cases</a> · " + escapeHtml(testCase.family) + "</div>" +
+      "<div class='crumbs'>" + (isSingleJobsCase() ? escapeHtml(testCase.jobs_file) : "<a href='#/'>← All cases</a> · " + escapeHtml(testCase.family)) + "</div>" +
       "<div class='case-header'><h1>" + escapeHtml(testCase.name) + "</h1>" +
         "<span class='badge " + cat.cls + "'>" + cat.badge + "</span>" +
-        (updated.length ? "<span class='badge info'>reference updated</span>" : "") +
+        (compare && updated.length ? "<span class='badge info'>reference updated</span>" : "") +
         "<span class='spacer'></span>" +
-        "<button class='btn btn-update" + (nbFailingFiles ? " btn-danger" : "") + "' id='accept-button'" +
-          (state.results.read_only ? " disabled title='Viewer started in read-only mode'" : "") + ">" + escapeHtml(acceptLabel) + "</button>" +
+        (compare ? "<button class='btn btn-update" + (nbFailingFiles ? " btn-danger" : "") + "' id='accept-button'" +
+          (state.results.read_only ? " disabled title='Viewer started in read-only mode'" : "") + ">" + escapeHtml(acceptLabel) + "</button>" : "") +
       "</div>" +
       "<div class='case-sub'>" + escapeHtml(testCase.description) + "</div>" +
       "<div class='case-layout'>" +
         // sticky side column: the file list stays reachable while the viewer is scrolled
         "<div class='case-side'>" +
-          "<section class='panel'><h2>Files<span class='spacer'></span>" +
-            "<label class='check' title='Only show the files whose comparison with the reference failed'>" +
-            "<input type='checkbox' id='files-ko-only'" + (state.filesKoOnly ? " checked" : "") + "> KO only</label></h2><div id='files'><p class='panel-body placeholder'>Loading…</p></div></section>" +
+          "<section class='panel'><h2>" + (compare ? "Files" : "Output files") + "<span class='spacer'></span>" +
+            (compare ? "<label class='check' title='Only show the files whose comparison with the reference failed'>" +
+              "<input type='checkbox' id='files-ko-only'" + (state.filesKoOnly ? " checked" : "") + "> KO only</label>" : "") +
+            "</h2><div id='files'><p class='panel-body placeholder'>Loading…</p></div></section>" +
           "<section class='panel'><h2>Summary</h2><div class='panel-body'>" +
             "<dl class='props'>" +
               "<dt>Directory</dt><dd class='mono'>" + escapeHtml(testCase.directory) + "</dd>" +
-              "<dt>Simulation</dt><dd>" + escapeHtml(testCase.simulation_status) + " · code " + escapeHtml(testCase.return_code) + " · " + formatDuration(testCase.time) + "</dd>" +
-              "<dt>Comparison</dt><dd>" + escapeHtml(testCase.diff_label) + "</dd>" +
+              "<dt>Simulation</dt><dd>" + simulation + "</dd>" +
+              (compare ? "<dt>Comparison</dt><dd>" + escapeHtml(testCase.diff_label) + "</dd>" : "") +
               (r.msg && cat !== CATEGORIES.ok ? "<dt>Reason</dt><dd>" + escapeHtml(r.msg) + "</dd>" : "") +
               "<dt>Jobs</dt><dd>" + (testCase.jobs || []).map(j => escapeHtml(j.name) + " <span class='tag'>" + escapeHtml(j.solver) + "</span>").join("<br>") + "</dd>" +
             "</dl>" +
-            (messages.length ? "<details class='messages-block'" + (messages.join("").length <= MESSAGES_OPEN_MAX_LENGTH ? " open" : "") + ">" +
+            (compare && messages.length ? "<details class='messages-block'" + (messages.join("").length <= MESSAGES_OPEN_MAX_LENGTH ? " open" : "") + ">" +
               "<summary>nrtDiff messages (" + messages.length + ")</summary>" +
               "<ul class='messages'>" + messages.map(m => "<li>" + escapeHtml(m) + "</li>").join("") + "</ul></details>" : "") +
-            "<div class='command' style='margin-top:10px'><code>" + escapeHtml(testCase.command) + "</code>" +
-              "<button class='btn btn-small' id='copy-command'>Copy</button></div>" +
+            (testCase.command ? "<div class='command' style='margin-top:10px'><code>" + escapeHtml(testCase.command) + "</code>" +
+              "<button class='btn btn-small' id='copy-command'>Copy</button></div>" : "") +
           "</div></section>" +
           (testCase.console_errors ? "<section class='panel'><h2>Console errors</h2><div class='panel-body'><pre class='console'>" + escapeHtml(testCase.console_errors) + "</pre></div></section>" : "") +
         "</div>" +
@@ -385,17 +427,21 @@
       "</div>";
 
     document.documentElement.style.setProperty("--topbar-height", topbarHeight() + "px");
-    document.getElementById("copy-command").addEventListener("click", () => {
-      navigator.clipboard.writeText(testCase.command).then(() => toast("Command copied"), () => toast("Copy failed", true));
-    });
-    document.getElementById("accept-button").addEventListener("click", () => openAcceptDialog(testCase));
-    document.getElementById("files-ko-only").addEventListener("change", event => {
-      state.filesKoOnly = event.target.checked;
-      writePreference("filesKoOnly", state.filesKoOnly);
-      if (!state.tree) return;
-      renderFileList(testCase);
-      markSelectedFile(new URLSearchParams(location.hash.split("?")[1] || "").get("file"));
-    });
+    if (testCase.command) {
+      document.getElementById("copy-command").addEventListener("click", () => {
+        navigator.clipboard.writeText(testCase.command).then(() => toast("Command copied"), () => toast("Copy failed", true));
+      });
+    }
+    if (compare) {
+      document.getElementById("accept-button").addEventListener("click", () => openAcceptDialog(testCase));
+      document.getElementById("files-ko-only").addEventListener("change", event => {
+        state.filesKoOnly = event.target.checked;
+        writePreference("filesKoOnly", state.filesKoOnly);
+        if (!state.tree) return;
+        renderFileList(testCase);
+        markSelectedFile(new URLSearchParams(location.hash.split("?")[1] || "").get("file"));
+      });
+    }
 
     try {
       const tree = await api("tree", { case: id });
@@ -408,8 +454,9 @@
     }
     renderFileList(testCase);
     if (!params.get("file")) {
-      const preferred = state.tree.find(f => f.status === "KO") || state.tree.find(f => f.status === "Warn") ||
-        state.tree.find(f => isCurvesFile(f.path) && f.out);
+      const files = viewTree();
+      const preferred = files.find(f => f.status === "KO") || files.find(f => f.status === "Warn") ||
+        files.find(f => isCurvesFile(f.path) && f.out);
       if (preferred) {
         history.replaceState(null, "", caseHash(id, preferred.path));
         params = new URLSearchParams({ file: preferred.path });
@@ -435,6 +482,12 @@
 
   function isFailing(file) {
     return file.status === "KO" || file.status === "Warn";
+  }
+
+  // Files of the current case as displayed: without comparison, only the outputs, without comparison status
+  function viewTree() {
+    if (state.compare) return state.tree;
+    return state.tree.filter(f => f.out).map(f => Object.assign({}, f, { ref: false, status: null, message: "" }));
   }
 
   // Group files by job (in the jobs file order); files outside every job output directory go to a last group.
@@ -486,15 +539,16 @@
 
   function renderFileList(testCase) {
     const container = document.getElementById("files");
-    if (!state.tree.length) {
-      container.innerHTML = "<p class='panel-body placeholder'>No output nor reference file found</p>";
+    const tree = viewTree();
+    if (!tree.length) {
+      container.innerHTML = "<p class='panel-body placeholder'>" + (state.compare ? "No output nor reference file found" : "No output file found") + "</p>";
       return;
     }
     const renderItem = (file, shownPath) => {
       const [dir, name] = splitPath(shownPath);
-      const sides = file.out && file.ref ? "out · ref" : file.out ? "out only" : "ref only";
+      const sides = !state.compare ? "" : file.out && file.ref ? "out · ref" : file.out ? "out only" : "ref only";
       return "<li data-path='" + escapeHtml(file.path) + "' title='" + escapeHtml(file.path + (file.message ? "\n" + file.message : "")) + "'>" +
-        "<span class='dot " + statusDotClass(file.status) + "'></span>" +
+        (state.compare ? "<span class='dot " + statusDotClass(file.status) + "'></span>" : "") +
         "<span class='fname'><span class='fdir'>" + escapeHtml(dir) + "</span>" + escapeHtml(name) + "</span>" +
         "<span class='sides'>" + sides + "</span></li>";
     };
@@ -526,8 +580,8 @@
     };
 
     // "KO only" is ignored when no comparison failed (OK cases): an empty list would be useless
-    const failing = state.tree.filter(isFailing);
-    const shown = state.filesKoOnly && failing.length ? failing : state.tree;
+    const failing = tree.filter(isFailing);
+    const shown = state.compare && state.filesKoOnly && failing.length ? failing : tree;
     const groups = groupFilesByJob(shown);
     if (groups.length === 1 && groups[0].title === null) {
       container.innerHTML = renderItems(groups[0].files, "");
@@ -581,7 +635,7 @@
     markSelectedFile(path);
     const viewer = document.getElementById("viewer");
     if (!path) return;
-    const file = state.tree.find(f => f.path === path);
+    const file = viewTree().find(f => f.path === path);
     if (!file) {
       viewer.innerHTML = "<div class='panel-body placeholder'>File not found: " + escapeHtml(path) + "</div>";
       return;
@@ -613,7 +667,8 @@
     destroyChart();
     const body = document.getElementById("viewer-body");
     const fail = error => { body.innerHTML = "<p class='placeholder'>" + escapeHtml(error.message) + "</p>"; };
-    if (tab === "curves") renderCurves(testCase, file, body, params.get("var")).catch(fail);
+    if (tab === "curves" && !state.compare) renderCurvesExplore(testCase, file, body).catch(fail);
+    else if (tab === "curves") renderCurves(testCase, file, body, params.get("var")).catch(fail);
     else if (tab === "iidm") renderIidm(testCase, file, body).catch(fail);
     else if (tab === "diff") renderDiff(testCase, file, body).catch(error => {
       const iidmHint = isIidmFile(file.path) && file.out && file.ref
@@ -912,6 +967,123 @@
     await showCurve(testCase, file, variables.find(v => v.name === selected), summary, renderItems);
   }
 
+  // small line drawn with the color and dash pattern of the index-th plotted curve
+  function seriesSwatch(index) {
+    const style = window.NrtChart.seriesStyle(index);
+    return "<svg width='18' height='8' aria-hidden='true'><line x1='0' y1='4' x2='18' y2='4' stroke-width='2' style='stroke:" + style.color + "'" +
+      (style.dash ? " stroke-dasharray='" + style.dash + "'" : "") + "/></svg>";
+  }
+
+  // Exploration without reference: output curves picked in the list are plotted together
+  async function renderCurvesExplore(testCase, file, body) {
+    const summary = await api("curves", { case: testCase.case, path: file.path, compare: "0" });
+    const names = summary.variables.map(v => v.name);
+    if (!names.length) {
+      body.innerHTML = "<p class='placeholder'>No curve in this file.</p>";
+      return;
+    }
+    const maxSeries = summary.max_series || 50;
+    const key = testCase.case + "|" + file.path;
+    let selection = (state.exploreSelection[key] || []).filter(name => names.includes(name));
+    if (!selection.length) selection = [names[0]];
+    const range = summary.out_range ? " · t from " + formatNumber(summary.out_range[0]) + " to " + formatNumber(summary.out_range[1]) : "";
+
+    body.innerHTML =
+      "<div class='viewer-note'>" + names.length + " curves · " + summary.out_points + " points" + range +
+        " · tick the curves to plot together (up to " + maxSeries + ")</div>" +
+      "<div class='curves'>" +
+        "<div class='var-list'><input type='search' id='var-search' placeholder='Filter curves…'>" +
+          "<div class='var-actions'><span id='var-count'></span><span class='spacer'></span>" +
+            "<button class='btn btn-small' id='var-select-shown' title='Tick every curve matching the filter'>Select shown</button>" +
+            "<button class='btn btn-small' id='var-clear'>Clear</button></div>" +
+          "<ul id='var-items'></ul></div>" +
+        "<div class='chart-area'>" +
+          "<div class='chart-tools'><span class='spacer' style='flex:1'></span><button class='btn btn-small' id='zoom-reset'>Reset zoom</button></div>" +
+          "<div id='chart'></div>" +
+          "<div class='series-legend' id='series-legend'></div>" +
+          "<div class='viewer-note' style='margin-top:4px'>drag to zoom · double-click to reset</div>" +
+        "</div>" +
+      "</div>";
+
+    const items = document.getElementById("var-items");
+    const search = document.getElementById("var-search");
+    const shownNames = () => {
+      const text = search.value.toLowerCase();
+      return names.filter(name => name.toLowerCase().includes(text));
+    };
+    const renderItems = () => {
+      const shown = shownNames();
+      document.getElementById("var-count").textContent = selection.length + " / " + names.length + " plotted";
+      items.innerHTML = shown.length ? shown.map(name => {
+        const index = selection.indexOf(name);
+        return "<li class='pick" + (index >= 0 ? " checked" : "") + "' data-name='" + escapeHtml(name) + "'>" +
+          "<input type='checkbox' tabindex='-1'" + (index >= 0 ? " checked" : "") + ">" +
+          "<div class='vname'>" + escapeHtml(name) + "</div>" + (index >= 0 ? seriesSwatch(index) : "") + "</li>";
+      }).join("") : "<li class='placeholder'>No curve matches</li>";
+      items.querySelectorAll("li[data-name]").forEach(item => item.addEventListener("click", () => {
+        const name = item.dataset.name;
+        if (selection.includes(name)) {
+          selection = selection.filter(other => other !== name);
+        } else if (selection.length >= maxSeries) {
+          toast("At most " + maxSeries + " curves can be plotted together", true);
+          return;
+        } else {
+          selection.push(name);
+        }
+        update();
+      }));
+    };
+
+    // only the last requested plot is drawn when curves are ticked quickly
+    let plotRequest = 0;
+    const plot = async () => {
+      const request = ++plotRequest;
+      destroyChart();
+      const container = document.getElementById("chart");
+      const legend = document.getElementById("series-legend");
+      if (!selection.length) {
+        container.innerHTML = "<p class='placeholder'>Tick one or more curves to plot them.</p>";
+        legend.innerHTML = "";
+        return;
+      }
+      if (!state.seriesCache || state.seriesCache.key !== key) state.seriesCache = { key: key, t: null, values: {} };
+      const cache = state.seriesCache;
+      const missing = selection.filter(name => !(name in cache.values));
+      if (missing.length) {
+        container.innerHTML = "<p class='placeholder'>Loading…</p>";
+        const payload = await post("series", { case: testCase.case, path: file.path, names: missing });
+        cache.t = payload.t;
+        payload.series.forEach(series => { cache.values[series.name] = series.v; });
+      }
+      if (request !== plotRequest || !document.body.contains(container)) return;
+      const plotted = selection.filter(name => name in cache.values);
+      container.innerHTML = "";
+      state.chart = new window.NrtChart.MultiChart(container, { t: cache.t, series: plotted.map(name => ({ name: name, v: cache.values[name] })) });
+      legend.innerHTML = plotted.map((name, index) => "<span>" + seriesSwatch(index) + escapeHtml(name) + "</span>").join("");
+    };
+    const fail = error => toast("Unable to plot the curves: " + error.message, true);
+    const update = () => {
+      state.exploreSelection[key] = selection.slice();
+      renderItems();
+      plot().catch(fail);
+    };
+
+    search.addEventListener("input", renderItems);
+    document.getElementById("var-select-shown").addEventListener("click", () => {
+      const added = shownNames().filter(name => !selection.includes(name));
+      const room = maxSeries - selection.length;
+      if (added.length > room) toast("Only the first " + Math.max(0, room) + " curves were added (at most " + maxSeries + " plotted together)", true);
+      selection = selection.concat(added.slice(0, Math.max(0, room)));
+      update();
+    });
+    document.getElementById("var-clear").addEventListener("click", () => {
+      selection = [];
+      update();
+    });
+    document.getElementById("zoom-reset").addEventListener("click", () => state.chart && state.chart.resetZoom());
+    update();
+  }
+
   // One line telling whether the displayed curve passes the nrtDiff criterion, and where it deviates
   function verdictHtml(variable, summary, divergence) {
     const name = "<span class='mono'>" + escapeHtml(variable.name) + "</span>";
@@ -1081,6 +1253,12 @@
     const [path, query] = hash.split("?");
     const params = new URLSearchParams(query || "");
     const match = path.match(/^\/case\/(.+)$/);
+    if (!match && isSingleJobsCase()) {
+      // a single jobs file: its outputs are displayed directly
+      history.replaceState(null, "", "#/case/" + encodeURIComponent(state.results.cases[0].case));
+      route();
+      return;
+    }
     const previousView = state.view;
     state.view = match ? "case" : "list";
     if (match) {
@@ -1109,6 +1287,12 @@
 
   async function reloadResults() {
     state.results = await api("results");
+    if (state.compare === null) {
+      // initial mode given by the server (--no-reference); in jobs mode, the comparison needs at least one reference
+      const hasReference = state.results.mode !== "jobs" || state.results.cases.some(c => c.diff_status !== "NoReference");
+      state.compare = state.results.compare_default !== false && hasReference;
+      if (!state.compare || state.results.mode === "jobs") state.filter.category = "all";
+    }
     renderRunInfo();
   }
 
@@ -1120,6 +1304,7 @@
       if (results.date !== previousDate) {
         state.results = results;
         state.currentCase = null;
+        state.seriesCache = null;
         renderRunInfo();
         route();
         toast("New NRT results loaded");
@@ -1129,10 +1314,51 @@
     }
   }
 
+  // --exit-on-close: the page tells the server it is open (heartbeat), and when it is closed
+  const pageId = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  let heartbeatTimer = null;
+
+  function sendHeartbeat() {
+    post("heartbeat", { page: pageId }).catch(() => {
+      clearInterval(heartbeatTimer);
+      heartbeatTimer = null;
+      toast("The viewer server has stopped: run the command again to keep browsing", true);
+    });
+  }
+
+  function startHeartbeat(period) {
+    if (heartbeatTimer || !period) return;
+    sendHeartbeat();
+    heartbeatTimer = setInterval(sendHeartbeat, period * 1000);
+  }
+
+  // background tabs have slowed down timers: tell the server as soon as the page is shown again
+  document.addEventListener("visibilitychange", () => {
+    if (heartbeatTimer && document.visibilityState === "visible") sendHeartbeat();
+  });
+  window.addEventListener("pageshow", event => {
+    if (heartbeatTimer && event.persisted) sendHeartbeat(); // page restored from the browser cache
+  });
+  window.addEventListener("pagehide", () => {
+    if (!heartbeatTimer) return;
+    // keepalive: the request is still sent while the page is closed (a reload reconnects with a new heartbeat)
+    fetch("/api/closed", {
+      method: "POST", keepalive: true,
+      headers: { "Content-Type": "application/json", "X-NRT-Viewer": "1" },
+      body: JSON.stringify({ page: pageId })
+    }).catch(() => {});
+  });
+
   window.addEventListener("hashchange", route);
   window.addEventListener("focus", checkForNewResults);
+  document.getElementById("compare-toggle").addEventListener("change", event => {
+    if (state.results) setCompare(event.target.checked);
+  });
 
-  reloadResults().then(route).catch(error => {
+  reloadResults().then(() => {
+    startHeartbeat(state.results.heartbeat_period);
+    route();
+  }).catch(error => {
     app.innerHTML = "<p class='placeholder'>Unable to load the results: " + escapeHtml(error.message) + "</p>";
   });
 })();

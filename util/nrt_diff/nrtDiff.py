@@ -28,6 +28,7 @@ import webbrowser
 from optparse import OptionParser
 import iidmDiff
 import constraintsDiff
+import curvesUtils
 import finalStateValuesDiff
 import linearizationDiff
 import settings
@@ -1001,8 +1002,16 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
                 if (nb_lines_different > 1):
                     message += "s"
 
-        elif (file_name == "curves" and file_extension == ".csv"):
-            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different, tolerance_message) = CSVCloseEnough (path_left, path_right, True)
+        elif (file_name == "curves" and curvesUtils.isHdf5File(path_left) and not curvesUtils.isHdf5Available()):
+            # without h5py the curves cannot be compared: the comparison fails rather than silently passing
+            message = "<font color=\"red\">" + os.path.basename(path_left) + ": the h5py python module is required to compare HDF5 curves</font>"
+            return_value = DIFFERENT
+
+        elif (file_name == "curves" and (file_extension == ".csv" or curvesUtils.isHdf5File(path_left))):
+            if (file_extension == ".csv"):
+                (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different, tolerance_message) = CSVCloseEnough (path_left, path_right, True)
+            else:
+                (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different, tolerance_message) = H5CloseEnough (path_left, path_right)
             maximum_curves_names_displayed = 5
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
@@ -1598,6 +1607,96 @@ def InitValuesCloseEnough (path_left, path_right):
             nb_diff+=1
 
     return nb_diff
+
+##
+# Check whether two HDF5 curves files are close enough (same rules as CSVCloseEnough)
+# @param path_left : the absolute path to the left-side file
+# @param path_right : the absolute path to the right-side file
+# @return the same tuple as CSVCloseEnough
+def H5CloseEnough (path_left, path_right):
+    (times_left, _, curves_left) = curvesUtils.readHdf5Curves(path_left)
+    (times_right, _, curves_right) = curvesUtils.readHdf5Curves(path_right)
+    return CurvesCloseEnough (times_left, curves_left, times_right, curves_right, path_left, path_right)
+
+##
+# Compare curves given as columns, with the same rules as CSVCloseEnough
+# - the DTW is computed on one value per time instant (the last one at a discontinuity), points going back in time being ignored
+# - the time-aligned error keeps every point (a time appears twice at a discontinuity), points going back in time being ignored
+# @param times_left : list of the left times
+# @param curves_left : dict curve name -> list of the left values at times_left
+# @param times_right : list of the right times
+# @param curves_right : dict curve name -> list of the right values at times_right
+# @param path_left, path_right : paths of the compared files (to apply the tolerance exceptions)
+# @return the same tuple as CSVCloseEnough
+def CurvesCloseEnough (times_left, curves_left, times_right, curves_right, path_left, path_right):
+
+    def timeIndices(times):
+        indices = {}
+        previous = None
+        for index, t in enumerate(times):
+            if (previous is None) or (t >= previous):
+                indices[t] = index
+            previous = t
+        return indices
+
+    def curvePoints(times, values):
+        points_times = []
+        points_values = []
+        for t, value in zip(times, values):
+            if len(points_times) > 0 and t < points_times[-1]:
+                continue
+            points_times.append(t)
+            points_values.append(value)
+        return (points_times, points_values)
+
+    indices_left = timeIndices(times_left)
+    indices_right = timeIndices(times_right)
+    nb_points = len([t for t in indices_left if t in indices_right])
+
+    curves_different = set([])
+    nb_curves_only_in_left_file = 0
+    nb_curves_only_in_right_file = 0
+    for curve in sorted (curves_left.keys()):
+        if (not curve in curves_right):
+            nb_curves_only_in_left_file += 1
+            curves_different.add (curve)
+    for curve in sorted (curves_right.keys()):
+        if (not curve in curves_left):
+            nb_curves_only_in_right_file += 1
+            curves_different.add (curve)
+
+    nb_differences = 0
+    nb_differences_absolute = 0
+    nb_differences_relative = 0
+    max_dtw = GetTolerance(settings.max_DTW, settings.dtw_exceptions, path_left, path_right)
+    max_time_error = GetTolerance(settings.max_time_aligned_error, settings.time_aligned_error_exceptions, path_left, path_right)
+    max_dtw_found = None
+    max_time_error_found = None
+    stopped = False
+    for curve in sorted (curves_left.keys()):
+        if (not curve in curves_right):
+            continue
+        values_left = curves_left [curve]
+        values_right = curves_right [curve]
+        left = [values_left [indices_left [t]] for t in sorted (indices_left.keys())]
+        right = [values_right [indices_right [t]] for t in sorted (indices_right.keys())]
+        (points_times_left, points_values_left) = curvePoints(times_left, values_left)
+        (points_times_right, points_values_right) = curvePoints(times_right, values_right)
+        (dtw_ko, time_ko, time_error, distance) = CompareCurves(left, right, max_dtw, points_times_left, points_values_left, points_times_right, points_values_right, max_time_error)
+        if dtw_ko or time_ko:
+            nb_differences += 1
+            curves_different.add (CurveLabel(curve, dtw_ko, distance, time_ko, time_error))
+        if dtw_ko:
+            nb_differences_absolute += 1
+            max_dtw_found = distance if max_dtw_found is None else max(max_dtw_found, distance)
+        if time_ko:
+            nb_differences_relative += 1
+            max_time_error_found = time_error if max_time_error_found is None else max(max_time_error_found, time_error)
+        if nb_differences > 5:
+            stopped = True
+            break
+
+    return (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different, ToleranceMessage(max_dtw_found, max_dtw, max_time_error_found, max_time_error, stopped))
 
 # Check whether two csv files are close enough
 # @param path_left : the absolute path to the left-side file

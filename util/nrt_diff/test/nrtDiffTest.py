@@ -20,8 +20,27 @@ import unittest
 
 nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
 sys.path.append(nrtDiff_dir)
+import curvesUtils
 import nrtDiff
 import settings
+
+##
+# Write a Dynawo HDF5 curves file (datasets of CRVHdf5Exporter) from a Dynawo csv curves file
+def csvToHdf5Curves(csv_path, h5_path):
+    import h5py
+    with open(csv_path) as csv_file:
+        header = csv_file.readline().rstrip("\n").split(";")
+        while header and header[-1] == "":
+            header.pop()
+        rows = []
+        for line in csv_file:
+            fields = line.rstrip("\n").split(";")
+            if fields[0] != "":
+                rows.append([float(field) for field in fields[:len(header)]])
+    with h5py.File(h5_path, "w") as h5_file:
+        h5_file["time"] = [row[0] for row in rows]
+        h5_file["data"] = [row[1:] for row in rows]
+        h5_file["curve_names"] = [name.encode("utf-8") for name in header[1:]]
 
 # The tests below check the DTW distance messages: the time-aligned error is checked in TestnrtDiffTimeAlignedError
 class DTWOnlyTestCase(unittest.TestCase):
@@ -67,6 +86,64 @@ class TestnrtDiffTimeAlignedError(unittest.TestCase):
             self.assertTrue(" , max time-aligned error 2.00e-01 (tolerance " in message)
         finally:
             shutil.rmtree(tmp_dir)
+
+class TestnrtDiffHdf5Curves(unittest.TestCase):
+    def setUp(self):
+        self.tmp_dir = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp_dir)
+
+    def copyCurves(self, name):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        case_dir = os.path.join(self.tmp_dir, name)
+        os.mkdir(case_dir)
+        shutil.copyfile(os.path.join(dir_path, name + ".csv"), os.path.join(case_dir, "curves.csv"))
+        if curvesUtils.isHdf5Available():
+            csvToHdf5Curves(os.path.join(dir_path, name + ".csv"), os.path.join(case_dir, "curves.h5"))
+        return case_dir
+
+    @unittest.skipUnless(curvesUtils.isHdf5Available(), "h5py is not installed")
+    def test_same_results_as_csv(self):
+        left_dir = self.copyCurves("curves")
+        for name in ["curves", "curves2", "curves3"]:
+            right_dir = left_dir if name == "curves" else self.copyCurves(name)
+            self.assertEqual(nrtDiff.H5CloseEnough(os.path.join(left_dir, "curves.h5"), os.path.join(right_dir, "curves.h5")),
+                             nrtDiff.CSVCloseEnough(os.path.join(left_dir, "curves.csv"), os.path.join(right_dir, "curves.csv"), True))
+            (status_csv, message_csv) = nrtDiff.CompareTwoFiles(os.path.join(left_dir, "curves.csv"), '|', os.path.join(right_dir, "curves.csv"), '|')
+            (status_h5, message_h5) = nrtDiff.CompareTwoFiles(os.path.join(left_dir, "curves.h5"), '|', os.path.join(right_dir, "curves.h5"), '|')
+            self.assertEqual(status_h5, status_csv)
+            self.assertEqual(message_h5, message_csv.replace("curves.csv", "curves.h5"))
+
+    @unittest.skipUnless(curvesUtils.isHdf5Available(), "h5py is not installed")
+    def test_missing_curves(self):
+        import h5py
+        for side, names in [("left", ["A", "B"]), ("right", ["A", "C"])]:
+            os.mkdir(os.path.join(self.tmp_dir, side))
+            with h5py.File(os.path.join(self.tmp_dir, side, "curves.h5"), "w") as h5_file:
+                h5_file["time"] = [0., 1., 2., 2., 3.]
+                h5_file["data"] = [[0., 1.], [0., 1.], [0., 1.], [1., 1.], [1., 1.]]
+                h5_file["curve_names"] = [name.encode("utf-8") for name in names]
+        (status, message) = nrtDiff.CompareTwoFiles(os.path.join(self.tmp_dir, "left", "curves.h5"), '|', os.path.join(self.tmp_dir, "right", "curves.h5"), '|')
+        self.assertEqual(status, nrtDiff.MISSING_DATA_BOTH_SIDES)
+        self.assertEqual(message, "B, C missing in one file")
+
+    def test_without_h5py(self):
+        # without h5py, HDF5 curves cannot be compared: the comparison must fail instead of passing silently
+        left_dir = os.path.join(self.tmp_dir, "left")
+        right_dir = os.path.join(self.tmp_dir, "right")
+        for (directory, content) in [(left_dir, b"left"), (right_dir, b"right")]:
+            os.mkdir(directory)
+            with open(os.path.join(directory, "curves.h5"), "wb") as h5_file:
+                h5_file.write(content)
+        is_hdf5_available = curvesUtils.isHdf5Available
+        curvesUtils.isHdf5Available = lambda: False
+        try:
+            (status, message) = nrtDiff.CompareTwoFiles(os.path.join(left_dir, "curves.h5"), '|', os.path.join(right_dir, "curves.h5"), '|')
+        finally:
+            curvesUtils.isHdf5Available = is_hdf5_available
+        self.assertEqual(status, nrtDiff.DIFFERENT)
+        self.assertTrue("h5py" in message)
 
 class TestnrtDiffCompareTwoFiles(DTWOnlyTestCase):
     def test_log(self):

@@ -31,6 +31,17 @@
   --series-out: #1f6feb;
   --series-ref: #d1571a;
   --series-err: #8250df;
+  /* categorical colors of the curves plotted together (exploration without reference) */
+  --cat-0: #2f6fb3;
+  --cat-1: #e3741b;
+  --cat-2: #2b9a48;
+  --cat-3: #d0353a;
+  --cat-4: #8058b9;
+  --cat-5: #8c5a44;
+  --cat-6: #d45aa8;
+  --cat-7: #6b6b6b;
+  --cat-8: #a6a21b;
+  --cat-9: #1aa3b5;
   --diff-add: #e6f6ea;
   --diff-del: #fde7e8;
   --diff-chg: #fdf3d8;
@@ -61,6 +72,16 @@
     --series-out: #5b9dff;
     --series-ref: #f08c4a;
     --series-err: #b391f5;
+    --cat-0: #5b9dff;
+    --cat-1: #f59a4a;
+    --cat-2: #4cc56b;
+    --cat-3: #f0646a;
+    --cat-4: #a988e0;
+    --cat-5: #c08e74;
+    --cat-6: #ec86c8;
+    --cat-7: #a8a8a8;
+    --cat-8: #cfca45;
+    --cat-9: #3fc8d9;
     --diff-add: #143222;
     --diff-del: #3b1a1d;
     --diff-chg: #33290f;
@@ -368,6 +389,21 @@ table.cases.iidm tbody tr { cursor: default; }
 .legend .sw { display: inline-block; width: 18px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 5px; }
 .legend .sw.ref { border-top-width: 7px; opacity: .38; border-radius: 4px; }
 .legend .sw.zone { border-top: 10px solid var(--ko); opacity: .15; width: 14px; }
+
+/* exploration without reference: several curves plotted together */
+.var-list .var-actions { display: flex; gap: 6px; align-items: center; padding: 5px 9px; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text-muted); }
+.var-list .var-actions .spacer { flex: 1; }
+.var-list li.pick { display: flex; gap: 7px; align-items: flex-start; }
+.var-list li.pick input { margin: 2px 0 0; flex: none; }
+.var-list li.pick .vname { flex: 1; min-width: 0; }
+.var-list li.pick.checked { background: var(--accent-soft); }
+.series-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 6px 0 0; font-size: 12px; font-family: var(--mono); color: var(--text); }
+.series-legend span { display: inline-flex; align-items: center; gap: 5px; min-width: 0; overflow-wrap: anywhere; }
+.series-legend svg { flex: none; }
+
+/* switch between the comparison with the references and the exploration of the outputs */
+.compare-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text); cursor: pointer; white-space: nowrap; }
+.compare-toggle input { margin: 0; }
 .verdict { font-size: 13px; padding: 6px 10px; border-radius: 6px; margin-bottom: 6px; background: var(--surface-2); }
 .verdict.ok { background: var(--ok-soft); color: var(--ok); }
 .verdict.ko { background: var(--ko-soft); color: var(--ko); }
@@ -377,6 +413,7 @@ svg.chart .grid { stroke: var(--border); stroke-width: 1; }
 svg.chart .axis-label { fill: var(--text-muted); font-size: 11px; font-family: var(--mono); }
 svg.chart .title { fill: var(--text-muted); font-size: 11px; }
 svg.chart .s-out { stroke: var(--series-out); fill: none; stroke-width: 1.4; stroke-linejoin: round; }
+svg.chart .s-multi { fill: none; stroke-width: 1.5; stroke-linejoin: round; }
 svg.chart .s-ref { stroke: var(--series-ref); fill: none; stroke-width: 7; stroke-opacity: .38; stroke-linecap: round; stroke-linejoin: round; }
 svg.chart .zone { fill: var(--ko); fill-opacity: .09; }
 svg.chart .threshold { stroke: var(--ko); stroke-width: 1; stroke-dasharray: 4 3; stroke-opacity: .7; }

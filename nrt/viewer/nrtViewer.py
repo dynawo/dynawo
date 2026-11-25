@@ -12,9 +12,12 @@
 # simulation tool for power systems.
 
 ##
-# Local web viewer for non-regression test results.
+# Local web viewer for non-regression test results and simulation outputs.
 #
-# It only relies on the results.json file written by nrt.py and on the python standard library,
+# Two modes:
+# - NRT results: reads the results.json file written by nrt.py
+# - jobs files (--jobs): reads the outputs of one or several jobs files, compared with their reference directory if any
+# It relies on the python standard library (h5py being only needed for HDF5 curves) and on the nrt_diff scripts,
 # so that it can be deployed with Dynawo and used for any project running its NRT with nrt.py.
 
 import argparse
@@ -31,16 +34,11 @@ import shutil
 import socketserver
 import sys
 import threading
+import time
 import webbrowser
 import xml.etree.ElementTree as ElementTree
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
-
-# optional dependency: only needed to display HDF5 curves
-try:
-    import h5py
-except ImportError:
-    h5py = None
 
 ##
 # Import a module of the nrt_diff scripts, so that the viewer applies exactly the NRT comparison rules
@@ -95,12 +93,21 @@ MAX_DIFF_ROWS = 20000
 DEFAULT_RAW_LINES = 5000
 MAX_RAW_LINES = 50000
 MAX_IIDM_ROWS = 500
+# maximum number of curves sent at once when several curves are plotted together (exploration without reference)
+MAX_SERIES = 50
 # the full DTW costs n x m operations in pure python: when the cheap bounds do not conclude, it is only computed
 # within these budgets while listing the curves (each remaining curve is computed on demand)
 DTW_BUDGET_PER_CURVE = 4 * 1000 * 1000
 DTW_BUDGET_PER_FILE = 20 * 1000 * 1000
 DIFF_CONTEXT_LINES = 3
 CSRF_HEADER = "X-NRT-Viewer"
+# --exit-on-close: the pages send a heartbeat, and a last message when they are closed. The server stops when no page is open:
+# - CLOSE_GRACE_DELAY after the last page was closed (a page reload also sends the closing message, then reconnects)
+# - HEARTBEAT_TIMEOUT without heartbeat (browser killed): browsers slow down the timers of background tabs
+#   (Chrome: once per minute), so it must stay well above one minute
+HEARTBEAT_PERIOD = 20
+HEARTBEAT_TIMEOUT = 150
+CLOSE_GRACE_DELAY = 10
 # timestamp at the beginning of a log line, e.g. "2026-11-16 09:34:26,123 | INFO | ..."
 LOG_TIMESTAMP_REGEX = re.compile(r"^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?\s*")
 # tokens for the highlighting of the changes inside a modified line: numbers as a whole, words, spaces, single symbols
@@ -122,9 +129,12 @@ class ViewerError(Exception):
 ##
 # Holds the NRT results and every file-system access done by the viewer
 class NrtResults:
-    def __init__(self, results_path, read_only):
+    ##
+    # @param compare_default : whether the viewer starts comparing the outputs with the references (can be switched in the page)
+    def __init__(self, results_path, read_only, compare_default=True):
         self.results_path_ = results_path
         self.read_only_ = read_only
+        self.compare_default_ = compare_default
         self.lock_ = threading.Lock()
         self.mtime_ = None
         self.data_ = None
@@ -184,8 +194,10 @@ class NrtResults:
     def summary(self):
         self.load()
         summary = dict(self.data_)
-        summary["results_file"] = os.path.realpath(self.results_path_)
+        summary.setdefault("mode", "nrt")
+        summary.setdefault("results_file", os.path.realpath(self.results_path_) if self.results_path_ else "")
         summary["read_only"] = self.read_only_
+        summary["compare_default"] = self.compare_default_
         cases = []
         for case in self.data_.get("cases", []):
             case = dict(case)
@@ -473,25 +485,34 @@ class NrtResults:
             self.curves_cache_[path] = (mtime, curves)
         return curves
 
-    def curvesSides(self, case, relative_path):
+    ##
+    # @param compare : False to only read the outputs (exploration without reference)
+    def curvesSides(self, case, relative_path, compare=True):
         sides = {}
         for side in ("out", "ref"):
             path = self.resolve(case, side, relative_path)
-            sides[side] = self.readCurves(path) if os.path.isfile(path) else None
+            sides[side] = self.readCurves(path) if os.path.isfile(path) and (compare or side == "out") else None
         return sides
 
     ##
     # List the variables of a curves file sorted by decreasing discrepancy with the reference
-    def curvesSummary(self, case, relative_path):
-        sides = self.curvesSides(case, relative_path)
+    # @param compare : False to only list the output curves in file order (exploration without reference)
+    def curvesSummary(self, case, relative_path, compare=True):
+        sides = self.curvesSides(case, relative_path, compare)
         out = sides["out"]
         ref = sides["ref"]
-        try:
-            criteria_context = self.criteriaContext(case, relative_path)
-            criterion_error = None
-        except ViewerError as exc:
-            criteria_context = None
-            criterion_error = exc.message
+        if not compare:
+            if out is None:
+                raise ViewerError(404, "No output file: " + relative_path)
+            return {"variables": [{"name": name} for name in out["order"]], "out_points": len(out["time"]),
+                    "out_range": [out["time"][0], out["time"][-1]] if out["time"] else None, "max_series": MAX_SERIES}
+        criteria_context = None
+        criterion_error = None
+        if out is not None and ref is not None:
+            try:
+                criteria_context = self.criteriaContext(case, relative_path)
+            except ViewerError as exc:
+                criterion_error = exc.message
         budget = [DTW_BUDGET_PER_FILE]
         names = []
         for side in (out, ref):
@@ -645,6 +666,17 @@ class NrtResults:
         return result
 
     ##
+    # Several output curves of a file, to plot them together (exploration without reference)
+    # @return {"t": times, "series": [{"name", "v"}]} for the names found in the file (at most MAX_SERIES)
+    def series(self, case, relative_path, names):
+        out = self.curvesSides(case, relative_path, False)["out"]
+        if out is None:
+            raise ViewerError(404, "No output file: " + relative_path)
+        if len(names) > MAX_SERIES:
+            raise ViewerError(400, "At most " + str(MAX_SERIES) + " curves can be plotted together")
+        return {"t": out["time"], "series": [{"name": name, "v": out["values"][name]} for name in names if name in out["values"]]}
+
+    ##
     # Copy outputs onto the reference for the given files of a case
     # @param relative_paths : files to update; if empty, every file failing the comparison (KO or within tolerance)
     def acceptReference(self, case, relative_paths):
@@ -678,6 +710,89 @@ class NrtResults:
                 if relative_path not in accepted:
                     accepted.append(relative_path)
         return {"copied": copied}
+
+
+##
+# Outputs of jobs files run outside of the NRT (e.g. envDynawo.sh jobs-with-curves): one case per jobs file,
+# compared with the reference directory next to the jobs file when there is one
+class JobsResults(NrtResults):
+    def __init__(self, jobs_files, read_only, compare_default=True):
+        NrtResults.__init__(self, None, read_only, compare_default)
+        self.jobs_files_ = [os.path.realpath(jobs_file) for jobs_file in jobs_files]
+
+    ##
+    # Built on first use: the comparison with the references is run once, when the viewer starts
+    def load(self):
+        with self.lock_:
+            if self.data_ is not None:
+                return
+            cases = []
+            for index, jobs_file in enumerate(self.jobs_files_):
+                cases.append(self.jobsCase("case_" + str(index), jobs_file))
+            self.data_ = {"version": SUPPORTED_JSON_VERSION, "mode": "jobs", "results_file": ", ".join(self.jobs_files_),
+                          "cases": cases}
+            self.cases_ = dict((case["case"], case) for case in cases)
+
+    def jobsCase(self, case_id, jobs_file):
+        jobs_dir = os.path.dirname(jobs_file)
+        jobs = parseJobsFile(jobs_file)
+        case = {"case": case_id, "name": os.path.basename(jobs_dir) + "/" + os.path.basename(jobs_file), "description": "",
+                "directory": jobs_dir, "family": os.path.basename(os.path.dirname(jobs_dir)), "jobs_dir": jobs_dir,
+                "jobs_file": jobs_file, "command": "", "time": None, "return_code": None, "simulation_status": None,
+                "diff_status": "NoReference", "diff_label": "no reference data", "satisfactory": True,
+                "diff_messages": [], "console_errors": "", "compared_files": [], "jobs": jobs}
+        if not os.path.isdir(os.path.join(jobs_dir, REFERENCE_DIRECTORY_NAME)):
+            return case
+        print("Comparing the outputs of " + jobs_file + " with the references...")
+        try:
+            nrt_diff = nrtDiffModule("nrtDiff", "DirectoryDiffReferenceDataJobDetailed")
+            # nrtDiff reads the build type from the environment (set by envDynawo.sh)
+            os.environ.setdefault("DYNAWO_BUILD_TYPE", "Release")
+            (status, messages, compared_files) = nrt_diff.DirectoryDiffReferenceDataJobDetailed(jobs_file)
+        except Exception as exc:
+            case["diff_status"] = "Unable"
+            case["diff_label"] = "unable to check"
+            case["diff_messages"] = [exc.message if isinstance(exc, ViewerError) else str(exc)]
+            return case
+        case["diff_status"] = nrt_diff.statusCategory(status, True)
+        case["diff_label"] = nrt_diff.toString(status, True)
+        case["satisfactory"] = status not in nrt_diff.diff_error_statuses(True)
+        case["diff_messages"] = [HTML_TAG_REGEX.sub("", message) for message in messages]
+        for compared_file in compared_files:
+            compared_file["message"] = HTML_TAG_REGEX.sub("", compared_file.get("message", ""))
+        case["compared_files"] = compared_files
+        return case
+
+
+##
+# Read the jobs of a jobs file without modifying anything (nrtUtils.TestCase.parseJobsFile removes the previous outputs)
+# @return list of dict {job, name, description, solver, output_dir, snapshot_dir} as written by nrt.py in results.json
+def parseJobsFile(jobs_file):
+    def localName(element):
+        return element.tag.split("}")[-1]
+
+    def child(element, name):
+        for item in element:
+            if localName(item) == name:
+                return item
+        return None
+
+    try:
+        root = ElementTree.parse(jobs_file).getroot()
+    except (ElementTree.ParseError, OSError) as exc:
+        raise ViewerError(422, "Unable to read the jobs file " + jobs_file + ": " + str(exc))
+    jobs = []
+    for element in root:
+        if localName(element) != "job":
+            continue
+        solver = child(element, "solver")
+        outputs = child(element, "outputs")
+        output_dir = None
+        if outputs is not None and outputs.get("directory"):
+            output_dir = os.path.realpath(os.path.join(os.path.dirname(jobs_file), outputs.get("directory")))
+        jobs.append({"job": "job_" + str(len(jobs)), "name": element.get("name", ""), "description": "",
+                     "solver": solver.get("lib", "") if solver is not None else "", "output_dir": output_dir, "snapshot_dir": None})
+    return jobs
 
 
 ##
@@ -776,23 +891,16 @@ def readXmlCurves(path):
     return {"time": times, "values": values, "order": order}
 
 ##
-# Read a Dynawo HDF5 curves file (see CRVHdf5Exporter): datasets "time" (n), "data" (n x m) and "curve_names" (m)
+# Read a Dynawo HDF5 curves file with the reader shared with nrtDiff (h5py is only needed here)
 def readHdf5Curves(path):
-    if h5py is None:
+    curves_utils = nrtDiffModule("curvesUtils", "readHdf5Curves")
+    try:
+        (times, names, values) = curves_utils.readHdf5Curves(path)
+    except ImportError:
         raise ViewerError(501, "Displaying HDF5 curves requires the h5py python module (" +
                           sys.executable + " -m pip install h5py), then restart the viewer")
-    with h5py.File(path, "r") as h5_file:
-        for dataset in ("time", "data", "curve_names"):
-            if dataset not in h5_file:
-                raise ViewerError(422, "Unexpected HDF5 curves file, dataset '" + dataset + "' missing: " + os.path.basename(path))
-        times = [float(t) for t in h5_file["time"][()]]
-        names = [name.decode("utf-8") if isinstance(name, bytes) else str(name) for name in h5_file["curve_names"][()]]
-        data = h5_file["data"][()]
-    if len(names) == 0 or len(times) == 0:
-        return {"time": times, "values": dict((name, []) for name in names), "order": names}
-    # the transposition is done in python to keep numpy (installed with h5py) an implementation detail
-    rows = data.tolist()
-    values = dict((name, [float(row[index]) for row in rows]) for index, name in enumerate(names))
+    except ValueError as exc:
+        raise ViewerError(422, str(exc))
     return {"time": times, "values": values, "order": names}
 
 ##
@@ -873,8 +981,42 @@ def curveDiscrepancy(out_times, out_values, ref_times, ref_values):
     return (max_abs, max_rel, t_max)
 
 
+##
+# Pages currently open, to stop the server once they are all closed (--exit-on-close)
+class OpenPages:
+    def __init__(self):
+        self.lock_ = threading.Lock()
+        self.expiry_ = {} # page id -> time after which the page is considered closed
+        self.seen_ = False # no stop before a first page was opened (the browser may be slow to start)
+
+    def heartbeat(self, page):
+        with self.lock_:
+            self.expiry_[str(page)] = time.time() + HEARTBEAT_TIMEOUT
+            self.seen_ = True
+
+    def closed(self, page):
+        with self.lock_:
+            if str(page) in self.expiry_:
+                self.expiry_[str(page)] = time.time() + CLOSE_GRACE_DELAY
+
+    def allClosed(self):
+        now = time.time()
+        with self.lock_:
+            self.expiry_ = dict((page, expiry) for page, expiry in self.expiry_.items() if expiry > now)
+            return self.seen_ and not self.expiry_
+
+    ##
+    # Stop the server once every page is closed (to be run in its own thread: shutdown waits for serve_forever)
+    def watch(self, server):
+        while not self.allClosed():
+            time.sleep(1)
+        print("Every viewer page was closed: stopping the server")
+        server.shutdown()
+
+
 class ViewerHandler(BaseHTTPRequestHandler):
     results = None # NrtResults, set before starting the server
+    open_pages = None # OpenPages when the server stops once its pages are closed (--exit-on-close)
 
     def log_message(self, format, *args):
         pass # keep the console readable: only errors and reference updates are printed
@@ -917,7 +1059,9 @@ class ViewerHandler(BaseHTTPRequestHandler):
             elif url.path.startswith("/static/"):
                 self.sendStatic(url.path[len("/static/"):])
             elif url.path == "/api/results":
-                self.sendJson(self.results.summary())
+                summary = self.results.summary()
+                summary["heartbeat_period"] = HEARTBEAT_PERIOD if self.open_pages is not None else None
+                self.sendJson(summary)
             elif url.path == "/api/tree":
                 case = self.results.getCase(query.get("case"))
                 self.sendJson(self.results.fileTree(case))
@@ -936,7 +1080,7 @@ class ViewerHandler(BaseHTTPRequestHandler):
                 self.sendJson(self.results.diff(case, query.get("path"), query.get("ignore_timestamps") == "1"))
             elif url.path == "/api/curves":
                 case = self.results.getCase(query.get("case"))
-                self.sendJson(sanitize(self.results.curvesSummary(case, query.get("path"))))
+                self.sendJson(sanitize(self.results.curvesSummary(case, query.get("path"), query.get("compare") != "0")))
             elif url.path == "/api/dtw":
                 case = self.results.getCase(query.get("case"))
                 self.sendJson(sanitize(self.results.curveDtw(case, query.get("path"), query.get("name"))))
@@ -963,6 +1107,17 @@ class ViewerHandler(BaseHTTPRequestHandler):
             if url.path == "/api/accept":
                 case = self.results.getCase(body.get("case"))
                 self.sendJson(self.results.acceptReference(case, body.get("paths") or []))
+            elif url.path in ("/api/heartbeat", "/api/closed"):
+                if self.open_pages is not None:
+                    if url.path == "/api/heartbeat":
+                        self.open_pages.heartbeat(body.get("page"))
+                    else:
+                        self.open_pages.closed(body.get("page"))
+                self.sendJson({"exit_on_close": self.open_pages is not None})
+            elif url.path == "/api/series":
+                # POST as the list of curve names may be too long for a URL (nothing is modified)
+                case = self.results.getCase(body.get("case"))
+                self.sendJson(sanitize(self.results.series(case, body.get("path"), body.get("names") or [])))
             else:
                 self.sendError(404, "Not found")
         except ViewerError as exc:
@@ -1000,32 +1155,52 @@ def defaultResultsPath():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Local web viewer for non-regression test results (results.json written by nrt.py)")
+    parser = argparse.ArgumentParser(description="Local web viewer for non-regression test results (results.json written by nrt.py) "
+                                     "or for the outputs of jobs files")
     parser.add_argument("results", nargs="?", help="results.json file or directory containing it "
                         "(default: $DYNAWO_NRT_DIR/output/$DYNAWO_BRANCH_NAME/results.json)")
+    parser.add_argument("--jobs", nargs="+", metavar="JOBS_FILE", help="display the outputs of these jobs files instead of NRT results "
+                        "(compared with the reference directory next to each jobs file, if any)")
+    parser.add_argument("--no-reference", action="store_true", help="start without comparing with the references "
+                        "(only the outputs are displayed, several curves can be plotted together; can be switched in the page)")
     parser.add_argument("--port", type=int, default=8000, help="first port to try (default: 8000)")
     parser.add_argument("--host", default="127.0.0.1", help="interface to listen on (default: 127.0.0.1, local access only)")
     parser.add_argument("--read-only", action="store_true", help="disable reference update")
     parser.add_argument("--browser", help="browser command used to open the viewer (default: no browser opened)")
+    parser.add_argument("--exit-on-close", action="store_true", help="stop the server once every viewer page is closed "
+                        "(about " + str(CLOSE_GRACE_DELAY) + " s after, or " + str(HEARTBEAT_TIMEOUT) + " s if the browser was killed)")
     options = parser.parse_args()
-
-    results_path = options.results or defaultResultsPath()
-    if results_path is None:
-        parser.error("no results file given and DYNAWO_NRT_DIR is not defined")
-    if os.path.isdir(results_path):
-        results_path = os.path.join(results_path, RESULTS_FILE_NAME)
-    if not os.path.isfile(results_path):
-        print("Results file not found: " + results_path)
-        print("Run the non-regression tests first (a recent nrt.py writes it next to report.html)")
-        sys.exit(1)
 
     read_only = options.read_only
     if options.host not in ("127.0.0.1", "localhost", "::1") and not read_only:
         print("Warning: the viewer is reachable from other machines, reference update is disabled (read-only mode)")
         read_only = True
 
-    ViewerHandler.results = NrtResults(results_path, read_only)
-    ViewerHandler.results.load()
+    if options.jobs:
+        if options.results:
+            parser.error("give either a results file or --jobs, not both")
+        for jobs_file in options.jobs:
+            if not os.path.isfile(jobs_file):
+                print("Jobs file not found: " + jobs_file)
+                sys.exit(1)
+        results_path = ", ".join(options.jobs)
+        ViewerHandler.results = JobsResults(options.jobs, read_only, not options.no_reference)
+    else:
+        results_path = options.results or defaultResultsPath()
+        if results_path is None:
+            parser.error("no results file given and DYNAWO_NRT_DIR is not defined")
+        if os.path.isdir(results_path):
+            results_path = os.path.join(results_path, RESULTS_FILE_NAME)
+        if not os.path.isfile(results_path):
+            print("Results file not found: " + results_path)
+            print("Run the non-regression tests first (a recent nrt.py writes it next to report.html)")
+            sys.exit(1)
+        ViewerHandler.results = NrtResults(results_path, read_only, not options.no_reference)
+    try:
+        ViewerHandler.results.load()
+    except ViewerError as exc:
+        print(exc.message)
+        sys.exit(1)
 
     server = None
     for port in range(options.port, options.port + 20):
@@ -1041,7 +1216,14 @@ def main():
 
     url = "http://" + ("localhost" if options.host in ("127.0.0.1", "::1") else options.host) + ":" + str(server.server_address[1]) + "/"
     print("NRT viewer: " + url + "  (results: " + results_path + ")" + ("  [read-only]" if read_only else ""))
-    print("Press Ctrl+C to stop")
+    if options.exit_on_close:
+        print("The server stops once the viewer page is closed (or press Ctrl+C)")
+        ViewerHandler.open_pages = OpenPages()
+        watcher = threading.Thread(target=ViewerHandler.open_pages.watch, args=(server,), name="exit-on-close")
+        watcher.daemon = True
+        watcher.start()
+    else:
+        print("Press Ctrl+C to stop")
     if options.browser:
         try:
             webbrowser.get(options.browser + " %s &").open(url)
