@@ -84,7 +84,7 @@ equation
   QInj0Pu = ComplexMath.imag(sInj0Pu);
   UInj0Pu = ComplexMath.'abs'(uInj0Pu);
 
-  PF0 = if (not (ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/ComplexMath.'abs'(s0Pu) else 0;
+  PF0 = if (not(Modelica.ComplexMath.'abs'(s0Pu) == 0)) then (if P0Pu * Q0Pu >= 0 then 1 else -1) * abs(P0Pu) / Modelica.ComplexMath.'abs'(s0Pu) else 0;
   Id0Pu = Modelica.Math.cos(UPhaseConv0)*iInj0Pu.re + Modelica.Math.sin(UPhaseConv0)*iInj0Pu.im;
   Iq0Pu = Modelica.Math.sin(UPhaseConv0)*iInj0Pu.re - Modelica.Math.cos(UPhaseConv0)*iInj0Pu.im;
   Pm0Pu = PConv0Pu;

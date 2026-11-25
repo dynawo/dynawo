@@ -349,8 +349,6 @@ equation
     Line(points = {{-69, -9}, {-60, -9}, {-60, -62}, {-38, -62}}, color = {0, 0, 127}));
   connect(wecc_wtgq.omegaRefWTGQPu, wecc_wtgp.omegaRefWTGQPu) annotation(
     Line(points = {{-70, -50}, {-38, -50}}, color = {0, 0, 127}));
-  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
-    Line(points = {{-190, 58}, {-177, 58}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

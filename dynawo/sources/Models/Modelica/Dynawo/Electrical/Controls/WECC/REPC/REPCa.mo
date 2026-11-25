@@ -27,45 +27,49 @@ model REPCa "WECC Plant Control type A"
 
 equation
   connect(lineDropCompensation1.U2Pu, voltageCheck.UPu) annotation(
-    Line(points = {{-538, 94}, {-500, 94}, {-500, 280}, {100, 280}}, color = {0, 0, 127}));
+    Line(points = {{-538, 94}, {-500, 94}, {-500, 280}, {100, 280}}, color = {0, 0, 127}, thickness = 0.75));
   connect(omegaPu, wCtrlErr.u2) annotation(
-    Line(points = {{-610, -220}, {-380, -220}, {-380, -186}, {-362, -186}}, color = {0, 0, 127}));
+    Line(points = {{-610, -220}, {-480, -220}, {-480, -186}, {-462, -186}}, color = {0, 0, 127}, thickness = 0.75));
   connect(limPID.y, firstOrder.u) annotation(
-    Line(points = {{212, -60}, {340, -60}, {340, -40}, {498, -40}}, color = {0, 0, 127}));
+    Line(points = {{212, -60}, {340, -60}, {340, -40}, {498, -40}}, color = {0, 0, 127}, thickness = 0.75));
   connect(add3.y, PRefLim.u) annotation(
-    Line(points = {{2, -60}, {138, -60}}, color = {0, 0, 127}));
+    Line(points = {{2, -60}, {138, -60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(firstOrder1.y, add3.u2) annotation(
-    Line(points = {{-398, -80}, {-240, -80}, {-240, -60}, {-22, -60}}, color = {0, 0, 127}));
+    Line(points = {{-398, -80}, {-240, -80}, {-240, -60}, {-22, -60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(firstOrder3.y, UCtrlErr.u2) annotation(
-    Line(points = {{-158, 140}, {-62, 140}}, color = {0, 0, 127}));
+    Line(points = {{-158, 140}, {-62, 140}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(switch2.y, firstOrder3.u) annotation(
-    Line(points = {{-198, 140}, {-182, 140}}, color = {0, 0, 127}));
+    Line(points = {{-198, 140}, {-182, 140}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(gain.y, QVCtrlErr.u2) annotation(
-    Line(points = {{-378, 80}, {-300, 80}, {-300, 94}, {-282, 94}}, color = {0, 0, 127}));
+    Line(points = {{-378, 80}, {-300, 80}, {-300, 94}, {-282, 94}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(lineDropCompensation1.U2Pu, QVCtrlErr.u1) annotation(
-    Line(points = {{-538, 94}, {-420, 94}, {-420, 106}, {-282, 106}}, color = {0, 0, 127}));
+    Line(points = {{-538, 94}, {-420, 94}, {-420, 106}, {-282, 106}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(voltageCheck.freeze, limPIDFreeze.freeze) annotation(
-    Line(points = {{122, 280}, {320, 280}, {320, 80}, {334, 80}, {334, 72}}, color = {255, 0, 255}));
+    Line(points = {{122, 280}, {320, 280}, {320, 80}, {334, 80}, {334, 72}}, color = {255, 0, 255}, thickness = 0.75));
   connect(voltageCheck.freeze, freeze) annotation(
-    Line(points = {{122, 280}, {610, 280}}, color = {255, 0, 255}));
+    Line(points = {{122, 280}, {610, 280}}, color = {255, 0, 255}, thickness = 0.75));
   connect(QRefPu, QCtrlErr.u2) annotation(
-    Line(points = {{-608, 0}, {-320, 0}, {-320, -6}, {-282, -6}}, color = {0, 0, 127}));
+    Line(points = {{-608, 0}, {-320, 0}, {-320, -6}, {-282, -6}}, color = {0, 0, 127}, pattern = LinePattern.Dash, thickness = 0.75));
   connect(deadZone1.y, gain1.u) annotation(
-    Line(points = {{-298, -180}, {-200, -180}, {-200, -140}, {-182, -140}}, color = {0, 0, 127}));
+    Line(points = {{-298, -180}, {-200, -180}, {-200, -140}, {-182, -140}}, color = {0, 0, 127}, thickness = 0.75));
   connect(deadZone1.y, gain2.u) annotation(
-    Line(points = {{-298, -180}, {-200, -180}, {-200, -220}, {-184, -220}}, color = {0, 0, 127}));
+    Line(points = {{-298, -180}, {-200, -180}, {-200, -220}, {-184, -220}}, color = {0, 0, 127}, thickness = 0.75));
   connect(PRefPu, add3.u1) annotation(
-    Line(points = {{-610, -40}, {-40, -40}, {-40, -52}, {-22, -52}}, color = {0, 0, 127}));
+    Line(points = {{-610, -40}, {-40, -40}, {-40, -52}, {-22, -52}}, color = {0, 0, 127}, thickness = 0.75));
   connect(lineDropCompensation1.U1Pu, switch2.u1) annotation(
-    Line(points = {{-538, 106}, {-520, 106}, {-520, 240}, {-240, 240}, {-240, 148}, {-222, 148}}, color = {0, 0, 127}));
+    Line(points = {{-538, 106}, {-520, 106}, {-520, 240}, {-240, 240}, {-240, 148}, {-222, 148}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(leadLag.y, QConvRefPu) annotation(
-    Line(points = {{402, 60}, {610, 60}}, color = {0, 0, 127}));
+    Line(points = {{402, 60}, {610, 60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(URefPu, UCtrlErr.u1) annotation(
-    Line(points = {{-610, 260}, {-80, 260}, {-80, 148}, {-62, 148}}, color = {0, 0, 127}));
+    Line(points = {{-610, 260}, {-80, 260}, {-80, 148}, {-62, 148}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(const1.y, UCtrlErr.u3) annotation(
-    Line(points = {{-99, 100}, {-80, 100}, {-80, 132}, {-62, 132}}, color = {0, 0, 127}));
+    Line(points = {{-99, 100}, {-80, 100}, {-80, 132}, {-62, 132}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(booleanConst.y, limPID.freeze) annotation(
-    Line(points = {{162, -100}, {194, -100}, {194, -72}}, color = {255, 0, 255}));
+    Line(points = {{162, -100}, {194, -100}, {194, -72}}, color = {255, 0, 255}, thickness = 0.75));
+  connect(voltageCheck.freeze, leadLag.freeze) annotation(
+    Line(points = {{122, 280}, {320, 280}, {320, 80}, {382, 80}, {382, 72}}, color = {255, 0, 255}, thickness = 0.75));
+  connect(wCtrlErr.y, deadZone1.u) annotation(
+    Line(points = {{-439, -180}, {-322, -180}}, color = {0, 0, 127}, thickness = 0.75));
 
   annotation(
     preferredView = "diagram",

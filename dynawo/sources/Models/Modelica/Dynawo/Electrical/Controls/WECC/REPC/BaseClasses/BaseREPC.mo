@@ -24,8 +24,6 @@ model BaseREPC "WECC Plant Control REPC common"
     Placement(visible = true, transformation(origin = {-610, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-79, 111}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omega0Pu) "Frequency at regulated bus in pu (base omegaNom)" annotation(
     Placement(visible = true, transformation(origin = {-610, -220}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 79}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omega0Pu) "Frequency setpoint in pu (base omegaNom)" annotation(
-    Placement(visible = true, transformation(origin = {-610, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, 41}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRefPu(start = PControl0Pu) "Active power setpoint at regulated bus in pu (base SNom) (generator convention)" annotation(
     Placement(visible = true, transformation(origin = {-610, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-111, -19}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput PRegPu(start = PControl0Pu) "Active power at regulated bus in pu (base SNom) (generator convention)" annotation(
@@ -86,9 +84,9 @@ model BaseREPC "WECC Plant Control REPC common"
   Modelica.Blocks.Math.Gain gain(k = Kc) annotation(
     Placement(visible = true, transformation(origin = {-390, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add wCtrlErr(k2 = -1) annotation(
-    Placement(visible = true, transformation(origin = {-350, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.DeadZone deadZone1(uMax = FDbd2Pu, uMin = -FDbd1Pu) annotation(
-    Placement(visible = true, transformation(origin = {-310, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(transformation(origin = {-450, -180}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Nonlinear.DeadZone deadZone1(uMax = FDbd2Pu, uMin = FDbd1Pu) annotation(
+    Placement(transformation(origin = {-310, -180}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Add dPfreq annotation(
     Placement(visible = true, transformation(origin = {-70, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = DDn) annotation(
@@ -105,12 +103,14 @@ model BaseREPC "WECC Plant Control REPC common"
     Placement(visible = true, transformation(origin = {340, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.BaseControls.VoltageCheck voltageCheck(UMinPu = VFrzPu, UMaxPu = 999) annotation(
     Placement(visible = true, transformation(origin = {110, 280}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.TransferFunction leadLag(a = {tFv, 1}, b = {tFt, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {QConv0Pu}, y_start = QConv0Pu) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.TransferFunctionFreeze leadLag(a = {tFv, 1}, b = {tFt, 1}, initType = Modelica.Blocks.Types.Init.InitialState, x_start = {QConv0Pu}, y_start = QConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {390, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.NonLinear.MultiSwitch multiSwitch(nu = 2) annotation(
     Placement(visible = true, transformation(origin = {200, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.IntegerConstant RefFlag0(k = RefFlag) annotation(
     Placement(visible = true, transformation(origin = {250, 120}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const2(k = 1) annotation(
+    Placement(transformation(origin = {-510, -140}, extent = {{-10, -10}, {10, 10}})));
 
   //Initial parameters
   parameter Types.ComplexCurrentPu iControl0Pu "Initial complex current to be controlled by the PPC coming either from the external bus or from the model's output terminal in pu (base UNom, SnRef) (receptor convention)";
@@ -124,63 +124,61 @@ model BaseREPC "WECC Plant Control REPC common"
 
 equation
   connect(PRegPu, firstOrder1.u) annotation(
-    Line(points = {{-610, -80}, {-422, -80}}, color = {0, 0, 127}));
+    Line(points = {{-610, -80}, {-422, -80}}, color = {0, 0, 127}, thickness = 0.75));
   connect(gain.u, QRegPu) annotation(
-    Line(points = {{-610, 40}, {-420, 40}, {-420, 80}, {-402, 80}}, color = {0, 0, 127}));
+    Line(points = {{-610, 40}, {-420, 40}, {-420, 80}, {-402, 80}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(switch.y, PConvRefPu) annotation(
-    Line(points = {{581, -80}, {610, -80}}, color = {0, 0, 127}));
-  connect(wCtrlErr.y, deadZone1.u) annotation(
-    Line(points = {{-339, -180}, {-322, -180}}, color = {0, 0, 127}));
+    Line(points = {{581, -80}, {610, -80}}, color = {0, 0, 127}, thickness = 0.75));
   connect(gain2.y, limiter1.u) annotation(
-    Line(points = {{-161, -220}, {-142, -220}}, color = {0, 0, 127}));
+    Line(points = {{-161, -220}, {-142, -220}}, color = {0, 0, 127}, thickness = 0.75));
   connect(Zero.y, limPID.u_m) annotation(
-    Line(points = {{219, -100}, {200, -100}, {200, -72}}, color = {0, 0, 127}));
+    Line(points = {{219, -100}, {200, -100}, {200, -72}}, color = {0, 0, 127}, thickness = 0.75));
   connect(PRefLim.y, limPID.u_s) annotation(
-    Line(points = {{161, -60}, {188, -60}}, color = {0, 0, 127}));
+    Line(points = {{161, -60}, {188, -60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(deadZone.y, QVErrLim.u) annotation(
-    Line(points = {{261, 60}, {278, 60}}, color = {0, 0, 127}));
+    Line(points = {{261, 60}, {278, 60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(firstOrder2.y, QCtrlErr.u1) annotation(
-    Line(points = {{-339, 40}, {-320, 40}, {-320, 6}, {-282, 6}}, color = {0, 0, 127}));
+    Line(points = {{-339, 40}, {-320, 40}, {-320, 6}, {-282, 6}}, color = {0, 0, 127}, pattern = LinePattern.Dash, thickness = 0.75));
   connect(gain1.y, limiter.u) annotation(
-    Line(points = {{-159, -140}, {-142, -140}}, color = {0, 0, 127}));
+    Line(points = {{-159, -140}, {-142, -140}}, color = {0, 0, 127}, thickness = 0.75));
   connect(VCompFlag0.y, switch2.u2) annotation(
-    Line(points = {{-259, 140}, {-222, 140}}, color = {255, 0, 255}));
+    Line(points = {{-259, 140}, {-222, 140}}, color = {255, 0, 255}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(uPu, lineDropCompensation1.u2Pu) annotation(
-    Line(points = {{-610, 80}, {-580, 80}, {-580, 94}, {-561, 94}}, color = {85, 170, 255}));
+    Line(points = {{-610, 80}, {-580, 80}, {-580, 94}, {-561, 94}}, color = {85, 170, 255}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(iPu, lineDropCompensation1.iPu) annotation(
-    Line(points = {{-610, 120}, {-580, 120}, {-580, 106}, {-561, 106}}, color = {85, 170, 255}));
+    Line(points = {{-610, 120}, {-580, 120}, {-580, 106}, {-561, 106}}, color = {85, 170, 255}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(QRegPu, firstOrder2.u) annotation(
-    Line(points = {{-610, 40}, {-362, 40}}, color = {0, 0, 127}));
+    Line(points = {{-610, 40}, {-362, 40}}, color = {0, 0, 127}, pattern = LinePattern.Dash, thickness = 0.75));
   connect(QVErrLim.y, limPIDFreeze.u_s) annotation(
-    Line(points = {{301, 60}, {328, 60}}, color = {0, 0, 127}));
+    Line(points = {{301, 60}, {328, 60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(Zero1.y, limPIDFreeze.u_m) annotation(
-    Line(points = {{379, 100}, {340, 100}, {340, 72}}, color = {0, 0, 127}));
-  connect(omegaRefPu, wCtrlErr.u1) annotation(
-    Line(points = {{-610, -140}, {-380, -140}, {-380, -174}, {-362, -174}}, color = {0, 0, 127}));
+    Line(points = {{379, 100}, {340, 100}, {340, 72}}, color = {0, 0, 127}, thickness = 0.75));
+  connect(const2.y, wCtrlErr.u1) annotation(
+    Line(points = {{-499, -140}, {-480, -140}, {-480, -174}, {-462, -174}}, color = {0, 0, 127}, thickness = 0.75));
   connect(dPfreq.y, add3.u3) annotation(
-    Line(points = {{-59, -180}, {-40, -180}, {-40, -68}, {-22, -68}}, color = {0, 0, 127}));
+    Line(points = {{-59, -180}, {-40, -180}, {-40, -68}, {-22, -68}}, color = {0, 0, 127}, thickness = 0.75));
   connect(QVCtrlErr.y, switch2.u3) annotation(
-    Line(points = {{-259, 100}, {-240, 100}, {-240, 132}, {-222, 132}}, color = {0, 0, 127}));
+    Line(points = {{-259, 100}, {-240, 100}, {-240, 132}, {-222, 132}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(FreqFlag0.y, switch.u2) annotation(
-    Line(points = {{521, -80}, {559, -80}}, color = {255, 0, 255}));
+    Line(points = {{521, -80}, {559, -80}}, color = {255, 0, 255}, thickness = 0.75));
   connect(const.y, switch.u3) annotation(
-    Line(points = {{521, -120}, {540, -120}, {540, -88}, {558, -88}}, color = {0, 0, 127}));
+    Line(points = {{521, -120}, {540, -120}, {540, -88}, {558, -88}}, color = {0, 0, 127}, thickness = 0.75));
   connect(limiter.y, dPfreq.u1) annotation(
-    Line(points = {{-119, -140}, {-100, -140}, {-100, -174}, {-82, -174}}, color = {0, 0, 127}));
+    Line(points = {{-119, -140}, {-100, -140}, {-100, -174}, {-82, -174}}, color = {0, 0, 127}, thickness = 0.75));
   connect(limiter1.y, dPfreq.u2) annotation(
-    Line(points = {{-119, -220}, {-100, -220}, {-100, -186}, {-82, -186}}, color = {0, 0, 127}));
+    Line(points = {{-119, -220}, {-100, -220}, {-100, -186}, {-82, -186}}, color = {0, 0, 127}, thickness = 0.75));
   connect(limPIDFreeze.y, leadLag.u) annotation(
-    Line(points = {{351, 60}, {378, 60}}, color = {0, 0, 127}));
+    Line(points = {{351, 60}, {378, 60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(RefFlag0.y, multiSwitch.f) annotation(
-    Line(points = {{239, 120}, {200, 120}, {200, 72}}, color = {255, 127, 0}));
+    Line(points = {{239, 120}, {200, 120}, {200, 72}}, color = {255, 127, 0}, thickness = 0.75));
   connect(multiSwitch.y, deadZone.u) annotation(
-    Line(points = {{211, 60}, {238, 60}}, color = {0, 0, 127}));
+    Line(points = {{211, 60}, {238, 60}}, color = {0, 0, 127}, thickness = 0.75));
   connect(QCtrlErr.y, multiSwitch.u[1]) annotation(
-    Line(points = {{-258, 0}, {-240, 0}, {-240, 20}, {180, 20}, {180, 60}, {190, 60}}, color = {0, 0, 127}));
+    Line(points = {{-258, 0}, {-240, 0}, {-240, 20}, {180, 20}, {180, 60}, {190, 60}}, color = {0, 0, 127}, pattern = LinePattern.Dash, thickness = 0.75));
   connect(UCtrlErr.y, multiSwitch.u[2]) annotation(
-    Line(points = {{-38, 140}, {180, 140}, {180, 60}, {190, 60}}, color = {0, 0, 127}));
+    Line(points = {{-38, 140}, {180, 140}, {180, 60}, {190, 60}}, color = {0, 0, 127}, pattern = LinePattern.Dot, thickness = 0.75));
   connect(firstOrder.y, switch.u1) annotation(
-    Line(points = {{522, -40}, {540, -40}, {540, -72}, {558, -72}}, color = {0, 0, 127}));
+    Line(points = {{522, -40}, {540, -40}, {540, -72}, {558, -72}}, color = {0, 0, 127}, thickness = 0.75));
 
   annotation(
     preferredView = "diagram",
@@ -193,5 +191,5 @@ equation
     version = "",
     uses(Modelica(version = "3.2.3")),
     __OpenModelica_commandLineOptions = "",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PConvRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-149, 34}, extent = {{-55, 40}, {21, -10}}, textString = "omegaRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "omegaPu"), Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QConvRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze"), Text(origin = {1, -132}, extent = {{-23, 10}, {21, -10}}, textString = "URefPu")}, coordinateSystem(initialScale = 0.1)));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {137, 74}, extent = {{-23, 10}, {41, -12}}, textString = "PConvRefPu"), Text(origin = {59, 110}, extent = {{-15, 12}, {11, -12}}, textString = "QPu"), Text(origin = {103, 110}, extent = {{-15, 12}, {11, -12}}, textString = "PPu"), Text(origin = {-53, 110}, extent = {{-15, 12}, {11, -12}}, textString = "iPu"), Text(origin = {-7, 110}, extent = {{-15, 12}, {11, -12}}, textString = "uPu"), Text(origin = {-149, -10}, extent = {{-23, 10}, {21, -10}}, textString = "PRefPu"), Text(origin = {-149, -52}, extent = {{-23, 10}, {21, -10}}, textString = "QRefPu"), Text(origin = {-151, 78}, extent = {{-31, 32}, {21, -10}}, textString = "omegaPu"), Text(origin = {139, -46}, extent = {{-23, 10}, {41, -12}}, textString = "QConvRefPu"), Text(origin = {137, 12}, extent = {{-23, 10}, {27, -8}}, textString = "freeze"), Text(origin = {1, -132}, extent = {{-23, 10}, {21, -10}}, textString = "URefPu")}, coordinateSystem(initialScale = 0.1)));
 end BaseREPC;

@@ -35,9 +35,9 @@ record ParamsREPC
     Dialog(tab = "Plant Control"));
   parameter Types.PerUnit EMinPu "Minimum Volt/VAR error in pu (base UNom or SNom)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit FDbd1Pu "Overfrequency deadband for governor response in pu (base omegaNom) (typical: 0.004)" annotation(
+  parameter Types.PerUnit FDbd1Pu "Overfrequency deadband for governor response in pu (base omegaNom) (< 0) (typical: -0.004)" annotation(
     Dialog(tab = "Plant Control"));
-  parameter Types.PerUnit FDbd2Pu "Underfrequency deadband for governor response in pu (base omegaNom) (typical: 0.004)" annotation(
+  parameter Types.PerUnit FDbd2Pu "Underfrequency deadband for governor response in pu (base omegaNom) (> 0) (typical: 0.004)" annotation(
     Dialog(tab = "Plant Control"));
   parameter Types.PerUnit FEMaxPu "Maximum frequency error in droop regulator in pu (base omegaNom)" annotation(
     Dialog(tab = "Plant Control"));

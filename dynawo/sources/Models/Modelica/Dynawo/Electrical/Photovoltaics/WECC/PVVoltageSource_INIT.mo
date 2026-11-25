@@ -103,7 +103,7 @@ equation
   iSource0Pu = - iInj0Pu * SystemBase.SnRef / SNom;
   uSource0Pu = uInj0Pu + Complex(RSourcePu * SystemBase.SnRef / SNom, XSourcePu * SystemBase.SnRef / SNom) * iInj0Pu;
 
-  PF0 = if (not(ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu / ComplexMath.'abs'(s0Pu) else 0;
+  PF0 = if (not(Modelica.ComplexMath.'abs'(s0Pu) == 0)) then (if P0Pu * Q0Pu >= 0 then 1 else -1) * abs(P0Pu) / Modelica.ComplexMath.'abs'(s0Pu) else 0;
   UdInj0Pu = cos(UPhaseInj0) * uInj0Pu.re + sin(UPhaseInj0) * uInj0Pu.im;
   UqInj0Pu = - sin(UPhaseInj0) * uInj0Pu.re + cos(UPhaseInj0) * uInj0Pu.im;
   Id0Pu = Modelica.Math.cos(UPhaseConv0) * iInj0Pu.re + Modelica.Math.sin(UPhaseConv0) * iInj0Pu.im;

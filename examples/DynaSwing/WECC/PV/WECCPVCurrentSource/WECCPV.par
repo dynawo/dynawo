@@ -112,7 +112,7 @@
     <par type="DOUBLE" name="photovoltaics_Dbd2Pu" value="0.1"/>
     <par type="DOUBLE" name="photovoltaics_EMaxPu" value="999"/>
     <par type="DOUBLE" name="photovoltaics_EMinPu" value="-999"/>
-    <par type="DOUBLE" name="photovoltaics_FDbd1Pu" value="0.004"/>
+    <par type="DOUBLE" name="photovoltaics_FDbd1Pu" value="-0.004"/>
     <par type="DOUBLE" name="photovoltaics_FDbd2Pu" value="1"/>
     <par type="DOUBLE" name="photovoltaics_FEMaxPu" value="999"/>
     <par type="DOUBLE" name="photovoltaics_FEMinPu" value="-999"/>

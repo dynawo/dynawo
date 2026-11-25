@@ -182,8 +182,6 @@ equation
     Line(points = {{70, 0}, {80, 0}}, color = {0, 0, 255}));
   connect(SourceMeasurements.uPu, wecc_regc.uInjPu) annotation(
     Line(points = {{26, -5}, {26, -13}, {-46, -13}, {-46, -11}}, color = {85, 170, 255}));
-  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
-    Line(points = {{-190, 38}, {-177, 38}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

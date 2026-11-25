@@ -344,8 +344,6 @@ equation
     Line(points = {{64, -44}, {64, -24}, {-86, -24}, {-86, -10}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-190, 58}, {-170, 58}}, color = {0, 0, 127}));
-  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
-    Line(points = {{-190, 58}, {-177, 58}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

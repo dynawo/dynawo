@@ -15,6 +15,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 
 model PVCurrentSource2 "WECC PV model with a current source as interface with the grid (REPC-C REEC-A REGC-A)"
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECa(omegaRefWTGQ0Pu = 1);
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REPC.ParamsREPCc;
   extends Dynawo.Electrical.Wind.WECC.BaseClasses.BasePCS;
@@ -31,8 +32,75 @@ model PVCurrentSource2 "WECC PV model with a current source as interface with th
   Modelica.Blocks.Interfaces.RealInput URefPu(start = URef0Pu) "Voltage setpoint for plant level control in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-190, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
+  Dynawo.Electrical.Controls.WECC.REEC.REECa wecc_reec(
+    DPMaxPu = DPMaxPu,
+    DPMinPu = DPMinPu,
+    Dbd1Pu = Dbd1Pu,
+    Dbd2Pu = Dbd2Pu,
+    IMaxPu = IMaxPu,
+    Id0Pu = Id0Pu,
+    Iq0Pu = Iq0Pu,
+    IqFrzPu = IqFrzPu,
+    Iqh1Pu = Iqh1Pu,
+    Iql1Pu = Iql1Pu,
+    Kqi = Kqi,
+    Kqp = Kqp,
+    Kqv = Kqv,
+    Kvi = Kvi,
+    Kvp = Kvp,
+    PF0 = PF0,
+    PFlag = PFlag,
+    PMaxREECPu = PMaxREECPu,
+    PMinREECPu = PMinREECPu,
+    PQFlag = PQFlag,
+    PfFlag = PfFlag,
+    QFlag = QFlag,
+    QMaxREECPu = QMaxREECPu,
+    QMinREECPu = QMinREECPu,
+    UInj0Pu = UInj0Pu,
+    VDLIp11 = VDLIp11,
+    VDLIp12 = VDLIp12,
+    VDLIp21 = VDLIp21,
+    VDLIp22 = VDLIp22,
+    VDLIp31 = VDLIp31,
+    VDLIp32 = VDLIp32,
+    VDLIp41 = VDLIp41,
+    VDLIp42 = VDLIp42,
+    VDLIq11 = VDLIq11,
+    VDLIq12 = VDLIq12,
+    VDLIq21 = VDLIq21,
+    VDLIq22 = VDLIq22,
+    VDLIq31 = VDLIq31,
+    VDLIq32 = VDLIq32,
+    VDLIq41 = VDLIq41,
+    VDLIq42 = VDLIq42,
+    VDipPu = VDipPu,
+    VFlag = VFlag,
+    VMaxPu = VMaxPu,
+    VMinPu = VMinPu,
+    VRef0Pu = VRef0Pu,
+    VRef1Pu = VRef1Pu,
+    VUpPu = VUpPu,
+    tHoldIpMax = tHoldIpMax,
+    tHoldIq = tHoldIq,
+    tIq = tIq,
+    tpREEC = tpREEC,
+    tPord = tPord,
+    tRv = tRv,
+    SNom = SNom,
+    PConv0Pu = PConv0Pu,
+    QConv0Pu = QConv0Pu,
+    s0Pu = s0Pu,
+    u0Pu = u0Pu,
+    uConv0Pu = uConv0Pu,
+    UConv0Pu = UConv0Pu) annotation(
+    Placement(visible = true, transformation(origin = {-80.1315, -0.1384}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.REPC.REPCc wecc_repc(DDn = DDn, DUp = DUp, DbdPu = DbdPu, EMaxPu = EMaxPu, EMinPu = EMinPu, FDbd1Pu = FDbd1Pu, FDbd2Pu = FDbd2Pu, FEMaxPu = FEMaxPu, FEMinPu = FEMinPu, FreqFlag = FreqFlag, Kc = Kc, Ki = Ki, Kig = Kig, Kp = Kp, Kpg = Kpg, PControl0Pu = PControl0Pu, PConv0Pu = PConv0Pu, PMaxREPCPu = PMaxREPCPu, PMinREPCPu = PMinREPCPu, QControl0Pu = QControl0Pu, QConv0Pu = QConv0Pu, QMaxREPCPu = QMaxREPCPu, QMinREPCPu = QMinREPCPu, RcPu = RPu, RefFlag = RefFlag, VCompFlag = VCompFlag, VFrzPu = VFrzPu, XcPu = XPu, iControl0Pu = iControl0Pu, tFilterPC = tFilterPC, tFt = tFt, tFv = tFv, tLag = tLag, tpREPC = tpREPC, uControl0Pu = uControl0Pu, tC = tC, tFrz = tFrz, PiMaxPu = PiMaxPu, PiMinPu = PiMinPu, PrMaxPu = PrMaxPu, PrMinPu = PrMinPu, DPrMaxPu = DPrMaxPu, DPrMinPu = DPrMinPu, URefMaxPu = URefMaxPu, URefMinPu = URefMinPu, QRefMaxPu = QRefMaxPu, QRefMinPu = QRefMinPu, DQRefMaxPu = DQRefMaxPu, DQRefMinPu = DQRefMinPu, QvrMaxPu = QvrMaxPu, QvrMinPu = QvrMinPu, PfMax = PfMax, PfMin = PfMin, tFrq = tFrq, FfwrdFlag = FfwrdFlag, PefdFlag = PefdFlag, UFreqPu = UFreqPu, QVFlag = QVFlag, DfMaxPu = DfMaxPu, DfMinPu = DfMinPu, SNom = SNom) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant omegaGPu(k = 1) annotation(
+    Placement(transformation(origin = {-105, -40}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant Pf(k = if not(PControl0Pu ^ 2 + QControl0Pu ^ 2 == 0) then (if PControl0Pu * QControl0Pu >= 0 then 1 else -1) * abs(PControl0Pu) / (sqrt(PControl0Pu ^ 2 + QControl0Pu ^ 2)) else 0) annotation(
+    Placement(transformation(origin = {-105, -20}, extent = {{5, -5}, {-5, 5}}, rotation = -0)));
 
   // Initial parameters
   parameter Types.ActivePowerPu P0Pu "Start value of active power at regulated bus in pu (base SnRef) (receptor convention)";
@@ -66,12 +134,28 @@ equation
     Line(points = {{20, 39}, {-117, 39}, {-117, 11}}, color = {0, 0, 127}));
   connect(switch.y, wecc_repc.PRegPu) annotation(
     Line(points = {{20, 23}, {-112, 23}, {-112, 11}}, color = {0, 0, 127}));
-  connect(omegaRefPu, wecc_repc.omegaRefPu) annotation(
-    Line(points = {{-190, 38}, {-177, 38}, {-177, 4}, {-132, 4}}, color = {0, 0, 127}));
   connect(PAuxPu, wecc_repc.PAuxPu) annotation(
     Line(points = {{-125, -70}, {-125, -11}}, color = {0, 0, 127}));
   connect(UAuxPu, wecc_repc.UAuxPu) annotation(
     Line(points = {{-155, -70}, {-155, -20}, {-128, -20}, {-128, -11}}, color = {0, 0, 127}));
+  connect(Pf.y, wecc_repc.Pf) annotation(
+    Line(points = {{-110, -20}, {-112, -20}, {-112, -10}}, color = {0, 0, 127}));
+  connect(omegaGPu.y, wecc_reec.omegaGPu) annotation(
+    Line(points = {{-100, -40}, {-85, -40}, {-85, -11}}, color = {0, 0, 127}));
+  connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
+    Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
+  connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
+    Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
+  connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
+    Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
+  connect(PFaRef, wecc_reec.PFaRef) annotation(
+    Line(points = {{-190, 60}, {-79, 60}, {-79, 11}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, wecc_reec.UPu) annotation(
+    Line(points = {{60, -6}, {60, -16}, {-74, -16}, {-74, -11}}, color = {0, 0, 127}));
+  connect(LvMeasurements.PPu, wecc_reec.PConvPu) annotation(
+    Line(points = {{62, -6}, {62, -20}, {-80, -20}, {-80, -11}}, color = {0, 0, 127}));
+  connect(LvMeasurements.QPu, wecc_reec.QConvPu) annotation(
+    Line(points = {{64, -6}, {64, -25}, {-89, -25}, {-89, -11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

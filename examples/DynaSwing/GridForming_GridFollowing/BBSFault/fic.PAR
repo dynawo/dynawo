@@ -148,7 +148,7 @@
     <par type="DOUBLE" name="WTG4A_Dbd2Pu" value="0.05"/>
     <par type="DOUBLE" name="WTG4A_EMaxPu" value="0.5"/>
     <par type="DOUBLE" name="WTG4A_EMinPu" value="-0.5"/>
-    <par type="DOUBLE" name="WTG4A_FDbd1Pu" value="0.004"/>
+    <par type="DOUBLE" name="WTG4A_FDbd1Pu" value="-0.004"/>
     <par type="DOUBLE" name="WTG4A_FDbd2Pu" value="1"/>
     <par type="DOUBLE" name="WTG4A_FEMaxPu" value="999"/>
     <par type="DOUBLE" name="WTG4A_FEMinPu" value="-999"/>

@@ -91,7 +91,7 @@ model PVVoltageSource2 "WECC PV Vsource Model on infinite bus"
     VCompFlag = false,
     VDipPu = 0.9,
     VFlag = true,
-    VFrz = 0,
+    VFrzPu = 0,
     VMaxPu = 1.1,
     VMinPu = 0.9,
     VRef0Pu = 1,

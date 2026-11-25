@@ -118,7 +118,7 @@ model BESSCurrentSourceExternalPCS "WECC BESS with REEC-C and REGC-A with a plan
     VDLIq42 = 0.75,
     VDipPu = -99,
     VFlag = true,
-    VFrz = 0,
+    VFrzPu = 0,
     VMaxPu = 1.1,
     VMinPu = 0.9,
     VRef0Pu = 1,
