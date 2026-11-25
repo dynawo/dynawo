@@ -229,13 +229,21 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
    */
   unsigned countNumberOfSwitchesToClose(const std::vector<std::string>& path) const;
 
+  /**
+   * @brief build the list of all currently closed switches
+   * @param filterRetainedSwitches \b true to consider retained switches as open
+   * @return the list of names (string IDs) of the closed switches
+   */
+  std::unordered_set<std::string> selectClosedEdges(bool filterRetainedSwitches) const;
+  static const bool INCLUDE_RETAINED_SWITCHES = false;  ///< indicates that even retained switches are to be added to the list, if currently closed
+  static const bool FILTER_RETAINED_SWITCHES = true;    ///< indicates that retained switches are not to be added to the list, even if currently closed
+
  private:
   powsybl::iidm::VoltageLevel& voltageLevelIIDM_;  ///< reference to the iidm voltageLevel instance
   bool isNodeBreakerTopology_;  ///< @b true if the topology of the voltageLevel is node breaker topology
   std::unordered_map<std::shared_ptr<SwitchInterface>, double, SwitchInterfaceHash> switchState_;  ///< state to apply to switch (due to topology change)
   std::map<std::string, std::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
   Graph graph_;  ///< topology graph to find node connection
-  std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
   std::vector<std::shared_ptr<BusInterface> > buses_;  ///< bus interface created
   std::vector<std::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view
   std::vector<std::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created

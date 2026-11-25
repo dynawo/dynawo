@@ -364,6 +364,13 @@ class ModelVoltageLevel : public NetworkComponent {
    */
   void defineGraph();
 
+  /**
+   * @brief build the list of all currently closed switches
+   * @return the list of names (string IDs) of the closed switches
+   */
+  std::unordered_set<std::string> selectClosedEdges();
+
+ private:
   boost::optional<Graph> graph_;  ///< topology graph to find node connection
   std::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
   std::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > > closestBBS_;  ///< node id -> closest bbs + shortest path
