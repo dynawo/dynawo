@@ -1470,13 +1470,7 @@ class Factory:
                 for L in var.get_start_text() :
                     if "FILE_INFO" not in L and "omc_assert_warning" not in L:
                         L = replace_var_names(L)
-                        for const_string in self.reader.list_of_stringconstants:
-                            if const_string+"," in L:
-                                L = L.replace(const_string+",", const_string+".c_str(),")
-                            elif const_string+";" in L:
-                                L = L.replace(const_string+";", const_string+".c_str();")
-                            elif const_string+" " in L:
-                                L = L.replace(const_string+" ", const_string+".c_str() ")
+                        L = self.string_constants_to_c_str(L)
                         self.list_for_sety0.append("  " + L)
 
                 if len(var.get_start_text()) > 1 : self.list_for_sety0.append("\n") # reading comfort
@@ -1538,6 +1532,21 @@ class Factory:
                 self.list_for_sety0.insert(index,line_tmp)
         return self.list_for_sety0
 
+    ##
+    # String constants (_OMC_LIT) are declared as std::string: convert them to const char* (modelica_string)
+    # @param self : object pointer
+    # @param line : line to transform
+    # @return the transformed line
+    def string_constants_to_c_str(self, line):
+        for const_string in self.reader.list_of_stringconstants:
+            if const_string+"," in line:
+                line = line.replace(const_string+",", const_string+".c_str(),")
+            elif const_string+";" in line:
+                line = line.replace(const_string+";", const_string+".c_str();")
+            elif const_string+" " in line:
+                line = line.replace(const_string+" ", const_string+".c_str() ")
+        return line
+
 
     ##
     # prepare the equations/variables for setY0 methods
@@ -1559,13 +1568,7 @@ class Factory:
             for L in var.get_start_text() :
                 if "FILE_INFO" not in L and "omc_assert_warning" not in L:
                     L = replace_var_names(L)
-                    for const_string in self.reader.list_of_stringconstants:
-                        if const_string+"," in L:
-                            L = L.replace(const_string+",", const_string+".c_str(),")
-                        elif const_string+";" in L:
-                            L = L.replace(const_string+";", const_string+".c_str();")
-                        elif const_string+" " in L:
-                            L = L.replace(const_string+" ", const_string+".c_str() ")
+                    L = self.string_constants_to_c_str(L)
                     self.list_for_callcustomparametersconstructors.append("  " + L)
 
             if len(var.get_start_text()) > 1 : self.list_for_callcustomparametersconstructors.append("\n") # reading comfort
@@ -2188,6 +2191,7 @@ class Factory:
 
             for L in getattr(par, start_text_getter)() :
                 L = replace_var_names(L)
+                L = self.string_constants_to_c_str(L)
                 line_par_by_param.append(L)
 
             if len(getattr(par, start_text_getter)()) > 1 : line_par_by_param.append("\n") # for enhanced readability

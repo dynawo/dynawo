@@ -488,10 +488,10 @@ static void GeneratorPQ_eqFunction_71(DATA *data, threadData_t *threadData)
       {
         const char* assert_cond = "(generator.NbSwitchOffSignals >= 1 and generator.NbSwitchOffSignals <= 3)";
         if (data->simulationInfo->noThrowAsserts) {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
+          FILE_INFO info = {"install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
           infoStreamPrintWithEquationIndexes(LOG_ASSERT, info, 0, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta4));
         } else {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
+          FILE_INFO info = {"install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffLogic.mo",18,3,18,119,0};
           omc_assert_warning_withEquationIndexes(info, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta4));
         }
       }
@@ -529,10 +529,10 @@ static void GeneratorPQ_eqFunction_72(DATA *data, threadData_t *threadData)
       {
         const char* assert_cond = "(generator.State0 >= Dynawo.Electrical.Constants.state.Open and generator.State0 <= Dynawo.Electrical.Constants.state.Undefined)";
         if (data->simulationInfo->noThrowAsserts) {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
+          FILE_INFO info = {"install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
           infoStreamPrintWithEquationIndexes(LOG_ASSERT, info, 0, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta10));
         } else {
-          FILE_INFO info = {"/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
+          FILE_INFO info = {"install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo/Electrical/Controls/Basics/SwitchOff/SwitchOffGenerator.mo",29,3,29,94,0};
           omc_assert_warning_withEquationIndexes(info, equationIndexes, "The following assertion has been violated %sat time %f\n(%s) --> \"%s\"", initial() ? "during initialization " : "", data->localData[0]->timeValue, assert_cond, MMC_STRINGDATA(tmpMeta10));
         }
       }

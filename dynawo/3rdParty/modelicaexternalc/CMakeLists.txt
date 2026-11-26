@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-# Build of the external C sources of the Modelica Standard Library 3.2.3 (Modelica/Resources/C-Sources)
+# Build of the external C sources of the Modelica Standard Library 4.1.0 (Modelica/Resources/C-Sources)
 # This file is copied into the extracted sources during the patch step (see 3rdParty/CMakeLists.txt)
 #
 # The library is static: it is embedded into the Dynawo library Modelica_externalC,

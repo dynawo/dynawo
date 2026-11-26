@@ -1103,12 +1103,19 @@ def transform_line(line):
     return line_tmp
 
 
+# With MSL >= 4.0, tables with linear segments call get*ValueNoDer2 (no second derivative function) instead of get*Value:
+# both have a first derivative and are replaced by the same adept function.
+# get*ValueNoDer (constant segments) has no derivative and is kept as is.
+TABLE_1D_VALUE_FUNC = r"omc_Modelica_Blocks_Tables_Internal_getTable1DValue(?:NoDer2)?"
+TABLE_2D_VALUE_FUNC = r"omc_Modelica_Blocks_Tables_Internal_getTable2DValue(?:NoDer2)?"
+TIME_TABLE_VALUE_FUNC = r"omc_Modelica_Blocks_Tables_Internal_getTimeTableValue(?:NoDer2)?"
+
 def replace_getTable1DValue(match):
     ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*[ ]*\*\/')
     text = match.group()
     match_state_var = ptrn_vars.search(match.group('var_input'))
     if match_state_var is not None:
-        text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTable1DValue", "ModelicaStandardTables_CombiTable1D_getDerValue")
+        text = re.sub(TABLE_1D_VALUE_FUNC + r"\(", "ModelicaStandardTables_CombiTable1D_getDerValue(", text, count=1)
     return text
 
 def replace_getTable2DValue(match):
@@ -1117,7 +1124,7 @@ def replace_getTable2DValue(match):
     match_state_var1 = ptrn_vars.search(match.group('var_input1'))
     match_state_var2 = ptrn_vars.search(match.group('var_input2'))
     if match_state_var1 is not None and match_state_var2 is not None:
-        text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTable2DValue", "ModelicaStandardTables_CombiTable2D_getDerValue")
+        text = re.sub(TABLE_2D_VALUE_FUNC + r"\(", "ModelicaStandardTables_CombiTable2D_getDerValue(", text, count=1)
     return text
 
 def replace_getTimeTableValue(match):
@@ -1126,7 +1133,7 @@ def replace_getTimeTableValue(match):
     text = match.group()
     match_state_var = ptrn_vars.search(match.group('var_input'))
     if match_state_var is not None:
-        text = text.replace("omc_Modelica_Blocks_Tables_Internal_getTimeTableValue", "ModelicaStandardTables_CombiTimeTable_getDerValue")
+        text = re.sub(TIME_TABLE_VALUE_FUNC + r"\(", "ModelicaStandardTables_CombiTimeTable_getDerValue(", text, count=1)
     return text
 
 
@@ -1135,29 +1142,31 @@ def replace_combi_table_jacobian_adept(line):
     and "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" not in line \
     and "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" not in line:
         return line
+    ptrn_1d = TABLE_1D_VALUE_FUNC + r"\([^,]+,[^,]+,\s*(?P<var_input>.*)\)"
+    ptrn_2d = TABLE_2D_VALUE_FUNC + r"\(.*,(?P<var_input1>.*),(?P<var_input2>.*)\)"
+    ptrn_t = TIME_TABLE_VALUE_FUNC + r"\(.*,.*,(?P<var_input>.*),.*,.*\)"
     if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line:
-        table_value_ptrn = re.compile(r"omc_Modelica_Blocks_Tables_Internal_getTable1DValue\([^,]+,[^,]+,\s*(?P<var_input>.*)\)")
-        line = re.sub(table_value_ptrn, replace_getTable1DValue, line)
+        line = re.sub(ptrn_1d, replace_getTable1DValue, line)
     if "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line:
-        table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTable2DValue\(.*,(?P<var_input1>.*),(?P<var_input2>.*)\)')
-        line = re.sub(table_value_ptrn, replace_getTable2DValue, line)
+        line = re.sub(ptrn_2d, replace_getTable2DValue, line)
     if "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line:
-        table_value_ptrn = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTimeTableValue\(.*,.*,(?P<var_input>.*),.*,.*\)')
-        line = re.sub(table_value_ptrn, replace_getTimeTableValue, line)
+        line = re.sub(ptrn_t, replace_getTimeTableValue, line)
 
-    match1d = re.search(r"omc_Modelica_Blocks_Tables_Internal_getTable1DValue\([^,]+,[^,]+,\s*(?P<var_input>.*)\)", line)
-    match2d = re.search(r'omc_Modelica_Blocks_Tables_Internal_getTable2DValue\(.*,(?P<var_input1>.*),(?P<var_input2>.*)\)', line)
-    matcht = re.search(r'omc_Modelica_Blocks_Tables_Internal_getTimeTableValue\(.*,.*,(?P<var_input>.*),.*,.*\)', line)
-    if "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" in line and match1d and ('derivativesVars' in match1d.group('var_input') or 'realVars' in match1d.group('var_input')):
-        if 'NoDer' not in line:
+    # a remaining call with a variable input means that the replacement failed
+    # (the greedy patterns may also catch the input of a get*ValueNoDer call, without derivative, on the same line)
+    match1d = re.search(ptrn_1d, line)
+    match2d = re.search(ptrn_2d, line)
+    matcht = re.search(ptrn_t, line)
+    if match1d and ('derivativesVars' in match1d.group('var_input') or 'realVars' in match1d.group('var_input')):
+        if 'NoDer(' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable1DValue in adept Jacobian.")
-    elif "omc_Modelica_Blocks_Tables_Internal_getTable2DValue" in line and match2d and ('derivativesVars' in match2d.group('var_input1') or 'realVars' in match2d.group('var_input1') or 'derivativesVars' in match2d.group('var_input2') or 'realVars' in match2d.group('var_input2')):
-        if 'NoDer' not in line:
+    elif match2d and ('derivativesVars' in match2d.group('var_input1') or 'realVars' in match2d.group('var_input1') or 'derivativesVars' in match2d.group('var_input2') or 'realVars' in match2d.group('var_input2')):
+        if 'NoDer(' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTable2DValue in adept Jacobian.")
-    elif "omc_Modelica_Blocks_Tables_Internal_getTimeTableValue" in line and matcht and ('derivativesVars' in matcht.group('var_input') or 'realVars' in matcht.group('var_input')):
-        if 'NoDer' not in line:
+    elif matcht and ('derivativesVars' in matcht.group('var_input') or 'realVars' in matcht.group('var_input')):
+        if 'NoDer(' not in line:
             print(line)
             sys.exit("Issue with the replacement of omc_Modelica_Blocks_Tables_Internal_getTimeTableValue in adept Jacobian.")
 
@@ -1421,12 +1430,39 @@ def format_for_modelica_reinit_evalmode(body):
     return text_to_return
 
 tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
+# argument of sqrt checked by omc before the call: tmp3 = a*a + b*b; if(!(tmp3 >= 0.0)) {throwStreamPrint(...)}
+asserted_arg_ptrn = re.compile(r'if\s*\(\s*!\s*\(\s*(?P<tmp>tmp[0-9]+)\s*>=\s*0\.0\s*\)\s*\)')
+
+##
+# Remove the blocks checking the argument of a function (sqrt) before its call
+# @param eq_body : a body of lines
+# @return the body without these blocks
+def remove_asserted_arg_blocks(eq_body):
+    res_body = []
+    depth = 0
+    in_block = False
+    for line in eq_body:
+        if not in_block and re.search(asserted_arg_ptrn, line) is not None:
+            in_block = True
+            depth = 0
+            continue
+        if in_block:
+            depth += line.count("{") - line.count("}")
+            if depth <= 0 and "}" in line:
+                in_block = False
+            continue
+        res_body.append(line)
+    return res_body
 
 def build_tmp_tree(eq_body):
     tmp_ptrn = re.compile(r'(?P<var1>tmp[0-9]+)')
+    asserted_arg_tmps = []
     tree_deps_tmp = {}
     boolean_tmps = []
     for line in eq_body:
+        match_asserted_arg = re.search(asserted_arg_ptrn, line)
+        if match_asserted_arg is not None:
+            asserted_arg_tmps.append(match_asserted_arg.group('tmp'))
         if re.search(tmp_eq_ptrn, line) is not None:
             main_tmp = line.split("=")[0].strip()
             value = line.split("=")[1]
@@ -1489,6 +1525,10 @@ def build_tmp_tree(eq_body):
                     if "tmp" in dep:
                         tree_deps_tmp[dep].append("IGNORED")
                         break
+
+    for tmp in asserted_arg_tmps:
+        if tmp in tree_deps_tmp:
+            tree_deps_tmp[tmp] = "IGNORED"
     return tree_deps_tmp
 ##
 # replace the equations in the if statement by others lines
@@ -1510,7 +1550,7 @@ def replace_equations_in_a_if_statement(eq_body, type_tree, line_to_insert_algeb
 
     types = type_tree.get_types()
     idx = 0
-    for line in eq_body:
+    for line in remove_asserted_arg_blocks(eq_body):
         if "modelica_real tmp" in line : continue
         if re.search(tmp_eq_ptrn, line) is not None:
             main_tmp = line.split("=")[0].strip()
@@ -1577,7 +1617,7 @@ def replace_equations_in_a_if_statement_y(eq_body, type_tree, alg_vars, diff_var
 
     idx = 0
     replacement_done = False
-    for line in eq_body:
+    for line in remove_asserted_arg_blocks(eq_body):
         if "modelica_real tmp" in line : continue
         if re.search(tmp_eq_ptrn, line) is not None:
             main_tmp = line.split("=")[0].strip()

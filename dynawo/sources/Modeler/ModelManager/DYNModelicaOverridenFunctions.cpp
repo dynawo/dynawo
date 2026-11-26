@@ -45,6 +45,7 @@ enum Smoothness {
     CONSTANT_SEGMENTS,
     FRITSCH_BUTLAND_MONOTONE_C1,
     STEFFEN_MONOTONE_C1,
+    MAKIMA_C1,
     AKIMA_C1 = CONTINUOUS_DERIVATIVE
 };
 
@@ -309,6 +310,7 @@ adept::adouble ModelicaStandardTables_CombiTable1D_getDerValue_adept(void* _tabl
                         break;
 
                     case AKIMA_C1:
+                    case MAKIMA_C1:
                     case FRITSCH_BUTLAND_MONOTONE_C1:
                     case STEFFEN_MONOTONE_C1:
                         if (NULL != tableID->spline) {
@@ -339,6 +341,7 @@ adept::adouble ModelicaStandardTables_CombiTable1D_getDerValue_adept(void* _tabl
                             }
 
                             case AKIMA_C1:
+                            case MAKIMA_C1:
                             case FRITSCH_BUTLAND_MONOTONE_C1:
                             case STEFFEN_MONOTONE_C1:
                                 if (NULL != tableID->spline) {
@@ -463,6 +466,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                 "not implemented\n");
                             return der_y;
 
+                        case MAKIMA_C1:
+                            ModelicaError("Bivariate modified Akima interpolation is "
+                                "not implemented\n");
+                            return der_y;
+
                         default:
                             ModelicaError("Unknown smoothness kind\n");
                             return der_y;
@@ -497,6 +505,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                 case FRITSCH_BUTLAND_MONOTONE_C1:
                                 case STEFFEN_MONOTONE_C1:
                                     ModelicaError("Bivariate monotone C1 interpolation is "
+                                        "not implemented\n");
+                                    return der_y;
+
+                                case MAKIMA_C1:
+                                    ModelicaError("Bivariate modified Akima interpolation is "
                                         "not implemented\n");
                                     return der_y;
 
@@ -588,6 +601,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                 "not implemented\n");
                             return der_y;
 
+                        case MAKIMA_C1:
+                            ModelicaError("Bivariate modified Akima interpolation is "
+                                "not implemented\n");
+                            return der_y;
+
                         default:
                             ModelicaError("Unknown smoothness kind\n");
                             return der_y;
@@ -622,6 +640,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                 case FRITSCH_BUTLAND_MONOTONE_C1:
                                 case STEFFEN_MONOTONE_C1:
                                     ModelicaError("Bivariate monotone C1 interpolation is "
+                                        "not implemented\n");
+                                    return der_y;
+
+                                case MAKIMA_C1:
+                                    ModelicaError("Bivariate modified Akima interpolation is "
                                         "not implemented\n");
                                     return der_y;
 
@@ -723,6 +746,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                     "not implemented\n");
                                 return der_y;
 
+                            case MAKIMA_C1:
+                                ModelicaError("Bivariate modified Akima interpolation is "
+                                    "not implemented\n");
+                                return der_y;
+
                             default:
                                 ModelicaError("Unknown smoothness kind\n");
                                 return der_y;
@@ -753,6 +781,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                     case FRITSCH_BUTLAND_MONOTONE_C1:
                                     case STEFFEN_MONOTONE_C1:
                                         ModelicaError("Bivariate monotone C1 interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
                                             "not implemented\n");
                                         return der_y;
 
@@ -818,6 +851,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                             "not implemented\n");
                                         return der_y;
 
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
                                     default:
                                         ModelicaError("Unknown smoothness kind\n");
                                         return der_y;
@@ -872,6 +910,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                             "not implemented\n");
                                         return der_y;
 
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
                                     default:
                                         ModelicaError("Unknown smoothness kind\n");
                                         return der_y;
@@ -922,6 +965,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                     case FRITSCH_BUTLAND_MONOTONE_C1:
                                     case STEFFEN_MONOTONE_C1:
                                         ModelicaError("Bivariate monotone C1 interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
                                             "not implemented\n");
                                         return der_y;
 
@@ -979,6 +1027,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                     case FRITSCH_BUTLAND_MONOTONE_C1:
                                     case STEFFEN_MONOTONE_C1:
                                         ModelicaError("Bivariate monotone C1 interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
                                             "not implemented\n");
                                         return der_y;
 
@@ -1049,6 +1102,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                             "not implemented\n");
                                         return der_y;
 
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
                                     default:
                                         ModelicaError("Unknown smoothness kind\n");
                                         return der_y;
@@ -1100,6 +1158,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                     case FRITSCH_BUTLAND_MONOTONE_C1:
                                     case STEFFEN_MONOTONE_C1:
                                         ModelicaError("Bivariate monotone C1 interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
                                             "not implemented\n");
                                         return der_y;
 
@@ -1167,6 +1230,11 @@ adept::adouble ModelicaStandardTables_CombiTable2D_getDerValue_adept(void* _tabl
                                     case FRITSCH_BUTLAND_MONOTONE_C1:
                                     case STEFFEN_MONOTONE_C1:
                                         ModelicaError("Bivariate monotone C1 interpolation is "
+                                            "not implemented\n");
+                                        return der_y;
+
+                                    case MAKIMA_C1:
+                                        ModelicaError("Bivariate modified Akima interpolation is "
                                             "not implemented\n");
                                         return der_y;
 
@@ -1364,6 +1432,7 @@ adept::adouble ModelicaStandardTables_CombiTimeTable_getDerValue_adept(void* _ta
                             break;
 
                         case AKIMA_C1:
+                        case MAKIMA_C1:
                         case FRITSCH_BUTLAND_MONOTONE_C1:
                         case STEFFEN_MONOTONE_C1:
                             if (NULL != tableID->spline) {
@@ -1397,6 +1466,7 @@ adept::adouble ModelicaStandardTables_CombiTimeTable_getDerValue_adept(void* _ta
                                 }
 
                                 case AKIMA_C1:
+                                case MAKIMA_C1:
                                 case FRITSCH_BUTLAND_MONOTONE_C1:
                                 case STEFFEN_MONOTONE_C1:
                                     if (NULL != tableID->spline) {
