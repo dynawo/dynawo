@@ -22,6 +22,7 @@
 
 import argparse
 import bisect
+import collections
 import difflib
 import errno
 import importlib
@@ -31,7 +32,9 @@ import mimetypes
 import os
 import re
 import shutil
+import signal
 import socketserver
+import subprocess
 import sys
 import threading
 import time
@@ -103,10 +106,10 @@ DIFF_CONTEXT_LINES = 3
 CSRF_HEADER = "X-NRT-Viewer"
 # --exit-on-close: the pages send a heartbeat, and a last message when they are closed. The server stops when no page is open:
 # - CLOSE_GRACE_DELAY after the last page was closed (a page reload also sends the closing message, then reconnects)
-# - HEARTBEAT_TIMEOUT without heartbeat (browser killed): browsers slow down the timers of background tabs
-#   (Chrome: once per minute), so it must stay well above one minute
-HEARTBEAT_PERIOD = 20
-HEARTBEAT_TIMEOUT = 150
+# - HEARTBEAT_TIMEOUT without heartbeat (closing message lost, browser killed). The heartbeat is sent by a web worker,
+#   whose timers are not slowed down in background tabs (contrary to the page ones, down to once per minute in Chrome)
+HEARTBEAT_PERIOD = 5
+HEARTBEAT_TIMEOUT = 20
 CLOSE_GRACE_DELAY = 10
 # timestamp at the beginning of a log line, e.g. "2026-11-16 09:34:26,123 | INFO | ..."
 LOG_TIMESTAMP_REGEX = re.compile(r"^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?\s*")
@@ -115,6 +118,8 @@ INLINE_TOKEN_REGEX = re.compile(r"[-+]?\d+(?:\.\d*)?(?:[eE][-+]?\d+)?|\w+|\s+|."
 MAX_INLINE_DIFF_LENGTH = 2000  # longer lines are not highlighted
 MIN_INLINE_DIFF_RATIO = 0.3  # lines sharing less than that are shown as entirely different
 HDF5_EXTENSIONS = (".h5", ".hdf5")
+# simulations run again from the viewer: last console lines kept, sent by chunks to the page
+RUN_MAX_LINES = 5000
 # nrtDiff messages may contain html markup (e.g. <font color="red">)
 HTML_TAG_REGEX = re.compile(r"<[^>]+>")
 
@@ -143,6 +148,7 @@ class NrtResults:
         self.curves_cache_ = {} # path -> (mtime, curves)
         self.iidm_cache_ = {} # (output path, reference path) -> (mtimes, differences)
         self.dtw_cache_ = {} # (output path, reference path, mtimes, curve name, max dtw) -> verdict
+        self.runs_ = {} # case id -> Run, simulations run again from the viewer
 
     ##
     # (Re)load the json file if it changed since last load (e.g. a new NRT run)
@@ -198,10 +204,13 @@ class NrtResults:
         summary.setdefault("results_file", os.path.realpath(self.results_path_) if self.results_path_ else "")
         summary["read_only"] = self.read_only_
         summary["compare_default"] = self.compare_default_
+        summary["run_unavailable"] = self.runUnavailable()
         cases = []
         for case in self.data_.get("cases", []):
             case = dict(case)
             case["reference_updated"] = list(self.accepted_.get(self.jobsDir(case), []))
+            # outputs run again from the viewer: the comparison statuses are not up to date anymore
+            case["rerun"] = case["case"] in self.runs_
             cases.append(case)
         summary["cases"] = cases
         return summary
@@ -221,7 +230,9 @@ class NrtResults:
             if relative_output_dir.startswith(os.pardir):
                 continue
             snapshot_dir = job.get("snapshot_dir") or ""
-            read_dir = snapshot_dir if os.path.isdir(snapshot_dir) else output_dir
+            # once run again from the viewer, the fresh outputs are read instead of the NRT snapshot
+            use_snapshot = os.path.isdir(snapshot_dir) and case.get("case") not in self.runs_
+            read_dir = snapshot_dir if use_snapshot else output_dir
             roots.append((os.path.normpath(relative_output_dir), read_dir, job.get("job")))
         # longest relative path first so that nested output directories are matched first
         roots.sort(key=lambda root: len(root[0]), reverse=True)
@@ -711,6 +722,104 @@ class NrtResults:
                     accepted.append(relative_path)
         return {"copied": copied}
 
+    ##
+    # Why the simulations cannot be run again from the viewer, None when they can
+    def runUnavailable(self):
+        if self.read_only_:
+            return "the viewer was started in read-only mode"
+        if not os.getenv("DYNAWO_ENV_DYNAWO"):
+            return "DYNAWO_ENV_DYNAWO is not defined (start the viewer with envDynawo.sh nrt-viewer)"
+        return None
+
+    ##
+    # Run the jobs file of a case again, with the same command as nrt.py: $DYNAWO_ENV_DYNAWO jobs <jobs file>
+    # The command is built here from the case: the page only gives the case id
+    def startRun(self, case):
+        reason = self.runUnavailable()
+        if reason is not None:
+            raise ViewerError(403, "Simulations cannot be run from the viewer: " + reason)
+        with self.lock_:
+            run = self.runs_.get(case["case"])
+            if run is not None and run.isRunning():
+                raise ViewerError(409, "The simulation of this case is already running")
+            self.runs_[case["case"]] = Run([os.environ["DYNAWO_ENV_DYNAWO"], "jobs", case["jobs_file"]], self.jobsDir(case))
+        return self.runStatus(case, 0)
+
+    ##
+    # @param since : number of console lines already received by the page
+    def runStatus(self, case, since):
+        run = self.runs_.get(case["case"])
+        if run is None:
+            return {"status": None}
+        return run.status(since)
+
+    def stopRun(self, case):
+        run = self.runs_.get(case["case"])
+        if run is None or not run.isRunning():
+            raise ViewerError(409, "No simulation running for this case")
+        run.stop()
+        return run.status(0)
+
+
+##
+# A simulation run in the background, its console output being kept for the page
+class Run:
+    def __init__(self, command, directory):
+        self.command_ = command
+        self.lock_ = threading.Lock()
+        self.lines_ = collections.deque(maxlen=RUN_MAX_LINES)
+        self.nb_lines_ = 0 # lines received since the start (the oldest ones are dropped from lines_)
+        self.start_ = time.time()
+        self.end_ = None
+        self.stopped_ = False
+        print("Running " + " ".join(command))
+        # own process group: the stop button stops the launcher and the simulation it started
+        self.process_ = subprocess.Popen(command, cwd=directory, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                         stdin=subprocess.DEVNULL, start_new_session=True)
+        reader = threading.Thread(target=self.read, name="run-output")
+        reader.daemon = True
+        reader.start()
+
+    def read(self):
+        for line in self.process_.stdout:
+            with self.lock_:
+                self.lines_.append(line.decode("utf-8", errors="replace").rstrip("\r\n"))
+                self.nb_lines_ += 1
+        self.process_.wait()
+        with self.lock_:
+            self.end_ = time.time()
+        print("End of " + " ".join(self.command_) + " (return code " + str(self.process_.returncode) + ")")
+
+    def isRunning(self):
+        with self.lock_:
+            return self.end_ is None
+
+    def stop(self):
+        with self.lock_:
+            self.stopped_ = True
+        try:
+            if hasattr(os, "killpg"):
+                os.killpg(self.process_.pid, signal.SIGTERM)
+            else:
+                self.process_.terminate()
+        except OSError:
+            pass # already finished
+
+    def status(self, since):
+        with self.lock_:
+            first = self.nb_lines_ - len(self.lines_) # index of the oldest line kept
+            start = max(since, first)
+            lines = list(self.lines_)[start - first:]
+            if self.end_ is None:
+                status = "running"
+            elif self.stopped_:
+                status = "stopped"
+            else:
+                status = "OK" if self.process_.returncode == 0 else "KO"
+            return {"status": status, "return_code": self.process_.returncode if self.end_ is not None else None,
+                    "command": " ".join(self.command_), "elapsed": (self.end_ or time.time()) - self.start_,
+                    "lines": lines, "next": self.nb_lines_, "skipped": start > since}
+
 
 ##
 # Outputs of jobs files run outside of the NRT (e.g. envDynawo.sh jobs-with-curves): one case per jobs file,
@@ -994,10 +1103,15 @@ class OpenPages:
             self.expiry_[str(page)] = time.time() + HEARTBEAT_TIMEOUT
             self.seen_ = True
 
+    ##
+    # @return whether the page is known (page ids are random: another web site cannot guess one)
     def closed(self, page):
         with self.lock_:
-            if str(page) in self.expiry_:
-                self.expiry_[str(page)] = time.time() + CLOSE_GRACE_DELAY
+            if str(page) not in self.expiry_:
+                return False
+            self.expiry_[str(page)] = time.time() + CLOSE_GRACE_DELAY
+        print("Viewer page closed: the server stops in " + str(CLOSE_GRACE_DELAY) + " s if no page is opened again")
+        return True
 
     def allClosed(self):
         now = time.time()
@@ -1084,6 +1198,9 @@ class ViewerHandler(BaseHTTPRequestHandler):
             elif url.path == "/api/dtw":
                 case = self.results.getCase(query.get("case"))
                 self.sendJson(sanitize(self.results.curveDtw(case, query.get("path"), query.get("name"))))
+            elif url.path == "/api/run":
+                case = self.results.getCase(query.get("case"))
+                self.sendJson(sanitize(self.results.runStatus(case, toInt(query.get("since"), 0))))
             elif url.path == "/api/curve":
                 case = self.results.getCase(query.get("case"))
                 self.sendJson(sanitize(self.results.curve(case, query.get("path"), query.get("name"))))
@@ -1098,21 +1215,30 @@ class ViewerHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         url = urlparse(self.path)
         try:
-            # a custom header cannot be sent cross-origin without a preflight that this server never accepts:
-            # it prevents another web page from triggering a reference update
-            if self.headers.get(CSRF_HEADER) != "1":
-                raise ViewerError(403, "Missing " + CSRF_HEADER + " header")
             length = int(self.headers.get("Content-Length", "0"))
             body = json.loads(self.rfile.read(length).decode("utf-8") or "{}")
+            # closing message sent by navigator.sendBeacon, which cannot add a header: it only acts on a page id
+            # given to the server by a heartbeat, that another web page cannot know
+            if url.path == "/api/closed":
+                known = self.open_pages is not None and self.open_pages.closed(body.get("page"))
+                self.sendJson({"closed": known})
+                return
+            # a custom header cannot be sent cross-origin without a preflight that this server never accepts:
+            # it prevents another web page from triggering a reference update or a simulation
+            if self.headers.get(CSRF_HEADER) != "1":
+                raise ViewerError(403, "Missing " + CSRF_HEADER + " header")
             if url.path == "/api/accept":
                 case = self.results.getCase(body.get("case"))
                 self.sendJson(self.results.acceptReference(case, body.get("paths") or []))
-            elif url.path in ("/api/heartbeat", "/api/closed"):
+            elif url.path == "/api/run":
+                case = self.results.getCase(body.get("case"))
+                self.sendJson(sanitize(self.results.startRun(case)))
+            elif url.path == "/api/run/stop":
+                case = self.results.getCase(body.get("case"))
+                self.sendJson(sanitize(self.results.stopRun(case)))
+            elif url.path == "/api/heartbeat":
                 if self.open_pages is not None:
-                    if url.path == "/api/heartbeat":
-                        self.open_pages.heartbeat(body.get("page"))
-                    else:
-                        self.open_pages.closed(body.get("page"))
+                    self.open_pages.heartbeat(body.get("page"))
                 self.sendJson({"exit_on_close": self.open_pages is not None})
             elif url.path == "/api/series":
                 # POST as the list of curve names may be too long for a URL (nothing is modified)

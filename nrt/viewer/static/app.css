@@ -372,7 +372,7 @@ table.cases.iidm tbody tr { cursor: default; }
 .curves { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 12px; }
 @media (max-width: 800px) { .curves { grid-template-columns: 1fr; } }
 .var-list { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; max-height: 72vh; }
-.var-list input { border: none; border-bottom: 1px solid var(--border); border-radius: 0; min-width: 0; width: 100%; }
+.var-list input[type=search] { border: none; border-bottom: 1px solid var(--border); border-radius: 0; min-width: 0; width: 100%; }
 .var-list .var-filter { padding: 5px 9px; border-bottom: 1px solid var(--border); }
 .var-list .vname .badge { font-size: 10.5px; padding: 0 6px; margin-right: 2px; }
 .var-list ul { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
@@ -393,13 +393,21 @@ table.cases.iidm tbody tr { cursor: default; }
 /* exploration without reference: several curves plotted together */
 .var-list .var-actions { display: flex; gap: 6px; align-items: center; padding: 5px 9px; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text-muted); }
 .var-list .var-actions .spacer { flex: 1; }
-.var-list li.pick { display: flex; gap: 7px; align-items: flex-start; }
-.var-list li.pick input { margin: 2px 0 0; flex: none; }
+.var-list li.pick, .var-list .pick-header { display: flex; gap: 7px; align-items: flex-start; }
+.var-list li.pick { cursor: default; }
+.var-list li.pick input { margin: 2px 0 0; flex: none; cursor: pointer; }
 .var-list li.pick .vname { flex: 1; min-width: 0; }
 .var-list li.pick.checked { background: var(--accent-soft); }
+.var-list .pick-header { padding: 4px 9px; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
+.var-list .pick-header span:nth-child(2) { flex: 1; }
+.var-list .swatches { display: inline-flex; flex-direction: column; gap: 2px; flex: none; margin-top: 3px; }
 .series-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 6px 0 0; font-size: 12px; font-family: var(--mono); color: var(--text); }
 .series-legend span { display: inline-flex; align-items: center; gap: 5px; min-width: 0; overflow-wrap: anywhere; }
 .series-legend svg { flex: none; }
+
+/* simulation run again from the viewer */
+.run-command { font-size: 11.5px; color: var(--text-muted); overflow-wrap: anywhere; margin-bottom: 6px; }
+pre.console.run-console { max-height: 220px; font-size: 11.5px; }
 
 /* switch between the comparison with the references and the exploration of the outputs */
 .compare-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text); cursor: pointer; white-space: nowrap; }

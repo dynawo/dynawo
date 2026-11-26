@@ -387,12 +387,12 @@
     };
   }
 
-  // Several curves sharing the same time grid on one plot
-  // @param data : { t: times, series: [{ name, v }] }
+  // Several curves sharing the same time grid on one plot, each one on the left (1) or right (2) value axis
+  // @param data : { t: times, series: [{ name, v, axis }] }
   class MultiChart {
     constructor(container, data) {
       this.container = container;
-      this.series = data.series.map(s => ({ name: s.name, t: data.t, v: s.v }));
+      this.series = data.series.map(s => ({ name: s.name, t: data.t, v: s.v, axis: s.axis === 2 ? 2 : 1 }));
       const t = data.t;
       this.fullDomain = t.length ? [t[0], t[t.length - 1]] : [0, 1];
       if (!(this.fullDomain[1] > this.fullDomain[0])) this.fullDomain = [this.fullDomain[0] - 1, this.fullDomain[0] + 1];
@@ -422,7 +422,11 @@
     draw() {
       const width = this.container.clientWidth;
       if (width <= 0) return;
-      const plotWidth = width - MARGIN.left - MARGIN.right;
+      const hasRight = this.series.some(s => s.axis === 2);
+      const hasLeft = this.series.some(s => s.axis === 1);
+      // room for the right axis labels when it is used
+      const marginRight = hasRight ? MARGIN.left : MARGIN.right;
+      const plotWidth = width - MARGIN.left - marginRight;
       const height = MAIN_HEIGHT + 60;
       const totalHeight = height + MARGIN.top + MARGIN.bottom;
       this.container.innerHTML = "";
@@ -432,15 +436,30 @@
       const xInverse = px => x0 + (px - MARGIN.left) / plotWidth * (x1 - x0);
       const y0 = MARGIN.top;
       const y1 = y0 + height;
-      const [vMin, vMax] = valueRange(this.series, x0, x1);
-      const yScale = v => y1 - (v - vMin) / (vMax - vMin) * height;
+      // each axis has its own value range
+      const scales = {};
+      for (const axis of [1, 2]) {
+        const [vMin, vMax] = valueRange(this.series.filter(s => s.axis === axis), x0, x1);
+        scales[axis] = { vMin: vMin, vMax: vMax, y: v => y1 - (v - vMin) / (vMax - vMin) * height };
+      }
       const clipId = "clip-" + Math.random().toString(36).slice(2);
       svgElement("clipPath", { id: clipId }, svg).appendChild(svgElement("rect", { x: MARGIN.left, y: y0, width: plotWidth, height: height }));
 
-      for (const tick of niceTicks(vMin, vMax, 7)) {
-        const y = yScale(tick);
-        svgElement("line", { class: "grid", x1: MARGIN.left, x2: MARGIN.left + plotWidth, y1: y, y2: y }, svg);
-        svgElement("text", { class: "axis-label", x: MARGIN.left - 6, y: y + 3.5, "text-anchor": "end" }, svg).textContent = formatNumber(tick);
+      // horizontal grid lines follow the left axis (the right one when only the right axis is used)
+      const gridAxis = hasLeft || !hasRight ? 1 : 2;
+      for (const axis of [1, 2]) {
+        if ((axis === 1 && !hasLeft && hasRight) || (axis === 2 && !hasRight)) continue;
+        const scale = scales[axis];
+        for (const tick of niceTicks(scale.vMin, scale.vMax, 7)) {
+          const y = scale.y(tick);
+          if (axis === gridAxis) svgElement("line", { class: "grid", x1: MARGIN.left, x2: MARGIN.left + plotWidth, y1: y, y2: y }, svg);
+          const labelX = axis === 1 ? MARGIN.left - 6 : MARGIN.left + plotWidth + 6;
+          svgElement("text", { class: "axis-label", x: labelX, y: y + 3.5, "text-anchor": axis === 1 ? "end" : "start" }, svg).textContent = formatNumber(tick);
+        }
+      }
+      if (hasLeft && hasRight) {
+        svgElement("text", { class: "axis-label", x: MARGIN.left - 6, y: y0 - 1, "text-anchor": "end" }, svg).textContent = "left";
+        svgElement("text", { class: "axis-label", x: MARGIN.left + plotWidth + 6, y: y0 - 1, "text-anchor": "start" }, svg).textContent = "right";
       }
       for (const tick of niceTicks(x0, x1, Math.max(2, Math.floor(plotWidth / 90)))) {
         const x = xScale(tick);
@@ -449,6 +468,7 @@
       }
       this.series.forEach((series, index) => {
         const style = seriesStyle(index);
+        const yScale = scales[series.axis].y;
         let path = "";
         let pen = false;
         for (const i of decimate(series, x0, x1, plotWidth)) {
@@ -464,12 +484,13 @@
 
       bindInteraction(this, svg, width, plotWidth, totalHeight, xInverse, x => {
         // values at the cursor, largest first, limited to keep the tooltip readable
-        const values = this.series.map((series, index) => ({ name: series.name, index: index, value: interpolate(series, x) }))
+        const values = this.series.map((series, index) => ({ name: series.name, axis: series.axis, index: index, value: interpolate(series, x) }))
           .filter(item => !Number.isNaN(item.value))
           .sort((a, b) => b.value - a.value);
         const shown = values.slice(0, MAX_TOOLTIP_SERIES);
         return "t = " + formatNumber(x) + shown.map(item =>
-          "<br><span style='color:" + seriesStyle(item.index).color + "'>■</span> " + escapeText(item.name) + "  " + formatNumber(item.value)).join("") +
+          "<br><span style='color:" + seriesStyle(item.index).color + "'>■</span> " + escapeText(item.name) +
+          (hasLeft && hasRight ? (item.axis === 2 ? " (right)" : " (left)") : "") + "  " + formatNumber(item.value)).join("") +
           (values.length > shown.length ? "<br>… " + (values.length - shown.length) + " more" : "");
       });
     }

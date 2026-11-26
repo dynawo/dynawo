@@ -395,14 +395,19 @@
       "<div class='case-header'><h1>" + escapeHtml(testCase.name) + "</h1>" +
         "<span class='badge " + cat.cls + "'>" + cat.badge + "</span>" +
         (compare && updated.length ? "<span class='badge info'>reference updated</span>" : "") +
+        (compare && testCase.rerun ? "<span class='badge warn' title='The comparison statuses come from the NRT run'>run again since the comparison</span>" : "") +
         "<span class='spacer'></span>" +
         (compare ? "<button class='btn btn-update" + (nbFailingFiles ? " btn-danger" : "") + "' id='accept-button'" +
-          (state.results.read_only ? " disabled title='Viewer started in read-only mode'" : "") + ">" + escapeHtml(acceptLabel) + "</button>" : "") +
+          (state.results.read_only ? " disabled title='Viewer started in read-only mode'" : "") + ">" + escapeHtml(acceptLabel) + "</button>"
+          : "<button class='btn btn-update' id='run-button'" +
+            (state.results.run_unavailable ? " disabled title='" + escapeHtml("Unavailable: " + state.results.run_unavailable) + "'"
+              : " title='Run the jobs file of this case again (outputs overwritten)'") + ">Run again</button>") +
       "</div>" +
       "<div class='case-sub'>" + escapeHtml(testCase.description) + "</div>" +
       "<div class='case-layout'>" +
         // sticky side column: the file list stays reachable while the viewer is scrolled
         "<div class='case-side'>" +
+          "<section class='panel' id='run-panel' hidden></section>" +
           "<section class='panel'><h2>" + (compare ? "Files" : "Output files") + "<span class='spacer'></span>" +
             (compare ? "<label class='check' title='Only show the files whose comparison with the reference failed'>" +
               "<input type='checkbox' id='files-ko-only'" + (state.filesKoOnly ? " checked" : "") + "> KO only</label>" : "") +
@@ -432,6 +437,9 @@
         navigator.clipboard.writeText(testCase.command).then(() => toast("Command copied"), () => toast("Copy failed", true));
       });
     }
+    if (!compare) {
+      document.getElementById("run-button").addEventListener("click", () => startRun(testCase));
+    }
     if (compare) {
       document.getElementById("accept-button").addEventListener("click", () => openAcceptDialog(testCase));
       document.getElementById("files-ko-only").addEventListener("change", event => {
@@ -453,6 +461,7 @@
       return;
     }
     renderFileList(testCase);
+    followRun(testCase);
     if (!params.get("file")) {
       const files = viewTree();
       const preferred = files.find(f => f.status === "KO") || files.find(f => f.status === "Warn") ||
@@ -984,8 +993,10 @@
     }
     const maxSeries = summary.max_series || 50;
     const key = testCase.case + "|" + file.path;
-    let selection = (state.exploreSelection[key] || []).filter(name => names.includes(name));
-    if (!selection.length) selection = [names[0]];
+    // plotted curves in order: { name, axis } with axis 1 (left) or 2 (right); a curve may be on both axes
+    let selection = (state.exploreSelection[key] || []).filter(item => names.includes(item.name));
+    if (!selection.length) selection = [{ name: names[0], axis: 1 }];
+    const indexOf = (name, axis) => selection.findIndex(item => item.name === name && item.axis === axis);
     const range = summary.out_range ? " · t from " + formatNumber(summary.out_range[0]) + " to " + formatNumber(summary.out_range[1]) : "";
 
     body.innerHTML =
@@ -996,6 +1007,7 @@
           "<div class='var-actions'><span id='var-count'></span><span class='spacer'></span>" +
             "<button class='btn btn-small' id='var-select-shown' title='Tick every curve matching the filter'>Select shown</button>" +
             "<button class='btn btn-small' id='var-clear'>Clear</button></div>" +
+          "<div class='pick-header'><span title='Plot on the left axis'>L</span><span>Curves</span><span title='Plot on the right axis'>R</span></div>" +
           "<ul id='var-items'></ul></div>" +
         "<div class='chart-area'>" +
           "<div class='chart-tools'><span class='spacer' style='flex:1'></span><button class='btn btn-small' id='zoom-reset'>Reset zoom</button></div>" +
@@ -1015,20 +1027,26 @@
       const shown = shownNames();
       document.getElementById("var-count").textContent = selection.length + " / " + names.length + " plotted";
       items.innerHTML = shown.length ? shown.map(name => {
-        const index = selection.indexOf(name);
-        return "<li class='pick" + (index >= 0 ? " checked" : "") + "' data-name='" + escapeHtml(name) + "'>" +
-          "<input type='checkbox' tabindex='-1'" + (index >= 0 ? " checked" : "") + ">" +
-          "<div class='vname'>" + escapeHtml(name) + "</div>" + (index >= 0 ? seriesSwatch(index) : "") + "</li>";
+        const left = indexOf(name, 1);
+        const right = indexOf(name, 2);
+        const box = (axis, index) => "<input type='checkbox' data-axis='" + axis + "' title='" + (axis === 1 ? "Left" : "Right") + " axis'" +
+          (index >= 0 ? " checked" : "") + ">";
+        const swatches = [left, right].filter(index => index >= 0).map(seriesSwatch).join("");
+        return "<li class='pick" + (left >= 0 || right >= 0 ? " checked" : "") + "' data-name='" + escapeHtml(name) + "'>" +
+          box(1, left) + "<div class='vname'>" + escapeHtml(name) + "</div>" +
+          (swatches ? "<span class='swatches'>" + swatches + "</span>" : "") + box(2, right) + "</li>";
       }).join("") : "<li class='placeholder'>No curve matches</li>";
-      items.querySelectorAll("li[data-name]").forEach(item => item.addEventListener("click", () => {
-        const name = item.dataset.name;
-        if (selection.includes(name)) {
-          selection = selection.filter(other => other !== name);
+      items.querySelectorAll("li[data-name] input[data-axis]").forEach(input => input.addEventListener("change", () => {
+        const name = input.closest("li").dataset.name;
+        const axis = Number(input.dataset.axis);
+        if (indexOf(name, axis) >= 0) {
+          selection = selection.filter(item => !(item.name === name && item.axis === axis));
         } else if (selection.length >= maxSeries) {
           toast("At most " + maxSeries + " curves can be plotted together", true);
+          input.checked = false;
           return;
         } else {
-          selection.push(name);
+          selection.push({ name: name, axis: axis });
         }
         update();
       }));
@@ -1048,7 +1066,8 @@
       }
       if (!state.seriesCache || state.seriesCache.key !== key) state.seriesCache = { key: key, t: null, values: {} };
       const cache = state.seriesCache;
-      const missing = selection.filter(name => !(name in cache.values));
+      // a curve plotted on both axes is requested once
+      const missing = Array.from(new Set(selection.map(item => item.name))).filter(name => !(name in cache.values));
       if (missing.length) {
         container.innerHTML = "<p class='placeholder'>Loading…</p>";
         const payload = await post("series", { case: testCase.case, path: file.path, names: missing });
@@ -1056,10 +1075,16 @@
         payload.series.forEach(series => { cache.values[series.name] = series.v; });
       }
       if (request !== plotRequest || !document.body.contains(container)) return;
-      const plotted = selection.filter(name => name in cache.values);
+      // the colors follow the order of the selection, as in the curves list
+      const plotted = selection.map((item, index) => Object.assign({ index: index }, item)).filter(item => item.name in cache.values);
+      const bothAxes = plotted.some(item => item.axis === 1) && plotted.some(item => item.axis === 2);
       container.innerHTML = "";
-      state.chart = new window.NrtChart.MultiChart(container, { t: cache.t, series: plotted.map(name => ({ name: name, v: cache.values[name] })) });
-      legend.innerHTML = plotted.map((name, index) => "<span>" + seriesSwatch(index) + escapeHtml(name) + "</span>").join("");
+      state.chart = new window.NrtChart.MultiChart(container, {
+        t: cache.t,
+        series: selection.map(item => ({ name: item.name, axis: item.axis, v: cache.values[item.name] || [] }))
+      });
+      legend.innerHTML = plotted.map(item => "<span>" + seriesSwatch(item.index) + escapeHtml(item.name) +
+        (bothAxes ? " (" + (item.axis === 2 ? "right" : "left") + ")" : "") + "</span>").join("");
     };
     const fail = error => toast("Unable to plot the curves: " + error.message, true);
     const update = () => {
@@ -1070,7 +1095,8 @@
 
     search.addEventListener("input", renderItems);
     document.getElementById("var-select-shown").addEventListener("click", () => {
-      const added = shownNames().filter(name => !selection.includes(name));
+      // added on the left axis, unless already plotted on an axis
+      const added = shownNames().filter(name => indexOf(name, 1) < 0 && indexOf(name, 2) < 0).map(name => ({ name: name, axis: 1 }));
       const room = maxSeries - selection.length;
       if (added.length > room) toast("Only the first " + Math.max(0, room) + " curves were added (at most " + maxSeries + " plotted together)", true);
       selection = selection.concat(added.slice(0, Math.max(0, room)));
@@ -1152,6 +1178,97 @@
       state.chart.destroy();
       state.chart = null;
     }
+  }
+
+  // ---------------------------------------------------------------- run again
+
+  // console lines kept in the page (the server keeps the last ones too)
+  const RUN_CONSOLE_MAX_LINES = 2000;
+  const RUN_POLL_PERIOD = 1000;
+  const RUN_BADGES = { running: "info", OK: "ok", KO: "ko", stopped: "warn" };
+  let runTimer = null;
+  let runFollower = 0; // only the last follower polls (a request may still be pending when the case is displayed again)
+
+  function stopFollowingRun() {
+    clearTimeout(runTimer);
+    runTimer = null;
+    runFollower++;
+  }
+
+  async function startRun(testCase) {
+    const button = document.getElementById("run-button");
+    if (button) button.disabled = true;
+    try {
+      await post("run", { case: testCase.case });
+    } catch (error) {
+      toast("Unable to run the simulation: " + error.message, true);
+      if (button) button.disabled = false;
+      return;
+    }
+    followRun(testCase);
+  }
+
+  // Display the console of the last simulation run from the viewer for this case, and refresh the case at its end
+  function followRun(testCase) {
+    stopFollowingRun();
+    const panel = document.getElementById("run-panel");
+    if (!panel) return;
+    let next = 0;
+    let sawRunning = false;
+    const follower = runFollower;
+    const poll = async () => {
+      let run;
+      try {
+        run = await api("run", { case: testCase.case, since: next });
+      } catch (error) {
+        return; // server stopped: the heartbeat tells it
+      }
+      if (follower !== runFollower || state.currentCase !== testCase.case || !document.body.contains(panel)) return;
+      if (!run.status) {
+        panel.hidden = true;
+        return;
+      }
+      if (panel.hidden) {
+        panel.hidden = false;
+        panel.innerHTML =
+          "<h2>Run <span class='badge' id='run-status'></span><span class='spacer'></span><span class='job-count' id='run-elapsed'></span>" +
+            "<button class='btn btn-small' id='run-stop'>Stop</button></h2>" +
+          "<div class='panel-body'><div class='run-command mono' id='run-command'></div><pre class='console run-console' id='run-console'></pre></div>";
+        document.getElementById("run-stop").addEventListener("click", () => {
+          post("run/stop", { case: testCase.case }).catch(error => toast("Unable to stop the simulation: " + error.message, true));
+        });
+      }
+      const consoleNode = document.getElementById("run-console");
+      const atBottom = consoleNode.scrollTop + consoleNode.clientHeight >= consoleNode.scrollHeight - 4;
+      if (run.skipped) consoleNode.textContent += "…\n";
+      if (run.lines.length) consoleNode.textContent += run.lines.join("\n") + "\n";
+      const lines = consoleNode.textContent.split("\n");
+      if (lines.length > RUN_CONSOLE_MAX_LINES) consoleNode.textContent = "…\n" + lines.slice(-RUN_CONSOLE_MAX_LINES).join("\n");
+      if (atBottom) consoleNode.scrollTop = consoleNode.scrollHeight;
+      next = run.next;
+      const running = run.status === "running";
+      const status = document.getElementById("run-status");
+      status.className = "badge " + (RUN_BADGES[run.status] || "");
+      status.textContent = running ? "running" : run.status === "stopped" ? "stopped" : run.status + " · code " + run.return_code;
+      document.getElementById("run-elapsed").textContent = formatDuration(run.elapsed);
+      document.getElementById("run-command").textContent = run.command;
+      document.getElementById("run-stop").hidden = !running;
+      const runButton = document.getElementById("run-button");
+      if (runButton) runButton.disabled = running || Boolean(state.results.run_unavailable);
+      if (running) {
+        sawRunning = true;
+        runTimer = setTimeout(poll, RUN_POLL_PERIOD);
+      } else if (sawRunning) {
+        // the simulation just ended: display its new outputs (same file, tab and curves selection)
+        toast(run.status === "OK" ? "Simulation done" : "Simulation " + (run.status === "stopped" ? "stopped" : "failed (code " + run.return_code + ")"),
+              run.status !== "OK");
+        await reloadResults();
+        state.currentCase = null;
+        state.seriesCache = null;
+        route();
+      }
+    };
+    poll();
   }
 
   // ---------------------------------------------------------------- reference update
@@ -1314,39 +1431,54 @@
     }
   }
 
-  // --exit-on-close: the page tells the server it is open (heartbeat), and when it is closed
-  const pageId = Math.random().toString(36).slice(2) + Date.now().toString(36);
-  let heartbeatTimer = null;
+  // --exit-on-close: the page tells the server it is open (heartbeat), and when it is closed.
+  // The page id is random: the server only accepts the closing message of a page that sent a heartbeat.
+  const pageId = Array.from(crypto.getRandomValues(new Uint32Array(4)), n => n.toString(36)).join("");
+  let heartbeatPeriod = null;
+  let heartbeatWorker = null;
+  let heartbeatTimer = null; // fallback when web workers are unavailable
+
+  function serverStopped() {
+    heartbeatPeriod = null;
+    toast("The viewer server has stopped: run the command again to keep browsing", true);
+  }
 
   function sendHeartbeat() {
     post("heartbeat", { page: pageId }).catch(() => {
       clearInterval(heartbeatTimer);
       heartbeatTimer = null;
-      toast("The viewer server has stopped: run the command again to keep browsing", true);
+      serverStopped();
     });
   }
 
   function startHeartbeat(period) {
-    if (heartbeatTimer || !period) return;
-    sendHeartbeat();
-    heartbeatTimer = setInterval(sendHeartbeat, period * 1000);
+    if (heartbeatPeriod || !period) return;
+    heartbeatPeriod = period;
+    try {
+      // the timers of a worker are not slowed down in background tabs
+      heartbeatWorker = new Worker("/static/heartbeat.js");
+      heartbeatWorker.onmessage = event => { if (event.data === "stopped") serverStopped(); };
+      heartbeatWorker.postMessage({ page: pageId, period: period });
+    } catch (error) {
+      sendHeartbeat();
+      heartbeatTimer = setInterval(sendHeartbeat, period * 1000);
+    }
   }
 
-  // background tabs have slowed down timers: tell the server as soon as the page is shown again
+  // tell the server as soon as the page is shown again (e.g. restored from the browser cache)
   document.addEventListener("visibilitychange", () => {
-    if (heartbeatTimer && document.visibilityState === "visible") sendHeartbeat();
+    if (heartbeatPeriod && document.visibilityState === "visible") sendHeartbeat();
   });
   window.addEventListener("pageshow", event => {
-    if (heartbeatTimer && event.persisted) sendHeartbeat(); // page restored from the browser cache
+    if (heartbeatPeriod && event.persisted) sendHeartbeat();
   });
   window.addEventListener("pagehide", () => {
-    if (!heartbeatTimer) return;
-    // keepalive: the request is still sent while the page is closed (a reload reconnects with a new heartbeat)
-    fetch("/api/closed", {
-      method: "POST", keepalive: true,
-      headers: { "Content-Type": "application/json", "X-NRT-Viewer": "1" },
-      body: JSON.stringify({ page: pageId })
-    }).catch(() => {});
+    if (!heartbeatPeriod) return;
+    // sendBeacon is made to be sent while the page is closed (a reload reconnects with a new page id)
+    const body = JSON.stringify({ page: pageId });
+    if (!(navigator.sendBeacon && navigator.sendBeacon("/api/closed", body))) {
+      fetch("/api/closed", { method: "POST", keepalive: true, body: body }).catch(() => {});
+    }
   });
 
   window.addEventListener("hashchange", route);
