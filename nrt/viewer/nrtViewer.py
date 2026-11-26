@@ -79,7 +79,8 @@ def importNrtDiffModule(module_name):
     try:
         return importlib.import_module(module_name)
     except (Exception, SystemExit) as exc: # nrt_diff scripts call sys.exit when a dependency is missing
-        return ViewerError(501, "nrt_diff comparison unavailable (" + module_name + ": " + str(exc) + "), install lxml then restart the viewer")
+        return ViewerError(501, "nrt_diff comparison unavailable (" + module_name + ": " + str(exc) + "), install the packages of " +
+                           os.path.join(VIEWER_DIR, "requirements.txt") + " then restart the viewer")
 
 VIEWER_DIR = os.path.dirname(os.path.realpath(__file__))
 STATIC_DIR = os.path.join(VIEWER_DIR, "static")
@@ -1006,8 +1007,8 @@ def readHdf5Curves(path):
     try:
         (times, names, values) = curves_utils.readHdf5Curves(path)
     except ImportError:
-        raise ViewerError(501, "Displaying HDF5 curves requires the h5py python module (" +
-                          sys.executable + " -m pip install h5py), then restart the viewer")
+        raise ViewerError(501, "Displaying HDF5 curves requires the h5py python module (" + sys.executable + " -m pip install -r " +
+                          os.path.join(VIEWER_DIR, "requirements.txt") + "), then restart the viewer")
     except ValueError as exc:
         raise ViewerError(422, str(exc))
     return {"time": times, "values": values, "order": names}

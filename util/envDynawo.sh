@@ -2027,7 +2027,7 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
   mkdir -p sbin/nrt/viewer/static
-  cp $DYNAWO_NRT_DIR/viewer/nrtViewer.py sbin/nrt/viewer/.
+  cp $DYNAWO_NRT_DIR/viewer/nrtViewer.py $DYNAWO_NRT_DIR/viewer/requirements.txt sbin/nrt/viewer/.
   cp $DYNAWO_NRT_DIR/viewer/static/* sbin/nrt/viewer/static/.
   cp -r $DYNAWO_HOME/util/updateXML sbin/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.

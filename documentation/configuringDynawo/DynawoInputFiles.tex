@@ -495,9 +495,9 @@ Curves of every export mode, HDF5 included, are displayed in the NRT viewer by t
 \begin{lstlisting}[language=bash,numbers=none]
 ./envDynawo.sh curves path/to/simulation.jobs
 \end{lstlisting}
-Reading HDF5 curves requires the Python package \texttt{h5py}:
+Reading HDF5 curves requires the Python package \texttt{h5py}, listed with the other packages used by the viewer in \path{nrt/viewer/requirements.txt}:
 \begin{lstlisting}[language=bash,numbers=none]
-python -m pip install h5py
+python -m pip install -r nrt/viewer/requirements.txt
 \end{lstlisting}
 
 \item \textbf{Final state values}: the user can observe final state values at the end of the simulation. To do so, he should specify the name of the file containing the list of the variables to be observed.
