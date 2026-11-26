@@ -17,14 +17,14 @@
 #include <memory>
 
 #include "DYNModelBus.h"
-#include "DYNNetworkBridge.hpp"
+#include "DYNNetworkBridge.h"
 
 namespace DYN {
 /** a class of bus described in static network that is modeled by a dynamic DLL model */
 class ModelBusBridged : public ModelBus, public NetworkBridge {
  public:
   /** @copydoc ModelBus::ModelBus() */
-  explicit ModelBusBridged(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) : ModelBus(bus, isNodeBreaker) {}
+  explicit ModelBusBridged(const std::shared_ptr<BusInterface>& bus, bool isNodeBreaker) : ModelBus(bus, isNodeBreaker), NetworkBridge("bus") {}
 
   // virtual methods from ModelBus
   void defineElementsById(const std::string& id, std::vector<Element> &elements, std::map<std::string, int>& mapElement) override;
@@ -33,9 +33,14 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
 
   // virtual methods from NetworkComponent, allowing state change propagation from dynamic bus model to ModelNetwork
   void initSize() override;
-  StateChange_t evalZ(double, bool) override;
-  void evalG(double) override;
   void setGequations(std::map<int, std::string>&) override;
+  void evalG(double) override;
+  StateChange_t evalZ(double, bool) override {return NetworkBridge::evalZ(topologyModified_);}
+  void defineNonGenericParameters(std::vector<ParameterModeler>&) override;
+  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override;
+
+  // trivial virtual method from NetworkBridge
+  std::string getLoggingId() override {return id();}
 
   // reset methods from ModelBus called on all buses by BusContainer at every step, unused here
   void resetNodeInjection() override {}
@@ -43,17 +48,16 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void resetDerivatives() override {}
 
   // unused pure virtual methods from ModelBus that do not make sense for bridge buses (without node injection), throw if called
-  [[noreturn]] double getCurrentU(UType_t) override                            {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getCurrentU()", id());}
-  [[noreturn]] double getVNom() const override                                 {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getVNom()", id());}
-  [[noreturn]] double urp() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urp()", id());}
-  [[noreturn]] double uip() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uip()", id());}
-  [[noreturn]] int urYNum() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urYNum()", id());}
-  [[noreturn]] int uiYNum() const override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uiYNum()", id());}
-  [[noreturn]] void irAdd(double) override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "irAdd()", id());}
-  [[noreturn]] void iiAdd(double) override                                     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "iiAdd()", id());}
-  [[noreturn]] boost::shared_ptr<BusDerivatives>& derivatives() override       {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivatives()", id());}
-  [[noreturn]] boost::shared_ptr<BusDerivatives>& derivativesPrim() override
-    {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivativesPrim()", id());}
+  [[noreturn]] double getCurrentU(UType_t) override                          {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getCurrentU()", id());}
+  [[noreturn]] double getVNom() const override                               {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "getVNom()", id());}
+  [[noreturn]] double urp() const override                                   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urp()", id());}
+  [[noreturn]] double uip() const override                                   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uip()", id());}
+  [[noreturn]] int urYNum() const override                                   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "urYNum()", id());}
+  [[noreturn]] int uiYNum() const override                                   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "uiYNum()", id());}
+  [[noreturn]] void irAdd(double) override                                   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "irAdd()", id());}
+  [[noreturn]] void iiAdd(double) override                                   {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "iiAdd()", id());}
+  [[noreturn]] boost::shared_ptr<BusDerivatives>& derivatives() override     {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivatives()", id());}
+  [[noreturn]] boost::shared_ptr<BusDerivatives>& derivativesPrim() override {throw DYNError(Error::MODELER, UnhandledBridgedBusCall, "derivativesPrim()", id());}
 
   // unused pure virtual methods from NetworkComponent from here on
   NetworkComponent::StateChange_t evalState(double) override {return NetworkComponent::NO_CHANGE;}
@@ -64,7 +68,6 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void evalJt(double, int, SparseMatrix&) override {}
   void evalJtPrim(int, SparseMatrix&) override {}
   void evalNodeInjection() override {}
-  void defineNonGenericParameters(std::vector<ParameterModeler>&) override {}
   void evalCalculatedVars() override {}
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned, std::vector<int>&) const override {}
   void evalJCalculatedVarI(unsigned, std::vector<double>&) const override {}
@@ -74,7 +77,6 @@ class ModelBusBridged : public ModelBus, public NetworkBridge {
   void evalDynamicFType() override {}
   void evalYMat() override {}
   void init(int&) override {}
-  void setSubModelParameters(const std::unordered_map<std::string, ParameterModeler>&) override {}
   void setFequations(std::map<int, std::string>&) override {}
   void collectSilentZ(BitMask*) override {}
 };
