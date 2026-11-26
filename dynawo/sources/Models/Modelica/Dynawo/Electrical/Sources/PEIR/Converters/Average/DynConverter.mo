@@ -35,6 +35,9 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
     Placement(transformation(origin = {-112, 12}, extent = {{-12, -12}, {12, 12}}), iconTransformation(origin = {-48, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput theta(start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame in rad" annotation(
     Placement(transformation(origin = {-112, -12}, extent = {{-12, -12}, {12, 12}}), iconTransformation(origin = {52, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 270)));
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal1(start = false) "Switch-off signal 1 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal2(start = false) "Switch-off signal 2 for the injector";
+  Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector";
 
   // Outputs
   Modelica.Blocks.Interfaces.RealOutput idConvPu(start = transformRItoDQConv.ud0) "d-axis current in the converter in pu (base UNom, SNom) (generator convention)" annotation(
@@ -60,7 +63,7 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
   // Initialization
   BaseConverters.VSCConverter VSC(tVSC = tVSC, UdConv0Pu = transformRItoDQUConv.ud0, UqConv0Pu = transformRItoDQUConv.uq0) annotation(
     Placement(transformation(origin = {-70, 50}, extent = {{-10, -10}, {10, 10}})));
-  InjectorURI injectorURI(u0Pu = RLCFilter.uConv0Pu, i0Pu = -RLCFilter.iConv0Pu) annotation(
+  InjectorURI injectorURI(u0Pu = RLCFilter.uConv0Pu, i0Pu(re = -RLCFilter.iConv0Pu.re, im = -RLCFilter.iConv0Pu.im)) annotation(
     Placement(transformation(origin = {10, 50}, extent = {{-10, -10}, {10, 10}})));
   Controls.Utilities.TransformRItoDQ transformRItoDQConv(phi0 = Theta0, u0Pu = RLCFilter.iConv0Pu) annotation(
     Placement(transformation(origin = {70, 70}, extent = {{-10, -10}, {10, 10}})));
@@ -68,7 +71,7 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
     Placement(transformation(origin = {80, -6}, extent = {{-10, -10}, {10, 10}})));
   Controls.Utilities.TransformRItoDQ transformRItoDQUPcc(phi0 = Theta0, u0Pu = changeofBaseSNom.uPcc0Pu) annotation(
     Placement(transformation(origin = {80, -36}, extent = {{-10, -10}, {10, 10}})));
-  Controls.Utilities.TransformRItoDQ transformRItoDQIPcc(phi0 = Theta0, u0Pu = -changeofBaseSNom.iPcc0Pu) annotation(
+  Controls.Utilities.TransformRItoDQ transformRItoDQIPcc(phi0 = Theta0, u0Pu(re = -changeofBaseSNom.iPcc0Pu.re, im = -changeofBaseSNom.iPcc0Pu.im)) annotation(
     Placement(transformation(origin = {82, -58}, extent = {{-10, -10}, {10, 10}})));
   BaseConverters.DynRLCFilterRI RLCFilter(RPu = RFilterPu, LPu = LFilterPu, CPu = CFilterPu, uFilter0Pu = RLTransformer.uFilter0Pu, iPcc0Pu = RLTransformer.iPcc0Pu, Omega0Pu = Omega0Pu, omegaPu(start = OmegaRef0Pu)) annotation(
     Placement(transformation(origin = {48, 24}, extent = {{-9, -9}, {9, 9}}, rotation = -90)));
@@ -95,13 +98,14 @@ model DynConverter "Converter physical part comprising an AVM voltage source, a 
   parameter Types.Angle Theta0 "Start value of phase shift between the converter's rotating frame and the grid rotating frame in rad";
 
 equation
+  //SwitchOffs
+  connect(switchOffSignal1, injectorURI.switchOffSignal1);
+  connect(switchOffSignal2, injectorURI.switchOffSignal2);
+  connect(switchOffSignal3, injectorURI.switchOffSignal3);
   RLCFilter.switchOffSignal1 = false;
-  RLCFilter.switchOffSignal2 = false;
+  RLCFilter.switchOffSignal2 = not injectorURI.running;
   RLTransformer.switchOffSignal1 = false;
-  RLTransformer.switchOffSignal2 = false;
-  injectorURI.switchOffSignal1 = false;
-  injectorURI.switchOffSignal2 = false;
-  injectorURI.switchOffSignal3 = false;
+  RLTransformer.switchOffSignal2 = not injectorURI.running;
 
   connect(measurementsPcc.terminal1, RLTransformer.terminal2) annotation(
     Line(points = {{50, -48}, {48, -48}, {48, -42}}, color = {0, 0, 255}));

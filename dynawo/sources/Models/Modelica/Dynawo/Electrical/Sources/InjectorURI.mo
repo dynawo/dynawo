@@ -37,11 +37,14 @@ model InjectorURI "Injector controlled by real (R) part and imaginary (I) part v
   final parameter Types.ReactivePowerPu Q0Pu = -ComplexMath.imag(u0Pu*ComplexMath.conj(i0Pu)) "Start value of reactive power in pu (base SnRef) (receptor convention)";
 
 equation
-  terminal.V.re = urPu;
-  terminal.V.im = uiPu;
-
   PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
   QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
+  if running then
+    terminal.V.re = urPu;
+    terminal.V.im = uiPu;
+   else
+    terminal.V = Complex (0,0);
+   end if;
 
   annotation(preferredView = "text",
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "Injector"), Text(origin = {-104, 52}, extent = {{-32, 12}, {4, -4}}, textString = "urPu"), Text(origin = {-104, -26}, extent = {{-32, 12}, {4, -4}}, textString = "uiPu"), Text(origin = {168, 4}, extent = {{-32, 12}, {4, -4}}, textString = "ACPower"), Text(origin = {117, 81}, extent = {{-17, 13}, {17, -13}}, textString = "PInjPu"), Text(origin = {117, -45}, extent = {{-17, 13}, {17, -13}}, textString = "QInjPu")}));

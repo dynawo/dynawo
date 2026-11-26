@@ -110,7 +110,7 @@ model DynGFMCCVSM "PEIR model with GFM current-controlled VSM and dynamic connec
 
   // Output
   Modelica.Blocks.Interfaces.RealOutput omegaVSMPu(start = Omega0Pu) "Converter's own VSM frequency in pu (base omegaNom)" annotation(
-    Placement(transformation(origin = {106, 80}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {106, 80}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {102, 40}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -142,6 +142,10 @@ model DynGFMCCVSM "PEIR model with GFM current-controlled VSM and dynamic connec
 
 equation
   ControlCC.uPccPu = terminal.V;
+  //Switchoffs
+  connect(switchOffSignal1, Converter.switchOffSignal1);
+  connect(switchOffSignal2, Converter.switchOffSignal2);
+  connect(switchOffSignal3, Converter.switchOffSignal3);
 
   connect(Converter.terminal, terminal) annotation(
     Line(points = {{82, 40}, {102, 40}}, color = {0, 0, 255}));

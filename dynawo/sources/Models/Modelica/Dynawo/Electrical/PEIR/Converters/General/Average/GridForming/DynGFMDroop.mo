@@ -92,7 +92,7 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
 
   // Output
   Modelica.Blocks.Interfaces.RealOutput omegaDroopPu(start = Omega0Pu) "Converter's own Droop frequency in pu (base omegaNom)" annotation(
-    Placement(transformation(origin = {106, 74}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(transformation(origin = {106, 74}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(transformation(origin = {100, 40}, extent = {{-6, -6}, {6, 6}}), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}})));
@@ -123,6 +123,11 @@ model DynGFMDroop "PEIR model with GFM Droop control and dynamic connections to 
 
 equation
   ControlDroop.uPccPu = terminal.V;
+  //Switchoffs
+  connect(switchOffSignal1, Converter.switchOffSignal1);
+  connect(switchOffSignal2, Converter.switchOffSignal2);
+  connect(switchOffSignal3, Converter.switchOffSignal3);
+
   connect(Converter.terminal, terminal) annotation(
     Line(points = {{82, 40}, {100, 40}}, color = {0, 0, 255}));
   connect(Converter.uqPccPu, Measurements.uqPccPu) annotation(

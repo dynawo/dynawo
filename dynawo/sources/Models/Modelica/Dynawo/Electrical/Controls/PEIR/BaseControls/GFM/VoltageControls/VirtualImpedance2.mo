@@ -43,7 +43,7 @@ model VirtualImpedance2 "Virtual impedance model for the current limitation of g
   parameter Types.PerUnit IdConv0Pu "Start value of d-axis current in the converter in pu (base UNom, SNom) (generator convention)";
   parameter Types.PerUnit IqConv0Pu "Start value of q-axis current in the converter in pu (base UNom, SNom) (generator convention)";
 
-  final parameter Types.CurrentModulePu IConv0Pu = sqrt(IdConv0Pu ^ 2 + IqConv0Pu ^ 2)  "Start value of current module in the converter in pu (base UNom, SNom)";
+  final parameter Types.CurrentModulePu IConv0Pu = sqrt(IdConv0Pu ^ 2 + IqConv0Pu ^ 2 + 1e-8)  "Start value of current module in the converter in pu (base UNom, SNom)";
   final parameter Boolean VIActive0 = IConv0Pu >= IMaxVIPu "Initial state of the virtual impedance: active if the initial converter current module is above IMaxVI";
   final parameter Types.CurrentModulePu DeltaIConv0Pu = if VIActive0 then max((IConv0Pu - IMaxVIPu), 0) else 0 "Start value of extra current module in the converter in pu (base UNom, SNom)";
   final parameter Types.PerUnit RVI0Pu = if VIActive0 then KpVI * DeltaIConv0Pu else 0 "Start value of virtual resistance in pu (base UNom, SNom)";
@@ -52,7 +52,7 @@ model VirtualImpedance2 "Virtual impedance model for the current limitation of g
   final parameter Types.PerUnit DeltaVVIq0Pu = IqConv0Pu * RVI0Pu + IdConv0Pu * XVI0Pu "Start value of q-axis virtual impedance output in pu (base UNom)";
 
 equation
-  IConvPu = sqrt(idConvPu ^ 2 + iqConvPu ^ 2);
+  IConvPu = sqrt(idConvPu ^ 2 + iqConvPu ^ 2 + 1e-8);
 
   when IConvPu >= IMaxVIPu + EpsVIUpPu then
     virtualImpedanceActive = true;

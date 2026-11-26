@@ -38,7 +38,7 @@ equation
   line.switchOffSignal1 = false;
   line.switchOffSignal2 = false;
   DynGFMVSM.switchOffSignal1 = false;
-  DynGFMVSM.switchOffSignal2 = false;
+  DynGFMVSM.switchOffSignal2 = time > 12;
   DynGFMVSM.switchOffSignal3 = false;
 
   connect(omegaRefPu.y, DynGFMVSM.omegaRefPu) annotation(

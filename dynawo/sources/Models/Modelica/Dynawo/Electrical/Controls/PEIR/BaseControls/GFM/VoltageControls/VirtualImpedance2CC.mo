@@ -51,7 +51,7 @@ model VirtualImpedance2CC "Virtual impedance model for the current limitation of
   final parameter Types.PerUnit DeltaVVIq0Pu = IqConv0Pu * RVI0Pu + IdConv0Pu * XVI0Pu "Start value of q-axis virtual impedance output in pu (base UNom)";
 
 equation
-  IConvPu = sqrt(idConvPu ^ 2 + iqConvPu ^ 2);
+  IConvPu = sqrt(idConvPu ^ 2 + iqConvPu ^ 2 + 1e-8);
 
   when IConvPu >= IMaxVIPu + EpsVIUpPu then
     virtualImpedanceActive = true;
