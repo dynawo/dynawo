@@ -1,0 +1,183 @@
+2026-11-26 17:54:00 | INFO |  ============================================================ 
+2026-11-26 17:54:00 | INFO | DYNAWO VERSION  :     2.0.0
+2026-11-26 17:54:00 | INFO | DYNAWO REVISION :  3152_dummy_der-e6546d9ed03
+2026-11-26 17:54:00 | INFO |  ============================================================ 
+2026-11-26 17:54:00 | INFO | 
+2026-11-26 17:54:00 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:00 | INFO | building model from input files
+2026-11-26 17:54:00 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | model was built successfully
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | starting local initialization
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | end of local initialization
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | starting global initialization
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | DEBUG | initialization of IDA solver : ok
+2026-11-26 17:54:01 | DEBUG | call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | execution statistics :
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | number of time iterations                                  = 0
+2026-11-26 17:54:01 | INFO | number of residual evaluations                             = 2
+2026-11-26 17:54:01 | INFO | number of Jacobian evaluations                             = 2
+2026-11-26 17:54:01 | INFO | number of nonlinear iterations                             = 0
+2026-11-26 17:54:01 | INFO | number of error test failures                              = 0
+2026-11-26 17:54:01 | INFO | number of nonlinear convergence failures                   = 0
+2026-11-26 17:54:01 | INFO | number of solver root functions evaluations                = 0
+2026-11-26 17:54:01 | INFO | number of internal root functions evaluations              = 2
+2026-11-26 17:54:01 | INFO | number of discrete variables evaluations                   = 1
+2026-11-26 17:54:01 | INFO | number of mode evaluations                                 = 1
+2026-11-26 17:54:01 | INFO | number of differential mode                                = 0
+2026-11-26 17:54:01 | INFO | number of algebraic mode                                   = 0
+2026-11-26 17:54:01 | INFO | number of algebraic J update mode                          = 0
+2026-11-26 17:54:01 | INFO | number of algebraic restoration residual evaluations       = 1
+2026-11-26 17:54:01 | INFO | number of algebraic restoration Jacobian evaluations       = 0
+2026-11-26 17:54:01 | INFO | number of algebraic prim restoration residual evaluations  = 1
+2026-11-26 17:54:01 | INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+2026-11-26 17:54:01 | INFO | end of global initialization
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | starting curve initialization
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | DEBUG | adding curve : Id: example1; curve: example1_x1 found. (exact name)
+2026-11-26 17:54:01 | DEBUG | adding curve : Id: example1; curve: example1_x2 found. (exact name)
+2026-11-26 17:54:01 | DEBUG | adding curve : Id: example1; curve: example1_x3 found. (exact name)
+2026-11-26 17:54:01 | DEBUG | adding curve : Id: example1; curve: example1_x4 found. (exact name)
+2026-11-26 17:54:01 | INFO | end of curve initialization, added 4 curves
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | starting simulation with solver IDASolver
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO | number of continuous variables : 12
+2026-11-26 17:54:01 | INFO | number of discrete variables : 0
+2026-11-26 17:54:01 | INFO | number of root functions : 0
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO |         time ¦ iter num   order (k)      time step (h)
+2026-11-26 17:54:01 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:01 | INFO |        0.000 ¦        0           0              0.000 
+2026-11-26 17:54:01 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 7 example1_example1_v1_dummy_der, error 10.035
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 4 example1_example1_x1, error 10
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 6 example1_example1_x4, error 9.99748
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 5 example1_example1_x3, error 5.0025
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 8 example1_example1_v3_dummy_der, error 5.0025
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 3 example1_example1_v3, error 4.9975
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 10 example1_example1_x3_dummy_der, error 4.9975
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 11 example1_example1_x4_dummy_der, error 3.35334
+2026-11-26 17:54:01 | INFO |        0.001 ¦        1           1              0.001 
+2026-11-26 17:54:01 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2026-11-26 17:54:01 | DEBUG | YP[6]=-1.9995 (variable=example1_example1_x4)
+2026-11-26 17:54:01 | DEBUG | YP[11]=1.006 (variable=example1_example1_x4_dummy_der)
+2026-11-26 17:54:01 | DEBUG | YP[7]=-1.0035 (variable=example1_example1_v1_dummy_der)
+2026-11-26 17:54:01 | DEBUG | YP[5]=1.0005 (variable=example1_example1_x3)
+2026-11-26 17:54:01 | DEBUG | YP[8]=-1.0005 (variable=example1_example1_v3_dummy_der)
+2026-11-26 17:54:01 | DEBUG | YP[4]=-1 (variable=example1_example1_x1)
+2026-11-26 17:54:01 | DEBUG | YP[3]=0.9995 (variable=example1_example1_v3)
+2026-11-26 17:54:01 | DEBUG | YP[10]=0.9995 (variable=example1_example1_x3_dummy_der)
+2026-11-26 17:54:01 | DEBUG | YP[0]=0.0020035 (variable=example1_example1_v2)
+2026-11-26 17:54:01 | DEBUG | YP[2]=-0.0015035 (variable=example1_example1_v1)
+2026-11-26 17:54:01 | DEBUG | 
+2026-11-26 17:54:01 | INFO |        0.002 ¦        2           1              0.001 
+2026-11-26 17:54:01 | INFO |        0.004 ¦        3           2              0.002 
+2026-11-26 17:54:01 | INFO |        0.008 ¦        4           2              0.004 
+2026-11-26 17:54:01 | INFO |        0.016 ¦        5           2              0.008 
+2026-11-26 17:54:01 | INFO |        0.032 ¦        6           2              0.016 
+2026-11-26 17:54:01 | INFO |        0.064 ¦        7           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.096 ¦        8           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.128 ¦        9           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.160 ¦       10           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.192 ¦       11           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.224 ¦       12           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.256 ¦       13           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.288 ¦       14           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.320 ¦       15           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.352 ¦       16           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.384 ¦       17           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.416 ¦       18           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.448 ¦       19           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.480 ¦       20           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.512 ¦       21           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.544 ¦       22           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.576 ¦       23           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.608 ¦       24           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.640 ¦       25           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.672 ¦       26           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.704 ¦       27           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.736 ¦       28           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.768 ¦       29           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.800 ¦       30           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.832 ¦       31           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.864 ¦       32           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.896 ¦       33           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.928 ¦       34           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.960 ¦       35           2              0.032 
+2026-11-26 17:54:01 | INFO |        0.992 ¦       36           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.024 ¦       37           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.056 ¦       38           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.088 ¦       39           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.120 ¦       40           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.152 ¦       41           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.184 ¦       42           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.216 ¦       43           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.248 ¦       44           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.280 ¦       45           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.312 ¦       46           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.344 ¦       47           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.376 ¦       48           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.408 ¦       49           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.440 ¦       50           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.472 ¦       51           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.504 ¦       52           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.536 ¦       53           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.568 ¦       54           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.600 ¦       55           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.632 ¦       56           2              0.032 
+2026-11-26 17:54:01 | INFO |        1.664 ¦       57           2              0.032 
+2026-11-26 17:54:01 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 1 example1_example1_x2, error 3.28466
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 4 example1_example1_x1, error 2.66672
+2026-11-26 17:54:01 | INFO |        1.728 ¦       58           2              0.064 
+2026-11-26 17:54:01 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 1 example1_example1_x2, error 2.41822
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 4 example1_example1_x1, error 2.02681
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 3 example1_example1_v3, error 1.04103
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 10 example1_example1_x3_dummy_der, error 1.04103
+2026-11-26 17:54:01 | INFO |        1.786 ¦       59           2              0.058 
+2026-11-26 17:54:01 | INFO |        1.843 ¦       60           2              0.058 
+2026-11-26 17:54:01 | INFO |        1.901 ¦       61           2              0.058 
+2026-11-26 17:54:01 | INFO |        1.958 ¦       62           2              0.058 
+2026-11-26 17:54:01 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 1 example1_example1_x2, error 1.32877
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 4 example1_example1_x1, error 1.20511
+2026-11-26 17:54:01 | DEBUG | error > 1 : variable 11 example1_example1_x4_dummy_der, error 1.08274
+2026-11-26 17:54:01 | INFO |        2.000 ¦       63           2              0.042 
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | execution statistics :
+2026-11-26 17:54:01 | INFO | 
+2026-11-26 17:54:01 | INFO | number of time iterations                                  = 63
+2026-11-26 17:54:01 | INFO | number of residual evaluations                             = 71
+2026-11-26 17:54:01 | INFO | number of Jacobian evaluations                             = 6
+2026-11-26 17:54:01 | INFO | number of nonlinear iterations                             = 71
+2026-11-26 17:54:01 | INFO | number of error test failures                              = 0
+2026-11-26 17:54:01 | INFO | number of nonlinear convergence failures                   = 0
+2026-11-26 17:54:01 | INFO | number of solver root functions evaluations                = 0
+2026-11-26 17:54:01 | INFO | number of internal root functions evaluations              = 0
+2026-11-26 17:54:01 | INFO | number of discrete variables evaluations                   = 0
+2026-11-26 17:54:01 | INFO | number of mode evaluations                                 = 0
+2026-11-26 17:54:01 | INFO | number of differential mode                                = 0
+2026-11-26 17:54:01 | INFO | number of algebraic mode                                   = 0
+2026-11-26 17:54:01 | INFO | number of algebraic J update mode                          = 0
+2026-11-26 17:54:01 | INFO | number of algebraic restoration residual evaluations       = 0
+2026-11-26 17:54:01 | INFO | number of algebraic restoration Jacobian evaluations       = 0
+2026-11-26 17:54:01 | INFO | number of algebraic prim restoration residual evaluations  = 0
+2026-11-26 17:54:01 | INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+2026-11-26 17:54:01 | INFO | end of job 'example 1 from article'

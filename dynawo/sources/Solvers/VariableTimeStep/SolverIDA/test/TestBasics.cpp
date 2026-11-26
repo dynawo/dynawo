@@ -46,7 +46,8 @@ INIT_XML_DYNAWO;
 
 namespace DYN {
 
-static SolverFactory::SolverPtr initSolver(bool enableSilentZ = true, bool activateAlternativeStrategiesOnDivergence = false) {
+static SolverFactory::SolverPtr initSolver(bool enableSilentZ = true, bool activateAlternativeStrategiesOnDivergence = false,
+    bool activateIteratedAlgebraicRestorations = false) {
   // Solver
   SolverFactory::SolverPtr solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
 
@@ -76,6 +77,10 @@ static SolverFactory::SolverPtr initSolver(bool enableSilentZ = true, bool activ
     params->addParameter(parameters::ParameterFactory::newParameter("activateAlternativeStrategiesOnDivergence", true));
     params->addParameter(parameters::ParameterFactory::newParameter("activateTimeScaledURound", true));
     params->addParameter(parameters::ParameterFactory::newParameter("timeScaledURoundPrecision", 1e-6));
+  }
+  if (activateIteratedAlgebraicRestorations) {
+    params->addParameter(parameters::ParameterFactory::newParameter("activateIteratedAlgebraicRestorations", true));
+    params->addParameter(parameters::ParameterFactory::newParameter("maxNumberRestorationPasses", 5));
   }
   solver->setParameters(params);
 
@@ -134,8 +139,10 @@ static std::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 
 
 
 static std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
- std::string parFileName, const double& tStart, const double& tStop) {
-  SolverFactory::SolverPtr solver = initSolver();
+ std::string parFileName, const double& tStart, const double& tStop, bool activateIteratedAlgebraicRestorations = false) {
+  const bool enableSilentZ = true;
+  const bool activateAlternativeStrategiesOnDivergence = false;
+  SolverFactory::SolverPtr solver = initSolver(enableSilentZ, activateAlternativeStrategiesOnDivergence, activateIteratedAlgebraicRestorations);
 
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
@@ -478,6 +485,45 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
     }
   }
+}
+
+TEST(SimulationTest, testSolverIDAIteratedAlgebraicRestorationsNoOp) {
+  // Activating activateIteratedAlgebraicRestorations on a model whose algebraic equations contain no derivative
+  // must not change the algebraic restoration: the parameters should be read without error and the algebraic
+  // residual is already below fnormtolAlg after the first pass, so that no other pass is done.
+  const double tStart = 0.;
+  const double tStop = 3.;
+  const bool activateIteratedAlgebraicRestorations = true;
+  std::pair<SolverFactory::SolverPtr, std::shared_ptr<Model> > p = initSolverAndModel("jobs/solverTestDelta.dyd",
+  "jobs/solverTestDelta.iidm", "jobs/solverTestDelta.par", tStart, tStop, activateIteratedAlgebraicRestorations);
+  const SolverFactory::SolverPtr& solver = p.first;
+  std::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC(tStop);
+
+  double tCurrent = tStart;
+  std::vector<double> y;
+  std::vector<double> yp;
+
+  solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
+
+  // Algebraic mode detection - line opening in the network
+  solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
+  ASSERT_EQ(model->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
+
+  // Algebraic equations restoration: same values as in testSolverIDAAlgebraicMode
+  solver->reinit();
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045162421);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
+  ASSERT_EQ(model->getModeChangeType(), NO_MODE);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.93468597466729808065);
 }
 
 TEST(SimulationTest, testSolverIDASilentZ) {

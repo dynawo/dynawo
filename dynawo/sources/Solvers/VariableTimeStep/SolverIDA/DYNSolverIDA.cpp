@@ -100,6 +100,8 @@ activateTimeScaledURound_(false),
 timeScaledURoundPrecision_(std::numeric_limits<double>::min()),
 alternativeStrategiesOnDivergenceStage_(0),
 activateAlternativeStrategiesOnDivergence_(false),
+activateIteratedAlgebraicRestorations_(false),
+maxNumberRestorationPasses_(20),
 minStepSave_(0.),
 timeScaledURoundPrecisionSave_(0.),
 precisionSave_(0.),
@@ -158,6 +160,9 @@ SolverIDA::defineSpecificParameters() {
     ParameterSolver("activateAlternativeStrategiesOnDivergence", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("activateTimeScaledURound", ParameterSolver("activateTimeScaledURound", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("timeScaledURoundPrecision", ParameterSolver("timeScaledURoundPrecision", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("activateIteratedAlgebraicRestorations",
+    ParameterSolver("activateIteratedAlgebraicRestorations", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("maxNumberRestorationPasses", ParameterSolver("maxNumberRestorationPasses", VAR_TYPE_INT, optional)));
 }
 
 void
@@ -194,6 +199,12 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& activateAlternativeStrategiesOnDivergence = findParameter("activateAlternativeStrategiesOnDivergence");
   if (activateAlternativeStrategiesOnDivergence.hasValue())
     activateAlternativeStrategiesOnDivergence_ = activateAlternativeStrategiesOnDivergence.getValue<bool>();
+  const ParameterSolver& activateIteratedAlgebraicRestorations = findParameter("activateIteratedAlgebraicRestorations");
+  if (activateIteratedAlgebraicRestorations.hasValue())
+    activateIteratedAlgebraicRestorations_ = activateIteratedAlgebraicRestorations.getValue<bool>();
+  const ParameterSolver& maxNumberRestorationPasses = findParameter("maxNumberRestorationPasses");
+  if (maxNumberRestorationPasses.hasValue())
+    maxNumberRestorationPasses_ = maxNumberRestorationPasses.getValue<int>();
 }
 
 const std::string&
@@ -965,11 +976,10 @@ SolverIDA::algebraicResidualNorm() {
 
 void
 SolverIDA::solveCoupledRestorations(const bool evaluateOnlyMode) {
-  constexpr int maxNumberRestorationPasses = 20;
   const std::vector<propertyContinuousVar_t>& modelYType = model_->getYType();
   int nbPasses = 1;
   double residual = algebraicResidualNorm();
-  while (residual > fnormtolAlg_ && nbPasses < maxNumberRestorationPasses) {
+  while (residual > fnormtolAlg_ && nbPasses < maxNumberRestorationPasses_) {
     // the Jacobians of both restorations were set up by the first pass
     constexpr bool noInitSetup = true;
     for (unsigned int i = 0; i < modelYType.size(); i++)
@@ -1037,8 +1047,9 @@ SolverIDA::reinit() {
       // Update statistics
       updateAlgebraicRestorationStatistics();
 
-      // POC #3152: the algebraic restoration used the derivatives of the previous point, repeat both if needed
-      solveCoupledRestorations(evaluateOnlyMode);
+      // The algebraic restoration used the derivatives of the previous point: optionally repeat both restorations
+      if (activateIteratedAlgebraicRestorations_)
+        solveCoupledRestorations(evaluateOnlyMode);
 
       model_->reinitMode();
 

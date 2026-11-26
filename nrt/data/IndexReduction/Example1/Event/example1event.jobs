@@ -27,9 +27,6 @@
             <curves inputFile="example1event.crv" exportMode="CSV"/>
             <logs>
               <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-              <appender tag ="COMPILE" file ="dynawoCompiler.log" lvlFilter ="DEBUG"/>
-              <appender tag="VARIABLES" file="dynawoVariables.log" lvlFilter="DEBUG"/>
-              <appender tag="EQUATIONS" file="dynawoEquations.log" lvlFilter="DEBUG"/>
             </logs>
         </outputs>
     </job>

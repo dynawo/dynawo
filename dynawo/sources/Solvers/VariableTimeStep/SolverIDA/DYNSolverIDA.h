@@ -305,6 +305,8 @@ class SolverIDA : public Solver::Impl {
   *
   * The algebraic restoration is solved with the derivatives of the previous point. When algebraic equations
   * also contain derivatives (dummy derivatives after index reduction), a single pass leaves them unsatisfied.
+  * Experimental, only called when activateIteratedAlgebraicRestorations is set: the passes form a block
+  * Gauss-Seidel iteration, which may diverge.
   * @param evaluateOnlyMode whether only the residuals of the models in mode are evaluated at the first iteration
   */
   void solveCoupledRestorations(bool evaluateOnlyMode);
@@ -336,6 +338,8 @@ class SolverIDA : public Solver::Impl {
   int alternativeStrategiesOnDivergenceStage_;  ///< escalation stage of the alternative strategies on divergence
                                                 // (0: none tried, 1: reinit tried, 2: reduced step/precision also tried)
   bool activateAlternativeStrategiesOnDivergence_;  ///< to activate the progressive relaunch strategies (reinit, then reduced step/precision) when IDA diverges
+  bool activateIteratedAlgebraicRestorations_;  ///< to repeat the algebraic and derivative restorations until the algebraic equations are satisfied
+  int maxNumberRestorationPasses_;  ///< maximum number of passes (algebraic + derivative restorations) when the iterated restorations are activated
   double minStepSave_;  ///< minimal step size saved in case of alternative strategy on divergence
   double timeScaledURoundPrecisionSave_;  ///< save reference precision for time-scaled unit roundoff in case of alternative strategy on divergence
   double precisionSave_;  ///< save precision in case of alternative strategy on divergence

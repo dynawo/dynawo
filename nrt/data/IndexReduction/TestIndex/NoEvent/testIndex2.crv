@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    simulation tools for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!-- Contrainte C1 : x1 + x3 + x4 + x5 = 0 -->
+  <curve model="testindex" variable="testindex_x1"/>
+  <curve model="testindex" variable="testindex_x3"/>
+  <curve model="testindex" variable="testindex_x4"/>
+  <curve model="testindex" variable="testindex_x5"/>
+  <!-- Dummy derivative de x1 et équation E1 : 0.01 * der(x1) = y1 -->
+  <curve model="testindex" variable="testindex_x1_dummy_der"/>
+  <curve model="testindex" variable="testindex_y1"/>
+  <!-- Contrainte C2 : x2 + x6 + x7 + x8 = 0 -->
+  <curve model="testindex" variable="testindex_x2"/>
+  <curve model="testindex" variable="testindex_x6"/>
+  <curve model="testindex" variable="testindex_x2_dummy_der"/>
+  <curve model="testindex" variable="testindex_y2"/>
+  <!-- Entrée et variable algébrique couplée -->
+  <curve model="testindex" variable="testindex_u1"/>
+  <curve model="testindex" variable="testindex_y4"/>
+</curvesInput>

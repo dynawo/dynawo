@@ -1,0 +1,335 @@
+2026-11-26 17:54:56 | INFO |  ============================================================ 
+2026-11-26 17:54:56 | INFO | DYNAWO VERSION  :     2.0.0
+2026-11-26 17:54:56 | INFO | DYNAWO REVISION :  3152_dummy_der-e6546d9ed03
+2026-11-26 17:54:56 | INFO |  ============================================================ 
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | building model from input files
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | model was built successfully
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | starting local initialization
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | end of local initialization
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | starting global initialization
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | DEBUG | initialization of IDA solver : ok
+2026-11-26 17:54:56 | DEBUG | Algebraic mode change for model example1event at t = 0
+2026-11-26 17:54:56 | INFO | Algebraic mode change at t = 0
+2026-11-26 17:54:56 | DEBUG | call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | execution statistics :
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | number of time iterations                                  = 0
+2026-11-26 17:54:56 | INFO | number of residual evaluations                             = 2
+2026-11-26 17:54:56 | INFO | number of Jacobian evaluations                             = 2
+2026-11-26 17:54:56 | INFO | number of nonlinear iterations                             = 0
+2026-11-26 17:54:56 | INFO | number of error test failures                              = 0
+2026-11-26 17:54:56 | INFO | number of nonlinear convergence failures                   = 0
+2026-11-26 17:54:56 | INFO | number of solver root functions evaluations                = 0
+2026-11-26 17:54:56 | INFO | number of internal root functions evaluations              = 2
+2026-11-26 17:54:56 | INFO | number of discrete variables evaluations                   = 2
+2026-11-26 17:54:56 | INFO | number of mode evaluations                                 = 2
+2026-11-26 17:54:56 | INFO | number of differential mode                                = 0
+2026-11-26 17:54:56 | INFO | number of algebraic mode                                   = 1
+2026-11-26 17:54:56 | INFO | number of algebraic J update mode                          = 0
+2026-11-26 17:54:56 | INFO | number of algebraic restoration residual evaluations       = 1
+2026-11-26 17:54:56 | INFO | number of algebraic restoration Jacobian evaluations       = 0
+2026-11-26 17:54:56 | INFO | number of algebraic prim restoration residual evaluations  = 1
+2026-11-26 17:54:56 | INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+2026-11-26 17:54:56 | INFO | end of global initialization
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | starting curve initialization
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | DEBUG | adding curve : Id: example1event; curve: example1event_x1 found. (exact name)
+2026-11-26 17:54:56 | DEBUG | adding curve : Id: example1event; curve: example1event_x2 found. (exact name)
+2026-11-26 17:54:56 | DEBUG | adding curve : Id: example1event; curve: example1event_x3 found. (exact name)
+2026-11-26 17:54:56 | DEBUG | adding curve : Id: example1event; curve: example1event_x4 found. (exact name)
+2026-11-26 17:54:56 | INFO | end of curve initialization, added 4 curves
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | starting simulation with solver IDASolver
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO | number of continuous variables : 13
+2026-11-26 17:54:56 | INFO | number of discrete variables : 0
+2026-11-26 17:54:56 | INFO | number of root functions : 1
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO |         time ¦ iter num   order (k)      time step (h)
+2026-11-26 17:54:56 | INFO | -----------------------------------------------------------------------
+2026-11-26 17:54:56 | INFO |        0.000 ¦        0           0              0.000 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 5 example1event_example1event_x1, error 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 9.99749
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 5.00999
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 5.0025
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 5.0025
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 4.9975
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 11 example1event_example1event_x3_dummy_der, error 4.9975
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 3.34833
+2026-11-26 17:54:56 | INFO |        0.001 ¦        1           1              0.001 
+2026-11-26 17:54:56 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2026-11-26 17:54:56 | DEBUG | YP[7]=-1.9995 (variable=example1event_example1event_x4)
+2026-11-26 17:54:56 | DEBUG | YP[12]=1.0045 (variable=example1event_example1event_x4_dummy_der)
+2026-11-26 17:54:56 | DEBUG | YP[6]=1.0005 (variable=example1event_example1event_x3)
+2026-11-26 17:54:56 | DEBUG | YP[9]=-1.0005 (variable=example1event_example1event_v3_dummy_der)
+2026-11-26 17:54:56 | DEBUG | YP[5]=-1 (variable=example1event_example1event_x1)
+2026-11-26 17:54:56 | DEBUG | YP[4]=0.9995 (variable=example1event_example1event_v3)
+2026-11-26 17:54:56 | DEBUG | YP[11]=0.9995 (variable=example1event_example1event_x3_dummy_der)
+2026-11-26 17:54:56 | DEBUG | YP[8]=0.500999 (variable=example1event_example1event_v1_dummy_der)
+2026-11-26 17:54:56 | DEBUG | YP[2]=-0.002 (variable=example1event_example1event_u4)
+2026-11-26 17:54:56 | DEBUG | YP[0]=0.000499 (variable=example1event_example1event_v2)
+2026-11-26 17:54:56 | DEBUG | 
+2026-11-26 17:54:56 | INFO |        0.002 ¦        2           1              0.001 
+2026-11-26 17:54:56 | INFO |        0.004 ¦        3           2              0.002 
+2026-11-26 17:54:56 | INFO |        0.008 ¦        4           2              0.004 
+2026-11-26 17:54:56 | INFO |        0.016 ¦        5           2              0.008 
+2026-11-26 17:54:56 | INFO |        0.032 ¦        6           2              0.016 
+2026-11-26 17:54:56 | INFO |        0.064 ¦        7           2              0.032 
+2026-11-26 17:54:56 | INFO |        0.096 ¦        8           2              0.032 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 4.90917
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 2.79991
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 2.7609
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 2.715
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 1.34694
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 1.34694
+2026-11-26 17:54:56 | INFO |        0.160 ¦        9           2              0.064 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 5.72288
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 4.06793
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 3.31026
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 2.22003
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 1.8489
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 5 example1event_example1event_x1, error 1.17915
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 1.04509
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 1.04509
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 1.00576
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 1.00576
+2026-11-26 17:54:56 | INFO |        0.218 ¦       10           2              0.058 
+2026-11-26 17:54:56 | INFO |        0.275 ¦       11           2              0.058 
+2026-11-26 17:54:56 | INFO |        0.333 ¦       12           2              0.058 
+2026-11-26 17:54:56 | INFO |        0.390 ¦       13           2              0.058 
+2026-11-26 17:54:56 | INFO |        0.448 ¦       14           2              0.058 
+2026-11-26 17:54:56 | DEBUG | Algebraic mode change for model example1event at t = 0.49998
+2026-11-26 17:54:56 | INFO | Algebraic mode change at t = 0.49998
+2026-11-26 17:54:56 | INFO |        0.500 ¦       15           2              0.058 
+2026-11-26 17:54:56 | DEBUG | call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
+2026-11-26 17:54:56 | DEBUG | call of SolverReInit i.e. a new symbolic and numerical factorization will be performed
+2026-11-26 17:54:56 | WARN | algebraic restoration not consistent after 20 passes: residual of the algebraic equations 0.998919 > 0.0001
+2026-11-26 17:54:56 | INFO |        0.500 ¦        0           0              0.000 
+2026-11-26 17:54:56 | DEBUG | largest derivative values (truncated to the first 10) at the current iteration
+2026-11-26 17:54:56 | DEBUG | YP[0]=0.0564533 (variable=example1event_example1event_v2)
+2026-11-26 17:54:56 | DEBUG | YP[1]=0.0281645 (variable=example1event_example1event_x2)
+2026-11-26 17:54:56 | DEBUG | YP[2]=0 (variable=example1event_example1event_u4)
+2026-11-26 17:54:56 | DEBUG | YP[3]=0 (variable=example1event_example1event_v1)
+2026-11-26 17:54:56 | DEBUG | YP[4]=0 (variable=example1event_example1event_v3)
+2026-11-26 17:54:56 | DEBUG | YP[5]=0 (variable=example1event_example1event_x1)
+2026-11-26 17:54:56 | DEBUG | YP[6]=0 (variable=example1event_example1event_x3)
+2026-11-26 17:54:56 | DEBUG | YP[7]=0 (variable=example1event_example1event_x4)
+2026-11-26 17:54:56 | DEBUG | YP[8]=0 (variable=example1event_example1event_v1_dummy_der)
+2026-11-26 17:54:56 | DEBUG | YP[9]=0 (variable=example1event_example1event_v3_dummy_der)
+2026-11-26 17:54:56 | DEBUG | 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 3515.78
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 24.1711
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 9.70687
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 9.70687
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 6.62896
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 5 example1event_example1event_x1, error 6.09307
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 4.85721
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 4.84214
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 4.84214
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 2.1062
+2026-11-26 17:54:56 | INFO |        0.501 ¦        1           1              0.001 
+2026-11-26 17:54:56 | INFO |        0.502 ¦        2           1              0.001 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 8900.13
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 7628.69
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 7810.32
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 7787.62
+2026-11-26 17:54:56 | INFO |        0.504 ¦        3           2              0.002 
+2026-11-26 17:54:56 | INFO |        0.508 ¦        4           2              0.004 
+2026-11-26 17:54:56 | INFO |        0.516 ¦        5           2              0.008 
+2026-11-26 17:54:56 | INFO |        0.532 ¦        6           2              0.016 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 1.55866
+2026-11-26 17:54:56 | INFO |        0.564 ¦        7           2              0.032 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 13.9073
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 3.39806
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 2.41252
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 1.22808
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 1.20604
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 1.20604
+2026-11-26 17:54:56 | INFO |        0.628 ¦        8           2              0.064 
+2026-11-26 17:54:56 | INFO |        0.692 ¦        9           2              0.064 
+2026-11-26 17:54:56 | INFO |        0.756 ¦       10           2              0.064 
+2026-11-26 17:54:56 | INFO |        0.820 ¦       11           2              0.064 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 98.3995
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 43.2589
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 18.6867
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 14.1227
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 14.1227
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 5.8483
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 5.8483
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 5 example1event_example1event_x1, error 4.62522
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 4.22302
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 1.45903
+2026-11-26 17:54:56 | INFO |        0.948 ¦       12           2              0.128 
+2026-11-26 17:54:56 | INFO |        1.076 ¦       13           2              0.128 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 83.9311
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 80.4716
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 29.1295
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 21.4058
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 20.4287
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 20.4287
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 15.9745
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 15.9745
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 9.4551
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 5 example1event_example1event_x1, error 4.27087
+2026-11-26 17:54:56 | INFO |        1.191 ¦       14           2              0.115 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 54.1447
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 42.1236
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 29.8768
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 20.695
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 20.695
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 10.8214
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 9.71594
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 9.54878
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 9.54878
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 2.28857
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 60.4906
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 47.9652
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 33.7029
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 20.5475
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 20.5475
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 12.6803
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 10.6679
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 10.6679
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 8.67041
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 2.55679
+2026-11-26 17:54:56 | INFO |        1.292 ¦       15           2              0.101 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 31.5788
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 26.4134
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 19.1423
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 17.4325
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 17.4325
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 8.55286
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 5.56554
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 5.56554
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 4.2994
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 1 example1event_example1event_x2, error 2.36021
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 36.9091
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 31.4976
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 23.4748
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 16.8802
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 16.8802
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 7.22735
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 6.50496
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 6.50496
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 5.79635
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 2.38376
+2026-11-26 17:54:56 | INFO |        1.383 ¦       16           2              0.091 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 22.6047
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 17.6337
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 12.1359
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 12.1359
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 8.5202
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 6.81642
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 3.4515
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 3.4515
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 1 example1event_example1event_x2, error 2.5091
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 1.73386
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 28.5046
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 21.5038
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 11.5129
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 11.474
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 11.474
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 5.44283
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 4.20902
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 4.20902
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 8 example1event_example1event_v1_dummy_der, error 2.32254
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 2.11439
+2026-11-26 17:54:56 | INFO |        1.465 ¦       17           2              0.082 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 23.8771
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 10.4036
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 10.3403
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 10.3403
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 6.33901
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 3.68811
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 1 example1event_example1event_x2, error 2.92109
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 2.72707
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 2.72707
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 1.81088
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 30.3407
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 12.6869
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 9.72192
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 9.72192
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 12 example1event_example1event_x4_dummy_der, error 5.54154
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 5.06162
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 3.32559
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 3.32559
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 2.20833
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 11 example1event_example1event_x3_dummy_der, error 2.20833
+2026-11-26 17:54:56 | INFO |        1.547 ¦       18           2              0.082 
+2026-11-26 17:54:56 | DEBUG | largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first 10
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 7 example1event_example1event_x4, error 30.0097
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 3 example1event_example1event_v1, error 7.0227
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 10 example1event_example1event_x1_dummy_der, error 7.0227
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 2 example1event_example1event_u4, error 4.7426
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 0 example1event_example1event_v2, error 3.69167
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 6 example1event_example1event_x3, error 2.45692
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 9 example1event_example1event_v3_dummy_der, error 2.45692
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 4 example1event_example1event_v3, error 2.10453
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 11 example1event_example1event_x3_dummy_der, error 2.10453
+2026-11-26 17:54:56 | DEBUG | error > 1 : variable 1 example1event_example1event_x2, error 1.9306
+2026-11-26 17:54:56 | INFO |        1.621 ¦       19           2              0.074 
+2026-11-26 17:54:56 | INFO |        1.694 ¦       20           2              0.074 
+2026-11-26 17:54:56 | INFO |        1.768 ¦       21           2              0.074 
+2026-11-26 17:54:56 | INFO |        1.842 ¦       22           2              0.074 
+2026-11-26 17:54:56 | INFO |        1.916 ¦       23           2              0.074 
+2026-11-26 17:54:56 | INFO |        1.989 ¦       24           2              0.074 
+2026-11-26 17:54:56 | INFO |        2.000 ¦       25           2              0.011 
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | execution statistics :
+2026-11-26 17:54:56 | INFO | 
+2026-11-26 17:54:56 | INFO | number of time iterations                                  = 40
+2026-11-26 17:54:56 | INFO | number of residual evaluations                             = 66
+2026-11-26 17:54:56 | INFO | number of Jacobian evaluations                             = 16
+2026-11-26 17:54:56 | INFO | number of nonlinear iterations                             = 66
+2026-11-26 17:54:56 | INFO | number of error test failures                              = 0
+2026-11-26 17:54:56 | INFO | number of nonlinear convergence failures                   = 1
+2026-11-26 17:54:56 | INFO | number of solver root functions evaluations                = 69
+2026-11-26 17:54:56 | INFO | number of internal root functions evaluations              = 2
+2026-11-26 17:54:56 | INFO | number of discrete variables evaluations                   = 1
+2026-11-26 17:54:56 | INFO | number of mode evaluations                                 = 1
+2026-11-26 17:54:56 | INFO | number of differential mode                                = 0
+2026-11-26 17:54:56 | INFO | number of algebraic mode                                   = 1
+2026-11-26 17:54:56 | INFO | number of algebraic J update mode                          = 0
+2026-11-26 17:54:56 | INFO | number of algebraic restoration residual evaluations       = 40
+2026-11-26 17:54:56 | INFO | number of algebraic restoration Jacobian evaluations       = 1
+2026-11-26 17:54:56 | INFO | number of algebraic prim restoration residual evaluations  = 40
+2026-11-26 17:54:56 | INFO | number of algebraic prim restoration Jacobian evaluations  = 1
+2026-11-26 17:54:56 | INFO | end of job 'example 1 from article with event'

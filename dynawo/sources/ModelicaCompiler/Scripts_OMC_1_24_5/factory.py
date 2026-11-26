@@ -962,88 +962,24 @@ class Factory:
                 eq.set_num_dyn (-1) # can detect bugs
         self.nb_eq_dyn = i
 
-        # --- NEW CODE (dummy-derivative fix) ---
         self.retype_redundant_differential_equations()
-        # --- end new code ---
 
-    # --- NEW CODE (dummy-derivative fix) ---
     ##
-    # After index reduction, some equations contain derivatives of states that are already
-    # determined by other equations, e.g. the differentiated constraint
-    # der(x1) + der(x3) + der(x4) + der(x5) = 0 where der(x1) is a dummy derivative.
-    # Typed DIFFERENTIAL, they give more DIFFERENTIAL equations than DIFFERENTIAL variables
-    # (assert numF == indexY_.size() in SolverKINAlgRestoration).
-    # v2: output set (Mattsson-Soderlind 1993, sections 2.1 and 2.3-2(c)) between the equations and the
-    # highest order unknowns: der(s) for each state s, the variable itself for each algebraic unknown
-    # (dummy derivatives included). An equation matched to der(s) stays DIFFERENTIAL, a DIFFERENTIAL
-    # equation matched to an algebraic unknown is retyped ALGEBRAIC. With a perfect matching, both
-    # subsystems used by the restorations (derivatives / algebraic) are structurally nonsingular.
+    # Retype as ALGEBRAIC the DIFFERENTIAL equations that determine an algebraic unknown after index reduction.
     # Only applied to models with dummy derivatives.
+    # Builds an output set (Mattsson-Soderlind 1993, sections 2.1 and 2.3-2(c)): each equation is matched to one
+    # highest order unknown, der(s) for a state s or the variable itself for an algebraic unknown (dummy
+    # derivatives included). A DIFFERENTIAL equation matched to an algebraic unknown, e.g. a differentiated
+    # constraint that determines a dummy derivative, is retyped ALGEBRAIC. Both subsystems solved by the
+    # restorations (derivatives and algebraic) are then square and structurally nonsingular.
     # @param self : object pointer
     # @return
     def retype_redundant_differential_equations(self):
-        # --- OLD CODE (v1: matching on state derivatives only, order-dependent on ties) ---
-        # if len(self.reader.dummy_der_variables) == 0:
-        #     return
-        #
-        # # states typed DIFFERENTIAL in evalStaticYType (same exclusions as prepare_for_evalstaticytype)
-        # mixed_var = set()
-        # for eq in self.list_eq_syst:
-        #     var_name = eq.get_evaluated_var()
-        #     if self.reader.var_name_to_eq_type.get(var_name) == MIXED:
-        #         for tables in self.reader.var_name_to_differential_dependency_variables.get(var_name, []):
-        #             mixed_var.update(tables)
-        # states = set()
-        # for v in self.list_vars_syst:
-        #     if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
-        #     if v in self.reader.list_calculated_vars : continue
-        #     if is_alg_var(v) or v.get_name() in mixed_var : continue
-        #     states.add(v.get_name())
-        #
-        # # candidate equations and the state derivatives they contain
-        # candidates = []
-        # for eq in self.list_eq_syst:
-        #     var_name = eq.get_evaluated_var()
-        #     if eq.get_num_dyn() == -1 or eq.get_type() != DIFFERENTIAL : continue
-        #     if var_name in self.reader.var_name_to_mixed_residual_vars_types : continue
-        #     raw_der = set()
-        #     for tables in self.reader.var_name_to_differential_dependency_variables.get(var_name, []):
-        #         raw_der.update(tables)
-        #     if var_name.startswith("der(") and var_name.endswith(")"):
-        #         raw_der.add(var_name[4:-1])
-        #     if len(raw_der) == 0:
-        #         print_warning("Equation " + var_name + " is DIFFERENTIAL but no state derivative was found in it, its type is kept.")
-        #         continue
-        #     candidates.append((eq, raw_der & states))
-        #
-        # # equations with fewer derivatives are matched first: the differentiated constraints come last
-        # candidates.sort(key = lambda c: (len(c[1]), c[0].get_num_dyn()))
-        # owner = {}  # state name -> index in candidates
-        #
-        # def try_match(idx, visited):
-        #     for state in sorted(candidates[idx][1]):
-        #         if state in visited : continue
-        #         visited.add(state)
-        #         if state not in owner or try_match(owner[state], visited):
-        #             owner[state] = idx
-        #             return True
-        #     return False
-        #
-        # for idx in range(len(candidates)):
-        #     try_match(idx, set())
-        # matched = set(owner.values())
-        #
-        # for idx, (eq, _) in enumerate(candidates):
-        #     if idx not in matched:
-        #         eq.set_type(ALGEBRAIC)
-        #         print_info("Equation " + eq.get_evaluated_var() + " retyped ALGEBRAIC: the state derivatives it contains are determined by other equations (index reduction).")
-        # --- end old code ---
-
-        # --- NEW CODE (v2: output set over state derivatives and algebraic unknowns) ---
         if len(self.reader.dummy_der_variables) == 0:
             return
 
-        # 1. static variable types, same logic as prepare_for_evalstaticytype
+        # 1. static variable types, same logic as prepare_for_evalstaticytype:
+        #    states (DIFFERENTIAL) and algebraic unknowns (ALGEBRAIC)
         mixed_var = []
         external_diff_var = []
         for eq in self.list_eq_syst:
@@ -1076,6 +1012,7 @@ class Factory:
             dummy_by_state[dummy[:-len("_dummy_der")]] = dummy
 
         def to_alg_unknown(name):
+            # Name found in an equation -> algebraic unknown it represents, or None
             if name.startswith("der(") and name.endswith(")"):
                 return dummy_by_state.get(name[4:-1])  # der(x) is an unknown only through its dummy derivative
             if name.startswith("$DER."):
@@ -1095,7 +1032,7 @@ class Factory:
         for eq in self.list_eq_syst:
             var_name = eq.get_evaluated_var()
             if eq.get_num_dyn() == -1 : continue
-            if (eq.get_type() != DIFFERENTIAL and eq.get_type() != ALGEBRAIC) or var_name in self.reader.var_name_to_mixed_residual_vars_types:
+            if eq.get_type() != DIFFERENTIAL and eq.get_type() != ALGEBRAIC:
                 # equation left out (dynamic type): the unknown it defines is not available to the others
                 alg_unknowns.discard(var_name)
                 continue
@@ -1131,7 +1068,7 @@ class Factory:
             return False
 
         by_num_dyn = sorted(range(len(nodes)), key = lambda i: nodes[i][0].get_num_dyn())
-        # phase 1 (= v1): state derivatives only, equations with fewer derivatives first
+        # phase 1 : state derivatives only, equations with fewer derivatives first
         derivative_columns = lambda idx: nodes[idx][1]
         phase1 = [idx for idx in range(len(nodes)) if len(nodes[idx][1]) > 0]
         phase1.sort(key = lambda idx: (len(nodes[idx][1]), nodes[idx][0].get_num_dyn()))
@@ -1168,8 +1105,6 @@ class Factory:
         if len(match_of) != len(nodes):
             print_warning("Dummy-derivative typing: " + str(len(nodes) - len(match_of)) + " equation(s) could not be matched to an unknown.")
         print_info("Dummy-derivative typing: " + str(len(nodes)) + " equations, " + str(len(states)) + " state derivatives, " + str(len(alg_unknowns)) + " algebraic unknowns, " + str(len(match_of)) + " matched.")
-        # --- end new code (v2) ---
-    # --- end new code ---
 
     ##
     # collect the equations due to Modelica reinit command and assigns them an unique id
@@ -3505,8 +3440,6 @@ class Factory:
                 var_ext = ""
                 if is_alg_var(v) :
                     spin = "ALGEBRAIC"
-                # if v.get_name() in self.reader.dummy_der_variables:
-                #     spin = "DIFFERENTIAL"
                 if v.get_name() in self.reader.fictive_continuous_vars and v.get_name() not in external_diff_var:
                   spin = "EXTERNAL"
                   var_ext = "- external variables"

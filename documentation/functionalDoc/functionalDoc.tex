@@ -1265,6 +1265,13 @@ Two optional parameters enable to activate a time-scaled recomputation of \ac{ID
 \end{itemize}
 These two parameters are used in conjunction with \textit{activateAlternativeStrategiesOnDivergence}: when the recovery strategy divides the minimum time step by 100, it also divides \textit{timeScaledURoundPrecision} by the same factor.
 
+After a mode change, the algebraic restoration is solved with the derivatives of the previous point, then the derivatives are recomputed. When algebraic equations also contain derivatives (dummy derivatives after an index reduction), this single pass may leave them unsatisfied. Two experimental optional parameters enable to repeat both restorations:
+\begin{itemize}
+\item \textit{activateIteratedAlgebraicRestorations} (boolean, false by default) repeats the algebraic and derivative restorations until the residual of the algebraic equations is below \textit{fnormtolAlg} ;
+\item \textit{maxNumberRestorationPasses} (integer, 20 by default) is the maximum number of passes, the first one included. A warning is displayed if the residual is still above \textit{fnormtolAlg} after the last pass.
+\end{itemize}
+These passes form a block Gauss-Seidel iteration between the two restorations, which may diverge depending on the model.
+
 Finally, two parameters enable to stop the calculation if the time-step remains locked below a threshold - minimalAcceptableStep = 10e-6 by default - during more than
 maximumNumberSlowStepIncrease (= 10 by default).
 \bibliography{../resources/dynawoDocumentation}

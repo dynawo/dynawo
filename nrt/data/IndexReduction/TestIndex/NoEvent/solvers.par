@@ -12,11 +12,6 @@
     simulation tool for power systems.
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
-  <set id="system">
-    <par type="DOUBLE" name="example1event_k" value="-1"/>
-    <par type="DOUBLE" name="example1event_tEvent" value="0.5"/>
-    <par type="DOUBLE" name="example1event_uStepPu" value="1.0"/>
-  </set>
   <!-- IDA order 1 solver-->
   <set id="1">
     <par type="INT" name="order" value="1"/>
@@ -34,6 +29,8 @@
     <par type="DOUBLE" name="maxStep" value="10"/>
     <par type="DOUBLE" name="absAccuracy" value="1e-4"/>
     <par type="DOUBLE" name="relAccuracy" value="1e-4"/>
+    <par type="BOOL" name="activateIteratedAlgebraicRestorations" value="true"/>
+    <par type="INT" name="maxNumberRestorationPasses" value="20"/>
   </set>
   <!-- Simplified solver without step recalculation -->
   <set id="3">
