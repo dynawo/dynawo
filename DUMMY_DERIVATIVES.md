@@ -290,7 +290,7 @@ d'états, pendant la simulation.
 - Le solveur résout d'abord en mode KIN_ALGEBRAIC, avec les états figés, puis en mode
   KIN_DERIVATIVES. Le choix des dummy derivatives n'est jamais remis en cause. Si M devient
   singulière au nouveau point, KINSOL échoue.
-- Avec `factory_new.py`, les dummy derivatives sont ALGEBRAIC. Elles sont donc recalculées en
+- Avec le `factory.py` corrigé, les dummy derivatives sont ALGEBRAIC. Elles sont donc recalculées en
   KIN_ALGEBRAIC, ce qui est conforme à l'article.
 - Avec le `factory.py` original, elles sont DIFFERENTIAL. Elles ne sont pas recalculées en
   KIN_ALGEBRAIC, et en KIN_DERIVATIVES on cherche leur dérivée y', qui n'a pas de sens. C'est la
@@ -336,7 +336,8 @@ C'est donc à lui de garantir l'index 1 :
   modélisation, et non par l'algorithme.
 - **Limites, non testées.**
   - Aucune garde contre `B = 0` n'a été trouvée. Dans ce cas, `u'` disparaît de la loi des nœuds,
-    et on retomberait sur une ligne nulle en KIN_DERIVATIVES, comme pour `TestIndex`.
+    et on retomberait sur une ligne nulle en KIN_DERIVATIVES, comme pour `TestIndex`. Ce point est
+    confirmé et traité par la PR #4261 (section 7).
   - Les états CLOSED_1 et CLOSED_2, ainsi que les bus dynamiques, sont explicitement refusés
     ([DYNModelLine.cpp:1153-1158](dynawo/sources/Models/CPP/ModelNetwork/DYNModelLine.cpp#L1153-L1158)).
 
@@ -354,7 +355,7 @@ en restauration.
 | | Modelica (OMC + générateur) | C++ |
 |---|---|---|
 | Réduction d'index | OMC, statique, par modèle | à la main, dans la modélisation |
-| Dummy derivatives | oui ; typage corrigé par `factory_new.py` | sans objet |
+| Dummy derivatives | oui ; typage corrigé dans `factory.py` | sans objet |
 | Dummy pivoting / state sets | non pris en charge, jamais rencontré | non |
 | Changement de type en cours de simulation | par mode (variables mixtes) | par mode (`evalDynamic*Type`) |
 | Couplage inter-modèles | jamais réduit | jamais réduit |
@@ -364,3 +365,334 @@ en restauration.
 - un pendule cartésien en Modelica, pour forcer OMC à créer un state set et voir comment le
   générateur réagit ;
 - une ligne C++ dynamique avec `B = 0`, pour vérifier la ligne nulle prédite.
+
+---
+
+## 6. La double résolution des restaurations dans Dynawo : état actuel
+
+**Le problème à résoudre.** À l'initialisation et après chaque changement de mode, le solveur doit
+trouver un point cohérent. Les états (variables DIFFERENTIAL) sont figés ; les inconnues sont les
+variables algébriques `a` et les dérivées des états `d`, et toutes les équations `F = 0` doivent être
+satisfaites.
+
+**Ce que fait Dynawo : deux résolutions successives.** Les équations sont séparées selon leur type
+(`fType`, seul endroit du solveur où ce type est lu :
+[DYNSolverKINAlgRestoration.cpp:93](dynawo/sources/Solvers/AlgebraicSolvers/DYNSolverKINAlgRestoration.cpp#L93)) :
+
+```
+1. KIN_ALGEBRAIC   : équations ALGEBRAIC    → variables algébriques a   (dérivées d figées)
+2. KIN_DERIVATIVES : équations DIFFERENTIAL → dérivées des états d      (a figées)
+```
+
+| Moment | Enchaînement |
+|---|---|
+| Initialisation (`calculateIC`) | KIN_ALGEBRAIC → KIN_DERIVATIVES → `IDACalcIC(IDA_YA_YDP_INIT)` ([DYNSolverIDA.cpp:425](dynawo/sources/Solvers/VariableTimeStep/SolverIDA/DYNSolverIDA.cpp#L425)) |
+| Après un changement de mode (`reinit`) | KIN_ALGEBRAIC → KIN_DERIVATIVES → boucle `solveCoupledRestorations` ([DYNSolverIDA.cpp:811](dynawo/sources/Solvers/VariableTimeStep/SolverIDA/DYNSolverIDA.cpp#L811), appelée ligne 885) → `IDAReInit` |
+
+**Pourquoi ce découpage est exact pour les modèles classiques.** Dans un modèle semi-explicite
+d'index 1, les équations algébriques ne contiennent pas de dérivées (`∂F_A/∂d = 0`). Le système est
+triangulaire par blocs : on calcule `a`, puis `d`, et le point est cohérent en une seule passe.
+
+**Pourquoi il ne l'est plus après une réduction d'index.** Les contraintes dérivées par Pantelides
+sont algébriques mais contiennent des dérivées d'état (par exemple f1'' : `x1'' + der(v2) = …` dans
+`Example1`). KIN_ALGEBRAIC les résout avec les dérivées du point précédent, et une passe laisse un
+résidu non nul sur ces équations.
+
+**La boucle ajoutée par Florentine (commit `265f5a0676d`, marquée « POC #3152 »).** Après la première
+passe, la paire KIN_ALGEBRAIC puis KIN_DERIVATIVES est répétée tant que le résidu des équations
+ALGEBRAIC dépasse `fnormtolAlg` (10⁻⁴ par défaut), avec au plus 20 passes et un avertissement
+`SolverIDACoupledRestorationNotConverged` en cas d'échec. C'est une itération de Gauss-Seidel par
+blocs : l'erreur sur les dérivées est multipliée à chaque passe par
+
+```
+ρ = (∂F_D/∂d)⁻¹ · ∂F_D/∂a · (∂F_A/∂a)⁻¹ · ∂F_A/∂d
+```
+
+Pour un modèle classique, `ρ = 0` et une passe suffit. Avec des dummy derivatives, la boucle converge
+si `|ρ| < 1`. **Ce facteur dépend du typage choisi en cas d'ex-aequo de l'appariement** : sur
+`Example1`, le typage retenu (f1'' DIFFERENTIAL, f4 ALGEBRAIC) donne `ρ = 1/2`, le typage inverse,
+structurellement tout aussi valide, donnerait `ρ = 2` et la boucle divergerait. Or le générateur
+départage ces ex-aequo par l'ordre de numérotation d'OMC (`num_dyn`), sans regarder les coefficients.
+
+**L'alternative : une restauration jointe.** Un seul Newton sur `(a, d)` avec toutes les équations :
+
+```
+J = [ ∂F_A/∂a   ∂F_A/∂d ]
+    [ ∂F_D/∂a   ∂F_D/∂d ]
+```
+
+Elle n'a besoin que du type des variables, pas de celui des équations, et sa convergence ne dépend pas
+du départage des ex-aequo. Dynawo la possède déjà : c'est `IDACalcIC(IDA_YA_YDP_INIT)`, mais elle
+n'est appelée qu'à l'initialisation, pas dans `reinit`. Sa robustesse et son coût sur de gros réseaux
+restent à mesurer.
+
+| | `reinit` avant le commit | Avec la boucle de Florentine | Restauration jointe |
+|---|---|---|---|
+| Méthode | une passe A puis D | passes A puis D répétées (≤ 20) | un Newton sur (a, d) |
+| Besoin du type des équations | oui | oui | non |
+| Exact si `F_A` contient des `y'` | non | si ρ < 1 | oui |
+| Disponible dans Dynawo | oui | oui (POC) | oui, à l'initialisation seulement |
+
+**À retenir.** Le correctif de `factory.py` est structurel : il donne un typage cohérent, sans lequel
+aucune des deux approches ne peut fonctionner. La convergence numérique de la restauration relève du
+solveur.
+
+---
+
+## 7. La correction de la ligne dynamique C++ (issue #4256, PR #4261)
+
+**Contexte.** Marco Chiaramello a ouvert l'issue
+[#4256](https://github.com/dynawo/dynawo/issues/4256) et la PR
+[#4261](https://github.com/dynawo/dynawo/pull/4261) (branche `4256_fix_dynamic_line_cpp_model` vers
+`master`, ouverte, non relue à ce jour). Elles portent sur la ligne dynamique C++ (`ModelLine` avec
+`line_isDynamic`), l'équivalent C++ de `DynLine.mo` décrit en section 5.2.
+
+**Rappel physique.** La ligne est modélisée en π : une branche série R + L traversée par le courant de
+branche `Ib`, et des capacités shunt (susceptances `B1`, `B2`) aux deux bouts. En modèle dynamique, on
+garde les dérivées :
+
+```
+inductance :  L·dIb/dt = U1 − U2 − (R + jωref·L)·Ib     → Ib est un état (courant différentiel)
+capacité   :  C·dU/dt  = Iinjecté − jωref·C·U           → U est un état (bus différentiel)
+```
+
+Un bus sans capacité a une loi des nœuds algébrique. Si ce bus ne relie que des branches inductives
+(ou des sources de courant), la loi des nœuds devient une contrainte entre états (`Ib1 + Ib2 = 0`) :
+c'est un index 2, la même situation que `x1 + x2 = u` dans `Example1`.
+
+**Les problèmes relevés dans l'issue.**
+
+- *Le problème principal* : une ligne dynamique déclare ses deux bus en tensions différentielles même
+  si `B = 0`. La loi des nœuds est alors typée DIFFERENTIAL sans contenir de `dU/dt`, d'où une ligne
+  nulle et l'échec de la restauration KIN_DERIVATIVES. C'est le symptôme de `TestIndex`, dans un
+  modèle écrit à la main.
+- *Des bugs d'implémentation* : index `ur`/`ui` inversés dans `evalDerivatives` ; colonnes sautées
+  dans `evalJtPrim` à l'ouverture de la ligne ; courant compté deux fois dans `evalNodeInjection` ;
+  courant de branche initial incluant le courant du shunt ; `omegaRef` connecté mais jamais lu ;
+  injections aux nœuds non calculées pour les équations différentielles.
+
+**Ce que fait la PR.**
+
+- Elle corrige les bugs ci-dessus (`omegaRef()` lu dans la variable connectée, avec ses termes de
+  jacobienne ; courant initial `Ib = I1 − (G1 + jB1)·U1` ; injections calculées dès qu'un bus est
+  différentiel).
+- **Typage des bus selon la topologie** (`flagDifferentialBuses`) : à chaque évaluation des types, les
+  bus sont remis à « algébrique », puis chaque ligne dynamique fermée marque son bus comme
+  différentiel seulement si sa susceptance de ce côté est non nulle. Le type d'un bus peut donc
+  changer après un événement de topologie.
+- **Repli quasi-statique** (`isSeriesDifferential`, point soumis à discussion par l'auteur) : si l'un
+  des deux bus n'a pas de tensions différentielles, le courant de branche passe en ALGEBRAIC et
+  l'équation de branche perd son terme `L·dIb/dt` :
+
+  ```
+  0 = ωn·(U1 − U2 + jL·ωref·Ib − R·Ib)
+  ```
+
+  Cela évite l'index 2 à l'initialisation et le courant inductif figé après un changement de
+  topologie. Des logs signalent les lignes concernées (nombre en INFO, liste en DEBUG). Un test de
+  non-régression est ajouté (IEEE30, perte du groupe G1 au nœud B2, lignes dynamiques).
+
+**Mise en perspective avec les dummy derivatives.** Les deux approches traitent le même problème
+d'index (une branche inductive qui arrive sur un nœud sans capacité), de deux façons différentes :
+
+| | Modelica (`DynLine.mo` + OMC) | C++ (PR #4261) |
+|---|---|---|
+| Méthode | dérivation de la contrainte, dummy derivatives | suppression de `L·dIb/dt` (quasi-statique) |
+| Dynamique de la branche | conservée exactement | perdue (approximation) |
+| Typage | reconstruit par le générateur (`factory.py`) | écrit à la main, selon la topologie |
+
+**Points d'attention.**
+
+- Le repli est conservateur : il s'applique dès qu'un bus n'a pas de capacité, même si ce bus porte
+  des injections qui dépendent de sa tension (charge, générateur), cas où l'index reste 1 et où la
+  dynamique de la branche pourrait être gardée.
+- Une ligne déclarée dynamique peut devenir statique selon les susceptances du jeu de données ; seul
+  le log l'indique.
+- Le couplage avec des modèles Modelica qui imposent un courant (section 5.3) n'est pas couvert.
+- Le type des bus change avec la topologie, donc passe par `evalDynamicYType`, les changements de mode
+  et `reinit` : l'interaction avec la boucle de restauration de la section 6 reste à vérifier.
+
+---
+
+## 8. Session du 23 novembre 2026 : la restauration itérée peut diverger (`Example1Event`)
+
+Objectif : montrer, avec le `factory.py` actuel et sans rien forcer, que la boucle de restaurations
+répétées ajoutée dans `SolverIDA::reinit` (section 6) peut converger, stagner ou diverger selon la
+valeur d'un seul coefficient du modèle.
+
+### 8.1 Le modèle et le cas test
+
+`Examples/IndexReduction/Example1Event.mo` reprend `Example1` (f2 réécrite en f2 − f1) avec deux
+changements :
+
+- le coefficient de `der(v1)` dans f4 devient un paramètre `k` (2 dans l'article) ;
+- une marche d'amplitude `uStepPu` à `tEvent` est appliquée sur l'entrée de f4, via une variable `u4` :
+
+```modelica
+u4 = if time < tEvent then cos(2 * time) else cos(2 * time) + uStepPu;
+k * der(v1) + der(v2) + der(v3) + der(x4) + u4 = 0.0;
+```
+
+La marche sert à deux choses : déclencher un changement de mode (sans événement, `reinit` et donc la
+boucle ne sont jamais appelés) et faire sauter `der(v2)`, pour que la restauration ait une erreur à
+corriger.
+
+Cas test : `Example1/Event/` (`example1event.jobs`, `.dyd`, `.par`, `.crv`). Les paramètres d'un modèle
+préassemblé sont préfixés par l'identifiant du `unitDynamicModel` : `example1event_k`,
+`example1event_tEvent`, `example1event_uStepPu`. Changer `k` dans le `.par` ne demande pas de
+recompiler.
+
+**Deux écueils rencontrés.**
+
+- Avec le `if` écrit directement dans f4, l'assert `numF == indexY_.size()` revient. Cause : un défaut
+  du correctif. `readerOMC.py` range toute équation contenant un `if` dans
+  `var_name_to_mixed_residual_vars_types`
+  ([readerOMC.py:714-735](dynawo/sources/ModelicaCompiler/Scripts_OMC_1_13_2/readerOMC.py#L714-L735)),
+  même si toutes ses branches ont le même type. L'appariement exclut toute équation présente dans cette
+  table ([factory.py:1081](dynawo/sources/ModelicaCompiler/Scripts_OMC_1_13_2/factory.py#L1081)) au
+  lieu d'exclure seulement les équations de type `MIXED`. f4 n'est donc jamais retypée. Correction
+  proposée, testée hors ligne et **non appliquée à ce jour** : garder seulement la condition
+  `eq.get_type() != DIFFERENTIAL and eq.get_type() != ALGEBRAIC`. Contournement retenu ici : placer le
+  `if` dans l'équation de `u4`, comme `u1` dans `TestIndex/Event`.
+- Effet secondaire du même défaut : une relation contenue dans une équation typée DIFFERENTIAL produit
+  un `DIFFERENTIAL_MODE`, pour lequel `reinit` ne lance pas la restauration algébrique (section 8.7).
+
+### 8.2 La théorie : pourquoi `k` décide
+
+Après réduction d'index, OMC garde `x2` et `v2` comme états. À l'événement, seules deux inconnues de la
+restauration sont couplées, `v1d = x1''` (dummy derivative) et `v2'` (vraie dérivée), par deux
+équations :
+
+```
+f1'' :      v1d + v2' = sin t*
+f4   :    k·v1d + v2' = −C          (C : tout ce qui est connu dans f4, marche comprise)
+```
+
+Solution exacte : `(1 − k)·v2'* = −k·sin t* − C`. Le système est singulier pour `k = 1`. À
+l'événement, `v2'*` saute de `−uStepPu / (1 − k)`.
+
+Typage choisi par `factory.py` (ex-aequo départagé par l'ordre `num_dyn` d'OMC) : f1'' DIFFERENTIAL
+(détermine `v2'`), f4 ALGEBRAIC (détermine `v1d`). Une passe de la boucle :
+
+```
+KIN_ALGEBRAIC   :  v1d(n) = −(v2'(n−1) + C) / k
+KIN_DERIVATIVES :  v2'(n) = sin t* − v1d(n)
+```
+
+En notant `e(n) = v2'(n) − v2'*`, on obtient :
+
+```
+e(n) = e(n−1) / k = e(0) / kⁿ          ρ = 1/k          e(0) = uStepPu / (1 − k)
+```
+
+Le test d'arrêt de la boucle (`algebraicResidualNorm`) ne voit que le résidu de f4 :
+
+```
+r(n) = |e(n) − e(n−1)| = uStepPu / |k|ⁿ
+```
+
+La boucle converge si `|k| > 1` et diverge si `|k| < 1`. Avec le typage inverse, `ρ = k` : la règle
+s'inverse. Pour `k = −1`, `ρ = −1` avec les deux typages : le système est bien posé (déterminant 2),
+mais aucun typage ne fait converger la boucle.
+
+En général, pour un bloc couplé `[[a, b], [c, d]]`, `ρ = (a·d)/(b·c)` pour un typage et l'inverse pour
+l'autre. ρ ne dépend pas de l'échelle des équations ni des inconnues : ce sont les rapports qui
+comptent, pas le fait qu'un coefficient soit plus grand ou plus petit que 1. Le bon typage est celui qui
+maximise le produit des pivots. Quand `|a·d| = |b·c|` avec un déterminant non nul, aucun typage ne
+convient.
+
+### 8.3 Les résultats (même `.so`, seul `example1event_k` change)
+
+| `k` | ρ | Boucle | `der(v2)` restaurée | Simulation |
+|---|---|---|---|---|
+| 2 | 1/2 | converge en 14 passes (prédit : 14), sans message | 2,656 (valeur exacte : 2,656) | va jusqu'à 2 s, 0 échec du test d'erreur |
+| −1 | −1 | stagne : 20 passes, avertissement, résidu 0,9989 (prédit : 1) | 0,0565, soit la valeur d'avant l'événement (exacte : −0,443) | va jusqu'à 2 s, IDA rattrape l'erreur |
+| 0,5 | 2 | diverge : 20 passes, avertissement, résidu 1,0495·10⁶ (prédit : 2²⁰ ≈ 1,0486·10⁶) | 2,099·10⁶ (prédit : 2²¹ ≈ 2,097·10⁶) | échec : test d'erreur répété, pas réduit à 4·10⁻⁹ |
+
+Chaque passe coûte deux évaluations de résidu par solveur KINSOL (résidu initial plus une itération de
+Newton, le système étant linéaire) : 28 évaluations pour `k = 2` (14 passes), 40 pour les cas à 20
+passes.
+
+Pour `k = −1`, après un nombre pair de passes, `der(v2)` revient exactement à sa valeur d'avant
+l'événement : la boucle n'a rien fait. Pour `k = 0,5`, la boucle aggrave l'erreur : une passe unique
+aurait laissé `e(1) = 4`, que 19 passes supplémentaires multiplient par 2¹⁹.
+
+### 8.4 Pourquoi IDA ne suffit pas à rattraper la restauration
+
+Au premier pas après l'événement, le Newton d'IDA résout tout le système conjointement, mais en
+`t* + h` et non en `t*`, et son test d'erreur compare sa prédiction `y(t*) + h·ẏ(t*)` à la correction.
+Une erreur `e` sur la dérivée restaurée impose donc :
+
+```
+h ≲ tol / e
+```
+
+Avec `tol = 10⁻⁴` : pour `e = 0,5` (`k = −1`), `h ≲ 2·10⁻⁴`, ce qui est possible ; pour `e = 2·10⁶`
+(`k = 0,5`), `h ≲ 5·10⁻¹¹`, sous le pas minimal, d'où l'échec. IDA absorbe une incohérence modérée,
+pas une grande.
+
+De plus, les valeurs au point restauré servent avant qu'IDA ne reparte : `reinit` évalue les fonctions
+de racine en `t*` (`evalG`) pour détecter les événements en cascade, et les sorties en `t*` sont celles
+du point restauré. Après une réduction d'index, les variables algébriques dépendent des dérivées
+(`v1d` dépend de `v2'`) : une dérivée fausse rend aussi ces variables fausses.
+
+### 8.5 La restauration jointe : pourquoi elle n'est pas en place
+
+Définition : à `x` figé (états continus, ou réinitialisés par l'événement), résoudre en un seul Newton
+`F(t*, x, ẋ, y) = 0` pour `(ẋ, y)`, avec la jacobienne `[∂F/∂ẋ  ∂F/∂y]`. Ce système est bien posé
+exactement quand la DAE est d'index 1, ce que garantit la réduction d'index. Il ne demande que le type
+des variables, pas celui des équations. C'est ce que fait `IDACalcIC(IDA_YA_YDP_INIT)`.
+
+Historique : la restauration en deux temps date du premier commit public (`598ed68ecbf`,
+29 janvier 2019). `reinit` y enchaîne déjà un KINSOL pour les variables algébriques et un second en mode
+`KIN_YPRIM`, et `IDACalcIC` n'est utilisé qu'à l'initialisation. Les commits suivants (`c8e5b76045c`
+#384, #919, #1413, #1974) ont réorganisé ce code sans le remettre en cause. La justification du choix
+n'apparaît pas dans le dépôt public ; elle est à demander aux auteurs (RTE).
+
+Hypothèses, par ordre de plausibilité : (1) ce n'était pas nécessaire, la bibliothèque étant écrite en
+forme semi-explicite d'index 1, où le découpage est exact ; (2) la performance sur de gros réseaux avec
+beaucoup d'événements, les optimisations existantes supposant le découpage ; (3) la robustesse et le
+réglage fin de KINSOL ; (4) le partage du code avec les solveurs à pas fixe, qui n'ont pas
+d'`IDACalcIC`. Arguments pour et contre détaillés : section 6.
+
+### 8.6 Les pistes et leur compatibilité
+
+| Piste | Principe | Limites |
+|---|---|---|
+| A. Typage au plus grand pivot | choisir l'appariement qui maximise le produit des pivots | coefficients connus seulement à l'exécution (paramètres, point de fonctionnement) : impossible dans `factory.py`, à faire dans le solveur ; échoue pour `k = −1` |
+| B. Arrêt sur résidu croissant | s'arrêter dès que le résidu ne baisse plus et garder la meilleure itération | ne rend pas le point cohérent, seulement « pas pire » |
+| C. Restauration jointe en secours | si la boucle échoue, un Newton sur `(ẋ, y)` | à écrire (ou `IDACalcIC`, propre à IDA) |
+| D. Accélération (Aitken, Anderson) | extrapoler à partir des itérations successives | exact pour un couplage linéaire à une dimension, `k = −1` compris ; moins garanti en général |
+| E. Restauration jointe pour les seuls modèles couplés | détecter le couplage (termes de `JtPrim` sur des lignes ALGEBRAIC) et résoudre conjointement d'emblée | même travail d'écriture que C ; aucun impact sur les modèles classiques |
+| F. Restauration par blocs (tri BLT) | ne résoudre en bloc que le sous-système couplé (`{v1d, v2'}`) | la plus complexe |
+| G. Passe unique (état avant la boucle) | laisser IDA corriger | variables algébriques fausses en `t*` ; échec si l'erreur est grande |
+| H. Côté modèle | écrire ou reformuler les modèles en index 1 | ne couvre pas les modèles qui ont besoin de la réduction |
+
+Ces pistes se combinent. La combinaison simple et robuste est **B + C** : la boucle s'arrête dès que le
+résidu ne baisse plus, puis la restauration jointe prend le relais si le résidu reste au-dessus de la
+tolérance. D et A ne sont que des optimisations qui rendent le secours moins fréquent, D étant plus
+efficace que A. E est l'alternative directe, sans boucle.
+
+### 8.7 Où le type des équations intervient dans Dynawo
+
+| Usage | Où | Effet |
+|---|---|---|
+| Restauration algébrique | [DYNSolverKINAlgRestoration.cpp:93](dynawo/sources/Solvers/AlgebraicSolvers/DYNSolverKINAlgRestoration.cpp#L93), `algebraicResidualNorm` ([DYNSolverIDA.cpp:801](dynawo/sources/Solvers/VariableTimeStep/SolverIDA/DYNSolverIDA.cpp#L801)) | découpage KIN_ALGEBRAIC / KIN_DERIVATIVES et test d'arrêt de la boucle |
+| Classement des changements de mode (à la génération) | `evalMode` généré ([dataContainer.py:2201-2208](dynawo/sources/ModelicaCompiler/Scripts_OMC_1_13_2/dataContainer.py#L2201-L2208)) | relation dans une équation DIFFERENTIAL → `DIFFERENTIAL_MODE`, dans une équation ALGEBRAIC → `ALGEBRAIC_MODE`. Par défaut, la restauration n'est lancée qu'à partir d'`ALGEBRAIC_MODE` : le typage décide si elle a lieu |
+| Solveurs à pas fixe (SIM, TRAP) | `SolverKINEuler::solve` ([DYNSolverKINEuler.cpp:166-169](dynawo/sources/Solvers/AlgebraicSolvers/DYNSolverKINEuler.cpp#L166-L169)), option `skipAlgebraicResidualsEvaluation` | à la première itération de Newton d'un pas, seules les équations DIFFERENTIAL sont évaluées |
+
+L'avance en temps d'IDA n'utilise pas le type des équations ; elle ne reçoit que celui des variables
+(`IDASetId`), pour appliquer la formule BDF et exclure les variables algébriques du test d'erreur.
+
+Conséquence : une restauration jointe supprimerait le premier usage, pas les deux autres. Un typage
+correct des équations dans `factory.py` resterait nécessaire.
+
+### 8.8 Reste à faire
+
+- Corriger l'exclusion des équations conditionnelles dans `factory.py` (ligne 1081, section 8.1) et
+  signaler par un avertissement toute équation DIFFERENTIAL exclue de l'appariement.
+- Présenter les trois cas d'`Example1Event` à Florentine, avec les pistes B + C ou E.
+- Interroger les auteurs du code de restauration sur le choix historique de la restauration en deux
+  temps.
+- Supprimer les doublons `factory_new.py` et `factory_origin.py`, et lancer les tests de
+  non-régression avec la correction et les commits de Florentine.

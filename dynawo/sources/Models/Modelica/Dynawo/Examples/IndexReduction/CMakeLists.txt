@@ -14,6 +14,8 @@ set(MODEL_FILES
   package.order
   TestIndex.mo
   Example1.mo
+  Example1Event.mo
+  Example1Event.mandatoryParam
   )
 
 #
