@@ -263,6 +263,7 @@ And the second:
 
 In this example, the \lstinline[language=Modelica]{v} variable from
 \lstinline[language=Modelica]{Model1} needs to be connected to the \lstinline[language=Modelica]{v} variable of \lstinline[language=Modelica]{Model2}.
+Since OpenModelica 1.24.5, only connectors can be used in a connection: the connected variables are thus declared as \lstinline[language=Modelica]{Modelica.Blocks.Interfaces.RealInput} in \lstinline[language=Modelica]{Model1} and \lstinline[language=Modelica]{Modelica.Blocks.Interfaces.RealOutput} in \lstinline[language=Modelica]{Model2}.
 The two models have their respective external variables declared in extvar files as shown in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_execDynawo_second_example}.\\
 
 The Test.xml file shown below describes to \Dynawo how to compile and connect those two models:
