@@ -50,7 +50,7 @@ model WTG4ACurrentSource "WECC Wind Turbine model with a simplified drive train 
     tLag = tLag,
     tpREPC = 0.05,
     VCompFlag = VCompFlag,
-    VFrz = VFrz,
+    VFrzPu = VFrzPu,
     XcPu = XPu,
     DbdPu = DbdPu,
     EMaxPu = EMaxPu,

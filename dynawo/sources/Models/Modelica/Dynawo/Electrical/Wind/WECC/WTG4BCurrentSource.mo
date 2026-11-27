@@ -54,7 +54,7 @@ model WTG4BCurrentSource "WECC Wind Turbine model with a current source as inter
     RefFlag = RefFlag,
     SNom = SNom,
     VCompFlag = VCompFlag,
-    VFrz = VFrz,
+    VFrzPu = VFrzPu,
     XcPu = XPu,
     iControl0Pu = iControl0Pu,
     tFilterPC = tFilterPC,

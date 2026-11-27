@@ -52,7 +52,7 @@ model PVVoltageSource2 "WECC PV model with a voltage source as interface with th
     tLag = tLag,
     tpREPC = tpREPC,
     VCompFlag = VCompFlag,
-    VFrz = VFrz,
+    VFrzPu = VFrzPu,
     XcPu = XPu,
     DbdPu = DbdPu,
     EMaxPu = EMaxPu,

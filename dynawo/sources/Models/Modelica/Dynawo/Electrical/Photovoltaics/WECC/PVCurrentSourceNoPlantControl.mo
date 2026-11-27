@@ -15,6 +15,7 @@ within Dynawo.Electrical.Photovoltaics.WECC;
 model PVCurrentSourceNoPlantControl "WECC PV model with a current source as interface with the grid (REEC-B REGC-A)"
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsLvTfo;
   extends Dynawo.Electrical.Controls.WECC.Parameters.ParamsOperatingPoint;
+  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
   extends Dynawo.Electrical.Photovoltaics.WECC.BaseClasses.BasePVCurrentSource(LvTfo(RPu = RPu, XPu = XPu));
 
   // Input variables
@@ -30,6 +31,50 @@ model PVCurrentSourceNoPlantControl "WECC PV model with a current source as inte
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
+  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
+    DPMaxPu = DPMaxPu,
+    DPMinPu = DPMinPu,
+    Dbd1Pu = Dbd1Pu,
+    Dbd2Pu = Dbd2Pu,
+    IMaxPu = IMaxPu,
+    Id0Pu = Id0Pu,
+    Iq0Pu = Iq0Pu,
+    Iqh1Pu = Iqh1Pu,
+    Iql1Pu = Iql1Pu,
+    Kqi = Kqi,
+    Kqp = Kqp,
+    Kqv = Kqv,
+    Kvi = Kvi,
+    Kvp = Kvp,
+    PF0 = PF0,
+    PMaxREECPu = PMaxREECPu,
+    PMinREECPu = PMinREECPu,
+    PQFlag = PQFlag,
+    PfFlag = PfFlag,
+    QFlag = QFlag,
+    QMaxREECPu = QMaxREECPu,
+    QMinREECPu = QMinREECPu,
+    UInj0Pu = UInj0Pu,
+    VDipPu = VDipPu,
+    VFlag = VFlag,
+    VMaxPu = VMaxPu,
+    VMinPu = VMinPu,
+    VRef0Pu = VRef0Pu,
+    VRef1Pu = VRef1Pu,
+    VUpPu = VUpPu,
+    tIq = tIq,
+    tpREEC = tpREEC,
+    tPord = tPord,
+    tRv = tRv,
+    SNom = SNom,
+    PConv0Pu = PConv0Pu,
+    QConv0Pu = QConv0Pu,
+    s0Pu = s0Pu,
+    u0Pu = u0Pu,
+    uConv0Pu = uConv0Pu,
+    UConv0Pu = UConv0Pu) annotation(
+    Placement(transformation(origin = {-80.1315, -0.1384}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 equation
   connect(QConvRefPu, wecc_reec.QConvRefPu) annotation(
     Line(points = {{-190, -20}, {-100, -20}, {-100, -6}, {-91, -6}}, color = {0, 0, 127}));
@@ -39,6 +84,20 @@ equation
     Line(points = {{70, 0}, {130, 0}}, color = {0, 0, 255}));
   connect(LvMeasurements.UPu, UConvPu) annotation(
     Line(points = {{60, -6}, {60, -40}, {130, -40}}, color = {0, 0, 127}));
+  connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
+    Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
+  connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
+    Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
+  connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
+    Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
+  connect(PFaRef, wecc_reec.PFaRef) annotation(
+    Line(points = {{-190, 60}, {-79, 60}, {-79, 11}}, color = {0, 0, 127}));
+  connect(LvMeasurements.UPu, wecc_reec.UPu) annotation(
+    Line(points = {{60, -6}, {60, -16}, {-74, -16}, {-74, -11}}, color = {0, 0, 127}));
+  connect(LvMeasurements.PPu, wecc_reec.PConvPu) annotation(
+    Line(points = {{62, -6}, {62, -20}, {-80, -20}, {-80, -11}}, color = {0, 0, 127}));
+  connect(LvMeasurements.QPu, wecc_reec.QConvPu) annotation(
+    Line(points = {{64, -6}, {64, -25}, {-89, -25}, {-89, -11}}, color = {0, 0, 127}));
 
   annotation(
     preferredView = "diagram",

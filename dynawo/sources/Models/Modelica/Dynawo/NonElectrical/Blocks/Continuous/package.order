@@ -29,6 +29,7 @@ SecondOrder
 SqrtNoEvent
 TransferFunction
 TransferFunctionBypass
+TransferFunctionFreeze
 VarLimPIDFreeze
 Washout
 WeightedDifference

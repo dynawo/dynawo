@@ -115,7 +115,7 @@
     <par type="DOUBLE" name="WTG4B_PMinREPCPu" value="0"/>
     <par type="DOUBLE" name="WTG4B_tpREPC" value="0.03"/>
     <par type="DOUBLE" name="WTG4B_tpREEC" value="0.03"/>
-    <par type="BOOL" name="WTG4B_RefFlag" value="true"/>
+    <par type="INT" name="WTG4B_RefFlag" value="1"/>
     <par type="BOOL" name="WTG4B_VCompFlag" value="false"/>
     <par type="BOOL" name="WTG4B_FreqFlag" value="true"/>
     <par type="DOUBLE" name="WTG4B_Kc" value="0.2"/>
@@ -136,7 +136,7 @@
     <par type="DOUBLE" name="WTG4B_Ki" value="5"/>
     <par type="DOUBLE" name="WTG4B_Kpg" value="1"/>
     <par type="DOUBLE" name="WTG4B_Kig" value="5"/>
-    <par type="DOUBLE" name="WTG4B_VFrz" value="0.85"/>
+    <par type="DOUBLE" name="WTG4B_VFrzPu" value="0.85"/>
     <!-- BaseWT4 -->
     <par type="DOUBLE" name="WTG4B_SNom" value="200"/>
     <par type="DOUBLE" name="WTG4B_rTfoPu" value="0.979"/>

@@ -15,7 +15,6 @@ within Dynawo.Electrical.Photovoltaics.WECC.BaseClasses;
 partial model BasePVCurrentSource "Base for WECC PV with a current source as interface with the grid"
   extends Dynawo.Electrical.Controls.PLL.ParamsPLL;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREEC;
-  extends Dynawo.Electrical.Controls.WECC.Parameters.REEC.ParamsREECb;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGC;
   extends Dynawo.Electrical.Controls.WECC.Parameters.REGC.ParamsREGCa;
 
@@ -33,49 +32,6 @@ partial model BasePVCurrentSource "Base for WECC PV with a current source as int
   Modelica.Blocks.Interfaces.BooleanInput switchOffSignal3(start = false) "Switch-off signal 3 for the injector" annotation(
     Placement(transformation(extent = {{0, 0}, {0, 0}}), iconTransformation(origin = {-40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Dynawo.Electrical.Controls.WECC.REEC.REECb wecc_reec(
-    DPMaxPu = DPMaxPu,
-    DPMinPu = DPMinPu,
-    Dbd1Pu = Dbd1Pu,
-    Dbd2Pu = Dbd2Pu,
-    IMaxPu = IMaxPu,
-    Id0Pu = Id0Pu,
-    Iq0Pu = Iq0Pu,
-    Iqh1Pu = Iqh1Pu,
-    Iql1Pu = Iql1Pu,
-    Kqi = Kqi,
-    Kqp = Kqp,
-    Kqv = Kqv,
-    Kvi = Kvi,
-    Kvp = Kvp,
-    PF0 = PF0,
-    PMaxREECPu = PMaxREECPu,
-    PMinREECPu = PMinREECPu,
-    PQFlag = PQFlag,
-    PfFlag = PfFlag,
-    QFlag = QFlag,
-    QMaxREECPu = QMaxREECPu,
-    QMinREECPu = QMinREECPu,
-    UInj0Pu = UInj0Pu,
-    VDipPu = VDipPu,
-    VFlag = VFlag,
-    VMaxPu = VMaxPu,
-    VMinPu = VMinPu,
-    VRef0Pu = VRef0Pu,
-    VRef1Pu = VRef1Pu,
-    VUpPu = VUpPu,
-    tIq = tIq,
-    tpREEC = tpREEC,
-    tPord = tPord,
-    tRv = tRv,
-    SNom = SNom,
-    PConv0Pu = PConv0Pu,
-    QConv0Pu = QConv0Pu,
-    s0Pu = s0Pu,
-    u0Pu = u0Pu,
-    uConv0Pu = uConv0Pu,
-    UConv0Pu = UConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-80.1315, -0.1384}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.WECC.REGC.REGCa wecc_regc(
     Id0Pu = Id0Pu,
     Iq0Pu = Iq0Pu,
@@ -138,30 +94,16 @@ equation
   connect(switchOffSignal3, injector.switchOffSignal3);
   connect(LvTfo.switchOffSignal1, injector.switchOffSignal1);
   connect(LvTfo.switchOffSignal2, injector.switchOffSignal2);
-  connect(wecc_reec.iqCmdPu, wecc_regc.iqCmdPu) annotation(
-    Line(points = {{-69, -6}, {-51, -6}}, color = {0, 0, 127}));
-  connect(wecc_reec.frtOn, wecc_regc.frtOn) annotation(
-    Line(points = {{-69, 0}, {-51, 0}}, color = {255, 0, 255}));
-  connect(wecc_reec.idCmdPu, wecc_regc.idCmdPu) annotation(
-    Line(points = {{-69, 6}, {-51, 6}}, color = {0, 0, 127}));
   connect(wecc_regc.idRefPu, injector.idPu) annotation(
     Line(points = {{-29, -6}, {-11.5, -6}}, color = {0, 0, 127}));
   connect(wecc_regc.iqRefPu, injector.iqPu) annotation(
     Line(points = {{-29, 4}, {-11.5, 4}}, color = {0, 0, 127}));
   connect(pll.phi, injector.UPhase) annotation(
     Line(points = {{-149, 45}, {-145, 45}, {-145, -50}, {0, -50}, {0, -11.5}}, color = {0, 0, 127}));
-  connect(PFaRef, wecc_reec.PFaRef) annotation(
-    Line(points = {{-190, 60}, {-79, 60}, {-79, 11}}, color = {0, 0, 127}));
   connect(omegaRefPu, pll.omegaRefPu) annotation(
     Line(points = {{-190, 38}, {-171, 38}}, color = {0, 0, 127}));
   connect(LvMeasurements.UPu, wecc_regc.UPu) annotation(
     Line(points = {{60, -6}, {60, -16}, {-46, -16}, {-46, -11}}, color = {0, 0, 127}));
-  connect(LvMeasurements.UPu, wecc_reec.UPu) annotation(
-    Line(points = {{60, -6}, {60, -16}, {-74, -16}, {-74, -11}}, color = {0, 0, 127}));
-  connect(LvMeasurements.PPu, wecc_reec.PConvPu) annotation(
-    Line(points = {{62, -6}, {62, -20}, {-80, -20}, {-80, -11}}, color = {0, 0, 127}));
-  connect(LvMeasurements.QPu, wecc_reec.QConvPu) annotation(
-    Line(points = {{64, -6}, {64, -25}, {-89, -25}, {-89, -11}}, color = {0, 0, 127}));
   connect(LvMeasurements.uPu, pll.uPu) annotation(
     Line(points = {{66, -6}, {66, -60}, {-175, -60}, {-175, 50}, {-171, 50}}, color = {85, 170, 255}));
   connect(injector.terminal, LvTfo.terminal1) annotation(
