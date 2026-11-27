@@ -97,6 +97,7 @@ algebraicRestorationReinitMode_(ALWAYS),
 tEnd_(0.),
 activateTimeScaledURound_(false),
 timeScaledURoundPrecision_(std::numeric_limits<double>::min()),
+stepToleranceIC_(0.01),
 alternativeStrategiesOnDivergenceStage_(0),
 activateAlternativeStrategiesOnDivergence_(false),
 minStepSave_(0.),
@@ -157,6 +158,7 @@ SolverIDA::defineSpecificParameters() {
     ParameterSolver("activateAlternativeStrategiesOnDivergence", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("activateTimeScaledURound", ParameterSolver("activateTimeScaledURound", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("timeScaledURoundPrecision", ParameterSolver("timeScaledURoundPrecision", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("stepToleranceIC", ParameterSolver("stepToleranceIC", VAR_TYPE_DOUBLE, optional)));
 }
 
 void
@@ -193,6 +195,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& activateAlternativeStrategiesOnDivergence = findParameter("activateAlternativeStrategiesOnDivergence");
   if (activateAlternativeStrategiesOnDivergence.hasValue())
     activateAlternativeStrategiesOnDivergence_ = activateAlternativeStrategiesOnDivergence.getValue<bool>();
+  const ParameterSolver& stepToleranceIC = findParameter("stepToleranceIC");
+  if (stepToleranceIC.hasValue())
+    stepToleranceIC_ = stepToleranceIC.getValue<double>();
 }
 
 const std::string&
@@ -353,9 +358,12 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
   Trace::debug() << DYNLog(SolverIDAInitOk) << Trace::endline;
 
-  flag = IDASetStepToleranceIC(IDAMem_, 0.01);
-  if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStepToleranceIC");
+  // a non-positive value keeps IDA's default step tolerance (uround^(2/3))
+  if (stepToleranceIC_ > 0.) {
+    flag = IDASetStepToleranceIC(IDAMem_, stepToleranceIC_);
+    if (flag < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStepToleranceIC");
+  }
 
   flag = IDASetNonlinConvCoefIC(IDAMem_, 0.0033);
   if (flag < 0)

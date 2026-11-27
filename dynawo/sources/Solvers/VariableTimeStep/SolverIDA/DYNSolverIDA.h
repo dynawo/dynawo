@@ -318,6 +318,7 @@ class SolverIDA : public Solver::Impl {
   double tEnd_;  ///< simulation end time
   bool activateTimeScaledURound_;  ///< to activate the time-scaled recomputation of IDA's unit roundoff
   double timeScaledURoundPrecision_;  ///< the reference precision used to derive the time-scaled unit roundoff
+  double stepToleranceIC_;  ///< minimum step length of the line search in IDACalcIC (IDA default value if <= 0)
   int alternativeStrategiesOnDivergenceStage_;  ///< escalation stage of the alternative strategies on divergence
                                                 // (0: none tried, 1: reinit tried, 2: reduced step/precision also tried)
   bool activateAlternativeStrategiesOnDivergence_;  ///< to activate the progressive relaunch strategies (reinit, then reduced step/precision) when IDA diverges
