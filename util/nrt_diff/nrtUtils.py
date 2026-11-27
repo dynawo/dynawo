@@ -20,6 +20,7 @@ import nrtDiff
 
 CURVES_TYPE_XML = 1
 CURVES_TYPE_CSV = 2
+CURVES_TYPE_HDF5 = 3
 
 
 class Alarm(Exception):
@@ -68,6 +69,7 @@ class TestCase:
         self.process_return_codes_ = expected_return_codes
         self.diff_ = None
         self.diff_messages_ = None
+        self.diff_files_ = [] # per-file comparison details with the reference (see nrtDiff.DirectoryDiffReferenceDataJobDetailed)
         if (os.path.isfile (self.jobs_file_)):
             self.parseJobsFile()
 
@@ -196,6 +198,12 @@ class TestCase:
                             os.remove(fileCurves)
                         current_job.curves_ = fileCurves
                         current_job.curvesType_ = CURVES_TYPE_XML
+                    elif(curves.attrib["exportMode"] == "HDF5"):
+                        fileCurves = os.path.join(current_job.output_dir_, "curves", "curves.h5" )
+                        if os.path.isfile(fileCurves):
+                            os.remove(fileCurves)
+                        current_job.curves_ = fileCurves
+                        current_job.curvesType_ = CURVES_TYPE_HDF5
 
                 # logs
                 for appender in FindAll(outputs, prefix, "appender", ns):
@@ -284,7 +292,8 @@ class TestCase:
                     readCsvToHtml(job.curves_,curvesOutput,True, False)
                 elif job.curvesType_ == CURVES_TYPE_XML:
                     readXmlToHtml(job.curves_,curvesOutput,True, False)
-                job.hasCurves_ = True
+                # no html pages for HDF5 curves: they are displayed by the NRT viewer
+                job.hasCurves_ = job.curvesType_ in (CURVES_TYPE_CSV, CURVES_TYPE_XML)
             except:
                 job.hasCurves_ = False
                 pass

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2026, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NRT viewer</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/">NRT viewer</a>
+    <label class="compare-toggle" title="Uncheck to only browse the outputs (several curves can then be plotted together)">
+      <input type="checkbox" id="compare-toggle" checked> Compare with references</label>
+    <div class="run-info" id="run-info"></div>
+  </header>
+  <main id="app"><p class="placeholder">Loading results…</p></main>
+
+  <dialog id="accept-dialog">
+    <form method="dialog" class="dialog-body">
+      <h2>Update reference</h2>
+      <p class="dialog-case" id="accept-case"></p>
+      <p>The selected output files will overwrite the reference files of this test case in the source tree.</p>
+      <div class="accept-kinds" id="accept-kinds"></div>
+      <div class="accept-files" id="accept-files"></div>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn">Cancel</button>
+        <button value="confirm" class="btn btn-danger" id="accept-confirm">Overwrite reference</button>
+      </div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/chart.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

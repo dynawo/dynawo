@@ -1,0 +1,6 @@
+# Python packages used by the NRT viewer (python -m pip install -r requirements.txt)
+# the viewer itself only needs the python standard library:
+# lxml: comparison with the references (nrt_diff scripts: curves verdicts, IIDM tab, --jobs mode)
+lxml
+# h5py: HDF5 curves (display and comparison)
+h5py
