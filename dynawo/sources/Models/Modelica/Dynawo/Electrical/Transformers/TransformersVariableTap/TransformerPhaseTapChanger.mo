@@ -47,7 +47,7 @@ model TransformerPhaseTapChanger "Two winding transformer with a fixed ratio and
   parameter Integer Tap0 "Start value of transformer tap";
 
 equation
-  when (tap <> pre(tap)) then
+  when (not Modelica.Math.isEqual(tap, pre(tap))) then
     // Transformation phase shift calculation
     if (NbTap == 1) then
       alphaTfo = AlphaTfoMin;

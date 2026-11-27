@@ -47,9 +47,9 @@ model SclOelActivation "IOelBias calculation for SCL2C"
   parameter Types.VoltageModulePu Vt0Pu "Initial stator voltage in pu (base UNom)";
 
 equation
-  if (VtFiltPu > VtMinPu and (tErr <= 0 or timer.y >= tEnOel)) or tEnOel == 0 then
+  if (VtFiltPu > VtMinPu and (tErr <= 0 or timer.y >= tEnOel)) or Modelica.Math.isEqual(tEnOel, 0) then
     IOelBiasPu = 0;
-  elseif (IOelRefPu == IInstPu and timer1.y > tOff) or VtFiltPu < VtResetPu then
+  elseif (Modelica.Math.isEqual(IOelRefPu, IInstPu) and timer1.y > tOff) or VtFiltPu < VtResetPu then
     IOelBiasPu = IResetPu;
   else
     IOelBiasPu = 0;

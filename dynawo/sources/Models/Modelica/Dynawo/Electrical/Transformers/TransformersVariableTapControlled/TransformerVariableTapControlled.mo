@@ -87,7 +87,7 @@ equation
   tapChanger.UMonitored = transformerVariableTap.U2Pu;
   locked = tapChanger.locked;
 
-  when tapChanger.tap <> pre(tapChanger.tap) then
+  when (not Modelica.Math.isEqual(tapChanger.tap, pre(tapChanger.tap))) then
     transformerVariableTap.tap = tapChanger.tap;
   end when;
 

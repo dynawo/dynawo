@@ -585,6 +585,22 @@ def sub_division_sim(line):
             error_exit("Infinite loop detected in DIVISION replacement for line " + line)
     return line_to_return
 
+PTRN_REAL_VAR = r'data->localData\[0\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+PTRN_REAL_PARAM = r'data->simulationInfo->realParameter\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\],]*\*\/'
+# a == b written in Modelica
+PTRN_DOUBLE_EQUALITY = re.compile(r'\((?P<lhs>' + PTRN_REAL_VAR + r') == (?P<rhs>' + PTRN_REAL_VAR + r'|' + PTRN_REAL_PARAM + r')\)')
+# Modelica.Math.isEqual(a, b) written in Modelica, inlined by OpenModelica as abs(a - b) <= 0
+PTRN_DOUBLE_IS_EQUAL = re.compile(r'LessEq\(fabs\((?P<lhs>' + PTRN_REAL_VAR + r') - (?P<rhs>' + PTRN_REAL_VAR + r'|' + PTRN_REAL_PARAM + r')\),[ ]*0\.0\)')
+
+##
+# Replace an equality between a real variable and a real variable or parameter by DYN::doubleEquals
+# @param line : line where expression should be replaced
+# @returns new line expression
+def replace_double_equality(line):
+    double_equals = lambda match: "DYN::doubleEquals(" + match.group('lhs') + "," + match.group('rhs') + ")"
+    line = PTRN_DOUBLE_EQUALITY.sub(double_equals, line)
+    return PTRN_DOUBLE_IS_EQUAL.sub(double_equals, line)
+
 ##
 # Replace throwStreamPrintEquation by throwStreamPrint
 # @param line : line where expression should be replaced

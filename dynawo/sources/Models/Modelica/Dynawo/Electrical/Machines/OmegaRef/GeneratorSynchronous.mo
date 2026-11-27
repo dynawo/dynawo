@@ -89,12 +89,12 @@ equation
     sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
 
     // Output variables for external controllers
-    if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
+    if (Modelica.Math.isEqual(uStatorPu.re, 0) and Modelica.Math.isEqual(uStatorPu.im, 0)) then
       UStatorPu = 0.;
     else
       UStatorPu = ComplexMath.'abs'(uStatorPu);
     end if;
-    if ((iStatorPu.re == 0) and (iStatorPu.im == 0)) then
+    if (Modelica.Math.isEqual(iStatorPu.re, 0) and Modelica.Math.isEqual(iStatorPu.im, 0)) then
       IStatorPu = 0.;
     else
       IStatorPu = ComplexMath.'abs'(iStatorPu);

@@ -31,7 +31,7 @@ model LimitsCalculationUDc "Reactive and active currents limits calculation mode
     Placement(visible = true, transformation(origin = {-110, 69}, extent = {{10, -10}, {-10, 10}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 
 equation
-  if iqModPu == 0 and iqMod1Pu == 0 then
+  if Modelica.Math.isEqual(iqModPu,0) and Modelica.Math.isEqual(iqMod1Pu,0) then
     ipMaxPu = InPu;
   else
     ipMaxPu = max(0.001, sqrt(InPu ^ 2 - min(InPu ^ 2, iqRefPu ^ 2)));

@@ -37,7 +37,7 @@ equation
   when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LVRTArming);
-  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Modelica.Constants.inf and not(pre(switchOffSignal)) then
+  elsewhen UMonitoredPu > ULVRTArmingPu and (not Modelica.Math.isEqual(pre(tThresholdReached), Modelica.Constants.inf)) and not(pre(switchOffSignal)) then
     tThresholdReached = Modelica.Constants.inf;
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
   end when;

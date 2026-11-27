@@ -42,7 +42,7 @@ equation
     Constraint.logConstraintWithData(ConstraintKeys.OverloadUpCLA, true, "OverloadUp", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonArming);
-  elsewhen IMonitored < IMax and pre(tThresholdReached) <> Constants.inf and pre(order) <> OrderToEmit then
+  elsewhen IMonitored < IMax and (not Modelica.Math.isEqual(pre(tThresholdReached), Constants.inf)) and pre(order) <> OrderToEmit then
     Constraint.logConstraintWithData(ConstraintKeys.OverloadUpCLA, false, "OverloadUp", IMax, IMonitored, String(tLagBeforeActing, significantDigits = 2));
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonDisarming);

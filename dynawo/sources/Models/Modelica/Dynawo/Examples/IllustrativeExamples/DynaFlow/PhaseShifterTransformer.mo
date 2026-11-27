@@ -68,7 +68,7 @@ equation
   shiftController01.locked = if time < 50 then true else false;
   PPuLine01 = -line01.P2Pu;
 
-  when shiftController01.tap <> pre(shiftController01.tap) then
+  when (not Modelica.Math.isEqual(shiftController01.tap, pre(shiftController01.tap))) then
     tfo01.tap = shiftController01.tap;
   end when;
 

@@ -485,6 +485,6 @@ equation
   annotation(preferredView = "text",
     experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-6, Interval = 1),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian --daeMode",
-    __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "euler"),
+    __OpenModelica_simulationFlags(ls = "klu", lv = "LOG_STATS", nls = "kinsol", s = "ida"),
   Documentation(info = "<html><head></head><body>At t = 20 s, LineB28B29 is disconnected.</body></html>"));
 end IEEE57DisconnectLine;

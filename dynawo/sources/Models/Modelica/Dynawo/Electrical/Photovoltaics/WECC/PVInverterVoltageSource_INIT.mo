@@ -87,7 +87,7 @@ equation
   iSource0Pu = -iInj0Pu*SystemBase.SnRef/SNom;
   uSource0Pu = uInj0Pu + Complex(RSourcePu*SystemBase.SnRef/SNom, XSourcePu*SystemBase.SnRef/SNom)*iInj0Pu;
 
-  PF0 = if (not (Modelica.ComplexMath.'abs'(s0Pu) == 0)) then -P0Pu/Modelica.ComplexMath.'abs'(s0Pu) else 0;
+  PF0 = if (not (Modelica.Math.isEqual(Modelica.ComplexMath.'abs'(s0Pu), 0))) then -P0Pu/Modelica.ComplexMath.'abs'(s0Pu) else 0;
 
   annotation(preferredView = "text");
 end PVInverterVoltageSource_INIT;

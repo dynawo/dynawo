@@ -47,7 +47,7 @@ model TransformerRatioTapChanger "Two winding transformer with a fixed phase and
   parameter Integer Tap0 "Start value of transformer tap";
 
 equation
-  when (tap <> pre(tap)) then
+  when (not Modelica.Math.isEqual(tap, pre(tap))) then
     // Transformation ratio calculation
     if (NbTap == 1) then
       ratioTfoPu = RatioTfoMinPu;

@@ -58,13 +58,13 @@ equation
   when UMonitoredPu <= ULVRTArmingPu and not(pre(switchOffSignal)) then
     tThresholdReached = time;
     Timeline.logEvent1(TimelineKeys.LVRTArming);
-  elsewhen UMonitoredPu > ULVRTArmingPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal)) then
+  elsewhen UMonitoredPu > ULVRTArmingPu and (not Modelica.Math.isEqual(pre(tThresholdReached), Constants.inf)) and not(pre(switchOffSignal)) then
     tThresholdReached = Constants.inf;
     Timeline.logEvent1(TimelineKeys.LVRTDisarming);
   end when;
 
   // Computation of minimum voltages
-  if switchOffSignal == true or tThresholdReached == Constants.inf then  // Not armed or tripped
+  if switchOffSignal == true or Modelica.Math.isEqual(tThresholdReached, Constants.inf) then  // Not armed or tripped
     der(UMin1Pu) = 0;
     der(UMinIntPu) = 0;
     der(UMinMaxPu) = 0;
@@ -87,7 +87,7 @@ equation
   end if;
 
   // Computation of tMaxRecovery
-  if switchOffSignal == true or tThresholdReached == Constants.inf then  // Not armed or tripped
+  if switchOffSignal == true or Modelica.Math.isEqual(tThresholdReached, Constants.inf) then  // Not armed or tripped
     der(tMaxRecovery) = 0;
   else
     tMaxRecovery + tFilter * der(tMaxRecovery) = if (time - tThresholdReached) > tMaxRecovery then (time - tThresholdReached) else tMaxRecovery;
@@ -120,7 +120,7 @@ equation
     f3 = 0;
   end if;*/
   // Modified model
-  if time - tThresholdReached < tLVRTMax and time - tThresholdReached > tLVRTInt and switchOffSignal == false and tThresholdReached <> Constants.inf then
+  if time - tThresholdReached < tLVRTMax and time - tThresholdReached > tLVRTInt and switchOffSignal == false and (not Modelica.Math.isEqual(tThresholdReached, Constants.inf)) then
     aux3 = g * (UMonitoredPu - (f*ULVRTIntPu + (h*ULVRTArmingPu - f*ULVRTIntPu) * (time - tThresholdReached - tLVRTInt) / (tLVRTMax - tLVRTInt)));
     f3 + der(f3) * tFilter = if aux3 < f3 then aux3 else f3;
   else
