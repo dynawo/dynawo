@@ -798,23 +798,40 @@ ModelNetwork::initializeStaticData() {
 
 void
 ModelNetwork::analyseComponents() const {
-  // keep the biggest component
   const vector<shared_ptr<SubNetwork> >& subNetworks = busContainer_->getSubNetworks();
-  unsigned int nbMaxNode = 0;
-  unsigned int maxIndex = 0;
+
+  // no bus name defined to decide which connex component is to be simulated : automatically select the largest one
+  if (simulatedSubnetworkMustInclude_.empty()) {
+    unsigned int nbMaxNode = 0;
+    unsigned int maxIndex = 0;
+    for (unsigned int i = 0; i < subNetworks.size(); ++i) {
+      if (subNetworks[i]->nbBus() > nbMaxNode) {
+        nbMaxNode = subNetworks[i]->nbBus();
+        maxIndex = i;
+      }
+    }
+    Trace::debug() << DYNLog(KeepSubNetworkLargest, maxIndex) << Trace::endline;
+    for (unsigned int i = 0; i < subNetworks.size(); ++i) {
+      if (i == maxIndex)
+        subNetworks[i]->turnOnNodes();
+      else
+        subNetworks[i]->shutDownNodes();
+    }
+    return;
+  }
+
+  int count = 0;
   for (unsigned int i = 0; i < subNetworks.size(); ++i) {
-    if (subNetworks[i]->nbBus() > nbMaxNode) {
-      nbMaxNode = subNetworks[i]->nbBus();
-      maxIndex = i;
+    if (subNetworks[i]->contains(simulatedSubnetworkMustInclude_)) {
+      subNetworks[i]->turnOnNodes();
+      ++count;
+      Trace::debug() << DYNLog(KeepSubNetworkRequested, simulatedSubnetworkMustInclude_, i) << Trace::endline;
+    } else {
+      subNetworks[i]->shutDownNodes();
     }
   }
-  Trace::debug() << DYNLog(KeepSubNetwork, maxIndex) << Trace::endline;
-  for (unsigned int i = 0; i < subNetworks.size(); ++i) {
-    if (i == maxIndex)
-      subNetworks[i]->turnOnNodes();
-    else
-      subNetworks[i]->shutDownNodes();
-  }
+  if (count != 1)
+    throw DYNError(Error::MODELER, BusSubnetworkMultiplicityError, simulatedSubnetworkMustInclude_, count);
 }
 
 void
@@ -1251,6 +1268,7 @@ ModelNetwork::defineParameters(vector<ParameterModeler>& parameters) {
   ModelHvdcLink::defineParameters(parameters);
   parameters.push_back(ParameterModeler("startingPointMode", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("deactivate_zero_crossing_functions", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("simulated_subnetwork_must_include", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
 
   for (const auto& component : getComponents()) {
     component->defineNonGenericParameters(parameters);
@@ -1317,10 +1335,16 @@ ModelNetwork::defineElements(vector<Element>& elements, map<string, int>& mapEle
 
 void
 ModelNetwork::setSubModelParameters() {
-  const auto& deactivateZeroCrossingFunctions = findParameter("deactivate_zero_crossing_functions", false);
   deactivateZeroCrossingFunctions_ = false;
-  if (deactivateZeroCrossingFunctions.hasValue())
-    deactivateZeroCrossingFunctions_ = deactivateZeroCrossingFunctions.getValue<bool>();
+  const auto& param1 = findParameter("deactivate_zero_crossing_functions", false);
+  if (param1.hasValue())
+    deactivateZeroCrossingFunctions_ = param1.getValue<bool>();
+
+  simulatedSubnetworkMustInclude_.clear();
+  const auto& param2 = findParameter("simulated_subnetwork_must_include", false);
+  if (param2.hasValue())
+    simulatedSubnetworkMustInclude_ = param2.getValue<string>();
+
   for (const auto& component : getComponents())
     component->setSubModelParameters(parametersDynamic_);
 }

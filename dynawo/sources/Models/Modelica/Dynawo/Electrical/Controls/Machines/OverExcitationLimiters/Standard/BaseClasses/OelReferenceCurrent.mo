@@ -72,11 +72,11 @@ model OelReferenceCurrent "IRef calculation for OEL2C"
     Placement(visible = true, transformation(origin = {230, -60}, extent = {{-10, -10}, {30, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const3(k = tFcl) annotation(
     Placement(visible = true, transformation(origin = {70, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power(N = C2, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power(N = C2, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-230, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch2 annotation(
     Placement(visible = true, transformation(origin = {30, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.Power power1(N = C1, NInteger = true) annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.Exponentiation power1(N = C1, NInteger = true) annotation(
     Placement(visible = true, transformation(origin = {-230, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1(k = FixedRu) annotation(
     Placement(visible = true, transformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

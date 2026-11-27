@@ -162,5 +162,11 @@ ModelBus::exploreNeighbors(const int numSubNetwork, const boost::shared_ptr<SubN
   }
 }
 
+void
+ModelBus::addIdentifiersTo(std::unordered_set<std::string> & set) {
+  set.insert(id());
+  for (const std::string & bbsId : busBarSectionIdentifiers_)
+    set.insert(bbsId);
+}
 
 }  // namespace DYN
