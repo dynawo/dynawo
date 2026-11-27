@@ -38,6 +38,7 @@
 #include <powsybl/iidm/ShuntCompensator.hpp>
 #include <powsybl/iidm/ShuntCompensatorAdder.hpp>
 #include <powsybl/iidm/GeneratorAdder.hpp>
+#include <powsybl/iidm/TwoWindingsTransformerAdder.hpp>
 
 using powsybl::iidm::Network;
 using powsybl::iidm::Substation;
@@ -51,7 +52,7 @@ using powsybl::iidm::LccConverterStation;
 using powsybl::iidm::VscConverterStation;
 using powsybl::iidm::DanglingLine;
 using powsybl::iidm::ShuntCompensator;
-
+using powsybl::iidm::TwoWindingsTransformer;
 
 namespace DYN {
 
@@ -373,4 +374,104 @@ TEST(DataInterfaceTest, VoltageLevel) {
   ASSERT_TRUE(bus7->hasConnection());
   ASSERT_TRUE(bus8->hasConnection());
 }  // TEST(DataInterfaceTest, VoltageLevel)
+
+
+TEST(DataInterfaceTest, DephasingTransformer) {
+  Network network("test", "test");
+  Substation & s = network.newSubstation().setId("Substation").add();
+
+  // bus breaker case
+  VoltageLevel& vlBB = s.newVoltageLevel()
+                        .setId("VLBB")
+                        .setNominalV(400.)
+                        .setTopologyKind(TopologyKind::BUS_BREAKER)
+                        .setHighVoltageLimit(420.)
+                        .setLowVoltageLimit(380.)
+                        .add();
+
+  vlBB.getBusBreakerView().newBus().setId("BUS1").add();
+  vlBB.getBusBreakerView().newBus().setId("BUS2").add();
+
+  TwoWindingsTransformer & tfoBBValid = s.newTwoWindingsTransformer()
+                                        .setId("TFO_BB_VALID")
+                                        .setVoltageLevel1("VLBB")
+                                        .setVoltageLevel2("VLBB")
+                                        .setBus1("BUS1")
+                                        .setBus2("BUS2")
+                                        .setR(3.0)
+                                        .setX(33.0)
+                                        .setG(1.0)
+                                        .setB(0.2)
+                                        .setRatedU1(2.0)
+                                        .setRatedU2(0.4)
+                                        .setRatedS(3.0)
+                                        .add();
+
+  TwoWindingsTransformer & tfoBBInvalid = s.newTwoWindingsTransformer()
+                                        .setId("TFO_BB_INVALID")
+                                        .setVoltageLevel1("VLBB")
+                                        .setVoltageLevel2("VLBB")
+                                        .setBus1("BUS1")
+                                        .setBus2("BUS1")
+                                        .setR(3.0)
+                                        .setX(33.0)
+                                        .setG(1.0)
+                                        .setB(0.2)
+                                        .setRatedU1(2.0)
+                                        .setRatedU2(0.4)
+                                        .setRatedS(3.0)
+                                        .add();
+
+  VoltageLevelInterfaceIIDM vlBBIf(vlBB);
+  ASSERT_NO_THROW(vlBBIf.sanityCheckDephasor(tfoBBValid));
+  ASSERT_THROW_DYNAWO(vlBBIf.sanityCheckDephasor(tfoBBInvalid), Error::GENERAL, KeyError_t::DephasingTfoLocalLoop);
+
+  // node breaker case
+  VoltageLevel& vlNB = s.newVoltageLevel()
+                        .setId("VLNB")
+                        .setNominalV(63.)
+                        .setTopologyKind(TopologyKind::NODE_BREAKER)
+                        .setHighVoltageLimit(420.)
+                        .setLowVoltageLimit(380.)
+                        .add();
+
+  vlNB.getNodeBreakerView().newDisconnector().setId("SW").setName("SW_NAME").setRetained(true).setOpen(false).setNode1(2).setNode2(3).add();
+
+  TwoWindingsTransformer & tfoNBValid = s.newTwoWindingsTransformer()
+                                        .setId("TFO_NB_VALID")
+                                        .setVoltageLevel1("VLNB")
+                                        .setVoltageLevel2("VLNB")
+                                        .setNode1(0)
+                                        .setNode2(1)
+                                        .setR(3.0)
+                                        .setX(33.0)
+                                        .setG(1.0)
+                                        .setB(0.2)
+                                        .setRatedU1(2.0)
+                                        .setRatedU2(0.4)
+                                        .setRatedS(3.0)
+                                        .add();
+
+  TwoWindingsTransformer & tfoNBInvalid = s.newTwoWindingsTransformer()
+                                        .setId("TFO_NB_INVALID")
+                                        .setVoltageLevel1("VLNB")
+                                        .setVoltageLevel2("VLNB")
+                                        .setNode1(2)
+                                        .setNode2(3)
+                                        .setR(3.0)
+                                        .setX(33.0)
+                                        .setG(1.0)
+                                        .setB(0.2)
+                                        .setRatedU1(2.0)
+                                        .setRatedU2(0.4)
+                                        .setRatedS(3.0)
+                                        .add();
+
+  VoltageLevelInterfaceIIDM vlNBIf(vlNB);
+  ASSERT_NO_THROW(vlNBIf.sanityCheckDephasor(tfoNBValid));
+  ASSERT_NO_THROW(vlNBIf.sanityCheckDephasor(tfoNBInvalid));
+}  // TEST(DataInterfaceTest, DephasingTransformer)
+
+
+
 }  // namespace DYN

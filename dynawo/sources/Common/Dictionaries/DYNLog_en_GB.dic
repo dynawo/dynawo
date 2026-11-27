@@ -41,6 +41,7 @@ SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2%
 IIDMExtensionNoCreate         =             iidm extension %1% from library %2% has no create function %3%
 IIDMExtensionNoDestroy        =             iidm extension %1% from library %2% has no destroy function %3%
 IIDMExtensionLibraryNotLoaded =             library %1% containing IIDM extension %2% cannot be loaded : %3%
+DephasingTfoLocalLoop       =               2-windings dephasing transformer %1% connected to same electrical bus on both sides
 //---------------------- PARAMETER -------------------------------------
 ParamNoValueFound             =             no value found for parameter %1%
 InternalParam                 =             parameter %1% was computed internally
