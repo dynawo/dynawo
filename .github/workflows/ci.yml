@@ -131,7 +131,7 @@ jobs:
           util/envDynawo.sh nrt || { cat nrt/output/${branch}/report.html && cat nrt/output/${branch}/nrt_nok.txt && exit 1; };
 
   coverage:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository)
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     container: dynawo/dynawo-ci-ol8:om1.24
     env:
@@ -171,7 +171,7 @@ jobs:
         env:
           CONTAINER_WORKSPACE: ${{ runner.workspace }}
           DYNAWO_THIRD_PARTY_INSTALL_DIR: /opt/dynawo/3rParty
-        if: (github.event_name == 'push' && github.ref != 'refs/heads/master') || github.event_name == 'pull_request'
+        if: github.ref != 'refs/heads/master'
         run: |
           export DYNAWO_HOME=$(pwd)
           $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
@@ -180,14 +180,13 @@ jobs:
         env:
           CONTAINER_WORKSPACE: ${{ runner.workspace }}
           DYNAWO_BUILD_TYPE: Debug
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master'
         run: |
           export DYNAWO_HOME=$(pwd)
           util/envDynawo.sh build-3rd-party
           $CONTAINER_WORKSPACE/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output util/envDynawo.sh build-tests-coverage
 
       - name: Sonarcloud
-        if: github.event_name == 'push'
         working-directory: ${{ runner.workspace }}/dynawo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
