@@ -148,6 +148,8 @@ class SolverKINCommon {
   unsigned int numF_;  ///< number of equations to solve
   double t0_;  ///< initial time to use
   bool firstIteration_;  ///< @b true if first iteration, @b false otherwise
+  double fnormtol_;  ///< stopping tolerance on the residuals
+  double initialaddtol_;  ///< stopping tolerance on the residuals at the initial guess, as a factor of fnormtol_
 
   std::vector<double> vectorF_;  ///< current values of residual function
   std::vector<double> vectorFScale_;  ///< Scaling vector for residual functions
