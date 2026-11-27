@@ -86,6 +86,26 @@ executeCommand(const std::string& command, std::stringstream & ss, const std::st
   return child.exit_code();
 }
 
+std::string
+quoteShellArgument(const std::string& arg) {
+#ifdef _WIN32
+  // left unchanged: cmd /c strips the first and last double quotes of a command line starting with a double quote,
+  // so quoting the arguments here could break commands that work today
+  return arg;
+#else
+  // inside single quotes, nothing is interpreted by sh: only single quotes have to be escaped ('\'')
+  std::string quotedArg = "'";
+  for (const char c : arg) {
+    if (c == '\'')
+      quotedArg += "'\\''";
+    else
+      quotedArg += c;
+  }
+  quotedArg += "'";
+  return quotedArg;
+#endif
+}
+
 bool hasEnvVar(std::string const& key) {
   char const* val = getenv(key.c_str());
   return (val != NULL);

@@ -14,7 +14,7 @@ usage_help() {
   if [ -f "$GENERATE_PREASSEMBLED" ]; then
     echo \
 "##### DYNAWO HELP #####"
-  ${DYNAWO} --help
+  "${DYNAWO}" --help
 echo \
 "###### LAUNCHER OPTIONS #####
    --valgrind                                    launch DYNAWO with valgrind (must be the first argument)
@@ -35,7 +35,7 @@ echo \
   else
     echo \
 "##### DYNAWO HELP #####"
-  ${DYNAWO} --help
+  "${DYNAWO}" --help
 echo \
 "
 ###### LAUNCHER OPTIONS #####
@@ -134,71 +134,32 @@ case $1 in
   ;;
 esac
 
-# erasing the mode from the args
-ARGS=$*
-case ${MODE} in
-VALGRIND)
-  ARGS=`echo ${ARGS} | sed -e 's/--valgrind//g'`
-  ;;
-VALGRIND_CALLGRIND)
-  ARGS=`echo ${ARGS} | sed -e 's/--valgrind-callgrind//g'`
-  ;;
-VALGRIND_DHAT)
-  ARGS=`echo ${ARGS} | sed -e 's/--valgrind-dhat//g'`
-  ;;
-VALGRIND_MASSIF)
-  ARGS=`echo ${ARGS} | sed -e 's/--valgrind-massif//g'`
-  ;;
-GDB)
-  ARGS=`echo ${ARGS} | sed -e 's/--gdb//g'`
-  ;;
-GDBSERVER)
-  ARGS=`echo ${ARGS} | sed -e 's/--gdbserver//g'`
-  ;;
-GENERATE_PREASSEMBLED)
-  ARGS=`echo ${ARGS} | sed -e 's/--generate-preassembled//g'`
-;;
-GENERATE_PREASSEMBLED-GDB)
-  ARGS=`echo ${ARGS} | sed -e 's/--generate-preassembled-gdb//g'`
-;;
-COMPILE)
-  ARGS=`echo ${ARGS} | sed -e 's/--compile//g'`
-;;
-DUMPMODEL)
-  ARGS=`echo ${ARGS} | sed -e 's/--dump-model//g'`
-;;
-GDB-DUMPMODEL)
-  ARGS=`echo ${ARGS} | sed -e 's/--dump-model-gdb//g'`
-;;
-VALGRIND-DUMPMODEL)
-  ARGS=`echo ${ARGS} | sed -e 's/--dump-model-valgrind//g'`
-;;
-COMPILECPPMODELICAMODELINDYNAMICLIB)
-  ARGS=`echo ${ARGS} | sed -e 's/--compile-cpp-modelica-model-in-dynamic-lib//g'`
-;;
-esac
+# erasing the mode from the args (kept as "$@" to preserve arguments containing spaces)
+if [ -n "${MODE}" ]; then
+  shift
+fi
 
  # Launching Dynawo with the script args and the correct mode
 case ${MODE} in
 VALGRIND)
-  valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log ${DYNAWO} ${ARGS}
+  valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log "${DYNAWO}" "$@"
   RETURN_CODE=$?
   ;;
 VALGRIND_CALLGRIND)
-  valgrind --tool=callgrind --dump-instr=yes --collect-jumps=yes ${DYNAWO} ${ARGS}
+  valgrind --tool=callgrind --dump-instr=yes --collect-jumps=yes "${DYNAWO}" "$@"
   RETURN_CODE=$?
   ;;
 VALGRIND_DHAT)
-  valgrind --tool=exp-dhat ${DYNAWO} ${ARGS}
+  valgrind --tool=exp-dhat "${DYNAWO}" "$@"
   RETURN_CODE=$?
   ;;
 VALGRIND_MASSIF)
-  valgrind --tool=massif ${DYNAWO} ${ARGS}
+  valgrind --tool=massif "${DYNAWO}" "$@"
   RETURN_CODE=$?
   ;;
 GDB)
   if [ "`uname`" = "Linux" ]; then
-    gdb -q --args ${DYNAWO} ${ARGS}
+    gdb -q --args "${DYNAWO}" "$@"
   else
     echo "OS not supported."
     exit 1
@@ -207,7 +168,7 @@ GDB)
   ;;
 GDBSERVER)
   if [ "`uname`" = "Linux" ]; then
-    gdbserver localhost:10000 ${DYNAWO} ${ARGS}
+    gdbserver localhost:10000 "${DYNAWO}" "$@"
   else
     echo "OS not supported."
     exit 1
@@ -215,8 +176,8 @@ GDBSERVER)
   RETURN_CODE=$?
   ;;
 GENERATE_PREASSEMBLED)
-  if [ -x "$(command -v $GENERATE_PREASSEMBLED)" ]; then
-    ${GENERATE_PREASSEMBLED} ${ARGS}
+  if [ -x "$(command -v "$GENERATE_PREASSEMBLED")" ]; then
+    "${GENERATE_PREASSEMBLED}" "$@"
     RETURN_CODE=$?
   else
     echo "--generate-preassembled mode not available."
@@ -225,9 +186,9 @@ GENERATE_PREASSEMBLED)
   fi
   ;;
 GENERATE_PREASSEMBLED-GDB)
-  if [ -x "$(command -v $GENERATE_PREASSEMBLED)" ]; then
+  if [ -x "$(command -v "$GENERATE_PREASSEMBLED")" ]; then
     if [ "`uname`" = "Linux" ]; then
-      gdb -q --args ${GENERATE_PREASSEMBLED} ${ARGS}
+      gdb -q --args "${GENERATE_PREASSEMBLED}" "$@"
     else
       echo "OS not supported."
       exit 1
@@ -240,8 +201,8 @@ GENERATE_PREASSEMBLED-GDB)
   fi
   ;;
 COMPILE)
-  if [ -x "$(command -v $COMPILEMODELICAMODEL)" ]; then
-    ${COMPILEMODELICAMODEL} ${ARGS}
+  if [ -x "$(command -v "$COMPILEMODELICAMODEL")" ]; then
+    "${COMPILEMODELICAMODEL}" "$@"
     RETURN_CODE=$?
   else
     echo "--compile mode not available."
@@ -250,8 +211,8 @@ COMPILE)
   fi
   ;;
 DUMPMODEL)
-  if [ -x "$(command -v $DUMPMODELBIN)" ]; then
-    ${DUMPMODELBIN} ${ARGS}
+  if [ -x "$(command -v "$DUMPMODELBIN")" ]; then
+    "${DUMPMODELBIN}" "$@"
     RETURN_CODE=$?
   else
     echo "--dump-model mode not available."
@@ -260,9 +221,9 @@ DUMPMODEL)
   fi
   ;;
 GDB-DUMPMODEL)
-  if [ -x "$(command -v $DUMPMODELBIN)" ]; then
+  if [ -x "$(command -v "$DUMPMODELBIN")" ]; then
     if [ "`uname`" = "Linux" ]; then
-      gdb -q --args ${DUMPMODELBIN} ${ARGS}
+      gdb -q --args "${DUMPMODELBIN}" "$@"
     else
       echo "OS not supported."
       exit 1
@@ -275,8 +236,8 @@ GDB-DUMPMODEL)
   fi
   ;;
 VALGRIND-DUMPMODEL)
-  if [ -x "$(command -v $DUMPMODELBIN)" ]; then
-    valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all ${DUMPMODELBIN} ${ARGS}
+  if [ -x "$(command -v "$DUMPMODELBIN")" ]; then
+    valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all "${DUMPMODELBIN}" "$@"
     RETURN_CODE=$?
   else
     echo "--dump-model-valgrind mode not available."
@@ -285,8 +246,8 @@ VALGRIND-DUMPMODEL)
   fi
   ;;
 COMPILECPPMODELICAMODELINDYNAMICLIB)
-  if [ -x "$(command -v $COMPILECPPMODELICAMODELINDYNAMICLIBBIN)" ]; then
-    $COMPILECPPMODELICAMODELINDYNAMICLIBBIN ${ARGS}
+  if [ -x "$(command -v "$COMPILECPPMODELICAMODELINDYNAMICLIBBIN")" ]; then
+    "${COMPILECPPMODELICAMODELINDYNAMICLIBBIN}" "$@"
     RETURN_CODE=$?
   else
     echo "--compile-cpp-modelica-model-in-dynamic-lib mode not available."
@@ -295,7 +256,7 @@ COMPILECPPMODELICAMODELINDYNAMICLIB)
   fi
   ;;
 VERSION)
-  ${DYNAWO} --version
+  "${DYNAWO}" --version
   RETURN_CODE=$?
   ;;
 HELP)
@@ -303,7 +264,7 @@ HELP)
   RETURN_CODE=$?
   ;;
 *)
-  ${DYNAWO} ${ARGS}
+  "${DYNAWO}" "$@"
   RETURN_CODE=$?
   ;;
 esac

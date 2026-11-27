@@ -887,7 +887,7 @@ compile_Modelica_Model() {
   if ! is_launcher_installed; then
     (install_launcher) || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --compile $@ || error_exit "Error during compilation of a Modelica Model."
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --compile "$@" || error_exit "Error during compilation of a Modelica Model."
 }
 
 # Compile Dynawo core (without models)
@@ -1367,7 +1367,7 @@ launch_jobs() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher $@
+  "$DYNAWO_INSTALL_DIR"/bin/launcher "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1376,7 +1376,7 @@ generate_preassembled() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled $*
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --generate-preassembled "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1385,7 +1385,7 @@ generate_preassembled_gdb() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled-gdb $*
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --generate-preassembled-gdb "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1394,7 +1394,7 @@ compile_cpp_modelica_model_in_dynamic_lib() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --compile-cpp-modelica-model-in-dynamic-lib $*
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --compile-cpp-modelica-model-in-dynamic-lib "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1463,10 +1463,16 @@ install_jquery() {
 
 jobs_with_curves() {
   install_jquery
-  launch_jobs $@ || error_exit "Dynawo job failed."
+  launch_jobs "$@" || error_exit "Dynawo job failed."
   echo "Generating curves visualization pages"
-  curves_visu $@ || error_exit "Error during curves visualisation page generation"
+  curves_visu "$@" || error_exit "Error during curves visualisation page generation"
   echo "End of generating curves visualization pages"
+}
+
+# Print the canonical absolute path of the given file (path passed as an argument, not inlined in the Python code,
+# so that paths containing spaces or quotes are supported)
+get_absolute_path() {
+  "$DYNAWO_PYTHON_COMMAND" -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$1"
 }
 
 curves_visu() {
@@ -1477,34 +1483,34 @@ curves_visu() {
       return 1
     fi
     echo "Curves are in HDF5 format, launching Streamlit viewer..."
-    jobs_absolute=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
+    jobs_absolute=$(get_absolute_path "$1")
     "$DYNAWO_PYTHON_COMMAND" -m streamlit run "$DYNAWO_CURVES_VISU_APP_DIR/app.py" -- --jobsFile="$jobs_absolute" > /dev/null 2>&1 &
     disown $!
     return 0
   fi
   verify_browser
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
+  "$DYNAWO_PYTHON_COMMAND" "$DYNAWO_CURVES_TO_HTML_DIR"/curvesToHtml.py --jobsFile="$(get_absolute_path "$1")" --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
 curves_visu_reference_same_graph() {
   verify_browser
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" --plotRef || return 1
+  "$DYNAWO_PYTHON_COMMAND" "$DYNAWO_CURVES_TO_HTML_DIR"/curvesToHtml.py --jobsFile="$(get_absolute_path "$1")" --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" --plotRef || return 1
 }
 
 curves_visu_reference() {
-  jobs=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))")
-  sed -i 's/<dyn:outputs directory="/<dyn:outputs directory="reference\//' $jobs
-  sed -i 's/<outputs directory="/<outputs directory="reference\//' $jobs
-  curves_visu $jobs
-  sed -i 's/<dyn:outputs directory="reference\//<dyn:outputs directory="/' $jobs
-  sed -i 's/<outputs directory="reference\//<outputs directory="/' $jobs
+  jobs=$(get_absolute_path "$1")
+  sed -i 's/<dyn:outputs directory="/<dyn:outputs directory="reference\//' "$jobs"
+  sed -i 's/<outputs directory="/<outputs directory="reference\//' "$jobs"
+  curves_visu "$jobs"
+  sed -i 's/<dyn:outputs directory="reference\//<dyn:outputs directory="/' "$jobs"
+  sed -i 's/<outputs directory="reference\//<outputs directory="/' "$jobs"
 }
 
 dump_model() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --dump-model $@
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --dump-model "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1513,7 +1519,7 @@ valgrind_dump_model() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-valgrind $@
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --dump-model-valgrind "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1522,7 +1528,7 @@ gdb_dump_model() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-gdb $@
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --dump-model-gdb "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1546,7 +1552,7 @@ version() {
   if ! is_launcher_installed; then
     (install_launcher > /dev/null 2>&1) || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --version
+  "$DYNAWO_INSTALL_DIR"/bin/launcher --version
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -2401,23 +2407,21 @@ elif [ -n "$ZSH_VERSION" ]; then
   SCRIPT=$(cd "$(dirname "$0")" && echo "$(pwd)"/"$(basename $0)")
 fi
 
-LAUNCH_COMMAND=$*
 MODE=$1
 
 ## set environment variables
 set_environment $MODE
 
-ARGS=`echo ${LAUNCH_COMMAND} | cut -d' ' -f2-`
-
-# if there is no args, the last command return the launchCommand, so we force args to be empty
-if [[ "${ARGS}" = "${LAUNCH_COMMAND}" ]]; then
-  ARGS=""
+# remove the mode from the positional parameters: the remaining arguments are forwarded with "$@"
+# to preserve arguments containing spaces
+if [ $# -gt 0 ]; then
+  shift
 fi
 
 ## launch command
 case $MODE in
   build-3rd-party)
-    build_3rd_party ${ARGS} || error_exit "Error while building 3rd parties"
+    build_3rd_party "$@" || error_exit "Error while building 3rd parties"
     ;;
 
   build-all)
@@ -2454,7 +2458,7 @@ case $MODE in
     ;;
 
   build-dynawo-target)
-    build_dynawo_target ${ARGS} || error_exit "Failed to build Dynawo target"
+    build_dynawo_target "$@" || error_exit "Failed to build Dynawo target"
     ;;
 
   build-dynawo-models)
@@ -2506,11 +2510,11 @@ case $MODE in
     ;;
 
   build-tests)
-    build_tests ${ARGS} || error_exit "Error while building tests"
+    build_tests "$@" || error_exit "Error while building tests"
     ;;
 
   build-tests-coverage)
-    build_tests_coverage ${ARGS}|| error_exit "Error while building tests coverage"
+    build_tests_coverage "$@"|| error_exit "Error while building tests coverage"
     ;;
 
   build-user)
@@ -2538,7 +2542,7 @@ case $MODE in
     ;;
 
   clean-build-models)
-    clean_build_models ${ARGS} || error_exit "Error while clean build models"
+    clean_build_models "$@" || error_exit "Error while clean build models"
     ;;
 
   clean-doc)
@@ -2550,7 +2554,7 @@ case $MODE in
     ;;
 
   clean-models)
-    clean_models ${ARGS} || error_exit "Error during the clean of models"
+    clean_models "$@" || error_exit "Error during the clean of models"
     ;;
 
   clean-nrt-doc)
@@ -2570,11 +2574,11 @@ case $MODE in
     ;;
 
   compileCppModelicaModelInDynamicLib)
-    compile_cpp_modelica_model_in_dynamic_lib ${ARGS} || error_exit "Error during the compilation of Modelica Model for Dynawo"
+    compile_cpp_modelica_model_in_dynamic_lib "$@" || error_exit "Error during the compilation of Modelica Model for Dynawo"
     ;;
 
   compileModelicaModel)
-    compile_Modelica_Model ${ARGS} || error_exit "Failed to compile Modelica model"
+    compile_Modelica_Model "$@" || error_exit "Failed to compile Modelica model"
     ;;
 
   config-3rd-party)
@@ -2586,19 +2590,19 @@ case $MODE in
     ;;
 
   create-mandatory-param-file)
-    create_mandatory_param_file ${ARGS} || error_exit "Error during mandatory parameters file creation"
+    create_mandatory_param_file "$@" || error_exit "Error during mandatory parameters file creation"
     ;;
 
   curves)
-    curves_visu ${ARGS} || error_exit "Error with curves plot"
+    curves_visu "$@" || error_exit "Error with curves plot"
     ;;
 
   curves-reference)
-    curves_visu_reference ${ARGS} || error_exit "Error with reference curves plot"
+    curves_visu_reference "$@" || error_exit "Error with reference curves plot"
     ;;
 
   curves-reference-same-graph)
-    curves_visu_reference_same_graph ${ARGS} || error_exit "Error with reference curves plot"
+    curves_visu_reference_same_graph "$@" || error_exit "Error with reference curves plot"
     ;;
 
   deploy)
@@ -2606,7 +2610,7 @@ case $MODE in
     ;;
 
   deploy-autocompletion)
-    deploy_dynawo_autocompletion ${ARGS} || error_exit "Error during the deployment of autocompletion for Dynawo"
+    deploy_dynawo_autocompletion "$@" || error_exit "Error during the deployment of autocompletion for Dynawo"
     ;;
 
   display-environment)
@@ -2634,23 +2638,23 @@ case $MODE in
     ;;
 
   dump-model)
-    dump_model ${ARGS} || error_exit "Error during model's description dump"
+    dump_model "$@" || error_exit "Error during model's description dump"
     ;;
 
   dump-model-gdb)
-    gdb_dump_model ${ARGS} || error_exit "Error during model's description dump"
+    gdb_dump_model "$@" || error_exit "Error during model's description dump"
     ;;
 
   dump-model-valgrind)
-    valgrind_dump_model ${ARGS} || error_exit "Error during model's description dump"
+    valgrind_dump_model "$@" || error_exit "Error during model's description dump"
     ;;
 
   generate-preassembled)
-    generate_preassembled ${ARGS} || error_exit "Error during the generation of a preassembled model"
+    generate_preassembled "$@" || error_exit "Error during the generation of a preassembled model"
     ;;
 
   generate-preassembled-gdb)
-    generate_preassembled_gdb ${ARGS} || error_exit "Error during the generation of a preassembled model"
+    generate_preassembled_gdb "$@" || error_exit "Error during the generation of a preassembled model"
     ;;
 
   help)
@@ -2662,35 +2666,35 @@ case $MODE in
     ;;
 
   jobs)
-    launch_jobs ${ARGS} || error_exit "Dynawo job failed"
+    launch_jobs "$@" || error_exit "Dynawo job failed"
     ;;
 
   jobs-gdb)
-    launch_jobs --gdb ${ARGS} || error_exit "Dynawo job failed"
+    launch_jobs --gdb "$@" || error_exit "Dynawo job failed"
     ;;
 
   jobs-gdbserver)
-    launch_jobs --gdbserver ${ARGS} || error_exit "Dynawo job failed"
+    launch_jobs --gdbserver "$@" || error_exit "Dynawo job failed"
     ;;
 
   jobs-valgrind)
-    launch_jobs --valgrind ${ARGS} || error_exit "Dynawo job failed"
+    launch_jobs --valgrind "$@" || error_exit "Dynawo job failed"
     ;;
 
   jobs-valgrind-callgrind)
-    launch_jobs --valgrind-callgrind ${ARGS} || error_exit "Dynawo job failed"
+    launch_jobs --valgrind-callgrind "$@" || error_exit "Dynawo job failed"
     ;;
 
   jobs-valgrind-massif)
-    launch_jobs --valgrind-massif ${ARGS} || error_exit "Dynawo job failed"
+    launch_jobs --valgrind-massif "$@" || error_exit "Dynawo job failed"
     ;;
 
   jobs-with-curves)
-    jobs_with_curves ${ARGS} || error_exit "Dynawo job with curves failed"
+    jobs_with_curves "$@" || error_exit "Dynawo job with curves failed"
     ;;
 
   jobs-interactive)
-    launch_jobs --interactive ${ARGS} || error_exit "Dynawo interactive simulation failed"
+    launch_jobs --interactive "$@" || error_exit "Dynawo interactive simulation failed"
     ;;
 
   list-models)
@@ -2706,7 +2710,7 @@ case $MODE in
     ;;
 
   nrt)
-    nrt ${ARGS} || error_exit "Error during Dynawo's non-regression tests execution"
+    nrt "$@" || error_exit "Error during Dynawo's non-regression tests execution"
     ;;
 
   nrt-clean)
@@ -2714,19 +2718,19 @@ case $MODE in
     ;;
 
   nrt-diff)
-    nrt_diff ${ARGS} || error_exit "Error during Dynawo's NRT Diff execution"
+    nrt_diff "$@" || error_exit "Error during Dynawo's NRT Diff execution"
     ;;
 
   nrt-ref)
-    nrt_ref ${ARGS} || error_exit "Error during Dynawo's NRT ref execution"
+    nrt_ref "$@" || error_exit "Error during Dynawo's NRT ref execution"
     ;;
 
   nrt-update)
-    nrt_update ${ARGS} || error_exit "Error during NRT update"
+    nrt_update "$@" || error_exit "Error during NRT update"
     ;;
 
   nrt-xsl)
-    nrt_xsl ${ARGS} || error_exit "Error during Dynawo's NRT xsl execution"
+    nrt_xsl "$@" || error_exit "Error during Dynawo's NRT xsl execution"
     ;;
 
   nrt-doc)
@@ -2754,11 +2758,11 @@ case $MODE in
     ;;
 
   unittest-gdb)
-    unittest_gdb ${ARGS} || error_exit "Error during the run unittest in gdb"
+    unittest_gdb "$@" || error_exit "Error during the run unittest in gdb"
     ;;
 
   update-xml)
-    update_xml ${ARGS} || error_exit "Error during update xml"
+    update_xml "$@" || error_exit "Error during update xml"
     ;;
 
   version)
