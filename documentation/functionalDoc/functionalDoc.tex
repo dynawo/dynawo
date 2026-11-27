@@ -1236,6 +1236,8 @@ relAccuracy & 1e-4 \\
 
 In addition to these parameters, parameters defining the Newton-Raphson solver behavior during algebraic equations restoration are also used. They have a similar default value than for the simplified solver but can be overwritten by the user [see Table \ref{OptionalParameters}].
 
+The optional parameter \textit{stepToleranceIC} (double, 0.01 by default) is the minimum step length allowed in the line search of \ac{IDA}'s initial condition calculation: below this value, the line search is considered as failed. It does not change the convergence criterion of this calculation. A lower value makes the line search go further before giving up. A value lower than or equal to 0 keeps \ac{IDA}'s default value (unit roundoff to the power 2/3, about 3.7e-11).
+
 Finally, two parameters enable to stop the calculation if the time-step remains locked below a threshold - minimalAcceptableStep = 10e-6 by default - during more than
 maximumNumberSlowStepIncrease (= 10 by default).
 \bibliography{../resources/dynawoDocumentation}

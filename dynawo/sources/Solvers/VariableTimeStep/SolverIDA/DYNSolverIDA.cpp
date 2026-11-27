@@ -95,6 +95,7 @@ absAccuracy_(0.),
 relAccuracy_(0.),
 uround_(false),
 uroundPrecision_(std::numeric_limits<double>::min()),
+stepToleranceIC_(0.01),
 countForceReinit_(0),
 activateForceReinit_(false),
 minStepSave_(0.),
@@ -153,6 +154,7 @@ SolverIDA::defineSpecificParameters() {
   parameters_.insert(make_pair("uroundPrecision", ParameterSolver("uroundPrecision", VAR_TYPE_DOUBLE, optional)));
   parameters_.insert(make_pair("AlgebraicRestorationReinitMode",
       ParameterSolver("AlgebraicRestorationReinitMode", VAR_TYPE_STRING, optional)));
+  parameters_.insert(make_pair("stepToleranceIC", ParameterSolver("stepToleranceIC", VAR_TYPE_DOUBLE, optional)));
 }
 
 void
@@ -186,6 +188,9 @@ SolverIDA::setSolverSpecificParameters() {
   const ParameterSolver& activateForceReinit = findParameter("activateForceReinit");
   if (activateForceReinit.hasValue())
     activateForceReinit_ = activateForceReinit.getValue<bool>();
+  const ParameterSolver& stepToleranceIC = findParameter("stepToleranceIC");
+  if (stepToleranceIC.hasValue())
+    stepToleranceIC_ = stepToleranceIC.getValue<double>();
 }
 
 const std::string&
@@ -345,9 +350,12 @@ SolverIDA::init(const std::shared_ptr<Model>& model, const double t0, const doub
 
   Trace::debug() << DYNLog(SolverIDAInitOk) << Trace::endline;
 
-  flag = IDASetStepToleranceIC(IDAMem_, 0.01);
-  if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStepToleranceIC");
+  // a non-positive value keeps IDA's default step tolerance (uround^(2/3))
+  if (stepToleranceIC_ > 0.) {
+    flag = IDASetStepToleranceIC(IDAMem_, stepToleranceIC_);
+    if (flag < 0)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStepToleranceIC");
+  }
 
   flag = IDASetNonlinConvCoefIC(IDAMem_, 0.0033);
   if (flag < 0)

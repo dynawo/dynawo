@@ -298,6 +298,7 @@ class SolverIDA : public Solver::Impl {
   double relAccuracy_;  ///< absolute error tolerance
   bool uround_;  ///< to activate change on uround
   double uroundPrecision_;  ///< the uround precision to use
+  double stepToleranceIC_;  ///< minimum step length of the line search in IDACalcIC (IDA default value if <= 0)
   int countForceReinit_;  ///< number of reinit after a failure, only one reinit can be done and if no time step is validated after the simulation ends
   bool activateForceReinit_;  ///< to activate force reinit
   double minStepSave_;  ///< minimal step size saved in case of force reinit
